@@ -1,6 +1,8 @@
 #pragma once
 /*
 	CCCursor.h
+
+
 */
 
 class CCBitmap;
