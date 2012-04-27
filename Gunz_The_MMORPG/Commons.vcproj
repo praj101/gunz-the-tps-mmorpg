@@ -207,6 +207,10 @@
 				Name="Edit"
 				>
 				<File
+					RelativePath=".\CCEdit.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCEdit.h"
 					>
 				</File>
@@ -216,6 +220,14 @@
 				>
 				<File
 					RelativePath=".\Core.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Color Table"
+				>
+				<File
+					RelativePath=".\CCColorTable.h"
 					>
 				</File>
 			</Filter>
@@ -296,6 +308,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\stdafx.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
