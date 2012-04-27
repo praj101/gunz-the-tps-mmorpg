@@ -1,5 +1,4 @@
-#summary One-sentence summary of this page.
-
+#Build directions
 = Project Setup =
 
 Follow the instructions below to set this project up to build properly in one go without having to do massive modifications. This project builds with Visual Studio 2008 and Visual Studio 2010. 
