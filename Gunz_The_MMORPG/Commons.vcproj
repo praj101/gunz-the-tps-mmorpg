@@ -211,20 +211,20 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Core"
+				>
+				<File
+					RelativePath=".\Core.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Commons"
 			>
 			<File
-				RelativePath=".\CCBitmap.h"
-				>
-			</File>
-			<File
 				RelativePath=".\CCCursor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CCDrawContext.h"
 				>
 			</File>
 			<File
@@ -263,6 +263,38 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Bitmap"
+				>
+				<File
+					RelativePath=".\CCBitmap.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCBitmap.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="DrawContext"
+				>
+				<File
+					RelativePath=".\CCDrawContext.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCDrawContext.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Application"
+			>
+			<File
+				RelativePath=".\main.cpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
