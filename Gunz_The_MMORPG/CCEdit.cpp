@@ -108,6 +108,9 @@ bool CCEdit::OnEvent(CCEvent *pEvent, CCListener *pListener){
 				ret = true;
 			}
 			CCListener* pListener = GetListener();
+			if(pListener!=NULL) pListener->OnCommand(this, CCEDIT_CHAR_MSG);
+			return ret;
 		}
+		break;
 	}
 }
