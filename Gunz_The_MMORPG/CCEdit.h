@@ -1,6 +1,10 @@
 #pragma once
 #pragma warning(disable:4786)
 
+/*
+	CCEdit.h
+*/
+
 #include "CCWidget.h"
 #include <list>
 #include "CCLookNFeel.h"
