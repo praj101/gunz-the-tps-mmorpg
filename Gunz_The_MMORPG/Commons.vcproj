@@ -190,6 +190,14 @@
 					RelativePath=".\CCButton.h"
 					>
 				</File>
+				<Filter
+					Name="Button"
+					>
+					<File
+						RelativePath=".\cButton.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Edit"
