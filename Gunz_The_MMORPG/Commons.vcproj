@@ -194,6 +194,10 @@
 					Name="Button"
 					>
 					<File
+						RelativePath=".\cButton.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\cButton.h"
 						>
 					</File>
