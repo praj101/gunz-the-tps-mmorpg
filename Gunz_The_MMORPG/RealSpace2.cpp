@@ -942,7 +942,7 @@ bool RGetIntersection( rvector& a, rvector& b, rplane &plane, rvector* pIntersec
 LPDIRECT3DSURFACE9 RCreateImageSurface(const char *filename)
 {
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	if(g_pFileSystem)
 	{

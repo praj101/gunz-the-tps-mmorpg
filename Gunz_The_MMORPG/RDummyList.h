@@ -1,26 +1,32 @@
 #pragma once
-
+#include <list>
 #include <string>
 #include "RTypes.h"
+#include "RToken.h"
 #include "RNameSpace.h"
-using namespace std;
 _NAMESPACE_REALSPACE2_BEGIN
+using namespace std;
 
 class CCXmlElement;
 
-struct RLIGHT
-{
-	string	Name;
-	rvector Color;
+
+
+
+
+// 더미, 더미 리스트
+struct RDummy {
+	string	szName;
 	rvector Position;
-	float	fIntensity;
-	float	fAttnStart,fAttnEnd;
-	DWORD	dwFlags;
+	rvector Direction;
 };
 
-class RLightList : public list<RLIGHT*> {
+class RDummyList : public list<RDummy*> 
+{
+private:
+	void Clear();
 public:
-	virtual ~RLightList();
+	virtual ~RDummyList();
+
 	bool Open(CCXmlElement *pElement);
 	bool Save(CCXmlElement *pElement);
 };
