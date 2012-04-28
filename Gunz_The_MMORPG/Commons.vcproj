@@ -287,6 +287,10 @@
 				Name="Tab Control"
 				>
 				<File
+					RelativePath=".\CCTabCtrl.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCTabCtrl.h"
 					>
 				</File>
