@@ -438,6 +438,30 @@
 			<Filter
 				Name="Frame"
 				>
+				<File
+					RelativePath=".\CCFrame.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="File Dialog"
+				>
+			</Filter>
+			<Filter
+				Name="Drag Object"
+				>
+			</Filter>
+			<Filter
+				Name="Console Frame"
+				>
+			</Filter>
+			<Filter
+				Name="Combo Box"
+				>
+			</Filter>
+			<Filter
+				Name="File Box"
+				>
 			</Filter>
 		</Filter>
 		<Filter
