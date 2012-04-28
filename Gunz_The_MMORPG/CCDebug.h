@@ -3,21 +3,21 @@
 #include <Windows.h>
 #include <crtdbg.h>
 
-#define MASSERT(x) _ASSERT(x)
+#define CCASSERT(x) _ASSERT(x)
 
-#define MLOGSTYLE_FILE 0x0001
-#define MLOGSTYLE_DEBUGSTRING 0x0002
+#define CCLOGSTYLE_FILE 0x0001
+#define CCLOGSTYLE_DEBUGSTRING 0x0002
 
-#define MLOG_DEFAULT_HISTORY_COUNT	10
+#define CCLOG_DEFAULT_HISTORY_COUNT	10
 
-#define mlog MLog
+#define cclog CCLog
 
-void InitLog(int logmethodflags=MLOGSTYLE_DEBUGSTRING, const char* pszLogFileName="mlog.txt");
-void __cdecl MLog(const char *pFormat,...);
+void InitLog(int logmethodflags=CCLOGSTYLE_DEBUGSTRING, const char* pszLogFileName="mlog.txt");
+void __cdecl CCLog(const char *pFormat,...);
 const char* CCGetLogFileName();
 
 #ifdef _WIN32
-	void __cdecl MMsg(const char *pFormat,...);
+	void __cdecl CCMsg(const char *pFormat,...);
 #endif
 
 DWORD CCFilterException(LPEXCEPTION_POINTERS p);
