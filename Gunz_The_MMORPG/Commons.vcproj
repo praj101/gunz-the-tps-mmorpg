@@ -311,6 +311,14 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Popup Menu"
+				>
+				<File
+					RelativePath=".\CCPopupMenu.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Commons"
