@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <signal.h>
 #include "fileinfo.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include <string>
 #include "MPdb.h"
 #include <windows.h>
