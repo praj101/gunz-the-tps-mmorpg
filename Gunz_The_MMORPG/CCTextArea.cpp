@@ -579,7 +579,7 @@ CCTextArea::CCTextArea(int nMaxLen, const char* szName, CCWidget* pParent, CCLis
 	m_nCustomLineHeight = -1;
 	int w = CCTEXTAREA_DEFAULT_WIDTH;
 	int h = GetLineHeight()+2;
-	SetTextOffset(MPOINT(1, 1));
+	SetTextOffset(sPoint(1, 1));
 
 	m_TextColor = CCCOLOR(DEFCOLOR_CCEDIT_TEXT); 
 
@@ -676,9 +676,9 @@ void CCTextArea::Clear(){
 void CCTextArea::OnSize(int w, int h){
 	sRect cr = GetClientRect();
 	if(m_pScrollBar->IsVisible()==true)
-		m_pScrollBar->SetBounds(MRECT(cr.x+cr.w-m_pScrollBar->GetDefaultBreadth(), cr.y+1, m_pScrollBar->GetDefaultBreadth(), cr.h-1));
+		m_pScrollBar->SetBounds(sRect(cr.x+cr.w-m_pScrollBar->GetDefaultBreadth(), cr.y+1, m_pScrollBar->GetDefaultBreadth(), cr.h-1));
 	else
-		m_pScrollBar->SetBounds(MRECT(cr.x+cr.w-m_pScrollBar->GetDefaultBreadth(), cr.y+1, m_pScrollBar->GetDefaultBreadth(), cr.h-1));
+		m_pScrollBar->SetBounds(sRect(cr.x+cr.w-m_pScrollBar->GetDefaultBreadth(), cr.y+1, m_pScrollBar->GetDefaultBreadth(), cr.h-1));
 	
 	if(m_bWordWrap)
 		UpdateScrollBar();
