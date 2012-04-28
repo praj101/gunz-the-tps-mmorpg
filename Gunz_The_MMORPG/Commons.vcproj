@@ -398,10 +398,18 @@
 			<Filter
 				Name="Layout Manager"
 				>
+				<File
+					RelativePath=".\CCLayoutManager.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Hypertext"
 				>
+				<File
+					RelativePath=".\CCHyperText.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Hotkey"

@@ -5,6 +5,7 @@
 #include "CCLabel.h"
 #include "CCTextArea.h"
 
+#define CCMSGBOX		"MsgBox"
 #define CCMSGBOX_OK		"OK"
 #define CCMSGBOX_CANCEL	"Cancel"
 #define CCMSGBOX_YES	"Yes"
@@ -16,31 +17,25 @@ enum CCMsgBoxType{
 	CCT_OKCANCEL,
 	MT_YESNO,
 
-	MT_NOTDECIDED,	// 미리 만들어놓지 않기 위해
+	MT_NOTDECIDED
 };
 
-class MMsgBox : public CCFrame{
+class CCMsgBox : public CCFrame{
 protected:
-//	CCLabel*		m_pMessage;
 	CCTextArea*	m_pMessage;
 	CCButton*	m_pOK;
 	CCButton*	m_pCancel;
 	CCMsgBoxType	m_nType;
-	//char		m_szMessage[256];
 
 protected:
-	/*
-	virtual void OnDrawText(MDrawContext* pDC);
-	virtual void OnDraw(MDrawContext* pDC);
-	*/
 	virtual bool OnShow(void);
 	virtual void OnSize(int w, int h);
 
-	virtual bool OnCommand(MWidget* pWindow, const char* szMessage);
+	virtual bool OnCommand(CCWidget* pWindow, const char* szMessage);
 
 public:
-	MMsgBox(const char* szMessage, MWidget* pParent, MListener* pListener=NULL, CCMsgBoxType nType=MT_NOTDECIDED );
-	virtual ~MMsgBox(void);
+	CCMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener=NULL, CCMsgBoxType nType=MT_NOTDECIDED );
+	virtual ~CCMsgBox(void);
 
 	void SetType(CCMsgBoxType nType);
 	void SetTitle(const char* szTitle);
@@ -53,6 +48,5 @@ public:
 	virtual void MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight);
 	void AdjustSize();
 
-#define MINT_MSGBOX	"MsgBox"
-	virtual const char* GetClassName(void){ return MINT_MSGBOX; }
+	virtual const char* GetClassName(void){ return CCMSGBOX; }
 };
