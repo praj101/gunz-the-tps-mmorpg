@@ -145,5 +145,5 @@ class CCDrawContext3D{
 
 int CCGetWidth		(CCFont* pFont, const char* szText, int nSize, bool bColorSupport=false);
 int CCGetNextLinePos(CCFont* pFont, const char* szText, int nWidth, bool bAutoNextLine=true, bool bColorSupport=false);
-int CCGetLinePos	(CCFont* pFont, const char* szText, int nWidth, bool bAutoNextLine=true, bColorSupport=false, int nLine=1, int nIndentation=0);
-int CCGetLineCount	(CCFont* pFont, const char szText,	int nWidth, bool bAutoNextLine=true, bColorSupport=false, int nIndentation=0);
+int CCGetLinePos	(CCFont* pFont, const char* szText, int nWidth, bool bAutoNextLine=true, bool bColorSupport=false, int nLine=1, int nIndentation=0);
+int CCGetLineCount	(CCFont* pFont, const char szText,	int nWidth, bool bAutoNextLine=true, bool bColorSupport=false, int nIndentation=0);
