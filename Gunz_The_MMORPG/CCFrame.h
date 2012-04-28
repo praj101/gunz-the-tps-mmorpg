@@ -38,26 +38,26 @@ public:
 
 
 
-/// 움직일 수 있는 프레임으로 구성된 위젯
+//A widget that can be moved to the frame
 class CCFrame : public CCWidget{
 	DECLARE_LOOK(CCFrameLook)
 	DECLARE_LOOK_CLIENT()
 
 protected:
-	bool	m_bDragWidget;		///< Drag Widget
+	bool	m_bDragWidget;		//Drag Widget
 	sPoint	m_DragPoint;
 
-	bool	m_bMovable;			///< 움직일 수 있는지 여부
-	bool	m_bCanShade;		///< Shade 할 수 있는지 여부 - false이면 Shade할 수 없다.
+	bool	m_bMovable;			//whether to move
+	bool	m_bCanShade;		//Shade whether it can be - false, if you can not Shade.
 	bool	m_bShade;
-	sSize	m_BeforeShade;		///< Before Shade
+	sSize	m_BeforeShade;		//Before Shade
 
 	sRect		m_OldRect;
 	CCFrameBtn	m_BtnClose;
 	CCFrameBtn	m_BtnMinimize;
 
 public:
-	bool		m_bTitleBar;	///< Use Title Bar
+	bool		m_bTitleBar;	//Use Title Bar
 
 protected:
 	virtual bool OnCommand(CCWidget* pWindow, const char* szMessage);
