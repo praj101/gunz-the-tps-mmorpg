@@ -454,14 +454,26 @@
 			<Filter
 				Name="Drag Object"
 				>
+				<File
+					RelativePath=".\CCDragObject.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Console Frame"
 				>
+				<File
+					RelativePath=".\CCConsoleFrame.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Combo Box"
 				>
+				<File
+					RelativePath=".\CCComboBox.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="File Box"
