@@ -13,9 +13,9 @@ class CCTextArea;
 class CCScrollBar;
 
 #define CCTEXTAREA						"TextArea"
-#define CCTEXTAREA_DEFAULT_TEXT_COLOR	sColor(224,224,224);
-#define CCTEXTAREA_ENTER_VALUE			"entered"
 #define CCTEXTAREA_ESC_VALUE			"esc"
+#define CCTEXTAREA_ENTER_VALUE			"entered"
+#define CCTEXTAREA_DEFAULT_TEXT_COLOR	sColor(224,224,224);
 
 struct sLineItem{
 	sColor color;
