@@ -54,8 +54,8 @@ bool CCDataCheckNode::UpdateChecksum()
 		data_ptr = m_pData;
 	}
 
-	// checksum이 너무 간단하다.. 검사 비용에 비해서 효과는; (int값 5를 뻥튀기하려면 05 00 00 00 -> 00 00 00 05면 간단히 끝. 개선필요)
-	// 하지만 아이템 수치는 fugitive로 감쌌기 때문에 위치 찾기는 어려울듯
+	//Checksum is too simple. Tests compared to the cost effectiveness; (int value 5 05 00 00 00 -> 00 00 00 05, simply the end. In need of improvement)
+	//However, because items figure Latitude as fugitive
 	for (unsigned int i=0; i<m_nLen; i++) {
 		m_nChecksum += data_ptr[i];
 	}
@@ -147,5 +147,5 @@ void CCDataChecker::BringError()
 {
 	int* pError = new int;
 	AddCheck((BYTE*)(pError), sizeof(int));	
-	*pError = 1742;	// Leak 내버리면서 Checksum 엉망 만들기
+	*pError = 1742;	//Leak Checksum making a mes
 }
