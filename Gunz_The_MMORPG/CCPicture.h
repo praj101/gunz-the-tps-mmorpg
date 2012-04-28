@@ -8,8 +8,8 @@ class CCPicture : public CCWidget{
 protected:
 	CCBitmap* m_pBitmap;
 	int		m_iStretch;
-	int		m_iAnimType;			// 0:좌->우, 1:우->좌
-	float	m_fAnimTime;			// 애니메이션 되는 시간
+	int		m_iAnimType;	
+	float	m_fAnimTime;	
 	DWORD	m_dwCurrentTime;
 	bool	m_bAnim;
 	DWORD	m_DrawMode;
@@ -26,10 +26,9 @@ protected:
 public:
 	CCPicture(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 
-	/// 비트맵 지정
 	void SetBitmap(CCBitmap* pBitmap);
-	/// 비트맵 얻기
-	CCBitmap* GetBitmap(void);
+
+	CCBitmap* GetBitmap();
 	int		GetStretch() { return m_iStretch; }
 	void SetStretch(int i) { m_iStretch = i; }
 
@@ -51,5 +50,5 @@ public:
 	}
 
 	bool IsAnim() const { return m_bAnim;}
-	virtual const char* GetClassName(void){ return CCPICTURE; }
+	virtual const char* GetClassName(){ return CCPICTURE; }
 };
