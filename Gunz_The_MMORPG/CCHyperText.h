@@ -2,37 +2,37 @@
 	CCHyperText.h
 	Programming by Joongpil Cho
 
-	간이 파일 포맷을 사용하고 있음.	일반적인 텍스트와 유사하나 [[...]]안의 명령어를 통해서 텍스트의 형식을 
-	나타내거나 그림을 삽입할 수 있다.
+	Simple file format that you are using. Is similar to a normal text [...]]Instruction in the format of the text, 
+	Show or you can insert a picture.
 */
 #include <crtdbg.h>
 #include <stdio.h>
 #include "CCList.h"
 
 typedef enum {
-	CCHTE_PLAINTEXT = 0,	//TAG없는 일반 텍스트. (태그 아님)
-	CCHTE_STD,			//MAIET Hyper Text임을 표시하는 태그
-	CCHTE_IMAGE,			//이미지 태그
-	CCHTE_STYLE,			//스타일 태그
-	CCHTE_LINK,			//하이퍼 링크 시작
-	CCHTE_LINKEND,		//하이퍼 링크의 끝
-	CCHTE_BR,			//다음 줄로...
-	CCHTE_DEFAULT,		//초기설정대로
+	CCHTE_PLAINTEXT = 0,	//TAG plain text.(Not tagged).
+	CCHTE_STD,			//MAIET Hyper Text markup to show that
+	CCHTE_IMAGE,			//image tag
+	CCHTE_STYLE,			//style tags
+	CCHTE_LINK,			//start a hyperlink
+	CCHTE_LINKEND,		//end of hyperlinks
+	CCHTE_BR,			//the next line.
+	CCHTE_DEFAULT,		//as the initial setting
 }CCHT_ELEMENT;
 
 typedef enum {
-	CCHTA_TEXT = 0,		//PLAINTEXT에 대한 인자, char*를 담고 있다.
-	CCHTA_BACKGROUND,	//STD에 대한 인자 컬러 값 혹은 이미지 파일이 올수 있다.
-	CCHTA_COLOR,			//COLOR값, #으로 시작하는 16진수 6자리, 각 2자리가 하나의 색상정보를 표현한다. (#RGB)
-	CCHTA_SIZE,			//SIZE값, 정수형()
-	CCHTA_ALIGN,			//ALIGN값, 정수형()
-	CCHTA_TYPE,			//TYPE값, 정수형()
-	CCHTA_SRC,			//SRC값, 문자열
-	CCHTA_BOLD,			//BOLD값, 정수형()
+	CCHTA_TEXT = 0,		//PLAINTEXT arguments for, char * may contain.
+	CCHTA_BACKGROUND,	//??STD color values ??for the parameters or image file can come.
+	CCHTA_COLOR,			//COLOR values, beginning with a # 6-digit hexadecimal number, one for each two-digit representation of the color information is.(# RGB)
+	CCHTA_SIZE,			//SIZE value, integer ()
+	CCHTA_ALIGN,			//ALIGN value, integer ()
+	CCHTA_TYPE,			//TYPE value, integer ()
+	CCHTA_SRC,			//SRC values, strings
+	CCHTA_BOLD,			//BOLD values, integer ()
 	CCHTA_HIGHLIGHT,
-	CCHTA_HREF,			//링크 리퍼런스, 문자열
-	CCHTA_XMARGIN,		//그림의 X축 여분
-	CCHTA_YMARGIN,		//그림의 Y축 여분
+	CCHTA_HREF,			//Link reference, the string
+	CCHTA_XMARGIN,		//extra X-axis of the figure
+	CCHTA_YMARGIN,		//Y-axis of the figure an extra
 }CCHT_ARGUMENT;
 
 typedef class CCHTA_IntegerArg<CCHTA_SIZE>		CCHTA_Size;
@@ -49,10 +49,10 @@ typedef class CCHTA_StringArg<CCHTA_TEXT>		CCHTA_Text;
 typedef class CCHTA_StringArg<CCHTA_SRC>		CCHTA_Src;
 typedef class CCHTA_StringArg<CCHTA_HREF>		CCHTA_HRef;
 
-// 각각의 Text Element에 대한 보조수치들의 값
+//Text Element for each value of the secondary figures
 class CCHyperTextArg {
 public:
-	CCHT_ARGUMENT		uId;			// 엘리먼트 아규먼트
+	CCHT_ARGUMENT		uId;			//element argument
 	
 	CCHyperTextArg(CCHT_ARGUMENT id){
 		uId = id;
@@ -98,7 +98,7 @@ class CCHTA_Background : public CCHyperTextArg {
 		szPath = NULL;
 	}
 public:
-	char*				szPath;		//이미지 패스
+	char*				szPath;		//Image path
 	sColor				sColor;
 
 	CCHTA_Background(sColor color) : CCHyperTextArg(CCHTA_BACKGROUND){
@@ -122,10 +122,10 @@ public:
 class CCHyperTextElement
 {
 public:
-	CCHT_ELEMENT					nType;	// 엘리먼트의 타입
-	CCLinkedList<CCHyperTextArg>	Args;	// 엘리먼트의 인자 리스트
+	CCHT_ELEMENT					nType;	//type of elements
+	CCLinkedList<CCHyperTextArg>	Args;	//element of the argument list
 
-	//생성자, 파괴자
+	//Constructors, destructors
 	CCHyperTextElement(CCHT_ELEMENT type){
 		nType		= type;
 	}
@@ -142,12 +142,12 @@ public:
 class CCHyperText
 {
 private:
-	char*			m_pBuffer;			// Text Buffer, CCHyperText는 메모리에 있는 내용만을 파싱한다.
-	int				m_nLen;				// 버퍼의 크기
-	int				bp;					// Buffer의 포인터
-	int				m_nOffset;			// m_szScan의 버퍼포인터
+	char*			m_pBuffer;			//Text Buffer, CCHyperText only to parse the contents of the memory.
+	int				m_nLen;				//size of the buffer
+	int				bp;					//Buffer pointer of
+	int				m_nOffset;			//m_szScan the buffer pointer
 	bool			m_bTagReady;
-	char			m_szScan[20480];	// Scan한 값이 저장되는 문자열 포인터, yytext와 유사한 역할을 하는 놈이다.
+	char			m_szScan[20480];	//Scan a string pointer values ??are stored, yytext and Bana to play a similar role.
 
 	void			Gather(char b){ m_szScan[m_nOffset++] = b; }
 	
@@ -170,10 +170,10 @@ public:
 	virtual ~CCHyperText(){ Close(); }
 
 	/*	
-		이 클래스는 에러 리포트를 하지 않는다.
-		하이퍼 텍스트가 게임내에 적용되었을 때에도 게임은 계속되어야 하므로...
+		This class does not report an error.
+		Hypertext has been applied in the game when the game should be continued, so ...
 
-		szTextBuffer : 텍스트 버퍼
+		szTextBuffer: text buffer
 	*/
 	bool Open(char *szTextBuffer);
 	void Close();
