@@ -319,6 +319,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Picture"
+				>
+				<File
+					RelativePath=".\CCPicture.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Commons"
