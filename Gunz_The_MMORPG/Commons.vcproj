@@ -280,16 +280,20 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Slider"
+				Name="ScrollBar"
 				>
-				<File
-					RelativePath=".\CCScrollBar.h"
-					>
-				</File>
 				<File
 					RelativePath=".\CCSlider.h"
 					>
 				</File>
+				<Filter
+					Name="ScrollBar"
+					>
+					<File
+						RelativePath=".\CCScrollBar.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
