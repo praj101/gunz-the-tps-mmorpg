@@ -260,9 +260,9 @@ private:
 	CCQuestNPCGlobalAIValue			m_GlobalAIValue;
 
 	// 함수
-	void ParseNPC(MXmlElement& element);
+	void ParseNPC(CCXmlElement& element);
 	void Insert(CCQuestNPCInfo* pNPCInfo);
-	void ParseGlobalAIValue(MXmlElement& element);
+	void ParseGlobalAIValue(CCXmlElement& element);
 
 	// 몬스터 도감.
 	map< int, CCQUEST_NPC > m_MonsterBibleCatalogue;
