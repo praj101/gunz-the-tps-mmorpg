@@ -570,10 +570,22 @@
 			<Filter
 				Name="Types"
 				>
-				<File
-					RelativePath=".\CCTypes.h"
+				<Filter
+					Name="Normal"
 					>
-				</File>
+					<File
+						RelativePath=".\CCTypes.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="DirectX"
+					>
+					<File
+						RelativePath=".\RTypes.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Fonts"
@@ -587,10 +599,6 @@
 		<Filter
 			Name="Application"
 			>
-			<Filter
-				Name="Sound"
-				>
-			</Filter>
 			<Filter
 				Name="File System"
 				>
@@ -635,6 +643,14 @@
 					</Filter>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Math"
+				>
+				<File
+					RelativePath=".\CCVector3.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Game Specific"
@@ -650,6 +666,30 @@
 					RelativePath=".\CCQuestConst.h"
 					>
 				</File>
+				<File
+					RelativePath=".\CCQuestNPC.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Sound"
+				>
+				<Filter
+					Name="Sound Engine"
+					>
+					<File
+						RelativePath=".\ZSoundEngine.h"
+						>
+					</File>
+					<Filter
+						Name="Actor"
+						>
+						<File
+							RelativePath=".\ZActorSound.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 		</Filter>
 		<File

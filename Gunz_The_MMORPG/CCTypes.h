@@ -30,6 +30,8 @@
 #define ulong unsigned long
 #define uint  unsigned int
 
+typedef CCVector3			CCVector;
+
 //Location
 struct sPoint{
 	int x;
