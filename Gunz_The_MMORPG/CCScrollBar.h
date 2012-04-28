@@ -90,7 +90,7 @@ protected:
 
 protected:
 	virtual void OnRun();
-	virtual bool OnEvent(MEvent* pEvent, CCListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 	virtual void OnSize(int w, int h);
 
 	int GetThumbMoveRange();

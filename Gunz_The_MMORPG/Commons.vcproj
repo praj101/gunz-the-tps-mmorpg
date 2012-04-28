@@ -350,10 +350,18 @@
 			<Filter
 				Name="Panel"
 				>
+				<File
+					RelativePath=".\CCPanel.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Multi Column List Box"
 				>
+				<File
+					RelativePath=".\CCMultiColListBox.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Message Box"
@@ -362,6 +370,10 @@
 			<Filter
 				Name="Listbox"
 				>
+				<File
+					RelativePath=".\CCListBox.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Layout Manager"
