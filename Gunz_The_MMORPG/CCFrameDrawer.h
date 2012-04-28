@@ -8,20 +8,20 @@ enum CCFDTextStyle{
 };
 
 ////////////////////////////////////////////////////
-// Frame을 그리기 위한 클래스
-// 이를 통해 스킨을 지원할 수 있다.
-// Default Frame Drawer
+//Frame for drawing class
+//This can be supported through the skin.
+//Default Frame Drawer
 class MFrameDrawer{
 public:
-	virtual void DrawOuterBevel(CCDrawContext* pDC, sRect& r);		// 바깥쪽 윤곽 그리기
-	virtual void DrawInnerBevel(CCDrawContext* pDC, sRect& r);		// 안쪽 윤곽 그리기
-	virtual void DrawFlatBevel(CCDrawContext* pDC, sRect& r);		// 평면 윤곽 그리기 ( 보통 눌렸을때... )
-	virtual void DrawOuterPlane(CCDrawContext* pDC, sRect& r);		// 바깥쪽 면
-	virtual void DrawInnerPlane(CCDrawContext* pDC, sRect& r);		// 안쪽 면
-	virtual void DrawFlatPlane(CCDrawContext* pDC, sRect& r);		// 평면 면
-	virtual void DrawOuterBorder(CCDrawContext* pDC, sRect& r);		// 바깥쪽 판(Bevel+Plane) 그리기
-	virtual void DrawInnerBorder(CCDrawContext* pDC, sRect& r);		// 안쪽 판(Bevel+Plane) 그리기
-	virtual void DrawFlatBorder(CCDrawContext* pDC, sRect& r);		// 일반적인 평면 판(Bevel+Plane) 그리기
+	virtual void DrawOuterBevel(CCDrawContext* pDC, sRect& r);		//Draw the outer contour
+	virtual void DrawInnerBevel(CCDrawContext* pDC, sRect& r);		//Draw the inner contour
+	virtual void DrawFlatBevel(CCDrawContext* pDC, sRect& r);		//flat contour drawing (usually)
+	virtual void DrawOuterPlane(CCDrawContext* pDC, sRect& r);		//If the outer
+	virtual void DrawInnerPlane(CCDrawContext* pDC, sRect& r);		//inner surface
+	virtual void DrawFlatPlane(CCDrawContext* pDC, sRect& r);		//If the plane
+	virtual void DrawOuterBorder(CCDrawContext* pDC, sRect& r);		//outer plates (Bevel + Plane) Drawing
+	virtual void DrawInnerBorder(CCDrawContext* pDC, sRect& r);		//Inside Edition (Bevel + Plane) Drawing
+	virtual void DrawFlatBorder(CCDrawContext* pDC, sRect& r);		//typical flat plate (Bevel + Plane) Drawing
 	virtual void Text(CCDrawContext* pDC, sRect& r, const char* szText, CCAlignmentMode am=MAM_NOTALIGN, CCFDTextStyle nTextStyle=CCFDTS_NORMAL, bool bHighlight=false);
 	virtual void Text(CCDrawContext* pDC, sPoint& p, const char* szText, CCFDTextStyle nTextStyle=CCFDTS_NORMAL, bool bHighlight=false, sRect* r=NULL);
 	virtual void TextMC(CCDrawContext* pDC, sRect& r, const char* szText, CCAlignmentMode am=MAM_NOTALIGN, CCFDTextStyle nTextStyle=CCFDTS_NORMAL, bool bHighlight=false);
