@@ -347,6 +347,10 @@
 				Name="Debugging"
 				>
 				<File
+					RelativePath=".\CCDebug.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCDebug.h"
 					>
 				</File>
