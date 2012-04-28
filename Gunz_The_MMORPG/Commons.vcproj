@@ -279,6 +279,10 @@
 				Name="Text Area"
 				>
 				<File
+					RelativePath=".\CCTextArea.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCTextArea.h"
 					>
 				</File>
