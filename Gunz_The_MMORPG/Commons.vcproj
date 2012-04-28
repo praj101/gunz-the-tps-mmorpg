@@ -578,14 +578,6 @@
 						>
 					</File>
 				</Filter>
-				<Filter
-					Name="DirectX"
-					>
-					<File
-						RelativePath=".\RTypes.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Fonts"
@@ -647,9 +639,53 @@
 				Name="Math"
 				>
 				<File
+					RelativePath=".\CCMath.h"
+					>
+				</File>
+				<File
 					RelativePath=".\CCVector3.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Anti hack"
+				>
+				<Filter
+					Name="Memory Proxy"
+					>
+					<File
+						RelativePath=".\CCMemoryProxy.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCMemoryProxy.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Data Checker"
+					>
+					<File
+						RelativePath=".\CCDataChecker.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCDataChecker.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="CRC32"
+					>
+					<File
+						RelativePath=".\CCCRC32.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCCRC32.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -690,6 +726,50 @@
 						</File>
 					</Filter>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="Langauge"
+				>
+				<File
+					RelativePath=".\ZLanguageConf.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Timer"
+				>
+				<File
+					RelativePath=".\ZTimer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ZTimer.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="DirectX Specific"
+			>
+			<Filter
+				Name="Types"
+				>
+				<File
+					RelativePath=".\RTypes.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Input"
+				>
+				<File
+					RelativePath=".\ZDirectInput.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\zDirectInput.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File
