@@ -422,10 +422,18 @@
 			<Filter
 				Name="Group"
 				>
+				<File
+					RelativePath=".\CCGroup.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Frame Drawer"
 				>
+				<File
+					RelativePath=".\CCFrameDrawer.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Frame"
