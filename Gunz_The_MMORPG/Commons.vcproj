@@ -235,12 +235,20 @@
 				Name="Label"
 				>
 				<File
+					RelativePath=".\CCBmLabel.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCBmLabel.h"
 					>
 				</File>
 				<Filter
 					Name="Label"
 					>
+					<File
+						RelativePath=".\CCLabel.cpp"
+						>
+					</File>
 					<File
 						RelativePath=".\CCLabel.h"
 						>
