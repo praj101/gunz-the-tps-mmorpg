@@ -11,21 +11,20 @@ using namespace std;
 
 // File Descrition ( by Zip File System )
 struct CCZFILEDESC{
-	char	m_szFileName[_MAX_PATH];		// 파일명 ( 실제 파일인 경우도 있고, zip 파일안에 속해 있는 경우도 있다. )
-	char	m_szZFileName[_MAX_PATH];		// "" 이면 실제 파일을 의미한다.
+	char	m_szFileName[_MAX_PATH];		//file name (even if you have the actual file, zip files, even if it belongs in a can. )
+	char	m_szZFileName[_MAX_PATH];		//"" means that if the actual file.
 	int		m_iSize;
 	unsigned int	m_crc32;
-	unsigned long	m_modTime;	// zip 파일 안에 있는 파일들을 위해 dos time 으로 저장한다
+	unsigned long	m_modTime;	//zip the files in the file is stored in the dos time
 };
 
 typedef map<string,CCZFILEDESC*>	CCFLIST;
 typedef CCFLIST::iterator			CCFLISTITOR;
 
-// iterator 를 가지고있으므로 create 된 이후에 파일목록이 추가되면 곤란하다. 그런경우 코드 수정이 필요
+//Iterator, so you have to create a list of files that are added, since it is difficult. In such cases, the code need to be modified
 void GetRefineFilename(char *szRefine, const char *szSource);
-
-// 파일명으로 사용할 수 없는 문자가 포함되어 있으면 대체문자로 교체한다. 윈도우 파일명 규약은 사용불가문자 외에도 여러가지가 더 있으므로
-// 이 함수를 거쳐도 파일명 규약에 완전히 부합한다는 보장은 없다는 것을 주의
+//File name contains characters that can not be used if the character should be replaced with an alternate. Windows filename conventions can not be used because there are several other forms of character
+//This function is fully compliant with the terms through a file note that there is no guarantee
 void ValidateFilename(char* szOut, const char* szSrc, char substitute);
 
 unsigned CCGetCRC32(const char *data, int nLength);
@@ -119,7 +118,7 @@ public:
 
 	bool Create();
 
-//	bool Open(const char* szFileName);		// 이 방법은 그냥 파일에서 오픈 하는 방법으로 아래 펑션에 합친다.
+//	bool Open(const char* szFileName);		//this method as a way to open it in a file in the following function to be merged.
 	bool Open(const char* szFileName, CCZFileSystem* pZFS = NULL);
 	bool Open(const char* szFileName, const char* szZipFileName, bool bFileCheck = false , unsigned int crc32 = 0);
 
@@ -138,19 +137,19 @@ public:
 
 class CCZFileCheckList
 {
-	unsigned int				m_crc32;		// 파일 자체의 crc32
+	unsigned int				m_crc32;		//crc32 of the file itself
 	map<string,unsigned int>	m_fileList;
 
 public:
 	bool Open(const char *szFileName, CCZFileSystem *pfs = NULL);
 
-	unsigned int GetCRC32(const char *szFileName);	// 특정파일의 crc32를 리턴
-	unsigned int GetCRC32()	{ return m_crc32; }		// 스스로의 crc32를 리턴
+	unsigned int GetCRC32(const char *szFileName);	//Returns the crc32 of a file
+	unsigned int GetCRC32()	{ return m_crc32; }		//Returns the crc32 of their own
 };
 
 
 /*
-	////	간단 사용법		////
+	////	Simple use		////
 
 	CCZFileSystem fs;
 
