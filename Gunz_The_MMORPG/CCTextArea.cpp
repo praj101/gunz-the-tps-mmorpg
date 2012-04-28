@@ -700,8 +700,6 @@ int CCTextArea::GetClientWidth(){
 	return GetClientRect().w;
 }
 
-//[Translate]
-// TODO 디버깅 중이다
 #pragma optimize( "", off )
 
 void CCTextAreaLook::OnTextDraw_WordWrap(CCTextArea* pTextArea, CCDrawContext* pDC){

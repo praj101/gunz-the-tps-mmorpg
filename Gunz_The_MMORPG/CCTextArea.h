@@ -132,8 +132,8 @@ public:
 	int		GetClientWidth();
 
 	int		GetLength() { return (int)(m_nCurrentSize+m_Lines.size()); }
-	int		GetLineCount() { return (int)m_Lines.size(); }			// 내부에 존재하는 문자행 수
-	int		GetTotalLineCount(int& nStartLine, int& nCurrentLine);	// 실제로 출력할때 wordwrap 감안한 라인 수
+	int		GetLineCount() { return (int)m_Lines.size(); }			//??? that exists inside
+	int		GetTotalLineCount(int& nStartLine, int& nCurrentLine);	//wordwrap adjusted when the number of lines actually output
 
 	bool	GetText(char *pBuffer,int nBufferSize);
 	const char* GetTextLine(int nLine);
