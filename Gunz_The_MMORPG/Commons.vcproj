@@ -331,6 +331,46 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Panel"
+				>
+			</Filter>
+			<Filter
+				Name="Multi Column List Box"
+				>
+			</Filter>
+			<Filter
+				Name="Message Box"
+				>
+			</Filter>
+			<Filter
+				Name="Listbox"
+				>
+			</Filter>
+			<Filter
+				Name="Layout Manager"
+				>
+			</Filter>
+			<Filter
+				Name="Hypertext"
+				>
+			</Filter>
+			<Filter
+				Name="Hotkey"
+				>
+			</Filter>
+			<Filter
+				Name="Group"
+				>
+			</Filter>
+			<Filter
+				Name="Frame Drawer"
+				>
+			</Filter>
+			<Filter
+				Name="Frame"
+				>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Commons"
