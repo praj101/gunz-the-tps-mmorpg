@@ -9,7 +9,7 @@
 
 class MIDLResource;
 
-/// ComboBox에서 드롭되는 ListBox
+//ComboBox ListBox
 class CCComboListBox : public CCListBox{
 protected:
 	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
@@ -77,7 +77,7 @@ public:
 	const char* GetSelItemString(void);
 	CCListItem* GetSelItem(void);
 
-	// Field Support
+	//Field Support
 	void AddField(const char* szFieldName, int nTabSize) { m_pListBox->AddField(szFieldName, nTabSize); }
 	void RemoveField(const char* szFieldName) { m_pListBox->RemoveField(szFieldName); }
 	CCLISTFIELD* GetField(int i) { return m_pListBox->GetField(i); }
