@@ -243,7 +243,7 @@ void CCWidget::Run(void){
 		pCurWnd->Run();
 	}
 }
-#include "MDebug.h"
+#include "CCDebug.h"
 
 void CCWidget::Draw(CCDrawContext* pDC){
 	if(m_bVisible==false) return;

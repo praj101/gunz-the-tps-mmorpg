@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Commons"
+	Name="Game Base"
 	ProjectGUID="{CFE9D88D-3496-47B9-A0A4-2A9849AC44C4}"
 	RootNamespace="Gunz_GUI"
 	Keyword="Win32Proj"
@@ -487,38 +487,6 @@
 		<Filter
 			Name="Commons"
 			>
-			<File
-				RelativePath=".\CCCursor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CCEvent.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CCFont.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CCList.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CCLookNFeel.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CCPtrList.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CCResourceManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CCTypes.h"
-				>
-			</File>
 			<Filter
 				Name="Debugging"
 				>
@@ -555,14 +523,134 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Cursor"
+				>
+				<File
+					RelativePath=".\CCCursor.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Events"
+				>
+				<File
+					RelativePath=".\CCEvent.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="List"
+				>
+				<File
+					RelativePath=".\CCList.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CCPtrList.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Look and Feel"
+				>
+				<File
+					RelativePath=".\CCLookNFeel.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Resource Manager"
+				>
+				<File
+					RelativePath=".\CCResourceManager.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Types"
+				>
+				<File
+					RelativePath=".\CCTypes.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Fonts"
+				>
+				<File
+					RelativePath=".\CCFont.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Application"
+			>
+			<Filter
+				Name="Sound"
+				>
+			</Filter>
+			<Filter
+				Name="File System"
+				>
+				<Filter
+					Name="Gunz File System"
+					>
+					<File
+						RelativePath=".\CCZFileSystem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCZFileSystem.h"
+						>
+					</File>
+					<Filter
+						Name="zLib"
+						>
+						<File
+							RelativePath=".\zlib.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Zip"
+						>
+						<File
+							RelativePath=".\CCZip.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\CCZip.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="File Info"
+						>
+						<File
+							RelativePath=".\FileInfo.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Game Specific"
 			>
 			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
+			<Filter
+				Name="Quest"
+				>
+				<File
+					RelativePath=".\CCQuestConst.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\stdafx.h"
