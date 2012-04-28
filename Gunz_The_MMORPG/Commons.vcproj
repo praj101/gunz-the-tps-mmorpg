@@ -414,6 +414,10 @@
 			<Filter
 				Name="Hotkey"
 				>
+				<File
+					RelativePath=".\CCHotKey.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Group"
