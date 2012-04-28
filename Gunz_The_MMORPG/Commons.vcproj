@@ -295,6 +295,10 @@
 				Name="ScrollBar"
 				>
 				<File
+					RelativePath=".\CCSlider.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCSlider.h"
 					>
 				</File>
