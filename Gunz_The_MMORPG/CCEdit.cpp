@@ -122,9 +122,9 @@ bool CCEdit::OnEvent(CCEvent *pEvent, CCListener *pListener){
 		case CCWM_IMECOMPOSE:{
 			strcpy(m_szIMECompositionString, pEvent->szIMECompositionString);
 			if(pEvent->szIMECompositionResultString[0]!=NULL){
-				if(InsertString(m_pBuffer, pEvent->szIMECompositionResultString, m_nCaretPos, m_nMaxLength)==true){
-					m_nCaretPos += strlen(pEvent->szIMECompositionResultString);
-					_ASSERT(m_nCaretPos>=0 && m_nCaretPos<=(int)strlen(m_pBuffer));
+				if(InsertString(m_pBuffer, pEvent->szIMECompositionResultString, m_iCaretPos, m_iMaxLength)==true){
+					m_iCaretPos += strlen(pEvent->szIMECompositionResultString);
+					_ASSERT(m_iCaretPos>=0 && m_iCaretPos<=(int)strlen(m_pBuffer));
 					OnChangedText();
 				}
 			}
@@ -138,7 +138,7 @@ bool CCEdit::OnEvent(CCEvent *pEvent, CCListener *pListener){
 			if(r.InPoint(pEvent->Pos)==true){
 				int nPos = GetPosByScreen(pEvent->Pos.x);
 				if(nPos<0) return false;
-				m_nCaretPos = nPos;
+				m_iCaretPos = nPos;
 				bMyEvent = true;
 				return true;
 			}
@@ -147,14 +147,14 @@ bool CCEdit::OnEvent(CCEvent *pEvent, CCListener *pListener){
 		case CCWM_MOUSEMOVE:{			
 			if( !bMyEvent ) 
 				return false;
-			m_nSelectionRange = 0;
+			m_iSelectionRange = 0;
 			int nCaretPos = 0;
 			sRect r = GetClientRect();
 			if(r.InPoint(pEvent->Pos)==true){
 				int nPos = GetPosByScreen(pEvent->Pos.x);
-				if(m_nCaretPos==nPos) 
+				if(m_iCaretPos==nPos) 
 					return false;
-				m_nSelectionRange = nPos - m_nCaretPos;
+				m_iSelectionRange = nPos - m_iCaretPos;
 			}
 			return true;
 		}
@@ -175,7 +175,7 @@ void CCEdit::OnChangedText(){
 
 bool CCEdit::InputFilterKey(int nKey){
 	if(nKey==VK_DELETE){
-		int nCount = DeleteChar(m_pBuffer, m_nCaretPos);
+		int nCount = DeleteChar(m_pBuffer, m_iCaretPos);
 		OnChangedText();
 		return true;
 	}
@@ -249,15 +249,15 @@ bool CCEdit::InputFilterKey(int nKey){
 
 bool CCEdit::InputFilterChar(int nKey){
 	if(nKey==VK_BACK){
-		int nCaretPos = PrevPos(m_pBuffer, m_nCaretPos);
-		if(nCaretPos!=m_nCaretPos){
+		int nCaretPos = PrevPos(m_pBuffer, m_iCaretPos);
+		if(nCaretPos!=m_iCaretPos){
 			int nCount = DeleteChar(m_pBuffer, nCaretPos);
-			m_nCaretPos = nCaretPos;
-			_ASSERT(m_nCaretPos>=0 && m_nCaretPos<=(int)strlen(m_pBuffer));
+			m_iCaretPos = nCaretPos;
+			_ASSERT(m_iCaretPos>=0 && m_iCaretPos<=(int)strlen(m_pBuffer));
 			OnChangedText();
 		}
-		if(m_nCaretPos<m_nStartPos) 
-			m_nStartPos = m_nCaretPos;
+		if(m_iCaretPos<m_iStartPos) 
+			m_iStartPos = m_iCaretPos;
 
 		return true;
 	}
@@ -267,9 +267,9 @@ bool CCEdit::InputFilterChar(int nKey){
 		return true;
 	}
 	else if(nKey==22){
-		char* temp = new char[m_nMaxLength];
-		memset(temp, 0, m_nMaxLength);
-		if ( GetClipboard(temp, m_nMaxLength)==true){
+		char* temp = new char[m_iMaxLength];
+		memset(temp, 0, m_iMaxLength);
+		if ( GetClipboard(temp, m_iMaxLength)==true){
 			char *pFirst = strstr(temp,"\r");
 			if(pFirst!=NULL){
 				*pFirst = 0;
@@ -310,14 +310,14 @@ bool CCEdit::InputFilterChar(int nKey){
 void CCEdit::Initialize(int nMaxLength, const char* szName){
 	LOOK_IN_CONSTRUCTOR()
 
-	m_nMaxLength = nMaxLength+2;
+	m_iMaxLength = nMaxLength+2;
 	m_bMouseOver = false;
 
 	CCFont* pFont = GetFont();
 	int w = CCEDIT_DEFAULT_WIDTH;
 	int h = pFont->GetHeight()+2;
 
-	m_pBuffer = new char[m_nMaxLength];
+	m_pBuffer = new char[m_iMaxLength];
 	m_pBuffer[0] = NULL;
 	if(szName!=NULL) SetText(szName);
 
@@ -326,9 +326,9 @@ void CCEdit::Initialize(int nMaxLength, const char* szName){
 	m_bPassword = false;
 	m_bNumberOnly = false;
 
-	m_nCaretPos = 0;
-	m_nStartPos = 0;
-	m_nSelectionRange = 0;
+	m_iCaretPos = 0;
+	m_iStartPos = 0;
+	m_iSelectionRange = 0;
 
 	m_nCurrentHistory = m_History.end();
 	m_bSupportHistory = true;
@@ -363,14 +363,14 @@ CCEdit::~CCEdit(){
 
 void CCEdit::SetText(const char* szText){
 	if(m_pBuffer) {
-		strncpy(m_pBuffer, szText, m_nMaxLength-1);
-		m_pBuffer[m_nMaxLength-1]=0;
+		strncpy(m_pBuffer, szText, m_iMaxLength-1);
+		m_pBuffer[m_iMaxLength-1]=0;
 		OnChangedText();
 	}
 
 	MoveCaretEnd();
-	if(m_nStartPos>=m_nCaretPos)
-		m_nStartPos=m_nCaretPos;
+	if(m_iStartPos>=m_iCaretPos)
+		m_iStartPos=m_iCaretPos;
 }
 
 const char* CCEdit::GetText(void){
@@ -394,33 +394,33 @@ void CCEdit::AddText(const char* szText){
 }
 
 int CCEdit::MoveCaretHome(void){
-	m_nCaretPos = 0;
-	return m_nCaretPos;
+	m_iCaretPos = 0;
+	return m_iCaretPos;
 }
 
 int CCEdit::MoveCaretEnd(void){
-	m_nCaretPos = strlen(m_pBuffer);
-	return m_nCaretPos;
+	m_iCaretPos = strlen(m_pBuffer);
+	return m_iCaretPos;
 }
 
 int CCEdit::MoveCaretPrev(void){
-	m_nCaretPos = PrevPos(m_pBuffer, m_nCaretPos);
-	if(m_nCaretPos<m_nStartPos)
+	m_iCaretPos = PrevPos(m_pBuffer, m_iCaretPos);
+	if(m_iCaretPos<m_iStartPos)
 	{
-		m_nStartPos=m_nCaretPos;
+		m_iStartPos=m_iCaretPos;
 	}
-	_ASSERT(m_nCaretPos>=0 && m_nCaretPos<=(int)strlen(m_pBuffer));
-	return m_nCaretPos;
+	_ASSERT(m_iCaretPos>=0 && m_iCaretPos<=(int)strlen(m_pBuffer));
+	return m_iCaretPos;
 }
 
 int CCEdit::MoveCaretNext(void){
-	m_nCaretPos = NextPos(m_pBuffer, m_nCaretPos);
-	_ASSERT(m_nCaretPos>=0 && m_nCaretPos<=(int)strlen(m_pBuffer));
-	return m_nCaretPos;
+	m_iCaretPos = NextPos(m_pBuffer, m_iCaretPos);
+	_ASSERT(m_iCaretPos>=0 && m_iCaretPos<=(int)strlen(m_pBuffer));
+	return m_iCaretPos;
 }
 
 int CCEdit::GetMaxLength(void){
-	return m_nMaxLength;
+	return m_iMaxLength;
 }
 
 const char* CCEdit::GetCompositionString(void){
@@ -428,18 +428,18 @@ const char* CCEdit::GetCompositionString(void){
 }
 
 int CCEdit::GetCarretPos(void){
-	return m_nCaretPos;
+	return m_iCaretPos;
 }
 
 bool CCEdit::SetStartPos(int nStartPos){
 	int nTextLen = strlen(GetText());
 	if (nTextLen <= 0) {
-		m_nStartPos = 0;
+		m_iStartPos = 0;
 		return false;
 	}
 	if(nStartPos<0 || nStartPos>=nTextLen) 
 		return false;
-	m_nStartPos = nStartPos;
+	m_iStartPos = nStartPos;
 
 	return true;
 }
@@ -556,17 +556,17 @@ void CCEdit::SetMaxLength(int nMaxLength){
 	ZeroMemory(pNewBuffer,nMaxLength);
 
 	if (m_pBuffer != NULL) {
-		strncpy(pNewBuffer,m_pBuffer,min(nMaxLength,m_nMaxLength));
+		strncpy(pNewBuffer,m_pBuffer,min(nMaxLength,m_iMaxLength));
 		delete []m_pBuffer;
 		m_pBuffer = pNewBuffer;
 		OnChangedText();
 	}
 
-	m_nMaxLength = nMaxLength;
+	m_iMaxLength = nMaxLength;
 
 	MoveCaretEnd();
-	if(m_nStartPos>=m_nCaretPos)
-		m_nStartPos=m_nCaretPos;
+	if(m_iStartPos>=m_iCaretPos)
+		m_iStartPos=m_iCaretPos;
 }
 
 void CCEditLook::OnFrameDraw(CCEdit* pEdit, CCDrawContext* pDC){
