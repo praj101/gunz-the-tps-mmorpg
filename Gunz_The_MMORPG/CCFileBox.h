@@ -5,17 +5,17 @@
 
 #define CCFILEBOX	"FileBox"
 
-/// 파일 리스트 박스
+//File list box.
 class CCFileBox : public CCListBox{
 	char	m_szFilter[256];
 	char	m_szBaseDir[256];
 public:
-	/// @param	szFilter	파일 필터 ( 예: *.exe )
+	//@ Param szFilter file filters (for example: *. Exe)
 	CCFileBox(const char* szFilter, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~CCFileBox(void);
 
-	/// 필터값으로 목록 리프레쉬
-	/// @param	szFilter	파일 필터 ( 예: *.exe )
+	//Refresh the list filter values
+	//@ Param szFilter file filters (for example: *. Exe)
 	void Refresh(const char* szFilter=NULL);
 	const char* GetBaseDir(void);
 
