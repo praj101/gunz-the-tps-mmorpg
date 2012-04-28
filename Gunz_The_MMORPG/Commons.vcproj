@@ -251,6 +251,10 @@
 				Name="Animation"
 				>
 				<File
+					RelativePath=".\CCAnimation.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCAnimation.h"
 					>
 				</File>
