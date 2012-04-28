@@ -255,6 +255,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Tool Tip"
+				>
+				<File
+					RelativePath=".\CCToolTip.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Text Area"
+				>
+				<File
+					RelativePath=".\CCTextArea.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Commons"

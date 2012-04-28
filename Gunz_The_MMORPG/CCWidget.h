@@ -10,7 +10,7 @@
 		# Include "CMPtrList.h"
 		# Include "MDrawContext.h"
 		# Include "MTypes.h"
-		# Include "MEvent.h"
+		# Include "CCEvent.h"
 */
 
 #define CCWIDGET_NAME_LENGTH	256
