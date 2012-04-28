@@ -371,6 +371,10 @@
 				Name="Multi Column List Box"
 				>
 				<File
+					RelativePath=".\CCMultiColListBox.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCMultiColListBox.h"
 					>
 				</File>
