@@ -335,6 +335,10 @@
 				Name="Popup Menu"
 				>
 				<File
+					RelativePath=".\CCPopupMenu.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCPopupMenu.h"
 					>
 				</File>
