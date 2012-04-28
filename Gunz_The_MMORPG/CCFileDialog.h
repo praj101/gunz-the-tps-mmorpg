@@ -12,13 +12,13 @@
 #define CCFILEDIALOG_OK		"OK"
 #define CCFILEDIALOG_CANCEL	"Cancel"
 
-/// 파일 다이얼로그 타입
+//File type dialog
 enum CCFileDialogType{
-	CCFDT_OPEN = 0,	///< 오픈 다이얼로그
-	CCFDT_SAVE,		///< 세이브 다이얼로그
+	CCFDT_OPEN = 0,	//open dialogue
+	CCFDT_SAVE,		//save dialog
 };
 
-/// 파일 다이얼로그 박스
+//File dialog box
 class CCFileDialog : public CCFrame{
 	CCButon*		m_pOK;
 	CCButon*		m_pCancel;
