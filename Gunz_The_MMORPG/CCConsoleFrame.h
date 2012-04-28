@@ -41,8 +41,7 @@ public:
 	void SetKeyDownCallback(CCCONSOLE_KEYDOWN_CALLBACK* pfnKeyDown) { m_pfnKeyDown = pfnKeyDown; }
 	void SetInputCallback(CCCONSOLE_INPUT_CALLBACK* pfnInput) { m_pfnInput = pfnInput; }
 };
-
-/// 실제 콘솔 클래스
+/////////////////////////////////////////////////////////////////////////////////
 class CCConsoleFrame : public CCFrame
 {
 private:
