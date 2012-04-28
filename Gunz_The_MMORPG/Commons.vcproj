@@ -335,6 +335,10 @@
 				Name="Picture"
 				>
 				<File
+					RelativePath=".\CCPicture.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCPicture.h"
 					>
 				</File>
