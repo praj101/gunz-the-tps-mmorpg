@@ -1,13 +1,7 @@
 /*
-		NEEDS TO BE TRANSLATED
-
 	Parts of this file use Rsa encryption, since we are just starting out
-		I want to keep things simple, so I have disabled the encryption parts.
+	I want to keep things simple, so I have disabled the encryption parts.
 */
-
-
-
-
 
 #include "stdafx.h"
 #include "CCZFileSystem.h"
@@ -48,7 +42,7 @@ void GetRefineFilename(char *szRefine, const char *szSource)
 
 void ValidateFilename(char* szOut, const char* szSrc, char substitute)
 {
-	// 다음 문자들을 치환한다 <>:"/\|?*
+	//The next character is replaced with <>: "/ \ |?
 	strcpy(szOut, szSrc);
 	size_t len = strlen(szOut);
 	for (size_t i=0; i<len; ++i)
@@ -134,11 +128,11 @@ bool CCZFileSystem::AddItem(CCZFILEDESC* pDesc)
 	{
 		CCZFILEDESC *pOld=it->second;
 
-		// 원래 있던 것보다 몇초뒤의 파일인가 ? 이전파일이면 업데이트 할 필요없다
+		//Is the file after a few seconds than it was originally? If the file is not necessary to update previous
 		double diff=difftime(dos2unixtime(pDesc->m_modTime),dos2unixtime(pOld->m_modTime));
-		if(diff<0) // 더 예전의 파일이므로 교체할 필요가 없다
+		if(diff<0) //no need to replace the old files, so there is no
 		{
-			// 업데이트 번호가 앞서면 실수 ?
+			//Update number mistake?
 			int nOldPkgNum=GetUpdatePackageNumber(pOld->m_szZFileName);
 			int nNewPkgNum=GetUpdatePackageNumber(pDesc->m_szZFileName);
 			_ASSERT(nOldPkgNum>nNewPkgNum);
@@ -146,7 +140,7 @@ bool CCZFileSystem::AddItem(CCZFILEDESC* pDesc)
 			return false;
 		}
 
-		// 이전 데이터를 지운다
+		//Delete the old data
 		delete pOld;
 		m_ZFileList.erase(it);
 	}
@@ -181,7 +175,7 @@ void CCZFileSystem::RefreshFileList(const char* szBasePath)
 				char szDrive[_MAX_PATH], szDir[_MAX_PATH], szFileName[_MAX_PATH], szExt[_MAX_PATH];
 				_splitpath(c_file.name, szDrive, szDir, szFileName, szExt);
 				
-				// zip 파일이면 안의 파일들을 더한다
+				//Zip file, then add the files in
 				if(stricmp(szExt, "."DEF_EXT)==0 || stricmp(szExt, ".zip")==0) {
 
 					char szZipFileName[_MAX_PATH],szBaseLocation[_MAX_PATH];
@@ -190,7 +184,7 @@ void CCZFileSystem::RefreshFileList(const char* szBasePath)
 					GetRelativePath(szRelZipFileName,m_szBasePath,szZipFileName);
 					ReplaceBackSlashToSlash(szRelZipFileName);
 
-					// base directory 에 있는 업데이트로 예약된 패키지는 파일명을 폴더로 간주하지 않는다
+					//Base directory in the update file to a folder, scheduled package does not consider
 					if(GetUpdatePackageNumber(szRelZipFileName)>0)
 					{
 						szBaseLocation[0]=0;
@@ -213,7 +207,7 @@ void CCZFileSystem::RefreshFileList(const char* szBasePath)
 							char szCurFileName[_MAX_PATH];
 							zf.GetFileName(i, szCurFileName);
 
-							// 디렉토리는 더할필요없다
+							//Directory does not need to add
 							char lastchar=szCurFileName[strlen(szCurFileName)-1];
 							if(lastchar!='\\' && lastchar!='/')
 							{
@@ -237,10 +231,10 @@ void CCZFileSystem::RefreshFileList(const char* szBasePath)
 				}
 				else
 				{
-					// Add File Desc
+					//Add File Desc
 					CCZFILEDESC* pDesc = new CCZFILEDESC;
 
-					// 절대경로
+					//Absolute path
 					char szFullPath[_MAX_PATH];
 					sprintf(szFullPath, "%s%s", szBasePath,c_file.name);
 					GetRelativePath(pDesc->m_szFileName,m_szBasePath,szFullPath);
@@ -262,15 +256,15 @@ void CCZFileSystem::RefreshFileList(const char* szBasePath)
 
 int CCZFileSystem::GetUpdatePackageNumber(const char *szPackageFileName)
 {
-	if(!szPackageFileName || szPackageFileName[0]==0) return 0;		// 그냥 폴더에 있는 파일이다
+	if(!szPackageFileName || szPackageFileName[0]==0) return 0;		//is just the files in the folder
 
 	int nLength=strlen(m_szUpdateName);
 	if(m_szUpdateName[0] && strnicmp(szPackageFileName,m_szUpdateName,nLength)==0)
 	{
 		int nNumber=atoi(szPackageFileName+nLength)+1;
-		return nNumber;		// 업데이프 패키지 내에 있는 파일
+		return nNumber;		//Update the tape in the package file
 	}
-	return -1;		// 일반적인 패키지 내에 있는 파일
+	return -1;		//a file within a common package
 }
 
 unsigned MGetCRC32(const char *data, int nLength)
@@ -285,12 +279,12 @@ unsigned int CCZFileSystem::GetCRC32(const char* szFileName)
 	CCZFILEDESC* pDesc = GetFileDesc(szFileName);
 	if(!pDesc) return 0;
 
-	// zip 파일 안에 있는것은 이미 crc가 있다
+	//Zip files crc's in there already
 	if(pDesc->m_szZFileName[0]) {
 		return pDesc->m_crc32;
 	}
 
-	// 그렇지 않으면 읽어서 계산한다
+	//Otherwise, is calculated by reading
 
 	CCZFile mzf;
 	if(!mzf.Open(szFileName,this)) return 0;
@@ -329,7 +323,7 @@ CCZFileSystem::~CCZFileSystem(void)
 
 void AddSlash(char *szPath)
 {
-	// 경로뒤에 '/'가 있도록 만든다
+	//The path followed by '/' serves to make the
 	int nLength=strlen(szPath);
 	if(nLength>0 && (szPath[nLength-1]!='/' && szPath[nLength-1]!='\\'))
 		strcat(szPath,"/");
@@ -470,7 +464,7 @@ void CCZFileSystem::SetPrivateKey( const unsigned char* pPrivateKey, size_t leng
 unsigned long CCZFile::m_dwReadMode = CCZIPREADFLAG_ZIP | CCZIPREADFLAG_MRS | CCZIPREADFLAG_MRS2 | CCZIPREADFLAG_FILE;
 
 
-// 생성자
+//Constructor
 CCZFile::CCZFile() : m_nIndexInZip(-1)
 {
 	m_fp			= NULL;
@@ -489,7 +483,7 @@ CCZFile::CCZFile() : m_nIndexInZip(-1)
 }
 
 
-// 소멸자
+//Destructor
 CCZFile::~CCZFile()
 {
 	Close();
@@ -508,7 +502,7 @@ bool CCZFile::Create()
 #include "MRsaEncrypt.h"
 
 
-// 암호화된 파일인지 확인
+//Make sure that the encrypted files
 bool IsEncryptedFile( const char* szFileName)
 {
 	if ( strstr( szFileName, ".mef") != NULL)
@@ -518,44 +512,44 @@ bool IsEncryptedFile( const char* szFileName)
 }
 */
 
-// 파일 열기
+// File Open
 bool CCZFile::Open( const char* szFileName, CCZFileSystem* pZFS)
 {
-	// 파일 초기화
+	//File Initialization
 	Close();
 
 
-	// 파일 시스템이 없으면 스트림 파일 열기
+	//Open a stream file if the file system
 	if ( pZFS == NULL)
 	{
-		 // 그냥 파일 읽기 무시
+		 //Just ignore file read
 		if ( isMode( CCZIPREADFLAG_FILE) == false)
 			return false;
 
 
-		// 파일 열기
+		//File Open
 		m_fp = fopen( szFileName, "rb");
 
 		if ( m_fp == NULL)
 			return false;
 
 
-		// 파일 사이즈 구하기
+		//Save the file size
 		fseek( m_fp, 0, SEEK_END);
 		long size = ftell( m_fp);
 
 		fseek( m_fp, 0, SEEK_SET);
 
 
-		// Encrypt 된 파일일 경우...
+		//Encrypt the file was a ...
 	/*	if ( IsEncryptedFile( szFileName))
 		{
-			// 파일 읽기
+			//Read the file
 			char* pBuff = new char[ size];
 			fread( pBuff, sizeof( char), size, m_fp);
 			fclose( m_fp);
 
-			// 암호화 해제
+			//Disable encryption
 			if ( g_pPrivateKey == NULL)
 				return false;
 
@@ -563,7 +557,7 @@ bool CCZFile::Open( const char* szFileName, CCZFileSystem* pZFS)
 			string strBuff = RSADecryptString( g_pPrivateKey, lenPrivateKey, pBuff, size, &header);
 			DELETE_ARRAY( pBuff);
 
-			// 데이터 버퍼링
+			Data buffer
 			m_pData = new char[ strBuff.size() + 1];
 			memcpy( m_pData, strBuff.c_str(), strBuff.size());
 			m_pData[ strBuff.size()] = 0;
@@ -575,7 +569,7 @@ bool CCZFile::Open( const char* szFileName, CCZFileSystem* pZFS)
 			m_nFileSize = m_nFileSize = header.GetLength();
 		}
 
-		// 일반 스트림 파일일 경우...
+		//The file was the general stream.
 		else
 */		{
 			m_IsBufferd = false;
@@ -583,7 +577,7 @@ bool CCZFile::Open( const char* szFileName, CCZFileSystem* pZFS)
 		}
 
 
-		// 기타 설정
+		//Other Settings
 		strcpy( m_FileName, szFileName);
 		m_IsZipFile = false;
 
@@ -591,25 +585,25 @@ bool CCZFile::Open( const char* szFileName, CCZFileSystem* pZFS)
 		return true;
 	}
 
-	// ZIP 파일 열기
+	//ZIP File Open
 	else
 	{
-		// ZIP 설정 구함
+		//ZIP Set Wanted
 		CCZFILEDESC* pDesc = pZFS->GetFileDesc( szFileName);
 
 		if ( pDesc == NULL) 
 			return false;
 
 
-		// 파일이 ZIP 패킹 안에 있는 경우...
+		//If a file in the ZIP packing.
 		if ( pDesc->m_szZFileName[ 0])
 		{
-			char szRelativePathName[ _MAX_PATH];			// 파일의 상대 경로 패스
-			char *pRelative	= pDesc->m_szFileName;			// 파일 이름
-			char *pDest		= pDesc->m_szZFileName;			// 
+			char szRelativePathName[ _MAX_PATH];			//relative path, the path of the file
+			char *pRelative	= pDesc->m_szFileName;			//file name
+			char *pDest		= pDesc->m_szZFileName;
 
 
-			// 파일을 찾는다
+			//Find the file
 			while ( strnicmp( pRelative, pDest,1) == 0)
 			{
 				pRelative++;
@@ -622,12 +616,12 @@ bool CCZFile::Open( const char* szFileName, CCZFileSystem* pZFS)
 			sprintf( szRelativePathName, "%s", pRelative);
 
 
-			// ZIP 파일의 경로를 구한다
+			//ZIP file, the path is calculated
 			char szZipFullPath[ _MAX_PATH];
 			sprintf( szZipFullPath, "%s%s", pZFS->GetBasePath(), pDesc->m_szZFileName);
 
 
-			// CRC 검사를 한다
+			//CRC check is
 			bool bFileCheck = false;
 			if ( pZFS->GetFileCheckList())
 			{
@@ -646,17 +640,17 @@ bool CCZFile::Open( const char* szFileName, CCZFileSystem* pZFS)
 			}
 
 
-			// 파일을 연다
+			//Open the file
 			return Open( szRelativePathName, szZipFullPath, bFileCheck,pDesc->m_crc32);
 		}
 
 
-		// 그냥 파일 읽기 무시
+		//Just ignore file read
 		if ( isMode( CCZIPREADFLAG_FILE) == false)
 			return false;
 
 
-		// 맨 폴더에 있는경우
+		//If you are in the top folder
 		char szFullPath[ _MAX_PATH];
 		sprintf( szFullPath, "%s%s", pZFS->GetBasePath(), szFileName);
 		return Open( szFullPath);
@@ -664,7 +658,7 @@ bool CCZFile::Open( const char* szFileName, CCZFileSystem* pZFS)
 }
 
 
-// 파일 열기(ZIP 파일 전용)
+//Open a file (ZIP file only)
 bool CCZFile::Open( const char* szFileName, const char* szZipFileName, bool bFileCheck , unsigned int crc32)
 {
 	Close();
@@ -684,17 +678,17 @@ bool CCZFile::Open( const char* szFileName, const char* szZipFileName, bool bFil
 	}
 
 
-	// ZIP 파일을 읽지 못하면 그냥 리턴
+	//ZIP file, just return if read
 	if ( m_Zip.isReadAble( m_dwReadMode) == false) 
 		return false;
 
 
-	// 파일 인덱스를 구함
+	//File index Wanted
 	m_nIndexInZip = m_Zip.GetFileIndex( szFileName);
 	m_crc32 = m_Zip.GetFileCRC32( m_nIndexInZip);
 	if ( bFileCheck && (m_crc32 != crc32))
 	{
-		// filesystem 이 초기화 될때와 현재의 crc가 다른지 확인
+		//Filesystem when initializing the current crc check for inequality
 #ifdef _DEBUG
 		char szBuffer[ 256];
 		sprintf( szBuffer,"CRC error, modified after initialize, %s file in %s %u , source %u \n", szFileName, szZipFileName, m_crc32, crc32);
@@ -704,7 +698,7 @@ bool CCZFile::Open( const char* szFileName, const char* szZipFileName, bool bFil
 	}
 
 	
-	// 암호화된 파일일 경우엔 헤더를 읽어서 사이즈를 구한다
+	//Read the encrypted header size is calculated pailil case
 /*	if ( IsEncryptedFile( szFileName))
 	{
 		m_nFileSize = m_Zip.GetFileLength( m_nIndexInZip);
@@ -725,7 +719,7 @@ bool CCZFile::Open( const char* szFileName, const char* szZipFileName, bool bFil
 	else
 */		m_nFileSize = m_Zip.GetFileLength( m_nIndexInZip);
 
-	// 파일 설정
+	//File Settings
 	m_IsZipFile = true;
 	m_IsBufferd = true;
 	strcpy( m_FileName, szFileName);
@@ -734,7 +728,7 @@ bool CCZFile::Open( const char* szFileName, const char* szZipFileName, bool bFil
 }
 
 
-// 파일 닫기
+//Close the file
 void CCZFile::Close(void)
 {
 	if ( m_IsZipFile)
@@ -771,7 +765,7 @@ unsigned long CCZFile::GetLength(void)
 
 bool CCZFile::Seek(long off,int mode)
 {
-	// 버퍼링 파일일 경우...
+	//Buffer the file was ...
 	if ( m_IsBufferd && (m_pData != NULL))
 	{
 		if ( mode == begin)
@@ -791,7 +785,7 @@ bool CCZFile::Seek(long off,int mode)
 		}
 	}
 
-	// 스트림 파일이면...
+	//If the stream file.
 	else
 	{
 		if ( mode == begin)
@@ -817,21 +811,21 @@ bool CCZFile::Seek(long off,int mode)
 
 bool CCZFile::Read( void* pBuffer, int nMaxSize)
 {
-	// 버퍼링 파일일 경우...
+	//Buffer the file was ...
 	if ( m_IsBufferd) 
 	{
-		// 범위가 유효한지 확인
+		//Validate the range of
 		if ( nMaxSize > ( GetLength() - m_nPos))
 			return false;
 
 
-		// 암호화된 파일이면...
+		//If the encrypted file.
 	/*	if ( m_IsEncrypted)
 		{
-			// 최초로 Read 할때 할당
+			//Read the first time when the assignment
 			if ( m_pData == NULL)
 			{
-				// 파일 읽기
+				//Read the file
 				char* pBuff = new char[ m_nFileSize + 1];
 
 				if ( !m_Zip.ReadFile( m_nIndexInZip, pBuff, m_nFileSize))
@@ -840,14 +834,14 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 					return false;
 				}
 
-				// 암호화 해제
+				//Disable encryption
 				if ( g_pPrivateKey == NULL)
 					return false;
 
 				string strBuff = RSADecryptString( g_pPrivateKey, lenPrivateKey, pBuff, m_nFileSize);
 				DELETE_ARRAY( pBuff);
 
-				// 데이터 버퍼링
+				//Data buffer
 				m_pData = new char[ strBuff.size() + 1];
 				memcpy( m_pData, strBuff.c_str(), strBuff.size());
 				m_pData[ strBuff.size()] = 0;
@@ -858,10 +852,10 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 			memcpy( pBuffer, (m_pData + m_nPos), nMaxSize);
 		}
 
-		// 암호화되지 않은 파일이면...
+		//If an unencrypted file.
 		else
 */		{
-			// 한번에 끝까지 읽으려고 하는 시도는 메모리 할당 없이 읽어준다
+			//Try to read through once, without any attempt to allocate memory reads
 			if ( (nMaxSize == GetLength()) && (m_nPos == 0))
 			{
 				if ( !m_Zip.ReadFile( m_FileName, pBuffer, m_nFileSize))
@@ -872,7 +866,7 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 			}
 			else
 			{
-				// 최초로 Read 할때 할당
+				//Read the first time when the assignment
 				if ( m_pData == NULL)
 				{
 					m_pData = new char[ m_nFileSize + 1];
@@ -893,7 +887,7 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 		m_nPos += nMaxSize;
 	}
 	
-	// 스트림 파일일 경우...
+	//Stream the file was ...
 	else
 	{
 		size_t numread = fread( pBuffer, 1, nMaxSize, m_fp);
