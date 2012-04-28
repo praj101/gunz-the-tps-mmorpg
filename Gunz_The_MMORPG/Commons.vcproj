@@ -366,6 +366,10 @@
 			<Filter
 				Name="Message Box"
 				>
+				<File
+					RelativePath=".\CCMsgBox.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Listbox"
