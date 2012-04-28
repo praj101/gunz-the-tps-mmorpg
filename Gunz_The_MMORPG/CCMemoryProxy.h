@@ -33,19 +33,19 @@ public:
 	}
 };
 
-extern void (*g_fpOnCrcFail)();	// crc체크 실패시(해킹시) 호출할 함수 포인터
+extern void (*g_fpOnCrcFail)();	//crc check failure (hacking) to invoke a function pointer
 
 CCCrc32Container* GetCrcContainer();
 
 
 #define PTR_OFFSET 0x66D6
-// 참고로 한국 핵유저들이 보통 검색해보는 힙 범위는 0x15000000 ~ 0x30000000 정도
-// (↑RandMaskVal.exe에 의해서 빌드 전에 변경되는 값. define 명을 수정하면 파싱 에러가 납니다.)
+//Note to users Korea nuclear Search is usually the range 0x15000000 ~ 0x30000000 enough heap
+//(RandMaskVal.exe by changing the value before the build. Define people by modifying the parse error is displayed.)
 
 template <typename T>
 class MProtectValue
 {
-	// 값을 할당한 포인터 주소값에도 마스킹값을 얹어 주소자체를 숨긴다
+	//Assign a value to the address pointer to put the value of address mask to hide itself
 	typedef unsigned char* MaskedPtr;
 	MaskedPtr m_pValue;
 
@@ -67,28 +67,28 @@ public:
 		::GetCrcContainer()->Remove(this);
 	}
 
-	// 값을 레퍼런스로 얻는다
+	//Get the value as a reference
 			T& Ref()		{ return *ToNormalPtr(m_pValue); }
 	const	T& Ref() const	{ return *ToNormalPtr(m_pValue); }
 
-	// 값 배정
+	//Value assigned
 	void Set(const T& newVal)		{ Ref() = newVal; }
 
-	// 값 배정하면서 crc검사
+	//Value as a double check crc
 	bool Set_CheckCrc(const T& newVal) {
 		CheckCrc();
 		Set(newVal);
 		MakeCrc();
 		return true;
 	}
-	// 값 배정하면서 crc 생성 (최초 값 배정용)
+	//Crc value generated as a double (the initial value)
 	void Set_MakeCrc(const T& newVal) {
 		Set(newVal);
 		MakeCrc();
 	}
 
 
-	// 재할당->복사를 통해 힙위치를 변경한다
+	//Reassign -> Copy change through
 	void ShiftHeapPos()
 	{
 		T* p = ToNormalPtr(m_pValue);
@@ -105,7 +105,7 @@ public:
 		::GetCrcContainer()->Add(this, crc);
 	}
 
-	// crc를 검사한다
+	//Crc checks
 	void CheckCrc()
 	{
 		if (BuildCrc() != ::GetCrcContainer()->Get(this))
@@ -113,32 +113,30 @@ public:
 	}
 
 private:
-	// 연산자 오버로드를 쓰면 편하겠지만 실제로 무슨 일이 일어나는지 명시적으로 표현하도록 강제하는 편이 낫다고 생각함.
+	//Operator overloading would be convenient to write, but what happens actually forced to explicitly represent better for thinking that.
 
-	MProtectValue(T val) { m_pValue = ToMaskedPtr(new T(val)); }	// 복사생성자..혼란스럽다 차라리 숨기자
-	MProtectValue<T>& operator=(int) {}	// 복사대입 연산자를 숨김
+	MProtectValue(T val) { m_pValue = ToMaskedPtr(new T(val)); }	//copy constructor.Rather confusing, let's hide him.
+	MProtectValue<T>& operator=(int) {}	//copy assignment operator, behind
 };
 
-// USAGE : 해킹을 막고자 하는 값을 이 템플릿으로 감싼다. 
-// 이 템플릿은 두가지 수단으로 메모리핵을 방해할 수 있다.
-// 주기적으로 힙위치를 옮겨서 변수를 특정값으로 freeze하는 것을 막아볼 수 있다.
-// 그러나 이 템플릿 안에 있는 실제값 주소를 추적할 수도 있으므로 2차적으로 crc32검사를 할 수 있다.
-// crc32를 사용하려면 값을 갱신하기 전에 기존값crc체크를 해야하고, 값을 넣은뒤엔 crc를 새로 빌드해야만 한다.
-//
-// 이 템플릿클래스로 감싸더라도 필요한 경우에만 핵방어 기능을 동작시킬 수 있다. 예를들어 ZObject의 멤버를 이걸로 감싸더라도
-// 직접 핵방어 기능을 하는 함수를 호출하지 않으면 핵방어 효과는 없다. ZObject의 경우 ZMyCharacter와 NPC인 ZActor가 상속받는데
-// NPC는 해킹대상이 아니므로 굳이 핵방어에 따르는 부하를 감수할 필요없이 ZMyCharacter만 핵방어용 함수를 호출하면 된다.
+//USAGE: the value that you want to prevent hacking into the template wraps. 
+//This template as a means of two nuclei can interfere with memory.
+//Periodically freeze hipwichireul moving variables to specific values ??that can be makahbol.
+//In the template, however, able to track actual address, so you can check crc32 secondary.
+//Crc32 value to use should be checked before updating gijongap crc and crc value of a new building must be put behind.
+//This template class only when necessary, even if wrapped in a nuclear defense capabilities can be operated. For example, wrap it, even if members of ZObject
+//Direct nuclear defense capabilities if you do not call a function that does not effect the nuclear defense. If the NPC is ZObject ZActor ZMyCharacter and receive an inheritance
+//NPC bother hacking the target nucleus is not to accept the load without the need to conform to defend ten thousand nuclear ZMyCharacter eoyong room is the function call.
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 이하의 템플릿들은 과거에 핵방어로 사용하던 것임
-// CCMemoryBlock은 뚫렸다고 함..
-// CCMemoryFugitive은 힙위치를 잘 옮기지만 각 경우에 따른 선택적 적용과 체크섬을 병행하기 곤란하다
+//Or less template was used as a defense in the past that the nucleus
+//CCMemoryBlock the known.
+//CCMemoryFugitive good move for the selective effect, but in each case, and checksum is difficult to parallel
+
 /*
-
-
-#define WRAPING_TIME 1000	//메모리 블럭을 바꿔주는 시간...1초에 한번씩...
-#define NUM_OF_MEMORY 20	//하나의 메모리 블럭에 잡히는 메모리 개수..
+#define WRAPING_TIME 1000	//memory block that turns once a second time ... ...
+#define NUM_OF_MEMORY 20	//Number of memory, caught in a block of memory.
 
 template <typename _data>
 struct CCMemoryBlock
@@ -242,7 +240,7 @@ public:
 			{
 				*(MB2->m_pMemory[i]) = *(MB1->m_pMemory[m_nCorrectDataIndex]);
 				MB = MB2;
-				*(MB1->m_pMemory[m_nCorrectDataIndex]) = m_initial;	//흔적 안남기기
+				*(MB1->m_pMemory[m_nCorrectDataIndex]) = m_initial;	//trail less than a unit
 				m_nCorrectDataIndex = i;
 			}
 			else if(m_nIndex == 2)
