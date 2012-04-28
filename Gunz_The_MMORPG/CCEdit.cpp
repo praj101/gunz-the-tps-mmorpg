@@ -571,9 +571,9 @@ void CCEdit::SetMaxLength(int nMaxLength){
 
 void CCEditLook::OnFrameDraw(CCEdit* pEdit, CCDrawContext* pDC){
 	sRect r = pEdit->GetInitialClientRect();
-	pDC->SetColor(sColor(DEFCOLOR_MEDIT_PLANE));
+	pDC->SetColor(sColor(DEFCOLOR_CCEDIT_PLANE));
 	pDC->FillRectangle(r);
-	pDC->SetColor(sColor(DEFCOLOR_MEDIT_OUTLINE));
+	pDC->SetColor(sColor(DEFCOLOR_CCEDIT_OUTLINE));
 	pDC->Rectangle(r);
 }
 
@@ -595,7 +595,7 @@ void CCEditLook::OnTextDraw(CCEdit* pEdit, CCDrawContext* pDC, bool bShowLanguag
 		InsertString(szBuffer, pEdit->GetCompositionString(), pEdit->GetCarretPos());
 	}
 
-	pDC->SetColor(sColor(DEFCOLOR_MEDIT_TEXT));
+	pDC->SetColor(sColor(DEFCOLOR_CCEDIT_TEXT));
 
 	CCFont* pFont = pDC->GetFont();
 	sRect r = pEdit->GetClientRect();
