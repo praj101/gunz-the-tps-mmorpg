@@ -306,6 +306,10 @@
 					Name="ScrollBar"
 					>
 					<File
+						RelativePath=".\CCScrollBar.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCScrollBar.h"
 						>
 					</File>
