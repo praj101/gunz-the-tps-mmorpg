@@ -426,7 +426,7 @@ template<class _T>
 bool CCPtrList<_T>::PrevRecord(){
 	_ASSERT(m_lpCurrentRecord!=NULL);
 
-	if(m_lpCurrentRecord->GetPrevPointer())!=NULL){
+	if(m_lpCurrentRecord->GetPrevPointer()!=NULL){
 		m_iCurrentPos--;
 		_ASSERT(m_iCurrentPos>=0);
 		m_lpCurrentRecord = m_lpCurrentRecord->GetPrevPointer();
