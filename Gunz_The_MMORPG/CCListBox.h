@@ -206,7 +206,7 @@ protected:
 	int				m_nItemHeight;		
 	CCScrollBar*		m_pScrollBar;
 
-	CMLinkedList<CCLISTFIELD>	m_Fields;
+	CCLinkedList<CCLISTFIELD>	m_Fields;
 
 	bool			m_bVisibleHeader;
 	bool			m_bSelected;
@@ -222,7 +222,7 @@ public:
 	bool			m_bMultiSelect;
 
 protected:
-	virtual bool OnEvent(MEvent* pEvent, CCListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 	virtual bool OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 	virtual bool IsDropable(CCWidget* pSender)		{ return m_bDragAndDrop; }
 
@@ -239,7 +239,7 @@ protected:
 
 public:
 	sColor m_FontColor;
-	MAlignmentMode m_FontAlign;
+	CCAlignmentMode m_FontAlign;
 
 public:
 	CCListBox(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
