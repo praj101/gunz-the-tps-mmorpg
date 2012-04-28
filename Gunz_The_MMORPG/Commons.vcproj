@@ -271,6 +271,10 @@
 				Name="Tool Tip"
 				>
 				<File
+					RelativePath=".\CCToolTip.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCToolTip.h"
 					>
 				</File>
