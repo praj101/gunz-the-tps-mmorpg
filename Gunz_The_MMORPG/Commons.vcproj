@@ -271,6 +271,26 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Tab Control"
+				>
+				<File
+					RelativePath=".\CCTabCtrl.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Slider"
+				>
+				<File
+					RelativePath=".\CCScrollBar.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CCSlider.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Commons"
