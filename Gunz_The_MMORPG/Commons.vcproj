@@ -446,6 +446,10 @@
 			<Filter
 				Name="File Dialog"
 				>
+				<File
+					RelativePath=".\CCFileDialog.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Drag Object"
@@ -462,6 +466,10 @@
 			<Filter
 				Name="File Box"
 				>
+				<File
+					RelativePath=".\CCFileBox.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
