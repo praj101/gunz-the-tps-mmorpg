@@ -359,6 +359,10 @@
 				Name="Panel"
 				>
 				<File
+					RelativePath=".\CCPanel.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCPanel.h"
 					>
 				</File>
