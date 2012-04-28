@@ -1,13 +1,12 @@
-/* Needs Update
 #include "stdafx.h"
 #include <stdio.h>
 #include <signal.h>
 #include "fileinfo.h"
 #include "CCDebug.h"
 #include <string>
-#include "MPdb.h"
+#include "CCPdb.h"
 #include <windows.h>
-*/
+
 using namespace std;
 
 static char logfilename[256];
