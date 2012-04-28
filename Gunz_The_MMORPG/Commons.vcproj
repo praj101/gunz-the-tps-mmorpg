@@ -175,6 +175,10 @@
 				Name="Widget"
 				>
 				<File
+					RelativePath=".\CCWidget.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCWidget.h"
 					>
 				</File>
