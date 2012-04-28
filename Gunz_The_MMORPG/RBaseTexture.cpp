@@ -272,7 +272,7 @@ bool RBaseTexture::OnRestore(bool bManaged)
 
 	_ASSERT(!m_pTex);
 
-	MZFile mzf;
+	CCZFile mzf;
 
 	m_bManaged = bManaged;
 	m_bManaged = false;//우선 예전 방식으로 돌아가자

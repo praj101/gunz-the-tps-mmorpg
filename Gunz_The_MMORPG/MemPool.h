@@ -2,7 +2,7 @@
 
 #include "Windows.h"
 #include "Winbase.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "assert.h"
 
 //////////////////////////////////////////////////////////////////////////

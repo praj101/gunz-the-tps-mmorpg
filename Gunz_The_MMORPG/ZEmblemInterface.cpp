@@ -106,7 +106,7 @@ bool ZEmblemInterface::ReloadClanInfo(UINT nClanID)
 	SAFE_DELETE(EmblemNode.m_pBitmapEmblem);
 
 #ifdef _PUBLISH
-	MZFile::SetReadMode( CCZIPREADFLAG_ZIP | CCZIPREADFLAG_MRS | CCZIPREADFLAG_MRS2 | CCZIPREADFLAG_FILE );
+	CCZFile::SetReadMode( CCZIPREADFLAG_ZIP | CCZIPREADFLAG_MRS | CCZIPREADFLAG_MRS2 | CCZIPREADFLAG_FILE );
 #endif
 
 	// 클랜ID 값을 이용하여 해당 비트맵을 메모리 캐쉬로 로드한다.
@@ -115,7 +115,7 @@ bool ZEmblemInterface::ReloadClanInfo(UINT nClanID)
 	EmblemNode.m_pBitmapEmblem = pBitmap;
 
 #ifdef _PUBLISH
-	MZFile::SetReadMode( CCZIPREADFLAG_MRS2 );
+	CCZFile::SetReadMode( CCZIPREADFLAG_MRS2 );
 #endif
 
 	return true;
