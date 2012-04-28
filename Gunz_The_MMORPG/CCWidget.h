@@ -4,14 +4,11 @@
 	CCWidget.h
 */
 
-/*
-		Headers:
+#include "CCPtrList.h"
+#include "CCDrawContext.h"
+#include "CCTypes.h"
+#include "CCEvent.h"
 
-		# Include "CMPtrList.h"
-		# Include "MDrawContext.h"
-		# Include "MTypes.h"
-		# Include "CCEvent.h"
-*/
 
 #define CCWIDGET_NAME_LENGTH	256
 #define CCWIDGET_NAME			"Widget"
