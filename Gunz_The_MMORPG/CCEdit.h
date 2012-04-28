@@ -2,7 +2,7 @@
 #pragma warning(disable:4786)
 
 /*
-	CCEdit.h
+	CCEdit.h 
 */
 
 #include "CCWidget.h"
