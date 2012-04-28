@@ -9,16 +9,16 @@ typedef unsigned char BYTE;
 #endif
 
 enum MEMORYFUGITIVE_TYPE {
-	MT_MEMORYFUGITIVE_NONE,		// CCMemoryFugitive 가 아닌 경우 (native type)
+	MT_MEMORYFUGITIVE_NONE,		//CCMemoryFugitive If you are not (native type)
 	MT_MEMORYFUGITIVE_INT,
 	MT_MEMORYFUGITIVE_FLOAT,
-	//.. 필요하면 타입을 더 추가
+	//.. If you need to add more types
 };
 
 class CCDataChecker;
 class CCDataCheckNode {
 protected:
-	unsigned int	m_nID;	// 디버깅용 식별자
+	unsigned int	m_nID;	//debugging identifier
 	BYTE*			m_pData;
 	unsigned int	m_nLen;
 	unsigned int	m_nChecksum;
@@ -32,7 +32,7 @@ public:
 	unsigned int GetID()			{ return m_nID; }
 	unsigned int GetChecksum()		{ return m_nChecksum; }
 	unsigned int GetLastChecksum()	{ return m_nLastChecksum; }
-	bool UpdateChecksum();	// 업데이트후 전과 같으면 true, 다르면 false
+	bool UpdateChecksum();	//is equal before and after updating true, different false
 	void Validate()	{ m_nLastChecksum = m_nChecksum; }
 
 friend CCDataChecker;
