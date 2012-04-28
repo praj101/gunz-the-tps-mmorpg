@@ -84,7 +84,7 @@ struct CCZip::CCZIPDIRFILEHEADER{
 
 #pragma pack()
 
-// 여러 가지 적용하기..지금은 데이터 토글링이 됨,,, 암호롸 알고리듬 적용...
+//To apply different ...Toggling the data now becomes... applied algorithm.
 
 void ConvertChar(char* pData,int _size)
 {
@@ -155,16 +155,16 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 {
 	if(fp==NULL) return false;
 
-	// zip , mrs1 ,mrs2 를 읽어야한다..
-	// publish 면,,, zip 을 읽지 못하도록 옵션에 모드를 둔다.. 
-	// 파일에서는 읽기 불가 + zip 가능여부 + mrs1 가능여부..
-	// zip 을 읽을 필요가 있는가?
+	//Zip, mrs1, mrs2 should read.
+	//Publish to... zip prevents it from reading mode to put options. 
+	//Files + zip you can not read or + mrs1 availability.
+	//Zip Do you need to read?
 
 	m_dwReadMode = ReadMode;
 
 	if(isZip(fp)) {
 		m_nZipMode = ZMode_Zip;
-		// 플레그에서 지원하지 않으면...
+		//If the player that is not supported by ...
 		if(isMode(CCZIPREADFLAG_ZIP)==false)
 			return false;
 	}
@@ -173,7 +173,7 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 		if(isMode(CCZIPREADFLAG_MRS)==false)
 			return false;
 	}
-	else {//mrs2 이상...
+	else {//mrs2 more ...
 		m_nZipMode = ZMode_Mrs2;
 		if(isMode(CCZIPREADFLAG_MRS2)==false)
 			return false;
@@ -186,10 +186,10 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 	memset(&dh, 0, sizeof(dh));
 	fread(&dh, sizeof(dh), 1, fp);
 
-	if( m_nZipMode>=ZMode_Mrs2 )							// mrs2 이상부터 데이터 복구..
-		RecoveryChar((char*)&dh,sizeof(CCZIPDIRHEADER));		// v2 이상이면..
+	if( m_nZipMode>=ZMode_Mrs2 )							// mrs2 more data from the recovery.
+		RecoveryChar((char*)&dh,sizeof(CCZIPDIRHEADER));		//v2 is greater than ...
 
-	// 데이터를 조작하는 경우.... zip , mrs1 , mrs2 모두아닐경우...
+	//If you are manipulating the data .... zip, mrs1, mrs2 Unless the all ...
 
 	if( dh.sig != MRS2_ZIP_CODE && dh.sig != MRS_ZIP_CODE && dh.sig != CCZIPDIRHEADER::SIGNATURE ) {
 		return false;		
@@ -202,7 +202,7 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 	fread(m_pDirData, dh.dirSize, 1, fp);
 
 	if( m_nZipMode>=ZMode_Mrs2 )
-		RecoveryChar( (char*)m_pDirData , dh.dirSize );//mrs 라면 변환..
+		RecoveryChar( (char*)m_pDirData , dh.dirSize );//mrs If the conversion.
 
 	char *pfh = m_pDirData;
 	m_ppDir = (const CCZIPDIRFILEHEADER **)(m_pDirData + dh.dirSize);
@@ -371,7 +371,7 @@ bool CCZip::ReadFile(int i, void* pBuffer, int nMaxSize)
 		if(h.sig!=CCZIPLOCALHEADER::SIGNATURE2) 
 			return false;
 
-	fseek(m_fp, h.fnameLen + h.xtraLen, SEEK_CUR);// MRS 의경우 복구 안해 줬음..
+	fseek(m_fp, h.fnameLen + h.xtraLen, SEEK_CUR);//MRS do not want me to recover.
 
 	if(h.compression==CCZIPLOCALHEADER::COMP_STORE){
 
@@ -438,7 +438,7 @@ bool CCZip::ReadFile(const char* filename, void* pBuffer, int nMaxSize)
 	return ReadFile(index , pBuffer , nMaxSize);
 }
 
-static char _fileheaderReader[1024*16];// sizeof(fh) + fh.fnameLen + fh.xtraLen + fh.cmntLen 의 크기..대충
+static char _fileheaderReader[1024*16];//sizeof (fh) + fh.fnameLen + fh.xtraLen + fh.cmntLen size.Roughly
 static int	_fileheaderReaderSize = 0;
 
 bool CCZip::UpgradeMrs(char* mrs_name) // Mrs To Mrs2
@@ -456,7 +456,7 @@ bool CCZip::UpgradeMrs(char* mrs_name) // Mrs To Mrs2
 		return false;
 	}
 
-	// 복구...
+	//Restore ...
 	fseek(fp, 0, SEEK_SET);
 	int code = CCZIPLOCALHEADER::SIGNATURE;
 	fwrite(&code, 4, 1, fp);
@@ -482,7 +482,7 @@ bool CCZip::UpgradeMrs(char* mrs_name) // Mrs To Mrs2
 	memset(pDirData, 0, dir_data_size);
 	fread(pDirData, dir_data_size, 1, fp);
 
-	// 복구..
+	//Recovery.
 
 	DWORD _sig = CCZIPDIRFILEHEADER::SIGNATURE;
 
@@ -568,7 +568,7 @@ bool CCZip::ConvertZip(char* zip_name)
 	FILE* fp = fopen(zip_name, "rb+");
 
 	if(fp==NULL) {
-		mlog("%s 파일이 읽기 전용인지 확인하세요!~ \n",zip_name);
+		mlog("%s  file is read-only check!~ \n",zip_name);
 		return false;
 	}
 
@@ -666,7 +666,7 @@ bool CCZip::ConvertZip(char* zip_name)
 	return true;
 }
 
-// 이전 버전 파일도 복구해야 한다..
+//Recover previous versions of files that should be ...
 
 bool CCZip::RecoveryMrs(FILE* fp)
 {
@@ -745,7 +745,7 @@ bool CCZip::RecoveryMrs2(FILE* fp)
 	memset(pDirData, 0, dir_data_size);
 	fread(pDirData, dir_data_size, 1, fp);
 
-	RecoveryChar( (char*)pDirData , dir_data_size );//mrs 라면 변환..
+	RecoveryChar( (char*)pDirData , dir_data_size );//mrs If the conversion.
 
 	fseek(fp, dir_data_pos, SEEK_SET);
 	fwrite(pDirData,dir_data_size,1,fp);
@@ -829,17 +829,17 @@ bool CCZip::RecoveryZip(char* zip_name)
 	FILE* fp = fopen(zip_name, "rb+");
 
 	if(fp==NULL) {
-		mlog("%s 파일이 읽기 전용인지 확인하세요!~ \n",zip_name);
+		mlog("%s file is read-only check!~ \n",zip_name);
 		return false;
 	}
 
-	// mrs1 인지 식별..이미 파일들이 나간상태여서 식별방법이 이것뿐...
+	//Mrs1 identify whether ...How to identify files are already out he was in this, but ...
 
-	if( isVersion1Mrs(fp) ) {	// 최초모델...
+	if( isVersion1Mrs(fp) ) {	//the first model.
 		RecoveryMrs( fp );
 	}
 	else {
-		RecoveryMrs2( fp );		// v2 부터는 헤더의 sig 값으로 버전구분....
+		RecoveryMrs2( fp );		//v2 sig value of future versions of the header nine minutes ....
 	}
 
 	fclose(fp);
@@ -1006,7 +1006,7 @@ void FFileList::ConvertNameZip2MRes()
 
 /////////////////////////////////////////////////////////////////////////////////
 
-// 지정된 경로에서 파일 리스트 얻어내기 
+//List of files in the specified path
 
 bool GetDirList(char* path,	FFileList& pList)
 {
@@ -1034,7 +1034,7 @@ bool GetDirList(char* path,	FFileList& pList)
 	return true;
 }
 
-// 지정된 경로에서 디렉토리 리스트 얻어내기 
+//List of directories in the specified path 
 
 bool GetFileList(char* path,FFileList& pList)
 {
@@ -1091,7 +1091,7 @@ bool GetFileListWin(char* path,FFileList& pList)
 }
 
 
-// 모든 하위폴더의 원하는 파일들 검색..
+//Search all the subfolders of the desired file.
 
 bool GetFindFileList(char* path,char* ext,FFileList& pList)
 {
