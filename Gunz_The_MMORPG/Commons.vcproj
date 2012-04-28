@@ -500,64 +500,28 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Bitmap"
+				Name="Match"
 				>
 				<File
-					RelativePath=".\CCBitmap.cpp"
+					RelativePath=".\CCBaseLocale.h"
 					>
 				</File>
 				<File
-					RelativePath=".\CCBitmap.h"
+					RelativePath=".\CCLocaleDefine.h"
 					>
 				</File>
-			</Filter>
-			<Filter
-				Name="DrawContext"
-				>
-				<File
-					RelativePath=".\CCDrawContext.cpp"
+				<Filter
+					Name="Match Global"
 					>
-				</File>
-				<File
-					RelativePath=".\CCDrawContext.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Cursor"
-				>
-				<File
-					RelativePath=".\CCCursor.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Events"
-				>
-				<File
-					RelativePath=".\CCEvent.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="List"
-				>
-				<File
-					RelativePath=".\CCList.h"
-					>
-				</File>
-				<File
-					RelativePath=".\CCPtrList.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Look and Feel"
-				>
-				<File
-					RelativePath=".\CCLookNFeel.h"
-					>
-				</File>
+					<File
+						RelativePath=".\CCMatchGlobal.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCMatchGlobal.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Resource Manager"
@@ -580,12 +544,80 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Fonts"
+				Name="Graphics"
 				>
-				<File
-					RelativePath=".\CCFont.h"
+				<Filter
+					Name="DrawContext"
 					>
-				</File>
+					<File
+						RelativePath=".\CCDrawContext.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCDrawContext.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="GUI"
+					>
+					<Filter
+						Name="List"
+						>
+						<File
+							RelativePath=".\CCList.h"
+							>
+						</File>
+						<File
+							RelativePath=".\CCPtrList.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Fonts"
+						>
+						<File
+							RelativePath=".\CCFont.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Cursor"
+						>
+						<File
+							RelativePath=".\CCCursor.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Bitmap"
+						>
+						<File
+							RelativePath=".\CCBitmap.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\CCBitmap.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Look and Feel"
+					>
+					<File
+						RelativePath=".\CCLookNFeel.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Events"
+					>
+					<File
+						RelativePath=".\CCEvent.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -744,6 +776,18 @@
 				</File>
 				<File
 					RelativePath=".\ZTimer.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Emblem Interface"
+				>
+				<File
+					RelativePath=".\ZEmblemInterface.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ZEmblemInterface.h"
 					>
 				</File>
 			</Filter>
