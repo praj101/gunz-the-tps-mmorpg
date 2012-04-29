@@ -6,7 +6,7 @@
 #include <list>
 #include <string>
 #include <hash_map>
-#include <DirectX/D3DX9.h>
+#include <././DirectX/D3DX9.h>
 #include "RTypes.h"
 
 using namespace stdext;

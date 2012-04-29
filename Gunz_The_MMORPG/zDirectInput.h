@@ -2,7 +2,7 @@
 
 #define DIRECTINPUT_VERSION 0x0800
 
-#include "DirectX/dinput.h"
+#include "./DirectX/dinput.h"
 #include <windows.h>
 
 #define KEYNAMETABLE_COUNT	256
