@@ -2,17 +2,17 @@
 
 #include "CCLocaleDefine.h"
 
-// 국가 코드
+//Country Code
 enum CCCountry
 {
 	CCC_INVALID			= 0,
-	CCC_KOREA			= 82,		// 한국
-	CCC_US				= 1,		// 미국(인터네셔날)
-	CCC_JAPAN			= 81,		// 일본
-	CCC_BRAZIL			= 55,		// 브라질
-	CCC_INDIA			= 91,		// 인도
+	CCC_KOREA			= 82,		//South Korea
+	CCC_US				= 1,		//USA (International)
+	CCC_JAPAN			= 81,		//Japanese
+	CCC_BRAZIL			= 55,		//Brazil
+	CCC_INDIA			= 91,		//??India
 
-	// 10000이상부턴 CustomID.
+	//Take it from more than 10,000 CustomID.
 	CCC_NHNUSA			= 10001		// NHN USA.
 };
 
@@ -30,24 +30,24 @@ enum CCCountry
 //#endif
 //
 
-/* TODO: MLangageConf.h 와 통합해야함 - bird */
+/* TODO: MLangageConf.h Must integrate with - bird */
 
-// LANG_xxx는 winnt.h에 정의되어 있음. - by SungE.
+//LANG_xxx defined in the winnt.h
 enum CCLanguage
 {
 	CCL_INVALID				= 0x00,
-	CCL_CHINESE				= LANG_CHINESE,					// 중국어
-	CCL_CHINESE_TRADITIONAL	= SUBLANG_CHINESE_TRADITIONAL,	// 중국어 같은데 -  _-)a;; 
-	CCL_KOREAN				= LANG_KOREAN,					// 한국어 (LANG_KOREAN값과 동일)
-	CCL_ENGLISH				= LANG_ENGLISH,					// 영어 (LANG_ENGLISH값과 동일)
-	CCL_JAPANESE			= LANG_JAPANESE,				// 일본어 (LANG_JAPANESE값과 동일)
-	CCL_BRAZIL				= LANG_PORTUGUESE,				// 브라질 (LANG_BRAZIL값과 동일)
-	CCL_INDIA				= LANG_INDONESIAN,				// 인도 (LANG_INDONESIAN값과 동일)
-	CCL_GERMAN				= LANG_GERMAN,					// 독일어 (LANG_GERMAN값과 동일)
-	CCL_SPANISH				= LANG_SPANISH,					// 스페인어 (LANG_SPANISH값과 동일)
+	CCL_CHINESE				= LANG_CHINESE,					// Chinese
+	CCL_CHINESE_TRADITIONAL	= SUBLANG_CHINESE_TRADITIONAL,	// Chinese thought
+	CCL_KOREAN				= LANG_KOREAN,					// Korean (LANG_KOREAN the same value).
+	CCL_ENGLISH				= LANG_ENGLISH,					// English (LANG_ENGLISH the same value).
+	CCL_JAPANESE			= LANG_JAPANESE,				// Japanese (LANG_JAPANESE the same value).
+	CCL_BRAZIL				= LANG_PORTUGUESE,				// Brazil (LANG_BRAZIL the same value).
+	CCL_INDIA				= LANG_INDONESIAN,				// India (LANG_INDONESIAN the same value).
+	CCL_GERMAN				= LANG_GERMAN,					// German (LANG_GERMAN the same value).
+	CCL_SPANISH				= LANG_SPANISH,					// Spanish (LANG_SPANISH the same value).
 };
 
-/// 지역화 관련 최상위 관리 클래스 
+//Localization-related top-level management classes
 class CCBaseLocale
 {
 private:
@@ -66,7 +66,7 @@ public:
 
 	const CCCountry	GetCountry()		{ return m_nCountry; }
 	const CCLanguage GetLanguage()		{ return m_nLanguage; }
-	void SetLanguage(CCLanguage langID)	{ m_nLanguage = langID; }	// 국가에 따라 초기화된 언어를 다른 것으로 바꾸고 싶을때
+	void SetLanguage(CCLanguage langID)	{ m_nLanguage = langID; }	//depending on the country to another language, no reply has been initialized
 
 	const bool bIsComplete()			{ return m_bIsComplete; }
 };
