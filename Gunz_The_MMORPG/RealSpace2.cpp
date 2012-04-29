@@ -7,7 +7,7 @@
 //#include "d3dxerr.h"
 #include "RMeshUtil.h"
 #include "RFont.h"
-#include "DirectX/DxErr.h"
+#include "./DirectX/DxErr.h"
 
 #ifdef _HSHIELD
 #include "../../Gunz/HShield/HShield.h"

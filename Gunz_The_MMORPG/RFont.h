@@ -2,7 +2,7 @@
 #pragma warning(disable: 4786)
 
 #include "RTypes.h"
-#include <DirectX/D3DX9.h>
+#include <./DirectX/D3DX9.h>
 #include <map>
 #include <list>
 #include <string>

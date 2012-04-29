@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#include <DirectX/D3DX9.h>
+#include <./DirectX/D3DX9.h>
 #include "RBaseTexture.h"
 #define SAFE_REL(p)      { if(p) { (p)->Release(); (p)=NULL; } }
 

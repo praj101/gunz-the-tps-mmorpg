@@ -1,5 +1,5 @@
 #pragma once
-#include <DirectX/D3DX9.h>
+#include <./DirectX/D3DX9.h>
 
 #include <string>
 #include <map>
