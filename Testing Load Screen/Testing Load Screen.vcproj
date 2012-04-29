@@ -172,6 +172,10 @@
 		<Filter
 			Name="Application"
 			>
+			<File
+				RelativePath=".\main.cpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
