@@ -44,12 +44,12 @@ unsigned long MGetMZFileChecksum(const char* pszFileName)
 	return nChecksum;
 }
 
-void MMakeSeedKey(MPacketCrypterKey* pKey, const MUID& uidServer, const MUID& uidClient, unsigned int nTimeStamp)
+void MMakeSeedKey(MPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp)
 {
 	unsigned char* p = (unsigned char*)pKey->szKey;
 	// key
 	memset(p, 0, sizeof(MPacketCrypterKey));
-	int nUIDSize = sizeof(MUID);
+	int nUIDSize = sizeof(CCUID);
 
 	memcpy(p, &nTimeStamp, sizeof(unsigned int));
 	memcpy(p+sizeof(unsigned int), &uidServer.Low, sizeof(unsigned int));
@@ -84,11 +84,11 @@ void MMakeSeedKey(MPacketCrypterKey* pKey, const MUID& uidServer, const MUID& ui
 }
 
 /*
-void MMakeSeedKey(BYTE Key[SEED_USER_KEY_LEN], BYTE IV[SEED_BLOCK_LEN], const MUID& uidServer, const MUID& uidClient, unsigned int nTimeStamp)
+void MMakeSeedKey(BYTE Key[SEED_USER_KEY_LEN], BYTE IV[SEED_BLOCK_LEN], const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp)
 {
 	// key
 	memset(Key, 0, sizeof(BYTE)*SEED_USER_KEY_LEN);
-	int nUIDSize = sizeof(MUID);
+	int nUIDSize = sizeof(CCUID);
 
 	memcpy(Key, &nTimeStamp, sizeof(unsigned int));
 	memcpy(Key+sizeof(unsigned int), &uidServer.Low, sizeof(unsigned int));

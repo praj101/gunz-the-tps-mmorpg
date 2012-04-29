@@ -18,7 +18,7 @@ bool MMatchRuleBerserker::OnCheckRoundFinish()
 
 void MMatchRuleBerserker::OnRoundBegin()
 {
-	m_uidBerserker = MUID(0,0);
+	m_uidBerserker = CCUID(0,0);
 }
 
 void* MMatchRuleBerserker::CreateRuleInfoBlob()
@@ -34,19 +34,19 @@ void* MMatchRuleBerserker::CreateRuleInfoBlob()
 }
 
 void MMatchRuleBerserker::RouteAssignBerserker()
-{	MCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ASSIGN_BERSERKER, MUID(0, 0));
+{	MCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ASSIGN_BERSERKER, CCUID(0, 0));
 	pNew->AddParameter(new MCmdParamUID(m_uidBerserker));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
 }
 
 
-MUID MMatchRuleBerserker::RecommendBerserker()
+CCUID MMatchRuleBerserker::RecommendBerserker()
 {
 	CCMatchStage* pStage = GetStage();
-	if (pStage == NULL) return MUID(0,0);
+	if (pStage == NULL) return CCUID(0,0);
 
 	int nCount = 0;
-	for(MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
+	for(CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 		if (pObj->CheckAlive())
@@ -54,28 +54,28 @@ MUID MMatchRuleBerserker::RecommendBerserker()
 			return pObj->GetUID();
 		}
 	}
-	return MUID(0,0);
+	return CCUID(0,0);
 
 }
 
 
-void MMatchRuleBerserker::OnEnterBattle(MUID& uidChar)
+void MMatchRuleBerserker::OnEnterBattle(CCUID& uidChar)
 {
 }
 
-void MMatchRuleBerserker::OnLeaveBattle(MUID& uidChar)
+void MMatchRuleBerserker::OnLeaveBattle(CCUID& uidChar)
 {
 	if (uidChar == m_uidBerserker)
 	{
-		m_uidBerserker = MUID(0,0);
+		m_uidBerserker = CCUID(0,0);
 		RouteAssignBerserker();
 	}
 }
 
-void MMatchRuleBerserker::OnGameKill(const MUID& uidAttacker, const MUID& uidVictim)
+void MMatchRuleBerserker::OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim)
 {
 	// 희생자가 버서커이거나 현재 버서커가 한명도 없을때
-	if ((m_uidBerserker == uidVictim) || (m_uidBerserker == MUID(0,0)))
+	if ((m_uidBerserker == uidVictim) || (m_uidBerserker == CCUID(0,0)))
 	{
 		bool bAttackerCanBeBerserker = false;
 
@@ -91,13 +91,13 @@ void MMatchRuleBerserker::OnGameKill(const MUID& uidAttacker, const MUID& uidVic
 			}
 		}
 		// 공격자가 자신일 경우 버서커는 아무도 되지 않는다.
-		else if ((uidAttacker == MUID(0,0)) || (uidAttacker == uidVictim))
+		else if ((uidAttacker == CCUID(0,0)) || (uidAttacker == uidVictim))
 		{
 			bAttackerCanBeBerserker = false;
 		}
 
 		if (bAttackerCanBeBerserker) m_uidBerserker = uidAttacker;
-		else m_uidBerserker = MUID(0,0);
+		else m_uidBerserker = CCUID(0,0);
 
 		RouteAssignBerserker();
 	}

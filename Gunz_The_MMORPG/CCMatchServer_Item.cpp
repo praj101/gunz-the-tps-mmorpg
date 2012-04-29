@@ -25,7 +25,7 @@
 
 
 // 플레이어에게 아이템 지급
-bool CCMatchServer::DistributeZItem(const MUID& uidPlayer, const unsigned long int nItemID, bool bRentItem, int nRentPeriodHour, int nItemCount)
+bool CCMatchServer::DistributeZItem(const CCUID& uidPlayer, const unsigned long int nItemID, bool bRentItem, int nRentPeriodHour, int nItemCount)
 {
 	CCMatchObject* pObject = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObject)) return false;
@@ -41,7 +41,7 @@ bool CCMatchServer::DistributeZItem(const MUID& uidPlayer, const unsigned long i
 		// 오브젝트에 아이템 추가
 		int nRentMinutePeriodRemainder = nRentPeriodHour * 60;
 
-		MUID uidNew = MMatchItemMap::UseUID();
+		CCUID uidNew = MMatchItemMap::UseUID();
 		pObject->GetCharInfo()->m_ItemList.CreateItem(uidNew, nNewCIID, nItemID, bRentItem, nRentMinutePeriodRemainder, nRentPeriodHour);
 	}
 	else 
@@ -57,7 +57,7 @@ bool CCMatchServer::DistributeZItem(const MUID& uidPlayer, const unsigned long i
 
 
 // 실제 디비와 오브젝트에서 아이템을 삭제
-bool CCMatchServer::RemoveExpiredCharItem(CCMatchObject* pObject, MUID& uidItem)
+bool CCMatchServer::RemoveExpiredCharItem(CCMatchObject* pObject, CCUID& uidItem)
 {
 	MMatchItem* pItem = pObject->GetCharInfo()->m_ItemList.GetItem(uidItem);
 	if (pItem == NULL) return false;
@@ -80,11 +80,11 @@ bool CCMatchServer::RemoveExpiredCharItem(CCMatchObject* pObject, MUID& uidItem)
 }
 
 
-void CCMatchServer::OnRequestAccountItemList(const MUID& uidPlayer)
+void CCMatchServer::OnRequestAccountItemList(const CCUID& uidPlayer)
 {
 	ResponseAccountItemList(uidPlayer);
 }
-void CCMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
+void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL) || (pObj->GetAccountInfo() == NULL)) return;
@@ -97,7 +97,7 @@ void CCMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 }
 
 
-//void CCMatchServer::ResponseTakeoffItem(const MUID& uidPlayer, const MMatchCharItemParts parts)
+//void CCMatchServer::ResponseTakeoffItem(const CCUID& uidPlayer, const MMatchCharItemParts parts)
 //{
 //	CCMatchObject* pObj = GetObject(uidPlayer);
 //	if (pObj == NULL) return;
@@ -148,7 +148,7 @@ void CCMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //		}
 //	}
 //
-//	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_TAKEOFF_ITEM, MUID(0,0));
+//	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_TAKEOFF_ITEM, CCUID(0,0));
 //	pNew->AddParameter(new MCommandParameterInt(nResult));
 //	RouteToListener(pObj, pNew);	
 //
@@ -159,7 +159,7 @@ void CCMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //		// 만약 스테이지 안이면 스테이지에 알려서 유저의 Look을 업데이트 해줘야 한다.
 //		if( FindStage(pObj->GetStageUID())  )
 //		{
-//			MCommand* pEquipInfo = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, MUID(0, 0) );
+//			MCommand* pEquipInfo = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, CCUID(0, 0) );
 //			pEquipInfo->AddParameter( new MCmdParamUID(uidPlayer) );
 //			pEquipInfo->AddParameter( new MCmdParamInt(parts) );
 //			pEquipInfo->AddParameter( new MCmdParamInt(0) );
@@ -169,7 +169,7 @@ void CCMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //}
 //
 //
-//bool CCMatchServer::ResponseCharacterItemList(const MUID& uidPlayer)
+//bool CCMatchServer::ResponseCharacterItemList(const CCUID& uidPlayer)
 //{
 //	CCMatchObject* pObj = GetObject(uidPlayer);
 //	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) 
@@ -215,10 +215,10 @@ void CCMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //	// 장비한 아이템 전송
 //	int nRealEquipedItemCount = 0;
 //	int nIndex = 0;
-//	void* pEquipItemArray = MMakeBlobArray(sizeof(MUID), MMCIP_END);
+//	void* pEquipItemArray = MMakeBlobArray(sizeof(CCUID), MMCIP_END);
 //	for (int i = 0; i < MMCIP_END; i++)
 //	{
-//		MUID* pUID = (MUID*)MGetBlobArrayElement(pEquipItemArray, nIndex++);
+//		CCUID* pUID = (CCUID*)MGetBlobArrayElement(pEquipItemArray, nIndex++);
 //
 //		if (!pObj->GetCharInfo()->m_EquipedItem.IsEmpty(MMatchCharItemParts(i)))
 //		{
@@ -227,7 +227,7 @@ void CCMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //		}
 //		else
 //		{
-//			*pUID = MUID(0,0);
+//			*pUID = CCUID(0,0);
 //		}
 //	}
 //
@@ -307,7 +307,7 @@ void CCMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //	return true;
 //}
 
-void CCMatchServer::OnRequestUseSpendableNormalItem(const MUID& uidPlayer, const MUID& uidItem)
+void CCMatchServer::OnRequestUseSpendableNormalItem(const CCUID& uidPlayer, const CCUID& uidItem)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
@@ -317,7 +317,7 @@ void CCMatchServer::OnRequestUseSpendableNormalItem(const MUID& uidPlayer, const
 
 	MMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
 	if( pItem == NULL ) {
-		cclog("Use Spendable Item Failed[CID : %d, MUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
+		cclog("Use Spendable Item Failed[CID : %d, CCUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
 		return;
 	}
 
@@ -327,7 +327,7 @@ void CCMatchServer::OnRequestUseSpendableNormalItem(const MUID& uidPlayer, const
 	}	
 }
 
-void CCMatchServer::UseSpendableItem(const MUID& uidPlayer, const MUID& uidItem)
+void CCMatchServer::UseSpendableItem(const CCUID& uidPlayer, const CCUID& uidItem)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
@@ -337,7 +337,7 @@ void CCMatchServer::UseSpendableItem(const MUID& uidPlayer, const MUID& uidItem)
 
 	MMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
 	if( pItem == NULL ) {
-		cclog("Use Spendable Item Failed[CID : %d, MUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
+		cclog("Use Spendable Item Failed[CID : %d, CCUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
 		return;
 	}
 
@@ -377,7 +377,7 @@ void CCMatchServer::UseSpendableItem(const MUID& uidPlayer, const MUID& uidItem)
 }
 
 /*
-void CCMatchServer::OnRequestUseSpendableBuffItem(const MUID& uidPlayer, const MUID& uidItem)
+void CCMatchServer::OnRequestUseSpendableBuffItem(const CCUID& uidPlayer, const CCUID& uidItem)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
@@ -387,7 +387,7 @@ void CCMatchServer::OnRequestUseSpendableBuffItem(const MUID& uidPlayer, const M
 
 	MMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
 	if( pItem == NULL ) {
-		cclog("Use Spendable Item Failed[CID : %d, MUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
+		cclog("Use Spendable Item Failed[CID : %d, CCUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
 		return;
 	}
 
@@ -437,7 +437,7 @@ void CCMatchServer::OnRequestUseSpendableBuffItem(const MUID& uidPlayer, const M
 }*/
 //버프정보임시주석 
 /*
-void CCMatchServer::PostCmdCharacterBuffInfo(const MUID& uidPlayer)
+void CCMatchServer::PostCmdCharacterBuffInfo(const CCUID& uidPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;

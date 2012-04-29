@@ -35,8 +35,8 @@ public:
 	void Init();
 	void Destory();
 
-	bool AddPlayer(MDUELTOURNAMENTTYPE nType, MUID &uidPlayer);
-	bool RemovePlayer(MDUELTOURNAMENTTYPE nType, MUID &uidPlayer);
+	bool AddPlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer);
+	bool RemovePlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer);
 	
 	void Tick(unsigned long nTick);
 

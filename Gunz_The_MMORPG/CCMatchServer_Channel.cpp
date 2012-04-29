@@ -46,7 +46,7 @@ void CopyChannelPlayerListNodeForTrans(MTD_ChannelPlayerListNode* pDest, CCMatch
 }
 
 
-MMatchChannel* CCMatchServer::FindChannel(const MUID& uidChannel)
+MMatchChannel* CCMatchServer::FindChannel(const CCUID& uidChannel)
 {
 	return m_ChannelMap.Find(uidChannel);
 }
@@ -57,13 +57,13 @@ MMatchChannel* CCMatchServer::FindChannel(const MCHANNEL_TYPE nChannelType, cons
 }
 
 
-bool CCMatchServer::ChannelAdd(const char* pszChannelName, const char* pszRuleName, MUID* pAllocUID, MCHANNEL_TYPE nType, int nMaxPlayers, int nLevelMin, int nLevelMax,
+bool CCMatchServer::ChannelAdd(const char* pszChannelName, const char* pszRuleName, CCUID* pAllocUID, MCHANNEL_TYPE nType, int nMaxPlayers, int nLevelMin, int nLevelMax,
 							  const bool bIsTicketChannel, const DWORD dwTicketItemID, const bool bIsUseTicket, const char* pszChannelNameStrResId)
 {
 	return m_ChannelMap.Add(pszChannelName, pszRuleName, pAllocUID, nType, nMaxPlayers, nLevelMin, nLevelMax, bIsTicketChannel, dwTicketItemID, bIsUseTicket, pszChannelNameStrResId);
 }
 
-bool CCMatchServer::ChannelJoin(const MUID& uidPlayer, const MCHANNEL_TYPE nChannelType, const char* pszChannelName)
+bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const MCHANNEL_TYPE nChannelType, const char* pszChannelName)
 {
 	if ((nChannelType < 0) || (nChannelType >= MCHANNEL_TYPE_MAX)) return false;
 
@@ -71,7 +71,7 @@ bool CCMatchServer::ChannelJoin(const MUID& uidPlayer, const MCHANNEL_TYPE nChan
 	if ((nChannelNameLen >= CHANNELNAME_LEN) || (nChannelNameLen <= 0)) return false;
 
 
-	MUID uidChannel = MUID(0,0);
+	CCUID uidChannel = CCUID(0,0);
 
 	// 같이 이름의 채널이 존재하는지 검사한다.
 	// 만약 있다면 그 채널로 바고 입장.
@@ -107,8 +107,8 @@ bool CCMatchServer::ChannelJoin(const MUID& uidPlayer, const MCHANNEL_TYPE nChan
 
 					RouteResponseToListener(pObj, MC_MATCH_RESPONSE_RESULT, MERR_CANNOT_JOIN_NEED_TICKET);
 
-					const MUID& uidChannel = FindFreeChannel( uidPlayer );
-					if( MUID(0, 0) == uidChannel )
+					const CCUID& uidChannel = FindFreeChannel( uidPlayer );
+					if( CCUID(0, 0) == uidChannel )
 					{
 						ASSERT( 0 && "들어갈 수 있는 채널을 찾지 못했음.");
 						cclog( "CCMatchServer_Channel.cpp - ChannelJoin : Can't find free channel.\n" );
@@ -138,10 +138,10 @@ bool CCMatchServer::ChannelJoin(const MUID& uidPlayer, const MCHANNEL_TYPE nChan
 	return ChannelJoin(uidPlayer, uidChannel);
 }
 
-bool CCMatchServer::ChannelJoin(const MUID& uidPlayer, const MUID& uidChannel)
+bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const CCUID& uidChannel)
 {
 	bool bEnableInterface = true;
-	MUID uidChannelTmp = uidChannel;
+	CCUID uidChannelTmp = uidChannel;
 
 	MMatchChannel* pChannel = FindChannel(uidChannelTmp);
 	if (pChannel == NULL) return false;
@@ -193,9 +193,9 @@ bool CCMatchServer::ChannelJoin(const MUID& uidPlayer, const MUID& uidChannel)
 
 
 				// 입장권이 없음으로 일반 채널로 이동새켜줘야 한다.
-				const MUID& uidFreeChannel = FindFreeChannel( uidPlayer);
+				const CCUID& uidFreeChannel = FindFreeChannel( uidPlayer);
 				
-				if( MUID(0, 0) == uidChannel) {
+				if( CCUID(0, 0) == uidChannel) {
 					ASSERT( 0 && "들어갈 수 있는 채널을 찾지 못했음.");
 					cclog( "CCMatchServer_Channel.cpp - ChannelJoin : Can't find free channel.\n" );
 					return false;
@@ -249,7 +249,7 @@ bool CCMatchServer::ChannelJoin(const MUID& uidPlayer, const MUID& uidChannel)
 	return true;
 }
 
-void CCMatchServer::ResponseChannelJoin(MUID uidPlayer, MUID uidChannel, int nChannelType
+void CCMatchServer::ResponseChannelJoin(CCUID uidPlayer, CCUID uidChannel, int nChannelType
 									   , const char* szChannelStrResId, bool bEnableInterface)
 {
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidPlayer);
@@ -258,7 +258,7 @@ void CCMatchServer::ResponseChannelJoin(MUID uidPlayer, MUID uidChannel, int nCh
 	MMatchChannel *pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return;
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_JOIN), MUID(0,0), m_This);
+	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_JOIN), CCUID(0,0), m_This);
 	pNew->AddParameter(new MCommandParameterUID(uidChannel));
 	pNew->AddParameter(new MCommandParameterInt(nChannelType));
 
@@ -272,7 +272,7 @@ void CCMatchServer::ResponseChannelJoin(MUID uidPlayer, MUID uidChannel, int nCh
 	RouteToListener(pObj, pNew);
 }
 
-bool CCMatchServer::ChannelLeave(const MUID& uidPlayer, const MUID& uidChannel)
+bool CCMatchServer::ChannelLeave(const CCUID& uidPlayer, const CCUID& uidChannel)
 {
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return false;
@@ -281,14 +281,14 @@ bool CCMatchServer::ChannelLeave(const MUID& uidPlayer, const MUID& uidChannel)
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidPlayer);
 	if (pObj == NULL) return false;
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LEAVE),MUID(0,0),m_This);
+	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LEAVE),CCUID(0,0),m_This);
 	pNew->AddParameter(new MCommandParameterUID(uidPlayer));
 	pNew->AddParameter(new MCommandParameterUID(pChannel->GetUID()));
 	RouteToListener(pObj, pNew);
 
 	if (pObj) 
 	{
-		pObj->SetChannelUID(MUID(0,0));
+		pObj->SetChannelUID(CCUID(0,0));
 		pObj->SetPlace(MMP_OUTSIDE);
 		pObj->SetStageListTransfer(false);	// turn off Auto refresh stage list
 	}
@@ -298,7 +298,7 @@ bool CCMatchServer::ChannelLeave(const MUID& uidPlayer, const MUID& uidChannel)
 /*
 // RAONHAJE 임시코드
 #include "CMLexicalAnalyzer.h"
-bool StageGo(CCMatchServer* pServer, const MUID& uidPlayer, char* pszChat)
+bool StageGo(CCMatchServer* pServer, const CCUID& uidPlayer, char* pszChat)
 {
 	CCMatchObject* pChar = pServer->GetObject(uidPlayer);
 	if (pChar == NULL)	return false;
@@ -338,7 +338,7 @@ bool StageGo(CCMatchServer* pServer, const MUID& uidPlayer, char* pszChat)
 }
 */
 
-bool CCMatchServer::ChannelChat(const MUID& uidPlayer, const MUID& uidChannel, char* pszChat)
+bool CCMatchServer::ChannelChat(const CCUID& uidPlayer, const CCUID& uidChannel, char* pszChat)
 {
 	if( 0 == strlen(pszChat) ) return false;
 	MMatchChannel* pChannel = FindChannel(uidChannel);
@@ -364,8 +364,8 @@ bool CCMatchServer::ChannelChat(const MUID& uidPlayer, const MUID& uidChannel, c
 		return false;
 	}
 
-	MUID uidStage = pObj->GetStageUID();
-	if( uidStage != MUID(0, 0) )
+	CCUID uidStage = pObj->GetStageUID();
+	if( uidStage != CCUID(0, 0) )
 	{
 		//LOG(LOG_FILE,"CCMatchServer::ChannelChat - Player In Stage(S:%d), Not Lobby", uidStage);
 		return false;
@@ -384,13 +384,13 @@ bool CCMatchServer::ChannelChat(const MUID& uidPlayer, const MUID& uidChannel, c
 		MCommand* pCmd = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_DUMB_CHAT), pObj->GetUID(), m_This);
 		Post(pCmd);
 
-		LOG(LOG_FILE, "CCMatchServer::ChannelChat - Set Dumb Player(MUID:%d%d, Name:%s)", pObj->GetUID().High, pObj->GetUID().Low, pObj->GetName());
+		LOG(LOG_FILE, "CCMatchServer::ChannelChat - Set Dumb Player(CCUID:%d%d, Name:%s)", pObj->GetUID().High, pObj->GetUID().Low, pObj->GetName());
 		return false;
 	}
 
 	///<여기까지....
 
-	MCommand* pCmd = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_CHAT), MUID(0,0), m_This);
+	MCommand* pCmd = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_CHAT), CCUID(0,0), m_This);
 	pCmd->AddParameter(new MCommandParameterUID(uidChannel));
 	pCmd->AddParameter(new MCommandParameterString(pObj->GetCharInfo()->m_szName));
 	pCmd->AddParameter(new MCommandParameterString(pszChat));
@@ -400,11 +400,11 @@ bool CCMatchServer::ChannelChat(const MUID& uidPlayer, const MUID& uidChannel, c
 	return true;
 }
 
-void CCMatchServer::OnRequestRecommendedChannel(const MUID& uidComm)
+void CCMatchServer::OnRequestRecommendedChannel(const CCUID& uidComm)
 {
-	MUID uidChannel = FindFreeChannel( uidComm );
+	CCUID uidChannel = FindFreeChannel( uidComm );
 
-	if (MUID(0,0) == uidChannel ) 
+	if (CCUID(0,0) == uidChannel ) 
 	{
 		if( !ChannelAdd(GetDefaultChannelName(), GetDefaultChannelRuleName(), &uidChannel, MCHANNEL_TYPE_PRESET) )
 		{
@@ -419,24 +419,24 @@ void CCMatchServer::OnRequestRecommendedChannel(const MUID& uidComm)
 	Post(pNew);
 }
 
-void CCMatchServer::OnRequestChannelJoin(const MUID& uidPlayer, const MUID& uidChannel)
+void CCMatchServer::OnRequestChannelJoin(const CCUID& uidPlayer, const CCUID& uidChannel)
 {
 	ChannelJoin(uidPlayer, uidChannel);
 }
 
-void CCMatchServer::OnRequestChannelJoin(const MUID& uidPlayer, const MCHANNEL_TYPE nChannelType, const char* pszChannelName)
+void CCMatchServer::OnRequestChannelJoin(const CCUID& uidPlayer, const MCHANNEL_TYPE nChannelType, const char* pszChannelName)
 {
 	if ((nChannelType < 0) || (nChannelType >= MCHANNEL_TYPE_MAX)) return;
 
 	ChannelJoin(uidPlayer, nChannelType, pszChannelName);
 }
 
-void CCMatchServer::OnChannelChat(const MUID& uidPlayer, const MUID& uidChannel, char* pszChat)
+void CCMatchServer::OnChannelChat(const CCUID& uidPlayer, const CCUID& uidChannel, char* pszChat)
 {
 	ChannelChat(uidPlayer, uidChannel, pszChat);
 }
 
-void CCMatchServer::OnStartChannelList(const MUID& uidPlayer, const int nChannelType)
+void CCMatchServer::OnStartChannelList(const CCUID& uidPlayer, const int nChannelType)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
@@ -444,7 +444,7 @@ void CCMatchServer::OnStartChannelList(const MUID& uidPlayer, const int nChannel
 	pObj->SetChannelListTransfer(true, MCHANNEL_TYPE(nChannelType));
 }
 
-void CCMatchServer::OnStopChannelList(const MUID& uidPlayer)
+void CCMatchServer::OnStopChannelList(const CCUID& uidPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
@@ -453,7 +453,7 @@ void CCMatchServer::OnStopChannelList(const MUID& uidPlayer)
 
 }
 
-void CCMatchServer::ChannelList(const MUID& uidPlayer, MCHANNEL_TYPE nChannelType)
+void CCMatchServer::ChannelList(const CCUID& uidPlayer, MCHANNEL_TYPE nChannelType)
 {
 	CCMatchObject* pChar = GetObject(uidPlayer);
 	if (! IsEnabledObject(pChar)) return;
@@ -470,11 +470,11 @@ void CCMatchServer::ChannelList(const MUID& uidPlayer, MCHANNEL_TYPE nChannelTyp
 
 	nChannelCount = min(nChannelCount, MAX_CHANNEL_LIST_NODE);
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LIST), MUID(0,0), m_This);
+	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LIST), CCUID(0,0), m_This);
 
 	void* pChannelArray = MMakeBlobArray(sizeof(MCHANNELLISTNODE), nChannelCount);
 	int nIndex=0;
-	for (map<MUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(nChannelType); 
+	for (map<CCUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(nChannelType); 
 		itor!=m_ChannelMap.GetTypesChannelMapEnd(nChannelType); itor++) {
 
 		if (nIndex >= nChannelCount) break;
@@ -502,12 +502,12 @@ void CCMatchServer::ChannelList(const MUID& uidPlayer, MCHANNEL_TYPE nChannelTyp
 
 
 
-//void CCMatchServer::OnChannelRequestPlayerList(const MUID& uidPlayer, const MUID& uidChannel, int nPage)
+//void CCMatchServer::OnChannelRequestPlayerList(const CCUID& uidPlayer, const CCUID& uidChannel, int nPage)
 //{
 //	ChannelResponsePlayerList(uidPlayer, uidChannel, nPage);
 //}
 
-void CCMatchServer::OnChannelRequestPlayerList(const MUID& uidPlayer, const MUID& uidChannel, int nPage)
+void CCMatchServer::OnChannelRequestPlayerList(const CCUID& uidPlayer, const CCUID& uidChannel, int nPage)
 {
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return;
@@ -521,7 +521,7 @@ void CCMatchServer::OnChannelRequestPlayerList(const MUID& uidPlayer, const MUID
 	pChannel->SyncPlayerList(pObj, nPage);
 }
 
-void CCMatchServer::ChannelResponsePlayerList(const MUID& uidPlayer, const MUID& uidChannel, int nPage)
+void CCMatchServer::ChannelResponsePlayerList(const CCUID& uidPlayer, const CCUID& uidChannel, int nPage)
 {
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return;
@@ -541,7 +541,7 @@ void CCMatchServer::ChannelResponsePlayerList(const MUID& uidPlayer, const MUID&
 		nPlayerIndex = nPage * NUM_PLAYERLIST_NODE;
 	}
 
-	MUIDRefCache::iterator FirstItor = pChannel->GetObjBegin();
+	CCUIDRefCache::iterator FirstItor = pChannel->GetObjBegin();
 
 	for (int i = 0; i < nPlayerIndex; i++) 
 	{
@@ -557,7 +557,7 @@ void CCMatchServer::ChannelResponsePlayerList(const MUID& uidPlayer, const MUID&
 	else if (nNodeCount > NUM_PLAYERLIST_NODE) nNodeCount = NUM_PLAYERLIST_NODE;
 
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_PLAYER_LIST), MUID(0,0), m_This);
+	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_PLAYER_LIST), CCUID(0,0), m_This);
 	//pNew->AddParameter(new MCommandParameterUID(uidChannel));
 	pNew->AddParameter(new MCommandParameterUChar((unsigned char)nObjCount));
 	pNew->AddParameter(new MCommandParameterUChar((unsigned char)nPage));
@@ -565,7 +565,7 @@ void CCMatchServer::ChannelResponsePlayerList(const MUID& uidPlayer, const MUID&
 	void* pPlayerArray = MMakeBlobArray(sizeof(MTD_ChannelPlayerListNode), nNodeCount);
 
 	int nArrayIndex=0;
-	for (MUIDRefCache::iterator i=FirstItor; i != pChannel->GetObjEnd(); i++) 
+	for (CCUIDRefCache::iterator i=FirstItor; i != pChannel->GetObjEnd(); i++) 
 	{
 		CCMatchObject* pScanObj = (CCMatchObject*)(*i).second;
 
@@ -584,14 +584,14 @@ void CCMatchServer::ChannelResponsePlayerList(const MUID& uidPlayer, const MUID&
 	RouteToListener(pObj, pNew);
 }
 
-void CCMatchServer::OnChannelRequestAllPlayerList(const MUID& uidPlayer, const MUID& uidChannel, unsigned long int nPlaceFilter,
+void CCMatchServer::OnChannelRequestAllPlayerList(const CCUID& uidPlayer, const CCUID& uidChannel, unsigned long int nPlaceFilter,
 												 unsigned long int nOptions)
 {
 	ChannelResponseAllPlayerList(uidPlayer, uidChannel, nPlaceFilter, nOptions);
 }
 
 
-void CCMatchServer::ChannelResponseAllPlayerList(const MUID& uidPlayer, const MUID& uidChannel, unsigned long int nPlaceFilter,
+void CCMatchServer::ChannelResponseAllPlayerList(const CCUID& uidPlayer, const CCUID& uidChannel, unsigned long int nPlaceFilter,
 												unsigned long int nOptions)
 {
 	MMatchChannel* pChannel = FindChannel(uidChannel);
@@ -605,7 +605,7 @@ void CCMatchServer::ChannelResponseAllPlayerList(const MUID& uidPlayer, const MU
 	memset(ppTransObjectArray, 0, sizeof(CCMatchObject*) * DEFAULT_CHANNEL_MAXPLAYERS);
 
 	// TransObjectArray에 전송할 Object의 포인터만 저장해놓는다.
-	for (MUIDRefCache::iterator i=pChannel->GetObjBegin(); i != pChannel->GetObjEnd(); i++) 
+	for (CCUIDRefCache::iterator i=pChannel->GetObjBegin(); i != pChannel->GetObjEnd(); i++) 
 	{
 		CCMatchObject* pScanObj = (CCMatchObject*)(*i).second;
 
@@ -648,7 +648,7 @@ void CCMatchServer::ChannelResponseAllPlayerList(const MUID& uidPlayer, const MU
 
 	if (nNodeCount <= 0) return;
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_ALL_PLAYER_LIST), MUID(0,0), m_This);
+	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_ALL_PLAYER_LIST), CCUID(0,0), m_This);
 	pNew->AddParameter(new MCommandParameterUID(uidChannel));
 
 	void* pPlayerArray = MMakeBlobArray(sizeof(MTD_ChannelPlayerListNode), nNodeCount);
@@ -672,32 +672,32 @@ void CCMatchServer::ChannelResponseAllPlayerList(const MUID& uidPlayer, const MU
 
 
 
-void CCMatchServer::ResponseChannelRule(const MUID& uidPlayer, const MUID& uidChannel)
+void CCMatchServer::ResponseChannelRule(const CCUID& uidPlayer, const CCUID& uidChannel)
 {
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return;
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) return;
 
-	MCommand* pNew = CreateCommand(MC_MATCH_CHANNEL_RESPONSE_RULE, MUID(0,0));
+	MCommand* pNew = CreateCommand(MC_MATCH_CHANNEL_RESPONSE_RULE, CCUID(0,0));
 	pNew->AddParameter( new MCommandParameterUID(uidChannel) );
 	pNew->AddParameter( new MCmdParamStr(const_cast<char*>(pChannel->GetRuleName())) );
 	RouteToListener(pObj, pNew);
 }
 
 
-const MUID CCMatchServer::FindFreeChannel(  const MUID& uidPlayer  )
+const CCUID CCMatchServer::FindFreeChannel(  const CCUID& uidPlayer  )
 {
-	MUID uidChannel = MUID(0,0);
+	CCUID uidChannel = CCUID(0,0);
 
-	if (uidChannel == MUID(0,0) &&
+	if (uidChannel == CCUID(0,0) &&
 		MGetServerConfig()->IsEnabledDuelTournament() && 
 		MGetServerConfig()->IsSendLoginUserToDuelTournamentChannel())
 	{
-		for(map<MUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_DUELTOURNAMENT); 
+		for(map<CCUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_DUELTOURNAMENT); 
 			itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_DUELTOURNAMENT); itor++) {
 
-				MUID uid = (*itor).first;
+				CCUID uid = (*itor).first;
 				if (MOK == ValidateChannelJoin(uidPlayer, uid)) {
 					MMatchChannel* pChannel = FindChannel(uid);
 					if (pChannel) {
@@ -709,12 +709,12 @@ const MUID CCMatchServer::FindFreeChannel(  const MUID& uidPlayer  )
 			}
 	}
 
-	if (uidChannel == MUID(0,0))
+	if (uidChannel == CCUID(0,0))
 	{
 		// Find proper channel by Level
-		for(map<MUID, MMatchChannel*>::const_iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_PRESET); 
+		for(map<CCUID, MMatchChannel*>::const_iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_PRESET); 
 			itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_PRESET); itor++) {
-				MUID uid = (*itor).first;
+				CCUID uid = (*itor).first;
 				if (MOK == ValidateChannelJoin(uidPlayer, uid)) {
 					MMatchChannel* pChannel = FindChannel(uid);
 					if (pChannel) {
@@ -729,9 +729,9 @@ const MUID CCMatchServer::FindFreeChannel(  const MUID& uidPlayer  )
 
 	// 디버그 버전은 무조건 자유채널로 입장하게 만들었다.
 //#ifdef _DEBUG
-//	for(map<MUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_PRESET); 
+//	for(map<CCUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_PRESET); 
 //		itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_PRESET); itor++) {
-//		MUID uid = (*itor).first;
+//		CCUID uid = (*itor).first;
 //		MMatchChannel* pChannel = FindChannel(uid);
 //		if (pChannel) 
 //		{
@@ -742,12 +742,12 @@ const MUID CCMatchServer::FindFreeChannel(  const MUID& uidPlayer  )
 //#endif
 
 	// 레벨제한으로 못들어가면 공개채널로 들어간다.
-	if (uidChannel == MUID(0,0))
+	if (uidChannel == CCUID(0,0))
 	{
-		for(map<MUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_PRESET); 
+		for(map<CCUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_PRESET); 
 			itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_PRESET); itor++) {
 
-			MUID uid = (*itor).first;
+			CCUID uid = (*itor).first;
 			if (MOK == ValidateChannelJoin(uidPlayer, uid)) {
 				MMatchChannel* pChannel = FindChannel(uid);
 				if (pChannel) {
@@ -760,11 +760,11 @@ const MUID CCMatchServer::FindFreeChannel(  const MUID& uidPlayer  )
 	}
 
 	// 만약 들어갈데가 없으면 사설채널로 들어간다.
-	if (uidChannel == MUID(0,0))
+	if (uidChannel == CCUID(0,0))
 	{
-		for(map<MUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_USER); 
+		for(map<CCUID, MMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_USER); 
 			itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_USER); itor++) {
-			MUID uid = (*itor).first;
+			CCUID uid = (*itor).first;
 			if (MOK == ValidateChannelJoin(uidPlayer, uid)) {
 				MMatchChannel* pChannel = FindChannel(uid);
 				if (pChannel) {

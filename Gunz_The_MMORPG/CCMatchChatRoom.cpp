@@ -5,7 +5,7 @@
 
 
 
-MMatchChatRoom::MMatchChatRoom(const MUID& uidRoom, const MUID& uidMaster, const char* pszName)
+MMatchChatRoom::MMatchChatRoom(const CCUID& uidRoom, const CCUID& uidMaster, const char* pszName)
 {
 	m_uidChatRoom = uidRoom;
 	m_uidMaster = uidMaster;
@@ -20,9 +20,9 @@ MMatchChatRoom::~MMatchChatRoom()
 {
 }
 
-bool MMatchChatRoom::AddPlayer(const MUID& uidPlayer)
+bool MMatchChatRoom::AddPlayer(const CCUID& uidPlayer)
 {
-	MUIDRefCache::iterator i = m_PlayerList.find(uidPlayer);
+	CCUIDRefCache::iterator i = m_PlayerList.find(uidPlayer);
 	if (i != m_PlayerList.end())
 		return false;
 
@@ -37,17 +37,17 @@ bool MMatchChatRoom::AddPlayer(const MUID& uidPlayer)
 	return true;
 }
 
-bool MMatchChatRoom::IsFindPlayer(const MUID& uidPlayer)	// 해당 플레이어가 있는지 확인한다
+bool MMatchChatRoom::IsFindPlayer(const CCUID& uidPlayer)	// 해당 플레이어가 있는지 확인한다
 {
-	MUIDRefCache::iterator i = m_PlayerList.find(uidPlayer);
+	CCUIDRefCache::iterator i = m_PlayerList.find(uidPlayer);
 	if (i == m_PlayerList.end())
 		return false;
 	return true;										// 플레이어가 있으면 참 반환
 }
 
-void MMatchChatRoom::RemovePlayer(const MUID& uidPlayer)
+void MMatchChatRoom::RemovePlayer(const CCUID& uidPlayer)
 {
-	MUIDRefCache::iterator i = m_PlayerList.find(uidPlayer);
+	CCUIDRefCache::iterator i = m_PlayerList.find(uidPlayer);
 	if (i != m_PlayerList.end()) {
 		m_PlayerList.erase(i);
 	
@@ -57,11 +57,11 @@ void MMatchChatRoom::RemovePlayer(const MUID& uidPlayer)
 		CCMatchObject* pPlayer = pServer->GetObject(uidPlayer);
 		if( !IsEnabledObject(pPlayer) )
 			return;
-		pPlayer->SetChatRoomUID(MUID(0,0));
+		pPlayer->SetChatRoomUID(CCUID(0,0));
 	}
 }
 
-void MMatchChatRoom::RouteChat(const MUID& uidSender, char* pszMessage)
+void MMatchChatRoom::RouteChat(const CCUID& uidSender, char* pszMessage)
 {
 	if( (0 == pszMessage) || (256 < strlen(pszMessage)) )
 		return;
@@ -71,11 +71,11 @@ void MMatchChatRoom::RouteChat(const MUID& uidSender, char* pszMessage)
 	if (pSenderObj == NULL)
 		return;
 
-	for (MUIDRefCache::iterator i=m_PlayerList.begin(); i!=m_PlayerList.end(); i++) {
-		MUID uidTarget = (*i).first;
+	for (CCUIDRefCache::iterator i=m_PlayerList.begin(); i!=m_PlayerList.end(); i++) {
+		CCUID uidTarget = (*i).first;
 		CCMatchObject* pTargetObj = pServer->GetObject(uidTarget);
 		if (pTargetObj) {
-			MCommand* pCmd = pServer->CreateCommand(MC_MATCH_CHATROOM_CHAT, MUID(0,0));
+			MCommand* pCmd = pServer->CreateCommand(MC_MATCH_CHATROOM_CHAT, CCUID(0,0));
 			pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(GetName()) ));
 			pCmd->AddParameter(new MCmdParamStr(pSenderObj->GetName()));
 			pCmd->AddParameter(new MCmdParamStr(pszMessage));
@@ -84,7 +84,7 @@ void MMatchChatRoom::RouteChat(const MUID& uidSender, char* pszMessage)
 	}
 }
 
-void MMatchChatRoom::RouteInfo(const MUID& uidReceiver)
+void MMatchChatRoom::RouteInfo(const CCUID& uidReceiver)
 {
 	
 }
@@ -95,8 +95,8 @@ void MMatchChatRoom::RouteCommand(const MCommand* pCommand)
 		return;
 
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
-	for (MUIDRefCache::iterator i=m_PlayerList.begin(); i!=m_PlayerList.end(); i++) {
-		MUID uidTarget = (*i).first;
+	for (CCUIDRefCache::iterator i=m_PlayerList.begin(); i!=m_PlayerList.end(); i++) {
+		CCUID uidTarget = (*i).first;
 		CCMatchObject* pTargetObj = pServer->GetObject(uidTarget);
 		if (pTargetObj) {
 			MCommand* pRouteCmd = pCommand->Clone();
@@ -115,7 +115,7 @@ MMatchChatRoomMgr::~MMatchChatRoomMgr()
 {
 }
 
-MMatchChatRoom* MMatchChatRoomMgr::AddChatRoom(const MUID& uidMaster, const char* pszName)
+MMatchChatRoom* MMatchChatRoomMgr::AddChatRoom(const CCUID& uidMaster, const char* pszName)
 {
 	if( (0 == pszName) || (128 < strlen(pszName)) )
 		return 0;
@@ -141,7 +141,7 @@ MMatchChatRoom* MMatchChatRoomMgr::AddChatRoom(const MUID& uidMaster, const char
 	return pRoom;
 }
 
-void MMatchChatRoomMgr::RemoveChatRoom(const MUID& uidChatRoom)
+void MMatchChatRoomMgr::RemoveChatRoom(const CCUID& uidChatRoom)
 {
 	MMatchChatRoomMap::iterator i = m_RoomMap.find(uidChatRoom);
 	if (i!=m_RoomMap.end()) {
@@ -158,7 +158,7 @@ void MMatchChatRoomMgr::RemoveChatRoom(const MUID& uidChatRoom)
 	}
 }
 
-MMatchChatRoom* MMatchChatRoomMgr::FindChatRoom(const MUID& uidChatRoom)
+MMatchChatRoom* MMatchChatRoomMgr::FindChatRoom(const CCUID& uidChatRoom)
 {
 	MMatchChatRoomMap::iterator i = m_RoomMap.find(uidChatRoom);
 	if (i!=m_RoomMap.end())
@@ -174,7 +174,7 @@ MMatchChatRoom* MMatchChatRoomMgr::FindChatRoomByName(const char* pszName)
 	MMatchChatRoomStringSubMap::iterator itorSub = 
 		m_RoomStringSubMap.find(pszName);
 	if (itorSub != m_RoomStringSubMap.end()) {
-		MUID uidRoom = (*itorSub).second;
+		CCUID uidRoom = (*itorSub).second;
 		return FindChatRoom(uidRoom);
 	}
 	return NULL;

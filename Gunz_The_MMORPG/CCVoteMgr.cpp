@@ -8,7 +8,7 @@
 
 /////////////////////////////////////////////////
 // MVoteDiscuss
-MVoteDiscuss::MVoteDiscuss(const MUID& uidStage)
+MVoteDiscuss::MVoteDiscuss(const CCUID& uidStage)
 {
 	m_uidStage = uidStage;
 	m_nBeginTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
@@ -27,20 +27,20 @@ MVoteDiscuss::~MVoteDiscuss()
 	m_NoVoterList.clear();
 }
 
-bool MVoteDiscuss::CheckVoter(const MUID& uid)
+bool MVoteDiscuss::CheckVoter(const CCUID& uid)
 {
-	list<MUID>::iterator iYes = find(m_YesVoterList.begin(), m_YesVoterList.end(), uid);
+	list<CCUID>::iterator iYes = find(m_YesVoterList.begin(), m_YesVoterList.end(), uid);
 	if (iYes!=m_YesVoterList.end())
 		return true;
 
-	list<MUID>::iterator iNo = find(m_NoVoterList.begin(), m_NoVoterList.end(), uid);
+	list<CCUID>::iterator iNo = find(m_NoVoterList.begin(), m_NoVoterList.end(), uid);
 	if (iNo!=m_NoVoterList.end())
 		return true;
 
 	return false;
 }
 
-void MVoteDiscuss::Vote(const MUID& uid, MVOTE nVote)
+void MVoteDiscuss::Vote(const CCUID& uid, MVOTE nVote)
 {
 	if (CheckVoter(uid))
 		return;		// already voted
@@ -94,7 +94,7 @@ bool MVoteMgr::CheckDiscuss()
 void MVoteMgr::FinishDiscuss(bool bJudge)
 {
 	if (GetDiscuss()) {
-		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_VOTERESULT, MUID(0,0));
+		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_VOTERESULT, CCUID(0,0));
 		pCmd->AddParameter(new MCmdParamStr(GetDiscuss()->GetDiscussName()));
 		pCmd->AddParameter(new MCmdParamInt(bJudge?1:0));
 		CCMatchServer::GetInstance()->RouteToStage(GetDiscuss()->GetStageUID(), pCmd);
@@ -107,7 +107,7 @@ void MVoteMgr::FinishDiscuss(bool bJudge)
 	SetLastError(VOTEMGR_ERROR_OK);
 }
 
-MVoter* MVoteMgr::FindVoter(const MUID& uid)
+MVoter* MVoteMgr::FindVoter(const CCUID& uid)
 {
 	MVoterMap::iterator i = m_VoterMap.find(uid);
 	if (i != m_VoterMap.end())
@@ -116,7 +116,7 @@ MVoter* MVoteMgr::FindVoter(const MUID& uid)
 		return NULL;
 }
 
-void MVoteMgr::AddVoter(const MUID& uid)
+void MVoteMgr::AddVoter(const CCUID& uid)
 {
 	if (FindVoter(uid) != NULL) {
 		SetLastError(VOTEMGR_ERROR_OK);
@@ -129,7 +129,7 @@ void MVoteMgr::AddVoter(const MUID& uid)
 	SetLastError(VOTEMGR_ERROR_OK);
 }
 
-void MVoteMgr::RemoveVoter(const MUID& uid)
+void MVoteMgr::RemoveVoter(const CCUID& uid)
 {
 	MVoterMap::iterator i = m_VoterMap.find(uid);
 	if (i != m_VoterMap.end()) {
@@ -154,7 +154,7 @@ bool MVoteMgr::CallVote(MVoteDiscuss* pDiscuss)
 	return true;
 }
 
-bool MVoteMgr::Vote(const MUID& uid, MVOTE nVote)
+bool MVoteMgr::Vote(const CCUID& uid, MVOTE nVote)
 {
 	if (GetDiscuss() == NULL) {
 		SetLastError(VOTEMGR_ERROR_VOTE_NODISCUSS);
@@ -196,7 +196,7 @@ void MVoteMgr::Tick(unsigned long nClock)
 }
 
 
-void MVoteMgr::StopVote( const MUID& uidUser )
+void MVoteMgr::StopVote( const CCUID& uidUser )
 {
 	delete m_pDiscuss;
 	m_pDiscuss = NULL;
@@ -205,7 +205,7 @@ void MVoteMgr::StopVote( const MUID& uidUser )
 	if( !IsEnabledObject(pObj) )
 		return;
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_VOTE_STOP, MUID(0, 0) );
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_VOTE_STOP, CCUID(0, 0) );
 	if( 0 == pCmd )
 		return;
 

@@ -49,7 +49,7 @@ void MMatchDuelTournamentMgr::ClearGroupRanking()
 	ZeroMemory(m_GroupRankingBlob, sizeof(DTRankingInfo) * MAX_DT_GROUP_RANKING_COUNT);
 }
 
-bool MMatchDuelTournamentMgr::AddPlayer(MDUELTOURNAMENTTYPE nType, MUID &uidPlayer)
+bool MMatchDuelTournamentMgr::AddPlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
 {
 	if (0 <= nType && nType < MDUELTOURNAMENTTYPE_MAX)
 	{
@@ -62,7 +62,7 @@ bool MMatchDuelTournamentMgr::AddPlayer(MDUELTOURNAMENTTYPE nType, MUID &uidPlay
 	return false;
 }
 
-bool MMatchDuelTournamentMgr::RemovePlayer(MDUELTOURNAMENTTYPE nType, MUID &uidPlayer)
+bool MMatchDuelTournamentMgr::RemovePlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
 {
 	if (0 <= nType && nType < MDUELTOURNAMENTTYPE_MAX)
 	{

@@ -19,21 +19,21 @@ class CCMatchObjectCommandHistory {
 public:
 	~CCMatchObjectCommandHistory();
 
-	void SetCharacterInfo(MUID uid, const char* szName, unsigned int nCID );
+	void SetCharacterInfo(CCUID uid, const char* szName, unsigned int nCID );
 	
-	void PushCommand(MUID uid, int nCommandID, DWORD dwCurrentTime, bool* pbFloodingSuspect = NULL);
+	void PushCommand(CCUID uid, int nCommandID, DWORD dwCurrentTime, bool* pbFloodingSuspect = NULL);
 	void Update( DWORD dwCurrentTime );
 	unsigned int GetObjectCount();
 
-	MOBJECTCOMMANDHISTORY* GetCommandHistory(MUID uid);
-	bool Dump(MUID uid);
+	MOBJECTCOMMANDHISTORY* GetCommandHistory(CCUID uid);
+	bool Dump(CCUID uid);
 
 private:
-	typedef map< MUID, MOBJECTCOMMANDHISTORY* > UIDHISTORYMAP;
+	typedef map< CCUID, MOBJECTCOMMANDHISTORY* > UIDHISTORYMAP;
 
 	UIDHISTORYMAP m_mapHistories;
 
-	MOBJECTCOMMANDHISTORY* AddNew(MUID uid); 
+	MOBJECTCOMMANDHISTORY* AddNew(CCUID uid); 
 };
 
 inline unsigned int CCMatchObjectCommandHistory::GetObjectCount() { return (unsigned int)m_mapHistories.size(); }

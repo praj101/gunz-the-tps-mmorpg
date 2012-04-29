@@ -21,7 +21,7 @@
 #include "MMatchStatus.h"
 #include "CCMatchLocale.h"
 
-bool CCMatchServer::CheckOnLoginPre(const MUID& CommUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3)
+bool CCMatchServer::CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3)
 {
 	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
 	if (pCommObj == NULL) return false;
@@ -74,7 +74,7 @@ bool CCMatchServer::CheckOnLoginPre(const MUID& CommUID, int nCmdVersion, bool& 
 	return true;
 }
 
-void CCMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char* szPassword, int nCommandVersion, unsigned long nChecksumPack, char *szEncryptMd5Value)
+void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char* szPassword, int nCommandVersion, unsigned long nChecksumPack, char *szEncryptMd5Value)
 {
 //	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
 //	if (pCommObj == NULL) return;
@@ -191,7 +191,7 @@ void CCMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char*
 	AddObjectOnMatchLogin(CommUID, &accountInfo, &accountpenaltyInfo, bFreeLoginIP, strCountryCode3, nChecksumPack);
 
 /*
-	MUID AllocUID = CommUID;
+	CCUID AllocUID = CommUID;
 	int nErrCode = ObjectAdd(CommUID);
 	if(nErrCode!=MOK){
 		LOG(LOG_DEBUG, MErrStr(nErrCode) );
@@ -266,7 +266,7 @@ void CCMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char*
 }
 
 /*
-void CCMatchServer::OnMatchLoginFromNetmarble(const MUID& CommUID, const char* szCPCookie, const char* szSpareData, int nCmdVersion, unsigned long nChecksumPack)
+void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* szCPCookie, const char* szSpareData, int nCmdVersion, unsigned long nChecksumPack)
 {
 	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
 	if (pCommObj == NULL) return;
@@ -329,7 +329,7 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const MUID& CommUID, const char* s
 }
 */
 
-void CCMatchServer::OnMatchLoginFromNetmarbleJP(const MUID& CommUID, const char* szLoginID, const char* szLoginPW, int nCmdVersion, unsigned long nChecksumPack)
+void CCMatchServer::OnMatchLoginFromNetmarbleJP(const CCUID& CommUID, const char* szLoginID, const char* szLoginPW, int nCmdVersion, unsigned long nChecksumPack)
 {
 	bool bFreeLoginIP = false;
 	string strCountryCode3;
@@ -347,7 +347,7 @@ void CCMatchServer::OnMatchLoginFromNetmarbleJP(const MUID& CommUID, const char*
 	}
 }
 
-void CCMatchServer::OnMatchLoginFromDBAgent(const MUID& CommUID, const char* szLoginID, const char* szName, int nSex, bool bFreeLoginIP, unsigned long nChecksumPack)
+void CCMatchServer::OnMatchLoginFromDBAgent(const CCUID& CommUID, const char* szLoginID, const char* szName, int nSex, bool bFreeLoginIP, unsigned long nChecksumPack)
 {
 #ifndef LOCALE_NHNUSA
 	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
@@ -386,7 +386,7 @@ void CCMatchServer::OnMatchLoginFromDBAgent(const MUID& CommUID, const char* szL
 #endif
 }
 
-void CCMatchServer::OnMatchLoginFailedFromDBAgent(const MUID& CommUID, int nResult)
+void CCMatchServer::OnMatchLoginFailedFromDBAgent(const CCUID& CommUID, int nResult)
 {
 #ifndef LOCALE_NHNUSA
 	// 프로토콜 버전 체크
@@ -395,8 +395,8 @@ void CCMatchServer::OnMatchLoginFailedFromDBAgent(const MUID& CommUID, int nResu
 #endif
 }
 
-MCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const MUID& uidComm, 
-													  MUID& uidPlayer, 
+MCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const CCUID& uidComm, 
+													  CCUID& uidPlayer, 
 													  const char* szUserID, 
 													  MMatchUserGradeID nUGradeID, 
 													  MMatchPremiumGradeID nPGradeID,
@@ -432,7 +432,7 @@ MCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const MUID& uidComm,
 	return pCmd;
 }
 
-MCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const MUID& uidComm, const int nResult)
+MCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const CCUID& uidComm, const int nResult)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_LOGIN, uidComm);
 	pCmd->AddParameter(new MCommandParameterInt(nResult));
@@ -441,7 +441,7 @@ MCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const MUID& uidComm, 
 	pCmd->AddParameter(new MCommandParameterString("Ana"));
 	pCmd->AddParameter(new MCommandParameterUChar((unsigned char)MMUG_FREE));
 	pCmd->AddParameter(new MCommandParameterUChar((unsigned char)MMPG_FREE));
-	pCmd->AddParameter(new MCommandParameterUID(MUID(0,0)));
+	pCmd->AddParameter(new MCommandParameterUID(CCUID(0,0)));
 	pCmd->AddParameter(new MCommandParameterBool((bool)MGetServerConfig()->IsEnabledSurvivalMode()));
 	pCmd->AddParameter(new MCommandParameterBool((bool)MGetServerConfig()->IsEnabledDuelTournament()));
 //	pCmd->AddParameter(new MCommandParameterString("A"));
@@ -465,7 +465,7 @@ MCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const MUID& uidComm, 
 }
 
 
-bool CCMatchServer::AddObjectOnMatchLogin(const MUID& uidComm, 
+bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm, 
 										const MMatchAccountInfo* pSrcAccountInfo,
 										const MMatchAccountPenaltyInfo* pSrcAccountPenaltyInfo,
 										bool bFreeLoginIP, string strCountryCode3, unsigned long nChecksumPack)
@@ -473,7 +473,7 @@ bool CCMatchServer::AddObjectOnMatchLogin(const MUID& uidComm,
 	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(uidComm);
 	if (pCommObj == NULL) return false;
 
-	MUID AllocUID = uidComm;
+	CCUID AllocUID = uidComm;
 	int nErrCode = ObjectAdd(uidComm);
 	if(nErrCode!=MOK) {
 		LOG(LOG_DEBUG, MErrStr(nErrCode) );

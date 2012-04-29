@@ -24,7 +24,7 @@ void MMatchAntiHack::InitClientFileList()
 	cclog("Inited client file list (%d)\n", (int)m_clientFileListCRC.size());
 }
 
-bool MMatchAntiHack::CheckClientFileListCRC( unsigned int crc, const MUID& uidUser )
+bool MMatchAntiHack::CheckClientFileListCRC( unsigned int crc, const CCUID& uidUser )
 {
 	bool bFound = m_clientFileListCRC.end() != find(m_clientFileListCRC.begin(),m_clientFileListCRC.end(),crc);
 	return bFound;

@@ -505,7 +505,7 @@ class MMatchItem : public MBaseItem
 {
 private:
 protected:
-	MUID				m_uidItem;	
+	CCUID				m_uidItem;	
 	MMatchItemDesc*		m_pDesc;					///< 디스크립터
 	bool				m_bEquiped;					///< 장비하고 있는지 여부
 	unsigned long int	m_nRentItemRegTime;			///< 기간제 아이템일 경우 등록한 시간. 이 시간은 서버에 등록되는 시간임.
@@ -528,10 +528,10 @@ public:
 	MMatchItem();
 	virtual ~MMatchItem();
 
-	bool Create( const MUID& uid, MMatchItemDesc* pDesc, const WORD nCountOfNonDesctroyItem, int nCount = 1);
+	bool Create( const CCUID& uid, MMatchItemDesc* pDesc, const WORD nCountOfNonDesctroyItem, int nCount = 1);
 	void Destroy();
 
-	MUID				GetUID() const								{ return m_uidItem; }
+	CCUID				GetUID() const								{ return m_uidItem; }
 	unsigned long int	GetCIID() const								{ return m_nCIID; }
 	unsigned long int	GetDescID() const;
 	
@@ -568,7 +568,7 @@ class MMatchCharInfo;
 
 typedef struct _EquipedParts
 {
-	MUID	uidParts;
+	CCUID	uidParts;
 	int		nItemCount;
 } EquipedParts;
 
@@ -578,7 +578,7 @@ class MMatchEquipedItem
 protected:
 	// MMatchItem*		m_pParts[MMCIP_END];
 	//EquipedParts	m_Parts[MMCIP_END];
-	MUID			m_uidParts[ MMCIP_END ];	
+	CCUID			m_uidParts[ MMCIP_END ];	
 	
 	MMatchCharInfo*	m_pOwner;
 
@@ -599,16 +599,16 @@ public:
 	}
 public:
 	// bool SetItem(MMatchCharItemParts parts, MMatchItem* pMatchItem);
-	bool SetItem( MMatchCharItemParts parts, const MUID& uidItem, MMatchItem* pItem );
+	bool SetItem( MMatchCharItemParts parts, const CCUID& uidItem, MMatchItem* pItem );
 
 	MMatchItem* GetItem(MMatchCharItemParts parts); //  { return m_pParts[parts]; }
 	void Remove(MMatchCharItemParts parts);
-	void Remove(const MUID& uidParts);
+	void Remove(const CCUID& uidParts);
 	// bool IsEmpty(MMatchCharItemParts parts) { if (m_pParts[parts] != NULL) return false; return true; }
 	bool IsEmpty(MMatchCharItemParts parts); //  { if (m_pParts[parts] != NULL) return false; return true; }
 	void GetTotalWeight(int* poutWeight, int* poutMaxWeight);
 	// bool IsEquipedItem(MMatchItem* pCheckItem, MMatchCharItemParts& outParts); // 해당 아이템이 장비중인지 체크
-	bool IsEquipedItem(const MUID& uidItem, MMatchCharItemParts& outParts); // 해당 아이템이 장비중인지 체크
+	bool IsEquipedItem(const CCUID& uidItem, MMatchCharItemParts& outParts); // 해당 아이템이 장비중인지 체크
 	void Clear();
 	void SetOwner( MMatchCharInfo* pOwner ) { _ASSERT( NULL != pOwner ); m_pOwner = pOwner; }
 
@@ -618,11 +618,11 @@ private :
 };
 
 /// 캐릭터가 갖고 있는 아이템들
-class MMatchItemMap : public map<MUID, MMatchItem*>
+class MMatchItemMap : public map<CCUID, MMatchItem*>
 {
 private:
 protected:
-	static MUID				m_uidGenerate;
+	static CCUID				m_uidGenerate;
 	static MCriticalSection	m_csUIDGenerateLock;
 	bool					m_bDoneDbAccess;		// 디비에서 정보를 가져왔었는지 여부
 
@@ -635,17 +635,17 @@ public:
 	virtual ~MMatchItemMap();
 	bool IsEmpty() const { return empty(); }
 	int GetCount() const { return (int)size(); }
-	virtual bool CreateItem( const MUID& uid
+	virtual bool CreateItem( const CCUID& uid
 		, int nCIID
 		, int nItemDescID
 		, bool bRentItem = false
 		, DWORD dwRentMinutePeriodRemainder = RENT_MINUTE_PERIOD_UNLIMITED
 		, const WORD wRentHourPeriod = RENT_PERIOD_UNLIMITED
 		, int nCount = 1);
-	bool			RemoveItem(const MUID& uidItem);
+	bool			RemoveItem(const CCUID& uidItem);
 
 	virtual void	Clear();
-	MMatchItem*		GetItem(const MUID& uidItem) const;
+	MMatchItem*		GetItem(const CCUID& uidItem) const;
 	MMatchItem*		GetItemByItemID(const DWORD dwItemID) const;		//< 여러개의 ItemID가 있어도, 1개만 돌려준다(Spendable 때문에 구현)
 																		//< 좀 모호한 감이 있지만, 그래도 사용하자..
 
@@ -657,10 +657,10 @@ public:
 	bool			HasRentItem() const				{ return m_bHasRentItem; }
 	const bool		IsHave( const DWORD dwItemID ) const;
 
-	int	 GetItemCount(const MUID& uidItem);
+	int	 GetItemCount(const CCUID& uidItem);
 
 public:
-	static MUID UseUID() {
+	static CCUID UseUID() {
 		m_csUIDGenerateLock.Lock();
 			m_uidGenerate.Increase();	
 		m_csUIDGenerateLock.Unlock();

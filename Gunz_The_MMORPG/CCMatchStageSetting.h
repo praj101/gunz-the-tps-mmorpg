@@ -53,7 +53,7 @@ enum STAGE_STATE {
 /// 여기에 변수를 추가하려면, 리플레이와도 관련이 있으므로 
 /// ZReplayLoader::ConvertStageSettingNode() 함수도 수정해줘야 한다.
 struct MSTAGE_SETTING_NODE {
-	MUID				uidStage;
+	CCUID				uidStage;
 	char				szMapName[MAPNAME_LENGTH];	// 맵이름
 	char				nMapIndex;					// 맵인덱스
 	MMATCH_GAMETYPE		nGameType;					// 게임타입
@@ -99,10 +99,10 @@ struct MSTAGE_SETTING_NODE {
 
 
 struct MSTAGE_CHAR_SETTING_NODE {
-	MUID	uidChar;
+	CCUID	uidChar;
 	int		nTeam;
 	CCMatchObjectStageState	nState;
-	MSTAGE_CHAR_SETTING_NODE() : uidChar(MUID(0,0)), nTeam(0), nState(MOSS_NONREADY) {	}
+	MSTAGE_CHAR_SETTING_NODE() : uidChar(CCUID(0,0)), nTeam(0), nState(MOSS_NONREADY) {	}
 };
 class MStageCharSettingList : public list<MSTAGE_CHAR_SETTING_NODE*> {
 public:
@@ -120,7 +120,7 @@ public:
 class CCMatchStageSetting {
 protected:
 	MProtectValue<MSTAGE_SETTING_NODE>	m_StageSetting;
-	MUID					m_uidMaster;	// 방장
+	CCUID					m_uidMaster;	// 방장
 	STAGE_STATE				m_nStageState;	// 현재 State (게임중,대기중,..)
 
 	bool					m_bIsCheckTicket;
@@ -133,7 +133,7 @@ public:
 	void Clear();
 	void SetDefault();
 	unsigned long GetChecksum();
-	MSTAGE_CHAR_SETTING_NODE* FindCharSetting(const MUID& uid);
+	MSTAGE_CHAR_SETTING_NODE* FindCharSetting(const CCUID& uid);
 
 	// Get
 	const char*					GetMapName()				{ return m_StageSetting.Ref().szMapName; }
@@ -141,7 +141,7 @@ public:
 	int							GetRoundMax()				{ return m_StageSetting.Ref().nRoundMax; }
 	int							GetLimitTime()				{ return m_StageSetting.Ref().nLimitTime; }
 	int							GetLimitLevel()				{ return m_StageSetting.Ref().nLimitLevel; }
-	MUID						GetMasterUID()				{ return m_uidMaster; }
+	CCUID						GetMasterUID()				{ return m_uidMaster; }
 	STAGE_STATE					GetStageState()				{ return m_nStageState; }
 	MMATCH_GAMETYPE				GetGameType()				{ return m_StageSetting.Ref().nGameType; }
 	int							GetMaxPlayers()				{ return m_StageSetting.Ref().nMaxPlayers; }
@@ -159,7 +159,7 @@ public:
 	bool						IsStartRelayMap()			{ return m_StageSetting.Ref().bIsStartRelayMap; }
 
 	// Set
-	void SetMasterUID(const MUID& uid)				{ m_uidMaster = uid; }
+	void SetMasterUID(const CCUID& uid)				{ m_uidMaster = uid; }
 	void SetMapName(char* pszName);
 	void SetMapIndex(int nMapIndex);
 	void SetRoundMax(int nRound)					{ MEMBER_SET_CHECKCRC(m_StageSetting, nRoundMax, nRound); }
@@ -180,7 +180,7 @@ public:
 	void SetRelayMapRepeatCount(RELAY_MAP_REPEAT_COUNT bValue)	{ MEMBER_SET_CHECKCRC(m_StageSetting, nRelayMapRepeatCount, bValue); }
 	
 	void UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting);
-	void UpdateCharSetting(const MUID& uid, unsigned int nTeam, CCMatchObjectStageState nStageState);
+	void UpdateCharSetting(const CCUID& uid, unsigned int nTeam, CCMatchObjectStageState nStageState);
 
 	void ResetCharSetting()			{ m_CharSettingList.DeleteAll(); }
 	bool IsTeamPlay();

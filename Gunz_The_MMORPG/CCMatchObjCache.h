@@ -23,7 +23,7 @@ struct MMatchObjCacheCostume
 
 class MMatchObjCache {
 protected:
-	MUID					m_uidObject;
+	CCUID					m_uidObject;
 	char					m_szName[ MATCHOBJECT_NAME_LENGTH ];
 	char					m_szClanName[CLAN_NAME_LENGTH];
 	char					m_nLevel;
@@ -50,7 +50,7 @@ public:
 	}
 	virtual ~MMatchObjCache()		{}
 
-	MUID GetUID()					{ return m_uidObject; }
+	CCUID GetUID()					{ return m_uidObject; }
 
 	char* GetName()			{ return m_szName; }
 	char* GetClanName()		{ return m_szClanName; }
@@ -58,7 +58,7 @@ public:
 	MMatchUserGradeID		GetUGrade()	{ return m_nUGrade; }
 	MMatchPremiumGradeID	GetPGrade()	{ return m_nPGrade; }
 
-	void SetInfo(const MUID& uid, const char* szName, const char* szClanName, int nLevel, 
+	void SetInfo(const CCUID& uid, const char* szName, const char* szClanName, int nLevel, 
 				 MMatchUserGradeID nUGrade, MMatchPremiumGradeID nPGrade
 				 , const unsigned int nRank, const int nKillCount, const int nDeathCount, int nDTGrade )
 	{
@@ -100,12 +100,12 @@ public:
 };
 
 class MMatchObjCacheList : public list<MMatchObjCache*>{};
-class MMatchObjCacheMap : public map<MUID, MMatchObjCache*>{
+class MMatchObjCacheMap : public map<CCUID, MMatchObjCache*>{
 public:
-	void Insert(const MUID& uid, MMatchObjCache* pCache)	{	
+	void Insert(const CCUID& uid, MMatchObjCache* pCache)	{	
 		insert(value_type(uid, pCache));	
 	}
-	MMatchObjCache* Find(const MUID& uid) {
+	MMatchObjCache* Find(const CCUID& uid) {
 		iterator it = find(uid);
 		if (it!=end())
 			return it->second;

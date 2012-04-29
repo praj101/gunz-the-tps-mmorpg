@@ -37,7 +37,7 @@ MMatchRuleSurvival::~MMatchRuleSurvival()
 // Route 씨리즈 시작 /////////////////////////////////////////////////////////////////
 void MMatchRuleSurvival::RouteMapSectorStart()
 {
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_SECTOR_START, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_SECTOR_START, CCUID(0,0));
 	char nSectorIndex = char(m_pQuestLevel->GetCurrSectorIndex());
 	pCmd->AddParameter(new MCommandParameterChar(nSectorIndex));
 	pCmd->AddParameter(new MCommandParameterUChar(unsigned char(m_pQuestLevel->GetDynamicInfo()->nRepeated)));
@@ -46,50 +46,50 @@ void MMatchRuleSurvival::RouteMapSectorStart()
 
 void MMatchRuleSurvival::RouteCombatState()
 {
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_COMBAT_STATE, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_COMBAT_STATE, CCUID(0,0));
 	pCmd->AddParameter(new MCommandParameterChar(char(m_nCombatState)));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
-void MMatchRuleSurvival::RouteMovetoPortal(const MUID& uidPlayer)
+void MMatchRuleSurvival::RouteMovetoPortal(const CCUID& uidPlayer)
 {
 	if (m_pQuestLevel == NULL) return;
 
 	int nCurrSectorIndex = m_pQuestLevel->GetCurrSectorIndex();
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_MOVETO_PORTAL, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_MOVETO_PORTAL, CCUID(0,0));
 	pCmd->AddParameter(new MCommandParameterChar(char(nCurrSectorIndex)));
 	pCmd->AddParameter(new MCommandParameterUChar(unsigned char(m_pQuestLevel->GetDynamicInfo()->nRepeated)));
 	pCmd->AddParameter(new MCommandParameterUID(uidPlayer));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
-void MMatchRuleSurvival::RouteReadyToNewSector(const MUID& uidPlayer)
+void MMatchRuleSurvival::RouteReadyToNewSector(const CCUID& uidPlayer)
 {
 	if (m_pQuestLevel == NULL) return;
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_READYTO_NEWSECTOR, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_READYTO_NEWSECTOR, CCUID(0,0));
 	pCmd->AddParameter(new MCommandParameterUID(uidPlayer));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
 void MMatchRuleSurvival::RouteObtainQuestItem(unsigned long int nQuestItemID)
 {
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_OBTAIN_QUESTITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_OBTAIN_QUESTITEM, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUInt(nQuestItemID));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
 void MMatchRuleSurvival::RouteObtainZItem(unsigned long int nItemID)
 {
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_OBTAIN_ZITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_OBTAIN_ZITEM, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUInt(nItemID));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
 void MMatchRuleSurvival::RouteGameInfo()
 {
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_GAME_INFO, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_GAME_INFO, CCUID(0,0));
 
 	void* pBlobGameInfoArray = MMakeBlobArray(sizeof(MTD_QuestGameInfo), 1);
 	MTD_QuestGameInfo* pGameInfoNode = (MTD_QuestGameInfo*)MGetBlobArrayElement(pBlobGameInfoArray, 0);
@@ -107,7 +107,7 @@ void MMatchRuleSurvival::RouteGameInfo()
 
 void MMatchRuleSurvival::RouteCompleted()
 {
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_COMPLETED, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_COMPLETED, CCUID(0,0));
 
 	int nSize = (int)m_PlayerManager.size();
 	void* pBlobRewardArray = MMakeBlobArray(sizeof(MTD_QuestReward), nSize);
@@ -132,25 +132,25 @@ void MMatchRuleSurvival::RouteCompleted()
 
 void MMatchRuleSurvival::RouteFailed()
 {
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_FAILED, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_FAILED, CCUID(0,0));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
 void MMatchRuleSurvival::RouteStageGameInfo()
 {
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_STAGE_GAME_INFO, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_STAGE_GAME_INFO, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamChar(char(m_StageGameInfo.nQL)));
 	pCmd->AddParameter(new MCmdParamChar(char(m_StageGameInfo.nMapsetID)));
 	pCmd->AddParameter(new MCmdParamUInt(m_StageGameInfo.nScenarioID));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
-void MMatchRuleSurvival::RouteSectorBonus(const MUID& uidPlayer, unsigned long int nEXPValue, unsigned long int nBP)
+void MMatchRuleSurvival::RouteSectorBonus(const CCUID& uidPlayer, unsigned long int nEXPValue, unsigned long int nBP)
 {
 	CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject(uidPlayer);	
 	if (!IsEnabledObject(pPlayer)) return;
 
-	MCommand* pNewCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_SECTOR_BONUS, MUID(0,0));
+	MCommand* pNewCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_SECTOR_BONUS, CCUID(0,0));
 	pNewCmd->AddParameter(new MCmdParamUID(uidPlayer));
 	pNewCmd->AddParameter(new MCmdParamUInt(nEXPValue));
 	pNewCmd->AddParameter(new MCmdParamUInt(nBP));
@@ -766,7 +766,7 @@ void MMatchRuleSurvival::OnRequestTestFinish()
 }
 
 
-void MMatchRuleSurvival::OnRequestMovetoPortal(const MUID& uidPlayer)
+void MMatchRuleSurvival::OnRequestMovetoPortal(const CCUID& uidPlayer)
 {
 	//	MQuestPlayerInfo* pPlayerInfo = m_PlayerManager.GetPlayerInfo(uidPlayer);
 
@@ -776,7 +776,7 @@ void MMatchRuleSurvival::OnRequestMovetoPortal(const MUID& uidPlayer)
 
 
 
-void MMatchRuleSurvival::OnReadyToNewSector(const MUID& uidPlayer)
+void MMatchRuleSurvival::OnReadyToNewSector(const CCUID& uidPlayer)
 {
 	MQuestPlayerInfo* pPlayerInfo = m_PlayerManager.GetPlayerInfo(uidPlayer);
 	if (pPlayerInfo)
@@ -1107,7 +1107,7 @@ void MMatchRuleSurvival::RouteRewardCommandToStage( CCMatchObject* pPlayer, cons
 	if( !IsEnabledObject(pPlayer) || (0 == pSimpleQuestItemBlob) )
 		return;
 
-	MCommand* pNewCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_USER_REWARD_QUEST, MUID(0, 0) );
+	MCommand* pNewCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_USER_REWARD_QUEST, CCUID(0, 0) );
 	if( 0 == pNewCmd )
 		return;
 
@@ -1124,7 +1124,7 @@ void MMatchRuleSurvival::RouteResultCommandToStage( CCMatchObject* pPlayer, int 
 	if( !IsEnabledObject(pPlayer) )
 		return;
 
-	MCommand* pNewCmd = CCMatchServer::GetInstance()->CreateCommand( MC_QUEST_SURVIVAL_RESULT, MUID(0, 0) );
+	MCommand* pNewCmd = CCMatchServer::GetInstance()->CreateCommand( MC_QUEST_SURVIVAL_RESULT, CCUID(0, 0) );
 	if( 0 == pNewCmd )
 		return;
 
@@ -1136,7 +1136,7 @@ void MMatchRuleSurvival::RouteResultCommandToStage( CCMatchObject* pPlayer, int 
 
 
 
-void MMatchRuleSurvival::OnRequestPlayerDead(const MUID& uidVictim)
+void MMatchRuleSurvival::OnRequestPlayerDead(const CCUID& uidVictim)
 {
 	MQuestPlayerManager::iterator itor = m_PlayerManager.find(uidVictim);
 	if (itor != m_PlayerManager.end())
@@ -1175,7 +1175,7 @@ void MMatchRuleSurvival::OnObtainWorldItem(CCMatchObject* pObj, int nItemID, int
 }
 
 
-void MMatchRuleSurvival::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
+void MMatchRuleSurvival::OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 	if( MSM_TEST == MGetServerConfig()->GetServerMode() ) 
 	{
@@ -1184,7 +1184,7 @@ void MMatchRuleSurvival::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender
 }
 
 
-void MMatchRuleSurvival::OnResponseDropSacrificeItemOnSlot( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
+void MMatchRuleSurvival::OnResponseDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 	if( (MAX_SACRIFICE_SLOT_COUNT > nSlotIndex) && (0 <= nSlotIndex) ) 
 	{
@@ -1230,7 +1230,7 @@ void MMatchRuleSurvival::OnResponseDropSacrificeItemOnSlot( const MUID& uidSende
 			if( nMySacriQItemCount >= pQuestItem->GetCount() )
 			{
 				// 수량이 부족해서 올리지 못했다고 통보함.
-				MCommand* pCmdMore = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_DROP_SACRIFICE_ITEM, MUID(0, 0) );
+				MCommand* pCmdMore = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_DROP_SACRIFICE_ITEM, CCUID(0, 0) );
 				if( 0 == pCmdMore )
 					return;
 
@@ -1243,7 +1243,7 @@ void MMatchRuleSurvival::OnResponseDropSacrificeItemOnSlot( const MUID& uidSende
 				return;
 			}
 
-			MCommand* pCmdOk = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_DROP_SACRIFICE_ITEM, MUID(0, 0) );
+			MCommand* pCmdOk = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_DROP_SACRIFICE_ITEM, CCUID(0, 0) );
 			if( 0 == pCmdOk )
 			{
 				return;
@@ -1279,7 +1279,7 @@ void MMatchRuleSurvival::OnResponseDropSacrificeItemOnSlot( const MUID& uidSende
 }
 
 
-void MMatchRuleSurvival::OnRequestCallbackSacrificeItem( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
+void MMatchRuleSurvival::OnRequestCallbackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 	if( MSM_TEST == MGetServerConfig()->GetServerMode() ) 
 	{
@@ -1288,7 +1288,7 @@ void MMatchRuleSurvival::OnRequestCallbackSacrificeItem( const MUID& uidSender, 
 }
 
 
-void MMatchRuleSurvival::OnResponseCallBackSacrificeItem( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
+void MMatchRuleSurvival::OnResponseCallBackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 	// 아무나 접근할수 있음.
 	if( (MAX_SACRIFICE_SLOT_COUNT <= nSlotIndex) && (0 > nSlotIndex) ) 
@@ -1312,7 +1312,7 @@ void MMatchRuleSurvival::OnResponseCallBackSacrificeItem( const MUID& uidSender,
 	if( 0 == pStage )
 		return;
 
-	MCommand* pCmdOk = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_CALLBACK_SACRIFICE_ITEM, MUID(0, 0) );
+	MCommand* pCmdOk = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_CALLBACK_SACRIFICE_ITEM, CCUID(0, 0) );
 	if( 0 == pCmdOk )
 	{
 		return;
@@ -1332,7 +1332,7 @@ void MMatchRuleSurvival::OnResponseCallBackSacrificeItem( const MUID& uidSender,
 }
 
 
-bool MMatchRuleSurvival::IsSacrificeItemDuplicated( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
+bool MMatchRuleSurvival::IsSacrificeItemDuplicated( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 	if( (uidSender == m_SacrificeSlot[nSlotIndex].GetOwnerUID()) && (nItemID == m_SacrificeSlot[nSlotIndex].GetItemID()) )
 	{
@@ -1348,7 +1348,7 @@ bool MMatchRuleSurvival::IsSacrificeItemDuplicated( const MUID& uidSender, const
 /*
 * 스테이지를 나가기전에 처리해야 할 일이 있을경우 여기에 정리함.
 */
-void MMatchRuleSurvival::PreProcessLeaveStage( const MUID& uidLeaverUID )
+void MMatchRuleSurvival::PreProcessLeaveStage( const CCUID& uidLeaverUID )
 {
 	MMatchRuleBaseQuest::PreProcessLeaveStage( uidLeaverUID );
 
@@ -1389,12 +1389,12 @@ void MMatchRuleSurvival::DestroyAllSlot()
 
 	CCMatchObject*	pOwner;
 	MQuestItem*		pQItem;
-	MUID			uidOwner;
+	CCUID			uidOwner;
 	unsigned long	nItemID;
 
 	for( int i = 0; i < MAX_SACRIFICE_SLOT_COUNT; ++i )
 	{
-		if( MUID(0, 0) == m_SacrificeSlot[i].GetOwnerUID() )
+		if( CCUID(0, 0) == m_SacrificeSlot[i].GetOwnerUID() )
 			continue;
 
 		uidOwner = m_SacrificeSlot[ i ].GetOwnerUID();
@@ -1432,7 +1432,7 @@ void MMatchRuleSurvival::DestroyAllSlot()
 // QL정보의 요청을 처리함. 기본적으로 요청자의 스테이지에 통보함.
 ///
 
-void MMatchRuleSurvival::OnRequestQL( const MUID& uidSender )
+void MMatchRuleSurvival::OnRequestQL( const CCUID& uidSender )
 {
 	if( MSM_TEST == MGetServerConfig()->GetServerMode() ) 
 	{
@@ -1454,7 +1454,7 @@ void MMatchRuleSurvival::OnRequestQL( const MUID& uidSender )
 //
 // 요청자의 스테이지에 QL정보를 통보.
 ///
-void MMatchRuleSurvival::OnResponseQL_ToStage( const MUID& uidStage )
+void MMatchRuleSurvival::OnResponseQL_ToStage( const CCUID& uidStage )
 {
 	CCMatchStage* pStage = CCMatchServer::GetInstance()->FindStage( uidStage );
 	if( 0 == pStage )
@@ -1472,7 +1472,7 @@ void MMatchRuleSurvival::OnResponseQL_ToStage( const MUID& uidStage )
 //
 // 현재 스롯의 정보를 요청. 기본적으로 스테이지에 알림.
 ///
-void MMatchRuleSurvival::OnRequestSacrificeSlotInfo( const MUID& uidSender )
+void MMatchRuleSurvival::OnRequestSacrificeSlotInfo( const CCUID& uidSender )
 {
 	if( MSM_TEST == MGetServerConfig()->GetServerMode() ) 
 	{
@@ -1495,7 +1495,7 @@ void MMatchRuleSurvival::OnRequestSacrificeSlotInfo( const MUID& uidSender )
 //
 // 현재 스롯의 정보를 요청자에 알림.
 ///
-void MMatchRuleSurvival::OnResponseSacrificeSlotInfoToListener( const MUID& uidSender )
+void MMatchRuleSurvival::OnResponseSacrificeSlotInfoToListener( const CCUID& uidSender )
 {
 	CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) )
@@ -1507,7 +1507,7 @@ void MMatchRuleSurvival::OnResponseSacrificeSlotInfoToListener( const MUID& uidS
 	if( 0 == pStage )
 		return;
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_SLOT_INFO, MUID(0, 0) );
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_SLOT_INFO, CCUID(0, 0) );
 	if( 0 == pCmd )
 		return;
 
@@ -1526,13 +1526,13 @@ void MMatchRuleSurvival::OnResponseSacrificeSlotInfoToListener( const MUID& uidS
 //
 // 현재 스롯의 정보를 스테이지에 알림.
 ///
-void MMatchRuleSurvival::OnResponseSacrificeSlotInfoToStage( const MUID& uidStage )
+void MMatchRuleSurvival::OnResponseSacrificeSlotInfoToStage( const CCUID& uidStage )
 {
 	CCMatchStage* pStage = CCMatchServer::GetInstance()->FindStage( uidStage );
 	if( 0 == pStage )
 		return;
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_SLOT_INFO, MUID(0, 0) );
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_RESPONSE_SLOT_INFO, CCUID(0, 0) );
 	if( 0 == pCmd )
 		return;
 
@@ -1557,7 +1557,7 @@ void MMatchRuleSurvival::PostInsertQuestGameLogAsyncJob()
 
 
 
-int MMatchRuleSurvival::CalcuOwnerQItemCount( const MUID& uidPlayer, const unsigned long nItemID )
+int MMatchRuleSurvival::CalcuOwnerQItemCount( const CCUID& uidPlayer, const unsigned long nItemID )
 {
 	if(  0 == CCMatchServer::GetInstance()->GetObject(uidPlayer) )
 		return -1;
@@ -1632,7 +1632,7 @@ const bool MMatchRuleSurvival::PostNPCInfo()
 		}
 	}
 
-	MCommand* pCmdNPCList = MGetMatchServer()->CreateCommand( MC_QUEST_NPCLIST, MUID(0, 0) );
+	MCommand* pCmdNPCList = MGetMatchServer()->CreateCommand( MC_QUEST_NPCLIST, CCUID(0, 0) );
 	if( NULL == pCmdNPCList )
 	{
 		MEraseBlobArray( pBlobNPC );
@@ -1685,7 +1685,7 @@ bool MMatchRuleSurvival::PostRankingList()
 		}
 	}
 
-	MCommand* pCmdRankingList = MGetMatchServer()->CreateCommand( MC_SURVIVAL_RANKINGLIST, MUID(0, 0) );
+	MCommand* pCmdRankingList = MGetMatchServer()->CreateCommand( MC_SURVIVAL_RANKINGLIST, CCUID(0, 0) );
 	if( NULL == pCmdRankingList )
 	{
 		MEraseBlobArray( pBlobRanking );
@@ -1916,7 +1916,7 @@ void MMatchRuleSurvival::ReinforceNPC()
 	}
 }
 
-void MMatchRuleSurvival::OnRequestNPCDead( MUID& uidSender, MUID& uidKiller, MUID& uidNPC, MVector& pos )
+void MMatchRuleSurvival::OnRequestNPCDead( CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, MVector& pos )
 {
 	// 점수계산을 위해 죽은 NPC의 HP/AP를 누적
 	MMatchNPCObject* pNPC = m_NPCManager.GetNPCObject(uidNPC);

@@ -7,7 +7,7 @@
 
 ///////////////////////////////////////////////////////
 // MVoteDiscussBuilder
-MVoteDiscuss* MVoteDiscussBuilder::Build(const MUID& uidDrafter, const MUID& uidStage, const char* pszDiscuss, const char* pszArg)
+MVoteDiscuss* MVoteDiscussBuilder::Build(const CCUID& uidDrafter, const CCUID& uidStage, const char* pszDiscuss, const char* pszArg)
 {
 	if ( (stricmp(pszDiscuss, "joke") == 0) || (stricmp(pszDiscuss, "³ó´ã") == 0) ) {
 		MVoteDiscussJoke* pDiscuss = new MVoteDiscussJoke(uidStage);
@@ -24,7 +24,7 @@ MVoteDiscuss* MVoteDiscussBuilder::Build(const MUID& uidDrafter, const MUID& uid
 
 ///////////////////////////////////////////////////////
 // MVoteDiscussJoke
-MVoteDiscussJoke::MVoteDiscussJoke(const MUID& uidStage) : MVoteDiscuss(uidStage)
+MVoteDiscussJoke::MVoteDiscussJoke(const CCUID& uidStage) : MVoteDiscuss(uidStage)
 {
 }
 
@@ -36,7 +36,7 @@ bool MVoteDiscussJoke::OnJudge(bool bJudge)
 
 	sprintf(szMsg, "%s", m_strJoke.c_str());
 
-	MCommand* pCmd = pServer->CreateCommand(MC_MATCH_ANNOUNCE, MUID(0,0));
+	MCommand* pCmd = pServer->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUInt(0));
 	pCmd->AddParameter(new MCmdParamStr(szMsg));
 	pServer->RouteToStage(GetStageUID(), pCmd);
@@ -46,7 +46,7 @@ bool MVoteDiscussJoke::OnJudge(bool bJudge)
 
 ///////////////////////////////////////////////////////
 // MVoteDiscussKick
-MVoteDiscussKick::MVoteDiscussKick(const MUID& uidStage) : MVoteDiscuss(uidStage)
+MVoteDiscussKick::MVoteDiscussKick(const CCUID& uidStage) : MVoteDiscuss(uidStage)
 {
 }
 

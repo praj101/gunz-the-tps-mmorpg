@@ -12,7 +12,7 @@ protected:
 
 public:
 	MAgentObject() {}
-	MAgentObject(const MUID& uid) : MObject(uid) { 
+	MAgentObject(const CCUID& uid) : MObject(uid) { 
 		ZeroMemory(m_szIP, sizeof(char)*64);	
 		m_nTCPPort=0;
 		m_nUDPPort=0;
@@ -31,4 +31,4 @@ public:
 };
 
 
-class MAgentObjectMap : public map<MUID, MAgentObject*>{};
+class MAgentObjectMap : public map<CCUID, MAgentObject*>{};

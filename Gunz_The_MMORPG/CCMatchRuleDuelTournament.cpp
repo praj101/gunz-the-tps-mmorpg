@@ -21,8 +21,8 @@
 
 MMatchRuleDuelTournament::MMatchRuleDuelTournament(CCMatchStage* pStage) : MMatchRule(pStage)
 {
-	m_CurrentMatchInfo.uidPlayer1 = MUID(0, 0);
-	m_CurrentMatchInfo.uidPlayer2 = MUID(0, 0);
+	m_CurrentMatchInfo.uidPlayer1 = CCUID(0, 0);
+	m_CurrentMatchInfo.uidPlayer2 = CCUID(0, 0);
 	m_CurrentMatchInfo.nMatchNumber = 0;
 	m_CurrentMatchInfo.nNextMatchNumber = 0;
 	m_CurrentMatchInfo.nRoundState = MDUELTOURNAMENTROUNDSTATE_MAX;
@@ -50,7 +50,7 @@ void MMatchRuleDuelTournament::OnBegin()
 		////////////////////////////////////////////////////////////////////////////////////////
 		// Stage에 참여한 모든 사람을 일단 참여자 명단에 집어넣는다.
 		m_DTPlayerMap.clear();
-		for(MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {			
+		for(CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {			
 			CCMatchObject *pObj = CCMatchServer::GetInstance()->GetObject((*itor).first);
 			if( pObj != NULL ) {
 				MDuelTournamentPlayerInfo *pInfo = new MDuelTournamentPlayerInfo;
@@ -158,11 +158,11 @@ void MMatchRuleDuelTournament::OnMatchNotFinish()
 
 bool MMatchRuleDuelTournament::OnRoundEnd_PlayerOut()
 {	
-	if( m_CurrentMatchInfo.uidPlayer1 == MUID(0, 0) && m_CurrentMatchInfo.uidPlayer2 == MUID(0, 0)) {
+	if( m_CurrentMatchInfo.uidPlayer1 == CCUID(0, 0) && m_CurrentMatchInfo.uidPlayer2 == CCUID(0, 0)) {
 		m_RoundRecord.bPlayer2Win = false;
 		m_RoundRecord.bPlayer1Win = false;
 
-		// MUID는 (0, 0)일 것이다.
+		// CCUID는 (0, 0)일 것이다.
 		m_RoundRecord.uidWinnerPlayer = m_CurrentMatchInfo.uidPlayer1;
 		m_RoundRecord.uidLoserPlayer  = m_CurrentMatchInfo.uidPlayer2;
 
@@ -182,8 +182,8 @@ bool MMatchRuleDuelTournament::OnRoundEnd_PlayerOut()
 
 		DTLog(DTLOG_DEBUG, "::OnRoundEnd() - Player1, Player2 Out! Go Next Match!");
 	} 
-	else if( m_CurrentMatchInfo.uidPlayer1 == MUID(0, 0)) { OnMatchFinish(false);} 
-	else if( m_CurrentMatchInfo.uidPlayer2 == MUID(0, 0)) { OnMatchFinish(true);} 
+	else if( m_CurrentMatchInfo.uidPlayer1 == CCUID(0, 0)) { OnMatchFinish(false);} 
+	else if( m_CurrentMatchInfo.uidPlayer2 == CCUID(0, 0)) { OnMatchFinish(true);} 
 	else												  { return false; }
 
 	return true;
@@ -274,7 +274,7 @@ void MMatchRuleDuelTournament::OnRoundEnd()
 	else								{DTLog(DTLOG_DEBUG, "::OnRoundEnd() - Round(%d) were Finished, but Match(%d) is not finish", m_MatchRecord.nRoundCount, m_CurrentMatchInfo.nMatchNumber);}
 }
 
-void MMatchRuleDuelTournament::OnGameKill(const MUID& uidAttacker, const MUID& uidVictim)
+void MMatchRuleDuelTournament::OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim)
 {    
 	if( m_CurrentMatchInfo.uidPlayer1 == uidAttacker && m_CurrentMatchInfo.uidPlayer2 == uidVictim) {
 		m_RoundRecord.bPlayer1Win = true;
@@ -298,7 +298,7 @@ void MMatchRuleDuelTournament::OnGameKill(const MUID& uidAttacker, const MUID& u
 	SetRoundFinish(true);
 }
 
-void MMatchRuleDuelTournament::OnLeaveBattle(MUID& uidChar)
+void MMatchRuleDuelTournament::OnLeaveBattle(CCUID& uidChar)
 {
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// 대전 도중, 플레이어가 이탈했을 경우..
@@ -307,12 +307,12 @@ void MMatchRuleDuelTournament::OnLeaveBattle(MUID& uidChar)
 	// - 이탈시, 이미 토너먼트에서 져서 순수 관전자이면 그냥 이탈
 	//           토너먼트를 계속 진행해야되는 플레이어면 포인트 감점 후 이탈
 	if (uidChar == m_CurrentMatchInfo.uidPlayer1) {
-		m_CurrentMatchInfo.uidPlayer1 = MUID(0, 0);
+		m_CurrentMatchInfo.uidPlayer1 = CCUID(0, 0);
 		SetRoundFinish(true);
 
 		m_DTPlayerMap.SetLoser(m_CurrentMatchInfo.uidPlayer1);		// 일단 패배자 등록!
 	} else if (uidChar == m_CurrentMatchInfo.uidPlayer2) {
-		m_CurrentMatchInfo.uidPlayer2 = MUID(0, 0);
+		m_CurrentMatchInfo.uidPlayer2 = CCUID(0, 0);
 		SetRoundFinish(true);
 
 		m_DTPlayerMap.SetLoser(m_CurrentMatchInfo.uidPlayer2);		// 일단 패배자 등록!
@@ -331,8 +331,8 @@ void MMatchRuleDuelTournament::OnLeaveBattle(MUID& uidChar)
 
 void MMatchRuleDuelTournament::InitMatchRecord()
 {
-	m_MatchRecord.uidWinner = MUID(0, 0);	m_MatchRecord.nTP1 = -1;	m_MatchRecord.nCID1 = -1;	
-	m_MatchRecord.uidLoser = MUID(0 ,0);	m_MatchRecord.nTP2 = -1;	m_MatchRecord.nCID2 = -1;	
+	m_MatchRecord.uidWinner = CCUID(0, 0);	m_MatchRecord.nTP1 = -1;	m_MatchRecord.nCID1 = -1;	
+	m_MatchRecord.uidLoser = CCUID(0 ,0);	m_MatchRecord.nTP2 = -1;	m_MatchRecord.nCID2 = -1;	
 	
 	m_MatchRecord.nGainTP = 0;	m_MatchRecord.nLoseTP = 0;
 
@@ -347,8 +347,8 @@ void MMatchRuleDuelTournament::InitMatchRecord()
 
 void MMatchRuleDuelTournament::InitRoundRecord()
 {
-	m_RoundRecord.uidWinnerPlayer = MUID(0, 0);
-	m_RoundRecord.uidLoserPlayer = MUID(0, 0);
+	m_RoundRecord.uidWinnerPlayer = CCUID(0, 0);
+	m_RoundRecord.uidLoserPlayer = CCUID(0, 0);
 
 	m_RoundRecord.fPlayer1DamagedPoint  = 1000;	
 	m_RoundRecord.fPlayer1HealthPoint	= 0;	
@@ -382,8 +382,8 @@ void MMatchRuleDuelTournament::MakeNextMatch()
 		if( m_CurrentMatchInfo.nMatchNumber % 2 == 0 )	pMatch->uidPlayer1 = m_MatchRecord.uidWinner;
 		else											pMatch->uidPlayer2 = m_MatchRecord.uidWinner;
 
-		if( m_MatchRecord.uidWinner	!= MUID(0, 0))	m_DTPlayerMap.LeaveMatch(m_MatchRecord.uidWinner);
-		if( m_MatchRecord.uidLoser	!= MUID(0, 0))	m_DTPlayerMap.LeaveMatch(m_MatchRecord.uidLoser);
+		if( m_MatchRecord.uidWinner	!= CCUID(0, 0))	m_DTPlayerMap.LeaveMatch(m_MatchRecord.uidWinner);
+		if( m_MatchRecord.uidLoser	!= CCUID(0, 0))	m_DTPlayerMap.LeaveMatch(m_MatchRecord.uidLoser);
 	}
 }
 
@@ -399,12 +399,12 @@ void MMatchRuleDuelTournament::SpawnPlayers()
 		memcpy(&m_CurrentMatchInfo, (MMatchDuelTournamentMatch*)iter1->second, sizeof(MMatchDuelTournamentMatch));
 
 		if( m_DTPlayerMap.EnterMatch(m_CurrentMatchInfo.uidPlayer1) == false ) {
-			m_CurrentMatchInfo.uidPlayer1 = MUID(0, 0);
+			m_CurrentMatchInfo.uidPlayer1 = CCUID(0, 0);
 			DTLog(DTLOG_DEBUG, "::SpawnPlayers() - uidPlayer1 is not exist");
 		}
 
 		if( m_DTPlayerMap.EnterMatch(m_CurrentMatchInfo.uidPlayer2) == false ) {
-			m_CurrentMatchInfo.uidPlayer2 = MUID(0, 0);
+			m_CurrentMatchInfo.uidPlayer2 = CCUID(0, 0);
 			DTLog(DTLOG_DEBUG, "::SpawnPlayers() - uidPlayer2 is not exist");
 		}
 
@@ -412,13 +412,13 @@ void MMatchRuleDuelTournament::SpawnPlayers()
 		if( m_DTPlayerMap.IsOutUser(m_CurrentMatchInfo.uidPlayer1) == true ) {			
 			DTLog(DTLOG_DEBUG, "::SpawnPlayers() - uidPlayer1(%d%d) is out of game"
 				, m_CurrentMatchInfo.uidPlayer1.High, m_CurrentMatchInfo.uidPlayer1.Low);
-			m_CurrentMatchInfo.uidPlayer1 = MUID(0, 0);
+			m_CurrentMatchInfo.uidPlayer1 = CCUID(0, 0);
 		} 
 
 		if( m_DTPlayerMap.IsOutUser(m_CurrentMatchInfo.uidPlayer2) == true ) {			
 			DTLog(DTLOG_DEBUG, "::SpawnPlayers() - uidPlayer2(%d%d) is out of game"
 				, m_CurrentMatchInfo.uidPlayer2.High, m_CurrentMatchInfo.uidPlayer2.Low);
-			m_CurrentMatchInfo.uidPlayer2 = MUID(0, 0);
+			m_CurrentMatchInfo.uidPlayer2 = CCUID(0, 0);
 		} 
 
 		if( m_CurrentMatchInfo.nRoundState == MDUELTOURNAMENTROUNDSTATE_FINAL ) {
@@ -484,7 +484,7 @@ void MMatchRuleDuelTournament::RecordGameResult()
 		nWinnerCurTP = m_MatchRecord.nTP1;
 		nLoserCurTP  = m_MatchRecord.nTP2;
 
-		if( m_CurrentMatchInfo.uidPlayer2 != MUID(0, 0)) { m_DTPlayerMap.SetLoser(m_CurrentMatchInfo.uidPlayer2);} 
+		if( m_CurrentMatchInfo.uidPlayer2 != CCUID(0, 0)) { m_DTPlayerMap.SetLoser(m_CurrentMatchInfo.uidPlayer2);} 
 		else											 { bIsLeave = true; }
 	} else if( m_MatchRecord.uidWinner == m_CurrentMatchInfo.uidPlayer2) {	 ///< 저장된 uidPlayer2가 이겼을 때!
 		nWinnerCID	= m_MatchRecord.nCID2;
@@ -493,7 +493,7 @@ void MMatchRuleDuelTournament::RecordGameResult()
 		nWinnerCurTP = m_MatchRecord.nTP2;
 		nLoserCurTP  = m_MatchRecord.nTP1;
 
-		if( m_CurrentMatchInfo.uidPlayer1 != MUID(0, 0)) { m_DTPlayerMap.SetLoser(m_CurrentMatchInfo.uidPlayer1);} 
+		if( m_CurrentMatchInfo.uidPlayer1 != CCUID(0, 0)) { m_DTPlayerMap.SetLoser(m_CurrentMatchInfo.uidPlayer1);} 
 		else											 { bIsLeave = true; }
 	} else {
 		DTLog(DTLOG_DEBUG, "Player1(%d%d), Player2(%d%d) - Loser(Both)", m_CurrentMatchInfo.uidPlayer1, m_CurrentMatchInfo.uidPlayer2);
@@ -634,7 +634,7 @@ void MMatchRuleDuelTournament::OnCommand(MCommand* pCommand)
 	switch(pCommand->GetID()){
 		case MC_MATCH_DUELTOURNAMENT_GAME_PLAYER_STATUS :
 			{
-				MUID uidPlayer;
+				CCUID uidPlayer;
 				float fDamagedPoint, fHealthPoint, fAmorPoint;
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -725,7 +725,7 @@ void MMatchRuleDuelTournament::SendDuelTournamentMatchResultInfo()
 		m_MatchRecord.uidWinner.High, m_MatchRecord.uidWinner.Low, m_MatchRecord.uidLoser.High, m_MatchRecord.uidLoser.Low);
 }
 
-void MMatchRuleDuelTournament::UpdateDuelTournamentPlayerInfo(MUID uidPlayer, MDUELTOURNAMENTROUNDSTATE nState, bool bIsWinner, int nChangeTP, bool bIsLeaveUser)
+void MMatchRuleDuelTournament::UpdateDuelTournamentPlayerInfo(CCUID uidPlayer, MDUELTOURNAMENTROUNDSTATE nState, bool bIsWinner, int nChangeTP, bool bIsLeaveUser)
 {
 	CCMatchObject* pObj1 = m_pStage->GetObj(uidPlayer);
 	if( pObj1 != NULL ){

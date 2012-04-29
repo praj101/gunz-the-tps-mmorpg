@@ -15,34 +15,34 @@ enum MVOTE {
 
 class MVoter {
 protected:
-	MUID	m_uidVoter;
+	CCUID	m_uidVoter;
 public:
-	MVoter(MUID uid)	{ m_uidVoter = uid; }
-	MUID GetID()		{ return m_uidVoter; }
+	MVoter(CCUID uid)	{ m_uidVoter = uid; }
+	CCUID GetID()		{ return m_uidVoter; }
 };
-class MVoterMap : public map<MUID, MVoter*> {};
+class MVoterMap : public map<CCUID, MVoter*> {};
 
 
 class MVoteDiscuss {
 protected:
-	MUID			m_uidStage;			// 스테이지UID
+	CCUID			m_uidStage;			// 스테이지UID
 	string			m_strDiscuss;		// 안건
 	unsigned long	m_nBeginTime;		// 발의된 시간
-	list<MUID>		m_YesVoterList;		// 찬성자
-	list<MUID>		m_NoVoterList;		// 반대자
+	list<CCUID>		m_YesVoterList;		// 찬성자
+	list<CCUID>		m_NoVoterList;		// 반대자
 
 public:
-	MVoteDiscuss(const MUID& uidStage);
+	MVoteDiscuss(const CCUID& uidStage);
 	virtual ~MVoteDiscuss();
 
-	MUID GetStageUID()	{ return m_uidStage; }
+	CCUID GetStageUID()	{ return m_uidStage; }
 	const char* GetDiscussName()	{ return m_strDiscuss.c_str(); }
 	unsigned long GetBeginTime()	{ return m_nBeginTime; }
 	size_t GetYesVoterCount()	{ return m_YesVoterList.size(); }
 	size_t GetNoVoterCount()	{ return m_NoVoterList.size(); }
 
-	bool CheckVoter(const MUID& uid);	// 투표자인지 검사
-	void Vote(const MUID& uid, MVOTE nVote);
+	bool CheckVoter(const CCUID& uid);	// 투표자인지 검사
+	void Vote(const CCUID& uid, MVOTE nVote);
 public:
 	virtual bool OnJudge(bool bJudge) = 0;
 	virtual string GetImplTarget() = 0;
@@ -72,21 +72,21 @@ public:
 	MVoteMgr();
 	virtual ~MVoteMgr();
 
-	MVoter* FindVoter(const MUID& uid);
-	void AddVoter(const MUID& uid);
-	void RemoveVoter(const MUID& uid);	
+	MVoter* FindVoter(const CCUID& uid);
+	void AddVoter(const CCUID& uid);
+	void RemoveVoter(const CCUID& uid);	
 
 	MVoteDiscuss* GetDiscuss()		{ return m_pDiscuss; }
 	VOTEMGR_ERROR GetLastError()	{ return m_nLastDiscussError; }
 	void SetLastError(VOTEMGR_ERROR nError)	{ m_nLastDiscussError = nError; }
 
 	bool CallVote(MVoteDiscuss* pDiscuss);
-	bool Vote(const MUID& uid, MVOTE nVote);
+	bool Vote(const CCUID& uid, MVOTE nVote);
 	void Tick(unsigned long nClock);
 
 	bool IsGoingOnVote() { return (0 != m_pDiscuss); }
 
-	void StopVote( const MUID& uidUser );
+	void StopVote( const CCUID& uidUser );
 };
 
 /*
@@ -94,14 +94,14 @@ void Client()
 {
 	MVoteMgr	m_VoteMgr;
 
-	m_VoteMgr.AddVoter( MUID(0,1) );
-	m_VoteMgr.AddVoter( MUID(0,2) );
-	m_VoteMgr.AddVoter( MUID(0,3) );
+	m_VoteMgr.AddVoter( CCUID(0,1) );
+	m_VoteMgr.AddVoter( CCUID(0,2) );
+	m_VoteMgr.AddVoter( CCUID(0,3) );
 
 	m_VoteMgr.CallVote(new MVoteDiscussKick());
 
-	m_VoteMgr.Vote(MUID(0,1), MVOTE_YES);
-	m_VoteMgr.Vote(MUID(0,2), MVOTE_YES);
-	m_VoteMgr.Vote(MUID(0,3), MVOTE_NO);
+	m_VoteMgr.Vote(CCUID(0,1), MVOTE_YES);
+	m_VoteMgr.Vote(CCUID(0,2), MVOTE_YES);
+	m_VoteMgr.Vote(CCUID(0,3), MVOTE_NO);
 }
 */

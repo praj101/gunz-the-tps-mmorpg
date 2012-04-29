@@ -14,7 +14,7 @@ MMatchActiveTrap::MMatchActiveTrap()
 	m_nTimeActivated = 0;
 }
 
-void MMatchActiveTrap::AddForcedEnteredPlayer(const MUID& uid)
+void MMatchActiveTrap::AddForcedEnteredPlayer(const CCUID& uid)
 {
 	// 이 함수는 던져졌으나 아직 발동되지 않은 트랩을 난입자에게 나중에 알려주기 위해 사용된다.
 	_ASSERT(!IsActivated());
@@ -56,7 +56,7 @@ void MMatchActiveTrapMgr::Clear()
 	m_listTrap.clear();
 }
 
-void MMatchActiveTrapMgr::AddThrowedTrap( const MUID& uidOwner, int nItemId )
+void MMatchActiveTrapMgr::AddThrowedTrap( const CCUID& uidOwner, int nItemId )
 {
 	if (!m_pStage) return;
 	if (!m_pStage->GetObj(uidOwner)) return;
@@ -77,7 +77,7 @@ void MMatchActiveTrapMgr::AddThrowedTrap( const MUID& uidOwner, int nItemId )
 	OutputDebugStr("AddThrowedTrap\n");
 }
 
-void MMatchActiveTrapMgr::OnActivated( const MUID& uidOwner, int nItemId, const MVector3& vPos )
+void MMatchActiveTrapMgr::OnActivated( const CCUID& uidOwner, int nItemId, const MVector3& vPos )
 {
 	if (!m_pStage) return;
 
@@ -182,7 +182,7 @@ void MMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
 		}
 	}
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, CCUID(0,0));
 	pCmd->AddParameter(new MCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
 	MEraseBlobArray(pTrapArray);
 
@@ -204,7 +204,7 @@ void MMatchActiveTrapMgr::RouteTrapActivationForForcedEnterd(MMatchActiveTrap* p
 	MTD_ActivatedTrap* pNode = (MTD_ActivatedTrap*)MGetBlobArrayElement(pTrapArray, 0);
 	Make_MTDActivatedTrap(pNode, pTrap);
 
-	MCommand* pCommand = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, MUID(0,0));
+	MCommand* pCommand = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, CCUID(0,0));
 	pCommand->AddParameter(new MCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
 
 	CCMatchObject* pObj;

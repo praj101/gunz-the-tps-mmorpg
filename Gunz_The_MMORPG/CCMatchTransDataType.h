@@ -59,7 +59,7 @@ struct MTD_CharInfo
 	int					nDTLastWeekGrade;	
 
 	// 아이템 정보 추가
-	MUID				uidEquipedItem[MMCIP_END];
+	CCUID				uidEquipedItem[MMCIP_END];
 	unsigned long int	nEquipedItemCount[MMCIP_END];
 };
 
@@ -110,20 +110,20 @@ struct MTD_CharLevelInfo
 
 struct MTD_RoundPeerInfo
 {
-	MUID			uidChar;
+	CCUID			uidChar;
 	unsigned char	nHP;
 	unsigned char	nAP;
 };
 
 struct MTD_RoundKillInfo
 {
-	MUID	uidAttacker;
-	MUID	uidVictim;
+	CCUID	uidAttacker;
+	CCUID	uidVictim;
 };
 
 struct MTD_ItemNode
 {
-	MUID				uidItem;
+	CCUID				uidItem;
 	unsigned long int	nItemID;
 	int					nRentMinutePeriodRemainder;		// 기간제 아이템 사용가능시간(초단위), RENT_MINUTE_PERIOD_UNLIMITED이면 무제한
 	int					iMaxUseHour;					// 최대 사용 시간(시간 단위)
@@ -146,7 +146,7 @@ struct MTD_AccountItemNode
 // 게임안 상태 정보
 struct MTD_GameInfoPlayerItem
 {
-	MUID	uidPlayer;
+	CCUID	uidPlayer;
 	bool	bAlive;
 	int		nKillCount;
 	int		nDeathCount;
@@ -168,13 +168,13 @@ struct MTD_RuleInfo
 
 struct MTD_RuleInfo_Assassinate : public MTD_RuleInfo
 {
-	MUID	uidRedCommander;
-	MUID	uidBlueCommander;
+	CCUID	uidRedCommander;
+	CCUID	uidBlueCommander;
 };
 
 struct MTD_RuleInfo_Berserker : public MTD_RuleInfo
 {
-	MUID	uidBerserker;
+	CCUID	uidBerserker;
 };
 
 
@@ -186,7 +186,7 @@ enum MTD_PlayerFlags {
 
 struct MTD_ChannelPlayerListNode 
 {
-	MUID			uidPlayer;
+	CCUID			uidPlayer;
 	char			szName[MATCHOBJECT_NAME_LENGTH];
 	char			szClanName[CLAN_NAME_LENGTH];
 	char			nLevel;
@@ -201,7 +201,7 @@ struct MTD_ChannelPlayerListNode
 
 struct MTD_ClanMemberListNode 
 {
-	MUID				uidPlayer;
+	CCUID				uidPlayer;
 	char				szName[MATCHOBJECT_NAME_LENGTH];
 	char				nLevel;
 	MMatchClanGrade		nClanGrade;
@@ -234,7 +234,7 @@ struct MTD_WorldItem
 // 발동된 트랩 정보
 struct MTD_ActivatedTrap
 {
-	MUID				uidOwner;
+	CCUID				uidOwner;
 	unsigned short		nItemID;
 	unsigned long int	nTimeElapsed;
 	short	x;
@@ -294,7 +294,7 @@ struct MTD_CharInfo_Detail
 /// 방 리스트 달라고 요청할때 보내는 구조체
 struct MTD_StageListNode
 {
-	MUID			uidStage;							///< 방 UID
+	CCUID			uidStage;							///< 방 UID
 	unsigned char	nNo;								///< 방번호
 	char			szStageName[STAGENAME_LENGTH];		///< 방이름
 	char			nPlayers;							///< 현재인원
@@ -318,7 +318,7 @@ struct MTD_ExtendInfo
 
 struct MTD_PeerListNode
 {
-	MUID				uidChar;
+	CCUID				uidChar;
 	DWORD				dwIP;
 	unsigned int		nPort;
 	MTD_CharInfo		CharInfo;
@@ -389,7 +389,7 @@ struct MTD_QuestGameInfo
 // 퀘스트, 보상 내용
 struct MTD_QuestReward
 {
-	MUID				uidPlayer;	// 해당 플레이어 UID
+	CCUID				uidPlayer;	// 해당 플레이어 UID
 	int					nXP;		// 해당 플레이어가 얻은 XP
 	int					nBP;		// 해당 플레이어가 얻은 BP
 };
@@ -469,7 +469,7 @@ struct MTD_ServerStatusInfo
 
 struct MTD_ResetTeamMembersData
 {
-	MUID			m_uidPlayer;		// 해당 플레이어
+	CCUID			m_uidPlayer;		// 해당 플레이어
 	char			nTeam;				// 팀
 };
 
@@ -478,9 +478,9 @@ struct MTD_ResetTeamMembersData
 
 struct MTD_DuelQueueInfo
 {
-	MUID			m_uidChampion;
-	MUID			m_uidChallenger;
-	MUID			m_WaitQueue[14];				// 팀
+	CCUID			m_uidChampion;
+	CCUID			m_uidChallenger;
+	CCUID			m_WaitQueue[14];				// 팀
 	char			m_nQueueLength;
 	char			m_nVictory;						// 연승수
 	bool			m_bIsRoundEnd;					// 라운드 끝날때인가
@@ -488,28 +488,28 @@ struct MTD_DuelQueueInfo
 
 struct MTD_DuelTournamentGameInfo
 {
-	MUID			uidPlayer1;					// 진행할 게임의 참가할 Player1
-	MUID			uidPlayer2;					// 진행할 게임의 참가할 Player1
+	CCUID			uidPlayer1;					// 진행할 게임의 참가할 Player1
+	CCUID			uidPlayer2;					// 진행할 게임의 참가할 Player1
 	int				nMatchType;					// 진행할 게임의 MatchType(
 	int				nMatchNumber;				// 진행할 게임의 MatchNumber
 	int				nRoundCount;				// 진행할 게임의 라운드수
 	bool			bIsRoundEnd;				// 라운드가 종료되었는가에 대한 Flag(플레이어 이탈자 때문에..)
 	char			nWaitPlayerListLength;		// 대기자 리스트의 Length
 	byte			dummy[2];					// 4바이트씩 맞추기 위한 더미
-	MUID			WaitPlayerList[8];			// 대기자들의 MUID
+	CCUID			WaitPlayerList[8];			// 대기자들의 CCUID
 };
 
 struct MTD_DuelTournamentNextMatchPlayerInfo
 {
-	MUID			uidPlayer1;					// 진행할 게임의 참가할 Player1
-	MUID			uidPlayer2;					// 진행할 게임의 참가할 Player1
+	CCUID			uidPlayer1;					// 진행할 게임의 참가할 Player1
+	CCUID			uidPlayer2;					// 진행할 게임의 참가할 Player1
 };
 
 
 struct MTD_DuelTournamentRoundResultInfo
 {
-	MUID			uidWinnerPlayer;			// 현재 라운드의 승리자
-	MUID			uidLoserPlayer;				// 현재 라운드의 패배자(180cm 이하...)
+	CCUID			uidWinnerPlayer;			// 현재 라운드의 승리자
+	CCUID			uidLoserPlayer;				// 현재 라운드의 패배자(180cm 이하...)
 	bool			bIsTimeOut;					// 현재 라운드가 타임 아웃이었나?
 	bool			bDraw;						// 현재 라운드가 비겼을 경우 true
 	bool			bIsMatchFinish;				// 현재 라운드가 종료되면서, Match가 종료되었을 경우 true
@@ -531,8 +531,8 @@ struct MTD_DuelTournamentMatchResultInfo
 {
 	int				nMatchNumber;
 	int				nMatchType;
-	MUID			uidWinnerPlayer;			// 현재 라운드의 승리자
-	MUID			uidLoserPlayer;				// 현재 라운드의 패배자(180cm 이하...)
+	CCUID			uidWinnerPlayer;			// 현재 라운드의 승리자
+	CCUID			uidLoserPlayer;				// 현재 라운드의 패배자(180cm 이하...)
 	int				nGainTP;
 	int				nLoseTP;
 };
@@ -550,7 +550,7 @@ enum ZAdminAnnounceType
 // 겜블 아이템 데이터
 struct MTD_GambleItemNode
 {
-	MUID			uidItem;
+	CCUID			uidItem;
 	unsigned int	nItemID;							// 아이템 ID
 	unsigned int	nItemCnt;
 };
@@ -573,7 +573,7 @@ struct MTD_ShopItemInfo
 	int				nItemCount;
 };
 /////////////////////////////////////////////////////////
-void Make_MTDItemNode(MTD_ItemNode* pout, MUID& uidItem, unsigned long int nItemID, int nRentMinutePeriodRemainder, int iMaxUseHour, int nCount);
+void Make_MTDItemNode(MTD_ItemNode* pout, CCUID& uidItem, unsigned long int nItemID, int nRentMinutePeriodRemainder, int iMaxUseHour, int nCount);
 void Make_MTDAccountItemNode(MTD_AccountItemNode* pout, int nAIID, unsigned long int nItemID, int nRentMinutePeriodRemainder, int nCount);
 
 void Make_MTDQuestItemNode( MTD_QuestItemNode* pOut, const unsigned long int nItemID, const int nCount );

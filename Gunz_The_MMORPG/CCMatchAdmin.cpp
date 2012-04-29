@@ -31,7 +31,7 @@ void MMatchAdmin::Destroy()
 
 }
 
-bool MMatchAdmin::Execute(const MUID& uidAdmin, const char* szStr)
+bool MMatchAdmin::Execute(const CCUID& uidAdmin, const char* szStr)
 {
 	if (!m_pMatchServer) return false;
 
@@ -137,8 +137,8 @@ bool CCMatchServer::OnAdminExecute(MAdminArgvInfo* pAI, char* szOut)
 		nMsgType = atoi(pAI->cargv[2]);
 
 
-		MCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, MUID(0,0));
-		pCmd->AddParameter(new MCmdParamUID(MUID(0,0)));
+		MCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, CCUID(0,0));
+		pCmd->AddParameter(new MCmdParamUID(CCUID(0,0)));
 		pCmd->AddParameter(new MCmdParamStr(szMsg));
 		pCmd->AddParameter(new MCmdParamUInt(nMsgType));
 
@@ -153,7 +153,7 @@ bool CCMatchServer::OnAdminExecute(MAdminArgvInfo* pAI, char* szOut)
 }
 
 
-void CCMatchServer::AdminTerminalOutput(const MUID& uidAdmin, const char* szText)
+void CCMatchServer::AdminTerminalOutput(const CCUID& uidAdmin, const char* szText)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
@@ -168,7 +168,7 @@ void CCMatchServer::AdminTerminalOutput(const MUID& uidAdmin, const char* szText
 	char szMsg[65535];
 	strcpy(szMsg, szText);
 
-	MCommand* pCmd = CreateCommand(MC_ADMIN_TERMINAL, MUID(0,0));
+	MCommand* pCmd = CreateCommand(MC_ADMIN_TERMINAL, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidAdmin));
 	pCmd->AddParameter(new MCmdParamStr(szMsg));
 

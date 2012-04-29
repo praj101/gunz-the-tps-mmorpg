@@ -43,12 +43,12 @@ int CCMatchServer::ValidateChallengeLadderGame(CCMatchObject** ppMemberObject, i
 
 ///////////////////////////////////////////////////////////////////////////
 // LadderStage
-bool CCMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, CCMatchTeam nTeam)
+bool CCMatchServer::LadderJoin(const CCUID& uidPlayer, const CCUID& uidStage, CCMatchTeam nTeam)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
 
-	if (pObj->GetStageUID() != MUID(0,0))
+	if (pObj->GetStageUID() != CCUID(0,0))
 		StageLeave(pObj->GetUID());//, pObj->GetStageUID());
 
 	CCMatchStage* pStage = FindStage(uidStage);
@@ -78,7 +78,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
 		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
 
-	MUID uidStage = MUID(0,0);
+	CCUID uidStage = CCUID(0,0);
 	if (StageAdd(NULL, "LADDER_GAME", true, "", &uidStage) == false) {
 		// Group 해체
 		GetLadderMgr()->CancelChallenge(pGroupA->GetID(), "");
@@ -94,15 +94,15 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	}
 
 	// A 그룹 입장
-	for (list<MUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
+	for (list<CCUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
 	{
-		MUID uidPlayer = (*i);
+		CCUID uidPlayer = (*i);
 		LadderJoin(uidPlayer, uidStage, MMT_RED);
 	}
 	// B 그룹 입장
-	for (list<MUID>::iterator i=pGroupB->GetPlayerListBegin(); i!= pGroupB->GetPlayerListEnd(); i++)
+	for (list<CCUID>::iterator i=pGroupB->GetPlayerListBegin(); i!= pGroupB->GetPlayerListEnd(); i++)
 	{
-		MUID uidPlayer = (*i);
+		CCUID uidPlayer = (*i);
 		LadderJoin(uidPlayer, uidStage, MMT_BLUE);
 	}
 
@@ -135,7 +135,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	};
 
 	CCMatchStageSetting* pSetting = pStage->GetStageSetting();
-	pSetting->SetMasterUID(MUID(0,0));
+	pSetting->SetMasterUID(CCUID(0,0));
 	pSetting->SetMapIndex(nRandomMap);
 	pSetting->SetGameType(nGameType);
 
@@ -162,8 +162,8 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 			// - by SungE.
 			CCMatchObjectCacheBuilder CacheBuilder;
 			CacheBuilder.Reset();
-			for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
-				MUID uidObj = (MUID)(*i).first;
+			for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
+				CCUID uidObj = (CCUID)(*i).first;
 				CCMatchObject* pScanObj = (CCMatchObject*)GetObject(uidObj);
 				if (pScanObj) {
 					CacheBuilder.AddObject(pScanObj);
@@ -173,7 +173,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 			RouteToStage(pStage->GetUID(), pCmdCacheAdd);
 			/////////////////////////////////////////////////////////////////////////////////////////////
 
-			MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_LAUNCH, MUID(0,0));
+			MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_LAUNCH, CCUID(0,0));
 			pCmd->AddParameter(new MCmdParamUID(uidStage));
 			pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
 			RouteToStage(uidStage, pCmd);
@@ -188,7 +188,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 }
 
 
-bool CCMatchServer::IsLadderRequestUserInRequestClanMember( const MUID& uidRequestMember
+bool CCMatchServer::IsLadderRequestUserInRequestClanMember( const CCUID& uidRequestMember
 														  , const MTD_LadderTeamMemberNode* pRequestMemberNode )
 {
 	// - by SungE 2007-10-11 
@@ -212,7 +212,7 @@ bool CCMatchServer::IsLadderRequestUserInRequestClanMember( const MUID& uidReque
 	return true;
 }
 
-void CCMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* pMemberNamesBlob, unsigned long int nOptions)
+void CCMatchServer::OnLadderRequestChallenge(const CCUID& uidRequestMember, void* pMemberNamesBlob, unsigned long int nOptions)
 {
 	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
 		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
@@ -298,7 +298,7 @@ void CCMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void*
 	GetLadderMgr()->Challenge(pGroup);
 }
 
-void CCMatchServer::OnLadderRequestCancelChallenge(const MUID& uidPlayer)
+void CCMatchServer::OnLadderRequestCancelChallenge(const CCUID& uidPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return;
@@ -307,7 +307,7 @@ void CCMatchServer::OnLadderRequestCancelChallenge(const MUID& uidPlayer)
 	GetLadderMgr()->CancelChallenge(pObj->GetLadderGroupID(), pObj->GetCharInfo()->m_szName);
 }
 
-void CCMatchServer::OnRequestProposal(const MUID& uidProposer, const int nProposalMode, const int nRequestID, 
+void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nProposalMode, const int nRequestID, 
 		                const int nReplierCount, void* pReplierNamesBlob)
 {
 	CCMatchObject* pProposerObject = GetObject(uidProposer);
@@ -324,7 +324,7 @@ void CCMatchServer::OnRequestProposal(const MUID& uidProposer, const int nPropos
 	if (!MGetServerConfig()->IsEnabledCreateLadderGame())
 	{
 		// 메세지 보내주고 끝.
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, MUID(0,0));
+		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
 		pNewCmd->AddParameter(new MCommandParameterInt(MERR_LADDER_NOT_SERVICE_TIME));
 		pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
 		pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
@@ -350,7 +350,7 @@ void CCMatchServer::OnRequestProposal(const MUID& uidProposer, const int nPropos
 		if (!IsEnabledObject(ppReplierObjects[i]))
 		{
 			// 메세지 보내주고 끝.
-			MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, MUID(0,0));
+			MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
 			pNewCmd->AddParameter(new MCommandParameterInt(MERR_NO_TARGET));
 			pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
 			pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
@@ -381,7 +381,7 @@ void CCMatchServer::OnRequestProposal(const MUID& uidProposer, const int nPropos
 
 	if (nRet != MOK)
 	{
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, MUID(0,0));
+		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
 		pNewCmd->AddParameter(new MCommandParameterInt(nRet));
 		pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
 		pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
@@ -405,7 +405,7 @@ void CCMatchServer::OnRequestProposal(const MUID& uidProposer, const int nPropos
 	// 답변자에게 동의를 물어본다.
 	for (int i = 0; i < nReplierCount; i++)
 	{
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_ASK_AGREEMENT, MUID(0,0));
+		MCommand* pNewCmd = CreateCommand(MC_MATCH_ASK_AGREEMENT, CCUID(0,0));
 		pNewCmd->AddParameter(new MCommandParameterUID(uidProposer));
 //		pNewCmd->AddParameter(new MCommandParameterString(pProposerObject->GetCharInfo()->m_szName));
 		pNewCmd->AddParameter(new MCommandParameterBlob(pBlobMembersNameArray, MGetBlobArraySize(pBlobMembersNameArray)));
@@ -420,7 +420,7 @@ void CCMatchServer::OnRequestProposal(const MUID& uidProposer, const int nPropos
 
 
 	// 제안자에게 응답 보내줌
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
 	pNewCmd->AddParameter(new MCommandParameterInt(nRet));
 	pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
 	pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
@@ -428,14 +428,14 @@ void CCMatchServer::OnRequestProposal(const MUID& uidProposer, const int nPropos
 
 }
 
-void CCMatchServer::OnReplyAgreement(MUID& uidProposer, MUID& uidReplier, const char* szReplierName, 
+void CCMatchServer::OnReplyAgreement(CCUID& uidProposer, CCUID& uidReplier, const char* szReplierName, 
 		                const int nProposalMode, const int nRequestID, const bool bAgreement)
 {
 	CCMatchObject* pProposerObject = GetObject(uidProposer);
 	if (! IsEnabledObject(pProposerObject)) return;
 
 	
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_REPLY_AGREEMENT, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_REPLY_AGREEMENT, CCUID(0,0));
 	pNewCmd->AddParameter(new MCommandParameterUID(uidProposer));
 	pNewCmd->AddParameter(new MCommandParameterUID(uidReplier));
 	pNewCmd->AddParameter(new MCommandParameterString(szReplierName));

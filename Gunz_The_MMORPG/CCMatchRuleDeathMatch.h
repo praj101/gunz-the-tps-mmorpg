@@ -54,7 +54,7 @@ protected:
 	virtual bool OnCheckRoundFinish();
 	virtual void OnRoundTimeOut();
 	virtual bool RoundCount();
-	virtual void OnGameKill(const MUID& uidAttacker, const MUID& uidVictim);
+	virtual void OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim);
 
 public:
 	MMatchRuleTeamDeath2(CCMatchStage* pStage);

@@ -167,7 +167,7 @@ void MMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 	}
 
 	// 난입한 넘에게 아이템 정보 보내준다
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, CCUID(0,0));
 	pCmd->AddParameter(new MCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
 	MEraseBlobArray(pItemArray);
 
@@ -422,10 +422,10 @@ void MMatchWorldItemManager::Destroy()
 
 }
 
-void MMatchWorldItemManager::RouteObtainWorldItem(const MUID& uidPlayer, int nWorldItemUID)
+void MMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldItemUID)
 {
 	// 먹었다고 라우팅
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidPlayer));
 	pCmd->AddParameter(new MCmdParamInt(nWorldItemUID));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
@@ -434,7 +434,7 @@ void MMatchWorldItemManager::RouteObtainWorldItem(const MUID& uidPlayer, int nWo
 void MMatchWorldItemManager::RouteRemoveWorldItem(int nWorldItemUID)
 {
 	// 없어졌다고 라우팅
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_REMOVE_WORLDITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_REMOVE_WORLDITEM, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamInt(nWorldItemUID));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
@@ -448,7 +448,7 @@ void MMatchWorldItemManager::RouteSpawnWorldItem(MMatchWorldItem* pWorldItem)
 
 
 	// 방인원에게 라우팅
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, CCUID(0,0));
 
 	void* pItemArray = MMakeBlobArray(sizeof(MTD_WorldItem), 1);
 	MTD_WorldItem* pNode = (MTD_WorldItem*)MGetBlobArrayElement(pItemArray, 0);

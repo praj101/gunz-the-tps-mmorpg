@@ -24,7 +24,7 @@
 
 const DWORD MMatchDisconnStatusInfo::MINTERVAL_DISCONNECT_STATUS_MIN = (5 * 1000);
 
-CCMatchObject::CCMatchObject(const MUID& uid) : MObject(uid) 
+CCMatchObject::CCMatchObject(const CCUID& uid) : MObject(uid) 
 { 
 	m_pCharInfo = NULL;
 	m_pFriendInfo = NULL;
@@ -33,12 +33,12 @@ CCMatchObject::CCMatchObject(const MUID& uid) : MObject(uid)
 	ZeroMemory(m_szIP, sizeof(char)*64);	
 	m_nPort=0;
 	
-	m_uidStage = MUID(0,0);
-	m_uidChatRoom = MUID(0,0);
+	m_uidStage = CCUID(0,0);
+	m_uidChatRoom = CCUID(0,0);
 
 	m_bBridgePeer = false;
 	m_bRelayPeer = false;
-	m_uidAgent = MUID(0,0);
+	m_uidAgent = CCUID(0,0);
 
 	m_nPlayerFlags = 0;
 	m_nUserOptionFlags = 0;

@@ -83,8 +83,8 @@ void MMatchShutdown::Notify(int nIndex)
 	char* pszMsg = m_ShutdownNotifyArray[nIndex]->GetString();
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	
-	MCommand* pCmd = pServer->CreateCommand(MC_ADMIN_ANNOUNCE, MUID(0,0));
-	pCmd->AddParameter(new MCmdParamUID(MUID(0,0)));
+	MCommand* pCmd = pServer->CreateCommand(MC_ADMIN_ANNOUNCE, CCUID(0,0));
+	pCmd->AddParameter(new MCmdParamUID(CCUID(0,0)));
 	pCmd->AddParameter(new MCmdParamStr(pszMsg));
 	pCmd->AddParameter(new MCmdParamUInt(ZAAT_CHAT));
 	pServer->RouteToAllClient(pCmd);

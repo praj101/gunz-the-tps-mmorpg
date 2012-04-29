@@ -13,13 +13,13 @@ class CCMatchObjectContainer
 {
 public:
 	// playerUID -> CCMatchObject -> DuelTournamentCharInfo 까지의 얻어오는 과정을 래핑
-	virtual CCMatchObjectDuelTournamentCharInfo* GetDuelTournamentCharInfo(const MUID& uid) { 
+	virtual CCMatchObjectDuelTournamentCharInfo* GetDuelTournamentCharInfo(const CCUID& uid) { 
 		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uid);
 		return pObj ? pObj->GetDuelTournamentCharInfo() : NULL;
 	}
 
 	// uidPlayer가 가리키는 MatchObject가 유효한지 검사하는 과정을 래핑
-	virtual bool IsEnabledUid(const MUID& uid) {
+	virtual bool IsEnabledUid(const CCUID& uid) {
 		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uid);
 		return IsEnabledObject(pObj);
 	}
@@ -30,11 +30,11 @@ class MDuelTournamentMatchMaker
 public:
 
 	struct DTUser {
-		MUID uid;	// player uid
+		CCUID uid;	// player uid
 		int tp;		// tournament point
 
 		DTUser() : uid(0,0), tp(0) {}
-		DTUser(const MUID& uid_, int tp_) : uid(uid_), tp(tp_) {}
+		DTUser(const CCUID& uid_, int tp_) : uid(uid_), tp(tp_) {}
 
 		bool operator <(const DTUser &o) const {
 			if (tp < o.tp) return true;
@@ -63,8 +63,8 @@ public:
 
 	void SetMatchObjectContainer(CCMatchObjectContainer* p) { m_pMatchObjectContainer = p; }
 
-	bool AddPlayer(const MUID& uid, int tp, DWORD curTime);
-	bool RemovePlayer(const MUID& uid);
+	bool AddPlayer(const CCUID& uid, int tp, DWORD curTime);
+	bool RemovePlayer(const CCUID& uid);
 	void RemoveAll();
 
 	int GetNumPlayer() { return (int)m_mapUser.size(); }

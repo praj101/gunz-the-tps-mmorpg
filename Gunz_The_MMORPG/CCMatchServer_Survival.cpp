@@ -25,7 +25,7 @@ bool CCMatchServer::OnRequestSurvivalModeGroupRanking()
 	return true;
 }
 
-bool CCMatchServer::OnRequestSurvivalModePrivateRanking( const MUID& uidStage, const MUID& uidPlayer, DWORD dwScenarioID, DWORD dwCID )
+bool CCMatchServer::OnRequestSurvivalModePrivateRanking( const CCUID& uidStage, const CCUID& uidPlayer, DWORD dwScenarioID, DWORD dwCID )
 {
 	CCAsyncDBJob_GetSurvivalModePrivateRanking *pAsyncDbJob_GetSurvivalModePrivateRanking = new CCAsyncDBJob_GetSurvivalModePrivateRanking;
 	if( 0 == pAsyncDbJob_GetSurvivalModePrivateRanking )

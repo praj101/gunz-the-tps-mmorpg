@@ -77,7 +77,7 @@ int CCMatchServer::ValidateCreateClan(const char* szClanName, CCMatchObject* pMa
 	}
 
 	// 클랜생성멤버들이 중복되었는지 검사
-	MUID* tempUID = new MUID[CLAN_SPONSORS_COUNT+1]; 
+	CCUID* tempUID = new CCUID[CLAN_SPONSORS_COUNT+1]; 
 
 	tempUID[0] = pMasterObject->GetUID();
 
@@ -195,7 +195,7 @@ void CCMatchServer::UpdateCharClanInfo(CCMatchObject* pObject, const int nCLID, 
 
 
 	// route까지 여기서 해준다.
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_UPDATE_CHAR_CLANINFO, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_UPDATE_CHAR_CLANINFO, CCUID(0,0));
 	void* pClanInfoArray = MMakeBlobArray(sizeof(MTD_CharClanInfo), 1);
 
 	MTD_CharClanInfo* pClanInfo = (MTD_CharClanInfo*)MGetBlobArrayElement(pClanInfoArray, 0);
@@ -225,7 +225,7 @@ MMatchClan* CCMatchServer::FindClan(const int nCLID)
 	return pClan;
 }
 
-void CCMatchServer::OnClanRequestCreateClan(const MUID& uidPlayer, const int nRequestID, const char* szClanName, 
+void CCMatchServer::OnClanRequestCreateClan(const CCUID& uidPlayer, const int nRequestID, const char* szClanName, 
 					char** szSponsorNames)
 {
 	CCMatchObject* pMasterObject = GetObject(uidPlayer);
@@ -241,7 +241,7 @@ void CCMatchServer::OnClanRequestCreateClan(const MUID& uidPlayer, const int nRe
 		if (pSponsorObjects[i] == NULL)
 		{
 			// 메세지 보내주고 끝.
-			MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_RESPONSE_CREATE_CLAN, MUID(0,0));
+			MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_RESPONSE_CREATE_CLAN, CCUID(0,0));
 			pNewCmd->AddParameter(new MCommandParameterInt(MERR_CLAN_NO_SPONSOR));
 			pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
 			RouteToListener(pMasterObject, pNewCmd);
@@ -256,7 +256,7 @@ void CCMatchServer::OnClanRequestCreateClan(const MUID& uidPlayer, const int nRe
 
 	if (nRet != MOK)
 	{
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_RESPONSE_CREATE_CLAN, MUID(0,0));
+		MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_RESPONSE_CREATE_CLAN, CCUID(0,0));
 		pNewCmd->AddParameter(new MCommandParameterInt(nRet));
 		pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
 		RouteToListener(pMasterObject, pNewCmd);
@@ -283,7 +283,7 @@ void CCMatchServer::OnClanRequestCreateClan(const MUID& uidPlayer, const int nRe
 	for (int i = 0; i < CLAN_SPONSORS_COUNT; i++)
 	{
 		// 메세지 보내줘야 함
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_ASK_SPONSOR_AGREEMENT, MUID(0,0));
+		MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_ASK_SPONSOR_AGREEMENT, CCUID(0,0));
 		pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
 		pNewCmd->AddParameter(new MCommandParameterString((char*)szClanName));
 		pNewCmd->AddParameter(new MCommandParameterUID(uidPlayer));
@@ -293,7 +293,7 @@ void CCMatchServer::OnClanRequestCreateClan(const MUID& uidPlayer, const int nRe
 	}
 
 
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_RESPONSE_CREATE_CLAN, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_RESPONSE_CREATE_CLAN, CCUID(0,0));
 	pNewCmd->AddParameter(new MCommandParameterInt(nRet));
 	pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
 	RouteToListener(pMasterObject, pNewCmd);
@@ -301,13 +301,13 @@ void CCMatchServer::OnClanRequestCreateClan(const MUID& uidPlayer, const int nRe
 
 
 
-void CCMatchServer::OnClanAnswerSponsorAgreement(const int nRequestID, const MUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer)
+void CCMatchServer::OnClanAnswerSponsorAgreement(const int nRequestID, const CCUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer)
 {
 	CCMatchObject* pClanMasterObject = GetObject(uidClanMaster);
 	if (! IsEnabledObject(pClanMasterObject)) return;
 
 	
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_ANSWER_SPONSOR_AGREEMENT, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_ANSWER_SPONSOR_AGREEMENT, CCUID(0,0));
 	pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
 	pNewCmd->AddParameter(new MCommandParameterUID(uidClanMaster));
 	pNewCmd->AddParameter(new MCommandParameterString(szSponsorCharName));
@@ -316,7 +316,7 @@ void CCMatchServer::OnClanAnswerSponsorAgreement(const int nRequestID, const MUI
 	RouteToListener(pClanMasterObject, pNewCmd);	
 }
 
-void CCMatchServer::OnClanRequestAgreedCreateClan(const MUID& uidPlayer, const char* szClanName, char** szSponsorNames)
+void CCMatchServer::OnClanRequestAgreedCreateClan(const CCUID& uidPlayer, const char* szClanName, char** szSponsorNames)
 {
 	CCMatchObject* pMasterObject = GetObject(uidPlayer);
 	if (! IsEnabledObject(pMasterObject)) return;
@@ -381,12 +381,12 @@ void CCMatchServer::OnClanRequestAgreedCreateClan(const MUID& uidPlayer, const c
 	}
 }
 
-void CCMatchServer::OnClanRequestCloseClan(const MUID& uidClanMaster, const char* szClanName)
+void CCMatchServer::OnClanRequestCloseClan(const CCUID& uidClanMaster, const char* szClanName)
 {
 	ResponseCloseClan(uidClanMaster, szClanName);
 }
 
-void CCMatchServer::ResponseCloseClan(const MUID& uidClanMaster, const char* szClanName)
+void CCMatchServer::ResponseCloseClan(const CCUID& uidClanMaster, const char* szClanName)
 {
 	CCMatchObject* pMasterObject = GetObject(uidClanMaster);
 	if (! IsEnabledObject(pMasterObject)) return;
@@ -420,13 +420,13 @@ void CCMatchServer::ResponseCloseClan(const MUID& uidClanMaster, const char* szC
 	RouteResponseToListener(pMasterObject, MC_MATCH_CLAN_RESPONSE_CLOSE_CLAN, MOK);
 }
 
-void CCMatchServer::OnClanRequestJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
+void CCMatchServer::OnClanRequestJoinClan(const CCUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
 {
 	ResponseJoinClan(uidClanAdmin, szClanName, szJoiner);
 }
 
 
-void CCMatchServer::ResponseJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
+void CCMatchServer::ResponseJoinClan(const CCUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
 {
 	CCMatchObject* pAdminObject = GetObject(uidClanAdmin);
 	if (! IsEnabledObject(pAdminObject)) return;
@@ -452,7 +452,7 @@ void CCMatchServer::ResponseJoinClan(const MUID& uidClanAdmin, const char* szCla
 	}
 
 	// 가입자에게 동의를 묻는다.
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_ASK_JOIN_AGREEMENT, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_ASK_JOIN_AGREEMENT, CCUID(0,0));
 	pNewCmd->AddParameter(new MCommandParameterString((char*)szClanName));
 	pNewCmd->AddParameter(new MCommandParameterUID(uidClanAdmin));
 	pNewCmd->AddParameter(new MCommandParameterString(pAdminObject->GetCharInfo()->m_szName));
@@ -462,13 +462,13 @@ void CCMatchServer::ResponseJoinClan(const MUID& uidClanAdmin, const char* szCla
 	RouteResponseToListener(pAdminObject, MC_MATCH_CLAN_RESPONSE_JOIN_CLAN, MOK);
 }
 
-void CCMatchServer::OnClanAnswerJoinAgreement(const MUID& uidClanAdmin, const char* szJoiner, const bool bAnswer)
+void CCMatchServer::OnClanAnswerJoinAgreement(const CCUID& uidClanAdmin, const char* szJoiner, const bool bAnswer)
 {
 	CCMatchObject* pClanAdminObject = GetObject(uidClanAdmin);
 	if (! IsEnabledObject(pClanAdminObject)) return;
 
 	
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_ANSWER_JOIN_AGREEMENT, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_ANSWER_JOIN_AGREEMENT, CCUID(0,0));
 	pNewCmd->AddParameter(new MCommandParameterUID(uidClanAdmin));
 	pNewCmd->AddParameter(new MCommandParameterString((char*)szJoiner));
 	pNewCmd->AddParameter(new MCommandParameterBool(bAnswer));
@@ -476,12 +476,12 @@ void CCMatchServer::OnClanAnswerJoinAgreement(const MUID& uidClanAdmin, const ch
 	RouteToListener(pClanAdminObject, pNewCmd);	
 }
 
-void CCMatchServer::OnClanRequestAgreedJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
+void CCMatchServer::OnClanRequestAgreedJoinClan(const CCUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
 {
 	ResponseAgreedJoinClan(uidClanAdmin, szClanName, szJoiner);
 }
 
-void CCMatchServer::ResponseAgreedJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
+void CCMatchServer::ResponseAgreedJoinClan(const CCUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
 {
 	CCMatchObject* pAdminObject = GetObject(uidClanAdmin);
 	if (! IsEnabledObject(pAdminObject)) return;
@@ -536,12 +536,12 @@ void CCMatchServer::ResponseAgreedJoinClan(const MUID& uidClanAdmin, const char*
 
 
 
-void CCMatchServer::OnClanRequestLeaveClan(const MUID& uidPlayer)
+void CCMatchServer::OnClanRequestLeaveClan(const CCUID& uidPlayer)
 {
 	ResponseLeaveClan(uidPlayer);
 }
 
-void CCMatchServer::ResponseLeaveClan(const MUID& uidPlayer)
+void CCMatchServer::ResponseLeaveClan(const CCUID& uidPlayer)
 {
 	CCMatchObject* pLeaverObject = GetObject(uidPlayer);
 	if (! IsEnabledObject(pLeaverObject)) return;
@@ -572,7 +572,7 @@ void CCMatchServer::ResponseLeaveClan(const MUID& uidPlayer)
 	RouteResponseToListener(pLeaverObject, MC_MATCH_CLAN_RESPONSE_LEAVE_CLAN, MOK);
 }
 
-void CCMatchServer::OnClanRequestChangeClanGrade(const MUID& uidClanMaster, const char* szMember, int nClanGrade)
+void CCMatchServer::OnClanRequestChangeClanGrade(const CCUID& uidClanMaster, const char* szMember, int nClanGrade)
 {
 	ResponseChangeClanGrade(uidClanMaster, szMember, nClanGrade);
 }
@@ -607,7 +607,7 @@ int ValidateChangeClanGrade(CCMatchObject* pMasterObject, CCMatchObject* pTarget
 	return MOK;
 }
 
-void CCMatchServer::ResponseChangeClanGrade(const MUID& uidClanMaster, const char* szMember, int nClanGrade)
+void CCMatchServer::ResponseChangeClanGrade(const CCUID& uidClanMaster, const char* szMember, int nClanGrade)
 {
 	CCMatchObject* pMasterObject = GetObject(uidClanMaster);
 	if (! IsEnabledObject(pMasterObject)) return;
@@ -649,12 +649,12 @@ void CCMatchServer::ResponseChangeClanGrade(const MUID& uidClanMaster, const cha
 }
 
 
-void CCMatchServer::OnClanRequestExpelMember(const MUID& uidClanAdmin, const char* szMember)
+void CCMatchServer::OnClanRequestExpelMember(const CCUID& uidClanAdmin, const char* szMember)
 {
 	ResponseExpelMember(uidClanAdmin, szMember);
 }
 
-void CCMatchServer::ResponseExpelMember(const MUID& uidClanAdmin, const char* szMember)
+void CCMatchServer::ResponseExpelMember(const CCUID& uidClanAdmin, const char* szMember)
 {
 	CCMatchObject* pAdminObject = GetObject(uidClanAdmin);
 	if (! IsEnabledObject(pAdminObject)) return;
@@ -723,14 +723,14 @@ void CCMatchServer::ResponseExpelMember(const MUID& uidClanAdmin, const char* sz
 }
 
 
-void CCMatchServer::OnClanRequestMsg(const MUID& uidSender, const char* szMsg)
+void CCMatchServer::OnClanRequestMsg(const CCUID& uidSender, const char* szMsg)
 {
 	CCMatchObject* pSenderObject = GetObject(uidSender);
 	if (! IsEnabledObject(pSenderObject)) return;
 	
 	if (!pSenderObject->GetCharInfo()->m_ClanInfo.IsJoined()) return;
 
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_MSG, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_MSG, CCUID(0,0));
 
 	char szSenderName[256];
 	char szTransMsg[512];
@@ -746,12 +746,12 @@ void CCMatchServer::OnClanRequestMsg(const MUID& uidSender, const char* szMsg)
 	RouteToClan(nCLID, pNewCmd);	
 }
 
-//void CCMatchServer::OnClanRequestMemberList(const MUID& uidChar)
+//void CCMatchServer::OnClanRequestMemberList(const CCUID& uidChar)
 //{
 //	ResponseClanMemberList(uidChar);
 //}
 
-void CCMatchServer::OnClanRequestMemberList(const MUID& uidChar)
+void CCMatchServer::OnClanRequestMemberList(const CCUID& uidChar)
 {
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidChar);
 	if (! IsEnabledObject(pObj)) return;
@@ -766,7 +766,7 @@ void CCMatchServer::OnClanRequestMemberList(const MUID& uidChar)
 	pClan->SyncPlayerList(pObj, 0);
 }
 
-void CCMatchServer::ResponseClanMemberList(const MUID& uidChar)
+void CCMatchServer::ResponseClanMemberList(const CCUID& uidChar)
 {
 	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
@@ -779,12 +779,12 @@ void CCMatchServer::ResponseClanMemberList(const MUID& uidChar)
 	int nNodeCount = pClan->GetMemberCount();
 	if (nNodeCount <= 0) return;
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CLAN_RESPONSE_MEMBER_LIST), MUID(0,0), m_This);
+	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CLAN_RESPONSE_MEMBER_LIST), CCUID(0,0), m_This);
 
 	void* pMemberArray = MMakeBlobArray(sizeof(MTD_ClanMemberListNode), nNodeCount);
 
 	int nArrayIndex=0;
-	for (MUIDRefCache::iterator itor= pClan->GetMemberBegin(); itor != pClan->GetMemberEnd(); ++itor) 
+	for (CCUIDRefCache::iterator itor= pClan->GetMemberBegin(); itor != pClan->GetMemberEnd(); ++itor) 
 	{
 		CCMatchObject* pScanObj = (CCMatchObject*)(*itor).second;
 
@@ -819,7 +819,7 @@ void CopyClanInfoForTrans(MTD_ClanInfo* pDest, MMatchClan* pClan)
 	pDest->nEmblemChecksum = pClan->GetEmblemChecksum();
 }
 
-void CCMatchServer::OnClanRequestClanInfo(const MUID& uidChar, const char* szClanName)
+void CCMatchServer::OnClanRequestClanInfo(const CCUID& uidChar, const char* szClanName)
 {
 	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
@@ -827,7 +827,7 @@ void CCMatchServer::OnClanRequestClanInfo(const MUID& uidChar, const char* szCla
 	MMatchClan* pClan = m_ClanMap.GetClan(szClanName);
 	if ((pClan == NULL) || (!pClan->IsInitedClanInfoEx())) return;
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CLAN_RESPONSE_CLAN_INFO), MUID(0,0), m_This);
+	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CLAN_RESPONSE_CLAN_INFO), CCUID(0,0), m_This);
 
 	void* pClanInfoArray = MMakeBlobArray(sizeof(MTD_ClanInfo), 1);
 	MTD_ClanInfo* pClanInfo = (MTD_ClanInfo*)MGetBlobArrayElement(pClanInfoArray, 0);
@@ -838,7 +838,7 @@ void CCMatchServer::OnClanRequestClanInfo(const MUID& uidChar, const char* szCla
 	RouteToListener(pObject, pNew);
 }
 
-void CCMatchServer::OnClanRequestEmblemURL(const MUID& uidChar, void* pEmblemURLListBlob)
+void CCMatchServer::OnClanRequestEmblemURL(const CCUID& uidChar, void* pEmblemURLListBlob)
 {
 	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
@@ -852,7 +852,7 @@ void CCMatchServer::OnClanRequestEmblemURL(const MUID& uidChar, void* pEmblemURL
 		MMatchClan* pClan = m_ClanMap.GetClan(*pClanID);
 		if (pClan == NULL) continue;
 
-		MCommand* pNew = CreateCommand(MC_MATCH_CLAN_RESPONSE_EMBLEMURL, MUID(0,0));
+		MCommand* pNew = CreateCommand(MC_MATCH_CLAN_RESPONSE_EMBLEMURL, CCUID(0,0));
 		pNew->AddParameter(new MCmdParamInt(pClan->GetCLID()));
 		pNew->AddParameter(new MCmdParamInt(pClan->GetEmblemChecksum()));
 		pNew->AddParameter(new MCmdParamStr(pClan->GetEmblemURL()));
@@ -860,7 +860,7 @@ void CCMatchServer::OnClanRequestEmblemURL(const MUID& uidChar, void* pEmblemURL
 	}
 }
 
-void CCMatchServer::StandbyClanList(const MUID& uidPlayer, int nClanListStartIndex, bool bCacheUpdate)
+void CCMatchServer::StandbyClanList(const CCUID& uidPlayer, int nClanListStartIndex, bool bCacheUpdate)
 {
 	CCMatchObject* pObject = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObject)) return;
@@ -871,7 +871,7 @@ void CCMatchServer::StandbyClanList(const MUID& uidPlayer, int nClanListStartInd
 	if (nClanListStartIndex > nGroupCount) nClanListStartIndex = nGroupCount;
 
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CLAN_STANDBY_CLAN_LIST), MUID(0,0), m_This);
+	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CLAN_STANDBY_CLAN_LIST), CCUID(0,0), m_This);
 
 
 	nPrevClanListCount = nClanListStartIndex;
@@ -906,7 +906,7 @@ void CCMatchServer::StandbyClanList(const MUID& uidPlayer, int nClanListStartInd
 		
 		if (pLadderGroup->GetPlayerCount() > 0)
 		{
-			MUID uidMember = *pLadderGroup->GetPlayerListBegin();
+			CCUID uidMember = *pLadderGroup->GetPlayerListBegin();
 			CCMatchObject* pMember = GetObject(uidMember);
 			if ((IsEnabledObject(pMember)) && (pMember->GetCharInfo()->m_ClanInfo.IsJoined()))
 			{
@@ -934,7 +934,7 @@ void CCMatchServer::StandbyClanList(const MUID& uidPlayer, int nClanListStartInd
 
 void CCMatchServer::SaveClanPoint(MMatchClan* pWinnerClan, MMatchClan* pLoserClan, const bool bIsDrawGame,
 								 const int nRoundWins, const int nRoundLosses, const int nMapID, const int nGameType,
-								 const int nOneTeamMemberCount, list<MUID>& WinnerObjUIDs,
+								 const int nOneTeamMemberCount, list<CCUID>& WinnerObjUIDs,
 								 const char* szWinnerMemberNames, const char* szLoserMemberNames,
 								 float fPointRatio)
 {
@@ -995,9 +995,9 @@ void CCMatchServer::SaveClanPoint(MMatchClan* pWinnerClan, MMatchClan* pLoserCla
 
 
 	// 캐릭터의 클랜 기여도 업데이트
-	for (list<MUID>::iterator itor=WinnerObjUIDs.begin(); itor!=WinnerObjUIDs.end(); itor++) 
+	for (list<CCUID>::iterator itor=WinnerObjUIDs.begin(); itor!=WinnerObjUIDs.end(); itor++) 
 	{
-		MUID uidObject = (*itor);
+		CCUID uidObject = (*itor);
 
 		CCMatchObject* pObject = GetObject(uidObject);
 		if (IsEnabledObject(pObject))

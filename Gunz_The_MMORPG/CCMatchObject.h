@@ -474,16 +474,16 @@ private :
 
 struct CCMatchObjectChannelInfo
 {
-	MUID			uidChannel;
-	MUID			uidRecentChannel;
+	CCUID			uidChannel;
+	CCUID			uidRecentChannel;
 	bool			bChannelListTransfer;
 	MCHANNEL_TYPE	nChannelListType;
 	unsigned long	nChannelListChecksum;
 	int				nTimeLastChannelListTrans;
 	void Clear()
 	{
-		uidChannel = MUID(0,0);
-		uidRecentChannel = MUID(0,0);
+		uidChannel = CCUID(0,0);
+		uidRecentChannel = CCUID(0,0);
 		bChannelListTransfer = false;
 		nChannelListType = MCHANNEL_TYPE_PRESET;
 		nChannelListChecksum = 0;
@@ -719,7 +719,7 @@ protected:
 	bool			m_bHacker;						// 핵이 검출된 유저
 	bool			m_bBridgePeer;
 	bool			m_bRelayPeer;
-	MUID			m_uidAgent;
+	CCUID			m_uidAgent;
 
 	DWORD			m_dwIP;
 	char 			m_szIP[64];
@@ -729,8 +729,8 @@ protected:
 	unsigned char	m_nPlayerFlags;					// 휘발성 속성등 (MTD_PlayerFlags)
 	unsigned long	m_nUserOptionFlags;				// 귓말,초대 거부등의 옵션
 
-	MUID			m_uidStage;
-	MUID			m_uidChatRoom;
+	CCUID			m_uidStage;
+	CCUID			m_uidChatRoom;
 
 	bool			m_bStageListTransfer;
 	unsigned long	m_nStageListChecksum;
@@ -805,7 +805,7 @@ protected:
 
 //	void CheckClientHashValue( const DWORD dwTime );
 public:
-	CCMatchObject(const MUID& uid);
+	CCMatchObject(const CCUID& uid);
 	virtual ~CCMatchObject();
 
 	char* GetName() { 
@@ -824,8 +824,8 @@ public:
 	void SetBridgePeer(bool bValue)	{ m_bBridgePeer = bValue; }
 	bool GetRelayPeer()				{ return m_bRelayPeer; }
 	void SetRelayPeer(bool bRelay)	{ m_bRelayPeer = bRelay; }
-	const MUID& GetAgentUID()		{ return m_uidAgent; }
-	void SetAgentUID(const MUID& uidAgent)	{ m_uidAgent = uidAgent; }
+	const CCUID& GetAgentUID()		{ return m_uidAgent; }
+	void SetAgentUID(const CCUID& uidAgent)	{ m_uidAgent = uidAgent; }
 
 	void SetPeerAddr(DWORD dwIP, char* szIP, unsigned short nPort)	{ m_dwIP=dwIP; strcpy(m_szIP, szIP); m_nPort = nPort; }
 	DWORD GetIP()					{ return m_dwIP; }
@@ -846,15 +846,15 @@ public:
 	void SetUserOption(unsigned long nFlags)	{ m_nUserOptionFlags = nFlags; }
 	bool CheckUserOption(unsigned long nFlag)	{ return (m_nUserOptionFlags&nFlag?true:false); }
 
-	MUID GetChannelUID()						{ return m_ChannelInfo.uidChannel; }
-	void SetChannelUID(const MUID& uid)			{ SetRecentChannelUID(m_ChannelInfo.uidChannel); m_ChannelInfo.uidChannel = uid; }
-	MUID GetRecentChannelUID()					{ return m_ChannelInfo.uidRecentChannel; }
-	void SetRecentChannelUID(const MUID& uid)	{ m_ChannelInfo.uidRecentChannel = uid; }
+	CCUID GetChannelUID()						{ return m_ChannelInfo.uidChannel; }
+	void SetChannelUID(const CCUID& uid)			{ SetRecentChannelUID(m_ChannelInfo.uidChannel); m_ChannelInfo.uidChannel = uid; }
+	CCUID GetRecentChannelUID()					{ return m_ChannelInfo.uidRecentChannel; }
+	void SetRecentChannelUID(const CCUID& uid)	{ m_ChannelInfo.uidRecentChannel = uid; }
 
-	MUID GetStageUID()					{ return m_uidStage; }
-	void SetStageUID(const MUID& uid)	{ m_uidStage = uid; }
-	MUID GetChatRoomUID()				{ return m_uidChatRoom; }
-	void SetChatRoomUID(const MUID& uid){ m_uidChatRoom = uid; }
+	CCUID GetStageUID()					{ return m_uidStage; }
+	void SetStageUID(const CCUID& uid)	{ m_uidStage = uid; }
+	CCUID GetChatRoomUID()				{ return m_uidChatRoom; }
+	void SetChatRoomUID(const CCUID& uid){ m_uidChatRoom = uid; }
 
 	bool CheckChannelListTransfer()	{ return m_ChannelInfo.bChannelListTransfer; }
 	void SetChannelListTransfer(const bool bVal, const MCHANNEL_TYPE nChannelType=MCHANNEL_TYPE_PRESET);
@@ -1065,7 +1065,7 @@ protected:
 	void ResetGamePlayInfo() { if( m_pCharInfo != NULL ) m_pCharInfo->GetCharGamePlayInfo()->Reset(); }
 };
 
-class CCMatchObjectList : public map<MUID, CCMatchObject*>{};
+class CCMatchObjectList : public map<CCUID, CCMatchObject*>{};
 
 
 // 캐릭터 생성할때 주는 기본 아이템
