@@ -53,8 +53,8 @@ class CCBaseLocale
 private:
 	void InitLanguageFromCountry();
 protected:
-	CCCountry			m_nCountry;
-	CCLanguage			m_nLanguage;
+	CCCountry			m_iCountry;
+	CCLanguage			m_iLanguage;
 
 	bool				m_bIsComplete;
 
@@ -64,9 +64,9 @@ public:
 	virtual ~CCBaseLocale();
 	bool Init(CCCountry nCountry);
 
-	const CCCountry	GetCountry()		{ return m_nCountry; }
-	const CCLanguage GetLanguage()		{ return m_nLanguage; }
-	void SetLanguage(CCLanguage langID)	{ m_nLanguage = langID; }	//depending on the country to another language, no reply has been initialized
+	const CCCountry	GetCountry()		{ return m_iCountry; }
+	const CCLanguage GetLanguage()		{ return m_iLanguage; }
+	void SetLanguage(CCLanguage langID)	{ m_iLanguage = langID; }	// 국가에 따라 초기화된 언어를 다른 것으로 바꾸고 싶을때
 
 	const bool bIsComplete()			{ return m_bIsComplete; }
 };
