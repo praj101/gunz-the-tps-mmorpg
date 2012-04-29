@@ -1281,6 +1281,14 @@
 			</Filter>
 		</Filter>
 		<File
+			RelativePath=".\CCBaseChannelRule.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBaseChannelRule.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCCharacterDesc.h"
 			>
 		</File>
@@ -1301,6 +1309,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchActiveTrapMgr.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchActiveTrapMgr.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchAntiHack.h"
 			>
 		</File>
@@ -1309,11 +1325,27 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchChannelRule.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchChannelRule.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchCharBRInfo.h"
 			>
 		</File>
 		<File
 			RelativePath=".\CCMatchCRC32XORCache.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchFormula.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchFormula.h"
 			>
 		</File>
 		<File
@@ -1326,6 +1358,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchObjectCharBuffInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer.cpp"
 			>
 		</File>
 		<File
