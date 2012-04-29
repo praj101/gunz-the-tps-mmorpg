@@ -1171,14 +1171,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\MemPool.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MemPool.h"
-					>
-				</File>
-				<File
 					RelativePath=".\RAStar.cpp"
 					>
 				</File>
@@ -1224,6 +1216,18 @@
 				</File>
 				<File
 					RelativePath=".\CCMatchFriendInfo.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Mem Pool"
+				>
+				<File
+					RelativePath=".\CCMemPool.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMemPool.h"
 					>
 				</File>
 			</Filter>
