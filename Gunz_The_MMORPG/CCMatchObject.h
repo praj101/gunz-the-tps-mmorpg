@@ -7,7 +7,7 @@
 #include <string>
 using namespace std;
 #include "CCMatchItem.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "CCObject.h"
 #include "CCMatchGlobal.h"
 #include "CCMatchFriendInfo.h"

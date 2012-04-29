@@ -2,7 +2,7 @@
 
 #include "winsock2.h"
 #include "CCXml.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "CCSync.h"
 #include "CCBaseItem.h"
 #include "CCMemoryProxy.h"

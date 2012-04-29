@@ -1,5 +1,5 @@
 #pragma once
-#include "MUID.h"
+#include "CCUID.h"
 #include "CCBaseLocale.h"
 
 #define MAX_CHAR_COUNT							4		//number of characters that can be created

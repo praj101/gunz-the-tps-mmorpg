@@ -7,7 +7,7 @@
 #include <algorithm>
 using namespace std;
 
-#include "MUID.h"
+#include "CCUID.h"
 
 #define	CONSOLE_TEXTSIZE	4096	///< Console Command Usage, Help 문자열 길이
 #define	CONSOLE_NAMESIZE	256		///< Console Name 문자열 길이
