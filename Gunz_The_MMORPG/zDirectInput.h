@@ -1,7 +1,5 @@
 #pragma once
-/*
-	Needs translation
-*/
+
 #define DIRECTINPUT_VERSION 0x0800
 
 #include "DirectX/dinput.h"
@@ -16,8 +14,8 @@ struct ZDIBUFFER{
 	bool bPressed;
 };
 
-// Immediate Mode : 현재 상태를 얻을수 있는 모드
-// Buffered Mode : 현재 발생한 입력을 버퍼로 읽어오는 모드
+// Immediate Mode : a mode in which you get the current status
+// Buffered Mode : currently reading an input into the buffer mode
 
 
 /// DirectInput Wrapper
@@ -58,36 +56,36 @@ public:
 	BOOL IsInitialized()	{ return m_bInitialized; }
 
 	///////////////////////////////////////////////////////////////////////////////////////
-	/// 키보드 
+	//Keyboard
 
-	/// 키보드 버퍼로 읽어오기, 스캔코드 및 Down/Up 플래그 포함, 읽은 버퍼 갯수만큼 리턴한다.
+	//Load the keyboard buffer, scan the code and Down / Up flags, including the read buffer to increase the number of returns.
 	DWORD GetKeyboardBufferedData(ZDIBUFFER* pBuffer,unsigned int nBuffer);
 
 	const char* GetKeyName(unsigned long int nKey);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////
-	/// 마우스
+	//Mouse
 
-	// 마우스 버튼 개수 얻어오기
+	//Getting the number of mouse buttons
 	unsigned int GetMouseButtonCount()		{ return m_nMouseButtons; }
 
-	// 마우스 버퍼로 읽어오기
+	//Load the mouse as a buffer
 	DWORD GetMouseBufferedData(int* pSumX,int* pSumY, ZDIBUFFER* pBuffer,unsigned int nBuffer);
 	
-	// 마우스 데이터 얻어오기
+	//Getting the mouse data
 //	bool GetMouseImmediateData(DIMOUSESTATE2 *pdims2);
 
 
 
 	///////////////////////////////////////////////////////////////////////////////////////
-	/// 조이스틱
+	//Joystick
 
-	// pov 개수 얻어오기
+	//Pov Acquiring number of
 	unsigned int GetJoystickPovCount()		{ return m_nJoyPovs; }
-	// 버튼 개수 얻어오기
+	//Getting the number of buttons
 	unsigned int GetJoystickButtonCount()	{ return m_nJoyButtons; }
-	// 조이스틱 상태 얻어오기
+	//Joystick state Acquiring
 	bool GetJoystickData(DIJOYSTATE2* pjs);
 
 	bool SetDeviceForcesXY(int nXForce, int nYForce);
