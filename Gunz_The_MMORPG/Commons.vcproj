@@ -1877,6 +1877,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCUID.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCUID.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCVoteDiscussImpl.h"
 			>
 		</File>
@@ -1886,14 +1894,6 @@
 		</File>
 		<File
 			RelativePath=".\Core4R2.h"
-			>
-		</File>
-		<File
-			RelativePath=".\MUID.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\MUID.h"
 			>
 		</File>
 		<File
