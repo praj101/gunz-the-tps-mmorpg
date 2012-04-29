@@ -230,106 +230,6 @@
 				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
-				<File
-					RelativePath=".\CCBaseStringResManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCConnectHistory.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCHackingTypes.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchChatRoom.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchCheckLookTime.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchDebug.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchNotify.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchPremiumIPCache.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchSchedule.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchShop.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchShutdown.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchStatus.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchStringResManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchTransDataType.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchUtil.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatrix.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCPacket.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCPacketCrypter.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCPacketHShieldCrypter.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCServer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCSharedCommandTable.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCVoteDiscussImpl.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCVoteMgr.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCXmlParser.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\TestCRC32XORCache.cpp"
-					>
-				</File>
 				<Filter
 					Name="Widgets"
 					>
@@ -1409,11 +1309,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCBaseStringResManager.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCBaseStringResManager.h"
 			>
 		</File>
 		<File
 			RelativePath=".\CCCharacterDesc.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCConnectHistory.cpp"
 			>
 		</File>
 		<File
@@ -1474,6 +1382,10 @@
 		</File>
 		<File
 			RelativePath=".\CCHackingChatList.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCHackingTypes.cpp"
 			>
 		</File>
 		<File
@@ -1597,7 +1509,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchChatRoom.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchChatRoom.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchCheckLookTime.cpp"
 			>
 		</File>
 		<File
@@ -1630,6 +1550,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchDBGambleItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchDebug.cpp"
 			>
 		</File>
 		<File
@@ -1709,6 +1633,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchNotify.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchNotify.h"
 			>
 		</File>
@@ -1734,6 +1662,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchObjectCommandHistory.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchPremiumIPCache.cpp"
 			>
 		</File>
 		<File
@@ -1821,6 +1753,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchSchedule.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchSchedule.h"
 			>
 		</File>
@@ -1897,7 +1833,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchShop.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchShop.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchShutdown.cpp"
 			>
 		</File>
 		<File
@@ -1925,11 +1869,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchStatus.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchStatus.h"
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchStringResManager.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchStringResManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchTransDataType.cpp"
 			>
 		</File>
 		<File
@@ -1942,6 +1898,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchTypes.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchUtil.cpp"
 			>
 		</File>
 		<File
@@ -1969,6 +1929,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatrix.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatrix.h"
 			>
 		</File>
@@ -1977,11 +1941,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCPacket.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCPacket.h"
 			>
 		</File>
 		<File
+			RelativePath=".\CCPacketCrypter.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCPacketCrypter.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCPacketHShieldCrypter.cpp"
 			>
 		</File>
 		<File
@@ -1997,7 +1973,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCServer.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCServer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCSharedCommandTable.cpp"
 			>
 		</File>
 		<File
@@ -2037,6 +2021,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCVoteDiscussImpl.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCVoteDiscussImpl.h"
 			>
 		</File>
@@ -2045,7 +2033,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCVoteMgr.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCVoteMgr.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCXmlParser.cpp"
 			>
 		</File>
 		<File
@@ -2062,6 +2058,10 @@
 		</File>
 		<File
 			RelativePath=".\stdafx.h"
+			>
+		</File>
+		<File
+			RelativePath=".\TestCRC32XORCache.cpp"
 			>
 		</File>
 		<File
