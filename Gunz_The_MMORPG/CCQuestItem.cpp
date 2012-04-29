@@ -503,7 +503,7 @@ bool DBQuestCachingData::DoUpdateDBCharQuestItemInfo()
 		return false;
 	}
 
-	MMatchServer::GetInstance()->PostAsyncJob( pAsyncJob );
+	CCMatchServer::GetInstance()->PostAsyncJob( pAsyncJob );
 
 #ifdef _DEBUG
 	{
@@ -525,7 +525,7 @@ bool DBQuestCachingData::DoUpdateDBCharQuestItemInfo()
 			strcat( szDbgOut, tmp );
 		}
 		strcat( szDbgOut, "\n" );
-		MMatchServer::GetInstance()->LOG( MMatchServer::LOG_PROG, szDbgOut );
+		CCMatchServer::GetInstance()->LOG( CCMatchServer::LOG_PROG, szDbgOut );
 	}
 #endif
 

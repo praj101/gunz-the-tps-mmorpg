@@ -334,7 +334,7 @@ Delta = Delta1+Delta2
 }
 
 // 우선 왼쪽 것을 검사한 후에 오른쪽 것을 검사해서 반지 한개만 적용한다. 프리미엄 IP도 검사
-float MMatchFormula::CalcXPBonusRatio(MMatchObject* pCharObj, MMatchItemBonusType nBonusType)
+float MMatchFormula::CalcXPBonusRatio(CCMatchObject* pCharObj, MMatchItemBonusType nBonusType)
 {
 	float fBonusRatio = 0.0f;
 
@@ -406,7 +406,7 @@ float MMatchFormula::CalcXPBonusRatio(MMatchObject* pCharObj, MMatchItemBonusTyp
 }
 
 
-float MMatchFormula::CalcBPBounsRatio(MMatchObject* pCharObj, MMatchItemBonusType nBonusType )
+float MMatchFormula::CalcBPBounsRatio(CCMatchObject* pCharObj, MMatchItemBonusType nBonusType )
 {
 	float fBonusRatio = 0.0f;
 

@@ -10,8 +10,8 @@ using namespace std;
 #define MAX_LEVEL					99		///< 최대 레벨
 
 class MMatchEquipedItem;
-class MMatchStageSetting;
-class MMatchObject;
+class CCMatchStageSetting;
+class CCMatchObject;
 
 class MMatchFormula
 {
@@ -46,7 +46,7 @@ public:
 	static int GetClanBattlePoint(int nWinnerClanPoint, int nLoserClanPoint, int nOneTeamMemberCount);
 
 	// 경험치 보너스 계산
-	static float CalcXPBonusRatio(MMatchObject* pCharObj, MMatchItemBonusType nBonusType);
+	static float CalcXPBonusRatio(CCMatchObject* pCharObj, MMatchItemBonusType nBonusType);
 	// 바운티 보너스 계산
-	static float CalcBPBounsRatio(MMatchObject* pCharObj, MMatchItemBonusType nBonusType );
+	static float CalcBPBounsRatio(CCMatchObject* pCharObj, MMatchItemBonusType nBonusType );
 };

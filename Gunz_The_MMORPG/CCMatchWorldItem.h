@@ -5,8 +5,8 @@
 #include <map>
 using namespace std;
 
-class MMatchStage;
-class MMatchObject;
+class CCMatchStage;
+class CCMatchObject;
 class MZFileSystem;
 
 
@@ -35,7 +35,7 @@ struct MMatchWorldItem
 
 struct UserDropWorldItem
 {
-	UserDropWorldItem( MMatchObject* pObj, const int nItemID, const float x, const float y, const float z, unsigned long nDropDelayTime )
+	UserDropWorldItem( CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, unsigned long nDropDelayTime )
 	{
 		m_pObj			= pObj;
 		m_nItemID		= nItemID;
@@ -45,7 +45,7 @@ struct UserDropWorldItem
 		m_nDropDelayTime = nDropDelayTime;
 	}
 
-	MMatchObject*		m_pObj;
+	CCMatchObject*		m_pObj;
 	int					m_nItemID;
 	float				m_x;
 	float				m_y;
@@ -74,7 +74,7 @@ struct MMatchWorldItemSpawnInfo
 class MMatchWorldItemManager
 {
 private:
-	MMatchStage*						m_pMatchStage;
+	CCMatchStage*						m_pMatchStage;
 	MMatchWorldItemMap					m_ItemMap;				// 맵에 존재하고 있는 아이템 리스트
 
 	vector<MMatchWorldItemSpawnInfo>	m_SpawnInfos;			// 맵의 스폰 아이템 정보
@@ -102,19 +102,19 @@ public:
 	MMatchWorldItemManager();
 	virtual ~MMatchWorldItemManager();
 
-	// MMatchStage에서 관리하는 함수
-	bool Create(MMatchStage* pMatchStage);
+	// CCMatchStage에서 관리하는 함수
+	bool Create(CCMatchStage* pMatchStage);
 	void Destroy();
 
 	void OnRoundBegin();
-	void OnStageBegin(MMatchStageSetting* pStageSetting);
+	void OnStageBegin(CCMatchStageSetting* pStageSetting);
 	void OnStageEnd();
 	void Update();
 
-	bool Obtain(MMatchObject* pObj, short nItemUID, int* poutItemID, int* poutExtraValues);
-	void SpawnDynamicItem(MMatchObject* pObj, const int nItemID, const float x, const float y, const float z, float fDropDelayTime);
-	void SpawnDynamicItem(MMatchObject* pObj, const int nItemID, const float x, const float y, const float z, 
+	bool Obtain(CCMatchObject* pObj, short nItemUID, int* poutItemID, int* poutExtraValues);
+	void SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, float fDropDelayTime);
+	void SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, 
 						  int nLifeTime, int* pnExtraValues );
-	void RouteAllItems(MMatchObject* pObj);
+	void RouteAllItems(CCMatchObject* pObj);
 
 };

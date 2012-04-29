@@ -5,7 +5,7 @@
 #include "CCLadderStatistics.h"
 #include <vector>
 
-class MMatchObject;
+class CCMatchObject;
 
 
 class MLadderMgr {
@@ -13,7 +13,7 @@ protected:
 	int					m_idGenerate;
 	unsigned long		m_nLastTick;
 
-	MLadderGroupMap		m_WaitingMaps[MLADDERTYPE_MAX];
+	MLadderGroupMap		m_WaitingMaps[CCLADDERTYPE_MAX];
 	list<MLadderGroup*>	m_GroupList;
 
 	MLadderStatistics	m_Stat;

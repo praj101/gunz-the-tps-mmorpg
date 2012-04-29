@@ -44,9 +44,9 @@ public:
 	float GetContPointVictoriesRate(int nContPointDiff);
 
 
-	void InsertLevelRecord(int nRedTeamCharLevel, int nBlueTeamCharLevel, MMatchTeam nWinnerTeam);
-	void InsertClanPointRecord(int nRedTeamClanPoint, int nBlueTeamClanPoint, MMatchTeam nWinnerTeam);
-	void InsertContPointRecord(int nRedTeamContPoint, int nBlueTeamContPoint, MMatchTeam nWinnerTeam);
+	void InsertLevelRecord(int nRedTeamCharLevel, int nBlueTeamCharLevel, CCMatchTeam nWinnerTeam);
+	void InsertClanPointRecord(int nRedTeamClanPoint, int nBlueTeamClanPoint, CCMatchTeam nWinnerTeam);
+	void InsertContPointRecord(int nRedTeamContPoint, int nBlueTeamContPoint, CCMatchTeam nWinnerTeam);
 
 	void PrintDebug();
 };

@@ -7,8 +7,8 @@ using namespace std;
 #include "CCMatchObject.h"
 #include "CCMatchMap.h"
 
-class MMatchObject;
-class MMatchStage;
+class CCMatchObject;
+class CCMatchStage;
 
 #define MMATCH_TEAM_MAX_COUNT		2
 
@@ -17,7 +17,7 @@ class MMatchStage;
 #define MMATCH_TEAM2_NAME_STR		"BLUE TEAM"
 
 
-inline const char* GetTeamNameStr(MMatchTeam nTeam)
+inline const char* GetTeamNameStr(CCMatchTeam nTeam)
 {
 	switch (nTeam)
 	{
@@ -101,7 +101,7 @@ struct MSTAGE_SETTING_NODE {
 struct MSTAGE_CHAR_SETTING_NODE {
 	MUID	uidChar;
 	int		nTeam;
-	MMatchObjectStageState	nState;
+	CCMatchObjectStageState	nState;
 	MSTAGE_CHAR_SETTING_NODE() : uidChar(MUID(0,0)), nTeam(0), nState(MOSS_NONREADY) {	}
 };
 class MStageCharSettingList : public list<MSTAGE_CHAR_SETTING_NODE*> {
@@ -117,7 +117,7 @@ public:
 
 
 
-class MMatchStageSetting {
+class CCMatchStageSetting {
 protected:
 	MProtectValue<MSTAGE_SETTING_NODE>	m_StageSetting;
 	MUID					m_uidMaster;	// πÊ¿Â
@@ -128,8 +128,8 @@ protected:
 public:
 	MStageCharSettingList	m_CharSettingList;
 public:
-	MMatchStageSetting();
-	virtual ~MMatchStageSetting();
+	CCMatchStageSetting();
+	virtual ~CCMatchStageSetting();
 	void Clear();
 	void SetDefault();
 	unsigned long GetChecksum();
@@ -180,7 +180,7 @@ public:
 	void SetRelayMapRepeatCount(RELAY_MAP_REPEAT_COUNT bValue)	{ MEMBER_SET_CHECKCRC(m_StageSetting, nRelayMapRepeatCount, bValue); }
 	
 	void UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting);
-	void UpdateCharSetting(const MUID& uid, unsigned int nTeam, MMatchObjectStageState nStageState);
+	void UpdateCharSetting(const MUID& uid, unsigned int nTeam, CCMatchObjectStageState nStageState);
 
 	void ResetCharSetting()			{ m_CharSettingList.DeleteAll(); }
 	bool IsTeamPlay();

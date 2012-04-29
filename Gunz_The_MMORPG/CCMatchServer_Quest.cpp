@@ -9,12 +9,12 @@
 #include "CCMatchShop.h"
 #include "CCAsyncDBJob_BuyQuestItem.h"
 
-void MMatchServer::OnRequestNPCDead(const MUID& uidSender, const MUID& uidKiller, MUID& uidNPC, MVector& pos)
+void CCMatchServer::OnRequestNPCDead(const MUID& uidSender, const MUID& uidKiller, MUID& uidNPC, MVector& pos)
 {
-	MMatchObject* pSender = GetObject(uidSender);
+	CCMatchObject* pSender = GetObject(uidSender);
 	if (!IsEnabledObject(pSender)) { ASSERT( 0 ); return; }
 
-	MMatchStage* pStage = FindStage(pSender->GetStageUID());
+	CCMatchStage* pStage = FindStage(pSender->GetStageUID());
 	if (pStage == NULL) { ASSERT( 0 ); return; }
 
 	MMatchCharBattleTimeRewardInfoMap::iterator iter = pSender->GetCharInfo()->GetBRInfoMap().begin();
@@ -40,12 +40,12 @@ void MMatchServer::OnRequestNPCDead(const MUID& uidSender, const MUID& uidKiller
 }
 
 
-void MMatchServer::OnQuestRequestDead(const MUID& uidVictim)
+void CCMatchServer::OnQuestRequestDead(const MUID& uidVictim)
 {
-	MMatchObject* pVictim = GetObject(uidVictim);
+	CCMatchObject* pVictim = GetObject(uidVictim);
 	if (pVictim == NULL) return;
 
-	MMatchStage* pStage = FindStage(pVictim->GetStageUID());
+	CCMatchStage* pStage = FindStage(pVictim->GetStageUID());
 	if (pStage == NULL) return;
 
 	if ( !MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType())) return;
@@ -74,14 +74,14 @@ void MMatchServer::OnQuestRequestDead(const MUID& uidVictim)
 
 
 
-void MMatchServer::OnQuestTestRequestNPCSpawn(const MUID& uidPlayer, int nNPCType, int nNPCCount)
+void CCMatchServer::OnQuestTestRequestNPCSpawn(const MUID& uidPlayer, int nNPCType, int nNPCCount)
 {
 #ifdef _DEBUG
 	if (MGetServerConfig()->GetServerMode() != MSM_TEST) return;
 
-	MMatchObject* pPlayer = GetObject(uidPlayer);
+	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
-	MMatchStage* pStage = FindStage(pPlayer->GetStageUID());
+	CCMatchStage* pStage = FindStage(pPlayer->GetStageUID());
 	if (pStage == NULL) return;
 
 #ifndef _DEBUG
@@ -96,7 +96,7 @@ void MMatchServer::OnQuestTestRequestNPCSpawn(const MUID& uidPlayer, int nNPCTyp
 #endif
 }
 
-void MMatchServer::OnQuestTestRequestClearNPC(const MUID& uidPlayer)
+void CCMatchServer::OnQuestTestRequestClearNPC(const MUID& uidPlayer)
 {
 #ifndef _DEBUG
 	return;
@@ -104,9 +104,9 @@ void MMatchServer::OnQuestTestRequestClearNPC(const MUID& uidPlayer)
 
 	if (MGetServerConfig()->GetServerMode() != MSM_TEST) return;
 
-	MMatchObject* pPlayer = GetObject(uidPlayer);
+	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
-	MMatchStage* pStage = FindStage(pPlayer->GetStageUID());
+	CCMatchStage* pStage = FindStage(pPlayer->GetStageUID());
 	if (pStage == NULL) return;
 
 #ifndef _DEBUG
@@ -122,7 +122,7 @@ void MMatchServer::OnQuestTestRequestClearNPC(const MUID& uidPlayer)
 }
 
 
-void MMatchServer::OnQuestTestRequestSectorClear(const MUID& uidPlayer)
+void CCMatchServer::OnQuestTestRequestSectorClear(const MUID& uidPlayer)
 {
 #ifndef _DEBUG
 	return;
@@ -130,9 +130,9 @@ void MMatchServer::OnQuestTestRequestSectorClear(const MUID& uidPlayer)
 
 	if (MGetServerConfig()->GetServerMode() != MSM_TEST) return;
 
-	MMatchObject* pPlayer = GetObject(uidPlayer);
+	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
-	MMatchStage* pStage = FindStage(pPlayer->GetStageUID());
+	CCMatchStage* pStage = FindStage(pPlayer->GetStageUID());
 	if (pStage == NULL) return;
 
 #ifndef _DEBUG
@@ -147,7 +147,7 @@ void MMatchServer::OnQuestTestRequestSectorClear(const MUID& uidPlayer)
 
 }
 
-void MMatchServer::OnQuestTestRequestQuestFinish(const MUID& uidPlayer)
+void CCMatchServer::OnQuestTestRequestQuestFinish(const MUID& uidPlayer)
 {
 #ifndef _DEBUG
 	return;
@@ -155,9 +155,9 @@ void MMatchServer::OnQuestTestRequestQuestFinish(const MUID& uidPlayer)
 
 	if (MGetServerConfig()->GetServerMode() != MSM_TEST) return;
 
-	MMatchObject* pPlayer = GetObject(uidPlayer);
+	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
-	MMatchStage* pStage = FindStage(pPlayer->GetStageUID());
+	CCMatchStage* pStage = FindStage(pPlayer->GetStageUID());
 	if (pStage == NULL) return;
 
 #ifndef _DEBUG
@@ -174,11 +174,11 @@ void MMatchServer::OnQuestTestRequestQuestFinish(const MUID& uidPlayer)
 
 
 
-void MMatchServer::OnQuestRequestMovetoPortal(const MUID& uidPlayer)
+void CCMatchServer::OnQuestRequestMovetoPortal(const MUID& uidPlayer)
 {
-	MMatchObject* pPlayer = GetObject(uidPlayer);
+	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
-	MMatchStage* pStage = FindStage(pPlayer->GetStageUID());
+	CCMatchStage* pStage = FindStage(pPlayer->GetStageUID());
 	if (pStage == NULL) return;
 
 	if (false == MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() )) return;
@@ -187,11 +187,11 @@ void MMatchServer::OnQuestRequestMovetoPortal(const MUID& uidPlayer)
 	pQuestRule->OnRequestMovetoPortal(uidPlayer);
 }
 
-void MMatchServer::OnQuestReadyToNewSector(const MUID& uidPlayer)
+void CCMatchServer::OnQuestReadyToNewSector(const MUID& uidPlayer)
 {
-	MMatchObject* pPlayer = GetObject(uidPlayer);
+	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
-	MMatchStage* pStage = FindStage(pPlayer->GetStageUID());
+	CCMatchStage* pStage = FindStage(pPlayer->GetStageUID());
 	if (pStage == NULL) return;
 
 	if (false == MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() )) return;
@@ -202,16 +202,16 @@ void MMatchServer::OnQuestReadyToNewSector(const MUID& uidPlayer)
 }
 
 
-void MMatchServer::OnRequestCharQuestItemList( const MUID& uidSender )
+void CCMatchServer::OnRequestCharQuestItemList( const MUID& uidSender )
 {
 	if( MSM_TEST != MGetServerConfig()->GetServerMode() ) 
 		return;
 
 	OnResponseCharQuestItemList( uidSender );
 }
-void MMatchServer::OnResponseCharQuestItemList( const MUID& uidSender )
+void CCMatchServer::OnResponseCharQuestItemList( const MUID& uidSender )
 {
-	MMatchObject* pPlayer = GetObject( uidSender );
+	CCMatchObject* pPlayer = GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) )
 		return;
 
@@ -228,7 +228,7 @@ void MMatchServer::OnResponseCharQuestItemList( const MUID& uidSender )
 	MCommand* pNewCmd = CreateCommand( MC_MATCH_RESPONSE_CHAR_QUEST_ITEM_LIST, MUID(0, 0) );
 	if( 0 == pNewCmd )
 	{
-		cclog( "MMatchServer::OnResponseCharQuestItemList - Command생성 실패.\n" );
+		cclog( "CCMatchServer::OnResponseCharQuestItemList - Command생성 실패.\n" );
 		return;
 	}
 
@@ -252,32 +252,32 @@ void MMatchServer::OnResponseCharQuestItemList( const MUID& uidSender )
 	RouteToListener( pPlayer, pNewCmd );
 }
 
-void MMatchServer::OnRequestBuyQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nItemCount )
+void CCMatchServer::OnRequestBuyQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nItemCount )
 {
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST) {
 		OnResponseBuyQuestItem( uidSender, nItemID, nItemCount );
 	}
 }
-void MMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nItemCount )
+void CCMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nItemCount )
 {
-	MMatchObject* pPlayer = GetObject( uidSender );
+	CCMatchObject* pPlayer = GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) ) return;
 
 	MQuestItemDescManager::iterator itQItemDesc = GetQuestItemDescMgr().find( nItemID );
 	if( GetQuestItemDescMgr().end() == itQItemDesc ) {
-		cclog( "MMatchServer::OnResponseBuyQuestItem - %d아이템 description을 찾지 못했습니다.\n", nItemID );
+		cclog( "CCMatchServer::OnResponseBuyQuestItem - %d아이템 description을 찾지 못했습니다.\n", nItemID );
 		return;
 	}
 
 	MQuestItemDesc* pQuestItemDesc = itQItemDesc->second;
 	if( 0 == pQuestItemDesc ) {
-		cclog( "MMatchServer::OnRequestBuyQuestItem - %d의 item description이 비정상적입니다.\n", nItemID );
+		cclog( "CCMatchServer::OnRequestBuyQuestItem - %d의 item description이 비정상적입니다.\n", nItemID );
 		return;
 	}
 
 	// 상점에서 판매되고 있는 아이템인지 검사.
 	if( !MGetMatchShop()->IsSellItem(pQuestItemDesc->m_nItemID) ) {
-		cclog( "MMatchServer::OnRequestBuyQuestItem - %d는 상점에서 판매되고 있는 아이템이 아님.\n", pQuestItemDesc->m_nItemID );
+		cclog( "CCMatchServer::OnRequestBuyQuestItem - %d는 상점에서 판매되고 있는 아이템이 아님.\n", pQuestItemDesc->m_nItemID );
 		return;
 	}
 
@@ -311,13 +311,13 @@ void MMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigned
 	} else {
 		MQuestItem* pNewQuestItem = new MQuestItem;
 		if( 0 == pNewQuestItem ) {
-			cclog( "MMatchServer::OnResponseBuyQuestItem - 새로운 퀘스트 아이템 생성 실패.\n" );
+			cclog( "CCMatchServer::OnResponseBuyQuestItem - 새로운 퀘스트 아이템 생성 실패.\n" );
 			return;
 		}
 
 		if( !pNewQuestItem->Create(nItemID, nItemCount, GetQuestItemDescMgr().FindQItemDesc(nItemID)) ) {
 			delete pNewQuestItem;
-			cclog( "MMatchServer::OnResponseBuyQeustItem - %d번호 아이템 Create( ... )함수 호출 실패.\n" );
+			cclog( "CCMatchServer::OnResponseBuyQeustItem - %d번호 아이템 Create( ... )함수 호출 실패.\n" );
 			return;
 		}
 
@@ -334,7 +334,7 @@ void MMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigned
 	pPlayer->m_DBJobQ.DBJobQ.push_back( pBuyQuestItemJob );
 }
 
-void MMatchServer::OnRequestSellQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nCount )
+void CCMatchServer::OnRequestSellQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nCount )
 {
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
 	{
@@ -342,26 +342,26 @@ void MMatchServer::OnRequestSellQuestItem( const MUID& uidSender, const unsigned
 	}
 }
 
-void MMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nCount )
+void CCMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nCount )
 {
-	MMatchObject* pPlayer = GetObject( uidSender );
+	CCMatchObject* pPlayer = GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) )
 	{
-		cclog( "MMatchServer::OnResponseSellQuestItem - find user fail.\n" );
+		cclog( "CCMatchServer::OnResponseSellQuestItem - find user fail.\n" );
 		return;
 	}
 
 	MQuestItemDescManager::iterator itQItemDesc = GetQuestItemDescMgr().find( nItemID );
 	if( GetQuestItemDescMgr().end() == itQItemDesc )
 	{
-		cclog( "MMatchServer::OnResponseSellQuestItem - find item(%u) description fail.\n", nItemID );
+		cclog( "CCMatchServer::OnResponseSellQuestItem - find item(%u) description fail.\n", nItemID );
 		return;
 	}
 	
 	MQuestItemDesc* pQItemDesc = itQItemDesc->second;
 	if( 0 == pQItemDesc )
 	{
-		cclog( "MMatchServer::OnResponseSellQuestItem - item(%u) description is null point.\n", nItemID );
+		cclog( "CCMatchServer::OnResponseSellQuestItem - item(%u) description is null point.\n", nItemID );
 		return;
 	}
 
@@ -393,7 +393,7 @@ void MMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsigne
 
 	} else {
 		// 존제하지 않는 아이템을 팔려고 하였음.
-		cclog( "MMatchServer::OnResponseSellQuestItem - user is not owner. itemid(%u)\n", nItemID );
+		cclog( "CCMatchServer::OnResponseSellQuestItem - user is not owner. itemid(%u)\n", nItemID );
 		ASSERT( 0 );
 		return;
 	}
@@ -415,19 +415,19 @@ void MMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsigne
 }
 
 
-void MMatchServer::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
+void CCMatchServer::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 #ifdef _QUEST_ITEM
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
 	{
-		MMatchObject* pPlayer = GetObject( uidSender );
+		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			cclog( "MMatchServer::OnRequestDropSacrificeItemOnSlot - invalid user.\n" );
+			cclog( "CCMatchServer::OnRequestDropSacrificeItemOnSlot - invalid user.\n" );
 			return;
 		}
 
-		MMatchStage* pStage = FindStage( pPlayer->GetStageUID() );
+		CCMatchStage* pStage = FindStage( pPlayer->GetStageUID() );
 		if( 0 != pStage )
 		{
 			if(STAGE_STATE_RUN == pStage->GetState())
@@ -436,7 +436,7 @@ void MMatchServer::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, cons
 			const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 			if( 0 == pNode )
 			{
-				cclog( "MMatchServer::OnRequestDropSacrificeItemOnSlot - find stage fail.\n" );
+				cclog( "CCMatchServer::OnRequestDropSacrificeItemOnSlot - find stage fail.\n" );
 				return;
 			}
 
@@ -454,25 +454,25 @@ void MMatchServer::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, cons
 }
 
 
-void MMatchServer::OnRequestCallbackSacrificeItem( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
+void CCMatchServer::OnRequestCallbackSacrificeItem( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 #ifdef _QUEST_ITEM
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
 	{
-		MMatchObject* pPlayer = GetObject( uidSender );
+		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			cclog( "MMatchServer::OnRequestDropSacrificeItemOnSlot - invalid user.\n" );
+			cclog( "CCMatchServer::OnRequestDropSacrificeItemOnSlot - invalid user.\n" );
 			return;
 		}
 
-		MMatchStage* pStage = FindStage( pPlayer->GetStageUID() );
+		CCMatchStage* pStage = FindStage( pPlayer->GetStageUID() );
 		if( 0 != pStage )
 		{
 			const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 			if( 0 == pNode )
 			{
-				cclog( "MMatchServer::OnRequestCallbackSacrificeItem - find stage fail.\n" );
+				cclog( "CCMatchServer::OnRequestCallbackSacrificeItem - find stage fail.\n" );
 				return;
 			}
 
@@ -489,25 +489,25 @@ void MMatchServer::OnRequestCallbackSacrificeItem( const MUID& uidSender, const 
 #endif
 }
 
-void MMatchServer::OnRequestQL( const MUID& uidSender )
+void CCMatchServer::OnRequestQL( const MUID& uidSender )
 {
 #ifdef _QUEST_ITEM
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
 	{
-		MMatchObject* pPlayer = GetObject( uidSender );
+		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			cclog( "MMatchServer::OnRequestQL - invlaid user.\n" );
+			cclog( "CCMatchServer::OnRequestQL - invlaid user.\n" );
 			return;
 		}
 
-		MMatchStage* pStage = FindStage( pPlayer->GetStageUID() );
+		CCMatchStage* pStage = FindStage( pPlayer->GetStageUID() );
 		if( 0 != pStage )
 		{
 			const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 			if( 0 == pNode )
 			{
-				cclog( "MMatchServer::OnRequestQL - find stage fail.\n" );
+				cclog( "CCMatchServer::OnRequestQL - find stage fail.\n" );
 				return;
 			}
 
@@ -525,25 +525,25 @@ void MMatchServer::OnRequestQL( const MUID& uidSender )
 }
 
 
-void MMatchServer::OnRequestSacrificeSlotInfo( const MUID& uidSender )
+void CCMatchServer::OnRequestSacrificeSlotInfo( const MUID& uidSender )
 {
 #ifdef _QUEST_ITEM
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
 	{
-		MMatchObject* pPlayer = GetObject( uidSender );
+		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			cclog( "MMatchServer::OnRequestSacrificeSlotInfo - invalid user.\n" );
+			cclog( "CCMatchServer::OnRequestSacrificeSlotInfo - invalid user.\n" );
 			return;
 		}
 
-		MMatchStage* pStage = FindStage( pPlayer->GetStageUID() );
+		CCMatchStage* pStage = FindStage( pPlayer->GetStageUID() );
 		if( 0 != pStage )
 		{
 			const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 			if( 0 == pNode )
 			{
-				cclog( "MMatchServer::OnRequestSacrificeSlotInfo - find stage fail.\n" );
+				cclog( "CCMatchServer::OnRequestSacrificeSlotInfo - find stage fail.\n" );
 				return;
 			}
 
@@ -560,7 +560,7 @@ void MMatchServer::OnRequestSacrificeSlotInfo( const MUID& uidSender )
 #endif
 }
 
-void MMatchServer::OnQuestStageMapset(const MUID& uidStage, int nMapsetID)
+void CCMatchServer::OnQuestStageMapset(const MUID& uidStage, int nMapsetID)
 {
 	if (QuestTestServer())
 	{
@@ -571,14 +571,14 @@ void MMatchServer::OnQuestStageMapset(const MUID& uidStage, int nMapsetID)
 }
 
 
-void MMatchServer::OnRequestMonsterBibleInfo( const MUID& uidSender )
+void CCMatchServer::OnRequestMonsterBibleInfo( const MUID& uidSender )
 {
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
 	{
-		MMatchObject* pPlayer = GetObject( uidSender );
+		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			cclog( "MMatchServer::OnRequestMonsterBibleInfo - invalid user.\n" );
+			cclog( "CCMatchServer::OnRequestMonsterBibleInfo - invalid user.\n" );
 			return;
 		}
 
@@ -587,9 +587,9 @@ void MMatchServer::OnRequestMonsterBibleInfo( const MUID& uidSender )
 }
 
 
-void MMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
+void CCMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
 {
-	MMatchObject* pObj = GetObject( uidSender );
+	CCMatchObject* pObj = GetObject( uidSender );
 	if( !IsEnabledObject(pObj) )
 		return;
 
@@ -600,21 +600,21 @@ void MMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
 	// 디비에서 케릭터 퀘스트 관련정보를 가저와있는지 검사를 함.
 	if( !pCharInfo->m_QuestItemList.IsDoneDbAccess() )
 	{
-		cclog( "MMatchServer::OnResponseMonsterBibleInfo - not load db monsterbible info.\n" );
+		cclog( "CCMatchServer::OnResponseMonsterBibleInfo - not load db monsterbible info.\n" );
 		return;
 	}	
 
 	void* pMonBibleInfoBlob = MMakeBlobArray( MONSTER_BIBLE_SIZE, 1 );
 	if( 0 == pMonBibleInfoBlob )
 	{
-		cclog( "MMatchServer::OnResponseMonsterBibleInfo - make blob fail.\n" );
+		cclog( "CCMatchServer::OnResponseMonsterBibleInfo - make blob fail.\n" );
 		return;
 	}
 
 	MQuestMonsterBible* pMonBible = reinterpret_cast< MQuestMonsterBible * >( MGetBlobArrayElement(pMonBibleInfoBlob, 0) );
 	if( 0 == pMonBible )
 	{
-		cclog( "MMatchServer::OnResponseMonsterBibleInfo - typecast fail.\n" );
+		cclog( "CCMatchServer::OnResponseMonsterBibleInfo - typecast fail.\n" );
 		return;
 	}
 
@@ -624,7 +624,7 @@ void MMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
 	MCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_MONSTER_BIBLE_INFO, MUID(0, 0) );
 	if( 0 == pCmd )
 	{
-		cclog( "MMatchServer::OnResponseMonsterBibleInfo - create command fail.\n" );
+		cclog( "CCMatchServer::OnResponseMonsterBibleInfo - create command fail.\n" );
 		return;
 	}
 
@@ -637,9 +637,9 @@ void MMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
 }
 
 
-void MMatchServer::OnQuestPong( const MUID& uidSender )
+void CCMatchServer::OnQuestPong( const MUID& uidSender )
 {
-	MMatchObject* pObj = GetObject( uidSender );
+	CCMatchObject* pObj = GetObject( uidSender );
 	if( 0 == pObj ) 
 		return;
 

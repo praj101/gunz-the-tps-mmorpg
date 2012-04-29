@@ -113,7 +113,7 @@ public:
 	virtual void PostNewMonsterInfo( const MUID& uidUser, const char nMonIndex );
 	
 public:
-	MMatchRuleBaseQuest(MMatchStage* pStage);			///< 생성자
+	MMatchRuleBaseQuest(CCMatchStage* pStage);			///< 생성자
 	virtual ~MMatchRuleBaseQuest();						///< 소멸자
 	virtual void OnEnterBattle(MUID& uidChar);			///< 게임중 난입할때 호출된다.
 	virtual void OnLeaveBattle(MUID& uidChar);			///< 게임중 나갔을때 호출된다.

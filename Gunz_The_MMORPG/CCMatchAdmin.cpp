@@ -19,7 +19,7 @@ MMatchAdmin::~MMatchAdmin()
 }
 
 
-bool MMatchAdmin::Create(MMatchServer* pServer)
+bool MMatchAdmin::Create(CCMatchServer* pServer)
 {
 	m_pMatchServer = pServer;
 
@@ -115,7 +115,7 @@ bool MMatchAdmin::MakeArgv(char* szStr, MAdminArgvInfo* pAi)
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-bool MMatchServer::OnAdminExecute(MAdminArgvInfo* pAI, char* szOut)
+bool CCMatchServer::OnAdminExecute(MAdminArgvInfo* pAI, char* szOut)
 {
 	szOut[0] = 0;
 
@@ -153,9 +153,9 @@ bool MMatchServer::OnAdminExecute(MAdminArgvInfo* pAI, char* szOut)
 }
 
 
-void MMatchServer::AdminTerminalOutput(const MUID& uidAdmin, const char* szText)
+void CCMatchServer::AdminTerminalOutput(const MUID& uidAdmin, const char* szText)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.

@@ -16,7 +16,7 @@
 #include "CCMatchLocale.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-MBaseTeamGameStrategy* MBaseTeamGameStrategy::GetInstance(MMatchServerMode nServerMode)
+MBaseTeamGameStrategy* MBaseTeamGameStrategy::GetInstance(CCMatchServerMode nServerMode)
 {
 	switch (nServerMode)
 	{
@@ -31,7 +31,7 @@ MBaseTeamGameStrategy* MBaseTeamGameStrategy::GetInstance(MMatchServerMode nServ
 }
 
 
-int MLadderGameStrategy::ValidateChallenge(MMatchObject** ppMemberObject, int nMemberCount)
+int MLadderGameStrategy::ValidateChallenge(CCMatchObject** ppMemberObject, int nMemberCount)
 {
 	if (nMemberCount > MAX_LADDER_TEAM_MEMBER) return MERR_LADDER_NO_TEAM_MEMBER;
 	int nCIDs[MAX_LADDER_TEAM_MEMBER];
@@ -44,18 +44,18 @@ int MLadderGameStrategy::ValidateChallenge(MMatchObject** ppMemberObject, int nM
 		nCIDs[i] = ppMemberObject[i]->GetCharInfo()->m_nCID;
 	}
 
-	int nTeamID = MMatchServer::GetInstance()->GetLadderTeamIDFromDB(nMemberCount, nCIDs, nMemberCount);
+	int nTeamID = CCMatchServer::GetInstance()->GetLadderTeamIDFromDB(nMemberCount, nCIDs, nMemberCount);
 	if (nTeamID == 0) return MERR_LADDER_WRONG_TEAM_MEMBER;
 
 	return MOK;
 }
 
-int MLadderGameStrategy::ValidateRequestInviteProposal(MMatchObject* pProposerObject, MMatchObject** ppReplierObjects,
+int MLadderGameStrategy::ValidateRequestInviteProposal(CCMatchObject* pProposerObject, CCMatchObject** ppReplierObjects,
 													   const int nReplierCount)
 {
 	int nRet = MERR_UNKNOWN;
 
-	MMatchObject* ppTeamMemberObjects[MAX_REPLIER];
+	CCMatchObject* ppTeamMemberObjects[MAX_REPLIER];
 	int nTeamMemberCount = nReplierCount+1;	// 제안자까지..
 	if (nTeamMemberCount <= MAX_LADDER_TEAM_MEMBER)
 	{
@@ -71,7 +71,7 @@ int MLadderGameStrategy::ValidateRequestInviteProposal(MMatchObject* pProposerOb
 			char szMembers[4][MATCHOBJECT_NAME_LENGTH] = {0,};
 			char* szMemberTable[4] = { szMembers[0], szMembers[1], szMembers[2], szMembers[3] };
 
-			if (MMatchServer::GetInstance()->GetDBMgr()->GetLadderTeamMemberByCID(pProposerObject->GetCharInfo()->m_nCID, 
+			if (CCMatchServer::GetInstance()->GetDBMgr()->GetLadderTeamMemberByCID(pProposerObject->GetCharInfo()->m_nCID, 
 				NULL, szMemberTable, 4)) 
 			{
 				char szAnnounce[1024];
@@ -82,9 +82,9 @@ int MLadderGameStrategy::ValidateRequestInviteProposal(MMatchObject* pProposerOb
 					strcat(szAnnounce, " ");
 				}
 				strcat(szAnnounce, "입니다.");
-				MMatchServer::GetInstance()->Announce(pProposerObject, szAnnounce);
+				CCMatchServer::GetInstance()->Announce(pProposerObject, szAnnounce);
 			} else {
-				MMatchServer::GetInstance()->Announce(pProposerObject, "^1액션리그를 신청한 캐릭터가 아닙니다.");
+				CCMatchServer::GetInstance()->Announce(pProposerObject, "^1액션리그를 신청한 캐릭터가 아닙니다.");
 				return MERR_UNKNOWN;
 			}
 
@@ -104,7 +104,7 @@ int MLadderGameStrategy::ValidateRequestInviteProposal(MMatchObject* pProposerOb
 			if (bAllMember == true) {
 				nRet = MOK;	// Sub Team 구성가능하도록함
 			} else {
-				MMatchServer::GetInstance()->Announce(pProposerObject, "팀멤버가 아닌 사람과 팀을 이룰 수 없습니다.");
+				CCMatchServer::GetInstance()->Announce(pProposerObject, "팀멤버가 아닌 사람과 팀을 이룰 수 없습니다.");
 				return MERR_UNKNOWN;
 			}				
 		}
@@ -114,14 +114,14 @@ int MLadderGameStrategy::ValidateRequestInviteProposal(MMatchObject* pProposerOb
 	return nRet;
 }
 
-int MLadderGameStrategy::GetNewGroupID(MMatchObject* pLeaderObject, MMatchObject** ppMemberObjects, int nMemberCount)
+int MLadderGameStrategy::GetNewGroupID(CCMatchObject* pLeaderObject, CCMatchObject** ppMemberObjects, int nMemberCount)
 {
 	int nTeamID = 0;
 #ifdef LIMIT_ACTIONLEAGUE	// Team4의 Sub Team 지원
-	if (false == MMatchServer::GetInstance()->GetDBMgr()->GetLadderTeamMemberByCID(pLeaderObject->GetCharInfo()->m_nCID, 
+	if (false == CCMatchServer::GetInstance()->GetDBMgr()->GetLadderTeamMemberByCID(pLeaderObject->GetCharInfo()->m_nCID, 
 		&nTeamID, NULL, 0)) 
 	{
-		MMatchServer::GetInstance()->Announce(pLeaderObject, "^1액션리그를 신청한 캐릭터가 아닙니다.");
+		CCMatchServer::GetInstance()->Announce(pLeaderObject, "^1액션리그를 신청한 캐릭터가 아닙니다.");
 		return 0;
 	}
 #else
@@ -130,12 +130,12 @@ int MLadderGameStrategy::GetNewGroupID(MMatchObject* pLeaderObject, MMatchObject
 	{
 		nCIDs[i] = ppMemberObjects[i]->GetCharInfo()->m_nCID;
 	}
-	nTeamID = MMatchServer::GetInstance()->GetLadderTeamIDFromDB(nMemberCount, nCIDs, nMemberCount);
+	nTeamID = CCMatchServer::GetInstance()->GetLadderTeamIDFromDB(nMemberCount, nCIDs, nMemberCount);
 
 	int nRet = ValidateChallenge(ppMemberObjects, nMemberCount);
 	if (nRet != MOK)
 	{
-		MMatchServer::GetInstance()->RouteResponseToListener(pLeaderObject, MC_MATCH_LADDER_RESPONSE_CHALLENGE, nRet);
+		CCMatchServer::GetInstance()->RouteResponseToListener(pLeaderObject, MC_MATCH_LADDER_RESPONSE_CHALLENGE, nRet);
 		return 0;
 	}
 #endif
@@ -161,7 +161,7 @@ void MLadderGameStrategy::SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadder
 
 }
 
-void MLadderGameStrategy::SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nWinnerTeam, bool bIsDrawGame,
+void MLadderGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam nWinnerTeam, bool bIsDrawGame,
 		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo)
 {
 	int nWinnerTID = 0, nLoserTID = 0;
@@ -192,7 +192,7 @@ void MLadderGameStrategy::SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam 
 	int nTeamMemberCount = pBlueLadderInfo->nFirstMemberCount;
 
 #ifdef LIMIT_ACTIONLEAGUE
-	MMatchServer::GetInstance()->SaveLadderTeamPointToDB(nTeamMemberCount, 
+	CCMatchServer::GetInstance()->SaveLadderTeamPointToDB(nTeamMemberCount, 
 														nWinnerTID, nLoserTID, bIsDrawGame);
 #endif
 }
@@ -248,7 +248,7 @@ MClanGameStrategy::MClanGameStrategy()
 		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_HIGH_HAVEN,		10);
 	}
 
-	for (int i = MLADDERTYPE_NORMAL_4VS4; i < MLADDERTYPE_MAX; i++)
+	for (int i = MLADDERTYPE_NORMAL_4VS4; i < CCLADDERTYPE_MAX; i++)
 	{
 		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_MANSION,		10);
 		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_PRISON_II,		5);
@@ -264,15 +264,15 @@ MClanGameStrategy::MClanGameStrategy()
 	}
 }
 
-int MClanGameStrategy::ValidateChallenge(MMatchObject** ppMemberObject, int nMemberCount)
+int MClanGameStrategy::ValidateChallenge(CCMatchObject** ppMemberObject, int nMemberCount)
 {
 	if ((nMemberCount<0) || (nMemberCount > MAX_CLANBATTLE_TEAM_MEMBER)) return MERR_CB_NO_TEAM_MEMBER;
 
     // 팀원수 체크
 	bool bFit = false;
-	for (int i = 0; i < MLADDERTYPE_MAX; i++)
+	for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 	{
-		if (nMemberCount == MMatchServer::GetInstance()->GetLadderMgr()->GetNeedMemberCount(MLADDERTYPE(i)))
+		if (nMemberCount == CCMatchServer::GetInstance()->GetLadderMgr()->GetNeedMemberCount(MLADDERTYPE(i)))
 		{
 			bFit = true;
 			break;
@@ -317,12 +317,12 @@ int MClanGameStrategy::ValidateChallenge(MMatchObject** ppMemberObject, int nMem
 	return MOK;
 }
 
-int MClanGameStrategy::ValidateRequestInviteProposal(MMatchObject* pProposerObject, MMatchObject** ppReplierObjects,
+int MClanGameStrategy::ValidateRequestInviteProposal(CCMatchObject* pProposerObject, CCMatchObject** ppReplierObjects,
 													   const int nReplierCount)
 {
 	int nRet = MERR_UNKNOWN;
 
-	MMatchObject* ppTeamMemberObjects[MAX_REPLIER];
+	CCMatchObject* ppTeamMemberObjects[MAX_REPLIER];
 	int nTeamMemberCount = nReplierCount+1;	// 제안자까지..
 	if (nTeamMemberCount <= MAX_CLANBATTLE_TEAM_MEMBER)
 	{
@@ -341,13 +341,13 @@ int MClanGameStrategy::ValidateRequestInviteProposal(MMatchObject* pProposerObje
 	return nRet;
 }
 
-int MClanGameStrategy::GetNewGroupID(MMatchObject* pLeaderObject, MMatchObject** ppMemberObjects, int nMemberCount)
+int MClanGameStrategy::GetNewGroupID(CCMatchObject* pLeaderObject, CCMatchObject** ppMemberObjects, int nMemberCount)
 {
-	return MMatchServer::GetInstance()->GetLadderMgr()->GenerateID();
+	return CCMatchServer::GetInstance()->GetLadderMgr()->GenerateID();
 }
 
 
-void MClanGameStrategy::SetLadderGroup(MLadderGroup* pGroup, MMatchObject** ppMemberObjects, int nMemberCount)
+void MClanGameStrategy::SetLadderGroup(MLadderGroup* pGroup, CCMatchObject** ppMemberObjects, int nMemberCount)
 {
 	if (nMemberCount > 0)
 	{
@@ -375,12 +375,12 @@ void MClanGameStrategy::SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderIn
 }
 
 
-void MClanGameStrategy::SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nWinnerTeam, bool bIsDrawGame,
+void MClanGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam nWinnerTeam, bool bIsDrawGame,
 		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo)
 {
 	int nWinnerCLID = 0, nLoserCLID = 0;
 
-	MMatchTeam nLoserTeam = (nWinnerTeam == MMT_RED) ? MMT_BLUE : MMT_RED;
+	CCMatchTeam nLoserTeam = (nWinnerTeam == MMT_RED) ? MMT_BLUE : MMT_RED;
 
 	// red팀 승리
 	if (bIsDrawGame == true)
@@ -405,8 +405,8 @@ void MClanGameStrategy::SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nW
 
 	if ((nWinnerCLID == 0) || (nLoserCLID == 0)) return;
 
-	MMatchClan* pWinnerClan = MMatchServer::GetInstance()->GetClanMap()->GetClan(nWinnerCLID);
-	MMatchClan* pLoserClan = MMatchServer::GetInstance()->GetClanMap()->GetClan(nLoserCLID);
+	MMatchClan* pWinnerClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(nWinnerCLID);
+	MMatchClan* pLoserClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(nLoserCLID);
 
 	if ((!pWinnerClan) || (!pLoserClan)) return;
 
@@ -419,7 +419,7 @@ void MClanGameStrategy::SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nW
 
 	for (MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) 
 	{
-		MMatchObject* pObj = (MMatchObject*)(*itor).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (IsEnabledObject(pObj))
 		{
 			if (pObj->GetTeam() == nWinnerTeam)
@@ -448,7 +448,7 @@ void MClanGameStrategy::SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nW
 	if (!bIsDrawGame)
 	{
 		// MatchMakingSystem 통계 입력
-		MLadderStatistics* pLS = MMatchServer::GetInstance()->GetLadderMgr()->GetStatistics();
+		MLadderStatistics* pLS = CCMatchServer::GetInstance()->GetLadderMgr()->GetStatistics();
 		pLS->InsertLevelRecord(pRedLadderInfo->nCharLevel, pBlueLadderInfo->nCharLevel, nWinnerTeam);
 		pLS->InsertContPointRecord(pRedLadderInfo->nContPoint, pBlueLadderInfo->nContPoint, nWinnerTeam);
 		pLS->InsertClanPointRecord(pWinnerClan->GetClanInfoEx()->nPoint, pLoserClan->GetClanInfoEx()->nPoint, MMT_RED);
@@ -459,7 +459,7 @@ void MClanGameStrategy::SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nW
 
 		if (nLoserSeriesOfVictories >= 10)
 		{
-			MMatchServer::GetInstance()->BroadCastClanInterruptVictories(pWinnerClan->GetName(), pLoserClan->GetName(), 
+			CCMatchServer::GetInstance()->BroadCastClanInterruptVictories(pWinnerClan->GetName(), pLoserClan->GetName(), 
 				nLoserSeriesOfVictories+1);
 
 			fPointRatio = 2.0f;
@@ -467,12 +467,12 @@ void MClanGameStrategy::SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nW
 		else if ((nWinnerSeriesOfVictories == 3) || (nWinnerSeriesOfVictories == 5) || 
 			(nWinnerSeriesOfVictories == 7) || (nWinnerSeriesOfVictories >= 10))
 		{
-			MMatchServer::GetInstance()->BroadCastClanRenewVictories(pWinnerClan->GetName(), pLoserClan->GetName(), 
+			CCMatchServer::GetInstance()->BroadCastClanRenewVictories(pWinnerClan->GetName(), pLoserClan->GetName(), 
 				nWinnerSeriesOfVictories);
 		}
 	}
 
-	MMatchServer::GetInstance()->SaveClanPoint(pWinnerClan, pLoserClan, bIsDrawGame,
+	CCMatchServer::GetInstance()->SaveClanPoint(pWinnerClan, pLoserClan, bIsDrawGame,
 												nRoundWins, nRoundLosses, nMapID, nGameType,
 												nFirstMemberCount, WinnerObjUIDs,
 												szWinnerMembers, szLoserMembers, fPointRatio);

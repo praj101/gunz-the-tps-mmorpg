@@ -33,13 +33,13 @@ class MMatchActiveTrapMgr
 	typedef ListTrap::iterator			ItorTrap;
 	list<MMatchActiveTrap*> m_listTrap;
 
-	MMatchStage* m_pStage;
+	CCMatchStage* m_pStage;
 
 public:
 	MMatchActiveTrapMgr();
 	~MMatchActiveTrapMgr();
 
-	void Create(MMatchStage* pStage);
+	void Create(CCMatchStage* pStage);
 	void Destroy();
 	void Clear();
 
@@ -48,6 +48,6 @@ public:
 
 	void Update(unsigned long nClock);
 
-	void RouteAllTraps(MMatchObject* pObj);
+	void RouteAllTraps(CCMatchObject* pObj);
 	void RouteTrapActivationForForcedEnterd(MMatchActiveTrap* pTrap);
 };

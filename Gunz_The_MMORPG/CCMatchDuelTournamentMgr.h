@@ -14,7 +14,7 @@ class MDuelTournamentMatchLauncher;
 
 class MMatchDuelTournamentMgr
 {
-	MMatchObjectContainer m_matchObjectContainer;
+	CCMatchObjectContainer m_matchObjectContainer;
 	MDuelTournamentTimeChecker m_TimeChecker;
 
 	DWORD m_lastMatchedTick;		// 마지막으로 매치 처리한 시각
@@ -68,6 +68,6 @@ public:
 protected:
 	void LaunchMatchGroups(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
 
-	// 실제 MMatchServer에게 경기 실행시키는 부분을 래핑하는 함수 (단위테스트 목적)
+	// 실제 CCMatchServer에게 경기 실행시키는 부분을 래핑하는 함수 (단위테스트 목적)
 	virtual void LaunchMatch(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
 };

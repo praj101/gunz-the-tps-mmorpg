@@ -142,7 +142,7 @@ void MLadderStatistics::_InsertContPointRecord(int nContPointDiff, bool bMorePoi
 }
 
 
-void MLadderStatistics::InsertLevelRecord(int nRedTeamCharLevel, int nBlueTeamCharLevel, MMatchTeam nWinnerTeam)
+void MLadderStatistics::InsertLevelRecord(int nRedTeamCharLevel, int nBlueTeamCharLevel, CCMatchTeam nWinnerTeam)
 {
 	int nLevelDiff = abs(nRedTeamCharLevel - nBlueTeamCharLevel);
 	bool bMoreLevelWin = false;
@@ -155,7 +155,7 @@ void MLadderStatistics::InsertLevelRecord(int nRedTeamCharLevel, int nBlueTeamCh
 
 }
 
-void MLadderStatistics::InsertClanPointRecord(int nRedTeamClanPoint, int nBlueTeamClanPoint, MMatchTeam nWinnerTeam)
+void MLadderStatistics::InsertClanPointRecord(int nRedTeamClanPoint, int nBlueTeamClanPoint, CCMatchTeam nWinnerTeam)
 {
 	int nClanPointDiff = abs(nRedTeamClanPoint - nBlueTeamClanPoint);
 	bool bMorePointWin = false;
@@ -167,7 +167,7 @@ void MLadderStatistics::InsertClanPointRecord(int nRedTeamClanPoint, int nBlueTe
 	_InsertClanPointRecord(nClanPointDiff, bMorePointWin);
 }
 
-void MLadderStatistics::InsertContPointRecord(int nRedTeamContPoint, int nBlueTeamContPoint, MMatchTeam nWinnerTeam)
+void MLadderStatistics::InsertContPointRecord(int nRedTeamContPoint, int nBlueTeamContPoint, CCMatchTeam nWinnerTeam)
 {
 	int nContPointDiff = abs(nRedTeamContPoint - nBlueTeamContPoint);
 	bool bMorePointWin = false;

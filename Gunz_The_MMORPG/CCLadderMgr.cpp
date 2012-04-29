@@ -11,7 +11,7 @@
 
 MLadderGroupMap* MLadderMgr::GetWaitGroupContainer(MLADDERTYPE nLadderType)
 {
-	if ((nLadderType < 0) || (nLadderType >= MLADDERTYPE_MAX))
+	if ((nLadderType < 0) || (nLadderType >= CCLADDERTYPE_MAX))
 	{
 		_ASSERT("UNKNOWN LADDERMAP");
 		return NULL;
@@ -22,14 +22,14 @@ MLadderGroupMap* MLadderMgr::GetWaitGroupContainer(MLADDERTYPE nLadderType)
 
 MLadderGroup* MLadderMgr::CreateLadderGroup()
 {
-	return new MLadderGroup(MMatchServer::GetInstance()->GetTickTime());
+	return new MLadderGroup(CCMatchServer::GetInstance()->GetTickTime());
 }
 
 MLadderGroup* MLadderMgr::FindLadderGroup(int nGroupID)
 {
 	MLadderGroup* pGroup = NULL;
 
-	for (int i = 0; i < MLADDERTYPE_MAX; i++)
+	for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 	{
 		if (pGroup=m_WaitingMaps[i].Find(nGroupID))
 			return pGroup;
@@ -59,16 +59,16 @@ void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup)
 	for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
 	{
 		MUID uidPlayer = (*i);
-		MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
+		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
 		
-		MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uidPlayer);
+		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uidPlayer);
 		if (!IsEnabledObject(pObj))
 		{
 			delete pCmd;
 			continue;
 		}
 
-		MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
+		CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
 	}	
 }
 
@@ -78,7 +78,7 @@ bool MLadderMgr::Challenge(MLadderGroup* pGroup)
 
 	if (nPlayerCount > 0)
 	{
-		for (int i = 0; i < MLADDERTYPE_MAX; i++)
+		for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 		{
 			if (nPlayerCount == GetNeedMemberCount(MLADDERTYPE(i)))
 			{
@@ -114,22 +114,22 @@ void MLadderMgr::CancelChallenge(int nGroupID, const char* pszCancelName)
 	{
 		MUID uidMember = (*i);
 
-		MMatchObject* pMemberObject = MMatchServer::GetInstance()->GetObject(uidMember);
+		CCMatchObject* pMemberObject = CCMatchServer::GetInstance()->GetObject(uidMember);
 		if (!IsEnabledObject(pMemberObject)) continue;
 		pMemberObject->SetLadderChallenging(false);
 		pMemberObject->SetLadderGroupID(0);
 
-		MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_CANCEL_CHALLENGE, uidMember);
+		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_CANCEL_CHALLENGE, uidMember);
 		pCmd->AddParameter(new MCmdParamStr(pszCancelName));
 
-		MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uidMember);
+		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uidMember);
 		if (!IsEnabledObject(pObj))
 		{
 			delete pCmd;
 			continue;
 		}
 
-		MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
+		CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
 	}
 	pGroupMap->Remove(pGroup->GetID());
 	RemoveFromGroupList(pGroup);
@@ -153,14 +153,14 @@ int MLadderMgr::MakeMatch(MLADDERTYPE nLadderType)
 /*
 #ifdef _DEBUG
 		const unsigned int MIN_ADDTICKET_TICK = 3000;
-		if (MGetTimeDistance(MMatchServer::GetInstance()->GetTickTime(), pGroup->GetRegTime()) < MIN_ADDTICKET_TICK) continue;
+		if (MGetTimeDistance(CCMatchServer::GetInstance()->GetTickTime(), pGroup->GetRegTime()) < MIN_ADDTICKET_TICK) continue;
 #endif
 */
 
 		//ladderPicker.AddTicket( pGroup, time.MakeNumber(0,pGroup->GetScore()) );
 		
 		int nClanPoint = DEFAULT_CLAN_POINT;
-		MMatchClan* pClan = MMatchServer::GetInstance()->GetClanMap()->GetClan(pGroup->GetCLID());
+		MMatchClan* pClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(pGroup->GetCLID());
 		if (pClan)
 		{
 			nClanPoint = pClan->GetClanInfoEx()->nPoint;
@@ -187,7 +187,7 @@ int MLadderMgr::MakeMatch(MLADDERTYPE nLadderType)
 
 void MLadderMgr::CleaningGarbages()
 {
-	for (int i = 0; i < MLADDERTYPE_MAX; i++)
+	for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 	{
 		MLADDERTYPE nLadderType = MLADDERTYPE(i);
 
@@ -207,7 +207,7 @@ void MLadderMgr::CleaningGarbages()
 			{
 				MUID uidMember = (*itorPlayerUID);
 
-				MMatchObject* pMemberObject = MMatchServer::GetInstance()->GetObject(uidMember);
+				CCMatchObject* pMemberObject = CCMatchServer::GetInstance()->GetObject(uidMember);
 				if (!IsEnabledObject(pMemberObject))
 				{
 					bExistCannotPlayer = true;
@@ -260,7 +260,7 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 		return;
 	}
 
-	MMatchServer* pServer = MMatchServer::GetInstance();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	pServer->LadderGameLaunch(pGroupA, pGroupB);
 }
 
@@ -271,7 +271,7 @@ unsigned long int MLadderMgr::GetTickInterval()
 	unsigned long int nDefaultTickInterval = MTIME_LADDER_DEFAULT_TICKINTERVAL;
 
 	// 동접에 따라 틱시간을 가변으로 한다.
-	int nObjSize = (int)MMatchServer::GetInstance()->GetObjects()->size();
+	int nObjSize = (int)CCMatchServer::GetInstance()->GetObjects()->size();
 	
 	if (nObjSize < 50)
 	{
@@ -298,7 +298,7 @@ void MLadderMgr::Tick(unsigned long nTick)
 
 	CleaningGarbages();
 
-	for (int i = 0; i < MLADDERTYPE_MAX; i++)
+	for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 	{
 		MakeMatch(MLADDERTYPE(i));
 	}
@@ -308,7 +308,7 @@ void MLadderMgr::Tick(unsigned long nTick)
 
 int MLadderMgr::GetNeedMemberCount(MLADDERTYPE nLadderType)
 {
-	if ((nLadderType >= 0) && (nLadderType < MLADDERTYPE_MAX))
+	if ((nLadderType >= 0) && (nLadderType < CCLADDERTYPE_MAX))
 	{
 		return g_nNeedLadderMemberCount[(int)nLadderType];
 	}
@@ -319,7 +319,7 @@ int MLadderMgr::GetNeedMemberCount(MLADDERTYPE nLadderType)
 int MLadderMgr::GetTotalGroupCount()
 {
 	int ret = 0;
-	for (int i = 0; i < MLADDERTYPE_MAX; i++)
+	for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 	{
 		ret += (int)m_WaitingMaps[i].size();
 	}
@@ -354,11 +354,11 @@ void MLadderMgr::DebugTest()
 #ifdef _DEBUG
 	OutputDebugString("Ahehheh \n");
 
-	MMatchServer* pServer = MMatchServer::GetInstance();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
 
-	MMatchObject* pPlayer1 = pServer->GetPlayerByName("라온마이");
+	CCMatchObject* pPlayer1 = pServer->GetPlayerByName("라온마이");
 	if (pPlayer1 == NULL) return;
-	MMatchObject* pPlayer2 = pServer->GetPlayerByName("라온하제2");
+	CCMatchObject* pPlayer2 = pServer->GetPlayerByName("라온하제2");
 	if (pPlayer2 == NULL) return;
 
 

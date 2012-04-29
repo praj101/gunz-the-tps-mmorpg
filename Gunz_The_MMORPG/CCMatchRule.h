@@ -8,8 +8,8 @@
 #include "MQuestPlayer.h"
 #include "MMatchEventManager.h"
 
-class MMatchObject;
-class MMatchStage;
+class CCMatchObject;
+class CCMatchStage;
 
 
 /// 게임 라운드 상태
@@ -42,7 +42,7 @@ class MMatchRule {
 protected:
 	// MMatchGameTypeInfo*	m_pGameTypeInfo;							///< 게임 타입 정보
 
-	MMatchStage*		m_pStage;									///< 스테이지 클래스
+	CCMatchStage*		m_pStage;									///< 스테이지 클래스
 	MMATCH_ROUNDSTATE	m_nRoundState;								///< 현재 라운드 상태
 	int					m_nRoundCount;								///< 라운드 수
 	int					m_nRoundArg;								///< 라운드의 추가 인자
@@ -83,9 +83,9 @@ protected:
 	void RunOnEndEvent();
 public:
 	MMatchRule()					{ _ASSERT(false); }				///< 이 생성자는 절대 사용하지 않는다.
-	MMatchRule(MMatchStage* pStage);								///< 생성자
+	MMatchRule(CCMatchStage* pStage);								///< 생성자
 	virtual ~MMatchRule()			{}								///< 소멸자
-	MMatchStage* GetStage()			{ return m_pStage; }			///< 스테이지 반환
+	CCMatchStage* GetStage()			{ return m_pStage; }			///< 스테이지 반환
 
 	int GetRoundCount()				{ return m_nRoundCount; }		///< 총 라운드 수 반환
 	void SetRoundCount(int nRound)	{ m_nRoundCount = nRound; }		///< 총 라운드 수 설정
@@ -109,8 +109,8 @@ public:
 	/// @param nSrcExp			원래 경험치
 	/// @param poutAttackerExp	공격자가 받을 경험치
 	/// @param poutTeamExp		팀이 받을 경험치
-	virtual void CalcTeamBonus(MMatchObject* pAttacker,
-		                       MMatchObject* pVictim,
+	virtual void CalcTeamBonus(CCMatchObject* pAttacker,
+		                       CCMatchObject* pVictim,
 							   int nSrcExp,
 							   int* poutAttackerExp,
 							   int* poutTeamExp);
@@ -121,7 +121,7 @@ public:
 	/// 해당룰에서만 사용하는 커맨드는 직접 처리한다.
 	virtual void OnCommand(MCommand* pCommand) {}		
 	/// 월드아이템 먹었을 경우 호출된다.
-	virtual void OnObtainWorldItem(MMatchObject* pObj, int nItemID, int* pnExtraValues) {}
+	virtual void OnObtainWorldItem(CCMatchObject* pObj, int nItemID, int* pnExtraValues) {}
 	/// Kill시 호출
 	virtual void OnGameKill(const MUID& uidAttacker, const MUID& uidVictim) {}
 

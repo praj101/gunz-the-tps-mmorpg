@@ -10,7 +10,7 @@ using namespace std;
 
 class MCommand;
 class MCommandCommunicator;
-class MMatchObject;
+class CCMatchObject;
 
 
 struct MMatchObjCacheCostume
@@ -121,14 +121,14 @@ enum MATCHCACHEMODE {
 	MATCHCACHEMODE_REPLACE		// 새로운 내용으로 교체
 };
 
-class MMatchObjectCacheBuilder {
+class CCMatchObjectCacheBuilder {
 	MMatchObjCacheList	m_ObjectCacheList;
 
 public:
-	MMatchObjectCacheBuilder();
-	virtual ~MMatchObjectCacheBuilder();
+	CCMatchObjectCacheBuilder();
+	virtual ~CCMatchObjectCacheBuilder();
 
-	void AddObject(MMatchObject* pObj);
+	void AddObject(CCMatchObject* pObj);
 	void Reset();
 	MCommand* GetResultCmd(MATCHCACHEMODE nType, MCommandCommunicator* pCmdComm);
 };

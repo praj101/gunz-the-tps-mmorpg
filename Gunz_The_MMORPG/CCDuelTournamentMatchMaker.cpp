@@ -7,7 +7,7 @@ MDuelTournamentMatchMaker::MDuelTournamentMatchMaker()
 }
 
 
-MDuelTournamentMatchMaker::MDuelTournamentMatchMaker(MMatchObjectContainer* moc)
+MDuelTournamentMatchMaker::MDuelTournamentMatchMaker(CCMatchObjectContainer* moc)
 : m_pMatchObjectContainer(moc)
 {
 }
@@ -245,7 +245,7 @@ void MDuelTournamentMatchMaker::ServiceTimeClose()
 	for (ItorDTUser it=m_mapUser.begin(); it!=m_mapUser.end();++it)
 	{
 		DTUser dtUser = it->first;
-		MMatchServer* pServer = MMatchServer::GetInstance();
+		CCMatchServer* pServer = CCMatchServer::GetInstance();
 		pServer->SendDuelTournamentServiceTimeClose(dtUser.uid);
 
 		it = m_mapUser.erase(it);

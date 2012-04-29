@@ -53,9 +53,9 @@ bool MMatchDuelTournamentMgr::AddPlayer(MDUELTOURNAMENTTYPE nType, MUID &uidPlay
 {
 	if (0 <= nType && nType < MDUELTOURNAMENTTYPE_MAX)
 	{
-		MMatchObjectDuelTournamentCharInfo* pDTCharInfo = m_matchObjectContainer.GetDuelTournamentCharInfo(uidPlayer);
+		CCMatchObjectDuelTournamentCharInfo* pDTCharInfo = m_matchObjectContainer.GetDuelTournamentCharInfo(uidPlayer);
 		if (pDTCharInfo) {
-			m_DTMatchMakers[nType].AddPlayer(uidPlayer, pDTCharInfo->GetTP(), MMatchServer::GetInstance()->GetGlobalClockCount());
+			m_DTMatchMakers[nType].AddPlayer(uidPlayer, pDTCharInfo->GetTP(), CCMatchServer::GetInstance()->GetGlobalClockCount());
 			return true;
 		}
 	}
@@ -187,6 +187,6 @@ void MDuelTournamentMatchLauncher::LaunchMatchGroups( MDUELTOURNAMENTTYPE nType,
 void MDuelTournamentMatchLauncher::LaunchMatch( MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
 {
 	pPickedGroup->Shuffle();
-	MMatchServer* pServer = MMatchServer::GetInstance();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	pServer->LaunchDuelTournamentMatch(nType, pPickedGroup, matchFactor);
 }

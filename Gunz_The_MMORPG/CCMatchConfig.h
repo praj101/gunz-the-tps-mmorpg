@@ -33,7 +33,7 @@ private:
 	int					m_nServerPort;				///< 서버포트
 	int					m_nServerUDPPort;			///< 서버UDP포트
 
-	MMatchServerMode	m_nServerMode;				///< 서버모드
+	CCMatchServerMode	m_nServerMode;				///< 서버모드
 	bool				m_bRestrictionMap;			///< 맵제한이 있는지 여부 - default : false
 	set<int>			m_EnableMaps;				///< 맵제한이 있을경우 가능한 맵
 	list<string>		m_FreeLoginIPList;			///< 접속인원 무시 IP
@@ -147,7 +147,7 @@ public:
 	const char* GetServerName()						{ return m_szServerName; }
 	const int GetServerPort()						{ return m_nServerPort; }
 	const int GetServerUDPPort()					{ return m_nServerUDPPort; }
-	const MMatchServerMode		GetServerMode()		{ return m_nServerMode; }
+	const CCMatchServerMode		GetServerMode()		{ return m_nServerMode; }
 	bool IsResMap()									{ return m_bRestrictionMap; }	// 맵제한이 있는지 여부
 	bool IsEnableMap(const MMATCH_MAP nMap)										// 플레이가능한 맵인지 여부
 	{

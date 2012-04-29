@@ -33,25 +33,25 @@
 
 #include "MAsyncDBJob_InsertGamePlayerLog.h"
 
-static bool StageShowInfo(MMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat);
+static bool StageShowInfo(CCMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat);
 
 
-MMatchStage* MMatchServer::FindStage(const MUID& uidStage)
+CCMatchStage* CCMatchServer::FindStage(const MUID& uidStage)
 {
-	MMatchStageMap::iterator i = m_StageMap.find(uidStage);
+	CCMatchStageMap::iterator i = m_StageMap.find(uidStage);
 	if(i==m_StageMap.end()) return NULL;
 
-	MMatchStage* pStage = (*i).second;
+	CCMatchStage* pStage = (*i).second;
 	return pStage;
 }
 
-bool MMatchServer::StageAdd(MMatchChannel* pChannel, const char* pszStageName, bool bPrivate, const char* pszStagePassword, MUID* pAllocUID, bool bIsAllowNullChannel)
+bool CCMatchServer::StageAdd(MMatchChannel* pChannel, const char* pszStageName, bool bPrivate, const char* pszStagePassword, MUID* pAllocUID, bool bIsAllowNullChannel)
 {
 	// 클랜전은 pChannel이 NULL이다.
 
 	MUID uidStage = m_StageMap.UseUID();
 	
-	MMatchStage* pStage= new MMatchStage;
+	CCMatchStage* pStage= new CCMatchStage;
 	if (pChannel && !pChannel->AddStage(pStage)) {
 		delete pStage;
 		return false;
@@ -90,14 +90,14 @@ bool MMatchServer::StageAdd(MMatchChannel* pChannel, const char* pszStageName, b
 }
 
 
-bool MMatchServer::StageRemove(const MUID& uidStage, MMatchStageMap::iterator* pNextItor)
+bool CCMatchServer::StageRemove(const MUID& uidStage, CCMatchStageMap::iterator* pNextItor)
 {
-	MMatchStageMap::iterator i = m_StageMap.find(uidStage);
+	CCMatchStageMap::iterator i = m_StageMap.find(uidStage);
 	if(i==m_StageMap.end()) {
 		return false;
 	}
 
-	MMatchStage* pStage = (*i).second;
+	CCMatchStage* pStage = (*i).second;
 
 	MMatchChannel* pChannel = FindChannel(pStage->GetOwnerChannel());
 	if (pChannel) {
@@ -107,16 +107,16 @@ bool MMatchServer::StageRemove(const MUID& uidStage, MMatchStageMap::iterator* p
 	pStage->Destroy();
 	delete pStage;
 
-	MMatchStageMap::iterator itorTemp = m_StageMap.erase(i);
+	CCMatchStageMap::iterator itorTemp = m_StageMap.erase(i);
 	if (pNextItor) *pNextItor = itorTemp;
 
 	return true;
 }
 
 
-bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
+bool CCMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return false;
 
 	if (pObj->GetStageUID() != MUID(0,0))
@@ -126,7 +126,7 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 	if (pChannel == NULL) return false;
 	if (pChannel->GetChannelType() == MCHANNEL_TYPE_DUELTOURNAMENT) return false;
 
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return false;
 
 	int ret = ValidateStageJoin(uidPlayer, uidStage);
@@ -137,7 +137,7 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 	pObj->OnStageJoin();
 
 	// Cache Add
-	MMatchObjectCacheBuilder CacheBuilder;
+	CCMatchObjectCacheBuilder CacheBuilder;
 	CacheBuilder.AddObject(pObj);
 	MCommand* pCmdCacheAdd = CacheBuilder.GetResultCmd(MATCHCACHEMODE_ADD, this);
 	RouteToStage(pStage->GetUID(), pCmdCacheAdd);
@@ -167,11 +167,11 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 	CacheBuilder.Reset();
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
 		MUID uidObj = (MUID)(*i).first;
-		MMatchObject* pScanObj = (MMatchObject*)GetObject(uidObj);
+		CCMatchObject* pScanObj = (CCMatchObject*)GetObject(uidObj);
 		if (pScanObj) {
 			CacheBuilder.AddObject(pScanObj);
 		} else {
-			LOG(LOG_PROG, "MMatchServer::StageJoin - Invalid ObjectMUID(%u:%u) exist in Stage(%s)\n",
+			LOG(LOG_PROG, "CCMatchServer::StageJoin - Invalid ObjectMUID(%u:%u) exist in Stage(%s)\n",
 				uidObj.High, uidObj.Low, pStage->GetName());
 			pStage->RemoveObject(uidObj);
 			return false;
@@ -195,7 +195,7 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 == pNode )
 		{
-			cclog( "MMatchServer::StageJoin - 스테이지 셋팅 노드 찾기 실패.\n" );
+			cclog( "CCMatchServer::StageJoin - 스테이지 셋팅 노드 찾기 실패.\n" );
 			return false;
 		}
 
@@ -204,7 +204,7 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 			MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
 			if( 0 == pRuleQuest )
 			{
-				cclog( "MMatchServer::StageJoin - 포인터 형변환 실패.\n" );
+				cclog( "CCMatchServer::StageJoin - 포인터 형변환 실패.\n" );
 				return false;
 			}
 
@@ -233,16 +233,16 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 	return true;
 }
 
-bool MMatchServer::StageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
+bool CCMatchServer::StageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 {
-	MMatchObject* pObj = GetObject( uidPlayer );
+	CCMatchObject* pObj = GetObject( uidPlayer );
 	if( !IsEnabledObject(pObj) ) return false;
-	// MMatchStage* pStage = FindStage(uidStage);
+	// CCMatchStage* pStage = FindStage(uidStage);
 
 	//if(pObj->GetStageUID()!=uidStage)
 	//	cclog(" stage leave hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return false;
 
 	bool bLeaverMaster = false;
@@ -275,10 +275,10 @@ bool MMatchServer::StageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 
 	pStage->RemoveObject(uidPlayer);
 
-	//MMatchObject* pObj = GetObject(uidPlayer);
+	//CCMatchObject* pObj = GetObject(uidPlayer);
 	//if (pObj)
 	{
-		MMatchObjectCacheBuilder CacheBuilder;
+		CCMatchObjectCacheBuilder CacheBuilder;
 		CacheBuilder.AddObject(pObj);
 		MCommand* pCmdCache = CacheBuilder.GetResultCmd(MATCHCACHEMODE_REMOVE, this);
 		RouteToStage(pStage->GetUID(), pCmdCache);
@@ -294,7 +294,7 @@ bool MMatchServer::StageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 == pNode )
 		{
-			cclog( "MMatchServer::StageLeave - 스테이지 셋팅 노드 찾기 실패.\n" );
+			cclog( "CCMatchServer::StageLeave - 스테이지 셋팅 노드 찾기 실패.\n" );
 			return false;
 		}
 
@@ -303,7 +303,7 @@ bool MMatchServer::StageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 			MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
 			if( 0 == pRuleQuest )
 			{
-				cclog( "MMatchServer::StageLeave - 포인터 형변환 실패.\n" );
+				cclog( "CCMatchServer::StageLeave - 포인터 형변환 실패.\n" );
 				return false;
 			}
 
@@ -338,7 +338,7 @@ DWORD StageEnterBattleExceptionHandler( PEXCEPTION_POINTERS ExceptionInfo )
 
 
 
-bool ExceptionTraceStageEnterBattle( MMatchObject* pObj, MMatchStage* pStage )
+bool ExceptionTraceStageEnterBattle( CCMatchObject* pObj, CCMatchStage* pStage )
 {
 	if( NULL == pObj )
 	{
@@ -359,7 +359,7 @@ bool ExceptionTraceStageEnterBattle( MMatchObject* pObj, MMatchStage* pStage )
 		cclog( "\nexception : stage enter battle =====================\n" );
 
 
-		MMatchObject* pMaster = MGetMatchServer()->GetObject( pStage->GetMasterUID() );
+		CCMatchObject* pMaster = MGetMatchServer()->GetObject( pStage->GetMasterUID() );
 		if( NULL != pMaster )  
 		{
 			if( NULL != pMaster->GetCharInfo() )
@@ -383,7 +383,7 @@ bool ExceptionTraceStageEnterBattle( MMatchObject* pObj, MMatchStage* pStage )
 		}
 
 		
-		MMatchStageSetting*	pStageSetting = pStage->GetStageSetting();
+		CCMatchStageSetting*	pStageSetting = pStage->GetStageSetting();
 		if( NULL != pStageSetting )
 		{
 			cclog( "stage state : %d\n", pStage->GetStageSetting()->GetStageState() );
@@ -403,7 +403,7 @@ bool ExceptionTraceStageEnterBattle( MMatchObject* pObj, MMatchStage* pStage )
 		MUIDRefCache::iterator itStage, endStage;
 		endStage = pStage->GetObjEnd();
 		itStage = pStage->GetObjBegin();
-		MMatchObject* pObj = NULL;
+		CCMatchObject* pObj = NULL;
 		for( ; endStage != itStage; ++itStage )
 		{
 			pObj = MGetMatchServer()->GetObject( itStage->first );
@@ -426,16 +426,16 @@ bool ExceptionTraceStageEnterBattle( MMatchObject* pObj, MMatchStage* pStage )
 
 
 
-bool MMatchServer::StageEnterBattle(const MUID& uidPlayer, const MUID& uidStage)
+bool CCMatchServer::StageEnterBattle(const MUID& uidPlayer, const MUID& uidStage)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return false;
-	// MMatchStage* pStage = FindStage(uidStage);
+	// CCMatchStage* pStage = FindStage(uidStage);
 	
 	if(pObj->GetStageUID()!=uidStage)
 		cclog(" stage enter battle hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return false;
 
 	pObj->SetPlace(MMP_BATTLE);
@@ -469,27 +469,27 @@ bool MMatchServer::StageEnterBattle(const MUID& uidPlayer, const MUID& uidStage)
 	RouteToStage(uidStage, pNew);
 
 	// 배틀 시작시간 세팅
-	pObj->GetCharInfo()->m_nBattleStartTime = MMatchServer::GetInstance()->GetGlobalClockCount();
+	pObj->GetCharInfo()->m_nBattleStartTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 	pObj->GetCharInfo()->m_nBattleStartXP = pObj->GetCharInfo()->m_nXP;
 
 	// 라우팅 후에 넣어야 한다.
 	return ExceptionTraceStageEnterBattle( pObj, pStage );
 }
 
-bool MMatchServer::StageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeaveBattle, bool bForcedLeave)
+bool CCMatchServer::StageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeaveBattle, bool bForcedLeave)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return false;
 	if (pObj->GetPlace() != MMP_BATTLE) { return false; }
 
-	// MMatchStage* pStage = FindStage(uidStage);
+	// CCMatchStage* pStage = FindStage(uidStage);
 
 	//if(pObj->GetStageUID()!=uidStage)
 	//	cclog(" stage leave battle hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 
 	const MUID uidStage = pObj->GetStageUID();
 
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL)
 	{	// 클랜전시 한족이 다나가면 스테이지가 없어지므로 여기서 agent를 끊어준다. 
 		if (pObj->GetRelayPeer()) {
@@ -512,10 +512,10 @@ bool MMatchServer::StageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeave
 	{
 		// 플레이 직후 대기실에서 경험치, 승/패, 승률, 바운티가 반영되지 않습니다. - by kammir 2008.09.19
 		// LeaveBattle가 되면서 캐릭터 데이터를 업데이트 해준다.
-		MMatchObjectCacheBuilder CacheBuilder;
+		CCMatchObjectCacheBuilder CacheBuilder;
 		CacheBuilder.Reset();
 		for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
-			MMatchObject* pScanObj = (MMatchObject*)(*i).second;
+			CCMatchObject* pScanObj = (CCMatchObject*)(*i).second;
 			CacheBuilder.AddObject(pScanObj);
 		}
 		MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
@@ -561,7 +561,7 @@ bool MMatchServer::StageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeave
 	
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
 		MUID uidObj = (MUID)(*i).first;
-		MMatchObject* pAllObj = (MMatchObject*)GetObject(uidObj);
+		CCMatchObject* pAllObj = (CCMatchObject*)GetObject(uidObj);
 		if(NULL == pAllObj) continue;
 		if(MMP_STAGE != pAllObj->GetPlace()) { 
 			bIsLeaveAllBattle = false; 
@@ -630,11 +630,11 @@ bool MMatchServer::StageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeave
 	return true;
 }
 
-bool MMatchServer::StageChat(const MUID& uidPlayer, const MUID& uidStage, char* pszChat)
+bool CCMatchServer::StageChat(const MUID& uidPlayer, const MUID& uidStage, char* pszChat)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL)	return false;
-	MMatchObject* pObj = (MMatchObject*)GetObject(uidPlayer);
+	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) return false;
 
 	if (pObj->GetAccountInfo()->m_nUGrade == MMUG_CHAT_LIMITED) return false;
@@ -646,7 +646,7 @@ bool MMatchServer::StageChat(const MUID& uidPlayer, const MUID& uidStage, char* 
 	///< 다른 Stage들에게도 Msg를 보낼 수 있는 문제가 있음 (해킹 프로그램 사용시)
 	if( uidStage != pObj->GetStageUID() )
 	{
-		//LOG(LOG_FILE,"MMatchServer::StageChat - Different Stage(S:%d, P:%d)", uidStage, pObj->GetStageUID());
+		//LOG(LOG_FILE,"CCMatchServer::StageChat - Different Stage(S:%d, P:%d)", uidStage, pObj->GetStageUID());
 		return false;
 	}
 
@@ -659,9 +659,9 @@ bool MMatchServer::StageChat(const MUID& uidPlayer, const MUID& uidStage, char* 
 	return true;
 }
 
-bool MMatchServer::StageTeam(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam)
+bool CCMatchServer::StageTeam(const MUID& uidPlayer, const MUID& uidStage, CCMatchTeam nTeam)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return false;
 
 	pStage->PlayerTeam(uidPlayer, nTeam);
@@ -675,12 +675,12 @@ bool MMatchServer::StageTeam(const MUID& uidPlayer, const MUID& uidStage, MMatch
 	return true;
 }
 
-bool MMatchServer::StagePlayerState(const MUID& uidPlayer, const MUID& uidStage, MMatchObjectStageState nStageState)
+bool CCMatchServer::StagePlayerState(const MUID& uidPlayer, const MUID& uidStage, CCMatchObjectStageState nStageState)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return false;
-	// MMatchStage* pStage = FindStage(uidStage);
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	// CCMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return false;
 
 	pStage->PlayerState(uidPlayer, nStageState);
@@ -693,9 +693,9 @@ bool MMatchServer::StagePlayerState(const MUID& uidPlayer, const MUID& uidStage,
 	return true;
 }
 
-bool MMatchServer::StageMaster(const MUID& uidStage)
+bool CCMatchServer::StageMaster(const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return false;
 
 	MUID uidMaster = pStage->GetMasterUID();
@@ -708,9 +708,9 @@ bool MMatchServer::StageMaster(const MUID& uidStage)
 	return true;
 }
 
-void MMatchServer::StageLaunch(const MUID& uidStage)
+void CCMatchServer::StageLaunch(const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
 	ReserveAgent(pStage);
@@ -721,16 +721,16 @@ void MMatchServer::StageLaunch(const MUID& uidStage)
 	RouteToStage(uidStage, pCmd);
 }
 
-void MMatchServer::StageRelayLaunch(const MUID& uidStage)
+void CCMatchServer::StageRelayLaunch(const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
 	ReserveAgent(pStage);
 
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
 		MUID uidObj = (MUID)(*i).first;
-		MMatchObject* pObj = (MMatchObject*)GetObject(uidObj);
+		CCMatchObject* pObj = (CCMatchObject*)GetObject(uidObj);
 		if (pObj) {
 			if( pObj->GetStageState() == MOSS_READY) {
 				MCommand* pCmd = CreateCommand(MC_MATCH_STAGE_RELAY_LAUNCH, MUID(0,0));
@@ -753,9 +753,9 @@ void MMatchServer::StageRelayLaunch(const MUID& uidStage)
 	}
 }
 
-void MMatchServer::StageFinishGame(const MUID& uidStage)
+void CCMatchServer::StageFinishGame(const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
 	bool bIsRelayMapUnFinish = true;
@@ -812,7 +812,7 @@ void MMatchServer::StageFinishGame(const MUID& uidStage)
 				pStage->m_vecRelayMapsRemained.erase(itor);
 			} 
 			else {
-				cclog("MMatchServer::StageFinishGame::IsRelayMap() - m_vecRelayMapsRemained.size() == 0\n");
+				cclog("CCMatchServer::StageFinishGame::IsRelayMap() - m_vecRelayMapsRemained.size() == 0\n");
 			}
 		} else {
 			pStage->SetIsStartRelayMap(false);
@@ -828,15 +828,15 @@ void MMatchServer::StageFinishGame(const MUID& uidStage)
 	return;
 }
 
-MCommand* MMatchServer::CreateCmdResponseStageSetting(const MUID& uidStage)
+MCommand* CCMatchServer::CreateCmdResponseStageSetting(const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return NULL;
 
 	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_STAGESETTING, MUID(0,0));
 	pCmd->AddParameter(new MCommandParameterUID(pStage->GetUID()));
 
-	MMatchStageSetting* pSetting = pStage->GetStageSetting();
+	CCMatchStageSetting* pSetting = pStage->GetStageSetting();
 
 	// Param 1 : Stage Settings
 	void* pStageSettingArray = MMakeBlobArray(sizeof(MSTAGE_SETTING_NODE), 1);
@@ -851,7 +851,7 @@ MCommand* MMatchServer::CreateCmdResponseStageSetting(const MUID& uidStage)
 	int nIndex=0;
 	for (MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
 		MSTAGE_CHAR_SETTING_NODE* pCharNode = (MSTAGE_CHAR_SETTING_NODE*)MGetBlobArrayElement(pCharArray, nIndex++);
-		MMatchObject* pObj = (MMatchObject*)(*itor).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		pCharNode->uidChar = pObj->GetUID();
 		pCharNode->nTeam = pObj->GetTeam();
 		pCharNode->nState = pObj->GetStageState();
@@ -870,9 +870,9 @@ MCommand* MMatchServer::CreateCmdResponseStageSetting(const MUID& uidStage)
 
 
 
-void MMatchServer::OnStageCreate(const MUID& uidChar, char* pszStageName, bool bPrivate, char* pszStagePassword)
+void CCMatchServer::OnStageCreate(const MUID& uidChar, char* pszStageName, bool bPrivate, char* pszStagePassword)
 {
-	MMatchObject* pObj = GetObject(uidChar);
+	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
 	MMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
@@ -892,18 +892,18 @@ void MMatchServer::OnStageCreate(const MUID& uidChar, char* pszStageName, bool b
 	}
 	StageJoin(uidChar, uidStage);
 
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage)
 		pStage->SetFirstMasterName(pObj->GetCharInfo()->m_szName);
 }
 
 
-//void MMatchServer::OnStageJoin(const MUID& uidChar, const MUID& uidStage)
+//void CCMatchServer::OnStageJoin(const MUID& uidChar, const MUID& uidStage)
 //{
-//	MMatchObject* pObj = GetObject(uidChar);
+//	CCMatchObject* pObj = GetObject(uidChar);
 //	if (pObj == NULL) return;
 //
-//	MMatchStage* pStage = NULL;
+//	CCMatchStage* pStage = NULL;
 //
 //	if (uidStage == MUID(0,0)) {
 //		return;
@@ -925,11 +925,11 @@ void MMatchServer::OnStageCreate(const MUID& uidChar, char* pszStageName, bool b
 //	StageJoin(uidChar, pStage->GetUID());
 //}
 
-void MMatchServer::OnPrivateStageJoin(const MUID& uidPlayer, const MUID& uidStage, char* pszPassword)
+void CCMatchServer::OnPrivateStageJoin(const MUID& uidPlayer, const MUID& uidStage, char* pszPassword)
 {
 	if (strlen(pszPassword) > STAGEPASSWD_LENGTH) return;
 
-	MMatchStage* pStage = NULL;
+	CCMatchStage* pStage = NULL;
 
 	if (uidStage == MUID(0,0)) 
 	{
@@ -942,7 +942,7 @@ void MMatchServer::OnPrivateStageJoin(const MUID& uidPlayer, const MUID& uidStag
 
 	if (pStage == NULL) 
 	{
-		MMatchObject* pObj = GetObject(uidPlayer);
+		CCMatchObject* pObj = GetObject(uidPlayer);
 		if (pObj != NULL)
 		{
 			RouteResponseToListener(pObj, MC_MATCH_RESPONSE_STAGE_JOIN, MERR_STAGE_NOT_EXIST);
@@ -955,7 +955,7 @@ void MMatchServer::OnPrivateStageJoin(const MUID& uidPlayer, const MUID& uidStag
 
 	bool bSkipPassword = false;
 
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) 
 		return;
@@ -969,7 +969,7 @@ void MMatchServer::OnPrivateStageJoin(const MUID& uidPlayer, const MUID& uidStag
 	if(bSkipPassword==false) {
 		if ((!pStage->IsPrivate()) || (strcmp(pStage->GetPassword(), pszPassword)))
 		{
-			MMatchObject* pObj = GetObject(uidPlayer);
+			CCMatchObject* pObj = GetObject(uidPlayer);
 			if (pObj != NULL)
 			{
 				RouteResponseToListener(pObj, MC_MATCH_RESPONSE_STAGE_JOIN, MERR_CANNOT_JOIN_STAGE_BY_PASSWORD);
@@ -982,19 +982,19 @@ void MMatchServer::OnPrivateStageJoin(const MUID& uidPlayer, const MUID& uidStag
 	StageJoin(uidPlayer, pStage->GetUID());
 }
 
-void MMatchServer::OnStageFollow(const MUID& uidPlayer, const char* pszTargetName)
+void CCMatchServer::OnStageFollow(const MUID& uidPlayer, const char* pszTargetName)
 {
-	MMatchObject* pPlayerObj = GetObject(uidPlayer);
+	CCMatchObject* pPlayerObj = GetObject(uidPlayer);
 	if (pPlayerObj == NULL) return;
 
-	MMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
+	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 	if (pTargetObj == NULL) return;
 
 	// 자기 자신을 따라 가려고 했을경우 검사.
 	if (pPlayerObj->GetUID() == pTargetObj->GetUID()) return;
 
 	// 스테이트가 잘못되어 있는지 검사.
-	if (!pPlayerObj->CheckEnableAction(MMatchObject::MMOA_STAGE_FOLLOW)) return;
+	if (!pPlayerObj->CheckEnableAction(CCMatchObject::MMOA_STAGE_FOLLOW)) return;
 
 
 	// 서로 다른 채널인지 검사.
@@ -1011,7 +1011,7 @@ void MMatchServer::OnStageFollow(const MUID& uidPlayer, const char* pszTargetNam
 		return;
 	}
 
-	MMatchStage* pStage = FindStage(pTargetObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pTargetObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	// 클랜전게임은 따라갈 수 없음
@@ -1040,11 +1040,11 @@ void MMatchServer::OnStageFollow(const MUID& uidPlayer, const char* pszTargetNam
 	}
 }
 
-void MMatchServer::OnStageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
+void CCMatchServer::OnStageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 {
-	MMatchObject* pObj = GetObject( uidPlayer );
+	CCMatchObject* pObj = GetObject( uidPlayer );
 	if( !IsEnabledObject(pObj) ) return;
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	if( !IsEnabledObject(GetObject(uidPlayer)) )
@@ -1055,20 +1055,20 @@ void MMatchServer::OnStageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 	StageLeave(uidPlayer);// , uidStage);
 }
 
-void MMatchServer::OnStageRequestPlayerList(const MUID& uidPlayer, const MUID& uidStage)
+void CCMatchServer::OnStageRequestPlayerList(const MUID& uidPlayer, const MUID& uidStage)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	// MMatchStage* pStage = FindStage(uidStage);
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	// CCMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	// 방인원 목록
-	MMatchObjectCacheBuilder CacheBuilder;
+	CCMatchObjectCacheBuilder CacheBuilder;
 	CacheBuilder.Reset();
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
-		MMatchObject* pScanObj = (MMatchObject*)(*i).second;
+		CCMatchObject* pScanObj = (CCMatchObject*)(*i).second;
 		CacheBuilder.AddObject(pScanObj);
 	}
     MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
@@ -1086,15 +1086,15 @@ void MMatchServer::OnStageRequestPlayerList(const MUID& uidPlayer, const MUID& u
 	StagePlayerState(uidPlayer, uidStage, pObj->GetStageState());
 }
 
-void MMatchServer::OnStageEnterBattle(const MUID& uidPlayer, const MUID& uidStage)
+void CCMatchServer::OnStageEnterBattle(const MUID& uidPlayer, const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
 	StageEnterBattle(uidPlayer, uidStage);
 }
 
-void MMatchServer::OnStageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeaveBattle)//, const MUID& uidStage)
+void CCMatchServer::OnStageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeaveBattle)//, const MUID& uidStage)
 {
 	if( !IsEnabledObject(GetObject(uidPlayer)) )
 	{
@@ -1107,11 +1107,11 @@ void MMatchServer::OnStageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLea
 
 #include "CMLexicalAnalyzer.h"
 // 강퇴 임시코드
-bool StageKick(MMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat)
+bool StageKick(CCMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat)
 {
-	MMatchObject* pChar = pServer->GetObject(uidPlayer);
+	CCMatchObject* pChar = pServer->GetObject(uidPlayer);
 	if (pChar == NULL)	return false;
-	MMatchStage* pStage = pServer->FindStage(uidStage);
+	CCMatchStage* pStage = pServer->FindStage(uidStage);
 	if (pStage == NULL) return false;
 	if (uidPlayer != pStage->GetMasterUID()) return false;
 
@@ -1129,7 +1129,7 @@ bool StageKick(MMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStag
 						for (MUIDRefCache::iterator itor = pStage->GetObjBegin(); 
 							itor != pStage->GetObjEnd(); ++itor)
 						{
-							MMatchObject* pTarget = (MMatchObject*)((*itor).second);
+							CCMatchObject* pTarget = (CCMatchObject*)((*itor).second);
 							if (stricmp(pszTarget, pTarget->GetName()) == 0) {
 								if (pTarget->GetPlace() != MMP_BATTLE) {
 									pServer->StageLeave(pTarget->GetUID());//, uidStage);
@@ -1149,11 +1149,11 @@ bool StageKick(MMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStag
 }
 
 // 방장확인 임시코드
-bool StageShowInfo(MMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat)
+bool StageShowInfo(CCMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat)
 {
-	MMatchObject* pChar = pServer->GetObject(uidPlayer);
+	CCMatchObject* pChar = pServer->GetObject(uidPlayer);
 	if (pChar == NULL)	return false;
-	MMatchStage* pStage = pServer->FindStage(uidStage);
+	CCMatchStage* pStage = pServer->FindStage(uidStage);
 	if (pStage == NULL) return false;
 	if (uidPlayer != pStage->GetMasterUID()) return false;
 
@@ -1176,7 +1176,7 @@ bool StageShowInfo(MMatchServer* pServer, const MUID& uidPlayer, const MUID& uid
 	lex.Destroy();
 	return bResult;
 }
-void MMatchServer::OnStageChat(const MUID& uidPlayer, const MUID& uidStage, char* pszChat)
+void CCMatchServer::OnStageChat(const MUID& uidPlayer, const MUID& uidStage, char* pszChat)
 {
 	// RAONHAJE : 강퇴 임시코드
 	if (pszChat[0] == '/') {
@@ -1189,9 +1189,9 @@ void MMatchServer::OnStageChat(const MUID& uidPlayer, const MUID& uidStage, char
 	StageChat(uidPlayer, uidStage, pszChat);
 }
 
-void MMatchServer::OnStageStart(const MUID& uidPlayer, const MUID& uidStage, int nCountdown)
+void CCMatchServer::OnStageStart(const MUID& uidPlayer, const MUID& uidStage, int nCountdown)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 	if (pStage->GetMasterUID() != uidPlayer) return;
 
@@ -1209,9 +1209,9 @@ void MMatchServer::OnStageStart(const MUID& uidPlayer, const MUID& uidStage, int
 	}
 }
 
-void MMatchServer::OnStageRelayStart(const MUID& uidStage)
+void CCMatchServer::OnStageRelayStart(const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 	
 	if (pStage->StartRelayGame(MGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {
@@ -1220,42 +1220,42 @@ void MMatchServer::OnStageRelayStart(const MUID& uidStage)
 	}
 }
 
-void MMatchServer::OnStartStageList(const MUID& uidComm)
+void CCMatchServer::OnStartStageList(const MUID& uidComm)
 {
-	MMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (pObj == NULL) return;
 
 	pObj->SetStageListTransfer(true);
 }
 
-void MMatchServer::OnStopStageList(const MUID& uidComm)
+void CCMatchServer::OnStopStageList(const MUID& uidComm)
 {
-	MMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (pObj == NULL) return;
 
 	pObj->SetStageListTransfer(false);
 }
 
-void MMatchServer::OnStagePlayerState(const MUID& uidPlayer, const MUID& uidStage, MMatchObjectStageState nStageState)
+void CCMatchServer::OnStagePlayerState(const MUID& uidPlayer, const MUID& uidStage, CCMatchObjectStageState nStageState)
 {
 	StagePlayerState(uidPlayer, uidStage, nStageState);
 }
 
 
-void MMatchServer::OnStageTeam(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam)
+void CCMatchServer::OnStageTeam(const MUID& uidPlayer, const MUID& uidStage, CCMatchTeam nTeam)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
-	MMatchObject* pChar = GetObject(uidPlayer);
+	CCMatchObject* pChar = GetObject(uidPlayer);
 	if (pChar == NULL) return;
 
 	StageTeam(uidPlayer, uidStage, nTeam);
 }
 
-void MMatchServer::OnStageMap(const MUID& uidStage, char* pszMapName)
+void CCMatchServer::OnStageMap(const MUID& uidStage, char* pszMapName)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 	if (pStage->GetState() != STAGE_STATE_STANDBY) return;	// 대기상태에서만 바꿀수 있다
 	if (strlen(pszMapName) < 2) return;
@@ -1276,9 +1276,9 @@ void MMatchServer::OnStageMap(const MUID& uidStage, char* pszMapName)
     RouteToStage(uidStage, pNew);
 }
 
-void MMatchServer::StageRelayMapBattleStart(const MUID& uidPlayer, const MUID& uidStage)
+void CCMatchServer::StageRelayMapBattleStart(const MUID& uidPlayer, const MUID& uidStage)
 {// 릴레이맵 선택하고 게임 시작 버튼 누르면 다음을 수행한다
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 	if (pStage->GetMasterUID() != uidPlayer) return;
 	if(!pStage->IsRelayMap()) return;
@@ -1329,9 +1329,9 @@ void MMatchServer::StageRelayMapBattleStart(const MUID& uidPlayer, const MUID& u
 	pStage->m_vecRelayMapsRemained.erase(itor);
 }
 
-void MMatchServer::OnStageRelayMapElementUpdate(const MUID& uidStage, int nType, int nRepeatCount)
+void CCMatchServer::OnStageRelayMapElementUpdate(const MUID& uidStage, int nType, int nRepeatCount)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	pStage->SetRelayMapType((RELAY_MAP_TYPE)nType);
 	pStage->SetRelayMapRepeatCount((RELAY_MAP_REPEAT_COUNT)nRepeatCount);
 
@@ -1342,9 +1342,9 @@ void MMatchServer::OnStageRelayMapElementUpdate(const MUID& uidStage, int nType,
 	RouteToStage(uidStage, pNew);
 }
 
-void MMatchServer::OnStageRelayMapListUpdate(const MUID& uidStage, int nRelayMapType, int nRelayMapRepeatCount, void* pRelayMapListBlob)
+void CCMatchServer::OnStageRelayMapListUpdate(const MUID& uidStage, int nRelayMapType, int nRelayMapRepeatCount, void* pRelayMapListBlob)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 	if(!pStage->IsRelayMap()) return;
 	if (pStage->GetState() != STAGE_STATE_STANDBY) return;	// 대기상태에서만 바꿀수 있다
@@ -1391,12 +1391,12 @@ void MMatchServer::OnStageRelayMapListUpdate(const MUID& uidStage, int nRelayMap
 	pNew->AddParameter(new MCommandParameterBlob(pRelayMapListBlob, MGetBlobArraySize(pRelayMapListBlob)));
 	RouteToStage(uidStage, pNew);
 }
-void MMatchServer::OnStageRelayMapListInfo(const MUID& uidStage, const MUID& uidChar)
+void CCMatchServer::OnStageRelayMapListInfo(const MUID& uidStage, const MUID& uidChar)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if(pStage == NULL) return;
 	if(!pStage->IsRelayMap()) return;
-	MMatchObject* pObj = GetObject(uidChar);
+	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 	// 대기상태일때 방장은 처리 안해줌(릴레이맵 작성중일수도 있음)
 	if(pStage->GetState() == STAGE_STATE_STANDBY && pStage->GetMasterUID() == uidChar) return;	
@@ -1420,15 +1420,15 @@ void MMatchServer::OnStageRelayMapListInfo(const MUID& uidStage, const MUID& uid
 	RouteToListener(pObj, pNew); // 방장이 릴레이맵 설정중에 업데이트된 설정으로 변경 될수가 있음
 }
 
-void MMatchServer::OnStageSetting(const MUID& uidPlayer, const MUID& uidStage, void* pStageBlob, int nStageCount)
+void CCMatchServer::OnStageSetting(const MUID& uidPlayer, const MUID& uidStage, void* pStageBlob, int nStageCount)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 	if (pStage->GetState() != STAGE_STATE_STANDBY) return;	// 대기상태에서만 바꿀수 있다
 	if (nStageCount <= 0) return;
 
 	// validate
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) {
 		cclog(" stage setting invalid object (%d, %d) ignore\n", uidPlayer.High, uidPlayer.Low);
 		return;
@@ -1445,7 +1445,7 @@ void MMatchServer::OnStageSetting(const MUID& uidPlayer, const MUID& uidStage, v
 	// 방장이거나 운영자가 아닌데 세팅을 바꾸면 그냥 리턴
 	if (pStage->GetMasterUID() != uidPlayer)
 	{
-		MMatchObject* pObjMaster = GetObject(uidPlayer);
+		CCMatchObject* pObjMaster = GetObject(uidPlayer);
 		if (!IsAdminGrade(pObjMaster)) return;
 	}
 
@@ -1481,7 +1481,7 @@ void MMatchServer::OnStageSetting(const MUID& uidPlayer, const MUID& uidStage, v
 	if( STAGE__MAX_ROUND < pNode->nRoundMax )
 		pNode->nRoundMax = STAGE__MAX_ROUND;
 
-	MMatchStageSetting* pSetting = pStage->GetStageSetting();
+	CCMatchStageSetting* pSetting = pStage->GetStageSetting();
 	MMatchChannel* pChannel = FindChannel(pStage->GetOwnerChannel());
 
 	bool bCheckChannelRule = true;
@@ -1602,9 +1602,9 @@ void MMatchServer::OnStageSetting(const MUID& uidPlayer, const MUID& uidStage, v
 	}
 }
 
-void MMatchServer::OnRequestStageSetting(const MUID& uidComm, const MUID& uidStage)
+void CCMatchServer::OnRequestStageSetting(const MUID& uidComm, const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
 	MCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
@@ -1614,27 +1614,27 @@ void MMatchServer::OnRequestStageSetting(const MUID& uidComm, const MUID& uidSta
 	// 맵 선택이 릴레이맵이면 처리해준다.
 	OnStageRelayMapListInfo(uidStage, uidComm);
 
-	MMatchObject* pChar = GetObject(uidComm);
+	CCMatchObject* pChar = GetObject(uidComm);
 	if (pChar && (MMUG_EVENTMASTER == pChar->GetAccountInfo()->m_nUGrade)) 	{
 		// 이벤트 마스터에게 처음 방만들었던 사람을 알려준다
 		StageShowInfo(this, uidComm, uidStage, "/showinfo");
 	}
 }
 
-void MMatchServer::OnRequestPeerList(const MUID& uidChar, const MUID& uidStage)
+void CCMatchServer::OnRequestPeerList(const MUID& uidChar, const MUID& uidStage)
 {
 	ResponsePeerList(uidChar, uidStage);
 }
 
-void MMatchServer::OnRequestGameInfo(const MUID& uidChar, const MUID& uidStage)
+void CCMatchServer::OnRequestGameInfo(const MUID& uidChar, const MUID& uidStage)
 {
 	ResponseGameInfo(uidChar, uidStage);
 }
 
-void MMatchServer::ResponseGameInfo(const MUID& uidChar, const MUID& uidStage)
+void CCMatchServer::ResponseGameInfo(const MUID& uidChar, const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage); if (pStage == NULL) return;
-	MMatchObject* pObj = GetObject(uidChar); if (pObj == NULL) return;
+	CCMatchStage* pStage = FindStage(uidStage); if (pStage == NULL) return;
+	CCMatchObject* pObj = GetObject(uidChar); if (pObj == NULL) return;
 	if (pStage->GetRule() == NULL) return;
 
 	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_GAME_INFO, MUID(0,0));
@@ -1673,7 +1673,7 @@ void MMatchServer::ResponseGameInfo(const MUID& uidChar, const MUID& uidStage)
 	int nIndex=0;
 	for (MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) 
 	{
-		MMatchObject* pObj = (MMatchObject*)(*itor).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;
 
 		MTD_GameInfoPlayerItem* pPlayerItem = (MTD_GameInfoPlayerItem*)MGetBlobArrayElement(pPlayerItemArray, nIndex++);
@@ -1688,9 +1688,9 @@ void MMatchServer::ResponseGameInfo(const MUID& uidChar, const MUID& uidStage)
 	RouteToListener(pObj, pNew);
 }
 
-void MMatchServer::OnMatchLoadingComplete(const MUID& uidPlayer, int nPercent)
+void CCMatchServer::OnMatchLoadingComplete(const MUID& uidPlayer, int nPercent)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
 	MCommand* pCmd = CreateCommand(MC_MATCH_LOADING_COMPLETE, MUID(0,0));
@@ -1700,18 +1700,18 @@ void MMatchServer::OnMatchLoadingComplete(const MUID& uidPlayer, int nPercent)
 }
 
 
-void MMatchServer::OnGameRoundState(const MUID& uidStage, int nState, int nRound)
+void CCMatchServer::OnGameRoundState(const MUID& uidStage, int nState, int nRound)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
 	pStage->RoundStateFromClient(uidStage, nState, nRound);
 }
 
 
-void MMatchServer::OnDuelSetObserver(const MUID& uidChar)
+void CCMatchServer::OnDuelSetObserver(const MUID& uidChar)
 {
-	MMatchObject* pObj = GetObject(uidChar);
+	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
 	MCommand* pCmd = CreateCommand(MC_MATCH_SET_OBSERVER, MUID(0,0));
@@ -1719,9 +1719,9 @@ void MMatchServer::OnDuelSetObserver(const MUID& uidChar)
 	RouteToBattle(pObj->GetStageUID(), pCmd);
 }
 
-void MMatchServer::OnRequestSpawn(const MUID& uidChar, const MVector& pos, const MVector& dir)
+void CCMatchServer::OnRequestSpawn(const MUID& uidChar, const MVector& pos, const MVector& dir)
 {
-	MMatchObject* pObj = GetObject(uidChar);
+	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
 	// Do Not Spawn when AdminHiding
@@ -1733,7 +1733,7 @@ void MMatchServer::OnRequestSpawn(const MUID& uidChar, const MVector& pos, const
 	if ( dwTime < RESPAWN_DELAYTIME_AFTER_DYING_MIN) return;
 	pObj->SetLastSpawnTime(timeGetTime());
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 	if ( (pStage->GetRule()->GetRoundState() != MMATCH_ROUNDSTATE_PREPARE) && (!pObj->IsEnabledRespawnDeathTime(GetTickTime())) )
 		 return;
@@ -1760,9 +1760,9 @@ void MMatchServer::OnRequestSpawn(const MUID& uidChar, const MVector& pos, const
 	RouteToBattle(pObj->GetStageUID(), pCmd);
 }
 
-void MMatchServer::OnGameRequestTimeSync(const MUID& uidComm, unsigned long nLocalTimeStamp)
+void CCMatchServer::OnGameRequestTimeSync(const MUID& uidComm, unsigned long nLocalTimeStamp)
 {
-	MMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (pObj == NULL) return;
 
 	MMatchTimeSyncInfo* pSync = pObj->GetSyncInfo();
@@ -1774,9 +1774,9 @@ void MMatchServer::OnGameRequestTimeSync(const MUID& uidComm, unsigned long nLoc
 	RouteToListener(pObj, pCmd);
 }
 
-void MMatchServer::OnGameReportTimeSync(const MUID& uidComm, unsigned long nLocalTimeStamp, unsigned int nDataChecksum)
+void CCMatchServer::OnGameReportTimeSync(const MUID& uidComm, unsigned long nLocalTimeStamp, unsigned int nDataChecksum)
 {
-	MMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (pObj == NULL) return;
 
 	pObj->UpdateTickLastPacketRecved();	// Last Packet Timestamp
@@ -1815,17 +1815,17 @@ void MMatchServer::OnGameReportTimeSync(const MUID& uidComm, unsigned long nLoca
 	}
 }
 
-void MMatchServer::OnUpdateFinishedRound(const MUID& uidStage, const MUID& uidChar, 
+void CCMatchServer::OnUpdateFinishedRound(const MUID& uidStage, const MUID& uidChar, 
 						   void* pPeerInfo, void* pKillInfo)
 {
 
 }
 
-void MMatchServer::OnRequestForcedEntry(const MUID& uidStage, const MUID& uidChar)
+void CCMatchServer::OnRequestForcedEntry(const MUID& uidStage, const MUID& uidChar)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
-	MMatchObject* pObj = GetObject(uidChar);	
+	CCMatchObject* pObj = GetObject(uidChar);	
 	if (pObj == NULL) return;
 
 	pObj->SetForcedEntry(true);
@@ -1833,11 +1833,11 @@ void MMatchServer::OnRequestForcedEntry(const MUID& uidStage, const MUID& uidCha
 	RouteResponseToListener(pObj, MC_MATCH_STAGE_RESPONSE_FORCED_ENTRY, MOK);
 }
 
-void MMatchServer::OnRequestSuicide(const MUID& uidPlayer)
+void CCMatchServer::OnRequestSuicide(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	pStage->ReserveSuicide( uidPlayer, MGetMatchServer()->GetGlobalClockCount() );
@@ -1851,21 +1851,21 @@ void MMatchServer::OnRequestSuicide(const MUID& uidPlayer)
 	//RouteToBattle(pObj->GetStageUID(), pNew);
 }
 
-void MMatchServer::OnRequestObtainWorldItem(const MUID& uidPlayer, const int nItemUID)
+void CCMatchServer::OnRequestObtainWorldItem(const MUID& uidPlayer, const int nItemUID)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	pStage->ObtainWorldItem(pObj, nItemUID);
 }
 
-void MMatchServer::OnRequestSpawnWorldItem(const MUID& uidPlayer, const int nItemID, const float x, const float y, const float z, float fDropDelayTime)
+void CCMatchServer::OnRequestSpawnWorldItem(const MUID& uidPlayer, const int nItemID, const float x, const float y, const float z, float fDropDelayTime)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	if( !pObj->IsHaveCustomItem() )
@@ -1881,11 +1881,11 @@ void MMatchServer::OnRequestSpawnWorldItem(const MUID& uidPlayer, const int nIte
 	}
 }
 
-void MMatchServer::OnNotifyThrowTrapItem(const MUID& uidPlayer, const int nItemID)
+void CCMatchServer::OnNotifyThrowTrapItem(const MUID& uidPlayer, const int nItemID)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	if (!pObj->IsEquipCustomItem(nItemID))
@@ -1894,27 +1894,27 @@ void MMatchServer::OnNotifyThrowTrapItem(const MUID& uidPlayer, const int nItemI
 	pStage->OnNotifyThrowTrapItem(uidPlayer, nItemID);
 }
 
-void MMatchServer::OnNotifyActivatedTrapItem(const MUID& uidPlayer, const int nItemID, const MVector3& pos)
+void CCMatchServer::OnNotifyActivatedTrapItem(const MUID& uidPlayer, const int nItemID, const MVector3& pos)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	pStage->OnNotifyActivatedTrapItem(uidPlayer, nItemID, pos);
 }
 
-float MMatchServer::GetDuelVictoryMultiflier(int nVictorty)
+float CCMatchServer::GetDuelVictoryMultiflier(int nVictorty)
 {
 	return 1.0f;
 }
 
-float MMatchServer::GetDuelPlayersMultiflier(int nPlayerCount)
+float CCMatchServer::GetDuelPlayersMultiflier(int nPlayerCount)
 {
 	return 1.0f;
 }
 
-void MMatchServer::CalcExpOnGameKill(MMatchStage* pStage, MMatchObject* pAttacker, MMatchObject* pVictim, 
+void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAttacker, CCMatchObject* pVictim, 
 					   int* poutAttackerExp, int* poutVictimExp)
 {
 	bool bSuicide = false;		// 자살
@@ -2042,7 +2042,7 @@ void MMatchServer::CalcExpOnGameKill(MMatchStage* pStage, MMatchObject* pAttacke
 		}
 
 		// 팀 경험치 적립
-		pStage->AddTeamBonus(nTeamBonus, MMatchTeam(pAttacker->GetTeam()));
+		pStage->AddTeamBonus(nTeamBonus, CCMatchTeam(pAttacker->GetTeam()));
 	}
 
 	// xp 보너스 적용(넷마블 PC방, 경험치 반지)
@@ -2074,7 +2074,7 @@ void MMatchServer::CalcExpOnGameKill(MMatchStage* pStage, MMatchObject* pAttacke
 }
 
 
-const int MMatchServer::CalcBPonGameKill( MMatchStage* pStage, MMatchObject* pAttacker, const int nAttackerLevel, const int nVictimLevel )
+const int CCMatchServer::CalcBPonGameKill( CCMatchStage* pStage, CCMatchObject* pAttacker, const int nAttackerLevel, const int nVictimLevel )
 {
 	if( (0 == pStage) || (0 == pAttacker) ) 
 		return -1;
@@ -2089,7 +2089,7 @@ const int MMatchServer::CalcBPonGameKill( MMatchStage* pStage, MMatchObject* pAt
 
 
 
-void MMatchServer::ProcessPlayerXPBP(MMatchStage* pStage, MMatchObject* pPlayer, int nAddedXP, int nAddedBP)
+void CCMatchServer::ProcessPlayerXPBP(CCMatchStage* pStage, CCMatchObject* pPlayer, int nAddedXP, int nAddedBP)
 {
 	if (pStage == NULL) return;
 	if (!IsEnabledObject(pPlayer)) return;
@@ -2166,7 +2166,7 @@ void MMatchServer::ProcessPlayerXPBP(MMatchStage* pStage, MMatchObject* pPlayer,
 }
 
 // 팀 보너스 적용
-void MMatchServer::ApplyObjectTeamBonus(MMatchObject* pObject, int nAddedExp)
+void CCMatchServer::ApplyObjectTeamBonus(CCMatchObject* pObject, int nAddedExp)
 {
 	if (!IsEnabledObject(pObject)) return;
 	if (nAddedExp <= 0)
@@ -2261,7 +2261,7 @@ void MMatchServer::ApplyObjectTeamBonus(MMatchObject* pObject, int nAddedExp)
 }
 
 // 플레이 중 캐릭터 정보 업데이트
-void MMatchServer::ProcessCharPlayInfo(MMatchObject* pPlayer)
+void CCMatchServer::ProcessCharPlayInfo(CCMatchObject* pPlayer)
 {
 	if (!IsEnabledObject(pPlayer)) return;
 
@@ -2291,7 +2291,7 @@ void MMatchServer::ProcessCharPlayInfo(MMatchObject* pPlayer)
 		pPlayer->GetCharInfo()->m_nLevel = nNewPlayerLevel;
 
 	// 접속시간, 게임 진행시간, 플레이 시간
-	unsigned long int nNowTime = MMatchServer::GetInstance()->GetGlobalClockCount();
+	unsigned long int nNowTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 	unsigned long int nBattlePlayingTimeSec = 0;
 	if(pPlayer->GetCharInfo()->m_nBattleStartTime != 0)
 	{
@@ -2306,7 +2306,7 @@ void MMatchServer::ProcessCharPlayInfo(MMatchObject* pPlayer)
 
 			// 게임 모드
 			char buf[64]={0,};
-			MMatchStage* pStage = FindStage(uidStage);
+			CCMatchStage* pStage = FindStage(uidStage);
 
 			if( pStage != NULL )
 			{
@@ -2366,7 +2366,7 @@ void MMatchServer::ProcessCharPlayInfo(MMatchObject* pPlayer)
 
 }
 
-void MMatchServer::PostGameDeadOnGameKill(MUID& uidStage, MMatchObject* pAttacker, MMatchObject* pVictim,
+void CCMatchServer::PostGameDeadOnGameKill(MUID& uidStage, CCMatchObject* pAttacker, CCMatchObject* pVictim,
 									int nAddedAttackerExp, int nSubedVictimExp)
 {
 	unsigned long int nAttackerArg = 0;
@@ -2394,9 +2394,9 @@ void MMatchServer::PostGameDeadOnGameKill(MUID& uidStage, MMatchObject* pAttacke
 	RouteToBattle(uidStage, pCmd);	
 }
 
-void MMatchServer::StageList(const MUID& uidPlayer, int nStageStartIndex, bool bCacheUpdate)
+void CCMatchServer::StageList(const MUID& uidPlayer, int nStageStartIndex, bool bCacheUpdate)
 {
-	MMatchObject* pChar = GetObject(uidPlayer);
+	CCMatchObject* pChar = GetObject(uidPlayer);
 	if (pChar == NULL) return;
 	MMatchChannel* pChannel = FindChannel(pChar->GetChannelUID());
 	if (pChannel == NULL) return;
@@ -2437,7 +2437,7 @@ void MMatchServer::StageList(const MUID& uidPlayer, int nStageStartIndex, bool b
 	{
 		if (pChannel->IsEmptyStage(i)) continue;
 
-		MMatchStage* pStage = pChannel->GetStage(i);
+		CCMatchStage* pStage = pChannel->GetStage(i);
 		if ((pStage == NULL) || (pStage->GetState() == STAGE_STATE_CLOSE)) continue;
 
 		nRealStageCount++;
@@ -2464,7 +2464,7 @@ void MMatchServer::StageList(const MUID& uidPlayer, int nStageStartIndex, bool b
 	for (int i = /*nStageStartIndex*/nRealStageStartIndex; i < pChannel->GetMaxPlayers(); i++)
 	{
 		if (pChannel->IsEmptyStage(i)) continue;
-		MMatchStage* pStage = pChannel->GetStage(i);
+		CCMatchStage* pStage = pChannel->GetStage(i);
 		if ((pStage == NULL) || (pStage->GetState() == STAGE_STATE_CLOSE)) continue;
 		
 		if( pStage->GetState() < STAGE_STATE_STANDBY || pStage->GetState() > STAGE_STATE_COUNT )
@@ -2510,7 +2510,7 @@ void MMatchServer::StageList(const MUID& uidPlayer, int nStageStartIndex, bool b
 			pNode->nSettingFlag |= MSTAGENODE_FLAG_LIMITLEVEL;
 
 			;
-			MMatchObject* pMaster = GetObject(pStage->GetMasterUID());
+			CCMatchObject* pMaster = GetObject(pStage->GetMasterUID());
 			if (pMaster)
 			{
 				if (pMaster->GetCharInfo())
@@ -2528,9 +2528,9 @@ void MMatchServer::StageList(const MUID& uidPlayer, int nStageStartIndex, bool b
 }
 
 
-void MMatchServer::OnStageRequestStageList(const MUID& uidPlayer, const MUID& uidChannel, const int nStageCursor)
+void CCMatchServer::OnStageRequestStageList(const MUID& uidPlayer, const MUID& uidChannel, const int nStageCursor)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return;
@@ -2540,17 +2540,17 @@ void MMatchServer::OnStageRequestStageList(const MUID& uidPlayer, const MUID& ui
 }
 
 
-void MMatchServer::OnRequestQuickJoin(const MUID& uidPlayer, void* pQuickJoinBlob)
+void CCMatchServer::OnRequestQuickJoin(const MUID& uidPlayer, void* pQuickJoinBlob)
 {
 	MTD_QuickJoinParam* pNode = (MTD_QuickJoinParam*)MGetBlobArrayElement(pQuickJoinBlob, 0);
 	ResponseQuickJoin(uidPlayer, pNode);
 }
 
-void MMatchServer::ResponseQuickJoin(const MUID& uidPlayer, MTD_QuickJoinParam* pQuickJoinParam)
+void CCMatchServer::ResponseQuickJoin(const MUID& uidPlayer, MTD_QuickJoinParam* pQuickJoinParam)
 {
 	if (pQuickJoinParam == NULL) return;
 
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return;
 	MMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
 	if (pChannel == NULL) return;
@@ -2563,7 +2563,7 @@ void MMatchServer::ResponseQuickJoin(const MUID& uidPlayer, MTD_QuickJoinParam* 
 	for (int i = 0; i < pChannel->GetMaxStages(); i++)
 	{
 		if (pChannel->IsEmptyStage(i)) continue;
-		MMatchStage* pStage = pChannel->GetStage(i);
+		CCMatchStage* pStage = pChannel->GetStage(i);
 		if ((pStage == NULL) || (pStage->GetState() == STAGE_STATE_CLOSE)) continue;
 
 		int ret = ValidateStageJoin(pObj->GetUID(), pStage->GetUID());
@@ -2617,7 +2617,7 @@ static int __cdecl _int_sortfunc(const void* a, const void* b)
 }
 
 
-int MMatchServer::GetLadderTeamIDFromDB(const int nTeamTableIndex, const int* pnMemberCIDArray, const int nMemberCount)
+int CCMatchServer::GetLadderTeamIDFromDB(const int nTeamTableIndex, const int* pnMemberCIDArray, const int nMemberCount)
 {
 	if ((nMemberCount <= 0) || (nTeamTableIndex != nMemberCount))
 	{
@@ -2648,7 +2648,7 @@ int MMatchServer::GetLadderTeamIDFromDB(const int nTeamTableIndex, const int* pn
 	return nTID;
 }
 
-void MMatchServer::SaveLadderTeamPointToDB(const int nTeamTableIndex, const int nWinnerTeamID, const int nLoserTeamID, const bool bIsDrawGame)
+void CCMatchServer::SaveLadderTeamPointToDB(const int nTeamTableIndex, const int nWinnerTeamID, const int nLoserTeamID, const bool bIsDrawGame)
 {
 	// 포인트 계산 - 액션리그 전용
 	int nWinnerPoint = 0, nLoserPoint = 0, nDrawPoint = 0;
@@ -2684,27 +2684,27 @@ void MMatchServer::SaveLadderTeamPointToDB(const int nTeamTableIndex, const int 
 }
 
 
-void MMatchServer::OnVoteCallVote(const MUID& uidPlayer, const char* pszDiscuss, const char* pszArg)
+void CCMatchServer::OnVoteCallVote(const MUID& uidPlayer, const char* pszDiscuss, const char* pszArg)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
 	// 운영자가 강퇴투표하면 강제로 강퇴
 	if (IsAdminGrade(pObj)) {
-		MMatchStage* pStage = FindStage(pObj->GetStageUID());
+		CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 		if (pStage)
 			pStage->KickBanPlayer(pszArg, false);
 		return;
 	}
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	char szMsg[256];
 	// 운영자가 같이 게임중이면 투표 불가능
 	for (MUIDRefCache::iterator itor = pStage->GetObjBegin(); itor != pStage->GetObjEnd(); itor++) {
 		MUID uidObj = (MUID)(*itor).first;
-		MMatchObject* pPlayer = (MMatchObject*)GetObject(uidObj);
+		CCMatchObject* pPlayer = (CCMatchObject*)GetObject(uidObj);
 		if ((pPlayer) && (IsAdminGrade(pPlayer)))
 		{
 			sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_CANNOT_VOTE);
@@ -2787,12 +2787,12 @@ void MMatchServer::OnVoteCallVote(const MUID& uidPlayer, const char* pszDiscuss,
 	}
 }
 
-void MMatchServer::OnVoteYes(const MUID& uidPlayer)
+void CCMatchServer::OnVoteYes(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	MVoteDiscuss* pDiscuss = pStage->GetVoteMgr()->GetDiscuss();
@@ -2801,12 +2801,12 @@ void MMatchServer::OnVoteYes(const MUID& uidPlayer)
 	pDiscuss->Vote(uidPlayer, MVOTE_YES);
 }
 
-void MMatchServer::OnVoteNo(const MUID& uidPlayer)
+void CCMatchServer::OnVoteNo(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	MVoteDiscuss* pDiscuss = pStage->GetVoteMgr()->GetDiscuss();
@@ -2815,13 +2815,13 @@ void MMatchServer::OnVoteNo(const MUID& uidPlayer)
 	pDiscuss->Vote(uidPlayer, MVOTE_NO);
 }
 
-void MMatchServer::VoteAbort( const MUID& uidPlayer )
+void CCMatchServer::VoteAbort( const MUID& uidPlayer )
 {
 #ifndef MERR_CANNOT_VOTE
 #define MERR_CANNOT_VOTE 120000
 #endif
 
-	MMatchObject* pObj = GetObject( uidPlayer );
+	CCMatchObject* pObj = GetObject( uidPlayer );
 	if( 0 == pObj )
 		return;
 
@@ -2835,15 +2835,15 @@ void MMatchServer::VoteAbort( const MUID& uidPlayer )
 
 
 
-void MMatchServer::OnEventChangeMaster(const MUID& uidAdmin)
+void CCMatchServer::OnEventChangeMaster(const MUID& uidAdmin)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if( 0 == pObj )
 		return;
 
 	if (!IsEnabledObject(pObj)) return;
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -2860,15 +2860,15 @@ void MMatchServer::OnEventChangeMaster(const MUID& uidAdmin)
 	StageMaster(pStage->GetUID());
 }
 
-void MMatchServer::OnEventChangePassword(const MUID& uidAdmin, const char* pszPassword)
+void CCMatchServer::OnEventChangePassword(const MUID& uidAdmin, const char* pszPassword)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if( 0 == pObj ) 
 		return;
 
 	if (!IsEnabledObject(pObj)) return;
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -2882,15 +2882,15 @@ void MMatchServer::OnEventChangePassword(const MUID& uidAdmin, const char* pszPa
 	pStage->SetPrivate(true);
 }
 
-void MMatchServer::OnEventRequestJjang(const MUID& uidAdmin, const char* pszTargetName)
+void CCMatchServer::OnEventRequestJjang(const MUID& uidAdmin, const char* pszTargetName)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if( 0 == pObj )
 		return;
 
 	if (!IsEnabledObject(pObj)) return;
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 무시
@@ -2899,7 +2899,7 @@ void MMatchServer::OnEventRequestJjang(const MUID& uidAdmin, const char* pszTarg
 		return;
 	}
 
-	MMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
+	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 	if (pTargetObj == NULL) return;
 	if (IsAdminGrade(pTargetObj)) return;		// 어드민 대상으로 짱불가
 	if (MMUG_STAR == pTargetObj->GetAccountInfo()->m_nUGrade) return;	// 이미 짱
@@ -2907,7 +2907,7 @@ void MMatchServer::OnEventRequestJjang(const MUID& uidAdmin, const char* pszTarg
 	pTargetObj->GetAccountInfo()->m_nUGrade = MMUG_STAR;
 
 	if (m_MatchDBMgr.EventJjangUpdate(pTargetObj->GetAccountInfo()->m_nAID, true)) {
-		MMatchObjectCacheBuilder CacheBuilder;
+		CCMatchObjectCacheBuilder CacheBuilder;
 		CacheBuilder.AddObject(pTargetObj);
 		MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_REPLACE, this);
 		RouteToStage(pStage->GetUID(), pCmdCacheUpdate);
@@ -2919,15 +2919,15 @@ void MMatchServer::OnEventRequestJjang(const MUID& uidAdmin, const char* pszTarg
 	}
 }
 
-void MMatchServer::OnEventRemoveJjang(const MUID& uidAdmin, const char* pszTargetName)
+void CCMatchServer::OnEventRemoveJjang(const MUID& uidAdmin, const char* pszTargetName)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if( 0 == pObj )
 		return;
 
 	if (!IsEnabledObject(pObj)) return;
 
-	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -2936,13 +2936,13 @@ void MMatchServer::OnEventRemoveJjang(const MUID& uidAdmin, const char* pszTarge
 		return;
 	}
 	
-	MMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
+	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 	if (pTargetObj == NULL) return;			// 어드민 대상으로 짱불가
 
 	pTargetObj->GetAccountInfo()->m_nUGrade = MMUG_FREE;
 
 	if (m_MatchDBMgr.EventJjangUpdate(pTargetObj->GetAccountInfo()->m_nAID, false)) {
-		MMatchObjectCacheBuilder CacheBuilder;
+		CCMatchObjectCacheBuilder CacheBuilder;
 		CacheBuilder.AddObject(pTargetObj);
 		MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_REPLACE, this);
 		RouteToStage(pStage->GetUID(), pCmdCacheUpdate);
@@ -2955,16 +2955,16 @@ void MMatchServer::OnEventRemoveJjang(const MUID& uidAdmin, const char* pszTarge
 }
 
 
-void MMatchServer::OnStageGo(const MUID& uidPlayer, unsigned int nRoomNo)
+void CCMatchServer::OnStageGo(const MUID& uidPlayer, unsigned int nRoomNo)
 {
-	MMatchObject* pChar = GetObject(uidPlayer);
+	CCMatchObject* pChar = GetObject(uidPlayer);
 	if( 0 == pChar ) return;
 	if (!IsEnabledObject(pChar)) return;
 	if (pChar->GetPlace() != MMP_LOBBY) return;
 	MMatchChannel* pChannel = FindChannel(pChar->GetChannelUID());
 	if (pChannel == NULL) return;
 
-	MMatchStage* pStage = pChannel->GetStage(nRoomNo-1);
+	CCMatchStage* pStage = pChannel->GetStage(nRoomNo-1);
 	if (pStage) {
 		MCommand* pNew = CreateCommand(MC_MATCH_REQUEST_STAGE_JOIN, GetUID());
 		pNew->SetSenderUID(uidPlayer);	// 플레이어가 보낸 메시지인 것처럼 위장
@@ -2976,7 +2976,7 @@ void MMatchServer::OnStageGo(const MUID& uidPlayer, unsigned int nRoomNo)
 
 
 
-void MMatchServer::OnDuelQueueInfo(const MUID& uidStage, const MTD_DuelQueueInfo& QueueInfo)
+void CCMatchServer::OnDuelQueueInfo(const MUID& uidStage, const MTD_DuelQueueInfo& QueueInfo)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_DUEL_QUEUEINFO, MUID(0,0));
 	pCmd->AddParameter(new MCmdParamBlob(&QueueInfo, sizeof(MTD_DuelQueueInfo)));
@@ -2984,16 +2984,16 @@ void MMatchServer::OnDuelQueueInfo(const MUID& uidStage, const MTD_DuelQueueInfo
 }
 
 
-void MMatchServer::OnQuestSendPing(const MUID& uidStage, unsigned long int t)
+void CCMatchServer::OnQuestSendPing(const MUID& uidStage, unsigned long int t)
 {
 	MCommand* pCmd = CreateCommand(MC_QUEST_PING, MUID(0,0));
 	pCmd->AddParameter(new MCommandParameterUInt(t));
 	RouteToBattle(uidStage, pCmd);
 }
 
-void MMatchServer::SaveGameLog(const MUID& uidStage)
+void CCMatchServer::SaveGameLog(const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
 	int nMapID		= pStage->GetStageSetting()->GetMapIndex();
@@ -3006,7 +3006,7 @@ void MMatchServer::SaveGameLog(const MUID& uidStage)
 	{
 		if (pStage->GetStageType() != MST_LADDER)
 		{
-			MMatchObject* pMaster = GetObject(pStage->GetMasterUID());
+			CCMatchObject* pMaster = GetObject(pStage->GetMasterUID());
 
 			MAsyncDBJob_InsertGameLog* pJob = new MAsyncDBJob_InsertGameLog(uidStage);
 			pJob->Input(pMaster == NULL ? 0 : pMaster->GetCharInfo()->m_nCID,
@@ -3018,7 +3018,7 @@ void MMatchServer::SaveGameLog(const MUID& uidStage)
 
 }
 
-void MMatchServer::SaveGamePlayerLog(MMatchObject* pObj, unsigned int nStageID)
+void CCMatchServer::SaveGamePlayerLog(CCMatchObject* pObj, unsigned int nStageID)
 {	
 	if( pObj == NULL ) return;
 	if( nStageID == 0 ) return;

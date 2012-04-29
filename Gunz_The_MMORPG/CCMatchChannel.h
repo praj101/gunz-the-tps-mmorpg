@@ -50,9 +50,9 @@ struct CCCHANNELLISTNODE {
 	unsigned int	nTicketID;
 };
 
-// typedef map<string, MMatchObject*>			MObjectStrMap;
+// typedef map<string, CCMatchObject*>			MObjectStrMap;
 typedef map<int, CCMatchStage*>				CCChannelStageMap;
-typedef CCPageArray<MMatchObject*>			CCChannelUserArray;
+typedef CCPageArray<CCMatchObject*>			CCChannelUserArray;
 
 
 class CCMatchChannel {

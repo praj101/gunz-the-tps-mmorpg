@@ -1,7 +1,7 @@
 #pragma once
 
 //////////////////////////////////////////////////////////////////////////
-// MMatchObjectCommandHistory
+// CCMatchObjectCommandHistory
 // 각 MatchObject 에 대해 커맨드를 일정시간, 일정개수 보관하고 있다.
 // 필요한 시점에 덤프해보기 위한 자료이다
 
@@ -15,9 +15,9 @@ struct MOBJECTCOMMANDHISTORY {
 	DWORD			m_dwLastTime;	///< 마지막 커맨드가 추가된 시간
 };
 
-class MMatchObjectCommandHistory {
+class CCMatchObjectCommandHistory {
 public:
-	~MMatchObjectCommandHistory();
+	~CCMatchObjectCommandHistory();
 
 	void SetCharacterInfo(MUID uid, const char* szName, unsigned int nCID );
 	
@@ -36,4 +36,4 @@ private:
 	MOBJECTCOMMANDHISTORY* AddNew(MUID uid); 
 };
 
-inline unsigned int MMatchObjectCommandHistory::GetObjectCount() { return (unsigned int)m_mapHistories.size(); }
+inline unsigned int CCMatchObjectCommandHistory::GetObjectCount() { return (unsigned int)m_mapHistories.size(); }

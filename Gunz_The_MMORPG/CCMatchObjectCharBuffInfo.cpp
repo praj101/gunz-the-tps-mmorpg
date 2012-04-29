@@ -1,21 +1,21 @@
 #include "stdafx.h"
 #include "CCMatchGlobal.h"
 #include "CCMatchObject.h"
-#include "MMatchObjectCharBuffInfo.h"
+#include "CCMatchObjectCharBuffInfo.h"
 
-MUID MMatchObjectCharBuff::m_uidGenerate = MUID(0,0);
-MCriticalSection MMatchObjectCharBuff::m_csUIDGenerateLock;
+MUID CCMatchObjectCharBuff::m_uidGenerate = MUID(0,0);
+MCriticalSection CCMatchObjectCharBuff::m_csUIDGenerateLock;
 
-MMatchObjectCharBuff::MMatchObjectCharBuff() : m_nLastCheckBuffInfoTime(0)
+CCMatchObjectCharBuff::CCMatchObjectCharBuff() : m_nLastCheckBuffInfoTime(0)
 {
 	FreeCharBuffInfo();
 }
 
-MMatchObjectCharBuff::~MMatchObjectCharBuff() 
+CCMatchObjectCharBuff::~CCMatchObjectCharBuff() 
 {
 }
 
-void MMatchObjectCharBuff::FreeCharBuffInfo()
+void CCMatchObjectCharBuff::FreeCharBuffInfo()
 {	
 	m_ShortBuffInfoMap.Clear();
 }
@@ -24,7 +24,7 @@ void MMatchObjectCharBuff::FreeCharBuffInfo()
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Short Buff 관련
 ////////////////////////////////////////////////////////////////////////////////////////////
-bool MMatchObjectCharBuff::ApplyShortBuffInfo(int nBuffID, int nBuffSecondPeriod)
+bool CCMatchObjectCharBuff::ApplyShortBuffInfo(int nBuffID, int nBuffSecondPeriod)
 {
 	if( MGetMatchBuffDescMgr()->GetBuffDesc(nBuffID) == NULL ) {
 		_ASSERT(0);
@@ -47,7 +47,7 @@ bool MMatchObjectCharBuff::ApplyShortBuffInfo(int nBuffID, int nBuffSecondPeriod
 	}
 
 	MMatchShortBuff *pNewShortBuff = new MMatchShortBuff;
-	if( !pNewShortBuff->Set(MMatchObjectCharBuff::UseUID(), nBuffID, timeGetTime(), nBuffSecondPeriod * 1000) ) {
+	if( !pNewShortBuff->Set(CCMatchObjectCharBuff::UseUID(), nBuffID, timeGetTime(), nBuffSecondPeriod * 1000) ) {
 		delete pNewShortBuff;
 		_ASSERT(0);
 		return false;
@@ -61,7 +61,7 @@ bool MMatchObjectCharBuff::ApplyShortBuffInfo(int nBuffID, int nBuffSecondPeriod
 	return true;
 }
 
-void MMatchObjectCharBuff::DeleteShortBuffInfo(MUID& uidBuff)
+void CCMatchObjectCharBuff::DeleteShortBuffInfo(MUID& uidBuff)
 {
 	m_ShortBuffInfoMap.Remove(uidBuff);
 }
@@ -70,7 +70,7 @@ void MMatchObjectCharBuff::DeleteShortBuffInfo(MUID& uidBuff)
 ////////////////////////////////////////////////////////////////////////////////////////////
 // 본체 관련
 ////////////////////////////////////////////////////////////////////////////////////////////
-bool MMatchObjectCharBuff::Tick(int nGlobalTick)
+bool CCMatchObjectCharBuff::Tick(int nGlobalTick)
 {
 	bool bResult = false;
 
@@ -97,7 +97,7 @@ bool MMatchObjectCharBuff::Tick(int nGlobalTick)
 	return bResult;
 }
 
-void MMatchObjectCharBuff::MakeBuffSummary()
+void CCMatchObjectCharBuff::MakeBuffSummary()
 {
 	MMatchShortBuffMap::iterator iter = m_ShortBuffInfoMap.begin();
 	for( ; iter != m_ShortBuffInfoMap.end(); iter++) {

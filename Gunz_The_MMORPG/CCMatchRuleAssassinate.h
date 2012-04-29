@@ -17,10 +17,10 @@ protected:
 	virtual void OnRoundEnd();
 	virtual bool OnCheckRoundFinish();
 public:
-	MMatchRuleAssassinate(MMatchStage* pStage);
+	MMatchRuleAssassinate(CCMatchStage* pStage);
 	virtual ~MMatchRuleAssassinate()				{}
 	virtual void* CreateRuleInfoBlob();
-	virtual void CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* pVictim,
+	virtual void CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 								int nSrcExp, int* poutAttackerExp, int* poutTeamExp);
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_ASSASSINATE; }
 	void ChooseAdminAsCommander();

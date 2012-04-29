@@ -25,9 +25,9 @@
 
 
 // 플레이어에게 아이템 지급
-bool MMatchServer::DistributeZItem(const MUID& uidPlayer, const unsigned long int nItemID, bool bRentItem, int nRentPeriodHour, int nItemCount)
+bool CCMatchServer::DistributeZItem(const MUID& uidPlayer, const unsigned long int nItemID, bool bRentItem, int nRentPeriodHour, int nItemCount)
 {
-	MMatchObject* pObject = GetObject(uidPlayer);
+	CCMatchObject* pObject = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObject)) return false;
 
 	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
@@ -57,7 +57,7 @@ bool MMatchServer::DistributeZItem(const MUID& uidPlayer, const unsigned long in
 
 
 // 실제 디비와 오브젝트에서 아이템을 삭제
-bool MMatchServer::RemoveExpiredCharItem(MMatchObject* pObject, MUID& uidItem)
+bool CCMatchServer::RemoveExpiredCharItem(CCMatchObject* pObject, MUID& uidItem)
 {
 	MMatchItem* pItem = pObject->GetCharInfo()->m_ItemList.GetItem(uidItem);
 	if (pItem == NULL) return false;
@@ -80,13 +80,13 @@ bool MMatchServer::RemoveExpiredCharItem(MMatchObject* pObject, MUID& uidItem)
 }
 
 
-void MMatchServer::OnRequestAccountItemList(const MUID& uidPlayer)
+void CCMatchServer::OnRequestAccountItemList(const MUID& uidPlayer)
 {
 	ResponseAccountItemList(uidPlayer);
 }
-void MMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
+void CCMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL) || (pObj->GetAccountInfo() == NULL)) return;
 
 	MAsyncDBJob_GetAccountItemList* pGetAccountItemListJob = new MAsyncDBJob_GetAccountItemList(uidPlayer);
@@ -97,9 +97,9 @@ void MMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 }
 
 
-//void MMatchServer::ResponseTakeoffItem(const MUID& uidPlayer, const MMatchCharItemParts parts)
+//void CCMatchServer::ResponseTakeoffItem(const MUID& uidPlayer, const MMatchCharItemParts parts)
 //{
-//	MMatchObject* pObj = GetObject(uidPlayer);
+//	CCMatchObject* pObj = GetObject(uidPlayer);
 //	if (pObj == NULL) return;
 //	int nResult = MOK;
 //
@@ -169,9 +169,9 @@ void MMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //}
 //
 //
-//bool MMatchServer::ResponseCharacterItemList(const MUID& uidPlayer)
+//bool CCMatchServer::ResponseCharacterItemList(const MUID& uidPlayer)
 //{
-//	MMatchObject* pObj = GetObject(uidPlayer);
+//	CCMatchObject* pObj = GetObject(uidPlayer);
 //	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) 
 //	{
 //		cclog("ResponseCharacterItemList > pObj or pObj->GetCharInfo() IS NULL\n");
@@ -307,9 +307,9 @@ void MMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //	return true;
 //}
 
-void MMatchServer::OnRequestUseSpendableNormalItem(const MUID& uidPlayer, const MUID& uidItem)
+void CCMatchServer::OnRequestUseSpendableNormalItem(const MUID& uidPlayer, const MUID& uidItem)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
 	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
@@ -327,9 +327,9 @@ void MMatchServer::OnRequestUseSpendableNormalItem(const MUID& uidPlayer, const 
 	}	
 }
 
-void MMatchServer::UseSpendableItem(const MUID& uidPlayer, const MUID& uidItem)
+void CCMatchServer::UseSpendableItem(const MUID& uidPlayer, const MUID& uidItem)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
 	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
@@ -377,9 +377,9 @@ void MMatchServer::UseSpendableItem(const MUID& uidPlayer, const MUID& uidItem)
 }
 
 /*
-void MMatchServer::OnRequestUseSpendableBuffItem(const MUID& uidPlayer, const MUID& uidItem)
+void CCMatchServer::OnRequestUseSpendableBuffItem(const MUID& uidPlayer, const MUID& uidItem)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
 	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
@@ -437,9 +437,9 @@ void MMatchServer::OnRequestUseSpendableBuffItem(const MUID& uidPlayer, const MU
 }*/
 //버프정보임시주석 
 /*
-void MMatchServer::PostCmdCharacterBuffInfo(const MUID& uidPlayer)
+void CCMatchServer::PostCmdCharacterBuffInfo(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
 	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();

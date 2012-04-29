@@ -1323,7 +1323,7 @@ bool MMatchItemMap::CreateItem( const MUID& uid
 	pNewItem->Create( uid, pDesc, pDesc->m_nMagazine.Ref() );
 	pNewItem->SetCIID( nCIID );
 	pNewItem->SetRentItem( dwRentMinutePeriodRemainder );
-	pNewItem->SetRentItemRegTime( MMatchServer::GetInstance()->GetTickTime() );
+	pNewItem->SetRentItemRegTime( CCMatchServer::GetInstance()->GetTickTime() );
 	pNewItem->SetRentHourPeriod( wRentHourPeriod );
 	pNewItem->SetItemCount(nCount);
 	

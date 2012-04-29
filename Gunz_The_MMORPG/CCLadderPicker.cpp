@@ -83,7 +83,7 @@ bool MLadderPicker::EvaluateTicket(MLadderTicket* pTicketA, MLadderTicket* pTick
 	// TickCount는 0부터 시작
 	int nTickCount = min(pTicketA->GetTickCount(), pTicketB->GetTickCount()) - 1;
 	
-	MLadderStatistics* pLS = MMatchServer::GetInstance()->GetLadderMgr()->GetStatistics();
+	MLadderStatistics* pLS = CCMatchServer::GetInstance()->GetLadderMgr()->GetStatistics();
 	float fLevelRate = pLS->GetLevelVictoriesRate(nLevelDiff);
 	float fClanPointRate = pLS->GetClanPointVictoriesRate(nClanPointDiff);
 	float fContPointRate = pLS->GetContPointVictoriesRate(nContPointDiff);

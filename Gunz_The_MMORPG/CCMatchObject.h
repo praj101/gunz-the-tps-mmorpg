@@ -120,7 +120,7 @@ enum MMatchPlace
 	MMP_END
 };
 
-enum MMatchObjectStageState
+enum CCMatchObjectStageState
 {
 	MOSS_NONREADY	= 0,
 	MOSS_READY		= 1,
@@ -379,7 +379,7 @@ public:
 };
 
 // MatchObject가 게임안에서 사용하는 변수들
-struct MMatchObjectGameInfo
+struct CCMatchObjectGameInfo
 {
 	bool		bJoinedGame;		// 게임에 참가중인지 여부 - 팀전에서 난입했을때
 };
@@ -408,7 +408,7 @@ public :
 	const string&					GetComment()			{ return m_strComment; }
 		
 	const bool	IsSendDisconnMsg()	{ return m_bIsSendDisconnMsg; }
-	void		SendCompleted()		{ m_bIsSendDisconnMsg = false; }	// MMatchServer에서 커맨드 처리를 위해서 사용...
+	void		SendCompleted()		{ m_bIsSendDisconnMsg = false; }	// CCMatchServer에서 커맨드 처리를 위해서 사용...
 																		// IsSendDisconnMsg로 접속 종료 메시지를 보내야 하는지 검사후,
 																		// 커맨드를 보내후에는 SendCompleted()를 호출하여 다음에 중복으로 보내는 것을 막는다.
 																		// 더 좋은 방법을 생각해 봐야 함. -by SungE. 2006-03-07.
@@ -472,7 +472,7 @@ private :
 };
 
 
-struct MMatchObjectChannelInfo
+struct CCMatchObjectChannelInfo
 {
 	MUID			uidChannel;
 	MUID			uidRecentChannel;
@@ -555,7 +555,7 @@ public:
 	void SetBanUser()				{ m_dwBanTick = GetTickCount(); m_dwBanCount++;}
 };
 
-class MMatchObjectDuelTournamentCharInfo
+class CCMatchObjectDuelTournamentCharInfo
 {
 protected:
 	bool m_bIsChallenge;
@@ -579,7 +579,7 @@ protected:
 
 	list<DTRankingInfo*> m_SideRankingList;
 public:
-	MMatchObjectDuelTournamentCharInfo()
+	CCMatchObjectDuelTournamentCharInfo()
 	{
 		m_nTP = 0;
 		m_nWins = 0;
@@ -601,7 +601,7 @@ public:
 
 		memset(m_szTimeStamp, 0, DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1);
 	}
-	MMatchObjectDuelTournamentCharInfo(MMatchObjectDuelTournamentCharInfo *pDTCharInfo)
+	CCMatchObjectDuelTournamentCharInfo(CCMatchObjectDuelTournamentCharInfo *pDTCharInfo)
 	{
 		SetCharInfo(pDTCharInfo->GetTP()
 			, pDTCharInfo->GetWins()
@@ -619,7 +619,7 @@ public:
 			, pDTCharInfo->GetTimeStamp());
 	}
 
-	~MMatchObjectDuelTournamentCharInfo()
+	~CCMatchObjectDuelTournamentCharInfo()
 	{
 		RemoveSideRankingAll();
 	}
@@ -704,17 +704,17 @@ public:
 	bool IsSettingData() { return m_bIsSettingData; }
 };
 
-class MMatchObject : public MObject {
+class CCMatchObject : public MObject {
 protected:
 	MMatchAccountInfo			m_AccountInfo;		// 계정 정보
 	MMatchCharInfo*				m_pCharInfo;		// 캐릭터 정보
 	MMatchFriendInfo*			m_pFriendInfo;		// 친구정보
 	MMatchPlace					m_nPlace;			// 위치 정보
 	MMatchTimeSyncInfo			m_nTimeSyncInfo;	// 스피드핵 감시	
-	MMatchObjectChannelInfo		m_ChannelInfo;		// 채널 정보
-	MMatchObjectGameInfo		m_GameInfo;			// 게임안에서의 정보
+	CCMatchObjectChannelInfo		m_ChannelInfo;		// 채널 정보
+	CCMatchObjectGameInfo		m_GameInfo;			// 게임안에서의 정보
 	MMatchDisconnStatusInfo		m_DisconnStatusInfo;// 오브젝으 접속종료 상태 정보.
-	MMatchObjectHShieldInfo		m_HSieldInfo;
+	CCMatchObjectHShieldInfo		m_HSieldInfo;
 
 	bool			m_bHacker;						// 핵이 검출된 유저
 	bool			m_bBridgePeer;
@@ -738,11 +738,11 @@ protected:
 	int				m_nTimeLastStageListTrans;
 	int				m_nStageCursor;
 
-	MRefreshClientChannelImpl		m_RefreshClientChannelImpl;
+	CCRefreshClientChannelImpl		m_RefreshClientChannelImpl;
 	MRefreshClientClanMemberImpl	m_RefreshClientClanMemberImpl;
 
-	MMatchObjectStageState	m_nStageState;	// 대기방에서의 상태정보
-	MMatchTeam		m_nTeam;
+	CCMatchObjectStageState	m_nStageState;	// 대기방에서의 상태정보
+	CCMatchTeam		m_nTeam;
 	int				m_nLadderGroupID;
 	bool			m_bLadderChallenging;	// 클랜전 상대팀 대기중인지 여부
 
@@ -797,7 +797,7 @@ protected:
 
 	void UpdateStageListChecksum(unsigned long nChecksum)	{ m_nStageListChecksum = nChecksum; }
 	unsigned long GetStageListChecksum()					{ return m_nStageListChecksum; }
-	MMatchObject() : MObject() 
+	CCMatchObject() : MObject() 
 	{
 	}
 	void DeathCount()				{ m_nDeathCount++; m_nAllRoundDeathCount++; }
@@ -805,8 +805,8 @@ protected:
 
 //	void CheckClientHashValue( const DWORD dwTime );
 public:
-	MMatchObject(const MUID& uid);
-	virtual ~MMatchObject();
+	CCMatchObject(const MUID& uid);
+	virtual ~CCMatchObject();
 
 	char* GetName() { 
 		if (m_pCharInfo)
@@ -862,13 +862,13 @@ public:
 	bool CheckStageListTransfer()	{ return m_bStageListTransfer; }
 	void SetStageListTransfer(bool bVal)	{ m_bStageListTransfer = bVal; UpdateStageListChecksum(0); }
 
-	MRefreshClientChannelImpl* GetRefreshClientChannelImplement()		{ return &m_RefreshClientChannelImpl; }
+	CCRefreshClientChannelImpl* GetRefreshClientChannelImplement()		{ return &m_RefreshClientChannelImpl; }
 	MRefreshClientClanMemberImpl* GetRefreshClientClanMemberImplement()	{ return &m_RefreshClientClanMemberImpl; }
 
-	MMatchTeam GetTeam()			{ return m_nTeam; }
-	void SetTeam(MMatchTeam nTeam);
-	MMatchObjectStageState GetStageState()	{ return m_nStageState; }
-	void SetStageState(MMatchObjectStageState nStageState)	{ m_nStageState = nStageState; }
+	CCMatchTeam GetTeam()			{ return m_nTeam; }
+	void SetTeam(CCMatchTeam nTeam);
+	CCMatchObjectStageState GetStageState()	{ return m_nStageState; }
+	void SetStageState(CCMatchObjectStageState nStageState)	{ m_nStageState = nStageState; }
 	bool GetEnterBattle()			{ return m_bEnterBattle; }
 	void SetEnterBattle(bool bEnter){ m_bEnterBattle = bEnter; }
 	bool CheckAlive()				{ return m_bAlive; }
@@ -943,9 +943,9 @@ public:
 	MMatchPlace GetPlace()			{ return m_nPlace; }
 	void SetPlace(MMatchPlace nPlace);
 	MMatchTimeSyncInfo* GetSyncInfo()	{ return &m_nTimeSyncInfo; }
-//	MMatchObjectAntiHackInfo* GetAntiHackInfo()		{ return &m_AntiHackInfo; }
+//	CCMatchObjectAntiHackInfo* GetAntiHackInfo()		{ return &m_AntiHackInfo; }
 	MMatchDisconnStatusInfo& GetDisconnStatusInfo() { return  m_DisconnStatusInfo; }
-	MMatchObjectHShieldInfo* GetHShieldInfo()		{ return &m_HSieldInfo; }
+	CCMatchObjectHShieldInfo* GetHShieldInfo()		{ return &m_HSieldInfo; }
 
 	/// 틱 처리
 	virtual void Tick(unsigned long int nTime);
@@ -956,7 +956,7 @@ public:
 	void OnInitRound();
 
 	void SetStageCursor(int nStageCursor);
-	const MMatchObjectGameInfo* GetGameInfo() { return &m_GameInfo; }
+	const CCMatchObjectGameInfo* GetGameInfo() { return &m_GameInfo; }
 
 	//filter
 	void			SetCountryCode3( const string strCountryCode3 ) { m_strCountryCode3 = strCountryCode3; }
@@ -1010,11 +1010,11 @@ public:
 ///< 듀얼 토너먼트 관련
 ///< 홍기주(2009.09.25)
 protected :
-	MMatchObjectDuelTournamentCharInfo *m_pDuelTournamentCharInfo;
+	CCMatchObjectDuelTournamentCharInfo *m_pDuelTournamentCharInfo;
 
 public:	
-	MMatchObjectDuelTournamentCharInfo* GetDuelTournamentCharInfo()		{ return m_pDuelTournamentCharInfo; }
-	void SetDuelTournamentCharInfo(MMatchObjectDuelTournamentCharInfo *pDTCharInfo);	
+	CCMatchObjectDuelTournamentCharInfo* GetDuelTournamentCharInfo()		{ return m_pDuelTournamentCharInfo; }
+	void SetDuelTournamentCharInfo(CCMatchObjectDuelTournamentCharInfo *pDTCharInfo);	
 	void FreeDuelTournamentInfo();	
 
 	bool IsChallengeDuelTournament() { 
@@ -1038,11 +1038,11 @@ public:
 	}
 
 protected:
-	MMatchObjectCharBuff	m_CharBuffInfo;
+	CCMatchObjectCharBuff	m_CharBuffInfo;
 
 public:
 	void FreeCharBuff()							{ m_CharBuffInfo.FreeCharBuffInfo(); }
-	MMatchObjectCharBuff*	GetCharBuff()		{ return &m_CharBuffInfo; }
+	CCMatchObjectCharBuff*	GetCharBuff()		{ return &m_CharBuffInfo; }
 	
 ///< Punishment 관련
 ///< 홍기주(2010.08.09)
@@ -1065,7 +1065,7 @@ protected:
 	void ResetGamePlayInfo() { if( m_pCharInfo != NULL ) m_pCharInfo->GetCharGamePlayInfo()->Reset(); }
 };
 
-class MMatchObjectList : public map<MUID, MMatchObject*>{};
+class CCMatchObjectList : public map<MUID, CCMatchObject*>{};
 
 
 // 캐릭터 생성할때 주는 기본 아이템
@@ -1155,7 +1155,7 @@ enum MCmdEnterBattleParam
 // 입을 수 있는 아이템인지 체크
 bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, MMatchSex nPlayerSex);
 
-inline bool IsEnabledObject(MMatchObject* pObject) 
+inline bool IsEnabledObject(CCMatchObject* pObject) 
 {
 	if ((pObject == NULL) || (pObject->GetCharInfo() == NULL)) return false;
 	return true;
@@ -1171,7 +1171,7 @@ inline bool IsAdminGrade(MMatchUserGradeID nGrade)
 	return false;
 }
 
-inline bool IsAdminGrade(MMatchObject* pObject) 
+inline bool IsAdminGrade(CCMatchObject* pObject) 
 {
 	if (pObject == NULL) return false;
 
@@ -1182,7 +1182,7 @@ inline bool IsAdminGrade(MMatchObject* pObject)
 //////////////////////////////////////////////////////////////////////////
 
 
-unsigned long int MMatchObject::GetQuestLatency()
+unsigned long int CCMatchObject::GetQuestLatency()
 {
 	unsigned long int nowTime = timeGetTime();
 
@@ -1194,12 +1194,12 @@ unsigned long int MMatchObject::GetQuestLatency()
 	return m_nQuestLatency;
 }
 
-void MMatchObject::SetQuestLatency(unsigned long int l)
+void CCMatchObject::SetQuestLatency(unsigned long int l)
 {
 	m_nQuestLatency = l - m_nLastPingTime;
 }
 
-void MMatchObject::SetPingTime(unsigned long int t)
+void CCMatchObject::SetPingTime(unsigned long int t)
 {
 	m_nLastPingTime = t;
 }

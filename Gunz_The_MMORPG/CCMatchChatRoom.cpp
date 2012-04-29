@@ -26,8 +26,8 @@ bool MMatchChatRoom::AddPlayer(const MUID& uidPlayer)
 	if (i != m_PlayerList.end())
 		return false;
 
-	MMatchServer* pServer = MMatchServer::GetInstance();
-	MMatchObject* pPlayer = pServer->GetObject(uidPlayer);
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
+	CCMatchObject* pPlayer = pServer->GetObject(uidPlayer);
 	if( !IsEnabledObject(pPlayer) )
 		return false;
 
@@ -53,8 +53,8 @@ void MMatchChatRoom::RemovePlayer(const MUID& uidPlayer)
 	
 		// 2008.08.28 채팅방에 탈퇴후 /채팅 할말을 하면 채팅방에 참가되어있는 사람들에게 채팅말 보임현상 처리
 		// 채팅방 탈퇴시 플레이어 채팅룸 ID초기화 http://dev:8181/projects/gunz/ticket/158
-		MMatchServer* pServer = MMatchServer::GetInstance();
-		MMatchObject* pPlayer = pServer->GetObject(uidPlayer);
+		CCMatchServer* pServer = CCMatchServer::GetInstance();
+		CCMatchObject* pPlayer = pServer->GetObject(uidPlayer);
 		if( !IsEnabledObject(pPlayer) )
 			return;
 		pPlayer->SetChatRoomUID(MUID(0,0));
@@ -66,14 +66,14 @@ void MMatchChatRoom::RouteChat(const MUID& uidSender, char* pszMessage)
 	if( (0 == pszMessage) || (256 < strlen(pszMessage)) )
 		return;
 
-	MMatchServer* pServer = MMatchServer::GetInstance();
-	MMatchObject* pSenderObj = pServer->GetObject(uidSender);
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
+	CCMatchObject* pSenderObj = pServer->GetObject(uidSender);
 	if (pSenderObj == NULL)
 		return;
 
 	for (MUIDRefCache::iterator i=m_PlayerList.begin(); i!=m_PlayerList.end(); i++) {
 		MUID uidTarget = (*i).first;
-		MMatchObject* pTargetObj = pServer->GetObject(uidTarget);
+		CCMatchObject* pTargetObj = pServer->GetObject(uidTarget);
 		if (pTargetObj) {
 			MCommand* pCmd = pServer->CreateCommand(MC_MATCH_CHATROOM_CHAT, MUID(0,0));
 			pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(GetName()) ));
@@ -94,10 +94,10 @@ void MMatchChatRoom::RouteCommand(const MCommand* pCommand)
 	if( 0 == pCommand )
 		return;
 
-	MMatchServer* pServer = MMatchServer::GetInstance();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	for (MUIDRefCache::iterator i=m_PlayerList.begin(); i!=m_PlayerList.end(); i++) {
 		MUID uidTarget = (*i).first;
-		MMatchObject* pTargetObj = pServer->GetObject(uidTarget);
+		CCMatchObject* pTargetObj = pServer->GetObject(uidTarget);
 		if (pTargetObj) {
 			MCommand* pRouteCmd = pCommand->Clone();
 			pServer->RouteToListener(pTargetObj, pRouteCmd);
@@ -123,7 +123,7 @@ MMatchChatRoom* MMatchChatRoomMgr::AddChatRoom(const MUID& uidMaster, const char
 	if (FindChatRoomByName(pszName) != NULL)
 		return NULL;
 
-	MMatchObject* pMaster = MMatchServer::GetInstance()->GetObject( uidMaster );
+	CCMatchObject* pMaster = CCMatchServer::GetInstance()->GetObject( uidMaster );
 	if( !IsEnabledObject(pMaster) )
 		return 0;
 

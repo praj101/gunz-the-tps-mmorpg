@@ -81,7 +81,7 @@ void MMatchShutdown::SetProgress(int nIndex, unsigned long nClock)
 void MMatchShutdown::Notify(int nIndex)
 {
 	char* pszMsg = m_ShutdownNotifyArray[nIndex]->GetString();
-	MMatchServer* pServer = MMatchServer::GetInstance();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	
 	MCommand* pCmd = pServer->CreateCommand(MC_ADMIN_ANNOUNCE, MUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(MUID(0,0)));
@@ -96,7 +96,7 @@ void MMatchShutdown::Notify(int nIndex)
 
 void MMatchShutdown::Terminate()
 {
-	MMatchServer* pServer = MMatchServer::GetInstance();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	pServer->Shutdown();
 }
 

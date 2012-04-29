@@ -1,7 +1,7 @@
 #include "StdAfx.h"
-#include "MMatchObjectCommandHistory.h"
+#include "CCMatchObjectCommandHistory.h"
 
-MMatchObjectCommandHistory::~MMatchObjectCommandHistory()
+CCMatchObjectCommandHistory::~CCMatchObjectCommandHistory()
 {
 	UIDHISTORYMAP::iterator itr = m_mapHistories.begin();
 	while ( itr!= m_mapHistories.end() )
@@ -12,14 +12,14 @@ MMatchObjectCommandHistory::~MMatchObjectCommandHistory()
 	}
 }
 
-MOBJECTCOMMANDHISTORY* MMatchObjectCommandHistory::AddNew(MUID uid)
+MOBJECTCOMMANDHISTORY* CCMatchObjectCommandHistory::AddNew(MUID uid)
 {
 	MOBJECTCOMMANDHISTORY* pNew = new MOBJECTCOMMANDHISTORY;
 	m_mapHistories.insert( UIDHISTORYMAP::value_type( uid, pNew ) );
 	return pNew;
 }
 
-void MMatchObjectCommandHistory::SetCharacterInfo(MUID uid, const char* szName, unsigned int nCID)
+void CCMatchObjectCommandHistory::SetCharacterInfo(MUID uid, const char* szName, unsigned int nCID)
 {
 	UIDHISTORYMAP::iterator itr = m_mapHistories.find( uid );
 
@@ -33,7 +33,7 @@ void MMatchObjectCommandHistory::SetCharacterInfo(MUID uid, const char* szName, 
 	pHistory->m_nCID = nCID;
 }
 
-void MMatchObjectCommandHistory::PushCommand(MUID uid, int nCommandID, DWORD dwCurrentTime, bool* pbFloodingSuspect)
+void CCMatchObjectCommandHistory::PushCommand(MUID uid, int nCommandID, DWORD dwCurrentTime, bool* pbFloodingSuspect)
 {
 	UIDHISTORYMAP::iterator itr = m_mapHistories.find( uid );
 
@@ -62,7 +62,7 @@ void MMatchObjectCommandHistory::PushCommand(MUID uid, int nCommandID, DWORD dwC
 		pHistory->m_commands.pop_front();
 }
 
-MOBJECTCOMMANDHISTORY* MMatchObjectCommandHistory::GetCommandHistory(MUID uid)
+MOBJECTCOMMANDHISTORY* CCMatchObjectCommandHistory::GetCommandHistory(MUID uid)
 {
 	UIDHISTORYMAP::iterator itr = m_mapHistories.find( uid );
 	if( itr == m_mapHistories.end() )
@@ -71,7 +71,7 @@ MOBJECTCOMMANDHISTORY* MMatchObjectCommandHistory::GetCommandHistory(MUID uid)
 	return itr->second;
 }
 
-void MMatchObjectCommandHistory::Update( DWORD dwCurrentTime )
+void CCMatchObjectCommandHistory::Update( DWORD dwCurrentTime )
 {
 	for( UIDHISTORYMAP::iterator itr = m_mapHistories.begin(); itr!= m_mapHistories.end(); )
 	{
@@ -87,7 +87,7 @@ void MMatchObjectCommandHistory::Update( DWORD dwCurrentTime )
 	}
 }
 
-bool MMatchObjectCommandHistory::Dump( MUID uid )
+bool CCMatchObjectCommandHistory::Dump( MUID uid )
 {
 	MOBJECTCOMMANDHISTORY* pHistory = GetCommandHistory(uid);
 	if(!pHistory)
