@@ -231,15 +231,19 @@
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
 				<File
+					RelativePath=".\CCConnectHistory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCHackingTypes.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCMatchChatRoom.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\CCMatchCheckLookTime.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchDBMgr.cpp"
 					>
 				</File>
 				<File
@@ -283,11 +287,31 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CCPacketCrypter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCPacketHShieldCrypter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCServer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCSharedCommandTable.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CCVoteDiscussImpl.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\CCVoteMgr.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\TestCRC32XORCache.cpp"
 					>
 				</File>
 				<Filter
@@ -1373,6 +1397,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCConnectHistory.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCDuelTournamentFormula.cpp"
 			>
 		</File>
@@ -1414,6 +1442,10 @@
 		</File>
 		<File
 			RelativePath=".\CCFormulaTable.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCHackingChatList.h"
 			>
 		</File>
 		<File
@@ -1570,10 +1602,6 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchDBGambleItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDBMgr.h"
 			>
 		</File>
 		<File
@@ -1913,11 +1941,31 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCPacket.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCPacketCrypter.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCPacketHShieldCrypter.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCQuestItem.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\CCQuestItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCServer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCSharedCommandTable.h"
 			>
 		</File>
 		<File
@@ -1965,7 +2013,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\Msg.h"
+			>
+		</File>
+		<File
 			RelativePath=".\stdafx.h"
+			>
+		</File>
+		<File
+			RelativePath=".\TestCRC32XORCache.h"
 			>
 		</File>
 	</Files>
