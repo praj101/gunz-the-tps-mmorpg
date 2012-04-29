@@ -35,10 +35,10 @@ void MMatchRuleTeamDeath::OnRoundEnd()
 	{
 		switch(m_nRoundArg)
 		{
-			case MMATCH_ROUNDRESULT_BLUE_ALL_OUT: m_pStage->OnRoundEnd_FromTeamGame(MMT_RED);break;
-			case MMATCH_ROUNDRESULT_RED_ALL_OUT: m_pStage->OnRoundEnd_FromTeamGame(MMT_BLUE); break;
-			case MMATCH_ROUNDRESULT_REDWON: m_pStage->OnRoundEnd_FromTeamGame(MMT_RED); break;
-			case MMATCH_ROUNDRESULT_BLUEWON: m_pStage->OnRoundEnd_FromTeamGame(MMT_BLUE); break;
+			case MMATCH_ROUNDRESULT_BLUE_ALL_OUT: m_pStage->OnRoundEnd_FromTeamGame(CCMT_RED);break;
+			case MMATCH_ROUNDRESULT_RED_ALL_OUT: m_pStage->OnRoundEnd_FromTeamGame(CCMT_BLUE); break;
+			case MMATCH_ROUNDRESULT_REDWON: m_pStage->OnRoundEnd_FromTeamGame(CCMT_RED); break;
+			case MMATCH_ROUNDRESULT_BLUEWON: m_pStage->OnRoundEnd_FromTeamGame(CCMT_BLUE); break;
 			case MMATCH_ROUNDRESULT_DRAW: break;
 		}
 	}
@@ -70,11 +70,11 @@ bool MMatchRuleTeamDeath::OnCheckEnableBattleCondition()
 			continue;
 		}
 
-		if (pObj->GetTeam() == MMT_RED)
+		if (pObj->GetTeam() == CCMT_RED)
 		{
 			nRedTeam++;
 		}
-		else if (pObj->GetTeam() == MMT_BLUE)
+		else if (pObj->GetTeam() == CCMT_BLUE)
 		{
 			nBlueTeam++;
 		}
@@ -104,7 +104,7 @@ bool MMatchRuleTeamDeath::GetAliveCount(int* pRedAliveCount, int* pBlueAliveCoun
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 
-		if (pObj->GetTeam() == MMT_RED)
+		if (pObj->GetTeam() == CCMT_RED)
 		{
 			nRedCount++;
 			if (pObj->CheckAlive()==true)
@@ -112,7 +112,7 @@ bool MMatchRuleTeamDeath::GetAliveCount(int* pRedAliveCount, int* pBlueAliveCoun
 				nRedAliveCount++;
 			}
 		}
-		else if (pObj->GetTeam() == MMT_BLUE)
+		else if (pObj->GetTeam() == CCMT_BLUE)
 		{
 			nBlueCount++;
 			if (pObj->CheckAlive()==true)
@@ -154,13 +154,13 @@ bool MMatchRuleTeamDeath::OnCheckRoundFinish()
 				continue;
 			}
 
-			if (pObj->GetTeam() == MMT_RED)		nRedTeam++;
-			else if (pObj->GetTeam() == MMT_BLUE)	nBlueTeam++;
+			if (pObj->GetTeam() == CCMT_RED)		nRedTeam++;
+			else if (pObj->GetTeam() == CCMT_BLUE)	nBlueTeam++;
 		}
 
-		if( nBlueTeam ==0 && (pStage->GetTeamScore(MMT_BLUE) > pStage->GetTeamScore(MMT_RED)) )
+		if( nBlueTeam ==0 && (pStage->GetTeamScore(CCMT_BLUE) > pStage->GetTeamScore(CCMT_RED)) )
 			SetRoundArg(MMATCH_ROUNDRESULT_BLUE_ALL_OUT);
-		else if( nRedTeam ==0 && (pStage->GetTeamScore(MMT_RED) > pStage->GetTeamScore(MMT_BLUE)) )
+		else if( nRedTeam ==0 && (pStage->GetTeamScore(CCMT_RED) > pStage->GetTeamScore(CCMT_BLUE)) )
 			SetRoundArg(MMATCH_ROUNDRESULT_RED_ALL_OUT);
 		else if ( (nRedAliveCount == 0) && (nBlueAliveCount == 0) )
 			SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
@@ -214,8 +214,8 @@ bool MMatchRuleTeamDeath::RoundCount()
 			return false;
 		}
 
-		int nRedScore = m_pStage->GetTeamScore(MMT_RED);
-		int nBlueScore = m_pStage->GetTeamScore(MMT_BLUE);
+		int nRedScore = m_pStage->GetTeamScore(CCMT_RED);
+		int nBlueScore = m_pStage->GetTeamScore(CCMT_BLUE);
 		
 		// 래더게임에서 먼저 4승인 팀이 승리
 		const int LADDER_WINNING_ROUNT_COUNT = 4;
@@ -336,11 +336,11 @@ void MMatchRuleTeamDeath2::OnRoundEnd()
 	{
 		if (m_nRoundArg == MMATCH_ROUNDRESULT_REDWON) 
 		{
-			m_pStage->OnRoundEnd_FromTeamGame(MMT_RED);
+			m_pStage->OnRoundEnd_FromTeamGame(CCMT_RED);
 		} 
 		else if (m_nRoundArg == MMATCH_ROUNDRESULT_BLUEWON) 
 		{
-			m_pStage->OnRoundEnd_FromTeamGame(MMT_BLUE);
+			m_pStage->OnRoundEnd_FromTeamGame(CCMT_BLUE);
 		} 
 		else if (m_nRoundArg == MMATCH_ROUNDRESULT_DRAW) 
 		{ 
@@ -360,8 +360,8 @@ void MMatchRuleTeamDeath2::GetTeamScore(int* pRedTeamScore, int* pBlueTeamScore)
 	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return;
 
-	(*pRedTeamScore) = pStage->GetTeamKills(MMT_RED);
-	(*pBlueTeamScore) = pStage->GetTeamKills(MMT_BLUE);
+	(*pRedTeamScore) = pStage->GetTeamKills(CCMT_RED);
+	(*pBlueTeamScore) = pStage->GetTeamKills(CCMT_BLUE);
 
 	return;
 }
@@ -429,6 +429,6 @@ void MMatchRuleTeamDeath2::OnGameKill(const CCUID& uidAttacker, const CCUID& uid
 //			m_pStage->AddTeamKills(pAttacker->GetTeam());
 //		}
 
-		m_pStage->AddTeamKills(pVictim->GetTeam() == MMT_BLUE ? MMT_RED : MMT_BLUE);		// 죽은사람 반대편팀 킬수 올림
+		m_pStage->AddTeamKills(pVictim->GetTeam() == CCMT_BLUE ? CCMT_RED : CCMT_BLUE);		// 죽은사람 반대편팀 킬수 올림
 	}
 }

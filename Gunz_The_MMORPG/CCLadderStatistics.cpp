@@ -147,8 +147,8 @@ void MLadderStatistics::InsertLevelRecord(int nRedTeamCharLevel, int nBlueTeamCh
 	int nLevelDiff = abs(nRedTeamCharLevel - nBlueTeamCharLevel);
 	bool bMoreLevelWin = false;
 
-	if ((nWinnerTeam == MMT_RED) && (nRedTeamCharLevel >= nBlueTeamCharLevel)) bMoreLevelWin = true;
-	else if ((nWinnerTeam == MMT_BLUE) && (nBlueTeamCharLevel >= nRedTeamCharLevel)) bMoreLevelWin = true;
+	if ((nWinnerTeam == CCMT_RED) && (nRedTeamCharLevel >= nBlueTeamCharLevel)) bMoreLevelWin = true;
+	else if ((nWinnerTeam == CCMT_BLUE) && (nBlueTeamCharLevel >= nRedTeamCharLevel)) bMoreLevelWin = true;
 	else bMoreLevelWin = false;
 
 	_InsertLevelRecord(nLevelDiff, bMoreLevelWin);
@@ -160,8 +160,8 @@ void MLadderStatistics::InsertClanPointRecord(int nRedTeamClanPoint, int nBlueTe
 	int nClanPointDiff = abs(nRedTeamClanPoint - nBlueTeamClanPoint);
 	bool bMorePointWin = false;
 
-	if ((nWinnerTeam == MMT_RED) && (nRedTeamClanPoint >= nBlueTeamClanPoint)) bMorePointWin = true;
-	else if ((nWinnerTeam == MMT_BLUE) && (nBlueTeamClanPoint >= nRedTeamClanPoint)) bMorePointWin = true;
+	if ((nWinnerTeam == CCMT_RED) && (nRedTeamClanPoint >= nBlueTeamClanPoint)) bMorePointWin = true;
+	else if ((nWinnerTeam == CCMT_BLUE) && (nBlueTeamClanPoint >= nRedTeamClanPoint)) bMorePointWin = true;
 	else bMorePointWin = false;
 
 	_InsertClanPointRecord(nClanPointDiff, bMorePointWin);
@@ -172,8 +172,8 @@ void MLadderStatistics::InsertContPointRecord(int nRedTeamContPoint, int nBlueTe
 	int nContPointDiff = abs(nRedTeamContPoint - nBlueTeamContPoint);
 	bool bMorePointWin = false;
 
-	if ((nWinnerTeam == MMT_RED) && (nRedTeamContPoint >= nBlueTeamContPoint)) bMorePointWin = true;
-	else if ((nWinnerTeam == MMT_BLUE) && (nBlueTeamContPoint >= nRedTeamContPoint)) bMorePointWin = true;
+	if ((nWinnerTeam == CCMT_RED) && (nRedTeamContPoint >= nBlueTeamContPoint)) bMorePointWin = true;
+	else if ((nWinnerTeam == CCMT_BLUE) && (nBlueTeamContPoint >= nRedTeamContPoint)) bMorePointWin = true;
 	else bMorePointWin = false;
 
 	_InsertContPointRecord(nContPointDiff, bMorePointWin);

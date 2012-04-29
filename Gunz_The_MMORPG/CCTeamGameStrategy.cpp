@@ -172,12 +172,12 @@ void MLadderGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTea
 		nWinnerTID = pRedLadderInfo->nTID;
 		nLoserTID = pBlueLadderInfo->nTID;
 	}
-	else if (nWinnerTeam == MMT_RED)
+	else if (nWinnerTeam == CCMT_RED)
 	{
 		nWinnerTID = pRedLadderInfo->nTID;
 		nLoserTID = pBlueLadderInfo->nTID;
 	}
-	else if (nWinnerTeam == MMT_BLUE)
+	else if (nWinnerTeam == CCMT_BLUE)
 	{
 		nWinnerTID = pBlueLadderInfo->nTID;
 		nLoserTID = pRedLadderInfo->nTID;
@@ -380,7 +380,7 @@ void MClanGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam 
 {
 	int nWinnerCLID = 0, nLoserCLID = 0;
 
-	CCMatchTeam nLoserTeam = (nWinnerTeam == MMT_RED) ? MMT_BLUE : MMT_RED;
+	CCMatchTeam nLoserTeam = (nWinnerTeam == CCMT_RED) ? CCMT_BLUE : CCMT_RED;
 
 	// redÆÀ ½Â¸®
 	if (bIsDrawGame == true)
@@ -388,12 +388,12 @@ void MClanGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam 
 		nWinnerCLID = pRedLadderInfo->nCLID;
 		nLoserCLID = pBlueLadderInfo->nCLID;
 	}
-	else if (nWinnerTeam == MMT_RED)
+	else if (nWinnerTeam == CCMT_RED)
 	{
 		nWinnerCLID = pRedLadderInfo->nCLID;
 		nLoserCLID = pBlueLadderInfo->nCLID;
 	}
-	else if (nWinnerTeam == MMT_BLUE)
+	else if (nWinnerTeam == CCMT_BLUE)
 	{
 		nWinnerCLID = pBlueLadderInfo->nCLID;
 		nLoserCLID = pRedLadderInfo->nCLID;
@@ -451,7 +451,7 @@ void MClanGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam 
 		MLadderStatistics* pLS = CCMatchServer::GetInstance()->GetLadderMgr()->GetStatistics();
 		pLS->InsertLevelRecord(pRedLadderInfo->nCharLevel, pBlueLadderInfo->nCharLevel, nWinnerTeam);
 		pLS->InsertContPointRecord(pRedLadderInfo->nContPoint, pBlueLadderInfo->nContPoint, nWinnerTeam);
-		pLS->InsertClanPointRecord(pWinnerClan->GetClanInfoEx()->nPoint, pLoserClan->GetClanInfoEx()->nPoint, MMT_RED);
+		pLS->InsertClanPointRecord(pWinnerClan->GetClanInfoEx()->nPoint, pLoserClan->GetClanInfoEx()->nPoint, CCMT_RED);
 
 
 		// ¹æ¼Û
