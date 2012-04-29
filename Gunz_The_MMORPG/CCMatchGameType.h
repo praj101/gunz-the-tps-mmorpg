@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MBaseGameType.h"
+#include "CCBaseGameType.h"
 
 
 

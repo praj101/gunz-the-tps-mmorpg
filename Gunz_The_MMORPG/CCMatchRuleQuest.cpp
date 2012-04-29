@@ -10,11 +10,11 @@
 #include "CCMatchTransDataType.h"
 #include "CCMatchConfig.h"
 #include "MMatchFormula.h"
-#include "MQuestItem.h"
+#include "CCQuestItem.h"
 #include "MMATH.H"
 #include "MAsyncDBJob.h"
 #include "MQuestNPCSpawnTrigger.h"
-#include "MQuestItem.h"
+#include "CCQuestItem.h"
 
 MMatchRuleQuest::MMatchRuleQuest(CCMatchStage* pStage) : MMatchRuleBaseQuest(pStage), m_pQuestLevel(NULL),
 														m_nCombatState(MQUEST_COMBAT_NONE), m_nPrepareStartTime(0),

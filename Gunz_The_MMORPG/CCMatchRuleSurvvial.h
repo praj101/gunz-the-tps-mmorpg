@@ -4,10 +4,10 @@
 #include "MMatchNPCObject.h"
 #include "MMatchQuestRound.h"
 #include "MSacrificeQItemTable.h"
-#include "MQuestItem.h"
+#include "CCQuestItem.h"
 #include "MMatchSurvivalGameLog.h"
 #include "MQuestNPCSpawnTrigger.h"
-#include "MBaseGameType.h"
+#include "CCBaseGameType.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

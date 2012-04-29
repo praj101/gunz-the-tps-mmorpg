@@ -4,10 +4,10 @@
 #include "MMatchNPCObject.h"
 #include "MMatchQuestRound.h"
 #include "MSacrificeQItemTable.h"
-#include "MQuestItem.h"
+#include "CCQuestItem.h"
 #include "MMatchQuestGameLog.h"
 #include "MQuestNPCSpawnTrigger.h"
-#include "MBaseGameType.h"
+#include "CCBaseGameType.h"
 
 typedef pair< MUID, unsigned long int > SacrificeSlot;	// <아이템을 올려놓은 유저의 UID, 올려놓은 아이템의 ItemID.>
 
