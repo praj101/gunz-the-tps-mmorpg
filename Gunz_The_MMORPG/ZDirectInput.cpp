@@ -168,7 +168,7 @@ bool ZDirectInput::Create(HWND hWnd, BOOL bExclusive, BOOL bImmediateMode)
 #endif
 
 	if(!CreateDirectInput()) return false;
-	// 키보드 device 를 만든다
+	//Create the keyboard device
 
     if( FAILED( hr = m_pDI->CreateDevice( GUID_SysKeyboard, &m_pKeyboard, NULL ) ) ) return false;
     
@@ -205,7 +205,7 @@ bool ZDirectInput::Create(HWND hWnd, BOOL bExclusive, BOOL bImmediateMode)
 
 #ifndef _DONOTUSE_DINPUT_MOUSE
 
-	// 마우스 device 를 만든다
+	//Create the mouse device
 	if( FAILED( hr = m_pDI->CreateDevice( GUID_SysMouse, &m_pMouse, NULL ) ) ) return false;
 
 	if( FAILED( hr = m_pMouse->SetDataFormat( &c_dfDIMouse2 ) ) ) return false;
@@ -237,13 +237,13 @@ bool ZDirectInput::Create(HWND hWnd, BOOL bExclusive, BOOL bImmediateMode)
 	m_pMouse->Acquire();
 #endif
 
-	// 버튼 상태 초기화
+	//Initialize the button state
 	for(int i=0;i<8;i++)
 	{
 		m_bMouseButtonStates[i]=false;
 	}
 
-	// 조이스틱 디바이스
+	// Joystick device
 	// Look for a simple Joystick we can use for this sample program.
 	if( FAILED( hr = m_pDI->EnumDevices( DI8DEVCLASS_GAMECTRL, 
 		EnumJoysticksCallback,
@@ -269,7 +269,7 @@ bool ZDirectInput::Create(HWND hWnd, BOOL bExclusive, BOOL bImmediateMode)
 	if(m_nFFAxis>2)
 		m_nFFAxis = 2;
 
-	// 포스피드백 이펙트 초기화. 실패하면 disable 시키고 그대로 진행한다
+	// Initialize force feedback effects. If it fails, disable and moving out.
 	if(m_bForceFeedback && m_nFFAxis>0)
 	{
 		// This application needs only one effect: Applying raw forces.
@@ -360,7 +360,7 @@ DWORD ZDirectInput::GetKeyboardBufferedData(ZDIBUFFER* pBuffer,unsigned int nBuf
     if( hr != DI_OK ) {
         hr = m_pKeyboard->Acquire();
         while( hr == DIERR_INPUTLOST ) 
-			hr = m_pKeyboard->Acquire();		// 위험한디..
+			hr = m_pKeyboard->Acquire();
 		return 0;
     }
 
@@ -455,7 +455,7 @@ bool ZDirectInput::GetJoystickData(DIJOYSTATE2* pjs)
 		// just re-acquire and try again.
 		hr = m_pJoystick->Acquire();
 		while( hr == DIERR_INPUTLOST ) 
-			hr = m_pJoystick->Acquire();	// 위험한디..
+			hr = m_pJoystick->Acquire();
 
 		// hr may be DIERR_OTHERAPPHASPRIO or other errors.  This
 		// may occur when the app is minimized or in the process of 
