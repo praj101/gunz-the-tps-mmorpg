@@ -6,7 +6,7 @@
 #include "Msg.h"
 #include "CCMatchConfig.h"
 #include "MCommandCommunicator.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "MMatchAuth.h"
 #include "MAsyncDBJob.h"
 #include "RTypes.h"

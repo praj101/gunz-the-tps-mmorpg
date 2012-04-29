@@ -11,7 +11,7 @@
 #include "CCMatchStage.h"
 #include "MCommandCommunicator.h"
 #include "CCMatchTransDataType.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "RTypes.h"
 #include "MMatchStatus.h"
 #include "MMatchSchedule.h"

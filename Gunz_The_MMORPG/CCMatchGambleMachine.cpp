@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "CCMath.h"
 #include "CCMatchGambleMachine.h"
-#include "MMatchDBGambleItem.h"
-#include "MDebug.h"
+#include "CCMatchDBGambleItem.h"
+#include "CCDebug.h"
 
 
 

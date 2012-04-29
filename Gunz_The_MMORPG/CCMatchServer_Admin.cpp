@@ -17,7 +17,7 @@
 #include "MCommandCommunicator.h"
 #include "CCMatchShop.h"
 #include "CCMatchTransDataType.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "MMatchAuth.h"
 #include "MMatchStatus.h"
 #include "MAsyncDBJob.h"

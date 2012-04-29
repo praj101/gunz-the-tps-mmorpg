@@ -2,7 +2,7 @@
 
 #include "CCMatchGlobal.h"
 #include "MLadderGroup.h"
-#include "MLadderStatistics.h"
+#include "CCLadderStatistics.h"
 #include <vector>
 
 class MMatchObject;

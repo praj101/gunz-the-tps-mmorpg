@@ -28,7 +28,7 @@
 #include "MConnectHistory.h"
 
 
-#include "MMatchBRMachine.h"
+#include "CCMatchBRMachine.h"
 
 #include <vector>
 using namespace std;

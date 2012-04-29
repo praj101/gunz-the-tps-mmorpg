@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "RMeshMgr.h"
 #include "RVisualMeshMgr.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "RealSpace2.h"
 #include "CCProfiler.h"
 #include "RCharCloth.h"
