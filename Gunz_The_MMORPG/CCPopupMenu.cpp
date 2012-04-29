@@ -31,7 +31,7 @@ void CCPopupMenuLook::OnDraw(CCPopupMenu* pPopupMenu, CCDrawContext* pDC){
 }
 
 sRect CCPopupMenuLook::GetClientRect(CCPopupMenu* pPopupMenu, sRect& r){
-	if(pPopupMenu->GetPopupMenuType()==MPMT_VERTICAL)
+	if(pPopupMenu->GetPopupMenuType()==CCMT_VERTICAL)
 		return sRect(1, 1, r.w-2, r.h-2);
 	else
 		return pPopupMenu->GetInitialClientRect();
@@ -42,7 +42,7 @@ void CCMenuItem::OnDrawMenuItem(CCDrawContext* pDC, bool bSelected){//MMenuItem
 	pDC->SetColor(bSelected==true?sColor(DEFCOLOR_CCPOPUP_SELECTEDPLANE):sColor(DEFCOLOR_CCPOPUP_PLANE));
 	pDC->FillRectangle(r);
 	pDC->SetColor(bSelected==true?sColor(DEFCOLOR_CCPOPUP_SELECTEDTEXT):sColor(DEFCOLOR_CCPOPUP_TEXT));
-	pDC->Text(r, GetText(), MAM_LEFT);
+	pDC->Text(r, GetText(), CCD_LEFT);
 }
 
 void CCMenuItem::OnDraw(CCDrawContext* pDC){
@@ -263,7 +263,7 @@ void CCPopupMenu::Select(CCMenuItem* pMenuItem){
 
 bool CCPopupMenu::OnCommand(CCWidget* pWindow, const char* szMessage){
 	if(GetType()==CCPMT_VERTICAL) Show(false);
-	else Select((MMenuItem*)NULL);
+	else Select((CCMenuItem*)NULL);
 	CCListener* pListener = GetListener();
 	if(pListener!=NULL) pListener->OnCommand(this, szMessage);
 	return true;
