@@ -40,19 +40,19 @@ void CCToolTip::SetBounds(void){
 	int nHeight = pFont->GetHeight();
 	int x, y;
 	sRect pr = GetParent()->GetClientRect();
-	sRect spr = MClientToScreen(GetParent(), pr);
-	if(spr.x+(nWidth+TOOLTIP_WIDTH_GAP/2)<=MGetWorkspaceWidth())
+	sRect spr = CCClientToScreen(GetParent(), pr);
+	if(spr.x+(nWidth+TOOLTIP_WIDTH_GAP/2)<=CCGetWorkspaceWidth())
 		x = pr.x+TOOLTIP_WIDTH_GAP/2+1;
 	else{
-		sPoint p = MScreenToClient(GetParent(), sPoint(MGetWorkspaceWidth()-(nWidth+TOOLTIP_WIDTH_GAP/2), 0));
+		sPoint p = CCScreenToClient(GetParent(), sPoint(CCGetWorkspaceWidth()-(nWidth+TOOLTIP_WIDTH_GAP/2), 0));
 		x = p.x;
 	}
 	y = pr.y-(nHeight+TOOLTIP_HEIGHT_GAP);
 	sPoint p = MClientToScreen(GetParent(), sPoint(0, y));
 	if(p.y<0){
 		y = p.y+pr.h+(nHeight+TOOLTIP_HEIGHT_GAP);
-		if(y>MGetWorkspaceHeight()) y = 0;
-		p = MScreenToClient(GetParent(), sPoint(0, y));
+		if(y>CCGetWorkspaceHeight()) y = 0;
+		p = CCScreenToClient(GetParent(), sPoint(0, y));
 		y = p.y;
 	}
 	CCWidget::SetBounds(sRect(x-TOOLTIP_WIDTH_GAP/2, y, nWidth+TOOLTIP_WIDTH_GAP, nHeight+TOOLTIP_HEIGHT_GAP));

@@ -699,7 +699,7 @@ CCCursor* CCWidget::GetCursor(void){
 	return m_pCursor;
 }
 
-CCFont* CCWidget::SetFont(MFont* pFont){
+CCFont* CCWidget::SetFont(CCFont* pFont){
 	CCFont* pTemp = m_pFont;
 	m_pFont = pFont;
 	return pTemp;
