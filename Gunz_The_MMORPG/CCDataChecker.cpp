@@ -12,29 +12,29 @@ CCDataCheckNode::CCDataCheckNode(BYTE* pData, unsigned int nLen, MEMORYFUGITIVE_
 
 	m_memFugitiveType = memFugitiveType;
 
-	m_nID = s_nID++;
+	m_iID = s_nID++;
 
 	m_pData = pData;
-	m_nLen = nLen;
+	m_iLen = nLen;
 
 	UpdateChecksum();
 	
-	m_nLastChecksum = m_nChecksum;
+	m_iLastChecksum = m_iChecksum;
 }
 
 CCDataCheckNode::~CCDataCheckNode()
 {
 	m_pData = NULL;
-	m_nLen = 0;
-	m_nChecksum = 0;
-	m_nLastChecksum = 0;
+	m_iLen = 0;
+	m_iChecksum = 0;
+	m_iLastChecksum = 0;
 }
 
 bool CCDataCheckNode::UpdateChecksum()
 {
-	m_nLastChecksum = m_nChecksum;
+	m_iLastChecksum = m_iChecksum;
 
-	m_nChecksum = 0;
+	m_iChecksum = 0;
 
 	BYTE* data_ptr = NULL;
 
@@ -56,11 +56,11 @@ bool CCDataCheckNode::UpdateChecksum()
 
 	//Checksum is too simple. Tests compared to the cost effectiveness; (int value 5 05 00 00 00 -> 00 00 00 05, simply the end. In need of improvement)
 	//However, because items figure Latitude as fugitive
-	for (unsigned int i=0; i<m_nLen; i++) {
-		m_nChecksum += data_ptr[i];
+	for (unsigned int i=0; i<m_iLen; i++) {
+		m_iChecksum += data_ptr[i];
 	}
 
-	if (m_nChecksum == m_nLastChecksum)
+	if (m_iChecksum == m_iLastChecksum)
 		return true;
 	else
 		return false;
@@ -69,8 +69,8 @@ bool CCDataCheckNode::UpdateChecksum()
 //// CCDataChecker ////
 CCDataChecker::CCDataChecker()
 {
-	m_nTotalChecksum = 0;
-	m_nLastTotalChecksum = 0;
+	m_iTotalChecksum = 0;
+	m_iLastTotalChecksum = 0;
 }
 
 CCDataChecker::~CCDataChecker()
@@ -115,7 +115,7 @@ void CCDataChecker::RenewCheck(BYTE* pData, unsigned int nLen)
 	CCDataCheckNode* pNode = (*i).second;
 
 	if (pNode->m_pData == pData) {
-		pNode->m_nLen = nLen;
+		pNode->m_iLen = nLen;
 		pNode->UpdateChecksum();
 		pNode->Validate();
 		return;
@@ -124,15 +124,15 @@ void CCDataChecker::RenewCheck(BYTE* pData, unsigned int nLen)
 
 bool CCDataChecker::UpdateChecksum()
 {
-	m_nLastTotalChecksum = m_nTotalChecksum;
+	m_iLastTotalChecksum = m_iTotalChecksum;
 
 	bool bResult = true;
-	m_nTotalChecksum = 0;
+	m_iTotalChecksum = 0;
 	for (CCDataCheckMap::iterator i=m_DataCheckMap.begin(); i!=m_DataCheckMap.end(); i++) {
 		CCDataCheckNode* pNode = (*i).second;
 		bool bResultCurrent = pNode->UpdateChecksum();
 		bResult &= bResultCurrent;
-		m_nTotalChecksum += pNode->GetChecksum();
+		m_iTotalChecksum += pNode->GetChecksum();
 		#ifdef _DEBUG
 			if (bResultCurrent == false)
 				mlog("MEMORYHACK: ID=%u, CurrChecksum=%u, LastChecksum=%u \n", 

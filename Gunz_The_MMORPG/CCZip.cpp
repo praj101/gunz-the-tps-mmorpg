@@ -126,8 +126,8 @@ CCZip::CCZip(void)
 	m_fp = NULL;
 	m_pDirData = NULL;
 	m_ppDir = NULL;
-	m_nDirEntries = 0;
-	m_nZipMode = ZMode_Zip;
+	m_iDirEntries = 0;
+	m_iZipMode = ZMode_Zip;
 //	m_dwReadMode = CCZIPREADFLAG_ZIP | CCZIPREADFLAG_MRS | CCZIPREADFLAG_MRS2 | CCZIPREADFLAG_FILE;
 	m_dwReadMode = 0;
 }
@@ -139,13 +139,13 @@ CCZip::~CCZip(void)
 
 bool CCZip::isReadAble(unsigned long mode)
 {
-	if(m_nZipMode == ZMode_Zip) {
+	if(m_iZipMode == ZMode_Zip) {
 		return ( CCZIPREADFLAG_ZIP & mode) ? true : false ; 	
 	}
-	else if(m_nZipMode == ZMode_Mrs) {
+	else if(m_iZipMode == ZMode_Mrs) {
 		return ( CCZIPREADFLAG_MRS & mode) ? true : false ; 
 	}
-	else if(m_nZipMode == ZMode_Mrs2) {
+	else if(m_iZipMode == ZMode_Mrs2) {
 		return ( CCZIPREADFLAG_MRS2 & mode) ? true : false ; 
 	}
 	return false;
@@ -163,18 +163,18 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 	m_dwReadMode = ReadMode;
 
 	if(isZip(fp)) {
-		m_nZipMode = ZMode_Zip;
+		m_iZipMode = ZMode_Zip;
 		//If the player that is not supported by ...
 		if(isMode(CCZIPREADFLAG_ZIP)==false)
 			return false;
 	}
 	else if(isVersion1Mrs(fp)) {
-		m_nZipMode = ZMode_Mrs;
+		m_iZipMode = ZMode_Mrs;
 		if(isMode(CCZIPREADFLAG_MRS)==false)
 			return false;
 	}
 	else {//mrs2 more ...
-		m_nZipMode = ZMode_Mrs2;
+		m_iZipMode = ZMode_Mrs2;
 		if(isMode(CCZIPREADFLAG_MRS2)==false)
 			return false;
 	}
@@ -186,7 +186,7 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 	memset(&dh, 0, sizeof(dh));
 	fread(&dh, sizeof(dh), 1, fp);
 
-	if( m_nZipMode>=ZMode_Mrs2 )							// mrs2 more data from the recovery.
+	if( m_iZipMode>=ZMode_Mrs2 )							// mrs2 more data from the recovery.
 		RecoveryChar((char*)&dh,sizeof(CCZIPDIRHEADER));		//v2 is greater than ...
 
 	//If you are manipulating the data .... zip, mrs1, mrs2 Unless the all ...
@@ -201,7 +201,7 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 	memset(m_pDirData, 0, dh.dirSize + dh.nDirEntries*sizeof(*m_ppDir));
 	fread(m_pDirData, dh.dirSize, 1, fp);
 
-	if( m_nZipMode>=ZMode_Mrs2 )
+	if( m_iZipMode>=ZMode_Mrs2 )
 		RecoveryChar( (char*)m_pDirData , dh.dirSize );//mrs If the conversion.
 
 	char *pfh = m_pDirData;
@@ -231,7 +231,7 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 		}
 	}
 
-	m_nDirEntries = dh.nDirEntries;
+	m_iDirEntries = dh.nDirEntries;
 	m_fp = fp;
 
 	return true;
@@ -246,20 +246,20 @@ bool CCZip::Finalize()
 
 	m_fp = NULL;
 	m_ppDir = NULL;
-	m_nDirEntries = 0;
+	m_iDirEntries = 0;
 
 	return true;
 }
 
 int CCZip::GetFileCount(void) const
 {
-	return m_nDirEntries;
+	return m_iDirEntries;
 }
 
 void CCZip::GetFileName(int i, char *szDest) const
 {
 	if(szDest!=NULL){
-		if (i < 0 || i >= m_nDirEntries){
+		if (i < 0 || i >= m_iDirEntries){
 			*szDest = '\0';
 		}
 		else{
@@ -304,7 +304,7 @@ int CCZip::GetFileIndex(const char* szFileName) const
 
 int CCZip::GetFileLength(int i) const
 {
-	if(i<0 || i>=m_nDirEntries)
+	if(i<0 || i>=m_iDirEntries)
 		return 0;
 	else
 		return m_ppDir[i]->ucSize;
@@ -321,7 +321,7 @@ int CCZip::GetFileLength(const char* filename)
 
 unsigned int CCZip::GetFileCRC32(int i)
 {
-	if(i<0 || i>=m_nDirEntries)
+	if(i<0 || i>=m_iDirEntries)
 		return 0;
 	else
 		return m_ppDir[i]->crc32;
@@ -338,7 +338,7 @@ unsigned int CCZip::GetFileCRC32(const char* filename)
 
 unsigned int CCZip::GetFileTime(int i)
 {
-	if(i<0 || i>=m_nDirEntries)
+	if(i<0 || i>=m_iDirEntries)
 		return 0;
 	else
 		return MAKELONG(m_ppDir[i]->modTime,m_ppDir[i]->modDate);
@@ -356,7 +356,7 @@ unsigned int CCZip::GetFileTime(const char* filename)
 
 bool CCZip::ReadFile(int i, void* pBuffer, int nMaxSize)
 {
-	if (pBuffer==NULL || i<0 || i>=m_nDirEntries)
+	if (pBuffer==NULL || i<0 || i>=m_iDirEntries)
 		return false;
 
 	fseek(m_fp, m_ppDir[i]->hdrOffset, SEEK_SET);
@@ -364,7 +364,7 @@ bool CCZip::ReadFile(int i, void* pBuffer, int nMaxSize)
 
 	fread(&h, sizeof(h), 1, m_fp);
 
-	if(m_nZipMode >= ZMode_Mrs2)
+	if(m_iZipMode >= ZMode_Mrs2)
 		RecoveryChar((char*)&h,sizeof(h));
 
 	if(h.sig!=CCZIPLOCALHEADER::SIGNATURE)
@@ -851,7 +851,7 @@ bool CCZip::RecoveryZip(char* zip_name)
 
 FNode::FNode()
 {
-	memset(m_name,0,256);
+	memset(m_iame,0,256);
 	m_size	 = 0;
 	m_offset = 0;
 }
@@ -859,7 +859,7 @@ FNode::FNode()
 void FNode::SetName(char* str)	
 {
 	if(strlen(str) > 255) return;
-	strcpy(m_name,str);
+	strcpy(m_iame,str);
 	str[255] = 0;
 }
 
@@ -903,8 +903,8 @@ void FFileList::UpgradeMrs()
 	{
 		pNode = (*node);
 
-		if(CCZip::UpgradeMrs( pNode->m_name ))
-			mlog(" Upgrade mrs : %s\n",pNode->m_name);
+		if(CCZip::UpgradeMrs( pNode->m_iame ))
+			mlog(" Upgrade mrs : %s\n",pNode->m_iame);
 	}
 }
 
@@ -916,8 +916,8 @@ void FFileList::ConvertZip()
 	for(node = begin(); node != end(); ++node) {
 		pNode = (*node);
 
-		if(CCZip::ConvertZip( pNode->m_name ))
-			mlog("convert zip : %s\n",pNode->m_name);
+		if(CCZip::ConvertZip( pNode->m_iame ))
+			mlog("convert zip : %s\n",pNode->m_iame);
 	}
 }
 
@@ -929,7 +929,7 @@ void FFileList::RecoveryZip()
 	for(node = begin(); node != end(); ++node) {
 		pNode = (*node);
 
-		CCZip::RecoveryZip( pNode->m_name );
+		CCZip::RecoveryZip( pNode->m_iame );
 	}
 }
 
@@ -946,15 +946,15 @@ void FFileList::ConvertVtf()
 		pNode = (*node);
 
 //		ShellExecute()
-		strcpy(temp,pNode->m_name);
+		strcpy(temp,pNode->m_iame);
 		len = strlen(temp);
 		temp[len-3] = 0;
 		strcat(temp,"tga");
 
-		sprintf(temp_arg,"%s %s",pNode->m_name,temp);
+		sprintf(temp_arg,"%s %s",pNode->m_iame,temp);
 		HINSTANCE hr = ShellExecute(NULL, _T("open"), _T("vtf2tga.exe"),_T(temp_arg), NULL, SW_HIDE);
 //		ShellExecute()
-//		_execl("vtf2tga.exe","%s %s",pNode->m_name,temp);
+//		_execl("vtf2tga.exe","%s %s",pNode->m_iame,temp);
 	}
 }
 
@@ -969,15 +969,15 @@ void FFileList::ConvertNameMRes2Zip()
 	for(node = begin(); node != end(); ++node) {
 		pNode = (*node);
 
-		strcpy(_buf_rename,pNode->m_name);
-		len = (int)strlen(pNode->m_name);
+		strcpy(_buf_rename,pNode->m_iame);
+		len = (int)strlen(pNode->m_iame);
 
 		_buf_rename[len-3] = NULL;
 		strcat(_buf_rename,"zip");
 
-		rename( pNode->m_name, _buf_rename);
+		rename( pNode->m_iame, _buf_rename);
 
-		mlog("rename : %s -> %s \n",_buf_rename,pNode->m_name);
+		mlog("rename : %s -> %s \n",_buf_rename,pNode->m_iame);
 	}
 }
 
@@ -992,15 +992,15 @@ void FFileList::ConvertNameZip2MRes()
 	for(node = begin(); node != end(); ++node) {
 		pNode = (*node);
 
-		strcpy(_buf_rename,pNode->m_name);
-		len = (int)strlen(pNode->m_name);
+		strcpy(_buf_rename,pNode->m_iame);
+		len = (int)strlen(pNode->m_iame);
 
 		_buf_rename[len-3] = NULL;
 		strcat(_buf_rename,"mrs");
 
-		rename( pNode->m_name, _buf_rename);
+		rename( pNode->m_iame, _buf_rename);
 
-		mlog("rename : %s -> %s \n",pNode->m_name,_buf_rename);
+		mlog("rename : %s -> %s \n",pNode->m_iame,_buf_rename);
 	}
 }
 

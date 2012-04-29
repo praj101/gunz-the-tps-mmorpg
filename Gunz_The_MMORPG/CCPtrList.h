@@ -53,8 +53,9 @@
 */
 #include <crtdbg.h> // Needed for ASSERT
 
-template<class _T>
-class CCPtrRecord{
+template <class _T>
+class CCPtrRecord
+{
 	CCPtrRecord<_T>*	m_lpPrev;
 	CCPtrRecord<_T>*	m_lpNext;
 public:
@@ -98,7 +99,7 @@ template<class _T>
 class CCPtrList{
 private:
 	CCPtrRecord<_T>*	m_lpFirstRecord;
-	CCPtrRector<_T>*	m_lpLastRecord;
+	CCPtrRecord<_T>*	m_lpLastRecord;
 	CCPtrRecord<_T>*	m_lpCurrentRecord;
 	int					m_iTotalRecords;
 	int					m_iCurrentPos;
@@ -146,7 +147,7 @@ private:
 		There are no inline functions.
 */
 template<class _T>
-CCPtrList::CCPtrList(){
+CCPtrList<_T>::CCPtrList(){
 	m_lpFirstRecord		= NULL;
 	m_lpLastRecord		= NULL;
 	m_lpCurrentRecord	= NULL;
@@ -155,7 +156,7 @@ CCPtrList::CCPtrList(){
 }
 
 template<class _T>
-CCPtrList::~CCPtrList(){
+CCPtrList<_T>::~CCPtrList(){
 	DeleteAll();
 	m_lpFirstRecord		= NULL;
 	m_lpLastRecord		= NULL;
@@ -165,7 +166,7 @@ CCPtrList::~CCPtrList(){
 }
 
 template<class _T>
-bool CCPtrList::InsertBefore(_T *lpRecord){
+bool CCPtrList<_T>::InsertBefore(_T *lpRecord){
 	_ASSERT(lpRecord!=NULL);
 
 	if(m_iTotalRecords==0){

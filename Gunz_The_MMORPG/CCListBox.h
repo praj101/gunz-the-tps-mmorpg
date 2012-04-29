@@ -199,11 +199,11 @@ protected:
 			else return -nCompare;
 		}
 	} m_Items;
-	int				m_nOverItem;		
-	int				m_nSelItem;			
-	int				m_nShowItemCount;	
-	int				m_nStartItemPos;	
-	int				m_nItemHeight;		
+	int				m_iOverItem;		
+	int				m_iSelItem;			
+	int				m_iShowItemCount;	
+	int				m_iStartItemPos;	
+	int				m_iItemHeight;		
 	CCScrollBar*		m_pScrollBar;
 
 	CCLinkedList<CCLISTFIELD>	m_Fields;

@@ -143,13 +143,13 @@ class CCHyperText
 {
 private:
 	char*			m_pBuffer;			//Text Buffer, CCHyperText only to parse the contents of the memory.
-	int				m_nLen;				//size of the buffer
+	int				m_iLen;				//size of the buffer
 	int				bp;					//Buffer pointer of
-	int				m_nOffset;			//m_szScan the buffer pointer
+	int				m_iOffset;			//m_szScan the buffer pointer
 	bool			m_bTagReady;
 	char			m_szScan[20480];	//Scan a string pointer values ??are stored, yytext and Bana to play a similar role.
 
-	void			Gather(char b){ m_szScan[m_nOffset++] = b; }
+	void			Gather(char b){ m_szScan[m_iOffset++] = b; }
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS

@@ -57,11 +57,11 @@ template< typename T >
 class CMemPool
 {
 private:
-	static int	m_nCapacity;
+	static int	m_iCapacity;
 
 protected:
 	static T*	m_list;
-	T*			m_next;
+	T*			m_iext;
 
 	// Multi Thread에서 메모리를 보호하기 위해
 	static CRITICAL_SECTION m_csLock;
@@ -69,7 +69,7 @@ protected:
 public:
 	static void	_InitCS()
 	{
-		m_nCapacity = 0;
+		m_iCapacity = 0;
 		InitializeCriticalSection( &m_csLock );
 	}
 
@@ -99,12 +99,12 @@ void* CMemPool<T>::operator new( size_t size_ )
 	if( m_list != NULL )
 	{
 		instance	= m_list;
-		m_list	= m_list->m_next;
+		m_list	= m_list->m_iext;
 	}
 	else
 	{
 		instance = (T*)::operator new(size_);
-		m_nCapacity++;
+		m_iCapacity++;
 	}
 
 	LeaveCriticalSection( &m_csLock );
@@ -123,7 +123,7 @@ void CMemPool<T>::operator delete( void* deadObject_, size_t size_ )
 {
 	EnterCriticalSection( &m_csLock );
 
-	((T*)deadObject_)->m_next	= m_list;
+	((T*)deadObject_)->m_iext	= m_list;
 	m_list	= (T*)deadObject_;
 
 	LeaveCriticalSection( &m_csLock );
@@ -145,10 +145,10 @@ void CMemPool<T>::Release()
 		T* pInstace		= m_list;
 		while( pInstace != NULL )
 		{
-			pInstace	= m_list->m_next;
+			pInstace	= m_list->m_iext;
 			::operator delete( m_list );
 			m_list	= pInstace;
-			m_nCapacity--;
+			m_iCapacity--;
 		}
 
 		LeaveCriticalSection( &m_csLock );
@@ -158,12 +158,12 @@ void CMemPool<T>::Release()
 template<typename T>
 int	CMemPool<T>::GetCapacity()
 {
-	return m_nCapacity;
+	return m_iCapacity;
 }
 
 template<typename T> CRITICAL_SECTION CMemPool<T>::m_csLock;
 template<typename T> T* CMemPool<T>::m_list;
-template<typename T> int CMemPool<T>::m_nCapacity = 0;
+template<typename T> int CMemPool<T>::m_iCapacity = 0;
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -175,7 +175,7 @@ class CMemPoolSm
 {
 protected:
 	static T*	m_list;
-	T*			m_next;
+	T*			m_iext;
 
 public:
 	static void* operator new( size_t size_ );
@@ -196,7 +196,7 @@ void* CMemPoolSm<T>::operator new( size_t size_ )
 
 	if( m_list != NULL ) {
 		instance = m_list;
-		m_list = m_list->m_next;
+		m_list = m_list->m_iext;
 //		mlog("메모리 재사용\n");
 	} else {
 		instance = (T*)::operator new(size_);
@@ -214,7 +214,7 @@ void* CMemPoolSm<T>::operator new( size_t size_ )
 template<typename T>
 void CMemPoolSm<T>::operator delete( void* deadObject_, size_t size_ )
 {
-	((T*)deadObject_)->m_next = m_list;
+	((T*)deadObject_)->m_iext = m_list;
 	m_list	= (T*)deadObject_;
 //	mlog("메모리 가상 삭제\n");
 }
@@ -227,7 +227,7 @@ void CMemPoolSm<T>::Release()
 {
 	T* pInstace	= m_list;
 	while( pInstace != NULL ) {
-		pInstace = m_list->m_next;
+		pInstace = m_list->m_iext;
 		::operator delete( m_list );
 		m_list = pInstace;
 //		mlog("메모리 삭제\n");

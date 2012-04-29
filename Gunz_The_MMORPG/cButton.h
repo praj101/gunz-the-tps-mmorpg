@@ -5,7 +5,7 @@
 
 class cButton : public CCButton{
 protected:
-	uchar			m_nIllumination;
+	uchar			m_iIllumination;
 	DWORD			m_dwCurrentTime;
 	DWORD			m_dwLastTime;
 	DWORD			m_dwClickedTime;
@@ -29,7 +29,7 @@ public:
 
 class cBmButton : public CCBmButton{ 
 protected:
-	uchar			m_nIllumination;
+	uchar			m_iIllumination;
 	DWORD			m_dwCurrentTime;
 	DWORD			m_dwLastTime;
 	DWORD			m_dwClickedTime;

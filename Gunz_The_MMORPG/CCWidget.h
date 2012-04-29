@@ -61,7 +61,7 @@ protected:
 	
 	CCPtrList<CCWidget>		m_Children;			//Children Widgets
 	
-	CCWidget*				m_Parent;			//Parent Widget
+	CCWidget*				m_pParent;			//Parent Widget
 	CCPtrList<CCWidget>		m_Exclusive;		//< Exclusive Child Widget Stack ( for Modal Support )
 
 	CCCursor*				m_pCursor;			//Default Cursor for this Widget
@@ -72,13 +72,13 @@ protected:
 
 	bool					m_bZOrderChangable;	//Order change by L-Button Click
 	bool					m_bResizable;		//Resizeable?
-	int						m_iResizeSlide;		//0: N / A 1: Up 2: Right 4: Down 8: Left (BitFlag)
+	int						m_iResizeSide;		//0: N / A 1: Up 2: Right 4: Down 8: Left (BitFlag)
 
-	uchar					m_nOpacity;			//Opacity
+	uchar					m_iOpacity;			//Opacity
 
 	bool					m_bClipByParent;	//Parent Widget is that by the Clip?
 
-	CCAlignmentMode			m_BoundAlignment;	//m_Rect for Alignment
+	CCAlignmentMode			m_BoundsAlignment;	//m_Rect for Alignment
 
 public:
 	char					m_szName[CCWIDGET_NAME_LENGTH];		//Name
@@ -90,20 +90,20 @@ public:
 	sAnchors				m_Anchors;					//Parent Widget is proportional to the position?
 	int						m_iMinWidth, m_iMinHeight;	//The minimum size of the widget
 
-	bool					b_bIsListBox;				
+	bool					m_bIsListBox;				
 	int						m_iDebugType;
 	bool					m_bEventAcceleratorCall;	//Broken English: "keystroke events whether it was a fire detection"
 
 protected:
 	bool					m_bEnableDesignerMode;		//Designer Mode Enable Flag
-	int						m_iCCDragWidget;			//Move or resize the widgets flag
+	int						m_iDragWidget;			//Move or resize the widgets flag
 	sPoint					m_CCDragPoint;				//Move or resize the widgets position
 	bool					m_bModifiedByDesigner;		//Designer by the location, size is modified
 	bool					m_bAddedByDesigner;			//Designer is added by
 	int						m_iID;						//ID of the widget
 
 private:
-	void MaleLocalEvent(CCEvent* pLocalEvent, const CCEvent* pEvent);	//Local Coordinate, Local Event, Converted?
+	void MakeLocalEvent(CCEvent* pLocalEvent, const CCEvent* pEvent);	//Local Coordinate, Local Event, Converted?
 	bool EventResize(CCEvent* pEvent);									//Event handling in the resize section
 
 protected:
@@ -270,8 +270,8 @@ int		RemoveAnd(char* szRemovedFrontText, char* cUnderlineChar, char szRemovedBac
 
 sPoint	CCClientToScreen(CCWidget* pWidget, sPoint &p);		//Convert to a local location to location throughout the
 sPoint	CCScreenToClient(CCWidget* pWidget, sPoint &p);		//Convert a global location where the local
-sPoint	CCClientToScreen(CCWidget* pWidget, sRect &p);		//Convert to local areas throughout the region
-sPoint	CCScreenToScreen(CCWidget* pWidget, sRect &p);		//Throughout the area converted to the local area
+sRect	CCClientToScreen(CCWidget* pWidget, sRect &p);		//Convert to local areas throughout the region
+sRect	CCScreenToScreen(CCWidget* pWidget, sRect &p);		//Throughout the area converted to the local area
 
 sPoint	GetCursorPosition();		//Get the current cursor position
 

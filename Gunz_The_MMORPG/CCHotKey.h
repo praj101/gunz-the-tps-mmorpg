@@ -11,7 +11,7 @@ protected:
 	DECLARE_LOOK_CLIENT()
 
 protected:
-	unsigned int	m_nKey;
+	unsigned int	m_iKey;
 	bool			m_bCtrl;
 	bool			m_bAlt;
 	bool			m_bShift;

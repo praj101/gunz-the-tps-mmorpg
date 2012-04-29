@@ -34,7 +34,7 @@ class CCZFileSystem{
 	char		m_szBasePath[256];
 	CCFLIST		m_ZFileList;
 	CCFLISTITOR	m_iterator;
-	int			m_nIndex;
+	int			m_iIndex;
 
 	char		m_szUpdateName[256];
 
@@ -98,12 +98,12 @@ protected:
 	CCZip	m_Zip;
 
 	char*	m_pData;
-	unsigned long	m_nFileSize;
-	unsigned long	m_nEncryptFileSize;
+	unsigned long	m_iFileSize;
+	unsigned long	m_iEncryptFileSize;
 
-	int		m_nPos;
+	int		m_iPos;
 
-	int		m_nIndexInZip;
+	int		m_iIndexInZip;
 	unsigned int	m_crc32;
 
 	char	m_FileName[256];

@@ -18,22 +18,22 @@ enum MEMORYFUGITIVE_TYPE {
 class CCDataChecker;
 class CCDataCheckNode {
 protected:
-	unsigned int	m_nID;	//debugging identifier
+	unsigned int	m_iID;	//debugging identifier
 	BYTE*			m_pData;
-	unsigned int	m_nLen;
-	unsigned int	m_nChecksum;
-	unsigned int	m_nLastChecksum;
+	unsigned int	m_iLen;
+	unsigned int	m_iChecksum;
+	unsigned int	m_iLastChecksum;
 	MEMORYFUGITIVE_TYPE	m_memFugitiveType;
 
 public:
 	CCDataCheckNode(BYTE* pData, unsigned int nLen, MEMORYFUGITIVE_TYPE memFugitiveType);
 	virtual ~CCDataCheckNode();
 
-	unsigned int GetID()			{ return m_nID; }
-	unsigned int GetChecksum()		{ return m_nChecksum; }
-	unsigned int GetLastChecksum()	{ return m_nLastChecksum; }
+	unsigned int GetID()			{ return m_iID; }
+	unsigned int GetChecksum()		{ return m_iChecksum; }
+	unsigned int GetLastChecksum()	{ return m_iLastChecksum; }
 	bool UpdateChecksum();	//is equal before and after updating true, different false
-	void Validate()	{ m_nLastChecksum = m_nChecksum; }
+	void Validate()	{ m_iLastChecksum = m_iChecksum; }
 
 friend CCDataChecker;
 };
@@ -42,8 +42,8 @@ class CCDataCheckMap : public map<BYTE*, CCDataCheckNode*>{};
 
 class CCDataChecker {
 protected:
-	unsigned int	m_nTotalChecksum;
-	unsigned int	m_nLastTotalChecksum;
+	unsigned int	m_iTotalChecksum;
+	unsigned int	m_iLastTotalChecksum;
 
 	CCDataCheckMap	m_DataCheckMap;
 
@@ -52,7 +52,7 @@ public:
 	virtual ~CCDataChecker();
 
 	void Clear();
-	unsigned int GetChecksum()	{ return m_nTotalChecksum; }
+	unsigned int GetChecksum()	{ return m_iTotalChecksum; }
 	CCDataCheckNode* FindCheck(BYTE* pData);
 	CCDataCheckNode* AddCheck(BYTE* pData, unsigned int nLen, MEMORYFUGITIVE_TYPE memFugitiveType=MT_MEMORYFUGITIVE_NONE);
 	void RenewCheck(BYTE* pData, unsigned int nLen);

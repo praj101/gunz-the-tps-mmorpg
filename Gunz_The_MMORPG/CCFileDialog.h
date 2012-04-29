@@ -24,7 +24,7 @@ class CCFileDialog : public CCFrame{
 	CCButon*		m_pCancel;
 	CCFileBox*		m_pFileBox;
 	CCEdit*			m_pFileName;
-	CCFileDialogType	m_nType;
+	CCFileDialogType	m_iType;
 	CCMsgBox*		m_pMsgBox;
 	char			m_szTempPathName[256];
 

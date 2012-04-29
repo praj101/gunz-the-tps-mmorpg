@@ -38,7 +38,7 @@ bool RLightList::Open(CCXmlElement *pElement)
 
 	#define READVECTOR(v) sscanf(szContents,"%f %f %f",&v.x,&v.y,&v.z)
 
-				if(stricmp(szTagName,RTOK_POSITION)==0)		READVECTOR(plight->Position); else
+				if(stricmp(szTagName,RTOK_POSITION)==0)		READVECTOR(plight->sPosition); else
 				if(stricmp(szTagName,RTOK_COLOR)==0)		READVECTOR(plight->Color); else
 				if(stricmp(szTagName,RTOK_INTENSITY)==0)	sscanf(szContents,"%f",&plight->fIntensity); else
 				if(stricmp(szTagName,RTOK_ATTNSTART)==0)	sscanf(szContents,"%f",&plight->fAttnStart); else
@@ -70,7 +70,7 @@ bool RLightList::Save(CCXmlElement *pElement)
 
 		aElement.AppendText("\n\t\t\t");
 		aChild=aElement.CreateChildElement(RTOK_POSITION);
-		aChild.SetContents(Format(buffer,plight->Position));
+		aChild.SetContents(Format(buffer,plight->sPosition));
 
 		aElement.AppendText("\n\t\t\t");
 		aChild=aElement.CreateChildElement(RTOK_COLOR);

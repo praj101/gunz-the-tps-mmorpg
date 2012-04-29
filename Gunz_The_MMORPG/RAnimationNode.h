@@ -23,7 +23,7 @@ public:
 public:
 
 	D3DXMATRIX		m_mat_base;
-	int				m_node_id;
+	int				m_iode_id;
 	RMesh*			m_pConnectMesh;
 
 	int				m_pos_cnt;

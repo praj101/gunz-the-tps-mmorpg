@@ -34,7 +34,7 @@ public:
 	// name
 
 	char			m_Parent[MAX_NAME_LEN];
-	int				m_nParentNodeID;
+	int				m_iParentNodeID;
 
 	// bbox
 
@@ -107,7 +107,7 @@ public:
 
 	DWORD			m_dwTFactorColor;
 
-	int				m_nMtrlCnt;
+	int				m_iMtrlCnt;
 	RMtrl**			m_pMtrlTable;
 };
 

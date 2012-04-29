@@ -25,8 +25,8 @@ void CCWidget::MakeLocalEvent(CCEvent* pLoalEvent, const CCEvent* pEvent){
 	memcpy(pLoalEvent, pEvent, sizeof(CCEvent));
 
 	sRect sr = GetScreenRect();
-	pLoalEvent->Pos.x -= sr.x;
-	pLoalEvent->Pos.y -= sr.y;
+	pLoalEvent->sPos.x -= sr.x;
+	pLoalEvent->sPos.y -= sr.y;
 }
 
 bool CCWidget::EventResize(CCEvent* pEvent){
@@ -36,61 +36,61 @@ bool CCWidget::EventResize(CCEvent* pEvent){
 	// Widget Resize
 #define RESIZER_SIZE	4
 	if(m_bResizable==true){
-		sPoint sp = pEvent->Pos;
+		sPoint sp = pEvent->sPos;
 		CCWidget* pParent = GetParent();
 		if(pParent==NULL) return false;
 
-		if(pEvent->nMessage==MWM_LBUTTONDOWN){
-			m_nResizeSide = 0;
-			if(LocalEvent.Pos.y>=-RESIZER_SIZE && LocalEvent.Pos.y<=RESIZER_SIZE){
-				if(LocalEvent.Pos.x>=-RESIZER_SIZE && LocalEvent.Pos.x<=m_Rect.w+RESIZER_SIZE)
-					m_nResizeSide |= 1;
+		if(pEvent->iMessage==CCWM_LBUTTONDOWN){
+			m_iResizeSide = 0;
+			if(LocalEvent.sPos.y>=-RESIZER_SIZE && LocalEvent.sPos.y<=RESIZER_SIZE){
+				if(LocalEvent.sPos.x>=-RESIZER_SIZE && LocalEvent.sPos.x<=m_Rect.w+RESIZER_SIZE)
+					m_iResizeSide |= 1;
 			}
-			if(LocalEvent.Pos.x>=m_Rect.w-RESIZER_SIZE && LocalEvent.Pos.x<=m_Rect.w+RESIZER_SIZE){
-				if(LocalEvent.Pos.y>=-RESIZER_SIZE && LocalEvent.Pos.y<=m_Rect.h+RESIZER_SIZE)
-					m_nResizeSide |= 2;
+			if(LocalEvent.sPos.x>=m_Rect.w-RESIZER_SIZE && LocalEvent.sPos.x<=m_Rect.w+RESIZER_SIZE){
+				if(LocalEvent.sPos.y>=-RESIZER_SIZE && LocalEvent.sPos.y<=m_Rect.h+RESIZER_SIZE)
+					m_iResizeSide |= 2;
 			}
-			if(LocalEvent.Pos.y>=m_Rect.h-RESIZER_SIZE && LocalEvent.Pos.y<=m_Rect.h+RESIZER_SIZE){
-				if(LocalEvent.Pos.x>=-RESIZER_SIZE && LocalEvent.Pos.x<=m_Rect.w+RESIZER_SIZE)
-					m_nResizeSide |= 4;
+			if(LocalEvent.sPos.y>=m_Rect.h-RESIZER_SIZE && LocalEvent.sPos.y<=m_Rect.h+RESIZER_SIZE){
+				if(LocalEvent.sPos.x>=-RESIZER_SIZE && LocalEvent.sPos.x<=m_Rect.w+RESIZER_SIZE)
+					m_iResizeSide |= 4;
 			}
-			if(LocalEvent.Pos.x>=-RESIZER_SIZE && LocalEvent.Pos.x<=RESIZER_SIZE){
-				if(LocalEvent.Pos.y>=-RESIZER_SIZE && LocalEvent.Pos.y<=m_Rect.h+RESIZER_SIZE)
-					m_nResizeSide |= 8;
+			if(LocalEvent.sPos.x>=-RESIZER_SIZE && LocalEvent.sPos.x<=RESIZER_SIZE){
+				if(LocalEvent.sPos.y>=-RESIZER_SIZE && LocalEvent.sPos.y<=m_Rect.h+RESIZER_SIZE)
+					m_iResizeSide |= 8;
 			}
-			if(m_nResizeSide!=0){
+			if(m_iResizeSide!=0){
 				SetCapture();
 				//
 				return true;
 			}
 		}
-		if(m_nResizeSide!=0 && pEvent->nMessage==CCWM_LBUTTONUP){
+		if(m_iResizeSide!=0 && pEvent->iMessage==CCWM_LBUTTONUP){
 			ReleaseCapture();
-			m_nResizeSide = 0;
+			m_iResizeSide = 0;
 			return true;
 		}
-		if(pEvent->nMessage==CCWM_MOUSEMOVE){
-			if(m_nResizeSide!=0){
+		if(pEvent->iMessage==CCWM_MOUSEMOVE){
+			if(m_iResizeSide!=0){
 				sPoint pp = CCScreenToClient(pParent, sp);
 				sPoint tp = CCScreenToClient(this, sp);
 				sRect r = m_Rect;
-				if(m_nResizeSide&1){
+				if(m_iResizeSide&1){
 					r.h += (r.y - pp.y);
 					r.y = pp.y;
 				}
-				if(m_nResizeSide&2){
+				if(m_iResizeSide&2){
 					r.w = tp.x;
 				}
-				if(m_nResizeSide&4){
+				if(m_iResizeSide&4){
 					r.h = tp.y;
 				}
-				if(m_nResizeSide&8){
+				if(m_iResizeSide&8){
 					r.w += (r.x - pp.x);
 					r.x = pp.x;
 				}
 				SetPosition(r.x, r.y);
-				if(r.w<m_nMinWidth) r.w = m_nMinWidth;
-				if(r.h<m_nMinHeight) r.h = m_nMinHeight;
+				if(r.w<m_iMinWidth) r.w = m_iMinWidth;
+				if(r.h<m_iMinHeight) r.h = m_iMinHeight;
 				SetSize(r.w, r.h);
 				return true;
 			}
@@ -144,7 +144,7 @@ CCWidget* CCWidget::GetLatestExclusive(void){
 
 CCWidget::CCWidget(const char* szName, CCWidget* pParent, CCListener* pListener){
 	g_nWidgetCount++;
-	m_nID = g_nWidgetCount;
+	m_iID = g_nWidgetCount;
 
 	if(szName==NULL) m_szName[0] = NULL;
 	else{
@@ -184,24 +184,24 @@ CCWidget::CCWidget(const char* szName, CCWidget* pParent, CCListener* pListener)
 
 	m_bZOrderChangable = false;
 	m_bResizable = false;
-	m_nResizeSide = 0;
+	m_iResizeSide = 0;
 
 	m_bClipByParent = true;
 
-	m_nOpacity = 255;
+	m_iOpacity = 255;
 
 	m_bEnableDesignerMode = true;
-	m_nDMDragWidget = 0;
+	m_iDragWidget = 0;
 	m_bModifiedByDesigner = false;
 	m_bAddedByDesigner = false;
-	m_BoundsAlignment = MAM_NOTALIGN;
+	m_BoundsAlignment = CCD_NOTALIGN;
 
-	m_nMinWidth = 10;
-	m_nMinHeight = 10;
+	m_iMinWidth = 10;
+	m_iMinHeight = 10;
 
-	m_bisListBox = false;
+	m_bIsListBox = false;
 
-	m_nDebugType = 0;
+	m_iDebugType = 0;
 	m_bEventAcceleratorCall = false;
 
 	m_IDLRect = sRect(-1,-1,-1,-1);
@@ -227,11 +227,11 @@ void CCWidget::OnRun(void){
 
 void CCWidget::OnDraw(CCDrawContext* pDC){
 	// Draw Nothing
-	pDC->SetColor(MCOLOR(196, 196, 196));
+	pDC->SetColor(sColor(196, 196, 196));
 	pDC->FillRectangle(GetInitialClientRect());
 }
 
-bool CCWidget::OnEvent(CCEvent* pEvent, MListener* pListener){
+bool CCWidget::OnEvent(CCEvent* pEvent, CCListener* pListener){
 	return false;
 }
 
@@ -257,7 +257,7 @@ void CCWidget::Draw(CCDrawContext* pDC){
 	if(m_pFont!=NULL) pDC->SetFont(m_pFont);
 	else pDC->SetFont(CCFontManager::Get(NULL));
 
-	pDC->SetOpacity((unsigned char)(nLastOpacity * (float)(m_nOpacity / 255.0f)));
+	pDC->SetOpacity((unsigned char)(nLastOpacity * (float)(m_iOpacity / 255.0f)));
 	if(!IsEnable())
 		pDC->SetOpacity((unsigned char)(pDC->GetOpacity()*0.70));	
 
@@ -315,23 +315,23 @@ bool CCWidget::Event(CCEvent* pEvent){
 	sRect r = GetRect();
 	r.x = r.y = 0;
 
-	if(pEvent->nMessage==CCWM_LBUTTONDOWN)
+	if(pEvent->iMessage==CCWM_LBUTTONDOWN)
 		int k=0;
 
 	CCEvent LocalEvent;
 	MakeLocalEvent(&LocalEvent, pEvent);
 
-	if(m_nDebugType==2){
-		if(pEvent->nMessage==CCWM_LBUTTONDOWN )
+	if(m_iDebugType==2){
+		if(pEvent->iMessage==CCWM_LBUTTONDOWN )
 			int k=0;
 	}
 
-	if(r.InPoint(LocalEvent.Pos)==true && (CCWidget::m_pCapturedWidget==NULL || CCWidget::m_pCapturedWidget==this) && IsVisible()==true){
+	if(r.InPoint(LocalEvent.sPos)==true && (CCWidget::m_pCapturedWidget==NULL || CCWidget::m_pCapturedWidget==this) && IsVisible()==true){
 		if(m_pCursor!=NULL) CCCursorSystem::Set(m_pCursor);
 		else CCCursorSystem::Set(CCCURSOR_ARROW);	
 
 		if(m_pToolTip!=NULL){
-			SetZOrder(MZ_TOP);
+			SetZOrder(CC_TOP);
 			m_pToolTip->Show(true);
 		}
 	}
@@ -348,10 +348,10 @@ bool CCWidget::Event(CCEvent* pEvent){
 		if(GetLatestExclusive()!=NULL) return false;
 	}
 
-	if(pEvent->nMessage==CCWM_LBUTTONDOWN){
-		if ( r.InPoint(LocalEvent.Pos)==true){
+	if(pEvent->iMessage==CCWM_LBUTTONDOWN){
+		if ( r.InPoint(LocalEvent.sPos)==true){
 			SetFocus();
- 			if((m_bFocusEnable)&&(m_bZOrderChangable==true)) SetZOrder(MZ_TOP);
+ 			if((m_bFocusEnable)&&(m_bZOrderChangable==true)) SetZOrder(CC_TOP);
 		}
 		else	// ReleaseFocus
 		{
@@ -372,18 +372,18 @@ bool CCWidget::Event(CCEvent* pEvent){
 
 	if(EventResize(pEvent)==true) return true;
 
-	if(pEvent->nMessage==CCWM_HOTKEY){
-		if(OnHotKey(pEvent->nKey)==true) return true;
+	if(pEvent->iMessage==CCWM_HOTKEY){
+		if(OnHotKey(pEvent->uKey)==true) return true;
 	}
 
-	if(pEvent->nMessage==CCWM_CHAR || pEvent->nMessage==CCWM_KEYDOWN || pEvent->nMessage==CCWM_IMECOMPOSE ||
-		pEvent->nMessage==CCWM_ACTIONKEYDOWN || pEvent->nMessage==CCWM_ACTIONKEYUP || pEvent->nMessage==CCWM_ACTIONPRESSED || pEvent->nMessage==CCWM_ACTIONRELEASED){
+	if(pEvent->iMessage==CCWM_CHAR || pEvent->iMessage==CCWM_KEYDOWN || pEvent->iMessage==CCWM_IMECOMPOSE ||
+		pEvent->iMessage==CCWM_ACTIONKEYDOWN || pEvent->iMessage==CCWM_ACTIONKEYUP || pEvent->iMessage==CCWM_ACTIONPRESSED || pEvent->iMessage==CCWM_ACTIONRELEASED){
 		if (IsFocus()) {
 			if(OnEvent(&LocalEvent, GetListener())==true) 
 				return true;
 
 			// Tab Key
-			if(pEvent->nMessage==CCWM_KEYDOWN && pEvent->nKey==VK_TAB){
+			if(pEvent->iMessage==CCWM_KEYDOWN && pEvent->uKey==VK_TAB){
 				if(OnTab(!pEvent->GetShiftState())==true) 
 					return true;
 			}
@@ -395,7 +395,7 @@ bool CCWidget::Event(CCEvent* pEvent){
 				return true;
 	}
 
-	if(pEvent->nMessage==CCWM_LBUTTONUP) ReleaseCapture();
+	if(pEvent->iMessage==CCWM_LBUTTONUP) ReleaseCapture();
 
 	return false;
 }
@@ -404,11 +404,11 @@ bool CCWidget::EventAccelerator(CCEvent* pEvent){
 	if(m_bVisible==false) return false;	
 	if(m_bEnable==false) return false;
 
-	if(!(pEvent->nMessage==CCWM_KEYDOWN || pEvent->nMessage==CCWM_SYSKEYDOWN)) return false;
+	if(!(pEvent->iMessage==CCWM_KEYDOWN || pEvent->iMessage==CCWM_SYSKEYDOWN)) return false;
 
-	if(pEvent->nMessage==CCWM_KEYDOWN)
+	if(pEvent->iMessage==CCWM_KEYDOWN)
 		if(CCWidget::m_pFocusedWidget!=NULL)
-			if(strcmp(CCWidget::m_pFocusedWidget->GetClassName(), MINT_EDIT)==0) return false;
+			if(strcmp(CCWidget::m_pFocusedWidget->GetClassName(), CCEDIT)==0) return false;
 
 	if(GetLatestExclusive()!=NULL){
 		if(GetLatestExclusive()->EventAccelerator(pEvent)==true) return true;
@@ -423,8 +423,8 @@ bool CCWidget::EventAccelerator(CCEvent* pEvent){
 	}
 
 	// Accelerator
-	char szKey[2] = {(char)pEvent->nKey, 0};
-	if(m_nAccelerator==szKey[0]) {
+	char szKey[2] = {(char)pEvent->uKey, 0};
+	if(m_iAccelerator==szKey[0]) {
 
 		m_bEventAcceleratorCall = true;
 
@@ -442,7 +442,7 @@ bool CCWidget::EventDefaultKey(CCEvent* pEvent){
 	if(m_bVisible==false) return false;
 	if(m_bEnable==false) return false;
 
-	if(!(pEvent->nMessage==CCWM_KEYDOWN))return false;
+	if(!(pEvent->iMessage==CCWM_KEYDOWN))return false;
 
 	if(GetLatestExclusive()!=NULL){
 		if(GetLatestExclusive()->EventDefaultKey(pEvent)==true) return true;
@@ -456,11 +456,11 @@ bool CCWidget::EventDefaultKey(CCEvent* pEvent){
 		}
 	}
 
-	if(strcmp(GetClassName(), CCButton)!=0) return false;
+	if(strcmp(GetClassName(), CCBUTTON)!=0) return false;
 
 	CCButton* pButton = (CCButton*)this;
-	if((pButton->m_nKeyAssigned==CCBKA_ENTER && pEvent->nKey==VK_RETURN) ||
-		(pButton->m_nKeyAssigned==CCBKA_ESC && pEvent->nKey==VK_ESCAPE))
+	if((pButton->m_iKeyAssigned==CCBKA_ENTER && pEvent->uKey==VK_RETURN) ||
+		(pButton->m_iKeyAssigned==CCBKA_ESC && pEvent->uKey==VK_ESCAPE))
 		if(DefaultCommand()==true) return true;
 
 	return false;
@@ -592,11 +592,11 @@ CCListener* CCWidget::GetListener(void){
 }
 
 int CCWidget::GetID(void){
-	return m_nID;
+	return m_iID;
 }
 
 void CCWidget::SetID(int nID){
-	m_nID = nID;
+	m_iID = nID;
 }
 
 void CCWidget::SetText(const char* szText){
@@ -832,8 +832,8 @@ CCToolTip* CCWidget::GetToolTip(void){
 }
 
 void CCWidget::SetAccelerator(int a){
-	if(a==0) m_nAccelerator = -1;
-	else m_nAccelerator = a;
+	if(a==0) m_iAccelerator = -1;
+	else m_iAccelerator = a;
 }
 
 void CCWidget::SetLabelAccelerator(void){
@@ -982,7 +982,7 @@ void* CCWidget::Query(const char* szQuery){
 }
 
 void CCWidget::SetOpacity(unsigned char nOpacity){
-	m_nOpacity = nOpacity;
+	m_iOpacity = nOpacity;
 }
 
 void CCWidget::MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight){
@@ -1011,7 +1011,7 @@ void CCWidget::MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWid
 }
 
 unsigned char CCWidget::GetOpacity(){
-	return m_nOpacity;
+	return m_iOpacity;
 }
 
 int GetAndPos(const char* szText){

@@ -17,7 +17,7 @@ CCThumb::CCThumb(const char* szName, CCWidget* pParent, CCListener* pListener)
 
 CCArrow::CCArrow(const char* szName, CCWidget* pParent, CCListener* pListener)
 : CCButton(szName, pParent, pListener){
-	m_nDirection = 0;
+	m_iDirection = 0;
 	LOOK_IN_CONSTRUCTOR()
 }
 
@@ -31,76 +31,76 @@ void CCScrollBar::OnRun(void){
 		return;
 
 	int nCurrTime = timeGetTime();
-	if(nCurrTime-m_nPrevThumbRefresh<m_nThumbRefreshDelay) 
+	if(nCurrTime-m_iPrevThumbRefresh<m_iThumbRefreshDelay) 
 		return;
 
 	if(m_pUp->IsButtonDown()==true){
-		if(m_nValue>m_nMinValue){
-			m_nValue--;
+		if(m_iValue>m_iMinValue){
+			m_iValue--;
 			RecalcThumbPos();
 			if(pListener!=NULL) pListener->OnCommand(this, CCLIST_VALUE_CHANGED);
 		}
-		m_nPrevThumbRefresh = nCurrTime;
+		m_iPrevThumbRefresh = nCurrTime;
 	}
 	if(m_pDown->IsButtonDown()==true){
-		if(m_nValue<m_nMaxValue){
-			m_nValue++;
+		if(m_iValue<m_iMaxValue){
+			m_iValue++;
 			RecalcThumbPos();
 			if(pListener!=NULL) pListener->OnCommand(this, CCLIST_VALUE_CHANGED);
 		}
-		m_nPrevThumbRefresh = nCurrTime;
+		m_iPrevThumbRefresh = nCurrTime;
 	}
 }
 
 bool CCScrollBar::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	sRect r = GetClientRect();
-	switch(pEvent->nMessage){
+	switch(pEvent->iMessage){
 	case CCWM_LBUTTONDOWN:
 
-		if(m_pThumb->GetRect().InPoint(pEvent->Pos)==true){
+		if(m_pThumb->GetRect().InPoint(pEvent->sPos)==true){
 			SetCapture();
 			m_bThumbMove = true;
-			if(m_nScrollBarType==CCBT_VERTICAL){
-				m_nThumbPos = m_pThumb->GetRect().y - (r.y+m_pUp->GetRect().h);
-				m_nThumbDownPos = pEvent->Pos.y;
+			if(m_iScrollBarType==CCBT_VERTICAL){
+				m_iThumbPos = m_pThumb->GetRect().y - (r.y+m_pUp->GetRect().h);
+				m_iThumbDownPos = pEvent->sPos.y;
 			}
 			else{
-				m_nThumbPos = m_pThumb->GetRect().x - (r.x+m_pUp->GetRect().w);
-				m_nThumbDownPos = pEvent->Pos.x;
+				m_iThumbPos = m_pThumb->GetRect().x - (r.x+m_pUp->GetRect().w);
+				m_iThumbDownPos = pEvent->sPos.x;
 			}
 			return true;
 		}
 		else
 		{
-			if(r.InPoint(pEvent->Pos)==true){
-				if(!m_pUp->GetRect().InPoint(pEvent->Pos)) {
-					if(!m_pUp->GetRect().InPoint(pEvent->Pos)) {
+			if(r.InPoint(pEvent->sPos)==true){
+				if(!m_pUp->GetRect().InPoint(pEvent->sPos)) {
+					if(!m_pUp->GetRect().InPoint(pEvent->sPos)) {
 
 						int nThumbMoveRange = GetThumbMoveRange();
 						int nThumbPos;
 
-						if(m_nScrollBarType==CCBT_VERTICAL)
+						if(m_iScrollBarType==CCBT_VERTICAL)
 						{
-							nThumbPos  = pEvent->Pos.y;
+							nThumbPos  = pEvent->sPos.y;
 							nThumbPos -= m_pThumb->GetRect().h/2;
 						}
 						else
 						{
-							nThumbPos  = pEvent->Pos.x;
+							nThumbPos  = pEvent->sPos.x;
 							nThumbPos -= m_pThumb->GetRect().w/2;
 						}
 						
 						if(nThumbPos<0) nThumbPos = 0;
 						else if(nThumbPos>=nThumbMoveRange) nThumbPos = nThumbMoveRange-1;
 
-						if(m_nScrollBarType==CCBT_VERTICAL)
+						if(m_iScrollBarType==CCBT_VERTICAL)
 							m_pThumb->SetPosition(m_pThumb->GetRect().x, r.y+m_pUp->GetRect().h + nThumbPos);
 						else
 							m_pThumb->SetPosition(r.x+m_pUp->GetRect().w + nThumbPos, m_pThumb->GetRect().y);
 
 						float fThumbPos = nThumbPos / (float)nThumbMoveRange;
-						m_nValue = int( fThumbPos * (m_nMaxValue-m_nMinValue+1) );
+						m_iValue = int( fThumbPos * (m_iMaxValue-m_iMinValue+1) );
 						if(pListener!=NULL) pListener->OnCommand(this, CCLIST_VALUE_CHANGED);
 
 						return true;
@@ -120,28 +120,28 @@ bool CCScrollBar::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		if(m_bThumbMove==true){
 			int nThumbMoveRange = GetThumbMoveRange();
 			int nThumbPos;
-			if(m_nScrollBarType==CCBT_VERTICAL)
-				nThumbPos = m_nThumbPos + pEvent->Pos.y-m_nThumbDownPos;
+			if(m_iScrollBarType==CCBT_VERTICAL)
+				nThumbPos = m_iThumbPos + pEvent->sPos.y-m_iThumbDownPos;
 			else
-				nThumbPos = m_nThumbPos + pEvent->Pos.x-m_nThumbDownPos;
+				nThumbPos = m_iThumbPos + pEvent->sPos.x-m_iThumbDownPos;
 
 			if(nThumbPos<0) nThumbPos = 0;
 			else if(nThumbPos>=nThumbMoveRange) nThumbPos = nThumbMoveRange-1;
 
-			if(m_nScrollBarType==MSBT_VERTICAL)
+			if(m_iScrollBarType==MSBT_VERTICAL)
 				m_pThumb->SetPosition(m_pThumb->GetRect().x, r.y+m_pUp->GetRect().h + nThumbPos);
 			else
 				m_pThumb->SetPosition(r.x+m_pUp->GetRect().w + nThumbPos, m_pThumb->GetRect().y);
 
 			float fThumbPos = nThumbPos / (float)nThumbMoveRange;
-			m_nValue = int( fThumbPos * (m_nMaxValue-m_nMinValue+1) ) + m_nMinValue;
+			m_iValue = int( fThumbPos * (m_iMaxValue-m_iMinValue+1) ) + m_iMinValue;
 			if(pListener!=NULL) pListener->OnCommand(this, CCLIST_VALUE_CHANGED);
 			return true;
 		}
 		break;
 	}
 
-	if(pEvent->nMessage!=MWM_CHAR && r.InPoint(pEvent->Pos)==true) 
+	if(pEvent->iMessage!=MWM_CHAR && r.InPoint(pEvent->sPos)==true) 
 		return true;
 
 	return false;
@@ -151,20 +151,20 @@ void CCScrollBar::OnSize(int w, int h){
 	sRect r = GetClientRect();
 
 	sSize s = m_pUp->GetDefaultSize();
-	if(m_nScrollBarType==CCBT_VERTICAL){
+	if(m_iScrollBarType==CCBT_VERTICAL){
 		m_pUp->SetBounds(sRect(r.x, r.y, s.w, s.h));
 		m_pDown->SetBounds(sRect(r.x, r.y+r.h-s.h, s.w, s.h));
 	}
 	else{
-		m_pUp->SetBounds(MRECT(r.x, r.y, s.w, s.h));
-		m_pDown->SetBounds(MRECT(r.x+r.w-s.w, r.y, s.w, s.h));
+		m_pUp->SetBounds(sRect(r.x, r.y, s.w, s.h));
+		m_pDown->SetBounds(sRect(r.x+r.w-s.w, r.y, s.w, s.h));
 	}
 	RecalcThumbBounds();
 }
 
 int CCScrollBar::GetThumbMoveRange(void){
 	sRect r = GetClientRect();
-	if(m_nScrollBarType==CCBT_VERTICAL)
+	if(m_iScrollBarType==CCBT_VERTICAL)
 		return ( r.h - (m_pUp->GetRect().h+m_pDown->GetRect().h+m_pThumb->GetRect().h) );
 	else
 		return ( r.w - (m_pUp->GetRect().w+m_pDown->GetRect().w+m_pThumb->GetRect().w) );
@@ -172,28 +172,28 @@ int CCScrollBar::GetThumbMoveRange(void){
 
 int CCScrollBar::GetMoveRange(void){
 	sRect r = GetClientRect();
-	if(m_nScrollBarType==CCBT_VERTICAL)
+	if(m_iScrollBarType==CCBT_VERTICAL)
 		return ( r.h - (m_pUp->GetRect().h+m_pDown->GetRect().h) );
 	else
 		return ( r.w - (m_pUp->GetRect().w+m_pDown->GetRect().w) );
 }
 
 int CCScrollBar::GetThumbSize(void){
-	int nDiff = m_nMaxValue-m_nMinValue;
+	int nDiff = m_iMaxValue-m_iMinValue;
 	int nMoveRange = GetMoveRange();
 	int nThumbSize = nMoveRange - nDiff * 3;
-	int narrowWidth = ((m_nScrollBarType==CCBT_VERTICAL) ? GetClientRect().w : GetClientRect().h);
+	int narrowWidth = ((m_iScrollBarType==CCBT_VERTICAL) ? GetClientRect().w : GetClientRect().h);
 	return max(nThumbSize, narrowWidth);
 }
 
 void CCScrollBar::RecalcThumbPos(void){
 	sRect r = GetClientRect();
 	int nSpace = GetThumbMoveRange();
-	int nValueWidth = m_nMaxValue - m_nMinValue;
+	int nValueWidth = m_iMaxValue - m_iMinValue;
 	int nThumbPos = 0;
-	if(nValueWidth!=0) nThumbPos = nSpace * m_nValue / nValueWidth;
+	if(nValueWidth!=0) nThumbPos = nSpace * m_iValue / nValueWidth;
 
-	if(m_nScrollBarType==CCBT_VERTICAL)
+	if(m_iScrollBarType==CCBT_VERTICAL)
 		m_pThumb->SetPosition(r.x, r.y+m_pUp->GetRect().h+nThumbPos);
 	else
 		m_pThumb->SetPosition(r.x+m_pUp->GetRect().w+nThumbPos, r.y);
@@ -201,7 +201,7 @@ void CCScrollBar::RecalcThumbPos(void){
 
 void CCScrollBar::RecalcThumbBounds(void){
 	sRect r = GetClientRect();
-	if(m_nScrollBarType==CCBT_VERTICAL)
+	if(m_iScrollBarType==CCBT_VERTICAL)
 		m_pThumb->SetSize(r.w, GetThumbSize());
 	else
 		m_pThumb->SetSize(GetThumbSize(), r.h);
@@ -212,9 +212,9 @@ void CCScrollBar::RecalcThumbBounds(void){
 void CCScrollBar::Initialize(CCScrollBarTypes t){
 	LOOK_IN_CONSTRUCTOR()
 
-	m_nMinValue = 0;
-	m_nMaxValue = 99;
-	m_nValue = 0;
+	m_iMinValue = 0;
+	m_iMaxValue = 99;
+	m_iValue = 0;
 
 	m_pUp = new CCArrow(NULL, this, this);
 	sSize s = m_pUp->GetDefaultSize();
@@ -226,8 +226,8 @@ void CCScrollBar::Initialize(CCScrollBarTypes t){
 
 	SetType(t);
 
-	m_nThumbRefreshDelay = 80;
-	m_nPrevThumbRefresh = 0;
+	m_iThumbRefreshDelay = 80;
+	m_iPrevThumbRefresh = 0;
 
 	m_bThumbMove = false;
 }
@@ -249,54 +249,54 @@ CCScrollBar::~CCScrollBar(void){
 }
 
 void CCScrollBar::SetMinMax(int nMin, int nMax){
-	m_nMinValue = nMin;
-	m_nMaxValue = nMax;
+	m_iMinValue = nMin;
+	m_iMaxValue = nMax;
 	_ASSERT(nMin<=nMax);
 
 	RecalcThumbBounds();
 }
 
 void CCScrollBar::SetValue(int nValue){
-	if(nValue>=m_nMinValue && nValue<=m_nMaxValue){
-		m_nValue = nValue;
+	if(nValue>=m_iMinValue && nValue<=m_iMaxValue){
+		m_iValue = nValue;
 		RecalcThumbPos();
 	}
 }
 
 void CCScrollBar::SetValueAdjusted(int nValue){
-	m_nValue = nValue;
-	m_nValue = max(m_nValue, m_nMinValue);
-	m_nValue = min(m_nValue, m_nMaxValue);
+	m_iValue = nValue;
+	m_iValue = max(m_iValue, m_iMinValue);
+	m_iValue = min(m_iValue, m_iMaxValue);
 	RecalcThumbPos();
 }
 
 int CCScrollBar::GetValue(void){
-	return m_nValue;
+	return m_iValue;
 }
 
 CCScrollBarTypes CCScrollBar::GetType(void){
-	return m_nScrollBarType;
+	return m_iScrollBarType;
 }
 
 void CCScrollBar::SetType(CCScrollBarTypes t){
-	m_nScrollBarType = t;
+	m_iScrollBarType = t;
 
-	m_pThumb->m_nDirection = (t==CCBT_HORIZONTAL)?0:1;
+	m_pThumb->m_iDirection = (t==CCBT_HORIZONTAL)?0:1;
 
 	sSize s = m_pUp->GetDefaultSize();
 
-	if(m_nScrollBarType==CCBT_VERTICAL)
+	if(m_iScrollBarType==CCBT_VERTICAL)
 		SetSize(s.w, CCSCROLLBAR_DEFAULT_HEIGHT);
 	else
 		SetSize(CCSCROLLBAR_DEFAULT_HEIGHT, s.h);
 
 	if(t==CCBT_VERTICAL){
-		((CCArrow*)m_pUp)->m_nDirection = 0;
-		((CCArrow*)m_pDown)->m_nDirection = 1;
+		((CCArrow*)m_pUp)->m_iDirection = 0;
+		((CCArrow*)m_pDown)->m_iDirection = 1;
 	}
 	else{
-		((CCArrow*)m_pUp)->m_nDirection = 3;
-		((CCArrow*)m_pDown)->m_nDirection = 4;
+		((CCArrow*)m_pUp)->m_iDirection = 3;
+		((CCArrow*)m_pDown)->m_iDirection = 4;
 	}
 }
 
@@ -379,7 +379,7 @@ void CCArrowLook::OnDraw(CCArrow* pArrow, CCDrawContext* pDC){
 	if(pArrow->IsButtonDown()==true || (pArrow->GetType()==CCBT_PUSH && pArrow->GetCheck()==true)) bPressed = true;
 	sRect r = pArrow->GetRect();
 	r.x = r.y = 0;
-	switch(pArrow->m_nDirection){
+	switch(pArrow->m_iDirection){
 	case 0:
 		OnDrawUpArrow(pDC, sRect(r.x+x, r.y+y, r.w, r.h), bPressed);
 		break;
@@ -406,7 +406,7 @@ sSize CCArrowLook::GetDefaultSize(CCArrow* pThumb){
 }
 
 void CCScrollBarLook::OnDraw(CCScrollBar* pScrollBar, CCDrawContext* pDC){
-	if(pScrollBar->m_nDebugType==3)	{
+	if(pScrollBar->m_iDebugType==3)	{
 		int k=0;
 	}
 

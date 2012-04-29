@@ -118,7 +118,7 @@ RMeshNodeMtrl::RMeshNodeMtrl()
 	m_dwTFactorColor = D3DCOLOR_COLORVALUE(0.0f,1.0f,0.0f,0.0f);	//	완전 녹색..색이 없다는걸 의미
 //	m_dwTFactorColor = 0xff808080;
 	m_pMtrlTable = NULL;
-	m_nMtrlCnt = 0;
+	m_iMtrlCnt = 0;
 }
 
 RMeshNodeMtrl::~RMeshNodeMtrl()
@@ -139,12 +139,12 @@ DWORD RMeshNodeMtrl::GetTColor()
 
 int RMeshNodeMtrl::GetMtrlCount()
 {
-	return m_nMtrlCnt;
+	return m_iMtrlCnt;
 }
 
 RMtrl* RMeshNodeMtrl::GetMtrl(int i)
 {
-	if(i<m_nMtrlCnt) {
+	if(i<m_iMtrlCnt) {
 		if(m_pMtrlTable) {
 			return m_pMtrlTable[i];
 		}

@@ -12,7 +12,7 @@
 
 #undef _DONOTUSE_DINPUT_MOUSE
 
-ZDirectInput::ZDirectInput(void) : m_nJoyButtons(0), m_nJoyPovs(0), m_bForceFeedback(false)
+ZDirectInput::ZDirectInput(void) : m_iJoyButtons(0), m_iJoyPovs(0), m_bForceFeedback(false)
 {
 	m_bInitialized = FALSE;
 	m_pDI = NULL;
@@ -38,11 +38,11 @@ BOOL CALLBACK EnumDeviceObjectsCB( LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRe
     // Extract the passed pointer
 	char** szKeyNameTable = (char**)pvRef;
 
-	int nKey = lpddoi->dwOfs;
-	if(nKey<0 || nKey>=KEYNAMETABLE_COUNT) return DIENUM_STOP;
+	int iKey = lpddoi->dwOfs;
+	if(iKey<0 || iKey>=KEYNAMETABLE_COUNT) return DIENUM_STOP;
 
-	szKeyNameTable[nKey] = new char[strlen(lpddoi->tszName)+2];
-	strcpy(szKeyNameTable[nKey], lpddoi->tszName);
+	szKeyNameTable[iKey] = new char[strlen(lpddoi->tszName)+2];
+	strcpy(szKeyNameTable[iKey], lpddoi->tszName);
 
 	return DIENUM_CONTINUE;
 }
@@ -53,7 +53,7 @@ BOOL CALLBACK ZDirectInput::EnumJoyObjectsCallback( const DIDEVICEOBJECTINSTANCE
 	ZDirectInput* pDI = (ZDirectInput*)pContext;
 
 	if( (pdidoi->dwFlags & DIDOI_FFACTUATOR) != 0 )
-		pDI->m_nFFAxis++;
+		pDI->m_iFFAxis++;
 
 	if( pdidoi->dwType & DIDFT_AXIS )
 	{
@@ -95,8 +95,8 @@ BOOL CALLBACK ZDirectInput::EnumJoysticksCallback( const DIDEVICEINSTANCE* pdidI
 	hr = pDInput->m_pJoystick->GetCapabilities(&caps);
 	if(SUCCEEDED(hr))
 	{
-		pDInput->m_nJoyButtons	= caps.dwButtons;
-		pDInput->m_nJoyPovs		= caps.dwPOVs;
+		pDInput->m_iJoyButtons	= caps.dwButtons;
+		pDInput->m_iJoyPovs		= caps.dwPOVs;
 		pDInput->m_bForceFeedback = (caps.dwFlags & DIDC_FORCEFEEDBACK)!=0;
 	}
 
@@ -266,11 +266,11 @@ bool ZDirectInput::Create(HWND hWnd, BOOL bExclusive, BOOL bImmediateMode)
 			return false;
 	}
 
-	if(m_nFFAxis>2)
-		m_nFFAxis = 2;
+	if(m_iFFAxis>2)
+		m_iFFAxis = 2;
 
 	// Initialize force feedback effects. If it fails, disable and moving out.
-	if(m_bForceFeedback && m_nFFAxis>0)
+	if(m_bForceFeedback && m_iFFAxis>0)
 	{
 		// This application needs only one effect: Applying raw forces.
 		DWORD           rgdwAxes[2]     = { DIJOFS_X, DIJOFS_Y };
@@ -286,7 +286,7 @@ bool ZDirectInput::Create(HWND hWnd, BOOL bExclusive, BOOL bImmediateMode)
 		eff.dwGain                  = DI_FFNOMINALMAX;
 		eff.dwTriggerButton         = DIEB_NOTRIGGER;
 		eff.dwTriggerRepeatInterval = 0;
-		eff.cAxes                   = m_nFFAxis;
+		eff.cAxes                   = m_iFFAxis;
 		eff.rgdwAxes                = rgdwAxes;
 		eff.rglDirection            = rglDirection;
 		eff.lpEnvelope              = 0;
@@ -365,7 +365,7 @@ DWORD ZDirectInput::GetKeyboardBufferedData(ZDIBUFFER* pBuffer,unsigned int nBuf
     }
 
     for( i = 0; i < min(dwElements,nBuffer); i++ ) {
-		pBuffer[i].nKey = BYTE(didod[i].dwOfs & 0xFF);
+		pBuffer[i].iKey = BYTE(didod[i].dwOfs & 0xFF);
 		pBuffer[i].bPressed = (didod[i].dwData & 0x80)?true:false;
     }
     return dwElements;
@@ -402,10 +402,10 @@ DWORD ZDirectInput::GetMouseBufferedData(int* pSumX,int* pSumY, ZDIBUFFER* pBuff
 	{
 		int nButton = (dims2.lZ) > 0 ? 0 : 1;
 		pBuffer[nCount].bPressed = true;
-		pBuffer[nCount].nKey = nButton;
+		pBuffer[nCount].iKey = nButton;
 		nCount++;
 		pBuffer[nCount].bPressed = false;
-		pBuffer[nCount].nKey = nButton;
+		pBuffer[nCount].iKey = nButton;
 		nCount++;
 	}
 
@@ -417,7 +417,7 @@ DWORD ZDirectInput::GetMouseBufferedData(int* pSumX,int* pSumY, ZDIBUFFER* pBuff
 		{
 			m_bMouseButtonStates[i] = bPressed;
 			pBuffer[nCount].bPressed = bPressed;
-			pBuffer[nCount].nKey = i+2;
+			pBuffer[nCount].iKey = i+2;
 			nCount++;
 		}
 	}
@@ -429,13 +429,13 @@ DWORD ZDirectInput::GetMouseBufferedData(int* pSumX,int* pSumY, ZDIBUFFER* pBuff
 	return nCount;
 }
 
-const char* ZDirectInput::GetKeyName(unsigned long int nKey)
+const char* ZDirectInput::GetKeyName(unsigned long int iKey)
 {
-	if(nKey<0 || nKey>=KEYNAMETABLE_COUNT){
-		static char* szUnknownKeyName = "N/A";
-		return szUnknownKeyName;
+	if(iKey<0 || iKey>=KEYNAMETABLE_COUNT){
+		static char* szUnknowiKeyName = "N/A";
+		return szUnknowiKeyName;
 	}
-	return m_szKeyNameTable[nKey];
+	return m_szKeyNameTable[iKey];
 }
 
 
@@ -494,7 +494,7 @@ bool ZDirectInput::SetDeviceForcesXY(int nXForce, int nYForce)
 
 	DICONSTANTFORCE cf;
 
-	if( m_nFFAxis == 1 )
+	if( m_iFFAxis == 1 )
 	{
 		// If only one force feedback axis, then apply only one direction and 
 		// keep the direction at zero
@@ -514,7 +514,7 @@ bool ZDirectInput::SetDeviceForcesXY(int nXForce, int nYForce)
 	ZeroMemory( &eff, sizeof(eff) );
 	eff.dwSize                = sizeof(DIEFFECT);
 	eff.dwFlags               = DIEFF_CARTESIAN | DIEFF_OBJECTOFFSETS;
-	eff.cAxes                 = m_nFFAxis;
+	eff.cAxes                 = m_iFFAxis;
 	eff.rglDirection          = rglDirection;
 	eff.lpEnvelope            = 0;
 	eff.cbTypeSpecificParams  = sizeof(DICONSTANTFORCE);

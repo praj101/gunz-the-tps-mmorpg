@@ -343,20 +343,20 @@ inline int GetDTRoundCount(CCDUELTOURNAMENTROUNDSTATE nRoundState)
 typedef struct _DTRankingInfo
 {
 	char m_szCharName[MATCHOBJECT_NAME_LENGTH];
-	int m_nTP;
-	int m_nWins;
-	int m_nLoses;
-	int m_nRanking;
-	int m_nRankingIncrease;
-	int m_nFinalWins;
-	int m_nGrade;
+	int m_iTP;
+	int m_iWins;
+	int m_iLoses;
+	int m_iRanking;
+	int m_iRankingIncrease;
+	int m_iFinalWins;
+	int m_iGrade;
 } DTRankingInfo;
 
 typedef struct _DTPlayerInfo
 {
 	char m_szCharName[MATCHOBJECT_NAME_LENGTH];
 	MUID uidPlayer;
-	int m_nTP;
+	int m_iTP;
 } DTPlayerInfo;
 
 

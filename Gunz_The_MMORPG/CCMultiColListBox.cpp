@@ -9,12 +9,12 @@ IMPLEMENT_LOOK(CCMultiColListBox, CCMultiColListBoxLook)
 
 CCMultiColListBox::CCMultiColListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MWidget(szName, pParent, pListener)
-, m_numColumn(1)
+, m_iumColumn(1)
 , m_desiredNumRow(4)
 , m_itemHeight(16)
 , m_maxRowCanShow(0)
-, m_nSelItem(-1)
-, m_nOverItem(-1)
+, m_iSelItem(-1)
+, m_iOverItem(-1)
 , m_bDragAndDrop(false){
 	LOOK_IN_CONSTRUCTOR();
 
@@ -42,11 +42,11 @@ void CCMultiColListBox::CalcItemHeight(){
 }
 
 void CCMultiColListBox::SetNumColumn(int n){
-	m_numColumn = n;
-	if (m_numColumn < 1)
+	m_iumColumn = n;
+	if (m_iumColumn < 1)
 	{
 		_ASSERT(0);
-		m_numColumn = 1;
+		m_iumColumn = 1;
 	}
 
 	UpdateScrollBar();
@@ -80,8 +80,8 @@ void CCMultiColListBox::InsertSortedPos(CCMultiColListItem* pItem){
 void CCMultiColListBox::Add(CCMultiColListItem* pItem){
 	InsertSortedPos(pItem);
 
-	if (m_nSelItem == -1)
-		m_nSelItem = 0;
+	if (m_iSelItem == -1)
+		m_iSelItem = 0;
 
 	UpdateScrollBar();
 }
@@ -92,8 +92,8 @@ void CCMultiColListBox::Remove(CCMultiColListItem* pItem){
 		if ((*it) == pItem)
 		{
 			m_items.erase(it);
-			if (m_nSelItem >= GetNumItem())
-				m_nSelItem = GetNumItem()-1;
+			if (m_iSelItem >= GetNumItem())
+				m_iSelItem = GetNumItem()-1;
 			UpdateScrollBar();
 			break;
 		}
@@ -109,8 +109,8 @@ void CCMultiColListBox::RemoveAll(){
 	m_pScrollBar->SetValue(0);
 	UpdateScrollBar();
 	
-	m_nSelItem = -1;
-	m_nOverItem = -1;
+	m_iSelItem = -1;
+	m_iOverItem = -1;
 }
 
 void CCMultiColListBox::UpdateScrollBar(){
@@ -118,8 +118,8 @@ void CCMultiColListBox::UpdateScrollBar(){
 
 	m_maxRowCanShow = r.h / m_itemHeight;
 	
-	int numRow = ((int)m_items.size() / m_numColumn);
-	if (((int)m_items.size() % m_numColumn) > 0)
+	int numRow = ((int)m_items.size() / m_iumColumn);
+	if (((int)m_items.size() % m_iumColumn) > 0)
 		numRow += 1;
 	
 	int scrollmax = numRow - m_maxRowCanShow;
@@ -134,7 +134,7 @@ void CCMultiColListBox::UpdateScrollBar(){
 
 void CCMultiColListBox::OnSize(int w, int h){
 	sRect cr = GetInitialClientRect();
-	m_pScrollBar->SetBounds(MRECT(cr.x+cr.w-m_pScrollBar->GetDefaultBreadth(), cr.y+1, m_pScrollBar->GetDefaultBreadth(), cr.h-1));
+	m_pScrollBar->SetBounds(sRect(cr.x+cr.w-m_pScrollBar->GetDefaultBreadth(), cr.y+1, m_pScrollBar->GetDefaultBreadth(), cr.h-1));
 
 	CalcItemHeight();
 
@@ -154,18 +154,18 @@ CCMultiColListItem* CCMultiColListBox::GetItemByIdx(int idx){
 }
 
 CCMultiColListItem* CCMultiColListBox::GetSelItem(){
-	return GetItemByIdx(m_nSelItem);
+	return GetItemByIdx(m_iSelItem);
 }
 
 bool CCMultiColListBox::SetSelIndex(int i){
 	if (i < 0 || GetNumItem() <= i) return false;
 
-	m_nSelItem = i;
+	m_iSelItem = i;
 	return true;
 }
 
 const char* CCMultiColListBox::GetSelItemString(){
-	CCMultiColListItem* pItem = GetItemByIdx(m_nSelItem);
+	CCMultiColListItem* pItem = GetItemByIdx(m_iSelItem);
 	if (pItem)
 		return pItem->GetString();
 	return NULL;
@@ -212,11 +212,11 @@ bool CCMultiColListBox::CalcItemRect(int idx, sRect& out){
 	if (idx < idxItemFirstShow || idxItemLastShow < idx) return false;
 
 	sRect r = GetClientRect();
-	int widthItem = r.w / m_numColumn;
+	int widthItem = r.w / m_iumColumn;
 	int heightItem = GetItemHeight();
 
-	int col = idx % m_numColumn;
-	int row = idx / m_numColumn;
+	int col = idx % m_iumColumn;
+	int row = idx / m_iumColumn;
 
 	int xposItem = r.x + (widthItem * col);
 	int yposItem = r.y + (heightItem * (row-GetRowFirstVisible()) );
@@ -228,31 +228,31 @@ bool CCMultiColListBox::CalcItemRect(int idx, sRect& out){
 }
 
 bool CCMultiColListBox::GetItemRowCol(int idx, int& out_row, int& out_col){
-	if (m_numColumn == 0) return false;
-	out_col = (idx % m_numColumn);
-	out_row = (idx / m_numColumn);
+	if (m_iumColumn == 0) return false;
+	out_col = (idx % m_iumColumn);
+	out_row = (idx / m_iumColumn);
 	return true;
 }
 
 bool CCMultiColListBox::OnEvent(CCEvent* pEvent, CCListener* pListener){
 	sRect r = GetClientRect();
-	if(pEvent->nMessage==CCWM_MOUSEMOVE){
-		if(r.InPoint(pEvent->Pos)==false) return false;
-		m_nOverItem = FindItem(pEvent->Pos);
+	if(pEvent->iMessage==CCWM_MOUSEMOVE){
+		if(r.InPoint(pEvent->sPos)==false) return false;
+		m_iOverItem = FindItem(pEvent->sPos);
 	}
-	else if(pEvent->nMessage==CCWM_LBUTTONDOWN){
-		if(r.InPoint(pEvent->Pos)==false)
+	else if(pEvent->iMessage==CCWM_LBUTTONDOWN){
+		if(r.InPoint(pEvent->sPos)==false)
 		{
 			if (pListener)
 				pListener->OnCommand(this,CCLB_ITEM_CLICKOUT);
 			return false;
 		}
 
-		if(m_nDebugType==2){
+		if(m_iDebugType==2){
 			int k =0;
 		}
 
-		int nSelItem = FindItem(pEvent->Pos);
+		int nSelItem = FindItem(pEvent->sPos);
 		if(nSelItem==-1) return true;
 		SetSelIndex(nSelItem);
 
@@ -274,71 +274,71 @@ bool CCMultiColListBox::OnEvent(CCEvent* pEvent, CCListener* pListener){
 
 		return true;
 	}
-	else if(pEvent->nMessage==CCWM_RBUTTONDOWN){
-		if(r.InPoint(pEvent->Pos)==false)
+	else if(pEvent->iMessage==CCWM_RBUTTONDOWN){
+		if(r.InPoint(pEvent->sPos)==false)
 		{
 			pListener->OnCommand(this,CCLB_ITEM_CLICKOUT);
 			return false;
 		}
-		int nSelItem = FindItem(pEvent->Pos);
+		int nSelItem = FindItem(pEvent->sPos);
 		if(nSelItem==-1) return true;
 		SetSelIndex(nSelItem);
 
-		if(m_nSelItem!=-1){
+		if(m_iSelItem!=-1){
 			if(pListener!=NULL) pListener->OnCommand(this, CCLB_ITEM_SEL2);
 			return true;
 		}
 	}
-	else if(pEvent->nMessage==MWM_KEYDOWN){
-		if(pEvent->nKey==VK_DELETE){
+	else if(pEvent->iMessage==MWM_KEYDOWN){
+		if(pEvent->iKey==VK_DELETE){
 			if(pListener!=NULL) pListener->OnCommand(this, CCLB_ITEM_DEL);
 		}
-		else if(pEvent->nKey==VK_UP){
+		else if(pEvent->iKey==VK_UP){
 			if(GetSelIndex()>0){
 				SetSelIndex(GetSelIndex()-1);
 				ShowItem(GetSelIndex());
 				if(pListener!=NULL){
-					if(m_nSelItem!=-1) pListener->OnCommand(this, CCLB_ITEM_SEL);
+					if(m_iSelItem!=-1) pListener->OnCommand(this, CCLB_ITEM_SEL);
 					else pListener->OnCommand(this, CCLB_ITEM_SELLOST);
 				}
 			}
 		}
-		else if(pEvent->nKey==VK_DOWN){
+		else if(pEvent->iKey==VK_DOWN){
 			if(GetSelIndex()<GetNumItem()-1){
 				SetSelIndex(GetSelIndex()+1);
 				ShowItem(GetSelIndex());
 				if(pListener!=NULL){
-					if(m_nSelItem!=-1) pListener->OnCommand(this, CCLB_ITEM_SEL);
+					if(m_iSelItem!=-1) pListener->OnCommand(this, CCLB_ITEM_SEL);
 					else pListener->OnCommand(this, CCLB_ITEM_SELLOST);
 				}
 			}
 		}
 	}
-	else if(pEvent->nMessage==CCWM_CHAR){
-		int nIndex = FindNextItem(GetSelIndex(), pEvent->nKey);
+	else if(pEvent->iMessage==CCWM_CHAR){
+		int nIndex = FindNextItem(GetSelIndex(), pEvent->iKey);
 		if(nIndex>=0){
 			SetSelIndex(nIndex);
 			ShowItem(nIndex);
 			if(pListener!=NULL){
-				if(m_nSelItem!=-1) pListener->OnCommand(this, CCLB_ITEM_SEL);
+				if(m_iSelItem!=-1) pListener->OnCommand(this, CCLB_ITEM_SEL);
 				else pListener->OnCommand(this, CCLB_ITEM_SELLOST);
 			}
 		}
 	}
-	else if(pEvent->nMessage==CCWM_LBUTTONDBLCLK){
-		if(r.InPoint(pEvent->Pos)==false) return false;
-		int nSelItem = FindItem(pEvent->Pos);
+	else if(pEvent->iMessage==CCWM_LBUTTONDBLCLK){
+		if(r.InPoint(pEvent->sPos)==false) return false;
+		int nSelItem = FindItem(pEvent->sPos);
 		if(nSelItem==-1) return true;
-		m_nSelItem = nSelItem;
+		m_iSelItem = nSelItem;
 		if(pListener!=NULL){
-			if(m_nSelItem!=-1) pListener->OnCommand(this, CCLB_ITEM_SEL);
+			if(m_iSelItem!=-1) pListener->OnCommand(this, CCLB_ITEM_SEL);
 			else pListener->OnCommand(this, CCLB_ITEM_SELLOST);
 			pListener->OnCommand(this, CCLB_ITEM_DBLCLK);
 		}
 		return true;
 	}
-	else if(pEvent->nMessage==CCWM_MOUSEWHEEL){
-		if(r.InPoint(pEvent->Pos)==false) 
+	else if(pEvent->iMessage==CCWM_MOUSEWHEEL){
+		if(r.InPoint(pEvent->sPos)==false) 
 			return false;
 
 		int newPos = m_pScrollBar->GetValue() + min(max(-pEvent->nDelta, -MAX_WHEEL_RANGE), MAX_WHEEL_RANGE);
@@ -428,7 +428,7 @@ CCMultiColListBoxLook::CCMultiColListBoxLook(){
 	m_ItemTextAlignmentMode	= CCD_NOTALIGN;
 }
 
-void CCMultiColListItem::OnDraw(MRECT& r, CCDrawContext* pDC, bool bSelected, bool bMouseOver){
+void CCMultiColListItem::OnDraw(sRect& r, CCDrawContext* pDC, bool bSelected, bool bMouseOver){
 	pDC->SetColor(sColor(DEFCOLOR_MLIST_TEXT));
 	pDC->Rectangle(r);
 	char sz[32];

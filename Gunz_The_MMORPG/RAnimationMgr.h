@@ -77,7 +77,7 @@ public:
 	RAnimationHashList  m_list;
 	RAnimationHashList* m_list_map;
 
-	vector<RAnimation*> m_node_table;
+	vector<RAnimation*> m_iode_table;
 };
 
 _NAMESPACE_REALSPACE2_END

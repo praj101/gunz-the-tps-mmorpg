@@ -25,7 +25,7 @@ protected:
 	CCTextArea*	m_pMessage;
 	CCButton*	m_pOK;
 	CCButton*	m_pCancel;
-	CCMsgBoxType	m_nType;
+	CCMsgBoxType	m_iType;
 
 protected:
 	virtual bool OnShow(void);

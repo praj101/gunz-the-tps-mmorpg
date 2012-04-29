@@ -43,7 +43,7 @@ public:
 };
 
 class CCFontManager{
-	static map<string CCFont*>	m_Fonts;
+	static map<string, CCFont*>	m_Fonts;
 	static CCFont*	m_pDefaultFont;
 
 public:

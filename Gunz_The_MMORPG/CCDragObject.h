@@ -5,7 +5,7 @@
 class CCBitmap;
 
 class CCDragObject{
-	int			m_nID;
+	int			m_iID;
 	char		m_szString[CCDRAGOBJECT_STRING_LENGTH];
 	CCBitmap*	m_pBitmap;
 
@@ -14,7 +14,7 @@ public:
 	virtual ~CCDragObject(void);
 
 	int GetID(void){
-		return m_nID;
+		return m_iID;
 	}
 	const char* GetString(void){
 		return m_szString;

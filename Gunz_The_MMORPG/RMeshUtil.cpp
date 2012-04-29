@@ -115,10 +115,10 @@ void RVertexBuffer::Init() {
 
 	m_is_init = false;
 	m_vb = NULL;
-	m_nVertexSize = 0;
-	m_nVertexCnt = 0;
-	m_nBufferSize = 0;
-	m_nRealBufferSize = 0;
+	m_iVertexSize = 0;
+	m_iVertexCnt = 0;
+	m_iBufferSize = 0;
+	m_iRealBufferSize = 0;
 	m_v = NULL;
 	m_dwFVF = 0;
 	m_dwUsage = D3DUSAGE_WRITEONLY;
@@ -127,7 +127,7 @@ void RVertexBuffer::Init() {
 
 	m_PrimitiveType = D3DPT_TRIANGLELIST;
 
-	m_nRenderCnt = 0;
+	m_iRenderCnt = 0;
 	m_pVert = NULL;
 	m_bUseSWVertex = false;//기본은 둘다사용,. 옵션에서 바꿀수도 있으므로..
 	m_bUseHWVertex = false;
@@ -148,12 +148,12 @@ bool RVertexBuffer::Create(char* pVertex,DWORD fvf,int VertexSize,int VertexCnt,
 
 	// 기본적인 정보는 채워주고
 
-	m_nVertexSize = VertexSize;
-	m_nVertexCnt = VertexCnt;
-	m_nBufferSize = VertexSize*VertexCnt;
-	m_nRealBufferSize = m_nBufferSize;
+	m_iVertexSize = VertexSize;
+	m_iVertexCnt = VertexCnt;
+	m_iBufferSize = VertexSize*VertexCnt;
+	m_iRealBufferSize = m_iBufferSize;
 
-	m_nRenderCnt = m_nVertexCnt/3;
+	m_iRenderCnt = m_iVertexCnt/3;
 
 	m_dwFVF = fvf;
 	m_dwUsage = Usage;
@@ -165,13 +165,13 @@ bool RVertexBuffer::Create(char* pVertex,DWORD fvf,int VertexSize,int VertexCnt,
 	// 버퍼는 필요에 의해서 채우고
 
 	if(m_bUseHWVertex) {
-		if( FAILED( RGetDevice()->CreateVertexBuffer( m_nBufferSize , Usage , fvf , Pool ,&m_vb ,0) ) ) {
+		if( FAILED( RGetDevice()->CreateVertexBuffer( m_iBufferSize , Usage , fvf , Pool ,&m_vb ,0) ) ) {
 //			return false; // tnt 등의 경우 soft 로 돌수도 있다..
 		}
 	}
 
 	if(m_bUseSWVertex) {
-		m_pVert = new char[m_nBufferSize];
+		m_pVert = new char[m_iBufferSize];
 	}
 
 	m_is_init = true;
@@ -185,7 +185,7 @@ bool RVertexBuffer::Create(char* pVertex,DWORD fvf,int VertexSize,int VertexCnt,
 bool RVertexBuffer::UpdateDataSW(char* pVertex)
 {
 	if(m_bUseSWVertex && m_pVert) {
-		memcpy(m_pVert,pVertex,m_nBufferSize);
+		memcpy(m_pVert,pVertex,m_iBufferSize);
 	}
 
 	return true;
@@ -197,7 +197,7 @@ bool RVertexBuffer::UpdateDataHW(char* pVertex)
 
 		Lock();
 
-		memcpy( m_v, pVertex, m_nBufferSize );
+		memcpy( m_v, pVertex, m_iBufferSize );
 
 		Unlock();
 	}
@@ -239,25 +239,25 @@ bool RVertexBuffer::UpdateData(D3DXVECTOR3* pVec)
 
 	int nVertType=0;
 
-		 if(m_nVertexSize==sizeof(RLVertex))	{ nVertType = 0; }
-	else if(m_nVertexSize==sizeof(RVertex))		{ nVertType = 1; }
-//	else if(m_nVertexSize==sizeof(RBlendVertex)){ nVertType = 2; }
+		 if(m_iVertexSize==sizeof(RLVertex))	{ nVertType = 0; }
+	else if(m_iVertexSize==sizeof(RVertex))		{ nVertType = 1; }
+//	else if(m_iVertexSize==sizeof(RBlendVertex)){ nVertType = 2; }
 	else 	return false;
 
 	if(m_vb) {
 
 		Lock();
 
-		if(nVertType)	UpdateDataVert((RVertex*)m_v,pVec,m_nVertexCnt);
-		else			UpdateDataLVert((RLVertex*)m_v,pVec,m_nVertexCnt);
+		if(nVertType)	UpdateDataVert((RVertex*)m_v,pVec,m_iVertexCnt);
+		else			UpdateDataLVert((RLVertex*)m_v,pVec,m_iVertexCnt);
 
 		Unlock();
 	}
 
 	if(m_bUseSWVertex && m_pVert) {
 
-		if(nVertType)	UpdateDataVert((RVertex*)m_pVert,pVec,m_nVertexCnt);
-		else			UpdateDataLVert((RLVertex*)m_pVert,pVec,m_nVertexCnt);
+		if(nVertType)	UpdateDataVert((RVertex*)m_pVert,pVec,m_iVertexCnt);
+		else			UpdateDataLVert((RLVertex*)m_pVert,pVec,m_iVertexCnt);
 	}
 
 	return true;
@@ -270,20 +270,20 @@ bool RVertexBuffer::Update(char* pVertex,DWORD fvf,int VertexSize,int VertexCnt)
 	if(m_dwFVF != fvf) 
 		return false;
 
-	if( m_nVertexSize != VertexSize)
+	if( m_iVertexSize != VertexSize)
 		return false;
 
 	int BufferSize = VertexSize * VertexCnt;
 
-	if(m_nBufferSize != BufferSize) {
-		if(m_nRealBufferSize < BufferSize) {// 진짜 버퍼보다 작다면 그냥 쓰자..
+	if(m_iBufferSize != BufferSize) {
+		if(m_iRealBufferSize < BufferSize) {// 진짜 버퍼보다 작다면 그냥 쓰자..
 			if(Create(pVertex,fvf,VertexSize,VertexCnt,m_dwUsage,m_dwPool)==false)
 				return false;
 		}
 		else 
 		{
-			m_nBufferSize = BufferSize; // m_nRealBufferSize 는 따로다..
-			m_nVertexCnt = VertexCnt;
+			m_iBufferSize = BufferSize; // m_iRealBufferSize 는 따로다..
+			m_iVertexCnt = VertexCnt;
 		}
 	}
 
@@ -302,7 +302,7 @@ void RVertexBuffer::Unlock() {
 
 void RVertexBuffer::SetStreamSource()
 {
-	RGetDevice()->SetStreamSource(0,m_vb,0,m_nVertexSize);
+	RGetDevice()->SetStreamSource(0,m_vb,0,m_iVertexSize);
 }
 
 void RVertexBuffer::Render() {
@@ -313,8 +313,8 @@ void RVertexBuffer::Render() {
 	
 	if(dev==NULL) return;
 
-	dev->SetStreamSource( 0, m_vb, 0,m_nVertexSize );
-	dev->DrawPrimitive( m_PrimitiveType, 0, m_nVertexCnt/3);
+	dev->SetStreamSource( 0, m_vb, 0,m_iVertexSize );
+	dev->DrawPrimitive( m_PrimitiveType, 0, m_iVertexCnt/3);
 }
 
 void RVertexBuffer::RenderFVF()
@@ -332,9 +332,9 @@ void RVertexBuffer::RenderSoft()
 	if(dev==NULL) return;
 
 	dev->SetFVF( m_dwFVF );
-//	dev->SetStreamSource( 0, m_vb, 0,m_nVertexSize );
-//	dev->DrawPrimitive( m_PrimitiveType, 0, m_nRenderCnt);
-	dev->DrawPrimitiveUP(m_PrimitiveType, m_nVertexCnt/3, (LPVOID) m_pVert, m_nVertexSize);
+//	dev->SetStreamSource( 0, m_vb, 0,m_iVertexSize );
+//	dev->DrawPrimitive( m_PrimitiveType, 0, m_iRenderCnt);
+	dev->DrawPrimitiveUP(m_PrimitiveType, m_iVertexCnt/3, (LPVOID) m_pVert, m_iVertexSize);
 }
 
 // soft 버퍼만 지원한다..  Vertex Type 인경우..lvert blendvert
@@ -345,19 +345,19 @@ void RVertexBuffer::ConvertSilhouetteBuffer(float fLineWidth)
 
 	// normal 이 없으면 의미 없다..
 
-	if(m_nVertexSize==sizeof(RVertex))	{ 
+	if(m_iVertexSize==sizeof(RVertex))	{ 
 
 		RVertex* pV = (RVertex*)m_pVert;
 
-		for(int i=0;i<m_nVertexCnt;i++) {
+		for(int i=0;i<m_iVertexCnt;i++) {
 			pV[i].p = pV[i].p + pV[i].n * fLineWidth;
 		}
 	}
-	else if(m_nVertexSize==sizeof(RBlendVertex)){ 
+	else if(m_iVertexSize==sizeof(RBlendVertex)){ 
 
 		RBlendVertex* pV = (RBlendVertex*)m_pVert;
 
-		for(int i=0;i<m_nVertexCnt;i++) {
+		for(int i=0;i<m_iVertexCnt;i++) {
 			pV[i].p = pV[i].p + pV[i].normal * fLineWidth;
 		}
 	}
@@ -369,19 +369,19 @@ void RVertexBuffer::ReConvertSilhouetteBuffer(float fLineWidth)
 
 	// normal 이 없으면 의미 없다..
 
-	if(m_nVertexSize==sizeof(RVertex))	{ 
+	if(m_iVertexSize==sizeof(RVertex))	{ 
 
 		RVertex* pV = (RVertex*)m_pVert;
 
-		for(int i=0;i<m_nVertexCnt;i++) {
+		for(int i=0;i<m_iVertexCnt;i++) {
 			pV[i].p = pV[i].p - pV[i].n * fLineWidth;
 		}
 	}
-	else if(m_nVertexSize==sizeof(RBlendVertex)){ 
+	else if(m_iVertexSize==sizeof(RBlendVertex)){ 
 
 		RBlendVertex* pV = (RBlendVertex*)m_pVert;
 
-		for(int i=0;i<m_nVertexCnt;i++) {
+		for(int i=0;i<m_iVertexCnt;i++) {
 			pV[i].p = pV[i].p - pV[i].normal * fLineWidth;
 		}
 	}
@@ -398,11 +398,11 @@ void RVertexBuffer::RenderIndexSoft(RIndexBuffer* ib)
 	dev->SetFVF( m_dwFVF );
 
 	dev->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST,0,
-		m_nVertexCnt,
+		m_iVertexCnt,
 		ib->GetFaceCnt(),
 		ib->m_pIndex,
 		D3DFMT_INDEX16,
-		(LPVOID) m_pVert,m_nVertexSize);
+		(LPVOID) m_pVert,m_iVertexSize);
 }
 
 void RVertexBuffer::Render(RIndexBuffer* ib )
@@ -414,22 +414,22 @@ void RVertexBuffer::Render(RIndexBuffer* ib )
 
 	if(dev==NULL) return;
 
-	dev->SetStreamSource( 0, m_vb, 0, m_nVertexSize );
+	dev->SetStreamSource( 0, m_vb, 0, m_iVertexSize );
 	dev->SetIndices(ib->m_ib);
-	dev->DrawIndexedPrimitive(m_PrimitiveType,0, 0,m_nVertexCnt,0,ib->GetFaceCnt() );
+	dev->DrawIndexedPrimitive(m_PrimitiveType,0, 0,m_iVertexCnt,0,ib->GetFaceCnt() );
 }
 
 void RVertexBuffer::SetVertexBuffer()
 {
 	LPDIRECT3DDEVICE9 dev = RGetDevice();
 	dev->SetFVF( m_dwFVF );
-	dev->SetStreamSource( 0, m_vb, 0, m_nVertexSize );
+	dev->SetStreamSource( 0, m_vb, 0, m_iVertexSize );
 }
 
 void RVertexBuffer::SetVSVertexBuffer()
 {
 	LPDIRECT3DDEVICE9 dev = RGetDevice();
-	dev->SetStreamSource( 0, m_vb, 0, m_nVertexSize );
+	dev->SetStreamSource( 0, m_vb, 0, m_iVertexSize );
 }
 
 void RVertexBuffer::RenderIndexBuffer(RIndexBuffer* ib)
@@ -440,7 +440,7 @@ void RVertexBuffer::RenderIndexBuffer(RIndexBuffer* ib)
 	LPDIRECT3DDEVICE9 dev = RGetDevice();
 
 	dev->SetIndices(ib->m_ib);
-	dev->DrawIndexedPrimitive(m_PrimitiveType,0, 0,m_nVertexCnt,0,ib->GetFaceCnt() );
+	dev->DrawIndexedPrimitive(m_PrimitiveType,0, 0,m_iVertexCnt,0,ib->GetFaceCnt() );
 }
 
 void GetPath(const char* str,char* path)
@@ -635,7 +635,7 @@ void RVbuffer<T>::Render()
 
 	dev->SetStreamSource( 0, m_vb, 0, sizeof(T) );
 	dev->SetFVF( m_dwFVF );
-	dev->DrawPrimitive( D3DPT_TRIANGLELIST, 0, m_nVertexSize);
+	dev->DrawPrimitive( D3DPT_TRIANGLELIST, 0, m_iVertexSize);
 	dev->SetStreamSource( 0, NULL, 0, 0 );
 }
 */

@@ -30,7 +30,7 @@ sSize CCSliderThumb::GetDefaultSize(void){
 IMPLEMENT_LOOK(CCSlider, CCScrollBarLook)
 
 int CCSlider::GetThumbSize(void){
-	int narrowWidth = (m_nScrollBarType==CCBT_VERTICAL) ? GetClientRect().w : GetClientRect().h;
+	int narrowWidth = (m_iScrollBarType==CCBT_VERTICAL) ? GetClientRect().w : GetClientRect().h;
 	return narrowWidth;
 }
 
@@ -39,7 +39,7 @@ void CCSlider::Initialize(void){
 	m_pThumb = new CCSliderThumb(NULL, this, this);
 	sSize s = ((CCSliderThumb*)m_pThumb)->GetDefaultSize();
 	m_pThumb->SetSize(s.w, s.h);
-	m_pThumb->m_nDirection = CCBT_HORIZONTAL;
+	m_pThumb->m_iDirection = CCBT_HORIZONTAL;
 	LOOK_IN_CONSTRUCTOR()
 }
 

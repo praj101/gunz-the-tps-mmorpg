@@ -57,7 +57,7 @@ void RCloth::varlet()
 {
 	rvector* swapTemp;
 
-	for( int i = 0 ; i < m_nCntP; ++i )
+	for( int i = 0 ; i < m_iCntP; ++i )
 	{
 		if( m_pHolds[i] != CLOTH_HOLD )
 		{
@@ -70,7 +70,7 @@ void RCloth::varlet()
 	m_pOldX = swapTemp;
 
 	// ÃÊ±âÈ­
-	memset( m_pForce, 0, sizeof(rvector) * m_nCntP );
+	memset( m_pForce, 0, sizeof(rvector) * m_iCntP );
 }
 
 
@@ -87,12 +87,12 @@ void RCloth::satisfyConstraints()
 	float diff;
 	int i, j;
 
-	for( i = 0 ; i < m_nCntIter; ++i )
+	for( i = 0 ; i < m_iCntIter; ++i )
 	{
 		// TODO : Do Collision Check Here
 		
 		float w1, w2;
-		for( j = 0 ; j < m_nCntC; ++j )
+		for( j = 0 ; j < m_iCntC; ++j )
 		{
 			c = &m_pConst[j];
 

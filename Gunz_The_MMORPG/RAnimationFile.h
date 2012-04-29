@@ -26,7 +26,7 @@ public:
 	RAnimationNode*		m_pBipRootNode;
 
 	int		m_max_frame;
-	int		m_nRefCount;
+	int		m_iRefCount;
 };
 
 _NAMESPACE_REALSPACE2_END
