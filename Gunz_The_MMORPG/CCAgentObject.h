@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MObject.h"
+#include "CCObject.h"
 #include <windows.h>
 
 

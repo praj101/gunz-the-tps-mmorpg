@@ -18,7 +18,7 @@ _USING_NAMESPACE_REALSPACE2
 #include "Mint4R2.h"
 #include "RParticleSystem.h"
 
-#include "MObject.h"
+#include "CCObject.h"
 //#include "MObjectCharacter.h"
 #include "CCMatchObject.h"
 #include "CCMatchStage.h"
@@ -27,7 +27,7 @@ _USING_NAMESPACE_REALSPACE2
 #include "CCSafeUDP.h"
 #include "CCGameClient.h"
 #include "CCMatchTransDataType.h"
-#include "MErrorTable.h"
+#include "CCErrorTable.h"
 #include "Config.h"
 
 #include "ZGlobal.h"

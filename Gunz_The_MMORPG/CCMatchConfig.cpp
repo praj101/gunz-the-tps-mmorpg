@@ -2,12 +2,12 @@
 #include "CCMatchConfig.h"
 #include <windows.h>
 #include "CCMatchMap.h"
-#include "MLex.h"
+#include "CCLex.h"
 #include "CCZFileSystem.h"
-#include "MErrorTable.h"
+#include "CCErrorTable.h"
 #include "CCMatchServer.h"
-#include "MInetUtil.h"
-#include "MMatchCheckLoopTime.h"
+#include "CCInetUtil.h"
+#include "CCMatchCheckLoopTime.h"
 
 bool MMatchConfig::GetPrivateProfileBool(const char* szAppName, const char* szKeyName, 
 						   bool bDefault, const char* szFileName)

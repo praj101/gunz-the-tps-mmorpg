@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "MMatchShutdown.h"
+#include "CCMatchShutdown.h"
 #include "CCMatchServer.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 
 
 MMatchShutdown::~MMatchShutdown()

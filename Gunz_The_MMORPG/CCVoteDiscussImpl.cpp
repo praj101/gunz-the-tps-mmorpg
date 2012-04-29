@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "MVoteDiscussImpl.h"
 #include "CCMatchServer.h"
-#include "MSharedCommandTable.h"
-#include "MLex.h"
+#include "CCSharedCommandTable.h"
+#include "CCLex.h"
 
 
 ///////////////////////////////////////////////////////

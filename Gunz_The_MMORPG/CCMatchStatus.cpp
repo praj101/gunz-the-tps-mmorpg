@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CCMatchServer.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "MMatchStatus.h"
 #include "CCDebug.h"
-//#include "MErrorTable.h"
+//#include "CCErrorTable.h"
 //#include "MMatchRule.h"
 
 

@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "CCMatchServer.h"
 
-#include "MLadderMgr.h"
-#include "MLadderPicker.h"
+#include "CCLadderMgr.h"
+#include "CCLadderPicker.h"
 #include "CCMatchGlobal.h"
 #include "MThread.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "CCMatchUtil.h"
 
 

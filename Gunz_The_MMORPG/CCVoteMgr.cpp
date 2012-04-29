@@ -2,7 +2,7 @@
 #include "MVoteMgr.h"
 #include <algorithm>
 #include "CCMatchServer.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 
 
 
