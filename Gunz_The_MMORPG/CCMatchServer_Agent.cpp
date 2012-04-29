@@ -4,7 +4,7 @@
 #include "MErrorTable.h"
 #include "CCBlobArray.h"
 #include "MAgentObject.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "MCommandCommunicator.h"
 #include "MCommandBuilder.h"
 

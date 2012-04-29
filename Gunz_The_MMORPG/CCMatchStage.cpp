@@ -2,7 +2,7 @@
 #include "CCMatchServer.h"
 #include "CCMatchStage.h"
 #include "MSharedCommandTable.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "CCMatchConfig.h"
 #include "MTeamGameStrategy.h"
 #include "MLadderGroup.h"

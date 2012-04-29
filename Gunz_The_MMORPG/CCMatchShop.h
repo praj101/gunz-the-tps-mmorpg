@@ -9,7 +9,7 @@ using namespace std;
 
 #include "CCMatchItem.h"
 #include "MQuestItem.h"
-#include "MMatchDBGambleItem.h"
+#include "CCMatchDBGambleItem.h"
 
 /// 상점 아이템 노드
 /// - 현재 가격정보는 CCMatchItem.h에, 기간정보는 여기에 있는 구조로 되어버렸음.

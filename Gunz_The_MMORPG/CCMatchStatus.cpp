@@ -2,7 +2,7 @@
 #include "CCMatchServer.h"
 #include "MSharedCommandTable.h"
 #include "MMatchStatus.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 //#include "MErrorTable.h"
 //#include "MMatchRule.h"
 

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MLadderStatistics.h"
+#include "CCLadderStatistics.h"
 #include <stdio.h>
 #include <memory.h>
 #include <limits.h>
@@ -181,7 +181,7 @@ void MLadderStatistics::InsertContPointRecord(int nRedTeamContPoint, int nBlueTe
 
 
 #include "stdlib.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 void MLadderStatistics::PrintDebug()
 {
 	for (int i = 0; i < MAX_LADDER_STATISTICS_LEVEL*LADDER_STATISTICS_LEVEL_UNIT; i++)

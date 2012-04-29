@@ -10,7 +10,7 @@
 #include "CCMatchConfig.h"
 #include "MCommandCommunicator.h"
 #include "CCMatchTransDataType.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "MLadderMgr.h"
 #include "MLadderGroup.h"
 #include "MMatchLocale.h"

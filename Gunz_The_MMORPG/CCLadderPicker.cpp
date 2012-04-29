@@ -72,7 +72,7 @@ bool MLadderPicker::PickMatch(int* pGroupA, int* pGroupB)
 	return false;
 }
 
-#include "MDebug.h"
+#include "CCDebug.h"
 
 bool MLadderPicker::EvaluateTicket(MLadderTicket* pTicketA, MLadderTicket* pTicketB, float* poutTotalRate)
 {
