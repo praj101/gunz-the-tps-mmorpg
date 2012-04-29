@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MAnimation.h"
+#include "CCAnimation.h"
 
 #define DELAY_CONSTANT	1
 
