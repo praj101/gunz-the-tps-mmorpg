@@ -5,7 +5,7 @@
 #include <map>
 using namespace std;
 
-#include "MUID.h"
+#include "CCUID.h"
 #include "MMatchGlobal.h"
 
 class MDuelTournamentWaitGroup

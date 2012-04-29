@@ -6,7 +6,7 @@
 #include "MSharedCommandTable.h"
 #include "CCBlobArray.h"
 #include "MZFileSystem.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "MMatchWorldItemDesc.h"
 #include "RTypes.h"
 

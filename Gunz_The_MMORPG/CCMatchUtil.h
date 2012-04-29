@@ -1,7 +1,7 @@
 #pragma once
 #include <limits.h>
 #include "MPacketCrypter.h"
-#include "MUID.h"
+#include "CCUID.h"
 
 // 유틸리티 펑션들
 unsigned long int MGetTimeDistance(unsigned long int nTimeA, unsigned long int nTimeB);
