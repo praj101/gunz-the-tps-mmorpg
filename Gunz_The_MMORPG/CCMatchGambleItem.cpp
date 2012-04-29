@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "MMatchGambleItem.h"
-#include "MMatchGambleMachine.h"
+#include "CCMatchGambleItem.h"
+#include "CCMatchGambleMachine.h"
 
 
 const MMatchCharGambleItem* MMatchGambleItemManager::GetGambleItemByUID( const MUID& uidItem ) const

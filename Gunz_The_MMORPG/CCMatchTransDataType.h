@@ -4,7 +4,7 @@
 #include "CCMatchObject.h"
 #include "MMatchRule.h"		// MMATCH_GAMETYPE, MMATCH_ROUNDSTATE, MMATCH_ROUNDRESULT 참조 -> 정리요망
 #include "MMatchStageSetting.h"
-#include "MMatchGameType.h"
+#include "CCMatchGameType.h"
 #include "CCMatchGlobal.h"
 
 #pragma pack(push, old)

@@ -3,9 +3,9 @@
 using namespace std;
 #include "CCUID.h"
 #include "CCMatchGlobal.h"
-#include "MMatchGameType.h"
+#include "CCMatchGameType.h"
 #include "CCMatchObject.h"
-#include "MMatchMap.h"
+#include "CCMatchMap.h"
 
 class MMatchObject;
 class MMatchStage;

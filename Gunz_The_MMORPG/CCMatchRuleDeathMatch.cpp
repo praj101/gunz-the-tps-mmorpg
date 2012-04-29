@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MMatchRuleDeathMatch.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "CCBlobArray.h"
 
 // TEAM DEATH RULE ///////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatchMap.h"
+#include "CCMatchMap.h"
 
 #define FILENAME_MAP		"map.xml"
 

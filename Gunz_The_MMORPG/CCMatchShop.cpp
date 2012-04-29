@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCMatchShop.h"
 #include "CCMatchConfig.h"
-#include "MMatchGambleMachine.h"
+#include "CCMatchGambleMachine.h"
 
 MMatchShop::MMatchShop()
 {

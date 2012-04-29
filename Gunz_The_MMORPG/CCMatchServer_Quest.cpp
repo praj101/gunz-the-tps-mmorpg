@@ -3,7 +3,7 @@
 #include "CCMatchStage.h"
 #include "MMatchRule.h"
 #include "MMatchRuleQuest.h"
-#include "MMatchGameType.h"
+#include "CCMatchGameType.h"
 #include "CCMatchConfig.h"
 #include "CCBlobArray.h"
 #include "CCMatchShop.h"

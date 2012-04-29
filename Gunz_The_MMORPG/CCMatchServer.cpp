@@ -10,7 +10,7 @@
 #include "Msg.h"
 #include "MMatchObjCache.h"
 #include "CCMatchStage.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "MMatchFormula.h"
 #include "CCMatchConfig.h"
 #include "MCommandCommunicator.h"
@@ -27,7 +27,7 @@
 #include "MLadderStatistics.h"
 #include "MMatchSchedule.h"
 #include <winbase.h>
-#include "MMatchGameType.h"
+#include "CCMatchGameType.h"
 #include "MQuestFormula.h"
 #include "MQuestItem.h"
 #include "MSacrificeQItemTable.h"

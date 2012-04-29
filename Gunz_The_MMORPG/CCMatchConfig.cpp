@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCMatchConfig.h"
 #include <windows.h>
-#include "MMatchMap.h"
+#include "CCMatchMap.h"
 #include "MLex.h"
 #include "CCZFileSystem.h"
 #include "MErrorTable.h"
