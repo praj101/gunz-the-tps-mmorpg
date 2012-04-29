@@ -1647,11 +1647,11 @@ void CCMatchServer::ResponseGameInfo(const CCUID& uidChar, const CCUID& uidStage
 	
 	if (pStage->GetStageSetting()->IsTeamPlay())
 	{
-		pGameItem->nRedTeamScore = static_cast<char>(pStage->GetTeamScore(MMT_RED));
-		pGameItem->nBlueTeamScore = static_cast<char>(pStage->GetTeamScore(MMT_BLUE));
+		pGameItem->nRedTeamScore = static_cast<char>(pStage->GetTeamScore(CCMT_RED));
+		pGameItem->nBlueTeamScore = static_cast<char>(pStage->GetTeamScore(CCMT_BLUE));
 
-		pGameItem->nRedTeamKills = static_cast<short>(pStage->GetTeamKills(MMT_RED));
-		pGameItem->nBlueTeamKills = static_cast<short>(pStage->GetTeamKills(MMT_BLUE));
+		pGameItem->nRedTeamKills = static_cast<short>(pStage->GetTeamKills(CCMT_RED));
+		pGameItem->nBlueTeamKills = static_cast<short>(pStage->GetTeamKills(CCMT_BLUE));
 	}
 
 	pNew->AddParameter(new MCommandParameterBlob(pGameInfoArray, MGetBlobArraySize(pGameInfoArray)));

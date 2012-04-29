@@ -20,8 +20,8 @@ void MMatchRuleAssassinate::ChooseAdminAsCommander()
 	CCMatchStage* pStage = GetStage();
 	if (pServer==NULL || pStage==NULL) return;
 
-	m_uidRedCommander = ChooseCommander(MMT_RED);
-	m_uidBlueCommander = ChooseCommander(MMT_BLUE);
+	m_uidRedCommander = ChooseCommander(CCMT_RED);
+	m_uidBlueCommander = ChooseCommander(CCMT_BLUE);
 	if ( (m_uidRedCommander == CCUID(0,0)) || (m_uidBlueCommander == CCUID(0,0)) ) {
 		// Wait the game
 		SetRoundState(MMATCH_ROUNDSTATE_FREE);
@@ -43,11 +43,11 @@ const CCUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
 
 	int nRedAliveCount, nBlueAliveCount, nChooseTeamCount;
 	if (GetAliveCount(&nRedAliveCount, &nBlueAliveCount) == false) return CCUID(0,0);
-	if (nTeam == MMT_RED) {
+	if (nTeam == CCMT_RED) {
 		if (nRedAliveCount <= 0) return CCUID(0,0);
 		nChooseTeamCount = nRedAliveCount;
 	}
-	if (nTeam == MMT_BLUE) {
+	if (nTeam == CCMT_BLUE) {
 		if (nBlueAliveCount <= 0) return CCUID(0,0);
 		nChooseTeamCount = nBlueAliveCount;
 	}
@@ -93,8 +93,8 @@ void MMatchRuleAssassinate::OnRoundBegin()
 	CCMatchStage* pStage = GetStage();
 	if (pServer==NULL || pStage==NULL) return;
 
-	m_uidRedCommander = ChooseCommander(MMT_RED);
-	m_uidBlueCommander = ChooseCommander(MMT_BLUE);
+	m_uidRedCommander = ChooseCommander(CCMT_RED);
+	m_uidBlueCommander = ChooseCommander(CCMT_BLUE);
 	if ( (m_uidRedCommander == CCUID(0,0)) || (m_uidBlueCommander == CCUID(0,0)) ) {
 		// Wait the game
 		SetRoundState(MMATCH_ROUNDSTATE_FREE);
@@ -179,11 +179,11 @@ void MMatchRuleAssassinate::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObjec
 	}
 
 	bool bVictimIsCommander = false;
-	if (pVictim->GetTeam() == MMT_RED)
+	if (pVictim->GetTeam() == CCMT_RED)
 	{
 		if (m_uidRedCommander == pVictim->GetUID()) bVictimIsCommander = true;
 	}
-	else if (pVictim->GetTeam() == MMT_BLUE)
+	else if (pVictim->GetTeam() == CCMT_BLUE)
 	{
 		if (m_uidBlueCommander == pVictim->GetUID()) bVictimIsCommander = true;
 	}

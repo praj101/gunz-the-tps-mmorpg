@@ -97,13 +97,13 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	for (list<CCUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
 	{
 		CCUID uidPlayer = (*i);
-		LadderJoin(uidPlayer, uidStage, MMT_RED);
+		LadderJoin(uidPlayer, uidStage, CCMT_RED);
 	}
 	// B 그룹 입장
 	for (list<CCUID>::iterator i=pGroupB->GetPlayerListBegin(); i!= pGroupB->GetPlayerListEnd(); i++)
 	{
 		CCUID uidPlayer = (*i);
-		LadderJoin(uidPlayer, uidStage, MMT_BLUE);
+		LadderJoin(uidPlayer, uidStage, CCMT_BLUE);
 	}
 
 	// Agent 준비

@@ -532,17 +532,17 @@ int CCMatchStage::GetTeamMemberCount(CCMatchTeam nTeam)
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetTeam() == MMT_SPECTATOR)
 			nSpec++;
-		else if (pObj->GetTeam() == MMT_RED)
+		else if (pObj->GetTeam() == CCMT_RED)
 			nRed++;
-		else if (pObj->GetTeam() == MMT_BLUE)
+		else if (pObj->GetTeam() == CCMT_BLUE)
 			nBlue++;
 	}
 
 	if (nTeam == MMT_SPECTATOR)
 		return nSpec;
-	else if (nTeam == MMT_RED)
+	else if (nTeam == CCMT_RED)
 		return nRed;
-	else if (nTeam == MMT_BLUE)
+	else if (nTeam == CCMT_BLUE)
 		return nBlue;
 	return 0;
 }
@@ -554,9 +554,9 @@ CCMatchTeam CCMatchStage::GetRecommandedTeam()
 	GetTeamMemberCount(&nRed, &nBlue, NULL, false);
 
 	if (nRed <= nBlue)
-		return MMT_RED;
+		return CCMT_RED;
 	else
-		return MMT_BLUE;
+		return CCMT_BLUE;
 }
 
 void CCMatchStage::PlayerTeam(const CCUID& uidPlayer, CCMatchTeam nTeam)
@@ -847,7 +847,7 @@ void CCMatchStage::OnFinishGame()
 	{
 		if ((m_nStageType == MST_LADDER) && (GetStageSetting()->IsTeamPlay()))
 		{
-			CCMatchTeam nWinnerTeam = MMT_RED;
+			CCMatchTeam nWinnerTeam = CCMT_RED;
 			bool bIsDrawGame = false;
 			int nRedTeamCount=0, nBlueTeamCount=0;
 
@@ -857,21 +857,21 @@ void CCMatchStage::OnFinishGame()
 			if( nBlueTeamCount==0 || nRedTeamCount==0 )
 			{
 				// ÀÌ±äÆÀÀÌ ³ª°¡¸é µå·Î¿ì
-				if( ( nBlueTeamCount==0 && (m_Teams[MMT_BLUE].nScore > m_Teams[MMT_RED].nScore) ) ||
-					( nRedTeamCount==0 && (m_Teams[MMT_RED].nScore > m_Teams[MMT_BLUE].nScore) ) )
+				if( ( nBlueTeamCount==0 && (m_Teams[CCMT_BLUE].nScore > m_Teams[CCMT_RED].nScore) ) ||
+					( nRedTeamCount==0 && (m_Teams[CCMT_RED].nScore > m_Teams[CCMT_BLUE].nScore) ) )
 				{
-					m_Teams[MMT_RED].nScore = m_Teams[MMT_BLUE].nScore = 0;
+					m_Teams[CCMT_RED].nScore = m_Teams[CCMT_BLUE].nScore = 0;
 					bIsDrawGame = true;
 				}
 				// redÆÀ ½Â¸®
-				else if ((m_Teams[MMT_RED].nScore > m_Teams[MMT_BLUE].nScore) )
+				else if ((m_Teams[CCMT_RED].nScore > m_Teams[CCMT_BLUE].nScore) )
 				{
-					nWinnerTeam = MMT_RED;
+					nWinnerTeam = CCMT_RED;
 				}
 				// blueÆÀ ½Â¸®
-				else if ((m_Teams[MMT_RED].nScore < m_Teams[MMT_BLUE].nScore) )
+				else if ((m_Teams[CCMT_RED].nScore < m_Teams[CCMT_BLUE].nScore) )
 				{
-					nWinnerTeam = MMT_BLUE;
+					nWinnerTeam = CCMT_BLUE;
 				}
 				else 
 				{
@@ -879,14 +879,14 @@ void CCMatchStage::OnFinishGame()
 				}
 			}
 			// redÆÀ ½Â¸®
-			else if ((m_Teams[MMT_RED].nScore > m_Teams[MMT_BLUE].nScore) )
+			else if ((m_Teams[CCMT_RED].nScore > m_Teams[CCMT_BLUE].nScore) )
 			{
-				nWinnerTeam = MMT_RED;
+				nWinnerTeam = CCMT_RED;
 			}
 			// blueÆÀ ½Â¸®
-			else if ((m_Teams[MMT_RED].nScore < m_Teams[MMT_BLUE].nScore) )
+			else if ((m_Teams[CCMT_RED].nScore < m_Teams[CCMT_BLUE].nScore) )
 			{
-				nWinnerTeam = MMT_BLUE;
+				nWinnerTeam = CCMT_BLUE;
 			}
 			// draw
 			else
@@ -897,8 +897,8 @@ void CCMatchStage::OnFinishGame()
 			MBaseTeamGameStrategy* pTeamGameStrategy = MBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
 			if (pTeamGameStrategy)
 			{
-				pTeamGameStrategy->SavePointOnFinishGame(this, nWinnerTeam, bIsDrawGame, &m_Teams[MMT_RED].LadderInfo,
-					&m_Teams[MMT_BLUE].LadderInfo);
+				pTeamGameStrategy->SavePointOnFinishGame(this, nWinnerTeam, bIsDrawGame, &m_Teams[CCMT_RED].LadderInfo,
+					&m_Teams[CCMT_BLUE].LadderInfo);
 			};
 		}
 	}
@@ -1060,17 +1060,17 @@ void CCMatchStage::OnInitRound()
 
 			if (m_StageSetting.IsTeamPlay())
 			{
-				if (pObj->GetTeam() == MMT_RED) 
+				if (pObj->GetTeam() == CCMT_RED) 
 				{
 					nRedTeamCount++;
 					if (pObj->GetCharInfo())
-						m_Teams[MMT_RED].nTeamTotalLevel += pObj->GetCharInfo()->m_nLevel;
+						m_Teams[CCMT_RED].nTeamTotalLevel += pObj->GetCharInfo()->m_nLevel;
 				}
-				else if (pObj->GetTeam() == MMT_BLUE) 
+				else if (pObj->GetTeam() == CCMT_BLUE) 
 				{
 					nBlueTeamCount++;
 					if (pObj->GetCharInfo())
-						m_Teams[MMT_BLUE].nTeamTotalLevel += pObj->GetCharInfo()->m_nLevel;
+						m_Teams[CCMT_BLUE].nTeamTotalLevel += pObj->GetCharInfo()->m_nLevel;
 				}
 			}
 		}
@@ -1182,8 +1182,8 @@ void CCMatchStage::OnRoundEnd_FromTeamGame(CCMatchTeam nWinnerTeam)
 // Ladder¼­¹ö´Â ÆÀÀÇ ID, Å¬·£ÀüÀÏ °æ¿ì Å¬·£ ID°¡ µé¾î°£´Ù.
 void CCMatchStage::SetLadderTeam(MMatchLadderTeamInfo* pRedLadderTeamInfo, MMatchLadderTeamInfo* pBlueLadderTeamInfo)
 {
-	memcpy(&m_Teams[MMT_RED].LadderInfo, pRedLadderTeamInfo, sizeof(MMatchLadderTeamInfo));
-	memcpy(&m_Teams[MMT_BLUE].LadderInfo, pBlueLadderTeamInfo, sizeof(MMatchLadderTeamInfo));
+	memcpy(&m_Teams[CCMT_RED].LadderInfo, pRedLadderTeamInfo, sizeof(MMatchLadderTeamInfo));
+	memcpy(&m_Teams[CCMT_BLUE].LadderInfo, pBlueLadderTeamInfo, sizeof(MMatchLadderTeamInfo));
 }
 
 void CCMatchStage::OnCommand(MCommand* pCommand)
@@ -1268,11 +1268,11 @@ void CCMatchStage::ShuffleTeamMembers()
 	int nTeamMemberCount[MMT_END] = {0, };
 	CCMatchTeam nWinnerTeam;
 
-	GetTeamMemberCount(&nTeamMemberCount[MMT_RED], &nTeamMemberCount[MMT_BLUE], NULL, true);
-	if (nTeamMemberCount[MMT_RED] >= nTeamMemberCount[MMT_BLUE]) nWinnerTeam = MMT_RED; 
-	else nWinnerTeam = MMT_BLUE;
+	GetTeamMemberCount(&nTeamMemberCount[CCMT_RED], &nTeamMemberCount[CCMT_BLUE], NULL, true);
+	if (nTeamMemberCount[CCMT_RED] >= nTeamMemberCount[CCMT_BLUE]) nWinnerTeam = CCMT_RED; 
+	else nWinnerTeam = CCMT_BLUE;
 
-	int nShuffledMemberCount = abs(nTeamMemberCount[MMT_RED] - nTeamMemberCount[MMT_BLUE]) / 2;
+	int nShuffledMemberCount = abs(nTeamMemberCount[CCMT_RED] - nTeamMemberCount[CCMT_BLUE]) / 2;
 	if (nShuffledMemberCount <= 0) return;
 
 	vector<CCMatchObject*> sortedObjectList;
@@ -1329,7 +1329,7 @@ bool CCMatchStage::CheckAutoTeamBalancing()
 	if (m_StageSetting.GetAutoTeamBalancing() == false) return false;
 
 	int nMemberCount[MMT_END] = {0, };
-	GetTeamMemberCount(&nMemberCount[MMT_RED], &nMemberCount[MMT_BLUE], NULL, true);
+	GetTeamMemberCount(&nMemberCount[CCMT_RED], &nMemberCount[CCMT_BLUE], NULL, true);
 
 	// 2¸í ÀÌ»ó ÀÎ¿ø¼ö°¡ Â÷ÀÌ³ª°í ÀÎ¿ø¼ö ¸¹Àº ÆÀÀÌ 3¿¬½ÂÀÌ»ó °è¼ÓµÉ °æ¿ì ÆÀÀ» ¼¯´Â´Ù.
 	const int MEMBER_COUNT = 2;
@@ -1338,13 +1338,13 @@ bool CCMatchStage::CheckAutoTeamBalancing()
 //	const int MEMBER_COUNT = 1;
 //	const int SERIES_OF_VICTORIES = 2;
 
-	if ( ((nMemberCount[MMT_RED] - nMemberCount[MMT_BLUE]) >= MEMBER_COUNT) && 
-		 (m_Teams[MMT_RED].nSeriesOfVictories >= SERIES_OF_VICTORIES) )
+	if ( ((nMemberCount[CCMT_RED] - nMemberCount[CCMT_BLUE]) >= MEMBER_COUNT) && 
+		 (m_Teams[CCMT_RED].nSeriesOfVictories >= SERIES_OF_VICTORIES) )
 	{
 		return true;
 	}
-	else if ( ((nMemberCount[MMT_BLUE] - nMemberCount[MMT_RED]) >= MEMBER_COUNT) && 
-		 (m_Teams[MMT_BLUE].nSeriesOfVictories >= SERIES_OF_VICTORIES) )
+	else if ( ((nMemberCount[CCMT_BLUE] - nMemberCount[CCMT_RED]) >= MEMBER_COUNT) && 
+		 (m_Teams[CCMT_BLUE].nSeriesOfVictories >= SERIES_OF_VICTORIES) )
 	{
 		return true;
 	}
@@ -1366,8 +1366,8 @@ void CCMatchStage::GetTeamMemberCount(int* poutnRedTeamMember, int* poutnBlueTea
 		{
 			switch (pObj->GetTeam())
 			{
-			case MMT_RED:		if (poutnRedTeamMember) (*poutnRedTeamMember)++; break;
-			case MMT_BLUE:		if (poutnBlueTeamMember) (*poutnBlueTeamMember)++; break;
+			case CCMT_RED:		if (poutnRedTeamMember) (*poutnRedTeamMember)++; break;
+			case CCMT_BLUE:		if (poutnBlueTeamMember) (*poutnBlueTeamMember)++; break;
 			case MMT_SPECTATOR:	if (poutSpecMember) (*poutSpecMember)++; break;
 			};
 		}

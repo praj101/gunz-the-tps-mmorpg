@@ -23,9 +23,9 @@ inline const char* GetTeamNameStr(CCMatchTeam nTeam)
 	{
 	case MMT_SPECTATOR:
 		return MMATCH_SPECTATOR_STR;
-	case MMT_RED:
+	case CCMT_RED:
 		return MMATCH_TEAM1_NAME_STR;
-	case MMT_BLUE:
+	case CCMT_BLUE:
 		return MMATCH_TEAM2_NAME_STR;
 	default:
 		return "";
