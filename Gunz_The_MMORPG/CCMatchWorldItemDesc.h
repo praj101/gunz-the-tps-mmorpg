@@ -59,7 +59,7 @@ inline MMatchWorldItemDescMgr* MGetMatchWorldItemDescMgr()
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "MMatchWorldItem.h"
+#include "CCMatchWorldItem.h"
 #include "CCMatchStage.h"
 
 #define MAX_WORLDITEM_SPAWN		100

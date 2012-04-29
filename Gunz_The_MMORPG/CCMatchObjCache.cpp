@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCMatchObjCache.h"
 #include "CCMatchObject.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "CCCommandCommunicator.h"
 #include "CCBlobArray.h"
 #include "CCMatchTransDataType.h"

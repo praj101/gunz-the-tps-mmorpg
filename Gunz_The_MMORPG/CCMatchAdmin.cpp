@@ -6,7 +6,7 @@
 #include "MMatchRule.h"
 #include "CCMatchObject.h"
 #include "CCMatchObjCache.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 
 MMatchAdmin::MMatchAdmin()
 {

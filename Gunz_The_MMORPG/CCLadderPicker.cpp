@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "CCMatchServer.h"
 
-#include "MLadderMgr.h"
-#include "MLadderPicker.h"
+#include "CCLadderMgr.h"
+#include "CCLadderPicker.h"
 
 
 void MLadderPicker::AddTicket(MLadderGroup* pGroup, int nRandomArg)

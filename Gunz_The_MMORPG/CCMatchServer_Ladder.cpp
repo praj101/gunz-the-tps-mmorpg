@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "CCMatchServer.h"
-#include "MSharedCommandTable.h"
-#include "MErrorTable.h"
+#include "CCSharedCommandTable.h"
+#include "CCErrorTable.h"
 #include "CCBlobArray.h"
-#include "MObject.h"
+#include "CCObject.h"
 #include "CCMatchObject.h"
 #include "CCMatchItem.h"
-#include "MAgentObject.h"
+#include "CCAgentObject.h"
 #include "CCMatchNotify.h"
 #include "Msg.h"
 #include "CCMatchObjCache.h"
@@ -21,8 +21,8 @@
 #include "CCMatchAuth.h"
 #include "MMatchStatus.h"
 #include "MAsyncDBJob.h"
-#include "MLadderMgr.h"
-#include "MTeamGameStrategy.h"
+#include "CCLadderMgr.h"
+#include "CCTeamGameStrategy.h"
 
 
 

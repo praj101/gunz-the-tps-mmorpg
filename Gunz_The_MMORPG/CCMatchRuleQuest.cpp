@@ -6,7 +6,7 @@
 #include "CCBlobArray.h"
 #include "MQuestFormula.h"
 #include "CCCommandCommunicator.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "CCMatchTransDataType.h"
 #include "CCMatchConfig.h"
 #include "MMatchFormula.h"

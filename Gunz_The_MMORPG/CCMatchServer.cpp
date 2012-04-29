@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CCMatchServer.h"
-#include "MSharedCommandTable.h"
-#include "MErrorTable.h"
+#include "CCSharedCommandTable.h"
+#include "CCErrorTable.h"
 #include "CCBlobArray.h"
-#include "MObject.h"
+#include "CCObject.h"
 #include "CCMatchObject.h"
 #include "CCMatchItem.h"
 #include "CCMatchNotify.h"
@@ -22,7 +22,7 @@
 #include "CCMatchWorldItemDesc.h"
 #include "MMatchQuestMonsterGroup.h"
 #include "RTypes.h"
-#include "MMatchChatRoom.h"
+#include "CCMatchChatRoom.h"
 #include "CCMatchUtil.h"
 #include "CCLadderStatistics.h"
 #include "CCMatchSchedule.h"
@@ -40,7 +40,7 @@
 #include "../../MatchServer/HSHIELD/AntiCpSvrFunc.h"
 #include "CCMatchDBGambleItem.h"
 #include "MMatchCRC32XORCache.h"
-#include "MMatchCheckLoopTime.h"
+#include "CCMatchCheckLoopTime.h"
 #include "MCrashDump.h"
 #include "MMatchDuelTournamentMgr.h"
 
@@ -731,8 +731,8 @@ bool MMatchServer::InitDB()
 	return true;
 }
 
-#include "MLadderMgr.h"
-#include "MTeamGameStrategy.h"
+#include "CCLadderMgr.h"
+#include "CCTeamGameStrategy.h"
 
 LONG WINAPI TopLevelExceptionFilter(_EXCEPTION_POINTERS *pException)
 {

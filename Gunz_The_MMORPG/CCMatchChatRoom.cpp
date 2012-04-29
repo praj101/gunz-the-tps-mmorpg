@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "MMatchChatRoom.h"
+#include "CCMatchChatRoom.h"
 #include "CCMatchServer.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 
 
 
