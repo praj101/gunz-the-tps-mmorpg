@@ -230,18 +230,6 @@
 				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
-				<File
-					RelativePath=".\CCGridMap.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCObject.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MUID.cpp"
-					>
-				</File>
 				<Filter
 					Name="Widgets"
 					>
@@ -1200,6 +1188,50 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="Completed"
+			>
+			<Filter
+				Name="Match Channel"
+				>
+				<File
+					RelativePath=".\CCMatchChannel.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchChannel.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Match Clan"
+				>
+				<File
+					RelativePath=".\CCMatchClan.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchClan.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Match Friend Info"
+				>
+				<File
+					RelativePath=".\CCMatchFriendInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchFriendInfo.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="NewFilter1"
+				>
+			</Filter>
+		</Filter>
 		<File
 			RelativePath=".\CCCharacterDesc.h"
 			>
@@ -1209,11 +1241,71 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCGridMap.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCGridMap.h"
 			>
 		</File>
 		<File
+			RelativePath=".\CCHackingTypes.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMap.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchAccountPenaltyInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchAntiHack.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchBRMachine.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchCharBRInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchCRC32XORCache.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchGambleItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchHShield.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchItem.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchObject.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchObjectCharBuffInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCObject.cpp"
 			>
 		</File>
 		<File
@@ -1225,7 +1317,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCQuestItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCSmartRefreshImpl.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCSmartRefreshImpl.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Core4R2.h"
+			>
+		</File>
+		<File
+			RelativePath=".\MUID.cpp"
 			>
 		</File>
 		<File
