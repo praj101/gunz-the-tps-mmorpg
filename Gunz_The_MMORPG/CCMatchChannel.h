@@ -1,5 +1,4 @@
-#ifndef CCMATCHCHANNEL_H
-#define CCMATCHCHANNEL_H
+#pragma once
 
 #include <map>
 #include <list>
@@ -204,6 +203,3 @@ public:
 	void SetIsTicketClanChannel( const bool bIsTicketClanChannel )	{ m_ClanChannelTicketInfo.m_bIsTicketChannel = bIsTicketClanChannel; }
 	void SetClanChannelTicketItemID( const DWORD dwTicketItemID )	{ m_ClanChannelTicketInfo.m_dwTicketItemID = dwTicketItemID; }
 };
-
-
-#endif
