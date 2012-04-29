@@ -63,7 +63,7 @@ RMeshNodeInfo::RMeshNodeInfo()
 	m_PartsPosInfoType = eq_parts_pos_info_etc;
 	m_PartsType = eq_parts_etc;
 
-	m_nAlign = 0;
+	m_iAlign = 0;
 
 	m_AlphaSortValue = 0.f;
 	m_bNpcWeaponMeshNode = false;
@@ -153,7 +153,7 @@ RMeshNode::RMeshNode()
 	m_pAnimationNode = NULL;
 
 	m_Parent[0] = NULL;
-	m_nParentNodeID = -1;
+	m_iParentNodeID = -1;
 
 	m_pParent = NULL;
 
@@ -166,7 +166,7 @@ RMeshNode::RMeshNode()
 	}
 
 	m_BoneBaseMatrix = NULL;
-	m_nBoneBaseMatrixCnt = 0;
+	m_iBoneBaseMatrixCnt = 0;
 
 	m_bConnectPhysique = false;
 }
@@ -176,7 +176,7 @@ RMeshNode::~RMeshNode()
 
 	DEL2(m_BoneBaseMatrix);
 
-	m_nBoneBaseMatrixCnt = 0;
+	m_iBoneBaseMatrixCnt = 0;
 
 }
 
@@ -219,8 +219,8 @@ bool RMeshNode::ConnectMtrl()
 					m_pMtrlTable[0] = pMtrl;
 				}
 
-				m_nMtrlCnt = mtrl_cnt;
-				if(m_nMtrlCnt > MAX_PRIMITIVE)
+				m_iMtrlCnt = mtrl_cnt;
+				if(m_iMtrlCnt > MAX_PRIMITIVE)
 				{
 					mlog( "%s multi-sub material 이 10개를 넘을수 없습니다\n" , m_Name.c_str() );
 					return false;
@@ -266,12 +266,12 @@ bool RMeshNode::SetBVertData(RBlendVertex* pBVert,int i,int j,int pv_index,int* 
 		return false;
 	}
 
-	if( pPhysique->m_num > 3 || pPhysique->m_num <= 0 ) {
+	if( pPhysique->m_ium > 3 || pPhysique->m_ium <= 0 ) {
 		mlog("%s mesh %s node %d face %d point -> physique 3 개 이상\n",m_pParentMesh->GetFileName() ,m_Name.c_str(),i,j);
 		return false;
 	}
 
-	if( 1 == pPhysique->m_num ) {
+	if( 1 == pPhysique->m_ium ) {
 		w1 = 1;
 		w2 = 0;
 	}
@@ -289,7 +289,7 @@ bool RMeshNode::SetBVertData(RBlendVertex* pBVert,int i,int j,int pv_index,int* 
 
 	int index;
 
-	for( int k = 0 ; k < pPhysique->m_num; ++k )
+	for( int k = 0 ; k < pPhysique->m_ium; ++k )
 	{
 		index = pPhysique->m_parent_id[k]; // 현재 참조하고 있는 bone의 index
 
@@ -439,7 +439,7 @@ void RMeshNode::RenderNodeVS(RMesh* pMesh,D3DXMATRIX* pWorldMat_,ESHADER shader_
 	dev->SetVertexShaderConstantF( VIEW_PROJECTION_MATRIX, (float*)&matTemp, 4 );
 
 	RMtrl *pMtrl =  m_pMtrlTable[0];
-	int num_mtrl =  m_nMtrlCnt;
+	int num_mtrl =  m_iMtrlCnt;
 
 	__EP(5010);
 
@@ -482,7 +482,7 @@ void RMeshNode::RenderNodeVS(RMesh* pMesh,D3DXMATRIX* pWorldMat_,ESHADER shader_
 
 	m_vsb->SetVSVertexBuffer();
 
-	for( i = 0 ; i <  m_nMtrlCnt  ; ++i )
+	for( i = 0 ; i <  m_iMtrlCnt  ; ++i )
 	{
 		__BP(5012,"RMesh::SetCharacterMtrl_ON");
 
@@ -525,7 +525,7 @@ void RMeshNode::ConnectToNameID()
 
 RBoneBaseMatrix* RMeshNode::GetBaseMatrix(int pid)
 {
-	for(int i=0;i<m_nBoneBaseMatrixCnt;i++) 
+	for(int i=0;i<m_iBoneBaseMatrixCnt;i++) 
 	{
 		if( m_BoneBaseMatrix[i].id == pid )
 			return &m_BoneBaseMatrix[i];
@@ -664,9 +664,9 @@ void RMeshNode::MakeNodeBuffer(DWORD flag)
 		} 
 		else if(!RMesh::m_bVertexNormalOnOff) {
 
-			SetVertex((pV+w  ),pP[p0],pFNL->m_normal,pFace->m_point_tex[0]);
-			SetVertex((pV+w+1),pP[p1],pFNL->m_normal,pFace->m_point_tex[1]);
-			SetVertex((pV+w+2),pP[p2],pFNL->m_normal,pFace->m_point_tex[2]);
+			SetVertex((pV+w  ),pP[p0],pFNL->m_iormal,pFace->m_point_tex[0]);
+			SetVertex((pV+w+1),pP[p1],pFNL->m_iormal,pFace->m_point_tex[1]);
+			SetVertex((pV+w+2),pP[p2],pFNL->m_iormal,pFace->m_point_tex[2]);
 
 		} else {
 
@@ -678,16 +678,16 @@ void RMeshNode::MakeNodeBuffer(DWORD flag)
 
 	MakeVertexBuffer(0,lvert,_pVert,m_face_num*3,flag);
 
-	for (int index = 0; index < m_nMtrlCnt ; index ++) 
+	for (int index = 0; index < m_iMtrlCnt ; index ++) 
 	{
 		face_cnt = 0;
 
 		for (int i = 0; i < m_face_num  ; i ++) {
 
-			if(m_nMtrlCnt != 1) {
+			if(m_iMtrlCnt != 1) {
 				sub_mtrl = m_face_list[i].m_mtrl_id;
-				if(sub_mtrl >= m_nMtrlCnt) 
-					sub_mtrl -= m_nMtrlCnt;
+				if(sub_mtrl >= m_iMtrlCnt) 
+					sub_mtrl -= m_iMtrlCnt;
 				if(sub_mtrl != index) 
 					continue;
 			}
@@ -1131,7 +1131,7 @@ void RMeshNode::Render(D3DXMATRIX* pWorldMatrix)
 
 	// sub mtrl indexbuffer 만큼....
 
-	for (int index = 0; index < m_nMtrlCnt ; index ++) {
+	for (int index = 0; index < m_iMtrlCnt ; index ++) {
 
 		pMtrl = GetMtrl(index);
 	
@@ -1212,7 +1212,7 @@ void RMeshNode::Render(D3DXMATRIX* pWorldMatrix)
 
 void RMeshNode::CheckAlignMapObject(rmatrix& hr_mat) // 맵오브젝트만..
 {
-	int align = m_nAlign;
+	int align = m_iAlign;
 
 	if( m_pBaseMesh->m_is_map_object==false )	return;
 	if( align == 0 )							return;
@@ -1303,7 +1303,7 @@ void RMeshNode::CheckAlignMapObject(rmatrix& hr_mat) // 맵오브젝트만..
 
 void RMeshNode::CheckAlign(rmatrix* world_mat)
 {
-	if (m_nAlign == 0)	return;
+	if (m_iAlign == 0)	return;
 
 	if(world_mat==NULL) return;
 
@@ -1325,7 +1325,7 @@ void RMeshNode::CheckAlign(rmatrix* world_mat)
 	cam_dir.y=RCameraDirection.x*world_mat->_21+RCameraDirection.y*world_mat->_22+RCameraDirection.z*world_mat->_23;
 	cam_dir.z=RCameraDirection.x*world_mat->_31+RCameraDirection.y*world_mat->_32+RCameraDirection.z*world_mat->_33;
 
-	int align = m_nAlign;
+	int align = m_iAlign;
 
 	rmatrix ret_mat, scale_mat;
 
@@ -1451,7 +1451,7 @@ void RMeshNode::CalcVertexBuffer_Physique(D3DXMATRIX* world_mat,int frame)
 
 		_vec_all = rvector(0,0,0);
 
-		p_num = m_physique[i].m_num;
+		p_num = m_physique[i].m_ium;
 
 		if(p_num > MAX_PHYSIQUE_KEY) p_num = MAX_PHYSIQUE_KEY;
 

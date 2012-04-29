@@ -56,21 +56,21 @@ class CCTextArea : public CCWidget{
 	friend CCTextAreaLook;
 protected:
 	bool		m_bScrollBarEnable;
-	int			m_nIndentation;
+	int			m_iIndentation;
 	bool		m_bWordWrap;
 	bool		m_bColorSupport;
 	sPoint		m_TextOffset;
 	bool		m_bMouseOver;
 	sColor		m_TextColor;
-	int			m_nMaxLen;
+	int			m_iMaxLen;
 	char		m_szIMECompositionString[COMPOSITIONSTRING_LENGTH];
 	bool		m_bEditable;
-	int			m_nStartLine;
-	int			m_nStartLineSkipLine;
-	int			m_nCurrentSize;
+	int			m_iStartLine;
+	int			m_iStartLineSkipLine;
+	int			m_iCurrentSize;
 	bool		m_bVerticalMoving;
-	int			m_nVerticalMoveAxis;
-	int			m_nCustomLineHeight;
+	int			m_iVerticalMoveAxis;
+	int			m_iCustomLineHeight;
 	sPoint		m_CaretPos;		
 	bool		m_bCaretFirst;	
 
@@ -89,8 +89,8 @@ protected:
 	virtual void OnSetFocus(void);
 	virtual void OnReleaseFocus(void);
 	
-	virtual bool InputFilterKey(int nKey,bool bCtrl);	// MWM_KEYDOWN
-	virtual bool InputFilterChar(int nKey);	// MWM_CHAR
+	virtual bool InputFilterKey(int iKey,bool bCtrl);	// MWM_KEYDOWN
+	virtual bool InputFilterChar(int iKey);	// MWM_CHAR
 
 	bool OnLButtonDown(sPoint pos);
 	void OnScrollBarChanged(int nPos);
@@ -123,7 +123,7 @@ public:
 	virtual const char* GetClassName(void){ return CCTEXTAREA; }
 
 	sPoint	GetCaretPos() { return m_CaretPos; }
-	int		GetStartLine() { return m_nStartLine; }
+	int		GetStartLine() { return m_iStartLine; }
 
 	bool	IsScrollBarVisible() { return m_pScrollBar->IsVisible();	}
 	int		GetScrollBarWidth() { return m_pScrollBar->GetRect().w;	}
@@ -131,7 +131,7 @@ public:
 
 	int		GetClientWidth();
 
-	int		GetLength() { return (int)(m_nCurrentSize+m_Lines.size()); }
+	int		GetLength() { return (int)(m_iCurrentSize+m_Lines.size()); }
 	int		GetLineCount() { return (int)m_Lines.size(); }			//??? that exists inside
 	int		GetTotalLineCount(int& nStartLine, int& nCurrentLine);	//wordwrap adjusted when the number of lines actually output
 
@@ -139,7 +139,7 @@ public:
 	const char* GetTextLine(int nLine);
 
 	void	SetMaxLen(int nMaxLen);
-	int		GetMaxLen() { return m_nMaxLen; }
+	int		GetMaxLen() { return m_iMaxLen; }
 
 	const char* GetCompositionString(void);
 
@@ -151,7 +151,7 @@ public:
 	
 	void	SetTextOffset(sPoint p);
 
-	void	SetIndentation(int nIndentation) { m_nIndentation = nIndentation; }
+	void	SetIndentation(int nIndentation) { m_iIndentation = nIndentation; }
 	
 	void	SetTextColor(sColor color);
 	sColor	GetTextColor(void);

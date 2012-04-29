@@ -45,7 +45,7 @@ RAnimationFile* RAnimationFileMgr::Add(char* filename)
 
 	if( pFile ) {
 		pFile->AddRef();
-//		mlog("에니메이션 파일 중복사용 %s ref_cnt %d \n",filename,pFile->m_nRefCount);
+//		mlog("에니메이션 파일 중복사용 %s ref_cnt %d \n",filename,pFile->m_iRefCount);
 		return pFile;
 	}
 
@@ -71,9 +71,9 @@ RAnimationFile* RAnimationFileMgr::Get(char* filename)
 
 RAnimationMgr::RAnimationMgr() {
 	m_id_last = 0;
-//	m_node_table.reserve(MAX_ANIMATION_NODE);//기본
+//	m_iode_table.reserve(MAX_ANIMATION_NODE);//기본
 //	for(int i=0;i<MAX_ANIMATION_NODE;i++)
-//		m_node_table[i] = NULL;
+//		m_iode_table[i] = NULL;
 	m_list_map = NULL;
 	m_list_map_size = 0;
 }
@@ -105,8 +105,8 @@ RAnimation* RAnimationMgr::AddAnimationFile(char* name,char* filename,int sID,bo
 	node->m_sID = sID;
 	node->SetWeaponMotionType(MotionTypeID);
 
-	m_node_table.push_back(node);
-//	m_node_table[m_id_last] = node;
+	m_iode_table.push_back(node);
+//	m_iode_table[m_id_last] = node;
 	m_id_last++;
 
 	if(m_id_last > MAX_ANIMATION_NODE)
@@ -150,8 +150,8 @@ void RAnimationMgr::DelAll() {
 
 	m_list.Clear();
 
-	if(!m_node_table.empty())
-		m_node_table.clear();//버퍼는 남아 있다..
+	if(!m_iode_table.empty())
+		m_iode_table.clear();//버퍼는 남아 있다..
 
 	m_id_last = 0;
 }

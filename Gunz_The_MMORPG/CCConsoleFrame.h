@@ -19,7 +19,7 @@ class CCConsoleFrame;
 /////////////////////////////////////////////////////////////////////////////////
 #define CONSOLE_LINES_MAX 250
 
-typedef void(CCCONSOLE_KEYDOWN_CALLBACK)(int nKey);
+typedef void(CCCONSOLE_KEYDOWN_CALLBACK)(int iKey);
 typedef void(CCCONSOLE_INPUT_CALLBACK)(const char* szInputStr);
 
 class CCConsoleEdit: public CCEdit
@@ -27,18 +27,18 @@ class CCConsoleEdit: public CCEdit
 private:
 	CCConsoleFrame*		m_pConsoleFrame;
 protected:
-	virtual bool InputFilterKey(int nKey);	// MWM_KEYDOWN
-	virtual bool InputFilterChar(int nKey);	// MWM_CHAR
+	virtual bool InputFilterKey(int iKey);	// MWM_KEYDOWN
+	virtual bool InputFilterChar(int iKey);	// MWM_CHAR
 	virtual bool OnTab(bool bForward=true);
 
-	CCCONSOLE_KEYDOWN_CALLBACK*		m_pfnKeyDown;
+	CCCONSOLE_KEYDOWN_CALLBACK*		m_pfiKeyDown;
 	CCCONSOLE_INPUT_CALLBACK*		m_pfnInput;
 public:
 	CCConsoleEdit(CCConsoleFrame* pConsoleFrame, int nMaxLength, const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	CCConsoleEdit(CCConsoleFrame* pConsoleFrame, const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~CCConsoleEdit();
 
-	void SetKeyDownCallback(CCCONSOLE_KEYDOWN_CALLBACK* pfnKeyDown) { m_pfnKeyDown = pfnKeyDown; }
+	void SetKeyDownCallback(CCCONSOLE_KEYDOWN_CALLBACK* pfiKeyDown) { m_pfiKeyDown = pfiKeyDown; }
 	void SetInputCallback(CCCONSOLE_INPUT_CALLBACK* pfnInput) { m_pfnInput = pfnInput; }
 };
 /////////////////////////////////////////////////////////////////////////////////

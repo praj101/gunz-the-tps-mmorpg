@@ -24,7 +24,7 @@ public:
 	CCRecord<_T>* GetPrevPointer(){ return m_lpPrev; };
 
 	void SetNextPointer(_T* nnext){ m_lpNext = nnext; };
-	CCRecrod<_T>* GetNextPointer(){ return m_lpNext; };
+	CCRecord<_T>* GetNextPointer(){ return m_lpNext; };
 
 	_T* Get() { return m_lpContent; };
 };

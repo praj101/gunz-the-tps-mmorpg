@@ -8,22 +8,22 @@
 
 		CLASSES
 		--------------------------------
-			- cEvent
+			- CCEvent
 				\_	Contains functions that grab the state of the mouse and 
 					keyboard.
 
 		FUNCTIONS
 		--------------------------------
-			- cEvent
+			- CCEvent
 				/_ static bool		GetShiftState()
 				|_ static bool		GetCtrlState()
 				|_ static bool		GetAltState()
 				|_ static bool		IsKeyDown(int key)
 				|_ static bool		GetLButtonState()
-				|_ static bool		GetMButtonState()
+				|_ static bool		GetCCButtonState()
 				|_ static bool		GetRButtonState()
 				|_ static sPoint	GetMousePos()
-				|_ static void		cEvent::ForceSetIME(DWORD conversion, DWORD sentence)
+				|_ static void		CCEvent::ForceSetIME(DWORD conversion, DWORD sentence)
 				|_ static void		SetIMESupport(bool bSupport)
 				|_ static bool		GetIMESupport()
 				\_ int				TranslateEvent(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
@@ -65,7 +65,7 @@
 
 #define COMPOSITIONSTRING_LENGTH	256
 
-class cEvent{
+class CCEvent{
 public:
 	int				iMessage;
 	sPoint			sPos;
@@ -76,7 +76,7 @@ public:
 	bool			bCtrl;
 
 	static bool		bLButton;
-	static bool		bMButton;
+	static bool		bCCButton;
 	static bool		bRButton;
 
 	static sPoint	LatestPos;
@@ -93,12 +93,12 @@ public:
 	static bool		IsKeyDown(int key);
 
 	static bool		GetLButtonState();
-	static bool		GetMButtonState();
+	static bool		GetCCButtonState();
 	static bool		GetRButtonState();
 
 	static sPoint	GetMousePos();
 	
-	static void		cEvent::ForceSetIME(DWORD conversion, DWORD sentence);
+	static void		CCEvent::ForceSetIME(DWORD conversion, DWORD sentence);
 
 	static void		SetIMESupport(bool bSupport) { bIMESupport = bSupport; };
 	static bool		GetIMESupport() { return bIMESupport; };

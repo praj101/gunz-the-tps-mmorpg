@@ -156,8 +156,8 @@ class CCMemoryProxy
 	_data m_initial;
 
 	DWORD m_dwCurrentTime;
-	int m_nCorrectDataIndex;
-	int m_nIndex;
+	int m_iCorrectDataIndex;
+	int m_iIndex;
 	
 public:
 	CCMemoryProxy()
@@ -168,8 +168,8 @@ public:
 	CCMemoryProxy(_data init)
 	{
 		m_initial = init;
-		m_nIndex = 0;
-		m_nCorrectDataIndex = 0;
+		m_iIndex = 0;
+		m_iCorrectDataIndex = 0;
 		Init();
 	}
 
@@ -196,7 +196,7 @@ public:
 			*(MB3->m_pMemory[i]) = m_initial;
 		}
 		
-		m_nIndex = 1;
+		m_iIndex = 1;
 		MB = MB1;
 		m_dwCurrentTime = GetTickCount();
 
@@ -223,43 +223,43 @@ public:
 
 	_data & GetData()
 	{
-		return * MB->m_pMemory[m_nCorrectDataIndex];
+		return * MB->m_pMemory[m_iCorrectDataIndex];
 	}
 
 	void SetRandomData(const _data & data)
 	{
-		m_nCorrectDataIndex = RandomNumber(0, NUM_OF_MEMORY-1);
-		*(MB->m_pMemory[m_nCorrectDataIndex]) = data;
+		m_iCorrectDataIndex = RandomNumber(0, NUM_OF_MEMORY-1);
+		*(MB->m_pMemory[m_iCorrectDataIndex]) = data;
 	}
 	void SetWarpingAdd(DWORD tick)
 	{
 		if( tick - m_dwCurrentTime > WRAPING_TIME)
 		{
 			int i = RandomNumber(0, NUM_OF_MEMORY-1);
-			if(m_nIndex == 1)
+			if(m_iIndex == 1)
 			{
-				*(MB2->m_pMemory[i]) = *(MB1->m_pMemory[m_nCorrectDataIndex]);
+				*(MB2->m_pMemory[i]) = *(MB1->m_pMemory[m_iCorrectDataIndex]);
 				MB = MB2;
-				*(MB1->m_pMemory[m_nCorrectDataIndex]) = m_initial;	//trail less than a unit
-				m_nCorrectDataIndex = i;
+				*(MB1->m_pMemory[m_iCorrectDataIndex]) = m_initial;	//trail less than a unit
+				m_iCorrectDataIndex = i;
 			}
-			else if(m_nIndex == 2)
+			else if(m_iIndex == 2)
 			{
-				*(MB3->m_pMemory[i]) = *(MB2->m_pMemory[m_nCorrectDataIndex]);
+				*(MB3->m_pMemory[i]) = *(MB2->m_pMemory[m_iCorrectDataIndex]);
 				MB = MB3;
-				*(MB2->m_pMemory[m_nCorrectDataIndex]) = m_initial;
-				m_nCorrectDataIndex = i;
+				*(MB2->m_pMemory[m_iCorrectDataIndex]) = m_initial;
+				m_iCorrectDataIndex = i;
 			}
 			else
 			{
-				*(MB1->m_pMemory[i]) = *(MB3->m_pMemory[m_nCorrectDataIndex]);
+				*(MB1->m_pMemory[i]) = *(MB3->m_pMemory[m_iCorrectDataIndex]);
 				MB = MB1;
-				*(MB3->m_pMemory[m_nCorrectDataIndex]) = m_initial;
-				m_nCorrectDataIndex = i;
+				*(MB3->m_pMemory[m_iCorrectDataIndex]) = m_initial;
+				m_iCorrectDataIndex = i;
 			}
-			m_nIndex++;
-			if(m_nIndex>3)
-				m_nIndex = 1;
+			m_iIndex++;
+			if(m_iIndex>3)
+				m_iIndex = 1;
 
 			m_dwCurrentTime = tick;
 		}	

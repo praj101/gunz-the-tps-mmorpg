@@ -72,15 +72,15 @@ int SubGetTexLevel(DWORD tex_type)
 
 RBaseTexture::RBaseTexture()
 {
-	m_nRefCount=0;
+	m_iRefCount=0;
 	memset(&m_Info,0,sizeof(D3DXIMAGE_INFO));
 	m_pTex = NULL;
 	m_szTextureName[0]=0;
-	m_nFileSize = 0;
+	m_iFileSize = 0;
 	m_pTextureFileBuffer = NULL;
 	m_bManaged = false;
-	m_nTexLevel = 0;
-	m_nTexType = RTextureType_Etc;
+	m_iTexLevel = 0;
+	m_iTexType = RTextureType_Etc;
 	m_bUseFileSystem = true;
 	m_dwColorkey = 0;
 }
@@ -173,18 +173,18 @@ bool RBaseTexture::SubCreateTexture()
 	UINT Tex_w = D3DX_DEFAULT;
 	UINT Tex_h = D3DX_DEFAULT;
 
-	m_nTexLevel = SubGetTexLevel( m_nTexType );
+	m_iTexLevel = SubGetTexLevel( m_iTexType );
 
 	__BP(2011,"RBaseTexture::SubCreateTexture");
 
-	if( FAILED( D3DXGetImageInfoFromFileInMemory( m_pTextureFileBuffer,m_nFileSize,&m_Info) ) ) 
+	if( FAILED( D3DXGetImageInfoFromFileInMemory( m_pTextureFileBuffer,m_iFileSize,&m_Info) ) ) 
 	{
 		_RPT1(_CRT_WARN,"%s ---->> get image info failure \n",m_szTextureName);
 		__EP(2011);
 		return false;
 	}
 
-	if( m_nTexLevel ) { // 옵션정도에 따라~  
+	if( m_iTexLevel ) { // 옵션정도에 따라~  
 
 //		기본사이즈 : 0
 //		1/2 사이즈 : 1
@@ -192,7 +192,7 @@ bool RBaseTexture::SubCreateTexture()
 //		1/8 사이즈 : 4 <- HardwareTNL을 지원하지 않는 그래픽 카드일 경우
 
 		/*
-		if( FAILED( D3DXGetImageInfoFromFileInMemory( m_pTextureFileBuffer,m_nFileSize,&m_Info) ) ) {
+		if( FAILED( D3DXGetImageInfoFromFileInMemory( m_pTextureFileBuffer,m_iFileSize,&m_Info) ) ) {
 			_RPT1(_CRT_WARN,"%s ---->> memory texture (re)create failure \n",m_szTextureName);
 
 			__EP(2011);
@@ -200,13 +200,13 @@ bool RBaseTexture::SubCreateTexture()
 			return false;
 		}
 		else {
-			Tex_w = m_Info.Width  / (m_nTexLevel*2);
-			Tex_h = m_Info.Height / (m_nTexLevel*2);
+			Tex_w = m_Info.Width  / (m_iTexLevel*2);
+			Tex_h = m_Info.Height / (m_iTexLevel*2);
 		}
 		*/
 
-		Tex_w = m_Info.Width  / (1 << m_nTexLevel);
-		Tex_h = m_Info.Height / (1 << m_nTexLevel);
+		Tex_w = m_Info.Width  / (1 << m_iTexLevel);
+		Tex_h = m_Info.Height / (1 << m_iTexLevel);
 	}
 
 	D3DFORMAT d3dformat = D3DFMT_UNKNOWN;
@@ -249,7 +249,7 @@ bool RBaseTexture::SubCreateTexture()
 	}
 
 	if( FAILED(D3DXCreateTextureFromFileInMemoryEx(
-		RGetDevice(), m_pTextureFileBuffer ,m_nFileSize, Tex_w, Tex_h,
+		RGetDevice(), m_pTextureFileBuffer ,m_iFileSize, Tex_w, Tex_h,
 		m_bUseMipmap ? D3DX_DEFAULT : 1, 0, d3dformat,pool,
 		D3DX_FILTER_TRIANGLE|D3DX_FILTER_MIRROR, 
 		D3DX_FILTER_TRIANGLE|D3DX_FILTER_MIRROR, 
@@ -299,7 +299,7 @@ bool RBaseTexture::OnRestore(bool bManaged)
 	}
 
 	__BP(2013,"RBaseTexture::mzf.Open : new ");
-	m_nFileSize = mzf.GetLength();
+	m_iFileSize = mzf.GetLength();
 	m_pTextureFileBuffer = new char[mzf.GetLength()];
 	__EP(2013);
 
@@ -370,9 +370,9 @@ void RTextureManager::Destroy() {
 	while(size())
 	{
 		RBaseTexture *pTex=begin()->second;
-		if(pTex->m_nRefCount>0)
+		if(pTex->m_iRefCount>0)
 		{
-			_RPT2(_CRT_WARN," %s texture not destroyed. ( ref count = %d )\n",pTex->m_szTextureName,pTex->m_nRefCount);
+			_RPT2(_CRT_WARN," %s texture not destroyed. ( ref count = %d )\n",pTex->m_szTextureName,pTex->m_iRefCount);
 		}
 		delete pTex;
 		erase(begin());
@@ -429,7 +429,7 @@ void RTextureManager::OnChangeTextureLevel(DWORD flag)
 	for(iterator i=begin();i!=end();i++) {
 		pTex = i->second;
 		if( pTex ) {
-			if( flag==RTextureType_All || (flag & pTex->m_nTexType) ) {
+			if( flag==RTextureType_All || (flag & pTex->m_iTexType) ) {
 
 				if(pTex->m_pTex) {// 사용중인 텍스쳐만..
 					pTex->OnInvalidate();
@@ -457,7 +457,7 @@ int RTextureManager::PrintUsedTexture()
 			if(pTex->m_pTex)
 				nUse = 1;
 			
-			mlog("texture : %s Used %d RefCnt %d \n",pTex->m_szTextureName,nUse,pTex->m_nRefCount);
+			mlog("texture : %s Used %d RefCnt %d \n",pTex->m_szTextureName,nUse,pTex->m_iRefCount);
 			cnt++;
 		}
 	}
@@ -519,12 +519,12 @@ int RTextureManager::CalcUsedSize()
 			/*
 			//대충추정치
 
-			if(pTex->m_nFileSize) {
+			if(pTex->m_iFileSize) {
 
-				 if(pTex->m_nTexLevel==0) add_size = pTex->m_nFileSize;
-			else if(pTex->m_nTexLevel==1) add_size = pTex->m_nFileSize/4;
-			else if(pTex->m_nTexLevel==2) add_size = pTex->m_nFileSize/16;
-			else if(pTex->m_nTexLevel==3) add_size = pTex->m_nFileSize/64;
+				 if(pTex->m_iTexLevel==0) add_size = pTex->m_iFileSize;
+			else if(pTex->m_iTexLevel==1) add_size = pTex->m_iFileSize/4;
+			else if(pTex->m_iTexLevel==2) add_size = pTex->m_iFileSize/16;
+			else if(pTex->m_iTexLevel==3) add_size = pTex->m_iFileSize/64;
 
 			}
 			*/
@@ -570,16 +570,16 @@ RBaseTexture *RTextureManager::CreateBaseTextureSub(bool Mg,const char* filename
 
 	if(i!=end())
 	{
-		i->second->m_nRefCount++;
+		i->second->m_iRefCount++;
 		return i->second;
 	}
 
 	RBaseTexture *pnew=new RBaseTexture;
 	pnew->m_bUseFileSystem = bUseFileSystem;
-	pnew->m_nRefCount=1;
+	pnew->m_iRefCount=1;
 	pnew->m_bUseMipmap	= bUseMipmap;
-	pnew->m_nTexType	= tex_type;
-	pnew->m_nTexLevel	= SubGetTexLevel(tex_type);
+	pnew->m_iTexType	= tex_type;
+	pnew->m_iTexLevel	= SubGetTexLevel(tex_type);
 	pnew->m_dwColorkey	= colorkey;
 
 	strcpy(pnew->m_szTextureName,texturefilename);
@@ -629,8 +629,8 @@ void RTextureManager::DestroyBaseTexture(char* szName)
 
 	if(i!=end()) {
 		RBaseTexture *pTTex=i->second;
-		pTTex->m_nRefCount--;
-		if(pTTex->m_nRefCount==0)
+		pTTex->m_iRefCount--;
+		if(pTTex->m_iRefCount==0)
 		{
 			delete pTTex;
 			erase(i);

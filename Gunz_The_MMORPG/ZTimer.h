@@ -13,8 +13,8 @@ private:
 	bool						m_bInitialized;
 
 
-	unsigned long int			m_nLastTime;
-	unsigned long int			m_nNowTime;
+	unsigned long int			m_iLastTime;
+	unsigned long int			m_iNowTime;
 	list<ZTimerEvent*>			m_EventList;
 
 	// 타이머 갱신용 변수들 : 메모리핵으로 변조하면 스피드핵이 가능하다 그래서 힙할당하고 주기적으로 위치를 옮긴다
@@ -40,7 +40,7 @@ public:
 	void ClearTimerEvent(ZGameTimerEventCallback* fnTimerEventCallback);
 
 
-	unsigned long int GetNowTick() { return m_nNowTime; }
+	unsigned long int GetNowTick() { return m_iNowTime; }
 };
 
 class ZUpdateTimer

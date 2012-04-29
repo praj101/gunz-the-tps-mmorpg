@@ -1,4 +1,5 @@
 #pragma once
+#include "CCVector3.h"
 /* 
 	CCTypes.h
 		This header file contains multiple macros, defines, and structs that will
@@ -24,8 +25,8 @@
 			\_	Contains collor information and conversion data. Allows for extraction
 				of color and presentation of color via unsigned long int values.
 */
-#define MINT_ARGB(a,r,g,b) ((((unsigned long int)a)&0xFF)<<24)|((((unsigned long int)r)&0xFF)<<16)|((((unsigned long int)g)&0xFF)<<8)|(((unsigned long int)b)&0xFF))
-#define MINT_RGB(r,g,b)|((((unsigned long int)r)&0xFF)<<16)|((((unsigned long int)g)&0xFF)<<8)|(((unsigned long int)b)&0xFF))
+#define MINT_ARGB(a,r,g,b)	((((unsigned long int)a)&0xFF)<<24) | ((((unsigned long int)r)&0xFF)<<16)	| ((((unsigned long int)g)&0xFF)<<8) | (((unsigned long int)b)&0xFF)
+#define MINT_RGB(r,g,b)		((((unsigned long int)r)&0xFF)<<16) | ((((unsigned long int)g)&0xFF)<<8)	| (((unsigned long int)b)&0xFF)
 #define uchar unsigned char
 #define ulong unsigned long
 #define uint  unsigned int
@@ -79,7 +80,7 @@ public:
 	void Enlarge(int w);	//W, Down, Left, Right and raise the chunk size
 	void Offset(int x, int y);		//Position move
 
-	bool Intersect(sRect* pIntersect, cost sRect& r);	//Common area of two squares
+	bool Intersect(sRect* pIntersect, const sRect& r);	//Common area of two squares
 };
 //Dimensions
 struct sSize{
@@ -108,6 +109,12 @@ public:
 		sColor::g=g;
 		sColor::b=b;
 		sColor::a=a;
+	};
+	sColor(uchar r, uchar g, uchar b){
+		sColor::r=r;
+		sColor::g=g;
+		sColor::b=b;
+		sColor::a=0;
 	};
 	sColor(ulong int argb){
 		a = uchar((argb & 0xFF000000)>>24);

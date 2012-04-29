@@ -25,7 +25,7 @@ enum CCButtonType{
 	CCBT_PUSH2
 };
 //The default key properties
-enum CCButtonKeyAssigned{
+enum CCButtoiKeyAssigned{
 	CCBKA_NONE=0,
 	CCBKA_ENTER,
 	CCBKA_ESC
@@ -43,7 +43,7 @@ protected:
 public:
 	virtual void OnDrawText(CCButton* pButton, sRect& r, CCDrawContext* pDC);
 	virtual void OnDraw(CCButton* pButton, CCDrawContext* pDC);
-	virtual MRECT GetClientRect(CCButton* pButton, sRect& r);
+	virtual sRect GetClientRect(CCButton* pButton, sRect& r);
 	void SetWireLook(bool b) {	m_bWireLook = b;	}
 	bool GetWireLook() const{	return m_bWireLook; }
 public:
@@ -64,13 +64,13 @@ protected:
 	bool				m_bStretch;
 	
 	CCButtonGroup		*m_pButtonGroup;		//belonging to a group
-	int					m_nIndexInGroup;		//index within the same group
+	int					m_iIndexInGroup;		//index within the same group
 
 public:
 	bool				m_bEnableEnter;			//button, press the Enter key when focus is activated (Default: true)
 	bool				m_bHighlight;			//Highlight (&) support
 	CCBitmap*			m_pIcon;				//Icon	
-	CCButtonKeyAssigned	m_nKeyAssigned;			//Key Assigned	
+	CCButtoiKeyAssigned	m_iKeyAssigned;			//Key Assigned	
 	CCMsgBox*			m_pMsgBox;				//the confirmation message with a message box
 	string				m_strIDLConfirmText;	//xml defined in the confirmation message
 
@@ -91,8 +91,8 @@ protected:
 	virtual bool OnShow();
 	virtual void OnHide();
 public:
-	MButton(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~MButton();
+	CCButton(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
+	virtual ~CCButton();
 	void SetTextColor(sColor color);			//Buttons to specify the text color
 	sColor GetTextColor();						//Get the button text color
 	void ShowText(bool bShow=true);				//Button to show the text in
@@ -146,7 +146,7 @@ public:
 	void SetButtonGroup(CCButtonGroup *pGroup);
 
 	int GetIndexInGroup() { 
-		return m_nIndexInGroup; 
+		return m_iIndexInGroup; 
 	}
 
 	virtual void MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight);

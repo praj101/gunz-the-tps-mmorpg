@@ -42,10 +42,10 @@ public:
 
 	bool			m_bChangeAnimation;
 
-	DWORD			m_nReserveTime;
+	DWORD			m_iReserveTime;
 
-	int				m_nFrame;
-	int				m_nAddFrame;
+	int				m_iFrame;
+	int				m_iAddFrame;
 	DWORD			m_save_time;
 	DWORD			m_1frame_time;
 
@@ -81,7 +81,7 @@ public:
 		m_fMaxValue = 0.f;
 		m_dwStartTime = 0;
 		m_dwEndTime = 0;
-		m_nType = 0;
+		m_iType = 0;
 		m_fCurValue = 0.f;
 		m_dwReturnMaxTime = 0;
 
@@ -103,7 +103,7 @@ public:
 
 public:
 
-	int   m_nType;
+	int   m_iType;
 	bool  m_bActive;
 	bool  m_bReturn;
 	float m_fMaxValue;
@@ -138,7 +138,7 @@ class RQuery
 public:
 	RQuery() {
 
-		m_nSpendingTime=NULL;
+		m_iSpendingTime=NULL;
 		m_DataCnt=NULL;
 		m_Query=NULL;
 
@@ -176,7 +176,7 @@ public:
 		m_DataCnt = 0;
 
 		while( m_Query->GetData( (void*)&m_DataCnt,sizeof(DWORD),D3DGETDATA_FLUSH) == S_FALSE ) {
-			m_nSpendingTime++;
+			m_iSpendingTime++;
 			nCnt++;
 			if(nCnt>5000) {			// 무한루프 돌면 안되니까..
 				m_DataCnt = 1000;	// 대충 그려졌다고 본다..
@@ -199,7 +199,7 @@ public:
 
 public:
 
-	int					m_nSpendingTime;
+	int					m_iSpendingTime;
 	DWORD				m_DataCnt;
 	LPDIRECT3DQUERY9	m_Query;
 };
@@ -489,7 +489,7 @@ public:
 	int				m_id;
 	float			m_fVis;
 
-	int				m_nAnimationState;
+	int				m_iAnimationState;
 
 	D3DCOLORVALUE	m_NPCBlendColor;
 
@@ -513,7 +513,7 @@ public:
 	rmatrix			m_UpperRotMat;
 
 	RAnimationNode**	m_pAniNodeTable;
-	int					m_nAniNodeTableCnt;
+	int					m_iAniNodeTableCnt;
 
 	ROcclusionList*		m_pTOCCL;
 

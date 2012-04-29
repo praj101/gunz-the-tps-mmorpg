@@ -19,8 +19,8 @@ class RAniEventInfo
 {
 private:
 	char m_cFileName[256];
-	int m_nBeginFrame;
-	char m_cEventType[256];
+	int m_iBeginFrame;
+	char m_CCEventType[256];
 	
 public:
 	RAniEventInfo(){}
@@ -28,13 +28,13 @@ public:
 
 	//읽는 부분
 	char* GetFileName(){return m_cFileName;}
-	int GetBeginFrame(){return m_nBeginFrame;}
-	char* GetEventType(){return m_cEventType;}
+	int GetBeginFrame(){return m_iBeginFrame;}
+	char* GetEventType(){return m_CCEventType;}
 	
 	//셋팅하는 부분
 	void SetFileName(char * filename){ strcpy(m_cFileName, filename); }
-	void SetBeginFrame(int BeginFrame){m_nBeginFrame = BeginFrame;}
-	void SetEventType(char* EventType){strcpy(m_cEventType, EventType);}
+	void SetBeginFrame(int BeginFrame){m_iBeginFrame = BeginFrame;}
+	void SetEventType(char* EventType){strcpy(m_CCEventType, EventType);}
 };
 
 typedef list<RAniEventInfo*> AniNameEventSet;
@@ -67,12 +67,12 @@ typedef list<RAniNameEventSet*>::iterator AniIDEventSetIter;
 //하나의 메쉬에 담길 이벤트 셋들..
 typedef struct _RAniIDEventSet
 {
-	int						m_nID;	// npc ID
+	int						m_iID;	// npc ID
 	AniIDEventSet			m_AniIDEventSet;	// 이벤트 정보가 담길 리스트
 	AniIDEventSetIter		m_AniIDEventSetIter;	//이터레이터..	
 
-	int GetID(){return m_nID;}
-	void SetID(int id){m_nID = id;}
+	int GetID(){return m_iID;}
+	void SetID(int id){m_iID = id;}
 
 	RAniNameEventSet* GetAniNameEventSet(char* AnimationName);
 

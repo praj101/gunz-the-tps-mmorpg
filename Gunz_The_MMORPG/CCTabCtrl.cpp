@@ -56,7 +56,7 @@ int CCTabCtrl::GetCount(void){
 }
 
 int CCTabCtrl::GetSelIndex(void){
-	return m_nCurrentSel;
+	return m_iCurrentSel;
 }
 
 bool CCTabCtrl::SetSelIndex(int nIndex){
@@ -67,7 +67,7 @@ bool CCTabCtrl::SetSelIndex(int nIndex){
 		CCTabItem *pItem = *i;
 		if(nIndex==nCurIndex) {
 			pSelItem = pItem;
-			m_nCurrentSel = nCurIndex;
+			m_iCurrentSel = nCurIndex;
 		}
 		else {
 			pItem->pButton->SetCheck(false);

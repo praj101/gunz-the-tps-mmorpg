@@ -60,7 +60,7 @@ RCharCloth::RCharCloth(void)
 	mUpdateStatus	= ALL;
 	m_pVertexBuffer	= 0;
 	mTime			= 0;
-	m_nCntC			= 0;
+	m_iCntC			= 0;
 	mpInitNormal	= 0;
 	++gRef;	
 }
@@ -149,7 +149,7 @@ bool RCharCloth::initialize( )
 
 	RSetError(ROK);
 
-	for( i = 0 ; i < m_nCntP; ++i )
+	for( i = 0 ; i < m_iCntP; ++i )
 	{
 		if( mpMeshNode->m_point_color_list[i].x != 0 )
 		{
@@ -201,14 +201,14 @@ bool RCharCloth::initialize( )
 		}
 	}
 
-	for( i = 0 ; i < m_nCntP; ++i )
+	for( i = 0 ; i < m_iCntP; ++i )
 		D3DXVec3Normalize( &mpInitNormal[i], &mpInitNormal[i] );
 
 	m_AccelationRatio	= 1.0f;
 	m_fTimeStep			= 0.06 ;
-	m_nCntIter				= 1;	
+	m_iCntIter				= 1;	
 
-	memset( m_pForce, 0, sizeof(rvector) * m_nCntP );
+	memset( m_pForce, 0, sizeof(rvector) * m_iCntP );
 
 	int* iTemp = new int[mpMeshNode->m_face_num*3];
 	for( i = 0 ; i < mpMeshNode->m_face_num; ++i )
@@ -227,7 +227,7 @@ void RCharCloth::accumulateForces(bool bGame)
 {
 	if( !bGame )
 	{
-		for( int i = 0 ; i < m_nCntP; ++i )
+		for( int i = 0 ; i < m_iCntP; ++i )
 		{
 			float gravity = -90;
 			float forward, side;
@@ -255,7 +255,7 @@ void RCharCloth::accumulateForces(bool bGame)
 
 		if( mUpdateStatus & CHARACTER_DIE_STATE )
 		{
-			for( int i = 0 ; i < m_nCntP; ++i		)
+			for( int i = 0 ; i < m_iCntP; ++i		)
 			{
 				if( CLOTH_FORCE & m_pHolds[i] )
 				{
@@ -267,7 +267,7 @@ void RCharCloth::accumulateForces(bool bGame)
 			return;
 		}
 
-		for( int i = 0 ; i < m_nCntP; ++i)
+		for( int i = 0 ; i < m_iCntP; ++i)
 		{
 			if( CLOTH_FORCE & m_pHolds[i] )
 			{
@@ -289,7 +289,7 @@ void RCharCloth::valet()
 		return;
 	}
 	rvector* swapTemp;
-	for( int i = 0 ; i < m_nCntP; ++i )
+	for( int i = 0 ; i < m_iCntP; ++i )
 	{
 		if( CLOTH_VALET_ONLY == m_pHolds[i] )
 		{
@@ -323,13 +323,13 @@ void RCharCloth::satisfyConstraints()
 	c.refB = 0;
 	c.restLength = 0.f;
 
-	for( i = 0 ; i < m_nCntIter; ++i )
+	for( i = 0 ; i < m_iCntIter; ++i )
 	{
 
 		if(( mUpdateStatus & NOT_COLLISION ) == 0 )
 		{
 
-			for( j = 0 ; j < m_nCntP; ++j )							// particle index - j
+			for( j = 0 ; j < m_iCntP; ++j )							// particle index - j
 			{
 				for( k = 0 ; k < 6; ++k )													// sphere index - k
 				{
@@ -348,15 +348,15 @@ void RCharCloth::satisfyConstraints()
 		}	
 
 		float w1, w2;
-		for( j = 0 ; j < m_nCntC; ++j )
+		for( j = 0 ; j < m_iCntC; ++j )
 		{
 			c = m_pConst[j];
-			if( c.refA <0 || c.refA>=m_nCntP )
+			if( c.refA <0 || c.refA>=m_iCntP )
 			{
 				mlog("RCharCloth_Error:: constraints reference Particle is Out of Range - ref : %d, n_particles : %d, mesh_node : %s, mesh : %s \n", c.refA, j, mpMeshNode->m_Name, mpMesh->GetFileName());
 				continue;
 			}
-			if( c.refB < 0 || c.refB >= m_nCntP )
+			if( c.refB < 0 || c.refB >= m_iCntP )
 			{
 				mlog("RCharCloth_Error:: constraints reference Particle is Out of Range - ref : %d, n_particles : %d, mesh_node : %s, mesh : %s \n", c.refA, j, mpMeshNode->m_Name, mpMesh->GetFileName());
 				continue;
@@ -433,15 +433,15 @@ void RCharCloth::updatePosition( rmatrix* pWorldMat_ )
 	rvector rVec;
 	rvector localVec;
 
-	for( int i =0 ; i < m_nCntP; ++i )
+	for( int i =0 ; i < m_iCntP; ++i )
 	{
 		if( CLOTH_HOLD & m_pHolds[i] || mInitParticle )
 		{
 			rVec = rvector( 0,0,0 );
-			nRefBone = mpMeshNode->m_physique[i].m_num;
-			//todok RPhysiqueInfo::m_num 으로 루프를 돌면 안전장치가 전혀 없다
-			// 실제로 로딩한 후 ConnectMatrix()나 ConnectPhysique()를 돌릴때는 m_num > MAX_PHYSIQUE_KEY 이면
-			// MAX_PHYSIQUE_KEY 까지만 돌고 있다. 여기서는 그냥 m_num으로 도니까 메모리 침범이 일어난다. 
+			nRefBone = mpMeshNode->m_physique[i].m_ium;
+			//todok RPhysiqueInfo::m_ium 으로 루프를 돌면 안전장치가 전혀 없다
+			// 실제로 로딩한 후 ConnectMatrix()나 ConnectPhysique()를 돌릴때는 m_ium > MAX_PHYSIQUE_KEY 이면
+			// MAX_PHYSIQUE_KEY 까지만 돌고 있다. 여기서는 그냥 m_ium으로 도니까 메모리 침범이 일어난다. 
 			// 익스포트할때 경고메시지를 보여주도록 수정해야 할 것이다
 			for( int j = 0 ; j < nRefBone; ++j )
 			{
@@ -473,28 +473,28 @@ bool RCharCloth::create( RMesh* pMesh_, RMeshNode* pMeshNode_ )
 	rvector vecDistance;
 
 	// vertex copy
-	m_nCntP = mpMeshNode->m_point_num;
-	m_nCntC = mpMeshNode->m_face_num * 3 ;
+	m_iCntP = mpMeshNode->m_point_num;
+	m_iCntC = mpMeshNode->m_face_num * 3 ;
 
-	m_pX			= new rvector[m_nCntP];
-	m_pOldX			= new rvector[m_nCntP];
-	m_pForce		= new rvector[m_nCntP];
-	m_pHolds		= new int    [m_nCntP];
-	m_pWeights		= new float  [m_nCntP];
-	m_pNormal		= new rvector[m_nCntP];
-	mpInitNormal	= new rvector[m_nCntP];
+	m_pX			= new rvector[m_iCntP];
+	m_pOldX			= new rvector[m_iCntP];
+	m_pForce		= new rvector[m_iCntP];
+	m_pHolds		= new int    [m_iCntP];
+	m_pWeights		= new float  [m_iCntP];
+	m_pNormal		= new rvector[m_iCntP];
+	mpInitNormal	= new rvector[m_iCntP];
 
-	m_pConst		= new sConstraint[m_nCntC];
+	m_pConst		= new sConstraint[m_iCntC];
 
-	memset( m_pX		, 0, sizeof(rvector) * m_nCntP );
-	memset( m_pOldX		, 0, sizeof(rvector) * m_nCntP );
-	memset( m_pForce	, 0, sizeof(rvector) * m_nCntP );
-	memset( m_pHolds	, 0, sizeof(int)	 * m_nCntP );
-	memset( m_pWeights	, 0, sizeof(float)   * m_nCntP );
-	memset( m_pNormal	, 0, sizeof(rvector) * m_nCntP );
-	memset( mpInitNormal, 0, sizeof(rvector) * m_nCntP );
+	memset( m_pX		, 0, sizeof(rvector) * m_iCntP );
+	memset( m_pOldX		, 0, sizeof(rvector) * m_iCntP );
+	memset( m_pForce	, 0, sizeof(rvector) * m_iCntP );
+	memset( m_pHolds	, 0, sizeof(int)	 * m_iCntP );
+	memset( m_pWeights	, 0, sizeof(float)   * m_iCntP );
+	memset( m_pNormal	, 0, sizeof(rvector) * m_iCntP );
+	memset( mpInitNormal, 0, sizeof(rvector) * m_iCntP );
 
-	memset( m_pConst, 0, sizeof(sConstraint)*m_nCntC);
+	memset( m_pConst, 0, sizeof(sConstraint)*m_iCntC);
 
 	//unsigned short* TempIndexBuf = new unsigned short[mpMeshNode->m_face_num*3];
 
@@ -520,8 +520,8 @@ bool RCharCloth::create( RMesh* pMesh_, RMeshNode* pMeshNode_ )
 	UpdateNormal();
 
 	// Render Vertex setup
-	m_nNumVertices = 3 * mpMeshNode->m_face_num;
-	//gVertices	= new RVertex[ m_nNumVertices ];
+	m_iNumVertices = 3 * mpMeshNode->m_face_num;
+	//gVertices	= new RVertex[ m_iNumVertices ];
 
 	// Vertex Buffer Setup)
 
@@ -644,7 +644,7 @@ void RCharCloth::render()
 			mlog("Fail to lock of Vertex Buffer\n");
 			goto e2SoftRender;
 		}
-		//memcpy( Buffer, gVertices, sizeof(RVertex) * m_nCntP );
+		//memcpy( Buffer, gVertices, sizeof(RVertex) * m_iCntP );
 		memcpy( Buffer, gVertices, sizeof(RVertex) * mpMeshNode->m_face_num * 3 );
 
 		gpClothVertexBuffer->Unlock();
@@ -713,7 +713,7 @@ void RCharCloth::UpdateNormal()
 
 	_ASSERT( m_pNormal );
 
-	memset( m_pNormal, 0, sizeof(rvector)*m_nCntP );
+	memset( m_pNormal, 0, sizeof(rvector)*m_iCntP );
 
 	_ASSERT( mpMeshNode );
 
@@ -723,7 +723,7 @@ void RCharCloth::UpdateNormal()
 		{
 			index		= mpMeshNode->m_face_list[i].m_point_index[j];
 
-			_ASSERT( index < m_nCntP );
+			_ASSERT( index < m_iCntP );
 			_ASSERT( index >= 0 );
 
 			Point[j]		= m_pX[index];
@@ -736,14 +736,14 @@ void RCharCloth::UpdateNormal()
 		{
 			index	= indexTemp[j];
 
-			_ASSERT( index < m_nCntP );
+			_ASSERT( index < m_iCntP );
 			_ASSERT( index >= 0 );
 
 			m_pNormal[index] += n;
 		}
 	}
 
-	for( i = 0 ; i < m_nCntP; ++i )
+	for( i = 0 ; i < m_iCntP; ++i )
 	{
 		D3DXVec3Normalize( &m_pNormal[i], &m_pNormal[i] );
 	}

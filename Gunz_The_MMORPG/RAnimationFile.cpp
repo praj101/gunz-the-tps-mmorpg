@@ -20,7 +20,7 @@ RAnimationFile::RAnimationFile()
 	m_pBipRootNode = NULL;
 
 	m_max_frame		= 0;
-	m_nRefCount		= 0;
+	m_iRefCount		= 0;
 
 	AddRef();
 }
@@ -37,21 +37,21 @@ RAnimationFile::~RAnimationFile()
 
 	DecRef();
 
-	if(m_nRefCount != 0) {//누수..
+	if(m_iRefCount != 0) {//누수..
 
 	}
 }
 
 void RAnimationFile::AddRef()
 {
-	m_nRefCount++;
+	m_iRefCount++;
 }
 
 void RAnimationFile::DecRef()
 {
-	m_nRefCount--;
+	m_iRefCount--;
 
-	if(m_nRefCount==0) {//지워야 할까?
+	if(m_iRefCount==0) {//지워야 할까?
 
 	}
 }

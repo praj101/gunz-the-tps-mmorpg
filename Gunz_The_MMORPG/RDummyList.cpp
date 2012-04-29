@@ -49,7 +49,7 @@ bool RDummyList::Open(CCXmlElement *pElement)
 					int nCnt = sscanf( szContents, "%f %f %f", &temp.x, &temp.y, &temp.z );
 					if (nCnt == 3)
 					{
-						pNewDummy->Position = temp;
+						pNewDummy->sPosition = temp;
 					}
 				}
 				else if(stricmp(szTagName,RTOK_DIRECTION)==0)	
@@ -88,7 +88,7 @@ bool RDummyList::Save(CCXmlElement *pElement)
 
 		aElement.AppendText("\n\t\t\t");
 		aChild=aElement.CreateChildElement(RTOK_POSITION);
-		aChild.SetContents(Format(buffer,pDummy->Position));
+		aChild.SetContents(Format(buffer,pDummy->sPosition));
 
 		aElement.AppendText("\n\t\t\t");
 		aChild=aElement.CreateChildElement(RTOK_DIRECTION);

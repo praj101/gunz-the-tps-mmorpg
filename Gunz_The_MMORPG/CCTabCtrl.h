@@ -37,7 +37,7 @@ public:
 	CCTabCtrl(CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~MTabCtrl();
 
-	void	Add(MButton *pButton, CCWidget *pFrame);
+	void	Add(CCButton *pButton, CCWidget *pFrame);
 	void	RemoveAll();
 
 	int		GetCount();

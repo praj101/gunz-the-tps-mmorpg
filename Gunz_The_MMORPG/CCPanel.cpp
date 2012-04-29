@@ -9,7 +9,7 @@ CCPanel::CCPanel(const char* szName, CCWidget* pParent, CCListener* pListener) :
 
 	m_BorderColor = sColor(DEFCOLOR_CCPANEL_BORDER);
 	m_BackgroundColor = sColor(DEFCOLOR_CCPANEL_PLANE);
-	m_nBorderStyle = CCBS_SINGLE;
+	m_iBorderStyle = CCBS_SINGLE;
 }
 
 
@@ -23,11 +23,11 @@ sColor CCPanel::GetBorderColor(void){
 }
 
 void CCPanel::SetBorderStyle(CCBorderStyle style){
-	m_nBorderStyle = style;
+	m_iBorderStyle = style;
 }
 
 CCBorderStyle CCPanel::GetBorderStyle(){
-	return m_nBorderStyle;
+	return m_iBorderStyle;
 }
 
 void CCPanel::SetBackgroundColor(sColor color){

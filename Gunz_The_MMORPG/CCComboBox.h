@@ -28,11 +28,11 @@ class CCComboBox : public CCButton{
 	friend MIDLResource;
 
 	CCComboListBox*	m_pListBox;
-	int			m_nDropHeight;
+	int			m_iDropHeight;
 	CCListener*	m_pComboBoxListener;
 
-	int			m_nComboType;
-	int			m_nNextComboBoxTypeSize;
+	int			m_iComboType;
+	int			m_iNextComboBoxTypeSize;
 
 	bool		m_bAutoDrop;
 	bool		m_bDropUnder;
@@ -47,19 +47,19 @@ public:
 	void SetDropSize(int nHeight);
 
 	void SetComboType(int nType) {
-		m_nComboType = nType;
+		m_iComboType = nType;
 	}
 
 	int GetComboType() {
-		return m_nComboType;
+		return m_iComboType;
 	}
 
 	void SetNextComboBoxTypeSize(int nSize) {
-		m_nNextComboBoxTypeSize = nSize;
+		m_iNextComboBoxTypeSize = nSize;
 	}
 
 	int GetNextComboBoxTypeSize() {
-		return m_nNextComboBoxTypeSize;
+		return m_iNextComboBoxTypeSize;
 	}
 
 	void SetNextSel();

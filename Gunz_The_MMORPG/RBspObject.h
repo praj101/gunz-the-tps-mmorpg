@@ -11,11 +11,10 @@
 #include "ROcclusionList.h"
 #include "RDummyList.h"
 #include "RSolidBsp.h"
-/////////////////////////////////////////////
-#include "RNavigationMesh.h" // Left off here
-/////////////////////////////////////////////
-class MZFile;
-class MZFileSystem;
+#include "RNavigationMesh.h" 
+
+class CCZFile;
+class CCZFileSystem;
 class CCXmlElement;
 
 _NAMESPACE_REALSPACE2_BEGIN
@@ -134,8 +133,8 @@ public:
 	RDrawInfo		*pDrawInfo;		// material별 해당 폴리곤을 그리기위한 정보
 
 	int				nFrameCount;		// 마지막 렌더링된 프레임..
-	int				m_nBaseVertexIndex;	///< 인덱스들의 base vertex index
-	int				m_nVertices;		///< 버텍스 수
+	int				m_iBaseVertexIndex;	///< 인덱스들의 base vertex index
+	int				m_iVertices;		///< 버텍스 수
 
 //	bool			bVisibletest;		// pvs 테스트용 . 임시.
 //	bool			bSolid;
@@ -187,10 +186,10 @@ public:
 
 	void Destroy();
 
-	int GetSize() { return m_nSize; }
+	int GetSize() { return m_iSize; }
 	DWORD *GetData() { return m_pData; }
 
-	void SetSize(int nSize) { m_nSize=nSize; }
+	void SetSize(int nSize) { m_iSize=nSize; }
 	void SetData(DWORD *pData) { Destroy(); m_pData=pData; }
 
 	bool Add(DWORD *data,int nSize,POINT *retpoint);
@@ -207,7 +206,7 @@ public:
 protected:
 	RFREEBLOCKLIST *m_pFreeList;
 	DWORD *m_pData;
-	int m_nSize;
+	int m_iSize;
 };
 
 struct FogInfo
@@ -307,12 +306,12 @@ public:
 	RBSPMATERIAL *GetMaterial(RSBspNode *pNode,int nIndex)		{ return GetMaterial(pNode->pInfo[nIndex].nMaterial); }
 
 	// material 을 얻어낸다.
-	int	GetMaterialCount()	{ return m_nMaterial; }
+	int	GetMaterialCount()	{ return m_iMaterial; }
 	RBSPMATERIAL *GetMaterial(int nIndex);
 
 	RMapObjectList	*GetMapObjectList() { return &m_ObjectList; }
 	RDummyList		*GetDummyList()		{ return &m_DummyList; }
-	RBaseTexture *GetBaseTexture(int n) { if(n>=0 && n<m_nMaterial) return m_pMaterials[n].texture; return NULL; }
+	RBaseTexture *GetBaseTexture(int n) { if(n>=0 && n<m_iMaterial) return m_pMaterials[n].texture; return NULL; }
 
 	RLightList *GetMapLightList() { return &m_StaticMapLightList; }
 	RLightList *GetObjectLightList() { return &m_StaticObjectLightList; }
@@ -323,13 +322,13 @@ public:
 
 	rvector GetDimension();
 
-	int	GetVertexCount()		{ return m_nVertices; }
-	int	GetPolygonCount()		{ return m_nPolygon; }
-	int GetNodeCount()			{ return m_nNodeCount; }
-	int	GetBspPolygonCount()	{ return m_nBspPolygon; }
-	int GetBspNodeCount()		{ return m_nBspNodeCount; }
-	int GetConvexPolygonCount() { return m_nConvexPolygon; }
-	int GetLightmapCount()		{ return m_nLightmap; }
+	int	GetVertexCount()		{ return m_iVertices; }
+	int	GetPolygonCount()		{ return m_iPolygon; }
+	int GetNodeCount()			{ return m_iNodeCount; }
+	int	GetBspPolygonCount()	{ return m_iBspPolygon; }
+	int GetBspNodeCount()		{ return m_iBspNodeCount; }
+	int GetConvexPolygonCount() { return m_iConvexPolygon; }
+	int GetLightmapCount()		{ return m_iLightmap; }
 	float GetUnusedLightmapSize(int index) { return m_LightmapList[index]->m_fUnused; }
 
 	// origin 에서 targetpos 로 이동하는데 미끄러짐을 감안해서 targetpos 를 조절해서 리턴해준다.
@@ -423,15 +422,15 @@ private:
 	void GetFloor(rvector *ret,RSBspNode *pNode,rvector &origin,const rvector &diff);
 
 // for loading
-	bool ReadString(MZFile *pfile,char *buffer,int nBufferSize);
-	bool Open_Nodes(RSBspNode *pNode,MZFile *pfile);
-	bool Open_ColNodes(RSolidBspNode *pNode,MZFile *pfile);
+	bool ReadString(CCZFile *pfile,char *buffer,int nBufferSize);
+	bool Open_Nodes(RSBspNode *pNode,CCZFile *pfile);
+	bool Open_ColNodes(RSolidBspNode *pNode,CCZFile *pfile);
 	bool Open_MaterialList(CCXmlElement *pElement);
 	bool Open_LightList(CCXmlElement *pElement);
 	bool Open_ObjectList(CCXmlElement *pElement);
 	bool Open_DummyList(CCXmlElement *pElement);
-//	bool Open_LightList(MZFile *pfile);
-	bool Open_ConvexPolygons(MZFile *pfile);
+//	bool Open_LightList(CCZFile *pfile);
+	bool Open_ConvexPolygons(CCZFile *pfile);
 	bool Open_OcclusionList(CCXmlElement *pElement);
 	bool Make_LenzFalreList();
 	bool Set_Fog(CCXmlElement *pElement);
@@ -461,13 +460,13 @@ private:
 	WORD	*m_pBspIndices,*m_pOcIndices;
 	RSBspNode *m_pBspRoot,*m_pOcRoot;
 	RPOLYGONINFO *m_pBspInfo,*m_pOcInfo;
-	int m_nPolygon,m_nNodeCount,m_nVertices,m_nIndices;
-	int m_nBspPolygon,m_nBspNodeCount,m_nBspVertices,m_nBspIndices;
+	int m_iPolygon,m_iNodeCount,m_iVertices,m_iIndices;
+	int m_iBspPolygon,m_iBspNodeCount,m_iBspVertices,m_iBspIndices;
 	LPDIRECT3DVERTEXBUFFER9 m_pVertexBuffer;
 	LPDIRECT3DINDEXBUFFER9 m_pIndexBuffer;
 	
 // Materials & texture map
-	int m_nMaterial;
+	int m_iMaterial;
 	RBSPMATERIAL *m_pMaterials;
 
 	rplane m_localViewFrustum[6];
@@ -476,13 +475,13 @@ private:
 	ROcclusionList m_OcclusionList;
 
 	/*
-	int m_nOcclusion;
+	int m_iOcclusion;
 	ROcclusion	*m_pOcclusion;
 	*/
 
 
 // 실제로 텍스쳐 메모리에 올라가는 라이트맵
-	int							m_nLightmap;
+	int							m_iLightmap;
 	LPDIRECT3DTEXTURE9			*m_ppLightmapTextures;
 	vector<RBspLightmapManager*> m_LightmapList;
 
@@ -495,7 +494,7 @@ private:
 	void GetUV(rvector &Pos,RSBspNode *pNode,int nIndex,float *uv);
 
 // 원본 폴리곤 보관
-	int					m_nConvexPolygon,m_nConvexVertices;
+	int					m_iConvexPolygon,m_iConvexVertices;
 	rvector				*m_pConvexVertices;
 	rvector				*m_pConvexNormals;
 	RCONVEXPOLYGONINFO	*m_pConvexPolygons;

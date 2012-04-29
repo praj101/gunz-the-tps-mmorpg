@@ -27,9 +27,9 @@ protected:
 	FILE*						m_fp;			// Refered File Pointer
 	char*						m_pDirData;		// Directory Data Block
     const CCZIPDIRFILEHEADER**	m_ppDir;		// Directory File Header
-	int							m_nDirEntries;	// Number of Directory Entries
+	int							m_iDirEntries;	// Number of Directory Entries
 
-	CCZipMode					m_nZipMode;
+	CCZipMode					m_iZipMode;
 	unsigned long				m_dwReadMode;
 
 public:
@@ -91,7 +91,7 @@ public:
 
 	int	 m_size;
 	int	 m_offset;
-	char m_name[256];
+	char m_iame[256];
 };
 
 class FFileList :public list<FNode*>

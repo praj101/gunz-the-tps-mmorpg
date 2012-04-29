@@ -51,15 +51,15 @@ public:
 	void	SetTimeStep( float t_ ) { m_fTimeStep = t_; }
 	float	GetTimeStep() const { return m_fTimeStep; }
 
-	void	SetNumIteration( int n )  { m_nCntIter	= n; }
-	int		GetNumIteration( ) const { return m_nCntIter; }
+	void	SetNumIteration( int n )  { m_iCntIter	= n; }
+	int		GetNumIteration( ) const { return m_iCntIter; }
 
 protected:
 
-	int		m_nCntP;							// number of partices
-	int		m_nCntC;							// number of Constraints
+	int		m_iCntP;							// number of partices
+	int		m_iCntC;							// number of Constraints
 
-	int		m_nCntIter;							// Number of Iteration - more iteration is more accurate and slow 	-	!Adjustable in Realtime for Debug version
+	int		m_iCntIter;							// Number of Iteration - more iteration is more accurate and slow 	-	!Adjustable in Realtime for Debug version
 	float	m_fTimeStep;						// Time Steps	-	!Adjustable in Realtime for Debug version
 	float	m_AccelationRatio;					// Ratio of Accelation
 
@@ -80,7 +80,7 @@ protected:
 	//////////////////////////////////////////////////////////////////////////
 	//	<<<	Rendering Primitives >>>
 	
-	int			m_nNumVertices;
+	int			m_iNumVertices;
 	RVertex*	m_pVertices;
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVertexBuffer;

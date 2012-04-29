@@ -346,7 +346,7 @@ bool CCZFileSystem::Create(const char* szBasePath,const char* szUpdateName)
 	RefreshFileList(m_szBasePath);
 
 
-	m_nIndex=0;
+	m_iIndex=0;
 	m_iterator=m_ZFileList.begin();
 
 	return true;
@@ -378,11 +378,11 @@ const char* CCZFileSystem::GetFileName(int i)
 
 const CCZFILEDESC* CCZFileSystem::GetFileDesc(int i)
 {
-	while(m_nIndex!=i)
+	while(m_iIndex!=i)
 	{
-		if(m_nIndex<i)
+		if(m_iIndex<i)
 		{
-			m_nIndex++;
+			m_iIndex++;
 			m_iterator++;
 			if(m_iterator==m_ZFileList.end())
 				return NULL;
@@ -391,7 +391,7 @@ const CCZFILEDESC* CCZFileSystem::GetFileDesc(int i)
 		{
 			if(m_iterator==m_ZFileList.begin())
 				return NULL;
-			m_nIndex--;
+			m_iIndex--;
 			m_iterator--;
 		}
 	}
@@ -465,7 +465,7 @@ unsigned long CCZFile::m_dwReadMode = CCZIPREADFLAG_ZIP | CCZIPREADFLAG_MRS | CC
 
 
 //Constructor
-CCZFile::CCZFile() : m_nIndexInZip(-1)
+CCZFile::CCZFile() : m_iIndexInZip(-1)
 {
 	m_fp			= NULL;
 
@@ -474,9 +474,9 @@ CCZFile::CCZFile() : m_nIndexInZip(-1)
 	m_IsEncrypted	= false;
 
 	m_pData				= NULL;
-	m_nFileSize			= 0;
-	m_nEncryptFileSize	= 0;
-	m_nPos				= 0;
+	m_iFileSize			= 0;
+	m_iEncryptFileSize	= 0;
+	m_iPos				= 0;
 
 	m_FileName[ 0]		= 0;
 	m_ZipFileName[ 0]	= 0;
@@ -566,14 +566,14 @@ bool CCZFile::Open( const char* szFileName, CCZFileSystem* pZFS)
 			m_IsBufferd = true;
 			m_IsEncrypted = true;
 
-			m_nFileSize = m_nFileSize = header.GetLength();
+			m_iFileSize = m_iFileSize = header.GetLength();
 		}
 
 		//The file was the general stream.
 		else
 */		{
 			m_IsBufferd = false;
-			m_nFileSize = size;
+			m_iFileSize = size;
 		}
 
 
@@ -684,8 +684,8 @@ bool CCZFile::Open( const char* szFileName, const char* szZipFileName, bool bFil
 
 
 	//File index Wanted
-	m_nIndexInZip = m_Zip.GetFileIndex( szFileName);
-	m_crc32 = m_Zip.GetFileCRC32( m_nIndexInZip);
+	m_iIndexInZip = m_Zip.GetFileIndex( szFileName);
+	m_crc32 = m_Zip.GetFileCRC32( m_iIndexInZip);
 	if ( bFileCheck && (m_crc32 != crc32))
 	{
 		//Filesystem when initializing the current crc check for inequality
@@ -701,10 +701,10 @@ bool CCZFile::Open( const char* szFileName, const char* szZipFileName, bool bFil
 	//Read the encrypted header size is calculated pailil case
 /*	if ( IsEncryptedFile( szFileName))
 	{
-		m_nFileSize = m_Zip.GetFileLength( m_nIndexInZip);
+		m_iFileSize = m_Zip.GetFileLength( m_iIndexInZip);
 
-		char* pBuff = new char[ m_nFileSize + 1];
-		if ( !m_Zip.ReadFile( m_nIndexInZip, pBuff, m_nFileSize))
+		char* pBuff = new char[ m_iFileSize + 1];
+		if ( !m_Zip.ReadFile( m_iIndexInZip, pBuff, m_iFileSize))
 			return true;
 
 		RSAHEADER header = RSAGetHeader( pBuff);
@@ -713,11 +713,11 @@ bool CCZFile::Open( const char* szFileName, const char* szZipFileName, bool bFil
 		if ( header.IsValidHeader() == false)
 			return false;
 
-		m_nEncryptFileSize = header.GetLength();
+		m_iEncryptFileSize = header.GetLength();
 		m_IsEncrypted = true;
 	}
 	else
-*/		m_nFileSize = m_Zip.GetFileLength( m_nIndexInZip);
+*/		m_iFileSize = m_Zip.GetFileLength( m_iIndexInZip);
 
 	//File Settings
 	m_IsZipFile = true;
@@ -745,9 +745,9 @@ void CCZFile::Close(void)
 	m_IsZipFile	= false;
 	m_IsBufferd	= false;
 
-	m_nPos				= 0;
-	m_nFileSize			= 0;
-	m_nEncryptFileSize	= 0;
+	m_iPos				= 0;
+	m_iFileSize			= 0;
+	m_iEncryptFileSize	= 0;
 
 	m_FileName[ 0]	  = 0;
 	m_ZipFileName[ 0] = 0;
@@ -758,8 +758,8 @@ void CCZFile::Close(void)
 
 unsigned long CCZFile::GetLength(void)
 {
-//	return ( m_IsEncrypted) ? m_nEncryptFileSize : m_nFileSize;
-	return m_nFileSize;
+//	return ( m_IsEncrypted) ? m_iEncryptFileSize : m_iFileSize;
+	return m_iFileSize;
 }
 
 
@@ -770,17 +770,17 @@ bool CCZFile::Seek(long off,int mode)
 	{
 		if ( mode == begin)
 		{
-			m_nPos = off;
+			m_iPos = off;
 			return true;
 		}
 		else if ( mode == current)
 		{
-			m_nPos += off;
+			m_iPos += off;
 			return true;
 		}
 		else if ( mode == end)
 		{
-			m_nPos = GetLength() + off;
+			m_iPos = GetLength() + off;
 			return true;
 		}
 	}
@@ -815,7 +815,7 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 	if ( m_IsBufferd) 
 	{
 		//Validate the range of
-		if ( nMaxSize > ( GetLength() - m_nPos))
+		if ( nMaxSize > ( GetLength() - m_iPos))
 			return false;
 
 
@@ -826,9 +826,9 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 			if ( m_pData == NULL)
 			{
 				//Read the file
-				char* pBuff = new char[ m_nFileSize + 1];
+				char* pBuff = new char[ m_iFileSize + 1];
 
-				if ( !m_Zip.ReadFile( m_nIndexInZip, pBuff, m_nFileSize))
+				if ( !m_Zip.ReadFile( m_iIndexInZip, pBuff, m_iFileSize))
 				{
 					mlog( "%s open failed\n", m_FileName);
 					return false;
@@ -838,7 +838,7 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 				if ( g_pPrivateKey == NULL)
 					return false;
 
-				string strBuff = RSADecryptString( g_pPrivateKey, lenPrivateKey, pBuff, m_nFileSize);
+				string strBuff = RSADecryptString( g_pPrivateKey, lenPrivateKey, pBuff, m_iFileSize);
 				DELETE_ARRAY( pBuff);
 
 				//Data buffer
@@ -849,16 +849,16 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 				strBuff.clear();
 			}
 
-			memcpy( pBuffer, (m_pData + m_nPos), nMaxSize);
+			memcpy( pBuffer, (m_pData + m_iPos), nMaxSize);
 		}
 
 		//If an unencrypted file.
 		else
 */		{
 			//Try to read through once, without any attempt to allocate memory reads
-			if ( (nMaxSize == GetLength()) && (m_nPos == 0))
+			if ( (nMaxSize == GetLength()) && (m_iPos == 0))
 			{
-				if ( !m_Zip.ReadFile( m_FileName, pBuffer, m_nFileSize))
+				if ( !m_Zip.ReadFile( m_FileName, pBuffer, m_iFileSize))
 				{
 					mlog( "%s file open failed\n", m_FileName);
 					return false;
@@ -869,22 +869,22 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 				//Read the first time when the assignment
 				if ( m_pData == NULL)
 				{
-					m_pData = new char[ m_nFileSize + 1];
-					m_pData[ m_nFileSize] = 0;
+					m_pData = new char[ m_iFileSize + 1];
+					m_pData[ m_iFileSize] = 0;
 
-					if ( !m_Zip.ReadFile( m_nIndexInZip, m_pData, m_nFileSize))
+					if ( !m_Zip.ReadFile( m_iIndexInZip, m_pData, m_iFileSize))
 					{
 						mlog( "%s open failed\n", m_FileName);
 						return false;
 					}
 				}
 
-				memcpy( pBuffer, (m_pData + m_nPos), nMaxSize);
+				memcpy( pBuffer, (m_pData + m_iPos), nMaxSize);
 			}
 		}
 
 
-		m_nPos += nMaxSize;
+		m_iPos += nMaxSize;
 	}
 	
 	//Stream the file was ...

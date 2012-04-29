@@ -19,7 +19,7 @@ bool CCTextArea::GetCaretPosition(sPoint *pOut,int nSize,const char* szText,int 
 
 	int nCurPos=0;
 	do {
-		int nIndentation = (nLine==0 ? 0 : m_nIndentation);
+		int nIndentation = (nLine==0 ? 0 : m_iIndentation);
 		int nOriginalCharCount = CCGetNextLinePos(pFont,szText+nCurPos,GetClientWidth()-nIndentation,m_bWordWrap,m_bColorSupport);
 		if(nOriginalCharCount==-1) return false;
 
@@ -42,9 +42,9 @@ int CCTextArea::GetCharPosition(const char* szText,int nX,int nLine){
 
 	CCFont *pFont = GetFont();
 
-	int nCur= CCGetLinePos(pFont,szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,nLine,m_nIndentation);
+	int nCur= CCGetLinePos(pFont,szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,nLine,m_iIndentation);
 	
-	int nRealX =  (nLine>0) ? nX-m_nIndentation : nX;
+	int nRealX =  (nLine>0) ? nX-m_iIndentation : nX;
 	int x = CCGetNextLinePos(pFont,szText+nCur,nRealX,m_bWordWrap,m_bColorSupport);
 	return nCur+x;
 }
@@ -60,7 +60,7 @@ bool CCTextArea::IsDoubleCaretPos(){
 
 	int nCurPos=0;
 	do {
-		int nRealWidth = (nLine==0 ? GetClientWidth() : GetClientWidth()-m_nIndentation);
+		int nRealWidth = (nLine==0 ? GetClientWidth() : GetClientWidth()-m_iIndentation);
 		int nOriginalCharCount = CCGetNextLinePos(GetFont(),szText+nCurPos,nRealWidth,m_bWordWrap,m_bColorSupport);
 		if(nCurPos+nOriginalCharCount==nPos) {
 			return true;
@@ -74,33 +74,33 @@ bool CCTextArea::IsDoubleCaretPos(){
 }
 
 void CCTextArea::ScrollDown(){
-	const char *szText = GetTextLine(m_nStartLine);
-	int nLine = CCGetLineCount(GetFont(),szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_nIndentation);
-	if(m_nStartLineSkipLine+1 < nLine) {
-		m_nStartLineSkipLine++;
+	const char *szText = GetTextLine(m_iStartLine);
+	int nLine = CCGetLineCount(GetFont(),szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_iIndentation);
+	if(m_iStartLineSkipLine+1 < nLine) {
+		m_iStartLineSkipLine++;
 		return;
 	}
 
-	if(GetLineCount()>m_nStartLine+1)
+	if(GetLineCount()>m_iStartLine+1)
 	{
-		m_nStartLine++;
-		m_nStartLineSkipLine=0;
+		m_iStartLine++;
+		m_iStartLineSkipLine=0;
 	}
 }
 
 void CCTextArea::ScrollUp(){
-	if(m_nStartLineSkipLine > 0 ) {
-		m_nStartLineSkipLine--;
+	if(m_iStartLineSkipLine > 0 ) {
+		m_iStartLineSkipLine--;
 		return;
 	}
 
-	if(m_nStartLine>0)
+	if(m_iStartLine>0)
 	{
-		m_nStartLine--;
+		m_iStartLine--;
 
-		const char *szText = GetTextLine(m_nStartLine);
-		int nLine = CCGetLineCount(GetFont(),szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_nIndentation);
-		m_nStartLineSkipLine=nLine-1;
+		const char *szText = GetTextLine(m_iStartLine);
+		int nLine = CCGetLineCount(GetFont(),szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_iIndentation);
+		m_iStartLineSkipLine=nLine-1;
 	}
 }
 
@@ -120,15 +120,15 @@ int CCTextArea::GetTotalLineCount(int& nStartLine, int& nCurrentLine){
 		int nCntWidth = GetClientWidth() - ( (IsScrollBarVisible()) ? rectScrollBar.w : 0);
 
 		const char *szText = itr->text.c_str();
-		int nLine = CCGetLineCount(GetFont(),szText,nCntWidth,m_bWordWrap,m_bColorSupport,m_nIndentation);
+		int nLine = CCGetLineCount(GetFont(),szText,nCntWidth,m_bWordWrap,m_bColorSupport,m_iIndentation);
 		if(nLine==-1) 
 		{
-			int nLine = CCGetLineCount(GetFont(),szText,nCntWidth,m_bWordWrap,m_bColorSupport,m_nIndentation);
+			int nLine = CCGetLineCount(GetFont(),szText,nCntWidth,m_bWordWrap,m_bColorSupport,m_iIndentation);
 			return 0;
 		}
 
 		if(i==GetStartLine()) {
-			nStartLine=nTotalLine+m_nStartLineSkipLine;
+			nStartLine=nTotalLine+m_iStartLineSkipLine;
 		}
 
 		if(itr==m_CurrentLine) {
@@ -178,12 +178,12 @@ void SSTextArea::UpdateScrollBar(bool bAdjustStart){
 	int nMax=max(nPosLines,0);
 	m_pScrollBar->SetMinMax(0,nMax);
 	
-	if(m_nStartLine>nMax)
-		m_nStartLine=nMax;
+	if(m_iStartLine>nMax)
+		m_iStartLine=nMax;
 
 	m_pScrollBar->SetValue(nStartLine);
 	bool bShow= m_bScrollBarEnable && 
-		(r.h<int(GetLineHeight() *nTotalLine) || m_nStartLine!=0);
+		(r.h<int(GetLineHeight() *nTotalLine) || m_iStartLine!=0);
 	m_pScrollBar->Show(bShow,false);
 }
 
@@ -198,13 +198,13 @@ void CCTextArea::OnScrollBarChanged(int nPos){
 	CCLINELISTITERATOR itr = m_Lines.begin();
 	for(int i=0;i<GetLineCount();i++){
 		const char *szText = itr->text.c_str();
-		int nLine = CCGetLineCount(GetFont(),szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_nIndentation);
+		int nLine = CCGetLineCount(GetFont(),szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_iIndentation);
 		if(nLine==-1) 
 			return;
 
 		if(nTotalLine<=nPos && nPos<nTotalLine+nLine) {
-			m_nStartLine = i;
-			m_nStartLineSkipLine = nPos-nTotalLine;
+			m_iStartLine = i;
+			m_iStartLineSkipLine = nPos-nTotalLine;
 			return;
 		}
 
@@ -282,10 +282,10 @@ void CCTextArea::MoveUp(){
 	if(carpos.y>0) {
 		if(!m_bVerticalMoving){
 			m_bVerticalMoving=true;
-			m_nVerticalMoveAxis=carpos.x;
+			m_iVerticalMoveAxis=carpos.x;
 		}
 
-		m_CaretPos.x=GetCharPosition(szCurrent,m_nVerticalMoveAxis,carpos.y-1);
+		m_CaretPos.x=GetCharPosition(szCurrent,m_iVerticalMoveAxis,carpos.y-1);
 		UpdateScrollBar(true);
 		return ;
 	}
@@ -294,14 +294,14 @@ void CCTextArea::MoveUp(){
 		CCFont *pFont=GetFont();
 		if(!m_bVerticalMoving){
 			m_bVerticalMoving=true;
-			m_nVerticalMoveAxis=carpos.x;
+			m_iVerticalMoveAxis=carpos.x;
 		}
 		m_CurrentLine--;
 		m_CaretPos.y--;
 
 		szCurrent = m_CurrentLine->text.c_str();
-		int nCurrentLineLineCount = CCGetLineCount(GetFont(),szCurrent,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_nIndentation );
-		m_CaretPos.x=GetCharPosition(szCurrent,m_nVerticalMoveAxis,nCurrentLineLineCount-1);
+		int nCurrentLineLineCount = CCGetLineCount(GetFont(),szCurrent,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_iIndentation );
+		m_CaretPos.x=GetCharPosition(szCurrent,m_iVerticalMoveAxis,nCurrentLineLineCount-1);
 		UpdateScrollBar(true);
 	}
 }
@@ -312,7 +312,7 @@ void CCTextArea::MoveDown(){
 
 	const char *szCurrent = m_CurrentLine->text.c_str();
 
-	int nCurrentLineLineCount = CCGetLineCount(GetFont(),szCurrent,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_nIndentation );
+	int nCurrentLineLineCount = CCGetLineCount(GetFont(),szCurrent,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_iIndentation );
 
 	sPoint carpos;
 
@@ -324,10 +324,10 @@ void CCTextArea::MoveDown(){
 	if(carpos.y+1<nCurrentLineLineCount) {
 		if(!m_bVerticalMoving){
 			m_bVerticalMoving=true;
-			m_nVerticalMoveAxis=carpos.x;
+			m_iVerticalMoveAxis=carpos.x;
 		}
 
-		m_CaretPos.x=GetCharPosition(szCurrent,m_nVerticalMoveAxis,carpos.y+1);
+		m_CaretPos.x=GetCharPosition(szCurrent,m_iVerticalMoveAxis,carpos.y+1);
 		UpdateScrollBar(true);
 		return ;
 	}
@@ -337,13 +337,13 @@ void CCTextArea::MoveDown(){
 		if(!m_bVerticalMoving)
 		{
 			m_bVerticalMoving=true;
-			m_nVerticalMoveAxis=carpos.x;
+			m_iVerticalMoveAxis=carpos.x;
 		}
 		m_CurrentLine++;
 		m_CaretPos.y++;
 
 		szCurrent = m_CurrentLine->text.c_str();
-		m_CaretPos.x=GetCharPosition(szCurrent,m_nVerticalMoveAxis,0);
+		m_CaretPos.x=GetCharPosition(szCurrent,m_iVerticalMoveAxis,0);
 		UpdateScrollBar(true);
 	}
 }
@@ -368,7 +368,7 @@ void CCTextArea::OnEnd(){
 	if(!GetCaretPosition(&carpos, 1, szCurrent, GetCaretPos().x, m_bCaretFirst))
 		return;
 
-	int nNextLinePos = CCGetLinePos(GetFont(),szCurrent,GetClientWidth(),m_bWordWrap,m_bColorSupport,carpos.y+1,m_nIndentation);
+	int nNextLinePos = CCGetLinePos(GetFont(),szCurrent,GetClientWidth(),m_bWordWrap,m_bColorSupport,carpos.y+1,m_iIndentation);
 	m_CaretPos.x = nNextLinePos;
 	m_bCaretFirst = true;
 }
@@ -376,12 +376,12 @@ void CCTextArea::OnEnd(){
 void CCTextArea::DeleteCurrent(){
 	if(m_CaretPos.x+1<(int)m_CurrentLine->text.size() && IsHangul(*(m_CurrentLine->text.begin()+m_CaretPos.x))){
 		m_CurrentLine->text.erase(m_CurrentLine->text.begin()+m_CaretPos.x,m_CurrentLine->text.begin()+m_CaretPos.x+2); 
-		m_nCurrentSize-=2;
+		m_iCurrentSize-=2;
 	}
 	else
 	if(m_CaretPos.x<(int)m_CurrentLine->text.size()){
 		m_CurrentLine->text.erase(m_CurrentLine->text.begin()+m_CaretPos.x);
-		m_nCurrentSize--;
+		m_iCurrentSize--;
 	}
 	else
 	if(m_CaretPos.y+1<(int)m_Lines.size()){
@@ -404,7 +404,7 @@ bool CCTextArea::OnLButtonDown(sPoint pos){
 	m_CurrentLine = GetIterator(GetStartLine());
 	for(int i=GetStartLine();i<GetLineCount();i++){
 		const char *szText = m_CurrentLine->text.c_str();
-		int nLine = CCGetLineCount(GetFont(),szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_nIndentation);
+		int nLine = CCGetLineCount(GetFont(),szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_iIndentation);
 		if(pos.y <= y + nLine*GetLineHeight() ||
 			i==GetLineCount()-1) {
 			int n = min(nLine-1,(pos.y - y) / GetLineHeight());
@@ -424,21 +424,21 @@ bool CCTextArea::OnLButtonDown(sPoint pos){
 bool CCTextArea::OnEvent(CCEvent* pEvent, CCListener* pListener){
 	if(CCWidget::m_pFocusedWidget!=this) return false;
 	sRect r = GetClientRect();
-	switch(pEvent->nMessage){
+	switch(pEvent->iMessage){
 
 	case CCWM_KEYDOWN:
 		if (m_bEditable)
 		{
-			bool bResult = InputFilterKey(pEvent->nKey,pEvent->bCtrl);
+			bool bResult = InputFilterKey(pEvent->iKey,pEvent->bCtrl);
 			UpdateScrollBar(true);
 			return bResult;
 		}
 		break;
 	case CCWM_CHAR:
-		if(IsFocus() && m_bEditable && GetLength()<GetMaxLen() && InputFilterChar(pEvent->nKey)==false){
-			m_CurrentLine->text.insert(m_CurrentLine->text.begin()+m_CaretPos.x,(char)pEvent->nKey);
+		if(IsFocus() && m_bEditable && GetLength()<GetMaxLen() && InputFilterChar(pEvent->iKey)==false){
+			m_CurrentLine->text.insert(m_CurrentLine->text.begin()+m_CaretPos.x,(char)pEvent->iKey);
 			m_CaretPos.x++;
-			m_nCurrentSize++;
+			m_iCurrentSize++;
 			UpdateScrollBar(true);
 			return true;
 		}
@@ -452,13 +452,13 @@ bool CCTextArea::OnEvent(CCEvent* pEvent, CCListener* pListener){
 				pEvent->szIMECompositionResultString,
 				pEvent->szIMECompositionResultString+length);
 			m_CaretPos.x+=length;
-			m_nCurrentSize+=length;
+			m_iCurrentSize+=length;
 			UpdateScrollBar(true);
 			return true;
 		}
 		break;
 	case CCWM_MOUSEWHEEL:
-		if(r.InPoint(pEvent->Pos)==false) 
+		if(r.InPoint(pEvent->sPos)==false) 
 			break;
 
 		if(pEvent->nDelta<0){
@@ -475,8 +475,8 @@ bool CCTextArea::OnEvent(CCEvent* pEvent, CCListener* pListener){
 	case MWM_LBUTTONDOWN: 
 		{
 			sRect r = GetClientRect();
-			if(r.InPoint(pEvent->Pos)==true){
-				return OnLButtonDown(pEvent->Pos);
+			if(r.InPoint(pEvent->sPos)==true){
+				return OnLButtonDown(pEvent->sPos);
 			}
 		}
 	}
@@ -492,11 +492,11 @@ void CCTextArea::OnReleaseFocus(void){
 	Core::GetInstance()->EnableIME(false);
 }
 
-bool CCTextArea::InputFilterKey(int nKey,bool bCtrl){
-	if(nKey!=VK_UP && nKey!=VK_DOWN)
+bool CCTextArea::InputFilterKey(int iKey,bool bCtrl){
+	if(iKey!=VK_UP && iKey!=VK_DOWN)
 		m_bVerticalMoving=false;
 
-	switch(nKey){
+	switch(iKey){
 	case VK_LEFT : MoveLeft();return true;
 	case VK_RIGHT : MoveRight();return true;
 	case VK_UP : if(bCtrl) ScrollUp(); else MoveUp(); return true;
@@ -525,23 +525,23 @@ bool CCTextArea::InputFilterKey(int nKey,bool bCtrl){
 	return false;
 }
 
-bool CCTextArea::InputFilterChar(int nKey){
-	if(nKey==VK_BACK){
+bool CCTextArea::InputFilterChar(int iKey){
+	if(iKey==VK_BACK){
 		return true;
 	}
-	else if(nKey==VK_ESCAPE){
+	else if(iKey==VK_ESCAPE){
 		CCListener* pListener = GetListener();
 		if(pListener!=NULL) pListener->OnCommand(this, CCTEXTAREA_ESC_VALUE);
 		return true;
 	}
-	else if(nKey==22){	// Ctrl+'V'
+	else if(iKey==22){	// Ctrl+'V'
 		return true;
 	}
-	else if(nKey==3){	// Ctrl+'C'
+	else if(iKey==3){	// Ctrl+'C'
 		return true;
 	}
 
-	switch(nKey){
+	switch(iKey){
 	case VK_TAB:
 	case VK_RETURN:
 		return true;
@@ -552,11 +552,11 @@ bool CCTextArea::InputFilterChar(int nKey){
 void CCTextArea::SetMaxLen(int nMaxLen){
 	m_Lines.erase(m_Lines.begin(),m_Lines.end());
 
-	m_nMaxLen = nMaxLen;
+	m_iMaxLen = nMaxLen;
 
-	m_nStartLine=0;
-	m_nStartLineSkipLine=0;
-	m_nCurrentSize=0;
+	m_iStartLine=0;
+	m_iStartLineSkipLine=0;
+	m_iCurrentSize=0;
 
 	m_CaretPos=sPoint(0,0);
 
@@ -573,10 +573,10 @@ CCTextArea::CCTextArea(int nMaxLen, const char* szName, CCWidget* pParent, CCLis
 	m_bColorSupport = true;
 	m_bMouseOver = false;
 	m_bVerticalMoving = false;
-	m_nIndentation = 0;
+	m_iIndentation = 0;
 
 	CCFont* pFont = GetFont();
-	m_nCustomLineHeight = -1;
+	m_iCustomLineHeight = -1;
 	int w = CCTEXTAREA_DEFAULT_WIDTH;
 	int h = GetLineHeight()+2;
 	SetTextOffset(sPoint(1, 1));
@@ -644,7 +644,7 @@ CCLINELISTITERATOR CCTextArea::GetIterator(int nLine){
 
 
 void CCTextArea::SetText(const char *szText){
-	m_nCurrentSize=0;
+	m_iCurrentSize=0;
 
 	m_Lines.erase(m_Lines.begin(),m_Lines.end());
 	int nLength=strlen(szText);
@@ -654,12 +654,12 @@ void CCTextArea::SetText(const char *szText){
 		nNext=text.find(10,nStart);
 		if(nNext==-1) nNext=nLength;
 		m_Lines.push_back(CCLineItem(m_TextColor,text.substr(nStart,nNext-nStart)));
-		m_nCurrentSize+=nNext-nStart;
+		m_iCurrentSize+=nNext-nStart;
 		nStart=nNext+1;
 	}
 
-	m_nStartLine=0;
-	m_nStartLineSkipLine=0;
+	m_iStartLine=0;
+	m_iStartLineSkipLine=0;
 	m_CaretPos=sPoint(0,0);
 
 	if(!m_Lines.size())
@@ -733,8 +733,8 @@ void CCTextAreaLook::OnTextDraw_WordWrap(CCTextArea* pTextArea, CCDrawContext* p
 	int i = nStartLine;
 
 	char szText[1024]="";
-	int nStartLineSkipLine = pTextArea->m_nStartLineSkipLine;
-	int nIndentation = pTextArea->m_nIndentation;
+	int nStartLineSkipLine = pTextArea->m_iStartLineSkipLine;
+	int nIndentation = pTextArea->m_iIndentation;
 	
 	CCLINELISTITERATOR itor=pTextArea->GetIterator(pTextArea->GetStartLine());
 	
@@ -767,7 +767,7 @@ void CCTextAreaLook::OnTextDraw_WordWrap(CCTextArea* pTextArea, CCDrawContext* p
 				strcpy(szText,itor->text.c_str());
 		}
 
-		int nSkipLine = (i==pTextArea->GetStartLine()) ? pTextArea->m_nStartLineSkipLine : 0;
+		int nSkipLine = (i==pTextArea->GetStartLine()) ? pTextArea->m_iStartLineSkipLine : 0;
 
 		int nTextLen = strlen(szText);
 		if(nTextLen>0){
@@ -805,7 +805,7 @@ void CCTextAreaLook::OnTextDraw_WordWrap(CCTextArea* pTextArea, CCDrawContext* p
 		
 		sPoint carpos;
 		Core* pCore = Core::GetInstance();
-		if(bCurrentLine==true && nCarY>=0 && pTextArea->GetCaretPosition(&carpos, 1, szText, pTextArea->GetCaretPos().x+pMint->m_nCompositionCaretPosition, pTextArea->m_bCaretFirst)){
+		if(bCurrentLine==true && nCarY>=0 && pTextArea->GetCaretPosition(&carpos, 1, szText, pTextArea->GetCaretPos().x+pMint->m_iCompositionCaretPosition, pTextArea->m_bCaretFirst)){
 			carpos.x+=textrt.x;
 			carpos.y=nCarY + carpos.y*pTextArea->GetLineHeight();
 
@@ -923,26 +923,26 @@ void CCTextArea::DeleteFirstLine(){
 	}
 
 	m_Lines.erase(m_Lines.begin());
-	if(m_nStartLine>0)
-		m_nStartLine--;
+	if(m_iStartLine>0)
+		m_iStartLine--;
 	UpdateScrollBar();
 }
 
 int CCTextArea::GetLineHeight( void){
-	if (m_nCustomLineHeight != -1)
-		return m_nCustomLineHeight;
+	if (m_iCustomLineHeight != -1)
+		return m_iCustomLineHeight;
 	return GetFont()->GetHeight();
 }
 
 void CCTextArea::SetCustomLineHeight( int nHeight){
-	m_nCustomLineHeight = nHeight;
+	m_iCustomLineHeight = nHeight;
 }
 
 void CCTextArea::MultiplySize( float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight ){
 	CCWidget::MultiplySize( byIDLWidth, byIDLHeight, byCurrWidth, byCurrHeight );
 
-	if (m_nCustomLineHeight != -1)
-		m_nCustomLineHeight = int(m_nCustomLineHeight * byCurrHeight +0.5f);
+	if (m_iCustomLineHeight != -1)
+		m_iCustomLineHeight = int(m_iCustomLineHeight * byCurrHeight +0.5f);
 }
 
 void CCTextArea::AdjustHeightByContent()

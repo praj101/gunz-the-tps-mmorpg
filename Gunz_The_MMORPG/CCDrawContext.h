@@ -26,10 +26,10 @@ typedef int CCAlignmentMode;
 #define CCD_VCENTER	64
 
 enum CCDrawEffect{
-	CC_NORMAL = 0,
-	CC_ADD,
-	CC_MULTIPLY,
-	CC_MAX
+	CCDE_NORMAL = 0,
+	CCDE_ADD,
+	CCDE_MULTIPLY,
+	CCDE_MAX
 };
 
 class CCDrawContext{

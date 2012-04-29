@@ -52,11 +52,11 @@ public:
 
 	char	m_mtrl_name[255];//지금은 tool 에서 구분하기 위해서 만들어서 사용..
 
-	char	m_name[255];
+	char	m_iame[255];
 	char	m_opa_name[255];
 
-	char	m_name_ani_tex[255];
-	char	m_name_ani_tex_ext[20];
+	char	m_iame_ani_tex[255];
+	char	m_iame_ani_tex_ext[20];
 
 	int		m_id;
 	int		m_u_id;			//유저가 지정해준 ID
@@ -71,16 +71,16 @@ public:
 	bool	m_bAlphaTestMap;
 	bool	m_bAdditive;
 
-	int		m_nAlphaTestValue;
+	int		m_iAlphaTestValue;
 
 	bool	m_bUse;
 
 	// ani_tex
 
 	bool	m_bAniTex;
-	int 	m_nAniTexCnt;
-	int 	m_nAniTexSpeed;//tick
-	int 	m_nAniTexGap;
+	int 	m_iAniTexCnt;
+	int 	m_iAniTexSpeed;//tick
+	int 	m_iAniTexGap;
 	DWORD	m_backup_time;
 
 	bool	m_bObjectMtrl;// effect ,interface , object 를 구분해준다~
@@ -134,7 +134,7 @@ public:
 	void	Del(RMtrl* tex);
 	int		GetNum();
 
-	vector<RMtrl*>	m_node_table;
+	vector<RMtrl*>	m_iode_table;
 
 	bool	m_bObjectMtrl;// effect ,interface , object 를 구분해준다~
 	int		m_id_last;

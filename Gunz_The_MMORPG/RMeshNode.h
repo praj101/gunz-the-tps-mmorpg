@@ -62,7 +62,7 @@ public:
 	bool	m_bClothMeshNodeSkip;
 	float	m_vis_alpha;
 
-	int						m_nAlign;
+	int						m_iAlign;
 
 	CutParts				m_CutPartsType;			// 노드가 상체,하체에 속하는지 여부 타잎
 	LookAtParts				m_LookAtParts;			// 프로그램으로 노드 관리 할 특수 노드 타잎
@@ -168,7 +168,7 @@ public:
 	float				m_fDist;
 
 	RBoneBaseMatrix*	m_BoneBaseMatrix;
-	int					m_nBoneBaseMatrixCnt;
+	int					m_iBoneBaseMatrixCnt;
 
 	int m_MatrixMap[MAX_MATRIX];			// Matrix Register와 Bone의 index를 연결하기 위한 맵
 	int m_MatrixCount;						// 쓰이는 Matrix의 갯수( 초기값 : -1 )

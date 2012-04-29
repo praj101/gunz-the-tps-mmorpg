@@ -22,14 +22,14 @@ using namespace std;
 // 엠블럼 정보 및 클랜 정보를 map list 형식으로 저장하기 위한 노드
 struct ZEmblemInfoNode
 {
-	UINT		m_nClanID;								// Clan ID
-	UINT		m_nNumOfClan;							// Number of people in clan
+	UINT		m_iClanID;								// Clan ID
+	UINT		m_iNumOfClan;							// Number of people in clan
 	CCBitmap*	m_pBitmapEmblem;						// Clan bitmap emblem
 
 	// Initialize
 	ZEmblemInfoNode() {									// Constructor
-		m_nClanID			= 0;
-		m_nNumOfClan		= 0;
+		m_iClanID			= 0;
+		m_iNumOfClan		= 0;
 		m_pBitmapEmblem		= NULL;
 	}
 

@@ -10,7 +10,7 @@
 	((_ScanCodeTable[_ScanCode]&0x80)?true:false)
 
 struct ZDIBUFFER{
-	BYTE nKey;
+	BYTE iKey;
 	bool bPressed;
 };
 
@@ -28,13 +28,13 @@ protected:
 	BOOL					m_bImmediateMode;
 
 	LPDIRECTINPUTDEVICE8	m_pMouse;			///< mouse device
-	unsigned int			m_nMouseButtons;	///> mouse buttons
+	unsigned int			m_iMouseButtons;	///> mouse buttons
 	bool					m_bMouseButtonStates[8];
 
 	LPDIRECTINPUTDEVICE8	m_pJoystick;		///< joystick device
-	unsigned int			m_nJoyButtons;		///< joystick buttons
-	unsigned int			m_nJoyPovs;			///< joystick povs
-	unsigned int			m_nFFAxis;			///< force feedback axis
+	unsigned int			m_iJoyButtons;		///< joystick buttons
+	unsigned int			m_iJoyPovs;			///< joystick povs
+	unsigned int			m_iFFAxis;			///< force feedback axis
 	bool					m_bForceFeedback;
 	LPDIRECTINPUTEFFECT		m_pFFEffect;		///< force feedback effect
 
@@ -61,14 +61,14 @@ public:
 	//Load the keyboard buffer, scan the code and Down / Up flags, including the read buffer to increase the number of returns.
 	DWORD GetKeyboardBufferedData(ZDIBUFFER* pBuffer,unsigned int nBuffer);
 
-	const char* GetKeyName(unsigned long int nKey);
+	const char* GetKeyName(unsigned long int iKey);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	//Mouse
 
 	//Getting the number of mouse buttons
-	unsigned int GetMouseButtonCount()		{ return m_nMouseButtons; }
+	unsigned int GetMouseButtonCount()		{ return m_iMouseButtons; }
 
 	//Load the mouse as a buffer
 	DWORD GetMouseBufferedData(int* pSumX,int* pSumY, ZDIBUFFER* pBuffer,unsigned int nBuffer);
@@ -82,9 +82,9 @@ public:
 	//Joystick
 
 	//Pov Acquiring number of
-	unsigned int GetJoystickPovCount()		{ return m_nJoyPovs; }
+	unsigned int GetJoystickPovCount()		{ return m_iJoyPovs; }
 	//Getting the number of buttons
-	unsigned int GetJoystickButtonCount()	{ return m_nJoyButtons; }
+	unsigned int GetJoystickButtonCount()	{ return m_iJoyButtons; }
 	//Joystick state Acquiring
 	bool GetJoystickData(DIJOYSTATE2* pjs);
 

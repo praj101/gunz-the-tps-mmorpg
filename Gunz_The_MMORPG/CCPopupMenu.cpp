@@ -17,7 +17,7 @@ void CCPopupMenuLook::OnFrameDraw(CCPopupMenu* pPopupMenu, CCDrawContext* pDC){
 	sRect r = pPopupMenu->GetClientRect();
 	pDC->SetColor(sColor(DEFCOLOR_CCPOPUP_PLANE));
 	pDC->FillRectangle(r);
-	pDC->SetColor(MCOLOR(DEFCOLOR_FRAME_OUTLINE));
+	pDC->SetColor(sColor(DEFCOLOR_FRAME_OUTLINE));
 	pDC->Rectangle(r);
 }
 
@@ -51,12 +51,12 @@ void CCMenuItem::OnDraw(CCDrawContext* pDC){
 
 bool CCMenuItem::OnEvent(CCEvent* pEvent, CCListener* pListener){
 	sRect r = GetClientRect();
-	switch(pEvent->nMessage){
+	switch(pEvent->iMessage){
 	case CCWM_MOUSEMOVE:
 	case CCWM_LBUTTONDOWN:
 	case CCWM_RBUTTONDOWN:
 	case CCWM_LBUTTONDBLCLK:
-		if(r.InPoint(pEvent->Pos)==true){
+		if(r.InPoint(pEvent->sPos)==true){
 			CCPopupMenu* pPopupMenu = (CCPopupMenu *)GetParent();
 			pPopupMenu->Select(this);
 			return true;
@@ -64,7 +64,7 @@ bool CCMenuItem::OnEvent(CCEvent* pEvent, CCListener* pListener){
 		//else Select(false);
 		break;
 	case CCWM_LBUTTONUP:
-		if(r.InPoint(pEvent->Pos)==true){
+		if(r.InPoint(pEvent->sPos)==true){
 			CCPopupMenu* pPopupMenu = (CCPopupMenu *)GetParent();
 			if(GetSubMenu()!=NULL) pPopupMenu->Select(this);
 			else{
@@ -140,7 +140,7 @@ void CCMenuItem::Select(bool bSelect)
 
 bool CCPopupMenu::OnEvent(CCEvent* pEvent, CCListener* pListener){//MPopupMenu
 	sRect r = GetClientRect();
-	switch(pEvent->nMessage){
+	switch(pEvent->iMessage){
 	case CCWM_LBUTTONDOWN:
 	case CCWM_LBUTTONUP:
 	case CCWM_LBUTTONDBLCLK:
@@ -150,8 +150,8 @@ bool CCPopupMenu::OnEvent(CCEvent* pEvent, CCListener* pListener){//MPopupMenu
 	case CCWM_MBUTTONDOWN:
 	case CCWM_MBUTTONUP:
 	case CCWM_MBUTTONDBLCLK:
-		if(r.InPoint(pEvent->Pos)==false){
-			if(m_nPopupMenuType==CCPMT_VERTICAL) Show(false);
+		if(r.InPoint(pEvent->sPos)==false){
+			if(m_iPopupMenuType==CCPMT_VERTICAL) Show(false);
 			else Select((CCMenuItem *)NULL);
 		}
 		break;
@@ -160,7 +160,7 @@ bool CCPopupMenu::OnEvent(CCEvent* pEvent, CCListener* pListener){//MPopupMenu
 }
 
 CCPopupMenu::CCPopupMenu(const char* szName, CCWidget* pParent, CCListener* pListener, CCPopupMenuTypes t) : CCWidget(szName, pParent, pListener){
-	m_nPopupMenuType = t;
+	m_iPopupMenuType = t;
 
 	LOOK_IN_CONSTRUCTOR()
 }
@@ -184,7 +184,7 @@ void CCPopupMenu::AddMenuItem(CCMenuItem* pMenuItem){
 
 	sRect cr = GetClientRect();
 	sRect ir = GetInitialClientRect();
-	if(m_nPopupMenuType==CCPMT_VERTICAL){
+	if(m_iPopupMenuType==CCPMT_VERTICAL){
 		int y = 0;
 		int nWidth = 0;
 		for(int i=0; i<m_Children.GetCount(); i++){
@@ -238,11 +238,11 @@ void CCPopupMenu::Show(bool bVisible){
 }
 
 void CCPopupMenu::SetType(CCPopupMenuTypes t){
-	m_nPopupMenuType = t;
+	m_iPopupMenuType = t;
 }
 
 CCPopupMenuTypes CCPopupMenu::GetType(void){
-	return m_nPopupMenuType;
+	return m_iPopupMenuType;
 }
 
 void CCPopupMenu::Select(int idx){

@@ -904,6 +904,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RAStar.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RAStar.h"
+				>
+			</File>
+			<File
 				RelativePath=".\RBaseTexture.cpp"
 				>
 			</File>
@@ -917,6 +925,10 @@
 			</File>
 			<File
 				RelativePath=".\RBoundary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RBspObject.cpp"
 				>
 			</File>
 			<File
@@ -980,11 +992,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RLensFlare.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RLenzFlare.h"
+				>
+			</File>
+			<File
 				RelativePath=".\RLightList.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\RLightList.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RLine.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RLine.h"
 				>
 			</File>
 			<File
@@ -1040,6 +1068,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RNavigationMesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RNavigationMesh.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RNavigationNode.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RNavigationNode.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ROcclusionList.cpp"
 				>
 			</File>
@@ -1088,6 +1132,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RVersions.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RVersions.h"
+				>
+			</File>
+			<File
 				RelativePath=".\RVisualMesh.cpp"
 				>
 			</File>
@@ -1108,6 +1160,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\CCResource.h"
+			>
+		</File>
 		<File
 			RelativePath=".\stdafx.h"
 			>

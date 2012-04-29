@@ -27,7 +27,7 @@ protected:
 	DECLARE_LOOK(CCPanelLook)
 	DECLARE_LOOK_CLIENT()
 protected:
-	CCBorderStyle	m_nBorderStyle;
+	CCBorderStyle	m_iBorderStyle;
 	sColor			m_BorderColor;
 	sColor			m_BackgroundColor;
 public:

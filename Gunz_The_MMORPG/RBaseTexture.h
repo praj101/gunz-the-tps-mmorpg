@@ -46,11 +46,11 @@ public:
 	int GetDepth()			{return m_Info.Depth; }
 	int GetMipLevels()		{return m_Info.MipLevels;}
 
-	int GetTexLevel()			{ return m_nTexLevel; }
-	void SetTexLevel(int level) { m_nTexLevel = level;}
+	int GetTexLevel()			{ return m_iTexLevel; }
+	void SetTexLevel(int level) { m_iTexLevel = level;}
 
-	int GetTexType()			{ return m_nTexType; }
-	void SetTexType(int type)	{ m_nTexType = type; }
+	int GetTexType()			{ return m_iTexType; }
+	void SetTexType(int type)	{ m_iTexType = type; }
 
 	D3DFORMAT GetFormat()	{return m_Info.Format;}
 
@@ -64,14 +64,14 @@ public:
 	bool	m_bManaged;
 	DWORD	m_dwLastUseTime;
 	char*	m_pTextureFileBuffer;
-	int		m_nFileSize;
+	int		m_iFileSize;
 	char	m_szTextureName[256];
-	int		m_nRefCount;
+	int		m_iRefCount;
 	bool	m_bUseMipmap;
 	bool	m_bUseFileSystem;
 
-	int		m_nTexLevel;
-	DWORD	m_nTexType;
+	int		m_iTexLevel;
+	DWORD	m_iTexType;
 
 	DWORD	m_dwColorkey;		// 32bit ARGB (0 to disable)
 
