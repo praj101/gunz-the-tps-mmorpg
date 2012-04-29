@@ -824,6 +824,10 @@
 			Name="SORT LATER"
 			>
 			<File
+				RelativePath=".\CCPdb.h"
+				>
+			</File>
+			<File
 				RelativePath=".\RBaseTexture.cpp"
 				>
 			</File>
