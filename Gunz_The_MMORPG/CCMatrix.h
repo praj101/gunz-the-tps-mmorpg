@@ -2,7 +2,7 @@
 #define _MMATRIX_H
 
 #include "stdafx.h"
-#include "MVector3.h"
+#include "CCVector3.h"
 #include <string.h>
 
 class MMatrix

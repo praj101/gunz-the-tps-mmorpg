@@ -231,10 +231,6 @@
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
 				<File
-					RelativePath=".\CCPacket.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\CCMatchChatRoom.cpp"
 					>
 				</File>
@@ -276,6 +272,10 @@
 				</File>
 				<File
 					RelativePath=".\CCMatrix.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCPacket.cpp"
 					>
 				</File>
 				<File
@@ -1566,6 +1566,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchDBGambleItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchDBMgr.h"
 			>
 		</File>
 		<File
