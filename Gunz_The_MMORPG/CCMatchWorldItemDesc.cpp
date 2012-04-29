@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "MMatchWorldItemDesc.h"
-#include "MZFileSystem.h"
+#include "CCMatchWorldItemDesc.h"
+#include "CCZFileSystem.h"
 #include "FileInfo.h"
-#include "MCRC32.h"
+#include "CCCRC32.h"
 
 #define MWICTOK_WORLDITEM	"WORLDITEM"
 #define MWICTOK_ID			"id"

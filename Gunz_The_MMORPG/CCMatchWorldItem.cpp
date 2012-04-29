@@ -5,9 +5,9 @@
 #include "CCMatchObject.h"
 #include "MSharedCommandTable.h"
 #include "CCBlobArray.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "CCUID.h"
-#include "MMatchWorldItemDesc.h"
+#include "CCMatchWorldItemDesc.h"
 #include "RTypes.h"
 
 MMatchWorldItemManager::MMatchWorldItemManager()

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 
 
 #define MATCHNOTIFY_NETWORK_CREATE_FAILED	10

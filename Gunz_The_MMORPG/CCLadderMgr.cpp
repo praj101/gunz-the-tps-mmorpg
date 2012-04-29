@@ -6,7 +6,7 @@
 #include "CCMatchGlobal.h"
 #include "MThread.h"
 #include "MSharedCommandTable.h"
-#include "MMatchUtil.h"
+#include "CCMatchUtil.h"
 
 
 MLadderGroupMap* MLadderMgr::GetWaitGroupContainer(MLADDERTYPE nLadderType)

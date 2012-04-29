@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MMatchFormula.h"
 #include <math.h>
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 
 #define MMTOC_FORMULA_TABLE						"FORMULA_TABLE"
 #define MMTOC_LEVEL_MODIFIER					"LM"

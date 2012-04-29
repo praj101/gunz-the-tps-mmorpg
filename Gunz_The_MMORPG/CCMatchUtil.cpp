@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "MMatchUtil.h"
-#include "MZFileSystem.h"
+#include "CCMatchUtil.h"
+#include "CCZFileSystem.h"
 
 
 unsigned long int MGetTimeDistance(unsigned long int nTimeA, unsigned long int nTimeB)

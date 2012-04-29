@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 
 #define FILENAME_MATCH_FORMULA		"formula.xml"
 #define MAX_LEVEL					99		///< 최대 레벨

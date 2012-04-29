@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "MBaseChannelRule.h"
+#include "CCBaseChannelRule.h"
 #include "CCXml.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 
 
 

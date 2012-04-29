@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MQuestItem.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "MMatchDBMgr.h"
 #include "CCMatchConfig.h"
 //#include "CCMatchServer.h"
