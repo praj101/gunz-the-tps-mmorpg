@@ -13,15 +13,15 @@ _NAMESPACE_REALSPACE2_BEGIN
 #define RM_FLAG_ADDITIVE		0x0001
 #define RM_FLAG_USEOPACITY		0x0002
 #define RM_FLAG_TWOSIDED		0x0004
-#define RM_FLAG_NOTWALKABLE		0x0008		// 갈수없는지역을 미리 표시.
+#define RM_FLAG_NOTWALKABLE		0x0008		// can not go ahead and show area.
 #define RM_FLAG_CASTSHADOW		0x0010
 #define RM_FLAG_RECEIVESHADOW	0x0020
-#define RM_FLAG_PASSTHROUGH		0x0040		// 이 플래그가 있으면 충돌체크를 하지 않는다.
-#define RM_FLAG_HIDE			0x0080		// 그리지않는다.
-#define RM_FLAG_PASSBULLET		0x0100		// 총알이 통과한다
-#define RM_FLAG_PASSROCKET		0x0200		// 로켓/수류탄등이 통과한다.
-#define RM_FLAG_USEALPHATEST	0x0400		// alpha test 맵 (나뭇잎 등등 .. )
-#define RM_FLAG_AI_NAVIGATION	0x1000		// 퀘스트 AI 네비게이션 용
+#define RM_FLAG_PASSTHROUGH		0x0040		// If this flag is not a collision.
+#define RM_FLAG_HIDE			0x0080		// do not paint.
+#define RM_FLAG_PASSBULLET		0x0100		// the bullet goes through
+#define RM_FLAG_PASSROCKET		0x0200		// rockets / grenades etc. is passed.
+#define RM_FLAG_USEALPHATEST	0x0400		// alpha test map (leaves, etc. ..
+#define RM_FLAG_AI_NAVIGATION	0x1000		// quest for AI navigation
 
 
 #define rvector D3DXVECTOR3
@@ -41,8 +41,8 @@ _NAMESPACE_REALSPACE2_BEGIN
 enum rsign { NEGATIVE= -1, ZERO= 0, POSITIVE= 1 };
 
 
-// 별필요없는듯해서 그냥 d3dformat 을 쓴다
-// 쓰는 포맷은 D3DFMT_X8R8G8B8 , D3DFMT_R5G6B5 , D3DFMT_X1R5G5B5  이정도..
+//writes d3dformat
+//Write format D3DFMT_X8R8G8B8, D3DFMT_R5G6B5, D3DFMT_X1R5G5B5
 enum RRESULT {
 	R_UNKNOWN = -1,
 	R_OK = 0,
@@ -54,7 +54,7 @@ enum RRESULT {
 	
 };
 
-// 초기화 파라미터
+//Initialize the parameters
 struct RMODEPARAMS {
 	int nWidth,nHeight;
 	bool bFullScreen;
@@ -86,7 +86,7 @@ struct rboundingbox
 	}
 };
 
-// 벡터
+//Vector
 
 inline float Magnitude(const rvector &x) { return D3DXVec3Length(&x); }
 inline float MagnitudeSq(const rvector &x)	{ return D3DXVec3LengthSq(&x); }
@@ -94,11 +94,11 @@ inline void Normalize(rvector &x) { D3DXVec3Normalize(&x,&x);}
 inline float DotProduct(const rvector &a,const rvector &b) { return D3DXVec3Dot(&a,&b); }
 inline void CrossProduct(rvector *result,const rvector &a,const rvector &b) { D3DXVec3Cross(result,&a,&b); }
 
-// 행렬
+//Matrix
 
 void MakeWorldMatrix(rmatrix *pOut,rvector pos,rvector dir,rvector up);			// el 모델의 world matrix 를 만든다.
 
-// RELEASE & DELETE 매크로 ( from dxutil.h )
+//RELEASE & DELETE macro (from dxutil.h)
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(p)       { if(p) { delete (p);     (p)=NULL; } }
 #endif
@@ -109,7 +109,7 @@ void MakeWorldMatrix(rmatrix *pOut,rvector pos,rvector dir,rvector up);			// el 
 #define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
 #endif
 
-// help 펑션들..
+//Help function of the ...
 #ifndef TOLER
 #define TOLER 0.001
 #endif
@@ -119,33 +119,33 @@ void MakeWorldMatrix(rmatrix *pOut,rvector pos,rvector dir,rvector up);			// el 
 #define SIGNOF(a) ( (a)<-TOLER ? NEGATIVE : (a)>TOLER ? POSITIVE : ZERO )
 #define RANDOMFLOAT ((float)rand()/(float)RAND_MAX)
 
-// 한점에서 직선까지의 거리.. line1,line2 는 직선위의 두 점.
+// Point the distance from the straight line. line1, line2 two points of a straight line.
 float GetDistance(const rvector &position,const rvector &line1,const rvector &line2);
-// 한점에서 가장 가까운 선분위의 점
+// Point of the segment closest to the point of
 rvector GetNearestPoint(const rvector &position,const rvector &a,const rvector &b);
-// 한점에서 선분까지의 거리
+// Point the distance from the segment
 float GetDistanceLineSegment(const rvector &position,const rvector &a,const rvector &b);
-// 선분과 선분 사이의 거리.. 선분 (a,aa) 과 선분 (c,cc)의 거리.
+// The distance between line segments and line segments.
 float GetDistanceBetweenLineSegment(const rvector &a,const rvector &aa,const rvector &c,const rvector &cc,rvector *ap,rvector *cp);
-// 한점에서 평면까지의 거리
+// Point to the plane away from
 float GetDistance(const rvector &position,const rplane &plane);
-// 선분(a,aa) 에서 평면까지의 가장 가까운 선분위의 점.
+// Segment (a, aa) to the plane at the nearest point of the segment.
 rvector GetNearestPoint(const rvector &a,const rvector &aa,const rplane &plane);
-// 선분(a,aa) 에서 평면까지의 거리
+// Segment (a, aa) the distance from the flat
 float GetDistance(const rvector &a,const rvector &aa,const rplane &plane);
-// 평면에서 boundingbox와의 최대거리
+// In the plane with a maximum distance boundingbox
 float GetDistance(rboundingbox *bb,rplane *plane);
-// 평면에서 boundingbox와의 최소,최대거리
+// In the plane with boundingbox minimum and maximum distance
 void GetDistanceMinMax(rboundingbox &bb,rplane &plane,float *MinDist,float *MaxDist);
-// 한점과 boundingbox의 최소거리
+// Point and a minimum distance of boundingbox
 float GetDistance(const rboundingbox &bb,const rvector &point);
-// 삼각형의 면적
+// The area of ??a triangle
 float GetArea(rvector &v1,rvector &v2,rvector &v3);
 
-// 두 벡터의 x, y상에서의 각도
+// Two vectors x, y, over the angle
 float GetAngleOfVectors(rvector &ta,rvector &tb);
 
-// 원형보간된 vector.. a,b는 normalized 되어있어야함.
+//  vector .. a, b the normalized
 rvector InterpolatedVector(rvector &a,rvector &b,float x);
 
 bool IsIntersect(rboundingbox *bb1,rboundingbox *bb2);
@@ -154,7 +154,7 @@ bool IsInSphere(const rboundingbox &bb,const rvector &point,float radius);
 bool isInViewFrustum(const rvector &point,rplane *plane);
 bool isInViewFrustum(const rvector &point,float radius,rplane *plane);		// bounding sphere
 bool isInViewFrustum(rboundingbox *bb,rplane *plane);
-bool isInViewFrustum(const rvector &point1,const rvector &point2,rplane *planes);	// 선분
+bool isInViewFrustum(const rvector &point1,const rvector &point2,rplane *planes);	//segment
 bool isInViewFrustumWithZ(rboundingbox *bb,rplane *plane);
 bool isInViewFrustumwrtnPlanes(rboundingbox *bb,rplane *plane,int nplane);
 
@@ -163,22 +163,22 @@ bool isLineIntersectBoundingBox(rvector &origin,rvector &dir,rboundingbox &bb);
 bool IsIntersect( rvector& line_begin_, rvector& line_end_, rboundingbox& box_);
 bool IsIntersect(rvector& line_begin_, rvector& line_dir_, rvector& center_, float radius_, float* dist = NULL, rvector* p = NULL );
 
-// 원과 선분의 교차점 구하는 함수. dir는 normalize되어 있어야 한다
+// Function to obtain the intersection of circles and line segments. dir is a must normalize
 bool IsIntersect(const rvector& orig, const rvector& dir, const rvector& center, const float radius, rvector* p = NULL);
 
-// 두 평면을 지나는 직선의 방정식을 구한다 
+// Two planes passing through the equation of the straight line is obtained
 bool GetIntersectionOfTwoPlanes(rvector *pOutDir,rvector *pOutAPoint,rplane &plane1,rplane &plane2);
 
 void MergeBoundingBox(rboundingbox *dest,rboundingbox *src);
 
-// aabb box 를 트랜스폼 한다. 더 커진다
+// Aabb box will transform you. The greater
 void TransformBox( rboundingbox* result, const rboundingbox& src, const rmatrix& matrix );
 
 
-// 변환 매크로들
+// Convert Macros
 
 
-// progress 콜백 펑션타입
+// Progress callback function type
 typedef void (*RFPROGRESSCALLBACK)(void *pUserParams,float fProgress);
 
 _NAMESPACE_REALSPACE2_END
