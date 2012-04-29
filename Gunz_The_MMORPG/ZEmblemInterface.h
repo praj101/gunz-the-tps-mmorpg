@@ -2,10 +2,10 @@
 /***********************************************************************
   ZEmblemInterface.h
   
-  용  도 : 하드 드라이브에 저장된 엠블램 비트맵을 메모리 캐쉬로 로드하고
-           요청시 비트맵 포인터를 넘겨줌.
-  작성일 : 18, Nov, 2004
-  작성자 : 임동환
+  Usage: emblem stored on the hard drive to load a bitmap into the memory cache
+           Request passes the pointer to the bitmap.
+  Date: 18, Nov, 2004
+  By: imdonghwan
 ************************************************************************/
 
 
@@ -19,7 +19,7 @@ using namespace std;
 
 
 // Class : ZEmblemMemNode
-// 엠블럼 정보 및 클랜 정보를 map list 형식으로 저장하기 위한 노드
+// Information and clan emblems in the form of information to store the node map list
 struct ZEmblemInfoNode
 {
 	UINT		m_iClanID;								// Clan ID
@@ -42,7 +42,7 @@ typedef  map<int,ZEmblemInfoNode>  EmblemInfoMapList;
 
 
 // Class : ZEmblemInterface
-// 엠블럼 정보를 저장 및 로드하기 위한 클래스
+// Emblems class for saving and loading of information
 class ZEmblemInterface
 {
 public:		// public variables
