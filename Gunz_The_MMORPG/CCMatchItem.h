@@ -1,5 +1,4 @@
-#ifndef _MMATCHITEM_H
-#define _MMATCHITEM_H
+#pragma once
 
 #include "winsock2.h"
 #include "CCXml.h"
