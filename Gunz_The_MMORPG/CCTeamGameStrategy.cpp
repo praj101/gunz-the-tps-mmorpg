@@ -302,7 +302,7 @@ int MClanGameStrategy::ValidateChallenge(CCMatchObject** ppMemberObject, int nMe
 	}
 
 	// 모두 같은 채널에 있는지 체크
-	MUID uidLastChannel = ppMemberObject[0]->GetChannelUID();
+	CCUID uidLastChannel = ppMemberObject[0]->GetChannelUID();
 	for (int i = 1; i < nMemberCount; i++)
 	{
 		if (ppMemberObject[i]->GetChannelUID() != uidLastChannel)
@@ -415,9 +415,9 @@ void MClanGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam 
 
 	char szWinnerMembers[512] = "";
 	char szLoserMembers[512] = "";
-	list<MUID>		WinnerObjUIDs;
+	list<CCUID>		WinnerObjUIDs;
 
-	for (MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) 
+	for (CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (IsEnabledObject(pObj))

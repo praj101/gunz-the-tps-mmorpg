@@ -7,11 +7,11 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////
 class MMatchRuleAssassinate : public MMatchRuleTeamDeath {
 private:
-	MUID		m_uidRedCommander;
-	MUID		m_uidBlueCommander;
+	CCUID		m_uidRedCommander;
+	CCUID		m_uidBlueCommander;
 	bool		m_bIsAdminCommander;
 private:
-	const MUID ChooseCommander(int nTeam);
+	const CCUID ChooseCommander(int nTeam);
 protected:
 	virtual void OnRoundBegin();
 	virtual void OnRoundEnd();

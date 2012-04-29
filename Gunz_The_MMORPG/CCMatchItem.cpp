@@ -8,7 +8,7 @@
 
 #define DEFAULT_MELEE_WEAPON_RANGE 160
 
-MUID MMatchItemMap::m_uidGenerate = MUID(0,0);
+CCUID MMatchItemMap::m_uidGenerate = CCUID(0,0);
 MCriticalSection MMatchItemMap::m_csUIDGenerateLock;
 
 MMatchItemDesc::MMatchItemDesc() : m_nID(0), m_nSlot(MMIST_NONE), m_pEffect(NULL), m_bSlugOutput(0), 
@@ -1200,7 +1200,7 @@ MMatchItem::~MMatchItem()
 
 }
 
-bool MMatchItem::Create( const MUID& uid, MMatchItemDesc* pDesc, const WORD nCountOfNonDesctroyItem, int nCount)
+bool MMatchItem::Create( const CCUID& uid, MMatchItemDesc* pDesc, const WORD nCountOfNonDesctroyItem, int nCount)
 {
 	if( NULL == pDesc ) {
 		m_pDesc = NULL;
@@ -1222,7 +1222,7 @@ void MMatchItem::Destroy()
 {
 	m_pDesc = NULL;
 	m_nCount = 0;
-	m_uidItem = MUID(0,0);
+	m_uidItem = CCUID(0,0);
 }
 
 MMatchItemType MMatchItem::GetItemType()
@@ -1298,7 +1298,7 @@ MMatchItemMap::~MMatchItemMap()
 	// Clear();
 }
 
-bool MMatchItemMap::CreateItem( const MUID& uid
+bool MMatchItemMap::CreateItem( const CCUID& uid
 							   , int nCIID
 							   , int nItemDescID
 							   , bool bRentItem
@@ -1334,7 +1334,7 @@ bool MMatchItemMap::CreateItem( const MUID& uid
 	return true;
 }
 
-int	MMatchItemMap::GetItemCount(const MUID& uidItem)
+int	MMatchItemMap::GetItemCount(const CCUID& uidItem)
 {
 	iterator itor = find(uidItem);
 	if (itor != end())
@@ -1346,7 +1346,7 @@ int	MMatchItemMap::GetItemCount(const MUID& uidItem)
 	return -1;
 }
 
-bool MMatchItemMap::RemoveItem(const MUID& uidItem)
+bool MMatchItemMap::RemoveItem(const CCUID& uidItem)
 {
 	iterator itor = find(uidItem);
 	if (itor != end())
@@ -1363,7 +1363,7 @@ bool MMatchItemMap::RemoveItem(const MUID& uidItem)
 	return true;
 }
 
-MMatchItem* MMatchItemMap::GetItem(const MUID& uidItem) const
+MMatchItem* MMatchItemMap::GetItem(const CCUID& uidItem) const
 {
 	const_iterator itor = find(uidItem);
 	if (itor != end())
@@ -1444,7 +1444,7 @@ const bool MMatchItemMap::IsHave( const DWORD dwItemID ) const
 //}
 
 
-bool MMatchEquipedItem::SetItem( MMatchCharItemParts parts, const MUID& uidItem, MMatchItem* pItem )
+bool MMatchEquipedItem::SetItem( MMatchCharItemParts parts, const CCUID& uidItem, MMatchItem* pItem )
 {
 	if( NULL == pItem ) {
 		return false;
@@ -1538,7 +1538,7 @@ void MMatchEquipedItem::Remove(MMatchCharItemParts parts)
 	}
 
 	pItem->SetEquiped( false );
-	m_uidParts[ parts ] = MUID( 0, 0 );
+	m_uidParts[ parts ] = CCUID( 0, 0 );
 
 
 
@@ -1546,7 +1546,7 @@ void MMatchEquipedItem::Remove(MMatchCharItemParts parts)
 	//m_pParts[parts] = NULL;
 }
 
-void MMatchEquipedItem::Remove(const MUID& uidParts)
+void MMatchEquipedItem::Remove(const CCUID& uidParts)
 {
 	MMatchItem* pItem = NULL;
 	for( int i = 0; i < MMCIP_END; ++i ) {
@@ -1554,7 +1554,7 @@ void MMatchEquipedItem::Remove(const MUID& uidParts)
 			pItem = GetItem(MMatchCharItemParts(i));
 
 			pItem->SetEquiped(false);
-			m_uidParts[i] = MUID( 0, 0 );
+			m_uidParts[i] = CCUID( 0, 0 );
 			return;
 		}
 	}
@@ -1568,7 +1568,7 @@ void MMatchEquipedItem::Clear()
 {
 	for( int i = 0; i < MMCIP_END; ++i )
 	{
-		if( MUID(0, 0) != m_uidParts[ i ] )
+		if( CCUID(0, 0) != m_uidParts[ i ] )
 		{
 			MMatchItem* pItem = GetItem( MMatchCharItemParts(i) );
 			if( NULL != pItem )
@@ -1577,7 +1577,7 @@ void MMatchEquipedItem::Clear()
 			}
 		}
 
-		m_uidParts[ i ] = MUID( 0, 0 );
+		m_uidParts[ i ] = CCUID( 0, 0 );
 	}
 	
 
@@ -1610,7 +1610,7 @@ void MMatchEquipedItem::Clear()
 //}
 
 
-bool MMatchEquipedItem::IsEquipedItem(const MUID& uidItem, MMatchCharItemParts& outParts) // 해당 아이템이 장비중인지 체크
+bool MMatchEquipedItem::IsEquipedItem(const CCUID& uidItem, MMatchCharItemParts& outParts) // 해당 아이템이 장비중인지 체크
 {
 	for( int i = 0; i < MMCIP_END; ++i )
 	{
@@ -1627,7 +1627,7 @@ bool MMatchEquipedItem::IsEquipedItem(const MUID& uidItem, MMatchCharItemParts& 
 
 bool MMatchEquipedItem::IsEmpty(MMatchCharItemParts parts) 
 { 
-	if( MUID(0, 0) != m_uidParts[parts] )
+	if( CCUID(0, 0) != m_uidParts[parts] )
 	{
 		return false;
 	}

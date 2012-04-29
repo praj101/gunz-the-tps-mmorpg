@@ -32,7 +32,7 @@ void CCMatchStageSetting::SetDefault()
 	m_StageSetting.Ref().nRoundMax = MMATCH_DEFAULT_STAGESETTING_ROUNDMAX;
 	m_StageSetting.Ref().nLimitLevel = MMATCH_DEFAULT_STAGESETTING_LIMITLEVEL;
 	m_StageSetting.Ref().bAutoTeamBalancing = MMATCH_DEFAULT_STAGESETTING_AUTOTEAMBALANCING;
-	m_StageSetting.Ref().uidStage = MUID(0,0);
+	m_StageSetting.Ref().uidStage = CCUID(0,0);
 	m_StageSetting.Ref().bIsRelayMap = false;
 	m_StageSetting.Ref().bIsStartRelayMap = false;
 	m_StageSetting.Ref().nRelayMapListCount = 0;
@@ -90,13 +90,13 @@ void CCMatchStageSetting::Clear()
 {
 	SetDefault();
 	m_CharSettingList.DeleteAll();
-	m_uidMaster = MUID(0,0);
+	m_uidMaster = CCUID(0,0);
 	m_nStageState = STAGE_STATE_STANDBY;
 	m_bIsCheckTicket = false;
 
 }
 
-MSTAGE_CHAR_SETTING_NODE* CCMatchStageSetting::FindCharSetting(const MUID& uid)
+MSTAGE_CHAR_SETTING_NODE* CCMatchStageSetting::FindCharSetting(const CCUID& uid)
 {
 	for (MStageCharSettingList::iterator i=m_CharSettingList.begin();i!=m_CharSettingList.end();i++) {
 		if (uid == (*i)->uidChar) return (*i);
@@ -141,7 +141,7 @@ void CCMatchStageSetting::UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting)
 }
 
 
-void CCMatchStageSetting::UpdateCharSetting(const MUID& uid, unsigned int nTeam, CCMatchObjectStageState nStageState)
+void CCMatchStageSetting::UpdateCharSetting(const CCUID& uid, unsigned int nTeam, CCMatchObjectStageState nStageState)
 {
 	MSTAGE_CHAR_SETTING_NODE* pNode = FindCharSetting(uid);
 	if (pNode) {

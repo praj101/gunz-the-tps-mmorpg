@@ -7,7 +7,7 @@
 #include "MAsyncDBJob.h"
 
 
-// MUID MQuestItemMap::m_uidGenerate = MUID(0,0);
+// CCUID MQuestItemMap::m_uidGenerate = CCUID(0,0);
 // MCriticalSection MQuestItemMap::m_csUIDGenerateLock;
 
 /////////////////////////////////////////////////////////////////////////////////////////////

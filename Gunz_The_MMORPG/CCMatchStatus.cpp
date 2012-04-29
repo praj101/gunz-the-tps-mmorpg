@@ -102,7 +102,7 @@ void MMatchStatus::SaveToLogFile()
 
 }
 
-void MMatchStatus::AddCmdHistory(unsigned long int nCmdID, const MUID& uidSender)
+void MMatchStatus::AddCmdHistory(unsigned long int nCmdID, const CCUID& uidSender)
 {
 	m_CmdHistory[m_nHistoryCursor].nCmdID		= nCmdID;
 	m_CmdHistory[m_nHistoryCursor].uidSender	= uidSender;

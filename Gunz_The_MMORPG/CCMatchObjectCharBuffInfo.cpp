@@ -3,7 +3,7 @@
 #include "CCMatchObject.h"
 #include "CCMatchObjectCharBuffInfo.h"
 
-MUID CCMatchObjectCharBuff::m_uidGenerate = MUID(0,0);
+CCUID CCMatchObjectCharBuff::m_uidGenerate = CCUID(0,0);
 MCriticalSection CCMatchObjectCharBuff::m_csUIDGenerateLock;
 
 CCMatchObjectCharBuff::CCMatchObjectCharBuff() : m_nLastCheckBuffInfoTime(0)
@@ -61,7 +61,7 @@ bool CCMatchObjectCharBuff::ApplyShortBuffInfo(int nBuffID, int nBuffSecondPerio
 	return true;
 }
 
-void CCMatchObjectCharBuff::DeleteShortBuffInfo(MUID& uidBuff)
+void CCMatchObjectCharBuff::DeleteShortBuffInfo(CCUID& uidBuff)
 {
 	m_ShortBuffInfoMap.Remove(uidBuff);
 }

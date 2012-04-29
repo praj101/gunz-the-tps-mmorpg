@@ -6,8 +6,8 @@
 // MMatchRuleAssassinate //////////////////////////////////////////////////////////////////////
 MMatchRuleAssassinate::MMatchRuleAssassinate(CCMatchStage* pStage) : MMatchRuleTeamDeath(pStage)
 {
-	m_uidRedCommander = MUID(0,0);
-	m_uidBlueCommander = MUID(0,0);
+	m_uidRedCommander = CCUID(0,0);
+	m_uidBlueCommander = CCUID(0,0);
 	m_bIsAdminCommander = false;
 }
 
@@ -22,40 +22,40 @@ void MMatchRuleAssassinate::ChooseAdminAsCommander()
 
 	m_uidRedCommander = ChooseCommander(MMT_RED);
 	m_uidBlueCommander = ChooseCommander(MMT_BLUE);
-	if ( (m_uidRedCommander == MUID(0,0)) || (m_uidBlueCommander == MUID(0,0)) ) {
+	if ( (m_uidRedCommander == CCUID(0,0)) || (m_uidBlueCommander == CCUID(0,0)) ) {
 		// Wait the game
 		SetRoundState(MMATCH_ROUNDSTATE_FREE);
 		return;
 	}
 
 	// Let players know the commander...
-	MCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, MUID(0,0));
+	MCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(m_uidRedCommander));
 	pCmd->AddParameter(new MCmdParamUID(m_uidBlueCommander));
 	pServer->RouteToStage(pStage->GetUID(), pCmd);
 }
 
 
-const MUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
+const CCUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
 {
 	CCMatchStage* pStage = GetStage();
-	if (pStage == NULL) return MUID(0,0);
+	if (pStage == NULL) return CCUID(0,0);
 
 	int nRedAliveCount, nBlueAliveCount, nChooseTeamCount;
-	if (GetAliveCount(&nRedAliveCount, &nBlueAliveCount) == false) return MUID(0,0);
+	if (GetAliveCount(&nRedAliveCount, &nBlueAliveCount) == false) return CCUID(0,0);
 	if (nTeam == MMT_RED) {
-		if (nRedAliveCount <= 0) return MUID(0,0);
+		if (nRedAliveCount <= 0) return CCUID(0,0);
 		nChooseTeamCount = nRedAliveCount;
 	}
 	if (nTeam == MMT_BLUE) {
-		if (nBlueAliveCount <= 0) return MUID(0,0);
+		if (nBlueAliveCount <= 0) return CCUID(0,0);
 		nChooseTeamCount = nBlueAliveCount;
 	}
 	
 
 	if( m_bIsAdminCommander == true )
 	{
-		for(MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
+		for(CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
 			
 			CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 			
@@ -74,7 +74,7 @@ const MUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
 	int nChoose = time.MakeNumber(1, nChooseTeamCount);
 
 	int nCount = 0;
-	for(MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
+	for(CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 		if (pObj->GetTeam() == nTeam) {
@@ -84,7 +84,7 @@ const MUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
 			}
 		}
 	}
-	return MUID(0,0);
+	return CCUID(0,0);
 }
 
 void MMatchRuleAssassinate::OnRoundBegin()
@@ -95,14 +95,14 @@ void MMatchRuleAssassinate::OnRoundBegin()
 
 	m_uidRedCommander = ChooseCommander(MMT_RED);
 	m_uidBlueCommander = ChooseCommander(MMT_BLUE);
-	if ( (m_uidRedCommander == MUID(0,0)) || (m_uidBlueCommander == MUID(0,0)) ) {
+	if ( (m_uidRedCommander == CCUID(0,0)) || (m_uidBlueCommander == CCUID(0,0)) ) {
 		// Wait the game
 		SetRoundState(MMATCH_ROUNDSTATE_FREE);
 		return;
 	}
 
 	// Let players know the commander...
-	MCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, MUID(0,0));
+	MCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(m_uidRedCommander));
 	pCmd->AddParameter(new MCmdParamUID(m_uidBlueCommander));
 	pServer->RouteToStage(pStage->GetUID(), pCmd);

@@ -12,7 +12,7 @@ class MDuelTournamentWaitGroup
 {
 protected:
 	MDUELTOURNAMENTTYPE		m_nType;
-	map<MUID, MDuelTournamentTicket*> m_PlayerTicketMap;
+	map<CCUID, MDuelTournamentTicket*> m_PlayerTicketMap;
 
 	unsigned int m_nRegTime;
 	int m_nTickCount;
@@ -33,25 +33,25 @@ public:
 	int GetTickCount()				{ return m_nTickCount; }
 
 	size_t GetPlayerTicketCount()							{ return m_PlayerTicketMap.size(); }
-	map<MUID, MDuelTournamentTicket*>* GetPlayerTicketMap()	{ return &m_PlayerTicketMap; }
+	map<CCUID, MDuelTournamentTicket*>* GetPlayerTicketMap()	{ return &m_PlayerTicketMap; }
 
-	void AddPlayerTicket(MUID uidPlayer, MDuelTournamentTicket *pTicket) 
+	void AddPlayerTicket(CCUID uidPlayer, MDuelTournamentTicket *pTicket) 
 	{
-		m_PlayerTicketMap.insert(pair<MUID, MDuelTournamentTicket*>(uidPlayer, pTicket));
+		m_PlayerTicketMap.insert(pair<CCUID, MDuelTournamentTicket*>(uidPlayer, pTicket));
 	}
 
-	MDuelTournamentTicket* FindPlayerTicket(MUID uidPlayer) 
+	MDuelTournamentTicket* FindPlayerTicket(CCUID uidPlayer) 
 	{
-		map<MUID, MDuelTournamentTicket*>::iterator iter = m_PlayerTicketMap.find(uidPlayer);
+		map<CCUID, MDuelTournamentTicket*>::iterator iter = m_PlayerTicketMap.find(uidPlayer);
 		if( iter == m_PlayerTicketMap.end() )
 			return NULL;
 
 		return (*iter).second;
 	}
 
-	void RemovePlayerTicket(MUID uidPlayer) 
+	void RemovePlayerTicket(CCUID uidPlayer) 
 	{
-		map<MUID, MDuelTournamentTicket*>::iterator iter = m_PlayerTicketMap.find(uidPlayer);
+		map<CCUID, MDuelTournamentTicket*>::iterator iter = m_PlayerTicketMap.find(uidPlayer);
 		if( iter == m_PlayerTicketMap.end() ) 
 			return;
 
@@ -64,13 +64,13 @@ public:
 };
 
 
-class MDuelTournamentPickedGroup : public vector<MUID>
+class MDuelTournamentPickedGroup : public vector<CCUID>
 {
 public:
 	void Shuffle() {
 		int numElem = (int)size();
 		int k = 0;
-		MUID temp;
+		CCUID temp;
 		for (int i=0; i<numElem; ++i) {
 			k = rand() % numElem;
 			temp = (*this)[i];

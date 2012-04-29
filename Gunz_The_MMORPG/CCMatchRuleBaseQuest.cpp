@@ -114,7 +114,7 @@ bool MMatchRuleBaseQuest::OnCheckEnableBattleCondition()
 	return true;
 }
 
-void MMatchRuleBaseQuest::OnLeaveBattle(MUID& uidChar)
+void MMatchRuleBaseQuest::OnLeaveBattle(CCUID& uidChar)
 {
 	if (GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
 	{
@@ -126,7 +126,7 @@ void MMatchRuleBaseQuest::OnLeaveBattle(MUID& uidChar)
 	m_PlayerManager.DelPlayer(uidChar);
 }
 
-void MMatchRuleBaseQuest::OnEnterBattle(MUID& uidChar)
+void MMatchRuleBaseQuest::OnEnterBattle(CCUID& uidChar)
 {
 
 }
@@ -138,7 +138,7 @@ void MMatchRuleBaseQuest::OnCommand(MCommand* pCommand)
 
 }
 
-void MMatchRuleBaseQuest::OnRequestNPCDead(MUID& uidSender, MUID& uidKiller, MUID& uidNPC, MVector& pos)
+void MMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, MVector& pos)
 {
 	if (m_NPCManager.IsControllersNPC(uidSender, uidNPC))
 	{
@@ -169,12 +169,12 @@ void MMatchRuleBaseQuest::OnRequestNPCDead(MUID& uidSender, MUID& uidKiller, MUI
 	}
 }
 
-void MMatchRuleBaseQuest::OnRequestPlayerDead(const MUID& uidVictim)
+void MMatchRuleBaseQuest::OnRequestPlayerDead(const CCUID& uidVictim)
 {
 
 }
 
-void MMatchRuleBaseQuest::CheckRewards(MUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos)
+void MMatchRuleBaseQuest::CheckRewards(CCUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos)
 {
 	CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject(uidPlayer);
 	if (!pPlayer) return;
@@ -225,7 +225,7 @@ void MMatchRuleBaseQuest::CheckRewards(MUID& uidPlayer, MQuestDropItem* pDropIte
 
 void MMatchRuleBaseQuest::RefreshPlayerStatus()
 {
-	for (MUIDRefCache::iterator i=m_pStage->GetObjBegin(); i!=m_pStage->GetObjEnd(); i++) 
+	for (CCUIDRefCache::iterator i=m_pStage->GetObjBegin(); i!=m_pStage->GetObjEnd(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
@@ -235,7 +235,7 @@ void MMatchRuleBaseQuest::RefreshPlayerStatus()
 		pObj->SetAlive(true);
 	}
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_REFRESH_PLAYER_STATUS, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_REFRESH_PLAYER_STATUS, CCUID(0,0));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
@@ -244,7 +244,7 @@ void MMatchRuleBaseQuest::ClearAllNPC()
 	m_NPCManager.ClearNPC();
 	m_nNPCSpawnCount = 0;
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_ALL_CLEAR, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_ALL_CLEAR, CCUID(0,0));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
@@ -253,7 +253,7 @@ bool MMatchRuleBaseQuest::CheckPlayersAlive()
 {
 	int nAliveCount = 0;
 	CCMatchObject* pObj;
-	for (MUIDRefCache::iterator i=m_pStage->GetObjBegin(); i!=m_pStage->GetObjEnd(); i++) 
+	for (CCUIDRefCache::iterator i=m_pStage->GetObjBegin(); i!=m_pStage->GetObjEnd(); i++) 
 	{
 		pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
@@ -314,12 +314,12 @@ void MMatchRuleBaseQuest::OnFailed()
 	RouteFailed();
 }
 
-void MMatchRuleBaseQuest::PreProcessLeaveStage( const MUID& uidLeaverUID )
+void MMatchRuleBaseQuest::PreProcessLeaveStage( const CCUID& uidLeaverUID )
 {
 }
 
 
-void MMatchRuleBaseQuest::CheckMonsterBible( const MUID& uidUser, const int nMonsterBibleIndex )
+void MMatchRuleBaseQuest::CheckMonsterBible( const CCUID& uidUser, const int nMonsterBibleIndex )
 {
 	if( 0 > nMonsterBibleIndex )
 		return;
@@ -367,7 +367,7 @@ void MMatchRuleBaseQuest::CheckMonsterBible( const MUID& uidUser, const int nMon
 }
 
 
-void MMatchRuleBaseQuest::PostNewMonsterInfo( const MUID& uidUser, const char nMonIndex )
+void MMatchRuleBaseQuest::PostNewMonsterInfo( const CCUID& uidUser, const char nMonIndex )
 {
 	if( 0 == CCMatchServer::GetInstance()->GetObject(uidUser) )
 		return;
@@ -402,7 +402,7 @@ void MMatchRuleBaseQuest::ReAssignNPC()
 
 		m_nLastNPCAssignCheckTime = nowTime;
 
-		for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
+		for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 		{
 			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
@@ -431,7 +431,7 @@ void MMatchRuleBaseQuest::SendClientLatencyPing()
 
 		m_nLastPingTime = nowTime;
 
-		for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
+		for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 		{
 			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크

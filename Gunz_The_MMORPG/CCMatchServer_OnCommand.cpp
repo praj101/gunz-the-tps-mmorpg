@@ -110,7 +110,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_LOGIN_FROM_DBAGENT:
 			{
-				MUID CommUID;
+				CCUID CommUID;
 				char szLoginID[256];
 				char szName[256];
 				int nSex;
@@ -129,7 +129,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_LOGIN_FROM_DBAGENT_FAILED:
 			{
-				MUID CommUID;
+				CCUID CommUID;
 				int nResult;
 
 				if (pCommand->GetParameter(&CommUID,	0, MPT_UID)==false) break;
@@ -141,7 +141,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_BRIDGEPEER:
 			{
-				MUID uidChar;
+				CCUID uidChar;
 				DWORD dwIP, nPort;
 
 				pCommand->GetParameter(&uidChar,	0, MPT_UID);
@@ -162,7 +162,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_REQUEST_JOIN:
 			{
-				MUID uidPlayer, uidChannel;
+				CCUID uidPlayer, uidChannel;
 
 				uidPlayer = pCommand->GetSenderUID();
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -173,7 +173,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_REQUEST_JOIN_FROM_NAME:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				int nChannelType;
 				char szChannelName[CHANNELNAME_LEN];
 
@@ -186,7 +186,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_LIST_START:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				int nChannelType;
 
 				//pCommand->GetParameter(&uidPlayer,		0, MPT_UID);
@@ -197,7 +197,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_LIST_STOP:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				//pCommand->GetParameter(&uidPlayer,		0, MPT_UID);
 
 				OnStopChannelList(uidPlayer);
@@ -205,7 +205,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_REQUEST_CHAT:
 			{
-				MUID uidSender, uidPlayer, uidChannel;
+				CCUID uidSender, uidPlayer, uidChannel;
 				static char szChat[ CHAT_STRING_LEN ];
 				// static char szChat[1024];)
 				
@@ -256,7 +256,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_TEAM:
 			{
-				MUID uidPlayer, uidStage;
+				CCUID uidPlayer, uidStage;
 				CCMatchTeam nTeam;
 				uidPlayer = pCommand->GetSenderUID();
 
@@ -269,7 +269,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_PLAYER_STATE:
 			{
-				MUID uidPlayer, uidStage;
+				CCUID uidPlayer, uidStage;
 				int nStageState;
 				uidPlayer = pCommand->GetSenderUID();
 
@@ -284,7 +284,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_CREATE:
 			{
-				MUID uidChar = pCommand->GetSenderUID();
+				CCUID uidChar = pCommand->GetSenderUID();
 				// char szStageName[128], szStagePassword[128];
 				char szStageName[ STAGENAME_LENGTH ] = ""; 
 				char szStagePassword[ STAGEPASSWD_LENGTH ] = "";
@@ -301,7 +301,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		
 		case MC_MATCH_REQUEST_PRIVATE_STAGE_JOIN:
 			{
-				MUID uidPlayer, uidStage;
+				CCUID uidPlayer, uidStage;
 				// char szPassword[256];
 				char szPassword[ STAGEPASSWD_LENGTH ] = "";
 
@@ -327,7 +327,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_LEAVE:
 			{
-				// MUID uidPlayer, uidStage;
+				// CCUID uidPlayer, uidStage;
 				// uidPlayer = pCommand->GetSenderUID();
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -338,14 +338,14 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_REQUEST_PLAYERLIST:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				OnStageRequestPlayerList(pCommand->GetSenderUID(), uidStage);
 			}
 			break;
 		case MC_MATCH_STAGE_REQUEST_ENTERBATTLE:
 			{
-				MUID uidPlayer, uidStage;
+				CCUID uidPlayer, uidStage;
 				uidPlayer = pCommand->GetSenderUID();
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -355,7 +355,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_LEAVEBATTLE_TO_SERVER:
 			{
-				// MUID uidPlayer, uidStage;
+				// CCUID uidPlayer, uidStage;
 				// uidPlayer = pCommand->GetSenderUID();
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -367,7 +367,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_START:
 			{
-				MUID uidPlayer, uidStage;
+				CCUID uidPlayer, uidStage;
 				int nCountdown;
 				uidPlayer = pCommand->GetSenderUID();
 
@@ -380,7 +380,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_GAME_ROUNDSTATE:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				int nState, nRound;
 
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
@@ -393,7 +393,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_GAME_REQUEST_SPAWN:
 			{
-				//MUID uidChar;
+				//CCUID uidChar;
 				MVector pos, dir;
 
 				//pCommand->GetParameter(&uidChar, 0, MPT_UID);
@@ -422,7 +422,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_CHAT:
 			{
-				MUID uidPlayer, uidSender, uidStage;
+				CCUID uidPlayer, uidSender, uidStage;
 				// static char szChat[512];
 				static char szChat[CHAT_STRING_LEN];
 
@@ -446,7 +446,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_REQUEST_QUICKJOIN:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				MCommandParameter* pQuickJoinParam = pCommand->GetParameter(1);
@@ -481,7 +481,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_STAGE_LIST:
 			{
-				MUID uidPlayer, uidChannel;
+				CCUID uidPlayer, uidChannel;
 				int nStageCursor;
 				uidPlayer = pCommand->GetSenderUID();
 
@@ -494,7 +494,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_REQUEST_PLAYER_LIST:
 			{
-				MUID uidPlayer, uidChannel;
+				CCUID uidPlayer, uidChannel;
 				int nPage;
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -506,7 +506,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_MAP:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				// 클라이언트에서 맵 이름만 전송이 되기때문에 _MAX_DIR은 필요 없음. - by SungE 2007-04-02
 				char szMapName[ MAPNAME_LENGTH ] = {0,};
 
@@ -518,7 +518,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_RELAY_MAP_ELEMENT_UPDATE:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				int nType = 0;
 				int nRepeatCount = 0;
 
@@ -531,7 +531,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				int nType = 0;
 				int nRepeatCount = 0;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
@@ -549,7 +549,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGESETTING:
 			{
-				MUID uidPlayer, uidStage;
+				CCUID uidPlayer, uidStage;
 				uidPlayer = pCommand->GetSenderUID();
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -568,14 +568,14 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_STAGESETTING:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				OnRequestStageSetting(pCommand->GetSenderUID(), uidStage);
 			}
 			break;
 		case MC_MATCH_REQUEST_PEERLIST:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				// pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
 				OnRequestPeerList(pCommand->GetSenderUID(), uidStage);
@@ -583,7 +583,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_GAME_INFO:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				// pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
 				OnRequestGameInfo(pCommand->GetSenderUID(), uidStage);
@@ -600,7 +600,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_PEER_RELAY:
 			{
-				MUID  uidPeer;
+				CCUID  uidPeer;
 
 				// if (pCommand->GetParameter(&uidChar, 0, MPT_UID) == false) break;
 				if (pCommand->GetParameter(&uidPeer, 1, MPT_UID) == false) break;
@@ -610,8 +610,8 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_AGENT_PEER_READY:
 			{
-				MUID uidChar;
-				MUID uidPeer;
+				CCUID uidChar;
+				CCUID uidPeer;
 
 				if (pCommand->GetParameter(&uidChar, 0, MPT_UID) == false) break;
 				if (pCommand->GetParameter(&uidPeer, 1, MPT_UID) == false) break;
@@ -651,7 +651,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_AGENT_STAGE_READY:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				OnAgentStageReady(pCommand->GetSenderUID(), uidStage);
 			}
@@ -659,7 +659,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_REQUEST_ACCOUNT_CHARINFO:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				char nCharNum;
 				pCommand->GetParameter(&nCharNum, 0, MPT_CHAR);
 
@@ -669,7 +669,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_SELECT_CHAR:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				unsigned long int nCharIndex;
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -680,7 +680,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_DELETE_CHAR:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				unsigned long int nCharIndex;
 				// char szCharName[MAX_CHARNAME];
 				char szCharName[ MAX_CHARNAME_LENGTH ];
@@ -694,7 +694,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_CREATE_CHAR:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				unsigned long int nCharIndex;
 				unsigned long int nSex, nHair, nFace, nCostume;
 
@@ -714,7 +714,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_ROUND_FINISHINFO:
 			{
-				MUID uidStage, uidChar;
+				CCUID uidStage, uidChar;
 
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				pCommand->GetParameter(&uidChar, 1, MPT_UID);
@@ -725,7 +725,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_STAGE_REQUEST_FORCED_ENTRY:
 			{
-				MUID uidPlayer, uidStage;
+				CCUID uidPlayer, uidStage;
 				uidPlayer = pCommand->GetSenderUID();
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -767,7 +767,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_ADMIN_ANNOUNCE:
 			{
-				MUID uidAdmin;
+				CCUID uidAdmin;
 				static char szChat[ ANNOUNCE_STRING_LEN ];
 				unsigned long int nMsgType = 0;
 
@@ -781,7 +781,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_ADMIN_TERMINAL:
 			{
-				// MUID uidAdmin;
+				// CCUID uidAdmin;
 				char szText[1024];
 				
 				// pCommand->GetParameter(&uidAdmin, 0, MPT_UID);
@@ -794,7 +794,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_ADMIN_REQUEST_SERVER_INFO:
 			{
-				// MUID uidAdmin;
+				// CCUID uidAdmin;
 				// pCommand->GetParameter(&uidAdmin, 0, MPT_UID);
 
 				//OnAdminRequestServerInfo(uidAdmin);
@@ -803,7 +803,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_ADMIN_SERVER_HALT:
 			{
-				MUID uidAdmin = pCommand->GetSenderUID();
+				CCUID uidAdmin = pCommand->GetSenderUID();
 				LOG(LOG_PROG, "Command(MC_ADMIN_SERVER_HALT) Received - Shutdown Start(%d%d)", uidAdmin.High, uidAdmin.Low);
 				OnAdminServerHalt(uidAdmin);
 			}
@@ -843,7 +843,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_ADMIN_REQUEST_UPDATE_ACCOUNT_UGRADE:
 			{
-				// MUID uidAdmin;
+				// CCUID uidAdmin;
 				char szPlayer[512];
 
 				// pCommand->GetParameter(&uidAdmin, 0, MPT_UID);
@@ -855,7 +855,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_ADMIN_REQUEST_SWITCH_LADDER_GAME:
 			{
-				// MUID uidAdmin;
+				// CCUID uidAdmin;
 				bool bEnabled;
 
 				// pCommand->GetParameter(&uidAdmin, 0, MPT_UID);
@@ -910,7 +910,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		
 		case MC_MATCH_REQUEST_ACCOUNT_ITEMLIST:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				OnRequestAccountItemList(uidPlayer);
 			}
@@ -921,7 +921,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		/*
 		case MC_MATCH_REQUEST_MOVE_ACCOUNTITEM_IN_BANK : 
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				int nAIIDFrom = 0;
 				int nAIIDTo = 0;
@@ -939,7 +939,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		
 		case MC_MATCH_REQUEST_SUICIDE:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 
 				OnRequestSuicide(uidPlayer);
@@ -947,7 +947,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_OBTAIN_WORLDITEM:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				int nItemUID = 0;
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -958,7 +958,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_SPAWN_WORLDITEM:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				int nItemID = 0;
 				rvector pos;
 				float nDropDelayTime = 0.f;
@@ -973,7 +973,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_NOTIFY_THROW_TRAPITEM:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				int nItemID = 0;
 				pCommand->GetParameter(&nItemID, 0, MPT_SHORT);
 
@@ -982,7 +982,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_NOTIFY_ACTIVATED_TRAPITEM:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				int nItemID = 0;
 				MShortVector s_pos;
 				pCommand->GetParameter(&nItemID, 0, MPT_SHORT);
@@ -1027,7 +1027,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHATROOM_CREATE:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				char szChatRoomName[MAX_CHATROOMNAME_STRING_LEN];
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -1099,21 +1099,21 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_MY_SIMPLE_CHARINFO:
 			{
-				MUID uidPlayer;
+				CCUID uidPlayer;
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				OnRequestMySimpleCharInfo(uidPlayer);
 			}
 			break;
 		case MC_MATCH_REQUEST_COPY_TO_TESTSERVER:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				OnRequestCopyToTestServer(uidPlayer);
 			}
 			break;
 		case MC_MATCH_CLAN_REQUEST_CREATE_CLAN:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				char szClanName[CLAN_NAME_LENGTH];
 				char szSponsorNames[CLAN_SPONSORS_COUNT][256];
 				char* sncv[CLAN_SPONSORS_COUNT];
@@ -1136,7 +1136,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_ANSWER_SPONSOR_AGREEMENT:
 			{
-				MUID uidClanMaster;
+				CCUID uidClanMaster;
 				int nRequestID;
 				bool bAnswer;
 				// char szCharName[MAX_CHARNAME];
@@ -1152,7 +1152,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_REQUEST_AGREED_CREATE_CLAN:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				char szClanName[CLAN_NAME_LENGTH];
 				char szSponsorNames[CLAN_SPONSORS_COUNT][256];
 				char* sncv[CLAN_SPONSORS_COUNT];
@@ -1173,7 +1173,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_REQUEST_CLOSE_CLAN:
 			{
-				MUID uidClanMaster;
+				CCUID uidClanMaster;
 				char szClanName[CLAN_NAME_LENGTH];
 
 				uidClanMaster = pCommand->GetSenderUID();
@@ -1186,7 +1186,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_REQUEST_JOIN_CLAN:
 			{
-				// MUID uidClanAdmin;
+				// CCUID uidClanAdmin;
 				char szClanName[CLAN_NAME_LENGTH];
 				// char szJoiner[MAX_CHARNAME];
 				char szJoiner[ MAX_CHARNAME_LENGTH ];
@@ -1200,7 +1200,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_ANSWER_JOIN_AGREEMENT:
 			{
-				MUID uidClanAdmin;
+				CCUID uidClanAdmin;
 				bool bAnswer;
 				// char szJoiner[MAX_CHARNAME];
 				char szJoiner[ MAX_CHARNAME_LENGTH ];
@@ -1218,7 +1218,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			{
 				///< 이 커맨드는 건들지 말자...		
 
-				// MUID uidClanAdmin;
+				// CCUID uidClanAdmin;
 				char szClanName[CLAN_NAME_LENGTH];
 				// char szJoiner[MAX_CHARNAME];
 				char szJoiner[ MAX_CHARNAME_LENGTH ];
@@ -1233,7 +1233,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_REQUEST_LEAVE_CLAN:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				//pCommand->GetParameter(&uidPlayer,	0, MPT_UID);
 
@@ -1242,7 +1242,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_MASTER_REQUEST_CHANGE_GRADE:
 			{
-				MUID uidClanMaster;
+				CCUID uidClanMaster;
 				// char szMember[MAX_CHARNAME];
 				char szMember[ MAX_CHARNAME_LENGTH ];
 				int nClanGrade;
@@ -1258,7 +1258,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_ADMIN_REQUEST_EXPEL_MEMBER:
 			{
-				MUID uidClanAdmin;
+				CCUID uidClanAdmin;
 				// char szMember[MAX_CHARNAME];
 				char szMember[ MAX_CHARNAME_LENGTH ];
 
@@ -1271,7 +1271,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_REQUEST_MSG:
 			{
-				MUID uidSender;
+				CCUID uidSender;
 				char szMsg[MSG_STRING_LEN];
 
 				uidSender = pCommand->GetSenderUID();
@@ -1283,7 +1283,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_REQUEST_MEMBER_LIST:
 			{
-				MUID uidChar;
+				CCUID uidChar;
 
 				uidChar = pCommand->GetSenderUID();
 				// pCommand->GetParameter(&uidChar,	0, MPT_UID);
@@ -1293,7 +1293,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_REQUEST_CLAN_INFO:
 			{
-				MUID uidChar;
+				CCUID uidChar;
 				char szClanName[CLAN_NAME_LENGTH] = "";
 
 				uidChar = pCommand->GetSenderUID();
@@ -1307,7 +1307,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_REQUEST_ALL_PLAYER_LIST:
 			{
-				MUID uidPlayer, uidChannel;
+				CCUID uidPlayer, uidChannel;
 				unsigned long int nPlaceFilter;
 				unsigned long int nOptions;
 				uidPlayer = pCommand->GetSenderUID();
@@ -1322,7 +1322,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_CHARINFO_DETAIL:
 			{
-				// MUID uidChar;
+				// CCUID uidChar;
 				char szCharName[ MAX_CHARNAME_LENGTH ];
 
 				// pCommand->GetParameter(&uidChar,	0, MPT_UID);
@@ -1358,7 +1358,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_PROPOSAL:
 			{
-				MUID uidChar;
+				CCUID uidChar;
 				int nProposalMode, nRequestID, nReplierCount;
 
 				uidChar = pCommand->GetSenderUID();
@@ -1380,7 +1380,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REPLY_AGREEMENT:
 			{
-				MUID uidProposer, uidReplier;
+				CCUID uidProposer, uidReplier;
 				char szReplierName[256];
 				int nProposalMode, nRequestID;
 				bool bAgreement;
@@ -1420,7 +1420,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_REQUEST_EMBLEMURL:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				MCommandParameter* pParam = pCommand->GetParameter(0);
 				if (pParam->GetType() != MPT_BLOB)
 				{
@@ -1436,13 +1436,13 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		
 		case MC_QUEST_REQUEST_NPC_DEAD:
 			{
-				MUID uidKiller, uidNPC;
+				CCUID uidKiller, uidNPC;
 				MShortVector s_pos;
 				pCommand->GetParameter(&uidKiller,	0, MPT_UID);
 				pCommand->GetParameter(&uidNPC,		1, MPT_UID);
 				pCommand->GetParameter(&s_pos,		2, MPT_SVECTOR);
 
-				MUID uidSender = pCommand->GetSenderUID();
+				CCUID uidSender = pCommand->GetSenderUID();
 				MVector pos = MVector((float)s_pos.x, (float)s_pos.y, (float)s_pos.z);
 
 				OnRequestNPCDead(uidSender, uidKiller, uidNPC, pos);
@@ -1455,7 +1455,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_QUEST_REQUEST_DEAD:
 			{
-				MUID uidVictim = pCommand->GetSenderUID();
+				CCUID uidVictim = pCommand->GetSenderUID();
 				OnQuestRequestDead(uidVictim);
 			}
 			break;
@@ -1466,28 +1466,28 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 				pCommand->GetParameter(&nNPCType,	0, MPT_INT);
 				pCommand->GetParameter(&nNPCCount,	1, MPT_INT);
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				OnQuestTestRequestNPCSpawn(uidPlayer, nNPCType, nNPCCount);
 			}
 			break;
 		case MC_QUEST_TEST_REQUEST_CLEAR_NPC:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				OnQuestTestRequestClearNPC(uidPlayer);
 			}
 			break;
 		case MC_QUEST_TEST_REQUEST_SECTOR_CLEAR:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				OnQuestTestRequestSectorClear(uidPlayer);
 			}
 			break;
 		case MC_QUEST_TEST_REQUEST_FINISH:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				OnQuestTestRequestQuestFinish(uidPlayer);
 			}
@@ -1495,14 +1495,14 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 #endif
 		case MC_QUEST_REQUEST_MOVETO_PORTAL:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				OnQuestRequestMovetoPortal(uidPlayer);
 			}
 			break;
 		case MC_QUEST_READYTO_NEWSECTOR:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				OnQuestReadyToNewSector(uidPlayer);
 			}
@@ -1510,7 +1510,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_QUEST_PONG:
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 //				unsigned long int nTimeStamp;
 //				
 //				pCommand->GetParameter(&nTimeStamp, 0, MPT_UINT);
@@ -1521,7 +1521,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_REQUEST_CHAR_QUEST_ITEM_LIST :
 			{
-				MUID uidChar;
+				CCUID uidChar;
 
 				pCommand->GetParameter( &uidChar, 0, MPT_UID );
 
@@ -1531,7 +1531,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_REQUEST_DROP_SACRIFICE_ITEM :
 			{
-				// MUID	uidQuestItemOwner;
+				// CCUID	uidQuestItemOwner;
 				int		nSlotIndex;
 				int		nItemID;
 
@@ -1545,7 +1545,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_REQUEST_CALLBACK_SACRIFICE_ITEM :
 			{
-				MUID uidPlayer = pCommand->GetSenderUID();
+				CCUID uidPlayer = pCommand->GetSenderUID();
 				int		nSlotIndex;
 				int		nItemID;
 
@@ -1583,7 +1583,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_QUEST_REQUEST_QL :
 			{
-				// MUID uidSender;
+				// CCUID uidSender;
 
 				// pCommand->GetParameter( &uidSender, 0, MPT_UID );
 
@@ -1593,7 +1593,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_REQUEST_SLOT_INFO :
 			{
-				//MUID uidSender;
+				//CCUID uidSender;
 
 				//pCommand->GetParameter( &uidSender, 0, MPT_UID );
 
@@ -1603,7 +1603,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_QUEST_STAGE_MAPSET :
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				char nMapsetID;
 
 				pCommand->GetParameter( &uidStage,	0, MPT_UID );
@@ -1614,7 +1614,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REQUEST_MONSTER_BIBLE_INFO :
 			{
-				MUID uidSender;
+				CCUID uidSender;
 
 				pCommand->GetParameter( &uidSender, 0, MPT_UID );
 
@@ -1668,7 +1668,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		///< 무조건 MC_NET_CLEAR보다 먼저 실행되어야 Abuse를 시킬 수 있다.		
 		case MC_NET_BANPLAYER_FLOODING :
 			{
-				MUID uidPlayer;
+				CCUID uidPlayer;
 				
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				if (MGetServerConfig()->IsUseBlockFlooding())
@@ -1677,10 +1677,10 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 					if( pObj && pObj->GetDisconnStatusInfo().GetStatus() == MMDS_CONNECTED)
 					{
 						if( pObj->GetAccountName() ) {
-							LOG(LOG_PROG,"Ban Player On Flooding - (MUID:%d%d, ID:%s)"
+							LOG(LOG_PROG,"Ban Player On Flooding - (CCUID:%d%d, ID:%s)"
 								, uidPlayer.High, uidPlayer.Low, pObj->GetAccountName());
 						} else {
-							LOG(LOG_PROG,"Ban Player On Flooding - (MUID:%d%d, ID:%s)"
+							LOG(LOG_PROG,"Ban Player On Flooding - (CCUID:%d%d, ID:%s)"
 								, uidPlayer.High, uidPlayer.Low);
 						}
 						
@@ -1697,7 +1697,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_DUELTOURNAMENT_REQUEST_JOINGAME :
 			{
-				MUID uidPlayer;
+				CCUID uidPlayer;
 				MDUELTOURNAMENTTYPE nType;
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -1712,7 +1712,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_DUELTOURNAMENT_REQUEST_CANCELGAME :
 			{
-				MUID uidPlayer;
+				CCUID uidPlayer;
 				MDUELTOURNAMENTTYPE nType;
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -1726,7 +1726,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_DUELTOURNAMENT_REQUEST_SIDERANKING_INFO :
 			{
-				MUID uidPlayer;
+				CCUID uidPlayer;
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 
@@ -1738,7 +1738,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
  
 		case MC_MATCH_DUELTOURNAMENT_GAME_PLAYER_STATUS :
 			{
-				MUID uidPlayer;
+				CCUID uidPlayer;
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 
 				if( MGetServerConfig()->IsEnabledDuelTournament() ){
@@ -1749,7 +1749,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_REQUEST_USE_SPENDABLE_NORMAL_ITEM :
 			{
-				MUID uidItem, uidPlayer;
+				CCUID uidItem, uidPlayer;
 
 				uidPlayer = pCommand->GetSenderUID();
 				pCommand->GetParameter(&uidItem, 0, MPT_UID);
@@ -1760,7 +1760,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_REQUEST_USE_SPENDABLE_BUFF_ITEM :
 			{
-				MUID uidItem;
+				CCUID uidItem;
 				pCommand->GetParameter(&uidItem, 0, MPT_UID);
 
 				//버프정보임시주석 OnRequestUseSpendableBuffItem(pCommand->GetSenderUID(), uidItem);

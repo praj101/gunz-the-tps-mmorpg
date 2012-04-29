@@ -25,7 +25,7 @@
 #include "MMatchAntiHack.h"
 
 
-void CCMatchServer::OnAdminTerminal(const MUID& uidAdmin, const char* szText)
+void CCMatchServer::OnAdminTerminal(const CCUID& uidAdmin, const char* szText)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
@@ -41,14 +41,14 @@ void CCMatchServer::OnAdminTerminal(const MUID& uidAdmin, const char* szText)
 
 	if (m_Admin.Execute(uidAdmin, szText))
 	{
-		MCommand* pNew = CreateCommand(MC_ADMIN_TERMINAL, MUID(0,0));
-		pNew->AddParameter(new MCmdParamUID(MUID(0,0)));
+		MCommand* pNew = CreateCommand(MC_ADMIN_TERMINAL, CCUID(0,0));
+		pNew->AddParameter(new MCmdParamUID(CCUID(0,0)));
 		pNew->AddParameter(new MCmdParamStr(szOut));
 		RouteToListener(pObj, pNew);
 	}
 }
 
-void CCMatchServer::OnAdminAnnounce(const MUID& uidAdmin, const char* szChat, unsigned long int nType)
+void CCMatchServer::OnAdminAnnounce(const CCUID& uidAdmin, const char* szChat, unsigned long int nType)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
@@ -62,7 +62,7 @@ void CCMatchServer::OnAdminAnnounce(const MUID& uidAdmin, const char* szChat, un
 
 	char szMsg[256];
 	strcpy(szMsg, szChat);
-	MCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, MUID(0,0));
+	MCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidAdmin));
 	pCmd->AddParameter(new MCmdParamStr(szMsg));
 	pCmd->AddParameter(new MCmdParamUInt(nType));
@@ -72,7 +72,7 @@ void CCMatchServer::OnAdminAnnounce(const MUID& uidAdmin, const char* szChat, un
 
 
 
-void CCMatchServer::OnAdminRequestServerInfo(const MUID& uidAdmin)
+void CCMatchServer::OnAdminRequestServerInfo(const CCUID& uidAdmin)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
@@ -86,13 +86,13 @@ void CCMatchServer::OnAdminRequestServerInfo(const MUID& uidAdmin)
 
 	// 서버 정보 보여주는것 아직 안넣었음
 /*
-	MCommand* pNew = CreateCommand(MC_MATCH_ANNOUNCE, MUID(0,0));
+	MCommand* pNew = CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamUInt(0));
 
 	RouteToListener(pObj, pNew);
 */
 }
-void CCMatchServer::OnAdminServerHalt(const MUID& uidAdmin)
+void CCMatchServer::OnAdminServerHalt(const CCUID& uidAdmin)
 {
 	LOG(LOG_PROG, "OnAdminServerHalt(...) Called");
 
@@ -117,7 +117,7 @@ void CCMatchServer::OnAdminServerHalt()
 	m_MatchShutdown.Start(GetGlobalClockCount());	
 }
 
-void CCMatchServer::OnAdminRequestUpdateAccountUGrade(const MUID& uidAdmin, const char* szPlayer)
+void CCMatchServer::OnAdminRequestUpdateAccountUGrade(const CCUID& uidAdmin, const char* szPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
@@ -138,13 +138,13 @@ void CCMatchServer::OnAdminRequestUpdateAccountUGrade(const MUID& uidAdmin, cons
 
 
 /*
-	MCommand* pNew = CreateCommand(MC_ADMIN_REQUEST_UPDATE_ACCOUNT_UGRADE, MUID(0,0));
+	MCommand* pNew = CreateCommand(MC_ADMIN_REQUEST_UPDATE_ACCOUNT_UGRADE, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamUInt(nRet));
 	RouteToListener(pObj, pNew);
 */
 }
 
-void CCMatchServer::OnAdminPingToAll(const MUID& uidAdmin)
+void CCMatchServer::OnAdminPingToAll(const CCUID& uidAdmin)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
@@ -156,13 +156,13 @@ void CCMatchServer::OnAdminPingToAll(const MUID& uidAdmin)
 		return;
 	}
 
-	MCommand* pNew = CreateCommand(MC_NET_PING, MUID(0,0));
+	MCommand* pNew = CreateCommand(MC_NET_PING, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamUInt(GetGlobalClockCount()));
 	RouteToAllConnection(pNew);
 }
 
 
-void CCMatchServer::OnAdminRequestSwitchLadderGame(const MUID& uidAdmin, const bool bEnabled)
+void CCMatchServer::OnAdminRequestSwitchLadderGame(const CCUID& uidAdmin, const bool bEnabled)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (!IsEnabledObject(pObj)) return;
@@ -182,7 +182,7 @@ void CCMatchServer::OnAdminRequestSwitchLadderGame(const MUID& uidAdmin, const b
 	Announce(pObj, szMsg);
 }
 
-void CCMatchServer::OnAdminHide(const MUID& uidAdmin)
+void CCMatchServer::OnAdminHide(const CCUID& uidAdmin)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (!IsEnabledObject(pObj)) return;
@@ -208,7 +208,7 @@ void CCMatchServer::OnAdminHide(const MUID& uidAdmin)
 	}
 }
 
-void CCMatchServer::OnAdminResetAllHackingBlock( const MUID& uidAdmin )
+void CCMatchServer::OnAdminResetAllHackingBlock( const CCUID& uidAdmin )
 {
 	CCMatchObject* pObj = GetObject( uidAdmin );
 	if( (0 != pObj) && IsAdminGrade(pObj) )
@@ -217,7 +217,7 @@ void CCMatchServer::OnAdminResetAllHackingBlock( const MUID& uidAdmin )
 	}
 }
 
-void CCMatchServer::OnAdminRequestKickPlayer(const MUID& uidAdmin, const char* szPlayer)
+void CCMatchServer::OnAdminRequestKickPlayer(const CCUID& uidAdmin, const char* szPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL)			return;
@@ -238,12 +238,12 @@ void CCMatchServer::OnAdminRequestKickPlayer(const MUID& uidAdmin, const char* s
 		nRet = MERR_ADMIN_NO_TARGET;
 	}
 
-	MCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_KICK_PLAYER, MUID(0,0));
+	MCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_KICK_PLAYER, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamInt(nRet));
 	RouteToListener(pObj, pNew);
 }
 
-void CCMatchServer::OnAdminRequestMutePlayer(const MUID& uidAdmin, const char* szPlayer, const int nPenaltyHour)
+void CCMatchServer::OnAdminRequestMutePlayer(const CCUID& uidAdmin, const char* szPlayer, const int nPenaltyHour)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL)			return;	
@@ -269,7 +269,7 @@ void CCMatchServer::OnAdminRequestMutePlayer(const MUID& uidAdmin, const char* s
 		nRet = MERR_ADMIN_NO_TARGET;
 	}
 
-	MCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_MUTE_PLAYER, MUID(0,0));
+	MCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_MUTE_PLAYER, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamInt(nRet));
 	
 	if( nRet == MOK ) {
@@ -279,7 +279,7 @@ void CCMatchServer::OnAdminRequestMutePlayer(const MUID& uidAdmin, const char* s
 	RouteToListener(pObj, pNew);
 }
 
-void CCMatchServer::OnAdminRequestBlockPlayer(const MUID& uidAdmin, const char* szPlayer, const int nPenaltyHour)
+void CCMatchServer::OnAdminRequestBlockPlayer(const CCUID& uidAdmin, const char* szPlayer, const int nPenaltyHour)
 {
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL)			return;	
@@ -305,7 +305,7 @@ void CCMatchServer::OnAdminRequestBlockPlayer(const MUID& uidAdmin, const char* 
 		nRet = MERR_ADMIN_NO_TARGET;
 	}
 
-	MCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_BLOCK_PLAYER, MUID(0,0));
+	MCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_BLOCK_PLAYER, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamInt(nRet));
 
 	if( nRet == MOK ) {

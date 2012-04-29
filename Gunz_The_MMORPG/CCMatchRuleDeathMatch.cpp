@@ -61,7 +61,7 @@ bool MMatchRuleTeamDeath::OnCheckEnableBattleCondition()
 	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return false;
 
-	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
+	for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if ((pObj->GetEnterBattle() == false) && (!pObj->IsLaunchedGame()))
@@ -99,7 +99,7 @@ bool MMatchRuleTeamDeath::GetAliveCount(int* pRedAliveCount, int* pBlueAliveCoun
 	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return false;
 
-	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
+	for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
@@ -145,7 +145,7 @@ bool MMatchRuleTeamDeath::OnCheckRoundFinish()
 
 		CCMatchStage* pStage = GetStage();
 
-		for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
+		for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 		{
 			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if ((pObj->GetEnterBattle() == false) && (!pObj->IsLaunchedGame()))
@@ -269,7 +269,7 @@ bool MMatchRuleSoloDeath::RoundCount()
 bool MMatchRuleSoloDeath::CheckKillCount(CCMatchObject* pOutObject)
 {
 	CCMatchStage* pStage = GetStage();
-	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
+	for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;
@@ -417,7 +417,7 @@ void MMatchRuleTeamDeath2::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject
 
 
 
-void MMatchRuleTeamDeath2::OnGameKill(const MUID& uidAttacker, const MUID& uidVictim)
+void MMatchRuleTeamDeath2::OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim)
 {
 	CCMatchObject* pAttacker = CCMatchServer::GetInstance()->GetObject(uidAttacker);
 	CCMatchObject* pVictim = CCMatchServer::GetInstance()->GetObject(uidVictim);

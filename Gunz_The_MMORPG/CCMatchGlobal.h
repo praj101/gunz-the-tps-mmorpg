@@ -354,7 +354,7 @@ typedef struct _DTRankingInfo
 typedef struct _DTPlayerInfo
 {
 	char m_szCharName[MATCHOBJECT_NAME_LENGTH];
-	MUID uidPlayer;
+	CCUID uidPlayer;
 	int m_iTP;
 } DTPlayerInfo;
 
@@ -394,7 +394,7 @@ typedef struct _CCLongBuffInfoInDB
 
 typedef struct _CCLongBuffInfo
 {	
-	MUID uidBuff;
+	CCUID uidBuff;
 
 	int nCBID;
 	int nBuffID;
@@ -404,7 +404,7 @@ typedef struct _CCLongBuffInfo
 
 typedef struct _CCShortBuffInfo
 {	
-	MUID uidBuff;
+	CCUID uidBuff;
 
 	int nBuffID;
 	int nBuffPeriod;

@@ -50,7 +50,7 @@ public:
 /// 서버내에 존재하는 모든 오브젝트의 Abstract Class
 class CCObject{
 protected:
-	MUID			m_UID;
+	CCUID			m_UID;
 
 	CCObjectType		m_ObjectType;		///< 우선 이것을 가지고 PC, NPC를 판별한다.
 private:
@@ -69,7 +69,7 @@ private:
 
 public:
 	CCObjectCache	m_ObjectCache;
-	list<MUID>		m_CommListener;
+	list<CCUID>		m_CommListener;
 
 	/*
 protected:
@@ -82,11 +82,11 @@ protected:
 
 public:
 	CCObject();
-//	CCObject(MUID& uid, CCMap* pMap, rvector& Pos);	// Map Navication Object
-	CCObject(const MUID& uid);	// No Map Object
+//	CCObject(CCUID& uid, CCMap* pMap, rvector& Pos);	// Map Navication Object
+	CCObject(const CCUID& uid);	// No Map Object
 	virtual ~CCObject(void)	{};
 
-	inline const MUID GetUID(void) const { return m_UID; }
+	inline const CCUID GetUID(void) const { return m_UID; }
 
 	/// 현재 위치 설정
 //	void SetPos(rvector& Pos){ SetPos(0, 0, Pos, Pos); }
@@ -114,15 +114,15 @@ public:
 //	CCMap* GetMap(void){ return m_pMap; }
 	
 
-	void AddCommListener(MUID ListenerUID);
-	void RemoveCommListener(MUID ListenerUID);
-	bool IsCommListener(MUID ListenerUID);
+	void AddCommListener(CCUID ListenerUID);
+	void RemoveCommListener(CCUID ListenerUID);
+	bool IsCommListener(CCUID ListenerUID);
 	bool HasCommListener() { if (m_CommListener.size() > 0) return true; else return false; }
-	const MUID GetCommListener() { 
+	const CCUID GetCommListener() { 
 		if (HasCommListener())
 			return *m_CommListener.begin(); 
 		else
-			return MUID(0,0);
+			return CCUID(0,0);
 	}
 
 	void InvalidateObjectCache() { m_ObjectCache.Invalidate(); } 

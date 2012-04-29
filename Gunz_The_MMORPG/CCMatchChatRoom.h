@@ -14,40 +14,40 @@ class MCommand;
 
 class MMatchChatRoom {
 protected:
-	MUID			m_uidChatRoom;
-	MUID			m_uidMaster;
+	CCUID			m_uidChatRoom;
+	CCUID			m_uidMaster;
 	char			m_szName[ MAX_CHATROOMNAME_STRING_LEN ];
-    MUIDRefCache	m_PlayerList;
+    CCUIDRefCache	m_PlayerList;
 
 public:
-	MMatchChatRoom(const MUID& uidRoom, const MUID& uidMaster, const char* pszName);
+	MMatchChatRoom(const CCUID& uidRoom, const CCUID& uidMaster, const char* pszName);
 	virtual ~MMatchChatRoom();
 
-	const MUID& GetUID()	{ return m_uidChatRoom; }
-	const MUID& GetMaster()	{ return m_uidMaster; }
+	const CCUID& GetUID()	{ return m_uidChatRoom; }
+	const CCUID& GetMaster()	{ return m_uidMaster; }
 	const char* GetName()	{ return m_szName; }
 	size_t GetUserCount()	{ return m_PlayerList.size(); }
 
-	bool AddPlayer(const MUID& uidPlayer);
-	void RemovePlayer(const MUID& uidPlayer);
-	bool IsFindPlayer(const MUID& uidPlayer);							// 해당 플레이어가 있는지 확인한다
+	bool AddPlayer(const CCUID& uidPlayer);
+	void RemovePlayer(const CCUID& uidPlayer);
+	bool IsFindPlayer(const CCUID& uidPlayer);							// 해당 플레이어가 있는지 확인한다
 
-	void RouteChat(const MUID& uidSender, char* pszMessage);
-	void RouteInfo(const MUID& uidReceiver);
+	void RouteChat(const CCUID& uidSender, char* pszMessage);
+	void RouteInfo(const CCUID& uidReceiver);
 	void RouteCommand(const MCommand* pCommand);
 };
 
 
-class MMatchChatRoomMap : public map<MUID, MMatchChatRoom*> {
-	MUID	m_uidGenerate;
+class MMatchChatRoomMap : public map<CCUID, MMatchChatRoom*> {
+	CCUID	m_uidGenerate;
 public:
-	MMatchChatRoomMap()			{	m_uidGenerate = MUID(0,10);	}
+	MMatchChatRoomMap()			{	m_uidGenerate = CCUID(0,10);	}
 	virtual ~MMatchChatRoomMap(){}
-	MUID UseUID()				{	m_uidGenerate.Increase();	return m_uidGenerate;	}
-	void Insert(const MUID& uid, MMatchChatRoom* pStage)	{	insert(value_type(uid, pStage));	}
+	CCUID UseUID()				{	m_uidGenerate.Increase();	return m_uidGenerate;	}
+	void Insert(const CCUID& uid, MMatchChatRoom* pStage)	{	insert(value_type(uid, pStage));	}
 };
 
-class MMatchChatRoomStringSubMap : public map<string, MUID> {};
+class MMatchChatRoomStringSubMap : public map<string, CCUID> {};
 
 
 class MMatchChatRoomMgr {
@@ -59,10 +59,10 @@ public:
 	MMatchChatRoomMgr();
 	virtual ~MMatchChatRoomMgr();
 
-	MMatchChatRoom* AddChatRoom(const MUID& uidMaster, const char* pszName);
-	void RemoveChatRoom(const MUID& uidChatRoom);
+	MMatchChatRoom* AddChatRoom(const CCUID& uidMaster, const char* pszName);
+	void RemoveChatRoom(const CCUID& uidChatRoom);
 
-	MMatchChatRoom* FindChatRoom(const MUID& uidChatRoom);
+	MMatchChatRoom* FindChatRoom(const CCUID& uidChatRoom);
 	MMatchChatRoom* FindChatRoomByName(const char* pszName);
 
 	void Update();

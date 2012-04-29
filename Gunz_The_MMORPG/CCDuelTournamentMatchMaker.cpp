@@ -17,7 +17,7 @@ MDuelTournamentMatchMaker::~MDuelTournamentMatchMaker()
 	RemoveAll();
 }
 
-bool MDuelTournamentMatchMaker::AddPlayer( const MUID& uid, int tp, DWORD curTime )
+bool MDuelTournamentMatchMaker::AddPlayer( const CCUID& uid, int tp, DWORD curTime )
 {
 	if (uid.IsInvalid()) return false;
 
@@ -30,7 +30,7 @@ bool MDuelTournamentMatchMaker::AddPlayer( const MUID& uid, int tp, DWORD curTim
 	return true;
 }
 
-bool MDuelTournamentMatchMaker::RemovePlayer(const MUID& uid)
+bool MDuelTournamentMatchMaker::RemovePlayer(const CCUID& uid)
 {
 	// 이진검색으로 바꿀 수 있을 것 같다..
 	for (ItorDTUser it=m_mapUser.begin(); it!=m_mapUser.end(); ++it) {

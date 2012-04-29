@@ -12,14 +12,14 @@ CCMatchObjectCommandHistory::~CCMatchObjectCommandHistory()
 	}
 }
 
-MOBJECTCOMMANDHISTORY* CCMatchObjectCommandHistory::AddNew(MUID uid)
+MOBJECTCOMMANDHISTORY* CCMatchObjectCommandHistory::AddNew(CCUID uid)
 {
 	MOBJECTCOMMANDHISTORY* pNew = new MOBJECTCOMMANDHISTORY;
 	m_mapHistories.insert( UIDHISTORYMAP::value_type( uid, pNew ) );
 	return pNew;
 }
 
-void CCMatchObjectCommandHistory::SetCharacterInfo(MUID uid, const char* szName, unsigned int nCID)
+void CCMatchObjectCommandHistory::SetCharacterInfo(CCUID uid, const char* szName, unsigned int nCID)
 {
 	UIDHISTORYMAP::iterator itr = m_mapHistories.find( uid );
 
@@ -33,7 +33,7 @@ void CCMatchObjectCommandHistory::SetCharacterInfo(MUID uid, const char* szName,
 	pHistory->m_nCID = nCID;
 }
 
-void CCMatchObjectCommandHistory::PushCommand(MUID uid, int nCommandID, DWORD dwCurrentTime, bool* pbFloodingSuspect)
+void CCMatchObjectCommandHistory::PushCommand(CCUID uid, int nCommandID, DWORD dwCurrentTime, bool* pbFloodingSuspect)
 {
 	UIDHISTORYMAP::iterator itr = m_mapHistories.find( uid );
 
@@ -62,7 +62,7 @@ void CCMatchObjectCommandHistory::PushCommand(MUID uid, int nCommandID, DWORD dw
 		pHistory->m_commands.pop_front();
 }
 
-MOBJECTCOMMANDHISTORY* CCMatchObjectCommandHistory::GetCommandHistory(MUID uid)
+MOBJECTCOMMANDHISTORY* CCMatchObjectCommandHistory::GetCommandHistory(CCUID uid)
 {
 	UIDHISTORYMAP::iterator itr = m_mapHistories.find( uid );
 	if( itr == m_mapHistories.end() )
@@ -87,7 +87,7 @@ void CCMatchObjectCommandHistory::Update( DWORD dwCurrentTime )
 	}
 }
 
-bool CCMatchObjectCommandHistory::Dump( MUID uid )
+bool CCMatchObjectCommandHistory::Dump( CCUID uid )
 {
 	MOBJECTCOMMANDHISTORY* pHistory = GetCommandHistory(uid);
 	if(!pHistory)

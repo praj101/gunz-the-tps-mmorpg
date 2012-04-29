@@ -167,11 +167,11 @@ struct CCMatchClanChannelTicketInfo
 };
 
 
-class CCMatchChannelMap : public map<MUID, CCMatchChannel*> {
+class CCMatchChannelMap : public map<CCUID, CCMatchChannel*> {
 private:
 	CCUID						m_uidGenerate;
 	unsigned long				m_nChecksum;
-	map<MUID, MMatchChannel*>	m_TypesChannelMap[CCCHANNEL_TYPE_MAX];
+	map<CCUID, MMatchChannel*>	m_TypesChannelMap[CCCHANNEL_TYPE_MAX];
 	CCMatchClanChannelTicketInfo m_ClanChannelTicketInfo;
 
 	void Insert(const CCUID& uid, CCMatchChannel* pChannel)	{	insert(value_type(uid, pChannel));	}
@@ -180,7 +180,7 @@ private:
 //	void UpdateChecksum(unsigned long nClock);
 
 public:
-	CCMatchChannelMap()			{	m_uidGenerate = MUID(0,0);	m_nChecksum=0; }
+	CCMatchChannelMap()			{	m_uidGenerate = CCUID(0,0);	m_nChecksum=0; }
 	virtual ~CCMatchChannelMap()	{	}
 	void Destroy();
 	

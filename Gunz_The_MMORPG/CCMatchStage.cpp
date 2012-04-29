@@ -24,7 +24,7 @@ CCMatchStage::CCMatchStage()
 	m_pRule								= NULL;
 	m_nIndex							= 0;
 	m_nStageType						= MST_NORMAL;
-	m_uidOwnerChannel					= MUID(0,0);
+	m_uidOwnerChannel					= CCUID(0,0);
 	m_TeamBonus.bApplyTeamBonus			= false;
 	m_nAdminObjectCount					= 0;
 
@@ -90,7 +90,7 @@ const bool CCMatchStage::SetChannelRuleForCreateStage(bool bIsAllowNullChannel)
 	return true;
 }
 
-bool CCMatchStage::Create(const MUID& uid, const char* pszName, bool bPrivate, const char* pszPassword, bool bIsAllowNullChannel, 
+bool CCMatchStage::Create(const CCUID& uid, const char* pszName, bool bPrivate, const char* pszPassword, bool bIsAllowNullChannel, 
 	const MMATCH_GAMETYPE GameType, const bool bIsCheckTicket, const DWORD dwTicketItemID)
 {
 	if ((strlen(pszName) >= STAGENAME_LENGTH) || (strlen(pszPassword) >= STAGENAME_LENGTH)) return false;
@@ -109,7 +109,7 @@ bool CCMatchStage::Create(const MUID& uid, const char* pszName, bool bPrivate, c
 		return false;
 	}
 	
-	SetAgentUID(MUID(0,0));
+	SetAgentUID(CCUID(0,0));
 	SetAgentReady(false);
 
 	m_nChecksum = 0;
@@ -129,9 +129,9 @@ bool CCMatchStage::Create(const MUID& uid, const char* pszName, bool bPrivate, c
 
 void CCMatchStage::Destroy()
 {
-	MUIDRefCache::iterator itor=GetObjBegin();
+	CCUIDRefCache::iterator itor=GetObjBegin();
 	while(itor!=GetObjEnd()) {
-		MUID uidPlayer = (*itor).first;
+		CCUID uidPlayer = (*itor).first;
 		itor = RemoveObject(uidPlayer);
 	}
 	m_ObjUIDCaches.clear();
@@ -188,7 +188,7 @@ bool CCMatchStage::CheckBanList(int nCID)
 		return false;
 }
 
-void CCMatchStage::AddObject(const MUID& uid, const CCMatchObject* pObj)
+void CCMatchStage::AddObject(const CCUID& uid, const CCMatchObject* pObj)
 {
 	m_ObjUIDCaches.Insert(uid, (void*)pObj);
 
@@ -221,7 +221,7 @@ void CCMatchStage::AddObject(const MUID& uid, const CCMatchObject* pObj)
 	pObject->ResetCustomItemUseCount();
 }
 
-MUIDRefCache::iterator CCMatchStage::RemoveObject(const MUID& uid)
+CCUIDRefCache::iterator CCMatchStage::RemoveObject(const CCUID& uid)
 {
 	m_VoteMgr.RemoveVoter(uid);
 	if( CheckUserWasVoted(uid) )
@@ -230,7 +230,7 @@ MUIDRefCache::iterator CCMatchStage::RemoveObject(const MUID& uid)
 	}
 
 	// uid가 존제하는지 먼저 검사하고 다음에 유저 상태를 변경한다.
-	MUIDRefCache::iterator i = m_ObjUIDCaches.find(uid);
+	CCUIDRefCache::iterator i = m_ObjUIDCaches.find(uid);
 	if (i==m_ObjUIDCaches.end()) 
 	{
 		//CCMatchServer::GetInstance()->LOG(MCommandCommunicator::LOG_FILE, "RemoveObject: Cannot Find Object uid");
@@ -250,7 +250,7 @@ MUIDRefCache::iterator CCMatchStage::RemoveObject(const MUID& uid)
 
 		LeaveBattle(pObj);
 
-		pObj->SetStageUID(MUID(0,0));
+		pObj->SetStageUID(CCUID(0,0));
 		pObj->SetForcedEntry(false);
 		pObj->SetPlace(MMP_LOBBY);
 		pObj->SetStageListTransfer(true);
@@ -263,7 +263,7 @@ MUIDRefCache::iterator CCMatchStage::RemoveObject(const MUID& uid)
 		CCMatchServer::GetInstance()->SaveGamePlayerLog(pObj, m_nGameLogID);
 	}
 
-	MUIDRefCache::iterator itorNext = m_ObjUIDCaches.erase(i);
+	CCUIDRefCache::iterator itorNext = m_ObjUIDCaches.erase(i);
 
 	if (m_ObjUIDCaches.empty())
 		ChangeState(STAGE_STATE_CLOSE);
@@ -287,7 +287,7 @@ MUIDRefCache::iterator CCMatchStage::RemoveObject(const MUID& uid)
 bool CCMatchStage::KickBanPlayer(const char* pszName, bool bBanPlayer)
 {
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetCharInfo() == NULL) 
@@ -304,16 +304,16 @@ bool CCMatchStage::KickBanPlayer(const char* pszName, bool bBanPlayer)
 	return false;
 }
 
-const MUID CCMatchStage::RecommandMaster(bool bInBattleOnly)
+const CCUID CCMatchStage::RecommandMaster(bool bInBattleOnly)
 {
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (bInBattleOnly && (pObj->GetEnterBattle() == false))
 			continue;
 		return (*i).first;
 	}
-	return MUID(0,0);
+	return CCUID(0,0);
 }
 
 void CCMatchStage::EnterBattle(CCMatchObject* pObj)
@@ -339,7 +339,7 @@ void CCMatchStage::EnterBattle(CCMatchObject* pObj)
 
 		if (m_pRule)
 		{
-			MUID uidChar = pObj->GetUID();
+			CCUID uidChar = pObj->GetUID();
 			m_pRule->OnEnterBattle(uidChar);
 		}
 	}
@@ -355,7 +355,7 @@ void CCMatchStage::LeaveBattle(CCMatchObject* pObj)
 {	
 	if ((GetState() == STAGE_STATE_RUN) && (m_pRule))
 	{
-		MUID uidPlayer = pObj->GetUID();
+		CCUID uidPlayer = pObj->GetUID();
 		m_pRule->OnLeaveBattle(uidPlayer);
 	}
 
@@ -527,7 +527,7 @@ int CCMatchStage::GetTeamMemberCount(CCMatchTeam nTeam)
 	int nRed = 0;
 	int nBlue = 0;
 
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetTeam() == MMT_SPECTATOR)
@@ -559,9 +559,9 @@ CCMatchTeam CCMatchStage::GetRecommandedTeam()
 		return MMT_BLUE;
 }
 
-void CCMatchStage::PlayerTeam(const MUID& uidPlayer, CCMatchTeam nTeam)
+void CCMatchStage::PlayerTeam(const CCUID& uidPlayer, CCMatchTeam nTeam)
 {
-	MUIDRefCache::iterator i = m_ObjUIDCaches.find(uidPlayer);
+	CCUIDRefCache::iterator i = m_ObjUIDCaches.find(uidPlayer);
 	if (i==m_ObjUIDCaches.end())
 		return;
 
@@ -572,9 +572,9 @@ void CCMatchStage::PlayerTeam(const MUID& uidPlayer, CCMatchTeam nTeam)
 	pSetting->UpdateCharSetting(uidPlayer, nTeam, pObj->GetStageState());
 }
 
-void CCMatchStage::PlayerState(const MUID& uidPlayer, CCMatchObjectStageState nStageState)
+void CCMatchStage::PlayerState(const CCUID& uidPlayer, CCMatchObjectStageState nStageState)
 {
-	MUIDRefCache::iterator i = m_ObjUIDCaches.find(uidPlayer);
+	CCUIDRefCache::iterator i = m_ObjUIDCaches.find(uidPlayer);
 	if (i==m_ObjUIDCaches.end())
 		return;
 
@@ -621,7 +621,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 		char szMsg[ 256];
 		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_PERSONNEL_TOO_MUCH);
 
-		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, MUID(0,0));
+		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 		pCmd->AddParameter(new MCmdParamUInt(0));
 		pCmd->AddParameter(new MCmdParamStr(szMsg));
 		CCMatchServer::GetInstance()->RouteToStage(GetUID(), pCmd);
@@ -631,7 +631,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 
 	bool bResult = true;
 	bool bNotReadyExist = false;
-	MUID uidItem;
+	CCUID uidItem;
 
 
 	// 현제 선택된 맵이 정상 맵인지 검사를 한다. -> 이 부분은 맵 이름을 설정할때 유효성 검사를 한다.
@@ -640,7 +640,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 	// 	return false;
 
 	// 대기 인원 체크
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++)
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++)
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if( NULL == pObj) continue;
@@ -663,7 +663,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 			char szSend[256];
 			sprintf(szSend, "%s%d\a%s", MTOK_ANNOUNCE_PARAMSTR, MERR_HE_IS_NOT_READY, szName);	// 에러메시지ID와 인자를 \a로 구별한다
 
-			MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, MUID(0,0));
+			MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 			pCmd->AddParameter(new MCmdParamUInt(0));
 			//pCmd->AddParameter(new MCmdParamStr(szMsg));
 			pCmd->AddParameter(new MCmdParamStr(szSend));
@@ -675,14 +675,14 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 	// 새로 추가됨. - by 추교성. 2005.04.19
 	if (bNotReadyExist)
 	{
-		MCommand* pCmdNotReady = CCMatchServer::GetInstance()->CreateCommand( MC_GAME_START_FAIL, MUID(0, 0) );
+		MCommand* pCmdNotReady = CCMatchServer::GetInstance()->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
 		if( 0 == pCmdNotReady ) {
 			cclog( "CCMatchStage::StartGame - 커맨드 생성 실패.\n" );
 			bResult = false;
 		}
 
 		pCmdNotReady->AddParameter( new MCmdParamInt(ALL_PLAYER_NOT_READY) );
-		pCmdNotReady->AddParameter( new MCmdParamUID(MUID(0, 0)) );
+		pCmdNotReady->AddParameter( new MCmdParamUID(CCUID(0, 0)) );
 
 		CCMatchObject* pMaster = CCMatchServer::GetInstance()->GetObject( GetMasterUID() );
 		if( IsEnabledObject(pMaster) ) {
@@ -704,7 +704,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 		bResult = true;
 	
 	if (bResult == true) {
-		for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
+		for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
 			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			pObj->SetLaunchedGame(true);
 		}
@@ -727,7 +727,7 @@ bool CCMatchStage::StartRelayGame( const bool bIsUseResourceCRC32CacheCheck )
 		char szMsg[ 256];
 		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_PERSONNEL_TOO_MUCH);
 
-		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, MUID(0,0));
+		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 		pCmd->AddParameter(new MCmdParamUInt(0));
 		pCmd->AddParameter(new MCmdParamStr(szMsg));
 		CCMatchServer::GetInstance()->RouteToStage(GetUID(), pCmd);
@@ -737,10 +737,10 @@ bool CCMatchStage::StartRelayGame( const bool bIsUseResourceCRC32CacheCheck )
 
 	bool bResult = true;
 	bool bNotReadyExist = false;
-	MUID uidItem;
+	CCUID uidItem;
 
 	// 대기 인원 체크
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++)
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++)
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if( NULL == pObj) continue;
@@ -760,7 +760,7 @@ bool CCMatchStage::StartRelayGame( const bool bIsUseResourceCRC32CacheCheck )
 		bResult = true;
 
 	if (bResult == true) {
-		for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
+		for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
 			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if( pObj->GetStageState() == MOSS_READY )	///< Ready한 녀석들만..
 				pObj->SetLaunchedGame(true);
@@ -799,7 +799,7 @@ void CCMatchStage::SetStageType(CCMatchStageType nStageType)
 void CCMatchStage::OnStartGame()
 {
 	// Death, Kill 카운트를 0으로 리셋
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		pObj->SetAllRoundDeathCount(0);	
@@ -904,7 +904,7 @@ void CCMatchStage::OnFinishGame()
 	}
 
 	// Ready Reset
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetStageState()) pObj->SetStageState(MOSS_NONREADY);
 		pObj->SetLaunchedGame(false);
@@ -913,7 +913,7 @@ void CCMatchStage::OnFinishGame()
 
 /*	최종결과 나올떄 다른사람이 이미 나간상태가 되어서 봉인 -_-
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 
 		MCommand* pCmd = pServer->CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, pServer->GetUID());
@@ -931,7 +931,7 @@ void CCMatchStage::OnFinishGame()
 bool CCMatchStage::CheckBattleEntry()
 {
 	bool bResult = true;
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->IsLaunchedGame())
 		{
@@ -941,7 +941,7 @@ bool CCMatchStage::CheckBattleEntry()
 	return bResult;
 }
 
-void CCMatchStage::RoundStateFromClient(const MUID& uidStage, int nState, int nRound)
+void CCMatchStage::RoundStateFromClient(const CCUID& uidStage, int nState, int nRound)
 {
 	
 }
@@ -949,7 +949,7 @@ void CCMatchStage::RoundStateFromClient(const MUID& uidStage, int nState, int nR
 int CCMatchStage::GetObjInBattleCount()
 {
 	int nCount = 0;
-	for (MUIDRefCache::iterator itor=GetObjBegin(); itor!=GetObjEnd(); ++itor) 
+	for (CCUIDRefCache::iterator itor=GetObjBegin(); itor!=GetObjEnd(); ++itor) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == true)
@@ -961,7 +961,7 @@ int CCMatchStage::GetObjInBattleCount()
 	return nCount;
 }
 
-void CCMatchStage::SetOwnerChannel(MUID& uidOwnerChannel, int nIndex)
+void CCMatchStage::SetOwnerChannel(CCUID& uidOwnerChannel, int nIndex)
 {
 	m_uidOwnerChannel = uidOwnerChannel;
 	m_nIndex = nIndex;
@@ -1014,14 +1014,14 @@ void CCMatchStage::SpawnServerSideWorldItem(CCMatchObject* pObj, const int nItem
 	m_WorldItemManager.SpawnDynamicItem(pObj, nItemID, x, y, z, nLifeTime, pnExtraValues );
 }
 
-void CCMatchStage::OnNotifyThrowTrapItem(const MUID& uidPlayer, const int nItemID)
+void CCMatchStage::OnNotifyThrowTrapItem(const CCUID& uidPlayer, const int nItemID)
 {
 	if (GetState() != STAGE_STATE_RUN) return;
 
 	m_ActiveTrapManager.AddThrowedTrap(uidPlayer, nItemID);
 }
 
-void CCMatchStage::OnNotifyActivatedTrapItem(const MUID& uidPlayer, const int nItemID, const MVector3& pos)
+void CCMatchStage::OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const MVector3& pos)
 {
 	if (GetState() != STAGE_STATE_RUN) return;
 
@@ -1052,7 +1052,7 @@ void CCMatchStage::OnInitRound()
 	int nRedTeamCount = 0, nBlueTeamCount = 0;
 
 	// Setup Life
-	for (MUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) {
+	for (CCUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) {
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == true)
 		{
@@ -1100,7 +1100,7 @@ void CCMatchStage::OnApplyTeamBonus(CCMatchTeam nTeam)
 
 	if (GetStageType() != MMATCH_GAMETYPE_DEATHMATCH_TEAM2)		// 으아아악 이런 갓뎀코드를 만들다니 -_-;
 	{
-		for (MUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) 
+		for (CCUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) 
 		{
 			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if (pObj->GetEnterBattle() == true)
@@ -1121,7 +1121,7 @@ void CCMatchStage::OnApplyTeamBonus(CCMatchTeam nTeam)
 	else
 	{
 		int TotalKills = 0;
-		for (MUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) 
+		for (CCUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) 
 		{
 			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if (pObj->GetEnterBattle() == true)
@@ -1137,7 +1137,7 @@ void CCMatchStage::OnApplyTeamBonus(CCMatchTeam nTeam)
 			TotalKills = 10000000;
 
 
-		for (MUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) 
+		for (CCUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) 
 		{
 			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if (pObj->GetEnterBattle() == true)
@@ -1196,7 +1196,7 @@ int CCMatchStage::GetMinPlayerLevel()
 {
 	int nMinLevel = MAX_CHAR_LEVEL;
 
-	for (MUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) 
+	for (CCUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (!IsEnabledObject(pObj)) continue;
@@ -1208,7 +1208,7 @@ int CCMatchStage::GetMinPlayerLevel()
 }
 
 
-bool CCMatchStage::CheckUserWasVoted( const MUID& uidPlayer )
+bool CCMatchStage::CheckUserWasVoted( const CCUID& uidPlayer )
 {
 	CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject( uidPlayer );
 	if( !IsEnabledObject(pPlayer) )
@@ -1244,7 +1244,7 @@ MMatchItemBonusType GetStageBonusType(CCMatchStageSetting* pStageSetting)
 	return MIBT_SOLO;
 }
 
-void CCMatchStage::OnGameKill(const MUID& uidAttacker, const MUID& uidVictim)
+void CCMatchStage::OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim)
 {
 	if (m_pRule)
 	{
@@ -1277,7 +1277,7 @@ void CCMatchStage::ShuffleTeamMembers()
 
 	vector<CCMatchObject*> sortedObjectList;
 
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 
@@ -1303,12 +1303,12 @@ void CCMatchStage::ShuffleTeamMembers()
 	}
 
 	// 메세지 전송
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_RESET_TEAM_MEMBERS, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_RESET_TEAM_MEMBERS, CCUID(0,0));
 	int nMemberCount = (int)m_ObjUIDCaches.size();
 	void* pTeamMemberDataArray = MMakeBlobArray(sizeof(MTD_ResetTeamMembersData), nMemberCount);
 
 	nCounter = 0;
-	for (MUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
+	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		MTD_ResetTeamMembersData* pNode = (MTD_ResetTeamMembersData*)MGetBlobArrayElement(pTeamMemberDataArray, nCounter);
@@ -1358,7 +1358,7 @@ void CCMatchStage::GetTeamMemberCount(int* poutnRedTeamMember, int* poutnBlueTea
 	if (poutnBlueTeamMember) *poutnBlueTeamMember = 0;
 	if (poutSpecMember) *poutSpecMember = 0;
 
-	for (MUIDRefCache::iterator itor=GetObjBegin(); itor!=GetObjEnd(); itor++) 
+	for (CCUIDRefCache::iterator itor=GetObjBegin(); itor!=GetObjEnd(); itor++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 
@@ -1378,7 +1378,7 @@ int CCMatchStage::GetPlayers()
 {
 	int nPlayers = 0;
 
-	for ( MUIDRefCache::iterator i = GetObjBegin();  i != GetObjEnd();  i++)
+	for ( CCUIDRefCache::iterator i = GetObjBegin();  i != GetObjEnd();  i++)
 	{
 		CCMatchObject* pObj = (CCMatchObject*)((*i).second);
 		
@@ -1419,12 +1419,12 @@ bool CCMatchStage::CheckDuelMap()
 		if( NULL == pMaster )
 			return false;
 
-		MCommand* pCmd = pServer->CreateCommand( MC_GAME_START_FAIL, MUID(0, 0) );
+		MCommand* pCmd = pServer->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
 		if( 0 == pCmd )
 			return false;
 
 		pCmd->AddParameter( new MCmdParamInt(INVALID_MAP) );
-		pCmd->AddParameter( new MCmdParamUID(MUID(0, 0)) );
+		pCmd->AddParameter( new MCmdParamUID(CCUID(0, 0)) );
 
 		pServer->RouteToListener( pMaster, pCmd );
 		
@@ -1481,7 +1481,7 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 		pObj->GetCharInfo()->m_ItemList.IsHave(m_StageSetting.GetTicketItemID()) )
 		return true;
 
-	MCommand* pCmd = MGetMatchServer()->CreateCommand( MC_GAME_START_FAIL, MUID(0, 0) );
+	MCommand* pCmd = MGetMatchServer()->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
 	if( 0 != pCmd )
 	{
 		pCmd->AddParameter( new MCmdParamInt(INVALID_TACKET_USER) );
@@ -1618,7 +1618,7 @@ bool CCMatchStage::IsValidMap( const char* pMapName )
 }
 
 
-void CCMatchStage::ReserveSuicide( const MUID& uidUser, const DWORD dwExpireTime )
+void CCMatchStage::ReserveSuicide( const CCUID& uidUser, const DWORD dwExpireTime )
 {
 	vector< CCMatchStageSuicide >::iterator it, end;
 	end = m_SuicideList.end();
@@ -1669,7 +1669,7 @@ void CCMatchStage::CheckSuicideReserve( const DWORD dwCurTime )
 
 			/////////////////////////////////////
 
-			MCommand* pNew = MGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE, MUID(0, 0) );
+			MCommand* pNew = MGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE, CCUID(0, 0) );
 			pNew->AddParameter( new MCommandParameterInt(MOK) );
 			pNew->AddParameter( new MCommandParameterUID(it->m_uidUser) );
 			MGetMatchServer()->RouteToBattle( GetUID(), pNew );
@@ -1681,7 +1681,7 @@ void CCMatchStage::CheckSuicideReserve( const DWORD dwCurTime )
 			if ( MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
 			{ // 퀘스트 및 서바이버에서 자살할때 자살 본인외에는 죽는 처리가 안돼있어서 추가함
 				// 죽었다는 메세지 보냄
-				MCommand* pCmd = MGetMatchServer()->CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, MUID(0,0));
+				MCommand* pCmd = MGetMatchServer()->CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, CCUID(0,0));
 				pCmd->AddParameter(new MCommandParameterUID(it->m_uidUser));
 				MGetMatchServer()->RouteToBattle(pStage->GetUID(), pCmd);	
 			}
@@ -1701,7 +1701,7 @@ void CCMatchStage::CheckSuicideReserve( const DWORD dwCurTime )
 
 void CCMatchStage::ResetPlayersCustomItem()
 {
-	for (MUIDRefCache::iterator itor=GetObjBegin(); itor!=GetObjEnd(); itor++) 
+	for (CCUIDRefCache::iterator itor=GetObjBegin(); itor!=GetObjEnd(); itor++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 
@@ -1741,7 +1741,7 @@ void CCMatchStage::MakeResourceCRC32Cache( const DWORD dwKey, DWORD& out_crc32, 
  EnterBattle이 완료되면 그유저에 대해서 새로운 ResourceCRC32Cache를 저장한다.
  이 시점은 클라이언트의 Resource로딩이 완료된 시점이고, 게임 중이다.
 */
-void CCMatchStage::SetResourceCRC32Cache( const MUID& uidPlayer, const DWORD dwCRC32Cache, const DWORD dwXORCache )
+void CCMatchStage::SetResourceCRC32Cache( const CCUID& uidPlayer, const DWORD dwCRC32Cache, const DWORD dwXORCache )
 {
 	ResourceCRC32CacheMap::iterator itFind = m_ResourceCRC32CacheMap.find( uidPlayer );
 	if( m_ResourceCRC32CacheMap.end() == itFind )
@@ -1767,7 +1767,7 @@ void CCMatchStage::SetResourceCRC32Cache( const MUID& uidPlayer, const DWORD dwC
 }
 
 
-void CCMatchStage::RequestResourceCRC32Cache( const MUID& uidPlayer )
+void CCMatchStage::RequestResourceCRC32Cache( const CCUID& uidPlayer )
 {
 	if( !m_bIsUseResourceCRC32CacheCheck )
 	{
@@ -1794,13 +1794,13 @@ void CCMatchStage::RequestResourceCRC32Cache( const MUID& uidPlayer )
 }
 
 
-void CCMatchStage::DeleteResourceCRC32Cache( const MUID& uidPlayer )
+void CCMatchStage::DeleteResourceCRC32Cache( const CCUID& uidPlayer )
 {
 	m_ResourceCRC32CacheMap.erase( uidPlayer );
 }
 
 
-const bool CCMatchStage::IsValidResourceCRC32Cache( const MUID& uidPlayer, const DWORD dwResourceCRC32Cache, const DWORD dwResourceXORCache )
+const bool CCMatchStage::IsValidResourceCRC32Cache( const CCUID& uidPlayer, const DWORD dwResourceCRC32Cache, const DWORD dwResourceXORCache )
 {
 	ResourceCRC32CacheMap::iterator itFind = m_ResourceCRC32CacheMap.find( uidPlayer );
 	if( m_ResourceCRC32CacheMap.end() == itFind )
@@ -1888,7 +1888,7 @@ void CCMatchStage::CheckResourceCRC32Cache( const DWORD dwClock )
 }
 
 
-void CCMatchStage::SetDisableCheckResourceCRC32Cache( const MUID& uidPlayer )
+void CCMatchStage::SetDisableCheckResourceCRC32Cache( const CCUID& uidPlayer )
 {
 	if( !m_bIsUseResourceCRC32CacheCheck )
 	{
@@ -1922,8 +1922,8 @@ void CCMatchStage::MakeItemResourceCRC32Cache( MMatchCRC32XORCache& CRC32Cache )
 	ClearGabageObject();
 
 	CCMatchObject*					pObj		= NULL;
-	MUIDRefCache::const_iterator	end			= m_ObjUIDCaches.end();
-	MUIDRefCache::iterator			it			= m_ObjUIDCaches.begin();
+	CCUIDRefCache::const_iterator	end			= m_ObjUIDCaches.end();
+	CCUIDRefCache::iterator			it			= m_ObjUIDCaches.begin();
 	MMatchItem*						pItem		= NULL;
 
 	CCMatchServer* pServer = MGetMatchServer();
@@ -1968,10 +1968,10 @@ void CCMatchStage::MakeItemResourceCRC32Cache( MMatchCRC32XORCache& CRC32Cache )
 
 void CCMatchStage::ClearGabageObject()
 {
-	for (MUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) {
+	for (CCUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) {
 		//CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 
-		MUID uidObj = (MUID)(*i).first;
+		CCUID uidObj = (CCUID)(*i).first;
 		CCMatchObject* pObj = MGetMatchServer()->GetObject(uidObj);
 		if (!pObj) 
 		{
@@ -2040,7 +2040,7 @@ void CCMatchStage::SetDuelTournamentMatchList(MDUELTOURNAMENTTYPE nType, MDuelTo
 			iter++;
 
 			pMatch->uidPlayer1 = (*i);
-			pMatch->uidPlayer2 = MUID(0, 0);
+			pMatch->uidPlayer2 = CCUID(0, 0);
 		} else {
 			pMatch->uidPlayer2 = (*i);
 		}
@@ -2086,8 +2086,8 @@ void CCMatchStage::MakeDuelTournamentMatchMap(MDUELTOURNAMENTROUNDSTATE nRoundSt
 		pMatch->nNextMatchNumber = nMatchNumber + nRemainCount + nTemp - i;	
 		pMatch->nMatchNumber = nMatchNumber;		
 
-		pMatch->uidPlayer1 = MUID(0, 0);
-		pMatch->uidPlayer2 = MUID(0, 0);
+		pMatch->uidPlayer1 = CCUID(0, 0);
+		pMatch->uidPlayer2 = CCUID(0, 0);
 
 		if( nMatchNumber % 2 == 0 ) nTemp++;
 		if( nRoundState == MDUELTOURNAMENTROUNDSTATE_FINAL ) pMatch->nNextMatchNumber = 0;

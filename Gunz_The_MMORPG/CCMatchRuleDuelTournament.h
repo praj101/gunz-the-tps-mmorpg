@@ -18,7 +18,7 @@ struct MDuelTournamentGameInfo
 
 struct MDuelTournamentMatchRecord
 {
-	MUID uidWinner, uidLoser;
+	CCUID uidWinner, uidLoser;
 	int nCID1, nCID2;
 	int nTP1, nTP2;
 	int nGainTP, nLoseTP;
@@ -34,8 +34,8 @@ struct MDuelTournamentMatchRecord
 
 struct MDuelTournamentRoundRecord
 {
-	MUID uidWinnerPlayer;
-	MUID uidLoserPlayer;
+	CCUID uidWinnerPlayer;
+	CCUID uidLoserPlayer;
 
 	int fPlayer1DamagedPoint, fPlayer1HealthPoint, fPlayer1AmorPoint;
 	int fPlayer2DamagedPoint, fPlayer2HealthPoint, fPlayer2AmorPoint;
@@ -51,12 +51,12 @@ struct MDuelTournamentRoundRecord
 class MDuelTournamentPlayerInfo
 {	
 public:
-	MUID uidPlayer;
+	CCUID uidPlayer;
 	int  nCID, nChangeTP;
 	bool bLoser, bOutGame, bInMatch;
 };
 
-class MDuelTournamentPlayerMap : public map <MUID, MDuelTournamentPlayerInfo*>
+class MDuelTournamentPlayerMap : public map <CCUID, MDuelTournamentPlayerInfo*>
 {
 public:
 	~MDuelTournamentPlayerMap() {
@@ -64,43 +64,43 @@ public:
 		clear();
 	}
 
-	MDuelTournamentPlayerInfo* GetPlayerInfo(MUID uidPlayer){
+	MDuelTournamentPlayerInfo* GetPlayerInfo(CCUID uidPlayer){
 		if( find(uidPlayer) != end() ) return find(uidPlayer)->second;
 		return NULL;
 	}
 
-	void InsertPlayerInfo(MUID uidPlayer, MDuelTournamentPlayerInfo *pInfo) {
-		insert(pair<MUID, MDuelTournamentPlayerInfo*>(uidPlayer, pInfo));
+	void InsertPlayerInfo(CCUID uidPlayer, MDuelTournamentPlayerInfo *pInfo) {
+		insert(pair<CCUID, MDuelTournamentPlayerInfo*>(uidPlayer, pInfo));
 	}
 
-	bool EnterMatch(MUID uidPlayer){ 
+	bool EnterMatch(CCUID uidPlayer){ 
 		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ){ pInfo->bInMatch = true; return true;}
 		return false;
 	}
 	
-	void LeaveMatch(MUID uidPlayer){
+	void LeaveMatch(CCUID uidPlayer){
 		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ) pInfo->bInMatch = false;
 	}
 
-	void SetLoser(MUID uidPlayer){
+	void SetLoser(CCUID uidPlayer){
 		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ) pInfo->bLoser = true;
 	}
 
-	bool IsLoser(MUID uidPlayer){
+	bool IsLoser(CCUID uidPlayer){
 		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ) return pInfo->bLoser;
 		return false;
 	}
 
-	void SetOutStage(MUID uidPlayer){
+	void SetOutStage(CCUID uidPlayer){
 		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ) pInfo->bOutGame = true;
 	}
 
-	bool IsOutUser(MUID uidPlayer) {
+	bool IsOutUser(CCUID uidPlayer) {
 		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo == NULL ) return true;
 		return pInfo->bOutGame;
@@ -137,8 +137,8 @@ protected:
 
 	virtual bool OnRun();
 
-	virtual void OnLeaveBattle(MUID& uidChar);									///< 게임중 나갔을때 호출된다.
-	virtual void OnGameKill(const MUID& uidAttacker, const MUID& uidVictim);	///< 킬했을때 도전자의 킬인지 챔피언의 킬인지 체크	
+	virtual void OnLeaveBattle(CCUID& uidChar);									///< 게임중 나갔을때 호출된다.
+	virtual void OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim);	///< 킬했을때 도전자의 킬인지 챔피언의 킬인지 체크	
 
 	virtual bool RoundCount(){
 		if( m_MatchRecord.bMatchFinish == true && m_CurrentMatchInfo.nNextMatchNumber == 0 ) return false;
@@ -153,7 +153,7 @@ protected:
 			return false;
 		}
 
-		if (m_CurrentMatchInfo.uidPlayer1 == MUID(0, 0) || m_CurrentMatchInfo.uidPlayer2 == MUID(0, 0)) {
+		if (m_CurrentMatchInfo.uidPlayer1 == CCUID(0, 0) || m_CurrentMatchInfo.uidPlayer2 == CCUID(0, 0)) {
 			SetRoundFinish(true);
 		} else if( (pObj = m_pStage->GetObj(m_CurrentMatchInfo.uidPlayer1)) == NULL ) {
 			OnLeaveBattle(m_CurrentMatchInfo.uidPlayer1);
@@ -183,7 +183,7 @@ protected:
 	void MakeNextMatch();
 	void RecordGameResult();
 
-	void UpdateDuelTournamentPlayerInfo(MUID uidPlayer, MDUELTOURNAMENTROUNDSTATE nState, bool bIsWinner, int nChangeTP, bool bIsLeaveUser = false);
+	void UpdateDuelTournamentPlayerInfo(CCUID uidPlayer, MDUELTOURNAMENTROUNDSTATE nState, bool bIsWinner, int nChangeTP, bool bIsLeaveUser = false);
 	void InsertDuelTournamentGameLogDeatil(MDUELTOURNAMENTROUNDSTATE nDTRoundState, int nWinnerCID, int nLoserCID, int nGainTP, int nLoseTP, int nPlayTime);
 
 	void SendDuelTournamentGameInfo(bool bIsRoundEnd = false);

@@ -278,7 +278,7 @@ CCMatchChannel* CCMatchChannelMap::Find(const CCUID& uidChannel){
 CCMatchChannel* CCMatchChannelMap::Find(const CCCHANNEL_TYPE nChannelType, const char* pszChannelName){
 	if ((nChannelType < 0) || (nChannelType >= CCCHANNEL_TYPE_MAX)) return NULL;
 
-	for(map<MUID, CCMatchChannel*>::iterator i = m_TypesChannelMap[nChannelType].begin(); 
+	for(map<CCUID, CCMatchChannel*>::iterator i = m_TypesChannelMap[nChannelType].begin(); 
 		i != m_TypesChannelMap[nChannelType].end(); i++)
 	{
 		CCMatchChannel* pChannel = (*i).second;

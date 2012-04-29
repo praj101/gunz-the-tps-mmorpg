@@ -11,7 +11,7 @@ public:
 	int m_nLifeTime;
 
 	// 트랩을 던졌다는 커맨드로 얻는 정보
-	MUID m_uidOwner;
+	CCUID m_uidOwner;
 	int m_nTrapItemId;
 
 	// 이후 트랩이 발동되었다는 커맨드로 정보를 보충
@@ -19,12 +19,12 @@ public:
 	unsigned long m_nTimeActivated;
 
 	// 이 트랩이 던져졌으나 발동되기 전의 시간대에 난입한 유저의 uid를 여기 기억해 둠
-	vector<MUID> m_vecUidForcedEntered;
+	vector<CCUID> m_vecUidForcedEntered;
 
 public:
 	MMatchActiveTrap();
 	bool IsActivated() { return m_nTimeActivated!=0; }
-	void AddForcedEnteredPlayer(const MUID& uid);
+	void AddForcedEnteredPlayer(const CCUID& uid);
 };
 
 class MMatchActiveTrapMgr
@@ -43,8 +43,8 @@ public:
 	void Destroy();
 	void Clear();
 
-	void AddThrowedTrap(const MUID& uidOwner, int nItemId);
-	void OnActivated(const MUID& uidOwner, int nItemId, const MVector3& vPos);
+	void AddThrowedTrap(const CCUID& uidOwner, int nItemId);
+	void OnActivated(const CCUID& uidOwner, int nItemId, const MVector3& vPos);
 
 	void Update(unsigned long nClock);
 

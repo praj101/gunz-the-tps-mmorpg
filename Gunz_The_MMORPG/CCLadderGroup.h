@@ -23,7 +23,7 @@ protected:
 	// ---------------------
 
 
-	list<MUID>		m_uidPlayerList;
+	list<CCUID>		m_uidPlayerList;
 
 	unsigned int	m_nRegTime;
 public:
@@ -48,8 +48,8 @@ public:
 	void SetBalancedMatching(bool bValue)		{ m_bWantBalancedMatching = bValue; }
 
 	size_t GetPlayerCount()						{ return m_uidPlayerList.size(); }
-	list<MUID>::iterator GetPlayerListBegin()	{ return m_uidPlayerList.begin(); }
-	list<MUID>::iterator GetPlayerListEnd()		{ return m_uidPlayerList.end(); }
+	list<CCUID>::iterator GetPlayerListBegin()	{ return m_uidPlayerList.begin(); }
+	list<CCUID>::iterator GetPlayerListEnd()		{ return m_uidPlayerList.end(); }
 
 	void AddPlayer(CCMatchObject* pObj) { 
 		_ASSERT(GetID());

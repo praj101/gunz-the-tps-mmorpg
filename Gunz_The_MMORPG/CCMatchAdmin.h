@@ -36,5 +36,5 @@ public:
 	virtual ~MMatchAdmin();
 	bool Create(CCMatchServer* pServer);
 	void Destroy();
-	bool Execute(const MUID& uidAdmin, const char* szStr);
+	bool Execute(const CCUID& uidAdmin, const char* szStr);
 };

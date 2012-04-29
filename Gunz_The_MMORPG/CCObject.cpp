@@ -93,12 +93,12 @@ rvector CCObject::GetPos(unsigned long int nTime)
 */
 CCObject::CCObject()
 {
-	m_UID = MUID::Invalid();
+	m_UID = CCUID::Invalid();
 //	m_pMap = NULL;
 //	m_Pos = rvector(0,0,0);
 }
 /*
-CCObject::CCObject(MUID& uid, MMap* pMap, rvector& Pos)
+CCObject::CCObject(CCUID& uid, MMap* pMap, rvector& Pos)
 {
 	m_UID = uid;
 	m_pMap = pMap;
@@ -111,7 +111,7 @@ CCObject::CCObject(MUID& uid, MMap* pMap, rvector& Pos)
 	m_ObjectType = CCOT_NONE;
 }
 */
-CCObject::CCObject(const MUID& uid)
+CCObject::CCObject(const CCUID& uid)
 {
 	m_UID = uid;
 //	m_pMap = NULL;
@@ -161,16 +161,16 @@ void CCObject::Tick(unsigned long int nTime)
 		m_hRef = m_pMap->Move(m_Pos.x, m_Pos.y, m_Pos.z, this, m_hRef);
 }
 */
-void CCObject::AddCommListener(MUID ListenerUID)
+void CCObject::AddCommListener(CCUID ListenerUID)
 {
 	if (IsCommListener(ListenerUID)) return;
 	m_CommListener.push_back(ListenerUID);
 }
 
-void CCObject::RemoveCommListener(MUID ListenerUID)
+void CCObject::RemoveCommListener(CCUID ListenerUID)
 {
-	for (list<MUID>::iterator i=m_CommListener.begin(); i!=m_CommListener.end(); i++) {
-		MUID uid = *i;
+	for (list<CCUID>::iterator i=m_CommListener.begin(); i!=m_CommListener.end(); i++) {
+		CCUID uid = *i;
 		if (uid == ListenerUID) {
 			m_CommListener.erase(i);
 			return;
@@ -178,10 +178,10 @@ void CCObject::RemoveCommListener(MUID ListenerUID)
 	}
 }
 
-bool CCObject::IsCommListener(MUID ListenerUID)
+bool CCObject::IsCommListener(CCUID ListenerUID)
 {
-	for (list<MUID>::iterator i=m_CommListener.begin(); i!=m_CommListener.end(); i++) {
-		MUID uid = *i;
+	for (list<CCUID>::iterator i=m_CommListener.begin(); i!=m_CommListener.end(); i++) {
+		CCUID uid = *i;
 		if (uid == ListenerUID)
 			return true;
 	}

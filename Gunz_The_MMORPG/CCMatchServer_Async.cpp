@@ -313,7 +313,7 @@ void CCMatchServer::OnAsyncGetLoginInfo(MAsyncJob* pJobInput)
 
 /*
 	// 할당...
-	MUID AllocUID = CommUID;
+	CCUID AllocUID = CommUID;
 	int nErrCode = ObjectAdd(CommUID);
 	if(nErrCode!=MOK) {
 		LOG(LOG_DEBUG, MErrStr(nErrCode) );
@@ -386,7 +386,7 @@ void CCMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 	MTD_AccountCharInfo*		pTransCharInfo	= NULL;
 	int							nCharMaxLevel	= 0;
 
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_ACCOUNT_CHARLIST, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_ACCOUNT_CHARLIST, CCUID(0,0));
 	void* pCharArray = MMakeBlobArray(sizeof(MTD_AccountCharInfo), nCharCount);
 
 	for (int i = 0; i < nCharCount; i++)
@@ -467,7 +467,7 @@ void CCMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //	MTD_CharInfo trans_charinfo;
 //	CopyCharInfoForTrans(&trans_charinfo, pJob->GetCharInfo(), pObj);
 //	
-//	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_SELECT_CHAR, MUID(0,0));
+//	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_SELECT_CHAR, CCUID(0,0));
 //	pNewCmd->AddParameter(new MCommandParameterInt(MOK));		// result
 //
 //	void* pCharArray = MMakeBlobArray(sizeof(MTD_CharInfo), 1);
@@ -539,7 +539,7 @@ void CCMatchServer::OnAsyncCreateChar(MAsyncJob* pJobResult)
 	if (pObj == NULL) return;
 
 	// Make Result
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, CCUID(0,0));
 	pNewCmd->AddParameter(new MCommandParameterInt(pJob->GetDBResult()));			// result
 	pNewCmd->AddParameter(new MCommandParameterString(pJob->GetCharName()));	// 만들어진 캐릭터 이름
 
@@ -620,7 +620,7 @@ void CCMatchServer::OnAsyncCharFinalize(MAsyncJob* pJobInput)
 //
 //
 //		// 오브젝트에 아이템 추가
-//		MUID uidNew = MMatchItemMap::UseUID();
+//		CCUID uidNew = MMatchItemMap::UseUID();
 //		pObj->GetCharInfo()->m_ItemList.CreateItem(uidNew, nNewCIID, nNewItemID, bIsRentItem, nRentMinutePeriodRemainder);
 //
 //		nRet = MOK;
@@ -629,7 +629,7 @@ void CCMatchServer::OnAsyncCharFinalize(MAsyncJob* pJobInput)
 //	ResponseCharacterItemList(pJob->GetUID());	// 새로 바뀐 아이템 리스트도 다시 뿌려준다.
 //
 //
-//	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_BRING_ACCOUNTITEM, MUID(0,0));
+//	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_BRING_ACCOUNTITEM, CCUID(0,0));
 //	pNew->AddParameter(new MCmdParamInt(nRet));
 //	RouteToListener(pObj, pNew);
 //
@@ -668,7 +668,7 @@ void CCMatchServer::OnAsyncCreateClan(MAsyncJob* pJobResult)
 {
 	MAsyncDBJob_CreateClan* pJob = (MAsyncDBJob_CreateClan*)pJobResult;
 
-	MUID uidMaster = pJob->GetMasterUID();
+	CCUID uidMaster = pJob->GetMasterUID();
 	CCMatchObject* pMasterObject = GetObject(uidMaster);
 	
 
@@ -812,7 +812,7 @@ void CCMatchServer::OnAsyncInsertEvent( MAsyncJob* pJobResult )
 		end = EventObjList.end();
 		for( it = EventObjList.begin(); it != end; ++it )
 		{
-			if( MUID(0, 0) != it->uidUser )
+			if( CCUID(0, 0) != it->uidUser )
 			{
 				pCmd = CreateCommand( MC_MATCH_ANNOUNCE, it->uidUser );
 				if( 0 != pCmd )
@@ -1049,7 +1049,7 @@ void CCMatchServer::OnAsyncSurvivalModePrivateRanking(MAsyncJob* pJobResult)
 	if (pRankingInfo)
 	{
 		// 플레이어에게 랭킹 정보를 보낸다		
-		MCommand* pCmdPrivateRanking = MGetMatchServer()->CreateCommand( MC_SURVIVAL_PRIVATERANKING, MUID(0, 0) );
+		MCommand* pCmdPrivateRanking = MGetMatchServer()->CreateCommand( MC_SURVIVAL_PRIVATERANKING, CCUID(0, 0) );
 		if( NULL == pCmdPrivateRanking )
 			return;
 

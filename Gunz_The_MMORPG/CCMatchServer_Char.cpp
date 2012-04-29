@@ -31,7 +31,7 @@
 #include "MAsyncDBJob_UpdateAccountLastLoginTime.h"
 #include "MAsyncDBJob_UpdateCharBRInfo.h"
 
-void CCMatchServer::OnRequestAccountCharInfo(const MUID& uidPlayer, int nCharNum)
+void CCMatchServer::OnRequestAccountCharInfo(const CCUID& uidPlayer, int nCharNum)
 {
     // Async DB //////////////////////////////
 	CCMatchObject* pObj = GetObject(uidPlayer);
@@ -44,7 +44,7 @@ void CCMatchServer::OnRequestAccountCharInfo(const MUID& uidPlayer, int nCharNum
 }
 
 
-void CCMatchServer::OnRequestSelectChar(const MUID& uidPlayer, const int nCharIndex)
+void CCMatchServer::OnRequestSelectChar(const CCUID& uidPlayer, const int nCharIndex)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 
@@ -85,12 +85,12 @@ void CCMatchServer::OnRequestSelectChar(const MUID& uidPlayer, const int nCharIn
 }
 
 
-void CCMatchServer::OnRequestDeleteChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName)
+void CCMatchServer::OnRequestDeleteChar(const CCUID& uidPlayer, const int nCharIndex, const char* szCharName)
 {
 	ResponseDeleteChar(uidPlayer, nCharIndex, szCharName);
 }
 
-bool CCMatchServer::ResponseDeleteChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName)
+bool CCMatchServer::ResponseDeleteChar(const CCUID& uidPlayer, const int nCharIndex, const char* szCharName)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetAccountInfo()->m_nAID < 0)) return false;
@@ -105,7 +105,7 @@ bool CCMatchServer::ResponseDeleteChar(const MUID& uidPlayer, const int nCharInd
 }
 
 
-void CCMatchServer::OnRequestCreateChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName,
+void CCMatchServer::OnRequestCreateChar(const CCUID& uidPlayer, const int nCharIndex, const char* szCharName,
 						 const unsigned int nSex, const unsigned int nHair, const unsigned int nFace, const unsigned int nCostume)
 {
 	MMatchSex sex = (nSex == 0) ? MMS_MALE : MMS_FEMALE;
@@ -113,7 +113,7 @@ void CCMatchServer::OnRequestCreateChar(const MUID& uidPlayer, const int nCharIn
 }
 
 
-bool CCMatchServer::ResponseCreateChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName,
+bool CCMatchServer::ResponseCreateChar(const CCUID& uidPlayer, const int nCharIndex, const char* szCharName,
 						MMatchSex nSex, const unsigned int nHair, const unsigned int nFace,	const unsigned int nCostume)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
@@ -124,7 +124,7 @@ bool CCMatchServer::ResponseCreateChar(const MUID& uidPlayer, const int nCharInd
 	   (nFace >= MAX_COSTUME_FACE) || (nCostume >= MAX_COSTUME_TEMPLATE)) 
 	{
 		int nResult = -1;	// false
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, MUID(0,0));
+		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, CCUID(0,0));
 		pNewCmd->AddParameter(new MCommandParameterInt(nResult));			// result
 		pNewCmd->AddParameter(new MCommandParameterString(szCharName));		// 만들어진 캐릭터 이름
 		RouteToListener(pObj, pNewCmd);
@@ -135,7 +135,7 @@ bool CCMatchServer::ResponseCreateChar(const MUID& uidPlayer, const int nCharInd
 
 	nResult = ValidateMakingName(szCharName, MIN_CHARNAME, MAX_CHARNAME);
 	if (nResult != MOK) {
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, MUID(0,0));
+		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, CCUID(0,0));
 		pNewCmd->AddParameter(new MCommandParameterInt(nResult));			// result
 		pNewCmd->AddParameter(new MCommandParameterString(szCharName));		// 만들어진 캐릭터 이름
 		RouteToListener(pObj, pNewCmd);
@@ -168,7 +168,7 @@ bool CCMatchServer::ResponseCreateChar(const MUID& uidPlayer, const int nCharInd
 }
 
 
-void CCMatchServer::OnCharClear(const MUID& uidPlayer)
+void CCMatchServer::OnCharClear(const CCUID& uidPlayer)
 {
 	// Network이벤트에서만 이쪽으로 들어올 수 있다.
 	CCMatchObject* pObj = GetObject(uidPlayer);
@@ -178,7 +178,7 @@ void CCMatchServer::OnCharClear(const MUID& uidPlayer)
 	}
 }
 
-bool CCMatchServer::CharInitialize(const MUID& uidPlayer)
+bool CCMatchServer::CharInitialize(const CCUID& uidPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
@@ -218,7 +218,7 @@ bool CCMatchServer::CharInitialize(const MUID& uidPlayer)
 	if (pCharInfo->m_ClanInfo.IsJoined())
 	{
 		// 클랜원에게 접속알림
-		MCommand* pNew = CreateCommand(MC_MATCH_CLAN_MEMBER_CONNECTED, MUID(0,0));
+		MCommand* pNew = CreateCommand(MC_MATCH_CLAN_MEMBER_CONNECTED, CCUID(0,0));
 		pNew->AddParameter(new MCommandParameterString((char*)pCharInfo->m_szName));
 		RouteToClan(pCharInfo->m_ClanInfo.m_nClanID, pNew);
 
@@ -255,7 +255,7 @@ void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 	if (!pCharInfo->m_ItemList.HasRentItem()) return;
 
 	vector<unsigned long int> vecExpiredItemIDList;
-	vector<MUID> vecExpiredItemUIDList;				// 만료된 아이템 UID
+	vector<CCUID> vecExpiredItemUIDList;				// 만료된 아이템 UID
 	const DWORD dwTick = GetTickTime();
 
 	// 기간 만료 아이템이 있는지 체크하고 있으면 아이템 해제하고 통지한다.
@@ -307,7 +307,7 @@ void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 void CCMatchServer::ResponseExpiredItemIDList(CCMatchObject* pObj, vector<unsigned long int>& vecExpiredItemIDList)
 {
 	int nBlobSize = (int)vecExpiredItemIDList.size();
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_EXPIRED_RENT_ITEM, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_EXPIRED_RENT_ITEM, CCUID(0,0));
 	
 	void* pExpiredItemIDArray = MMakeBlobArray(sizeof(unsigned long int), nBlobSize);
 
@@ -339,7 +339,7 @@ bool CCMatchServer::CorrectEquipmentByLevel(CCMatchObject* pPlayer, MMatchCharIt
 	return false;
 }
 
-bool CCMatchServer::CharFinalize(const MUID& uidPlayer)
+bool CCMatchServer::CharFinalize(const CCUID& uidPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
@@ -422,19 +422,19 @@ bool CCMatchServer::CharFinalize(const MUID& uidPlayer)
 	return true;
 }
 
-void CCMatchServer::OnRequestMySimpleCharInfo(const MUID& uidPlayer)
+void CCMatchServer::OnRequestMySimpleCharInfo(const CCUID& uidPlayer)
 {
 	ResponseMySimpleCharInfo(uidPlayer);
 }
 
-void CCMatchServer::ResponseMySimpleCharInfo(const MUID& uidPlayer)
+void CCMatchServer::ResponseMySimpleCharInfo(const CCUID& uidPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
 
 	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_MY_SIMPLE_CHARINFO, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_MY_SIMPLE_CHARINFO, CCUID(0,0));
 
 	void* pMyCharInfoArray = MMakeBlobArray(sizeof(MTD_MySimpleCharInfo), 1);
 	MTD_MySimpleCharInfo* pMyCharInfo = (MTD_MySimpleCharInfo*)MGetBlobArrayElement(pMyCharInfoArray, 0);
@@ -449,7 +449,7 @@ void CCMatchServer::ResponseMySimpleCharInfo(const MUID& uidPlayer)
 	RouteToListener(pObj, pNewCmd);
 }
 
-void CCMatchServer::OnRequestCopyToTestServer(const MUID& uidPlayer)
+void CCMatchServer::OnRequestCopyToTestServer(const CCUID& uidPlayer)
 {
 #ifndef _DEBUG
 	return;
@@ -466,17 +466,17 @@ void CCMatchServer::OnRequestCopyToTestServer(const MUID& uidPlayer)
 	ResponseCopyToTestServer(uidPlayer, nResult);
 }
 
-void CCMatchServer::ResponseCopyToTestServer(const MUID& uidPlayer, const int nResult)
+void CCMatchServer::ResponseCopyToTestServer(const CCUID& uidPlayer, const int nResult)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_COPY_TO_TESTSERVER, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_COPY_TO_TESTSERVER, CCUID(0,0));
 	pNewCmd->AddParameter(new MCommandParameterInt(nResult));		// result
 	RouteToListener(pObj, pNewCmd);
 }
 
-void CCMatchServer::OnFriendAdd(const MUID& uidPlayer, const char* pszName)
+void CCMatchServer::OnFriendAdd(const CCUID& uidPlayer, const char* pszName)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
@@ -529,7 +529,7 @@ void CCMatchServer::OnFriendAdd(const MUID& uidPlayer, const char* pszName)
 	NotifyMessage(uidPlayer, MATCHNOTIFY_FRIEND_ADD_SUCCEED);
 }
 
-void CCMatchServer::OnFriendRemove(const MUID& uidPlayer, const char* pszName)
+void CCMatchServer::OnFriendRemove(const CCUID& uidPlayer, const char* pszName)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
@@ -565,7 +565,7 @@ void CCMatchServer::OnFriendRemove(const MUID& uidPlayer, const char* pszName)
 	NotifyMessage(uidPlayer, MATCHNOTIFY_FRIEND_REMOVE_SUCCEED);
 }
 
-void CCMatchServer::OnFriendList(const MUID& uidPlayer)
+void CCMatchServer::OnFriendList(const CCUID& uidPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
@@ -587,7 +587,7 @@ void CCMatchServer::OnFriendList(const MUID& uidPlayer)
 	FriendList(uidPlayer);
 }
 
-void CCMatchServer::FriendList(const MUID& uidPlayer)
+void CCMatchServer::FriendList(const CCUID& uidPlayer)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
@@ -608,25 +608,25 @@ void CCMatchServer::FriendList(const MUID& uidPlayer)
 		strcpy(pListNode->szDescription, pNode->szDescription);
 	}
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_FRIENDLIST, MUID(0,0));
+	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_FRIENDLIST, CCUID(0,0));
 	pCmd->AddParameter(new MCommandParameterBlob(pListArray, MGetBlobArraySize(pListArray)));
 	MEraseBlobArray(pListArray);
 	RouteToListener(pObj, pCmd);
 }
 
-void CCMatchServer::OnFriendMsg(const MUID& uidPlayer, const char* szMsg)
+void CCMatchServer::OnFriendMsg(const CCUID& uidPlayer, const char* szMsg)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
 
 }
 
-void CCMatchServer::OnRequestCharInfoDetail(const MUID& uidChar, const char* szCharName)
+void CCMatchServer::OnRequestCharInfoDetail(const CCUID& uidChar, const char* szCharName)
 {
 	ResponseCharInfoDetail(uidChar, szCharName);
 }
 
-void CCMatchServer::ResponseCharInfoDetail(const MUID& uidChar, const char* szCharName)
+void CCMatchServer::ResponseCharInfoDetail(const CCUID& uidChar, const char* szCharName)
 {
 	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
@@ -644,7 +644,7 @@ void CCMatchServer::ResponseCharInfoDetail(const MUID& uidChar, const char* szCh
 	CopyCharInfoDetailForTrans(&trans_charinfo_detail, pTarObject->GetCharInfo(), pTarObject);
 	
 
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CHARINFO_DETAIL, MUID(0,0));
+	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CHARINFO_DETAIL, CCUID(0,0));
 
 	void* pCharInfoArray = MMakeBlobArray(sizeof(MTD_CharInfo_Detail), 1);
 	MTD_CharInfo_Detail* pTransCharInfoDetail = (MTD_CharInfo_Detail*)MGetBlobArrayElement(pCharInfoArray, 0);

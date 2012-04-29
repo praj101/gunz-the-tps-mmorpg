@@ -9,7 +9,7 @@
 #include "CCMatchShop.h"
 #include "CCAsyncDBJob_BuyQuestItem.h"
 
-void CCMatchServer::OnRequestNPCDead(const MUID& uidSender, const MUID& uidKiller, MUID& uidNPC, MVector& pos)
+void CCMatchServer::OnRequestNPCDead(const CCUID& uidSender, const CCUID& uidKiller, CCUID& uidNPC, MVector& pos)
 {
 	CCMatchObject* pSender = GetObject(uidSender);
 	if (!IsEnabledObject(pSender)) { ASSERT( 0 ); return; }
@@ -31,7 +31,7 @@ void CCMatchServer::OnRequestNPCDead(const MUID& uidSender, const MUID& uidKille
 
 		MMatchRuleBaseQuest* pQuestRule  = reinterpret_cast< MMatchRuleBaseQuest* >( pRule );
 
-		pQuestRule->OnRequestNPCDead((MUID&)uidSender, (MUID&)uidKiller, uidNPC, pos);
+		pQuestRule->OnRequestNPCDead((CCUID&)uidSender, (CCUID&)uidKiller, uidNPC, pos);
 	}
 	else
 	{
@@ -40,7 +40,7 @@ void CCMatchServer::OnRequestNPCDead(const MUID& uidSender, const MUID& uidKille
 }
 
 
-void CCMatchServer::OnQuestRequestDead(const MUID& uidVictim)
+void CCMatchServer::OnQuestRequestDead(const CCUID& uidVictim)
 {
 	CCMatchObject* pVictim = GetObject(uidVictim);
 	if (pVictim == NULL) return;
@@ -51,11 +51,11 @@ void CCMatchServer::OnQuestRequestDead(const MUID& uidVictim)
 	if ( !MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType())) return;
 
 	MMatchRuleBaseQuest* pQuestRule = (MMatchRuleBaseQuest*)pStage->GetRule();
-	pQuestRule->OnRequestPlayerDead((MUID&)uidVictim);
+	pQuestRule->OnRequestPlayerDead((CCUID&)uidVictim);
 
 	// 서버는 죽은줄 알고있었는데 또 죽었다고 신고들어온경우 죽었다는 메시지만 라우팅한다
 	if (pVictim->CheckAlive() == false) {	
-		MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SUICIDE, MUID(0,0));
+		MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SUICIDE, CCUID(0,0));
 		int nResult = MOK;
 		pNew->AddParameter(new MCommandParameterInt(nResult));
 		pNew->AddParameter(new MCommandParameterUID(pVictim->GetUID()));
@@ -67,14 +67,14 @@ void CCMatchServer::OnQuestRequestDead(const MUID& uidVictim)
 
 
 	// 죽었다는 메세지 보냄
-	MCommand* pCmd = CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, MUID(0,0));
+	MCommand* pCmd = CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, CCUID(0,0));
 	pCmd->AddParameter(new MCommandParameterUID(uidVictim));
 	RouteToBattle(pStage->GetUID(), pCmd);	
 }
 
 
 
-void CCMatchServer::OnQuestTestRequestNPCSpawn(const MUID& uidPlayer, int nNPCType, int nNPCCount)
+void CCMatchServer::OnQuestTestRequestNPCSpawn(const CCUID& uidPlayer, int nNPCType, int nNPCCount)
 {
 #ifdef _DEBUG
 	if (MGetServerConfig()->GetServerMode() != MSM_TEST) return;
@@ -96,7 +96,7 @@ void CCMatchServer::OnQuestTestRequestNPCSpawn(const MUID& uidPlayer, int nNPCTy
 #endif
 }
 
-void CCMatchServer::OnQuestTestRequestClearNPC(const MUID& uidPlayer)
+void CCMatchServer::OnQuestTestRequestClearNPC(const CCUID& uidPlayer)
 {
 #ifndef _DEBUG
 	return;
@@ -122,7 +122,7 @@ void CCMatchServer::OnQuestTestRequestClearNPC(const MUID& uidPlayer)
 }
 
 
-void CCMatchServer::OnQuestTestRequestSectorClear(const MUID& uidPlayer)
+void CCMatchServer::OnQuestTestRequestSectorClear(const CCUID& uidPlayer)
 {
 #ifndef _DEBUG
 	return;
@@ -147,7 +147,7 @@ void CCMatchServer::OnQuestTestRequestSectorClear(const MUID& uidPlayer)
 
 }
 
-void CCMatchServer::OnQuestTestRequestQuestFinish(const MUID& uidPlayer)
+void CCMatchServer::OnQuestTestRequestQuestFinish(const CCUID& uidPlayer)
 {
 #ifndef _DEBUG
 	return;
@@ -174,7 +174,7 @@ void CCMatchServer::OnQuestTestRequestQuestFinish(const MUID& uidPlayer)
 
 
 
-void CCMatchServer::OnQuestRequestMovetoPortal(const MUID& uidPlayer)
+void CCMatchServer::OnQuestRequestMovetoPortal(const CCUID& uidPlayer)
 {
 	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
@@ -187,7 +187,7 @@ void CCMatchServer::OnQuestRequestMovetoPortal(const MUID& uidPlayer)
 	pQuestRule->OnRequestMovetoPortal(uidPlayer);
 }
 
-void CCMatchServer::OnQuestReadyToNewSector(const MUID& uidPlayer)
+void CCMatchServer::OnQuestReadyToNewSector(const CCUID& uidPlayer)
 {
 	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
@@ -202,14 +202,14 @@ void CCMatchServer::OnQuestReadyToNewSector(const MUID& uidPlayer)
 }
 
 
-void CCMatchServer::OnRequestCharQuestItemList( const MUID& uidSender )
+void CCMatchServer::OnRequestCharQuestItemList( const CCUID& uidSender )
 {
 	if( MSM_TEST != MGetServerConfig()->GetServerMode() ) 
 		return;
 
 	OnResponseCharQuestItemList( uidSender );
 }
-void CCMatchServer::OnResponseCharQuestItemList( const MUID& uidSender )
+void CCMatchServer::OnResponseCharQuestItemList( const CCUID& uidSender )
 {
 	CCMatchObject* pPlayer = GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) )
@@ -225,7 +225,7 @@ void CCMatchServer::OnResponseCharQuestItemList( const MUID& uidSender )
 		}
 	}
 
-	MCommand* pNewCmd = CreateCommand( MC_MATCH_RESPONSE_CHAR_QUEST_ITEM_LIST, MUID(0, 0) );
+	MCommand* pNewCmd = CreateCommand( MC_MATCH_RESPONSE_CHAR_QUEST_ITEM_LIST, CCUID(0, 0) );
 	if( 0 == pNewCmd )
 	{
 		cclog( "CCMatchServer::OnResponseCharQuestItemList - Command생성 실패.\n" );
@@ -252,13 +252,13 @@ void CCMatchServer::OnResponseCharQuestItemList( const MUID& uidSender )
 	RouteToListener( pPlayer, pNewCmd );
 }
 
-void CCMatchServer::OnRequestBuyQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nItemCount )
+void CCMatchServer::OnRequestBuyQuestItem( const CCUID& uidSender, const unsigned long int nItemID, const int nItemCount )
 {
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST) {
 		OnResponseBuyQuestItem( uidSender, nItemID, nItemCount );
 	}
 }
-void CCMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nItemCount )
+void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsigned long int nItemID, const int nItemCount )
 {
 	CCMatchObject* pPlayer = GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) ) return;
@@ -286,7 +286,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigne
 		// 바운티가 부족한다는 정보를 알려줘야 함.
 		// 임시로 MMatchItem에서 사용하는걸 사용했음.
 		// 필요하면 Quest item에 맞는 커맨드로 수정해야 함.
-		MCommand* pBPLess = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, MUID(0,0) );
+		MCommand* pBPLess = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
 		pBPLess->AddParameter( new MCmdParamInt(MERR_TOO_EXPENSIVE_BOUNTY) );
 		pBPLess->AddParameter( new MCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
 		RouteToListener(pPlayer, pBPLess);
@@ -302,7 +302,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigne
 		} else {
 			// 가질수 있는 아이템의 최대 수를 넘어섰음.
 			// 임시로 MMatchItem에서 사용하는걸 사용했음. 필요하면 Quest item에 맞는 커맨드로 수정해야 함.
-			MCommand* pTooMany = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, MUID(0,0) );
+			MCommand* pTooMany = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
 			pTooMany->AddParameter( new MCmdParamInt(MERR_TOO_MANY_ITEM) );
 			pTooMany->AddParameter( new MCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
 			RouteToListener(pPlayer, pTooMany);
@@ -334,7 +334,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigne
 	pPlayer->m_DBJobQ.DBJobQ.push_back( pBuyQuestItemJob );
 }
 
-void CCMatchServer::OnRequestSellQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nCount )
+void CCMatchServer::OnRequestSellQuestItem( const CCUID& uidSender, const unsigned long int nItemID, const int nCount )
 {
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
 	{
@@ -342,7 +342,7 @@ void CCMatchServer::OnRequestSellQuestItem( const MUID& uidSender, const unsigne
 	}
 }
 
-void CCMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsigned long int nItemID, const int nCount )
+void CCMatchServer::OnResponseSellQuestItem( const CCUID& uidSender, const unsigned long int nItemID, const int nCount )
 {
 	CCMatchObject* pPlayer = GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) )
@@ -379,7 +379,7 @@ void CCMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsign
 		int nPrice = ( pQItemDesc->GetSellBountyValue(nCount) );
 		if (!m_MatchDBMgr.UpdateCharBP(pPlayer->GetCharInfo()->m_nCID, nPrice))	{
 			/*
-			MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SELL_ITEM, MUID(0,0));
+			MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SELL_ITEM, CCUID(0,0));
 			pNew->AddParameter(new MCmdParamInt(MERR_CANNOT_SELL_ITEM));
 			RouteToListener(pObj, pNew);
 
@@ -401,7 +401,7 @@ void CCMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsign
 	// 아이템 거래 카운트 증가. 내부에서 디비 업데이트 결정.
 	pPlayer->GetCharInfo()->GetDBQuestCachingData().IncreaseShopTradeCount();
 
-	MCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_SELL_QUEST_ITEM, MUID(0, 0) );
+	MCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_SELL_QUEST_ITEM, CCUID(0, 0) );
 	if( 0 == pCmd ) {
 		return;
 	}
@@ -415,7 +415,7 @@ void CCMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsign
 }
 
 
-void CCMatchServer::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
+void CCMatchServer::OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 #ifdef _QUEST_ITEM
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
@@ -454,7 +454,7 @@ void CCMatchServer::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, con
 }
 
 
-void CCMatchServer::OnRequestCallbackSacrificeItem( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
+void CCMatchServer::OnRequestCallbackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 #ifdef _QUEST_ITEM
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
@@ -489,7 +489,7 @@ void CCMatchServer::OnRequestCallbackSacrificeItem( const MUID& uidSender, const
 #endif
 }
 
-void CCMatchServer::OnRequestQL( const MUID& uidSender )
+void CCMatchServer::OnRequestQL( const CCUID& uidSender )
 {
 #ifdef _QUEST_ITEM
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
@@ -525,7 +525,7 @@ void CCMatchServer::OnRequestQL( const MUID& uidSender )
 }
 
 
-void CCMatchServer::OnRequestSacrificeSlotInfo( const MUID& uidSender )
+void CCMatchServer::OnRequestSacrificeSlotInfo( const CCUID& uidSender )
 {
 #ifdef _QUEST_ITEM
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
@@ -560,7 +560,7 @@ void CCMatchServer::OnRequestSacrificeSlotInfo( const MUID& uidSender )
 #endif
 }
 
-void CCMatchServer::OnQuestStageMapset(const MUID& uidStage, int nMapsetID)
+void CCMatchServer::OnQuestStageMapset(const CCUID& uidStage, int nMapsetID)
 {
 	if (QuestTestServer())
 	{
@@ -571,7 +571,7 @@ void CCMatchServer::OnQuestStageMapset(const MUID& uidStage, int nMapsetID)
 }
 
 
-void CCMatchServer::OnRequestMonsterBibleInfo( const MUID& uidSender )
+void CCMatchServer::OnRequestMonsterBibleInfo( const CCUID& uidSender )
 {
 	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
 	{
@@ -587,7 +587,7 @@ void CCMatchServer::OnRequestMonsterBibleInfo( const MUID& uidSender )
 }
 
 
-void CCMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
+void CCMatchServer::OnResponseMonsterBibleInfo( const CCUID& uidSender )
 {
 	CCMatchObject* pObj = GetObject( uidSender );
 	if( !IsEnabledObject(pObj) )
@@ -621,7 +621,7 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
 	memcpy( pMonBible, &(pCharInfo->m_QMonsterBible), MONSTER_BIBLE_SIZE );
 
 
-	MCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_MONSTER_BIBLE_INFO, MUID(0, 0) );
+	MCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_MONSTER_BIBLE_INFO, CCUID(0, 0) );
 	if( 0 == pCmd )
 	{
 		cclog( "CCMatchServer::OnResponseMonsterBibleInfo - create command fail.\n" );
@@ -637,7 +637,7 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
 }
 
 
-void CCMatchServer::OnQuestPong( const MUID& uidSender )
+void CCMatchServer::OnQuestPong( const CCUID& uidSender )
 {
 	CCMatchObject* pObj = GetObject( uidSender );
 	if( 0 == pObj ) 

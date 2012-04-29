@@ -298,7 +298,7 @@ bool MMatchBuffDescMgr::SetBuffName(MMatchItemDescMgr* pItemDescMgr)
 // MMatchBuff
 void MMatchBuff::Reset()
 {
-	m_uidBuff = MUID(0, 0);
+	m_uidBuff = CCUID(0, 0);
 
 	m_nBuffID				= 0;
 	m_nRegTime				= 0;
@@ -307,7 +307,7 @@ void MMatchBuff::Reset()
 	m_pBuffDesc = NULL;
 }
 
-bool MMatchBuff::Set(MUID& uidBuff, int nBuffID, int nRegTime, int nBuffPeriodRemainder)
+bool MMatchBuff::Set(CCUID& uidBuff, int nBuffID, int nRegTime, int nBuffPeriodRemainder)
 {
 	m_pBuffDesc = MGetMatchBuffDescMgr()->GetBuffDesc(nBuffID);
 	if( m_pBuffDesc == NULL ) return false;
@@ -350,7 +350,7 @@ void MMatchShortBuffMap::Clear()
 	}
 }
 
-void MMatchShortBuffMap::Remove(MUID& uidBuff)
+void MMatchShortBuffMap::Remove(CCUID& uidBuff)
 {
 	iterator iter = find(uidBuff);
 	if( iter != end() ) {
@@ -359,11 +359,11 @@ void MMatchShortBuffMap::Remove(MUID& uidBuff)
 	}
 }
 
-bool MMatchShortBuffMap::Insert(MUID& uidBuff, MMatchShortBuff* pBuff)
+bool MMatchShortBuffMap::Insert(CCUID& uidBuff, MMatchShortBuff* pBuff)
 {
 	iterator iter = find(uidBuff);
 	if( iter != end() ) { _ASSERT(0); return false; }
-	insert(pair<MUID, MMatchShortBuff*>(uidBuff, pBuff));
+	insert(pair<CCUID, MMatchShortBuff*>(uidBuff, pBuff));
 	return true;
 }
 

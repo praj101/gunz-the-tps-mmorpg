@@ -56,9 +56,9 @@ void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup)
 	m_GroupList.push_back(pGroup);
 
 	// Ladder 상대 찾는중 알림(for UI)
-	for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
+	for (list<CCUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
 	{
-		MUID uidPlayer = (*i);
+		CCUID uidPlayer = (*i);
 		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
 		
 		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uidPlayer);
@@ -110,9 +110,9 @@ void MLadderMgr::CancelChallenge(int nGroupID, const char* pszCancelName)
 	MLadderGroupMap* pGroupMap = GetWaitGroupContainer((MLADDERTYPE)pGroup->GetLadderType());
 	if (pGroupMap == NULL) return;
 
-	for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
+	for (list<CCUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
 	{
-		MUID uidMember = (*i);
+		CCUID uidMember = (*i);
 
 		CCMatchObject* pMemberObject = CCMatchServer::GetInstance()->GetObject(uidMember);
 		if (!IsEnabledObject(pMemberObject)) continue;
@@ -202,10 +202,10 @@ void MLadderMgr::CleaningGarbages()
 
 			// 한명이라도 접속을 끊었으면 Cancel한다.
 			bool bExistCannotPlayer = false;
-			for (list<MUID>::iterator itorPlayerUID=pGroup->GetPlayerListBegin(); itorPlayerUID!= pGroup->GetPlayerListEnd(); 
+			for (list<CCUID>::iterator itorPlayerUID=pGroup->GetPlayerListBegin(); itorPlayerUID!= pGroup->GetPlayerListEnd(); 
 				itorPlayerUID++)
 			{
-				MUID uidMember = (*itorPlayerUID);
+				CCUID uidMember = (*itorPlayerUID);
 
 				CCMatchObject* pMemberObject = CCMatchServer::GetInstance()->GetObject(uidMember);
 				if (!IsEnabledObject(pMemberObject))

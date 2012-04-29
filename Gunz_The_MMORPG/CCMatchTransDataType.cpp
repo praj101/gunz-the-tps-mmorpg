@@ -2,7 +2,7 @@
 #include "CCMatchTransDataType.h"
 #include "CCMath.h"
 
-void Make_MTDItemNode(MTD_ItemNode* pout, MUID& uidItem, unsigned long int nItemID, int nRentMinutePeriodRemainder, int iMaxUseHour, int nCount)
+void Make_MTDItemNode(MTD_ItemNode* pout, CCUID& uidItem, unsigned long int nItemID, int nRentMinutePeriodRemainder, int iMaxUseHour, int nCount)
 {
 	pout->uidItem = uidItem;
 	pout->nItemID = nItemID;

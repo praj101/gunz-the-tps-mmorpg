@@ -120,7 +120,7 @@ inline MMatchBuffDescMgr* MGetMatchBuffDescMgr() { return MMatchBuffDescMgr::Get
 class MMatchBuff
 {
 protected:	
-	MUID	m_uidBuff;
+	CCUID	m_uidBuff;
 
 	int		m_nBuffID;
 	int		m_nRegTime;	
@@ -133,11 +133,11 @@ public:
 	~MMatchBuff(){}
 
 	virtual void Reset();
-	virtual bool Set(MUID& uidBuff, int nBuffID, int nRegTime, int nBuffPeriodRemainder);
+	virtual bool Set(CCUID& uidBuff, int nBuffID, int nRegTime, int nBuffPeriodRemainder);
 
 	bool IsExpired(int nGlobalTick);
 
-	MUID GetBuffUID()				{ return m_uidBuff; }
+	CCUID GetBuffUID()				{ return m_uidBuff; }
 	int  GetBuffID()				{ return m_pBuffDesc == NULL ? 0 : m_pBuffDesc->m_nBuffID; }
 	int  GetBuffPeriod()			{ return m_pBuffDesc == NULL ? 0 : m_pBuffDesc->m_nBuffPeriod.Ref(); }	
 	
@@ -159,13 +159,13 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 // MMatchShortBuffMap
-class MMatchShortBuffMap : public map<MUID, MMatchShortBuff*>
+class MMatchShortBuffMap : public map<CCUID, MMatchShortBuff*>
 {
 protected:
 public:
 	void Clear();
-	void Remove(MUID& uidBuff);
-	bool Insert(MUID& uidBuff, MMatchShortBuff* pBuff);
+	void Remove(CCUID& uidBuff);
+	bool Insert(CCUID& uidBuff, MMatchShortBuff* pBuff);
 	MMatchShortBuff* GetShortBuffByBuffID(int nBuffID);
 };
 

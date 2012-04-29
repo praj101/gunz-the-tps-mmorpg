@@ -96,7 +96,7 @@ private:
 	void ClearItems();
 
 	void RouteSpawnWorldItem(MMatchWorldItem* pWorldItem);
-	void RouteObtainWorldItem(const MUID& uidPlayer, int nWorldItemUID);
+	void RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldItemUID);
 	void RouteRemoveWorldItem(int nWorldItemUID);
 public:
 	MMatchWorldItemManager();

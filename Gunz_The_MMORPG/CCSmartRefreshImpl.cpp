@@ -44,7 +44,7 @@ bool MRefreshCategoryClanMemberImpl::OnUpdateChecksum(unsigned long nTick)
 {
 	MMatchClan* pClan = GetMatchClan();
 	unsigned long nChecksum = 0;
-	for (MUIDRefCache::iterator itor= pClan->GetMemberBegin(); itor != pClan->GetMemberEnd(); ++itor) 
+	for (CCUIDRefCache::iterator itor= pClan->GetMemberBegin(); itor != pClan->GetMemberEnd(); ++itor) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 

@@ -6,10 +6,10 @@ class CCMatchServer;
 
 struct CMD_HISTORY_INFO
 {
-	CMD_HISTORY_INFO() : nCmdID( 0 ), uidSender( MUID(0, 0) ) {}
+	CMD_HISTORY_INFO() : nCmdID( 0 ), uidSender( CCUID(0, 0) ) {}
 
 	int		nCmdID;
-	MUID	uidSender;	// 단지 같은 유저가 보낸 커맨드인지 구별만 하기 위해서.
+	CCUID	uidSender;	// 단지 같은 유저가 보낸 커맨드인지 구별만 하기 위해서.
 };
 
 
@@ -33,7 +33,7 @@ protected:
 	CMD_HISTORY_INFO	m_CmdHistory[MSTATUS_MAX_CMD_HISTORY];
 	int					m_nHistoryCursor;
 	int					m_nRunStatus;
-	void AddCmdHistory(unsigned long int nCmdID, const MUID& uidSender);
+	void AddCmdHistory(unsigned long int nCmdID, const CCUID& uidSender);
 
 	char				m_szDump[MATCHSTATUS_DUMP_LEN];
 public:
@@ -48,7 +48,7 @@ public:
 		m_nTickCommandQueueCount = nCmdCount;
 		m_nTotalCommandQueueCount += m_nTickCommandQueueCount;
 	}
-	void AddCmd(unsigned long int nCmdID, const MUID& uidSender, int nCount = 1, unsigned long int nTime = 0)
+	void AddCmd(unsigned long int nCmdID, const CCUID& uidSender, int nCount = 1, unsigned long int nTime = 0)
 	{
 		AddCmdHistory(nCmdID, uidSender);
 
