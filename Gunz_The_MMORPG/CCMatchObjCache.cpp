@@ -5,7 +5,7 @@
 #include "MCommandCommunicator.h"
 #include "MBlobArray.h"
 #include "MMatchTransDataType.h"
-#include "MMatchServer.h" 
+#include "CCMatchServer.h" 
 
 
 MMatchObjectCacheBuilder::MMatchObjectCacheBuilder()

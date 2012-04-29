@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MVoteMgr.h"
 #include <algorithm>
-#include "MMatchServer.h"
+#include "CCMatchServer.h"
 #include "MSharedCommandTable.h"
 
 

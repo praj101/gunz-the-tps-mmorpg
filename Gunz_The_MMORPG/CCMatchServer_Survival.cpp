@@ -9,7 +9,7 @@
 // 함수의 파라미터 등도 수정하셔야 될겁니다. 일단 최초의 프로토타입 뿐입니다.
 
 #include "stdafx.h"
-#include "MMatchServer.h"
+#include "CCMatchServer.h"
 
 #include "MAsyncDBJob_SurvivalMode.h"
 

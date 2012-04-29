@@ -8,7 +8,7 @@
 #include "MAsyncDBJob_DuelTournament.h"
 
 #include "MMatchConfig.h"
-#include "MMatchServer.h"
+#include "CCMatchServer.h"
 #include "MMatchDuelTournamentMgr.h"
 
 void MMatchServer::ResponseDuelTournamentJoinChallenge(MUID &uidPlayer, MDUELTOURNAMENTTYPE nType)

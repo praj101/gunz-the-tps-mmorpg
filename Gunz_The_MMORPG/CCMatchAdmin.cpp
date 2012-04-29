@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MMatchAdmin.h"
-#include "MMatchServer.h"
+#include "CCMatchServer.h"
 #include "MMatchStage.h"
 #include "MMatchItem.h"
 #include "MMatchRule.h"

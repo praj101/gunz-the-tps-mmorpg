@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MMatchShutdown.h"
-#include "MMatchServer.h"
+#include "CCMatchServer.h"
 #include "MSharedCommandTable.h"
 
 
