@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCMatchServer.h"
-#include "MMatchStage.h"
+#include "CCMatchStage.h"
 #include "MMatchRule.h"
 #include "MMatchRuleQuest.h"
 #include "MMatchGameType.h"

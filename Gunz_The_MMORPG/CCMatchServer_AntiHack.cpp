@@ -2,7 +2,7 @@
 #include "CCMatchServer.h"
 #include "MSharedCommandTable.h"
 #include "MErrorTable.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "Msg.h"
 #include "CCMatchConfig.h"
 #include "MCommandCommunicator.h"

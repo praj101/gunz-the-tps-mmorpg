@@ -4,7 +4,7 @@ using namespace std;
 #include "CCUID.h"
 #include "CCMatchGlobal.h"
 #include "MMatchGameType.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "MMatchMap.h"
 
 class MMatchObject;

@@ -20,8 +20,8 @@ _USING_NAMESPACE_REALSPACE2
 
 #include "MObject.h"
 //#include "MObjectCharacter.h"
-#include "MMatchObject.h"
-#include "MMatchStage.h"
+#include "CCMatchObject.h"
+#include "CCMatchStage.h"
 #include "MMatchItem.h"
 #include "MMatchMap.h"
 #include "MSafeUDP.h"

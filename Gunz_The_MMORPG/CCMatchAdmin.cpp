@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "CCMatchAdmin.h"
 #include "CCMatchServer.h"
-#include "MMatchStage.h"
+#include "CCMatchStage.h"
 #include "MMatchItem.h"
 #include "MMatchRule.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "MMatchObjCache.h"
 #include "MSharedCommandTable.h"
 

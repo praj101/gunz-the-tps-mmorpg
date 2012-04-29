@@ -4,7 +4,7 @@
 #include "MErrorTable.h"
 #include "CCBlobArray.h"
 #include "MObject.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "Msg.h"
 #include "CCMatchConfig.h"
 #include "MCommandCommunicator.h"
