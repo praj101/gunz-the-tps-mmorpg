@@ -230,86 +230,6 @@
 				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
-				<File
-					RelativePath=".\CCLadderMgr.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCLadderPicker.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCLadderStatistics.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchConfig.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Admin.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Agent.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_AntiHack.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Async.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Channel.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Char.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Clan.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_DuelTournament.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Item.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Ladder.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Login.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_OnCommand.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Quest.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Stage.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCMatchServer_Survival.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CCTeamGameStrategy.cpp"
-					>
-				</File>
 				<Filter
 					Name="Widgets"
 					>
@@ -1433,11 +1353,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCLadderMgr.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCLadderMgr.h"
 			>
 		</File>
 		<File
+			RelativePath=".\CCLadderPicker.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCLadderPicker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCLadderStatistics.cpp"
 			>
 		</File>
 		<File
@@ -1478,6 +1410,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchCharBRInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchConfig.cpp"
 			>
 		</File>
 		<File
@@ -1617,6 +1553,66 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchServer_Admin.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Agent.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_AntiHack.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Async.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Channel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Char.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Clan.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_DuelTournament.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Item.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Ladder.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Login.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_OnCommand.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Quest.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Stage.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchServer_Survival.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchStage.cpp"
 			>
 		</File>
@@ -1658,6 +1654,10 @@
 		</File>
 		<File
 			RelativePath=".\CCSmartRefreshImpl.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCTeamGameStrategy.cpp"
 			>
 		</File>
 		<File
