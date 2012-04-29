@@ -128,7 +128,7 @@ bool CCScrollBar::OnEvent(CCEvent* pEvent, CCListener* pListener)
 			if(nThumbPos<0) nThumbPos = 0;
 			else if(nThumbPos>=nThumbMoveRange) nThumbPos = nThumbMoveRange-1;
 
-			if(m_iScrollBarType==MSBT_VERTICAL)
+			if(m_iScrollBarType==CCBT_VERTICAL)
 				m_pThumb->SetPosition(m_pThumb->GetRect().x, r.y+m_pUp->GetRect().h + nThumbPos);
 			else
 				m_pThumb->SetPosition(r.x+m_pUp->GetRect().w + nThumbPos, m_pThumb->GetRect().y);
@@ -141,7 +141,7 @@ bool CCScrollBar::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		break;
 	}
 
-	if(pEvent->iMessage!=MWM_CHAR && r.InPoint(pEvent->sPos)==true) 
+	if(pEvent->iMessage!=CCWM_CHAR && r.InPoint(pEvent->sPos)==true) 
 		return true;
 
 	return false;
