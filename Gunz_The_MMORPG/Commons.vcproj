@@ -1184,6 +1184,42 @@
 			Name="Completed"
 			>
 			<Filter
+				Name="Match Channel"
+				>
+				<File
+					RelativePath=".\CCMatchChannel.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchChannel.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Match Clan"
+				>
+				<File
+					RelativePath=".\CCMatchClan.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchClan.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Match Friend Info"
+				>
+				<File
+					RelativePath=".\CCMatchFriendInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchFriendInfo.h"
+					>
+				</File>
+			</Filter>
+			<Filter
 				Name="Mem Pool"
 				>
 				<File
@@ -1192,6 +1228,18 @@
 				</File>
 				<File
 					RelativePath=".\CCMemPool.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Match Item"
+				>
+				<File
+					RelativePath=".\CCMatchItem.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchItem.h"
 					>
 				</File>
 			</Filter>
@@ -1220,68 +1268,16 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Match"
+				Name="Match Object"
 				>
-				<Filter
-					Name="Match Channel"
+				<File
+					RelativePath=".\CCMatchObject.cpp"
 					>
-					<File
-						RelativePath=".\CCMatchChannel.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchChannel.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Match Clan"
+				</File>
+				<File
+					RelativePath=".\CCMatchObject.h"
 					>
-					<File
-						RelativePath=".\CCMatchClan.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchClan.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Match Friend Info"
-					>
-					<File
-						RelativePath=".\CCMatchFriendInfo.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchFriendInfo.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Match Item"
-					>
-					<File
-						RelativePath=".\CCMatchItem.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchItem.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Match Object"
-					>
-					<File
-						RelativePath=".\CCMatchObject.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchObject.h"
-						>
-					</File>
-				</Filter>
+				</File>
 			</Filter>
 		</Filter>
 		<File
