@@ -689,7 +689,7 @@ void CCWidget::ReleaseExclusive(void){
 		m_pParent->RemoveExclusive(this);
 }
 
-CCCursor* CCWidget::SetCursor(MCursor* pCursor){
+CCCursor* CCWidget::SetCursor(CCCursor* pCursor){
 	CCCursor* pTemp = m_pCursor;
 	m_pCursor = pCursor;
 	return pTemp;

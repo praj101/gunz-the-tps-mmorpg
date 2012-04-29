@@ -12,7 +12,7 @@ sRect CCSliderThumbLook::GetClientRect(CCSliderThumb* pThumb, sRect& r){
 }
 
 sSize CCSliderThumbLook::GetDefaultSize(CCSliderThumb* pThumb){
-	return MSIZE(MSCROLLBAR_DEFAULT_WIDTH, MSCROLLBAR_DEFAULT_WIDTH);
+	return sSize(CCSCROLLBAR_DEFAULT_WIDTH, CCSCROLLBAR_DEFAULT_WIDTH);
 }
 
 IMPLEMENT_LOOK(CCSliderThumb, CCSliderThumbLook)
@@ -49,7 +49,7 @@ CCSlider::CCSlider(const char* szName, CCWidget* pParent, CCListener* pListener)
 }
 
 CCSlider::CCSlider(CCWidget* pParent, CCListener* pListener)
-: CCScrollBar(pParent, pListener, MSBT_HORIZONTAL){
+: CCScrollBar(pParent, pListener, CCBT_HORIZONTAL){
 	Initialize();
 }
 
