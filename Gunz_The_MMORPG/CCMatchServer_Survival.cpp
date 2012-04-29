@@ -11,7 +11,7 @@
 #include "stdafx.h"
 #include "CCMatchServer.h"
 
-#include "MAsyncDBJob_SurvivalMode.h"
+#include "CCAsyncDBJob_SurvivalMode.h"
 
 bool MMatchServer::OnRequestSurvivalModeGroupRanking()
 {
