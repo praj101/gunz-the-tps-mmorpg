@@ -6,7 +6,7 @@
 #include "MMatchGameType.h"
 #include "MMatchConfig.h"
 #include "CCBlobArray.h"
-#include "MMatchShop.h"
+#include "CCMatchShop.h"
 #include "MAsyncDBJob_BuyQuestItem.h"
 
 void MMatchServer::OnRequestNPCDead(const MUID& uidSender, const MUID& uidKiller, MUID& uidNPC, MVector& pos)

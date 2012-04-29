@@ -15,7 +15,7 @@
 #include "MMatchFormula.h"
 #include "MMatchConfig.h"
 #include "MCommandCommunicator.h"
-#include "MMatchShop.h"
+#include "CCMatchShop.h"
 #include "MMatchTransDataType.h"
 #include "MDebug.h"	
 #include "MMatchAuth.h"
