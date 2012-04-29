@@ -3,7 +3,7 @@
 
 #include "CCBlobArray.h"
 #include "CCMatchServer.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 
 #include <algorithm>
 

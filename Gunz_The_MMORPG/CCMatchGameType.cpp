@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "MMatchGameType.h"
-#include "MMatchMap.h"
+#include "CCMatchGameType.h"
+#include "CCMatchMap.h"
 
 MMatchGameTypeMgr::MMatchGameTypeMgr() : MBaseGameTypeCatalogue()
 {

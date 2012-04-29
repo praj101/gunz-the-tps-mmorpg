@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MMatchRuleBaseQuest.h"
-#include "MMath.h"
+#include "CCMath.h"
 #include <mmsystem.h>
 #include "CCBlobArray.h"
 #include "MQuestFormula.h"

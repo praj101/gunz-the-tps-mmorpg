@@ -10,7 +10,7 @@
 #include "Msg.h"
 #include "CCMatchStage.h"
 #include "MCommandCommunicator.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "MDebug.h"
 #include "RTypes.h"
 #include "MMatchStatus.h"

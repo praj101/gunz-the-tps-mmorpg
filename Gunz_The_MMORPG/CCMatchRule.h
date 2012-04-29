@@ -2,9 +2,9 @@
 #define _MMATCHRULE_H
 
 #include "CCMatchItem.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "CCUID.h"
-#include "MMatchGameType.h"
+#include "CCMatchGameType.h"
 #include "MQuestPlayer.h"
 #include "MMatchEventManager.h"
 

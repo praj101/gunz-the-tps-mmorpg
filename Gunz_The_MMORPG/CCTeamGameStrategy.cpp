@@ -9,7 +9,7 @@
 #include "CCMatchStage.h"
 #include "CCMatchConfig.h"
 #include "MCommandCommunicator.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "MDebug.h"
 #include "MLadderMgr.h"
 #include "MLadderGroup.h"

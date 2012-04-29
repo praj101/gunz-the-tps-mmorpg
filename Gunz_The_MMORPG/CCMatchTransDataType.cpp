@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "MMatchTransDataType.h"
-#include "MMath.h"
+#include "CCMatchTransDataType.h"
+#include "CCMath.h"
 
 void Make_MTDItemNode(MTD_ItemNode* pout, MUID& uidItem, unsigned long int nItemID, int nRentMinutePeriodRemainder, int iMaxUseHour, int nCount)
 {

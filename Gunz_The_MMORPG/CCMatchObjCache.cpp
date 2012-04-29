@@ -4,7 +4,7 @@
 #include "MSharedCommandTable.h"
 #include "MCommandCommunicator.h"
 #include "CCBlobArray.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "CCMatchServer.h" 
 
 

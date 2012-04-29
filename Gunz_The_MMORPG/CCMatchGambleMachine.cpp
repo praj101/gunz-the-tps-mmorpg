@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "MMath.h"
-#include "MMatchGambleMachine.h"
+#include "CCMath.h"
+#include "CCMatchGambleMachine.h"
 #include "MMatchDBGambleItem.h"
 #include "MDebug.h"
 
