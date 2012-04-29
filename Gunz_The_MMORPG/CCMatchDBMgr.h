@@ -4,8 +4,8 @@
 #include "ODBCRecordset.h"
 #include "MMatchItem.h"
 #include "MMatchGlobal.h"
-#include "MQuestItem.h"
-#include "MQuestConst.h"
+#include "CCQuestItem.h"
+#include "CCQuestConst.h"
 #include "MMatchDBFilter.h"
 #include "MCountryFilterDBMgr.h"
 
