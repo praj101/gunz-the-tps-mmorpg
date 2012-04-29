@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MVoteDiscussImpl.h"
-#include "MMatchServer.h"
+#include "CCMatchServer.h"
 #include "MSharedCommandTable.h"
 #include "MLex.h"
 

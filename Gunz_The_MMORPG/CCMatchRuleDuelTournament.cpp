@@ -2,7 +2,7 @@
 #include "MMatchRuleDuelTournament.h"
 
 #include "MBlobArray.h"
-#include "MMatchServer.h"
+#include "CCMatchServer.h"
 #include "MMatchTransDataType.h"
 
 #include <algorithm>

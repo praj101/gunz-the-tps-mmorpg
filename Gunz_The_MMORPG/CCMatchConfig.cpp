@@ -5,7 +5,7 @@
 #include "MLex.h"
 #include "MZFileSystem.h"
 #include "MErrorTable.h"
-#include "MMatchServer.h"
+#include "CCMatchServer.h"
 #include "MInetUtil.h"
 #include "MMatchCheckLoopTime.h"
 

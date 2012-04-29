@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MMatchWorldItem.h"
-#include "MMatchServer.h"
+#include "CCMatchServer.h"
 #include "MMatchStage.h"
 #include "MMatchObject.h"
 #include "MSharedCommandTable.h"
