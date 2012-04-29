@@ -4,7 +4,7 @@
 #include "CCDrawContext.h"
 #include "CCLookNFeel.h"
 
-#define CCBMLABEL	"BmLabel
+#define CCBMLABEL	"BmLabel"
 
 class CCBmLabel : public CCWidget{
 protected:
