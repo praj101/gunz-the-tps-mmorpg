@@ -119,7 +119,7 @@ public:
 		if ((pPointer != m_pPointer) && (!m_bPrinted))
 		{
 			m_bPrinted = true;
-			mlog("### Invalid Pointer(%x, %x) - State(%d) , Value(%d) ###\n", m_pPointer, pPointer, nState, nValue);
+			cclog("### Invalid Pointer(%x, %x) - State(%d) , Value(%d) ###\n", m_pPointer, pPointer, nState, nValue);
 		}
 	}
 };
@@ -371,7 +371,7 @@ static bool g_bPrintedInvalidMemory = false;
 
 void MMatchServer::CheckMemoryTest(int nState, int nValue)
 {
-#define CHECK(n) if(m_checkMemory##n!=CHECKMEMORYNUMBER) { g_bPrintedInvalidMemory=true; mlog("***WARNING !! m_checkMemory" #n " is corrupted. State(%d), Value(%d)\n", nState, nValue); }
+#define CHECK(n) if(m_checkMemory##n!=CHECKMEMORYNUMBER) { g_bPrintedInvalidMemory=true; cclog("***WARNING !! m_checkMemory" #n " is corrupted. State(%d), Value(%d)\n", nState, nValue); }
 
 	if (g_bPrintedInvalidMemory) return;
 
@@ -740,7 +740,7 @@ LONG WINAPI TopLevelExceptionFilter(_EXCEPTION_POINTERS *pException)
 	printf ("Crash!\n");
 
 //	MessageBox(NULL,"test222", "heap corruption", MB_OK);
-	mlog("TopLevelExceptionFilter...throw...");
+	cclog("TopLevelExceptionFilter...throw...");
 
 
 	char szDumpFileName[ _MAX_DIR ]= {0,};
@@ -816,20 +816,20 @@ bool MMatchServer::Create(int nPort)
 
 	if( !InitGambleMachine() )
 	{
-		mlog( "init gamble machine fail.\n" );
+		cclog( "init gamble machine fail.\n" );
 		return false;
 	}
 
 	if( !InitBattletimeRewardMachine() )
 	{
-		mlog( "Init Battletime Reward Machine Fail.\n" );
+		cclog( "Init Battletime Reward Machine Fail.\n" );
 		return false;
 	}
 
 //#if defined(LOCALE_NHNUSA) || defined(_DEBUG)
 //	if( !m_HackingChatList.Init() )
 //	{
-//		mlog( "init hacking chat fail.\n" );
+//		cclog( "init hacking chat fail.\n" );
 //		return false;
 //	}
 //#endif
@@ -957,7 +957,7 @@ void MMatchServer::OnPrepareRun()
 int MMatchServer::Connect(MCommObject* pCommObj)
 {
 	if( pCommObj ) {
-		mlog("MMatchServer::Connect - Target IP(%s), Target Port(%d)",pCommObj->GetIPString(), pCommObj->GetPort());
+		cclog("MMatchServer::Connect - Target IP(%s), Target Port(%d)",pCommObj->GetIPString(), pCommObj->GetPort());
 	}
 
 	return MServer::Connect(pCommObj);
@@ -966,19 +966,19 @@ int MMatchServer::Connect(MCommObject* pCommObj)
 int MMatchServer::OnConnected(MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
 {
 	if( pCommObj == NULL ) {
-		mlog("MMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d)\n", pTargetUID->High, pTargetUID->Low, pAllocUID->High, pAllocUID->Low);
+		cclog("MMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d)\n", pTargetUID->High, pTargetUID->Low, pAllocUID->High, pAllocUID->Low);
 	} else {
 		if( pCommObj->IsPassiveSocket() ) {
-			mlog("MMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d), IP(%s), Port(%d), Passive Socket\n"
+			cclog("MMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d), IP(%s), Port(%d), Passive Socket\n"
 				, pTargetUID->High, pTargetUID->Low, pAllocUID->High, pAllocUID->Low, pCommObj->GetIPString(), pCommObj->GetPort());
 		} else {
-			mlog("MMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d), IP(%s), Port(%d), Active Socket\n"
+			cclog("MMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d), IP(%s), Port(%d), Active Socket\n"
 				, pTargetUID->High, pTargetUID->Low, pAllocUID->High, pAllocUID->Low, pCommObj->GetIPString(), pCommObj->GetPort());
 		}
 		
 	}
 
-	mlog("MMatchServer::OnConnected - We should not call func which is called 'MCommandCommunicator::OnConnected'\n");
+	cclog("MMatchServer::OnConnected - We should not call func which is called 'MCommandCommunicator::OnConnected'\n");
 	return MOK;
 	//return MCommandCommunicator::OnConnected(pTargetUID, pAllocUID, nTimeStamp, pCommObj);
 }
@@ -1041,7 +1041,7 @@ void MMatchServer::OnRun(void)
 			pObj->m_DBJobQ.DBJobQ.pop_front();
 			pObj->m_DBJobQ.nLastJobID = pAsyncJob->GetJobID();
 // #ifdef _DEBUG
-// 			mlog( "async job id : %d\n", pAsyncJob->GetJobID() );
+// 			cclog( "async job id : %d\n", pAsyncJob->GetJobID() );
 // #endif
 			PostAsyncJob( pAsyncJob );
 			pObj->m_DBJobQ.bIsRunningAsyncJob = true;
@@ -1996,7 +1996,7 @@ void MMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DWO
 			if (pPacketHeader->nCheckSum != nCheckSum) {
 				static int nLogCount = 0;
 				if (nLogCount++ < 100) {	// Log Flooding 방지
-					mlog("MMatchServer::ParseUDPPacket() -> CHECKSUM ERROR(R=%u/C=%u)\n", 
+					cclog("MMatchServer::ParseUDPPacket() -> CHECKSUM ERROR(R=%u/C=%u)\n", 
 						pPacketHeader->nCheckSum, nCheckSum);
 				}
 				return;
@@ -2008,7 +2008,7 @@ void MMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DWO
 				if( !pCmd->SetData(pData, &m_CommandManager) )
 				{
 					delete pCmd;
-					mlog( "fail ParseUDPPacket.\n" );
+					cclog( "fail ParseUDPPacket.\n" );
 					return;
 				}
 
@@ -2590,13 +2590,13 @@ void GetCharEquipItemTotalWeight( MMatchCharInfo* pCharInfo
 	}
 	__except(EquipItemTotalWeightExceptionHandler(GetExceptionInformation()))
 	{
-		mlog( "\nexception : equip item =====================\n" );
+		cclog( "\nexception : equip item =====================\n" );
 	
-		mlog( "CharName(%d) : %s\n", pCharInfo->m_nCID, pCharInfo->m_szName );
-		mlog( "parts : %d\n", parts );
-		mlog( "ItemID(%d), CIID(%d)\n", pItem->GetDescID(), pItem->GetCIID() );
+		cclog( "CharName(%d) : %s\n", pCharInfo->m_nCID, pCharInfo->m_szName );
+		cclog( "parts : %d\n", parts );
+		cclog( "ItemID(%d), CIID(%d)\n", pItem->GetDescID(), pItem->GetCIID() );
 
-		mlog( "=====================\n\n" );
+		cclog( "=====================\n\n" );
 	}
 }
 
@@ -2717,7 +2717,7 @@ void MMatchServer::UpdateCharItemDBCachingData(MMatchObject* pObject)
 		if( pItem->IsNeedDBUpdate() ) 
 		{
 #ifdef _DEBUG
-			mlog("해당 아이템(CIID:%d, Cnt:%d)은 업데이트가 필요합니다.\n", pItem->GetCIID(), pItem->GetItemCachingData()->nAddedItemCount);
+			cclog("해당 아이템(CIID:%d, Cnt:%d)은 업데이트가 필요합니다.\n", pItem->GetCIID(), pItem->GetItemCachingData()->nAddedItemCount);
 #endif
 			pJob->Input(pItem->GetCIID(), pItem->GetItemCachingData()->nAddedItemCount);
 			pItem->DBUpdateDone();
@@ -2769,18 +2769,18 @@ bool MMatchServer::CheckItemXMLFromDatabase()
 	map<int, MMatchItemDescForDatabase*> ItemMapFromDatabase;
 
 	if( m_MatchDBMgr.GetItemTable(ItemMapFromDatabase) == false ) {
-		mlog("Can't not Get Item Information From Database. FAILED\n");
+		cclog("Can't not Get Item Information From Database. FAILED\n");
 		return false;
 	}
 
 	bool bResult = true;
 	int nResultCount = 0;
 
-	mlog("========= Check validation of zitem.xml =========\n");	
+	cclog("========= Check validation of zitem.xml =========\n");	
 
 	// ------------------------------------------------------------------------------------------
 
-	mlog("== 1. Check Difference List From XML To DB\n");
+	cclog("== 1. Check Difference List From XML To DB\n");
 
 	for(MMatchItemDescMgr::iterator itBegin = MGetMatchItemDescMgr()->begin();
 		itBegin != MGetMatchItemDescMgr()->end(); itBegin++)
@@ -2788,7 +2788,7 @@ bool MMatchServer::CheckItemXMLFromDatabase()
 		MMatchItemDesc *pItem = itBegin->second;
 		if( ItemMapFromDatabase.find(pItem->m_nID) == ItemMapFromDatabase.end() )
 		{
-			mlog("     ItemID(%d) does not exist in Database\n", pItem->m_nID);
+			cclog("     ItemID(%d) does not exist in Database\n", pItem->m_nID);
 			bResult = false;
 		}
 	}
@@ -2796,7 +2796,7 @@ bool MMatchServer::CheckItemXMLFromDatabase()
 	// ------------------------------------------------------------------------------------------
 
 	// 디비에만 있는 아이템이 존재할 수도 있습니다. 예비용으로 만들어둔거임..
-	mlog("== 2. Check Difference List From DB To XML\n");
+	cclog("== 2. Check Difference List From DB To XML\n");
 
 	for(map<int, MMatchItemDescForDatabase*>::iterator itBegin = ItemMapFromDatabase.begin();
 		itBegin != ItemMapFromDatabase.end(); itBegin++)
@@ -2804,7 +2804,7 @@ bool MMatchServer::CheckItemXMLFromDatabase()
 		MMatchItemDescForDatabase* pItem = itBegin->second;
 		if( MGetMatchItemDescMgr()->GetItemDesc(pItem->m_nID) == NULL ) 
 		{
-			mlog("     ItemID(%d) does not exist in XML\n", pItem->m_nID);
+			cclog("     ItemID(%d) does not exist in XML\n", pItem->m_nID);
 
 			// 지울 땜 조심하세요~
 			//FILE* fp = fopen("checkitem.sql", "wt");			
@@ -2814,7 +2814,7 @@ bool MMatchServer::CheckItemXMLFromDatabase()
 
 	// ------------------------------------------------------------------------------------------
 
-	mlog("== 3. Check Difference between XML and DB\n");
+	cclog("== 3. Check Difference between XML and DB\n");
 
 	for(map<int, MMatchItemDescForDatabase*>::iterator itBegin = ItemMapFromDatabase.begin();
 		itBegin != ItemMapFromDatabase.end(); itBegin++)
@@ -2838,8 +2838,8 @@ bool MMatchServer::CheckItemXMLFromDatabase()
 
 	if( bResult == false )
 	{
-		mlog("========= Failed =========\n");
-		mlog("========= Check zitem.xml or Item table in Database =========\n\n");
+		cclog("========= Failed =========\n");
+		cclog("========= Check zitem.xml or Item table in Database =========\n\n");
 	}
 
 	for(map<int, MMatchItemDescForDatabase*>::iterator itBegin = ItemMapFromDatabase.begin(); 
@@ -2867,74 +2867,74 @@ bool MMatchServer::CompareMatchItem(MMatchItemDescForDatabase *pItem1, MMatchIte
 		|| (pItem1->m_nResSex == 1 && pItem2->m_nResSex.Ref() == 0)
 		|| (pItem1->m_nResSex == 2 && pItem2->m_nResSex.Ref() == 1)) == false)
 	{
-		mlog("%d(%s) - ResSex does not match\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
+		cclog("%d(%s) - ResSex does not match\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
 		bResult = false;
 	}
 
 	if( pItem1->m_nResLevel != pItem2->m_nResLevel.Ref() ){
-		mlog("%d(%s) - ResLevel does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nResLevel);
+		cclog("%d(%s) - ResLevel does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nResLevel);
 		bResult = false;
 	}
 
 	if( pItem1->m_nSlot != pItem2->m_nSlot ) {
-		mlog("%d(%s) - Slot does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, (int)pItem1->m_nSlot);
+		cclog("%d(%s) - Slot does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, (int)pItem1->m_nSlot);
 		bResult = false;
 	}
 
 	if( pItem1->m_nWeight != pItem2->m_nWeight.Ref() ) {
-		mlog("%d(%s) - Weight does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nWeight);
+		cclog("%d(%s) - Weight does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nWeight);
 		bResult = false;
 	}
 
 	if( pItem1->m_nDamage != pItem2->m_nDamage.Ref() ) {
-		mlog("%d(%s) - Damage does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nDamage);
+		cclog("%d(%s) - Damage does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nDamage);
 		bResult = false;
 	}
 
 	if( pItem1->m_nDelay != pItem2->m_nDelay.Ref() ) {
-		mlog("%d(%s) - Delay does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nDelay);
+		cclog("%d(%s) - Delay does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nDelay);
 		bResult = false;
 	}
 
 	if( pItem1->m_nControllability != pItem2->m_nControllability.Ref() ) {
-		mlog("%d(%s) - Controllability does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nControllability);
+		cclog("%d(%s) - Controllability does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nControllability);
 		bResult = false;
 	}
 
 	if( pItem1->m_nMagazine != pItem2->m_nMagazine.Ref() ) {
-		mlog("%d(%s) - Magazine does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nMagazine);
+		cclog("%d(%s) - Magazine does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nMagazine);
 		bResult = false;
 	}
 
 	if( pItem1->m_nReloadTime != pItem2->m_nReloadTime.Ref() ) {
-		mlog("%d(%s) - ReloadTime does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nReloadTime);
+		cclog("%d(%s) - ReloadTime does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nReloadTime);
 		bResult = false;
 	}
 
 	if( pItem1->m_nMaxBullet != pItem2->m_nMaxBullet.Ref() ) {
-		mlog("%d(%s) - MaxBullet does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nMaxBullet);
+		cclog("%d(%s) - MaxBullet does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nMaxBullet);
 		bResult = false;
 	}
 
 	if( pItem1->m_nHP != pItem2->m_nHP.Ref() ) {
-		mlog("%d(%s) - HP does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nHP);
+		cclog("%d(%s) - HP does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nHP);
 		bResult = false;
 	}
 
 	if( pItem1->m_nAP != pItem2->m_nAP.Ref() ) {
-		mlog("%d(%s) - AP does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nAP);
+		cclog("%d(%s) - AP does not match(DB : %d)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName, pItem1->m_nAP);
 		bResult = false;
 	}
 
 	if( pItem1->m_bIsCashItem != pItem2->m_bIsCashItem ) {
-		if( pItem1->m_bIsCashItem ) mlog("%d(%s) - IsCashItem does not match(DB : true)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
-		else						mlog("%d(%s) - IsCashItem does not match(DB : false)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
+		if( pItem1->m_bIsCashItem ) cclog("%d(%s) - IsCashItem does not match(DB : true)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
+		else						cclog("%d(%s) - IsCashItem does not match(DB : false)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
 		bResult = false;
 	}
 
 	if( pItem1->m_bIsSpendableItem != pItem2->m_bIsSpendableItem ) {
-		if( pItem1->m_bIsSpendableItem ) mlog("%d(%s) - IsSpendableItem does not match(DB : true)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
-		else							 mlog("%d(%s) - IsSpendableItem does not match(DB : false)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
+		if( pItem1->m_bIsSpendableItem ) cclog("%d(%s) - IsSpendableItem does not match(DB : true)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
+		else							 cclog("%d(%s) - IsSpendableItem does not match(DB : false)\n", pItem1->m_nID, pItem2->m_pMItemName->Ref().m_szItemName);
 		bResult = false;
 	}
 
@@ -2980,7 +2980,7 @@ static bool CheckItemXML_ReadXML(map<unsigned long int, string>& ItemXmlMap, con
 				_ASSERT(0);	// 아이템 ID 중복
 				char szTemp[256];
 				sprintf(szTemp, "item xml 아이디 중복: %u\n", id);
-				mlog(szTemp);
+				cclog(szTemp);
 				return false;
 			}
 			ItemXmlMap.insert(map<unsigned long int, string>::value_type(id, string(szItemName)));
@@ -3020,7 +3020,7 @@ bool MMatchServer::CheckItemXML()
 		if( 0 == stricmp("nomsg", MGetStringResManager()->GetString(name)) )
 		{
 			++dwNomsgItemCount;
-			// mlog( "nomsg Item : %s\n", name.c_str() );
+			// cclog( "nomsg Item : %s\n", name.c_str() );
 		}
 		
 		sprintf(szTemp2, "INSERT INTO Item (ItemID, Name) Values (%u, '%s')\n", // id, name.c_str() );
@@ -3029,7 +3029,7 @@ bool MMatchServer::CheckItemXML()
 		fputs(szTemp2, fp);
 	}
 
-	mlog( "\n== Nomsg item count : %u ==\n\n", dwNomsgItemCount );
+	cclog( "\n== Nomsg item count : %u ==\n\n", dwNomsgItemCount );
 
 	fputs("\n\n--------------------------------------\n\n", fp);
 
@@ -3409,7 +3409,7 @@ bool MMatchServer::InitCountryFilterDB()
 	if( !GetDBMgr()->GetIPtoCountryList(icl) )
 	{
 		ASSERT( 0 && "Fail to init IPtoCountryList.\n" );
-		mlog( "Fail to init IPtoCountryList.\n" );
+		cclog( "Fail to init IPtoCountryList.\n" );
 		return false;
 	}
 	*/
@@ -3417,21 +3417,21 @@ bool MMatchServer::InitCountryFilterDB()
 	if( !GetDBMgr()->GetBlockCountryCodeList(bccl) )
 	{
 		ASSERT( 0 && "Fail to init BlockCoutryCodeList.\n" );
-		mlog( "Fail to init BlockCountryCodeList.\n" );
+		cclog( "Fail to init BlockCountryCodeList.\n" );
 		return false;
 	}
 
 	if( !GetDBMgr()->GetCustomIPList(cil) )
 	{
 		ASSERT( 0 && "Fail to init CustomIPList.\n" );
-		mlog( "Fail to init CustomIPList.\n" );
+		cclog( "Fail to init CustomIPList.\n" );
 		return false;
 	}
 
 	if( !GetCountryFilter().Create(bccl, icl, cil) )
 	{
 		ASSERT( 0 && "Fail to create country filter.\n" );
-		mlog( "Fail to create country filter.\n" );
+		cclog( "Fail to create country filter.\n" );
 		return false;
 	}
 
@@ -3595,7 +3595,7 @@ const COUNT_CODE_STATUS MMatchServer::CheckIsNonBlockCountry( const MUID& CommUI
 			// 새로운 IP범위를 리스트에 추가 함.
 			if( !GetCountryFilter().AddIPtoCountry(dwIPFrom, dwIPTo, strCountryCode3) )
 			{
-				mlog( "MMatchServer::CheckIsNonBlockCountry - add new IPtoCountry(f:%u, t%u, c:%s) fail.\n",
+				cclog( "MMatchServer::CheckIsNonBlockCountry - add new IPtoCountry(f:%u, t%u, c:%s) fail.\n",
 					dwIPFrom, dwIPTo, strCountryCode3.c_str() );
 			}
 
@@ -3628,7 +3628,7 @@ bool MMatchServer::InitEvent()
 	if( !MMatchEventDescManager::GetInstance().LoadEventXML(EVENT_XML_FILE_NAME) )
 	{
 		ASSERT( 0 && "fail to Load Event.xml" );
-		mlog( "MMatchServer::InitEvent - fail to Load %s\n", 
+		cclog( "MMatchServer::InitEvent - fail to Load %s\n", 
 			EVENT_XML_FILE_NAME );
 		return false;
 	}
@@ -3636,7 +3636,7 @@ bool MMatchServer::InitEvent()
 	if( !MMatchEventFactoryManager::GetInstance().LoadEventListXML(EVENT_LIST_XML_FILE_NAME) )
 	{
 		ASSERT( 0 && "fail to load EventList.xml" );
-		mlog( "MMatchServer::InitEvent - fail to Load %s\n",	
+		cclog( "MMatchServer::InitEvent - fail to Load %s\n",	
 			EVENT_LIST_XML_FILE_NAME );
 		return false;
 	}
@@ -3647,7 +3647,7 @@ bool MMatchServer::InitEvent()
 	if( !MMatchEventFactoryManager::GetInstance().GetEventList(MMatchEvent::GAME_TYPE_ALL, ET_CUSTOM_EVENT, EvnPtrVec) )
 	{
 		ASSERT( 0 && "이벤트 리스트 생성 실패.\n" );
-		mlog( "MMatchServer::InitEvent - 리스트 생성 실패.\n" );
+		cclog( "MMatchServer::InitEvent - 리스트 생성 실패.\n" );
 		MMatchEventManager::ClearEventPtrVec( EvnPtrVec );
 		return false;
 	}
@@ -3746,7 +3746,7 @@ void MMatchServer::RequestGameguardAuth( const MUID& uidUser, const DWORD dwInde
 	PostSafeQueue( pCmd );
 
 #ifdef _DEBUG
-	mlog( "GAMEGUARD : send to client : index(%u), v1(%u), v2(%u), v3(%u)\n",
+	cclog( "GAMEGUARD : send to client : index(%u), v1(%u), v2(%u), v3(%u)\n",
 		dwIndex, dwValue1, dwValue2, dwValue3 );
 #endif
 }
@@ -3766,7 +3766,7 @@ void MMatchServer::RequestFirstGameguardAuth( const MUID& uidUser, const DWORD d
 	PostSafeQueue( pCmd );
 
 #ifdef _DEBUG
-	mlog( "GAMEGUARD : first send to client : index(%u), v1(%u), v2(%u), v3(%u)\n",
+	cclog( "GAMEGUARD : first send to client : index(%u), v1(%u), v2(%u), v3(%u)\n",
 		dwIndex, dwValue1, dwValue2, dwValue3 );
 #endif
 }
@@ -3790,22 +3790,22 @@ bool MMatchServer::InitGambleMachine()
 	vector<DWORD> GambleItemIndexVec;
 	GetGambleMachine().GetItemVectorByCheckedItemTime( GambleItemIndexVec, GetGlobalClockCount() );
 
-	mlog( "\nStart shop GItem list log.\n" );
-	mlog( "GambleItemCount : %d.\n", int(GambleItemIndexVec.size()) );
+	cclog( "\nStart shop GItem list log.\n" );
+	cclog( "GambleItemCount : %d.\n", int(GambleItemIndexVec.size()) );
 
 	for( int i = 0; i < int(GambleItemIndexVec.size()); ++i )
 	{
 		const MMatchGambleItem* pGItem = GetGambleMachine().GetGambleItemByIndex( GambleItemIndexVec[i] );
         if( NULL != pGItem )
 		{
-			mlog( "Shop GItem : %d\n", pGItem->GetGambleItemID() );
+			cclog( "Shop GItem : %d\n", pGItem->GetGambleItemID() );
 		}
 		else
 		{
-			mlog( "Null GItem.\n" );
+			cclog( "Null GItem.\n" );
 		}
 	}
-	mlog( "End shop GItem list log.\n\n" );
+	cclog( "End shop GItem list log.\n\n" );
 	//////////// Init log ////////////////////
 
 	GetGambleMachine().WriteGambleItemInfoToLog();
@@ -3882,7 +3882,7 @@ void MMatchServer::OnAsyncResponse_GetBR_Description(MAsyncJob *pJobResult)
 	MAsyncDBJob_GetBattleTimeRewardDescription* pJob = (MAsyncDBJob_GetBattleTimeRewardDescription*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("MMatchServer::OnAsyncResponse_GetBR_Description - 실패\n");
+		cclog("MMatchServer::OnAsyncResponse_GetBR_Description - 실패\n");
 		return;
 	}
 
@@ -3897,7 +3897,7 @@ void MMatchServer::OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult)
 	MAsyncDBJob_GetCharBRInfo* pJob = (MAsyncDBJob_GetCharBRInfo*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("MMatchServer::OnAsyncResponse_GetCharBRInfo - 실패\n");
+		cclog("MMatchServer::OnAsyncResponse_GetCharBRInfo - 실패\n");
 		return;
 	}
 
@@ -3915,7 +3915,7 @@ void MMatchServer::OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult)
 	
 #ifdef _DEBUG
 
-	mlog("CID(%d), 의 BR Info(%d, %d, %d, %d)가 삽입되었습니다.\n", pJob->GetCID(), pJob->GetCharBRInfo().GetBRID(), 
+	cclog("CID(%d), 의 BR Info(%d, %d, %d, %d)가 삽입되었습니다.\n", pJob->GetCID(), pJob->GetCharBRInfo().GetBRID(), 
 		pJob->GetCharBRInfo().GetBRTID(), pJob->GetCharBRInfo().GetBattleTime(), pJob->GetCharBRInfo().GetKillCount());
 
 #endif
@@ -3927,7 +3927,7 @@ void MMatchServer::OnAsyncResponse_UpdateCharBRInfo(MAsyncJob *pJobResult)
 	MAsyncDBJob_UpdateCharBRInfo* pJob = (MAsyncDBJob_UpdateCharBRInfo*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("MMatchServer::OnAsyncResponse_UpdateCharBRInfo - 실패\n");
+		cclog("MMatchServer::OnAsyncResponse_UpdateCharBRInfo - 실패\n");
 		return;
 	}
 }
@@ -3937,7 +3937,7 @@ void MMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
 	MAsyncDBJob_RewardCharBR* pJob = (MAsyncDBJob_RewardCharBR*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("MMatchServer::OnAsyncResponse_RewardCharBR - 실패\n");
+		cclog("MMatchServer::OnAsyncResponse_RewardCharBR - 실패\n");
 		return;
 	}
 
@@ -3995,7 +3995,7 @@ void MMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
 
 #ifdef _DEBUG
 
-	mlog("CID(%d), BattleTime Reward!! - Time(%d), ItemID(%d), ItemCnt(%d), ItemPeriod(%d)\n", 
+	cclog("CID(%d), BattleTime Reward!! - Time(%d), ItemID(%d), ItemCnt(%d), ItemPeriod(%d)\n", 
 		pJob->GetCID(), pJob->GetBattleTime(), pJob->GetItemID(), pJob->GetItemCnt(), pJob->GetRentHourPeriod());
 
 #endif
@@ -4082,7 +4082,7 @@ void MMatchServer::CheckMemoryCorruption()
 	if(_CrtCheckMemory() != 0) return;
 
 	// 문제가 있으므로 덤프를 남긴다
-	mlog("CheckMemoryCorruption...throw...");
+	cclog("CheckMemoryCorruption...throw...");
 	throw "heap corruption";
 #endif
 }
@@ -4106,6 +4106,6 @@ void MMatchServer::Log(unsigned int nLogLevel, const char* szLog)
 		strcpy(szTemp, szTime);
 		strcat(szTemp, szLog);
 		strcat(szTemp, "\n");
-		mlog(szTemp);
+		cclog(szTemp);
 	}
 }

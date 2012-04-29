@@ -196,7 +196,7 @@ void MMatchServer::OnAdminHide(const MUID& uidAdmin)
 
 #if defined(LOCALE_NHNUSA) || defined(_DEBUG)
 	m_HackingChatList.Init();
-	mlog( "reload hacking chat list.\n" );
+	cclog( "reload hacking chat list.\n" );
 #endif
 
 	if (pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) {

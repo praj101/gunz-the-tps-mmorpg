@@ -158,7 +158,7 @@ bool RLenzFlare::Render( rvector& light_pos_, rvector& centre_, RBspObject* pbsp
 
 		if( !draw( px, py, width, height, alpha, msElements[index].color, msElements[index].iTextureIndex ) )
 		{
-			mlog( "Fail to Draw %dth Flare Element!\n",i );
+			cclog( "Fail to Draw %dth Flare Element!\n",i );
 			return false;
 		}
 	}
@@ -188,7 +188,7 @@ bool RLenzFlare::SetLight( rvector& pos_ )
 {
 	if( miNumLight >= MAX_LENZFLARE_NUMBER )
 	{
-		mlog("Can't Set Light...: Light Buffer for LenzFlare is Full already..\n" );
+		cclog("Can't Set Light...: Light Buffer for LenzFlare is Full already..\n" );
         return false;
 	}
 	mLightList[miNumLight++] = pos_;
@@ -219,7 +219,7 @@ bool RLenzFlare::draw( float x_, float y_,  float width_, float height_,
 {
 	//if( msVB == NULL )
 	//{
-	//	mlog("vertex buffer for lenz flare is not ready\n");
+	//	cclog("vertex buffer for lenz flare is not ready\n");
 	//	return false;
 	//}
 
@@ -391,7 +391,7 @@ bool RLenzFlare::Destroy()
 {
 	//if( msRef > 0)
 	//{
-	//	mlog("Object(s) Exist..! Fail to Destroy...\n");
+	//	cclog("Object(s) Exist..! Fail to Destroy...\n");
 	//	return false;
 	//}
 	

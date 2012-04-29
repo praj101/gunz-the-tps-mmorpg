@@ -186,7 +186,7 @@ bool RMeshNode::ConnectMtrl()
 {
 	if(m_face_num==0)//면이 없다면 연결할 필요도 없다..
 	{
-//		mlog( "%s MeshNode mtrl 연결할 필요 없음\n" , m_Name );
+//		cclog( "%s MeshNode mtrl 연결할 필요 없음\n" , m_Name );
 		return false;
 	}
 
@@ -222,7 +222,7 @@ bool RMeshNode::ConnectMtrl()
 				m_iMtrlCnt = mtrl_cnt;
 				if(m_iMtrlCnt > MAX_PRIMITIVE)
 				{
-					mlog( "%s multi-sub material 이 10개를 넘을수 없습니다\n" , m_Name.c_str() );
+					cclog( "%s multi-sub material 이 10개를 넘을수 없습니다\n" , m_Name.c_str() );
 					return false;
 				}
 				return true;
@@ -230,7 +230,7 @@ bool RMeshNode::ConnectMtrl()
 		}
 	}
 
-	mlog( "%s MeshNode mtrl 연결실패\n" , m_Name.c_str() );
+	cclog( "%s MeshNode mtrl 연결실패\n" , m_Name.c_str() );
 
 	return false;
 }
@@ -262,12 +262,12 @@ bool RMeshNode::SetBVertData(RBlendVertex* pBVert,int i,int j,int pv_index,int* 
 	float w1,w2;
 
 	if( point_index < 0 || point_index >= m_point_num ) {
-		mlog("Index of Vertex(Pointer) is Out of Range.. Point Index : %d, Num Vertices : %d, Mesh Node : %s \n", point_index, m_point_num, m_Name );
+		cclog("Index of Vertex(Pointer) is Out of Range.. Point Index : %d, Num Vertices : %d, Mesh Node : %s \n", point_index, m_point_num, m_Name );
 		return false;
 	}
 
 	if( pPhysique->m_ium > 3 || pPhysique->m_ium <= 0 ) {
-		mlog("%s mesh %s node %d face %d point -> physique 3 개 이상\n",m_pParentMesh->GetFileName() ,m_Name.c_str(),i,j);
+		cclog("%s mesh %s node %d face %d point -> physique 3 개 이상\n",m_pParentMesh->GetFileName() ,m_Name.c_str(),i,j);
 		return false;
 	}
 
@@ -335,7 +335,7 @@ bool RMeshNode::MakeVSVertexBuffer()
 	_ASSERT( m_physique_num == m_point_num );
 
 	if( (m_face_num * 3 ) > MAX_VERTEX ) {
-		mlog("Point Number is larger than defined max vertex .. \n");
+		cclog("Point Number is larger than defined max vertex .. \n");
 		return false;
 	}
 
@@ -517,7 +517,7 @@ void RMeshNode::ConnectToNameID()
 	int id = RGetMeshNodeStringTable()->Get( m_Name );
 	
 	if(id==-1) {//bip 가 아닌 일반 오브젝트들...
-		mlog("등록불가 파츠 %s \n",m_Name);
+		cclog("등록불가 파츠 %s \n",m_Name);
 	}
 
 	m_NameID = id;
@@ -639,7 +639,7 @@ void RMeshNode::MakeNodeBuffer(DWORD flag)
 	int w,w2,p0,p1,p2;
 
 	if(m_face_num*3*32 > RVERTEX_MAX - 20 )
-		mlog("elu 단일 오브젝트 버텍스 갯수가 %d 개가 넘습니다\n", RVERTEX_MAX-20 );
+		cclog("elu 단일 오브젝트 버텍스 갯수가 %d 개가 넘습니다\n", RVERTEX_MAX-20 );
 
 	int sub_mtrl;
 	int face_cnt=0;		
@@ -1428,7 +1428,7 @@ int RMeshNode::CalcVertexBuffer_VertexAni(int frame)
 			int nCnt = pANode->GetVecValue(frame,m_point_list);
 		}
 		else { // 버텍스수가 틀릴경우
-			mlog("vertex ani 에서 버텍스 갯수가 틀림\n");// 이런 경우가 없어야 함..
+			cclog("vertex ani 에서 버텍스 갯수가 틀림\n");// 이런 경우가 없어야 함..
 		}
 	}
 
@@ -1463,7 +1463,7 @@ void RMeshNode::CalcVertexBuffer_Physique(D3DXMATRIX* world_mat,int frame)
 			pTMP = pMesh->m_data[p_id];
 
 			if( pTMP) 	t_mat = pTMP->m_mat_result;
-			else 		mlog("RMesh::CalcVertexBuffer() %s node : %d physique :num %d :not found !!! \n",GetName(),i,j);
+			else 		cclog("RMesh::CalcVertexBuffer() %s node : %d physique :num %d :not found !!! \n",GetName(),i,j);
 
 			_vec = m_physique[i].m_offset[j];
 

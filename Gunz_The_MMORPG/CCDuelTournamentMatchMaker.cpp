@@ -138,7 +138,7 @@ bool MDuelTournamentMatchMaker::PickGroupForPlayer(PairDTMatch& out_MatchGroup, 
 	}
 
 	if (evalBestGroup == INT_MAX) { // 이미 함수 초반에 조건 검사를 했는데 그룹이 단 한 개도 안만들어졌을 수는 없다
-		mlog("duel tournament player match making - MakeGroupForPlayer fatal error!\n");
+		cclog("duel tournament player match making - MakeGroupForPlayer fatal error!\n");
 		_ASSERT(0); 
 		return false; 
 	}
@@ -200,7 +200,7 @@ void MDuelTournamentMatchMaker::PickMatchableGroupsAndRemove( MDuelTournamentPic
 	{
 		ItorDTUser it = m_mapUser.find(vecMatchGroup[i].first);
 		if (it == m_mapUser.end()) {
-			mlog("duel tournament player match making - PickMatchableGroupsAndRemove fatal error!\n");
+			cclog("duel tournament player match making - PickMatchableGroupsAndRemove fatal error!\n");
 			continue;
 		}
 
@@ -225,7 +225,7 @@ bool MDuelTournamentMatchMaker::PickGroupForPlayerAndRemove( MDuelTournamentPick
 
 	ItorDTUser it = m_mapUser.find(group.first);
 	if (it == m_mapUser.end()) {
-		mlog("duel tournament player match making - PickGroupForPlayerAndRemove fatal error!\n");
+		cclog("duel tournament player match making - PickGroupForPlayerAndRemove fatal error!\n");
 		_ASSERT(0);
 		return false;
 	}

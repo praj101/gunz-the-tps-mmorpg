@@ -189,27 +189,27 @@ void MLadderStatistics::PrintDebug()
 		int nID = i / LADDER_STATISTICS_LEVEL_UNIT;
 		float fRate = GetLevelVictoriesRate(i);
 
-		mlog("LevelDiff %2d rate = %.5f, %d Counts, %d Wins \n", i, fRate, m_LevelVictoriesRates[nID].nCount,
+		cclog("LevelDiff %2d rate = %.5f, %d Counts, %d Wins \n", i, fRate, m_LevelVictoriesRates[nID].nCount,
 			m_LevelVictoriesRates[nID].nWinCount);
 	}
 
-	mlog("=====================\n\n");
+	cclog("=====================\n\n");
 	for (int i = 0; i < MAX_LADDER_STATISTICS_CLANPOINT*LADDER_STATISTICS_CLANPOINT_UNIT; i++)
 	{
 		int nID = i / LADDER_STATISTICS_CLANPOINT_UNIT;
 		float fRate = GetClanPointVictoriesRate(i);
 
-		mlog("ClanPointDiff %2d rate = %.5f, %d Counts, %d Wins \n", i, fRate, m_ClanPointVictoriesRates[nID].nCount,
+		cclog("ClanPointDiff %2d rate = %.5f, %d Counts, %d Wins \n", i, fRate, m_ClanPointVictoriesRates[nID].nCount,
 			m_ClanPointVictoriesRates[nID].nWinCount);
 	}
 
-	mlog("=====================\n\n");
+	cclog("=====================\n\n");
 	for (int i = 0; i < MAX_LADDER_STATISTICS_CONTPOINT*LADDER_STATISTICS_CONTPOINT_UNIT; i++)
 	{
 		int nID = i / LADDER_STATISTICS_CONTPOINT_UNIT;
 		float fRate = GetContPointVictoriesRate(i);
 
-		mlog("ContPointDiff %2d rate = %.5f, %d Counts, %d Wins \n", i, fRate, m_ContPointVictoriesRates[nID].nCount,
+		cclog("ContPointDiff %2d rate = %.5f, %d Counts, %d Wins \n", i, fRate, m_ContPointVictoriesRates[nID].nCount,
 			m_ContPointVictoriesRates[nID].nWinCount);
 	}
 

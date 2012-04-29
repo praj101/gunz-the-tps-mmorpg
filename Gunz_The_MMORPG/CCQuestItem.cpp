@@ -493,7 +493,7 @@ bool DBQuestCachingData::DoUpdateDBCharQuestItemInfo()
 	MAsyncDBJob_UpdateQuestItemInfo* pAsyncJob = new MAsyncDBJob_UpdateQuestItemInfo(m_pObject->GetUID());
 	if( 0 == pAsyncJob )
 	{
-		mlog( "DBQuestCachingData::DoUpdateDBCharQuestItemInfo - QuestItemUpdate async작업 실패.\n" );
+		cclog( "DBQuestCachingData::DoUpdateDBCharQuestItemInfo - QuestItemUpdate async작업 실패.\n" );
 		return false;
 	}
 	if( !pAsyncJob->Input(m_pObject->GetCharInfo()->m_nCID, 

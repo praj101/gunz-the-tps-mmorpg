@@ -115,7 +115,7 @@ void MMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char* 
 		// 디비에 최종 접속시간을 업데이트 한다.
 		if (!m_MatchDBMgr.UpdateLastConnDate(szUserID, pCommObj->GetIPString()))
 		{	
-			mlog("DB Query(OnMatchLogin > UpdateLastConnDate) Failed");
+			cclog("DB Query(OnMatchLogin > UpdateLastConnDate) Failed");
 		}
 
 	}
@@ -340,7 +340,7 @@ void MMatchServer::OnMatchLoginFromNetmarbleJP(const MUID& CommUID, const char* 
 	// DBAgent에 먼저 보내고 응답을 받으면 로그인 프로세스를 진행한다.
 	if (!MGetLocale()->PostLoginInfoToDBAgent(CommUID, szLoginID, szLoginPW, bFreeLoginIP, nChecksumPack, GetClientCount()))
 	{
-		mlog( "Server user full(DB agent error).\n" );
+		cclog( "Server user full(DB agent error).\n" );
 		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_FULL_PLAYERS);
 		Post(pCmd);
 		return;

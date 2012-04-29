@@ -766,7 +766,7 @@ bool RBspObject::Draw()
 	if(hr!=D3D_OK) {
 		char buffer[256];
 //		D3DXGetErrorString(hr,buffer,sizeof(buffer));
-		mlog("%s\n",buffer);
+		cclog("%s\n",buffer);
 	}
 //	_ASSERT(hr==D3D_OK);
 */
@@ -1046,7 +1046,7 @@ void RBspObject::DrawObjects()
 
 	rvector v_add = rvector(world._41,world._42,world._43);
 
-//	mlog("begin \n");
+//	cclog("begin \n");
 
 	rvector camera_pos = RealSpace2::RCameraPosition;
 	rvector t_vec;
@@ -1142,9 +1142,9 @@ void RBspObject::DrawObjects()
 
 		if(!pInfo->pVisualMesh->m_bIsRender) m_DebugInfo.nMapObjectFrustumCulled++;
 
-//		mlog("%s,%s \n",pInfo->pVisualMesh->m_pMesh->m_iame,pInfo->pLight->Name.c_str());
+//		cclog("%s,%s \n",pInfo->pVisualMesh->m_pMesh->m_iame,pInfo->pLight->Name.c_str());
 	}
-//	mlog("end \n");
+//	cclog("end \n");
 }
 
 void RBspObject::DrawBoundingBox()
@@ -1435,7 +1435,7 @@ void RecalcBoundingBox(RSBspNode *pNode)
 
 bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag nOpenFlag,RFPROGRESSCALLBACK pfnProgressCallback, void *CallbackParam)
 {
-	mlog("BspObject open : begin %s \n",filename);
+	cclog("BspObject open : begin %s \n",filename);
 
 	m_OpenMode = nOpenFlag;
 	m_filename=filename;
@@ -1450,7 +1450,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 	}
 	if(pfnProgressCallback) pfnProgressCallback(CallbackParam,.3f);
 
-	mlog("RBspObject::Open : OpenDescription\n");
+	cclog("RBspObject::Open : OpenDescription\n");
 
 	if(!OpenRs(filename))
 	{
@@ -1459,7 +1459,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 	}
 
 	if(pfnProgressCallback) pfnProgressCallback(CallbackParam,.6f);
-	mlog("RBspObject::Open : OpenRs \n");
+	cclog("RBspObject::Open : OpenRs \n");
 
 /*	// 봉인
 	char pathfilename[_MAX_PATH];
@@ -1478,7 +1478,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 	}
 
 	if(pfnProgressCallback) pfnProgressCallback(CallbackParam,.8f);
-	mlog("RBspObject::Open : OpenBsp \n");
+	cclog("RBspObject::Open : OpenBsp \n");
 
 	char colfilename[_MAX_PATH];
 	sprintf(colfilename,"%s.col",filename);
@@ -1501,7 +1501,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 	if(RIsHardwareTNL())
 	{
 		if(!CreateVertexBuffer())
-			mlog("Error while Creating VB\n");
+			cclog("Error while Creating VB\n");
 	}
 
 	// 라이트맵을 읽는다
@@ -1510,7 +1510,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 
 	CreateRenderInfo();
 
-	mlog("RBspObject::Open : done\n");
+	cclog("RBspObject::Open : done\n");
 
 	if(pfnProgressCallback) pfnProgressCallback(CallbackParam,1.f);
 
@@ -1529,7 +1529,7 @@ void RBspObject::CreateRenderInfo()
 	if(RIsHardwareTNL())
 	{
 		if(!CreateIndexBuffer())
-			mlog("Error while Creating IB\n");
+			cclog("Error while Creating IB\n");
 
 		UpdateIndexBuffer();
 	}
@@ -1547,7 +1547,7 @@ bool RBspObject::CreateIndexBuffer()
 
 	HRESULT hr=RGetDevice()->CreateIndexBuffer(sizeof(WORD)*m_iIndices,D3DUSAGE_WRITEONLY,D3DFMT_INDEX16,D3DPOOL_MANAGED,&m_pIndexBuffer,NULL);
 	if(D3D_OK!=hr) {
-		mlog("CreateIndexBuffer failed\n");
+		cclog("CreateIndexBuffer failed\n");
 		return false;
 	}
 
@@ -1648,7 +1648,7 @@ bool RBspObject::Open_MaterialList(CCXmlElement *pElement)
 		itor++;
 	}
 
-	mlog("RBspObject::Open : Open_MaterialList\n");
+	cclog("RBspObject::Open : Open_MaterialList\n");
 	return true;
 }
 
@@ -1683,7 +1683,7 @@ bool RBspObject::Open_LightList(CCXmlElement *pElement)
 	}
 	llist.erase(llist.begin(),llist.end());
 
-	mlog("RBspObject::Open : Open_LightList\n");
+	cclog("RBspObject::Open : Open_LightList\n");
 	return true;
 }
 
@@ -1705,7 +1705,7 @@ bool RBspObject::Open_ObjectList(CCXmlElement *pElement)
 {
 	int i;
 
-	mlog("BspObject open object list : begin\n");
+	cclog("BspObject open object list : begin\n");
 
 	CCXmlElement	aObjectNode,aChild;
 	int nCount = pElement->GetChildNodeCount();
@@ -1798,31 +1798,31 @@ bool RBspObject::Open_ObjectList(CCXmlElement *pElement)
 
 	///// objectlist 를 처리한다.
 
-	mlog("RBspObject::Open_ObjectList : size %d \n",m_ObjectList.size());
+	cclog("RBspObject::Open_ObjectList : size %d \n",m_ObjectList.size());
 
 
 	for(list<ROBJECTINFO*>::iterator it=m_ObjectList.begin();it!=m_ObjectList.end();it++) {
 
 		ROBJECTINFO *pInfo=*it;
 
-//		mlog("RBspObject::Open_ObjectList %d : %s \n",__cnt,pInfo->name.c_str());
+//		cclog("RBspObject::Open_ObjectList %d : %s \n",__cnt,pInfo->name.c_str());
 
 		// 미치는 영향이 큰 순서로 하나의 광원을 고른다.
 		float fIntensityFirst=FLT_MIN;
 
 		if(pInfo == NULL) {
 
-			mlog("RBspObject::Open_ObjectList : pInfo == NULL pVisualMesh->CalcBox 원인\n");
+			cclog("RBspObject::Open_ObjectList : pInfo == NULL pVisualMesh->CalcBox 원인\n");
 			continue;
 		}
 		else {
 			if(pInfo->pVisualMesh == NULL) {
-				mlog("RBspObject::Open_ObjectList : pInfo->pVisualMesh == NULL \n");
+				cclog("RBspObject::Open_ObjectList : pInfo->pVisualMesh == NULL \n");
 				continue;
 			}
 		}
 
-//		mlog("RBspObject::Open_ObjectList : pInfo->pVisualMesh->CalcBox... \n");
+//		cclog("RBspObject::Open_ObjectList : pInfo->pVisualMesh->CalcBox... \n");
 		pInfo->pVisualMesh->CalcBox();
 
 		rvector center = (pInfo->pVisualMesh->m_vBMax+pInfo->pVisualMesh->m_vBMin)*.5f;
@@ -1855,7 +1855,7 @@ bool RBspObject::Open_ObjectList(CCXmlElement *pElement)
 		}
 	}
 
-	mlog("RBspObject::Open_ObjectList : end\n");
+	cclog("RBspObject::Open_ObjectList : end\n");
 
 	return true;
 }
@@ -1870,7 +1870,7 @@ bool RBspObject::Make_LenzFalreList()
 		{
 			if( !RGetLenzFlare()->SetLight( pDummy->sPosition ))
 			{
-				mlog( "Fail to Set LenzFlare Position...\n" );
+				cclog( "Fail to Set LenzFlare Position...\n" );
 			}
 
 			return true;
@@ -2051,7 +2051,7 @@ bool RBspObject::OpenPathNode(const char *pathfilename)
 {
 	if(m_PathNodes.Open(pathfilename,m_iConvexPolygon,g_pFileSystem))
 	{
-		mlog("%d pathnodes ",m_PathNodes.size());
+		cclog("%d pathnodes ",m_PathNodes.size());
 		GeneratePathNodeTable();
 		return true;
 	}
@@ -2065,24 +2065,24 @@ bool RBspObject::OpenRs(const char *filename)
 	if(!file.Open(filename,g_pFileSystem)) 
 		return false;
 
-	mlog("RBspObject::OpenRs : file.Open \n");
+	cclog("RBspObject::OpenRs : file.Open \n");
 
 	RHEADER header;
 	file.Read(&header,sizeof(RHEADER));
 	if(header.dwID!=RS_ID || header.dwVersion!=RS_VERSION)
 	{
-		mlog("%s : %d , %d version required.\n",filename,header.dwVersion,RS_VERSION);
+		cclog("%s : %d , %d version required.\n",filename,header.dwVersion,RS_VERSION);
 		file.Close();
 		return false;
 	}
 
-	mlog("RBspObject::OpenRs : file.Read(&header) \n");
+	cclog("RBspObject::OpenRs : file.Read(&header) \n");
 
 	// read material indices
 	int nMaterial;
 	file.Read(&nMaterial,sizeof(int));
 
-	mlog("RBspObject::OpenRs : file.Read(&nMaterial) \n");
+	cclog("RBspObject::OpenRs : file.Read(&nMaterial) \n");
 
 	if(m_iMaterial-1!=nMaterial)
 		return false;
@@ -2116,11 +2116,11 @@ bool RBspObject::OpenRs(const char *filename)
 	g_nCreatingPosition=0;
 	g_pLPVertices=m_pOcVertices;
 
-	mlog("RBspObject::OpenRs : Open_Nodes begin \n");
+	cclog("RBspObject::OpenRs : Open_Nodes begin \n");
 
 	Open_Nodes(m_pOcRoot,&file);
 
-	mlog("RBspObject::OpenRs : Open_Nodes end \n");
+	cclog("RBspObject::OpenRs : Open_Nodes end \n");
 	return true;
 }
 
@@ -2291,14 +2291,14 @@ bool RBspObject::OpenLightmap()
 		return false;
 	}
 
-	mlog("BspObject load lightmap : file.Read(&header)\n");
+	cclog("BspObject load lightmap : file.Read(&header)\n");
 
 	int nSourcePolygon,nNodeCount;
 	
 	file.Read(&nSourcePolygon,sizeof(int));
 	file.Read(&nNodeCount,sizeof(int));
 
-//	mlog("RBspObject::OpenLightmap : nSourcePolygon = %d ,nNodeCount = %d\n",nSourcePolygon,nNodeCount);
+//	cclog("RBspObject::OpenLightmap : nSourcePolygon = %d ,nNodeCount = %d\n",nSourcePolygon,nNodeCount);
 
 	// 같은 맵에서 생성한 라이트맵인지 확인차 저장해둔것을 확인한다.
 	if(nSourcePolygon!=m_iConvexPolygon || m_iNodeCount!=nNodeCount)
@@ -2310,10 +2310,10 @@ bool RBspObject::OpenLightmap()
 	file.Read(&m_iLightmap,sizeof(int));
 	m_ppLightmapTextures=new LPDIRECT3DTEXTURE9[m_iLightmap];
 
-	mlog("BspObject load lightmap nCount = %d\n",m_iLightmap);
+	cclog("BspObject load lightmap nCount = %d\n",m_iLightmap);
 	for(i=0;i<m_iLightmap;i++)
 	{
-		mlog("BspObject load lightmap %d\n",i);
+		cclog("BspObject load lightmap %d\n",i);
 
 		int nBmpSize;
 		file.Read(&nBmpSize,sizeof(int));
@@ -2332,12 +2332,12 @@ bool RBspObject::OpenLightmap()
 			D3DX_FILTER_TRIANGLE|D3DX_FILTER_MIRROR, 
 			0, NULL, NULL, &m_ppLightmapTextures[i]);
 
-		if(hr!=D3D_OK) mlog("lightmap texture 생성 실패 %s \n",DXGetErrorString9(hr));
+		if(hr!=D3D_OK) cclog("lightmap texture 생성 실패 %s \n",DXGetErrorString9(hr));
 		delete bmpmemory;
 //		delete memory;
 	}
 
-	mlog("BspObject load lightmap : file.Read(&m_iLightmap) done\n");
+	cclog("BspObject load lightmap : file.Read(&m_iLightmap) done\n");
 
 	// 저장될때의 폴리곤 순서를 읽는다
 	int *pOrder=new int[m_iPolygon];
@@ -2348,17 +2348,17 @@ bool RBspObject::OpenLightmap()
 		file.Read(&(m_pOcInfo+pOrder[i])->nLightmapTexture,sizeof(int));
 	delete pOrder;
 
-//	mlog("RBspObject::OpenLightmap : file.Read(&(m_pOcInfo) \n");
+//	cclog("RBspObject::OpenLightmap : file.Read(&(m_pOcInfo) \n");
 
 	// 라이트맵 uv 좌표도 읽는다.
 	for(i=0;i<m_iVertices;i++)
 		file.Read(&(m_pOcVertices+i)->tu2,sizeof(float)*2);
 
-//	mlog("RBspObject::OpenLightmap : file.Read(&(m_pOcVertices) \n");
+//	cclog("RBspObject::OpenLightmap : file.Read(&(m_pOcVertices) \n");
 
 	file.Close();
 
-	mlog("BspObject load lightmap : end \n");
+	cclog("BspObject load lightmap : end \n");
 
 	return true;
 }

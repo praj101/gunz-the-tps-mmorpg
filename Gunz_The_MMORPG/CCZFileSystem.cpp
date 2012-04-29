@@ -830,7 +830,7 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 
 				if ( !m_Zip.ReadFile( m_iIndexInZip, pBuff, m_iFileSize))
 				{
-					mlog( "%s open failed\n", m_FileName);
+					cclog( "%s open failed\n", m_FileName);
 					return false;
 				}
 
@@ -860,7 +860,7 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 			{
 				if ( !m_Zip.ReadFile( m_FileName, pBuffer, m_iFileSize))
 				{
-					mlog( "%s file open failed\n", m_FileName);
+					cclog( "%s file open failed\n", m_FileName);
 					return false;
 				}
 			}
@@ -874,7 +874,7 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 
 					if ( !m_Zip.ReadFile( m_iIndexInZip, m_pData, m_iFileSize))
 					{
-						mlog( "%s open failed\n", m_FileName);
+						cclog( "%s open failed\n", m_FileName);
 						return false;
 					}
 				}

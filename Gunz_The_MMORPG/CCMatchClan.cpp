@@ -43,7 +43,7 @@ void CCMatchClan::InitClanInfoFromDB(){
 			dbClanInfo.szEmblemUrl, dbClanInfo.nEmblemChecksum);
 	}
 	else{
-		mlog("DB Query(GetClanInfo) Failed\n");
+		cclog("DB Query(GetClanInfo) Failed\n");
 	}
 
 }

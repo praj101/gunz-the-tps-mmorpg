@@ -261,7 +261,7 @@ void MMatchRuleQuest::CombatProcess()
 void MMatchRuleQuest::OnBeginCombatState(MQuestCombatState nState)
 {
 #ifdef _DEBUG
-	mlog( "Quest state : %d.\n", nState );
+	cclog( "Quest state : %d.\n", nState );
 #endif
 
 	switch (nState)
@@ -808,7 +808,7 @@ void MMatchRuleQuest::InsertNoParamQItemToPlayer( MMatchObject* pPlayer, MQuestI
 	{
 		// 처음 획득한 퀘스트 아이템. 새로 추가시켜 줘야 함.
 		if( !pPlayer->GetCharInfo()->m_QuestItemList.CreateQuestItem(pQItem->GetItemID(), pQItem->GetCount(), pQItem->IsKnown()) )
-			mlog( "MMatchRuleQuest::DistributeReward - %d번호 아이템의 Create( ... )함수 호출 실패.\n", pQItem->GetItemID() );
+			cclog( "MMatchRuleQuest::DistributeReward - %d번호 아이템의 Create( ... )함수 호출 실패.\n", pQItem->GetItemID() );
 	}
 }
 
@@ -866,7 +866,7 @@ void MMatchRuleQuest::MakeRewardList()
 					// 처음 획득.
 					if( !pRewardQuestItemMap->CreateQuestItem(pObtainQItem->nItemID, 1) )
 					{
-						mlog( "MMatchRuleQuest::MakeRewardList - ItemID:%d 처음 획득한 아이템 생성 실패.\n", pObtainQItem->nItemID );
+						cclog( "MMatchRuleQuest::MakeRewardList - ItemID:%d 처음 획득한 아이템 생성 실패.\n", pObtainQItem->nItemID );
 						continue;
 					}
 				}
@@ -962,14 +962,14 @@ bool MMatchRuleQuest::DistributeQItem( MQuestPlayerInfo* pPlayerInfo, void** ppo
 	void* pSimpleQuestItemBlob = MMakeBlobArray( sizeof(MTD_QuestItemNode), static_cast<int>(pObtainQuestItemMap->size()) );
 	if( 0 == pSimpleQuestItemBlob )
 	{
-		mlog( "MMatchRuleQuest::DistributeReward - Quest item 정보를 보낼 Blob생성에 실패.\n" );
+		cclog( "MMatchRuleQuest::DistributeReward - Quest item 정보를 보낼 Blob생성에 실패.\n" );
 		return false;
 	}
 
 	// 로그를 위해서 해당 유저가 받을 아이템의 정보를 저장해 놓음.
 	if( !m_QuestGameLogInfoMgr.AddRewardQuestItemInfo(pPlayer->GetUID(), pObtainQuestItemMap) )
 	{
-		mlog( "m_QuestGameLogInfoMgr -해당 유저의 로그객체를 찾는데 실패." );
+		cclog( "m_QuestGameLogInfoMgr -해당 유저의 로그객체를 찾는데 실패." );
 	}
 
 	int nBlobIndex = 0;
@@ -979,7 +979,7 @@ bool MMatchRuleQuest::DistributeQItem( MQuestPlayerInfo* pPlayerInfo, void** ppo
 		MQuestItemDesc* pQItemDesc = pQItem->GetDesc();
 		if( 0 == pQItemDesc )
 		{
-			mlog( "MMatchRuleQuest::DistributeReward - %d 아이템의 디스크립션 셋팅이 되어있지 않음.\n", pQItem->GetItemID() );
+			cclog( "MMatchRuleQuest::DistributeReward - %d 아이템의 디스크립션 셋팅이 되어있지 않음.\n", pQItem->GetItemID() );
 			continue;
 		}
 
@@ -1031,14 +1031,14 @@ bool MMatchRuleQuest::DistributeZItem( MQuestPlayerInfo* pPlayerInfo, void** ppo
 	void* pSimpleZItemBlob = MMakeBlobArray( sizeof(MTD_QuestZItemNode), (int)(pObtainZItemList->size()) );
 	if( 0 == pSimpleZItemBlob )
 	{
-		mlog( "MMatchRuleQuest::DistributeZItem - Ztem 정보를 보낼 Blob생성에 실패.\n" );
+		cclog( "MMatchRuleQuest::DistributeZItem - Ztem 정보를 보낼 Blob생성에 실패.\n" );
 		return false;
 	}
 
 	// 캐시 아이템 획득 로그를 남기기 위함.
 	if( !m_QuestGameLogInfoMgr.AddRewardZItemInfo(pPlayer->GetUID(), pObtainZItemList) )
 	{
-		mlog( "m_QuestGameLogInfoMgr -해당 유저의 로그객체를 찾는데 실패." );
+		cclog( "m_QuestGameLogInfoMgr -해당 유저의 로그객체를 찾는데 실패." );
 	}
 
 	int nBlobIndex = 0;
@@ -1103,7 +1103,7 @@ void MMatchRuleQuest::OnObtainWorldItem(MMatchObject* pObj, int nItemID, int* pn
 	if (m_nCombatState != MQUEST_COMBAT_PLAY) 
 	{
 #ifdef _DEBUG
-		mlog( "obtain quest item fail. not combat play.\n" );
+		cclog( "obtain quest item fail. not combat play.\n" );
 #endif
 		return;
 	}
@@ -1146,7 +1146,7 @@ void MMatchRuleQuest::OnResponseDropSacrificeItemOnSlot( const MUID& uidSender, 
 			// ItemID가 비 정상적이거나 ItemID에 해당하는 Description이 없음.
 			// 여하튼 error...
 
-			mlog( "MMatchRuleBaseQuest::SetSacrificeItemOnSlot - ItemID가 비 정상적이거나 %d에 해당하는 Description이 없음.\n", nItemID );
+			cclog( "MMatchRuleBaseQuest::SetSacrificeItemOnSlot - ItemID가 비 정상적이거나 %d에 해당하는 Description이 없음.\n", nItemID );
 			ASSERT( 0 );
 			return;
 		}
@@ -1157,7 +1157,7 @@ void MMatchRuleQuest::OnResponseDropSacrificeItemOnSlot( const MUID& uidSender, 
 			MMatchObject* pPlayer = MMatchServer::GetInstance()->GetObject( uidSender );
 			if( !IsEnabledObject(pPlayer) )
 			{
-				mlog( "MMatchRuleBaseQuest::SetSacrificeItemOnSlot - 비정상 유저.\n" );
+				cclog( "MMatchRuleBaseQuest::SetSacrificeItemOnSlot - 비정상 유저.\n" );
 				return;
 			}
 
@@ -1220,7 +1220,7 @@ void MMatchRuleQuest::OnResponseDropSacrificeItemOnSlot( const MUID& uidSender, 
 	else
 	{
 		// 슬롯의 인덱스가 비 정상적임.
-		mlog( "MMatchRuleBaseQuest::OnResponseDropSacrificeItemOnSlot - %d번 슬롯 인덱스는 유효하지 않는 인덱스임.\n", nSlotIndex );
+		cclog( "MMatchRuleBaseQuest::OnResponseDropSacrificeItemOnSlot - %d번 슬롯 인덱스는 유효하지 않는 인덱스임.\n", nSlotIndex );
 		ASSERT( 0 );
 		return;
 	}
@@ -1252,7 +1252,7 @@ void MMatchRuleQuest::OnResponseCallBackSacrificeItem( const MUID& uidSender, co
 	MMatchObject* pPlayer = MMatchServer::GetInstance()->GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) )
 	{
-		mlog( "MMatchRuleBaseQuest::OnResponseCallBackSacrificeItem - 비정상적인 유저.\n" );
+		cclog( "MMatchRuleBaseQuest::OnResponseCallBackSacrificeItem - 비정상적인 유저.\n" );
 		return;
 	}
 
@@ -1387,7 +1387,7 @@ void MMatchRuleQuest::OnRequestQL( const MUID& uidSender )
 		MMatchObject* pPlayer = MMatchServer::GetInstance()->GetObject( uidSender );
 		if( 0 == pPlayer )
 		{
-			mlog( "MMatchRuleQuest::OnRequestQL - 비정상 유저.\n" );
+			cclog( "MMatchRuleQuest::OnRequestQL - 비정상 유저.\n" );
 			return;
 		}
 
@@ -1407,7 +1407,7 @@ void MMatchRuleQuest::OnResponseQL_ToStage( const MUID& uidStage )
 	MMatchStage* pStage = MMatchServer::GetInstance()->FindStage( uidStage );
 	if( 0 == pStage )
 	{
-		mlog( "MMatchRuleQuest::OnRequestQL - 스테이지 검사 실패.\n" );
+		cclog( "MMatchRuleQuest::OnRequestQL - 스테이지 검사 실패.\n" );
 		return;
 	}
 

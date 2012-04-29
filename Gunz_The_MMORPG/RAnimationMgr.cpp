@@ -23,7 +23,7 @@ void RAnimationFileMgr::Destroy()
 {
 	RAnimationFileHashList_Iter  node;
 
-//	mlog("에니메이션 파일 제거 size %d \n",m_list.size() );
+//	cclog("에니메이션 파일 제거 size %d \n",m_list.size() );
 
 	for(node = m_list.begin(); node != m_list.end(); ) {
 		delete (*node);
@@ -45,11 +45,11 @@ RAnimationFile* RAnimationFileMgr::Add(char* filename)
 
 	if( pFile ) {
 		pFile->AddRef();
-//		mlog("에니메이션 파일 중복사용 %s ref_cnt %d \n",filename,pFile->m_iRefCount);
+//		cclog("에니메이션 파일 중복사용 %s ref_cnt %d \n",filename,pFile->m_iRefCount);
 		return pFile;
 	}
 
-//	mlog("에니메이션 파일 생성 %s %d \n",filename,m_list.size());
+//	cclog("에니메이션 파일 생성 %s %d \n",filename,m_list.size());
 
 	pFile = new RAnimationFile;
 
@@ -93,7 +93,7 @@ RAnimation* RAnimationMgr::AddAnimationFile(char* name,char* filename,int sID,bo
 	else {
 
 		if (!node->LoadAni(filename)) {
-			mlog("elu %s file loading failure !!!\n",filename);
+			cclog("elu %s file loading failure !!!\n",filename);
 			delete node;
 			return NULL;
 		}
@@ -110,7 +110,7 @@ RAnimation* RAnimationMgr::AddAnimationFile(char* name,char* filename,int sID,bo
 	m_id_last++;
 
 	if(m_id_last > MAX_ANIMATION_NODE)
-		mlog("에니메이션 노드 예약 사이즈를 늘리는것이 좋겠음..\n",filename);
+		cclog("에니메이션 노드 예약 사이즈를 늘리는것이 좋겠음..\n",filename);
 
 	m_list.PushBack(node);
 
@@ -141,7 +141,7 @@ void RAnimationMgr::DelAll() {
 	}
 
 //	if(m_list.size())
-//		mlog("ranimationmgr::del_all size = %d \n ",m_list.size() );
+//		cclog("ranimationmgr::del_all size = %d \n ",m_list.size() );
 
 	for(node = m_list.begin(); node != m_list.end(); ) {
 		delete (*node);
@@ -166,7 +166,7 @@ void RAnimationMgr::ReloadAll()
 		if(pANode) {
 			if(pANode->IsLoadDone()==false) {
 				if (!pANode->LoadAni(pANode->m_filename)) {
-					mlog("elu %s file loading failure !!!\n",pANode->m_filename);
+					cclog("elu %s file loading failure !!!\n",pANode->m_filename);
 				}
 				pANode->SetLoadDone(true);
 			}
@@ -180,7 +180,7 @@ void RAnimationMgr::MakeListMap(int size)
 		return;
 
 	if( size > 100 ) {
-		mlog("RAnimationMgr::MakeListMap %d 는 너무과한거 아닌가?\n",size);
+		cclog("RAnimationMgr::MakeListMap %d 는 너무과한거 아닌가?\n",size);
 	}
 
 	m_list_map = new RAnimationHashList[size];

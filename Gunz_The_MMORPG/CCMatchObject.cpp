@@ -363,7 +363,7 @@ void MMatchObject::BattleTimeReward(unsigned int nTime)
 					else if( pInfo->IsExpired(pDesc->GetBRTID()) )
 					{						
 #ifdef _DEBUG
-						mlog("CID(%d), 의 BR Info(%d, %d, %d, %d)가 만료되었습니다.\n", m_pCharInfo->m_nCID, pInfo->GetBRID(), pInfo->GetBRTID(), 
+						cclog("CID(%d), 의 BR Info(%d, %d, %d, %d)가 만료되었습니다.\n", m_pCharInfo->m_nCID, pInfo->GetBRID(), pInfo->GetBRTID(), 
 							pInfo->GetBattleTime(), pInfo->GetKillCount());
 #endif
 

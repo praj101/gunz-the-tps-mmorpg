@@ -168,7 +168,7 @@ bool MLadderPicker::Evaluate(MLadderTicket* pTicket, list<MLadderTicket*>::itera
 			int nClanPointDiff = abs(pTicket->GetClanPoint() - pRealTarTicket->GetClanPoint());
 			int nContPointDiff = abs(pTicket->GetContPoint() - pRealTarTicket->GetContPoint());
 
-			mlog("Matched: LevelDiff = %2d(%2d, %2d), ClanPointDiff = %4d(%4d, %4d), ContPointDiff = %3d(%3d, %3d), TickCount = (%d, %d)\n",
+			cclog("Matched: LevelDiff = %2d(%2d, %2d), ClanPointDiff = %4d(%4d, %4d), ContPointDiff = %3d(%3d, %3d), TickCount = (%d, %d)\n",
 				nLevelDiff, pTicket->GetCharLevel(), pRealTarTicket->GetCharLevel(),
 				nClanPointDiff, pTicket->GetClanPoint(), pRealTarTicket->GetClanPoint(),
 				nContPointDiff, pTicket->GetContPoint(), pRealTarTicket->GetContPoint(),

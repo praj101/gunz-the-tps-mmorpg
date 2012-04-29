@@ -350,7 +350,7 @@ void MMatchRuleBaseQuest::CheckMonsterBible( const MUID& uidUser, const int nMon
 
 #ifdef _DEBUG
 	// 처음 획득한 몬스터 정보.
-	mlog( "MMatchRuleBaseQuest::CheckMonsterBible - New obtain monster info:%d\n", nMonsterBibleIndex );
+	cclog( "MMatchRuleBaseQuest::CheckMonsterBible - New obtain monster info:%d\n", nMonsterBibleIndex );
 
 	// 현재 가지고 있는 몬스터 정보.
 	MQuestMonsterBible qmb = pCharInfo->m_QMonsterBible;
@@ -361,7 +361,7 @@ void MMatchRuleBaseQuest::CheckMonsterBible( const MUID& uidUser, const int nMon
 
 		MQuestNPCInfo* pNPCInfo = MMatchServer::GetInstance()->GetQuest()->GetNPCIndexInfo( i );
 		ASSERT( 0 != pNPCInfo );
-		mlog( "MMatchRuleBaseQuest::CheckMonsterBible - Monster name : %s, Bible index : %d\n", pNPCInfo->szName, i );
+		cclog( "MMatchRuleBaseQuest::CheckMonsterBible - Monster name : %s, Bible index : %d\n", pNPCInfo->szName, i );
 	}	
 #endif
 }
@@ -379,13 +379,13 @@ void MMatchRuleBaseQuest::PostNewMonsterInfo( const MUID& uidUser, const char nM
 	MCommand* pMonInfoCmd = MMatchServer::GetInstance()->CreateCommand( MC_MATCH_NEW_MONSTER_INFO, uidUser );
 	if( 0 == pMonInfoCmd )
 	{
-		mlog( "MMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 생성 실패.\n" );
+		cclog( "MMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 생성 실패.\n" );
 		return;
 	}
 	pMonInfoCmd->AddParameter( new MCmdParamChar(nMonIndex) );
 
 	if( !MMatchServer::GetInstance()->Post(pMonInfoCmd) )
-		mlog( "MMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 POST실패.\n" );
+		cclog( "MMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 POST실패.\n" );
 }
 
 
@@ -413,7 +413,7 @@ void MMatchRuleBaseQuest::ReAssignNPC()
 			{
 				m_NPCManager.RemovePlayerControl(pObj->GetUID());
 			}
-//			mlog("Ping : %s (%d)\n", pObj->GetName(), lat);
+//			cclog("Ping : %s (%d)\n", pObj->GetName(), lat);
 		}
 	}
 }

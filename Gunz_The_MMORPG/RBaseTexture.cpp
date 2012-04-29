@@ -457,7 +457,7 @@ int RTextureManager::PrintUsedTexture()
 			if(pTex->m_pTex)
 				nUse = 1;
 			
-			mlog("texture : %s Used %d RefCnt %d \n",pTex->m_szTextureName,nUse,pTex->m_iRefCount);
+			cclog("texture : %s Used %d RefCnt %d \n",pTex->m_szTextureName,nUse,pTex->m_iRefCount);
 			cnt++;
 		}
 	}

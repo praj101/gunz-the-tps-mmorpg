@@ -373,7 +373,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 		char szTime[128]="";
 		_strtime(szTime);
 
-		mlog("[%s] Async DB Query(ResponseAccountCharList) Failed\n", szTime);
+		cclog("[%s] Async DB Query(ResponseAccountCharList) Failed\n", szTime);
 		return;
 	}		
 
@@ -413,7 +413,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //		char szTime[128]="";
 //		_strtime(szTime);
 //
-//		mlog("[%s] Async DB Query(ResponseAccountCharInfo) Failed\n", szTime);
+//		cclog("[%s] Async DB Query(ResponseAccountCharInfo) Failed\n", szTime);
 //		return;
 //	}		
 //
@@ -430,7 +430,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //	MAsyncDBJob_GetCharInfo* pJob = (MAsyncDBJob_GetCharInfo*)pJobResult;
 //
 //	if (pJob->GetResult() != MASYNC_RESULT_SUCCEED) {
-//		mlog("DB Query(OnAsyncGetCharInfo > GetCharInfoByAID) Failed\n");
+//		cclog("DB Query(OnAsyncGetCharInfo > GetCharInfoByAID) Failed\n");
 //		return;
 //	}
 //
@@ -451,7 +451,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //
 //	if (pJob->GetCharInfo() == NULL)
 //	{
-//		mlog("pJob->GetCharInfo() IS NULL\n");
+//		cclog("pJob->GetCharInfo() IS NULL\n");
 //		return;
 //	}
 //	pObj->SetCharInfo(pJob->GetCharInfo());		// Save Async Result
@@ -459,7 +459,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //
 //	if (CharInitialize(pJob->GetUID()) == false)
 //	{
-//		mlog("OnAsyncGetCharInfo > CharInitialize failed");
+//		cclog("OnAsyncGetCharInfo > CharInitialize failed");
 //		return;
 //	}
 //
@@ -531,7 +531,7 @@ void MMatchServer::OnAsyncCreateChar(MAsyncJob* pJobResult)
 		char szTime[128]="";
 		_strtime(szTime);
 
-		mlog("[%s] Async DB Query(CreateChar) Failed\n", szTime);
+		cclog("[%s] Async DB Query(CreateChar) Failed\n", szTime);
 		return;
 	}		
 
@@ -554,7 +554,7 @@ void MMatchServer::OnAsyncDeleteChar(MAsyncJob* pJobResult)
 		char szTime[128]="";
 		_strtime(szTime);
 
-		mlog("[%s] Async DB Query(DeleteChar) Failed\n", szTime);
+		cclog("[%s] Async DB Query(DeleteChar) Failed\n", szTime);
 	}		
 
 	MMatchObject* pObj = GetObject(pJob->GetUID());
@@ -569,7 +569,7 @@ void MMatchServer::OnAsyncWinTheClanGame(MAsyncJob* pJobInput)
 		char szTime[128]="";
 		_strtime(szTime);
 
-		mlog("[%s] Async DB Query(OnAsyncWinTheClanGame) Failed\n", szTime);
+		cclog("[%s] Async DB Query(OnAsyncWinTheClanGame) Failed\n", szTime);
 		return;
 	}		
 
@@ -582,7 +582,7 @@ void MMatchServer::OnAsyncUpdateCharInfoData(MAsyncJob* pJobInput)
 		char szTime[128]="";
 		_strtime(szTime);
 
-		mlog("[%s] Async DB Query(OnAsyncUpdateCharInfoData) Failed\n", szTime);
+		cclog("[%s] Async DB Query(OnAsyncUpdateCharInfoData) Failed\n", szTime);
 		return;
 	}		
 
@@ -594,7 +594,7 @@ void MMatchServer::OnAsyncCharFinalize(MAsyncJob* pJobInput)
 		char szTime[128]="";
 		_strtime(szTime);
 
-		mlog("[%s] Async DB Query(OnAsyncCharFinalize) Failed\n", szTime);
+		cclog("[%s] Async DB Query(OnAsyncCharFinalize) Failed\n", szTime);
 		return;
 	}
 
@@ -642,7 +642,7 @@ void MMatchServer::OnAsyncInsertConnLog(MAsyncJob* pJobResult)
 		char szTime[128]="";
 		_strtime(szTime);
 
-		mlog("[%s] Async DB Query(OnAsyncInsertConnLog) Failed\n", szTime);
+		cclog("[%s] Async DB Query(OnAsyncInsertConnLog) Failed\n", szTime);
 		return;
 	}		
 
@@ -654,7 +654,7 @@ void MMatchServer::OnAsyncInsertGameLog(MAsyncJob* pJobResult)
 
 	if (pJob->GetResult() != MASYNC_RESULT_SUCCEED) {
 		char szTime[128]=""; _strtime(szTime);
-		mlog("[%s] Async DB Query(OnAsyncInsertGameLog) Failed\n", szTime);
+		cclog("[%s] Async DB Query(OnAsyncInsertGameLog) Failed\n", szTime);
 		return;
 	}
 
@@ -856,7 +856,7 @@ void MMatchServer::OnAsyncGetAccountItemList( MAsyncJob* pJobResult )
 	MAsyncDBJob_GetAccountItemList* pJob = (MAsyncDBJob_GetAccountItemList*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("GetAccountItemList Failed\n");
+		cclog("GetAccountItemList Failed\n");
 		return;
 	}
 
@@ -931,7 +931,7 @@ void MMatchServer::OnAsyncBuyQuestItem( MAsyncJob* pJobReslt )
 	
 	MCommand* pNewCmd = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, pJob->GetPlayerUID() );
 	if( 0 == pNewCmd ) {
-		mlog( "MMatchServer::OnResponseBuyQuestItem - new Command실패.\n" );
+		cclog( "MMatchServer::OnResponseBuyQuestItem - new Command실패.\n" );
 		return;
 	}
 	
@@ -969,7 +969,7 @@ void MMatchServer::OnAsyncSurvivalModeGroupRanking(MAsyncJob* pJobResult)
 	// Class에서 더 필요한 부분이 있으면 수정하시면 됩니다.
 	for(DWORD dwScenarioID = 1; dwScenarioID <= MAX_SURVIVAL_SCENARIO_COUNT; dwScenarioID++)
 	{
-		mlog("-------- Scenario ID = %d, Top 100 --------\n", dwScenarioID);
+		cclog("-------- Scenario ID = %d, Top 100 --------\n", dwScenarioID);
 
 		for(int i = 1; i <= 100; i++)
 		{
@@ -977,7 +977,7 @@ void MMatchServer::OnAsyncSurvivalModeGroupRanking(MAsyncJob* pJobResult)
 			
 			if( NULL != pRankingInfo )
 			{
-				mlog("CID = %d, Ranking = %d, Ranking Point = %d\n", 
+				cclog("CID = %d, Ranking = %d, Ranking Point = %d\n", 
 					pRankingInfo->dwCID, pRankingInfo->dwRanking, pRankingInfo->dwRankingPoint);
 			}
 
@@ -1024,22 +1024,22 @@ void MMatchServer::OnAsyncSurvivalModePrivateRanking(MAsyncJob* pJobResult)
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() )
 	{
-		mlog("MMatchServer::OnAsyncSurvivalModePrivateRanking - 실패! stageUID[%d] playerCID[%d]\n", pJob->GetStageUID(), pJob->GetCID());
+		cclog("MMatchServer::OnAsyncSurvivalModePrivateRanking - 실패! stageUID[%d] playerCID[%d]\n", pJob->GetStageUID(), pJob->GetCID());
 		return;
 	}
 #ifdef _DEBUG
-	mlog("MMatchServer::OnAsyncSurvivalModePrivateRanking - Test Log입니다. 성공!\n");
+	cclog("MMatchServer::OnAsyncSurvivalModePrivateRanking - Test Log입니다. 성공!\n");
 
 	// 다음은 MAsyncDBJob_GetSurvivalModePrivateRanking Class의 사용 요령입니다.
 	// Class에서 더 필요한 부분이 있으면 수정하시면 됩니다.
-	mlog("-------- User Ranking Info --------\n");
-	mlog("User CID = %d\n", pJob->GetCID());
+	cclog("-------- User Ranking Info --------\n");
+	cclog("User CID = %d\n", pJob->GetCID());
 
 	for(DWORD dwScenarioID = 1; dwScenarioID < MAX_SURVIVAL_SCENARIO_COUNT + 1; dwScenarioID++)
 	{
 		RANKINGINFO* pRankingInfo = pJob->GetPrivateRankingInfo(dwScenarioID);
 
-		mlog("Scenario ID = %01d, Ranking = %d, Ranking Point = %d\n", 
+		cclog("Scenario ID = %01d, Ranking = %d, Ranking Point = %d\n", 
 			dwScenarioID, pRankingInfo->dwRanking, pRankingInfo->dwRankingPoint);
 	}
 #endif

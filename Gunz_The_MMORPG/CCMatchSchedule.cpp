@@ -559,7 +559,7 @@ MMatchScheduleData* MMatchScheduleMgr::MakeOnceScheduleData( const unsigned char
 	// cYear % 100 => 두에 두자리만을 사용함.
 	if( !pData->SetTimes(cYear % 100, cMonth, cDay, cHour, cMin) ) return 0;
 
-	mlog( "\n%u\n", m_tmUpdateTerm );
+	cclog( "\n%u\n", m_tmUpdateTerm );
 
 	pData->SetType( MMatchScheduleData::ONCE );
 	pData->SetCommand( pCmd );

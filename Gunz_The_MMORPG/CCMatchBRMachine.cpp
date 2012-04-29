@@ -126,20 +126,20 @@ void MMatchBRMachine::SetBattleTimeRewardMachine(MMatchBRDescriptionMap Descript
 	{
 		m_RewardDescription.Clear();
 
-		mlog("=======================================================================\n");
+		cclog("=======================================================================\n");
 		MMatchBRDescriptionMap::iterator iter = DescriptionMap.begin();
 		for( ; iter != DescriptionMap.end(); iter++) 
 		{
 			MMatchBRDescription *pDesc = iter->second;
 
-			mlog(" BRID(%d), RewardMinutePeriod(%d), RewardCount(%d)\n", 
+			cclog(" BRID(%d), RewardMinutePeriod(%d), RewardCount(%d)\n", 
 				pDesc->GetBRID(), pDesc->GetRewardMinutePeriod(), pDesc->GetRewardCount());
 
 			vector<MMatchBRItem*> v = pDesc->GetBattleRewardItemList();
 
 			for(int i = 0; i < (int)v.size(); i++)
 			{
-				mlog("    BRIID(%d), ItemID(M=%d, F=%d), RentHourPeriod(%d), Rate(%d), RateRange(%d)\n", 
+				cclog("    BRIID(%d), ItemID(M=%d, F=%d), RentHourPeriod(%d), Rate(%d), RateRange(%d)\n", 
 					v[i]->GetBRIID(), v[i]->GetItemIDMale(), v[i]->GetItemIDFemale(), v[i]->GetRentHourPeriod(), v[i]->GetRate(), v[i]->GetRateRange());
 			}
 
@@ -148,7 +148,7 @@ void MMatchBRMachine::SetBattleTimeRewardMachine(MMatchBRDescriptionMap Descript
 		}
 		m_RewardDescription.MakeCRC32();
 
-		mlog("=======================================================================\n");
+		cclog("=======================================================================\n");
 	}
 	else
 	{

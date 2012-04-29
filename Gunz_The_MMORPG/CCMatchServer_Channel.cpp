@@ -111,7 +111,7 @@ bool MMatchServer::ChannelJoin(const MUID& uidPlayer, const MCHANNEL_TYPE nChann
 					if( MUID(0, 0) == uidChannel )
 					{
 						ASSERT( 0 && "들어갈 수 있는 채널을 찾지 못했음.");
-						mlog( "MMatchServer_Channel.cpp - ChannelJoin : Can't find free channel.\n" );
+						cclog( "MMatchServer_Channel.cpp - ChannelJoin : Can't find free channel.\n" );
 						return false;
 					}
 
@@ -197,7 +197,7 @@ bool MMatchServer::ChannelJoin(const MUID& uidPlayer, const MUID& uidChannel)
 				
 				if( MUID(0, 0) == uidChannel) {
 					ASSERT( 0 && "들어갈 수 있는 채널을 찾지 못했음.");
-					mlog( "MMatchServer_Channel.cpp - ChannelJoin : Can't find free channel.\n" );
+					cclog( "MMatchServer_Channel.cpp - ChannelJoin : Can't find free channel.\n" );
 					return false;
 				}
 
@@ -408,7 +408,7 @@ void MMatchServer::OnRequestRecommendedChannel(const MUID& uidComm)
 	{
 		if( !ChannelAdd(GetDefaultChannelName(), GetDefaultChannelRuleName(), &uidChannel, MCHANNEL_TYPE_PRESET) )
 		{
-			mlog( "Channel Add fail for recommand.\n" );
+			cclog( "Channel Add fail for recommand.\n" );
 			return;	// 생성조차 실패하면 낭패....
 		}		
 	}

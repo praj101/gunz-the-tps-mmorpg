@@ -90,7 +90,7 @@ void MMatchShutdown::Notify(int nIndex)
 	pServer->RouteToAllClient(pCmd);
 
 #ifdef _DEBUG
-	mlog( "MMatchShutdown::Notify - Notify : %s\n", pszMsg );
+	cclog( "MMatchShutdown::Notify - Notify : %s\n", pszMsg );
 #endif
 }
 

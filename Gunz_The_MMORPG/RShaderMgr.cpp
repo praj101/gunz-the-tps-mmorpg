@@ -81,7 +81,7 @@ bool RShaderMgr::Initialize()
 		if( !RShaderMgr::getShaderMgr()->addVertexShaderFromResource( "shader/skin.vso" ))
 		{
 			_ASSERT(!"Shader Compile Error");			
-			mlog("Shader Compile Error");
+			cclog("Shader Compile Error");
 			mbUsingShader	= false;
 			return false;
 		}
@@ -89,7 +89,7 @@ bool RShaderMgr::Initialize()
 	
 	mbUsingShader	= false;
 
-	mlog("shader initialize successful : %d\n", m_ShaderVec.size() );
+	cclog("shader initialize successful : %d\n", m_ShaderVec.size() );
 	return	true;
 }
 
@@ -109,7 +109,7 @@ void RShaderMgr::Release()
 	m_ShaderVec.clear();
 	m_ShaderDeclVec.clear();
 
-//	mlog("shader destroy successful : %d\n", test );
+//	cclog("shader destroy successful : %d\n", test );
 }
 bool RShaderMgr::addVertexShaderFromFile( char* fileName_ )
 {
@@ -229,7 +229,7 @@ LPDIRECT3DVERTEXSHADER9 RShaderMgr::getShader( int i_  )
 {
 	if( i_ >= (int)m_ShaderVec.size() )
 	{
-		mlog( " Shader Critical Error \n " );
+		cclog( " Shader Critical Error \n " );
 	}
 	return m_ShaderVec[i_];
 }
@@ -238,7 +238,7 @@ LPDIRECT3DVERTEXDECLARATION9 RShaderMgr::getShaderDecl(int i)
 {
 	if( i >= (int)m_ShaderDeclVec.size() )
 	{
-		mlog( " ShaderDecl Critical Error \n " );
+		cclog( " ShaderDecl Critical Error \n " );
 	}
 	return m_ShaderDeclVec[i];
 }

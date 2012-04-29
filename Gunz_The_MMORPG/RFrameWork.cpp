@@ -79,7 +79,7 @@ void RFrame_InitFont()
 	SAFE_RELEASE(g_lpFont);
 	HRESULT hr=D3DXCreateFontIndirect(RGetDevice(), &lFont, &g_lpFont);
 	_ASSERT(hr==D3D_OK);
-	mlog("font restored.\n");
+	cclog("font restored.\n");
 }
 */
 
@@ -111,7 +111,7 @@ void RFrame_Destroy()
 	if(g_pFunctions[RF_DESTROY])
 		g_pFunctions[RF_DESTROY](NULL);
 
-	mlog("Rframe_destory::closeDisplay\n");
+	cclog("Rframe_destory::closeDisplay\n");
 	RCloseDisplay();
 
 #ifdef _USE_GDIPLUS
@@ -153,7 +153,7 @@ void RFrame_Render()
 	{
 		RMODEPARAMS ModeParams={ RGetScreenWidth(),RGetScreenHeight(),RIsFullScreen(),RGetPixelFormat() };
 		RResetDevice(&ModeParams);
-		mlog("devices Restored. \n");
+		cclog("devices Restored. \n");
 	}
 
 	if(timeGetTime() > g_last_mouse_move_time + RTOOLTIP_GAP)
@@ -327,7 +327,7 @@ int RMain(const char *AppName, HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR c
 //	ShowWindow(g_hWnd,SW_SHOW);
 //	if(!RInitDisplay(g_hWnd,pModeParams))
 //	{
-//		mlog("can't init display\n");
+//		cclog("can't init display\n");
 //		return -1;
 //	}
 //
@@ -414,7 +414,7 @@ int RInitD3D( RMODEPARAMS* pModeParams )
 	ShowWindow(g_hWnd,SW_SHOW);
 	if(!RInitDisplay(g_hWnd,pModeParams))
 	{
-		mlog("can't init display\n");
+		cclog("can't init display\n");
 		return -1;
 	}
 

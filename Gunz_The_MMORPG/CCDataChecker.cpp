@@ -135,7 +135,7 @@ bool CCDataChecker::UpdateChecksum()
 		m_iTotalChecksum += pNode->GetChecksum();
 		#ifdef _DEBUG
 			if (bResultCurrent == false)
-				mlog("MEMORYHACK: ID=%u, CurrChecksum=%u, LastChecksum=%u \n", 
+				cclog("MEMORYHACK: ID=%u, CurrChecksum=%u, LastChecksum=%u \n", 
 					pNode->GetID(), pNode->GetChecksum(), pNode->GetLastChecksum());
 		#endif
 	}

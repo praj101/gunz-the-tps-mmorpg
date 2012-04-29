@@ -476,7 +476,7 @@ bool RSolidBspNode::CheckWall2(RSolidBspNode *pRootNode,RImpactPlanes &impactPla
 
 	if(m_bTracePath) {	// 순전히 출력하는 부분
 		rvector dif=targetpos-origin;
-		mlog(" from ( %3.5f %3.5f %3.5f ) by ( %3.3f %3.3f %3.3f ) "
+		cclog(" from ( %3.5f %3.5f %3.5f ) by ( %3.3f %3.3f %3.3f ) "
 			,origin.x,origin.y,origin.z,dif.x,dif.y,dif.z);
 	}
 
@@ -500,7 +500,7 @@ bool RSolidBspNode::CheckWall2(RSolidBspNode *pRootNode,RImpactPlanes &impactPla
 		{
 			if(m_bTracePath) {
 				float fDist = D3DXPlaneDotCoord(&p,&origin);
-				mlog(" del_back{d = %3.3f [%3.3f %3.3f %3.3f %3.3f]}",fDist,p.a,p.b,p.c,p.d);
+				cclog(" del_back{d = %3.3f [%3.3f %3.3f %3.3f %3.3f]}",fDist,p.a,p.b,p.c,p.d);
 			}
 			i=impactPlanes.erase(i)	;
 		}else
@@ -511,12 +511,12 @@ bool RSolidBspNode::CheckWall2(RSolidBspNode *pRootNode,RImpactPlanes &impactPla
 	if(m_bTracePath) {	// 순전히 출력하는 부분
 		if(impactPlanes.size())
 		{
-			mlog(" :::: %d planes ",impactPlanes.size());
+			cclog(" :::: %d planes ",impactPlanes.size());
 			for(RImpactPlanes::iterator i=impactPlanes.begin();i!=impactPlanes.end();i++)
 			{
 				rplane p=*i;
 				float fDist = D3DXPlaneDotCoord(&p,&origin);
-				mlog(" d = %3.3f [%3.3f %3.3f %3.3f %3.3f] ",fDist,p.a,p.b,p.c,p.d);
+				cclog(" d = %3.3f [%3.3f %3.3f %3.3f %3.3f] ",fDist,p.a,p.b,p.c,p.d);
 			}
 		}
 	}
@@ -607,7 +607,7 @@ bool RSolidBspNode::CheckWall2(RSolidBspNode *pRootNode,RImpactPlanes &impactPla
 		}
 
 	if(m_bTracePath) {
-		mlog("%d simul ",nSimulCount);
+		cclog("%d simul ",nSimulCount);
 	}
 
 		return true;
@@ -641,11 +641,11 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 //	if(impactPlanes.size()) 
 	{
 		if(m_bTracePath) {	// 순전히 출력하는 부분
-			mlog("\n");
-			for(int i=0;i<nDepth;i++) mlog("    ");
+			cclog("\n");
+			for(int i=0;i<nDepth;i++) cclog("    ");
 
 			rvector dif=targetpos-origin;
-			mlog("d%d from ( %3.5f %3.5f %3.5f ) by ( %3.3f %3.3f %3.3f ) ",nDepth
+			cclog("d%d from ( %3.5f %3.5f %3.5f ) by ( %3.3f %3.3f %3.3f ) ",nDepth
 				,origin.x,origin.y,origin.z,dif.x,dif.y,dif.z);
 		}
 
@@ -670,7 +670,7 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 		{
 			if(m_bTracePath) {
 				float fDist = D3DXPlaneDotCoord(&p,&origin);
-				mlog(" del_back{d = %3.3f [%3.3f %3.3f %3.3f %3.3f]}",fDist,p.a,p.b,p.c,p.d);
+				cclog(" del_back{d = %3.3f [%3.3f %3.3f %3.3f %3.3f]}",fDist,p.a,p.b,p.c,p.d);
 			}
 			i=impactPlanes.erase(i)	;
 		}else
@@ -682,12 +682,12 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 	if(m_bTracePath) {	// 순전히 출력하는 부분
 		if(impactPlanes.size())
 		{
-			mlog(" :::: %d planes ",impactPlanes.size());
+			cclog(" :::: %d planes ",impactPlanes.size());
 			for(RImpactPlanes::iterator i=impactPlanes.begin();i!=impactPlanes.end();i++)
 			{
 				rplane p=*i;
 				float fDist = D3DXPlaneDotCoord(&p,&origin);
-				mlog(" d = %3.3f [%3.3f %3.3f %3.3f %3.3f] ",fDist,p.a,p.b,p.c,p.d);
+				cclog(" d = %3.3f [%3.3f %3.3f %3.3f %3.3f] ",fDist,p.a,p.b,p.c,p.d);
 			}
 		}
 	}
@@ -772,7 +772,7 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 		}
 
 		if(m_bTracePath) {
-			mlog("fInter = %3.3f %d simul ",fInter,nSimulCount);
+			cclog("fInter = %3.3f %d simul ",fInter,nSimulCount);
 		}
 
 		float fBestCase=0.f;
@@ -798,13 +798,13 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 
 				// 직접 가본다
 				if(m_bTracePath) {
-					mlog("\n    check 1 : ");
+					cclog("\n    check 1 : ");
 				}
 				rvector checktargetpos = adjtargetpos;
 				CheckWall2(pRootNode,impactPlanes,currentorigin,checktargetpos,fRadius,fHeight,method);
 				float fDot=DotProduct(checkwalldir,checktargetpos-origin);
 				if(m_bTracePath) {
-					mlog("dot = %3.3f ",fDot);
+					cclog("dot = %3.3f ",fDot);
 				}
 
 				if(fDot>fBestCase)
@@ -840,7 +840,7 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 
 						// 직접 가본다
 						if(m_bTracePath) {
-							mlog("\n   check 2 : ");
+							cclog("\n   check 2 : ");
 						}
 						rvector checktargetpos = adjtargetpos;
 						CheckWall2(pRootNode,impactPlanes,currentorigin,checktargetpos,fRadius,fHeight,method);
@@ -874,19 +874,19 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 		}
 
 		if(m_bTracePath) {
-			mlog("\n");
+			cclog("\n");
 			if(b2Case)
-				mlog("2 case ");
+				cclog("2 case ");
 			else if(b1Case)
 			{
-				mlog("1 case ( %3.3f %3.3f %3.3f %3.3f)",plane1case.a,plane1case.b,plane1case.c,plane1case.d);
+				cclog("1 case ( %3.3f %3.3f %3.3f %3.3f)",plane1case.a,plane1case.b,plane1case.c,plane1case.d);
 			}
 		}
 
 		rvector newdir=targetpos-currentorigin;
 		if(DotProduct(newdir,checkwalldir)<-0.01) {
 		if(m_bTracePath) {
-			mlog(" -> over dir.");
+			cclog(" -> over dir.");
 		}
 			targetpos=currentorigin;
 			return false;
@@ -896,7 +896,7 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 		if(!b2Case && !b1Case) {
 			targetpos = currentorigin;
 			if(m_bTracePath) {
-				mlog("@ %3.3f = final ( %3.3f %3.3f %3.3f )",fInter,targetpos.x,targetpos.y,targetpos.z);
+				cclog("@ %3.3f = final ( %3.3f %3.3f %3.3f )",fInter,targetpos.x,targetpos.y,targetpos.z);
 				}
 
 			g_checkdebug = targetpos;
@@ -913,7 +913,7 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 			if(fDist<-0.05) {
 				targetpos = checktargetpos;
 				if(m_bTracePath) {
-					mlog("! final ( %3.3f %3.3f %3.3f )",targetpos.x,targetpos.y,targetpos.z);
+					cclog("! final ( %3.3f %3.3f %3.3f )",targetpos.x,targetpos.y,targetpos.z);
 				}
 				return true;
 			}
@@ -921,7 +921,7 @@ bool RSolidBspNode::CheckWall(RSolidBspNode *pRootNode,rvector &origin,rvector &
 
 		targetpos = newtargetpos;
 		if(m_bTracePath) {
-			mlog("!! final ( %3.3f %3.3f %3.3f )",targetpos.x,targetpos.y,targetpos.z);
+			cclog("!! final ( %3.3f %3.3f %3.3f )",targetpos.x,targetpos.y,targetpos.z);
 		}
 		return true;
 	}

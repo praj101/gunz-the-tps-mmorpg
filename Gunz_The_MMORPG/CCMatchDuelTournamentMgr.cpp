@@ -116,9 +116,9 @@ void MMatchDuelTournamentMgr::Tick(unsigned long nCurTick)
 		{
 			m_bIsServiceTime = bServiceTime;
 			if(m_bIsServiceTime)
-				mlog("Dueltournament Service Open(%d-%d-%d Hour%d, Min%d) \n", stCurTime.wYear, stCurTime.wMonth, stCurTime.wDay, stCurTime.wHour, stCurTime.wMinute);
+				cclog("Dueltournament Service Open(%d-%d-%d Hour%d, Min%d) \n", stCurTime.wYear, stCurTime.wMonth, stCurTime.wDay, stCurTime.wHour, stCurTime.wMinute);
 			else
-				mlog("Dueltournament Service Close(%d-%d-%d Hour%d, Min%d) \n", stCurTime.wYear, stCurTime.wMonth, stCurTime.wDay, stCurTime.wHour, stCurTime.wMinute);
+				cclog("Dueltournament Service Close(%d-%d-%d Hour%d, Min%d) \n", stCurTime.wYear, stCurTime.wMonth, stCurTime.wDay, stCurTime.wHour, stCurTime.wMinute);
 		}
 
 	}
