@@ -29,7 +29,7 @@
 #include <winbase.h>
 #include "CCMatchGameType.h"
 #include "MQuestFormula.h"
-#include "MQuestItem.h"
+#include "CCQuestItem.h"
 #include "MSacrificeQItemTable.h"
 #include "MMatchPremiumIPCache.h"
 #include "MCommandBuilder.h"

@@ -8,7 +8,7 @@
 using namespace std;
 
 #include "CCMatchItem.h"
-#include "MQuestItem.h"
+#include "CCQuestItem.h"
 #include "CCMatchDBGambleItem.h"
 
 /// 상점 아이템 노드

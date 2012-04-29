@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MQuestItem.h"
+#include "CCQuestItem.h"
 #include "CCZFileSystem.h"
 #include "CCMatchDBMgr.h"
 #include "CCMatchConfig.h"
