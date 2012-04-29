@@ -1289,7 +1289,55 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCBaseGameType.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBaseGameType.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCCharacterDesc.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentFormula.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentFormula.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentGroup.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentMatchMaker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentMatchMaker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentTicket.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentTicketPicker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentTicketPicker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentTimeChecker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDuelTournamentTimeChecker.h"
 			>
 		</File>
 		<File
@@ -1341,6 +1389,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchDuelTournamentMgr.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchDuelTournamentMgr.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchFormula.cpp"
 			>
 		</File>
@@ -1353,11 +1409,103 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchGameType.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchGameType.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchHShield.h"
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchMap.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchMap.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchObjectCharBuffInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRule.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleAssassinate.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleAssassinate.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleBasedQuest.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleBaseQuest.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleBerserker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleBerserker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleDeathMatch.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleDeathMatch.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleDuelTournament.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleDuelTournament.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleGladiator.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleGladiator.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleQuest.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleQuest.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleSurvival.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleSurvival.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleSurvvial.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleTraining.cpp"
 			>
 		</File>
 		<File
@@ -1366,6 +1514,34 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchServer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchStage.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchStageSetting.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchStageSetting.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchWorldItem.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchWorldItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchWorldItemDesc.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchWorldItemDesc.h"
 			>
 		</File>
 		<File
@@ -1386,6 +1562,10 @@
 		</File>
 		<File
 			RelativePath=".\Core4R2.h"
+			>
+		</File>
+		<File
+			RelativePath=".\MMatchRuleTraining.h"
 			>
 		</File>
 		<File
