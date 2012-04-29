@@ -2,7 +2,7 @@
 #include "CCMatchServer.h"
 #include "MSharedCommandTable.h"
 #include "MErrorTable.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "MObject.h"
 #include "MMatchObject.h"
 #include "MMatchItem.h"

@@ -4,7 +4,7 @@
 #include "MAsyncDBJob_FriendList.h"
 #include "MAsyncDBJob_GetLoginInfo.h"
 #include "MAsyncDBJob_InsertConnLog.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "MMatchFormula.h"
 #include "MAsyncDBJob_Event.h"
 #include "MAsyncDBJob_GetAccountItemList.h"

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MMatchRuleBerserker.h"
 #include "MMatchTransDataType.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "CCMatchServer.h"
 
 //////////////////////////////////////////////////////////////////////////////////

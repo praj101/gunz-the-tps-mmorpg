@@ -3,7 +3,7 @@
 #include "MMatchObject.h"
 #include "MSharedCommandTable.h"
 #include "MCommandCommunicator.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "MMatchTransDataType.h"
 #include "CCMatchServer.h" 
 

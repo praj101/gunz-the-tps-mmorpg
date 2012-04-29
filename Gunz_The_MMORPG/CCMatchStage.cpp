@@ -6,7 +6,7 @@
 #include "MMatchConfig.h"
 #include "MTeamGameStrategy.h"
 #include "MLadderGroup.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "MMatchRuleQuest.h"
 #include "MMatchRuleDeathMatch.h"
 #include "MMatchRuleGladiator.h"
