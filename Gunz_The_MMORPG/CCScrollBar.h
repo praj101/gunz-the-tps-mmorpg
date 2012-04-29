@@ -85,7 +85,7 @@ protected:
 
 	CCScrollBarTypes	m_iScrollBarType;
 
-	DECLARE_LOOK(CCSCROLLBARLook)
+	DECLARE_LOOK(CCScrollBarLook)
 	DECLARE_LOOK_CLIENT()
 
 protected:
@@ -106,8 +106,8 @@ public:
 	CCArrow*		m_pDown;
 	CCThumb*		m_pThumb;
 
-	CCSCROLLBAR(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL, CCScrollBarTypes t=CCSBT_VERTICAL);
-	CCSCROLLBAR(CCWidget* pParent=NULL, CCListener* pListener=NULL, CCScrollBarTypes t=CCSBT_VERTICAL);
+	CCScrollBar(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL, CCScrollBarTypes t=CCSBT_VERTICAL);
+	CCScrollBar(CCWidget* pParent=NULL, CCListener* pListener=NULL, CCScrollBarTypes t=CCSBT_VERTICAL);
 	virtual ~CCScrollBar();
 
 	void ChangeCustoCCArrowLook(CCArrowLook *pArrowLook);

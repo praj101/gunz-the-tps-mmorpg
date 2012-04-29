@@ -461,7 +461,7 @@ bool CCTextArea::OnEvent(CCEvent* pEvent, CCListener* pListener){
 		if(r.InPoint(pEvent->sPos)==false) 
 			break;
 
-		if(pEvent->nDelta<0){
+		if(pEvent->iDelta<0){
 			ScrollDown();
 			ScrollDown();
 		}else{

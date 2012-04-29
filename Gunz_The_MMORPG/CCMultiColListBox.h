@@ -10,8 +10,7 @@ class CCMultiColListBox;
 #define CCMULTICOLLISTBOX	"MultiColListBox"
 
 
-typedef std::list<CCMultiColListItem*>		ListMultiColListItem;
-typedef list<CCMultiColListItem*>::iterator	ItorMultiColListItem;
+
 
 class CCMultiColListBoxLook
 {
@@ -23,6 +22,7 @@ public:
 	void	OnDraw(CCMultiColListBox* pListBox, CCDrawContext* pDC);
 	sRect	GetClientRect(CCMultiColListBox* pListBox, sRect& r);
 };
+
 
 class CCMultiColListItem
 {
@@ -37,6 +37,9 @@ public:
 
 	virtual int GetSortHint() { return 0; }
 };
+
+typedef std::list<CCMultiColListItem*>		ListMultiColListItem;
+typedef list<CCMultiColListItem*>::iterator	ItorMultiColListItem;
 
 class CCMultiColListBox : public CCWidget
 {

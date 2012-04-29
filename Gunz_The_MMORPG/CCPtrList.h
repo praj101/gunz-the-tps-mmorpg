@@ -334,7 +334,7 @@ bool CCPtrList<_T>::AddSorted(_T *lpRecord){
 }
 template<class _T>
 void CCPtrList<_T>::Delete(){
-	_ASSERT(m_lpCurrendRecord!=NULL);
+	_ASSERT(m_lpCurrentRecord!=NULL);
 
 	CCPtrRecord<_T>* pprevious;
 	CCPtrRecord<_T>* pnext;

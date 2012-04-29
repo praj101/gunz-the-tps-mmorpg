@@ -89,7 +89,7 @@ protected:
 	virtual void OnSetFocus(void);
 	virtual void OnReleaseFocus(void);
 	
-	virtual bool InputFilterKey(int iKey,bool bCtrl);	// MWM_KEYDOWN
+	virtual bool InputFilterKey(int iKey,bool bCtrl);	// CCWM_KEYDOWN
 	virtual bool InputFilterChar(int iKey);	// MWM_CHAR
 
 	bool OnLButtonDown(sPoint pos);

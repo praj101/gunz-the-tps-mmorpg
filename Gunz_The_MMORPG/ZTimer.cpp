@@ -11,11 +11,11 @@ private:
 	void*						m_pParam;					///< Event Callback의 파라메터
 public:
 	ZTimerEvent() { m_iUpdatedTime = 0; m_iElapse = 0; m_bOnce = false; m_fnTimerEventCallBack = NULL; m_pParam=NULL; }
-	bool UpdateTick(unsigned long int nDelta)
+	bool UpdateTick(unsigned long int iDelta)
 	{
 		if (m_iElapse<0) return false;
 
-		m_iUpdatedTime += nDelta;
+		m_iUpdatedTime += iDelta;
 
 		if (m_iUpdatedTime >= m_iElapse)
 		{
@@ -162,7 +162,7 @@ void ZTimer::ShiftFugitiveValues()
 void ZTimer::UpdateEvents()
 {
 	m_iNowTime = timeGetTime();
-	unsigned long int nDeltaTime = m_iNowTime - m_iLastTime;
+	unsigned long int iDeltaTime = m_iNowTime - m_iLastTime;
 	m_iLastTime = m_iNowTime;
 
 	if (m_EventList.empty()) return;
@@ -170,7 +170,7 @@ void ZTimer::UpdateEvents()
 	for (list<ZTimerEvent*>::iterator itor = m_EventList.begin(); itor != m_EventList.end(); )
 	{
 		ZTimerEvent* pEvent = (*itor);
-		bool bDone = pEvent->UpdateTick(nDeltaTime);
+		bool bDone = pEvent->UpdateTick(iDeltaTime);
 		if (bDone)
 		{
 			delete pEvent;
