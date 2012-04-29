@@ -11,13 +11,13 @@ class CCLabel;
 class CCLabelLook{
 public:
 	virtual void	OnDraw(CCLabel* pLabel, CCDrawContext* pDC);
-	virtual sRect	GetClientRect(CCLabel* pLabel, mRect& r);
+	virtual sRect	GetClientRect(CCLabel* pLabel, sRect& r);
 };
 
 class CCLabel: public CCWidget{
 protected:
 	sColor			m_TextColor;
-	CCAlignemntMode	m_AlignmentMode;
+	CCAlignmentMode	m_AlignmentMode;
 
 	DECLARE_LOOK(CCLabelLook);
 	DECLARE_LOOK_CLIENT();

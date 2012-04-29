@@ -47,7 +47,7 @@ void CCLabelLook::OnDraw(CCLabel* pLabel, CCDrawContext* pDC){
 
 sRect CCLabelLook::GetClientRect(CCLabel* pLabel, sRect& r){
 	sRect t = r;
-	t.EnLarge(-1);
+	t.Enlarge(-1);
 	return t;
 }
 

@@ -17,7 +17,7 @@ private:
 
 public:
 	int				m_iDelay;
-	CCPlayMove		m_iPlayMode;
+	CCPlayMode		m_iPlayMode;
 
 protected:
 	virtual void	OnDraw(CCDrawContext* pDC);

@@ -233,7 +233,7 @@ void CCLinkedList<_T>::Delete()
 		m_lpFirstRecord=pnext;
 	
 	if(pnext!=NULL)
-		pnext->SetPreviousPointer(pprevious);
+		pnext->SetPrevPointer(pprevious);
 	else
 		m_lpLastRecord=pprevious;
 

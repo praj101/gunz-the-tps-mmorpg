@@ -526,9 +526,9 @@ class CD3DArcBall
 	D3DXQUATERNION m_qDown;					
 	D3DXQUATERNION m_qNow;					
 	D3DXMATRIX     m_matRotation;			
-	D3DXMATRIX     m_matRotationDelta;		
+	D3DXMATRIX     m_matRotatioiDelta;		
 	D3DXMATRIX     m_matTranslation;		
-	D3DXMATRIX     m_matTranslationDelta;	
+	D3DXMATRIX     m_matTranslatioiDelta;	
 	BOOL           m_bDrag;					
 	BOOL           m_bRightHanded;			
 
@@ -539,9 +539,9 @@ public:
 	LRESULT     HandleMouseMessages( HWND, UINT, WPARAM, LPARAM );
 
 	D3DXMATRIX* GetRotationMatrix()         { return &m_matRotation; }
-	D3DXMATRIX* GetRotationDeltaMatrix()    { return &m_matRotationDelta; }
+	D3DXMATRIX* GetRotatioiDeltaMatrix()    { return &m_matRotatioiDelta; }
 	D3DXMATRIX* GetTranslationMatrix()      { return &m_matTranslation; }
-	D3DXMATRIX* GetTranslationDeltaMatrix() { return &m_matTranslationDelta; }
+	D3DXMATRIX* GetTranslatioiDeltaMatrix() { return &m_matTranslatioiDelta; }
 	BOOL        IsBeingDragged()            { return m_bDrag; }
 
 	VOID        SetRadius( FLOAT fRadius );

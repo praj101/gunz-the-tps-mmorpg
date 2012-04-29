@@ -111,7 +111,7 @@ public:
 
 
 class CCDefaultListItem : public CCListItem{
-	CMPtrList<CCListFieldItem>	m_Items;
+	CCPtrList<CCListFieldItem>	m_Items;
 public:
 	CCDefaultListItem(void){
 	}
@@ -186,7 +186,7 @@ public:
 
 class CCListBox : public CCWidget{
 protected:
-	class SortedItemList : public CMLinkedList<CCListItem>{
+	class SortedItemList : public CCLinkedList<CCListItem>{
 	public:
 		bool	m_bAscend;
 	public:

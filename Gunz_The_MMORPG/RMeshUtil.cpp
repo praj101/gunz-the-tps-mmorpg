@@ -846,9 +846,9 @@ CD3DArcBall::CD3DArcBall()
 	D3DXQuaternionIdentity( &m_qDown );
 	D3DXQuaternionIdentity( &m_qNow );
 	D3DXMatrixIdentity( &m_matRotation );
-	D3DXMatrixIdentity( &m_matRotationDelta );
+	D3DXMatrixIdentity( &m_matRotatioiDelta );
 	D3DXMatrixIdentity( &m_matTranslation );
-	D3DXMatrixIdentity( &m_matTranslationDelta );
+	D3DXMatrixIdentity( &m_matTranslatioiDelta );
 	m_bDrag = FALSE;
 	m_fRadiusTranslation = 1.0f;
 	m_bRightHanded = FALSE;
@@ -925,10 +925,10 @@ LRESULT CD3DArcBall::HandleMouseMessages( HWND hWnd, UINT uMsg, WPARAM wParam, L
 				D3DXQuaternionAxisToAxis(&qAxisToAxis, &s_vDown, &vCur);
 				m_qNow = m_qDown;
 				m_qNow *= qAxisToAxis;
-				D3DXMatrixRotationQuaternion(&m_matRotationDelta, &qAxisToAxis);
+				D3DXMatrixRotationQuaternion(&m_matRotatioiDelta, &qAxisToAxis);
 			}
 			else
-				D3DXMatrixIdentity(&m_matRotationDelta);
+				D3DXMatrixIdentity(&m_matRotatioiDelta);
 
 			D3DXMatrixRotationQuaternion(&m_matRotation, &m_qNow);
 			m_bDrag = TRUE;

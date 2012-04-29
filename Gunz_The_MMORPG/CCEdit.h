@@ -45,7 +45,7 @@ public:
 };
 
 
-class CCEdit : CCWidget{
+class CCEdit : public CCWidget{
 protected:
 	bool			m_bMouseOver;
 	sColor			m_TextColor;

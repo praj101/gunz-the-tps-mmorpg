@@ -8,7 +8,7 @@
 IMPLEMENT_LOOK(CCMultiColListBox, CCMultiColListBoxLook)
 
 CCMultiColListBox::CCMultiColListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MWidget(szName, pParent, pListener)
+: CCWidget(szName, pParent, pListener)
 , m_iumColumn(1)
 , m_desiredNumRow(4)
 , m_itemHeight(16)
@@ -289,11 +289,11 @@ bool CCMultiColListBox::OnEvent(CCEvent* pEvent, CCListener* pListener){
 			return true;
 		}
 	}
-	else if(pEvent->iMessage==MWM_KEYDOWN){
-		if(pEvent->iKey==VK_DELETE){
+	else if(pEvent->iMessage==CCWM_KEYDOWN){
+		if(pEvent->uKey==VK_DELETE){
 			if(pListener!=NULL) pListener->OnCommand(this, CCLB_ITEM_DEL);
 		}
-		else if(pEvent->iKey==VK_UP){
+		else if(pEvent->uKey==VK_UP){
 			if(GetSelIndex()>0){
 				SetSelIndex(GetSelIndex()-1);
 				ShowItem(GetSelIndex());
@@ -303,7 +303,7 @@ bool CCMultiColListBox::OnEvent(CCEvent* pEvent, CCListener* pListener){
 				}
 			}
 		}
-		else if(pEvent->iKey==VK_DOWN){
+		else if(pEvent->uKey==VK_DOWN){
 			if(GetSelIndex()<GetNumItem()-1){
 				SetSelIndex(GetSelIndex()+1);
 				ShowItem(GetSelIndex());
@@ -315,7 +315,7 @@ bool CCMultiColListBox::OnEvent(CCEvent* pEvent, CCListener* pListener){
 		}
 	}
 	else if(pEvent->iMessage==CCWM_CHAR){
-		int nIndex = FindNextItem(GetSelIndex(), pEvent->iKey);
+		int nIndex = FindNextItem(GetSelIndex(), pEvent->uKey);
 		if(nIndex>=0){
 			SetSelIndex(nIndex);
 			ShowItem(nIndex);
@@ -341,7 +341,7 @@ bool CCMultiColListBox::OnEvent(CCEvent* pEvent, CCListener* pListener){
 		if(r.InPoint(pEvent->sPos)==false) 
 			return false;
 
-		int newPos = m_pScrollBar->GetValue() + min(max(-pEvent->nDelta, -MAX_WHEEL_RANGE), MAX_WHEEL_RANGE);
+		int newPos = m_pScrollBar->GetValue() + min(max(-pEvent->iDelta, -MAX_WHEEL_RANGE), MAX_WHEEL_RANGE);
 		m_pScrollBar->SetValueAdjusted(newPos);
 		return true;
 	}
@@ -365,7 +365,7 @@ CCMultiColListItem* CCMultiColListBox::Get( int i ){
 }
 
 const char* CCMultiColListBox::GetString( int i ){
-	MMultiColListItem* pItem = Get(i);
+	CCMultiColListItem* pItem = Get(i);
 	if (pItem)
 		return pItem->GetString();
 	return NULL;
@@ -429,7 +429,7 @@ CCMultiColListBoxLook::CCMultiColListBoxLook(){
 }
 
 void CCMultiColListItem::OnDraw(sRect& r, CCDrawContext* pDC, bool bSelected, bool bMouseOver){
-	pDC->SetColor(sColor(DEFCOLOR_MLIST_TEXT));
+	pDC->SetColor(sColor(DEFCOLOR_CCLIST_TEXT));
 	pDC->Rectangle(r);
 	char sz[32];
 	sprintf(sz, "%d", (DWORD)this);

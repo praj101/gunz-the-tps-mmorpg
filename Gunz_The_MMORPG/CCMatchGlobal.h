@@ -1,6 +1,5 @@
-#ifndef _MMATCHGLOBAL_H
-#define _MMATCHGLOBAL_H
-
+#pragma once
+#include "MUID.h"
 #include "CCBaseLocale.h"
 
 #define MAX_CHAR_COUNT							4		//number of characters that can be created

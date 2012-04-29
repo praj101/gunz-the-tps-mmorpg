@@ -27,7 +27,7 @@ class CCConsoleEdit: public CCEdit
 private:
 	CCConsoleFrame*		m_pConsoleFrame;
 protected:
-	virtual bool InputFilterKey(int iKey);	// MWM_KEYDOWN
+	virtual bool InputFilterKey(int iKey);	// CCWM_KEYDOWN
 	virtual bool InputFilterChar(int iKey);	// MWM_CHAR
 	virtual bool OnTab(bool bForward=true);
 
