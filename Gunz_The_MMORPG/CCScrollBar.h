@@ -126,6 +126,6 @@ public:
 
 	int GetDefaultBreadth();
 
-	virtual const char* GetClassName(){ return MINT_SCROLLBAR; }
+	virtual const char* GetClassName(){ return CCSCROLLBAR; }
 };
 
