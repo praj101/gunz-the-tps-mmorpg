@@ -1,7 +1,4 @@
-#ifndef _CCMATCHFRIENDINFO_H
-#define _CCMATCHFRIENDINFO_H
-
-//#pragma once
+#pragma once
 
 #include <list>
 using namespace std;
@@ -45,6 +42,3 @@ struct CCFRIENDLISTNODE {
 	char			szDescription[MATCH_SIMPLE_DESC_LENGTH];
 };
 #pragma pack()
-
-
-#endif
