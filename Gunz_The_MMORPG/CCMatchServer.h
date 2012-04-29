@@ -10,7 +10,7 @@
 #include "MMatchClan.h"
 #include "MSafeUDP.h"
 #include "MMatchTransDataType.h"
-#include "MMatchAdmin.h"
+#include "CCMatchAdmin.h"
 #include "MAsyncProxy.h"
 #include "MMatchGlobal.h"
 #include "MMatchShutdown.h"
