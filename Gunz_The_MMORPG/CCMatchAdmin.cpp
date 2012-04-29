@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatchAdmin.h"
+#include "CCMatchAdmin.h"
 #include "CCMatchServer.h"
 #include "MMatchStage.h"
 #include "MMatchItem.h"
