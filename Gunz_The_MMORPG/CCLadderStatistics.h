@@ -1,4 +1,4 @@
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 
 #define LADDER_STATISTICS_LEVEL_UNIT			5		// 레벨은 5레벨을 한단위로 통계 계산
 #define LADDER_STATISTICS_CLANPOINT_UNIT		20		// 클랜포인트는 20을 한단위로 통계 계산

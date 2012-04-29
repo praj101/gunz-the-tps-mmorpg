@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 
 ///////////////////// client file list
 

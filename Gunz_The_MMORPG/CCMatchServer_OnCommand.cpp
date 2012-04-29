@@ -16,7 +16,7 @@
 #include "MMatchStatus.h"
 #include "MMatchSchedule.h"
 #include "MTypes.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 
 #define _STATUS_CMD_START	unsigned long int nStatusStartTime = timeGetTime();
 #define _STATUS_CMD_END		MGetServerStatusSingleton()->AddCmd(pCommand->GetID(), pCommand->GetSenderUID(), 0, timeGetTime()-nStatusStartTime);

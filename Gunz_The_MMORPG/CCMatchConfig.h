@@ -7,7 +7,7 @@
 using namespace std;
 
 #include "MMatchMap.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include "MMatchKillTrackerConfig.h"
 #include "MMatchPowerLevelingConfig.h"
 #pragma warning( disable: 4996 )

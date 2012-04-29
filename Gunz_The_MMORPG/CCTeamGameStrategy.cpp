@@ -7,7 +7,7 @@
 #include "MObject.h"
 #include "MMatchObject.h"
 #include "MMatchStage.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 #include "MCommandCommunicator.h"
 #include "MMatchTransDataType.h"
 #include "MDebug.h"

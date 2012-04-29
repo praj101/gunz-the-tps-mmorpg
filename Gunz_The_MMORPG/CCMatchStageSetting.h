@@ -2,7 +2,7 @@
 #include <list>
 using namespace std;
 #include "CCUID.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include "MMatchGameType.h"
 #include "MMatchObject.h"
 #include "MMatchMap.h"

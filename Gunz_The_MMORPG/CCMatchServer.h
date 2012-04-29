@@ -12,7 +12,7 @@
 #include "MMatchTransDataType.h"
 #include "CCMatchAdmin.h"
 #include "MAsyncProxy.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include "MMatchShutdown.h"
 #include "MMatchChatRoom.h"
 #include "MLadderMgr.h"

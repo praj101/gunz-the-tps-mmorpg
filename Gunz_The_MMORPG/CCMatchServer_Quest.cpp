@@ -4,7 +4,7 @@
 #include "MMatchRule.h"
 #include "MMatchRuleQuest.h"
 #include "MMatchGameType.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 #include "CCBlobArray.h"
 #include "CCMatchShop.h"
 #include "MAsyncDBJob_BuyQuestItem.h"

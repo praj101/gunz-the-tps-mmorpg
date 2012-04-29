@@ -3,7 +3,7 @@
 
 #include "MLadderMgr.h"
 #include "MLadderPicker.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include "MThread.h"
 #include "MSharedCommandTable.h"
 #include "MMatchUtil.h"

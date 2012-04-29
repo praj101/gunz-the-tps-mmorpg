@@ -7,7 +7,7 @@
 
 #include "MAsyncDBJob_DuelTournament.h"
 
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 #include "CCMatchServer.h"
 #include "MMatchDuelTournamentMgr.h"
 

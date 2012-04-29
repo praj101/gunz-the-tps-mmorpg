@@ -2,7 +2,7 @@
 #include "MQuestItem.h"
 #include "MZFileSystem.h"
 #include "MMatchDBMgr.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 //#include "CCMatchServer.h"
 #include "MAsyncDBJob.h"
 
