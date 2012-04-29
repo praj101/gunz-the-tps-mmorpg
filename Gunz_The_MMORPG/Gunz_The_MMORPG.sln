@@ -3,6 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game Base", "Commons.vcproj", "{CFE9D88D-3496-47B9-A0A4-2A9849AC44C4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing GUI", "..\Testing GUI\Testing GUI.vcproj", "{92A731D1-11FD-440C-B315-CF7DB301C5A9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing Database", "..\Testing Database\Testing Database.vcproj", "{FADC9591-D34A-4B19-8D10-B3862B93D907}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing XML Parser", "..\Testing XML Parser\Testing XML Parser.vcproj", "{07FC397C-3636-4B4D-B731-F677A86A3665}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing Server Startup", "..\Testing Server Startup\Testing Server Startup.vcproj", "{84EA50CE-609A-4A5E-BA03-8B0B38677393}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing Client Server Connection", "..\Testing Client Server Connection\Testing Client Server Connection.vcproj", "{5D73E61D-D60F-4E4E-9113-57B927AE280B}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -17,6 +27,26 @@ Global
 		{CFE9D88D-3496-47B9-A0A4-2A9849AC44C4}.Debug|Win32.Build.0 = Debug|Win32
 		{CFE9D88D-3496-47B9-A0A4-2A9849AC44C4}.Release|Win32.ActiveCfg = Release|Win32
 		{CFE9D88D-3496-47B9-A0A4-2A9849AC44C4}.Release|Win32.Build.0 = Release|Win32
+		{92A731D1-11FD-440C-B315-CF7DB301C5A9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{92A731D1-11FD-440C-B315-CF7DB301C5A9}.Debug|Win32.Build.0 = Debug|Win32
+		{92A731D1-11FD-440C-B315-CF7DB301C5A9}.Release|Win32.ActiveCfg = Release|Win32
+		{92A731D1-11FD-440C-B315-CF7DB301C5A9}.Release|Win32.Build.0 = Release|Win32
+		{FADC9591-D34A-4B19-8D10-B3862B93D907}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FADC9591-D34A-4B19-8D10-B3862B93D907}.Debug|Win32.Build.0 = Debug|Win32
+		{FADC9591-D34A-4B19-8D10-B3862B93D907}.Release|Win32.ActiveCfg = Release|Win32
+		{FADC9591-D34A-4B19-8D10-B3862B93D907}.Release|Win32.Build.0 = Release|Win32
+		{07FC397C-3636-4B4D-B731-F677A86A3665}.Debug|Win32.ActiveCfg = Debug|Win32
+		{07FC397C-3636-4B4D-B731-F677A86A3665}.Debug|Win32.Build.0 = Debug|Win32
+		{07FC397C-3636-4B4D-B731-F677A86A3665}.Release|Win32.ActiveCfg = Release|Win32
+		{07FC397C-3636-4B4D-B731-F677A86A3665}.Release|Win32.Build.0 = Release|Win32
+		{84EA50CE-609A-4A5E-BA03-8B0B38677393}.Debug|Win32.ActiveCfg = Debug|Win32
+		{84EA50CE-609A-4A5E-BA03-8B0B38677393}.Debug|Win32.Build.0 = Debug|Win32
+		{84EA50CE-609A-4A5E-BA03-8B0B38677393}.Release|Win32.ActiveCfg = Release|Win32
+		{84EA50CE-609A-4A5E-BA03-8B0B38677393}.Release|Win32.Build.0 = Release|Win32
+		{5D73E61D-D60F-4E4E-9113-57B927AE280B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5D73E61D-D60F-4E4E-9113-57B927AE280B}.Debug|Win32.Build.0 = Debug|Win32
+		{5D73E61D-D60F-4E4E-9113-57B927AE280B}.Release|Win32.ActiveCfg = Release|Win32
+		{5D73E61D-D60F-4E4E-9113-57B927AE280B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
