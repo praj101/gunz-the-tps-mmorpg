@@ -29,7 +29,7 @@ public:
 	sColor	GetTextColor();
 
 	CCAlignmentMode	GetAlignment();
-	CCAlignmentMode	SetAllignment(CCAlignmentMode am);
+	CCAlignmentMode	SetAlignment(CCAlignmentMode am);
 
 	virtual const char* GetClassName() { return CCLABEL; };
 };

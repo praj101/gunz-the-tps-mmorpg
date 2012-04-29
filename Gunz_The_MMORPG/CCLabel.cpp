@@ -2,7 +2,7 @@
 #include "CCLabel.h"
 #include "CCColorTable.h"
 
-#define CCLABEL_DEFAULT_ALIGNMENT_MODE	CCAM_LEFT
+#define CCLABEL_DEFAULT_ALIGNMENT_MODE	CCD_LEFT
 
 IMPLEMENT_LOOK(CCLabel, CCLabelLook)
 
