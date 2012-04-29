@@ -3,29 +3,23 @@
 #include "CCMatchServer.h"
 #include "CCMatchChannel.h"
 
-
-MMatchFriendInfo::MMatchFriendInfo()
-{
-
-
+CCMatchFriendInfo::CCMatchFriendInfo(){
 }
 
-MMatchFriendInfo::~MMatchFriendInfo()
-{
+CCMatchFriendInfo::~CCMatchFriendInfo(){
 	while (m_FriendList.size() > 0) {
-		MMatchFriendList::iterator i = m_FriendList.begin();
-		MMatchFriendNode* pNode = (MMatchFriendNode*)(*i);
+		CCMatchFriendList::iterator i = m_FriendList.begin();
+		CCMatchFriendNode* pNode = (CCMatchFriendNode*)(*i);
 		delete pNode;
 		m_FriendList.pop_front();
 	}
 }
 
-bool MMatchFriendInfo::Add(unsigned long nFriendCID, unsigned short nFavorite, const char* pszName)
-{
+bool CCMatchFriendInfo::Add(unsigned long nFriendCID, unsigned short nFavorite, const char* pszName){
 	if (Find(nFriendCID) != NULL)
 		return false;
 
-	MMatchFriendNode* pNode = new MMatchFriendNode;
+	CCMatchFriendNode* pNode = new CCMatchFriendNode;
 	pNode->nFriendCID = nFriendCID;
 	pNode->nFavorite = nFavorite;
 	strcpy(pNode->szName, pszName);
@@ -35,11 +29,9 @@ bool MMatchFriendInfo::Add(unsigned long nFriendCID, unsigned short nFavorite, c
 	return true;
 }
 
-void MMatchFriendInfo::Remove(const char* pszName)
-{
-	for (MMatchFriendList::iterator i=m_FriendList.begin(); i!= m_FriendList.end(); i++) 
-	{
-		MMatchFriendNode* pNode = (*i);
+void CCMatchFriendInfo::Remove(const char* pszName){
+	for (CCMatchFriendList::iterator i=m_FriendList.begin(); i!= m_FriendList.end(); i++) {
+		CCMatchFriendNode* pNode = (*i);
 		if (stricmp(pNode->szName, pszName)==0) {
 			m_FriendList.erase(i);
 			delete pNode;
@@ -48,42 +40,36 @@ void MMatchFriendInfo::Remove(const char* pszName)
 	}
 }
 
-MMatchFriendNode* MMatchFriendInfo::Find(unsigned long nFriendCID)
-{
-	for (MMatchFriendList::iterator i=m_FriendList.begin(); i!= m_FriendList.end(); i++) 
-	{
-		MMatchFriendNode* pNode = (*i);
+CCMatchFriendNode* CCMatchFriendInfo::Find(unsigned long nFriendCID){
+	for (CCMatchFriendList::iterator i=m_FriendList.begin(); i!= m_FriendList.end(); i++) {
+		CCMatchFriendNode* pNode = (*i);
 		if (pNode->nFriendCID == nFriendCID)
 			return pNode;
 	}
 	return NULL;
 }
 
-MMatchFriendNode* MMatchFriendInfo::Find(const char* pszName)
-{
-	for (MMatchFriendList::iterator i=m_FriendList.begin(); i!= m_FriendList.end(); i++) 
-	{
-		MMatchFriendNode* pNode = (*i);
+CCMatchFriendNode* CCMatchFriendInfo::Find(const char* pszName){
+	for (CCMatchFriendList::iterator i=m_FriendList.begin(); i!= m_FriendList.end(); i++) {
+		CCMatchFriendNode* pNode = (*i);
 		if (stricmp(pNode->szName, pszName)==0)
 			return pNode;
 	}
 	return NULL;
 }
 
-void MMatchFriendInfo::UpdateDesc()
-{
-	MMatchServer* pServer = MMatchServer::GetInstance();
-	for (MMatchFriendList::iterator i=m_FriendList.begin(); i!= m_FriendList.end(); i++) 
-	{
-		MMatchFriendNode* pNode = (*i);
+void CCMatchFriendInfo::UpdateDesc(){
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
+	for (CCMatchFriendList::iterator i=m_FriendList.begin(); i!= m_FriendList.end(); i++) {
+		CCMatchFriendNode* pNode = (*i);
 		pNode->szDescription[0] = NULL;
 
-		MMatchObject* pObj = pServer->GetPlayerByName(pNode->szName);
+		CCMatchObject* pObj = pServer->GetPlayerByName(pNode->szName);
 		if (pObj) {
 			char szDesc[CHANNELNAME_LEN*2]="";
 
 			pNode->nState = pObj->GetPlace();
-			MMatchChannel* pChannel = pServer->FindChannel(pObj->GetChannelUID());
+			CCMatchChannel* pChannel = pServer->FindChannel(pObj->GetChannelUID());
 			if (pChannel) {
 				sprintf(szDesc, "Channel '%s'", pChannel->GetName());
 				strncpy(pNode->szDescription, szDesc, MATCH_SIMPLE_DESC_LENGTH);
