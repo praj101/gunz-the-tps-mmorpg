@@ -9,7 +9,7 @@
 using namespace std; 
 
 #ifdef _CCSXML2
-	#import "msxml4.dll" named_guids implementation_only
+	#import "msxml4/msxml4.dll" named_guids implementation_only
 //	using namespace MSXML2;
 
 	typedef MSXML2::IXMLDOMDocumentPtr				CCXmlDomDocPtr;
