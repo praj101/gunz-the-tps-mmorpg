@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MMatchRuleDeathMatch.h"
 #include "MMatchTransDataType.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 
 // TEAM DEATH RULE ///////////////////////////////////////////////////////////////
 MMatchRuleTeamDeath::MMatchRuleTeamDeath(MMatchStage* pStage) : MMatchRule(pStage)

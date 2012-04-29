@@ -4,7 +4,7 @@
 #include "MMatchStage.h"
 #include "MMatchObject.h"
 #include "MSharedCommandTable.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "MZFileSystem.h"
 #include "MUID.h"
 #include "MMatchWorldItemDesc.h"

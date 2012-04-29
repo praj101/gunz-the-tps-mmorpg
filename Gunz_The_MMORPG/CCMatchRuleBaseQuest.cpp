@@ -2,7 +2,7 @@
 #include "MMatchRuleBaseQuest.h"
 #include "MMath.h"
 #include <mmsystem.h>
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "MQuestFormula.h"
 #include "MQuestLevelGenerator.h"
 

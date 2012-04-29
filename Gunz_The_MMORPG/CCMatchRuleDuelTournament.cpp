@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MMatchRuleDuelTournament.h"
 
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "CCMatchServer.h"
 #include "MMatchTransDataType.h"
 

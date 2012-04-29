@@ -3,7 +3,7 @@
 #include "MMatchRuleSurvival.h"
 #include "MQuestLevel.h"
 #include "MQuestLevelGenerator.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "MQuestFormula.h"
 #include "MCommandCommunicator.h"
 #include "MSharedCommandTable.h"

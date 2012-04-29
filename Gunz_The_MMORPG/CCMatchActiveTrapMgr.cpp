@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MMatchActiveTrapMgr.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 
 
 MMatchActiveTrap::MMatchActiveTrap()

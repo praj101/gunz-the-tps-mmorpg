@@ -3,7 +3,7 @@
 // Notice By Hong KiJu - 홍기주에게 문의하세용
 
 #include "stdafx.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 
 #include "MAsyncDBJob_DuelTournament.h"
 
