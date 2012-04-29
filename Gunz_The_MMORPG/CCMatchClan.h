@@ -1,6 +1,4 @@
-#ifndef _CCMATCHCLAN_H
-#define _CCMATCHCLAN_H
-
+#pragma once
 
 #include "CCMatchGlobal.h"
 #include "CCUID.h"
@@ -130,6 +128,3 @@ public:
 	CCMatchClan* GetClan(const int nCLID);
 	CCMatchClan* GetClan(const char* szClanName);
 };
-
-
-#endif
