@@ -1,10 +1,10 @@
 /***********************************************************************
   ZEmblemInterface.cpp
   
-   Usage: emblem stored on the hard drive to load a bitmap into the memory cache
-           Request passes the pointer to the bitmap.
-  Date: 18, Nov, 2004
-  By: imdonghwan
+  용  도 : 하드 드라이브에 저장된 엠블램 비트맵을 메모리 캐쉬로 로드하고
+           요청시 비트맵 포인터를 넘겨줌.
+  작성일 : 18, Nov, 2004
+  작성자 : 임동환
 ************************************************************************/
 
 
@@ -19,7 +19,7 @@
 /***********************************************************************
   ZEmblemInterface : public
   
-  desc : Constructors
+  desc : 생성자
 ************************************************************************/
 ZEmblemInterface::ZEmblemInterface( void)
 {
@@ -29,7 +29,7 @@ ZEmblemInterface::ZEmblemInterface( void)
 /***********************************************************************
   ~ZEmblemInterface : public
   
-  desc : destructor
+  desc : 소멸자
 ************************************************************************/
 ZEmblemInterface::~ZEmblemInterface( void)
 {
@@ -38,7 +38,7 @@ ZEmblemInterface::~ZEmblemInterface( void)
 
 void ZEmblemInterface::Create(void)
 {
-	// "No emblem" written as a bitmap pointer is obtained in advance.
+	// "no emblem"으로 쓸 비트맵 포인터를 미리 구한다.
 	m_pBitmapNoEmblem = CCBitmapManager::Get( "no_emblem.png");
 }
 
@@ -50,42 +50,42 @@ void ZEmblemInterface::Destroy(void)
 /***********************************************************************
   AddClanInfo : public
   
-  desc: Clan information is added. To make a call every time a player is logged on.
-  arg: nClanID = Clan ID value
-  ret: true (add) or false (do not add)
+  desc : 클랜 정보를 추가한다. 플레이어가 로그온 할때마다 호출해주면 된다.
+  arg  : nClanID = 클랜 ID값
+  ret  : true(add) or false(do not add)
 ************************************************************************/
 bool ZEmblemInterface::AddClanInfo( UINT nClanID)
 {
 	if(nClanID==0) return false;
 
-	// Emblem emblem information is available from the list of information that is checked.
+	// 엠블럼 정보 리스트에서 해당 엠블럼 정보가 있는지 검사한다.
 	EmblemInfoMapList::iterator Iterator;
 	if ( FindClanInfo( nClanID, &Iterator))
 	{
-		// If there is already one of them to increase the numbers of those emblems.
-		(*Iterator).second.m_nNumOfClan++;
+		// 이미 존재하면 해당 엠블럼의 인원수를 한명 늘린다.
+		(*Iterator).second.m_iNumOfClan++;
 
 		return ( false);					// return : false
 	}
 	
-	// Create a new node is not on the list.
+	// 리스트에 없으면 노드를 새로 생성한다.
 	ZEmblemInfoNode EmblemNode;
-	EmblemNode.m_nClanID		= nClanID;
-	EmblemNode.m_nNumOfClan		= 1;
+	EmblemNode.m_iClanID		= nClanID;
+	EmblemNode.m_iNumOfClan		= 1;
 
-	// Add a node to the list
+	// 리스트에 노드 추가
 	m_EmblemInfoMap.insert( EmblemInfoMapList::value_type( nClanID, EmblemNode));
 
-	// Bitmap loaded
+	// bitmap 로드
 	ReloadClanInfo(nClanID);
 
-	// Bitmap, old and unused shall be deleted from the cache memory (not remember the two do not seem to).
+	// 오래되고 사용되지 않는 비트맵을 메모리 캐쉬에서 삭제한다(쓸일이 없을 듯).
 	if ( 0)
 	{
 		for ( EmblemInfoMapList::iterator i = m_EmblemInfoMap.begin();  i != m_EmblemInfoMap.end();  i++)
 		{
-			if ( (*i).second.m_nNumOfClan <= 1)		// now to use the emblem, if more than one person person.
-				m_EmblemInfoMap.erase( i);			// is removed from the list.
+			if ( (*i).second.m_iNumOfClan <= 1)		// 현재 앰블럼을 사용하는 인원이 1명 이하라면...
+				m_EmblemInfoMap.erase( i);			// 리스트에서 삭제한다.
 		}
 	}
 
@@ -109,7 +109,7 @@ bool ZEmblemInterface::ReloadClanInfo(UINT nClanID)
 	CCZFile::SetReadMode( CCZIPREADFLAG_ZIP | CCZIPREADFLAG_MRS | CCZIPREADFLAG_MRS2 | CCZIPREADFLAG_FILE );
 #endif
 
-	// The bitmap using the clan ID value is loaded into the cache memory.
+	// 클랜ID 값을 이용하여 해당 비트맵을 메모리 캐쉬로 로드한다.
 	CCBitmapR2 *pBitmap = new CCBitmapR2;
 	pBitmap->Create("clanEmblem",RGetDevice(),szFilePath,false);
 	EmblemNode.m_pBitmapEmblem = pBitmap;
@@ -124,26 +124,26 @@ bool ZEmblemInterface::ReloadClanInfo(UINT nClanID)
 /***********************************************************************
   DeleteClanInfo : public
   
-  desc: the number of personnel to use its ClanID Clan information is deleted to 0 people.
-         If a player is logged off every time you make a call.
-  arg: nClanID = Clan ID value
-  ret: true (delete) or false (do not delete)
+  desc : 해당 ClanID를 사용하는 인원 수가 0명이면 클랜 정보를 삭제한다.
+         플레이어가 로그오프 할때마다 호출해주면 된다.
+  arg  : nClanID = 클랜 ID값
+  ret  : true(delete) or false(do not delete)
 ************************************************************************/
 bool ZEmblemInterface::DeleteClanInfo( UINT nClanID)
 {
 	if(nClanID==0) return false;
 
-	// The list is checked for the presence of the corresponding clan ID.
+	// 리스트에서 해당 클랜ID가 있는지 검사한다.
 	EmblemInfoMapList::iterator Iterator;
 	if ( !FindClanInfo( nClanID, &Iterator))
 		return ( false);					// return : false
 
 
-	// The clan emblem to use one person to reduce the number of people.
-	(*Iterator).second.m_nNumOfClan--;
+	// 해당 클랜 엠블럼을 사용하는 인원수를 1명 감소시킨다.
+	(*Iterator).second.m_iNumOfClan--;
 
-	// The clan emblem Adults to use a zero if people are removed from the list.
-	if ( (*Iterator).second.m_nNumOfClan == 0)
+	// 해당 클랜 엠블럼을 사용하는 인원수가 0명이면 리스트에서 삭제한다.
+	if ( (*Iterator).second.m_iNumOfClan == 0)
 		m_EmblemInfoMap.erase( Iterator);
 
 	return ( true);							// return : true
@@ -153,9 +153,9 @@ bool ZEmblemInterface::DeleteClanInfo( UINT nClanID)
 /***********************************************************************
   ClearClanInfo : public
   
-  desc: Clan information is fully initialized.
-  arg: none
-  ret: true (success) or false (fail)
+  desc : 클랜 정보를 완전히 초기화 한다.
+  arg  : none
+  ret  : true(success) or false(fail)
 ************************************************************************/
 bool ZEmblemInterface::ClearClanInfo( void)
 {
@@ -168,24 +168,24 @@ bool ZEmblemInterface::ClearClanInfo( void)
 /***********************************************************************
   GetClanEmblem : public
   
-  desc: get pointer to the appropriate clan emblem of the bitmap. Writing should be discarded immediately
-  arg: nClanID = Clan ID value
-  ret: NULL (fail) or
-         Pointer of bitmap (success)
+  desc : 해당 클랜의 비트맵 엠블럼 포인터를 얻는다. 즉시 쓰고 버려야한다
+  arg  : nClanID = 클랜 ID값
+  ret  : NULL(fail)  or
+         Pointer of bitmap(success)
 ************************************************************************/
 CCBitmap* ZEmblemInterface::GetClanEmblem( UINT nClanID)
 {
 	if(nClanID==0) return NULL;
 
-	// The list is checked for the presence of the corresponding clan ID.
+	// 리스트에서 해당 클랜ID가 있는지 검사한다.
 	EmblemInfoMapList::iterator Iterator;
 	if ( !FindClanInfo( nClanID, &Iterator))
 	{
-		// If there is a list of "no emblem" returns a pointer to a bitmap.
+		// 리스트가 없으면 "no emblem" 비트맵 포인터를 리턴한다.
 		return m_pBitmapNoEmblem;
 	}
 
-	// If the bitmap to the list of those clan emblems seek pointer.
+	// 리스트에 해당 클랜이 있으면 비트맵 엠블럼 포인터를 구한다.
 	return Iterator->second.m_pBitmapEmblem;
 }
 
@@ -193,28 +193,28 @@ CCBitmap* ZEmblemInterface::GetClanEmblem( UINT nClanID)
 /***********************************************************************
   GetClanEmblem2 : public
   
-  desc: get pointer to the appropriate clan emblem of the bitmap. Writing should be discarded immediately
-  arg: nClanID = Clan ID value
-  ret: NULL (fail) or
-         Pointer of bitmap (success)
+  desc : 해당 클랜의 비트맵 엠블럼 포인터를 얻는다. 즉시 쓰고 버려야한다
+  arg  : nClanID = 클랜 ID값
+  ret  : NULL(fail)  or
+         Pointer of bitmap(success)
 ************************************************************************/
 CCBitmap* ZEmblemInterface::GetClanEmblem2( UINT nClanID)
 {
 	if(nClanID==0) return NULL;
 
-	// The list is checked for the presence of the corresponding clan ID.
+	// 리스트에서 해당 클랜ID가 있는지 검사한다.
 	EmblemInfoMapList::iterator Iterator;
 	if ( !FindClanInfo( nClanID, &Iterator))
 	{
-		// If there is a list of "no emblem" returns a pointer to a bitmap.
+		// 리스트가 없으면 "no emblem" 비트맵 포인터를 리턴한다.
 		return m_pBitmapNoEmblem;
 	}
 
 	if ( Iterator->second.m_pBitmapEmblem == NULL)
-		// If the bitmap emblem "no emblem" returns a pointer to a bitmap.
+		// 엠블럼 비트맵이 없으면 "no emblem" 비트맵 포인터를 리턴한다.
 		return m_pBitmapNoEmblem;
 
-	// If the bitmap to the list of those clan emblems seek pointer.
+	// 리스트에 해당 클랜이 있으면 비트맵 엠블럼 포인터를 구한다.
 	return Iterator->second.m_pBitmapEmblem;
 }
 
@@ -222,19 +222,19 @@ CCBitmap* ZEmblemInterface::GetClanEmblem2( UINT nClanID)
 /***********************************************************************
   GetClanName : public
   
-  desc: get the name of that clan.
-  arg: nClanID = Clan ID value
-  ret: NULL (fail) or
+  desc : 해당 클랜의 이름을 얻는다.
+  arg  : nClanID = 클랜 ID값
+  ret  : NULL(fail)  or
          String of clan name
 ************************************************************************/
 //const char* ZEmblemInterface::GetClanName( UINT nClanID)
 //{
-//	// The list is checked for the presence of the corresponding clan ID.
+//	// 리스트에서 해당 클랜ID가 있는지 검사한다.
 //	EmblemInfoMapList::iterator Iterator;
 //	if ( !FindClanInfo( nClanID, &Iterator))
 //		return ( NULL);						// return : NULL
 //
-//	// If there is a list of name value is obtained corresponding to the clan.
+//	// 리스트에 해당 클랜이 있으면 이름값을 구한다.
 //	char* szClanName = NULL;
 //	strcpy( szClanName, (*Iterator).second.m_szClanName);
 //
@@ -245,10 +245,10 @@ CCBitmap* ZEmblemInterface::GetClanEmblem2( UINT nClanID)
 /***********************************************************************
   FindClanInfo : public
   
-  desc: check to see if there is information that the clan. If you are a list is returned.
-  arg: nClanID = Clan ID value
-         pIterator = iterator pointer to be returned
-  ret: true (found) or false (not found)
+  desc : 해당 클랜 정보가 있는지 검사한다. 있으면 리스트 위치를 리턴한다.
+  arg  : nClanID = 클랜 ID값
+         pIterator = 리턴 받을 iterator 포인터
+  ret  : true(found) or false(not found)
 ************************************************************************/
 bool ZEmblemInterface::FindClanInfo( UINT nClanID, EmblemInfoMapList::iterator* pIterator)
 {

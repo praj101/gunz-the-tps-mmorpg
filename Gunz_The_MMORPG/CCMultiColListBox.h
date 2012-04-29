@@ -42,16 +42,16 @@ class CCMultiColListBox : public CCWidget
 {
 	ListMultiColListItem m_items;
 
-	int				m_numColumn;		//number of columns
-	int				m_desiredNumRow;	//number of rows you want to show at a time
+	int				m_iumColumn;		// 컬럼 갯수
+	int				m_desiredNumRow;	// 한번에 보여주고 싶은 행수
 	int				m_itemHeight;
 
-	int				m_maxRowCanShow;	//a maximum number of rows that can be seen on the screen
+	int				m_maxRowCanShow; // 한 화면에 보여질 수 있는 최대 행 수
 
 	CCScrollBar*	m_pScrollBar;
 
-	int				m_nOverItem;		//cursor to the item pointed to by
-	int				m_nSelItem;
+	int				m_iOverItem;			// 커서에 의해 가리켜진 아이템
+	int				m_iSelItem;
 	bool			m_bDragAndDrop;
 
 	ZCB_ONDROP		m_pOnDropFunc;
@@ -73,10 +73,10 @@ public:
 	void	CalcItemHeight();
 
 	int		GetItemHeight() { return m_itemHeight; }
-	int		GetItemWidth() { return GetClientRect().w / m_numColumn; }
+	int		GetItemWidth() { return GetClientRect().w / m_iumColumn; }
 
 	void	SetNumColumn(int n);
-	int		GetNumColumn() { return m_numColumn; }
+	int		GetNumColumn() { return m_iumColumn; }
 
 	int		GetNumItem() { return (int)m_items.size(); }
 
@@ -90,10 +90,10 @@ public:
 		return GetRowFirstVisible() + GetMaxRowCanShow() - 1;
 	}
 	int GetItemFirstVisible() {
-		return GetRowFirstVisible() * m_numColumn;
+		return GetRowFirstVisible() * m_iumColumn;
 	}
 	int GetItemLastVisible() {
-		int idxItemLastShow = GetItemFirstVisible() + (GetMaxRowCanShow() * m_numColumn) - 1;
+		int idxItemLastShow = GetItemFirstVisible() + (GetMaxRowCanShow() * m_iumColumn) - 1;
 		return min(idxItemLastShow, GetNumItem()-1);
 	}
 
@@ -104,8 +104,8 @@ public:
 	void	RemoveAll();
 
 	bool	GetItemRowCol(int idx, int& out_row, int& out_col);
-	int		GetSelIndex() { return m_nSelItem; }
-	int		GetMouseOverIndex() { return m_nOverItem; }
+	int		GetSelIndex() { return m_iSelItem; }
+	int		GetMouseOverIndex() { return m_iOverItem; }
 	CCMultiColListItem* GetItemByIdx(int idx);
 	CCMultiColListItem* GetSelItem();
 	bool	SetSelIndex(int i);
@@ -125,7 +125,7 @@ public:
 
 	CCMultiColListItem* Get(int i);
 	const char* GetString(int i);
-	bool	IsSelected() { return m_nSelItem != -1; }
+	bool	IsSelected() { return m_iSelItem != -1; }
 	void	ShowItem(int i);
 
 	void	SetOnDropCallback(ZCB_ONDROP pCallback) { m_pOnDropFunc = pCallback; }
