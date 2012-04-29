@@ -1281,6 +1281,14 @@
 			</Filter>
 		</Filter>
 		<File
+			RelativePath=".\CCAgentObject.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAgentObject.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCBaseChannelRule.cpp"
 			>
 		</File>
@@ -1294,6 +1302,10 @@
 		</File>
 		<File
 			RelativePath=".\CCBaseGameType.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBaseItem.h"
 			>
 		</File>
 		<File
@@ -1381,6 +1393,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchAccountPenaltyInfo.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchAccountPenaltyInfo.h"
 			>
 		</File>
@@ -1393,11 +1409,43 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchAntiHack.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchAntiHack.h"
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchAuth.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchBaseGambleItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchBRMachine.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchBRMachine.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchBuff.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchBuff.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchBuffSummary.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchBuffSummary.h"
 			>
 		</File>
 		<File
@@ -1406,6 +1454,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchChannelRule.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchCharBRInfo.cpp"
 			>
 		</File>
 		<File
@@ -1425,6 +1477,18 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchDBBaseGambleItem.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchDBGambleItem.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchDBGambleItem.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchDuelTournamentMgr.cpp"
 			>
 		</File>
@@ -1441,7 +1505,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchGambleItem.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchGambleItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchGambleMachine.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchGambleMachine.h"
 			>
 		</File>
 		<File
@@ -1453,7 +1529,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchHShield.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchHShield.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchItemFunction.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchItemFunction.h"
 			>
 		</File>
 		<File
@@ -1469,7 +1557,27 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchObjCache.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchObjCache.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchObjectCharBuffInfo.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchObjectCharBuffInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchObjectCommandHistory.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchObjectCommandHistory.h"
 			>
 		</File>
 		<File
@@ -1642,6 +1750,10 @@
 		</File>
 		<File
 			RelativePath=".\CCObjectTypes.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCQuestItem.cpp"
 			>
 		</File>
 		<File
