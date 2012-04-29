@@ -286,8 +286,6 @@
 					RelativePath=".\CCVoteMgr.cpp"
 					>
 				</File>
-=======
->>>>>>> .r152
 				<Filter
 					Name="Widgets"
 					>
