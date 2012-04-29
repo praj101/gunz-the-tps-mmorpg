@@ -2,5 +2,5 @@
 #include "CCDrawContext.h"
 #include "CCWidget.h"
 #include <crtdbg.h>
-#include "Mint.h"
+#include "Core.h"
 #include <math.h>
