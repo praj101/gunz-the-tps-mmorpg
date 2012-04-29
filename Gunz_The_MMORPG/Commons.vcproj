@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -230,6 +230,18 @@
 				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
+				<File
+					RelativePath=".\CCGridMap.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCObject.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MUID.cpp"
+					>
+				</File>
 				<Filter
 					Name="Widgets"
 					>
@@ -824,7 +836,7 @@
 			Name="SORT LATER"
 			>
 			<File
-				RelativePath=".\CCPdb.h"
+				RelativePath=".\Core4R2.cpp"
 				>
 			</File>
 			<File
@@ -1188,6 +1200,38 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\CCCharacterDesc.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCFormulaTable.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCGridMap.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMap.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCObject.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCObjectTypes.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Core4R2.h"
+			>
+		</File>
+		<File
+			RelativePath=".\MUID.h"
+			>
+		</File>
 		<File
 			RelativePath=".\stdafx.h"
 			>
