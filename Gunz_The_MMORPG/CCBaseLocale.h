@@ -66,7 +66,7 @@ public:
 
 	const CCCountry	GetCountry()		{ return m_iCountry; }
 	const CCLanguage GetLanguage()		{ return m_iLanguage; }
-	void SetLanguage(CCLanguage langID)	{ m_iLanguage = langID; }	// 국가에 따라 초기화된 언어를 다른 것으로 바꾸고 싶을때
+	void SetLanguage(CCLanguage langID)	{ m_iLanguage = langID; }	//depending on the country to another language, no reply has been initialized
 
 	const bool bIsComplete()			{ return m_bIsComplete; }
 };
