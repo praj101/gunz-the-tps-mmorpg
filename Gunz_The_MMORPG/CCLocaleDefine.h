@@ -1,17 +1,17 @@
 #pragma once
-// 사용하는 지역 디파인 /////////////////////////////////////////////////////////////////
+// Use local dipain /////////////////////////////////////////////////////////////////
 //
-// LOCALE_US		: 인터네셔날
-// LOCALE_JAPAN		: 일본
-// LOCALE_KOREA		: 한국
-// LOCALE_BRAZIL	: 브라질
-// LOCALE_INDIA		: 인도
+// LOCALE_US		: International
+// LOCALE_JAPAN		: Japan
+// LOCALE_KOREA		: South Korea
+// LOCALE_BRAZIL	: Brazil
+// LOCALE_INDIA		: India
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-// 지역에 따른 define ///////////////////////////////////////////////////////////////////
+// According to the region define ///////////////////////////////////////////////////////////////////
 #define LOCALE_US
 #if (!defined(LOCALE_US)) && (!defined(LOCALE_JAPAN)) && (!defined(LOCALE_KOREA)) && (!defined(LOCALE_BRAZIL)) && (!defined(LOCALE_INDIA)) && (!defined(LOCALE_NHNUSA))
 
-#define LOCALE_KOREA		// 아무 디파인도 없으면 기본값은 한국
+#define LOCALE_KOREA		//default value if no dipaindo South Korea
 
 #endif // (!defined(LOCALE_US)) && (!defined(LOCALE_JAPAN)) && (!defined(LOCALE_KOREA))
