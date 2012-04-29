@@ -1,6 +1,6 @@
 #pragma once
 #include "winsock2.h"
-#include "MXml.h"
+#include "CCXml.h"
 #include "CCUID.h"
 #include <map>
 #include <vector>

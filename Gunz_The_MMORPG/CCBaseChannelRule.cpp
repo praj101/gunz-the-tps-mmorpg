@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MBaseChannelRule.h"
-#include "MXml.h"
+#include "CCXml.h"
 #include "MZFileSystem.h"
 
 

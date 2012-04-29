@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCMatchGlobal.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "MMatchObjectCharBuffInfo.h"
 
 MUID MMatchObjectCharBuff::m_uidGenerate = MUID(0,0);

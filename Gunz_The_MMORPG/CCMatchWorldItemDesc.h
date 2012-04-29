@@ -1,5 +1,5 @@
 #pragma once
-#include "MXml.h"
+#include "CCXml.h"
 #include <map>
 using namespace std;
 
@@ -60,7 +60,7 @@ inline MMatchWorldItemDescMgr* MGetMatchWorldItemDescMgr()
 
 
 #include "MMatchWorldItem.h"
-#include "MMatchStage.h"
+#include "CCMatchStage.h"
 
 #define MAX_WORLDITEM_SPAWN		100
 

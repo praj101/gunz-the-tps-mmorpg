@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MMatchStageSetting.h"
 #include "CCMatchServer.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 
 MMatchStageSetting::MMatchStageSetting()
 {
