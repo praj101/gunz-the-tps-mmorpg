@@ -2,8 +2,8 @@
 //#include <winsock2.h>
 #include "CCMatchServer.h"
 #include "MMatchObject.h"
-#include "MMatchGlobal.h"
-#include "MMatchConfig.h"
+#include "CCMatchGlobal.h"
+#include "CCMatchConfig.h"
 #include "MUtil.h"
 
 #include "MAsyncDBJob_InsertCharBRInfo.h"

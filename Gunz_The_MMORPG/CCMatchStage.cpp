@@ -3,7 +3,7 @@
 #include "MMatchStage.h"
 #include "MSharedCommandTable.h"
 #include "MDebug.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 #include "MTeamGameStrategy.h"
 #include "MLadderGroup.h"
 #include "CCBlobArray.h"

@@ -12,7 +12,7 @@
 #include "MMatchStage.h"
 #include "MMatchTransDataType.h"
 #include "MMatchFormula.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 #include "MCommandCommunicator.h"
 #include "CCMatchShop.h"
 #include "MDebug.h"

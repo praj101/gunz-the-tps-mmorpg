@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include "MMatchDuelTournamentMgr.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 
 MMatchDuelTournamentMgr::MMatchDuelTournamentMgr()
 : m_lastMatchedTick(0)

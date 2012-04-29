@@ -4,7 +4,7 @@
 #include "MErrorTable.h"
 #include "MMatchObject.h"
 #include "Msg.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 #include "MCommandCommunicator.h"
 #include "MDebug.h"
 #include "MMatchAuth.h"

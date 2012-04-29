@@ -6,7 +6,7 @@
 using namespace std;
 
 #include "CCUID.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 
 class MDuelTournamentWaitGroup
 {

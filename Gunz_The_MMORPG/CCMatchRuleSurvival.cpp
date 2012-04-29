@@ -8,7 +8,7 @@
 #include "MCommandCommunicator.h"
 #include "MSharedCommandTable.h"
 #include "MMatchTransDataType.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 #include "MMatchFormula.h"
 #include "MQuestItem.h"
 #include "MMATH.H"

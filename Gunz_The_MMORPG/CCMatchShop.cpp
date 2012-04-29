@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCMatchShop.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 #include "MMatchGambleMachine.h"
 
 MMatchShop::MMatchShop()

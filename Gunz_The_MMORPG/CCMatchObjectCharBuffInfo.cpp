@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include "MMatchObject.h"
 #include "MMatchObjectCharBuffInfo.h"
 
