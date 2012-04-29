@@ -13,7 +13,7 @@ const int PING_LOST_LIMIT = 2000;
 
 
 //////////////////////////////////////////////////////////////////////////////////
-MMatchRuleBaseQuest::MMatchRuleBaseQuest(MMatchStage* pStage) 
+MMatchRuleBaseQuest::MMatchRuleBaseQuest(CCMatchStage* pStage) 
 		:	MMatchRule(pStage), m_nLastNPCSpawnTime(0), m_nNPCSpawnCount(0),
 			m_nSpawnTime(500), m_nFirstPlayerCount(1)
 {
@@ -59,8 +59,8 @@ void MMatchRuleBaseQuest::OnRoundBegin()
 {
 	MMatchRule::OnRoundBegin();
 
-	m_nLastNPCAssignCheckTime = MMatchServer::GetInstance()->GetGlobalClockCount();
-	m_nLastPingTime = MMatchServer::GetInstance()->GetGlobalClockCount();
+	m_nLastNPCAssignCheckTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
+	m_nLastPingTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 }
 
 void MMatchRuleBaseQuest::OnRoundEnd()
@@ -119,7 +119,7 @@ void MMatchRuleBaseQuest::OnLeaveBattle(MUID& uidChar)
 	if (GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
 	{
 	}
-	MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uidChar);
+	CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uidChar);
 	if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) return;
 
 	m_NPCManager.OnDelPlayer(uidChar);
@@ -145,10 +145,10 @@ void MMatchRuleBaseQuest::OnRequestNPCDead(MUID& uidSender, MUID& uidKiller, MUI
 		MQuestDropItem DropItem;
 		if (m_NPCManager.DestroyNPCObject(uidNPC, DropItem))
 		{
-			MCommand* pNew = MMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_DEAD, uidSender);
+			MCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_DEAD, uidSender);
 			pNew->AddParameter(new MCmdParamUID(uidKiller));
 			pNew->AddParameter(new MCmdParamUID(uidNPC));
-			MMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
+			CCMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
 
 			CheckRewards(uidKiller, &DropItem, pos);
 		}
@@ -176,7 +176,7 @@ void MMatchRuleBaseQuest::OnRequestPlayerDead(const MUID& uidVictim)
 
 void MMatchRuleBaseQuest::CheckRewards(MUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos)
 {
-	MMatchObject* pPlayer = MMatchServer::GetInstance()->GetObject(uidPlayer);
+	CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject(uidPlayer);
 	if (!pPlayer) return;
 
 	switch (pDropItem->nDropItemType)
@@ -227,7 +227,7 @@ void MMatchRuleBaseQuest::RefreshPlayerStatus()
 {
 	for (MUIDRefCache::iterator i=m_pStage->GetObjBegin(); i!=m_pStage->GetObjEnd(); i++) 
 	{
-		MMatchObject* pObj = (MMatchObject*)(*i).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 		if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) continue;
 
@@ -235,8 +235,8 @@ void MMatchRuleBaseQuest::RefreshPlayerStatus()
 		pObj->SetAlive(true);
 	}
 
-	MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_QUEST_REFRESH_PLAYER_STATUS, MUID(0,0));
-	MMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_REFRESH_PLAYER_STATUS, MUID(0,0));
+	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
 void MMatchRuleBaseQuest::ClearAllNPC()
@@ -244,18 +244,18 @@ void MMatchRuleBaseQuest::ClearAllNPC()
 	m_NPCManager.ClearNPC();
 	m_nNPCSpawnCount = 0;
 
-	MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_ALL_CLEAR, MUID(0,0));
-	MMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_ALL_CLEAR, MUID(0,0));
+	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
 
 bool MMatchRuleBaseQuest::CheckPlayersAlive()
 {
 	int nAliveCount = 0;
-	MMatchObject* pObj;
+	CCMatchObject* pObj;
 	for (MUIDRefCache::iterator i=m_pStage->GetObjBegin(); i!=m_pStage->GetObjEnd(); i++) 
 	{
-		pObj = (MMatchObject*)(*i).second;
+		pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 		if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) continue;
 
@@ -324,11 +324,11 @@ void MMatchRuleBaseQuest::CheckMonsterBible( const MUID& uidUser, const int nMon
 	if( 0 > nMonsterBibleIndex )
 		return;
 
-	MMatchObject* pObj = MMatchServer::GetInstance()->GetObject( uidUser );
+	CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject( uidUser );
 	if( !IsEnabledObject(pObj) )
 		return;
 
-	if( 0 == MMatchServer::GetInstance()->FindStage(pObj->GetStageUID()) )
+	if( 0 == CCMatchServer::GetInstance()->FindStage(pObj->GetStageUID()) )
 		return;
 
 	if( (0 > nMonsterBibleIndex) || (MAX_DB_MONSTERBIBLE_SIZE <= nMonsterBibleIndex) )
@@ -359,7 +359,7 @@ void MMatchRuleBaseQuest::CheckMonsterBible( const MUID& uidUser, const int nMon
 		if( 0 == qmb[ i ] )
 			continue;
 
-		MQuestNPCInfo* pNPCInfo = MMatchServer::GetInstance()->GetQuest()->GetNPCIndexInfo( i );
+		MQuestNPCInfo* pNPCInfo = CCMatchServer::GetInstance()->GetQuest()->GetNPCIndexInfo( i );
 		ASSERT( 0 != pNPCInfo );
 		cclog( "MMatchRuleBaseQuest::CheckMonsterBible - Monster name : %s, Bible index : %d\n", pNPCInfo->szName, i );
 	}	
@@ -369,14 +369,14 @@ void MMatchRuleBaseQuest::CheckMonsterBible( const MUID& uidUser, const int nMon
 
 void MMatchRuleBaseQuest::PostNewMonsterInfo( const MUID& uidUser, const char nMonIndex )
 {
-	if( 0 == MMatchServer::GetInstance()->GetObject(uidUser) )
+	if( 0 == CCMatchServer::GetInstance()->GetObject(uidUser) )
 		return;
 
 	if( 0 > nMonIndex )
 		return;
 
 	// 여기서 바로 처음 습득한 몬스터 정보를 보내줌.
-	MCommand* pMonInfoCmd = MMatchServer::GetInstance()->CreateCommand( MC_MATCH_NEW_MONSTER_INFO, uidUser );
+	MCommand* pMonInfoCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_NEW_MONSTER_INFO, uidUser );
 	if( 0 == pMonInfoCmd )
 	{
 		cclog( "MMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 생성 실패.\n" );
@@ -384,7 +384,7 @@ void MMatchRuleBaseQuest::PostNewMonsterInfo( const MUID& uidUser, const char nM
 	}
 	pMonInfoCmd->AddParameter( new MCmdParamChar(nMonIndex) );
 
-	if( !MMatchServer::GetInstance()->Post(pMonInfoCmd) )
+	if( !CCMatchServer::GetInstance()->Post(pMonInfoCmd) )
 		cclog( "MMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 POST실패.\n" );
 }
 
@@ -393,18 +393,18 @@ void MMatchRuleBaseQuest::PostNewMonsterInfo( const MUID& uidUser, const char nM
 
 void MMatchRuleBaseQuest::ReAssignNPC()
 {
-	unsigned long int nowTime = MMatchServer::GetInstance()->GetGlobalClockCount();
+	unsigned long int nowTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 
 	if (nowTime - m_nLastNPCAssignCheckTime > NPC_ASSIGN_DELAY)
 	{
-		MMatchStage* pStage = GetStage();
+		CCMatchStage* pStage = GetStage();
 		if (pStage == NULL) return;
 
 		m_nLastNPCAssignCheckTime = nowTime;
 
 		for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 		{
-			MMatchObject* pObj = (MMatchObject*)(*i).second;
+			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 
 			unsigned long int lat = pObj->GetQuestLatency();
@@ -421,11 +421,11 @@ void MMatchRuleBaseQuest::ReAssignNPC()
 
 void MMatchRuleBaseQuest::SendClientLatencyPing()
 {
-	unsigned long int nowTime = MMatchServer::GetInstance()->GetGlobalClockCount();
+	unsigned long int nowTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 
 	if (nowTime - m_nLastPingTime > LATENCY_CHECK_DELAY)
 	{
-		MMatchStage* pStage = GetStage();
+		CCMatchStage* pStage = GetStage();
 		if (pStage == NULL) 
 			return;
 
@@ -433,7 +433,7 @@ void MMatchRuleBaseQuest::SendClientLatencyPing()
 
 		for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 		{
-			MMatchObject* pObj = (MMatchObject*)(*i).second;
+			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 
 			if (pObj->m_bQuestRecvPong)
@@ -443,7 +443,7 @@ void MMatchRuleBaseQuest::SendClientLatencyPing()
 			}
 		}
 
-		MMatchServer::GetInstance()->OnQuestSendPing(pStage->GetUID(), nowTime);
+		CCMatchServer::GetInstance()->OnQuestSendPing(pStage->GetUID(), nowTime);
 	}
 }
 

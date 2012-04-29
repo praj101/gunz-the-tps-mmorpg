@@ -37,7 +37,7 @@ MMatchActiveTrapMgr::~MMatchActiveTrapMgr()
 	Destroy();
 }
 
-void MMatchActiveTrapMgr::Create( MMatchStage* pStage )
+void MMatchActiveTrapMgr::Create( CCMatchStage* pStage )
 {
 	m_pStage = pStage;
 }
@@ -133,7 +133,7 @@ void MMatchActiveTrapMgr::Update( unsigned long nClock )
 	}
 }
 
-void MMatchActiveTrapMgr::RouteAllTraps(MMatchObject* pObj)
+void MMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
 {
 	// 난입한 유저에게 현재 월드에 발동되어 있는 트랩 아이템들을 알려주기 위한 함수
 
@@ -182,11 +182,11 @@ void MMatchActiveTrapMgr::RouteAllTraps(MMatchObject* pObj)
 		}
 	}
 
-	MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, MUID(0,0));
 	pCmd->AddParameter(new MCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
 	MEraseBlobArray(pTrapArray);
 
-	MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
+	CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
 }
 
 void MMatchActiveTrapMgr::RouteTrapActivationForForcedEnterd(MMatchActiveTrap* pTrap)
@@ -204,17 +204,17 @@ void MMatchActiveTrapMgr::RouteTrapActivationForForcedEnterd(MMatchActiveTrap* p
 	MTD_ActivatedTrap* pNode = (MTD_ActivatedTrap*)MGetBlobArrayElement(pTrapArray, 0);
 	Make_MTDActivatedTrap(pNode, pTrap);
 
-	MCommand* pCommand = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, MUID(0,0));
+	MCommand* pCommand = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, MUID(0,0));
 	pCommand->AddParameter(new MCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
 
-	MMatchObject* pObj;
+	CCMatchObject* pObj;
 	for (int i=0; i<numTarget; ++i)
 	{
 		pObj = m_pStage->GetObj( pTrap->m_vecUidForcedEntered[i]);
 		if (!pObj) continue;
 
 		MCommand* pSendCmd = pCommand->Clone();
-		MMatchServer::GetInstance()->RouteToListener(pObj, pSendCmd);
+		CCMatchServer::GetInstance()->RouteToListener(pObj, pSendCmd);
 	}
 
 	delete pCommand;

@@ -24,7 +24,7 @@
 #include "MMatchEventManager.h"
 #include "CCMatchGambleMachine.h"
 #include "MHackingCharList.h"
-#include "MMatchObjectCommandHistory.h"
+#include "CCMatchObjectCommandHistory.h"
 #include "MConnectHistory.h"
 
 
@@ -64,9 +64,9 @@ enum COUNT_CODE_STATUS
 };
 
 
-class MMatchServer : public MServer{
+class CCMatchServer : public MServer{
 private:
-	static MMatchServer*	m_pInstance;		///< 전역 인스턴스
+	static CCMatchServer*	m_pInstance;		///< 전역 인스턴스
 	unsigned long int		m_nTickTime;		///< 틱 타이머
 	inline void SetTickTime(unsigned long int nTickTime);		///< 틱 타이머 설정
 
@@ -80,7 +80,7 @@ protected:
 	MCriticalSection	m_csTickTimeLock;
 
 	DWORD				m_checkMemory1;
-	MMatchObjectList	m_Objects;
+	CCMatchObjectList	m_Objects;
 	DWORD				m_checkMemory2;
 
 	MMatchChannelMap	m_ChannelMap;
@@ -90,7 +90,7 @@ protected:
 	char				m_szDefaultChannelRuleName[CHANNELRULE_LEN];
 
 	DWORD				m_checkMemory4;
-	MMatchStageMap		m_StageMap;
+	CCMatchStageMap		m_StageMap;
 	DWORD				m_checkMemory5;
 	MMatchClanMap		m_ClanMap;
 	DWORD				m_checkMemory6;
@@ -143,7 +143,7 @@ protected:
 
 	//map< int, DWORD >		m_ItemResourceCRC32;
 	MHackingChatList		m_HackingChatList;
-	MMatchObjectCommandHistory	m_objectCommandHistory;
+	CCMatchObjectCommandHistory	m_objectCommandHistory;
 	MConnectHistory			m_connectionHistory;
 
 	void InitItemCRC32Cache();
@@ -153,11 +153,11 @@ protected:
 	const DWORD GetBuffCRC32Cache( const int nBuffID );
 
 public:
-	MMatchServer(void);
-	virtual ~MMatchServer(void);
+	CCMatchServer(void);
+	virtual ~CCMatchServer(void);
 
 	/// 전역 인스턴스 얻기
-	static MMatchServer* GetInstance(void);
+	static CCMatchServer* GetInstance(void);
 
 	/// 초기화
 	bool Create(int nPort);
@@ -220,7 +220,7 @@ protected:
 	/// 오브젝트 생성
 	int ObjectAdd(const MUID& uidComm);
 	/// 오브젝트 제거
-	int ObjectRemove(const MUID& uid, MMatchObjectList::iterator* pNextItor);
+	int ObjectRemove(const MUID& uid, CCMatchObjectList::iterator* pNextItor);
 
 	/// 대화 메시지
 	int MessageSay(MUID& uid, char* pszSay);
@@ -312,19 +312,19 @@ public:
 	void ChannelResponseAllPlayerList(const MUID& uidPlayer, const MUID& uidChannel, unsigned long int nPlaceFilter, unsigned long int nOptions);
 
 public:
-	MMatchStage* FindStage(const MUID& uidStage);
+	CCMatchStage* FindStage(const MUID& uidStage);
 protected:
-	friend MMatchStage;
+	friend CCMatchStage;
 	friend MNJ_DBAgentClient;
 	bool StageAdd(MMatchChannel* pChannel, const char* pszStageName, bool bPrivate, const char* pszStagePassword, MUID* pAllocUID, bool bIsAllowNullChannel = false);
-	bool StageRemove(const MUID& uidStage, MMatchStageMap::iterator* pNextItor);
+	bool StageRemove(const MUID& uidStage, CCMatchStageMap::iterator* pNextItor);
 	bool StageJoin(const MUID& uidPlayer, const MUID& uidStage);
 	bool StageLeave(const MUID& uidPlayer);//, const MUID& uidStage);
 	bool StageEnterBattle(const MUID& uidPlayer, const MUID& uidStage);
 	bool StageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeaveBattle, bool bForcedLeave);//, const MUID& uidStage);
 	bool StageChat(const MUID& uidPlayer, const MUID& uidStage, char* pszChat);
-	bool StageTeam(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam);
-	bool StagePlayerState(const MUID& uidPlayer, const MUID& uidStage, MMatchObjectStageState nStageState);
+	bool StageTeam(const MUID& uidPlayer, const MUID& uidStage, CCMatchTeam nTeam);
+	bool StagePlayerState(const MUID& uidPlayer, const MUID& uidStage, CCMatchObjectStageState nStageState);
 	bool StageMaster(const MUID& uidStage);
 
 protected:
@@ -341,10 +341,10 @@ protected:
 
 	float GetDuelVictoryMultiflier(int nVictorty);		// 듀얼 연승일때의 가중치~
 	float GetDuelPlayersMultiflier(int nPlayerCount);	// 듀얼 사람수에 따른 가중치~
-	void CalcExpOnGameKill(MMatchStage* pStage, MMatchObject* pAttacker, MMatchObject* pVictim, 
+	void CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAttacker, CCMatchObject* pVictim, 
 		int* poutAttackerExp, int* poutVictimExp);
-	const int CalcBPonGameKill( MMatchStage* pStage, MMatchObject* pAttacker, const int nAttackerLevel, const int nVictimLevel );
-	void PostGameDeadOnGameKill(MUID& uidStage, MMatchObject* pAttacker, MMatchObject* pVictim,
+	const int CalcBPonGameKill( CCMatchStage* pStage, CCMatchObject* pAttacker, const int nAttackerLevel, const int nVictimLevel );
+	void PostGameDeadOnGameKill(MUID& uidStage, CCMatchObject* pAttacker, CCMatchObject* pVictim,
 		int nAddedAttackerExp, int nSubedVictimExp);	// ProcessOnGameKill함수에서 사용
 
 
@@ -359,8 +359,8 @@ protected:
 	void OnRequestQuickJoin(const MUID& uidPlayer, void* pQuickJoinBlob);
 	void ResponseQuickJoin(const MUID& uidPlayer, MTD_QuickJoinParam* pQuickJoinParam);
 	void OnStageGo(const MUID& uidPlayer, unsigned int nRoomNo);
-	void OnStageTeam(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam);
-	void OnStagePlayerState(const MUID& uidPlayer, const MUID& uidStage, MMatchObjectStageState nStageState);
+	void OnStageTeam(const MUID& uidPlayer, const MUID& uidStage, CCMatchTeam nTeam);
+	void OnStagePlayerState(const MUID& uidPlayer, const MUID& uidStage, CCMatchObjectStageState nStageState);
 	void OnStageStart(const MUID& uidPlayer, const MUID& uidStage, int nCountdown);
 	void OnStageRelayStart(const MUID& uidStage);
 	void OnStartStageList(const MUID& uidComm);
@@ -379,7 +379,7 @@ protected:
 	void OnRequestRelayPeer(const MUID& uidChar, const MUID& uidPeer);
 	void OnPeerReady(const MUID& uidChar, const MUID& uidPeer);
 	void OnGameRoundState(const MUID& uidStage, int nState, int nRound);
-	// 코드 정리로 MBMatchServer로 내려감. 하지만 MMatchStage에서 사용하고 있어서 인터페이스만 남김. - by SungE 2007-07-05
+	// 코드 정리로 MBMatchServer로 내려감. 하지만 CCMatchStage에서 사용하고 있어서 인터페이스만 남김. - by SungE 2007-07-05
 
 	void OnRequestSpawn(const MUID& uidChar, const MVector& pos, const MVector& dir);
 	void OnGameRequestTimeSync(const MUID& uidComm, unsigned long nLocalTimeStamp);
@@ -404,10 +404,10 @@ protected:
 	void OnChatRoomChat(const MUID& uidComm, const char* pszMessage);
 
 	void SaveGameLog(const MUID& uidStage);
-	void SaveGamePlayerLog(MMatchObject* pObj, unsigned int nStageID);
+	void SaveGamePlayerLog(CCMatchObject* pObj, unsigned int nStageID);
 protected:	// 래더
 	friend MLadderMgr;
-	bool LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam);
+	bool LadderJoin(const MUID& uidPlayer, const MUID& uidStage, CCMatchTeam nTeam);
 	void LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB);
 
 protected:	// 래더
@@ -444,8 +444,8 @@ protected:
 	void OnCharClear(const MUID& uidPlayer);
 	bool CharInitialize(const MUID& uidPlayer);
 	bool CharFinalize(const MUID& uidPlayer);
-	bool CorrectEquipmentByLevel(MMatchObject* pPlayer, MMatchCharItemParts nPart, int nLegalItemLevelDiff=0);	// 수정되면 true
-	bool RemoveExpiredCharItem(MMatchObject* pObject, MUID& uidItem);
+	bool CorrectEquipmentByLevel(CCMatchObject* pPlayer, MMatchCharItemParts nPart, int nLegalItemLevelDiff=0);	// 수정되면 true
+	bool RemoveExpiredCharItem(CCMatchObject* pObject, MUID& uidItem);
 protected: // 친구
 	void OnFriendAdd(const MUID& uidPlayer, const char* pszName);
 	void OnFriendRemove(const MUID& uidPlayer, const char* pszName);
@@ -454,8 +454,8 @@ protected: // 친구
 	void FriendList(const MUID& uidPlayer);
 
 protected:	// 클랜
-	int ValidateCreateClan(const char* szClanName, MMatchObject* pMasterObject, MMatchObject** ppSponsorObject);
-	void UpdateCharClanInfo(MMatchObject* pObject, const int nCLID, const char* szClanName, const MMatchClanGrade nGrade);
+	int ValidateCreateClan(const char* szClanName, CCMatchObject* pMasterObject, CCMatchObject** ppSponsorObject);
+	void UpdateCharClanInfo(CCMatchObject* pObject, const int nCLID, const char* szClanName, const MMatchClanGrade nGrade);
 
 	void OnClanRequestCreateClan(const MUID& uidPlayer, const int nRequestID, const char* szClanName, char** szSponsorNames);
 	void OnClanAnswerSponsorAgreement(const int nRequestID, const MUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer);
@@ -530,9 +530,9 @@ protected:
 public:
 	void AdminTerminalOutput(const MUID& uidAdmin, const char* szText);
 	bool OnAdminExecute(MAdminArgvInfo* pAI, char* szOut);
-	void ApplyObjectTeamBonus(MMatchObject* pObject, int nAddedExp);
-	void ProcessPlayerXPBP(MMatchStage* pStage, MMatchObject* pPlayer, int nAddedXP, int nAddedBP);
-	void ProcessCharPlayInfo(MMatchObject* pPlayer);
+	void ApplyObjectTeamBonus(CCMatchObject* pObject, int nAddedExp);
+	void ProcessPlayerXPBP(CCMatchStage* pStage, CCMatchObject* pPlayer, int nAddedXP, int nAddedBP);
+	void ProcessCharPlayInfo(CCMatchObject* pPlayer);
 	bool DistributeZItem(const MUID& uidPlayer, const unsigned long int nItemID, bool bRentItem, int nRentPeriodHour, int nItemCount);
 	
 
@@ -615,7 +615,7 @@ public :
 	MAgentObject* GetAgent(const MUID& uidAgent);
 	MAgentObject* GetAgentByCommUID(const MUID& uidComm);	
 	MAgentObject* FindFreeAgent();
-	void ReserveAgent(MMatchStage* pStage);
+	void ReserveAgent(CCMatchStage* pStage);
 
 protected:
 	bool CheckBridgeFault();
@@ -627,13 +627,13 @@ protected:
 		unsigned long nStageCount, unsigned long nUserCount);
 public:
 	/// UID로 오브젝트 얻어내기
-	MMatchObject* GetObject(const MUID& uid);
+	CCMatchObject* GetObject(const MUID& uid);
 	/// UID로 캐릭터 오브젝트 얻어내기
-	MMatchObject* GetPlayerByCommUID(const MUID& uid);
+	CCMatchObject* GetPlayerByCommUID(const MUID& uid);
 	/// Name으로 오브젝트 얻어내기
-	MMatchObject* GetPlayerByName(const char* pszName);
+	CCMatchObject* GetPlayerByName(const char* pszName);
 	/// AID로 오브젝트 얻어내기
-	MMatchObject* GetPlayerByAID(unsigned long int nAID);
+	CCMatchObject* GetPlayerByAID(unsigned long int nAID);
 
 	/// UID로 채널 얻어내기
 	MMatchChannel* FindChannel(const MUID& uidChannel);
@@ -671,13 +671,13 @@ public:
 
 	void ResponseBridgePeer(const MUID& uidChar, int nCode);
 	void ResponseRoundState(const MUID& uidStage);
-	void ResponseRoundState(MMatchObject* pObj, const MUID& uidStage);
+	void ResponseRoundState(CCMatchObject* pObj, const MUID& uidStage);
 	void ResponsePeerList(const MUID& uidChar, const MUID& uidStage);
 	void ResponseGameInfo(const MUID& uidChar, const MUID& uidStage);
 
 
 	virtual void ResponseTakeoffItem(const MUID& uidPlayer, const MMatchCharItemParts parts) = 0;
-	virtual bool CheckUserCanDistributeRewardItem( MMatchObject* pObj) = 0;
+	virtual bool CheckUserCanDistributeRewardItem( CCMatchObject* pObj) = 0;
 	virtual bool ResponseCharacterItemList(const MUID& uidPlayer) = 0;
 
 	// x-trap : check client new hash value.
@@ -715,10 +715,10 @@ protected:
 
 	virtual int ValidateStageJoin(const MUID& uidPlayer, const MUID& uidStage) { return 0; }
 	int ValidateChannelJoin(const MUID& uidPlayer, const MUID& uidChannel);
-	int ValidateEquipItem(MMatchObject* pObj, MMatchItem* pItem, const MMatchCharItemParts parts);
-	int ValidateChallengeLadderGame(MMatchObject** ppMemberObject, int nMemberCount);
-	void CheckExpiredItems(MMatchObject* pObj);
-	void ResponseExpiredItemIDList(MMatchObject* pObj, vector<unsigned long int>& vecExpiredItemIDList);
+	int ValidateEquipItem(CCMatchObject* pObj, MMatchItem* pItem, const MMatchCharItemParts parts);
+	int ValidateChallengeLadderGame(CCMatchObject** ppMemberObject, int nMemberCount);
+	void CheckExpiredItems(CCMatchObject* pObj);
+	void ResponseExpiredItemIDList(CCMatchObject* pObj, vector<unsigned long int>& vecExpiredItemIDList);
 
 	bool LoadInitFile();
 	bool LoadChannelPreset();
@@ -726,8 +726,8 @@ protected:
 	void UpdateServerLog();
 	void UpdateServerStatusDB();
 
-	void UpdateCharDBCachingData(MMatchObject* pObject);
-	void UpdateCharItemDBCachingData(MMatchObject* pObject);
+	void UpdateCharDBCachingData(CCMatchObject* pObject);
+	void UpdateCharItemDBCachingData(CCMatchObject* pObject);
 
 protected:
 	unsigned long GetItemFileChecksum()					{ return m_nItemFileChecksum; }
@@ -738,7 +738,7 @@ protected:
 	bool CompareMatchItem(MMatchItemDescForDatabase *pItem1, MMatchItemDesc *pItem2);
 
 protected :
-	friend bool StageKick(MMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat);
+	friend bool StageKick(CCMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat);
 	// fitler
 	MCountryFilter& GetCountryFilter()					{ return m_CountryFilter; }
 	bool InitCountryFilterDB();
@@ -765,14 +765,14 @@ public :
 	// filter
 
 public :
-	void CustomCheckEventObj( const DWORD dwEventID, MMatchObject* pObj, void* pContext );
+	void CustomCheckEventObj( const DWORD dwEventID, CCMatchObject* pObj, void* pContext );
 
-	friend bool StageKick(MMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat);
+	friend bool StageKick(CCMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat);
 
 public:
 	MLadderMgr*	GetLadderMgr()				{ return &m_LadderMgr; }	
-	MMatchObjectList*	GetObjects()		{ return &m_Objects; }
-	MMatchStageMap*		GetStageMap()		{ return &m_StageMap; }
+	CCMatchObjectList*	GetObjects()		{ return &m_Objects; }
+	CCMatchStageMap*		GetStageMap()		{ return &m_StageMap; }
 	MMatchChannelMap*	GetChannelMap()		{ return &m_ChannelMap; }
 	MMatchClanMap*		GetClanMap()		{ return &m_ClanMap; }
 	MMatchDBMgr*		GetDBMgr()			{ return &m_MatchDBMgr; }
@@ -853,7 +853,7 @@ protected :
 	bool OnAsyncRequest_GetDuelTournamentGroupRankingInfo();
 
 	void PostCmdDuelTournamentChallenge(MUID uidPlayer, int nResult);
-	void PostCmdDuelTournamentCharInfo(MUID uidPlayer, MMatchObjectDuelTournamentCharInfo *pDTCharInfo);
+	void PostCmdDuelTournamentCharInfo(MUID uidPlayer, CCMatchObjectDuelTournamentCharInfo *pDTCharInfo);
 	void PostCmdDuelTournamentCharInfoPrevious(MUID uidPlayer, int nPrevTP, int nPrevWins, int nPrevLoses, int nPrevRanking, int nPrevFinalWins);
 	void PostCmdDuelTournamentCharSideRankingInfo(MUID uidPlayer, list<DTRankingInfo*>* pSideRankingList);	
 	void PostCmdDuelTournamentCancelMatch(MUID uidPlayer, int nErrorCode);
@@ -912,18 +912,18 @@ public:
 
 };
 
-void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrc, MMatchObject* pSrcObject);
-void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrcCharInfo, MMatchObject* pSrcObject);
-//버프정보임시주석 void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, MMatchCharInfo* pSrc, MMatchObject* pSrcObject);
+void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
+void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject);
+//버프정보임시주석 void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, MMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
 
 
 // line functions ///////////////////////////////////////////////////////////////////
-inline MMatchServer* MGetMatchServer()
+inline CCMatchServer* MGetMatchServer()
 {
-	return MMatchServer::GetInstance();
+	return CCMatchServer::GetInstance();
 }
 
-inline unsigned long int MMatchServer::GetTickTime()
+inline unsigned long int CCMatchServer::GetTickTime()
 { 
 	m_csTickTimeLock.Lock();		
 	unsigned long int ret = m_nTickTime; 
@@ -931,7 +931,7 @@ inline unsigned long int MMatchServer::GetTickTime()
 	return ret;
 }
 
-inline void MMatchServer::SetTickTime(unsigned long int nTickTime)
+inline void CCMatchServer::SetTickTime(unsigned long int nTickTime)
 {
 	m_csTickTimeLock.Lock();		
 	m_nTickTime = nTickTime;
@@ -943,7 +943,7 @@ inline const char* MErrStr(const int nID)
 	return MGetStringResManager()->GetErrorStr(nID);
 }
 
-inline void MMatchServer::LogObjectCommandHistory(MUID uid)
+inline void CCMatchServer::LogObjectCommandHistory(MUID uid)
 {
 	m_objectCommandHistory.Dump(uid);
 }
@@ -952,4 +952,4 @@ bool IsExpiredBlockEndTime( const SYSTEMTIME& st );
 
 void _CheckValidPointer(void* pPointer1, void* pPointer2, void* pPointer3, int nState, int nValue);
 #define CheckValidPointer(A, B)		_CheckValidPointer(m_pMessengerManager, m_pScheduler, m_pAuthBuilder, A, B);CheckMemoryTest(A, B);
-#define CheckValidPointer2(A, B)	MMatchServer::GetInstance()->CheckMemoryTest(A, B);
+#define CheckValidPointer2(A, B)	CCMatchServer::GetInstance()->CheckMemoryTest(A, B);

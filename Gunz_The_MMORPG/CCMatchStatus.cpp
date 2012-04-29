@@ -33,7 +33,7 @@ MMatchStatus* MMatchStatus::GetInstance()
 	return &m_stMatchStatus;
 }
 
-bool MMatchStatus::Create(MMatchServer* pMatchServer)
+bool MMatchStatus::Create(CCMatchServer* pMatchServer)
 {
 	m_pMatchServer = pMatchServer;
 	m_bCreated = true;
@@ -54,11 +54,11 @@ void MMatchStatus::SaveToLogFile()
 	cclog(szBuf);
 
 	// 접속자수
-	sprintf(szBuf, "접속자수 = %d\n", (int)MMatchServer::GetInstance()->GetObjects()->size());
+	sprintf(szBuf, "접속자수 = %d\n", (int)CCMatchServer::GetInstance()->GetObjects()->size());
 	cclog(szBuf);
 
 	// 방개수
-	sprintf(szBuf, "방개수 = %d\n", (int)MMatchServer::GetInstance()->GetStageMap()->size());
+	sprintf(szBuf, "방개수 = %d\n", (int)CCMatchServer::GetInstance()->GetStageMap()->size());
 	cclog(szBuf);
 
 	// 총 처리 큐 개수, 현재틱의 큐 개수

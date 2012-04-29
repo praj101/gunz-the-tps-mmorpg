@@ -7,14 +7,14 @@
 
 class MMatchRuleSoloDeath : public MMatchRule {
 protected:
-	bool CheckKillCount(MMatchObject* pOutObject);
+	bool CheckKillCount(CCMatchObject* pOutObject);
 	virtual void OnBegin();
 	virtual void OnEnd();
 	virtual void OnRoundTimeOut();
 	virtual bool OnCheckRoundFinish();
 	virtual bool RoundCount();
 public:
-	MMatchRuleSoloDeath(MMatchStage* pStage);
+	MMatchRuleSoloDeath(CCMatchStage* pStage);
 	virtual ~MMatchRuleSoloDeath() { }
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_SOLO; }
 };
@@ -33,9 +33,9 @@ protected:
 	virtual bool RoundCount();
 	virtual bool OnCheckEnableBattleCondition();
 public:
-	MMatchRuleTeamDeath(MMatchStage* pStage);
+	MMatchRuleTeamDeath(CCMatchStage* pStage);
 	virtual ~MMatchRuleTeamDeath()				{}
-	virtual void CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* pVictim,
+	virtual void CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 								int nSrcExp, int* poutAttackerExp, int* poutTeamExp);
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_TEAM; }
 };
@@ -57,9 +57,9 @@ protected:
 	virtual void OnGameKill(const MUID& uidAttacker, const MUID& uidVictim);
 
 public:
-	MMatchRuleTeamDeath2(MMatchStage* pStage);
+	MMatchRuleTeamDeath2(CCMatchStage* pStage);
 	virtual ~MMatchRuleTeamDeath2()				{}
-	virtual void CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* pVictim,
+	virtual void CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 		int nSrcExp, int* poutAttackerExp, int* poutTeamExp);
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_TEAM2; }
 };

@@ -12,13 +12,13 @@ protected:
 	MUID		m_uidBerserker;				// 현재 버서커인 플레이어
 
 	// 함수 -------------------------
-	bool CheckKillCount(MMatchObject* pOutObject);
+	bool CheckKillCount(CCMatchObject* pOutObject);
 	virtual void OnRoundBegin();
 	virtual bool OnCheckRoundFinish();
 	void RouteAssignBerserker();
 	MUID RecommendBerserker();
 public:
-	MMatchRuleBerserker(MMatchStage* pStage);
+	MMatchRuleBerserker(CCMatchStage* pStage);
 	virtual ~MMatchRuleBerserker() { }
 	virtual void* CreateRuleInfoBlob();
 	virtual void OnEnterBattle(MUID& uidChar);			///< 게임중 난입할때 호출된다.

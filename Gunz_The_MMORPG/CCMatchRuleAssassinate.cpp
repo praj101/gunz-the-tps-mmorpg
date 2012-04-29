@@ -4,7 +4,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // MMatchRuleAssassinate //////////////////////////////////////////////////////////////////////
-MMatchRuleAssassinate::MMatchRuleAssassinate(MMatchStage* pStage) : MMatchRuleTeamDeath(pStage)
+MMatchRuleAssassinate::MMatchRuleAssassinate(CCMatchStage* pStage) : MMatchRuleTeamDeath(pStage)
 {
 	m_uidRedCommander = MUID(0,0);
 	m_uidBlueCommander = MUID(0,0);
@@ -16,8 +16,8 @@ void MMatchRuleAssassinate::ChooseAdminAsCommander()
 {
 	m_bIsAdminCommander = !m_bIsAdminCommander;
 
-	MMatchServer* pServer = MMatchServer::GetInstance();
-	MMatchStage* pStage = GetStage();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
+	CCMatchStage* pStage = GetStage();
 	if (pServer==NULL || pStage==NULL) return;
 
 	m_uidRedCommander = ChooseCommander(MMT_RED);
@@ -38,7 +38,7 @@ void MMatchRuleAssassinate::ChooseAdminAsCommander()
 
 const MUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
 {
-	MMatchStage* pStage = GetStage();
+	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return MUID(0,0);
 
 	int nRedAliveCount, nBlueAliveCount, nChooseTeamCount;
@@ -57,7 +57,7 @@ const MUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
 	{
 		for(MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
 			
-			MMatchObject* pObj = (MMatchObject*)(*itor).second;
+			CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 			
 			if (pObj->GetEnterBattle() == false) 
 				continue;	// 배틀참가하고 있는 플레이어만 체크
@@ -75,7 +75,7 @@ const MUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
 
 	int nCount = 0;
 	for(MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
-		MMatchObject* pObj = (MMatchObject*)(*itor).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 		if (pObj->GetTeam() == nTeam) {
 			nCount++;
@@ -89,8 +89,8 @@ const MUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
 
 void MMatchRuleAssassinate::OnRoundBegin()
 {
-	MMatchServer* pServer = MMatchServer::GetInstance();
-	MMatchStage* pStage = GetStage();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
+	CCMatchStage* pStage = GetStage();
 	if (pServer==NULL || pStage==NULL) return;
 
 	m_uidRedCommander = ChooseCommander(MMT_RED);
@@ -118,20 +118,20 @@ void MMatchRuleAssassinate::OnRoundEnd()
 
 bool MMatchRuleAssassinate::OnCheckRoundFinish()
 {
-	MMatchStage* pStage = GetStage();
+	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) {
 		SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
 		return true;
 	}
 
-	MMatchObject* pRedCommanderObj = MMatchServer::GetInstance()->GetObject(m_uidRedCommander);
+	CCMatchObject* pRedCommanderObj = CCMatchServer::GetInstance()->GetObject(m_uidRedCommander);
 	if ( (pRedCommanderObj==NULL) ||
 		 (pRedCommanderObj->GetStageUID() != pStage->GetUID()) ) {
 		SetRoundArg(MMATCH_ROUNDRESULT_BLUEWON);
 		return true;
 	}
 
-	MMatchObject* pBlueCommanderObj = MMatchServer::GetInstance()->GetObject(m_uidBlueCommander);
+	CCMatchObject* pBlueCommanderObj = CCMatchServer::GetInstance()->GetObject(m_uidBlueCommander);
 	if ( (pBlueCommanderObj==NULL) ||
 		 (pBlueCommanderObj->GetStageUID() != pStage->GetUID()) ) {
 		SetRoundArg(MMATCH_ROUNDRESULT_REDWON);
@@ -168,7 +168,7 @@ void* MMatchRuleAssassinate::CreateRuleInfoBlob()
 }
 
 
-void MMatchRuleAssassinate::CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* pVictim,
+void MMatchRuleAssassinate::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 							int nSrcExp, int* poutAttackerExp, int* poutTeamExp)
 {
 	if ((m_pStage == NULL) || (pAttacker == NULL) || (pVictim == NULL))

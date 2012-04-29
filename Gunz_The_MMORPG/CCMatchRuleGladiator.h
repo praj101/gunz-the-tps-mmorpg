@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////
 class MMatchRuleSoloGladiator : public MMatchRuleSoloDeath  {
 public:
-	MMatchRuleSoloGladiator(MMatchStage* pStage);
+	MMatchRuleSoloGladiator(CCMatchStage* pStage);
 	virtual ~MMatchRuleSoloGladiator() { }
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_GLADIATOR_SOLO; }
 };
@@ -15,7 +15,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////////////////////
 class MMatchRuleTeamGladiator : public MMatchRuleTeamDeath {
 public:
-	MMatchRuleTeamGladiator(MMatchStage* pStage);
+	MMatchRuleTeamGladiator(CCMatchStage* pStage);
 	virtual ~MMatchRuleTeamGladiator()				{}
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_GLADIATOR_TEAM; }
 };

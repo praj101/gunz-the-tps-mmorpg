@@ -199,7 +199,7 @@ protected:
 	virtual void OnCommand(MCommand* pCommand);			///< 퀘스트에서만 사용하는 커맨드 처리
 	virtual bool OnCheckRoundFinish();					///< 라운드가 끝났는지 체크
 public:
-	MMatchRuleSurvival(MMatchStage* pStage);				///< 생성자
+	MMatchRuleSurvival(CCMatchStage* pStage);				///< 생성자
 	virtual ~MMatchRuleSurvival();							///< 소멸자
 
 	virtual void RefreshStageGameInfo();
@@ -219,7 +219,7 @@ public:
 	/// @param pObj				플레이어 오브젝트
 	/// @param nItemID			월드 아이템 ID
 	/// @param nQuestItemID		퀘스트 아이템 ID
-	virtual void OnObtainWorldItem(MMatchObject* pObj, int nItemID, int* pnExtraValues);
+	virtual void OnObtainWorldItem(CCMatchObject* pObj, int nItemID, int* pnExtraValues);
 
 	virtual void OnRequestTestSectorClear();
 	virtual void OnRequestTestFinish();
@@ -249,7 +249,7 @@ public:
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_SURVIVAL; }
 
 
-	void InsertNoParamQItemToPlayer( MMatchObject* pPlayer, MQuestItem* pQItem );
+	void InsertNoParamQItemToPlayer( CCMatchObject* pPlayer, MQuestItem* pQItem );
 
 	void PostInsertQuestGameLogAsyncJob();
 
@@ -258,8 +258,8 @@ public:
 	// 게임이 끝나고 필요한 정보 수집.
 	void CollectEndQuestGameLogInfo();
 
-	//void RouteRewardCommandToStage( MMatchObject* pPlayer, const int nRewardXP, const int nRewardBP, void* pSimpleQuestItemBlob, void* pSimpleZItemBlob );
-	void RouteResultCommandToStage( MMatchObject* pPlayer, int nReachedRound, int nPoint);
+	//void RouteRewardCommandToStage( CCMatchObject* pPlayer, const int nRewardXP, const int nRewardBP, void* pSimpleQuestItemBlob, void* pSimpleZItemBlob );
+	void RouteResultCommandToStage( CCMatchObject* pPlayer, int nReachedRound, int nPoint);
 
 private :
 	int CalcuOwnerQItemCount( const MUID& uidPlayer, const unsigned long nItemID );

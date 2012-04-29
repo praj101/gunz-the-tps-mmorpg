@@ -8,7 +8,7 @@
 #include "CCCommandCommunicator.h"
 #include "MCommandBuilder.h"
 
-int MMatchServer::AgentAdd(const MUID& uidComm)
+int CCMatchServer::AgentAdd(const MUID& uidComm)
 {
 	MAgentObject* pAgent = new MAgentObject(uidComm);
 
@@ -19,7 +19,7 @@ int MMatchServer::AgentAdd(const MUID& uidComm)
 	return MOK;
 }
 
-int MMatchServer::AgentRemove(const MUID& uidAgent, MAgentObjectMap::iterator* pNextItor)
+int CCMatchServer::AgentRemove(const MUID& uidAgent, MAgentObjectMap::iterator* pNextItor)
 {
 	MAgentObjectMap::iterator i = m_AgentMap.find(uidAgent);
 	if(i==m_AgentMap.end()) return MERR_OBJECT_INVALID;
@@ -38,7 +38,7 @@ int MMatchServer::AgentRemove(const MUID& uidAgent, MAgentObjectMap::iterator* p
 	return MOK;
 }
 
-void MMatchServer::AgentClear()
+void CCMatchServer::AgentClear()
 {
 	MAgentObjectMap::iterator i = m_AgentMap.begin();
 	for(;i!=m_AgentMap.end(); i++)
@@ -47,7 +47,7 @@ void MMatchServer::AgentClear()
 	}
 }
 
-MAgentObject* MMatchServer::GetAgent(const MUID& uidAgent)
+MAgentObject* CCMatchServer::GetAgent(const MUID& uidAgent)
 {
 	MAgentObjectMap::iterator i = m_AgentMap.find(uidAgent);
 	if(i==m_AgentMap.end()) return NULL;
@@ -55,7 +55,7 @@ MAgentObject* MMatchServer::GetAgent(const MUID& uidAgent)
 }
 
 
-MAgentObject* MMatchServer::GetAgentByCommUID(const MUID& uidComm)
+MAgentObject* CCMatchServer::GetAgentByCommUID(const MUID& uidComm)
 {
 	for(MAgentObjectMap::iterator i=m_AgentMap.begin(); i!=m_AgentMap.end(); i++){
 		MAgentObject* pAgent = ((*i).second);
@@ -69,7 +69,7 @@ MAgentObject* MMatchServer::GetAgentByCommUID(const MUID& uidComm)
 }
 
 
-MAgentObject* MMatchServer::FindFreeAgent()
+MAgentObject* CCMatchServer::FindFreeAgent()
 {
 	MAgentObject* pFreeAgent = NULL;
 	for (MAgentObjectMap::iterator i=m_AgentMap.begin(); i!=m_AgentMap.end(); i++) {
@@ -80,7 +80,7 @@ MAgentObject* MMatchServer::FindFreeAgent()
 	return pFreeAgent;
 }
 
-void MMatchServer::ReserveAgent(MMatchStage* pStage)
+void CCMatchServer::ReserveAgent(CCMatchStage* pStage)
 {
 	MAgentObject* pFreeAgent = FindFreeAgent();
 	if (pFreeAgent == NULL) {
@@ -94,14 +94,14 @@ void MMatchServer::ReserveAgent(MMatchStage* pStage)
 	Post(pCmd);
 }
 
-void MMatchServer::LocateAgentToClient(const MUID& uidPlayer, const MUID& uidAgent)
+void CCMatchServer::LocateAgentToClient(const MUID& uidPlayer, const MUID& uidAgent)
 {
 	MAgentObject* pAgent = GetAgent(uidAgent);
 	if (pAgent == NULL) 
 		return;
 
 	char szCharName[64];
-	MMatchObject* pChar = GetObject(uidPlayer);
+	CCMatchObject* pChar = GetObject(uidPlayer);
 	sprintf(szCharName, "%s(%d%d)", (pChar?pChar->GetAccountName():"?"), uidPlayer.High, uidPlayer.Low);
 	LOG(LOG_DEBUG, "Locate Agent : Locate Agent(%d%d) to Player %s ", uidAgent.High, uidAgent.Low, szCharName);
 
@@ -125,7 +125,7 @@ void MMatchServer::LocateAgentToClient(const MUID& uidPlayer, const MUID& uidAge
 }
 
 
-void MMatchServer::OnRegisterAgent(const MUID& uidComm, char* szIP, int nTCPPort, int nUDPPort)
+void CCMatchServer::OnRegisterAgent(const MUID& uidComm, char* szIP, int nTCPPort, int nUDPPort)
 {
 	LOG(LOG_PROG, "Start agent Register (CommUID %u:%u) IP:%s, TCPPort:%d, UDPPort:%d\n ", 
 		uidComm.High, uidComm.Low, szIP, nTCPPort, nUDPPort);
@@ -178,7 +178,7 @@ void MMatchServer::OnRegisterAgent(const MUID& uidComm, char* szIP, int nTCPPort
 	//////////////////////////////////////////////////////////// */
 }
 
-void MMatchServer::OnUnRegisterAgent(const MUID& uidComm)
+void CCMatchServer::OnUnRegisterAgent(const MUID& uidComm)
 {
 	MAgentObject* pAgent = GetAgentByCommUID(uidComm);
 	if (pAgent)
@@ -186,9 +186,9 @@ void MMatchServer::OnUnRegisterAgent(const MUID& uidComm)
 
 	LOG(LOG_DEBUG, "Agent Unregistered (CommUID %u:%u) Cleared", uidComm.High, uidComm.Low);
 }
-void MMatchServer::OnAgentStageReady(const MUID& uidCommAgent, const MUID& uidStage)
+void CCMatchServer::OnAgentStageReady(const MUID& uidCommAgent, const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
 	MAgentObject* pAgent = GetAgentByCommUID(uidCommAgent);
@@ -198,26 +198,26 @@ void MMatchServer::OnAgentStageReady(const MUID& uidCommAgent, const MUID& uidSt
 
 	LOG(LOG_DEBUG, "Agent Ready to Handle Stage(%d%d)", uidStage.High, uidStage.Low);
 
-/*	for (MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++) {
-		MMatchObject* pObj = (*i).second;
+/*	for (CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++) {
+		CCMatchObject* pObj = (*i).second;
 		if (pObj->GetBridgePeer() == false)
 			LocateAgentToClient(pObj->GetUID(), pAgent->GetUID());
 	}*/
 }
 
-void MMatchServer::OnRequestLiveCheck(const MUID& uidComm, unsigned long nTimeStamp, unsigned long nStageCount, unsigned long nUserCount)
+void CCMatchServer::OnRequestLiveCheck(const MUID& uidComm, unsigned long nTimeStamp, unsigned long nStageCount, unsigned long nUserCount)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_AGENT_RESPONSE_LIVECHECK, uidComm);
 	pCmd->AddParameter(new MCmdParamUInt(nTimeStamp));
 	PostSafeQueue(pCmd);
 }
 
-void MMatchServer::OnPeerReady(const MUID& uidChar, const MUID& uidPeer)
+void CCMatchServer::OnPeerReady(const MUID& uidChar, const MUID& uidPeer)
 {
-	MMatchObject* pChar = GetObject(uidChar);
+	CCMatchObject* pChar = GetObject(uidChar);
 	if (pChar == NULL) return;
 
-	MMatchStage* pStage = FindStage(pChar->GetStageUID());
+	CCMatchStage* pStage = FindStage(pChar->GetStageUID());
 	if (pStage == NULL) return;
 
 	LocateAgentToClient(uidChar, pStage->GetAgentUID());
@@ -234,18 +234,18 @@ void MMatchServer::OnPeerReady(const MUID& uidChar, const MUID& uidPeer)
 }
 
 
-void MMatchServer::OnRequestRelayPeer(const MUID& uidChar, const MUID& uidPeer)
+void CCMatchServer::OnRequestRelayPeer(const MUID& uidChar, const MUID& uidPeer)
 {
-	MMatchObject* pChar = GetObject(uidChar);
+	CCMatchObject* pChar = GetObject(uidChar);
 	if (pChar == NULL) return;
 
-	MMatchObject* pPeer = GetObject(uidPeer);
+	CCMatchObject* pPeer = GetObject(uidPeer);
 	if (pPeer == NULL) return;
 
 	pChar->SetRelayPeer(true);
 	LOG(LOG_DEBUG, "%s Request relay peer on %s", pChar->GetName(), pPeer->GetName());
 
-	MMatchStage* pStage = FindStage(pChar->GetStageUID());
+	CCMatchStage* pStage = FindStage(pChar->GetStageUID());
 	if (pStage == NULL) return;
 
 	MAgentObject* pAgent = GetAgent(pStage->GetAgentUID());
@@ -284,7 +284,7 @@ void MMatchServer::OnRequestRelayPeer(const MUID& uidChar, const MUID& uidPeer)
 	Post(pCmd2);*/
 
 //	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
-//		MMatchObject* pObj = (MMatchObject*)(*i).second;
+//		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 //		LocateAgentToClient(pObj->GetUID(), pStage->GetAgentUID());
 //	}
 }

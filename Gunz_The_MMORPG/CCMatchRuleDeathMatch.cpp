@@ -4,7 +4,7 @@
 #include "CCBlobArray.h"
 
 // TEAM DEATH RULE ///////////////////////////////////////////////////////////////
-MMatchRuleTeamDeath::MMatchRuleTeamDeath(MMatchStage* pStage) : MMatchRule(pStage)
+MMatchRuleTeamDeath::MMatchRuleTeamDeath(CCMatchStage* pStage) : MMatchRule(pStage)
 {
 }
 
@@ -58,12 +58,12 @@ bool MMatchRuleTeamDeath::OnCheckEnableBattleCondition()
 	int nPreRedTeam = 0, nPreBlueTeam = 0;
 	int nStageObjects = 0;		// 게임안에 없고 스테이지에 있는 사람
 
-	MMatchStage* pStage = GetStage();
+	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return false;
 
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 	{
-		MMatchObject* pObj = (MMatchObject*)(*i).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if ((pObj->GetEnterBattle() == false) && (!pObj->IsLaunchedGame()))
 		{
 			nStageObjects++;
@@ -96,12 +96,12 @@ bool MMatchRuleTeamDeath::GetAliveCount(int* pRedAliveCount, int* pBlueAliveCoun
 	(*pRedAliveCount) = 0;
 	(*pBlueAliveCount) = 0;
 
-	MMatchStage* pStage = GetStage();
+	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return false;
 
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 	{
-		MMatchObject* pObj = (MMatchObject*)(*i).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 
 		if (pObj->GetTeam() == MMT_RED)
@@ -143,11 +143,11 @@ bool MMatchRuleTeamDeath::OnCheckRoundFinish()
 		int nRedTeam = 0, nBlueTeam = 0;
 		int nStageObjects = 0;		// 게임안에 없고 스테이지에 있는 사람
 
-		MMatchStage* pStage = GetStage();
+		CCMatchStage* pStage = GetStage();
 
 		for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 		{
-			MMatchObject* pObj = (MMatchObject*)(*i).second;
+			CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 			if ((pObj->GetEnterBattle() == false) && (!pObj->IsLaunchedGame()))
 			{
 				nStageObjects++;
@@ -231,7 +231,7 @@ bool MMatchRuleTeamDeath::RoundCount()
 	return false;
 }
 
-void MMatchRuleTeamDeath::CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* pVictim,
+void MMatchRuleTeamDeath::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 								int nSrcExp, int* poutAttackerExp, int* poutTeamExp)
 {
 	if (m_pStage == NULL)
@@ -247,7 +247,7 @@ void MMatchRuleTeamDeath::CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* p
 
 //////////////////////////////////////////////////////////////////////////////////
 // MMatchRuleSoloDeath ///////////////////////////////////////////////////////////
-MMatchRuleSoloDeath::MMatchRuleSoloDeath(MMatchStage* pStage) : MMatchRule(pStage)
+MMatchRuleSoloDeath::MMatchRuleSoloDeath(CCMatchStage* pStage) : MMatchRule(pStage)
 {
 
 }
@@ -266,12 +266,12 @@ bool MMatchRuleSoloDeath::RoundCount()
 	return false;
 }
 
-bool MMatchRuleSoloDeath::CheckKillCount(MMatchObject* pOutObject)
+bool MMatchRuleSoloDeath::CheckKillCount(CCMatchObject* pOutObject)
 {
-	MMatchStage* pStage = GetStage();
+	CCMatchStage* pStage = GetStage();
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
 	{
-		MMatchObject* pObj = (MMatchObject*)(*i).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;
 
 		if (pObj->GetKillCount() >= (unsigned int)pStage->GetStageSetting()->GetRoundMax())
@@ -285,7 +285,7 @@ bool MMatchRuleSoloDeath::CheckKillCount(MMatchObject* pOutObject)
 
 bool MMatchRuleSoloDeath::OnCheckRoundFinish()
 {
-	MMatchObject* pObject = NULL;
+	CCMatchObject* pObject = NULL;
 
 	if (CheckKillCount(pObject))
 	{
@@ -304,7 +304,7 @@ void MMatchRuleSoloDeath::OnRoundTimeOut()
 
 // 무한 팀데스매치 - 추가 by 동섭
 //////////////////////////////////////////////////////////////////////////
-MMatchRuleTeamDeath2::MMatchRuleTeamDeath2(MMatchStage* pStage) : MMatchRule(pStage)
+MMatchRuleTeamDeath2::MMatchRuleTeamDeath2(CCMatchStage* pStage) : MMatchRule(pStage)
 {
 }
 
@@ -357,7 +357,7 @@ void MMatchRuleTeamDeath2::GetTeamScore(int* pRedTeamScore, int* pBlueTeamScore)
 	(*pRedTeamScore) = 0;
 	(*pBlueTeamScore) = 0;
 
-	MMatchStage* pStage = GetStage();
+	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return;
 
 	(*pRedTeamScore) = pStage->GetTeamKills(MMT_RED);
@@ -371,7 +371,7 @@ bool MMatchRuleTeamDeath2::OnCheckRoundFinish()
 	int nRedScore, nBlueScore;
 	GetTeamScore(&nRedScore, &nBlueScore);
 
-	MMatchStage* pStage = GetStage();
+	CCMatchStage* pStage = GetStage();
 
 	if (nRedScore >= pStage->GetStageSetting()->GetRoundMax())
 	{
@@ -400,7 +400,7 @@ bool MMatchRuleTeamDeath2::RoundCount()
 	return false;
 }
 
-void MMatchRuleTeamDeath2::CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* pVictim,
+void MMatchRuleTeamDeath2::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 										int nSrcExp, int* poutAttackerExp, int* poutTeamExp)
 {
 	if (m_pStage == NULL)
@@ -419,8 +419,8 @@ void MMatchRuleTeamDeath2::CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* 
 
 void MMatchRuleTeamDeath2::OnGameKill(const MUID& uidAttacker, const MUID& uidVictim)
 {
-	MMatchObject* pAttacker = MMatchServer::GetInstance()->GetObject(uidAttacker);
-	MMatchObject* pVictim = MMatchServer::GetInstance()->GetObject(uidVictim);
+	CCMatchObject* pAttacker = CCMatchServer::GetInstance()->GetObject(uidAttacker);
+	CCMatchObject* pVictim = CCMatchServer::GetInstance()->GetObject(uidVictim);
 
 	if (m_pStage != NULL)
 	{

@@ -6,7 +6,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 // MMatchRuleBerserker ///////////////////////////////////////////////////////////
-MMatchRuleBerserker::MMatchRuleBerserker(MMatchStage* pStage) : MMatchRuleSoloDeath(pStage), m_uidBerserker(0,0)
+MMatchRuleBerserker::MMatchRuleBerserker(CCMatchStage* pStage) : MMatchRuleSoloDeath(pStage), m_uidBerserker(0,0)
 {
 
 }
@@ -34,20 +34,20 @@ void* MMatchRuleBerserker::CreateRuleInfoBlob()
 }
 
 void MMatchRuleBerserker::RouteAssignBerserker()
-{	MCommand* pNew = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_ASSIGN_BERSERKER, MUID(0, 0));
+{	MCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ASSIGN_BERSERKER, MUID(0, 0));
 	pNew->AddParameter(new MCmdParamUID(m_uidBerserker));
-	MMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
+	CCMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
 }
 
 
 MUID MMatchRuleBerserker::RecommendBerserker()
 {
-	MMatchStage* pStage = GetStage();
+	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return MUID(0,0);
 
 	int nCount = 0;
 	for(MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
-		MMatchObject* pObj = (MMatchObject*)(*itor).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
 		if (pObj->CheckAlive())
 		{
@@ -82,7 +82,7 @@ void MMatchRuleBerserker::OnGameKill(const MUID& uidAttacker, const MUID& uidVic
 		 // 공격자가 자신이 아닐 경우
 		if (uidAttacker != uidVictim)
 		{
-			MMatchObject* pAttacker = MMatchServer::GetInstance()->GetObject(uidAttacker);
+			CCMatchObject* pAttacker = CCMatchServer::GetInstance()->GetObject(uidAttacker);
 
 			// 공격자가 죽어있으면 버서커가 될 수 없다(러브샷)
 			if ((pAttacker) && (pAttacker->CheckAlive()))

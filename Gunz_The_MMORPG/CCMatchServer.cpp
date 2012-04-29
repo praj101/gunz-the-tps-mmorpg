@@ -79,7 +79,7 @@
 #define FILENAME_MONSTERGROUP_DESC		"monstergroup.xml"
 #define FILENAME_CHANNELRULE			"channelrule.xml"
 
-MMatchServer* MMatchServer::m_pInstance = NULL;
+CCMatchServer* CCMatchServer::m_pInstance = NULL;
 //extern void RcpLog(const char *pFormat,...);
 
 ////////////////////////////////////
@@ -139,7 +139,7 @@ void _CheckValidPointer(void* pPointer1, void* pPointer2, void* pPointer3, int n
 
 /////////////////////////////////////////////////////////
 
-void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrcCharInfo, MMatchObject* pSrcObject)
+void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
 {
 	memset(pDest, 0, sizeof(MTD_CharInfo));
 
@@ -214,7 +214,7 @@ void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrcCharInfo, MMa
 
 }
 
-void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrcCharInfo, MMatchObject* pSrcObject)
+void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
 {
 	memset(pDest, 0, sizeof(MTD_CharInfo_Detail));
 
@@ -236,7 +236,7 @@ void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrc
 		pDest->nDeathCount = pSrcCharInfo->m_nTotalDeathCount;
 
 
-		unsigned long int nNowTime = MMatchServer::GetInstance()->GetTickTime();
+		unsigned long int nNowTime = CCMatchServer::GetInstance()->GetTickTime();
 
 		// 접속시간
 		pDest->nConnPlayTimeSec = MGetTimeDistance(pSrcCharInfo->m_nConnTime, nNowTime) / 1000;
@@ -267,14 +267,14 @@ void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrc
 }
 //버프정보임시주석 
 /*
-void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, MMatchCharInfo* pSrcCharInfo, MMatchObject* pSrcObject)
+void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, MMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
 {
 	memset(pDest, 0, sizeof(MTD_CharBuffInfo));
 
 	if( pSrcCharInfo && pSrcObject ) 
 	{
 		int nIndex = 0;
-		MMatchObjectCharBuff* pCharBuffObj = pSrcObject->GetCharBuff();
+		CCMatchObjectCharBuff* pCharBuffObj = pSrcObject->GetCharBuff();
 		
 		MMatchShortBuffMap* pShortBuffMap = pCharBuffObj->GetShortBuffInfoMap();
 		for(MMatchShortBuffMap::iterator iter = pShortBuffMap->begin(); iter != pShortBuffMap->end(); iter++) 
@@ -330,7 +330,7 @@ bool IsExpiredBlockEndTime( const SYSTEMTIME& st )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-MMatchServer::MMatchServer(void) : m_pScheduler( 0 ), m_pDTMgr(new MMatchDuelTournamentMgr)
+CCMatchServer::CCMatchServer(void) : m_pScheduler( 0 ), m_pDTMgr(new MMatchDuelTournamentMgr)
 {
 	_ASSERT(m_pInstance==NULL);
 	m_pInstance = this;
@@ -369,7 +369,7 @@ MMatchServer::MMatchServer(void) : m_pScheduler( 0 ), m_pDTMgr(new MMatchDuelTou
 
 static bool g_bPrintedInvalidMemory = false;
 
-void MMatchServer::CheckMemoryTest(int nState, int nValue)
+void CCMatchServer::CheckMemoryTest(int nState, int nValue)
 {
 #define CHECK(n) if(m_checkMemory##n!=CHECKMEMORYNUMBER) { g_bPrintedInvalidMemory=true; cclog("***WARNING !! m_checkMemory" #n " is corrupted. State(%d), Value(%d)\n", nState, nValue); }
 
@@ -398,7 +398,7 @@ void MMatchServer::CheckMemoryTest(int nState, int nValue)
 	CHECK(21);    
 }
 
-MMatchServer::~MMatchServer(void)
+CCMatchServer::~CCMatchServer(void)
 {
 	delete m_pDTMgr;
 
@@ -414,7 +414,7 @@ MMatchServer::~MMatchServer(void)
 }
 
 
-bool MMatchServer::LoadInitFile()
+bool CCMatchServer::LoadInitFile()
 {
 	if (!MGetServerConfig()->Create())
 	{
@@ -580,7 +580,7 @@ bool MMatchServer::LoadInitFile()
 }
 
 
-void MMatchServer::InitItemCRC32Cache()
+void CCMatchServer::InitItemCRC32Cache()
 {
 // 전혀 사용하지 않는거라 주석처리
 /*	MMatchItemDescMgr::iterator it = MGetMatchItemDescMgr()->begin();
@@ -600,7 +600,7 @@ void MMatchServer::InitItemCRC32Cache()
 }
 
 /*
-const DWORD MMatchServer::GetItemCRC32Cache( const int nItemID )
+const DWORD CCMatchServer::GetItemCRC32Cache( const int nItemID )
 {
 	map< int, DWORD >::iterator itFind = m_ItemResourceCRC32.find( nItemID );
 	if( m_ItemResourceCRC32.end() == itFind )
@@ -612,11 +612,11 @@ const DWORD MMatchServer::GetItemCRC32Cache( const int nItemID )
 }
 */
 
-void MMatchServer::InitBuffCRC32Cache()
+void CCMatchServer::InitBuffCRC32Cache()
 {
 }
 
-bool MMatchServer::LoadChannelPreset()
+bool CCMatchServer::LoadChannelPreset()
 {
 	#define MTOK_DEFAULTCHANNELNAME		"DEFAULTCHANNELNAME"
 	#define MTOK_DEFAULTRULENAME		"DEFAULTRULENAME"
@@ -701,7 +701,7 @@ bool MMatchServer::LoadChannelPreset()
 	return true;
 }
 
-bool MMatchServer::InitDB()
+bool CCMatchServer::InitDB()
 {
 	CString str = m_MatchDBMgr.BuildDSNString(MGetServerConfig()->GetDB_DNS(), 
 		                                      MGetServerConfig()->GetDB_UserName(), 
@@ -759,7 +759,7 @@ LONG WINAPI TopLevelExceptionFilter(_EXCEPTION_POINTERS *pException)
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
-bool MMatchServer::Create(int nPort)
+bool CCMatchServer::Create(int nPort)
 {
 	// unhandled exception
 	::SetUnhandledExceptionFilter(TopLevelExceptionFilter);
@@ -863,16 +863,16 @@ bool MMatchServer::Create(int nPort)
 	return true;
 }
 
-void MMatchServer::Destroy(void)
+void CCMatchServer::Destroy(void)
 {
 	m_bCreated = false;
 
 	GetQuest()->Destroy();
 
-	for (MMatchObjectList::iterator ObjItor = m_Objects.begin(); 
+	for (CCMatchObjectList::iterator ObjItor = m_Objects.begin(); 
 		ObjItor != m_Objects.end(); ++ObjItor)
 	{
-		MMatchObject* pObj = (*ObjItor).second;
+		CCMatchObject* pObj = (*ObjItor).second;
 		if (pObj)
 		{
 			CharFinalize(pObj->GetUID());
@@ -911,12 +911,12 @@ void MMatchServer::Destroy(void)
 	LOG(LOG_PROG, "Match Server Destoryed\n");
 }
 
-void MMatchServer::Shutdown()
+void CCMatchServer::Shutdown()
 {
 	Log(LOG_PROG, "MatchServer Shutting down...\n");
 }
 
-bool MMatchServer::OnCreate(void)
+bool CCMatchServer::OnCreate(void)
 {
 	if( MGetServerConfig()->IsEnabledDuelTournament() ) {		
 		GetDTMgr()->Init();
@@ -926,7 +926,7 @@ bool MMatchServer::OnCreate(void)
 
 	return true;
 }
-void MMatchServer::OnDestroy(void)
+void CCMatchServer::OnDestroy(void)
 {
 	if( 0 != m_pScheduler ){
 		m_pScheduler->Release();
@@ -939,7 +939,7 @@ void MMatchServer::OnDestroy(void)
 	}
 }
 
-void MMatchServer::OnRegisterCommand(MCommandManager* pCommandManager)
+void CCMatchServer::OnRegisterCommand(MCommandManager* pCommandManager)
 {
 	MCommandCommunicator::OnRegisterCommand(pCommandManager);
 	MAddSharedCommandTable(pCommandManager, MSCT_MATCHSERVER);
@@ -948,42 +948,42 @@ void MMatchServer::OnRegisterCommand(MCommandManager* pCommandManager)
 }
 
 
-void MMatchServer::OnPrepareRun()
+void CCMatchServer::OnPrepareRun()
 {	
 	MServer::OnPrepareRun();
 	MGetServerStatusSingleton()->AddCmdCount(m_CommandManager.GetCommandQueueCount());
 }
 
-int MMatchServer::Connect(MCommObject* pCommObj)
+int CCMatchServer::Connect(MCommObject* pCommObj)
 {
 	if( pCommObj ) {
-		cclog("MMatchServer::Connect - Target IP(%s), Target Port(%d)",pCommObj->GetIPString(), pCommObj->GetPort());
+		cclog("CCMatchServer::Connect - Target IP(%s), Target Port(%d)",pCommObj->GetIPString(), pCommObj->GetPort());
 	}
 
 	return MServer::Connect(pCommObj);
 }
 
-int MMatchServer::OnConnected(MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
+int CCMatchServer::OnConnected(MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
 {
 	if( pCommObj == NULL ) {
-		cclog("MMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d)\n", pTargetUID->High, pTargetUID->Low, pAllocUID->High, pAllocUID->Low);
+		cclog("CCMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d)\n", pTargetUID->High, pTargetUID->Low, pAllocUID->High, pAllocUID->Low);
 	} else {
 		if( pCommObj->IsPassiveSocket() ) {
-			cclog("MMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d), IP(%s), Port(%d), Passive Socket\n"
+			cclog("CCMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d), IP(%s), Port(%d), Passive Socket\n"
 				, pTargetUID->High, pTargetUID->Low, pAllocUID->High, pAllocUID->Low, pCommObj->GetIPString(), pCommObj->GetPort());
 		} else {
-			cclog("MMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d), IP(%s), Port(%d), Active Socket\n"
+			cclog("CCMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d), IP(%s), Port(%d), Active Socket\n"
 				, pTargetUID->High, pTargetUID->Low, pAllocUID->High, pAllocUID->Low, pCommObj->GetIPString(), pCommObj->GetPort());
 		}
 		
 	}
 
-	cclog("MMatchServer::OnConnected - We should not call func which is called 'MCommandCommunicator::OnConnected'\n");
+	cclog("CCMatchServer::OnConnected - We should not call func which is called 'MCommandCommunicator::OnConnected'\n");
 	return MOK;
 	//return MCommandCommunicator::OnConnected(pTargetUID, pAllocUID, nTimeStamp, pCommObj);
 }
 
-void MMatchServer::OnRun(void)
+void CCMatchServer::OnRun(void)
 {
 //	CheckMemoryCorruption();
 
@@ -1024,9 +1024,9 @@ void MMatchServer::OnRun(void)
 	unsigned long int nGlobalClock = GetGlobalClockCount();
 	unsigned long int nHShieldClock = GetGlobalClockCount();
 
-	for(MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end();)
+	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end();)
 	{
-		MMatchObject* pObj = (*i).second;		
+		CCMatchObject* pObj = (*i).second;		
 		pObj->Tick(nGlobalClock);
 
 		if( pObj->GetCharInfo() ) {
@@ -1081,9 +1081,9 @@ void MMatchServer::OnRun(void)
 
 	MGetCheckLoopTimeInstance()->SetStageTick();
 	// Update Stages
-	for(MMatchStageMap::iterator iStage=m_StageMap.begin(); iStage!=m_StageMap.end();)
+	for(CCMatchStageMap::iterator iStage=m_StageMap.begin(); iStage!=m_StageMap.end();)
 	{
-		MMatchStage* pStage = (*iStage).second;
+		CCMatchStage* pStage = (*iStage).second;
 		pStage->Tick(nGlobalClock);
 		if (pStage->GetState() == STAGE_STATE_CLOSE)
 		{
@@ -1151,9 +1151,9 @@ void MMatchServer::OnRun(void)
 	
 	// Garbage MatchObject Cleaning
 #define MINTERVAL_GARBAGE_SESSION_CLEANING	10*60*1000		// 10 min
-	for(MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++)
+	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++)
 	{
-		MMatchObject* pObj = (MMatchObject*)((*i).second);
+		CCMatchObject* pObj = (CCMatchObject*)((*i).second);
 		if (pObj->GetUID() < MUID(0,3)) continue;	// MUID로 Client인지 판별할수 있는 코드 필요함
 		if (GetTickTime() - pObj->GetTickLastPacketRecved() >= MINTERVAL_GARBAGE_SESSION_CLEANING)
 		{
@@ -1224,9 +1224,9 @@ void MMatchServer::OnRun(void)
 			bool bAllSameTimeStamp = true;			
 
 			int nCount = 0;
-			for(MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++) {
-				MMatchObject *pObj = (MMatchObject*)((*i).second);
-				MMatchObjectDuelTournamentCharInfo* pInfo = pObj->GetDuelTournamentCharInfo();
+			for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++) {
+				CCMatchObject *pObj = (CCMatchObject*)((*i).second);
+				CCMatchObjectDuelTournamentCharInfo* pInfo = pObj->GetDuelTournamentCharInfo();
 
 				if( nCount == 50 ) break;
 				if( pInfo != NULL ) 
@@ -1257,11 +1257,11 @@ void MMatchServer::OnRun(void)
 		GetBattleTimeRewardMachine().SetLastUpdateTime(nGlobalClock);
 
 		MAsyncDBJob_GetBattleTimeRewardDescription *pJob = new MAsyncDBJob_GetBattleTimeRewardDescription;
-		MMatchServer::GetInstance()->PostAsyncJob( pJob );
+		CCMatchServer::GetInstance()->PostAsyncJob( pJob );
 	}
 }
 
-void MMatchServer::UpdateServerLog()
+void CCMatchServer::UpdateServerLog()
 {
 	if (!IsCreated()) return;
 
@@ -1288,7 +1288,7 @@ void MMatchServer::UpdateServerLog()
 	nLastTime = nNowTime;
 }
 
-void MMatchServer::UpdateServerStatusDB()
+void CCMatchServer::UpdateServerStatusDB()
 {
 	if (!IsCreated()) return;
 
@@ -1315,9 +1315,9 @@ void MMatchServer::UpdateServerStatusDB()
 #ifdef LOCALE_KOREA		
 		int nNatePlayer = 0;
 
-		for(MMatchObjectList::iterator iter = m_Objects.begin(); iter != m_Objects.end(); iter++) 
+		for(CCMatchObjectList::iterator iter = m_Objects.begin(); iter != m_Objects.end(); iter++) 
 		{
-			MMatchObject* pObj = (MMatchObject*)iter->second;
+			CCMatchObject* pObj = (CCMatchObject*)iter->second;
 			if( pObj->GetAccountInfo()->m_nCCode == 30 ) { nNatePlayer++; }
 		}
 
@@ -1349,7 +1349,7 @@ void MMatchServer::UpdateServerStatusDB()
 	nLastTime = nNowTime;
 }
 
-inline void MMatchServer::RouteToListener(MObject* pObject, MCommand* pCommand)
+inline void CCMatchServer::RouteToListener(MObject* pObject, MCommand* pCommand)
 {
 	if (pObject == NULL) return;
 
@@ -1378,7 +1378,7 @@ inline void MMatchServer::RouteToListener(MObject* pObject, MCommand* pCommand)
 	}
 }
 
-void MMatchServer::RouteResponseToListener(MObject* pObject, const int nCmdID, int nResult)
+void CCMatchServer::RouteResponseToListener(MObject* pObject, const int nCmdID, int nResult)
 {
 	MCommand* pNew = CreateCommand(nCmdID, MUID(0,0));
 	pNew->AddParameter(new MCmdParamInt(nResult));
@@ -1392,7 +1392,7 @@ struct stRouteListenerNode
 	//SEED_ALG_INFO	CryptAlgInfo;
 };
 
-void MMatchServer::RouteToAllConnection(MCommand* pCommand)
+void CCMatchServer::RouteToAllConnection(MCommand* pCommand)
 {
 	queue<stRouteListenerNode*>	ListenerList;
 
@@ -1457,10 +1457,10 @@ void MMatchServer::RouteToAllConnection(MCommand* pCommand)
 	delete pCommand;
 }
 
-void MMatchServer::RouteToAllClient(MCommand* pCommand)
+void CCMatchServer::RouteToAllClient(MCommand* pCommand)
 {
-	for(MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++){
-		MMatchObject* pObj = (MMatchObject*)((*i).second);
+	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++){
+		CCMatchObject* pObj = (CCMatchObject*)((*i).second);
 		if (pObj->GetUID() < MUID(0,3)) continue;	// MUID로 Client인지 판별할수 있는 코드 필요함
 		
 		MCommand* pSendCmd = pCommand->Clone();
@@ -1470,7 +1470,7 @@ void MMatchServer::RouteToAllClient(MCommand* pCommand)
 	delete pCommand;
 }
 
-void MMatchServer::RouteToChannel(const MUID& uidChannel, MCommand* pCommand)
+void CCMatchServer::RouteToChannel(const MUID& uidChannel, MCommand* pCommand)
 {
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) 
@@ -1488,7 +1488,7 @@ void MMatchServer::RouteToChannel(const MUID& uidChannel, MCommand* pCommand)
 	delete pCommand;
 }
 
-void MMatchServer::RouteToChannelLobby(const MUID& uidChannel, MCommand* pCommand)
+void CCMatchServer::RouteToChannelLobby(const MUID& uidChannel, MCommand* pCommand)
 {
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) 
@@ -1507,9 +1507,9 @@ void MMatchServer::RouteToChannelLobby(const MUID& uidChannel, MCommand* pComman
 	delete pCommand;
 }
 
-void MMatchServer::RouteToStage(const MUID& uidStage, MCommand* pCommand)
+void CCMatchServer::RouteToStage(const MUID& uidStage, MCommand* pCommand)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) 
 	{
 		delete pCommand;
@@ -1533,9 +1533,9 @@ void MMatchServer::RouteToStage(const MUID& uidStage, MCommand* pCommand)
 	delete pCommand;
 }
 
-void MMatchServer::RouteToObjInStage(const MUID& uidStage, const MUID& uidTargetObj, MCommand* pCommand)
+void CCMatchServer::RouteToObjInStage(const MUID& uidStage, const MUID& uidTargetObj, MCommand* pCommand)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) 
 	{
 		delete pCommand;
@@ -1561,9 +1561,9 @@ void MMatchServer::RouteToObjInStage(const MUID& uidStage, const MUID& uidTarget
 	delete pCommand;
 }
 
-void MMatchServer::RouteToStageWaitRoom(const MUID& uidStage, MCommand* pCommand)
+void CCMatchServer::RouteToStageWaitRoom(const MUID& uidStage, MCommand* pCommand)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) 
 	{
 		delete pCommand;
@@ -1573,7 +1573,7 @@ void MMatchServer::RouteToStageWaitRoom(const MUID& uidStage, MCommand* pCommand
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
 
 		MUID uidObj = (MUID)(*i).first;
-		MMatchObject* pObj = (MMatchObject*)GetObject(uidObj);
+		CCMatchObject* pObj = (CCMatchObject*)GetObject(uidObj);
 		if (pObj) {
 			if (! pObj->GetEnterBattle())
 			{
@@ -1585,9 +1585,9 @@ void MMatchServer::RouteToStageWaitRoom(const MUID& uidStage, MCommand* pCommand
 	delete pCommand;
 }
 
-void MMatchServer::RouteToBattle(const MUID& uidStage, MCommand* pCommand)
+void CCMatchServer::RouteToBattle(const MUID& uidStage, MCommand* pCommand)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) 
 	{
 		delete pCommand;
@@ -1595,10 +1595,10 @@ void MMatchServer::RouteToBattle(const MUID& uidStage, MCommand* pCommand)
 	}
 
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
-		//MMatchObject* pObj = (MMatchObject*)(*i).second;
+		//CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 
 		MUID uidObj = (MUID)(*i).first;
-		MMatchObject* pObj = (MMatchObject*)GetObject(uidObj);
+		CCMatchObject* pObj = (CCMatchObject*)GetObject(uidObj);
 		if (pObj) {
 			if (pObj->GetEnterBattle())
 			{
@@ -1614,7 +1614,7 @@ void MMatchServer::RouteToBattle(const MUID& uidStage, MCommand* pCommand)
 	delete pCommand;
 }
 
-void MMatchServer::RouteToClan(const int nCLID, MCommand* pCommand)
+void CCMatchServer::RouteToClan(const int nCLID, MCommand* pCommand)
 {
 	MMatchClan* pClan = FindClan(nCLID);
 	if (pClan == NULL) 
@@ -1632,9 +1632,9 @@ void MMatchServer::RouteToClan(const int nCLID, MCommand* pCommand)
 	delete pCommand;
 }
 
-void MMatchServer::ResponseRoundState(const MUID& uidStage)
+void CCMatchServer::ResponseRoundState(const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 	MMatchRule* pRule = pStage->GetRule();
 	if (pRule == NULL) return;
@@ -1649,10 +1649,10 @@ void MMatchServer::ResponseRoundState(const MUID& uidStage)
 	RouteToBattle(uidStage, pCmd);
 }
 
-void MMatchServer::ResponseRoundState(MMatchObject* pObj, const MUID& uidStage)
+void CCMatchServer::ResponseRoundState(CCMatchObject* pObj, const MUID& uidStage)
 {
 	if (pObj == NULL) return;
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 	MMatchRule* pRule = pStage->GetRule();
 	if (pRule == NULL) return;
@@ -1666,9 +1666,9 @@ void MMatchServer::ResponseRoundState(MMatchObject* pObj, const MUID& uidStage)
 	RouteToListener(pObj, pCmd);
 }
 
-void MMatchServer::NotifyMessage(const MUID& uidChar, int nMsgID)
+void CCMatchServer::NotifyMessage(const MUID& uidChar, int nMsgID)
 {
-	MMatchObject* pObj = GetObject(uidChar);
+	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 	
 	MCommand* pNew=new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_NOTIFY), MUID(0,0), m_This);
@@ -1676,12 +1676,12 @@ void MMatchServer::NotifyMessage(const MUID& uidChar, int nMsgID)
 	RouteToListener(pObj, pNew);
 }
 
-int MMatchServer::ObjectAdd(const MUID& uidComm)
+int CCMatchServer::ObjectAdd(const MUID& uidComm)
 {
-	MMatchObject* pObj = new MMatchObject(uidComm);
+	CCMatchObject* pObj = new CCMatchObject(uidComm);
 	pObj->UpdateTickLastPacketRecved();
 
-	m_Objects.insert(MMatchObjectList::value_type(pObj->GetUID(), pObj));
+	m_Objects.insert(CCMatchObjectList::value_type(pObj->GetUID(), pObj));
 //	*pAllocUID = pObj->GetUID();
 
 	//LOG("Character Added (UID:%d%d)", pObj->GetUID().High, pObj->GetUID().Low);
@@ -1689,12 +1689,12 @@ int MMatchServer::ObjectAdd(const MUID& uidComm)
 	return MOK;
 }
 
-int MMatchServer::ObjectRemove(const MUID& uid, MMatchObjectList::iterator* pNextItor)
+int CCMatchServer::ObjectRemove(const MUID& uid, CCMatchObjectList::iterator* pNextItor)
 {
-	MMatchObjectList::iterator i = m_Objects.find(uid);
+	CCMatchObjectList::iterator i = m_Objects.find(uid);
 	if(i==m_Objects.end()) return MERR_OBJECT_INVALID;
 
-	MMatchObject* pObj = (*i).second;
+	CCMatchObject* pObj = (*i).second;
 
 	// move. OnRun() -> ObjectRemove. - by SungE 2007-05-03
 	// 이전에 BlockType을 설정했다면 DB update flag가 설정된다.
@@ -1773,7 +1773,7 @@ int MMatchServer::ObjectRemove(const MUID& uid, MMatchObjectList::iterator* pNex
 	delete pObj;
 	pObj = NULL;
 
-	MMatchObjectList::iterator itorTemp = m_Objects.erase(i);
+	CCMatchObjectList::iterator itorTemp = m_Objects.erase(i);
 	if (pNextItor)
 		*pNextItor = itorTemp;
 
@@ -1783,17 +1783,17 @@ int MMatchServer::ObjectRemove(const MUID& uid, MMatchObjectList::iterator* pNex
 	return MOK;
 }
 
-MMatchObject* MMatchServer::GetObject(const MUID& uid)
+CCMatchObject* CCMatchServer::GetObject(const MUID& uid)
 {
-	MMatchObjectList::iterator i = m_Objects.find(uid);
+	CCMatchObjectList::iterator i = m_Objects.find(uid);
 	if(i==m_Objects.end()) return NULL;
 	return (*i).second;
 }
 
-MMatchObject* MMatchServer::GetPlayerByCommUID(const MUID& uid)
+CCMatchObject* CCMatchServer::GetPlayerByCommUID(const MUID& uid)
 {
-	for(MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++){
-		MMatchObject* pObj = ((*i).second);
+	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++){
+		CCMatchObject* pObj = ((*i).second);
 		for (list<MUID>::iterator j=pObj->m_CommListener.begin(); j!=pObj->m_CommListener.end(); j++){
 			MUID TargetUID = *j;
 			if (TargetUID == uid)
@@ -1803,23 +1803,23 @@ MMatchObject* MMatchServer::GetPlayerByCommUID(const MUID& uid)
 	return NULL;
 }
 
-MMatchObject* MMatchServer::GetPlayerByName(const char* pszName)
+CCMatchObject* CCMatchServer::GetPlayerByName(const char* pszName)
 {
-	for(MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++){
-		MMatchObject* pObj = ((*i).second);
+	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++){
+		CCMatchObject* pObj = ((*i).second);
 		if (stricmp(pObj->GetName(), pszName) == 0)
 			return pObj;
 	}
 	return NULL;
 }
 
-MMatchObject* MMatchServer::GetPlayerByAID(unsigned long int nAID)
+CCMatchObject* CCMatchServer::GetPlayerByAID(unsigned long int nAID)
 {
 	if (nAID == 0) return NULL;
 
-	for(MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++)
+	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++)
 	{
-		MMatchObject* pObj = ((*i).second);
+		CCMatchObject* pObj = ((*i).second);
 		if (pObj->GetAccountInfo()->m_nAID == nAID)
 			return pObj;
 	}
@@ -1830,7 +1830,7 @@ MMatchObject* MMatchServer::GetPlayerByAID(unsigned long int nAID)
 
 
 
-MUID MMatchServer::UseUID(void)
+MUID CCMatchServer::UseUID(void)
 {
 	LockUIDGenerate();
 		MUID ret = m_NextUseUID;
@@ -1839,14 +1839,14 @@ MUID MMatchServer::UseUID(void)
 	return ret;
 }
 
-void MMatchServer::SetClientClockSynchronize(const MUID& CommUID)
+void CCMatchServer::SetClientClockSynchronize(const MUID& CommUID)
 {
 	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_CLOCK_SYNCHRONIZE), CommUID, m_This);
 	pNew->AddParameter(new MCommandParameterUInt(GetGlobalClockCount()));
 	Post(pNew);
 }
 
-void MMatchServer::Announce(const MUID& CommUID, char* pszMsg)
+void CCMatchServer::Announce(const MUID& CommUID, char* pszMsg)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, CommUID);
 	pCmd->AddParameter(new MCmdParamUInt(0));
@@ -1854,7 +1854,7 @@ void MMatchServer::Announce(const MUID& CommUID, char* pszMsg)
 	Post(pCmd);
 }
 
-void MMatchServer::Announce(MObject* pObj, char* pszMsg)
+void CCMatchServer::Announce(MObject* pObj, char* pszMsg)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, MUID(0,0));
 	pCmd->AddParameter(new MCmdParamUInt(0));
@@ -1862,12 +1862,12 @@ void MMatchServer::Announce(MObject* pObj, char* pszMsg)
 	RouteToListener(pObj, pCmd);
 }
 
-void MMatchServer::AnnounceErrorMsg(const MUID& CommUID, const int nErrorCode)
+void CCMatchServer::AnnounceErrorMsg(const MUID& CommUID, const int nErrorCode)
 {
 	// 다음 서버 패치때 Announce대신 ErrorCode로 클라이언트에 메세지를 전송할 수 있도록 만들 예정
 }
 
-void MMatchServer::AnnounceErrorMsg(MObject* pObj, const int nErrorCode)
+void CCMatchServer::AnnounceErrorMsg(MObject* pObj, const int nErrorCode)
 {
 
 }
@@ -1875,9 +1875,9 @@ void MMatchServer::AnnounceErrorMsg(MObject* pObj, const int nErrorCode)
 
 
 
-void MMatchServer::OnBridgePeer(const MUID& uidChar, DWORD dwIP, DWORD nPort)
+void CCMatchServer::OnBridgePeer(const MUID& uidChar, DWORD dwIP, DWORD nPort)
 {
-	MMatchObject* pObj = GetObject(uidChar);
+	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 // 임시 Debug코드 ///////
 // #ifdef _DEBUG
@@ -1906,28 +1906,28 @@ void MMatchServer::OnBridgePeer(const MUID& uidChar, DWORD dwIP, DWORD nPort)
 	ResponseBridgePeer(uidChar, 0);
 }
 
-MMatchServer* MMatchServer::GetInstance(void)
+CCMatchServer* CCMatchServer::GetInstance(void)
 {
 	return m_pInstance;
 }
 
-unsigned long int MMatchServer::GetGlobalClockCount(void) const
+unsigned long int CCMatchServer::GetGlobalClockCount(void) const
 {
 	unsigned long int i = timeGetTime();
 	return i;
 }
 
-unsigned long int MMatchServer::ConvertLocalClockToGlobalClock(unsigned long int nLocalClock, unsigned long int nLocalClockDistance)
+unsigned long int CCMatchServer::ConvertLocalClockToGlobalClock(unsigned long int nLocalClock, unsigned long int nLocalClockDistance)
 {
 	return (nLocalClock + nLocalClockDistance);
 }
 
-unsigned long int MMatchServer::ConvertGlobalClockToLocalClock(unsigned long int nGlobalClock, unsigned long int nLocalClockDistance)
+unsigned long int CCMatchServer::ConvertGlobalClockToLocalClock(unsigned long int nGlobalClock, unsigned long int nLocalClockDistance)
 {
 	return (nGlobalClock - nLocalClockDistance);
 }
 
-void MMatchServer::DebugTest()
+void CCMatchServer::DebugTest()
 {
 #ifndef _DEBUG
 	return;
@@ -1935,14 +1935,14 @@ void MMatchServer::DebugTest()
 
 ///////////
 	LOG(LOG_DEBUG, "DebugTest: Object List");
-	for(MMatchObjectList::iterator it=m_Objects.begin(); it!=m_Objects.end(); it++){
-		MMatchObject* pObj = (*it).second;
+	for(CCMatchObjectList::iterator it=m_Objects.begin(); it!=m_Objects.end(); it++){
+		CCMatchObject* pObj = (*it).second;
 		LOG(LOG_DEBUG, "DebugTest: Obj(%d%d)", pObj->GetUID().High, pObj->GetUID().Low);
 	}
 ///////////
 }
 
-void MMatchServer::SendCommandByUDP(MCommand* pCommand, char* szIP, int nPort)
+void CCMatchServer::SendCommandByUDP(MCommand* pCommand, char* szIP, int nPort)
 {
 	_ASSERT(0);	// 사용하지 않음
 	// 현재는 1024 size이상 보낼 수 없다.
@@ -1962,7 +1962,7 @@ void MMatchServer::SendCommandByUDP(MCommand* pCommand, char* szIP, int nPort)
 	bool bRet = m_SafeUDP.Send(szIP, nPort, szBuf, size);
 }
 
-bool MMatchServer::UDPSocketRecvEvent(DWORD dwIP, WORD wRawPort, char* pPacket, DWORD dwSize)
+bool CCMatchServer::UDPSocketRecvEvent(DWORD dwIP, WORD wRawPort, char* pPacket, DWORD dwSize)
 {
 	static DWORD dwMonitorUDPIP = MGetServerConfig()->GetMonitorUDPIP();
 
@@ -1981,12 +1981,12 @@ bool MMatchServer::UDPSocketRecvEvent(DWORD dwIP, WORD wRawPort, char* pPacket, 
 	if ((dwSize < pPacketHeader->nSize) || 
 		((pPacketHeader->nMsg != MSGID_COMMAND)&&(pPacketHeader->nMsg != MSGID_RAWCOMMAND))	) return false;
 
-	MMatchServer* pServer = MMatchServer::GetInstance();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	pServer->ParseUDPPacket(&pPacket[sizeof(MPacketHeader)], pPacketHeader, dwIP, wRawPort);
 	return true;
 }
 
-void MMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DWORD dwIP, WORD wRawPort)
+void CCMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DWORD dwIP, WORD wRawPort)
 {
 	switch (pPacketHeader->nMsg)
 	{
@@ -1996,7 +1996,7 @@ void MMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DWO
 			if (pPacketHeader->nCheckSum != nCheckSum) {
 				static int nLogCount = 0;
 				if (nLogCount++ < 100) {	// Log Flooding 방지
-					cclog("MMatchServer::ParseUDPPacket() -> CHECKSUM ERROR(R=%u/C=%u)\n", 
+					cclog("CCMatchServer::ParseUDPPacket() -> CHECKSUM ERROR(R=%u/C=%u)\n", 
 						pPacketHeader->nCheckSum, nCheckSum);
 				}
 				return;
@@ -2039,7 +2039,7 @@ void MMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DWO
 
 					PostSafeQueue(pCmd);
 				} else {
-					LOG(LOG_FILE, "MMatchServer::ParseUDPPacket: NOT HANDLED COMMAND(%d)", pCmd->GetID());
+					LOG(LOG_FILE, "CCMatchServer::ParseUDPPacket: NOT HANDLED COMMAND(%d)", pCmd->GetID());
 				}
 			}
 		}
@@ -2048,22 +2048,22 @@ void MMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DWO
 		{
 // 			_ASSERT(0);
 			// 서버상에 암호화된 UDP는 사용하지 않음
-			Log(LOG_FILE, "MMatchServer::ParseUDPPacket: Parse Packet Error");
+			Log(LOG_FILE, "CCMatchServer::ParseUDPPacket: Parse Packet Error");
 		}
 		break;
 	default:
 		{
 // 			_ASSERT(0);
-			Log(LOG_FILE, "MMatchServer::ParseUDPPacket: Parse Packet Error");
+			Log(LOG_FILE, "CCMatchServer::ParseUDPPacket: Parse Packet Error");
 		}
 
 		break;
 	}
 }
 
-void MMatchServer::ResponseBridgePeer(const MUID& uidChar, int nCode)
+void CCMatchServer::ResponseBridgePeer(const MUID& uidChar, int nCode)
 {
-	MMatchObject* pObj = GetObject(uidChar);
+	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
 	MCommand* pNew = CreateCommand(MC_MATCH_BRIDGEPEER_ACK, MUID(0,0));
@@ -2073,11 +2073,11 @@ void MMatchServer::ResponseBridgePeer(const MUID& uidChar, int nCode)
 }
 
 // 난입한 유저가 방안에 있는 다른 사람들 정보 달라고 요청했을때 방안의 유저정보를 알려준다
-void MMatchServer::ResponsePeerList(const MUID& uidChar, const MUID& uidStage)
+void CCMatchServer::ResponsePeerList(const MUID& uidChar, const MUID& uidStage)
 {
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
-	MMatchObject* pObj = GetObject(uidChar);
+	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
 	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_PEERLIST, MUID(0,0));
@@ -2089,7 +2089,7 @@ void MMatchServer::ResponsePeerList(const MUID& uidChar, const MUID& uidStage)
 	void* pPeerArray = MMakeBlobArray(sizeof(MTD_PeerListNode), nPeerCount);
 	int nIndex=0;
 	for (MUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
-		MMatchObject* pObj = (MMatchObject*)(*itor).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;
 
 		MTD_PeerListNode* pNode = (MTD_PeerListNode*)MGetBlobArrayElement(pPeerArray, nIndex++);
@@ -2114,10 +2114,10 @@ void MMatchServer::ResponsePeerList(const MUID& uidChar, const MUID& uidStage)
 }
 
 
-bool MMatchServer::CheckBridgeFault()
+bool CCMatchServer::CheckBridgeFault()
 {
-	for (MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++) {
-		MMatchObject* pObj = (*i).second;
+	for (CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++) {
+		CCMatchObject* pObj = (*i).second;
 		if (pObj->GetBridgePeer() == false)
 			return true;
 	}
@@ -2127,15 +2127,15 @@ bool MMatchServer::CheckBridgeFault()
 
 
 
-void MMatchServer::OnUserWhisper(const MUID& uidComm, char* pszSenderName, char* pszTargetName, char* pszMessage)
+void CCMatchServer::OnUserWhisper(const MUID& uidComm, char* pszSenderName, char* pszTargetName, char* pszMessage)
 {
 	if (strlen(pszSenderName) < 2) return;
 	if (strlen(pszTargetName) < 2) return;
 
-	MMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (pObj == NULL) return;
 
-	MMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
+	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 	if (pTargetObj == NULL) {
 		NotifyMessage(pObj->GetUID(), MATCHNOTIFY_GENERAL_USER_NOTFOUND);
 		return;
@@ -2153,14 +2153,14 @@ void MMatchServer::OnUserWhisper(const MUID& uidComm, char* pszSenderName, char*
 	RouteToListener(pTargetObj, pCmd);
 }
 
-void MMatchServer::OnUserWhere(const MUID& uidComm, char* pszTargetName)
+void CCMatchServer::OnUserWhere(const MUID& uidComm, char* pszTargetName)
 {
 	if (strlen(pszTargetName) < 2) return;
 
-	MMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (!IsEnabledObject(pObj)) return;
 
-	MMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
+	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 	if (pTargetObj == NULL) {
 		NotifyMessage(pObj->GetUID(), MATCHNOTIFY_GENERAL_USER_NOTFOUND);
 		return;
@@ -2186,7 +2186,7 @@ void MMatchServer::OnUserWhere(const MUID& uidComm, char* pszTargetName)
 		}
 		else if ((pTargetObj->GetPlace() == MMP_STAGE) || (pTargetObj->GetPlace() == MMP_BATTLE))
 		{
-			MMatchStage* pStage = FindStage( pTargetObj->GetStageUID() );
+			CCMatchStage* pStage = FindStage( pTargetObj->GetStageUID() );
 			if( 0 != pStage )
 			{
 				bUnknownChannel = false;
@@ -2205,15 +2205,15 @@ void MMatchServer::OnUserWhere(const MUID& uidComm, char* pszTargetName)
 	Announce(pObj, szLog);
 }
 
-void MMatchServer::OnUserOption(const MUID& uidComm, unsigned long nOptionFlags)
+void CCMatchServer::OnUserOption(const MUID& uidComm, unsigned long nOptionFlags)
 {
-	MMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (pObj == NULL) return;
 
 	pObj->SetUserOption(nOptionFlags);
 }
 
-void MMatchServer::OnChatRoomCreate(const MUID& uidPlayer, const char* pszChatRoomName)
+void CCMatchServer::OnChatRoomCreate(const MUID& uidPlayer, const char* pszChatRoomName)
 {
 	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
 	MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
@@ -2236,7 +2236,7 @@ void MMatchServer::OnChatRoomCreate(const MUID& uidPlayer, const char* pszChatRo
 	}
 }
 
-void MMatchServer::OnChatRoomJoin(const MUID& uidComm, char* pszPlayerName, char* pszChatRoomName)
+void CCMatchServer::OnChatRoomJoin(const MUID& uidComm, char* pszPlayerName, char* pszChatRoomName)
 {
 	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
 	MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
@@ -2248,7 +2248,7 @@ void MMatchServer::OnChatRoomJoin(const MUID& uidComm, char* pszPlayerName, char
 		return;
 	}
 	
-	MMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (pObj == NULL) return;
 
 	if (pRoom->GetUserCount() > CHATROOM_MAX_ROOMMEMBER) {
@@ -2267,14 +2267,14 @@ void MMatchServer::OnChatRoomJoin(const MUID& uidComm, char* pszPlayerName, char
 	}
 }
 
-void MMatchServer::OnChatRoomLeave(const MUID& uidComm, char* pszPlayerName, char* pszChatRoomName)
+void CCMatchServer::OnChatRoomLeave(const MUID& uidComm, char* pszPlayerName, char* pszChatRoomName)
 {
 	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
 	MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
 	if (pRoom == NULL)
 		return;
 
-	MMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (pObj == NULL) return;
 
 	pRoom->RemovePlayer(uidComm);
@@ -2292,9 +2292,9 @@ void MMatchServer::OnChatRoomLeave(const MUID& uidComm, char* pszPlayerName, cha
 	pRoom->RouteCommand(pCmd);
 }
 
-void MMatchServer::OnChatRoomSelectWrite(const MUID& uidComm, const char* pszChatRoomName)
+void CCMatchServer::OnChatRoomSelectWrite(const MUID& uidComm, const char* pszChatRoomName)
 {
-	MMatchObject* pPlayer = GetObject(uidComm);
+	CCMatchObject* pPlayer = GetObject(uidComm);
 	if (pPlayer == NULL) return;
 
 	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
@@ -2314,11 +2314,11 @@ void MMatchServer::OnChatRoomSelectWrite(const MUID& uidComm, const char* pszCha
 	pPlayer->SetChatRoomUID(pRoom->GetUID());
 }
 
-void MMatchServer::OnChatRoomInvite(const MUID& uidComm, const char* pszTargetName)
+void CCMatchServer::OnChatRoomInvite(const MUID& uidComm, const char* pszTargetName)
 {
 	if (strlen(pszTargetName) < 2) return;
 
-	MMatchObject* pPlayer = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pPlayer = GetPlayerByCommUID(uidComm);
 	if (pPlayer == NULL) return;
 
 	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
@@ -2328,7 +2328,7 @@ void MMatchServer::OnChatRoomInvite(const MUID& uidComm, const char* pszTargetNa
 		return;
 	}
 
-	MMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
+	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 
 	if (pTargetObj == NULL) {
 		NotifyMessage(pPlayer->GetUID(), MATCHNOTIFY_GENERAL_USER_NOTFOUND);
@@ -2358,12 +2358,12 @@ void MMatchServer::OnChatRoomInvite(const MUID& uidComm, const char* pszTargetNa
 // RAONHAJE 임시코드
 #ifdef _DEBUG
 	#include "CMLexicalAnalyzer.h"
-	bool StageFinish(MMatchServer* pServer, const MUID& uidPlayer, char* pszChat)
+	bool StageFinish(CCMatchServer* pServer, const MUID& uidPlayer, char* pszChat)
 	{
-		MMatchObject* pChar = pServer->GetObject(uidPlayer);
+		CCMatchObject* pChar = pServer->GetObject(uidPlayer);
 		if (pChar == NULL)	return false;
 //		if (pChar->GetPlace() != MMP_LOBBY) return false;
-		MMatchStage* pStage = pServer->FindStage(pChar->GetStageUID());
+		CCMatchStage* pStage = pServer->FindStage(pChar->GetStageUID());
 		if (pStage == NULL) return false;
 
 		bool bResult = false;
@@ -2385,9 +2385,9 @@ void MMatchServer::OnChatRoomInvite(const MUID& uidComm, const char* pszTargetNa
 	}
 #endif
 
-void MMatchServer::OnChatRoomChat(const MUID& uidComm, const char* pszMessage)
+void CCMatchServer::OnChatRoomChat(const MUID& uidComm, const char* pszMessage)
 {
-	MMatchObject* pPlayer = GetObject(uidComm);
+	CCMatchObject* pPlayer = GetObject(uidComm);
 	if (pPlayer == NULL) return;
 
 // #ifdef _DEBUG
@@ -2410,9 +2410,9 @@ void MMatchServer::OnChatRoomChat(const MUID& uidComm, const char* pszMessage)
 	pRoom->RouteChat(pPlayer->GetUID(), const_cast<char*>(pszMessage));
 }
 
-void MMatchServer::DisconnectObject(const MUID& uidObject)
+void CCMatchServer::DisconnectObject(const MUID& uidObject)
 {
-	MMatchObject* pObj = GetObject(uidObject);
+	CCMatchObject* pObj = GetObject(uidObject);
 	if (pObj == NULL) return;
 
 	Disconnect(pObj->GetCommListener());
@@ -2420,9 +2420,9 @@ void MMatchServer::DisconnectObject(const MUID& uidObject)
 
 
 
-//void MMatchServer::InsertChatDBLog(const MUID& uidPlayer, const char* szMsg)
+//void CCMatchServer::InsertChatDBLog(const MUID& uidPlayer, const char* szMsg)
 //{
-//	MMatchObject* pObj = GetObject(uidPlayer);
+//	CCMatchObject* pObj = GetObject(uidPlayer);
 //	if (pObj == NULL) return;
 //	unsigned long int nNowTime = timeGetTime();
 //
@@ -2458,7 +2458,7 @@ void MMatchServer::DisconnectObject(const MUID& uidObject)
 
 
 
-int MMatchServer::ValidateMakingName(const char* szCharName, int nMinLength, int nMaxLength)
+int CCMatchServer::ValidateMakingName(const char* szCharName, int nMinLength, int nMaxLength)
 {
 	// 캐릭터 이름의 최소-최대 길이를 검사한다.
 	int nNameLen = (int)strlen( szCharName);
@@ -2513,9 +2513,9 @@ int MMatchServer::ValidateMakingName(const char* szCharName, int nMinLength, int
 
 
 
-int MMatchServer::ValidateChannelJoin(const MUID& uidPlayer, const MUID& uidChannel)
+int CCMatchServer::ValidateChannelJoin(const MUID& uidPlayer, const MUID& uidChannel)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return MERR_CANNOT_JOIN_CHANNEL;
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return MERR_CANNOT_JOIN_CHANNEL;
@@ -2600,7 +2600,7 @@ void GetCharEquipItemTotalWeight( MMatchCharInfo* pCharInfo
 	}
 }
 
-int MMatchServer::ValidateEquipItem(MMatchObject* pObj, MMatchItem* pItem, const MMatchCharItemParts parts)
+int CCMatchServer::ValidateEquipItem(CCMatchObject* pObj, MMatchItem* pItem, const MMatchCharItemParts parts)
 {
 	if (! IsEnabledObject(pObj)) return MERR_UNKNOWN;
 	if (pItem == NULL) return MERR_UNKNOWN;
@@ -2661,22 +2661,22 @@ int MMatchServer::ValidateEquipItem(MMatchObject* pObj, MMatchItem* pItem, const
 	return MOK;
 }
 
-void MMatchServer::OnNetPong(const MUID& CommUID, unsigned int nTimeStamp)
+void CCMatchServer::OnNetPong(const MUID& CommUID, unsigned int nTimeStamp)
 {
-	MMatchObject* pObj = GetObject(CommUID);
+	CCMatchObject* pObj = GetObject(CommUID);
 	if (pObj) {
 		pObj->UpdateTickLastPacketRecved();	// Last Packet Timestamp
 	}
 }
 
-void MMatchServer::OnHShieldPong(const MUID& CommUID, unsigned int nTimeStamp)
+void CCMatchServer::OnHShieldPong(const MUID& CommUID, unsigned int nTimeStamp)
 {
-	MMatchObject* pObj = GetObject(CommUID);
+	CCMatchObject* pObj = GetObject(CommUID);
 	if (pObj) 
 		pObj->UpdateLastHShieldMsgRecved();	// Last Packet Timestamp
 }
 
-void MMatchServer::UpdateCharDBCachingData(MMatchObject* pObject)
+void CCMatchServer::UpdateCharDBCachingData(CCMatchObject* pObject)
 {
 	if (!IsEnabledObject(pObject)) return;
 
@@ -2697,7 +2697,7 @@ void MMatchServer::UpdateCharDBCachingData(MMatchObject* pObject)
 	}
 }
 
-void MMatchServer::UpdateCharItemDBCachingData(MMatchObject* pObject)
+void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 {
 	if (!IsEnabledObject(pObject)) return;
 
@@ -2764,7 +2764,7 @@ void MMatchServer::UpdateCharItemDBCachingData(MMatchObject* pObject)
 	}
 }
 
-bool MMatchServer::CheckItemXMLFromDatabase()
+bool CCMatchServer::CheckItemXMLFromDatabase()
 {
 	map<int, MMatchItemDescForDatabase*> ItemMapFromDatabase;
 
@@ -2856,7 +2856,7 @@ bool MMatchServer::CheckItemXMLFromDatabase()
 	return bResult;
 }
 
-bool MMatchServer::CompareMatchItem(MMatchItemDescForDatabase *pItem1, MMatchItemDesc *pItem2)
+bool CCMatchServer::CompareMatchItem(MMatchItemDescForDatabase *pItem1, MMatchItemDesc *pItem2)
 {
 	bool bResult = true;
 	char *szMsg[256] = {0, };
@@ -2991,7 +2991,7 @@ static bool CheckItemXML_ReadXML(map<unsigned long int, string>& ItemXmlMap, con
 	return true;
 }
 
-bool MMatchServer::CheckItemXML()
+bool CCMatchServer::CheckItemXML()
 {
 	map<unsigned long int, string>	ItemXmlMap;
 
@@ -3166,7 +3166,7 @@ struct ix
 	string desc;
 };
 
-bool MMatchServer::CheckUpdateItemXML()
+bool CCMatchServer::CheckUpdateItemXML()
 {
 	// map<unsigned long int, string>	ItemXmlMap;
 	
@@ -3283,7 +3283,7 @@ bool MMatchServer::CheckUpdateItemXML()
 }
 
 
-unsigned long int MMatchServer::GetStageListChecksum(MUID& uidChannel, int nStageCursor, int nStageCount)
+unsigned long int CCMatchServer::GetStageListChecksum(MUID& uidChannel, int nStageCursor, int nStageCount)
 {
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return 0;
@@ -3296,7 +3296,7 @@ unsigned long int MMatchServer::GetStageListChecksum(MUID& uidChannel, int nStag
 		if (nRealStageCount >= nStageCount) break;
 
 		if (pChannel->IsEmptyStage(i)) continue;
-		MMatchStage* pStage = pChannel->GetStage(i);
+		CCMatchStage* pStage = pChannel->GetStage(i);
 		if ((pStage == NULL) || (pStage->GetState() == STAGE_STATE_CLOSE)) continue;
 
 		nStageListChecksum += pStage->GetChecksum();
@@ -3310,7 +3310,7 @@ unsigned long int MMatchServer::GetStageListChecksum(MUID& uidChannel, int nStag
 
 
 
-void MMatchServer::BroadCastClanRenewVictories(const char* szWinnerClanName, const char* szLoserClanName, const int nVictories)
+void CCMatchServer::BroadCastClanRenewVictories(const char* szWinnerClanName, const char* szLoserClanName, const int nVictories)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_CLAN_RENEW_VICTORIES, MUID(0,0));
 	pCmd->AddParameter(new MCommandParameterString(szWinnerClanName));
@@ -3320,7 +3320,7 @@ void MMatchServer::BroadCastClanRenewVictories(const char* szWinnerClanName, con
 	RouteToAllClient(pCmd);
 }
 
-void MMatchServer::BroadCastClanInterruptVictories(const char* szWinnerClanName, const char* szLoserClanName, const int nVictories)
+void CCMatchServer::BroadCastClanInterruptVictories(const char* szWinnerClanName, const char* szLoserClanName, const int nVictories)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_CLAN_INTERRUPT_VICTORIES, MUID(0,0));
 	pCmd->AddParameter(new MCommandParameterString(szWinnerClanName));
@@ -3330,7 +3330,7 @@ void MMatchServer::BroadCastClanInterruptVictories(const char* szWinnerClanName,
 	RouteToAllClient(pCmd);
 }
 
-void MMatchServer::BroadCastDuelRenewVictories(const MUID& chanID, const char* szChampionName, const char* szChannelName, int nRoomNumber, const int nVictories)
+void CCMatchServer::BroadCastDuelRenewVictories(const MUID& chanID, const char* szChampionName, const char* szChannelName, int nRoomNumber, const int nVictories)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_DUEL_RENEW_VICTORIES, MUID(0,0));
 	pCmd->AddParameter(new MCommandParameterString(szChampionName));
@@ -3341,7 +3341,7 @@ void MMatchServer::BroadCastDuelRenewVictories(const MUID& chanID, const char* s
 	RouteToChannel(chanID, pCmd);
 }
 
-void MMatchServer::BroadCastDuelInterruptVictories(const MUID& chanID, const char* szChampionName, const char* szInterrupterName, const int nVictories)
+void CCMatchServer::BroadCastDuelInterruptVictories(const MUID& chanID, const char* szChampionName, const char* szInterrupterName, const int nVictories)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_DUEL_INTERRUPT_VICTORIES, MUID(0,0));
 	pCmd->AddParameter(new MCommandParameterString(szChampionName));
@@ -3352,10 +3352,10 @@ void MMatchServer::BroadCastDuelInterruptVictories(const MUID& chanID, const cha
 }
 
 
-bool MMatchServer::InitScheduler()
+bool CCMatchServer::InitScheduler()
 {
 	// 스케쥴 업데이트시 커멘드를 포스트하기 위해서,
-	//  MMatchServer의 주소를 인자로 받아 멤버로 저장해둠.
+	//  CCMatchServer의 주소를 인자로 받아 멤버로 저장해둠.
 	m_pScheduler = new MMatchScheduleMgr( this );
 	if( 0 == m_pScheduler )		
 		return false;
@@ -3380,7 +3380,7 @@ bool MMatchServer::InitScheduler()
 }
 
 
-bool MMatchServer::InitLocale()
+bool CCMatchServer::InitLocale()
 {
 	if( MGetServerConfig()->IsComplete() )
 	{
@@ -3399,7 +3399,7 @@ bool MMatchServer::InitLocale()
 }
 
 
-bool MMatchServer::InitCountryFilterDB()
+bool CCMatchServer::InitCountryFilterDB()
 {
 	IPtoCountryList icl;
 	BlockCountryCodeList bccl;
@@ -3439,7 +3439,7 @@ bool MMatchServer::InitCountryFilterDB()
 }
 
 
-void MMatchServer::SetUseCountryFilter()
+void CCMatchServer::SetUseCountryFilter()
 {
 	MCommand* pCmd = CreateCommand( MC_LOCAL_UPDATE_USE_COUNTRY_FILTER, GetUID() );
 	if( 0 != pCmd )
@@ -3447,7 +3447,7 @@ void MMatchServer::SetUseCountryFilter()
 }
 
 
-void MMatchServer::UpdateIPtoCountryList()
+void CCMatchServer::UpdateIPtoCountryList()
 {
 	MCommand* pCmd = CreateCommand( MC_LOCAL_GET_DB_IP_TO_COUNTRY, GetUID() );
 	if( 0 != pCmd )
@@ -3455,7 +3455,7 @@ void MMatchServer::UpdateIPtoCountryList()
 }
 
 
-void MMatchServer::UpdateBlockCountryCodeLsit()
+void CCMatchServer::UpdateBlockCountryCodeLsit()
 {
 	MCommand* pCmd = CreateCommand( MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE, GetUID() );
 	if( 0 != pCmd )
@@ -3463,7 +3463,7 @@ void MMatchServer::UpdateBlockCountryCodeLsit()
 }
 
 
-void MMatchServer::UpdateCustomIPList()
+void CCMatchServer::UpdateCustomIPList()
 {
 	MCommand* pCmd = CreateCommand( MC_LOCAL_GET_DB_CUSTOM_IP, GetUID() );
 	if( 0 != pCmd )
@@ -3471,7 +3471,7 @@ void MMatchServer::UpdateCustomIPList()
 }
 
 
-void MMatchServer::SetAccetpInvalidIP()
+void CCMatchServer::SetAccetpInvalidIP()
 {
 	MCommand* pCmd = CreateCommand( MC_LOCAL_UPDATE_ACCEPT_INVALID_IP, GetUID() );
 	if( 0 != pCmd )
@@ -3479,7 +3479,7 @@ void MMatchServer::SetAccetpInvalidIP()
 }
 
 
-bool MMatchServer::CheckIsValidIP( const MUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
+bool CCMatchServer::CheckIsValidIP( const MUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
 {
 	switch( CheckIsValidCustomIP(CommUID, strIP, strCountryCode3, bUseFilter) )
 	{
@@ -3536,7 +3536,7 @@ bool MMatchServer::CheckIsValidIP( const MUID& CommUID, const string& strIP, str
 	return false;
 }
 
-const CUSTOM_IP_STATUS MMatchServer::CheckIsValidCustomIP( const MUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
+const CUSTOM_IP_STATUS CCMatchServer::CheckIsValidCustomIP( const MUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
 {
 	string strComment;
 	bool bIsBlock = false;
@@ -3562,7 +3562,7 @@ const CUSTOM_IP_STATUS MMatchServer::CheckIsValidCustomIP( const MUID& CommUID, 
 }
 
 
-const COUNT_CODE_STATUS MMatchServer::CheckIsNonBlockCountry( const MUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
+const COUNT_CODE_STATUS CCMatchServer::CheckIsNonBlockCountry( const MUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
 {
 	if( !bUseFilter )
 		return CCS_NONBLOCK;
@@ -3595,7 +3595,7 @@ const COUNT_CODE_STATUS MMatchServer::CheckIsNonBlockCountry( const MUID& CommUI
 			// 새로운 IP범위를 리스트에 추가 함.
 			if( !GetCountryFilter().AddIPtoCountry(dwIPFrom, dwIPTo, strCountryCode3) )
 			{
-				cclog( "MMatchServer::CheckIsNonBlockCountry - add new IPtoCountry(f:%u, t%u, c:%s) fail.\n",
+				cclog( "CCMatchServer::CheckIsNonBlockCountry - add new IPtoCountry(f:%u, t%u, c:%s) fail.\n",
 					dwIPFrom, dwIPTo, strCountryCode3.c_str() );
 			}
 
@@ -3623,12 +3623,12 @@ const COUNT_CODE_STATUS MMatchServer::CheckIsNonBlockCountry( const MUID& CommUI
 	return CCS_BLOCK;
 }
 
-bool MMatchServer::InitEvent()
+bool CCMatchServer::InitEvent()
 {
 	if( !MMatchEventDescManager::GetInstance().LoadEventXML(EVENT_XML_FILE_NAME) )
 	{
 		ASSERT( 0 && "fail to Load Event.xml" );
-		cclog( "MMatchServer::InitEvent - fail to Load %s\n", 
+		cclog( "CCMatchServer::InitEvent - fail to Load %s\n", 
 			EVENT_XML_FILE_NAME );
 		return false;
 	}
@@ -3636,7 +3636,7 @@ bool MMatchServer::InitEvent()
 	if( !MMatchEventFactoryManager::GetInstance().LoadEventListXML(EVENT_LIST_XML_FILE_NAME) )
 	{
 		ASSERT( 0 && "fail to load EventList.xml" );
-		cclog( "MMatchServer::InitEvent - fail to Load %s\n",	
+		cclog( "CCMatchServer::InitEvent - fail to Load %s\n",	
 			EVENT_LIST_XML_FILE_NAME );
 		return false;
 	}
@@ -3647,7 +3647,7 @@ bool MMatchServer::InitEvent()
 	if( !MMatchEventFactoryManager::GetInstance().GetEventList(MMatchEvent::GAME_TYPE_ALL, ET_CUSTOM_EVENT, EvnPtrVec) )
 	{
 		ASSERT( 0 && "이벤트 리스트 생성 실패.\n" );
-		cclog( "MMatchServer::InitEvent - 리스트 생성 실패.\n" );
+		cclog( "CCMatchServer::InitEvent - 리스트 생성 실패.\n" );
 		MMatchEventManager::ClearEventPtrVec( EvnPtrVec );
 		return false;
 	}
@@ -3657,12 +3657,12 @@ bool MMatchServer::InitEvent()
 }
 
 
-void MMatchServer::CustomCheckEventObj( const DWORD dwEventID, MMatchObject* pObj, void* pContext )
+void CCMatchServer::CustomCheckEventObj( const DWORD dwEventID, CCMatchObject* pObj, void* pContext )
 {
 	m_CustomEventManager.CustomCheckEventObj( dwEventID, pObj, pContext );
 }
 
-void MMatchServer::SendHShieldReqMsg()
+void CCMatchServer::SendHShieldReqMsg()
 {
 	//{{RouteToAllClient HShieldReqMsg
 	MCommand* pCommand = CreateCommand(MC_HSHIELD_PING, MUID(0,0));
@@ -3677,9 +3677,9 @@ void MMatchServer::SendHShieldReqMsg()
 		HSOption = ANTICPSVR_CHECK_ALL;
 	}
 
-	for(MMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++)
+	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++)
 	{
-		MMatchObject* pObj = (MMatchObject*)((*i).second);
+		CCMatchObject* pObj = (CCMatchObject*)((*i).second);
 
 		// 이전 ReqMsg에 대한 응답(m_bHShieldMsgRecved)이 있는 클라이언트들에게만 보낸다. 그렇지 않은 경우 골치아픔. 새로 보냈는데 이전 ReqMsg에 대한 응답이 온다던가..
 		if (pObj->GetUID() < MUID(0,3) || !pObj->GetHShieldMsgRecved()) continue;	// MUID로 Client인지 판별할수 있는 코드 필요함
@@ -3722,7 +3722,7 @@ void MMatchServer::SendHShieldReqMsg()
 }
 
 
-bool MMatchServer::IsEquipmentTypeItem( const MMatchItemDesc* pItemDesc )
+bool CCMatchServer::IsEquipmentTypeItem( const MMatchItemDesc* pItemDesc )
 {
 	if( 0 == pItemDesc ) return false;
 
@@ -3732,7 +3732,7 @@ bool MMatchServer::IsEquipmentTypeItem( const MMatchItemDesc* pItemDesc )
 	return true;
 }
 
-void MMatchServer::RequestGameguardAuth( const MUID& uidUser, const DWORD dwIndex, const DWORD dwValue1, const DWORD dwValue2, const DWORD dwValue3 )
+void CCMatchServer::RequestGameguardAuth( const MUID& uidUser, const DWORD dwIndex, const DWORD dwValue1, const DWORD dwValue2, const DWORD dwValue3 )
 {
 	MCommand* pCmd = CreateCommand( MC_REQUEST_GAMEGUARD_AUTH, uidUser );
 	if( 0 == pCmd ) 
@@ -3752,7 +3752,7 @@ void MMatchServer::RequestGameguardAuth( const MUID& uidUser, const DWORD dwInde
 }
 
 
-void MMatchServer::RequestFirstGameguardAuth( const MUID& uidUser, const DWORD dwIndex, const DWORD dwValue1, const DWORD dwValue2, const DWORD dwValue3 )
+void CCMatchServer::RequestFirstGameguardAuth( const MUID& uidUser, const DWORD dwIndex, const DWORD dwValue1, const DWORD dwValue2, const DWORD dwValue3 )
 {
 	MCommand* pCmd = this->CreateCommand( MC_REQUEST_FIRST_GAMEGUARD_AUTH, uidUser );
 	if( 0 == pCmd ) 
@@ -3772,7 +3772,7 @@ void MMatchServer::RequestFirstGameguardAuth( const MUID& uidUser, const DWORD d
 }
 
 
-bool MMatchServer::InitGambleMachine()
+bool CCMatchServer::InitGambleMachine()
 {
 	vector<MMatchGambleItem*>			vGambleItemList;
 	vector<MMatchGambleRewardItem*>		vGambleRewardItemList;
@@ -3814,7 +3814,7 @@ bool MMatchServer::InitGambleMachine()
 }
 
 
-bool MMatchServer::InitBattletimeRewardMachine()
+bool CCMatchServer::InitBattletimeRewardMachine()
 {
 	vector<MMatchBRDescription*>	vBattletimeRewardDescription;
 	vector<MMatchBRItem*>			vBattletimeRewardItem;
@@ -3831,7 +3831,7 @@ bool MMatchServer::InitBattletimeRewardMachine()
 	return true;
 }
 
-void MMatchServer::MakeBattleTimeRewardDescriptionMap(vector<MMatchBRDescription*>& vBattletimeRewardDescription, 
+void CCMatchServer::MakeBattleTimeRewardDescriptionMap(vector<MMatchBRDescription*>& vBattletimeRewardDescription, 
 													  vector<MMatchBRItem*>& vBattletimeRewardItem, 
 													  MMatchBRDescriptionMap& BattletimeRewardDescriptionMap)
 {
@@ -3877,12 +3877,12 @@ void MMatchServer::MakeBattleTimeRewardDescriptionMap(vector<MMatchBRDescription
 	BattletimeRewardDescriptionMap.MakeCRC32();
 }
 
-void MMatchServer::OnAsyncResponse_GetBR_Description(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_GetBR_Description(MAsyncJob *pJobResult)
 {
 	MAsyncDBJob_GetBattleTimeRewardDescription* pJob = (MAsyncDBJob_GetBattleTimeRewardDescription*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		cclog("MMatchServer::OnAsyncResponse_GetBR_Description - 실패\n");
+		cclog("CCMatchServer::OnAsyncResponse_GetBR_Description - 실패\n");
 		return;
 	}
 
@@ -3892,16 +3892,16 @@ void MMatchServer::OnAsyncResponse_GetBR_Description(MAsyncJob *pJobResult)
 	GetBattleTimeRewardMachine().SetBattleTimeRewardMachine(BattletimeRewardDescriptionMap);
 }
 
-void MMatchServer::OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult)
 {
 	MAsyncDBJob_GetCharBRInfo* pJob = (MAsyncDBJob_GetCharBRInfo*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		cclog("MMatchServer::OnAsyncResponse_GetCharBRInfo - 실패\n");
+		cclog("CCMatchServer::OnAsyncResponse_GetCharBRInfo - 실패\n");
 		return;
 	}
 
-	MMatchObject* pObj = GetObject(pJob->GetOwnerUID());
+	CCMatchObject* pObj = GetObject(pJob->GetOwnerUID());
 	if( pObj == NULL ) return;
 	if( pObj->GetCharInfo() == NULL ) return;
 
@@ -3922,26 +3922,26 @@ void MMatchServer::OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult)
 
 }
 
-void MMatchServer::OnAsyncResponse_UpdateCharBRInfo(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_UpdateCharBRInfo(MAsyncJob *pJobResult)
 {
 	MAsyncDBJob_UpdateCharBRInfo* pJob = (MAsyncDBJob_UpdateCharBRInfo*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		cclog("MMatchServer::OnAsyncResponse_UpdateCharBRInfo - 실패\n");
+		cclog("CCMatchServer::OnAsyncResponse_UpdateCharBRInfo - 실패\n");
 		return;
 	}
 }
 
-void MMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
 {
 	MAsyncDBJob_RewardCharBR* pJob = (MAsyncDBJob_RewardCharBR*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		cclog("MMatchServer::OnAsyncResponse_RewardCharBR - 실패\n");
+		cclog("CCMatchServer::OnAsyncResponse_RewardCharBR - 실패\n");
 		return;
 	}
 
-	MMatchObject* pObj = GetObject(pJob->GetOwnerUID());
+	CCMatchObject* pObj = GetObject(pJob->GetOwnerUID());
 	if( pObj == NULL ) return;
 	if( pObj->GetCharInfo() == NULL ) return;
 
@@ -4019,7 +4019,7 @@ void MMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
 	ResponseCharacterItemList( pJob->GetOwnerUID() );
 }
 
-void MMatchServer::RouteCmdBattleTimeReward(const MUID& uidPlayer, MUID& uidStage, const char* pszName, const char* pszResetDesc, int nItemID, int nItemCnt, int nRentHourPeriod, int nRemainRewardCnt)
+void CCMatchServer::RouteCmdBattleTimeReward(const MUID& uidPlayer, MUID& uidStage, const char* pszName, const char* pszResetDesc, int nItemID, int nItemCnt, int nRentHourPeriod, int nRemainRewardCnt)
 {
 	MCommand* pNew = CreateCommand( MC_MATCH_REWARD_BATTLE_TIME, MUID(0, 0) );
 
@@ -4034,9 +4034,9 @@ void MMatchServer::RouteCmdBattleTimeReward(const MUID& uidPlayer, MUID& uidStag
 	RouteToBattle(uidStage, pNew);
 }
 
-void MMatchServer::OnAsyncRequest_RewardCharBP(const MUID& uidPlayer, int nBRID, int nBRTID, int nRewardCount, int nBattleTime, int nKillCount, int nItemID, int nItemCnt, int nRentHourPeriod)
+void CCMatchServer::OnAsyncRequest_RewardCharBP(const MUID& uidPlayer, int nBRID, int nBRTID, int nRewardCount, int nBattleTime, int nKillCount, int nItemID, int nItemCnt, int nRentHourPeriod)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if( pObj == NULL ) return;
 	if( pObj->GetCharInfo() == NULL ) return;
 
@@ -4065,9 +4065,9 @@ void MMatchServer::OnAsyncRequest_RewardCharBP(const MUID& uidPlayer, int nBRID,
 	pObj->m_DBJobQ.DBJobQ.push_back(pJob);
 }
 
-void MMatchServer::OnAsyncRequest_UpdateCharBRInfo(const MUID& uidPlayer, int nBRID, int nBRTID, int nRewardCount, int nBattleTime, int nKillCount)
+void CCMatchServer::OnAsyncRequest_UpdateCharBRInfo(const MUID& uidPlayer, int nBRID, int nBRTID, int nRewardCount, int nBattleTime, int nKillCount)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if( pObj == NULL ) return;
 	if( pObj->GetCharInfo() == NULL ) return;
 
@@ -4076,7 +4076,7 @@ void MMatchServer::OnAsyncRequest_UpdateCharBRInfo(const MUID& uidPlayer, int nB
 	pObj->m_DBJobQ.DBJobQ.push_back(pJob);
 }
 
-void MMatchServer::CheckMemoryCorruption()
+void CCMatchServer::CheckMemoryCorruption()
 {
 #ifdef _CHECK_MEMORY_CORRUPTION
 	if(_CrtCheckMemory() != 0) return;
@@ -4087,7 +4087,7 @@ void MMatchServer::CheckMemoryCorruption()
 #endif
 }
 
-void MMatchServer::Log(unsigned int nLogLevel, const char* szLog)
+void CCMatchServer::Log(unsigned int nLogLevel, const char* szLog)
 {
 #ifdef _DEBUG
 	if((nLogLevel & LOG_DEBUG) == LOG_DEBUG)

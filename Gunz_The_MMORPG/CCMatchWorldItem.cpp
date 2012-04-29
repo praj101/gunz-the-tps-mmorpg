@@ -144,7 +144,7 @@ void MMatchWorldItemManager::Update()
 
 }
 
-void MMatchWorldItemManager::RouteAllItems(MMatchObject* pObj)
+void MMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 {
 	int nItemSize = (int)m_ItemMap.size();
 	if (nItemSize <= 0) return;
@@ -167,11 +167,11 @@ void MMatchWorldItemManager::RouteAllItems(MMatchObject* pObj)
 	}
 
 	// 난입한 넘에게 아이템 정보 보내준다
-	MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, MUID(0,0));
 	pCmd->AddParameter(new MCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
 	MEraseBlobArray(pItemArray);
 
-	MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
+	CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
 }
 
 void MMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnIndex, 
@@ -263,7 +263,7 @@ void MMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnI
 }
 
 
-void MMatchWorldItemManager::OnStageBegin(MMatchStageSetting* pStageSetting)
+void MMatchWorldItemManager::OnStageBegin(CCMatchStageSetting* pStageSetting)
 {
 	if (m_pMatchStage == NULL) return;
 
@@ -359,7 +359,7 @@ void MMatchWorldItemManager::DelItem(short nUID)
 }
 
 
-bool MMatchWorldItemManager::Obtain(MMatchObject* pObj, short nItemUID, int* poutItemID, int* poutExtraValues)
+bool MMatchWorldItemManager::Obtain(CCMatchObject* pObj, short nItemUID, int* poutItemID, int* poutExtraValues)
 {
 	if (m_pMatchStage == NULL) return false;
 
@@ -384,7 +384,7 @@ bool MMatchWorldItemManager::Obtain(MMatchObject* pObj, short nItemUID, int* pou
 	return false;
 }
 
-void MMatchWorldItemManager::SpawnDynamicItem(MMatchObject* pObj, const int nItemID, const float x, const float y, const float z, float fDropDelayTime)
+void MMatchWorldItemManager::SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, float fDropDelayTime)
 {
 	if (m_pMatchStage == NULL) return;
 
@@ -401,7 +401,7 @@ void MMatchWorldItemManager::SpawnDynamicItem(MMatchObject* pObj, const int nIte
 	//AddItem(nItemID, -1, x, y, z);
 }
 
-void MMatchWorldItemManager::SpawnDynamicItem(MMatchObject* pObj, const int nItemID, const float x, const float y, const float z, 
+void MMatchWorldItemManager::SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, 
 											  int nLifeTime, int* pnExtraValues )
 {
 	if (m_pMatchStage == NULL) return;
@@ -411,7 +411,7 @@ void MMatchWorldItemManager::SpawnDynamicItem(MMatchObject* pObj, const int nIte
 	AddItem(nItemID, -1, x, y, z, nLifeTime, pnExtraValues );
 }
 
-bool MMatchWorldItemManager::Create(MMatchStage* pMatchStage)
+bool MMatchWorldItemManager::Create(CCMatchStage* pMatchStage)
 {
 	m_pMatchStage = pMatchStage;
 	return true;
@@ -425,18 +425,18 @@ void MMatchWorldItemManager::Destroy()
 void MMatchWorldItemManager::RouteObtainWorldItem(const MUID& uidPlayer, int nWorldItemUID)
 {
 	// 먹었다고 라우팅
-	MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, MUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidPlayer));
 	pCmd->AddParameter(new MCmdParamInt(nWorldItemUID));
-	MMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
+	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
 
 void MMatchWorldItemManager::RouteRemoveWorldItem(int nWorldItemUID)
 {
 	// 없어졌다고 라우팅
-	MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_REMOVE_WORLDITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_REMOVE_WORLDITEM, MUID(0,0));
 	pCmd->AddParameter(new MCmdParamInt(nWorldItemUID));
-	MMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
+	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
 
 void MMatchWorldItemManager::RouteSpawnWorldItem(MMatchWorldItem* pWorldItem)
@@ -448,7 +448,7 @@ void MMatchWorldItemManager::RouteSpawnWorldItem(MMatchWorldItem* pWorldItem)
 
 
 	// 방인원에게 라우팅
-	MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, MUID(0,0));
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, MUID(0,0));
 
 	void* pItemArray = MMakeBlobArray(sizeof(MTD_WorldItem), 1);
 	MTD_WorldItem* pNode = (MTD_WorldItem*)MGetBlobArrayElement(pItemArray, 0);
@@ -458,5 +458,5 @@ void MMatchWorldItemManager::RouteSpawnWorldItem(MMatchWorldItem* pWorldItem)
 	pCmd->AddParameter(new MCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
 	MEraseBlobArray(pItemArray);
 
-	MMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
+	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }

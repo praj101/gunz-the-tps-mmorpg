@@ -9,18 +9,18 @@
 //////////////////////////////////////////////////////////////////////
 
 // 단위테스트 작성을 위한 래핑 클래스 : MatchObject에서 정보를 가져오는 용도
-class MMatchObjectContainer
+class CCMatchObjectContainer
 {
 public:
-	// playerUID -> MMatchObject -> DuelTournamentCharInfo 까지의 얻어오는 과정을 래핑
-	virtual MMatchObjectDuelTournamentCharInfo* GetDuelTournamentCharInfo(const MUID& uid) { 
-		MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uid);
+	// playerUID -> CCMatchObject -> DuelTournamentCharInfo 까지의 얻어오는 과정을 래핑
+	virtual CCMatchObjectDuelTournamentCharInfo* GetDuelTournamentCharInfo(const MUID& uid) { 
+		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uid);
 		return pObj ? pObj->GetDuelTournamentCharInfo() : NULL;
 	}
 
 	// uidPlayer가 가리키는 MatchObject가 유효한지 검사하는 과정을 래핑
 	virtual bool IsEnabledUid(const MUID& uid) {
-		MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uid);
+		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uid);
 		return IsEnabledObject(pObj);
 	}
 };
@@ -44,7 +44,7 @@ public:
 	};
 
 protected:
-	MMatchObjectContainer* m_pMatchObjectContainer;
+	CCMatchObjectContainer* m_pMatchObjectContainer;
 
 	typedef map<DTUser, int>	MapDTUser;
 	typedef MapDTUser::iterator	ItorDTUser;
@@ -58,10 +58,10 @@ protected:
 public:
 
 	MDuelTournamentMatchMaker();
-	MDuelTournamentMatchMaker(MMatchObjectContainer* moc);
+	MDuelTournamentMatchMaker(CCMatchObjectContainer* moc);
 	~MDuelTournamentMatchMaker();
 
-	void SetMatchObjectContainer(MMatchObjectContainer* p) { m_pMatchObjectContainer = p; }
+	void SetMatchObjectContainer(CCMatchObjectContainer* p) { m_pMatchObjectContainer = p; }
 
 	bool AddPlayer(const MUID& uid, int tp, DWORD curTime);
 	bool RemovePlayer(const MUID& uid);
@@ -106,5 +106,5 @@ public:
 	
 	using MDuelTournamentMatchMaker::m_mapUser;
 
-	MMockDTMatchMaker(MMatchObjectContainer* moc) : MDuelTournamentMatchMaker(moc) {}
+	MMockDTMatchMaker(CCMatchObjectContainer* moc) : MDuelTournamentMatchMaker(moc) {}
 };

@@ -29,7 +29,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-int MMatchServer::ValidateChallengeLadderGame(MMatchObject** ppMemberObject, int nMemberCount)
+int CCMatchServer::ValidateChallengeLadderGame(CCMatchObject** ppMemberObject, int nMemberCount)
 {
 	MBaseTeamGameStrategy* pTeamGameStrategy = MBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
 	if (pTeamGameStrategy)
@@ -43,15 +43,15 @@ int MMatchServer::ValidateChallengeLadderGame(MMatchObject** ppMemberObject, int
 
 ///////////////////////////////////////////////////////////////////////////
 // LadderStage
-bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam)
+bool CCMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, CCMatchTeam nTeam)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
 
 	if (pObj->GetStageUID() != MUID(0,0))
 		StageLeave(pObj->GetUID());//, pObj->GetStageUID());
 
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return false;
 
 	pObj->OnStageJoin();
@@ -73,7 +73,7 @@ bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatc
 	return true;
 }
 
-void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB)
+void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB)
 {
 	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
 		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
@@ -85,7 +85,7 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 		GetLadderMgr()->CancelChallenge(pGroupB->GetID(), "");
 		return;
 	}
-	MMatchStage* pStage = FindStage(uidStage);
+	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) {
 		// Group 해체
 		GetLadderMgr()->CancelChallenge(pGroupA->GetID(), "");
@@ -134,7 +134,7 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 		pStage->SetLadderTeam(&a_RedLadderTeamInfo, &a_BlueLadderTeamInfo);
 	};
 
-	MMatchStageSetting* pSetting = pStage->GetStageSetting();
+	CCMatchStageSetting* pSetting = pStage->GetStageSetting();
 	pSetting->SetMasterUID(MUID(0,0));
 	pSetting->SetMapIndex(nRandomMap);
 	pSetting->SetGameType(nGameType);
@@ -160,11 +160,11 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 			// 이 정보는 클라이언트들끼리 Peer의 정보를 받을 수 있지만 서버가 용청할 시점과
 			//  클라이언트의 리스트 구성시점이 다를 수 있기 때문에 이때 전송을 해준다.
 			// - by SungE.
-			MMatchObjectCacheBuilder CacheBuilder;
+			CCMatchObjectCacheBuilder CacheBuilder;
 			CacheBuilder.Reset();
 			for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
 				MUID uidObj = (MUID)(*i).first;
-				MMatchObject* pScanObj = (MMatchObject*)GetObject(uidObj);
+				CCMatchObject* pScanObj = (CCMatchObject*)GetObject(uidObj);
 				if (pScanObj) {
 					CacheBuilder.AddObject(pScanObj);
 				}
@@ -188,7 +188,7 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 }
 
 
-bool MMatchServer::IsLadderRequestUserInRequestClanMember( const MUID& uidRequestMember
+bool CCMatchServer::IsLadderRequestUserInRequestClanMember( const MUID& uidRequestMember
 														  , const MTD_LadderTeamMemberNode* pRequestMemberNode )
 {
 	// - by SungE 2007-10-11 
@@ -200,7 +200,7 @@ bool MMatchServer::IsLadderRequestUserInRequestClanMember( const MUID& uidReques
 	if( NULL == pRequestMemberNode )
 		return false;
 
-	MMatchObject* pRequestMemberObj = GetPlayerByName( pRequestMemberNode->szName );
+	CCMatchObject* pRequestMemberObj = GetPlayerByName( pRequestMemberNode->szName );
 	if( NULL == pRequestMemberObj )
 		return false;
 
@@ -212,12 +212,12 @@ bool MMatchServer::IsLadderRequestUserInRequestClanMember( const MUID& uidReques
 	return true;
 }
 
-void MMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* pMemberNamesBlob, unsigned long int nOptions)
+void CCMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* pMemberNamesBlob, unsigned long int nOptions)
 {
 	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
 		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
 
-	MMatchObject* pLeaderObject = GetPlayerByCommUID(uidRequestMember);
+	CCMatchObject* pLeaderObject = GetPlayerByCommUID(uidRequestMember);
 	if (! IsEnabledObject(pLeaderObject)) return;
 
 	if (!MGetServerConfig()->IsEnabledCreateLadderGame())
@@ -234,7 +234,7 @@ void MMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* 
 		, (MTD_LadderTeamMemberNode*)MGetBlobArrayElement(pMemberNamesBlob, 0)) )
 		return;
 	
-	MMatchObject* pMemberObjects[MAX_CLANBATTLE_TEAM_MEMBER];
+	CCMatchObject* pMemberObjects[MAX_CLANBATTLE_TEAM_MEMBER];
 	for (int i = 0; i < nMemberCount; i++)
 	{
 		MTD_LadderTeamMemberNode* pNode = (MTD_LadderTeamMemberNode*)MGetBlobArrayElement(pMemberNamesBlob, i);
@@ -298,19 +298,19 @@ void MMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* 
 	GetLadderMgr()->Challenge(pGroup);
 }
 
-void MMatchServer::OnLadderRequestCancelChallenge(const MUID& uidPlayer)
+void CCMatchServer::OnLadderRequestCancelChallenge(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return;
 	if (pObj->GetLadderGroupID() == 0) return;
 
 	GetLadderMgr()->CancelChallenge(pObj->GetLadderGroupID(), pObj->GetCharInfo()->m_szName);
 }
 
-void MMatchServer::OnRequestProposal(const MUID& uidProposer, const int nProposalMode, const int nRequestID, 
+void CCMatchServer::OnRequestProposal(const MUID& uidProposer, const int nProposalMode, const int nRequestID, 
 		                const int nReplierCount, void* pReplierNamesBlob)
 {
-	MMatchObject* pProposerObject = GetObject(uidProposer);
+	CCMatchObject* pProposerObject = GetObject(uidProposer);
 	if (! IsEnabledObject(pProposerObject)) return;
 
 
@@ -336,7 +336,7 @@ void MMatchServer::OnRequestProposal(const MUID& uidProposer, const int nProposa
 	int nBlobCount = MGetBlobArrayCount(pReplierNamesBlob);
 	if (nBlobCount != nReplierCount) return;
 
-	MMatchObject* ppReplierObjects[MAX_REPLIER];
+	CCMatchObject* ppReplierObjects[MAX_REPLIER];
 
 	for (int i = 0; i < nReplierCount; i++)
 	{
@@ -428,10 +428,10 @@ void MMatchServer::OnRequestProposal(const MUID& uidProposer, const int nProposa
 
 }
 
-void MMatchServer::OnReplyAgreement(MUID& uidProposer, MUID& uidReplier, const char* szReplierName, 
+void CCMatchServer::OnReplyAgreement(MUID& uidProposer, MUID& uidReplier, const char* szReplierName, 
 		                const int nProposalMode, const int nRequestID, const bool bAgreement)
 {
-	MMatchObject* pProposerObject = GetObject(uidProposer);
+	CCMatchObject* pProposerObject = GetObject(uidProposer);
 	if (! IsEnabledObject(pProposerObject)) return;
 
 	

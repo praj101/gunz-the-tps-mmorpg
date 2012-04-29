@@ -1,5 +1,5 @@
 #pragma once
-class MMatchServer;
+class CCMatchServer;
 
 #define MATCHSTATUS_DUMP_LEN		4096
 
@@ -17,7 +17,7 @@ class MMatchStatus
 {
 private:
 	bool			m_bCreated;
-	MMatchServer*	m_pMatchServer;
+	CCMatchServer*	m_pMatchServer;
 protected:
 	unsigned long int	m_nStartTime;
 	unsigned long int	m_nTotalCommandQueueCount;
@@ -40,7 +40,7 @@ public:
 	MMatchStatus();
 	virtual ~MMatchStatus();
 	static MMatchStatus* GetInstance();
-	bool Create(MMatchServer* pMatchServer);
+	bool Create(CCMatchServer* pMatchServer);
 public:
 	void SaveToLogFile();
 	void AddCmdCount(unsigned long int nCmdCount)

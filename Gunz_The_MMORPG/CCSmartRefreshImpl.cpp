@@ -6,13 +6,13 @@
 
 
 //// MRefreshCategoryChannel ////
-bool MRefreshCategoryChannelImpl::OnUpdateChecksum(unsigned long nTick)
+bool CCRefreshCategoryChannelImpl::OnUpdateChecksum(unsigned long nTick)
 {
 	unsigned long nChecksum = 0;
 	int nPage = GetCategory();
 	MChannelUserArray* pArray = GetMatchChannel()->GetUserArray();
 	for (int i=0; i<pArray->GetPageSize(); i++) {
-		MMatchObject* pObj = pArray->Get(nPage,i);
+		CCMatchObject* pObj = pArray->Get(nPage,i);
 		if (pObj == NULL) continue;
 
 		nChecksum += pObj->GetUID().High;
@@ -30,10 +30,10 @@ bool MRefreshCategoryChannelImpl::OnUpdateChecksum(unsigned long nTick)
 }
 
 //// MRefreshClientChannel ////
-bool MRefreshClientChannelImpl::OnSync(unsigned long nChecksum)
+bool CCRefreshClientChannelImpl::OnSync(unsigned long nChecksum)
 {
-	MMatchObject* pObj = GetMatchObject();
-	MMatchServer::GetInstance()->ChannelResponsePlayerList(pObj->GetUID(), pObj->GetChannelUID(), GetCategory());
+	CCMatchObject* pObj = GetMatchObject();
+	CCMatchServer::GetInstance()->ChannelResponsePlayerList(pObj->GetUID(), pObj->GetChannelUID(), GetCategory());
 
 	return true;
 }
@@ -46,7 +46,7 @@ bool MRefreshCategoryClanMemberImpl::OnUpdateChecksum(unsigned long nTick)
 	unsigned long nChecksum = 0;
 	for (MUIDRefCache::iterator itor= pClan->GetMemberBegin(); itor != pClan->GetMemberEnd(); ++itor) 
 	{
-		MMatchObject* pObj = (MMatchObject*)(*itor).second;
+		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 
 		nChecksum += pObj->GetUID().High;
 		nChecksum += pObj->GetUID().Low;
@@ -66,7 +66,7 @@ bool MRefreshCategoryClanMemberImpl::OnUpdateChecksum(unsigned long nTick)
 //// MRefreshClientClanMemberImpl ////
 bool MRefreshClientClanMemberImpl::OnSync(unsigned long nChecksum)
 {
-	MMatchObject* pObj = GetMatchObject();
-	MMatchServer::GetInstance()->ResponseClanMemberList(pObj->GetUID());
+	CCMatchObject* pObj = GetMatchObject();
+	CCMatchServer::GetInstance()->ResponseClanMemberList(pObj->GetUID());
 	return true;
 }

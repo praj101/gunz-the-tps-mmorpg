@@ -25,7 +25,7 @@
 #include "MUtil.h"
 
 // 클랜 관련 공용 함수 ////////////////////////////////////////////////////////////////////////////
-void CopyClanMemberListNodeForTrans(MTD_ClanMemberListNode* pDest, MMatchObject* pSrcObject)
+void CopyClanMemberListNodeForTrans(MTD_ClanMemberListNode* pDest, CCMatchObject* pSrcObject)
 {
 	pDest->uidPlayer = pSrcObject->GetUID();
 	strcpy(pDest->szName, pSrcObject->GetCharInfo()->m_szName);
@@ -35,7 +35,7 @@ void CopyClanMemberListNodeForTrans(MTD_ClanMemberListNode* pDest, MMatchObject*
 }
 
 
-int MMatchServer::ValidateCreateClan(const char* szClanName, MMatchObject* pMasterObject, MMatchObject** ppSponsorObject)
+int CCMatchServer::ValidateCreateClan(const char* szClanName, CCMatchObject* pMasterObject, CCMatchObject** ppSponsorObject)
 {
 	int nResult = MOK;
 
@@ -106,7 +106,7 @@ int MMatchServer::ValidateCreateClan(const char* szClanName, MMatchObject* pMast
 }
 
 
-int ValidateJoinClan(MMatchObject* pAdminObject, MMatchObject* pJoinerObject, const char* szClanName)
+int ValidateJoinClan(CCMatchObject* pAdminObject, CCMatchObject* pJoinerObject, const char* szClanName)
 {
 	// 클랜 어드민이상 등급인지 확인
 	if (! IsUpperClanGrade(pAdminObject->GetCharInfo()->m_ClanInfo.m_nGrade, MCG_ADMIN))
@@ -137,7 +137,7 @@ int ValidateJoinClan(MMatchObject* pAdminObject, MMatchObject* pJoinerObject, co
 }
 
 
-int ValidateLeaveClan(MMatchObject* pLeaverObject)
+int ValidateLeaveClan(CCMatchObject* pLeaverObject)
 {
 	// 클랜에 속해있는지 확인
 	if (!pLeaverObject->GetCharInfo()->m_ClanInfo.IsJoined())
@@ -154,7 +154,7 @@ int ValidateLeaveClan(MMatchObject* pLeaverObject)
 	return MOK;
 }
 
-bool IsSameClan(MMatchObject* pSrcObject, MMatchObject* pTarObject)
+bool IsSameClan(CCMatchObject* pSrcObject, CCMatchObject* pTarObject)
 {
 	if ((pSrcObject->GetCharInfo()->m_ClanInfo.m_nClanID == 0) || (pTarObject->GetCharInfo()->m_ClanInfo.m_nClanID == 0) ||
 	   (pSrcObject->GetCharInfo()->m_ClanInfo.m_nClanID != pTarObject->GetCharInfo()->m_ClanInfo.m_nClanID))
@@ -165,7 +165,7 @@ bool IsSameClan(MMatchObject* pSrcObject, MMatchObject* pTarObject)
 	return true;
 }
 
-void MMatchServer::UpdateCharClanInfo(MMatchObject* pObject, const int nCLID, const char* szClanName, const MMatchClanGrade nGrade)
+void CCMatchServer::UpdateCharClanInfo(CCMatchObject* pObject, const int nCLID, const char* szClanName, const MMatchClanGrade nGrade)
 {
 	if (! IsEnabledObject(pObject)) return;
 
@@ -216,7 +216,7 @@ void MMatchServer::UpdateCharClanInfo(MMatchObject* pObject, const int nCLID, co
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-MMatchClan* MMatchServer::FindClan(const int nCLID)
+MMatchClan* CCMatchServer::FindClan(const int nCLID)
 {
 	MMatchClanMap::iterator i = m_ClanMap.find(nCLID);
 	if(i==m_ClanMap.end()) return NULL;
@@ -225,13 +225,13 @@ MMatchClan* MMatchServer::FindClan(const int nCLID)
 	return pClan;
 }
 
-void MMatchServer::OnClanRequestCreateClan(const MUID& uidPlayer, const int nRequestID, const char* szClanName, 
+void CCMatchServer::OnClanRequestCreateClan(const MUID& uidPlayer, const int nRequestID, const char* szClanName, 
 					char** szSponsorNames)
 {
-	MMatchObject* pMasterObject = GetObject(uidPlayer);
+	CCMatchObject* pMasterObject = GetObject(uidPlayer);
 	if (! IsEnabledObject(pMasterObject)) return;
 
-	MMatchObject* pSponsorObjects[CLAN_SPONSORS_COUNT];
+	CCMatchObject* pSponsorObjects[CLAN_SPONSORS_COUNT];
 
 	for (int i = 0; i < CLAN_SPONSORS_COUNT; i++)
 	{
@@ -301,9 +301,9 @@ void MMatchServer::OnClanRequestCreateClan(const MUID& uidPlayer, const int nReq
 
 
 
-void MMatchServer::OnClanAnswerSponsorAgreement(const int nRequestID, const MUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer)
+void CCMatchServer::OnClanAnswerSponsorAgreement(const int nRequestID, const MUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer)
 {
-	MMatchObject* pClanMasterObject = GetObject(uidClanMaster);
+	CCMatchObject* pClanMasterObject = GetObject(uidClanMaster);
 	if (! IsEnabledObject(pClanMasterObject)) return;
 
 	
@@ -316,12 +316,12 @@ void MMatchServer::OnClanAnswerSponsorAgreement(const int nRequestID, const MUID
 	RouteToListener(pClanMasterObject, pNewCmd);	
 }
 
-void MMatchServer::OnClanRequestAgreedCreateClan(const MUID& uidPlayer, const char* szClanName, char** szSponsorNames)
+void CCMatchServer::OnClanRequestAgreedCreateClan(const MUID& uidPlayer, const char* szClanName, char** szSponsorNames)
 {
-	MMatchObject* pMasterObject = GetObject(uidPlayer);
+	CCMatchObject* pMasterObject = GetObject(uidPlayer);
 	if (! IsEnabledObject(pMasterObject)) return;
 
-	MMatchObject* pSponsorObjects[CLAN_SPONSORS_COUNT];
+	CCMatchObject* pSponsorObjects[CLAN_SPONSORS_COUNT];
 
 	for (int i = 0; i < CLAN_SPONSORS_COUNT; i++)
 	{
@@ -381,14 +381,14 @@ void MMatchServer::OnClanRequestAgreedCreateClan(const MUID& uidPlayer, const ch
 	}
 }
 
-void MMatchServer::OnClanRequestCloseClan(const MUID& uidClanMaster, const char* szClanName)
+void CCMatchServer::OnClanRequestCloseClan(const MUID& uidClanMaster, const char* szClanName)
 {
 	ResponseCloseClan(uidClanMaster, szClanName);
 }
 
-void MMatchServer::ResponseCloseClan(const MUID& uidClanMaster, const char* szClanName)
+void CCMatchServer::ResponseCloseClan(const MUID& uidClanMaster, const char* szClanName)
 {
-	MMatchObject* pMasterObject = GetObject(uidClanMaster);
+	CCMatchObject* pMasterObject = GetObject(uidClanMaster);
 	if (! IsEnabledObject(pMasterObject)) return;
 
 	// 클랜마스터인지 확인
@@ -420,18 +420,18 @@ void MMatchServer::ResponseCloseClan(const MUID& uidClanMaster, const char* szCl
 	RouteResponseToListener(pMasterObject, MC_MATCH_CLAN_RESPONSE_CLOSE_CLAN, MOK);
 }
 
-void MMatchServer::OnClanRequestJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
+void CCMatchServer::OnClanRequestJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
 {
 	ResponseJoinClan(uidClanAdmin, szClanName, szJoiner);
 }
 
 
-void MMatchServer::ResponseJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
+void CCMatchServer::ResponseJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
 {
-	MMatchObject* pAdminObject = GetObject(uidClanAdmin);
+	CCMatchObject* pAdminObject = GetObject(uidClanAdmin);
 	if (! IsEnabledObject(pAdminObject)) return;
 
-	MMatchObject* pJoinerObject = GetPlayerByName(szJoiner);
+	CCMatchObject* pJoinerObject = GetPlayerByName(szJoiner);
 	if (! IsEnabledObject(pJoinerObject))
 	{
 		RouteResponseToListener(pAdminObject, MC_MATCH_CLAN_RESPONSE_JOIN_CLAN, MERR_CLAN_OFFLINE_TARGET);
@@ -462,9 +462,9 @@ void MMatchServer::ResponseJoinClan(const MUID& uidClanAdmin, const char* szClan
 	RouteResponseToListener(pAdminObject, MC_MATCH_CLAN_RESPONSE_JOIN_CLAN, MOK);
 }
 
-void MMatchServer::OnClanAnswerJoinAgreement(const MUID& uidClanAdmin, const char* szJoiner, const bool bAnswer)
+void CCMatchServer::OnClanAnswerJoinAgreement(const MUID& uidClanAdmin, const char* szJoiner, const bool bAnswer)
 {
-	MMatchObject* pClanAdminObject = GetObject(uidClanAdmin);
+	CCMatchObject* pClanAdminObject = GetObject(uidClanAdmin);
 	if (! IsEnabledObject(pClanAdminObject)) return;
 
 	
@@ -476,17 +476,17 @@ void MMatchServer::OnClanAnswerJoinAgreement(const MUID& uidClanAdmin, const cha
 	RouteToListener(pClanAdminObject, pNewCmd);	
 }
 
-void MMatchServer::OnClanRequestAgreedJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
+void CCMatchServer::OnClanRequestAgreedJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
 {
 	ResponseAgreedJoinClan(uidClanAdmin, szClanName, szJoiner);
 }
 
-void MMatchServer::ResponseAgreedJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
+void CCMatchServer::ResponseAgreedJoinClan(const MUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
 {
-	MMatchObject* pAdminObject = GetObject(uidClanAdmin);
+	CCMatchObject* pAdminObject = GetObject(uidClanAdmin);
 	if (! IsEnabledObject(pAdminObject)) return;
 
-	MMatchObject* pJoinerObject = GetPlayerByName(szJoiner);
+	CCMatchObject* pJoinerObject = GetPlayerByName(szJoiner);
 	if (! IsEnabledObject(pJoinerObject)) return;
 
 
@@ -523,7 +523,7 @@ void MMatchServer::ResponseAgreedJoinClan(const MUID& uidClanAdmin, const char* 
 
 	// 클랜정보 업데이트하고 Route해줌
 	UpdateCharClanInfo(pJoinerObject, pAdminObject->GetCharInfo()->m_ClanInfo.m_nClanID, szClanName, MCG_MEMBER);
-	// 임시코드... 잘못된 MMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
+	// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 	if(pAdminObject->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 		LOG(LOG_FILE, "[ResponseAgreedJoinClan()] %s's ClanID:%d.", pAdminObject->GetAccountName(), pAdminObject->GetCharInfo()->m_ClanInfo.GetClanID());
 
@@ -536,14 +536,14 @@ void MMatchServer::ResponseAgreedJoinClan(const MUID& uidClanAdmin, const char* 
 
 
 
-void MMatchServer::OnClanRequestLeaveClan(const MUID& uidPlayer)
+void CCMatchServer::OnClanRequestLeaveClan(const MUID& uidPlayer)
 {
 	ResponseLeaveClan(uidPlayer);
 }
 
-void MMatchServer::ResponseLeaveClan(const MUID& uidPlayer)
+void CCMatchServer::ResponseLeaveClan(const MUID& uidPlayer)
 {
-	MMatchObject* pLeaverObject = GetObject(uidPlayer);
+	CCMatchObject* pLeaverObject = GetObject(uidPlayer);
 	if (! IsEnabledObject(pLeaverObject)) return;
 
 	int nRet = ValidateLeaveClan(pLeaverObject);
@@ -572,12 +572,12 @@ void MMatchServer::ResponseLeaveClan(const MUID& uidPlayer)
 	RouteResponseToListener(pLeaverObject, MC_MATCH_CLAN_RESPONSE_LEAVE_CLAN, MOK);
 }
 
-void MMatchServer::OnClanRequestChangeClanGrade(const MUID& uidClanMaster, const char* szMember, int nClanGrade)
+void CCMatchServer::OnClanRequestChangeClanGrade(const MUID& uidClanMaster, const char* szMember, int nClanGrade)
 {
 	ResponseChangeClanGrade(uidClanMaster, szMember, nClanGrade);
 }
 
-int ValidateChangeClanGrade(MMatchObject* pMasterObject, MMatchObject* pTargetObject, int nClanGrade)
+int ValidateChangeClanGrade(CCMatchObject* pMasterObject, CCMatchObject* pTargetObject, int nClanGrade)
 {
 	// 마스터인지 확인
 	if (pMasterObject->GetCharInfo()->m_ClanInfo.m_nGrade != MCG_MASTER)
@@ -607,12 +607,12 @@ int ValidateChangeClanGrade(MMatchObject* pMasterObject, MMatchObject* pTargetOb
 	return MOK;
 }
 
-void MMatchServer::ResponseChangeClanGrade(const MUID& uidClanMaster, const char* szMember, int nClanGrade)
+void CCMatchServer::ResponseChangeClanGrade(const MUID& uidClanMaster, const char* szMember, int nClanGrade)
 {
-	MMatchObject* pMasterObject = GetObject(uidClanMaster);
+	CCMatchObject* pMasterObject = GetObject(uidClanMaster);
 	if (! IsEnabledObject(pMasterObject)) return;
 
-	MMatchObject* pTargetObject = GetPlayerByName(szMember);
+	CCMatchObject* pTargetObject = GetPlayerByName(szMember);
 	if (! IsEnabledObject(pTargetObject))
 	{
 		RouteResponseToListener(pMasterObject, MC_MATCH_CLAN_MASTER_RESPONSE_CHANGE_GRADE, MERR_CLAN_OFFLINE_TARGET);
@@ -640,7 +640,7 @@ void MMatchServer::ResponseChangeClanGrade(const MUID& uidClanMaster, const char
 	// 클랜정보 업데이트하고 Route해줌
 	UpdateCharClanInfo(pTargetObject, pTargetObject->GetCharInfo()->m_ClanInfo.m_nClanID, 
 						pTargetObject->GetCharInfo()->m_ClanInfo.m_szClanName, (MMatchClanGrade)nClanGrade);
-	// 임시코드... 잘못된 MMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
+	// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 	if(pTargetObject->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 		LOG(LOG_FILE, "[ResponseChangeClanGrade()] %s's ClanID:%d.", pTargetObject->GetAccountName(), pTargetObject->GetCharInfo()->m_ClanInfo.GetClanID());
 
@@ -649,14 +649,14 @@ void MMatchServer::ResponseChangeClanGrade(const MUID& uidClanMaster, const char
 }
 
 
-void MMatchServer::OnClanRequestExpelMember(const MUID& uidClanAdmin, const char* szMember)
+void CCMatchServer::OnClanRequestExpelMember(const MUID& uidClanAdmin, const char* szMember)
 {
 	ResponseExpelMember(uidClanAdmin, szMember);
 }
 
-void MMatchServer::ResponseExpelMember(const MUID& uidClanAdmin, const char* szMember)
+void CCMatchServer::ResponseExpelMember(const MUID& uidClanAdmin, const char* szMember)
 {
-	MMatchObject* pAdminObject = GetObject(uidClanAdmin);
+	CCMatchObject* pAdminObject = GetObject(uidClanAdmin);
 	if (! IsEnabledObject(pAdminObject)) return;
 
 	// 탈퇴처리할 수 있는 권한인지 검사
@@ -711,7 +711,7 @@ void MMatchServer::ResponseExpelMember(const MUID& uidClanAdmin, const char* szM
 
 
 	// 만약 당사자가 접속해있으면 클랜탈퇴되었다고 알려줘야한다.
-	MMatchObject* pMemberObject = GetPlayerByName(szMember);
+	CCMatchObject* pMemberObject = GetPlayerByName(szMember);
 	if (IsEnabledObject(pMemberObject))
 	{
 		UpdateCharClanInfo(pMemberObject, 0, "", MCG_NONE);
@@ -723,9 +723,9 @@ void MMatchServer::ResponseExpelMember(const MUID& uidClanAdmin, const char* szM
 }
 
 
-void MMatchServer::OnClanRequestMsg(const MUID& uidSender, const char* szMsg)
+void CCMatchServer::OnClanRequestMsg(const MUID& uidSender, const char* szMsg)
 {
-	MMatchObject* pSenderObject = GetObject(uidSender);
+	CCMatchObject* pSenderObject = GetObject(uidSender);
 	if (! IsEnabledObject(pSenderObject)) return;
 	
 	if (!pSenderObject->GetCharInfo()->m_ClanInfo.IsJoined()) return;
@@ -746,14 +746,14 @@ void MMatchServer::OnClanRequestMsg(const MUID& uidSender, const char* szMsg)
 	RouteToClan(nCLID, pNewCmd);	
 }
 
-//void MMatchServer::OnClanRequestMemberList(const MUID& uidChar)
+//void CCMatchServer::OnClanRequestMemberList(const MUID& uidChar)
 //{
 //	ResponseClanMemberList(uidChar);
 //}
 
-void MMatchServer::OnClanRequestMemberList(const MUID& uidChar)
+void CCMatchServer::OnClanRequestMemberList(const MUID& uidChar)
 {
-	MMatchObject* pObj = (MMatchObject*)GetObject(uidChar);
+	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidChar);
 	if (! IsEnabledObject(pObj)) return;
 
 	MMatchClan* pClan = FindClan(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
@@ -766,9 +766,9 @@ void MMatchServer::OnClanRequestMemberList(const MUID& uidChar)
 	pClan->SyncPlayerList(pObj, 0);
 }
 
-void MMatchServer::ResponseClanMemberList(const MUID& uidChar)
+void CCMatchServer::ResponseClanMemberList(const MUID& uidChar)
 {
-	MMatchObject* pObject = GetObject(uidChar);
+	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
 
 	if (!pObject->GetCharInfo()->m_ClanInfo.IsJoined()) return;
@@ -786,7 +786,7 @@ void MMatchServer::ResponseClanMemberList(const MUID& uidChar)
 	int nArrayIndex=0;
 	for (MUIDRefCache::iterator itor= pClan->GetMemberBegin(); itor != pClan->GetMemberEnd(); ++itor) 
 	{
-		MMatchObject* pScanObj = (MMatchObject*)(*itor).second;
+		CCMatchObject* pScanObj = (CCMatchObject*)(*itor).second;
 
 		MTD_ClanMemberListNode* pNode = (MTD_ClanMemberListNode*)MGetBlobArrayElement(pMemberArray, nArrayIndex++);
 
@@ -819,9 +819,9 @@ void CopyClanInfoForTrans(MTD_ClanInfo* pDest, MMatchClan* pClan)
 	pDest->nEmblemChecksum = pClan->GetEmblemChecksum();
 }
 
-void MMatchServer::OnClanRequestClanInfo(const MUID& uidChar, const char* szClanName)
+void CCMatchServer::OnClanRequestClanInfo(const MUID& uidChar, const char* szClanName)
 {
-	MMatchObject* pObject = GetObject(uidChar);
+	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
 
 	MMatchClan* pClan = m_ClanMap.GetClan(szClanName);
@@ -838,9 +838,9 @@ void MMatchServer::OnClanRequestClanInfo(const MUID& uidChar, const char* szClan
 	RouteToListener(pObject, pNew);
 }
 
-void MMatchServer::OnClanRequestEmblemURL(const MUID& uidChar, void* pEmblemURLListBlob)
+void CCMatchServer::OnClanRequestEmblemURL(const MUID& uidChar, void* pEmblemURLListBlob)
 {
-	MMatchObject* pObject = GetObject(uidChar);
+	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
 
 	int nClanURLCount = MGetBlobArrayCount(pEmblemURLListBlob);
@@ -860,9 +860,9 @@ void MMatchServer::OnClanRequestEmblemURL(const MUID& uidChar, void* pEmblemURLL
 	}
 }
 
-void MMatchServer::StandbyClanList(const MUID& uidPlayer, int nClanListStartIndex, bool bCacheUpdate)
+void CCMatchServer::StandbyClanList(const MUID& uidPlayer, int nClanListStartIndex, bool bCacheUpdate)
 {
-	MMatchObject* pObject = GetObject(uidPlayer);
+	CCMatchObject* pObject = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObject)) return;
 
 	int nPrevClanListCount = -1, nNextClanListCount = -1;
@@ -907,7 +907,7 @@ void MMatchServer::StandbyClanList(const MUID& uidPlayer, int nClanListStartInde
 		if (pLadderGroup->GetPlayerCount() > 0)
 		{
 			MUID uidMember = *pLadderGroup->GetPlayerListBegin();
-			MMatchObject* pMember = GetObject(uidMember);
+			CCMatchObject* pMember = GetObject(uidMember);
 			if ((IsEnabledObject(pMember)) && (pMember->GetCharInfo()->m_ClanInfo.IsJoined()))
 			{
 				strcpy(pNode->szClanName, pMember->GetCharInfo()->m_ClanInfo.m_szClanName);
@@ -932,7 +932,7 @@ void MMatchServer::StandbyClanList(const MUID& uidPlayer, int nClanListStartInde
 }
 
 
-void MMatchServer::SaveClanPoint(MMatchClan* pWinnerClan, MMatchClan* pLoserClan, const bool bIsDrawGame,
+void CCMatchServer::SaveClanPoint(MMatchClan* pWinnerClan, MMatchClan* pLoserClan, const bool bIsDrawGame,
 								 const int nRoundWins, const int nRoundLosses, const int nMapID, const int nGameType,
 								 const int nOneTeamMemberCount, list<MUID>& WinnerObjUIDs,
 								 const char* szWinnerMemberNames, const char* szLoserMemberNames,
@@ -999,7 +999,7 @@ void MMatchServer::SaveClanPoint(MMatchClan* pWinnerClan, MMatchClan* pLoserClan
 	{
 		MUID uidObject = (*itor);
 
-		MMatchObject* pObject = GetObject(uidObject);
+		CCMatchObject* pObject = GetObject(uidObject);
 		if (IsEnabledObject(pObject))
 		{
 			int nCID = pObject->GetCharInfo()->m_nCID;

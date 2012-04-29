@@ -24,10 +24,10 @@ void MDuelTournamentTimeChecker::Tick(unsigned int nTick)
 
 		if( nMonth > m_nCurrMonth ){	///< ÇÏ·ç°¡ Èê·¶À»²¨´Ù..
 			if( nMinute == 10 ) {
-				MMatchServer::GetInstance()->LOG(MMatchServer::LOG_PROG, 
+				CCMatchServer::GetInstance()->LOG(CCMatchServer::LOG_PROG, 
 					"MDuelTournamentTimeChecker::Current Month - %d, Day - %d", nMonth, nDay);
 
-				MMatchServer::GetInstance()->OnAsyncRequest_GetDuelTournamentTimeStamp();
+				CCMatchServer::GetInstance()->OnAsyncRequest_GetDuelTournamentTimeStamp();
 
 				m_CurrTime = nCurrTime;
 				m_nCurrMonth = nMonth;
@@ -35,10 +35,10 @@ void MDuelTournamentTimeChecker::Tick(unsigned int nTick)
 			}
 		} else if( nDay > m_nCurrDay ){	///< ÇÏ·ç°¡ Èê·¶´Ù..
 			if( nMinute == 10 ) {
-				MMatchServer::GetInstance()->LOG(MMatchServer::LOG_PROG, 
+				CCMatchServer::GetInstance()->LOG(CCMatchServer::LOG_PROG, 
 					"MDuelTournamentTimeChecker::Current Month - %d, Day - %d", nMonth, nDay);
 
-				MMatchServer::GetInstance()->OnAsyncRequest_GetDuelTournamentTimeStamp();
+				CCMatchServer::GetInstance()->OnAsyncRequest_GetDuelTournamentTimeStamp();
 
 				m_CurrTime = nCurrTime;
 				m_nCurrMonth = nMonth;

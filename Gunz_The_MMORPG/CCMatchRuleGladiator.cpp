@@ -4,10 +4,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // MMatchRuleSoloGladiator ////////////////////////////////////////////////////////////////////////
-MMatchRuleSoloGladiator::MMatchRuleSoloGladiator(MMatchStage* pStage) : MMatchRuleSoloDeath(pStage)
+MMatchRuleSoloGladiator::MMatchRuleSoloGladiator(CCMatchStage* pStage) : MMatchRuleSoloDeath(pStage)
 {
 }
 
-MMatchRuleTeamGladiator::MMatchRuleTeamGladiator(MMatchStage* pStage) : MMatchRuleTeamDeath(pStage)
+MMatchRuleTeamGladiator::MMatchRuleTeamGladiator(CCMatchStage* pStage) : MMatchRuleTeamDeath(pStage)
 {
 }

@@ -51,7 +51,7 @@ public:
 	list<MUID>::iterator GetPlayerListBegin()	{ return m_uidPlayerList.begin(); }
 	list<MUID>::iterator GetPlayerListEnd()		{ return m_uidPlayerList.end(); }
 
-	void AddPlayer(MMatchObject* pObj) { 
+	void AddPlayer(CCMatchObject* pObj) { 
 		_ASSERT(GetID());
 		pObj->SetLadderGroupID(GetID());
 		pObj->SetLadderChallenging(true);

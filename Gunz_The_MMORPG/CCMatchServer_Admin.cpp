@@ -25,9 +25,9 @@
 #include "MMatchAntiHack.h"
 
 
-void MMatchServer::OnAdminTerminal(const MUID& uidAdmin, const char* szText)
+void CCMatchServer::OnAdminTerminal(const MUID& uidAdmin, const char* szText)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -48,9 +48,9 @@ void MMatchServer::OnAdminTerminal(const MUID& uidAdmin, const char* szText)
 	}
 }
 
-void MMatchServer::OnAdminAnnounce(const MUID& uidAdmin, const char* szChat, unsigned long int nType)
+void CCMatchServer::OnAdminAnnounce(const MUID& uidAdmin, const char* szChat, unsigned long int nType)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -72,9 +72,9 @@ void MMatchServer::OnAdminAnnounce(const MUID& uidAdmin, const char* szChat, uns
 
 
 
-void MMatchServer::OnAdminRequestServerInfo(const MUID& uidAdmin)
+void CCMatchServer::OnAdminRequestServerInfo(const MUID& uidAdmin)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -92,11 +92,11 @@ void MMatchServer::OnAdminRequestServerInfo(const MUID& uidAdmin)
 	RouteToListener(pObj, pNew);
 */
 }
-void MMatchServer::OnAdminServerHalt(const MUID& uidAdmin)
+void CCMatchServer::OnAdminServerHalt(const MUID& uidAdmin)
 {
 	LOG(LOG_PROG, "OnAdminServerHalt(...) Called");
 
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
 
 	MMatchUserGradeID nGrade = pObj->GetAccountInfo()->m_nUGrade;
@@ -109,7 +109,7 @@ void MMatchServer::OnAdminServerHalt(const MUID& uidAdmin)
 }
 
 // 서버에서 메뉴로만 쓰는 명령어..
-void MMatchServer::OnAdminServerHalt()
+void CCMatchServer::OnAdminServerHalt()
 {
 	LOG(LOG_PROG, "OnAdminServerHalt() Called");
 
@@ -117,9 +117,9 @@ void MMatchServer::OnAdminServerHalt()
 	m_MatchShutdown.Start(GetGlobalClockCount());	
 }
 
-void MMatchServer::OnAdminRequestUpdateAccountUGrade(const MUID& uidAdmin, const char* szPlayer)
+void CCMatchServer::OnAdminRequestUpdateAccountUGrade(const MUID& uidAdmin, const char* szPlayer)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -132,7 +132,7 @@ void MMatchServer::OnAdminRequestUpdateAccountUGrade(const MUID& uidAdmin, const
 	int nRet = MOK;
 
 	if ((strlen(szPlayer)) < 2) return;
-	MMatchObject* pTargetObj = GetPlayerByName(szPlayer);
+	CCMatchObject* pTargetObj = GetPlayerByName(szPlayer);
 	if (pTargetObj == NULL) return;
 
 
@@ -144,9 +144,9 @@ void MMatchServer::OnAdminRequestUpdateAccountUGrade(const MUID& uidAdmin, const
 */
 }
 
-void MMatchServer::OnAdminPingToAll(const MUID& uidAdmin)
+void CCMatchServer::OnAdminPingToAll(const MUID& uidAdmin)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -162,9 +162,9 @@ void MMatchServer::OnAdminPingToAll(const MUID& uidAdmin)
 }
 
 
-void MMatchServer::OnAdminRequestSwitchLadderGame(const MUID& uidAdmin, const bool bEnabled)
+void CCMatchServer::OnAdminRequestSwitchLadderGame(const MUID& uidAdmin, const bool bEnabled)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (!IsEnabledObject(pObj)) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -182,9 +182,9 @@ void MMatchServer::OnAdminRequestSwitchLadderGame(const MUID& uidAdmin, const bo
 	Announce(pObj, szMsg);
 }
 
-void MMatchServer::OnAdminHide(const MUID& uidAdmin)
+void CCMatchServer::OnAdminHide(const MUID& uidAdmin)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (!IsEnabledObject(pObj)) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
@@ -208,24 +208,24 @@ void MMatchServer::OnAdminHide(const MUID& uidAdmin)
 	}
 }
 
-void MMatchServer::OnAdminResetAllHackingBlock( const MUID& uidAdmin )
+void CCMatchServer::OnAdminResetAllHackingBlock( const MUID& uidAdmin )
 {
-	MMatchObject* pObj = GetObject( uidAdmin );
+	CCMatchObject* pObj = GetObject( uidAdmin );
 	if( (0 != pObj) && IsAdminGrade(pObj) )
 	{
 		GetDBMgr()->AdminResetAllHackingBlock();
 	}
 }
 
-void MMatchServer::OnAdminRequestKickPlayer(const MUID& uidAdmin, const char* szPlayer)
+void CCMatchServer::OnAdminRequestKickPlayer(const MUID& uidAdmin, const char* szPlayer)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL)			return;
 	if (!IsAdminGrade(pObj))	return;
 	if ((strlen(szPlayer)) < 2) return;
 
 	int nRet = MOK;
-	MMatchObject* pTargetObj = GetPlayerByName(szPlayer);
+	CCMatchObject* pTargetObj = GetPlayerByName(szPlayer);
 	if (pTargetObj != NULL) 
 	{
 #ifdef LOCALE_KOREA
@@ -243,15 +243,15 @@ void MMatchServer::OnAdminRequestKickPlayer(const MUID& uidAdmin, const char* sz
 	RouteToListener(pObj, pNew);
 }
 
-void MMatchServer::OnAdminRequestMutePlayer(const MUID& uidAdmin, const char* szPlayer, const int nPenaltyHour)
+void CCMatchServer::OnAdminRequestMutePlayer(const MUID& uidAdmin, const char* szPlayer, const int nPenaltyHour)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL)			return;	
 	if (!IsAdminGrade(pObj))	return;
 	if ((strlen(szPlayer)) < 2) return;
 
 	int nRet = MOK;
-	MMatchObject* pTargetObj = GetPlayerByName(szPlayer);	
+	CCMatchObject* pTargetObj = GetPlayerByName(szPlayer);	
 	if (pTargetObj != NULL) 
 	{
 		pTargetObj->GetAccountPenaltyInfo()->SetPenaltyInfo(MPC_CHAT_BLOCK, nPenaltyHour);
@@ -279,15 +279,15 @@ void MMatchServer::OnAdminRequestMutePlayer(const MUID& uidAdmin, const char* sz
 	RouteToListener(pObj, pNew);
 }
 
-void MMatchServer::OnAdminRequestBlockPlayer(const MUID& uidAdmin, const char* szPlayer, const int nPenaltyHour)
+void CCMatchServer::OnAdminRequestBlockPlayer(const MUID& uidAdmin, const char* szPlayer, const int nPenaltyHour)
 {
-	MMatchObject* pObj = GetObject(uidAdmin);
+	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL)			return;	
 	if (!IsAdminGrade(pObj))	return;
 	if ((strlen(szPlayer)) < 2) return;
 
 	int nRet = MOK;
-	MMatchObject* pTargetObj = GetPlayerByName(szPlayer);	
+	CCMatchObject* pTargetObj = GetPlayerByName(szPlayer);	
 	if (pTargetObj != NULL) 
 	{
 		pTargetObj->GetAccountPenaltyInfo()->SetPenaltyInfo(MPC_CONNECT_BLOCK, nPenaltyHour);

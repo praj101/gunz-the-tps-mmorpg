@@ -21,7 +21,7 @@
 #include "MMatchStatus.h"
 #include "CCMatchLocale.h"
 
-bool MMatchServer::CheckOnLoginPre(const MUID& CommUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3)
+bool CCMatchServer::CheckOnLoginPre(const MUID& CommUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3)
 {
 	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
 	if (pCommObj == NULL) return false;
@@ -74,7 +74,7 @@ bool MMatchServer::CheckOnLoginPre(const MUID& CommUID, int nCmdVersion, bool& o
 	return true;
 }
 
-void MMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char* szPassword, int nCommandVersion, unsigned long nChecksumPack, char *szEncryptMd5Value)
+void CCMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char* szPassword, int nCommandVersion, unsigned long nChecksumPack, char *szEncryptMd5Value)
 {
 //	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
 //	if (pCommObj == NULL) return;
@@ -148,7 +148,7 @@ void MMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char* 
 
 #ifndef _DEBUG
 	// 중복 로그인이면 이전에 있던 사람을 끊어버린다.
-	MMatchObject* pCopyObj = GetPlayerByAID(accountInfo.m_nAID);
+	CCMatchObject* pCopyObj = GetPlayerByAID(accountInfo.m_nAID);
  	if (pCopyObj != NULL) 
 	{
 		// 내가 로그인일때 이미 로그인 돼있는 클라이언트가 있으면 이미 로그인 클라이언트에 
@@ -187,7 +187,7 @@ void MMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char* 
 	}
 #endif
 
-	// 로그인성공하여 오브젝트(MMatchObject) 생성
+	// 로그인성공하여 오브젝트(CCMatchObject) 생성
 	AddObjectOnMatchLogin(CommUID, &accountInfo, &accountpenaltyInfo, bFreeLoginIP, strCountryCode3, nChecksumPack);
 
 /*
@@ -197,7 +197,7 @@ void MMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char* 
 		LOG(LOG_DEBUG, MErrStr(nErrCode) );
 	}
 
-	MMatchObject* pObj = GetObject(AllocUID);
+	CCMatchObject* pObj = GetObject(AllocUID);
 	pObj->AddCommListener(CommUID);
 	pObj->SetObjectType(MOT_PC);
 	memcpy(pObj->GetAccountInfo(), &accountInfo, sizeof(MMatchAccountInfo));
@@ -266,7 +266,7 @@ void MMatchServer::OnMatchLogin(MUID CommUID, const char* szUserID, const char* 
 }
 
 /*
-void MMatchServer::OnMatchLoginFromNetmarble(const MUID& CommUID, const char* szCPCookie, const char* szSpareData, int nCmdVersion, unsigned long nChecksumPack)
+void CCMatchServer::OnMatchLoginFromNetmarble(const MUID& CommUID, const char* szCPCookie, const char* szSpareData, int nCmdVersion, unsigned long nChecksumPack)
 {
 	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
 	if (pCommObj == NULL) return;
@@ -329,7 +329,7 @@ void MMatchServer::OnMatchLoginFromNetmarble(const MUID& CommUID, const char* sz
 }
 */
 
-void MMatchServer::OnMatchLoginFromNetmarbleJP(const MUID& CommUID, const char* szLoginID, const char* szLoginPW, int nCmdVersion, unsigned long nChecksumPack)
+void CCMatchServer::OnMatchLoginFromNetmarbleJP(const MUID& CommUID, const char* szLoginID, const char* szLoginPW, int nCmdVersion, unsigned long nChecksumPack)
 {
 	bool bFreeLoginIP = false;
 	string strCountryCode3;
@@ -347,7 +347,7 @@ void MMatchServer::OnMatchLoginFromNetmarbleJP(const MUID& CommUID, const char* 
 	}
 }
 
-void MMatchServer::OnMatchLoginFromDBAgent(const MUID& CommUID, const char* szLoginID, const char* szName, int nSex, bool bFreeLoginIP, unsigned long nChecksumPack)
+void CCMatchServer::OnMatchLoginFromDBAgent(const MUID& CommUID, const char* szLoginID, const char* szName, int nSex, bool bFreeLoginIP, unsigned long nChecksumPack)
 {
 #ifndef LOCALE_NHNUSA
 	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
@@ -386,7 +386,7 @@ void MMatchServer::OnMatchLoginFromDBAgent(const MUID& CommUID, const char* szLo
 #endif
 }
 
-void MMatchServer::OnMatchLoginFailedFromDBAgent(const MUID& CommUID, int nResult)
+void CCMatchServer::OnMatchLoginFailedFromDBAgent(const MUID& CommUID, int nResult)
 {
 #ifndef LOCALE_NHNUSA
 	// 프로토콜 버전 체크
@@ -395,7 +395,7 @@ void MMatchServer::OnMatchLoginFailedFromDBAgent(const MUID& CommUID, int nResul
 #endif
 }
 
-MCommand* MMatchServer::CreateCmdMatchResponseLoginOK(const MUID& uidComm, 
+MCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const MUID& uidComm, 
 													  MUID& uidPlayer, 
 													  const char* szUserID, 
 													  MMatchUserGradeID nUGradeID, 
@@ -432,7 +432,7 @@ MCommand* MMatchServer::CreateCmdMatchResponseLoginOK(const MUID& uidComm,
 	return pCmd;
 }
 
-MCommand* MMatchServer::CreateCmdMatchResponseLoginFailed(const MUID& uidComm, const int nResult)
+MCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const MUID& uidComm, const int nResult)
 {
 	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_LOGIN, uidComm);
 	pCmd->AddParameter(new MCommandParameterInt(nResult));
@@ -465,7 +465,7 @@ MCommand* MMatchServer::CreateCmdMatchResponseLoginFailed(const MUID& uidComm, c
 }
 
 
-bool MMatchServer::AddObjectOnMatchLogin(const MUID& uidComm, 
+bool CCMatchServer::AddObjectOnMatchLogin(const MUID& uidComm, 
 										const MMatchAccountInfo* pSrcAccountInfo,
 										const MMatchAccountPenaltyInfo* pSrcAccountPenaltyInfo,
 										bool bFreeLoginIP, string strCountryCode3, unsigned long nChecksumPack)
@@ -479,7 +479,7 @@ bool MMatchServer::AddObjectOnMatchLogin(const MUID& uidComm,
 		LOG(LOG_DEBUG, MErrStr(nErrCode) );
 	}
 
-	MMatchObject* pObj = GetObject(AllocUID);
+	CCMatchObject* pObj = GetObject(AllocUID);
 	if (pObj == NULL) {
 		// Notify Message 필요 -> 로그인 관련 - 해결(Login Fail 메세지 이용)
 		// Disconnect(uidComm);

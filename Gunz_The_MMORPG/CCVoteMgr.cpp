@@ -11,7 +11,7 @@
 MVoteDiscuss::MVoteDiscuss(const MUID& uidStage)
 {
 	m_uidStage = uidStage;
-	m_nBeginTime = MMatchServer::GetInstance()->GetGlobalClockCount();
+	m_nBeginTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 }
 
 MVoteDiscuss::~MVoteDiscuss()
@@ -83,7 +83,7 @@ bool MVoteMgr::CheckDiscuss()
 
 //	char szLog[128]="";
 //	sprintf(szLog, "VOTERESULT: Y(%f), N(%f)", (float)nYesCount, (float)m_VoterMap.size() * 0.5f);
-//	MMatchServer::GetInstance()->LOG(MMatchServer::LOG_PROG, szLog);
+//	CCMatchServer::GetInstance()->LOG(CCMatchServer::LOG_PROG, szLog);
 
 	if ( (float)nYesCount > (float)m_VoterMap.size() * 0.66f )	// 2/3이상 찬성하면.
 		return true;
@@ -94,10 +94,10 @@ bool MVoteMgr::CheckDiscuss()
 void MVoteMgr::FinishDiscuss(bool bJudge)
 {
 	if (GetDiscuss()) {
-		MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_VOTERESULT, MUID(0,0));
+		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_VOTERESULT, MUID(0,0));
 		pCmd->AddParameter(new MCmdParamStr(GetDiscuss()->GetDiscussName()));
 		pCmd->AddParameter(new MCmdParamInt(bJudge?1:0));
-		MMatchServer::GetInstance()->RouteToStage(GetDiscuss()->GetStageUID(), pCmd);
+		CCMatchServer::GetInstance()->RouteToStage(GetDiscuss()->GetStageUID(), pCmd);
 
 		GetDiscuss()->OnJudge(bJudge);
 
@@ -201,17 +201,17 @@ void MVoteMgr::StopVote( const MUID& uidUser )
 	delete m_pDiscuss;
 	m_pDiscuss = NULL;
 
-	MMatchObject* pObj = MMatchServer::GetInstance()->GetObject( uidUser );
+	CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject( uidUser );
 	if( !IsEnabledObject(pObj) )
 		return;
 
-	MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand( MC_MATCH_VOTE_STOP, MUID(0, 0) );
+	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_VOTE_STOP, MUID(0, 0) );
 	if( 0 == pCmd )
 		return;
 
-	MMatchStage* pStage = MMatchServer::GetInstance()->FindStage( pObj->GetStageUID() );
+	CCMatchStage* pStage = CCMatchServer::GetInstance()->FindStage( pObj->GetStageUID() );
 	if( 0 == pStage )
 		return;
 
-	MMatchServer::GetInstance()->RouteToStage( pStage->GetUID(), pCmd );
+	CCMatchServer::GetInstance()->RouteToStage( pStage->GetUID(), pCmd );
 }

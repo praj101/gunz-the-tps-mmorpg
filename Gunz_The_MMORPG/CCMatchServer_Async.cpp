@@ -11,18 +11,18 @@
 #include "CCAsyncDBJob_BuyQuestItem.h"
 #include "CCAsyncDBJob_SurvivalMode.h"				// 2009. 6. 3 - Added By Hong KiJu
 
-void MMatchServer::PostAsyncJob(MAsyncJob* pJob )
+void CCMatchServer::PostAsyncJob(MAsyncJob* pJob )
 {
 	m_AsyncProxy.PostJob(pJob);
 }
 
-void MMatchServer::ProcessAsyncJob()
+void CCMatchServer::ProcessAsyncJob()
 {
 	while(MAsyncJob* pJob = m_AsyncProxy.GetJobResult()) 
 	{
 		//////////////////////////////////////////////////////////////////////
 		{
-			MMatchObject* pPlayer = GetObject( pJob->GetOwnerUID() );
+			CCMatchObject* pPlayer = GetObject( pJob->GetOwnerUID() );
 			if( NULL != pPlayer )
 			{
 				pPlayer->m_DBJobQ.bIsRunningAsyncJob = false;
@@ -263,7 +263,7 @@ void MMatchServer::ProcessAsyncJob()
 
 
 
-void MMatchServer::OnAsyncGetLoginInfo(MAsyncJob* pJobInput)
+void CCMatchServer::OnAsyncGetLoginInfo(MAsyncJob* pJobInput)
 {
 	MAsyncDBJob_GetLoginInfo* pJob = (MAsyncDBJob_GetLoginInfo*)pJobInput;
 
@@ -288,7 +288,7 @@ void MMatchServer::OnAsyncGetLoginInfo(MAsyncJob* pJobInput)
 
 #ifndef _DEBUG
 	// 중복 로그인이면 이전에 있던 사람을 끊어버린다.
-	MMatchObject* pCopyObj = GetPlayerByAID(pAccountInfo->m_nAID);
+	CCMatchObject* pCopyObj = GetPlayerByAID(pAccountInfo->m_nAID);
 	if (pCopyObj != NULL) 
 	{
 		// Notify Message 필요 -> 로그인 관련 - 해결(특별한 메세지 필요 없음)
@@ -319,7 +319,7 @@ void MMatchServer::OnAsyncGetLoginInfo(MAsyncJob* pJobInput)
 		LOG(LOG_DEBUG, MErrStr(nErrCode) );
 	}
 
-	MMatchObject* pObj = GetObject(AllocUID);
+	CCMatchObject* pObj = GetObject(AllocUID);
 	if (pObj == NULL)
 	{
 		Disconnect(CommUID);
@@ -365,7 +365,7 @@ void MMatchServer::OnAsyncGetLoginInfo(MAsyncJob* pJobInput)
 
 }
 
-void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
+void CCMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 {
 	MAsyncDBJob_GetAccountCharList* pJob = (MAsyncDBJob_GetAccountCharList*)pJobResult;
 
@@ -377,7 +377,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 		return;
 	}		
 
-	MMatchObject* pObj = GetObject(pJob->GetUID());
+	CCMatchObject* pObj = GetObject(pJob->GetUID());
 	if (pObj == NULL) 
 		return;
 
@@ -405,7 +405,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 	RouteToListener( pObj, pNewCmd );
 }
 
-//void MMatchServer::OnAsyncGetAccountCharInfo(MAsyncJob* pJobResult)
+//void CCMatchServer::OnAsyncGetAccountCharInfo(MAsyncJob* pJobResult)
 //{
 //	MAsyncDBJob_GetAccountCharInfo* pJob = (MAsyncDBJob_GetAccountCharInfo*)pJobResult;
 //
@@ -417,7 +417,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //		return;
 //	}		
 //
-//	MMatchObject* pObj = GetObject(pJob->GetUID());
+//	CCMatchObject* pObj = GetObject(pJob->GetUID());
 //	if (pObj == NULL) return;
 //	if (pJob->GetResultCommand() == NULL) return;
 //
@@ -425,7 +425,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //}
 
 
-//void MMatchServer::OnAsyncGetCharInfo(MAsyncJob* pJobResult)
+//void CCMatchServer::OnAsyncGetCharInfo(MAsyncJob* pJobResult)
 //{
 //	MAsyncDBJob_GetCharInfo* pJob = (MAsyncDBJob_GetCharInfo*)pJobResult;
 //
@@ -434,7 +434,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //		return;
 //	}
 //
-//	MMatchObject* pObj = GetObject(pJob->GetUID());
+//	CCMatchObject* pObj = GetObject(pJob->GetUID());
 //	if (pObj == NULL) return;
 //
 //	if (pObj->GetCharInfo())
@@ -506,7 +506,7 @@ void MMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //#endif
 //}
 
-void MMatchServer::OnAsyncGetFriendList(MAsyncJob* pJobInput)
+void CCMatchServer::OnAsyncGetFriendList(MAsyncJob* pJobInput)
 {
 	MAsyncDBJob_FriendList* pJob = (MAsyncDBJob_FriendList*)pJobInput;
 
@@ -515,7 +515,7 @@ void MMatchServer::OnAsyncGetFriendList(MAsyncJob* pJobInput)
 		return;
 	}
 
-	MMatchObject* pObj = GetObject(pJob->GetUID());
+	CCMatchObject* pObj = GetObject(pJob->GetUID());
 	if (!IsEnabledObject(pObj)) return;
 
 	pObj->SetFriendInfo(pJob->GetFriendInfo());	// Save Async Result
@@ -523,7 +523,7 @@ void MMatchServer::OnAsyncGetFriendList(MAsyncJob* pJobInput)
 	FriendList(pObj->GetUID());
 }
 
-void MMatchServer::OnAsyncCreateChar(MAsyncJob* pJobResult)
+void CCMatchServer::OnAsyncCreateChar(MAsyncJob* pJobResult)
 {
 	MAsyncDBJob_CreateChar* pJob = (MAsyncDBJob_CreateChar*)pJobResult;
 
@@ -535,7 +535,7 @@ void MMatchServer::OnAsyncCreateChar(MAsyncJob* pJobResult)
 		return;
 	}		
 
-	MMatchObject* pObj = GetObject(pJob->GetUID());
+	CCMatchObject* pObj = GetObject(pJob->GetUID());
 	if (pObj == NULL) return;
 
 	// Make Result
@@ -546,7 +546,7 @@ void MMatchServer::OnAsyncCreateChar(MAsyncJob* pJobResult)
 	RouteToListener( pObj, pNewCmd );
 }
 
-void MMatchServer::OnAsyncDeleteChar(MAsyncJob* pJobResult)
+void CCMatchServer::OnAsyncDeleteChar(MAsyncJob* pJobResult)
 {
 	MAsyncDBJob_DeleteChar* pJob = (MAsyncDBJob_DeleteChar*)pJobResult;
 
@@ -557,13 +557,13 @@ void MMatchServer::OnAsyncDeleteChar(MAsyncJob* pJobResult)
 		cclog("[%s] Async DB Query(DeleteChar) Failed\n", szTime);
 	}		
 
-	MMatchObject* pObj = GetObject(pJob->GetUID());
+	CCMatchObject* pObj = GetObject(pJob->GetUID());
 	if (pObj == NULL) return;
 
 	RouteResponseToListener(pObj, MC_MATCH_RESPONSE_DELETE_CHAR, pJob->GetDeleteResult());
 }
 
-void MMatchServer::OnAsyncWinTheClanGame(MAsyncJob* pJobInput)
+void CCMatchServer::OnAsyncWinTheClanGame(MAsyncJob* pJobInput)
 {
 	if (pJobInput->GetResult() != MASYNC_RESULT_SUCCEED) {
 		char szTime[128]="";
@@ -576,7 +576,7 @@ void MMatchServer::OnAsyncWinTheClanGame(MAsyncJob* pJobInput)
 }
 
 
-void MMatchServer::OnAsyncUpdateCharInfoData(MAsyncJob* pJobInput)
+void CCMatchServer::OnAsyncUpdateCharInfoData(MAsyncJob* pJobInput)
 {
 	if (pJobInput->GetResult() != MASYNC_RESULT_SUCCEED) {
 		char szTime[128]="";
@@ -588,7 +588,7 @@ void MMatchServer::OnAsyncUpdateCharInfoData(MAsyncJob* pJobInput)
 
 }
 
-void MMatchServer::OnAsyncCharFinalize(MAsyncJob* pJobInput)
+void CCMatchServer::OnAsyncCharFinalize(MAsyncJob* pJobInput)
 {
 	if (pJobInput->GetResult() != MASYNC_RESULT_SUCCEED) {
 		char szTime[128]="";
@@ -600,11 +600,11 @@ void MMatchServer::OnAsyncCharFinalize(MAsyncJob* pJobInput)
 
 }
 
-//void MMatchServer::OnAsyncBringAccountItem(MAsyncJob* pJobResult)
+//void CCMatchServer::OnAsyncBringAccountItem(MAsyncJob* pJobResult)
 //{
 //	MAsyncDBJob_BringAccountItem* pJob = (MAsyncDBJob_BringAccountItem*)pJobResult;
 //
-//	MMatchObject* pObj = GetObject(pJob->GetUID());
+//	CCMatchObject* pObj = GetObject(pJob->GetUID());
 //	if (!IsEnabledObject(pObj)) return;
 //
 //	int nRet = MERR_UNKNOWN;
@@ -636,7 +636,7 @@ void MMatchServer::OnAsyncCharFinalize(MAsyncJob* pJobInput)
 //
 //}
 
-void MMatchServer::OnAsyncInsertConnLog(MAsyncJob* pJobResult)
+void CCMatchServer::OnAsyncInsertConnLog(MAsyncJob* pJobResult)
 {
 	if (pJobResult->GetResult() != MASYNC_RESULT_SUCCEED) {
 		char szTime[128]="";
@@ -648,7 +648,7 @@ void MMatchServer::OnAsyncInsertConnLog(MAsyncJob* pJobResult)
 
 }
 
-void MMatchServer::OnAsyncInsertGameLog(MAsyncJob* pJobResult)
+void CCMatchServer::OnAsyncInsertGameLog(MAsyncJob* pJobResult)
 {
 	MAsyncDBJob_InsertGameLog* pJob = (MAsyncDBJob_InsertGameLog*)pJobResult;
 
@@ -658,18 +658,18 @@ void MMatchServer::OnAsyncInsertGameLog(MAsyncJob* pJobResult)
 		return;
 	}
 
-	MMatchStage* pStage = FindStage(pJob->GetOwnerUID());
+	CCMatchStage* pStage = FindStage(pJob->GetOwnerUID());
 	if( pStage == NULL ) return;
 
 	pStage->SetGameLogID(pJob->GetID());
 }
 
-void MMatchServer::OnAsyncCreateClan(MAsyncJob* pJobResult)
+void CCMatchServer::OnAsyncCreateClan(MAsyncJob* pJobResult)
 {
 	MAsyncDBJob_CreateClan* pJob = (MAsyncDBJob_CreateClan*)pJobResult;
 
 	MUID uidMaster = pJob->GetMasterUID();
-	MMatchObject* pMasterObject = GetObject(uidMaster);
+	CCMatchObject* pMasterObject = GetObject(uidMaster);
 	
 
 	if (pJob->GetResult() != MASYNC_RESULT_SUCCEED) {
@@ -700,14 +700,14 @@ void MMatchServer::OnAsyncCreateClan(MAsyncJob* pJobResult)
 	
 		UpdateCharClanInfo(pMasterObject, nNewCLID, pJob->GetClanName(), MCG_MASTER);
 	
-		// 임시코드... 잘못된 MMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
+		// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 		if(pMasterObject->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 			LOG(LOG_FILE, "[OnAsyncCreateClan()] %s's ClanID:%d.", pMasterObject->GetAccountName(), pMasterObject->GetCharInfo()->m_ClanInfo.GetClanID());
 
 	}
 
 
-	MMatchObject* pSponsorObjects[CLAN_SPONSORS_COUNT];
+	CCMatchObject* pSponsorObjects[CLAN_SPONSORS_COUNT];
 	_ASSERT(CLAN_SPONSORS_COUNT == 4);
 
 	pSponsorObjects[0] = GetObject(pJob->GetMember1UID());
@@ -720,7 +720,7 @@ void MMatchServer::OnAsyncCreateClan(MAsyncJob* pJobResult)
 		if (IsEnabledObject(pSponsorObjects[i]))
 		{
 			UpdateCharClanInfo(pSponsorObjects[i], nNewCLID, pJob->GetClanName(), MCG_MEMBER);
-			// 임시코드... 잘못된 MMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
+			// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 			if(pSponsorObjects[i]->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 				LOG(LOG_FILE, "[OnAsyncCreateClan()] %s's ClanID:%d.", pSponsorObjects[i]->GetAccountName(), pSponsorObjects[i]->GetCharInfo()->m_ClanInfo.GetClanID());
 
@@ -734,11 +734,11 @@ void MMatchServer::OnAsyncCreateClan(MAsyncJob* pJobResult)
 	}
 }
 
-void MMatchServer::OnAsyncExpelClanMember(MAsyncJob* pJobResult)
+void CCMatchServer::OnAsyncExpelClanMember(MAsyncJob* pJobResult)
 {
 	MAsyncDBJob_ExpelClanMember* pJob = (MAsyncDBJob_ExpelClanMember*)pJobResult;
 
-	MMatchObject* pAdminObject = GetObject(pJob->GetAdminUID());
+	CCMatchObject* pAdminObject = GetObject(pJob->GetAdminUID());
 
 	if (pJobResult->GetResult() != MASYNC_RESULT_SUCCEED) 
 	{
@@ -774,11 +774,11 @@ void MMatchServer::OnAsyncExpelClanMember(MAsyncJob* pJobResult)
 
 
 	// 만약 당사자가 접속해있으면 클랜탈퇴되었다고 알려줘야한다.
-	MMatchObject* pMemberObject = GetPlayerByName(pJob->GetTarMember());
+	CCMatchObject* pMemberObject = GetPlayerByName(pJob->GetTarMember());
 	if (IsEnabledObject(pMemberObject))
 	{
 		UpdateCharClanInfo(pMemberObject, 0, "", MCG_NONE);
-		// 임시코드... 잘못된 MMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
+		// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 		if(pMemberObject->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 			LOG(LOG_FILE, "[OnAsyncExpelClanMember()] %s's ClanID:%d.", pMemberObject->GetAccountName(), pMemberObject->GetCharInfo()->m_ClanInfo.GetClanID());
 
@@ -792,7 +792,7 @@ void MMatchServer::OnAsyncExpelClanMember(MAsyncJob* pJobResult)
 
 
 
-void MMatchServer::OnAsyncInsertEvent( MAsyncJob* pJobResult )
+void CCMatchServer::OnAsyncInsertEvent( MAsyncJob* pJobResult )
 {
 	if( 0 == pJobResult )
 		return;
@@ -827,7 +827,7 @@ void MMatchServer::OnAsyncInsertEvent( MAsyncJob* pJobResult )
 }
 
 
-void MMatchServer::OnAsyncUpdateIPtoCoutryList( MAsyncJob* pJobResult )
+void CCMatchServer::OnAsyncUpdateIPtoCoutryList( MAsyncJob* pJobResult )
 {
 	MCommand* pCmd = CreateCommand( MC_LOCAL_UPDATE_IP_TO_COUNTRY, GetUID() );
 	if( 0 != pCmd )
@@ -835,7 +835,7 @@ void MMatchServer::OnAsyncUpdateIPtoCoutryList( MAsyncJob* pJobResult )
 }
 
 
-void MMatchServer::OnAsyncUpdateBlockCountryCodeList( MAsyncJob* pJobResult )
+void CCMatchServer::OnAsyncUpdateBlockCountryCodeList( MAsyncJob* pJobResult )
 {
 	MCommand* pCmd = CreateCommand( MC_LOCAL_UPDATE_BLOCK_COUTRYCODE, GetUID() );
 	if( 0 != pCmd )
@@ -843,7 +843,7 @@ void MMatchServer::OnAsyncUpdateBlockCountryCodeList( MAsyncJob* pJobResult )
 }
 
 
-void MMatchServer::OnAsyncUpdateCustomIPList( MAsyncJob* pJobResult )
+void CCMatchServer::OnAsyncUpdateCustomIPList( MAsyncJob* pJobResult )
 {
 	MCommand* pCmd = CreateCommand( MC_LOCAL_UPDATE_CUSTOM_IP, GetUID() );
 	if( 0 != pCmd )
@@ -851,7 +851,7 @@ void MMatchServer::OnAsyncUpdateCustomIPList( MAsyncJob* pJobResult )
 }
 
 
-void MMatchServer::OnAsyncGetAccountItemList( MAsyncJob* pJobResult )
+void CCMatchServer::OnAsyncGetAccountItemList( MAsyncJob* pJobResult )
 {
 	MAsyncDBJob_GetAccountItemList* pJob = (MAsyncDBJob_GetAccountItemList*)pJobResult;
 
@@ -860,7 +860,7 @@ void MMatchServer::OnAsyncGetAccountItemList( MAsyncJob* pJobResult )
 		return;
 	}
 
-	MMatchObject* pObj = GetObject( pJob->GetPlayerUID() );
+	CCMatchObject* pObj = GetObject( pJob->GetPlayerUID() );
 	if( NULL == pObj ) return;
 
 	if( !pJob->GetExpiredAccountItems().empty() ) {
@@ -913,12 +913,12 @@ void MMatchServer::OnAsyncGetAccountItemList( MAsyncJob* pJobResult )
 }
 
 
-void MMatchServer::OnAsyncBuyQuestItem( MAsyncJob* pJobReslt )
+void CCMatchServer::OnAsyncBuyQuestItem( MAsyncJob* pJobReslt )
 {
 	MAsyncDBJob_BuyQuestItem* pJob = (MAsyncDBJob_BuyQuestItem*)pJobReslt;
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ){ return; }
 
-	MMatchObject* pPlayer = GetObject( pJob->GetPlayerUID() );
+	CCMatchObject* pPlayer = GetObject( pJob->GetPlayerUID() );
 	if( NULL == pPlayer ) {	return; }
 
 	MMatchCharInfo* pCharInfo = pPlayer->GetCharInfo();
@@ -931,7 +931,7 @@ void MMatchServer::OnAsyncBuyQuestItem( MAsyncJob* pJobReslt )
 	
 	MCommand* pNewCmd = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, pJob->GetPlayerUID() );
 	if( 0 == pNewCmd ) {
-		cclog( "MMatchServer::OnResponseBuyQuestItem - new Command실패.\n" );
+		cclog( "CCMatchServer::OnResponseBuyQuestItem - new Command실패.\n" );
 		return;
 	}
 	
@@ -946,9 +946,9 @@ void MMatchServer::OnAsyncBuyQuestItem( MAsyncJob* pJobReslt )
 //////////////////////////////////////////////////////////////////////////////////////////////
 // 2009. 6. 3 - Added By Hong KiJu
 
-void MMatchServer::OnAsyncSurvivalModeGameLog( MAsyncJob* pJobResult )
+void CCMatchServer::OnAsyncSurvivalModeGameLog( MAsyncJob* pJobResult )
 {
-	MAsyncDBJob_InsertSurvivalModeGameLog *pJob = (MAsyncDBJob_InsertSurvivalModeGameLog *)pJobResult;
+	CCAsyncDBJob_InsertSurvivalModeGameLog *pJob = (CCAsyncDBJob_InsertSurvivalModeGameLog *)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() )
 	{
@@ -956,16 +956,16 @@ void MMatchServer::OnAsyncSurvivalModeGameLog( MAsyncJob* pJobResult )
 	}
 }
 
-void MMatchServer::OnAsyncSurvivalModeGroupRanking(MAsyncJob* pJobResult)
+void CCMatchServer::OnAsyncSurvivalModeGroupRanking(MAsyncJob* pJobResult)
 {
-	MAsyncDBJob_GetSurvivalModeGroupRanking* pJob = (MAsyncDBJob_GetSurvivalModeGroupRanking*)pJobResult;
+	CCAsyncDBJob_GetSurvivalModeGroupRanking* pJob = (CCAsyncDBJob_GetSurvivalModeGroupRanking*)pJobResult;
 	
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() )
 	{
 		return;
 	}
 /*#ifdef _DEBUG
-	// 다음은 MAsyncDBJob_GetSurvivalModeGroupRanking Class의 사용 요령입니다.
+	// 다음은 CCAsyncDBJob_GetSurvivalModeGroupRanking Class의 사용 요령입니다.
 	// Class에서 더 필요한 부분이 있으면 수정하시면 됩니다.
 	for(DWORD dwScenarioID = 1; dwScenarioID <= MAX_SURVIVAL_SCENARIO_COUNT; dwScenarioID++)
 	{
@@ -1001,7 +1001,7 @@ void MMatchServer::OnAsyncSurvivalModeGroupRanking(MAsyncJob* pJobResult)
 		}
 	}*/
 
-	MSurvivalRankInfo* pSurvivalRankInfo = MMatchServer::GetInstance()->GetQuest()->GetSurvivalRankInfo();
+	MSurvivalRankInfo* pSurvivalRankInfo = CCMatchServer::GetInstance()->GetQuest()->GetSurvivalRankInfo();
 	pSurvivalRankInfo->ClearRanking();
 
 	for (DWORD s=0; s<MAX_SURVIVAL_SCENARIO_COUNT; ++s)
@@ -1018,19 +1018,19 @@ void MMatchServer::OnAsyncSurvivalModeGroupRanking(MAsyncJob* pJobResult)
 	}
 }
 
-void MMatchServer::OnAsyncSurvivalModePrivateRanking(MAsyncJob* pJobResult)
+void CCMatchServer::OnAsyncSurvivalModePrivateRanking(MAsyncJob* pJobResult)
 {
-	MAsyncDBJob_GetSurvivalModePrivateRanking* pJob = (MAsyncDBJob_GetSurvivalModePrivateRanking*)pJobResult;
+	CCAsyncDBJob_GetSurvivalModePrivateRanking* pJob = (CCAsyncDBJob_GetSurvivalModePrivateRanking*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() )
 	{
-		cclog("MMatchServer::OnAsyncSurvivalModePrivateRanking - 실패! stageUID[%d] playerCID[%d]\n", pJob->GetStageUID(), pJob->GetCID());
+		cclog("CCMatchServer::OnAsyncSurvivalModePrivateRanking - 실패! stageUID[%d] playerCID[%d]\n", pJob->GetStageUID(), pJob->GetCID());
 		return;
 	}
 #ifdef _DEBUG
-	cclog("MMatchServer::OnAsyncSurvivalModePrivateRanking - Test Log입니다. 성공!\n");
+	cclog("CCMatchServer::OnAsyncSurvivalModePrivateRanking - Test Log입니다. 성공!\n");
 
-	// 다음은 MAsyncDBJob_GetSurvivalModePrivateRanking Class의 사용 요령입니다.
+	// 다음은 CCAsyncDBJob_GetSurvivalModePrivateRanking Class의 사용 요령입니다.
 	// Class에서 더 필요한 부분이 있으면 수정하시면 됩니다.
 	cclog("-------- User Ranking Info --------\n");
 	cclog("User CID = %d\n", pJob->GetCID());

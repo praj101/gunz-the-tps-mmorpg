@@ -30,7 +30,7 @@ MVoteDiscussJoke::MVoteDiscussJoke(const MUID& uidStage) : MVoteDiscuss(uidStage
 
 bool MVoteDiscussJoke::OnJudge(bool bJudge)
 {
-	MMatchServer* pServer = MMatchServer::GetInstance();
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
 
 	char szMsg[ VOTE_ARG_STRING_LEN ] = {0,};
 
@@ -52,8 +52,8 @@ MVoteDiscussKick::MVoteDiscussKick(const MUID& uidStage) : MVoteDiscuss(uidStage
 
 bool MVoteDiscussKick::OnJudge(bool bJudge)
 {
-	MMatchServer* pServer = MMatchServer::GetInstance();
-	MMatchStage* pStage = pServer->FindStage(GetStageUID());
+	CCMatchServer* pServer = CCMatchServer::GetInstance();
+	CCMatchStage* pStage = pServer->FindStage(GetStageUID());
 	if (pStage == NULL) return false;
 
 	if (bJudge == true) {

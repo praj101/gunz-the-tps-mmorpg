@@ -4,7 +4,7 @@
 // Notice By Hong KiJu - 홍기주에게 문의하세용
 
 // Test Code입니다. 아래와 같이 호출하시면 됩니다..-.,-;
-// 함수의 위치는 MMatchServer Class 내에 위치시켜놨으나,
+// 함수의 위치는 CCMatchServer Class 내에 위치시켜놨으나,
 // 추후 원하는 위치로 함수를 옮기시면 됩니다.
 // 함수의 파라미터 등도 수정하셔야 될겁니다. 일단 최초의 프로토타입 뿐입니다.
 
@@ -13,32 +13,32 @@
 
 #include "CCAsyncDBJob_SurvivalMode.h"
 
-bool MMatchServer::OnRequestSurvivalModeGroupRanking()
+bool CCMatchServer::OnRequestSurvivalModeGroupRanking()
 {
-	MAsyncDBJob_GetSurvivalModeGroupRanking *pAsyncDbJob_GetSurvivalModeGroupRanking = new MAsyncDBJob_GetSurvivalModeGroupRanking;
+	CCAsyncDBJob_GetSurvivalModeGroupRanking *pAsyncDbJob_GetSurvivalModeGroupRanking = new CCAsyncDBJob_GetSurvivalModeGroupRanking;
 	if( 0 == pAsyncDbJob_GetSurvivalModeGroupRanking )
 		return false;
 
 	pAsyncDbJob_GetSurvivalModeGroupRanking->Input();
-	MMatchServer::GetInstance()->PostAsyncJob( pAsyncDbJob_GetSurvivalModeGroupRanking );
+	CCMatchServer::GetInstance()->PostAsyncJob( pAsyncDbJob_GetSurvivalModeGroupRanking );
 
 	return true;
 }
 
-bool MMatchServer::OnRequestSurvivalModePrivateRanking( const MUID& uidStage, const MUID& uidPlayer, DWORD dwScenarioID, DWORD dwCID )
+bool CCMatchServer::OnRequestSurvivalModePrivateRanking( const MUID& uidStage, const MUID& uidPlayer, DWORD dwScenarioID, DWORD dwCID )
 {
-	MAsyncDBJob_GetSurvivalModePrivateRanking *pAsyncDbJob_GetSurvivalModePrivateRanking = new MAsyncDBJob_GetSurvivalModePrivateRanking;
+	CCAsyncDBJob_GetSurvivalModePrivateRanking *pAsyncDbJob_GetSurvivalModePrivateRanking = new CCAsyncDBJob_GetSurvivalModePrivateRanking;
 	if( 0 == pAsyncDbJob_GetSurvivalModePrivateRanking )
 		return false;
 
 	pAsyncDbJob_GetSurvivalModePrivateRanking->Input( uidStage, uidPlayer, dwScenarioID, dwCID );
-	MMatchServer::GetInstance()->PostAsyncJob( pAsyncDbJob_GetSurvivalModePrivateRanking );
+	CCMatchServer::GetInstance()->PostAsyncJob( pAsyncDbJob_GetSurvivalModePrivateRanking );
 
 	return true;
 }
 
 // DB에 SurvivalModeGameLog를 남길 때 호출되는 함수입니다.
-bool MMatchServer::OnPostSurvivalModeGameLog()
+bool CCMatchServer::OnPostSurvivalModeGameLog()
 {
 	char *szGameName = "'Survival Mode Test Room";
 	DWORD dwScenarioID = 1;			// 추후 Define해서 쓰시면 편할 것 같습니다. 
@@ -56,7 +56,7 @@ bool MMatchServer::OnPostSurvivalModeGameLog()
 
 	DWORD dwGamePlayTime =	10;		// 게임을 플레이한 시간입니다.
 
-	MAsyncDBJob_InsertSurvivalModeGameLog *pAsyncDbJob_InsertSurvivalGameLog = new MAsyncDBJob_InsertSurvivalModeGameLog;
+	CCAsyncDBJob_InsertSurvivalModeGameLog *pAsyncDbJob_InsertSurvivalGameLog = new CCAsyncDBJob_InsertSurvivalModeGameLog;
 	if( 0 == pAsyncDbJob_InsertSurvivalGameLog )
 		return false;
 
@@ -65,7 +65,7 @@ bool MMatchServer::OnPostSurvivalModeGameLog()
 		dwPlayer3CID, dwPlayer3RankPoint, dwPlayer4CID, dwPlayer4RankPoint, 
 		dwGamePlayTime);
 
-	MMatchServer::GetInstance()->PostAsyncJob( pAsyncDbJob_InsertSurvivalGameLog );
+	CCMatchServer::GetInstance()->PostAsyncJob( pAsyncDbJob_InsertSurvivalGameLog );
 
 	return true;
 }

@@ -31,10 +31,10 @@
 #include "MAsyncDBJob_UpdateAccountLastLoginTime.h"
 #include "MAsyncDBJob_UpdateCharBRInfo.h"
 
-void MMatchServer::OnRequestAccountCharInfo(const MUID& uidPlayer, int nCharNum)
+void CCMatchServer::OnRequestAccountCharInfo(const MUID& uidPlayer, int nCharNum)
 {
     // Async DB //////////////////////////////
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
 	MAsyncDBJob_GetAccountCharInfo* pJob=new MAsyncDBJob_GetAccountCharInfo(uidPlayer,pObj->GetAccountInfo()->m_nAID, nCharNum);
@@ -44,9 +44,9 @@ void MMatchServer::OnRequestAccountCharInfo(const MUID& uidPlayer, int nCharNum)
 }
 
 
-void MMatchServer::OnRequestSelectChar(const MUID& uidPlayer, const int nCharIndex)
+void CCMatchServer::OnRequestSelectChar(const MUID& uidPlayer, const int nCharIndex)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 
 	if ((pObj == NULL) || (pObj->GetAccountInfo()->m_nAID < 0)) return;
 	if ((nCharIndex < 0) || (nCharIndex >= MAX_CHAR_COUNT)) return;
@@ -85,14 +85,14 @@ void MMatchServer::OnRequestSelectChar(const MUID& uidPlayer, const int nCharInd
 }
 
 
-void MMatchServer::OnRequestDeleteChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName)
+void CCMatchServer::OnRequestDeleteChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName)
 {
 	ResponseDeleteChar(uidPlayer, nCharIndex, szCharName);
 }
 
-bool MMatchServer::ResponseDeleteChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName)
+bool CCMatchServer::ResponseDeleteChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetAccountInfo()->m_nAID < 0)) return false;
 	if ((nCharIndex < 0) || (nCharIndex >= MAX_CHAR_COUNT)) return false;
 
@@ -105,7 +105,7 @@ bool MMatchServer::ResponseDeleteChar(const MUID& uidPlayer, const int nCharInde
 }
 
 
-void MMatchServer::OnRequestCreateChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName,
+void CCMatchServer::OnRequestCreateChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName,
 						 const unsigned int nSex, const unsigned int nHair, const unsigned int nFace, const unsigned int nCostume)
 {
 	MMatchSex sex = (nSex == 0) ? MMS_MALE : MMS_FEMALE;
@@ -113,10 +113,10 @@ void MMatchServer::OnRequestCreateChar(const MUID& uidPlayer, const int nCharInd
 }
 
 
-bool MMatchServer::ResponseCreateChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName,
+bool CCMatchServer::ResponseCreateChar(const MUID& uidPlayer, const int nCharIndex, const char* szCharName,
 						MMatchSex nSex, const unsigned int nHair, const unsigned int nFace,	const unsigned int nCostume)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
 
 	if ((pObj->GetAccountInfo()->m_nAID < 0) ||
@@ -168,19 +168,19 @@ bool MMatchServer::ResponseCreateChar(const MUID& uidPlayer, const int nCharInde
 }
 
 
-void MMatchServer::OnCharClear(const MUID& uidPlayer)
+void CCMatchServer::OnCharClear(const MUID& uidPlayer)
 {
 	// Network이벤트에서만 이쪽으로 들어올 수 있다.
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj)
 	{
 		ObjectRemove(pObj->GetUID(), NULL);
 	}
 }
 
-bool MMatchServer::CharInitialize(const MUID& uidPlayer)
+bool CCMatchServer::CharInitialize(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
 
 	MMatchCharInfo*	pCharInfo = pObj->GetCharInfo();
@@ -191,9 +191,9 @@ bool MMatchServer::CharInitialize(const MUID& uidPlayer)
 	m_objectCommandHistory.SetCharacterInfo( uidPlayer, pCharInfo->m_szName, pCharInfo->m_nCID );
 
 	if( !pCharInfo->EquipFromItemList() ) {
-		cclog("MMatchServer::CharInitialize - EquipFromItemList Failed(CID - %d)\n", pCharInfo->m_nCID);
+		cclog("CCMatchServer::CharInitialize - EquipFromItemList Failed(CID - %d)\n", pCharInfo->m_nCID);
 		if (!m_MatchDBMgr.ClearAllEquipedItem(pCharInfo->m_nCID)) {
-			cclog("MMatchServer::CharInitialize - DB Query(ClearAllEquipedItem) Failed\n");
+			cclog("CCMatchServer::CharInitialize - DB Query(ClearAllEquipedItem) Failed\n");
 		}
 
 		pCharInfo->m_EquipedItem.Clear();
@@ -207,7 +207,7 @@ bool MMatchServer::CharInitialize(const MUID& uidPlayer)
 	pCharInfo->GetTotalWeight(&nWeight, &nMaxWeight);
 	if (nWeight > nMaxWeight) {
 		if (!m_MatchDBMgr.ClearAllEquipedItem(pCharInfo->m_nCID)) {
-			cclog("MMatchServer::CharInitialize - DB Query(ClearAllEquipedItem) Failed\n");
+			cclog("CCMatchServer::CharInitialize - DB Query(ClearAllEquipedItem) Failed\n");
 		}
 
 		pCharInfo->m_EquipedItem.Clear();
@@ -246,7 +246,7 @@ bool MMatchServer::CharInitialize(const MUID& uidPlayer)
 	return true;
 }
 
-void MMatchServer::CheckExpiredItems(MMatchObject* pObj)
+void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 {
 	MMatchCharInfo*	pCharInfo = pObj->GetCharInfo();
 	if( NULL == pCharInfo )
@@ -304,7 +304,7 @@ void MMatchServer::CheckExpiredItems(MMatchObject* pObj)
 	}
 }
 
-void MMatchServer::ResponseExpiredItemIDList(MMatchObject* pObj, vector<unsigned long int>& vecExpiredItemIDList)
+void CCMatchServer::ResponseExpiredItemIDList(CCMatchObject* pObj, vector<unsigned long int>& vecExpiredItemIDList)
 {
 	int nBlobSize = (int)vecExpiredItemIDList.size();
 	MCommand* pNewCmd = CreateCommand(MC_MATCH_EXPIRED_RENT_ITEM, MUID(0,0));
@@ -322,7 +322,7 @@ void MMatchServer::ResponseExpiredItemIDList(MMatchObject* pObj, vector<unsigned
 }
 
 // 수정되면 true
-bool MMatchServer::CorrectEquipmentByLevel(MMatchObject* pPlayer, MMatchCharItemParts nPart, int nLegalItemLevelDiff)	
+bool CCMatchServer::CorrectEquipmentByLevel(CCMatchObject* pPlayer, MMatchCharItemParts nPart, int nLegalItemLevelDiff)	
 {
 	if (!IsEnabledObject(pPlayer)) return false;
 
@@ -339,9 +339,9 @@ bool MMatchServer::CorrectEquipmentByLevel(MMatchObject* pPlayer, MMatchCharItem
 	return false;
 }
 
-bool MMatchServer::CharFinalize(const MUID& uidPlayer)
+bool CCMatchServer::CharFinalize(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
 
 	if (MGetServerConfig()->GetServerMode() == MSM_EVENT) 
@@ -422,14 +422,14 @@ bool MMatchServer::CharFinalize(const MUID& uidPlayer)
 	return true;
 }
 
-void MMatchServer::OnRequestMySimpleCharInfo(const MUID& uidPlayer)
+void CCMatchServer::OnRequestMySimpleCharInfo(const MUID& uidPlayer)
 {
 	ResponseMySimpleCharInfo(uidPlayer);
 }
 
-void MMatchServer::ResponseMySimpleCharInfo(const MUID& uidPlayer)
+void CCMatchServer::ResponseMySimpleCharInfo(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
 
 	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
@@ -449,13 +449,13 @@ void MMatchServer::ResponseMySimpleCharInfo(const MUID& uidPlayer)
 	RouteToListener(pObj, pNewCmd);
 }
 
-void MMatchServer::OnRequestCopyToTestServer(const MUID& uidPlayer)
+void CCMatchServer::OnRequestCopyToTestServer(const MUID& uidPlayer)
 {
 #ifndef _DEBUG
 	return;
 #endif
 
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 	MMatchCharInfo*	pCharInfo = pObj->GetCharInfo();
 	if (pCharInfo == NULL) return;
@@ -466,9 +466,9 @@ void MMatchServer::OnRequestCopyToTestServer(const MUID& uidPlayer)
 	ResponseCopyToTestServer(uidPlayer, nResult);
 }
 
-void MMatchServer::ResponseCopyToTestServer(const MUID& uidPlayer, const int nResult)
+void CCMatchServer::ResponseCopyToTestServer(const MUID& uidPlayer, const int nResult)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
 	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_COPY_TO_TESTSERVER, MUID(0,0));
@@ -476,14 +476,14 @@ void MMatchServer::ResponseCopyToTestServer(const MUID& uidPlayer, const int nRe
 	RouteToListener(pObj, pNewCmd);
 }
 
-void MMatchServer::OnFriendAdd(const MUID& uidPlayer, const char* pszName)
+void CCMatchServer::OnFriendAdd(const MUID& uidPlayer, const char* pszName)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
 
 	if (pObj->GetFriendInfo() == NULL) return;
 
-	MMatchObject* pTargetObj = GetPlayerByName(pszName);
+	CCMatchObject* pTargetObj = GetPlayerByName(pszName);
 	if (!IsEnabledObject(pTargetObj)) {
 		NotifyMessage(pObj->GetUID(), MATCHNOTIFY_GENERAL_USER_NOTFOUND);
 		return;
@@ -529,9 +529,9 @@ void MMatchServer::OnFriendAdd(const MUID& uidPlayer, const char* pszName)
 	NotifyMessage(uidPlayer, MATCHNOTIFY_FRIEND_ADD_SUCCEED);
 }
 
-void MMatchServer::OnFriendRemove(const MUID& uidPlayer, const char* pszName)
+void CCMatchServer::OnFriendRemove(const MUID& uidPlayer, const char* pszName)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
 	if (pObj->GetFriendInfo() == NULL) return;
 
@@ -565,9 +565,9 @@ void MMatchServer::OnFriendRemove(const MUID& uidPlayer, const char* pszName)
 	NotifyMessage(uidPlayer, MATCHNOTIFY_FRIEND_REMOVE_SUCCEED);
 }
 
-void MMatchServer::OnFriendList(const MUID& uidPlayer)
+void CCMatchServer::OnFriendList(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
 
 	// ASync DB
@@ -587,9 +587,9 @@ void MMatchServer::OnFriendList(const MUID& uidPlayer)
 	FriendList(uidPlayer);
 }
 
-void MMatchServer::FriendList(const MUID& uidPlayer)
+void CCMatchServer::FriendList(const MUID& uidPlayer)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
 	if (pObj->GetFriendInfo() == NULL) return;
 
@@ -614,24 +614,24 @@ void MMatchServer::FriendList(const MUID& uidPlayer)
 	RouteToListener(pObj, pCmd);
 }
 
-void MMatchServer::OnFriendMsg(const MUID& uidPlayer, const char* szMsg)
+void CCMatchServer::OnFriendMsg(const MUID& uidPlayer, const char* szMsg)
 {
-	MMatchObject* pObj = GetObject(uidPlayer);
+	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
 
 }
 
-void MMatchServer::OnRequestCharInfoDetail(const MUID& uidChar, const char* szCharName)
+void CCMatchServer::OnRequestCharInfoDetail(const MUID& uidChar, const char* szCharName)
 {
 	ResponseCharInfoDetail(uidChar, szCharName);
 }
 
-void MMatchServer::ResponseCharInfoDetail(const MUID& uidChar, const char* szCharName)
+void CCMatchServer::ResponseCharInfoDetail(const MUID& uidChar, const char* szCharName)
 {
-	MMatchObject* pObject = GetObject(uidChar);
+	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
 
-	MMatchObject* pTarObject = GetPlayerByName(szCharName);
+	CCMatchObject* pTarObject = GetPlayerByName(szCharName);
 	if (! IsEnabledObject(pTarObject))
 	{
 		RouteResponseToListener(pObject, MC_MATCH_RESPONSE_RESULT, MERR_NO_TARGET);

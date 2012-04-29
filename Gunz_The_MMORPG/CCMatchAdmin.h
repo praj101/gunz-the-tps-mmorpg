@@ -23,18 +23,18 @@ struct MAdminArgvInfo
 	char argbuf[2048];		// 실제 argv 값이 들어가는 buf
 };
 
-class MMatchServer;
+class CCMatchServer;
 
 class MMatchAdmin
 {
 private:
 protected:
-	MMatchServer*		m_pMatchServer;
+	CCMatchServer*		m_pMatchServer;
 	bool MakeArgv(char* szStr, MAdminArgvInfo* pAi);
 public:
 	MMatchAdmin();
 	virtual ~MMatchAdmin();
-	bool Create(MMatchServer* pServer);
+	bool Create(CCMatchServer* pServer);
 	void Destroy();
 	bool Execute(const MUID& uidAdmin, const char* szStr);
 };

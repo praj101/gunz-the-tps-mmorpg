@@ -146,7 +146,7 @@ protected:
 	}
 
 	virtual bool OnCheckEnableBattleCondition(){
-		MMatchObject* pObj;
+		CCMatchObject* pObj;
 
 		if (m_pStage == NULL) {
 			SetRoundFinish(true);
@@ -209,7 +209,7 @@ protected:
 			va_start(args, pFormat);
 			vsprintf(temp, pFormat, args);
 
-			MMatchServer::GetInstance()->LOG(MMatchServer::LOG_PROG, "DT_LOG(%d) - %s", m_GameInfo.nGameNumber, temp);
+			CCMatchServer::GetInstance()->LOG(CCMatchServer::LOG_PROG, "DT_LOG(%d) - %s", m_GameInfo.nGameNumber, temp);
 #endif
 		} else if( nLevel == DTLOG_RELEASE ) {
 			va_list args;
@@ -218,7 +218,7 @@ protected:
 			va_start(args, pFormat);
 			vsprintf(temp, pFormat, args);
 
-			MMatchServer::GetInstance()->LOG(MMatchServer::LOG_PROG, "DT_LOG(%d) - %s", m_GameInfo.nGameNumber, temp);
+			CCMatchServer::GetInstance()->LOG(CCMatchServer::LOG_PROG, "DT_LOG(%d) - %s", m_GameInfo.nGameNumber, temp);
 		}
 	}
 
@@ -226,7 +226,7 @@ protected:
 #ifdef _DUELTOURNAMENT_LOG_ENABLE_
 		if (m_pStage == NULL) return;	
 
-		MMatchObject* pObj1, *pObj2;
+		CCMatchObject* pObj1, *pObj2;
 		pObj1 = m_pStage->GetObj(m_CurrentMatchInfo.uidPlayer1);
 		pObj2 = m_pStage->GetObj(m_CurrentMatchInfo.uidPlayer2);
 
@@ -236,7 +236,7 @@ protected:
 		{
 			MDuelTournamentPlayerInfo* pInfo = (*i).second;
 			if( pInfo->bOutGame == false && pInfo->bInMatch == false ) {
-				MMatchObject* pObj = m_pStage->GetObj((*i).first);
+				CCMatchObject* pObj = m_pStage->GetObj((*i).first);
 
 				if( pObj != NULL ){
 					nIndex += sprintf(&szTemp[nIndex], "Player(%d%d) - %s, ", pObj->GetUID().High, pObj->GetUID().Low, pObj->GetName());
@@ -257,7 +257,7 @@ protected:
 
 	
 public:
-	MMatchRuleDuelTournament(MMatchStage* pStage);
+	MMatchRuleDuelTournament(CCMatchStage* pStage);
 	virtual ~MMatchRuleDuelTournament(){}
 
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DUELTOURNAMENT; }

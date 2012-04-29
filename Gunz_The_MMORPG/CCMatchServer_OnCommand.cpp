@@ -21,7 +21,7 @@
 #define _STATUS_CMD_START	unsigned long int nStatusStartTime = timeGetTime();
 #define _STATUS_CMD_END		MGetServerStatusSingleton()->AddCmd(pCommand->GetID(), pCommand->GetSenderUID(), 0, timeGetTime()-nStatusStartTime);
 
-bool MMatchServer::OnCommand(MCommand* pCommand)
+bool CCMatchServer::OnCommand(MCommand* pCommand)
 {
 	// 서버 또는 Agent 가 보내는것을 제외하고 플러딩 검사
 	if(GetAgent(pCommand->GetSenderUID())==NULL && pCommand->GetSenderUID()!=m_This)
@@ -32,7 +32,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 		{
 			if (MGetServerConfig()->IsUseBlockFlooding())
 			{
-				MMatchObject* pObj = GetObject( pCommand->GetSenderUID() );
+				CCMatchObject* pObj = GetObject( pCommand->GetSenderUID() );
 				if( pObj && pObj->GetDisconnStatusInfo().GetStatus() == MMDS_CONNECTED)
 				{
 					LOG(LOG_FILE,"Command Flood detected");
@@ -229,7 +229,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 //				만약 필요하다면 보강해서 추가를 하자.
 //				if( m_HackingChatList.IsHackChat(szChat, strlen(szChat)) )
 //				{
-//					MMatchObject* pObj = GetObject( pCommand->GetSenderUID() );
+//					CCMatchObject* pObj = GetObject( pCommand->GetSenderUID() );
 //					if( NULL == pObj )
 //					{
 //						break;
@@ -257,7 +257,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 		case MC_MATCH_STAGE_TEAM:
 			{
 				MUID uidPlayer, uidStage;
-				MMatchTeam nTeam;
+				CCMatchTeam nTeam;
 				uidPlayer = pCommand->GetSenderUID();
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -278,7 +278,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nStageState, 2, MPT_INT);
 
 
-				OnStagePlayerState(uidPlayer, uidStage, MMatchObjectStageState(nStageState));				
+				OnStagePlayerState(uidPlayer, uidStage, CCMatchObjectStageState(nStageState));				
 
 			}
 			break;
@@ -1638,13 +1638,13 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				_ASSERT( 0 != dwResourceXORCache );
 				_ASSERT( 0 != dwResourceCRC32Cache );
 
-				MMatchObject* pObj = GetObject( pCommand->GetSenderUID() );
+				CCMatchObject* pObj = GetObject( pCommand->GetSenderUID() );
 				if( NULL == pObj )
 				{
 					return false;
 				}
 
-				MMatchStage* pStage = FindStage( pObj->GetStageUID() );
+				CCMatchStage* pStage = FindStage( pObj->GetStageUID() );
 				if( NULL == pStage )
 				{
 					// 유저를 로비나 방으로 보내주어야 한다.
@@ -1673,7 +1673,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				if (MGetServerConfig()->IsUseBlockFlooding())
 				{
-					MMatchObject* pObj = GetObject( uidPlayer );
+					CCMatchObject* pObj = GetObject( uidPlayer );
 					if( pObj && pObj->GetDisconnStatusInfo().GetStatus() == MMDS_CONNECTED)
 					{
 						if( pObj->GetAccountName() ) {

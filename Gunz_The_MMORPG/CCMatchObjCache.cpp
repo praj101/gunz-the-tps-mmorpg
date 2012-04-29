@@ -8,16 +8,16 @@
 #include "CCMatchServer.h" 
 
 
-MMatchObjectCacheBuilder::MMatchObjectCacheBuilder()
+CCMatchObjectCacheBuilder::CCMatchObjectCacheBuilder()
 {
 }
 
-MMatchObjectCacheBuilder::~MMatchObjectCacheBuilder()
+CCMatchObjectCacheBuilder::~CCMatchObjectCacheBuilder()
 {
 	Reset();
 }
 
-void MMatchObjectCacheBuilder::AddObject(MMatchObject* pObj)
+void CCMatchObjectCacheBuilder::AddObject(CCMatchObject* pObj)
 {
 	MMatchObjCache* pCache = new MMatchObjCache;
 	int nItemID=0;
@@ -31,7 +31,7 @@ void MMatchObjectCacheBuilder::AddObject(MMatchObject* pObj)
 		return;
 	}
 
-	MMatchObjectDuelTournamentCharInfo* pDTCharInfo = pObj->GetDuelTournamentCharInfo();
+	CCMatchObjectDuelTournamentCharInfo* pDTCharInfo = pObj->GetDuelTournamentCharInfo();
 	int nDTLastWeekGrade = pDTCharInfo ? pDTCharInfo->GetLastWeekGrade() : 0;
 
 	pCache->SetInfo(pObj->GetUID(), pObj->GetName(), pCharInfo->m_ClanInfo.m_szClanName, 
@@ -39,7 +39,7 @@ void MMatchObjectCacheBuilder::AddObject(MMatchObject* pObj)
 					, pCharInfo->m_nRank, pCharInfo->m_nTotalKillCount, pCharInfo->m_nTotalDeathCount, nDTLastWeekGrade );
 	pCache->SetCLID(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
 
-	MMatchClan* pClan = MMatchServer::GetInstance()->GetClanMap()->GetClan(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
+	MMatchClan* pClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
 	if (pClan)
 		pCache->SetEmblemChecksum(pClan->GetEmblemChecksum());
 	else
@@ -67,7 +67,7 @@ void MMatchObjectCacheBuilder::AddObject(MMatchObject* pObj)
 	m_ObjectCacheList.push_back(pCache);
 }
 
-void MMatchObjectCacheBuilder::Reset()
+void CCMatchObjectCacheBuilder::Reset()
 {
 	MMatchObjCacheList::iterator itor;
 	while ( (itor = m_ObjectCacheList.begin()) != m_ObjectCacheList.end()) {
@@ -77,7 +77,7 @@ void MMatchObjectCacheBuilder::Reset()
 	}
 }
 
-MCommand* MMatchObjectCacheBuilder::GetResultCmd(MATCHCACHEMODE nMode, MCommandCommunicator* pCmdComm)
+MCommand* CCMatchObjectCacheBuilder::GetResultCmd(MATCHCACHEMODE nMode, MCommandCommunicator* pCmdComm)
 {
 	MCommand* pCmd = pCmdComm->CreateCommand(MC_MATCH_OBJECT_CACHE, MUID(0,0));
 	pCmd->AddParameter(new MCmdParamUChar(nMode));
