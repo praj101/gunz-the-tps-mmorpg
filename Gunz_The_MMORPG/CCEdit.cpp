@@ -89,7 +89,7 @@ bool CCEdit::OnEvent(CCEvent *pEvent, CCListener *pListener){
 		return false;
 	switch(pEvent->iMessage){
 		case CCWM_KEYDOWN:{
-			bool ret= InputFilterKey(pEvent->iKey);
+			bool ret= InputFilterKey(pEvent->uKey);
 			CCListener* pListener = GetListener();
 			if(pListener!=NULL)
 				pListener->OnCommand(this, CCEDIT_KEYDOWN_MSG);
@@ -98,10 +98,10 @@ bool CCEdit::OnEvent(CCEvent *pEvent, CCListener *pListener){
 		break;
 		case CCWM_CHAR:{
 			bool ret = false;
-			if(InputFilterChar(pEvent->iKey)==false){
+			if(InputFilterChar(pEvent->uKey)==false){
 				int nLen = strlen(m_pBuffer);
 				if(nLen < m_iMaxLength-1){
-					char temp[2] = {(char)pEvent->iKey, 0};
+					char temp[2] = {(char)pEvent->uKey, 0};
 					if(InsertString(m_pBuffer, temp, m_iCaretPos, m_iMaxLength)==true){
 						m_iCaretPos++;
 						OnChangedText();
@@ -173,21 +173,21 @@ void CCEdit::OnChangedText(){
 	if(pListener!=NULL) pListener->OnCommand(this, CCEDIT_TEXT_CHANGED);
 }
 
-bool CCEdit::InputFilterKey(int iKey){
-	if(iKey==VK_DELETE){
+bool CCEdit::InputFilterKey(int uKey){
+	if(uKey==VK_DELETE){
 		int nCount = DeleteChar(m_pBuffer, m_iCaretPos);
 		OnChangedText();
 		return true;
 	}
-	else if(iKey==VK_LEFT){
+	else if(uKey==VK_LEFT){
 		MoveCaretPrev();
 		return true;
 	}
-	else if(iKey==VK_RIGHT){
+	else if(uKey==VK_RIGHT){
 		MoveCaretNext();
 		return true;
 	}
-	else if(iKey==VK_UP){
+	else if(uKey==VK_UP){
 		if(m_bSupportHistory==false) 
 			return true;
 
@@ -204,7 +204,7 @@ bool CCEdit::InputFilterKey(int iKey){
 
 		return true;
 	}
-	else if(iKey==VK_DOWN){
+	else if(uKey==VK_DOWN){
 		if(m_bSupportHistory==false) 
 			return true;
 
@@ -219,21 +219,21 @@ bool CCEdit::InputFilterKey(int iKey){
 
 		return true;
 	}
-	else if(iKey==VK_HOME){
+	else if(uKey==VK_HOME){
 		MoveCaretHome();
 		return true;
 	}
-	else if(iKey==VK_END){
+	else if(uKey==VK_END){
 		MoveCaretEnd();
 		return true;
 	}
-	else if(iKey==VK_RETURN){
+	else if(uKey==VK_RETURN){
 		if(m_bSupportHistory==true) AddHistory(GetText());
 		CCListener* pListener = GetListener();
 		if(pListener!=NULL) return pListener->OnCommand(this, CCEDIT_ENTER_VALUE);
 		return false;
 	}
-	else if(iKey==VK_TAB){
+	else if(uKey==VK_TAB){
 		if (GetTabHandler()) {
 			if (GetTabHandler()->IsVisible())
 				GetTabHandler()->Show(false);
@@ -247,8 +247,8 @@ bool CCEdit::InputFilterKey(int iKey){
 	return false;
 }
 
-bool CCEdit::InputFilterChar(int iKey){
-	if(iKey==VK_BACK){
+bool CCEdit::InputFilterChar(int uKey){
+	if(uKey==VK_BACK){
 		int nCaretPos = PrevPos(m_pBuffer, m_iCaretPos);
 		if(nCaretPos!=m_iCaretPos){
 			int nCount = DeleteChar(m_pBuffer, nCaretPos);
@@ -261,12 +261,12 @@ bool CCEdit::InputFilterChar(int iKey){
 
 		return true;
 	}
-	else if(iKey==VK_ESCAPE){
+	else if(uKey==VK_ESCAPE){
 		CCListener* pListener = GetListener();
 		if(pListener!=NULL) pListener->OnCommand(this, CCEDIT_ESC_VALUE);
 		return true;
 	}
-	else if(iKey==22){
+	else if(uKey==22){
 		char* temp = new char[m_iMaxLength];
 		memset(temp, 0, m_iMaxLength);
 		if ( GetClipboard(temp, m_iMaxLength)==true){
@@ -285,22 +285,22 @@ bool CCEdit::InputFilterChar(int iKey){
 		delete temp;
 		return true;
 	}
-	else if(iKey==3){
+	else if(uKey==3){
 		SetClipboard(GetText());
 		return true;
 	}
 
-	switch(iKey){
+	switch(uKey){
 	case VK_TAB:
 	case VK_RETURN:
 	case VK_NONCONVERT:
 		return true;
 	}
 
-	if(iKey<27) return true;
+	if(uKey<27) return true;
 
 	if(IsNumberField()){
-		if (iKey < '0' || '9' < iKey)
+		if (uKey < '0' || '9' < uKey)
 			return true;
 	}
 
