@@ -150,14 +150,14 @@ bool MMatchServer::ResponseCreateChar(const MUID& uidPlayer, const int nCharInde
 
 #ifdef _DEBUG
 	// 제가 주석처리했습니다 - bird
-	mlog( "Selected character name : %s (", szCharName);
+	cclog( "Selected character name : %s (", szCharName);
 
 	for ( int i = 0;  i < (int)strlen( szCharName);  i++)
 	{
-		mlog( "%02X ", szCharName[ i] & 0x00FF);
+		cclog( "%02X ", szCharName[ i] & 0x00FF);
 	}
 
-	mlog( ")  (len = %d)\n", (int)strlen( szCharName));
+	cclog( ")  (len = %d)\n", (int)strlen( szCharName));
 #endif
 
 	// PostAsyncJob(pJob);
@@ -191,9 +191,9 @@ bool MMatchServer::CharInitialize(const MUID& uidPlayer)
 	m_objectCommandHistory.SetCharacterInfo( uidPlayer, pCharInfo->m_szName, pCharInfo->m_nCID );
 
 	if( !pCharInfo->EquipFromItemList() ) {
-		mlog("MMatchServer::CharInitialize - EquipFromItemList Failed(CID - %d)\n", pCharInfo->m_nCID);
+		cclog("MMatchServer::CharInitialize - EquipFromItemList Failed(CID - %d)\n", pCharInfo->m_nCID);
 		if (!m_MatchDBMgr.ClearAllEquipedItem(pCharInfo->m_nCID)) {
-			mlog("MMatchServer::CharInitialize - DB Query(ClearAllEquipedItem) Failed\n");
+			cclog("MMatchServer::CharInitialize - DB Query(ClearAllEquipedItem) Failed\n");
 		}
 
 		pCharInfo->m_EquipedItem.Clear();
@@ -207,7 +207,7 @@ bool MMatchServer::CharInitialize(const MUID& uidPlayer)
 	pCharInfo->GetTotalWeight(&nWeight, &nMaxWeight);
 	if (nWeight > nMaxWeight) {
 		if (!m_MatchDBMgr.ClearAllEquipedItem(pCharInfo->m_nCID)) {
-			mlog("MMatchServer::CharInitialize - DB Query(ClearAllEquipedItem) Failed\n");
+			cclog("MMatchServer::CharInitialize - DB Query(ClearAllEquipedItem) Failed\n");
 		}
 
 		pCharInfo->m_EquipedItem.Clear();
@@ -521,7 +521,7 @@ void MMatchServer::OnFriendAdd(const MUID& uidPlayer, const char* pszName)
 	}
 
 	if (m_MatchDBMgr.FriendAdd(nCID, nFriendCID, 0) == false) {
-		mlog("DB Query(FriendAdd) Failed\n");
+		cclog("DB Query(FriendAdd) Failed\n");
 		return;
 	}
 
@@ -557,7 +557,7 @@ void MMatchServer::OnFriendRemove(const MUID& uidPlayer, const char* pszName)
 	}
 
 	if (m_MatchDBMgr.FriendRemove(nCID, nFriendCID) == false) {
-		mlog("DB Query(FriendRemove) Failed\n");
+		cclog("DB Query(FriendRemove) Failed\n");
 		return;
 	}
 

@@ -87,13 +87,13 @@ bool RAnimationFile::LoadAni(char* filename)
 	if(g_pFileSystem) {
 		if(!mzf.Open(filename,g_pFileSystem)) {
 			if(!mzf.Open(filename)) {
-				mlog("in zip : %s file not found!! \n ", filename );
+				cclog("in zip : %s file not found!! \n ", filename );
 				return false;
 			}
 		}
 	} else {
 		if(!mzf.Open(filename)) {
-			mlog("%s file not found!! \n ", filename );
+			cclog("%s file not found!! \n ", filename );
 			return false;
 		}
 	}
@@ -111,7 +111,7 @@ bool RAnimationFile::LoadAni(char* filename)
 	m_ani_node_cnt = t_hd.model_num;
 
 	if( m_ani_node_cnt == 0 ) {
-		mlog("키가 없는 %s 에니메이션 사용\n",filename);
+		cclog("키가 없는 %s 에니메이션 사용\n",filename);
 		mzf.Close();
 		return false;
 	}

@@ -114,7 +114,7 @@ bool ZDirectInput::CreateDirectInput()
 
 	if (!m_hD3DLibrary)
 	{
-		mlog("Error, could not load dinput8.dll");
+		cclog("Error, could not load dinput8.dll");
 		return false;
 	}
 
@@ -123,7 +123,7 @@ bool ZDirectInput::CreateDirectInput()
 
 	if (!dinputCreate)
 	{
-		mlog("Error, could not get proc adress of DirectInput8Create.");
+		cclog("Error, could not get proc adress of DirectInput8Create.");
 		return false;
 	}
 

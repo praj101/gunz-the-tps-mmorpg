@@ -314,7 +314,7 @@ int	RMtrlMgr::LoadList(char* fname)
 
 	if ( fp == NULL )	
 	{ 
-		mlog("texture list 파일이 없음");
+		cclog("texture list 파일이 없음");
 		return 0;
 	}
 

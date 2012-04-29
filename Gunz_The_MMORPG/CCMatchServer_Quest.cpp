@@ -220,7 +220,7 @@ void MMatchServer::OnResponseCharQuestItemList( const MUID& uidSender )
 	{
 		if( !m_MatchDBMgr.GetCharQuestItemInfo(pPlayer->GetCharInfo()) )
 		{
-			mlog( "DB Query(ResponseCharacterItemList > GetcharQuestItemInfo) failed\n" );
+			cclog( "DB Query(ResponseCharacterItemList > GetcharQuestItemInfo) failed\n" );
 			return;
 		}
 	}
@@ -228,7 +228,7 @@ void MMatchServer::OnResponseCharQuestItemList( const MUID& uidSender )
 	MCommand* pNewCmd = CreateCommand( MC_MATCH_RESPONSE_CHAR_QUEST_ITEM_LIST, MUID(0, 0) );
 	if( 0 == pNewCmd )
 	{
-		mlog( "MMatchServer::OnResponseCharQuestItemList - Command생성 실패.\n" );
+		cclog( "MMatchServer::OnResponseCharQuestItemList - Command생성 실패.\n" );
 		return;
 	}
 
@@ -265,19 +265,19 @@ void MMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigned
 
 	MQuestItemDescManager::iterator itQItemDesc = GetQuestItemDescMgr().find( nItemID );
 	if( GetQuestItemDescMgr().end() == itQItemDesc ) {
-		mlog( "MMatchServer::OnResponseBuyQuestItem - %d아이템 description을 찾지 못했습니다.\n", nItemID );
+		cclog( "MMatchServer::OnResponseBuyQuestItem - %d아이템 description을 찾지 못했습니다.\n", nItemID );
 		return;
 	}
 
 	MQuestItemDesc* pQuestItemDesc = itQItemDesc->second;
 	if( 0 == pQuestItemDesc ) {
-		mlog( "MMatchServer::OnRequestBuyQuestItem - %d의 item description이 비정상적입니다.\n", nItemID );
+		cclog( "MMatchServer::OnRequestBuyQuestItem - %d의 item description이 비정상적입니다.\n", nItemID );
 		return;
 	}
 
 	// 상점에서 판매되고 있는 아이템인지 검사.
 	if( !MGetMatchShop()->IsSellItem(pQuestItemDesc->m_nItemID) ) {
-		mlog( "MMatchServer::OnRequestBuyQuestItem - %d는 상점에서 판매되고 있는 아이템이 아님.\n", pQuestItemDesc->m_nItemID );
+		cclog( "MMatchServer::OnRequestBuyQuestItem - %d는 상점에서 판매되고 있는 아이템이 아님.\n", pQuestItemDesc->m_nItemID );
 		return;
 	}
 
@@ -311,13 +311,13 @@ void MMatchServer::OnResponseBuyQuestItem( const MUID& uidSender, const unsigned
 	} else {
 		MQuestItem* pNewQuestItem = new MQuestItem;
 		if( 0 == pNewQuestItem ) {
-			mlog( "MMatchServer::OnResponseBuyQuestItem - 새로운 퀘스트 아이템 생성 실패.\n" );
+			cclog( "MMatchServer::OnResponseBuyQuestItem - 새로운 퀘스트 아이템 생성 실패.\n" );
 			return;
 		}
 
 		if( !pNewQuestItem->Create(nItemID, nItemCount, GetQuestItemDescMgr().FindQItemDesc(nItemID)) ) {
 			delete pNewQuestItem;
-			mlog( "MMatchServer::OnResponseBuyQeustItem - %d번호 아이템 Create( ... )함수 호출 실패.\n" );
+			cclog( "MMatchServer::OnResponseBuyQeustItem - %d번호 아이템 Create( ... )함수 호출 실패.\n" );
 			return;
 		}
 
@@ -347,21 +347,21 @@ void MMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsigne
 	MMatchObject* pPlayer = GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) )
 	{
-		mlog( "MMatchServer::OnResponseSellQuestItem - find user fail.\n" );
+		cclog( "MMatchServer::OnResponseSellQuestItem - find user fail.\n" );
 		return;
 	}
 
 	MQuestItemDescManager::iterator itQItemDesc = GetQuestItemDescMgr().find( nItemID );
 	if( GetQuestItemDescMgr().end() == itQItemDesc )
 	{
-		mlog( "MMatchServer::OnResponseSellQuestItem - find item(%u) description fail.\n", nItemID );
+		cclog( "MMatchServer::OnResponseSellQuestItem - find item(%u) description fail.\n", nItemID );
 		return;
 	}
 	
 	MQuestItemDesc* pQItemDesc = itQItemDesc->second;
 	if( 0 == pQItemDesc )
 	{
-		mlog( "MMatchServer::OnResponseSellQuestItem - item(%u) description is null point.\n", nItemID );
+		cclog( "MMatchServer::OnResponseSellQuestItem - item(%u) description is null point.\n", nItemID );
 		return;
 	}
 
@@ -393,7 +393,7 @@ void MMatchServer::OnResponseSellQuestItem( const MUID& uidSender, const unsigne
 
 	} else {
 		// 존제하지 않는 아이템을 팔려고 하였음.
-		mlog( "MMatchServer::OnResponseSellQuestItem - user is not owner. itemid(%u)\n", nItemID );
+		cclog( "MMatchServer::OnResponseSellQuestItem - user is not owner. itemid(%u)\n", nItemID );
 		ASSERT( 0 );
 		return;
 	}
@@ -423,7 +423,7 @@ void MMatchServer::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, cons
 		MMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			mlog( "MMatchServer::OnRequestDropSacrificeItemOnSlot - invalid user.\n" );
+			cclog( "MMatchServer::OnRequestDropSacrificeItemOnSlot - invalid user.\n" );
 			return;
 		}
 
@@ -436,7 +436,7 @@ void MMatchServer::OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, cons
 			const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 			if( 0 == pNode )
 			{
-				mlog( "MMatchServer::OnRequestDropSacrificeItemOnSlot - find stage fail.\n" );
+				cclog( "MMatchServer::OnRequestDropSacrificeItemOnSlot - find stage fail.\n" );
 				return;
 			}
 
@@ -462,7 +462,7 @@ void MMatchServer::OnRequestCallbackSacrificeItem( const MUID& uidSender, const 
 		MMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			mlog( "MMatchServer::OnRequestDropSacrificeItemOnSlot - invalid user.\n" );
+			cclog( "MMatchServer::OnRequestDropSacrificeItemOnSlot - invalid user.\n" );
 			return;
 		}
 
@@ -472,7 +472,7 @@ void MMatchServer::OnRequestCallbackSacrificeItem( const MUID& uidSender, const 
 			const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 			if( 0 == pNode )
 			{
-				mlog( "MMatchServer::OnRequestCallbackSacrificeItem - find stage fail.\n" );
+				cclog( "MMatchServer::OnRequestCallbackSacrificeItem - find stage fail.\n" );
 				return;
 			}
 
@@ -497,7 +497,7 @@ void MMatchServer::OnRequestQL( const MUID& uidSender )
 		MMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			mlog( "MMatchServer::OnRequestQL - invlaid user.\n" );
+			cclog( "MMatchServer::OnRequestQL - invlaid user.\n" );
 			return;
 		}
 
@@ -507,7 +507,7 @@ void MMatchServer::OnRequestQL( const MUID& uidSender )
 			const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 			if( 0 == pNode )
 			{
-				mlog( "MMatchServer::OnRequestQL - find stage fail.\n" );
+				cclog( "MMatchServer::OnRequestQL - find stage fail.\n" );
 				return;
 			}
 
@@ -533,7 +533,7 @@ void MMatchServer::OnRequestSacrificeSlotInfo( const MUID& uidSender )
 		MMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			mlog( "MMatchServer::OnRequestSacrificeSlotInfo - invalid user.\n" );
+			cclog( "MMatchServer::OnRequestSacrificeSlotInfo - invalid user.\n" );
 			return;
 		}
 
@@ -543,7 +543,7 @@ void MMatchServer::OnRequestSacrificeSlotInfo( const MUID& uidSender )
 			const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 			if( 0 == pNode )
 			{
-				mlog( "MMatchServer::OnRequestSacrificeSlotInfo - find stage fail.\n" );
+				cclog( "MMatchServer::OnRequestSacrificeSlotInfo - find stage fail.\n" );
 				return;
 			}
 
@@ -578,7 +578,7 @@ void MMatchServer::OnRequestMonsterBibleInfo( const MUID& uidSender )
 		MMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
 		{
-			mlog( "MMatchServer::OnRequestMonsterBibleInfo - invalid user.\n" );
+			cclog( "MMatchServer::OnRequestMonsterBibleInfo - invalid user.\n" );
 			return;
 		}
 
@@ -600,21 +600,21 @@ void MMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
 	// 디비에서 케릭터 퀘스트 관련정보를 가저와있는지 검사를 함.
 	if( !pCharInfo->m_QuestItemList.IsDoneDbAccess() )
 	{
-		mlog( "MMatchServer::OnResponseMonsterBibleInfo - not load db monsterbible info.\n" );
+		cclog( "MMatchServer::OnResponseMonsterBibleInfo - not load db monsterbible info.\n" );
 		return;
 	}	
 
 	void* pMonBibleInfoBlob = MMakeBlobArray( MONSTER_BIBLE_SIZE, 1 );
 	if( 0 == pMonBibleInfoBlob )
 	{
-		mlog( "MMatchServer::OnResponseMonsterBibleInfo - make blob fail.\n" );
+		cclog( "MMatchServer::OnResponseMonsterBibleInfo - make blob fail.\n" );
 		return;
 	}
 
 	MQuestMonsterBible* pMonBible = reinterpret_cast< MQuestMonsterBible * >( MGetBlobArrayElement(pMonBibleInfoBlob, 0) );
 	if( 0 == pMonBible )
 	{
-		mlog( "MMatchServer::OnResponseMonsterBibleInfo - typecast fail.\n" );
+		cclog( "MMatchServer::OnResponseMonsterBibleInfo - typecast fail.\n" );
 		return;
 	}
 
@@ -624,7 +624,7 @@ void MMatchServer::OnResponseMonsterBibleInfo( const MUID& uidSender )
 	MCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_MONSTER_BIBLE_INFO, MUID(0, 0) );
 	if( 0 == pCmd )
 	{
-		mlog( "MMatchServer::OnResponseMonsterBibleInfo - create command fail.\n" );
+		cclog( "MMatchServer::OnResponseMonsterBibleInfo - create command fail.\n" );
 		return;
 	}
 

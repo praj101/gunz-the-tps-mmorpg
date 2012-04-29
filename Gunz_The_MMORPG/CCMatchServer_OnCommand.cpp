@@ -244,7 +244,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 //					{
 //						pObj->SetBadUserDisconnectWaitInfo();
 //
-//						mlog( "hack chat : %s\n", pObj->GetAccountInfo()->m_szUserID );
+//						cclog( "hack chat : %s\n", pObj->GetAccountInfo()->m_szUserID );
 //					}
 //
 //					break;
@@ -1449,7 +1449,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 
 #ifdef _DEBUG
 				static a = 0;
-				mlog( "npc dead : %d.\n", a++ );
+				cclog( "npc dead : %d.\n", a++ );
 #endif
 			}
 			break;

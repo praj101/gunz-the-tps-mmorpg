@@ -1799,7 +1799,7 @@ void RVisualMesh::SetWorldMatrix(rmatrix& mat) {
 void RVisualMesh::AddWeapon(RWeaponMotionType type,RMesh* pMesh,RAnimation* pAni)
 {
 	if((type < eq_weapon_etc)||(type > eq_weapon_end-1)) {
-		mlog("RVisualMesh::AddWeapon ´Ï°¡ RVisualMesh ¸¦ ±ú¸Ô´Â±¸³ª~~~\n");
+		cclog("RVisualMesh::AddWeapon ´Ï°¡ RVisualMesh ¸¦ ±ú¸Ô´Â±¸³ª~~~\n");
 	}
 
 	RemoveWeapon(type);

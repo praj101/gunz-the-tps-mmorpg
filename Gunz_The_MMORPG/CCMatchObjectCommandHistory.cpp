@@ -93,12 +93,12 @@ bool MMatchObjectCommandHistory::Dump( MUID uid )
 	if(!pHistory)
 		return false;
 
-	mlog("dump %s ( cid %d ) cmd : ", pHistory->m_strName.c_str(), pHistory->m_nCID );
+	cclog("dump %s ( cid %d ) cmd : ", pHistory->m_strName.c_str(), pHistory->m_nCID );
 	for(list< pair <int, DWORD> >::iterator i = pHistory->m_commands.begin(); i != pHistory->m_commands.end(); ++i )
 	{
-		mlog(" %d", i->first);
+		cclog(" %d", i->first);
 	}
-	mlog("\n");
+	cclog("\n");
 
 	return true;
 }

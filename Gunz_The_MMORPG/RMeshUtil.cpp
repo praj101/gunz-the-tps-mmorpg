@@ -81,7 +81,7 @@ bool RIndexBuffer::Create(int size,WORD* pData,DWORD flag,DWORD Usage,D3DPOOL Po
 		if( FAILED( RGetDevice()->CreateIndexBuffer( sizeof(WORD)*size, Usage , D3DFMT_INDEX16 , Pool, &m_ib ,0) ) ) {
 //		return false; 
 //		soft 로 돌수도 있다..
-			mlog("RIndexBuffer::Create Error : use soft index buffer\n");
+			cclog("RIndexBuffer::Create Error : use soft index buffer\n");
 		}
 	}
 
@@ -1047,7 +1047,7 @@ void RDebugStr::AddTab(int cnt) {
 }
 
 void RDebugStr::PrintLog() {
-	mlog( m_str.c_str() );
+	cclog( m_str.c_str() );
 }
 
 ////////////////////////////////////////////////////////////////////////

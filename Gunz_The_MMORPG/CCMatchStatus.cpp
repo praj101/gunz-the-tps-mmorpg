@@ -51,22 +51,22 @@ void MMatchStatus::SaveToLogFile()
 
 	// 경과시간
 	sprintf(szBuf, "============================\n경과시간 = %d초\n", (timeGetTime() - m_nStartTime) / 1000);
-	mlog(szBuf);
+	cclog(szBuf);
 
 	// 접속자수
 	sprintf(szBuf, "접속자수 = %d\n", (int)MMatchServer::GetInstance()->GetObjects()->size());
-	mlog(szBuf);
+	cclog(szBuf);
 
 	// 방개수
 	sprintf(szBuf, "방개수 = %d\n", (int)MMatchServer::GetInstance()->GetStageMap()->size());
-	mlog(szBuf);
+	cclog(szBuf);
 
 	// 총 처리 큐 개수, 현재틱의 큐 개수
 	sprintf(szBuf, "총처리된 커맨드 = %u , 현재틱 커맨드 = %u\n", 
 		m_nTotalCommandQueueCount, m_nTickCommandQueueCount);
-	mlog(szBuf);
+	cclog(szBuf);
 
-	mlog("큐 처리 개수\n");
+	cclog("큐 처리 개수\n");
 	// 각 큐당 처리 개수
 	szBuf[0] = 0;
 	
@@ -81,9 +81,9 @@ void MMatchStatus::SaveToLogFile()
 			strcat(szBuf, szTemp);
 		}
 	}
-	mlog(szBuf);
+	cclog(szBuf);
 	// 각 디비 쿼리당 처리 개수
-	mlog("디비쿼리 처리 개수\n");
+	cclog("디비쿼리 처리 개수\n");
 	szBuf[0] = 0;
 
 	for (int i = 0; i < MSTATUS_MAX_DBQUERY_COUNT; i++)
@@ -97,7 +97,7 @@ void MMatchStatus::SaveToLogFile()
 			strcat(szBuf, szTemp);
 		}
 	}
-	mlog(szBuf);
+	cclog(szBuf);
 	
 
 }

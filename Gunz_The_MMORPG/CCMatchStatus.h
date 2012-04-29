@@ -82,26 +82,26 @@ inline void MMatchStatus::SaveCmdHistory()
 	int t=0;
 	for (int i = m_nHistoryCursor; i < MSTATUS_MAX_CMD_HISTORY; i++)
 	{
-		// mlog("History(%d): %u\n", t++, m_nCmdHistory[i]);
-		mlog( "History. sender(%u, %u), CmdID(%d)\n"
+		// cclog("History(%d): %u\n", t++, m_nCmdHistory[i]);
+		cclog( "History. sender(%u, %u), CmdID(%d)\n"
 			, m_CmdHistory[i].uidSender.High, m_CmdHistory[i].uidSender.Low
 			, m_CmdHistory[i].nCmdID );
 	}
 	for (int i = 0; i < m_nHistoryCursor; i++)
 	{
-		// mlog("History(%d): %u\n", t++, m_nCmdHistory[i]);
-		mlog( "History. sender(%u, %u), CmdID(%d)\n"
+		// cclog("History(%d): %u\n", t++, m_nCmdHistory[i]);
+		cclog( "History. sender(%u, %u), CmdID(%d)\n"
 			, m_CmdHistory[i].uidSender.High, m_CmdHistory[i].uidSender.Low
 			, m_CmdHistory[i].nCmdID );
 	}
 
-	mlog("RunStatus : %d\n", m_nRunStatus);
+	cclog("RunStatus : %d\n", m_nRunStatus);
 }
 
 inline void MMatchStatus::Dump()
 {
 	SaveCmdHistory();
 
-//	mlog("Dump: ");
-//	mlog(m_szDump);
+//	cclog("Dump: ");
+//	cclog(m_szDump);
 }

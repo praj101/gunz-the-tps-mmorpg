@@ -390,7 +390,7 @@ void MMatchServer::OnAsyncResponse_GetDuelTournamentTimeStamp(MAsyncJob *pJobRes
 	MAsyncDBJob_GetDuelTournamentTimeStamp* pJob = (MAsyncDBJob_GetDuelTournamentTimeStamp*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("MMatchServer::OnAsyncResponse_GetDuelTournamentTimeStamp - 실패\n");
+		cclog("MMatchServer::OnAsyncResponse_GetDuelTournamentTimeStamp - 실패\n");
 		return;
 	}
 
@@ -407,17 +407,17 @@ void MMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo(MAsyncJob *pJo
 	MAsyncDBJob_GetDuelTournamentCharInfo* pJob = (MAsyncDBJob_GetDuelTournamentCharInfo*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("MMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo - 실패\n");
+		cclog("MMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo - 실패\n");
 		return;
 	}
 
 	MMatchObject* pObj = GetObject(pJob->GetPlayerUID());
 	if( pObj == NULL ) return;
 	if( pJob->GetDTCharInfo()->IsSettingData() == false ) {
-		mlog("MMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo - 데이터가 이상합니다.\n");
+		cclog("MMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo - 데이터가 이상합니다.\n");
 		return;
 	} else if( pJob->GetDTCharInfo()->GetTP() < 0 ) {
-		mlog("MMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo - 데이터가 이상합니다(2)\n");
+		cclog("MMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo - 데이터가 이상합니다(2)\n");
 		return;
 	}
 	pObj->SetDuelTournamentCharInfo( new MMatchObjectDuelTournamentCharInfo( pJob->GetDTCharInfo() ) );
@@ -429,7 +429,7 @@ void MMatchServer::OnAsyncResponse_GetDuelTournamentPreviousCharacterInfo(MAsync
 	MAsyncDBJob_GetDuelTournamentPreviousCharInfo* pJob = (MAsyncDBJob_GetDuelTournamentPreviousCharInfo*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("MMatchServer::OnAsyncResponse_GetDuelTournamentPreviousCharacterInfo - 실패\n");
+		cclog("MMatchServer::OnAsyncResponse_GetDuelTournamentPreviousCharacterInfo - 실패\n");
 		return;
 	}
 
@@ -441,7 +441,7 @@ void MMatchServer::OnAsyncResponse_GetDuelTournamentSideRanking(MAsyncJob *pJobR
 	MAsyncDBJob_GetDuelTournamentSideRankingInfo* pJob = (MAsyncDBJob_GetDuelTournamentSideRankingInfo*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("MMatchServer::OnAsyncResponse_GetDuelTournamentSideRanking - 실패\n");
+		cclog("MMatchServer::OnAsyncResponse_GetDuelTournamentSideRanking - 실패\n");
 		return;
 	}
 
@@ -466,7 +466,7 @@ void MMatchServer::OnAsyncResponse_GetDuelTournamentGroupRanking(MAsyncJob *pJob
 	MAsyncDBJob_GetDuelTournamentGroupRankingInfo* pJob = (MAsyncDBJob_GetDuelTournamentGroupRankingInfo*)pJobResult;
 
 	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
-		mlog("MMatchServer::OnAsyncResponse_GetDuelTournamentGroupRanking - 실패\n");
+		cclog("MMatchServer::OnAsyncResponse_GetDuelTournamentGroupRanking - 실패\n");
 		return;
 	}
 

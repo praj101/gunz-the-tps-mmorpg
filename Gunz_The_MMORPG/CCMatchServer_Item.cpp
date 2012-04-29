@@ -134,7 +134,7 @@ void MMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //		bool bRet = false;
 //		if (!m_MatchDBMgr.UpdateEquipedItem(pCharInfo->m_nCID, parts, 0, 0, &bRet))
 //		{
-//			mlog("DB Query(ResponseEquipItem > UpdateEquipedItem) Failed\n");
+//			cclog("DB Query(ResponseEquipItem > UpdateEquipedItem) Failed\n");
 //			nResult = MERR_CANNOT_TAKEOFF_ITEM;
 //		}
 //
@@ -174,7 +174,7 @@ void MMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //	MMatchObject* pObj = GetObject(uidPlayer);
 //	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) 
 //	{
-//		mlog("ResponseCharacterItemList > pObj or pObj->GetCharInfo() IS NULL\n");
+//		cclog("ResponseCharacterItemList > pObj or pObj->GetCharInfo() IS NULL\n");
 //		return false;
 //	}
 //
@@ -190,7 +190,7 @@ void MMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //	{
 //		if (!m_MatchDBMgr.GetCharItemInfo(pObj->GetCharInfo()))
 //		{
-//			mlog("DB Query(ResponseCharacterItemList > GetCharItemInfo) Failed\n");
+//			cclog("DB Query(ResponseCharacterItemList > GetCharItemInfo) Failed\n");
 //			return false;
 //		}
 //	}
@@ -201,7 +201,7 @@ void MMatchServer::ResponseAccountItemList(const MUID& uidPlayer)
 //		{
 //			if( !m_MatchDBMgr.GetCharQuestItemInfo(pObj->GetCharInfo()) )
 //			{
-//				mlog( "ResponseCharacterItemList - GetCharQuestItemInfo fail.\n" );
+//				cclog( "ResponseCharacterItemList - GetCharQuestItemInfo fail.\n" );
 //				return false;
 //			}
 //		}
@@ -317,7 +317,7 @@ void MMatchServer::OnRequestUseSpendableNormalItem(const MUID& uidPlayer, const 
 
 	MMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
 	if( pItem == NULL ) {
-		mlog("Use Spendable Item Failed[CID : %d, MUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
+		cclog("Use Spendable Item Failed[CID : %d, MUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
 		return;
 	}
 
@@ -337,7 +337,7 @@ void MMatchServer::UseSpendableItem(const MUID& uidPlayer, const MUID& uidItem)
 
 	MMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
 	if( pItem == NULL ) {
-		mlog("Use Spendable Item Failed[CID : %d, MUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
+		cclog("Use Spendable Item Failed[CID : %d, MUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
 		return;
 	}
 
@@ -357,7 +357,7 @@ void MMatchServer::UseSpendableItem(const MUID& uidPlayer, const MUID& uidItem)
 
 			if (!m_MatchDBMgr.UpdateEquipedItem(pCharInfo->m_nCID, parts, 0, 0))
 			{
-				mlog("DB Query(ResponseEquipItem > UpdateEquipedItem) Failed\n");
+				cclog("DB Query(ResponseEquipItem > UpdateEquipedItem) Failed\n");
 				// nResult = MERR_CANNOT_TAKEOFF_ITEM;
 			}
 			ResponseTakeoffItem
@@ -369,10 +369,10 @@ void MMatchServer::UseSpendableItem(const MUID& uidPlayer, const MUID& uidItem)
 		*/
 
 #ifdef _DEBUG
-		mlog("Item UID(%d%d)가 사용되었습니다. 아이템 항목 삭제\n", uidItem.High, uidItem.Low);
+		cclog("Item UID(%d%d)가 사용되었습니다. 아이템 항목 삭제\n", uidItem.High, uidItem.Low);
 #endif
 	} else {
-		mlog("Item UID(%d%d)가 비정상적으로 사용되었습니다.\n", uidItem.High, uidItem.Low);
+		cclog("Item UID(%d%d)가 비정상적으로 사용되었습니다.\n", uidItem.High, uidItem.Low);
 	}
 }
 
@@ -387,7 +387,7 @@ void MMatchServer::OnRequestUseSpendableBuffItem(const MUID& uidPlayer, const MU
 
 	MMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
 	if( pItem == NULL ) {
-		mlog("Use Spendable Item Failed[CID : %d, MUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
+		cclog("Use Spendable Item Failed[CID : %d, MUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
 		return;
 	}
 

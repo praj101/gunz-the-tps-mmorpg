@@ -128,7 +128,7 @@ void MChannelRuleMgr::ParseRule(MXmlElement* pElement)
 	pRule->Init(nID, szName);
 
 #ifdef _DEBUG
-	// mlog( "Rule name : %s.\n", szName );
+	// cclog( "Rule name : %s.\n", szName );
 #endif
 
 	// Get Map Nodes
@@ -150,7 +150,7 @@ void MChannelRuleMgr::ParseRule(MXmlElement* pElement)
 				pRule->AddMap(szAttr);
 
 #ifdef _DEBUG
-				// mlog( "Add map : %s.\n", szAttr );
+				// cclog( "Add map : %s.\n", szAttr );
 #endif
 			}
 		}
@@ -165,7 +165,7 @@ void MChannelRuleMgr::ParseRule(MXmlElement* pElement)
 				_ASSERT( pRule->CheckGameType(nAttr) );
 
 #ifdef _DEBUG
-				// mlog( "Add game type : %d.\n", nAttr );
+				// cclog( "Add game type : %d.\n", nAttr );
 #endif
 			}
 

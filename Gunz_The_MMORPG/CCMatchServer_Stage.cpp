@@ -195,7 +195,7 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 == pNode )
 		{
-			mlog( "MMatchServer::StageJoin - 스테이지 셋팅 노드 찾기 실패.\n" );
+			cclog( "MMatchServer::StageJoin - 스테이지 셋팅 노드 찾기 실패.\n" );
 			return false;
 		}
 
@@ -204,7 +204,7 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 			MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
 			if( 0 == pRuleQuest )
 			{
-				mlog( "MMatchServer::StageJoin - 포인터 형변환 실패.\n" );
+				cclog( "MMatchServer::StageJoin - 포인터 형변환 실패.\n" );
 				return false;
 			}
 
@@ -240,7 +240,7 @@ bool MMatchServer::StageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 	// MMatchStage* pStage = FindStage(uidStage);
 
 	//if(pObj->GetStageUID()!=uidStage)
-	//	mlog(" stage leave hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
+	//	cclog(" stage leave hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 
 	MMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return false;
@@ -294,7 +294,7 @@ bool MMatchServer::StageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 == pNode )
 		{
-			mlog( "MMatchServer::StageLeave - 스테이지 셋팅 노드 찾기 실패.\n" );
+			cclog( "MMatchServer::StageLeave - 스테이지 셋팅 노드 찾기 실패.\n" );
 			return false;
 		}
 
@@ -303,7 +303,7 @@ bool MMatchServer::StageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 			MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
 			if( 0 == pRuleQuest )
 			{
-				mlog( "MMatchServer::StageLeave - 포인터 형변환 실패.\n" );
+				cclog( "MMatchServer::StageLeave - 포인터 형변환 실패.\n" );
 				return false;
 			}
 
@@ -356,7 +356,7 @@ bool ExceptionTraceStageEnterBattle( MMatchObject* pObj, MMatchStage* pStage )
 	}
 	__except( StageEnterBattleExceptionHandler(GetExceptionInformation()) )
 	{
-		mlog( "\nexception : stage enter battle =====================\n" );
+		cclog( "\nexception : stage enter battle =====================\n" );
 
 
 		MMatchObject* pMaster = MGetMatchServer()->GetObject( pStage->GetMasterUID() );
@@ -364,39 +364,39 @@ bool ExceptionTraceStageEnterBattle( MMatchObject* pObj, MMatchStage* pStage )
 		{
 			if( NULL != pMaster->GetCharInfo() )
 			{
-				mlog( "stage master cid : %d\n", pMaster->GetCharInfo()->m_nCID );
+				cclog( "stage master cid : %d\n", pMaster->GetCharInfo()->m_nCID );
 			}
 		}
 		else
 		{
-			mlog( "stage master hass problem.\n" );				
+			cclog( "stage master hass problem.\n" );				
 		}
 		
 		
 		if( NULL != pObj->GetCharInfo() )
 		{
-			mlog( "cmd sender cid : %d\n", pObj->GetCharInfo()->m_nCID );
+			cclog( "cmd sender cid : %d\n", pObj->GetCharInfo()->m_nCID );
 		}
 		else
 		{
-			mlog( "cmd send char info null point.\n" );
+			cclog( "cmd send char info null point.\n" );
 		}
 
 		
 		MMatchStageSetting*	pStageSetting = pStage->GetStageSetting();
 		if( NULL != pStageSetting )
 		{
-			mlog( "stage state : %d\n", pStage->GetStageSetting()->GetStageState() );
+			cclog( "stage state : %d\n", pStage->GetStageSetting()->GetStageState() );
 
 			const MSTAGE_SETTING_NODE* pExStageSettingNode = pStageSetting->GetStageSetting();
 			if( NULL != pExStageSettingNode )
 			{
-				mlog( "stage name : %s\n", pExStageSettingNode->szMapName );
-				mlog( "stage game type : %d\n", pExStageSettingNode->nGameType );
-				mlog( "stage max player : %d\n", pExStageSettingNode->nMaxPlayers );
-				mlog( "stage current player : %d\n", pStage->GetPlayers() );
-				mlog( "stage force entry enable : %d\n", pExStageSettingNode->bForcedEntryEnabled );
-				mlog( "stage rule pointer : %x\n", pStage->GetRule() );
+				cclog( "stage name : %s\n", pExStageSettingNode->szMapName );
+				cclog( "stage game type : %d\n", pExStageSettingNode->nGameType );
+				cclog( "stage max player : %d\n", pExStageSettingNode->nMaxPlayers );
+				cclog( "stage current player : %d\n", pStage->GetPlayers() );
+				cclog( "stage force entry enable : %d\n", pExStageSettingNode->bForcedEntryEnabled );
+				cclog( "stage rule pointer : %x\n", pStage->GetRule() );
 			}
 		}
 
@@ -409,14 +409,14 @@ bool ExceptionTraceStageEnterBattle( MMatchObject* pObj, MMatchStage* pStage )
 			pObj = MGetMatchServer()->GetObject( itStage->first );
 			if( NULL == pObj )
 			{
-				mlog( "!!!!stage can't find player!!!!\n" );
+				cclog( "!!!!stage can't find player!!!!\n" );
 				continue;
 			}
 
-			mlog( "stage player name : %s\n", pObj->GetName() );
+			cclog( "stage player name : %s\n", pObj->GetName() );
 		}
 
-		mlog( "=====================\n\n" );
+		cclog( "=====================\n\n" );
 
 		return false;
 	}
@@ -433,7 +433,7 @@ bool MMatchServer::StageEnterBattle(const MUID& uidPlayer, const MUID& uidStage)
 	// MMatchStage* pStage = FindStage(uidStage);
 	
 	if(pObj->GetStageUID()!=uidStage)
-		mlog(" stage enter battle hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
+		cclog(" stage enter battle hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 
 	MMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return false;
@@ -485,7 +485,7 @@ bool MMatchServer::StageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeave
 	// MMatchStage* pStage = FindStage(uidStage);
 
 	//if(pObj->GetStageUID()!=uidStage)
-	//	mlog(" stage leave battle hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
+	//	cclog(" stage leave battle hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 
 	const MUID uidStage = pObj->GetStageUID();
 
@@ -793,14 +793,14 @@ void MMatchServer::StageFinishGame(const MUID& uidStage)
 				}
 
 				if(nRelayMapIndex >= MAX_RELAYMAP_LIST_COUNT) { //< 맵 구성이 20개
-					mlog("StageFinishGame RelayMap Fail RelayMapList MIsCorrect MaxCount[%d] \n", (int)nRelayMapIndex);
+					cclog("StageFinishGame RelayMap Fail RelayMapList MIsCorrect MaxCount[%d] \n", (int)nRelayMapIndex);
 					return;
 				}
 
 				char* szMapName = (char*)MGetMapDescMgr()->GetMapName(pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
 				if (!szMapName)
 				{
-					mlog("RelayMapBattleStart Fail MapID[%d] \n", (int)pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
+					cclog("RelayMapBattleStart Fail MapID[%d] \n", (int)pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
 					return;
 				}
 
@@ -812,7 +812,7 @@ void MMatchServer::StageFinishGame(const MUID& uidStage)
 				pStage->m_vecRelayMapsRemained.erase(itor);
 			} 
 			else {
-				mlog("MMatchServer::StageFinishGame::IsRelayMap() - m_vecRelayMapsRemained.size() == 0\n");
+				cclog("MMatchServer::StageFinishGame::IsRelayMap() - m_vecRelayMapsRemained.size() == 0\n");
 			}
 		} else {
 			pStage->SetIsStartRelayMap(false);
@@ -1290,13 +1290,13 @@ void MMatchServer::StageRelayMapBattleStart(const MUID& uidPlayer, const MUID& u
 
 	if((int)pStage->m_vecRelayMapsRemained.size() > MAX_RELAYMAP_LIST_COUNT)
 	{// 맵 구성이 20개 초과하면 에러
-		mlog("RelayMapBattleStart Fail RelayMapList MIsCorrect OverCount[%d] \n", (int)pStage->m_vecRelayMapsRemained.size());
+		cclog("RelayMapBattleStart Fail RelayMapList MIsCorrect OverCount[%d] \n", (int)pStage->m_vecRelayMapsRemained.size());
 		return;
 	}
 
 	if (pStage->m_vecRelayMapsRemained.size() != pStage->GetRelayMapListCount())
 	{
-		mlog("m_vecRelayMapsRemained[%d] != GetRelayMapListCount[%d]\n", (int)pStage->m_vecRelayMapsRemained.size(), pStage->GetRelayMapListCount());
+		cclog("m_vecRelayMapsRemained[%d] != GetRelayMapListCount[%d]\n", (int)pStage->m_vecRelayMapsRemained.size(), pStage->GetRelayMapListCount());
 		return;
 	}
 
@@ -1309,7 +1309,7 @@ void MMatchServer::StageRelayMapBattleStart(const MUID& uidPlayer, const MUID& u
 
 	if(MMATCH_MAP_RELAYMAP == pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID)
 	{
-		mlog("RelayMapBattleStart Fail Type[%d], RoundCount[Curr:%d][%d], ListCount[Curr:%d][%d] \n",  
+		cclog("RelayMapBattleStart Fail Type[%d], RoundCount[Curr:%d][%d], ListCount[Curr:%d][%d] \n",  
 			pStage->GetRelayMapType(), pStage->m_RelayMapRepeatCountRemained, pStage->GetRelayMapRepeatCount(), (int)pStage->m_vecRelayMapsRemained.size(), pStage->GetRelayMapListCount());
 		return;
 	}
@@ -1317,7 +1317,7 @@ void MMatchServer::StageRelayMapBattleStart(const MUID& uidPlayer, const MUID& u
 	char* szMapName = (char*)MGetMapDescMgr()->GetMapName(pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
 	if (!szMapName)
 	{
-		mlog("RelayMapBattleStart Fail MapID[%d] \n", (int)pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
+		cclog("RelayMapBattleStart Fail MapID[%d] \n", (int)pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
 		return;
 	}
 
@@ -1361,7 +1361,7 @@ void MMatchServer::OnStageRelayMapListUpdate(const MUID& uidStage, int nRelayMap
 		MTD_RelayMap* pRelayMap = (MTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
 		if(!MGetMapDescMgr()->MIsCorrectMap(pRelayMap->nMapID))
 		{
-			mlog("OnStageRelayMapListUpdate Fail MIsCorrectMap ID[%d] \n", (int)pRelayMap->nMapID);
+			cclog("OnStageRelayMapListUpdate Fail MIsCorrectMap ID[%d] \n", (int)pRelayMap->nMapID);
 			break;
 		}
 		relayMapList[i].nMapID = pRelayMap->nMapID;
@@ -1430,14 +1430,14 @@ void MMatchServer::OnStageSetting(const MUID& uidPlayer, const MUID& uidStage, v
 	// validate
 	MMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) {
-		mlog(" stage setting invalid object (%d, %d) ignore\n", uidPlayer.High, uidPlayer.Low);
+		cclog(" stage setting invalid object (%d, %d) ignore\n", uidPlayer.High, uidPlayer.Low);
 		return;
 	}
 
 	if( pObj->GetStageUID()!=uidStage ||  nStageCount!=1 ||
 		MGetBlobArraySize(pStageBlob) != (sizeof(MSTAGE_SETTING_NODE)+sizeof(int)*2) )
 	{
-		mlog(" stage setting hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
+		cclog(" stage setting hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 		LogObjectCommandHistory( uidPlayer );
 		return;
 	}
@@ -1454,7 +1454,7 @@ void MMatchServer::OnStageSetting(const MUID& uidPlayer, const MUID& uidStage, v
 
 	// let's refactor
 	if( (pNode->nGameType < MMATCH_GAMETYPE_DEATHMATCH_SOLO) || (pNode->nGameType >= MMATCH_GAMETYPE_MAX)) {
-		mlog(" stage setting game mode hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
+		cclog(" stage setting game mode hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 		LogObjectCommandHistory( uidPlayer );
 
 		// 디비에 남기자.
@@ -1466,7 +1466,7 @@ void MMatchServer::OnStageSetting(const MUID& uidPlayer, const MUID& uidStage, v
 
 	// 서바이벌이 비활성 세팅인데 서바이벌 요청시
 	if( MGetServerConfig()->IsEnabledSurvivalMode()==false && pNode->nGameType==MMATCH_GAMETYPE_SURVIVAL) {
-		mlog(" stage setting game mode hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
+		cclog(" stage setting game mode hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 		LogObjectCommandHistory( uidPlayer );
 		pObj->DisconnectHacker( MMHT_INVALIDSTAGESETTING );
 		return;
@@ -1797,7 +1797,7 @@ void MMatchServer::OnGameReportTimeSync(const MUID& uidComm, unsigned long nLoca
 				StageLeave(pObj->GetUID());//, pObj->GetStageUID());
 				Disconnect(pObj->GetUID());
 			#endif
-			mlog("SPEEDHACK : User='%s', SyncRatio=%f (TimeDiff=%d) \n", 
+			cclog("SPEEDHACK : User='%s', SyncRatio=%f (TimeDiff=%d) \n", 
 				pObj->GetName(), fError, nSyncDiff);
 			pSync->ResetFoulCount();
 		}
@@ -1811,7 +1811,7 @@ void MMatchServer::OnGameReportTimeSync(const MUID& uidComm, unsigned long nLoca
 		NotifyMessage(pObj->GetUID(), MATCHNOTIFY_GAME_MEMORYHACK);
 		StageLeave(pObj->GetUID());//, pObj->GetStageUID());
 		Disconnect(pObj->GetUID());
-		mlog("MEMORYHACK : User='%s', MemoryChecksum=%u \n", pObj->GetName(), nDataChecksum);
+		cclog("MEMORYHACK : User='%s', MemoryChecksum=%u \n", pObj->GetName(), nDataChecksum);
 	}
 }
 
@@ -2050,7 +2050,7 @@ void MMatchServer::CalcExpOnGameKill(MMatchStage* pStage, MMatchObject* pAttacke
 	if (nAttackerExp != 0)
 	{
 		//const float ta = float(atoi("15")) / 100.0f;
-		//mlog( "test float : %f\n", ta * 100.0f );
+		//cclog( "test float : %f\n", ta * 100.0f );
 
 		//MMatchItemBonusType nBonusType			= GetStageBonusType(pStage->GetStageSetting());
 		//const double		dAttackerExp		= static_cast< double >( nAttackerExp );
@@ -2141,7 +2141,7 @@ void MMatchServer::ProcessPlayerXPBP(MMatchStage* pStage, MMatchObject* pPlayer,
 										  pPlayer->GetCharInfo()->m_nTotalPlayTimeSec,
 										  true))
 		{
-			mlog("DB UpdateCharLevel Error : %s\n", pPlayer->GetCharInfo()->m_szName);
+			cclog("DB UpdateCharLevel Error : %s\n", pPlayer->GetCharInfo()->m_szName);
 		}
 	}
 
@@ -2227,7 +2227,7 @@ void MMatchServer::ApplyObjectTeamBonus(MMatchObject* pObject, int nAddedExp)
 										  bIsLevelUp
 										  ))
 		{
-			mlog("DB UpdateCharLevel Error : %s\n", pObject->GetCharInfo()->m_szName);
+			cclog("DB UpdateCharLevel Error : %s\n", pObject->GetCharInfo()->m_szName);
 		}
 	}
 
@@ -2327,7 +2327,7 @@ void MMatchServer::ProcessCharPlayInfo(MMatchObject* pPlayer)
 				case MMATCH_GAMETYPE_DUEL:				{sprintf(buf, "DUEL");				} break;	
 				default:								{sprintf(buf, "don't know");		} break;
 				}
-				mlog("%s BattlePlayT Error GameMode:%s, CID:%d, Name:%s, ServerCurrT:%u, BattleStartT:%u, PlayT:%d, PlayerConnectT:%u \n"
+				cclog("%s BattlePlayT Error GameMode:%s, CID:%d, Name:%s, ServerCurrT:%u, BattleStartT:%u, PlayT:%d, PlayerConnectT:%u \n"
 					, szTime, buf, pPlayer->GetCharInfo()->m_nCID, pPlayer->GetCharInfo()->m_szName, nNowTime, pPlayer->GetCharInfo()->m_nBattleStartTime, nBattlePlayingTimeSec, pPlayer->GetCharInfo()->m_nConnTime);
 			}
 		}
@@ -2344,7 +2344,7 @@ void MMatchServer::ProcessCharPlayInfo(MMatchObject* pPlayer)
 	{
 		CTime theTime = CTime::GetCurrentTime();
 		CString szTime = theTime.Format( "[%c] " );
-		mlog("%s BattleXPGained Error CID:%d, Name:%s, StartXP:%d, EXPGained:%d \n", szTime, pPlayer->GetCharInfo()->m_nCID, pPlayer->GetCharInfo()->m_szName, pPlayer->GetCharInfo()->m_nBattleStartXP, nBattleEXPGained);
+		cclog("%s BattleXPGained Error CID:%d, Name:%s, StartXP:%d, EXPGained:%d \n", szTime, pPlayer->GetCharInfo()->m_nCID, pPlayer->GetCharInfo()->m_szName, pPlayer->GetCharInfo()->m_nBattleStartXP, nBattleEXPGained);
 	}
 	*/
 
@@ -2360,7 +2360,7 @@ void MMatchServer::ProcessCharPlayInfo(MMatchObject* pPlayer)
 										, pPlayer->GetCharInfo()->m_nBP
 										, false))
 	{
-		mlog("DB UpdateCharPlayInfo Error : %s\n", pPlayer->GetCharInfo()->m_szName);
+		cclog("DB UpdateCharPlayInfo Error : %s\n", pPlayer->GetCharInfo()->m_szName);
 	}
 #endif
 
@@ -2679,7 +2679,7 @@ void MMatchServer::SaveLadderTeamPointToDB(const int nTeamTableIndex, const int 
 	if (!m_MatchDBMgr.LadderTeamWinTheGame(nTeamTableIndex, nWinnerTeamID, nLoserTeamID, bIsDrawGame,
 		                                   nWinnerPoint, nLoserPoint, nDrawPoint))
 	{
-		mlog("DB Query(SaveLadderTeamPointToDB) Failed\n");
+		cclog("DB Query(SaveLadderTeamPointToDB) Failed\n");
 	}
 }
 

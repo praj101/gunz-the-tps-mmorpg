@@ -95,17 +95,17 @@ bool RMaterialList::Open(void *pMemory,int nSize)
 					push_back(pMaterial);
 					i++;
 				}
-				else mlog("} needed.\n");
+				else cclog("} needed.\n");
 			}
 			else
 			{
-				mlog("{ needed.\n");
+				cclog("{ needed.\n");
 				i++;
 			}
 		}
 		else
 		{
-			mlog("%s needed.\n",RTOK_HEADER);
+			cclog("%s needed.\n",RTOK_HEADER);
 			i++;
 		}
 	}

@@ -78,7 +78,7 @@ void RWeaponTracks::SetVertexSpline(rvector& p,DWORD c)
 
 	if(m_current_spline_vertex_size > m_spline_vertex_size-1) {//¿¡·¯...
 		m_current_spline_vertex_size--;
-//		mlog("m_current_spline_vertex_size > m_spline_vertex_size \n");
+//		cclog("m_current_spline_vertex_size > m_spline_vertex_size \n");
 	}
 }
 

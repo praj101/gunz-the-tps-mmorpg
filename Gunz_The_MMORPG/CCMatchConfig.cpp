@@ -138,11 +138,11 @@ bool MMatchConfig::Create()
 	m_dwSurvivalRankingDailyRequestHour = GetPrivateProfileInt("SERVER", "SURVIVALRANKING_DAILY_REQUEST_HOUR", 5, SERVER_CONFIG_FILENAME);
 	m_dwSurvivalRankingDailyRequestMin = GetPrivateProfileInt("SERVER", "SURVIVALRANKING_DAILY_REQUEST_MINUTE", 0, SERVER_CONFIG_FILENAME);
 	if (m_dwSurvivalRankingDailyRequestHour < 0 || m_dwSurvivalRankingDailyRequestHour >= 24) {
-		mlog("[ASSERTION FAILED!] %s : SURVIVALRANKING_DAILY_REQUEST_HOUR invalid!\n", SERVER_CONFIG_FILENAME);
+		cclog("[ASSERTION FAILED!] %s : SURVIVALRANKING_DAILY_REQUEST_HOUR invalid!\n", SERVER_CONFIG_FILENAME);
 		_ASSERT(0);
 	}
 	if (m_dwSurvivalRankingDailyRequestMin < 0 || m_dwSurvivalRankingDailyRequestMin >= 60) {
-		mlog("[ASSERTION FAILED!] %s : SURVIVALRANKING_DAILY_REQUEST_MINUTE invalid!\n", SERVER_CONFIG_FILENAME);
+		cclog("[ASSERTION FAILED!] %s : SURVIVALRANKING_DAILY_REQUEST_MINUTE invalid!\n", SERVER_CONFIG_FILENAME);
 		_ASSERT(0);
 	}
 
@@ -150,29 +150,29 @@ bool MMatchConfig::Create()
 	m_dwDuelTournamentMatchMaingAcceptableTpGap = GetPrivateProfileInt("SERVER", "DUELTOURNAMENT_MATCHMAKING_ACCEPTABLE_TP_GAP", 10, SERVER_CONFIG_FILENAME);
 	m_dwDuelTournamentMatchMaingWaitLimit = GetPrivateProfileInt("SERVER", "DUELTOURNAMENT_MATCHMAKING_WAIT_LIMIT", 10000, SERVER_CONFIG_FILENAME);
 	if (m_dwDuelTournamentMatchMakingInterval > 10000)
-		mlog("[WARNING] %s : DUELTOURNAMENT_MATCHMAKING_INTERVAL is too big.\n", SERVER_CONFIG_FILENAME);
+		cclog("[WARNING] %s : DUELTOURNAMENT_MATCHMAKING_INTERVAL is too big.\n", SERVER_CONFIG_FILENAME);
 	if (m_dwDuelTournamentMatchMaingAcceptableTpGap > 1000)
-		mlog("[WARNING] %s : DUELTOURNAMENT_MATCHMAKING_ACCEPTABLE_TP_GAP is too big.\n", SERVER_CONFIG_FILENAME);
+		cclog("[WARNING] %s : DUELTOURNAMENT_MATCHMAKING_ACCEPTABLE_TP_GAP is too big.\n", SERVER_CONFIG_FILENAME);
 	if (m_dwDuelTournamentMatchMaingWaitLimit > 60000)
-		mlog("[WARNING] %s : DUELTOURNAMENT_MATCHMAKING_WAIT_LIMIT is too big.\n", SERVER_CONFIG_FILENAME);
+		cclog("[WARNING] %s : DUELTOURNAMENT_MATCHMAKING_WAIT_LIMIT is too big.\n", SERVER_CONFIG_FILENAME);
 
 	m_dwDuelTournamentServiceStartTime = GetPrivateProfileInt("SERVER", "DUELTOURNAMENT_SERVICE_START_TIME ", 0, SERVER_CONFIG_FILENAME);
 	m_dwDuelTournamentServiceEndTime = GetPrivateProfileInt("SERVER", "DUELTOURNAMENT_SERVICE_END_TIME ", 23, SERVER_CONFIG_FILENAME);
 	if(m_dwDuelTournamentServiceStartTime > 23) {
 		m_dwDuelTournamentServiceStartTime = 23;
-		mlog("[WARNING] %s : DUELTOURNAMENT_SERVICE_START_TIME is too big. max is 23.\n", SERVER_CONFIG_FILENAME);_ASSERT(0);
+		cclog("[WARNING] %s : DUELTOURNAMENT_SERVICE_START_TIME is too big. max is 23.\n", SERVER_CONFIG_FILENAME);_ASSERT(0);
 	}
 	if(m_dwDuelTournamentServiceEndTime > 23) {
 		m_dwDuelTournamentServiceEndTime = 23;
-		mlog("[WARNING] %s : DUELTOURNAMENT_SERVICE_END_TIME is too big. max is 23.\n", SERVER_CONFIG_FILENAME);_ASSERT(0);
+		cclog("[WARNING] %s : DUELTOURNAMENT_SERVICE_END_TIME is too big. max is 23.\n", SERVER_CONFIG_FILENAME);_ASSERT(0);
 	}
 	if( 0 > m_dwDuelTournamentServiceStartTime) {
 		m_dwDuelTournamentServiceStartTime = 0;
-		mlog("[WARNING] %s : DUELTOURNAMENT_SERVICE_START_TIME must be a positive value.\n", SERVER_CONFIG_FILENAME);_ASSERT(0);
+		cclog("[WARNING] %s : DUELTOURNAMENT_SERVICE_START_TIME must be a positive value.\n", SERVER_CONFIG_FILENAME);_ASSERT(0);
 	}
 	if( 0 > m_dwDuelTournamentServiceEndTime)	{
 		m_dwDuelTournamentServiceEndTime = 0;
-		mlog("[WARNING] %s : DUELTOURNAMENT_SERVICE_END_TIME must be a positive value.\n", SERVER_CONFIG_FILENAME);_ASSERT(0);
+		cclog("[WARNING] %s : DUELTOURNAMENT_SERVICE_END_TIME must be a positive value.\n", SERVER_CONFIG_FILENAME);_ASSERT(0);
 	}
 
 	m_bSendLoginUserToDuelTournamentChannel = (0 != GetPrivateProfileInt("SERVER", "SEND_LOGINUSER_TO_DUELTOURNAMENT_CHANNEL", 1, SERVER_CONFIG_FILENAME));
@@ -216,13 +216,13 @@ bool MMatchConfig::Create()
 
 	if( !LoadMonitorIPnPort() )
 	{
-		mlog( "server.ini - monitor ip not setting\n" );
+		cclog( "server.ini - monitor ip not setting\n" );
 		return false;
 	}
 
 	if( !LoadKeeperIP() )
 	{
-		mlog( "server.ini - Keeper ip not setting\n" );
+		cclog( "server.ini - Keeper ip not setting\n" );
 		return false;
 	}
 	
@@ -238,7 +238,7 @@ bool MMatchConfig::Create()
 	else
 	{
 		ASSERT( 0 );
-		mlog( "server.ini - Invalid country type.\n" );
+		cclog( "server.ini - Invalid country type.\n" );
 		return false;
 	}
 
@@ -249,7 +249,7 @@ bool MMatchConfig::Create()
 	else
 	{
 		ASSERT( 0 );
-		mlog( "server.ini - Invalid language type.\n" );
+		cclog( "server.ini - Invalid language type.\n" );
 		return false;
 	}
 
@@ -260,7 +260,7 @@ bool MMatchConfig::Create()
 	else
 	{
 		ASSERT( 0 );
-		mlog( "server.ini - invalid ticket setting.\n" );
+		cclog( "server.ini - invalid ticket setting.\n" );
 		return false;
 	}
 	
@@ -271,7 +271,7 @@ bool MMatchConfig::Create()
 		 m_bIsUseGameguard = true;
 	else
 	{
-		mlog( "gameguard not running\n" );
+		cclog( "gameguard not running\n" );
 		m_bIsUseGameguard = false;
 	}
 
@@ -282,7 +282,7 @@ bool MMatchConfig::Create()
 	else
 	{
 		m_bIsUseNHNUSAAuth = false;
-		mlog( "nhn usa auth not running.\n" );
+		cclog( "nhn usa auth not running.\n" );
 	}
 
 	char szNHNServerMode[ 2 ] = "";
@@ -290,12 +290,12 @@ bool MMatchConfig::Create()
 	if( 0 == stricmp("r", szNHNServerMode) )
 	{
 		m_NHNServerMode = NSM_REAL;
-		//mlog( "nhn server mode is real\n" );
+		//cclog( "nhn server mode is real\n" );
 	}
 	else if( 0 == stricmp("a", szNHNServerMode) )
 	{
 		m_NHNServerMode = NSM_ALPHA;
-		//mlog( "nhn server mode is alpha\n" );
+		//cclog( "nhn server mode is alpha\n" );
 	}
 
 	// 일본 넷마블 전용
@@ -367,7 +367,7 @@ bool MMatchConfig::Create()
 	if( m_bIsUseHShield && m_bIsUseXTrap )
 	{
 		ASSERT( 0 && "hackshield와 x-trap은 같이 사용할 수 없다." );
-		mlog( "server.ini - HackShield and XTrap is duplicated\n" );
+		cclog( "server.ini - HackShield and XTrap is duplicated\n" );
 		return false;
 	}
 

@@ -75,7 +75,7 @@ RCharCloth::~RCharCloth(void)
 	SAFE_DELETE_ARRAY( mpInitNormal );
 	--gRef;
 	if( gRef == 0 ) {
-		mlog("Cloth VertexBuffer is Released\n" );
+		cclog("Cloth VertexBuffer is Released\n" );
 		SAFE_RELEASE( gpClothVertexBuffer );
 	}
 
@@ -133,7 +133,7 @@ bool RCharCloth::initialize( )
 	{
 		if(mBips[i]	== NULL)
 		{
-			mlog("cloth bone %d missing\n",i);
+			cclog("cloth bone %d missing\n",i);
 			RSetError(RERROR_CLOTH_BONE_MISSING);
 			return false;
 		}
@@ -142,7 +142,7 @@ bool RCharCloth::initialize( )
 	// cloth에 피직데이터가 없다는 것은...
 	if (mpMeshNode->m_physique == NULL || mpMeshNode->m_physique_num == 0)
 	{
-		mlog("cloth physique missing\n");
+		cclog("cloth physique missing\n");
 		RSetError(RERROR_CLOTH_PHYSIQUE_MISSING);
 		return false;
 	}
@@ -353,12 +353,12 @@ void RCharCloth::satisfyConstraints()
 			c = m_pConst[j];
 			if( c.refA <0 || c.refA>=m_iCntP )
 			{
-				mlog("RCharCloth_Error:: constraints reference Particle is Out of Range - ref : %d, n_particles : %d, mesh_node : %s, mesh : %s \n", c.refA, j, mpMeshNode->m_Name, mpMesh->GetFileName());
+				cclog("RCharCloth_Error:: constraints reference Particle is Out of Range - ref : %d, n_particles : %d, mesh_node : %s, mesh : %s \n", c.refA, j, mpMeshNode->m_Name, mpMesh->GetFileName());
 				continue;
 			}
 			if( c.refB < 0 || c.refB >= m_iCntP )
 			{
-				mlog("RCharCloth_Error:: constraints reference Particle is Out of Range - ref : %d, n_particles : %d, mesh_node : %s, mesh : %s \n", c.refA, j, mpMeshNode->m_Name, mpMesh->GetFileName());
+				cclog("RCharCloth_Error:: constraints reference Particle is Out of Range - ref : %d, n_particles : %d, mesh_node : %s, mesh : %s \n", c.refA, j, mpMeshNode->m_Name, mpMesh->GetFileName());
 				continue;
 			}
 			x1 = m_pX[c.refA];
@@ -641,7 +641,7 @@ void RCharCloth::render()
 			bHarewareBuffer = false;
 			REL( gpClothVertexBuffer );
 
-			mlog("Fail to lock of Vertex Buffer\n");
+			cclog("Fail to lock of Vertex Buffer\n");
 			goto e2SoftRender;
 		}
 		//memcpy( Buffer, gVertices, sizeof(RVertex) * m_iCntP );
@@ -789,7 +789,7 @@ void RCharCloth::OnRestore()
 	{
 		bHarewareBuffer = false;
 		SAFE_RELEASE( gpClothVertexBuffer );
-		mlog("Fail to Create Cloth Vertex buffer");
+		cclog("Fail to Create Cloth Vertex buffer");
 	}
 	bHarewareBuffer = true;
 }

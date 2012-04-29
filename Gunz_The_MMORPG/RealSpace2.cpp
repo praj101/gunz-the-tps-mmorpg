@@ -105,7 +105,7 @@ bool CreateDirect3D9()
 
 		if (!g_hD3DLibrary)
 		{
-			mlog("Error, could not load d3d9.dll");
+			cclog("Error, could not load d3d9.dll");
 			return false;
 		}
 
@@ -114,7 +114,7 @@ bool CreateDirect3D9()
 
 		if (!d3dCreate)
 		{
-			mlog("Error, could not get proc adress of Direct3DCreate9.");
+			cclog("Error, could not get proc adress of Direct3DCreate9.");
 			return false;
 		}
 
@@ -124,7 +124,7 @@ bool CreateDirect3D9()
 
 		if (!g_pD3D)
 		{
-			mlog("Error initializing D3D.");
+			cclog("Error initializing D3D.");
 			return false;
 		}
 	}
@@ -229,7 +229,7 @@ static void InitDevice()
 */
 	g_nVidioMemory = g_pd3dDevice->GetAvailableTextureMem()/2;
 
-	mlog("Video memory %f \n",g_nVidioMemory / float(1024*1024) );
+	cclog("Video memory %f \n",g_nVidioMemory / float(1024*1024) );
 
 	if( D3DERR_NOTAVAILABLE == g_pd3dDevice->CreateQuery( D3DQUERYTYPE_OCCLUSION, NULL ) )
 		g_bQuery = false;
@@ -287,7 +287,7 @@ bool RInitDisplay(HWND hWnd, const RMODEPARAMS *params)
 	int nRet = _AhnHS_CheckAPIHooked("d3d9.dll", "Direct3DCreate9", szSysDir);
 	if (nRet == HS_ERR_API_IS_HOOKED)
 	{
-		mlog("d3d9.dll Hooking detected. (Error code = %x)\n", nRet);
+		cclog("d3d9.dll Hooking detected. (Error code = %x)\n", nRet);
 		// Direct3D 모듈이 후킹 또는 래퍼에 의해 사용되고 있으므로 게임을 종료하면 됩니다. 
 		return false;
 	}
@@ -309,16 +309,16 @@ bool RInitDisplay(HWND hWnd, const RMODEPARAMS *params)
 //	g_bHardwareTNL = false;
 
 	g_bAvailUserClipPlane = (d3dcaps.MaxUserClipPlanes > 0 )? true : false;
-	if(d3dcaps.RasterCaps & D3DPRASTERCAPS_WFOG) mlog("WFog Enabled Device.\n");
+	if(d3dcaps.RasterCaps & D3DPRASTERCAPS_WFOG) cclog("WFog Enabled Device.\n");
 
 	g_bSupportVS = ( d3dcaps.VertexShaderVersion >= D3DVS_VERSION(1, 1));
 	
-	if(!g_bSupportVS) mlog("Vertex Shader isn't supported\n");
+	if(!g_bSupportVS) cclog("Vertex Shader isn't supported\n");
 	else
 	{
 		if( d3dcaps.MaxVertexShaderConst < 60 )
 		{
-			mlog("Too small Constant Number to use Hardware Skinning so Disable Vertex Shader\n");
+			cclog("Too small Constant Number to use Hardware Skinning so Disable Vertex Shader\n");
 			g_bSupportVS = false;
 		}
 	}
@@ -351,7 +351,7 @@ bool RInitDisplay(HWND hWnd, const RMODEPARAMS *params)
 	else 
 		g_MultiSample = D3DMULTISAMPLE_NONE;
 
-	mlog("sample %d \n", int(g_MultiSample));
+	cclog("sample %d \n", int(g_MultiSample));
 */
 	g_d3dpp.MultiSampleType =  g_MultiSample;
 //	g_d3dpp.MultiSampleType =  D3DMULTISAMPLE_NONE;
@@ -360,12 +360,12 @@ bool RInitDisplay(HWND hWnd, const RMODEPARAMS *params)
 	//if(FAILED(g_pD3D->CheckDeviceFormat(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,D3DFMT_X8R8G8B8,D3DUSAGE_DEPTHSTENCIL,D3DRTYPE_SURFACE,D3DFMT_D24S8)) ||
 	//	FAILED(g_pD3D->CheckDeviceFormat(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,D3DFMT_R5G6B5,D3DUSAGE_DEPTHSTENCIL,D3DRTYPE_SURFACE,D3DFMT_D24S8))) 
 	//{
-	//	mlog("Does not provide D24S8 DepthStencil Buffer Format\n");
+	//	cclog("Does not provide D24S8 DepthStencil Buffer Format\n");
 	//	g_bStencilBuffer = false;
 	//}
 	//else if( FAILED(g_pD3D->CheckDepthStencilMatch(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,g_PixelFormat,g_PixelFormat,D3DFMT_D24S8)))
 	//{
-	//	mlog("D24S8 DepthStencil Buffer Format doesn't match for current display mode\n");
+	//	cclog("D24S8 DepthStencil Buffer Format doesn't match for current display mode\n");
 	//	g_bStencilBuffer = false;
 	//}
 	//if(g_bStencilBuffer)
@@ -383,7 +383,7 @@ bool RInitDisplay(HWND hWnd, const RMODEPARAMS *params)
 	//BehaviorFlags=D3DCREATE_FPU_PRESERVE | D3DCREATE_SOFTWARE_VERTEXPROCESSING;
 
 #ifdef _MT
-//	mlog("multithread.\n");
+//	cclog("multithread.\n");
 
 	// 이 플래그는 device 를 여러 쓰레드에서 쓸때 사용한다. 퍼포먼스 저하가 있다.
 //	BehaviorFlags|=D3DCREATE_MULTITHREADED;
@@ -398,7 +398,7 @@ bool RInitDisplay(HWND hWnd, const RMODEPARAMS *params)
 	if( FAILED( g_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,hWnd,BehaviorFlags,&g_d3dpp,&g_pd3dDevice) ) )
 	{
 		SAFE_RELEASE(g_pD3D);
-		mlog("can't create device\n");
+		cclog("can't create device\n");
 		return false;
 	}
 #else
@@ -420,13 +420,13 @@ bool RInitDisplay(HWND hWnd, const RMODEPARAMS *params)
 	}
 	if( FAILED( g_pD3D->CreateDevice( AdapterToUse, DeviceType, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &g_d3dpp, &g_pd3dDevice ) ) )
 	{    
-		mlog("can't create device\n");
+		cclog("can't create device\n");
 		return false;
 	}
 
 #endif	// #ifndef _NVPERFHUD
 
-	mlog("device created.\n");
+	cclog("device created.\n");
 
 	/*
 	if( FAILED( g_pD3D->GetAdapterDisplayMode( D3DADAPTER_DEFAULT, &g_d3ddm ) ) )
@@ -447,7 +447,7 @@ bool RInitDisplay(HWND hWnd, const RMODEPARAMS *params)
 	if(!RFontCreate())
 	{
 		RCloseDisplay();
-		mlog("can't create font\n");
+		cclog("can't create font\n");
 		return false;
 	}
 
@@ -505,7 +505,7 @@ void RAdjustWindow(const RMODEPARAMS *pModeParams)
 
 void RResetDevice(const RMODEPARAMS *params)
 {
-	mlog("Reset Device \n");
+	cclog("Reset Device \n");
 
 	RFrame_Invalidate();
 	RBaseTexture_Invalidate();
@@ -529,7 +529,7 @@ void RResetDevice(const RMODEPARAMS *params)
 	else 
 		g_MultiSample = D3DMULTISAMPLE_NONE;
 
-	mlog("sample %d \n", int(g_MultiSample));
+	cclog("sample %d \n", int(g_MultiSample));
 */
 	g_d3dpp.MultiSampleType =  g_MultiSample;
 //	g_d3dpp.MultiSampleType =  D3DMULTISAMPLE_NONE;
@@ -537,12 +537,12 @@ void RResetDevice(const RMODEPARAMS *params)
 	//if(FAILED(g_pD3D->CheckDeviceFormat(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,D3DFMT_X8R8G8B8,D3DUSAGE_DEPTHSTENCIL,D3DRTYPE_SURFACE,D3DFMT_D24S8)) ||
 	//	FAILED(g_pD3D->CheckDeviceFormat(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,D3DFMT_R5G6B5,D3DUSAGE_DEPTHSTENCIL,D3DRTYPE_SURFACE,D3DFMT_D24S8))) 
 	//{
-	//	mlog("Reset : Does not provide D24S8 DepthStencil Buffer Format\n");
+	//	cclog("Reset : Does not provide D24S8 DepthStencil Buffer Format\n");
 	//	g_bStencilBuffer = false;
 	//}
 	//else if( FAILED(g_pD3D->CheckDepthStencilMatch(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,g_PixelFormat,g_PixelFormat,D3DFMT_D24S8)))
 	//{
-	//	mlog("Reset :  D24S8 DepthStencil Buffer Format doesn't match for current display mode\n");
+	//	cclog("Reset :  D24S8 DepthStencil Buffer Format doesn't match for current display mode\n");
 	//	g_bStencilBuffer = false;
 	//}
 	//if(g_bStencilBuffer)
@@ -557,7 +557,7 @@ void RResetDevice(const RMODEPARAMS *params)
 	//{		
 	//	g_pd3dDevice->CreateDepthStencilSurface( g_d3dpp.BackBufferWidth, g_d3dpp.BackBufferHeight, g_bStencilBuffer?D3DFMT_D24S8:D3DFMT_D16, 
 	//		D3DMULTISAMPLE_NONE, &pNewDepthStencil);
-	//	//mlog("widht:%d,height:%d,fmt:%s\n", g_d3dpp.BackBufferWidth, g_d3dpp.BackBufferHeight, g_bStencilBuffer?"d24s8":"d16");
+	//	//cclog("widht:%d,height:%d,fmt:%s\n", g_d3dpp.BackBufferWidth, g_d3dpp.BackBufferHeight, g_bStencilBuffer?"d24s8":"d16");
 	//	LPDIRECT3DSURFACE9 pBackBuffer;
 	//	g_pd3dDevice->GetRenderTarget(&pBackBuffer);
 	//	g_pd3dDevice->SetRenderTarget(pBackBuffer, pNewDepthStencil);
@@ -570,7 +570,7 @@ void RResetDevice(const RMODEPARAMS *params)
 	
 	_ASSERT(hr==D3D_OK);
 	if( hr != D3D_OK ) {
-		mlog("device reset failed : %s\n",DXGetErrorString9(hr));
+		cclog("device reset failed : %s\n",DXGetErrorString9(hr));
 		int *a=0;
 		*a = 1;	// 반드시 체크해보자
 	}
@@ -1164,7 +1164,7 @@ void RSetWBuffer(bool bEnable)
 //		if(FAILED( D3DXCreateTexture( RGetDevice(), 1024, 1024, 1, D3DUSAGE_RENDERTARGET, mode.Format, D3DPOOL_DEFAULT, &g_lpTexture))
 //			&& FAILED( D3DXCreateTexture( RGetDevice(), 1024, 1024, 1, D3DUSAGE_DYNAMIC|D3DUSAGE_RENDERTARGET, mode.Format, D3DPOOL_DEFAULT, &g_lpTexture)))
 //		{
-//			mlog("Failed to Create Fixed Resolution Texture...\n");
+//			cclog("Failed to Create Fixed Resolution Texture...\n");
 //		}
 //		else
 //		{

@@ -108,7 +108,7 @@ void MMatchServer::LocateAgentToClient(const MUID& uidPlayer, const MUID& uidAge
 	static int nCount = 0;
 	if( 10 > nCount++ )
 	{
-		mlog( "Locate Agent : Locate Agent(%d%d) to Player %s. IP(%s), Port(%d)\n"
+		cclog( "Locate Agent : Locate Agent(%d%d) to Player %s. IP(%s), Port(%d)\n"
 			, uidAgent.High
 			, uidAgent.Low
 			, szCharName
@@ -229,7 +229,7 @@ void MMatchServer::OnPeerReady(const MUID& uidChar, const MUID& uidPeer)
 	static int nCount = 0;
 	if( 10 > nCount++ )
 	{
-		mlog( "MC_AGENT_PEER_READY OK!!" );
+		cclog( "MC_AGENT_PEER_READY OK!!" );
 	}
 }
 
@@ -263,7 +263,7 @@ void MMatchServer::OnRequestRelayPeer(const MUID& uidChar, const MUID& uidPeer)
 	static int nCount = 0;
 	if( 10 > nCount++ )
 	{
-		mlog( "%s Request relay peer on %s\n", pChar->GetName(), pPeer->GetName());
+		cclog( "%s Request relay peer on %s\n", pChar->GetName(), pPeer->GetName());
 	}
 
 	pChar->SetAgentUID(pAgent->GetUID());

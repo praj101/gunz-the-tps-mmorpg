@@ -72,7 +72,7 @@ public:
 
 		for(;i != e; ++i )
 		{
-			// mlog( "game type : %d.\n", (*i) );
+			// cclog( "game type : %d.\n", (*i) );
 		}
 
 #endif
@@ -125,7 +125,7 @@ public:
 	bool CheckGameType(int nGameTypeID)
 	{
 #ifdef _DEBUG
-		//mlog( "Rule name : %s.\n", m_Name.c_str() );
+		//cclog( "Rule name : %s.\n", m_Name.c_str() );
 #endif
 		return m_GameTypeList.Exist(nGameTypeID);
 	}

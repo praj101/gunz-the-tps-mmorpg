@@ -575,7 +575,7 @@ bool MMatchItemDescMgr::ReadCache()
 	FILE* fp = fopen("zitemxml.cache", "rb");
 	if (fp)
 	{
-		mlog("load zitemxml.cache !\n");
+		cclog("load zitemxml.cache !\n");
 		int num;
 		fread(&num, sizeof(int), 1, fp);
 		for (int i=0; i<num; ++i)
@@ -587,7 +587,7 @@ bool MMatchItemDescMgr::ReadCache()
 		fclose(fp);
 		return true;
 	}
-	mlog("failed to load zitemxml.cache, load zitem.xml\n");
+	cclog("failed to load zitemxml.cache, load zitem.xml\n");
 #endif
 	return false;
 }
@@ -599,7 +599,7 @@ void MMatchItemDescMgr::WriteCache()
 	FILE* fp = fopen("zitemxml.cache", "wb");
 	if (fp)
 	{
-		mlog("dump zitemxml.cache !\n");
+		cclog("dump zitemxml.cache !\n");
 
 		int num = this->size();
 		fwrite(&num, sizeof(int), 1, fp);
@@ -1247,7 +1247,7 @@ MMatchItemDesc* MMatchItem::GetDesc() const
 	{
 		// NHN테스트를 하기 우해서. 
 		// 이 로그는 클라이언트에도 남기때문에 빌드 후 주석 처리함.
-		// mlog( "ItemDesc is null : %d(CIID:%u)\n", m_nItemID, m_nCIID );
+		// cclog( "ItemDesc is null : %d(CIID:%u)\n", m_nItemID, m_nCIID );
 		return NULL;
 	}
 
@@ -1260,7 +1260,7 @@ unsigned long int MMatchItem::GetDescID() const
 	{
 		// NHN테스트를 하기 우해서. 
 		// 이 로그는 클라이언트에도 남기때문에 빌드 후 주석 처리함.
-		// mlog( "ItemDesc is null : %d(CIID:%u)\n", m_nItemID, m_nCIID );
+		// cclog( "ItemDesc is null : %d(CIID:%u)\n", m_nItemID, m_nCIID );
 		return 0;
 	}
 

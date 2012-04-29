@@ -234,7 +234,7 @@ MUIDRefCache::iterator MMatchStage::RemoveObject(const MUID& uid)
 	if (i==m_ObjUIDCaches.end()) 
 	{
 		//MMatchServer::GetInstance()->LOG(MCommandCommunicator::LOG_FILE, "RemoveObject: Cannot Find Object uid");
-		//mlog("RemoveObject: Cannot Find Object uid\n");
+		//cclog("RemoveObject: Cannot Find Object uid\n");
 		//_ASSERT(0);
 		return i;
 	}
@@ -677,7 +677,7 @@ bool MMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 	{
 		MCommand* pCmdNotReady = MMatchServer::GetInstance()->CreateCommand( MC_GAME_START_FAIL, MUID(0, 0) );
 		if( 0 == pCmdNotReady ) {
-			mlog( "MMatchStage::StartGame - 커맨드 생성 실패.\n" );
+			cclog( "MMatchStage::StartGame - 커맨드 생성 실패.\n" );
 			bResult = false;
 		}
 
@@ -997,7 +997,7 @@ void MMatchStage::RequestSpawnWorldItem(MMatchObject* pObj, const int nItemID, c
 		// 이 부분은 급한 문제라 하드 코딩을 했다. 
 		// 후에 따로 관리하는 작업을 해줘야 한다. - by SungE 2007-04-04
 
-		mlog( "Potal hacking detected. AID(%u)\n", pObj->GetAccountInfo()->m_nAID );
+		cclog( "Potal hacking detected. AID(%u)\n", pObj->GetAccountInfo()->m_nAID );
 		
 		return;
 	}
@@ -1535,7 +1535,7 @@ bool MMatchStage::SetMapName( char* pszMapName )
 //#ifndef _DEBUG
 	if( !IsValidMap(pszMapName) )
 	{
-		mlog( "map haking : invlid map name setting." );
+		cclog( "map haking : invlid map name setting." );
 
 		DWORD dwCID = 0;
 		MMatchObject* pObj = GetObj( GetMasterUID() );
@@ -1544,11 +1544,11 @@ bool MMatchStage::SetMapName( char* pszMapName )
 			if( NULL != pObj->GetCharInfo() )
 			{
 				dwCID = pObj->GetCharInfo()->m_nCID;
-				mlog( " CID(%u)", dwCID );
+				cclog( " CID(%u)", dwCID );
 			}
 		}
 
-		mlog(".\n");
+		cclog(".\n");
 		
 		return false;
 	}
@@ -1718,7 +1718,7 @@ void MMatchStage::MakeResourceCRC32Cache( const DWORD dwKey, DWORD& out_crc32, D
 	CRC32Cache.CRC32XOR( dwKey );
 
 #ifdef _DEBUG
-	mlog( "Start ResourceCRC32Cache : %u/%u\n", CRC32Cache.GetCRC32(), CRC32Cache.GetXOR() );
+	cclog( "Start ResourceCRC32Cache : %u/%u\n", CRC32Cache.GetCRC32(), CRC32Cache.GetXOR() );
 #endif
 
 	MakeItemResourceCRC32Cache( CRC32Cache );
@@ -1728,7 +1728,7 @@ void MMatchStage::MakeResourceCRC32Cache( const DWORD dwKey, DWORD& out_crc32, D
 	static DWORD dwOutputCount = 0;
 	if( 10 > (++dwOutputCount) )
 	{
-		mlog( "ResourceCRC32XOR : %u/%u\n", CRC32Cache.GetCRC32(), CRC32Cache.GetXOR() );
+		cclog( "ResourceCRC32XOR : %u/%u\n", CRC32Cache.GetCRC32(), CRC32Cache.GetXOR() );
 	}
 #endif
 
@@ -1805,14 +1805,14 @@ const bool MMatchStage::IsValidResourceCRC32Cache( const MUID& uidPlayer, const 
 	ResourceCRC32CacheMap::iterator itFind = m_ResourceCRC32CacheMap.find( uidPlayer );
 	if( m_ResourceCRC32CacheMap.end() == itFind )
 	{
-		mlog( "Can't find Resource crc.\n" );
+		cclog( "Can't find Resource crc.\n" );
 		return false;
 	}
 
 	if( dwResourceCRC32Cache != itFind->second.dwResourceCRC32Cache ||
 		dwResourceXORCache != itFind->second.dwResourceXORCache)
 	{
-		mlog( "invalid resource crc : s(%u/%u), c(%u/%u).\n"
+		cclog( "invalid resource crc : s(%u/%u), c(%u/%u).\n"
 			, itFind->second.dwResourceCRC32Cache, itFind->second.dwResourceXORCache
 			, dwResourceCRC32Cache, dwResourceXORCache );
 
@@ -1956,7 +1956,7 @@ void MMatchStage::MakeItemResourceCRC32Cache( MMatchCRC32XORCache& CRC32Cache )
 			if( 10 > dwOutputCount )
 			{
 				MMatchItemDesc* pItemDesc = pItem->GetDesc();
-				mlog( "ItemID : %d, CRCCache : %u\n"
+				cclog( "ItemID : %d, CRCCache : %u\n"
 					, pItemDesc->m_nID
 					, CRC32Cache.GetXOR() );
 			}
@@ -1976,7 +1976,7 @@ void MMatchStage::ClearGabageObject()
 		if (!pObj) 
 		{
 			MGetMatchServer()->LogObjectCommandHistory(uidObj);
-			mlog( "WARNING(RouteToBattle) : stage Not Existing Obj(%u:%u)\n", uidObj.High, uidObj.Low);
+			cclog( "WARNING(RouteToBattle) : stage Not Existing Obj(%u:%u)\n", uidObj.High, uidObj.Low);
 			i=RemoveObject(uidObj);	// RAONHAJE : 방에 쓰레기UID 남는것 발견시 로그&청소			
 		}
 	}

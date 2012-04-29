@@ -418,7 +418,7 @@ bool CCZip::ReadFile(int i, void* pBuffer, int nMaxSize)
 
 	if(h.crc32 != crc)
 	{
-		mlog("crc error \n");
+		cclog("crc error \n");
 		return false;
 	}
 #endif
@@ -446,7 +446,7 @@ bool CCZip::UpgradeMrs(char* mrs_name) // Mrs To Mrs2
 	FILE* fp = fopen(mrs_name, "rb+");
 
 	if(fp==NULL) {
-		mlog("%s 파일이 읽기 전용인지 확인하세요!~ \n",mrs_name);
+		cclog("%s 파일이 읽기 전용인지 확인하세요!~ \n",mrs_name);
 		return false;
 	}
 
@@ -568,7 +568,7 @@ bool CCZip::ConvertZip(char* zip_name)
 	FILE* fp = fopen(zip_name, "rb+");
 
 	if(fp==NULL) {
-		mlog("%s  file is read-only check!~ \n",zip_name);
+		cclog("%s  file is read-only check!~ \n",zip_name);
 		return false;
 	}
 
@@ -829,7 +829,7 @@ bool CCZip::RecoveryZip(char* zip_name)
 	FILE* fp = fopen(zip_name, "rb+");
 
 	if(fp==NULL) {
-		mlog("%s file is read-only check!~ \n",zip_name);
+		cclog("%s file is read-only check!~ \n",zip_name);
 		return false;
 	}
 
@@ -904,7 +904,7 @@ void FFileList::UpgradeMrs()
 		pNode = (*node);
 
 		if(CCZip::UpgradeMrs( pNode->m_iame ))
-			mlog(" Upgrade mrs : %s\n",pNode->m_iame);
+			cclog(" Upgrade mrs : %s\n",pNode->m_iame);
 	}
 }
 
@@ -917,7 +917,7 @@ void FFileList::ConvertZip()
 		pNode = (*node);
 
 		if(CCZip::ConvertZip( pNode->m_iame ))
-			mlog("convert zip : %s\n",pNode->m_iame);
+			cclog("convert zip : %s\n",pNode->m_iame);
 	}
 }
 
@@ -977,7 +977,7 @@ void FFileList::ConvertNameMRes2Zip()
 
 		rename( pNode->m_iame, _buf_rename);
 
-		mlog("rename : %s -> %s \n",_buf_rename,pNode->m_iame);
+		cclog("rename : %s -> %s \n",_buf_rename,pNode->m_iame);
 	}
 }
 
@@ -1000,7 +1000,7 @@ void FFileList::ConvertNameZip2MRes()
 
 		rename( pNode->m_iame, _buf_rename);
 
-		mlog("rename : %s -> %s \n",pNode->m_iame,_buf_rename);
+		cclog("rename : %s -> %s \n",pNode->m_iame,_buf_rename);
 	}
 }
 

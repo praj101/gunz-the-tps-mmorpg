@@ -92,13 +92,13 @@ bool MMatchGambleMachine::CreateGambleItemListWithGambleRewardList( vector<MMatc
 	endGI = vGambleItemList.end();
 	endRI = vGambleRewardItemList.end();
 
-	mlog( "Start GambleItem Init.\n" );
+	cclog( "Start GambleItem Init.\n" );
 
 	for( itGI = vGambleItemList.begin(); itGI != endGI; ++itGI )
 	{
 		dwGIID = (*itGI)->GetGambleItemID();
 
-		mlog( "GIID : %u\n", dwGIID );
+		cclog( "GIID : %u\n", dwGIID );
 
 		for( itRI = vGambleRewardItemList.begin(); itRI != endRI; ++itRI )
 		{
@@ -107,7 +107,7 @@ bool MMatchGambleMachine::CreateGambleItemListWithGambleRewardList( vector<MMatc
 				if( !(*itGI)->AddGambleRewardItem((*itRI)) )
 					return false;
 
-				mlog( "  GRIID : M(%u), F(%u), RentHourPeriod(%u), ItemCnt(%u).\n"
+				cclog( "  GRIID : M(%u), F(%u), RentHourPeriod(%u), ItemCnt(%u).\n"
 					, (*itRI)->GetItemIDMale(), (*itRI)->GetItemIDFemale()
 					, (*itRI)->GetRentHourPeriod(), (*itRI)->GetItemCnt() );
 			}
@@ -119,7 +119,7 @@ bool MMatchGambleMachine::CreateGambleItemListWithGambleRewardList( vector<MMatc
 		m_GambleItemVec.push_back( (*itGI) );
 	}
 
-	mlog( "End GambleItem Init.\n" );
+	cclog( "End GambleItem Init.\n" );
 
 	vGambleItemList.clear();
 	vGambleRewardItemList.clear();
@@ -245,22 +245,22 @@ void MMatchGambleMachine::WriteGambleItemInfoToLog() const
 	vector< MMatchGambleItem* >::const_iterator	it			= m_GambleItemVec.begin();
 	const DWORD									dwCurTime	= MGetMatchServer()->GetGlobalClockCount();
 
-	mlog( "\n=== Dump GambleItem Info. ===\n" );
-	mlog( "Gamble item list.\n" );
+	cclog( "\n=== Dump GambleItem Info. ===\n" );
+	cclog( "Gamble item list.\n" );
 	for( ; end != it; ++it )
 	{
 		MMatchGambleItem* pGItem = (*it);
 
-		mlog( "Gamble item. ID(%d), Name(%s), IsTimeover(%d).\n"
+		cclog( "Gamble item. ID(%d), Name(%s), IsTimeover(%d).\n"
 			, pGItem->GetGambleItemID()
 			, pGItem->GetName().c_str()
 			, IsItTimeoverEventGambleItem(pGItem->GetGambleItemID(), dwCurTime) );
 	}
 
-	mlog( "\nSend shop gamble item list.\n" );
+	cclog( "\nSend shop gamble item list.\n" );
 	vector< DWORD > vShopGItemList;
 	GetItemVectorByCheckedItemTime( vShopGItemList, dwCurTime );
-	mlog( "Shop gamble item count : %d\n", int(vShopGItemList.size()) );
+	cclog( "Shop gamble item count : %d\n", int(vShopGItemList.size()) );
 	vector< DWORD >::const_iterator endShop = vShopGItemList.end();
 	vector< DWORD >::const_iterator	itShop	= vShopGItemList.begin();
 	for( ; endShop != itShop; ++itShop )
@@ -269,13 +269,13 @@ void MMatchGambleMachine::WriteGambleItemInfoToLog() const
 		if( NULL == pGItem )
 		{
 			_ASSERT( NULL != pGItem );
-			mlog( "Invalid GItemIndex : %d\n", (*itShop) );
+			cclog( "Invalid GItemIndex : %d\n", (*itShop) );
 			continue;
 		}
 
-		mlog( "Shop gamble item. ID(%d), Name(%s).\n"
+		cclog( "Shop gamble item. ID(%d), Name(%s).\n"
 			, pGItem->GetGambleItemID()
 			, pGItem->GetName().c_str() );
 	}
-	mlog( "=== Completed Dump GambleItem Info. ===\n\n" );
+	cclog( "=== Completed Dump GambleItem Info. ===\n\n" );
 }
