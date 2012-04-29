@@ -7,9 +7,9 @@
 #include "CCMatchObject.h"
 #include "Msg.h"
 #include "CCMatchConfig.h"
-#include "MCommandCommunicator.h"
+#include "CCCommandCommunicator.h"
 #include "CCDebug.h"
-#include "MMatchAuth.h"
+#include "CCMatchAuth.h"
 #include "MAsyncDBJob.h"
 #include "MAsyncDBJob_GetLoginInfo.h"
 #include "MAsyncDBJob_InsertConnLog.h"
@@ -19,7 +19,7 @@
 #include "MMatchPremiumIPCache.h"
 #include "MCommandBuilder.h"
 #include "MMatchStatus.h"
-#include "MMatchLocale.h"
+#include "CCMatchLocale.h"
 
 bool MMatchServer::CheckOnLoginPre(const MUID& CommUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3)
 {

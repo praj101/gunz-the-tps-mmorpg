@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "MServer.h"
-#include "MMatchSchedule.h"
+#include "CCServer.h"
+#include "CCMatchSchedule.h"
 
 MMatchDayOfMonth::MMatchDayOfMonth()
 {

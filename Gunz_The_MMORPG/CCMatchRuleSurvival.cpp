@@ -5,7 +5,7 @@
 #include "MQuestLevelGenerator.h"
 #include "CCBlobArray.h"
 #include "MQuestFormula.h"
-#include "MCommandCommunicator.h"
+#include "CCCommandCommunicator.h"
 #include "MSharedCommandTable.h"
 #include "CCMatchTransDataType.h"
 #include "CCMatchConfig.h"

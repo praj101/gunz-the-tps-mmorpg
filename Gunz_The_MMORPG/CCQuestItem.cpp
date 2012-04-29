@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MQuestItem.h"
 #include "CCZFileSystem.h"
-#include "MMatchDBMgr.h"
+#include "CCMatchDBMgr.h"
 #include "CCMatchConfig.h"
 //#include "CCMatchServer.h"
 #include "MAsyncDBJob.h"

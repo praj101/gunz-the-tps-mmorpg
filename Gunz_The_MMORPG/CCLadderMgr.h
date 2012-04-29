@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CCMatchGlobal.h"
-#include "MLadderGroup.h"
+#include "CCLadderGroup.h"
 #include "CCLadderStatistics.h"
 #include <vector>
 

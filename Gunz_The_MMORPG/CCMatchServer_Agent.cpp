@@ -5,7 +5,7 @@
 #include "CCBlobArray.h"
 #include "MAgentObject.h"
 #include "CCDebug.h"
-#include "MCommandCommunicator.h"
+#include "CCCommandCommunicator.h"
 #include "MCommandBuilder.h"
 
 int MMatchServer::AgentAdd(const MUID& uidComm)

@@ -2,12 +2,12 @@
 #include "CCMatchServer.h"
 #include "CCMatchStage.h"
 #include "MMatchRule.h"
-#include "MMatchRuleQuest.h"
+#include "CCMatchRuleQuest.h"
 #include "CCMatchGameType.h"
 #include "CCMatchConfig.h"
 #include "CCBlobArray.h"
 #include "CCMatchShop.h"
-#include "MAsyncDBJob_BuyQuestItem.h"
+#include "CCAsyncDBJob_BuyQuestItem.h"
 
 void MMatchServer::OnRequestNPCDead(const MUID& uidSender, const MUID& uidKiller, MUID& uidNPC, MVector& pos)
 {

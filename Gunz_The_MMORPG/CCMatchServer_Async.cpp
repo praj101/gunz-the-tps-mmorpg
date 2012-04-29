@@ -8,8 +8,8 @@
 #include "MMatchFormula.h"
 #include "MAsyncDBJob_Event.h"
 #include "MAsyncDBJob_GetAccountItemList.h"
-#include "MAsyncDBJob_BuyQuestItem.h"
-#include "MAsyncDBJob_SurvivalMode.h"				// 2009. 6. 3 - Added By Hong KiJu
+#include "CCAsyncDBJob_BuyQuestItem.h"
+#include "CCAsyncDBJob_SurvivalMode.h"				// 2009. 6. 3 - Added By Hong KiJu
 
 void MMatchServer::PostAsyncJob(MAsyncJob* pJob )
 {

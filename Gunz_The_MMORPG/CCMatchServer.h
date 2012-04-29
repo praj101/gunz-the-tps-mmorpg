@@ -1,8 +1,8 @@
 #pragma once
-#include "MMatchDBMgr.h"
+#include "CCMatchDBMgr.h"
 #include "winsock2.h"
 #include "CCXml.h"
-#include "MServer.h"
+#include "CCServer.h"
 #include "CCMatchObject.h"
 #include "MAgentObject.h"
 #include "MMatchChannel.h"

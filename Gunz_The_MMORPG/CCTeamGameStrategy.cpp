@@ -8,12 +8,12 @@
 #include "CCMatchObject.h"
 #include "CCMatchStage.h"
 #include "CCMatchConfig.h"
-#include "MCommandCommunicator.h"
+#include "CCCommandCommunicator.h"
 #include "CCMatchTransDataType.h"
 #include "CCDebug.h"
 #include "MLadderMgr.h"
-#include "MLadderGroup.h"
-#include "MMatchLocale.h"
+#include "CCLadderGroup.h"
+#include "CCMatchLocale.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 MBaseTeamGameStrategy* MBaseTeamGameStrategy::GetInstance(MMatchServerMode nServerMode)
