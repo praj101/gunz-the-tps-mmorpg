@@ -230,6 +230,58 @@
 				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
+				<File
+					RelativePath=".\CCMatchAdmin.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchChatRoom.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchCheckLookTime.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchNotify.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchPremiumIPCache.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchSchedule.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchShop.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchShutdown.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchStatus.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchTransDataType.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchUtil.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCVoteDiscussImpl.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCVoteMgr.cpp"
+					>
+				</File>
 				<Filter
 					Name="Widgets"
 					>
@@ -1409,6 +1461,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchAdmin.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchAntiHack.cpp"
 			>
 		</File>
@@ -1462,6 +1518,14 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchCharBRInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchChatRoom.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchCheckLookTime.h"
 			>
 		</File>
 		<File
@@ -1557,6 +1621,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchNotify.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchObjCache.cpp"
 			>
 		</File>
@@ -1578,6 +1646,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchObjectCommandHistory.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchPremiumIPCache.h"
 			>
 		</File>
 		<File
@@ -1653,6 +1725,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchSchedule.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchServer.cpp"
 			>
 		</File>
@@ -1721,6 +1797,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchShop.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchShutdown.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchStage.cpp"
 			>
 		</File>
@@ -1730,6 +1814,22 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchStageSetting.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchStatus.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchTransDataType.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchTypes.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchUtil.h"
 			>
 		</File>
 		<File
@@ -1774,6 +1874,14 @@
 		</File>
 		<File
 			RelativePath=".\CCTeamGameStrategy.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCVoteDiscussImpl.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCVoteMgr.h"
 			>
 		</File>
 		<File
