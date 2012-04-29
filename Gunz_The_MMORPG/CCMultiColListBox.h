@@ -42,15 +42,15 @@ class CCMultiColListBox : public CCWidget
 {
 	ListMultiColListItem m_items;
 
-	int				m_iumColumn;		// 컬럼 갯수
-	int				m_desiredNumRow;	// 한번에 보여주고 싶은 행수
+	int				m_iumColumn;		//number of columns
+	int				m_desiredNumRow;	//number of rows you want to show at a time
 	int				m_itemHeight;
 
-	int				m_maxRowCanShow; // 한 화면에 보여질 수 있는 최대 행 수
+	int				m_maxRowCanShow;	//a maximum number of rows that can be seen on the screen
 
 	CCScrollBar*	m_pScrollBar;
 
-	int				m_iOverItem;			// 커서에 의해 가리켜진 아이템
+	int				m_iOverItem;			//cursor to the item pointed to by
 	int				m_iSelItem;
 	bool			m_bDragAndDrop;
 
