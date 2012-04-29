@@ -1232,8 +1232,52 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="NewFilter1"
+				Name="Match Item"
 				>
+				<File
+					RelativePath=".\CCMatchItem.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchItem.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Grid Map"
+				>
+				<File
+					RelativePath=".\CCGridMap.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCGridMap.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Object"
+				>
+				<File
+					RelativePath=".\CCObject.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCObject.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Match Object"
+				>
+				<File
+					RelativePath=".\CCMatchObject.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchObject.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File
@@ -1242,14 +1286,6 @@
 		</File>
 		<File
 			RelativePath=".\CCFormulaTable.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCGridMap.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCGridMap.h"
 			>
 		</File>
 		<File
@@ -1289,31 +1325,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCMatchItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchObject.h"
-			>
-		</File>
-		<File
 			RelativePath=".\CCMatchObjectCharBuffInfo.h"
 			>
 		</File>
 		<File
 			RelativePath=".\CCMatchServer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCObject.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCObject.h"
 			>
 		</File>
 		<File
