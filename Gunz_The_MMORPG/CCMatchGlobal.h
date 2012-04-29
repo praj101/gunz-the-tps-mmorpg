@@ -42,7 +42,7 @@
 
 //#define LIMIT_ACTIONLEAGUE		//Netmarble Action League Dedicated dipain
 //#define LEAK_TEST
-#define CLAN_BATTLE					//dipain Development - Development will disappear at the end of
+#define CLAN_BATTLE					//dipain Development - Development will disappear at the end of 
 
 
 
