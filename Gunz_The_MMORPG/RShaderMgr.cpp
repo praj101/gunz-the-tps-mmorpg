@@ -1,6 +1,6 @@
 #include "stdafx.h"
 //#include "ZConfiguration.h"
-#include <./DirectX/D3D9.h>
+#include "DirectX/D3D9.h"
 #include "RShaderMgr.h"
 #include "RealSpace2.h"
 #include "rMtrl.h"

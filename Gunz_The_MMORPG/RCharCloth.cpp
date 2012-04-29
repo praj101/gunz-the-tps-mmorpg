@@ -7,7 +7,7 @@
 #include "Realspace2.h"
 #include "CCProfiler.h"
 #include "RShaderMgr.h"
-#include "./DirectX/D3D9Types.h"
+#include "DirectX/D3D9Types.h"
 #include "RVisualMesh.h"
 
 #define NUM_SPHERE_BET_BONE		3

@@ -2,7 +2,7 @@
 
 #include <string>
 #include <list>
-#include "./DirectX/d3dx9math.h"
+#include "DirectX/d3dx9math.h"
 #include "RNameSpace.h"
 
 using namespace std;
