@@ -234,6 +234,60 @@
 					RelativePath=".\CCPacket.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\CCMatchChatRoom.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchCheckLookTime.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchNotify.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchPremiumIPCache.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchSchedule.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchShop.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchShutdown.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchStatus.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchTransDataType.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatchUtil.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCMatrix.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCVoteDiscussImpl.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CCVoteMgr.cpp"
+					>
+				</File>
+=======
+>>>>>>> .r152
 				<Filter
 					Name="Widgets"
 					>
@@ -1842,6 +1896,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchWorldItemDesc.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatrix.h"
 			>
 		</File>
 		<File
