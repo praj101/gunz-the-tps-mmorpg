@@ -2,7 +2,7 @@
 #include "CCMatchAdmin.h"
 #include "CCMatchServer.h"
 #include "CCMatchStage.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 #include "MMatchRule.h"
 #include "CCMatchObject.h"
 #include "MMatchObjCache.h"

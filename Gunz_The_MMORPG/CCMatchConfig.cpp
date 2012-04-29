@@ -3,7 +3,7 @@
 #include <windows.h>
 #include "MMatchMap.h"
 #include "MLex.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "MErrorTable.h"
 #include "CCMatchServer.h"
 #include "MInetUtil.h"

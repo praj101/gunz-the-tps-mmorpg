@@ -22,7 +22,7 @@ _USING_NAMESPACE_REALSPACE2
 //#include "MObjectCharacter.h"
 #include "CCMatchObject.h"
 #include "CCMatchStage.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 #include "MMatchMap.h"
 #include "MSafeUDP.h"
 #include "MGameClient.h"

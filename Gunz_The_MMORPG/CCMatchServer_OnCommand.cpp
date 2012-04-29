@@ -6,7 +6,7 @@
 #include "MObject.h"
 #include "CCMatchObject.h"
 #include "MAgentObject.h"
-#include "MMatchNotify.h"
+#include "CCMatchNotify.h"
 #include "Msg.h"
 #include "CCMatchStage.h"
 #include "MCommandCommunicator.h"

@@ -1,5 +1,5 @@
 #pragma once
-#include "MBaseChannelRule.h"
+#include "CCBaseChannelRule.h"
 
 class MMatchChannelRuleMgr : public MChannelRuleMgr
 {

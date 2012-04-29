@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatchNotify.h"
+#include "CCMatchNotify.h"
 #include "CCXml.h"
 #include <crtdbg.h>
 #include <map>

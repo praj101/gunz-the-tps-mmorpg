@@ -1,7 +1,7 @@
 #ifndef _MMATCHRULE_H
 #define _MMATCHRULE_H
 
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 #include "MMatchTransDataType.h"
 #include "CCUID.h"
 #include "MMatchGameType.h"

@@ -10,7 +10,7 @@
 #include "MMatchAuth.h"
 #include "MAsyncDBJob.h"
 #include "RTypes.h"
-#include "MMatchUtil.h"
+#include "CCMatchUtil.h"
 #include "MMatchPremiumIPCache.h"
 #include "MCommandBuilder.h"
 #include "MMatchAntiHack.h"
