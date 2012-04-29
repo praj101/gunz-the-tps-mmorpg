@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatchAccountPenaltyInfo.h"
+#include "CCMatchAccountPenaltyInfo.h"
 
 MMatchAccountPenaltyInfo::MMatchAccountPenaltyInfo(void)
 {

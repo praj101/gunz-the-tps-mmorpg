@@ -23,7 +23,7 @@
 #include "MMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "MVoteDiscussImpl.h"
-#include "MUtil.h"
+#include "CCUtil.h"
 #include "CCMatchGameType.h"
 #include "MMatchRuleBaseQuest.h"
 #include "CCMatchRuleQuest.h"

@@ -22,7 +22,7 @@
 #include "MMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "CCMatchTransDataType.h"
-#include "MUtil.h"
+#include "CCUtil.h"
 
 void CopyChannelPlayerListNodeForTrans(MTD_ChannelPlayerListNode* pDest, CCMatchObject* pSrcObject)
 {

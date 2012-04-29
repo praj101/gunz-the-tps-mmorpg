@@ -22,7 +22,7 @@
 #include "MMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "MAsyncDBJob_WinTheClanGame.h"
-#include "MUtil.h"
+#include "CCUtil.h"
 
 // 클랜 관련 공용 함수 ////////////////////////////////////////////////////////////////////////////
 void CopyClanMemberListNodeForTrans(MTD_ClanMemberListNode* pDest, CCMatchObject* pSrcObject)
