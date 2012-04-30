@@ -198,7 +198,7 @@ public:
 
 	const NHN_SERVERMODE GetNHNServerMode() { return m_NHNServerMode; }
 
-	const bool IsClanServer() { return (MSM_CLAN == m_nServerMode); }
+	const bool IsClanServer() { return (CSM_CLAN == m_nServerMode); }
 
 	const DWORD GetMonitorUDPIP() { return m_dwMonitorUDPIP; }
 	const USHORT GetMonitorUDPPORT()	{ return m_nUDPPort; }
@@ -230,7 +230,7 @@ public:
 
 inline MMatchConfig* MGetServerConfig() { return MMatchConfig::GetInstance(); }
 
-inline bool QuestTestServer() { return (MGetServerConfig()->GetServerMode() == MSM_TEST); }
+inline bool QuestTestServer() { return (MGetServerConfig()->GetServerMode() == CSM_TEST); }
 
 
 #define SERVER_CONFIG_FILENAME			"./server.ini"

@@ -218,7 +218,7 @@ bool ZShopEquipInterface::Equip(void)
 			// 이번에 캐시용 겜블아이템 추가로 수정
 			// 기존 일본 요청으로 퀘스트용 겜블아이템을 추가했었음 (1000100~1000199사이)
 			// 퀘스트용 겜블아이템은 1000100에서 1000200로 제한한다
-			if( ZGetGameClient()->GetServerMode() != MSM_TEST && 1000100 <= pGItemDesc->GetGambleItemID()  && pGItemDesc->GetGambleItemID() < 1000200)
+			if( ZGetGameClient()->GetServerMode() != CSM_TEST && 1000100 <= pGItemDesc->GetGambleItemID()  && pGItemDesc->GetGambleItemID() < 1000200)
 			{
 				ZApplication::GetGameInterface()->ShowErrorMessage( MERR_CANNOT_CAHNGE_THIS_ITEM );
 			}

@@ -475,7 +475,7 @@ void DBQuestCachingData::Reset()
 bool DBQuestCachingData::DoUpdateDBCharQuestItemInfo()
 {
 	// 퀘스트 서버인지 먼저 검사.
-	if( MSM_TEST != MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST != MGetServerConfig()->GetServerMode() ) 
 		return false;
 
 	// 정상적인 Object인지 검사.

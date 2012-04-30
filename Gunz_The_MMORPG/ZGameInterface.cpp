@@ -1893,7 +1893,7 @@ void ZGameInterface::OnLobbyCreate(void)
 
 void ZGameInterface::InitLobbyUIByChannelType()
 {
-	bool bClanBattleUI =  ((ZGetGameClient()->GetServerMode() == MSM_CLAN) && (ZGetGameClient()->GetChannelType()==MCHANNEL_TYPE_CLAN));
+	bool bClanBattleUI =  ((ZGetGameClient()->GetServerMode() == CSM_CLAN) && (ZGetGameClient()->GetChannelType()==MCHANNEL_TYPE_CLAN));
 	bool bDuelTournamentUI = (ZGetGameClient()->GetChannelType() == MCHANNEL_TYPE_DUELTOURNAMENT);
 
 	// 순서가 중요하다.. true인쪽을 나중에 호출해줘야 한다 (추하지만 이제와서 함수 한군데로 합쳐주기도 좀 두려운...)
@@ -4791,7 +4791,7 @@ void ZGameInterface::SerializeStageInterface()
 #ifdef _QUEST
 	ZStageSetting::InitStageSettingGameType();
 
-	if ( ZGetGameClient()->GetServerMode() == MSM_TEST)
+	if ( ZGetGameClient()->GetServerMode() == CSM_TEST)
 	{
 		// 나중에 랜덤맵 구현할때까지 그냥 맵 하나만 사용
 		MComboBox* pCBMapSelection = (MComboBox*)m_IDLResource.FindWidget( "MapSelection");
@@ -5285,7 +5285,7 @@ void ZGameInterface::EnableLobbyInterface(bool bEnable)
 	{
 		MMatchServerMode nCurrentServerMode = ZGetGameClient()->GetServerMode();
 		MCHANNEL_TYPE nCurrentChannelType = ZGetGameClient()->GetChannelType();
-		bool bClanBattleUI = (nCurrentServerMode== MSM_CLAN) && (nCurrentChannelType==MCHANNEL_TYPE_CLAN);
+		bool bClanBattleUI = (nCurrentServerMode== CSM_CLAN) && (nCurrentChannelType==MCHANNEL_TYPE_CLAN);
 		ZGetGameInterface()->InitClanLobbyUI(bClanBattleUI);
 	}
 
@@ -5626,7 +5626,7 @@ void ZGameInterface::InitClanLobbyUI(bool bClanBattleEnable)
 	pWidget= m_IDLResource.FindWidget( "QuickJoin2" );
 	if(pWidget) pWidget->Show(!bClanBattleEnable);
 
-	bool bClanServer = ZGetGameClient()->GetServerMode()==MSM_CLAN;
+	bool bClanServer = ZGetGameClient()->GetServerMode()==CSM_CLAN;
 
 	pWidget= m_IDLResource.FindWidget( "PrivateChannelInput" );
 	if(pWidget) pWidget->Show(bClanServer);
@@ -5822,9 +5822,9 @@ void ZGameInterface::InitLadderUI(bool bLadderEnable)
 	//if(pWidget) pWidget->Enable(!bLadderEnable);
 
 	bool bLadderServer = 
-		ZGetGameClient()->GetServerMode()==MSM_CLAN ||
-		ZGetGameClient()->GetServerMode()==MSM_LADDER ||
-		ZGetGameClient()->GetServerMode()==MSM_EVENT;
+		ZGetGameClient()->GetServerMode()==CSM_CLAN ||
+		ZGetGameClient()->GetServerMode()==CSM_LADDER ||
+		ZGetGameClient()->GetServerMode()==CSM_EVENT;
 
 	pWidget= m_IDLResource.FindWidget( "PrivateChannelInput" );
 	if(pWidget) pWidget->Show(bLadderServer);

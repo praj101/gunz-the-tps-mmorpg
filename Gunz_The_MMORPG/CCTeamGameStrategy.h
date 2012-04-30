@@ -39,7 +39,7 @@ public:
 
 	virtual int GetRandomMap(int nTeamMember) = 0;
 
-	/// 서버모드에 따라 적당한 자식 클래스를 반환한다. MSM_LADDER, MSM_CLAN만 가능
+	/// 서버모드에 따라 적당한 자식 클래스를 반환한다. CSM_LADDER, CSM_CLAN만 가능
 	static MBaseTeamGameStrategy* GetInstance(CCMatchServerMode nServerMode);
 };
 

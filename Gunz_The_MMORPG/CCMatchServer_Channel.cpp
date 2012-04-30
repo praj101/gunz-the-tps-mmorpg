@@ -154,12 +154,12 @@ bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const CCUID& uidChannel)
 		CCMatchObject* pObj = GetObject(uidPlayer);
 		if ( !pObj)	return false;
 
-		if ( MGetServerConfig()->GetServerMode() == MSM_NORMAL)	{ // 일반 서버일때
+		if ( MGetServerConfig()->GetServerMode() == CSM_NORMAL)	{ // 일반 서버일때
 			// 자유/사설/클랜 채널이면 로비 인터페이스를 disable 시킨다.
 			// 그 외에는 티켓 채널이면 티켓 검사만 해준다.
 			if ( stricmp( pChannel->GetRuleName() , MCHANNEL_RULE_NOVICE_STR) == 0) bEnableInterface = false;			
 			else if ( pChannel->IsTicketChannel())									bCheckTicket = true;
-		} else if ( (MGetServerConfig()->GetServerMode() == MSM_CLAN) || (MGetServerConfig()->GetServerMode() == MSM_TEST)) { // 클랜 서버일때
+		} else if ( (MGetServerConfig()->GetServerMode() == CSM_CLAN) || (MGetServerConfig()->GetServerMode() == CSM_TEST)) { // 클랜 서버일때
 			// 클랜/사설 채널이면 티켓 검사한다.
 			// 자유 채널이면 로비 인터페이스를 disable 시킨다.
 			// 그 외에는 티켓 채널이면 티켓 검사만 해준다.

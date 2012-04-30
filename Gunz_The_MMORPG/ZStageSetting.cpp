@@ -551,7 +551,7 @@ void ZStageSetting::InitStageSettingGameType()
 	#ifdef _QUEST // 퀘스트 개발용 디파인
 	{
 		// 테스트 서버는 퀘스트,서바이벌 활성화
-		if ((ZGetGameClient()) && (ZGetGameClient()->GetServerMode() == MSM_TEST)) // server.ini에서 MODE="test"로 세팅으로 추가
+		if ((ZGetGameClient()) && (ZGetGameClient()->GetServerMode() == CSM_TEST)) // server.ini에서 MODE="test"로 세팅으로 추가
 		{
 			pCB->Add(ZGetGameTypeManager()->GetGameTypeStr(MMATCH_GAMETYPE(MMATCH_GAMETYPE_QUEST)));
 			

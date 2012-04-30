@@ -515,7 +515,7 @@ void ZGameClient::OnChannelResponseJoin(const MUID& uidChannel, MCHANNEL_TYPE nC
 
 	switch (GetServerMode())
 	{
-	case MSM_NORMAL:
+	case CSM_NORMAL:
 		{
 //			wsprintf(szText, "레벨제한을 원치 않으시면 자유채널을 이용해 주시기 바랍니다.");
 			wsprintf( szText, 
@@ -523,7 +523,7 @@ void ZGameClient::OnChannelResponseJoin(const MUID& uidChannel, MCHANNEL_TYPE nC
 			ZChatOutput(szText, ZChat::CMT_SYSTEM, ZChat::CL_LOBBY);
 		}
 		break;
-	case MSM_LADDER:
+	case CSM_LADDER:
 		{
 //			wsprintf(szText, "리그게임은 채널에 상관없이 모든사용자들과 겨루게 됩니다.");
 			wsprintf( szText, 
@@ -531,7 +531,7 @@ void ZGameClient::OnChannelResponseJoin(const MUID& uidChannel, MCHANNEL_TYPE nC
 			ZChatOutput(szText, ZChat::CMT_SYSTEM, ZChat::CL_LOBBY);
 		}
 		break;
-	case MSM_CLAN:
+	case CSM_CLAN:
 		{
 			if (nChannelType == MCHANNEL_TYPE_CLAN)
 			{
@@ -2296,7 +2296,7 @@ void ZGameClient::RequestOnGameDestroyed()
 	ZPostRequestMySimpleCharInfo(ZGetGameClient()->GetPlayerUID());
 
 	// 새로 바뀐 클랜 정보도 요청한다.
-	if ((GetServerMode() == MSM_CLAN) && (GetChannelType() == MCHANNEL_TYPE_CLAN))
+	if ((GetServerMode() == CSM_CLAN) && (GetChannelType() == MCHANNEL_TYPE_CLAN))
 	{
 		ZPostRequestClanInfo(GetPlayerUID(), m_szChannel);
 	}
@@ -2449,7 +2449,7 @@ void ZGameClient::ChangeQuestStage()
 {
 	// 퀘스트 서버의 퀘스트 채널이면 셋팅을 퀘스트 모드로 설정 함.
 	if( (0 != ZGetGameClient()) && 
-		(MSM_TEST == ZGetGameClient()->GetServerMode()) &&
+		(CSM_TEST == ZGetGameClient()->GetServerMode()) &&
 		(0 == stricmp(MCHANNEL_RULE_QUEST_STR, ZGetGameClient()->GetChannelRuleName())) &&
 		(!ZGetGameTypeManager()->IsQuestDerived(ZGetGameClient()->GetMatchStageSetting()->GetGameType())) && 
 		//(MMATCH_GAMETYPE_QUEST != ZGetGameClient()->GetMatchStageSetting()->GetGameType()) && 
