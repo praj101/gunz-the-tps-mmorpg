@@ -92,19 +92,19 @@ struct MQuestPlayerInfo
 };
 
 /// 퀘스트룰의 플레이어 오브젝트 관리자
-class MQuestPlayerManager : public map<MUID, MQuestPlayerInfo*>
+class MQuestPlayerManager : public map<CCUID, MQuestPlayerInfo*>
 {
 private:
 	MMatchStage* m_pStage;
-	void AddPlayer(MUID& uidPlayer);
+	void AddPlayer(CCUID& uidPlayer);
 public:
 	MQuestPlayerManager();										///< 생성자
 	~MQuestPlayerManager();										///< 소멸자
 	void Create(MMatchStage* pStage);							///< 초기화
 	void Destroy();												///< 해제
-	void DelPlayer(MUID& uidPlayer);							///< 플레이어 삭제
+	void DelPlayer(CCUID& uidPlayer);							///< 플레이어 삭제
 	void Clear();												///< 초기화
-	MQuestPlayerInfo* GetPlayerInfo(const MUID& uidPlayer);		///< 플레이어 정보 반환
+	MQuestPlayerInfo* GetPlayerInfo(const CCUID& uidPlayer);		///< 플레이어 정보 반환
 };
 
 #endif

@@ -22,9 +22,9 @@ enum NPCOBJECT_FLAG
 class MMatchNPCObject
 {
 private:
-	MUID				m_UID;						///< ID
+	CCUID				m_UID;						///< ID
 	MQUEST_NPC			m_nType;					///< NPC타입
-	MUID				m_uidController;			///< 조종자
+	CCUID				m_uidController;			///< 조종자
 	MVector3			m_Pos;						///< 위치
 	unsigned long int	m_nFlags;					///< 플래그 모음
 	MQuestDropItem		m_DropItem;					///< 가지고 있는 아이템 - 없을 경우 nDropItemType가 QDIT_NA이다.
@@ -34,12 +34,12 @@ public:
 	/// @param uid		NPC UID
 	/// @param nType	NPC 종류
 	/// @param nFlags	플래스
-	MMatchNPCObject(MUID& uid, MQUEST_NPC nType, unsigned long int nFlags=0);
+	MMatchNPCObject(CCUID& uid, MQUEST_NPC nType, unsigned long int nFlags=0);
 	/// 소멸자
 	~MMatchNPCObject() { }
 	/// NPC 조종을 플레이어에게 할당한다.
 	/// @param uidPlayer	할당할 플레이어 UID
-	void AssignControl(MUID& uidPlayer);		
+	void AssignControl(CCUID& uidPlayer);		
 	/// NPC 조종자 해제
 	void ReleaseControl();
 	/// Drop할 아이템을 설정한다.
@@ -47,9 +47,9 @@ public:
 	void SetDropItem(MQuestDropItem* pDropItem);
 
 	// gets
-	MUID GetUID()					{ return m_UID; }				///< NPC UID 반환
+	CCUID GetUID()					{ return m_UID; }				///< NPC UID 반환
 	MQUEST_NPC	GetType()			{ return m_nType; }				///< NPC 종류 반환
-	MUID& GetController()			{ return m_uidController; }		///< NPC 조종자(플레이어) UID 반환
+	CCUID& GetController()			{ return m_uidController; }		///< NPC 조종자(플레이어) UID 반환
 	MQuestDropItem* GetDropItem()	{ return &m_DropItem; }			///< 드롭 아이템 정보 반환
 
 	inline void SetFlag(unsigned int nFlag, bool bValue);			///< 플래그 설정
@@ -60,7 +60,7 @@ public:
 
 };
 
-typedef map<MUID, MMatchNPCObject*>		MMatchNPCObjectMap;
+typedef map<CCUID, MMatchNPCObject*>		MMatchNPCObjectMap;
 
 
 class MQuestPlayerManager;
@@ -76,21 +76,21 @@ private:
 
 	unsigned long int				m_nLastSpawnTime;		// for test
 
-	MUID							m_uidKeyNPC;				// keyNPC
+	CCUID							m_uidKeyNPC;				// keyNPC
 	int								m_nNPCCount[MNST_END];		// 스폰타입별 살아있는 NPC수
 	int								m_nBossCount;				// 살아있는 보스 수
 	bool							m_bBossDie;					// 보스가 모두 죽었는지 확인
 	bool							m_bKeyNPCDie;				// keyNPC가 죽었는지 확인
 
 	// func
-	MUID NewUID();
-	bool AssignControl(MUID& uidNPC, MUID& uidPlayer);
-	bool Spawn(MUID& uidNPC, MUID& uidController, unsigned char nSpawnPositionIndex);
+	CCUID NewUID();
+	bool AssignControl(CCUID& uidNPC, CCUID& uidPlayer);
+	bool Spawn(CCUID& uidNPC, CCUID& uidController, unsigned char nSpawnPositionIndex);
 	void Clear();
-	bool FindSuitableController(MUID& out, MQuestPlayerInfo* pSender);
+	bool FindSuitableController(CCUID& out, MQuestPlayerInfo* pSender);
 
-	void SetNPCObjectToControllerInfo(MUID& uidChar, MMatchNPCObject* pNPCObject);
-	void DelNPCObjectToControllerInfo(MUID& uidChar, MMatchNPCObject* pNPCObject);
+	void SetNPCObjectToControllerInfo(CCUID& uidChar, MMatchNPCObject* pNPCObject);
+	void DelNPCObjectToControllerInfo(CCUID& uidChar, MMatchNPCObject* pNPCObject);
 public:
 	/// 생성자
 	MMatchNPCManager();
@@ -112,17 +112,17 @@ public:
 	/// NPC 오브젝트 해제
 	/// @param uidNPC					NPC UID
 	/// @param outItem					NPC가 드롭하는 아이템 반환값
-	bool DestroyNPCObject(MUID& uidNPC, MQuestDropItem& outItem);
+	bool DestroyNPCObject(CCUID& uidNPC, MQuestDropItem& outItem);
 	/// NPC 오브젝트 반환
 	/// @param uidNPC					NPC UID
-	MMatchNPCObject* GetNPCObject(MUID& uidNPC);
+	MMatchNPCObject* GetNPCObject(CCUID& uidNPC);
 	/// 플레이어가 스테이지에서 나갈때 호출된다.
 	/// @param uidPlayer				플레이어 UID
-	void OnDelPlayer(const MUID& uidPlayer);
+	void OnDelPlayer(const CCUID& uidPlayer);
 	/// 해당 플레이어가 해당 NPC를 조종하고 있는지 체크
 	/// @param uidChar					플레이어 UID
 	/// @param uidNPC					NPC UID
-	bool IsControllersNPC(MUID& uidChar, MUID& uidNPC);
+	bool IsControllersNPC(CCUID& uidChar, CCUID& uidNPC);
 	/// NPC 오브젝트수 반환
 	int GetNPCObjectCount();
 	/// 해당 스폰타입의 NPC 오브젝트수 반환
@@ -136,7 +136,7 @@ public:
 	/// keyNPC관련 변수들 초기화
 	void ClearKeyNPCState();
 
-	void RemovePlayerControl(const MUID& uidPlayer);
+	void RemovePlayerControl(const CCUID& uidPlayer);
 };
 
 
