@@ -66,21 +66,6 @@ bool ZInitialLoading::Initialize( int numScene_,
 	{
 		SetRandomTipsText();
 	}
-
-	// 청소년 자율 규제 적용안(쓰벌쓰벌쓰벌...)...
-#ifdef LOCALE_KOREA
-	if ( (rand() % 2) == 0)
-		sprintf( m_szNotice, "장시간의 게임 이용은 건강을 해칠 수 있습니다.");
-	else
-		sprintf( m_szNotice, "공부와 일에 휴식이 필요하듯이, 게임 이용에도 적절한 휴식이 필요 합니다.");
-	
-	SAFE_DELETE_ARRAY( mBitmap_Grade );
-	mBitmap_Grade			= new MBitmapR2[numScene_];
-	m_Grade_Time 			= timeGetTime();
-	m_bGradeFadeOutStart 	= false;
-	m_bGrade				= true;
-#endif
-
 	m_pLoadingStr = NULL;
 
 	return true;

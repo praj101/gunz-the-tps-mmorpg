@@ -1,16 +1,8 @@
 #include "stdafx.h"
 //#include "../MatchServer/vld/vld.h"
-
-#ifdef _HSHIELD
-#include "HShield/HShield.h"
-#endif
-
-#ifdef _XTRAP
-#include "./XTrap/Xtrap_C_Interface.h"						// update sgk 0702 start
-#include "./XTrap/XTrap4Launcher.h"
-#pragma comment (lib, "./XTrap/XTrap4Launcher_mt.lib")
-#pragma comment (lib, "./XTrap/XTrap4Client_mt.lib")	// update sgk 0702 end
-#endif
+#undef _HSHIELD
+#undef _XTRAP
+#undef _GAMEGUARD
 
 #include "ZPrerequisites.h"
 #include "ZConfiguration.h"
@@ -67,10 +59,6 @@
 #include "SecurityTest.h"
 #include "CheckReturnCallStack.h"
 
-#ifdef _DEBUG
-//jintriple3 메모리 릭 vld
-//#include "vld.h"
-#endif
 
 #ifdef _DEBUG
 RMODEPARAMS	g_ModeParams={640,480,false,D3DFMT_R5G6B5};
@@ -78,20 +66,13 @@ RMODEPARAMS	g_ModeParams={640,480,false,D3DFMT_R5G6B5};
 #else
 RMODEPARAMS	g_ModeParams={800,600,true,D3DFMT_R5G6B5};
 #endif
-
 #ifndef _DEBUG
 #define SUPPORT_EXCEPTIONHANDLING
 #endif
-
-
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA.h"
 #include "ZNHN_USA_Report.h"
 #include "ZNHN_USA_Poll.h"
-#endif
-
-#ifdef _GAMEGUARD
-#include "ZGameguard.h"
 #endif
 
 RRESULT RenderScene(void *pParam);
@@ -104,7 +85,7 @@ MDrawContextR2* g_pDC = NULL;
 MFontR2*		g_pDefFont = NULL;
 ZDirectInput	g_DInput;
 ZInput*			g_pInput = NULL;
-Mint4Gunz		g_Mint;
+Core4Gunz		g_Mint;
 
 HRESULT GetDirectXVersionViaDxDiag( DWORD* pdwDirectXVersionMajor, DWORD* pdwDirectXVersionMinor, TCHAR* pcDirectXVersionLetter );
 
@@ -114,9 +95,6 @@ void zexit(int returnCode)
 	// 그냥 exit()해도 ZGameGuard를 싱글턴으로 만들었기 때문에 소멸자에서 게임가드가 delete되지만 어째서인지 그때 크래시가 일어난다.
 	// exit()하기 전에 게임가드를 수동으로 해제하면 그런 문제가 일어나지 않는다.
 	// 해킹 검출 등의 이유로 클라이언트 종료시 exit하지말고 zexit를 쓰자.
-#ifdef _GAMEGUARD
-	GetZGameguard().Release();
-#endif
 	exit(returnCode);
 }
 
@@ -129,6 +107,11 @@ void CrcFailExitApp() {
 #endif
 }
 
+
+/*
+	_ZChangeGameState(int)
+		- Used ZApplication::GetGameInterface()->SetState(int)
+*/
 void _ZChangeGameState(int nIndex)
 {
 	GunzState state = GunzState(nIndex);
@@ -155,40 +138,11 @@ RRESULT OnCreate(void *pParam)
 	mlog("main : RGetLenzFlare()->Initialize() \n");
 
 	RBspObject::CreateShadeMap("sfx/water_splash.bmp");
-	//D3DCAPS9 caps;
-	//RGetDevice()->GetDeviceCaps( &caps );
-	//if( caps.VertexShaderVersion < D3DVS_VERSION(1, 1) )
-	//{
-	//	RGetShaderMgr()->mbUsingShader				= false;
-	//	RGetShaderMgr()->shader_enabled				= false;
-	//	mlog("main : VideoCard Dosen't support Vertex Shader...\n");
-	//}
-	//else
-	//{
-	//	mlog("main : VideoCard support Vertex Shader...\n");
-	//}
 
 	sprintf( cstrReleaseDate, "Version : %d", ZGetSVNRevision());
 	mlog(cstrReleaseDate); mlog("\n");
 	g_DInput.Create(g_hWnd, FALSE, FALSE);
 	g_pInput = new ZInput(&g_DInput);
-	/*
-	for(int i=0; i<ZApplication::GetFileSystem()->GetFileCount(); i++){
-		const char* szFileName = ZApplication::GetFileSystem()->GetFileName(i);
-		size_t nStrLen = strlen(szFileName);
-		if(nStrLen>3){
-			if(stricmp(szFileName+nStrLen-3, "ttf")==0){
-				int nFileLenth = ZApplication::GetFileSystem()->GetFileLength(i);
-				char* pFileData = new char[nFileLenth];
-				ZApplication::GetFileSystem()->ReadFile(szFileName, pFileData, nFileLenth);
-				int nInstalled = 0;
-				HANDLE hFontMem = AddFontMemResourceEx(pFileData, 1, 0, &nInstalled);
-				g_FontMemHandles.insert(g_FontMemHandles.end(), hFontMem);
-				delete[] pFileData;
-			}
-		}
-	}
-	*/
 	RSetGammaRamp(Z_VIDEO_GAMMA_VALUE);
 	RSetRenderFlags(RRENDER_CLEAR_BACKBUFFER);
 
@@ -212,23 +166,12 @@ RRESULT OnCreate(void *pParam)
 
 	g_pDefFont = new MFontR2;
 
-	if( !g_pDefFont->Create("Default", Z_LOCALE_DEFAULT_FONT, DEFAULT_FONT_HEIGHT, 1.0f) )
-//	if( !g_pDefFont->Create("Default", RGetDevice(), "FONTb11b", 9, 1.0f, true, false) )
-//	if( !g_pDefFont->Create("Default", RGetDevice(), "FONTb11b", 14, 1.0f, true, false) )
-	{
+	if( !g_pDefFont->Create("Default", Z_LOCALE_DEFAULT_FONT, DEFAULT_FONT_HEIGHT, 1.0f) )	{
 		mlog("Fail to Create defualt font : MFontR2 / main.cpp.. onCreate\n" );
 		g_pDefFont->Destroy();
 		SAFE_DELETE( g_pDefFont );
 		g_pDefFont	= NULL;
 	}
-	//pDefFont->Create("Default", RGetDevice(), "FONTb11b", 10, 1.0f, true, false);
-	//pDefFont->Create("Default", RGetDevice(), "FONTb11b", 16, 1.0f, true, false, -1, 4);
-	//pDefFont->Create("Default", RGetDevice(), "-2002", 10, 1.0f, false, false, -1, 1);
-	//pDefFont->Create("Default", RGetDevice(), "HY수평선L", 12, 1.0f, false, false, -1, 2);
-
-	//MLoadDesignerMode();
-	// 기본 800x600 디자인으로 생성하고, 나중에 Resize를 화면 크기로 해준다.
-
 	g_pDC = new MDrawContextR2(RGetDevice());
 
 #ifndef _FASTDEBUG
@@ -252,8 +195,6 @@ RRESULT OnCreate(void *pParam)
 	}
 #endif
 
-//	ZGetInitialLoading()->SetPercentage( 10.0f );
-//	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0 , true );
 
 	g_Mint.Initialize(800, 600, g_pDC, g_pDefFont);
 	Mint::GetInstance()->SetHWND(RealSpace2::g_hWnd);
