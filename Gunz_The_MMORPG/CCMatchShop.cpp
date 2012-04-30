@@ -110,7 +110,7 @@ void CCMatchShop::ParseSellItem(CCXmlElement& element)
 		}
 
 		//MatchItem에서 없을경우 QuestItem에서 다시 한번 검사를 함.
-		MQuestItemDesc* pQuestItemDesc = GetQuestItemDescMgr().FindQItemDesc( nDescID );
+		CCQuestItemDesc* pQuestItemDesc = GetQuestItemDescMgr().FindQItemDesc( nDescID );
 		if( 0 == pQuestItemDesc )
 		{
 			delete pNewItemNode;
@@ -187,7 +187,7 @@ void CCMatchShop::MakeShopXML()
 
 		CCMatchItemDesc* pDesc;
 		const CCMatchGambleItem* pGamble;
-		MQuestItemDesc* pQuest;
+		CCQuestItemDesc* pQuest;
 		if( (pDesc = MGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
 		{
 			int nSex;
@@ -245,7 +245,7 @@ void CCMatchShop::MakeShopXML()
 
 		CCMatchItemDesc* pDesc;
 		const CCMatchGambleItem* pGamble;
-		MQuestItemDesc* pQuest;
+		CCQuestItemDesc* pQuest;
 		if( (pDesc = MGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
 		{			
 			sprintf(szTemp, "INSERT ShopProductCategory(Category_Code, PID, FromDate, EndDate, RegDate, IsOpen) VALUES");
@@ -282,7 +282,7 @@ void CCMatchShop::MakeShopXML()
 
 		CCMatchItemDesc* pDesc;
 		const CCMatchGambleItem* pGamble;
-		MQuestItemDesc* pQuest;
+		CCQuestItemDesc* pQuest;
 		if( (pDesc = MGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
 		{			
 			sprintf(szTemp, "INSERT ShopProductPrice(PID, Sell_Code, Price_Code, DefaultPriceFlag, FromDate, EndDate, Price) VALUES");

@@ -3,8 +3,8 @@
 #include "CCMath.h"
 #include <mmsystem.h>
 #include "CCBlobArray.h"
-#include "MQuestFormula.h"
-#include "MQuestLevelGenerator.h"
+#include "CCQuestFormula.h"
+#include "CCQuestLevelGenerator.h"
 
 
 const int NPC_ASSIGN_DELAY = 5000;
@@ -142,7 +142,7 @@ void CCMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, 
 {
 	if (m_NPCManager.IsControllersNPC(uidSender, uidNPC))
 	{
-		MQuestDropItem DropItem;
+		CCQuestDropItem DropItem;
 		if (m_NPCManager.DestroyNPCObject(uidNPC, DropItem))
 		{
 			MCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_DEAD, uidSender);
@@ -174,7 +174,7 @@ void CCMatchRuleBaseQuest::OnRequestPlayerDead(const CCUID& uidVictim)
 
 }
 
-void CCMatchRuleBaseQuest::CheckRewards(CCUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos)
+void CCMatchRuleBaseQuest::CheckRewards(CCUID& uidPlayer, CCQuestDropItem* pDropItem, MVector& pos)
 {
 	CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject(uidPlayer);
 	if (!pPlayer) return;
@@ -353,13 +353,13 @@ void CCMatchRuleBaseQuest::CheckMonsterBible( const CCUID& uidUser, const int nM
 	cclog( "CCMatchRuleBaseQuest::CheckMonsterBible - New obtain monster info:%d\n", nMonsterBibleIndex );
 
 	// 현재 가지고 있는 몬스터 정보.
-	MQuestMonsterBible qmb = pCharInfo->m_QMonsterBible;
+	CCQuestMonsterBible qmb = pCharInfo->m_QMonsterBible;
 	for( int i = 0; i < MAX_DB_MONSTERBIBLE_SIZE; ++i )
 	{
 		if( 0 == qmb[ i ] )
 			continue;
 
-		MQuestNPCInfo* pNPCInfo = CCMatchServer::GetInstance()->GetQuest()->GetNPCIndexInfo( i );
+		CCQuestNPCInfo* pNPCInfo = CCMatchServer::GetInstance()->GetQuest()->GetNPCIndexInfo( i );
 		ASSERT( 0 != pNPCInfo );
 		cclog( "CCMatchRuleBaseQuest::CheckMonsterBible - Monster name : %s, Bible index : %d\n", pNPCInfo->szName, i );
 	}	
@@ -460,7 +460,7 @@ void InsertNPCIDonUnique( vector<MQUEST_NPC>& outNPCList, MQUEST_NPC nNPCID )
 	}		
 }
 
-void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps )
+void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps )
 {
 	// 해당 시나리오의 Key npc를 우선 등록한다. 보스전에 사용된다.
 	InsertNPCIDonUnique( outNPCList, MQUEST_NPC(ScenarioInfoMaps.nKeyNPCID) );
@@ -473,7 +473,7 @@ void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& Sc
 	}
 }
 
-void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps )
+void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps )
 {
 	// 해당 서바이벌 시나리오의 섹션별 Key npc를 등록한다.
 	const size_t nKeyNPCCount = ScenarioInfoMaps.vecKeyNPCArray.size();
@@ -485,9 +485,9 @@ void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoM
 }
 
 
-void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest ) 
+void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest ) 
 {
-	MQuestNPCSetInfo*	pNPCSetInfo	= NULL;
+	CCQuestNPCSetInfo*	pNPCSetInfo	= NULL;
 	int					nNPCSetID	= 0;
 	const size_t		nNPCSetArrayCount = ScenarioInfoMaps.vecNPCSetArray.size();
 	size_t				nNPCArrayCount = 0;
@@ -516,7 +516,7 @@ void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& S
 }
 
 
-void CopyMTD_NPCINFO( MTD_NPCINFO* pDest, const MQuestNPCInfo* pSource )
+void CopyMTD_NPCINFO( MTD_NPCINFO* pDest, const CCQuestNPCInfo* pSource )
 {
 	pDest->m_nNPCTID			= pSource->nID;
 	pDest->m_nMaxHP				= pSource->nMaxHP;

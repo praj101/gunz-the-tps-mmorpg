@@ -25,7 +25,7 @@
 #include "ZLanguageConf.h"
 */
 
-void ZGameClient::OnDuelTournamentPrepare(MDUELTOURNAMENTTYPE nType, CCUID uidStage, void* pBlobPlayerInfo)
+void ZGameClient::OnDuelTournamentPrepare(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, void* pBlobPlayerInfo)
 {
 	m_uidStage = uidStage;
 
@@ -50,9 +50,9 @@ void ZGameClient::OnDuelTournamentPrepare(MDUELTOURNAMENTTYPE nType, CCUID uidSt
 		char szbuf[32] = {0, };
 		switch(nType)
 		{
-		case MDUELTOURNAMENTTYPE_FINAL:			sprintf(szbuf, "TYPE_FINAL"); break;
-		case MDUELTOURNAMENTTYPE_SEMIFINAL:		sprintf(szbuf, "TYPE_SEMIFINAL"); break;
-		case MDUELTOURNAMENTTYPE_QUATERFINAL:	sprintf(szbuf, "TYPE_QUATERFINAL"); break;
+		case CCDUELTOURNAMENTTYPE_FINAL:			sprintf(szbuf, "TYPE_FINAL"); break;
+		case CCDUELTOURNAMENTTYPE_SEMIFINAL:		sprintf(szbuf, "TYPE_SEMIFINAL"); break;
+		case CCDUELTOURNAMENTTYPE_QUATERFINAL:	sprintf(szbuf, "TYPE_QUATERFINAL"); break;
 		default:								sprintf(szbuf, "TYPE_FAIL"); break;
 		}
 		mlog("[MC_MATCH_DUELTOURNAMENT_PREPARE_MATCH] Type:%s, Count:%d, Player(%d:%d)%s, TP:%d \n", 
@@ -61,7 +61,7 @@ void ZGameClient::OnDuelTournamentPrepare(MDUELTOURNAMENTTYPE nType, CCUID uidSt
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 
-	ZApplication::GetGameInterface()->SetDuelTournamentCharacterList((MDUELTOURNAMENTTYPE)nType, vecDTPlayerInfo);
+	ZApplication::GetGameInterface()->SetDuelTournamentCharacterList((CCDUELTOURNAMENTTYPE)nType, vecDTPlayerInfo);
 }
 
 void ZGameClient::OnDuelTournamentLaunch(const CCUID& uidStage, const char* pszMapName)

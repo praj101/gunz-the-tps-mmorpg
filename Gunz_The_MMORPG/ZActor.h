@@ -51,7 +51,7 @@ struct ZACTOR_BASICINFO {
 	BYTE			anistate;
 };
 
-struct MQuestNPCInfo;
+struct CCQuestNPCInfo;
 
 /// 플레이어가 아닌 오브젝트들의 부모 클래스
 class ZActor : public ZCharacterObject
@@ -68,7 +68,7 @@ protected:
 	float					m_fTC;				// 난이도 조절 계수
 	int						m_nQL;				// 이넘의 QL - 게임정보의 QL과 같다.
 	CCMatchItemDesc			m_ItemDesc;			// npc의 무기(혹은 아이템 디스크립션)
-	MQuestNPCInfo*			m_pNPCInfo;
+	CCQuestNPCInfo*			m_pNPCInfo;
 	ZActorAnimation			m_Animation;		// Animation부분을 관장
 	ZBrain*					m_pBrain;			// AI 부분을 관장
 	ZTaskManager			m_TaskManager;
@@ -175,7 +175,7 @@ public:
 	bool isThinkAble();
 
 	ZBrain* GetBrain()					{ return m_pBrain; }
-	MQuestNPCInfo* GetNPCInfo()			{ return m_pNPCInfo; }
+	CCQuestNPCInfo* GetNPCInfo()			{ return m_pNPCInfo; }
 	ZTaskManager* GetTaskManager()		{ return &m_TaskManager; }
 	
 
@@ -210,7 +210,7 @@ public:
 
 
 
-void SetClientNPCInfoFromServerNPCInfo( MQuestNPCInfo* pClientNPCInfo, const MTD_NPCINFO* pServerNPCInfo );
+void SetClientNPCInfoFromServerNPCInfo( CCQuestNPCInfo* pClientNPCInfo, const MTD_NPCINFO* pServerNPCInfo );
 
 
 

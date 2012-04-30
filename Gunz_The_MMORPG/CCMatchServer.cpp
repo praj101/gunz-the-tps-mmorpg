@@ -28,7 +28,7 @@
 #include "CCMatchSchedule.h"
 #include <winbase.h>
 #include "CCMatchGameType.h"
-#include "MQuestFormula.h"
+#include "CCQuestFormula.h"
 #include "CCQuestItem.h"
 #include "MSacrificeQItemTable.h"
 #include "CCMatchPremiumIPCache.h"
@@ -449,7 +449,7 @@ bool CCMatchServer::LoadInitFile()
 		LOG(LOG_PROG, "Open Formula Table FAILED\n");
 		return false;
 	}
-	if (!MQuestFormula::Create()) 
+	if (!CCQuestFormula::Create()) 
 	{
 		LOG(LOG_PROG, "Open Quest Formula Table FAILED\n");
 		return false;
@@ -3140,7 +3140,7 @@ bool CCMatchServer::CheckItemXML()
 
 			fprintf(fp, "\t<SELL itemid=\"%d\" />\n", id);
 		}
-		for (MQuestItemDescManager::iterator itor = GetQuestItemDescMgr().begin(); itor != GetQuestItemDescMgr().end(); ++itor)
+		for (CCQuestItemDescManager::iterator itor = GetQuestItemDescMgr().begin(); itor != GetQuestItemDescMgr().end(); ++itor)
 		{
 			id = itor->first;
 

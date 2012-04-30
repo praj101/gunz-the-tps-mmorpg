@@ -5,17 +5,17 @@
 
 #include "ZRule.h"
 #include "ZRuleBaseQuest.h"
-#include "MQuestConst.h"
+#include "CCQuestConst.h"
 
 class ZRuleQuest : public ZRuleBaseQuest
 {
 protected:
-	MQuestCombatState		m_nCombatState;
+	CCQuestCombatState		m_nCombatState;
 public:
 	ZRuleQuest(ZMatch* pMatch);
 	virtual ~ZRuleQuest();
 
-	MQuestCombatState GetCombatState() { return m_nCombatState; }
+	CCQuestCombatState GetCombatState() { return m_nCombatState; }
 };
 
 

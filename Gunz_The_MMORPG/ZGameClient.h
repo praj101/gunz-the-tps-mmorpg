@@ -354,7 +354,7 @@ public:
     void GetEncryptMD5HashValue(char* szEncryptMD5Value);							// update sgk 0724
 
 protected:
-	void OnDuelTournamentPrepare(MDUELTOURNAMENTTYPE nType, CCUID uidStage, void* pBlobPlayerInfo);
+	void OnDuelTournamentPrepare(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, void* pBlobPlayerInfo);
 	void OnDuelTournamentLaunch(const CCUID& uidStage, const char* pszMapName);
 
 protected:

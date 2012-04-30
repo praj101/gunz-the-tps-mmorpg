@@ -28,7 +28,7 @@ void ZQuestGameInfo::Init(MTD_QuestGameInfo* pMTDQuestGameInfo)
 
 	for (int i = 0; i < pMTDQuestGameInfo->nMapSectorCount; i++)
 	{
-		MQuestLevelSectorNode node;
+		CCQuestLevelSectorNode node;
 		node.nSectorID = pMTDQuestGameInfo->nMapSectorID[i];
 		node.nNextLinkIndex = pMTDQuestGameInfo->nMapSectorLinkIndex[i];
 		m_MapSectorVector.push_back(node);

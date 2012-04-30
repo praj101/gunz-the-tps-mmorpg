@@ -5,7 +5,7 @@
 #include <stdarg.h>
 #include <windowsx.h>
 #include "MErrorTable.h"
-#include "MCRC32.h"
+#include "CCCRC32.h"
 // #include "MPacketHShieldCrypter.h"
 #include "CCMatchConfig.h"
 

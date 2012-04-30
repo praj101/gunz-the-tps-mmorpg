@@ -1658,7 +1658,7 @@ bool ZSoundEngine::LoadNPCResource(MQUEST_NPC nNPC, ZLoadingProgress* pLoading)
 
 	for (int i = 0; i < NPC_SOUND_END; i++)
 	{
-		MQuestNPCInfo* pNPCInfo = ZGetQuest()->GetNPCCatalogue()->GetInfo(nNPC);
+		CCQuestNPCInfo* pNPCInfo = ZGetQuest()->GetNPCCatalogue()->GetInfo(nNPC);
 		if (pNPCInfo == NULL) return false;
 
 		if (pNPCInfo->szSoundName[i][0] == 0) continue;
@@ -1696,7 +1696,7 @@ void ZSoundEngine::ReleaseNPCResources()
 
 void ZSoundEngine::PlayNPCSound(MQUEST_NPC nNPC, MQUEST_NPC_SOUND nSound, rvector& pos, bool bMyKill)
 {
-	MQuestNPCInfo* pNPCInfo = ZGetQuest()->GetNPCCatalogue()->GetInfo(nNPC);
+	CCQuestNPCInfo* pNPCInfo = ZGetQuest()->GetNPCCatalogue()->GetInfo(nNPC);
 	if (pNPCInfo == NULL) return;
 
 	if (pNPCInfo->szSoundName[nSound][0] != 0)

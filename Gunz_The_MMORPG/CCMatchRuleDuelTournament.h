@@ -11,7 +11,7 @@ using namespace std;
 
 struct MDuelTournamentGameInfo
 {
-	MDUELTOURNAMENTTYPE		nType;
+	CCDUELTOURNAMENTTYPE		nType;
 	int						nGameNumber;
 	char					szTimeStamp[DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1];
 };

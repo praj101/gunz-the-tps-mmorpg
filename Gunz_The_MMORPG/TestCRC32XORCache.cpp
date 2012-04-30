@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MCRC32.h"
+#include "CCCRC32.h"
 #include "CCMatchCRC32XORCache.h"
 #include "TestCRC32XORCache.h"
 #include "CCMatchItem.h"
@@ -134,7 +134,7 @@ const DWORD T_BuildResourceChecksum( const DWORD dwChecksum, BYTE* pBuff, const 
 {
 	_ASSERT( NULL != pBuff );
 
-	const DWORD dwNewChecksum = MCRC32::BuildCRC32( pBuff, nSize );
+	const DWORD dwNewChecksum = CCCRC32::BuildCRC32( pBuff, nSize );
 
 	return dwChecksum ^ (dwNewChecksum >> 2);
 }
@@ -367,7 +367,7 @@ void T_ResourceCRC32MemberFunction()
 	//pItemDesc->m_pMItemName	= NULL;
 	//pItemDesc->m_pEffect	= NULL;
 
-	//const DWORD dw2 = MCRC32::BuildCRC32( (BYTE*)pItemDesc, DWORD(sizeof(CCMatchItemDesc)) );
+	//const DWORD dw2 = CCCRC32::BuildCRC32( (BYTE*)pItemDesc, DWORD(sizeof(CCMatchItemDesc)) );
 
 	//pItemDesc->m_pMItemName	= pItemName;
 	//pItemDesc->m_pEffect	= pErrect;

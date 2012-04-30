@@ -6698,7 +6698,7 @@ void ZGameInterface::MultiplySize( float byIDLWidth, float byIDLHeight, float by
 		m_pConfirmMsgBox->MultiplySize(byIDLWidth, byIDLHeight, byCurrWidth, byCurrHeight);
 }
 
-void ZGameInterface::SetDuelTournamentCharacterList(MDUELTOURNAMENTTYPE nType, const vector<DTPlayerInfo>& vecDTPlayerInfo)
+void ZGameInterface::SetDuelTournamentCharacterList(CCDUELTOURNAMENTTYPE nType, const vector<DTPlayerInfo>& vecDTPlayerInfo)
 {
 	m_eDuelTournamentType = nType;
 

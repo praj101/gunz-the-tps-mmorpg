@@ -53,7 +53,7 @@ ZObject* ZBrain::GetTarget()
 
 float ZBrain::MakePathFindingUpdateTime( char nIntelligence)
 {
-	MQuestNPCGlobalAIValue* pGlobalAIValue = ZGetQuest()->GetNPCCatalogue()->GetGlobalAIValue();
+	CCQuestNPCGlobalAIValue* pGlobalAIValue = ZGetQuest()->GetNPCCatalogue()->GetGlobalAIValue();
 	float fShakingRatio = pGlobalAIValue->m_fPathFinding_ShakingRatio;
 	float fTime = pGlobalAIValue->m_fPathFindingUpdateTime[ nIntelligence - 1];
 	float fExtraValue = fTime * fShakingRatio;
@@ -67,7 +67,7 @@ float ZBrain::MakePathFindingUpdateTime( char nIntelligence)
 
 float ZBrain::MakeAttackUpdateTime( char nAgility)
 {
-	MQuestNPCGlobalAIValue* pGlobalAIValue = ZGetQuest()->GetNPCCatalogue()->GetGlobalAIValue();
+	CCQuestNPCGlobalAIValue* pGlobalAIValue = ZGetQuest()->GetNPCCatalogue()->GetGlobalAIValue();
 	float fShakingRatio = pGlobalAIValue->m_fAttack_ShakingRatio;
 	float fTime = pGlobalAIValue->m_fAttackUpdateTime[ nAgility - 1];
 	float fExtraValue = fTime * fShakingRatio;
@@ -98,7 +98,7 @@ float ZBrain::MakeDefaultAttackCoolTime()
 
 float ZBrain::MakeSpeed( float fSpeed)
 {
-	MQuestNPCGlobalAIValue* pGlobalAIValue = ZGetQuest()->GetNPCCatalogue()->GetGlobalAIValue();
+	CCQuestNPCGlobalAIValue* pGlobalAIValue = ZGetQuest()->GetNPCCatalogue()->GetGlobalAIValue();
 	float fShakingRatio = pGlobalAIValue->m_fSpeed_ShakingRatio;
 	float fExtraValue = fSpeed * fShakingRatio;
 	float fMinSpeed = max( (fSpeed - fExtraValue), 0.0f);

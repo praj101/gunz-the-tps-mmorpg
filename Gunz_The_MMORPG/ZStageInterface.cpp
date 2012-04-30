@@ -1106,7 +1106,7 @@ void ZStageInterface::SerializeSacrificeItemListBox( void)
 		  questitem_itor++)
 	{
 		ZMyQuestItemNode* pItemNode = (*questitem_itor).second;
-		MQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( pItemNode->GetItemID());
+		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( pItemNode->GetItemID());
 		if ( pItemDesc)
 		{
 			int nCount = pItemNode->m_nCount;
@@ -1749,7 +1749,7 @@ bool ZStageInterface::OnResponseDropSacrificeItemOnSlot( const int nResult, cons
 #ifdef _QUEST_ITEM
 	if( MOK == nResult)
 	{
-		MQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID);
+		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID);
 		MBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID, false);
 
 		m_SacrificeItem[ nSlotIndex].SetSacrificeItemSlot( uidRequester, nItemID, pIconBitmap, pItemDesc->m_szQuestItemName, pItemDesc->m_nLevel);
@@ -1865,7 +1865,7 @@ bool ZStageInterface::OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const
 {
 	if ( (uidOwner1 != CCUID(0,0)) && nItemID1)
 	{
-		MQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID1);
+		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID1);
 		MBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID1, false);
 		m_SacrificeItem[ SACRIFICEITEM_SLOT0].SetSacrificeItemSlot( uidOwner1, nItemID1, pIconBitmap, pItemDesc->m_szQuestItemName, pItemDesc->m_nLevel);
 	}
@@ -1874,7 +1874,7 @@ bool ZStageInterface::OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const
 
 	if ( (uidOwner2 != CCUID(0,0)) && nItemID2)
 	{
-		MQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID2);
+		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID2);
 		MBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID2, false);
 		m_SacrificeItem[ SACRIFICEITEM_SLOT1].SetSacrificeItemSlot( uidOwner2, nItemID2, pIconBitmap, pItemDesc->m_szQuestItemName, pItemDesc->m_nLevel);
 	}

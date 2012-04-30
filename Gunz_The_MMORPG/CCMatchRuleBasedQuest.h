@@ -1,7 +1,7 @@
 #pragma once
 #include "CCMatchRule.h"
 #include "CCMatchNPCObject.h"
-#include "MQuestPlayer.h"
+#include "CCQuestPlayer.h"
 #include "CCMatchQuestRound.h"
 
 
@@ -11,7 +11,7 @@ class CCMatchQuestGameLogInfoManager;
 class CCMatchRuleBaseQuest : public CCMatchRule {
 protected:
 	CCMatchNPCManager			m_NPCManager;				///< NPC 관리자
-	MQuestPlayerManager			m_PlayerManager;			///< 플레이어 관리자
+	CCQuestPlayerManager			m_PlayerManager;			///< 플레이어 관리자
 	bool						m_bQuestCompleted;			///< 퀘스트가 끝났는지 여부
 
 	unsigned long int			m_nLastNPCSpawnTime;		// for test
@@ -39,7 +39,7 @@ protected:
 	/// @param uidPlayer	공격자 플레이어 UID
 	/// @param pDropItem	드롭할 아이템
 	/// @param pos			위치
-	void CheckRewards(CCUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos);
+	void CheckRewards(CCUID& uidPlayer, CCQuestDropItem* pDropItem, MVector& pos);
 	bool CheckPlayersAlive();								///< 플레이어가 모두 죽었는지 체크
 	virtual void ProcessNPCSpawn() = 0;						///< NPC 스폰작업
 	virtual bool CheckNPCSpawnEnable() = 0;					///< NPC가 스폰 가능한지 여부
@@ -123,7 +123,7 @@ public:
 
 
 void InsertNPCIDonUnique( vector<MQUEST_NPC>& outNPCList, MQUEST_NPC nNPCID );
-void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps );
-void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps );
-void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest );
-void CopyMTD_NPCINFO( MTD_NPCINFO* pDest, const MQuestNPCInfo* pSource );
+void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps );
+void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps );
+void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest );
+void CopyMTD_NPCINFO( MTD_NPCINFO* pDest, const CCQuestNPCInfo* pSource );

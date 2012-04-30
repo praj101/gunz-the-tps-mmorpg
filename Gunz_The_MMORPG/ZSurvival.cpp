@@ -12,7 +12,7 @@
 #include "ZMapDesc.h"
 
 #include "CCMatchQuestMonsterGroup.h"
-#include "MQuestConst.h"
+#include "CCQuestConst.h"
 
 #include "ZWorldItem.h"
 #include "ZCharacter.h"
@@ -315,7 +315,7 @@ bool ZSurvival::OnNPCSpawn(MCommand* pCommand)
 	ZMapSpawnType nSpawnType = ZMST_NPC_MELEE;
 
 	ZMapSpawnManager* pMSM = ZGetGame()->GetMapDesc()->GetSpawnManager();
-	MQuestNPCInfo* pNPCInfo = GetNPCInfo(NPCType);
+	CCQuestNPCInfo* pNPCInfo = GetNPCInfo(NPCType);
 	if (pNPCInfo == NULL) return false;
 
 	switch (pNPCInfo->GetSpawnType())
@@ -802,7 +802,7 @@ bool ZSurvival::OnQuestCombatState(MCommand* pCommand)
 	char nState;
 	pCommand->GetParameter(&nState,		0, MPT_CHAR);
 
-	MQuestCombatState nCombatState = MQuestCombatState(nState);
+	CCQuestCombatState nCombatState = CCQuestCombatState(nState);
 
 	m_QuestCombatState = nCombatState; // 보관..
 
@@ -1032,7 +1032,7 @@ bool ZSurvival::OnObtainQuestItem(MCommand* pCommand)
 	m_GameInfo.IncreaseObtainQuestItem();
 
 #ifdef _QUEST_ITEM
-	MQuestItemDesc* pQuestItemDesc = GetQuestItemDescMgr().FindQItemDesc((int)nQuestItemID);
+	CCQuestItemDesc* pQuestItemDesc = GetQuestItemDescMgr().FindQItemDesc((int)nQuestItemID);
 	if (pQuestItemDesc)
 	{
 		char szMsg[ 128];
@@ -1330,7 +1330,7 @@ void ZSurvival::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pM
 		// 리스트 박스 업데이트
 		if ( pListBox && (pQuestItemNode->m_nCount > 0))
 		{
-			MQuestItemDesc* pQuestItemDesc = GetQuestItemDescMgr().FindQItemDesc( pQuestItemNode->m_nItemID);
+			CCQuestItemDesc* pQuestItemDesc = GetQuestItemDescMgr().FindQItemDesc( pQuestItemNode->m_nItemID);
 			char szNum[ 10];
 			sprintf( szNum, "%d", pQuestItemNode->m_nCount);
 			char szMsg[ 128];
@@ -1454,7 +1454,7 @@ bool ZSurvival::OnSetMonsterBibleInfo( MCommand* pCmd )
 	CCUID				uid;
 	MCommandParameter*	pParam;
 	void*				pMonBibleInfoBlob;
-	MQuestMonsterBible*	pMonBible;
+	CCQuestMonsterBible*	pMonBible;
 
 	pCmd->GetParameter( &uid, 0, MPT_UID );
 
@@ -1465,7 +1465,7 @@ bool ZSurvival::OnSetMonsterBibleInfo( MCommand* pCmd )
 
 	pParam				= pCmd->GetParameter(1);
 	pMonBibleInfoBlob	= pParam->GetPointer();
-	pMonBible			= reinterpret_cast< MQuestMonsterBible* >( MGetBlobArrayElement(pMonBibleInfoBlob, 0) );
+	pMonBible			= reinterpret_cast< CCQuestMonsterBible* >( MGetBlobArrayElement(pMonBibleInfoBlob, 0) );
 
 	return true;
 }

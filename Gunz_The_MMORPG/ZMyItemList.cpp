@@ -294,7 +294,7 @@ void ZMyItemList::SerializeQItemList()
 	for ( MQUESTITEMNODEMAP::iterator itor = m_QuestItemMap.begin();  itor != m_QuestItemMap.end();  itor++)
 	{
 		ZMyQuestItemNode* pItemNode = (*itor).second;
-		MQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( pItemNode->GetItemID());
+		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( pItemNode->GetItemID());
 		if (!pItemDesc) continue;
 		if ( pItemNode->m_nCount <= 0) continue;
 

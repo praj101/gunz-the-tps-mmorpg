@@ -16,7 +16,7 @@
 
 const DWORD CCMatchMapsWorldItemSpawnInfoSet::GetCRC32()
 {
-	return MCRC32::BuildCRC32( (BYTE*)this, DWORD(sizeof(CCMatchMapsWorldItemSpawnInfoSet)) );
+	return CCCRC32::BuildCRC32( (BYTE*)this, DWORD(sizeof(CCMatchMapsWorldItemSpawnInfoSet)) );
 }
 
 

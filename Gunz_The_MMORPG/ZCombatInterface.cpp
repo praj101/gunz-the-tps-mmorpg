@@ -512,10 +512,10 @@ void MatchOrderRelative(MDrawContext* pDC, float x, float y, float fHalfGrid, in
 	float fLineWidth = 0.032f*MGetWorkspaceWidth();
 	float fLineHeight = 0.038f*MGetWorkspaceHeight();
 
-	MDUELTOURNAMENTTYPE eDTType = ZApplication::GetGameInterface()->GetDuelTournamentType();
+	CCDUELTOURNAMENTTYPE eDTType = ZApplication::GetGameInterface()->GetDuelTournamentType();
 	switch(eDTType)
 	{
-	case MDUELTOURNAMENTTYPE_FINAL:				//< 결승전부터
+	case CCDUELTOURNAMENTTYPE_FINAL:				//< 결승전부터
 		{
 			fLineWidth = 0.145f*MGetWorkspaceWidth();
 			if(nCouple != 1)
@@ -523,13 +523,13 @@ void MatchOrderRelative(MDrawContext* pDC, float x, float y, float fHalfGrid, in
 			return;
 		}
 		break;
-	case MDUELTOURNAMENTTYPE_SEMIFINAL:			//< 4강전부터
+	case CCDUELTOURNAMENTTYPE_SEMIFINAL:			//< 4강전부터
 		{
 			fLineWidth = 0.082f*MGetWorkspaceWidth();
 			fLineHeight = 0.049f*MGetWorkspaceHeight();
 		}
 		break;
-	case MDUELTOURNAMENTTYPE_QUATERFINAL:		//< 8강전부터
+	case CCDUELTOURNAMENTTYPE_QUATERFINAL:		//< 8강전부터
 		{
 			fLineWidth = 0.032f*MGetWorkspaceWidth();
 			fLineHeight = 0.038f*MGetWorkspaceHeight();

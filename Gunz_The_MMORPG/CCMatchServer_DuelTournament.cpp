@@ -11,7 +11,7 @@
 #include "CCMatchServer.h"
 #include "CCMatchDuelTournamentMgr.h"
 
-void CCMatchServer::ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, MDUELTOURNAMENTTYPE nType)
+void CCMatchServer::ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType)
 {
 	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
@@ -42,7 +42,7 @@ void CCMatchServer::ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, MDUELT
 	PostCmdDuelTournamentChallenge(uidPlayer, MOK);
 }
 
-void CCMatchServer::ResponseDuelTournamentCancelChallenge(CCUID &uidPlayer, MDUELTOURNAMENTTYPE nType)
+void CCMatchServer::ResponseDuelTournamentCancelChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType)
 {
 	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
@@ -166,7 +166,7 @@ void CCMatchServer::SendDuelTournamentServiceTimeClose(const CCUID& uidPlayer)
 	Post(pCmd);
 }
 
-void CCMatchServer::LaunchDuelTournamentMatch(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor)
+void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor)
 {
 	if ( MGetServerConfig()->IsEnabledDuelTournament() == false ) return;
 
@@ -278,7 +278,7 @@ void CCMatchServer::LaunchDuelTournamentMatch(MDUELTOURNAMENTTYPE nType, MDuelTo
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sync Request
-bool CCMatchServer::OnSyncRequest_InsertDuelTournamentGameLog(MDUELTOURNAMENTTYPE nDTType, int nMatchFactor, MDuelTournamentPickedGroup *pPickedGroup, int *nOutNumber, char *szOutTimeStamp)
+bool CCMatchServer::OnSyncRequest_InsertDuelTournamentGameLog(CCDUELTOURNAMENTTYPE nDTType, int nMatchFactor, MDuelTournamentPickedGroup *pPickedGroup, int *nOutNumber, char *szOutTimeStamp)
 {
 	int nPlayerCID[8] = {0, };
 
@@ -547,7 +547,7 @@ void CCMatchServer::PostCmdDuelTournamentCancelMatch(CCUID uidPlayer, int nError
 	Post(pCmd);
 }
 
-void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(MDUELTOURNAMENTTYPE nType, CCUID uidStage, MDuelTournamentPickedGroup *pPickedGroup)
+void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, MDuelTournamentPickedGroup *pPickedGroup)
 {
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;

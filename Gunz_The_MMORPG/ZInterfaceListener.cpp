@@ -2240,21 +2240,21 @@ int g_lastPressedDuelTournamentGameBtn = 8;
 // 듀얼 토너먼트 참가 버튼
 BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentGameButtonListener, MBTN_CLK_MSG)
 	ZGetGameInterface()->OnDuelTournamentGameUI(true);
-	ZPostDuelTournamentRequestJoinGame( ZGetMyUID(), MDUELTOURNAMENTTYPE_QUATERFINAL);
+	ZPostDuelTournamentRequestJoinGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_QUATERFINAL);
 	g_lastPressedDuelTournamentGameBtn = 8;
 END_IMPLEMENT_LISTENER();
 
 // 듀얼 토너먼트 참가 테스트용 2인용 버튼
 BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentGame2TestButtonListener, MBTN_CLK_MSG)
 	ZGetGameInterface()->OnDuelTournamentGameUI(true);
-	ZPostDuelTournamentRequestJoinGame( ZGetMyUID(), MDUELTOURNAMENTTYPE_FINAL);
+	ZPostDuelTournamentRequestJoinGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_FINAL);
 	g_lastPressedDuelTournamentGameBtn = 2;
 END_IMPLEMENT_LISTENER();
 
 // 듀얼 토너먼트 참가 테스트용 4인용 버튼
 BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentGame4TestButtonListener, MBTN_CLK_MSG)
 	ZGetGameInterface()->OnDuelTournamentGameUI(true);
-	ZPostDuelTournamentRequestJoinGame( ZGetMyUID(), MDUELTOURNAMENTTYPE_SEMIFINAL);
+	ZPostDuelTournamentRequestJoinGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_SEMIFINAL);
 	g_lastPressedDuelTournamentGameBtn = 4;
 END_IMPLEMENT_LISTENER();
 
@@ -2263,12 +2263,12 @@ BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentWaitCancelButtonListener, MBTN_CLK_MS
 	ZGetGameInterface()->OnDuelTournamentGameUI(false);
 
 #ifdef _PUBLISH
-	ZPostDuelTournamentRequestCancelGame( ZGetMyUID(), MDUELTOURNAMENTTYPE_QUATERFINAL);
+	ZPostDuelTournamentRequestCancelGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_QUATERFINAL);
 #else
 	switch (g_lastPressedDuelTournamentGameBtn) {
-		case 2 : ZPostDuelTournamentRequestCancelGame( ZGetMyUID(), MDUELTOURNAMENTTYPE_FINAL); break;
-		case 4 : ZPostDuelTournamentRequestCancelGame( ZGetMyUID(), MDUELTOURNAMENTTYPE_SEMIFINAL); break;
-		default : ZPostDuelTournamentRequestCancelGame( ZGetMyUID(), MDUELTOURNAMENTTYPE_QUATERFINAL); break;
+		case 2 : ZPostDuelTournamentRequestCancelGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_FINAL); break;
+		case 4 : ZPostDuelTournamentRequestCancelGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_SEMIFINAL); break;
+		default : ZPostDuelTournamentRequestCancelGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_QUATERFINAL); break;
 	}
 #endif
 		

@@ -45,7 +45,7 @@ void ZMyQuestItemMap::Clear()
 }
 
 
-bool ZMyQuestItemMap::CreateQuestItem( const unsigned long int nItemID, const int nCount, MQuestItemDesc* pDesc )
+bool ZMyQuestItemMap::CreateQuestItem( const unsigned long int nItemID, const int nCount, CCQuestItemDesc* pDesc )
 {
 	if( (0 > nCount) || (0 == pDesc) )
 		return false;

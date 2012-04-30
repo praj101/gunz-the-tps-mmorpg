@@ -6,20 +6,20 @@
 #include "MSacrificeQItemTable.h"
 #include "CCQuestItem.h"
 #include "CCMatchQuestGameLog.h"
-#include "MQuestNPCSpawnTrigger.h"
+#include "CCQuestNPCSpawnTrigger.h"
 #include "CCBaseGameType.h"
 
 typedef pair< CCUID, unsigned long int > SacrificeSlot;	// <아이템을 올려놓은 유저의 UID, 올려놓은 아이템의 ItemID.>
 
-class MQuestSacrificeSlot
+class CCQuestSacrificeSlot
 {
 public :
-	MQuestSacrificeSlot() 
+	CCQuestSacrificeSlot() 
 	{
 		Release();
 	}
 
-	~MQuestSacrificeSlot()
+	~CCQuestSacrificeSlot()
 	{
 	}
 
@@ -63,10 +63,10 @@ private :
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class MQuestLevel;
+class CCQuestLevel;
 
 
-class MQuestNPCSpawner
+class CCQuestNPCSpawner
 {
 public:
 
@@ -78,7 +78,7 @@ private:
 	// 타입정의 ---------------------
 
 	/// 대기방에서 필요한 현재 스테이지의 방정보. 게임중에서는 m_pQuestLevel에 진짜값이 저장된다.
-	struct MQuestStageGameInfo
+	struct CCQuestStageGameInfo
 	{
 		int				nQL;
 		int				nPlayerQL;
@@ -99,12 +99,12 @@ private:
 	unsigned long	m_nCombatStartTime;		///< 섹터이동하고서 새로운 전투 시작한 시간
 	unsigned long	m_nQuestCompleteTime;	///< 퀘스트 클리어때 시간
 
-	MQuestSacrificeSlot				m_SacrificeSlot[ MAX_SACRIFICE_SLOT_COUNT ];
+	CCQuestSacrificeSlot				m_SacrificeSlot[ MAX_SACRIFICE_SLOT_COUNT ];
 	//int								m_iScenarioState;
 	int								m_nPlayerCount;
 	CCMatchQuestGameLogInfoManager	m_QuestGameLogInfoMgr;
 
-	MQuestStageGameInfo				m_StageGameInfo;	///< 대기방에서 필요한 현재 스테이지의 방정보
+	CCQuestStageGameInfo				m_StageGameInfo;	///< 대기방에서 필요한 현재 스테이지의 방정보
 
 	// 함수 -------------------------
 	void ClearQuestLevel();
@@ -112,9 +112,9 @@ private:
 	void InitJacoSpawnTrigger();
 	void MakeNPCnSpawn(MQUEST_NPC nNPCID, bool bAddQuestDropItem);
 protected:
-	MQuestLevel*			m_pQuestLevel;			///< 퀘스트 월드 레벨
-	MQuestNPCSpawnTrigger	m_JacoSpawnTrigger;		///< 보스방일 경우 자코 매니져
-	MQuestCombatState		m_nCombatState;			///< 섹터내 전투 상태
+	CCQuestLevel*			m_pQuestLevel;			///< 퀘스트 월드 레벨
+	CCQuestNPCSpawnTrigger	m_JacoSpawnTrigger;		///< 보스방일 경우 자코 매니져
+	CCQuestCombatState		m_nCombatState;			///< 섹터내 전투 상태
 
 	virtual void ProcessNPCSpawn();				///< NPC 스폰작업
 	virtual bool CheckNPCSpawnEnable();			///< NPC가 스폰 가능한지 여부
@@ -152,7 +152,7 @@ protected:
 	/// 다음 섹터로 이동
 	void MoveToNextSector();			
 	/// 섹터 전투 상태 변환
-	void SetCombatState(MQuestCombatState nState);
+	void SetCombatState(CCQuestCombatState nState);
 	/// 다음 섹터로 이동완료되었는지 체크
 	bool CheckReadytoNewSector();
 	/// 섹터 라운드가 끝났는지 체크한다.
@@ -167,18 +167,18 @@ protected:
 	void ProcessCombatPlay();
 
 	/// 해당 전투 상태 처음 시작할때
-	void OnBeginCombatState(MQuestCombatState nState);
+	void OnBeginCombatState(CCQuestCombatState nState);
 	/// 해당 전투 상태 끝났을때
-	void OnEndCombatState(MQuestCombatState nState);
+	void OnEndCombatState(CCQuestCombatState nState);
 
 	///< 게임종료후 보상 분배
 	void MakeRewardList();
 	///< 경험치와 바운티를 배분.
-	void DistributeXPnBP( MQuestPlayerInfo* pPlayerInfo, const int nRewardXP, const int nRewardBP, const int nScenarioQL );	
+	void DistributeXPnBP( CCQuestPlayerInfo* pPlayerInfo, const int nRewardXP, const int nRewardBP, const int nScenarioQL );	
 	///< 퀘스트에서 얻은 퀘스트 아이템 분배.		
-	bool DistributeQItem( MQuestPlayerInfo* pPlayerInfo, void** ppoutSimpleQuestItemBlob);
+	bool DistributeQItem( CCQuestPlayerInfo* pPlayerInfo, void** ppoutSimpleQuestItemBlob);
 	///< 퀘스트에서 얻은 일반 아이템 분배.		
-	bool DistributeZItem( MQuestPlayerInfo* pPlayerInfo, void** ppoutQuestRewardZItemBlob);
+	bool DistributeZItem( CCQuestPlayerInfo* pPlayerInfo, void** ppoutQuestRewardZItemBlob);
 protected:
 	virtual void OnBegin();								///< 전체 게임 시작시 호출
 	virtual void OnEnd();								///< 전체 게임 종료시 호출
@@ -228,7 +228,7 @@ public:
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_QUEST; }
 
 
-	void InsertNoParamQItemToPlayer( CCMatchObject* pPlayer, MQuestItem* pQItem );
+	void InsertNoParamQItemToPlayer( CCMatchObject* pPlayer, CCQuestItem* pQItem );
 	
 	void PostInsertQuestGameLogAsyncJob();
 

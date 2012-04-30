@@ -149,7 +149,7 @@ void ZShop::Serialize()
 			pWrappedItem = pMItem;
 			pWrappedItem->SetHandlePurchase(pHandle);
 		}
-		else if (MQuestItemDesc* pDesc = GetQuestItemDescMgr().FindQItemDesc( m_vShopItem[i]->nItemID))
+		else if (CCQuestItemDesc* pDesc = GetQuestItemDescMgr().FindQItemDesc( m_vShopItem[i]->nItemID))
 		{
 			if (m_ListFilter != zshop_item_filter_all && m_ListFilter != zshop_item_filter_quest) continue;
 

@@ -9,7 +9,7 @@ CCMatchDuelTournamentMgr::CCMatchDuelTournamentMgr()
 , m_nLastTimeCheckedTick(0)
 , m_bIsServiceTime(false)
 {
-	for (int i=0; i<MDUELTOURNAMENTTYPE_MAX; ++i)
+	for (int i=0; i<CCDUELTOURNAMENTTYPE_MAX; ++i)
 		m_DTMatchMakers[i].SetMatchObjectContainer(&m_matchObjectContainer);
 }
 
@@ -49,9 +49,9 @@ void CCMatchDuelTournamentMgr::ClearGroupRanking()
 	ZeroMemory(m_GroupRankingBlob, sizeof(DTRankingInfo) * MAX_DT_GROUP_RANKING_COUNT);
 }
 
-bool CCMatchDuelTournamentMgr::AddPlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
+bool CCMatchDuelTournamentMgr::AddPlayer(CCDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
 {
-	if (0 <= nType && nType < MDUELTOURNAMENTTYPE_MAX)
+	if (0 <= nType && nType < CCDUELTOURNAMENTTYPE_MAX)
 	{
 		CCMatchObjectDuelTournamentCharInfo* pDTCharInfo = m_matchObjectContainer.GetDuelTournamentCharInfo(uidPlayer);
 		if (pDTCharInfo) {
@@ -62,9 +62,9 @@ bool CCMatchDuelTournamentMgr::AddPlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPl
 	return false;
 }
 
-bool CCMatchDuelTournamentMgr::RemovePlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
+bool CCMatchDuelTournamentMgr::RemovePlayer(CCDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
 {
-	if (0 <= nType && nType < MDUELTOURNAMENTTYPE_MAX)
+	if (0 <= nType && nType < CCDUELTOURNAMENTTYPE_MAX)
 	{
 		return m_DTMatchMakers[nType].RemovePlayer(uidPlayer);	
 	}
@@ -99,14 +99,14 @@ void CCMatchDuelTournamentMgr::Tick(unsigned long nCurTick)
 
 		if ( bServiceTime)
 		{ // 플레이 가능시간 ex)0~23이면 24시간 모두 서비스한다.
-			for (int nType=0; nType<MDUELTOURNAMENTTYPE_MAX; ++nType)
+			for (int nType=0; nType<CCDUELTOURNAMENTTYPE_MAX; ++nType)
 			{
-				m_pDTMatchLauncher->LaunchAvailableMatch(MDUELTOURNAMENTTYPE(nType), m_DTMatchMakers[nType], nCurTick);
+				m_pDTMatchLauncher->LaunchAvailableMatch(CCDUELTOURNAMENTTYPE(nType), m_DTMatchMakers[nType], nCurTick);
 			}
 		}
 		else
 		{
-			for (int nType=0; nType<MDUELTOURNAMENTTYPE_MAX; ++nType)
+			for (int nType=0; nType<CCDUELTOURNAMENTTYPE_MAX; ++nType)
 			{
 				m_DTMatchMakers[nType].ServiceTimeClose();
 			}
@@ -131,11 +131,11 @@ void CCMatchDuelTournamentMgr::Tick(unsigned long nCurTick)
 //=======================================================================================================================
 
 
-void MDuelTournamentMatchLauncher::LaunchAvailableMatch( MDUELTOURNAMENTTYPE nType, MDuelTournamentMatchMaker& matchMaker, DWORD nCurTick )
+void MDuelTournamentMatchLauncher::LaunchAvailableMatch( CCDUELTOURNAMENTTYPE nType, MDuelTournamentMatchMaker& matchMaker, DWORD nCurTick )
 {
 	MDuelTournamentPickedGroup vecUidPlayer;
 
-	int nPlayerCount = GetDTPlayerCount(MDUELTOURNAMENTTYPE(nType));
+	int nPlayerCount = GetDTPlayerCount(CCDUELTOURNAMENTTYPE(nType));
 
 	matchMaker.CleanDisabledUid();
 
@@ -151,16 +151,16 @@ void MDuelTournamentMatchLauncher::LaunchAvailableMatch( MDUELTOURNAMENTTYPE nTy
 		if (false == matchMaker.PickGroupForPlayerAndRemove(vecUidPlayer,nPlayerCount, *pDTUser))
 			break;
 
-		LaunchMatchGroups( MDUELTOURNAMENTTYPE(nType), vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR_OVERWAIT);
+		LaunchMatchGroups( CCDUELTOURNAMENTTYPE(nType), vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR_OVERWAIT);
 	}
 
 	// TP가 비슷한 유저들을 매치해준다
 	matchMaker.PickMatchableGroupsAndRemove(vecUidPlayer, nPlayerCount, m_dwAcceptableTpGap);
 	if (!vecUidPlayer.empty())
-		LaunchMatchGroups( MDUELTOURNAMENTTYPE(nType), vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR_TPGAP);
+		LaunchMatchGroups( CCDUELTOURNAMENTTYPE(nType), vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR_TPGAP);
 }
 
-void MDuelTournamentMatchLauncher::LaunchMatchGroups( MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
+void MDuelTournamentMatchLauncher::LaunchMatchGroups( CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
 {
 	MDuelTournamentPickedGroup SmallPickedGroup;
 
@@ -184,7 +184,7 @@ void MDuelTournamentMatchLauncher::LaunchMatchGroups( MDUELTOURNAMENTTYPE nType,
 	}
 }
 
-void MDuelTournamentMatchLauncher::LaunchMatch( MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
+void MDuelTournamentMatchLauncher::LaunchMatch( CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
 {
 	pPickedGroup->Shuffle();
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
