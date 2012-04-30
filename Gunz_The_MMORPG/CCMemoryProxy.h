@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CCMath.h.h"
+#include "CCMath.h"
 #include "CCCRC32.h"
 
 #define MEMBER_SET_CHECKCRC(PROTECTVALUE, MEMBER, NEWVAL) { \

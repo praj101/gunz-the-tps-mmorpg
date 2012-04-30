@@ -1393,6 +1393,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCDatabase.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCDatabase.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCDuelTournamentFormula.cpp"
 			>
 		</File>
