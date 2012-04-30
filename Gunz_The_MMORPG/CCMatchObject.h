@@ -797,7 +797,7 @@ protected:
 
 	void UpdateStageListChecksum(unsigned long nChecksum)	{ m_nStageListChecksum = nChecksum; }
 	unsigned long GetStageListChecksum()					{ return m_nStageListChecksum; }
-	CCMatchObject() : MObject() 
+	CCMatchObject() : CCObject() 
 	{
 	}
 	void DeathCount()				{ m_nDeathCount++; m_nAllRoundDeathCount++; }
