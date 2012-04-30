@@ -15,30 +15,30 @@
 #include "CCMatchStatus.h"
 
 #define _STATUS_DB_START	unsigned long int nStatusStartTime = timeGetTime();
-#define _STATUS_DB_END(nID) MGetServerStatusSingleton()->AddDBQuery(nID, timeGetTime()-nStatusStartTime);
+#define _STATUS_DB_END(nID) CCGetServerStatusSingleton()->AddDBQuery(nID, timeGetTime()-nStatusStartTime);
 
-class MMatchCharInfo;
-class MMatchFriendInfo;
+class CCMatchCharInfo;
+class CCMatchFriendInfo;
 
-struct MMatchAccountInfo;
-struct MTD_CharInfo;
-struct MTD_AccountCharInfo;
-struct MAccountItemNode;
+struct CCMatchAccountInfo;
+struct CCTD_CharInfo;
+struct CCTD_AccountCharInfo;
+struct CCAccountItemNode;
 
-class MMatchGambleItem;
-class MMatchGambleRewardItem;
-class MMatchObjectDuelTournamentCharInfo;
+class CCMatchGambleItem;
+class CCMatchGambleRewardItem;
+class CCMatchObjectDuelTournamentCharInfo;
 
-class MMatchAccountPenaltyInfo;
+class CCMatchAccountPenaltyInfo;
 
-class MMatchDBMgr {
+class CCMatchDBMgr {
 protected:
-	MDatabase	m_DB;
+	CCDatabase	m_DB;
 	CString		m_strDSNConnect;
 
-	MCountryFilterDBMgr m_CountryFilterDBMgr;
+	CCCountryFilterDBMgr m_CountryFilterDBMgr;
 
-	MMatchDBFilter m_DBFilter;
+	CCMatchDBFilter m_DBFilter;
 
 	bool CheckOpen();
 	void Log(const char *pFormat,...);
@@ -47,10 +47,10 @@ protected:
 	void ExceptionHandler(CString strSQL, CDBException* e);
 
 public:
-	MMatchDBMgr();
-	virtual ~MMatchDBMgr();
+	CCMatchDBMgr();
+	virtual ~CCMatchDBMgr();
 
-	MDatabase* GetDatabase()	{ return &m_DB; }
+	CCDatabase* GetDatabase()	{ return &m_DB; }
 
 	CString BuildDSNString(const CString strDSN, const CString strUserName, const CString strPassword);
 	bool Connect();
@@ -103,9 +103,9 @@ public:
 		MTD_AccountCharInfo* poutCharList, 
 		int* noutCharCount);
 	bool GetAccountCharInfo(const int nAID, const int nCharIndex, MTD_CharInfo* poutCharInfo);
-	bool GetAccountInfo(const unsigned long int nAID, MMatchAccountInfo* poutAccountInfo, const int nServerID );
+	bool GetAccountInfo(const unsigned long int nAID, CCMatchAccountInfo* poutAccountInfo, const int nServerID );
 
-	bool GetCharInfoByAID(const int nAID, const int nCharIndex, MMatchCharInfo* poutCharInfo);
+	bool GetCharInfoByAID(const int nAID, const int nCharIndex, CCMatchCharInfo* poutCharInfo);
 	bool GetCharEquipmentInfoByAID(const int nAID, const int nCharIndex, unsigned int nEquipedItemID[MMCIP_END], unsigned int nEquipedItemCIID[MMCIP_END]);
 
 	bool GetCharCID(const TCHAR* pszName, int* poutCID);
@@ -122,7 +122,7 @@ public:
 	bool GetCharItemInfo(MMatchCharInfo* pCharInfo);	// 캐릭터의 모든 아이템을 가져온다
 
 	bool UpdateEquipedItem(const unsigned long nCID, 
-		MMatchCharItemParts parts, 
+		CCMatchCharItemParts parts, 
 		unsigned long int nCIID, 
 		const unsigned long int nItemID);
 	bool ClearAllEquipedItem(const unsigned long nCID);

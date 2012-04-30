@@ -75,7 +75,7 @@ CCCountryFilterDBMgr::CCCountryFilterDBMgr()
 }
 
 
-CCCountryFilterDBMgr::CCCountryFilterDBMgr( MDatabase* pDatabase )
+CCCountryFilterDBMgr::CCCountryFilterDBMgr( CCDatabase* pDatabase )
 {
 	if( 0 != pDatabase )
 		m_pDB = pDatabase;

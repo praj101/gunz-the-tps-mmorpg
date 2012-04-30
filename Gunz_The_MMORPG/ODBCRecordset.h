@@ -332,7 +332,7 @@ class	CODBCRecordset : public CRecordset
 public:
 	// Our constructor uses CRecordset constructor
 	// CODBCRecordset( CDatabase* pDatabase = NULL );
-	CODBCRecordset( MDatabase* pDatabase = NULL );
+	CODBCRecordset( CCDatabase* pDatabase = NULL );
 	virtual	~CODBCRecordset();
 
 	virtual	BOOL	Open( LPCTSTR lpszSQL, 

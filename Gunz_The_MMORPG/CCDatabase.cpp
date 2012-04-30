@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include ".\mdatabase.h"
 
-MDatabase::MDatabase(void) : m_fnLogCallback( 0 )
+CCDatabase::CCDatabase(void) : m_fnLogCallback( 0 )
 {
 	m_strDSNConnect = "";
 
@@ -10,24 +10,24 @@ MDatabase::MDatabase(void) : m_fnLogCallback( 0 )
 	m_dwOptions |= CDatabase::useCursorLib;
 }
 
-MDatabase::~MDatabase(void)
+CCDatabase::~CCDatabase(void)
 {
 }
 
 
-bool MDatabase::CheckOpen()
+bool CCDatabase::CheckOpen()
 {
 	bool ret = true;
 	if (!m_DB.IsOpen())
 	{
 		ret = Connect(m_strDSNConnect);
-		WriteLog( "MDatabase::CheckOpen - Reconnect database\n" );
+		WriteLog( "CCDatabase::CheckOpen - Reconnect database\n" );
 	}
 
 	return ret;
 }
 
-CString MDatabase::BuildDSNString(const CString strDSN, const CString strUserName, const CString strPassword)
+CString CCDatabase::BuildDSNString(const CString strDSN, const CString strUserName, const CString strPassword)
 {
 	CString strDSNConnect =  _T("DSN=") + strDSN
 					+ _T(";UID=") + strUserName
@@ -35,7 +35,7 @@ CString MDatabase::BuildDSNString(const CString strDSN, const CString strUserNam
 	return strDSNConnect;
 }
 
-bool MDatabase::Connect(CString strDSNConnect)
+bool CCDatabase::Connect(CString strDSNConnect)
 {
 	if (m_DB.m_hdbc && m_DB.IsOpen()) m_DB.Close();
 
@@ -47,7 +47,7 @@ bool MDatabase::Connect(CString strDSNConnect)
 			bRet = m_DB.Open(NULL);
 		} catch(CDBException* e) {
 			char szLog[ 256 ] = {0,};
-			_snprintf( szLog, 255, "MDatabase::Connect - %s\n", e->m_strError );
+			_snprintf( szLog, 255, "CCDatabase::Connect - %s\n", e->m_strError );
 			WriteLog( szLog );
 		}
 	} else {
@@ -55,7 +55,7 @@ bool MDatabase::Connect(CString strDSNConnect)
 			bRet = m_DB.OpenEx( strDSNConnect, m_dwOptions );
 		} catch(CDBException* e) {
 			char szLog[ 256 ] = {0,};
-			_snprintf( szLog, 255, "MDatabase::Connect - %s\n", e->m_strError );
+			_snprintf( szLog, 255, "CCDatabase::Connect - %s\n", e->m_strError );
 			WriteLog( szLog );
 		}
 	}
@@ -70,20 +70,20 @@ bool MDatabase::Connect(CString strDSNConnect)
 	}
 }
 
-void MDatabase::Disconnect()
+void CCDatabase::Disconnect()
 {
 	if (m_DB.IsOpen())
 		m_DB.Close();
 }
 
 
-BOOL MDatabase::IsOpen() const
+BOOL CCDatabase::IsOpen() const
 {
 	return m_DB.IsOpen();
 }
 
 
-void MDatabase::ExecuteSQL( LPCTSTR lpszSQL )
+void CCDatabase::ExecuteSQL( LPCTSTR lpszSQL )
 {
 	try
 	{
@@ -96,7 +96,7 @@ void MDatabase::ExecuteSQL( LPCTSTR lpszSQL )
 }
 
 
-void MDatabase::WriteLog( const string& strLog )
+void CCDatabase::WriteLog( const string& strLog )
 {
 	if( 0 != m_fnLogCallback  )
 	{
