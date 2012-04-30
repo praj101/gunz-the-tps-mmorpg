@@ -12,7 +12,7 @@
 #include <algorithm>
 using namespace std;
 
-class MZFileSystem;
+class CCZFileSystem;
 class MMatchCRC32XORCache;
 
 
@@ -437,7 +437,7 @@ public:
 	MMatchItemEffectDescMgr();
 	virtual ~MMatchItemEffectDescMgr();
 	bool ReadXml(const char* szFileName);
-	bool ReadXml(MZFileSystem* pFileSystem, const char* szFileName);
+	bool ReadXml(CCZFileSystem* pFileSystem, const char* szFileName);
 	void Clear();
 	MMatchItemEffectDesc* GetEffectDesc(int nID);
 	static MMatchItemEffectDescMgr* GetInstance();
@@ -458,7 +458,7 @@ public:
 	MMatchItemDescMgr();
 	virtual ~MMatchItemDescMgr();
 	bool ReadXml(const char* szFileName);
-	bool ReadXml(MZFileSystem* pFileSystem, const char* szFileName);
+	bool ReadXml(CCZFileSystem* pFileSystem, const char* szFileName);
 	void Clear();
 	MMatchItemDesc* GetItemDesc(unsigned long int nID);
 	static MMatchItemDescMgr* GetInstance();

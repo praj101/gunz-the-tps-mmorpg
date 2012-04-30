@@ -2,7 +2,7 @@
 
 #include "ZApplication.h"
 #include "ZEffectBillboard.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "RTypes.h"
 
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)

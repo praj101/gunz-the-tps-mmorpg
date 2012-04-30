@@ -32,7 +32,7 @@ MBaseStringResManager::~MBaseStringResManager()
 	
 }
 
-bool MBaseStringResManager::Init(const char* szPath, const int nLangID, MZFileSystem* pfs )
+bool MBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFileSystem* pfs )
 {
 	m_strPath = szPath;	
 	m_pFS = pfs;

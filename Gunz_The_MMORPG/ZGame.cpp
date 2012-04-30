@@ -4,7 +4,7 @@
 #include <windows.h> 
 //#include <zmouse.h>
 
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "RealSpace2.h"
 #include "FileInfo.h"
 #include "MDebug.h"
@@ -394,7 +394,7 @@ ZGame::~ZGame()
 	RSnowParticle::Release();
 }
 
-bool ZGame::Create(MZFileSystem *pfs, ZLoadingProgress *pLoading )
+bool ZGame::Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading )
 {
 	// 클랜전에서는 stagestate 가 없어서 CastStageBridgePeer 를 안해서 여기서호출
 	mlog("CastStageBridgePeer 호출 in Zgame::Create\n");

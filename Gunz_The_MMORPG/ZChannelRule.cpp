@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MXml.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "ZChannelRule.h"
 #include "ZApplication.h"
 #include "ZGameClient.h"

@@ -177,7 +177,7 @@ bool MQuestItemDescManager ::ReadXml( const char* szFileName )
 }
 
 
-bool MQuestItemDescManager ::ReadXml( MZFileSystem* pFileSystem, const char* szFileName )
+bool MQuestItemDescManager ::ReadXml( CCZFileSystem* pFileSystem, const char* szFileName )
 {
 	if( (0== pFileSystem) || (0 == szFileName) )
 		return false;
@@ -187,7 +187,7 @@ bool MQuestItemDescManager ::ReadXml( MZFileSystem* pFileSystem, const char* szF
 
 	//	<-----------------
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	if(pFileSystem) 
 	{

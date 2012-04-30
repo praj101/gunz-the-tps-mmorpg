@@ -2,7 +2,7 @@
 
 #include "ZApplication.h"
 #include "MXML.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "RealSpace2.h"
 #include "ZWorldItem.h"
 #include "ZCharacter.h"

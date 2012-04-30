@@ -192,9 +192,9 @@ void ZLocale::RouteToWebsite()
 void ZLocale::PostLoginViaHomepage(MUID* pAllocUID)
 {
 //	unsigned long nChecksum = MGetMatchItemDescMgr()->GetChecksum();
-//	unsigned long nChecksum = ZGetMZFileChecksum(FILENAME_ZITEM_DESC);
+//	unsigned long nChecksum = ZGetCCZFileChecksum(FILENAME_ZITEM_DESC);
 //	unsigned long nChecksum = MGetMatchItemDescMgr()->GetChecksum();
-//	unsigned long nChecksum = ZGetMZFileChecksum(FILENAME_ZITEM_DESC);
+//	unsigned long nChecksum = ZGetCCZFileChecksum(FILENAME_ZITEM_DESC);
 	unsigned long nChecksum = ZGetApplication()->GetFileListCRC();
 	nChecksum = nChecksum ^ (*pAllocUID).High ^ (*pAllocUID).Low;
 

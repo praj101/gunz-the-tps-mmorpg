@@ -72,12 +72,12 @@ bool MMapDesc::Initialize(const char* szFileName)
 
 
 
-bool MMapDesc::Initialize(MZFileSystem* pFileSystem, const char* szFileName)
+bool MMapDesc::Initialize(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 	MXmlDocument	xmlIniData;	
 	xmlIniData.Create();
 
-	MZFile mzf;
+	CCZFile mzf;
 
 	if(pFileSystem) 
 	{

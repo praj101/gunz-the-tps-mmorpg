@@ -1,7 +1,7 @@
 #ifndef _ZAPPLICATION_H
 #define _ZAPPLICATION_H
 
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 //#include "ZGameInterface.h"
 #include "ZSoundEngine.h"
 #include "ZDirectInput.h"
@@ -71,7 +71,7 @@ private:
 	void ParseStandAloneArguments(char* pszArgs);
 protected:
 	static ZApplication*	m_pInstance;	///< Singleton Instance
-	static MZFileSystem		m_FileSystem;
+	static CCZFileSystem		m_FileSystem;
 	static ZSoundEngine		m_SoundEngine;
 	static RMeshMgr			m_NPCMeshMgr;
 	static RMeshMgr			m_MeshMgr;
@@ -84,7 +84,7 @@ protected:
 	static RAniEventMgr		m_AniEventMgr;
 
 	ZWorldManager			m_WorldManager;
-	MZFileCheckList			m_fileCheckList;
+	CCZFileCheckList			m_fileCheckList;
 #ifdef _ZPROFILER
 	ZProfiler				*m_pProfiler;
 #endif
@@ -120,7 +120,7 @@ public:
 	__forceinline static ZStageInterface*	GetStageInterface(void);
 	__forceinline static ZOptionInterface*	GetOptionInterface(void);
 	/// Singleton Zip File System
-	__forceinline static MZFileSystem*		GetFileSystem(void);
+	__forceinline static CCZFileSystem*		GetFileSystem(void);
 	/// Singleton ZGameClient
 	__forceinline static ZTimer*			GetTimer(void);
 	static ZSoundEngine*		GetSoundEngine(void);
@@ -169,7 +169,7 @@ __forceinline ZOptionInterface* ZApplication::GetOptionInterface(void)
 	if(pApp==NULL) return NULL;
 	return pApp->m_pOptionInterface;
 }
-__forceinline MZFileSystem* ZApplication::GetFileSystem(void)
+__forceinline CCZFileSystem* ZApplication::GetFileSystem(void)
 {
 	return &m_FileSystem;
 }

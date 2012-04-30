@@ -25,7 +25,7 @@
 #define EMBLEM_FOLDER		"/Emblem"
 
 
-class MZFileSystem;
+class CCZFileSystem;
 class MMessenger;
 
 class ZApplication;

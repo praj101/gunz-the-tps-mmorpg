@@ -2044,7 +2044,7 @@ bool ZStageInterface::ReadSenarioNameXML( void)
 	xmlQuestItemDesc.Create();
 
 	char			*buffer;
-	MZFile			mzFile;
+	CCZFile			mzFile;
 
 	string strFileScenario("System/scenario.xml");
 #ifndef _DEBUG

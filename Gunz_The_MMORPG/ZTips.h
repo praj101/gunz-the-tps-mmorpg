@@ -1,7 +1,7 @@
 #ifndef _ZTIPS_H
 #define _ZTIPS_H
 
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include <string>
 #include <vector>
 #include <list>
@@ -43,7 +43,7 @@ private:
 public:
 	ZTips();
 	~ZTips() { }
-	bool Initialize(MZFileSystem *pfs, const MLanguage LangID );
+	bool Initialize(CCZFileSystem *pfs, const MLanguage LangID );
 	void Finalize();
 	const char* GetRandomTips();
 	const char* GetTips(ZTIPS_CATEGORY nCategory, int nID=-1);

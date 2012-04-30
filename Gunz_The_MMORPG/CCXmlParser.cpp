@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MXmlParser.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "MXml.h"
 
 
@@ -37,14 +37,14 @@ bool MXmlParser::ReadXml(const char* szFileName)
 	return true;
 }
 
-bool MXmlParser::ReadXml(MZFileSystem* pFileSystem, const char* szFileName)
+bool MXmlParser::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 
 	MXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	if(pFileSystem) {
 		if(!mzf.Open(szFileName,pFileSystem))  {

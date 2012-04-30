@@ -9,7 +9,7 @@ using namespace std;
 #include "MXml.h"
 #include "MMatchStage.h"
 #include "RTypes.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 
 enum ZMapSpawnType
 {

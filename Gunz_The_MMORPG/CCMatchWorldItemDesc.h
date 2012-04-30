@@ -31,7 +31,7 @@ struct MMatchWorldItemDesc
 };
 
 class MMatchWorldItemDescMgr;
-class MZFileSystem;
+class CCZFileSystem;
 
 
 /// 월드 아이템 타입 목록
@@ -44,7 +44,7 @@ public:
 	MMatchWorldItemDescMgr();
 	virtual ~MMatchWorldItemDescMgr();
 	bool ReadXml(const char* szFileName);
-	bool ReadXml(MZFileSystem* pFileSystem, const char* szFileName);
+	bool ReadXml(CCZFileSystem* pFileSystem, const char* szFileName);
 	void Clear();
 	MMatchWorldItemDesc* GetItemDesc(short nID);
 	static MMatchWorldItemDescMgr* GetInstance();

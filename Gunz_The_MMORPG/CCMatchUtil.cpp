@@ -26,9 +26,9 @@ unsigned long MGetMemoryChecksum(char *pBuffer, int nLen)
 	return nChecksum;
 }
 
-unsigned long MGetMZFileChecksum(const char* pszFileName) 
+unsigned long MGetCCZFileChecksum(const char* pszFileName) 
 {
-	MZFile mzf;
+	CCZFile mzf;
 	if(!mzf.Open(pszFileName)) 
 		return 0;
 

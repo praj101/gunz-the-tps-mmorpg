@@ -108,11 +108,11 @@ bool ZSoundFMod::Create( HWND hwnd, FSOUND_OUTPUTTYPES type, int maxrate, int mi
 
 FSOUND_SAMPLE* ZSoundFMod::LoadWave( char* szSoundFileName, int Flag )
 {
-	MZFile	mzf;
+	CCZFile	mzf;
 	int		SoundFileLength = 0;
 	char	*Buffer;
 
-	MZFileSystem* pFileSystem = ZApplication::GetFileSystem();
+	CCZFileSystem* pFileSystem = ZApplication::GetFileSystem();
 
 	if( pFileSystem ) 
 	{

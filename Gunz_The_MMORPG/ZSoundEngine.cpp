@@ -54,7 +54,7 @@ bool ZSoundEngine::LoadResource(char* pFileName)
 {
 	MXmlDocument Data;
 
-	MZFile mzf;
+	CCZFile mzf;
 	if(!mzf.Open(pFileName, m_pZFileSystem)) return false;
 
 	char *buffer;
@@ -626,7 +626,7 @@ bool ZSoundEngine::SetSamplingBits( bool b8Bits )
 	return Reload();
 }
 
-bool ZSoundEngine::OpenMusic(const char* szFileName, MZFileSystem* pfs)
+bool ZSoundEngine::OpenMusic(const char* szFileName, CCZFileSystem* pfs)
 {
 	if( !m_bSoundEnable ) return false;
 
@@ -635,7 +635,7 @@ bool ZSoundEngine::OpenMusic(const char* szFileName, MZFileSystem* pfs)
 	if (m_szOpenedMusicName[0] != 0) CloseMusic();
 	strcpy(m_szOpenedMusicName, szFileName);
 	
-	MZFile mzf;
+	CCZFile mzf;
 	if(!mzf.Open(szFileName, pfs)) return false;
 	m_pMusicBuffer = new char[mzf.GetLength()+1];
 	mzf.Read(m_pMusicBuffer, mzf.GetLength());
@@ -1190,7 +1190,7 @@ const char* ZSoundEngine::GetBGMFileName(int nBgmIndex)
 	return szFileName;
 }
 
-bool ZSoundEngine::OpenMusic(int nBgmIndex, MZFileSystem* pfs)
+bool ZSoundEngine::OpenMusic(int nBgmIndex, CCZFileSystem* pfs)
 {
 	if( !m_bSoundEnable ) return false;
 
@@ -1213,7 +1213,7 @@ bool ZSoundEngine::LoadResource( char* pFileName_ ,ZLoadingProgress *pLoading )
 
 	MXmlDocument Data;
 
-	MZFile mzf;
+	CCZFile mzf;
 	if(!mzf.Open(pFileName_,ZGetFileSystem()))
 		return false;
 

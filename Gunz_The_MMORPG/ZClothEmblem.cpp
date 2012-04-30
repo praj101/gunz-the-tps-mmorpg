@@ -896,7 +896,7 @@ void ZEmblemList::InitEnv( char* pFileName_ )
 	MXmlDocument	Data;
 	Data.Create();
 
-	MZFile mzf;
+	CCZFile mzf;
 	if( !mzf.Open( pFileName_, g_pFileSystem ))
 	{
 		return;

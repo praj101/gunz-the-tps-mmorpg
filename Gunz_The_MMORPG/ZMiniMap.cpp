@@ -2,7 +2,7 @@
 #include "ZApplication.h"
 #include "ZMiniMap.h"
 #include "RealSpace2.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "ZCharacterManager.h"
 #include "ZMap.h"
 #include "ZGameClient.h"
@@ -57,7 +57,7 @@ bool ZMiniMap::Create(const char *szName)
 	ZGetCurrMapPath(szMapPath);
 	sprintf(szXMLName, "%s%s/%s.minimap.xml", szMapPath, szName, szName);
 
-	MZFile mzf;
+	CCZFile mzf;
 	if(!mzf.Open(szXMLName,ZGetFileSystem()))
 		return false;
 

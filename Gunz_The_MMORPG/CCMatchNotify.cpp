@@ -14,9 +14,9 @@ typedef map<int, string>	MNotifyMap;
 
 MNotifyMap g_NotifyMap;
 
-bool InitializeNotify(MZFileSystem *pfs)
+bool InitializeNotify(CCZFileSystem *pfs)
 {
-	MZFile mzf;
+	CCZFile mzf;
 	if(!mzf.Open(MESSAGES_FILE_NAME,pfs))
 		return false;
 

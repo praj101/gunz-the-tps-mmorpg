@@ -17,9 +17,9 @@ ZTips::ZTips() : m_bIsShowedNewbieTips(false)
 }
 
 
-bool ZTips::Initialize(MZFileSystem* pfs, const MLanguage LangID )
+bool ZTips::Initialize(CCZFileSystem* pfs, const MLanguage LangID )
 {
-	MZFile mzf;
+	CCZFile mzf;
 	if(!mzf.Open(FILENAME_TIPS,pfs)) return false;
 
 	char *buffer;

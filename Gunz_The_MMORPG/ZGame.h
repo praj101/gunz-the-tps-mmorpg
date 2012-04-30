@@ -23,7 +23,7 @@
 
 _USING_NAMESPACE_REALSPACE2
 
-class MZFileSystem;
+class CCZFileSystem;
 
 class ZLoading;
 class ZGameAction;
@@ -155,7 +155,7 @@ public:
 	ZGame();
 	virtual ~ZGame();
 
-	bool Create(MZFileSystem *pfs, ZLoadingProgress *pLoading);
+	bool Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading);
 
 	bool IsCreated() { return m_bIsCreate; }
 

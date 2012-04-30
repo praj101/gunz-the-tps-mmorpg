@@ -425,14 +425,14 @@ bool MMatchItemEffectDescMgr::ReadXml(const char* szFileName)
 
 }
 
-bool MMatchItemEffectDescMgr::ReadXml(MZFileSystem* pFileSystem, const char* szFileName)
+bool MMatchItemEffectDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 	MXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	//	<-----------------
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	if(pFileSystem) 
 	{
@@ -529,7 +529,7 @@ MMatchItemDescMgr::~MMatchItemDescMgr()
 
 bool MMatchItemDescMgr::ReadXml(const char* szFileName)
 {
-	m_nChecksum = MGetMZFileChecksum(szFileName);
+	m_nChecksum = MGetCCZFileChecksum(szFileName);
 
 	MXmlDocument xmlIniData;
 
@@ -613,14 +613,14 @@ void MMatchItemDescMgr::WriteCache()
 #endif
 }
 
-bool MMatchItemDescMgr::ReadXml(MZFileSystem* pFileSystem, const char* szFileName)
+bool MMatchItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 	MXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	//	<-----------------
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	if(pFileSystem) 
 	{

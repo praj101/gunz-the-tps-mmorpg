@@ -8,7 +8,7 @@
 
 
 // TODO : 입력/출력을 stream 으로 일반화 하여 
-//			CML & MZFileSystem 의 MZFile을 대체하면 좋을듯.
+//			CML & CCZFileSystem 의 CCZFile을 대체하면 좋을듯.
 
 // 한개의 파일이 단순히 압축되어있는 파일
 class ZFile {

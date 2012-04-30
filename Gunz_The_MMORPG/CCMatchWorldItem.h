@@ -7,7 +7,7 @@ using namespace std;
 
 class CCMatchStage;
 class CCMatchObject;
-class MZFileSystem;
+class CCZFileSystem;
 
 
 #define WORLDITEM_EXTRAVALUE_NUM		2

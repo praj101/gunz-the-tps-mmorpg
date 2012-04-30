@@ -1386,7 +1386,7 @@ int ZGameClient::OnConnected(SOCKET sock, MUID* pTargetUID, MUID* pAllocUID, uns
 				return ret;
 			#endif
 
-//			unsigned long nChecksum = ZGetMZFileChecksum(FILENAME_ZITEM_DESC);
+//			unsigned long nChecksum = ZGetCCZFileChecksum(FILENAME_ZITEM_DESC);
 //			unsigned long nChecksum = MGetMatchItemDescMgr()->GetChecksum();
 			unsigned long nChecksum = ZGetApplication()->GetFileListCRC();
 			nChecksum = nChecksum ^ (*pAllocUID).High ^ (*pAllocUID).Low;

@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include ".\zlocatorlist.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 
 ZLocatorList::ZLocatorList(void)
 {
@@ -11,7 +11,7 @@ ZLocatorList::~ZLocatorList(void)
 }
 
 /*
-bool ZLocatorList::Init( MZFileSystem* pFileSystem, const char* pszListFile )
+bool ZLocatorList::Init( CCZFileSystem* pFileSystem, const char* pszListFile )
 {
 	if( (0 == pszListFile) || (0 == strlen(pszListFile)) ) 
 		return false;
@@ -25,7 +25,7 @@ bool ZLocatorList::Init( MZFileSystem* pFileSystem, const char* pszListFile )
 }
 
 
-bool ZLocatorList::LoadXML( MZFileSystem* pFileSystem, const char* pszListFile )
+bool ZLocatorList::LoadXML( CCZFileSystem* pFileSystem, const char* pszListFile )
 {
 	if( (0 == pszListFile) || (0 == strlen(pszListFile)) )
 		return false;
@@ -34,7 +34,7 @@ bool ZLocatorList::LoadXML( MZFileSystem* pFileSystem, const char* pszListFile )
 	xmlIniData.Create();
 
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	if( 0 != pFileSystem )
 	{

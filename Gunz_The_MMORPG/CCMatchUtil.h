@@ -6,9 +6,9 @@
 // 유틸리티 펑션들
 unsigned long int MGetTimeDistance(unsigned long int nTimeA, unsigned long int nTimeB);
 
-class MZFileSystem;
+class CCZFileSystem;
 unsigned long MGetMemoryChecksum(char *pBuffer, int nLen);
-unsigned long MGetMZFileChecksum(const char* pszFileName);
+unsigned long MGetCCZFileChecksum(const char* pszFileName);
 void MMakeSeedKey(MPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp);
 
 struct MShortVector

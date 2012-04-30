@@ -32,5 +32,5 @@
 #define MATCHNOTIFY_USER_INVITE_IGNORED		312
 
 
-bool InitializeNotify(MZFileSystem *pfs);
+bool InitializeNotify(CCZFileSystem *pfs);
 bool NotifyMessage(int nMsgID, string *out);
