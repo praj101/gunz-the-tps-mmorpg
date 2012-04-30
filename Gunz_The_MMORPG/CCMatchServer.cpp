@@ -561,7 +561,7 @@ bool CCMatchServer::LoadInitFile()
 		return false;
 	}
 
-	unsigned long nItemChecksum = MGetMZFileChecksum(FILENAME_ITEM_DESC);
+	unsigned long nItemChecksum = MGetCCZFileChecksum(FILENAME_ITEM_DESC);
 	SetItemFileChecksum(nItemChecksum);
 
 

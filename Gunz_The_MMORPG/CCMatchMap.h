@@ -66,7 +66,7 @@ public:
 	static MMapDesc* GetInstance();
 
 	bool Initialize(const char* szFileName);
-	bool Initialize(MZFileSystem* pfs, const char* szFileName);
+	bool Initialize(CCZFileSystem* pfs, const char* szFileName);
 	bool MIsCorrectMap(const int nMapID);
 	
 

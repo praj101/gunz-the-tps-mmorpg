@@ -54,7 +54,7 @@ MMatchBuffDescMgr::~MMatchBuffDescMgr()
 
 bool MMatchBuffDescMgr::ReadXml(const char* szFileName)
 {
-	m_nChecksum = MGetMZFileChecksum(szFileName);
+	m_nChecksum = MGetCCZFileChecksum(szFileName);
 
 	MXmlDocument xmlIniData;
 
@@ -93,13 +93,13 @@ bool MMatchBuffDescMgr::ReadXml(const char* szFileName)
 }
 
 
-bool MMatchBuffDescMgr::ReadXml(MZFileSystem* pFileSystem, const char* szFileName)
+bool MMatchBuffDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 	MXmlDocument xmlIniData;
 	xmlIniData.Create();
 
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	if(pFileSystem) 
 	{

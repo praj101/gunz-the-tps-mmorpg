@@ -386,7 +386,7 @@ bool ZMapDesc::LoadSmokeDesc(const char* pFileName)
 	MXmlDocument	Data;
 	Data.Create();
 
-	MZFile mzf;
+	CCZFile mzf;
 
 	if( !mzf.Open( pFileName, g_pFileSystem ))
 	{

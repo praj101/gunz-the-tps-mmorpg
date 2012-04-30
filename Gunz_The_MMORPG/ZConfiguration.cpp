@@ -126,7 +126,7 @@ bool ZConfiguration::Load()
 	// Config 는 외부 파일도 읽을수 있도록....외부파일들은 개별 지정해야 함..
 
 #ifdef _PUBLISH
-   		MZFile::SetReadMode( MZIPREADFLAG_ZIP | MZIPREADFLAG_MRS | MZIPREADFLAG_MRS2 | MZIPREADFLAG_FILE );
+   		CCZFile::SetReadMode( MZIPREADFLAG_ZIP | MZIPREADFLAG_MRS | MZIPREADFLAG_MRS2 | MZIPREADFLAG_FILE );
 #endif
 
 	//ZGetLocale()->Init(DEFAULT_COUNTRY);
@@ -141,7 +141,7 @@ bool ZConfiguration::Load()
 	//	넷마블 버전은 구분해야함... 넷마블 버전은 MZIPREADFLAG_MRS1 도 읽어야함...
 
 #ifdef _PUBLISH
-		MZFile::SetReadMode( MZIPREADFLAG_MRS2 );
+		CCZFile::SetReadMode( MZIPREADFLAG_MRS2 );
 #endif
 
 	if ( !LoadSystem(FILENAME_SYSTEM))
@@ -180,7 +180,7 @@ bool ZConfiguration::LoadLocale(const char* szFileName)
 	MXmlElement		selectableLangsElem;
 
 	char			*buffer;
-	MZFile			mzFile;
+	CCZFile			mzFile;
 
 	xmlLocale.Create();
 
@@ -275,7 +275,7 @@ bool ZConfiguration::LoadGameTypeCfg(const char* szFileName)
 	xmlIniData.Create();
 
 	char			*buffer;
-	MZFile			mzFile;
+	CCZFile			mzFile;
 	if( !mzFile.Open(szFileName, ZApplication::GetFileSystem())) 
 	{
 		xmlIniData.Destroy();
@@ -331,7 +331,7 @@ bool ZConfiguration::LoadGameTypeCfg(const char* szFileName)
 bool ZConfiguration::LoadSystem(const char* szFileName)
 {
 	char			*buffer;
-	MZFile			mzFile;
+	CCZFile			mzFile;
 	MXmlDocument	xmlConfig;
 	xmlConfig.Create();
 

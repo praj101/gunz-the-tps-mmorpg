@@ -5,7 +5,7 @@ using std::map;
 using std::string;
 using std::pair;
 
-class MZFileSystem;
+class CCZFileSystem;
 
 #define CHAR_MSG_VALUE			'$'
 
@@ -32,11 +32,11 @@ public:
 	{
 		m_StringMap.clear();
 	}
-	bool Initialize(const char* pszFileName, const int nLangID, MZFileSystem *pfs = 0 )
+	bool Initialize(const char* pszFileName, const int nLangID, CCZFileSystem *pfs = 0 )
 	{
 		if( 0 == pszFileName ) return false;
 
-		MZFile mzf;
+		CCZFile mzf;
 		if( !mzf.Open(pszFileName, pfs) )
 			return false;
 

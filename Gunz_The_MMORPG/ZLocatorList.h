@@ -6,7 +6,7 @@
 using std::vector;
 using std::string;
 
-class MZFileSystem;
+class CCZFileSystem;
 
 #define LOCATOR_PORT 8900
 
@@ -22,12 +22,12 @@ public:
 	const int GetSize() const { return static_cast< int >( m_LocatorIPList.size() ); }
 	const string& GetIPByPos( const int nPos ) { return m_LocatorIPList[ nPos ]; }
 
-//	bool Init( MZFileSystem* pFileSystem, const char* pszListFile );
+//	bool Init( CCZFileSystem* pFileSystem, const char* pszListFile );
 
 	bool ParseLocatorList( MXmlElement& element );
 
 private :
-//	bool LoadXML( MZFileSystem* pFileSystem, const char* pszListFile );
+//	bool LoadXML( CCZFileSystem* pFileSystem, const char* pszListFile );
 	bool ParseLocator( MXmlElement& element );
 
 private :

@@ -4,7 +4,7 @@
 #include "ZSecurity.h"
 #include "MDataChecker.h"
 //#include "MProcessController.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "MMatchItem.h"
 #include "ZCharacter.h"
 #include "ZApplication.h"
@@ -78,10 +78,10 @@ public:
 	}
 };
 
-unsigned long ZGetMZFileChecksum(const char* pszFileName) 
+unsigned long ZGetCCZFileChecksum(const char* pszFileName) 
 {
-	MZFileSystem* pFS = ZGetFileSystem();
-	MZFile mzf;
+	CCZFileSystem* pFS = ZGetFileSystem();
+	CCZFile mzf;
 	if (mzf.Open(pszFileName, pFS) == false)
 		if(!mzf.Open(pszFileName)) 
 			return 0;
@@ -105,7 +105,7 @@ bool ZCheckFileHack() // 사용하지 않는 펑션
 {
 	return false;
 
-	unsigned long nChecksum = ZGetMZFileChecksum(FILENAME_ZITEM_DESC);
+	unsigned long nChecksum = ZGetCCZFileChecksum(FILENAME_ZITEM_DESC);
 
 #ifndef _PUBLISH
 	mlog("ZITEM Checksum = %u", nChecksum);

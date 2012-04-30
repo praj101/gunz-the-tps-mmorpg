@@ -64,14 +64,14 @@ bool MMatchWorldItemDescMgr::ReadXml(const char* szFileName)
 	return true;
 }
 
-bool MMatchWorldItemDescMgr::ReadXml(MZFileSystem* pFileSystem, const char* szFileName)
+bool MMatchWorldItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 	MXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	//	<-----------------
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	if(pFileSystem) 
 	{

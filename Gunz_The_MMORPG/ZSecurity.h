@@ -8,7 +8,7 @@
 class MDataChecker;
 
 __forceinline bool ZCheckHackProcess();
-unsigned long ZGetMZFileChecksum(const char* pszFileName);
+unsigned long ZGetCCZFileChecksum(const char* pszFileName);
 bool ZCheckFileHack();
 void ZSetupDataChecker_Global(MDataChecker* pDataChecker);
 void ZSetupDataChecker_Game(MDataChecker* pDataChecker);

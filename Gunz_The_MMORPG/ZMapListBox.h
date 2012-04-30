@@ -4,7 +4,7 @@
 #include "MWidget.h"
 
 class MListBox;
-class MZFileSystem;
+class CCZFileSystem;
 class MTextArea;
 
 class ZMapListBox : public MWidget{
@@ -20,7 +20,7 @@ public:
 	ZMapListBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
 	virtual ~ZMapListBox(void);
 
-	void Refresh(MZFileSystem* pFS);
+	void Refresh(CCZFileSystem* pFS);
 
 	const char* GetSelItemString(void);
 

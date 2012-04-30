@@ -398,7 +398,7 @@ public:
 	void InitDuelTournamentLobbyUI(bool bEnableDuelTournamentUI);
 	void InitChannelFrame(MCHANNEL_TYPE nChannelType);
 
-//	bool InitLocatorList( MZFileSystem* pFileSystem, const char* pszLocatorList );
+//	bool InitLocatorList( CCZFileSystem* pFileSystem, const char* pszLocatorList );
 
 	// 스테이지 UI 설정
 	void SetMapThumbnail(const char* szMapName);

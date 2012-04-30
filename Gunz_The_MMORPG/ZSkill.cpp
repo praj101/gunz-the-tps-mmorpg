@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "ZSKill.h"
 #include "MXml.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "ZGame.h"
 #include "ZModule_Resistance.h"
 #include "ZChat.h"
@@ -217,7 +217,7 @@ bool ZSkillManager::Create()
 	xmlDocument.Create();
 
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	string strFileNameZSkill(FILENAME_ZSKILL_DESC);
 #ifndef _DEBUG

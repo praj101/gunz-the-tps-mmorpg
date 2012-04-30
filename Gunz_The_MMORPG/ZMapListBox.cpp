@@ -3,7 +3,7 @@
 #include "ZApplication.h"
 #include "ZMapListBox.h"
 #include "MListBox.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "Mint4R2.h"
 #include "MTextArea.h"
 #include "ZChannelRule.h"
@@ -74,7 +74,7 @@ ZMapListBox::~ZMapListBox(void)
 	delete m_pListBox;
 }
 
-void ZMapListBox::Refresh(MZFileSystem* pFS)
+void ZMapListBox::Refresh(CCZFileSystem* pFS)
 {
 	m_pListBox->RemoveAll();
 

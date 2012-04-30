@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <crtdbg.h>
 #include "MXml.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 //#include "MMessenger.h"
 #include "ZLanguageConf.h"
 #include "ZFilePath.h"
@@ -43,9 +43,9 @@ void ZLanguageConf::MakeCompleteDir()
 }
 
 
-bool ZLanguageConf::CheckSubTaskFile( MZFileSystem* pfs, MMessageNameGroup* pMsgNameGroup )
+bool ZLanguageConf::CheckSubTaskFile( CCZFileSystem* pfs, MMessageNameGroup* pMsgNameGroup )
 {
-	MZFile mzf;
+	CCZFile mzf;
 
 	string strMessage( m_strLangDir + "/" + CLI_MESSAGE_FILE_NAME );
 	if( mzf.Open(strMessage.c_str(), pfs) ){
@@ -69,7 +69,7 @@ ZMessengerManager::~ZMessengerManager()
 {
 }
 
-bool ZMessengerManager::AllocateSubTask( const string& strKey, const string& strFile, MZFileSystem* pfs )
+bool ZMessengerManager::AllocateSubTask( const string& strKey, const string& strFile, CCZFileSystem* pfs )
 {
 	if( strKey.empty() || strFile.empty() ) 
 		return false;

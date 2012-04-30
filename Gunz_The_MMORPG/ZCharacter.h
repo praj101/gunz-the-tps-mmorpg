@@ -760,7 +760,7 @@ public:
 	void LevelDown();
 
 	bool Save(ZFile *file);
-	bool Load(ZFile *file,int nVersion);	// 나중에 MZFile * 로 포팅
+	bool Load(ZFile *file,int nVersion);	// 나중에 CCZFile * 로 포팅
 
 	RMesh *GetWeaponMesh(MMatchCharItemParts parts);
 

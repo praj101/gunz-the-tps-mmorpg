@@ -49,7 +49,7 @@
 
 
 ZApplication*	ZApplication::m_pInstance = NULL;
-MZFileSystem	ZApplication::m_FileSystem;    
+CCZFileSystem	ZApplication::m_FileSystem;    
 ZSoundEngine	ZApplication::m_SoundEngine;
 RMeshMgr		ZApplication::m_NPCMeshMgr;
 RMeshMgr		ZApplication::m_MeshMgr;

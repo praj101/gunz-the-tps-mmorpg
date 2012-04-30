@@ -122,7 +122,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 
 #define EXT_LEN 4
 
-	MZFileSystem *pfs=ZGetFileSystem();
+	CCZFileSystem *pfs=ZGetFileSystem();
 
 	int nDirLen = (int)strlen(szDir);
 
@@ -188,7 +188,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 					else sprintf(aliasname, "%s%s%s", dir, fname,ext);
 
 #ifdef _PUBLISH
-					MZFile::SetReadMode( MZIPREADFLAG_ZIP | MZIPREADFLAG_MRS | MZIPREADFLAG_MRS2 | MZIPREADFLAG_FILE );
+					CCZFile::SetReadMode( MZIPREADFLAG_ZIP | MZIPREADFLAG_MRS | MZIPREADFLAG_MRS2 | MZIPREADFLAG_FILE );
 #endif
 					// 대체 경로에 같은 이름의 파일이 존재하면 그것을 로딩. 없으면 디폴트 경로에서 로딩
 					std::string strSubFile = desc->m_szFileName;
@@ -207,7 +207,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 						delete pBitmap;
 
 #ifdef _PUBLISH
-					MZFile::SetReadMode( MZIPREADFLAG_MRS2 );
+					CCZFile::SetReadMode( MZIPREADFLAG_MRS2 );
 #endif
 
 				}
@@ -1365,9 +1365,9 @@ void ZGameInterface::OnLoginCreate(void)
 #ifdef _DEBUG
 	bRead = m_pLoginBG->Create( "loginbg.png", RGetDevice(), "wallpaper.jpg", false);
 #else
-	MZFile::SetReadMode( MZIPREADFLAG_ZIP | MZIPREADFLAG_MRS | MZIPREADFLAG_MRS2 | MZIPREADFLAG_FILE );
+	CCZFile::SetReadMode( MZIPREADFLAG_ZIP | MZIPREADFLAG_MRS | MZIPREADFLAG_MRS2 | MZIPREADFLAG_FILE );
 	bRead = m_pLoginBG->Create( "loginbg.png", RGetDevice(), "wallpaper.jpg", false);
-	MZFile::SetReadMode( MZIPREADFLAG_MRS2 );
+	CCZFile::SetReadMode( MZIPREADFLAG_MRS2 );
 #endif
 
 	if ( bRead)
@@ -6513,7 +6513,7 @@ void ZGameInterface::RequestServerStatusListInfo()
 
 
 /*
-bool ZGameInterface::InitLocatorList( MZFileSystem* pFileSystem, const char* pszLocatorList )
+bool ZGameInterface::InitLocatorList( CCZFileSystem* pFileSystem, const char* pszLocatorList )
 {
 	if( (0 == pszLocatorList) || (0 == strlen(pszLocatorList)) ) 
 		return false;

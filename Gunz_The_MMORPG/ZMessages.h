@@ -3,7 +3,7 @@
 
 #include <string>
 #include "../../CSCommon/Include/MCommand.h"
-#include "MZFileSystem.h"
+#include "CCZFileSystem.h"
 #include "../CSCommon/Include/MMatchObject.h"
 
 #define ZOK										0			///< 에러없음

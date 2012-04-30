@@ -13,7 +13,7 @@ class MBaseStringResManager
 protected:
 	static MBaseStringResManager*	m_pInstance;
 	string							m_strPath;
-	MZFileSystem*					m_pFS;
+	CCZFileSystem*					m_pFS;
 	MStringRes<int>					m_ErrorTable;
 	MStringRes<string>				m_StringTable;
 
@@ -21,7 +21,7 @@ protected:
 public:
 	MBaseStringResManager();
 	virtual ~MBaseStringResManager();
-	bool Init(const char* szPath, const int nLangID, MZFileSystem* pfs=NULL );
+	bool Init(const char* szPath, const int nLangID, CCZFileSystem* pfs=NULL );
 	static MBaseStringResManager* GetInstance();
 	static void FreeInstance();
 
