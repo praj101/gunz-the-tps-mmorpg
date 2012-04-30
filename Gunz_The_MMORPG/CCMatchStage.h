@@ -65,14 +65,14 @@ struct MMatchStageTeam
 
 struct MMatchStageSuicide
 {
-	MMatchStageSuicide( const MUID& uidUser, const DWORD dwExpireTime )
+	MMatchStageSuicide( const CCUID& uidUser, const DWORD dwExpireTime )
 	{
 		m_uidUser		= uidUser;
 		m_dwExpireTime	= dwExpireTime;
 		m_bIsChecked	= false;
 	}
 
-	MUID	m_uidUser;
+	CCUID	m_uidUser;
 	DWORD	m_dwExpireTime;
 	bool	m_bIsChecked;
 };
@@ -92,8 +92,8 @@ struct MMatchDuelTournamentMatch
 	int nMatchNumber;
 	int nNextMatchNumber;
 
-	MUID uidPlayer1;
-	MUID uidPlayer2;
+	CCUID uidPlayer1;
+	CCUID uidPlayer2;
 	
 	MDUELTOURNAMENTROUNDSTATE nRoundState;
 };
@@ -109,7 +109,7 @@ struct MMatchDuelTournamentStageInfo
 	int nDuelTournamentTotalRound;
 };
 
-typedef map<MUID, MMATCH_RESOURCECHECKINFO>	ResourceCRC32CacheMap;
+typedef map<CCUID, MMATCH_RESOURCECHECKINFO>	ResourceCRC32CacheMap;
 
 
 class MMatchCRC32XORCache;
@@ -121,15 +121,15 @@ private:
 	int						m_nIndex;
 	STAGE_STATE				m_nState;
 	MMatchStageType			m_nStageType;
-	MUID					m_uidStage;
-	MUID					m_uidOwnerChannel;
+	CCUID					m_uidStage;
+	CCUID					m_uidOwnerChannel;
 	char					m_szStageName[ STAGENAME_LENGTH ];
 	bool					m_bPrivate;		// 비밀방
 	char					m_szStagePassword[ STAGEPASSWD_LENGTH ];
 	MMatchStageTeamBonus	m_TeamBonus;
 	MMatchStageTeam			m_Teams[MMT_END];
 
-	MUIDRefCache			m_ObjUIDCaches;
+	CCUIDRefCache			m_ObjUIDCaches;
 	list<int>				m_BanCIDList;
 
 	unsigned long			m_nStateTimer;
@@ -144,7 +144,7 @@ private:
 	MMatchStageSetting		m_StageSetting;
 	MMatchRule*				m_pRule;
 
-	MUID					m_uidAgent;
+	CCUID					m_uidAgent;
 	bool					m_bAgentReady;
 	int						m_nRoundObjCount[MMT_END];
 
@@ -162,7 +162,7 @@ private:
 	RELAY_MAP_REPEAT_COUNT	m_RelayMapRepeatCountRemained;	// 앞으로 남은 반복 수
 	bool					m_bIsLastRelayMap;
 
-	void SetMasterUID(const MUID& uid)	{ m_StageSetting.SetMasterUID(uid);}
+	void SetMasterUID(const CCUID& uid)	{ m_StageSetting.SetMasterUID(uid);}
 	MMatchRule* CreateRule(MMATCH_GAMETYPE nGameType);
 
 	vector< MMatchStageSuicide > m_SuicideList;
@@ -194,12 +194,12 @@ public:
 	MMatchStage();
 	virtual ~MMatchStage();
 
-	bool Create(const MUID& uid, const char* pszName, bool bPrivate, const char* pszPassword, bool bIsAllowNullChannel, 
+	bool Create(const CCUID& uid, const char* pszName, bool bPrivate, const char* pszPassword, bool bIsAllowNullChannel, 
 		const MMATCH_GAMETYPE GameType = MMATCH_GAMETYPE_DEFAULT, const bool bIsCheckTicket = false, const DWORD dwTicketItemID = 0);
 
 	void Destroy();
 	void OnCommand(MCommand* pCommand);
-	void OnGameKill(const MUID& uidAttacker, const MUID& uidVictim);
+	void OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim);
 	bool CheckAutoTeamBalancing();	// true이면 팀원을 섞어야 한다.
 	void ShuffleTeamMembers();
 
@@ -209,7 +209,7 @@ public:
 	void SetPassword(const char* pszPassword)	{ strcpy(m_szStagePassword, pszPassword); }
 	const bool IsPrivate()		{ return m_bPrivate; }
 	void SetPrivate(bool bVal)	{ m_bPrivate = bVal; }
-	MUID GetUID()				{ return m_uidStage; }
+	CCUID GetUID()				{ return m_uidStage; }
 
 	const char* GetMapName()	{ return m_StageSetting.GetMapName(); }
 	bool SetMapName(char* pszMapName); // 	{ m_StageSetting.SetMapName(pszMapName); }
@@ -217,11 +217,11 @@ public:
 	char* GetFirstMasterName()	{ return m_szFirstMasterName; }
 	void SetFirstMasterName(char* pszName)	{ strcpy(m_szFirstMasterName, pszName); }
 
-	MMatchObject* GetObj(const MUID& uid)	{ if (m_ObjUIDCaches.count(uid) == 0) return NULL; else return (MMatchObject*)(m_ObjUIDCaches[uid]); }			///< 추가by 동섭, 듀얼을 위해 -_-
+	MMatchObject* GetObj(const CCUID& uid)	{ if (m_ObjUIDCaches.count(uid) == 0) return NULL; else return (MMatchObject*)(m_ObjUIDCaches[uid]); }			///< 추가by 동섭, 듀얼을 위해 -_-
 	size_t GetObjCount()					{ return m_ObjUIDCaches.size(); }
 	int GetPlayers();
-	MUIDRefCache::iterator GetObjBegin()	{ return m_ObjUIDCaches.begin(); }
-	MUIDRefCache::iterator GetObjEnd()		{ return m_ObjUIDCaches.end(); }
+	CCUIDRefCache::iterator GetObjBegin()	{ return m_ObjUIDCaches.begin(); }
+	CCUIDRefCache::iterator GetObjEnd()		{ return m_ObjUIDCaches.end(); }
 	int GetObjInBattleCount();															///< 전투하고 있는 플레이어수
 	int GetCountableObjCount()				{ return ((int)GetObjCount() - m_nAdminObjectCount); }	///< 운영자를 제외한 플레이어수
 
@@ -229,11 +229,11 @@ public:
 	void AddBanList(int nCID);
 	bool CheckBanList(int nCID);
 
-	void AddObject(const MUID& uid, const MMatchObject* pObj);
-	MUIDRefCache::iterator RemoveObject(const MUID& uid);
+	void AddObject(const CCUID& uid, const MMatchObject* pObj);
+	CCUIDRefCache::iterator RemoveObject(const CCUID& uid);
 	bool KickBanPlayer(const char* pszName, bool bBanPlayer=true);
 
-	const MUID RecommandMaster(bool bInBattleOnly);
+	const CCUID RecommandMaster(bool bInBattleOnly);
 	void EnterBattle(MMatchObject* pObj);
 	void LeaveBattle(MMatchObject* pObj);
 
@@ -252,33 +252,33 @@ public:
 
 	MVoteMgr* GetVoteMgr()			{ return &m_VoteMgr; }
 
-	MUID GetAgentUID()				{ return m_uidAgent; }
-	void SetAgentUID(MUID uid)		{ m_uidAgent = uid; }
+	CCUID GetAgentUID()				{ return m_uidAgent; }
+	void SetAgentUID(CCUID uid)		{ m_uidAgent = uid; }
 	bool GetAgentReady()			{ return m_bAgentReady; }
 	void SetAgentReady(bool bReady)	{ m_bAgentReady = bReady; }
 
-	MUID GetMasterUID()				{ return m_StageSetting.GetMasterUID(); }
+	CCUID GetMasterUID()				{ return m_StageSetting.GetMasterUID(); }
 	int GetIndex()					{ return m_nIndex; }
 
-	void SetOwnerChannel(MUID& uidOwnerChannel, int nIndex);
-	MUID GetOwnerChannel() { return m_uidOwnerChannel; }
+	void SetOwnerChannel(CCUID& uidOwnerChannel, int nIndex);
+	CCUID GetOwnerChannel() { return m_uidOwnerChannel; }
 
-	void PlayerTeam(const MUID& uidPlayer, MMatchTeam nTeam);
-	void PlayerState(const MUID& uidPlayer, MMatchObjectStageState nStageState);
+	void PlayerTeam(const CCUID& uidPlayer, MMatchTeam nTeam);
+	void PlayerState(const CCUID& uidPlayer, MMatchObjectStageState nStageState);
 	bool StartGame( const bool bIsUseResourceCRC32CacheCheck );
 	bool StartRelayGame( const bool bIsUseResourceCRC32CacheCheck );
 	bool FinishGame();
 	bool CheckBattleEntry();
 
-	void RoundStateFromClient(const MUID& uidStage, int nState, int nRound);
+	void RoundStateFromClient(const CCUID& uidStage, int nState, int nRound);
 	void ObtainWorldItem(MMatchObject* pObj, const int nItemID);
 	void RequestSpawnWorldItem(MMatchObject* pObj, const int nItemID, 
 							   const float x, const float y, const float z, float fDropDelayTime);
 	void SpawnServerSideWorldItem(MMatchObject* pObj, const int nItemID, 
 							   const float x, const float y, const float z, 
 							   int nLifeTime, int* pnExtraValues );
-	void OnNotifyThrowTrapItem(const MUID& uidPlayer, const int nItemID);
-	void OnNotifyActivatedTrapItem(const MUID& uidPlayer, const int nItemID, const MVector3& pos);
+	void OnNotifyThrowTrapItem(const CCUID& uidPlayer, const int nItemID);
+	void OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const MVector3& pos);
 
 
 	bool IsApplyTeamBonus();	// 팀전 보너스 적용여부 확인
@@ -292,7 +292,7 @@ public:
 	const MMatchStageType GetStageType()	{ return m_nStageType; }
 	int GetMinPlayerLevel();	// 방에 있는 플레이어중 최소 레벨을 구한다.
 
-	bool CheckUserWasVoted( const MUID& uidPlayer );
+	bool CheckUserWasVoted( const CCUID& uidPlayer );
 
 	bool CheckDuelMap();
 	bool CheckTicket( MMatchObject* pObj );
@@ -324,7 +324,7 @@ public:
 
 public :
 	// suicide.
-	void ReserveSuicide( const MUID& uidUser, const DWORD dwExpireTime );
+	void ReserveSuicide( const CCUID& uidUser, const DWORD dwExpireTime );
 	void CheckSuicideReserve( const DWORD dwCurTime );
 
 public :
@@ -338,11 +338,11 @@ private :
 
 	void			MakeResourceCRC32Cache( const DWORD dwKey, DWORD& out_crc32, DWORD& out_xor );
 	void			MakeItemResourceCRC32Cache( MMatchCRC32XORCache& CRC32Cache );
-	void			SetResourceCRC32Cache( const MUID& uidPlayer, const DWORD dwCRC32Cache, const DWORD dwXORCache );
-	void			RequestResourceCRC32Cache( const MUID& uidPlayer );
-	void			DeleteResourceCRC32Cache( const MUID& uidPlayer );
-	const bool 		IsValidResourceCRC32Cache( const MUID& uidPlayer, const DWORD dwResourceCRC32Cache, const DWORD dwResourceXORCache);
-	void			SetDisableCheckResourceCRC32Cache( const MUID& uidPlayer );
+	void			SetResourceCRC32Cache( const CCUID& uidPlayer, const DWORD dwCRC32Cache, const DWORD dwXORCache );
+	void			RequestResourceCRC32Cache( const CCUID& uidPlayer );
+	void			DeleteResourceCRC32Cache( const CCUID& uidPlayer );
+	const bool 		IsValidResourceCRC32Cache( const CCUID& uidPlayer, const DWORD dwResourceCRC32Cache, const DWORD dwResourceXORCache);
+	void			SetDisableCheckResourceCRC32Cache( const CCUID& uidPlayer );
 	void			SetDisableAllCheckResourceCRC32Cache();
 
 	void			CheckResourceCRC32Cache( const DWORD dwClock );
@@ -402,13 +402,13 @@ inline MDUELTOURNAMENTROUNDSTATE MMatchStage::GetDuelTournamentRoundState(MDUELT
 }
 
 
-class MMatchStageMap : public map<MUID, MMatchStage*> {
-	MUID	m_uidGenerate;
+class MMatchStageMap : public map<CCUID, MMatchStage*> {
+	CCUID	m_uidGenerate;
 public:
-	MMatchStageMap()			{	m_uidGenerate = MUID(0,0);	}
+	MMatchStageMap()			{	m_uidGenerate = CCUID(0,0);	}
 	virtual ~MMatchStageMap()	{	}
-	MUID UseUID()				{	m_uidGenerate.Increase();	return m_uidGenerate;	}
-	void Insert(const MUID& uid, MMatchStage* pStage)	{	insert(value_type(uid, pStage));	}
+	CCUID UseUID()				{	m_uidGenerate.Increase();	return m_uidGenerate;	}
+	void Insert(const CCUID& uid, MMatchStage* pStage)	{	insert(value_type(uid, pStage));	}
 };
 
 MMatchItemBonusType GetStageBonusType(MMatchStageSetting* pStageSetting);
