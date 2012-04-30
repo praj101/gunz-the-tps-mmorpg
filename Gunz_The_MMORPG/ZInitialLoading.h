@@ -1,8 +1,8 @@
 #pragma once
 
 class MBitmapR2;
-#include "Mint4r2.h"
-#include "MThread.h"
+#include "Core4r2.h"
+#include "CCThread.h"
 
 enum LOADING_SCENE_MODE
 {

@@ -230,6 +230,10 @@
 				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
+				<File
+					RelativePath=".\CCThread.cpp"
+					>
+				</File>
 				<Filter
 					Name="Widgets"
 					>
@@ -2077,6 +2081,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCThread.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCUID.cpp"
 			>
 		</File>
@@ -2114,6 +2122,10 @@
 		</File>
 		<File
 			RelativePath=".\CCXmlParser.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Core4Gunz.h"
 			>
 		</File>
 		<File
