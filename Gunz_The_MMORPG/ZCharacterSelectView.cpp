@@ -734,11 +734,11 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 	int nPosY = (int)( 390.0f * (RGetScreenHeight() / 600.0f));
 	for (int i = 0; i < nCount; i++)
 	{
-		MTD_AccountCharInfo* pAccountCharInfo = (MTD_AccountCharInfo*)MGetBlobArrayElement(pCharListBlob, i);
+		CCTD_AccountCharInfo* pAccountCharInfo = (CCTD_AccountCharInfo*)MGetBlobArrayElement(pCharListBlob, i);
 		if ( (pAccountCharInfo->nCharNum >= 0) && (pAccountCharInfo->nCharNum < MAX_CHAR_COUNT))
 		{
 			int nIndex = pAccountCharInfo->nCharNum;
-			memcpy(&ZCharacterSelectView::m_CharInfo[nIndex].m_AccountCharInfo, pAccountCharInfo, sizeof(MTD_AccountCharInfo));
+			memcpy(&ZCharacterSelectView::m_CharInfo[nIndex].m_AccountCharInfo, pAccountCharInfo, sizeof(CCTD_AccountCharInfo));
 			ZCharacterSelectView::m_CharInfo[nIndex].m_CharInfo.nHP = DEFAULT_CHAR_HP;
 			ZCharacterSelectView::m_CharInfo[nIndex].m_CharInfo.nAP = DEFAULT_CHAR_AP;
 
@@ -854,8 +854,8 @@ void ZCharacterSelectView::OnReceivedCharInfo(int nCharNum, void* pCharInfoBlob)
 	if (nCount != 1) return;
 	if ((nCharNum < 0) || (nCharNum > MAX_CHAR_COUNT)) return;
 
-	MTD_CharInfo* pCharInfo = (MTD_CharInfo*)MGetBlobArrayElement(pCharInfoBlob, 0);
-	memcpy(&ZCharacterSelectView::m_CharInfo[nCharNum].m_CharInfo, pCharInfo, sizeof(MTD_CharInfo));
+	CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharInfoBlob, 0);
+	memcpy(&ZCharacterSelectView::m_CharInfo[nCharNum].m_CharInfo, pCharInfo, sizeof(CCTD_CharInfo));
 
 	m_CharInfo[nCharNum].m_bLoaded = true;
 }

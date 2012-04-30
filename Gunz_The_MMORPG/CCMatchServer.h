@@ -912,8 +912,8 @@ public:
 
 };
 
-void CopyCharInfoForTrans(MTD_CharInfo* pDest, CCMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
-void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject);
+void CopyCharInfoForTrans(CCTD_CharInfo* pDest, CCMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
+void CopyCharInfoDetailForTrans(CCTD_CharInfo_Detail* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject);
 //버프정보임시주석 void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, CCMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
 
 

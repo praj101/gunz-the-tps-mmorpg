@@ -376,7 +376,7 @@ protected:
 	ZCharacterProperty					m_Property;		///< HP 등의 캐릭터 속성
 	MProtectValue<ZCharacterStatus>		m_Status;		///< 플레이어 상태값
 
-	MProtectValue<MTD_CharInfo>			m_MInitialInfo;		///< 캐릭터 초기정보
+	MProtectValue<CCTD_CharInfo>			m_MInitialInfo;		///< 캐릭터 초기정보
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -503,7 +503,7 @@ public:
 	ZCharacter();
 	virtual ~ZCharacter();
 
-	virtual bool Create(MTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/);//버프정보임시주석 
+	virtual bool Create(CCTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/);//버프정보임시주석 
 	virtual void Destroy();
 	
 	void InitMeshParts();
@@ -782,7 +782,7 @@ public:
 	virtual void OnScream();
 
 	int GetDTLastWeekGrade() { return m_MInitialInfo.Ref().nDTLastWeekGrade; }
-	const MTD_CharInfo* GetCharInfo() const { return &m_MInitialInfo.Ref(); }
+	const CCTD_CharInfo* GetCharInfo() const { return &m_MInitialInfo.Ref(); }
 };
 
 void ZChangeCharParts(RVisualMesh* pVMesh, CCMatchSex nSex, int nHair, int nFace, const unsigned long int* pItemID);

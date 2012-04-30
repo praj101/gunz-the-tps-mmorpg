@@ -22,13 +22,13 @@ void ConvertStageSettingNodeForRecord(const MSTAGE_SETTING_NODE* pSource, REPLAY
 extern bool g_bTestFromReplay;
 
 bool CreateReplayGame(char *filename);
-void ConvertCharInfo(MTD_CharInfo* currCharInfo, void* oldCharInfo, int nVerOld);
+void ConvertCharInfo(CCTD_CharInfo* currCharInfo, void* oldCharInfo, int nVerOld);
 
 // 건즈 리플레이 파일
 #define GUNZ_REC_FILE_ID		0x95b1308a
 
 // version 4 : duel 모드의 현재 상태 저장이 추가되었습니다.
-// version 5 : duel_tournament용 정보가 추가되었습니다. (MTD_CharInfo에 지난주 랭킹등급 정보 추가, 듀얼토너먼트용 게임 상태 저장)
+// version 5 : duel_tournament용 정보가 추가되었습니다. (CCTD_CharInfo에 지난주 랭킹등급 정보 추가, 듀얼토너먼트용 게임 상태 저장)
 // version 6 : 장착 아이템에 갯수정보가 추가되었습니다. (소모성 아이템용)
 #define GUNZ_REC_FILE_VERSION	6
 #define GUNZ_REC_FILE_EXT		"gzr"
@@ -78,7 +78,7 @@ public:
 #pragma pack(push, old)
 #pragma pack(1)
 
-struct MTD_CharInfo_v0	// ver0 ver1
+struct CCTD_CharInfo_v0	// ver0 ver1
 {
 	// 캐릭터 정보
 	char				szName[MATCHOBJECT_NAME_LENGTH];
@@ -110,7 +110,7 @@ struct MTD_CharInfo_v0	// ver0 ver1
 	CCMatchUserGradeID	nUGradeID;
 };
 
-struct MTD_CharInfo_v2	// ver2 ~ 4
+struct CCTD_CharInfo_v2	// ver2 ~ 4
 {
 	// 캐릭터 정보
 	char				szName[MATCHOBJECT_NAME_LENGTH];
@@ -145,7 +145,7 @@ struct MTD_CharInfo_v2	// ver2 ~ 4
 	unsigned int		nClanCLID;
 };
 
-struct MTD_CharInfo_v5	// ver5
+struct CCTD_CharInfo_v5	// ver5
 {
 	// 캐릭터 정보
 	char				szName[MATCHOBJECT_NAME_LENGTH];

@@ -59,7 +59,7 @@ enum CCMatchItemSlotType
 
 /// 장비부위 
 // MMCIP_END의 값과 각 enum에 배정된 값이 바뀌면 리플레이 로딩에 영향을 미치므로 수정하려면 주의가 필요함..
-// 특히 MMCIP_END는 MTD_CharInfo의 크기를 변화시키므로 리플레이 로딩 코드를 수정해주어야 합니다.
+// 특히 MMCIP_END는 CCTD_CharInfo의 크기를 변화시키므로 리플레이 로딩 코드를 수정해주어야 합니다.
 // 그리고 추가 할때는 절대로 맨 끝에만 해야합니다. 중간에 넣으면 CCMatchCharItemParts 사용하는 커맨드 코드를 기존 리플레이용으로 사용할 수 없게 됨
 enum CCMatchCharItemParts
 {

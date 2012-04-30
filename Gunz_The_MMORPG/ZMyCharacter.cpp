@@ -3300,7 +3300,7 @@ ZDummyCharacter::ZDummyCharacter() : ZMyCharacter()
 
 	static m_stIndex = 0; m_stIndex++;
 
-	MTD_CharInfo info;
+	CCTD_CharInfo info;
 	char szTempName[128]; sprintf(szTempName, "noname%d", m_stIndex); strcpy(info.szName, szTempName);
 	info.nSex = 0;
 

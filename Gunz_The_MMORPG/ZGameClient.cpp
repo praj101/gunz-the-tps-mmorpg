@@ -2089,8 +2089,8 @@ int ZGameClient::ValidateRequestDeleteChar()
 	if ( (nCharIndex < 0) || (nCharIndex >= MAX_CHAR_COUNT)) return ZERR_UNKNOWN;
 
 	ZSelectCharacterInfo* pSelectCharInfo = &ZCharacterSelectView::m_CharInfo[ nCharIndex ];
-	MTD_AccountCharInfo* pAccountCharInfo = &pSelectCharInfo->m_AccountCharInfo;
-	MTD_CharInfo* pCharInfo = &pSelectCharInfo->m_CharInfo;
+	CCTD_AccountCharInfo* pAccountCharInfo = &pSelectCharInfo->m_AccountCharInfo;
+	CCTD_CharInfo* pCharInfo = &pSelectCharInfo->m_CharInfo;
 
 	// 아직 캐릭터 정보를 못받아왔으면 삭제할 수 없다.
 	if (!pSelectCharInfo->m_bLoaded) return ZERR_UNKNOWN;
@@ -2188,7 +2188,7 @@ void ZGameClient::OnResponseCharInfoDetail(void* pBlob)
 	int nCount = MGetBlobArrayCount(pBlob);
 	if (nCount != 1) return;
 
-	MTD_CharInfo_Detail* pCharInfoDetail = (MTD_CharInfo_Detail*)MGetBlobArrayElement(pBlob, 0);
+	CCTD_CharInfo_Detail* pCharInfoDetail = (CCTD_CharInfo_Detail*)MGetBlobArrayElement(pBlob, 0);
 
 /*
   == 플레이어 정보 다이알로그에 들어가야 하는 것들 ==
