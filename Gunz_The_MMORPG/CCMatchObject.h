@@ -102,7 +102,7 @@ struct CCMatchAccountInfo
 };
 
 
-struct MAccountItemNode
+struct CCAccountItemNode
 {
 	int					nAIID;
 	unsigned long int	nItemID;

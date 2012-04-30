@@ -870,7 +870,7 @@ void CCMatchServer::OnAsyncGetAccountItemList( MAsyncJob* pJobResult )
 	const int nAccountItemCount = pJob->GetAccountItemCount();
 
 	if (nAccountItemCount > 0) {
-		MAccountItemNode* accountItems = pJob->GetAccountItemList();
+		CCAccountItemNode* accountItems = pJob->GetAccountItemList();
 		if( NULL == accountItems ) return;
 
 		MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_ACCOUNT_ITEMLIST, pObj->GetUID());
