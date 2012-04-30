@@ -1917,6 +1917,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCQuestMap.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCQuestPlayer.h"
 			>
 		</File>

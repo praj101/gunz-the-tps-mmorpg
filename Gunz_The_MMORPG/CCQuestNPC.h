@@ -1,5 +1,4 @@
-#ifndef _CCQUEST_NPC_H
-#define _CCQUEST_NPC_H
+#pragma once
 
 #include "CCQuestConst.h"
 #include "CCTypes.h"
