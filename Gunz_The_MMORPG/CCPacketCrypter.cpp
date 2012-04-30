@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MPacketCrypter.h"
+#include "CCPacketCrypter.h"
 #include "MPacket.h"
 
 int MPacketCrypter::m_nSHL = (MCOMMAND_VERSION % 6) + 1;

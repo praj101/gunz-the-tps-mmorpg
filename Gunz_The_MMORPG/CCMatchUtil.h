@@ -1,6 +1,6 @@
 #pragma once
 #include <limits.h>
-#include "MPacketCrypter.h"
+#include "CCPacketCrypter.h"
 #include "CCUID.h"
 
 // 유틸리티 펑션들
