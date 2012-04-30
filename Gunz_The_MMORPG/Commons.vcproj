@@ -1294,7 +1294,7 @@
 					Name="Main"
 					>
 					<File
-						RelativePath=".\main.cpp"
+						RelativePath=".\main_loading_test.cpp"
 						>
 					</File>
 				</Filter>
