@@ -1905,6 +1905,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCSmartRefresh.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCSmartRefresh.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCSmartRefreshImpl.cpp"
 			>
 		</File>
