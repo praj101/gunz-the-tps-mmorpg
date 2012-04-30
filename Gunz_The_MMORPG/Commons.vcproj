@@ -2093,6 +2093,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCTrafficLog.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCUID.cpp"
 			>
 		</File>

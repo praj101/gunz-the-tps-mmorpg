@@ -1,8 +1,8 @@
 #ifndef _MPACKET_H
 #define _MPACKET_H
 
-#include "MCommand.h"
-#include "MCommandManager.h"
+#include "CCCommand.h"
+#include "CCCommandManager.h"
 
 #define MAX_PACKET_SIZE			16384		// 최대 패킷 크기는 16k
 
