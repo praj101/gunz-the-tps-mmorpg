@@ -39,7 +39,7 @@ private:
 	bool		m_bIsShowedNewbieTips;	// 왕초보용 메세지를 이미 보여줬는지 여부. 이게 여기있는게 적당한건지 잘 모르겠음. -_-ㅋ
 
 	// func
-	void ParseTips(MXmlElement* pElement);
+	void ParseTips(CCXmlElement* pElement);
 public:
 	ZTips();
 	~ZTips() { }

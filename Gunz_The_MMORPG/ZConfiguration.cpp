@@ -174,10 +174,10 @@ bool ZConfiguration::Load_StringResDependent()
 
 bool ZConfiguration::LoadLocale(const char* szFileName)
 {
-	MXmlDocument	xmlLocale;
-	MXmlElement		parentElement, serverElement, bindsElement;
-	MXmlElement		childElement;
-	MXmlElement		selectableLangsElem;
+	CCXmlDocument	xmlLocale;
+	CCXmlElement		parentElement, serverElement, bindsElement;
+	CCXmlElement		childElement;
+	CCXmlElement		selectableLangsElem;
 
 	char			*buffer;
 	CCZFile			mzFile;
@@ -242,12 +242,12 @@ bool ZConfiguration::LoadLocale(const char* szFileName)
 	return true;
 }
 
-void ZConfiguration::ParseLocaleSelectableLanguages(MXmlElement& selectableLangsElem)
+void ZConfiguration::ParseLocaleSelectableLanguages(CCXmlElement& selectableLangsElem)
 {
 	char szTag[256];
 	char szLanguageID[256];
 	char szLanguageName[256];
-	MXmlElement elem;
+	CCXmlElement elem;
 	int numChild = selectableLangsElem.GetChildNodeCount();
 
 	for (int i=0; i<numChild; ++i)
@@ -271,7 +271,7 @@ void ZConfiguration::ParseLocaleSelectableLanguages(MXmlElement& selectableLangs
 
 bool ZConfiguration::LoadGameTypeCfg(const char* szFileName)
 {
-	MXmlDocument xmlIniData;
+	CCXmlDocument xmlIniData;
 	xmlIniData.Create();
 
 	char			*buffer;
@@ -298,7 +298,7 @@ bool ZConfiguration::LoadGameTypeCfg(const char* szFileName)
 	}
 
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 
 	char szTagName[ 256];
 
@@ -332,7 +332,7 @@ bool ZConfiguration::LoadSystem(const char* szFileName)
 {
 	char			*buffer;
 	CCZFile			mzFile;
-	MXmlDocument	xmlConfig;
+	CCXmlDocument	xmlConfig;
 	xmlConfig.Create();
 
 	if( !mzFile.Open( szFileName, ZApplication::GetFileSystem())) 
@@ -358,8 +358,8 @@ bool ZConfiguration::LoadSystem(const char* szFileName)
 	mzFile.Close();
 	mlog( "- SUCCESS\n");
 
-	MXmlElement		parentElement = xmlConfig.GetDocumentElement();
-	MXmlElement		serverElement, childElement;
+	CCXmlElement		parentElement = xmlConfig.GetDocumentElement();
+	CCXmlElement		serverElement, childElement;
 
 	int iCount = parentElement.GetChildNodeCount();
 
@@ -458,9 +458,9 @@ bool ZConfiguration::LoadSystem(const char* szFileName)
 
 bool ZConfiguration::LoadConfig(const char* szFileName)
 {
-	MXmlDocument	xmlConfig;
-	MXmlElement		parentElement, serverElement, bindsElement;
-	MXmlElement		childElement;
+	CCXmlDocument	xmlConfig;
+	CCXmlElement		parentElement, serverElement, bindsElement;
+	CCXmlElement		childElement;
 
 	mlog( "Load Config from file : %s", szFileName );
 
@@ -534,10 +534,10 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 				strcpy(szItemName, m_Keyboard.ActionKeys[i].szName);
 				_strupr(szItemName);
 
-				MXmlNode keyNode;
+				CCXmlNode keyNode;
 				if (childElement.FindChildNode(szItemName, &keyNode))
 				{
-					MXmlElement actionKeyElement = keyNode;
+					CCXmlElement actionKeyElement = keyNode;
 
 					const int ID_UNDEFINED = -2;
 					int nKey;
@@ -614,7 +614,7 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 			for(int i=0;i<bindsElement.GetChildNodeCount();i++)
 			{
 				char tagname[256];
-				MXmlElement bind=bindsElement.GetChildNode(i);
+				CCXmlElement bind=bindsElement.GetChildNode(i);
 				bind.GetTagName(tagname);
 				if(strcmp(tagname,ZTOK_BIND)==0)
 				{
@@ -667,9 +667,9 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 // 핫키는 봉인되었다.
 bool ZConfiguration::LoadHotKey(const char* szFileName)
 {
-	MXmlDocument	xmlConfig;
-	MXmlElement		parentElement, serverElement, bindsElement;
-	MXmlElement		childElement;
+	CCXmlDocument	xmlConfig;
+	CCXmlElement		parentElement, serverElement, bindsElement;
+	CCXmlElement		childElement;
 
 	xmlConfig.Create();
 	if (!xmlConfig.LoadFromFile(szFileName)) 
@@ -688,7 +688,7 @@ bool ZConfiguration::LoadHotKey(const char* szFileName)
 			for(int i=0;i<bindsElement.GetChildNodeCount();i++)
 			{
 				char tagname[256];
-				MXmlElement bind=bindsElement.GetChildNode(i);
+				CCXmlElement bind=bindsElement.GetChildNode(i);
 				bind.GetTagName(tagname);
 				if(strcmp(tagname,ZTOK_BIND)==0)
 				{
@@ -730,12 +730,12 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 {
 	char buffer[256];
 
-	MXmlDocument	xmlConfig;
+	CCXmlDocument	xmlConfig;
 
 	xmlConfig.Create();
 	xmlConfig.CreateProcessingInstruction(szHeader);
 
-	MXmlElement		aRootElement;
+	CCXmlElement		aRootElement;
 
 	aRootElement=xmlConfig.CreateElement("XML");
 	aRootElement.AppendText("\n\t");
@@ -746,10 +746,10 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 
 	// Server
 	{
-		MXmlElement	serverElement=aRootElement.CreateChildElement(ZTOK_SERVER);
+		CCXmlElement	serverElement=aRootElement.CreateChildElement(ZTOK_SERVER);
 		serverElement.AppendText("\n\t\t");
 
-		MXmlElement		aElement;
+		CCXmlElement		aElement;
 		aElement = serverElement.CreateChildElement(ZTOK_IP);
 		aElement.SetContents(m_szServerIP);
 
@@ -765,7 +765,7 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 
 	// Skin
 	{
-		MXmlElement	skinElement=aRootElement.CreateChildElement(ZTOK_SKIN);
+		CCXmlElement	skinElement=aRootElement.CreateChildElement(ZTOK_SKIN);
 		skinElement.SetContents(m_szInterfaceSkinName);
 		skinElement.AppendText("");
 	}
@@ -774,10 +774,10 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 
 	// Video
 	{
-		MXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_VIDEO);
+		CCXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_VIDEO);
 
 		parentElement.AppendText("\n\t\t");
-		MXmlElement		aElement;
+		CCXmlElement		aElement;
 		aElement = parentElement.CreateChildElement(ZTOK_VIDEO_WIDTH);
 		char temp[256];
 		sprintf(temp, "%d", m_Video.nWidth);
@@ -870,10 +870,10 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 
 	// Audio
 	{
-		MXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_AUDIO);
+		CCXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_AUDIO);
 
 		parentElement.AppendText("\n\t\t");
-		MXmlElement		aElement;
+		CCXmlElement		aElement;
 		char temp[256];
 
 		aElement = parentElement.CreateChildElement(ZTOK_AUDIO_BGM_MUTE);
@@ -939,10 +939,10 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 
 	// Mouse
 	{
-		MXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_MOUSE);
+		CCXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_MOUSE);
 
 		parentElement.AppendText("\n\t\t");
-		MXmlElement		aElement;
+		CCXmlElement		aElement;
 		aElement = parentElement.CreateChildElement(ZTOK_MOUSE_SENSITIVITY);
 		char temp[256];
 		// 버그리포트 => 옵션->키보드->마우스->마우스 감도에서 최하로 설정했을때 마우스가 안움직인다. 
@@ -965,10 +965,10 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 	aRootElement.AppendText("\n\n\t");
 	// Joystick
 	{
-		MXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_JOYSTICK);
+		CCXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_JOYSTICK);
 
 		parentElement.AppendText("\n\t\t");
-		MXmlElement		aElement;
+		CCXmlElement		aElement;
 		aElement = parentElement.CreateChildElement(ZTOK_JOYSTICK_SENSITIVITY);
 		char temp[256];
 		sprintf(temp, "%f", m_Joystick.fSensitivity);
@@ -986,7 +986,7 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 	aRootElement.AppendText("\n\n\t");
 	// Control
 	{
-		MXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_KEYBOARD);
+		CCXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_KEYBOARD);
 		for(int i=0; i<ZACTION_COUNT; i++){
 			char szItemName[256];
 			strcpy(szItemName, m_Keyboard.ActionKeys[i].szName);
@@ -994,7 +994,7 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 
 			if(szItemName[0]!=0){
 				parentElement.AppendText("\n\t\t");
-				MXmlElement		aElement;
+				CCXmlElement		aElement;
 				aElement = parentElement.CreateChildElement(szItemName);
 				char temp[256];
 				sprintf(temp, "%d", m_Keyboard.ActionKeys[i].nVirtualKey);
@@ -1010,11 +1010,11 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 	// Macro
 //	if( parentElement.FindChildNode(ZTOK_MACRO, &childElement) )
 	{
-		MXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_MACRO);
+		CCXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_MACRO);
 
 		parentElement.AppendText("\n\t\t");
 
-		MXmlElement		aElement;
+		CCXmlElement		aElement;
 
 		char* _temp[ZCONFIG_MACRO_MAX] = {
 			ZTOK_MACRO_F1,
@@ -1041,9 +1041,9 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 
 	// Etc
 	{
-		MXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_ETC);
+		CCXmlElement	parentElement=aRootElement.CreateChildElement(ZTOK_ETC);
 
-		MXmlElement		aElement;
+		CCXmlElement		aElement;
 
 		// Network port
 		parentElement.AppendText("\n\t\t");
@@ -1126,13 +1126,13 @@ bool ZConfiguration::SaveToFile(const char *szFileName, const char* szHeader)
 
 	/*
 	aRootElement.AppendText("\n\t");
-	MXmlElement bindsElement=aRootElement.CreateChildElement(ZTOK_BINDS);
+	CCXmlElement bindsElement=aRootElement.CreateChildElement(ZTOK_BINDS);
 
 	for(ZHOTKEYS::iterator i=m_HotKeys.begin();i!=m_HotKeys.end();i++)
 	{
 		bindsElement.AppendText("\n\t\t");
 
-		MXmlElement bind=bindsElement.CreateChildElement(ZTOK_BIND);
+		CCXmlElement bind=bindsElement.CreateChildElement(ZTOK_BIND);
 
 		ZHOTKEY *photkey=(*i).second;
 

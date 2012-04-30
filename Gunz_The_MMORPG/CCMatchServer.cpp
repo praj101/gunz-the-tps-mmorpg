@@ -623,7 +623,7 @@ bool CCMatchServer::LoadChannelPreset()
 	#define MTOK_CHANNEL				"CHANNEL"
 	#define MTOK_CLAN_CHANNEL			"CLAN_CHANNEL"
 
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	if (!xmlIniData.LoadFromFile(FILENAME_CHANNEL))
@@ -632,7 +632,7 @@ bool CCMatchServer::LoadChannelPreset()
 		return false;
 	}
 
-	MXmlElement rootElement, childElement;
+	CCXmlElement rootElement, childElement;
 	char szTagName[256];
 	char szBuf[256];
 
@@ -2944,7 +2944,7 @@ bool CCMatchServer::CompareMatchItem(MMatchItemDescForDatabase *pItem1, MMatchIt
 // item xml 체크용 - 테스트
 static bool CheckItemXML_ReadXML(map<unsigned long int, string>& ItemXmlMap, const char* szXmlFile)
 {
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 
 	xmlIniData.Create();
 
@@ -2954,7 +2954,7 @@ static bool CheckItemXML_ReadXML(map<unsigned long int, string>& ItemXmlMap, con
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -3173,7 +3173,7 @@ bool CCMatchServer::CheckUpdateItemXML()
 	map< string, ix > imName;
 	map< string, ix > imDesc;
 
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 
 	xmlIniData.Create();
 
@@ -3183,7 +3183,7 @@ bool CCMatchServer::CheckUpdateItemXML()
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();

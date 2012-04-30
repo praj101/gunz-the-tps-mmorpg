@@ -52,7 +52,7 @@ void ZSoundEngine::OnCreate()
 
 bool ZSoundEngine::LoadResource(char* pFileName)
 {
-	MXmlDocument Data;
+	CCXmlDocument Data;
 
 	CCZFile mzf;
 	if(!mzf.Open(pFileName, m_pZFileSystem)) return false;
@@ -72,7 +72,7 @@ bool ZSoundEngine::LoadResource(char* pFileName)
 	mzf.Close();
 
 
-	MXmlElement root, chr, attr;
+	CCXmlElement root, chr, attr;
 
 	char szSoundName[256];
 	char szSoundFileName[256];
@@ -1211,7 +1211,7 @@ bool ZSoundEngine::LoadResource( char* pFileName_ ,ZLoadingProgress *pLoading )
 		return false;
 	}
 
-	MXmlDocument Data;
+	CCXmlDocument Data;
 
 	CCZFile mzf;
 	if(!mzf.Open(pFileName_,ZGetFileSystem()))
@@ -1232,7 +1232,7 @@ bool ZSoundEngine::LoadResource( char* pFileName_ ,ZLoadingProgress *pLoading )
 	mzf.Close();
 
 
-	MXmlElement root, chr, attr;
+	CCXmlElement root, chr, attr;
 
 	float fTemp;
 	char szSoundName[256];

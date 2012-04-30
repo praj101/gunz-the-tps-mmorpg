@@ -30,28 +30,28 @@ class ZIDLResource : public MIDLResource
 {
 private:
 protected:
-	ZMapListBox* GetMapListBox(MXmlElement& element);
-	ZScoreBoardFrame* GetScoreBoardFrame(MXmlElement& element);
-	ZScoreListBox* GetScoreListBox(MXmlElement& element);
-	ZMeshView* GetMeshView(MXmlElement& element);
-	ZMeshViewList* GetMeshViewList(MXmlElement& element);
-	ZCharacterView* GetCharacterView(MXmlElement& element);
-	ZCharacterViewList* GetCharacterViewList(MXmlElement& element);
-	ZShopEquipListbox* GetEquipmentListBox(MXmlElement& element);
-	ZStageInfoBox* GetStageInfoBox(MXmlElement& element);
-	ZItemSlotView* GetItemSlot(MXmlElement& element);
-	ZRoomListBox* GetRoomListBox(MXmlElement& element);
-	ZPlayerListBox* GetPlayerListBox(MXmlElement& element);
-	ZCanvas* GetCanvas(MXmlElement& element);
-	ZPlayerSelectListBox* GetPlayerSelectListBox(MXmlElement& element);
-	ZBmNumLabel *GetBmNumLabel(MXmlElement& element);
-	ZClanListBox* GetClanListBox( MXmlElement& element );
-	ZDuelTournamentRankingListBox* GetDuelTournamentRankingListBox( MXmlElement& element );
-	ZServerView* GetServerView(MXmlElement& element);
-	ZActionKey* GetActionKey(MXmlElement& element);
+	ZMapListBox* GetMapListBox(CCXmlElement& element);
+	ZScoreBoardFrame* GetScoreBoardFrame(CCXmlElement& element);
+	ZScoreListBox* GetScoreListBox(CCXmlElement& element);
+	ZMeshView* GetMeshView(CCXmlElement& element);
+	ZMeshViewList* GetMeshViewList(CCXmlElement& element);
+	ZCharacterView* GetCharacterView(CCXmlElement& element);
+	ZCharacterViewList* GetCharacterViewList(CCXmlElement& element);
+	ZShopEquipListbox* GetEquipmentListBox(CCXmlElement& element);
+	ZStageInfoBox* GetStageInfoBox(CCXmlElement& element);
+	ZItemSlotView* GetItemSlot(CCXmlElement& element);
+	ZRoomListBox* GetRoomListBox(CCXmlElement& element);
+	ZPlayerListBox* GetPlayerListBox(CCXmlElement& element);
+	ZCanvas* GetCanvas(CCXmlElement& element);
+	ZPlayerSelectListBox* GetPlayerSelectListBox(CCXmlElement& element);
+	ZBmNumLabel *GetBmNumLabel(CCXmlElement& element);
+	ZClanListBox* GetClanListBox( CCXmlElement& element );
+	ZDuelTournamentRankingListBox* GetDuelTournamentRankingListBox( CCXmlElement& element );
+	ZServerView* GetServerView(CCXmlElement& element);
+	ZActionKey* GetActionKey(CCXmlElement& element);
 
 	virtual void TransText(char* szSrc, char* szOut);		// 국제화를 위한 함수
-	virtual void Parse(MXmlElement& element);
+	virtual void Parse(CCXmlElement& element);
 	virtual MFrame*	CreateFrame(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
 	virtual MFont* CreateFont(char* szAliasName, char* szFontName, int nHeight
 		              ,bool bBold = false, bool bItalic = false, int nOutlineStyle = 0, bool bAntialiasing = false, DWORD nColorArg1=0, DWORD nColorArg2=0);

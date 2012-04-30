@@ -27,7 +27,7 @@ MMapDesc* MMapDesc::GetInstance()
 
 bool MMapDesc::Initialize(const char* szFileName)
 {
-	MXmlDocument	xmlIniData;	
+	CCXmlDocument	xmlIniData;	
 	xmlIniData.Create();
 
 	if (!xmlIniData.LoadFromFile(szFileName))
@@ -37,7 +37,7 @@ bool MMapDesc::Initialize(const char* szFileName)
 	}
 
 	int iCount, num =0 ;
-	MXmlElement		aParent, aChild;
+	CCXmlElement		aParent, aChild;
 	aParent = xmlIniData.GetDocumentElement();
 	iCount = aParent.GetChildNodeCount();
 
@@ -74,7 +74,7 @@ bool MMapDesc::Initialize(const char* szFileName)
 
 bool MMapDesc::Initialize(CCZFileSystem* pFileSystem, const char* szFileName)
 {
-	MXmlDocument	xmlIniData;	
+	CCXmlDocument	xmlIniData;	
 	xmlIniData.Create();
 
 	CCZFile mzf;
@@ -111,7 +111,7 @@ bool MMapDesc::Initialize(CCZFileSystem* pFileSystem, const char* szFileName)
 
 
 	int iCount, num =0 ;
-	MXmlElement		aParent, aChild;
+	CCXmlElement		aParent, aChild;
 	aParent = xmlIniData.GetDocumentElement();
 	iCount = aParent.GetChildNodeCount();
 

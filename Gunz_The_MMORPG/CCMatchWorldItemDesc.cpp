@@ -31,7 +31,7 @@ MMatchWorldItemDescMgr::~MMatchWorldItemDescMgr()
 
 bool MMatchWorldItemDescMgr::ReadXml(const char* szFileName)
 {
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 
 	xmlIniData.Create();
 
@@ -41,7 +41,7 @@ bool MMatchWorldItemDescMgr::ReadXml(const char* szFileName)
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -66,7 +66,7 @@ bool MMatchWorldItemDescMgr::ReadXml(const char* szFileName)
 
 bool MMatchWorldItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	//	<-----------------
@@ -106,7 +106,7 @@ bool MMatchWorldItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szF
 	mzf.Close();
 	//	<------------------
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -155,7 +155,7 @@ MMatchWorldItemDescMgr* MMatchWorldItemDescMgr::GetInstance()
 }
 
 
-void MMatchWorldItemDescMgr::ParseWorldItem(MXmlElement& element)
+void MMatchWorldItemDescMgr::ParseWorldItem(CCXmlElement& element)
 {
 	MMatchWorldItemDesc* pNewWorldItemDesc = new MMatchWorldItemDesc;
 	memset(pNewWorldItemDesc, 0, sizeof(MMatchWorldItemDesc));
@@ -235,7 +235,7 @@ bool MMatchMapsWorldItemSpawnInfo::Read()
 
 bool MMatchMapsWorldItemSpawnInfo::ReadXml(const char* szFileName, int nMapID)
 {
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 
 	xmlIniData.Create();
 
@@ -245,7 +245,7 @@ bool MMatchMapsWorldItemSpawnInfo::ReadXml(const char* szFileName, int nMapID)
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -279,11 +279,11 @@ MMatchMapsWorldItemSpawnInfo* MMatchMapsWorldItemSpawnInfo::GetInstance()
 	return &m_stMapsWISP;
 }
 
-void MMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(MXmlElement& element, int nMapID)
+void MMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(CCXmlElement& element, int nMapID)
 {
 	if ((nMapID < 0) || (nMapID >= MMATCH_MAP_COUNT)) return;
 
-	MXmlElement spawnElement;
+	CCXmlElement spawnElement;
 	char szGameTypeID[64] = "";
 	element.GetAttribute(szGameTypeID, MMSITOK_ID);
 

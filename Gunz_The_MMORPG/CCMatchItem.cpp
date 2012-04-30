@@ -351,7 +351,7 @@ MMatchItemEffectDescMgr::~MMatchItemEffectDescMgr()
 {
 	Clear();
 }
-void MMatchItemEffectDescMgr::ParseEffect(MXmlElement& element)
+void MMatchItemEffectDescMgr::ParseEffect(CCXmlElement& element)
 {
 	MMatchItemEffectDesc* pNewEffectDesc = new MMatchItemEffectDesc;
 	memset(pNewEffectDesc, 0, sizeof(MMatchItemEffectDesc));
@@ -391,7 +391,7 @@ void MMatchItemEffectDescMgr::ParseEffect(MXmlElement& element)
 }
 bool MMatchItemEffectDescMgr::ReadXml(const char* szFileName)
 {
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 
 	xmlIniData.Create();
 
@@ -401,7 +401,7 @@ bool MMatchItemEffectDescMgr::ReadXml(const char* szFileName)
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -427,7 +427,7 @@ bool MMatchItemEffectDescMgr::ReadXml(const char* szFileName)
 
 bool MMatchItemEffectDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	//	<-----------------
@@ -467,7 +467,7 @@ bool MMatchItemEffectDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* sz
 	mzf.Close();
 	//	<------------------
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -531,7 +531,7 @@ bool MMatchItemDescMgr::ReadXml(const char* szFileName)
 {
 	m_nChecksum = MGetCCZFileChecksum(szFileName);
 
-	MXmlDocument xmlIniData;
+	CCXmlDocument xmlIniData;
 
 	xmlIniData.Create();
 
@@ -542,7 +542,7 @@ bool MMatchItemDescMgr::ReadXml(const char* szFileName)
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -615,7 +615,7 @@ void MMatchItemDescMgr::WriteCache()
 
 bool MMatchItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	//	<-----------------
@@ -662,7 +662,7 @@ bool MMatchItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileNa
 
 
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -707,7 +707,7 @@ MMatchItemDesc* MMatchItemDescMgr::GetItemDesc(unsigned long int nID)
 
 
 
-bool MMatchItemDescMgr::ParseItem(MXmlElement& element)
+bool MMatchItemDescMgr::ParseItem(CCXmlElement& element)
 {
 	MMatchItemDesc* pNewDesc = new MMatchItemDesc;
 

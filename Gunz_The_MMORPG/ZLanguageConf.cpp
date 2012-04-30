@@ -2,7 +2,7 @@
 #include <winsock2.h>
 #include <windows.h>
 #include <crtdbg.h>
-#include "MXml.h"
+#include "CCXml.h"
 #include "CCZFileSystem.h"
 //#include "MMessenger.h"
 #include "ZLanguageConf.h"

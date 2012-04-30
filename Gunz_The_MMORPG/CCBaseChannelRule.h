@@ -1,5 +1,5 @@
 #pragma once
-#include "MXmlParser.h"
+#include "CCXmlParser.h"
 #include <list>
 #include <map>
 #include <set>
@@ -137,7 +137,7 @@ public:
 
 
 
-class MChannelRuleMgr : public map<string, MChannelRule*>, public MXmlParser
+class MChannelRuleMgr : public map<string, MChannelRule*>, public CCXmlParser
 {
 private:
 	map<MCHANNEL_RULE, MChannelRule*>		m_RuleTypeMap;
@@ -150,6 +150,6 @@ public:
 	MChannelRule* GetRule(MCHANNEL_RULE nChannelRule);
 
 protected:
-	void ParseRule(MXmlElement* element);
-	virtual void ParseRoot(const char* szTagName, MXmlElement* pElement);
+	void ParseRule(CCXmlElement* element);
+	virtual void ParseRoot(const char* szTagName, CCXmlElement* pElement);
 };

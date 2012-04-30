@@ -42,7 +42,7 @@ bool MMatchFormula::Create()
 
 bool MMatchFormula::ReadXml(const char* szXmlFileName)
 {
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 
 	xmlIniData.Create();
 
@@ -52,7 +52,7 @@ bool MMatchFormula::ReadXml(const char* szXmlFileName)
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -88,10 +88,10 @@ bool MMatchFormula::ReadXml(const char* szXmlFileName)
 	return true;
 }
 
-void MMatchFormula::ParseNeedExpLM(MXmlElement& element)
+void MMatchFormula::ParseNeedExpLM(CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szTagName[64];
 
 	for (int i = 0; i < iCount; i++)
@@ -118,10 +118,10 @@ void MMatchFormula::ParseNeedExpLM(MXmlElement& element)
 	}
 }
 
-void MMatchFormula::ParseGettingExpLM(MXmlElement& element)
+void MMatchFormula::ParseGettingExpLM(CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szTagName[64];
 
 	for (int i = 0; i < iCount; i++)
@@ -148,10 +148,10 @@ void MMatchFormula::ParseGettingExpLM(MXmlElement& element)
 	}
 }
 
-void MMatchFormula::ParseGettingBountyLM(MXmlElement& element)
+void MMatchFormula::ParseGettingBountyLM(CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szTagName[64];
 
 	for (int i = 0; i < iCount; i++)

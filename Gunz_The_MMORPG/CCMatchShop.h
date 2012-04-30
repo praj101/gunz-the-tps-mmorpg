@@ -35,7 +35,7 @@ protected:
 	vector<ShopItemNode*>					m_ItemNodeVector;
 	map<unsigned int, ShopItemNode*>		m_ItemNodeMap;
 
-	void ParseSellItem(MXmlElement& element);
+	void ParseSellItem(CCXmlElement& element);
 	bool ReadXml(const char* szFileName);
 
 

@@ -60,10 +60,10 @@ void ZGameTypeList::Clear( void)
 }
 
 
-bool ZGameTypeList::ParseGameTypeList( int nGameTypeNum, MXmlElement& element)
+bool ZGameTypeList::ParseGameTypeList( int nGameTypeNum, CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
-	MXmlElement chrElement;
+	CCXmlElement chrElement;
 	char szTagName[256];
 
 	ZGameTypeConfig* pConfig = new ZGameTypeConfig;
@@ -110,7 +110,7 @@ bool ZGameTypeList::ParseGameTypeList( int nGameTypeNum, MXmlElement& element)
 }
 
 
-bool ZGameTypeList::ParseRound( ZGameTypeConfig* pConfig, MXmlElement& element)
+bool ZGameTypeList::ParseRound( ZGameTypeConfig* pConfig, CCXmlElement& element)
 {
 	int nValue;
 	char szStr[ 16];
@@ -128,7 +128,7 @@ bool ZGameTypeList::ParseRound( ZGameTypeConfig* pConfig, MXmlElement& element)
 }
 
 
-bool ZGameTypeList::ParseLimitTime( ZGameTypeConfig* pConfig, MXmlElement& element)
+bool ZGameTypeList::ParseLimitTime( ZGameTypeConfig* pConfig, CCXmlElement& element)
 {
 	int nValue;
 	char szStr[ 256];
@@ -147,7 +147,7 @@ bool ZGameTypeList::ParseLimitTime( ZGameTypeConfig* pConfig, MXmlElement& eleme
 }
 
 
-bool ZGameTypeList::ParseMaxPlayers( ZGameTypeConfig* pConfig, MXmlElement& element)
+bool ZGameTypeList::ParseMaxPlayers( ZGameTypeConfig* pConfig, CCXmlElement& element)
 {
 	int nValue;
 	char szStr[ 16];

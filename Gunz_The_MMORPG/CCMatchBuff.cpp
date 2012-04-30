@@ -56,7 +56,7 @@ bool MMatchBuffDescMgr::ReadXml(const char* szFileName)
 {
 	m_nChecksum = MGetCCZFileChecksum(szFileName);
 
-	MXmlDocument xmlIniData;
+	CCXmlDocument xmlIniData;
 
 	xmlIniData.Create();
 
@@ -67,7 +67,7 @@ bool MMatchBuffDescMgr::ReadXml(const char* szFileName)
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -95,7 +95,7 @@ bool MMatchBuffDescMgr::ReadXml(const char* szFileName)
 
 bool MMatchBuffDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
-	MXmlDocument xmlIniData;
+	CCXmlDocument xmlIniData;
 	xmlIniData.Create();
 
 	char *buffer;
@@ -141,7 +141,7 @@ bool MMatchBuffDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileNa
 	//	<------------------
 
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -187,7 +187,7 @@ MMatchBuffDesc* MMatchBuffDescMgr::GetBuffDesc(unsigned long int nBuffID)
 	return NULL;
 }
 
-bool MMatchBuffDescMgr::ParseItem(MXmlElement& element)
+bool MMatchBuffDescMgr::ParseItem(CCXmlElement& element)
 {
 	MMatchBuffDesc* pNewDesc = new MMatchBuffDesc;
 

@@ -24,11 +24,11 @@ public:
 
 //	bool Init( CCZFileSystem* pFileSystem, const char* pszListFile );
 
-	bool ParseLocatorList( MXmlElement& element );
+	bool ParseLocatorList( CCXmlElement& element );
 
 private :
 //	bool LoadXML( CCZFileSystem* pFileSystem, const char* pszListFile );
-	bool ParseLocator( MXmlElement& element );
+	bool ParseLocator( CCXmlElement& element );
 
 private :
 	vector< string > m_LocatorIPList;

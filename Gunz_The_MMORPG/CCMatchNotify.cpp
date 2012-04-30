@@ -25,7 +25,7 @@ bool InitializeNotify(CCZFileSystem *pfs)
 	mzf.Read(buffer,mzf.GetLength());
 	buffer[mzf.GetLength()]=0;
 
-	MXmlDocument aXml;
+	CCXmlDocument aXml;
 	aXml.Create();
 	if(!aXml.LoadFromMemory(buffer))
 	{
@@ -35,7 +35,7 @@ bool InitializeNotify(CCZFileSystem *pfs)
 	delete buffer;
 
 	int iCount, i;
-	MXmlElement		aParent, aChild;
+	CCXmlElement		aParent, aChild;
 	aParent = aXml.GetDocumentElement();
 	iCount = aParent.GetChildNodeCount();
 

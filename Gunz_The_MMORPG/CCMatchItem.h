@@ -432,7 +432,7 @@ bool IsEnchantItem(MMatchItemDesc* pItemDesc);
 class MMatchItemEffectDescMgr : public map<int, MMatchItemEffectDesc*>
 {
 protected:
-	void ParseEffect(MXmlElement& element);
+	void ParseEffect(CCXmlElement& element);
 public:
 	MMatchItemEffectDescMgr();
 	virtual ~MMatchItemEffectDescMgr();
@@ -453,7 +453,7 @@ class MMatchItemDescMgr : public map<int, MMatchItemDesc*>
 	int m_nextItemIdToMemoryShift;
 	
 protected:
-	bool ParseItem(MXmlElement& element);
+	bool ParseItem(CCXmlElement& element);
 public:
 	MMatchItemDescMgr();
 	virtual ~MMatchItemDescMgr();

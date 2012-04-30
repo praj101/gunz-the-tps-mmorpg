@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "MXmlParser.h"
+#include "CCXmlParser.h"
 #include "CCZFileSystem.h"
-#include "MXml.h"
+#include "CCXml.h"
 
 
-bool MXmlParser::ReadXml(const char* szFileName)
+bool CCXmlParser::ReadXml(const char* szFileName)
 {
-	MXmlDocument xmlIniData;
+	CCXmlDocument xmlIniData;
 
 	xmlIniData.Create();
 
@@ -15,7 +15,7 @@ bool MXmlParser::ReadXml(const char* szFileName)
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 
 	char szTagName[256];
 
@@ -37,10 +37,10 @@ bool MXmlParser::ReadXml(const char* szFileName)
 	return true;
 }
 
-bool MXmlParser::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
+bool CCXmlParser::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	char *buffer;
@@ -77,7 +77,7 @@ bool MXmlParser::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 	mzf.Close();
 
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();

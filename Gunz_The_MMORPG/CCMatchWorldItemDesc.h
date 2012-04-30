@@ -39,7 +39,7 @@ class MMatchWorldItemDescMgr : public map<short, MMatchWorldItemDesc*>
 {
 private:
 protected:
-	void ParseWorldItem(MXmlElement& element);
+	void ParseWorldItem(CCXmlElement& element);
 public:
 	MMatchWorldItemDescMgr();
 	virtual ~MMatchWorldItemDescMgr();
@@ -79,7 +79,7 @@ struct MMatchMapsWorldItemSpawnInfoSet
 class MMatchMapsWorldItemSpawnInfo
 {
 private:
-	void ParseSpawnInfo(MXmlElement& element, int nMapID);
+	void ParseSpawnInfo(CCXmlElement& element, int nMapID);
 	void SetMapsSpawnInfo(int nMapID, char* szGameTypeID, int nItemID, float x, float y, float z, 
 						  unsigned long int nCoolTime);
 	bool ReadXml(const char* szFileName, int nMapID);
