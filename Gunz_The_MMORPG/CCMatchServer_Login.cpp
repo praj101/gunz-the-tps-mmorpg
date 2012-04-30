@@ -568,7 +568,7 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 	{
 		LOG(LOG_PROG, "Invalid filelist crc (%u) , UserID(%s)\n ", nChecksum, pObj->GetAccountInfo()->m_szUserID);
 //		pObj->SetBadFileCRCDisconnectWaitInfo();
-		pObj->DisconnectHacker( MMHT_BADFILECRC);
+		pObj->DisconnectHacker( CCMHT_BADFILECRC);
 	}
 	/*
 	if (nChecksum != GetItemFileChecksum()) {

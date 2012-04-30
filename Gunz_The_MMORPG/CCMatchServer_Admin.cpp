@@ -229,7 +229,7 @@ void CCMatchServer::OnAdminRequestKickPlayer(const CCUID& uidAdmin, const char* 
 	if (pTargetObj != NULL) 
 	{
 #ifdef LOCALE_KOREA
-		pTargetObj->DisconnectHacker( MMHT_COMMAND_BLOCK_BY_ADMIN );
+		pTargetObj->DisconnectHacker( CCMHT_COMMAND_BLOCK_BY_ADMIN );
 #else
 		// Notify Message 필요 -> 관리자 전용 - 해결(특별한 메세지 필요 없음)
 		Disconnect(pTargetObj->GetUID());

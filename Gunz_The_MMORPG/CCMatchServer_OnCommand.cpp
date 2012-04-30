@@ -37,7 +37,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				{
 					LOG(LOG_FILE,"Command Flood detected");
 					LogObjectCommandHistory( pCommand->GetSenderUID() );
-					pObj->DisconnectHacker( MMHT_COMMAND_FLOODING );
+					pObj->DisconnectHacker( CCMHT_COMMAND_FLOODING );
 				}
 				else
 				{
@@ -1684,7 +1684,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 								, uidPlayer.High, uidPlayer.Low);
 						}
 						
-						pObj->DisconnectHacker( MMHT_COMMAND_FLOODING );
+						pObj->DisconnectHacker( CCMHT_COMMAND_FLOODING );
 					} 
 					else 
 					{
