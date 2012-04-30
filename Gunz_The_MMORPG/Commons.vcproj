@@ -2093,6 +2093,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\MCommandCommunicator.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\MCommandCommunicator.h"
+			>
+		</File>
+		<File
 			RelativePath=".\MemPool.cpp"
 			>
 		</File>
