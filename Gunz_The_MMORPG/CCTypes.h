@@ -30,6 +30,8 @@
 #define uchar unsigned char
 #define ulong unsigned long
 #define uint  unsigned int
+#define int64 __int64
+#define uint64 unsigned __int64
 
 typedef CCVector3			CCVector;
 
