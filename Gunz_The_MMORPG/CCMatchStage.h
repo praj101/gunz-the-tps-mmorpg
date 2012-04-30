@@ -172,7 +172,7 @@ protected:
 	void OnFinishGame();
 	void OnApplyTeamBonus(CCMatchTeam nTeam);
 protected:
-	friend MMatchServer;
+	friend CCMatchServer;
 	void SetStageType(CCMatchStageType nStageType);
 	void SetLadderTeam(CCMatchLadderTeamInfo* pRedLadderTeamInfo, CCMatchLadderTeamInfo* pBlueLadderTeamInfo);
 
@@ -191,10 +191,10 @@ public:
 	unsigned long GetStartTime()	{ return m_nStartTime; }		///< 게임 시작한 시간
 public:
 	CCMatchStage();
-	virtual ~MMatchStage();
+	virtual ~CCMatchStage();
 
 	bool Create(const CCUID& uid, const char* pszName, bool bPrivate, const char* pszPassword, bool bIsAllowNullChannel, 
-		const MMATCH_GAMETYPE GameType = MMATCH_GAMETYPE_DEFAULT, const bool bIsCheckTicket = false, const DWORD dwTicketItemID = 0);
+		const CCMATCH_GAMETYPE GameType = MMATCH_GAMETYPE_DEFAULT, const bool bIsCheckTicket = false, const DWORD dwTicketItemID = 0);
 
 	void Destroy();
 	void OnCommand(MCommand* pCommand);
@@ -284,7 +284,7 @@ public:
 	void AddTeamBonus(int nExp, CCMatchTeam nTeam);
 	int GetTeamScore(CCMatchTeam nTeam)		{ return m_Teams[nTeam].nScore; }
 
-	void InitTeamKills()									{ m_Teams[MMT_BLUE].nTotalKills = m_Teams[MMT_RED].nTotalKills = 0; }
+	void InitTeamKills()									{ m_Teams[CCMT_BLUE].nTotalKills = m_Teams[CCMT_RED].nTotalKills = 0; }
 	int GetTeamKills(CCMatchTeam nTeam)						{ return m_Teams[nTeam].nTotalKills; }
 	void AddTeamKills(CCMatchTeam nTeam, int amount=1)		{ m_Teams[nTeam].nTotalKills+=amount; }	
 
@@ -379,7 +379,7 @@ public:
 };
 
 
-inline CCDUELTOURNAMENTROUNDSTATE MMatchStage::GetDuelTournamentNextRoundState(MDUELTOURNAMENTROUNDSTATE nRoundState)
+inline CCDUELTOURNAMENTROUNDSTATE CCMatchStage::GetDuelTournamentNextRoundState(CCDUELTOURNAMENTROUNDSTATE nRoundState)
 {
 	switch(nRoundState){
 		case CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL :		return CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL;
@@ -388,7 +388,7 @@ inline CCDUELTOURNAMENTROUNDSTATE MMatchStage::GetDuelTournamentNextRoundState(M
 	}
 }
 
-inline CCDUELTOURNAMENTROUNDSTATE CCMatchStage::GetDuelTournamentRoundState(MDUELTOURNAMENTTYPE nType)
+inline CCDUELTOURNAMENTROUNDSTATE CCMatchStage::GetDuelTournamentRoundState(CCDUELTOURNAMENTTYPE nType)
 {
 	switch(nType) {		
 		case CCDUELTOURNAMENTTYPE_QUATERFINAL :		return CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL;
