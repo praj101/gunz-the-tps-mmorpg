@@ -3,7 +3,7 @@
 
 #include "ZPrerequisites.h"
 #include "MRTTI.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "RVisualMeshMgr.h"
 #include "ZObject.h"
 #include "ZCharacter.h"
@@ -16,20 +16,20 @@ _USING_NAMESPACE_REALSPACE2
 class ZActor;
 
 /// NPC °ü¸®ÀÚ
-class ZNPCObjectMap : public map<MUID, ZObject*>
+class ZNPCObjectMap : public map<CCUID, ZObject*>
 {
 private:
 	bool m_bForceInvisibleNewNpc;
 public:
 	ZNPCObjectMap() : m_bForceInvisibleNewNpc(false) {}
 
-	void Insert(const MUID& uidNPC, ZObject* pObject)
+	void Insert(const CCUID& uidNPC, ZObject* pObject)
 	{
 		insert(value_type(uidNPC, pObject));
 		if (m_bForceInvisibleNewNpc)
 			pObject->SetVisible(false);
 	};
-	void Delete(const MUID& uidNPC)
+	void Delete(const CCUID& uidNPC)
 	{
 		iterator itorNPC = find(uidNPC);
 		if (itorNPC != end())
@@ -38,7 +38,7 @@ public:
 			erase(itorNPC);
 		}
 	};
-	ZObject* Find(const MUID& uidNPC)
+	ZObject* Find(const CCUID& uidNPC)
 	{
 		iterator itor = find(uidNPC);
 		if (itor == end()) return NULL;
@@ -53,7 +53,7 @@ public:
 	void ForceInvisibleNewNpc(bool b) { m_bForceInvisibleNewNpc = b; }
 };
 
-class ZObjectManager : public map<MUID, ZObject*>
+class ZObjectManager : public map<CCUID, ZObject*>
 {
 private:
 	int									m_nOnDrawCnt;
@@ -82,8 +82,8 @@ public:
 	// debug code
 	int GetDrawCount()		{ return m_nOnDrawCnt; }
 	int GetRenderedCount()	{ return m_nRenderedCnt; }
-	ZObject* GetObject(const MUID& uid);
-	ZActor* GetNPCObject(const MUID& uidNPC);
+	ZObject* GetObject(const CCUID& uid);
+	ZActor* GetNPCObject(const CCUID& uidNPC);
 	ZNPCObjectMap* GetNPCObjectMap() { return &m_NPCObjectMap; }
 };
 

@@ -48,7 +48,7 @@ bool ZRuleTeamDeathMatch2::OnCommand(MCommand* pCommand)
 
 	case MC_MATCH_GAME_DEAD:
 		{
-			MUID uidAttacker, uidVictim;
+			CCUID uidAttacker, uidVictim;
 
 			pCommand->GetParameter(&uidAttacker, 0, MPT_UID);
 			pCommand->GetParameter(&uidVictim, 2, MPT_UID);

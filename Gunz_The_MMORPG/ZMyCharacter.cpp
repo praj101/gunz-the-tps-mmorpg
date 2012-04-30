@@ -110,7 +110,7 @@ ZMyCharacter::ZMyCharacter() : ZCharacter()
 	zStatus.m_bReserveDashAttacked = false;
 	m_vReserveDashAttackedDir = rvector(0.f,0.f,0.f);
 	m_fReserveDashAttackedTime = 0.f;
-	m_uidReserveDashAttacker = MUID(0,0);
+	m_uidReserveDashAttacker = CCUID(0,0);
 
 //	m_bForceDamage = false;
 	zStatus.m_bGuardKey = false;
@@ -126,7 +126,7 @@ ZMyCharacter::ZMyCharacter() : ZCharacter()
 	m_Collision.SetHeight(CHARACTER_HEIGHT);
 
 
-	m_OverlapFloor.FloorUID = MUID(0,0);
+	m_OverlapFloor.FloorUID = CCUID(0,0);
 	m_OverlapFloor.nFloorCnt = 0;
 	m_OverlapFloor.vecPosition.x = 0;
 	m_OverlapFloor.vecPosition.y = 0;
@@ -1357,7 +1357,7 @@ void ZMyCharacter::OnGadget_Hanging()
 #else
 				ZGetSoundEngine()->PlaySoundHangOnWall(GetItems()->GetSelectedWeapon()->GetDesc(), bpi.PickPos);
 #endif
-				SetLastThrower(MUID(0,0), 0.0f);
+				SetLastThrower(CCUID(0,0), 0.0f);
 			}
 			else
 				zStatus.m_bHangSuccess=false;
@@ -2333,7 +2333,7 @@ void ZMyCharacter::OnUpdate(float fDelta)
 					SetVelocity(GetVelocity().x,GetVelocity().y,0);
 
 				if (GetLastThrowClearTime() < ZGetGame()->GetTime())
-					SetLastThrower(MUID(0,0), 0.0f);
+					SetLastThrower(CCUID(0,0), 0.0f);
 			}
 		}
 	} 
@@ -2877,7 +2877,7 @@ void ZMyCharacter::Animation_Reload()
 }
 //새로 추가 하려면 디버깅이 너무 많은 시간이 걸릴수도..
 
-void ZMyCharacter::ReserveDashAttacked(MUID uid, float time,rvector &dir)
+void ZMyCharacter::ReserveDashAttacked(CCUID uid, float time,rvector &dir)
 {
 	ZMyCharaterStatusBitPacking & zStatus = m_statusFlags.Ref();
 

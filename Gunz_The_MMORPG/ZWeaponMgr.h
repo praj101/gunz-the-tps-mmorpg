@@ -49,7 +49,7 @@ public:
 	void AddTrapAlreadyActivated(rvector& pos, float fActivatedTime, int nItemId, ZObject* pOwner);
 	void AddDynamite(rvector &pos, rvector &velocity, ZObject* pC);
 
-	void DeleteWeaponHasTarget(const MUID& uidTargetChar);	// 특정 캐릭터를 타겟으로 하고 있는 탄을 제거한다
+	void DeleteWeaponHasTarget(const CCUID& uidTargetChar);	// 특정 캐릭터를 타겟으로 하고 있는 탄을 제거한다
 	void EnableRender(bool b) { m_bEnableRender = b; }
 
 	void Update();

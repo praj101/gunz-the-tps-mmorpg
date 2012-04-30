@@ -110,7 +110,7 @@ bool ZCharacterItem::Confirm(MMatchCharItemParts parts, MMatchItemDesc* pDesc)
 bool ZCharacterItem::EquipItem(MMatchCharItemParts parts, int nItemDescID, int nItemCount)
 {
 	if (nItemDescID == 0) {
-		m_Items[parts].Create(MUID(0,0), NULL, 0);
+		m_Items[parts].Create(CCUID(0,0), NULL, 0);
 		return true;
 	}
 
@@ -122,7 +122,7 @@ bool ZCharacterItem::EquipItem(MMatchCharItemParts parts, int nItemDescID, int n
 		return false;
 	}
 
-	m_Items[parts].Create(MUID(0,0), pDesc, 1, nItemCount);
+	m_Items[parts].Create(CCUID(0,0), pDesc, 1, nItemCount);
 	return true;
 }
 

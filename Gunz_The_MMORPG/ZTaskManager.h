@@ -34,7 +34,7 @@ public:
 	static ZTask* CreateRotateToDir(ZActor* pParent, rvector& vTarDir);
 	static ZTask* CreateAttackMelee(ZActor* pParent);
 	static ZTask* CreateAttackRange(ZActor* pParent, rvector& dir);
-	static ZTask* CreateSkill(ZActor* pParent,int nSkill,MUID& uidTarget,rvector& targetPosition);
+	static ZTask* CreateSkill(ZActor* pParent,int nSkill,CCUID& uidTarget,rvector& targetPosition);
 	void SetOnFinishedCallback(ZTM_ONFINISHED pCallback) { m_pOnFinishedFunc = pCallback; }
 };
 

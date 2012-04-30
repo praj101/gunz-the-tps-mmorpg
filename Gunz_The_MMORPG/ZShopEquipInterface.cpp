@@ -240,7 +240,7 @@ bool ZShopEquipInterface::Equip(void)
 	ZShopEquipItem_Match* pWrappedZItem = (ZShopEquipItem_Match*)pListItem->GetItemData();
 	if (!pWrappedZItem->GetHandleSell()) { _ASSERT(0); return false; }
 
-	MUID uidItem = pWrappedZItem->GetHandleSell()->GetItemUID();
+	CCUID uidItem = pWrappedZItem->GetHandleSell()->GetItemUID();
 	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
 	if (!pItemDesc) return false;
 
@@ -259,7 +259,7 @@ bool ZShopEquipInterface::Equip(void)
 	return Equip(parts, uidItem);
 }
 
-bool ZShopEquipInterface::Equip(MMatchCharItemParts parts, MUID& uidItem)
+bool ZShopEquipInterface::Equip(MMatchCharItemParts parts, CCUID& uidItem)
 {
 	ZPostRequestEquipItem(ZGetGameClient()->GetPlayerUID(), uidItem, parts);
 	// 서버에서 자동으로 보내준다.

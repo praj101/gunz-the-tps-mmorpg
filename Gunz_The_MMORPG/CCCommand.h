@@ -83,8 +83,8 @@ public:
 class MCommand : public CMemPool<MCommand> 
 {
 public:
-	MUID						m_Sender;				///< 메세지를 보내는 머신(혹은 오브젝트) UID
-	MUID						m_Receiver;				///< 메세지를 받는 머신(혹은 오브젝트) UID
+	CCUID						m_Sender;				///< 메세지를 보내는 머신(혹은 오브젝트) UID
+	CCUID						m_Receiver;				///< 메세지를 받는 머신(혹은 오브젝트) UID
 	const MCommandDesc*			m_pCommandDesc;			///< 해당 커맨드의 Description
 	vector<MCommandParameter*>	m_Params;				///< 파라미터
 	unsigned char				m_nSerialNumber;		///< 커맨드의 무결성을 체크하기 위한 일련번호
@@ -98,8 +98,8 @@ protected:
 
 public:
 	MCommand(void);
-	MCommand(const MCommandDesc* pCommandDesc, MUID Receiver, MUID Sender);
-	MCommand::MCommand(int nID, MUID Sender, MUID Receiver, MCommandManager* pCommandManager);
+	MCommand(const MCommandDesc* pCommandDesc, CCUID Receiver, CCUID Sender);
+	MCommand::MCommand(int nID, CCUID Sender, CCUID Receiver, MCommandManager* pCommandManager);
 	virtual ~MCommand(void);
 
 	/// MCommandDesc으로 ID 지정
@@ -125,9 +125,9 @@ public:
 	/// @param t		[in] 파라미터 타입, 정확한 타입을 명시해줘야 한다.
 	bool GetParameter(void* pValue, int i, MCommandParameterType t, int nBufferSize=-1) const;
 
-	MUID GetSenderUID(void){ return m_Sender; }
-	void SetSenderUID(const MUID &uid) { m_Sender = uid; }
-	MUID GetReceiverUID(void){ return m_Receiver; }
+	CCUID GetSenderUID(void){ return m_Sender; }
+	void SetSenderUID(const CCUID &uid) { m_Sender = uid; }
+	CCUID GetReceiverUID(void){ return m_Receiver; }
 
 	bool IsLocalCommand(void){ return (m_Sender==m_Receiver); }
 

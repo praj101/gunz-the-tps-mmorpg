@@ -72,9 +72,9 @@ MCommand* ZNewCmd(int nID)
 {
 	MCommandDesc* pCmdDesc = ZGetGameClient()->GetCommandManager()->GetCommandDescByID(nID);
 
-	MUID uidTarget;
+	CCUID uidTarget;
 	if (pCmdDesc->IsFlag(MCDT_PEER2PEER)==true)
-		uidTarget = MUID(0,0);
+		uidTarget = CCUID(0,0);
 	else
 		uidTarget = ZGetGameClient()->GetServerUID();
 
@@ -86,7 +86,7 @@ MCommand* ZNewCmd(int nID)
 }
 
 
-bool GetUserInfoUID(MUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid)
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid)
 {
 	if( ZGetGameClient() == NULL)
 		return false;
@@ -225,7 +225,7 @@ ZGameClient::ZGameClient() : MMatchClient() , m_pUPnP(NULL)
 {
 	m_pUPnP = new UPnP;
 
-	m_uidPlayer = MUID(0,0);
+	m_uidPlayer = CCUID(0,0);
 	m_nClockDistance = 0;
 	m_fnOnCommandCallback = NULL;
 	m_nPrevClockRequestAttribute = 0;
@@ -244,7 +244,7 @@ ZGameClient::ZGameClient() : MMatchClient() , m_pUPnP(NULL)
 	m_nCountdown = 0;
 	m_tmLastCountdown = 0;
 	m_nRequestID = 0;
-	m_uidRequestPlayer = MUID(0,0);
+	m_uidRequestPlayer = CCUID(0,0);
 	m_nProposalMode = MPROPOSAL_NONE;
 	m_bLadderGame = false;
 
@@ -269,7 +269,7 @@ ZGameClient::ZGameClient() : MMatchClient() , m_pUPnP(NULL)
 //#endif
 
 #ifdef _LOCATOR // -by 추교성. Locator에 접속해서 커맨드를 받으려면 m_This의 UID가 (0,0)이 아니어야 함.
-	m_This = MUID(0, 1);
+	m_This = CCUID(0, 1);
 #endif
 
 	m_UPDCommadHackShield.Init();
@@ -320,9 +320,9 @@ void ZGameClient::OnPrepareCommand(MCommand* pCommand)
 
 }
 
-int ZGameClient::OnResponseMatchLogin(const MUID& uidServer, int nResult, const char* szServerName, const MMatchServerMode nServerMode,
+int ZGameClient::OnResponseMatchLogin(const CCUID& uidServer, int nResult, const char* szServerName, const MMatchServerMode nServerMode,
 									  const char* szAccountID, const MMatchUserGradeID nUGradeID, const MMatchPremiumGradeID nPGradeID,
-									  const MUID& uidPlayer, bool bEnabledSurvivalMode, bool bEnabledDuelTournament, unsigned char* pbyGuidReqMsg)
+									  const CCUID& uidPlayer, bool bEnabledSurvivalMode, bool bEnabledDuelTournament, unsigned char* pbyGuidReqMsg)
 {
 	int nRet = MMatchClient::OnResponseMatchLogin(uidServer, nResult, szServerName, nServerMode,
 												  szAccountID, nUGradeID, nPGradeID, uidPlayer, bEnabledSurvivalMode, bEnabledDuelTournament, pbyGuidReqMsg);
@@ -404,7 +404,7 @@ void ZGameClient::OnAnnounce(unsigned int nType, char* szMsg)
 	ZChatOutput(szMsg, ZChat::CMT_SYSTEM);
 }
 
-void ZGameClient::OnBridgePeerACK(const MUID& uidChar, int nCode)
+void ZGameClient::OnBridgePeerACK(const CCUID& uidChar, int nCode)
 {
 	SetBridgePeerFlag(true);
 }
@@ -495,7 +495,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 //	}
 }
 
-void ZGameClient::OnChannelResponseJoin(const MUID& uidChannel, MCHANNEL_TYPE nChannelType, const char* szChannelName, bool bEnableInterface)
+void ZGameClient::OnChannelResponseJoin(const CCUID& uidChannel, MCHANNEL_TYPE nChannelType, const char* szChannelName, bool bEnableInterface)
 {
 	ZApplication::GetGameInterface()->SetState(GUNZ_LOBBY);
 
@@ -579,12 +579,12 @@ void ZGameClient::OnChannelResponseJoin(const MUID& uidChannel, MCHANNEL_TYPE nC
 #endif
 }
 
-void ZGameClient::OnChannelChat(const MUID& uidChannel, char* szName, char* szChat,int nGrade)
+void ZGameClient::OnChannelChat(const CCUID& uidChannel, char* szName, char* szChat,int nGrade)
 {
 	if (GetChannelUID() != uidChannel)		return;
 	if ((szChat[0]==0) || (szName[0] == 0))	return;
 
-//	MUID uid = GetObject(szName);
+//	CCUID uid = GetObject(szName);
 //	MMatchObjectCache* pObjCache = FindObjCache(uid);
 	MCOLOR _color = MCOLOR(0,0,0);
 
@@ -642,7 +642,7 @@ void ZGameClient::OnChannelList(void* pBlob, int nCount)
 	pWidget->SetSelIndex(nSelIndex);
 }
 
-void ZGameClient::OnChannelResponseRule(const MUID& uidchannel, const char* pszRuleName)
+void ZGameClient::OnChannelResponseRule(const CCUID& uidchannel, const char* pszRuleName)
 {
 	MChannelRule* pRule = ZGetChannelRuleMgr()->GetRule(pszRuleName);
 	if (pRule == NULL)
@@ -691,7 +691,7 @@ void ZGameClient::OnChannelResponseRule(const MUID& uidchannel, const char* pszR
 	if ( pWidget)		pWidget->Enable( bEnable);
 }
 
-void ZGameClient::OnStageEnterBattle(const MUID& uidChar, MCmdEnterBattleParam nParam)
+void ZGameClient::OnStageEnterBattle(const CCUID& uidChar, MCmdEnterBattleParam nParam)
 {	
 	// 이것은 ZGame 에서 불러준다
 	if (uidChar == GetPlayerUID())		// enter한사람이 나자신일 경우
@@ -710,7 +710,7 @@ void ZGameClient::OnStageEnterBattle(const MUID& uidChar, MCmdEnterBattleParam n
 	StartUDPTest(uidChar);	
 }
 
-void ZGameClient::OnStageJoin(const MUID& uidChar, const MUID& uidStage, unsigned int nRoomNo, char* szStageName)
+void ZGameClient::OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsigned int nRoomNo, char* szStageName)
 {
 //	SetBridgePeerFlag(false);
 
@@ -759,7 +759,7 @@ void ZGameClient::OnStageJoin(const MUID& uidChar, const MUID& uidStage, unsigne
 		char death[ 32];
 		char winning[ 32];
 
-		ZPlayerInfo* pInfo = ZGetPlayerManager()->Find( (MUID)uidChar);
+		ZPlayerInfo* pInfo = ZGetPlayerManager()->Find( (CCUID)uidChar);
 		if ( pInfo != NULL)
 		{
 			sprintf( kill, "%d %s", pInfo->GetKill(), ZMsg( MSG_CHARINFO_KILL));
@@ -792,10 +792,10 @@ void ZGameClient::OnStageJoin(const MUID& uidChar, const MUID& uidStage, unsigne
 	}
 }
 
-void ZGameClient::OnStageLeave(const MUID& uidChar, const MUID& uidStage)
+void ZGameClient::OnStageLeave(const CCUID& uidChar, const CCUID& uidStage)
 {
 	if (uidChar == GetPlayerUID()) {
-		m_uidStage = MUID(0,0);
+		m_uidStage = CCUID(0,0);
 		m_nRoomNo = 0;
 	}
 
@@ -820,7 +820,7 @@ void ZGameClient::OnStageLeave(const MUID& uidChar, const MUID& uidStage)
 	AgentDisconnect();
 }
 
-void ZGameClient::OnStageStart(const MUID& uidChar, const MUID& uidStage, int nCountdown)
+void ZGameClient::OnStageStart(const CCUID& uidChar, const CCUID& uidStage, int nCountdown)
 {
 	// 게임 시작시 게임 세팅관련 위젯 비활성화 해줌
 	ZApplication::GetStageInterface()->SetEnableWidgetByRelayMap(false);
@@ -832,7 +832,7 @@ void ZGameClient::OnStageRelayStart()
 	SetCountdown(3);
 }
 
-void ZGameClient::OnStageLaunch(const MUID& uidStage, const char* pszMapName)
+void ZGameClient::OnStageLaunch(const CCUID& uidStage, const char* pszMapName)
 {
 	m_bLadderGame = false;
 
@@ -845,7 +845,7 @@ void ZGameClient::OnStageLaunch(const MUID& uidStage, const char* pszMapName)
 	}
 }
 
-void ZGameClient::OnStageFinishGame(const MUID& uidStage, const bool bIsRelayMapUnFinish)
+void ZGameClient::OnStageFinishGame(const CCUID& uidStage, const bool bIsRelayMapUnFinish)
 {
 	if (ZApplication::GetGameInterface()->GetState() == GUNZ_GAME)
 	{
@@ -861,7 +861,7 @@ void ZGameClient::OnStageFinishGame(const MUID& uidStage, const bool bIsRelayMap
 	ZPostRequestStageSetting(ZGetGameClient()->GetStageUID());	
 }
 
-void ZGameClient::OnStageMap(const MUID& uidStage, char* szMapName, bool bIsRelayMap)
+void ZGameClient::OnStageMap(const CCUID& uidStage, char* szMapName, bool bIsRelayMap)
 {
 	if (uidStage != GetStageUID()) return;
 
@@ -871,7 +871,7 @@ void ZGameClient::OnStageMap(const MUID& uidStage, char* szMapName, bool bIsRela
 	ZApplication::GetGameInterface()->SerializeStageInterface();
 }
 
-void ZGameClient::OnStageTeam(const MUID& uidChar, const MUID& uidStage, unsigned int nTeam)
+void ZGameClient::OnStageTeam(const CCUID& uidChar, const CCUID& uidStage, unsigned int nTeam)
 {
 	MMatchObjectStageState nStageState = MOSS_NONREADY;
 	MSTAGE_CHAR_SETTING_NODE* pCharNode = m_MatchStageSetting.FindCharSetting(uidChar);
@@ -884,7 +884,7 @@ void ZGameClient::OnStageTeam(const MUID& uidChar, const MUID& uidStage, unsigne
 	ZApplication::GetGameInterface()->SerializeStageInterface();
 }
 
-void ZGameClient::OnStagePlayerState(const MUID& uidChar, const MUID& uidStage, MMatchObjectStageState nStageState)
+void ZGameClient::OnStagePlayerState(const CCUID& uidChar, const CCUID& uidStage, MMatchObjectStageState nStageState)
 {
 	int nTeam = MMT_SPECTATOR;
 	MSTAGE_CHAR_SETTING_NODE* pCharNode = m_MatchStageSetting.FindCharSetting(uidChar);
@@ -903,7 +903,7 @@ void ZGameClient::OnStagePlayerState(const MUID& uidChar, const MUID& uidStage, 
 	} 
 }
 
-void ZGameClient::OnStageMaster(const MUID& uidStage, const MUID& uidChar)
+void ZGameClient::OnStageMaster(const CCUID& uidStage, const CCUID& uidChar)
 {
 	int nTeam = MMT_SPECTATOR;
 	MMatchObjectStageState nStageState = MOSS_NONREADY;
@@ -922,7 +922,7 @@ void ZGameClient::OnStageMaster(const MUID& uidStage, const MUID& uidChar)
 //	ZChatOutput("방장은 '/kick 이름' 또는 ALT + 해당캐릭터 '오른쪽 클릭'으로 강제퇴장을 시킬수 있습니다.", ZChat::CMT_NORMAL, ZChat::CL_STAGE);
 }
 
-void ZGameClient::OnStageChat(const MUID& uidChar, const MUID& uidStage, char* szChat)
+void ZGameClient::OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char* szChat)
 {
 	if (GetStageUID() != uidStage) return;
 	if(szChat[0]==0) return;
@@ -1121,7 +1121,7 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 	if (!pPlayerListBox) return;
 	if(pPlayerListBox->GetMode()!=ZPlayerListBox::PLAYERLISTMODE_CHANNEL) return;
 
-	MUID selUID = pPlayerListBox->GetSelectedPlayerUID();
+	CCUID selUID = pPlayerListBox->GetSelectedPlayerUID();
 
 	int nStartIndex = pPlayerListBox->GetStartItem();
 
@@ -1193,7 +1193,7 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 	pPlayerListBox->AddTestItems();
 }
 
-void ZGameClient::OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount)
+void ZGameClient::OnChannelAllPlayerList(const CCUID& uidChannel, void* pBlob, int nBlobCount)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
@@ -1223,7 +1223,7 @@ void ZGameClient::OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, in
 	}
 }
 
-void ZGameClient::UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting, STAGE_STATE nStageState, const MUID& uidMaster)
+void ZGameClient::UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting, STAGE_STATE nStageState, const CCUID& uidMaster)
 {
 	//m_MatchStageSetting.ShiftHeapPos();
 	m_MatchStageSetting.UpdateStageSetting(pSetting);
@@ -1283,8 +1283,8 @@ void ZGameClient::OnStageRelayMapElementUpdate(int nRelayMapType, int nRelayMapR
 		pCombo->SetSelIndex(nRelayMapRepeatCount);
 }
 
-void ZGameClient::OnResponseStageSetting(const MUID& uidStage, void* pStageBlob, int nStageCount, void* pCharBlob, 
-										 int nCharCount, STAGE_STATE nStageState, const MUID& uidMaster)
+void ZGameClient::OnResponseStageSetting(const CCUID& uidStage, void* pStageBlob, int nStageCount, void* pCharBlob, 
+										 int nCharCount, STAGE_STATE nStageState, const CCUID& uidMaster)
 {
 	if (GetStageUID() != uidStage) return;
 	if (nStageCount <= 0 || nCharCount<=0) return;
@@ -1357,7 +1357,7 @@ void ZGameClient::OutputMessage(const char* szMessage, MZMOMType nType)
 	ZChatOutput(MCOLOR(0xFFFFC600), szMessage);
 }
 
-int ZGameClient::OnConnected(SOCKET sock, MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeStamp)
+int ZGameClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp)
 {
 	mlog("Server Connected\n");
 
@@ -1510,22 +1510,22 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 
 #include "MListBox.h"
 class MCharListItem : public MListItem {
-	MUID	m_uid;
+	CCUID	m_uid;
 	char	m_szName[32];
 public:
-	MCharListItem(MUID uid, char* szName) { 
+	MCharListItem(CCUID uid, char* szName) { 
 		m_uid = uid; strcpy(m_szName, szName); 
 	}
 	virtual ~MCharListItem()			{}
 	virtual const char* GetString(void)	{ return m_szName; }
-	MUID GetUID()						{ return m_uid; }
+	CCUID GetUID()						{ return m_uid; }
 	char* GetName()						{ return m_szName; }
 
 public:
 
 };
 
-int ZGameClient::FindListItem(MListBox* pListBox, const MUID& uid)
+int ZGameClient::FindListItem(MListBox* pListBox, const CCUID& uid)
 {
 	for (int i=0; i<pListBox->GetCount(); i++) {
 		MCharListItem* pItem = (MCharListItem*)pListBox->Get(i);
@@ -1626,7 +1626,7 @@ void ZGameClient::Tick(void)
 */
 }
 
-void ZGameClient::OnResponseRecommandedChannel(const MUID& uidChannel)
+void ZGameClient::OnResponseRecommandedChannel(const CCUID& uidChannel)
 {
 	RequestChannelJoin(uidChannel);
 }
@@ -1677,7 +1677,7 @@ void ZGameClient::ClearStageSetting()
 
 
 
-void ZGameClient::OnLoadingComplete(const MUID& uidChar, int nPercent)
+void ZGameClient::OnLoadingComplete(const CCUID& uidChar, int nPercent)
 {
 	if (ZGetGame())
 	{
@@ -1690,7 +1690,7 @@ void ZGameClient::OnLoadingComplete(const MUID& uidChar, int nPercent)
 }
 
 
-void ZGameClient::OnResponsePeerRelay(const MUID& uidPeer)
+void ZGameClient::OnResponsePeerRelay(const CCUID& uidPeer)
 {
 	string strNotify = "Unknown Notify";
 	NotifyMessage(MATCHNOTIFY_NETWORK_NAT_ESTABLISH, &strNotify);
@@ -1771,7 +1771,7 @@ void ZGameClient::OnAdminAnnounce(const char* szMsg, const ZAdminAnnounceType nT
 	}
 }
 
-void ZGameClient::OnGameLevelUp(const MUID& uidChar)
+void ZGameClient::OnGameLevelUp(const CCUID& uidChar)
 {
 	if (ZGetGame())
 	{
@@ -1786,7 +1786,7 @@ void ZGameClient::OnGameLevelUp(const MUID& uidChar)
 	}
 }
 
-void ZGameClient::OnGameLevelDown(const MUID& uidChar)
+void ZGameClient::OnGameLevelDown(const CCUID& uidChar)
 {
 	if (ZGetGame())
 	{
@@ -1801,7 +1801,7 @@ void ZGameClient::OnGameLevelDown(const MUID& uidChar)
 	}
 }
 
-void ZGameClient::OnResponseGameInfo(const MUID& uidStage, void* pGameInfoBlob, void* pRuleInfoBlob, void* pPlayerInfoBlob)
+void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob, void* pRuleInfoBlob, void* pPlayerInfoBlob)
 {
 	if (ZGetGame() == NULL) return;
 
@@ -1859,7 +1859,7 @@ void ZGameClient::OnResponseGameInfo(const MUID& uidStage, void* pGameInfoBlob, 
 	CHECK_RETURN_CALLSTACK(OnResponseGameInfo);
 }
 
-void ZGameClient::OnObtainWorldItem(const MUID& uidChar, const int nItemUID)
+void ZGameClient::OnObtainWorldItem(const CCUID& uidChar, const int nItemUID)
 {
 	if (ZGetGame() == NULL) return;
 
@@ -2112,7 +2112,7 @@ int ZGameClient::ValidateRequestDeleteChar()
 	return ZOK;
 }
 
-void ZGameClient::RequestChannelJoin(const MUID& uidChannel)
+void ZGameClient::RequestChannelJoin(const CCUID& uidChannel)
 {
 	ZPostChannelRequestJoin(GetPlayerUID(), uidChannel);
 }
@@ -2508,7 +2508,7 @@ void ZGameClient::OnRecieveGambleItem( unsigned int nRecvItem, unsigned int nCnt
 }
 
 
-void ZGameClient::OnResponseUpdateStageEquipLook( const MUID& uidPlayer, const int nParts, const int nItemID )
+void ZGameClient::OnResponseUpdateStageEquipLook( const CCUID& uidPlayer, const int nParts, const int nItemID )
 {
 	MMatchObjCacheMap::iterator itFind = m_ObjCacheMap.find( uidPlayer );
 	if( m_ObjCacheMap.end() == itFind )

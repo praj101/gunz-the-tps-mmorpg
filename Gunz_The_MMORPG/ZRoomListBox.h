@@ -26,7 +26,7 @@ struct sMapInfo
 {
 	bool		IsEmpty;
 	int			RoomNumber;
-	MUID		uidStage;
+	CCUID		uidStage;
 	char		map_name[SMI_MAPNAME_LENGTH];
 	char		room_name[SMI_ROOMNAME_LENGTH];
 	int			nPeople;
@@ -41,7 +41,7 @@ struct sMapInfo
 	
 	sMapInfo()
 	{
-		uidStage			= MUID(0,0);
+		uidStage			= CCUID(0,0);
 		IsEmpty			= true;
 		bForcedEnter	= false;
 		bPrivate		= false;
@@ -70,15 +70,15 @@ protected:
 
 	//MScrollBar*		m_pScrollBar;
 
-	MUID					m_uidSelectedPrivateStageUID;
+	CCUID					m_uidSelectedPrivateStageUID;
 protected:
 	virtual void	OnDraw( MDrawContext* pDC );
 	virtual bool	OnShow( void );
 	virtual bool	OnCommand( MWidget* pWidget, const char* szMassage );
 	virtual bool	OnEvent(MEvent* pEvent, MListener* pListener);
 protected:
-	MUID GetSelRoomUID();
-	MUID GetSelectedPrivateStageUID();
+	CCUID GetSelRoomUID();
+	CCUID GetSelectedPrivateStageUID();
 public:
 	void	SetBannerImage(char* pBannerName, MBitmap* pBitmap);
 	void	SetIconImage(MMATCH_GAMETYPE type, MBitmap* pBitmap);
@@ -96,7 +96,7 @@ public:
 	{
 		int nIndex;
 		int nRoomNumber;
-		MUID uidStage;
+		CCUID uidStage;
         char* szRoomName;
 		char* szMapName;
 		int nMaxPlayers;
@@ -117,7 +117,7 @@ public:
 	void RequestSelStageJoin();
 	void RequestSelPrivateStageJoin();
 	const sMapInfo* GetSelMapInfo();
-	void SetPrivateStageUID(MUID& uidStage);
+	void SetPrivateStageUID(CCUID& uidStage);
 public:
 	ZRoomListBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
 	virtual ~ZRoomListBox(void);

@@ -23,7 +23,7 @@ bool ZRuleAssassinate::OnCommand(MCommand* pCommand)
 	{
 	case MC_MATCH_ASSIGN_COMMANDER:
 		{
-			MUID uidRedCommander, uidBlueCommander;
+			CCUID uidRedCommander, uidBlueCommander;
 
 			pCommand->GetParameter(&uidRedCommander,		0, MPT_UID);
 			pCommand->GetParameter(&uidBlueCommander,		1, MPT_UID);
@@ -43,7 +43,7 @@ void ZRuleAssassinate::OnResponseRuleInfo(MTD_RuleInfo* pInfo)
 	AssignCommander(pAssassinateRule->uidRedCommander, pAssassinateRule->uidBlueCommander);
 }
 
-void ZRuleAssassinate::AssignCommander(const MUID& uidRedCommander, const MUID& uidBlueCommander)
+void ZRuleAssassinate::AssignCommander(const CCUID& uidRedCommander, const CCUID& uidBlueCommander)
 {
 	if (!ZGetGame()) return;
 

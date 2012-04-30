@@ -279,7 +279,7 @@ bool ZQuest::OnNPCSpawn(MCommand* pCommand)
 {
 	if (ZGetGame() == NULL) return false;
 
-	MUID uidChar, uidNPC;
+	CCUID uidChar, uidNPC;
 	unsigned char nNPCType, nPositionIndex;
 
 	pCommand->GetParameter(&uidChar,			0, MPT_UID);
@@ -377,7 +377,7 @@ bool ZQuest::OnNPCSpawn(MCommand* pCommand)
 
 bool ZQuest::OnNPCDead(MCommand* pCommand)
 {
-	MUID uidPlayer, uidNPC;
+	CCUID uidPlayer, uidNPC;
 
 	pCommand->GetParameter(&uidPlayer,	0, MPT_UID);
 	pCommand->GetParameter(&uidNPC,		1, MPT_UID);
@@ -444,7 +444,7 @@ bool ZQuest::OnQuestGroupClear(MCommand* pCommand)
 
 bool ZQuest::OnEntrustNPCControl(MCommand* pCommand)
 {
-	MUID uidChar, uidNPC;
+	CCUID uidChar, uidNPC;
 	pCommand->GetParameter(&uidChar,	0, MPT_UID);
 	pCommand->GetParameter(&uidNPC,		1, MPT_UID);
 
@@ -558,7 +558,7 @@ bool ZQuest::OnPeerNPCHPInfo(MCommand* pCommand)
 
 bool ZQuest::OnPeerNPCBossHpAp(MCommand* pCommand)
 {
-	MUID uidBoss;
+	CCUID uidBoss;
 	float fHp, fAp;
 	pCommand->GetParameter(&uidBoss,	0, MPT_UID);
 	pCommand->GetParameter(&fHp,		1, MPT_FLOAT);
@@ -580,7 +580,7 @@ bool ZQuest::OnPrePeerNPCAttackMelee(MCommand* pCommand)	// 실제로 처리하는건 한
 
 bool ZQuest::OnPeerNPCAttackMelee(MCommand* pCommand)
 {
-	MUID uidOwner;
+	CCUID uidOwner;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
 
 	ZGetGame()->OnPeerShot_Melee(uidOwner,ZGetGame()->GetTime());
@@ -590,7 +590,7 @@ bool ZQuest::OnPeerNPCAttackMelee(MCommand* pCommand)
 
 bool ZQuest::OnPeerNPCAttackRange(MCommand* pCommand)
 {
-	MUID uidOwner;
+	CCUID uidOwner;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
 
 	MCommandParameter* pParam = pCommand->GetParameter(1);
@@ -705,7 +705,7 @@ bool ZQuest::OnQuestRoundStart(MCommand* pCommand)
 
 bool ZQuest::OnQuestPlayerDead(MCommand* pCommand)
 {
-	MUID uidVictim;
+	CCUID uidVictim;
 	pCommand->GetParameter(&uidVictim,		0, MPT_UID);
 
 	ZCharacter* pVictim = ZGetCharacterManager()->Find(uidVictim);
@@ -801,7 +801,7 @@ bool ZQuest::OnQuestCombatState(MCommand* pCommand)
 bool ZQuest::OnMovetoPortal(MCommand* pCommand)
 {
 	char nCurrSectorIndex;
-	MUID uidPlayer;
+	CCUID uidPlayer;
 
 	pCommand->GetParameter(&nCurrSectorIndex,		0, MPT_CHAR);
 	pCommand->GetParameter(&uidPlayer,				2, MPT_UID);
@@ -835,7 +835,7 @@ bool ZQuest::OnMovetoPortal(MCommand* pCommand)
 
 bool ZQuest::OnReadyToNewSector(MCommand* pCommand)
 {
-	MUID uidPlayer;
+	CCUID uidPlayer;
 	pCommand->GetParameter(&uidPlayer,	0, MPT_UID);
 
 	m_CharactersGone.insert(uidPlayer);
@@ -1244,7 +1244,7 @@ bool ZQuest::OnNewMonsterInfo( MCommand* pCmd )
 
 bool ZQuest::OnPeerNPCSkillStart(MCommand* pCommand)
 {
-	MUID uidOwner,uidTarget;
+	CCUID uidOwner,uidTarget;
 	int nSkill;
 	rvector targetPos;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
@@ -1264,7 +1264,7 @@ bool ZQuest::OnPeerNPCSkillStart(MCommand* pCommand)
 
 bool ZQuest::OnPeerNPCSkillExecute(MCommand* pCommand)
 {
-	MUID uidOwner,uidTarget;
+	CCUID uidOwner,uidTarget;
 	int nSkill;
 	rvector targetPos;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
@@ -1288,7 +1288,7 @@ bool ZQuest::OnSetMonsterBibleInfo( MCommand* pCmd )
 	if( 0 == pCmd )
 		return false;
 
-	MUID				uid;
+	CCUID				uid;
 	MCommandParameter*	pParam;
 	void*				pMonBibleInfoBlob;
 	MQuestMonsterBible*	pMonBible;
@@ -1309,7 +1309,7 @@ bool ZQuest::OnSetMonsterBibleInfo( MCommand* pCmd )
 
 bool ZQuest::OnPeerNPCDead(MCommand* pCommand)
 {
-	MUID uidKiller, uidNPC;
+	CCUID uidKiller, uidNPC;
 
 	pCommand->GetParameter(&uidKiller,	0, MPT_UID);
 	pCommand->GetParameter(&uidNPC,		1, MPT_UID);
@@ -1334,7 +1334,7 @@ bool ZQuest::OnPeerNPCDead(MCommand* pCommand)
 
 bool ZQuest::OnSectorBonus(MCommand* pCommand)
 {
-	MUID uidPlayer;
+	CCUID uidPlayer;
 	unsigned long int nExpValue = 0;
 	pCommand->GetParameter(&uidPlayer,	0, MPT_UID);
 	pCommand->GetParameter(&nExpValue,	1, MPT_UINT);

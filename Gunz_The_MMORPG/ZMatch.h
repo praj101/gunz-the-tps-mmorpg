@@ -5,7 +5,7 @@
 using namespace std;
 
 #include "ZPrerequisites.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "MMatchStage.h"
 
 class ZCharacter;

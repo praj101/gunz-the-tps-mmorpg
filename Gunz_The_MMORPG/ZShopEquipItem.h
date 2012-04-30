@@ -247,12 +247,12 @@ public:
 // 아이템의 판매 동작을 위한 핸들러 인터페이스
 class IShopEquipItemHandle_Sell
 {
-	MUID m_uidItem;
+	CCUID m_uidItem;
 public:
 	IShopEquipItemHandle_Sell() : m_uidItem(0,0) {}
 	virtual ~IShopEquipItemHandle_Sell() {}
-	void SetItemUID(const MUID& uid) { m_uidItem = uid; }
-	MUID GetItemUID() { return m_uidItem; }
+	void SetItemUID(const CCUID& uid) { m_uidItem = uid; }
+	CCUID GetItemUID() { return m_uidItem; }
 	virtual bool GetPrice(int& out_nPrice) = 0;
 	virtual const char* GetPriceText(char* szBuf);
 
@@ -304,12 +304,12 @@ public:
 // 아이템의 은행넣기 동작을 위한 핸들러 인터페이스
 class IShopEquipItemHandle_SendAccount
 {
-	MUID m_uidItem;
+	CCUID m_uidItem;
 public:
 	IShopEquipItemHandle_SendAccount() :  m_uidItem(0,0) {}
 	virtual ~IShopEquipItemHandle_SendAccount() {}
-	void SetItemUID(const MUID& uid) { m_uidItem = uid; }
-	MUID GetItemUID() { return m_uidItem; }
+	void SetItemUID(const CCUID& uid) { m_uidItem = uid; }
+	CCUID GetItemUID() { return m_uidItem; }
 
 	void OpenCountableConfirmDlg(const char* szItemName, MBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
 

@@ -578,7 +578,7 @@ void ZEffectBillboardTexAniList::Add(rvector &pos, rvector& vel,int frame,float 
 	pNewItem->frame = frame;
 
 	if(pChar)	pNewItem->CharUID = pChar->GetUID();
-	else 		pNewItem->CharUID = MUID(0,0);
+	else 		pNewItem->CharUID = CCUID(0,0);
 
 	pNewItem->partstype = partstype;
 }

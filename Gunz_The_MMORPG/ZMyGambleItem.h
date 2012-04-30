@@ -19,7 +19,7 @@ private :
 	ZMyGambleItem() {}	
 
 public :
-	ZMyGambleItem( const MUID& uidItem, const DWORD dwGambleItemID, const int nItemCount = 1);
+	ZMyGambleItem( const CCUID& uidItem, const DWORD dwGambleItemID, const int nItemCount = 1);
 	~ZMyGambleItem();
 
 	const ZGambleItemDefine* GetDesc() const;
@@ -36,12 +36,12 @@ public :
 	ZMyGambleItemManager() {}
 	~ZMyGambleItemManager();
 
-	bool CreateGambleItem( const MUID& uidItem, const DWORD dwGambleItemID, const int nitemCount = 1 );
-	void DeleteGambleItem( const MUID& uidItem );
+	bool CreateGambleItem( const CCUID& uidItem, const DWORD dwGambleItemID, const int nitemCount = 1 );
+	void DeleteGambleItem( const CCUID& uidItem );
 
 	const DWORD				GetSize() const										{ return static_cast<DWORD>(m_GambleItemList.size()); }
 	const ZMyGambleItem*	GetGambleItemByIndex( const DWORD dwIndex );
-	const ZMyGambleItem*	GetGambleItem( const MUID& uidItem );
+	const ZMyGambleItem*	GetGambleItem( const CCUID& uidItem );
 
 	void Release();
 };

@@ -16,7 +16,7 @@ protected:
 	float	m_nStartAddTime;
 
 	bool		m_isMovingPos;
-	MUID		m_uid;
+	CCUID		m_uid;
 //	ZCharacter* m_pCharacter;
 	bool		m_isLeftWeapon;
 
@@ -50,7 +50,7 @@ protected:
 	D3DXVECTOR3	m_Dir;
 
 	bool		m_isMovingPos;
-	MUID		m_uid;
+	CCUID		m_uid;
 	bool		m_isLeftWeapon;
 
 public:

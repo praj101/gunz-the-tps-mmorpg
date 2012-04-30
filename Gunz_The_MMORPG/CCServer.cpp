@@ -75,7 +75,7 @@ void MServer::Destroy(void)
 	m_RealCPNet.Destroy();
 
 	LockCommList();
-		for(MUIDRefCache::iterator i=m_CommRefCache.begin(); i!=m_CommRefCache.end(); i++){
+		for(CCUIDRefCache::iterator i=m_CommRefCache.begin(); i!=m_CommRefCache.end(); i++){
 			delete (MCommObject*)(((*i).second));
 		}
 		m_CommRefCache.clear();
@@ -98,7 +98,7 @@ int MServer::GetCommObjCount()
 	return count;
 }
 
-void MServer::AddCommObject(const MUID& uid, MCommObject* pCommObj)
+void MServer::AddCommObject(const CCUID& uid, MCommObject* pCommObj)
 {
 	MCommObject* pOldCommObj = (MCommObject*)m_CommRefCache.GetRef(uid);
 	if (pOldCommObj != NULL)
@@ -110,11 +110,11 @@ void MServer::AddCommObject(const MUID& uid, MCommObject* pCommObj)
 	MCommandBuilder* pCmdBuilder = pCommObj->GetCommandBuilder();
 	pCmdBuilder->SetUID(GetUID(), uid);
 
-	m_CommRefCache.insert(MUIDRefCache::value_type(uid, pCommObj));
+	m_CommRefCache.insert(CCUIDRefCache::value_type(uid, pCommObj));
 	g_LogCommObjectCreated++;
 }
 
-void MServer::RemoveCommObject(const MUID& uid)
+void MServer::RemoveCommObject(const CCUID& uid)
 {
 	MCommObject* pNew = (MCommObject*)m_CommRefCache.Remove(uid);
 	if (pNew) delete pNew;
@@ -210,7 +210,7 @@ bool MServer::OnCommand(MCommand* pCommand)
 	switch(pCommand->GetID()){
 	case MC_LOCAL_LOGIN:
 		{
-			MUID uidComm, uidPlayer;
+			CCUID uidComm, uidPlayer;
 			pCommand->GetParameter(&uidComm, 0, MPT_UID);
 			pCommand->GetParameter(&uidPlayer, 1, MPT_UID);
 			OnLocalLogin(uidComm, uidPlayer);
@@ -231,7 +231,7 @@ bool MServer::OnCommand(MCommand* pCommand)
 
 	case MC_NET_CLEAR:
 		{
-			MUID uid;
+			CCUID uid;
 			if (pCommand->GetParameter(&uid, 0, MPT_UID)==false) break;
 			OnNetClear(uid);
 			return true;
@@ -240,7 +240,7 @@ bool MServer::OnCommand(MCommand* pCommand)
 
 	case MC_NET_CHECKPING:
 		{
-			MUID uid;
+			CCUID uid;
 			if (pCommand->GetParameter(&uid, 0, MPT_UID)==false) break;
 			MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_NET_PING), uid, m_This);
 			pNew->AddParameter(new MCommandParameterUInt(timeGetTime()));
@@ -276,14 +276,14 @@ bool MServer::OnCommand(MCommand* pCommand)
 	return false;
 }
 
-void MServer::OnNetClear(const MUID& CommUID)
+void MServer::OnNetClear(const CCUID& CommUID)
 {
 	LockCommList();
 		RemoveCommObject(CommUID);
 	UnlockCommList();
 }
 
-void MServer::OnNetPong(const MUID& CommUID, unsigned int nTimeStamp)
+void MServer::OnNetPong(const CCUID& CommUID, unsigned int nTimeStamp)
 {
 }
 
@@ -308,7 +308,7 @@ int MServer::Connect(MCommObject* pCommObj)
 	return MOK;
 }
 
-int MServer::ReplyConnect(MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
+int MServer::ReplyConnect(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
 {
 	if (SendMsgReplyConnect(pTargetUID, pAllocUID, nTimeStamp, pCommObj) == true)
 		return MOK;
@@ -319,7 +319,7 @@ int MServer::ReplyConnect(MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeS
 int MServer::OnAccept(MCommObject* pCommObj)
 {
 	// 할당할 수 있는 UID 공간이 없다.
-	MUID AllocUID = UseUID();
+	CCUID AllocUID = UseUID();
 	if(AllocUID.IsInvalid()){
 		Log(LOG_DEBUG, "Communicator has not UID space to allocate your UID.");
 		return MERR_COMMUNICATOR_HAS_NOT_UID_SPACE;
@@ -333,14 +333,14 @@ int MServer::OnAccept(MCommObject* pCommObj)
 
 	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_LOCAL_LOGIN), m_This, m_This);
 	pNew->AddParameter(new MCommandParameterUID(pCommObj->GetUID()));
-	pNew->AddParameter(new MCommandParameterUID(MUID(0,0)));
+	pNew->AddParameter(new MCommandParameterUID(CCUID(0,0)));
 	PostSafeQueue(pNew);
 
 	return MOK;
 }
 
 // Login절차가 완성되면 Player고유의 PlayerUID사용. 임시로 생성된 AllocUID사용중
-void MServer::OnLocalLogin(MUID CommUID, MUID PlayerUID)
+void MServer::OnLocalLogin(CCUID CommUID, CCUID PlayerUID)
 {
 	MCommObject* pCommObj = NULL;
 
@@ -372,7 +372,7 @@ void MServer::OnLocalLogin(MUID CommUID, MUID PlayerUID)
 	LOG(LOG_DEBUG, szMsg); */
 }
 
-void MServer::Disconnect( const MUID& uid )
+void MServer::Disconnect( const CCUID& uid )
 {
 	DWORD nClientKey = NULL;
 	bool bGetComm = false;
@@ -392,7 +392,7 @@ void MServer::Disconnect( const MUID& uid )
 	m_RealCPNet.Disconnect(nClientKey);
 }
 
-int MServer::OnDisconnect(const MUID& uid)
+int MServer::OnDisconnect(const CCUID& uid)
 {
 	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_NET_CLEAR), m_This, m_This);
 	pNew->AddParameter(new MCommandParameterUID(uid));
@@ -401,7 +401,7 @@ int MServer::OnDisconnect(const MUID& uid)
 	return MOK;
 }
 
-bool MServer::SendMsgReplyConnect(MUID* pHostUID, MUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
+bool MServer::SendMsgReplyConnect(CCUID* pHostUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
 {
 	DWORD nKey = pCommObj->GetUserContext();
 	
@@ -547,7 +547,7 @@ void MServer::RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nK
 				while(MPacketHeader* pNetCmd = pCmdBuilder->GetNetCommand()) {
 					if (pNetCmd->nMsg == MSGID_REPLYCONNECT) {
 						MReplyConnectMsg* pMsg = (MReplyConnectMsg*)pNetCmd;
-						MUID HostUID, AllocUID;
+						CCUID HostUID, AllocUID;
 						unsigned int nTimeStamp;
 
 						HostUID.High = pMsg->nHostHigh;

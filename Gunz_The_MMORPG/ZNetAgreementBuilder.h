@@ -1,7 +1,7 @@
 #ifndef _ZNETAGREEMENTBUILDER_H
 #define _ZNETAGREEMENTBUILDER_H
 
-#include "MUID.h"
+#include "CCUID.h"
 #include "MMatchGlobal.h"
 #include <list>
 using namespace std;

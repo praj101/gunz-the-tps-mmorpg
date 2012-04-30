@@ -37,7 +37,7 @@ ZCharacterViewList::ZCharacterViewList(const char* szName, MWidget* pParent, MLi
 	for(int i=0; i<10; i++){
 		char temp[256];
 		sprintf(temp, "Test%d", i);
-		Add(MUID(0,0), temp);
+		Add(CCUID(0,0), temp);
 	}
 	*/
 
@@ -55,8 +55,8 @@ ZCharacterViewList::ZCharacterViewList(const char* szName, MWidget* pParent, MLi
 
 //	m_MySelectView = NULL;
 
-	m_SelectViewUID = MUID(0,0);
-	m_MyUid	= MUID(0,0);
+	m_SelectViewUID = CCUID(0,0);
+	m_MyUid	= CCUID(0,0);
 }
 
 ZCharacterViewList::~ZCharacterViewList(void)
@@ -93,7 +93,7 @@ bool ZCharacterViewList::OnCommand(MWidget* pWidget, const char* szMessage)
 	return true;
 }
 
-void ZCharacterViewList::Add(const MUID& uid, const char* szName, MMatchSex nSex, 
+void ZCharacterViewList::Add(const CCUID& uid, const char* szName, MMatchSex nSex, 
 		 unsigned int nHair, unsigned int nFace, unsigned int nLevel, unsigned long int* itemids, bool bFireWall)
 {
 	if (Get(uid) != NULL)		return;
@@ -171,7 +171,7 @@ void ZCharacterViewList::UpdateSelectView()
 }
 */
 
-ZCharacterView* ZCharacterViewList::FindSelectView(MUID uid)
+ZCharacterView* ZCharacterViewList::FindSelectView(CCUID uid)
 {
 	ZCharacterView* pCV = NULL;
 
@@ -211,7 +211,7 @@ void ZCharacterViewList::ChangeCharacterInfo()
 	}
 }
 
-void ZCharacterViewList::Remove(const MUID& uid)
+void ZCharacterViewList::Remove(const CCUID& uid)
 {
 	ZCharacterView* pCharacterView = Get(uid);
 
@@ -219,7 +219,7 @@ void ZCharacterViewList::Remove(const MUID& uid)
 /*	
 		if (pCharacterView->m_Info.UID == m_SelectViewUID) {
 			ChangeMyCharacterInfo();
-			m_SelectViewUID = MUID(0,0);
+			m_SelectViewUID = CCUID(0,0);
 		}
 */
 		delete pCharacterView;
@@ -228,7 +228,7 @@ void ZCharacterViewList::Remove(const MUID& uid)
 	}
 }
 
-ZCharacterView* ZCharacterViewList::Get(const MUID& uid)
+ZCharacterView* ZCharacterViewList::Get(const CCUID& uid)
 {
 	for(int j=0; j<GetItemCount(); j++){
 		ZCharacterView* pChild = (ZCharacterView*)GetItem(j);
@@ -239,7 +239,7 @@ ZCharacterView* ZCharacterViewList::Get(const MUID& uid)
 
 void ZCharacterViewList::Assign(MMatchObjCacheMap* pObjCacheMap)
 {
-	m_SelectViewUID = MUID(0,0);
+	m_SelectViewUID = CCUID(0,0);
 
 	RemoveAll();
 

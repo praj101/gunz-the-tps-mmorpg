@@ -301,7 +301,7 @@ bool ZSurvival::OnNPCSpawn(MCommand* pCommand)
 {
 	if (ZGetGame() == NULL) return false;
 
-	MUID uidChar, uidNPC;
+	CCUID uidChar, uidNPC;
 	unsigned char nNPCType, nPositionIndex;
 
 	pCommand->GetParameter(&uidChar,			0, MPT_UID);
@@ -427,7 +427,7 @@ bool ZSurvival::OnNPCSpawn(MCommand* pCommand)
 
 bool ZSurvival::OnNPCDead(MCommand* pCommand)
 {
-	MUID uidPlayer, uidNPC;
+	CCUID uidPlayer, uidNPC;
 
 	pCommand->GetParameter(&uidPlayer,	0, MPT_UID);
 	pCommand->GetParameter(&uidNPC,		1, MPT_UID);
@@ -494,7 +494,7 @@ bool ZSurvival::OnQuestGroupClear(MCommand* pCommand)
 
 bool ZSurvival::OnEntrustNPCControl(MCommand* pCommand)
 {
-	MUID uidChar, uidNPC;
+	CCUID uidChar, uidNPC;
 	pCommand->GetParameter(&uidChar,	0, MPT_UID);
 	pCommand->GetParameter(&uidNPC,		1, MPT_UID);
 
@@ -608,7 +608,7 @@ bool ZSurvival::OnPeerNPCHPInfo(MCommand* pCommand)
 
 bool ZSurvival::OnPeerNPCBossHpAp(MCommand* pCommand)
 {
-	MUID uidBoss;
+	CCUID uidBoss;
 	float fHp, fAp;
 	pCommand->GetParameter(&uidBoss,	0, MPT_UID);
 	pCommand->GetParameter(&fHp,		1, MPT_FLOAT);
@@ -631,7 +631,7 @@ bool ZSurvival::OnPrePeerNPCAttackMelee(MCommand* pCommand)	// 실제로 처리하는건
 
 bool ZSurvival::OnPeerNPCAttackMelee(MCommand* pCommand)
 {
-	MUID uidOwner;
+	CCUID uidOwner;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
 
 	ZGetGame()->OnPeerShot_Melee(uidOwner,ZGetGame()->GetTime());
@@ -641,7 +641,7 @@ bool ZSurvival::OnPeerNPCAttackMelee(MCommand* pCommand)
 
 bool ZSurvival::OnPeerNPCAttackRange(MCommand* pCommand)
 {
-	MUID uidOwner;
+	CCUID uidOwner;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
 
 	MCommandParameter* pParam = pCommand->GetParameter(1);
@@ -756,7 +756,7 @@ bool ZSurvival::OnQuestRoundStart(MCommand* pCommand)
 
 bool ZSurvival::OnQuestPlayerDead(MCommand* pCommand)
 {
-	MUID uidVictim;
+	CCUID uidVictim;
 	pCommand->GetParameter(&uidVictim,		0, MPT_UID);
 
 	ZCharacter* pVictim = ZGetCharacterManager()->Find(uidVictim);
@@ -853,7 +853,7 @@ bool ZSurvival::OnMovetoPortal(MCommand* pCommand)
 {
 	char nCurrSectorIndex;
 	unsigned char nCurrRepeatIndex;
-	MUID uidPlayer;
+	CCUID uidPlayer;
 
 	pCommand->GetParameter(&nCurrSectorIndex,		0, MPT_CHAR);
 	pCommand->GetParameter(&nCurrRepeatIndex,		1, MPT_UCHAR);
@@ -897,7 +897,7 @@ bool ZSurvival::OnMovetoPortal(MCommand* pCommand)
 
 bool ZSurvival::OnReadyToNewSector(MCommand* pCommand)
 {
-	MUID uidPlayer;
+	CCUID uidPlayer;
 	pCommand->GetParameter(&uidPlayer,	0, MPT_UID);
 
 	m_CharactersGone.insert(uidPlayer);
@@ -1407,7 +1407,7 @@ bool ZSurvival::OnNewMonsterInfo( MCommand* pCmd )
 
 bool ZSurvival::OnPeerNPCSkillStart(MCommand* pCommand)
 {
-	MUID uidOwner,uidTarget;
+	CCUID uidOwner,uidTarget;
 	int nSkill;
 	rvector targetPos;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
@@ -1427,7 +1427,7 @@ bool ZSurvival::OnPeerNPCSkillStart(MCommand* pCommand)
 
 bool ZSurvival::OnPeerNPCSkillExecute(MCommand* pCommand)
 {
-	MUID uidOwner,uidTarget;
+	CCUID uidOwner,uidTarget;
 	int nSkill;
 	rvector targetPos;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
@@ -1451,7 +1451,7 @@ bool ZSurvival::OnSetMonsterBibleInfo( MCommand* pCmd )
 	if( 0 == pCmd )
 		return false;
 
-	MUID				uid;
+	CCUID				uid;
 	MCommandParameter*	pParam;
 	void*				pMonBibleInfoBlob;
 	MQuestMonsterBible*	pMonBible;
@@ -1472,7 +1472,7 @@ bool ZSurvival::OnSetMonsterBibleInfo( MCommand* pCmd )
 
 bool ZSurvival::OnPeerNPCDead(MCommand* pCommand)
 {
-	MUID uidKiller, uidNPC;
+	CCUID uidKiller, uidNPC;
 
 	pCommand->GetParameter(&uidKiller,	0, MPT_UID);
 	pCommand->GetParameter(&uidNPC,		1, MPT_UID);
@@ -1497,7 +1497,7 @@ bool ZSurvival::OnPeerNPCDead(MCommand* pCommand)
 
 bool ZSurvival::OnSectorBonus(MCommand* pCommand)
 {
-	MUID uidPlayer;
+	CCUID uidPlayer;
 	unsigned long int nExpValue = 0;
 	unsigned long int nAddedBP = 0;
 

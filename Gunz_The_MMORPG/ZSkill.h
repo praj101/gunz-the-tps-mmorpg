@@ -164,7 +164,7 @@ private:
 	ZObject		*m_pOwner;
 
 	rvector			m_TargetPos;
-	MUID			m_uidTarget;
+	CCUID			m_uidTarget;
 	int				m_nUseNum;
 	ZUpdateTimer	m_RepeatUTimer;
 
@@ -183,13 +183,13 @@ public:
 	bool Update(float fElapsed);
 
 	ZSkillDesc *GetDesc()	{ return m_pDesc; }
-	MUID		GetTarget()	{ return m_uidTarget; }
+	CCUID		GetTarget()	{ return m_uidTarget; }
 	const rvector&	GetTarGetPosition() { return m_TargetPos; }
 
-	void Execute(MUID& uidTarget, rvector& targetPos );
-	void PreExecute(MUID& uidTarget, rvector& targetPos );
-	void LastExecute(MUID& uidTarget, rvector& targetPos );
-	void Cancel(MUID& uidTarget);
+	void Execute(CCUID& uidTarget, rvector& targetPos );
+	void PreExecute(CCUID& uidTarget, rvector& targetPos );
+	void LastExecute(CCUID& uidTarget, rvector& targetPos );
+	void Cancel(CCUID& uidTarget);
 
 	bool IsUsable(ZObject *pTarget);	// (팀을고려해서)이 스킬을 대상에게 쓸만한지
 
@@ -197,9 +197,9 @@ protected:
 
 	bool GetPartsTypePos(ZObject* pTargetObject, ZSKILLEFFECTTARGETPOSTYPE nSkillEffectPosType, 
 						 RMeshPartsPosInfoType& type,rvector& vPos,rvector& vDir);
-	bool GetPartsTypePos(RMeshPartsPosInfoType& type,MUID& uid,MUID& uidTarget);
+	bool GetPartsTypePos(RMeshPartsPosInfoType& type,CCUID& uid,CCUID& uidTarget);
 	bool CheckRange(const rvector& center, ZObject *pCurrent);	// 대상이 영향을 받는지 체크
-	void Use(MUID& uidTarget, rvector& targetPos);
+	void Use(CCUID& uidTarget, rvector& targetPos);
 	void Repeat();
 	void GetMissilePosDir(rvector& outDir, rvector& outPos, rvector& TargetPos);
 };

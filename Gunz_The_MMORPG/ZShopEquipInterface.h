@@ -41,7 +41,7 @@ public:
 	MMatchCharItemParts RecommendEquipParts(MMatchItemSlotType slot);
 
 	bool Equip(void);
-	bool Equip(MMatchCharItemParts parts, MUID& uidItem);
+	bool Equip(MMatchCharItemParts parts, CCUID& uidItem);
 
 	void SetKindableItem( MMatchItemSlotType nSlotType);
 	bool IsKindableItem(MMatchCharItemParts nParts, MMatchItemSlotType nSlotType);

@@ -24,7 +24,7 @@ protected:
 
 	int		m_nLifeTime;
 
-	MUID	m_uid;
+	CCUID	m_uid;
 	bool	m_bDelay;
 	bool	m_isCheck;
 	bool	m_bLoopType;
@@ -45,9 +45,9 @@ public:
 
 	virtual void SetUpVector(rvector& v);
 
-	void SetUid(MUID uid);
-	MUID GetUID() { return m_uid; }
-	void SetDelayPos(MUID id);
+	void SetUid(CCUID uid);
+	CCUID GetUID() { return m_uid; }
+	void SetDelayPos(CCUID id);
 	void SetScale(rvector s);
 	void SetRotationAngleZ(float a);
 	void SetRotationAngleY(float a);
@@ -66,7 +66,7 @@ public:
 
 class ZEffectDash : public ZEffectAniMesh , public CMemPoolSm<ZEffectDash> {
 public:
-	ZEffectDash(RMesh* pMesh, rvector& Pos, rvector& Dir,MUID uidTarget);
+	ZEffectDash(RMesh* pMesh, rvector& Pos, rvector& Dir,CCUID uidTarget);
 	virtual bool Draw(unsigned long int nTime);
 };
 
@@ -116,12 +116,12 @@ public:
 	}
 
 public:
-//	MUID		m_uid;
+//	CCUID		m_uid;
 //	ZCharacter* m_pCharacter;
 
 	float		m_nStartAddTime;
 	bool		m_isMovingPos;
-	MUID		m_uid;
+	CCUID		m_uid;
 	bool		m_isLeftWeapon;
 
 };

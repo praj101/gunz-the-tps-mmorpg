@@ -12,7 +12,7 @@
 
 
 
-ZBrain::ZBrain() : m_pBody(NULL), m_uidTarget( MUID( 0, 0))
+ZBrain::ZBrain() : m_pBody(NULL), m_uidTarget( CCUID( 0, 0))
 {
 	ResetStuckInState();
 	ResetStuckInStateForWarp();
@@ -147,7 +147,7 @@ void ZBrain::Think( float fDelta)
 {
 	if ( m_pBody->isThinkAble())
 	{
-		MUID prevTarget = m_uidTarget;
+		CCUID prevTarget = m_uidTarget;
 
 
 		// Å¸°Ù Ã£±â
@@ -166,7 +166,7 @@ void ZBrain::Think( float fDelta)
 		}
 
 		// Å¸°ÙÀÌ ¾øÀ¸¸é...
-		else if ( prevTarget != MUID( 0, 0))
+		else if ( prevTarget != CCUID( 0, 0))
 		{
 			m_pBody->Stop();
 			m_pBody->m_TaskManager.Clear();
@@ -194,7 +194,7 @@ void ZBrain::Think( float fDelta)
 
 bool ZBrain::FindTarget()
 {
-	MUID uidTarget	= MUID(0,0);
+	CCUID uidTarget	= CCUID(0,0);
 	float fDist		= FLT_MAX;
 
 	for ( ZCharacterManager::iterator itor = ZGetCharacterManager()->begin();  itor != ZGetCharacterManager()->end();  ++itor)
@@ -222,7 +222,7 @@ bool ZBrain::FindTarget()
 
 	m_uidTarget = uidTarget;
 
-	if ( uidTarget == MUID(0,0))
+	if ( uidTarget == CCUID(0,0))
 		return false;
 
 	return true;
@@ -276,7 +276,7 @@ void ZBrain::ProcessAttack( float fDelta)
 
 	// Get skill
 	int nSkill;
-	MUID uidTarget;
+	CCUID uidTarget;
 	rvector targetPosition;
 	if ( GetUseableSkill( &nSkill, &uidTarget, &targetPosition)) 
 	{
@@ -292,7 +292,7 @@ void ZBrain::ProcessAttack( float fDelta)
 }
 
 
-bool ZBrain::GetUseableSkill( int *pnSkill, MUID *puidTarget, rvector *pTargetPosition)
+bool ZBrain::GetUseableSkill( int *pnSkill, CCUID *puidTarget, rvector *pTargetPosition)
 {
 	// Get skill module
 	ZModule_Skills *pmod = (ZModule_Skills *)m_pBody->GetModule(ZMID_SKILLS);
@@ -301,7 +301,7 @@ bool ZBrain::GetUseableSkill( int *pnSkill, MUID *puidTarget, rvector *pTargetPo
 
 	// Set value
 	if ( puidTarget)
-		(*puidTarget) = MUID(0,0);
+		(*puidTarget) = CCUID(0,0);
 
 	if (pTargetPosition)
 		(*pTargetPosition) = rvector(0.0f,0.0f,0.0f);

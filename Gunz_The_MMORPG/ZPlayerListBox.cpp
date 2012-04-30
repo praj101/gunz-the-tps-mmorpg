@@ -18,7 +18,7 @@
 #define PLAYERLIST_ITEM_HEIGHT	23
 
 bool GetUserGradeIDColor(MMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name);
-bool GetUserInfoUID(MUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
 
 void ZPlayerListBoxLook::OnItemDraw2(MDrawContext* pDC, MRECT& r, const char* szText, MCOLOR color, bool bSelected, bool bFocus, int nAdjustWidth)
 {
@@ -248,8 +248,8 @@ ZPlayerListBox::ZPlayerListBox(const char* szName, MWidget* pParent, MListener* 
 
 	m_bAbsoulteTabSpacing = true;
 
-//	m_MyUID = MUID(0,0);
-//	m_uidChannel = MUID(0,0);
+//	m_MyUID = CCUID(0,0);
+//	m_uidChannel = CCUID(0,0);
 	m_nTotalPlayerCount = 0;
 	m_nPage = 0;
 
@@ -268,7 +268,7 @@ ZPlayerListBox::ZPlayerListBox(const char* szName, MWidget* pParent, MListener* 
 	
 	mSelectedPlayer = 0;
 	mStartToDisplay = 0;
-//	mPlayerOrder.reserve( sizeof(MUID)*100 );
+//	mPlayerOrder.reserve( sizeof(CCUID)*100 );
 //	m_pScrollBar = new MScrollBar( this, this );
 //	ZApplication::GetGameInterface()->GetIDLResource()->InsertWidget("PlayerListScrollBar", m_pScrollBar );
 	m_bAlwaysVisibleScrollbar = false;
@@ -401,15 +401,15 @@ void ZPlayerListBox::AddTestItems()
 	switch (m_nMode)
 	{
 	case PLAYERLISTMODE_CHANNEL:
-		AddPlayer(MUID(0,0),PS_FIGHT,34,"아이디6글자1","클랜명여섯자",24401,MMUG_FREE,1);
-		AddPlayer(MUID(0,1),PS_WAIT ,10,"아이디6글자2","클랜명여섯자",24401,MMUG_FREE,2);
-		AddPlayer(MUID(0,2),PS_LOBBY,11,"아이디6글자3","클랜명여섯자",24401,MMUG_FREE,3);
-		AddPlayer(MUID(0,3),PS_LOBBY,99,"아이디6글자4","클랜명여섯자",24401,MMUG_FREE,4);
-		AddPlayer(MUID(0,4),PS_LOBBY, 3,"아이디6글자5","클랜명여섯자",24401,MMUG_FREE,5);
-		AddPlayer(MUID(0,5),PS_LOBBY, 1,"아이디6글자6","클랜명여섯자",24401,MMUG_FREE,6);
-		AddPlayer(MUID(0,6),PS_LOBBY,33,"아이디6글자7","클랜명여섯자",24401,MMUG_FREE,7);
-		AddPlayer(MUID(0,7),PS_LOBBY,45,"아이디6글자8","클랜명여섯자",24401,MMUG_FREE,8);
-		AddPlayer(MUID(0,8),PS_LOBBY,44,"아이디6글자9","클랜명여섯자",24401,MMUG_FREE,9);
+		AddPlayer(CCUID(0,0),PS_FIGHT,34,"아이디6글자1","클랜명여섯자",24401,MMUG_FREE,1);
+		AddPlayer(CCUID(0,1),PS_WAIT ,10,"아이디6글자2","클랜명여섯자",24401,MMUG_FREE,2);
+		AddPlayer(CCUID(0,2),PS_LOBBY,11,"아이디6글자3","클랜명여섯자",24401,MMUG_FREE,3);
+		AddPlayer(CCUID(0,3),PS_LOBBY,99,"아이디6글자4","클랜명여섯자",24401,MMUG_FREE,4);
+		AddPlayer(CCUID(0,4),PS_LOBBY, 3,"아이디6글자5","클랜명여섯자",24401,MMUG_FREE,5);
+		AddPlayer(CCUID(0,5),PS_LOBBY, 1,"아이디6글자6","클랜명여섯자",24401,MMUG_FREE,6);
+		AddPlayer(CCUID(0,6),PS_LOBBY,33,"아이디6글자7","클랜명여섯자",24401,MMUG_FREE,7);
+		AddPlayer(CCUID(0,7),PS_LOBBY,45,"아이디6글자8","클랜명여섯자",24401,MMUG_FREE,8);
+		AddPlayer(CCUID(0,8),PS_LOBBY,44,"아이디6글자9","클랜명여섯자",24401,MMUG_FREE,9);
 		break;
 	}
 //*/
@@ -477,7 +477,7 @@ void ZPlayerListBox::OnSize(int w,int h)
 }
 
 // mode PLAYERLISTMODE_CHANNEL
-void ZPlayerListBox::AddPlayer(MUID& puid, ePlayerState state, int  nLevel,char* szName, char *szClanName, unsigned int nClanID, MMatchUserGradeID nGrade, int duelTournamentGrade )
+void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char* szName, char *szClanName, unsigned int nClanID, MMatchUserGradeID nGrade, int duelTournamentGrade )
 {
 	if ( (int)strlen( szName) == 0)
 		return;
@@ -527,7 +527,7 @@ void ZPlayerListBox::AddPlayer(MUID& puid, ePlayerState state, int  nLevel,char*
 }
 
 // mode PLAYERLISTMODE_STAGE
-void ZPlayerListBox::AddPlayer(MUID& puid, MMatchObjectStageState state, int nLevel, char* szName, char* szClanName, unsigned int nClanID, bool isMaster, MMatchTeam nTeam, int duelTournamentGrade)
+void ZPlayerListBox::AddPlayer(CCUID& puid, MMatchObjectStageState state, int nLevel, char* szName, char* szClanName, unsigned int nClanID, bool isMaster, MMatchTeam nTeam, int duelTournamentGrade)
 {
 	if ( (int)strlen( szName) == 0)
 		return;
@@ -651,11 +651,11 @@ void ZPlayerListBox::AddPlayer(ePlayerState state, char* szName, char* szLocatio
 		case PS_LOBBY	: strcpy(szFileName, "player_status_lobby.tga");	break;
 	}
 
-	MListBox::Add(new ZFriendPlayerListItem(MUID(0,0),MBitmapManager::Get(szFileName), szName,NULL,szLocation,state,MMUG_FREE));
+	MListBox::Add(new ZFriendPlayerListItem(CCUID(0,0),MBitmapManager::Get(szFileName), szName,NULL,szLocation,state,MMUG_FREE));
 }
 
 // mode PLAYERLISTMODE_CHANNEL_CLAN
-void ZPlayerListBox::AddPlayer(MUID& puid, ePlayerState state, char* szName, int nLevel ,MMatchClanGrade nGrade )
+void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, char* szName, int nLevel ,MMatchClanGrade nGrade )
 {
 	if ( (int)strlen( szName) == 0)
 		return;
@@ -699,7 +699,7 @@ void ZPlayerListBox::AddPlayer(MUID& puid, ePlayerState state, char* szName, int
 	MListBox::Add( pItem );
 }
 
-void ZPlayerListBox::DelPlayer(MUID& puid)
+void ZPlayerListBox::DelPlayer(CCUID& puid)
 {
 	ZPlayerListItem* pItem = NULL;
 
@@ -714,7 +714,7 @@ void ZPlayerListBox::DelPlayer(MUID& puid)
 
 // 나중에 바꾸자 바쁘다.. 새벽 5:16분..
 
-ZPlayerListItem* ZPlayerListBox::GetUID(MUID uid)
+ZPlayerListItem* ZPlayerListBox::GetUID(CCUID uid)
 {
 	ZPlayerListItem* pItem = NULL;
 
@@ -776,7 +776,7 @@ void ZPlayerListBox::UpdateList(int mode)
 }
 
 
-void ZPlayerListBox::UpdatePlayer(MUID& puid,MMatchObjectStageState state, bool isMaster,MMatchTeam nTeam)
+void ZPlayerListBox::UpdatePlayer(CCUID& puid,MMatchObjectStageState state, bool isMaster,MMatchTeam nTeam)
 {
 	ZStagePlayerListItem* pItem = (ZStagePlayerListItem*)GetUID(puid);
 
@@ -885,7 +885,7 @@ void ZPlayerListBox::UpdatePlayer(MUID& puid,MMatchObjectStageState state, bool 
 }
 
 
-void ZPlayerListBox::UpdatePlayer(MUID& puid,MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam)
+void ZPlayerListBox::UpdatePlayer(CCUID& puid,MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam)
 {
 	return;
 
@@ -1051,7 +1051,7 @@ bool ZPlayerListBox::OnCommand(MWidget* pWidget, const char* szMessage)
 		if(m_nSelItem != -1) {
 			ZStagePlayerListItem* pItem = (ZStagePlayerListItem*)Get(m_nSelItem);
 			if(pItem) {
-				MUID uid = pItem->m_PlayerUID;
+				CCUID uid = pItem->m_PlayerUID;
 
 				// 플레이어를 클릭하면 좌측의 캐릭터뷰에 해당 캐릭터 이미지가
 				// 뜨는거 막음. 아직 캐릭터 정보까지 변경 안되는 관계로...  -_-;(동환)
@@ -1228,8 +1228,8 @@ ZStagePlayerListBox::ZStagePlayerListBox(const char* szName, MWidget* pParent, M
 
 	m_bAbsoulteTabSpacing = true;
 
-	m_MyUID = MUID(0,0);
-	m_uidChannel = MUID(0,0);
+	m_MyUID = CCUID(0,0);
+	m_uidChannel = CCUID(0,0);
 	m_nTotalPlayerCount = 0;
 	m_nPage = 0;
 
@@ -1247,14 +1247,14 @@ ZStagePlayerListBox::ZStagePlayerListBox(const char* szName, MWidget* pParent, M
 	
 	mSelectedPlayer = 0;
 	mStartToDisplay = 0;
-	mPlayerOrder.reserve( sizeof(MUID)*100 );
+	mPlayerOrder.reserve( sizeof(CCUID)*100 );
 //	m_pScrollBar = new MScrollBar( this, this );
 //	ZApplication::GetGameInterface()->GetIDLResource()->InsertWidget("PlayerListScrollBar", m_pScrollBar );
 
-//	AddPlayer(MUID(0,0), MOSS_READY		, "aaaaa", 10 ,true ,MMT_RED );
-//	AddPlayer(MUID(0,1), MOSS_SHOP		, "bbbbb", 11 ,false,MMT_BLUE);
-//	AddPlayer(MUID(0,2), MOSS_EQUIPMENT	, "ccccc", 12 ,false,MMT_RED );
-//	AddPlayer(MUID(0,3), MOSS_NONREADY	, "ddddd", 13 ,false,MMT_BLUE);
+//	AddPlayer(CCUID(0,0), MOSS_READY		, "aaaaa", 10 ,true ,MMT_RED );
+//	AddPlayer(CCUID(0,1), MOSS_SHOP		, "bbbbb", 11 ,false,MMT_BLUE);
+//	AddPlayer(CCUID(0,2), MOSS_EQUIPMENT	, "ccccc", 12 ,false,MMT_RED );
+//	AddPlayer(CCUID(0,3), MOSS_NONREADY	, "ddddd", 13 ,false,MMT_BLUE);
 
 	m_bAlwaysVisibleScrollbar = false;
 	m_bHideScrollBar = true;
@@ -1303,7 +1303,7 @@ float ZStagePlayerListBox::OnReSize()
 	return fA;
 }
 
-void ZStagePlayerListBox::DelPlayer(MUID& puid)
+void ZStagePlayerListBox::DelPlayer(CCUID& puid)
 {
 	ZStagePlayerListItem* pItem = NULL;
 
@@ -1318,7 +1318,7 @@ void ZStagePlayerListBox::DelPlayer(MUID& puid)
 
 // 나중에 바꾸자 바쁘다.. 새벽 5:16분..
 
-ZStagePlayerListItem* ZStagePlayerListBox::GetUID(MUID uid)
+ZStagePlayerListItem* ZStagePlayerListBox::GetUID(CCUID uid)
 {
 	ZStagePlayerListItem* pItem = NULL;
 
@@ -1330,7 +1330,7 @@ ZStagePlayerListItem* ZStagePlayerListBox::GetUID(MUID uid)
 	return NULL;
 }
 
-void ZStagePlayerListBox::UpdatePlayer(MUID& puid,eStagePlayerState state, char* szName, int  nLevel ,bool isMaster,int nTeam)
+void ZStagePlayerListBox::UpdatePlayer(CCUID& puid,eStagePlayerState state, char* szName, int  nLevel ,bool isMaster,int nTeam)
 {
 	ZStagePlayerListItem* pItem = GetUID(puid);
 	if(pItem) {
@@ -1382,7 +1382,7 @@ void ZStagePlayerListBox::AddPlayer(MMatchObjCache* pCache)
 	AddPlayer(pCache->GetUID(), MOSS_NONREADY,pCache->GetName(), pCache->GetLevel(),false,MMT_ALL);
 }
 
-void ZStagePlayerListBox::AddPlayer(MUID& puid, MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam)
+void ZStagePlayerListBox::AddPlayer(CCUID& puid, MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam)
 {
 	char szFileName[64] = "";
 	char szFileNameState[64] = "";
@@ -1433,7 +1433,7 @@ bool ZStagePlayerListBox::OnEvent(MEvent* pEvent, MListener* pListener)
 /*
 void ZStagePlayerListBox::AddPlayer( MMatchObjCache* pCache )
 {
-	MUID uid = pCache->GetUID();
+	CCUID uid = pCache->GetUID();
 
 	sPlayerInfo* pInfo = new sPlayerInfo;
 	strcpy( pInfo->szName, pCache->GetName() );
@@ -1443,15 +1443,15 @@ void ZStagePlayerListBox::AddPlayer( MMatchObjCache* pCache )
 }
 */
 
-MUID ZPlayerListBox::GetSelectedPlayerUID() 
+CCUID ZPlayerListBox::GetSelectedPlayerUID() 
 {
 	ZLobbyPlayerListItem* pItem = (ZLobbyPlayerListItem*)GetSelItem();
-	if(!pItem) return MUID(0,0);
+	if(!pItem) return CCUID(0,0);
     
 	return pItem->GetUID();
 }
 
-void ZPlayerListBox::SelectPlayer(MUID uid)
+void ZPlayerListBox::SelectPlayer(CCUID uid)
 {
 	for(int i=0;i<GetCount();i++)
 	{

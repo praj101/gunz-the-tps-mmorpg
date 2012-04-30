@@ -1744,7 +1744,7 @@ bool ZStageInterface::IsShowStartMovieOfQuest( void)
   arg  : none
   ret  : none
 ************************************************************************/
-bool ZStageInterface::OnResponseDropSacrificeItemOnSlot( const int nResult, const MUID& uidRequester, const int nSlotIndex, const int nItemID )
+bool ZStageInterface::OnResponseDropSacrificeItemOnSlot( const int nResult, const CCUID& uidRequester, const int nSlotIndex, const int nItemID )
 {
 #ifdef _QUEST_ITEM
 	if( MOK == nResult)
@@ -1790,7 +1790,7 @@ bool ZStageInterface::OnResponseDropSacrificeItemOnSlot( const int nResult, cons
   arg  : none
   ret  : none
 ************************************************************************/
-bool ZStageInterface::OnResponseCallbackSacrificeItem( const int nResult, const MUID& uidRequester, const int nSlotIndex, const int nItemID )
+bool ZStageInterface::OnResponseCallbackSacrificeItem( const int nResult, const CCUID& uidRequester, const int nSlotIndex, const int nItemID )
 {
 #ifdef _QUEST_ITEM
 	if( MOK == nResult )
@@ -1860,10 +1860,10 @@ bool ZStageInterface::OnStageGameInfo( const int nQL, const int nMapsetID, const
 	return true;
 }
 
-bool ZStageInterface::OnResponseSacrificeSlotInfo( const MUID& uidOwner1, const unsigned long int nItemID1, 
-												   const MUID& uidOwner2, const unsigned long int nItemID2 )
+bool ZStageInterface::OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const unsigned long int nItemID1, 
+												   const CCUID& uidOwner2, const unsigned long int nItemID2 )
 {
-	if ( (uidOwner1 != MUID(0,0)) && nItemID1)
+	if ( (uidOwner1 != CCUID(0,0)) && nItemID1)
 	{
 		MQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID1);
 		MBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID1, false);
@@ -1872,7 +1872,7 @@ bool ZStageInterface::OnResponseSacrificeSlotInfo( const MUID& uidOwner1, const 
 	else
 		m_SacrificeItem[ SACRIFICEITEM_SLOT0].RemoveItem();
 
-	if ( (uidOwner2 != MUID(0,0)) && nItemID2)
+	if ( (uidOwner2 != CCUID(0,0)) && nItemID2)
 	{
 		MQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID2);
 		MBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID2, false);
@@ -2015,7 +2015,7 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
   arg  : none
   ret  : none
 ************************************************************************/
-void SacrificeItemSlotDesc::SetSacrificeItemSlot( const MUID& uidUserID, const unsigned long int nItemID, MBitmap* pBitmap, const char* szItemName, const int nQL)
+void SacrificeItemSlotDesc::SetSacrificeItemSlot( const CCUID& uidUserID, const unsigned long int nItemID, MBitmap* pBitmap, const char* szItemName, const int nQL)
 {
 	m_uidUserID = uidUserID;
 	m_nItemID = nItemID;
@@ -2163,7 +2163,7 @@ bool ZStageInterface::OnStopVote()
 }
 
 
-void ZStageInterface::OnStartFail( const int nType, const MUID& uidParam )
+void ZStageInterface::OnStartFail( const int nType, const CCUID& uidParam )
 {
 	if( ALL_PLAYER_NOT_READY == nType )
 	{

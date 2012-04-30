@@ -3,7 +3,7 @@
 #include "ZGambleItemDefine.h"
 
 
-ZMyGambleItem::ZMyGambleItem( const MUID& uidItem, const DWORD dwGambleItemID, const int nItemCount ) 
+ZMyGambleItem::ZMyGambleItem( const CCUID& uidItem, const DWORD dwGambleItemID, const int nItemCount ) 
 	: MMatchBaseGambleItem( uidItem, dwGambleItemID, nItemCount )
 {
 }
@@ -28,7 +28,7 @@ ZMyGambleItemManager::~ZMyGambleItemManager()
 }
 
 
-bool ZMyGambleItemManager::CreateGambleItem( const MUID& uidItem, const DWORD dwGambleItemID, const int nitemCount )
+bool ZMyGambleItemManager::CreateGambleItem( const CCUID& uidItem, const DWORD dwGambleItemID, const int nitemCount )
 {
 	ZMyGambleItem* pGItem = new ZMyGambleItem( uidItem, dwGambleItemID, nitemCount );
 	if( NULL == pGItem ) return false;
@@ -38,7 +38,7 @@ bool ZMyGambleItemManager::CreateGambleItem( const MUID& uidItem, const DWORD dw
 }
 
 
-const ZMyGambleItem* ZMyGambleItemManager::GetGambleItem( const MUID& uidItem )
+const ZMyGambleItem* ZMyGambleItemManager::GetGambleItem( const CCUID& uidItem )
 {
 	vector< ZMyGambleItem* >::iterator it, end;
 	end = m_GambleItemList.end();
@@ -60,7 +60,7 @@ const ZMyGambleItem* ZMyGambleItemManager::GetGambleItemByIndex( const DWORD dwI
 }
 
 
-void ZMyGambleItemManager::DeleteGambleItem( const MUID& uidItem )
+void ZMyGambleItemManager::DeleteGambleItem( const CCUID& uidItem )
 {
 	vector< ZMyGambleItem* >::iterator it, end;
 	end = m_GambleItemList.end();

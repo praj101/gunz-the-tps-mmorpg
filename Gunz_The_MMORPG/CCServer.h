@@ -20,7 +20,7 @@ protected:
 	void LockAcceptWaitQueue()		{ EnterCriticalSection(&m_csAcceptWaitQueue); }
 	void UnlockAcceptWaitQueue()		{ LeaveCriticalSection(&m_csAcceptWaitQueue); }
 
-	MUIDRefCache				m_CommRefCache;			///< 현재 연결이 설정된 다른 커뮤니케이터 캐쉬
+	CCUIDRefCache				m_CommRefCache;			///< 현재 연결이 설정된 다른 커뮤니케이터 캐쉬
 	CRITICAL_SECTION			m_csCommList;
 
 	void LockCommList()			{ EnterCriticalSection(&m_csCommList); }
@@ -32,11 +32,11 @@ protected:
 	void UnlockSafeCmdQueue()	{ LeaveCriticalSection(&m_csSafeCmdQueue); }
 
 	/// 새로운 UID 얻어내기
-	// virtual MUID UseUID(void) = 0;
-	virtual MUID UseUID(void) { return MUID(0, 0); }
+	// virtual CCUID UseUID(void) = 0;
+	virtual CCUID UseUID(void) { return CCUID(0, 0); }
 
-	void AddCommObject(const MUID& uid, MCommObject* pCommObj);
-	void RemoveCommObject(const MUID& uid);
+	void AddCommObject(const CCUID& uid, MCommObject* pCommObj);
+	void RemoveCommObject(const CCUID& uid);
 	void InitCryptCommObject(MCommObject* pCommObj, unsigned int nTimeStamp);
 
 	void PostSafeQueue(MCommand* pNew);
@@ -53,11 +53,11 @@ protected:
 	/// 사용자 커맨드 처리
 	virtual bool OnCommand(MCommand* pCommand);
 
-	virtual void OnNetClear(const MUID& CommUID);
-	virtual void OnNetPong(const MUID& CommUID, unsigned int nTimeStamp);
-	virtual void OnHShieldPong(const MUID& CommUID, unsigned int nTimeStamp) {};
+	virtual void OnNetClear(const CCUID& CommUID);
+	virtual void OnNetPong(const CCUID& CommUID, unsigned int nTimeStamp);
+	virtual void OnHShieldPong(const CCUID& CommUID, unsigned int nTimeStamp) {};
 
-	bool SendMsgReplyConnect(MUID* pHostUID, MUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
+	bool SendMsgReplyConnect(CCUID* pHostUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
 	bool SendMsgCommand(DWORD nClientKey, char* pBuf, int nSize, unsigned short nMsgHeaderID, MPacketCrypterKey* pCrypterKey);
 
 	static void RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nKey, MPacketHeader* pPacket, DWORD dwPacketLen);	// Thread not safe
@@ -90,13 +90,13 @@ public:
 	/// @param	pAllocUID	자기 Communicator가 배정받은 UID
 	/// @return				에러 코드 (MErrorTable.h 참조)
 	virtual int Connect(MCommObject* pCommObj);	// 연결실패시 반드시 Disconnect() 호출해야함
-	int ReplyConnect(MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
+	int ReplyConnect(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
 	virtual int OnAccept(MCommObject* pCommObj);
 	/// 로그인되었을때
-	virtual void OnLocalLogin(MUID CommUID, MUID PlayerUID);
+	virtual void OnLocalLogin(CCUID CommUID, CCUID PlayerUID);
 	/// 연결 해제
-	virtual void Disconnect( const MUID& uid );	
-	virtual int OnDisconnect(const MUID& uid);	// Thread not safe
+	virtual void Disconnect( const CCUID& uid );	
+	virtual int OnDisconnect(const CCUID& uid);	// Thread not safe
 
 	virtual void Log(unsigned int nLogLevel, const char* szLog){}
 

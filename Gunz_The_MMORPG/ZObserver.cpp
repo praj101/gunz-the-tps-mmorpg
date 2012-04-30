@@ -29,11 +29,11 @@ bool ZObserverQuickTarget::ConvertKeyToIndex(char nKey, int* nIndex)
 	}
 }
 
-void ZObserverQuickTarget::StoreTarget(int nIndex, MUID uidChar) 
+void ZObserverQuickTarget::StoreTarget(int nIndex, CCUID uidChar) 
 {
 	m_arrayPlayers[nIndex] = uidChar;
 }
-MUID ZObserverQuickTarget::GetTarget(int nIndex) 
+CCUID ZObserverQuickTarget::GetTarget(int nIndex) 
 {
 	return m_arrayPlayers[nIndex];
 }
@@ -47,10 +47,10 @@ bool ZObserver::OnKeyEvent(bool bCtrl, char nKey)
 	if (bCtrl) {
 		m_QuickTarget.StoreTarget(nIndex, GetTargetCharacter()->GetUID());
 	} else {
-		MUID uidTarget = m_QuickTarget.GetTarget(nIndex);
+		CCUID uidTarget = m_QuickTarget.GetTarget(nIndex);
 
 		// 태거지정 특수키 사용 체크
-		if ((uidTarget == MUID(0,0)) && (nKey == OBSERVER_QUICK_TAGGER_TARGET_KEY))
+		if ((uidTarget == CCUID(0,0)) && (nKey == OBSERVER_QUICK_TAGGER_TARGET_KEY))
 		{
 			for (ZCharacterManager::iterator itor = ZGetGame()->m_CharacterManager.begin(); 
 				itor != ZGetGame()->m_CharacterManager.end(); ++itor)
@@ -295,7 +295,7 @@ bool ZObserver::IsVisibleSetTarget(ZCharacter* pCharacter)
 
 }
 
-bool GetUserInfoUID(MUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
 
 void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 {
@@ -309,7 +309,7 @@ void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 	MBitmap* pBitmap = NULL;
 
 
-	MUID uidPlayer1, uidPlayer2, uidWaitQueue;
+	CCUID uidPlayer1, uidPlayer2, uidWaitQueue;
 	uidWaitQueue.SetZero();
 
 	if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
@@ -693,7 +693,7 @@ void ZObserver::CheckDeadTarget()
 	nLastTime = nNowTime;
 }
 
-void ZObserver::SetTarget(MUID muid)
+void ZObserver::SetTarget(CCUID muid)
 {
 	ZCharacter* pCharacter = NULL;
 	pCharacter = ZGetGame()->m_CharacterManager.Find(muid);

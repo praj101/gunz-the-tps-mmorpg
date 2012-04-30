@@ -4,7 +4,7 @@
 
 #include "MListBox.h"
 class ZChannelListItem : public MListItem {
-	MUID			m_uidChannel;
+	CCUID			m_uidChannel;
 	char			m_szChannelName[64];
 	
 	int				m_nChannelType;
@@ -13,7 +13,7 @@ class ZChannelListItem : public MListItem {
 
 	char			m_szItemString[256];
 public:
-	ZChannelListItem(const MUID& uid, const int nChannelNumber, const char* szChannelName, 
+	ZChannelListItem(const CCUID& uid, const int nChannelNumber, const char* szChannelName, 
 		const int nChannelType, const int nPlayers, const int nMaxPlayers) 
 	{ 
 		m_uidChannel = uid; strcpy(m_szChannelName, szChannelName); 
@@ -27,7 +27,7 @@ public:
 		sprintf(m_szItemString,"%s (%d/%d)",m_szChannelName,m_nPlayers,m_nMaxPlayers);
 		return m_szItemString; 
 	}
-	MUID GetUID()						{ return m_uidChannel; }
+	CCUID GetUID()						{ return m_uidChannel; }
 	char* GetName()						{ return m_szChannelName; }
 };
 

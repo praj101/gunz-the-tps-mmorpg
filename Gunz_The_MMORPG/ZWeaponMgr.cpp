@@ -321,7 +321,7 @@ void ZWeaponMgr::AddMagic(ZSkill* pSkill, const rvector &pos, const rvector &dir
 	Add(pWeapon);
 }
 
-void ZWeaponMgr::DeleteWeaponHasTarget( const MUID& uidTargetChar )
+void ZWeaponMgr::DeleteWeaponHasTarget( const CCUID& uidTargetChar )
 {
 	if(m_list.empty())
 		return;

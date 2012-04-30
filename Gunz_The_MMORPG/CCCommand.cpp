@@ -73,7 +73,7 @@ MCommand::MCommand(void)
 	Reset();
 }
 
-MCommand::MCommand(const MCommandDesc* pCommandDesc, MUID Receiver, MUID Sender)
+MCommand::MCommand(const MCommandDesc* pCommandDesc, CCUID Receiver, CCUID Sender)
 {
 	Reset();
 	SetID(pCommandDesc);
@@ -81,7 +81,7 @@ MCommand::MCommand(const MCommandDesc* pCommandDesc, MUID Receiver, MUID Sender)
 	m_Sender = Sender;
 }
 
-MCommand::MCommand(int nID, MUID Sender, MUID Receiver, MCommandManager* pCommandManager)
+MCommand::MCommand(int nID, CCUID Sender, CCUID Receiver, MCommandManager* pCommandManager)
 {
 	Reset();
 	SetID(nID, pCommandManager);

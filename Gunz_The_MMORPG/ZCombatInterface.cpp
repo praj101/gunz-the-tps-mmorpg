@@ -61,7 +61,7 @@ using namespace std;
 #define TEXT_COLOR_CLAN_NAME		0xffffffff
 
 struct ZScoreBoardItem : public CMemPoolSm<ZScoreBoardItem>{
-	MUID uidUID;
+	CCUID uidUID;
 	char szLevel[16];
 	char szName[64];
 	char szClan[CLAN_NAME_LENGTH];
@@ -81,7 +81,7 @@ struct ZScoreBoardItem : public CMemPoolSm<ZScoreBoardItem>{
 	MCOLOR SpColor;
 	bool  bSpColor;
 
-	ZScoreBoardItem( const MUID& _uidUID, char* _szLevel, char *_szName,char *_szClan,int _nTeam,bool _bDeath,int _nExp,int _nKills,int _nDeaths,int _nPing,int _nDTLastWeekGrade, bool _bMyChar,bool _bGameRoomUser, bool _bCommander = false)
+	ZScoreBoardItem( const CCUID& _uidUID, char* _szLevel, char *_szName,char *_szClan,int _nTeam,bool _bDeath,int _nExp,int _nKills,int _nDeaths,int _nPing,int _nDTLastWeekGrade, bool _bMyChar,bool _bGameRoomUser, bool _bCommander = false)
 	{
 		uidUID=_uidUID;
 		strcpy(szLevel,_szLevel);
@@ -440,15 +440,15 @@ void ZCombatInterface::OnDestroy()
 
 	ZCharacterView* pCharView = GetWidgetCharViewLeft();
 	if (pCharView)
-		pCharView->SetCharacter(MUID(0,0));
+		pCharView->SetCharacter(CCUID(0,0));
 	
 	pCharView = GetWidgetCharViewRight();
 	if (pCharView)
-		pCharView->SetCharacter(MUID(0,0));
+		pCharView->SetCharacter(CCUID(0,0));
 
 	pCharView = GetWidgetCharViewResult();
 	if (pCharView)
-		pCharView->SetCharacter(MUID(0,0));
+		pCharView->SetCharacter(CCUID(0,0));
 
 	pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CombatDT_CharacterInfo");
 	if (pWidget)
@@ -1543,7 +1543,7 @@ void ZCombatInterface::Update(float fElapsed)
 	GameCheckPickCharacter();
 }
 
-bool GetUserInfoUID(MUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
 
 void ZCombatInterface::SetPickTarget(bool bPick, ZCharacter* pCharacter)
 {
@@ -2056,9 +2056,9 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 		if ( nNPCKilled < 0)
 			nNPCKilled = 0;
 
-		MUID uidBoss = ZGetQuest()->GetGameInfo()->GetBoss();
+		CCUID uidBoss = ZGetQuest()->GetGameInfo()->GetBoss();
 
-		if (uidBoss != MUID(0,0))	
+		if (uidBoss != CCUID(0,0))	
 			sprintf( szText, "%s : -", ZMsg( MSG_WORD_REMAINNPC));
 		else
 			sprintf( szText, "%s : %d", ZMsg( MSG_WORD_REMAINNPC), nNPCKilled);
@@ -2071,7 +2071,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 		if ( nNPCKilled < 0)
 			nNPCKilled = 0;
 
-		MUID uidBoss = ZGetQuest()->GetGameInfo()->GetBoss();
+		CCUID uidBoss = ZGetQuest()->GetGameInfo()->GetBoss();
 
 		// 서바이벌엔 자코가 없으므로 보스가 나오더라도 잔여 npc 수는 표시 가능하다
 		sprintf( szText, "%s : %d", ZMsg( MSG_WORD_REMAINNPC), nNPCKilled);
@@ -3084,7 +3084,7 @@ void ZCombatInterface::GetResultInfo( void)
 		// 우승자 캐릭터 뷰 보여주기
 		ZCharacterView* pCharView = GetWidgetCharViewResult();
 		if (pCharView) {
-			MUID uidChampion = ((ZRuleDuelTournament*)ZGetGame()->GetMatch()->GetRule())->GetChampion();
+			CCUID uidChampion = ((ZRuleDuelTournament*)ZGetGame()->GetMatch()->GetRule())->GetChampion();
 			pCharView->SetCharacter( uidChampion);
 		}
 	}
@@ -3707,7 +3707,7 @@ ZCharacter* ZCombatInterface::GetTargetCharacter()
 	return ZGetGame()->m_pMyCharacter;	
 }
 
-MUID ZCombatInterface::GetTargetUID()
+CCUID ZCombatInterface::GetTargetUID()
 {
 	return GetTargetCharacter()->GetUID();
 }

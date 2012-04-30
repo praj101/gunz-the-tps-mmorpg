@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MPopupMenu.h"
-#include "MUID.h"
+#include "CCUID.h"
 
 
 enum ZPLAYERMENU_SET {
@@ -49,7 +49,7 @@ public:
 class ZPlayerMenu : public MPopupMenu {
 protected:
 	char	m_szPlayerName[128];
-	MUID	m_PlayerUID;
+	CCUID	m_PlayerUID;
 
 public:
 	ZPlayerMenu(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL, MPopupMenuTypes t=MPMT_VERTICAL);
@@ -57,8 +57,8 @@ public:
 
 	const char* GetTargetName()	{ return m_szPlayerName; }
 	void SetTargetName(const char* pszPlayerName) { strcpy(m_szPlayerName, pszPlayerName); }
-	const MUID& GetTargetUID()	{ return m_PlayerUID; }
-	void SetTargetUID(const MUID& uidTarget)	{ m_PlayerUID = uidTarget; }
+	const CCUID& GetTargetUID()	{ return m_PlayerUID; }
+	void SetTargetUID(const CCUID& uidTarget)	{ m_PlayerUID = uidTarget; }
 
 	void SetupMenu(ZPLAYERMENU_SET nMenuSet);
 	virtual void Show(int x, int y, bool bVisible=true);

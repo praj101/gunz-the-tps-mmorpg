@@ -358,7 +358,7 @@ public:
 
 	void AddMagicEffectWall(int type,rvector& Target,rvector& vDir,DWORD start_time, float fScale=1.0f);
 
-	void AddSwordUppercutDamageEffect(rvector& Target,MUID uidTarget, DWORD time = 0 );
+	void AddSwordUppercutDamageEffect(rvector& Target,CCUID uidTarget, DWORD time = 0 );
 
 	void AddEatBoxEffect(const rvector& Target,ZObject* pObj);
 	void AddHealEffect(const rvector& Target,ZObject* pObj);
@@ -422,9 +422,9 @@ public:
 	void AddStarEffect(ZObject* pObj);
 
 	// 일반적인 이펙트
-	void Add(const char* szName,const rvector& pos, const rvector& dir,const MUID& uidOwner,int nLifeTime);
-	void AddSp(const char* szName,int nCnt,const rvector& pos, const rvector& dir,const MUID& uidOwner);
-	void AddPartsPosType(const char* szName,const MUID& uidOwner,RMeshPartsPosInfoType type,int nLifeTime);
+	void Add(const char* szName,const rvector& pos, const rvector& dir,const CCUID& uidOwner,int nLifeTime);
+	void AddSp(const char* szName,int nCnt,const rvector& pos, const rvector& dir,const CCUID& uidOwner);
+	void AddPartsPosType(const char* szName,const CCUID& uidOwner,RMeshPartsPosInfoType type,int nLifeTime);
 
 	void AddItemTrapEffect(rvector& Target, rvector& TargetNormal);
 

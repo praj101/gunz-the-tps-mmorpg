@@ -198,8 +198,8 @@ float	g_fFarZ = DEFAULT_FAR_Z;
 //RParticleSystem* g_ParticleSystem = 0;
 extern sCharacterLight g_CharLightList[NUM_LIGHT_TYPE];
 
-MUID tempUID(0, 0);		// 로컬 테스트용
-MUID g_MyChrUID(0, 0);
+CCUID tempUID(0, 0);		// 로컬 테스트용
+CCUID g_MyChrUID(0, 0);
 
 #define IsKeyDown(key) ((GetAsyncKeyState(key) & 0x8000)!=0)
 
@@ -840,7 +840,7 @@ void ZGame::OnCameraUpdate(float Elapsed)
 //jintriple3 디버그 레지스터 해킹
 void ZGame::CheckMyCharDeadByCriticalLine()
 {
-	MUID uidAttacker = MUID(0,0);
+	CCUID uidAttacker = CCUID(0,0);
 	bool bReturnValue = m_pMyCharacter->GetPosition().z >= DIE_CRITICAL_LINE;
 	if (m_pMyCharacter->GetPosition().z >= DIE_CRITICAL_LINE)	//나락 위에 있음 상관하지 않고..
 		PROTECT_DEBUG_REGISTER(bReturnValue)
@@ -863,7 +863,7 @@ void ZGame::CheckMyCharDeadByCriticalLine()
 //jintriple3 디버그 레지스터 해킹
 void ZGame::CheckMyCharDeadUnchecked()
 {
-	MUID uidAttacker = MUID(0,0);
+	CCUID uidAttacker = CCUID(0,0);
 //	if ((m_pMyCharacter->IsDie() == false) && (m_pMyCharacter->GetHP() <= 0))
 	bool bCheck = (m_pMyCharacter->IsDie() == true) | (m_pMyCharacter->GetHP() > 0);
 	if((m_pMyCharacter->IsDie() == true) || (m_pMyCharacter->GetHP() > 0))
@@ -872,7 +872,7 @@ void ZGame::CheckMyCharDeadUnchecked()
 
 
 	//hp <=0 && m_pMyCharacter->IsDie() == false
-	if (uidAttacker == MUID(0,0) && m_pMyCharacter->GetLastAttacker() != MUID(0,0)) 
+	if (uidAttacker == CCUID(0,0) && m_pMyCharacter->GetLastAttacker() != CCUID(0,0)) 
 		uidAttacker = m_pMyCharacter->GetLastAttacker();
 
 	// 다음라운드로 넘어가기 위한 finish 상태에서는 메시지 라우팅을 생략한다
@@ -1351,7 +1351,7 @@ void ZGame::DrawDebugInfo()
 		 itor != ZGetGameClient()->GetPeers()->end(); ++itor)
 	{
 		MMatchPeerInfo* pPeerInfo = (*itor);
-		sprintf(szTemp, "MUID(%d, %d) , IP = %s, port = %d", pPeerInfo->uidChar.High, 
+		sprintf(szTemp, "CCUID(%d, %d) , IP = %s, port = %d", pPeerInfo->uidChar.High, 
 			    pPeerInfo->uidChar.Low, pPeerInfo->szIP, pPeerInfo->nPort);
 		g_pDC->Text(20,n,szTemp);
 		n+=15;
@@ -1545,7 +1545,7 @@ void ZGame::OnReplayRun()
 			break;
 		case MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT:
 			{			
-				MUID uidChar;
+				CCUID uidChar;
 				pItem->pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				mlog("[%d LeaveBattleRoom Time:%3.3f]\n", uidChar.Low, m_ReplayLogTime);
 			}
@@ -1686,7 +1686,7 @@ bool GetUserGradeIDColor(MMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_na
 	return false;
 }
 
-bool ZGame::GetUserNameColor(MUID uid,MCOLOR& UserNameColor,char* sp_name)
+bool ZGame::GetUserNameColor(CCUID uid,MCOLOR& UserNameColor,char* sp_name)
 {
 	MMatchUserGradeID gid = MMUG_FREE;
 
@@ -1727,7 +1727,7 @@ void ZTranslateCommand(MCommand* pCmd, string& strLog)
 
 	// PlayerName
 	string strPlayerName;
-	MUID uid = pCmd->GetSenderUID();
+	CCUID uid = pCmd->GetSenderUID();
 	ZCharacter* pChar = ZGetCharacterManager()->Find(uid);
 	if (pChar)
 		strPlayerName = pChar->GetProperty()->GetName();
@@ -1805,7 +1805,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT:
 		{			
-			MUID uidChar;
+			CCUID uidChar;
 			bool bIsRelayMap;
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
@@ -1816,7 +1816,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_MATCH_RESPONSE_PEERLIST:
 		{
-			MUID uidStage;
+			CCUID uidStage;
 			pCommand->GetParameter(&uidStage, 0, MPT_UID);
 			MCommandParameter* pParam = pCommand->GetParameter(1);
 			if(pParam->GetType()!=MPT_BLOB) break;
@@ -1827,7 +1827,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_MATCH_GAME_ROUNDSTATE:
 		{
-			MUID uidStage;
+			CCUID uidStage;
 			int nRoundState, nRound, nArg;
 
 			pCommand->GetParameter(&uidStage, 0, MPT_UID);
@@ -1852,7 +1852,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 	case MC_MATCH_RESPONSE_SUICIDE:
 		{
 			int nResult;
-			MUID	uidChar;
+			CCUID	uidChar;
 			pCommand->GetParameter(&nResult, 0, MPT_INT);
 			pCommand->GetParameter(&uidChar, 1, MPT_UID);
 
@@ -1871,7 +1871,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_EVENT_UPDATE_JJANG:
 		{
-			MUID uidChar;
+			CCUID uidChar;
 			bool bJjang;
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
@@ -1894,7 +1894,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 			MCOLOR ChatColor = MCOLOR(0xFFD0D0D0);
 			const MCOLOR TeamChatColor = MCOLOR(109,207,246);
 
-			MUID uid=pCommand->GetSenderUID();
+			CCUID uid=pCommand->GetSenderUID();
 			ZCharacter *pChar=ZGetCharacterManager()->Find(uid);
 
 			MCOLOR UserNameColor = MCOLOR(190,190,0);
@@ -1970,7 +1970,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 			bool bShow = false;
 			pCommand->GetParameter(&bShow, 0, MPT_BOOL);
 
-			MUID uid=pCommand->GetSenderUID();
+			CCUID uid=pCommand->GetSenderUID();
 			ZCharacter *pChar=ZGetCharacterManager()->Find(uid);
 			if(pChar)
 			{
@@ -2009,7 +2009,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		{
 			if (!IsReplay()) break;
 
-			MUID uidPlayer;
+			CCUID uidPlayer;
 			int nItemUID;
 
 			pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -2122,7 +2122,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 
 	case MC_PEER_DIE:
 		{
-			MUID	uid;
+			CCUID	uid;
 			pCommand->GetParameter(&uid , 0, MPT_UID);
 
 			OnPeerDie(pCommand->GetSenderUID(), uid);
@@ -2140,7 +2140,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_MATCH_GAME_DEAD:
 		{
-			MUID uidAttacker, uidVictim;
+			CCUID uidAttacker, uidVictim;
 			unsigned long int nAttackerArg, nVictimArg;
 
 			pCommand->GetParameter(&uidAttacker, 0, MPT_UID);
@@ -2153,7 +2153,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_MATCH_GAME_TEAMBONUS:
 		{
-			MUID uidChar;
+			CCUID uidChar;
 			unsigned long int nExpArg;
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
@@ -2165,7 +2165,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 /*
 	case MC_MATCH_ASSIGN_COMMANDER:
 		{
-			MUID uidRedCommander, uidBlueCommander;
+			CCUID uidRedCommander, uidBlueCommander;
 
 			pCommand->GetParameter(&uidRedCommander, 0, MPT_UID);
 			pCommand->GetParameter(&uidBlueCommander, 1, MPT_UID);
@@ -2185,7 +2185,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_MATCH_GAME_RESPONSE_SPAWN:
 		{
-			MUID uidChar;
+			CCUID uidChar;
 			MShortVector s_pos, s_dir;
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
@@ -2201,7 +2201,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_MATCH_SET_OBSERVER:
 		{
-			MUID uidChar;
+			CCUID uidChar;
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
 
@@ -2255,7 +2255,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 
 	case MC_PEER_DAMAGE:
 		{
-			MUID	tuid;
+			CCUID	tuid;
 			int		damage;
 
 			pCommand->GetParameter(&tuid   , 0, MPT_UID);
@@ -2373,7 +2373,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 #endif
 	case MC_MATCH_RESPONSE_USE_SPENDABLE_BUFF_ITEM:
 		{
-			MUID uidItem;
+			CCUID uidItem;
 			int nResult;
 
 			pCommand->GetParameter(&uidItem, 0, MPT_UID);
@@ -2388,7 +2388,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 			//버프정보임시주석 
 			_ASSERT(0);
 			/*
-			MUID uidChar;
+			CCUID uidChar;
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
 
@@ -2435,7 +2435,7 @@ void ZGame::OnPeerBasicInfo(MCommand *pCommand,bool bAddHistory,bool bUpdate)
 	bi.velocity = rvector(ppbi->velx,ppbi->vely,ppbi->velz);
 	bi.direction = 1.f/32000.f * rvector(ppbi->dirx,ppbi->diry,ppbi->dirz);
 	
-	MUID uid = pCommand->GetSenderUID();
+	CCUID uid = pCommand->GetSenderUID();
 
 	MMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uid);
 	if (pPeer) {
@@ -2544,7 +2544,7 @@ void ZGame::OnPeerBasicInfo(MCommand *pCommand,bool bAddHistory,bool bUpdate)
 
 void ZGame::OnPeerHPInfo(MCommand *pCommand)
 {
-	MUID uid = pCommand->GetSenderUID();
+	CCUID uid = pCommand->GetSenderUID();
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 	if (!pCharacter) return;
 
@@ -2560,7 +2560,7 @@ void ZGame::OnPeerHPInfo(MCommand *pCommand)
 
 void ZGame::OnPeerHPAPInfo(MCommand *pCommand)
 {
-	MUID uid = pCommand->GetSenderUID();
+	CCUID uid = pCommand->GetSenderUID();
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 	if (!pCharacter) return;
 
@@ -2578,7 +2578,7 @@ void ZGame::OnPeerHPAPInfo(MCommand *pCommand)
 
 void ZGame::OnPeerDuelTournamentHPAPInfo(MCommand *pCommand)
 {
-	MUID uid = pCommand->GetSenderUID();
+	CCUID uid = pCommand->GetSenderUID();
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 	if (!pCharacter) return;
 
@@ -2659,7 +2659,7 @@ void ZGame::OnPeerPong(MCommand *pCommand)
 
 void ZGame::OnPeerOpened(MCommand *pCommand)
 {
-	MUID uidChar;
+	CCUID uidChar;
 	pCommand->GetParameter(&uidChar, 0, MPT_UID);
 
 	//// Show Character ////////////////////////////////////////
@@ -2695,7 +2695,7 @@ void ZGame::OnPeerOpened(MCommand *pCommand)
 #endif
 }
 
-void ZGame::OnChangeWeapon(MUID& uid, MMatchCharItemParts parts)
+void ZGame::OnChangeWeapon(CCUID& uid, MMatchCharItemParts parts)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 //	if (uid == ZGetGameClient()->GetUID()) pCharacter = m_pMyCharacter;
@@ -2707,7 +2707,7 @@ void ZGame::OnChangeWeapon(MUID& uid, MMatchCharItemParts parts)
 	}
 }
 
-void ZGame::OnChangeParts(MUID& uid,int partstype,int PartsID)
+void ZGame::OnChangeParts(CCUID& uid,int partstype,int PartsID)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 //	if (uid == ZGetGameClient()->GetUID()) pCharacter = m_pMyCharacter;
@@ -2717,7 +2717,7 @@ void ZGame::OnChangeParts(MUID& uid,int partstype,int PartsID)
 	}
 }
 
-void ZGame::OnAttack(MUID& uid,int type,rvector& pos)
+void ZGame::OnAttack(CCUID& uid,int type,rvector& pos)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 //	if (uid == ZGetGameClient()->GetUID()) pCharacter = m_pMyCharacter;
@@ -2728,7 +2728,7 @@ void ZGame::OnAttack(MUID& uid,int type,rvector& pos)
 	}
 }
 
-void ZGame::OnDamage(MUID& uid,MUID& tuid,int damage)
+void ZGame::OnDamage(CCUID& uid,CCUID& tuid,int damage)
 {
 /*
 	ZCharacter* pSender = NULL;		
@@ -2741,7 +2741,7 @@ void ZGame::OnDamage(MUID& uid,MUID& tuid,int damage)
 */
 }
 
-void ZGame::OnPeerShotSp(MUID& uid, float fShotTime, rvector& pos, rvector& dir, int type, MMatchCharItemParts sel_type)
+void ZGame::OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir, int type, MMatchCharItemParts sel_type)
 {
 	ZCharacter* pOwnerCharacter = NULL;		// 총 쏜 사람
 
@@ -3161,7 +3161,7 @@ bool ZGame::CheckWall(ZObject* pObj1,ZObject* pObj2, int & nDebugRegister/*단순 
 }
 
 
-void ZGame::OnExplosionGrenade(MUID uidOwner,rvector pos,float fDamage,float fRange,float fMinDamage,float fKnockBack,MMatchTeam nTeamID)
+void ZGame::OnExplosionGrenade(CCUID uidOwner,rvector pos,float fDamage,float fRange,float fMinDamage,float fKnockBack,MMatchTeam nTeamID)
 {
 	ZObject* pTarget = NULL;
 
@@ -3306,7 +3306,7 @@ void ZGame::OnExplosionGrenade(MUID uidOwner,rvector pos,float fDamage,float fRa
 
 // 매직류의 무기의 데미지를 준다
 //jintriple3 디버그 레지스터 해킹 방어 코드 삽입
-void ZGame::OnExplosionMagic(ZWeaponMagic *pWeapon, MUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc)
+void ZGame::OnExplosionMagic(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc)
 {
 	ZObject* pTarget = NULL;
 
@@ -3435,7 +3435,7 @@ void ZGame::OnExplosionMagic(ZWeaponMagic *pWeapon, MUID uidOwner,rvector pos,fl
 
 // 매직류의 무기의 데미지를 준다
 //jintriple3 디버그 레지스터 해킹 방어 코드 삽입
-void ZGame::OnExplosionMagicThrow(ZWeaponMagic *pWeapon, MUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc, rvector from,rvector to)
+void ZGame::OnExplosionMagicThrow(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc, rvector from,rvector to)
 {
 	ZObject* pTarget = NULL;
 
@@ -3515,7 +3515,7 @@ void ZGame::OnExplosionMagicThrow(ZWeaponMagic *pWeapon, MUID uidOwner,rvector p
 }
 
 //디버그 레지스터 해킹 방지 코드 삽입
-void ZGame::OnExplosionMagicNonSplash(ZWeaponMagic *pWeapon, MUID uidOwner, MUID uidTarget, rvector pos, float fKnockBack)
+void ZGame::OnExplosionMagicNonSplash(ZWeaponMagic *pWeapon, CCUID uidOwner, CCUID uidTarget, rvector pos, float fKnockBack)
 {
 	ZObject* pTarget = m_CharacterManager.Find( uidTarget );
 	bool bForDebugRegister = pTarget == NULL || pTarget->IsNPC();
@@ -3625,7 +3625,7 @@ int ZGame::SelectSlashEffectMotion(ZCharacter* pCharacter)
 }
 
 // shot 이 너무 커서 분리..
-void ZGame::OnPeerShot_Melee(const MUID& uidOwner, float fShotTime)
+void ZGame::OnPeerShot_Melee(const CCUID& uidOwner, float fShotTime)
 {
 	// 공격자 정보를 구함
 	ZObject *pAttacker = m_ObjectManager.GetObject(uidOwner);
@@ -4106,7 +4106,7 @@ void ZGame::OnPeerShot_Range_Damaged(ZObject* pOwner, float fShotTime, const rve
 	v1 = pos;
 	v2 = pickinfo.info.vOut;
 }
-void ZGame::OnPeerShot_Range(const MMatchCharItemParts sel_type, const MUID& uidOwner, float fShotTime, const rvector& pos, const rvector& to)
+void ZGame::OnPeerShot_Range(const MMatchCharItemParts sel_type, const CCUID& uidOwner, float fShotTime, const rvector& pos, const rvector& to)
 {
 	ZObject *pOwner = m_ObjectManager.GetObject(uidOwner);
 	if(!pOwner) return;
@@ -4767,7 +4767,7 @@ bool ZGame::CanISeeAttacker( ZCharacter* pAtk, const rvector& vRequestPos )
 
 
 // shot 을 shot_range, shot_melee, shot_shotgun 으로 command 를 각각 분리하는것도 방법이 좋을듯.
-void ZGame::OnPeerShot( const MUID& uid, float fShotTime, const rvector& pos, const rvector& to, const MMatchCharItemParts sel_type)
+void ZGame::OnPeerShot( const CCUID& uid, float fShotTime, const rvector& pos, const rvector& to, const MMatchCharItemParts sel_type)
 {
 	ZCharacter* pOwnerCharacter = NULL;		// 총 쏜 사람
 
@@ -4863,7 +4863,7 @@ void ZGame::OnPeerShot( const MUID& uid, float fShotTime, const rvector& pos, co
 	}
 }
 
-void ZGame::OnPeerDie(MUID& uidVictim, MUID& uidAttacker)
+void ZGame::OnPeerDie(CCUID& uidVictim, CCUID& uidAttacker)
 {
 	ZCharacter* pVictim = m_CharacterManager.Find(uidVictim);
 	if (pVictim == NULL) return;
@@ -4937,8 +4937,8 @@ void ZGame::OnPeerDie(MUID& uidVictim, MUID& uidAttacker)
 }
 
 // 서버로부터 직접 날라오는 Dead메세지
-void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttackerArg, 
-					   const MUID& uidVictim, const unsigned long int nVictimArg)
+void ZGame::OnPeerDead(const CCUID& uidAttacker, const unsigned long int nAttackerArg, 
+					   const CCUID& uidVictim, const unsigned long int nVictimArg)
 {
 	ZCharacter* pVictim = m_CharacterManager.Find(uidVictim);
 	ZCharacter* pAttacker = m_CharacterManager.Find(uidAttacker);
@@ -5024,7 +5024,7 @@ void ZGame::CheckKillSound(ZCharacter* pAttacker)
 	}
 }
 
-void ZGame::OnReceiveTeamBonus(const MUID& uidChar, const unsigned long int nExpArg)
+void ZGame::OnReceiveTeamBonus(const CCUID& uidChar, const unsigned long int nExpArg)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uidChar);
 	if (pCharacter == NULL) return;
@@ -5185,7 +5185,7 @@ void ZGame::OnReloadComplete(ZCharacter *pCharacter)
 	return;*/
 }
 
-void ZGame::OnPeerSpMotion(MUID& uid,int nMotionType)
+void ZGame::OnPeerSpMotion(CCUID& uid,int nMotionType)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 
@@ -5237,7 +5237,7 @@ void ZGame::OnPeerSpMotion(MUID& uid,int nMotionType)
 	pCharacter->SetAnimationLower( zsl );
 }
 
-void ZGame::OnPeerReload(MUID& uid)
+void ZGame::OnPeerReload(CCUID& uid)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 	//	if (uid == ZGetGameClient()->GetUID()) pCharacter = m_pMyCharacter;
@@ -5260,7 +5260,7 @@ void ZGame::OnPeerReload(MUID& uid)
 	}
 }
 
-void ZGame::OnPeerChangeCharacter(MUID& uid)
+void ZGame::OnPeerChangeCharacter(CCUID& uid)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 
@@ -5272,12 +5272,12 @@ void ZGame::OnPeerChangeCharacter(MUID& uid)
 }
 
 /*
-void ZGame::OnAssignCommander(const MUID& uidRedCommander, const MUID& uidBlueCommander)
+void ZGame::OnAssignCommander(const CCUID& uidRedCommander, const CCUID& uidBlueCommander)
 {
 	AssignCommander(uidRedCommander, uidBlueCommander);
 }
 
-void ZGame::AssignCommander(const MUID& uidRedCommander, const MUID& uidBlueCommander)
+void ZGame::AssignCommander(const CCUID& uidRedCommander, const CCUID& uidBlueCommander)
 {
 	ZCharacter* pRedChar = m_CharacterManager.Find(uidRedCommander);
 	ZCharacter* pBlueChar = m_CharacterManager.Find(uidBlueCommander);
@@ -5303,7 +5303,7 @@ void ZGame::AssignCommander(const MUID& uidRedCommander, const MUID& uidBlueComm
 #endif
 }
 */
-void ZGame::OnSetObserver(MUID& uid)
+void ZGame::OnSetObserver(CCUID& uid)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 	if (pCharacter == NULL) return;
@@ -5316,7 +5316,7 @@ void ZGame::OnSetObserver(MUID& uid)
 	pCharacter->ForceDie();
 }
 
-void ZGame::OnPeerSpawn(MUID& uid, rvector& pos, rvector& dir)
+void ZGame::OnPeerSpawn(CCUID& uid, rvector& pos, rvector& dir)
 {
 	m_nSpawnTime = timeGetTime();
 	SetSpawnRequested(false);
@@ -5364,7 +5364,7 @@ void ZGame::OnPeerDash(MCommand* pCommand)
 	MCommandParameter* pParam = pCommand->GetParameter(0);
 	if(pParam->GetType()!=MPT_BLOB) return;
 
-	MUID uid = pCommand->GetSenderUID();
+	CCUID uid = pCommand->GetSenderUID();
 	ZPACKEDDASHINFO* ppdi= (ZPACKEDDASHINFO*)pParam->GetPointer();
 
 	rvector pos, dir;
@@ -5424,7 +5424,7 @@ void ZGame::OnPeerDash(MCommand* pCommand)
 //#define CHAR_COLLISION_HEIGHT	170.f
 
 
-rvector ZGame::GetFloor(rvector pos, rplane *pimpactplane, MUID myUID)
+rvector ZGame::GetFloor(rvector pos, rplane *pimpactplane, CCUID myUID)
 {
 	rvector floor=ZGetGame()->GetWorld()->GetBsp()->GetFloor(pos+rvector(0,0,120),CHARACTER_RADIUS-1.1f,58.f,pimpactplane);
 
@@ -5485,7 +5485,7 @@ bool ZGame::CharacterOverlapCollision(ZObject* pFloorObject, float WorldFloorHei
 		{ // 점프버그 발동
 			if(m_pMyCharacter->GetPosition().z - WorldFloorHeight > 20.f)
 			{ // 낙하높이가 바닥에 가까워 졌을때 OVERLAP_FLOOR 초기화
-				pOverlapObject->FloorUID = MUID(0,0);
+				pOverlapObject->FloorUID = CCUID(0,0);
 				pOverlapObject->nFloorCnt = 0;
 				pOverlapObject->vecPosition.x = 0;
 				pOverlapObject->vecPosition.y = 0;
@@ -5862,7 +5862,7 @@ void ZGame::AdjustMyData()
 
 		for(int j=0;j<pItem->nCount;j++)
 		{
-			MUID uid=pItem->pHPTable[j].muid;
+			CCUID uid=pItem->pHPTable[j].muid;
 			ZCharacter *pchar=m_CharacterManager.Find(uid);
 			if(pchar)
 			{
@@ -6000,7 +6000,7 @@ void ZGame::PostPeerPingInfo()
 		for (MMatchPeerInfoList::iterator itor = pPeers->begin(); itor != pPeers->end(); ++itor) {
 			MMatchPeerInfo* pPeerInfo = (*itor).second;
 			if (pPeerInfo->uidChar != ZGetGameClient()->GetPlayerUID()) {
-				_ASSERT(pPeerInfo->uidChar != MUID(0,0));
+				_ASSERT(pPeerInfo->uidChar != CCUID(0,0));
 
 				MCommandManager* MCmdMgr = ZGetGameClient()->GetCommandManager();
 				MCommand* pCmd = new MCommand(MCmdMgr->GetCommandDescByID(MC_PEER_PING), 
@@ -6400,7 +6400,7 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 
 
 					// 옵져버 모드일때
-					MUID uidTarget;
+					CCUID uidTarget;
 					ZObserver* pObserver = ZGetGameInterface()->GetCombatInterface()->GetObserver();
 					if ( pObserver && pObserver->IsVisible())
 						uidTarget = pObserver->GetTargetCharacter()->GetUID();
@@ -6810,7 +6810,7 @@ bool ZGame::OnLoadReplay(ZReplayLoader* pLoader)
 
 		char CommandBuffer[1024];
 
-		MUID uidSender;
+		CCUID uidSender;
 		zfread(&uidSender,sizeof(uidSender),1,file);
 		zfread(&nSize,sizeof(nSize),1,file);
 		if(nSize<0 || nSize>sizeof(CommandBuffer)) {
@@ -6859,7 +6859,7 @@ void ZGame::EndReplay()
 	ZChangeGameState(GUNZ_LOBBY);
 }
 
-void ZGame::ConfigureCharacter(const MUID& uidChar, MMatchTeam nTeam, unsigned char nPlayerFlags)
+void ZGame::ConfigureCharacter(const CCUID& uidChar, MMatchTeam nTeam, unsigned char nPlayerFlags)
 {
 	ZCharacterManager* pCharMgr = ZGetCharacterManager();
 	ZCharacter* pChar = pCharMgr->Find(uidChar);
@@ -6913,7 +6913,7 @@ void ZGame::RefreshCharacters()
 	}
 }
 
-void ZGame::DeleteCharacter(const MUID& uid)
+void ZGame::DeleteCharacter(const CCUID& uid)
 {
 	bool bObserverDel = false;
 	ZCharacter* pCharacter = ZGetCharacterManager()->Find(uid);
@@ -6942,7 +6942,7 @@ void ZGame::OnStageEnterBattle(MCmdEnterBattleParam nParam, MTD_PeerListNode* pP
 {
 	if (ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) return;
 
-	MUID uidChar = pPeerNode->uidChar;
+	CCUID uidChar = pPeerNode->uidChar;
 
 	if (uidChar == ZGetMyUID())		// enter한사람이 나자신일 경우
 	{
@@ -6975,7 +6975,7 @@ void ZGame::OnStageEnterBattle(MCmdEnterBattleParam nParam, MTD_PeerListNode* pP
 	ZGetGameClient()->OnStageEnterBattle(uidChar, nParam);
 }
 
-void ZGame::OnStageLeaveBattle(const MUID& uidChar, const bool bIsRelayMap)//, const MUID& uidStage)
+void ZGame::OnStageLeaveBattle(const CCUID& uidChar, const bool bIsRelayMap)//, const CCUID& uidStage)
 {
 	if (ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) return;
 
@@ -6999,7 +6999,7 @@ void ZGame::OnStageLeaveBattle(const MUID& uidChar, const bool bIsRelayMap)//, c
 	}
 }
 
-void ZGame::OnAddPeer(const MUID& uidChar, DWORD dwIP, const int nPort, MTD_PeerListNode* pNode)
+void ZGame::OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort, MTD_PeerListNode* pNode)
 {
 	if ((ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) || (ZGetGame() == NULL)) return;
 
@@ -7023,7 +7023,7 @@ void ZGame::OnAddPeer(const MUID& uidChar, DWORD dwIP, const int nPort, MTD_Peer
 
 		MMatchPeerInfo* pNewPeerInfo = new MMatchPeerInfo;
 
-		if (uidChar == MUID(0,0))	pNewPeerInfo->uidChar = MUID(0, nPort);	// 로컬테스트를 위해서
+		if (uidChar == CCUID(0,0))	pNewPeerInfo->uidChar = CCUID(0, nPort);	// 로컬테스트를 위해서
 		else						pNewPeerInfo->uidChar = uidChar;
 
 		in_addr addr;
@@ -7053,7 +7053,7 @@ void ZGame::OnAddPeer(const MUID& uidChar, DWORD dwIP, const int nPort, MTD_Peer
 	ConfigureCharacter(uidChar, (MMatchTeam)pNode->ExtendInfo.nTeam, pNode->ExtendInfo.nPlayerFlags);	// Player Character 포함
 }
 
-void ZGame::OnPeerList(const MUID& uidStage, void* pBlob, int nCount)
+void ZGame::OnPeerList(const CCUID& uidStage, void* pBlob, int nCount)
 {
 	if (ZGetGameClient()->GetStageUID() != uidStage) return;
 	if (ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) return;
@@ -7084,7 +7084,7 @@ void ZGame::PostMyBuffInfo()
 	}
 }
 
-void ZGame::OnPeerBuffInfo(const MUID& uidSender, void* pBlobBuffInfo)
+void ZGame::OnPeerBuffInfo(const CCUID& uidSender, void* pBlobBuffInfo)
 {
 	if (uidSender == ZGetMyUID()) return;
 
@@ -7102,7 +7102,7 @@ void ZGame::OnPeerBuffInfo(const MUID& uidSender, void* pBlobBuffInfo)
 	}
 }
 
-void ZGame::OnGameRoundState(const MUID& uidStage, int nRound, int nRoundState, int nArg)
+void ZGame::OnGameRoundState(const CCUID& uidStage, int nRound, int nRoundState, int nArg)
 {
 	if (ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) return;
 	ZMatch* pMatch = GetMatch();
@@ -7135,7 +7135,7 @@ bool ZGame::FilterDelayedCommand(MCommand *pCommand)
 	bool bFiltered = true;
 	float fDelayTime = 0;
 
-	MUID uid=pCommand->GetSenderUID();
+	CCUID uid=pCommand->GetSenderUID();
 	ZCharacter *pChar=ZGetCharacterManager()->Find(uid);
 	if(!pChar) return false;
 
@@ -7290,7 +7290,7 @@ void ZGame::PostSpMotion(ZC_SPMOTION_TYPE mtype)
 	}
 }
 
-void ZGame::OnEventUpdateJjang(const MUID& uidChar, bool bJjang)
+void ZGame::OnEventUpdateJjang(const CCUID& uidChar, bool bJjang)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uidChar);
 	if (pCharacter == NULL) return;
@@ -7515,13 +7515,13 @@ void ZGame::MakeResourceCRC32( const DWORD dwKey, DWORD& out_crc32, DWORD& out_x
 	out_xor = CRC32Cache.GetXOR();
 }
 
-void ZGame::OnResponseUseSpendableBuffItem(MUID& uidItem, int nResult)
+void ZGame::OnResponseUseSpendableBuffItem(CCUID& uidItem, int nResult)
 {
 	// TodoH(상) - 사용에 대한 결과 처리
 }
 
 /*
-void ZGame::OnGetSpendableBuffItemStatus(MUID& uidChar, MTD_CharBuffInfo* pCharBuffInfo)
+void ZGame::OnGetSpendableBuffItemStatus(CCUID& uidChar, MTD_CharBuffInfo* pCharBuffInfo)
 {
 	if (uidChar != ZGetMyUID()) {
 		_ASSERT(0);
@@ -7631,7 +7631,7 @@ void ZGame::OnUseDynamite(int nItemID, ZCharacter* pCharObj, rvector& pos)
 	m_WeaponManager.AddDynamite(pos, velocity, pCharObj);
 }
 
-void ZGame::CheckZoneTrap(MUID uidOwner,rvector pos,MMatchItemDesc* pItemDesc, MMatchTeam nTeamID)
+void ZGame::CheckZoneTrap(CCUID uidOwner,rvector pos,MMatchItemDesc* pItemDesc, MMatchTeam nTeamID)
 {
 	if (!pItemDesc) return;
 
@@ -7726,7 +7726,7 @@ void ZGame::CheckZoneTrap(MUID uidOwner,rvector pos,MMatchItemDesc* pItemDesc, M
 	}
 }
 
-void ZGame::OnExplosionDynamite(MUID uidOwner, rvector pos, float fDamage, float fRange, float fKnockBack, MMatchTeam nTeamID)
+void ZGame::OnExplosionDynamite(CCUID uidOwner, rvector pos, float fDamage, float fRange, float fKnockBack, MMatchTeam nTeamID)
 {
 	ZObject* pTarget = NULL;
 

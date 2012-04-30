@@ -229,12 +229,12 @@ void ZEffectAniMesh::SetUpVector(rvector& v)
 	m_Up = v; 
 }
 
-void ZEffectAniMesh::SetUid(MUID uid) 
+void ZEffectAniMesh::SetUid(CCUID uid) 
 { 
 	m_uid = uid; 
 }
 
-void ZEffectAniMesh::SetDelayPos(MUID id) 
+void ZEffectAniMesh::SetDelayPos(CCUID id) 
 { 
 	m_bDelay = true; 
 	m_uid = id; 
@@ -272,7 +272,7 @@ rvector ZEffectAniMesh::GetSortPos()
 
 // ZEffectDash
 
-ZEffectDash::ZEffectDash(RMesh* pMesh, rvector& Pos, rvector& Dir,MUID uidTarget)
+ZEffectDash::ZEffectDash(RMesh* pMesh, rvector& Pos, rvector& Dir,CCUID uidTarget)
 : ZEffectAniMesh(pMesh,Pos,Dir)
 {
 	m_uid = uidTarget;
@@ -451,7 +451,7 @@ ZEffectShot::ZEffectShot(RMesh* pMesh, rvector& Pos, rvector& Dir,ZObject* pObj)
 	}
 	else {
 		m_isMovingPos = false;
-		m_uid = MUID(0,0);
+		m_uid = CCUID(0,0);
 	}
 }
 

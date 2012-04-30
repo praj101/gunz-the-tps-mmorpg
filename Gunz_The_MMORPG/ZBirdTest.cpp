@@ -288,7 +288,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 		return true;
 	case MC_MATCH_RESPONSE_RECOMMANDED_CHANNEL:
 		{
-			MUID uidChannel;
+			CCUID uidChannel;
 			pCmd->GetParameter(&uidChannel, 0, MPT_UID);
 
 //			strcpy(szChannelName, pClient->GetChannelName());
@@ -346,7 +346,7 @@ void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
 		break;
 	case MC_MATCH_RESPONSE_RECOMMANDED_CHANNEL:
 		{
-			MUID uidChannel;
+			CCUID uidChannel;
 			char szChannelName[64];
 			pCmd->GetParameter(&uidChannel, 0, MPT_UID);
 			pCmd->GetParameter(szChannelName, 1, MPT_STR, sizeof(szChannelName) );
@@ -405,7 +405,7 @@ void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCm
 		break;
 	case MC_MATCH_CHANNEL_CHAT:
 		{
-			MUID uidChannel;
+			CCUID uidChannel;
 			char szPlayerName[256];
 			pCmd->GetParameter(&uidChannel,		0, MPT_UID);
 			pCmd->GetParameter(szPlayerName,	1, MPT_STR, sizeof(szPlayerName) );
@@ -501,7 +501,7 @@ void OnBTDummyChannelChangeOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
 			void* pBlob = pParam->GetPointer();
 			int nCount = MGetBlobArrayCount(pBlob);
 		
-			MUID uidChannels[100];
+			CCUID uidChannels[100];
 
 			for(int i=0; i<nCount; i++)
 			{

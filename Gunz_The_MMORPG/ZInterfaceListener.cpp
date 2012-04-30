@@ -519,7 +519,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageCreateBtnListener, MBTN_CLK_MSG)
 	ZApplication::GetStageInterface()->ChangeStageButtons(false, true, false);
 
 	MSTAGE_SETTING_NODE setting;
-	setting.uidStage = MUID(0, 0);
+	setting.uidStage = CCUID(0, 0);
 	memset(setting.szMapName, 0, sizeof(setting.szMapName));
 	setting.nGameType = MMATCH_GAMETYPE_DEATHMATCH_SOLO;
 	setting.nRoundMax = 10;

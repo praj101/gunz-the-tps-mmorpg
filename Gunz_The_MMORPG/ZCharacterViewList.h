@@ -3,7 +3,7 @@
 
 #include "ZPrerequisites.h"
 #include "ZMeshViewList.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "ZGameInterface.h"
 
 class ZCharacterView;
@@ -21,13 +21,13 @@ public:
 	virtual ~ZCharacterViewList(void);
 
 	//void Add(const char* szName);
-	void Add(const MUID& uid, const char* szName, MMatchSex nSex, unsigned int nHair, unsigned int nFace, 
+	void Add(const CCUID& uid, const char* szName, MMatchSex nSex, unsigned int nHair, unsigned int nFace, 
 		unsigned int nLevel, unsigned long int* itemids, bool bFireWall = false);
 	void Add(MMatchObjCache* pCache);
 
-	void Remove(const MUID& uid);
+	void Remove(const CCUID& uid);
 
-	ZCharacterView* Get(const MUID& uid);
+	ZCharacterView* Get(const CCUID& uid);
 
 	void Assign(MMatchObjCacheMap* pObjCacheMap);
 
@@ -54,7 +54,7 @@ public:
 	void RefreshCharInfo();
 
 //	void UpdateSelectView();
-	ZCharacterView* FindSelectView(MUID uid);
+	ZCharacterView* FindSelectView(CCUID uid);
 
 public:
 
@@ -70,8 +70,8 @@ public:
 private:
 //	ZCharacterView* m_SelectView;
 //	ZCharacterView* m_MySelectView;
-	MUID			m_MyUid;
-	MUID			m_SelectViewUID;
+	CCUID			m_MyUid;
+	CCUID			m_SelectViewUID;
 
 public:
 	void ChangeVisualWeaponParts(MMatchCharItemParts nVisualWeaponParts);

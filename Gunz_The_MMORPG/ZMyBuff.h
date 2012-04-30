@@ -15,13 +15,13 @@ public:
 ////////////////////////////////////////////////////////////////////////////////////
 //// ZMyShortBuffMap Class
 ////////////////////////////////////////////////////////////////////////////////////
-class ZMyShortBuffMap : public map<MUID, ZMyShortBuff*>
+class ZMyShortBuffMap : public map<CCUID, ZMyShortBuff*>
 {
 protected:
 public:	
 	void Clear();
-	void Remove(MUID& uidBuff);
-	bool Insert(MUID& uidBuff, ZMyShortBuff* pBuff);
+	void Remove(CCUID& uidBuff);
+	bool Insert(CCUID& uidBuff, ZMyShortBuff* pBuff);
 	ZMyShortBuff* GetShortBuffByBuffID(int nBuffID);
 };
 

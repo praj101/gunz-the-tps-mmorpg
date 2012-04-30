@@ -25,7 +25,7 @@
 #include "ZLanguageConf.h"
 */
 
-void ZGameClient::OnDuelTournamentPrepare(MDUELTOURNAMENTTYPE nType, MUID uidStage, void* pBlobPlayerInfo)
+void ZGameClient::OnDuelTournamentPrepare(MDUELTOURNAMENTTYPE nType, CCUID uidStage, void* pBlobPlayerInfo)
 {
 	m_uidStage = uidStage;
 
@@ -64,7 +64,7 @@ void ZGameClient::OnDuelTournamentPrepare(MDUELTOURNAMENTTYPE nType, MUID uidSta
 	ZApplication::GetGameInterface()->SetDuelTournamentCharacterList((MDUELTOURNAMENTTYPE)nType, vecDTPlayerInfo);
 }
 
-void ZGameClient::OnDuelTournamentLaunch(const MUID& uidStage, const char* pszMapName)
+void ZGameClient::OnDuelTournamentLaunch(const CCUID& uidStage, const char* pszMapName)
 {	
 	m_uidStage = uidStage;
 	strcpy(m_szStageName, "DuelTournament_Stage");

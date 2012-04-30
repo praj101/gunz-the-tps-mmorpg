@@ -396,7 +396,7 @@ ZCharacter::ZCharacter() : ZCharacterObject(), m_DirectionLower(1,0,0),m_Directi
 	m_damageInfo.Ref().m_LastDamageWeapon = MWT_NONE;
 	m_damageInfo.Ref().m_LastDamageDot = 0.f;
 	m_damageInfo.Ref().m_LastDamageDistance = 0.f;
-	m_damageInfo.Ref().m_LastThrower = MUID(0,0);
+	m_damageInfo.Ref().m_LastThrower = CCUID(0,0);
 	m_damageInfo.Ref().m_nStunType = ZST_NONE;
 	m_damageInfo.Ref().m_dwLastDamagedTime = 0;
 	m_damageInfo.MakeCrc();
@@ -2457,7 +2457,7 @@ void ZCharacter::OnKnockback(rvector& dir, float fForce)
 //	}
 //}
 //
-//void ZCharacter::OnDamagedGrenade(MUID uidOwner, rvector& dir, float fDamage, int nTeamID)
+//void ZCharacter::OnDamagedGrenade(CCUID uidOwner, rvector& dir, float fDamage, int nTeamID)
 //{
 //	if (m_bInitialized==false) return;
 //	if (!IsVisible()) return;
@@ -2872,7 +2872,7 @@ void ZCharacter::InitStatus()
 	m_killInfo.MakeCrc();
 
 	MEMBER_SET_CHECKCRC(m_damageInfo, m_LastDamageType, ZD_NONE);
-	SetLastThrower(MUID(0,0), 0.0f);
+	SetLastThrower(CCUID(0,0), 0.0f);
 
 	EmptyHistory();
 

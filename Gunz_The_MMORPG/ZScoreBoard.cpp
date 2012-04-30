@@ -111,7 +111,7 @@ void ZScoreBoard::OnHide(void)
 	m_pFrame->Show(false);
 }
 
-bool GetUserInfoUID(MUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
 
 void ZScoreBoard::Refresh()
 {

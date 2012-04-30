@@ -10,7 +10,7 @@ class ZTask_Skill : public ZTaskBase_Attack
 	float	m_fStartTime;
 	bool	m_bExecuted;
 	ZSkillDesc *m_pSkillDesc;
-	MUID	m_uidTarget;
+	CCUID	m_uidTarget;
 	rvector m_TargetPosition;
 protected:
 	virtual void OnStart();
@@ -20,7 +20,7 @@ protected:
 public:
 	DECLARE_TASK_ID(ZTID_SKILL);
 
-	ZTask_Skill(ZActor* pParent,int nSkill,MUID& uidTarget,rvector& targetPosition);
+	ZTask_Skill(ZActor* pParent,int nSkill,CCUID& uidTarget,rvector& targetPosition);
 	virtual ~ZTask_Skill();
 	virtual const char* GetTaskName() { return "Skill"; }
 };

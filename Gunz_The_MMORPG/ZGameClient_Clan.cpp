@@ -179,7 +179,7 @@ void OnClanAskSponsorAgreement_OnExpire()
 	ZGetGameClient()->AnswerSponsorAgreement(false);
 }
 
-void ZGameClient::OnClanAskSponsorAgreement(const int nRequestID, const char* szClanName, MUID& uidMasterObject, const char* szMasterName)
+void ZGameClient::OnClanAskSponsorAgreement(const int nRequestID, const char* szClanName, CCUID& uidMasterObject, const char* szMasterName)
 {
 	// 받을수 없는 상황이면 무시
 	if(!ZGetGameInterface()->IsReadyToPropose()) return;
@@ -208,7 +208,7 @@ void ZGameClient::OnClanAskSponsorAgreement(const int nRequestID, const char* sz
 	}
 }
 
-void ZGameClient::OnClanAnswerSponsorAgreement(const int nRequestID, const MUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer)
+void ZGameClient::OnClanAnswerSponsorAgreement(const int nRequestID, const CCUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer)
 {
 	if (!IsWaitingClanCreatingAgree()) return;
 
@@ -361,7 +361,7 @@ void OnClanAskJoinAgreement_OnExpire()
 	ZGetGameClient()->AnswerJoinerAgreement(false);
 }
 
-void ZGameClient::OnClanAskJoinAgreement(const char* szClanName, MUID& uidClanAdmin, const char* szClanAdmin)
+void ZGameClient::OnClanAskJoinAgreement(const char* szClanName, CCUID& uidClanAdmin, const char* szClanAdmin)
 {
 	// 받을수 없는 상황이면 무시
 	if(!ZGetGameInterface()->IsReadyToPropose()) return;
@@ -391,7 +391,7 @@ void ZGameClient::OnClanAskJoinAgreement(const char* szClanName, MUID& uidClanAd
 
 }
 
-void ZGameClient::OnClanAnswerJoinAgreement(const MUID& uidClanAdmin, const char* szJoiner, const bool bAnswer)
+void ZGameClient::OnClanAnswerJoinAgreement(const CCUID& uidClanAdmin, const char* szJoiner, const bool bAnswer)
 {
 	if (!IsWaitingClanJoiningAgree()) return;
 
@@ -412,7 +412,7 @@ void ZGameClient::OnClanAnswerJoinAgreement(const MUID& uidClanAdmin, const char
 		// 동의창 지워줘야 한다.
 		ShowClanJoinerAgreeWaitFrame(false);
 
-		m_uidRequestPlayer = MUID(0,0);
+		m_uidRequestPlayer = CCUID(0,0);
 
 		ZApplication::GetGameInterface()->ShowMessage( MSG_CLAN_JOINER_AGREEMENT_REJECT );
 	}
@@ -424,7 +424,7 @@ void ZGameClient::OnClanResponseAgreedJoinClan(const int nResult)
 
 	// 대기창을 없애야한다.
 	ShowClanJoinerAgreeWaitFrame(false);
-	m_uidRequestPlayer = MUID(0,0);
+	m_uidRequestPlayer = CCUID(0,0);
 
 	if (nResult == MOK)
 	{
@@ -552,7 +552,7 @@ void ZGameClient::OnClanMemberList(void* pBlob)
 	ZPlayerListBox* pPlayerListBox = GetProperClanListOutput();
 	if (!pPlayerListBox) return;
 
-	MUID selUID = pPlayerListBox->GetSelectedPlayerUID();
+	CCUID selUID = pPlayerListBox->GetSelectedPlayerUID();
 
 	int nStartIndex = pPlayerListBox->GetStartItem();
 

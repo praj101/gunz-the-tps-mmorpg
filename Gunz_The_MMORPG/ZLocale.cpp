@@ -189,7 +189,7 @@ void ZLocale::RouteToWebsite()
 	}
 }
 
-void ZLocale::PostLoginViaHomepage(MUID* pAllocUID)
+void ZLocale::PostLoginViaHomepage(CCUID* pAllocUID)
 {
 //	unsigned long nChecksum = MGetMatchItemDescMgr()->GetChecksum();
 //	unsigned long nChecksum = ZGetCCZFileChecksum(FILENAME_ZITEM_DESC);

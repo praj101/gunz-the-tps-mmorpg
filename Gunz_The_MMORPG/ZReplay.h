@@ -3,7 +3,7 @@
 
 struct REPLAY_STAGE_SETTING_NODE 
 {
-	MUID				uidStage;
+	CCUID				uidStage;
 	char				szMapName[MAPNAME_LENGTH];	// ∏ ¿Ã∏ß
 	char				nMapIndex;					// ∏ ¿Œµ¶Ω∫
 	MMATCH_GAMETYPE		nGameType;					// ∞‘¿”≈∏¿‘

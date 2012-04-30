@@ -41,7 +41,7 @@ ZBirdDummyClient::ZBirdDummyClient() : MCommandCommunicator()
 	m_szStageName[0] = 0;
 	m_szPlayerName[0] = 0;
 
-	m_pCommandBuilder = new MCommandBuilder(MUID(0,0), MUID(0,0), GetCommandManager());
+	m_pCommandBuilder = new MCommandBuilder(CCUID(0,0), CCUID(0,0), GetCommandManager());
 
 	m_nPBufferTop = 0;
 	m_Server.SetInvalid();
@@ -91,7 +91,7 @@ int ZBirdDummyClient::Connect(SOCKET* pSocket, char* szIP, int nPort)
 		return MERR_UNKNOWN;
 }
 
-void ZBirdDummyClient::Disconnect(MUID uid)
+void ZBirdDummyClient::Disconnect(CCUID uid)
 {
 	m_ClientSocket.Disconnect();
 }
@@ -110,12 +110,12 @@ void ZBirdDummyClient::OnRegisterCommand(MCommandManager* pCommandManager)
 
 }
 
-MUID ZBirdDummyClient::GetSenderUIDBySocket(SOCKET socket)
+CCUID ZBirdDummyClient::GetSenderUIDBySocket(SOCKET socket)
 { 
 	if (m_ClientSocket.GetSocket() == socket)
 		return m_Server;
 	else
-		return MUID(0,0);
+		return CCUID(0,0);
 }
 
 
@@ -188,7 +188,7 @@ bool ZBirdDummyClient::OnSockRecv(SOCKET sock, char* pPacket, DWORD dwSize)
 		if (pNetCmd->nMsg == MSGID_REPLYCONNECT) 
 		{
 			MReplyConnectMsg* pMsg = (MReplyConnectMsg*)pNetCmd;
-			MUID HostUID, AllocUID;
+			CCUID HostUID, AllocUID;
 			HostUID.High = pMsg->nHostHigh;
 			HostUID.Low = pMsg->nHostLow;
 			AllocUID.High = pMsg->nAllocHigh;
@@ -204,7 +204,7 @@ bool ZBirdDummyClient::OnSockRecv(SOCKET sock, char* pPacket, DWORD dwSize)
 	return true;
 }
 
-int ZBirdDummyClient::OnConnected(SOCKET sock, MUID* pTargetUID, MUID* pAllocUID)
+int ZBirdDummyClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID)
 {
 	if (sock == m_ClientSocket.GetSocket()) {
 		int ret = MCommandCommunicator::OnConnected(pTargetUID, pAllocUID, 0, NULL);
@@ -250,7 +250,7 @@ void ZBirdDummyClient::SocketErrorEvent(void* pCallbackContext, SOCKET sock, SOC
 	pClient->OnSockError(sock, ErrorEvent, ErrorCode);
 }
 
-int ZBirdDummyClient::OnResponseMatchLogin(const MUID& uidServer, int nResult, const MUID& uidPlayer)
+int ZBirdDummyClient::OnResponseMatchLogin(const CCUID& uidServer, int nResult, const CCUID& uidPlayer)
 {
 	m_uidServer = uidServer;
 	m_uidPlayer = uidPlayer;
@@ -259,13 +259,13 @@ int ZBirdDummyClient::OnResponseMatchLogin(const MUID& uidServer, int nResult, c
 	return MOK;
 }
 
-void ZBirdDummyClient::OnResponseRecommandedChannel(const MUID& uidChannel, char* szChannel)
+void ZBirdDummyClient::OnResponseRecommandedChannel(const CCUID& uidChannel, char* szChannel)
 {
 	m_uidChannel = uidChannel;
 	strcpy(m_szChannel, szChannel);
 }
 
-void ZBirdDummyClient::OnStageJoin(const MUID& uidChar, const MUID& uidStage, char* szStageName)
+void ZBirdDummyClient::OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, char* szStageName)
 {
 	if (uidChar == GetPlayerUID()) 
 	{
@@ -275,11 +275,11 @@ void ZBirdDummyClient::OnStageJoin(const MUID& uidChar, const MUID& uidStage, ch
 	strcpy(m_szStageName, szStageName);
 }
 
-void ZBirdDummyClient::OnStageLeave(const MUID& uidChar, const MUID& uidStage)
+void ZBirdDummyClient::OnStageLeave(const CCUID& uidChar, const CCUID& uidStage)
 {
 	if (uidChar == GetPlayerUID()) 
 	{
-		m_uidStage = MUID(0,0);
+		m_uidStage = CCUID(0,0);
 	}
 }
 
@@ -321,7 +321,7 @@ bool ZBirdDummyClient::OnCommand(MCommand* pCommand)
 	case MC_MATCH_RESPONSE_LOGIN:
 		{
 			int nResult;
-			MUID uidPlayer;
+			CCUID uidPlayer;
 			
 			pCommand->GetParameter(&nResult, 0, MPT_INT);
 			pCommand->GetParameter(&uidPlayer, 3, MPT_UID);
@@ -331,7 +331,7 @@ bool ZBirdDummyClient::OnCommand(MCommand* pCommand)
 		break;
 	case MC_MATCH_RESPONSE_RECOMMANDED_CHANNEL:
 		{
-			MUID uidChannel;
+			CCUID uidChannel;
 			char szChannelName[256];
 			pCommand->GetParameter(&uidChannel, 0, MPT_UID);
 			pCommand->GetParameter(szChannelName, 1, MPT_STR, sizeof(szChannelName) );
@@ -341,7 +341,7 @@ bool ZBirdDummyClient::OnCommand(MCommand* pCommand)
 		break;
 	case MC_MATCH_STAGE_JOIN:
 		{
-			MUID uidChar, uidStage;
+			CCUID uidChar, uidStage;
 			char szStageName[256];
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
@@ -353,7 +353,7 @@ bool ZBirdDummyClient::OnCommand(MCommand* pCommand)
 		break;
 	case MC_MATCH_STAGE_LEAVE:
 		{
-			MUID uidChar, uidStage;
+			CCUID uidChar, uidStage;
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
 			pCommand->GetParameter(&uidStage, 1, MPT_UID);

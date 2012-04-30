@@ -41,7 +41,7 @@ private:
 	unsigned long int		m_tmLastCountdown;
 
 	int						m_nRequestID;			///< 클랜 생성등에서 쓰이는 RequestID
-	MUID					m_uidRequestPlayer;		///< 클랜 생성등의 요청자 
+	CCUID					m_uidRequestPlayer;		///< 클랜 생성등의 요청자 
 	ZNetAgreementBuilder	m_AgreementBuilder;		///< 동의빌더
 	MMatchProposalMode		m_nProposalMode;
 
@@ -77,7 +77,7 @@ protected:
 	void UpdateBridgePeerTime(unsigned long int nClock)	{ m_tmLastBridgePeer = nClock; }
 	void StartBridgePeer();
 
-	void UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting, STAGE_STATE nStageState, const MUID& uidMaster);
+	void UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting, STAGE_STATE nStageState, const CCUID& uidMaster);
 	void SetCountdown(int nCountdown)	{ m_nCountdown = nCountdown; m_tmLastCountdown = 0; }
 	int GetCountdown()					{ return m_nCountdown; }
 	bool Countdown(int nClock) {
@@ -89,7 +89,7 @@ protected:
 		return false;
 	}
 
-	static int FindListItem(MListBox* pListBox, const MUID& uid);
+	static int FindListItem(MListBox* pListBox, const CCUID& uid);
 
 protected:
 	ZONCOMMANDCALLBACK*		m_fnOnCommandCallback;
@@ -104,13 +104,13 @@ protected:
 	virtual bool OnSockDisconnect(SOCKET sock);
 	virtual bool OnSockConnect(SOCKET sock);
 	virtual void OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &ErrorCode);
-	virtual int OnConnected(SOCKET sock, MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeStamp);
+	virtual int OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp);
 	virtual void OnRegisterCommand(MCommandManager* pCommandManager);
 	virtual void OnPrepareCommand(MCommand* pCommand);	///< 커맨드를 처리하기 전에
-	virtual int OnResponseMatchLogin(const MUID& uidServer, int nResult, const char* szServerName, const MMatchServerMode nServerMode,
+	virtual int OnResponseMatchLogin(const CCUID& uidServer, int nResult, const char* szServerName, const MMatchServerMode nServerMode,
 									 const char* szAccountID, const MMatchUserGradeID nUGradeID, const MMatchPremiumGradeID nPGradeID,
-									 const MUID& uidPlayer, bool bEnabledSurvivalMode, bool bEnabledDuelTournament, unsigned char* szEncryptMsg);	// update sgk 0409
-	virtual void OnBridgePeerACK(const MUID& uidChar, int nCode);
+									 const CCUID& uidPlayer, bool bEnabledSurvivalMode, bool bEnabledDuelTournament, unsigned char* szEncryptMsg);	// update sgk 0409
+	virtual void OnBridgePeerACK(const CCUID& uidChar, int nCode);
 	virtual void OnObjectCache(unsigned int nType, void* pBlob, int nCount);
 	virtual void OnAgentError(int nError);
 
@@ -118,48 +118,48 @@ protected:
 
 protected:
 	void OnMatchNotify(unsigned int nMsgID);
-//	void OnPeerList(const MUID& uidStage, void* pBlob, int nCount);
-//	void OnAddPeer(const MUID& uidChar, const char* szIP, const int nPort =				
+//	void OnPeerList(const CCUID& uidStage, void* pBlob, int nCount);
+//	void OnAddPeer(const CCUID& uidChar, const char* szIP, const int nPort =				
 //		MATCHCLIENT_DEFAULT_UDP_PORT, MTD_CharInfo* pCharInfo = NULL, int nTeam = 0);
 	void OnAnnounce(unsigned int nType, char* szMsg);
 	void OnResponseResult(const int nResult);
 
-	void OnChannelResponseJoin(const MUID& uidChannel, MCHANNEL_TYPE nChannelType, const char* szChannelName, bool bEnableInterface);
-	void OnChannelChat(const MUID& uidChannel, char* szName, char* szChat,int nGrade);
+	void OnChannelResponseJoin(const CCUID& uidChannel, MCHANNEL_TYPE nChannelType, const char* szChannelName, bool bEnableInterface);
+	void OnChannelChat(const CCUID& uidChannel, char* szName, char* szChat,int nGrade);
 	void OnChannelList(void* pBlob, int nCount);
-	void OnChannelResponseRule(const MUID& uidchannel, const char* pszRuleName);
+	void OnChannelResponseRule(const CCUID& uidchannel, const char* pszRuleName);
 
-	void OnLadderPrepare(const MUID& uidStage, const int nTeam);
-	void OnLadderLaunch(const MUID& uidStage, const char* pszMapName);
+	void OnLadderPrepare(const CCUID& uidStage, const int nTeam);
+	void OnLadderLaunch(const CCUID& uidStage, const char* pszMapName);
 	void OnLadderResponseChallenge(const int nResult);
 
-	void OnStageJoin(const MUID& uidChar, const MUID& uidStage, unsigned int nRoomNo, char* szStageName);
-	void OnStageLeave(const MUID& uidChar, const MUID& uidStage);
-//	void OnStageEnterBattle(const MUID& uidChar, const MUID& uidStage, MCmdEnterBattleParam nParam, MTD_PeerListNode* pPeerNode);
-//	void OnStageLeaveBattle(const MUID& uidChar, const MUID& uidStage);
-	void OnStageStart(const MUID& uidChar, const MUID& uidStage, int nCountdown);
+	void OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsigned int nRoomNo, char* szStageName);
+	void OnStageLeave(const CCUID& uidChar, const CCUID& uidStage);
+//	void OnStageEnterBattle(const CCUID& uidChar, const CCUID& uidStage, MCmdEnterBattleParam nParam, MTD_PeerListNode* pPeerNode);
+//	void OnStageLeaveBattle(const CCUID& uidChar, const CCUID& uidStage);
+	void OnStageStart(const CCUID& uidChar, const CCUID& uidStage, int nCountdown);
 	void OnStageRelayStart();
-	void OnStageLaunch(const MUID& uidStage, const char* pszMapName);
-	void OnStageFinishGame(const MUID& uidStage, const bool bIsRelayMapUnFinish);
-	void OnStageMap(const MUID& uidStage, char* szMapName, bool bIsRelayMap = false);
-	void OnStageTeam(const MUID& uidChar, const MUID& uidStage, unsigned int nTeam);
-	void OnStagePlayerState(const MUID& uidChar, const MUID& uidStage, MMatchObjectStageState nStageState);
-	void OnStageMaster(const MUID& uidStage, const MUID& uidChar);
-	void OnStageChat(const MUID& uidChar, const MUID& uidStage, char* szChat);
+	void OnStageLaunch(const CCUID& uidStage, const char* pszMapName);
+	void OnStageFinishGame(const CCUID& uidStage, const bool bIsRelayMapUnFinish);
+	void OnStageMap(const CCUID& uidStage, char* szMapName, bool bIsRelayMap = false);
+	void OnStageTeam(const CCUID& uidChar, const CCUID& uidStage, unsigned int nTeam);
+	void OnStagePlayerState(const CCUID& uidChar, const CCUID& uidStage, MMatchObjectStageState nStageState);
+	void OnStageMaster(const CCUID& uidStage, const CCUID& uidChar);
+	void OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char* szChat);
 	void OnStageList(int nPrevStageCount, int nNextStageCount, void* pBlob, int nCount);
 	void OnStageRelayMapListUpdate(int nRelayMapType, int nRelayMapRepeatCount, void* pStageRelayMapListBlob);
 	void OnStageRelayMapElementUpdate(int nRelayMapType, int nRelayMapRepeatCount);
 	void OnResponseFriendList(void* pBlob, int nCount);
 	void OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pBlob, int nCount);
-	void OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount);
-	void OnResponseStageSetting(const MUID& uidStage, void* pStageBlob, int nStageCount, void* pCharBlob, 
-		                        int nCharCount, STAGE_STATE nStageState, const MUID& uidMaster);
-	void OnResponseRecommandedChannel(const MUID& uidChannel);
-	void OnResponsePeerRelay(const MUID& uidPeer);
-	void OnResponseGameInfo(const MUID& uidStage, void* pGameInfoBlob, void* pRuleInfoBlob, void* pPlayerInfoBlob);
+	void OnChannelAllPlayerList(const CCUID& uidChannel, void* pBlob, int nBlobCount);
+	void OnResponseStageSetting(const CCUID& uidStage, void* pStageBlob, int nStageCount, void* pCharBlob, 
+		                        int nCharCount, STAGE_STATE nStageState, const CCUID& uidMaster);
+	void OnResponseRecommandedChannel(const CCUID& uidChannel);
+	void OnResponsePeerRelay(const CCUID& uidPeer);
+	void OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob, void* pRuleInfoBlob, void* pPlayerInfoBlob);
 	void OnResponseCharInfoDetail(void* pBlob);
 
-	void OnLoadingComplete(const MUID& uidChar, int nPercent);
+	void OnLoadingComplete(const CCUID& uidChar, int nPercent);
 	void OnForcedEntryToGame();
 
 	void OnUserWhisper(char* pszSenderName, char* pszTargetName, char* pszMessage);
@@ -169,7 +169,7 @@ protected:
 	void OnChatRoomInvite(char* pszSenderName, char* pszRoomName);
 	void OnChatRoomChat(char* pszChatRoomName, char* pszPlayerName, char* pszChat);
 
-	void OnResponseUpdateStageEquipLook( const MUID& uidPlayer, const int nParts, const int nItemID );
+	void OnResponseUpdateStageEquipLook( const CCUID& uidPlayer, const int nParts, const int nItemID );
 
 	// 따라가기 음답.
 	void OnFollowResponse( const int nMsgID );
@@ -180,12 +180,12 @@ protected:
 	// 클랜관련
 	void OnResponseCreateClan(const int nResult, const int nRequestID);
 	void OnResponseAgreedCreateClan(const int nResult);
-	void OnClanAskSponsorAgreement(const int nRequestID, const char* szClanName, MUID& uidMasterObject, const char* szMasterName);
-	void OnClanAnswerSponsorAgreement(const int nRequestID, const MUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer);
+	void OnClanAskSponsorAgreement(const int nRequestID, const char* szClanName, CCUID& uidMasterObject, const char* szMasterName);
+	void OnClanAnswerSponsorAgreement(const int nRequestID, const CCUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer);
 	void OnClanResponseCloseClan(const int nResult);
 	void OnClanResponseJoinClan(const int nResult);
-	void OnClanAskJoinAgreement(const char* szClanName, MUID& uidClanAdmin, const char* szClanAdmin);
-	void OnClanAnswerJoinAgreement(const MUID& uidClanAdmin, const char* szJoiner, const bool bAnswer);
+	void OnClanAskJoinAgreement(const char* szClanName, CCUID& uidClanAdmin, const char* szClanAdmin);
+	void OnClanAnswerJoinAgreement(const CCUID& uidClanAdmin, const char* szJoiner, const bool bAnswer);
 	void OnClanResponseAgreedJoinClan(const int nResult);
 	void OnClanUpdateCharClanInfo(void* pBlob);
 	void OnClanResponseLeaveClan(const int nResult);
@@ -199,24 +199,24 @@ protected:
 
 	// 동의관련
 	void OnResponseProposal(const int nResult, const MMatchProposalMode nProposalMode, const int nRequestID);
-	void OnAskAgreement(const MUID& uidProposer, 
+	void OnAskAgreement(const CCUID& uidProposer, 
 		                void* pMemberNamesBlob, 
 						const MMatchProposalMode nProposalMode, 
 						const int nRequestID);
-	void OnReplyAgreement(const MUID& uidProposer, 
-		                  const MUID& uidChar, 
+	void OnReplyAgreement(const CCUID& uidProposer, 
+		                  const CCUID& uidChar, 
 						  const char* szReplierName, 
 						  const MMatchProposalMode nProposalMode,
 					      const int nRequestID, 
 						  const bool bAgreement);
-	void ReplyAgreement(const MUID& uidProposer, const MMatchProposalMode nProposalMode, bool bAgreement);
+	void ReplyAgreement(const CCUID& uidProposer, const MMatchProposalMode nProposalMode, bool bAgreement);
 protected:
-	void OnGameLevelUp(const MUID& uidChar);
-	void OnGameLevelDown(const MUID& uidChar);
+	void OnGameLevelUp(const CCUID& uidChar);
+	void OnGameLevelDown(const CCUID& uidChar);
 
 public:				// 젠장 -_-; 리플레이에서 이 이벤트들 처리해야 함;
 	void OnSpawnWorldItem(void* pBlob);
-	void OnObtainWorldItem(const MUID& uidChar, const int nItemUID);
+	void OnObtainWorldItem(const CCUID& uidChar, const int nItemUID);
 	void OnRemoveWorldItem(const int nItemUID);
 
 	void OnNotifyActivatedTrapItemList(void* pBlob);
@@ -307,14 +307,14 @@ public:	// 투표관련
 public:
 	void RequestGameSuicide();
 	// game 에서 불러준다
-	//void OnGameRoundState(const MUID& uidStage, int nRoundState, int nRound);
-	void OnStageEnterBattle(const MUID& uidChar, MCmdEnterBattleParam nParam);
+	//void OnGameRoundState(const CCUID& uidStage, int nRoundState, int nRound);
+	void OnStageEnterBattle(const CCUID& uidChar, MCmdEnterBattleParam nParam);
 public:
 	// Validate 씨리즈
 	int ValidateRequestDeleteChar();
 public:
 	// Request 씨리즈
-	void RequestChannelJoin(const MUID& uidChannel);
+	void RequestChannelJoin(const CCUID& uidChannel);
 	void RequestChannelJoin(const MCHANNEL_TYPE nChannelType, char* szChannelName);
 	void RequestOnLobbyCreated();		// 로비에 들어올때 요청하는 메시지들
 	void RequestOnGameDestroyed();		// 게임이 끝났을때 요청하는 메시지들
@@ -354,8 +354,8 @@ public:
     void GetEncryptMD5HashValue(char* szEncryptMD5Value);							// update sgk 0724
 
 protected:
-	void OnDuelTournamentPrepare(MDUELTOURNAMENTTYPE nType, MUID uidStage, void* pBlobPlayerInfo);
-	void OnDuelTournamentLaunch(const MUID& uidStage, const char* pszMapName);
+	void OnDuelTournamentPrepare(MDUELTOURNAMENTTYPE nType, CCUID uidStage, void* pBlobPlayerInfo);
+	void OnDuelTournamentLaunch(const CCUID& uidStage, const char* pszMapName);
 
 protected:
 	ZCommandUDPHackShield m_UPDCommadHackShield;
@@ -375,7 +375,7 @@ protected:
 bool ZPostCommand(MCommand* pCmd);
 
 // 내 플레이어의 uid
-#define ZGetMyUID() (ZGetGameClient() ? ZGetGameClient()->GetPlayerUID() : MUID(0,0))
+#define ZGetMyUID() (ZGetGameClient() ? ZGetGameClient()->GetPlayerUID() : CCUID(0,0))
 
 
 MCommand* ZNewCmd(int nID);
@@ -395,7 +395,7 @@ unsigned long int ZGetClockDistance(unsigned long int nGlobalClock, unsigned lon
 #define HANDLE_COMMAND(message, fn)    \
 	case (message): return fn(pCommand);
 
-bool GetUserInfoUID(MUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
 
 
 #endif

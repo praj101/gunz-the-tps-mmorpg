@@ -247,13 +247,13 @@ public:
 	virtual int GetSize() { return sizeof(bool); }
 };
 
-/// MUID 파라미터
+/// CCUID 파라미터
 class MCommandParameterUID : public MCommandParameter, public CMemPool<MCommandParameterUID> {
 public:
-	MUID	m_Value;
+	CCUID	m_Value;
 public:
 	MCommandParameterUID(void);
-	MCommandParameterUID(const MUID& uid);
+	MCommandParameterUID(const CCUID& uid);
 	virtual ~MCommandParameterUID(void);
 
 	virtual MCommandParameterUID* Clone(void);
@@ -263,7 +263,7 @@ public:
 	virtual void *GetPointer() { return &m_Value; }
 	virtual const char* GetClassName(void){ return "UID"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%u:%u", m_Value.High, m_Value.Low); }
-	virtual int GetSize() { return sizeof(MUID); }
+	virtual int GetSize() { return sizeof(CCUID); }
 };
 
 class MCommandParameterBlob : public MCommandParameter{

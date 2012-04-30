@@ -62,8 +62,8 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType);
 
 #define MC_NET_REQUEST_INFO			341		///< Net 정보를 요청한다.
 #define MC_NET_RESPONSE_INFO		342		///< Net 정보를 얻는다.
-#define MC_NET_REQUEST_UID			343		///< MUID를 요청
-#define MC_NET_RESPONSE_UID			344		///< MUID를 확보해서 돌려준다.
+#define MC_NET_REQUEST_UID			343		///< CCUID를 요청
+#define MC_NET_RESPONSE_UID			344		///< CCUID를 확보해서 돌려준다.
 #define MC_NET_ECHO					351		///< Net Echo 테스트
 
 #define MC_CLOCK_SYNCHRONIZE		361		///< 클럭 싱크

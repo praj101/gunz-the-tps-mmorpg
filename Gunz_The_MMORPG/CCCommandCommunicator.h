@@ -20,7 +20,7 @@ class MCommandBuilder;
 /// 커뮤니케이터와의 접속을 위한 객체. MCommandCommunicator::Connect()의 파라미터로 들어간다.
 class MCommObject {
 protected:
-	MUID					m_uid;
+	CCUID					m_uid;
 
 	MCommandBuilder*		m_pCommandBuilder;
 	MPacketCrypter			m_PacketCrypter;
@@ -38,8 +38,8 @@ public:
 	MCommObject(MCommandCommunicator* pCommunicator);
 	virtual ~MCommObject();
 
-	MUID GetUID()			{ return m_uid; }
-	void SetUID(MUID uid)	{ m_uid = uid; }
+	CCUID GetUID()			{ return m_uid; }
+	void SetUID(CCUID uid)	{ m_uid = uid; }
 
 	MCommandBuilder*	GetCommandBuilder()				{ return m_pCommandBuilder; }
 	MPacketCrypter*		GetCrypter()					{ return &m_PacketCrypter; }
@@ -86,8 +86,8 @@ class MCommandCommunicator{
 protected:
 	MCommandManager	m_CommandManager;		///< 커맨드 매니저
 
-	MUID			m_This;					///< 자기 커뮤니케이터 UID
-	MUID			m_DefaultReceiver;		///< 커맨드를 파싱할때 기본이 되는 타겟 커뮤니케이터 UID
+	CCUID			m_This;					///< 자기 커뮤니케이터 UID
+	CCUID			m_DefaultReceiver;		///< 커맨드를 파싱할때 기본이 되는 타겟 커뮤니케이터 UID
 
 protected:
 	/// Low-Level Command Transfer Function. 나중에 모아두었다가 블럭 전송등이 가능하게 해줄 수 있다.
@@ -107,7 +107,7 @@ protected:
 	virtual void OnRun(void);
 
 	/// Post()되는 기본 리시버 커뮤니케이터 설정
-	void SetDefaultReceiver(MUID Receiver);
+	void SetDefaultReceiver(CCUID Receiver);
 public:
 	MCommandCommunicator(void);
 	virtual ~MCommandCommunicator(void);
@@ -122,9 +122,9 @@ public:
 	/// @return				에러 코드 (MErrorTable.h 참조)
 	virtual int Connect(MCommObject* pCommObj)=0;
 	/// 커넥션이 이루어진 경우
-	virtual int OnConnected(MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
+	virtual int OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
 	/// 연결 해제
-	virtual void Disconnect( const MUID& uid)=0;
+	virtual void Disconnect( const CCUID& uid)=0;
 
 	/// 커맨드 입력
 	virtual bool Post(MCommand* pCommand);
@@ -140,7 +140,7 @@ public:
 	MCommandManager* GetCommandManager(void){
 		return &m_CommandManager;
 	}
-	MCommand* CreateCommand(int nCmdID, const MUID& TargetUID);
+	MCommand* CreateCommand(int nCmdID, const CCUID& TargetUID);
 
 	// 의미가 없으므로ㅡ LOG_PROG 없애버리기
 
@@ -150,7 +150,7 @@ public:
 	void LOG(unsigned int nLogLevel, const char *pFormat,...);
 
 	/// 자신의 UID를 얻어낸다.
-	MUID GetUID(void){ return m_This; }
+	CCUID GetUID(void){ return m_This; }
 
 #ifdef _CMD_PROFILE
 	MCommandProfiler		m_CommandProfiler;

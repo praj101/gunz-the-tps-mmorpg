@@ -46,13 +46,13 @@ ZSkill *ZModule_Skills::GetSkill(int nSkill)	// 스킬을 얻어낸다.
 	return &m_Skills[nSkill];
 }
 
-void ZModule_Skills::PreExcute(int nSkill,MUID uidTarget,rvector targetPosition)
+void ZModule_Skills::PreExcute(int nSkill,CCUID uidTarget,rvector targetPosition)
 {
 	if(nSkill<0 || nSkill>=MAX_SKILL) return;
 	m_Skills[nSkill].PreExecute(uidTarget,targetPosition);
 }
 
-void ZModule_Skills::Excute(int nSkill,MUID uidTarget,rvector targetPosition)		// 실행한다
+void ZModule_Skills::Excute(int nSkill,CCUID uidTarget,rvector targetPosition)		// 실행한다
 {
 	if(nSkill<0 || nSkill>=MAX_SKILL) return;
 	m_Skills[nSkill].Execute(uidTarget,targetPosition);
@@ -60,7 +60,7 @@ void ZModule_Skills::Excute(int nSkill,MUID uidTarget,rvector targetPosition)		/
 	Active();
 }
 
-void ZModule_Skills::LastExcute(int nSkill,MUID uidTarget,rvector targetPosition)
+void ZModule_Skills::LastExcute(int nSkill,CCUID uidTarget,rvector targetPosition)
 {
 	if(nSkill<0 || nSkill>=MAX_SKILL) return;
 	m_Skills[nSkill].LastExecute(uidTarget,targetPosition);

@@ -15,7 +15,7 @@ void ZCharacterBuff::Clear()
 	m_BuffSummary.Clear();
 }
 
-bool ZCharacterBuff::SetShortBuff(int nIndex, MUID& uidBuff, int nBuffID, int nRegTime, int nPeriodRemainder)
+bool ZCharacterBuff::SetShortBuff(int nIndex, CCUID& uidBuff, int nBuffID, int nRegTime, int nPeriodRemainder)
 {
 	if( nIndex < 0 || nIndex > MAX_CHARACTER_SHORT_BUFF_COUNT ) {
 		_ASSERT(0);

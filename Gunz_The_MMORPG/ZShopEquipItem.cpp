@@ -328,7 +328,7 @@ const char* ZShopEquipItem_Gamble::GetName(char* szBuf)
 	char sz[256];
 	if (m_pHandlerSell)
 	{
-		MUID uid = m_pHandlerSell->GetItemUID();
+		CCUID uid = m_pHandlerSell->GetItemUID();
 		const ZMyGambleItem* pMyGambleItem = ZGetMyInfo()->GetItemList()->GetGambleItem(uid);
 		if (pMyGambleItem && pMyGambleItem->GetItemCount() > 0)
 		{
@@ -465,7 +465,7 @@ void ZShopEquipItem_Match::FillItemDesc(MTextArea* pTextArea)
 	ZMyItemNode* pRentalNode = NULL;
 	if (m_pHandlerSell)
 	{
-		MUID uidItem = m_pHandlerSell->GetItemUID();
+		CCUID uidItem = m_pHandlerSell->GetItemUID();
 		pRentalNode = ZGetMyInfo()->GetItemList()->GetItem(uidItem);
 	}
 	else if (m_pHandlerBringAccount)

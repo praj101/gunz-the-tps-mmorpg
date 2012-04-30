@@ -264,7 +264,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 						break;
 					}
 					// UINT를 만들어야 한다.
-					pParam = new MCommandParameterUID(MUID(la.GetByInt(nLACount), la.GetByInt(nLACount+1)));
+					pParam = new MCommandParameterUID(CCUID(la.GetByInt(nLACount), la.GetByInt(nLACount+1)));
 					nLACount+=2;
 					break;
 					

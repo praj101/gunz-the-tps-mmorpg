@@ -91,7 +91,7 @@ struct UseItemCount
 };
 struct ReplayInfo_UseSpendItem
 {
-	MUID uid;
+	CCUID uid;
 	UseItemCount Item[5]; // 5개 이상의 종류이면 버린다(확률 적음)
 };
 
@@ -172,15 +172,15 @@ public:
 
 	void ShowReplayInfo( bool bShow);
 
-	void OnExplosionGrenade(MUID uidOwner,rvector pos,float fDamage,float fRange,float fMinDamage,float fKnockBack,MMatchTeam nTeamID);
-	void OnExplosionMagic(ZWeaponMagic *pWeapon, MUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc);
-	void OnExplosionMagicThrow(ZWeaponMagic *pWeapon, MUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc, rvector from, rvector to);
-	void OnExplosionMagicNonSplash(ZWeaponMagic *pWeapon, MUID uidOwner, MUID uidTarget, rvector pos, float fKnockBack);
+	void OnExplosionGrenade(CCUID uidOwner,rvector pos,float fDamage,float fRange,float fMinDamage,float fKnockBack,MMatchTeam nTeamID);
+	void OnExplosionMagic(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc);
+	void OnExplosionMagicThrow(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc, rvector from, rvector to);
+	void OnExplosionMagicNonSplash(ZWeaponMagic *pWeapon, CCUID uidOwner, CCUID uidTarget, rvector pos, float fKnockBack);
 	void OnReloadComplete(ZCharacter *pCharacter);
 	
-	void OnPeerShotSp(MUID& uid, float fShotTime, rvector& pos, rvector& dir, int type, MMatchCharItemParts sel_type);
+	void OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir, int type, MMatchCharItemParts sel_type);
 
-	void OnChangeWeapon(MUID& uid, MMatchCharItemParts parts);
+	void OnChangeWeapon(CCUID& uid, MMatchCharItemParts parts);
 
 	rvector GetMyCharacterFirePosition(void);
 
@@ -192,8 +192,8 @@ public:
 	void CheckStylishAction(ZCharacter* pCharacter);
 	void CheckCombo( ZCharacter *pOwnerCharacter , ZObject *pHitObject ,bool bPlaySound);
 	void UpdateCombo(bool bShot = false );
-	//void AssignCommander(const MUID& uidRedCommander, const MUID& uidBlueCommander);
-	//void SetGameRuleInfo(const MUID& uidRedCommander, const MUID& uidBlueCommander);
+	//void AssignCommander(const CCUID& uidRedCommander, const CCUID& uidBlueCommander);
+	//void SetGameRuleInfo(const CCUID& uidRedCommander, const CCUID& uidBlueCommander);
 
 	void PostBasicInfo();
 	void PostHPAPInfo();
@@ -211,9 +211,9 @@ public:
 	void AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg);
 
 	bool CreateMyCharacter(MTD_CharInfo* pCharInfo);//버프정보임시주석 , MTD_CharBuffInfo* pCharBuffInfo);
-	void DeleteCharacter(const MUID& uid);
+	void DeleteCharacter(const CCUID& uid);
 	void RefreshCharacters();
-	void ConfigureCharacter(const MUID& uidChar, MMatchTeam nTeam, unsigned char nPlayerFlags);
+	void ConfigureCharacter(const CCUID& uidChar, MMatchTeam nTeam, unsigned char nPlayerFlags);
 
 	bool OnCommand(MCommand* pCommand);
 	bool OnCommand_Immidiate(MCommand* pCommand);
@@ -249,11 +249,11 @@ public:
 	unsigned long GetTickTime()		{ return m_GameTimer.GetGlobalTick(); }
 	float GetTime()					{ /*mlog("현재시간: %f \n", m_fTime.GetData());*/ return m_fTime.Ref(); }
 
-	int GetPing(MUID& uid);
+	int GetPing(CCUID& uid);
 
 	MDataChecker* GetDataChecker()	{ return &m_DataChecker; }
 
-	rvector GetFloor(rvector pos, rplane *pimpactplane=NULL, MUID uID=MUID(0,0) );
+	rvector GetFloor(rvector pos, rplane *pimpactplane=NULL, CCUID uID=CCUID(0,0) );
 	bool CharacterOverlapCollision(ZObject* pFloorObject, float WorldFloorHeight, float ObjectFloorHeight);
 
 	bool Pick(ZObject *pOwnerObject,rvector &origin,rvector &dir,ZPICKINFO *pickinfo,DWORD dwPassFlag=RM_FLAG_ADDITIVE | RM_FLAG_HIDE,bool bMyChar=false);
@@ -270,7 +270,7 @@ public:
 	bool GetSpawnRequested()			{ return m_bSpawnRequested; }
 	void SetSpawnRequested(bool bVal)	{ m_bSpawnRequested = bVal; }
 
-	bool GetUserNameColor(MUID uid,MCOLOR& color,char* sp_name);
+	bool GetUserNameColor(CCUID uid,MCOLOR& color,char* sp_name);
 	//jintriple3 디버그 레지스터 해킹 방지를 위해 CanAttack()함수를 이름만 바꿔서 사용.
 	bool CanAttack(ZObject *pAttacker, ZObject *pTarget);
 	bool CanAttack_DebugRegister(ZObject *pAttacker, ZObject *pTarget);
@@ -315,33 +315,33 @@ protected:
 	void DrawDebugInfo();
 
 	void OnStageEnterBattle(MCmdEnterBattleParam nParam, MTD_PeerListNode* pPeerNode);
-	void OnStageLeaveBattle(const MUID& uidChar, const bool bIsRelayMap);//, const MUID& uidStage);
-	void OnPeerList(const MUID& uidStage, void* pBlob, int nCount);
-	void OnAddPeer(const MUID& uidChar, DWORD dwIP, const int nPort =	
+	void OnStageLeaveBattle(const CCUID& uidChar, const bool bIsRelayMap);//, const CCUID& uidStage);
+	void OnPeerList(const CCUID& uidStage, void* pBlob, int nCount);
+	void OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort =	
 		MATCHCLIENT_DEFAULT_UDP_PORT, MTD_PeerListNode* pNode = NULL);
-	void OnGameRoundState(const MUID& uidStage, int nRound, int nRoundState, int nArg);
+	void OnGameRoundState(const CCUID& uidStage, int nRound, int nRoundState, int nArg);
 
 	void OnGameResponseTimeSync(unsigned int nLocalTimeStamp, unsigned int nGlobalTimeSync);
-	void OnEventUpdateJjang(const MUID& uidChar, bool bJjang);
+	void OnEventUpdateJjang(const CCUID& uidChar, bool bJjang);
 
 	// 사라진듯.
 //	void OnPeerShot_Item(ZCharacter* pOwnerCharacter,float fShotTime, rvector& pos, rvector& dir,int type);
 
-	void OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttackerArg, 
-					const MUID& uidVictim, const unsigned long int nVictimArg);
-	void OnReceiveTeamBonus(const MUID& uidChar, const unsigned long int nExpArg);
-	void OnPeerDie(MUID& uidVictim, MUID& uidAttacker);
+	void OnPeerDead(const CCUID& uidAttacker, const unsigned long int nAttackerArg, 
+					const CCUID& uidVictim, const unsigned long int nVictimArg);
+	void OnReceiveTeamBonus(const CCUID& uidChar, const unsigned long int nExpArg);
+	void OnPeerDie(CCUID& uidVictim, CCUID& uidAttacker);
 	void OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker);
-	void OnChangeParts(MUID& uid,int partstype,int PartsID);
-	//void OnAssignCommander(const MUID& uidRedCommander, const MUID& uidBlueCommander);
-	void OnAttack(MUID& uid,int type,rvector& pos);
-	void OnDamage(MUID& uid,MUID& tuid,int damage);
-	void OnPeerReload(MUID& uid);
-	void OnPeerSpMotion(MUID& uid,int nMotionType);
-	void OnPeerChangeCharacter(MUID& uid);
-	void OnPeerSpawn(MUID& uid, rvector& pos, rvector& dir);
+	void OnChangeParts(CCUID& uid,int partstype,int PartsID);
+	//void OnAssignCommander(const CCUID& uidRedCommander, const CCUID& uidBlueCommander);
+	void OnAttack(CCUID& uid,int type,rvector& pos);
+	void OnDamage(CCUID& uid,CCUID& tuid,int damage);
+	void OnPeerReload(CCUID& uid);
+	void OnPeerSpMotion(CCUID& uid,int nMotionType);
+	void OnPeerChangeCharacter(CCUID& uid);
+	void OnPeerSpawn(CCUID& uid, rvector& pos, rvector& dir);
 
-	void OnSetObserver(MUID& uid);
+	void OnSetObserver(CCUID& uid);
 	
 
 //	void OnPeerAdd();
@@ -353,7 +353,7 @@ protected:
 	void OnPeerPong(MCommand *pCommand);
 	void OnPeerOpened(MCommand *pCommand);
 	void OnPeerDash(MCommand* pCommand);
-	void OnPeerBuffInfo(const MUID& uidSender, void* pBlobBuffInfo);
+	void OnPeerBuffInfo(const CCUID& uidSender, void* pBlobBuffInfo);
 
 		
 	bool FilterDelayedCommand(MCommand *pCommand);
@@ -370,13 +370,13 @@ public:
 
 	void AutoAiming();
 
-	void OnPeerShot( const MUID& uid, float fShotTime, const rvector& pos, const rvector& to, const MMatchCharItemParts sel_type);
+	void OnPeerShot( const CCUID& uid, float fShotTime, const rvector& pos, const rvector& to, const MMatchCharItemParts sel_type);
 
 	void PostSpMotion(ZC_SPMOTION_TYPE type);
 
 	// peershot이 너무 길어져서 분리
-	void OnPeerShot_Melee(const MUID& uidOwner, float fShotTime);
-	void OnPeerShot_Range(const MMatchCharItemParts sel_type, const MUID& uidOwner, float fShotTime, const rvector& pos, const rvector& to);
+	void OnPeerShot_Melee(const CCUID& uidOwner, float fShotTime);
+	void OnPeerShot_Range(const MMatchCharItemParts sel_type, const CCUID& uidOwner, float fShotTime, const rvector& pos, const rvector& to);
 	//jintriple3 디버그 레지스터 핵 방어를 위해 OnPeerShot_Range를 쪼갬...
 	void OnPeerShot_Range_Damaged(ZObject* pOwner, float fShotTime, const rvector& pos, const rvector& to, ZPICKINFO pickinfo, DWORD dwPickPassFlag, rvector& v1, rvector& v2, ZItem *pItem, rvector& BulletMarkNormal, bool& bBulletMark, ZTargetType& nTargetType);
 	void OnPeerShot_Shotgun(ZItem *pItem, ZCharacter* pOwnerCharacter, float fShotTime, const rvector& pos, const rvector& to);
@@ -389,20 +389,20 @@ public:
 
 	void MakeResourceCRC32( const DWORD dwKey, DWORD& out_crc32, DWORD& out_xor );
 
-	void OnResponseUseSpendableBuffItem(MUID& uidItem, int nResult);
+	void OnResponseUseSpendableBuffItem(CCUID& uidItem, int nResult);
 	//버프정보임시주석 
-	//void OnGetSpendableBuffItemStatus(MUID& uidChar, MTD_CharBuffInfo* pCharBuffInfo);
+	//void OnGetSpendableBuffItemStatus(CCUID& uidChar, MTD_CharBuffInfo* pCharBuffInfo);
 
 	void ApplyPotion(int nItemID, ZCharacter* pCharObj, float fRemainedTime);
 	void OnUseTrap(int nItemID, ZCharacter* pCharObj, rvector& pos);
 	void OnUseDynamite(int nItemID, ZCharacter* pCharObj, rvector& pos);
 
-	void CheckZoneTrap(MUID uidOwner,rvector pos,MMatchItemDesc* pItemDesc, MMatchTeam nTeamID);
-	void OnExplosionDynamite(MUID uidOwner, rvector pos, float fDamage, float fRange, float fKnockBack, MMatchTeam nTeamID);
+	void CheckZoneTrap(CCUID uidOwner,rvector pos,MMatchItemDesc* pItemDesc, MMatchTeam nTeamID);
+	void OnExplosionDynamite(CCUID uidOwner, rvector pos, float fDamage, float fRange, float fKnockBack, MMatchTeam nTeamID);
 };
 
 
-extern MUID g_MyChrUID;
+extern CCUID g_MyChrUID;
 extern float g_fFOV;
 
 // dll-injection 핵 때문에 매크로 인라이닝

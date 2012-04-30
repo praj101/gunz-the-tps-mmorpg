@@ -18,21 +18,21 @@ ZPlayerManager* ZPlayerManager::GetInstance()
 	return &PlayerManager;
 }
 
-void ZPlayerManager::AddPlayer( MUID& uID, ZPlayerInfo* pInfo)
+void ZPlayerManager::AddPlayer( CCUID& uID, ZPlayerInfo* pInfo)
 {
-	m_PlayerList.insert( map<MUID,ZPlayerInfo*>::value_type( uID, pInfo));
+	m_PlayerList.insert( map<CCUID,ZPlayerInfo*>::value_type( uID, pInfo));
 }
 
-void ZPlayerManager::AddPlayer( MUID& uID, const char* name, int rank, int kill, int death)
+void ZPlayerManager::AddPlayer( CCUID& uID, const char* name, int rank, int kill, int death)
 {
 	ZPlayerInfo* pInfo = new ZPlayerInfo( name, rank, kill, death);
 
 	AddPlayer( uID, pInfo);
 }
 
-void ZPlayerManager::RemovePlayer( MUID& uID)
+void ZPlayerManager::RemovePlayer( CCUID& uID)
 {
-	map<MUID,ZPlayerInfo*>::iterator itr = m_PlayerList.find( uID);
+	map<CCUID,ZPlayerInfo*>::iterator itr = m_PlayerList.find( uID);
 
 	if ( itr == m_PlayerList.end())
 		return;
@@ -51,9 +51,9 @@ void ZPlayerManager::Clear()
 	}
 }
 
-ZPlayerInfo* ZPlayerManager::Find( MUID& uID)
+ZPlayerInfo* ZPlayerManager::Find( CCUID& uID)
 {
-	map<MUID,ZPlayerInfo*>::iterator itr = m_PlayerList.find( uID);
+	map<CCUID,ZPlayerInfo*>::iterator itr = m_PlayerList.find( uID);
 
 	if ( itr == m_PlayerList.end())
 		return NULL;

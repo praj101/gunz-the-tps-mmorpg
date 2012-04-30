@@ -269,7 +269,7 @@ protected:
 	void HideAllWidgets();
 
 	void OnResponseShopItemList( const vector< MTD_ShopItemInfo*> &vShopItemList  , const vector<MTD_GambleItemNode*>& vGItemList );
-	void OnResponseCharacterItemList(MUID* puidEquipItem
+	void OnResponseCharacterItemList(CCUID* puidEquipItem
 		, MTD_ItemNode* pItemNodes
 		, int nItemCount
 		, MTD_GambleItemNode* pGItemNodes

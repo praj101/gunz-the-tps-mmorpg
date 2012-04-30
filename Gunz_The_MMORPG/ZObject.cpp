@@ -9,7 +9,7 @@
 
 MImplementRTTI(ZObject, ZModuleContainer);
 
-ZObject::ZObject() : m_Direction(1,0,0), m_bInitialized(false), m_UID(MUID(0,0)),
+ZObject::ZObject() : m_Direction(1,0,0), m_bInitialized(false), m_UID(CCUID(0,0)),
 					 m_fSpawnTime(0.0f), m_fDeadTime(0.0f), m_pVMesh(NULL), m_bVisible(false),
 					 m_bIsNPC(false)
 //					 ,m_Velocity(m_Module_Movable.m_Velocity)
@@ -150,7 +150,7 @@ void ZObject::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageTy
 		}
 	}
 
-	pModule->OnDamage(pAttacker ? pAttacker->GetUID() : MUID(0,0), fDamage, fPiercingRatio);
+	pModule->OnDamage(pAttacker ? pAttacker->GetUID() : CCUID(0,0), fDamage, fPiercingRatio);
 }
 
 void ZObject::OnDamagedSkill(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
@@ -158,7 +158,7 @@ void ZObject::OnDamagedSkill(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE dam
 	ZModule_HPAP *pModule = (ZModule_HPAP*)GetModule(ZMID_HPAP);
 	if(!pModule) return;
 
-	pModule->OnDamage(pAttacker ? pAttacker->GetUID() : MUID(0,0), fDamage, fPiercingRatio);
+	pModule->OnDamage(pAttacker ? pAttacker->GetUID() : CCUID(0,0), fDamage, fPiercingRatio);
 }
 
 void ZObject::OnSimpleDamaged(ZObject* pAttacker, float fDamage, float fPiercingRatio)
@@ -166,7 +166,7 @@ void ZObject::OnSimpleDamaged(ZObject* pAttacker, float fDamage, float fPiercing
 	ZModule_HPAP *pModule = (ZModule_HPAP*)GetModule(ZMID_HPAP);
 	if(!pModule) return;
 
-	pModule->OnDamage(pAttacker ? pAttacker->GetUID() : MUID(0,0), fDamage, fPiercingRatio);
+	pModule->OnDamage(pAttacker ? pAttacker->GetUID() : CCUID(0,0), fDamage, fPiercingRatio);
 }
 
 //// HP/AP를 회복한다
