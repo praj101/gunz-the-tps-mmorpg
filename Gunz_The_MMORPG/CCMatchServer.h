@@ -76,8 +76,8 @@ protected:
 	unsigned long		m_nItemFileChecksum;	// ZItem.xml 의 변조방지 검사
 
 	CCUID				m_NextUseUID;
-	MCriticalSection	m_csUIDGenerateLock;
-	MCriticalSection	m_csTickTimeLock;
+	CCCriticalSection	m_csUIDGenerateLock;
+	CCCriticalSection	m_csTickTimeLock;
 
 	DWORD				m_checkMemory1;
 	CCMatchObjectList	m_Objects;

@@ -9,7 +9,7 @@
 #define DEFAULT_MELEE_WEAPON_RANGE 160
 
 CCUID CCMatchItemMap::m_uidGenerate = CCUID(0,0);
-MCriticalSection CCMatchItemMap::m_csUIDGenerateLock;
+CCCriticalSection CCMatchItemMap::m_csUIDGenerateLock;
 
 CCMatchItemDesc::CCMatchItemDesc() : m_nID(0), m_nSlot(MMIST_NONE), m_pEffect(NULL), m_bSlugOutput(0), 
 	m_nColor(0xFFFFFFFF), m_nImageID(0), m_nBulletImageID(0), m_nMagazineImageID(0), m_bIsCashItem(false), m_bIsSpendableItem(false)

@@ -8,7 +8,7 @@
 
 
 // CCUID CCQuestItemMap::m_uidGenerate = CCUID(0,0);
-// MCriticalSection CCQuestItemMap::m_csUIDGenerateLock;
+// CCCriticalSection CCQuestItemMap::m_csUIDGenerateLock;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 bool CCQuestItem::Create( const unsigned long int nItemID, const int nCount, CCQuestItemDesc* pDesc, bool bKnown )

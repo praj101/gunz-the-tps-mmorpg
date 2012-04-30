@@ -4,7 +4,7 @@
 #include "CCMatchObjectCharBuffInfo.h"
 
 CCUID CCMatchObjectCharBuff::m_uidGenerate = CCUID(0,0);
-MCriticalSection CCMatchObjectCharBuff::m_csUIDGenerateLock;
+CCCriticalSection CCMatchObjectCharBuff::m_csUIDGenerateLock;
 
 CCMatchObjectCharBuff::CCMatchObjectCharBuff() : m_nLastCheckBuffInfoTime(0)
 {
