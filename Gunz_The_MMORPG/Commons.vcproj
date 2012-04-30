@@ -2149,6 +2149,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RealCPNet.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\RealCPNet.h"
+			>
+		</File>
+		<File
 			RelativePath=".\seed.cpp"
 			>
 		</File>
