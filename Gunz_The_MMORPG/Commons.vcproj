@@ -230,10 +230,6 @@
 				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
-				<File
-					RelativePath=".\CCCrypt.cpp"
-					>
-				</File>
 				<Filter
 					Name="Widgets"
 					>
@@ -1325,11 +1321,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCCommand.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommand.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCConnectHistory.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\CCConnectHistory.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCrypt.cpp"
 			>
 		</File>
 		<File
@@ -2062,6 +2070,14 @@
 		</File>
 		<File
 			RelativePath=".\Msg.h"
+			>
+		</File>
+		<File
+			RelativePath=".\seed.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\seed.h"
 			>
 		</File>
 		<File
