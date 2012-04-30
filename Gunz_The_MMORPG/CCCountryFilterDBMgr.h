@@ -9,12 +9,12 @@ class CCCountryFilterDBMgr
 {
 public:
 	CCCountryFilterDBMgr();
-	CCCountryFilterDBMgr( MDatabase* pDatabase );
+	CCCountryFilterDBMgr( CCDatabase* pDatabase );
 	virtual ~CCCountryFilterDBMgr();
 
-	MDatabase* GetDB() { return m_pDB; }
+	CCDatabase* GetDB() { return m_pDB; }
 
-	void SetDB( MDatabase* pDB ) { m_pDB = pDB; }
+	void SetDB( CCDatabase* pDB ) { m_pDB = pDB; }
 
 	bool GetIPContryCode( const string& strIP, 
 						  DWORD& dwIPFrom, 
@@ -31,5 +31,5 @@ private :
 	bool CheckOpen();
 
 private :
-	MDatabase* m_pDB;
+	CCDatabase* m_pDB;
 };

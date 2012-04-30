@@ -9,11 +9,11 @@ using std::string;
 typedef void(LOGCALLBACK)( const string& strLog );
 
 
-class MDatabase
+class CCDatabase
 {
 public:
-	MDatabase(void);
-	~MDatabase(void);
+	CCDatabase(void);
+	~CCDatabase(void);
 
 	CDatabase* GetDatabase()	{ return &m_DB; }
 
