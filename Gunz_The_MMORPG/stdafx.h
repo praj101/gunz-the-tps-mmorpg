@@ -2,6 +2,7 @@
 
 #pragma warning(disable:4996)
 
+#define WINVER 0x0601
 
 // ¿©±â´Ù include
 #include <afxdb.h>
