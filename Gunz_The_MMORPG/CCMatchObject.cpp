@@ -194,7 +194,7 @@ void CCMatchObject::Tick(unsigned long int nTime)
 	if (CheckStageListTransfer() == true) {
 		// 로비에서 클랜채널에 있으면 클랜전 대기 클랜 리스트 업데이트해준다.
 		CCMatchChannel* pChannel = pServer->FindChannel(GetChannelUID());
-		if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel) && (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN))
+		if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel) && (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN))
 		{
 			if ((unsigned int)(nTime - m_nTimeLastStageListTrans) > CYCLE_MATCH_STANDBY_CLANLIST_UPDATE) {
 				unsigned long int nCurrStageListChecksum = pServer->GetLadderMgr()->GetChecksum(m_nStageCursor, 
@@ -228,7 +228,7 @@ void CCMatchObject::Tick(unsigned long int nTime)
 			if (pServer->GetChannelListChecksum() != GetChannelListChecksum()) {
 				m_ChannelInfo.nTimeLastChannelListTrans = nTime;
 
-				if ((m_ChannelInfo.nChannelListType != MCHANNEL_TYPE_CLAN) || (GetChannelListChecksum() == 0))
+				if ((m_ChannelInfo.nChannelListType != CCCHANNEL_TYPE_CLAN) || (GetChannelListChecksum() == 0))
 				{
 					pServer->ChannelList(GetUID(), m_ChannelInfo.nChannelListType);
 					UpdateChannelListChecksum(pServer->GetChannelListChecksum());				
@@ -427,9 +427,9 @@ void CCMatchObject::OnInitRound()
 	m_nDeadTime = 0;
 }
 
-void CCMatchObject::SetChannelListTransfer(const bool bVal, const MCHANNEL_TYPE nChannelType)
+void CCMatchObject::SetChannelListTransfer(const bool bVal, const CCCHANNEL_TYPE nChannelType)
 { 
-	if ((nChannelType < 0) || (nChannelType >= MCHANNEL_TYPE_MAX)) 
+	if ((nChannelType < 0) || (nChannelType >= CCCHANNEL_TYPE_MAX)) 
 	{
 		_ASSERT(0);
 		return;

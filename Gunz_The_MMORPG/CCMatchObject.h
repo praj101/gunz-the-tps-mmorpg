@@ -477,7 +477,7 @@ struct CCMatchObjectChannelInfo
 	CCUID			uidChannel;
 	CCUID			uidRecentChannel;
 	bool			bChannelListTransfer;
-	MCHANNEL_TYPE	nChannelListType;
+	CCCHANNEL_TYPE	nChannelListType;
 	unsigned long	nChannelListChecksum;
 	int				nTimeLastChannelListTrans;
 	void Clear()
@@ -857,7 +857,7 @@ public:
 	void SetChatRoomUID(const CCUID& uid){ m_uidChatRoom = uid; }
 
 	bool CheckChannelListTransfer()	{ return m_ChannelInfo.bChannelListTransfer; }
-	void SetChannelListTransfer(const bool bVal, const MCHANNEL_TYPE nChannelType=MCHANNEL_TYPE_PRESET);
+	void SetChannelListTransfer(const bool bVal, const CCCHANNEL_TYPE nChannelType=CCCHANNEL_TYPE_PRESET);
 
 	bool CheckStageListTransfer()	{ return m_bStageListTransfer; }
 	void SetStageListTransfer(bool bVal)	{ m_bStageListTransfer = bVal; UpdateStageListChecksum(0); }

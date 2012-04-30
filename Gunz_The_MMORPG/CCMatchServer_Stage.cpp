@@ -67,7 +67,7 @@ bool CCMatchServer::StageAdd(CCMatchChannel* pChannel, const char* pszStageName,
 		dwTicketID = pChannel->GetTicketItemID();
 
 		// 티켓 서버에서 사설 채널은 무조건 티켓 검사 - 티켓은 클랜전 티켓과 동일하다.
-		if ( pChannel->GetChannelType() == MCHANNEL_TYPE_USER) {
+		if ( pChannel->GetChannelType() == CCCHANNEL_TYPE_USER) {
 			bIsCheckTicket = true;
 			dwTicketID = GetChannelMap()->GetClanChannelTicketInfo().m_dwTicketItemID;
 		}
@@ -124,7 +124,7 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 
 	CCMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
 	if (pChannel == NULL) return false;
-	if (pChannel->GetChannelType() == MCHANNEL_TYPE_DUELTOURNAMENT) return false;
+	if (pChannel->GetChannelType() == CCCHANNEL_TYPE_DUELTOURNAMENT) return false;
 
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return false;
@@ -878,8 +878,8 @@ void CCMatchServer::OnStageCreate(const CCUID& uidChar, char* pszStageName, bool
 	CCMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
 	if (pChannel == NULL) return;
 
-	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN)
-		&& (pChannel->GetChannelType() == MCHANNEL_TYPE_DUELTOURNAMENT)) {
+	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN)
+		&& (pChannel->GetChannelType() == CCCHANNEL_TYPE_DUELTOURNAMENT)) {
 		return;
 	}
 	
@@ -1994,9 +1994,9 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	CCMatchChannel* pOwnerChannel = FindChannel(pStage->GetOwnerChannel());
 	if ((pOwnerChannel) && (!bSuicide))
 	{
-		if ((pOwnerChannel->GetRuleType() == MCHANNEL_RULE_MASTERY) || 
-			(pOwnerChannel->GetRuleType() == MCHANNEL_RULE_ELITE) ||
-			(pOwnerChannel->GetRuleType() == MCHANNEL_RULE_CHAMPION))
+		if ((pOwnerChannel->GetRuleType() == CCCHANNEL_RULE_MASTERY) || 
+			(pOwnerChannel->GetRuleType() == CCCHANNEL_RULE_ELITE) ||
+			(pOwnerChannel->GetRuleType() == CCCHANNEL_RULE_CHAMPION))
 		{
 			nVictimExp=0;
 		}
@@ -2402,7 +2402,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 	if (pChannel == NULL) return;
 
 	// 클랜서버인데 클랜채널일 경우에는 방 리스트대신 대기중 클랜 리스트를 보낸다.
-	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN))
+	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN))
 	{
 		StandbyClanList(uidPlayer, nStageStartIndex, bCacheUpdate);
 		return;

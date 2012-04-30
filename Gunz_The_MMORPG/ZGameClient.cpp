@@ -248,7 +248,7 @@ ZGameClient::ZGameClient() : CCMatchClient() , m_pUPnP(NULL)
 	m_nProposalMode = MPROPOSAL_NONE;
 	m_bLadderGame = false;
 
-	m_CurrentChannelType = MCHANNEL_TYPE_PRESET;
+	m_CurrentChannelType = CCCHANNEL_TYPE_PRESET;
 
 	SetRejectWhisper(true);
 	SetRejectInvite(true);
@@ -495,7 +495,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 //	}
 }
 
-void ZGameClient::OnChannelResponseJoin(const CCUID& uidChannel, MCHANNEL_TYPE nChannelType, const char* szChannelName, bool bEnableInterface)
+void ZGameClient::OnChannelResponseJoin(const CCUID& uidChannel, CCCHANNEL_TYPE nChannelType, const char* szChannelName, bool bEnableInterface)
 {
 	ZApplication::GetGameInterface()->SetState(GUNZ_LOBBY);
 
@@ -533,7 +533,7 @@ void ZGameClient::OnChannelResponseJoin(const CCUID& uidChannel, MCHANNEL_TYPE n
 		break;
 	case CSM_CLAN:
 		{
-			if (nChannelType == MCHANNEL_TYPE_CLAN)
+			if (nChannelType == CCCHANNEL_TYPE_CLAN)
 			{
 /*
 				{
@@ -573,7 +573,7 @@ void ZGameClient::OnChannelResponseJoin(const CCUID& uidChannel, MCHANNEL_TYPE n
 
 #ifdef LIMIT_ACTIONLEAGUE
 	// 임시로 액션리그 
-	bool bActionLeague = (strstr(szChannelName,"액션")!=NULL) || (nChannelType==MCHANNEL_TYPE_USER);
+	bool bActionLeague = (strstr(szChannelName,"액션")!=NULL) || (nChannelType==CCCHANNEL_TYPE_USER);
 
 	ZGetGameInterface()->InitLadderUI(bActionLeague);
 #endif
@@ -624,7 +624,7 @@ void ZGameClient::OnChannelList(void* pBlob, int nCount)
 	const char* szChannelName = NULL;
 	pWidget->RemoveAll();
 	for(int i=0; i<nCount; i++){
-		MCHANNELLISTNODE* pNode = (MCHANNELLISTNODE*)MGetBlobArrayElement(pBlob, i);
+		CCCHANNELLISTNODE* pNode = (CCCHANNELLISTNODE*)MGetBlobArrayElement(pBlob, i);
 
 		// 공식채널의 경우 스트링리소스ID를 받아서 사용자가 선택한 언어로 번역된 스트링을 보여주자
 		if (pNode->szChannelNameStrResId[0] != 0){
@@ -1723,13 +1723,13 @@ void ZGameClient::StopStageList()
 }
 
 /*
-void ZGameClient::SetChannelType(MCHANNEL_TYPE type)
+void ZGameClient::SetChannelType(CCCHANNEL_TYPE type)
 {
 	m_CurrentChannelType = type;
 }
 */
 
-void ZGameClient::StartChannelList(MCHANNEL_TYPE nChannelType)
+void ZGameClient::StartChannelList(CCCHANNEL_TYPE nChannelType)
 {
 	ZPostStartChannelList(GetPlayerUID(), (int)nChannelType);
 }
@@ -2117,7 +2117,7 @@ void ZGameClient::RequestChannelJoin(const CCUID& uidChannel)
 	ZPostChannelRequestJoin(GetPlayerUID(), uidChannel);
 }
 
-void ZGameClient::RequestChannelJoin(const MCHANNEL_TYPE nChannelType, char* szChannelName)
+void ZGameClient::RequestChannelJoin(const CCCHANNEL_TYPE nChannelType, char* szChannelName)
 {
 	ZPostChannelRequestJoinFromChannelName(GetPlayerUID(), (int)nChannelType, szChannelName);
 }
@@ -2296,7 +2296,7 @@ void ZGameClient::RequestOnGameDestroyed()
 	ZPostRequestMySimpleCharInfo(ZGetGameClient()->GetPlayerUID());
 
 	// 새로 바뀐 클랜 정보도 요청한다.
-	if ((GetServerMode() == CSM_CLAN) && (GetChannelType() == MCHANNEL_TYPE_CLAN))
+	if ((GetServerMode() == CSM_CLAN) && (GetChannelType() == CCCHANNEL_TYPE_CLAN))
 	{
 		ZPostRequestClanInfo(GetPlayerUID(), m_szChannel);
 	}
@@ -2450,7 +2450,7 @@ void ZGameClient::ChangeQuestStage()
 	// 퀘스트 서버의 퀘스트 채널이면 셋팅을 퀘스트 모드로 설정 함.
 	if( (0 != ZGetGameClient()) && 
 		(CSM_TEST == ZGetGameClient()->GetServerMode()) &&
-		(0 == stricmp(MCHANNEL_RULE_QUEST_STR, ZGetGameClient()->GetChannelRuleName())) &&
+		(0 == stricmp(CCCHANNEL_RULE_QUEST_STR, ZGetGameClient()->GetChannelRuleName())) &&
 		(!ZGetGameTypeManager()->IsQuestDerived(ZGetGameClient()->GetMatchStageSetting()->GetGameType())) && 
 		//(MMATCH_GAMETYPE_QUEST != ZGetGameClient()->GetMatchStageSetting()->GetGameType()) && 
 		ZGetGameClient()->AmIStageMaster() )

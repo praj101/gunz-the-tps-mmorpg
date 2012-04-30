@@ -1893,8 +1893,8 @@ void ZGameInterface::OnLobbyCreate(void)
 
 void ZGameInterface::InitLobbyUIByChannelType()
 {
-	bool bClanBattleUI =  ((ZGetGameClient()->GetServerMode() == CSM_CLAN) && (ZGetGameClient()->GetChannelType()==MCHANNEL_TYPE_CLAN));
-	bool bDuelTournamentUI = (ZGetGameClient()->GetChannelType() == MCHANNEL_TYPE_DUELTOURNAMENT);
+	bool bClanBattleUI =  ((ZGetGameClient()->GetServerMode() == CSM_CLAN) && (ZGetGameClient()->GetChannelType()==CCCHANNEL_TYPE_CLAN));
+	bool bDuelTournamentUI = (ZGetGameClient()->GetChannelType() == CCCHANNEL_TYPE_DUELTOURNAMENT);
 
 	// 순서가 중요하다.. true인쪽을 나중에 호출해줘야 한다 (추하지만 이제와서 함수 한군데로 합쳐주기도 좀 두려운...)
 	if (bClanBattleUI)
@@ -5284,8 +5284,8 @@ void ZGameInterface::EnableLobbyInterface(bool bEnable)
 	if (bEnable)
 	{
 		CCMatchServerMode nCurrentServerMode = ZGetGameClient()->GetServerMode();
-		MCHANNEL_TYPE nCurrentChannelType = ZGetGameClient()->GetChannelType();
-		bool bClanBattleUI = (nCurrentServerMode== CSM_CLAN) && (nCurrentChannelType==MCHANNEL_TYPE_CLAN);
+		CCCHANNEL_TYPE nCurrentChannelType = ZGetGameClient()->GetChannelType();
+		bool bClanBattleUI = (nCurrentServerMode== CSM_CLAN) && (nCurrentChannelType==CCCHANNEL_TYPE_CLAN);
 		ZGetGameInterface()->InitClanLobbyUI(bClanBattleUI);
 	}
 
@@ -5788,16 +5788,16 @@ void ZGameInterface::InitDuelTournamentLobbyUI(bool bEnableDuelTournamentUI)
 */
 }
 
-void ZGameInterface::InitChannelFrame(MCHANNEL_TYPE nChannelType)
+void ZGameInterface::InitChannelFrame(CCCHANNEL_TYPE nChannelType)
 {
 	MWidget* pWidget;
 
 	pWidget = m_IDLResource.FindWidget("PrivateChannelInput");
-	if(pWidget) pWidget->Show( nChannelType == MCHANNEL_TYPE_USER );
+	if(pWidget) pWidget->Show( nChannelType == CCCHANNEL_TYPE_USER );
 	pWidget = m_IDLResource.FindWidget("PrivateChannelEnter");
-	if(pWidget) pWidget->Show( nChannelType == MCHANNEL_TYPE_USER );
+	if(pWidget) pWidget->Show( nChannelType == CCCHANNEL_TYPE_USER );
 	pWidget = m_IDLResource.FindWidget("MyClanChannel");
-	if(pWidget) pWidget->Show( nChannelType == MCHANNEL_TYPE_CLAN );
+	if(pWidget) pWidget->Show( nChannelType == CCCHANNEL_TYPE_CLAN );
 
 	MListBox* pListBox = (MListBox*)m_IDLResource.FindWidget("ChannelList");
 	if (pListBox) pListBox->RemoveAll();

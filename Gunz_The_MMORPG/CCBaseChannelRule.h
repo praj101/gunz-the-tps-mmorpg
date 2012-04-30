@@ -9,33 +9,33 @@ using namespace std;
 
 
 
-enum MCHANNEL_RULE {
-	MCHANNEL_RULE_NOVICE=0,
-	MCHANNEL_RULE_NEWBIE,
-	MCHANNEL_RULE_ROOKIE,
-	MCHANNEL_RULE_MASTERY,
-	MCHANNEL_RULE_ELITE,
-	MCHANNEL_RULE_CHAMPION,
-	MCHANNEL_RULE_QUEST,
-	MCHANNEL_RULE_DUELTOURNAMENT,
-	MCHANNEL_RULE_SET1,									// 예비용 채널 1
-	MCHANNEL_RULE_SET2,									// 예비용 채널 2
-	MCHANNEL_RULE_SET3,									// 예비용 채널 3
+enum CCCHANNEL_RULE {
+	CCCHANNEL_RULE_NOVICE=0,
+	CCCHANNEL_RULE_NEWBIE,
+	CCCHANNEL_RULE_ROOKIE,
+	CCCHANNEL_RULE_MASTERY,
+	CCCHANNEL_RULE_ELITE,
+	CCCHANNEL_RULE_CHAMPION,
+	CCCHANNEL_RULE_QUEST,
+	CCCHANNEL_RULE_DUELTOURNAMENT,
+	CCCHANNEL_RULE_SET1,									// 예비용 채널 1
+	CCCHANNEL_RULE_SET2,									// 예비용 채널 2
+	CCCHANNEL_RULE_SET3,									// 예비용 채널 3
 
-	MCHANNEL_RULE_MAX
+	CCCHANNEL_RULE_MAX
 };
 
-#define MCHANNEL_RULE_NOVICE_STR		"novice"
-#define MCHANNEL_RULE_NEWBIE_STR		"newbie"
-#define MCHANNEL_RULE_ROOKIE_STR		"rookie"
-#define MCHANNEL_RULE_MASTERY_STR		"mastery"
-#define MCHANNEL_RULE_ELITE_STR			"elite"
-#define MCHANNEL_RULE_CHAMPION_STR		"champion"
-#define MCHANNEL_RULE_QUEST_STR			"quest"
-#define MCHANNEL_RULE_DUELTOURNAMENT_STR "dueltournament"
-#define MCHANNEL_RULE_SET1_STR			"set1"			// 예비용 채널 1
-#define MCHANNEL_RULE_SET2_STR			"set2"			// 예비용 채널 2
-#define MCHANNEL_RULE_SET3_STR			"set3"			// 예비용 채널 3
+#define CCCHANNEL_RULE_NOVICE_STR		"novice"
+#define CCCHANNEL_RULE_NEWBIE_STR		"newbie"
+#define CCCHANNEL_RULE_ROOKIE_STR		"rookie"
+#define CCCHANNEL_RULE_MASTERY_STR		"mastery"
+#define CCCHANNEL_RULE_ELITE_STR			"elite"
+#define CCCHANNEL_RULE_CHAMPION_STR		"champion"
+#define CCCHANNEL_RULE_QUEST_STR			"quest"
+#define CCCHANNEL_RULE_DUELTOURNAMENT_STR "dueltournament"
+#define CCCHANNEL_RULE_SET1_STR			"set1"			// 예비용 채널 1
+#define CCCHANNEL_RULE_SET2_STR			"set2"			// 예비용 채널 2
+#define CCCHANNEL_RULE_SET3_STR			"set3"			// 예비용 채널 3
 
 
 
@@ -140,14 +140,14 @@ public:
 class MChannelRuleMgr : public map<string, MChannelRule*>, public CCXmlParser
 {
 private:
-	map<MCHANNEL_RULE, MChannelRule*>		m_RuleTypeMap;
+	map<CCCHANNEL_RULE, MChannelRule*>		m_RuleTypeMap;
 	void AddRule(MChannelRule* pRule);
 public:
 	MChannelRuleMgr();
 	virtual ~MChannelRuleMgr();
 	void Clear();	
 	MChannelRule* GetRule(const string& strName);
-	MChannelRule* GetRule(MCHANNEL_RULE nChannelRule);
+	MChannelRule* GetRule(CCCHANNEL_RULE nChannelRule);
 
 protected:
 	void ParseRule(CCXmlElement* element);

@@ -654,7 +654,7 @@ bool CCMatchServer::LoadChannelPreset()
 			bool	bIsTicketChannel	= false;
 			int		nTicketItemID		= -1;
 			bool	bIsDuelTournament	= false;
-			MCHANNEL_TYPE nChannelType	= MCHANNEL_TYPE_PRESET;
+			CCCHANNEL_TYPE nChannelType	= CCCHANNEL_TYPE_PRESET;
 
 			childElement.GetAttribute(szBuf, "name");
 			if (childElement.GetAttribute(szRuleName, "rule") == false)
@@ -667,7 +667,7 @@ bool CCMatchServer::LoadChannelPreset()
 			childElement.GetAttribute(&bIsDuelTournament, "IsDuelTournament");
 
 			if( bIsDuelTournament )
-				nChannelType = MCHANNEL_TYPE_DUELTOURNAMENT;
+				nChannelType = CCCHANNEL_TYPE_DUELTOURNAMENT;
 
 			CCUID uidChannel;
 			ChannelAdd(MGetStringResManager()->GetStringFromXml(szBuf), 
@@ -2551,7 +2551,7 @@ int CCMatchServer::ValidateChannelJoin(const CCUID& uidPlayer, const CCUID& uidC
 		}
 
 		// 뉴비채널 체크
-		if ((pChannel->GetRuleType() == MCHANNEL_RULE_NEWBIE) && (pObj->IsNewbie() == false)) 
+		if ((pChannel->GetRuleType() == CCCHANNEL_RULE_NEWBIE) && (pObj->IsNewbie() == false)) 
 		{
 			return MERR_CANNOT_JOIN_CHANNEL_BY_NEWBIE;
 		}

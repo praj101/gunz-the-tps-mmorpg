@@ -71,7 +71,7 @@ bool CCMatchChannel::Create(const CCUID& uid, const char* pszName, const char* p
 	}
 
 	// 룰이름이 "newbie"이면 뉴비채널
-//	if ((nType == MCHANNEL_TYPE_PRESET) && (!stricmp(m_szRuleName, MCHANNEL_RULE_NEWBIE_STR)))
+//	if ((nType == CCCHANNEL_TYPE_PRESET) && (!stricmp(m_szRuleName, CCCHANNEL_RULE_NEWBIE_STR)))
 //	{
 //		m_bNewbieChannel = true;
 //	}

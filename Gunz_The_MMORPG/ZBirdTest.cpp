@@ -505,7 +505,7 @@ void OnBTDummyChannelChangeOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
 
 			for(int i=0; i<nCount; i++)
 			{
-				MCHANNELLISTNODE* pNode = (MCHANNELLISTNODE*)MGetBlobArrayElement(pBlob, i);
+				CCCHANNELLISTNODE* pNode = (CCCHANNELLISTNODE*)MGetBlobArrayElement(pBlob, i);
 
 				if (i<100) uidChannels[i] = pNode->uidChannel;
 			}

@@ -1451,14 +1451,14 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 	//// 일반 서버일때... 자유/사설/클랜 채널이면 안된다.
 	//if ( MGetServerConfig()->GetServerMode() == CSM_NORMAL)
 	//{
-	//	if ( stricmp( pChannel->GetRuleName() , MCHANNEL_RULE_NOVICE_STR) == 0)
+	//	if ( stricmp( pChannel->GetRuleName() , CCCHANNEL_RULE_NOVICE_STR) == 0)
 	//		bInvalid = true;
 	//}
 	//// 그 외 서버일때... 자유 채널이면 안된다.
 	//else
 	//{
-	//	if ( (pChannel->GetChannelType() == MCHANNEL_TYPE_PRESET) &&
-	//		(stricmp( pChannel->GetRuleName() , MCHANNEL_RULE_NOVICE_STR) == 0))
+	//	if ( (pChannel->GetChannelType() == CCCHANNEL_TYPE_PRESET) &&
+	//		(stricmp( pChannel->GetRuleName() , CCCHANNEL_RULE_NOVICE_STR) == 0))
 	//		bInvalid = true;
 	//}
 
@@ -1984,7 +1984,7 @@ void CCMatchStage::ClearGabageObject()
 
 int	CCMatchStage::GetDuelTournamentRandomMapIndex()
 {
-	MChannelRule *pChannelRule = MGetChannelRuleMgr()->GetRule(MCHANNEL_RULE_DUELTOURNAMENT);
+	MChannelRule *pChannelRule = MGetChannelRuleMgr()->GetRule(CCCHANNEL_RULE_DUELTOURNAMENT);
 	if( pChannelRule == NULL ) return -1;
 
 	MChannelRuleMapList* pMapList = pChannelRule->GetMapList();

@@ -51,21 +51,21 @@ CCMatchChannel* CCMatchServer::FindChannel(const CCUID& uidChannel)
 	return m_ChannelMap.Find(uidChannel);
 }
 
-CCMatchChannel* CCMatchServer::FindChannel(const MCHANNEL_TYPE nChannelType, const char* pszChannelName)
+CCMatchChannel* CCMatchServer::FindChannel(const CCCHANNEL_TYPE nChannelType, const char* pszChannelName)
 {
 	return m_ChannelMap.Find(nChannelType, pszChannelName);
 }
 
 
-bool CCMatchServer::ChannelAdd(const char* pszChannelName, const char* pszRuleName, CCUID* pAllocUID, MCHANNEL_TYPE nType, int nMaxPlayers, int nLevelMin, int nLevelMax,
+bool CCMatchServer::ChannelAdd(const char* pszChannelName, const char* pszRuleName, CCUID* pAllocUID, CCCHANNEL_TYPE nType, int nMaxPlayers, int nLevelMin, int nLevelMax,
 							  const bool bIsTicketChannel, const DWORD dwTicketItemID, const bool bIsUseTicket, const char* pszChannelNameStrResId)
 {
 	return m_ChannelMap.Add(pszChannelName, pszRuleName, pAllocUID, nType, nMaxPlayers, nLevelMin, nLevelMax, bIsTicketChannel, dwTicketItemID, bIsUseTicket, pszChannelNameStrResId);
 }
 
-bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const MCHANNEL_TYPE nChannelType, const char* pszChannelName)
+bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const CCCHANNEL_TYPE nChannelType, const char* pszChannelName)
 {
-	if ((nChannelType < 0) || (nChannelType >= MCHANNEL_TYPE_MAX)) return false;
+	if ((nChannelType < 0) || (nChannelType >= CCCHANNEL_TYPE_MAX)) return false;
 
 	int nChannelNameLen = (int)strlen(pszChannelName);
 	if ((nChannelNameLen >= CHANNELNAME_LEN) || (nChannelNameLen <= 0)) return false;
@@ -81,17 +81,17 @@ bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const MCHANNEL_TYPE nCha
 	if (pChannel == NULL)
 	{
 		// 프리셋 채널이면 채널을 만들 수 없다.
-		if (nChannelType == MCHANNEL_TYPE_PRESET) 
+		if (nChannelType == CCCHANNEL_TYPE_PRESET) 
 			return false;
 
-		if( nChannelType == MCHANNEL_TYPE_DUELTOURNAMENT )
+		if( nChannelType == CCCHANNEL_TYPE_DUELTOURNAMENT )
 			return false;
 
 		//bool bbadf = GetChannelMap()->GetClanChannelTicketInfo().m_bIsTicketChannel; //debug
 /*
 		// 입장권을 사용하고, 클랜채널을 만들때는 유저가 입장권이 있는지 검사를 해줘야 한다.
 		if( MGetServerConfig()->IsUseTicket() && 
-			MCHANNEL_TYPE_CLAN == nChannelType && 
+			CCCHANNEL_TYPE_CLAN == nChannelType && 
 			GetChannelMap()->GetClanChannelTicketInfo().m_bIsTicketChannel )
 		{
 			CCMatchObject* pObj = GetObject( uidPlayer );
@@ -157,21 +157,21 @@ bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const CCUID& uidChannel)
 		if ( MGetServerConfig()->GetServerMode() == CSM_NORMAL)	{ // 일반 서버일때
 			// 자유/사설/클랜 채널이면 로비 인터페이스를 disable 시킨다.
 			// 그 외에는 티켓 채널이면 티켓 검사만 해준다.
-			if ( stricmp( pChannel->GetRuleName() , MCHANNEL_RULE_NOVICE_STR) == 0) bEnableInterface = false;			
+			if ( stricmp( pChannel->GetRuleName() , CCCHANNEL_RULE_NOVICE_STR) == 0) bEnableInterface = false;			
 			else if ( pChannel->IsTicketChannel())									bCheckTicket = true;
 		} else if ( (MGetServerConfig()->GetServerMode() == CSM_CLAN) || (MGetServerConfig()->GetServerMode() == CSM_TEST)) { // 클랜 서버일때
 			// 클랜/사설 채널이면 티켓 검사한다.
 			// 자유 채널이면 로비 인터페이스를 disable 시킨다.
 			// 그 외에는 티켓 채널이면 티켓 검사만 해준다.
-			if ( (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN) || (pChannel->GetChannelType() == MCHANNEL_TYPE_USER)) bCheckTicket = true;			
-			else if ( stricmp( pChannel->GetRuleName() , MCHANNEL_RULE_NOVICE_STR) == 0)
+			if ( (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN) || (pChannel->GetChannelType() == CCCHANNEL_TYPE_USER)) bCheckTicket = true;			
+			else if ( stricmp( pChannel->GetRuleName() , CCCHANNEL_RULE_NOVICE_STR) == 0)
 				bEnableInterface = false;			
 			else if ( pChannel->IsTicketChannel())
 				bCheckTicket = true;
 		} else { // 그외 서버일때
 			// 자유/사설/클랜 채널이면 로비 인터페이스를 disable 시킨다.
 			// 그 외에는 티켓 채널이면 티켓 검사만 해준다.
-			if ( stricmp( pChannel->GetRuleName() , MCHANNEL_RULE_NOVICE_STR) == 0) bEnableInterface = false;			
+			if ( stricmp( pChannel->GetRuleName() , CCCHANNEL_RULE_NOVICE_STR) == 0) bEnableInterface = false;			
 			else if ( pChannel->IsTicketChannel())									bCheckTicket = true;
 		}
 
@@ -237,7 +237,7 @@ bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const CCUID& uidChannel)
 	ResponseChannelRule(uidPlayer, uidChannelTmp);	// Channel 규칙을 보내준다.		
 
 	
-	if( pChannel->GetRuleType() != MCHANNEL_RULE_DUELTOURNAMENT ) {
+	if( pChannel->GetRuleType() != CCCHANNEL_RULE_DUELTOURNAMENT ) {
 		// 듀얼 토너먼트가 아닐 경우, Stage List를 보낸다.
 		StageList(uidPlayer, 0, false);		
 	} else {
@@ -406,7 +406,7 @@ void CCMatchServer::OnRequestRecommendedChannel(const CCUID& uidComm)
 
 	if (CCUID(0,0) == uidChannel ) 
 	{
-		if( !ChannelAdd(GetDefaultChannelName(), GetDefaultChannelRuleName(), &uidChannel, MCHANNEL_TYPE_PRESET) )
+		if( !ChannelAdd(GetDefaultChannelName(), GetDefaultChannelRuleName(), &uidChannel, CCCHANNEL_TYPE_PRESET) )
 		{
 			cclog( "Channel Add fail for recommand.\n" );
 			return;	// 생성조차 실패하면 낭패....
@@ -424,9 +424,9 @@ void CCMatchServer::OnRequestChannelJoin(const CCUID& uidPlayer, const CCUID& ui
 	ChannelJoin(uidPlayer, uidChannel);
 }
 
-void CCMatchServer::OnRequestChannelJoin(const CCUID& uidPlayer, const MCHANNEL_TYPE nChannelType, const char* pszChannelName)
+void CCMatchServer::OnRequestChannelJoin(const CCUID& uidPlayer, const CCCHANNEL_TYPE nChannelType, const char* pszChannelName)
 {
-	if ((nChannelType < 0) || (nChannelType >= MCHANNEL_TYPE_MAX)) return;
+	if ((nChannelType < 0) || (nChannelType >= CCCHANNEL_TYPE_MAX)) return;
 
 	ChannelJoin(uidPlayer, nChannelType, pszChannelName);
 }
@@ -441,7 +441,7 @@ void CCMatchServer::OnStartChannelList(const CCUID& uidPlayer, const int nChanne
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	pObj->SetChannelListTransfer(true, MCHANNEL_TYPE(nChannelType));
+	pObj->SetChannelListTransfer(true, CCCHANNEL_TYPE(nChannelType));
 }
 
 void CCMatchServer::OnStopChannelList(const CCUID& uidPlayer)
@@ -453,13 +453,13 @@ void CCMatchServer::OnStopChannelList(const CCUID& uidPlayer)
 
 }
 
-void CCMatchServer::ChannelList(const CCUID& uidPlayer, MCHANNEL_TYPE nChannelType)
+void CCMatchServer::ChannelList(const CCUID& uidPlayer, CCCHANNEL_TYPE nChannelType)
 {
 	CCMatchObject* pChar = GetObject(uidPlayer);
 	if (! IsEnabledObject(pChar)) return;
 
 	if (pChar->GetPlace() != MMP_LOBBY) return;		// 로비가 아니면 무시
-	if ((nChannelType < 0) || (nChannelType >= MCHANNEL_TYPE_MAX)) return;
+	if ((nChannelType < 0) || (nChannelType >= CCCHANNEL_TYPE_MAX)) return;
 
 	// Count Active Channels
 	int nChannelCount = (int)m_ChannelMap.GetChannelCount(nChannelType);
@@ -472,7 +472,7 @@ void CCMatchServer::ChannelList(const CCUID& uidPlayer, MCHANNEL_TYPE nChannelTy
 
 	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LIST), CCUID(0,0), m_This);
 
-	void* pChannelArray = MMakeBlobArray(sizeof(MCHANNELLISTNODE), nChannelCount);
+	void* pChannelArray = MMakeBlobArray(sizeof(CCCHANNELLISTNODE), nChannelCount);
 	int nIndex=0;
 	for (map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(nChannelType); 
 		itor!=m_ChannelMap.GetTypesChannelMapEnd(nChannelType); itor++) {
@@ -481,7 +481,7 @@ void CCMatchServer::ChannelList(const CCUID& uidPlayer, MCHANNEL_TYPE nChannelTy
 
 		CCMatchChannel* pChannel = (*itor).second;
 
-		MCHANNELLISTNODE* pNode = (MCHANNELLISTNODE*)MGetBlobArrayElement(pChannelArray, nIndex++);
+		CCCHANNELLISTNODE* pNode = (CCCHANNELLISTNODE*)MGetBlobArrayElement(pChannelArray, nIndex++);
 		pNode->uidChannel = pChannel->GetUID();
 		pNode->nNo = nIndex;
 		pNode->nPlayers = (unsigned char)pChannel->GetObjCount();
@@ -694,8 +694,8 @@ const CCUID CCMatchServer::FindFreeChannel(  const CCUID& uidPlayer  )
 		MGetServerConfig()->IsEnabledDuelTournament() && 
 		MGetServerConfig()->IsSendLoginUserToDuelTournamentChannel())
 	{
-		for(map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_DUELTOURNAMENT); 
-			itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_DUELTOURNAMENT); itor++) {
+		for(map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(CCCHANNEL_TYPE_DUELTOURNAMENT); 
+			itor!=m_ChannelMap.GetTypesChannelMapEnd(CCCHANNEL_TYPE_DUELTOURNAMENT); itor++) {
 
 				CCUID uid = (*itor).first;
 				if (MOK == ValidateChannelJoin(uidPlayer, uid)) {
@@ -712,8 +712,8 @@ const CCUID CCMatchServer::FindFreeChannel(  const CCUID& uidPlayer  )
 	if (uidChannel == CCUID(0,0))
 	{
 		// Find proper channel by Level
-		for(map<CCUID, CCMatchChannel*>::const_iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_PRESET); 
-			itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_PRESET); itor++) {
+		for(map<CCUID, CCMatchChannel*>::const_iterator itor=m_ChannelMap.GetTypesChannelMapBegin(CCCHANNEL_TYPE_PRESET); 
+			itor!=m_ChannelMap.GetTypesChannelMapEnd(CCCHANNEL_TYPE_PRESET); itor++) {
 				CCUID uid = (*itor).first;
 				if (MOK == ValidateChannelJoin(uidPlayer, uid)) {
 					CCMatchChannel* pChannel = FindChannel(uid);
@@ -729,8 +729,8 @@ const CCUID CCMatchServer::FindFreeChannel(  const CCUID& uidPlayer  )
 
 	// 디버그 버전은 무조건 자유채널로 입장하게 만들었다.
 //#ifdef _DEBUG
-//	for(map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_PRESET); 
-//		itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_PRESET); itor++) {
+//	for(map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(CCCHANNEL_TYPE_PRESET); 
+//		itor!=m_ChannelMap.GetTypesChannelMapEnd(CCCHANNEL_TYPE_PRESET); itor++) {
 //		CCUID uid = (*itor).first;
 //		CCMatchChannel* pChannel = FindChannel(uid);
 //		if (pChannel) 
@@ -744,8 +744,8 @@ const CCUID CCMatchServer::FindFreeChannel(  const CCUID& uidPlayer  )
 	// 레벨제한으로 못들어가면 공개채널로 들어간다.
 	if (uidChannel == CCUID(0,0))
 	{
-		for(map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_PRESET); 
-			itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_PRESET); itor++) {
+		for(map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(CCCHANNEL_TYPE_PRESET); 
+			itor!=m_ChannelMap.GetTypesChannelMapEnd(CCCHANNEL_TYPE_PRESET); itor++) {
 
 			CCUID uid = (*itor).first;
 			if (MOK == ValidateChannelJoin(uidPlayer, uid)) {
@@ -762,8 +762,8 @@ const CCUID CCMatchServer::FindFreeChannel(  const CCUID& uidPlayer  )
 	// 만약 들어갈데가 없으면 사설채널로 들어간다.
 	if (uidChannel == CCUID(0,0))
 	{
-		for(map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(MCHANNEL_TYPE_USER); 
-			itor!=m_ChannelMap.GetTypesChannelMapEnd(MCHANNEL_TYPE_USER); itor++) {
+		for(map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(CCCHANNEL_TYPE_USER); 
+			itor!=m_ChannelMap.GetTypesChannelMapEnd(CCCHANNEL_TYPE_USER); itor++) {
 			CCUID uid = (*itor).first;
 			if (MOK == ValidateChannelJoin(uidPlayer, uid)) {
 				CCMatchChannel* pChannel = FindChannel(uid);

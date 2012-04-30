@@ -396,7 +396,7 @@ public:
 	void InitLadderUI(bool bLadderEnable);
 	void InitClanLobbyUI(bool bClanBattleEnable);
 	void InitDuelTournamentLobbyUI(bool bEnableDuelTournamentUI);
-	void InitChannelFrame(MCHANNEL_TYPE nChannelType);
+	void InitChannelFrame(CCCHANNEL_TYPE nChannelType);
 
 //	bool InitLocatorList( CCZFileSystem* pFileSystem, const char* pszLocatorList );
 
