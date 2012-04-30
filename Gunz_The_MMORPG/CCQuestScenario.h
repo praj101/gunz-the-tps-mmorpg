@@ -109,22 +109,22 @@ private:
 	// 함수
 	void Clear();
 	void Insert(MQuestScenarioInfo* pScenarioInfo);
-	void ParseSpecialScenario(MXmlElement& element);
-	void ParseStandardScenario(MXmlElement& element);
-	void ParseNPCSetArray(MXmlElement& element, vector<int>& vec);
-	void ParseKeyNPCArray(MXmlElement& element, vector<int>& vec);
-	void ParseSectorXpBpArray(MXmlElement& element, vector<int>& vec);
-	void ParseJaco(MXmlElement& element, MQuestScenarioInfoMaps* pMap);
-	void ParseRewardItem(MXmlElement& element, MQuestScenarioInfo* pScenarioInfo);
-	void ParseSacriItem(MXmlElement& element, MQuestScenarioInfo* pScenarioInfo);
-	void ParseMap(MXmlElement& element, MQuestScenarioInfo* pScenarioInfo);
+	void ParseSpecialScenario(CCXmlElement& element);
+	void ParseStandardScenario(CCXmlElement& element);
+	void ParseNPCSetArray(CCXmlElement& element, vector<int>& vec);
+	void ParseKeyNPCArray(CCXmlElement& element, vector<int>& vec);
+	void ParseSectorXpBpArray(CCXmlElement& element, vector<int>& vec);
+	void ParseJaco(CCXmlElement& element, CCQuestScenarioInfoMaps* pMap);
+	void ParseRewardItem(CCXmlElement& element, CCQuestScenarioInfo* pScenarioInfo);
+	void ParseSacriItem(CCXmlElement& element, CCQuestScenarioInfo* pScenarioInfo);
+	void ParseMap(CCXmlElement& element, CCQuestScenarioInfo* pScenarioInfo);
 	int CalcStandardScenarioID(int nMapsetID, int nQL);
 public:
-	MQuestScenarioCatalogue();											///< 생성자
+	CCQuestScenarioCatalogue();											///< 생성자
 	~MQuestScenarioCatalogue();											///< 소멸자
 
 	bool ReadXml(const char* szFileName);								///< xml로부터 npc정보를 읽는다.
-	bool ReadXml(MZFileSystem* pFileSystem,const char* szFileName);		///< xml로부터 npc정보를 읽는다.
+	bool ReadXml(CCZFileSystem* pFileSystem,const char* szFileName);		///< xml로부터 npc정보를 읽는다.
 	
 
 	MQuestScenarioInfo* GetInfo(int nScenarioID);						///< 시나리오 정보 반환
