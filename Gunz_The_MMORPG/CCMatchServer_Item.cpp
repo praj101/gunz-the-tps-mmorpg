@@ -195,7 +195,7 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		}
 //	}
 //
-//	if( MSM_TEST == MGetServerConfig()->GetServerMode() ) 
+//	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
 //	{
 //		if( !pObj->GetCharInfo()->m_QuestItemList.IsDoneDbAccess() )
 //		{

@@ -75,8 +75,8 @@ bool CCMatchServer::LadderJoin(const CCUID& uidPlayer, const CCUID& uidStage, CC
 
 void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB)
 {
-	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
-		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
+	if ((MGetServerConfig()->GetServerMode() != CSM_LADDER) && 
+		(MGetServerConfig()->GetServerMode() != CSM_CLAN)) return;
 
 	CCUID uidStage = CCUID(0,0);
 	if (StageAdd(NULL, "LADDER_GAME", true, "", &uidStage) == false) {
@@ -214,8 +214,8 @@ bool CCMatchServer::IsLadderRequestUserInRequestClanMember( const CCUID& uidRequ
 
 void CCMatchServer::OnLadderRequestChallenge(const CCUID& uidRequestMember, void* pMemberNamesBlob, unsigned long int nOptions)
 {
-	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
-		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
+	if ((MGetServerConfig()->GetServerMode() != CSM_LADDER) && 
+		(MGetServerConfig()->GetServerMode() != CSM_CLAN)) return;
 
 	CCMatchObject* pLeaderObject = GetPlayerByCommUID(uidRequestMember);
 	if (! IsEnabledObject(pLeaderObject)) return;

@@ -60,14 +60,14 @@ enum CCMatchTeam
 // 서버모드
 enum CCMatchServerMode
 {
-	MSM_NORMAL		= 0,		//General
-	MSM_CLAN		= 1,		//dedicated servers
-	MSM_LADDER		= 2,		//Ladder dedicated servers
-	MSM_EVENT		= 3,		//the event server
-	MSM_TEST		= 4,		//test server
-	MSM_MAX,
+	CSM_NORMAL		= 0,		//General
+	CSM_CLAN		= 1,		//dedicated servers
+	CSM_LADDER		= 2,		//Ladder dedicated servers
+	CSM_EVENT		= 3,		//the event server
+	CSM_TEST		= 4,		//test server
+	CSM_MAX,
 
-	MSM_ALL			= 100,		//event will be used only.
+	CSM_ALL			= 100,		//event will be used only.
 };
 
 //Accept the relevant

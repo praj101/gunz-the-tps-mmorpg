@@ -190,7 +190,7 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 
 
 #ifdef _QUEST_ITEM
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 == pNode )
@@ -249,7 +249,7 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 	if (uidPlayer == pStage->GetMasterUID()) bLeaverMaster = true;
 
 #ifdef _QUEST_ITEM
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 != pNode )
@@ -289,7 +289,7 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 
 #ifdef _QUEST_ITEM
 	// 유저가 스테이지에서 나간후에 QL을 다시 계산해 줘야 함.
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 == pNode )
@@ -878,7 +878,7 @@ void CCMatchServer::OnStageCreate(const CCUID& uidChar, char* pszStageName, bool
 	MMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
 	if (pChannel == NULL) return;
 
-	if ((MGetServerConfig()->GetServerMode() == MSM_CLAN) && (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN)
+	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN)
 		&& (pChannel->GetChannelType() == MCHANNEL_TYPE_DUELTOURNAMENT)) {
 		return;
 	}
@@ -1984,7 +1984,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 
 
 	// 클랜전일 경우는 획득 경험치가 1.5배, 손실경험치 없음
-	if ((MGetServerConfig()->GetServerMode() == MSM_CLAN) && (pStage->GetStageType() == MST_LADDER))
+	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pStage->GetStageType() == MST_LADDER))
 	{
 		nAttackerExp = (int)((float)nAttackerExp * 1.5f);
 		nVictimExp = 0;
@@ -2402,7 +2402,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 	if (pChannel == NULL) return;
 
 	// 클랜서버인데 클랜채널일 경우에는 방 리스트대신 대기중 클랜 리스트를 보낸다.
-	if ((MGetServerConfig()->GetServerMode() == MSM_CLAN) && (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN))
+	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN))
 	{
 		StandbyClanList(uidPlayer, nStageStartIndex, bCacheUpdate);
 		return;

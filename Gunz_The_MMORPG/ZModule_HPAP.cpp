@@ -135,7 +135,7 @@ bool ZModule_HPAP::CheckQuestCheet()
 	// 퀘스트 테스트용 치트 체크
 	if (IsMyCharacter((ZObject*)m_pContainer))
 	{
-		if ((ZIsLaunchDevelop()) && (ZGetGameClient()->GetServerMode() == MSM_TEST))
+		if ((ZIsLaunchDevelop()) && (ZGetGameClient()->GetServerMode() == CSM_TEST))
 		{
 			if (ZGetGameTypeManager()->IsQuestDerived(ZGetGameClient()->GetMatchStageSetting()->GetGameType()))
 			{

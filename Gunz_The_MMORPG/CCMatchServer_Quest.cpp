@@ -77,7 +77,7 @@ void CCMatchServer::OnQuestRequestDead(const CCUID& uidVictim)
 void CCMatchServer::OnQuestTestRequestNPCSpawn(const CCUID& uidPlayer, int nNPCType, int nNPCCount)
 {
 #ifdef _DEBUG
-	if (MGetServerConfig()->GetServerMode() != MSM_TEST) return;
+	if (MGetServerConfig()->GetServerMode() != CSM_TEST) return;
 
 	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
@@ -102,7 +102,7 @@ void CCMatchServer::OnQuestTestRequestClearNPC(const CCUID& uidPlayer)
 	return;
 #endif
 
-	if (MGetServerConfig()->GetServerMode() != MSM_TEST) return;
+	if (MGetServerConfig()->GetServerMode() != CSM_TEST) return;
 
 	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
@@ -128,7 +128,7 @@ void CCMatchServer::OnQuestTestRequestSectorClear(const CCUID& uidPlayer)
 	return;
 #endif
 
-	if (MGetServerConfig()->GetServerMode() != MSM_TEST) return;
+	if (MGetServerConfig()->GetServerMode() != CSM_TEST) return;
 
 	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
@@ -153,7 +153,7 @@ void CCMatchServer::OnQuestTestRequestQuestFinish(const CCUID& uidPlayer)
 	return;
 #endif
 
-	if (MGetServerConfig()->GetServerMode() != MSM_TEST) return;
+	if (MGetServerConfig()->GetServerMode() != CSM_TEST) return;
 
 	CCMatchObject* pPlayer = GetObject(uidPlayer);
 	if (pPlayer == NULL) return;
@@ -204,7 +204,7 @@ void CCMatchServer::OnQuestReadyToNewSector(const CCUID& uidPlayer)
 
 void CCMatchServer::OnRequestCharQuestItemList( const CCUID& uidSender )
 {
-	if( MSM_TEST != MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST != MGetServerConfig()->GetServerMode() ) 
 		return;
 
 	OnResponseCharQuestItemList( uidSender );
@@ -254,7 +254,7 @@ void CCMatchServer::OnResponseCharQuestItemList( const CCUID& uidSender )
 
 void CCMatchServer::OnRequestBuyQuestItem( const CCUID& uidSender, const unsigned long int nItemID, const int nItemCount )
 {
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST) {
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST) {
 		OnResponseBuyQuestItem( uidSender, nItemID, nItemCount );
 	}
 }
@@ -336,7 +336,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 
 void CCMatchServer::OnRequestSellQuestItem( const CCUID& uidSender, const unsigned long int nItemID, const int nCount )
 {
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		OnResponseSellQuestItem( uidSender, nItemID, nCount );
 	}
@@ -418,7 +418,7 @@ void CCMatchServer::OnResponseSellQuestItem( const CCUID& uidSender, const unsig
 void CCMatchServer::OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 #ifdef _QUEST_ITEM
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
@@ -457,7 +457,7 @@ void CCMatchServer::OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, co
 void CCMatchServer::OnRequestCallbackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
 #ifdef _QUEST_ITEM
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
@@ -492,7 +492,7 @@ void CCMatchServer::OnRequestCallbackSacrificeItem( const CCUID& uidSender, cons
 void CCMatchServer::OnRequestQL( const CCUID& uidSender )
 {
 #ifdef _QUEST_ITEM
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
@@ -528,7 +528,7 @@ void CCMatchServer::OnRequestQL( const CCUID& uidSender )
 void CCMatchServer::OnRequestSacrificeSlotInfo( const CCUID& uidSender )
 {
 #ifdef _QUEST_ITEM
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )
@@ -573,7 +573,7 @@ void CCMatchServer::OnQuestStageMapset(const CCUID& uidStage, int nMapsetID)
 
 void CCMatchServer::OnRequestMonsterBibleInfo( const CCUID& uidSender )
 {
-	if (MGetServerConfig()->GetServerMode() == MSM_TEST)
+	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		CCMatchObject* pPlayer = GetObject( uidSender );
 		if( !IsEnabledObject(pPlayer) )

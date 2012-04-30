@@ -255,7 +255,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 					ZGetMyInfo()->SetLevelPercent((int)pMyExtraCharInfo->nLevelPercent);
 				}
 
-				if ((ZGetGameClient()->GetServerMode() != MSM_CLAN) || (!ZGetMyInfo()->IsClanJoined()))	{
+				if ((ZGetGameClient()->GetServerMode() != CSM_CLAN) || (!ZGetMyInfo()->IsClanJoined()))	{
 					ZPostRequestRecommendChannel();
 				} else {
 					// 클랜전 서버에서 클랜에 가입되어있을 경우 추천채널 요청하지않고, 바로 클랜채널로 접속시도

@@ -486,7 +486,7 @@ bool CCMatchServer::LoadInitFile()
 	}
 #endif
 	// 클랜전 서버일 경우만 실행하는 초기화
-	if (MGetServerConfig()->GetServerMode() == MSM_CLAN)
+	if (MGetServerConfig()->GetServerMode() == CSM_CLAN)
 	{
 		GetLadderMgr()->Init();
 
@@ -1110,7 +1110,7 @@ void CCMatchServer::OnRun(void)
 	MGetCheckLoopTimeInstance()->SetLadderTick();
 
 	// Update Ladders - 클랜전서버일 경우에만 실행한다.
-	if (MGetServerConfig()->GetServerMode() == MSM_CLAN)
+	if (MGetServerConfig()->GetServerMode() == CSM_CLAN)
 	{
 		GetLadderMgr()->Tick(nGlobalClock);
 	}

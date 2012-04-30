@@ -1906,7 +1906,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 
 		switch (ZGetGameClient()->GetServerMode())
 		{
-		case MSM_LADDER:
+		case CSM_LADDER:
 			{
 				// 적절한 수의 팀이면
 				if(0<nCount && nCount<=nMaxInviteCount) {
@@ -1919,7 +1919,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 				}
 			}
 			break;
-		case MSM_CLAN:
+		case CSM_CLAN:
 			{
 				bool bRightMember = false;
 				for (int i = 0; i < MLADDERTYPE_MAX; i++)

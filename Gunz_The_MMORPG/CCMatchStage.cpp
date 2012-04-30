@@ -56,7 +56,7 @@ const bool CCMatchStage::SetChannelRuleForCreateStage(bool bIsAllowNullChannel)
 	if( NULL == pChannel )
 	{
 		// 클랜전은 채널이 없다...
-		if( MSM_CLAN != MGetServerConfig()->GetServerMode() 
+		if( CSM_CLAN != MGetServerConfig()->GetServerMode() 
 			&& bIsAllowNullChannel == false ) {
 			return false;
 		}		
@@ -843,7 +843,7 @@ void CCMatchStage::OnFinishGame()
 	}
 	CCMatchServer::GetInstance()->StageFinishGame(GetUID());
 
-	if ((MGetServerConfig()->GetServerMode() == MSM_LADDER) || (MGetServerConfig()->GetServerMode() == MSM_CLAN))
+	if ((MGetServerConfig()->GetServerMode() == CSM_LADDER) || (MGetServerConfig()->GetServerMode() == CSM_CLAN))
 	{
 		if ((m_nStageType == MST_LADDER) && (GetStageSetting()->IsTeamPlay()))
 		{
@@ -1449,7 +1449,7 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 	// - by SungE 2007-03-15
 
 	//// 일반 서버일때... 자유/사설/클랜 채널이면 안된다.
-	//if ( MGetServerConfig()->GetServerMode() == MSM_NORMAL)
+	//if ( MGetServerConfig()->GetServerMode() == CSM_NORMAL)
 	//{
 	//	if ( stricmp( pChannel->GetRuleName() , MCHANNEL_RULE_NOVICE_STR) == 0)
 	//		bInvalid = true;

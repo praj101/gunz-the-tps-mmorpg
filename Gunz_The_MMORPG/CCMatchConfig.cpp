@@ -30,7 +30,7 @@ MMatchConfig::MMatchConfig()
 	m_szServerName[0]				= '\0';
 	m_nServerPort					= 0;
 	m_nServerUDPPort				= 0;
-	m_nServerMode					= MSM_NORMAL;
+	m_nServerMode					= CSM_NORMAL;
 	m_bRestrictionMap				= false;
 	m_bCheckPremiumIP				= false;
 	m_bUseFilter					= false;
@@ -126,11 +126,11 @@ bool MMatchConfig::Create()
 	char szServerMode[128] = "";
 	GetPrivateProfileString("SERVER", "MODE", SERVER_CONFIG_SERVERMODE_NORMAL, szServerMode, 128, SERVER_CONFIG_FILENAME);
 
-	if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_NORMAL)) m_nServerMode = MSM_NORMAL;
-	else if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_CLAN)) m_nServerMode = MSM_CLAN;
-	else if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_LADDER)) m_nServerMode = MSM_LADDER;
-	else if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_EVENT)) m_nServerMode = MSM_EVENT;
-	else if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_TEST)) m_nServerMode = MSM_TEST;
+	if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_NORMAL)) m_nServerMode = CSM_NORMAL;
+	else if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_CLAN)) m_nServerMode = CSM_CLAN;
+	else if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_LADDER)) m_nServerMode = CSM_LADDER;
+	else if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_EVENT)) m_nServerMode = CSM_EVENT;
+	else if (!stricmp(szServerMode, SERVER_CONFIG_SERVERMODE_TEST)) m_nServerMode = CSM_TEST;
 	else { _ASSERT(0); }
 
 	m_bEnabledSurvivalMode = (0 != GetPrivateProfileInt("SERVER", "SURVIVALENABLE", 1, SERVER_CONFIG_FILENAME));

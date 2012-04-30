@@ -138,7 +138,7 @@ bool ZChat::Input(char* szMsg)
 				}
 				// 테스터인지 판별 - test서버이고 launchdevelop모드일 경우에는 테스터
 				if ((ZIsLaunchDevelop()) && 
-					((ZGetGameClient()->GetServerMode() == MSM_TEST) || (!ZGetGameClient()->IsConnected())) )
+					((ZGetGameClient()->GetServerMode() == CSM_TEST) || (!ZGetGameClient()->IsConnected())) )
 				{
 					nCmdInputFlag |= ZChatCmdManager::CIF_TESTER;
 				}

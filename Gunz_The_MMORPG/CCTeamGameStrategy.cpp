@@ -20,9 +20,9 @@ MBaseTeamGameStrategy* MBaseTeamGameStrategy::GetInstance(CCMatchServerMode nSer
 {
 	switch (nServerMode)
 	{
-	case MSM_LADDER:
+	case CSM_LADDER:
 		return MLadderGameStrategy::GetInstance();
-	case MSM_CLAN:
+	case CSM_CLAN:
 		return MClanGameStrategy::GetInstance();
 	default:
 		_ASSERT(0);
