@@ -1921,6 +1921,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCSingleton.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCSmartRefresh.cpp"
 			>
 		</File>
