@@ -1913,6 +1913,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCQuestDropTable.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCQuestItem.cpp"
 			>
 		</File>
@@ -1926,6 +1930,10 @@
 		</File>
 		<File
 			RelativePath=".\CCQuestPlayer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCQuestScenario.h"
 			>
 		</File>
 		<File
