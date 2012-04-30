@@ -1345,6 +1345,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCCommandCommunicator.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommandCommunicator.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCCommandParameter.cpp"
 			>
 		</File>
@@ -2090,14 +2098,6 @@
 		</File>
 		<File
 			RelativePath=".\Core4R2.h"
-			>
-		</File>
-		<File
-			RelativePath=".\MCommandCommunicator.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\MCommandCommunicator.h"
 			>
 		</File>
 		<File
