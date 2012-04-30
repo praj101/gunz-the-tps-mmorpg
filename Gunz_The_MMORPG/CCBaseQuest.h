@@ -13,10 +13,10 @@
 using namespace std;
 
 
-struct MQuestNPCInfo;
+struct CCQuestNPCInfo;
 
 /// 퀘스트 월드레벨에서 사용하는 섹터 노드
-struct MQuestLevelSectorNode
+struct CCQuestLevelSectorNode
 {
 	int		nSectorID;
 	int		nNextLinkIndex;
@@ -26,41 +26,41 @@ struct MQuestLevelSectorNode
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 /// 서버와 클라이언트 퀘스트 최고 관장클래스의 공통 부모 클래스
-class MBaseQuest
+class CCBaseQuest
 {
 private:
 	bool m_bCreated;
 protected:
 	
-	MQuestMapCatalogue			m_MapCatalogue;								///< 퀘스트 맵 정보
-	MQuestMapCatalogue			m_SurvivalMapCatalogue;						///< 서바이벌 맵 정보
-	MQuestNPCCatalogue			m_NPCCatalogue;								///< NPC 정보
-	MQuestDropTable				m_DropTable;								///< 드롭 테이블 정보
+	CCQuestMapCatalogue			m_MapCatalogue;								///< 퀘스트 맵 정보
+	CCQuestMapCatalogue			m_SurvivalMapCatalogue;						///< 서바이벌 맵 정보
+	CCQuestNPCCatalogue			m_NPCCatalogue;								///< NPC 정보
+	CCQuestDropTable				m_DropTable;								///< 드롭 테이블 정보
 	virtual bool OnCreate();												///< Create()호출시 불리는 함수
 	virtual void OnDestroy();												///< Destroy()호출시 불리는 함수
 
 	void ProcessNPCDropTableMatching();		// npc.xml의 Droptable을 매칭시킨다.
 public:
-	MBaseQuest();															///< 생성자
+	CCBaseQuest();															///< 생성자
 	virtual ~MBaseQuest();													///< 소멸자
-	inline MQuestMapSectorInfo*		GetSectorInfo(int nSectorID);			///< 섹터 정보 반환 - 퀘스트
-	inline MQuestMapSectorInfo*		GetSurvivalSectorInfo(int nSectorID);	///< 섹터 정보 반환 - 서바이벌
-	inline MQuestNPCInfo*			GetNPCInfo(MQUEST_NPC nNPC);			///< NPC 정보 반환
-	inline MQuestNPCInfo*			GetNPCPageInfo( int nPage);				///< NPC 정보 반환
+	inline CCQuestMapSectorInfo*		GetSectorInfo(int nSectorID);			///< 섹터 정보 반환 - 퀘스트
+	inline CCQuestMapSectorInfo*		GetSurvivalSectorInfo(int nSectorID);	///< 섹터 정보 반환 - 서바이벌
+	inline CCQuestNPCInfo*			GetNPCInfo(MQUEST_NPC nNPC);			///< NPC 정보 반환
+	inline CCQuestNPCInfo*			GetNPCPageInfo( int nPage);				///< NPC 정보 반환
 	//inline MSurvivalMapInfo*		GetSurvivalMapInfo(MSURVIVAL_MAP nMap);	///< 서바이벌 모드용 맵 정보 반환
-	inline MQuestDropTable*			GetDropTable();							///< 퀘스트 아이템 드롭 테이블 정보 반환
+	inline CCQuestDropTable*			GetDropTable();							///< 퀘스트 아이템 드롭 테이블 정보 반환
 	bool Create();															///< 초기화
 	int GetNumOfPage( void)			{ return (int)m_NPCCatalogue.size(); }
 	void Destroy();															///< 해제
 
-	MQuestNPCInfo* GetNPCIndexInfo( int nMonsterBibleIndex )
+	CCQuestNPCInfo* GetNPCIndexInfo( int nMonsterBibleIndex )
 	{
 		return m_NPCCatalogue.GetIndexInfo( nMonsterBibleIndex );
 	}
 
-	inline MQuestMapCatalogue* GetMapCatalogue();
-	inline MQuestMapCatalogue* GetSurvivalMapCatalogue();
-	inline MQuestNPCCatalogue* GetNPCCatalogue();
+	inline CCQuestMapCatalogue* GetMapCatalogue();
+	inline CCQuestMapCatalogue* GetSurvivalMapCatalogue();
+	inline CCQuestNPCCatalogue* GetNPCCatalogue();
 };
 
 
@@ -68,22 +68,22 @@ public:
 
 
 // inline functions //////////////////////////////////////////////////////////////////////////
-inline MQuestMapSectorInfo* MBaseQuest::GetSectorInfo(int nSectorID)
+inline CCQuestMapSectorInfo* MBaseQuest::GetSectorInfo(int nSectorID)
 {
 	return m_MapCatalogue.GetSectorInfo(nSectorID);
 }
 
-inline MQuestMapSectorInfo* MBaseQuest::GetSurvivalSectorInfo(int nSectorID)
+inline CCQuestMapSectorInfo* MBaseQuest::GetSurvivalSectorInfo(int nSectorID)
 {
 	return m_SurvivalMapCatalogue.GetSectorInfo(nSectorID);
 }
 
-inline MQuestNPCInfo* MBaseQuest::GetNPCInfo(MQUEST_NPC nNPC)
+inline CCQuestNPCInfo* CCBaseQuest::GetNPCInfo(CCQUEST_NPC nNPC)
 {
 	return m_NPCCatalogue.GetInfo(nNPC);
 }
 
-inline MQuestNPCInfo* MBaseQuest::GetNPCPageInfo( int nPage)
+inline CCQuestNPCInfo* MBaseQuest::GetNPCPageInfo( int nPage)
 {
 	return m_NPCCatalogue.GetPageInfo(nPage);
 }
@@ -93,22 +93,22 @@ inline MQuestNPCInfo* MBaseQuest::GetNPCPageInfo( int nPage)
 //	return m_SurvivalMapCatalogue.GetInfo(nMap);
 //}
 
-inline MQuestDropTable* MBaseQuest::GetDropTable()
+inline CCQuestDropTable* MBaseQuest::GetDropTable()
 {
 	return &m_DropTable;
 }
 
-inline MQuestMapCatalogue* MBaseQuest::GetMapCatalogue()
+inline CCQuestMapCatalogue* MBaseQuest::GetMapCatalogue()
 {
 	return &m_MapCatalogue;
 }
 
-inline MQuestMapCatalogue* MBaseQuest::GetSurvivalMapCatalogue()
+inline CCQuestMapCatalogue* MBaseQuest::GetSurvivalMapCatalogue()
 {
 	return &m_SurvivalMapCatalogue;
 }
 
-inline MQuestNPCCatalogue* MBaseQuest::GetNPCCatalogue()
+inline CCQuestNPCCatalogue* MBaseQuest::GetNPCCatalogue()
 {
 	return &m_NPCCatalogue;
 }
