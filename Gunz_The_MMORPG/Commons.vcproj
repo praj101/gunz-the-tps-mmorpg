@@ -2153,6 +2153,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\cxr_CCMatchItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\cxr_inc.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Msg.h"
 			>
 		</File>
