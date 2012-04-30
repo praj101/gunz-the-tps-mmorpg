@@ -692,7 +692,7 @@ void HandleExceptionLog()
 	ZGameClient* pClient = (ZGameClient*)ZGameClient::GetInstance();
 
 	char* pszCharName = NULL;
-	MUID uidChar;
+	CCUID uidChar;
 	CCMatchObjCache* pObj;
 	char szPlayer[128];
 
@@ -879,7 +879,7 @@ bool CheckFileList()
 	mzf.Read(buffer,mzf.GetLength());
 	buffer[mzf.GetLength()]=0;
 
-	MXmlDocument aXml;
+	CCXmlDocument aXml;
 	aXml.Create();
 	if(!aXml.LoadFromMemory(buffer))
 	{
@@ -890,7 +890,7 @@ bool CheckFileList()
 	delete buffer;
 
 	int iCount, i;
-	MXmlElement		aParent, aChild;
+	CCXmlElement		aParent, aChild;
 	aParent = aXml.GetDocumentElement();
 	iCount = aParent.GetChildNodeCount();
 
