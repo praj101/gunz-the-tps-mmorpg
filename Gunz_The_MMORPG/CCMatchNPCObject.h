@@ -34,7 +34,7 @@ public:
 	/// @param uid		NPC UID
 	/// @param nType	NPC 종류
 	/// @param nFlags	플래스
-	CCMatchNPCObject(CCUID& uid, MQUEST_NPC nType, unsigned long int nFlags=0);
+	CCMatchNPCObject(CCUID& uid, CCQUEST_NPC nType, unsigned long int nFlags=0);
 	/// 소멸자
 	~CCMatchNPCObject() { }
 	/// NPC 조종을 플레이어에게 할당한다.
@@ -87,7 +87,7 @@ private:
 	bool AssignControl(CCUID& uidNPC, CCUID& uidPlayer);
 	bool Spawn(CCUID& uidNPC, CCUID& uidController, unsigned char nSpawnPositionIndex);
 	void Clear();
-	bool FindSuitableController(CCUID& out, MQuestPlayerInfo* pSender);
+	bool FindSuitableController(CCUID& out, CCQuestPlayerInfo* pSender);
 
 	void SetNPCObjectToControllerInfo(CCUID& uidChar, CCMatchNPCObject* pNPCObject);
 	void DelNPCObjectToControllerInfo(CCUID& uidChar, CCMatchNPCObject* pNPCObject);
