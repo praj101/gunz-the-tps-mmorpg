@@ -1385,6 +1385,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCCountryFilterDBMgr.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCountryFilterDBMgr.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCCrypt.cpp"
 			>
 		</File>
