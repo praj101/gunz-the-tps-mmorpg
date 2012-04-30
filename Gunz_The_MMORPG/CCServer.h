@@ -1,7 +1,7 @@
 #ifndef MSERVER_H
 #define MSERVER_H
 
-#include "MCommandCommunicator.h"
+#include "CCCommandCommunicator.h"
 #include "RealCPNet.h"
 
 #include <list>
