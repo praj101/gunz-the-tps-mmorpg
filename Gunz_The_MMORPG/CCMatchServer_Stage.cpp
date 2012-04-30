@@ -1459,7 +1459,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 
 		// 디비에 남기자.
 //		pObj->SetInvalidStageSettingDisconnectWaitInfo();
-		pObj->DisconnectHacker( MMHT_INVALIDSTAGESETTING );
+		pObj->DisconnectHacker( CCMHT_INVALIDSTAGESETTING );
 
 		return;
 	}
@@ -1468,7 +1468,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	if( MGetServerConfig()->IsEnabledSurvivalMode()==false && pNode->nGameType==MMATCH_GAMETYPE_SURVIVAL) {
 		cclog(" stage setting game mode hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 		LogObjectCommandHistory( uidPlayer );
-		pObj->DisconnectHacker( MMHT_INVALIDSTAGESETTING );
+		pObj->DisconnectHacker( CCMHT_INVALIDSTAGESETTING );
 		return;
 	}
 

@@ -59,7 +59,7 @@ void CCMatchServer::OnRequestSelectChar(const CCUID& uidPlayer, const int nCharI
 		if( MGetServerConfig()->IsUseXTrap() )
 		{
 //			pObj->SetXTrapHackerDisconnectWaitInfo();
-			pObj->DisconnectHacker( MMHT_XTRAP_HACKER );
+			pObj->DisconnectHacker( CCMHT_XTRAP_HACKER );
 			return;
 		}
 #endif
@@ -68,7 +68,7 @@ void CCMatchServer::OnRequestSelectChar(const CCUID& uidPlayer, const int nCharI
 		if( MGetServerConfig()->IsUseHShield() )
 		{
 //			pObj->SetHShieldHackerDisconnectWaitInfo();
-			pObj->DisconnectHacker( MMHT_HSHIELD_HACKER );
+			pObj->DisconnectHacker( CCMHT_HSHIELD_HACKER );
 			return;
 		}
 #endif

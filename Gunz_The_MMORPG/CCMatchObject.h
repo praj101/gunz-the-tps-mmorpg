@@ -92,7 +92,7 @@ struct CCMatchAccountInfo
 
 	CCMatchAccountInfo() : m_nAID(-1), m_nUGrade(MMUG_FREE), m_nPGrade(MMPG_FREE), m_nCCode(0)
 	{
-		m_HackingType				= MMHT_NO;
+		m_HackingType				= CCMHT_NO;
 		m_dwHackingBlockEndTimeMS	= 0;
 		m_bIsPowerLevelingHacker	= false;
 		m_nPowerLevelingRegTimeMin	= 0;
