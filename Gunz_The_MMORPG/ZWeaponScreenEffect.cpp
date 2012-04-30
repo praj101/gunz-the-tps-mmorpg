@@ -34,7 +34,7 @@ void ZWeaponScreenEffect::Draw(MDrawContext* pDC)
 	}
 }
 
-void ZWeaponScreenEffect::InitWeapon(MMatchWeaponType nWeaponType)
+void ZWeaponScreenEffect::InitWeapon(CCMatchWeaponType nWeaponType)
 {
 	return;
 
@@ -49,7 +49,7 @@ void ZWeaponScreenEffect::InitWeapon(MMatchWeaponType nWeaponType)
 
 }
 
-void ZWeaponScreenEffect::FinalWeapon(MMatchWeaponType nWeaponType)
+void ZWeaponScreenEffect::FinalWeapon(CCMatchWeaponType nWeaponType)
 {
 	return;
 
@@ -63,7 +63,7 @@ void ZWeaponScreenEffect::FinalWeapon(MMatchWeaponType nWeaponType)
 	}
 }
 
-void ZWeaponScreenEffect::OnGadget(MMatchWeaponType nWeaponType)
+void ZWeaponScreenEffect::OnGadget(CCMatchWeaponType nWeaponType)
 {
 	return;
 
@@ -86,13 +86,13 @@ void ZWeaponScreenEffect::Create()
 {
 	return;
 
-	MMatchWeaponType nPrimaryWeaponType = MWT_NONE, 
+	CCMatchWeaponType nPrimaryWeaponType = MWT_NONE, 
 					 nSecondaryWeaponType = MWT_NONE, 
 					 nMeleeWeaponType = MWT_NONE;
 
 	unsigned long int nItemID;
 	nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(MMCIP_PRIMARY);
-	MMatchItemDesc* pItemDesc = NULL;
+	CCMatchItemDesc* pItemDesc = NULL;
 	pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc)
 	{

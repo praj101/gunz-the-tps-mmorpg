@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "MMatchActiveTrapMgr.h"
+#include "CCMatchActiveTrapMgr.h"
 #include "CCBlobArray.h"
 
 
-MMatchActiveTrap::MMatchActiveTrap()
+CCMatchActiveTrap::CCMatchActiveTrap()
 : m_vPosActivated(0,0,0)
 {
 	m_uidOwner.SetZero();
@@ -14,7 +14,7 @@ MMatchActiveTrap::MMatchActiveTrap()
 	m_nTimeActivated = 0;
 }
 
-void MMatchActiveTrap::AddForcedEnteredPlayer(const CCUID& uid)
+void CCMatchActiveTrap::AddForcedEnteredPlayer(const CCUID& uid)
 {
 	// 이 함수는 던져졌으나 아직 발동되지 않은 트랩을 난입자에게 나중에 알려주기 위해 사용된다.
 	_ASSERT(!IsActivated());
@@ -27,28 +27,28 @@ void MMatchActiveTrap::AddForcedEnteredPlayer(const CCUID& uid)
 }
 
 
-MMatchActiveTrapMgr::MMatchActiveTrapMgr()
+CCMatchActiveTrapMgr::CCMatchActiveTrapMgr()
 {
 	m_pStage = NULL;
 }
 
-MMatchActiveTrapMgr::~MMatchActiveTrapMgr()
+CCMatchActiveTrapMgr::~CCMatchActiveTrapMgr()
 {
 	Destroy();
 }
 
-void MMatchActiveTrapMgr::Create( CCMatchStage* pStage )
+void CCMatchActiveTrapMgr::Create( CCMatchStage* pStage )
 {
 	m_pStage = pStage;
 }
 
-void MMatchActiveTrapMgr::Destroy()
+void CCMatchActiveTrapMgr::Destroy()
 {
 	m_pStage = NULL;
 	Clear();
 }
 
-void MMatchActiveTrapMgr::Clear()
+void CCMatchActiveTrapMgr::Clear()
 
 {
 	for (ItorTrap it=m_listTrap.begin(); it!=m_listTrap.end(); ++it)
@@ -56,15 +56,15 @@ void MMatchActiveTrapMgr::Clear()
 	m_listTrap.clear();
 }
 
-void MMatchActiveTrapMgr::AddThrowedTrap( const CCUID& uidOwner, int nItemId )
+void CCMatchActiveTrapMgr::AddThrowedTrap( const CCUID& uidOwner, int nItemId )
 {
 	if (!m_pStage) return;
 	if (!m_pStage->GetObj(uidOwner)) return;
 
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
 	if (!pItemDesc) return;
 
-	MMatchActiveTrap* pTrap = new MMatchActiveTrap;
+	CCMatchActiveTrap* pTrap = new CCMatchActiveTrap;
 	
 	pTrap->m_nTimeThrowed = MGetMatchServer()->GetGlobalClockCount();
 	pTrap->m_uidOwner = uidOwner;
@@ -77,11 +77,11 @@ void MMatchActiveTrapMgr::AddThrowedTrap( const CCUID& uidOwner, int nItemId )
 	OutputDebugStr("AddThrowedTrap\n");
 }
 
-void MMatchActiveTrapMgr::OnActivated( const CCUID& uidOwner, int nItemId, const MVector3& vPos )
+void CCMatchActiveTrapMgr::OnActivated( const CCUID& uidOwner, int nItemId, const MVector3& vPos )
 {
 	if (!m_pStage) return;
 
-	MMatchActiveTrap* pTrap;
+	CCMatchActiveTrap* pTrap;
 	for (ItorTrap it=m_listTrap.begin(); it!=m_listTrap.end(); ++it)
 	{
 		pTrap = *it;
@@ -101,9 +101,9 @@ void MMatchActiveTrapMgr::OnActivated( const CCUID& uidOwner, int nItemId, const
 	}
 }
 
-void MMatchActiveTrapMgr::Update( unsigned long nClock )
+void CCMatchActiveTrapMgr::Update( unsigned long nClock )
 {
-	MMatchActiveTrap* pTrap;
+	CCMatchActiveTrap* pTrap;
 	for (ItorTrap it=m_listTrap.begin(); it!=m_listTrap.end(); )
 	{
 		pTrap = *it;
@@ -133,13 +133,13 @@ void MMatchActiveTrapMgr::Update( unsigned long nClock )
 	}
 }
 
-void MMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
+void CCMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
 {
 	// 난입한 유저에게 현재 월드에 발동되어 있는 트랩 아이템들을 알려주기 위한 함수
 
 	OutputDebugStr("Trap RouteAllTrap to ForcedEntered\n");
 
-	MMatchActiveTrap* pTrap;
+	CCMatchActiveTrap* pTrap;
 
 	// 아직 발동되지 않은 트랩(던져서 날아가고 있는 중)은 이후 발동할 때 따로 알려줄 수 있도록 표시해둔다
 	for (ItorTrap it=m_listTrap.begin(); it!=m_listTrap.end(); ++it)
@@ -189,7 +189,7 @@ void MMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
 	CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
 }
 
-void MMatchActiveTrapMgr::RouteTrapActivationForForcedEnterd(MMatchActiveTrap* pTrap)
+void CCMatchActiveTrapMgr::RouteTrapActivationForForcedEnterd(CCMatchActiveTrap* pTrap)
 {
 	OutputDebugStr("Notify Trap activation to ForcedEnteredPlayer\n");
 

@@ -12,14 +12,14 @@
 #include "CCMatchObjCache.h"
 #include "CCMatchStage.h"
 #include "CCMatchTransDataType.h"
-#include "MMatchFormula.h"
+#include "CCMatchFormula.h"
 #include "CCMatchConfig.h"
 #include "CCCommandCommunicator.h"
 #include "CCMatchShop.h"
 #include "CCMatchTransDataType.h"
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "MAsyncDBJob_WinTheClanGame.h"
 #include "CCUtil.h"
@@ -165,7 +165,7 @@ bool IsSameClan(CCMatchObject* pSrcObject, CCMatchObject* pTarObject)
 	return true;
 }
 
-void CCMatchServer::UpdateCharClanInfo(CCMatchObject* pObject, const int nCLID, const char* szClanName, const MMatchClanGrade nGrade)
+void CCMatchServer::UpdateCharClanInfo(CCMatchObject* pObject, const int nCLID, const char* szClanName, const CCMatchClanGrade nGrade)
 {
 	if (! IsEnabledObject(pObject)) return;
 
@@ -216,12 +216,12 @@ void CCMatchServer::UpdateCharClanInfo(CCMatchObject* pObject, const int nCLID, 
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-MMatchClan* CCMatchServer::FindClan(const int nCLID)
+CCMatchClan* CCMatchServer::FindClan(const int nCLID)
 {
-	MMatchClanMap::iterator i = m_ClanMap.find(nCLID);
+	CCMatchClanMap::iterator i = m_ClanMap.find(nCLID);
 	if(i==m_ClanMap.end()) return NULL;
 
-	MMatchClan* pClan = (*i).second;
+	CCMatchClan* pClan = (*i).second;
 	return pClan;
 }
 
@@ -598,7 +598,7 @@ int ValidateChangeClanGrade(CCMatchObject* pMasterObject, CCMatchObject* pTarget
 		return MERR_CLAN_NOT_MASTER;
 	}
 
-	MMatchClanGrade grade = (MMatchClanGrade)nClanGrade;
+	CCMatchClanGrade grade = (CCMatchClanGrade)nClanGrade;
 	if ((grade != MCG_ADMIN) && (grade != MCG_MEMBER))
 	{
 		return MERR_CLAN_CANNOT_CHANGE_GRADE;
@@ -639,7 +639,7 @@ void CCMatchServer::ResponseChangeClanGrade(const CCUID& uidClanMaster, const ch
 
 	// 클랜정보 업데이트하고 Route해줌
 	UpdateCharClanInfo(pTargetObject, pTargetObject->GetCharInfo()->m_ClanInfo.m_nClanID, 
-						pTargetObject->GetCharInfo()->m_ClanInfo.m_szClanName, (MMatchClanGrade)nClanGrade);
+						pTargetObject->GetCharInfo()->m_ClanInfo.m_szClanName, (CCMatchClanGrade)nClanGrade);
 	// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 	if(pTargetObject->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 		LOG(LOG_FILE, "[ResponseChangeClanGrade()] %s's ClanID:%d.", pTargetObject->GetAccountName(), pTargetObject->GetCharInfo()->m_ClanInfo.GetClanID());
@@ -695,13 +695,13 @@ void CCMatchServer::ResponseExpelMember(const CCUID& uidClanAdmin, const char* s
 
 	switch (nDBRet)
 	{
-	case MMatchDBMgr::ER_NO_MEMBER:
+	case CCMatchDBMgr::ER_NO_MEMBER:
 		{
 			RouteResponseToListener(pAdminObject, MC_MATCH_CLAN_ADMIN_RESPONSE_EXPEL_MEMBER, MERR_CLAN_CANNOT_EXPEL_FOR_NO_MEMBER);
 			return;
 		}
 		break;
-	case MMatchDBMgr::ER_WRONG_GRADE:
+	case CCMatchDBMgr::ER_WRONG_GRADE:
 		{
 			RouteResponseToListener(pAdminObject, MC_MATCH_CLAN_ADMIN_RESPONSE_EXPEL_MEMBER, MERR_CLAN_CANNOT_CHANGE_GRADE);
 			return;
@@ -756,7 +756,7 @@ void CCMatchServer::OnClanRequestMemberList(const CCUID& uidChar)
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidChar);
 	if (! IsEnabledObject(pObj)) return;
 
-	MMatchClan* pClan = FindClan(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
+	CCMatchClan* pClan = FindClan(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
 	if (pClan == NULL) return;
 
 	MRefreshClientClanMemberImpl* pImpl = pObj->GetRefreshClientClanMemberImplement();
@@ -773,7 +773,7 @@ void CCMatchServer::ResponseClanMemberList(const CCUID& uidChar)
 
 	if (!pObject->GetCharInfo()->m_ClanInfo.IsJoined()) return;
 
-	MMatchClan* pClan = FindClan(pObject->GetCharInfo()->m_ClanInfo.m_nClanID);
+	CCMatchClan* pClan = FindClan(pObject->GetCharInfo()->m_ClanInfo.m_nClanID);
 	if (pClan == NULL) return;
 
 	int nNodeCount = pClan->GetMemberCount();
@@ -803,7 +803,7 @@ void CCMatchServer::ResponseClanMemberList(const CCUID& uidChar)
 	RouteToListener(pObject, pNew);
 }
 
-void CopyClanInfoForTrans(MTD_ClanInfo* pDest, MMatchClan* pClan)
+void CopyClanInfoForTrans(MTD_ClanInfo* pDest, CCMatchClan* pClan)
 {
 	strcpy(pDest->szClanName, pClan->GetName());
 	strcpy(pDest->szMaster, pClan->GetClanInfoEx()->szMaster);
@@ -824,7 +824,7 @@ void CCMatchServer::OnClanRequestClanInfo(const CCUID& uidChar, const char* szCl
 	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
 
-	MMatchClan* pClan = m_ClanMap.GetClan(szClanName);
+	CCMatchClan* pClan = m_ClanMap.GetClan(szClanName);
 	if ((pClan == NULL) || (!pClan->IsInitedClanInfoEx())) return;
 
 	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CLAN_RESPONSE_CLAN_INFO), CCUID(0,0), m_This);
@@ -849,7 +849,7 @@ void CCMatchServer::OnClanRequestEmblemURL(const CCUID& uidChar, void* pEmblemUR
 	for (int i = 0; i < nClanURLCount; i++)
 	{
 		int* pClanID = (int*)MGetBlobArrayElement(pEmblemURLListBlob, i);
-		MMatchClan* pClan = m_ClanMap.GetClan(*pClanID);
+		CCMatchClan* pClan = m_ClanMap.GetClan(*pClanID);
 		if (pClan == NULL) continue;
 
 		MCommand* pNew = CreateCommand(MC_MATCH_CLAN_RESPONSE_EMBLEMURL, CCUID(0,0));
@@ -916,7 +916,7 @@ void CCMatchServer::StandbyClanList(const CCUID& uidPlayer, int nClanListStartIn
 			pNode->nPlayers = (int)pLadderGroup->GetPlayerCount();
 			pNode->nCLID = pLadderGroup->GetCLID();
 
-			MMatchClan* pClan = FindClan(pLadderGroup->GetCLID());
+			CCMatchClan* pClan = FindClan(pLadderGroup->GetCLID());
 			if (pClan)
 				pNode->nEmblemChecksum = pClan->GetEmblemChecksum();
 			else
@@ -932,7 +932,7 @@ void CCMatchServer::StandbyClanList(const CCUID& uidPlayer, int nClanListStartIn
 }
 
 
-void CCMatchServer::SaveClanPoint(MMatchClan* pWinnerClan, MMatchClan* pLoserClan, const bool bIsDrawGame,
+void CCMatchServer::SaveClanPoint(CCMatchClan* pWinnerClan, CCMatchClan* pLoserClan, const bool bIsDrawGame,
 								 const int nRoundWins, const int nRoundLosses, const int nMapID, const int nGameType,
 								 const int nOneTeamMemberCount, list<CCUID>& WinnerObjUIDs,
 								 const char* szWinnerMemberNames, const char* szLoserMemberNames,
@@ -949,7 +949,7 @@ void CCMatchServer::SaveClanPoint(MMatchClan* pWinnerClan, MMatchClan* pLoserCla
 	int nWinnerCLID = pWinnerClan->GetCLID();
 	int nLoserCLID = pLoserClan->GetCLID();
 
-	int nPoint = MMatchFormula::GetClanBattlePoint(nWinnerClanPoint, nLoserClanPoint, nOneTeamMemberCount);
+	int nPoint = CCMatchFormula::GetClanBattlePoint(nWinnerClanPoint, nLoserClanPoint, nOneTeamMemberCount);
 
 	nAddedWinnerPoint = nPoint;
 

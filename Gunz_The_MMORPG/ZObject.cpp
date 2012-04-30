@@ -138,7 +138,7 @@ void ZObject::Tremble(float fValue, DWORD nMaxTime, DWORD nReturnMaxTime)
 
 }
 
-void ZObject::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
+void ZObject::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
 {
 	ZModule_HPAP *pModule = (ZModule_HPAP*)GetModule(ZMID_HPAP);
 
@@ -153,7 +153,7 @@ void ZObject::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageTy
 	pModule->OnDamage(pAttacker ? pAttacker->GetUID() : CCUID(0,0), fDamage, fPiercingRatio);
 }
 
-void ZObject::OnDamagedSkill(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
+void ZObject::OnDamagedSkill(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
 {
 	ZModule_HPAP *pModule = (ZModule_HPAP*)GetModule(ZMID_HPAP);
 	if(!pModule) return;

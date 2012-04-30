@@ -9,7 +9,7 @@
 #include "CCInetUtil.h"
 #include "CCMatchCheckLoopTime.h"
 
-bool MMatchConfig::GetPrivateProfileBool(const char* szAppName, const char* szKeyName, 
+bool CCMatchConfig::GetPrivateProfileBool(const char* szAppName, const char* szKeyName, 
 						   bool bDefault, const char* szFileName)
 {
 	int nDefault = bDefault ? 1 : 0;
@@ -20,7 +20,7 @@ bool MMatchConfig::GetPrivateProfileBool(const char* szAppName, const char* szKe
 	return true;
 }
 
-MMatchConfig::MMatchConfig()
+CCMatchConfig::CCMatchConfig()
 {
 	m_nMaxUser						= 0;
 	m_szDB_DNS[0]					= '\0';
@@ -61,19 +61,19 @@ MMatchConfig::MMatchConfig()
 	m_dwBRDescriptionRefreshInterval = 5 * 60 * 1000;
 }
 
-MMatchConfig::~MMatchConfig()
+CCMatchConfig::~CCMatchConfig()
 {
 
 }
 
-MMatchConfig* MMatchConfig::GetInstance()
+CCMatchConfig* CCMatchConfig::GetInstance()
 {
-	static MMatchConfig m_MatchConfig;
+	static CCMatchConfig m_MatchConfig;
 	return &m_MatchConfig;
 }
 
 
-bool MMatchConfig::InitPowerLevelingConfig()
+bool CCMatchConfig::InitPowerLevelingConfig()
 {
 	char szUsePowerLevelingDBBlock[2]		= {0, };;
     char szPowerLevelingDBBlockTime[ 8 ]	= {0, };
@@ -89,7 +89,7 @@ bool MMatchConfig::InitPowerLevelingConfig()
 }
 
 
-bool MMatchConfig::InitKillTrackerConfig()
+bool CCMatchConfig::InitKillTrackerConfig()
 {
 	char szUseKillTracker[ 2 ]				= { 0, };
 	char szMaxKillCountOnTraceTime[ 8 ]		= { 0, };
@@ -109,7 +109,7 @@ bool MMatchConfig::InitKillTrackerConfig()
 }
 
 
-bool MMatchConfig::Create()
+bool CCMatchConfig::Create()
 {
 	int nTemp = 0;
 
@@ -410,7 +410,7 @@ bool MMatchConfig::Create()
 }
 
 
-const bool MMatchConfig::LoadMonitorIPnPort()
+const bool CCMatchConfig::LoadMonitorIPnPort()
 {
 	// 접속한 세션에 대해서 IP를 가지고 비교를 하기 때문에 만약 DNS를 사용한다면
 	//  IP로 변환하는 과정이 필요하다.
@@ -444,7 +444,7 @@ const bool MMatchConfig::LoadMonitorIPnPort()
 }
 
 
-const bool MMatchConfig::LoadKeeperIP()
+const bool CCMatchConfig::LoadKeeperIP()
 {
 	// 접속한 세션에 대해서 IP를 가지고 비교를 하기 때문에 만약 DNS를 사용한다면
 	//  IP로 변환하는 과정이 필요하다.
@@ -474,7 +474,7 @@ const bool MMatchConfig::LoadKeeperIP()
 	return true;
 }
 
-void MMatchConfig::InitLoopLogConfig()
+void CCMatchConfig::InitLoopLogConfig()
 {
 	char szUseLoopLog[2] = {0, };
 	GetPrivateProfileString("LOOPLOG", "USE_LOOPLOG", "0", szUseLoopLog, 2, SERVER_CONFIG_FILENAME);
@@ -491,25 +491,25 @@ void MMatchConfig::InitLoopLogConfig()
 	m_dwMaxLoopTimeGap = GetPrivateProfileInt("LOOPLOG", "MAX_LOOP_TIME_GAP", 0, SERVER_CONFIG_FILENAME);
 }
 
-void MMatchConfig::Destroy()
+void CCMatchConfig::Destroy()
 {
 
 }
 
 
-void MMatchConfig::AddFreeLoginIP(const char* pszIP)
+void CCMatchConfig::AddFreeLoginIP(const char* pszIP)
 {
 	m_FreeLoginIPList.push_back(pszIP);
 }
 
 
-void MMatchConfig::AddDebugLoginIP( const char* szIP )
+void CCMatchConfig::AddDebugLoginIP( const char* szIP )
 {
 	m_DebugLoginIPList.push_back( szIP );
 }
 
 
-bool MMatchConfig::CheckFreeLoginIPList(const char* pszIP)
+bool CCMatchConfig::CheckFreeLoginIPList(const char* pszIP)
 {
 	list<string>::iterator end = m_FreeLoginIPList.end();
 	for (list<string>::iterator i = m_FreeLoginIPList.begin(); i!= end; i++) {
@@ -522,7 +522,7 @@ bool MMatchConfig::CheckFreeLoginIPList(const char* pszIP)
 }
 
 
-bool MMatchConfig::IsDebugLoginIPList( const char* pszIP )
+bool CCMatchConfig::IsDebugLoginIPList( const char* pszIP )
 {
 	list< string >::iterator it, end;
 	end = m_DebugLoginIPList.end();
@@ -537,7 +537,7 @@ bool MMatchConfig::IsDebugLoginIPList( const char* pszIP )
 }
 
 
-void MMatchConfig::ReadEnableMaps()
+void CCMatchConfig::ReadEnableMaps()
 {
 	char szEnableMap[512];
 	GetPrivateProfileString("SERVER", "EnableMap", "", szEnableMap, 512, SERVER_CONFIG_FILENAME);
@@ -584,7 +584,7 @@ void MMatchConfig::ReadEnableMaps()
 
 
 }
-void MMatchConfig::TrimStr(const char* szSrcStr, char* outStr)
+void CCMatchConfig::TrimStr(const char* szSrcStr, char* outStr)
 {
 	char szInputMapName[256] = "";
 
@@ -615,7 +615,7 @@ void MMatchConfig::TrimStr(const char* szSrcStr, char* outStr)
 	strcpy(outStr, szInputMapName);
 }
 
-void MMatchConfig::Clear()
+void CCMatchConfig::Clear()
 {
 	memset(m_szDB_DNS, 0, 64 );
 	memset(m_szDB_UserName, 0, 64 );

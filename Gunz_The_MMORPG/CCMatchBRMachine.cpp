@@ -4,7 +4,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-MMatchBRDescription::MMatchBRDescription(int nBRID, string strName, string strResetDesc, 
+CCMatchBRDescription::CCMatchBRDescription(int nBRID, string strName, string strResetDesc, 
 										 int nBRTID, int nRewardMinutePeriod, int nRewardCount, int nRewardKillCount)
 {
 	m_nBRID = nBRID;
@@ -20,9 +20,9 @@ MMatchBRDescription::MMatchBRDescription(int nBRID, string strName, string strRe
 	m_nTotalRate = 0;
 }
 
-MMatchBRDescription::~MMatchBRDescription()
+CCMatchBRDescription::~CCMatchBRDescription()
 {
-	vector< MMatchBRItem* >::iterator iter = m_RewardItemList.begin();
+	vector< CCMatchBRItem* >::iterator iter = m_RewardItemList.begin();
 	while( iter != m_RewardItemList.end() )
 	{
 		delete (*iter);
@@ -30,7 +30,7 @@ MMatchBRDescription::~MMatchBRDescription()
 	}
 }
 
-void MMatchBRDescription::AddRewardItem(MMatchBRItem* pRewardItem)
+void CCMatchBRDescription::AddRewardItem(CCMatchBRItem* pRewardItem)
 {
 	if( pRewardItem == NULL ) { _ASSERT(0); return; }
 	if( GetBRID() != pRewardItem->GetBRID() ) { _ASSERT(0); return; }
@@ -42,11 +42,11 @@ void MMatchBRDescription::AddRewardItem(MMatchBRItem* pRewardItem)
 	m_RewardItemList.push_back(pRewardItem);
 }
 
-MMatchBRItem* MMatchBRDescription::GetRewardItem()
+CCMatchBRItem* CCMatchBRDescription::GetRewardItem()
 {
 	int nRateRage = RandomNumber(0, MAX_REWARD_ITEM_RATE);
 
-	vector< MMatchBRItem* >::const_iterator it, end;
+	vector< CCMatchBRItem* >::const_iterator it, end;
 	for( it = m_RewardItemList.begin(); it != m_RewardItemList.end(); ++it ) 
 	{
 		if( nRateRage < (*it)->GetRateRange() )
@@ -56,9 +56,9 @@ MMatchBRItem* MMatchBRDescription::GetRewardItem()
 	return NULL;
 }
 
-DWORD MMatchBRDescription::GetCRC32()
+DWORD CCMatchBRDescription::GetCRC32()
 {
-	MMatchCRC32XORCache CRC32;
+	CCMatchCRC32XORCache CRC32;
 
 	CRC32.Reset();
 
@@ -84,12 +84,12 @@ DWORD MMatchBRDescription::GetCRC32()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-MMatchBRDescriptionMap::MMatchBRDescriptionMap()
+CCMatchBRDescriptionMap::CCMatchBRDescriptionMap()
 {
 	MakeCRC32();	
 }
 
-void MMatchBRDescriptionMap::Clear()
+void CCMatchBRDescriptionMap::Clear()
 {
 	iterator iter = begin();
 	while( iter != end() ) {
@@ -98,44 +98,44 @@ void MMatchBRDescriptionMap::Clear()
 	}
 }
 
-void MMatchBRDescriptionMap::MakeCRC32()
+void CCMatchBRDescriptionMap::MakeCRC32()
 {
 	m_CRC32.Reset();
 
 	for( iterator iter = begin(); iter != end(); iter++)
 	{
-		MMatchBRDescription* pDesc = iter->second;
+		CCMatchBRDescription* pDesc = iter->second;
 		m_CRC32.CRC32XOR(pDesc->GetCRC32());
 	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-MMatchBRMachine::MMatchBRMachine()
+CCMatchBRMachine::CCMatchBRMachine()
 {
 }
 
-MMatchBRMachine::~MMatchBRMachine()
+CCMatchBRMachine::~CCMatchBRMachine()
 {
 	m_RewardDescription.Clear();
 }
 
-void MMatchBRMachine::SetBattleTimeRewardMachine(MMatchBRDescriptionMap DescriptionMap)
+void CCMatchBRMachine::SetBattleTimeRewardMachine(CCMatchBRDescriptionMap DescriptionMap)
 {
 	if( m_RewardDescription.GetCRC32() != DescriptionMap.GetCRC32() )
 	{
 		m_RewardDescription.Clear();
 
 		cclog("=======================================================================\n");
-		MMatchBRDescriptionMap::iterator iter = DescriptionMap.begin();
+		CCMatchBRDescriptionMap::iterator iter = DescriptionMap.begin();
 		for( ; iter != DescriptionMap.end(); iter++) 
 		{
-			MMatchBRDescription *pDesc = iter->second;
+			CCMatchBRDescription *pDesc = iter->second;
 
 			cclog(" BRID(%d), RewardMinutePeriod(%d), RewardCount(%d)\n", 
 				pDesc->GetBRID(), pDesc->GetRewardMinutePeriod(), pDesc->GetRewardCount());
 
-			vector<MMatchBRItem*> v = pDesc->GetBattleRewardItemList();
+			vector<CCMatchBRItem*> v = pDesc->GetBattleRewardItemList();
 
 			for(int i = 0; i < (int)v.size(); i++)
 			{
@@ -144,7 +144,7 @@ void MMatchBRMachine::SetBattleTimeRewardMachine(MMatchBRDescriptionMap Descript
 			}
 
 			
-			m_RewardDescription.insert(pair<int, MMatchBRDescription*>(iter->first, iter->second));
+			m_RewardDescription.insert(pair<int, CCMatchBRDescription*>(iter->first, iter->second));
 		}
 		m_RewardDescription.MakeCRC32();
 
@@ -156,9 +156,9 @@ void MMatchBRMachine::SetBattleTimeRewardMachine(MMatchBRDescriptionMap Descript
 	}
 }
 
-MMatchBRDescription* MMatchBRMachine::GetBattleTimeRewardDescription(int nBRID)
+CCMatchBRDescription* CCMatchBRMachine::GetBattleTimeRewardDescription(int nBRID)
 {
-	MMatchBRDescriptionMap::iterator iter = m_RewardDescription.find(nBRID);
+	CCMatchBRDescriptionMap::iterator iter = m_RewardDescription.find(nBRID);
 	if( iter != m_RewardDescription.end() ) return iter->second;
 
 	return NULL;

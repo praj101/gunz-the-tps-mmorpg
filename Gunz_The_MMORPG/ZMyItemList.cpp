@@ -6,10 +6,10 @@
 #include "MLabel.h"
 #include "ZApplication.h"
 #include "ZShopEquipListbox.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "ZMyInfo.h"
 #include "ZCharacterView.h"
-#include "MMatchItemFunction.h"
+#include "CCMatchItemFunction.h"
 
 
 
@@ -83,7 +83,7 @@ void ZMyItemList::Clear()
 	ClearAccountItems();
 }
 
-unsigned long int ZMyItemList::GetEquipedItemID(MMatchCharItemParts parts)
+unsigned long int ZMyItemList::GetEquipedItemID(CCMatchCharItemParts parts)
 {
 	MITEMNODEMAP::iterator itor = m_ItemMap.find(m_uidEquipItems[(int)parts]);
 	if (itor != m_ItemMap.end())
@@ -95,7 +95,7 @@ unsigned long int ZMyItemList::GetEquipedItemID(MMatchCharItemParts parts)
 	return m_nEquipItemID[parts];
 }
 
-CCUID ZMyItemList::GetEquipedItemUID(MMatchCharItemParts parts)
+CCUID ZMyItemList::GetEquipedItemUID(CCMatchCharItemParts parts)
 {
 	CCUID uid = m_uidEquipItems[parts];
 
@@ -194,7 +194,7 @@ void ZMyItemList::Serialize()
 	unsigned long int nEquipedItemID[MMCIP_END];
 	for (int i = 0; i < MMCIP_END; i++)
 	{
-		nEquipedItemID[i] = GetEquipedItemID(MMatchCharItemParts(i));
+		nEquipedItemID[i] = GetEquipedItemID(CCMatchCharItemParts(i));
 	}
 	pCharacterView->InitCharParts(pmi->GetSex(), pmi->GetHair(), pmi->GetFace(), nEquipedItemID);
 	//스테이지에서의 캐릭터룩을 바꿈..
@@ -210,7 +210,7 @@ void ZMyItemList::Serialize()
 	unsigned long int nEquipedItemID[MMCIP_END];
 	for (int i = 0; i < MMCIP_END; i++)
 	{
-		nEquipedItemID[i] = GetEquipedItemID(MMatchCharItemParts(i));
+		nEquipedItemID[i] = GetEquipedItemID(CCMatchCharItemParts(i));
 	}
 	pCharacterView->InitCharParts(pmi->GetSex(), pmi->GetHair(), pmi->GetFace(), nEquipedItemID);
 	END_WIDGETLIST();
@@ -233,7 +233,7 @@ void ZMyItemList::SerializeZItemList()
 	ZShopEquipItem_Match* pWrappedItem;
 	ZShopEquipItemHandle_SellMatch* pHandleSell;
 	ZShopEquipItemHandle_SendAccountMatch* pHandleSendAcc;
-	MMatchItemDesc* pItemDesc;
+	CCMatchItemDesc* pItemDesc;
 	ZMyItemNode* pItemNode;
 	CCUID uidItem;
 
@@ -397,7 +397,7 @@ void ZMyItemList::SerializeAccountItem()
 		ZShopEquipItem* pWrappedItem = NULL;
 
 		unsigned long int nItemID = pMyItemNode->GetItemID();
-		if (MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID))
+		if (CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID))
 		{
 			ZShopEquipItem_Match* pMItem = new ZShopEquipItem_Match(pItemDesc);
 			ZShopEquipItemHandle_BringAccountMatch* pHandle = new ZShopEquipItemHandle_BringAccountMatch(pMItem);
@@ -526,7 +526,7 @@ unsigned long int ZMyItemList::GetItemID(const CCUID& uidItem)
 
 int ZMyItemList::GetEquipedTotalWeight()
 {
-	MMatchItemDesc* pItemDesc = NULL;
+	CCMatchItemDesc* pItemDesc = NULL;
 	int nTotalWeight = 0;
 
 	for (int i=0; i < MMCIP_END; i++)
@@ -545,7 +545,7 @@ int ZMyItemList::GetEquipedTotalWeight()
 
 int ZMyItemList::GetEquipedHPModifier()
 {
-	MMatchItemDesc* pItemDesc = NULL;
+	CCMatchItemDesc* pItemDesc = NULL;
 	int nTotalHPModifier = 0;
 
 	for (int i=0; i < MMCIP_END; i++)
@@ -565,7 +565,7 @@ int ZMyItemList::GetEquipedHPModifier()
 
 int ZMyItemList::GetEquipedAPModifier()
 {
-	MMatchItemDesc* pItemDesc = NULL;
+	CCMatchItemDesc* pItemDesc = NULL;
 	int nTotalAPModifier = 0;
 
 	for (int i=0; i < MMCIP_END; i++)
@@ -585,7 +585,7 @@ int ZMyItemList::GetEquipedAPModifier()
 
 int ZMyItemList::GetMaxWeight()
 {
-	MMatchItemDesc* pItemDesc = NULL;
+	CCMatchItemDesc* pItemDesc = NULL;
 	int nMaxWT = MAX_ITEM_COUNT;
 
 	for (int i=0; i < MMCIP_END; i++)
@@ -685,7 +685,7 @@ ZMyItemNode* ZMyItemList::GetItem(const CCUID& uidItem)
 	return NULL;
 }
 
-ZMyItemNode* ZMyItemList::GetEquipedItem(MMatchCharItemParts parts)
+ZMyItemNode* ZMyItemList::GetEquipedItem(CCMatchCharItemParts parts)
 {
 	MITEMNODEMAP::iterator itor = m_ItemMap.find(m_uidEquipItems[(int)parts]);
 	if (itor != m_ItemMap.end())

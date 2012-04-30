@@ -16,12 +16,12 @@
 #include "CCMatchShutdown.h"
 #include "CCMatchChatRoom.h"
 #include "CCLadderMgr.h"
-#include "MMatchQuest.h"
+#include "CCMatchQuest.h"
 #include "MTypes.h"
-#include "MMatchDebug.h"
+#include "CCMatchDebug.h"
 #include "MStringRes.h"
-#include "MMatchStringResManager.h"
-#include "MMatchEventManager.h"
+#include "CCMatchStringResManager.h"
+#include "CCMatchEventManager.h"
 #include "CCMatchGambleMachine.h"
 #include "MHackingCharList.h"
 #include "CCMatchObjectCommandHistory.h"
@@ -33,12 +33,12 @@
 #include <vector>
 using namespace std;
 
-class MMatchAuthBuilder;
-class MMatchScheduleMgr;
+class CCMatchAuthBuilder;
+class CCMatchScheduleMgr;
 class MNJ_DBAgentClient;
 class MBMatchMonitor;
-class MMatchGambleMachine;
-class MMatchDuelTournamentMgr;
+class CCMatchGambleMachine;
+class CCMatchDuelTournamentMgr;
 
 #define MATCHSERVER_UID		CCUID(0, 2)	///< MatchServer의 고유 UID(불변)
 
@@ -83,7 +83,7 @@ protected:
 	CCMatchObjectList	m_Objects;
 	DWORD				m_checkMemory2;
 
-	MMatchChannelMap	m_ChannelMap;
+	CCMatchChannelMap	m_ChannelMap;
 	DWORD				m_checkMemory3;
 
 	char				m_szDefaultChannelName[CHANNELNAME_LEN];
@@ -92,7 +92,7 @@ protected:
 	DWORD				m_checkMemory4;
 	CCMatchStageMap		m_StageMap;
 	DWORD				m_checkMemory5;
-	MMatchClanMap		m_ClanMap;
+	CCMatchClanMap		m_ClanMap;
 	DWORD				m_checkMemory6;
 	MAgentObjectMap		m_AgentMap;
 	DWORD				m_checkMemory7;
@@ -101,18 +101,18 @@ protected:
 	DWORD				m_checkMemory8;
 	MSafeUDP			m_SafeUDP;
 	DWORD				m_checkMemory9;
-	MMatchDBMgr			m_MatchDBMgr;
+	CCMatchDBMgr			m_MatchDBMgr;
 	DWORD				m_checkMemory10;
 	MAsyncProxy			m_AsyncProxy;
 	DWORD				m_checkMemory11;
-	MMatchAdmin			m_Admin;
+	CCMatchAdmin			m_Admin;
 	DWORD				m_checkMemory12;
-	MMatchShutdown		m_MatchShutdown;
+	CCMatchShutdown		m_MatchShutdown;
 	DWORD				m_checkMemory13;
-	MMatchChatRoomMgr	m_ChatRoomMgr;
+	CCMatchChatRoomMgr	m_ChatRoomMgr;
 	DWORD				m_checkMemory14;
 	MLadderMgr			m_LadderMgr;
-	MMatchDuelTournamentMgr*  m_pDTMgr;
+	CCMatchDuelTournamentMgr*  m_pDTMgr;
 
 	DWORD				m_checkMemory15;
 
@@ -123,11 +123,11 @@ protected:
 	DWORD					m_checkMemory17;
 
 	DWORD					m_checkMemory18;
-	MMatchScheduleMgr*		m_pScheduler;
+	CCMatchScheduleMgr*		m_pScheduler;
 	DWORD					m_checkMemory19;
-	MMatchAuthBuilder*		m_pAuthBuilder;
+	CCMatchAuthBuilder*		m_pAuthBuilder;
 	DWORD					m_checkMemory20;
-	MMatchQuest				m_Quest;	// 임시로 위치이동
+	CCMatchQuest				m_Quest;	// 임시로 위치이동
 	DWORD					m_checkMemory21;
 
 	MCountryFilter			m_CountryFilter;
@@ -137,9 +137,9 @@ protected:
 	DWORD					m_dwBlockCount;
 	DWORD					m_dwNonBlockCount;
 
-	MMatchEventManager		m_CustomEventManager;
+	CCMatchEventManager		m_CustomEventManager;
 	unsigned char			m_szMD5Value[16];
-	MMatchGambleMachine		m_GambleMachine;
+	CCMatchGambleMachine		m_GambleMachine;
 
 	//map< int, DWORD >		m_ItemResourceCRC32;
 	MHackingChatList		m_HackingChatList;
@@ -167,12 +167,12 @@ public:
 	/// 새로운 UID 얻어내기
 	virtual CCUID UseUID(void);
 
-	MMatchAuthBuilder* GetAuthBuilder()					{ return m_pAuthBuilder; }
+	CCMatchAuthBuilder* GetAuthBuilder()					{ return m_pAuthBuilder; }
 #ifndef NEW_AUTH_MODULE
-	void SetAuthBuilder(MMatchAuthBuilder* pBuilder)	{ m_pAuthBuilder = pBuilder; }
+	void SetAuthBuilder(CCMatchAuthBuilder* pBuilder)	{ m_pAuthBuilder = pBuilder; }
 #endif
 
-	MMatchChatRoomMgr* GetChatRoomMgr()					{ return &m_ChatRoomMgr; }
+	CCMatchChatRoomMgr* GetChatRoomMgr()					{ return &m_ChatRoomMgr; }
 
 
 	virtual bool SendMonitorUDP(const DWORD dwIP, const USHORT nPort, const string& strMonitorCommand)
@@ -210,8 +210,8 @@ protected:
 	void OnBridgePeer(const CCUID& uidChar, DWORD dwIP, DWORD nPort);
 
 	bool AddObjectOnMatchLogin(const CCUID& uidComm, 
-		const MMatchAccountInfo* pSrcAccountInfo,
-		const MMatchAccountPenaltyInfo* pSrcAccountPenaltyInfo,
+		const CCMatchAccountInfo* pSrcAccountInfo,
+		const CCMatchAccountPenaltyInfo* pSrcAccountPenaltyInfo,
 		bool bFreeLoginIP, string strCountryCode3, unsigned long nChecksumPack);
 
 	void LockUIDGenerate()		{ m_csUIDGenerateLock.Lock(); }
@@ -267,7 +267,7 @@ protected:
 
 	bool InitGambleMachine();
 
-	bool IsEquipmentTypeItem( const MMatchItemDesc* pItemDesc );
+	bool IsEquipmentTypeItem( const CCMatchItemDesc* pItemDesc );
 public:
 	/// Async DB
 	void PostAsyncJob(MAsyncJob* pJob );
@@ -316,7 +316,7 @@ public:
 protected:
 	friend CCMatchStage;
 	friend MNJ_DBAgentClient;
-	bool StageAdd(MMatchChannel* pChannel, const char* pszStageName, bool bPrivate, const char* pszStagePassword, CCUID* pAllocUID, bool bIsAllowNullChannel = false);
+	bool StageAdd(CCMatchChannel* pChannel, const char* pszStageName, bool bPrivate, const char* pszStagePassword, CCUID* pAllocUID, bool bIsAllowNullChannel = false);
 	bool StageRemove(const CCUID& uidStage, CCMatchStageMap::iterator* pNextItor);
 	bool StageJoin(const CCUID& uidPlayer, const CCUID& uidStage);
 	bool StageLeave(const CCUID& uidPlayer);//, const CCUID& uidStage);
@@ -332,8 +332,8 @@ protected:
 	MCommand* CreateCmdMatchResponseLoginOK(const CCUID& uidComm, 
 		CCUID& uidPlayer, 
 		const char* szUserID, 
-		MMatchUserGradeID nUGradeID, 
-		MMatchPremiumGradeID nPGradeID,
+		CCMatchUserGradeID nUGradeID, 
+		CCMatchPremiumGradeID nPGradeID,
 		//											const unsigned char* szRandomValue,
 		const unsigned char* pbyGuidReqMsg);
 	MCommand* CreateCmdMatchResponseLoginFailed(const CCUID& uidComm, const int nResult);
@@ -439,12 +439,12 @@ protected:
 		const unsigned int nSex, const unsigned int nHair, const unsigned int nFace, 
 		const unsigned int nCostume);
 	bool ResponseCreateChar(const CCUID& uidPlayer, const int nCharIndex, const char* szCharName,
-		MMatchSex nSex, const unsigned int nHair, const unsigned int nFace, 
+		CCMatchSex nSex, const unsigned int nHair, const unsigned int nFace, 
 		const unsigned int nCostume);
 	void OnCharClear(const CCUID& uidPlayer);
 	bool CharInitialize(const CCUID& uidPlayer);
 	bool CharFinalize(const CCUID& uidPlayer);
-	bool CorrectEquipmentByLevel(CCMatchObject* pPlayer, MMatchCharItemParts nPart, int nLegalItemLevelDiff=0);	// 수정되면 true
+	bool CorrectEquipmentByLevel(CCMatchObject* pPlayer, CCMatchCharItemParts nPart, int nLegalItemLevelDiff=0);	// 수정되면 true
 	bool RemoveExpiredCharItem(CCMatchObject* pObject, CCUID& uidItem);
 protected: // 친구
 	void OnFriendAdd(const CCUID& uidPlayer, const char* pszName);
@@ -455,7 +455,7 @@ protected: // 친구
 
 protected:	// 클랜
 	int ValidateCreateClan(const char* szClanName, CCMatchObject* pMasterObject, CCMatchObject** ppSponsorObject);
-	void UpdateCharClanInfo(CCMatchObject* pObject, const int nCLID, const char* szClanName, const MMatchClanGrade nGrade);
+	void UpdateCharClanInfo(CCMatchObject* pObject, const int nCLID, const char* szClanName, const CCMatchClanGrade nGrade);
 
 	void OnClanRequestCreateClan(const CCUID& uidPlayer, const int nRequestID, const char* szClanName, char** szSponsorNames);
 	void OnClanAnswerSponsorAgreement(const int nRequestID, const CCUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer);
@@ -480,12 +480,12 @@ protected:	// 클랜
 
 	void OnClanRequestEmblemURL(const CCUID& uidChar, void* pEmblemURLListBlob);
 public:
-	MMatchClan* FindClan(const int nCLID);
+	CCMatchClan* FindClan(const int nCLID);
 	void ResponseClanMemberList(const CCUID& uidChar);
 public:
 	int GetLadderTeamIDFromDB(const int nTeamTableIndex, const int* pnMemberCIDArray, const int nMemberCount);
 	void SaveLadderTeamPointToDB(const int nTeamTableIndex, const int nWinnerTeamID, const int nLoserTeamID, const bool bIsDrawGame);
-	void SaveClanPoint(MMatchClan* pWinnerClan, MMatchClan* pLoserClan, const bool bIsDrawGame,
+	void SaveClanPoint(CCMatchClan* pWinnerClan, CCMatchClan* pLoserClan, const bool bIsDrawGame,
 		const int nRoundWins, const int nRoundLosses, const int nMapID, const int nGameType,
 		const int nOneTeamMemberCount, list<CCUID>& WinnerObjUIDs,
 		const char* szWinnerMemberNames, const char* szLoserMemberNames, float fPointRatio);
@@ -636,9 +636,9 @@ public:
 	CCMatchObject* GetPlayerByAID(unsigned long int nAID);
 
 	/// UID로 채널 얻어내기
-	MMatchChannel* FindChannel(const CCUID& uidChannel);
+	CCMatchChannel* FindChannel(const CCUID& uidChannel);
 	/// Name으로 채널 얻어내기
-	MMatchChannel* FindChannel(const MCHANNEL_TYPE nChannelType, const char* pszChannelName);
+	CCMatchChannel* FindChannel(const MCHANNEL_TYPE nChannelType, const char* pszChannelName);
 
 	/// 서버의 공지 메시지 전송
 	void Announce(const CCUID& CommUID, char* pszMsg);
@@ -676,7 +676,7 @@ public:
 	void ResponseGameInfo(const CCUID& uidChar, const CCUID& uidStage);
 
 
-	virtual void ResponseTakeoffItem(const CCUID& uidPlayer, const MMatchCharItemParts parts) = 0;
+	virtual void ResponseTakeoffItem(const CCUID& uidPlayer, const CCMatchCharItemParts parts) = 0;
 	virtual bool CheckUserCanDistributeRewardItem( CCMatchObject* pObj) = 0;
 	virtual bool ResponseCharacterItemList(const CCUID& uidPlayer) = 0;
 
@@ -715,7 +715,7 @@ protected:
 
 	virtual int ValidateStageJoin(const CCUID& uidPlayer, const CCUID& uidStage) { return 0; }
 	int ValidateChannelJoin(const CCUID& uidPlayer, const CCUID& uidChannel);
-	int ValidateEquipItem(CCMatchObject* pObj, MMatchItem* pItem, const MMatchCharItemParts parts);
+	int ValidateEquipItem(CCMatchObject* pObj, CCMatchItem* pItem, const CCMatchCharItemParts parts);
 	int ValidateChallengeLadderGame(CCMatchObject** ppMemberObject, int nMemberCount);
 	void CheckExpiredItems(CCMatchObject* pObj);
 	void ResponseExpiredItemIDList(CCMatchObject* pObj, vector<unsigned long int>& vecExpiredItemIDList);
@@ -735,7 +735,7 @@ protected:
 
 	bool CheckItemXML();
 	bool CheckItemXMLFromDatabase();
-	bool CompareMatchItem(MMatchItemDescForDatabase *pItem1, MMatchItemDesc *pItem2);
+	bool CompareMatchItem(CCMatchItemDescForDatabase *pItem1, CCMatchItemDesc *pItem2);
 
 protected :
 	friend bool StageKick(CCMatchServer* pServer, const CCUID& uidPlayer, const CCUID& uidStage, char* pszChat);
@@ -773,11 +773,11 @@ public:
 	MLadderMgr*	GetLadderMgr()				{ return &m_LadderMgr; }	
 	CCMatchObjectList*	GetObjects()		{ return &m_Objects; }
 	CCMatchStageMap*		GetStageMap()		{ return &m_StageMap; }
-	MMatchChannelMap*	GetChannelMap()		{ return &m_ChannelMap; }
-	MMatchClanMap*		GetClanMap()		{ return &m_ClanMap; }
-	MMatchDBMgr*		GetDBMgr()			{ return &m_MatchDBMgr; }
-	MMatchQuest*		GetQuest()			{ return &m_Quest; }
-	MMatchDuelTournamentMgr*	GetDTMgr()	{ return m_pDTMgr;	}
+	CCMatchChannelMap*	GetChannelMap()		{ return &m_ChannelMap; }
+	CCMatchClanMap*		GetClanMap()		{ return &m_ClanMap; }
+	CCMatchDBMgr*		GetDBMgr()			{ return &m_MatchDBMgr; }
+	CCMatchQuest*		GetQuest()			{ return &m_Quest; }
+	CCMatchDuelTournamentMgr*	GetDTMgr()	{ return m_pDTMgr;	}
 	int GetClientCount()	{ return (int)m_Objects.size(); }
 	int GetAgentCount()		{ return (int)m_AgentMap.size(); }
 
@@ -803,8 +803,8 @@ public :
 	// ---------------- Monitor --------------------------
 	// ---------------------------------------------------
 
-	const MMatchGambleMachine& GetGambleMachine() const { return m_GambleMachine; }
-	MMatchGambleMachine& GetGambleMachine() { return m_GambleMachine; }
+	const CCMatchGambleMachine& GetGambleMachine() const { return m_GambleMachine; }
+	CCMatchGambleMachine& GetGambleMachine() { return m_GambleMachine; }
 
 
 
@@ -889,12 +889,12 @@ protected:
 	/*사용하지 않아서 일단 주석 void OnRequestUseSpendableBuffItem(const CCUID& uidPlayer, const CCUID& uidItem);*/
 
 protected:
-	MMatchBRMachine m_BattletimeRewardMachine;
+	CCMatchBRMachine m_BattletimeRewardMachine;
 
 	bool InitBattletimeRewardMachine();
-	void MakeBattleTimeRewardDescriptionMap(vector<MMatchBRDescription*>& vBattletimeRewardDescription, 
-											vector<MMatchBRItem*>& vBattletimeRewardItem, 
-											MMatchBRDescriptionMap& BattletimeRewardDescriptionMap);
+	void MakeBattleTimeRewardDescriptionMap(vector<CCMatchBRDescription*>& vBattletimeRewardDescription, 
+											vector<CCMatchBRItem*>& vBattletimeRewardItem, 
+											CCMatchBRDescriptionMap& BattletimeRewardDescriptionMap);
 	
 	void OnAsyncResponse_GetBR_Description(MAsyncJob *pJobResult);	
 	void OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult);
@@ -903,7 +903,7 @@ protected:
 
 	
 public:
-	MMatchBRMachine& GetBattleTimeRewardMachine() { return m_BattletimeRewardMachine; }
+	CCMatchBRMachine& GetBattleTimeRewardMachine() { return m_BattletimeRewardMachine; }
 
 	void RouteCmdBattleTimeReward(const CCUID& uidPlayer, CCUID& uidStage, const char* pszName, const char* pszResetDesc, int nItemID, int nItemCnt, int nRentHourPeriod, int nRemainRewardCnt);
 
@@ -912,9 +912,9 @@ public:
 
 };
 
-void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
-void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject);
-//버프정보임시주석 void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, MMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
+void CopyCharInfoForTrans(MTD_CharInfo* pDest, CCMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
+void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject);
+//버프정보임시주석 void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, CCMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
 
 
 // line functions ///////////////////////////////////////////////////////////////////

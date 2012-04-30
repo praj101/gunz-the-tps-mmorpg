@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "CCMatchServer.h"
 #include "CCSharedCommandTable.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "CCDebug.h"
 //#include "CCErrorTable.h"
-//#include "MMatchRule.h"
+//#include "CCMatchRule.h"
 
 
-MMatchStatus::MMatchStatus()
+CCMatchStatus::CCMatchStatus()
 {
 	m_pMatchServer = NULL;
 	m_bCreated = false;
@@ -22,18 +22,18 @@ MMatchStatus::MMatchStatus()
 	memset(m_szDump, 0, sizeof(m_szDump));
 }
 
-MMatchStatus::~MMatchStatus()
+CCMatchStatus::~CCMatchStatus()
 {
 
 }
 
-MMatchStatus* MMatchStatus::GetInstance()
+CCMatchStatus* CCMatchStatus::GetInstance()
 {
-	static MMatchStatus m_stMatchStatus;
+	static CCMatchStatus m_stMatchStatus;
 	return &m_stMatchStatus;
 }
 
-bool MMatchStatus::Create(CCMatchServer* pMatchServer)
+bool CCMatchStatus::Create(CCMatchServer* pMatchServer)
 {
 	m_pMatchServer = pMatchServer;
 	m_bCreated = true;
@@ -42,7 +42,7 @@ bool MMatchStatus::Create(CCMatchServer* pMatchServer)
 	return true;
 }
 
-void MMatchStatus::SaveToLogFile()
+void CCMatchStatus::SaveToLogFile()
 {
 	if (m_pMatchServer == NULL) return;
 
@@ -102,7 +102,7 @@ void MMatchStatus::SaveToLogFile()
 
 }
 
-void MMatchStatus::AddCmdHistory(unsigned long int nCmdID, const CCUID& uidSender)
+void CCMatchStatus::AddCmdHistory(unsigned long int nCmdID, const CCUID& uidSender)
 {
 	m_CmdHistory[m_nHistoryCursor].nCmdID		= nCmdID;
 	m_CmdHistory[m_nHistoryCursor].uidSender	= uidSender;
@@ -116,7 +116,7 @@ void MMatchStatus::AddCmdHistory(unsigned long int nCmdID, const CCUID& uidSende
 }
 
 
-void MMatchStatus::SetLog(const char* szDump)
+void CCMatchStatus::SetLog(const char* szDump)
 {
 	if ((int)strlen(szDump) < MATCHSTATUS_DUMP_LEN)
 	{

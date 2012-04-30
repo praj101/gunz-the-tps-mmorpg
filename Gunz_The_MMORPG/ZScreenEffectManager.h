@@ -123,11 +123,11 @@ private:
 	ZScreenEffect*	m_pWeaponIcons[MWT_END];
 	
 	// Æ÷¼Ç·ù(¾ÚÇÃ,Ä¸½¶)¿Í Æ®·¦·ù´Â µû·Î °ü¸®ÇÑ´Ù
-	typedef map<MMatchItemEffectId, ZScreenEffect*>		MapWeaponIconPotion;
+	typedef map<CCMatchItemEffectId, ZScreenEffect*>		MapWeaponIconPotion;
 	typedef MapWeaponIconPotion::iterator				ItorWeaponIconPotion;
 	MapWeaponIconPotion m_mapWeaponIconPotion;
 	
-	typedef map<MMatchDamageType, ZScreenEffect*>		MapWeaponIconTrap;
+	typedef map<CCMatchDamageType, ZScreenEffect*>		MapWeaponIconTrap;
 	typedef MapWeaponIconTrap::iterator					ItorWeaponIconTrap;
 	MapWeaponIconTrap m_mapWeaponIconTrap;
 
@@ -147,8 +147,8 @@ private:
 
 	bool m_bGameStart;
 
-	MMatchWeaponType	m_WeaponType;
-	MMatchItemDesc*		m_SelectItemDesc;
+	CCMatchWeaponType	m_WeaponType;
+	CCMatchItemDesc*		m_SelectItemDesc;
 
 	int	m_nHpReset;
 
@@ -219,7 +219,7 @@ public:
 
 	void SetGaugeExpFromMyInfo();
 
-	void SetWeapon(MMatchWeaponType wtype,MMatchItemDesc* pDesc) {
+	void SetWeapon(CCMatchWeaponType wtype,CCMatchItemDesc* pDesc) {
 		m_WeaponType=wtype; 
 		m_SelectItemDesc = pDesc;
 	}

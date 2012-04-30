@@ -3,9 +3,9 @@
 #include "CCMatchGambleMachine.h"
 
 
-const MMatchCharGambleItem* MMatchGambleItemManager::GetGambleItemByUID( const CCUID& uidItem ) const
+const CCMatchCharGambleItem* CCMatchGambleItemManager::GetGambleItemByUID( const CCUID& uidItem ) const
 {
-	list< MMatchCharGambleItem* >::const_iterator it, end;
+	list< CCMatchCharGambleItem* >::const_iterator it, end;
 	end = m_GambleItemList.end();
 	for( it = m_GambleItemList.begin(); it != end; ++it )
 	{
@@ -17,11 +17,11 @@ const MMatchCharGambleItem* MMatchGambleItemManager::GetGambleItemByUID( const C
 
 }
 
-const MMatchCharGambleItem* MMatchGambleItemManager::GetGambleItemByIndex( const DWORD dwIndex ) const
+const CCMatchCharGambleItem* CCMatchGambleItemManager::GetGambleItemByIndex( const DWORD dwIndex ) const
 {
 	if( m_GambleItemList.size() > dwIndex )
 	{
-		list< MMatchCharGambleItem* >::const_iterator it = m_GambleItemList.begin();
+		list< CCMatchCharGambleItem* >::const_iterator it = m_GambleItemList.begin();
 		for( DWORD i = 0; i < dwIndex; ++i )
 			++it;
 
@@ -31,9 +31,9 @@ const MMatchCharGambleItem* MMatchGambleItemManager::GetGambleItemByIndex( const
 	return NULL;
 }
 
-const MMatchCharGambleItem*	MMatchGambleItemManager::GetGambleItemByCIID( const DWORD CIID ) const
+const CCMatchCharGambleItem*	CCMatchGambleItemManager::GetGambleItemByCIID( const DWORD CIID ) const
 {
-	list< MMatchCharGambleItem* >::const_iterator it, end;
+	list< CCMatchCharGambleItem* >::const_iterator it, end;
 	end = m_GambleItemList.end();
 	for( it = m_GambleItemList.begin(); it != end; ++it )
 	{
@@ -44,9 +44,9 @@ const MMatchCharGambleItem*	MMatchGambleItemManager::GetGambleItemByCIID( const 
 	return NULL;
 }
 
-const MMatchCharGambleItem*	MMatchGambleItemManager::GetGambleItemByItemID( const DWORD dwItemID ) const
+const CCMatchCharGambleItem*	CCMatchGambleItemManager::GetGambleItemByItemID( const DWORD dwItemID ) const
 {
-	list< MMatchCharGambleItem* >::const_iterator it, end;
+	list< CCMatchCharGambleItem* >::const_iterator it, end;
 	end = m_GambleItemList.end();
 	for( it = m_GambleItemList.begin(); it != end; ++it )
 	{
@@ -57,20 +57,20 @@ const MMatchCharGambleItem*	MMatchGambleItemManager::GetGambleItemByItemID( cons
 	return NULL;
 }
 
-const bool MMatchGambleItemManager::AddGambleItem( const CCUID& uidItem, const DWORD dwCIID, const DWORD dwGambleItemID, const int nItemCount )
+const bool CCMatchGambleItemManager::AddGambleItem( const CCUID& uidItem, const DWORD dwCIID, const DWORD dwGambleItemID, const int nItemCount )
 {
 	if( NULL != GetGambleItemByUID(uidItem) ) return false;
 
-	MMatchCharGambleItem* pGambleItem = new MMatchCharGambleItem( uidItem, dwCIID, dwGambleItemID, nItemCount );
+	CCMatchCharGambleItem* pGambleItem = new CCMatchCharGambleItem( uidItem, dwCIID, dwGambleItemID, nItemCount );
 	if( NULL == pGambleItem ) return false;
 
 	m_GambleItemList.push_back( pGambleItem );
 	return true;
 }
 
-void MMatchGambleItemManager::DeleteGambleItem( const CCUID& uidItem )
+void CCMatchGambleItemManager::DeleteGambleItem( const CCUID& uidItem )
 {
-	list< MMatchCharGambleItem* >::iterator it, end;
+	list< CCMatchCharGambleItem* >::iterator it, end;
 	end = m_GambleItemList.end();
 	for( it = m_GambleItemList.begin(); it != end; ++it )
 	{
@@ -83,13 +83,13 @@ void MMatchGambleItemManager::DeleteGambleItem( const CCUID& uidItem )
 	}
 }
 
-bool MMatchGambleItemManager::SetGambleItemCount( const CCUID& uidItem, int nItemCount)
+bool CCMatchGambleItemManager::SetGambleItemCount( const CCUID& uidItem, int nItemCount)
 {
-	list< MMatchCharGambleItem* >::iterator it, end;
+	list< CCMatchCharGambleItem* >::iterator it, end;
 	end = m_GambleItemList.end();
 	for( it = m_GambleItemList.begin(); it != end; ++it )
 	{
-		MMatchCharGambleItem *pGItem = (*it);
+		CCMatchCharGambleItem *pGItem = (*it);
 		if( uidItem == pGItem->GetUID() ) {			
 			pGItem->SetItemCount(nItemCount);
 			return true;
@@ -99,11 +99,11 @@ bool MMatchGambleItemManager::SetGambleItemCount( const CCUID& uidItem, int nIte
 	return false;
 }
 
-bool MMatchGambleItemManager::SetGambleItemCount( int nCIID, int nItemCount)
+bool CCMatchGambleItemManager::SetGambleItemCount( int nCIID, int nItemCount)
 {
-	list< MMatchCharGambleItem* >::const_iterator it;
+	list< CCMatchCharGambleItem* >::const_iterator it;
 	for( it = m_GambleItemList.begin(); it != m_GambleItemList.end(); ++it ) {
-		MMatchCharGambleItem *pGItem = (*it);
+		CCMatchCharGambleItem *pGItem = (*it);
 		if( nCIID == pGItem->GetCIID()  ) {
 			pGItem->SetItemCount(nItemCount);
 			return true;
@@ -113,9 +113,9 @@ bool MMatchGambleItemManager::SetGambleItemCount( int nCIID, int nItemCount)
 	return false;
 }
 
-void MMatchGambleItemManager::Release()
+void CCMatchGambleItemManager::Release()
 {
-	list< MMatchCharGambleItem* >::iterator it, end;
+	list< CCMatchCharGambleItem* >::iterator it, end;
 	end = m_GambleItemList.end();
 	for( it = m_GambleItemList.begin(); it != end; ++it )
 	{

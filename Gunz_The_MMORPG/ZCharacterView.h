@@ -4,7 +4,7 @@
 #include "ZPrerequisites.h"
 #include "ZMeshView.h"
 #include "CCUID.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 
 #include "RCharCloth.h"
 
@@ -17,15 +17,15 @@ public:
 struct ZCharacterViewInfo
 {
 	CCUID		UID;
-	MMatchSex	nSex;
+	CCMatchSex	nSex;
 	int			nHair;
 	int			nFace;
 	int			nLevel;
 
 	//jintriple3 팀 바꾸기 핵 때문에..메모리 프록시로..
 	MProtectValue<int>* m_pMnTeam;
-//	MMatchTeam	nTeam;
-	MMatchObjectStageState		nStageState;
+//	CCMatchTeam	nTeam;
+	CCMatchObjectStageState		nStageState;
 //	bool		bReady;
 	bool		bMaster;
 	bool		bFireWall;
@@ -40,7 +40,7 @@ public:
 	ZMeshView*			m_pItemMeshView[MMCIP_END];
 protected:
 	bool				m_bVisibleEquipment;
-	MMatchCharItemParts	m_nVisualWeaponParts;	// 갖고 있는 무기중 보여주는 무기 파츠
+	CCMatchCharItemParts	m_nVisualWeaponParts;	// 갖고 있는 무기중 보여주는 무기 파츠
 
 	bool				m_bAutoRotate;
 	DWORD				m_dwTime;				// 회전 시간
@@ -59,11 +59,11 @@ public:
 	void SetDrawInfo(bool bVal)	{ m_bDrawInfo = bVal; }
 	bool GetDrawInfo()			{ return m_bDrawInfo; }
 
-	void InitCharParts(ZCharacterView* pCharView, MMatchCharItemParts nVisualWeaponParts = MMCIP_PRIMARY);
-	void InitCharParts(MMatchSex nSex, unsigned int nHair, unsigned int nFace, 
-				       const unsigned long int* nEquipItemIDs, MMatchCharItemParts nVisualWeaponParts = MMCIP_PRIMARY);
-	void SetParts(MMatchCharItemParts nParts, unsigned int nItemID);
-	void ChangeVisualWeaponParts(MMatchCharItemParts nVisualWeaponParts);
+	void InitCharParts(ZCharacterView* pCharView, CCMatchCharItemParts nVisualWeaponParts = MMCIP_PRIMARY);
+	void InitCharParts(CCMatchSex nSex, unsigned int nHair, unsigned int nFace, 
+				       const unsigned long int* nEquipItemIDs, CCMatchCharItemParts nVisualWeaponParts = MMCIP_PRIMARY);
+	void SetParts(CCMatchCharItemParts nParts, unsigned int nItemID);
+	void ChangeVisualWeaponParts(CCMatchCharItemParts nVisualWeaponParts);
 
 	void SetVisibleEquipment(bool bVisible)		{ m_bVisibleEquipment = bVisible; }
 	void SetSelectMyCharacter();

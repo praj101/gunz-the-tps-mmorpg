@@ -31,7 +31,7 @@ void ZMyBuffMgr::Clear()
 
 bool ZMyBuffMgr::InsertShortBuffInfo(MShortBuffInfo *pShortInfo)
 {
-	MMatchBuffDesc* pDesc = MGetMatchBuffDescMgr()->GetBuffDesc(pShortInfo->nBuffID);
+	CCMatchBuffDesc* pDesc = MGetMatchBuffDescMgr()->GetBuffDesc(pShortInfo->nBuffID);
 	if( pDesc == NULL ) {
 		_ASSERT(0);
 		return false;

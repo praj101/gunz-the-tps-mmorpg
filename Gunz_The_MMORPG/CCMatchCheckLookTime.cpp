@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCMatchCheckLoopTime.h"
 
-MMatchCheckLoopTime::MMatchCheckLoopTime()
+CCMatchCheckLoopTime::CCMatchCheckLoopTime()
 {
 	m_dwStartLoop = 0;
 	m_dwEndLoop = 0;
@@ -69,18 +69,18 @@ MMatchCheckLoopTime::MMatchCheckLoopTime()
 	m_bIsRun = false;
 }
 
-MMatchCheckLoopTime::~MMatchCheckLoopTime()
+CCMatchCheckLoopTime::~CCMatchCheckLoopTime()
 {
 	ClearCommandTimeGap();
 }
 
-MMatchCheckLoopTime* MMatchCheckLoopTime::GetInstance()
+CCMatchCheckLoopTime* CCMatchCheckLoopTime::GetInstance()
 {
-	static MMatchCheckLoopTime hInst;
+	static CCMatchCheckLoopTime hInst;
 	return &hInst;
 }
 
-int MMatchCheckLoopTime::AddCommandTimeGap(int nCmdID)
+int CCMatchCheckLoopTime::AddCommandTimeGap(int nCmdID)
 {
 	if (m_bIsRun == false)
 	{
@@ -104,7 +104,7 @@ int MMatchCheckLoopTime::AddCommandTimeGap(int nCmdID)
 	return m_nVecCount - 1;
 }
 
-void MMatchCheckLoopTime::ClearCommandTimeGap()
+void CCMatchCheckLoopTime::ClearCommandTimeGap()
 {
 	if (m_nVecCount != 0)
 	{
@@ -113,7 +113,7 @@ void MMatchCheckLoopTime::ClearCommandTimeGap()
 	}
 }
 
-void MMatchCheckLoopTime::SetCommandEndTick(int nIndex)
+void CCMatchCheckLoopTime::SetCommandEndTick(int nIndex)
 {
 	if ((m_bIsRun == false) || (m_nVecCount == 0) || ((int)m_vecCommand.size() == 0))
 	{
@@ -129,7 +129,7 @@ void MMatchCheckLoopTime::SetCommandEndTick(int nIndex)
 	pCmdGap->dwEndTick = GetTickCount();
 }
 
-void MMatchCheckLoopTime::SaveLoopLogFile()
+void CCMatchCheckLoopTime::SaveLoopLogFile()
 {
 	if ((m_bInit == false) || (m_bIsRun == false))
 	{

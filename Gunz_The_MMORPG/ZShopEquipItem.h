@@ -50,7 +50,7 @@ public:
 
 	virtual ZShopEquipItemType GetType() = 0;
 
-	virtual MMatchItemSlotType GetSlotType() = 0;
+	virtual CCMatchItemSlotType GetSlotType() = 0;
 	virtual bool CanEquip() = 0;
 	virtual bool CanSendAccount() = 0;
 	virtual bool CanSell() = 0;
@@ -78,7 +78,7 @@ public:
 
 	const ZGambleItemDefine* GetDesc() { return m_pItemDesc; }
 
-	virtual MMatchItemSlotType GetSlotType() { return MMIST_NONE; }
+	virtual CCMatchItemSlotType GetSlotType() { return MMIST_NONE; }
 	virtual bool CanEquip() { return true; } // 갬블아이템의 equip은 use와 같은 의미
 	virtual bool CanSendAccount() { return m_pItemDesc->IsCash(); }
 	virtual bool CanSell() {
@@ -101,14 +101,14 @@ public:
 // 상점,장비창을 위한 매치아이템 래퍼
 class ZShopEquipItem_Match : public ZShopEquipItem
 {
-	MMatchItemDesc* m_pItemDesc;
+	CCMatchItemDesc* m_pItemDesc;
 public:
-	ZShopEquipItem_Match(MMatchItemDesc* pDesc);
+	ZShopEquipItem_Match(CCMatchItemDesc* pDesc);
 	ZShopEquipItemType GetType() { return ZSEIT_MATCH; }
 
-	MMatchItemDesc* GetDesc() { return m_pItemDesc; }
+	CCMatchItemDesc* GetDesc() { return m_pItemDesc; }
 
-	virtual MMatchItemSlotType GetSlotType();
+	virtual CCMatchItemSlotType GetSlotType();
 	virtual bool CanEquip() { return true; }
 	virtual bool CanSendAccount() { return m_pItemDesc->IsCashItem(); }
 	virtual bool CanSell() { 
@@ -125,7 +125,7 @@ public:
 	virtual int GetLevelRes();
 
 	virtual void FillItemDesc(MTextArea* pTextArea);
-	static void FillItemDesc(MMatchItemDesc* pItemDesc, MTextArea* pTextArea, ZMyItemNode* pRentalNode);
+	static void FillItemDesc(CCMatchItemDesc* pItemDesc, MTextArea* pTextArea, ZMyItemNode* pRentalNode);
 	virtual void UpdateCharInfoText();
 	virtual void UpdateCharacterView(ZCharacterView* pCharacterView);
 };
@@ -140,7 +140,7 @@ public:
 
 	MQuestItemDesc* GetDesc() { return m_pItemDesc; }
 
-	virtual MMatchItemSlotType GetSlotType() { return MMIST_NONE; }
+	virtual CCMatchItemSlotType GetSlotType() { return MMIST_NONE; }
 	virtual bool CanEquip() { return false; }
 	virtual bool CanSendAccount() { return false; }
 	virtual bool CanSell() { return GetDesc() ? true : false; }
@@ -161,12 +161,12 @@ class ZShopEquipItem_Set : public ZShopEquipItem
 	MShopSetItem* m_pShopSetItem;
 	int m_nLevelRes;
 	int m_nSexRes;
-	MMatchItemDesc m_sumSetSpec;	// 세트 구성품들의 능력 합산치
+	CCMatchItemDesc m_sumSetSpec;	// 세트 구성품들의 능력 합산치
 public:
 	ZShopEquipItem_Set(MShopSetItem* pSetItem);
 	ZShopEquipItemType GetType() { return ZSEIT_SET; }
 
-	virtual MMatchItemSlotType GetSlotType() { return MMIST_NONE; }
+	virtual CCMatchItemSlotType GetSlotType() { return MMIST_NONE; }
 	virtual bool CanEquip() { return false; }		// 세트는 상점에서만 존재하는 것이므로
 	virtual bool CanSendAccount() { return false; }
 	virtual bool CanSell() { return false; }

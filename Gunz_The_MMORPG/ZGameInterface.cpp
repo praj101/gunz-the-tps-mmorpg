@@ -19,7 +19,7 @@
 #include "MSlider.h"
 #include "ZMsgBox.h"
 #include "MDebug.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "MBlobArray.h"
 #include "MListBox.h"
 #include "MTextArea.h"
@@ -29,7 +29,7 @@
 #include "ZCharacterSelectView.h"
 #include "ZCharacterViewList.h"
 #include "ZCharacterView.h"
-#include "MMatchStage.h"
+#include "CCMatchStage.h"
 #include "ZScreenEffectManager.h"
 #include "RShaderMgr.h"
 #include "ZShopEquipInterface.h"
@@ -44,7 +44,7 @@
 #include "MToolTip.h"
 #include "ZRoomListbox.h"
 #include "ZPlayerListBox.h"
-#include "MMatchNotify.h"
+#include "CCMatchNotify.h"
 #include "ZMapListBox.h"
 #include "ZDuelTournamentRankingListBox.h"
 #include "ZToolTip.h"
@@ -2017,10 +2017,10 @@ void ZGameInterface::OnStageCreate(void)
 	
 	if( pCharView != NULL )
 	{
-		//MMatchObjCacheMap* pObjCacheMap = ZGetGameClient()->GetObjCacheMap();
-		//for(MMatchObjCacheMap::iterator itor = pObjCacheMap->begin(); itor != pObjCacheMap->end(); ++itor)
+		//CCMatchObjCacheMap* pObjCacheMap = ZGetGameClient()->GetObjCacheMap();
+		//for(CCMatchObjCacheMap::iterator itor = pObjCacheMap->begin(); itor != pObjCacheMap->end(); ++itor)
 		//{
-		//	MMatchObjCache* pObj = (*itor).second;
+		//	CCMatchObjCache* pObj = (*itor).second;
 		//	if( pObj->GetUID() == ZGetMyUID() )
 		//	{
 		//		pCharView->SetCharacter( pObj->GetUID() );
@@ -3811,7 +3811,7 @@ void ZGameInterface::ChangeWeapon(ZChangeWeaponType nType)
 		// 가진 아이템 목록을 만들고, 현재 들고있는 넘을 찾는다
 		for(int i = MMCIP_MELEE; i < MMCIP_CUSTOM2 + 1; i++)
 		{
-			if (!pChar->GetItems()->GetItem((MMatchCharItemParts)i)->IsEmpty())
+			if (!pChar->GetItems()->GetItem((CCMatchCharItemParts)i)->IsEmpty())
 			{
 				if(pChar->GetItems()->GetSelectedWeaponParts() == i)
 					nPos = nHasItemCount;
@@ -3831,7 +3831,7 @@ void ZGameInterface::ChangeWeapon(ZChangeWeaponType nType)
 			if (nNewPos < 0) nNewPos = nHasItemCount-1;
 			while ( nNewPos != nPos)
 			{
-				MMatchCharItemParts nPart = (MMatchCharItemParts)ItemQueue[ nNewPos];
+				CCMatchCharItemParts nPart = (CCMatchCharItemParts)ItemQueue[ nNewPos];
 				if ( (nPart == MMCIP_CUSTOM1) || (nPart == MMCIP_CUSTOM2) ) {
 					ZItem* pItem = ZGetGame()->m_pMyCharacter->GetItems()->GetItem(nPart);
 					if (pItem && pItem->GetBulletCurrMagazine() > 0) { break; }
@@ -3855,7 +3855,7 @@ void ZGameInterface::ChangeWeapon(ZChangeWeaponType nType)
 			if (nNewPos >= nHasItemCount) nNewPos = 0;
 			while(nNewPos != nPos) 
 			{
-				MMatchCharItemParts nPart = (MMatchCharItemParts)ItemQueue[nNewPos];
+				CCMatchCharItemParts nPart = (CCMatchCharItemParts)ItemQueue[nNewPos];
 				if ( (nPart == MMCIP_CUSTOM1) || (nPart == MMCIP_CUSTOM2) ) {
 					ZItem* pItem = ZGetGame()->m_pMyCharacter->GetItems()->GetItem(nPart);
 					if (pItem && pItem->GetBulletCurrMagazine() > 0) {	break; }
@@ -3884,7 +3884,7 @@ void ZGameInterface::ChangeWeapon(ZChangeWeaponType nType)
 		// 다쓴 수류탄으로 ChangeWeapon 금지
 		if ( (nParts == MMCIP_CUSTOM1) || (nParts == MMCIP_CUSTOM2) ) 
 		{
-			ZItem* pItem = pChar->GetItems()->GetItem((MMatchCharItemParts)nParts);
+			ZItem* pItem = pChar->GetItems()->GetItem((CCMatchCharItemParts)nParts);
 			if (pItem->GetBulletCurrMagazine() <= 0) return;
 		}
 	}
@@ -3936,7 +3936,7 @@ void ZGameInterface::ChangeWeapon(ZChangeWeaponType nType)
 
 	m_pMyCharacter->m_dwStatusBitPackingValue.Ref().m_bSpMotion = false;
 	// 내 무기는 직접 바꾼다. command를 통하면 순서가 바뀌는 경우가 있다.
-	m_pMyCharacter->ChangeWeapon((MMatchCharItemParts)nParts);
+	m_pMyCharacter->ChangeWeapon((CCMatchCharItemParts)nParts);
 }
 
 /*
@@ -4184,7 +4184,7 @@ void ZGameInterface::ClearMapThumbnail()
 void ZGameInterface::Reload()
 {
 	if(!ZGetGame()->m_pMyCharacter->GetItems()->GetSelectedWeapon()) return;
-	MMatchItemDesc* pSelectedItemDesc = ZGetGame()->m_pMyCharacter->GetItems()->GetSelectedWeapon()->GetDesc();
+	CCMatchItemDesc* pSelectedItemDesc = ZGetGame()->m_pMyCharacter->GetItems()->GetSelectedWeapon()->GetDesc();
 
 	if (pSelectedItemDesc == NULL) return;
 
@@ -4883,7 +4883,7 @@ bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, MAlignmentMo
 
 bool GetItemDescName(string& str,DWORD nItemID)
 {
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 	if ( pItemDesc == NULL)
 	{
@@ -4899,7 +4899,7 @@ bool GetItemDescStr(string& str,DWORD nItemID) {
 
 	static char temp[1024];
 
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 	if(pItemDesc==NULL) {
 		str.clear();
@@ -5071,7 +5071,7 @@ void ZGameInterface::ShowEquipmentDialog(bool bShow)
 
 		for (int i = 0; i < MMCIP_END; i++)
 		{
-			nEquipedItemID[i] = pil->GetEquipedItemID(MMatchCharItemParts(i));
+			nEquipedItemID[i] = pil->GetEquipedItemID(CCMatchCharItemParts(i));
 		}
 		pCharacterView->InitCharParts(pmi->GetSex(), pmi->GetHair(), pmi->GetFace(), nEquipedItemID);
 		END_WIDGETLIST();
@@ -5283,7 +5283,7 @@ void ZGameInterface::EnableLobbyInterface(bool bEnable)
 
 	if (bEnable)
 	{
-		MMatchServerMode nCurrentServerMode = ZGetGameClient()->GetServerMode();
+		CCMatchServerMode nCurrentServerMode = ZGetGameClient()->GetServerMode();
 		MCHANNEL_TYPE nCurrentChannelType = ZGetGameClient()->GetChannelType();
 		bool bClanBattleUI = (nCurrentServerMode== CSM_CLAN) && (nCurrentChannelType==MCHANNEL_TYPE_CLAN);
 		ZGetGameInterface()->InitClanLobbyUI(bClanBattleUI);

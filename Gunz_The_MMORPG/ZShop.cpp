@@ -138,7 +138,7 @@ void ZShop::Serialize()
 	{
 		ZShopEquipItem* pWrappedItem = NULL;
 
-		if (MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(m_vShopItem[i]->nItemID))
+		if (CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(m_vShopItem[i]->nItemID))
 		{
 			if (CheckTypeWithListFilter(pDesc->m_nSlot, pDesc->IsEnchantItem()) == false) continue;
 			if (pDesc->m_nResSex.Ref() != -1 && pDesc->m_nResSex.Ref() != int(ZGetMyInfo()->GetSex())) continue;
@@ -173,7 +173,7 @@ void ZShop::Serialize()
 		if (m_ListFilter != zshop_item_filter_all && m_ListFilter != zshop_item_filter_set_item) continue;
 
 		bool bSexRestricted = false;
-		MMatchItemDesc* pDesc;
+		CCMatchItemDesc* pDesc;
 		for (int i=0; i<MAX_SET_ITEM_COUNT; ++i)
 		{
 			pDesc = MGetMatchItemDescMgr()->GetItemDesc( pSetItem->GetItemID(i));

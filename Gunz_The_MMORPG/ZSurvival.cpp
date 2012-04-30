@@ -11,7 +11,7 @@
 #include "ZScreenEffectManager.h"
 #include "ZMapDesc.h"
 
-#include "MMatchQuestMonsterGroup.h"
+#include "CCMatchQuestMonsterGroup.h"
 #include "MQuestConst.h"
 
 #include "ZWorldItem.h"
@@ -592,7 +592,7 @@ bool ZSurvival::OnPeerNPCBasicInfo(MCommand* pCommand)
 
 		// 들고있는 무기가 다르면 바꿔준다
 		if(pCharacter->GetItems()->GetSelectedWeaponParts()!=ppbi->selweapon) {
-			pCharacter->ChangeWeapon((MMatchCharItemParts)ppbi->selweapon);
+			pCharacter->ChangeWeapon((CCMatchCharItemParts)ppbi->selweapon);
 		}
 	}
 */
@@ -654,7 +654,7 @@ bool ZSurvival::OnPeerNPCAttackRange(MCommand* pCommand)
 
 	// rocket 테스트로 넣어봤다.
 	ZObject* pOwner = ZGetGame()->m_ObjectManager.GetObject(uidOwner);
-	MMatchItemDesc* pDesc = NULL;
+	CCMatchItemDesc* pDesc = NULL;
 
 	if(pOwner==NULL) return false; // 보통 치트키를 쓸경우...
 
@@ -690,7 +690,7 @@ bool ZSurvival::OnPeerNPCAttackRange(MCommand* pCommand)
 	else
 		return false;
 
-	ZGetGame()->OnPeerShot_Range((MMatchCharItemParts)pinfo->sel_type,uidOwner,ZGetGame()->GetTime(),pos,to);
+	ZGetGame()->OnPeerShot_Range((CCMatchCharItemParts)pinfo->sel_type,uidOwner,ZGetGame()->GetTime(),pos,to);
 	
 
 	return true;
@@ -702,7 +702,7 @@ bool ZSurvival::OnRefreshPlayerStatus(MCommand* pCommand)
 	bool bAdminHide = false;
 	if (ZGetMyInfo()->IsAdminGrade()) 
 	{
-		MMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
+		CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 		if (pCache && pCache->CheckFlag(MTD_PlayerFlags_AdminHide))
 			bAdminHide = true;
 	}
@@ -979,7 +979,7 @@ bool ZSurvival::OnSectorStart(MCommand* pCommand)
 	m_CharactersGone.clear();
 
 	// admin hide 이면 다시 옵저버를 활성화
-	MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
+	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 	if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
 		ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 	}
@@ -1053,7 +1053,7 @@ bool ZSurvival::OnObtainZItem(MCommand* pCommand)
 	m_GameInfo.IncreaseObtainQuestItem();
 
 #ifdef _QUEST_ITEM
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc)
 	{
 		char szMsg[ 128];
@@ -1381,7 +1381,7 @@ void ZSurvival::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pM
 		// 리스트 박스 업데이트
 		if ( pListBox )
 		{
-			MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pZItemNode->m_nItemID);
+			CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pZItemNode->m_nItemID);
 
 			char szMsg[ 128];
 			ZTransMsg( szMsg, MSG_GAME_GET_QUEST_ITEM2, 2, pItemDesc->m_pMItemName->GetData().m_szItemName, "1");

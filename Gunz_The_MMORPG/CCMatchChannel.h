@@ -171,7 +171,7 @@ class CCMatchChannelMap : public map<CCUID, CCMatchChannel*> {
 private:
 	CCUID						m_uidGenerate;
 	unsigned long				m_nChecksum;
-	map<CCUID, MMatchChannel*>	m_TypesChannelMap[CCCHANNEL_TYPE_MAX];
+	map<CCUID, CCMatchChannel*>	m_TypesChannelMap[CCCHANNEL_TYPE_MAX];
 	CCMatchClanChannelTicketInfo m_ClanChannelTicketInfo;
 
 	void Insert(const CCUID& uid, CCMatchChannel* pChannel)	{	insert(value_type(uid, pChannel));	}

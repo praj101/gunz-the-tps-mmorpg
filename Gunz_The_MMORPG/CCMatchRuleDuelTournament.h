@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MMatchRule.h"
+#include "CCMatchRule.h"
 #include "MDuelTournamentFormula.h"
 #include <list>
 
@@ -107,11 +107,11 @@ public:
 	}
 };
 
-class MMatchRuleDuelTournament : public MMatchRule {
+class CCMatchRuleDuelTournament : public CCMatchRule {
 private:
 	MDuelTournamentGameInfo					m_GameInfo;
-	MMatchDuelTournamentMatch				m_CurrentMatchInfo;	
-	map<int, MMatchDuelTournamentMatch*>*	m_DuelTournamentMatchMap;
+	CCMatchDuelTournamentMatch				m_CurrentMatchInfo;	
+	map<int, CCMatchDuelTournamentMatch*>*	m_DuelTournamentMatchMap;
 
 	MDuelTournamentPlayerMap m_DTPlayerMap;
 
@@ -257,8 +257,8 @@ protected:
 
 	
 public:
-	MMatchRuleDuelTournament(CCMatchStage* pStage);
-	virtual ~MMatchRuleDuelTournament(){}
+	CCMatchRuleDuelTournament(CCMatchStage* pStage);
+	virtual ~CCMatchRuleDuelTournament(){}
 
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DUELTOURNAMENT; }
 };

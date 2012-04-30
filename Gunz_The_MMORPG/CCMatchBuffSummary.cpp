@@ -1,24 +1,24 @@
 #include "stdafx.h"
-#include "MMatchBuffSummary.h"
+#include "CCMatchBuffSummary.h"
 
-MMatchBuffSummary::MMatchBuffSummary(void)
+CCMatchBuffSummary::CCMatchBuffSummary(void)
 {
 	Clear();
 }
 
-MMatchBuffSummary::~MMatchBuffSummary(void)
+CCMatchBuffSummary::~CCMatchBuffSummary(void)
 {
 }
 
-void MMatchBuffSummary::Clear()
+void CCMatchBuffSummary::Clear()
 {	
-	memset(&m_BuffSummary, 0, sizeof(MMatchBuffInfo) * MMBET_END);
+	memset(&m_BuffSummary, 0, sizeof(CCMatchBuffInfo) * MMBET_END);
 	m_bCleared = true;
 }
 
-void MMatchBuffSummary::AddBuff(int nBuffID)
+void CCMatchBuffSummary::AddBuff(int nBuffID)
 {
-	MMatchBuffDesc* pDesc = MGetMatchBuffDescMgr()->GetBuffDesc(nBuffID);
+	CCMatchBuffDesc* pDesc = MGetMatchBuffDescMgr()->GetBuffDesc(nBuffID);
 	if( pDesc == NULL ) {
 		_ASSERT(0);
 		return;
@@ -41,17 +41,17 @@ void MMatchBuffSummary::AddBuff(int nBuffID)
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Normal Buff
 /////////////////////////////////////////////////////////////////////////////////////////////
-int MMatchBuffSummary::GetHP()
+int CCMatchBuffSummary::GetHP()
 {
 	return m_BuffSummary[MMBET_NORMAL].nHP;
 }
 
-int MMatchBuffSummary::GetAP()
+int CCMatchBuffSummary::GetAP()
 {
 	return m_BuffSummary[MMBET_NORMAL].nAP;
 }
 
-float MMatchBuffSummary::GetSpeedRatio(float fDefault)
+float CCMatchBuffSummary::GetSpeedRatio(float fDefault)
 {
 	float fRatio = 1.0f;
 
@@ -61,7 +61,7 @@ float MMatchBuffSummary::GetSpeedRatio(float fDefault)
 	return fDefault * fRatio;
 }
 
-int	MMatchBuffSummary::GetRespawnTime(int nDefault)
+int	CCMatchBuffSummary::GetRespawnTime(int nDefault)
 {
 	int nResult = nDefault - m_BuffSummary[MMBET_NORMAL].nRespawnDecTime;
 
@@ -75,12 +75,12 @@ int	MMatchBuffSummary::GetRespawnTime(int nDefault)
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Dote Buff
 /////////////////////////////////////////////////////////////////////////////////////////////
-int MMatchBuffSummary::GetDoteHP()
+int CCMatchBuffSummary::GetDoteHP()
 {
 	return m_BuffSummary[MMBET_DOTE].nHP;
 }
 
-int MMatchBuffSummary::GetDoteAP()
+int CCMatchBuffSummary::GetDoteAP()
 {
 	return m_BuffSummary[MMBET_DOTE].nAP;
 }

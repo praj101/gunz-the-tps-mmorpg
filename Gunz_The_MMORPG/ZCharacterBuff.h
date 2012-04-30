@@ -1,8 +1,8 @@
 #ifndef _ZCHARACTERBUFF_H
 #define _ZCHARACTERBUFF_H
 
-class ZShortBuff : public MMatchShortBuff{};
-class ZBuffSummary : public MMatchBuffSummary{};
+class ZShortBuff : public CCMatchShortBuff{};
+class ZBuffSummary : public CCMatchBuffSummary{};
 
 class ZCharacterBuff
 {

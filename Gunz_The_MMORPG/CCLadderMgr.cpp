@@ -160,7 +160,7 @@ int MLadderMgr::MakeMatch(MLADDERTYPE nLadderType)
 		//ladderPicker.AddTicket( pGroup, time.MakeNumber(0,pGroup->GetScore()) );
 		
 		int nClanPoint = DEFAULT_CLAN_POINT;
-		MMatchClan* pClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(pGroup->GetCLID());
+		CCMatchClan* pClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(pGroup->GetCLID());
 		if (pClan)
 		{
 			nClanPoint = pClan->GetClanInfoEx()->nPoint;

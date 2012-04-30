@@ -97,7 +97,7 @@ int ZShopEquipListItem::GetSortHint()
 	{
 		int hint = 2000000;
 		int nResLv = m_pItemData->GetLevelRes();
-		MMatchItemDesc* pItemDesc = ((ZShopEquipItem_Match*)m_pItemData)->GetDesc();
+		CCMatchItemDesc* pItemDesc = ((ZShopEquipItem_Match*)m_pItemData)->GetDesc();
 		if (!pItemDesc) { _ASSERT(0); return 0; }
 
 		if (pItemDesc->m_nType.Ref() == MMIT_MELEE)
@@ -495,11 +495,11 @@ MListener* ZGetEquipListFilterListener()
 //			ZEquipmentListItem_OLD* pListItem = ( ZEquipmentListItem_OLD*)pEquipmentListBox->GetSelItem();
 //			if ( pListItem)
 //			{
-//				MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pListItem->GetItemID());
+//				CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pListItem->GetItemID());
 //				ZCharacterView* pCharacterView = (ZCharacterView*)ZGetGameInterface()->GetIDLResource()->FindWidget( "EquipmentInformationShop");
 //				if ( pItemDesc && pCharacterView)
 //				{
-//					MMatchCharItemParts nCharItemParts = GetSuitableItemParts( pItemDesc->m_nSlot);
+//					CCMatchCharItemParts nCharItemParts = GetSuitableItemParts( pItemDesc->m_nSlot);
 //
 //					pCharacterView->SetSelectMyCharacter();
 //					pCharacterView->SetParts(nCharItemParts, pItemDesc->m_nID);

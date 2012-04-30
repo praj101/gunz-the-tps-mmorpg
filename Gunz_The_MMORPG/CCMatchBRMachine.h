@@ -4,7 +4,7 @@
 
 #define MAX_REWARD_ITEM_RATE 1000 - 1
 
-class MMatchBRItem
+class CCMatchBRItem
 {
 protected:
 	int m_nBRID;
@@ -19,7 +19,7 @@ protected:
 	int m_nRateRange;
 
 public:
-	MMatchBRItem(int nBRID, int nBRIID, int nItemIDMale, int nItemIDFemale, int nItemCnt, int nRentHourPeriod, int nRate)
+	CCMatchBRItem(int nBRID, int nBRIID, int nItemIDMale, int nItemIDFemale, int nItemCnt, int nRentHourPeriod, int nRate)
 	{
 		m_nBRID = nBRID;
 		m_nBRIID = nBRIID;
@@ -55,7 +55,7 @@ public:
 	void SetRateRange(int nRateRage)	{ m_nRateRange = nRateRage; }
 };
 
-class MMatchBRDescription
+class CCMatchBRDescription
 {
 protected:
 	string m_strName;
@@ -68,16 +68,16 @@ protected:
 	int m_nRewardCount;					///< 보상 가능한 갯수
 	int m_nRewardKillCount;				///< 보상 받기 위해 필요한 킬수
 
-	vector<MMatchBRItem*> m_RewardItemList;
+	vector<CCMatchBRItem*> m_RewardItemList;
 
 	int m_nTotalRate;
 
 public:
-	MMatchBRDescription(int nBRID, string strName, string strResetDesc, int nBRTID, int nRewardMinutePeriod, int nRewardCount, int nRewardKillCount);
-	~MMatchBRDescription();
+	CCMatchBRDescription(int nBRID, string strName, string strResetDesc, int nBRTID, int nRewardMinutePeriod, int nRewardCount, int nRewardKillCount);
+	~CCMatchBRDescription();
 
-	void AddRewardItem(MMatchBRItem* pRewardItem);
-	MMatchBRItem* GetRewardItem();
+	void AddRewardItem(CCMatchBRItem* pRewardItem);
+	CCMatchBRItem* GetRewardItem();
 
 	int	GetBRID()				{ return m_nBRID; }
 	int GetBRTID()				{ return m_nBRTID; }
@@ -92,17 +92,17 @@ public:
 
 	DWORD GetCRC32();
 
-	vector<MMatchBRItem*>& GetBattleRewardItemList() { return m_RewardItemList; }
+	vector<CCMatchBRItem*>& GetBattleRewardItemList() { return m_RewardItemList; }
 
 };
 
-class MMatchBRDescriptionMap : public map<int, MMatchBRDescription*>
+class CCMatchBRDescriptionMap : public map<int, CCMatchBRDescription*>
 {
 protected:
-	MMatchCRC32XORCache m_CRC32;
+	CCMatchCRC32XORCache m_CRC32;
 
 public:
-	MMatchBRDescriptionMap();
+	CCMatchBRDescriptionMap();
 
 	void Clear();
 
@@ -110,24 +110,24 @@ public:
 	DWORD GetCRC32() { return m_CRC32.GetCRC32(); }
 };
 
-class MMatchBRMachine
+class CCMatchBRMachine
 {
 protected:
 	unsigned long int m_nLastUpdatedTime;
 
-	MMatchCRC32XORCache m_RewardDescriptionCRC;
-	MMatchBRDescriptionMap m_RewardDescription;
+	CCMatchCRC32XORCache m_RewardDescriptionCRC;
+	CCMatchBRDescriptionMap m_RewardDescription;
 
 public:
-	MMatchBRMachine(void);
-	~MMatchBRMachine(void);
+	CCMatchBRMachine(void);
+	~CCMatchBRMachine(void);
 
-	void SetBattleTimeRewardMachine(MMatchBRDescriptionMap DescriptionMap);
+	void SetBattleTimeRewardMachine(CCMatchBRDescriptionMap DescriptionMap);
 
 	bool IsValidBattleTimeRewardID(int nBRID);
 
-	MMatchBRDescriptionMap& GetBattleTimeRewardDescriptionMap() { return m_RewardDescription;}
-	MMatchBRDescription* GetBattleTimeRewardDescription(int nBRID);
+	CCMatchBRDescriptionMap& GetBattleTimeRewardDescriptionMap() { return m_RewardDescription;}
+	CCMatchBRDescription* GetBattleTimeRewardDescription(int nBRID);
 
 	int GetLastUpdateTime()							{ return m_nLastUpdatedTime; }
 	void SetLastUpdateTime(unsigned long int nTime) { m_nLastUpdatedTime = nTime; }

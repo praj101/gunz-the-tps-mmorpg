@@ -9,11 +9,11 @@ using namespace std;
 #define FILENAME_MATCH_FORMULA		"formula.xml"
 #define MAX_LEVEL					99		///< 최대 레벨
 
-class MMatchEquipedItem;
+class CCMatchEquipedItem;
 class CCMatchStageSetting;
 class CCMatchObject;
 
-class MMatchFormula
+class CCMatchFormula
 {
 private:
 	static float				m_fNeedExpLMTable[MAX_LEVEL+1];
@@ -46,7 +46,7 @@ public:
 	static int GetClanBattlePoint(int nWinnerClanPoint, int nLoserClanPoint, int nOneTeamMemberCount);
 
 	// 경험치 보너스 계산
-	static float CalcXPBonusRatio(CCMatchObject* pCharObj, MMatchItemBonusType nBonusType);
+	static float CalcXPBonusRatio(CCMatchObject* pCharObj, CCMatchItemBonusType nBonusType);
 	// 바운티 보너스 계산
-	static float CalcBPBounsRatio(CCMatchObject* pCharObj, MMatchItemBonusType nBonusType );
+	static float CalcBPBounsRatio(CCMatchObject* pCharObj, CCMatchItemBonusType nBonusType );
 };

@@ -1,35 +1,35 @@
 #include "stdafx.h"
-#include "MMatchRuleDeathMatch.h"
+#include "CCMatchRuleDeathMatch.h"
 #include "CCMatchTransDataType.h"
 #include "CCBlobArray.h"
 
 // TEAM DEATH RULE ///////////////////////////////////////////////////////////////
-MMatchRuleTeamDeath::MMatchRuleTeamDeath(CCMatchStage* pStage) : MMatchRule(pStage)
+CCMatchRuleTeamDeath::CCMatchRuleTeamDeath(CCMatchStage* pStage) : CCMatchRule(pStage)
 {
 }
 
-void MMatchRuleTeamDeath::OnBegin()
+void CCMatchRuleTeamDeath::OnBegin()
 {
 }
 
-void MMatchRuleTeamDeath::OnEnd()
+void CCMatchRuleTeamDeath::OnEnd()
 {
 }
 
-bool MMatchRuleTeamDeath::OnRun()
+bool CCMatchRuleTeamDeath::OnRun()
 {
-	bool ret = MMatchRule::OnRun();
+	bool ret = CCMatchRule::OnRun();
 
 
 	return ret;
 }
 
-void MMatchRuleTeamDeath::OnRoundBegin()
+void CCMatchRuleTeamDeath::OnRoundBegin()
 {
-	MMatchRule::OnRoundBegin();
+	CCMatchRule::OnRoundBegin();
 }
 
-void MMatchRuleTeamDeath::OnRoundEnd()
+void CCMatchRuleTeamDeath::OnRoundEnd()
 {
 	if (m_pStage != NULL)
 	{
@@ -43,10 +43,10 @@ void MMatchRuleTeamDeath::OnRoundEnd()
 		}
 	}
 
-	MMatchRule::OnRoundEnd();
+	CCMatchRule::OnRoundEnd();
 }
 
-bool MMatchRuleTeamDeath::OnCheckEnableBattleCondition()
+bool CCMatchRuleTeamDeath::OnCheckEnableBattleCondition()
 {
 	// 선승제일 경우는 Free상태가 안된다.
 	if (m_pStage->GetStageSetting()->IsTeamWinThePoint() == true)
@@ -89,7 +89,7 @@ bool MMatchRuleTeamDeath::OnCheckEnableBattleCondition()
 }
 
 // 만약 레드팀이나 블루팀에서 팀원이 0명일 경우는 false 반환 , true,false 모두 AliveCount 반환
-bool MMatchRuleTeamDeath::GetAliveCount(int* pRedAliveCount, int* pBlueAliveCount)
+bool CCMatchRuleTeamDeath::GetAliveCount(int* pRedAliveCount, int* pBlueAliveCount)
 {
 	int nRedCount = 0, nBlueCount = 0;
 	int nRedAliveCount = 0, nBlueAliveCount = 0;
@@ -132,7 +132,7 @@ bool MMatchRuleTeamDeath::GetAliveCount(int* pRedAliveCount, int* pBlueAliveCoun
 	return true;
 }
 
-bool MMatchRuleTeamDeath::OnCheckRoundFinish()
+bool CCMatchRuleTeamDeath::OnCheckRoundFinish()
 {
 	int nRedAliveCount = 0;
 	int nBlueAliveCount = 0;
@@ -174,7 +174,7 @@ bool MMatchRuleTeamDeath::OnCheckRoundFinish()
 	else return false;
 }
 
-void MMatchRuleTeamDeath::OnRoundTimeOut()
+void CCMatchRuleTeamDeath::OnRoundTimeOut()
 {
 	int nRedAliveCount = 0;
 	int nBlueAliveCount = 0;
@@ -188,7 +188,7 @@ void MMatchRuleTeamDeath::OnRoundTimeOut()
 }
 
 // 반환값이 false이면 게임이 끝난다.
-bool MMatchRuleTeamDeath::RoundCount() 
+bool CCMatchRuleTeamDeath::RoundCount() 
 {
 	if (m_pStage == NULL) return false;
 
@@ -231,7 +231,7 @@ bool MMatchRuleTeamDeath::RoundCount()
 	return false;
 }
 
-void MMatchRuleTeamDeath::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
+void CCMatchRuleTeamDeath::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 								int nSrcExp, int* poutAttackerExp, int* poutTeamExp)
 {
 	if (m_pStage == NULL)
@@ -246,27 +246,27 @@ void MMatchRuleTeamDeath::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject*
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-// MMatchRuleSoloDeath ///////////////////////////////////////////////////////////
-MMatchRuleSoloDeath::MMatchRuleSoloDeath(CCMatchStage* pStage) : MMatchRule(pStage)
+// CCMatchRuleSoloDeath ///////////////////////////////////////////////////////////
+CCMatchRuleSoloDeath::CCMatchRuleSoloDeath(CCMatchStage* pStage) : CCMatchRule(pStage)
 {
 
 }
 
-void MMatchRuleSoloDeath::OnBegin()
+void CCMatchRuleSoloDeath::OnBegin()
 {
 
 }
-void MMatchRuleSoloDeath::OnEnd()
+void CCMatchRuleSoloDeath::OnEnd()
 {
 }
 
-bool MMatchRuleSoloDeath::RoundCount()
+bool CCMatchRuleSoloDeath::RoundCount()
 {
 	if (++m_nRoundCount < 1) return true;
 	return false;
 }
 
-bool MMatchRuleSoloDeath::CheckKillCount(CCMatchObject* pOutObject)
+bool CCMatchRuleSoloDeath::CheckKillCount(CCMatchObject* pOutObject)
 {
 	CCMatchStage* pStage = GetStage();
 	for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) 
@@ -283,7 +283,7 @@ bool MMatchRuleSoloDeath::CheckKillCount(CCMatchObject* pOutObject)
 	return false;
 }
 
-bool MMatchRuleSoloDeath::OnCheckRoundFinish()
+bool CCMatchRuleSoloDeath::OnCheckRoundFinish()
 {
 	CCMatchObject* pObject = NULL;
 
@@ -294,7 +294,7 @@ bool MMatchRuleSoloDeath::OnCheckRoundFinish()
 	return false;
 }
 
-void MMatchRuleSoloDeath::OnRoundTimeOut()
+void CCMatchRuleSoloDeath::OnRoundTimeOut()
 {
 	SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
 }
@@ -304,33 +304,33 @@ void MMatchRuleSoloDeath::OnRoundTimeOut()
 
 // 무한 팀데스매치 - 추가 by 동섭
 //////////////////////////////////////////////////////////////////////////
-MMatchRuleTeamDeath2::MMatchRuleTeamDeath2(CCMatchStage* pStage) : MMatchRule(pStage)
+CCMatchRuleTeamDeath2::CCMatchRuleTeamDeath2(CCMatchStage* pStage) : CCMatchRule(pStage)
 {
 }
 
-void MMatchRuleTeamDeath2::OnBegin()
+void CCMatchRuleTeamDeath2::OnBegin()
 {
 	m_pStage->InitTeamKills();
 }
 
-void MMatchRuleTeamDeath2::OnEnd()
+void CCMatchRuleTeamDeath2::OnEnd()
 {
 }
 
-bool MMatchRuleTeamDeath2::OnRun()
+bool CCMatchRuleTeamDeath2::OnRun()
 {
-	bool ret = MMatchRule::OnRun();
+	bool ret = CCMatchRule::OnRun();
 
 
 	return ret;
 }
 
-void MMatchRuleTeamDeath2::OnRoundBegin()
+void CCMatchRuleTeamDeath2::OnRoundBegin()
 {
-	MMatchRule::OnRoundBegin();
+	CCMatchRule::OnRoundBegin();
 }
 
-void MMatchRuleTeamDeath2::OnRoundEnd()
+void CCMatchRuleTeamDeath2::OnRoundEnd()
 {
 	if (m_pStage != NULL)
 	{
@@ -348,11 +348,11 @@ void MMatchRuleTeamDeath2::OnRoundEnd()
 		}
 	}
 
-	MMatchRule::OnRoundEnd();
+	CCMatchRule::OnRoundEnd();
 }
 
 // 만약 레드팀이나 블루팀에서 팀원이 0명일 경우는 false 반환 , true,false 모두 AliveCount 반환
-void MMatchRuleTeamDeath2::GetTeamScore(int* pRedTeamScore, int* pBlueTeamScore)
+void CCMatchRuleTeamDeath2::GetTeamScore(int* pRedTeamScore, int* pBlueTeamScore)
 {
 	(*pRedTeamScore) = 0;
 	(*pBlueTeamScore) = 0;
@@ -366,7 +366,7 @@ void MMatchRuleTeamDeath2::GetTeamScore(int* pRedTeamScore, int* pBlueTeamScore)
 	return;
 }
 
-bool MMatchRuleTeamDeath2::OnCheckRoundFinish()
+bool CCMatchRuleTeamDeath2::OnCheckRoundFinish()
 {
 	int nRedScore, nBlueScore;
 	GetTeamScore(&nRedScore, &nBlueScore);
@@ -387,20 +387,20 @@ bool MMatchRuleTeamDeath2::OnCheckRoundFinish()
 	return false;
 }
 
-void MMatchRuleTeamDeath2::OnRoundTimeOut()
+void CCMatchRuleTeamDeath2::OnRoundTimeOut()
 {
 	if (!OnCheckRoundFinish())
 		SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
 }
 
 // 반환값이 false이면 게임이 끝난다.
-bool MMatchRuleTeamDeath2::RoundCount() 
+bool CCMatchRuleTeamDeath2::RoundCount() 
 {
 	if (++m_nRoundCount < 1) return true;
 	return false;
 }
 
-void MMatchRuleTeamDeath2::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
+void CCMatchRuleTeamDeath2::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 										int nSrcExp, int* poutAttackerExp, int* poutTeamExp)
 {
 	if (m_pStage == NULL)
@@ -417,7 +417,7 @@ void MMatchRuleTeamDeath2::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject
 
 
 
-void MMatchRuleTeamDeath2::OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim)
+void CCMatchRuleTeamDeath2::OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim)
 {
 	CCMatchObject* pAttacker = CCMatchServer::GetInstance()->GetObject(uidAttacker);
 	CCMatchObject* pVictim = CCMatchServer::GetInstance()->GetObject(uidVictim);

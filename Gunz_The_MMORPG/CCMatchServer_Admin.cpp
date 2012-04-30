@@ -12,17 +12,17 @@
 #include "CCMatchObjCache.h"
 #include "CCMatchStage.h"
 #include "CCMatchTransDataType.h"
-#include "MMatchFormula.h"
+#include "CCMatchFormula.h"
 #include "CCMatchConfig.h"
 #include "CCCommandCommunicator.h"
 #include "CCMatchShop.h"
 #include "CCMatchTransDataType.h"
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "CCMatchTransDataType.h"
-#include "MMatchAntiHack.h"
+#include "CCMatchAntiHack.h"
 
 
 void CCMatchServer::OnAdminTerminal(const CCUID& uidAdmin, const char* szText)
@@ -99,7 +99,7 @@ void CCMatchServer::OnAdminServerHalt(const CCUID& uidAdmin)
 	CCMatchObject* pObj = GetObject(uidAdmin);
 	if (pObj == NULL) return;
 
-	MMatchUserGradeID nGrade = pObj->GetAccountInfo()->m_nUGrade;
+	CCMatchUserGradeID nGrade = pObj->GetAccountInfo()->m_nUGrade;
 
 	// 관리자 권한을 가진 사람이 아니면 무시.
 	if ((nGrade != MMUG_ADMIN) && (nGrade != MMUG_DEVELOPER)) return;

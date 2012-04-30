@@ -6,10 +6,10 @@ using namespace std;
 
 #include "ZPrerequisites.h"
 #include "CCUID.h"
-#include "MMatchStage.h"
+#include "CCMatchStage.h"
 
 class ZCharacter;
-class MMatchStageSetting;
+class CCMatchStageSetting;
 class ZRule;
 
 /// Å¬¶óÀÌ¾ðÆ® °ÔÀÓ ·ê °ü·Ã Å¬·¡½º
@@ -18,7 +18,7 @@ class ZMatch
 private:
 protected:
 	ZRule*					m_pRule;
-	MMatchStageSetting*		m_pStageSetting;
+	CCMatchStageSetting*		m_pStageSetting;
 	MMATCH_ROUNDSTATE		m_nRoundState;
 	int						m_nCurrRound;
 	int						m_nTeamScore[MMT_END];
@@ -69,11 +69,11 @@ public:
 	inline MMATCH_GAMETYPE GetMatchType();
 	inline bool GetTeamKillEnabled();
 	inline const char* GetMapName();
-	inline int GetTeamScore(MMatchTeam nTeam);
-	inline void SetTeamScore(MMatchTeam nTeam, int nScore);
-	inline int GetTeamKills(MMatchTeam nTeam);		// ÆÀÀÇ ÃÑÇÕÅ³¼ö
-	inline void AddTeamKills(MMatchTeam nTeam, int amount = 1);
-	inline void SetTeamKills(MMatchTeam nTeam, int amount);
+	inline int GetTeamScore(CCMatchTeam nTeam);
+	inline void SetTeamScore(CCMatchTeam nTeam, int nScore);
+	inline int GetTeamKills(CCMatchTeam nTeam);		// ÆÀÀÇ ÃÑÇÕÅ³¼ö
+	inline void AddTeamKills(CCMatchTeam nTeam, int amount = 1);
+	inline void SetTeamKills(CCMatchTeam nTeam, int amount);
 	inline int GetRoundKills();
 	inline void AddRoundKills();
 	inline bool IsRuleGladiator();
@@ -118,27 +118,27 @@ inline const char* ZMatch::GetMapName()
 {
 	return m_pStageSetting->GetStageSetting()->szMapName;
 }
-inline int ZMatch::GetTeamScore(MMatchTeam nTeam)
+inline int ZMatch::GetTeamScore(CCMatchTeam nTeam)
 { 
 	return m_nTeamScore[nTeam]; 
 }
 
-inline int ZMatch::GetTeamKills(MMatchTeam nTeam)
+inline int ZMatch::GetTeamKills(CCMatchTeam nTeam)
 { 
 	return m_nTeamKillCount[nTeam]; 
 }
 
-inline void ZMatch::AddTeamKills(MMatchTeam nTeam, int amount)
+inline void ZMatch::AddTeamKills(CCMatchTeam nTeam, int amount)
 { 
 	m_nTeamKillCount[nTeam]+=amount; 
 }
 
-inline void ZMatch::SetTeamKills(MMatchTeam nTeam, int amount)
+inline void ZMatch::SetTeamKills(CCMatchTeam nTeam, int amount)
 { 
 	m_nTeamKillCount[nTeam]=amount; 
 }
 
-inline void ZMatch::SetTeamScore(MMatchTeam nTeam, int nScore)
+inline void ZMatch::SetTeamScore(CCMatchTeam nTeam, int nScore)
 { 
 	m_nTeamScore[nTeam] = nScore; 
 }

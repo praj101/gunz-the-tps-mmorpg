@@ -649,10 +649,10 @@ void ZRuleDuelTournament::SetMatchPlayerInfoUI(const CCUID& uidPlayer1, const CC
 
 	// TodoH(하) - Combatinterface_DuelTournament.xml 내에서 Custom1, Custom2를 없애줘야 되지 않을까?
 	ZItemSlotView* itemSlot = NULL;
-	MMatchCharItemParts partsToShow[] = { MMCIP_MELEE, MMCIP_PRIMARY, MMCIP_SECONDARY, MMCIP_CUSTOM1, MMCIP_CUSTOM2, MMCIP_LONGBUFF1, MMCIP_LONGBUFF2, MMCIP_END };
+	CCMatchCharItemParts partsToShow[] = { MMCIP_MELEE, MMCIP_PRIMARY, MMCIP_SECONDARY, MMCIP_CUSTOM1, MMCIP_CUSTOM2, MMCIP_LONGBUFF1, MMCIP_LONGBUFF2, MMCIP_END };
 	for (int i=0; partsToShow[i]!=MMCIP_END; ++i)
 	{
-		MMatchCharItemParts parts = partsToShow[i];
+		CCMatchCharItemParts parts = partsToShow[i];
 		itemSlot = (ZItemSlotView*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( GetItemSlotName( "CombatDT_CharLeft", parts));
 		if( itemSlot ) {
 			itemSlot->SetItemID(pCharInfo[0]->nEquipedItemDesc[parts]);
@@ -880,7 +880,7 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 		ColorText(pDC, xRight, y, m_QuaterFinalPlayer[i+4].m_szCharName, color);
 		
 		// 계급장 표시
-		MMatchObjCache* pPlayer1 = ZGetGameClient()->FindObjCache(m_QuaterFinalPlayer[i].uidPlayer);
+		CCMatchObjCache* pPlayer1 = ZGetGameClient()->FindObjCache(m_QuaterFinalPlayer[i].uidPlayer);
 		if (pPlayer1) {
 			GetDuelTournamentGradeIconFileName(szTemp, pPlayer1->GetDTGrade());
 			//{	GetDuelTournamentGradeIconFileName(szTemp, i+1);
@@ -889,7 +889,7 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 			pDC->Draw( screenx-iconDTGradeSize-(0.004f*fSceneWidth), y-iconDTGradeSize*0.25f, iconDTGradeSize, iconDTGradeSize);
 		}
 
-		MMatchObjCache* pPlayer2 = ZGetGameClient()->FindObjCache(m_QuaterFinalPlayer[i+4].uidPlayer);
+		CCMatchObjCache* pPlayer2 = ZGetGameClient()->FindObjCache(m_QuaterFinalPlayer[i+4].uidPlayer);
 		if (pPlayer2) {
 			GetDuelTournamentGradeIconFileName(szTemp, pPlayer2->GetDTGrade());
 			//{	GetDuelTournamentGradeIconFileName(szTemp, i+5);
@@ -1170,7 +1170,7 @@ int ZRuleDuelTournament::GetPlayerInfoIndex(const CCUID& uidChar)
 int ZRuleDuelTournament::GetPingValue(CCUID uiPlayer)
 {
 	int nPing = (uiPlayer == ZGetGameClient()->GetPlayerUID() ? 0 : MAX_PING);
-	MMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uiPlayer);
+	CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uiPlayer);
 	if (pPeer) {
 		if ( ZGetGame()->IsReplay())
 			nPing = 0;

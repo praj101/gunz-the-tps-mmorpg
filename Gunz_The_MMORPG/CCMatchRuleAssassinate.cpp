@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "MMatchRuleAssassinate.h"
+#include "CCMatchRuleAssassinate.h"
 #include "CCBlobArray.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-// MMatchRuleAssassinate //////////////////////////////////////////////////////////////////////
-MMatchRuleAssassinate::MMatchRuleAssassinate(CCMatchStage* pStage) : MMatchRuleTeamDeath(pStage)
+// CCMatchRuleAssassinate //////////////////////////////////////////////////////////////////////
+CCMatchRuleAssassinate::CCMatchRuleAssassinate(CCMatchStage* pStage) : CCMatchRuleTeamDeath(pStage)
 {
 	m_uidRedCommander = CCUID(0,0);
 	m_uidBlueCommander = CCUID(0,0);
@@ -12,7 +12,7 @@ MMatchRuleAssassinate::MMatchRuleAssassinate(CCMatchStage* pStage) : MMatchRuleT
 }
 
 
-void MMatchRuleAssassinate::ChooseAdminAsCommander()
+void CCMatchRuleAssassinate::ChooseAdminAsCommander()
 {
 	m_bIsAdminCommander = !m_bIsAdminCommander;
 
@@ -36,7 +36,7 @@ void MMatchRuleAssassinate::ChooseAdminAsCommander()
 }
 
 
-const CCUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
+const CCUID CCMatchRuleAssassinate::ChooseCommander(int nTeam)
 {
 	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return CCUID(0,0);
@@ -87,7 +87,7 @@ const CCUID MMatchRuleAssassinate::ChooseCommander(int nTeam)
 	return CCUID(0,0);
 }
 
-void MMatchRuleAssassinate::OnRoundBegin()
+void CCMatchRuleAssassinate::OnRoundBegin()
 {
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	CCMatchStage* pStage = GetStage();
@@ -110,13 +110,13 @@ void MMatchRuleAssassinate::OnRoundBegin()
 //	OutputDebugString("Assassinate::OnRoundBegin() \n");
 }
 
-void MMatchRuleAssassinate::OnRoundEnd()
+void CCMatchRuleAssassinate::OnRoundEnd()
 {
-	MMatchRule::OnRoundEnd();
+	CCMatchRule::OnRoundEnd();
 //	OutputDebugString("Assassinate::OnRoundEnd() \n");
 }
 
-bool MMatchRuleAssassinate::OnCheckRoundFinish()
+bool CCMatchRuleAssassinate::OnCheckRoundFinish()
 {
 	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) {
@@ -154,7 +154,7 @@ bool MMatchRuleAssassinate::OnCheckRoundFinish()
 	return false;
 }
 
-void* MMatchRuleAssassinate::CreateRuleInfoBlob()
+void* CCMatchRuleAssassinate::CreateRuleInfoBlob()
 {
 	void* pRuleInfoArray = MMakeBlobArray(sizeof(MTD_RuleInfo_Assassinate), 1);
 	MTD_RuleInfo_Assassinate* pRuleItem = (MTD_RuleInfo_Assassinate*)MGetBlobArrayElement(pRuleInfoArray, 0);
@@ -168,7 +168,7 @@ void* MMatchRuleAssassinate::CreateRuleInfoBlob()
 }
 
 
-void MMatchRuleAssassinate::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
+void CCMatchRuleAssassinate::CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 							int nSrcExp, int* poutAttackerExp, int* poutTeamExp)
 {
 	if ((m_pStage == NULL) || (pAttacker == NULL) || (pVictim == NULL))

@@ -8,10 +8,10 @@
 
 #define DEFAULT_MELEE_WEAPON_RANGE 160
 
-CCUID MMatchItemMap::m_uidGenerate = CCUID(0,0);
-MCriticalSection MMatchItemMap::m_csUIDGenerateLock;
+CCUID CCMatchItemMap::m_uidGenerate = CCUID(0,0);
+MCriticalSection CCMatchItemMap::m_csUIDGenerateLock;
 
-MMatchItemDesc::MMatchItemDesc() : m_nID(0), m_nSlot(MMIST_NONE), m_pEffect(NULL), m_bSlugOutput(0), 
+CCMatchItemDesc::CCMatchItemDesc() : m_nID(0), m_nSlot(MMIST_NONE), m_pEffect(NULL), m_bSlugOutput(0), 
 	m_nColor(0xFFFFFFFF), m_nImageID(0), m_nBulletImageID(0), m_nMagazineImageID(0), m_bIsCashItem(false), m_bIsSpendableItem(false)
 {
 	m_nTotalPoint.Set_MakeCrc(0);
@@ -49,8 +49,8 @@ MMatchItemDesc::MMatchItemDesc() : m_nID(0), m_nSlot(MMIST_NONE), m_pEffect(NULL
 	m_nDamageTime.Set_MakeCrc(0);
 	m_nLifeTime.Set_MakeCrc(0);
 
-	m_pMItemName = new MProtectValue<MMatchItemName>;
-	memset(&m_pMItemName->Ref(), 0, sizeof(MMatchItemName));
+	m_pMItemName = new MProtectValue<CCMatchItemName>;
+	memset(&m_pMItemName->Ref(), 0, sizeof(CCMatchItemName));
 	//memset(m_szItemName, 0, sizeof(m_szItemName));
 	memset(m_szDesc, 0, sizeof(m_szDesc));
 //	memset(m_szMeshName, 0, sizeof(m_szMeshName));
@@ -69,19 +69,19 @@ MMatchItemDesc::MMatchItemDesc() : m_nID(0), m_nSlot(MMIST_NONE), m_pEffect(NULL
 
 	m_nSpendType.Set_MakeCrc(MMCT_NONE);
 
-	m_pAvatarMeshName = new MProtectValue<MMatchAvatarMeshName>;
-	memset(&m_pAvatarMeshName->Ref(), 0, sizeof(MMatchAvatarMeshName));
+	m_pAvatarMeshName = new MProtectValue<CCMatchAvatarMeshName>;
+	memset(&m_pAvatarMeshName->Ref(), 0, sizeof(CCMatchAvatarMeshName));
 	m_pAvatarMeshName->MakeCrc();
 }
 
-MMatchItemDesc::~MMatchItemDesc()
+CCMatchItemDesc::~CCMatchItemDesc()
 {
 	delete m_pMItemName;
 	delete m_pAvatarMeshName;
 }
 
 
-void MMatchItemDesc::CacheCRC32( MMatchCRC32XORCache& crc )
+void CCMatchItemDesc::CacheCRC32( CCMatchCRC32XORCache& crc )
 {
 	crc.CRC32XOR( m_nID );
 	crc.CRC32XOR( m_nType.Ref() );
@@ -151,7 +151,7 @@ void MMatchItemDesc::CacheCRC32( MMatchCRC32XORCache& crc )
 	crc.CRC32XOR( checksum );	
 }
 
-void MMatchItemDesc::ShiftFugitiveValues()
+void CCMatchItemDesc::ShiftFugitiveValues()
 {
 	m_pAvatarMeshName->ShiftHeapPos_CheckCrc();
 
@@ -194,24 +194,24 @@ void MMatchItemDesc::ShiftFugitiveValues()
 	m_nLifeTime.ShiftHeapPos_CheckCrc();
 }
 
-void MMatchItemDesc::DumpBinary(FILE* fp)
+void CCMatchItemDesc::DumpBinary(FILE* fp)
 {
 #ifdef _DEBUG
 	fwrite(&m_nID, sizeof(unsigned long int), 1, fp);
-	fwrite(&m_pMItemName->Ref(), sizeof(MMatchItemName), 1, fp);
+	fwrite(&m_pMItemName->Ref(), sizeof(CCMatchItemName), 1, fp);
 	fwrite(&m_nTotalPoint.Ref(), sizeof(int), 1, fp);
-	fwrite(&m_nWeaponType.Ref(), sizeof(MMatchWeaponType), 1, fp);
-	fwrite(&m_nType.Ref(), sizeof(MMatchItemType), 1, fp);
+	fwrite(&m_nWeaponType.Ref(), sizeof(CCMatchWeaponType), 1, fp);
+	fwrite(&m_nType.Ref(), sizeof(CCMatchItemType), 1, fp);
 	fwrite(&m_nResSex.Ref(), sizeof(int), 1, fp);
 	fwrite(&m_nResLevel.Ref(), sizeof(m_nResSex), 1, fp);
-	fwrite(&m_nSlot, sizeof(MMatchItemSlotType), 1, fp);
+	fwrite(&m_nSlot, sizeof(CCMatchItemSlotType), 1, fp);
 
 	fwrite(&m_nWeight.Ref(), sizeof(int), 1, fp);
 	fwrite(&m_nBountyPrice.Ref(), sizeof(int), 1, fp);
 	fwrite(&m_bIsCashItem, sizeof(bool), 1, fp);
 	fwrite(&m_nDelay.Ref(), sizeof(int), 1, fp);
 
-	fwrite(&m_nEffectId, sizeof(MMatchItemEffectId), 1, fp);
+	fwrite(&m_nEffectId, sizeof(CCMatchItemEffectId), 1, fp);
 	fwrite(&m_nControllability.Ref(), sizeof(int), 1, fp);
 	fwrite(&m_nMagazine.Ref(), sizeof(int), 1, fp);
 	fwrite(&m_nMaxBullet.Ref(), sizeof(int), 1, fp);
@@ -239,15 +239,15 @@ void MMatchItemDesc::DumpBinary(FILE* fp)
 	fwrite(&m_nDamage.Ref(), sizeof(int), 1, fp);
 	fwrite(&m_nItemPower.Ref(), sizeof(int), 1, fp);
 	fwrite(&m_nDamageTime.Ref(), sizeof(int), 1, fp);
-	fwrite(&m_nDamageType.Ref(), sizeof(MMatchDamageType), 1, fp);
+	fwrite(&m_nDamageType.Ref(), sizeof(CCMatchDamageType), 1, fp);
 	fwrite(&m_nLifeTime.Ref(), sizeof(int), 1, fp);
 	
 	fwrite(m_szDesc, sizeof(m_szDesc), 1, fp);
 	
 	fwrite(&m_bIsSpendableItem, sizeof(bool), 1, fp);
-	fwrite(&m_nSpendType.Ref(), sizeof(MMatchSpendType), 1, fp);
+	fwrite(&m_nSpendType.Ref(), sizeof(CCMatchSpendType), 1, fp);
 	
-	fwrite(&m_pAvatarMeshName->Ref(), sizeof(MMatchAvatarMeshName), 1, fp);
+	fwrite(&m_pAvatarMeshName->Ref(), sizeof(CCMatchAvatarMeshName), 1, fp);
 
 	fwrite(&m_nColor, sizeof(unsigned long int), 1, fp);
 	fwrite(&m_nImageID, sizeof(int), 1, fp);
@@ -258,25 +258,25 @@ void MMatchItemDesc::DumpBinary(FILE* fp)
 	fwrite(&m_szDryfireSndName, sizeof(m_szDryfireSndName), 1, fp);
 	fwrite(&m_szWeaponByFiber, sizeof(m_szWeaponByFiber), 1, fp);
 	
-	fwrite(&m_Bonus, sizeof(MMatchItemBonus), 1, fp);
-	fwrite(&m_TicketType, sizeof(MMatchTicketType), 1, fp);
+	fwrite(&m_Bonus, sizeof(CCMatchItemBonus), 1, fp);
+	fwrite(&m_TicketType, sizeof(CCMatchTicketType), 1, fp);
 	fwrite(&m_nMaxRentPeriod.Ref(), sizeof(int), 1, fp);
 
 	fwrite(&m_bIsEnableMoveToAccountItem, sizeof(bool), 1, fp);
 #endif
 }
 
-void MMatchItemDesc::LoadBinary(FILE* fp)
+void CCMatchItemDesc::LoadBinary(FILE* fp)
 {
 #ifdef _DEBUG
 	fread(&m_nID, sizeof(unsigned long int), 1, fp);
-	fread(&m_pMItemName->Ref(), sizeof(MMatchItemName), 1, fp);		m_pMItemName->MakeCrc();
+	fread(&m_pMItemName->Ref(), sizeof(CCMatchItemName), 1, fp);		m_pMItemName->MakeCrc();
 	fread(&m_nTotalPoint.Ref(), sizeof(int), 1, fp);				m_nTotalPoint.MakeCrc();
-	fread(&m_nWeaponType.Ref(), sizeof(MMatchWeaponType), 1, fp);	m_nWeaponType.MakeCrc();
-	fread(&m_nType.Ref(), sizeof(MMatchItemType), 1, fp);			m_nType.MakeCrc();
+	fread(&m_nWeaponType.Ref(), sizeof(CCMatchWeaponType), 1, fp);	m_nWeaponType.MakeCrc();
+	fread(&m_nType.Ref(), sizeof(CCMatchItemType), 1, fp);			m_nType.MakeCrc();
 	fread(&m_nResSex.Ref(), sizeof(int), 1, fp);					m_nResSex.MakeCrc();
 	fread(&m_nResLevel.Ref(), sizeof(m_nResSex), 1, fp);			m_nResLevel.MakeCrc();
-	fread(&m_nSlot, sizeof(MMatchItemSlotType), 1, fp);
+	fread(&m_nSlot, sizeof(CCMatchItemSlotType), 1, fp);
 
 	fread(&m_nWeight.Ref(), sizeof(int), 1, fp);					m_nWeight.MakeCrc();
 	fread(&m_nBountyPrice.Ref(), sizeof(int), 1, fp);				m_nBountyPrice.MakeCrc();
@@ -285,7 +285,7 @@ void MMatchItemDesc::LoadBinary(FILE* fp)
 
 	m_pEffect = NULL;
 
-	fread(&m_nEffectId, sizeof(MMatchItemEffectId), 1, fp);
+	fread(&m_nEffectId, sizeof(CCMatchItemEffectId), 1, fp);
 	fread(&m_nControllability.Ref(), sizeof(int), 1, fp);			m_nControllability.MakeCrc();
 	fread(&m_nMagazine.Ref(), sizeof(int), 1, fp);					m_nMagazine.MakeCrc();
 	fread(&m_nMaxBullet.Ref(), sizeof(int), 1, fp);					m_nMaxBullet.MakeCrc();
@@ -313,15 +313,15 @@ void MMatchItemDesc::LoadBinary(FILE* fp)
 	fread(&m_nDamage.Ref(), sizeof(int), 1, fp);					m_nDamage.MakeCrc();
 	fread(&m_nItemPower.Ref(), sizeof(int), 1, fp);					m_nItemPower.MakeCrc();
 	fread(&m_nDamageTime.Ref(), sizeof(int), 1, fp);				m_nDamageTime.MakeCrc();
-	fread(&m_nDamageType.Ref(), sizeof(MMatchDamageType), 1, fp);	m_nDamageType.MakeCrc();
+	fread(&m_nDamageType.Ref(), sizeof(CCMatchDamageType), 1, fp);	m_nDamageType.MakeCrc();
 	fread(&m_nLifeTime.Ref(), sizeof(int), 1, fp);					m_nLifeTime.MakeCrc();
 
 	fread(m_szDesc, sizeof(m_szDesc), 1, fp);
 
 	fread(&m_bIsSpendableItem, sizeof(bool), 1, fp);
-	fread(&m_nSpendType.Ref(), sizeof(MMatchSpendType), 1, fp);		m_nSpendType.MakeCrc();
+	fread(&m_nSpendType.Ref(), sizeof(CCMatchSpendType), 1, fp);		m_nSpendType.MakeCrc();
 
-	fread(&m_pAvatarMeshName->Ref(), sizeof(MMatchAvatarMeshName), 1, fp);	m_pAvatarMeshName->MakeCrc();
+	fread(&m_pAvatarMeshName->Ref(), sizeof(CCMatchAvatarMeshName), 1, fp);	m_pAvatarMeshName->MakeCrc();
 
 	fread(&m_nColor, sizeof(unsigned long int), 1, fp);
 	fread(&m_nImageID, sizeof(int), 1, fp);
@@ -332,8 +332,8 @@ void MMatchItemDesc::LoadBinary(FILE* fp)
 	fread(&m_szDryfireSndName, sizeof(m_szDryfireSndName), 1, fp);
 	fread(&m_szWeaponByFiber, sizeof(m_szWeaponByFiber), 1, fp);
 
-	fread(&m_Bonus, sizeof(MMatchItemBonus), 1, fp);
-	fread(&m_TicketType, sizeof(MMatchTicketType), 1, fp);
+	fread(&m_Bonus, sizeof(CCMatchItemBonus), 1, fp);
+	fread(&m_TicketType, sizeof(CCMatchTicketType), 1, fp);
 	fread(&m_nMaxRentPeriod.Ref(), sizeof(int), 1, fp);				m_nMaxRentPeriod.MakeCrc();
 
 	fread(&m_bIsEnableMoveToAccountItem, sizeof(bool), 1, fp);
@@ -341,20 +341,20 @@ void MMatchItemDesc::LoadBinary(FILE* fp)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// MMatchItemEffectDescMgr ////////////////////////////////////////////////////
+// CCMatchItemEffectDescMgr ////////////////////////////////////////////////////
 /*
-MMatchItemEffectDescMgr::MMatchItemEffectDescMgr()
+CCMatchItemEffectDescMgr::CCMatchItemEffectDescMgr()
 {
 
 }
-MMatchItemEffectDescMgr::~MMatchItemEffectDescMgr()
+CCMatchItemEffectDescMgr::~CCMatchItemEffectDescMgr()
 {
 	Clear();
 }
-void MMatchItemEffectDescMgr::ParseEffect(CCXmlElement& element)
+void CCMatchItemEffectDescMgr::ParseEffect(CCXmlElement& element)
 {
-	MMatchItemEffectDesc* pNewEffectDesc = new MMatchItemEffectDesc;
-	memset(pNewEffectDesc, 0, sizeof(MMatchItemEffectDesc));
+	CCMatchItemEffectDesc* pNewEffectDesc = new CCMatchItemEffectDesc;
+	memset(pNewEffectDesc, 0, sizeof(CCMatchItemEffectDesc));
 
 	int n = 0;
 	element.GetAttribute(&n, MECTOK_ID);	pNewEffectDesc->m_nID = n;
@@ -385,11 +385,11 @@ void MMatchItemEffectDescMgr::ParseEffect(CCXmlElement& element)
 
 	insert(value_type(pNewEffectDesc->m_nID, pNewEffectDesc));
 
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pNewEffectDesc->m_nID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pNewEffectDesc->m_nID);
 	if (pItemDesc)
 		pItemDesc->m_pEffect = pNewEffectDesc;
 }
-bool MMatchItemEffectDescMgr::ReadXml(const char* szFileName)
+bool CCMatchItemEffectDescMgr::ReadXml(const char* szFileName)
 {
 	CCXmlDocument	xmlIniData;
 
@@ -425,7 +425,7 @@ bool MMatchItemEffectDescMgr::ReadXml(const char* szFileName)
 
 }
 
-bool MMatchItemEffectDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
+bool CCMatchItemEffectDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
@@ -489,17 +489,17 @@ bool MMatchItemEffectDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* sz
 	return true;
 }
 
-void MMatchItemEffectDescMgr::Clear()
+void CCMatchItemEffectDescMgr::Clear()
 {
 //	if (!empty())
 	while(!empty())
 	{
-		MMatchItemEffectDesc* pEffectDesc = (*begin()).second;
+		CCMatchItemEffectDesc* pEffectDesc = (*begin()).second;
 		delete pEffectDesc; pEffectDesc = NULL;
 		erase(begin());
 	}
 }
-MMatchItemEffectDesc* MMatchItemEffectDescMgr::GetEffectDesc(int nID)
+CCMatchItemEffectDesc* CCMatchItemEffectDescMgr::GetEffectDesc(int nID)
 {
 	iterator itor = find(nID);
 	if (itor != end())
@@ -509,25 +509,25 @@ MMatchItemEffectDesc* MMatchItemEffectDescMgr::GetEffectDesc(int nID)
 	return NULL;
 }
 
-MMatchItemEffectDescMgr* MMatchItemEffectDescMgr::GetInstance()
+CCMatchItemEffectDescMgr* CCMatchItemEffectDescMgr::GetInstance()
 {
-	static MMatchItemEffectDescMgr m_ItemEffectDescMgr;
+	static CCMatchItemEffectDescMgr m_ItemEffectDescMgr;
 	return &m_ItemEffectDescMgr;
 }
 */
 ///////////////////////////////////////////////////////////////////////////////
-// MMatchItemDescMgr //////////////////////////////////////////////////////////
-MMatchItemDescMgr::MMatchItemDescMgr() : m_nChecksum(0), m_nextItemIdToMemoryShift(0)
+// CCMatchItemDescMgr //////////////////////////////////////////////////////////
+CCMatchItemDescMgr::CCMatchItemDescMgr() : m_nChecksum(0), m_nextItemIdToMemoryShift(0)
 {
 
 }
 
-MMatchItemDescMgr::~MMatchItemDescMgr()
+CCMatchItemDescMgr::~CCMatchItemDescMgr()
 {
 	Clear();
 }
 
-bool MMatchItemDescMgr::ReadXml(const char* szFileName)
+bool CCMatchItemDescMgr::ReadXml(const char* szFileName)
 {
 	m_nChecksum = MGetCCZFileChecksum(szFileName);
 
@@ -567,7 +567,7 @@ bool MMatchItemDescMgr::ReadXml(const char* szFileName)
 	return true;
 }
 
-bool MMatchItemDescMgr::ReadCache()
+bool CCMatchItemDescMgr::ReadCache()
 {
 	// zitem.xml을 파싱하는데 몇십초 걸리므로, 이를 바이너리로 캐싱해 둔것을 찾아 읽는다. 개발빌드일때만 작동.
 	// 만약 zitem.xml을 변경했을 때에는 runtime/zitemxml.cache 파일을 삭제하면 된다.
@@ -580,7 +580,7 @@ bool MMatchItemDescMgr::ReadCache()
 		fread(&num, sizeof(int), 1, fp);
 		for (int i=0; i<num; ++i)
 		{
-			MMatchItemDesc* pDesc = new MMatchItemDesc;
+			CCMatchItemDesc* pDesc = new CCMatchItemDesc;
 			pDesc->LoadBinary(fp);
 			(*this)[pDesc->m_nID] = pDesc;
 		}
@@ -592,7 +592,7 @@ bool MMatchItemDescMgr::ReadCache()
 	return false;
 }
 
-void MMatchItemDescMgr::WriteCache()
+void CCMatchItemDescMgr::WriteCache()
 {
 	// 다음번 실행시 로딩속도를 높이기 위해서 zitem.xml을 바이너리 파일로 캐싱해 둔다. 개발빌드일때만 작동.
 #ifdef _DEBUG
@@ -605,7 +605,7 @@ void MMatchItemDescMgr::WriteCache()
 		fwrite(&num, sizeof(int), 1, fp);
 		for (iterator it=begin(); it!=end(); ++it)
 		{
-			MMatchItemDesc* pDesc = it->second;
+			CCMatchItemDesc* pDesc = it->second;
 			pDesc->DumpBinary(fp);
 		}
 		fclose(fp);
@@ -613,7 +613,7 @@ void MMatchItemDescMgr::WriteCache()
 #endif
 }
 
-bool MMatchItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
+bool CCMatchItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
@@ -686,16 +686,16 @@ bool MMatchItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileNa
 	xmlIniData.Destroy();
 	return true;
 }
-void MMatchItemDescMgr::Clear()
+void CCMatchItemDescMgr::Clear()
 {
 	while(!empty())
 	{
-		MMatchItemDesc* pItemDesc = (*begin()).second;
+		CCMatchItemDesc* pItemDesc = (*begin()).second;
 		delete pItemDesc; pItemDesc = NULL;
 		erase(begin());
 	}
 }
-MMatchItemDesc* MMatchItemDescMgr::GetItemDesc(unsigned long int nID)
+CCMatchItemDesc* CCMatchItemDescMgr::GetItemDesc(unsigned long int nID)
 {
 	iterator itor = find(nID);
 	if (itor != end())
@@ -707,9 +707,9 @@ MMatchItemDesc* MMatchItemDescMgr::GetItemDesc(unsigned long int nID)
 
 
 
-bool MMatchItemDescMgr::ParseItem(CCXmlElement& element)
+bool CCMatchItemDescMgr::ParseItem(CCXmlElement& element)
 {
-	MMatchItemDesc* pNewDesc = new MMatchItemDesc;
+	CCMatchItemDesc* pNewDesc = new CCMatchItemDesc;
 
 	// default 값 입력
 	pNewDesc->m_bIsCashItem = false;
@@ -897,7 +897,7 @@ bool MMatchItemDescMgr::ParseItem(CCXmlElement& element)
 		}
 		else if (!stricmp(szAttrName, MICTOK_EFFECT_ID))
 		{
-			pNewDesc->m_nEffectId = (MMatchItemEffectId)atoi(szAttrValue);
+			pNewDesc->m_nEffectId = (CCMatchItemEffectId)atoi(szAttrValue);
 		}
 		else if (!stricmp(szAttrName, MICTOK_DELAY))
 		{
@@ -1154,13 +1154,13 @@ bool MMatchItemDescMgr::ParseItem(CCXmlElement& element)
 }
 
 
-MMatchItemDescMgr* MMatchItemDescMgr::GetInstance()
+CCMatchItemDescMgr* CCMatchItemDescMgr::GetInstance()
 {
-	static MMatchItemDescMgr m_ItemDescMgr;
+	static CCMatchItemDescMgr m_ItemDescMgr;
 	return &m_ItemDescMgr;
 }
 
-void MMatchItemDescMgr::ShiftMemoryGradually()
+void CCMatchItemDescMgr::ShiftMemoryGradually()
 {
 	// MemoryFugitive는 SetData할때만 위치가 바뀐다. 아이템 속성값은 최초에 한번만 SetData 하므로
 	// 결과적으로 위치가 바뀌지 않게 된다. 매프레임마다 아이템 속성치를 수동으로 메모리 위치 변경한다
@@ -1171,7 +1171,7 @@ void MMatchItemDescMgr::ShiftMemoryGradually()
 		it = begin();
 
 	const int NUM_SHIFT_EACH_FRAME = 8;
-	MMatchItemDesc* pItemDesc;
+	CCMatchItemDesc* pItemDesc;
 
 	for (int i=0; i<NUM_SHIFT_EACH_FRAME; ++i)
 	{
@@ -1187,20 +1187,20 @@ void MMatchItemDescMgr::ShiftMemoryGradually()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// MMatchItem /////////////////////////////////////////////////////////////////
-MMatchItem::MMatchItem() : MBaseItem(), m_nCIID(0), m_pDesc(NULL), m_bEquiped(false), m_nRentItemRegTime(0)
+// CCMatchItem /////////////////////////////////////////////////////////////////
+CCMatchItem::CCMatchItem() : MBaseItem(), m_nCIID(0), m_pDesc(NULL), m_bEquiped(false), m_nRentItemRegTime(0)
 {
 	m_nCountOfNonDestroyItem = 0;
 	m_nUseCountOfNonDestroyItem = 0;
 	m_nItemID = 0;
 }
 
-MMatchItem::~MMatchItem()
+CCMatchItem::~CCMatchItem()
 {
 
 }
 
-bool MMatchItem::Create( const CCUID& uid, MMatchItemDesc* pDesc, const WORD nCountOfNonDesctroyItem, int nCount)
+bool CCMatchItem::Create( const CCUID& uid, CCMatchItemDesc* pDesc, const WORD nCountOfNonDesctroyItem, int nCount)
 {
 	if( NULL == pDesc ) {
 		m_pDesc = NULL;
@@ -1218,14 +1218,14 @@ bool MMatchItem::Create( const CCUID& uid, MMatchItemDesc* pDesc, const WORD nCo
 	return true;
 }
 
-void MMatchItem::Destroy()
+void CCMatchItem::Destroy()
 {
 	m_pDesc = NULL;
 	m_nCount = 0;
 	m_uidItem = CCUID(0,0);
 }
 
-MMatchItemType MMatchItem::GetItemType()
+CCMatchItemType CCMatchItem::GetItemType()
 {
 //	_ASSERT(m_pDesc != NULL);
 	if (m_pDesc == NULL) return MMIT_MELEE;
@@ -1234,14 +1234,14 @@ MMatchItemType MMatchItem::GetItemType()
 }
 
 
-void MMatchItem::IncreaseUseCountOfNonDestroyItem()
+void CCMatchItem::IncreaseUseCountOfNonDestroyItem()
 { 
 	if( m_nCountOfNonDestroyItem > m_nUseCountOfNonDestroyItem) 
 		++m_nUseCountOfNonDestroyItem; 
 }
 
 
-MMatchItemDesc* MMatchItem::GetDesc() const
+CCMatchItemDesc* CCMatchItem::GetDesc() const
 {
 	if( NULL == m_pDesc )
 	{
@@ -1254,7 +1254,7 @@ MMatchItemDesc* MMatchItem::GetDesc() const
 	return m_pDesc;
 }
 
-unsigned long int MMatchItem::GetDescID() const							
+unsigned long int CCMatchItem::GetDescID() const							
 { 
 	if( NULL == m_pDesc )
 	{
@@ -1267,18 +1267,18 @@ unsigned long int MMatchItem::GetDescID() const
 	return m_pDesc->m_nID; 
 }
 
-void MMatchItem::IncreaseCount(int nVal)
+void CCMatchItem::IncreaseCount(int nVal)
 {
 	SetItemCount(m_nCount + nVal);
 }
 
-void MMatchItem::DecreaseCount(int nVal)
+void CCMatchItem::DecreaseCount(int nVal)
 {
 	SetItemCount(m_nCount - nVal);
 }
 
 // 소모성 아이템 사용할 때만 사용
-void MMatchItem::DecreaseCountWithCaching(int nVal)
+void CCMatchItem::DecreaseCountWithCaching(int nVal)
 {
 	_ASSERT(nVal >= 0);
 	m_CharItemCachingData.DecCnt(nVal);
@@ -1286,19 +1286,19 @@ void MMatchItem::DecreaseCountWithCaching(int nVal)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// MMatchItemMap //////////////////////////////////////////////////////////////
-MMatchItemMap::MMatchItemMap()
+// CCMatchItemMap //////////////////////////////////////////////////////////////
+CCMatchItemMap::CCMatchItemMap()
 {
 	m_bDoneDbAccess = false;	
 	m_bHasRentItem = false;
 }
 
-MMatchItemMap::~MMatchItemMap()
+CCMatchItemMap::~CCMatchItemMap()
 {
 	// Clear();
 }
 
-bool MMatchItemMap::CreateItem( const CCUID& uid
+bool CCMatchItemMap::CreateItem( const CCUID& uid
 							   , int nCIID
 							   , int nItemDescID
 							   , bool bRentItem
@@ -1306,7 +1306,7 @@ bool MMatchItemMap::CreateItem( const CCUID& uid
 							   , const WORD wRentHourPeriod
 							   , int nCount)
 {
-	MMatchItemDesc* pDesc = NULL;
+	CCMatchItemDesc* pDesc = NULL;
 	pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
 	
 	if (pDesc == NULL) {
@@ -1314,7 +1314,7 @@ bool MMatchItemMap::CreateItem( const CCUID& uid
 		return false;
 	}
 
-	MMatchItem* pNewItem = new MMatchItem();
+	CCMatchItem* pNewItem = new CCMatchItem();
 	if (pNewItem == NULL) {
 		_ASSERT(0);
 		return false;
@@ -1334,24 +1334,24 @@ bool MMatchItemMap::CreateItem( const CCUID& uid
 	return true;
 }
 
-int	MMatchItemMap::GetItemCount(const CCUID& uidItem)
+int	CCMatchItemMap::GetItemCount(const CCUID& uidItem)
 {
 	iterator itor = find(uidItem);
 	if (itor != end())
 	{
-		MMatchItem* pItem = (*itor).second;
+		CCMatchItem* pItem = (*itor).second;
 		return pItem->GetItemCount();
 	}
 
 	return -1;
 }
 
-bool MMatchItemMap::RemoveItem(const CCUID& uidItem)
+bool CCMatchItemMap::RemoveItem(const CCUID& uidItem)
 {
 	iterator itor = find(uidItem);
 	if (itor != end())
 	{
-		MMatchItem* pItem = (*itor).second;
+		CCMatchItem* pItem = (*itor).second;
 		delete pItem; pItem = NULL;
 		erase(itor);
 	}
@@ -1363,7 +1363,7 @@ bool MMatchItemMap::RemoveItem(const CCUID& uidItem)
 	return true;
 }
 
-MMatchItem* MMatchItemMap::GetItem(const CCUID& uidItem) const
+CCMatchItem* CCMatchItemMap::GetItem(const CCUID& uidItem) const
 {
 	const_iterator itor = find(uidItem);
 	if (itor != end())
@@ -1374,7 +1374,7 @@ MMatchItem* MMatchItemMap::GetItem(const CCUID& uidItem) const
 	return NULL;
 }
 
-MMatchItem* MMatchItemMap::GetItemByItemID(const DWORD dwItemID) const
+CCMatchItem* CCMatchItemMap::GetItemByItemID(const DWORD dwItemID) const
 {
 	const_iterator It, End;
 	for( It = begin(), End = end(); It != End; ++It ) {
@@ -1385,7 +1385,7 @@ MMatchItem* MMatchItemMap::GetItemByItemID(const DWORD dwItemID) const
 	return NULL;
 }
 
-MMatchItem* MMatchItemMap::GetItemByCIID(const DWORD dwCIID) const
+CCMatchItem* CCMatchItemMap::GetItemByCIID(const DWORD dwCIID) const
 {
 	const_iterator It, End;
 	for( It = begin(), End = end(); It != End; ++It ) {
@@ -1396,15 +1396,15 @@ MMatchItem* MMatchItemMap::GetItemByCIID(const DWORD dwCIID) const
 	return NULL;
 }
 
-void MMatchItemMap::Clear()
+void CCMatchItemMap::Clear()
 {	
 	m_bDoneDbAccess = false;
 	m_bHasRentItem = false;
 
-	MMatchItemMap::const_iterator	itEnd	= end();
-	MMatchItem*						pItem	= NULL;
+	CCMatchItemMap::const_iterator	itEnd	= end();
+	CCMatchItem*						pItem	= NULL;
 
-	for( MMatchItemMap::iterator Iter = begin(); itEnd != Iter; ++Iter )
+	for( CCMatchItemMap::iterator Iter = begin(); itEnd != Iter; ++Iter )
 	{
 		pItem = Iter->second;
 		delete pItem;
@@ -1415,7 +1415,7 @@ void MMatchItemMap::Clear()
 }
 
 
-const bool MMatchItemMap::IsHave( const DWORD dwItemID ) const
+const bool CCMatchItemMap::IsHave( const DWORD dwItemID ) const
 {
 	const_iterator It, End;
 	for( It = begin(), End = end(); It != End; ++It )
@@ -1429,8 +1429,8 @@ const bool MMatchItemMap::IsHave( const DWORD dwItemID ) const
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// MMatchEquipedItem //////////////////////////////////////////////////////////
-//bool MMatchEquipedItem::SetItem(MMatchCharItemParts parts, MMatchItem* pMatchItem)
+// CCMatchEquipedItem //////////////////////////////////////////////////////////
+//bool CCMatchEquipedItem::SetItem(CCMatchCharItemParts parts, CCMatchItem* pMatchItem)
 //{
 //	if (m_pParts[parts] != NULL)
 //	{
@@ -1444,7 +1444,7 @@ const bool MMatchItemMap::IsHave( const DWORD dwItemID ) const
 //}
 
 
-bool MMatchEquipedItem::SetItem( MMatchCharItemParts parts, const CCUID& uidItem, MMatchItem* pItem )
+bool CCMatchEquipedItem::SetItem( CCMatchCharItemParts parts, const CCUID& uidItem, CCMatchItem* pItem )
 {
 	if( NULL == pItem ) {
 		return false;
@@ -1455,12 +1455,12 @@ bool MMatchEquipedItem::SetItem( MMatchCharItemParts parts, const CCUID& uidItem
 	}
 	
 	// parts를 파라미터로 넘겨도 되지만, 코드의 명확성을 위하여!
-	MMatchCharItemParts outParts = MMCIP_END;
+	CCMatchCharItemParts outParts = MMCIP_END;
 	if( IsEquipedItem(uidItem, outParts) ) {
 		return false;
 	}
 
-	MMatchItem* pOldItem = GetItem( parts );
+	CCMatchItem* pOldItem = GetItem( parts );
 	if( NULL != pOldItem ) {
 		pOldItem->SetEquiped( false );
 	}
@@ -1472,15 +1472,15 @@ bool MMatchEquipedItem::SetItem( MMatchCharItemParts parts, const CCUID& uidItem
 }
 
 
-void MMatchEquipedItem::GetTotalWeight(int* poutWeight, int* poutMaxWeight)
+void CCMatchEquipedItem::GetTotalWeight(int* poutWeight, int* poutMaxWeight)
 {
 	int weight = 0;
 	int maxwt = 0;
-	MMatchItem* pItem = NULL;
+	CCMatchItem* pItem = NULL;
 
 	for( int i = 0; i < MMCIP_END; i++)
 	{
-		pItem = GetItem( MMatchCharItemParts(i) );
+		pItem = GetItem( CCMatchCharItemParts(i) );
 		if( NULL == pItem || NULL == pItem->GetDesc() )
 		{
 			continue;
@@ -1507,7 +1507,7 @@ void MMatchEquipedItem::GetTotalWeight(int* poutWeight, int* poutMaxWeight)
 }
 
 
-//MMatchItem* MMatchEquipedItem::GetMyItem( MMatchCharItemParts parts )
+//CCMatchItem* CCMatchEquipedItem::GetMyItem( CCMatchCharItemParts parts )
 //{
 //	if( NULL == m_pOwner )
 //	{
@@ -1518,7 +1518,7 @@ void MMatchEquipedItem::GetTotalWeight(int* poutWeight, int* poutMaxWeight)
 //}
 
 
-MMatchItem* MMatchEquipedItem::GetItem(MMatchCharItemParts parts)
+CCMatchItem* CCMatchEquipedItem::GetItem(CCMatchCharItemParts parts)
 {
 	if( NULL == m_pOwner )
 	{
@@ -1529,9 +1529,9 @@ MMatchItem* MMatchEquipedItem::GetItem(MMatchCharItemParts parts)
 }
 
 
-void MMatchEquipedItem::Remove(MMatchCharItemParts parts)
+void CCMatchEquipedItem::Remove(CCMatchCharItemParts parts)
 {
-	MMatchItem* pItem = GetItem( parts );
+	CCMatchItem* pItem = GetItem( parts );
 	if( NULL == pItem )
 	{
 		return;
@@ -1546,12 +1546,12 @@ void MMatchEquipedItem::Remove(MMatchCharItemParts parts)
 	//m_pParts[parts] = NULL;
 }
 
-void MMatchEquipedItem::Remove(const CCUID& uidParts)
+void CCMatchEquipedItem::Remove(const CCUID& uidParts)
 {
-	MMatchItem* pItem = NULL;
+	CCMatchItem* pItem = NULL;
 	for( int i = 0; i < MMCIP_END; ++i ) {
 		if( m_uidParts[i] == uidParts ) {
-			pItem = GetItem(MMatchCharItemParts(i));
+			pItem = GetItem(CCMatchCharItemParts(i));
 
 			pItem->SetEquiped(false);
 			m_uidParts[i] = CCUID( 0, 0 );
@@ -1564,13 +1564,13 @@ void MMatchEquipedItem::Remove(const CCUID& uidParts)
 	}
 }
 
-void MMatchEquipedItem::Clear()
+void CCMatchEquipedItem::Clear()
 {
 	for( int i = 0; i < MMCIP_END; ++i )
 	{
 		if( CCUID(0, 0) != m_uidParts[ i ] )
 		{
-			MMatchItem* pItem = GetItem( MMatchCharItemParts(i) );
+			CCMatchItem* pItem = GetItem( CCMatchCharItemParts(i) );
 			if( NULL != pItem )
 			{
 				pItem->SetEquiped( false );
@@ -1593,7 +1593,7 @@ void MMatchEquipedItem::Clear()
 }
 
 
-//bool MMatchEquipedItem::IsEquipedItem(MMatchItem* pCheckItem, MMatchCharItemParts& outParts)
+//bool CCMatchEquipedItem::IsEquipedItem(CCMatchItem* pCheckItem, CCMatchCharItemParts& outParts)
 //{
 //	if (pCheckItem == NULL) return false;
 //	
@@ -1601,7 +1601,7 @@ void MMatchEquipedItem::Clear()
 //	{
 //		if (m_pParts[i] == pCheckItem)
 //		{
-//			outParts = MMatchCharItemParts(i);
+//			outParts = CCMatchCharItemParts(i);
 //			return true;
 //		}
 //	}
@@ -1610,13 +1610,13 @@ void MMatchEquipedItem::Clear()
 //}
 
 
-bool MMatchEquipedItem::IsEquipedItem(const CCUID& uidItem, MMatchCharItemParts& outParts) // 해당 아이템이 장비중인지 체크
+bool CCMatchEquipedItem::IsEquipedItem(const CCUID& uidItem, CCMatchCharItemParts& outParts) // 해당 아이템이 장비중인지 체크
 {
 	for( int i = 0; i < MMCIP_END; ++i )
 	{
 		if( uidItem == m_uidParts[i] )
 		{
-			outParts = MMatchCharItemParts( i );
+			outParts = CCMatchCharItemParts( i );
 			return true;
 		}
 	}
@@ -1625,7 +1625,7 @@ bool MMatchEquipedItem::IsEquipedItem(const CCUID& uidItem, MMatchCharItemParts&
 }
 
 
-bool MMatchEquipedItem::IsEmpty(MMatchCharItemParts parts) 
+bool CCMatchEquipedItem::IsEmpty(CCMatchCharItemParts parts) 
 { 
 	if( CCUID(0, 0) != m_uidParts[parts] )
 	{
@@ -1636,7 +1636,7 @@ bool MMatchEquipedItem::IsEmpty(MMatchCharItemParts parts)
 }
 
 
-bool IsSuitableItemSlot(MMatchItemSlotType nSlotType, MMatchCharItemParts nParts)
+bool IsSuitableItemSlot(CCMatchItemSlotType nSlotType, CCMatchCharItemParts nParts)
 {
 	if (nSlotType == MMIST_MELEE)
 	{
@@ -1702,7 +1702,7 @@ bool IsSuitableItemSlot(MMatchItemSlotType nSlotType, MMatchCharItemParts nParts
 	return false;
 };
 
-MMatchCharItemParts GetSuitableItemParts(MMatchItemSlotType nSlotType)
+CCMatchCharItemParts GetSuitableItemParts(CCMatchItemSlotType nSlotType)
 {
 	switch (nSlotType)
 	{
@@ -1727,7 +1727,7 @@ MMatchCharItemParts GetSuitableItemParts(MMatchItemSlotType nSlotType)
 	return MMCIP_END;
 }
 
-MMatchItemSlotType	GetSuitableItemSlot(MMatchCharItemParts nParts)
+CCMatchItemSlotType	GetSuitableItemSlot(CCMatchCharItemParts nParts)
 {
 	switch (nParts)
 	{
@@ -1780,7 +1780,7 @@ MMatchItemSlotType	GetSuitableItemSlot(MMatchCharItemParts nParts)
 }
 
 
-bool IsWeaponItemSlotType(MMatchItemSlotType nSlotType)
+bool IsWeaponItemSlotType(CCMatchItemSlotType nSlotType)
 {
 	if ((nSlotType == MMIST_MELEE) || (nSlotType == MMIST_RANGE) ||	(nSlotType == MMIST_CUSTOM)) 
 		return true;
@@ -1788,7 +1788,7 @@ bool IsWeaponItemSlotType(MMatchItemSlotType nSlotType)
 	return false;
 }
 
-bool IsWeaponCharItemParts(MMatchCharItemParts nParts)
+bool IsWeaponCharItemParts(CCMatchCharItemParts nParts)
 {
 	if ((nParts == MMCIP_MELEE) || (nParts == MMCIP_PRIMARY) ||	(nParts == MMCIP_SECONDARY) 
 		|| (nParts == MMCIP_CUSTOM1) ||	(nParts == MMCIP_CUSTOM2)
@@ -1800,7 +1800,7 @@ bool IsWeaponCharItemParts(MMatchCharItemParts nParts)
 }
 
 
-char* GetItemSlotTypeStr(MMatchItemSlotType nSlotType)			///< 사용되지 않는다?
+char* GetItemSlotTypeStr(CCMatchItemSlotType nSlotType)			///< 사용되지 않는다?
 {
 	static char st_SlotTypeStr[MMIST_END][32] = { "없음",		// MMIST_NONE
 												"근접무기",		// MMIST_MELEE
@@ -1818,7 +1818,7 @@ char* GetItemSlotTypeStr(MMatchItemSlotType nSlotType)			///< 사용되지 않는다?
 	return st_SlotTypeStr[nSlotType];
 }
 
-char* GetCharItemPartsStr(MMatchCharItemParts nParts)			///< 사용되지 않는다?
+char* GetCharItemPartsStr(CCMatchCharItemParts nParts)			///< 사용되지 않는다?
 {
 	static char st_CharItemPartsStr[MMCIP_END][32] = {  "머리",					// MMCIP_HEAD
 														"가슴",					// MMCIP_CHEST
@@ -1838,7 +1838,7 @@ char* GetCharItemPartsStr(MMatchCharItemParts nParts)			///< 사용되지 않는다?
 }
 
 
-MMatchWeaponType GetWeaponType(MMatchMeleeItemType nMeleeItemType)
+CCMatchWeaponType GetWeaponType(CCMatchMeleeItemType nMeleeItemType)
 {
 	switch (nMeleeItemType)
 	{
@@ -1855,7 +1855,7 @@ MMatchWeaponType GetWeaponType(MMatchMeleeItemType nMeleeItemType)
 	return MWT_NONE;
 }
 
-MMatchWeaponType GetWeaponType(MMatchRangeItemType nRangeItemType)
+CCMatchWeaponType GetWeaponType(CCMatchRangeItemType nRangeItemType)
 {
 	switch (nRangeItemType)
 	{
@@ -1884,7 +1884,7 @@ MMatchWeaponType GetWeaponType(MMatchRangeItemType nRangeItemType)
 	return MWT_NONE;
 }
 
-MMatchWeaponType GetWeaponType(MMatchCustomItemType nCustomItemType)
+CCMatchWeaponType GetWeaponType(CCMatchCustomItemType nCustomItemType)
 {
 	switch (nCustomItemType)
 	{
@@ -1910,11 +1910,11 @@ MMatchWeaponType GetWeaponType(MMatchCustomItemType nCustomItemType)
 	return MWT_NONE;
 }
 
-bool IsEnchantItem(MMatchItemDesc* pItemDesc)
+bool IsEnchantItem(CCMatchItemDesc* pItemDesc)
 {
 	if (pItemDesc->m_nType.Ref() == MMIT_CUSTOM)
 	{
-		MMatchWeaponType t = pItemDesc->m_nWeaponType.Ref();
+		CCMatchWeaponType t = pItemDesc->m_nWeaponType.Ref();
 		if ((t == MWT_ENCHANT_FIRE) || 
 			(t == MWT_ENCHANT_COLD) || 
 			(t == MWT_ENCHANT_LIGHTNING) || 
@@ -1925,7 +1925,7 @@ bool IsEnchantItem(MMatchItemDesc* pItemDesc)
 	return false;
 }
 
-bool IsExpiredRentItem( const MMatchItem* pMItem, const DWORD dwTick )
+bool IsExpiredRentItem( const CCMatchItem* pMItem, const DWORD dwTick )
 {
 	if( 0 == pMItem )			return false;
 	if( !pMItem->IsRentItem() ) return false;

@@ -2,9 +2,9 @@
 #define _ZGAMECLIENT_H
 
 #include "ZPrerequisites.h"
-#include "MMatchClient.h"
+#include "CCMatchClient.h"
 #include "MSharedCommandTable.h"
-#include "MMatchStage.h"
+#include "CCMatchStage.h"
 #include "ZChannelRule.h"
 #include "ZGame.h"
 #include "ZNetAgreementBuilder.h"
@@ -17,7 +17,7 @@ class ZCharacterViewList;
 class UPnP;
 
 
-class ZGameClient : public MMatchClient
+class ZGameClient : public CCMatchClient
 {
 protected:
 	char				m_szChannel[256];
@@ -43,7 +43,7 @@ private:
 	int						m_nRequestID;			///< 클랜 생성등에서 쓰이는 RequestID
 	CCUID					m_uidRequestPlayer;		///< 클랜 생성등의 요청자 
 	ZNetAgreementBuilder	m_AgreementBuilder;		///< 동의빌더
-	MMatchProposalMode		m_nProposalMode;
+	CCMatchProposalMode		m_nProposalMode;
 
 	// 투표인터페이스 관련
 	bool					m_bVoteInProgress;		///< 투표가 진행중인가
@@ -97,7 +97,7 @@ protected:
 	bool					m_bIsBigGlobalClock;	// 글로벌 클럭이 로컬보다 더 크면 true
 	unsigned long int		m_nClockDistance;	///< 글로벌 클럭과의 시간차
 
-	MMatchStageSetting		m_MatchStageSetting;
+	CCMatchStageSetting		m_MatchStageSetting;
 	bool					m_bForcedEntry;		///< 난입해서 들어가는지 여부
 protected:
 	virtual bool OnCommand(MCommand* pCommand);
@@ -107,8 +107,8 @@ protected:
 	virtual int OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp);
 	virtual void OnRegisterCommand(MCommandManager* pCommandManager);
 	virtual void OnPrepareCommand(MCommand* pCommand);	///< 커맨드를 처리하기 전에
-	virtual int OnResponseMatchLogin(const CCUID& uidServer, int nResult, const char* szServerName, const MMatchServerMode nServerMode,
-									 const char* szAccountID, const MMatchUserGradeID nUGradeID, const MMatchPremiumGradeID nPGradeID,
+	virtual int OnResponseMatchLogin(const CCUID& uidServer, int nResult, const char* szServerName, const CCMatchServerMode nServerMode,
+									 const char* szAccountID, const CCMatchUserGradeID nUGradeID, const CCMatchPremiumGradeID nPGradeID,
 									 const CCUID& uidPlayer, bool bEnabledSurvivalMode, bool bEnabledDuelTournament, unsigned char* szEncryptMsg);	// update sgk 0409
 	virtual void OnBridgePeerACK(const CCUID& uidChar, int nCode);
 	virtual void OnObjectCache(unsigned int nType, void* pBlob, int nCount);
@@ -143,7 +143,7 @@ protected:
 	void OnStageFinishGame(const CCUID& uidStage, const bool bIsRelayMapUnFinish);
 	void OnStageMap(const CCUID& uidStage, char* szMapName, bool bIsRelayMap = false);
 	void OnStageTeam(const CCUID& uidChar, const CCUID& uidStage, unsigned int nTeam);
-	void OnStagePlayerState(const CCUID& uidChar, const CCUID& uidStage, MMatchObjectStageState nStageState);
+	void OnStagePlayerState(const CCUID& uidChar, const CCUID& uidStage, CCMatchObjectStageState nStageState);
 	void OnStageMaster(const CCUID& uidStage, const CCUID& uidChar);
 	void OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char* szChat);
 	void OnStageList(int nPrevStageCount, int nNextStageCount, void* pBlob, int nCount);
@@ -198,18 +198,18 @@ protected:
 	void OnClanMemberConnected(const char* szMember);
 
 	// 동의관련
-	void OnResponseProposal(const int nResult, const MMatchProposalMode nProposalMode, const int nRequestID);
+	void OnResponseProposal(const int nResult, const CCMatchProposalMode nProposalMode, const int nRequestID);
 	void OnAskAgreement(const CCUID& uidProposer, 
 		                void* pMemberNamesBlob, 
-						const MMatchProposalMode nProposalMode, 
+						const CCMatchProposalMode nProposalMode, 
 						const int nRequestID);
 	void OnReplyAgreement(const CCUID& uidProposer, 
 		                  const CCUID& uidChar, 
 						  const char* szReplierName, 
-						  const MMatchProposalMode nProposalMode,
+						  const CCMatchProposalMode nProposalMode,
 					      const int nRequestID, 
 						  const bool bAgreement);
-	void ReplyAgreement(const CCUID& uidProposer, const MMatchProposalMode nProposalMode, bool bAgreement);
+	void ReplyAgreement(const CCUID& uidProposer, const CCMatchProposalMode nProposalMode, bool bAgreement);
 protected:
 	void OnGameLevelUp(const CCUID& uidChar);
 	void OnGameLevelDown(const CCUID& uidChar);
@@ -255,9 +255,9 @@ public:
 //	void FinalizeGame();
 
 	void Tick(void);
-	void Disconnect()							{ MMatchClient::Disconnect(m_Server); }
+	void Disconnect()							{ CCMatchClient::Disconnect(m_Server); }
 	
-	MMatchStageSetting* GetMatchStageSetting() { return &m_MatchStageSetting; }
+	CCMatchStageSetting* GetMatchStageSetting() { return &m_MatchStageSetting; }
 	bool IsForcedEntry() { return m_bForcedEntry; }
 	bool IsLadderGame() { return m_bLadderGame; }
 	bool IsDuelTournamentGame() { return m_MatchStageSetting.GetGameType() == MMATCH_GAMETYPE_DUELTOURNAMENT; }
@@ -296,7 +296,7 @@ public:
 	void RequestCreateClan(char* szClanName, char** ppMemberCharNames);
 
 	// 동의 관련
-	void RequestProposal(const MMatchProposalMode nProposalMode, char** ppReplierCharNames, const int nReplierCount);
+	void RequestProposal(const CCMatchProposalMode nProposalMode, char** ppReplierCharNames, const int nReplierCount);
 	void ReplyAgreement(bool bAgreement);
 public:	// 투표관련
 	bool IsVoteInProgress()				{ return m_bVoteInProgress;	}
@@ -395,7 +395,7 @@ unsigned long int ZGetClockDistance(unsigned long int nGlobalClock, unsigned lon
 #define HANDLE_COMMAND(message, fn)    \
 	case (message): return fn(pCommand);
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 
 #endif

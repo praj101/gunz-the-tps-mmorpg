@@ -7,7 +7,7 @@
 #include "ZApplication.h"
 #include "ZGameClient.h"
 #include "ZPost.h"
-#include "MMatchGameType.h"
+#include "CCMatchGameType.h"
 #include "ZLanguageConf.h"
 #include "ZChannelRule.h"
 #include "ZConfiguration.h"

@@ -282,7 +282,7 @@ void ZCashItemConfirmDlg::Open(MBitmap* pItemIcon, ICashItemConfirmDlgDoneHandle
 	if (pPicture)
 		pPicture->SetBitmap(pItemIcon);
 
-	if (MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pListItem->GetItemID() ))
+	if (CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pListItem->GetItemID() ))
 	{
 		ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetItem( pListItem->GetUID() );
 		SetupItemDescription(pItemDesc, "BuyItemDetailFrame_Desc", pItemNode, true);

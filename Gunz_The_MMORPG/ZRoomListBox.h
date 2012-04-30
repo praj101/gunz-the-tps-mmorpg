@@ -1,7 +1,7 @@
 #pragma once
 #include "mwidget.h"
 #include "map"
-#include "MMatchRule.h"
+#include "CCMatchRule.h"
 
 using namespace std;
 

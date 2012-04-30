@@ -7,10 +7,10 @@
 #include "MComboBox.h"
 #include "ZMapListBox.h"
 #include "ZPost.h"
-#include "MMatchStage.h"
+#include "CCMatchStage.h"
 #include "ZConfiguration.h"
 #include "MSlider.h"
-#include "MMatchStage.h"
+#include "CCMatchStage.h"
 #include "ZCharacterView.h"
 #include "ZCharacterViewList.h"
 #include "ZCharacterSelectView.h"
@@ -35,7 +35,7 @@
 
 #include "ZMonsterBookInterface.h"
 
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 
 #include "ZShopEquipInterface.h"
 #include "ZShopEquipListbox.h"
@@ -661,7 +661,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageReadyListener, MBTN_CLK_MSG)
 	MButton* pReadyBtn = (MButton*)pResource->FindWidget("StageReady");
 	if(pReadyBtn) bReady=pReadyBtn->GetCheck();
 
-	MMatchObjectStageState nStageState;
+	CCMatchObjectStageState nStageState;
 	if (bReady)
 		nStageState = MOSS_READY;
 	else

@@ -67,7 +67,7 @@ bool ZModule_HealOverTime::Update(float fElapsed)
 	return true;
 }
 
-void ZModule_HealOverTime::BeginHeal(MMatchDamageType type, int nHealAmount, int numHeal, MMatchItemEffectId effectId, int nItemId)
+void ZModule_HealOverTime::BeginHeal(CCMatchDamageType type, int nHealAmount, int numHeal, CCMatchItemEffectId effectId, int nItemId)
 {
 	if (type != MMDT_HEAL && type != MMDT_REPAIR) { _ASSERT(0); return; }
 

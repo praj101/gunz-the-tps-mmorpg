@@ -180,7 +180,7 @@ void ZCharacterObject::DrawEnchant(ZC_STATE_LOWER AniState_Lower,bool bCharged)
 		return;
 	}
 
-	MMatchItemDesc* pDesc = pItem->GetDesc();
+	CCMatchItemDesc* pDesc = pItem->GetDesc();
 
 	if (pDesc->m_nType.Ref() != MMIT_MELEE) 
 		return;
@@ -207,7 +207,7 @@ void ZCharacterObject::DrawEnchant(ZC_STATE_LOWER AniState_Lower,bool bCharged)
 //		etype = ZC_ENCHANT_FIRE;
 //		etype = ZC_ENCHANT_LIGHTNING;
 
-		MMatchItemDesc* pENDesc = GetEnchantItemDesc();
+		CCMatchItemDesc* pENDesc = GetEnchantItemDesc();
 		if(pENDesc) {
 
 			int nEFLevel = pENDesc->m_nEffectLevel.Ref();
@@ -232,12 +232,12 @@ void ZCharacterObject::DrawEnchant(ZC_STATE_LOWER AniState_Lower,bool bCharged)
 	}
 }
 
-MMatchItemDesc* ZCharacterObject::GetEnchantItemDesc()
+CCMatchItemDesc* ZCharacterObject::GetEnchantItemDesc()
 {
 	for(int i = MMCIP_CUSTOM1; i < MMCIP_CUSTOM2 + 1; i++) 
 	{
-		ZItem *pItem = m_Items.GetItem((MMatchCharItemParts)i);
-		MMatchItemDesc* pDesc = pItem->GetDesc();
+		ZItem *pItem = m_Items.GetItem((CCMatchCharItemParts)i);
+		CCMatchItemDesc* pDesc = pItem->GetDesc();
 		if( pDesc && pDesc->IsEnchantItem() ) return pDesc;
 	}
 
@@ -248,7 +248,7 @@ ZC_ENCHANT	ZCharacterObject::GetEnchantType()
 {
 //	return ZC_ENCHANT_FIRE;
 
-	MMatchItemDesc* pDesc = GetEnchantItemDesc();
+	CCMatchItemDesc* pDesc = GetEnchantItemDesc();
 	if(pDesc)
 	{
 		switch(pDesc->m_nWeaponType.Ref())

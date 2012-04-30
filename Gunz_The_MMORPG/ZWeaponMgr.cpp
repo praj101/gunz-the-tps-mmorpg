@@ -126,7 +126,7 @@ void ZWeaponMgr::AddRocket(rvector &pos,rvector &dir,ZObject* pC)
 
 static char* GetTrapMeshName(int nItemId)
 {
-	MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
+	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
 	if (!pDesc) return NULL;
 
 	switch (pDesc->m_nDamageType.Ref())

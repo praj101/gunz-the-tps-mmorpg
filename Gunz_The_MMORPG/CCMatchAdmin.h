@@ -25,15 +25,15 @@ struct MAdminArgvInfo
 
 class CCMatchServer;
 
-class MMatchAdmin
+class CCMatchAdmin
 {
 private:
 protected:
 	CCMatchServer*		m_pMatchServer;
 	bool MakeArgv(char* szStr, MAdminArgvInfo* pAi);
 public:
-	MMatchAdmin();
-	virtual ~MMatchAdmin();
+	CCMatchAdmin();
+	virtual ~CCMatchAdmin();
 	bool Create(CCMatchServer* pServer);
 	void Destroy();
 	bool Execute(const CCUID& uidAdmin, const char* szStr);

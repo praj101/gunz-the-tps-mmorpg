@@ -1,11 +1,11 @@
 #pragma once
-#include "MMatchRule.h"
-#include "MMatchRuleBaseQuest.h"
-#include "MMatchNPCObject.h"
-#include "MMatchQuestRound.h"
+#include "CCMatchRule.h"
+#include "CCMatchRuleBaseQuest.h"
+#include "CCMatchNPCObject.h"
+#include "CCMatchQuestRound.h"
 #include "MSacrificeQItemTable.h"
 #include "CCQuestItem.h"
-#include "MMatchQuestGameLog.h"
+#include "CCMatchQuestGameLog.h"
 #include "MQuestNPCSpawnTrigger.h"
 #include "CCBaseGameType.h"
 
@@ -73,7 +73,7 @@ public:
 };
 
 /// 퀘스트 룰 클래스
-class MMatchRuleQuest : public MMatchRuleBaseQuest {
+class CCMatchRuleQuest : public CCMatchRuleBaseQuest {
 private:
 	// 타입정의 ---------------------
 
@@ -102,7 +102,7 @@ private:
 	MQuestSacrificeSlot				m_SacrificeSlot[ MAX_SACRIFICE_SLOT_COUNT ];
 	//int								m_iScenarioState;
 	int								m_nPlayerCount;
-	MMatchQuestGameLogInfoManager	m_QuestGameLogInfoMgr;
+	CCMatchQuestGameLogInfoManager	m_QuestGameLogInfoMgr;
 
 	MQuestStageGameInfo				m_StageGameInfo;	///< 대기방에서 필요한 현재 스테이지의 방정보
 
@@ -147,7 +147,7 @@ protected:
 	/// 퀘스트 레벨 생성
 	bool MakeQuestLevel();
 	/// 섹터 전투 처리 작업
-	/// - 나중에 일련의 Combat 상태 관리는 Survival만들때 MMatchRuleBaseQuest로 옮겨져야 한다.
+	/// - 나중에 일련의 Combat 상태 관리는 Survival만들때 CCMatchRuleBaseQuest로 옮겨져야 한다.
 	void CombatProcess();
 	/// 다음 섹터로 이동
 	void MoveToNextSector();			
@@ -186,8 +186,8 @@ protected:
 	virtual void OnCommand(MCommand* pCommand);			///< 퀘스트에서만 사용하는 커맨드 처리
 	virtual bool OnCheckRoundFinish();					///< 라운드가 끝났는지 체크
 public:
-	MMatchRuleQuest(CCMatchStage* pStage);				///< 생성자
-	virtual ~MMatchRuleQuest();							///< 소멸자
+	CCMatchRuleQuest(CCMatchStage* pStage);				///< 생성자
+	virtual ~CCMatchRuleQuest();							///< 소멸자
 
 	virtual void RefreshStageGameInfo();
 

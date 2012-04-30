@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatchRuleBaseQuest.h"
+#include "CCMatchRuleBaseQuest.h"
 #include "CCMath.h"
 #include <mmsystem.h>
 #include "CCBlobArray.h"
@@ -13,19 +13,19 @@ const int PING_LOST_LIMIT = 2000;
 
 
 //////////////////////////////////////////////////////////////////////////////////
-MMatchRuleBaseQuest::MMatchRuleBaseQuest(CCMatchStage* pStage) 
-		:	MMatchRule(pStage), m_nLastNPCSpawnTime(0), m_nNPCSpawnCount(0),
+CCMatchRuleBaseQuest::CCMatchRuleBaseQuest(CCMatchStage* pStage) 
+		:	CCMatchRule(pStage), m_nLastNPCSpawnTime(0), m_nNPCSpawnCount(0),
 			m_nSpawnTime(500), m_nFirstPlayerCount(1)
 {
 	
 }
 
-MMatchRuleBaseQuest::~MMatchRuleBaseQuest()
+CCMatchRuleBaseQuest::~CCMatchRuleBaseQuest()
 {
 	
 }
 
-void MMatchRuleBaseQuest::OnBegin()
+void CCMatchRuleBaseQuest::OnBegin()
 {
 	m_PlayerManager.Create(m_pStage);
 	m_NPCManager.Create(m_pStage, &m_PlayerManager);
@@ -38,13 +38,13 @@ void MMatchRuleBaseQuest::OnBegin()
 	m_bQuestCompleted = false;
 }
 
-void MMatchRuleBaseQuest::OnEnd()
+void CCMatchRuleBaseQuest::OnEnd()
 {
 	m_NPCManager.Destroy();
 	m_PlayerManager.Destroy();
 }
 
-bool MMatchRuleBaseQuest::OnRun()
+bool CCMatchRuleBaseQuest::OnRun()
 {
 	if (GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
 	{
@@ -52,24 +52,24 @@ bool MMatchRuleBaseQuest::OnRun()
 		ReAssignNPC();
 	}
 
-	return MMatchRule::OnRun();
+	return CCMatchRule::OnRun();
 }
 
-void MMatchRuleBaseQuest::OnRoundBegin()
+void CCMatchRuleBaseQuest::OnRoundBegin()
 {
-	MMatchRule::OnRoundBegin();
+	CCMatchRule::OnRoundBegin();
 
 	m_nLastNPCAssignCheckTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 	m_nLastPingTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 }
 
-void MMatchRuleBaseQuest::OnRoundEnd()
+void CCMatchRuleBaseQuest::OnRoundEnd()
 {
-	MMatchRule::OnRoundEnd();
+	CCMatchRule::OnRoundEnd();
 
 }
 
-bool MMatchRuleBaseQuest::OnCheckRoundFinish()
+bool CCMatchRuleBaseQuest::OnCheckRoundFinish()
 {
 	if (CheckPlayersAlive() == false)
 	{
@@ -97,24 +97,24 @@ bool MMatchRuleBaseQuest::OnCheckRoundFinish()
 	return false;
 }
 
-void MMatchRuleBaseQuest::OnRoundTimeOut()
+void CCMatchRuleBaseQuest::OnRoundTimeOut()
 {
-	MMatchRule::OnRoundTimeOut();
+	CCMatchRule::OnRoundTimeOut();
 }
 
 // 반환값이 false이면 게임이 끝난다.
-bool MMatchRuleBaseQuest::RoundCount()
+bool CCMatchRuleBaseQuest::RoundCount()
 {
 	if (++m_nRoundCount < 1) return true;
 	return false;
 }
 
-bool MMatchRuleBaseQuest::OnCheckEnableBattleCondition()
+bool CCMatchRuleBaseQuest::OnCheckEnableBattleCondition()
 {
 	return true;
 }
 
-void MMatchRuleBaseQuest::OnLeaveBattle(CCUID& uidChar)
+void CCMatchRuleBaseQuest::OnLeaveBattle(CCUID& uidChar)
 {
 	if (GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
 	{
@@ -126,19 +126,19 @@ void MMatchRuleBaseQuest::OnLeaveBattle(CCUID& uidChar)
 	m_PlayerManager.DelPlayer(uidChar);
 }
 
-void MMatchRuleBaseQuest::OnEnterBattle(CCUID& uidChar)
+void CCMatchRuleBaseQuest::OnEnterBattle(CCUID& uidChar)
 {
 
 }
 
-void MMatchRuleBaseQuest::OnCommand(MCommand* pCommand)
+void CCMatchRuleBaseQuest::OnCommand(MCommand* pCommand)
 {
 
 
 
 }
 
-void MMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, MVector& pos)
+void CCMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, MVector& pos)
 {
 	if (m_NPCManager.IsControllersNPC(uidSender, uidNPC))
 	{
@@ -169,12 +169,12 @@ void MMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, C
 	}
 }
 
-void MMatchRuleBaseQuest::OnRequestPlayerDead(const CCUID& uidVictim)
+void CCMatchRuleBaseQuest::OnRequestPlayerDead(const CCUID& uidVictim)
 {
 
 }
 
-void MMatchRuleBaseQuest::CheckRewards(CCUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos)
+void CCMatchRuleBaseQuest::CheckRewards(CCUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos)
 {
 	CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject(uidPlayer);
 	if (!pPlayer) return;
@@ -223,7 +223,7 @@ void MMatchRuleBaseQuest::CheckRewards(CCUID& uidPlayer, MQuestDropItem* pDropIt
 	};
 }
 
-void MMatchRuleBaseQuest::RefreshPlayerStatus()
+void CCMatchRuleBaseQuest::RefreshPlayerStatus()
 {
 	for (CCUIDRefCache::iterator i=m_pStage->GetObjBegin(); i!=m_pStage->GetObjEnd(); i++) 
 	{
@@ -239,7 +239,7 @@ void MMatchRuleBaseQuest::RefreshPlayerStatus()
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
-void MMatchRuleBaseQuest::ClearAllNPC()
+void CCMatchRuleBaseQuest::ClearAllNPC()
 {
 	m_NPCManager.ClearNPC();
 	m_nNPCSpawnCount = 0;
@@ -249,7 +249,7 @@ void MMatchRuleBaseQuest::ClearAllNPC()
 }
 
 
-bool MMatchRuleBaseQuest::CheckPlayersAlive()
+bool CCMatchRuleBaseQuest::CheckPlayersAlive()
 {
 	int nAliveCount = 0;
 	CCMatchObject* pObj;
@@ -273,9 +273,9 @@ bool MMatchRuleBaseQuest::CheckPlayersAlive()
 
 
 
-MMatchNPCObject* MMatchRuleBaseQuest::SpawnNPC(MQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC)
+CCMatchNPCObject* CCMatchRuleBaseQuest::SpawnNPC(MQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC)
 {
-	MMatchNPCObject* pNPCObject = m_NPCManager.CreateNPCObject(nNPC, nPosIndex, bKeyNPC);
+	CCMatchNPCObject* pNPCObject = m_NPCManager.CreateNPCObject(nNPC, nPosIndex, bKeyNPC);
 	if (pNPCObject)
 	{
 		m_nNPCSpawnCount++;
@@ -285,7 +285,7 @@ MMatchNPCObject* MMatchRuleBaseQuest::SpawnNPC(MQUEST_NPC nNPC, int nPosIndex, b
 }
 
 
-void MMatchRuleBaseQuest::OnRequestTestNPCSpawn(int nNPCType, int nNPCCount)
+void CCMatchRuleBaseQuest::OnRequestTestNPCSpawn(int nNPCType, int nNPCCount)
 {
 	for (int i = 0; i < nNPCCount; i++)
 	{
@@ -295,13 +295,13 @@ void MMatchRuleBaseQuest::OnRequestTestNPCSpawn(int nNPCType, int nNPCCount)
 }
 
 
-void MMatchRuleBaseQuest::OnRequestTestClearNPC()
+void CCMatchRuleBaseQuest::OnRequestTestClearNPC()
 {
 	ClearAllNPC();
 }
 
 
-void MMatchRuleBaseQuest::OnCompleted()
+void CCMatchRuleBaseQuest::OnCompleted()
 {
 	m_bQuestCompleted = true;
 	DistributeReward();
@@ -309,17 +309,17 @@ void MMatchRuleBaseQuest::OnCompleted()
 }
 
 
-void MMatchRuleBaseQuest::OnFailed()
+void CCMatchRuleBaseQuest::OnFailed()
 {
 	RouteFailed();
 }
 
-void MMatchRuleBaseQuest::PreProcessLeaveStage( const CCUID& uidLeaverUID )
+void CCMatchRuleBaseQuest::PreProcessLeaveStage( const CCUID& uidLeaverUID )
 {
 }
 
 
-void MMatchRuleBaseQuest::CheckMonsterBible( const CCUID& uidUser, const int nMonsterBibleIndex )
+void CCMatchRuleBaseQuest::CheckMonsterBible( const CCUID& uidUser, const int nMonsterBibleIndex )
 {
 	if( 0 > nMonsterBibleIndex )
 		return;
@@ -336,7 +336,7 @@ void MMatchRuleBaseQuest::CheckMonsterBible( const CCUID& uidUser, const int nMo
 
 	// 여기서 처리.
 
-	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 	if( 0 == pCharInfo )
 		return;
 	
@@ -350,7 +350,7 @@ void MMatchRuleBaseQuest::CheckMonsterBible( const CCUID& uidUser, const int nMo
 
 #ifdef _DEBUG
 	// 처음 획득한 몬스터 정보.
-	cclog( "MMatchRuleBaseQuest::CheckMonsterBible - New obtain monster info:%d\n", nMonsterBibleIndex );
+	cclog( "CCMatchRuleBaseQuest::CheckMonsterBible - New obtain monster info:%d\n", nMonsterBibleIndex );
 
 	// 현재 가지고 있는 몬스터 정보.
 	MQuestMonsterBible qmb = pCharInfo->m_QMonsterBible;
@@ -361,13 +361,13 @@ void MMatchRuleBaseQuest::CheckMonsterBible( const CCUID& uidUser, const int nMo
 
 		MQuestNPCInfo* pNPCInfo = CCMatchServer::GetInstance()->GetQuest()->GetNPCIndexInfo( i );
 		ASSERT( 0 != pNPCInfo );
-		cclog( "MMatchRuleBaseQuest::CheckMonsterBible - Monster name : %s, Bible index : %d\n", pNPCInfo->szName, i );
+		cclog( "CCMatchRuleBaseQuest::CheckMonsterBible - Monster name : %s, Bible index : %d\n", pNPCInfo->szName, i );
 	}	
 #endif
 }
 
 
-void MMatchRuleBaseQuest::PostNewMonsterInfo( const CCUID& uidUser, const char nMonIndex )
+void CCMatchRuleBaseQuest::PostNewMonsterInfo( const CCUID& uidUser, const char nMonIndex )
 {
 	if( 0 == CCMatchServer::GetInstance()->GetObject(uidUser) )
 		return;
@@ -379,19 +379,19 @@ void MMatchRuleBaseQuest::PostNewMonsterInfo( const CCUID& uidUser, const char n
 	MCommand* pMonInfoCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_NEW_MONSTER_INFO, uidUser );
 	if( 0 == pMonInfoCmd )
 	{
-		cclog( "MMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 생성 실패.\n" );
+		cclog( "CCMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 생성 실패.\n" );
 		return;
 	}
 	pMonInfoCmd->AddParameter( new MCmdParamChar(nMonIndex) );
 
 	if( !CCMatchServer::GetInstance()->Post(pMonInfoCmd) )
-		cclog( "MMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 POST실패.\n" );
+		cclog( "CCMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 POST실패.\n" );
 }
 
 
 //////////////////////////////////////////////////////////////////////////
 
-void MMatchRuleBaseQuest::ReAssignNPC()
+void CCMatchRuleBaseQuest::ReAssignNPC()
 {
 	unsigned long int nowTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 
@@ -419,7 +419,7 @@ void MMatchRuleBaseQuest::ReAssignNPC()
 }
 
 
-void MMatchRuleBaseQuest::SendClientLatencyPing()
+void CCMatchRuleBaseQuest::SendClientLatencyPing()
 {
 	unsigned long int nowTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 
@@ -485,7 +485,7 @@ void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoM
 }
 
 
-void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps, MMatchQuest* pQuest ) 
+void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest ) 
 {
 	MQuestNPCSetInfo*	pNPCSetInfo	= NULL;
 	int					nNPCSetID	= 0;

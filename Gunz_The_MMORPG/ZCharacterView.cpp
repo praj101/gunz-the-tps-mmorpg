@@ -2,7 +2,7 @@
 
 #include "ZCharacterView.h"
 #include "RealSpace2.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "ZApplication.h"
 #include "ZMyInfo.h"
 #include "ZGameClient.h"
@@ -274,7 +274,7 @@ ZCharacterView::~ZCharacterView(void)
 	delete m_Info.m_pMnTeam;
 }
 
-void ZCharacterView::InitCharParts(ZCharacterView* pCharView, MMatchCharItemParts nVisualWeaponParts)
+void ZCharacterView::InitCharParts(ZCharacterView* pCharView, CCMatchCharItemParts nVisualWeaponParts)
 {
 	if(pCharView) {
 
@@ -286,8 +286,8 @@ void ZCharacterView::InitCharParts(ZCharacterView* pCharView, MMatchCharItemPart
 	}
 }
 
-void ZCharacterView::InitCharParts(MMatchSex nSex, unsigned int nHair, unsigned int nFace, 
-				   const unsigned long int* nEquipItemIDs, MMatchCharItemParts nVisualWeaponParts)
+void ZCharacterView::InitCharParts(CCMatchSex nSex, unsigned int nHair, unsigned int nFace, 
+				   const unsigned long int* nEquipItemIDs, CCMatchCharItemParts nVisualWeaponParts)
 {
 	RMesh* pMesh = NULL;
 	if (nSex == MMS_MALE) {
@@ -339,9 +339,9 @@ void ZCharacterView::InitCharParts(MMatchSex nSex, unsigned int nHair, unsigned 
 }
 
 
-void ZCharacterView::SetParts(MMatchCharItemParts nParts, unsigned int nItemID)
+void ZCharacterView::SetParts(CCMatchCharItemParts nParts, unsigned int nItemID)
 {
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc == NULL) return;
 	if (IsSuitableItemSlot(pItemDesc->m_nSlot, nParts) == false) return;
 
@@ -369,7 +369,7 @@ void ZCharacterView::SetParts(MMatchCharItemParts nParts, unsigned int nItemID)
 		m_pTVisualMesh.m_pVisualMesh->ChangeChestCloth(0.9f,1);
 }
 
-void ZCharacterView::ChangeVisualWeaponParts(MMatchCharItemParts nVisualWeaponParts)
+void ZCharacterView::ChangeVisualWeaponParts(CCMatchCharItemParts nVisualWeaponParts)
 {
 	if (m_pTVisualMesh.GetVMesh() == NULL) return;
 
@@ -414,7 +414,7 @@ void ZCharacterView::SetSelectMyCharacter()
 	{
 		for (int i = 0; i < MMCIP_END; i++)
 		{
-			nItemids[i] = pil->GetEquipedItemID(MMatchCharItemParts(i));
+			nItemids[i] = pil->GetEquipedItemID(CCMatchCharItemParts(i));
 		}
 
 		InitCharParts(pmi->GetSex(), pmi->GetHair(), pmi->GetFace(), nItemids);
@@ -432,16 +432,16 @@ void ZCharacterView::OnRestore()
 		m_pTVisualMesh.m_pVisualMesh->OnRestore();
 }
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 void ZCharacterView::SetCharacter( CCUID uid  )
 {
 	m_Info.UID = uid;
 	
-	MMatchObjCacheMap* pObjCacheMap = ZGetGameClient()->GetObjCacheMap();
-	for(MMatchObjCacheMap::iterator itor = pObjCacheMap->begin(); itor != pObjCacheMap->end(); ++itor)
+	CCMatchObjCacheMap* pObjCacheMap = ZGetGameClient()->GetObjCacheMap();
+	for(CCMatchObjCacheMap::iterator itor = pObjCacheMap->begin(); itor != pObjCacheMap->end(); ++itor)
 	{
-		MMatchObjCache* pObj = (*itor).second;
+		CCMatchObjCache* pObj = (*itor).second;
  		if( pObj->GetUID() == m_Info.UID )
 		{
 			InitCharParts( pObj->GetCostume()->nSex, pObj->GetCostume()->nHair, pObj->GetCostume()->nFace, 
@@ -449,7 +449,7 @@ void ZCharacterView::SetCharacter( CCUID uid  )
 
 			MCOLOR _color;
 			char sp_name[255];
-			MMatchUserGradeID gid;
+			CCMatchUserGradeID gid;
 
 			if(GetUserInfoUID(m_Info.UID,_color,sp_name,gid)) {//특별한 유저인 경우
 				SetText( sp_name );

@@ -1,6 +1,6 @@
 #pragma once
 // 클라이언트와 서버가 겜블아이템에 대해서 공통으로 사용하는 데이터.
-class MMatchBaseGambleItem
+class CCMatchBaseGambleItem
 {
 protected :
 	CCUID	m_uidItem;
@@ -8,17 +8,17 @@ protected :
 	int		m_nItemCount;
 	
 protected :
-	MMatchBaseGambleItem() {}
+	CCMatchBaseGambleItem() {}
 
 public :
-	MMatchBaseGambleItem( const CCUID& uidItem, const DWORD dwGambleItemID, const int nItemCount = 1) 
+	CCMatchBaseGambleItem( const CCUID& uidItem, const DWORD dwGambleItemID, const int nItemCount = 1) 
 	{
 		m_uidItem		 = uidItem;
 		m_dwGambleItemID = dwGambleItemID;
 		m_nItemCount	 = nItemCount;
 	}
 
-	virtual ~MMatchBaseGambleItem() {}
+	virtual ~CCMatchBaseGambleItem() {}
 
 	const CCUID& GetUID() const			{ return m_uidItem; }
 	const DWORD GetGambleItemID() const { return m_dwGambleItemID; }

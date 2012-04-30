@@ -29,7 +29,7 @@ ZCharacterItem::~ZCharacterItem()
 
 }
 
-bool ZCharacterItem::Confirm(MMatchCharItemParts parts, MMatchItemDesc* pDesc)
+bool ZCharacterItem::Confirm(CCMatchCharItemParts parts, CCMatchItemDesc* pDesc)
 {
 	if (pDesc == NULL) return false;
 
@@ -107,14 +107,14 @@ bool ZCharacterItem::Confirm(MMatchCharItemParts parts, MMatchItemDesc* pDesc)
 	return true;
 }
 
-bool ZCharacterItem::EquipItem(MMatchCharItemParts parts, int nItemDescID, int nItemCount)
+bool ZCharacterItem::EquipItem(CCMatchCharItemParts parts, int nItemDescID, int nItemCount)
 {
 	if (nItemDescID == 0) {
 		m_Items[parts].Create(CCUID(0,0), NULL, 0);
 		return true;
 	}
 
-	MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
+	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
 
 	if (pDesc == NULL) { _ASSERT(0); return false; }
 	if (!Confirm(parts, pDesc)) {
@@ -126,7 +126,7 @@ bool ZCharacterItem::EquipItem(MMatchCharItemParts parts, int nItemDescID, int n
 	return true;
 }
 
-void ZCharacterItem::SelectWeapon(MMatchCharItemParts parts)
+void ZCharacterItem::SelectWeapon(CCMatchCharItemParts parts)
 {
 	_ASSERT( (parts == MMCIP_MELEE)   || (parts == MMCIP_PRIMARY) || (parts == MMCIP_SECONDARY) 
 			|| (parts == MMCIP_CUSTOM1) || (parts == MMCIP_CUSTOM2) );
@@ -154,7 +154,7 @@ ZItem* ZCharacterItem::GetSelectedWeapon()
 	return &m_Items[(int)m_nSelectedWeapon]; 
 }
 
-bool ZCharacterItem::IsWeaponItem(MMatchCharItemParts parts)
+bool ZCharacterItem::IsWeaponItem(CCMatchCharItemParts parts)
 {
 	if ((parts == MMCIP_MELEE)		||
 		(parts == MMCIP_PRIMARY)	||
@@ -170,7 +170,7 @@ bool ZCharacterItem::Save(ZFile *file)
 	size_t n;
 	for(int i=0;i<MMCIP_END;i++)
 	{
-		ZItem *pItem=GetItem(MMatchCharItemParts(i));
+		ZItem *pItem=GetItem(CCMatchCharItemParts(i));
 		int nBullet=pItem->GetBulletSpare();
 		n=zfwrite(&nBullet,sizeof(nBullet),1,file);
 		if(n!=1) return false;
@@ -184,7 +184,7 @@ bool ZCharacterItem::Save(ZFile *file)
 
 bool ZCharacterItem::Load(ZFile *file, int nReplayVersion)
 {
-	enum MMatchCharItemParts_v0
+	enum CCMatchCharItemParts_v0
 	{
 		MMCIP_HEAD_V0		= 0,
 		MMCIP_CHEST_V0		= 1,
@@ -245,7 +245,7 @@ bool ZCharacterItem::Load(ZFile *file, int nReplayVersion)
 	for(int i=0;i<numCharItemParts;i++)
 	{
 		int idxParts = Converter::convert(i, nReplayVersion);
-		ZItem *pItem=GetItem(MMatchCharItemParts(idxParts));
+		ZItem *pItem=GetItem(CCMatchCharItemParts(idxParts));
 		int nBullet;
 		n=zfread(&nBullet,sizeof(nBullet),1,file);
 		pItem->SetBulletSpare(nBullet);

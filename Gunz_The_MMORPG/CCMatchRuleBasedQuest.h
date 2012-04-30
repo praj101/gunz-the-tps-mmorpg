@@ -1,16 +1,16 @@
 #pragma once
-#include "MMatchRule.h"
-#include "MMatchNPCObject.h"
+#include "CCMatchRule.h"
+#include "CCMatchNPCObject.h"
 #include "MQuestPlayer.h"
-#include "MMatchQuestRound.h"
+#include "CCMatchQuestRound.h"
 
 
-class MMatchQuestGameLogInfoManager;
+class CCMatchQuestGameLogInfoManager;
 
 /// 퀘스트룰들의 부모 클래스
-class MMatchRuleBaseQuest : public MMatchRule {
+class CCMatchRuleBaseQuest : public CCMatchRule {
 protected:
-	MMatchNPCManager			m_NPCManager;				///< NPC 관리자
+	CCMatchNPCManager			m_NPCManager;				///< NPC 관리자
 	MQuestPlayerManager			m_PlayerManager;			///< 플레이어 관리자
 	bool						m_bQuestCompleted;			///< 퀘스트가 끝났는지 여부
 
@@ -49,7 +49,7 @@ protected:
 	/// NPC를 스폰시킨다.
 	/// @param nNPC			NPC 종류
 	/// @param nPosIndex	스폰 위치
-	MMatchNPCObject* SpawnNPC(MQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC=false);
+	CCMatchNPCObject* SpawnNPC(MQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC=false);
 
 	virtual void OnCompleted();					///< 퀘스트 성공시 호출된다.
 	virtual void OnFailed();					///< 퀘스트 실패시 호출된다.
@@ -92,7 +92,7 @@ public:
 
 
 	// 퀘스트때문에 추가된 가상 인터페이스.
-	// 구조에대해 좀더 생각을 해봐야함. 너무 많은 인터페이스가 MMatchRule까지 올라와 버렸음... - by 추교성.
+	// 구조에대해 좀더 생각을 해봐야함. 너무 많은 인터페이스가 CCMatchRule까지 올라와 버렸음... - by 추교성.
 	virtual void OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
 	virtual void OnResponseDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
 	virtual void OnRequestCallbackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
@@ -113,8 +113,8 @@ public:
 	virtual void PostNewMonsterInfo( const CCUID& uidUser, const char nMonIndex );
 	
 public:
-	MMatchRuleBaseQuest(CCMatchStage* pStage);			///< 생성자
-	virtual ~MMatchRuleBaseQuest();						///< 소멸자
+	CCMatchRuleBaseQuest(CCMatchStage* pStage);			///< 생성자
+	virtual ~CCMatchRuleBaseQuest();						///< 소멸자
 	virtual void OnEnterBattle(CCUID& uidChar);			///< 게임중 난입할때 호출된다.
 	virtual void OnLeaveBattle(CCUID& uidChar);			///< 게임중 나갔을때 호출된다.
 
@@ -125,5 +125,5 @@ public:
 void InsertNPCIDonUnique( vector<MQUEST_NPC>& outNPCList, MQUEST_NPC nNPCID );
 void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps );
 void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps );
-void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps, MMatchQuest* pQuest );
+void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest );
 void CopyMTD_NPCINFO( MTD_NPCINFO* pDest, const MQuestNPCInfo* pSource );

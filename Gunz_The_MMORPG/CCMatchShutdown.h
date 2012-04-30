@@ -25,7 +25,7 @@ public:
 	char* GetString()			{ return m_szMessage; }
 };
 
-class MMatchShutdown {
+class CCMatchShutdown {
 protected:
 	vector<MShutdownNotify*>	m_ShutdownNotifyArray;
 
@@ -35,11 +35,11 @@ protected:
 
 	unsigned short GetProgressIndex()		{ return m_nProgressIndex; }
 	unsigned long GetTimeLastProgress()		{ return m_nTimeLastProgress; }
-	void MMatchShutdown::SetProgress(int nIndex, unsigned long nClock);
+	void CCMatchShutdown::SetProgress(int nIndex, unsigned long nClock);
 
 public:
-	MMatchShutdown() { m_bShutdown = false; }
-	virtual ~MMatchShutdown();
+	CCMatchShutdown() { m_bShutdown = false; }
+	virtual ~CCMatchShutdown();
 
 	bool LoadXML_ShutdownNotify(const char* pszFileName);
 

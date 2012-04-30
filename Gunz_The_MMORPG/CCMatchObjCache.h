@@ -13,53 +13,53 @@ class MCommandCommunicator;
 class CCMatchObject;
 
 
-struct MMatchObjCacheCostume
+struct CCMatchObjCacheCostume
 {
-	MMatchSex			nSex;
+	CCMatchSex			nSex;
 	unsigned char		nHair;
 	unsigned char		nFace;
 	unsigned long int	nEquipedItemID[MMCIP_END];
 };
 
-class MMatchObjCache {
+class CCMatchObjCache {
 protected:
 	CCUID					m_uidObject;
 	char					m_szName[ MATCHOBJECT_NAME_LENGTH ];
 	char					m_szClanName[CLAN_NAME_LENGTH];
 	char					m_nLevel;
-	MMatchUserGradeID		m_nUGrade;
-	MMatchPremiumGradeID	m_nPGrade;
+	CCMatchUserGradeID		m_nUGrade;
+	CCMatchPremiumGradeID	m_nPGrade;
 	unsigned char			m_nPlayerFlags;		// 플레이어 속성(운영자숨김등) - MTD_PlayerFlags 사용
 	unsigned int			m_nCLID;			// ClanID
 	unsigned int			m_nEmblemChecksum;	// Emblem Checksum
-	MMatchObjCacheCostume	m_Costume;
+	CCMatchObjCacheCostume	m_Costume;
 	unsigned int			m_nRank;
 	int						m_nKillCount;
 	int						m_nDeathCount;
 	int						m_nDTGrade;			// 듀얼토너먼트 등급
 	
 public:
-	MMatchObjCache()				{ 
+	CCMatchObjCache()				{ 
 		m_szName[0] = NULL;
 		m_nLevel = 0;
 		m_nUGrade = MMUG_FREE;
 		m_nPGrade = MMPG_FREE;
-		memset(&m_Costume, 0, sizeof(MMatchObjCacheCostume));
+		memset(&m_Costume, 0, sizeof(CCMatchObjCacheCostume));
 		ResetFlag();
 		m_nDTGrade = 0;
 	}
-	virtual ~MMatchObjCache()		{}
+	virtual ~CCMatchObjCache()		{}
 
 	CCUID GetUID()					{ return m_uidObject; }
 
 	char* GetName()			{ return m_szName; }
 	char* GetClanName()		{ return m_szClanName; }
 	int GetLevel()					{ return m_nLevel; }
-	MMatchUserGradeID		GetUGrade()	{ return m_nUGrade; }
-	MMatchPremiumGradeID	GetPGrade()	{ return m_nPGrade; }
+	CCMatchUserGradeID		GetUGrade()	{ return m_nUGrade; }
+	CCMatchPremiumGradeID	GetPGrade()	{ return m_nPGrade; }
 
 	void SetInfo(const CCUID& uid, const char* szName, const char* szClanName, int nLevel, 
-				 MMatchUserGradeID nUGrade, MMatchPremiumGradeID nPGrade
+				 CCMatchUserGradeID nUGrade, CCMatchPremiumGradeID nPGrade
 				 , const unsigned int nRank, const int nKillCount, const int nDeathCount, int nDTGrade )
 	{
 		m_uidObject = uid;
@@ -95,17 +95,17 @@ public:
 
 	int GetDTGrade()						{ return m_nDTGrade; }
 
-	void AssignCostume(MMatchObjCacheCostume* pCostume) { memcpy(&m_Costume, pCostume, sizeof(MMatchObjCacheCostume)); }
-	MMatchObjCacheCostume* GetCostume() { return &m_Costume; }
+	void AssignCostume(CCMatchObjCacheCostume* pCostume) { memcpy(&m_Costume, pCostume, sizeof(CCMatchObjCacheCostume)); }
+	CCMatchObjCacheCostume* GetCostume() { return &m_Costume; }
 };
 
-class MMatchObjCacheList : public list<MMatchObjCache*>{};
-class MMatchObjCacheMap : public map<CCUID, MMatchObjCache*>{
+class CCMatchObjCacheList : public list<CCMatchObjCache*>{};
+class CCMatchObjCacheMap : public map<CCUID, CCMatchObjCache*>{
 public:
-	void Insert(const CCUID& uid, MMatchObjCache* pCache)	{	
+	void Insert(const CCUID& uid, CCMatchObjCache* pCache)	{	
 		insert(value_type(uid, pCache));	
 	}
-	MMatchObjCache* Find(const CCUID& uid) {
+	CCMatchObjCache* Find(const CCUID& uid) {
 		iterator it = find(uid);
 		if (it!=end())
 			return it->second;
@@ -122,7 +122,7 @@ enum MATCHCACHEMODE {
 };
 
 class CCMatchObjectCacheBuilder {
-	MMatchObjCacheList	m_ObjectCacheList;
+	CCMatchObjCacheList	m_ObjectCacheList;
 
 public:
 	CCMatchObjectCacheBuilder();

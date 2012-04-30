@@ -3,35 +3,35 @@
 #include "CCMatchServer.h"
 #include "CCMatchStage.h"
 #include "CCMatchItem.h"
-#include "MMatchRule.h"
+#include "CCMatchRule.h"
 #include "CCMatchObject.h"
 #include "CCMatchObjCache.h"
 #include "CCSharedCommandTable.h"
 
-MMatchAdmin::MMatchAdmin()
+CCMatchAdmin::CCMatchAdmin()
 {
 	m_pMatchServer= NULL;
 }
 
-MMatchAdmin::~MMatchAdmin()
+CCMatchAdmin::~CCMatchAdmin()
 {
 
 }
 
 
-bool MMatchAdmin::Create(CCMatchServer* pServer)
+bool CCMatchAdmin::Create(CCMatchServer* pServer)
 {
 	m_pMatchServer = pServer;
 
 	return true;
 }
 
-void MMatchAdmin::Destroy()
+void CCMatchAdmin::Destroy()
 {
 
 }
 
-bool MMatchAdmin::Execute(const CCUID& uidAdmin, const char* szStr)
+bool CCMatchAdmin::Execute(const CCUID& uidAdmin, const char* szStr)
 {
 	if (!m_pMatchServer) return false;
 
@@ -60,7 +60,7 @@ bool MMatchAdmin::Execute(const CCUID& uidAdmin, const char* szStr)
 	return true;
 }
 
-bool MMatchAdmin::MakeArgv(char* szStr, MAdminArgvInfo* pAi)
+bool CCMatchAdmin::MakeArgv(char* szStr, MAdminArgvInfo* pAi)
 {
 	int c;
 	char* scp;

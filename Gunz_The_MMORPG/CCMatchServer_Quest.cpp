@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCMatchServer.h"
 #include "CCMatchStage.h"
-#include "MMatchRule.h"
+#include "CCMatchRule.h"
 #include "CCMatchRuleQuest.h"
 #include "CCMatchGameType.h"
 #include "CCMatchConfig.h"
@@ -17,19 +17,19 @@ void CCMatchServer::OnRequestNPCDead(const CCUID& uidSender, const CCUID& uidKil
 	CCMatchStage* pStage = FindStage(pSender->GetStageUID());
 	if (pStage == NULL) { ASSERT( 0 ); return; }
 
-	MMatchCharBattleTimeRewardInfoMap::iterator iter = pSender->GetCharInfo()->GetBRInfoMap().begin();
+	CCMatchCharBattleTimeRewardInfoMap::iterator iter = pSender->GetCharInfo()->GetBRInfoMap().begin();
 	for( ; iter !=  pSender->GetCharInfo()->GetBRInfoMap().end(); iter++ ) {
-		MMatchCharBRInfo* pInfo = iter->second;
+		CCMatchCharBRInfo* pInfo = iter->second;
 		pInfo->AddKillCount(1);	///< NPC Kill은 1 Kill로 계산!
 	}
 
 	if (MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
 	{
-		MMatchRule* pRule = pStage->GetRule();
+		CCMatchRule* pRule = pStage->GetRule();
 		if( NULL == pRule ) return;
 		if (false == MGetGameTypeMgr()->IsQuestDerived( pRule->GetGameType() )) return;
 
-		MMatchRuleBaseQuest* pQuestRule  = reinterpret_cast< MMatchRuleBaseQuest* >( pRule );
+		CCMatchRuleBaseQuest* pQuestRule  = reinterpret_cast< CCMatchRuleBaseQuest* >( pRule );
 
 		pQuestRule->OnRequestNPCDead((CCUID&)uidSender, (CCUID&)uidKiller, uidNPC, pos);
 	}
@@ -50,7 +50,7 @@ void CCMatchServer::OnQuestRequestDead(const CCUID& uidVictim)
 
 	if ( !MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType())) return;
 
-	MMatchRuleBaseQuest* pQuestRule = (MMatchRuleBaseQuest*)pStage->GetRule();
+	CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 	pQuestRule->OnRequestPlayerDead((CCUID&)uidVictim);
 
 	// 서버는 죽은줄 알고있었는데 또 죽었다고 신고들어온경우 죽었다는 메시지만 라우팅한다
@@ -90,7 +90,7 @@ void CCMatchServer::OnQuestTestRequestNPCSpawn(const CCUID& uidPlayer, int nNPCT
 
 	if (MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
 	{
-		MMatchRuleBaseQuest* pQuestRule = (MMatchRuleBaseQuest*)pStage->GetRule();
+		CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 		pQuestRule->OnRequestTestNPCSpawn(nNPCType, nNPCCount);
 	}
 #endif
@@ -115,7 +115,7 @@ void CCMatchServer::OnQuestTestRequestClearNPC(const CCUID& uidPlayer)
 
 	if (MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
 	{
-		MMatchRuleBaseQuest* pQuestRule = (MMatchRuleBaseQuest*)pStage->GetRule();
+		CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 		pQuestRule->OnRequestTestClearNPC();
 	}
 
@@ -141,7 +141,7 @@ void CCMatchServer::OnQuestTestRequestSectorClear(const CCUID& uidPlayer)
 
 	if (MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() ))
 	{
-		MMatchRuleBaseQuest* pQuestRule = (MMatchRuleBaseQuest*)pStage->GetRule();
+		CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 		pQuestRule->OnRequestTestSectorClear();
 	}
 
@@ -166,7 +166,7 @@ void CCMatchServer::OnQuestTestRequestQuestFinish(const CCUID& uidPlayer)
 
 	if (MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() ))
 	{
-		MMatchRuleBaseQuest* pQuestRule = (MMatchRuleBaseQuest*)pStage->GetRule();
+		CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 		pQuestRule->OnRequestTestFinish();
 	}
 
@@ -183,7 +183,7 @@ void CCMatchServer::OnQuestRequestMovetoPortal(const CCUID& uidPlayer)
 
 	if (false == MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() )) return;
 
-	MMatchRuleBaseQuest* pQuestRule = (MMatchRuleBaseQuest*)pStage->GetRule();
+	CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 	pQuestRule->OnRequestMovetoPortal(uidPlayer);
 }
 
@@ -196,7 +196,7 @@ void CCMatchServer::OnQuestReadyToNewSector(const CCUID& uidPlayer)
 
 	if (false == MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() )) return;
 
-	MMatchRuleBaseQuest* pQuestRule = (MMatchRuleBaseQuest*)pStage->GetRule();
+	CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 	pQuestRule->OnReadyToNewSector(uidPlayer);
 
 }
@@ -284,7 +284,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 	// 충분한 바운티가 되는지 검사.
 	if( pPlayer->GetCharInfo()->m_nBP < (itQItemDesc->second->m_nPrice * nItemCount) ) {
 		// 바운티가 부족한다는 정보를 알려줘야 함.
-		// 임시로 MMatchItem에서 사용하는걸 사용했음.
+		// 임시로 CCMatchItem에서 사용하는걸 사용했음.
 		// 필요하면 Quest item에 맞는 커맨드로 수정해야 함.
 		MCommand* pBPLess = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
 		pBPLess->AddParameter( new MCmdParamInt(MERR_TOO_EXPENSIVE_BOUNTY) );
@@ -301,7 +301,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 			itQItem->second->Increase(nItemCount); // 개수 증가
 		} else {
 			// 가질수 있는 아이템의 최대 수를 넘어섰음.
-			// 임시로 MMatchItem에서 사용하는걸 사용했음. 필요하면 Quest item에 맞는 커맨드로 수정해야 함.
+			// 임시로 CCMatchItem에서 사용하는걸 사용했음. 필요하면 Quest item에 맞는 커맨드로 수정해야 함.
 			MCommand* pTooMany = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
 			pTooMany->AddParameter( new MCmdParamInt(MERR_TOO_MANY_ITEM) );
 			pTooMany->AddParameter( new MCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
@@ -442,7 +442,7 @@ void CCMatchServer::OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, co
 
 			if( MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
 			{
-				MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
+				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if( 0 == pRuleQuest )
 					return;
 
@@ -478,7 +478,7 @@ void CCMatchServer::OnRequestCallbackSacrificeItem( const CCUID& uidSender, cons
 
 			if( MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
 			{
-				MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
+				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if( 0 == pRuleQuest )
 					return;
 
@@ -513,7 +513,7 @@ void CCMatchServer::OnRequestQL( const CCUID& uidSender )
 
 			if( MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
 			{
-				MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
+				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if( 0 == pRuleQuest )
 					return;
 
@@ -549,7 +549,7 @@ void CCMatchServer::OnRequestSacrificeSlotInfo( const CCUID& uidSender )
 
 			if( MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
 			{
-				MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
+				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if( 0 == pRuleQuest )
 					return;
 
@@ -593,7 +593,7 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const CCUID& uidSender )
 	if( !IsEnabledObject(pObj) )
 		return;
 
-	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 	if( 0 == pCharInfo )
 		return;
 

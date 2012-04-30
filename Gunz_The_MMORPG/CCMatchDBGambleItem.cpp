@@ -3,7 +3,7 @@
 
 
 
-MMatchGambleItem::MMatchGambleItem( const DWORD dwGambleItemID
+CCMatchGambleItem::CCMatchGambleItem( const DWORD dwGambleItemID
 								   , const string& strName
 								   , const string& strDescription
 								   , const int nStartTimeMin
@@ -11,7 +11,7 @@ MMatchGambleItem::MMatchGambleItem( const DWORD dwGambleItemID
 								   , const DWORD dwPrice
 								   , const bool bIsCash
 								   , const bool bIsOpened ) 
-								   : MMatchDBBaseGambleItem( dwGambleItemID
+								   : CCMatchDBBaseGambleItem( dwGambleItemID
 															, strName
 															, strDescription
 															, dwPrice
@@ -26,11 +26,11 @@ MMatchGambleItem::MMatchGambleItem( const DWORD dwGambleItemID
 }
 
 
-MMatchGambleItem::~MMatchGambleItem()
+CCMatchGambleItem::~CCMatchGambleItem()
 {
 }
 
-bool MMatchGambleItem::AddGambleRewardItem( MMatchGambleRewardItem* pGRItem )
+bool CCMatchGambleItem::AddGambleRewardItem( CCMatchGambleRewardItem* pGRItem )
 {
 	if( NULL == pGRItem ) 
 		return false;
@@ -49,9 +49,9 @@ bool MMatchGambleItem::AddGambleRewardItem( MMatchGambleRewardItem* pGRItem )
 	return true;
 }
 
-const MMatchGambleRewardItem* MMatchGambleItem::GetGambleRewardItemByRate( const WORD wRate ) const
+const CCMatchGambleRewardItem* CCMatchGambleItem::GetGambleRewardItemByRate( const WORD wRate ) const
 {
-	vector< MMatchGambleRewardItem* >::const_iterator it, end;
+	vector< CCMatchGambleRewardItem* >::const_iterator it, end;
 	end = m_RewardItemList.end();
 	for( it = m_RewardItemList.begin(); it != end; ++it )
 	{
@@ -63,9 +63,9 @@ const MMatchGambleRewardItem* MMatchGambleItem::GetGambleRewardItemByRate( const
 }
 
 
-void MMatchGambleItem::Release()
+void CCMatchGambleItem::Release()
 {
-	vector< MMatchGambleRewardItem* >::const_iterator it, end;
+	vector< CCMatchGambleRewardItem* >::const_iterator it, end;
 	end = m_RewardItemList.end();
 	for( it = m_RewardItemList.begin(); it != end; ++it )
 		delete (*it);

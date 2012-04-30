@@ -42,7 +42,7 @@ bool CCRefreshClientChannelImpl::OnSync(unsigned long nChecksum)
 //// MRefreshCategoryClanMember ////
 bool MRefreshCategoryClanMemberImpl::OnUpdateChecksum(unsigned long nTick)
 {
-	MMatchClan* pClan = GetMatchClan();
+	CCMatchClan* pClan = GetMatchClan();
 	unsigned long nChecksum = 0;
 	for (CCUIDRefCache::iterator itor= pClan->GetMemberBegin(); itor != pClan->GetMemberEnd(); ++itor) 
 	{

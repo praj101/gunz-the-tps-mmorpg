@@ -12,14 +12,14 @@
 #include "CCMatchObjCache.h"
 #include "CCMatchStage.h"
 #include "CCMatchTransDataType.h"
-#include "MMatchFormula.h"
+#include "CCMatchFormula.h"
 #include "CCMatchConfig.h"
 #include "CCCommandCommunicator.h"
 #include "CCMatchShop.h"
 #include "CCMatchTransDataType.h"
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "CCLadderMgr.h"
 #include "CCTeamGameStrategy.h"
@@ -128,7 +128,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	// 클랜전은 Stage의 팀정보에 CLID까지 설정해야한다.
 	if (pTeamGameStrategy)
 	{
-		MMatchLadderTeamInfo a_RedLadderTeamInfo, a_BlueLadderTeamInfo;
+		CCMatchLadderTeamInfo a_RedLadderTeamInfo, a_BlueLadderTeamInfo;
 		pTeamGameStrategy->SetStageLadderInfo(&a_RedLadderTeamInfo, &a_BlueLadderTeamInfo, pGroupA, pGroupB);
 
 		pStage->SetLadderTeam(&a_RedLadderTeamInfo, &a_BlueLadderTeamInfo);

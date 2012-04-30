@@ -270,7 +270,7 @@ bool ZObserver::IsVisibleSetTarget(ZCharacter* pCharacter)
 
 	/*
 	// AdminHide Ã³¸®
-	MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
+	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 	if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide))
 		return true;
 
@@ -295,7 +295,7 @@ bool ZObserver::IsVisibleSetTarget(ZCharacter* pCharacter)
 
 }
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 {

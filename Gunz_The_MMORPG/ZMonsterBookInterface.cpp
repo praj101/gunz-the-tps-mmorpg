@@ -515,7 +515,7 @@ bool ZMonsterBookInterface::LoadMonsterBookInfo( void)
 					}
 					else
 					{
-						MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( *itrItem);
+						CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( *itrItem);
 						if ( pItemDesc)
 						{
 							pItemNode->m_strName	= pItemDesc->m_pMItemName->Ref().m_szItemName;

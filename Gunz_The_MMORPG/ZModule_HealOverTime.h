@@ -14,8 +14,8 @@ class ZModule_HealOverTime : public ZModule {
 	MProtectValue<int>		m_numHealDesire;	// 총 목표 회복횟수
 	MProtectValue<int>		m_numHealDone;		// 현재 회복한 횟수
 
-	MProtectValue<MMatchDamageType> m_type;
-	MMatchItemEffectId		m_nEffectId;
+	MProtectValue<CCMatchDamageType> m_type;
+	CCMatchItemEffectId		m_nEffectId;
 	int						m_nItemId;			// 효과를 일으킨 아이템ID
 
 	MProtectValue<bool>		m_bOnHeal;	// 힐 받고 있는 중인가
@@ -27,7 +27,7 @@ public:
 	virtual bool Update(float fElapsed);
 	virtual void InitStatus();
 
-	void BeginHeal(MMatchDamageType type, int nHealAmount, int numHeal, MMatchItemEffectId effectId, int nItemId);
+	void BeginHeal(CCMatchDamageType type, int nHealAmount, int numHeal, CCMatchItemEffectId effectId, int nItemId);
 	bool IsOnHeal() { return m_bOnHeal.Ref(); }
 	float GetHealBeginTime() { return m_fBeginTime.Ref(); }
 

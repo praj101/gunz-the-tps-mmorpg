@@ -15,7 +15,7 @@
 #include "ZApplication.h"
 #include "ZRule.h"
 #include "ZMapDesc.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include "ZRuleDuel.h"
 #include "ZRuleDuelTournament.h"
 #include "ZInput.h"
@@ -436,7 +436,7 @@ void ZMatch::InitRound()
 //	m_nRoundKills = 0;
 
 	// AdminHide 贸府
-	MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
+	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 	if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
 		ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 	} else {
@@ -557,7 +557,7 @@ void ZMatch::SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 					// Do nothing...
 				} 
 				else {
-					MMatchTeam nTeamWon = (nArg == MMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
+					CCMatchTeam nTeamWon = (nArg == MMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
 					if (nTeamWon == MMT_RED)
 						m_nTeamScore[MMT_RED]++;
 					else if (nTeamWon == MMT_BLUE)
@@ -652,7 +652,7 @@ void ZMatch::OnForcedEntry(ZCharacter* pCharacter)
 	if (pCharacter == ZGetGame()->m_pMyCharacter)
 	{
 		// AdminHide 贸府
-		MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
+		CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 		if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
 			ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 		} else {

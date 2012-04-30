@@ -13,7 +13,7 @@
 #include "CCMatchTransDataType.h"
 #include "CCDebug.h"
 #include "RTypes.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "CCMatchSchedule.h"
 #include "MTypes.h"
 #include "CCMatchConfig.h"

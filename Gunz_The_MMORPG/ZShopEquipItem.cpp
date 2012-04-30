@@ -4,7 +4,7 @@
 #include "ZCharacterView.h"
 #include "ZShop.h"
 #include "ZShopEquipInterface.h"
-#include "MMatchItemFunction.h"
+#include "CCMatchItemFunction.h"
 
 string GetRestrictionString(int nResSex, int nResLevel, int nWeight)
 {
@@ -38,12 +38,12 @@ string GetRestrictionString(int nResSex, int nResLevel, int nWeight)
 	return str;
 }
 
-string GetRestrictionString(MMatchItemDesc* pItemDesc)
+string GetRestrictionString(CCMatchItemDesc* pItemDesc)
 {
 	return GetRestrictionString(pItemDesc->m_nResSex.Ref(), pItemDesc->m_nResLevel.Ref(), pItemDesc->m_nWeight.Ref());
 }
 
-string GetItemSpecString(MMatchItemDesc* pItemDesc)
+string GetItemSpecString(CCMatchItemDesc* pItemDesc)
 {
 	string str;
 	char temp[1024];
@@ -391,13 +391,13 @@ void ZShopEquipItem_Gamble::UpdateCharInfoText()
 
 // ============= ZShopEquipItem_Match 장비 아이템 ================================================
 
-ZShopEquipItem_Match::ZShopEquipItem_Match( MMatchItemDesc* pDesc ) : m_pItemDesc(pDesc)
+ZShopEquipItem_Match::ZShopEquipItem_Match( CCMatchItemDesc* pDesc ) : m_pItemDesc(pDesc)
 {
 	_ASSERT(m_pItemDesc);
 	m_pIconBitmap = GetItemIconBitmap(m_pItemDesc);
 }
 
-MMatchItemSlotType ZShopEquipItem_Match::GetSlotType()
+CCMatchItemSlotType ZShopEquipItem_Match::GetSlotType()
 {
 	return m_pItemDesc->m_nSlot;
 }
@@ -451,7 +451,7 @@ int ZShopEquipItem_Match::GetLevelRes()
 
 void ZShopEquipItem_Match::UpdateCharacterView(ZCharacterView* pCharacterView)
 {
-	MMatchCharItemParts nCharItemParts = GetSuitableItemParts(m_pItemDesc->m_nSlot);
+	CCMatchCharItemParts nCharItemParts = GetSuitableItemParts(m_pItemDesc->m_nSlot);
 
 	pCharacterView->SetSelectMyCharacter();
 	pCharacterView->SetParts(nCharItemParts, m_pItemDesc->m_nID);
@@ -477,7 +477,7 @@ void ZShopEquipItem_Match::FillItemDesc(MTextArea* pTextArea)
 	FillItemDesc(m_pItemDesc, pTextArea, pRentalNode);
 }
 
-void ZShopEquipItem_Match::FillItemDesc(MMatchItemDesc* pItemDesc, MTextArea* pTextArea, ZMyItemNode* pRentalNode)
+void ZShopEquipItem_Match::FillItemDesc(CCMatchItemDesc* pItemDesc, MTextArea* pTextArea, ZMyItemNode* pRentalNode)
 {
 	if(!pTextArea) return;
 
@@ -519,9 +519,9 @@ void ZShopEquipItem_Match::FillItemDesc(MMatchItemDesc* pItemDesc, MTextArea* pT
 
 void ZShopEquipItem_Match::UpdateCharInfoText()
 {
-	static MMatchItemDesc nullItem;
-	MMatchItemDesc* pEquipedItemDesc = &nullItem;
-	MMatchCharItemParts parts = ZGetGameInterface()->GetShopEquipInterface()->RecommendEquipParts( m_pItemDesc->m_nSlot);
+	static CCMatchItemDesc nullItem;
+	CCMatchItemDesc* pEquipedItemDesc = &nullItem;
+	CCMatchCharItemParts parts = ZGetGameInterface()->GetShopEquipInterface()->RecommendEquipParts( m_pItemDesc->m_nSlot);
 	ZMyItemNode* pMyItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem( parts);
 	if ( pMyItemNode)
 		pEquipedItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pMyItemNode->GetItemID());
@@ -632,7 +632,7 @@ ZShopEquipItem_Set::ZShopEquipItem_Set(MShopSetItem* pSetItem)
 	//그밖에 나중에 필요한 합산치들을 계산해둔다
 	int nHighestLevelRestrict = 0;
 	bool bSexResMale(false), bSexResFemale(false);
-	MMatchItemDesc* pDesc;
+	CCMatchItemDesc* pDesc;
 	for (int i=0; i<MAX_SET_ITEM_COUNT; ++i)
 	{
 		pDesc = MGetMatchItemDescMgr()->GetItemDesc( pSetItem->GetItemID(i));
@@ -700,7 +700,7 @@ void ZShopEquipItem_Set::UpdateCharacterView( ZCharacterView* pCharacterView )
 {
 	/*	세트 아이템이 오픈되면 코드를 알맞게 수정해서 사용하자
 	pCharacterView->SetSelectMyCharacter();
-	MMatchItemDesc* pDesc;
+	CCMatchItemDesc* pDesc;
 	for (int i=0; i<MAX_SET_ITEM_COUNT; ++i)
 	{
 		int partsItemId = m_pShopSetItem->GetItemID(i);
@@ -709,7 +709,7 @@ void ZShopEquipItem_Set::UpdateCharacterView( ZCharacterView* pCharacterView )
 			pDesc = MGetMatchItemDescMgr()->GetItemDesc(partsItemId);
 			if (!pDesc) { _ASSERT(0); continue; }
 
-			MMatchCharItemParts nCharItemParts = GetSuitableItemParts(pDesc->m_nSlot);
+			CCMatchCharItemParts nCharItemParts = GetSuitableItemParts(pDesc->m_nSlot);
 			pCharacterView->SetParts(nCharItemParts, pDesc->m_nID);
 		}
 	}
@@ -719,9 +719,9 @@ void ZShopEquipItem_Set::UpdateCharacterView( ZCharacterView* pCharacterView )
 void ZShopEquipItem_Set::UpdateCharInfoText()
 {
 	/*	세트 아이템이 오픈되면 코드를 알맞게 수정해서 사용하자
-	static MMatchItemDesc nullItem;
-	MMatchItemDesc* pEquipedItemDesc;
-	MMatchItemDesc* pItemDesc;
+	static CCMatchItemDesc nullItem;
+	CCMatchItemDesc* pEquipedItemDesc;
+	CCMatchItemDesc* pItemDesc;
 	ZMyItemNode* pMyItemNode;
 
 	int nNewWT = ZGetMyInfo()->GetItemList()->GetEquipedTotalWeight();
@@ -1137,7 +1137,7 @@ bool ZShopEquipItemHandle_SellMatch::GetPrice( int& out_nPrice )
 {
 	out_nPrice = 0;
 
-	MMatchItemDesc* pDesc = m_pItem->GetDesc();
+	CCMatchItemDesc* pDesc = m_pItem->GetDesc();
 	if (!pDesc) { _ASSERT(pDesc); return false; }
 
 	ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetItem( GetItemUID());

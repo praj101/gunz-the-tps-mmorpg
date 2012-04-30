@@ -83,7 +83,7 @@ struct MTD_CharInfo_v0	// ver0 ver1
 	// 캐릭터 정보
 	char				szName[MATCHOBJECT_NAME_LENGTH];
 	char				szClanName[CLAN_NAME_LENGTH];
-	MMatchClanGrade		nClanGrade;
+	CCMatchClanGrade		nClanGrade;
 	unsigned short		nClanContPoint;
 	char				nCharNum;
 	unsigned short		nLevel;
@@ -104,10 +104,10 @@ struct MTD_CharInfo_v0	// ver0 ver1
 	unsigned short		nWR;
 
 	// 아이템 정보
-	unsigned long int	nEquipedItemDesc[12];		// MMatchCharItemParts_v0::MMCIP_END0
+	unsigned long int	nEquipedItemDesc[12];		// CCMatchCharItemParts_v0::MMCIP_END0
 
 	// account 의 정보
-	MMatchUserGradeID	nUGradeID;
+	CCMatchUserGradeID	nUGradeID;
 };
 
 struct MTD_CharInfo_v2	// ver2 ~ 4
@@ -115,7 +115,7 @@ struct MTD_CharInfo_v2	// ver2 ~ 4
 	// 캐릭터 정보
 	char				szName[MATCHOBJECT_NAME_LENGTH];
 	char				szClanName[CLAN_NAME_LENGTH];
-	MMatchClanGrade		nClanGrade;
+	CCMatchClanGrade		nClanGrade;
 	unsigned short		nClanContPoint;
 	char				nCharNum;
 	unsigned short		nLevel;
@@ -136,10 +136,10 @@ struct MTD_CharInfo_v2	// ver2 ~ 4
 	unsigned short		nWR;
 
 	// 아이템 정보
-	unsigned long int	nEquipedItemDesc[12];		// MMatchCharItemParts_v0::MMCIP_END0
+	unsigned long int	nEquipedItemDesc[12];		// CCMatchCharItemParts_v0::MMCIP_END0
 
 	// account 의 정보
-	MMatchUserGradeID	nUGradeID;
+	CCMatchUserGradeID	nUGradeID;
 
 	// ClanCLID
 	unsigned int		nClanCLID;
@@ -150,7 +150,7 @@ struct MTD_CharInfo_v5	// ver5
 	// 캐릭터 정보
 	char				szName[MATCHOBJECT_NAME_LENGTH];
 	char				szClanName[CLAN_NAME_LENGTH];
-	MMatchClanGrade		nClanGrade;
+	CCMatchClanGrade		nClanGrade;
 	unsigned short		nClanContPoint;
 	char				nCharNum;
 	unsigned short		nLevel;
@@ -171,10 +171,10 @@ struct MTD_CharInfo_v5	// ver5
 	unsigned short		nWR;
 
 	// 아이템 정보
-	unsigned long int	nEquipedItemDesc[12];		// MMatchCharItemParts_v0::MMCIP_END0
+	unsigned long int	nEquipedItemDesc[12];		// CCMatchCharItemParts_v0::MMCIP_END0
 
 	// account 의 정보
-	MMatchUserGradeID	nUGradeID;
+	CCMatchUserGradeID	nUGradeID;
 
 	// ClanCLID
 	unsigned int		nClanCLID;

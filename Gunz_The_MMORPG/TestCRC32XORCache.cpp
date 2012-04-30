@@ -1,16 +1,16 @@
 #include "stdafx.h"
 #include "MCRC32.h"
-#include "MMatchCRC32XORCache.h"
+#include "CCMatchCRC32XORCache.h"
 #include "TestCRC32XORCache.h"
-#include "MMatchItem.h"
-#include "MMatchWorldItemDesc.h"
+#include "CCMatchItem.h"
+#include "CCMatchWorldItemDesc.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-typedef map< int, MMatchItemDesc* >						T_ItemDescMap;
-typedef map< short, MMatchMapsWorldItemSpawnInfoSet* >	T_MMatchMapsWorldItemSpawnInfoSetMap;
+typedef map< int, CCMatchItemDesc* >						T_ItemDescMap;
+typedef map< short, CCMatchMapsWorldItemSpawnInfoSet* >	T_CCMatchMapsWorldItemSpawnInfoSetMap;
 
 
 static const int TEST_ITEM_COUNT		= 100;
@@ -31,14 +31,14 @@ T_ItemDescMap							g_ItemDescMgr;
 T_ItemDescMap							g_EquipItemList[ TEST_EQUIPLIST_COUNT ];
 T_ItemDescMap							g_ChecksumItemDescList;
 
-T_MMatchMapsWorldItemSpawnInfoSetMap	g_WItemDescMgr;
-T_MMatchMapsWorldItemSpawnInfoSetMap	g_SpawnInfoList;
+T_CCMatchMapsWorldItemSpawnInfoSetMap	g_WItemDescMgr;
+T_CCMatchMapsWorldItemSpawnInfoSetMap	g_SpawnInfoList;
 
 DWORD									g_dwXORCRC32_Inc; 
 DWORD									g_dwXORCRC32_Des; // g_dwXORCRC32_Inc과 순서 바꿔서.
 
-MMatchCRC32XORCache						g_CRC32XORCache_Inc;
-MMatchCRC32XORCache						g_CRC32XORCache_Des;
+CCMatchCRC32XORCache						g_CRC32XORCache_Inc;
+CCMatchCRC32XORCache						g_CRC32XORCache_Des;
 
 
 
@@ -46,9 +46,9 @@ void T_InitItemDescMgr()
 {
 	for( int i = 0; TEST_ITEM_COUNT > i; ++i )
 	{
-		MMatchItemDesc* pItemDesc = new MMatchItemDesc;
+		CCMatchItemDesc* pItemDesc = new CCMatchItemDesc;
 
-		memset( pItemDesc, 0, sizeof(MMatchItemDesc) );
+		memset( pItemDesc, 0, sizeof(CCMatchItemDesc) );
 
 		pItemDesc->m_nID = i;
 
@@ -76,7 +76,7 @@ void T_ReleaseItemDescMap()
 }
 
 
-MMatchItemDesc* T_FindItemDesc( const int nItemID )
+CCMatchItemDesc* T_FindItemDesc( const int nItemID )
 {
 	T_ItemDescMap::iterator itFind = g_ItemDescMgr.find( nItemID );
 	if( g_ItemDescMgr.end() == itFind )
@@ -84,7 +84,7 @@ MMatchItemDesc* T_FindItemDesc( const int nItemID )
 		return NULL;
 	}
 
-	return reinterpret_cast<MMatchItemDesc*>( itFind->second );
+	return reinterpret_cast<CCMatchItemDesc*>( itFind->second );
 }
 
 
@@ -98,7 +98,7 @@ void T_InitEquipItemList()
 		{
 			const int nItemID = static_cast<int>( rand() % TEST_ITEM_COUNT );
 
-			MMatchItemDesc* pItemDesc = T_FindItemDesc( nItemID );
+			CCMatchItemDesc* pItemDesc = T_FindItemDesc( nItemID );
 			_ASSERT( NULL != pItemDesc );
 			
 			g_EquipItemList[ i ].insert( T_ItemDescMap::value_type(nItemID, pItemDesc) );
@@ -185,9 +185,9 @@ const DWORD	T_BuildEquipResourceChecksum( const DWORD dwChecksum )
 
 	for( ; end != it; ++it )
 	{
-		MMatchItemDesc* pItemDesc = reinterpret_cast<MMatchItemDesc*>( it->second );
+		CCMatchItemDesc* pItemDesc = reinterpret_cast<CCMatchItemDesc*>( it->second );
 
-		dwNewChecksum = T_BuildResourceChecksum( dwNewChecksum, (BYTE*)pItemDesc, sizeof(MMatchItemDesc) );
+		dwNewChecksum = T_BuildResourceChecksum( dwNewChecksum, (BYTE*)pItemDesc, sizeof(CCMatchItemDesc) );
 	}
 
 	_ASSERT( 0 != dwNewChecksum );
@@ -200,14 +200,14 @@ const DWORD	T_BuildEquipResourceChecksum( const DWORD dwChecksum )
 const DWORD T_BuildWItemResourceChecksum( const DWORD dwChecksum )
 {
 	DWORD											dwNewChecksum	= dwChecksum;
-	T_MMatchMapsWorldItemSpawnInfoSetMap::iterator	it				= g_SpawnInfoList.begin();
-	T_MMatchMapsWorldItemSpawnInfoSetMap::iterator	end				= g_SpawnInfoList.end();
+	T_CCMatchMapsWorldItemSpawnInfoSetMap::iterator	it				= g_SpawnInfoList.begin();
+	T_CCMatchMapsWorldItemSpawnInfoSetMap::iterator	end				= g_SpawnInfoList.end();
 
 	for( ; end != it; ++it )
 	{
-		MMatchMapsWorldItemSpawnInfoSet* pWItemDesc = reinterpret_cast<MMatchMapsWorldItemSpawnInfoSet*>( it->second );
+		CCMatchMapsWorldItemSpawnInfoSet* pWItemDesc = reinterpret_cast<CCMatchMapsWorldItemSpawnInfoSet*>( it->second );
 
-		dwNewChecksum = T_BuildResourceChecksum( dwNewChecksum, (BYTE*)pWItemDesc, sizeof(MMatchMapsWorldItemSpawnInfoSet) );
+		dwNewChecksum = T_BuildResourceChecksum( dwNewChecksum, (BYTE*)pWItemDesc, sizeof(CCMatchMapsWorldItemSpawnInfoSet) );
 	}
 
 	_ASSERT( 0 != dwNewChecksum );
@@ -217,7 +217,7 @@ const DWORD T_BuildWItemResourceChecksum( const DWORD dwChecksum )
 }
 
 
-void T_BuildEquipListCRC32XORCache( MMatchCRC32XORCache* pCRC32XORCache )
+void T_BuildEquipListCRC32XORCache( CCMatchCRC32XORCache* pCRC32XORCache )
 {
 	_ASSERT( NULL != pCRC32XORCache );
 
@@ -226,7 +226,7 @@ void T_BuildEquipListCRC32XORCache( MMatchCRC32XORCache* pCRC32XORCache )
 
 	for( ; endItem != itItem; ++itItem )
 	{
-		MMatchItemDesc* pItemDesc = reinterpret_cast<MMatchItemDesc*>( itItem->second );
+		CCMatchItemDesc* pItemDesc = reinterpret_cast<CCMatchItemDesc*>( itItem->second );
 
 		pItemDesc->CacheCRC32( *pCRC32XORCache );
 	}
@@ -236,16 +236,16 @@ void T_BuildEquipListCRC32XORCache( MMatchCRC32XORCache* pCRC32XORCache )
 }
 
 
-void T_BuildSpawnInfoSetCRC32XORCache( MMatchCRC32XORCache* pCRC32XORCache )
+void T_BuildSpawnInfoSetCRC32XORCache( CCMatchCRC32XORCache* pCRC32XORCache )
 {
 	_ASSERT( NULL != pCRC32XORCache );
 
-	T_MMatchMapsWorldItemSpawnInfoSetMap::iterator	itWItem	= g_SpawnInfoList.begin();
-	T_MMatchMapsWorldItemSpawnInfoSetMap::iterator	endWItem = g_SpawnInfoList.end();
+	T_CCMatchMapsWorldItemSpawnInfoSetMap::iterator	itWItem	= g_SpawnInfoList.begin();
+	T_CCMatchMapsWorldItemSpawnInfoSetMap::iterator	endWItem = g_SpawnInfoList.end();
 
 	for( ; endWItem != itWItem; ++itWItem )
 	{
-		MMatchMapsWorldItemSpawnInfoSet* pWItemDesc = reinterpret_cast<MMatchMapsWorldItemSpawnInfoSet*>( itWItem->second );
+		CCMatchMapsWorldItemSpawnInfoSet* pWItemDesc = reinterpret_cast<CCMatchMapsWorldItemSpawnInfoSet*>( itWItem->second );
 
 		pCRC32XORCache->CRC32XOR( pWItemDesc->GetCRC32() );
 	}
@@ -293,12 +293,12 @@ void T_InitWItemDescMgr()
 
 	for( int i = 0; TEST_WITEM_COUNT > i; ++i )
 	{
-		MMatchMapsWorldItemSpawnInfoSet* pWItemDesc = new MMatchMapsWorldItemSpawnInfoSet;
+		CCMatchMapsWorldItemSpawnInfoSet* pWItemDesc = new CCMatchMapsWorldItemSpawnInfoSet;
 
 		pWItemDesc->m_nSoloSpawnCount = i;
 		pWItemDesc->m_nTeamSpawnCount = i + 10;
 
-		g_WItemDescMgr.insert( T_MMatchMapsWorldItemSpawnInfoSetMap::value_type(i, pWItemDesc) );
+		g_WItemDescMgr.insert( T_CCMatchMapsWorldItemSpawnInfoSetMap::value_type(i, pWItemDesc) );
 	}
 
 	_ASSERT( !g_WItemDescMgr.empty() );
@@ -309,8 +309,8 @@ void T_InitWItemDescMgr()
 
 void T_ReleaseWItemDescMap()
 {
-	T_MMatchMapsWorldItemSpawnInfoSetMap::iterator it	= g_WItemDescMgr.begin();
-	T_MMatchMapsWorldItemSpawnInfoSetMap::iterator end	= g_WItemDescMgr.end();
+	T_CCMatchMapsWorldItemSpawnInfoSetMap::iterator it	= g_WItemDescMgr.begin();
+	T_CCMatchMapsWorldItemSpawnInfoSetMap::iterator end	= g_WItemDescMgr.end();
 
 	for( ; end != it; ++it )
 	{
@@ -321,15 +321,15 @@ void T_ReleaseWItemDescMap()
 }
 
 
-MMatchMapsWorldItemSpawnInfoSet* T_FindWItemDesc( const int nWItemID )
+CCMatchMapsWorldItemSpawnInfoSet* T_FindWItemDesc( const int nWItemID )
 {
-	T_MMatchMapsWorldItemSpawnInfoSetMap::iterator itFind = g_WItemDescMgr.find( nWItemID );
+	T_CCMatchMapsWorldItemSpawnInfoSetMap::iterator itFind = g_WItemDescMgr.find( nWItemID );
 	if( g_WItemDescMgr.end() == itFind )
 	{
 		return NULL;
 	}
 
-	return reinterpret_cast<MMatchMapsWorldItemSpawnInfoSet*>( itFind->second );
+	return reinterpret_cast<CCMatchMapsWorldItemSpawnInfoSet*>( itFind->second );
 }
 
 
@@ -339,10 +339,10 @@ void T_InitSpawnWItemList()
 	{
 		const int nWItemID = rand() % TEST_WITEM_COUNT;
 
-		MMatchMapsWorldItemSpawnInfoSet* pWItemDesc = T_FindWItemDesc( nWItemID );
+		CCMatchMapsWorldItemSpawnInfoSet* pWItemDesc = T_FindWItemDesc( nWItemID );
 		_ASSERT( NULL != pWItemDesc );
 
-		g_SpawnInfoList.insert( T_MMatchMapsWorldItemSpawnInfoSetMap::value_type(nWItemID, pWItemDesc) );
+		g_SpawnInfoList.insert( T_CCMatchMapsWorldItemSpawnInfoSetMap::value_type(nWItemID, pWItemDesc) );
 	}
 
 	mlog( "test spawn item count : %u\n", TEST_WITEM_SPAWN_COUNT );
@@ -351,7 +351,7 @@ void T_InitSpawnWItemList()
 
 void T_ResourceCRC32MemberFunction()
 {
-	//MMatchItemDesc* pItemDesc = new MMatchItemDesc;
+	//CCMatchItemDesc* pItemDesc = new CCMatchItemDesc;
 
 	//pItemDesc->m_nID = 1;
 	//memset( pItemDesc->m_szDesc, 0, sizeof(pItemDesc->m_szDesc) );
@@ -361,13 +361,13 @@ void T_ResourceCRC32MemberFunction()
 	//const DWORD dw1 = pItemDesc->GetCRC32();
 
 
-	//MMemoryProxy<MMatchItemName>*	pItemName	= pItemDesc->m_pMItemName;
-	//MMatchItemEffectDesc*			pErrect		= pItemDesc->m_pEffect;
+	//MMemoryProxy<CCMatchItemName>*	pItemName	= pItemDesc->m_pMItemName;
+	//CCMatchItemEffectDesc*			pErrect		= pItemDesc->m_pEffect;
 
 	//pItemDesc->m_pMItemName	= NULL;
 	//pItemDesc->m_pEffect	= NULL;
 
-	//const DWORD dw2 = MCRC32::BuildCRC32( (BYTE*)pItemDesc, DWORD(sizeof(MMatchItemDesc)) );
+	//const DWORD dw2 = MCRC32::BuildCRC32( (BYTE*)pItemDesc, DWORD(sizeof(CCMatchItemDesc)) );
 
 	//pItemDesc->m_pMItemName	= pItemName;
 	//pItemDesc->m_pEffect	= pErrect;
@@ -436,8 +436,8 @@ void T_DeleteCRC32ForCRC32XORCache()
 	const DWORD dwChecksumInc_Org = g_CRC32XORCache_Inc.GetXOR();
 	const DWORD dwChecksumDes_Org = g_CRC32XORCache_Des.GetXOR();
 
-	MMatchItemDesc* pTestItemDesc1 = T_FindItemDesc( int(rand() % TEST_ITEM_COUNT) );
-	MMatchItemDesc* pTestItemDesc2 = T_FindItemDesc( int(rand() % TEST_ITEM_COUNT) );
+	CCMatchItemDesc* pTestItemDesc1 = T_FindItemDesc( int(rand() % TEST_ITEM_COUNT) );
+	CCMatchItemDesc* pTestItemDesc2 = T_FindItemDesc( int(rand() % TEST_ITEM_COUNT) );
 
 	_ASSERT( NULL != pTestItemDesc1 );
 	_ASSERT( NULL != pTestItemDesc2 );
@@ -458,8 +458,8 @@ void T_DeleteCRC32ForCRC32XORCache()
 	const DWORD dwChecksumInc_2 = g_CRC32XORCache_Inc.GetXOR();
 	const DWORD dwChecksumDes_2 = g_CRC32XORCache_Des.GetXOR();
 
-	MMatchMapsWorldItemSpawnInfoSet* pTestWItemSpanInfo1 = T_FindWItemDesc( int(rand() % TEST_WITEM_COUNT) );
-	MMatchMapsWorldItemSpawnInfoSet* pTestWItemSpanInfo2 = T_FindWItemDesc( int(rand() % TEST_WITEM_COUNT) );
+	CCMatchMapsWorldItemSpawnInfoSet* pTestWItemSpanInfo1 = T_FindWItemDesc( int(rand() % TEST_WITEM_COUNT) );
+	CCMatchMapsWorldItemSpawnInfoSet* pTestWItemSpanInfo2 = T_FindWItemDesc( int(rand() % TEST_WITEM_COUNT) );
 
 	_ASSERT( NULL != pTestWItemSpanInfo1 );
 	_ASSERT( NULL != pTestWItemSpanInfo2 );

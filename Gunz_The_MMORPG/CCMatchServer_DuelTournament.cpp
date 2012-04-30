@@ -9,14 +9,14 @@
 
 #include "CCMatchConfig.h"
 #include "CCMatchServer.h"
-#include "MMatchDuelTournamentMgr.h"
+#include "CCMatchDuelTournamentMgr.h"
 
 void CCMatchServer::ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, MDUELTOURNAMENTTYPE nType)
 {
 	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
-	MMatchChannel *pChannel = FindChannel(pDTObj->GetChannelUID());
+	CCMatchChannel *pChannel = FindChannel(pDTObj->GetChannelUID());
 	if( pChannel == NULL ) {
 		LOG(LOG_PROG, "CCMatchServer::OnRequestDuelTournamentChallenge - Wrong Channel(ChannelUID - %d%d)",
 			pDTObj->GetChannelUID().High, pDTObj->GetChannelUID().Low);
@@ -47,7 +47,7 @@ void CCMatchServer::ResponseDuelTournamentCancelChallenge(CCUID &uidPlayer, MDUE
 	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
-	MMatchChannel *pChannel = FindChannel(pDTObj->GetChannelUID());
+	CCMatchChannel *pChannel = FindChannel(pDTObj->GetChannelUID());
 	if( pChannel == NULL ) {
 		LOG(LOG_PROG, "CCMatchServer::OnRequestDuelTournamentCancelChallenge - Wrong Channel(ChannelUID - %d%d)",
 			pDTObj->GetChannelUID().High, pDTObj->GetChannelUID().Low);

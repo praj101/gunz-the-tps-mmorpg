@@ -1,20 +1,20 @@
 #pragma once
-#include "MMatchBuff.h"
+#include "CCMatchBuff.h"
 
-class MMatchBuffSummary
+class CCMatchBuffSummary
 {
 protected:
-	MMatchBuffInfo m_BuffSummary[MMBET_END];
+	CCMatchBuffInfo m_BuffSummary[MMBET_END];
 
 	bool m_bCleared;
 public:
-	MMatchBuffSummary();
-	~MMatchBuffSummary();
+	CCMatchBuffSummary();
+	~CCMatchBuffSummary();
 
 	void Clear();
 	void AddBuff(int nBuffID);
 
-	MMatchBuffInfo* GetBuffSummary(MMatchBuffEffectType nType) { return &m_BuffSummary[(int)nType]; }
+	CCMatchBuffInfo* GetBuffSummary(CCMatchBuffEffectType nType) { return &m_BuffSummary[(int)nType]; }
 
 	int GetHP();
 	int GetAP();

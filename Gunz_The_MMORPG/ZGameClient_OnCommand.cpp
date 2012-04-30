@@ -16,13 +16,13 @@
 #include "ZInterface.h"
 #include "ZApplication.h"
 #include "ZGameInterface.h"
-#include "MMatchGlobal.h"
-#include "MMatchChannel.h"
-#include "MMatchStage.h"
+#include "CCMatchGlobal.h"
+#include "CCMatchChannel.h"
+#include "CCMatchStage.h"
 #include "ZCommandTable.h"
 #include "ZPost.h"
 #include "ZPostLocal.h"
-#include "MMatchNotify.h"
+#include "CCMatchNotify.h"
 #include "ZMatch.h"
 #include "MComboBox.h"
 #include "MTextArea.h"
@@ -136,7 +136,7 @@ void TimeReward_ChatOutput_ResetChance(const char* szRewardResetDesc)
 bool ZGameClient::OnCommand(MCommand* pCommand)
 {
 	bool ret;
-	ret = MMatchClient::OnCommand(pCommand);
+	ret = CCMatchClient::OnCommand(pCommand);
 
 #ifdef _LOG_ENABLE_CLIENT_COMMAND_
 	char buf[256];
@@ -524,7 +524,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
 				pCommand->GetParameter(&nObjectStageState, 2, MPT_INT);
-				OnStagePlayerState(uidChar, uidStage, MMatchObjectStageState(nObjectStageState));
+				OnStagePlayerState(uidChar, uidStage, CCMatchObjectStageState(nObjectStageState));
 			}
 			break;
 		case MC_MATCH_STAGE_MASTER:
@@ -1110,7 +1110,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nProposalMode,	1, MPT_INT);
 				pCommand->GetParameter(&nRequestID,		2, MPT_INT);
 
-				OnResponseProposal(nResult, MMatchProposalMode(nProposalMode), nRequestID);
+				OnResponseProposal(nResult, CCMatchProposalMode(nProposalMode), nRequestID);
 			}
 			break;
 		case MC_MATCH_ASK_AGREEMENT:
@@ -1130,7 +1130,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nProposalMode,		2, MPT_INT);
 				pCommand->GetParameter(&nRequestID,			3, MPT_INT);
 
-				OnAskAgreement(uidProposer, pMemberNamesBlob, MMatchProposalMode(nProposalMode), nRequestID);
+				OnAskAgreement(uidProposer, pMemberNamesBlob, CCMatchProposalMode(nProposalMode), nRequestID);
 			}
 			break;
 		case MC_MATCH_REPLY_AGREEMENT:
@@ -1147,7 +1147,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nRequestID,			4, MPT_INT);
 				pCommand->GetParameter(&bAgreement,			5, MPT_BOOL);
 
-				OnReplyAgreement(uidProposer, uidChar, szReplierName, MMatchProposalMode(nProposalMode),
+				OnReplyAgreement(uidProposer, uidChar, szReplierName, CCMatchProposalMode(nProposalMode),
 					             nRequestID, bAgreement);
 
 			}
@@ -1348,7 +1348,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 						szCharName = pChar->GetUserName();
 				}
 
-				MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
+				CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
 				if (pItemDesc)
 					szItemName = pItemDesc->m_pMItemName->Ref().m_szItemName;
 				else

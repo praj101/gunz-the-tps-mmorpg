@@ -2,18 +2,18 @@
 #include "CCMatchGameType.h"
 #include "CCMatchMap.h"
 
-MMatchGameTypeMgr::MMatchGameTypeMgr() : MBaseGameTypeCatalogue()
+CCMatchGameTypeMgr::CCMatchGameTypeMgr() : MBaseGameTypeCatalogue()
 {
 
 }
 
-MMatchGameTypeMgr::~MMatchGameTypeMgr()
+CCMatchGameTypeMgr::~CCMatchGameTypeMgr()
 {
 
 }
 
-MMatchGameTypeMgr* MMatchGameTypeMgr::GetInstance()
+CCMatchGameTypeMgr* CCMatchGameTypeMgr::GetInstance()
 {
-	static MMatchGameTypeMgr m_stGameTypeMgr;
+	static CCMatchGameTypeMgr m_stGameTypeMgr;
 	return &m_stGameTypeMgr;
 }

@@ -143,7 +143,7 @@ int MLadderGameStrategy::GetNewGroupID(CCMatchObject* pLeaderObject, CCMatchObje
 	return nTeamID;
 }
 
-void MLadderGameStrategy::SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+void MLadderGameStrategy::SetStageLadderInfo(CCMatchLadderTeamInfo* poutRedLadderInfo, CCMatchLadderTeamInfo* poutBlueLadderInfo,
 								MLadderGroup* pRedGroup, MLadderGroup* pBlueGroup)
 {
 	poutRedLadderInfo->nTID = pRedGroup->GetID();
@@ -162,7 +162,7 @@ void MLadderGameStrategy::SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadder
 }
 
 void MLadderGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam nWinnerTeam, bool bIsDrawGame,
-		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo)
+		                               CCMatchLadderTeamInfo* pRedLadderInfo, CCMatchLadderTeamInfo* pBlueLadderInfo)
 {
 	int nWinnerTID = 0, nLoserTID = 0;
 
@@ -200,7 +200,7 @@ void MLadderGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTea
 int MLadderGameStrategy::GetRandomMap(int nTeamMember)
 {
 	// Game Setting - 맵, TIC 클랜전은 다르게 해야한다. 월요일날 하장
-	MMatchConfig* pConfig = MMatchConfig::GetInstance();
+	CCMatchConfig* pConfig = CCMatchConfig::GetInstance();
 
 	// Random 하게 맵을 고른다
 	list<int> mapList;
@@ -355,7 +355,7 @@ void MClanGameStrategy::SetLadderGroup(MLadderGroup* pGroup, CCMatchObject** ppM
 	}
 }
 
-void MClanGameStrategy::SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+void MClanGameStrategy::SetStageLadderInfo(CCMatchLadderTeamInfo* poutRedLadderInfo, CCMatchLadderTeamInfo* poutBlueLadderInfo,
 								MLadderGroup* pRedGroup, MLadderGroup* pBlueGroup)
 {
 	poutRedLadderInfo->nTID = pRedGroup->GetID();
@@ -376,7 +376,7 @@ void MClanGameStrategy::SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderIn
 
 
 void MClanGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam nWinnerTeam, bool bIsDrawGame,
-		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo)
+		                               CCMatchLadderTeamInfo* pRedLadderInfo, CCMatchLadderTeamInfo* pBlueLadderInfo)
 {
 	int nWinnerCLID = 0, nLoserCLID = 0;
 
@@ -405,8 +405,8 @@ void MClanGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam 
 
 	if ((nWinnerCLID == 0) || (nLoserCLID == 0)) return;
 
-	MMatchClan* pWinnerClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(nWinnerCLID);
-	MMatchClan* pLoserClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(nLoserCLID);
+	CCMatchClan* pWinnerClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(nWinnerCLID);
+	CCMatchClan* pLoserClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(nLoserCLID);
 
 	if ((!pWinnerClan) || (!pLoserClan)) return;
 

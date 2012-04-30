@@ -3,7 +3,7 @@
 
 #include "ZMeshView.h"
 #include "CCUID.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "RCharCloth.h"
 #include "ZShadow.h"
 

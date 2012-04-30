@@ -2,20 +2,20 @@
 #include "CCServer.h"
 #include "CCMatchSchedule.h"
 
-MMatchDayOfMonth::MMatchDayOfMonth()
+CCMatchDayOfMonth::CCMatchDayOfMonth()
 {
 	Init();
 }
 
-MMatchDayOfMonth::~MMatchDayOfMonth()
+CCMatchDayOfMonth::~CCMatchDayOfMonth()
 {
 }
 
-void MMatchDayOfMonth::Init()
+void CCMatchDayOfMonth::Init()
 {
 	m_cDayOfMonth[ 0 ] = 31;
 	
-	struct tm* ptm = MMatchGetLocalTime();
+	struct tm* ptm = CCMatchGetLocalTime();
 	if( 0 != (ptm->tm_year % 4) )
 		m_cDayOfMonth[ 1 ] = 28;
 	else
@@ -35,19 +35,19 @@ void MMatchDayOfMonth::Init()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-MMatchScheduleData::MMatchScheduleData(void) : m_cYear( 0 ), m_cMonth( 0 ), m_cDay( 0 ), m_cHour( 0 ), m_cMin( 0 ), 
+CCMatchScheduleData::CCMatchScheduleData(void) : m_cYear( 0 ), m_cMonth( 0 ), m_cDay( 0 ), m_cHour( 0 ), m_cMin( 0 ), 
 	m_pCmd( 0 ), m_nType( -1 ), m_bIsNeedDelete( false ), // ,nID( 0 ),
 	m_cNextYear( 0 ), m_cNextMonth( 0 ), m_cNextDay( 0 ), m_cNextHour( 0 ), m_cNextMin( 0 ), m_nCount( 0 )
 {
 }
 
-MMatchScheduleData::~MMatchScheduleData(void)
+CCMatchScheduleData::~CCMatchScheduleData(void)
 {
 }
 
-void MMatchScheduleData::CorrectTime()
+void CCMatchScheduleData::CorrectTime()
 {
-	const struct tm* tmLocalTime = MMatchGetLocalTime();
+	const struct tm* tmLocalTime = CCMatchGetLocalTime();
 
 	// 분단위로 설정된 시간에서 오버된 초가 보정시간보다 큰지 검사.
 	if( tmLocalTime->tm_sec > m_nErrorTime ) return;
@@ -74,9 +74,9 @@ void MMatchScheduleData::CorrectTime()
 }
 
 // return if same, then 0, less -1, greater 1.
-int	MMatchScheduleData::CompareCurrentTime()
+int	CCMatchScheduleData::CompareCurrentTime()
 {
-	const struct tm* pLocalTime = MMatchGetLocalTime();
+	const struct tm* pLocalTime = CCMatchGetLocalTime();
 
 	// 현제 로컬 시간과 스케쥴에 저장된 시간을 비교함.
 		
@@ -108,7 +108,7 @@ int	MMatchScheduleData::CompareCurrentTime()
 	return 0;
 }
 
-bool MMatchScheduleData::SetTimes( const unsigned char cYear,
+bool CCMatchScheduleData::SetTimes( const unsigned char cYear,
 								   const unsigned char cMonth, 
 								   const unsigned char cDay, 
 								   const unsigned char cHour, 
@@ -129,7 +129,7 @@ bool MMatchScheduleData::SetTimes( const unsigned char cYear,
 	return true;
 }
 
-bool MMatchScheduleData::SetNextTimes( const unsigned char cNextYear,
+bool CCMatchScheduleData::SetNextTimes( const unsigned char cNextYear,
 									   const unsigned char cNextMonth, 
 									   const unsigned char cNextDay, 
 									   const unsigned char cNextHour, 
@@ -149,7 +149,7 @@ bool MMatchScheduleData::SetNextTimes( const unsigned char cNextYear,
 	return true;
 }
 
-void MMatchScheduleData::ResetTime()
+void CCMatchScheduleData::ResetTime()
 {
 	m_cMin += m_cNextMin;
 	if( 59 < m_cMin ){
@@ -176,7 +176,7 @@ void MMatchScheduleData::ResetTime()
 	}
 }
 
-void MMatchScheduleData::Release()
+void CCMatchScheduleData::Release()
 {
 	if( 0 != m_pCmd ){
 		delete m_pCmd;
@@ -186,12 +186,12 @@ void MMatchScheduleData::Release()
 
 /////////////////////////////////////////////////////
 // 시간을 다시 설정.
-void MMatchRepeatScheduleImpl::Reset( MMatchScheduleData* pScheduleData )
+void CCMatchRepeatScheduleImpl::Reset( CCMatchScheduleData* pScheduleData )
 {
 	pScheduleData->ResetTime();
 }
 // 시간 오차 보정.
-void MMatchRepeatScheduleImpl::CorrectTime( MMatchScheduleData* pScheduleData )
+void CCMatchRepeatScheduleImpl::CorrectTime( CCMatchScheduleData* pScheduleData )
 {
 	pScheduleData->CorrectTime();
 	// 보정을 해도 현제 시간보다 늦으면 문제가 있는 것이므로 스케쥴에서 제거함.
@@ -201,7 +201,7 @@ void MMatchRepeatScheduleImpl::CorrectTime( MMatchScheduleData* pScheduleData )
 	}
 
 	// 현제 시간으로 설정.
-	const struct tm* tmLocalTime = MMatchGetLocalTime();
+	const struct tm* tmLocalTime = CCMatchGetLocalTime();
 	pScheduleData->SetTimes( tmLocalTime->tm_year - 100, 
 							 tmLocalTime->tm_mon + 1, 
 							 tmLocalTime->tm_mday, 
@@ -210,7 +210,7 @@ void MMatchRepeatScheduleImpl::CorrectTime( MMatchScheduleData* pScheduleData )
 }
 
 // 시간을 다시 설정.
-void MMatchCountScheduleImpl::Reset( MMatchScheduleData* pScheduleData )
+void CCMatchCountScheduleImpl::Reset( CCMatchScheduleData* pScheduleData )
 {
 	// count타입의 스케쥬은 count값이 0이되면 제거 되어야 한다.
 	pScheduleData->DecreaseCount();
@@ -220,7 +220,7 @@ void MMatchCountScheduleImpl::Reset( MMatchScheduleData* pScheduleData )
 	pScheduleData->ResetTime();
 }
 // 시간 오차 보정.
-void MMatchCountScheduleImpl::CorrectTime( MMatchScheduleData* pScheduleData )
+void CCMatchCountScheduleImpl::CorrectTime( CCMatchScheduleData* pScheduleData )
 {
 	pScheduleData->CorrectTime();
 	// 보정을 해도 현제 시간보다 늦으면 카운트를 하나 감소시킴.
@@ -232,7 +232,7 @@ void MMatchCountScheduleImpl::CorrectTime( MMatchScheduleData* pScheduleData )
 	}
 
 	// 현제 시간으로 설정.
-	const struct tm* tmLocalTime = MMatchGetLocalTime();
+	const struct tm* tmLocalTime = CCMatchGetLocalTime();
 	pScheduleData->SetTimes( tmLocalTime->tm_year - 100, 
 							 tmLocalTime->tm_mon + 1, 
 							 tmLocalTime->tm_mday, 
@@ -241,15 +241,15 @@ void MMatchCountScheduleImpl::CorrectTime( MMatchScheduleData* pScheduleData )
 }
 
 // 시간을 다시 설정.
-void MMatchOnceScheduleImpl::Reset( MMatchScheduleData* pScheduleData )
+void CCMatchOnceScheduleImpl::Reset( CCMatchScheduleData* pScheduleData )
 {
 	pScheduleData->SetDeleteState( true );
 }
 // 시간 오차 보정.
-void MMatchOnceScheduleImpl::CorrectTime( MMatchScheduleData* pScheduleData )
+void CCMatchOnceScheduleImpl::CorrectTime( CCMatchScheduleData* pScheduleData )
 {
 	// 현제시간으로 다시 설정해줌. 
-	const struct tm* tmLocalTime = MMatchGetLocalTime();
+	const struct tm* tmLocalTime = CCMatchGetLocalTime();
 	pScheduleData->SetTimes( tmLocalTime->tm_year - 100, 
 							 tmLocalTime->tm_mon + 1, 
 							 tmLocalTime->tm_mday, 
@@ -259,24 +259,24 @@ void MMatchOnceScheduleImpl::CorrectTime( MMatchScheduleData* pScheduleData )
 
 /////////////////////////////////////////////////////
 
-MMatchScheduleMgr::MMatchScheduleMgr( MServer* pServer ) : m_pServer( pServer ), m_nIndex( 0 ),
+CCMatchScheduleMgr::CCMatchScheduleMgr( MServer* pServer ) : m_pServer( pServer ), m_nIndex( 0 ),
 	m_tmUpdateTerm( 0 )
 {
 }
 
-MMatchScheduleMgr::~MMatchScheduleMgr()
+CCMatchScheduleMgr::~CCMatchScheduleMgr()
 {
 }
 
 // 마지막 업데이트 시점에서부터 경과시간 계산.
-const time_t MMatchScheduleMgr::CalculateElapseUpdateTime()
+const time_t CCMatchScheduleMgr::CalculateElapseUpdateTime()
 {
 	time_t tmCurTime;
 	time( &tmCurTime );
 	return ( tmCurTime - m_tmLastUpdateTime );
 }
 
-bool MMatchScheduleMgr::Init()
+bool CCMatchScheduleMgr::Init()
 {
 	if( !m_ScheduleImplPrototype.Init() ) return false;
 
@@ -285,7 +285,7 @@ bool MMatchScheduleMgr::Init()
 	return true;
 }
 
-bool MMatchScheduleMgr::IsUpdate()
+bool CCMatchScheduleMgr::IsUpdate()
 {
 	if( CalculateElapseUpdateTime() > m_tmUpdateTerm ) return true;
 
@@ -295,7 +295,7 @@ bool MMatchScheduleMgr::IsUpdate()
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 정상적인 데이터인지 검사하여 정상일경우만 true를 반환함.
-bool MMatchScheduleMgr::CheckData( MMatchScheduleData* pScheduleData ) const
+bool CCMatchScheduleMgr::CheckData( CCMatchScheduleData* pScheduleData ) const
 {
 	if( 0 == pScheduleData )				return false;
 	if( 0 == pScheduleData->GetCommand() )	return false;
@@ -321,9 +321,9 @@ bool MMatchScheduleMgr::CheckData( MMatchScheduleData* pScheduleData ) const
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 시간을 비교하여 같을경우만 true를 반환함.
-bool MMatchScheduleMgr::CompareTime( MMatchScheduleData* pScheduleData )
+bool CCMatchScheduleMgr::CompareTime( CCMatchScheduleData* pScheduleData )
 {
-	struct tm* pCurTime = MMatchGetLocalTime();
+	struct tm* pCurTime = CCMatchGetLocalTime();
 
 	bool bIsEqual = true;
 
@@ -351,7 +351,7 @@ bool MMatchScheduleMgr::CompareTime( MMatchScheduleData* pScheduleData )
 	return bIsEqual;
 }
 
-void MMatchScheduleMgr::SetLastUpdateTime()
+void CCMatchScheduleMgr::SetLastUpdateTime()
 {
 	// set start time.
 	time( &m_tmLastUpdateTime );
@@ -360,7 +360,7 @@ void MMatchScheduleMgr::SetLastUpdateTime()
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 스케쥴 리스트를 업데이트 함.
-void MMatchScheduleMgr::Update()
+void CCMatchScheduleMgr::Update()
 {
 	if( !IsUpdate() ) return;
 
@@ -373,7 +373,7 @@ void MMatchScheduleMgr::Update()
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 변동이 거의 업는 정적 스케쥴 업데이트.
-void MMatchScheduleMgr::UpdateStaticSchedule()
+void CCMatchScheduleMgr::UpdateStaticSchedule()
 {
 	MCommand* pCmd = 0;
 	ScheduleVecIter it, end;
@@ -400,7 +400,7 @@ void MMatchScheduleMgr::UpdateStaticSchedule()
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 공지사항 스케쥴 업데이트.
-void MMatchScheduleMgr::UpdateDynamicSchedule()
+void CCMatchScheduleMgr::UpdateDynamicSchedule()
 {
 	MCommand* pCmd = 0;
 	ScheduleLstIter it, end;
@@ -437,7 +437,7 @@ void MMatchScheduleMgr::UpdateDynamicSchedule()
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 새로운 공지 사항을 등록함.
-bool MMatchScheduleMgr::AddDynamicSchedule( MMatchScheduleData* pNewSchedule )
+bool CCMatchScheduleMgr::AddDynamicSchedule( CCMatchScheduleData* pNewSchedule )
 {
 	if( !CheckData(pNewSchedule) ) return false;
 
@@ -454,7 +454,7 @@ bool MMatchScheduleMgr::AddDynamicSchedule( MMatchScheduleData* pNewSchedule )
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 정적 스케쥴 등록.
-bool MMatchScheduleMgr::AddStaticSchedule( MMatchScheduleData* pNewSchedule )
+bool CCMatchScheduleMgr::AddStaticSchedule( CCMatchScheduleData* pNewSchedule )
 {
 	if( !CheckData(pNewSchedule) ) return false;
 
@@ -468,7 +468,7 @@ bool MMatchScheduleMgr::AddStaticSchedule( MMatchScheduleData* pNewSchedule )
 	return true;
 }
 
-MMatchScheduleData* MMatchScheduleMgr::MakeRepeatScheduleData( const unsigned char cNextYear,	// 다음에 실행될 해의 상대값.	ex) 1년 후.
+CCMatchScheduleData* CCMatchScheduleMgr::MakeRepeatScheduleData( const unsigned char cNextYear,	// 다음에 실행될 해의 상대값.	ex) 1년 후.
 															   const unsigned char cNextMonth,	// 다음에 실행될 달의 상대값.	ex) 1달 후.
 															   const unsigned char cNextDay,	// 다음에 실행될 일의 상대값.	ex) 1일 후.
 															   const unsigned char cNextHour,	// 다음에 실행될 시간의 상대값.	ex) 1시간 후.
@@ -478,10 +478,10 @@ MMatchScheduleData* MMatchScheduleMgr::MakeRepeatScheduleData( const unsigned ch
 {
 	if( 0 == pCmd ) return 0;
 
-	MMatchScheduleData* pData = new MMatchScheduleData;
+	CCMatchScheduleData* pData = new CCMatchScheduleData;
 	if( 0 == pData ) return 0;
 
-	struct tm* tmTime = MMatchGetLocalTime();
+	struct tm* tmTime = CCMatchGetLocalTime();
 	if( 0 == tmTime ) return 0;
 
 	if( !pData->SetTimes(tmTime->tm_year + cNextYear - 100, 
@@ -494,7 +494,7 @@ MMatchScheduleData* MMatchScheduleMgr::MakeRepeatScheduleData( const unsigned ch
 	if( !pData->SetNextTimes(cNextYear, cNextMonth, cNextDay, cNextHour, cNextMin) )
 		return 0;
 
-	pData->SetType( MMatchScheduleData::REPEAT );
+	pData->SetType( CCMatchScheduleData::REPEAT );
 	pData->SetCommand( pCmd );
 	pData->SetErrorTime( static_cast<int>(m_tmUpdateTerm) );
 
@@ -504,7 +504,7 @@ MMatchScheduleData* MMatchScheduleMgr::MakeRepeatScheduleData( const unsigned ch
 	return pData;
 }
 
-MMatchScheduleData* MMatchScheduleMgr::MakeCountScheduleData( const unsigned char cNextYear,	// 다음에 실행될 해의 상대값.	ex) 1년 후.
+CCMatchScheduleData* CCMatchScheduleMgr::MakeCountScheduleData( const unsigned char cNextYear,	// 다음에 실행될 해의 상대값.	ex) 1년 후.
 															  const unsigned char cNextMonth,	// 다음에 실행될 달의 상대값.	ex) 1달 후.
 															  const unsigned char cNextDay,		// 다음에 실행될 일의 상대값.	ex) 1일 후.
 															  const unsigned char cNextHour,	// 다음에 실행될 시간의 상대값.	ex) 1시간 후.
@@ -515,10 +515,10 @@ MMatchScheduleData* MMatchScheduleMgr::MakeCountScheduleData( const unsigned cha
 {
 	if( 0 == pCmd ) return 0;
 
-	MMatchScheduleData* pData = new MMatchScheduleData;
+	CCMatchScheduleData* pData = new CCMatchScheduleData;
 	if( 0 == pData ) return 0;
 
-	struct tm* tmTime = MMatchGetLocalTime();
+	struct tm* tmTime = CCMatchGetLocalTime();
 	if( 0 == tmTime ) return 0;
 
 	pData->SetCount( nCount );
@@ -533,7 +533,7 @@ MMatchScheduleData* MMatchScheduleMgr::MakeCountScheduleData( const unsigned cha
 	if( !pData->SetNextTimes(cNextYear, cNextMonth, cNextDay, cNextHour, cNextMin) ) 
 		return 0;
 
-	pData->SetType( MMatchScheduleData::COUNT );
+	pData->SetType( CCMatchScheduleData::COUNT );
 	pData->SetCommand( pCmd );
 	pData->SetErrorTime( static_cast<int>(m_tmUpdateTerm) );
 
@@ -543,7 +543,7 @@ MMatchScheduleData* MMatchScheduleMgr::MakeCountScheduleData( const unsigned cha
 	return pData;
 }
 
-MMatchScheduleData* MMatchScheduleMgr::MakeOnceScheduleData( const unsigned char cYear,		// 실행될 해.
+CCMatchScheduleData* CCMatchScheduleMgr::MakeOnceScheduleData( const unsigned char cYear,		// 실행될 해.
 															 const unsigned char cMonth,	// 실행될 달.
 															 const unsigned char cDay,		// 실행될 날.
 															 const unsigned char cHour,		// 실행될 시간.
@@ -553,7 +553,7 @@ MMatchScheduleData* MMatchScheduleMgr::MakeOnceScheduleData( const unsigned char
 {
 	if( 0 == pCmd ) return 0;
 
-	MMatchScheduleData* pData = new MMatchScheduleData;
+	CCMatchScheduleData* pData = new CCMatchScheduleData;
 	if( 0 == pData ) return 0;
 
 	// cYear % 100 => 두에 두자리만을 사용함.
@@ -561,7 +561,7 @@ MMatchScheduleData* MMatchScheduleMgr::MakeOnceScheduleData( const unsigned char
 
 	cclog( "\n%u\n", m_tmUpdateTerm );
 
-	pData->SetType( MMatchScheduleData::ONCE );
+	pData->SetType( CCMatchScheduleData::ONCE );
 	pData->SetCommand( pCmd );
 	pData->SetErrorTime( static_cast<int>(m_tmUpdateTerm) );
 
@@ -574,7 +574,7 @@ MMatchScheduleData* MMatchScheduleMgr::MakeOnceScheduleData( const unsigned char
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 모든 리스트 제거.
-void MMatchScheduleMgr::Release()
+void CCMatchScheduleMgr::Release()
 {
 	ReleaseStaticSchedule();
 	ReleaseDynamicSchedule();
@@ -584,41 +584,41 @@ void MMatchScheduleMgr::Release()
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 정적 스케쥴 제거.
-void MMatchScheduleMgr::ReleaseStaticSchedule()
+void CCMatchScheduleMgr::ReleaseStaticSchedule()
 {
 	for_each( m_vecStaticSchedule.begin(), 
 			  m_vecStaticSchedule.end(), 
-			  MMatchScheduleReleaser() );
+			  CCMatchScheduleReleaser() );
 	m_vecStaticSchedule.clear();
 }
 
 // first	: 추교성. 2004. 11. 08
 // last		: 추교성. 2004. 11. 08
 // 공지사항 스케쥴 제거.
-void MMatchScheduleMgr::ReleaseDynamicSchedule()
+void CCMatchScheduleMgr::ReleaseDynamicSchedule()
 {
 	for_each( m_lstDynamicSchedule.begin(),
 			  m_lstDynamicSchedule.end(),
-			  MMatchScheduleReleaser() );
+			  CCMatchScheduleReleaser() );
 	m_lstDynamicSchedule.clear();
 }
 
 // first	: 추교성. 2004. 11. 09.
 // last		: 추교성. 2004. 11. 09.
 // Impl을 prototype클래스에 등록함.
-bool MMatchScheduleMgr::MMatchScheduleImplPrototype::Init()
+bool CCMatchScheduleMgr::CCMatchScheduleImplPrototype::Init()
 {
-	MMatchScheduleImpl* pImpl;
+	CCMatchScheduleImpl* pImpl;
 
-	pImpl = new MMatchRepeatScheduleImpl;
+	pImpl = new CCMatchRepeatScheduleImpl;
 	if( 0 == pImpl ) return false;
 	m_ScheduleImplVec.push_back( pImpl );
 
-	pImpl = new MMatchCountScheduleImpl;
+	pImpl = new CCMatchCountScheduleImpl;
 	if( 0 == pImpl ) return false;
 	m_ScheduleImplVec.push_back( pImpl );
 
-	pImpl = new MMatchOnceScheduleImpl;
+	pImpl = new CCMatchOnceScheduleImpl;
 	if( 0 == pImpl ) return false;
 	m_ScheduleImplVec.push_back( pImpl );
 
@@ -628,7 +628,7 @@ bool MMatchScheduleMgr::MMatchScheduleImplPrototype::Init()
 // first	: 추교성. 2004. 11. 09.
 // last		: 추교성. 2005. 01. 27.
 // 해당 스케쥴 타입에 맞는 수행자를 반환해줌.
-MMatchScheduleImpl* MMatchScheduleMgr::MMatchScheduleImplPrototype::GetImpl( const unsigned int nTypeID )
+CCMatchScheduleImpl* CCMatchScheduleMgr::CCMatchScheduleImplPrototype::GetImpl( const unsigned int nTypeID )
 {
 	if( nTypeID >= m_ScheduleImplVec.size() ) return 0;
 
@@ -638,16 +638,16 @@ MMatchScheduleImpl* MMatchScheduleMgr::MMatchScheduleImplPrototype::GetImpl( con
 // first	: 추교성. 2004. 11. 09.
 // last		: 추교성. 2004. 11. 09.
 // 등록되어있는 수행자를 제거함.
-void MMatchScheduleMgr::MMatchScheduleImplPrototype::Release()
+void CCMatchScheduleMgr::CCMatchScheduleImplPrototype::Release()
 {
 	for_each( m_ScheduleImplVec.begin(), 
 			  m_ScheduleImplVec.end(), 
-			  MMatchScheduleImplRelease() );
+			  CCMatchScheduleImplRelease() );
 	m_ScheduleImplVec.clear();
 }
 
 //////////////////////////////////////////////////////////////////////
-struct tm* MMatchGetLocalTime()
+struct tm* CCMatchGetLocalTime()
 {
 	__time64_t long_time;
 
@@ -659,16 +659,16 @@ struct tm* MMatchGetLocalTime()
 
 char GetMaxDay( const int iMonth )
 {
-	return MMatchDayOfMonth::GetInst().GetMaxDay( iMonth );
+	return CCMatchDayOfMonth::GetInst().GetMaxDay( iMonth );
 }
 
 char GetMaxDay()
 {
-	return GetMaxDay( MMatchGetLocalTime()->tm_mon + 1 );
+	return GetMaxDay( CCMatchGetLocalTime()->tm_mon + 1 );
 }
 
 
-bool AddDynamicSchedule( MMatchScheduleMgr* pScheduleMgr, const int nType, MCommand* pCmd, const int nYear, const int nMonth, const int nDay, const int nHour, const int nMin, const int nCount )
+bool AddDynamicSchedule( CCMatchScheduleMgr* pScheduleMgr, const int nType, MCommand* pCmd, const int nYear, const int nMonth, const int nDay, const int nHour, const int nMin, const int nCount )
 {
 	if( 0 == pScheduleMgr ) return false;
 
@@ -676,9 +676,9 @@ bool AddDynamicSchedule( MMatchScheduleMgr* pScheduleMgr, const int nType, MComm
 
 	switch( nType )
 	{
-	case MMatchScheduleData::REPEAT :
+	case CCMatchScheduleData::REPEAT :
 		{
-			MMatchScheduleData* pScheduleData = pScheduleMgr->MakeRepeatScheduleData( static_cast<unsigned char>(nYear), 
+			CCMatchScheduleData* pScheduleData = pScheduleMgr->MakeRepeatScheduleData( static_cast<unsigned char>(nYear), 
 																					  static_cast<unsigned char>(nMonth),
 																					  static_cast<unsigned char>(nDay), 
 																					  static_cast<unsigned char>(nHour), 
@@ -697,9 +697,9 @@ bool AddDynamicSchedule( MMatchScheduleMgr* pScheduleMgr, const int nType, MComm
 		}
 		break;
 
-	case MMatchScheduleData::COUNT :
+	case CCMatchScheduleData::COUNT :
 		{
-			MMatchScheduleData* pScheduleData = pScheduleMgr->MakeCountScheduleData( static_cast<unsigned char>(nYear), 
+			CCMatchScheduleData* pScheduleData = pScheduleMgr->MakeCountScheduleData( static_cast<unsigned char>(nYear), 
 																					 static_cast<unsigned char>(nMonth),
 																					 static_cast<unsigned char>(nDay), 
 																					 static_cast<unsigned char>(nHour), 
@@ -720,9 +720,9 @@ bool AddDynamicSchedule( MMatchScheduleMgr* pScheduleMgr, const int nType, MComm
 		}
 		break;
 
-	case MMatchScheduleData::ONCE :
+	case CCMatchScheduleData::ONCE :
 		{
-			MMatchScheduleData* pScheduleData = pScheduleMgr->MakeOnceScheduleData( static_cast<unsigned char>(nYear), 
+			CCMatchScheduleData* pScheduleData = pScheduleMgr->MakeOnceScheduleData( static_cast<unsigned char>(nYear), 
 																					static_cast<unsigned char>(nMonth),
 																					static_cast<unsigned char>(nDay), 
 																					static_cast<unsigned char>(nHour), 

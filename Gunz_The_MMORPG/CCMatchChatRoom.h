@@ -12,7 +12,7 @@ class MCommand;
 #define CHATROOM_MAX_ROOMMEMBER	64
 
 
-class MMatchChatRoom {
+class CCMatchChatRoom {
 protected:
 	CCUID			m_uidChatRoom;
 	CCUID			m_uidMaster;
@@ -20,8 +20,8 @@ protected:
     CCUIDRefCache	m_PlayerList;
 
 public:
-	MMatchChatRoom(const CCUID& uidRoom, const CCUID& uidMaster, const char* pszName);
-	virtual ~MMatchChatRoom();
+	CCMatchChatRoom(const CCUID& uidRoom, const CCUID& uidMaster, const char* pszName);
+	virtual ~CCMatchChatRoom();
 
 	const CCUID& GetUID()	{ return m_uidChatRoom; }
 	const CCUID& GetMaster()	{ return m_uidMaster; }
@@ -38,32 +38,32 @@ public:
 };
 
 
-class MMatchChatRoomMap : public map<CCUID, MMatchChatRoom*> {
+class CCMatchChatRoomMap : public map<CCUID, CCMatchChatRoom*> {
 	CCUID	m_uidGenerate;
 public:
-	MMatchChatRoomMap()			{	m_uidGenerate = CCUID(0,10);	}
-	virtual ~MMatchChatRoomMap(){}
+	CCMatchChatRoomMap()			{	m_uidGenerate = CCUID(0,10);	}
+	virtual ~CCMatchChatRoomMap(){}
 	CCUID UseUID()				{	m_uidGenerate.Increase();	return m_uidGenerate;	}
-	void Insert(const CCUID& uid, MMatchChatRoom* pStage)	{	insert(value_type(uid, pStage));	}
+	void Insert(const CCUID& uid, CCMatchChatRoom* pStage)	{	insert(value_type(uid, pStage));	}
 };
 
-class MMatchChatRoomStringSubMap : public map<string, CCUID> {};
+class CCMatchChatRoomStringSubMap : public map<string, CCUID> {};
 
 
-class MMatchChatRoomMgr {
+class CCMatchChatRoomMgr {
 protected:
-	MMatchChatRoomMap			m_RoomMap;
-	MMatchChatRoomStringSubMap	m_RoomStringSubMap;
+	CCMatchChatRoomMap			m_RoomMap;
+	CCMatchChatRoomStringSubMap	m_RoomStringSubMap;
 
 public:
-	MMatchChatRoomMgr();
-	virtual ~MMatchChatRoomMgr();
+	CCMatchChatRoomMgr();
+	virtual ~CCMatchChatRoomMgr();
 
-	MMatchChatRoom* AddChatRoom(const CCUID& uidMaster, const char* pszName);
+	CCMatchChatRoom* AddChatRoom(const CCUID& uidMaster, const char* pszName);
 	void RemoveChatRoom(const CCUID& uidChatRoom);
 
-	MMatchChatRoom* FindChatRoom(const CCUID& uidChatRoom);
-	MMatchChatRoom* FindChatRoomByName(const char* pszName);
+	CCMatchChatRoom* FindChatRoom(const CCUID& uidChatRoom);
+	CCMatchChatRoom* FindChatRoomByName(const char* pszName);
 
 	void Update();
 };

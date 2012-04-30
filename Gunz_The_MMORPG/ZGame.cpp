@@ -19,12 +19,12 @@
 #include "ZPost.h"
 #include "ZPostLocal.h"
 #include "MStrEx.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 #include "ZEffectManager.h"
 #include "ZEffectBillboard.h"
 #include "Config.h"
 #include "MProfiler.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 #include "ZScreenEffectManager.h"
 #include "RParticleSystem.h"
 #include "RDynamicLight.h"
@@ -65,7 +65,7 @@
 //#include "MObjectCharacter.h"
 #include "MMath.h"
 #include "ZQuest.h"
-#include "MMatchUtil.h"
+#include "CCMatchUtil.h"
 #include "ZReplay.h"
 #include "ZRuleBerserker.h"
 #include "ZRuleDuelTournament.h"
@@ -74,8 +74,8 @@
 
 #include "ZRuleDuel.h"
 #include "ZMyCharacter.h"
-#include "MMatchCRC32XORCache.h"
-#include "MMatchObjCache.h"
+#include "CCMatchCRC32XORCache.h"
+#include "CCMatchObjCache.h"
 
 #include "ZModule_HealOverTime.h"
 
@@ -1347,10 +1347,10 @@ void ZGame::DrawDebugInfo()
 
 /*
 	n = 300;
-	for (MMatchPeerInfoList::iterator itor = ZGetGameClient()->GetPeers()->begin();
+	for (CCMatchPeerInfoList::iterator itor = ZGetGameClient()->GetPeers()->begin();
 		 itor != ZGetGameClient()->GetPeers()->end(); ++itor)
 	{
-		MMatchPeerInfo* pPeerInfo = (*itor);
+		CCMatchPeerInfo* pPeerInfo = (*itor);
 		sprintf(szTemp, "CCUID(%d, %d) , IP = %s, port = %d", pPeerInfo->uidChar.High, 
 			    pPeerInfo->uidChar.Low, pPeerInfo->szIP, pPeerInfo->nPort);
 		g_pDC->Text(20,n,szTemp);
@@ -1594,7 +1594,7 @@ void ZGame::OnObserverRun()
 		{
 			if(m_Replay_UseItem[i].Item[j].Itemid == 0)
 				break;
-			MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_Replay_UseItem[i].Item[j].Itemid);
+			CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_Replay_UseItem[i].Item[j].Itemid);
 
 			mlog("[ uid:%d Item:%s(%d) UseCount:%d ]\n", m_Replay_UseItem[i].uid.Low, pItemDesc->m_pMItemName->Ref().m_szItemName, pItemDesc->m_nID, m_Replay_UseItem[i].Item[j].ItemUseCount);
 		}
@@ -1655,7 +1655,7 @@ bool ZGame::OnCommand(MCommand* pCommand)
 
 // 유저 컬러
 
-bool GetUserGradeIDColor(MMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name)
+bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name)
 {
 //		 if(gid == MMUG_FREE)			{ UserNameColor = MCOLOR(200,200,200); return true; }// 무료유저
 //	else if(gid == MMUG_REGULAR)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 정액유저
@@ -1688,7 +1688,7 @@ bool GetUserGradeIDColor(MMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_na
 
 bool ZGame::GetUserNameColor(CCUID uid,MCOLOR& UserNameColor,char* sp_name)
 {
-	MMatchUserGradeID gid = MMUG_FREE;
+	CCMatchUserGradeID gid = MMUG_FREE;
 
 	if(m_pMyCharacter->GetUID()==uid) 
 	{
@@ -1703,7 +1703,7 @@ bool ZGame::GetUserNameColor(CCUID uid,MCOLOR& UserNameColor,char* sp_name)
 	}
 	else 
 	{
-		MMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uid);
+		CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uid);
 		if(pPeer) {
 			 gid = pPeer->CharInfo.nUGradeID;
 		}		
@@ -2074,7 +2074,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 			rvector to = rvector(pinfo->tox,pinfo->toy,pinfo->toz);
 
 			// TODO : 시간판정을 각각해야한다
-			OnPeerShot(pCommand->GetSenderUID(), pinfo->fTime, pos, to, (MMatchCharItemParts)pinfo->sel_type);
+			OnPeerShot(pCommand->GetSenderUID(), pinfo->fTime, pos, to, (CCMatchCharItemParts)pinfo->sel_type);
 		}
 		break;
 	case MC_PEER_SHOT_MELEE:
@@ -2104,7 +2104,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 			// fShotTime 은 무시하고..
 			//fShotTime=GetTime()-(float)GetPing(pCommand->GetSenderUID())*0.001f;
 
-			OnPeerShotSp(pCommand->GetSenderUID(), fShotTime, pos, dir,type,(MMatchCharItemParts)sel_type);
+			OnPeerShotSp(pCommand->GetSenderUID(), fShotTime, pos, dir,type,(CCMatchCharItemParts)sel_type);
 		}
 		break;
 
@@ -2214,7 +2214,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 
 			pCommand->GetParameter(&nWeaponID, 0, MPT_INT);
 
-			OnChangeWeapon(pCommand->GetSenderUID(),MMatchCharItemParts(nWeaponID));
+			OnChangeWeapon(pCommand->GetSenderUID(),CCMatchCharItemParts(nWeaponID));
 		}
 
 		break;
@@ -2437,7 +2437,7 @@ void ZGame::OnPeerBasicInfo(MCommand *pCommand,bool bAddHistory,bool bUpdate)
 	
 	CCUID uid = pCommand->GetSenderUID();
 
-	MMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uid);
+	CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uid);
 	if (pPeer) {
 		if (pPeer->IsOpened() == false) {
 			MCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
@@ -2537,7 +2537,7 @@ void ZGame::OnPeerBasicInfo(MCommand *pCommand,bool bAddHistory,bool bUpdate)
 
 		// 들고있는 무기가 다르면 바꿔준다
 		if(pCharacter->GetItems()->GetSelectedWeaponParts()!=ppbi->selweapon) {
-			pCharacter->ChangeWeapon((MMatchCharItemParts)ppbi->selweapon);
+			pCharacter->ChangeWeapon((CCMatchCharItemParts)ppbi->selweapon);
 		}
 	}
 }
@@ -2633,7 +2633,7 @@ void ZGame::OnPeerPing(MCommand *pCommand)
 
 void ZGame::OnPeerPong(MCommand *pCommand)
 {
-	MMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(pCommand->GetSenderUID());
+	CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(pCommand->GetSenderUID());
 	if (pPeer == NULL)
 		return;
 
@@ -2683,7 +2683,7 @@ void ZGame::OnPeerOpened(MCommand *pCommand)
 	//// PeerOpened Debug log //////////////////////////////////
 	char* pszName = "Unknown";
 	char* pszNAT = "NoNAT";
-	MMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uidChar);
+	CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uidChar);
 	if (pPeer) {
 		pszName = pPeer->CharInfo.szName;
 		if (pPeer->GetUDPTestResult() == false) pszNAT = "NAT";
@@ -2695,7 +2695,7 @@ void ZGame::OnPeerOpened(MCommand *pCommand)
 #endif
 }
 
-void ZGame::OnChangeWeapon(CCUID& uid, MMatchCharItemParts parts)
+void ZGame::OnChangeWeapon(CCUID& uid, CCMatchCharItemParts parts)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 //	if (uid == ZGetGameClient()->GetUID()) pCharacter = m_pMyCharacter;
@@ -2741,7 +2741,7 @@ void ZGame::OnDamage(CCUID& uid,CCUID& tuid,int damage)
 */
 }
 
-void ZGame::OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir, int type, MMatchCharItemParts sel_type)
+void ZGame::OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir, int type, CCMatchCharItemParts sel_type)
 {
 	ZCharacter* pOwnerCharacter = NULL;		// 총 쏜 사람
 
@@ -2756,7 +2756,7 @@ void ZGame::OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir
 	ZItem *pItem = pOwnerCharacter->GetItems()->GetItem(sel_type);
 	if(!pItem) return;
 
-	MMatchItemDesc* pDesc = pItem->GetDesc();
+	CCMatchItemDesc* pDesc = pItem->GetDesc();
 	if( pDesc == NULL ) return;
 
 
@@ -2782,14 +2782,14 @@ void ZGame::OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir
 	if( sel_type != MMCIP_PRIMARY && sel_type != MMCIP_SECONDARY && sel_type != MMCIP_CUSTOM1 && sel_type != MMCIP_CUSTOM2 )
 		return;
 
-	MMatchCharItemParts parts = (MMatchCharItemParts)sel_type;
+	CCMatchCharItemParts parts = (CCMatchCharItemParts)sel_type;
 
 	if( parts != pOwnerCharacter->GetItems()->GetSelectedWeaponParts()) { ///< 지금 들고 있는 무기와 보내진 무기가 틀리다면 보내진 무기로 바꿔준다..		
 		OnChangeWeapon(uid,parts);
 	}
 
 	//핵 방지를 위해 웨폰 타입을 비교..
-	MMatchWeaponType nType = pDesc->m_nWeaponType.Ref();
+	CCMatchWeaponType nType = pDesc->m_nWeaponType.Ref();
 	//들고 있는 무기가 로켓 타입인데 
 	if(nType == MWT_ROCKET) {
 		if( type != ZC_WEAPON_SP_ROCKET){	//type이 로켓이 아니면 미스 매치....무시한다. 		
@@ -3049,7 +3049,7 @@ void ZGame::OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir
 		if( pSelItem && pSelItem->GetDesc() &&
 			pSelItem->GetDesc()->IsSpendableItem() ) 
 		{
-			ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem((MMatchCharItemParts)sel_type);
+			ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem((CCMatchCharItemParts)sel_type);
 			if( pItemNode ) 
 			{
 				pItemNode->SetItemCount(pItemNode->GetItemCount() - 1);
@@ -3161,7 +3161,7 @@ bool ZGame::CheckWall(ZObject* pObj1,ZObject* pObj2, int & nDebugRegister/*단순 
 }
 
 
-void ZGame::OnExplosionGrenade(CCUID uidOwner,rvector pos,float fDamage,float fRange,float fMinDamage,float fKnockBack,MMatchTeam nTeamID)
+void ZGame::OnExplosionGrenade(CCUID uidOwner,rvector pos,float fDamage,float fRange,float fMinDamage,float fKnockBack,CCMatchTeam nTeamID)
 {
 	ZObject* pTarget = NULL;
 
@@ -3306,7 +3306,7 @@ void ZGame::OnExplosionGrenade(CCUID uidOwner,rvector pos,float fDamage,float fR
 
 // 매직류의 무기의 데미지를 준다
 //jintriple3 디버그 레지스터 해킹 방어 코드 삽입
-void ZGame::OnExplosionMagic(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc)
+void ZGame::OnExplosionMagic(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,CCMatchTeam nTeamID,bool bSkipNpc)
 {
 	ZObject* pTarget = NULL;
 
@@ -3435,7 +3435,7 @@ void ZGame::OnExplosionMagic(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,f
 
 // 매직류의 무기의 데미지를 준다
 //jintriple3 디버그 레지스터 해킹 방어 코드 삽입
-void ZGame::OnExplosionMagicThrow(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc, rvector from,rvector to)
+void ZGame::OnExplosionMagicThrow(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,CCMatchTeam nTeamID,bool bSkipNpc, rvector from,rvector to)
 {
 	ZObject* pTarget = NULL;
 
@@ -3591,7 +3591,7 @@ int ZGame::SelectSlashEffectMotion(ZCharacter* pCharacter)
 	int nAdd = 0;
 	int ret = 0;
 
-	MMatchWeaponType nType = pCharacter->GetSelectItemDesc()->m_nWeaponType.Ref();
+	CCMatchWeaponType nType = pCharacter->GetSelectItemDesc()->m_nWeaponType.Ref();
 
 	if(pCharacter->IsMan()) {
 
@@ -3645,7 +3645,7 @@ void ZGame::OnPeerShot_Melee(const CCUID& uidOwner, float fShotTime)
 		PROTECT_DEBUG_REGISTER(bReturnValue)	
 			return;
 
-	MMatchItemDesc *pSkillDesc = pItem->GetDesc();
+	CCMatchItemDesc *pSkillDesc = pItem->GetDesc();
 	//jintriple3	여긴 assert가 있으니 음...잠시 보류..
 	bReturnValue = !pSkillDesc;
 	if ( !pSkillDesc)
@@ -3998,7 +3998,7 @@ bool ZGame::InRanged( ZObject* pAttacker, ZObject* pVictim, int &nDebugRegister/
 //jintriple3 디버그 레지스터 해킹 방지 코드 삽입
 void ZGame::OnPeerShot_Range_Damaged(ZObject* pOwner, float fShotTime, const rvector& pos, const rvector& to, ZPICKINFO pickinfo, DWORD dwPickPassFlag, rvector& v1, rvector& v2, ZItem *pItem, rvector& BulletMarkNormal, bool& bBulletMark, ZTargetType& nTargetType)
 {
-	MMatchItemDesc *pDesc = pItem->GetDesc();
+	CCMatchItemDesc *pDesc = pItem->GetDesc();
 	bool bReturnValue = !pDesc;
 	if(!pDesc) PROTECT_DEBUG_REGISTER(bReturnValue){ _ASSERT(FALSE); return; }
 
@@ -4106,14 +4106,14 @@ void ZGame::OnPeerShot_Range_Damaged(ZObject* pOwner, float fShotTime, const rve
 	v1 = pos;
 	v2 = pickinfo.info.vOut;
 }
-void ZGame::OnPeerShot_Range(const MMatchCharItemParts sel_type, const CCUID& uidOwner, float fShotTime, const rvector& pos, const rvector& to)
+void ZGame::OnPeerShot_Range(const CCMatchCharItemParts sel_type, const CCUID& uidOwner, float fShotTime, const rvector& pos, const rvector& to)
 {
 	ZObject *pOwner = m_ObjectManager.GetObject(uidOwner);
 	if(!pOwner) return;
 
 	ZItem *pItem = pOwner->GetItems()->GetItem(sel_type);
 	if(!pItem) return;
-	MMatchItemDesc *pDesc = pItem->GetDesc();
+	CCMatchItemDesc *pDesc = pItem->GetDesc();
 	if(!pDesc) { _ASSERT(FALSE); return; }
 
 	rvector dir = to - pos;
@@ -4317,7 +4317,7 @@ void ZGame::OnPeerShot_Range(const MMatchCharItemParts sel_type, const CCUID& ui
 		}
 
 
-		MMatchWeaponType wtype = pDesc->m_nWeaponType.Ref();
+		CCMatchWeaponType wtype = pDesc->m_nWeaponType.Ref();
 		bool bSlugOutput = pDesc->m_bSlugOutput; // 탄피적출(true, false) 
 
 		// Effect
@@ -4370,7 +4370,7 @@ void ZGame::OnPeerShot_Shotgun(ZItem *pItem, ZCharacter* pOwnerCharacter, float 
 	//}
 
 
-	MMatchItemDesc *pDesc = pItem->GetDesc();
+	CCMatchItemDesc *pDesc = pItem->GetDesc();
 	if(!pDesc) { _ASSERT(false); return; }
 
 
@@ -4615,7 +4615,7 @@ void ZGame::OnPeerShotgun_Damaged(ZObject* pOwner, float fShotTime, const rvecto
 	bool bReturnValue = !pTargetCharacter;
 	if(!pTargetCharacter)PROTECT_DEBUG_REGISTER(bReturnValue) return;
 	
-	MMatchItemDesc *pDesc = pItem->GetDesc();
+	CCMatchItemDesc *pDesc = pItem->GetDesc();
 	bReturnValue = !pDesc;
 	if(!pDesc)PROTECT_DEBUG_REGISTER(bReturnValue) { _ASSERT(FALSE); return; }
 
@@ -4767,7 +4767,7 @@ bool ZGame::CanISeeAttacker( ZCharacter* pAtk, const rvector& vRequestPos )
 
 
 // shot 을 shot_range, shot_melee, shot_shotgun 으로 command 를 각각 분리하는것도 방법이 좋을듯.
-void ZGame::OnPeerShot( const CCUID& uid, float fShotTime, const rvector& pos, const rvector& to, const MMatchCharItemParts sel_type)
+void ZGame::OnPeerShot( const CCUID& uid, float fShotTime, const rvector& pos, const rvector& to, const CCMatchCharItemParts sel_type)
 {
 	ZCharacter* pOwnerCharacter = NULL;		// 총 쏜 사람
 
@@ -4845,7 +4845,7 @@ void ZGame::OnPeerShot( const CCUID& uid, float fShotTime, const rvector& pos, c
 
 
 	if(!pItem->GetDesc()) return;
-	MMatchWeaponType wtype = pItem->GetDesc()->m_nWeaponType.Ref();
+	CCMatchWeaponType wtype = pItem->GetDesc()->m_nWeaponType.Ref();
 
 	if(wtype == MWT_SHOTGUN)
 	{
@@ -5096,7 +5096,7 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 
 			// Admin Grade
 			if (ZGetMyInfo()->IsAdminGrade()) {
-				MMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
+				CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 				if (pCache && pCache->CheckFlag(MTD_PlayerFlags_AdminHide))
 				{
 					sprintf( szMsg, "^%d%s^9 스스로 패배",
@@ -5134,7 +5134,7 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 		
 		// Admin Grade
 		if (ZGetMyInfo()->IsAdminGrade()) {
-			MMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
+			CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 			if (pCache && pCache->CheckFlag(MTD_PlayerFlags_AdminHide))
 			{
 				sprintf( szMsg, "^%d%s^9 승리,  ^%d%s^9 패배",
@@ -5380,7 +5380,7 @@ void ZGame::OnPeerDash(MCommand* pCommand)
 
 	if (pCharacter == NULL) return;
 
-	MMatchCharItemParts parts = (MMatchCharItemParts)sel_type;
+	CCMatchCharItemParts parts = (CCMatchCharItemParts)sel_type;
 
 	if( parts != pCharacter->GetItems()->GetSelectedWeaponParts()) {
 		// 지금 들고 있는 무기와 보내진 무기가 틀리다면 보내진 무기로 바꿔준다..
@@ -5798,7 +5798,7 @@ void ZGame::AutoAiming()
 
 	//	개발자나 관리자라면..
 
-	//	MMatchUserGradeID gid = MMUG_FREE;
+	//	CCMatchUserGradeID gid = MMUG_FREE;
 	//	gid = ZGetMyInfo()->GetUGradeID();
 	//	if((gid == MMUG_DEVELOPER)||(gid==MMUG_ADMIN))
 
@@ -5996,9 +5996,9 @@ void ZGame::PostPeerPingInfo()
 		m_nLastTime[ZLASTTIME_PEERPINGINFO] = nNowTime;
 
 		unsigned long nTimeStamp = GetTickTime();
-		MMatchPeerInfoList* pPeers = ZGetGameClient()->GetPeers();
-		for (MMatchPeerInfoList::iterator itor = pPeers->begin(); itor != pPeers->end(); ++itor) {
-			MMatchPeerInfo* pPeerInfo = (*itor).second;
+		CCMatchPeerInfoList* pPeers = ZGetGameClient()->GetPeers();
+		for (CCMatchPeerInfoList::iterator itor = pPeers->begin(); itor != pPeers->end(); ++itor) {
+			CCMatchPeerInfo* pPeerInfo = (*itor).second;
 			if (pPeerInfo->uidChar != ZGetGameClient()->GetPlayerUID()) {
 				_ASSERT(pPeerInfo->uidChar != CCUID(0,0));
 
@@ -6267,8 +6267,8 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 				{
 					if (GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 					{
-						MMatchTeam nMyTeam = (MMatchTeam)m_pMyCharacter->GetTeamID();
-						MMatchTeam nEnemyTeam = (nMyTeam == MMT_BLUE ? MMT_RED : MMT_BLUE);
+						CCMatchTeam nMyTeam = (CCMatchTeam)m_pMyCharacter->GetTeamID();
+						CCMatchTeam nEnemyTeam = (nMyTeam == MMT_BLUE ? MMT_RED : MMT_BLUE);
 
 						int nMyScore = GetMatch()->GetTeamKills(nMyTeam);
 						int nEnemyScore = GetMatch()->GetTeamKills(nEnemyTeam);
@@ -6290,8 +6290,8 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 						ZGetGameInterface()->PlayVoiceSound( VOICE_DRAW_GAME, 1200);
 					}
 					else {
-						MMatchTeam nMyTeam = (MMatchTeam)m_pMyCharacter->GetTeamID();
-						MMatchTeam nTeamWon = (nArg == MMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
+						CCMatchTeam nMyTeam = (CCMatchTeam)m_pMyCharacter->GetTeamID();
+						CCMatchTeam nTeamWon = (nArg == MMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
 
 						// 만약 강제로 팀이 바껴진 경우에는 반대편
 						if (ZGetMyInfo()->GetGameInfo()->bForcedChangeTeam)
@@ -6303,7 +6303,7 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 						if (ZGetGameInterface()->GetCombatInterface()->GetObserver()->IsVisible()) {
 							ZCharacter* pTarget = ZGetGameInterface()->GetCombatInterface()->GetObserver()->GetTargetCharacter();
 							if (pTarget)
-								nMyTeam = (MMatchTeam)pTarget->GetTeamID();
+								nMyTeam = (CCMatchTeam)pTarget->GetTeamID();
 						}
 
 						if (nTeamWon == nMyTeam)
@@ -6539,7 +6539,7 @@ void ZGame::StartRecording()
 
 		// 게임 모드 약자 출력
 		if (bClanGame) szGameTypeAcronym = "CLAN_";
-		else szGameTypeAcronym = MMatchGameTypeAcronym[ GetMatch()->GetMatchType()];
+		else szGameTypeAcronym = CCMatchGameTypeAcronym[ GetMatch()->GetMatchType()];
 
 		// 클랜전인 경우 상대 클랜명 알아냄
 		if (bClanGame) {
@@ -6859,7 +6859,7 @@ void ZGame::EndReplay()
 	ZChangeGameState(GUNZ_LOBBY);
 }
 
-void ZGame::ConfigureCharacter(const CCUID& uidChar, MMatchTeam nTeam, unsigned char nPlayerFlags)
+void ZGame::ConfigureCharacter(const CCUID& uidChar, CCMatchTeam nTeam, unsigned char nPlayerFlags)
 {
 	ZCharacterManager* pCharMgr = ZGetCharacterManager();
 	ZCharacter* pChar = pCharMgr->Find(uidChar);
@@ -6875,10 +6875,10 @@ void ZGame::ConfigureCharacter(const CCUID& uidChar, MMatchTeam nTeam, unsigned 
 
 void ZGame::RefreshCharacters()
 {
-	for (MMatchPeerInfoList::iterator itor = ZGetGameClient()->GetPeers()->begin();
+	for (CCMatchPeerInfoList::iterator itor = ZGetGameClient()->GetPeers()->begin();
 		itor != ZGetGameClient()->GetPeers()->end(); ++itor)
 	{
-		MMatchPeerInfo* pPeerInfo = (*itor).second;
+		CCMatchPeerInfo* pPeerInfo = (*itor).second;
 		ZCharacter* pCharacter = m_CharacterManager.Find(pPeerInfo->uidChar);
 
 		if (pCharacter == NULL) {
@@ -6948,7 +6948,7 @@ void ZGame::OnStageEnterBattle(MCmdEnterBattleParam nParam, MTD_PeerListNode* pP
 	{
 		if (ZGetGame()->CreateMyCharacter(&pPeerNode->CharInfo/*, &pPeerNode->CharBuffInfo*/) == true)
 		{
-			ConfigureCharacter(uidChar, (MMatchTeam)pPeerNode->ExtendInfo.nTeam, pPeerNode->ExtendInfo.nPlayerFlags);	// Player Character 포함
+			ConfigureCharacter(uidChar, (CCMatchTeam)pPeerNode->ExtendInfo.nTeam, pPeerNode->ExtendInfo.nPlayerFlags);	// Player Character 포함
 		}
 	}
 	else							// enter한사람이 나 자신이 아닐경우
@@ -7021,7 +7021,7 @@ void ZGame::OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort, MTD_Pee
 
 		ZGetGameClient()->DeletePeer(uidChar);	// Delete exist info
 
-		MMatchPeerInfo* pNewPeerInfo = new MMatchPeerInfo;
+		CCMatchPeerInfo* pNewPeerInfo = new CCMatchPeerInfo;
 
 		if (uidChar == CCUID(0,0))	pNewPeerInfo->uidChar = CCUID(0, nPort);	// 로컬테스트를 위해서
 		else						pNewPeerInfo->uidChar = uidChar;
@@ -7050,7 +7050,7 @@ void ZGame::OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort, MTD_Pee
 		RefreshCharacters();
 	}
 
-	ConfigureCharacter(uidChar, (MMatchTeam)pNode->ExtendInfo.nTeam, pNode->ExtendInfo.nPlayerFlags);	// Player Character 포함
+	ConfigureCharacter(uidChar, (CCMatchTeam)pNode->ExtendInfo.nTeam, pNode->ExtendInfo.nPlayerFlags);	// Player Character 포함
 }
 
 void ZGame::OnPeerList(const CCUID& uidStage, void* pBlob, int nCount)
@@ -7157,7 +7157,7 @@ bool ZGame::FilterDelayedCommand(MCommand *pCommand)
 				////////////////////////////////////////////////////////////////////
 				int sel_type;
 				pCommand->GetParameter(&sel_type, 2, MPT_INT);
-				MMatchCharItemParts parts = (MMatchCharItemParts)sel_type;
+				CCMatchCharItemParts parts = (CCMatchCharItemParts)sel_type;
 				if( parts != pChar->GetItems()->GetSelectedWeaponParts()) {
 					// 지금 들고 있는 무기와 보내진 무기가 틀리다면 보내진 무기로 바꿔준다..
 					OnChangeWeapon(uid,parts);
@@ -7185,7 +7185,7 @@ bool ZGame::FilterDelayedCommand(MCommand *pCommand)
 				fDelayTime = .15f;
 
 				////////////////////////////////////////////////////////////////////
-				MMatchCharItemParts parts = (MMatchCharItemParts)pinfo->sel_type;
+				CCMatchCharItemParts parts = (CCMatchCharItemParts)pinfo->sel_type;
 				if( parts != pChar->GetItems()->GetSelectedWeaponParts()) {
 					// 지금 들고 있는 무기와 보내진 무기가 틀리다면 보내진 무기로 바꿔준다..
 					OnChangeWeapon(uid,parts);
@@ -7269,7 +7269,7 @@ void ZGame::PostSpMotion(ZC_SPMOTION_TYPE mtype)
 		(m_pMyCharacter->m_AniState_Lower.Ref() == ZC_STATE_LOWER_IDLE4) ) 
 	{
 
-		MMatchWeaponType type = MWT_NONE;
+		CCMatchWeaponType type = MWT_NONE;
 
 		ZItem* pSItem = m_pMyCharacter->GetItems()->GetSelectedWeapon();
 
@@ -7435,7 +7435,7 @@ void ZGame::OnResetTeamMembers(MCommand* pCommand)
 		ZCharacter* pChar = pCharMgr->Find(pDataNode->m_uidPlayer);
 		if (pChar == NULL) continue;
 
-		if (pChar->GetTeamID() != ( (MMatchTeam)pDataNode->nTeam) )
+		if (pChar->GetTeamID() != ( (CCMatchTeam)pDataNode->nTeam) )
 		{
 			// 만약 나자신이 팀변경이 되었으면 팀변경되었는지를 남긴다.
 			if (pDataNode->m_uidPlayer == ZGetMyUID())
@@ -7443,7 +7443,7 @@ void ZGame::OnResetTeamMembers(MCommand* pCommand)
 				ZGetMyInfo()->GetGameInfo()->bForcedChangeTeam = true;
 			}
 
-			pChar->SetTeamID((MMatchTeam)pDataNode->nTeam);
+			pChar->SetTeamID((CCMatchTeam)pDataNode->nTeam);
 		}
 
 	}
@@ -7460,17 +7460,17 @@ void ZGame::MakeResourceCRC32( const DWORD dwKey, DWORD& out_crc32, DWORD& out_x
 	++dwOutputCount;
 #endif
 
-	MMatchObjCacheMap* pObjCacheMap = ZGetGameClient()->GetObjCacheMap();
+	CCMatchObjCacheMap* pObjCacheMap = ZGetGameClient()->GetObjCacheMap();
 	if( NULL == pObjCacheMap )
 	{
 		return ;
 	}
 
-	MMatchObjCacheMap::const_iterator	end			= pObjCacheMap->end();
-	MMatchObjCacheMap::iterator			it			= pObjCacheMap->begin();
-	MMatchObjCache*						pObjCache	= NULL;
-	MMatchItemDesc*						pitemDesc	= NULL;
-	MMatchCRC32XORCache					CRC32Cache;
+	CCMatchObjCacheMap::const_iterator	end			= pObjCacheMap->end();
+	CCMatchObjCacheMap::iterator			it			= pObjCacheMap->begin();
+	CCMatchObjCache*						pObjCache	= NULL;
+	CCMatchItemDesc*						pitemDesc	= NULL;
+	CCMatchCRC32XORCache					CRC32Cache;
 
 	CRC32Cache.Reset();
 	CRC32Cache.CRC32XOR( dwKey );
@@ -7542,10 +7542,10 @@ void ZGame::OnGetSpendableBuffItemStatus(CCUID& uidChar, MTD_CharBuffInfo* pChar
 
 void ZGame::ApplyPotion(int nItemID, ZCharacter* pCharObj, float fRemainedTime)
 {
-	MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if( pDesc == NULL ) { _ASSERT(0);  return; }
 
-	MMatchDamageType nDamageType = pDesc->m_nDamageType.Ref();
+	CCMatchDamageType nDamageType = pDesc->m_nDamageType.Ref();
 
 	if (nDamageType == MMDT_HASTE)
 	{
@@ -7611,7 +7611,7 @@ void ZGame::ApplyPotion(int nItemID, ZCharacter* pCharObj, float fRemainedTime)
 
 void ZGame::OnUseTrap(int nItemID, ZCharacter* pCharObj, rvector& pos)
 {
-	MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if( pDesc == NULL ) { _ASSERT(0); return; }
 
 	rvector velocity;
@@ -7622,7 +7622,7 @@ void ZGame::OnUseTrap(int nItemID, ZCharacter* pCharObj, rvector& pos)
 
 void ZGame::OnUseDynamite(int nItemID, ZCharacter* pCharObj, rvector& pos)
 {
-	MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if( pDesc == NULL ) { _ASSERT(0); return; }
 
 	rvector velocity;
@@ -7631,7 +7631,7 @@ void ZGame::OnUseDynamite(int nItemID, ZCharacter* pCharObj, rvector& pos)
 	m_WeaponManager.AddDynamite(pos, velocity, pCharObj);
 }
 
-void ZGame::CheckZoneTrap(CCUID uidOwner,rvector pos,MMatchItemDesc* pItemDesc, MMatchTeam nTeamID)
+void ZGame::CheckZoneTrap(CCUID uidOwner,rvector pos,CCMatchItemDesc* pItemDesc, CCMatchTeam nTeamID)
 {
 	if (!pItemDesc) return;
 
@@ -7726,7 +7726,7 @@ void ZGame::CheckZoneTrap(CCUID uidOwner,rvector pos,MMatchItemDesc* pItemDesc, 
 	}
 }
 
-void ZGame::OnExplosionDynamite(CCUID uidOwner, rvector pos, float fDamage, float fRange, float fKnockBack, MMatchTeam nTeamID)
+void ZGame::OnExplosionDynamite(CCUID uidOwner, rvector pos, float fDamage, float fRange, float fKnockBack, CCMatchTeam nTeamID)
 {
 	ZObject* pTarget = NULL;
 

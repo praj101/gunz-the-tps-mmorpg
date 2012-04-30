@@ -13,22 +13,22 @@
 #include "CCMatchObjCache.h"
 #include "CCMatchStage.h"
 #include "CCMatchTransDataType.h"
-#include "MMatchFormula.h"
+#include "CCMatchFormula.h"
 #include "CCMatchConfig.h"
 #include "CCCommandCommunicator.h"
 #include "CCMatchShop.h"
 #include "CCMatchTransDataType.h"
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "MVoteDiscussImpl.h"
 #include "CCUtil.h"
 #include "CCMatchGameType.h"
-#include "MMatchRuleBaseQuest.h"
+#include "CCMatchRuleBaseQuest.h"
 #include "CCMatchRuleQuest.h"
-#include "MMatchRuleBerserker.h"
-#include "MMatchRuleDuel.h"
+#include "CCMatchRuleBerserker.h"
+#include "CCMatchRuleDuel.h"
 #include "MCrashDump.h"
 
 #include "MAsyncDBJob_InsertGamePlayerLog.h"
@@ -45,7 +45,7 @@ CCMatchStage* CCMatchServer::FindStage(const CCUID& uidStage)
 	return pStage;
 }
 
-bool CCMatchServer::StageAdd(MMatchChannel* pChannel, const char* pszStageName, bool bPrivate, const char* pszStagePassword, CCUID* pAllocUID, bool bIsAllowNullChannel)
+bool CCMatchServer::StageAdd(CCMatchChannel* pChannel, const char* pszStageName, bool bPrivate, const char* pszStagePassword, CCUID* pAllocUID, bool bIsAllowNullChannel)
 {
 	// 클랜전은 pChannel이 NULL이다.
 
@@ -99,7 +99,7 @@ bool CCMatchServer::StageRemove(const CCUID& uidStage, CCMatchStageMap::iterator
 
 	CCMatchStage* pStage = (*i).second;
 
-	MMatchChannel* pChannel = FindChannel(pStage->GetOwnerChannel());
+	CCMatchChannel* pChannel = FindChannel(pStage->GetOwnerChannel());
 	if (pChannel) {
 		pChannel->RemoveStage(pStage);
 	}
@@ -122,7 +122,7 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 	if (pObj->GetStageUID() != CCUID(0,0))
 		StageLeave(pObj->GetUID());//, pObj->GetStageUID());
 
-	MMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
+	CCMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
 	if (pChannel == NULL) return false;
 	if (pChannel->GetChannelType() == MCHANNEL_TYPE_DUELTOURNAMENT) return false;
 
@@ -201,7 +201,7 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 
 		if (MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
 		{
-			MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
+			CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 			if( 0 == pRuleQuest )
 			{
 				cclog( "CCMatchServer::StageJoin - 포인터 형변환 실패.\n" );
@@ -256,12 +256,12 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 		{
 			if (MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
 			{
-				MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
+				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if(pRuleQuest)
 				{
 					pRuleQuest->PreProcessLeaveStage( uidPlayer );
 				} else {
-					LOG(LOG_PROG, "StageLeave:: MMatchRule to MMatchRuleBaseQuest FAILED \n");
+					LOG(LOG_PROG, "StageLeave:: CCMatchRule to CCMatchRuleBaseQuest FAILED \n");
 				}
 			}
 		}
@@ -300,7 +300,7 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 
 		if (MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
 		{
-			MMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
+			CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 			if( 0 == pRuleQuest )
 			{
 				cclog( "CCMatchServer::StageLeave - 포인터 형변환 실패.\n" );
@@ -530,7 +530,7 @@ bool CCMatchServer::StageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLea
 #define LEGAL_ITEMLEVEL_DIFF		3
 	bool bIsCorrect = true;
 	for (int i = 0; i < MMCIP_END; i++) {
-		if (CorrectEquipmentByLevel(pObj, MMatchCharItemParts(i), LEGAL_ITEMLEVEL_DIFF)) {
+		if (CorrectEquipmentByLevel(pObj, CCMatchCharItemParts(i), LEGAL_ITEMLEVEL_DIFF)) {
 			bIsCorrect = false;
 		}
 	}
@@ -875,7 +875,7 @@ void CCMatchServer::OnStageCreate(const CCUID& uidChar, char* pszStageName, bool
 	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
-	MMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
+	CCMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
 	if (pChannel == NULL) return;
 
 	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN)
@@ -960,7 +960,7 @@ void CCMatchServer::OnPrivateStageJoin(const CCUID& uidPlayer, const CCUID& uidS
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) 
 		return;
 
-	MMatchUserGradeID ugid = pObj->GetAccountInfo()->m_nUGrade;
+	CCMatchUserGradeID ugid = pObj->GetAccountInfo()->m_nUGrade;
 
 	if (ugid == MMUG_DEVELOPER || ugid == MMUG_ADMIN) 
 		bSkipPassword = true;
@@ -1269,7 +1269,7 @@ void CCMatchServer::OnStageMap(const CCUID& uidStage, char* pszMapName)
 
 	if ( MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType()))
 	{
-		MMatchRuleBaseQuest* pQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule() );
+		CCMatchRuleBaseQuest* pQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 		pQuest->RefreshStageGameInfo();
 	}
 
@@ -1482,7 +1482,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 		pNode->nRoundMax = STAGE__MAX_ROUND;
 
 	CCMatchStageSetting* pSetting = pStage->GetStageSetting();
-	MMatchChannel* pChannel = FindChannel(pStage->GetOwnerChannel());
+	CCMatchChannel* pChannel = FindChannel(pStage->GetOwnerChannel());
 
 	bool bCheckChannelRule = true;
 
@@ -1585,7 +1585,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 //			OnStageMap(uidStage, pSetting->GetMapName());
 			OnStageMap(uidStage, MMATCH_DEFAULT_STAGESETTING_MAPNAME);
 
-			MMatchRuleBaseQuest* pQuest = reinterpret_cast< MMatchRuleBaseQuest* >( pStage->GetRule());
+			CCMatchRuleBaseQuest* pQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule());
 			pQuest->RefreshStageGameInfo();
 		}
 		else if ( (nLastGameType != MMATCH_GAMETYPE_DUEL) && ( pSetting->GetGameType() == MMATCH_GAMETYPE_DUEL))
@@ -1738,11 +1738,11 @@ void CCMatchServer::OnRequestSpawn(const CCUID& uidChar, const MVector& pos, con
 	if ( (pStage->GetRule()->GetRoundState() != MMATCH_ROUNDSTATE_PREPARE) && (!pObj->IsEnabledRespawnDeathTime(GetTickTime())) )
 		 return;
 
-	MMatchRule* pRule = pStage->GetRule();					// 이런 식의 코드는 마음에 안들지만 -_-; 게임타입 보고 예외처리.
+	CCMatchRule* pRule = pStage->GetRule();					// 이런 식의 코드는 마음에 안들지만 -_-; 게임타입 보고 예외처리.
 	MMATCH_GAMETYPE gameType = pRule->GetGameType();		// 다른 방법 있나요.
 	if (gameType == MMATCH_GAMETYPE_DUEL)
 	{
-		MMatchRuleDuel* pDuel = (MMatchRuleDuel*)pRule;		// RTTI 안써서 dynamic cast는 패스.. 예외처리도 짜증나고 -,.-
+		CCMatchRuleDuel* pDuel = (CCMatchRuleDuel*)pRule;		// RTTI 안써서 dynamic cast는 패스.. 예외처리도 짜증나고 -,.-
 		if (uidChar != pDuel->uidChampion && uidChar != pDuel->uidChallenger)
 		{
 			OnDuelSetObserver(uidChar);
@@ -1765,7 +1765,7 @@ void CCMatchServer::OnGameRequestTimeSync(const CCUID& uidComm, unsigned long nL
 	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
 	if (pObj == NULL) return;
 
-	MMatchTimeSyncInfo* pSync = pObj->GetSyncInfo();
+	CCMatchTimeSyncInfo* pSync = pObj->GetSyncInfo();
 	pSync->Update(GetGlobalClockCount());
 
 	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_RESPONSE_TIMESYNC, CCUID(0,0));
@@ -1785,7 +1785,7 @@ void CCMatchServer::OnGameReportTimeSync(const CCUID& uidComm, unsigned long nLo
 		return;
 
 	//// SpeedHack Test ////
-	MMatchTimeSyncInfo* pSync = pObj->GetSyncInfo();
+	CCMatchTimeSyncInfo* pSync = pObj->GetSyncInfo();
 	int nSyncDiff = nLocalTimeStamp - pSync->GetLastSyncClock();
 	float fError = static_cast<float>(nSyncDiff) / static_cast<float>(MATCH_CYCLE_CHECK_SPEEDHACK);
 	if (fError > 2.f) {	
@@ -1933,7 +1933,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	// 게임타입이 버서커일 경우
 	else if (nGameType == MMATCH_GAMETYPE_BERSERKER)
 	{
-		MMatchRuleBerserker* pRuleBerserker = (MMatchRuleBerserker*)pStage->GetRule();
+		CCMatchRuleBerserker* pRuleBerserker = (CCMatchRuleBerserker*)pStage->GetRule();
 
 		if (pRuleBerserker->GetBerserker() == pAttacker->GetUID())
 		{
@@ -1951,7 +1951,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	}
 	else if (nGameType == MMATCH_GAMETYPE_DUEL)
 	{
-		MMatchRuleDuel* pRuleDuel = (MMatchRuleDuel*)pStage->GetRule();
+		CCMatchRuleDuel* pRuleDuel = (CCMatchRuleDuel*)pStage->GetRule();
 		if (pVictim->GetUID() == pRuleDuel->uidChallenger)
 		{
 			fGameExpRatio *= GetDuelVictoryMultiflier(pRuleDuel->GetVictory());
@@ -1979,8 +1979,8 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	int nVictimLevel = pVictim->GetCharInfo()->m_nLevel;
 
 	// 경험치 계산
-	int nAttackerExp = (int)(MMatchFormula::GetGettingExp(nAttackerLevel, nVictimLevel) * fGameExpRatio);
-	int nVictimExp = (int)(MMatchFormula::CalcPanaltyEXP(nAttackerLevel, nVictimLevel) * fGameExpRatio);
+	int nAttackerExp = (int)(CCMatchFormula::GetGettingExp(nAttackerLevel, nVictimLevel) * fGameExpRatio);
+	int nVictimExp = (int)(CCMatchFormula::CalcPanaltyEXP(nAttackerLevel, nVictimLevel) * fGameExpRatio);
 
 
 	// 클랜전일 경우는 획득 경험치가 1.5배, 손실경험치 없음
@@ -1991,7 +1991,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	}
 
 	// 고수채널, 초고수채널일 경우에는 경치다운 없음(자살제외)
-	MMatchChannel* pOwnerChannel = FindChannel(pStage->GetOwnerChannel());
+	CCMatchChannel* pOwnerChannel = FindChannel(pStage->GetOwnerChannel());
 	if ((pOwnerChannel) && (!bSuicide))
 	{
 		if ((pOwnerChannel->GetRuleType() == MCHANNEL_RULE_MASTERY) || 
@@ -2019,7 +2019,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	// 자살일 경우 경험치 손실이 두배
 	if (bSuicide) 
 	{
-		nVictimExp = (int)(MMatchFormula::GetSuicidePanaltyEXP(nVictimLevel) * fGameExpRatio);
+		nVictimExp = (int)(CCMatchFormula::GetSuicidePanaltyEXP(nVictimLevel) * fGameExpRatio);
 		nAttackerExp = 0;
 	}
 
@@ -2052,17 +2052,17 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 		//const float ta = float(atoi("15")) / 100.0f;
 		//cclog( "test float : %f\n", ta * 100.0f );
 
-		//MMatchItemBonusType nBonusType			= GetStageBonusType(pStage->GetStageSetting());
+		//CCMatchItemBonusType nBonusType			= GetStageBonusType(pStage->GetStageSetting());
 		//const double		dAttackerExp		= static_cast< double >( nAttackerExp );
-		//const double		dXPBonusRatio		= static_cast< double >( MMatchFormula::CalcXPBonusRatio(pAttacker, nBonusType) );
+		//const double		dXPBonusRatio		= static_cast< double >( CCMatchFormula::CalcXPBonusRatio(pAttacker, nBonusType) );
 		//const double		dAttackerExpBouns	= dAttackerExp * dXPBonusRatio;
 		//const double		dSumAttackerExp		= dAttackerExp + dAttackerExpBouns;
 		//
 		//
 		//nAttackerExpBonus = static_cast< int >( dAttackerExpBouns + 0.00001); 
 
-		MMatchItemBonusType nBonusType = GetStageBonusType(pStage->GetStageSetting());
-		const float fAttackerExpBonusRatio = MMatchFormula::CalcXPBonusRatio(pAttacker, nBonusType);
+		CCMatchItemBonusType nBonusType = GetStageBonusType(pStage->GetStageSetting());
+		const float fAttackerExpBonusRatio = CCMatchFormula::CalcXPBonusRatio(pAttacker, nBonusType);
 		 //부동소수점 오차때문에 계산에 영향을 주지 않는 범위에서 보정을 해준다.
 		// 만약 이부분에서 다시 문제가 발생한다면 보정이 아닌 베이스부터 수정 작업을 해 줘야 한다.
 		 nAttackerExpBonus = (int)(nAttackerExp * (fAttackerExpBonusRatio + 0.00001f));
@@ -2079,8 +2079,8 @@ const int CCMatchServer::CalcBPonGameKill( CCMatchStage* pStage, CCMatchObject* 
 	if( (0 == pStage) || (0 == pAttacker) ) 
 		return -1;
 
-	const int	nAddedBP		= static_cast< int >( MMatchFormula::GetGettingBounty(nAttackerLevel, nVictimLevel) );
-	const float fBPBonusRatio	= MMatchFormula::CalcBPBounsRatio( pAttacker, GetStageBonusType(pStage->GetStageSetting()) );
+	const int	nAddedBP		= static_cast< int >( CCMatchFormula::GetGettingBounty(nAttackerLevel, nVictimLevel) );
+	const float fBPBonusRatio	= CCMatchFormula::CalcBPBounsRatio( pAttacker, GetStageBonusType(pStage->GetStageSetting()) );
 	const int	nBPBonus		= static_cast< int >( nAddedBP * fBPBonusRatio );
 
 	return nAddedBP + nBPBonus;
@@ -2111,9 +2111,9 @@ void CCMatchServer::ProcessPlayerXPBP(CCMatchStage* pStage, CCMatchObject* pPlay
 	// 레벨 계산
 	int nNewPlayerLevel = -1;
 	if ((pPlayer->GetCharInfo()->m_nLevel < MAX_LEVEL) &&
-		(pPlayer->GetCharInfo()->m_nXP >= MMatchFormula::GetNeedExp(nPlayerLevel)))
+		(pPlayer->GetCharInfo()->m_nXP >= CCMatchFormula::GetNeedExp(nPlayerLevel)))
 	{
-		nNewPlayerLevel = MMatchFormula::GetLevelFromExp(pPlayer->GetCharInfo()->m_nXP);
+		nNewPlayerLevel = CCMatchFormula::GetLevelFromExp(pPlayer->GetCharInfo()->m_nXP);
 		if (nNewPlayerLevel != pPlayer->GetCharInfo()->m_nLevel) pPlayer->GetCharInfo()->m_nLevel = nNewPlayerLevel;
 	}
 
@@ -2180,7 +2180,7 @@ void CCMatchServer::ApplyObjectTeamBonus(CCMatchObject* pObject, int nAddedExp)
 	// 보너스 적용
 	if (nAddedExp != 0)
 	{
-		int nExpBonus = (int)(nAddedExp * MMatchFormula::CalcXPBonusRatio(pObject, MIBT_TEAM));
+		int nExpBonus = (int)(nAddedExp * CCMatchFormula::CalcXPBonusRatio(pObject, MIBT_TEAM));
 		nAddedExp += nExpBonus;
 	}
 
@@ -2197,9 +2197,9 @@ void CCMatchServer::ApplyObjectTeamBonus(CCMatchObject* pObject, int nAddedExp)
 	if (nNewLevel > nCurrLevel) bIsLevelUp = true;
 
 	if ((pObject->GetCharInfo()->m_nLevel < MAX_LEVEL) &&
-		(pObject->GetCharInfo()->m_nXP >= MMatchFormula::GetNeedExp(nCurrLevel)))
+		(pObject->GetCharInfo()->m_nXP >= CCMatchFormula::GetNeedExp(nCurrLevel)))
 	{
-		nNewLevel = MMatchFormula::GetLevelFromExp(pObject->GetCharInfo()->m_nXP);
+		nNewLevel = CCMatchFormula::GetLevelFromExp(pObject->GetCharInfo()->m_nXP);
 		if (nNewLevel != nCurrLevel) pObject->GetCharInfo()->m_nLevel = nNewLevel;
 	}
 
@@ -2239,7 +2239,7 @@ void CCMatchServer::ApplyObjectTeamBonus(CCMatchObject* pObject, int nAddedExp)
 	int nPercent;
 
 	nChrExp = pObject->GetCharInfo()->m_nXP;
-	nPercent = MMatchFormula::GetLevelPercent(nChrExp, nCurrLevel);
+	nPercent = CCMatchFormula::GetLevelPercent(nChrExp, nCurrLevel);
 	// 상위 2바이트는 경험치, 하위 2바이트는 경험치의 퍼센트이다.
 	nExpArg = MakeExpTransData(nAddedExp, nPercent);
 
@@ -2281,9 +2281,9 @@ void CCMatchServer::ProcessCharPlayInfo(CCMatchObject* pPlayer)
 	// 레벨 계산
 	int nNewPlayerLevel = -1;
 	if ((pPlayer->GetCharInfo()->m_nLevel < MAX_LEVEL) &&
-		(pPlayer->GetCharInfo()->m_nXP >= MMatchFormula::GetNeedExp(nPlayerLevel)))
+		(pPlayer->GetCharInfo()->m_nXP >= CCMatchFormula::GetNeedExp(nPlayerLevel)))
 	{
-		nNewPlayerLevel = MMatchFormula::GetLevelFromExp(pPlayer->GetCharInfo()->m_nXP);
+		nNewPlayerLevel = CCMatchFormula::GetLevelFromExp(pPlayer->GetCharInfo()->m_nXP);
 		if (nNewPlayerLevel != pPlayer->GetCharInfo()->m_nLevel) pPlayer->GetCharInfo()->m_nLevel = nNewPlayerLevel;
 	}
 	// 만약 레벨이 바뀌면 따로 레벨업한다.
@@ -2379,11 +2379,11 @@ void CCMatchServer::PostGameDeadOnGameKill(CCUID& uidStage, CCMatchObject* pAtta
 	int nPercent;
 
 	nChrExp = pAttacker->GetCharInfo()->m_nXP;
-	nPercent = MMatchFormula::GetLevelPercent(nChrExp, nRealAttackerLevel);
+	nPercent = CCMatchFormula::GetLevelPercent(nChrExp, nRealAttackerLevel);
 	nAttackerArg = MakeExpTransData(nAddedAttackerExp, nPercent);
 
 	nChrExp = pVictim->GetCharInfo()->m_nXP;
-	nPercent = MMatchFormula::GetLevelPercent(nChrExp, nRealVictimLevel);
+	nPercent = CCMatchFormula::GetLevelPercent(nChrExp, nRealVictimLevel);
 	nVictimArg = MakeExpTransData(nSubedVictimExp, nPercent);
 
 	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_DEAD, CCUID(0,0));
@@ -2398,7 +2398,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 {
 	CCMatchObject* pChar = GetObject(uidPlayer);
 	if (pChar == NULL) return;
-	MMatchChannel* pChannel = FindChannel(pChar->GetChannelUID());
+	CCMatchChannel* pChannel = FindChannel(pChar->GetChannelUID());
 	if (pChannel == NULL) return;
 
 	// 클랜서버인데 클랜채널일 경우에는 방 리스트대신 대기중 클랜 리스트를 보낸다.
@@ -2532,7 +2532,7 @@ void CCMatchServer::OnStageRequestStageList(const CCUID& uidPlayer, const CCUID&
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
-	MMatchChannel* pChannel = FindChannel(uidChannel);
+	CCMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return;
 
 	pObj->SetStageCursor(nStageCursor);
@@ -2552,7 +2552,7 @@ void CCMatchServer::ResponseQuickJoin(const CCUID& uidPlayer, MTD_QuickJoinParam
 
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return;
-	MMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
+	CCMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
 	if (pChannel == NULL) return;
 
 	list<CCUID>	recommended_stage_list;
@@ -2961,7 +2961,7 @@ void CCMatchServer::OnStageGo(const CCUID& uidPlayer, unsigned int nRoomNo)
 	if( 0 == pChar ) return;
 	if (!IsEnabledObject(pChar)) return;
 	if (pChar->GetPlace() != MMP_LOBBY) return;
-	MMatchChannel* pChannel = FindChannel(pChar->GetChannelUID());
+	CCMatchChannel* pChannel = FindChannel(pChar->GetChannelUID());
 	if (pChannel == NULL) return;
 
 	CCMatchStage* pStage = pChannel->GetStage(nRoomNo-1);

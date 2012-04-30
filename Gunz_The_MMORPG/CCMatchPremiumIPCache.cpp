@@ -1,31 +1,31 @@
 #include "stdafx.h"
-#include "MMatchPremiumIPCache.h"
+#include "CCMatchPremiumIPCache.h"
 
 #define MAX_PREMIUMIP_CACHE_DBFAILED		5
 #define MAX_PREMIUMIP_CACHE_FAILEDCHECK		100
 #define MAX_PREMIUMIP_CACHE_TICK			10000	// ms , 10 Sec
 #define MAX_PREMIUMIP_CACHE_TIMEOUT			3600000	// ms , 1 Hour
 
-MMatchPremiumIPCache::MMatchPremiumIPCache() : m_nDBFailedCount(0), m_nFailedCheckCount(0)
+CCMatchPremiumIPCache::CCMatchPremiumIPCache() : m_nDBFailedCount(0), m_nFailedCheckCount(0)
 {
 	InitializeCriticalSection(&m_csLock);
 }
 
-MMatchPremiumIPCache::~MMatchPremiumIPCache()
+CCMatchPremiumIPCache::~CCMatchPremiumIPCache()
 {
 	DeleteCriticalSection(&m_csLock);
 }
 
-MMatchPremiumIPCache* MMatchPremiumIPCache::GetInstance()
+CCMatchPremiumIPCache* CCMatchPremiumIPCache::GetInstance()
 {
-	static MMatchPremiumIPCache m_stPremiumIPCache;
+	static CCMatchPremiumIPCache m_stPremiumIPCache;
 	return &m_stPremiumIPCache;
 }
 
 
-bool MMatchPremiumIPCache::CheckPremiumIP(DWORD dwIP, bool& outIsPremiumIP)
+bool CCMatchPremiumIPCache::CheckPremiumIP(DWORD dwIP, bool& outIsPremiumIP)
 {
-	MMatchPremiumIPMap::iterator itor;
+	CCMatchPremiumIPMap::iterator itor;
 	bool bExist = false;
 	bool bPremiumIP = false;
 
@@ -70,29 +70,29 @@ bool MMatchPremiumIPCache::CheckPremiumIP(DWORD dwIP, bool& outIsPremiumIP)
 	return bExist;
 }
 
-void MMatchPremiumIPCache::AddIP(DWORD dwIP, bool bPremiumIP)
+void CCMatchPremiumIPCache::AddIP(DWORD dwIP, bool bPremiumIP)
 {
 	Lock(); ///////////////////
 
 	// db 검사후 IP를 추가하는 것이니 DB가 살아있다는 증거
 	m_nDBFailedCount = 0;
 
-	MMatchPremiumIPNode node(dwIP, timeGetTime());
+	CCMatchPremiumIPNode node(dwIP, timeGetTime());
 
 	if (bPremiumIP)
 	{
-		m_PremiumIPMap.insert(MMatchPremiumIPMap::value_type(dwIP, node));
+		m_PremiumIPMap.insert(CCMatchPremiumIPMap::value_type(dwIP, node));
 	}
 	else
 	{
-		m_NotPremiumIPMap.insert(MMatchPremiumIPMap::value_type(dwIP, node));
+		m_NotPremiumIPMap.insert(CCMatchPremiumIPMap::value_type(dwIP, node));
 	}
 
 	Unlock(); /////////////////
 }
 
 
-void MMatchPremiumIPCache::OnDBFailed()
+void CCMatchPremiumIPCache::OnDBFailed()
 {
 	Lock(); ///////////////////
 
@@ -103,7 +103,7 @@ void MMatchPremiumIPCache::OnDBFailed()
 	Unlock(); /////////////////
 }
 
-void MMatchPremiumIPCache::Update()
+void CCMatchPremiumIPCache::Update()
 {
 	static DWORD tmLastUpdate = 0;
 	DWORD tmNow = timeGetTime();
@@ -117,7 +117,7 @@ void MMatchPremiumIPCache::Update()
 	}
 
 	Lock(); ///////////////////
-	for (MMatchPremiumIPMap::iterator i=m_PremiumIPMap.begin(); i!=m_PremiumIPMap.end();)
+	for (CCMatchPremiumIPMap::iterator i=m_PremiumIPMap.begin(); i!=m_PremiumIPMap.end();)
 	{
 		if (tmNow - ((*i).second).GetTime() >= MAX_PREMIUMIP_CACHE_TIMEOUT)
 		{
@@ -131,7 +131,7 @@ void MMatchPremiumIPCache::Update()
 		}
 	}
 
-	for (MMatchPremiumIPMap::iterator i=m_NotPremiumIPMap.begin(); i!=m_NotPremiumIPMap.end();)
+	for (CCMatchPremiumIPMap::iterator i=m_NotPremiumIPMap.begin(); i!=m_NotPremiumIPMap.end();)
 	{
 		if (tmNow - ((*i).second).GetTime() >= MAX_PREMIUMIP_CACHE_TIMEOUT)
 		{

@@ -12,7 +12,7 @@ class MDuelTournamentMatchLauncher;
 // 역할 2. 듀얼 토너먼트의 Group Ranking을 관리해주는 기능(정해진 시간마다 DB에서 받아오는 기능)
 //////////////////////////////////////////////////////////////////////
 
-class MMatchDuelTournamentMgr
+class CCMatchDuelTournamentMgr
 {
 	CCMatchObjectContainer m_matchObjectContainer;
 	MDuelTournamentTimeChecker m_TimeChecker;
@@ -29,8 +29,8 @@ protected:
 	void ClearGroupRanking();
 	void LaunchMatch(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer);
 public:
-	MMatchDuelTournamentMgr();
-	~MMatchDuelTournamentMgr();
+	CCMatchDuelTournamentMgr();
+	~CCMatchDuelTournamentMgr();
 
 	void Init();
 	void Destory();
@@ -51,7 +51,7 @@ public:
 };
 
 
-// MMatchDuelTournamentMgr는 이 클래스를 이용해서 MatchMaker가 뽑아낸 그룹을 실제로 경기시킨다
+// CCMatchDuelTournamentMgr는 이 클래스를 이용해서 MatchMaker가 뽑아낸 그룹을 실제로 경기시킨다
 class MDuelTournamentMatchLauncher
 {
 	DWORD m_dwLimitUserWaitTime;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MMatchWorldItemDesc.h"
+#include "CCMatchWorldItemDesc.h"
 #include "RTypes.h"
 #include "RMesh.h"
 #include "RVisualMeshMgr.h"
@@ -151,7 +151,7 @@ public:
 
 	void Clear();											// 아이템 리스트, 웨이팅 리스트... // 게임에서 나올때 호출
 	void Reset(bool bDrawRemoveEffect=false);				// 팀전에서 라운드 시작할때 호출
-	int GetLinkedWorldItemID(MMatchItemDesc* pItemDesc);		// 아이템과 연결된 월드아이템 ID 반환
+	int GetLinkedWorldItemID(CCMatchItemDesc* pItemDesc);		// 아이템과 연결된 월드아이템 ID 반환
 
 	bool ApplyWorldItem( int nID, ZCharacter* pCharacter );			// pCharacter에게 pWorldItem을 적용시키기
 	

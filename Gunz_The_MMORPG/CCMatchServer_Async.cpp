@@ -5,7 +5,7 @@
 #include "MAsyncDBJob_GetLoginInfo.h"
 #include "MAsyncDBJob_InsertConnLog.h"
 #include "CCBlobArray.h"
-#include "MMatchFormula.h"
+#include "CCMatchFormula.h"
 #include "MAsyncDBJob_Event.h"
 #include "MAsyncDBJob_GetAccountItemList.h"
 #include "CCAsyncDBJob_BuyQuestItem.h"
@@ -279,10 +279,10 @@ void CCMatchServer::OnAsyncGetLoginInfo(MAsyncJob* pJobInput)
 		return;
 	}
 
-	MMatchAccountInfo* pAccountInfo = pJob->GetAccountInfo();
+	CCMatchAccountInfo* pAccountInfo = pJob->GetAccountInfo();
 	if( pAccountInfo == 0 ) return;
 
-	MMatchAccountPenaltyInfo* pAccountPenaltyInfo = pJob->GetAccountPenaltyInfo();
+	CCMatchAccountPenaltyInfo* pAccountPenaltyInfo = pJob->GetAccountPenaltyInfo();
 	if( pAccountPenaltyInfo == 0 ) return;
 
 
@@ -329,7 +329,7 @@ void CCMatchServer::OnAsyncGetLoginInfo(MAsyncJob* pJobInput)
 
 	pObj->AddCommListener(CommUID);
 	pObj->SetObjectType(MOT_PC);
-	memcpy(pObj->GetAccountInfo(), pAccountInfo, sizeof(MMatchAccountInfo));
+	memcpy(pObj->GetAccountInfo(), pAccountInfo, sizeof(CCMatchAccountInfo));
 	pObj->SetFreeLoginIP(pJob->IsFreeLoginIP());
 	pObj->SetCountryCode3( pJob->GetCountryCode3() );
 
@@ -480,7 +480,7 @@ void CCMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //	// 내 캐릭터의 추가 정보
 //	void* pMyExtraInfoArray = MMakeBlobArray(sizeof(MTD_MyExtraCharInfo), 1);
 //	MTD_MyExtraCharInfo* pMyExtraInfo = (MTD_MyExtraCharInfo*)MGetBlobArrayElement(pMyExtraInfoArray, 0);
-//	int nPercent = MMatchFormula::GetLevelPercent(trans_charinfo.nXP, (int)trans_charinfo.nLevel);
+//	int nPercent = CCMatchFormula::GetLevelPercent(trans_charinfo.nXP, (int)trans_charinfo.nLevel);
 //	pMyExtraInfo->nLevelPercent = (char)nPercent;
 //	pNewCmd->AddParameter(new MCommandParameterBlob(pMyExtraInfoArray, MGetBlobArraySize(pMyExtraInfoArray)));
 //	MEraseBlobArray(pMyExtraInfoArray);
@@ -620,7 +620,7 @@ void CCMatchServer::OnAsyncCharFinalize(MAsyncJob* pJobInput)
 //
 //
 //		// 오브젝트에 아이템 추가
-//		CCUID uidNew = MMatchItemMap::UseUID();
+//		CCUID uidNew = CCMatchItemMap::UseUID();
 //		pObj->GetCharInfo()->m_ItemList.CreateItem(uidNew, nNewCIID, nNewItemID, bIsRentItem, nRentMinutePeriodRemainder);
 //
 //		nRet = MOK;
@@ -752,7 +752,7 @@ void CCMatchServer::OnAsyncExpelClanMember(MAsyncJob* pJobResult)
 	int nDBRet = pJob->GetDBResult();
 	switch (nDBRet)
 	{
-	case MMatchDBMgr::ER_NO_MEMBER:
+	case CCMatchDBMgr::ER_NO_MEMBER:
 		{
 			if (IsEnabledObject(pAdminObject))
 			{
@@ -761,7 +761,7 @@ void CCMatchServer::OnAsyncExpelClanMember(MAsyncJob* pJobResult)
 			return;
 		}
 		break;
-	case MMatchDBMgr::ER_WRONG_GRADE:
+	case CCMatchDBMgr::ER_WRONG_GRADE:
 		{
 			if (IsEnabledObject(pAdminObject))
 			{
@@ -921,7 +921,7 @@ void CCMatchServer::OnAsyncBuyQuestItem( MAsyncJob* pJobReslt )
 	CCMatchObject* pPlayer = GetObject( pJob->GetPlayerUID() );
 	if( NULL == pPlayer ) {	return; }
 
-	MMatchCharInfo* pCharInfo = pPlayer->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pPlayer->GetCharInfo();
 	if( NULL == pCharInfo ) { return; }
 
 	// 아이템 거래 카운트 증가. 내부에서 디비 업데이트 결정.

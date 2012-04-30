@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CCMatchGlobal.h"
-#include "MMatchDuelTournamentMgr.h"
+#include "CCMatchDuelTournamentMgr.h"
 #include "CCMatchConfig.h"
 
-MMatchDuelTournamentMgr::MMatchDuelTournamentMgr()
+CCMatchDuelTournamentMgr::CCMatchDuelTournamentMgr()
 : m_lastMatchedTick(0)
 , m_pDTMatchLauncher(new MDuelTournamentMatchLauncher)
 , m_nLastTimeCheckedTick(0)
@@ -13,12 +13,12 @@ MMatchDuelTournamentMgr::MMatchDuelTournamentMgr()
 		m_DTMatchMakers[i].SetMatchObjectContainer(&m_matchObjectContainer);
 }
 
-MMatchDuelTournamentMgr::~MMatchDuelTournamentMgr()
+CCMatchDuelTournamentMgr::~CCMatchDuelTournamentMgr()
 {
 	delete m_pDTMatchLauncher;
 }
 
-void MMatchDuelTournamentMgr::Init()
+void CCMatchDuelTournamentMgr::Init()
 {
 	ClearGroupRanking();
 
@@ -29,11 +29,11 @@ void MMatchDuelTournamentMgr::Init()
 	m_pDTMatchLauncher->SetAcceptableTpGap(DT_MATCH_ACCEPTABLE_TP_GAP);
 }
 
-void MMatchDuelTournamentMgr::Destory()
+void CCMatchDuelTournamentMgr::Destory()
 {
 }
 
-void MMatchDuelTournamentMgr::AddGroupRanking(list<DTRankingInfo*>* pRankingList)
+void CCMatchDuelTournamentMgr::AddGroupRanking(list<DTRankingInfo*>* pRankingList)
 {
 	ClearGroupRanking();
 
@@ -44,12 +44,12 @@ void MMatchDuelTournamentMgr::AddGroupRanking(list<DTRankingInfo*>* pRankingList
 	}
 }
 
-void MMatchDuelTournamentMgr::ClearGroupRanking()
+void CCMatchDuelTournamentMgr::ClearGroupRanking()
 {
 	ZeroMemory(m_GroupRankingBlob, sizeof(DTRankingInfo) * MAX_DT_GROUP_RANKING_COUNT);
 }
 
-bool MMatchDuelTournamentMgr::AddPlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
+bool CCMatchDuelTournamentMgr::AddPlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
 {
 	if (0 <= nType && nType < MDUELTOURNAMENTTYPE_MAX)
 	{
@@ -62,7 +62,7 @@ bool MMatchDuelTournamentMgr::AddPlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPla
 	return false;
 }
 
-bool MMatchDuelTournamentMgr::RemovePlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
+bool CCMatchDuelTournamentMgr::RemovePlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer)
 {
 	if (0 <= nType && nType < MDUELTOURNAMENTTYPE_MAX)
 	{
@@ -71,7 +71,7 @@ bool MMatchDuelTournamentMgr::RemovePlayer(MDUELTOURNAMENTTYPE nType, CCUID &uid
 	return false;
 }
 
-void MMatchDuelTournamentMgr::Tick(unsigned long nCurTick)
+void CCMatchDuelTournamentMgr::Tick(unsigned long nCurTick)
 {
 	const DWORD DT_MATCH_TICK_INTERVAL = MGetServerConfig()->GetDuelTournamentMatchMakingInterval();
 

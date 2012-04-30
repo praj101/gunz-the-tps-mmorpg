@@ -3,15 +3,15 @@
 #include "CCMatchConfig.h"
 #include "CCMatchGambleMachine.h"
 
-MMatchShop::MMatchShop()
+CCMatchShop::CCMatchShop()
 {
 
 }
-MMatchShop::~MMatchShop()
+CCMatchShop::~CCMatchShop()
 {
 
 }
-bool MMatchShop::Create(const char* szDescFileName)
+bool CCMatchShop::Create(const char* szDescFileName)
 {
 	return ReadXml(szDescFileName);
 
@@ -19,13 +19,13 @@ bool MMatchShop::Create(const char* szDescFileName)
 }
 
 
-void MMatchShop::Destroy()
+void CCMatchShop::Destroy()
 {
 	Clear();
 }
 
 
-bool MMatchShop::ReadXml(const char* szFileName)
+bool CCMatchShop::ReadXml(const char* szFileName)
 {
 	CCXmlDocument	xmlDocument;
 
@@ -61,7 +61,7 @@ bool MMatchShop::ReadXml(const char* szFileName)
 	return true;
 }
 
-void MMatchShop::ParseSellItem(CCXmlElement& element)
+void CCMatchShop::ParseSellItem(CCXmlElement& element)
 {
 	ShopItemNode *pNewItemNode = new ShopItemNode;
 
@@ -81,7 +81,7 @@ void MMatchShop::ParseSellItem(CCXmlElement& element)
 	pNewItemNode->bIsRentItem = (pNewItemNode->nRentPeriodHour > 0);	
 	
 
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nDescID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nDescID);
 	if (pItemDesc != NULL) {
 		
 		// 이제 캐쉬 아이템도 판다
@@ -123,7 +123,7 @@ void MMatchShop::ParseSellItem(CCXmlElement& element)
 #endif
 }
 
-void MMatchShop::Clear()
+void CCMatchShop::Clear()
 {
 	int nVectorSize = (int)m_ItemNodeVector.size();
 	for (int i = 0; i < nVectorSize; i++)
@@ -137,13 +137,13 @@ void MMatchShop::Clear()
 }
 
 
-MMatchShop* MMatchShop::GetInstance()
+CCMatchShop* CCMatchShop::GetInstance()
 {
-	static MMatchShop g_stMatchShop;
+	static CCMatchShop g_stMatchShop;
 	return &g_stMatchShop;
 }
 
-bool MMatchShop::IsSellItem(const unsigned long int nItemID)
+bool CCMatchShop::IsSellItem(const unsigned long int nItemID)
 {
 	map<unsigned int, ShopItemNode*>::iterator itor = m_ItemNodeMap.find(nItemID);
 	if (itor != m_ItemNodeMap.end()) {
@@ -153,14 +153,14 @@ bool MMatchShop::IsSellItem(const unsigned long int nItemID)
 	return false;
 }
 
-ShopItemNode* MMatchShop::GetSellItemByIndex(int nListIndex)
+ShopItemNode* CCMatchShop::GetSellItemByIndex(int nListIndex)
 {
 	if ((nListIndex < 0) || (nListIndex >= GetCount())) return NULL;
 
 	return m_ItemNodeVector[nListIndex];
 }
 
-ShopItemNode* MMatchShop::GetSellItemByItemID(int nItemID)
+ShopItemNode* CCMatchShop::GetSellItemByItemID(int nItemID)
 {
 	map<unsigned int, ShopItemNode*>::iterator itor = m_ItemNodeMap.find(nItemID);
 	if (itor == m_ItemNodeMap.end()) {
@@ -171,7 +171,7 @@ ShopItemNode* MMatchShop::GetSellItemByItemID(int nItemID)
 }
 
 #ifdef _DEBUG
-void MMatchShop::MakeShopXML()
+void CCMatchShop::MakeShopXML()
 {
 	char szTemp[4096];
 	FILE* fp;	
@@ -185,8 +185,8 @@ void MMatchShop::MakeShopXML()
 		ShopItemNode* pNode = it->second;
 		memset(szTemp, 0, 4096);
 
-		MMatchItemDesc* pDesc;
-		const MMatchGambleItem* pGamble;
+		CCMatchItemDesc* pDesc;
+		const CCMatchGambleItem* pGamble;
 		MQuestItemDesc* pQuest;
 		if( (pDesc = MGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
 		{
@@ -243,8 +243,8 @@ void MMatchShop::MakeShopXML()
 		ShopItemNode* pNode = it->second;
 		memset(szTemp, 0, 4096);
 
-		MMatchItemDesc* pDesc;
-		const MMatchGambleItem* pGamble;
+		CCMatchItemDesc* pDesc;
+		const CCMatchGambleItem* pGamble;
 		MQuestItemDesc* pQuest;
 		if( (pDesc = MGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
 		{			
@@ -280,8 +280,8 @@ void MMatchShop::MakeShopXML()
 		ShopItemNode* pNode = it->second;
 		memset(szTemp, 0, 4096);
 
-		MMatchItemDesc* pDesc;
-		const MMatchGambleItem* pGamble;
+		CCMatchItemDesc* pDesc;
+		const CCMatchGambleItem* pGamble;
 		MQuestItemDesc* pQuest;
 		if( (pDesc = MGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
 		{			

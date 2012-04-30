@@ -4,11 +4,11 @@
 
 
 // DB에 저장되는 문자열중에 쿼리에 문제를 일이킬수 있는 문자를 제거하는 역활을 함.
-class MMatchDBFilter
+class CCMatchDBFilter
 {
 public :
-	MMatchDBFilter();
-	~MMatchDBFilter();
+	CCMatchDBFilter();
+	~CCMatchDBFilter();
 
 	string Filtering( const string& str );
 

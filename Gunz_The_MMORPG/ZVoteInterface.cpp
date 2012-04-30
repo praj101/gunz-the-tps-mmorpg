@@ -3,7 +3,7 @@
 #include "ZGameClient.h"
 #include "RMesh.h"
 #include "RVisualMeshMgr.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "ZCharacterManager.h"
 #include "ZPost.h"
 #include "ZApplication.h"

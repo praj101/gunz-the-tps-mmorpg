@@ -1608,7 +1608,7 @@ void ZEffectManager::AddShotgunEffect(rvector &pos,rvector &out,rvector &dir,ZOb
 }
 
 void ZEffectManager::AddShotEffect(rvector* pSource,int size, rvector& Target, rvector& TargetNormal, ZTargetType nTargetType,
-								   MMatchWeaponType wtype, bool bSlugOutput ,ZObject* pObj,bool bDrawFireEffects,bool bDrawTargetEffects)
+								   CCMatchWeaponType wtype, bool bSlugOutput ,ZObject* pObj,bool bDrawFireEffects,bool bDrawTargetEffects)
 {
 	// bDrawFireEffects : 발사되는쪽 이펙트
 	// bDrawTargetEffects : 맞는쪽 이펙트 그리는 여부
@@ -2550,7 +2550,7 @@ void ZEffectManager::AddRepairEffect(const rvector& Target,ZObject* pObj)
 	Add(pNew);
 }
 
-void ZEffectManager::AddPotionEffect(const rvector& Target, ZObject* pObj, MMatchItemEffectId effectId)
+void ZEffectManager::AddPotionEffect(const rvector& Target, ZObject* pObj, CCMatchItemEffectId effectId)
 {
 	ZEffect* pNew = NULL;
 
@@ -2863,7 +2863,7 @@ public:
 
 		virtual bool Draw(unsigned long int nTime)
 		{
-			MMatchObjCache* pCache = ZGetGameClient()->FindObjCache(m_uid);
+			CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(m_uid);
 			if (pCache && pCache->GetUGrade() != MMUG_STAR)
 				return false;
 

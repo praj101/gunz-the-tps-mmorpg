@@ -2,9 +2,9 @@
 #include "MSharedCommandTable.h"
 #include "MCommandManager.h"
 
-#include "MMatchChannel.h"
-#include "MMatchObject.h"
-#include "MMatchGlobal.h"
+#include "CCMatchChannel.h"
+#include "CCMatchObject.h"
+#include "CCMatchGlobal.h"
 
 void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 {
@@ -681,18 +681,18 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 		// 동의 요청
 		C(MC_MATCH_REQUEST_PROPOSAL, "Match.RequestProposal", "Request Proposal", MCDT_MACHINE2MACHINE)
 			P(MPT_UID, "uidChar")			// 요청한 캐릭터 UID
-			P(MPT_INT, "ProposalMode")		// 동의 종류 - MMatchProposalMode의 int형
+			P(MPT_INT, "ProposalMode")		// 동의 종류 - CCMatchProposalMode의 int형
 			P(MPT_INT, "RequestID")			// 요청ID - 클라이언트가 임의로 결정한다. 자신만 알고 있으면 됨.
 			P(MPT_INT, "ReplierCount")		// 동의를 물어볼 사람수
 			P(MPT_BLOB, "ReplierCharNames")	// 동의자 캐릭터 이름 - AskCount만큼이 BLOB에 들어있다.
 		C(MC_MATCH_RESPONSE_PROPOSAL, "Match.ResponseProposal", "Response Proposal", MCDT_MACHINE2MACHINE)
 			P(MPT_INT, "Result")			// 결과
-			P(MPT_INT, "ProposalMode")		// 동의 종류 - MMatchAgreementMode의 int형
+			P(MPT_INT, "ProposalMode")		// 동의 종류 - CCMatchAgreementMode의 int형
 			P(MPT_INT, "RequestID")			// 요청ID
 		C(MC_MATCH_ASK_AGREEMENT, "Match.AskAgreement", "Ask Agreement", MCDT_MACHINE2MACHINE)
 			P(MPT_UID,	"uidProposer")		// 제안자 캐릭터 UID
 			P(MPT_BLOB,	"MembersCharName")	// 참여자 캐릭터 이름들
-			P(MPT_INT,	"ProposalMode")		// 동의 종류 - MMatchAgreementMode의 int형
+			P(MPT_INT,	"ProposalMode")		// 동의 종류 - CCMatchAgreementMode의 int형
 			P(MPT_INT,	"RequestID")		// 요청ID
 		C(MC_MATCH_REPLY_AGREEMENT, "Match.ReplyAgreement", "Reply Agreement", MCDT_MACHINE2MACHINE)
 			P(MPT_UID,	"uidProposer")		// 제안자 캐릭터 UID

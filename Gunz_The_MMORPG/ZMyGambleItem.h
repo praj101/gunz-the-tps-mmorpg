@@ -2,7 +2,7 @@
 #define _ZMYGAMBLEITEM_H
 
 
-#include "MMatchBaseGambleItem.h"
+#include "CCMatchBaseGambleItem.h"
 
 
 #include <vector>
@@ -13,7 +13,7 @@ using std::vector;
 class ZGambleItemDefine;
 
 
-class ZMyGambleItem : public MMatchBaseGambleItem
+class ZMyGambleItem : public CCMatchBaseGambleItem
 {
 private :
 	ZMyGambleItem() {}	

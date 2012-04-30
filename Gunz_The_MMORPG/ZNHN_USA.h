@@ -6,7 +6,7 @@
 
 #include ".\\nhn\\HanAuthForClient.h"
 
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include "ZBaseAuthInfo.h"
 #include <string>
 using std::string;

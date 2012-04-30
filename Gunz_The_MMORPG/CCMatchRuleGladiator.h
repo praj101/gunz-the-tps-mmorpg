@@ -2,21 +2,21 @@
 #define _MMATCHRULE_GLADIATOR_H
 
 
-#include "MMatchRuleDeathMatch.h"
+#include "CCMatchRuleDeathMatch.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-class MMatchRuleSoloGladiator : public MMatchRuleSoloDeath  {
+class CCMatchRuleSoloGladiator : public CCMatchRuleSoloDeath  {
 public:
-	MMatchRuleSoloGladiator(CCMatchStage* pStage);
-	virtual ~MMatchRuleSoloGladiator() { }
+	CCMatchRuleSoloGladiator(CCMatchStage* pStage);
+	virtual ~CCMatchRuleSoloGladiator() { }
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_GLADIATOR_SOLO; }
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-class MMatchRuleTeamGladiator : public MMatchRuleTeamDeath {
+class CCMatchRuleTeamGladiator : public CCMatchRuleTeamDeath {
 public:
-	MMatchRuleTeamGladiator(CCMatchStage* pStage);
-	virtual ~MMatchRuleTeamGladiator()				{}
+	CCMatchRuleTeamGladiator(CCMatchStage* pStage);
+	virtual ~CCMatchRuleTeamGladiator()				{}
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_GLADIATOR_TEAM; }
 };
 

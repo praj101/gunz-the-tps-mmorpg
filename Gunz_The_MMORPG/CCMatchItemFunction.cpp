@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatchItemFunction.h"
+#include "CCMatchItemFunction.h"
 
 
 // nBountyPrice		: 상점 구입 가격
@@ -59,7 +59,7 @@ const int CalculateCashItemToBounty(CASHITEM_TYPE nType)
 // 
 // 기간수정치 : 남은 1일당 1배, 최대 30배(무제한 50배)
 // 종류수정치 : 무기 5배, 신발/장갑/머리 0.5배, 그외 1배
-const int CalculateCashItemToBounty(CASHITEM_TYPE nType, int nResLevel, int nRentMinuteRemainder, MMatchItemSlotType slotType)
+const int CalculateCashItemToBounty(CASHITEM_TYPE nType, int nResLevel, int nRentMinuteRemainder, CCMatchItemSlotType slotType)
 {
 	if( nType == CASHITEM_GAMBLE || nType == CASHITEM_SPENDABLE ) {
 		return CalculateCashItemToBounty(nType);

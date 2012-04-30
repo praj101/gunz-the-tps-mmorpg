@@ -18,7 +18,7 @@
 #define CCMATCH_GAMETYPE_DUELTOURNAMENT_STR		"Duel Tournament"
 
 // 리플레이 파일명용 모드 약어 (enum MMATCH_GAMETYPE 와 순서가 같아야함)
-const char* MMatchGameTypeAcronym[MMATCH_GAMETYPE_MAX] = {
+const char* CCMatchGameTypeAcronym[MMATCH_GAMETYPE_MAX] = {
 	"DM",		// DEATHMATCH_SOLO	
 	"DMT",		// DEATHMATCH_TEAM	
 	"GL",		// GLADIATOR_SOLO	
@@ -33,22 +33,22 @@ const char* MMatchGameTypeAcronym[MMATCH_GAMETYPE_MAX] = {
 	"DUELT",	// DUELTOURNAMENT	
 };
 
-void MMatchGameTypeInfo::Set(const MMATCH_GAMETYPE a_nGameTypeID, const char* a_szGameTypeStr, const float a_fGameExpRatio,
+void CCMatchGameTypeInfo::Set(const MMATCH_GAMETYPE a_nGameTypeID, const char* a_szGameTypeStr, const float a_fGameExpRatio,
 		    const float a_fTeamMyExpRatio, const float a_fTeamBonusExpRatio)
 {
-	MMatchGameTypeInfo::nGameTypeID = a_nGameTypeID;
-	strcpy(MMatchGameTypeInfo::szGameTypeStr, a_szGameTypeStr);
-	MMatchGameTypeInfo::fGameExpRatio = a_fGameExpRatio;
-	MMatchGameTypeInfo::fTeamMyExpRatio = a_fTeamMyExpRatio;
-	MMatchGameTypeInfo::fTeamBonusExpRatio = a_fTeamBonusExpRatio;
+	CCMatchGameTypeInfo::nGameTypeID = a_nGameTypeID;
+	strcpy(CCMatchGameTypeInfo::szGameTypeStr, a_szGameTypeStr);
+	CCMatchGameTypeInfo::fGameExpRatio = a_fGameExpRatio;
+	CCMatchGameTypeInfo::fTeamMyExpRatio = a_fTeamMyExpRatio;
+	CCMatchGameTypeInfo::fTeamBonusExpRatio = a_fTeamBonusExpRatio;
 }
 
-void MMatchGameTypeInfo::AddMap(int nMapID)
+void CCMatchGameTypeInfo::AddMap(int nMapID)
 {
 	MapSet.insert(set<int>::value_type(nMapID));
 }
 
-void MMatchGameTypeInfo::AddAllMap()
+void CCMatchGameTypeInfo::AddAllMap()
 {
 	for (int i = 0; i < MMATCH_MAP_MAX; i++)
 	{

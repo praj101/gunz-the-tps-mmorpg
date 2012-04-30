@@ -4,17 +4,17 @@
 #include <utility>
 
 
-MMatchDBFilter::MMatchDBFilter()
+CCMatchDBFilter::CCMatchDBFilter()
 {
 }
 
 
-MMatchDBFilter::~MMatchDBFilter()
+CCMatchDBFilter::~CCMatchDBFilter()
 {
 }
 
 
-string MMatchDBFilter::Filtering( const string& str )
+string CCMatchDBFilter::Filtering( const string& str )
 {
 	static string strRemoveTok = "'";
 

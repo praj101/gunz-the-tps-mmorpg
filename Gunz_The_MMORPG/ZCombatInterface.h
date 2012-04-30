@@ -123,7 +123,7 @@ protected:
 	bool				m_bPickTarget;
 	char				m_szTargetName[256];		// crosshair target ¿Ã∏ß
 	
-	MMatchItemDesc*		m_pLastItemDesc;
+	CCMatchItemDesc*		m_pLastItemDesc;
 
 	int					m_nBulletSpare;
 	int					m_nBulletCurrMagazine;
@@ -260,7 +260,7 @@ public:
 	ZVoteInterface* GetVoteInterface()	{ return &m_VoteInterface; }
 
 	void ShowCrossHair(bool bVisible) {	m_CrossHair.Show(bVisible); 	}
-	void OnGadget(MMatchWeaponType nWeaponType);
+	void OnGadget(CCMatchWeaponType nWeaponType);
 	void OnGadgetOff();
 
 	void SetSkipUIDraw(bool b) { m_bSkipUIDrawByRule = b; }

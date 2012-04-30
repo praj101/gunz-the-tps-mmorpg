@@ -5,7 +5,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // ZItem /////////////////////////////////////////////////////////////////////
-ZItem::ZItem() : MMatchItem()
+ZItem::ZItem() : CCMatchItem()
 {
 	m_nBulletSpare.Set_MakeCrc(0);
 	m_nBulletCurrMagazine.Set_MakeCrc(0);
@@ -117,7 +117,7 @@ bool ZItem::isReloadable()
 
 //////////////////////////////////////////////////
 // HP 와 AP 데미지 비율 계산 공식~
-float ZItem::GetPiercingRatio(MMatchWeaponType wtype, RMeshPartsType partstype)
+float ZItem::GetPiercingRatio(CCMatchWeaponType wtype, RMeshPartsType partstype)
 {
 	float fRatio = 0.5f;
 
@@ -244,7 +244,7 @@ float ZItem::GetKnockbackForce()
 {
 	float fKnockbackForce = 0.0f;
 
-	MMatchItemDesc* pDesc = GetDesc();
+	CCMatchItemDesc* pDesc = GetDesc();
 	if(pDesc) {
 		if (pDesc->m_nType.Ref() == MMIT_MELEE) {
 			fKnockbackForce = 200.0f;

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "zapplication.h"
-#include "MMatchObjCache.h"
+#include "CCMatchObjCache.h"
 #include ".\zplayerlistbox.h"
 #include "MBitmap.h"
 #include "MListBox.h"
@@ -17,8 +17,8 @@
 
 #define PLAYERLIST_ITEM_HEIGHT	23
 
-bool GetUserGradeIDColor(MMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name);
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 void ZPlayerListBoxLook::OnItemDraw2(MDrawContext* pDC, MRECT& r, const char* szText, MCOLOR color, bool bSelected, bool bFocus, int nAdjustWidth)
 {
@@ -477,7 +477,7 @@ void ZPlayerListBox::OnSize(int w,int h)
 }
 
 // mode PLAYERLISTMODE_CHANNEL
-void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char* szName, char *szClanName, unsigned int nClanID, MMatchUserGradeID nGrade, int duelTournamentGrade )
+void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char* szName, char *szClanName, unsigned int nClanID, CCMatchUserGradeID nGrade, int duelTournamentGrade )
 {
 	if ( (int)strlen( szName) == 0)
 		return;
@@ -527,7 +527,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char
 }
 
 // mode PLAYERLISTMODE_STAGE
-void ZPlayerListBox::AddPlayer(CCUID& puid, MMatchObjectStageState state, int nLevel, char* szName, char* szClanName, unsigned int nClanID, bool isMaster, MMatchTeam nTeam, int duelTournamentGrade)
+void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int nLevel, char* szName, char* szClanName, unsigned int nClanID, bool isMaster, CCMatchTeam nTeam, int duelTournamentGrade)
 {
 	if ( (int)strlen( szName) == 0)
 		return;
@@ -543,7 +543,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, MMatchObjectStageState state, int nL
 	char sp_name[256];
 	bool bSpUser = false;
 
-	MMatchUserGradeID gid = MMUG_FREE;
+	CCMatchUserGradeID gid = MMUG_FREE;
 
 	if(GetUserInfoUID(puid,_color,sp_name,gid)){
 		sprintf(szLevel,"--");
@@ -655,7 +655,7 @@ void ZPlayerListBox::AddPlayer(ePlayerState state, char* szName, char* szLocatio
 }
 
 // mode PLAYERLISTMODE_CHANNEL_CLAN
-void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, char* szName, int nLevel ,MMatchClanGrade nGrade )
+void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, char* szName, int nLevel ,CCMatchClanGrade nGrade )
 {
 	if ( (int)strlen( szName) == 0)
 		return;
@@ -776,7 +776,7 @@ void ZPlayerListBox::UpdateList(int mode)
 }
 
 
-void ZPlayerListBox::UpdatePlayer(CCUID& puid,MMatchObjectStageState state, bool isMaster,MMatchTeam nTeam)
+void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, bool isMaster,CCMatchTeam nTeam)
 {
 	ZStagePlayerListItem* pItem = (ZStagePlayerListItem*)GetUID(puid);
 
@@ -885,7 +885,7 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,MMatchObjectStageState state, bool
 }
 
 
-void ZPlayerListBox::UpdatePlayer(CCUID& puid,MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam)
+void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,CCMatchTeam nTeam)
 {
 	return;
 
@@ -1093,7 +1093,7 @@ bool ZPlayerListBox::OnEvent(MEvent* pEvent, MListener* pListener)
 
 				MCOLOR _color;
 				char sp_name[256];
-				MMatchUserGradeID gid;
+				CCMatchUserGradeID gid;
 
 				if(pItem->GetUID() == ZGetMyUID() && 
 					GetMode()!=PLAYERLISTMODE_CHANNEL_CLAN)	
@@ -1375,14 +1375,14 @@ void ZStagePlayerListBox::UpdatePlayer(CCUID& puid,eStagePlayerState state, char
 	}
 }
 
-void ZStagePlayerListBox::AddPlayer(MMatchObjCache* pCache)
+void ZStagePlayerListBox::AddPlayer(CCMatchObjCache* pCache)
 {
 	if(!pCache) return;
 
 	AddPlayer(pCache->GetUID(), MOSS_NONREADY,pCache->GetName(), pCache->GetLevel(),false,MMT_ALL);
 }
 
-void ZStagePlayerListBox::AddPlayer(CCUID& puid, MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam)
+void ZStagePlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,CCMatchTeam nTeam)
 {
 	char szFileName[64] = "";
 	char szFileNameState[64] = "";
@@ -1431,7 +1431,7 @@ bool ZStagePlayerListBox::OnEvent(MEvent* pEvent, MListener* pListener)
 }
 */
 /*
-void ZStagePlayerListBox::AddPlayer( MMatchObjCache* pCache )
+void ZStagePlayerListBox::AddPlayer( CCMatchObjCache* pCache )
 {
 	CCUID uid = pCache->GetUID();
 

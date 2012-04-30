@@ -363,7 +363,7 @@ public:
 	void AddEatBoxEffect(const rvector& Target,ZObject* pObj);
 	void AddHealEffect(const rvector& Target,ZObject* pObj);
 	void AddRepairEffect(const rvector& Target,ZObject* pObj);
-	void AddPotionEffect(const rvector& Target, ZObject* pObj, MMatchItemEffectId effectId);
+	void AddPotionEffect(const rvector& Target, ZObject* pObj, CCMatchItemEffectId effectId);
 	void AddHasteEffect(const rvector& Target, ZObject* pObj);
 	void AddHealOverTimeBeginEffect(const rvector& Target, ZObject* pObj);
 	void AddRepairOverTimeBeginEffect(const rvector& Target, ZObject* pObj);
@@ -371,7 +371,7 @@ public:
 	void AddExpanseAmmoEffect(const rvector& Target,ZObject* pObj);
 
 	void AddBulletMark(rvector& Target, rvector& TargetNormal);
-	void AddShotEffect(rvector* pSource,int size,rvector& Target, rvector& TargetNormal, ZTargetType nTargetType,MMatchWeaponType wtype, bool bSlugOutput, ZObject* pObj,bool bDrawFireEffects,bool bDrawTargetEffects );
+	void AddShotEffect(rvector* pSource,int size,rvector& Target, rvector& TargetNormal, ZTargetType nTargetType,CCMatchWeaponType wtype, bool bSlugOutput, ZObject* pObj,bool bDrawFireEffects,bool bDrawTargetEffects );
 	void AddShotgunEffect(rvector &pos,rvector &out,rvector &dir,ZObject* pObj);
 
 	void AddTrackFire(rvector &pos);

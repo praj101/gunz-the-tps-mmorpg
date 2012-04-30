@@ -19,8 +19,8 @@ ZMyInfo* ZMyInfo::GetInstance()
 }
 
 
-bool ZMyInfo::InitCharInfo(const char* szCharName, const char* szClanName, const MMatchClanGrade nClanGrade, 
-					 const MMatchSex nSex, const int nHair, const int nFace)
+bool ZMyInfo::InitCharInfo(const char* szCharName, const char* szClanName, const CCMatchClanGrade nClanGrade, 
+					 const CCMatchSex nSex, const int nHair, const int nFace)
 {
 	if (m_bCreated == true) {
 		Destroy();
@@ -79,7 +79,7 @@ void ZMyInfo::Serialize()
 	// TODO: 여기서 내 정보에 대한 UI 업데이트를 하도록 하자.
 }
 
-void ZMyInfo::SetClanInfo(const char* szClanName, const MMatchClanGrade nClanGrade)
+void ZMyInfo::SetClanInfo(const char* szClanName, const CCMatchClanGrade nClanGrade)
 {
 	strcpy(m_szClanName, szClanName);
 	m_nClanGrade = nClanGrade;
@@ -110,7 +110,7 @@ void ZMyInfo::SetLevel( int nLevel )
 	}
 }
 
-bool ZMyInfo::InitAccountInfo(const char* szAccountID, MMatchUserGradeID nUGradeID, MMatchPremiumGradeID nPGradeID)
+bool ZMyInfo::InitAccountInfo(const char* szAccountID, CCMatchUserGradeID nUGradeID, CCMatchPremiumGradeID nPGradeID)
 {
 	strcpy(m_szAccountID, szAccountID);
 	m_nUGradeID = nUGradeID;

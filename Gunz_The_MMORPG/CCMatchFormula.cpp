@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatchFormula.h"
+#include "CCMatchFormula.h"
 #include <math.h>
 #include "CCMatchItem.h"
 
@@ -10,15 +10,15 @@
 #define MMTOC_GETTING_BOUNTY_LEVEL_MODIFIER		"GettingBountyLM"
 
 
-float MMatchFormula::m_fNeedExpLMTable[MAX_LEVEL+1];
-float MMatchFormula::m_fGettingExpLMTable[MAX_LEVEL+1];
-float MMatchFormula::m_fGettingBountyLMTable[MAX_LEVEL+1];
+float CCMatchFormula::m_fNeedExpLMTable[MAX_LEVEL+1];
+float CCMatchFormula::m_fGettingExpLMTable[MAX_LEVEL+1];
+float CCMatchFormula::m_fGettingBountyLMTable[MAX_LEVEL+1];
 
-unsigned long int MMatchFormula::m_nNeedExp[MAX_LEVEL+1];
-unsigned long int MMatchFormula::m_nGettingExp[MAX_LEVEL+1];
-unsigned long int MMatchFormula::m_nGettingBounty[MAX_LEVEL+1];
+unsigned long int CCMatchFormula::m_nNeedExp[MAX_LEVEL+1];
+unsigned long int CCMatchFormula::m_nGettingExp[MAX_LEVEL+1];
+unsigned long int CCMatchFormula::m_nGettingBounty[MAX_LEVEL+1];
 
-bool MMatchFormula::Create()
+bool CCMatchFormula::Create()
 {
 	ZeroMemory(m_fNeedExpLMTable, sizeof(m_fNeedExpLMTable));
 	ZeroMemory(m_fGettingExpLMTable, sizeof(m_fGettingExpLMTable));
@@ -40,7 +40,7 @@ bool MMatchFormula::Create()
 	return true;
 }
 
-bool MMatchFormula::ReadXml(const char* szXmlFileName)
+bool CCMatchFormula::ReadXml(const char* szXmlFileName)
 {
 	CCXmlDocument	xmlIniData;
 
@@ -88,7 +88,7 @@ bool MMatchFormula::ReadXml(const char* szXmlFileName)
 	return true;
 }
 
-void MMatchFormula::ParseNeedExpLM(CCXmlElement& element)
+void CCMatchFormula::ParseNeedExpLM(CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
 	CCXmlElement childElement;
@@ -111,14 +111,14 @@ void MMatchFormula::ParseNeedExpLM(CCXmlElement& element)
 
 			for (int i = nLower; i <= nUpper; i++)
 			{
-				if (MMatchFormula::m_fNeedExpLMTable[i] <= 0.0001f) 
-					MMatchFormula::m_fNeedExpLMTable[i] = fLM;
+				if (CCMatchFormula::m_fNeedExpLMTable[i] <= 0.0001f) 
+					CCMatchFormula::m_fNeedExpLMTable[i] = fLM;
 			}
 		}
 	}
 }
 
-void MMatchFormula::ParseGettingExpLM(CCXmlElement& element)
+void CCMatchFormula::ParseGettingExpLM(CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
 	CCXmlElement childElement;
@@ -141,14 +141,14 @@ void MMatchFormula::ParseGettingExpLM(CCXmlElement& element)
 
 			for (int i = nLower; i <= nUpper; i++)
 			{
-				if (MMatchFormula::m_fGettingExpLMTable[i] <= 0.0001f) 
-					MMatchFormula::m_fGettingExpLMTable[i] = fLM;
+				if (CCMatchFormula::m_fGettingExpLMTable[i] <= 0.0001f) 
+					CCMatchFormula::m_fGettingExpLMTable[i] = fLM;
 			}
 		}
 	}
 }
 
-void MMatchFormula::ParseGettingBountyLM(CCXmlElement& element)
+void CCMatchFormula::ParseGettingBountyLM(CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
 	CCXmlElement childElement;
@@ -171,15 +171,15 @@ void MMatchFormula::ParseGettingBountyLM(CCXmlElement& element)
 
 			for (int i = nLower; i <= nUpper; i++)
 			{
-				if (MMatchFormula::m_fGettingBountyLMTable[i] <= 0.0001f) 
-					MMatchFormula::m_fGettingBountyLMTable[i] = fLM;
+				if (CCMatchFormula::m_fGettingBountyLMTable[i] <= 0.0001f) 
+					CCMatchFormula::m_fGettingBountyLMTable[i] = fLM;
 			}
 		}
 	}
 }
 
 
-void MMatchFormula::PreCalcNeedExp()
+void CCMatchFormula::PreCalcNeedExp()
 {
 	unsigned long int n;
 	for (int lvl = 1; lvl <= MAX_LEVEL; lvl++)
@@ -190,7 +190,7 @@ void MMatchFormula::PreCalcNeedExp()
 	}
 }
 
-void MMatchFormula::PreCalcGettingExp()
+void CCMatchFormula::PreCalcGettingExp()
 {
 	for (int lvl = 1; lvl <= MAX_LEVEL; lvl++)
 	{
@@ -202,7 +202,7 @@ void MMatchFormula::PreCalcGettingExp()
 	}
 }
 
-void MMatchFormula::PreCalcGettingBounty()
+void CCMatchFormula::PreCalcGettingBounty()
 {
 	for (int lvl = 1; lvl <= MAX_LEVEL; lvl++)
 	{
@@ -214,7 +214,7 @@ void MMatchFormula::PreCalcGettingBounty()
 }
 
 
-unsigned long int MMatchFormula::CalcPanaltyEXP(int nAttackerLevel, int nVictimLevel)
+unsigned long int CCMatchFormula::CalcPanaltyEXP(int nAttackerLevel, int nVictimLevel)
 {
 #define BOUNDARY_PANALTY_LEVEL		20
 
@@ -240,7 +240,7 @@ unsigned long int MMatchFormula::CalcPanaltyEXP(int nAttackerLevel, int nVictimL
 	return (unsigned long int)nExp;
 }
 
-unsigned long int MMatchFormula::GetSuicidePanaltyEXP(int nLevel)
+unsigned long int CCMatchFormula::GetSuicidePanaltyEXP(int nLevel)
 {
 #define BOUNDARY_SUICIDE_PANALTY_LEVEL		5
 
@@ -262,7 +262,7 @@ unsigned long int MMatchFormula::GetSuicidePanaltyEXP(int nLevel)
 	return (unsigned long int)nExp;
 }
 
-int MMatchFormula::GetLevelFromExp(unsigned long int nExp)
+int CCMatchFormula::GetLevelFromExp(unsigned long int nExp)
 {
 	for (int level = 1; level < MAX_LEVEL; level++)
 	{
@@ -275,7 +275,7 @@ int MMatchFormula::GetLevelFromExp(unsigned long int nExp)
 	return MAX_LEVEL;
 }
 
-unsigned long int MMatchFormula::GetGettingExp(int nAttackerLevel, int nVictimLevel)
+unsigned long int CCMatchFormula::GetGettingExp(int nAttackerLevel, int nVictimLevel)
 { 
 	unsigned long int nExp, nAttackerMaxExp;
     
@@ -286,7 +286,7 @@ unsigned long int MMatchFormula::GetGettingExp(int nAttackerLevel, int nVictimLe
 	return nExp;
 }
 
-unsigned long int MMatchFormula::GetGettingBounty(int nAttackerLevel, int nVictimLevel)
+unsigned long int CCMatchFormula::GetGettingBounty(int nAttackerLevel, int nVictimLevel)
 {
 	unsigned long int nBounty, nAttackerMaxBounty;
     
@@ -297,13 +297,13 @@ unsigned long int MMatchFormula::GetGettingBounty(int nAttackerLevel, int nVicti
 	return nBounty;
 }
 
-int MMatchFormula::GetLevelPercent(unsigned long int nExp, int nNowLevel)
+int CCMatchFormula::GetLevelPercent(unsigned long int nExp, int nNowLevel)
 {
 	unsigned long int nNowLevelExp, nNextLevelExp;
 	int nPercent;
 
-	nNowLevelExp = MMatchFormula::GetNeedExp(nNowLevel-1);
-	nNextLevelExp = MMatchFormula::GetNeedExp(nNowLevel);
+	nNowLevelExp = CCMatchFormula::GetNeedExp(nNowLevel-1);
+	nNextLevelExp = CCMatchFormula::GetNeedExp(nNowLevel);
 
 	nPercent = (int)(((float)(nExp - nNowLevelExp) / (float)(nNextLevelExp - nNowLevelExp)) * 100);
 	if (nPercent < 0) nPercent = 0; 
@@ -312,7 +312,7 @@ int MMatchFormula::GetLevelPercent(unsigned long int nExp, int nNowLevel)
 	return nPercent;
 }
 
-int MMatchFormula::GetClanBattlePoint(int nWinnerClanPoint, int nLoserClanPoint, int nOneTeamMemberCount)
+int CCMatchFormula::GetClanBattlePoint(int nWinnerClanPoint, int nLoserClanPoint, int nOneTeamMemberCount)
 {
 	// http://iworks.maietgames.com/mdn/wiki.php/클랜전 에 공식이 나와있음
 /*
@@ -334,7 +334,7 @@ Delta = Delta1+Delta2
 }
 
 // 우선 왼쪽 것을 검사한 후에 오른쪽 것을 검사해서 반지 한개만 적용한다. 프리미엄 IP도 검사
-float MMatchFormula::CalcXPBonusRatio(CCMatchObject* pCharObj, MMatchItemBonusType nBonusType)
+float CCMatchFormula::CalcXPBonusRatio(CCMatchObject* pCharObj, CCMatchItemBonusType nBonusType)
 {
 	float fBonusRatio = 0.0f;
 
@@ -347,9 +347,9 @@ float MMatchFormula::CalcXPBonusRatio(CCMatchObject* pCharObj, MMatchItemBonusTy
 	}
 
 	// 경험치 아이템 계산 //////////////////////////////////////////////////////////////////
-	MMatchEquipedItem* pEquipedItems = &pCharObj->GetCharInfo()->m_EquipedItem;
-	MMatchItem*		pItem;
-	MMatchItemDesc* pItemDesc;
+	CCMatchEquipedItem* pEquipedItems = &pCharObj->GetCharInfo()->m_EquipedItem;
+	CCMatchItem*		pItem;
+	CCMatchItemDesc* pItemDesc;
 	float			fItemBounusRatio = 0.0f;
 
 	switch (nBonusType)
@@ -358,7 +358,7 @@ float MMatchFormula::CalcXPBonusRatio(CCMatchObject* pCharObj, MMatchItemBonusTy
 		{
 			for(int i=0; i<(int)MMCIP_END; ++i)
 			{
-				pItem= pEquipedItems->GetItem((MMatchCharItemParts)i);
+				pItem= pEquipedItems->GetItem((CCMatchCharItemParts)i);
 				if(pItem)
 					pItemDesc = pItem->GetDesc();
 				else
@@ -372,7 +372,7 @@ float MMatchFormula::CalcXPBonusRatio(CCMatchObject* pCharObj, MMatchItemBonusTy
 		{
 			for(int i=0; i<(int)MMCIP_END; ++i)
 			{
-				pItem= pEquipedItems->GetItem((MMatchCharItemParts)i);
+				pItem= pEquipedItems->GetItem((CCMatchCharItemParts)i);
 				if(pItem)
 					pItemDesc = pItem->GetDesc();
 				else
@@ -387,7 +387,7 @@ float MMatchFormula::CalcXPBonusRatio(CCMatchObject* pCharObj, MMatchItemBonusTy
 		{
 			for(int i=0; i<(int)MMCIP_END; ++i)
 			{
-				pItem= pEquipedItems->GetItem((MMatchCharItemParts)i);
+				pItem= pEquipedItems->GetItem((CCMatchCharItemParts)i);
 				if(pItem)
 					pItemDesc = pItem->GetDesc();
 				else
@@ -406,7 +406,7 @@ float MMatchFormula::CalcXPBonusRatio(CCMatchObject* pCharObj, MMatchItemBonusTy
 }
 
 
-float MMatchFormula::CalcBPBounsRatio(CCMatchObject* pCharObj, MMatchItemBonusType nBonusType )
+float CCMatchFormula::CalcBPBounsRatio(CCMatchObject* pCharObj, CCMatchItemBonusType nBonusType )
 {
 	float fBonusRatio = 0.0f;
 
@@ -418,9 +418,9 @@ float MMatchFormula::CalcBPBounsRatio(CCMatchObject* pCharObj, MMatchItemBonusTy
 		fBonusRatio += PREMIUM_IP_BONUS;
 	}
 
-	MMatchEquipedItem* pEquipedItems = &(pCharObj->GetCharInfo()->m_EquipedItem);
-	MMatchItem*		pItem;
-	MMatchItemDesc* pItemDesc;
+	CCMatchEquipedItem* pEquipedItems = &(pCharObj->GetCharInfo()->m_EquipedItem);
+	CCMatchItem*		pItem;
+	CCMatchItemDesc* pItemDesc;
 	float			fItemBounusRatio = 0.0f;
 
 	switch (nBonusType)
@@ -429,7 +429,7 @@ float MMatchFormula::CalcBPBounsRatio(CCMatchObject* pCharObj, MMatchItemBonusTy
 		{
 			for(int i=0; i<(int)MMCIP_END; ++i)
 			{
-				pItem= pEquipedItems->GetItem((MMatchCharItemParts)i);
+				pItem= pEquipedItems->GetItem((CCMatchCharItemParts)i);
 				if(pItem)
 					pItemDesc = pItem->GetDesc();
 				else
@@ -443,7 +443,7 @@ float MMatchFormula::CalcBPBounsRatio(CCMatchObject* pCharObj, MMatchItemBonusTy
 		{
 			for(int i=0; i<(int)MMCIP_END; ++i)
 			{
-				pItem= pEquipedItems->GetItem((MMatchCharItemParts)i);
+				pItem= pEquipedItems->GetItem((CCMatchCharItemParts)i);
 				if(pItem)
 					pItemDesc = pItem->GetDesc();
 				else
@@ -457,7 +457,7 @@ float MMatchFormula::CalcBPBounsRatio(CCMatchObject* pCharObj, MMatchItemBonusTy
 		{
 			for(int i=0; i<(int)MMCIP_END; ++i)
 			{
-				pItem= pEquipedItems->GetItem((MMatchCharItemParts)i);
+				pItem= pEquipedItems->GetItem((CCMatchCharItemParts)i);
 				if(pItem)
 					pItemDesc = pItem->GetDesc();
 				else

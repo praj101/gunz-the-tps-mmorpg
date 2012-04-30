@@ -7,7 +7,7 @@
 #include "RVisualMeshMgr.h"
 #include "ZMeshView.h"
 #include "MButton.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 
 using namespace RealSpace2;
 
@@ -22,7 +22,7 @@ protected:
 	unsigned long int		m_nItemID;
 	unsigned int			m_nItemCount;
 
-	MMatchCharItemParts		m_nParts;
+	CCMatchCharItemParts		m_nParts;
 
 	bool					m_bSelectBox;			// 셀렉트 박스 출력 여부
 	bool					m_bDragAndDrop;			// 드래그 앤 드롭 가능 여부
@@ -33,9 +33,9 @@ protected:
 	virtual bool IsDropable(MWidget* pSender);
 	virtual bool OnDrop(MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString);
 
-	void SetDefaultText(MMatchCharItemParts nParts);
+	void SetDefaultText(CCMatchCharItemParts nParts);
 	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
-	bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, MMatchSex nPlayerSex);
+	bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, CCMatchSex nPlayerSex);
 
 	virtual void OnMouseIn(void);
 	virtual void OnMouseOut(void);
@@ -47,8 +47,8 @@ public:
 
 	ZItemSlotView(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
 	virtual ~ZItemSlotView(void);
-	MMatchCharItemParts GetParts() { return m_nParts; }
-	void SetParts(MMatchCharItemParts nParts);
+	CCMatchCharItemParts GetParts() { return m_nParts; }
+	void SetParts(CCMatchCharItemParts nParts);
 
 	void SetBackBitmap(MBitmap* pBitmap);
 	void SetIConBitmap(MBitmap* pBitmap);

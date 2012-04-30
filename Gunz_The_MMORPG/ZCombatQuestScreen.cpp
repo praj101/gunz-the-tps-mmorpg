@@ -65,7 +65,7 @@ void ZCombatQuestScreen::OnDraw(MDrawContext* pDC)
 		bool bEventHide = false;
 		if (ZGetMyInfo()->IsAdminGrade()) 
 		{
-			MMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
+			CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 			if (pCache && pCache->CheckFlag(MTD_PlayerFlags_AdminHide)) bEventHide = true;
 		}
 

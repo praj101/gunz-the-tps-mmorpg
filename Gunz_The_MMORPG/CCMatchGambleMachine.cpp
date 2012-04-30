@@ -6,25 +6,25 @@
 
 
 
-MMatchGambleMachine::MMatchGambleMachine()
+CCMatchGambleMachine::CCMatchGambleMachine()
 {
 	m_dwLastUpdateTime = 0;
 }
 
 
-MMatchGambleMachine::~MMatchGambleMachine()
+CCMatchGambleMachine::~CCMatchGambleMachine()
 {
 }
 
 
-const MMatchGambleRewardItem* MMatchGambleMachine::Gamble( const DWORD dwGambleItemID ) const
+const CCMatchGambleRewardItem* CCMatchGambleMachine::Gamble( const DWORD dwGambleItemID ) const
 {
 	return GetGambleRewardItem( dwGambleItemID, RandomNumber(0, MAX_GAMBLE_RATE) );
 }
 
 
 // 겜블 아이템의 사용 시간을 검사해서 보내야 하는 겜블 아이템을 인자로 넘어온 백터에 담아준다. //
-void MMatchGambleMachine::GetItemVectorByCheckedItemTime(vector<DWORD>& outItemIndexVec, const DWORD dwCurTime) const
+void CCMatchGambleMachine::GetItemVectorByCheckedItemTime(vector<DWORD>& outItemIndexVec, const DWORD dwCurTime) const
 {
 	// 안에 아이템이 들어있으면 안된다.
 	_ASSERT( outItemIndexVec.empty() );
@@ -34,7 +34,7 @@ void MMatchGambleMachine::GetItemVectorByCheckedItemTime(vector<DWORD>& outItemI
 	const DWORD VecSize = (DWORD)m_GambleItemVec.size();
 	for (DWORD i = 0; i < VecSize; i++)
 	{
-		const MMatchGambleItem* pGambleItem = m_GambleItemVec[i];
+		const CCMatchGambleItem* pGambleItem = m_GambleItemVec[i];
 		if (pGambleItem == NULL)
 		{
 			ASSERT( 0 );
@@ -60,9 +60,9 @@ void MMatchGambleMachine::GetItemVectorByCheckedItemTime(vector<DWORD>& outItemI
 	}
 }
 
-const MMatchGambleRewardItem* MMatchGambleMachine::GetGambleRewardItem( const DWORD dwGambleItemID, const WORD wRate ) const
+const CCMatchGambleRewardItem* CCMatchGambleMachine::GetGambleRewardItem( const DWORD dwGambleItemID, const WORD wRate ) const
 {
-	map< DWORD, MMatchGambleItem* >::const_iterator itFind = m_GambleItemMap.find( dwGambleItemID );
+	map< DWORD, CCMatchGambleItem* >::const_iterator itFind = m_GambleItemMap.find( dwGambleItemID );
 	if( m_GambleItemMap.end() == itFind )
 		return NULL;
 
@@ -70,7 +70,7 @@ const MMatchGambleRewardItem* MMatchGambleMachine::GetGambleRewardItem( const DW
 }
 
 
-const MMatchGambleItem* MMatchGambleMachine::GetGambleItemByIndex( const DWORD dwIndex ) const
+const CCMatchGambleItem* CCMatchGambleMachine::GetGambleItemByIndex( const DWORD dwIndex ) const
 {
 	if( dwIndex < m_GambleItemVec.size() )
 		return m_GambleItemVec[ dwIndex ];
@@ -79,15 +79,15 @@ const MMatchGambleItem* MMatchGambleMachine::GetGambleItemByIndex( const DWORD d
 }
 
 
-bool MMatchGambleMachine::CreateGambleItemListWithGambleRewardList( vector<MMatchGambleItem*>& vGambleItemList
-																, vector<MMatchGambleRewardItem*>& vGambleRewardItemList )
+bool CCMatchGambleMachine::CreateGambleItemListWithGambleRewardList( vector<CCMatchGambleItem*>& vGambleItemList
+																, vector<CCMatchGambleRewardItem*>& vGambleRewardItemList )
 {
 	Release();
 
 	DWORD dwGIID = 0;
 
-	vector<MMatchGambleItem*>::iterator itGI, endGI;
-	vector<MMatchGambleRewardItem*>::iterator itRI, endRI;
+	vector<CCMatchGambleItem*>::iterator itGI, endGI;
+	vector<CCMatchGambleRewardItem*>::iterator itRI, endRI;
 
 	endGI = vGambleItemList.end();
 	endRI = vGambleRewardItemList.end();
@@ -115,7 +115,7 @@ bool MMatchGambleMachine::CreateGambleItemListWithGambleRewardList( vector<MMatc
 
 		_ASSERT( 1000 == (*itGI)->GetTotalRate() );
 
-		m_GambleItemMap.insert( map<DWORD, MMatchGambleItem*>::value_type(dwGIID, (*itGI)) );
+		m_GambleItemMap.insert( map<DWORD, CCMatchGambleItem*>::value_type(dwGIID, (*itGI)) );
 		m_GambleItemVec.push_back( (*itGI) );
 	}
 
@@ -128,16 +128,16 @@ bool MMatchGambleMachine::CreateGambleItemListWithGambleRewardList( vector<MMatc
 }
 
 
-bool MMatchGambleMachine::CreateGambleItemList( vector<MMatchGambleItem*>& vGambleItemList )
+bool CCMatchGambleMachine::CreateGambleItemList( vector<CCMatchGambleItem*>& vGambleItemList )
 {
 	Release();
 
-	vector<MMatchGambleItem*>::iterator itGI, endGI;
+	vector<CCMatchGambleItem*>::iterator itGI, endGI;
 	endGI = vGambleItemList.end();
 
 	for( itGI = vGambleItemList.begin(); itGI != endGI; ++itGI )
 	{
-		m_GambleItemMap.insert( map<DWORD, MMatchGambleItem*>::value_type((*itGI)->GetGambleItemID(), (*itGI)) );
+		m_GambleItemMap.insert( map<DWORD, CCMatchGambleItem*>::value_type((*itGI)->GetGambleItemID(), (*itGI)) );
 		m_GambleItemVec.push_back( (*itGI) );
 	}
 
@@ -147,9 +147,9 @@ bool MMatchGambleMachine::CreateGambleItemList( vector<MMatchGambleItem*>& vGamb
 }
 
 
-void MMatchGambleMachine::Release()
+void CCMatchGambleMachine::Release()
 {
-	vector< MMatchGambleItem* >::iterator it, end;
+	vector< CCMatchGambleItem* >::iterator it, end;
 	end = m_GambleItemVec.end();
 	for( it = m_GambleItemVec.begin(); it != end; ++it )
 	{
@@ -162,9 +162,9 @@ void MMatchGambleMachine::Release()
 }
 
 
-const MMatchGambleItem*	MMatchGambleMachine::GetGambleItemByGambleItemID( const DWORD dwGambleItemID ) const
+const CCMatchGambleItem*	CCMatchGambleMachine::GetGambleItemByGambleItemID( const DWORD dwGambleItemID ) const
 {
-	map< DWORD, MMatchGambleItem* >::const_iterator itFind = m_GambleItemMap.find( dwGambleItemID );
+	map< DWORD, CCMatchGambleItem* >::const_iterator itFind = m_GambleItemMap.find( dwGambleItemID );
 	if( m_GambleItemMap.end() == itFind )
 		return NULL;
 
@@ -172,9 +172,9 @@ const MMatchGambleItem*	MMatchGambleMachine::GetGambleItemByGambleItemID( const 
 }
 
 
-const MMatchGambleItem* MMatchGambleMachine::GetGambleItemByName( const string& strGambleItemName ) const
+const CCMatchGambleItem* CCMatchGambleMachine::GetGambleItemByName( const string& strGambleItemName ) const
 {
-	vector< MMatchGambleItem* >::const_iterator it, end;
+	vector< CCMatchGambleItem* >::const_iterator it, end;
 	end = m_GambleItemVec.end();
 	for( it = m_GambleItemVec.begin(); it != end; ++it )
 	{
@@ -186,7 +186,7 @@ const MMatchGambleItem* MMatchGambleMachine::GetGambleItemByName( const string& 
 }
 
 
-void MMatchGambleMachine::GetOpenedGambleItemList( vector<DWORD>& outGItemList ) const
+void CCMatchGambleMachine::GetOpenedGambleItemList( vector<DWORD>& outGItemList ) const
 {
 	const DWORD dwSize = GetGambleItemSize();
 	for( DWORD i = 0; i < dwSize; ++i )
@@ -197,9 +197,9 @@ void MMatchGambleMachine::GetOpenedGambleItemList( vector<DWORD>& outGItemList )
 }
 
 
-const bool MMatchGambleMachine::IsItTimeoverEventGambleItem( const DWORD dwGambleItemID, const DWORD dwCurTime ) const
+const bool CCMatchGambleMachine::IsItTimeoverEventGambleItem( const DWORD dwGambleItemID, const DWORD dwCurTime ) const
 {
-	const MMatchGambleItem* pGItem = GetGambleItemByGambleItemID( dwGambleItemID );
+	const CCMatchGambleItem* pGItem = GetGambleItemByGambleItemID( dwGambleItemID );
 	if( NULL == pGItem )
 		return true;
 
@@ -214,7 +214,7 @@ const bool MMatchGambleMachine::IsItTimeoverEventGambleItem( const DWORD dwGambl
 }
 
 
-const bool MMatchGambleMachine::CheckGambleItemIsSelling( const int nStartTimeMin
+const bool CCMatchGambleMachine::CheckGambleItemIsSelling( const int nStartTimeMin
 														 , const int nEndTimeMin
 														 , const int nCurTimeMin
 														 , const bool bIsNoTimeLimit  ) const
@@ -239,17 +239,17 @@ const bool MMatchGambleMachine::CheckGambleItemIsSelling( const int nStartTimeMi
 
 
 
-void MMatchGambleMachine::WriteGambleItemInfoToLog() const
+void CCMatchGambleMachine::WriteGambleItemInfoToLog() const
 {
-	vector< MMatchGambleItem* >::const_iterator end			= m_GambleItemVec.end();
-	vector< MMatchGambleItem* >::const_iterator	it			= m_GambleItemVec.begin();
+	vector< CCMatchGambleItem* >::const_iterator end			= m_GambleItemVec.end();
+	vector< CCMatchGambleItem* >::const_iterator	it			= m_GambleItemVec.begin();
 	const DWORD									dwCurTime	= MGetMatchServer()->GetGlobalClockCount();
 
 	cclog( "\n=== Dump GambleItem Info. ===\n" );
 	cclog( "Gamble item list.\n" );
 	for( ; end != it; ++it )
 	{
-		MMatchGambleItem* pGItem = (*it);
+		CCMatchGambleItem* pGItem = (*it);
 
 		cclog( "Gamble item. ID(%d), Name(%s), IsTimeover(%d).\n"
 			, pGItem->GetGambleItemID()
@@ -265,7 +265,7 @@ void MMatchGambleMachine::WriteGambleItemInfoToLog() const
 	vector< DWORD >::const_iterator	itShop	= vShopGItemList.begin();
 	for( ; endShop != itShop; ++itShop )
 	{
-		const MMatchGambleItem* pGItem = GetGambleItemByIndex( (*itShop) );
+		const CCMatchGambleItem* pGItem = GetGambleItemByIndex( (*itShop) );
 		if( NULL == pGItem )
 		{
 			_ASSERT( NULL != pGItem );

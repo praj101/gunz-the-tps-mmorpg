@@ -117,9 +117,9 @@ void ZShopEquipInterface::OnBuyButton(void)
 
 // 아이템의 슬롯 정보에 따라 착용할 파츠를 골라준다
 // 예를 들어 custom1에 이미 장착된 경우 custom2가 비어있으면 custom2를 골라주고, 둘다 장착중이면 custom1을 골라주는 식
-MMatchCharItemParts ZShopEquipInterface::RecommendEquipParts(MMatchItemSlotType slot)
+CCMatchCharItemParts ZShopEquipInterface::RecommendEquipParts(CCMatchItemSlotType slot)
 {
-	MMatchCharItemParts parts = MMCIP_END;
+	CCMatchCharItemParts parts = MMCIP_END;
 
 	if (slot == MMIST_RANGE)
 	{
@@ -241,13 +241,13 @@ bool ZShopEquipInterface::Equip(void)
 	if (!pWrappedZItem->GetHandleSell()) { _ASSERT(0); return false; }
 
 	CCUID uidItem = pWrappedZItem->GetHandleSell()->GetItemUID();
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
 	if (!pItemDesc) return false;
 
 	if (pItemDesc->m_nSlot == MMIST_NONE)
 		return false;
 
-	MMatchCharItemParts parts = RecommendEquipParts(pItemDesc->m_nSlot);
+	CCMatchCharItemParts parts = RecommendEquipParts(pItemDesc->m_nSlot);
 	if (parts == MMCIP_END)
 		return false;
 
@@ -259,7 +259,7 @@ bool ZShopEquipInterface::Equip(void)
 	return Equip(parts, uidItem);
 }
 
-bool ZShopEquipInterface::Equip(MMatchCharItemParts parts, CCUID& uidItem)
+bool ZShopEquipInterface::Equip(CCMatchCharItemParts parts, CCUID& uidItem)
 {
 	ZPostRequestEquipItem(ZGetGameClient()->GetPlayerUID(), uidItem, parts);
 	// 서버에서 자동으로 보내준다.
@@ -268,7 +268,7 @@ bool ZShopEquipInterface::Equip(MMatchCharItemParts parts, CCUID& uidItem)
 }
 
 // 장비 아이콘 드래그 앤 드롭 상태일때 장착 가능한 ItemSlot 뷰 설정하기
-void ZShopEquipInterface::SetKindableItem( MMatchItemSlotType nSlotType)
+void ZShopEquipInterface::SetKindableItem( CCMatchItemSlotType nSlotType)
 {
 	ZItemSlotView* itemSlot;
 	for ( int i = 0;  i < MMCIP_END;  i++)
@@ -282,7 +282,7 @@ void ZShopEquipInterface::SetKindableItem( MMatchItemSlotType nSlotType)
 	}
 }
 
-bool ZShopEquipInterface::IsKindableItem(MMatchCharItemParts nParts, MMatchItemSlotType nSlotType)
+bool ZShopEquipInterface::IsKindableItem(CCMatchCharItemParts nParts, CCMatchItemSlotType nSlotType)
 {
 	switch (nSlotType)
 	{
@@ -356,7 +356,7 @@ int ZShopEquipInterface::_CheckRestrictBringAccountItem()
 		if (!pMyItemNode) return 0;
 
 		unsigned long nItemID = pMyItemNode->GetItemID();
-		MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 		if (!pItemDesc)
 		{
 			if( ZGetGambleItemDefineMgr().GetGambleItemDefine(nItemID) ) {
@@ -787,7 +787,7 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 			itemSlot = (MWidget*)pResource->FindWidget( GetItemSlotName( szName, i));
 
 			if (itemSlot) {
-				if(GetArmorWeaponTabIndex() == GetArmorWeaponTabIndexContainItemParts((MMatchCharItemParts)i)) {					
+				if(GetArmorWeaponTabIndex() == GetArmorWeaponTabIndexContainItemParts((CCMatchCharItemParts)i)) {					
 					rect = itemSlot->GetRect();
 
 					itemSlot->SetBounds( rect.x, rect.y, nWidth, rect.h);
@@ -819,7 +819,7 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 }
 
 // 인자로 주어진 아이템파츠를 담는 아이템슬롯이 있는 탭 인덱스를 알려준다
-int ZShopEquipInterface::GetArmorWeaponTabIndexContainItemParts(MMatchCharItemParts parts)
+int ZShopEquipInterface::GetArmorWeaponTabIndexContainItemParts(CCMatchCharItemParts parts)
 {
 	// 방어구탭
 	if (parts < MMCIP_MELEE || parts == MMCIP_AVATAR)
@@ -857,7 +857,7 @@ bool ZShopEquipInterface::IsEquipmentFrameListOpened( const char* szName)
 }
 
 // 주어진 슬롯타입을 담고 있는 탭을 선택해준다 - 리스트에서 어떤 아이템을 선택한 경우 그 아이템에 맞는 방어구/무기탭을 자동변경해주는 기능을 위해
-void ZShopEquipInterface::SelectArmorWeaponTabWithSlotType(MMatchItemSlotType nSlotType)
+void ZShopEquipInterface::SelectArmorWeaponTabWithSlotType(CCMatchItemSlotType nSlotType)
 {
 	ZItemSlotView* pItemSlot;
 	for ( int i = 0;  i < MMCIP_END;  i++)

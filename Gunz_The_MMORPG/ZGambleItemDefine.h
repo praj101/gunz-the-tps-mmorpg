@@ -2,7 +2,7 @@
 #define _ZMYGAMBLEITEMDEFINE_H
 
 
-#include "MMatchDBBaseGambleItem.h"
+#include "CCMatchDBBaseGambleItem.h"
 
 
 #include <map>
@@ -10,7 +10,7 @@
 using std::map;
 
 
-class ZGambleItemDefine : public MMatchDBBaseGambleItem
+class ZGambleItemDefine : public CCMatchDBBaseGambleItem
 {
 private :
 	
@@ -20,7 +20,7 @@ public :
 		, const string& strDesc
 		, const DWORD dwPrice
 		, const bool bIsCash ) 
-		: MMatchDBBaseGambleItem( dwGIID
+		: CCMatchDBBaseGambleItem( dwGIID
 								, strName
 								, strDesc
 								, dwPrice

@@ -11,4 +11,4 @@ enum CASHITEM_TYPE
 };
 
 const int CalculateCashItemToBounty(CASHITEM_TYPE nType);
-const int CalculateCashItemToBounty(CASHITEM_TYPE nType, int nResLevel, int nRentMinuteRemainder, MMatchItemSlotType slotType);
+const int CalculateCashItemToBounty(CASHITEM_TYPE nType, int nResLevel, int nRentMinuteRemainder, CCMatchItemSlotType slotType);

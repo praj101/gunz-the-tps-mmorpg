@@ -4,7 +4,7 @@
 
 
 ZMyGambleItem::ZMyGambleItem( const CCUID& uidItem, const DWORD dwGambleItemID, const int nItemCount ) 
-	: MMatchBaseGambleItem( uidItem, dwGambleItemID, nItemCount )
+	: CCMatchBaseGambleItem( uidItem, dwGambleItemID, nItemCount )
 {
 }
 

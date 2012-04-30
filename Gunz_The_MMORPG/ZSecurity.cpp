@@ -5,7 +5,7 @@
 #include "MDataChecker.h"
 //#include "MProcessController.h"
 #include "CCZFileSystem.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 #include "ZCharacter.h"
 #include "ZApplication.h"
 #include "ZItemDesc.h"
@@ -127,9 +127,9 @@ void ZSetupDataChecker_Global(MDataChecker* pDataChecker)
 	pDataChecker->Clear();
 
 	//// 아이템능력치 정보
-/*	MMatchItemDescMgr* pItemMgr = MMatchItemDescMgr::GetInstance();
-	for (MMatchItemDescMgr::iterator i=pItemMgr->begin(); i!=pItemMgr->end(); i++) {
-		MMatchItemDesc* pItem = (*i).second;
+/*	CCMatchItemDescMgr* pItemMgr = CCMatchItemDescMgr::GetInstance();
+	for (CCMatchItemDescMgr::iterator i=pItemMgr->begin(); i!=pItemMgr->end(); i++) {
+		CCMatchItemDesc* pItem = (*i).second;
 		pDataChecker->AddCheck((BYTE*)&pItem->m_nDamage, sizeof(int), MT_MEMORYFUGITIVE_INT);
 		pDataChecker->AddCheck((BYTE*)&pItem->m_nDelay, sizeof(int), MT_MEMORYFUGITIVE_INT);
 		pDataChecker->AddCheck((BYTE*)&pItem->m_nMagazine, sizeof(int), MT_MEMORYFUGITIVE_INT);

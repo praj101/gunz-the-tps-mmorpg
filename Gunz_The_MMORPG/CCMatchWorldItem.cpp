@@ -10,7 +10,7 @@
 #include "CCMatchWorldItemDesc.h"
 #include "RTypes.h"
 
-MMatchWorldItemManager::MMatchWorldItemManager()
+CCMatchWorldItemManager::CCMatchWorldItemManager()
 {
 	m_pMatchStage = NULL;
 	m_bStarted = false;
@@ -19,16 +19,16 @@ MMatchWorldItemManager::MMatchWorldItemManager()
 	m_nUIDGenerate = 0;
 }
 
-MMatchWorldItemManager::~MMatchWorldItemManager()
+CCMatchWorldItemManager::~CCMatchWorldItemManager()
 {
 	ClearItems();
 }
 
-void MMatchWorldItemManager::ClearItems()
+void CCMatchWorldItemManager::ClearItems()
 {
 	m_nLastTime = 0;
 	m_nUIDGenerate = 0;
-	for (MMatchWorldItemMap::iterator itor = m_ItemMap.begin(); itor != m_ItemMap.end(); ++itor)
+	for (CCMatchWorldItemMap::iterator itor = m_ItemMap.begin(); itor != m_ItemMap.end(); ++itor)
 	{
 		delete (*itor).second ;
 	}
@@ -38,20 +38,20 @@ void MMatchWorldItemManager::ClearItems()
 	m_UserDropWorldItem.clear();
 }
 
-void MMatchWorldItemManager::Clear()
+void CCMatchWorldItemManager::Clear()
 {
 	ClearItems();
 	m_SpawnInfos.clear();
 	m_nSpawnItemCount = 0;
 }
 
-void MMatchWorldItemManager::OnRoundBegin()
+void CCMatchWorldItemManager::OnRoundBegin()
 {
 	ClearItems();
 	SpawnInfoInit();
 }
 
-void MMatchWorldItemManager::SpawnInfoInit()
+void CCMatchWorldItemManager::SpawnInfoInit()
 {
 	if (m_pMatchStage == NULL) return;
 
@@ -65,7 +65,7 @@ void MMatchWorldItemManager::SpawnInfoInit()
 		// 글래디에어터 모드는 Bullet를 스폰안시킨다
 		if (IsGameRuleGladiator(m_pMatchStage->GetStageSetting()->GetGameType()))
 		{
-			MMatchWorldItemDesc* wi = MGetMatchWorldItemDescMgr()->GetItemDesc(m_SpawnInfos[i].nItemID);
+			CCMatchWorldItemDesc* wi = MGetMatchWorldItemDescMgr()->GetItemDesc(m_SpawnInfos[i].nItemID);
 			if ((wi) && (wi->m_nItemType == WIT_BULLET))
 			{
 				m_SpawnInfos[i].bUsed = false;
@@ -74,7 +74,7 @@ void MMatchWorldItemManager::SpawnInfoInit()
 	}
 }
 
-void MMatchWorldItemManager::Update()
+void CCMatchWorldItemManager::Update()
 {
 	if (!m_bStarted) return;
 	if (m_pMatchStage == NULL) return;
@@ -100,9 +100,9 @@ void MMatchWorldItemManager::Update()
 	}
 
 	// 이미 스폰된 아이템중 제거될 꺼 있나 검색
-	for (MMatchWorldItemMap::iterator itor = m_ItemMap.begin(); itor != m_ItemMap.end(); )
+	for (CCMatchWorldItemMap::iterator itor = m_ItemMap.begin(); itor != m_ItemMap.end(); )
 	{
-		MMatchWorldItem* pWorldItem = (*itor).second;
+		CCMatchWorldItem* pWorldItem = (*itor).second;
 
 		// dynamic 월드아이템만 제거함
 		if ((pWorldItem->nStaticSpawnIndex < 0) && (pWorldItem->nLifeTime > 0))
@@ -144,7 +144,7 @@ void MMatchWorldItemManager::Update()
 
 }
 
-void MMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
+void CCMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 {
 	int nItemSize = (int)m_ItemMap.size();
 	if (nItemSize <= 0) return;
@@ -153,14 +153,14 @@ void MMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 	
 
 	int nIndex = 0;
-	for (MMatchWorldItemMap::iterator itor = m_ItemMap.begin(); itor != m_ItemMap.end(); ++itor)
+	for (CCMatchWorldItemMap::iterator itor = m_ItemMap.begin(); itor != m_ItemMap.end(); ++itor)
 	{
-		MMatchWorldItem* pWorldItem = (*itor).second;
+		CCMatchWorldItem* pWorldItem = (*itor).second;
 		MTD_WorldItem* pNode = (MTD_WorldItem*)MGetBlobArrayElement(pItemArray, nIndex++);
 
 		Make_MTDWorldItem(pNode, pWorldItem);
 
-		MMatchRule* pRule = m_pMatchStage->GetRule();					// 갓뎀 -_-;
+		CCMatchRule* pRule = m_pMatchStage->GetRule();					// 갓뎀 -_-;
 		if (pRule->GetGameType() == MMATCH_GAMETYPE_DUEL && pWorldItem->nItemID < 100)
 			return;
 
@@ -174,13 +174,13 @@ void MMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 	CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
 }
 
-void MMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnIndex, 
+void CCMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnIndex, 
 									 const float x, const float y, const float z)
 {
 	if (m_pMatchStage == NULL) return;
 	m_nUIDGenerate++;
 
-	MMatchWorldItem* pNewWorldItem = new MMatchWorldItem;
+	CCMatchWorldItem* pNewWorldItem = new CCMatchWorldItem;
 
 	// 세팅
 	pNewWorldItem->nUID = m_nUIDGenerate;
@@ -192,7 +192,7 @@ void MMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnI
 	pNewWorldItem->nLifeTime = -1;
 	for (int i = 0; i < WORLDITEM_EXTRAVALUE_NUM; i++) pNewWorldItem->nExtraValue[i] = 0;
 
-	m_ItemMap.insert(MMatchWorldItemMap::value_type(m_nUIDGenerate, pNewWorldItem));
+	m_ItemMap.insert(CCMatchWorldItemMap::value_type(m_nUIDGenerate, pNewWorldItem));
 
 	// 방인원에게 라우팅
 	RouteSpawnWorldItem(pNewWorldItem);
@@ -211,9 +211,9 @@ void MMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnI
 
 	int iCountItem = 0;
 	int iFirstItem = 0;
-	for(MMatchWorldItemMap::iterator itItem = m_ItemMap.begin(); itItem != m_ItemMap.end(); itItem++)
+	for(CCMatchWorldItemMap::iterator itItem = m_ItemMap.begin(); itItem != m_ItemMap.end(); itItem++)
 	{
-		MMatchWorldItem* pWorldItem = (*itItem).second;
+		CCMatchWorldItem* pWorldItem = (*itItem).second;
 		//if(pWorldItem->nItemID == 100 || pWorldItem->nItemID == 110) // 100:메디킷, 110:수리킷
 		if(pWorldItem->nItemID >= 100 && pWorldItem->nItemID < 200) // 월드맵에 떨굴수있는 아이템 ID 범위
 		{
@@ -223,8 +223,8 @@ void MMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnI
 			if(iCountItem > WORLDITEM_MAX_NUM-1)	// 만약 월드 아이템의 지정한 갯수를 초과하면 첫번째 아이템을 지워준다.
 			{
 				RouteRemoveWorldItem(iFirstItem);
-				MMatchWorldItemMap::iterator itEraseItem = m_ItemMap.find(iFirstItem);
-				MMatchWorldItem* pEraseItem = (*itEraseItem).second;
+				CCMatchWorldItemMap::iterator itEraseItem = m_ItemMap.find(iFirstItem);
+				CCMatchWorldItem* pEraseItem = (*itEraseItem).second;
 				delete pEraseItem;
 				m_ItemMap.erase(itEraseItem);
 			}
@@ -233,14 +233,14 @@ void MMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnI
 	}
 }
 
-void MMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnIndex, 
+void CCMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnIndex, 
 									 const float x, const float y, const float z, int nLifeTime, 
 									 int* pnExtraValues )
 {
 	if (m_pMatchStage == NULL) return;
 	m_nUIDGenerate++;
 
-	MMatchWorldItem* pNewWorldItem = new MMatchWorldItem;
+	CCMatchWorldItem* pNewWorldItem = new CCMatchWorldItem;
 
 	// 세팅
 	pNewWorldItem->nUID					= m_nUIDGenerate;
@@ -256,14 +256,14 @@ void MMatchWorldItemManager::AddItem(const unsigned short nItemID, short nSpawnI
 		pNewWorldItem->nExtraValue[i] = pnExtraValues[i];
 	}
 
-	m_ItemMap.insert(MMatchWorldItemMap::value_type(m_nUIDGenerate, pNewWorldItem));
+	m_ItemMap.insert(CCMatchWorldItemMap::value_type(m_nUIDGenerate, pNewWorldItem));
 
 	// 방인원에게 라우팅
 	RouteSpawnWorldItem(pNewWorldItem);
 }
 
 
-void MMatchWorldItemManager::OnStageBegin(CCMatchStageSetting* pStageSetting)
+void CCMatchWorldItemManager::OnStageBegin(CCMatchStageSetting* pStageSetting)
 {
 	if (m_pMatchStage == NULL) return;
 
@@ -277,7 +277,7 @@ void MMatchWorldItemManager::OnStageBegin(CCMatchStageSetting* pStageSetting)
 	if ((nMapID < 0) || (nMapID >= MMATCH_MAP_COUNT)) return;
 	if (MGetGameTypeMgr()->IsWorldItemSpawnEnable(pStageSetting->GetGameType()))
 	{
-		MMatchMapsWorldItemSpawnInfoSet* pSpawnInfoSet = &MGetMapsWorldItemSpawnInfo()->m_MapsSpawnInfo[nMapID];
+		CCMatchMapsWorldItemSpawnInfoSet* pSpawnInfoSet = &MGetMapsWorldItemSpawnInfo()->m_MapsSpawnInfo[nMapID];
 
 		if (bIsTeamPlay)
 		{
@@ -324,12 +324,12 @@ void MMatchWorldItemManager::OnStageBegin(CCMatchStageSetting* pStageSetting)
 	m_bStarted = true;
 }
 
-void MMatchWorldItemManager::OnStageEnd()
+void CCMatchWorldItemManager::OnStageEnd()
 {
 	m_bStarted = false;
 }
 
-void MMatchWorldItemManager::Spawn(int nSpawnIndex)
+void CCMatchWorldItemManager::Spawn(int nSpawnIndex)
 {
 	m_SpawnInfos[nSpawnIndex].bExist = true;
 	m_SpawnInfos[nSpawnIndex].nElapsedTime = 0;
@@ -338,12 +338,12 @@ void MMatchWorldItemManager::Spawn(int nSpawnIndex)
 		    m_SpawnInfos[nSpawnIndex].x, m_SpawnInfos[nSpawnIndex].y, m_SpawnInfos[nSpawnIndex].z);
 }
 
-void MMatchWorldItemManager::DelItem(short nUID)
+void CCMatchWorldItemManager::DelItem(short nUID)
 {
-	MMatchWorldItemMap::iterator itor = m_ItemMap.find(nUID);
+	CCMatchWorldItemMap::iterator itor = m_ItemMap.find(nUID);
 	if (itor != m_ItemMap.end())
 	{
-		MMatchWorldItem* pWorldItem = (*itor).second;
+		CCMatchWorldItem* pWorldItem = (*itor).second;
 
 		int nSpawnIndex = pWorldItem->nStaticSpawnIndex;
 
@@ -359,14 +359,14 @@ void MMatchWorldItemManager::DelItem(short nUID)
 }
 
 
-bool MMatchWorldItemManager::Obtain(CCMatchObject* pObj, short nItemUID, int* poutItemID, int* poutExtraValues)
+bool CCMatchWorldItemManager::Obtain(CCMatchObject* pObj, short nItemUID, int* poutItemID, int* poutExtraValues)
 {
 	if (m_pMatchStage == NULL) return false;
 
-	MMatchWorldItemMap::iterator itor = m_ItemMap.find(nItemUID);
+	CCMatchWorldItemMap::iterator itor = m_ItemMap.find(nItemUID);
 	if (itor != m_ItemMap.end())
 	{
-		MMatchWorldItem* pWorldItem = (*itor).second;
+		CCMatchWorldItem* pWorldItem = (*itor).second;
 
 		*poutItemID = pWorldItem->nItemID;
 
@@ -384,7 +384,7 @@ bool MMatchWorldItemManager::Obtain(CCMatchObject* pObj, short nItemUID, int* po
 	return false;
 }
 
-void MMatchWorldItemManager::SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, float fDropDelayTime)
+void CCMatchWorldItemManager::SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, float fDropDelayTime)
 {
 	if (m_pMatchStage == NULL) return;
 
@@ -401,7 +401,7 @@ void MMatchWorldItemManager::SpawnDynamicItem(CCMatchObject* pObj, const int nIt
 	//AddItem(nItemID, -1, x, y, z);
 }
 
-void MMatchWorldItemManager::SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, 
+void CCMatchWorldItemManager::SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, 
 											  int nLifeTime, int* pnExtraValues )
 {
 	if (m_pMatchStage == NULL) return;
@@ -411,18 +411,18 @@ void MMatchWorldItemManager::SpawnDynamicItem(CCMatchObject* pObj, const int nIt
 	AddItem(nItemID, -1, x, y, z, nLifeTime, pnExtraValues );
 }
 
-bool MMatchWorldItemManager::Create(CCMatchStage* pMatchStage)
+bool CCMatchWorldItemManager::Create(CCMatchStage* pMatchStage)
 {
 	m_pMatchStage = pMatchStage;
 	return true;
 }
 
-void MMatchWorldItemManager::Destroy()
+void CCMatchWorldItemManager::Destroy()
 {
 
 }
 
-void MMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldItemUID)
+void CCMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldItemUID)
 {
 	// 먹었다고 라우팅
 	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, CCUID(0,0));
@@ -431,7 +431,7 @@ void MMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int nW
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
 
-void MMatchWorldItemManager::RouteRemoveWorldItem(int nWorldItemUID)
+void CCMatchWorldItemManager::RouteRemoveWorldItem(int nWorldItemUID)
 {
 	// 없어졌다고 라우팅
 	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_REMOVE_WORLDITEM, CCUID(0,0));
@@ -439,9 +439,9 @@ void MMatchWorldItemManager::RouteRemoveWorldItem(int nWorldItemUID)
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
 
-void MMatchWorldItemManager::RouteSpawnWorldItem(MMatchWorldItem* pWorldItem)
+void CCMatchWorldItemManager::RouteSpawnWorldItem(CCMatchWorldItem* pWorldItem)
 {
-	MMatchRule* pRule = m_pMatchStage->GetRule();					// 갓뎀 -_-;
+	CCMatchRule* pRule = m_pMatchStage->GetRule();					// 갓뎀 -_-;
 	if (pRule->GetGameType() == MMATCH_GAMETYPE_DUEL && pWorldItem->nItemID < 100)
 		return;
 

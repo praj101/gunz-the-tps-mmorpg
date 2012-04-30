@@ -114,7 +114,7 @@ void ZGameAction::OnPeerSkill_LastShot(float fShotTime,ZCharacter *pOwnerCharact
 		PROTECT_DEBUG_REGISTER( bReturnValue )
 			return;
 
-	MMatchItemDesc* pDesc = pItem->GetDesc();
+	CCMatchItemDesc* pDesc = pItem->GetDesc();
 	bReturnValue = !pDesc;
 	if(!pDesc) 
 		PROTECT_DEBUG_REGISTER( bReturnValue )
@@ -491,7 +491,7 @@ void ZGameAction::OnPeerSkill_Dash(ZCharacter *pOwnerCharacter)
 
 	ZItem *pItem = pOwnerCharacter->GetItems()->GetItem(MMCIP_MELEE);
 	if(!pItem) return;
-	MMatchItemDesc *pDesc = pItem->GetDesc();
+	CCMatchItemDesc *pDesc = pItem->GetDesc();
 	if(!pDesc) { _ASSERT(FALSE); return; }
 
 //	ZGetEffectManager()->AddSkillDashEffect(pOwnerCharacter->GetPosition(),pOwnerCharacter->m_Direction,pOwnerCharacter);
@@ -631,7 +631,7 @@ bool ZGameAction::OnEnchantDamage(MCommand* pCommand)
 
 	if (pOwnerCharacter == NULL || pTarget == NULL ) return true;
 
-	MMatchItemDesc* pDesc = pOwnerCharacter->GetEnchantItemDesc();
+	CCMatchItemDesc* pDesc = pOwnerCharacter->GetEnchantItemDesc();
 	if(pDesc)
 	{
 		switch(pOwnerCharacter->GetEnchantType())

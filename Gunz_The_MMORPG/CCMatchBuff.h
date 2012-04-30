@@ -1,19 +1,19 @@
-#ifndef MMatchBuff_H
-#define MMatchBuff_H
+#ifndef CCMatchBuff_H
+#define CCMatchBuff_H
 
-//#include "MMatchBuffDesc.h"
+//#include "CCMatchBuffDesc.h"
 
 #include <map>
 using namespace std;
 
-enum MMatchBuffEffectType
+enum CCMatchBuffEffectType
 {
 	MMBET_NORMAL = 0,
 	MMBET_DOTE,
 	MMBET_END,
 };
 
-enum MMatchBuffPeriodType
+enum CCMatchBuffPeriodType
 {
 	MMBPT_NONE = 0,
 	MMBPT_LONG,
@@ -21,13 +21,13 @@ enum MMatchBuffPeriodType
 	MMBPT_END,
 };
 
-struct MMatchBuffName
+struct CCMatchBuffName
 {
 	char szBuffName[128];
 	char szBuffIconName[128];
 };
 
-struct MMatchBuffInfo
+struct CCMatchBuffInfo
 {
 	int nHP;
 	int nAP;
@@ -36,7 +36,7 @@ struct MMatchBuffInfo
 
 	int nRespawnDecTime;
 
-	inline MMatchBuffInfo& operator=(const MMatchBuffInfo& b)
+	inline CCMatchBuffInfo& operator=(const CCMatchBuffInfo& b)
 	{
 		nHP = b.nHP;
 		nAP = b.nAP;
@@ -48,7 +48,7 @@ struct MMatchBuffInfo
 		return *this;
 	}
 
-	inline MMatchBuffInfo& operator+(const MMatchBuffInfo& b)
+	inline CCMatchBuffInfo& operator+(const CCMatchBuffInfo& b)
 	{
 		nHP = nHP + b.nHP;
 		nAP = nAP + b.nAP;
@@ -61,34 +61,34 @@ struct MMatchBuffInfo
 	}
 };
 
-struct MMatchBuffDesc
+struct CCMatchBuffDesc
 {
 	unsigned long int		m_nBuffID;
 
-	MProtectValue<MMatchBuffEffectType> m_nBuffEffectType;
-	MProtectValue<MMatchBuffPeriodType>	m_nBuffPeriodType;
+	MProtectValue<CCMatchBuffEffectType> m_nBuffEffectType;
+	MProtectValue<CCMatchBuffPeriodType>	m_nBuffPeriodType;
 	MProtectValue<int>					m_nBuffPeriod;
 
-	MProtectValue<MMatchBuffInfo>*		m_pBuffInfo;
+	MProtectValue<CCMatchBuffInfo>*		m_pBuffInfo;
 
 	char				m_szBuffName[128];
 	char				m_szBuffDesc[8192];
 	char				m_szBuffIconName[128];
 
-	MMatchBuffDesc();
-	~MMatchBuffDesc();	
+	CCMatchBuffDesc();
+	~CCMatchBuffDesc();	
 
-	void CacheCRC32( MMatchCRC32XORCache& crc );
+	void CacheCRC32( CCMatchCRC32XORCache& crc );
 	void ShiftFugitiveValues();
 };
 
-class MMatchBuffDescMgr : public map<int, MMatchBuffDesc*>
+class CCMatchBuffDescMgr : public map<int, CCMatchBuffDesc*>
 {
 protected:
 	unsigned long m_nChecksum;
 
-	MMatchBuffDescMgr();
-	virtual ~MMatchBuffDescMgr();
+	CCMatchBuffDescMgr();
+	virtual ~CCMatchBuffDescMgr();
 
 	bool ParseItem(CCXmlElement& element);
 
@@ -98,26 +98,26 @@ public:
 
 	void Clear();
 
-	MMatchBuffDesc* GetBuffDesc(unsigned long int nBuffID);
+	CCMatchBuffDesc* GetBuffDesc(unsigned long int nBuffID);
 
 	unsigned long GetChecksum() { return m_nChecksum; }
 
-	static MMatchBuffDescMgr* GetInstance() 
+	static CCMatchBuffDescMgr* GetInstance() 
 	{
-		static MMatchBuffDescMgr m_BuffDescMgr;
+		static CCMatchBuffDescMgr m_BuffDescMgr;
 		return &m_BuffDescMgr;
 	}
 
 
-	bool SetBuffName(MMatchItemDescMgr* pItemDescMgr);
+	bool SetBuffName(CCMatchItemDescMgr* pItemDescMgr);
 };
 
-inline MMatchBuffDescMgr* MGetMatchBuffDescMgr() { return MMatchBuffDescMgr::GetInstance(); }
+inline CCMatchBuffDescMgr* MGetMatchBuffDescMgr() { return CCMatchBuffDescMgr::GetInstance(); }
 
-#include "../../StringLiteral/cxr_MMatchBuff.h"
+#include "../../StringLiteral/cxr_CCMatchBuff.h"
 
 
-class MMatchBuff
+class CCMatchBuff
 {
 protected:	
 	CCUID	m_uidBuff;
@@ -126,11 +126,11 @@ protected:
 	int		m_nRegTime;	
 	int		m_nBuffPeriodRemainder;
 
-	MMatchBuffDesc* m_pBuffDesc;
+	CCMatchBuffDesc* m_pBuffDesc;
 
 public:
-	MMatchBuff(){}
-	~MMatchBuff(){}
+	CCMatchBuff(){}
+	~CCMatchBuff(){}
 
 	virtual void Reset();
 	virtual bool Set(CCUID& uidBuff, int nBuffID, int nRegTime, int nBuffPeriodRemainder);
@@ -147,26 +147,26 @@ public:
 
 
 /////////////////////////////////////////////////////////////////////////////
-// MMatchShortBuff
-class MMatchShortBuff : public MMatchBuff
+// CCMatchShortBuff
+class CCMatchShortBuff : public CCMatchBuff
 {
 protected:
 public:
-	MMatchShortBuff() : MMatchBuff() {}
-	~MMatchShortBuff() {}
+	CCMatchShortBuff() : CCMatchBuff() {}
+	~CCMatchShortBuff() {}
 };
 
 
 /////////////////////////////////////////////////////////////////////////////
-// MMatchShortBuffMap
-class MMatchShortBuffMap : public map<CCUID, MMatchShortBuff*>
+// CCMatchShortBuffMap
+class CCMatchShortBuffMap : public map<CCUID, CCMatchShortBuff*>
 {
 protected:
 public:
 	void Clear();
 	void Remove(CCUID& uidBuff);
-	bool Insert(CCUID& uidBuff, MMatchShortBuff* pBuff);
-	MMatchShortBuff* GetShortBuffByBuffID(int nBuffID);
+	bool Insert(CCUID& uidBuff, CCMatchShortBuff* pBuff);
+	CCMatchShortBuff* GetShortBuffByBuffID(int nBuffID);
 };
 
 #endif

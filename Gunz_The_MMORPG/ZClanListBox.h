@@ -2,7 +2,7 @@
 #define _ZCLANLISTBOX_H
 
 #include "MWidget.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 
 #define NUM_DISPLAY_CLAN	4
 
