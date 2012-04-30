@@ -1,7 +1,7 @@
 #ifndef MCOMMAND_H
 #define MCOMMAND_H
 
-#include "MUID.h"
+#include "CCUID.h"
 
 #include <vector>
 #include <list>
@@ -10,7 +10,7 @@
 
 using namespace std;
 
-#include "MCommandParameter.h"
+#include "CCCommandParameter.h"
 #include "mempool.h"
 
 class MCommandManager;
