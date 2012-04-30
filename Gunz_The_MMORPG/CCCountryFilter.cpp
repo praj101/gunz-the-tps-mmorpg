@@ -262,11 +262,11 @@ const int IPRangeAlgorithm<T>::MakeEmptyBlock( const DWORD dwInsertIP, T& tVecto
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-MCountryFilter::MCountryFilter(void)
+CCCountryFilter::CCCountryFilter(void)
 {
 }
 
-MCountryFilter::~MCountryFilter(void)
+CCCountryFilter::~CCCountryFilter(void)
 {
 	ReleaseCountryCode();
 	ReleaseBlockCountryCode();
@@ -274,7 +274,7 @@ MCountryFilter::~MCountryFilter(void)
 }
 
 
-bool MCountryFilter::Create( BlockCountryCodeList& rfBlockCountryCodeList, 
+bool CCCountryFilter::Create( BlockCountryCodeList& rfBlockCountryCodeList, 
 							 IPtoCountryList& rfIPtoCountryList, 
 							 CustomIPList& rfCustomIPList  )
 {
@@ -291,7 +291,7 @@ bool MCountryFilter::Create( BlockCountryCodeList& rfBlockCountryCodeList,
 }
 
 
-bool MCountryFilter::AddIPtoCountry( const DWORD dwIPFrom, const DWORD dwIPTo, const string& strCode )
+bool CCCountryFilter::AddIPtoCountry( const DWORD dwIPFrom, const DWORD dwIPTo, const string& strCode )
 {
 	if( m_IPtoCountryAlgorithm.IsInverse(dwIPFrom, dwIPTo) )
 		return false;
@@ -322,7 +322,7 @@ bool MCountryFilter::AddIPtoCountry( const DWORD dwIPFrom, const DWORD dwIPTo, c
 
 
 // 비정상 IP만 따로 로그를 남기기 위해서.
-bool MCountryFilter::AddInvalidIP( const DWORD dwIP, const string& strIP )
+bool CCCountryFilter::AddInvalidIP( const DWORD dwIP, const string& strIP )
 {
 	pair< InvalidIPList::iterator, bool > pr;
 	pr = m_InvalidIPList.insert( InvalidIPList::value_type(dwIP, strIP) );
@@ -331,7 +331,7 @@ bool MCountryFilter::AddInvalidIP( const DWORD dwIP, const string& strIP )
 }
 
 
-bool MCountryFilter::AddCustomIP( const DWORD dwIPFrom, const DWORD dwIPTo, const bool bIsBlock, const string& strCountryCode3, const string& strComment )
+bool CCCountryFilter::AddCustomIP( const DWORD dwIPFrom, const DWORD dwIPTo, const bool bIsBlock, const string& strCountryCode3, const string& strComment )
 {
 	if( m_CustomIPAlgorithm.IsInverse(dwIPFrom, dwIPTo) )
 		return false;
@@ -349,7 +349,7 @@ bool MCountryFilter::AddCustomIP( const DWORD dwIPFrom, const DWORD dwIPTo, cons
 }
 
 
-bool MCountryFilter::InitBlockCountryCodeList( BlockCountryCodeList& rfBlockCountryCodeList )
+bool CCCountryFilter::InitBlockCountryCodeList( BlockCountryCodeList& rfBlockCountryCodeList )
 {
 	try
 	{
@@ -366,7 +366,7 @@ bool MCountryFilter::InitBlockCountryCodeList( BlockCountryCodeList& rfBlockCoun
 }
 
 
-bool MCountryFilter::InitCustomIPList( CustomIPList& rfCustomIPList )
+bool CCCountryFilter::InitCustomIPList( CustomIPList& rfCustomIPList )
 {
 	try
 	{
@@ -395,7 +395,7 @@ bool MCountryFilter::InitCustomIPList( CustomIPList& rfCustomIPList )
  * 추가를 하기 위해서는 반드시 오름차순 정렬을 해서 넣어줘야함.
  * 그렇지 않으면 이진검색을 할수가 없음.
  */
-bool MCountryFilter::InitIPtoCountryList( IPtoCountryList& rfIPtoCountryList )
+bool CCCountryFilter::InitIPtoCountryList( IPtoCountryList& rfIPtoCountryList )
 {
 	try
 	{
@@ -425,7 +425,7 @@ bool MCountryFilter::InitIPtoCountryList( IPtoCountryList& rfIPtoCountryList )
 }
 
 
-bool MCountryFilter::IsNotBlockCode( const string& strCountryCode, string& strRoutingURL, BlockCountryCodeList& bcil )
+bool CCCountryFilter::IsNotBlockCode( const string& strCountryCode, string& strRoutingURL, BlockCountryCodeList& bcil )
 {
 	if( 3 != strCountryCode.length() )
 		return false;
@@ -449,13 +449,13 @@ bool MCountryFilter::IsNotBlockCode( const string& strCountryCode, string& strRo
 }
 
 
-bool MCountryFilter::IsNotBlockCode( const string& strCountryCode, string& strRoutingURL )
+bool CCCountryFilter::IsNotBlockCode( const string& strCountryCode, string& strRoutingURL )
 {
 	return IsNotBlockCode( strCountryCode, strRoutingURL, m_BlockCountryCodeList );
 }
 
 
-const DWORD MCountryFilter::inet_aton( const string& strIP )
+const DWORD CCCountryFilter::inet_aton( const string& strIP )
 {
 	if( strIP.empty() ) 
 		return false;
@@ -470,7 +470,7 @@ const DWORD MCountryFilter::inet_aton( const string& strIP )
 }
 
 
-bool MCountryFilter::GetIPCountryCode( const string& strIP, string& strCountryCode )
+bool CCCountryFilter::GetIPCountryCode( const string& strIP, string& strCountryCode )
 {
 	const DWORD dwIP = inet_aton( strIP );
 	if( 0 == dwIP )
@@ -482,7 +482,7 @@ bool MCountryFilter::GetIPCountryCode( const string& strIP, string& strCountryCo
 	return (-1 != nIdx);
 }
 
-bool MCountryFilter::Update( BlockCountryCodeList& rfBlockCountryCodeList, 
+bool CCCountryFilter::Update( BlockCountryCodeList& rfBlockCountryCodeList, 
 							 IPtoCountryList& rfIPtoCountryList,
 							 CustomIPList& rfCustomIPList )
 {
@@ -503,7 +503,7 @@ bool MCountryFilter::Update( BlockCountryCodeList& rfBlockCountryCodeList,
 }
 
 
-bool MCountryFilter::GetCustomIP( const string& strIP, bool& bIsBlock, string& strCountryCode3, string& strComment )
+bool CCCountryFilter::GetCustomIP( const string& strIP, bool& bIsBlock, string& strCountryCode3, string& strComment )
 {
 	const DWORD dwIP = inet_aton( strIP );
 	if( 0 == dwIP )
@@ -520,7 +520,7 @@ bool MCountryFilter::GetCustomIP( const string& strIP, bool& bIsBlock, string& s
 }
 
 
-void MCountryFilter::ReleaseCountryCode()
+void CCCountryFilter::ReleaseCountryCode()
 {
 	if( m_IPtoCountryList.empty() ) 
 		return;
@@ -534,7 +534,7 @@ void MCountryFilter::ReleaseCountryCode()
 }
 
 
-void MCountryFilter::ReleaseBlockCountryCode()
+void CCCountryFilter::ReleaseBlockCountryCode()
 {
 	if( m_BlockCountryCodeList.empty() )
 		return;
@@ -547,7 +547,7 @@ void MCountryFilter::ReleaseBlockCountryCode()
 }
 
 
-void MCountryFilter::ReleaseCustomIP()
+void CCCountryFilter::ReleaseCustomIP()
 {
 	if( m_CustomIPList.empty() )
 		return;

@@ -115,11 +115,11 @@ private :
 };
 
 
-class MCountryFilter
+class CCCountryFilter
 {
 public: // Common
-	MCountryFilter(void);
-	virtual ~MCountryFilter(void);
+	CCCountryFilter(void);
+	virtual ~CCCountryFilter(void);
 
 	bool Create( BlockCountryCodeList& rfBlockCountryCodeList, 
 				 IPtoCountryList& rfIPtoCountryList,
