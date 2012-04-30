@@ -10,18 +10,18 @@ using namespace std;
 class CCMatchObject;
 class CCMatchStage;
 
-#define MMATCH_TEAM_MAX_COUNT		2
+#define CCMATCH_TEAM_MAX_COUNT		2
 
-#define MMATCH_SPECTATOR_STR		"SPECTATOR"
-#define MMATCH_TEAM1_NAME_STR		"RED TEAM"
-#define MMATCH_TEAM2_NAME_STR		"BLUE TEAM"
+#define CCMATCH_SPECTATOR_STR		"SPECTATOR"
+#define CCMATCH_TEAM1_NAME_STR		"RED TEAM"
+#define CCMATCH_TEAM2_NAME_STR		"BLUE TEAM"
 
 
 inline const char* GetTeamNameStr(CCMatchTeam nTeam)
 {
 	switch (nTeam)
 	{
-	case MMT_SPECTATOR:
+	case CCMT_SPECTATOR:
 		return MMATCH_SPECTATOR_STR;
 	case CCMT_RED:
 		return MMATCH_TEAM1_NAME_STR;

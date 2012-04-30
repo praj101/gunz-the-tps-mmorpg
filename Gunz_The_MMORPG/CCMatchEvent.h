@@ -103,7 +103,7 @@ public :
 
 	void StartNewEvent() { m_vEventObj.clear(); }
 	void Run();
-	void CheckEventObj( MMatchObject* pObj, const DWORD dwCurTime );
+	void CheckEventObj( CCMatchObject* pObj, const DWORD dwCurTime );
 
 	void Reset();
 
@@ -143,7 +143,7 @@ protected :
 	SYSTEMTIME				m_End;
 	string					m_strName;
 	string					m_strAnnounce;
-	vector< MUID >			m_vEventObj;
+	vector< CCUID >			m_vEventObj;
 	vector< EventPartTime >	m_EventPartTimeVec;
 };
 

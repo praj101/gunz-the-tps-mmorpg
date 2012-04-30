@@ -68,12 +68,12 @@ public:
 
 
 // inline functions //////////////////////////////////////////////////////////////////////////
-inline CCQuestMapSectorInfo* MBaseQuest::GetSectorInfo(int nSectorID)
+inline CCQuestMapSectorInfo* CCBaseQuest::GetSectorInfo(int nSectorID)
 {
 	return m_MapCatalogue.GetSectorInfo(nSectorID);
 }
 
-inline CCQuestMapSectorInfo* MBaseQuest::GetSurvivalSectorInfo(int nSectorID)
+inline CCQuestMapSectorInfo* CCBaseQuest::GetSurvivalSectorInfo(int nSectorID)
 {
 	return m_SurvivalMapCatalogue.GetSectorInfo(nSectorID);
 }
@@ -83,7 +83,7 @@ inline CCQuestNPCInfo* CCBaseQuest::GetNPCInfo(CCQUEST_NPC nNPC)
 	return m_NPCCatalogue.GetInfo(nNPC);
 }
 
-inline CCQuestNPCInfo* MBaseQuest::GetNPCPageInfo( int nPage)
+inline CCQuestNPCInfo* CCBaseQuest::GetNPCPageInfo( int nPage)
 {
 	return m_NPCCatalogue.GetPageInfo(nPage);
 }
@@ -93,22 +93,22 @@ inline CCQuestNPCInfo* MBaseQuest::GetNPCPageInfo( int nPage)
 //	return m_SurvivalMapCatalogue.GetInfo(nMap);
 //}
 
-inline CCQuestDropTable* MBaseQuest::GetDropTable()
+inline CCQuestDropTable* CCBaseQuest::GetDropTable()
 {
 	return &m_DropTable;
 }
 
-inline CCQuestMapCatalogue* MBaseQuest::GetMapCatalogue()
+inline CCQuestMapCatalogue* CCBaseQuest::GetMapCatalogue()
 {
 	return &m_MapCatalogue;
 }
 
-inline CCQuestMapCatalogue* MBaseQuest::GetSurvivalMapCatalogue()
+inline CCQuestMapCatalogue* CCBaseQuest::GetSurvivalMapCatalogue()
 {
 	return &m_SurvivalMapCatalogue;
 }
 
-inline CCQuestNPCCatalogue* MBaseQuest::GetNPCCatalogue()
+inline CCQuestNPCCatalogue* CCBaseQuest::GetNPCCatalogue()
 {
 	return &m_NPCCatalogue;
 }

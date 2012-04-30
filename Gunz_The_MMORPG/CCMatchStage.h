@@ -126,7 +126,7 @@ private:
 	bool					m_bPrivate;		// ºñ¹Ð¹æ
 	char					m_szStagePassword[ STAGEPASSWD_LENGTH ];
 	CCMatchStageTeamBonus	m_TeamBonus;
-	CCMatchStageTeam			m_Teams[MMT_END];
+	CCMatchStageTeam			m_Teams[CCMT_END];
 
 	CCUIDRefCache			m_ObjUIDCaches;
 	list<int>				m_BanCIDList;
@@ -145,7 +145,7 @@ private:
 
 	CCUID					m_uidAgent;
 	bool					m_bAgentReady;
-	int						m_nRoundObjCount[MMT_END];
+	int						m_nRoundObjCount[CCMT_END];
 
 	CCVoteMgr				m_VoteMgr;
 
@@ -164,7 +164,7 @@ private:
 	void SetMasterUID(const CCUID& uid)	{ m_StageSetting.SetMasterUID(uid);}
 	CCMatchRule* CreateRule(MMATCH_GAMETYPE nGameType);
 
-	vector< MMatchStageSuicide > m_SuicideList;
+	vector< CCMatchStageSuicide > m_SuicideList;
 protected:
 	inline bool IsChecksumUpdateTime(unsigned long nTick);
 	void UpdateChecksum(unsigned long nTick);
