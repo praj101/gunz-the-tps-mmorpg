@@ -22,11 +22,11 @@ inline const char* GetTeamNameStr(CCMatchTeam nTeam)
 	switch (nTeam)
 	{
 	case CCMT_SPECTATOR:
-		return MMATCH_SPECTATOR_STR;
+		return CCMATCH_SPECTATOR_STR;
 	case CCMT_RED:
-		return MMATCH_TEAM1_NAME_STR;
+		return CCMATCH_TEAM1_NAME_STR;
 	case CCMT_BLUE:
-		return MMATCH_TEAM2_NAME_STR;
+		return CCMATCH_TEAM2_NAME_STR;
 	default:
 		return "";
 	}
