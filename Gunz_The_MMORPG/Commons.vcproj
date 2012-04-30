@@ -1777,6 +1777,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchStage.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchStageSetting.cpp"
 			>
 		</File>
@@ -1902,6 +1906,10 @@
 		</File>
 		<File
 			RelativePath=".\CCQuestItem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCQuestPlayer.h"
 			>
 		</File>
 		<File
