@@ -3339,7 +3339,7 @@ bool ZCharacter::IsAdminName()
 
 void ZCharacter::InitProperties()
 {
-	const MTD_CharInfo* pCharInfo = &m_MInitialInfo.Ref();
+	const CCTD_CharInfo* pCharInfo = &m_MInitialInfo.Ref();
 
 	m_Property.SetName(pCharInfo->szName);
 	m_Property.SetClanName(pCharInfo->szClanName);
@@ -3407,11 +3407,11 @@ void ZCharacter::InitProperties()
 		uStatus.m_bAdminHide = false;
 }
 
-bool ZCharacter::Create(MTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/)
+bool ZCharacter::Create(CCTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/)
 {
 	_ASSERT(!m_bInitialized);
 
-	//memcpy(&m_MInitialInfo.GetData(),pCharInfo,sizeof(MTD_CharInfo));
+	//memcpy(&m_MInitialInfo.GetData(),pCharInfo,sizeof(CCTD_CharInfo));
 	m_MInitialInfo.Set(*pCharInfo);
 	m_MInitialInfo.MakeCrc();
 

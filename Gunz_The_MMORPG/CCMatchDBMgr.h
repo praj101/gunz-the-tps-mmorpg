@@ -97,12 +97,12 @@ public:
 		const int nCharIndex,
 		const TCHAR* szCharName);
 	//	bool GetAccountCharList(const int nAID, 
-	//		                    MTD_CharInfo* poutCharList, 
+	//		                    CCTD_CharInfo* poutCharList, 
 	//							int* noutCharCount);
 	bool GetAccountCharList(const int nAID, 
-		MTD_AccountCharInfo* poutCharList, 
+		CCTD_AccountCharInfo* poutCharList, 
 		int* noutCharCount);
-	bool GetAccountCharInfo(const int nAID, const int nCharIndex, MTD_CharInfo* poutCharInfo);
+	bool GetAccountCharInfo(const int nAID, const int nCharIndex, CCTD_CharInfo* poutCharInfo);
 	bool GetAccountInfo(const unsigned long int nAID, CCMatchAccountInfo* poutAccountInfo, const int nServerID );
 
 	bool GetCharInfoByAID(const int nAID, const int nCharIndex, CCMatchCharInfo* poutCharInfo);
@@ -110,7 +110,7 @@ public:
 
 	bool GetCharCID(const TCHAR* pszName, int* poutCID);
 
-	bool SimpleUpdateCharInfo(MMatchCharInfo* pCharInfo);
+	bool SimpleUpdateCharInfo(CCMatchCharInfo* pCharInfo);
 
 	// 게임 플레이 관련
 	bool UpdateCharBP(const int nCID, const int nBPInc);
@@ -119,7 +119,7 @@ public:
 		const int nAddedKillCount, const int nAddedDeathCount, const int nAddedPlayTime);
 
 	// 아이템 관련	
-	bool GetCharItemInfo(MMatchCharInfo* pCharInfo);	// 캐릭터의 모든 아이템을 가져온다
+	bool GetCharItemInfo(CCMatchCharInfo* pCharInfo);	// 캐릭터의 모든 아이템을 가져온다
 
 	bool UpdateEquipedItem(const unsigned long nCID, 
 		CCMatchCharItemParts parts, 
@@ -133,8 +133,8 @@ public:
 	bool SellingSpendableItemToBounty(int nCID, int nCIID, int nSellItemID, int nSellItemCnt, int nSellPrice, int nCharBP);
 
 	// Quest Item관련.
-	bool UpdateQuestItem( int nCID, MQuestItemMap& rfQuestIteMap, MQuestMonsterBible& rfQuestMonster );
-	bool GetCharQuestItemInfo( MMatchCharInfo* pCharInfo );
+	bool UpdateQuestItem( int nCID, CCQuestItemMap& rfQuestIteMap, MQuestMonsterBible& rfQuestMonster );
+	bool GetCharQuestItemInfo( CCMatchCharInfo* pCharInfo );
 	bool InsertQuestGameLog( const char* pszStageName, 
 		const int nScenarioID,
 		const int nMasterCID, const int nPlayer1, const int nPlayer2, const int nPlayer3,
@@ -186,7 +186,7 @@ public:
 	//// Friends ////
 	bool FriendAdd(const int nCID, const int nFriendCID, const int nFavorite);
 	bool FriendRemove(const int nCID, const int nFriendCID);
-	bool FriendGetList(const int nCID, MMatchFriendInfo* pFriendInfo);
+	bool FriendGetList(const int nCID, CCMatchFriendInfo* pFriendInfo);
 
 	//// Clan //////
 	bool GetCharClan(const int nCID, int* poutClanID, TCHAR* poutClanName);
@@ -289,8 +289,8 @@ public:
 
 	bool UpdateAccountLastLoginTime( const DWORD dwAID );
 
-	bool GetGambleItemList( vector<MMatchGambleItem*>& vGambleItemList );
-	bool GetGambleRewardItemList( vector<MMatchGambleRewardItem*>& vGambleRewardItemList );
+	bool GetGambleItemList( vector<CCMatchGambleItem*>& vGambleItemList );
+	bool GetGambleRewardItemList( vector<CCMatchGambleRewardItem*>& vGambleRewardItemList );
 
 	bool ChangeGambleItemToRewardNormalItem( const DWORD dwCID, const DWORD dwCIID, const DWORD dwGIID, const DWORD dwGRIID, 
 		const DWORD dwItemID, const DWORD dwRentHourPeriod, int &pOutCIID );
@@ -329,8 +329,8 @@ public:
 	bool GetDuelTournamentGroupRankingInfo(list<DTRankingInfo*> *pRankingList);
 
 	bool InsertDuelTournamentCharInfo(DWORD dwCID);	
-	bool GetDuelTournamentCharInfo(DWORD dwCID, MMatchObjectDuelTournamentCharInfo *pDTCharInfo);
-	bool UpdateDuelTournamentCharacterInfo(DWORD dwCID, char *szTimeStamp, MMatchObjectDuelTournamentCharInfo *pDTCharInfo);
+	bool GetDuelTournamentCharInfo(DWORD dwCID, CCMatchObjectDuelTournamentCharInfo *pDTCharInfo);
+	bool UpdateDuelTournamentCharacterInfo(DWORD dwCID, char *szTimeStamp, CCMatchObjectDuelTournamentCharInfo *pDTCharInfo);
 	bool GetDuelTournamentPreviousCharacterInfo(DWORD dwCID, int *nPrevTP, int *nPrevWins, int *nPrevLoses, int *nPrevRanking, int *nPrevFinalWin);
 
 	bool InsertDuelTournamentGameLog(MDUELTOURNAMENTTYPE nDTType, int nMatchFactor, int nPlayer1CID, int nPlayer2CID, int nPlayer3CID, int nPlayer4CID, 

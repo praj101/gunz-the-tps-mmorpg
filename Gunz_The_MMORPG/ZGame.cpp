@@ -695,7 +695,7 @@ void ZGame::Destroy()
 	cclog("game destroyed ( %s )\n",tmpbuf);
 }
 
-bool ZGame::CreateMyCharacter(MTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/)
+bool ZGame::CreateMyCharacter(CCTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/)
 {
 	if (!m_pMyCharacter) return false;
 
@@ -6764,7 +6764,7 @@ bool ZGame::OnLoadReplay(ZReplayLoader* pLoader)
 		n=zfread(&bHero,sizeof(bHero),1,file);
 		if(n!=1) return false;
 
-		MTD_CharInfo info;
+		CCTD_CharInfo info;
 
 		if(nVersion<2) {
 			n=zfread(&info,sizeof(info)-4,1,file);
@@ -7035,12 +7035,12 @@ void ZGame::OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort, MTD_Pee
 		pNewPeerInfo->nPort = nPort;
 
 		if (!IsReplay())
-			memcpy(&pNewPeerInfo->CharInfo, &(pNode->CharInfo), sizeof(MTD_CharInfo));	
+			memcpy(&pNewPeerInfo->CharInfo, &(pNode->CharInfo), sizeof(CCTD_CharInfo));	
 		else
 		{
-			MTD_CharInfo currInfo;
+			CCTD_CharInfo currInfo;
 			ConvertCharInfo(&currInfo, &pNode->CharInfo, ZReplayLoader::m_nVersion);
-			memcpy(&pNewPeerInfo->CharInfo,	&currInfo, sizeof(MTD_CharInfo));	
+			memcpy(&pNewPeerInfo->CharInfo,	&currInfo, sizeof(CCTD_CharInfo));	
 		}
 		//버프정보임시주석 memcpy(&pNewPeerInfo->CharBuffInfo, &(pNode->CharBuffInfo), sizeof(MTD_CharBuffInfo));			
 		memcpy(&pNewPeerInfo->ExtendInfo,	&(pNode->ExtendInfo),	sizeof(MTD_ExtendInfo));

@@ -599,10 +599,10 @@ void ZRuleDuelTournament::SetMatchPlayerInfoUI(const CCUID& uidPlayer1, const CC
 		return;
 
 	ZCharacterProperty emptyProp;
-	MTD_CharInfo emptyInfo;
+	CCTD_CharInfo emptyInfo;
 
 	const ZCharacterProperty* pCharProp[2]  = {&emptyProp, &emptyProp};
-	const MTD_CharInfo* pCharInfo[2]		= {&emptyInfo, &emptyInfo};
+	const CCTD_CharInfo* pCharInfo[2]		= {&emptyInfo, &emptyInfo};
 
 	int ap[2] = {DEFAULT_CHAR_AP, DEFAULT_CHAR_AP};
 	int hp[2] = {DEFAULT_CHAR_HP, DEFAULT_CHAR_HP};

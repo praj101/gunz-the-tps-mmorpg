@@ -120,7 +120,7 @@ protected:
 	void OnMatchNotify(unsigned int nMsgID);
 //	void OnPeerList(const CCUID& uidStage, void* pBlob, int nCount);
 //	void OnAddPeer(const CCUID& uidChar, const char* szIP, const int nPort =				
-//		MATCHCLIENT_DEFAULT_UDP_PORT, MTD_CharInfo* pCharInfo = NULL, int nTeam = 0);
+//		MATCHCLIENT_DEFAULT_UDP_PORT, CCTD_CharInfo* pCharInfo = NULL, int nTeam = 0);
 	void OnAnnounce(unsigned int nType, char* szMsg);
 	void OnResponseResult(const int nResult);
 

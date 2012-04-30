@@ -24,7 +24,7 @@ void CreateTestGame(char *mapname, int nDummyCharacterCount, bool bShot,bool bAI
 
 	ZGetGame()->GetMatch()->SetRoundState(MMATCH_ROUNDSTATE_PLAY);
 
-	MTD_CharInfo info;
+	CCTD_CharInfo info;
 	strcpy(info.szName,"Maiet");
 	info.szClanName[0]=0;
 	info.nSex=1;

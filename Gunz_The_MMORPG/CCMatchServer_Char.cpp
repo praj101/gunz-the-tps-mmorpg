@@ -640,15 +640,15 @@ void CCMatchServer::ResponseCharInfoDetail(const CCUID& uidChar, const char* szC
 
 
 	// Client에 선택한 캐릭터 정보 전송
-	MTD_CharInfo_Detail trans_charinfo_detail;
+	CCTD_CharInfo_Detail trans_charinfo_detail;
 	CopyCharInfoDetailForTrans(&trans_charinfo_detail, pTarObject->GetCharInfo(), pTarObject);
 	
 
 	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CHARINFO_DETAIL, CCUID(0,0));
 
-	void* pCharInfoArray = MMakeBlobArray(sizeof(MTD_CharInfo_Detail), 1);
-	MTD_CharInfo_Detail* pTransCharInfoDetail = (MTD_CharInfo_Detail*)MGetBlobArrayElement(pCharInfoArray, 0);
-	memcpy(pTransCharInfoDetail, &trans_charinfo_detail, sizeof(MTD_CharInfo_Detail));
+	void* pCharInfoArray = MMakeBlobArray(sizeof(CCTD_CharInfo_Detail), 1);
+	CCTD_CharInfo_Detail* pTransCharInfoDetail = (CCTD_CharInfo_Detail*)MGetBlobArrayElement(pCharInfoArray, 0);
+	memcpy(pTransCharInfoDetail, &trans_charinfo_detail, sizeof(CCTD_CharInfo_Detail));
 	pNewCmd->AddParameter(new MCommandParameterBlob(pCharInfoArray, MGetBlobArraySize(pCharInfoArray)));
 	MEraseBlobArray(pCharInfoArray);
 

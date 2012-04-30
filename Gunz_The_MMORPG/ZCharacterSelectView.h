@@ -13,8 +13,8 @@ class ZInterfaceBackground;
 
 struct ZSelectCharacterInfo
 {
-	MTD_CharInfo			m_CharInfo;
-	MTD_AccountCharInfo		m_AccountCharInfo;
+	CCTD_CharInfo			m_CharInfo;
+	CCTD_AccountCharInfo		m_AccountCharInfo;
 	bool					m_bLoaded;				// 해당 슬롯의 캐릭터 정보를 받아왔는지 여부
 	bool					m_bRequested;			// 해당 슬롯의 캐릭터 정보를 요청했는지 여부
 };

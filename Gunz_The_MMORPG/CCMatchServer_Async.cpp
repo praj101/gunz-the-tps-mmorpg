@@ -382,17 +382,17 @@ void CCMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 		return;
 
 	const int					nCharCount		= pJob->GetCharCount();
-	const MTD_AccountCharInfo * pCharList		= pJob->GetCharList();
-	MTD_AccountCharInfo*		pTransCharInfo	= NULL;
+	const CCTD_AccountCharInfo * pCharList		= pJob->GetCharList();
+	CCTD_AccountCharInfo*		pTransCharInfo	= NULL;
 	int							nCharMaxLevel	= 0;
 
 	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_ACCOUNT_CHARLIST, CCUID(0,0));
-	void* pCharArray = MMakeBlobArray(sizeof(MTD_AccountCharInfo), nCharCount);
+	void* pCharArray = MMakeBlobArray(sizeof(CCTD_AccountCharInfo), nCharCount);
 
 	for (int i = 0; i < nCharCount; i++)
 	{
-		pTransCharInfo = (MTD_AccountCharInfo*)MGetBlobArrayElement(pCharArray, i);
-		memcpy(pTransCharInfo, &pCharList[i], sizeof(MTD_AccountCharInfo));
+		pTransCharInfo = (CCTD_AccountCharInfo*)MGetBlobArrayElement(pCharArray, i);
+		memcpy(pTransCharInfo, &pCharList[i], sizeof(CCTD_AccountCharInfo));
 
 		nCharMaxLevel = max(nCharMaxLevel, pTransCharInfo->nLevel);
 	}
@@ -464,15 +464,15 @@ void CCMatchServer::OnAsyncGetAccountCharList(MAsyncJob* pJobResult)
 //	}
 //
 //	// Client에 선택한 캐릭터 정보 전송
-//	MTD_CharInfo trans_charinfo;
+//	CCTD_CharInfo trans_charinfo;
 //	CopyCharInfoForTrans(&trans_charinfo, pJob->GetCharInfo(), pObj);
 //	
 //	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_SELECT_CHAR, CCUID(0,0));
 //	pNewCmd->AddParameter(new MCommandParameterInt(MOK));		// result
 //
-//	void* pCharArray = MMakeBlobArray(sizeof(MTD_CharInfo), 1);
-//	MTD_CharInfo* pTransCharInfo = (MTD_CharInfo*)MGetBlobArrayElement(pCharArray, 0);
-//	memcpy(pTransCharInfo, &trans_charinfo, sizeof(MTD_CharInfo));
+//	void* pCharArray = MMakeBlobArray(sizeof(CCTD_CharInfo), 1);
+//	CCTD_CharInfo* pTransCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharArray, 0);
+//	memcpy(pTransCharInfo, &trans_charinfo, sizeof(CCTD_CharInfo));
 //	pNewCmd->AddParameter(new MCommandParameterBlob(pCharArray, MGetBlobArraySize(pCharArray)));
 //	MEraseBlobArray(pCharArray);
 //

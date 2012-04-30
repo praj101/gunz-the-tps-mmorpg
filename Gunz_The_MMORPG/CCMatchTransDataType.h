@@ -11,14 +11,14 @@
 #pragma pack(1)
 
 // 내 캐릭터 리스트 정보 - 캐릭터 선택시 사용
-struct MTD_AccountCharInfo
+struct CCTD_AccountCharInfo
 {
 	char				szName[MATCHOBJECT_NAME_LENGTH];
 	char				nCharNum;
 	unsigned char		nLevel;
 };
 
-struct MTD_CharInfo
+struct CCTD_CharInfo
 {
 	// ＃이 구조체의 내용을 변경하려면 기존 리플레이의 로딩을 위해서 수정 전의 구조체를 ZReplay.cpp에 보존하고
 	// ＃버전별 로딩 코드를 작성해줘야 합니다. 변수의 추가는 가급적 마지막에 덧붙이는 편이 그나마 수월합니다.
@@ -260,7 +260,7 @@ struct MTD_CharClanInfo
 
 
 // 유저 정보보기
-struct MTD_CharInfo_Detail
+struct CCTD_CharInfo_Detail
 {
 	char				szName[32];						// 이름
 	char				szClanName[CLAN_NAME_LENGTH];	// 클랜이름
@@ -321,7 +321,7 @@ struct MTD_PeerListNode
 	CCUID				uidChar;
 	DWORD				dwIP;
 	unsigned int		nPort;
-	MTD_CharInfo		CharInfo;
+	CCTD_CharInfo		CharInfo;
 	//버프정보임시주석 MTD_CharBuffInfo	CharBuffInfo;
 	MTD_ExtendInfo		ExtendInfo;
 };

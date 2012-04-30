@@ -210,7 +210,7 @@ public:
 	void InitRound();
 	void AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg);
 
-	bool CreateMyCharacter(MTD_CharInfo* pCharInfo);//버프정보임시주석 , MTD_CharBuffInfo* pCharBuffInfo);
+	bool CreateMyCharacter(CCTD_CharInfo* pCharInfo);//버프정보임시주석 , MTD_CharBuffInfo* pCharBuffInfo);
 	void DeleteCharacter(const CCUID& uid);
 	void RefreshCharacters();
 	void ConfigureCharacter(const CCUID& uidChar, CCMatchTeam nTeam, unsigned char nPlayerFlags);

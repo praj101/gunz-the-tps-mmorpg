@@ -228,7 +228,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 			bool bExistChar = false;
 			for (int i = 0; i < nCount; i++)
 			{
-				MTD_CharInfo* pCharInfo = (MTD_CharInfo*)MGetBlobArrayElement(pCharListBlob, i);
+				CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharListBlob, i);
 				if (pCharInfo->nCharNum == 0)
 				{
 					ZBIRDPOSTCMD2(pClient, MC_MATCH_REQUEST_SELECT_CHAR,
@@ -272,7 +272,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 				if(pParam->GetType()!=MPT_BLOB) break;
 
 				void* pCharBlob = pParam->GetPointer();
-				MTD_CharInfo* pCharInfo = (MTD_CharInfo*)MGetBlobArrayElement(pCharBlob, 0);
+				CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharBlob, 0);
 
 				// 내정보 저장
 				pClient->SetPlayerName(pCharInfo->szName);

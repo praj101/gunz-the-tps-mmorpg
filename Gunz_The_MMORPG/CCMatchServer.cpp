@@ -139,9 +139,9 @@ void _CheckValidPointer(void* pPointer1, void* pPointer2, void* pPointer3, int n
 
 /////////////////////////////////////////////////////////
 
-void CopyCharInfoForTrans(MTD_CharInfo* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
+void CopyCharInfoForTrans(CCTD_CharInfo* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
 {
-	memset(pDest, 0, sizeof(MTD_CharInfo));
+	memset(pDest, 0, sizeof(CCTD_CharInfo));
 
 	if (pSrcCharInfo)
 	{
@@ -214,9 +214,9 @@ void CopyCharInfoForTrans(MTD_CharInfo* pDest, CCMatchCharInfo* pSrcCharInfo, CC
 
 }
 
-void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
+void CopyCharInfoDetailForTrans(CCTD_CharInfo_Detail* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
 {
-	memset(pDest, 0, sizeof(MTD_CharInfo_Detail));
+	memset(pDest, 0, sizeof(CCTD_CharInfo_Detail));
 
 	if (pSrcCharInfo)
 	{

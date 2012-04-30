@@ -177,23 +177,23 @@ bool ZReplayLoader::LoadStageSettingEtc(ZFile* file)
 	return true;
 }
 
-void ConvertCharInfo_v0_to_v2(MTD_CharInfo_v2* v2, MTD_CharInfo_v0* v0)
+void ConvertCharInfo_v0_to_v2(CCTD_CharInfo_v2* v2, CCTD_CharInfo_v0* v0)
 {
 	// 변수 하나 추가된 것이므로 그냥 덮어씌우고 추가된 변수 초기화
-	memcpy(v2, v0, sizeof(MTD_CharInfo_v0));
+	memcpy(v2, v0, sizeof(CCTD_CharInfo_v0));
 	v2->nClanCLID = 0;
 };
 
-void ConvertCharInfo_v2_to_v5(MTD_CharInfo_v5* v5, MTD_CharInfo_v2* v2)
+void ConvertCharInfo_v2_to_v5(CCTD_CharInfo_v5* v5, CCTD_CharInfo_v2* v2)
 {
-	memcpy(v5, v2, sizeof(MTD_CharInfo_v2));
+	memcpy(v5, v2, sizeof(CCTD_CharInfo_v2));
 	v5->nDTLastWeekGrade = 0;
 }
 
-void ConvertCharInfo_v5_to_curr(MTD_CharInfo* curr, MTD_CharInfo_v5* v5)
+void ConvertCharInfo_v5_to_curr(CCTD_CharInfo* curr, CCTD_CharInfo_v5* v5)
 {
 	// 일단 덮어씌우고
-	memcpy(curr, v5, sizeof(MTD_CharInfo_v5));
+	memcpy(curr, v5, sizeof(CCTD_CharInfo_v5));
 	// nEquipedItemDesc[MMCIP_END] 에서 MMCIP_END가 변경됐으므로 직접 복사
 	memset(curr->nEquipedItemDesc, 0, sizeof(curr->nEquipedItemDesc));
 	for (int i=0; i<MMCIP_CUSTOM2+1; ++i)
@@ -210,28 +210,28 @@ void ConvertCharInfo_v5_to_curr(MTD_CharInfo* curr, MTD_CharInfo_v5* v5)
 		curr->nEquipedItemCount[i] = 1;
 }
 
-void ConvertCharInfo(MTD_CharInfo* currCharInfo, void* oldCharInfo, int nVerOld)
+void ConvertCharInfo(CCTD_CharInfo* currCharInfo, void* oldCharInfo, int nVerOld)
 {
-	MTD_CharInfo_v2 v2;
-	MTD_CharInfo_v5 v5;
+	CCTD_CharInfo_v2 v2;
+	CCTD_CharInfo_v5 v5;
 
 	switch (nVerOld)
 	{
 	case 0: case 1:
-		ConvertCharInfo_v0_to_v2(&v2, (MTD_CharInfo_v0*)oldCharInfo);
+		ConvertCharInfo_v0_to_v2(&v2, (CCTD_CharInfo_v0*)oldCharInfo);
 		oldCharInfo = &v2;
 
 	case 2: case 3: case 4:
-		ConvertCharInfo_v2_to_v5(&v5, (MTD_CharInfo_v2*)oldCharInfo);
+		ConvertCharInfo_v2_to_v5(&v5, (CCTD_CharInfo_v2*)oldCharInfo);
 		oldCharInfo = &v5;
 
 	case 5:
-		ConvertCharInfo_v5_to_curr(currCharInfo, (MTD_CharInfo_v5*)oldCharInfo);
+		ConvertCharInfo_v5_to_curr(currCharInfo, (CCTD_CharInfo_v5*)oldCharInfo);
 	}
 	// case에 break가 없는 것은 의도된 것임
 
 	if (nVerOld == GUNZ_REC_FILE_VERSION)
-		memcpy(currCharInfo, oldCharInfo, sizeof(MTD_CharInfo));
+		memcpy(currCharInfo, oldCharInfo, sizeof(CCTD_CharInfo));
 }
 
 bool ZReplayLoader::LoadCharInfo(ZFile* file)
@@ -248,13 +248,13 @@ bool ZReplayLoader::LoadCharInfo(ZFile* file)
 		nRead = zfread(&bHero, sizeof(bHero), 1, file);
 		if(nRead != 1) return false;
 
-		MTD_CharInfo info;
+		CCTD_CharInfo info;
 
 		switch (m_nVersion)
 		{
 		case 0: case 1:
 			{
-				MTD_CharInfo_v0 old;
+				CCTD_CharInfo_v0 old;
 				nRead = zfread(&old, sizeof(old), 1, file);
 				if(nRead != 1) return false;
 				ConvertCharInfo(&info, &old, m_nVersion);
@@ -262,7 +262,7 @@ bool ZReplayLoader::LoadCharInfo(ZFile* file)
 			break;
 		case 2: case 3: case 4:
 			{
-				MTD_CharInfo_v2 old;
+				CCTD_CharInfo_v2 old;
 				nRead = zfread(&old, sizeof(old), 1, file);
 				if(nRead != 1) return false;
 				ConvertCharInfo(&info, &old, m_nVersion);
@@ -270,7 +270,7 @@ bool ZReplayLoader::LoadCharInfo(ZFile* file)
 			break;
 		case 5:
 			{
-				MTD_CharInfo_v5 old;
+				CCTD_CharInfo_v5 old;
 				nRead = zfread(&old, sizeof(old), 1, file);
 				if(nRead != 1) return false;
 				ConvertCharInfo(&info, &old, m_nVersion);
@@ -522,7 +522,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 				CCUID				uidChar;
 				char				szIP[64];
 				unsigned int		nPort;
-				MTD_CharInfo		CharInfo;
+				CCTD_CharInfo		CharInfo;
 				REPLAY2_ExtendInfo	ExtendInfo;
 			};
 
@@ -537,7 +537,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 			pNewNode->uidChar = pNode->uidChar;
 			pNewNode->dwIP = inet_addr(pNode->szIP);
 			pNewNode->nPort = pNode->nPort;
-			memcpy(&pNewNode->CharInfo, &pNode->CharInfo, sizeof(MTD_CharInfo));
+			memcpy(&pNewNode->CharInfo, &pNode->CharInfo, sizeof(CCTD_CharInfo));
 			pNewNode->ExtendInfo.nTeam = pNode->ExtendInfo.nTeam;
 			pNewNode->ExtendInfo.nPlayerFlags = pNode->ExtendInfo.nPlayerFlags;
 			pNewNode->ExtendInfo.nReserved1 = pNode->ExtendInfo.nReserved1;

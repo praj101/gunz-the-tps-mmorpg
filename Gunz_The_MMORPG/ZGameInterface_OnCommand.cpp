@@ -209,7 +209,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 				}
 
 				void* pCharBlob = pParam->GetPointer();
-				MTD_CharInfo* pCharInfo = (MTD_CharInfo*)MGetBlobArrayElement(pCharBlob, 0);
+				CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharBlob, 0);
 				
 				// 마지막 선택 캐릭 저장
 				ZCharacterSelectView::SetLastChar(pCharInfo->szName);
