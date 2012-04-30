@@ -97,8 +97,8 @@ private:
 	void AddPlayer(CCUID& uidPlayer);
 public:
 	CCQuestPlayerManager();										///< 생성자
-	~MQuestPlayerManager();										///< 소멸자
-	void Create(MMatchStage* pStage);							///< 초기화
+	~CCQuestPlayerManager();										///< 소멸자
+	void Create(CCMatchStage* pStage);							///< 초기화
 	void Destroy();												///< 해제
 	void DelPlayer(CCUID& uidPlayer);							///< 플레이어 삭제
 	void Clear();												///< 초기화
