@@ -170,11 +170,11 @@ protected:
 	void UpdateChecksum(unsigned long nTick);
 	void OnStartGame();
 	void OnFinishGame();
-	void OnApplyTeamBonus(MMatchTeam nTeam);
+	void OnApplyTeamBonus(CCMatchTeam nTeam);
 protected:
 	friend MMatchServer;
-	void SetStageType(MMatchStageType nStageType);
-	void SetLadderTeam(MMatchLadderTeamInfo* pRedLadderTeamInfo, MMatchLadderTeamInfo* pBlueLadderTeamInfo);
+	void SetStageType(CCMatchStageType nStageType);
+	void SetLadderTeam(CCMatchLadderTeamInfo* pRedLadderTeamInfo, CCMatchLadderTeamInfo* pBlueLadderTeamInfo);
 
 
 private :
@@ -216,7 +216,7 @@ public:
 	char* GetFirstMasterName()	{ return m_szFirstMasterName; }
 	void SetFirstMasterName(char* pszName)	{ strcpy(m_szFirstMasterName, pszName); }
 
-	CCMatchObject* GetObj(const CCUID& uid)	{ if (m_ObjUIDCaches.count(uid) == 0) return NULL; else return (MMatchObject*)(m_ObjUIDCaches[uid]); }			///< 추가by 동섭, 듀얼을 위해 -_-
+	CCMatchObject* GetObj(const CCUID& uid)	{ if (m_ObjUIDCaches.count(uid) == 0) return NULL; else return (CCMatchObject*)(m_ObjUIDCaches[uid]); }			///< 추가by 동섭, 듀얼을 위해 -_-
 	size_t GetObjCount()					{ return m_ObjUIDCaches.size(); }
 	int GetPlayers();
 	CCUIDRefCache::iterator GetObjBegin()	{ return m_ObjUIDCaches.begin(); }
@@ -228,13 +228,13 @@ public:
 	void AddBanList(int nCID);
 	bool CheckBanList(int nCID);
 
-	void AddObject(const CCUID& uid, const MMatchObject* pObj);
+	void AddObject(const CCUID& uid, const CCMatchObject* pObj);
 	CCUIDRefCache::iterator RemoveObject(const CCUID& uid);
 	bool KickBanPlayer(const char* pszName, bool bBanPlayer=true);
 
 	const CCUID RecommandMaster(bool bInBattleOnly);
-	void EnterBattle(MMatchObject* pObj);
-	void LeaveBattle(MMatchObject* pObj);
+	void EnterBattle(CCMatchObject* pObj);
+	void LeaveBattle(CCMatchObject* pObj);
 
 	STAGE_STATE GetState()					{ return m_nState; }
 	void ChangeState(STAGE_STATE nState)	{ m_nState = nState; UpdateStateTimer(); }
@@ -262,18 +262,18 @@ public:
 	void SetOwnerChannel(CCUID& uidOwnerChannel, int nIndex);
 	CCUID GetOwnerChannel() { return m_uidOwnerChannel; }
 
-	void PlayerTeam(const CCUID& uidPlayer, MMatchTeam nTeam);
-	void PlayerState(const CCUID& uidPlayer, MMatchObjectStageState nStageState);
+	void PlayerTeam(const CCUID& uidPlayer, CCMatchTeam nTeam);
+	void PlayerState(const CCUID& uidPlayer, CCMatchObjectStageState nStageState);
 	bool StartGame( const bool bIsUseResourceCRC32CacheCheck );
 	bool StartRelayGame( const bool bIsUseResourceCRC32CacheCheck );
 	bool FinishGame();
 	bool CheckBattleEntry();
 
 	void RoundStateFromClient(const CCUID& uidStage, int nState, int nRound);
-	void ObtainWorldItem(MMatchObject* pObj, const int nItemID);
-	void RequestSpawnWorldItem(MMatchObject* pObj, const int nItemID, 
+	void ObtainWorldItem(CCMatchObject* pObj, const int nItemID);
+	void RequestSpawnWorldItem(CCMatchObject* pObj, const int nItemID, 
 							   const float x, const float y, const float z, float fDropDelayTime);
-	void SpawnServerSideWorldItem(MMatchObject* pObj, const int nItemID, 
+	void SpawnServerSideWorldItem(CCMatchObject* pObj, const int nItemID, 
 							   const float x, const float y, const float z, 
 							   int nLifeTime, int* pnExtraValues );
 	void OnNotifyThrowTrapItem(const CCUID& uidPlayer, const int nItemID);
@@ -281,12 +281,12 @@ public:
 
 
 	bool IsApplyTeamBonus();	// 팀전 보너스 적용여부 확인
-	void AddTeamBonus(int nExp, MMatchTeam nTeam);
-	int GetTeamScore(MMatchTeam nTeam)		{ return m_Teams[nTeam].nScore; }
+	void AddTeamBonus(int nExp, CCMatchTeam nTeam);
+	int GetTeamScore(CCMatchTeam nTeam)		{ return m_Teams[nTeam].nScore; }
 
 	void InitTeamKills()									{ m_Teams[MMT_BLUE].nTotalKills = m_Teams[MMT_RED].nTotalKills = 0; }
-	int GetTeamKills(MMatchTeam nTeam)						{ return m_Teams[nTeam].nTotalKills; }
-	void AddTeamKills(MMatchTeam nTeam, int amount=1)		{ m_Teams[nTeam].nTotalKills+=amount; }	
+	int GetTeamKills(CCMatchTeam nTeam)						{ return m_Teams[nTeam].nTotalKills; }
+	void AddTeamKills(CCMatchTeam nTeam, int amount=1)		{ m_Teams[nTeam].nTotalKills+=amount; }	
 
 	const MMatchStageType GetStageType()	{ return m_nStageType; }
 	int GetMinPlayerLevel();	// 방에 있는 플레이어중 최소 레벨을 구한다.
@@ -294,7 +294,7 @@ public:
 	bool CheckUserWasVoted( const CCUID& uidPlayer );
 
 	bool CheckDuelMap();
-	bool CheckTicket( MMatchObject* pObj );
+	bool CheckTicket( CCMatchObject* pObj );
 	bool CheckQuestGame();
 
 	// 릴레이맵
@@ -318,7 +318,7 @@ public:
 
 public:
 	// Rule에서 호출하는 함수들
-	void OnRoundEnd_FromTeamGame(MMatchTeam nWinnerTeam);
+	void OnRoundEnd_FromTeamGame(CCMatchTeam nWinnerTeam);
 	void OnInitRound();			// 라운드 시작시 Rule클래스에서 호출
 
 public :
@@ -336,7 +336,7 @@ private :
 	bool			IsClanServer();
 
 	void			MakeResourceCRC32Cache( const DWORD dwKey, DWORD& out_crc32, DWORD& out_xor );
-	void			MakeItemResourceCRC32Cache( MMatchCRC32XORCache& CRC32Cache );
+	void			MakeItemResourceCRC32Cache( CCMatchCRC32XORCache& CRC32Cache );
 	void			SetResourceCRC32Cache( const CCUID& uidPlayer, const DWORD dwCRC32Cache, const DWORD dwXORCache );
 	void			RequestResourceCRC32Cache( const CCUID& uidPlayer );
 	void			DeleteResourceCRC32Cache( const CCUID& uidPlayer );
@@ -349,23 +349,23 @@ private :
 private:
 	CCMatchDuelTournamentStageInfo m_nDTStageInfo;
 
-	void MakeDuelTournamentMatchMap(MDUELTOURNAMENTROUNDSTATE nRoundState, int nMatchNumber);
+	void MakeDuelTournamentMatchMap(CCDUELTOURNAMENTROUNDSTATE nRoundState, int nMatchNumber);
 	void ClearDuelTournamentMatchMap();
 
-	CCDUELTOURNAMENTROUNDSTATE GetDuelTournamentRoundState(MDUELTOURNAMENTTYPE nType);
-	CCDUELTOURNAMENTROUNDSTATE GetDuelTournamentNextRoundState(MDUELTOURNAMENTROUNDSTATE nRoundState);
+	CCDUELTOURNAMENTROUNDSTATE GetDuelTournamentRoundState(CCDUELTOURNAMENTTYPE nType);
+	CCDUELTOURNAMENTROUNDSTATE GetDuelTournamentNextRoundState(CCDUELTOURNAMENTROUNDSTATE nRoundState);
 
-	int GetDuelTournamentNextOrder(MDUELTOURNAMENTROUNDSTATE nRoundState, int nOrder, int nTemp);
+	int GetDuelTournamentNextOrder(CCDUELTOURNAMENTROUNDSTATE nRoundState, int nOrder, int nTemp);
 public:
-	void SetDuelTournamentMatchList(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup *pPickedGroup);
+	void SetDuelTournamentMatchList(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup *pPickedGroup);
 	void SetDuelTournamentMatchNumber(int nValue)						{ m_nDTStageInfo.nDuelTournamentNumber = nValue; }	
 	void SetDuelTournamentMatchTimeStamp(char* szTimeStamp)				{ strcpy(m_nDTStageInfo.szTimeStamp, szTimeStamp); }
 	
-	const MDUELTOURNAMENTTYPE GetDuelTournamentType()							{ return m_nDTStageInfo.nDuelTournamentType; }
+	const CCDUELTOURNAMENTTYPE GetDuelTournamentType()							{ return m_nDTStageInfo.nDuelTournamentType; }
 	const int	GetDuelTournamentTotalRound()									{ return m_nDTStageInfo.nDuelTournamentTotalRound; }
 	const int	GetDuelTournamentMatchNumber()									{ return m_nDTStageInfo.nDuelTournamentNumber; }	
 	const char* GetDuelTournamentMatchTimeStamp()								{ return m_nDTStageInfo.szTimeStamp; }
-	map<int, MMatchDuelTournamentMatch*>* GetDuelTournamentMatchMap()			{ return &(m_nDTStageInfo.DuelTournamentMatchMap); }
+	map<int, CCMatchDuelTournamentMatch*>* GetDuelTournamentMatchMap()			{ return &(m_nDTStageInfo.DuelTournamentMatchMap); }
 
 	int	GetDuelTournamentRandomMapIndex();	
 
