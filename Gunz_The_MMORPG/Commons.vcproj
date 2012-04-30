@@ -2201,6 +2201,30 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCCommandCommunicator.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommandCommunicator.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommandManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommandManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommandParameter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommandParameter.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCConnectHistory.cpp"
 			>
 		</File>
