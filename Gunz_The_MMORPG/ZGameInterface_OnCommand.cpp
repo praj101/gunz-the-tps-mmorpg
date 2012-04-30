@@ -374,7 +374,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 	case MC_MATCH_RESPONSE_CHARACTER_ITEMLIST:
 		{
 			int nBounty = 0;
-			MUID uidEquipItems[MMCIP_END];
+			CCUID uidEquipItems[MMCIP_END];
 			int nItemCount = 0, nEquipItemCount = 0;
 
 			pCommand->GetParameter(&nBounty, 0, MPT_INT);
@@ -395,7 +395,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 			}
 
 			for (int i = 0; i < MMCIP_END; i++) {
-				uidEquipItems[i] = *(MUID*)MGetBlobArrayElement(pEquipItemListBlob, i);
+				uidEquipItems[i] = *(CCUID*)MGetBlobArrayElement(pEquipItemListBlob, i);
 			}
 
 
@@ -523,7 +523,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 	case MC_MATCH_STAGE_REQUIRE_PASSWORD:
 		{
 			// MC_MATCH_RESPONSE_STAGE_FOLLOW 대신 이 커맨드가 날라올 수도 있다.
-			MUID uidStage = MUID(0,0);
+			CCUID uidStage = CCUID(0,0);
 			char szStageName[256];
 			pCommand->GetParameter(&uidStage, 0, MPT_UID);
 			pCommand->GetParameter(szStageName, 1, MPT_STR, sizeof(szStageName) );
@@ -573,7 +573,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 					ZApplication::GetGameInterface()->ShowErrorMessage( nResult );
 				}
 
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
 
 				ZPostRequestStageJoin(ZGetGameClient()->GetPlayerUID(), uidStage);
@@ -688,7 +688,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 	case  MC_MATCH_RESPONSE_DROP_SACRIFICE_ITEM :
 		{
 			int		nResult;
-			MUID	uidRequester;
+			CCUID	uidRequester;
 			int		nSlotIndex;
 			int		nItemID;
 
@@ -705,7 +705,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 	case  MC_MATCH_RESPONSE_CALLBACK_SACRIFICE_ITEM :
 		{
 			int		nResult;
-			MUID	uidRequester;
+			CCUID	uidRequester;
 			int		nSlotIndex;
 			int		nItemID;
 
@@ -754,8 +754,8 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 
 	case MC_MATCH_RESPONSE_SLOT_INFO :
 		{
-			MUID	uidOwner1;
-			MUID	uidOwner2;
+			CCUID	uidOwner1;
+			CCUID	uidOwner2;
 			int		nItemID1;
 			int		nItemID2;
 
@@ -771,7 +771,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 	case MC_GAME_START_FAIL :
 		{
 			int nType;
-			MUID uidParam;
+			CCUID uidParam;
 
 			pCommand->GetParameter( &nType, 0, MPT_INT );
 			pCommand->GetParameter( &uidParam, 1, MPT_UID );

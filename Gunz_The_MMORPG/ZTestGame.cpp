@@ -74,7 +74,7 @@ void CreateTestGame(char *mapname, int nDummyCharacterCount, bool bShot,bool bAI
 		{
 
 			ZCharacter *pChar= new ZDummyCharacter();
-			pChar->SetUID(MUID(0,i+2));
+			pChar->SetUID(CCUID(0,i+2));
 			if (bShot) 
 			{
 				((ZDummyCharacter*)(pChar))->SetShotEnable(true);

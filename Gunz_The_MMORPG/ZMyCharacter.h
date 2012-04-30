@@ -39,7 +39,7 @@ struct ZDELAYEDWORKITEM {
 
 struct OVERLAP_FLOOR
 {
-	MUID	FloorUID;
+	CCUID	FloorUID;
 	int		nFloorCnt;		///< 점프버그때문에 만듬(한캐릭터위에 다른캐릭터가 올라갔을때 밑에 캐릭터가 점프시 위캐릭터의 높이가 갱신이 안되면 두캐릭터가 무한정 위로 올라간다.)
 	rvector	vecPosition;
 	bool	bJumpActivity;
@@ -164,7 +164,7 @@ public:
 
 	rvector	m_vReserveDashAttackedDir;
 	float	m_fReserveDashAttackedTime;
-	MUID	m_uidReserveDashAttacker;
+	CCUID	m_uidReserveDashAttacker;
 
 	MProtectValue<float>	m_fStunEndTime;				///< stun 풀리는 시간, 5번타입을 위함
 
@@ -197,7 +197,7 @@ public:
 	virtual void OnBlast(rvector &dir);
 	void OnRecoil(int nControlability);
 	void OnDashAttacked(rvector &dir);
-	void ReserveDashAttacked(MUID uid, float time,rvector &dir);
+	void ReserveDashAttacked(CCUID uid, float time,rvector &dir);
 
 	virtual void InitStatus();
 	virtual void InitRound();

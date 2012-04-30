@@ -16,13 +16,13 @@
 //	unsigned long		m_nItemID;
 //	bool				m_bLevelResticted;	// 현재 내 레벨보다 높은 아이템
 //public:
-//	MUID				m_UID;
+//	CCUID				m_UID;
 //public:
 //	char	m_szName[256];
 //	char	m_szLevel[256];
 //	char	m_szPrice[256];
 //public:
-//	ZEquipmentListItem_OLD(const MUID& uidItem, const unsigned long nItemID, MBitmap* pBitmap, const char* szName, const char* szLevel, const char* szPrice, bool bLeveRestricted)
+//	ZEquipmentListItem_OLD(const CCUID& uidItem, const unsigned long nItemID, MBitmap* pBitmap, const char* szName, const char* szLevel, const char* szPrice, bool bLeveRestricted)
 //	{
 //		m_nAIID = 0;
 //		m_nItemID = nItemID;
@@ -40,7 +40,7 @@
 //		m_nItemID = nItemID;
 //
 //		m_pBitmap = pBitmap;
-//		m_UID = MUID(0,0);
+//		m_UID = CCUID(0,0);
 //		strcpy(m_szName, szName);
 //		strcpy(m_szLevel, szLevel);
 //		strcpy(m_szPrice, szPrice);
@@ -53,7 +53,7 @@
 //		m_nItemID = 0;
 //
 //		m_pBitmap = NULL;
-//		m_UID = MUID(0,0);
+//		m_UID = CCUID(0,0);
 //		m_szName[0] = 0;
 //		m_szLevel[0] = 0;
 //		m_szPrice[0] = 0;
@@ -77,7 +77,7 @@
 //		if (i == 0) return m_pBitmap;
 //		return NULL;
 //	}
-//	MUID& GetUID() { return m_UID; }
+//	CCUID& GetUID() { return m_UID; }
 //	int GetAIID() { return m_nAIID; }
 //
 //	int GetMSID() { return 0; }	/// 임시로 추가해둠
@@ -122,8 +122,8 @@
 //	char* GetItemDescriptionWidgetName();
 //	void SetupItemDescTooltip();
 //
-////	void Add(const MUID& uidItem, MBitmap* pIconBitmap, const char* szName, const char* szWeight, const char* szSlot, const char* szPrice);
-////	void Add(const MUID& uidItem, MBitmap* pIconBitmap, const char* szName, int nWeight, MMatchItemSlotType nSlot, int nBountyPrice);
+////	void Add(const CCUID& uidItem, MBitmap* pIconBitmap, const char* szName, const char* szWeight, const char* szSlot, const char* szPrice);
+////	void Add(const CCUID& uidItem, MBitmap* pIconBitmap, const char* szName, int nWeight, MMatchItemSlotType nSlot, int nBountyPrice);
 //
 ////	void SetOnDropCallback(ZCB_ONDROP pCallback) { m_pOnDropFunc = pCallback; }
 //	void SetDescriptionWidget(MWidget *pWidget)	{ m_pDescFrame = pWidget; }

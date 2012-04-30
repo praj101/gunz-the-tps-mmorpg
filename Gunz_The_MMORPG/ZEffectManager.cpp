@@ -2483,7 +2483,7 @@ void ZEffectManager::AddSlashEffect(rvector& Target, rvector& TargetNormal,int n
 	}
 }
 
-void ZEffectManager::AddSwordUppercutDamageEffect(rvector& Target,MUID uidTarget,DWORD time)
+void ZEffectManager::AddSwordUppercutDamageEffect(rvector& Target,CCUID uidTarget,DWORD time)
 {
 	ZEffect* pNew = NULL;
 
@@ -3025,7 +3025,7 @@ void ZEffectManager::AddStarEffect( ZObject *pObj )
 */
 }
 
-void ZEffectManager::Add(const char* szName,const rvector& pos, const rvector& dir,const MUID& uidOwner,int nLifeTime)
+void ZEffectManager::Add(const char* szName,const rvector& pos, const rvector& dir,const CCUID& uidOwner,int nLifeTime)
 {
 	ZEffect* pNew = NULL;
 	RMesh *pMesh = m_pEffectMeshMgr->Get((char*)szName);
@@ -3038,7 +3038,7 @@ void ZEffectManager::Add(const char* szName,const rvector& pos, const rvector& d
 	Add(pNew);
 }
 // 이름으로 특정한 함수와 연결하고 싶은경우...
-void ZEffectManager::AddSp(const char* szName,int nCnt,const rvector& pos, const rvector& dir,const MUID& uidOwner)
+void ZEffectManager::AddSp(const char* szName,int nCnt,const rvector& pos, const rvector& dir,const CCUID& uidOwner)
 {
 	if(stricmp(szName,"BlizzardEffect")==0) {
 		AddBlizzardEffect((rvector&)pos , nCnt );
@@ -3051,7 +3051,7 @@ void ZEffectManager::AddSp(const char* szName,int nCnt,const rvector& pos, const
 	}
 }
 
-void ZEffectManager::AddPartsPosType(const char* szName,const MUID& uidOwner,RMeshPartsPosInfoType type,int nLifeTime)
+void ZEffectManager::AddPartsPosType(const char* szName,const CCUID& uidOwner,RMeshPartsPosInfoType type,int nLifeTime)
 {
 	ZEffect* pNew = NULL;
 	RMesh *pMesh = m_pEffectMeshMgr->Get((char*)szName);

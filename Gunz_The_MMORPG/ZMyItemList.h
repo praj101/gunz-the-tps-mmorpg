@@ -35,13 +35,13 @@ class ZMyItemList
 {
 protected:
 	bool							m_bCreated;
-	MUID							m_uidEquipItems[MMCIP_END];
+	CCUID							m_uidEquipItems[MMCIP_END];
 	unsigned long int				m_nEquipItemID[MMCIP_END];
 	unsigned long int				m_nEquipItemCount[MMCIP_END]; 
 
 	MITEMNODEMAP					m_ItemMap;
-	vector<MUID>					m_ItemIndexVectorEquip;
-	vector<MUID>					m_ItemIndexVector;
+	vector<CCUID>					m_ItemIndexVectorEquip;
+	vector<CCUID>					m_ItemIndexVector;
 	
 	// Account Item 관련
 	MACCOUNT_ITEMNODEMAP			m_AccountItemMap;
@@ -75,32 +75,32 @@ public:
 
 	unsigned long int GetItemID(int nItemIndex);
 	unsigned long int GetItemIDEquip(int nItemIndex);
-	unsigned long int GetItemID(const MUID& uidItem);
+	unsigned long int GetItemID(const CCUID& uidItem);
 	unsigned long int GetAccountItemID(int nPos);
 	unsigned long int GetEquipedItemID(MMatchCharItemParts parts);
 
 	ZMyItemNode* GetItem(int nItemIndex);
 	ZMyItemNode* GetItemEquip(int nItemIndex);
-	ZMyItemNode* GetItem(const MUID& uidItem);
+	ZMyItemNode* GetItem(const CCUID& uidItem);
 	ZMyItemNode* GetEquipedItem(MMatchCharItemParts parts);
 	ZMyItemNode* GetAccountItem(int nPos);
 	ZMyItemNode* GetAccountItemByAIID(int nAIID);
 
 	ZMyItemNode* GetItemByDescId(int nItemId);
 
-	const ZMyGambleItem* GetGambleItem(const MUID& uidItem);
+	const ZMyGambleItem* GetGambleItem(const CCUID& uidItem);
 	void SetGambleItemAll(MTD_GambleItemNode* pGItemNodes, int nGItemCount );
 
-	MUID GetEquipedItemUID(MMatchCharItemParts parts);
-	void SetEquipItemsAll(MUID* pnEquipItems);
-	void SetEquipItemInfo(MUID* pEquipItemUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount);
+	CCUID GetEquipedItemUID(MMatchCharItemParts parts);
+	void SetEquipItemsAll(CCUID* pnEquipItems);
+	void SetEquipItemInfo(CCUID* pEquipItemUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount);
 	
 	void SetItemsAll(MTD_ItemNode* pItemNodes, const int nItemCount);	
 	bool IsCreated() { return m_bCreated; }
 
-	MUID GetForceItemUID(int nItemIndex);
-	MUID GetItemUID(int nItemIndex);
-	MUID GetItemUIDEquip(int nItemIndex);
+	CCUID GetForceItemUID(int nItemIndex);
+	CCUID GetItemUID(int nItemIndex);
+	CCUID GetItemUIDEquip(int nItemIndex);
 
 	void Serialize();
 	void SerializeAccountItem();		// 창고 인터페이스를 동기화한다

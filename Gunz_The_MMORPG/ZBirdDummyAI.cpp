@@ -81,7 +81,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 		break;
 	case MC_MATCH_CHANNEL_RESPONSE_JOIN:
 		{
-			MUID uidChannel;
+			CCUID uidChannel;
 			char szChannelName[256];
 
 			pCmd->GetParameter(&uidChannel,		0, MPT_UID);
@@ -131,7 +131,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 		break;
 	case MC_MATCH_STAGE_JOIN:
 		{
-			MUID uidChar, uidStage;
+			CCUID uidChar, uidStage;
 			char szStageName[256];
 
 			pCmd->GetParameter(&uidChar, 0, MPT_UID);
@@ -174,7 +174,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 		break;
 	case MC_MATCH_STAGE_ENTERBATTLE:
 		{
-			MUID uidChar, uidStage;
+			CCUID uidChar, uidStage;
 			int nParam;
 
 			pCmd->GetParameter(&uidChar, 0, MPT_UID);
@@ -202,7 +202,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 		break;
 	case MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT:
 		{
-			MUID uidChar, uidStage;
+			CCUID uidChar, uidStage;
 
 			pCmd->GetParameter(&uidChar, 0, MPT_UID);
 			pCmd->GetParameter(&uidStage, 1, MPT_UID);
@@ -219,7 +219,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 		break;
 	case MC_MATCH_STAGE_FINISH_GAME:
 		{
-			MUID uidStage;
+			CCUID uidStage;
 			pCmd->GetParameter(&uidStage, 0, MPT_UID);
 			
 			ZBIRDPOSTCMD2(m_pClient, MC_MATCH_STAGE_LEAVEBATTLE_TO_SERVER, 
@@ -273,7 +273,7 @@ void ZBirdDummyAIJoinFlood::OnCommand(MCommand* pCmd)
 		break;
 	case MC_MATCH_CHANNEL_RESPONSE_JOIN:
 		{
-			MUID uidChannel;
+			CCUID uidChannel;
 			char szChannelName[256];
 
 			pCmd->GetParameter(&uidChannel,		0, MPT_UID);
@@ -335,7 +335,7 @@ void ZBirdDummyAIJoinFlood::OnCommand(MCommand* pCmd)
 			m_nReservedTime = timeGetTime();
 			m_bReserved = true;
 
-			MUID uidChar, uidStage;
+			CCUID uidChar, uidStage;
 			char szStageName[256];
 
 			pCmd->GetParameter(&uidChar, 0, MPT_UID);

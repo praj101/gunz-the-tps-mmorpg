@@ -224,7 +224,7 @@ ZTask* ZTaskManager::CreateAttackRange(ZActor* pParent, rvector& dir)
 	return pNew;
 }
 
-ZTask* ZTaskManager::CreateSkill(ZActor* pParent,int nSkill,MUID& uidTarget,rvector& targetPosition)
+ZTask* ZTaskManager::CreateSkill(ZActor* pParent,int nSkill,CCUID& uidTarget,rvector& targetPosition)
 {
 	ZTask* pNew = new ZTask_Skill(pParent,nSkill,uidTarget,targetPosition);
 	return pNew;

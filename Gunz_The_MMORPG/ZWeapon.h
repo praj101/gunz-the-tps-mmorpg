@@ -46,7 +46,7 @@ public:
 
 protected:
 	int			m_WeaponType;
-	MUID		m_uidOwner;
+	CCUID		m_uidOwner;
 	MMatchTeam	m_nTeamID;
 	float		m_fDamage;
 	int			m_SLSid; // 스텐실 라이트 아이디
@@ -202,7 +202,7 @@ enum WeaponMagicExplosionType
 class ZWeaponMagic : public ZMovingWeapon {
 	MDeclareRTTI
 private:
-	MUID		m_uidTarget;
+	CCUID		m_uidTarget;
 	bool		m_bGuide;
 	ZSkillDesc	*m_pSkillDesc;
 	float		m_fMagicScale;
@@ -219,7 +219,7 @@ public:
 
 	bool Update(float fElapsedTime);
 
-	const MUID& GetTarget() { return m_uidTarget; }
+	const CCUID& GetTarget() { return m_uidTarget; }
 	ZSkillDesc *GetDesc() { return m_pSkillDesc; }
 
 	float	m_fStartTime;

@@ -4,7 +4,7 @@
 #include "MRTTI.h"
 #include "ZCharacterObject.h"
 #include "ZCharacter.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "RVisualMeshMgr.h"
 #include "MObjectTypes.h"
 #include "ZStateMachine.h"
@@ -44,7 +44,7 @@ enum ZACTOR_FLAG
 // 일정 시간간격으로 NPC정보 계속 주고받는 데이터
 struct ZACTOR_BASICINFO {
 	float			fTime;
-	MUID			uidNPC;
+	CCUID			uidNPC;
 	short			posx,posy,posz;
 	short			velx,vely,velz;
 	short			dirx,diry,dirz;
@@ -193,14 +193,14 @@ public:
 	// knockback을 적용받아야한다
 	virtual void OnKnockback(rvector& dir, float fForce);
 	virtual void OnDie();
-	virtual void OnPeerDie(MUID& uidKiller);
+	virtual void OnPeerDie(CCUID& uidKiller);
 
 	bool IsDieAnimationDone();
 	bool CanSee(ZObject* pTarget);				///< 시야에 보이는지 여부
 	bool CanAttackRange(ZObject* pTarget);		///< 원거리 공격 가능한지 여부
 	bool CanAttackMelee(ZObject* pTarget, ZSkillDesc *pSkillDesc=NULL);	///< 근거리 공격 가능한지 여부, 만약 pSkillDesc=NULL이면 기본 근접공격
 
-	MUID GetLastAttacker() { return m_pModule_HPAP->GetLastAttacker(); }
+	CCUID GetLastAttacker() { return m_pModule_HPAP->GetLastAttacker(); }
 
 	// 디버그용
 	char m_szOwner[64];

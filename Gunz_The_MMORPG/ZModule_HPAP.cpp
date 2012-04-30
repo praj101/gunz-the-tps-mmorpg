@@ -4,7 +4,7 @@
 #include "ZApplication.h"
 #include "CheckReturnCallStack.h"
 
-ZModule_HPAP::ZModule_HPAP() : m_LastAttacker(MUID(0,0)), m_bRealDamage_DebugRegister(false), m_fAccumulationDamage(0.f), m_bAccumulationDamage(false)
+ZModule_HPAP::ZModule_HPAP() : m_LastAttacker(CCUID(0,0)), m_bRealDamage_DebugRegister(false), m_fAccumulationDamage(0.f), m_bAccumulationDamage(false)
 {
 	float f = float(rand() % 1000); 
 	f += float(rand() % 100) * 0.01f;
@@ -33,7 +33,7 @@ float	ZModule_HPAP::GetAP()
 	return m_fAP.Ref() - GetMask();
 }
 
-void ZModule_HPAP::OnDamage(MUID uidAttacker,float fDamage, float fRatio)
+void ZModule_HPAP::OnDamage(CCUID uidAttacker,float fDamage, float fRatio)
 {
 	_ASSERT(fDamage >= 0);
 	if (fDamage < 0) fDamage *= -1.f;	// 해킹으로 음수대미지를 넣어서 회복할 수 있으므로..
@@ -123,7 +123,7 @@ void ZModule_HPAP::OnDamage(MUID uidAttacker,float fDamage, float fRatio)
 
 void ZModule_HPAP::InitStatus()
 {
-	m_LastAttacker = MUID(0,0);
+	m_LastAttacker = CCUID(0,0);
 }
 
 bool ZModule_HPAP::CheckQuestCheet()

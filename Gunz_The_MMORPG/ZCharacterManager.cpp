@@ -29,7 +29,7 @@ void ZCharacterManager::Add(ZCharacter *pCharacter)
 	ZGetObjectManager()->Add((ZObject*)pCharacter);
 }
 
-ZCharacter* ZCharacterManager::Add(MUID uid, rvector pos, bool bMyCharacter)
+ZCharacter* ZCharacterManager::Add(CCUID uid, rvector pos, bool bMyCharacter)
 {	
 	ZCharacter* pCharacter = Find(uid);
 	if (pCharacter != NULL) return pCharacter;
@@ -47,7 +47,7 @@ ZCharacter* ZCharacterManager::Add(MUID uid, rvector pos, bool bMyCharacter)
 	return pCharacter;
 }
 
-void ZCharacterManager::Delete(MUID uid)
+void ZCharacterManager::Delete(CCUID uid)
 {
 	iterator itor = find(uid);
 
@@ -79,7 +79,7 @@ void ZCharacterManager::Clear()
 }
 
 
-ZCharacter* ZCharacterManager::Find(MUID uid)
+ZCharacter* ZCharacterManager::Find(CCUID uid)
 {
 	iterator itor = find(uid);
 	if (itor != end())
@@ -407,7 +407,7 @@ void ZCharacterManager::InitRound()
 	}
 }
 
-int ZCharacterManager::GetCharacterIndex(MUID& uid, bool bIncludeHiddenChar)
+int ZCharacterManager::GetCharacterIndex(CCUID& uid, bool bIncludeHiddenChar)
 {
 	int nIndex = 0;
 	for(iterator i = begin(); i!=end(); i++) 

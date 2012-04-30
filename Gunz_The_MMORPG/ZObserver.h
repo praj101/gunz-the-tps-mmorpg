@@ -37,19 +37,19 @@ enum ZObserverLookMode
 
 class ZObserverQuickTarget {
 protected:
-	MUID	m_arrayPlayers[10];
+	CCUID	m_arrayPlayers[10];
 
 public:
 	ZObserverQuickTarget()	{ Clear(); }
 	~ZObserverQuickTarget()	{ Clear(); }
 	void Clear() {
 		for (int i=0; i<10; i++)
-			m_arrayPlayers[i] = MUID(0,0);
+			m_arrayPlayers[i] = CCUID(0,0);
 	}
 
 	bool ConvertKeyToIndex(char nKey, int* nIndex);
-	void StoreTarget(int nIndex, MUID uidChar);
-	MUID GetTarget(int nIndex);
+	void StoreTarget(int nIndex, CCUID uidChar);
+	CCUID GetTarget(int nIndex);
 };
 
 class ZObserver
@@ -77,7 +77,7 @@ public:
 	void Destroy();
 	void ChangeToNextTarget();
 	bool SetFirstTarget();
-	void SetTarget(MUID muid);
+	void SetTarget(CCUID muid);
 
 	bool IsVisible() { return m_bVisible; }
 	void Show(bool bVisible);

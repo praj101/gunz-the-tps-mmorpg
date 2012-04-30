@@ -3,7 +3,7 @@
 
 #include "ZPrerequisites.h"
 #include "ZMeshView.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "MMatchItem.h"
 
 #include "RCharCloth.h"
@@ -16,7 +16,7 @@ public:
 
 struct ZCharacterViewInfo
 {
-	MUID		UID;
+	CCUID		UID;
 	MMatchSex	nSex;
 	int			nHair;
 	int			nFace;
@@ -78,8 +78,8 @@ public:
 	#define MINT_CHARACTERVIEW	"CharacterView"
 	virtual const char* GetClassName(void){ return MINT_CHARACTERVIEW; }
 	
-	void SetCharacter( MUID uid );
-	const MUID& GetCharacter() { return m_Info.UID; }
+	void SetCharacter( CCUID uid );
+	const CCUID& GetCharacter() { return m_Info.UID; }
 };
 
 unsigned long int GetVisualWeaponID(unsigned long int nMeleeItemID, unsigned long int nPrimaryItemID,

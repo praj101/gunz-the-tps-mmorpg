@@ -71,9 +71,9 @@ void ZQuestGameInfo::OnMovetoNewSector(int nSectorIndex, int nRepeated)
 	m_Bosses.clear();
 }
 
-MUID ZQuestGameInfo::GetBoss()
+CCUID ZQuestGameInfo::GetBoss()
 {
-	if (m_Bosses.empty()) return MUID(0,0);
+	if (m_Bosses.empty()) return CCUID(0,0);
 
 	return m_Bosses[0];
 }

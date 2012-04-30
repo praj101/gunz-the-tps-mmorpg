@@ -329,7 +329,7 @@ MCommandParameterUID::MCommandParameterUID(void)
  : MCommandParameter(MPT_UID)
 {
 }
-MCommandParameterUID::MCommandParameterUID(const MUID& uid)
+MCommandParameterUID::MCommandParameterUID(const CCUID& uid)
  : MCommandParameter(MPT_UID)
 {
 	m_Value = uid;
@@ -343,7 +343,7 @@ MCommandParameterUID* MCommandParameterUID::Clone(void)
 }
 void MCommandParameterUID::GetValue(void* p)
 {
-	*(MUID*)p = m_Value;
+	*(CCUID*)p = m_Value;
 }
 int MCommandParameterUID::GetData(char* pData, int nSize)
 {

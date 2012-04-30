@@ -251,7 +251,7 @@ bool ZGameInput::OnDebugEvent(MEvent* pEvent)
 
 			case 'C' : {
 //				ZModule_Skills *pmod = (ZModule_Skills *)g_pGame->m_pMyCharacter->GetModule(ZMID_SKILLS);
-//				pmod->Excute(0,MUID(0,0),rvector(0,0,0));
+//				pmod->Excute(0,CCUID(0,0),rvector(0,0,0));
 					
 //				g_pGame->UpdateCombo(true);
 
@@ -354,7 +354,7 @@ bool ZGameInput::OnDebugEvent(MEvent* pEvent)
 					{
 						ZGetObjectManager()->ClearNPC();
 						// npc »ý¼º test
-						MUID uidNPC = MUID(0,0);
+						CCUID uidNPC = CCUID(0,0);
 						uidNPC.High = rand() % RAND_MAX;
 						uidNPC.Low = rand() % RAND_MAX;
 

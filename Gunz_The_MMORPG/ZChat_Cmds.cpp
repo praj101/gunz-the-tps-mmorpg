@@ -1286,7 +1286,7 @@ void ChatCmd_LaunchTest(const char* line,const int argc, char **const argv)
 	// 사용하는 부분이 없어서 디버그용으로 수정함. -by SungE 2007-04-02
 #ifdef _DEBUG
 	MCommand* pCmd = ZGetGameClient()->CreateCommand(MC_MATCH_LADDER_LAUNCH, ZGetMyUID());
-	pCmd->AddParameter(new MCmdParamUID(MUID(0,0)));
+	pCmd->AddParameter(new MCmdParamUID(CCUID(0,0)));
 	pCmd->AddParameter(new MCmdParamStr("Mansion"));
 	ZGetGameClient()->Post(pCmd);
 #endif
@@ -1397,7 +1397,7 @@ void ChatCmd_QUESTTEST_LocalSpawnNPC(const char* line,const int argc, char **con
 	MCommand* pCmd = ZNewCmd(MC_QUEST_NPC_LOCAL_SPAWN);
 	pCmd->AddParameter(new MCmdParamUID(ZGetMyUID()));
 	
-	MUID uidLocal;
+	CCUID uidLocal;
 	uidLocal.High = 10000;
 	uidLocal.Low = (unsigned long)ZGetObjectManager()->size();
 

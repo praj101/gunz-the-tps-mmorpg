@@ -84,7 +84,7 @@ struct ZEFFECTBILLBOARDTEXANIITEM : public ZEFFECTITEM , public CMemPoolSm<ZEFFE
 
 	int		frame;
 
-	MUID	CharUID;
+	CCUID	CharUID;
 	RMeshPartsPosInfoType partstype;
 };
 

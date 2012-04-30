@@ -24,14 +24,14 @@ protected:
 	int					m_nPBufferTop;
 	CRITICAL_SECTION	m_csRecvLock;	///< CommandQueue critical section
 	MCommandBuilder*	m_pCommandBuilder;
-	MUID				m_Server;		///< 연결된 커뮤니케이터
+	CCUID				m_Server;		///< 연결된 커뮤니케이터
 
 	ZBT_DummyONCommand	m_fnOnCommandCallBack;
 protected:
-	MUID				m_uidServer;
-	MUID				m_uidPlayer;
-	MUID				m_uidChannel;
-	MUID				m_uidStage;
+	CCUID				m_uidServer;
+	CCUID				m_uidPlayer;
+	CCUID				m_uidChannel;
+	CCUID				m_uidStage;
 	char				m_szChannel[256];
 	char				m_szStageName[256];
 	char				m_szPlayerName[256];
@@ -48,10 +48,10 @@ protected:
 	virtual void SendCommand(MCommand* pCommand);
 	virtual MCommand* GetCommandSafe();
 	virtual int Connect(MCommObject* pCommObj) { return 0; }
-	int OnConnected(SOCKET sock, MUID* pTargetUID, MUID* pAllocUID);
+	int OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID);
 
 	int MakeCmdPacket(char* pOutPacket, int iMaxPacketSize, MCommand* pCommand);
-	MUID GetSenderUIDBySocket(SOCKET socket);
+	CCUID GetSenderUIDBySocket(SOCKET socket);
 
 	// Socket Event
 	bool OnSockConnect(SOCKET sock);
@@ -59,10 +59,10 @@ protected:
 	bool OnSockRecv(SOCKET sock, char* pPacket, DWORD dwSize);
 	void OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &ErrorCode);
 protected:
-	int OnResponseMatchLogin(const MUID& uidServer, int nResult, const MUID& uidPlayer);
-	void OnResponseRecommandedChannel(const MUID& uidChannel, char* szChannel);
-	void OnStageJoin(const MUID& uidChar, const MUID& uidStage, char* szStageName);
-	void OnStageLeave(const MUID& uidChar, const MUID& uidStage);
+	int OnResponseMatchLogin(const CCUID& uidServer, int nResult, const CCUID& uidPlayer);
+	void OnResponseRecommandedChannel(const CCUID& uidChannel, char* szChannel);
+	void OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, char* szStageName);
+	void OnStageLeave(const CCUID& uidChar, const CCUID& uidStage);
 public:
 	ZBirdDummyClient();
 	virtual ~ZBirdDummyClient();
@@ -70,7 +70,7 @@ public:
 public:
 	bool Post(MCommand* pCommand);
 	int Connect(SOCKET* pSocket, char* szIP, int nPort);
-	void Disconnect(MUID uid);
+	void Disconnect(CCUID uid);
 
 	static bool SocketRecvEvent(void* pCallbackContext, SOCKET sock, char* pPacket, DWORD dwSize);
 	static bool SocketConnectEvent(void* pCallbackContext, SOCKET sock);
@@ -78,10 +78,10 @@ public:
 	static void SocketErrorEvent(void* pCallbackContext, SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &ErrorCode);
 
 public:
-	MUID GetServerUID() { return m_uidServer; }
-	MUID GetPlayerUID()	{ return m_uidPlayer; }
-	MUID GetChannelUID() { return m_uidChannel; }
-	MUID GetStageUID() { return m_uidStage; }
+	CCUID GetServerUID() { return m_uidServer; }
+	CCUID GetPlayerUID()	{ return m_uidPlayer; }
+	CCUID GetChannelUID() { return m_uidChannel; }
+	CCUID GetStageUID() { return m_uidStage; }
 	const char* GetChannelName() { return m_szChannel; }
 	const char* GetStageName() { return m_szStageName; }
 	void SetPlayerName(const char* szPlayerName) { strcpy(m_szPlayerName, szPlayerName); }

@@ -19,7 +19,7 @@ protected:
 public:
 	void Clear();
 
-	bool SetShortBuff(int nIndex, MUID& uidBuff, int nBuffID, int nRegTime, int nPeriodRemainder);	
+	bool SetShortBuff(int nIndex, CCUID& uidBuff, int nBuffID, int nRegTime, int nPeriodRemainder);	
 	ZShortBuff* GetShortBuff(int nIndex);
 	ZBuffSummary* GetBuffSummary() { return &m_BuffSummary; }
 };

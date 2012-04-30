@@ -2,7 +2,7 @@
 #define _ZCHARACTERSELECTVIEW_H
 
 #include "ZMeshView.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "MMatchTransDataType.h"
 #include "RCharCloth.h"
 #include "ZShadow.h"

@@ -17,7 +17,7 @@ private:
 	/* [[SHUFFLE_LINE]] moduleHPAP */	bool					m_bRealDamage_DebugRegister;	//jintriple3 디버그 레지스터 핵 용..
 	/* [[SHUFFLE_LINE]] moduleHPAP */	MProtectValue<float>	m_fHP;
 	
-	/* [[SHUFFLE_LINE]] moduleHPAP */	MUID					m_LastAttacker;		///< 제일 마지막에 나한테 공격한 사람
+	/* [[SHUFFLE_LINE]] moduleHPAP */	CCUID					m_LastAttacker;		///< 제일 마지막에 나한테 공격한 사람
 	/* [[SHUFFLE_LINE]] moduleHPAP */	MProtectValue<float>	m_fAP;
 	/* [[SHUFFLE_LINE]] moduleHPAP */	MProtectValue<bool>		m_bRealDamage;		// 실제로 데미지를 먹는지. (내가 컨트롤 안하는 것들은 안먹도록)
 	/* [[SHUFFLE_LINE]] moduleHPAP */	float					m_fAccumulationDamage;	// 내가 죽기전까지 얻은 대미지 누적값(듀얼토너먼트 때문에 추가)
@@ -65,10 +65,10 @@ public:
 	}
 	bool	GetRealDamage() { return m_bRealDamage.Ref(); }
 	
-	void	SetLastAttacker(MUID uid)	{ m_LastAttacker = uid; }
-	MUID	GetLastAttacker() { return m_LastAttacker; }
+	void	SetLastAttacker(CCUID uid)	{ m_LastAttacker = uid; }
+	CCUID	GetLastAttacker() { return m_LastAttacker; }
 
-	void	OnDamage(MUID uidAttacker,float fDamage, float fRatio);
+	void	OnDamage(CCUID uidAttacker,float fDamage, float fRatio);
 
 	void	InitStatus();
 	void	ShiftFugitiveValues();

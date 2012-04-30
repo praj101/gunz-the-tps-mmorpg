@@ -71,7 +71,7 @@ public:
 struct DuelTournamentPlayer
 {
 	char m_szCharName[MATCHOBJECT_NAME_LENGTH];
-	MUID uidPlayer;
+	CCUID uidPlayer;
 	int m_nTP;
 	int nVictory;
 	int nMatchLevel;
@@ -248,7 +248,7 @@ public:
 	bool IsFinish();
 
 	ZCharacter* GetTargetCharacter();
-	MUID		GetTargetUID();
+	CCUID		GetTargetUID();
 
 	int GetPlayTime();
 

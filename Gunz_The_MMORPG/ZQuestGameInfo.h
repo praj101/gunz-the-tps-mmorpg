@@ -19,7 +19,7 @@ private:
 	int								m_nNPCKilled;				// 한 섹터당 죽은 NPC 수
 	int								m_nCurrSectorIndex;			// 현재 게임중인 섹터 인덱스
 	int								m_nNumOfObtainQuestItem;	// 퀘스트 팀이 획득한 아이템 갯수
-	vector<MUID>					m_Bosses;					// 보스 UID
+	vector<CCUID>					m_Bosses;					// 보스 UID
 	rvector							m_vPortalPos;				// 포탈의 위치
 	int								m_nMapsetID;
 	unsigned int					m_nScenarioID;
@@ -57,8 +57,8 @@ public:
 	int GetQuestLevel( void)				{ return m_nQL; }
 	int GetNumOfObtainQuestItem( void)		{ return m_nNumOfObtainQuestItem; }
 	void IncreaseObtainQuestItem( void)		{ m_nNumOfObtainQuestItem++; }
-	vector<MUID>& GetBosses(void)			{ return m_Bosses; }
-	MUID GetBoss();
+	vector<CCUID>& GetBosses(void)			{ return m_Bosses; }
+	CCUID GetBoss();
 	void SetPortalPos(rvector& pos)			{ m_vPortalPos = pos; }
 	rvector GetPortalPos()					{ return m_vPortalPos; }
 };

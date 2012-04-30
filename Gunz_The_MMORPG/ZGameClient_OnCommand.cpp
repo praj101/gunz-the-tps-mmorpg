@@ -88,7 +88,7 @@ void OnQuestNPCList( void* pBlobNPCList, MMATCH_GAMETYPE eGameType )
 }
 
 
-void TimeReward_ShowCharEffect(MUID uidChar)
+void TimeReward_ShowCharEffect(CCUID uidChar)
 {
 	if (ZGetCharacterManager())
 	{
@@ -173,7 +173,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			{
 				#ifndef _PUBLISH
 					char szText[65535]; szText[0] = 0;
-					MUID uidChar;
+					CCUID uidChar;
 
 					pCommand->GetParameter(&uidChar, 0, MPT_UID);
 					pCommand->GetParameter(szText, 1, MPT_STR, sizeof(szText) );
@@ -183,7 +183,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_NET_CHECKPING:
 			{
-				MUID uid;
+				CCUID uid;
 				if (pCommand->GetParameter(&uid, 0, MPT_UID)==false) break;
 				MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_NET_PING), uid, m_This);
 				pNew->AddParameter(new MCommandParameterUInt(timeGetTime()));
@@ -365,7 +365,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_BRIDGEPEER_ACK:
 			{
-				MUID uidChar;
+				CCUID uidChar;
 				int nCode;
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&nCode, 1, MPT_INT);
@@ -388,7 +388,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_JOIN:
 			{
-				MUID uidChar, uidStage;
+				CCUID uidChar, uidStage;
 				unsigned int nRoomNo=0;
 				char szStageName[256]="";
 
@@ -402,7 +402,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_LEAVE:
 			{
-				MUID uidChar, uidStage;
+				CCUID uidChar, uidStage;
 
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
@@ -412,7 +412,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_START:
 			{
-				MUID uidChar, uidStage;
+				CCUID uidChar, uidStage;
 				int nCountdown;
 
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
@@ -425,7 +425,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_STAGE_LAUNCH:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				char szMapName[_MAX_DIR];
 
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
@@ -436,7 +436,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_STAGE_RELAY_LAUNCH :
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				bool bIsIgnore;
 				char szMapName[_MAX_DIR];
 
@@ -455,7 +455,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 		case MC_MATCH_STAGE_FINISH_GAME:
 			{
 				bool bIsRelayMapUnFinish;
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				pCommand->GetParameter(&bIsRelayMapUnFinish, 1, MPT_BOOL);
 				
@@ -465,7 +465,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_STAGE_MAP:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				char szMapName[_MAX_DIR];
 
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
@@ -477,7 +477,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				int nRelayMapType = 0;
 				int nRelayMapRepeatCount = 0;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
@@ -494,7 +494,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_STAGE_RELAY_MAP_ELEMENT_UPDATE:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				int nRelayMapType = 0;
 				int nRelayMapRepeatCount = 0;
 
@@ -508,7 +508,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_STAGE_TEAM:
 			{
-				MUID uidChar, uidStage;
+				CCUID uidChar, uidStage;
 				unsigned int nTeam;
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
@@ -519,7 +519,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_STAGE_PLAYER_STATE:
 			{
-				MUID uidChar, uidStage;
+				CCUID uidChar, uidStage;
 				int nObjectStageState;
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
@@ -529,7 +529,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_MASTER:
 			{
-				MUID uidChar, uidStage;
+				CCUID uidChar, uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				pCommand->GetParameter(&uidChar, 1, MPT_UID);
 
@@ -538,7 +538,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_STAGE_CHAT:
 			{
-				MUID uidStage, uidChar;
+				CCUID uidStage, uidChar;
 				static char szChat[512];
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
@@ -580,7 +580,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_RESPONSE_ALL_PLAYER_LIST:
 			{
-				MUID uidChannel;
+				CCUID uidChannel;
 
 				pCommand->GetParameter(&uidChannel, 0, MPT_UID);
 
@@ -604,7 +604,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_RESPONSE_STAGESETTING:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 
 				MCommandParameter* pStageParam = pCommand->GetParameter(1);
@@ -620,7 +620,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				int nStageState;
 				pCommand->GetParameter(&nStageState, 3, MPT_INT);
 
-				MUID uidMaster;
+				CCUID uidMaster;
 				pCommand->GetParameter(&uidMaster, 4, MPT_UID);
 
 				OnResponseStageSetting(uidStage, pStageBlob, nStageCount, pCharBlob, nCharCount, STAGE_STATE(nStageState), uidMaster);
@@ -630,7 +630,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_RESPONSE_PEER_RELAY:
 			{
-				MUID uidPeer;
+				CCUID uidPeer;
 				if (pCommand->GetParameter(&uidPeer, 0, MPT_UID) == false) break;
 
 				OnResponsePeerRelay(uidPeer);			
@@ -638,7 +638,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_LOADING_COMPLETE:
 			{
-				MUID uidChar;
+				CCUID uidChar;
 				int nPercent;
 
 				if (pCommand->GetParameter(&uidChar, 0, MPT_UID) == false) break;
@@ -658,7 +658,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_RESPONSE_JOIN:
 			{
-				MUID uidChannel;
+				CCUID uidChannel;
 				int nChannelType;
 				char szChannelName[256];
 				bool bEnableInterface;
@@ -675,7 +675,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_CHAT:
 			{
-				MUID uidChannel, uidChar;
+				CCUID uidChannel, uidChar;
 				char szChat[512];
 				char szName[256];
 				int nGrade;
@@ -703,7 +703,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_RESPONSE_RULE:
 			{
-				MUID uidChannel;
+				CCUID uidChannel;
 				pCommand->GetParameter(&uidChannel, 0, MPT_UID);
 				char szRuleName[128];
 				pCommand->GetParameter(szRuleName, 1, MPT_STR, sizeof(szRuleName) );
@@ -713,7 +713,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_RESPONSE_RECOMMANDED_CHANNEL:
 			{
-				MUID uidChannel;
+				CCUID uidChannel;
 				pCommand->GetParameter(&uidChannel, 0, MPT_UID);
 
 				OnResponseRecommandedChannel(uidChannel);
@@ -732,7 +732,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_GAME_LEVEL_UP:
 			{
-				MUID uidChar;
+				CCUID uidChar;
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
 
 				OnGameLevelUp(uidChar);
@@ -740,7 +740,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_GAME_LEVEL_DOWN:
 			{
-				MUID uidChar;
+				CCUID uidChar;
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
 
 				OnGameLevelDown(uidChar);
@@ -748,7 +748,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_RESPONSE_GAME_INFO:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 
 				MCommandParameter* pParam = pCommand->GetParameter(1);
@@ -768,7 +768,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_OBTAIN_WORLDITEM:
 			{
-				MUID uidPlayer;
+				CCUID uidPlayer;
 				int nItemUID;
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
@@ -887,7 +887,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			}break;
 		case MC_TEST_PEERTEST_PING:
 			{
-				MUID uidSender = pCommand->GetSenderUID();
+				CCUID uidSender = pCommand->GetSenderUID();
 				char szLog[128];
 				sprintf(szLog, "PEERTEST_PING: from (%d%d)", uidSender.High, uidSender.Low);
 				ZChatOutput(szLog, ZChat::CMT_SYSTEM);
@@ -921,7 +921,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			{
 				int nRequestID;
 				char szClanName[256];
-				MUID uidMasterObject;
+				CCUID uidMasterObject;
 				char szMasterName[256];
 
 
@@ -935,7 +935,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_ANSWER_SPONSOR_AGREEMENT:
 			{
-				MUID uidClanMaster;
+				CCUID uidClanMaster;
 				int nRequestID;
 				bool bAnswer;
 				char szCharName[256];
@@ -966,7 +966,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 		case MC_MATCH_CLAN_ASK_JOIN_AGREEMENT:
 			{
 				char szClanName[256], szClanAdmin[256];
-				MUID uidClanAdmin;
+				CCUID uidClanAdmin;
 
 				pCommand->GetParameter(szClanName,		0, MPT_STR, sizeof(szClanName) );
 				pCommand->GetParameter(&uidClanAdmin,	1, MPT_UID);
@@ -977,7 +977,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_ANSWER_JOIN_AGREEMENT:
 			{
-				MUID uidClanAdmin;
+				CCUID uidClanAdmin;
 				bool bAnswer;
 				char szJoiner[256];
 
@@ -1115,7 +1115,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_ASK_AGREEMENT:
 			{
-				MUID uidProposer;
+				CCUID uidProposer;
 //				char szProposerCharName[256];
 				int nProposalMode, nRequestID;
 				
@@ -1135,7 +1135,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REPLY_AGREEMENT:
 			{
-				MUID uidProposer, uidChar;
+				CCUID uidProposer, uidChar;
 				char szReplierName[256];
 				int nProposalMode, nRequestID;
 				bool bAgreement;
@@ -1186,7 +1186,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_LADDER_PREPARE:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				int nTeam;
 				pCommand->GetParameter(&nTeam, 1, MPT_INT);
@@ -1195,7 +1195,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			}break;
 		case MC_MATCH_LADDER_LAUNCH:		// 게임 시작
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				char szMapName[128];
 				pCommand->GetParameter(szMapName, 1, MPT_STR, sizeof(szMapName) );
@@ -1324,7 +1324,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_REWARD_BATTLE_TIME:
 			{
-				MUID uidOwner;
+				CCUID uidOwner;
 				char szRewardName[256], szRewardResetDesc[256];
 				int nRemainReward;
 				unsigned int nItemId, nItemCnt;
@@ -1419,7 +1419,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_DUELTOURNAMENT_PREPARE_MATCH:
 			{
-				MUID uidStage = MUID(0,0);
+				CCUID uidStage = CCUID(0,0);
 				int nType;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				pCommand->GetParameter(&nType, 1, MPT_INT);
@@ -1431,7 +1431,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_DUELTOURNAMENT_LAUNCH_MATCH:
 			{
-				MUID uidStage;
+				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				char szMapName[128];
 				pCommand->GetParameter(szMapName, 1, MPT_STR, sizeof(szMapName) );
@@ -1545,7 +1545,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK :
 			{
-				MUID uidPlayer;
+				CCUID uidPlayer;
 				int nParts;
 				int nItemID;
 

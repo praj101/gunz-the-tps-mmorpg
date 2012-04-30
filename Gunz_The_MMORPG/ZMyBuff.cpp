@@ -21,7 +21,7 @@ void ZMyShortBuffMap::Clear()
 	}
 }
 
-void ZMyShortBuffMap::Remove(MUID& uidBuff)
+void ZMyShortBuffMap::Remove(CCUID& uidBuff)
 {
 	iterator iter = find(uidBuff);
 	if( iter != end() ) {
@@ -30,11 +30,11 @@ void ZMyShortBuffMap::Remove(MUID& uidBuff)
 	}
 }
 
-bool ZMyShortBuffMap::Insert(MUID& uidBuff, ZMyShortBuff* pBuff)
+bool ZMyShortBuffMap::Insert(CCUID& uidBuff, ZMyShortBuff* pBuff)
 {
 	iterator iter = find(uidBuff);
 	if( iter != end() ) { _ASSERT(0); return false; }
-	insert(pair<MUID, ZMyShortBuff*>(uidBuff, pBuff));
+	insert(pair<CCUID, ZMyShortBuff*>(uidBuff, pBuff));
 	return true;
 }
 

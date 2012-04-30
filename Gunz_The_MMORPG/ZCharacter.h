@@ -6,7 +6,7 @@
 #include "MRTTI.h"
 #include "ZCharacterObject.h"
 //#include "ZActor.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "RTypes.h"
 #include "RPathFinder.h"
 #include "RVisualMeshMgr.h"
@@ -283,7 +283,7 @@ struct ZCharacterStatus
 // 이것은 캐릭터끼리 주고받는 데이터로 나중에 투표 판정의 근거가 된다.
 /*
 struct ZHPItem {
-	MUID muid;
+	CCUID muid;
 	float fHP;
 };
 */
@@ -430,7 +430,7 @@ protected:
 		float			m_LastDamageDot;
 		float			m_LastDamageDistance;
 
-		MUID			m_LastThrower;				///< 마지막 띄운 사람
+		CCUID			m_LastThrower;				///< 마지막 띄운 사람
 		float			m_tmLastThrowClear;			///< 마지막 띄운 사람 잊어도 되는시간
 	};
 	MProtectValue<DamageInfo> m_damageInfo;
@@ -527,7 +527,7 @@ public:
 //	float GetIconStartTime(int nIcon);
 
 	MProtectValue<int>				m_nVMID;	// VisualMesh ID
-	//MUID	m_UID;		// 서버에서 부여한 캐릭터의 UID
+	//CCUID	m_UID;		// 서버에서 부여한 캐릭터의 UID
 	MProtectValue<MMatchTeam>		m_nTeamID;	// Team ID
 
 	MProtectValue<MCharacterMoveMode>		m_nMoveMode;
@@ -703,8 +703,8 @@ public:
 	bool GetStylishShoted() { return m_dwStatusBitPackingValue.Ref().m_bStylishShoted; }
 	void UpdateStylishShoted();
 	
-	MUID GetLastAttacker() { return m_pModule_HPAP->GetLastAttacker(); }
-	void SetLastAttacker(MUID uid) { m_pModule_HPAP->SetLastAttacker(uid); }
+	CCUID GetLastAttacker() { return m_pModule_HPAP->GetLastAttacker(); }
+	void SetLastAttacker(CCUID uid) { m_pModule_HPAP->SetLastAttacker(uid); }
 	ZDAMAGETYPE GetLastDamageType() { return m_damageInfo.Ref().m_LastDamageType; }
 	void SetLastDamageType(ZDAMAGETYPE type) { MEMBER_SET_CHECKCRC(m_damageInfo, m_LastDamageType, type); }
 
@@ -722,13 +722,13 @@ public:
 	bool IsTagger() { return m_dwStatusBitPackingValue.Ref().m_bTagger; }
 	void SetTagger(bool bTagger) { m_dwStatusBitPackingValue.Ref().m_bTagger = bTagger; }
 
-	void SetLastThrower(MUID uid, float fTime) { MEMBER_SET_CHECKCRC(m_damageInfo, m_LastThrower, uid); MEMBER_SET_CHECKCRC(m_damageInfo, m_tmLastThrowClear, fTime); }
-	const MUID& GetLastThrower() { return m_damageInfo.Ref().m_LastThrower; }
+	void SetLastThrower(CCUID uid, float fTime) { MEMBER_SET_CHECKCRC(m_damageInfo, m_LastThrower, uid); MEMBER_SET_CHECKCRC(m_damageInfo, m_tmLastThrowClear, fTime); }
+	const CCUID& GetLastThrower() { return m_damageInfo.Ref().m_LastThrower; }
 	float GetLastThrowClearTime() { return m_damageInfo.Ref().m_tmLastThrowClear; }
 
 	// 동작이나 이벤트에 관한 것들.
 	//void Damaged(ZCharacter* pAttacker, rvector& dir, RMeshPartsType partstype,MMatchCharItemParts wtype,int nCount=-1);
-	//void DamagedGrenade(MUID uidOwner, rvector& dir, float fDamage,int nTeamID);
+	//void DamagedGrenade(CCUID uidOwner, rvector& dir, float fDamage,int nTeamID);
 	//void DamagedFalling(float fDamage);
 	//void DamagedKatanaSplash(ZCharacter* pAttacker,float fDamageRange);
 

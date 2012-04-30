@@ -20,7 +20,7 @@
 class SacrificeItemSlotDesc
 {
 protected:
-	MUID		m_uidUserID;
+	CCUID		m_uidUserID;
 	int			m_nItemID;
 	MBitmap*	m_pIconBitmap;
 	char		m_szItemName[25];
@@ -39,10 +39,10 @@ public:
 	}
 
 public:
-	void SetSacrificeItemSlot( const MUID& uidUserID, const unsigned long int nItemID, MBitmap* pBitmap, const char* szItemName, const int nQL);
+	void SetSacrificeItemSlot( const CCUID& uidUserID, const unsigned long int nItemID, MBitmap* pBitmap, const char* szItemName, const int nQL);
 	void RemoveItem( void)						{ m_bExist = false; }
 
-	MUID GetUID( void)							{ return m_uidUserID; }
+	CCUID GetUID( void)							{ return m_uidUserID; }
 	MBitmap* GetIconBitmap( void)				{ return m_pIconBitmap; }
 	unsigned long int GetItemID( void)			{ return m_nItemID; }
 	const char* GetName( void)					{ return m_szItemName; }
@@ -249,14 +249,14 @@ public:		// public functions
 	void SerializeSacrificeItemListBox( void);					// 아이템 박스 업데이트
 	bool ReadSenarioNameXML( void);
 
-	void OnStartFail( const int nType, const MUID& uidParam );
+	void OnStartFail( const int nType, const CCUID& uidParam );
 
 #ifdef _QUEST_ITEM
-	bool OnResponseDropSacrificeItemOnSlot( const int nResult, const MUID& uidRequester, const int nSlotIndex, const int nItemID );
-	bool OnResponseCallbackSacrificeItem( const int nResult, const MUID& uidRequester, const int nSlotIndex, const int nItemID );
+	bool OnResponseDropSacrificeItemOnSlot( const int nResult, const CCUID& uidRequester, const int nSlotIndex, const int nItemID );
+	bool OnResponseCallbackSacrificeItem( const int nResult, const CCUID& uidRequester, const int nSlotIndex, const int nItemID );
 	bool OnResponseQL( const int nQL );
-	bool OnResponseSacrificeSlotInfo( const MUID& uidOwner1, const unsigned long int nItemID1, 
-									  const MUID& uidOwner2, const unsigned long int nItemID2 );
+	bool OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const unsigned long int nItemID1, 
+									  const CCUID& uidOwner2, const unsigned long int nItemID2 );
 	bool OnNotAllReady();
 	bool OnQuestStartFailed( const int nState );
 	bool OnStageGameInfo( const int nQL, const int nMapsetID, const unsigned int nScenarioID );

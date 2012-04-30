@@ -1477,7 +1477,7 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 	C( MC_MATCH_RESPONSE_DROP_SACRIFICE_ITEM, "Quest", "Response drop sacrifice item", MCDT_MACHINE2MACHINE )
 		P( MPT_INT, "Result" )
 		P( MPT_UID, "requester of drop sacrifice item." )
-		// P( MPT_UID, "owner of was drop." )	// MUID(0, 0)이면 빈 슬롯. 방장일 경우만 사용.
+		// P( MPT_UID, "owner of was drop." )	// CCUID(0, 0)이면 빈 슬롯. 방장일 경우만 사용.
 		P( MPT_INT, "Slot index" )
 		P( MPT_INT, "ItemID" )
 

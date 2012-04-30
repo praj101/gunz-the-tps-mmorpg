@@ -3079,7 +3079,7 @@ void ZGameInterface::OnDrawStateLogin(MDrawContext* pDC)
 			{
 				ServerInfo *serverInfo = (*itr);
 
-				MCommand* pCmd = GetGameClient()->CreateCommand(MC_UDP_PING, MUID(0,0));
+				MCommand* pCmd = GetGameClient()->CreateCommand(MC_UDP_PING, CCUID(0,0));
 				unsigned int nIP = (unsigned int)inet_addr(m_spGameClient->GetUDPInfo()->GetAddress());
 				pCmd->AddParameter(new MCmdParamUInt(dwCurrTime));
 				GetGameClient()->SendCommandByUDP(pCmd, serverInfo->szAgentIP, 7778);
@@ -4759,7 +4759,7 @@ void ZGameInterface::OnResponseShopItemList( const vector< MTD_ShopItemInfo*> &v
 	ZGetShop()->Serialize();
 }
 
-void ZGameInterface::OnResponseCharacterItemList(MUID* puidEquipItem
+void ZGameInterface::OnResponseCharacterItemList(CCUID* puidEquipItem
 												 , MTD_ItemNode* pItemNodes
 												 , int nItemCount
 												 , MTD_GambleItemNode* pGItemNodes

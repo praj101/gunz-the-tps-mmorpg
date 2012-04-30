@@ -41,7 +41,7 @@ public:
 	ZRuleDuelTournament(ZMatch* pMatch);
 	virtual ~ZRuleDuelTournament();
 
-	int	GetQueueIdx(const MUID& uidChar);
+	int	GetQueueIdx(const CCUID& uidChar);
 
 	virtual bool OnCommand(MCommand* pCommand);
 	virtual void AfterCommandProcessed( MCommand* pCommand );
@@ -49,11 +49,11 @@ public:
 	virtual void OnUpdate(float fDelta);
 
 	int GetDuelTournamentPlayCount() { return m_nDTPlayCount; }
-	MUID GetChampion() { return m_DTChampion.uidPlayer; }
+	CCUID GetChampion() { return m_DTChampion.uidPlayer; }
 
 	void OnDraw(MDrawContext* pDC);
 
-	void SetMatchPlayerInfoUI(const MUID& uidPlayer1, const MUID& uidPlayer2);
+	void SetMatchPlayerInfoUI(const CCUID& uidPlayer1, const CCUID& uidPlayer2);
 	void ShowMatchPlayerInfoUI(bool bShow);
 	void ShowMatchPlayerInfoUI_OnlyNextMatch(bool bShow);
 	void ShowWinLoseScreenEffect(MTD_DuelTournamentMatchResultInfo& DTGameResultInfo);
@@ -61,13 +61,13 @@ public:
 	void SetRoundResultInfo(MTD_DuelTournamentRoundResultInfo& DTGameResultInfo);
 	void SetMatchResultInfo(MTD_DuelTournamentMatchResultInfo& DTGameResultInfo);
 	void ShowMatchOrder(MDrawContext* pDC, bool isResult, float fElapsed);
-	DuelTournamentPlayer* GetPlayer(const MUID& uid);
-	void DrawVictorySymbol(MDrawContext* pDC, MUID uidPlayer1, MUID uidPlayer2);
+	DuelTournamentPlayer* GetPlayer(const CCUID& uid);
+	void DrawVictorySymbol(MDrawContext* pDC, CCUID uidPlayer1, CCUID uidPlayer2);
 
-	void SetPlayerHpApForUI(const MUID& uidChar, float fmaxhp, float fmaxap, float fhp, float fap);		// UI를 위해 그려주기만할 용도
-	void GetPlayerHpApForUI(const MUID& uidChar, float* fmaxhp, float* fmaxap, float* fhp, float* fap);		// UI를 위해 그려주기만할 용도
-	int GetPlayerInfoIndex(const MUID& uidChar);
-	int GetPingValue(MUID uiPlayer);		// 핑값 가져오기
+	void SetPlayerHpApForUI(const CCUID& uidChar, float fmaxhp, float fmaxap, float fhp, float fap);		// UI를 위해 그려주기만할 용도
+	void GetPlayerHpApForUI(const CCUID& uidChar, float* fmaxhp, float* fmaxap, float* fhp, float* fap);		// UI를 위해 그려주기만할 용도
+	int GetPlayerInfoIndex(const CCUID& uidChar);
+	int GetPingValue(CCUID uiPlayer);		// 핑값 가져오기
 
 private:
 	void BeginPlayerInfoUISlideAni(bool bToCenter);

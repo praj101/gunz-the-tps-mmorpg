@@ -2,7 +2,7 @@
 
 #include <map>
 #include <string>
-#include "MUID.h"
+#include "CCUID.h"
 
 using namespace std;
 
@@ -42,7 +42,7 @@ public:
 class ZPlayerManager
 {
 private :
-	map<MUID,ZPlayerInfo*>		m_PlayerList;
+	map<CCUID,ZPlayerInfo*>		m_PlayerList;
 
 
 public:
@@ -52,11 +52,11 @@ public:
 
 	static ZPlayerManager* GetInstance();
 
-	void AddPlayer( MUID& uID, ZPlayerInfo* pInfo);
-	void AddPlayer( MUID& uID, const char* name, int rank, int kill, int death);
-	void RemovePlayer( MUID& uID);
+	void AddPlayer( CCUID& uID, ZPlayerInfo* pInfo);
+	void AddPlayer( CCUID& uID, const char* name, int rank, int kill, int death);
+	void RemovePlayer( CCUID& uID);
 	void Clear();
-	ZPlayerInfo* Find( MUID& uID);
+	ZPlayerInfo* Find( CCUID& uID);
 };
 
 

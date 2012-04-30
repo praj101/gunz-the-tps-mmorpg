@@ -189,8 +189,8 @@ void ZBossGaugeEffect::Shock(float fPower)
 
 bool ZBossGaugeEffect::Draw(unsigned long int nTime)
 {
-	MUID uidBoss = ZGetQuest()->GetGameInfo()->GetBoss();
-	if (uidBoss == MUID(0,0)) return true;
+	CCUID uidBoss = ZGetQuest()->GetGameInfo()->GetBoss();
+	if (uidBoss == CCUID(0,0)) return true;
 
 	const float fShockDuration=	0.5f;
 	const rvector ShockOffset=rvector(0,0,0);

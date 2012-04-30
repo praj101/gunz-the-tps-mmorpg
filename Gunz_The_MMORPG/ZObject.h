@@ -2,7 +2,7 @@
 #define _ZOBJECT_H
 
 #include "ZPrerequisites.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "RTypes.h"
 #include "MRTTI.h"
 #include "ZModule.h"
@@ -110,7 +110,7 @@ private:
 	float					m_fSpawnTime;		///< 태어난 시간
 	float					m_fDeadTime;		///< 죽은시간
 protected:
-	MUID					m_UID;				///< 서버에서 부여한 유니크 ID(중요)
+	CCUID					m_UID;				///< 서버에서 부여한 유니크 ID(중요)
 	bool					m_bIsNPC;			///< NPC인지 여부
 	bool					m_bInitialized;		///< 초기화되었는지 여부
 	bool					m_bInitialized_DebugRegister;	//jintriple3 디버그 레지스터 땜에..ㅠ
@@ -166,8 +166,8 @@ public:
 	bool IsVisible()								{ return m_bVisible; }
 	void SetVisible(bool bVisible)					{ m_bVisible = bVisible; }
 	bool GetInitialized()							{ return m_bInitialized; }
-	MUID& GetUID()									{ return m_UID; }
-	void SetUID(MUID& uid)							{ m_UID = uid; }
+	CCUID& GetUID()									{ return m_UID; }
+	void SetUID(CCUID& uid)							{ m_UID = uid; }
 	void SetSpawnTime(float fTime);
 	float GetSpawnTime()							{ return m_fSpawnTime; }
 	void SetDeadTime(float fTime);

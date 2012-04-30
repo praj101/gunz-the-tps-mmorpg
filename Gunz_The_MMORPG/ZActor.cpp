@@ -1151,7 +1151,7 @@ void ZActor::CheckDead(float fDelta)
 			m_Animation.Input(ZA_EVENT_DEATH);
 			SetFlag(AF_DEAD, true);
 
-			MUID uidKiller = this->GetLastAttacker();
+			CCUID uidKiller = this->GetLastAttacker();
 			ZPostQuestPeerNPCDead(uidKiller, GetUID());
 
 			m_TaskManager.Clear();
@@ -1164,8 +1164,8 @@ void ZActor::CheckDead(float fDelta)
 			if (ZGetGame()->GetTime()-GetDeadTime() > GetNPCInfo()->fDyingTime)
 			{
 				// 나중에 나락까지 감안하게 되면 ZGame::CheckMyCharDead와 합쳐서 모듈로 빼야한다.
-				MUID uidAttacker = GetLastAttacker();
-				if (uidAttacker == MUID(0, 0))
+				CCUID uidAttacker = GetLastAttacker();
+				if (uidAttacker == CCUID(0, 0))
 				{
 					// 죽인 사람이 누군지 모르면 그냥 조종자 자신이 죽인 사람
 					//_ASSERT(0);
@@ -1237,7 +1237,7 @@ void ZActor::OnDie()
 {
 }
 
-void ZActor::OnPeerDie(MUID& uidKiller)
+void ZActor::OnPeerDie(CCUID& uidKiller)
 {
 	bool bMyKill = (ZGetGameClient()->GetPlayerUID() == uidKiller);
 

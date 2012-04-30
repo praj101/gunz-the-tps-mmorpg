@@ -432,9 +432,9 @@ void ZCharacterView::OnRestore()
 		m_pTVisualMesh.m_pVisualMesh->OnRestore();
 }
 
-bool GetUserInfoUID(MUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
 
-void ZCharacterView::SetCharacter( MUID uid  )
+void ZCharacterView::SetCharacter( CCUID uid  )
 {
 	m_Info.UID = uid;
 	

@@ -35,7 +35,7 @@ public:
 
 	/// 홈페이지에서만 실행해야하는 지역에서 실행파일을 바로 실행했을 경우에는 홈페이지를 띄워준다.
 	void RouteToWebsite();
-	void PostLoginViaHomepage(MUID* pAllocUID);
+	void PostLoginViaHomepage(CCUID* pAllocUID);
 
 	bool ParseArguments(const char* pszArgs);
 	ZBaseAuthInfo* GetAuthInfo()			{ return m_pAuthInfo; }

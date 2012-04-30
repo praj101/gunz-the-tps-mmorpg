@@ -9,15 +9,15 @@ class ZMyItemNode : public MBaseItem
 {
 protected:
 	unsigned long int		m_nItemID;
-	MUID					m_UID;
+	CCUID					m_UID;
 	DWORD					m_dwWhenReceivedClock;
 	
 public:
 	
-	ZMyItemNode() : MBaseItem(), m_nItemID(0), m_UID(MUID(0,0)) { }
+	ZMyItemNode() : MBaseItem(), m_nItemID(0), m_UID(CCUID(0,0)) { }
 	virtual	~ZMyItemNode() { }
 
-	void Create(MUID& uidItem, unsigned long int nItemID, int nCount=1, 
+	void Create(CCUID& uidItem, unsigned long int nItemID, int nCount=1, 
 				bool bIsRentItem=false, int nRentMinutePeriodRemainder=RENT_MINUTE_PERIOD_UNLIMITED, int iMaxUseHour = 0)	// Update sgk 0614 [int iMaxUseHour = 0] Ãß°¡
 	{
 		m_UID = uidItem;
@@ -46,10 +46,10 @@ public:
 	}
 
 	unsigned long int GetItemID()	{ return m_nItemID; }
-	MUID& GetUID()					{ return m_UID; }
+	CCUID& GetUID()					{ return m_UID; }
 };
 
-typedef map<MUID, ZMyItemNode*> MITEMNODEMAP;
+typedef map<CCUID, ZMyItemNode*> MITEMNODEMAP;
 typedef map<int, ZMyItemNode*> MACCOUNT_ITEMNODEMAP;
 
 

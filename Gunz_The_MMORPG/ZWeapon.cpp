@@ -1408,7 +1408,7 @@ void ZWeaponMagic::Explosion(WeaponMagicExplosionType type, ZObject* pVictim,rve
 		case ZSR_LIGHTNING :
 			{
 				//				ZModule_LightningDamage *pMod = (ZModule_LightningDamage*)pVictim->GetModule( ZMID_LIGHTNINGDAMAGE);
-				//				if ( pMod)  pMod->BeginDamage( MUID(0,0), 0, 0.9f);
+				//				if ( pMod)  pMod->BeginDamage( CCUID(0,0), 0, 0.9f);
 
 				break;
 			}
@@ -1508,7 +1508,7 @@ void ZWeaponMagic::ExplosionThrow(WeaponMagicExplosionType type, ZObject* pVicti
 			case ZSR_LIGHTNING :
 			{
 //				ZModule_LightningDamage *pMod = (ZModule_LightningDamage*)pVictim->GetModule( ZMID_LIGHTNINGDAMAGE);
-//				if ( pMod)  pMod->BeginDamage( MUID(0,0), 0, 0.9f);
+//				if ( pMod)  pMod->BeginDamage( CCUID(0,0), 0, 0.9f);
 
 				break;
 			}

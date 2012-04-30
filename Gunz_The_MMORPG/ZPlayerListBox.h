@@ -2,7 +2,7 @@
 #include "MListBox.h"
 #include "map"
 #include "vector"
-#include "MUID.h"
+#include "CCUID.h"
 #include "mmatchobject.h"
 #include "ZEmblemInterface.h"
 #include "ZApplication.h"
@@ -33,7 +33,7 @@ struct sPlayerInfo
 class ZPlayerListItem : public MListItem {
 public:
 	ZPlayerListItem() {
-		m_PlayerUID = MUID(0,0);
+		m_PlayerUID = CCUID(0,0);
 		m_Grade = MMUG_FREE;
 		m_Color = MCOLOR(0xFFCDCDCD);
 	}
@@ -48,7 +48,7 @@ public:
 
 public:
 
-	MUID				m_PlayerUID;
+	CCUID				m_PlayerUID;
 	MMatchUserGradeID	m_Grade;		//이건 안쓰는 것 같다
 	MCOLOR				m_Color;
 
@@ -70,7 +70,7 @@ public:
 	ePlayerState	m_nLobbyPlayerState;
 
 public:
-	ZLobbyPlayerListItem(const MUID& puid, MBitmap* pBitmap, unsigned int nClanID, const char* szLevel, const char* szName, 
+	ZLobbyPlayerListItem(const CCUID& puid, MBitmap* pBitmap, unsigned int nClanID, const char* szLevel, const char* szName, 
 		const char *szClanName, ePlayerState nLobbyPlayerState,MMatchUserGradeID Grade, MBitmap* pBmpDTGradeIcon)
 	{
 		m_pBitmap = pBitmap;
@@ -99,7 +99,7 @@ public:
 		m_pBmpDTGradeIcon = NULL;
 		m_nClanID = 0;
 //		m_pBitmapEmblem = NULL;
-		m_PlayerUID = MUID(0,0);
+		m_PlayerUID = CCUID(0,0);
 		m_nLobbyPlayerState = (ePlayerState)0;
 		m_szLevel[0] = 0;
 		m_szName[0] = 0;
@@ -137,7 +137,7 @@ public:
 		return NULL;
 	}
 
-	MUID& GetUID() { return m_PlayerUID; }
+	CCUID& GetUID() { return m_PlayerUID; }
 };
 
 class ZFriendPlayerListItem : public ZPlayerListItem{
@@ -149,7 +149,7 @@ public:
 	ePlayerState	m_nLobbyPlayerState;
 
 public:
-	ZFriendPlayerListItem(const MUID& puid, MBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLocation, 
+	ZFriendPlayerListItem(const CCUID& puid, MBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLocation, 
 		ePlayerState nLobbyPlayerState,MMatchUserGradeID Grade)
 	{
 		m_pBitmap = pBitmap;
@@ -173,7 +173,7 @@ public:
 	ZFriendPlayerListItem(void)
 	{
 		m_pBitmap = NULL;
-		m_PlayerUID = MUID(0,0);
+		m_PlayerUID = CCUID(0,0);
 		m_nLobbyPlayerState = (ePlayerState)0;
 		m_szName[0] = PS_END;
 		m_szLevel[0] = NULL;
@@ -200,7 +200,7 @@ public:
 		return NULL;
 	}
 
-	MUID& GetUID() { return m_PlayerUID; }
+	CCUID& GetUID() { return m_PlayerUID; }
 	const char* GetLocation() { return m_szLocation; }
 };
 
@@ -213,7 +213,7 @@ public:
 	ePlayerState	m_nLobbyPlayerState;
 
 public:
-	ZClanPlayerListItem(const MUID& puid, MBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLevel, 
+	ZClanPlayerListItem(const CCUID& puid, MBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLevel, 
 		ePlayerState nLobbyPlayerState,MMatchClanGrade clanGrade)
 	{
 		m_pBitmap = pBitmap;
@@ -235,7 +235,7 @@ public:
 	ZClanPlayerListItem(void)
 	{
 		m_pBitmap = NULL;
-		m_PlayerUID = MUID(0,0);
+		m_PlayerUID = CCUID(0,0);
 		m_nLobbyPlayerState = (ePlayerState)0;
 		m_szName[0] = PS_END;
 		m_szClanName[0] = PS_END;
@@ -263,7 +263,7 @@ public:
 		return NULL;
 	}
 
-	MUID& GetUID() { return m_PlayerUID; }
+	CCUID& GetUID() { return m_PlayerUID; }
 };
 
 enum eStagePlayerState
@@ -297,7 +297,7 @@ public:
 //	MBitmap* m_pBitmapEmblem;
 
 public:
-	ZStagePlayerListItem(const MUID& puid, MBitmap* pBitmap, unsigned int nClanID, const char* szName, const char* szClanName, 
+	ZStagePlayerListItem(const CCUID& puid, MBitmap* pBitmap, unsigned int nClanID, const char* szName, const char* szClanName, 
 		const char* szLevel,MMatchUserGradeID Grade, MBitmap* pBmpDTGradeIcon)
 	{
 		m_pBitmap = pBitmap;
@@ -326,7 +326,7 @@ public:
 		m_pBmpDTGradeIcon = NULL;
 		m_nClanID = 0;
 //		m_pBitmapEmblem = NULL;
-		m_PlayerUID = MUID(0,0);
+		m_PlayerUID = CCUID(0,0);
 		m_szName[0] = 0;
 		m_szLevel[0] = 0;
 		m_Grade = MMUG_FREE;
@@ -362,7 +362,7 @@ public:
 		return NULL;
 	}
 
-	MUID& GetUID() { return m_PlayerUID; }
+	CCUID& GetUID() { return m_PlayerUID; }
 };
 
 class ZPlayerListBoxLook : public MListBoxLook
@@ -395,8 +395,8 @@ private:
 
 	MBmButton*					m_pButton;
 
-//	map< MUID, sPlayerInfo*>	mPlayers;
-	vector<MUID>				mPlayerOrder;
+//	map< CCUID, sPlayerInfo*>	mPlayers;
+	vector<CCUID>				mPlayerOrder;
 
 	int				mSelectedPlayer;
 	int				mStartToDisplay;
@@ -426,35 +426,35 @@ public:
 //	MBitmap* GetBitmapIn() { return m_pBitmapIn; }
 
 	// mode PLAYERLISTMODE_CHANNEL
-	void AddPlayer(MUID& puid, ePlayerState state, int  nLevel,char* szName, char* szClanName, unsigned int nClanID, MMatchUserGradeID nGrade, int duelTournamentGrade );
+	void AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char* szName, char* szClanName, unsigned int nClanID, MMatchUserGradeID nGrade, int duelTournamentGrade );
 
 	// mode PLAYERLISTMODE_STAGE
-	void AddPlayer(MUID& puid, MMatchObjectStageState state, int nLevel, char* szName, char* szClanName, unsigned int nClanID, bool isMaster,MMatchTeam nTeam, int duelTournamentGrade);
+	void AddPlayer(CCUID& puid, MMatchObjectStageState state, int nLevel, char* szName, char* szClanName, unsigned int nClanID, bool isMaster,MMatchTeam nTeam, int duelTournamentGrade);
 
 	// mode PLAYERLISTMODE_CHANNEL_FRIEND, PLAYERLISTMODE_STAGE_FRIEND
 	void AddPlayer(ePlayerState state, char* szName, char* szLocation);
 
 	// mode PLAYERLISTMODE_CHANNEL_CLAN
-	void AddPlayer(MUID& puid, ePlayerState state, char* szName, int  nLevel ,MMatchClanGrade nGrade );
+	void AddPlayer(CCUID& puid, ePlayerState state, char* szName, int  nLevel ,MMatchClanGrade nGrade );
 
-	void DelPlayer(MUID& puid);
-	void UpdatePlayer(MUID& puid,MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam);
-	void UpdatePlayer(MUID& puid,MMatchObjectStageState state, bool isMaster,MMatchTeam nTeam);
-	void UpdateEmblem(MUID& puid);
+	void DelPlayer(CCUID& puid);
+	void UpdatePlayer(CCUID& puid,MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam);
+	void UpdatePlayer(CCUID& puid,MMatchObjectStageState state, bool isMaster,MMatchTeam nTeam);
+	void UpdateEmblem(CCUID& puid);
 
 	void UpdateList(int mode);
 
-	ZPlayerListItem* GetUID(MUID uid);
+	ZPlayerListItem* GetUID(CCUID uid);
 	const char* GetPlayerName( int nIndex);
 
-	MUID GetSelectedPlayerUID();
-	void SelectPlayer(MUID);
+	CCUID GetSelectedPlayerUID();
+	void SelectPlayer(CCUID);
 
 	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
 	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
 
-//	MUID	m_MyUID;
-//	MUID	m_uidChannel;
+//	CCUID	m_MyUID;
+//	CCUID	m_uidChannel;
 	int		m_nTotalPlayerCount;
 	int		m_nPage;
 
@@ -483,8 +483,8 @@ class ZStagePlayerListBox : public MListBox
 private:
 	MBitmap*		m_pBitmap;
 
-	map< MUID, sStagePlayerInfo*>	mPlayers;
-	vector<MUID>					mPlayerOrder;
+	map< CCUID, sStagePlayerInfo*>	mPlayers;
+	vector<CCUID>					mPlayerOrder;
 
 	int				mSelectedPlayer;
 	int				mStartToDisplay;
@@ -499,15 +499,15 @@ public:
 	MBitmap* GetBitmap() {	return m_pBitmap; }
 
 	void AddPlayer(MMatchObjCache* pCache);
-	void AddPlayer(MUID& puid, MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam);
-//	void AddPlayer(MUID& puid, eStagePlayerState state, char* szName, int  nLevel ,bool isMaster,int nTeam);
-	void DelPlayer(MUID& puid);
-	void UpdatePlayer(MUID& puid,eStagePlayerState state, char* szName, int  nLevel ,bool isMaster,int nTeam);
+	void AddPlayer(CCUID& puid, MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam);
+//	void AddPlayer(CCUID& puid, eStagePlayerState state, char* szName, int  nLevel ,bool isMaster,int nTeam);
+	void DelPlayer(CCUID& puid);
+	void UpdatePlayer(CCUID& puid,eStagePlayerState state, char* szName, int  nLevel ,bool isMaster,int nTeam);
 
-	ZStagePlayerListItem* GetUID(MUID uid);
+	ZStagePlayerListItem* GetUID(CCUID uid);
 
-	MUID	m_MyUID;
-	MUID	m_uidChannel;
+	CCUID	m_MyUID;
+	CCUID	m_uidChannel;
 	int		m_nTotalPlayerCount;
 	int		m_nPage;
 

@@ -36,7 +36,7 @@ private:
 protected:
 	ZActor*				m_pBody;			///< 몸체
 	ZBehavior			m_Behavior;
-	MUID				m_uidTarget;		///< 타게팅하고 있는 적 UID
+	CCUID				m_uidTarget;		///< 타게팅하고 있는 적 UID
 	
 	rvector				m_exPosition;		///< 몸체의 예전 위치
 	DWORD				m_dwExPositionTime;	///< 예전 위치 기억한 시각
@@ -63,7 +63,7 @@ protected:
 	// Think
 	bool FindTarget();
 	void ProcessAttack( float fDelta);
-	bool GetUseableSkill( int *pnSkill, MUID *pTarget, rvector *pTargetPosition);
+	bool GetUseableSkill( int *pnSkill, CCUID *pTarget, rvector *pTargetPosition);
 	void ProcessBuildPath( float fDelta);
 
 

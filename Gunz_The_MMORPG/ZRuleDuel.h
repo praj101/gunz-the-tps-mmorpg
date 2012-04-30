@@ -14,7 +14,7 @@ public:
 
 	virtual bool OnCommand(MCommand* pCommand);
 
-	int	GetQueueIdx(const MUID& uidChar);			// 0 : 챔피언   1 : 도전자  2~ : 관전자
+	int	GetQueueIdx(const CCUID& uidChar);			// 0 : 챔피언   1 : 도전자  2~ : 관전자
 };
 
 #endif

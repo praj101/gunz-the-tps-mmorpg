@@ -50,7 +50,7 @@ class ZBirdDummyAIJoinFlood : public ZBirdDummyAI
 {
 public:
 	ZBirdDummyAIJoinFlood();
-	MUID				m_uidWantedRoom;
+	CCUID				m_uidWantedRoom;
 	unsigned long		m_nReservedTime;
 	bool				m_bReserved;
 	char				m_szLastStage[256];

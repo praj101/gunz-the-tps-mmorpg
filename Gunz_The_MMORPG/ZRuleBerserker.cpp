@@ -25,7 +25,7 @@ bool ZRuleBerserker::OnCommand(MCommand* pCommand)
 	{
 	case MC_MATCH_ASSIGN_BERSERKER:
 		{
-			MUID uidBerserker;
+			CCUID uidBerserker;
 			pCommand->GetParameter(&uidBerserker,		0, MPT_UID);
 
 			AssignBerserker(uidBerserker);
@@ -33,7 +33,7 @@ bool ZRuleBerserker::OnCommand(MCommand* pCommand)
 		break;
 	case MC_MATCH_GAME_DEAD:
 		{
-			MUID uidAttacker, uidVictim;
+			CCUID uidAttacker, uidVictim;
 			unsigned long int nAttackerArg, nVictimArg;
 
 			pCommand->GetParameter(&uidAttacker, 0, MPT_UID);
@@ -45,7 +45,7 @@ bool ZRuleBerserker::OnCommand(MCommand* pCommand)
 			bool bSuicide = false;
 			if (uidAttacker == uidVictim) bSuicide = true;
 
-			if ((uidAttacker != MUID(0,0)) && (uidAttacker == m_uidBerserker))
+			if ((uidAttacker != CCUID(0,0)) && (uidAttacker == m_uidBerserker))
 			{
 				if (!bSuicide)
 				{
@@ -67,7 +67,7 @@ void ZRuleBerserker::OnResponseRuleInfo(MTD_RuleInfo* pInfo)
 }
 
 
-void ZRuleBerserker::AssignBerserker(MUID& uidBerserker)
+void ZRuleBerserker::AssignBerserker(CCUID& uidBerserker)
 {
 	if (!ZGetGame()) return;
 

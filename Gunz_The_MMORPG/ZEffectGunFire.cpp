@@ -22,7 +22,7 @@ ZEffectGunFire::ZEffectGunFire(ZEffectBillboardSource*	pSources[2], D3DXVECTOR3&
 	}
 	else {
 		m_isMovingPos = false;
-		m_uid = MUID(0,0);
+		m_uid = CCUID(0,0);
 	}
 
 }
@@ -132,7 +132,7 @@ ZEffectGunFire2::ZEffectGunFire2(ZEffectBillboardSource* pSources[4], D3DXVECTOR
 	}
 	else {
 		m_isMovingPos = false;
-		m_uid = MUID(0,0);
+		m_uid = CCUID(0,0);
 	}
 }
 

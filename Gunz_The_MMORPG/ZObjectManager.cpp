@@ -335,7 +335,7 @@ void ZObjectManager::Insert(ZObject* pObject)
 	insert(value_type(pObject->GetUID(), pObject));
 }
 
-ZObject* ZObjectManager::GetObject(const MUID& uid)
+ZObject* ZObjectManager::GetObject(const CCUID& uid)
 {
 	iterator itor = find(uid);
 	if (itor == end()) return NULL;
@@ -343,7 +343,7 @@ ZObject* ZObjectManager::GetObject(const MUID& uid)
 	return (*itor).second;
 }
 
-ZActor* ZObjectManager::GetNPCObject(const MUID& uidNPC)
+ZActor* ZObjectManager::GetNPCObject(const CCUID& uidNPC)
 {
 	return (ZActor*)m_NPCObjectMap.Find(uidNPC);
 }

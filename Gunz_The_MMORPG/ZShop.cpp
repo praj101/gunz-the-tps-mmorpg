@@ -3,7 +3,7 @@
 #include "ZShop.h"
 #include "ZPost.h"
 #include "ZGameClient.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include "ZApplication.h"
 #include "ZGameInterface.h"
 #include "MMultiColListBox.h"
@@ -153,7 +153,7 @@ void ZShop::Serialize()
 		{
 			if (m_ListFilter != zshop_item_filter_all && m_ListFilter != zshop_item_filter_quest) continue;
 
-			MUID uidItem = MUID(0, i+1);
+			CCUID uidItem = CCUID(0, i+1);
 			ZShopEquipItem_Quest* pQItem = new ZShopEquipItem_Quest(pDesc);
 			ZShopEquipItemHandle_PurchaseQuest* pHandle = 
 				new ZShopEquipItemHandle_PurchaseQuest(pQItem);

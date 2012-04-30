@@ -72,7 +72,7 @@ void ZMyItemList::Destroy()
 void ZMyItemList::Clear()
 {
 	for (int i = 0; i < MMCIP_END; i++) 
-		m_uidEquipItems[i] = MUID(0,0);
+		m_uidEquipItems[i] = CCUID(0,0);
 
 	memset(m_nEquipItemID, 0, sizeof(m_nEquipItemID));
 
@@ -95,9 +95,9 @@ unsigned long int ZMyItemList::GetEquipedItemID(MMatchCharItemParts parts)
 	return m_nEquipItemID[parts];
 }
 
-MUID ZMyItemList::GetEquipedItemUID(MMatchCharItemParts parts)
+CCUID ZMyItemList::GetEquipedItemUID(MMatchCharItemParts parts)
 {
-	MUID uid = m_uidEquipItems[parts];
+	CCUID uid = m_uidEquipItems[parts];
 
 	MITEMNODEMAP::iterator itor = m_ItemMap.find(uid);
 	if (itor != m_ItemMap.end())
@@ -106,7 +106,7 @@ MUID ZMyItemList::GetEquipedItemUID(MMatchCharItemParts parts)
 	}
 	else
 	{
-		return MUID(0,0);
+		return CCUID(0,0);
 	}
 }
 
@@ -235,7 +235,7 @@ void ZMyItemList::SerializeZItemList()
 	ZShopEquipItemHandle_SendAccountMatch* pHandleSendAcc;
 	MMatchItemDesc* pItemDesc;
 	ZMyItemNode* pItemNode;
-	MUID uidItem;
+	CCUID uidItem;
 
 	for (int i = 0; i < (int)m_ItemIndexVector.size(); i++)
 	{
@@ -427,14 +427,14 @@ void ZMyItemList::SerializeAccountItem()
 	}
 }
 
-void ZMyItemList::SetEquipItemInfo(MUID* pEquipItemUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount)
+void ZMyItemList::SetEquipItemInfo(CCUID* pEquipItemUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount)
 {
-	memcpy(m_uidEquipItems,		pEquipItemUID,		sizeof(MUID)*MMCIP_END);
+	memcpy(m_uidEquipItems,		pEquipItemUID,		sizeof(CCUID)*MMCIP_END);
 	memcpy(m_nEquipItemID,		pEquipItemID,		sizeof(m_nEquipItemID));
 	memcpy(m_nEquipItemCount,	pEquipItemCount,	sizeof(m_nEquipItemCount));	// 장비하고 있는 아이템의 갯수도 표시!
 }
 
-void ZMyItemList::SetEquipItemsAll(MUID* puidEquipItems)
+void ZMyItemList::SetEquipItemsAll(CCUID* puidEquipItems)
 {
 	memcpy(m_uidEquipItems, puidEquipItems, sizeof(m_uidEquipItems));
 
@@ -484,23 +484,23 @@ void ZMyItemList::SetGambleItemAll(MTD_GambleItemNode* pGItemNodes, int nGItemCo
 	}
 }
 
-MUID ZMyItemList::GetForceItemUID(int nItemIndex)
+CCUID ZMyItemList::GetForceItemUID(int nItemIndex)
 {
-	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVector.size())) return MUID(0,0);
+	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVector.size())) return CCUID(0,0);
 
 	return m_ItemIndexVector[nItemIndex];
 }
 
-MUID ZMyItemList::GetItemUID(int nItemIndex)
+CCUID ZMyItemList::GetItemUID(int nItemIndex)
 {
-	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVector.size())) return MUID(0,0);
+	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVector.size())) return CCUID(0,0);
 
 	return m_ItemIndexVector[nItemIndex];
 }
 
-MUID ZMyItemList::GetItemUIDEquip(int nItemIndex)
+CCUID ZMyItemList::GetItemUIDEquip(int nItemIndex)
 {
-	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVectorEquip.size())) return MUID(0,0);
+	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVectorEquip.size())) return CCUID(0,0);
 
 	return m_ItemIndexVectorEquip[nItemIndex];
 }
@@ -516,7 +516,7 @@ unsigned long int ZMyItemList::GetAccountItemID(int nPos)
 	return m_AccountItemVector[nPos];
 }
 
-unsigned long int ZMyItemList::GetItemID(const MUID& uidItem)
+unsigned long int ZMyItemList::GetItemID(const CCUID& uidItem)
 {
 	ZMyItemNode* pItemNode = GetItem(uidItem);
 	if (pItemNode == NULL) return 0;
@@ -644,7 +644,7 @@ ZMyItemNode* ZMyItemList::GetItem(int nItemIndex)
 {
 	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVector.size())) return NULL;
 
-	MUID uidItem = m_ItemIndexVector[nItemIndex];
+	CCUID uidItem = m_ItemIndexVector[nItemIndex];
 
 	MITEMNODEMAP::iterator itor = m_ItemMap.find(uidItem);
 	if (itor != m_ItemMap.end())
@@ -660,7 +660,7 @@ ZMyItemNode* ZMyItemList::GetItemEquip(int nItemIndex)
 {
 	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVectorEquip.size())) return NULL;
 
-	MUID uidItem = m_ItemIndexVectorEquip[nItemIndex];
+	CCUID uidItem = m_ItemIndexVectorEquip[nItemIndex];
 
 	MITEMNODEMAP::iterator itor = m_ItemMap.find(uidItem);
 	if (itor != m_ItemMap.end())
@@ -672,7 +672,7 @@ ZMyItemNode* ZMyItemList::GetItemEquip(int nItemIndex)
 	return NULL;
 }
 
-ZMyItemNode* ZMyItemList::GetItem(const MUID& uidItem)
+ZMyItemNode* ZMyItemList::GetItem(const CCUID& uidItem)
 {
 	MITEMNODEMAP::iterator itor = m_ItemMap.find(uidItem);
 	if (itor != m_ItemMap.end())
@@ -732,7 +732,7 @@ ZMyItemNode* ZMyItemList::GetItemByDescId(int nItemId)
 	return NULL;
 }
 
-const ZMyGambleItem* ZMyItemList::GetGambleItem(const MUID& uidItem)
+const ZMyGambleItem* ZMyItemList::GetGambleItem(const CCUID& uidItem)
 {
 	return m_GambleItemMgr.GetGambleItem(uidItem);
 }

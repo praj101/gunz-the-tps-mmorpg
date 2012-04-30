@@ -139,7 +139,7 @@ void ZRuleDuelTournament::AfterCommandProcessed( MCommand* pCommand )
 			// ZGame에서 MC_PEER_OPENED를 처리할 때 해당 피어의 캐릭터를 SetVisible(true) 해버린다
 			// 듀얼토너먼트 시작시 모든 캐릭터를 SetVisible(false)로 만드는데, MC_PEER_OPENED가 약간 늦게 들어온 경우
 			// 캐릭터가 맵 중앙에 멍하니 떠 있게 된다. 이 현상을 없애기 위해 ZGame의 커맨드 처리 후에 다시 강제로 캐릭터를 숨겨준다
-			MUID uidChar;
+			CCUID uidChar;
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
 
 			if (!ZGetCharacterManager()) break;
@@ -358,7 +358,7 @@ void ZRuleDuelTournament::SetMatchResultInfo(MTD_DuelTournamentMatchResultInfo& 
 }
 
 
-int ZRuleDuelTournament::GetQueueIdx(const MUID& uidChar)
+int ZRuleDuelTournament::GetQueueIdx(const CCUID& uidChar)
 {
 	if (uidChar == m_DTGameInfo.uidPlayer1 || uidChar == m_DTGameInfo.uidPlayer2 ) return -1;
 	for (int i = 0; i < m_DTGameInfo.nWaitPlayerListLength; i++)
@@ -591,7 +591,7 @@ void ZRuleDuelTournament::SetVisiblePlayerInfoUI(bool bLeft, bool bShow)
 	}
 }
 
-void ZRuleDuelTournament::SetMatchPlayerInfoUI(const MUID& uidPlayer1, const MUID& uidPlayer2)
+void ZRuleDuelTournament::SetMatchPlayerInfoUI(const CCUID& uidPlayer1, const CCUID& uidPlayer2)
 {
 	// 매치 시작 전에 대전자 2명의 정보를 보여주는 위젯들 세팅
 	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_CharacterInfo");
@@ -1031,7 +1031,7 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 		pDC->SetOpacity(prevOpcacity);
 	}
 }
-DuelTournamentPlayer* ZRuleDuelTournament::GetPlayer(const MUID& uid)
+DuelTournamentPlayer* ZRuleDuelTournament::GetPlayer(const CCUID& uid)
 {
 	for(int i=0; i<8; ++i)
 	{
@@ -1061,7 +1061,7 @@ void ZRuleDuelTournament::DrawHighlight(MDrawContext* pDC, const MRECT& rc)
 	}
 }
 
-void ZRuleDuelTournament::DrawVictorySymbol(MDrawContext* pDC, MUID uidPlayer1, MUID uidPlayer2)
+void ZRuleDuelTournament::DrawVictorySymbol(MDrawContext* pDC, CCUID uidPlayer1, CCUID uidPlayer2)
 {
 	if(MDUELTOURNAMENTROUNDSTATE_QUATERFINAL == m_eDTRoundState)
 		return;	// 8강전일때는 승리마크가 필요없다.(표시도 안됨)
@@ -1134,7 +1134,7 @@ void ZRuleDuelTournament::DrawVictorySymbol(MDrawContext* pDC, MUID uidPlayer1, 
 	}
 }
 
-void ZRuleDuelTournament::SetPlayerHpApForUI(const MUID& uidChar, float fmaxhp, float fmaxap, float fhp, float fap)
+void ZRuleDuelTournament::SetPlayerHpApForUI(const CCUID& uidChar, float fmaxhp, float fmaxap, float fhp, float fap)
 {
 	int idx = GetPlayerInfoIndex(uidChar);
 	if (idx != -1)
@@ -1146,7 +1146,7 @@ void ZRuleDuelTournament::SetPlayerHpApForUI(const MUID& uidChar, float fmaxhp, 
 	}
 }
 
-void ZRuleDuelTournament::GetPlayerHpApForUI(const MUID& uidChar, float* fmaxhp, float* fmaxap, float* fhp, float* fap)
+void ZRuleDuelTournament::GetPlayerHpApForUI(const CCUID& uidChar, float* fmaxhp, float* fmaxap, float* fhp, float* fap)
 {
 	int idx = GetPlayerInfoIndex(uidChar);
 	if (idx != -1)
@@ -1158,7 +1158,7 @@ void ZRuleDuelTournament::GetPlayerHpApForUI(const MUID& uidChar, float* fmaxhp,
 	}
 }
 
-int ZRuleDuelTournament::GetPlayerInfoIndex(const MUID& uidChar)
+int ZRuleDuelTournament::GetPlayerInfoIndex(const CCUID& uidChar)
 {
 	for(int i=0; i < 8; ++i) {
 		if(m_QuaterFinalPlayer[i].uidPlayer == uidChar)
@@ -1167,7 +1167,7 @@ int ZRuleDuelTournament::GetPlayerInfoIndex(const MUID& uidChar)
 	return -1;
 }
 
-int ZRuleDuelTournament::GetPingValue(MUID uiPlayer)
+int ZRuleDuelTournament::GetPingValue(CCUID uiPlayer)
 {
 	int nPing = (uiPlayer == ZGetGameClient()->GetPlayerUID() ? 0 : MAX_PING);
 	MMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uiPlayer);

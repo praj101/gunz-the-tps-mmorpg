@@ -324,7 +324,7 @@ bool ZReplayLoader::LoadCommandStream(ZFile* file)
 
 		char CommandBuffer[1024];
 
-		MUID uidSender;
+		CCUID uidSender;
 		zfread(&uidSender, sizeof(uidSender), 1, file);
 		zfread(&nSize, sizeof(nSize), 1, file);
 
@@ -467,7 +467,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 			void* pBlob = TempParams[1]->GetPointer();
 			struct REPLAY2_HP_AP_INFO 
 			{
-				MUID muid;
+				CCUID muid;
 				float fHP;
 				float fAP;
 			};
@@ -482,7 +482,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 			void* pBlob = TempParams[1]->GetPointer();
 			struct REPLAY2_HP_INFO 
 			{
-				MUID muid;
+				CCUID muid;
 				float fHP;
 			};
 
@@ -502,7 +502,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 		break;
 	case MC_MATCH_STAGE_ENTERBATTLE:
 		{
-			MUID uidPlayer, uidStage;
+			CCUID uidPlayer, uidStage;
 			int nParam;
 			
 			TempParams[0]->GetValue(&uidPlayer);
@@ -519,7 +519,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 
 			struct REPLAY2_PeerListNode
 			{
-				MUID				uidChar;
+				CCUID				uidChar;
 				char				szIP[64];
 				unsigned int		nPort;
 				MTD_CharInfo		CharInfo;
@@ -562,7 +562,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 		break;
 	case MC_MATCH_GAME_RESPONSE_SPAWN:
 		{
-			MUID uidChar;
+			CCUID uidChar;
 			rvector pos, dir;
 
 			TempParams[0]->GetValue(&uidChar);

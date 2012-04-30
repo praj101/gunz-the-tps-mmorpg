@@ -621,8 +621,8 @@ void ZGameAction::OnPeerSkill_Dash(ZCharacter *pOwnerCharacter)
 
 bool ZGameAction::OnEnchantDamage(MCommand* pCommand)
 {
-	MUID ownerUID;
-	MUID targetUID;
+	CCUID ownerUID;
+	CCUID targetUID;
 	pCommand->GetParameter(&ownerUID,	0, MPT_UID);
 	pCommand->GetParameter(&targetUID,	1, MPT_UID);
 

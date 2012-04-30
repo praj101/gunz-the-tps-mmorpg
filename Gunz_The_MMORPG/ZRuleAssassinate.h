@@ -10,7 +10,7 @@
 class ZRuleAssassinate : public ZRuleTeamDeathMatch
 {
 private:
-	void AssignCommander(const MUID& uidRedCommander, const MUID& uidBlueCommander);
+	void AssignCommander(const CCUID& uidRedCommander, const CCUID& uidBlueCommander);
 public:
 	ZRuleAssassinate(ZMatch* pMatch);
 	virtual ~ZRuleAssassinate();

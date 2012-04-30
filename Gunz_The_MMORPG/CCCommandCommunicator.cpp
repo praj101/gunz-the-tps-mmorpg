@@ -7,7 +7,7 @@
 
 MCommObject::MCommObject(MCommandCommunicator* pCommunicator)
 {
-	m_uid = MUID(0,0);
+	m_uid = CCUID(0,0);
 
 	m_pDirectConnection = NULL;
 	m_dwUserContext = 0;
@@ -18,7 +18,7 @@ MCommObject::MCommObject(MCommandCommunicator* pCommunicator)
 	m_bAllowed = true;
 	m_bPassiveSocket = false;
 
-	m_pCommandBuilder = new MCommandBuilder(MUID(0,0), pCommunicator->GetUID(), 
+	m_pCommandBuilder = new MCommandBuilder(CCUID(0,0), pCommunicator->GetUID(), 
 											pCommunicator->GetCommandManager());
 
 }
@@ -58,7 +58,7 @@ void MCommandCommunicator::OnRun(void)
 {
 }
 
-void MCommandCommunicator::SetDefaultReceiver(MUID Receiver)
+void MCommandCommunicator::SetDefaultReceiver(CCUID Receiver)
 {
 	m_DefaultReceiver = Receiver;
 }
@@ -94,7 +94,7 @@ void MCommandCommunicator::Destroy(void)
 	}
 }
 
-int MCommandCommunicator::OnConnected(MUID* pTargetUID, MUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
+int MCommandCommunicator::OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
 {
 	m_This = *pAllocUID;
 	SetDefaultReceiver(*pTargetUID);
@@ -131,7 +131,7 @@ bool MCommandCommunicator::Post(char* szErrMsg, int nErrMsgCount, const char* sz
 	return true;
 }
 
-MCommand* MCommandCommunicator::CreateCommand(int nCmdID, const MUID& TargetUID)
+MCommand* MCommandCommunicator::CreateCommand(int nCmdID, const CCUID& TargetUID)
 {
 	return new MCommand(m_CommandManager.GetCommandDescByID(nCmdID), TargetUID, m_This);
 }

@@ -7,7 +7,7 @@
 class ZSurvival : public ZBaseQuest
 {
 private:
-	set<MUID>	m_CharactersGone;	// 다음섹터로 이동한 캐릭터들
+	set<CCUID>	m_CharactersGone;	// 다음섹터로 이동한 캐릭터들
 
 	ZQuestGameInfo		m_GameInfo;
 	bool	m_Cheet[ZQUEST_CHEET_MAX];

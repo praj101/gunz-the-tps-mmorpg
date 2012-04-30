@@ -69,7 +69,7 @@ bool ZRuleDuel::OnCommand(MCommand* pCommand)
 }
 
 
-int ZRuleDuel::GetQueueIdx(const MUID& uidChar)
+int ZRuleDuel::GetQueueIdx(const CCUID& uidChar)
 {
 	if (uidChar == QInfo.m_uidChampion) return 0;
 	if (uidChar == QInfo.m_uidChallenger) return 1;

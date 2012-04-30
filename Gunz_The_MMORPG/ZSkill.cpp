@@ -426,7 +426,7 @@ ZSkill::ZSkill()
 	m_pDesc = NULL;
 	m_pOwner = NULL;
 	m_nUseNum = 0;
-	m_uidTarget = MUID(0,0);
+	m_uidTarget = CCUID(0,0);
 }
 
 ZSkill::~ZSkill()
@@ -560,10 +560,10 @@ bool ZSkill::CheckRange(const rvector& center, ZObject *pCurrent)
 	}
 }
 
-void ZSkill::PreExecute(MUID& uidTarget, rvector& targetPos )
+void ZSkill::PreExecute(CCUID& uidTarget, rvector& targetPos )
 {
 	RMeshPartsPosInfoType type = eq_parts_pos_info_etc;
-	MUID uid = m_pOwner->GetUID();
+	CCUID uid = m_pOwner->GetUID();
 
 	if(GetPartsTypePos(type,uid,uidTarget)==false)
 		return;
@@ -573,7 +573,7 @@ void ZSkill::PreExecute(MUID& uidTarget, rvector& targetPos )
 	}
 }
 
-void ZSkill::LastExecute(MUID& uidTarget, rvector& targetPos )
+void ZSkill::LastExecute(CCUID& uidTarget, rvector& targetPos )
 {
 	// 모션이 끝나고 데미지 들어갈 것들..
 	for(ZObjectManager::iterator i = ZGetObjectManager()->begin();i!=ZGetObjectManager()->end();i++) {
@@ -593,7 +593,7 @@ void ZSkill::LastExecute(MUID& uidTarget, rvector& targetPos )
 	}
 }
 
-void ZSkill::Execute(MUID& uidTarget, rvector& targetPos )
+void ZSkill::Execute(CCUID& uidTarget, rvector& targetPos )
 {
 	m_bEnable = true;
 	m_TargetPos = targetPos;
@@ -604,7 +604,7 @@ void ZSkill::Execute(MUID& uidTarget, rvector& targetPos )
 	Use(uidTarget, targetPos);
 }
 
-void ZSkill::Use(MUID& uidTarget, rvector& targetPos)
+void ZSkill::Use(CCUID& uidTarget, rvector& targetPos)
 {
 	m_nUseNum++;
 	m_fLastBeginTime = ZGetGame()->GetTime();
@@ -759,7 +759,7 @@ void ZSkill::Use(MUID& uidTarget, rvector& targetPos)
 
 }
 
-bool ZSkill::GetPartsTypePos(RMeshPartsPosInfoType& type,MUID& uid,MUID& uidTarget)
+bool ZSkill::GetPartsTypePos(RMeshPartsPosInfoType& type,CCUID& uid,CCUID& uidTarget)
 {
 	if( m_pDesc->nCastingPreEffectType == ZSTP_TARGETHEAD ) {
 		type = eq_parts_pos_info_HeadNub;
@@ -860,7 +860,7 @@ bool ZSkill::IsUsable(ZObject *pTarget)	// 이 스킬을 대상에게 쓸만한지
 }
 
 
-void ZSkill::Cancel(MUID& uidTarget)
+void ZSkill::Cancel(CCUID& uidTarget)
 {
 	m_fLastBeginTime = ZGetGame()->GetTime();
 }

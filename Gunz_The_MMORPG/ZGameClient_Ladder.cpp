@@ -124,7 +124,7 @@ void ZGameClient::OnResponseProposal(const int nResult, const MMatchProposalMode
 	}
 }
 
-void ZGameClient::OnAskAgreement(const MUID& uidProposer, void* pMemberNamesBlob,
+void ZGameClient::OnAskAgreement(const CCUID& uidProposer, void* pMemberNamesBlob,
 					const MMatchProposalMode nProposalMode, const int nRequestID)
 {
 	// 응답할 수 없는 상황이면 바로 거절한다.
@@ -205,8 +205,8 @@ void ZGameClient::OnAskAgreement(const MUID& uidProposer, void* pMemberNamesBlob
 	}
 }
 
-void ZGameClient::OnReplyAgreement(const MUID& uidProposer, 
-		                const MUID& uidChar, 
+void ZGameClient::OnReplyAgreement(const CCUID& uidProposer, 
+		                const CCUID& uidChar, 
 						const char* szReplierName, 
 						const MMatchProposalMode nProposalMode,
 					    const int nRequestID, 
@@ -320,7 +320,7 @@ void ZGameClient::RequestProposal(const MMatchProposalMode nProposalMode, char**
 	m_AgreementBuilder.Proposal(nProposalMode, m_nRequestID, ppReplierCharNames, nReplierCount);
 }
 
-void ZGameClient::ReplyAgreement(const MUID& uidProposer, const MMatchProposalMode nProposalMode, bool bAgreement)
+void ZGameClient::ReplyAgreement(const CCUID& uidProposer, const MMatchProposalMode nProposalMode, bool bAgreement)
 {
 	char szCharName[MATCHOBJECT_NAME_LENGTH];
 	sprintf(szCharName, ZGetMyInfo()->GetCharName());
@@ -333,12 +333,12 @@ void ZGameClient::ReplyAgreement(bool bAgreement)
 
 }
 
-void ZGameClient::OnLadderPrepare(const MUID& uidStage, const int nTeam)
+void ZGameClient::OnLadderPrepare(const CCUID& uidStage, const int nTeam)
 {
 	m_uidStage = uidStage;
 }
 
-void ZGameClient::OnLadderLaunch(const MUID& uidStage, const char* pszMapName)
+void ZGameClient::OnLadderLaunch(const CCUID& uidStage, const char* pszMapName)
 {
 	ZGetGameInterface()->OnArrangedTeamGameUI(false);
 

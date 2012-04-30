@@ -40,7 +40,7 @@ ZRoomListBox::ZRoomListBox(const char* szName, MWidget* pParent, MListener* pLis
 	m_iGapWidth		= ROOM_WIDTH;
 	m_iGapHeight	= ROOM_HEIGHT;
 	m_iGapCenter	= 10;
-	m_uidSelectedPrivateStageUID	= MUID(0,0);
+	m_uidSelectedPrivateStageUID	= CCUID(0,0);
 }
 
 ZRoomListBox::~ZRoomListBox(void)
@@ -322,7 +322,7 @@ bool ZRoomListBox::OnEvent( MEvent* pEvent, MListener* pListener )
 						if( m_pMapInfo[i].IsEmpty )
 							continue;
 						m_Selection	= i;
-						SetPrivateStageUID(MUID(0,0));
+						SetPrivateStageUID(CCUID(0,0));
 
 						return true;
 					}
@@ -345,7 +345,7 @@ bool ZRoomListBox::OnEvent( MEvent* pEvent, MListener* pListener )
 						if( m_pMapInfo[i].IsEmpty )
 							continue;
 						m_Selection	= i;
-						SetPrivateStageUID(MUID(0,0));
+						SetPrivateStageUID(CCUID(0,0));
 
 						RequestSelStageJoin();
 						return true;
@@ -422,7 +422,7 @@ void ZRoomListBox::SetRoom(const _RoomInfoArg* pRoomInfo)
 void ZRoomListBox::SetEmptyRoom(int nIndex)
 {
 	m_pMapInfo[nIndex].IsEmpty = true;
-	m_pMapInfo[nIndex].uidStage = MUID(0,0);
+	m_pMapInfo[nIndex].uidStage = CCUID(0,0);
 	m_pMapInfo[nIndex].bPrivate = false;
 }
 
@@ -492,17 +492,17 @@ int ZRoomListBox::GetLastStageCursor()
 	return 0;
 }
 
-MUID ZRoomListBox::GetSelRoomUID()
+CCUID ZRoomListBox::GetSelRoomUID()
 {
 	if ((m_Selection >= 0) && (m_Selection < NUM_DISPLAY_ROOM))
 	{
 		return m_pMapInfo[m_Selection].uidStage;
 	}
 
-	return MUID(0,0);
+	return CCUID(0,0);
 }
 
-MUID ZRoomListBox::GetSelectedPrivateStageUID()
+CCUID ZRoomListBox::GetSelectedPrivateStageUID()
 {
 	return m_uidSelectedPrivateStageUID;
 }
@@ -510,14 +510,14 @@ MUID ZRoomListBox::GetSelectedPrivateStageUID()
 #include "ZMyInfo.h"
 void ZRoomListBox::RequestSelStageJoin()
 {
-	MUID uidChar = ZGetGameClient()->GetPlayerUID();
+	CCUID uidChar = ZGetGameClient()->GetPlayerUID();
 
-	if (GetSelRoomUID() != MUID(0,0))
+	if (GetSelRoomUID() != CCUID(0,0))
 	{
 		if ( (ZGetMyInfo()->IsAdminGrade() == false) && (m_pMapInfo[m_Selection].bPrivate) )
 		{
 			char szStageName[SMI_ROOMNAME_LENGTH] = "";
-			MUID uidStage = MUID(0,0);
+			CCUID uidStage = CCUID(0,0);
 
 			const sMapInfo* pSelRoomInfo = GetSelMapInfo();
 
@@ -542,14 +542,14 @@ void ZRoomListBox::RequestSelStageJoin()
 
 void ZRoomListBox::RequestSelPrivateStageJoin()
 {
-	MUID uidChar = ZGetGameClient()->GetPlayerUID();
+	CCUID uidChar = ZGetGameClient()->GetPlayerUID();
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MUID uidStageUID = GetSelectedPrivateStageUID();
+	CCUID uidStageUID = GetSelectedPrivateStageUID();
 
-	if (uidStageUID == MUID(0,0)) uidStageUID = GetSelRoomUID();
+	if (uidStageUID == CCUID(0,0)) uidStageUID = GetSelRoomUID();
 
-	if (uidStageUID != MUID(0,0))
+	if (uidStageUID != CCUID(0,0))
 	{
 		MEdit* pPassEdit = (MEdit*)pResource->FindWidget("PrivateStagePassword");
 		if (pPassEdit!=NULL)
@@ -599,7 +599,7 @@ const sMapInfo* ZRoomListBox::GetSelMapInfo()
 }
 
 
-void ZRoomListBox::SetPrivateStageUID(MUID& uidStage)
+void ZRoomListBox::SetPrivateStageUID(CCUID& uidStage)
 {
 	m_uidSelectedPrivateStageUID = uidStage;
 }

@@ -24,9 +24,9 @@ public:
 	int GetSkillCount();
 	ZSkill *GetSkill(int nSkill);			// 스킬을 얻어낸다.
 
-	void PreExcute(int nSkill,MUID uidTarget,rvector targetPosition);	// 모션이 시작할때
-	void Excute(int nSkill,MUID uidTarget,rvector targetPosition);		// 실행한다
-	void LastExcute(int nSkill,MUID uidTarget,rvector targetPosition);	// 모션이 끝날떄
+	void PreExcute(int nSkill,CCUID uidTarget,rvector targetPosition);	// 모션이 시작할때
+	void Excute(int nSkill,CCUID uidTarget,rvector targetPosition);		// 실행한다
+	void LastExcute(int nSkill,CCUID uidTarget,rvector targetPosition);	// 모션이 끝날떄
 
 };
 
