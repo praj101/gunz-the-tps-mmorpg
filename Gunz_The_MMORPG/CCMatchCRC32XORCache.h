@@ -15,7 +15,7 @@ public :
 	__forceinline	void CRC32XOR( DWORD dwData ) {
 
 		m_dwXOR ^= dwData;
-		MCRC32::AccumulateCRC32(m_dwCRC32, (BYTE*)&dwData, sizeof(dwData));
+		CCCRC32::AccumulateCRC32(m_dwCRC32, (BYTE*)&dwData, sizeof(dwData));
 
 	}
 

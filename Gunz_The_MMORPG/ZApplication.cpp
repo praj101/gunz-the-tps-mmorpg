@@ -36,7 +36,7 @@
 
 
 #ifdef _QEUST_ITEM_DEBUG
-#include "MQuestItem.h"
+#include "CCQuestItem.h"
 #endif
 
 #ifdef _ZPROFILER

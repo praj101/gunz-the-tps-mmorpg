@@ -18,7 +18,7 @@ private:
 	DWORD	m_tRemainedTime;					// 라운드가 끝나고 다음 라운드로 넘어가기까지 남은 시간
 	float	m_fLastWeightTime;
 
-	MQuestCombatState	m_QuestCombatState;
+	CCQuestCombatState	m_QuestCombatState;
 
 	ZNPCInfoFromServerManager m_NPCInfoFromServerMgr;
 
@@ -46,7 +46,7 @@ public :
 	virtual bool IsRoundClear( void)						{ return m_bIsRoundClear; }
 	virtual DWORD GetRemainedTime( void)					{ return m_tRemainedTime; }
 
-	virtual MQuestCombatState GetQuestState()				{ return m_QuestCombatState; }
+	virtual CCQuestCombatState GetQuestState()				{ return m_QuestCombatState; }
 
 	virtual ZNPCInfoFromServerManager& GetNPCInfoFromServerMgr() { return m_NPCInfoFromServerMgr; }
 

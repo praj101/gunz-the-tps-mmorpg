@@ -2,7 +2,7 @@
 #define _ZQUEST_GAMEINFO_H
 
 #include "MBaseQuest.h"
-#include "MQuestLevel.h"
+#include "CCQuestLevel.h"
 #include <vector>
 using namespace std;
 
@@ -12,7 +12,7 @@ class ZQuestGameInfo
 private:
 	bool							m_bInitialized;
 	vector<MQUEST_NPC>				m_NPCInfoVector;
-	vector<MQuestLevelSectorNode>	m_MapSectorVector;
+	vector<CCQuestLevelSectorNode>	m_MapSectorVector;
 	int								m_nQL;						// 현재 시나리오의 퀘스트 레벨
 	float							m_fNPC_TC;
 	int								m_nNPCCount;				// 한 섹터당 등장할 총 NPC수

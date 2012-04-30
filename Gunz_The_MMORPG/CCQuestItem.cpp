@@ -7,11 +7,11 @@
 #include "MAsyncDBJob.h"
 
 
-// CCUID MQuestItemMap::m_uidGenerate = CCUID(0,0);
-// MCriticalSection MQuestItemMap::m_csUIDGenerateLock;
+// CCUID CCQuestItemMap::m_uidGenerate = CCUID(0,0);
+// MCriticalSection CCQuestItemMap::m_csUIDGenerateLock;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-bool MQuestItem::Create( const unsigned long int nItemID, const int nCount, MQuestItemDesc* pDesc, bool bKnown )
+bool CCQuestItem::Create( const unsigned long int nItemID, const int nCount, CCQuestItemDesc* pDesc, bool bKnown )
 {
 	m_nItemID	= nItemID;
 	m_pDesc		= pDesc;
@@ -19,7 +19,7 @@ bool MQuestItem::Create( const unsigned long int nItemID, const int nCount, MQue
 	return SetCount( nCount, bKnown );
 }
 
-int MQuestItem::Increase( const int nCount)
+int CCQuestItem::Increase( const int nCount)
 {
 	m_nCount += nCount;
 	m_bKnown = true;
@@ -35,7 +35,7 @@ int MQuestItem::Increase( const int nCount)
 	return 0;
 }
 
-int MQuestItem::Decrease( const int nCount)
+int CCQuestItem::Decrease( const int nCount)
 {
 	m_nCount -= nCount;
 	if( 0 > m_nCount )
@@ -49,7 +49,7 @@ int MQuestItem::Decrease( const int nCount)
 	return 0;
 }
 
-MQuestItemDesc* MQuestItem::GetDesc()
+CCQuestItemDesc* CCQuestItem::GetDesc()
 {
 	if( 0 != m_pDesc )
 	{
@@ -60,7 +60,7 @@ MQuestItemDesc* MQuestItem::GetDesc()
 	return GetQuestItemDescMgr().FindQItemDesc( m_nItemID );
 }
 
-bool MQuestItem::SetCount( int nCount, bool bKnown )
+bool CCQuestItem::SetCount( int nCount, bool bKnown )
 { 
 	if( (0 <= nCount) && (MAX_QUEST_ITEM_COUNT >= nCount) )
 	{
@@ -81,7 +81,7 @@ bool MQuestItem::SetCount( int nCount, bool bKnown )
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-void MQuestMonsterBible::WriteMonsterInfo( int nMonsterBibleIndex )
+void CCQuestMonsterBible::WriteMonsterInfo( int nMonsterBibleIndex )
 {
 	if( (0 > nMonsterBibleIndex) || (255 < nMonsterBibleIndex) )
 		return;
@@ -92,7 +92,7 @@ void MQuestMonsterBible::WriteMonsterInfo( int nMonsterBibleIndex )
 }
 
 
-bool MQuestMonsterBible::IsKnownMonster( const int nMonsterBibleIndex )
+bool CCQuestMonsterBible::IsKnownMonster( const int nMonsterBibleIndex )
 {
 	if( (0 > nMonsterBibleIndex) || (255 < nMonsterBibleIndex) )
 		return false;
@@ -107,7 +107,7 @@ bool MQuestMonsterBible::IsKnownMonster( const int nMonsterBibleIndex )
 }
 
 
-const bool MQuestMonsterBible::Copy( const char* pszData, const int nSize )
+const bool CCQuestMonsterBible::Copy( const char* pszData, const int nSize )
 {
 	if( MAX_DB_MONSTERBIBLE_SIZE != nSize )
 	{
@@ -124,19 +124,19 @@ const bool MQuestMonsterBible::Copy( const char* pszData, const int nSize )
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 
-MQuestItemDescManager::MQuestItemDescManager()
+CCQuestItemDescManager::CCQuestItemDescManager()
 {
 	m_MonsterBibleMgr.clear();
 }
 
 
-MQuestItemDescManager::~MQuestItemDescManager()
+CCQuestItemDescManager::~CCQuestItemDescManager()
 {
 	Clear();
 }
 
 
-bool MQuestItemDescManager ::ReadXml( const char* szFileName )
+bool CCQuestItemDescManager ::ReadXml( const char* szFileName )
 {
 	if( 0 == szFileName )
 		return false;
@@ -177,7 +177,7 @@ bool MQuestItemDescManager ::ReadXml( const char* szFileName )
 }
 
 
-bool MQuestItemDescManager ::ReadXml( CCZFileSystem* pFileSystem, const char* szFileName )
+bool CCQuestItemDescManager ::ReadXml( CCZFileSystem* pFileSystem, const char* szFileName )
 {
 	if( (0== pFileSystem) || (0 == szFileName) )
 		return false;
@@ -245,12 +245,12 @@ bool MQuestItemDescManager ::ReadXml( CCZFileSystem* pFileSystem, const char* sz
 	return true;
 }
 
-void MQuestItemDescManager::ParseQuestItem( CCXmlElement& element )
+void CCQuestItemDescManager::ParseQuestItem( CCXmlElement& element )
 {
-	MQuestItemDesc* pNewQuestItemDesc = new MQuestItemDesc;
+	CCQuestItemDesc* pNewQuestItemDesc = new CCQuestItemDesc;
 	if( 0 == pNewQuestItemDesc )
 		return;
-	memset( pNewQuestItemDesc, 0, sizeof(MQuestItemDesc) );
+	memset( pNewQuestItemDesc, 0, sizeof(CCQuestItemDesc) );
 
 	char szAttrName[ 256 ];
 	char szAttrValue[ 1024 ];
@@ -308,11 +308,11 @@ void MQuestItemDescManager::ParseQuestItem( CCXmlElement& element )
 
 	// Monster bible타입의 퀘스트 아이템은 Param값을 page로 사용함.
 	if( MMQIT_MONBIBLE == pNewQuestItemDesc->m_nType )
-		m_MonsterBibleMgr.insert( map<int, MQuestItemDesc*>::value_type(pNewQuestItemDesc->m_nParam, pNewQuestItemDesc) );
+		m_MonsterBibleMgr.insert( map<int, CCQuestItemDesc*>::value_type(pNewQuestItemDesc->m_nParam, pNewQuestItemDesc) );
 }
 
 
-void MQuestItemDescManager::Clear()
+void CCQuestItemDescManager::Clear()
 {
 	if( empty() )
 		return;
@@ -326,7 +326,7 @@ void MQuestItemDescManager::Clear()
 	clear();
 }
 
-MQuestItemDesc* MQuestItemDescManager::FindQItemDesc( const int nItemID )
+CCQuestItemDesc* CCQuestItemDescManager::FindQItemDesc( const int nItemID )
 {
 	iterator it = find( nItemID );
 	if (it != end())
@@ -337,9 +337,9 @@ MQuestItemDesc* MQuestItemDescManager::FindQItemDesc( const int nItemID )
 }
 
 
-MQuestItemDesc* MQuestItemDescManager::FindMonserBibleDesc( const int nMonsterBibleIndex )
+CCQuestItemDesc* CCQuestItemDescManager::FindMonserBibleDesc( const int nMonsterBibleIndex )
 {
-	map< int, MQuestItemDesc* >::iterator itMonsterBible = m_MonsterBibleMgr.find( nMonsterBibleIndex );
+	map< int, CCQuestItemDesc* >::iterator itMonsterBible = m_MonsterBibleMgr.find( nMonsterBibleIndex );
 	if( m_MonsterBibleMgr.end() == itMonsterBible )
 		return 0;
 
@@ -353,7 +353,7 @@ MQuestItemDesc* MQuestItemDescManager::FindMonserBibleDesc( const int nMonsterBi
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 
-void MQuestItemMap::Clear()
+void CCQuestItemMap::Clear()
 {
 	if( empty() ) 
 		return;
@@ -367,18 +367,18 @@ void MQuestItemMap::Clear()
 	clear();
 }
 
-void MQuestItemMap::Remove( const unsigned long int nItemID )
+void CCQuestItemMap::Remove( const unsigned long int nItemID )
 {
 	iterator It = find( nItemID );
 	if( end() == It )
 		return;
 
-	MQuestItem* pDelQuestItem = It->second;
+	CCQuestItem* pDelQuestItem = It->second;
 	delete pDelQuestItem;
 	erase( It );
 }
 
-MQuestItem* MQuestItemMap::Find( const unsigned long int nItemID )
+CCQuestItem* CCQuestItemMap::Find( const unsigned long int nItemID )
 {
 	iterator It = find( nItemID );
 	if( end() == It )
@@ -387,9 +387,9 @@ MQuestItem* MQuestItemMap::Find( const unsigned long int nItemID )
 	return It->second;
 }
 
-bool MQuestItemMap::CreateQuestItem( const unsigned long int nItemID, const int nCount, bool bKnown)
+bool CCQuestItemMap::CreateQuestItem( const unsigned long int nItemID, const int nCount, bool bKnown)
 {
-	MQuestItemDesc* pDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID );
+	CCQuestItemDesc* pDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID );
 	if( 0 == pDesc )
 	{
 		// 해당 아이템만 추가를 하지 않고 정상적으로 진행하게 함.
@@ -405,18 +405,18 @@ bool MQuestItemMap::CreateQuestItem( const unsigned long int nItemID, const int 
 	}
 
 	// 이전에 추가가 되어있지 않으므로 새롭게 추가됨.
-	MQuestItem* pNewQuestItem = new MQuestItem();
+	CCQuestItem* pNewQuestItem = new CCQuestItem();
 	if( 0 == pNewQuestItem )
 		return false;
 
 	pNewQuestItem->Create( nItemID, nCount, pDesc, bKnown );
 
-	insert( MQuestItemMap::value_type(nItemID, pNewQuestItem) );
+	insert( CCQuestItemMap::value_type(nItemID, pNewQuestItem) );
 
 	return true;
 }
 
-void MQuestItemMap::Insert( unsigned long int nItemID, MQuestItem* pQuestItem )
+void CCQuestItemMap::Insert( unsigned long int nItemID, CCQuestItem* pQuestItem )
 {
 	if( 0 == pQuestItem )
 		return;
@@ -448,7 +448,7 @@ void DBQuestCachingData::IncreaseRewardCount( const int nCount )
 }
 
 
-bool DBQuestCachingData::CheckUniqueItem( MQuestItem* pQuestItem )
+bool DBQuestCachingData::CheckUniqueItem( CCQuestItem* pQuestItem )
 {
 	if( (0 == pQuestItem) || (0 == pQuestItem->GetDesc()) )
 		return false;
@@ -509,7 +509,7 @@ bool DBQuestCachingData::DoUpdateDBCharQuestItemInfo()
 	{
 		// 업데이트 정보가 정상적으로 되는지 로그를 남김.
 		char szDbgOut[ 1000 ] = {0};
-		MQuestItemMap::iterator it, end;
+		CCQuestItemMap::iterator it, end;
 
 		strcat( szDbgOut, "Quest Item Caching UpdateDB\n" );
 		strcat( szDbgOut, m_pObject->GetName() );

@@ -1698,7 +1698,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		case MC_MATCH_DUELTOURNAMENT_REQUEST_JOINGAME :
 			{
 				CCUID uidPlayer;
-				MDUELTOURNAMENTTYPE nType;
+				CCDUELTOURNAMENTTYPE nType;
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				pCommand->GetParameter(&nType, 1, MPT_INT);
@@ -1713,7 +1713,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		case MC_MATCH_DUELTOURNAMENT_REQUEST_CANCELGAME :
 			{
 				CCUID uidPlayer;
-				MDUELTOURNAMENTTYPE nType;
+				CCDUELTOURNAMENTTYPE nType;
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				pCommand->GetParameter(&nType, 1, MPT_INT);

@@ -145,7 +145,7 @@
 //						ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetItem( pItem->GetUID() );
 ////						ZGetGameInterface()->GetShopEquipInterface()->SetupItemDescription(pItemDesc, szTextAreaName, pItemNode);
 //					}
-//					if (MQuestItemDesc* pQuestItemDesc = MGetMatchQuestItemDescMgr()->FindQItemDesc( pItem->GetItemID() ))
+//					if (CCQuestItemDesc* pQuestItemDesc = MGetMatchQuestItemDescMgr()->FindQItemDesc( pItem->GetItemID() ))
 //					{
 ////						ZGetGameInterface()->GetShopEquipInterface()->SetupItemDescription( pQuestItemDesc, szTextAreaName );
 //					}
@@ -288,7 +288,7 @@
 ////			case MSIT_QITEM :
 ////				{
 ////#ifdef _QUEST_ITEM
-////					MQuestItemDesc* pDesc = MGetMatchQuestItemDescMgr()->FindQItemDesc( nItemID );
+////					CCQuestItemDesc* pDesc = MGetMatchQuestItemDescMgr()->FindQItemDesc( nItemID );
 ////					if( pDesc == NULL ) return false;
 ////
 ////					ZGetGameInterface()->GetShopEquipInterface()->SetupItemDescription( pDesc, "Shop_ItemDescription");
@@ -450,7 +450,7 @@
 ////			}
 ////
 ////			// 퀘스트 아이템
-////			MQuestItemDesc* pQuestItemDesc = MGetMatchQuestItemDescMgr()->FindQItemDesc( pListItem->GetItemID());
+////			CCQuestItemDesc* pQuestItemDesc = MGetMatchQuestItemDescMgr()->FindQItemDesc( pListItem->GetItemID());
 ////			if ( pQuestItemDesc) {
 ////				ZGetGameInterface()->GetShopEquipInterface()->SetupItemDescription( pQuestItemDesc, "Equip_ItemDescription");
 ////
@@ -596,7 +596,7 @@
 //		return hint + 70000 + nResLv;
 //	}
 //
-//	MQuestItemDesc* pQuestItemDesc = MGetMatchQuestItemDescMgr()->FindQItemDesc(itemID);
+//	CCQuestItemDesc* pQuestItemDesc = MGetMatchQuestItemDescMgr()->FindQItemDesc(itemID);
 //	if (pQuestItemDesc) return 500000;
 //
 //	return 999999;

@@ -646,7 +646,7 @@ void ZScreenDebugger::DrawActorInfo(int num, MDrawContext *pDC, ZActor* pActor)
 	rvector dir = pActor->GetDirection();
 	rvector vel = pActor->GetVelocity();
 
-	MQuestNPCInfo* pNPCInfo = pActor->GetNPCInfo();
+	CCQuestNPCInfo* pNPCInfo = pActor->GetNPCInfo();
 	int nTaskCount = pActor->GetTaskManager()->GetCount();
 	ZTask* pCurrTask = pActor->GetTaskManager()->GetCurrTask();
 	char szTaskName[256] = "None";

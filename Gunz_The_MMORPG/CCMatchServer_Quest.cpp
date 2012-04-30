@@ -238,7 +238,7 @@ void CCMatchServer::OnResponseCharQuestItemList( const CCUID& uidSender )
 	void*				pQuestItemArray = MMakeBlobArray( static_cast<int>(sizeof(MTD_QuestItemNode)), 
 														  static_cast<int>(pPlayer->GetCharInfo()->m_QuestItemList.size()) );
 
-	MQuestItemMap::iterator itQItem, endQItem;
+	CCQuestItemMap::iterator itQItem, endQItem;
 	endQItem = pPlayer->GetCharInfo()->m_QuestItemList.end();
 	for( itQItem = pPlayer->GetCharInfo()->m_QuestItemList.begin(); itQItem != endQItem; ++itQItem )
 	{
@@ -263,13 +263,13 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 	CCMatchObject* pPlayer = GetObject( uidSender );
 	if( !IsEnabledObject(pPlayer) ) return;
 
-	MQuestItemDescManager::iterator itQItemDesc = GetQuestItemDescMgr().find( nItemID );
+	CCQuestItemDescManager::iterator itQItemDesc = GetQuestItemDescMgr().find( nItemID );
 	if( GetQuestItemDescMgr().end() == itQItemDesc ) {
 		cclog( "CCMatchServer::OnResponseBuyQuestItem - %d아이템 description을 찾지 못했습니다.\n", nItemID );
 		return;
 	}
 
-	MQuestItemDesc* pQuestItemDesc = itQItemDesc->second;
+	CCQuestItemDesc* pQuestItemDesc = itQItemDesc->second;
 	if( 0 == pQuestItemDesc ) {
 		cclog( "CCMatchServer::OnRequestBuyQuestItem - %d의 item description이 비정상적입니다.\n", nItemID );
 		return;
@@ -293,7 +293,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 		return;
 	}
 
-	MQuestItemMap::iterator itQItem = pPlayer->GetCharInfo()->m_QuestItemList.find( nItemID );
+	CCQuestItemMap::iterator itQItem = pPlayer->GetCharInfo()->m_QuestItemList.find( nItemID );
 	if( pPlayer->GetCharInfo()->m_QuestItemList.end() != itQItem ) 
 	{
 		// 최대 개수를 넘는지 검사.
@@ -309,7 +309,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 			return;
 		}
 	} else {
-		MQuestItem* pNewQuestItem = new MQuestItem;
+		CCQuestItem* pNewQuestItem = new CCQuestItem;
 		if( 0 == pNewQuestItem ) {
 			cclog( "CCMatchServer::OnResponseBuyQuestItem - 새로운 퀘스트 아이템 생성 실패.\n" );
 			return;
@@ -321,7 +321,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 			return;
 		}
 
-		pPlayer->GetCharInfo()->m_QuestItemList.insert( MQuestItemMap::value_type(nItemID, pNewQuestItem) );
+		pPlayer->GetCharInfo()->m_QuestItemList.insert( CCQuestItemMap::value_type(nItemID, pNewQuestItem) );
 	}
 
 	UpdateCharDBCachingData(pPlayer);		///< XP, BP, KillCount, DeathCount 캐슁 업데이트
@@ -351,14 +351,14 @@ void CCMatchServer::OnResponseSellQuestItem( const CCUID& uidSender, const unsig
 		return;
 	}
 
-	MQuestItemDescManager::iterator itQItemDesc = GetQuestItemDescMgr().find( nItemID );
+	CCQuestItemDescManager::iterator itQItemDesc = GetQuestItemDescMgr().find( nItemID );
 	if( GetQuestItemDescMgr().end() == itQItemDesc )
 	{
 		cclog( "CCMatchServer::OnResponseSellQuestItem - find item(%u) description fail.\n", nItemID );
 		return;
 	}
 	
-	MQuestItemDesc* pQItemDesc = itQItemDesc->second;
+	CCQuestItemDesc* pQItemDesc = itQItemDesc->second;
 	if( 0 == pQItemDesc )
 	{
 		cclog( "CCMatchServer::OnResponseSellQuestItem - item(%u) description is null point.\n", nItemID );
@@ -366,7 +366,7 @@ void CCMatchServer::OnResponseSellQuestItem( const CCUID& uidSender, const unsig
 	}
 
 	// 아이템 카운트 검사.
-	MQuestItemMap::iterator itQItem = pPlayer->GetCharInfo()->m_QuestItemList.find( nItemID );
+	CCQuestItemMap::iterator itQItem = pPlayer->GetCharInfo()->m_QuestItemList.find( nItemID );
 	if( pPlayer->GetCharInfo()->m_QuestItemList.end() != itQItem ) {
 		if( nCount > itQItem->second->GetCount() ) {
 			return;
@@ -611,7 +611,7 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const CCUID& uidSender )
 		return;
 	}
 
-	MQuestMonsterBible* pMonBible = reinterpret_cast< MQuestMonsterBible * >( MGetBlobArrayElement(pMonBibleInfoBlob, 0) );
+	CCQuestMonsterBible* pMonBible = reinterpret_cast< CCQuestMonsterBible * >( MGetBlobArrayElement(pMonBibleInfoBlob, 0) );
 	if( 0 == pMonBible )
 	{
 		cclog( "CCMatchServer::OnResponseMonsterBibleInfo - typecast fail.\n" );

@@ -925,12 +925,12 @@ inline void ZPostLadderCancel()
 
 // Duel Tournament ///////////////////////////////////////////////////////////////////////////////////
 #ifdef _DUELTOURNAMENT
-inline void ZPostDuelTournamentRequestJoinGame(const CCUID& uidChar, MDUELTOURNAMENTTYPE nType)
+inline void ZPostDuelTournamentRequestJoinGame(const CCUID& uidChar, CCDUELTOURNAMENTTYPE nType)
 {
 	ZPOSTCMD2( MC_MATCH_DUELTOURNAMENT_REQUEST_JOINGAME, MCmdParamUID(uidChar), MCmdParamInt((int)nType));
 }
 
-inline void ZPostDuelTournamentRequestCancelGame(const CCUID& uidChar, MDUELTOURNAMENTTYPE nType)
+inline void ZPostDuelTournamentRequestCancelGame(const CCUID& uidChar, CCDUELTOURNAMENTTYPE nType)
 {
 	ZPOSTCMD2( MC_MATCH_DUELTOURNAMENT_REQUEST_CANCELGAME, MCmdParamUID(uidChar), MCmdParamInt((int)nType));
 }

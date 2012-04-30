@@ -169,7 +169,7 @@ void ZRuleDuelTournament::InitCharacterList()
 	//ZeroMemory(&m_DTNextPlayer, sizeof(m_DTNextPlayer));
 	ZeroMemory(&m_DTChampion, sizeof(m_DTChampion));
 
-	MDUELTOURNAMENTTYPE eType = ZApplication::GetGameInterface()->GetDuelTournamentType();
+	CCDUELTOURNAMENTTYPE eType = ZApplication::GetGameInterface()->GetDuelTournamentType();
 	vector<DTPlayerInfo> vecPlayerInfo = ZApplication::GetGameInterface()->GetVectorDTPlayerInfo();
 	if(vecPlayerInfo.size() <= 0)	return;
 	if(vecPlayerInfo.size() != GetDTPlayerCount(eType)) { _ASSERT(!"듀얼 토너먼트 타입에 대한 인원수가 안맞음");}
@@ -184,17 +184,17 @@ void ZRuleDuelTournament::InitCharacterList()
 
 		switch(eType)
 		{
-		case MDUELTOURNAMENTTYPE_FINAL:			m_QuaterFinalPlayer[i].nMatchLevel = 2;		break;
-		case MDUELTOURNAMENTTYPE_SEMIFINAL:		m_QuaterFinalPlayer[i].nMatchLevel = 1;		break;
-		case MDUELTOURNAMENTTYPE_QUATERFINAL:	m_QuaterFinalPlayer[i].nMatchLevel = 0;		break;
+		case CCDUELTOURNAMENTTYPE_FINAL:			m_QuaterFinalPlayer[i].nMatchLevel = 2;		break;
+		case CCDUELTOURNAMENTTYPE_SEMIFINAL:		m_QuaterFinalPlayer[i].nMatchLevel = 1;		break;
+		case CCDUELTOURNAMENTTYPE_QUATERFINAL:	m_QuaterFinalPlayer[i].nMatchLevel = 0;		break;
 		}
 	}
 
 	switch(eType)
 	{
-	case MDUELTOURNAMENTTYPE_FINAL:			m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_FINAL;			break;
-	case MDUELTOURNAMENTTYPE_SEMIFINAL:		m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_SEMIFINAL;		break;
-	case MDUELTOURNAMENTTYPE_QUATERFINAL:	m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_QUATERFINAL;	break;
+	case CCDUELTOURNAMENTTYPE_FINAL:			m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_FINAL;			break;
+	case CCDUELTOURNAMENTTYPE_SEMIFINAL:		m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_SEMIFINAL;		break;
+	case CCDUELTOURNAMENTTYPE_QUATERFINAL:	m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_QUATERFINAL;	break;
 	}
 }
 
@@ -547,7 +547,7 @@ void ZRuleDuelTournament::ShowMatchPlayerInfoUI_OnlyNextMatch(bool bShow)
 	char sz[128];
 	char szRoundCount[64];
 	sprintf(szRoundCount, "%d", m_nDTRoundCount+1);
-	MDUELTOURNAMENTTYPE eType = ZApplication::GetGameInterface()->GetDuelTournamentType();
+	CCDUELTOURNAMENTTYPE eType = ZApplication::GetGameInterface()->GetDuelTournamentType();
 	switch(m_eDTRoundState)
 	{
 	case MDUELTOURNAMENTROUNDSTATE_FINAL:		ZTransMsg(sz, MSG_GAME_DUELTOURNAMENT_MATCH_FINAL);		break;

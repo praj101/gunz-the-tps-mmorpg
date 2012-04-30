@@ -165,7 +165,7 @@ bool ZReplayLoader::LoadStageSettingEtc(ZFile* file)
 			vecPlayerInfo.push_back(temp);
 		}
 
-		ZGetGameInterface()->SetDuelTournamentCharacterList((MDUELTOURNAMENTTYPE)tournamentType, vecPlayerInfo);
+		ZGetGameInterface()->SetDuelTournamentCharacterList((CCDUELTOURNAMENTTYPE)tournamentType, vecPlayerInfo);
 		// 원래 게임에서는 이미 캐릭터목록이 세팅된 상태로 룰이 생성되는데, 리플레이는 순서가 반대라서 캐릭터 목록을 가져가도록 직접 지시해야한다..
 		ZRuleDuelTournament* pRule = (ZRuleDuelTournament*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		pRule->InitCharacterList();

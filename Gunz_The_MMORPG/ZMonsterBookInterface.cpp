@@ -439,7 +439,7 @@ bool ZMonsterBookInterface::LoadMonsterBookInfo( void)
 
 	// NPC 정보를 구함
 	ZGetQuest()->Load();
-	MQuestNPCCatalogue* pNPCCatalogue = ZGetQuest()->GetNPCCatalogue();
+	CCQuestNPCCatalogue* pNPCCatalogue = ZGetQuest()->GetNPCCatalogue();
 	if ( pNPCCatalogue == NULL)
 		return false;
 
@@ -449,7 +449,7 @@ bool ZMonsterBookInterface::LoadMonsterBookInfo( void)
 	m_nTotalPageNum = 0;
 
 
-	for ( map<MQUEST_NPC, MQuestNPCInfo*>::iterator itr = pNPCCatalogue->begin();  itr != pNPCCatalogue->end();  itr++)
+	for ( map<MQUEST_NPC, CCQuestNPCInfo*>::iterator itr = pNPCCatalogue->begin();  itr != pNPCCatalogue->end();  itr++)
 	{
 		// 하드 코드 : 이벤트용 NPC인 경우엔 빼준다
 		if ( (*itr).first >= 100)
@@ -457,7 +457,7 @@ bool ZMonsterBookInterface::LoadMonsterBookInfo( void)
 
 
 		// 리스트 노드 생성
-		MQuestNPCInfo* pNPCInfo = (*itr).second;
+		CCQuestNPCInfo* pNPCInfo = (*itr).second;
 		ZMonsterBookPageInfo* pMonsterBookPageInfo = new ZMonsterBookPageInfo;
 
 		pMonsterBookPageInfo->m_nID			= (*itr).first;
@@ -482,7 +482,7 @@ bool ZMonsterBookInterface::LoadMonsterBookInfo( void)
 
 
 		// 드롭 아이템 목록을 구함
-		MQuestDropSet* pDropItem = ZGetQuest()->GetDropTable()->Find( pNPCInfo->nDropTableID);
+		CCQuestDropSet* pDropItem = ZGetQuest()->GetDropTable()->Find( pNPCInfo->nDropTableID);
 		if ( pDropItem)
 		{
 			// 드롭 아이템 갯수
@@ -507,7 +507,7 @@ bool ZMonsterBookInterface::LoadMonsterBookInfo( void)
 
 
 					// 아이템 정보를 구함
-					MQuestItemDesc* pQItemDesc = GetQuestItemDescMgr().FindQItemDesc( *itrItem);
+					CCQuestItemDesc* pQItemDesc = GetQuestItemDescMgr().FindQItemDesc( *itrItem);
 					if ( pQItemDesc)
 					{
 						pItemNode->m_strName	= pQItemDesc->m_szQuestItemName;

@@ -49,7 +49,7 @@ public :
 	virtual bool IsRoundClear( void) = 0;
 	virtual DWORD GetRemainedTime( void) = 0;
 
-	virtual MQuestCombatState GetQuestState() = 0;
+	virtual CCQuestCombatState GetQuestState() = 0;
 
 	virtual ZNPCInfoFromServerManager& GetNPCInfoFromServerMgr() = 0;
 

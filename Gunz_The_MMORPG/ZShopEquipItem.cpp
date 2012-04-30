@@ -539,7 +539,7 @@ void ZShopEquipItem_Match::UpdateCharInfoText()
 
 // ============= ZShopEquipItem_Quest 퀘스트 아이템 ================================================
 
-ZShopEquipItem_Quest::ZShopEquipItem_Quest( MQuestItemDesc* pDesc ) : m_pItemDesc(pDesc)
+ZShopEquipItem_Quest::ZShopEquipItem_Quest( CCQuestItemDesc* pDesc ) : m_pItemDesc(pDesc)
 {
 	_ASSERT(m_pItemDesc);
 	m_pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon(pDesc->m_nItemID, true);
@@ -1249,7 +1249,7 @@ bool ZShopEquipItemHandle_SellQuest::GetPrice( int& out_nPrice )
 {
 	out_nPrice = 0;
 
-	MQuestItemDesc* pDesc = m_pItem->GetDesc();
+	CCQuestItemDesc* pDesc = m_pItem->GetDesc();
 	if (!pDesc) { _ASSERT(pDesc); return false; }
 
 	out_nPrice = pDesc->GetSellBountyValue(1);

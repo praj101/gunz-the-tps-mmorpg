@@ -133,12 +133,12 @@ public:
 // 상점,장비창을 위한 퀘스트아이템 래퍼
 class ZShopEquipItem_Quest : public ZShopEquipItem
 {
-	MQuestItemDesc* m_pItemDesc;
+	CCQuestItemDesc* m_pItemDesc;
 public:
-	ZShopEquipItem_Quest(MQuestItemDesc* pDesc);
+	ZShopEquipItem_Quest(CCQuestItemDesc* pDesc);
 	ZShopEquipItemType GetType() { return ZSEIT_QUEST; }
 
-	MQuestItemDesc* GetDesc() { return m_pItemDesc; }
+	CCQuestItemDesc* GetDesc() { return m_pItemDesc; }
 
 	virtual CCMatchItemSlotType GetSlotType() { return MMIST_NONE; }
 	virtual bool CanEquip() { return false; }

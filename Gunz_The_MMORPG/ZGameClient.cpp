@@ -2494,7 +2494,7 @@ void ZGameClient::OnRecieveGambleItem( unsigned int nRecvItem, unsigned int nCnt
 	{
 		sprintf(szName, "%s (x%d)", pItemDesc->m_pMItemName->Ref().m_szItemName, nCnt);
 	}
-	MQuestItemDesc* pQuestItemDesc = GetQuestItemDescMgr().FindQItemDesc( nRecvItem);
+	CCQuestItemDesc* pQuestItemDesc = GetQuestItemDescMgr().FindQItemDesc( nRecvItem);
 	if ( pQuestItemDesc)
 	{
 		sprintf(szName, "%s (x%d)", pQuestItemDesc->m_szQuestItemName, nCnt);

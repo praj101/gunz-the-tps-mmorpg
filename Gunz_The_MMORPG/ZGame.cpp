@@ -417,11 +417,11 @@ bool ZGame::Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading )
 		ZGetGameTypeManager()->IsQuestDerived(ZGetGameClient()->GetMatchStageSetting()->GetGameType())) {
 		for (int i = 0; i < ZGetQuest()->GetGameInfo()->GetMapSectorCount(); i++)
 		{
-			MQuestMapSectorInfo* pSecInfo = ZGetQuest()->GetSectorInfo(ZGetQuest()->GetGameInfo()->GetMapSectorID(i));
+			CCQuestMapSectorInfo* pSecInfo = ZGetQuest()->GetSectorInfo(ZGetQuest()->GetGameInfo()->GetMapSectorID(i));
 			if(pSecInfo == NULL)
 			{
 				char strBuf[256];
-				sprintf(strBuf, "[MQuestMapSectorInfo] m_MapSectorVector[index]:%d, GetMapSectorID:%d\n",i, ZGetQuest()->GetGameInfo()->GetMapSectorID(i));
+				sprintf(strBuf, "[CCQuestMapSectorInfo] m_MapSectorVector[index]:%d, GetMapSectorID:%d\n",i, ZGetQuest()->GetGameInfo()->GetMapSectorID(i));
 				ASSERT( 0 && strBuf);
 			}
 			ZGetWorldManager()->AddWorld(pSecInfo->szTitle);

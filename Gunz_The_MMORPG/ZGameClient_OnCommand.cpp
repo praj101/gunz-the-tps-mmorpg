@@ -1426,7 +1426,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				MCommandParameter* pParam = pCommand->GetParameter(2);
 				void* pBlobPlayerInfo = pParam->GetPointer();
 
-				OnDuelTournamentPrepare((MDUELTOURNAMENTTYPE)nType, uidStage, pBlobPlayerInfo);
+				OnDuelTournamentPrepare((CCDUELTOURNAMENTTYPE)nType, uidStage, pBlobPlayerInfo);
 			}
 			break;
 		case MC_MATCH_DUELTOURNAMENT_LAUNCH_MATCH:

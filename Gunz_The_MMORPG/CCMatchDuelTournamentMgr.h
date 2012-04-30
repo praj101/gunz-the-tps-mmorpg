@@ -23,11 +23,11 @@ class CCMatchDuelTournamentMgr
 
 protected:	
 	DTRankingInfo m_GroupRankingBlob[MAX_DT_GROUP_RANKING_COUNT];
-	MDuelTournamentMatchMaker m_DTMatchMakers[MDUELTOURNAMENTTYPE_MAX];
+	MDuelTournamentMatchMaker m_DTMatchMakers[CCDUELTOURNAMENTTYPE_MAX];
 	MDuelTournamentMatchLauncher* m_pDTMatchLauncher;
 
 	void ClearGroupRanking();
-	void LaunchMatch(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer);
+	void LaunchMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer);
 public:
 	CCMatchDuelTournamentMgr();
 	~CCMatchDuelTournamentMgr();
@@ -35,8 +35,8 @@ public:
 	void Init();
 	void Destory();
 
-	bool AddPlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer);
-	bool RemovePlayer(MDUELTOURNAMENTTYPE nType, CCUID &uidPlayer);
+	bool AddPlayer(CCDUELTOURNAMENTTYPE nType, CCUID &uidPlayer);
+	bool RemovePlayer(CCDUELTOURNAMENTTYPE nType, CCUID &uidPlayer);
 	
 	void Tick(unsigned long nTick);
 
@@ -63,11 +63,11 @@ public:
 	void SetLimitUserWaitTime(DWORD n) { m_dwLimitUserWaitTime = n; }
 	void SetAcceptableTpGap(DWORD n) { m_dwAcceptableTpGap = n; }
 
-	void LaunchAvailableMatch(MDUELTOURNAMENTTYPE nType, MDuelTournamentMatchMaker& matchMaker, DWORD nCurTick);
+	void LaunchAvailableMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentMatchMaker& matchMaker, DWORD nCurTick);
 
 protected:
-	void LaunchMatchGroups(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
+	void LaunchMatchGroups(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
 
 	// 실제 CCMatchServer에게 경기 실행시키는 부분을 래핑하는 함수 (단위테스트 목적)
-	virtual void LaunchMatch(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
+	virtual void LaunchMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
 };

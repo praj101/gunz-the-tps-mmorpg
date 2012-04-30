@@ -5,7 +5,7 @@
 #include "CCMatchTransDataType.h"
 #include "CCUID.h"
 #include "CCMatchGameType.h"
-#include "MQuestPlayer.h"
+#include "CCQuestPlayer.h"
 #include "CCMatchEventManager.h"
 
 class CCMatchObject;

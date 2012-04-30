@@ -11,14 +11,14 @@ using namespace std;
 class MDuelTournamentWaitGroup
 {
 protected:
-	MDUELTOURNAMENTTYPE		m_nType;
+	CCDUELTOURNAMENTTYPE		m_nType;
 	map<CCUID, MDuelTournamentTicket*> m_PlayerTicketMap;
 
 	unsigned int m_nRegTime;
 	int m_nTickCount;
 
 public:
-	MDuelTournamentWaitGroup(MDUELTOURNAMENTTYPE nType, unsigned int nRegTime)
+	MDuelTournamentWaitGroup(CCDUELTOURNAMENTTYPE nType, unsigned int nRegTime)
 	{ 
 		m_nType = nType;
 		m_nRegTime = nRegTime;
@@ -26,8 +26,8 @@ public:
 		m_nTickCount = 0;
 	}
 
-	MDUELTOURNAMENTTYPE GetDuelTournamentType()				{ return m_nType; }
-	void SetDuelTournamentType(MDUELTOURNAMENTTYPE nType)		{ m_nType = nType; }
+	CCDUELTOURNAMENTTYPE GetDuelTournamentType()				{ return m_nType; }
+	void SetDuelTournamentType(CCDUELTOURNAMENTTYPE nType)		{ m_nType = nType; }
 
 	unsigned int GetRegTime()		{ return m_nRegTime; }	
 	int GetTickCount()				{ return m_nTickCount; }

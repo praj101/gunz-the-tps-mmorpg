@@ -363,7 +363,7 @@ bool ZGameInput::OnDebugEvent(MEvent* pEvent)
 						nNPCType = NPC_GOBLIN_GUNNER;
 						rvector ranpos = rvector(0, 0, 0);
 
-						MQuestNPCInfo* pNPCInfo = NULL;
+						CCQuestNPCInfo* pNPCInfo = NULL;
 
 						if(ZGetQuest())
 							pNPCInfo = 	ZGetQuest()->GetNPCInfo(MQUEST_NPC(nNPCType));

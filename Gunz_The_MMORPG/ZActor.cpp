@@ -290,7 +290,7 @@ void ZActor::OnUpdate(float fDelta)
 
 
 //변조가 가능한 데이터는 서버가 보내준 정보로 수정을 한다.
-void SetClientNPCInfoFromServerNPCInfo( MQuestNPCInfo* pClientNPCInfo, const MTD_NPCINFO* pServerNPCInfo )
+void SetClientNPCInfoFromServerNPCInfo( CCQuestNPCInfo* pClientNPCInfo, const MTD_NPCINFO* pServerNPCInfo )
 {
 	pClientNPCInfo->nMaxHP			= pServerNPCInfo->m_nMaxHP;
 	pClientNPCInfo->nMaxAP			= pServerNPCInfo->m_nMaxAP;

@@ -202,7 +202,7 @@ protected:
 
 // _DUELTOURNAMENT
 	vector<DTPlayerInfo> m_vecDTPlayerInfo;
-	MDUELTOURNAMENTTYPE m_eDuelTournamentType;
+	CCDUELTOURNAMENTTYPE m_eDuelTournamentType;
 
 protected:
 	static bool		OnGlobalEvent(MEvent* pEvent);
@@ -476,10 +476,10 @@ public:
 	virtual void MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight);
 
 // _DUELTOURNAMENT
-	void SetDuelTournamentCharacterList(MDUELTOURNAMENTTYPE nType, const vector<DTPlayerInfo>& vecDTPlayerInfo);
+	void SetDuelTournamentCharacterList(CCDUELTOURNAMENTTYPE nType, const vector<DTPlayerInfo>& vecDTPlayerInfo);
 	const vector<DTPlayerInfo>& GetVectorDTPlayerInfo()	{ return m_vecDTPlayerInfo; }
-	void SetDuelTournamantType(MDUELTOURNAMENTTYPE eType)		{ m_eDuelTournamentType = eType; }
-	MDUELTOURNAMENTTYPE GetDuelTournamentType()		{ return m_eDuelTournamentType; }
+	void SetDuelTournamantType(CCDUELTOURNAMENTTYPE eType)		{ m_eDuelTournamentType = eType; }
+	CCDUELTOURNAMENTTYPE GetDuelTournamentType()		{ return m_eDuelTournamentType; }
 
 	void UpdateDuelTournamantMyCharInfoUI();
 	void UpdateDuelTournamantMyCharInfoPreviousUI();

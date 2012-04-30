@@ -836,10 +836,10 @@ protected :
 	void ResponseDuelTournamentCharSideRanking(CCUID &uidPlayer);
 	void ResponseChannelJoin(CCUID uidPlayer, CCUID uidChannel, int nChannelType, const char* szChannelStrResId, bool bEnableInterface);
 	void ResponseDuelTournamentCharStatusInfo(CCUID &uidPlayer, MCommand *pCommand);
-	void ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, MDUELTOURNAMENTTYPE nType);
-	void ResponseDuelTournamentCancelChallenge(CCUID &uidPlayer, MDUELTOURNAMENTTYPE nType);	
+	void ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType);
+	void ResponseDuelTournamentCancelChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType);	
 
-	bool OnSyncRequest_InsertDuelTournamentGameLog(MDUELTOURNAMENTTYPE nDTType, int nMatchFactor, MDuelTournamentPickedGroup *pPickedGroup, int *nOutNumber, char *szOutTimeStamp);
+	bool OnSyncRequest_InsertDuelTournamentGameLog(CCDUELTOURNAMENTTYPE nDTType, int nMatchFactor, MDuelTournamentPickedGroup *pPickedGroup, int *nOutNumber, char *szOutTimeStamp);
 	
 	void OnAsyncResponse_GetDuelTournamentTimeStamp(MAsyncJob *pJobResult);
 	void OnAsyncResponse_GetDuelTournamentCharacterInfo(MAsyncJob *pJobResult);
@@ -858,12 +858,12 @@ protected :
 	void PostCmdDuelTournamentCharSideRankingInfo(CCUID uidPlayer, list<DTRankingInfo*>* pSideRankingList);	
 	void PostCmdDuelTournamentCancelMatch(CCUID uidPlayer, int nErrorCode);
 
-	void RouteCmdDuelTournamentPrepareMatch(MDUELTOURNAMENTTYPE nType, CCUID uidStage, MDuelTournamentPickedGroup *pPickedGroup);	
+	void RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, MDuelTournamentPickedGroup *pPickedGroup);	
 	void RouteCmdDuelTournamentLaunchMatch(CCUID uidStage);
 	void RouteCmdDuelTournamentCancelMatch(MDuelTournamentPickedGroup *pPickedGroup, int nErrorCode);
 
 public:	
-	void LaunchDuelTournamentMatch(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
+	void LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
 
 	void SendDuelTournamentPreviousCharInfoToPlayer(CCUID uidPlayer);
 	void SendDuelTournamentCharInfoToPlayer(CCUID uidPlayer);

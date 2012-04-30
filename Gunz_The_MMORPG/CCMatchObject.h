@@ -242,13 +242,13 @@ public:
 	CCMatchCharClanInfo	m_ClanInfo;			// 클랜 정보
 
 	// 퀘스트 아이템.
-	MQuestItemMap		m_QuestItemList;
+	CCQuestItemMap		m_QuestItemList;
 	DBQuestCachingData	m_DBQuestCachingData;
 	DBQuestCachingData& GetDBQuestCachingData() { return m_DBQuestCachingData; }
 
 
 	// 몬스터 바이블
-	MQuestMonsterBible	m_QMonsterBible;
+	CCQuestMonsterBible	m_QMonsterBible;
 
 	// gamble item.
 	CCMatchGambleItemManager m_GambleItemManager;
@@ -283,7 +283,7 @@ public:
 		memset(m_szName, 0, MATCHOBJECT_NAME_LENGTH);
 		memset(m_nEquipedItemCIID, 0, sizeof(m_nEquipedItemCIID));
 		memset(&m_DBCachingData, 0, sizeof(m_DBCachingData));
-		memset(&m_QMonsterBible, 0, sizeof(MQuestMonsterBible) );
+		memset(&m_QMonsterBible, 0, sizeof(CCQuestMonsterBible) );
 
 		m_QuestItemList.Clear();
 		m_DBQuestCachingData.Reset();

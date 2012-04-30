@@ -2,7 +2,7 @@
 #define _ZMYQUESTITEM_H
 
 
-#include "MQuestItem.h"
+#include "CCQuestItem.h"
 
 #include <map>
 
@@ -12,7 +12,7 @@ using std::map;
 #define MAX_ZQUEST_ITEM_COUNT 99
 #define MIN_ZQUEST_ITEM_COUNT 0
 
-// Description은 MQuestItem에 있는걸 사용.
+// Description은 CCQuestItem에 있는걸 사용.
 class ZMyQuestItemNode : MBaseQuestItem
 {
 public :
@@ -26,7 +26,7 @@ public :
 
 	unsigned long int	GetItemID()	{ return m_nItemID; }
 	int					GetCount()	{ return m_nCount; }
-	MQuestItemDesc*		GetDesc()	{ return m_pDesc; }
+	CCQuestItemDesc*		GetDesc()	{ return m_pDesc; }
 
 	void Increase( const int nCount = 1 ) 
 	{
@@ -45,9 +45,9 @@ public :
 
 	void SetItemID( const unsigned long int nItemID )	{ m_nItemID = nItemID; }
 	void SetCount( const int nCount )					{ m_nCount = nCount; }
-	void SetDesc( MQuestItemDesc* pDesc )				{ m_pDesc = pDesc; }
+	void SetDesc( CCQuestItemDesc* pDesc )				{ m_pDesc = pDesc; }
 
-	void Create( const unsigned long int nItemID, const int nCount, MQuestItemDesc* pDesc )
+	void Create( const unsigned long int nItemID, const int nCount, CCQuestItemDesc* pDesc )
 	{
 		m_nItemID	= nItemID;
 		m_nCount	= nCount;
@@ -57,7 +57,7 @@ public :
 public :
 	unsigned long int	m_nItemID;
 	int					m_nCount;
-	MQuestItemDesc*		m_pDesc;
+	CCQuestItemDesc*		m_pDesc;
 };
 
 
@@ -69,7 +69,7 @@ public :
 	
 	bool Add( const unsigned long int nItemID, ZMyQuestItemNode* pQuestItem );
 
-	bool CreateQuestItem( const unsigned long int nItemID, const int nCount, MQuestItemDesc* pDesc );
+	bool CreateQuestItem( const unsigned long int nItemID, const int nCount, CCQuestItemDesc* pDesc );
 
 	void Clear();
 

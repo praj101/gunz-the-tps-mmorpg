@@ -2012,7 +2012,7 @@ int	CCMatchStage::GetDuelTournamentRandomMapIndex()
 	return -1;
 }
 
-void CCMatchStage::SetDuelTournamentMatchList(MDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup *pPickedGroup)
+void CCMatchStage::SetDuelTournamentMatchList(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup *pPickedGroup)
 {
 	m_nDTStageInfo.nDuelTournamentType = nType;
 
