@@ -6,7 +6,7 @@
 #include "CCAgentObject.h"
 #include "CCDebug.h"
 #include "CCCommandCommunicator.h"
-#include "MCommandBuilder.h"
+#include "CCCommandBuilder.h"
 
 int CCMatchServer::AgentAdd(const CCUID& uidComm)
 {

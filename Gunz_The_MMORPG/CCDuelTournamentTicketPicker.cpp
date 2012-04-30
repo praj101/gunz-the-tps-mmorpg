@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
-#include "MDuelTournamentTicket.h"
-#include "MDuelTournamentTicketPicker.h"
+#include "CCDuelTournamentTicket.h"
+#include "CCDuelTournamentTicketPicker.h"
 
 void MDuelTournamentTicketPicker::AddTicket(MDuelTournamentTicket *pTicket)
 {

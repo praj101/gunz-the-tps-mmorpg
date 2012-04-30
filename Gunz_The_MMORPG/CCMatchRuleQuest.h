@@ -3,7 +3,7 @@
 #include "CCMatchRuleBaseQuest.h"
 #include "CCMatchNPCObject.h"
 #include "CCMatchQuestRound.h"
-#include "MSacrificeQItemTable.h"
+#include "CCSacrificeQItemTable.h"
 #include "CCQuestItem.h"
 #include "CCMatchQuestGameLog.h"
 #include "CCQuestNPCSpawnTrigger.h"

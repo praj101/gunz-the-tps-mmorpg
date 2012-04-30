@@ -11,8 +11,8 @@
 #include "CCMatchConfig.h"
 #include "CCMatchFormula.h"
 #include "CCQuestItem.h"
-#include "MMATH.H"
-#include "MAsyncDBJob.h"
+#include "CCMATH.H"
+#include "CCAsyncDBJob.h"
 #include "CCQuestNPCSpawnTrigger.h"
 #include "CCQuestItem.h"
 

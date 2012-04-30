@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MDuelTournamentTimeChecker.h"
+#include "CCDuelTournamentTimeChecker.h"
 
 MDuelTournamentTimeChecker::MDuelTournamentTimeChecker(void)
 {

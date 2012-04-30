@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "MSharedCommandTable.h"
-#include "MCommandManager.h"
+#include "CCSharedCommandTable.h"
+#include "CCCommandManager.h"
 
 #include "CCMatchChannel.h"
 #include "CCMatchObject.h"

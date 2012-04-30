@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CCMatchRule.h"
-#include "MDuelTournamentFormula.h"
+#include "CCDuelTournamentFormula.h"
 #include <list>
 
 #define DUELTOURNAMENT_PLAYER_UNEARNEDPOINT			0

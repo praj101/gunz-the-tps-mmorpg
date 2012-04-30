@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MDuelTournamentMatchMaker.h"
+#include "CCDuelTournamentMatchMaker.h"
 
 MDuelTournamentMatchMaker::MDuelTournamentMatchMaker()
 : m_pMatchObjectContainer(NULL)

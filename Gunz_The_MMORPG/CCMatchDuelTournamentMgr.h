@@ -1,6 +1,6 @@
 #pragma once
-#include "MDuelTournamentMatchMaker.h"
-#include "MDuelTournamentTimeChecker.h"
+#include "CCDuelTournamentMatchMaker.h"
+#include "CCDuelTournamentTimeChecker.h"
 
 #define MAX_DT_GROUP_RANKING_COUNT 100
 

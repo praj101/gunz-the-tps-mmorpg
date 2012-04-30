@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MConnectHistory.h"
+#include "CCConnectHistory.h"
 
 const int RECONNECT_TIME		= 5*1000;	///< 재접 시간은 최소 5초
 

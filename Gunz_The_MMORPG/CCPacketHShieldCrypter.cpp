@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MPacketHShieldCrypter.h"
+#include "CCPacketHShieldCrypter.h"
 
 HSCRYPT_KEYINFO MPacketHShieldCrypter::m_HsKeyInfo;
 unsigned char MPacketHShieldCrypter::m_OutputBuf[MAX_PACKET_SIZE];

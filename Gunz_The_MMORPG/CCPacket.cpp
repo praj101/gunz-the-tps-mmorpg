@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MPacket.h"
+#include "CCPacket.h"
 //#include "Msg.h"
 
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MStringRes.h"
+#include "CCStringRes.h"
 
 const char FILENAME_ERROR_TABLE[]		= "cserror.xml";
 const char FILENAME_STRING_TABLE[]		= "strings.xml";

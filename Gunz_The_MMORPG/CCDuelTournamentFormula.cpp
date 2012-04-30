@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MDuelTournamentFormula.h"
+#include "CCDuelTournamentFormula.h"
 
 int MDuelTournamentFormula::Calc_WinnerTP(int nWinnerTP, int nLoserTP, bool isFinal)
 {

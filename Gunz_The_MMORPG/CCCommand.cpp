@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "MCommand.h"
-#include "MCommandManager.h"
-#include "MDebug.h"
+#include "CCCommand.h"
+#include "CCCommandManager.h"
+#include "CCDebug.h"
 
 MCommandDesc::MCommandDesc(int nID, const char* szName, const char* szDescription, int nFlag)
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "../HShield/HsCryptLib.h"
-#include "MPacket.h"
+#include "CCPacket.h"
 
 class MPacketHShieldCrypter
 {

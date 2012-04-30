@@ -20,7 +20,7 @@
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
 #include "CCMatchStatus.h"
-#include "MAsyncDBJob.h"
+#include "CCAsyncDBJob.h"
 #include "CCLadderMgr.h"
 #include "CCTeamGameStrategy.h"
 

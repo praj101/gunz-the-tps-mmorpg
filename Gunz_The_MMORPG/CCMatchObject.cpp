@@ -6,9 +6,9 @@
 #include "CCMatchConfig.h"
 #include "CCUtil.h"
 
-#include "MAsyncDBJob_InsertCharBRInfo.h"
-#include "MAsyncDBJob_UpdateCharBRInfo.h"
-#include "MAsyncDBJob_RewardCharBR.h"
+#include "CCAsyncDBJob_InsertCharBRInfo.h"
+#include "CCAsyncDBJob_UpdateCharBRInfo.h"
+#include "CCAsyncDBJob_RewardCharBR.h"
 
 #define CYCLE_MATCHSTAGELISTUPDATE			1000
 #define CYCLE_MATCHCHANNELLISTUPDATE		1000
