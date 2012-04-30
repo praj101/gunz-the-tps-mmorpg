@@ -130,7 +130,7 @@ protected:
 	CCMatchQuest				m_Quest;	// 임시로 위치이동
 	DWORD					m_checkMemory21;
 
-	MCountryFilter			m_CountryFilter;
+	CCCountryFilter			m_CountryFilter;
 	IPtoCountryList			m_TmpIPtoCountryList;
 	BlockCountryCodeList	m_TmpBlockCountryCodeList;
 	CustomIPList			m_TmpCustomIPList;
@@ -740,7 +740,7 @@ protected:
 protected :
 	friend bool StageKick(CCMatchServer* pServer, const CCUID& uidPlayer, const CCUID& uidStage, char* pszChat);
 	// fitler
-	MCountryFilter& GetCountryFilter()					{ return m_CountryFilter; }
+	CCCountryFilter& GetCountryFilter()					{ return m_CountryFilter; }
 	bool InitCountryFilterDB();
 	const CUSTOM_IP_STATUS	CheckIsValidCustomIP( const CCUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter );
 	const COUNT_CODE_STATUS CheckIsNonBlockCountry( const CCUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter );
