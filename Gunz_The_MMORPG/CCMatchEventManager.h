@@ -6,20 +6,20 @@
 using std::vector;
 
 
-class MMatchObject;
+class CCMatchObject;
 
 
-typedef vector< MMatchEvent* >		EventPtrVec;
-typedef map< DWORD, MMatchEvent* >	EventPtrMap;
+typedef vector< CCMatchEvent* >		EventPtrVec;
+typedef map< DWORD, CCMatchEvent* >	EventPtrMap;
 
 
-class MMatchEventManager
+class CCMatchEventManager
 {
 public :
-	MMatchEventManager();
-	~MMatchEventManager();
+	CCMatchEventManager();
+	~CCMatchEventManager();
 
-	void			AddEvent( MMatchEvent* pEvent );
+	void			AddEvent( CCMatchEvent* pEvent );
 	void			AddEventList( EventPtrVec& EvnPtrVec );
 	void			ChangeEventList( EventPtrVec& EvnPtrVec );
 	void			DeleteEvent( const DWORD dwEventID );
@@ -27,12 +27,12 @@ public :
 	void			StartNewEvent();
 	size_t			GetEventCount( const DWORD dwEventID );
 	bool			Empty()											{ return m_EventVec.empty(); }
-	MMATCH_GAMETYPE GetLastSetGameType()							{ return m_GameType; }
+	CCMATCH_GAMETYPE GetLastSetGameType()							{ return m_GameType; }
 	void			SetGameType( const MMATCH_GAMETYPE GameType )	{ m_GameType = GameType; }
 
-	void CustomCheckEventObj( const DWORD dwEventID, MMatchObject* pObj, void* pContext );
-	void CustomCheckEventObj( const DWORD dwEventListID, const DWORD dwEventID, MMatchObject* pObj, void* pContext );
-	void CheckEventObj( MMatchObject* pObj, const DWORD dwCurTime );
+	void CustomCheckEventObj( const DWORD dwEventID, CCMatchObject* pObj, void* pContext );
+	void CustomCheckEventObj( const DWORD dwEventListID, const DWORD dwEventID, CCMatchObject* pObj, void* pContext );
+	void CheckEventObj( CCMatchObject* pObj, const DWORD dwCurTime );
 	void Run();
 
 	void SetLastCheckTime( const DWORD dwCurTime );
@@ -47,7 +47,7 @@ public :
 	}
 
 private :
-	MMATCH_GAMETYPE m_GameType;
+	CCMATCH_GAMETYPE m_GameType;
 	EventPtrVec		m_EventVec;
 	EventPtrMap		m_EventMap;
 };
