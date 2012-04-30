@@ -41,15 +41,15 @@ void ZQuestGameInfo::Init(MTD_QuestGameInfo* pMTDQuestGameInfo)
 	m_nRepeat = pMTDQuestGameInfo->nRepeat;
 
 #ifdef _DEBUG
-	mlog("%d , %d\n", GetNPCInfoCount(), GetMapSectorCount());
+	cclog("%d , %d\n", GetNPCInfoCount(), GetMapSectorCount());
 	for (int i = 0; i < GetNPCInfoCount(); i++)
 	{
-		mlog("npc(%d)\n", (int)(GetNPCInfo(i)));
+		cclog("npc(%d)\n", (int)(GetNPCInfo(i)));
 	}
 
 	for (int i = 0; i < GetMapSectorCount(); i++)
 	{
-		mlog("map(%d)\n", GetMapSectorID(i));
+		cclog("map(%d)\n", GetMapSectorID(i));
 	}
 #endif
 

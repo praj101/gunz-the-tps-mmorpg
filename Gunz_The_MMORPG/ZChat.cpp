@@ -228,7 +228,7 @@ void ZChat::Output(const char* szMsg, ZCHAT_MSG_TYPE msgtype, ZCHAT_LOC loc,MCOL
 	else {
 		_ASSERT(0);	// 채팅 버퍼가 너무 작음
 		char temp[32];strncpy(temp,szMsg,30);temp[30]=0;temp[31]=0;
-		mlog("warning : chat buffer overflow : %s\n",temp);
+		cclog("warning : chat buffer overflow : %s\n",temp);
 		strncpy(szOutput, szMsg, sizeof(szOutput)-2);
 		szOutput[sizeof(szOutput)-1]=0;
 		szOutput[sizeof(szOutput)-2]=0;
@@ -310,7 +310,7 @@ void ZChat::Output(MCOLOR color, const char* szMsg, ZCHAT_LOC loc)
 	else {
 		_ASSERT(0);	// 채팅 버퍼가 너무 작음
 		char temp[32];strncpy(temp,szMsg,30);temp[30]=0;temp[31]=0;
-		mlog("warning : chat buffer overflow : %s\n",temp);
+		cclog("warning : chat buffer overflow : %s\n",temp);
 		strncpy(szOutput, szMsg, sizeof(szOutput)-2);
 		szOutput[sizeof(szOutput)-1]=0;
 		szOutput[sizeof(szOutput)-2]=0;

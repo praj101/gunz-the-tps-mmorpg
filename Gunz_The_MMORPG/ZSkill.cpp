@@ -185,7 +185,7 @@ bool ZSkillManager::Create()
 	FILE* fp = fopen("zskillxml.cache", "rb");
 	if (fp)
 	{
-		mlog("load zskillxml.cache !\n");
+		cclog("load zskillxml.cache !\n");
 		int iCount = (int)size();
 		fread(&iCount, sizeof(int), 1, fp);
 		ZSkillDesc* pDesc;
@@ -209,7 +209,7 @@ bool ZSkillManager::Create()
 		return true;
 	}
 
-	mlog("failed to load zskillxml.cache, load zskill.xml\n");
+	cclog("failed to load zskillxml.cache, load zskill.xml\n");
 #endif
 
 	CCXmlDocument	xmlDocument;
@@ -395,7 +395,7 @@ bool ZSkillManager::Create()
 	fp = fopen("zskillxml.cache", "wb");
 	if (fp)
 	{
-		mlog("dump zskillxml.cache !\n");
+		cclog("dump zskillxml.cache !\n");
 		int iCount = (int)size();
 		fwrite(&iCount, sizeof(int), 1, fp);
 		ZSkillDesc* pDesc;

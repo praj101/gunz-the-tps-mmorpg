@@ -60,7 +60,7 @@ public :
 		if( m_GambleItemDefineList.end() == itFind )
 		{
 #ifdef _GAMBLEITEM_TEST_LOG
-			mlog("Character GAMBLE GetGambleItemDefine() Fail [ID:%d]\n", dwGambleItemID);
+			cclog("Character GAMBLE GetGambleItemDefine() Fail [ID:%d]\n", dwGambleItemID);
 #endif
 			return NULL;
 		}
@@ -80,7 +80,7 @@ public :
 		{
 			_ASSERT( 0 && "중복된 GambleItemID" );
 #ifdef _GAMBLEITEM_TEST_LOG
-			mlog("AddGambleItemDefine() Fail 중복된 GambleItemID \n");
+			cclog("AddGambleItemDefine() Fail 중복된 GambleItemID \n");
 #endif
 			return false;
 		}

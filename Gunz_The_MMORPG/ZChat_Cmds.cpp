@@ -988,7 +988,7 @@ void ChatCmd_AdminMutePlayer(const char* line, const int argc, char **const argv
 	}
 
 #ifdef _DEBUG
-	mlog("Request Mute on Player(%s) While %d Hour\n", pszPlayerName, nDueHour);
+	cclog("Request Mute on Player(%s) While %d Hour\n", pszPlayerName, nDueHour);
 #endif
 
 	ZPostAdminRequestMutePlayer(pszPlayerName, nDueHour);
@@ -1010,7 +1010,7 @@ void ChatCmd_AdminBlockPlayer(const char* line, const int argc, char **const arg
 	}
 
 #ifdef _DEBUG
-	mlog("Request Block on Player(%s) While %d Hour\n", pszPlayerName, nDueHour);
+	cclog("Request Block on Player(%s) While %d Hour\n", pszPlayerName, nDueHour);
 #endif
 
 	ZPostAdminRequestBlockPlayer(pszPlayerName, nDueHour);

@@ -42,7 +42,7 @@ void  ZNetCharacter::OnUpdate(float fDelta)
 
 		// debug
 		/*
-		mlog("%d pos : %3.3f %3.3f %3.3f      ani-move : %3.3f %3.3f %3.3f\n",
+		cclog("%d pos : %3.3f %3.3f %3.3f      ani-move : %3.3f %3.3f %3.3f\n",
 			m_AniState_Lower,
 			m_Position.x,m_Position.y,m_Position.z,diff.x,diff.y,diff.z);
 		*/

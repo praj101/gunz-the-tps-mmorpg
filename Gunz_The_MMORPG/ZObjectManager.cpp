@@ -225,10 +225,10 @@ void ZObjectManager::Draw()
 
 		ZMyCharacter* pMyChar =	g_pGame->m_pMyCharacter;
 
-//		mlog("%s : %s %s \n",szTimeMessage , g_lower_string[pMyChar->m_AniState_Lower] , g_upper_string[ pMyChar->m_AniState_Upper ] );
+//		cclog("%s : %s %s \n",szTimeMessage , g_lower_string[pMyChar->m_AniState_Lower] , g_upper_string[ pMyChar->m_AniState_Upper ] );
 
 		if(pMyChar->m_AniState_Lower == ZC_STATE_LOWER_JUMPATTACK && pMyChar->m_AniState_Upper == ZC_STATE_UPPER_LOAD)
-			mlog("%s : jumpshot load error\n", szTimeMessage );
+			cclog("%s : jumpshot load error\n", szTimeMessage );
 */
 	}
 }

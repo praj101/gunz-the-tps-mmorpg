@@ -132,7 +132,7 @@ bool ZConfiguration::Load()
 	//ZGetLocale()->Init(DEFAULT_COUNTRY);
 	if ( !LoadLocale(FILENAME_LOCALE) )
 	{
-		mlog( "Cannot open %s file.\n", FILENAME_LOCALE);
+		cclog( "Cannot open %s file.\n", FILENAME_LOCALE);
 		return false;
 	}
 
@@ -146,7 +146,7 @@ bool ZConfiguration::Load()
 
 	if ( !LoadSystem(FILENAME_SYSTEM))
 	{
-		mlog( "Cannot open %s file.\n", FILENAME_SYSTEM);
+		cclog( "Cannot open %s file.\n", FILENAME_SYSTEM);
 		return false;
 	}
 
@@ -166,7 +166,7 @@ bool ZConfiguration::Load_StringResDependent()
 #endif	
 	if ( !LoadGameTypeCfg(strFileNameTCFG.c_str()) )
 	{
-		mlog( "Cannot open %s file.\n", strFileNameTCFG);
+		cclog( "Cannot open %s file.\n", strFileNameTCFG);
 		return false;
 	}
 	return true;
@@ -194,18 +194,18 @@ bool ZConfiguration::LoadLocale(const char* szFileName)
 	buffer[mzFile.GetLength()]=0;
 	mzFile.Read( buffer, mzFile.GetLength());
 
-	mlog( "Load XML from memory : %s", szFileName);
+	cclog( "Load XML from memory : %s", szFileName);
 
 	if( !xmlLocale.LoadFromMemory(buffer) )
 	{
-		mlog( "- FAIL\n");
+		cclog( "- FAIL\n");
 
 		xmlLocale.Destroy();
 		return false;
 	}
 	delete[] buffer;
 	mzFile.Close();
-	mlog( "- SUCCESS\n");
+	cclog( "- SUCCESS\n");
 
 	parentElement = xmlLocale.GetDocumentElement();
 	int iCount = parentElement.GetChildNodeCount();
@@ -226,7 +226,7 @@ bool ZConfiguration::LoadLocale(const char* szFileName)
 
 			if( (0 == szCountry) || (0 == szLanguage) )
 			{
-				mlog( "config.xml - Country or Language is invalid.\n" );
+				cclog( "config.xml - Country or Language is invalid.\n" );
 				return false;
 			}
 
@@ -234,7 +234,7 @@ bool ZConfiguration::LoadLocale(const char* szFileName)
 			m_Locale.strDefaultLanguage	= szLanguage;
 			m_Locale.nMaxPlayers		= nMaxPlayers;
 
-			mlog( "Country : (%s), Language : (%s)\n", szCountry, szLanguage );
+			cclog( "Country : (%s), Language : (%s)\n", szCountry, szLanguage );
 		}
 	}
 	xmlLocale.Destroy();
@@ -286,11 +286,11 @@ bool ZConfiguration::LoadGameTypeCfg(const char* szFileName)
 	buffer[mzFile.GetLength()]=0;
 	mzFile.Read( buffer, mzFile.GetLength());
 
-	mlog( "Load XML from memory : %s \n", szFileName);
+	cclog( "Load XML from memory : %s \n", szFileName);
 
 	if( !xmlIniData.LoadFromMemory( buffer))
 	{
-		mlog( "- FAIL\n");
+		cclog( "- FAIL\n");
 
 		xmlIniData.Destroy();
 		delete []buffer;
@@ -345,18 +345,18 @@ bool ZConfiguration::LoadSystem(const char* szFileName)
 	buffer[mzFile.GetLength()]=0;
 	mzFile.Read( buffer, mzFile.GetLength());
 
-	mlog( "Load XML from memory : %s", FILENAME_SYSTEM );
+	cclog( "Load XML from memory : %s", FILENAME_SYSTEM );
 
 	if( !xmlConfig.LoadFromMemory( buffer, GetLanguageID(m_Locale.strDefaultLanguage.c_str())) )
 	{
-		mlog( "- FAIL\n");
+		cclog( "- FAIL\n");
 
 		xmlConfig.Destroy();
 		return false;
 	}
 	delete[] buffer;
 	mzFile.Close();
-	mlog( "- SUCCESS\n");
+	cclog( "- SUCCESS\n");
 
 	CCXmlElement		parentElement = xmlConfig.GetDocumentElement();
 	CCXmlElement		serverElement, childElement;
@@ -462,16 +462,16 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 	CCXmlElement		parentElement, serverElement, bindsElement;
 	CCXmlElement		childElement;
 
-	mlog( "Load Config from file : %s", szFileName );
+	cclog( "Load Config from file : %s", szFileName );
 
 	xmlConfig.Create();
 	if (!xmlConfig.LoadFromFile(szFileName)) 
 	{
-		mlog( "- FAIL\n");
+		cclog( "- FAIL\n");
 		xmlConfig.Destroy();
 		return false;
 	}
-	mlog( "- SUCCESS\n");
+	cclog( "- SUCCESS\n");
 
 	parentElement = xmlConfig.GetDocumentElement();
 	int iCount = parentElement.GetChildNodeCount();

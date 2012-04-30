@@ -39,7 +39,7 @@ bool ZRuleDuelTournament::OnCommand(MCommand* pCommand)
 {
 	//char buf[256];
 	//sprintf(buf,"ZRuleDuelTournament[ID:%d]\n", pCommand->GetID());
-	//mlog(buf);
+	//cclog(buf);
 
 	if (!ZGetGame()) return false;
 
@@ -116,7 +116,7 @@ bool ZRuleDuelTournament::OnCommand(MCommand* pCommand)
 			case MDUELTOURNAMENTROUNDSTATE_QUATERFINAL:	sprintf(szbuf, "ROUND_QUATERFINAL \n");	break;
 			default:									sprintf(szbuf, "ROUND_FAIL \n");		break;
 			}
-			mlog("[GAME_MATCH_RESULT] RoundType:%s, MatchNumber:%d, Winner(%d:%d), Loser(%d:%d), GainTP:%d, LoseTP:%d \n", 
+			cclog("[GAME_MATCH_RESULT] RoundType:%s, MatchNumber:%d, Winner(%d:%d), Loser(%d:%d), GainTP:%d, LoseTP:%d \n", 
 				szbuf, DTGameResultInfo.nMatchNumber, DTGameResultInfo.uidWinnerPlayer.High, DTGameResultInfo.uidWinnerPlayer.Low,
 				DTGameResultInfo.uidLoserPlayer.High, DTGameResultInfo.uidLoserPlayer.Low, DTGameResultInfo.nGainTP, DTGameResultInfo.nLoseTP);
 #endif
@@ -249,7 +249,7 @@ void ZRuleDuelTournament::SetRoundResultInfo(MTD_DuelTournamentRoundResultInfo& 
 		else
 		{
 #ifdef _DUELTOURNAMENT_LOG_ENABLE_
-			mlog("WINNER NOT FIND [player1(%d:%d)%s][player2(%d:%d)%s] Winner(%d:%d)\n", 
+			cclog("WINNER NOT FIND [player1(%d:%d)%s][player2(%d:%d)%s] Winner(%d:%d)\n", 
 				pPlayer1->uidPlayer.High, pPlayer1->uidPlayer.Low, pPlayer1->m_szCharName, 
 				pPlayer2->uidPlayer.High, pPlayer2->uidPlayer.Low, pPlayer2->m_szCharName, 
 				DTGameResultInfo.uidWinnerPlayer.High, DTGameResultInfo.uidWinnerPlayer.Low);
@@ -265,7 +265,7 @@ void ZRuleDuelTournament::SetRoundResultInfo(MTD_DuelTournamentRoundResultInfo& 
 
 	//////////////////////////////////////////////////// LOG ////////////////////////////////////////////////////
 #ifdef _DUELTOURNAMENT_LOG_ENABLE_
-	mlog("[GAME_ROUND_RESULT] Draw:%s, MatchFinish:%s, Winner(%d:%d), Loser(%d:%d)\n", DTGameResultInfo.bDraw?"true":"false", DTGameResultInfo.bIsMatchFinish?"true":"false", 
+	cclog("[GAME_ROUND_RESULT] Draw:%s, MatchFinish:%s, Winner(%d:%d), Loser(%d:%d)\n", DTGameResultInfo.bDraw?"true":"false", DTGameResultInfo.bIsMatchFinish?"true":"false", 
 		DTGameResultInfo.uidWinnerPlayer.High, DTGameResultInfo.uidWinnerPlayer.Low, DTGameResultInfo.uidLoserPlayer.High, DTGameResultInfo.uidLoserPlayer.Low);
 #endif
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -297,7 +297,7 @@ void ZRuleDuelTournament::SetMatchResultInfo(MTD_DuelTournamentMatchResultInfo& 
 	{
 		char buf[256] = {0, };
 		sprintf(buf, "QuaterFinalPlayer 리스트에서 승리자(%d:%d)를 못찾음", DTGameResultInfo.uidWinnerPlayer.High, DTGameResultInfo.uidWinnerPlayer.Low);
-		mlog(buf);
+		cclog(buf);
 		ZApplication::GetGameInterface()->ShowMessage(buf);
 	}
 #endif
@@ -344,11 +344,11 @@ void ZRuleDuelTournament::SetMatchResultInfo(MTD_DuelTournamentMatchResultInfo& 
 			sprintf(szbufName, "[%dTh %s(%d:%d), Number:%d TP:%d, MatchLevel:%d, ]", 
 			i, m_QuaterFinalPlayer[i].m_szCharName, m_QuaterFinalPlayer[i].uidPlayer.High, m_QuaterFinalPlayer[i].uidPlayer.Low,  
 			m_QuaterFinalPlayer[i].nNumber, m_QuaterFinalPlayer[i].m_nTP, m_QuaterFinalPlayer[i].nMatchLevel);
-		mlog(szbufName);
+		cclog(szbufName);
 
 		char buf[256] = {0, };
 		sprintf(buf, "클라이언트 리스트에서 승리자(%s)를 못찾음", winnerPlayer.m_szCharName);
-		mlog(buf);
+		cclog(buf);
 		//__asm int 3;
 #endif
 		_ASSERT(0);

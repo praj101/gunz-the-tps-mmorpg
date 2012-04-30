@@ -40,7 +40,7 @@ void ZTaskManager::Clear()
 		char szCurrTask[256] = "";
 		if (m_pCurrTask) strcpy(szCurrTask, m_pCurrTask->GetTaskName());
 		// 로그가 너무 많이 남아서 다른 로그를 볼수가 없어서 주석 처리함. -- by SungE 2007-04-18
-		// mlog("TASK: Clear(queue=%d, currtask=%s)\n", (int)m_Tasks.size(), szCurrTask);
+		// cclog("TASK: Clear(queue=%d, currtask=%s)\n", (int)m_Tasks.size(), szCurrTask);
 	}
 #endif
 
@@ -61,7 +61,7 @@ void ZTaskManager::Push(ZTask* pTask)
 	{
 		char szTask[256] = "";
 		// 로그가 너무 많이 남아서 다른 로그를 볼수가 없어서 주석 처리함. -- by SungE 2007-04-18
-		// mlog("TASK: Push(queue=%d, task=%s)\n", (int)m_Tasks.size(), pTask->GetTaskName());
+		// cclog("TASK: Push(queue=%d, task=%s)\n", (int)m_Tasks.size(), pTask->GetTaskName());
 	}
 #endif
 
@@ -75,7 +75,7 @@ void ZTaskManager::PushFront(ZTask* pTask)
 	{
 		char szTask[256] = "";
 		// 로그가 너무 많이 남아서 다른 로그를 볼수가 없어서 주석 처리함. -- by SungE 2007-04-18
-		// mlog("TASK: PushFront(task=%s)\n", pTask->GetTaskName());
+		// cclog("TASK: PushFront(task=%s)\n", pTask->GetTaskName());
 	}
 #endif
 
@@ -146,7 +146,7 @@ bool ZTaskManager::CancelCurrTask()
 	{
 		char szTask[256] = "";
 		// 로그가 너무 많이 남아서 다른 로그를 볼수가 없어서 주석 처리함. -- by SungE 2007-04-18
-		// mlog("TASK: Cancel(task=%s)\n", m_pCurrTask->GetTaskName());
+		// cclog("TASK: Cancel(task=%s)\n", m_pCurrTask->GetTaskName());
 	}
 #endif
 
@@ -169,7 +169,7 @@ void ZTaskManager::CompleteCurrTask()
 	{
 		char szTask[256] = "None";
 		// 로그가 너무 많이 남아서 다른 로그를 볼수가 없어서 주석 처리함. -- by SungE 2007-04-18
-		// mlog("TASK: Complete(task=%s)\n", m_pCurrTask->GetTaskName());
+		// cclog("TASK: Complete(task=%s)\n", m_pCurrTask->GetTaskName());
 	}
 #endif
 

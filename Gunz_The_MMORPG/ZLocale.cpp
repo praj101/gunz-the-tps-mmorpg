@@ -67,7 +67,7 @@ bool ZLocale::ParseArguments(const char* pszArgs)
 	{
 	case MC_KOREA:
 		{
-			mlog("LOCALE:KOREA \n");
+			cclog("LOCALE:KOREA \n");
 #ifdef LOCALE_KOREA
 			if ( NetmarbleParseArguments( pszArgs))
 			{
@@ -76,7 +76,7 @@ bool ZLocale::ParseArguments(const char* pszArgs)
 			}
 			else
 			{
-				mlog( "Netmarble Certification Failed. Shutdown. \n");
+				cclog( "Netmarble Certification Failed. Shutdown. \n");
 				return false;
 			}
 #endif // LOCALE_KOREA
@@ -85,7 +85,7 @@ bool ZLocale::ParseArguments(const char* pszArgs)
 
 	case MC_JAPAN:
 		{
-			mlog("LOCALE:JAPAN \n");
+			cclog("LOCALE:JAPAN \n");
 #ifdef LOCALE_JAPAN
 			if ( GameOnJPParseArguments( pszArgs))
 			{
@@ -94,7 +94,7 @@ bool ZLocale::ParseArguments(const char* pszArgs)
 			}
 			else
 			{
-				mlog( "GameOn Certification Failed. Shutdown. \n");
+				cclog( "GameOn Certification Failed. Shutdown. \n");
 				return false;
 			}
 
@@ -112,7 +112,7 @@ bool ZLocale::ParseArguments(const char* pszArgs)
 			}
 			else 
 			{
-				mlog( "NHN Certification Failed. Shutdown. \n");
+				cclog( "NHN Certification Failed. Shutdown. \n");
 				return false;
 			}
 #endif // LOCALE_NHNUSA
@@ -121,7 +121,7 @@ bool ZLocale::ParseArguments(const char* pszArgs)
 
 	default:
 		{
-			mlog("LOCALE:UNKNOWN \n");
+			cclog("LOCALE:UNKNOWN \n");
 		}
 	};
 
@@ -232,7 +232,7 @@ void ZLocale::PostLoginViaHomepage(CCUID* pAllocUID)
 			ZNHN_USAAuthInfo* pNHNAuth = (ZNHN_USAAuthInfo*)m_pAuthInfo;
 			if( 0 == pNHNAuth )
 			{
-				mlog( "error auth info\n" );
+				cclog( "error auth info\n" );
 				return;
 			}
 
@@ -252,7 +252,7 @@ void ZLocale::PostLoginViaHomepage(CCUID* pAllocUID)
 #endif	// LOCALE_NHNUSA
 
 	default:
-		mlog("LoginViaHomepage - Unknown Locale \n");
+		cclog("LoginViaHomepage - Unknown Locale \n");
 		break;
 	};
 }

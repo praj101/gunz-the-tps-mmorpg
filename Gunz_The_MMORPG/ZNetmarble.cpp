@@ -183,7 +183,7 @@ static BOOL AnalyzeArgument(char *key)
 	pMNInfo->SetCpCookie(pCpCookie);
 	pMNInfo->SetSpareParam(pSpareParam);
 
-	//mlog("NMSpareParam = %s \n", pSpareParam);
+	//cclog("NMSpareParam = %s \n", pSpareParam);
 
 	char szField[64] = "";
 	char szValue[64] = "";
@@ -224,12 +224,12 @@ static BOOL AnalyzeArgument(char *key)
 //	pMNInfo->SetServerIP("192.168.0.30");	// RAON DEBUG
 
 #ifndef _PUBLISH
-mlog("ServerIP: '%s' \n", pServIP);
-mlog("ServPort: '%d' \n", nServPort);
-mlog("AuthCookie: '%s' \n", pAuthCookie);
-mlog("DataCookie: '%s' \n", pDataCookie);
-mlog("CpCookie: '%s' \n", pCpCookie);
-mlog("SpareParam: '%s' \n", pSpareParam);
+cclog("ServerIP: '%s' \n", pServIP);
+cclog("ServPort: '%d' \n", nServPort);
+cclog("AuthCookie: '%s' \n", pAuthCookie);
+cclog("DataCookie: '%s' \n", pDataCookie);
+cclog("CpCookie: '%s' \n", pCpCookie);
+cclog("SpareParam: '%s' \n", pSpareParam);
 #endif
 	
 	return TRUE;

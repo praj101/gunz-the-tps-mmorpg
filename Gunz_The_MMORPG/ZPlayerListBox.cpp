@@ -166,7 +166,7 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, MDrawContext* pDC)
 //		p.x = 0;
 //		p.y = 0+nHeaderHeight+nItemHeight*nShowCount;
 
-//		mlog(" ------- p.y = %d %d \n",p.y,nItemHeight);
+//		cclog(" ------- p.y = %d %d \n",p.y,nItemHeight);
 
 		MListItem* pItem = pListBox->Get(i);
 		bool bSelected = pItem->m_bSelected;
@@ -361,7 +361,7 @@ void ZPlayerListBox::SetMode(PLAYERLISTMODE nMode)
 		pWidget->RemoveAll();
 	}
 
-	// mlog("ZPlayerListBox::SetMode %d \n" , nMode);
+	// cclog("ZPlayerListBox::SetMode %d \n" , nMode);
 
 	InitUI(nMode);
 

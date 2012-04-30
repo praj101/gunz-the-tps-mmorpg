@@ -74,7 +74,7 @@ bool NHN_USA_ParseArgument( const char* pszArgs )
 	return true;
 #endif
 
-	mlog( "start init nhn auth.\n" );
+	cclog( "start init nhn auth.\n" );
 
 	const int nInitRet = HanAuthInitGameString( const_cast<char*>(pszArgs) );
 	if( 0 != nInitRet )
@@ -84,7 +84,7 @@ bool NHN_USA_ParseArgument( const char* pszArgs )
 	}
 
 #ifdef _DEBUG
-	mlog( pszArgs );
+	cclog( pszArgs );
 #endif
 
 	const int nAuthStrLen = strlen( pszArgs );
@@ -104,7 +104,7 @@ bool NHN_USA_ParseArgument( const char* pszArgs )
 	}
 
 #ifdef _DEBUG
-	mlog( "\nszGameStringOld : (%s)\n", szGameStringOld );
+	cclog( "\nszGameStringOld : (%s)\n", szGameStringOld );
 #endif
 
 	const int nStrRet = GetAuthString( szAuthString, NHN_AUTH_LENGTH );
@@ -115,7 +115,7 @@ bool NHN_USA_ParseArgument( const char* pszArgs )
 	}
 
 #ifdef _DEBUG
-	mlog( "\nAuthString : (%s)\n", szAuthString );
+	cclog( "\nAuthString : (%s)\n", szAuthString );
 #endif
 
 	const int nIDRet = HanAuthGetId( szGameStringOld, szMemberID, 25 );
@@ -126,7 +126,7 @@ bool NHN_USA_ParseArgument( const char* pszArgs )
 	}
 
 #ifdef _DEBUG
-	mlog( "\nGetID : (%s)\n", szMemberID );
+	cclog( "\nGetID : (%s)\n", szMemberID );
 #endif
 
 	const int nRefreshRet = HanAuthRefresh( szMemberID );
@@ -148,7 +148,7 @@ bool NHN_USA_ParseArgument( const char* pszArgs )
 	((ZNHN_USAAuthInfo*)ZGetLocale()->GetAuthInfo())->SetUserID( szMemberID );
 	((ZNHN_USAAuthInfo*)ZGetLocale()->GetAuthInfo())->SetGameStr( pszArgs, nAuthStrLen );
 
-	mlog( "init nhn auth success." );
+	cclog( "init nhn auth success." );
 
 	return true;
 }
@@ -216,7 +216,7 @@ void WriteNHNAuthLog( const int nValue, const string& strComment )
 	};
 
 	sprintf( szLog, "Init Authentic fail. error code : (%s), comment : (%s)\n", szErrCode, strComment.c_str() );
-	mlog( szLog );
+	cclog( szLog );
 }
 
 

@@ -598,7 +598,7 @@ void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 	// repository에 클랜정보를 보관한다
 	memcpy(ZGetNetRepository()->GetClanInfo(),pClanInfo,sizeof(MTD_ClanInfo));
 
-//	mlog("OnClanResponseClanInfo : ");
+//	cclog("OnClanResponseClanInfo : ");
 
 	// emblem interface 에 통보한다
 	ZGetEmblemInterface()->AddClanInfo(pClanInfo->nCLID);	

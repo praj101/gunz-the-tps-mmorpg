@@ -31,12 +31,12 @@ bool ZGameOnJPAuthInfo::ParseVersion()
 
 #ifdef _DEBUG
 	if ( m_bAlpha == true)
-		mlog( "%s : Launch mode = Alpha\n", __FUNCTION__);
+		cclog( "%s : Launch mode = Alpha\n", __FUNCTION__);
 	else
-		mlog( "%s : Launch mode = Real\n", __FUNCTION__);
+		cclog( "%s : Launch mode = Real\n", __FUNCTION__);
 #else
 	if ( m_bAlpha == true)
-		mlog( "Alpha launch mode\n");
+		cclog( "Alpha launch mode\n");
 #endif
 
 
@@ -46,13 +46,13 @@ bool ZGameOnJPAuthInfo::ParseVersion()
 
 	if ( nCount == 0)
 	{
-		mlog( "ERROR : The count of locator is ZERO.\n");
+		cclog( "ERROR : The count of locator is ZERO.\n");
 		ASSERT( 0);
 		return false;
 	}
 
 #ifdef _DEBUG
-		mlog( "%s : Server count = %d\n", __FUNCTION__, nCount);
+		cclog( "%s : Server count = %d\n", __FUNCTION__, nCount);
 #endif
 
 
@@ -67,7 +67,7 @@ bool ZGameOnJPAuthInfo::ParseVersion()
 		pLocatorList->AddIP( szIP);
 
 #ifdef _DEBUG
-		mlog( "%s : Server IP = %s\n", __FUNCTION__, szIP);
+		cclog( "%s : Server IP = %s\n", __FUNCTION__, szIP);
 #endif
 	}
 

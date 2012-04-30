@@ -55,7 +55,7 @@ void ZGameClient::OnDuelTournamentPrepare(CCDUELTOURNAMENTTYPE nType, CCUID uidS
 		case CCDUELTOURNAMENTTYPE_QUATERFINAL:	sprintf(szbuf, "TYPE_QUATERFINAL"); break;
 		default:								sprintf(szbuf, "TYPE_FAIL"); break;
 		}
-		mlog("[MC_MATCH_DUELTOURNAMENT_PREPARE_MATCH] Type:%s, Count:%d, Player(%d:%d)%s, TP:%d \n", 
+		cclog("[MC_MATCH_DUELTOURNAMENT_PREPARE_MATCH] Type:%s, Count:%d, Player(%d:%d)%s, TP:%d \n", 
 			szbuf, i, pPlayerInfo->uidPlayer.High, pPlayerInfo->uidPlayer.Low, pPlayerInfo->m_szCharName, pPlayerInfo->m_nTP);
 #endif
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////

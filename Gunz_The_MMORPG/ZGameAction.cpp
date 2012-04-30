@@ -129,7 +129,7 @@ void ZGameAction::OnPeerSkill_LastShot(float fShotTime,ZCharacter *pOwnerCharact
 	if( abs(fCurrentTime - fShotTime ) > TIME_ERROR_BETWEEN_RECIEVEDTIME_MYTIME )
 	{
 #ifdef _DEBUG
-		mlog("!!!!강베기 핵 사용!!!!캐릭터 네임: %s      fShotTime : %f     fCurrentTime : %f \n", 
+		cclog("!!!!강베기 핵 사용!!!!캐릭터 네임: %s      fShotTime : %f     fCurrentTime : %f \n", 
 			pOwnerCharacter->GetUserName(), fShotTime - pOwnerCharacter->m_fTimeOffset , fCurrentTime);
 #endif
 		return;
@@ -360,7 +360,7 @@ void ZGameAction::OnPeerSkill_LastShot(float fShotTime,ZCharacter *pOwnerCharact
 		sprintf(szTemp, "%s 치트 ?", pOwnerCharacter->GetProperty()->szName);
 		ZChatOutput(MCOLOR(0xFFFF0000), szTemp);
 
-		mlog("anistate %d\n",pOwnerCharacter->m_AniState_Lower);
+		cclog("anistate %d\n",pOwnerCharacter->m_AniState_Lower);
 
 #endif//_PUBLISH
 

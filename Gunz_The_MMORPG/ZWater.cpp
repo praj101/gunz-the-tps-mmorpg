@@ -44,7 +44,7 @@ ZWaterList::ZWaterList()
 	//if( FAILED( g_pDevice->CreateVertexBuffer( MAXNUM_WATER_MESH_VERTEX * sizeof(WaterVertex), 
 	//						D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, WATERVERTEX_TYPE, D3DPOOL_DEFAULT, &g_pVBForWaterMesh ,NULL)))
 	//{
-	//	mlog( "Fail to Create Vertex Buffer for Water Mesh\n" );
+	//	cclog( "Fail to Create Vertex Buffer for Water Mesh\n" );
 	//	g_pVBForWaterMesh = 0;
 	//}	
 	//Z_VIDEO_REFLECTION = SetSurface( Z_VIDEO_REFLECTION );
@@ -144,7 +144,7 @@ void ZWaterList::OnRestore()
 		if(FAILED( g_pDevice->CreateVertexBuffer( MAXNUM_WATER_MESH_VERTEX * sizeof(WaterVertex), 
 							D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, WATERVERTEX_TYPE, D3DPOOL_DEFAULT, &g_pVBForWaterMesh ,NULL)))
 		{
-			mlog( "Fail to Create Vertex Buffer for Water Mesh\n" );
+			cclog( "Fail to Create Vertex Buffer for Water Mesh\n" );
 			g_pVBForWaterMesh = 0;
 		}
 	}
@@ -235,7 +235,7 @@ bool ZWaterList::SetSurface(bool b)
 			if(FAILED( D3DXCreateTexture( g_pDevice, WATERTEXTURE_SIZE, WATERTEXTURE_SIZE, 1, D3DUSAGE_RENDERTARGET, pixelFormat, D3DPOOL_DEFAULT, &g_pTexReflection))
 				&& FAILED( D3DXCreateTexture( g_pDevice, WATERTEXTURE_SIZE, WATERTEXTURE_SIZE, 1, D3DUSAGE_DYNAMIC|D3DUSAGE_RENDERTARGET, pixelFormat, D3DPOOL_DEFAULT, &g_pTexReflection)))
 			{
-				mlog( "Fail to Create Reflection Texture for Water Mesh\n" );
+				cclog( "Fail to Create Reflection Texture for Water Mesh\n" );
 				g_pTexReflection = 0;
 				return false;
 			}
@@ -243,7 +243,7 @@ bool ZWaterList::SetSurface(bool b)
 		if(g_pSufReflection==NULL) {
 			if(FAILED(g_pTexReflection->GetSurfaceLevel( 0, &g_pSufReflection )))
 			{
-				mlog( "Fail to Get Reflection Surface for Water Mesh\n" );
+				cclog( "Fail to Get Reflection Surface for Water Mesh\n" );
 				g_pTexReflection = 0;
 				g_pSufReflection = 0;
 				return false;
@@ -255,7 +255,7 @@ bool ZWaterList::SetSurface(bool b)
 		if(g_pSufRefDepthBuffer==NULL) {
 			if(FAILED(g_pDevice->CreateDepthStencilSurface(sufdesc.Width, sufdesc.Height, D3DFMT_D16, D3DMULTISAMPLE_NONE,0,TRUE, &g_pSufRefDepthBuffer ,NULL)))
 			{
-				mlog( "Fail to Create Reflection Depth Buffer for Water Mesh\n" );
+				cclog( "Fail to Create Reflection Depth Buffer for Water Mesh\n" );
 				g_pTexReflection = 0;
 				g_pSufReflection = 0;
 				g_pSufRefDepthBuffer = 0;
@@ -356,7 +356,7 @@ bool ZWater::SetMesh( RMeshNode* meshNode )
 			if(pMtrl->m_bObjectMtrl) 
 				level = RTextureType_Object;
 			m_pTexture = RCreateBaseTextureMg("maps/gzd_map_default_water.bmp",level);
-			mlog("No texture, Substitution default texture!");//mlog("텍스쳐가 없으면 디폴트 텍스쳐로 대체");
+			cclog("No texture, Substitution default texture!");//cclog("텍스쳐가 없으면 디폴트 텍스쳐로 대체");
 		}
 
 		// set Material
@@ -376,19 +376,19 @@ bool ZWater::SetMesh( RMeshNode* meshNode )
 	}
 	if(FAILED( g_pDevice->CreateIndexBuffer( m_nFaces * 3 * sizeof(WORD), D3DUSAGE_WRITEONLY, D3DFMT_INDEX16, D3DPOOL_MANAGED, &m_pIndexBuffer ,NULL)))
 	{
-		mlog( "Fail to Create Index Buffer \n" );
+		cclog( "Fail to Create Index Buffer \n" );
 		return false;
 	}
 	VOID * pIndexes;
 	if(FAILED(m_pIndexBuffer->Lock(0, m_nFaces * 3 * sizeof(WORD), (VOID**)&pIndexes, 0 )))
 	{
-		mlog( "Fail to Lock Index Buffer \n" );
+		cclog( "Fail to Lock Index Buffer \n" );
 		return false;
 	}
 	memcpy( pIndexes, indexList, m_nFaces * 3 * sizeof(WORD));
 	if(FAILED( m_pIndexBuffer->Unlock() ))
 	{
-		mlog( "Fail to UnLock Index Buffer \n" );
+		cclog( "Fail to UnLock Index Buffer \n" );
 		return false;
 	}
 	SAFE_DELETE_ARRAY(indexList);
@@ -592,7 +592,7 @@ void ZWater::Render()
 	{
 		if(!RenderReflectionSurface())
 		{
-			mlog("Fail to Render Reflection Surface..\n");
+			cclog("Fail to Render Reflection Surface..\n");
 		}
 	}
 
@@ -658,7 +658,7 @@ void ZWater::Render()
 
 	if(FAILED( g_pVBForWaterMesh->Lock(0, m_nVerts*sizeof( WaterVertex ),(VOID**)&pVertices,0)))
 	{
-		mlog("Fail to Lock vertex buffer for water mesh\n");
+		cclog("Fail to Lock vertex buffer for water mesh\n");
 		return;
 	}
 
@@ -666,7 +666,7 @@ void ZWater::Render()
 
 	if(FAILED(g_pVBForWaterMesh->Unlock()))
 	{
-		mlog("Fail to Unlock vertex buffer for water mesh\n");
+		cclog("Fail to Unlock vertex buffer for water mesh\n");
 		return;
 	}
 

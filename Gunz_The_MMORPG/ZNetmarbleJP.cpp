@@ -109,11 +109,11 @@ static BOOL AnalizeArgument( char *lpArg )
 	pMNInfo->SetLoginPW("skarlfyd");
 
 
-mlog("ServerIP: '%s' \n", pszServIP);
-mlog("ServPort: '%u' \n", nServPort);
-mlog("LoginID: '%s' \n", pszLoginID);
-mlog("LoginPW: '%s' \n", pszLoginPW);
-mlog("Extra: '%s' \n", pszExtra);
+cclog("ServerIP: '%s' \n", pszServIP);
+cclog("ServPort: '%u' \n", nServPort);
+cclog("LoginID: '%s' \n", pszLoginID);
+cclog("LoginPW: '%s' \n", pszLoginPW);
+cclog("Extra: '%s' \n", pszExtra);
 */
 //#endif
 	//--------------------------------------------------------------------------------------------|

@@ -92,7 +92,7 @@ bool ZQuest::Load()
 #endif
 	if (!m_DropTable.ReadXml(ZApplication::GetFileSystem(), strFileDropTable.c_str()))
 	{
-		mlog("Error while Read m_DropTable %s", FILENAME_DROPTABLE);
+		cclog("Error while Read m_DropTable %s", FILENAME_DROPTABLE);
 		return false;
 	}
 
@@ -102,7 +102,7 @@ bool ZQuest::Load()
 #endif	
 	if (!m_NPCCatalogue.ReadXml(ZApplication::GetFileSystem(), strFileNameZNPC.c_str()))
 	{
-		mlog("Error while Read Item Descriptor %s", strFileNameZNPC);
+		cclog("Error while Read Item Descriptor %s", strFileNameZNPC);
 		return false;
 	}
 
@@ -114,7 +114,7 @@ bool ZQuest::Load()
 #endif
 	if (!m_MapCatalogue.ReadXml(ZApplication::GetFileSystem(), strFileQuestMap.c_str()))
 	{
-		mlog("Read Questmap Catalogue Failed");
+		cclog("Read Questmap Catalogue Failed");
 		return false;
 	}
 
@@ -122,7 +122,7 @@ bool ZQuest::Load()
 	RAniEventMgr* AniEventMgr = ZGetAniEventMgr();
 	if (!AniEventMgr->ReadXml(ZApplication::GetFileSystem(), "System/AnimationEvent.xml"))
 	{
-		mlog("Read Animation Event Failed");
+		cclog("Read Animation Event Failed");
 		return false;
 	}
 	m_bLoaded = true;
@@ -938,13 +938,13 @@ bool ZQuest::OnQuestCompleted(MCommand* pCommand)
 	// 월드아이템을 모두 없앤다.
 	//ZGetWorldItemManager()->Reset(true);
 
-	mlog("Quest Completed\n");
+	cclog("Quest Completed\n");
 	return true;
 }
 
 bool ZQuest::OnQuestFailed(MCommand* pCommand)
 {
-	mlog("Quest Failed\n");
+	cclog("Quest Failed\n");
 
 #ifdef _QUEST_ITEM
 	m_bIsQuestComplete = false;
@@ -1013,7 +1013,7 @@ void ZQuest::LoadNPCMeshes()
 
 	if (!m_GameInfo.IsInited()) 
 	{
-		mlog("not inialized Quest Game Info\n");
+		cclog("not inialized Quest Game Info\n");
 		_ASSERT(0);
 		return;
 	}
@@ -1032,7 +1032,7 @@ void ZQuest::LoadNPCSounds()
 {
 	if (!m_GameInfo.IsInited())
 	{
-		mlog("ZQuest::LoadNPCSounds - not inialized Quest Game Info\n");
+		cclog("ZQuest::LoadNPCSounds - not inialized Quest Game Info\n");
 		return;
 	}
 
@@ -1045,7 +1045,7 @@ void ZQuest::LoadNPCSounds()
 		MQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
 		if (!pSE->LoadNPCResource(npc))
 		{
-			mlog("failed npc sound\n");
+			cclog("failed npc sound\n");
 		}
 	}
 }

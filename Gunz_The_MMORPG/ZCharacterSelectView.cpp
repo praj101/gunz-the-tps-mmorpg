@@ -344,14 +344,14 @@ bool ZCharacterSelectView::SelectMyCharacter()
 		char szName[ 256];
 		strcpy( szName, pLabel->GetText());
 
-		mlog( "Selected character name : %s (", szName);
+		cclog( "Selected character name : %s (", szName);
 
 		for ( int i = 0;  i < (int)strlen( szName);  i++)
 		{
-			mlog( "%02X ", szName[ i] & 0x00FF);
+			cclog( "%02X ", szName[ i] & 0x00FF);
 		}
 
-		mlog( ")  (len = %d)\n", (int)strlen( szName));
+		cclog( ")  (len = %d)\n", (int)strlen( szName));
 	}
 	
 	if (m_pVisualMesh != NULL) {
@@ -388,7 +388,7 @@ void ZCharacterSelectView::SelectChar(int nSelectIndex)
 
 	if( (nSelectIndex < 0) || (nSelectIndex > MAX_CHAR_COUNT))
 	{
-//		mlog("Index is not available...%d %s\n",__LINE__, __FILE__);
+//		cclog("Index is not available...%d %s\n",__LINE__, __FILE__);
 		return;
 	}
 

@@ -71,7 +71,7 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 	//	SAFE_RELEASE(mIndexBuffer);
 	//	if( FAILED( RGetDevice()->CreateIndexBuffer(nIndices*sizeof(USHORT),0,D3DFMT_INDEX16,D3DPOOL_MANAGED,&mIndexBuffer)))
 	//	{
-	//		mlog( "Fail to Restore Index Buffer for Emblems..\n" );
+	//		cclog( "Fail to Restore Index Buffer for Emblems..\n" );
 	//		bHardwareBuffer = false;
 	//	}
 	//}
@@ -123,7 +123,7 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 //		if(FAILED( mIndexBuffer->Lock(0,sizeof(USHORT)*nIndices,(VOID**)&pIndices,0)))
 //		{
 //			bHardwareBuffer = false;
-//			mlog("Fail to Lock Index Buffer\n");
+//			cclog("Fail to Lock Index Buffer\n");
 //		}
 //		else
 //		{
@@ -553,14 +553,14 @@ void ZClothEmblem::render()
 		VOID* pVertex;
 		if( FAILED( g_hw_Buffer->Lock( 0,  mpMeshNode->m_point_num * 3 * sizeof(RVertex), (VOID**)&pVertex, D3DLOCK_DISCARD )))
 		{
-			mlog(" Fail to Lock Emblem hw buffer.. Check Buffer Size.. \n" );
+			cclog(" Fail to Lock Emblem hw buffer.. Check Buffer Size.. \n" );
 			bHardwareBuffer = false;
 			return;
 		}
 		memcpy( pVertex, g_Cloth_Buffer, mpMeshNode->m_face_num*3 * sizeof(RVertex) );
 		if( FAILED( g_hw_Buffer->Unlock() ))
 		{
-			mlog(" Fail to unLock Emblem hw buffer.. Check Buffer Size.. \n" );
+			cclog(" Fail to unLock Emblem hw buffer.. Check Buffer Size.. \n" );
 			bHardwareBuffer = false;
 			return;
 		}
@@ -616,7 +616,7 @@ void ZClothEmblem::UpdateNormal()
 			if( index < 0 || index >= m_nCntP )
 			{
 				_ASSERT(FALSE);
-				mlog("Index of Particle is not profit to calculate...\n");
+				cclog("Index of Particle is not profit to calculate...\n");
 				continue;
 			}
 			//End Debug
@@ -730,7 +730,7 @@ void ZClothEmblem::OnRestore()
 		if( FAILED( RGetDevice()->CreateVertexBuffer( MAX_NUM_CLOTH_PARTICLE* 3 * sizeof( RVertex ), 
 			D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, RVertexType, D3DPOOL_DEFAULT, &g_hw_Buffer ,NULL) ))
 		{
-			mlog( "Fail to Restore Vertex Buffer for Emblems..\n" );
+			cclog( "Fail to Restore Vertex Buffer for Emblems..\n" );
 			bHardwareBuffer = false;
 		}
 	}

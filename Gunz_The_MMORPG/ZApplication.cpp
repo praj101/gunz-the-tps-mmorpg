@@ -254,7 +254,7 @@ bool ZApplication::ParseArguments(const char* pszArgs)
 				ZGetLocale()->SetTeenMode(false);
 				m_bLaunchTest = true;
 #endif
-				mlog( "Cannot find server version.\n");
+				cclog( "Cannot find server version.\n");
 				ASSERT( 0);
 			}
 
@@ -300,7 +300,7 @@ bool ZApplication::ParseArguments(const char* pszArgs)
 	case MC_INVALID:
 	default:
 		{
-			mlog("Invalid Locale \n");
+			cclog("Invalid Locale \n");
 			return false;
 		}
 		break;
@@ -392,13 +392,13 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 	// 멀티미디어 타이머 초기화
 	TIMECAPS tc;
 
-	mlog("ZApplication::OnCreate : begin\n");
+	cclog("ZApplication::OnCreate : begin\n");
 
 	//ZGetSoundEngine()->Enumerate();
 	//for( int i = 0 ; i < ZGetSoundEngine()->GetEnumDeviceCount() ; ++i)
 	//{
 	//	sprintf(szDesc, "Sound Device %d = %s\n", i, ZGetSoundEngine()->GetDeviceDescription( i ) );
-	//	mlog(szDesc);
+	//	cclog(szDesc);
 	//}
 
 	__BP(2000,"ZApplication::OnCreate");
@@ -420,7 +420,7 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	DWORD _begin_time,_end_time;
 #define BEGIN_ { _begin_time = timeGetTime(); }
-#define END_(x) { _end_time = timeGetTime(); float f_time = (_end_time - _begin_time) / 1000.f; mlog("\n-------------------> %s : %f \n\n", x,f_time ); }
+#define END_(x) { _end_time = timeGetTime(); float f_time = (_end_time - _begin_time) / 1000.f; cclog("\n-------------------> %s : %f \n\n", x,f_time ); }
 
 	__BP(2001,"m_SoundEngine.Create");
 
@@ -436,8 +436,8 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	__EP(2001);
 
-	// mlog("ZApplication::OnCreate : m_SoundEngine.Create\n");
-	mlog( "sound engine create.\n" );
+	// cclog("ZApplication::OnCreate : m_SoundEngine.Create\n");
+	cclog( "sound engine create.\n" );
 
 //	ZGetInitialLoading()->SetPercentage( 15.0f );
 //	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0 , true );
@@ -455,12 +455,12 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 	m_pGameInterface->m_nInitialState = m_nInitialState;
 	if(!m_pGameInterface->OnCreate(&giLoading))
 	{
-		mlog("Failed: ZGameInterface OnCreate\n");
+		cclog("Failed: ZGameInterface OnCreate\n");
 		SAFE_DELETE(m_pGameInterface);
 		return false;
 	}
 
-	// mlog("Bird : 5\n");
+	// cclog("Bird : 5\n");
 
 	m_pGameInterface->SetBounds(0,0,MGetWorkspaceWidth(),MGetWorkspaceHeight());
 	END_("GameInterface Create");
@@ -489,7 +489,7 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 	if(m_MeshMgr.LoadXmlList("model/character.xml",ZProgressCallBack,&meshLoading)==-1)	
 		return false;
 
-	mlog( "Load character.xml success,\n" );
+	cclog( "Load character.xml success,\n" );
 
 	END_("Character Loading");
 	meshLoading.UpdateAndDraw(1.f);
@@ -534,7 +534,7 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 	m_MeshMgr.LoadXmlList((char*)strFileNameWorlditem.c_str());
 #endif
 
-	mlog("Load weapon.xml success. \n");
+	cclog("Load weapon.xml success. \n");
 
 //*/
 	END_("Worlditem Loading");
@@ -550,7 +550,7 @@ BirdGo:
 	BEGIN_;
 	CreateConsole(ZGetGameClient()->GetCommandManager());
 
-	// mlog("ZApplication::OnCreate : CreateConsole \n");
+	// cclog("ZApplication::OnCreate : CreateConsole \n");
 
 	m_pLogFrame = new MCommandLogFrame("Command Log", Mint::GetInstance()->GetMainFrame(), Mint::GetInstance()->GetMainFrame());
 	int nHeight = MGetWorkspaceHeight()/3;
@@ -575,33 +575,33 @@ BirdGo:
 
 		MGetMatchItemDescMgr()->WriteCache();
 	}
-	mlog("Load zitem info success.\n");
+	cclog("Load zitem info success.\n");
 
 	if( !MGetMatchBuffDescMgr()->ReadXml(GetFileSystem(), strFileNameZBuff.c_str()) )
 	{
 		MLog("Error while Read Buff Descriptor %s\n", strFileNameZBuff.c_str());
 	}
-	mlog("Load zBuff info success.\n");
+	cclog("Load zBuff info success.\n");
 
 
 //	if (!MGetMatchItemEffectDescMgr()->ReadXml(GetFileSystem(), FILENAME_ZITEMEFFECT_DESC))
 //	{
 //		MLog("Error while Read Item Descriptor %s\n", FILENAME_ZITEMEFFECT_DESC);
 //	}
-//	mlog("Init effect manager success.\n");
+//	cclog("Init effect manager success.\n");
 
 	if (!MGetMatchWorldItemDescMgr()->ReadXml(GetFileSystem(), strFileNameWorlditem.c_str() ))
 	{
 		MLog("Error while Read Item Descriptor %s\n", strFileNameWorlditem.c_str());
 	}
-	mlog("Init world item manager success.\n");
+	cclog("Init world item manager success.\n");
 
 	
 	if (!MGetMapDescMgr()->Initialize(GetFileSystem(), "system/map.xml"))
 	{
 		MLog("Error while Read map Descriptor %s\n", "system/map.xml");
 	}
-	mlog("Init map Descriptor success.\n");
+	cclog("Init map Descriptor success.\n");
 
 
 	string strFileChannelRule("system/channelrule.xml");
@@ -612,13 +612,13 @@ BirdGo:
 	{
 		MLog("Error while Read Item Descriptor %s\n", strFileChannelRule.c_str());
 	}
-	mlog("Init channel rule manager success.\n");
+	cclog("Init channel rule manager success.\n");
 /*
 	if (!MGetNPCGroupMgr()->ReadXml(GetFileSystem(), "system/monstergroup.xml"))
 	{
 		MLog("Error while Read Item Descriptor %s", "system/monstergroup.xml");
 	}
-	mlog("ZApplication::OnCreate : ZGetNPCGroupMgr()->ReadXml \n");
+	cclog("ZApplication::OnCreate : ZGetNPCGroupMgr()->ReadXml \n");
 */
 	// if (!MGetChattingFilter()->Create(GetFileSystem(), "system/abuse.xml"))
 	bool bSucceedLoadAbuse = MGetChattingFilter()->LoadFromFile(GetFileSystem(), strFileNameAbuse.c_str());
@@ -629,7 +629,7 @@ BirdGo:
 		MessageBox(NULL, ZErrStr(MERR_FIND_INVALIDFILE), ZMsg( MSG_WARNING), MB_OK);	// TODO: 풀스크린에서 메시지 박스는 좀 곤란함;
 		return false;
 	}
-	mlog( "Init abuse manager success.\n" );
+	cclog( "Init abuse manager success.\n" );
 
 	
 
@@ -641,7 +641,7 @@ BirdGo:
 	}
 #endif
 
-	mlog("Init chatting filter. success\n");
+	cclog("Init chatting filter. success\n");
 
 	if(!m_SkillManager.Create()) {
 		MLog("Error while create skill manager\n");
@@ -694,7 +694,7 @@ void ZApplication::OnDestroy()
 	m_SoundEngine.Destroy();
 	DestroyConsole();
 
-	mlog("Destroy console.\n");
+	cclog("Destroy console.\n");
 
 	SAFE_DELETE(m_pLogFrame);
 	SAFE_DELETE(m_pGameInterface);
@@ -704,27 +704,27 @@ void ZApplication::OnDestroy()
 	m_NPCMeshMgr.DelAll();
 
 	m_MeshMgr.DelAll();
-	mlog("Destroy mesh manager.\n");
+	cclog("Destroy mesh manager.\n");
 
 	m_WeaponMeshMgr.DelAll();
-	mlog("Destroy weapon mesh manager.\n");
+	cclog("Destroy weapon mesh manager.\n");
 
 	m_SkillManager.Destroy();
-	mlog("Clear SkillManager.\n");
+	cclog("Clear SkillManager.\n");
 
 #ifdef _QUEST_ITEM
 	GetQuestItemDescMgr().Clear();
-	mlog( "Clear QuestItemDescMgr.\n" );
+	cclog( "Clear QuestItemDescMgr.\n" );
 #endif
 
 	MGetMatchItemDescMgr()->Clear();
-	mlog("Clear MatchItemDescMgr.\n");
+	cclog("Clear MatchItemDescMgr.\n");
 
 	MGetChattingFilter()->Clear();
-	mlog("Clear ChattingFilter.\n");
+	cclog("Clear ChattingFilter.\n");
 
 	ZGetChannelRuleMgr()->Clear();
-	mlog("Clear ChannelRuleMgr.\n");
+	cclog("Clear ChannelRuleMgr.\n");
 
 	if (m_nTimerRes != 0)
 	{
@@ -736,7 +736,7 @@ void ZApplication::OnDestroy()
 
 	RGetParticleSystem()->Destroy();		
 
-	mlog("destroy game application done.\n");
+	cclog("destroy game application done.\n");
 }
 
 void ZApplication::ResetTimer()

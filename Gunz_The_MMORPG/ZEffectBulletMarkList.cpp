@@ -184,7 +184,7 @@ bool ZEffectBulletMarkList::Draw()
 			ZEFFECTBULLETMARKITEM *p=(ZEFFECTBULLETMARKITEM*)*itr;
 			
 			_ASSERT(p != 0);
-			if(p == 0) mlog("Fatal Error : ZEffectBulletMarkList : Draw() %d\n", __LINE__ );
+			if(p == 0) cclog("Fatal Error : ZEffectBulletMarkList : Draw() %d\n", __LINE__ );
 
 			memcpy(pVertices,p->v,sizeof(ZEFFECTCUSTOMVERTEX)*4);
 			pVertices+=sizeof(ZEFFECTCUSTOMVERTEX)*4;

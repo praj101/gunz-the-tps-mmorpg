@@ -38,18 +38,18 @@ bool ZTips::Initialize(CCZFileSystem* pfs, const MLanguage LangID )
 //	LangID = LANG_ENGLISH;					/* India */
 //#endif
 
-	mlog( "Load XML from memory : %s(0x%04X)", FILENAME_TIPS, LangID);
+	cclog( "Load XML from memory : %s(0x%04X)", FILENAME_TIPS, LangID);
 
 	CCXmlDocument aXml;
 	aXml.Create();
 	if(!aXml.LoadFromMemory(buffer, LangID))
 	{
-		mlog( "- FAIL\n");
+		cclog( "- FAIL\n");
 		delete buffer;
 		return false;
 	}
 	delete buffer;
-	mlog( "- SUCCESS\n");
+	cclog( "- SUCCESS\n");
 
 	int iCount, i;
 	CCXmlElement		aParent, aChild;

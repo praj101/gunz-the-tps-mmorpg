@@ -455,20 +455,20 @@ bool ZScreenEffectManager::Create()
 
 	DWORD _begin_time,_end_time;
 #define BEGIN_ { _begin_time = timeGetTime(); }
-#define END_(x) { _end_time = timeGetTime(); float f_time = (_end_time - _begin_time) / 1000.f; mlog("%s : %f \n", x,f_time ); }
+#define END_(x) { _end_time = timeGetTime(); float f_time = (_end_time - _begin_time) / 1000.f; cclog("%s : %f \n", x,f_time ); }
 
 	BEGIN_;
 
 	m_pQuestEffectMeshMgr = new RMeshMgr();
 	if(m_pQuestEffectMeshMgr->LoadXmlList("interface/default/combat/screeneffects_quest.xml")==-1) {
-		mlog("quest combat list loding error\n");
+		cclog("quest combat list loding error\n");
 		SAFE_DELETE(m_pQuestEffectMeshMgr);
 		return false;
 	}
 
 	m_pEffectMeshMgr = new RMeshMgr;
 	if(m_pEffectMeshMgr->LoadXmlList("interface/default/combat/screeneffects.xml")==-1) {
-		mlog("combat list loding error\n");
+		cclog("combat list loding error\n");
 		SAFE_DELETE(m_pEffectMeshMgr);
 		return false;
 	}
@@ -1401,7 +1401,7 @@ bool ZScreenEffectManager::CreateQuestRes()
 
 	/*	m_pQuestEffectMeshMgr = new RMeshMgr();
 	if(m_pQuestEffectMeshMgr->LoadXmlList("interface/default/combat/screeneffects_quest.xml")==-1) {
-	mlog("quest combat list loding error\n");
+	cclog("quest combat list loding error\n");
 	SAFE_DELETE(m_pQuestEffectMeshMgr);
 	return false;
 	}*/

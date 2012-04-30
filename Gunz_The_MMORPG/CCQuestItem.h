@@ -247,7 +247,7 @@ public :
 		DWORD t = timeGetTime();
 		int a = t - m_dwLastUpdateTime;
 		sprintf( szTemp, "Update Elapse %d %d\n", timeGetTime() - m_dwLastUpdateTime, a );
-		mlog( szTemp );
+		cclog( szTemp );
 #endif
 		return timeGetTime() - m_dwLastUpdateTime; 
 	}

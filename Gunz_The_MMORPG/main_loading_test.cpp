@@ -135,12 +135,12 @@ RRESULT OnCreate(void *pParam)
 	RCreateLenzFlare(strFileLenzFlare.c_str());
 	RGetLenzFlare()->Initialize();
 
-	mlog("main : RGetLenzFlare()->Initialize() \n");
+	cclog("main : RGetLenzFlare()->Initialize() \n");
 
 	RBspObject::CreateShadeMap("sfx/water_splash.bmp");
 
 	sprintf( cstrReleaseDate, "Version : %d", ZGetSVNRevision());
-	mlog(cstrReleaseDate); mlog("\n");
+	cclog(cstrReleaseDate); cclog("\n");
 	g_DInput.Create(g_hWnd, FALSE, FALSE);
 	g_pInput = new ZInput(&g_DInput);
 	RSetGammaRamp(Z_VIDEO_GAMMA_VALUE);
@@ -148,7 +148,7 @@ RRESULT OnCreate(void *pParam)
 
 	ZGetInitialLoading()->Initialize(  1, 0, 0, RGetScreenWidth(), RGetScreenHeight(), 0, 0, 1024, 768 );
 
-	mlog("InitialLoading success.\n");
+	cclog("InitialLoading success.\n");
 
 	struct _finddata_t c_file;
 	intptr_t hFile;
@@ -167,7 +167,7 @@ RRESULT OnCreate(void *pParam)
 	g_pDefFont = new MFontR2;
 
 	if( !g_pDefFont->Create("Default", Z_LOCALE_DEFAULT_FONT, DEFAULT_FONT_HEIGHT, 1.0f) )	{
-		mlog("Fail to Create defualt font : MFontR2 / main.cpp.. onCreate\n" );
+		cclog("Fail to Create defualt font : MFontR2 / main.cpp.. onCreate\n" );
 		g_pDefFont->Destroy();
 		SAFE_DELETE( g_pDefFont );
 		g_pDefFont	= NULL;
@@ -199,7 +199,7 @@ RRESULT OnCreate(void *pParam)
 	g_Mint.Initialize(800, 600, g_pDC, g_pDefFont);
 	Mint::GetInstance()->SetHWND(RealSpace2::g_hWnd);
 
-	mlog("interface Initialize success\n");
+	cclog("interface Initialize success\n");
 
 //	ZGetConfiguration()->LoadHotKey(FILENAME_CONFIG);
 
@@ -213,7 +213,7 @@ RRESULT OnCreate(void *pParam)
 //	ZGetInitialLoading()->SetPercentage( 50.0f );
 //	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0, true );
 	
-	// mlog("main : g_App.OnCreate() \n");
+	// cclog("main : g_App.OnCreate() \n");
 
 	ZGetSoundEngine()->SetEffectVolume(Z_AUDIO_EFFECT_VOLUME);
 	ZGetSoundEngine()->SetMusicVolume(Z_AUDIO_BGM_VOLUME);
@@ -253,7 +253,7 @@ RRESULT OnCreate(void *pParam)
 		ZGetInitialLoading()->Release();
 	}
 
-	mlog("main : OnCreate() done\n");
+	cclog("main : OnCreate() done\n");
 
 	SetFocus(g_hWnd);
 
@@ -284,7 +284,7 @@ bool CheckDll(char* fileName, BYTE* SHA1_Value)
 
 RRESULT OnDestroy(void *pParam)
 {
-	mlog("Destroy gunz\n");
+	cclog("Destroy gunz\n");
 
 	g_App.OnDestroy();
 
@@ -292,22 +292,22 @@ RRESULT OnDestroy(void *pParam)
 
 	g_Mint.Finalize();
 
-	mlog("interface finalize.\n");
+	cclog("interface finalize.\n");
 
 	SAFE_DELETE(g_pInput);
 	g_DInput.Destroy();
 
-	mlog("game input destroy.\n");
+	cclog("game input destroy.\n");
 
 	RGetShaderMgr()->Release();
 
 //	g_App.OnDestroy();
 
-	// mlog("main : g_App.OnDestroy()\n");
+	// cclog("main : g_App.OnDestroy()\n");
 
 	ZGetConfiguration()->Destroy();
 
-	mlog("game gonfiguration destroy.\n");
+	cclog("game gonfiguration destroy.\n");
 
 	delete g_pDC;
 
@@ -329,7 +329,7 @@ RRESULT OnDestroy(void *pParam)
 	MBitmapManager::Destroy();
 	MBitmapManager::DestroyAniBitmap();
 
-	mlog("Bitmap manager destroy Animation bitmap.\n");
+	cclog("Bitmap manager destroy Animation bitmap.\n");
 
 	/*
 	for(list<HANDLE>::iterator i=g_FontMemHandles.begin(); i!=g_FontMemHandles.end(); i++){
@@ -346,7 +346,7 @@ RRESULT OnDestroy(void *pParam)
 	//ReleaseMemPool(RealSoundEffectFx);
 	//UninitMemPool(RealSoundEffectFx);
 
-	//mlog("main : UninitMemPool(RealSoundEffectFx)\n");
+	//cclog("main : UninitMemPool(RealSoundEffectFx)\n");
 
 	// 메모리풀 헤제
 	ZBasicInfoItem::Release(); // 할당되어 있는 메모리 해제
@@ -363,7 +363,7 @@ RRESULT OnDestroy(void *pParam)
 	
 	ZStringResManager::ResetInstance();
 
-	mlog("destroy gunz finish.\n");
+	cclog("destroy gunz finish.\n");
 
 	return R_OK;
 }
@@ -472,7 +472,7 @@ RRESULT OnDeActivate(void *pParam)
 
 RRESULT OnError(void *pParam)
 {
-	mlog("RealSpace::OnError(%d) \n", RGetLastError());
+	cclog("RealSpace::OnError(%d) \n", RGetLastError());
 
 	switch (RGetLastError())
 	{
@@ -611,7 +611,7 @@ bool FindCrashFunc(char* pName)
 	if(!pName) return false;
 
 	FILE *fp;
-	fp = fopen( "mlog.txt", "r" );
+	fp = fopen( "cclog.txt", "r" );
 	if(fp==NULL)  return false;
 
 	fseek(fp,0,SEEK_END);
@@ -679,7 +679,7 @@ void HandleExceptionLog()
 /* 2007년 2월 13일 BAReport 더이상 사용 못하게 막음
 
 
-	// mlog.txt 를 ERROR_REPORT_FOLDER 로 복사
+	// cclog.txt 를 ERROR_REPORT_FOLDER 로 복사
 
 	//acesaga_0928_911_moanus_rslog.txt
 	//USAGE_EX) BAReport app=acesaga;addr=moon.maiet.net;port=21;id=ftp;passwd=ftp@;gid=10;user=moanus;localfile=rslog.txt;remotefile=remote_rslog.txt;
@@ -724,14 +724,14 @@ void HandleExceptionLog()
 
 		char szFileName[_MAX_DIR], szDumpFileName[_MAX_DIR];
 		wsprintf(szFileName, "%s_%s_%.2d%.2d_%.2d%.2d_%s_%s", cFuncName,
-				APPLICATION_NAME, pTM->tm_mon+1, pTM->tm_mday, pTM->tm_hour, pTM->tm_min, szPlayer, "mlog.txt");
+				APPLICATION_NAME, pTM->tm_mon+1, pTM->tm_mday, pTM->tm_hour, pTM->tm_min, szPlayer, "cclog.txt");
 		wsprintf(szDumpFileName, "%s.dmp", szFileName);
 
 		char szFullFileName[_MAX_DIR], szDumpFullFileName[_MAX_DIR];
 		wsprintf(szFullFileName, "%s/%s", ERROR_REPORT_FOLDER, szFileName);
 		wsprintf(szDumpFullFileName, "%s/%s", ERROR_REPORT_FOLDER, szDumpFileName);
 
-		if (CopyFile("mlog.txt", szFullFileName, TRUE))
+		if (CopyFile("cclog.txt", szFullFileName, TRUE))
 		{
 			CopyFile("Gunz.dmp", szDumpFullFileName, TRUE);
 
@@ -914,7 +914,7 @@ bool CheckFileList()
 #ifndef _DEBUG
 				if(crc32_current!=crc32_list)
 				{
-					// mlog("crc error , file %s ( current = %x, original = %x ).\n",szContents,crc32_current,crc32_list);
+					// cclog("crc error , file %s ( current = %x, original = %x ).\n",szContents,crc32_current,crc32_list);
 
 					// 모든 파일을 검사는 한다
 					return false; 
@@ -1043,9 +1043,9 @@ bool CheckXTrapIsGetTestCode()														// add sgk 0621
 	if (fp)
 	{
 		fgets(szBuf, 256, fp);
-		mlog("XTrapTest.txt : \n");
-		mlog(szBuf);
-		mlog("\n");
+		cclog("XTrapTest.txt : \n");
+		cclog(szBuf);
+		cclog("\n");
 		fclose(fp);
 
 		if (stricmp(szBuf, "RUN_XTRAP_TEST_CODE") == 0)
@@ -1059,7 +1059,7 @@ bool CheckXTrapIsGetTestCode()														// add sgk 0621
 	}
 	else
 	{
-		mlog("fail to open XTrapTest.txt\n");
+		cclog("fail to open XTrapTest.txt\n");
 		return false;
 	}
 }
@@ -1143,15 +1143,15 @@ DWORD g_dwMainThreadID;
 bool InitReport()
 {
 #ifdef LOCALE_NHNUSA
-	mlog( "Init report start\n" );
+	cclog( "Init report start\n" );
 	if( !GetNHNUSAReport().InitReport(((ZNHN_USAAuthInfo*)(ZGetLocale()->GetAuthInfo()))->GetUserID().c_str(),
 		((ZNHN_USAAuthInfo*)(ZGetLocale()->GetAuthInfo()))->GetGameStr()) )
 	{
-		mlog( "Init nhn report fail.\n" );
+		cclog( "Init nhn report fail.\n" );
 		return false;
 	}
 	GetNHNUSAReport().ReportStartGame();
-	mlog( "Init report success.\n" );
+	cclog( "Init report success.\n" );
 #endif
 
 	return true;
@@ -1160,7 +1160,7 @@ bool InitReport()
 bool InitPoll()
 {
 #ifdef LOCALE_NHNUSA
-	mlog( "Init poll start\n" );
+	cclog( "Init poll start\n" );
 
 	((ZNHN_USAAuthInfo*)(ZGetLocale()->GetAuthInfo()))->ZUpdateGameString();
 
@@ -1301,31 +1301,31 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 		case HS_ERR_ANOTHER_SERVICE_RUNNING:
 			{
 //				MessageBox(NULL, _T("다른 게임이 실행중입니다.\n프로그램을 종료합니다."), szTitle, MB_OK);
-				mlog( "다른 게임이 실행중입니다. 프로그램을 종료합니다.\n");
+				cclog( "다른 게임이 실행중입니다. 프로그램을 종료합니다.\n");
 				break;
 			}
 		case HS_ERR_INVALID_FILES:
 			{
 //				MessageBox(NULL, _T("잘못된 파일 설치되었습니다.\n프로그램을 재설치하시기 바랍니다."), szTitle, MB_OK);
-				mlog( "잘못된 파일 설치되었습니다. 프로그램을 재설치하시기 바랍니다.\n");
+				cclog( "잘못된 파일 설치되었습니다. 프로그램을 재설치하시기 바랍니다.\n");
 				break;
 			}
 		case HS_ERR_DEBUGGER_DETECT:
 			{
 //				MessageBox(NULL, _T("컴퓨터에서 디버거 실행이 감지되었습니다.\n디버거의 실행을 중지시킨 뒤에 다시 실행시켜주시기바랍니다."), szTitle, MB_OK);
-				mlog( "컴퓨터에서 디버거 실행이 감지되었습니다. 디버거의 실행을 중지시킨 뒤에 다시 실행시켜주시기바랍니다.\n");
+				cclog( "컴퓨터에서 디버거 실행이 감지되었습니다. 디버거의 실행을 중지시킨 뒤에 다시 실행시켜주시기바랍니다.\n");
 				break;
 			}
 		case HS_ERR_NEED_ADMIN_RIGHTS:
 			{
 //				MessageBox(NULL, _T("Admin 권한으로 실행되어야 합니다.\n프로그램을 종료합니다."), szTitle, MB_OK);
-				mlog( "Admin 권한으로 실행되어야 합니다. 프로그램을 종료합니다.\n");
+				cclog( "Admin 권한으로 실행되어야 합니다. 프로그램을 종료합니다.\n");
 				break;
 			}
 		case HS_ERR_COMPATIBILITY_MODE_RUNNING:
 			{
 //				MessageBox(NULL, _T("호환성 모드로 프로그램이 실행중입니다.\n프로그램을 종료합니다."), szTitle, MB_OK);
-				mlog( "호환성 모드로 프로그램이 실행중입니다. 프로그램을 종료합니다.\n");
+				cclog( "호환성 모드로 프로그램이 실행중입니다. 프로그램을 종료합니다.\n");
 				break;				
 			}
 		default:
@@ -1333,7 +1333,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 				TCHAR szMsg[255];
 				wsprintf(szMsg, _T("해킹방지 기능에 문제가 발생하였습니다.(Error Code = %x)\n프로그램을 종료합니다."), nRet);
 //				MessageBox(NULL, szMsg, szTitle, MB_OK);
-				mlog( szMsg);
+				cclog( szMsg);
 				break;
 			}
 		}
@@ -1350,7 +1350,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	if (nRet != HS_ERR_OK)
 	{
 //		TCHAR szMsg[255];
-		mlog(_T("해킹방지 기능에 문제가 발생하였습니다.(Error Code = %x)\n프로그램을 종료합니다."), nRet);
+		cclog(_T("해킹방지 기능에 문제가 발생하였습니다.(Error Code = %x)\n프로그램을 종료합니다."), nRet);
 //		MessageBox(NULL, szMsg, szTitle, MB_OK);
 
 		return FALSE;
@@ -1368,7 +1368,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 
 #ifdef _XTRAP														// update sgk 0702 start
-	mlog("XTRAP Start\n");
+	cclog("XTRAP Start\n");
 
 	char szTemp[256] = {0,};
 	bool bPatchSkip = false;
@@ -1393,7 +1393,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	XTrap_C_Start(szTemp, NULL);
 	XTrap_C_KeepAlive();
 
-	mlog("XTRAP End\n");
+	cclog("XTRAP End\n");
 #endif																// update sgk 0702 end
 
 	ClearTrashFiles();
@@ -1414,15 +1414,15 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 #endif	// LOCALE_NHNUSA
 
 	// 로그 시작
-	mlog("GUNZ " STRFILEVER " launched. build ("__DATE__" "__TIME__") \n");
+	cclog("GUNZ " STRFILEVER " launched. build ("__DATE__" "__TIME__") \n");
 	char szDateRun[128]="";
 	char szTimeRun[128]="";
 	_strdate( szDateRun );
 	_strtime( szTimeRun );
-	mlog("Log time (%s %s)\n", szDateRun, szTimeRun);
+	cclog("Log time (%s %s)\n", szDateRun, szTimeRun);
 
 #ifndef _PUBLISH
-	mlog("cmdline = %s\n",cmdline);
+	cclog("cmdline = %s\n",cmdline);
 
 #endif
 
@@ -1441,7 +1441,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	MRegistry::szApplicationName=APPLICATION_NAME;
 
 	g_App.InitFileSystem();
-//	mlog("CheckSum: %u \n", ZApplication::GetFileSystem()->GetTotalCRC());
+//	cclog("CheckSum: %u \n", ZApplication::GetFileSystem()->GetTotalCRC());
 
 	//if(!InitializeMessage(ZApplication::GetFileSystem())) {
 	//	MLog("Check Messages.xml\n");
@@ -1511,7 +1511,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 		// Korean or Japan Version
 		if ((ZGetLocale()->GetCountry() == MC_KOREA) || (ZGetLocale()->GetCountry() == MC_JAPAN))
 		{
-			mlog("Routed to Website \n");
+			cclog("Routed to Website \n");
 
 			ShellExecute(NULL, "open", ZGetConfiguration()->GetLocale()->szHomepageUrl, NULL, NULL, SW_SHOWNORMAL);
 
@@ -1521,9 +1521,9 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 			ZTransMsg(szMsgCertFail,MSG_REROUTE_TO_WEBSITE);
 //			MessageBox(g_hWnd, szMsgCertFail, szMsgWarning, MB_OK);
 
-			mlog(szMsgWarning);
-			mlog(" : ");
-			mlog(szMsgCertFail);
+			cclog(szMsgWarning);
+			cclog(" : ");
+			cclog(szMsgCertFail);
 
 			return 0;
 		}
@@ -1582,9 +1582,9 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	{
 //		MessageBox(NULL,
 //			ZMsg(MSG_HACKING_DETECTED), ZMsg( MSG_WARNING), MB_OK);
-		mlog(ZMsg(MSG_HACKING_DETECTED));
-		mlog("\n");
-		mlog("I'm hacker.\n" );
+		cclog(ZMsg(MSG_HACKING_DETECTED));
+		cclog("\n");
+		cclog("I'm hacker.\n" );
 		return 0;
 	}
 #endif
@@ -1595,7 +1595,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	}
 	else 
 	{
-		mlog( "InitializeNotify ok.\n" );
+		cclog( "InitializeNotify ok.\n" );
 	}
 
 	// font 있는가 검사..
@@ -1625,7 +1625,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 
 #ifdef _GAMEGUARD
-	mlog("start gameguard\n");
+	cclog("start gameguard\n");
 
 	ZGMAEGUARD_MODE mode = ZGGM_END;
 	char szArg[ 64] = "";
@@ -1645,7 +1645,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	}
 	else
 	{
-		mlog( "error in gameguard mode...\n" );
+		cclog( "error in gameguard mode...\n" );
 		zexit( -1);
 		return 0;
 	}
@@ -1663,21 +1663,21 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	}
 	else
 	{
-		mlog( "error in gameguard mode...\n" );
+		cclog( "error in gameguard mode...\n" );
 		zexit( -1);
 		return 0;
 	}
 
 	if( !((ZGameOnJPAuthInfo*)pAuth)->SendMsgToLauncher(GET_MSG_HWND_TERMINATE_PUBGAME) )
 	{
-		mlog("Can't find GameOn Agent");
+		cclog("Can't find GameOn Agent");
 	}
 #endif	// LOCALE_JAPAN
 
 
 	if( !GetZGameguard().Init( mode, szArg) )
 	{
-		mlog( "error init gameguard...\n" );
+		cclog( "error init gameguard...\n" );
 		zexit( -1 );
 		return 0;
 	}
@@ -1712,7 +1712,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	if( 0 != RInitD3D(&g_ModeParams) )
 	{
 		MessageBox(g_hWnd, "fail to initialize DirectX", NULL, MB_OK);
-		mlog( "error init RInitD3D\n" );
+		cclog( "error init RInitD3D\n" );
 		return 0;
 	}
 
@@ -1737,7 +1737,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 
 #ifdef LOCALE_NHNUSA
-	mlog( "Poll Process\n" );
+	cclog( "Poll Process\n" );
 	int nRetPoll = GetNHNUSAPoll().ZHanPollProcess( NULL);
 #endif
 
@@ -1784,7 +1784,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 			TCHAR szMsg[255];
 			wsprintf(szMsg, _T("다음 위치에서 해킹툴이 발견되어 프로그램을 종료시켰습니다.\n%s"), (char*)pParam);
 //			MessageBox(NULL, szMsg, szTitle, MB_OK);
-			mlog(szMsg);
+			cclog(szMsg);
 			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
 			break;
 		}
@@ -1807,7 +1807,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 	case AHNHS_ACTAPC_DETECT_SPEEDHACK_APP:
 		{
 //			MessageBox(NULL, _T("현재 이 PC에서 SpeedHack으로 의심되는 동작이 감지되었습니다."), szTitle, MB_OK);
-			mlog("현재 이 PC에서 SpeedHack으로 의심되는 동작이 감지되었습니다.");
+			cclog("현재 이 PC에서 SpeedHack으로 의심되는 동작이 감지되었습니다.");
 			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
 			break;
 		}
@@ -1819,7 +1819,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 			TCHAR szMsg[255];
 			wsprintf(szMsg, _T("프로그램에 대하여 디버깅 시도가 발생하였습니다. (Code = %x)\n프로그램을 종료합니다."), lCode);
 //			MessageBox(NULL, szMsg, szTitle, MB_OK);
-			mlog(szMsg);
+			cclog(szMsg);
 			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
 			break;
 		}
@@ -1834,7 +1834,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 			TCHAR szMsg[255];
 			wsprintf(szMsg, _T("해킹 방어 기능에 이상이 발생하였습니다. (Code = %x)\n프로그램을 종료합니다."), lCode);
 //			MessageBox(NULL, szMsg, szTitle, MB_OK);
-			mlog(szMsg);
+			cclog(szMsg);
 			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
 			break;
 		}

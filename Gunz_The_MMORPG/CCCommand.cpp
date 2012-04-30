@@ -170,7 +170,7 @@ bool MCommand::GetParameter(void* pValue, int i, MCommandParameterType t, int nB
 
 		int nLength = (int)strlen(szParamString);
 		if(nLength>=nBufferSize-1) {
-//			mlog("buffer overflow command id %d, sender uid(%d,%d)\n", GetID(), m_Sender.High, m_Sender.Low);
+//			cclog("buffer overflow command id %d, sender uid(%d,%d)\n", GetID(), m_Sender.High, m_Sender.Low);
 			strncpy((char*)pValue,szParamString,nBufferSize-1);
 			((char*)pValue)[nBufferSize-1]=0;
 		}else{
@@ -221,7 +221,7 @@ bool MCommand::CheckRule(void)
 				MCommandParamCondition* pCondition = pParamDesc->GetCondition(j);
 				if (!pCondition->Check(pParam)) 
 				{
-					mlog("Cmd Param Condition Check Error(CMID = %d)\n", m_pCommandDesc->GetID());
+					cclog("Cmd Param Condition Check Error(CMID = %d)\n", m_pCommandDesc->GetID());
 					return false;
 				}
 			}
@@ -386,7 +386,7 @@ bool MCommand::SetData(char* pData, MCommandManager* pCM, unsigned short nDataLe
 			pParam = new MCommandParameterShortVector;
 			break;
 		default:
-			//mlog("Error(MCommand::SetData): Wrong Param Type\n");
+			//cclog("Error(MCommand::SetData): Wrong Param Type\n");
 			_ASSERT(false);		// Unknow Parameter!!!
 			return false;
 			break;

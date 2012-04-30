@@ -390,12 +390,12 @@ void ZActor::InitMesh(char* szMeshName, MQUEST_NPC nNPCType)
 	if(!pMesh) 
 	{
 		_ASSERT(0);
-		mlog("ZActor::InitMesh() -  원하는 모델을 찾을수 없음\n");
+		cclog("ZActor::InitMesh() -  원하는 모델을 찾을수 없음\n");
 		return;
 	}
 
 	int nVMID = ZGetGame()->m_VisualMeshMgr.Add(pMesh);
-	if(nVMID==-1) mlog("ZActor::InitMesh() - 캐릭터 생성 실패\n");
+	if(nVMID==-1) cclog("ZActor::InitMesh() - 캐릭터 생성 실패\n");
 
 	RVisualMesh* pVMesh = ZGetGame()->m_VisualMeshMgr.GetFast(nVMID);
 
