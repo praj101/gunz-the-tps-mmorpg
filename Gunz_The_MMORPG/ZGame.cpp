@@ -52,7 +52,7 @@
 
 #include "CCXml.h"
 #include "ZGameClient.h"
-#include "MUtil.h"
+#include "CCUtil.h"
 #include "RMeshMgr.h"
 #include "RVisualMeshMgr.h"
 #include "RMaterialList.h"

@@ -1125,6 +1125,10 @@
 			</Filter>
 		</Filter>
 		<File
+			RelativePath=".\AntiCPSvrFunc.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAgentObject.cpp"
 			>
 		</File>
