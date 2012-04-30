@@ -1153,6 +1153,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCBaseQuest.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCBaseStringResManager.cpp"
 			>
 		</File>
@@ -1558,6 +1562,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchNotify.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchNPCObject.h"
 			>
 		</File>
 		<File
