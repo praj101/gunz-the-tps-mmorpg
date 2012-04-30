@@ -698,7 +698,7 @@ void CCMatchServer::OnAsyncCreateClan(MAsyncJob* pJobResult)
 		pMasterObject->GetCharInfo()->IncBP(-CLAN_CREATING_NEED_BOUNTY);
 		ResponseMySimpleCharInfo(pMasterObject->GetUID());
 	
-		UpdateCharClanInfo(pMasterObject, nNewCLID, pJob->GetClanName(), MCG_MASTER);
+		UpdateCharClanInfo(pMasterObject, nNewCLID, pJob->GetClanName(), CCG_MASTER);
 	
 		// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 		if(pMasterObject->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
@@ -719,7 +719,7 @@ void CCMatchServer::OnAsyncCreateClan(MAsyncJob* pJobResult)
 	{
 		if (IsEnabledObject(pSponsorObjects[i]))
 		{
-			UpdateCharClanInfo(pSponsorObjects[i], nNewCLID, pJob->GetClanName(), MCG_MEMBER);
+			UpdateCharClanInfo(pSponsorObjects[i], nNewCLID, pJob->GetClanName(), CCG_MEMBER);
 			// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 			if(pSponsorObjects[i]->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 				LOG(LOG_FILE, "[OnAsyncCreateClan()] %s's ClanID:%d.", pSponsorObjects[i]->GetAccountName(), pSponsorObjects[i]->GetCharInfo()->m_ClanInfo.GetClanID());
@@ -777,7 +777,7 @@ void CCMatchServer::OnAsyncExpelClanMember(MAsyncJob* pJobResult)
 	CCMatchObject* pMemberObject = GetPlayerByName(pJob->GetTarMember());
 	if (IsEnabledObject(pMemberObject))
 	{
-		UpdateCharClanInfo(pMemberObject, 0, "", MCG_NONE);
+		UpdateCharClanInfo(pMemberObject, 0, "", CCG_NONE);
 		// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 		if(pMemberObject->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 			LOG(LOG_FILE, "[OnAsyncExpelClanMember()] %s's ClanID:%d.", pMemberObject->GetAccountName(), pMemberObject->GetCharInfo()->m_ClanInfo.GetClanID());

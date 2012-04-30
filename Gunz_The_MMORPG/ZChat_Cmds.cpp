@@ -722,7 +722,7 @@ void ChatCmd_Clan(const char* line, const int argc, char **const argv)
 				break;
 			}
 
-			if (ZGetMyInfo()->GetClanGrade() != MCG_MASTER)
+			if (ZGetMyInfo()->GetClanGrade() != CCG_MASTER)
 			{
 				ZChatOutput( 
 					ZMsg(MSG_CLAN_ENABLED_TO_MASTER), 
@@ -761,7 +761,7 @@ void ChatCmd_Clan(const char* line, const int argc, char **const argv)
 				break;
 			}
 
-			if (!IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), MCG_ADMIN))
+			if (!IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), CCG_ADMIN))
 			{
 				ZChatOutput(
 					ZMsg(MSG_CLAN_ENABLED_TO_MASTER_AND_ADMIN), 
@@ -792,7 +792,7 @@ void ChatCmd_Clan(const char* line, const int argc, char **const argv)
 			}
 
 			// 마스터는 탈퇴가 안된다.
-			if (IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), MCG_MASTER))
+			if (IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), CCG_MASTER))
 			{
 				ZChatOutput(
 					ZMsg(MSG_CLAN_MASTER_CANNOT_LEAVED), 
@@ -822,7 +822,7 @@ void ChatCmd_Clan(const char* line, const int argc, char **const argv)
 				break;
 			}
 
-			if (!IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), MCG_MASTER))
+			if (!IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), CCG_MASTER))
 			{
 				ZChatOutput(
 					ZMsg(MSG_CLAN_ENABLED_TO_MASTER), 
@@ -842,11 +842,11 @@ void ChatCmd_Clan(const char* line, const int argc, char **const argv)
 
 			if ((!stricmp(argv[3], "클랜운영자")) || (!stricmp(argv[3], "운영자")) || (!stricmp(argv[3], "영자")) || (!stricmp(argv[3], "admin")))
 			{
-				nClanGrade = (int)MCG_ADMIN;
+				nClanGrade = (int)CCG_ADMIN;
 			}
 			else if ((!stricmp(argv[3], "클랜멤버")) || (!stricmp(argv[3], "멤버")) || (!stricmp(argv[3], "클랜원")) || (!stricmp(argv[3], "member")))
 			{
-				nClanGrade = (int)MCG_MEMBER;
+				nClanGrade = (int)CCG_MEMBER;
 			}
 			else
 			{
@@ -875,7 +875,7 @@ void ChatCmd_Clan(const char* line, const int argc, char **const argv)
 				break;
 			}
 
-			if (!IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), MCG_ADMIN))
+			if (!IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), CCG_ADMIN))
 			{
 				ZChatOutput(
 					ZMsg(MSG_CLAN_ENABLED_TO_MASTER_AND_ADMIN), 

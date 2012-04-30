@@ -109,7 +109,7 @@ int CCMatchServer::ValidateCreateClan(const char* szClanName, CCMatchObject* pMa
 int ValidateJoinClan(CCMatchObject* pAdminObject, CCMatchObject* pJoinerObject, const char* szClanName)
 {
 	// 클랜 어드민이상 등급인지 확인
-	if (! IsUpperClanGrade(pAdminObject->GetCharInfo()->m_ClanInfo.m_nGrade, MCG_ADMIN))
+	if (! IsUpperClanGrade(pAdminObject->GetCharInfo()->m_ClanInfo.m_nGrade, CCG_ADMIN))
 	{
 		return MERR_CLAN_NOT_MASTER_OR_ADMIN;
 	}
@@ -146,7 +146,7 @@ int ValidateLeaveClan(CCMatchObject* pLeaverObject)
 	}
 
 	// 마스터는 탈퇴할 수 없다
-	if (pLeaverObject->GetCharInfo()->m_ClanInfo.m_nGrade == MCG_MASTER)
+	if (pLeaverObject->GetCharInfo()->m_ClanInfo.m_nGrade == CCG_MASTER)
 	{
 		return MERR_CLAN_CANNOT_LEAVE;
 	}
@@ -392,7 +392,7 @@ void CCMatchServer::ResponseCloseClan(const CCUID& uidClanMaster, const char* sz
 	if (! IsEnabledObject(pMasterObject)) return;
 
 	// 클랜마스터인지 확인
-	if (pMasterObject->GetCharInfo()->m_ClanInfo.m_nGrade != MCG_MASTER)
+	if (pMasterObject->GetCharInfo()->m_ClanInfo.m_nGrade != CCG_MASTER)
 	{
 		RouteResponseToListener(pMasterObject, MC_MATCH_CLAN_RESPONSE_CLOSE_CLAN, MERR_CLAN_NOT_MASTER);
 		return;
@@ -501,7 +501,7 @@ void CCMatchServer::ResponseAgreedJoinClan(const CCUID& uidClanAdmin, const char
 
 	int nCLID = pAdminObject->GetCharInfo()->m_ClanInfo.m_nClanID;
 	int nJoinerCID = pJoinerObject->GetCharInfo()->m_nCID;
-	int nClanGrade = (int)MCG_MEMBER;
+	int nClanGrade = (int)CCG_MEMBER;
 
 	bool bDBRet = false;
 
@@ -522,7 +522,7 @@ void CCMatchServer::ResponseAgreedJoinClan(const CCUID& uidClanAdmin, const char
 	}
 
 	// 클랜정보 업데이트하고 Route해줌
-	UpdateCharClanInfo(pJoinerObject, pAdminObject->GetCharInfo()->m_ClanInfo.m_nClanID, szClanName, MCG_MEMBER);
+	UpdateCharClanInfo(pJoinerObject, pAdminObject->GetCharInfo()->m_ClanInfo.m_nClanID, szClanName, CCG_MEMBER);
 	// 임시코드... 잘못된 CCMatchObject*가 온다면 체크하여 잡기위함...20090224 by kammir
 	if(pAdminObject->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 		LOG(LOG_FILE, "[ResponseAgreedJoinClan()] %s's ClanID:%d.", pAdminObject->GetAccountName(), pAdminObject->GetCharInfo()->m_ClanInfo.GetClanID());
@@ -566,7 +566,7 @@ void CCMatchServer::ResponseLeaveClan(const CCUID& uidPlayer)
 	}
 
 	// 클랜정보 업데이트하고 Route해줌
-	UpdateCharClanInfo(pLeaverObject, 0, "", MCG_NONE);
+	UpdateCharClanInfo(pLeaverObject, 0, "", CCG_NONE);
 
 
 	RouteResponseToListener(pLeaverObject, MC_MATCH_CLAN_RESPONSE_LEAVE_CLAN, MOK);
@@ -580,7 +580,7 @@ void CCMatchServer::OnClanRequestChangeClanGrade(const CCUID& uidClanMaster, con
 int ValidateChangeClanGrade(CCMatchObject* pMasterObject, CCMatchObject* pTargetObject, int nClanGrade)
 {
 	// 마스터인지 확인
-	if (pMasterObject->GetCharInfo()->m_ClanInfo.m_nGrade != MCG_MASTER)
+	if (pMasterObject->GetCharInfo()->m_ClanInfo.m_nGrade != CCG_MASTER)
 	{
 		return MERR_CLAN_NOT_MASTER;
 	}
@@ -593,13 +593,13 @@ int ValidateChangeClanGrade(CCMatchObject* pMasterObject, CCMatchObject* pTarget
 
 
 	// 마스터를 권한변경할 수 없다.
-	if (pTargetObject->GetCharInfo()->m_ClanInfo.m_nGrade == MCG_MASTER)
+	if (pTargetObject->GetCharInfo()->m_ClanInfo.m_nGrade == CCG_MASTER)
 	{
 		return MERR_CLAN_NOT_MASTER;
 	}
 
 	CCMatchClanGrade grade = (CCMatchClanGrade)nClanGrade;
-	if ((grade != MCG_ADMIN) && (grade != MCG_MEMBER))
+	if ((grade != CCG_ADMIN) && (grade != CCG_MEMBER))
 	{
 		return MERR_CLAN_CANNOT_CHANGE_GRADE;
 	}
@@ -660,7 +660,7 @@ void CCMatchServer::ResponseExpelMember(const CCUID& uidClanAdmin, const char* s
 	if (! IsEnabledObject(pAdminObject)) return;
 
 	// 탈퇴처리할 수 있는 권한인지 검사
-	if (!IsUpperClanGrade(pAdminObject->GetCharInfo()->m_ClanInfo.m_nGrade, MCG_ADMIN))
+	if (!IsUpperClanGrade(pAdminObject->GetCharInfo()->m_ClanInfo.m_nGrade, CCG_ADMIN))
 	{
 		RouteResponseToListener(pAdminObject, MC_MATCH_CLAN_ADMIN_RESPONSE_EXPEL_MEMBER, MERR_CLAN_NOT_MASTER_OR_ADMIN);
 		return;
@@ -714,7 +714,7 @@ void CCMatchServer::ResponseExpelMember(const CCUID& uidClanAdmin, const char* s
 	CCMatchObject* pMemberObject = GetPlayerByName(szMember);
 	if (IsEnabledObject(pMemberObject))
 	{
-		UpdateCharClanInfo(pMemberObject, 0, "", MCG_NONE);
+		UpdateCharClanInfo(pMemberObject, 0, "", CCG_NONE);
 	}
 
 

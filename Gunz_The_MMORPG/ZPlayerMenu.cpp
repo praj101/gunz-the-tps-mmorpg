@@ -54,7 +54,7 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 
 
 		CCMatchClanGrade myGrade = ZGetMyInfo()->GetClanGrade();
-		if(myGrade == MCG_MASTER || myGrade == MCG_ADMIN) {	// 클랜 메뉴 추가
+		if(myGrade == CCG_MASTER || myGrade == CCG_ADMIN) {	// 클랜 메뉴 추가
 			MPopupMenu::AddMenuItem("--------");
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_INVITE, ZMsg( MSG_MENUITEM_FRIENDCLANINVITE)));
 		}
@@ -82,16 +82,16 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 #endif
 
 		CCMatchClanGrade myGrade = ZGetMyInfo()->GetClanGrade();
-		if(myGrade == MCG_MASTER || myGrade == MCG_ADMIN)
+		if(myGrade == CCG_MASTER || myGrade == CCG_ADMIN)
 			MPopupMenu::AddMenuItem("--------");
 	
-		if(myGrade == MCG_MASTER) // 클랜 메뉴 추가
+		if(myGrade == CCG_MASTER) // 클랜 메뉴 추가
 		{
 //			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_GRADE_MASTER, ZMsg( MSG_MENUITEM_CLANGRADEMASTER)));		// 잠시 봉인
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_GRADE_ADMIN, ZMsg( MSG_MENUITEM_CLANGRADEADMIN)));
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_GRADE_MEMBER, ZMsg( MSG_MENUITEM_CLANMEMBER)));
 		}
-		if(myGrade == MCG_MASTER || myGrade == MCG_ADMIN)
+		if(myGrade == CCG_MASTER || myGrade == CCG_ADMIN)
 		{
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_KICK, ZMsg( MSG_MENUITEM_CLANKICK)));
 		}
@@ -213,15 +213,15 @@ bool ZPlayerMenuListener::OnCommand(MWidget* pWidget, const char* szMessage)
 		return true;
 
 	case ZCMD_PLAYERMENU_CLAN_GRADE_MASTER:
-		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),MCG_MASTER);
+		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),CCG_MASTER);
 		return true;
 
 	case ZCMD_PLAYERMENU_CLAN_GRADE_ADMIN:
-		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),MCG_ADMIN);
+		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),CCG_ADMIN);
 		return true;
 
 	case ZCMD_PLAYERMENU_CLAN_GRADE_MEMBER:
-		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),MCG_MEMBER);
+		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),CCG_MEMBER);
 		return true;
 
 	case ZCMD_PLAYERMENU_CLAN_LEAVE:
