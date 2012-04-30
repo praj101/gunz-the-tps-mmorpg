@@ -13,11 +13,11 @@
 #include <crtdbg.h>
 #include <time.h>
 #include "Shlwapi.h"
-#include "MCrashDump.h"
-#include "MMatchConfig.h"
+#include "CCCrashDump.h"
+#include "CCMatchConfig.h"
 
 #ifndef _PUBLISH
-	#include "MProcessController.h"
+	#include "CCProcessController.h"
 #endif
 
 

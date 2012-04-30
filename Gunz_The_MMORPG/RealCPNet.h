@@ -18,7 +18,7 @@ using namespace std;
 #include <Winsock2.h>
 #include <mswsock.h>
 
-#include "MPacket.h"
+#include "CCPacket.h"
 
 
 // Constants
