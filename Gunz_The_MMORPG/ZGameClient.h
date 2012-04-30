@@ -27,7 +27,7 @@ protected:
 	unsigned int		m_nRoomNo;
 	int					m_nStageCursor;
 	bool				m_bLadderGame;
-	MCHANNEL_TYPE		m_CurrentChannelType;
+	CCCHANNEL_TYPE		m_CurrentChannelType;
 	bool				m_bEnableInterface;
 	char				m_szVoteText[256];
 
@@ -124,7 +124,7 @@ protected:
 	void OnAnnounce(unsigned int nType, char* szMsg);
 	void OnResponseResult(const int nResult);
 
-	void OnChannelResponseJoin(const CCUID& uidChannel, MCHANNEL_TYPE nChannelType, const char* szChannelName, bool bEnableInterface);
+	void OnChannelResponseJoin(const CCUID& uidChannel, CCCHANNEL_TYPE nChannelType, const char* szChannelName, bool bEnableInterface);
 	void OnChannelChat(const CCUID& uidChannel, char* szName, char* szChat,int nGrade);
 	void OnChannelList(void* pBlob, int nCount);
 	void OnChannelResponseRule(const CCUID& uidchannel, const char* pszRuleName);
@@ -270,12 +270,12 @@ public:
 	void RequestStageList(int nPage);
 	void StartStageList();
 	void StopStageList();
-	void StartChannelList(MCHANNEL_TYPE nChannelType);
+	void StartChannelList(CCCHANNEL_TYPE nChannelType);
 	void StopChannelList();
-	//void SetChannelType(MCHANNEL_TYPE type);
+	//void SetChannelType(CCCHANNEL_TYPE type);
 
 	const char*		GetChannelName()		{ return m_szChannel; }
-	MCHANNEL_TYPE	GetChannelType()		{ return m_CurrentChannelType; }
+	CCCHANNEL_TYPE	GetChannelType()		{ return m_CurrentChannelType; }
 	bool			GetEnableInterface()	{ return m_bEnableInterface; }
 	const char*		GetChannelRuleName()	{ return m_szChannelRule; }
 	const char*		GetStageName()			{ return m_szStageName; }
@@ -315,7 +315,7 @@ public:
 public:
 	// Request 씨리즈
 	void RequestChannelJoin(const CCUID& uidChannel);
-	void RequestChannelJoin(const MCHANNEL_TYPE nChannelType, char* szChannelName);
+	void RequestChannelJoin(const CCCHANNEL_TYPE nChannelType, char* szChannelName);
 	void RequestOnLobbyCreated();		// 로비에 들어올때 요청하는 메시지들
 	void RequestOnGameDestroyed();		// 게임이 끝났을때 요청하는 메시지들
 protected:

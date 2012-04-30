@@ -576,7 +576,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetChannelListFrameCallerListener, MBTN_CLK_MSG)
 	if ( pButton)
 		pButton->Show( ZGetGameClient()->IsEnabledDuelTournament());
 
-	MCHANNEL_TYPE nCurrentChannelType = ZGetGameClient()->GetChannelType();
+	CCCHANNEL_TYPE nCurrentChannelType = ZGetGameClient()->GetChannelType();
 	ZGetGameInterface()->InitChannelFrame(nCurrentChannelType);
 	ZGetGameClient()->StartChannelList(nCurrentChannelType);
 END_IMPLEMENT_LISTENER()
@@ -2056,7 +2056,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPrivateChannelEnterListener, MBTN_CLK_MSG)
 		}
 		else
 		{
-			ZPostChannelRequestJoinFromChannelName(ZGetMyUID(),MCHANNEL_TYPE_USER,pEdit->GetText());
+			ZPostChannelRequestJoinFromChannelName(ZGetMyUID(),CCCHANNEL_TYPE_USER,pEdit->GetText());
 
 			MWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
 			if(pFindWidget!=NULL) pFindWidget->Show(false);
@@ -2071,13 +2071,13 @@ BEGIN_IMPLEMENT_LISTENER(ZGetChannelList, MBTN_CLK_MSG)
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
-	MCHANNEL_TYPE nChannelType = MCHANNEL_TYPE_PRESET;
+	CCCHANNEL_TYPE nChannelType = CCCHANNEL_TYPE_PRESET;
 	// 0 = 일반 , 1 = 사설 , 2 = 클랜 채널 리스트 , 3 = 듀얼 토너먼트 채널 리스트를 요청한다
 	switch(nIndexInGroup) {
-	case 0 : nChannelType = MCHANNEL_TYPE_PRESET; break;
-	case 1 : nChannelType = MCHANNEL_TYPE_USER; break;
-	case 2 : nChannelType = MCHANNEL_TYPE_CLAN; break;
-	case 3 : nChannelType = MCHANNEL_TYPE_DUELTOURNAMENT; break;
+	case 0 : nChannelType = CCCHANNEL_TYPE_PRESET; break;
+	case 1 : nChannelType = CCCHANNEL_TYPE_USER; break;
+	case 2 : nChannelType = CCCHANNEL_TYPE_CLAN; break;
+	case 3 : nChannelType = CCCHANNEL_TYPE_DUELTOURNAMENT; break;
 
 	default : _ASSERT(FALSE);
 	}
@@ -2089,7 +2089,7 @@ END_IMPLEMENT_LISTENER()
 BEGIN_IMPLEMENT_LISTENER(ZGetMyClanChannel, MBTN_CLK_MSG)
 	if(ZGetMyInfo()->IsClanJoined())
 	{
-		ZPostChannelRequestJoinFromChannelName(ZGetMyUID(),MCHANNEL_TYPE_CLAN,ZGetMyInfo()->GetClanName());
+		ZPostChannelRequestJoinFromChannelName(ZGetMyUID(),CCCHANNEL_TYPE_CLAN,ZGetMyInfo()->GetClanName());
 
 #ifdef LOCALE_NHNUSA
 		GetNHNUSAReport().ReportJoinChannel();

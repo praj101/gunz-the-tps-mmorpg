@@ -47,7 +47,7 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 
 		AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_WHISPER, ZMsg( MSG_MENUITEM_FRIENDWHISPER)));
 		//if ( (pListItem->m_nLobbyPlayerState == PS_WAIT) || (pListItem->m_nLobbyPlayerState == PS_FIGHT) )	// Lobby PlayerList 갱신 불일치 문제로 일단 따라가기메뉴 항상 보이게함..
-		if (ZGetGameClient()->GetChannelType() != MCHANNEL_TYPE_DUELTOURNAMENT)	// 듀얼토너먼트 게임에 따라갈 수 없다
+		if (ZGetGameClient()->GetChannelType() != CCCHANNEL_TYPE_DUELTOURNAMENT)	// 듀얼토너먼트 게임에 따라갈 수 없다
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_FOLLOW, ZMsg( MSG_MENUITEM_FRIENDFOLLOW)));
 		
 		AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_FRIEND_ADD, ZMsg( MSG_MENUITEM_FRIENDADD)));
@@ -69,7 +69,7 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 		AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_FRIEND_REMOVE, ZMsg( MSG_MENUITEM_FRIENDREMOVE)));
 
 #ifdef _VOTESETTING
-		if (ZGetGameClient()->GetChannelType() != MCHANNEL_TYPE_DUELTOURNAMENT)	// 듀얼토너먼트 게임에 따라갈 수 없다
+		if (ZGetGameClient()->GetChannelType() != CCCHANNEL_TYPE_DUELTOURNAMENT)	// 듀얼토너먼트 게임에 따라갈 수 없다
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_FRIEND_FOLLOW, ZMsg( MSG_MENUITEM_FRIENDFOLLOW)));
 #endif
 	} else if (nMenuSet == ZPLAYERMENU_SET_CLAN) {
@@ -77,7 +77,7 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 		AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_WHERE, ZMsg( MSG_MENUITEM_FRIENDWHERE)));
 
 #ifdef _VOTESETTING
-		if (ZGetGameClient()->GetChannelType() != MCHANNEL_TYPE_DUELTOURNAMENT)	// 듀얼토너먼트 게임에 따라갈 수 없다
+		if (ZGetGameClient()->GetChannelType() != CCCHANNEL_TYPE_DUELTOURNAMENT)	// 듀얼토너먼트 게임에 따라갈 수 없다
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_FOLLOW, ZMsg( MSG_MENUITEM_FRIENDFOLLOW)));
 #endif
 

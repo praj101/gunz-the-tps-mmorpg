@@ -288,10 +288,10 @@ protected:
 	void SetDefaultChannelRuleName(const char* pszName)	{ strcpy(m_szDefaultChannelRuleName, pszName); }
 	const CCUID FindFreeChannel( const CCUID& uidPlayer );
 
-	bool ChannelAdd(const char* pszChannelName, const char* pszRuleName, CCUID* pAllocUID, MCHANNEL_TYPE nType=MCHANNEL_TYPE_PRESET, int nMaxPlayers=DEFAULT_CHANNEL_MAXPLAYERS, int nLevelMin=-1, int nLevelMax=-1,
+	bool ChannelAdd(const char* pszChannelName, const char* pszRuleName, CCUID* pAllocUID, CCCHANNEL_TYPE nType=CCCHANNEL_TYPE_PRESET, int nMaxPlayers=DEFAULT_CHANNEL_MAXPLAYERS, int nLevelMin=-1, int nLevelMax=-1,
 		const bool bIsTicketChannel = false, const DWORD dwTicketItemID = 0, const bool bIsUseTicket = false, const char* pszChannelNameStrResId = NULL);
 	bool ChannelJoin(const CCUID& uidPlayer, const CCUID& uidChannel);
-	bool ChannelJoin(const CCUID& uidPlayer, const MCHANNEL_TYPE nChannelType, const char* pszChannelName);
+	bool ChannelJoin(const CCUID& uidPlayer, const CCCHANNEL_TYPE nChannelType, const char* pszChannelName);
 	bool ChannelLeave(const CCUID& uidPlayer, const CCUID& uidChannel);
 	bool ChannelChat(const CCUID& uidPlayer, const CCUID& uidChannel, char* pszChat);
 
@@ -299,7 +299,7 @@ protected:
 
 	void OnRequestRecommendedChannel(const CCUID& uidComm);
 	void OnRequestChannelJoin(const CCUID& uidPlayer, const CCUID& uidChannel);
-	void OnRequestChannelJoin(const CCUID& uidPlayer, const MCHANNEL_TYPE nChannelType, const char* pszChannelName);
+	void OnRequestChannelJoin(const CCUID& uidPlayer, const CCCHANNEL_TYPE nChannelType, const char* pszChannelName);
 	void OnChannelChat(const CCUID& uidPlayer, const CCUID& uidChannel, char* pszChat);
 	void OnStartChannelList(const CCUID& uidPlayer, const int nChannelType);
 	void OnStopChannelList(const CCUID& uidPlayer);
@@ -638,7 +638,7 @@ public:
 	/// UID로 채널 얻어내기
 	CCMatchChannel* FindChannel(const CCUID& uidChannel);
 	/// Name으로 채널 얻어내기
-	CCMatchChannel* FindChannel(const MCHANNEL_TYPE nChannelType, const char* pszChannelName);
+	CCMatchChannel* FindChannel(const CCCHANNEL_TYPE nChannelType, const char* pszChannelName);
 
 	/// 서버의 공지 메시지 전송
 	void Announce(const CCUID& CommUID, char* pszMsg);
@@ -685,7 +685,7 @@ public:
 	void NotifyMessage(const CCUID& uidChar, int nMsgID);
 
 	unsigned long GetChannelListChecksum()	{ return m_ChannelMap.GetChannelListChecksum(); }
-	void ChannelList(const CCUID& uidPlayer, MCHANNEL_TYPE nChannelType);
+	void ChannelList(const CCUID& uidPlayer, CCCHANNEL_TYPE nChannelType);
 
 	unsigned long int GetStageListChecksum(CCUID& uidChannel, int nStageCursor, int nStageCount);
 	void StageList(const CCUID& uidPlayer, int nStageStartIndex, bool bCacheUpdate);

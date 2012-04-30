@@ -670,7 +670,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 				const char* szChannelNameTranslated = ZGetStringResManager()->GetStringFromXml(szChannelName);
 
-				OnChannelResponseJoin(uidChannel, (MCHANNEL_TYPE)nChannelType, szChannelNameTranslated, bEnableInterface);
+				OnChannelResponseJoin(uidChannel, (CCCHANNEL_TYPE)nChannelType, szChannelNameTranslated, bEnableInterface);
 			}
 			break;
 		case MC_MATCH_CHANNEL_CHAT:

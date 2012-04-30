@@ -181,7 +181,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nChannelType,	1, MPT_INT);
 				pCommand->GetParameter(szChannelName,	2, MPT_STR, CHANNELNAME_LEN );
 
-				OnRequestChannelJoin(uidPlayer, MCHANNEL_TYPE(nChannelType), szChannelName);
+				OnRequestChannelJoin(uidPlayer, CCCHANNEL_TYPE(nChannelType), szChannelName);
 			}
 			break;
 		case MC_MATCH_CHANNEL_LIST_START:

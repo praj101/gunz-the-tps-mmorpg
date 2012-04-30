@@ -97,9 +97,9 @@ MChannelRule* MChannelRuleMgr::GetRule(const string& strName)
 	return NULL;
 }
 
-MChannelRule* MChannelRuleMgr::GetRule(MCHANNEL_RULE nChannelRule)
+MChannelRule* MChannelRuleMgr::GetRule(CCCHANNEL_RULE nChannelRule)
 {
-	map<MCHANNEL_RULE, MChannelRule*>::iterator itor = m_RuleTypeMap.find(nChannelRule);
+	map<CCCHANNEL_RULE, MChannelRule*>::iterator itor = m_RuleTypeMap.find(nChannelRule);
 	if (itor != m_RuleTypeMap.end())
 	{
 		return (*itor).second;
@@ -184,49 +184,49 @@ void MChannelRuleMgr::AddRule(MChannelRule* pRule)
 {
 	insert(value_type(pRule->GetName(), pRule));
 
-	if (!stricmp(MCHANNEL_RULE_NOVICE_STR, pRule->GetName()))
+	if (!stricmp(CCCHANNEL_RULE_NOVICE_STR, pRule->GetName()))
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_NOVICE, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_NOVICE, pRule));
 	}
-	else if (!stricmp(MCHANNEL_RULE_NEWBIE_STR, pRule->GetName()))
+	else if (!stricmp(CCCHANNEL_RULE_NEWBIE_STR, pRule->GetName()))
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_NEWBIE, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_NEWBIE, pRule));
 	}
-	else if (!stricmp(MCHANNEL_RULE_ROOKIE_STR, pRule->GetName()))
+	else if (!stricmp(CCCHANNEL_RULE_ROOKIE_STR, pRule->GetName()))
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_ROOKIE, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_ROOKIE, pRule));
 	}
-	else if (!stricmp(MCHANNEL_RULE_MASTERY_STR, pRule->GetName()))
+	else if (!stricmp(CCCHANNEL_RULE_MASTERY_STR, pRule->GetName()))
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_MASTERY, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_MASTERY, pRule));
 	}
-	else if (!stricmp(MCHANNEL_RULE_ELITE_STR, pRule->GetName()))
+	else if (!stricmp(CCCHANNEL_RULE_ELITE_STR, pRule->GetName()))
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_ELITE, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_ELITE, pRule));
 	}
-	else if( !stricmp(MCHANNEL_RULE_CHAMPION_STR, pRule->GetName()) )
+	else if( !stricmp(CCCHANNEL_RULE_CHAMPION_STR, pRule->GetName()) )
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_CHAMPION, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_CHAMPION, pRule));
 	}
-	else if( !stricmp(MCHANNEL_RULE_QUEST_STR, pRule->GetName()) )
+	else if( !stricmp(CCCHANNEL_RULE_QUEST_STR, pRule->GetName()) )
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_QUEST, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_QUEST, pRule));
 	}
-	else if( !stricmp(MCHANNEL_RULE_DUELTOURNAMENT_STR, pRule->GetName()) )
+	else if( !stricmp(CCCHANNEL_RULE_DUELTOURNAMENT_STR, pRule->GetName()) )
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_DUELTOURNAMENT, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_DUELTOURNAMENT, pRule));
 	}
-	else if( !stricmp(MCHANNEL_RULE_SET1_STR, pRule->GetName()) )
+	else if( !stricmp(CCCHANNEL_RULE_SET1_STR, pRule->GetName()) )
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_SET1, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_SET1, pRule));
 	}
-	else if( !stricmp(MCHANNEL_RULE_SET2_STR, pRule->GetName()) )
+	else if( !stricmp(CCCHANNEL_RULE_SET2_STR, pRule->GetName()) )
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_SET2, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_SET2, pRule));
 	}
-	else if( !stricmp(MCHANNEL_RULE_SET3_STR, pRule->GetName()) )
+	else if( !stricmp(CCCHANNEL_RULE_SET3_STR, pRule->GetName()) )
 	{
-		m_RuleTypeMap.insert(map<MCHANNEL_RULE, MChannelRule*>::value_type(MCHANNEL_RULE_SET3, pRule));
+		m_RuleTypeMap.insert(map<CCCHANNEL_RULE, MChannelRule*>::value_type(CCCHANNEL_RULE_SET3, pRule));
 	}
 	else
 	{
