@@ -133,7 +133,7 @@ public:
 	bool SellingSpendableItemToBounty(int nCID, int nCIID, int nSellItemID, int nSellItemCnt, int nSellPrice, int nCharBP);
 
 	// Quest Item관련.
-	bool UpdateQuestItem( int nCID, CCQuestItemMap& rfQuestIteMap, MQuestMonsterBible& rfQuestMonster );
+	bool UpdateQuestItem( int nCID, CCQuestItemMap& rfQuestIteMap, CCQuestMonsterBible& rfQuestMonster );
 	bool GetCharQuestItemInfo( CCMatchCharInfo* pCharInfo );
 	bool InsertQuestGameLog( const char* pszStageName, 
 		const int nScenarioID,
@@ -333,7 +333,7 @@ public:
 	bool UpdateDuelTournamentCharacterInfo(DWORD dwCID, char *szTimeStamp, CCMatchObjectDuelTournamentCharInfo *pDTCharInfo);
 	bool GetDuelTournamentPreviousCharacterInfo(DWORD dwCID, int *nPrevTP, int *nPrevWins, int *nPrevLoses, int *nPrevRanking, int *nPrevFinalWin);
 
-	bool InsertDuelTournamentGameLog(MDUELTOURNAMENTTYPE nDTType, int nMatchFactor, int nPlayer1CID, int nPlayer2CID, int nPlayer3CID, int nPlayer4CID, 
+	bool InsertDuelTournamentGameLog(CCDUELTOURNAMENTTYPE nDTType, int nMatchFactor, int nPlayer1CID, int nPlayer2CID, int nPlayer3CID, int nPlayer4CID, 
 		int nPlayer5CID, int nPlayer6CID, int nPlayer7CID, int nPlayer8CID, int *nOutNumber, char *szOutTimeStamp);
 
 	bool UpdateDuelTournamentGameLog(char* szTimeStamp, int nLogID, int nChampCID);	
@@ -344,8 +344,8 @@ public:
 	// -- AccountItem 관련 - Added and Modified By 홍기주
 
 	// 창고 아이템을 가져온다	
-	bool GetAccountItemInfo(const int nAID, MAccountItemNode* pOut, int* poutNodeCount, int nMaxNodeCount,
-		MAccountItemNode* pOutExpiredItemList, int* poutExpiredItemCount, int nMaxExpiredItemCount);			
+	bool GetAccountItemInfo(const int nAID, CCAccountItemNode* pOut, int* poutNodeCount, int nMaxNodeCount,
+		CCAccountItemNode* pOutExpiredItemList, int* poutExpiredItemCount, int nMaxExpiredItemCount);			
 
 	// 중앙은행에서 내 캐쉬 아이템 가져오기	
 	bool BringAccountItem(const int nAID, const int nCID, const int nAIID, unsigned long int* poutCIID, 
@@ -375,20 +375,20 @@ public:
 
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// -- zItem.xml과 데이터베이스 비교 관련 - Added By 홍기주
-	bool GetItemTable(map<int, MMatchItemDescForDatabase*>& ItemMapFromDatabase);
+	bool GetItemTable(map<int, CCMatchItemDescForDatabase*>& ItemMapFromDatabase);
 
 	// 2010. 08. 10 - Added By 홍기주
 	// 운영자 패널티 관련된 함수들
-	bool GetAccountPenaltyInfo( const unsigned long int nAID, MMatchAccountPenaltyInfo* poutAccountPenaltyMgr);
+	bool GetAccountPenaltyInfo( const unsigned long int nAID, CCMatchAccountPenaltyInfo* poutAccountPenaltyMgr);
 	bool InsertAccountPenaltyInfo( int nAID, int nPCode, int nPenaltyHour, char* szGMID );
 
 	
 	// 2011. 04. 19 - Added By 홍기주
-	bool GetBattletimeRewardList(vector<MMatchBRDescription*>& vBattletimeRewardDescription);
-	bool GetBattletimeRewardItemList(vector<MMatchBRItem*>& vBattletimeRewardItem);
+	bool GetBattletimeRewardList(vector<CCMatchBRDescription*>& vBattletimeRewardDescription);
+	bool GetBattletimeRewardItemList(vector<CCMatchBRItem*>& vBattletimeRewardItem);
 
-	bool GetCharBRInfoAll(int nCID, MMatchCharBattleTimeRewardInfoMap& BRInfoMap);
-	bool GetCharBRInfo(int nCID, int nBRID, MMatchCharBRInfo* poutInfo);
+	bool GetCharBRInfoAll(int nCID, CCMatchCharBattleTimeRewardInfoMap& BRInfoMap);
+	bool GetCharBRInfo(int nCID, int nBRID, CCMatchCharBRInfo* poutInfo);
 
 	bool InsertCharBRInfo(int nCID, int nBRID, int nBRTID);
 	bool UpdateCharBRInfo(int nCID, int nBRID, int nBRTID, int nRewardCount, int nBattleTime, int nKillCount);
