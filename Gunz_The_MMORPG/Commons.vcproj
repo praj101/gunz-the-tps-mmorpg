@@ -727,10 +727,6 @@
 		<Filter
 			Name="Game Specific"
 			>
-			<File
-				RelativePath=".\main.cpp"
-				>
-			</File>
 			<Filter
 				Name="Quest"
 				>
@@ -1294,6 +1290,14 @@
 					RelativePath=".\ZLoading.h"
 					>
 				</File>
+				<Filter
+					Name="Main"
+					>
+					<File
+						RelativePath=".\main.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<File
