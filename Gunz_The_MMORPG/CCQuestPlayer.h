@@ -1,6 +1,4 @@
-#ifndef _MQUEST_PLAYER_H
-#define _MQUEST_PLAYER_H
-
+#pragma once
 
 #include "CCMatchNPCObject.h"
 
@@ -14,17 +12,17 @@ struct RewardZItemInfo
 	int					nItemCnt;
 };
 
-class MQuestRewardZItemList : public list<RewardZItemInfo>
+class CCQuestRewardZItemList : public list<RewardZItemInfo>
 {
 };
 
 /// 퀘스트 룰에서 쓰이는 플레이 정보
-struct MQuestPlayerInfo
+struct CCQuestPlayerInfo
 {
 	// NPC Control 관련 /////////
-	MMatchObject*		pObject;					///< Object 정보
+	CCMatchObject*		pObject;					///< Object 정보
 	unsigned long int	nNPCControlCheckSum;		///< NPC 조종 체크섬
-	MMatchNPCObjectMap	NPCObjects;					///< 조종중인 NPC
+	CCMatchNPCObjectMap	NPCObjects;					///< 조종중인 NPC
 	bool				bEnableNPCControl;			///< NPC Control이 가능한지 여부
 
 	/// NPC 관리 점수
@@ -53,8 +51,8 @@ struct MQuestPlayerInfo
 	int						nBP;						///< 얻은 BP
 	int						nKilledNpcHpApAccum;		///< 플레이어가 죽인 NPC AP,HP총합
 
-	MQuestItemMap			RewardQuestItemMap;			///< 얻은 퀘스트 아이템
-	MQuestRewardZItemList	RewardZItemList;
+	CCQuestItemMap			RewardQuestItemMap;			///< 얻은 퀘스트 아이템
+	CCQuestRewardZItemList	RewardZItemList;
 
 
 	// Log관련 ////////////////// - by 추교성.
@@ -64,7 +62,7 @@ struct MQuestPlayerInfo
 	/// 초기화
 	/// @param pObj		플레이어 오브젝트 정보
 	/// @param a_nQL	플레이어 퀘스트 레벨
-	void Init(MMatchObject* pObj, int a_nQL)
+	void Init(CCMatchObject* pObj, int a_nQL)
 	{
 		pObject = pObj;
 		bEnableNPCControl = true;
@@ -85,26 +83,24 @@ struct MQuestPlayerInfo
 	}
 
 	/// 생성자
-	MQuestPlayerInfo() : nXP(0), nBP(0), nKilledNpcHpApAccum(0)
+	CCQuestPlayerInfo() : nXP(0), nBP(0), nKilledNpcHpApAccum(0)
 	{
 		
 	}
 };
 
 /// 퀘스트룰의 플레이어 오브젝트 관리자
-class MQuestPlayerManager : public map<CCUID, MQuestPlayerInfo*>
+class CCQuestPlayerManager : public map<CCUID, CCQuestPlayerInfo*>
 {
 private:
-	MMatchStage* m_pStage;
+	CCMatchStage* m_pStage;
 	void AddPlayer(CCUID& uidPlayer);
 public:
-	MQuestPlayerManager();										///< 생성자
+	CCQuestPlayerManager();										///< 생성자
 	~MQuestPlayerManager();										///< 소멸자
 	void Create(MMatchStage* pStage);							///< 초기화
 	void Destroy();												///< 해제
 	void DelPlayer(CCUID& uidPlayer);							///< 플레이어 삭제
 	void Clear();												///< 초기화
-	MQuestPlayerInfo* GetPlayerInfo(const CCUID& uidPlayer);		///< 플레이어 정보 반환
+	CCQuestPlayerInfo* GetPlayerInfo(const CCUID& uidPlayer);		///< 플레이어 정보 반환
 };
-
-#endif
