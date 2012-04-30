@@ -12,19 +12,19 @@ using namespace std;
 
 
 //// PageArray 에 삽입되는 데이터에 Index를 기억하는 용도로 사용.
-class MPageArrayCursor {
+class CCPageArrayCursor {
 protected:
 	int		m_nIndex;
 public:
-	MPageArrayCursor(int nIndex)	{ m_nIndex = nIndex; }
-	virtual ~MPageArrayCursor();
+	CCPageArrayCursor(int nIndex)	{ m_nIndex = nIndex; }
+	virtual ~CCPageArrayCursor();
 	int GetIndex()					{ return m_nIndex; }
 	void SetIndex(int nIndex)		{ m_nIndex = nIndex; }
 };
 
 
 template<class T>
-class MPageArray {
+class CCPageArray {
 //protected:
 public:
 	int				m_nPageSize;
@@ -33,12 +33,12 @@ public:
 	priority_queue< int,vector<int>,greater<int> >	m_UnusedQueue;
 
 public:
-	MPageArray() 
+	CCPageArray() 
 	{
 		m_nPageSize = 0;
 		SetMaxIndex(-1);
 	}
-	virtual ~MPageArray()
+	virtual ~CCPageArray()
 	{
 		m_Array.clear();
 	}
@@ -69,7 +69,7 @@ public:
 	void SetMaxIndex(int nIndex)	{ m_nMaxIndex = nIndex; }
 	int GetPageSize()				{ return m_nPageSize; }
 
-	void Set(int i, T pData, MPageArrayCursor* pCursor=NULL)
+	void Set(int i, T pData, CCPageArrayCursor* pCursor=NULL)
 	{
 		_ASSERT(GetMaxIndex() >= i);
 		_ASSERT((size_t)i<m_Array.capacity());
@@ -93,14 +93,14 @@ public:
 		return m_Array[nIndex];
 	}
 
-	void Add(T pData, MPageArrayCursor* pCursor=NULL)
+	void Add(T pData, CCPageArrayCursor* pCursor=NULL)
 	{
 		int nFreeSlot = m_UnusedQueue.top();
 		m_UnusedQueue.pop();
 
 		Set(nFreeSlot, pData, pCursor);
 	}
-	void Remove(int i, MPageArrayCursor* pCursor=NULL)
+	void Remove(int i, CCPageArrayCursor* pCursor=NULL)
 	{
 		m_Array[i] = NULL;
 		m_UnusedQueue.push(i);
