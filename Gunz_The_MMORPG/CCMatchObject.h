@@ -1,5 +1,4 @@
-#ifndef MMATCHOBJECT_H
-#define MMATCHOBJECT_H
+#pragma once
 
 #include <vector>
 #include <map>
@@ -418,7 +417,7 @@ public :
 
 	const bool IsDisconnectable( const DWORD dwTime = timeGetTime() )
 	{
-		if( (MMDS_DISCONNECT == GetStatus()) && (MINTERVAL_DISCONNECT_STATUS_MIN < (dwTime - m_dwDisconnSetTime)) )
+		if( (CCMDS_DISCONNECT == GetStatus()) && (CCINTERVAL_DISCONNECT_STATUS_MIN < (dwTime - m_dwDisconnSetTime)) )
 			return true;
 		return false;
 	}
@@ -426,10 +425,10 @@ public :
 	void SetStatus( const CCMatchDisconnectStatus Status )	
 	{
 		m_DisconnStatus = Status; 
-		if( MMDS_DISCONN_WAIT == Status )
+		if( CCMDS_DISCONN_WAIT == Status )
 			SendDisconnMsgPrepared();
 
-		if( MMDS_DISCONNECT == Status )
+		if( CCMDS_DISCONNECT == Status )
 			m_dwDisconnSetTime = (timeGetTime() - 2000);
 		
 	}
@@ -445,8 +444,8 @@ public :
 	{
 		if( (dwTime - GetLastUpdatedTime()) > MINTERVAL_DISCONNECT_STATUS_MIN ) 
 		{
-			if( MMDS_DISCONN_WAIT == GetStatus() ) {
-				SetStatus( MMDS_DISCONNECT );		
+			if( CCMDS_DISCONN_WAIT == GetStatus() ) {
+				SetStatus( CCMDS_DISCONNECT );		
 			}
 			
 			SetUpdateTime( dwTime );
@@ -972,12 +971,12 @@ public:
 // 	void SetInvalidStageSettingDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
 
 public:
-	enum MMO_ACTION
+	enum CCMO_ACTION
 	{
-		MMOA_STAGE_FOLLOW,
-		MMOA_MAX
+		CCMOA_STAGE_FOLLOW,
+		CCMOA_MAX
 	};
-	bool CheckEnableAction(MMO_ACTION nAction);		// 해당 액션이 가능한지 여부 - 필요할때마다 추가한다.
+	bool CheckEnableAction(CCMO_ACTION nAction);		// 해당 액션이 가능한지 여부 - 필요할때마다 추가한다.
 
 	bool m_bQuestRecvPong;
 	DWORD m_dwHShieldCheckCount;
@@ -1203,5 +1202,3 @@ void CCMatchObject::SetPingTime(unsigned long int t)
 {
 	m_nLastPingTime = t;
 }
-
-#endif
