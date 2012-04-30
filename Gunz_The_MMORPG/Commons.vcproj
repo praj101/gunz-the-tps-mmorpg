@@ -230,6 +230,10 @@
 				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
+				<File
+					RelativePath=".\ZChat.cpp"
+					>
+				</File>
 				<Filter
 					Name="Widgets"
 					>
@@ -1280,6 +1284,22 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="Testing"
+			>
+			<Filter
+				Name="Loading Screen"
+				>
+				<File
+					RelativePath=".\ZLoading.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ZLoading.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
 		<File
 			RelativePath=".\CCAgentObject.cpp"
 			>
@@ -2090,6 +2110,14 @@
 		</File>
 		<File
 			RelativePath=".\TestCRC32XORCache.h"
+			>
+		</File>
+		<File
+			RelativePath=".\ZChat.h"
+			>
+		</File>
+		<File
+			RelativePath=".\ZChat_CmdID.h"
 			>
 		</File>
 	</Files>
