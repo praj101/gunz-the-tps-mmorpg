@@ -1,11 +1,11 @@
 #pragma once
-#include "MMatchRule.h"
-#include "MMatchRuleBaseQuest.h"
-#include "MMatchNPCObject.h"
-#include "MMatchQuestRound.h"
+#include "CCMatchRule.h"
+#include "CCMatchRuleBaseQuest.h"
+#include "CCMatchNPCObject.h"
+#include "CCMatchQuestRound.h"
 #include "MSacrificeQItemTable.h"
 #include "CCQuestItem.h"
-#include "MMatchSurvivalGameLog.h"
+#include "CCMatchSurvivalGameLog.h"
 #include "MQuestNPCSpawnTrigger.h"
 #include "CCBaseGameType.h"
 
@@ -15,7 +15,7 @@
 class MQuestLevel;
 
 /// 서바이벌 룰 클래스
-class MMatchRuleSurvival : public MMatchRuleBaseQuest {
+class CCMatchRuleSurvival : public CCMatchRuleBaseQuest {
 
 	typedef pair< CCUID, unsigned long int > SacrificeSlot;	// <아이템을 올려놓은 유저의 UID, 올려놓은 아이템의 ItemID.>
 
@@ -104,7 +104,7 @@ private:
 	MQuestSacrificeSlot				m_SacrificeSlot[ MAX_SACRIFICE_SLOT_COUNT ];
 	//int								m_iScenarioState;
 	int								m_nPlayerCount;
-	MMatchSurvivalGameLogInfoManager	m_SurvivalGameLogInfoMgr;
+	CCMatchSurvivalGameLogInfoManager	m_SurvivalGameLogInfoMgr;
 
 	MQuestStageGameInfo				m_StageGameInfo;	///< 대기방에서 필요한 현재 스테이지의 방정보
 
@@ -158,7 +158,7 @@ protected:
 	/// 퀘스트 레벨 생성
 	bool MakeQuestLevel();
 	/// 섹터 전투 처리 작업
-	/// - 나중에 일련의 Combat 상태 관리는 Survival만들때 MMatchRuleBaseQuest로 옮겨져야 한다.
+	/// - 나중에 일련의 Combat 상태 관리는 Survival만들때 CCMatchRuleBaseQuest로 옮겨져야 한다.
 	void CombatProcess();
 	/// 다음 섹터로 이동
 	void MoveToNextSector();			
@@ -199,8 +199,8 @@ protected:
 	virtual void OnCommand(MCommand* pCommand);			///< 퀘스트에서만 사용하는 커맨드 처리
 	virtual bool OnCheckRoundFinish();					///< 라운드가 끝났는지 체크
 public:
-	MMatchRuleSurvival(CCMatchStage* pStage);				///< 생성자
-	virtual ~MMatchRuleSurvival();							///< 소멸자
+	CCMatchRuleSurvival(CCMatchStage* pStage);				///< 생성자
+	virtual ~CCMatchRuleSurvival();							///< 소멸자
 
 	virtual void RefreshStageGameInfo();
 

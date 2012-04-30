@@ -30,7 +30,7 @@ void ZNetAgreementBuilder::Clear()
 	m_bProposingNow = false;
 }
 
-bool ZNetAgreementBuilder::Proposal(MMatchProposalMode nProposalMode, int nRequestID, char** ppReplierNames, int nReplierCount)
+bool ZNetAgreementBuilder::Proposal(CCMatchProposalMode nProposalMode, int nRequestID, char** ppReplierNames, int nReplierCount)
 {
 	if (m_bProposingNow)
 	{
@@ -59,7 +59,7 @@ void ZNetAgreementBuilder::CancelProposal()
 }
 
 ZNetAgreementBuilder::_BuildReplyResult ZNetAgreementBuilder::BuildReply(const char* szReplierName, 
-																		 const MMatchProposalMode nProposalMode, 
+																		 const CCMatchProposalMode nProposalMode, 
 																		 int nRequestID, bool bAgreement)
 {
 	if (nRequestID != m_nRequestID) return BRR_WRONG_REPLY;

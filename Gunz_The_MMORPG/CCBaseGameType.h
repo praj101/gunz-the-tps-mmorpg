@@ -30,7 +30,7 @@ enum MMATCH_GAMETYPE {
 	MMATCH_GAMETYPE_MAX,
 };
 // 모드가 추가되면 리플레이 저장용 모드 약어도 추가해야 한다 (cpp)
-extern const char* MMatchGameTypeAcronym[MMATCH_GAMETYPE_MAX];
+extern const char* CCMatchGameTypeAcronym[MMATCH_GAMETYPE_MAX];
 
 #define		MAX_RELAYMAP_LIST_COUNT			20
 struct RelayMap
@@ -62,7 +62,7 @@ const MMATCH_GAMETYPE MMATCH_GAMETYPE_DEFAULT = MMATCH_GAMETYPE_DEATHMATCH_SOLO;
 // const MMATCH_GAMETYPE MMATCH_GAMETYPE_DEFAULT = MMATCH_GAMETYPE_DEATHMATCH_TEAM2;
 
 
-struct MMatchGameTypeInfo
+struct CCMatchGameTypeInfo
 {
 	MMATCH_GAMETYPE		nGameTypeID;			// ID
 	char				szGameTypeStr[24];		// 게임 타입 이름
@@ -80,12 +80,12 @@ struct MMatchGameTypeInfo
 class MBaseGameTypeCatalogue
 {
 private:
-	MMatchGameTypeInfo			m_GameTypeInfo[MMATCH_GAMETYPE_MAX];
+	CCMatchGameTypeInfo			m_GameTypeInfo[MMATCH_GAMETYPE_MAX];
 public:
 	MBaseGameTypeCatalogue();
 	virtual ~MBaseGameTypeCatalogue();
 
-	inline MMatchGameTypeInfo* GetInfo(MMATCH_GAMETYPE nGameType);
+	inline CCMatchGameTypeInfo* GetInfo(MMATCH_GAMETYPE nGameType);
 	inline const char* GetGameTypeStr(MMATCH_GAMETYPE nGameType);
 	inline void SetGameTypeStr(MMATCH_GAMETYPE nGameType, const char* szName);
 	inline bool IsCorrectGameType(const int nGameTypeID);	///< 올바른 게임 타입 ID인지 여부
@@ -180,7 +180,7 @@ bool MBaseGameTypeCatalogue::IsCorrectGameType(const int nGameTypeID)
 	return true;
 }
 
-inline MMatchGameTypeInfo* MBaseGameTypeCatalogue::GetInfo(MMATCH_GAMETYPE nGameType)
+inline CCMatchGameTypeInfo* MBaseGameTypeCatalogue::GetInfo(MMATCH_GAMETYPE nGameType)
 {
 	_ASSERT((nGameType >= 0) && (nGameType < MMATCH_GAMETYPE_MAX));
 	return &m_GameTypeInfo[nGameType];

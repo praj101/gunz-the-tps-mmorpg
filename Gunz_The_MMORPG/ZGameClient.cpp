@@ -12,13 +12,13 @@
 #include "ZInterface.h"
 #include "ZApplication.h"
 #include "ZGameInterface.h"
-#include "MMatchGlobal.h"
-#include "MMatchChannel.h"
-#include "MMatchStage.h"
+#include "CCMatchGlobal.h"
+#include "CCMatchChannel.h"
+#include "CCMatchStage.h"
 #include "ZCommandTable.h"
 #include "ZPost.h"
 #include "ZPostLocal.h"
-#include "MMatchNotify.h"
+#include "CCMatchNotify.h"
 #include "ZMatch.h"
 #include "MComboBox.h"
 #include "MTextArea.h"
@@ -66,7 +66,7 @@
 
 
 
-bool GetUserGradeIDColor(MMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name);
+bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name);
 
 MCommand* ZNewCmd(int nID)
 {
@@ -86,14 +86,14 @@ MCommand* ZNewCmd(int nID)
 }
 
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid)
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid)
 {
 	if( ZGetGameClient() == NULL)
 		return false;
 
-//	MMatchUserGradeID gid = MMUG_FREE;
+//	CCMatchUserGradeID gid = MMUG_FREE;
 
-	MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(uid);
+	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(uid);
 
 	if(pObjCache) {
 		gid = pObjCache->GetUGrade();
@@ -221,7 +221,7 @@ bool ZPostCommand(MCommand* pCmd)
 	return true;
 }
 
-ZGameClient::ZGameClient() : MMatchClient() , m_pUPnP(NULL)
+ZGameClient::ZGameClient() : CCMatchClient() , m_pUPnP(NULL)
 {
 	m_pUPnP = new UPnP;
 
@@ -308,7 +308,7 @@ void ZGameClient::PriorityBoost(bool bBoost)
 
 void ZGameClient::OnRegisterCommand(MCommandManager* pCommandManager)
 {
-	MMatchClient::OnRegisterCommand(pCommandManager);
+	CCMatchClient::OnRegisterCommand(pCommandManager);
 	ZAddCommandTable(pCommandManager);
 }
 
@@ -320,11 +320,11 @@ void ZGameClient::OnPrepareCommand(MCommand* pCommand)
 
 }
 
-int ZGameClient::OnResponseMatchLogin(const CCUID& uidServer, int nResult, const char* szServerName, const MMatchServerMode nServerMode,
-									  const char* szAccountID, const MMatchUserGradeID nUGradeID, const MMatchPremiumGradeID nPGradeID,
+int ZGameClient::OnResponseMatchLogin(const CCUID& uidServer, int nResult, const char* szServerName, const CCMatchServerMode nServerMode,
+									  const char* szAccountID, const CCMatchUserGradeID nUGradeID, const CCMatchPremiumGradeID nPGradeID,
 									  const CCUID& uidPlayer, bool bEnabledSurvivalMode, bool bEnabledDuelTournament, unsigned char* pbyGuidReqMsg)
 {
-	int nRet = MMatchClient::OnResponseMatchLogin(uidServer, nResult, szServerName, nServerMode,
+	int nRet = CCMatchClient::OnResponseMatchLogin(uidServer, nResult, szServerName, nServerMode,
 												  szAccountID, nUGradeID, nPGradeID, uidPlayer, bEnabledSurvivalMode, bEnabledDuelTournament, pbyGuidReqMsg);
 
 	ZGetMyInfo()->InitAccountInfo(szAccountID, nUGradeID, nPGradeID);
@@ -411,7 +411,7 @@ void ZGameClient::OnBridgePeerACK(const CCUID& uidChar, int nCode)
 
 void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 {
-	MMatchClient::OnObjectCache(nType, pBlob, nCount);
+	CCMatchClient::OnObjectCache(nType, pBlob, nCount);
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	ZPlayerListBox* pList = (ZPlayerListBox*)pResource->FindWidget("StagePlayerList_");
@@ -425,7 +425,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			pList->RemoveAll();
 			ZGetPlayerManager()->Clear();
 			for(int i=0; i<nCount; i++){
-				MMatchObjCache* pCache = (MMatchObjCache*)MGetBlobArrayElement(pBlob, i);
+				CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
 				if (pCache->CheckFlag(MTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
 					pList->AddPlayer(pCache->GetUID(),MOSS_NONREADY,pCache->GetLevel(),
 									pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,MMT_ALL, pCache->GetDTGrade());
@@ -443,7 +443,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			}
 		} else if (nType == MATCHCACHEMODE_ADD) {
 			for(int i=0; i<nCount; i++){
-				MMatchObjCache* pCache = (MMatchObjCache*)MGetBlobArrayElement(pBlob, i);
+				CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
 				if (pCache->CheckFlag(MTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
 					pList->AddPlayer(pCache->GetUID(),MOSS_NONREADY,pCache->GetLevel(),
 									 pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,MMT_ALL, pCache->GetDTGrade());
@@ -461,7 +461,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			}
 		} else if (nType == MATCHCACHEMODE_REMOVE) {
 			for(int i=0; i<nCount; i++){
-				MMatchObjCache* pCache = (MMatchObjCache*)MGetBlobArrayElement(pBlob, i);
+				CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
 				pList->DelPlayer(pCache->GetUID());
 
 				ZGetPlayerManager()->RemovePlayer( pCache->GetUID());
@@ -585,10 +585,10 @@ void ZGameClient::OnChannelChat(const CCUID& uidChannel, char* szName, char* szC
 	if ((szChat[0]==0) || (szName[0] == 0))	return;
 
 //	CCUID uid = GetObject(szName);
-//	MMatchObjectCache* pObjCache = FindObjCache(uid);
+//	CCMatchObjectCache* pObjCache = FindObjCache(uid);
 	MCOLOR _color = MCOLOR(0,0,0);
 
-	MMatchUserGradeID gid = (MMatchUserGradeID) nGrade;
+	CCMatchUserGradeID gid = (CCMatchUserGradeID) nGrade;
 //	gid = MMUG_DEVELOPER;
 
 	char sp_name[256];
@@ -752,7 +752,7 @@ void ZGameClient::OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsig
 	{
 		char sp_name[256];
 		MCOLOR _color;
-		MMatchUserGradeID gid = MMUG_FREE;
+		CCMatchUserGradeID gid = MMUG_FREE;
 
 		char name[ 32];
 		char kill[ 32];
@@ -775,7 +775,7 @@ void ZGameClient::OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsig
 
 		if(GetUserInfoUID(uidChar,_color,sp_name,gid))
 		{
-			MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(uidChar);
+			CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(uidChar);
 			if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide))
 				return;	// Skip on AdminHide
 
@@ -873,7 +873,7 @@ void ZGameClient::OnStageMap(const CCUID& uidStage, char* szMapName, bool bIsRel
 
 void ZGameClient::OnStageTeam(const CCUID& uidChar, const CCUID& uidStage, unsigned int nTeam)
 {
-	MMatchObjectStageState nStageState = MOSS_NONREADY;
+	CCMatchObjectStageState nStageState = MOSS_NONREADY;
 	MSTAGE_CHAR_SETTING_NODE* pCharNode = m_MatchStageSetting.FindCharSetting(uidChar);
 	if (pCharNode) 
 	{
@@ -884,7 +884,7 @@ void ZGameClient::OnStageTeam(const CCUID& uidChar, const CCUID& uidStage, unsig
 	ZApplication::GetGameInterface()->SerializeStageInterface();
 }
 
-void ZGameClient::OnStagePlayerState(const CCUID& uidChar, const CCUID& uidStage, MMatchObjectStageState nStageState)
+void ZGameClient::OnStagePlayerState(const CCUID& uidChar, const CCUID& uidStage, CCMatchObjectStageState nStageState)
 {
 	int nTeam = MMT_SPECTATOR;
 	MSTAGE_CHAR_SETTING_NODE* pCharNode = m_MatchStageSetting.FindCharSetting(uidChar);
@@ -906,7 +906,7 @@ void ZGameClient::OnStagePlayerState(const CCUID& uidChar, const CCUID& uidStage
 void ZGameClient::OnStageMaster(const CCUID& uidStage, const CCUID& uidChar)
 {
 	int nTeam = MMT_SPECTATOR;
-	MMatchObjectStageState nStageState = MOSS_NONREADY;
+	CCMatchObjectStageState nStageState = MOSS_NONREADY;
 	MSTAGE_CHAR_SETTING_NODE* pCharNode = m_MatchStageSetting.FindCharSetting(uidChar);
 	if (pCharNode) 
 	{
@@ -936,9 +936,9 @@ void ZGameClient::OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char*
 
 	MCOLOR _color = MCOLOR(0,0,0);
 
-	MMatchUserGradeID gid = MMUG_FREE;
+	CCMatchUserGradeID gid = MMUG_FREE;
 
-	MMatchObjCache* pObjCache = FindObjCache(uidChar);
+	CCMatchObjCache* pObjCache = FindObjCache(uidChar);
 
 	if(pObjCache) {
 		gid = pObjCache->GetUGrade();
@@ -1166,7 +1166,7 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 				}
 
 				pPlayerListBox->AddPlayer(pNode->uidPlayer, state, pNode->nLevel, pNode->szName, pNode->szClanName, pNode->nCLID, 
-					(MMatchUserGradeID)pNode->nGrade, pNode->nDTLastWeekGrade);
+					(CCMatchUserGradeID)pNode->nGrade, pNode->nDTLastWeekGrade);
 			}
 		}
 	}
@@ -1361,7 +1361,7 @@ int ZGameClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, u
 {
 	mlog("Server Connected\n");
 
-	int ret = MMatchClient::OnConnected(sock, pTargetUID, pAllocUID, nTimeStamp);
+	int ret = CCMatchClient::OnConnected(sock, pTargetUID, pAllocUID, nTimeStamp);
 
 	if (sock == m_ClientSocket.GetSocket()) {
 		if ( (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_NETMARBLE) ||
@@ -1444,7 +1444,7 @@ void ZGameClient::GetEncryptMD5HashValue(char* szEncryptMD5Value)							// updat
 bool ZGameClient::OnSockConnect(SOCKET sock)
 {
 	ZPOSTCMD0(MC_NET_ONCONNECT);
-	return MMatchClient::OnSockConnect(sock);
+	return CCMatchClient::OnSockConnect(sock);
 }
 
 bool ZGameClient::OnSockDisconnect(SOCKET sock)
@@ -1474,7 +1474,7 @@ bool ZGameClient::OnSockDisconnect(SOCKET sock)
 
 void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &ErrorCode)
 {
-	MMatchClient::OnSockError(sock, ErrorEvent, ErrorCode);
+	CCMatchClient::OnSockError(sock, ErrorEvent, ErrorCode);
 
 	ZPOSTCMD1(MC_NET_ONERROR, MCmdParamInt(ErrorCode));
 
@@ -1582,9 +1582,9 @@ void ZGameClient::Tick(void)
 		if (nClock - nUDPTestTimer > CLOCK_UDPTEST) {
 			nUDPTestTimer = nClock;
 
-			MMatchPeerInfoList* PeerList = GetPeers();
-			for (MMatchPeerInfoList::iterator i=PeerList->begin(); i!= PeerList->end(); i++) {
-				MMatchPeerInfo* pPeer = (*i).second;
+			CCMatchPeerInfoList* PeerList = GetPeers();
+			for (CCMatchPeerInfoList::iterator i=PeerList->begin(); i!= PeerList->end(); i++) {
+				CCMatchPeerInfo* pPeer = (*i).second;
 				if (pPeer->GetProcess()) {
 					MCommand* pCmd = CreateCommand(MC_PEER_UDPTEST, pPeer->uidChar);
 					SendCommandByUDP(pCmd, pPeer->szIP, pPeer->nPort);
@@ -1642,9 +1642,9 @@ void ZGameClient::OnBirdTest()
 	
 
 	int nCount = (int)m_ObjCacheMap.size();
-	for (MMatchObjCacheMap::iterator itor = m_ObjCacheMap.begin(); itor != m_ObjCacheMap.end(); ++itor)
+	for (CCMatchObjCacheMap::iterator itor = m_ObjCacheMap.begin(); itor != m_ObjCacheMap.end(); ++itor)
 	{
-		MMatchObjCache* pObj = (*itor).second;
+		CCMatchObjCache* pObj = (*itor).second;
 		strcat(szList, pObj->GetName());
 		strcat(szList, ", ");
 	}
@@ -1696,7 +1696,7 @@ void ZGameClient::OnResponsePeerRelay(const CCUID& uidPeer)
 	NotifyMessage(MATCHNOTIFY_NETWORK_NAT_ESTABLISH, &strNotify);
 
 	char* pszName = "UnknownPlayer";
-	MMatchPeerInfo* pPeer = FindPeer(uidPeer);
+	CCMatchPeerInfo* pPeer = FindPeer(uidPeer);
 	if (pPeer) pszName = pPeer->CharInfo.szName;
 
 	char szMsg[128];
@@ -2102,7 +2102,7 @@ int ZGameClient::ValidateRequestDeleteChar()
 	// 캐쉬아이템이 있으면 삭제할 수 없다
 	for (int i = 0; i < MMCIP_END; i++)
 	{
-		MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pCharInfo->nEquipedItemDesc[i]);
+		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pCharInfo->nEquipedItemDesc[i]);
 		if (pItemDesc)
 		{
 			if (pItemDesc->IsCashItem()) return MSG_CANNOT_DELETE_CHAR_FOR_CASHITEM;
@@ -2201,7 +2201,7 @@ void ZGameClient::OnResponseCharInfoDetail(void* pBlob)
 	blog("^9%s", ZMsg( MSG_CHARINFO_TITLE));
 	blog("^9%s : ^1%s^9(%s)",   ZMsg( MSG_CHARINFO_NAME),
 								pCharInfoDetail->szName,
-								ZGetSexStr(MMatchSex(pCharInfoDetail->nSex), true));
+								ZGetSexStr(CCMatchSex(pCharInfoDetail->nSex), true));
 	char sztemp[256];
 	if ( strcmp( pCharInfoDetail->szClanName, "") == 0)
 		strcpy( sztemp, "---");
@@ -2223,7 +2223,7 @@ void ZGameClient::OnResponseCharInfoDetail(void* pBlob)
 //	blog("이름: %s", pCharInfoDetail->szName);
 //	blog("클랜: %s", pCharInfoDetail->szClanName);
 //	blog("클랜직책: %s", ZGetClanGradeStr(pCharInfoDetail->nClanGrade));
-//	blog("성별: %s", ZGetSexStr(MMatchSex(pCharInfoDetail->nSex), true));
+//	blog("성별: %s", ZGetSexStr(CCMatchSex(pCharInfoDetail->nSex), true));
 //	blog("레벨: %d", pCharInfoDetail->nLevel);
 //	blog("경험치: %d", pCharInfoDetail->nXP);
 //	blog("바운티: %d", pCharInfoDetail->nBP);
@@ -2369,7 +2369,7 @@ void ZGameClient::OnExpiredRentItem(void* pBlob)
 
 		char szItemText[256];
 
-		MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(*pExpiredItemID);
+		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(*pExpiredItemID);
 		if (pItemDesc)
 		{
 			sprintf(szItemText, "[%d] %s\n", i+1, pItemDesc->m_pMItemName->Ref().m_szItemName);
@@ -2489,7 +2489,7 @@ void ZGameClient::OnRecieveGambleItem( unsigned int nRecvItem, unsigned int nCnt
 	char szText[ 256];
 	char szName[ 256];
 	
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( nRecvItem);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( nRecvItem);
 	if ( pItemDesc)
 	{
 		sprintf(szName, "%s (x%d)", pItemDesc->m_pMItemName->Ref().m_szItemName, nCnt);
@@ -2510,13 +2510,13 @@ void ZGameClient::OnRecieveGambleItem( unsigned int nRecvItem, unsigned int nCnt
 
 void ZGameClient::OnResponseUpdateStageEquipLook( const CCUID& uidPlayer, const int nParts, const int nItemID )
 {
-	MMatchObjCacheMap::iterator itFind = m_ObjCacheMap.find( uidPlayer );
+	CCMatchObjCacheMap::iterator itFind = m_ObjCacheMap.find( uidPlayer );
 	if( m_ObjCacheMap.end() == itFind )
 	{
 		return;
 	}
 
-	MMatchObjCache* pObjCache = itFind->second;
+	CCMatchObjCache* pObjCache = itFind->second;
 
 	pObjCache->GetCostume()->nEquipedItemID[ nParts ] = nItemID;
 

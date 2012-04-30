@@ -218,13 +218,13 @@ ZWorldItem *ZWorldItemManager::AddWorldItem( int nID, short nItemID,MTD_WorldIte
 	WIL_Iterator iterItem = mItemList.find( nID );
 	if( iterItem == mItemList.end() )
 	{
-		map<short, MMatchWorldItemDesc*>::iterator iter = MGetMatchWorldItemDescMgr()->find( nItemID );
+		map<short, CCMatchWorldItemDesc*>::iterator iter = MGetMatchWorldItemDescMgr()->find( nItemID );
 		if( iter == MGetMatchWorldItemDescMgr()->end() ) 
 		{
 			// mlog("추가하려는 월드아이템이 정의 되지 않은 이름입니다\n" );
 			return NULL;
 		}
-		MMatchWorldItemDesc* pDesc = iter->second;
+		CCMatchWorldItemDesc* pDesc = iter->second;
 
 		unsigned long int nSpawnTypeFlags = WORLD_ITEM_TIME_ONCE;
 		if (pDesc->m_nItemType == WIT_CLIENT) 
@@ -579,12 +579,12 @@ ZWorldItemManager* ZGetWorldItemManager()
 }
 
 
-int ZWorldItemManager::GetLinkedWorldItemID(MMatchItemDesc* pItemDesc)
+int ZWorldItemManager::GetLinkedWorldItemID(CCMatchItemDesc* pItemDesc)
 {
-	for (map<short, MMatchWorldItemDesc*>::iterator itor = MGetMatchWorldItemDescMgr()->begin();
+	for (map<short, CCMatchWorldItemDesc*>::iterator itor = MGetMatchWorldItemDescMgr()->begin();
 		itor != MGetMatchWorldItemDescMgr()->end(); ++itor)
 	{
-		MMatchWorldItemDesc* pWorldItemDesc = itor->second;
+		CCMatchWorldItemDesc* pWorldItemDesc = itor->second;
 
 		// worlditem.xml의 모델이름과 zitem.xml의 메쉬이름이 같아야만 된다.
 		if(strcmp(pItemDesc->m_pMItemName->Ref().m_szMeshName, pWorldItemDesc->m_szModelName)==0)

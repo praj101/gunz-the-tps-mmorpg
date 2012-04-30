@@ -7,7 +7,7 @@
 #include "ZApplication.h"
 
 
-const char* ZGetSexStr(MMatchSex nSex, bool bShort)
+const char* ZGetSexStr(CCMatchSex nSex, bool bShort)
 {
 	if (bShort)
 	{

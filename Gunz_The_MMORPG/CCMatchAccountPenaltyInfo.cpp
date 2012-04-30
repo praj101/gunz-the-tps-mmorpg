@@ -1,23 +1,23 @@
 #include "stdafx.h"
 #include "CCMatchAccountPenaltyInfo.h"
 
-MMatchAccountPenaltyInfo::MMatchAccountPenaltyInfo(void)
+CCMatchAccountPenaltyInfo::CCMatchAccountPenaltyInfo(void)
 {
 	for(int i = 0; i < MPC_MAX; i++) {
 		ClearPenaltyInfo((MPenaltyCode)i);
 	}	
 }
 
-MMatchAccountPenaltyInfo::~MMatchAccountPenaltyInfo(void)
+CCMatchAccountPenaltyInfo::~CCMatchAccountPenaltyInfo(void)
 {
 }
 
-void MMatchAccountPenaltyInfo::ClearPenaltyInfo(MPenaltyCode nCode)
+void CCMatchAccountPenaltyInfo::ClearPenaltyInfo(MPenaltyCode nCode)
 {
 	memset(&m_PenaltyTable[(int)nCode], 0, sizeof(MPenaltyInfo));
 }
 
-void MMatchAccountPenaltyInfo::SetPenaltyInfo(MPenaltyCode nCode, int nPenaltyHour)
+void CCMatchAccountPenaltyInfo::SetPenaltyInfo(MPenaltyCode nCode, int nPenaltyHour)
 {
 	if( nCode <= MPC_NONE || nCode >= MPC_MAX ) {
 		_ASSERT(0);
@@ -27,7 +27,7 @@ void MMatchAccountPenaltyInfo::SetPenaltyInfo(MPenaltyCode nCode, int nPenaltyHo
 	SetPenaltyInfo(nCode, GetPenaltyEndDate(nPenaltyHour));
 }
 
-void MMatchAccountPenaltyInfo::SetPenaltyInfo(MPenaltyCode nCode, SYSTEMTIME sysPenaltyEndDate)
+void CCMatchAccountPenaltyInfo::SetPenaltyInfo(MPenaltyCode nCode, SYSTEMTIME sysPenaltyEndDate)
 {
 	if( nCode <= MPC_NONE || nCode >= MPC_MAX ) {
 		_ASSERT(0);
@@ -38,7 +38,7 @@ void MMatchAccountPenaltyInfo::SetPenaltyInfo(MPenaltyCode nCode, SYSTEMTIME sys
 	m_PenaltyTable[nCode].sysPenaltyEndDate	= sysPenaltyEndDate;
 }
 
-SYSTEMTIME MMatchAccountPenaltyInfo::GetPenaltyEndDate(int nPenaltyHour)
+SYSTEMTIME CCMatchAccountPenaltyInfo::GetPenaltyEndDate(int nPenaltyHour)
 { 
 #define IN_HOUR		(__int64)10000000*60*60
 #define IN_MINUTE	(__int64)10000000*60
@@ -58,7 +58,7 @@ SYSTEMTIME MMatchAccountPenaltyInfo::GetPenaltyEndDate(int nPenaltyHour)
 	return sysTime;
 }
 
-bool MMatchAccountPenaltyInfo::IsBlock(MPenaltyCode nCode)
+bool CCMatchAccountPenaltyInfo::IsBlock(MPenaltyCode nCode)
 {
 	if( nCode <= MPC_NONE || nCode >= MPC_MAX ) {
 		_ASSERT(0);

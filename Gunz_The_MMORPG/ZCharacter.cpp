@@ -16,7 +16,7 @@
 #include "ZScreenEffectManager.h"
 #include "RDynamicLight.h"
 #include "ZConfiguration.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "RCollisionDetection.h"
 #include "ZEffectStaticMesh.h"
 #include "ZEffectAniMesh.h"
@@ -199,7 +199,7 @@ bool CheckTeenVersionMesh(RMesh** ppMesh)
 	return false;
 }
 
-void ChangeCharHair(RVisualMesh* pVMesh, MMatchSex nSex, int nHairIndex)
+void ChangeCharHair(RVisualMesh* pVMesh, CCMatchSex nSex, int nHairIndex)
 {
 	if ((nHairIndex < 0) || (nHairIndex >= MAX_COSTUME_HAIR)) return;
 	if (pVMesh == NULL) return;
@@ -216,12 +216,12 @@ void ChangeCharHair(RVisualMesh* pVMesh, MMatchSex nSex, int nHairIndex)
 	pVMesh->SetParts(eq_parts_head, szMeshName);
 }
 
-void ChangeEquipAvatarParts(RVisualMesh* pVMesh, const unsigned long int* pItemID, MMatchSex nSex, int nHairIndex)
+void ChangeEquipAvatarParts(RVisualMesh* pVMesh, const unsigned long int* pItemID, CCMatchSex nSex, int nHairIndex)
 {
 	pVMesh->ClearParts();
 
 	char* szMeshName;
-	MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(pItemID[MMCIP_AVATAR]);
+	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(pItemID[MMCIP_AVATAR]);
 	if( pDesc != NULL ) {
 		szMeshName = pDesc->m_pAvatarMeshName->Ref().m_szHeadMeshName;
 		if( strlen(szMeshName) > 0 )	pVMesh->SetParts(eq_parts_head, szMeshName);
@@ -254,7 +254,7 @@ void ChangeEquipParts(RVisualMesh* pVMesh, const unsigned long int* pItemID)
 	struct _ZPARTSPAIR
 	{
 		_RMeshPartsType			meshparts;
-		MMatchCharItemParts		itemparts;
+		CCMatchCharItemParts		itemparts;
 	};
 
 	static _ZPARTSPAIR PartsPair[] = 
@@ -268,7 +268,7 @@ void ChangeEquipParts(RVisualMesh* pVMesh, const unsigned long int* pItemID)
 
 	for (int i = 0; i < 5; i++) {
 		if (pItemID[PartsPair[i].itemparts] != 0) {
-			MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(pItemID[PartsPair[i].itemparts]);
+			CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(pItemID[PartsPair[i].itemparts]);
 			if (pDesc != NULL) {
 				pVMesh->SetParts(PartsPair[i].meshparts, pDesc->m_pMItemName->Ref().m_szMeshName);
 			}
@@ -281,7 +281,7 @@ void ChangeEquipParts(RVisualMesh* pVMesh, const unsigned long int* pItemID)
 	pVMesh->SetBaseParts(eq_parts_face);
 }
 
-void ChangeCharFace(RVisualMesh* pVMesh, MMatchSex nSex, int nFaceIndex)
+void ChangeCharFace(RVisualMesh* pVMesh, CCMatchSex nSex, int nFaceIndex)
 {
 	if ((nFaceIndex < 0) || (nFaceIndex >= MAX_COSTUME_FACE)) return;
 	if (pVMesh == NULL) return;
@@ -300,7 +300,7 @@ void ChangeCharFace(RVisualMesh* pVMesh, MMatchSex nSex, int nFaceIndex)
 	pVMesh->SetParts(eq_parts_face, szMeshName);
 }
 
-void ZChangeCharParts(RVisualMesh* pVMesh, MMatchSex nSex, int nHair, int nFace, const unsigned long int* pItemID)
+void ZChangeCharParts(RVisualMesh* pVMesh, CCMatchSex nSex, int nHair, int nFace, const unsigned long int* pItemID)
 {
 	if (pVMesh == NULL) {
 		_ASSERT(0);
@@ -342,7 +342,7 @@ void ZChangeCharWeaponMesh(RVisualMesh* pVMesh, unsigned long int nWeaponID)
 
 
 		RWeaponMotionType type = eq_weapon_etc;
-		MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nWeaponID);
+		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nWeaponID);
 		
 		if (pDesc == NULL)
 		{
@@ -1286,7 +1286,7 @@ void ZCharacter::UpdateHeight(float fDelta)
 	return;
 }
 
-int ZCharacter::GetSelectWeaponDelay(MMatchItemDesc* pSelectItemDesc)
+int ZCharacter::GetSelectWeaponDelay(CCMatchItemDesc* pSelectItemDesc)
 {
 //	칼의 경우는 모션의 길이가 포함되어 있다..
 //	무기타잎별로 하나만 등록되어 있으니까 기본공격 모션의 길이를 기준으로 한다..
@@ -1376,7 +1376,7 @@ void ZCharacter::UpdateSpeed()
 /*
 			if(m_AniState_Lower == ZC_STATE_LOWER_ATTACK1) {
 
-				MMatchItemDesc* pRangeDesc = GetItems()->GetSelectedWeapon()->GetDesc();
+				CCMatchItemDesc* pRangeDesc = GetItems()->GetSelectedWeapon()->GetDesc();
 
 //				DWORD nWeaponDelay = (DWORD)((float)pRangeDesc->m_nDelay * 0.7f);// 반으로 나눠서~
 				int  nWeaponDelay = pRangeDesc->m_nDelay;
@@ -1436,7 +1436,7 @@ void ZCharacter::UpdateSpeed()
 			{
 //				(m_AniState_Lower == ZC_STATE_LOWER_UPPERCUT) ) {
 
-				MMatchItemDesc* pRangeDesc = GetItems()->GetSelectedWeapon()->GetDesc();
+				CCMatchItemDesc* pRangeDesc = GetItems()->GetSelectedWeapon()->GetDesc();
 
 //				DWORD nWeaponDelay = (DWORD)((float)pRangeDesc->m_nDelay * 0.7f);// 반으로 나눠서~
 				int  nWeaponDelay = GetSelectWeaponDelay( pRangeDesc );
@@ -1477,7 +1477,7 @@ void ZCharacter::UpdateSpeed()
 
 			if(m_AniState_Upper==ZC_STATE_UPPER_RELOAD) {
 
-				MMatchItemDesc* pRangeDesc = GetItems()->GetSelectedWeapon()->GetDesc();
+				CCMatchItemDesc* pRangeDesc = GetItems()->GetSelectedWeapon()->GetDesc();
 				int  nReloadDelay = pRangeDesc->m_nReloadTime; // 장전딜레이
 
 				int max_frame = 0;
@@ -1737,7 +1737,7 @@ float ZCharacter::GetMoveSpeedRatio()
 {
 	float fRatio = 1.f;
 
-	MMatchItemDesc* pMItemDesc = GetSelectItemDesc();
+	CCMatchItemDesc* pMItemDesc = GetSelectItemDesc();
 
 	if(pMItemDesc)
 	{
@@ -2440,7 +2440,7 @@ void ZCharacter::OnKnockback(rvector& dir, float fForce)
 //
 //	int damage = 0;
 //
-//	MMatchItemDesc* pDesc = pAttacker->GetItems()->GetSelectedWeapon()->GetDesc();
+//	CCMatchItemDesc* pDesc = pAttacker->GetItems()->GetSelectedWeapon()->GetDesc();
 //	if (pDesc == NULL)
 //	{
 //		_ASSERT(0);
@@ -2480,7 +2480,7 @@ void ZCharacter::OnKnockback(rvector& dir, float fForce)
 //
 //		float fRatio = 1.0f;
 //
-////		MMatchWeaponType wtype = z_wd_grenade;//pAttacker->m_pVMesh->GetSelectWeaponType();
+////		CCMatchWeaponType wtype = z_wd_grenade;//pAttacker->m_pVMesh->GetSelectWeaponType();
 //
 //		fRatio = ZItem::GetPiercingRatio( MWT_FRAGMENTATION , eq_parts_chest );//수류탄과 로켓 구분없다..
 //
@@ -2507,7 +2507,7 @@ void ZCharacter::OnKnockback(rvector& dir, float fForce)
 //		}
 //	}
 //
-//	MMatchItemDesc* pDesc = pItem->GetDesc();
+//	CCMatchItemDesc* pDesc = pItem->GetDesc();
 //	if (pDesc->m_nType == MMIT_MELEE) {
 //		fKnockBackForce = 0.0f;
 //		bMelee = true;
@@ -2769,9 +2769,9 @@ void ZCharacter::InitItemBullet()
 
 	for(int i = MMCIP_CUSTOM1; i < MMCIP_CUSTOM2 + 1; i++) 
 	{
-		if( !m_Items.GetItem(MMatchCharItemParts(i))->IsEmpty() ) 
+		if( !m_Items.GetItem(CCMatchCharItemParts(i))->IsEmpty() ) 
 		{
-			MMatchItemDesc *pDesc = m_Items.GetItem(MMatchCharItemParts(i))->GetDesc();
+			CCMatchItemDesc *pDesc = m_Items.GetItem(CCMatchCharItemParts(i))->GetDesc();
 
 			// 일반 커스텀 아이템(수류탄 회복킷 등)
 			if (!pDesc->IsSpendableItem())
@@ -2781,7 +2781,7 @@ void ZCharacter::InitItemBullet()
 				nBulletSpare = pDesc->m_nMaxBullet.Ref();
 				nBulletCurrMagazine = pDesc->m_nMagazine.Ref();
 
-				m_Items.GetItem(MMatchCharItemParts(i))->InitBullet(nBulletSpare, nBulletCurrMagazine);
+				m_Items.GetItem(CCMatchCharItemParts(i))->InitBullet(nBulletSpare, nBulletCurrMagazine);
 			}
 			// 소모성 아이템
 			else
@@ -2793,7 +2793,7 @@ void ZCharacter::InitItemBullet()
 				else
 				{
 					nBulletSpare = 0;
-					ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem(MMatchCharItemParts(i));
+					ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem(CCMatchCharItemParts(i));
 					if( pItemNode ) 
 					{
 						if (pItemNode->GetItemCount() >= nBulletCurrMagazine)
@@ -2812,7 +2812,7 @@ void ZCharacter::InitItemBullet()
 				}
 
 				// 소모성 아이템은 "현재장전량/인벤에남은량"이 표시되도록 값을 준다
-				m_Items.GetItem(MMatchCharItemParts(i))->InitBullet(nBulletSpare, nBulletCurrMagazine);
+				m_Items.GetItem(CCMatchCharItemParts(i))->InitBullet(nBulletSpare, nBulletCurrMagazine);
 			}
 		}		
 	}
@@ -3343,26 +3343,26 @@ void ZCharacter::InitProperties()
 
 	m_Property.SetName(pCharInfo->szName);
 	m_Property.SetClanName(pCharInfo->szClanName);
-	m_Property.nSex		= (MMatchSex)pCharInfo->nSex;
+	m_Property.nSex		= (CCMatchSex)pCharInfo->nSex;
 	m_Property.nHair	= pCharInfo->nHair;
 	m_Property.nFace	= pCharInfo->nFace;
 	m_Property.nLevel	= pCharInfo->nLevel;
 	
 	float fAddedAP = DEFAULT_CHAR_AP;			///< AP 재조정
 	for (int i = 0; i < MMCIP_END; i++) {
-		if (!m_Items.GetItem(MMatchCharItemParts(i))->IsEmpty()) {
+		if (!m_Items.GetItem(CCMatchCharItemParts(i))->IsEmpty()) {
 			//핵 방어용 임시코드
-			if(m_Items.GetItem(MMatchCharItemParts(i))->GetDesc()->m_nAP.Ref() > 40) {
-				m_Items.GetItem(MMatchCharItemParts(i))->GetDesc()->m_nAP.Ref() = 0; 
+			if(m_Items.GetItem(CCMatchCharItemParts(i))->GetDesc()->m_nAP.Ref() > 40) {
+				m_Items.GetItem(CCMatchCharItemParts(i))->GetDesc()->m_nAP.Ref() = 0; 
 			}
-			fAddedAP += m_Items.GetItem(MMatchCharItemParts(i))->GetDesc()->m_nAP.Ref();
+			fAddedAP += m_Items.GetItem(CCMatchCharItemParts(i))->GetDesc()->m_nAP.Ref();
 		}
 	}
 	
 	float fAddedHP = DEFAULT_CHAR_HP;			///< HP 재조정
 	for (int i = 0; i < MMCIP_END; i++) {
-		if (!m_Items.GetItem(MMatchCharItemParts(i))->IsEmpty()) {
-			fAddedHP += m_Items.GetItem(MMatchCharItemParts(i))->GetDesc()->m_nHP.Ref();
+		if (!m_Items.GetItem(CCMatchCharItemParts(i))->IsEmpty()) {
+			fAddedHP += m_Items.GetItem(CCMatchCharItemParts(i))->GetDesc()->m_nHP.Ref();
 		}
 	}
 
@@ -3395,7 +3395,7 @@ void ZCharacter::InitProperties()
 		m_pMUserAndClanName->MakeCrc();
 	}
 
-	MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(GetUID());
+	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(GetUID());
 
 	//jintriple3 메모리 프록시...비트 패킹..
 	ZCharaterStatusBitPacking& uStatus = m_dwStatusBitPackingValue.Ref();
@@ -3418,7 +3418,7 @@ bool ZCharacter::Create(MTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffIn
 	
 	//버프정보임시주석 SetCharacterBuff(pCharBuffInfo);		///< 케릭터 버프 세팅	
 	for (int i = 0; i < MMCIP_END; i++) {	///< 아이템 세팅
-		m_Items.EquipItem(MMatchCharItemParts(i), pCharInfo->nEquipedItemDesc[i], pCharInfo->nEquipedItemCount[i]);
+		m_Items.EquipItem(CCMatchCharItemParts(i), pCharInfo->nEquipedItemDesc[i], pCharInfo->nEquipedItemCount[i]);
 	}
 
 	InitProperties();	///< 반드시 아이템 및 버프 세팅 후 해야함
@@ -3477,7 +3477,7 @@ void ZCharacter::InitMeshParts()
 
 		if( pAvatarItem && pAvatarItem->IsEmpty() ) {
 			for (int i = 0; i < MMCIP_END;i++) {
-				switch (MMatchCharItemParts(i))
+				switch (CCMatchCharItemParts(i))
 				{
 				case MMCIP_HEAD:	mesh_parts_type = eq_parts_head;	break;
 				case MMCIP_CHEST:	mesh_parts_type = eq_parts_chest;	break;
@@ -3487,8 +3487,8 @@ void ZCharacter::InitMeshParts()
 				default: continue;
 				}
 
-				if (!GetItems()->GetItem(MMatchCharItemParts(i))->IsEmpty()) {
-					m_pVMesh->SetParts(mesh_parts_type, GetItems()->GetItem(MMatchCharItemParts(i))->GetDesc()->m_pMItemName->Ref().m_szMeshName);
+				if (!GetItems()->GetItem(CCMatchCharItemParts(i))->IsEmpty()) {
+					m_pVMesh->SetParts(mesh_parts_type, GetItems()->GetItem(CCMatchCharItemParts(i))->GetDesc()->m_pMItemName->Ref().m_szMeshName);
 				}
 				else {
 					m_pVMesh->SetBaseParts(mesh_parts_type);
@@ -3506,7 +3506,7 @@ void ZCharacter::InitMeshParts()
 
 		} else {
 			char* szMeshName;
-			MMatchItemDesc* pDesc = pAvatarItem->GetDesc();
+			CCMatchItemDesc* pDesc = pAvatarItem->GetDesc();
 			if( pDesc != NULL ) {
 				m_pVMesh->ClearParts();
 
@@ -3558,7 +3558,7 @@ void ZCharacter::InitMeshParts()
 	}
 }
 
-void ZCharacter::ChangeWeapon(MMatchCharItemParts nParts)
+void ZCharacter::ChangeWeapon(CCMatchCharItemParts nParts)
 {
 //	_ASSERT(nParts != 7);
 
@@ -3601,13 +3601,13 @@ void ZCharacter::ChangeWeapon(MMatchCharItemParts nParts)
 		}
 	}
 
-	MMatchCharItemParts BackupParts = m_Items.GetSelectedWeaponParts();
+	CCMatchCharItemParts BackupParts = m_Items.GetSelectedWeaponParts();
 
 	m_Items.SelectWeapon(nParts);
 
 	if(m_Items.GetSelectedWeapon()==NULL) return;
 
-	MMatchItemDesc* pSelectedItemDesc = m_Items.GetSelectedWeapon()->GetDesc();
+	CCMatchItemDesc* pSelectedItemDesc = m_Items.GetSelectedWeapon()->GetDesc();
 
 	if (pSelectedItemDesc==NULL) {
 		m_Items.SelectWeapon(BackupParts);
@@ -3637,7 +3637,7 @@ bool ZCharacter::CheckValidShotTime(int nItemID, float fTime, ZItem* pItem)
 		if (fTime - GetLastShotTime() < (float)pItem->GetDesc()->m_nDelay.Ref()/1000.0f) 
 		{
 			
-			MMatchWeaponType nWeaponType = pItem->GetDesc()->m_nWeaponType.Ref();
+			CCMatchWeaponType nWeaponType = pItem->GetDesc()->m_nWeaponType.Ref();
 			if ( (MWT_DAGGER <= nWeaponType && nWeaponType <= MWT_DOUBLE_KATANA) 
 				&& (fTime - GetLastShotTime() >= 0.23f) ) 
 			{
@@ -4052,7 +4052,7 @@ bool ZCharacter::Load(ZFile *file,int nVersion)
 	if(!m_Items.Load(file, nVersion)) return false;
 
 	/*
-	MMatchCharItemParts nSelectedWeapon=m_Items.GetSelectedWeaponParts();
+	CCMatchCharItemParts nSelectedWeapon=m_Items.GetSelectedWeaponParts();
 	m_Items.ResetItems();
 
 	ChangeWeapon(nSelectedWeapon);
@@ -4066,7 +4066,7 @@ bool ZCharacter::Load(ZFile *file,int nVersion)
 	n=zfread(&m_Direction,sizeof(m_Direction),1,file);
 	if(n!=1) return false;
 
-	MMatchTeam teamID;
+	CCMatchTeam teamID;
 	n=zfread(&teamID,sizeof(teamID),1,file);
 	if(n!=1) return false;
 	m_nTeamID.Set_CheckCrc(teamID);
@@ -4126,7 +4126,7 @@ void ZCharacter::LevelDown()
 }
 
 
-RMesh *ZCharacter::GetWeaponMesh(MMatchCharItemParts parts)
+RMesh *ZCharacter::GetWeaponMesh(CCMatchCharItemParts parts)
 {
 	ZItem *pWeapon = m_Items.GetItem(parts);
 
@@ -4279,7 +4279,7 @@ ZOBJECTHITTEST ZCharacter::HitTest( const rvector& origin, const rvector& to, fl
 	return ZOH_NONE;
 }
 
-//void ZCharacter::OnDamagedMelee(ZObject* pAttacker, float fDamage, float fPiercingRatio, MMatchWeaponType weaponType, int nMeleeType)
+//void ZCharacter::OnDamagedMelee(ZObject* pAttacker, float fDamage, float fPiercingRatio, CCMatchWeaponType weaponType, int nMeleeType)
 //{
 //	if (m_bInitialized==false) return;
 //	if (!IsVisible() || IsDie()) return;
@@ -4309,7 +4309,7 @@ ZOBJECTHITTEST ZCharacter::HitTest( const rvector& origin, const rvector& to, fl
 //	OnDamagedAnimation(pAttacker,nMeleeType);
 //}
 //
-//void ZCharacter::OnDamagedRange( ZObject* pAttacker, float fDamage, float fPiercingRatio, MMatchWeaponType weaponType)
+//void ZCharacter::OnDamagedRange( ZObject* pAttacker, float fDamage, float fPiercingRatio, CCMatchWeaponType weaponType)
 //{
 //	if (m_bInitialized==false) return;
 //	if (!IsVisible() || IsDie()) return;
@@ -4339,7 +4339,7 @@ ZOBJECTHITTEST ZCharacter::HitTest( const rvector& origin, const rvector& to, fl
 //
 
 //jintriple3 디버그 레지스터 해킹 방지 코드 삽입
-void ZCharacter::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
+void ZCharacter::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
 {
 	if (m_bInitialized==false) 
 		PROTECT_DEBUG_REGISTER(m_bInitialized_DebugRegister == false)

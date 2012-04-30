@@ -38,13 +38,13 @@ public:
 
 	void OnBuyButton(void);
 
-	MMatchCharItemParts RecommendEquipParts(MMatchItemSlotType slot);
+	CCMatchCharItemParts RecommendEquipParts(CCMatchItemSlotType slot);
 
 	bool Equip(void);
-	bool Equip(MMatchCharItemParts parts, CCUID& uidItem);
+	bool Equip(CCMatchCharItemParts parts, CCUID& uidItem);
 
-	void SetKindableItem( MMatchItemSlotType nSlotType);
-	bool IsKindableItem(MMatchCharItemParts nParts, MMatchItemSlotType nSlotType);
+	void SetKindableItem( CCMatchItemSlotType nSlotType);
+	bool IsKindableItem(CCMatchCharItemParts nParts, CCMatchItemSlotType nSlotType);
 
 	int _CheckRestrictBringAccountItem();
 	bool CheckRestrictBringAccountItem();
@@ -60,7 +60,7 @@ public:
 	// 상점/내장비창에서 좌측에 내 현재 장비를 나타내는 프레임
 public:
 	void SelectEquipmentFrameList( const char* szName, bool bOpen);
-	int GetArmorWeaponTabIndexContainItemParts(MMatchCharItemParts parts);
+	int GetArmorWeaponTabIndexContainItemParts(CCMatchCharItemParts parts);
 	bool IsEquipmentFrameListOpened( const char* szName="Shop");
 
 	// 내 현재 장비 목록의 탭 인덱스 (무기 리스트 탭/방어구 리스트 탭)
@@ -69,7 +69,7 @@ private:
 public:
 	void SetArmorWeaponTabIndex(int idx) { if(idx < 0 || idx > 2) return; else m_idxArmorWeaponTab = idx;}
 	int GetArmorWeaponTabIndex()	{ return m_idxArmorWeaponTab; }
-	void SelectArmorWeaponTabWithSlotType(MMatchItemSlotType slotType);	// 인자의 슬롯타입에 맞는 탭을 선택 상태로
+	void SelectArmorWeaponTabWithSlotType(CCMatchItemSlotType slotType);	// 인자의 슬롯타입에 맞는 탭을 선택 상태로
 	void OnArmorWeaponTabButtonClicked(int nTab);
 
 public:

@@ -1,17 +1,17 @@
 #pragma once
 #include "CCBaseChannelRule.h"
 
-class MMatchChannelRuleMgr : public MChannelRuleMgr
+class CCMatchChannelRuleMgr : public MChannelRuleMgr
 {
 public:
-	MMatchChannelRuleMgr();
-	virtual ~MMatchChannelRuleMgr();
-	static MMatchChannelRuleMgr* GetInstance();
+	CCMatchChannelRuleMgr();
+	virtual ~CCMatchChannelRuleMgr();
+	static CCMatchChannelRuleMgr* GetInstance();
 };
 
 
-inline MMatchChannelRuleMgr* MGetChannelRuleMgr() 
+inline CCMatchChannelRuleMgr* MGetChannelRuleMgr() 
 {
-	return MMatchChannelRuleMgr::GetInstance();
+	return CCMatchChannelRuleMgr::GetInstance();
 }
 

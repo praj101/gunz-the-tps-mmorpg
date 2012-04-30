@@ -2,14 +2,14 @@
 #define _ZPLAYERLIST_H
 
 #include "CCUID.h"
-#include "MMatchGlobal.h"
-#include "MMatchObject.h"
+#include "CCMatchGlobal.h"
+#include "CCMatchObject.h"
 
 struct ZChannelPlayerListNode
 {
 	CCUID				uidPlayer;
-	MMatchUserGradeID	nGradeID;
-	MMatchPlace			nPlace;
+	CCMatchUserGradeID	nGradeID;
+	CCMatchPlace			nPlace;
 	char				szName[MATCHOBJECT_NAME_LENGTH];
 	char				szClanName[CLAN_NAME_LENGTH];
 	int					nLevel;
@@ -20,8 +20,8 @@ struct ZClanMemberListNode
 	CCUID				uidPlayer;
 	char				szName[MATCHOBJECT_NAME_LENGTH];
 	int					nLevel;
-	MMatchClanGrade		nClanGrade;
-	MMatchPlace			nPlace;
+	CCMatchClanGrade		nClanGrade;
+	CCMatchPlace			nPlace;
 };
 
 struct ZFriendListNode

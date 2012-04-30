@@ -67,7 +67,7 @@ public:
 	CCMatchClan();
 	virtual ~CCMatchClan();
 
-	// MMatchClanMap에서 사용하는 함수
+	// CCMatchClanMap에서 사용하는 함수
 	void Create(int nCLID, const char* szClanName);
 	void AddObject(const CCUID& uid, CCMatchObject* pObj);
 	void RemoveObject(const CCUID& uid);

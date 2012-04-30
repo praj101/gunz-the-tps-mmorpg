@@ -264,7 +264,7 @@ private:
 	void ShiftFugitiveValues();
 public:
 	virtual void OnGuardSuccess();
-	virtual void OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
+	virtual void OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
 	// knockback을 적용받아야한다
 	virtual void OnKnockback(rvector& dir, float fForce);
 	virtual void OnMeleeGuardSuccess();

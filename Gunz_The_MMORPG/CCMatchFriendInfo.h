@@ -27,7 +27,7 @@ public:
 	CCMatchFriendList	m_FriendList;
 public:
 	CCMatchFriendInfo();
-	virtual ~MMatchFriendInfo();
+	virtual ~CCMatchFriendInfo();
 	bool Add(unsigned long nFriendCID, unsigned short nFavorite, const char* pszName);
 	void Remove(const char* pszName);
 	CCMatchFriendNode* Find(unsigned long nFriendCID);

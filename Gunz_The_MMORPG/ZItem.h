@@ -1,11 +1,11 @@
 #ifndef _ZITEM_H
 #define _ZITEM_H
 
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 
 
 // 이거 나중에 MBaseItem을 부모로 하도록 바뀌어야 한다.
-class ZItem : public MMatchItem
+class ZItem : public CCMatchItem
 {
 private:
 protected:
@@ -27,7 +27,7 @@ public:
 	int GetBulletCurrMagazine()	{ return m_nBulletCurrMagazine.Ref(); }
 	void SetBulletCurrMagazine(int nBulletPerMagazine)	{ m_nBulletCurrMagazine.Set_CheckCrc(nBulletPerMagazine); }
 
-	static float GetPiercingRatio(MMatchWeaponType wtype,RMeshPartsType partstype);
+	static float GetPiercingRatio(CCMatchWeaponType wtype,RMeshPartsType partstype);
 	float GetKnockbackForce();
 
 	void ShiftFugitiveValues();

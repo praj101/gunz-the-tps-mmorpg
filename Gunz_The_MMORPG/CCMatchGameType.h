@@ -4,16 +4,16 @@
 
 
 
-class MMatchGameTypeMgr : public MBaseGameTypeCatalogue
+class CCMatchGameTypeMgr : public MBaseGameTypeCatalogue
 {
 public:
-	MMatchGameTypeMgr();
-	virtual ~MMatchGameTypeMgr();
-	static MMatchGameTypeMgr* GetInstance();
+	CCMatchGameTypeMgr();
+	virtual ~CCMatchGameTypeMgr();
+	static CCMatchGameTypeMgr* GetInstance();
 };
 
 
-inline MMatchGameTypeMgr* MGetGameTypeMgr() 
+inline CCMatchGameTypeMgr* MGetGameTypeMgr() 
 {
-	return MMatchGameTypeMgr::GetInstance();
+	return CCMatchGameTypeMgr::GetInstance();
 }

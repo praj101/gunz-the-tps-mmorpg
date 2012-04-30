@@ -17,11 +17,11 @@
 //
 //bool ZGetIsCashItem( unsigned long nItemID)
 //{
-//	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+//	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 //	if (pItemDesc == NULL)
 //	{
 //		// Gamble 아이템
-//		MMatchGambleItemDesc* pGItemDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(nItemID);
+//		CCMatchGambleItemDesc* pGItemDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(nItemID);
 //		if( pGItemDesc ) {
 //			if( pGItemDesc->IsCash() ) {
 //				return true;
@@ -140,7 +140,7 @@
 //				if (pItem->IsPtInRectToShowToolTip(rcItem, ptInList)) // 항목에게 이 좌표가 썸네일 이미지 영역인지 물어봄
 //				{
 //					// 아이템 설명 툴팁 세팅
-//					if (MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pItem->GetItemID() ))
+//					if (CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pItem->GetItemID() ))
 //					{
 //						ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetItem( pItem->GetUID() );
 ////						ZGetGameInterface()->GetShopEquipInterface()->SetupItemDescription(pItemDesc, szTextAreaName, pItemNode);
@@ -149,7 +149,7 @@
 //					{
 ////						ZGetGameInterface()->GetShopEquipInterface()->SetupItemDescription( pQuestItemDesc, szTextAreaName );
 //					}
-//					if (MMatchGambleItemDesc* pGItemDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(pItem->GetItemID()) )
+//					if (CCMatchGambleItemDesc* pGItemDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(pItem->GetItemID()) )
 //					{
 ////						ZGetGameInterface()->GetShopEquipInterface()->SetupItemDescription( pGItemDesc, szTextAreaName );
 //					}
@@ -248,7 +248,7 @@
 ////					if( pCharacterView == NULL ) return false;
 ////
 ////					pCharacterView->SetSelectMyCharacter();
-////					MMatchItemDesc* pDesc;
+////					CCMatchItemDesc* pDesc;
 ////					for (int i=0; i<MAX_SET_ITEM_COUNT; ++i)
 ////					{
 ////						int partsItemId = pSetItem->GetItemID(i);
@@ -257,7 +257,7 @@
 ////							pDesc = MGetMatchItemDescMgr()->GetItemDesc(partsItemId);
 ////							if (!pDesc) { _ASSERT(0); continue; }
 ////
-////							MMatchCharItemParts nCharItemParts = GetSuitableItemParts(pDesc->m_nSlot);
+////							CCMatchCharItemParts nCharItemParts = GetSuitableItemParts(pDesc->m_nSlot);
 ////							pCharacterView->SetParts(nCharItemParts, pDesc->m_nID);
 ////						}
 ////					}
@@ -274,7 +274,7 @@
 ////
 ////			case MSIT_GITEM :
 ////				{
-////					MMatchGambleItemDesc* pDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(nItemID);
+////					CCMatchGambleItemDesc* pDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(nItemID);
 ////					if( pDesc == NULL ) return false;
 ////
 ////					ZGetGameInterface()->GetShopEquipInterface()->SetupItemDescription( pDesc, "Shop_ItemDescription" );
@@ -302,14 +302,14 @@
 ////
 ////			case MSIT_ZITEM :
 ////				{
-////					MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+////					CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 ////					if( pDesc == NULL ) return false;
 ////
 ////					ZCharacterView* pCharacterView = 
 ////						(ZCharacterView*)ZGetGameInterface()->GetIDLResource()->FindWidget("EquipmentInformationShop");
 ////					if( pCharacterView == NULL ) return false;
 ////
-////					MMatchCharItemParts nCharItemParts = GetSuitableItemParts(pDesc->m_nSlot);
+////					CCMatchCharItemParts nCharItemParts = GetSuitableItemParts(pDesc->m_nSlot);
 ////
 ////					pCharacterView->SetSelectMyCharacter();
 ////					pCharacterView->SetParts(nCharItemParts, pDesc->m_nID);
@@ -378,7 +378,7 @@
 ////			ZGetGameInterface()->GetShopEquipInterface()->DrawCharInfoText();
 ////
 ////			// Gamble 아이템인지 확인
-////			MMatchGambleItemDesc* pGItemDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(pListItem->GetItemID());
+////			CCMatchGambleItemDesc* pGItemDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(pListItem->GetItemID());
 ////			if ( pGItemDesc )
 ////			{
 ////				ZGetGameInterface()->GetShopEquipInterface()->SetupItemDescription( pGItemDesc, "Equip_ItemDescription");
@@ -402,13 +402,13 @@
 ////			MButton* pButtonAccItemBtn1 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountItemBtn");
 ////			MButton* pButtonAccItemBtn2 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountSpendableItemConfirmOpen");
 ////
-////			MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+////			CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 ////			ZCharacterView* pCharacterView = (ZCharacterView*)ZGetGameInterface()->GetIDLResource()->FindWidget("EquipmentInformation");
 ////			if ((pCharacterView) && (pItemDesc)) {
 ////
 ////				UpdateCharInfoTextWithNewItem(pItemDesc);
 ////
-////				MMatchCharItemParts nCharItemParts = GetSuitableItemParts(pItemDesc->m_nSlot);
+////				CCMatchCharItemParts nCharItemParts = GetSuitableItemParts(pItemDesc->m_nSlot);
 ////
 ////				pCharacterView->SetSelectMyCharacter();
 ////				pCharacterView->SetParts(nCharItemParts, pItemDesc->m_nID);
@@ -565,7 +565,7 @@
 //	int itemID = GetItemID();
 //
 //	// 리스트박스가 아이템을 종류별로 정렬하도록 종류에 따라서 순번을 리턴한다
-//	MMatchGambleItemDesc* pGItemDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(itemID);
+//	CCMatchGambleItemDesc* pGItemDesc = MGetMatchGambleItemDescMgr()->GetGambleItemDesc(itemID);
 //	if (pGItemDesc) return 100000;
 //
 //	MShopBaseItem* pShopItem = ZGetShopEx()->GetItem(m_UID.Low);
@@ -574,7 +574,7 @@
 //		return 300000 + nResLv;
 //	}
 //
-//	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(itemID);
+//	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(itemID);
 //	if (pItemDesc) {
 //		int hint = 200000;
 //		int nResLv = pItemDesc->m_nResLevel.Ref();

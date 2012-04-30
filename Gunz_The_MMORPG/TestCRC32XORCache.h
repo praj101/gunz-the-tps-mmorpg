@@ -8,8 +8,8 @@
 //class CRC32XORCache;
 //
 //
-//struct MMatchItemDesc;
-//struct MMatchMapsWorldItemSpawnInfoSet;
+//struct CCMatchItemDesc;
+//struct CCMatchMapsWorldItemSpawnInfoSet;
 
 
 
@@ -20,8 +20,8 @@
 //void								T_InitWItemDescMgr();
 //void								T_InitSpawnWItemList();
 //
-//MMatchItemDesc*						T_FindItemDesc( const int nItemID );
-//MMatchMapsWorldItemSpawnInfoSet*	T_FindWItemDesc( const int nWItemID );
+//CCMatchItemDesc*						T_FindItemDesc( const int nItemID );
+//CCMatchMapsWorldItemSpawnInfoSet*	T_FindWItemDesc( const int nWItemID );
 //
 //void								T_ReleaseItemDescMap();
 //void								T_ReleaseWItemDescMap();

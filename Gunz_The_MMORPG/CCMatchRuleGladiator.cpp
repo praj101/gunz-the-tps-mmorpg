@@ -1,13 +1,13 @@
 #include "stdafx.h"
-#include "MMatchRuleGladiator.h"
+#include "CCMatchRuleGladiator.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// MMatchRuleSoloGladiator ////////////////////////////////////////////////////////////////////////
-MMatchRuleSoloGladiator::MMatchRuleSoloGladiator(CCMatchStage* pStage) : MMatchRuleSoloDeath(pStage)
+// CCMatchRuleSoloGladiator ////////////////////////////////////////////////////////////////////////
+CCMatchRuleSoloGladiator::CCMatchRuleSoloGladiator(CCMatchStage* pStage) : CCMatchRuleSoloDeath(pStage)
 {
 }
 
-MMatchRuleTeamGladiator::MMatchRuleTeamGladiator(CCMatchStage* pStage) : MMatchRuleTeamDeath(pStage)
+CCMatchRuleTeamGladiator::CCMatchRuleTeamGladiator(CCMatchStage* pStage) : CCMatchRuleTeamDeath(pStage)
 {
 }

@@ -26,7 +26,7 @@ using namespace std;
 #include "CCMatchCharBRInfo.h"
 
 // 등급 - 이것은 디비의 UserGrade테이블과 싱크가 맞아야 한다.
-enum MMatchUserGradeID
+enum CCMatchUserGradeID
 {
 	MMUG_FREE			= 0,	// 무료 계정
 	MMUG_REGULAR		= 1,	// 정액 유저
@@ -47,7 +47,7 @@ enum MMatchUserGradeID
 
 
 
-enum MMatchDisconnectStatus
+enum CCMatchDisconnectStatus
 {
 	MMDS_CONNECTED = 1,
 	MMDS_DISCONN_WAIT,
@@ -59,14 +59,14 @@ enum MMatchDisconnectStatus
 
 
 // 유료이용자 권한 - 지금은 DB의 PGradeID를 읽지 않고, 단지 넷마블PC방 보너스 용도로만 사용한다.
-enum MMatchPremiumGradeID
+enum CCMatchPremiumGradeID
 {
 	MMPG_FREE			= 0,	// 무료
 	MMPG_PREMIUM_IP		= 1		// 넷마블 PC방 보너스
 };
 
 // 성별 - 이것은 디비의 성별정보와 싱크가 맞아야 한다.
-enum MMatchSex
+enum CCMatchSex
 {
 	MMS_MALE = 0,		// 남자
 	MMS_FEMALE = 1		// 여자
@@ -74,14 +74,14 @@ enum MMatchSex
 
 
 /// 계정 정보
-struct MMatchAccountInfo
+struct CCMatchAccountInfo
 {
 	int						m_nAID;
 	char					m_szUserID[ MAX_USERID_STRING_LEN ];	// 계정ID
-	MMatchUserGradeID		m_nUGrade;								// 등급
-	MMatchPremiumGradeID	m_nPGrade;								// 유료 이용자 권한
+	CCMatchUserGradeID		m_nUGrade;								// 등급
+	CCMatchPremiumGradeID	m_nPGrade;								// 유료 이용자 권한
 
-	MMatchHackingType		m_HackingType;
+	CCMatchHackingType		m_HackingType;
 	SYSTEMTIME				m_EndBlockDate;							// 해킹 유저블럭이 유지되는 시간.
 	DWORD					m_dwHackingBlockEndTimeMS;
 
@@ -90,7 +90,7 @@ struct MMatchAccountInfo
 
 	int						m_nCCode;
 
-	MMatchAccountInfo() : m_nAID(-1), m_nUGrade(MMUG_FREE), m_nPGrade(MMPG_FREE), m_nCCode(0)
+	CCMatchAccountInfo() : m_nAID(-1), m_nUGrade(MMUG_FREE), m_nPGrade(MMPG_FREE), m_nCCode(0)
 	{
 		m_HackingType				= MMHT_NO;
 		m_dwHackingBlockEndTimeMS	= 0;
@@ -111,7 +111,7 @@ struct MAccountItemNode
 };
 
 // 플레이어가 현재 위치하고 있는 곳
-enum MMatchPlace
+enum CCMatchPlace
 {
 	MMP_OUTSIDE	= 0,
 	MMP_LOBBY = 1,
@@ -180,15 +180,15 @@ struct MGamePlayInfo
 };
 
 // 캐릭터의 클랜정보
-struct MMatchCharClanInfo
+struct CCMatchCharClanInfo
 {
 	int					m_nClanID;							// db상의 클랜 ID
 	char				m_szClanName[ CLAN_NAME_LENGTH ];	// 클랜 이름
-	MMatchClanGrade		m_nGrade;							// 클랜에서의 권한
+	CCMatchClanGrade		m_nGrade;							// 클랜에서의 권한
 	int					m_nContPoint;						// 클랜 기여도
 	string				m_strDeleteDate;
 
-	MMatchCharClanInfo() {  Clear(); }
+	CCMatchCharClanInfo() {  Clear(); }
 	void Clear()
 	{
 		m_nClanID = 0; 
@@ -214,14 +214,14 @@ public:
 
 
 /// 캐릭터 정보
-class MMatchCharInfo
+class CCMatchCharInfo
 {
 public:
 	unsigned long int	m_nCID;
 	int					m_nCharNum;
 	char				m_szName[MATCHOBJECT_NAME_LENGTH];
 	int					m_nLevel;
-	MMatchSex			m_nSex;			// 성별
+	CCMatchSex			m_nSex;			// 성별
 	int					m_nHair;		// 머리
 	int					m_nFace;		// 얼굴
 	unsigned long int	m_nXP;
@@ -237,9 +237,9 @@ public:
 	int					m_nER;
 	int					m_nWR;
 	unsigned long int	m_nEquipedItemCIID[MMCIP_END];
-	MMatchItemMap		m_ItemList;			// 아이템 정보
-	MMatchEquipedItem	m_EquipedItem;		// 장비하고 있는 아이템 정보
-	MMatchCharClanInfo	m_ClanInfo;			// 클랜 정보
+	CCMatchItemMap		m_ItemList;			// 아이템 정보
+	CCMatchEquipedItem	m_EquipedItem;		// 장비하고 있는 아이템 정보
+	CCMatchCharClanInfo	m_ClanInfo;			// 클랜 정보
 
 	// 퀘스트 아이템.
 	MQuestItemMap		m_QuestItemList;
@@ -251,7 +251,7 @@ public:
 	MQuestMonsterBible	m_QMonsterBible;
 
 	// gamble item.
-	MMatchGambleItemManager m_GambleItemManager;
+	CCMatchGambleItemManager m_GambleItemManager;
 
 	unsigned long int	m_nTotalPlayTimeSec;		// 케릭터의 총 플레이 시간
 	unsigned long int	m_nPlayTimeSec;				// 접속해서 플레이한 시간
@@ -273,7 +273,7 @@ public:
 protected:
 	DBCharCachingData	m_DBCachingData;
 public:
-	MMatchCharInfo() : m_nCID(0), m_nCharNum(0), m_nLevel(0), m_nSex(MMS_MALE), m_nFace(0),
+	CCMatchCharInfo() : m_nCID(0), m_nCharNum(0), m_nLevel(0), m_nSex(MMS_MALE), m_nFace(0),
 		               m_nHair(0), m_nXP(0), m_nBP(0), m_fBonusRate(DEFAULT_CHARINFO_BONUSRATE), m_nPrize(DEFAULT_CHARINFO_PRIZE), m_nHP(0),
 					   m_nAP(0), m_nMaxWeight(DEFAULT_CHARINFO_MAXWEIGHT), m_nSafeFalls(DEFAULT_CHARINFO_SAFEFALLS),
 					   m_nFR(0), m_nCR(0), m_nER(0), m_nWR(0),
@@ -354,22 +354,22 @@ public:
 	DBCharCachingData* GetDBCachingData() { return &m_DBCachingData; }
 
 protected:
-	MMatchCharBattleTimeRewardInfoMap m_CharBRInfoMap;
+	CCMatchCharBattleTimeRewardInfoMap m_CharBRInfoMap;
 
 	MGamePlayInfo m_CharGamePlayInfo;
 public:
-	MMatchCharBattleTimeRewardInfoMap& GetBRInfoMap() { return m_CharBRInfoMap; }
+	CCMatchCharBattleTimeRewardInfoMap& GetBRInfoMap() { return m_CharBRInfoMap; }
 	MGamePlayInfo* GetCharGamePlayInfo() { return &m_CharGamePlayInfo; }
 
 };
 
-class MMatchTimeSyncInfo {
+class CCMatchTimeSyncInfo {
 protected:
 	int				m_nFoulCount;
 	unsigned long	m_nLastSyncClock;
 public:
-	MMatchTimeSyncInfo()				{ m_nFoulCount=0; m_nLastSyncClock=0; }
-	virtual ~MMatchTimeSyncInfo()		{}
+	CCMatchTimeSyncInfo()				{ m_nFoulCount=0; m_nLastSyncClock=0; }
+	virtual ~CCMatchTimeSyncInfo()		{}
 
 	int GetFoulCount()					{ return m_nFoulCount; }
 	void AddFoulCount()					{ m_nFoulCount++; }
@@ -385,10 +385,10 @@ struct CCMatchObjectGameInfo
 };
 
 
-class MMatchDisconnStatusInfo
+class CCMatchDisconnStatusInfo
 {
 public :
-	MMatchDisconnStatusInfo() 
+	CCMatchDisconnStatusInfo() 
 	{
 		m_DisconnStatus						= MMDS_CONNECTED;
 		m_dwLastDisconnStatusUpdatedTime	= timeGetTime();
@@ -397,13 +397,13 @@ public :
 		m_bIsUpdateDB						= false;
 	}
 
-	~MMatchDisconnStatusInfo() {}
+	~CCMatchDisconnStatusInfo() {}
 
-	const MMatchDisconnectStatus	GetStatus()				{ return m_DisconnStatus; }
+	const CCMatchDisconnectStatus	GetStatus()				{ return m_DisconnStatus; }
 	const DWORD						GetLastUpdatedTime()	{ return m_dwLastDisconnStatusUpdatedTime; }
 	const DWORD						GetMsgID()				{ return m_dwMsgID; }
-	const MMatchHackingType			GetHackingType()		{ return m_HackingType; } 
-	const MMatchBlockLevel			GetBlockLevel()			{ return m_BlockLevel; }
+	const CCMatchHackingType			GetHackingType()		{ return m_HackingType; } 
+	const CCMatchBlockLevel			GetBlockLevel()			{ return m_BlockLevel; }
 	const string&					GetEndDate()			{ return m_strEndDate; }
 	const string&					GetComment()			{ return m_strComment; }
 		
@@ -423,7 +423,7 @@ public :
 		return false;
 	}
 	
-	void SetStatus( const MMatchDisconnectStatus Status )	
+	void SetStatus( const CCMatchDisconnectStatus Status )	
 	{
 		m_DisconnStatus = Status; 
 		if( MMDS_DISCONN_WAIT == Status )
@@ -435,9 +435,9 @@ public :
 	}
 	void SetUpdateTime( const DWORD dwTime )					{ m_dwLastDisconnStatusUpdatedTime = dwTime; }
 	void SetMsgID( const DWORD dwMsgID )						{ m_dwMsgID = dwMsgID; }
-	void SetHackingType( const MMatchHackingType HackingType )	{ m_HackingType = HackingType; m_bIsUpdateDB = true; } // 새로운 BlockType이 설정되면 
+	void SetHackingType( const CCMatchHackingType HackingType )	{ m_HackingType = HackingType; m_bIsUpdateDB = true; } // 새로운 BlockType이 설정되면 
 																													   //  DB업데이트 준비도 같이함.
-	void SetBlockLevel( const MMatchBlockLevel BlockLevel )		{ m_BlockLevel = BlockLevel; }
+	void SetBlockLevel( const CCMatchBlockLevel BlockLevel )		{ m_BlockLevel = BlockLevel; }
 	void SetEndDate( const string& strEndDate )					{ m_strEndDate = strEndDate; }
 	void SetComment( const string& strComment )					{ m_strComment = strComment; }
 	
@@ -457,12 +457,12 @@ private :
 	void SendDisconnMsgPrepared()	{ m_bIsSendDisconnMsg = true; }
 
 private :
-	MMatchDisconnectStatus	m_DisconnStatus;
+	CCMatchDisconnectStatus	m_DisconnStatus;
 	DWORD					m_dwLastDisconnStatusUpdatedTime;
 	DWORD					m_dwDisconnSetTime;
 	DWORD					m_dwMsgID;
-	MMatchHackingType		m_HackingType;
-	MMatchBlockLevel		m_BlockLevel;	// Level에따라 계정 블럭, 로그작업만 하는등으로 나눠짐.
+	CCMatchHackingType		m_HackingType;
+	CCMatchBlockLevel		m_BlockLevel;	// Level에따라 계정 블럭, 로그작업만 하는등으로 나눠짐.
 	string					m_strEndDate;
 	string					m_strComment;
 	bool					m_bIsSendDisconnMsg;
@@ -506,7 +506,7 @@ struct MASYNCJOBQ
 #define MAX_CHAT_FLOOD_COUNT	5
 #define MAX_BAN_CHAT_TICK		30 * 1000
 
-class MMatchChatFloodInfo 
+class CCMatchChatFloodInfo 
 {
 protected:
 	DWORD			m_dwBanTick;
@@ -514,10 +514,10 @@ protected:
 
 	list<int>	m_ChatFloodList;
 public:
-	MMatchChatFloodInfo() : m_dwBanTick(0), m_dwBanCount(0)
+	CCMatchChatFloodInfo() : m_dwBanTick(0), m_dwBanCount(0)
 	{}
 
-	~MMatchChatFloodInfo()
+	~CCMatchChatFloodInfo()
 	{
 		m_dwBanTick = 0;
 		m_dwBanCount = 0;
@@ -706,14 +706,14 @@ public:
 
 class CCMatchObject : public MObject {
 protected:
-	MMatchAccountInfo			m_AccountInfo;		// 계정 정보
-	MMatchCharInfo*				m_pCharInfo;		// 캐릭터 정보
-	MMatchFriendInfo*			m_pFriendInfo;		// 친구정보
-	MMatchPlace					m_nPlace;			// 위치 정보
-	MMatchTimeSyncInfo			m_nTimeSyncInfo;	// 스피드핵 감시	
+	CCMatchAccountInfo			m_AccountInfo;		// 계정 정보
+	CCMatchCharInfo*				m_pCharInfo;		// 캐릭터 정보
+	CCMatchFriendInfo*			m_pFriendInfo;		// 친구정보
+	CCMatchPlace					m_nPlace;			// 위치 정보
+	CCMatchTimeSyncInfo			m_nTimeSyncInfo;	// 스피드핵 감시	
 	CCMatchObjectChannelInfo		m_ChannelInfo;		// 채널 정보
 	CCMatchObjectGameInfo		m_GameInfo;			// 게임안에서의 정보
-	MMatchDisconnStatusInfo		m_DisconnStatusInfo;// 오브젝으 접속종료 상태 정보.
+	CCMatchDisconnStatusInfo		m_DisconnStatusInfo;// 오브젝으 접속종료 상태 정보.
 	CCMatchObjectHShieldInfo		m_HSieldInfo;
 
 	bool			m_bHacker;						// 핵이 검출된 유저
@@ -933,18 +933,18 @@ public:
 	void SetLadderChallenging(bool bVal) { m_bLadderChallenging = bVal; }
 	bool IsLadderChallenging()			{ return m_bLadderChallenging; }		// 클랜전 상대팀 대기중인지 여부
 public:
-	MMatchAccountInfo* GetAccountInfo() { return &m_AccountInfo; }
-	MMatchCharInfo* GetCharInfo()	{ return m_pCharInfo; }
-	void SetCharInfo(MMatchCharInfo* pCharInfo);
+	CCMatchAccountInfo* GetAccountInfo() { return &m_AccountInfo; }
+	CCMatchCharInfo* GetCharInfo()	{ return m_pCharInfo; }
+	void SetCharInfo(CCMatchCharInfo* pCharInfo);
 	
-	MMatchFriendInfo* GetFriendInfo()	{ return m_pFriendInfo; }
-	void SetFriendInfo(MMatchFriendInfo* pFriendInfo);
+	CCMatchFriendInfo* GetFriendInfo()	{ return m_pFriendInfo; }
+	void SetFriendInfo(CCMatchFriendInfo* pFriendInfo);
 	bool DBFriendListRequested()	{ return m_bDBFriendListRequested; }
-	MMatchPlace GetPlace()			{ return m_nPlace; }
-	void SetPlace(MMatchPlace nPlace);
-	MMatchTimeSyncInfo* GetSyncInfo()	{ return &m_nTimeSyncInfo; }
+	CCMatchPlace GetPlace()			{ return m_nPlace; }
+	void SetPlace(CCMatchPlace nPlace);
+	CCMatchTimeSyncInfo* GetSyncInfo()	{ return &m_nTimeSyncInfo; }
 //	CCMatchObjectAntiHackInfo* GetAntiHackInfo()		{ return &m_AntiHackInfo; }
-	MMatchDisconnStatusInfo& GetDisconnStatusInfo() { return  m_DisconnStatusInfo; }
+	CCMatchDisconnStatusInfo& GetDisconnStatusInfo() { return  m_DisconnStatusInfo; }
 	CCMatchObjectHShieldInfo* GetHShieldInfo()		{ return &m_HSieldInfo; }
 
 	/// 틱 처리
@@ -962,14 +962,14 @@ public:
 	void			SetCountryCode3( const string strCountryCode3 ) { m_strCountryCode3 = strCountryCode3; }
 	const string&	GetCountryCode3() const							{ return m_strCountryCode3; }
 
-	void DisconnectHacker( MMatchHackingType eType );
-// 	void SetXTrapHackerDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetHShieldHackerDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetBadFileCRCDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetBadUserDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetGameguardHackerDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetDllInjectionDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetInvalidStageSettingDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
+	void DisconnectHacker( CCMatchHackingType eType );
+// 	void SetXTrapHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
+// 	void SetHShieldHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
+// 	void SetBadFileCRCDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
+// 	void SetBadUserDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
+// 	void SetGameguardHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
+// 	void SetDllInjectionDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
+// 	void SetInvalidStageSettingDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
 
 public:
 	enum MMO_ACTION
@@ -1001,7 +1001,7 @@ public :
 ///< 채팅창 도배 및 벙어리 기능 구현
 ///< 홍기주(2009.08.05)
 protected :
-	MMatchChatFloodInfo m_ChatFloodInfo;
+	CCMatchChatFloodInfo m_ChatFloodInfo;
 public:
 	bool CheckChatFlooding()		{ return m_ChatFloodInfo.PushChatTickCount();}
 	bool IsChatBanUser()			{ return m_ChatFloodInfo.IsBanUser();}
@@ -1047,10 +1047,10 @@ public:
 ///< Punishment 관련
 ///< 홍기주(2010.08.09)
 protected:
-	MMatchAccountPenaltyInfo m_AccountPenaltyInfo;
+	CCMatchAccountPenaltyInfo m_AccountPenaltyInfo;
 
 public:
-	MMatchAccountPenaltyInfo* GetAccountPenaltyInfo() { return &m_AccountPenaltyInfo; }
+	CCMatchAccountPenaltyInfo* GetAccountPenaltyInfo() { return &m_AccountPenaltyInfo; }
 
 protected:
 	unsigned int m_nLastCheckBattleTimeReward;
@@ -1153,7 +1153,7 @@ enum MCmdEnterBattleParam
 };
 
 // 입을 수 있는 아이템인지 체크
-bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, MMatchSex nPlayerSex);
+bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, CCMatchSex nPlayerSex);
 
 inline bool IsEnabledObject(CCMatchObject* pObject) 
 {
@@ -1161,7 +1161,7 @@ inline bool IsEnabledObject(CCMatchObject* pObject)
 	return true;
 }
 
-inline bool IsAdminGrade(MMatchUserGradeID nGrade) 
+inline bool IsAdminGrade(CCMatchUserGradeID nGrade) 
 {
 	if ((nGrade == MMUG_EVENTMASTER) || 
 		(nGrade == MMUG_ADMIN) || 

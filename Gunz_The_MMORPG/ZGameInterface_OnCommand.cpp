@@ -18,7 +18,7 @@
 #include "MSlider.h"
 #include "ZMsgBox.h"
 #include "MDebug.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "MBlobArray.h"
 #include "MListBox.h"
 #include "MTextArea.h"
@@ -28,7 +28,7 @@
 #include "ZCharacterSelectView.h"
 #include "ZCharacterViewList.h"
 #include "ZCharacterView.h"
-#include "MMatchStage.h"
+#include "CCMatchStage.h"
 #include "ZScreenEffectManager.h"
 #include "RShaderMgr.h"
 #include "ZShopEquipListbox.h"
@@ -44,7 +44,7 @@
 #include "ZRoomListbox.h"
 #include "ZPlayerListBox.h"
 #include "ZDuelTournamentRankingListBox.h"
-#include "MMatchNotify.h"
+#include "CCMatchNotify.h"
 #include "ZMapListBox.h"
 #include "ZToolTip.h"
 #include "ZCanvas.h"
@@ -216,7 +216,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 
 
 				// 내정보 저장
-				ZGetMyInfo()->InitCharInfo(pCharInfo->szName, pCharInfo->szClanName, pCharInfo->nClanGrade, (MMatchSex)pCharInfo->nSex, 
+				ZGetMyInfo()->InitCharInfo(pCharInfo->szName, pCharInfo->szClanName, pCharInfo->nClanGrade, (CCMatchSex)pCharInfo->nSex, 
 					                 (int)pCharInfo->nHair, (int)pCharInfo->nFace);				
 				ZGetMyInfo()->GetItemList()->SetEquipItemInfo(pCharInfo->uidEquipedItem, pCharInfo->nEquipedItemDesc, pCharInfo->nEquipedItemCount);
 

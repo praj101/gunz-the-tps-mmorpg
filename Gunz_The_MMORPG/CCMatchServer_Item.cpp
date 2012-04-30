@@ -12,14 +12,14 @@
 #include "CCMatchObjCache.h"
 #include "CCMatchStage.h"
 #include "CCMatchTransDataType.h"
-#include "MMatchFormula.h"
+#include "CCMatchFormula.h"
 #include "CCMatchConfig.h"
 #include "CCCommandCommunicator.h"
 #include "CCMatchShop.h"
 #include "CCMatchTransDataType.h"
 #include "CCDebug.h"	
 #include "CCMatchAuth.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "MAsyncDBJob_GetAccountItemList.h"
 
@@ -30,7 +30,7 @@ bool CCMatchServer::DistributeZItem(const CCUID& uidPlayer, const unsigned long 
 	CCMatchObject* pObject = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObject)) return false;
 
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if ( pItemDesc == NULL ) return false;
 
 	if ( !pItemDesc->IsSpendableItem() ) 
@@ -41,7 +41,7 @@ bool CCMatchServer::DistributeZItem(const CCUID& uidPlayer, const unsigned long 
 		// 오브젝트에 아이템 추가
 		int nRentMinutePeriodRemainder = nRentPeriodHour * 60;
 
-		CCUID uidNew = MMatchItemMap::UseUID();
+		CCUID uidNew = CCMatchItemMap::UseUID();
 		pObject->GetCharInfo()->m_ItemList.CreateItem(uidNew, nNewCIID, nItemID, bRentItem, nRentMinutePeriodRemainder, nRentPeriodHour);
 	}
 	else 
@@ -59,7 +59,7 @@ bool CCMatchServer::DistributeZItem(const CCUID& uidPlayer, const unsigned long 
 // 실제 디비와 오브젝트에서 아이템을 삭제
 bool CCMatchServer::RemoveExpiredCharItem(CCMatchObject* pObject, CCUID& uidItem)
 {
-	MMatchItem* pItem = pObject->GetCharInfo()->m_ItemList.GetItem(uidItem);
+	CCMatchItem* pItem = pObject->GetCharInfo()->m_ItemList.GetItem(uidItem);
 	if (pItem == NULL) return false;
 
 	// 디비에서 아이템 삭제
@@ -68,7 +68,7 @@ bool CCMatchServer::RemoveExpiredCharItem(CCMatchObject* pObject, CCUID& uidItem
 	}
 
 	// 만약 장비중이면 해체
-	MMatchCharItemParts nCheckParts = MMCIP_END;
+	CCMatchCharItemParts nCheckParts = MMCIP_END;
 	if (pObject->GetCharInfo()->m_EquipedItem.IsEquipedItem(uidItem, nCheckParts)) {
 		pObject->GetCharInfo()->m_EquipedItem.Remove(nCheckParts);
 	}
@@ -97,25 +97,25 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 }
 
 
-//void CCMatchServer::ResponseTakeoffItem(const CCUID& uidPlayer, const MMatchCharItemParts parts)
+//void CCMatchServer::ResponseTakeoffItem(const CCUID& uidPlayer, const CCMatchCharItemParts parts)
 //{
 //	CCMatchObject* pObj = GetObject(uidPlayer);
 //	if (pObj == NULL) return;
 //	int nResult = MOK;
 //
-//	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+//	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 //	if (pCharInfo == NULL) return;
 //	if (pCharInfo->m_EquipedItem.IsEmpty(parts)) return;
 //
 //
 //	
-//	MMatchItem* pItem = pCharInfo->m_EquipedItem.GetItem(parts);
+//	CCMatchItem* pItem = pCharInfo->m_EquipedItem.GetItem(parts);
 //	if( NULL == pItem )
 //	{
 //		return;
 //	}
 //
-//	MMatchItemDesc* pItemDesc = pItem->GetDesc();
+//	CCMatchItemDesc* pItemDesc = pItem->GetDesc();
 //	if (pItemDesc == NULL) 
 //	{
 //		return;
@@ -220,9 +220,9 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //	{
 //		CCUID* pUID = (CCUID*)MGetBlobArrayElement(pEquipItemArray, nIndex++);
 //
-//		if (!pObj->GetCharInfo()->m_EquipedItem.IsEmpty(MMatchCharItemParts(i)))
+//		if (!pObj->GetCharInfo()->m_EquipedItem.IsEmpty(CCMatchCharItemParts(i)))
 //		{
-//			*pUID = pObj->GetCharInfo()->m_EquipedItem.GetItem(MMatchCharItemParts(i))->GetUID();
+//			*pUID = pObj->GetCharInfo()->m_EquipedItem.GetItem(CCMatchCharItemParts(i))->GetUID();
 //			nRealEquipedItemCount++;
 //		}
 //		else
@@ -239,8 +239,8 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //	int nItemCount = pObj->GetCharInfo()->m_ItemList.GetCount();
 //
 //	void*			pItemArray					= MMakeBlobArray(sizeof(MTD_ItemNode), nItemCount);
-//	MMatchItemMap*	pItemList					= &pObj->GetCharInfo()->m_ItemList;
-//	MMatchItem*		pItem						= NULL;
+//	CCMatchItemMap*	pItemList					= &pObj->GetCharInfo()->m_ItemList;
+//	CCMatchItem*		pItem						= NULL;
 //	MTD_ItemNode*	pItemNode					= NULL;
 //	unsigned long	nPassTime					= 0;
 //	int				nPassMinuteTime				= 0;
@@ -248,7 +248,7 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //	int				nRentMinutePeriodRemainder	= RENT_MINUTE_PERIOD_UNLIMITED;
 //
 //	nIndex = 0;
-//	for (MMatchItemMap::iterator itor = pItemList->begin(); itor != pItemList->end(); ++itor)
+//	for (CCMatchItemMap::iterator itor = pItemList->begin(); itor != pItemList->end(); ++itor)
 //	{
 //		pItem = (*itor).second;
 //
@@ -286,7 +286,7 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //
 //	for (int j = 0; j < nGambleItemCount; ++j)
 //	{
-//		const MMatchCharGambleItem* pGambleItem = pObj->GetCharInfo()->m_GambleItemManager.GetGambleItem(j);
+//		const CCMatchCharGambleItem* pGambleItem = pObj->GetCharInfo()->m_GambleItemManager.GetGambleItem(j);
 //		MTD_GambleItemNode* pSendGambleItem = (MTD_GambleItemNode*)MGetBlobArrayElement(pGambleItemArray, j);
 //		if( pSendGambleItem != NULL )
 //		{
@@ -312,10 +312,10 @@ void CCMatchServer::OnRequestUseSpendableNormalItem(const CCUID& uidPlayer, cons
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 	if (pCharInfo == NULL) return;
 
-	MMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
+	CCMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
 	if( pItem == NULL ) {
 		cclog("Use Spendable Item Failed[CID : %d, CCUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
 		return;
@@ -332,10 +332,10 @@ void CCMatchServer::UseSpendableItem(const CCUID& uidPlayer, const CCUID& uidIte
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 	if (pCharInfo == NULL) return;
 
-	MMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
+	CCMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
 	if( pItem == NULL ) {
 		cclog("Use Spendable Item Failed[CID : %d, CCUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
 		return;
@@ -350,7 +350,7 @@ void CCMatchServer::UseSpendableItem(const CCUID& uidPlayer, const CCUID& uidIte
 		{
 			UpdateCharItemDBCachingData(pObj);
 			
-			MMatchCharItemParts nCheckParts = MMCIP_END;
+			CCMatchCharItemParts nCheckParts = MMCIP_END;
 			if (pCharInfo->m_EquipedItem.IsEquipedItem(uidItem, nCheckParts)) {
 				pCharInfo->m_EquipedItem.Remove(nCheckParts);
 			}
@@ -382,10 +382,10 @@ void CCMatchServer::OnRequestUseSpendableBuffItem(const CCUID& uidPlayer, const 
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 	if (pCharInfo == NULL) return;
 
-	MMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
+	CCMatchItem *pItem = pCharInfo->m_ItemList.GetItem(uidItem);	///< UID로 아이템 찾기
 	if( pItem == NULL ) {
 		cclog("Use Spendable Item Failed[CID : %d, CCUID(%d%d)]\n", pCharInfo->m_nCID, uidItem.High, uidItem.Low);
 		return;
@@ -396,7 +396,7 @@ void CCMatchServer::OnRequestUseSpendableBuffItem(const CCUID& uidPlayer, const 
 		return; 
 	} 
 
-	MMatchBuffDesc* pBuffDesc = MGetMatchBuffDescMgr()->GetBuffDesc(pItem->GetDesc()->m_nID);
+	CCMatchBuffDesc* pBuffDesc = MGetMatchBuffDescMgr()->GetBuffDesc(pItem->GetDesc()->m_nID);
 	if( pBuffDesc == NULL ) {
 		_ASSERT(0);
 		return;
@@ -442,7 +442,7 @@ void CCMatchServer::PostCmdCharacterBuffInfo(const CCUID& uidPlayer)
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 	if (pCharInfo == NULL) return;		
 
 	MCommand *pCmd = CreateCommand(MC_MATCH_SPENDABLE_BUFF_ITEM_STATUS, uidPlayer);	

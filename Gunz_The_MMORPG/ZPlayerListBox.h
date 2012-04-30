@@ -49,7 +49,7 @@ public:
 public:
 
 	CCUID				m_PlayerUID;
-	MMatchUserGradeID	m_Grade;		//이건 안쓰는 것 같다
+	CCMatchUserGradeID	m_Grade;		//이건 안쓰는 것 같다
 	MCOLOR				m_Color;
 
 
@@ -71,7 +71,7 @@ public:
 
 public:
 	ZLobbyPlayerListItem(const CCUID& puid, MBitmap* pBitmap, unsigned int nClanID, const char* szLevel, const char* szName, 
-		const char *szClanName, ePlayerState nLobbyPlayerState,MMatchUserGradeID Grade, MBitmap* pBmpDTGradeIcon)
+		const char *szClanName, ePlayerState nLobbyPlayerState,CCMatchUserGradeID Grade, MBitmap* pBmpDTGradeIcon)
 	{
 		m_pBitmap = pBitmap;
 		m_pBmpDTGradeIcon = pBmpDTGradeIcon;
@@ -150,7 +150,7 @@ public:
 
 public:
 	ZFriendPlayerListItem(const CCUID& puid, MBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLocation, 
-		ePlayerState nLobbyPlayerState,MMatchUserGradeID Grade)
+		ePlayerState nLobbyPlayerState,CCMatchUserGradeID Grade)
 	{
 		m_pBitmap = pBitmap;
 		m_PlayerUID = puid;
@@ -207,14 +207,14 @@ public:
 class ZClanPlayerListItem : public ZPlayerListItem{
 protected:
 	MBitmap* m_pBitmap;
-	MMatchClanGrade	m_ClanGrade;
+	CCMatchClanGrade	m_ClanGrade;
 
 public:
 	ePlayerState	m_nLobbyPlayerState;
 
 public:
 	ZClanPlayerListItem(const CCUID& puid, MBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLevel, 
-		ePlayerState nLobbyPlayerState,MMatchClanGrade clanGrade)
+		ePlayerState nLobbyPlayerState,CCMatchClanGrade clanGrade)
 	{
 		m_pBitmap = pBitmap;
 		m_PlayerUID = puid;
@@ -298,7 +298,7 @@ public:
 
 public:
 	ZStagePlayerListItem(const CCUID& puid, MBitmap* pBitmap, unsigned int nClanID, const char* szName, const char* szClanName, 
-		const char* szLevel,MMatchUserGradeID Grade, MBitmap* pBmpDTGradeIcon)
+		const char* szLevel,CCMatchUserGradeID Grade, MBitmap* pBmpDTGradeIcon)
 	{
 		m_pBitmap = pBitmap;
 		m_pBmpDTGradeIcon = pBmpDTGradeIcon;
@@ -426,20 +426,20 @@ public:
 //	MBitmap* GetBitmapIn() { return m_pBitmapIn; }
 
 	// mode PLAYERLISTMODE_CHANNEL
-	void AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char* szName, char* szClanName, unsigned int nClanID, MMatchUserGradeID nGrade, int duelTournamentGrade );
+	void AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char* szName, char* szClanName, unsigned int nClanID, CCMatchUserGradeID nGrade, int duelTournamentGrade );
 
 	// mode PLAYERLISTMODE_STAGE
-	void AddPlayer(CCUID& puid, MMatchObjectStageState state, int nLevel, char* szName, char* szClanName, unsigned int nClanID, bool isMaster,MMatchTeam nTeam, int duelTournamentGrade);
+	void AddPlayer(CCUID& puid, CCMatchObjectStageState state, int nLevel, char* szName, char* szClanName, unsigned int nClanID, bool isMaster,CCMatchTeam nTeam, int duelTournamentGrade);
 
 	// mode PLAYERLISTMODE_CHANNEL_FRIEND, PLAYERLISTMODE_STAGE_FRIEND
 	void AddPlayer(ePlayerState state, char* szName, char* szLocation);
 
 	// mode PLAYERLISTMODE_CHANNEL_CLAN
-	void AddPlayer(CCUID& puid, ePlayerState state, char* szName, int  nLevel ,MMatchClanGrade nGrade );
+	void AddPlayer(CCUID& puid, ePlayerState state, char* szName, int  nLevel ,CCMatchClanGrade nGrade );
 
 	void DelPlayer(CCUID& puid);
-	void UpdatePlayer(CCUID& puid,MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam);
-	void UpdatePlayer(CCUID& puid,MMatchObjectStageState state, bool isMaster,MMatchTeam nTeam);
+	void UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,CCMatchTeam nTeam);
+	void UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, bool isMaster,CCMatchTeam nTeam);
 	void UpdateEmblem(CCUID& puid);
 
 	void UpdateList(int mode);
@@ -498,8 +498,8 @@ public:
 	void SetBitmap( MBitmap* pBitmap );
 	MBitmap* GetBitmap() {	return m_pBitmap; }
 
-	void AddPlayer(MMatchObjCache* pCache);
-	void AddPlayer(CCUID& puid, MMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,MMatchTeam nTeam);
+	void AddPlayer(CCMatchObjCache* pCache);
+	void AddPlayer(CCUID& puid, CCMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,CCMatchTeam nTeam);
 //	void AddPlayer(CCUID& puid, eStagePlayerState state, char* szName, int  nLevel ,bool isMaster,int nTeam);
 	void DelPlayer(CCUID& puid);
 	void UpdatePlayer(CCUID& puid,eStagePlayerState state, char* szName, int  nLevel ,bool isMaster,int nTeam);

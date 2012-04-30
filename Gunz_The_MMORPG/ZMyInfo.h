@@ -46,14 +46,14 @@ private:
 protected:
 	// 계정 정보
 	char					m_szAccountID[256];
-	MMatchUserGradeID		m_nUGradeID;
-	MMatchPremiumGradeID	m_nPGradeID;
+	CCMatchUserGradeID		m_nUGradeID;
+	CCMatchPremiumGradeID	m_nPGradeID;
 
 
 	// 캐릭터 정보
 	char			m_szCharName[MATCHOBJECT_NAME_LENGTH];
 	char			m_szClanName[CLAN_NAME_LENGTH];
-	MMatchSex		m_nSex;
+	CCMatchSex		m_nSex;
 	int				m_nHair;		// 머리
 	int				m_nFace;		// 얼굴
 	int				m_nRace;
@@ -61,7 +61,7 @@ protected:
 	int						m_nBP;
 	int						m_nLevel;
 	int						m_nLevelPercent;
-	MMatchClanGrade			m_nClanGrade;
+	CCMatchClanGrade			m_nClanGrade;
 	bool					m_bNewbie;				
 
 	// 케릭터 버프 정보
@@ -84,8 +84,8 @@ public :
 public:
 	ZMyInfo();
 	virtual ~ZMyInfo();
-	bool InitCharInfo(const char* szCharName, const char* szClanName, const MMatchClanGrade nClanGrade, const MMatchSex nSex, const int nHair, const int nFace);
-	bool InitAccountInfo(const char* szAccountID, MMatchUserGradeID nUGradeID, MMatchPremiumGradeID nPGradeID);
+	bool InitCharInfo(const char* szCharName, const char* szClanName, const CCMatchClanGrade nClanGrade, const CCMatchSex nSex, const int nHair, const int nFace);
+	bool InitAccountInfo(const char* szAccountID, CCMatchUserGradeID nUGradeID, CCMatchPremiumGradeID nPGradeID);
 	
 	void Destroy();
 	void Serialize();		// UI 업데이트 - 여기서 내 정보에 대한 UI 업데이트를 하도록 하자.
@@ -97,7 +97,7 @@ public:
 	ZMyItemList*		GetItemList() { return &m_ItemList; }
 	ZMySystemInfo*		GetSystemInfo()	{ return &m_MySystemInfo; }
 	ZMyGameInfo*		GetGameInfo()	{ return &m_MyGameInfo; }
-	MMatchSex			GetSex() { return m_nSex; }
+	CCMatchSex			GetSex() { return m_nSex; }
 	int					GetHair() { return m_nHair; }
 	int					GetFace() { return m_nFace; }
 	int					GetRace() { return m_nRace; }
@@ -112,9 +112,9 @@ public:
 	int					GetHP();
 	int					GetAP();
 	bool				IsNewbie()	{ return m_bNewbie; }	// 초보자인지 여부(가지고 있는 캐릭터 최고레벨이 5레벨 미만)
-	MMatchUserGradeID	GetUGradeID()		{ return m_nUGradeID; }
-	MMatchPremiumGradeID	GetPGradeID()		{ return m_nPGradeID; }
-	MMatchClanGrade		GetClanGrade()	{ return m_nClanGrade; }
+	CCMatchUserGradeID	GetUGradeID()		{ return m_nUGradeID; }
+	CCMatchPremiumGradeID	GetPGradeID()		{ return m_nPGradeID; }
+	CCMatchClanGrade		GetClanGrade()	{ return m_nClanGrade; }
 	bool				IsAdminGrade() {
 		if ( (GetUGradeID() == MMUG_EVENTMASTER) || (GetUGradeID() == MMUG_DEVELOPER) || (GetUGradeID() == MMUG_ADMIN) )
 			return true;
@@ -129,7 +129,7 @@ public:
 	void SetBP(int nBP)							{ m_nBP = nBP; }
 	void SetLevel( int nLevel );
 	void SetLevelPercent(int nPercent)			{ m_nLevelPercent = nPercent; }
-	void SetClanInfo(const char* szClanName, const MMatchClanGrade nClanGrade);
+	void SetClanInfo(const char* szClanName, const CCMatchClanGrade nClanGrade);
 	void SetNewbie(bool bNewbie)				{ m_bNewbie = bNewbie; }
 };
 

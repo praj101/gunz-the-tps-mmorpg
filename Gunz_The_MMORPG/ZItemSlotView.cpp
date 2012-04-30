@@ -33,7 +33,7 @@ ZItemSlotView::~ZItemSlotView(void)
 }
 
 
-void ZItemSlotView::SetDefaultText(MMatchCharItemParts nParts)
+void ZItemSlotView::SetDefaultText(CCMatchCharItemParts nParts)
 {
 	switch (nParts)
 	{
@@ -74,7 +74,7 @@ void ZItemSlotView::OnDraw(MDrawContext* pDC)
 		nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(m_nParts);
 	}
 
-	MMatchItemDesc* pItemDesc = NULL;
+	CCMatchItemDesc* pItemDesc = NULL;
 	if (nItemID != 0) 
 		pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
@@ -202,7 +202,7 @@ void ZItemSlotView::OnDraw(MDrawContext* pDC)
 	}
 }
 
-void ZItemSlotView::SetParts(MMatchCharItemParts nParts)
+void ZItemSlotView::SetParts(CCMatchCharItemParts nParts)
 {
 	SetDefaultText(nParts);
 	m_nParts = nParts;
@@ -217,9 +217,9 @@ bool ZItemSlotView::IsDropable(MWidget* pSender)
 }
 
 
-bool ZItemSlotView::IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, MMatchSex nPlayerSex)
+bool ZItemSlotView::IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, CCMatchSex nPlayerSex)
 {
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc == NULL) return false;
 
 	// 성별 제한 조건
@@ -253,7 +253,7 @@ bool ZItemSlotView::OnDrop(MWidget* pSender, MBitmap* pBitmap, const char* szStr
 		if (ZSEIT_MATCH != pListItem->GetItemData()->GetType()) return false;
 
 		ZShopEquipItem_Match* pWrappedMatchItem = (ZShopEquipItem_Match*)pListItem->GetItemData();
-		MMatchItemDesc* pItemDesc = pWrappedMatchItem->GetDesc();
+		CCMatchItemDesc* pItemDesc = pWrappedMatchItem->GetDesc();
 		if (pItemDesc == NULL) return false;
 		
 		IShopEquipItemHandle_Sell* pHandleSell = pWrappedMatchItem->GetHandleSell();
@@ -268,7 +268,7 @@ bool ZItemSlotView::OnDrop(MWidget* pSender, MBitmap* pBitmap, const char* szStr
 	else if (strcmp(pSender->GetClassName(), MINT_ITEMSLOTVIEW)==0) {	// Equip 슬롯에서 Equip 슬롯으로
 		ZItemSlotView* pWidget = (ZItemSlotView*)pSender;
 		CCUID uidItem = ZGetMyInfo()->GetItemList()->GetEquipedItemUID(pWidget->GetParts());
-		MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
+		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
 		if (pItemDesc == NULL) return false;
 		if (!IsSuitableItemSlot(pItemDesc->m_nSlot, m_nParts)) return false;
 		if (!IsEquipableItem(pItemDesc->m_nID, 99, ZGetMyInfo()->GetSex())) return false;
@@ -303,7 +303,7 @@ bool ZItemSlotView::OnEvent(MEvent* pEvent, MListener* pListener)
 
 		// 상점 및 장비 아이템 슬롯일 경우
 		unsigned long int nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(m_nParts);
-		MMatchItemDesc* pItemDesc = NULL;
+		CCMatchItemDesc* pItemDesc = NULL;
 		if (nItemID != 0)
 		{
 			pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
@@ -354,7 +354,7 @@ bool ZItemSlotView::OnEvent(MEvent* pEvent, MListener* pListener)
 	else if ( pEvent->nMessage == MWM_LBUTTONDBLCLK)
 	{
 		unsigned long int nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(m_nParts);
-		MMatchItemDesc* pItemDesc = NULL;
+		CCMatchItemDesc* pItemDesc = NULL;
 		if (nItemID != 0)
 		{
 			pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
@@ -408,7 +408,7 @@ void ZItemSlotView::OnMouseIn( void )
 
 	// 상점 및 장비 아이템 슬롯일 경우 툴팁 표시
 	unsigned long int nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(m_nParts);
-	MMatchItemDesc* pItemDesc = NULL;
+	CCMatchItemDesc* pItemDesc = NULL;
 	if (nItemID == 0) return;
 
 	const char* szItemDescription = GetItemDescriptionWidgetName();

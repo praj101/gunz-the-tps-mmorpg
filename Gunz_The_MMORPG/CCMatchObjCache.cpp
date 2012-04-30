@@ -19,11 +19,11 @@ CCMatchObjectCacheBuilder::~CCMatchObjectCacheBuilder()
 
 void CCMatchObjectCacheBuilder::AddObject(CCMatchObject* pObj)
 {
-	MMatchObjCache* pCache = new MMatchObjCache;
+	CCMatchObjCache* pCache = new CCMatchObjCache;
 	int nItemID=0;
-	MMatchItemDesc* pItemDesc = NULL;
+	CCMatchItemDesc* pItemDesc = NULL;
 
-	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 //	_ASSERT(pCharInfo);
 	if (pCharInfo == NULL)
 	{
@@ -39,7 +39,7 @@ void CCMatchObjectCacheBuilder::AddObject(CCMatchObject* pObj)
 					, pCharInfo->m_nRank, pCharInfo->m_nTotalKillCount, pCharInfo->m_nTotalDeathCount, nDTLastWeekGrade );
 	pCache->SetCLID(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
 
-	MMatchClan* pClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
+	CCMatchClan* pClan = CCMatchServer::GetInstance()->GetClanMap()->GetClan(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
 	if (pClan)
 		pCache->SetEmblemChecksum(pClan->GetEmblemChecksum());
 	else
@@ -51,10 +51,10 @@ void CCMatchObjectCacheBuilder::AddObject(CCMatchObject* pObj)
 
 	for (int i=0; i < MMCIP_END; i++)
 	{
-		if (!pObj->GetCharInfo()->m_EquipedItem.IsEmpty(MMatchCharItemParts(i)))
+		if (!pObj->GetCharInfo()->m_EquipedItem.IsEmpty(CCMatchCharItemParts(i)))
 		{
 			pCache->GetCostume()->nEquipedItemID[i] =
-				pObj->GetCharInfo()->m_EquipedItem.GetItem(MMatchCharItemParts(i))->GetDescID();
+				pObj->GetCharInfo()->m_EquipedItem.GetItem(CCMatchCharItemParts(i))->GetDescID();
 		}
 		else
 		{
@@ -69,9 +69,9 @@ void CCMatchObjectCacheBuilder::AddObject(CCMatchObject* pObj)
 
 void CCMatchObjectCacheBuilder::Reset()
 {
-	MMatchObjCacheList::iterator itor;
+	CCMatchObjCacheList::iterator itor;
 	while ( (itor = m_ObjectCacheList.begin()) != m_ObjectCacheList.end()) {
-		MMatchObjCache* pObjCache = (*itor);
+		CCMatchObjCache* pObjCache = (*itor);
 		m_ObjectCacheList.pop_front();
 		delete pObjCache;
 	}
@@ -82,11 +82,11 @@ MCommand* CCMatchObjectCacheBuilder::GetResultCmd(MATCHCACHEMODE nMode, MCommand
 	MCommand* pCmd = pCmdComm->CreateCommand(MC_MATCH_OBJECT_CACHE, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUChar(nMode));
 	int nCount = (int)m_ObjectCacheList.size();
-	void* pCacheArray = MMakeBlobArray(sizeof(MMatchObjCache), nCount);
+	void* pCacheArray = MMakeBlobArray(sizeof(CCMatchObjCache), nCount);
 	int nIndex=0;
-	for (MMatchObjCacheList::iterator itor=m_ObjectCacheList.begin(); itor!=m_ObjectCacheList.end(); itor++) {
-		MMatchObjCache* pTrgCache = (MMatchObjCache*)MGetBlobArrayElement(pCacheArray, nIndex++);
-		MMatchObjCache* pSrcCache = (*itor);
+	for (CCMatchObjCacheList::iterator itor=m_ObjectCacheList.begin(); itor!=m_ObjectCacheList.end(); itor++) {
+		CCMatchObjCache* pTrgCache = (CCMatchObjCache*)MGetBlobArrayElement(pCacheArray, nIndex++);
+		CCMatchObjCache* pSrcCache = (*itor);
 
 		
 		pTrgCache->SetInfo(pSrcCache->GetUID(), pSrcCache->GetName(), pSrcCache->GetClanName(),

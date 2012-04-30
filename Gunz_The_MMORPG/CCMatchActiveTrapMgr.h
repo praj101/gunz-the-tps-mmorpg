@@ -1,10 +1,10 @@
 #pragma once
 
-// MMatchActiveTrapMgr는 유저가 던져서 맵 상에 발동중이거나 혹은 아직 발동되기 전인 트랩들의 목록을 관리한다.
+// CCMatchActiveTrapMgr는 유저가 던져서 맵 상에 발동중이거나 혹은 아직 발동되기 전인 트랩들의 목록을 관리한다.
 // (게임 도중 난입한 유저에게 현재 월드에 존재하는 트랩들을 알려주기 위해서 기억해두는 것이다)
 
 
-class MMatchActiveTrap
+class CCMatchActiveTrap
 {
 public:
 	unsigned long m_nTimeThrowed;
@@ -22,22 +22,22 @@ public:
 	vector<CCUID> m_vecUidForcedEntered;
 
 public:
-	MMatchActiveTrap();
+	CCMatchActiveTrap();
 	bool IsActivated() { return m_nTimeActivated!=0; }
 	void AddForcedEnteredPlayer(const CCUID& uid);
 };
 
-class MMatchActiveTrapMgr
+class CCMatchActiveTrapMgr
 {
-	typedef list<MMatchActiveTrap*>		ListTrap;
+	typedef list<CCMatchActiveTrap*>		ListTrap;
 	typedef ListTrap::iterator			ItorTrap;
-	list<MMatchActiveTrap*> m_listTrap;
+	list<CCMatchActiveTrap*> m_listTrap;
 
 	CCMatchStage* m_pStage;
 
 public:
-	MMatchActiveTrapMgr();
-	~MMatchActiveTrapMgr();
+	CCMatchActiveTrapMgr();
+	~CCMatchActiveTrapMgr();
 
 	void Create(CCMatchStage* pStage);
 	void Destroy();
@@ -49,5 +49,5 @@ public:
 	void Update(unsigned long nClock);
 
 	void RouteAllTraps(CCMatchObject* pObj);
-	void RouteTrapActivationForForcedEnterd(MMatchActiveTrap* pTrap);
+	void RouteTrapActivationForForcedEnterd(CCMatchActiveTrap* pTrap);
 };

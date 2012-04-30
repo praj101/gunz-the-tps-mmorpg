@@ -14,22 +14,22 @@
 
 
 
-const DWORD MMatchMapsWorldItemSpawnInfoSet::GetCRC32()
+const DWORD CCMatchMapsWorldItemSpawnInfoSet::GetCRC32()
 {
-	return MCRC32::BuildCRC32( (BYTE*)this, DWORD(sizeof(MMatchMapsWorldItemSpawnInfoSet)) );
+	return MCRC32::BuildCRC32( (BYTE*)this, DWORD(sizeof(CCMatchMapsWorldItemSpawnInfoSet)) );
 }
 
 
-MMatchWorldItemDescMgr::MMatchWorldItemDescMgr()
+CCMatchWorldItemDescMgr::CCMatchWorldItemDescMgr()
 {
 }
 
-MMatchWorldItemDescMgr::~MMatchWorldItemDescMgr()
+CCMatchWorldItemDescMgr::~CCMatchWorldItemDescMgr()
 {
 	Clear();
 }
 
-bool MMatchWorldItemDescMgr::ReadXml(const char* szFileName)
+bool CCMatchWorldItemDescMgr::ReadXml(const char* szFileName)
 {
 	CCXmlDocument	xmlIniData;
 
@@ -64,7 +64,7 @@ bool MMatchWorldItemDescMgr::ReadXml(const char* szFileName)
 	return true;
 }
 
-bool MMatchWorldItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
+bool CCMatchWorldItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
@@ -128,17 +128,17 @@ bool MMatchWorldItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szF
 	return true;
 }
 
-void MMatchWorldItemDescMgr::Clear()
+void CCMatchWorldItemDescMgr::Clear()
 {
 	while (!empty())
 	{
-		MMatchWorldItemDesc* pDesc = (*begin()).second;
+		CCMatchWorldItemDesc* pDesc = (*begin()).second;
 		delete pDesc; pDesc = NULL;
 		erase(begin());
 	}
 }
 
-MMatchWorldItemDesc* MMatchWorldItemDescMgr::GetItemDesc(short nID)
+CCMatchWorldItemDesc* CCMatchWorldItemDescMgr::GetItemDesc(short nID)
 {
 	iterator itor = find(nID);
 	if (itor != end())
@@ -148,17 +148,17 @@ MMatchWorldItemDesc* MMatchWorldItemDescMgr::GetItemDesc(short nID)
 	return NULL;
 }
 
-MMatchWorldItemDescMgr* MMatchWorldItemDescMgr::GetInstance()
+CCMatchWorldItemDescMgr* CCMatchWorldItemDescMgr::GetInstance()
 {
-	static MMatchWorldItemDescMgr m_WorldItemDescMgr;
+	static CCMatchWorldItemDescMgr m_WorldItemDescMgr;
 	return &m_WorldItemDescMgr;
 }
 
 
-void MMatchWorldItemDescMgr::ParseWorldItem(CCXmlElement& element)
+void CCMatchWorldItemDescMgr::ParseWorldItem(CCXmlElement& element)
 {
-	MMatchWorldItemDesc* pNewWorldItemDesc = new MMatchWorldItemDesc;
-	memset(pNewWorldItemDesc, 0, sizeof(MMatchWorldItemDesc));
+	CCMatchWorldItemDesc* pNewWorldItemDesc = new CCMatchWorldItemDesc;
+	memset(pNewWorldItemDesc, 0, sizeof(CCMatchWorldItemDesc));
 
 	int n = 0;
 	element.GetAttribute(&n, MWICTOK_ID);	pNewWorldItemDesc->m_nID = n;
@@ -195,7 +195,7 @@ void MMatchWorldItemDescMgr::ParseWorldItem(CCXmlElement& element)
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-// MMatchMapsWorldItemSpawnInfo /////////////////////////////////////////////////////////////
+// CCMatchMapsWorldItemSpawnInfo /////////////////////////////////////////////////////////////
 #define FILENAME_WORLDITEM_SPAWN	"spawn.xml"
 
 #define MMSITOK_GAMETYPE	"GAMETYPE"
@@ -206,15 +206,15 @@ void MMatchWorldItemDescMgr::ParseWorldItem(CCXmlElement& element)
 #define MMSITOK_ID			"id"
 #define MMSITOK_NAME		"name"
 
-MMatchMapsWorldItemSpawnInfo::MMatchMapsWorldItemSpawnInfo()
+CCMatchMapsWorldItemSpawnInfo::CCMatchMapsWorldItemSpawnInfo()
 {
 	Clear();
 }
-MMatchMapsWorldItemSpawnInfo::~MMatchMapsWorldItemSpawnInfo()
+CCMatchMapsWorldItemSpawnInfo::~CCMatchMapsWorldItemSpawnInfo()
 {
 }
 
-bool MMatchMapsWorldItemSpawnInfo::Read()
+bool CCMatchMapsWorldItemSpawnInfo::Read()
 {
 	char szFileName[256];
 	for (int i = 0; i < MMATCH_MAP_COUNT; i++)
@@ -233,7 +233,7 @@ bool MMatchMapsWorldItemSpawnInfo::Read()
 	return true;
 }
 
-bool MMatchMapsWorldItemSpawnInfo::ReadXml(const char* szFileName, int nMapID)
+bool CCMatchMapsWorldItemSpawnInfo::ReadXml(const char* szFileName, int nMapID)
 {
 	CCXmlDocument	xmlIniData;
 
@@ -268,18 +268,18 @@ bool MMatchMapsWorldItemSpawnInfo::ReadXml(const char* szFileName, int nMapID)
 	return true;
 }
 
-void MMatchMapsWorldItemSpawnInfo::Clear()
+void CCMatchMapsWorldItemSpawnInfo::Clear()
 {
-	memset(m_MapsSpawnInfo, 0, sizeof(MMatchMapsWorldItemSpawnInfoSet) * MMATCH_MAP_COUNT);
+	memset(m_MapsSpawnInfo, 0, sizeof(CCMatchMapsWorldItemSpawnInfoSet) * MMATCH_MAP_COUNT);
 }
 
-MMatchMapsWorldItemSpawnInfo* MMatchMapsWorldItemSpawnInfo::GetInstance()
+CCMatchMapsWorldItemSpawnInfo* CCMatchMapsWorldItemSpawnInfo::GetInstance()
 {
-	static MMatchMapsWorldItemSpawnInfo m_stMapsWISP;
+	static CCMatchMapsWorldItemSpawnInfo m_stMapsWISP;
 	return &m_stMapsWISP;
 }
 
-void MMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(CCXmlElement& element, int nMapID)
+void CCMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(CCXmlElement& element, int nMapID)
 {
 	if ((nMapID < 0) || (nMapID >= MMATCH_MAP_COUNT)) return;
 
@@ -302,10 +302,10 @@ void MMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(CCXmlElement& element, int nMa
 
 		char szItemName[256] = "";
 		spawnElement.GetAttribute(szItemName, MMSITOK_ITEM);
-		for (MMatchWorldItemDescMgr::iterator itor = MGetMatchWorldItemDescMgr()->begin();
+		for (CCMatchWorldItemDescMgr::iterator itor = MGetMatchWorldItemDescMgr()->begin();
 			itor != MGetMatchWorldItemDescMgr()->end(); ++itor)
 		{
-			MMatchWorldItemDesc* pDesc = (*itor).second;
+			CCMatchWorldItemDesc* pDesc = (*itor).second;
 			if (!stricmp(pDesc->m_szDescName, szItemName))
 			{
 				nItemID = (*itor).first;
@@ -332,7 +332,7 @@ void MMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(CCXmlElement& element, int nMa
 
 }
 
-void MMatchMapsWorldItemSpawnInfo::SetMapsSpawnInfo(int nMapID, char* szGameTypeID,
+void CCMatchMapsWorldItemSpawnInfo::SetMapsSpawnInfo(int nMapID, char* szGameTypeID,
 													int nItemID, float x, float y, float z, 
 													unsigned long int nCoolTime)
 {

@@ -2,15 +2,15 @@
 
 #include "CCCRC32.h"
 
-class MMatchCRC32XORCache
+class CCMatchCRC32XORCache
 {
 private :
 	DWORD m_dwXOR;
 	DWORD m_dwCRC32;
 
 public :
-	MMatchCRC32XORCache()	{ Reset(); }
-	~MMatchCRC32XORCache()	{}
+	CCMatchCRC32XORCache()	{ Reset(); }
+	~CCMatchCRC32XORCache()	{}
 
 	__forceinline	void CRC32XOR( DWORD dwData ) {
 

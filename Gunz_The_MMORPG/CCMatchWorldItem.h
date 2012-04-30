@@ -14,7 +14,7 @@ class CCZFileSystem;
 #define WORLDITEM_MAX_NUM				30		// 플로딩 핵에대한 버그로 만들어짐...(메디킷,수리킷 월드맵에 갯수제한)
 
 // 맵에 생성된 아이템
-struct MMatchWorldItem
+struct CCMatchWorldItem
 {
 	unsigned short		nUID;
 	unsigned short		nItemID;
@@ -54,11 +54,11 @@ struct UserDropWorldItem
 };
 
 
-typedef map<unsigned short, MMatchWorldItem*> MMatchWorldItemMap;
+typedef map<unsigned short, CCMatchWorldItem*> CCMatchWorldItemMap;
 
 
 // 맵의 스폰 정보
-struct MMatchWorldItemSpawnInfo
+struct CCMatchWorldItemSpawnInfo
 {
 	unsigned short		nItemID;
 	unsigned long int	nCoolTime;
@@ -71,13 +71,13 @@ struct MMatchWorldItemSpawnInfo
 };
 
 
-class MMatchWorldItemManager
+class CCMatchWorldItemManager
 {
 private:
 	CCMatchStage*						m_pMatchStage;
-	MMatchWorldItemMap					m_ItemMap;				// 맵에 존재하고 있는 아이템 리스트
+	CCMatchWorldItemMap					m_ItemMap;				// 맵에 존재하고 있는 아이템 리스트
 
-	vector<MMatchWorldItemSpawnInfo>	m_SpawnInfos;			// 맵의 스폰 아이템 정보
+	vector<CCMatchWorldItemSpawnInfo>	m_SpawnInfos;			// 맵의 스폰 아이템 정보
 	vector< UserDropWorldItem >			m_UserDropWorldItem;	// 유저가 던지 아이템 정보
 	int									m_nSpawnItemCount;		// 스폰 아이템 정보 개수
 	unsigned long int					m_nLastTime;
@@ -95,12 +95,12 @@ private:
 	void SpawnInfoInit();
 	void ClearItems();
 
-	void RouteSpawnWorldItem(MMatchWorldItem* pWorldItem);
+	void RouteSpawnWorldItem(CCMatchWorldItem* pWorldItem);
 	void RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldItemUID);
 	void RouteRemoveWorldItem(int nWorldItemUID);
 public:
-	MMatchWorldItemManager();
-	virtual ~MMatchWorldItemManager();
+	CCMatchWorldItemManager();
+	virtual ~CCMatchWorldItemManager();
 
 	// CCMatchStage에서 관리하는 함수
 	bool Create(CCMatchStage* pMatchStage);

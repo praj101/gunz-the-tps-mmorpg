@@ -4,10 +4,10 @@
 #define MAUTHINFO_BUFLEN	4096
 
 
-class MMatchAuthInfo {
+class CCMatchAuthInfo {
 public:
-	MMatchAuthInfo()			{}
-	virtual ~MMatchAuthInfo()	{}
+	CCMatchAuthInfo()			{}
+	virtual ~CCMatchAuthInfo()	{}
 
 	virtual const char* GetUserID() = 0;
 	virtual const char* GetUniqueID() = 0;
@@ -16,10 +16,10 @@ public:
 	virtual int GetCCode() = 0;
 };
 
-class MMatchAuthBuilder {
+class CCMatchAuthBuilder {
 public:
-	MMatchAuthBuilder()				{}
-	virtual ~MMatchAuthBuilder()	{}
+	CCMatchAuthBuilder()				{}
+	virtual ~CCMatchAuthBuilder()	{}
 
-	virtual bool ParseAuthInfo(const char* pszData, MMatchAuthInfo** ppoutAutoInfo) = 0;
+	virtual bool ParseAuthInfo(const char* pszData, CCMatchAuthInfo** ppoutAutoInfo) = 0;
 };

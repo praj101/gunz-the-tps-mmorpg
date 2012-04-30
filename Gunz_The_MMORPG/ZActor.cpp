@@ -1041,7 +1041,7 @@ ZOBJECTHITTEST ZActor::HitTest( const rvector& origin, const rvector& to, float 
 
 #include "ZScreenEffectManager.h"
 
-void ZActor::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
+void ZActor::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
 {
 	// 맞는 사운드
 	if (!CheckFlag(AF_SOUND_WOUNDED))

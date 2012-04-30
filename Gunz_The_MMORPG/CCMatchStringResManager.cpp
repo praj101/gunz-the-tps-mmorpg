@@ -1,18 +1,18 @@
 #include "stdafx.h"
-#include "MMatchStringResManager.h"
+#include "CCMatchStringResManager.h"
 
-MMatchStringResManager::MMatchStringResManager() : MBaseStringResManager()
+CCMatchStringResManager::CCMatchStringResManager() : MBaseStringResManager()
 {
 
 }
 
-MMatchStringResManager::~MMatchStringResManager()
+CCMatchStringResManager::~CCMatchStringResManager()
 {
 
 }
 
-void MMatchStringResManager::MakeInstance()
+void CCMatchStringResManager::MakeInstance()
 {
 	_ASSERT(m_pInstance == NULL);
-	m_pInstance = new MMatchStringResManager();
+	m_pInstance = new CCMatchStringResManager();
 }

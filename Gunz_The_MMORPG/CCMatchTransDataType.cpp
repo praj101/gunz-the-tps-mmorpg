@@ -31,7 +31,7 @@ void Make_MTDQuestItemNode( MTD_QuestItemNode* pOut, const unsigned long int nIt
 }
 
 
-void Make_MTDWorldItem(MTD_WorldItem* pOut, MMatchWorldItem* pWorldItem)
+void Make_MTDWorldItem(MTD_WorldItem* pOut, CCMatchWorldItem* pWorldItem)
 {
 	pOut->nUID = pWorldItem->nUID;
 	pOut->nItemID = pWorldItem->nItemID;
@@ -46,7 +46,7 @@ void Make_MTDWorldItem(MTD_WorldItem* pOut, MMatchWorldItem* pWorldItem)
 }
 
 
-void Make_MTDActivatedTrap(MTD_ActivatedTrap *pOut, MMatchActiveTrap* pTrapItem)
+void Make_MTDActivatedTrap(MTD_ActivatedTrap *pOut, CCMatchActiveTrap* pTrapItem)
 {
 	pOut->uidOwner = pTrapItem->m_uidOwner;
 	pOut->nItemID = pTrapItem->m_nTrapItemId;

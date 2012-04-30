@@ -13,11 +13,11 @@
 using namespace std;
 
 class CCZFileSystem;
-class MMatchCRC32XORCache;
+class CCMatchCRC32XORCache;
 
 
 /// 아이템 타입
-enum MMatchItemType
+enum CCMatchItemType
 {
 	MMIT_MELEE = 0,
 	MMIT_RANGE,
@@ -31,7 +31,7 @@ enum MMatchItemType
 };
 
 /// 아이템 슬롯 타입
-enum MMatchItemSlotType
+enum CCMatchItemSlotType
 {
 	MMIST_NONE = 0,
 	MMIST_MELEE,
@@ -60,8 +60,8 @@ enum MMatchItemSlotType
 /// 장비부위 
 // MMCIP_END의 값과 각 enum에 배정된 값이 바뀌면 리플레이 로딩에 영향을 미치므로 수정하려면 주의가 필요함..
 // 특히 MMCIP_END는 MTD_CharInfo의 크기를 변화시키므로 리플레이 로딩 코드를 수정해주어야 합니다.
-// 그리고 추가 할때는 절대로 맨 끝에만 해야합니다. 중간에 넣으면 MMatchCharItemParts 사용하는 커맨드 코드를 기존 리플레이용으로 사용할 수 없게 됨
-enum MMatchCharItemParts
+// 그리고 추가 할때는 절대로 맨 끝에만 해야합니다. 중간에 넣으면 CCMatchCharItemParts 사용하는 커맨드 코드를 기존 리플레이용으로 사용할 수 없게 됨
+enum CCMatchCharItemParts
 {
 	MMCIP_HEAD		= 0,
 	MMCIP_CHEST		= 1,
@@ -84,7 +84,7 @@ enum MMatchCharItemParts
 };
 
 // 커스텀 아이템 타입
-enum MMatchCustomItemType
+enum CCMatchCustomItemType
 {
 	MMCIT_MED_KIT		= 0,
 	MMCIT_REPAIR_KIT,
@@ -108,7 +108,7 @@ enum MMatchCustomItemType
 	MMCIT_END
 };
 
-enum MMatchMeleeItemType
+enum CCMatchMeleeItemType
 {
 	MIT_DAGGER			= 0,
 	MIT_DUAL_DAGGER		= 1,
@@ -119,7 +119,7 @@ enum MMatchMeleeItemType
 	MIT_END
 };
 
-enum MMatchRangeItemType
+enum CCMatchRangeItemType
 {
 	RIT_PISTOL			= 0,
 	RIT_PISTOLx2		= 1,
@@ -138,7 +138,7 @@ enum MMatchRangeItemType
 };
 
 // Melee, Range, Custom을 합친 무기 타입 .. 한손 양손의 구분은 없다..
-enum MMatchWeaponType
+enum CCMatchWeaponType
 {
 	MWT_NONE	= 0,
 
@@ -187,7 +187,7 @@ enum MMatchWeaponType
 	MWT_END
 };
 
-enum MMatchSpendType
+enum CCMatchSpendType
 {
 	MMCT_NONE,
 	MMCT_NORMAL,	// 일반 사용 아이템(다이나마이트. 물약)
@@ -197,7 +197,7 @@ enum MMatchSpendType
 	MMCT_END
 };
 
-enum MMatchDamageType
+enum CCMatchDamageType
 {
 	MMDT_NORMAL,
 	MMDT_FIRE,
@@ -210,7 +210,7 @@ enum MMatchDamageType
 	MMDT_END
 };
 
-enum MMatchTicketType
+enum CCMatchTicketType
 {
 	MMTT_NONE = 0,
 	MMTT_ADMISSION,
@@ -219,7 +219,7 @@ enum MMatchTicketType
 	MMTT_END,
 };
 
-enum MMatchItemEffectId
+enum CCMatchItemEffectId
 {
 	// zitem.xml에서 아래 상수를 사용하므로 배정된 수치를 임의로 변경하면 안됩니다
 	MMIEI_NONE = 0,
@@ -234,7 +234,7 @@ enum MMatchItemEffectId
 	MMIEI_POTION_HASTE				= 130,
 };
 
-struct MMatchItemEffectDesc
+struct CCMatchItemEffectDesc
 {
 	unsigned long int	m_nID;
 	char				m_szName[128];
@@ -261,14 +261,14 @@ struct MMatchItemEffectDesc
 	int					m_nFlame;
 };
 
-enum MMatchItemBonusType
+enum CCMatchItemBonusType
 {
 	MIBT_SOLO = 0,
 	MIBT_TEAM = 1,
 	MIBT_QUEST = 2
 };
 
-struct MMatchItemBonus
+struct CCMatchItemBonus
 {
 	float				m_fXP_SoloBonus;
 	float				m_fXP_TeamBonus;
@@ -279,13 +279,13 @@ struct MMatchItemBonus
 	float				m_fBP_QuestBonus;
 };
 
-struct MMatchItemName
+struct CCMatchItemName
 {
 	char m_szItemName[128];
 	char m_szMeshName[128];
 };
 
-struct MMatchAvatarMeshName
+struct CCMatchAvatarMeshName
 {
 	char m_szHeadMeshName[128];
 	char m_szChestMeshName[128];
@@ -294,24 +294,24 @@ struct MMatchAvatarMeshName
 	char m_szFeetMeshName[128];	
 };
 
-struct MMatchItemDesc
+struct CCMatchItemDesc
 {
 	unsigned long int		m_nID;
 //	char					m_szItemName[128];
-	MProtectValue<MMatchItemName>* m_pMItemName;
+	MProtectValue<CCMatchItemName>* m_pMItemName;
 	MProtectValue<int>		m_nTotalPoint;
-	MProtectValue<MMatchWeaponType>	m_nWeaponType;
-	MProtectValue<MMatchItemType>	m_nType;
+	MProtectValue<CCMatchWeaponType>	m_nWeaponType;
+	MProtectValue<CCMatchItemType>	m_nType;
 	MProtectValue<int>		m_nResSex;
 	MProtectValue<int>		m_nResLevel;
-	MMatchItemSlotType		m_nSlot;
+	CCMatchItemSlotType		m_nSlot;
 	
 	MProtectValue<int>		m_nWeight;
 	MProtectValue<int>		m_nBountyPrice;
 	bool					m_bIsCashItem;	
 	MProtectValue<int>		m_nDelay;
-	MMatchItemEffectDesc*	m_pEffect;
-	MMatchItemEffectId		m_nEffectId;
+	CCMatchItemEffectDesc*	m_pEffect;
+	CCMatchItemEffectId		m_nEffectId;
 	MProtectValue<int>		m_nControllability;
 	MProtectValue<int>		m_nMagazine;
 	MProtectValue<int>		m_nMaxBullet;
@@ -338,15 +338,15 @@ struct MMatchItemDesc
 	MProtectValue<int>				m_nDamage;			// 무기류의 공격력
 	MProtectValue<int>				m_nItemPower;		// 소모성 아이템의 데미지 또는 회복량
 	MProtectValue<int>				m_nDamageTime;		// 도트 형태의 데미지나 회복이 들어가는 시간(0일 경우, 한 방만 들어간다)
-	MProtectValue<MMatchDamageType>	m_nDamageType;		// 소모성 아이템의 데미지 타입 (데미지 속성 혹은 회복 속성)
+	MProtectValue<CCMatchDamageType>	m_nDamageType;		// 소모성 아이템의 데미지 타입 (데미지 속성 혹은 회복 속성)
 	MProtectValue<int>		m_nLifeTime;				// 작동 시간 (현재는 트랩의 작동시간에만 사용)
 
 	char					m_szDesc[8192];	// 설명
 
 	bool								m_bIsSpendableItem;
-	MProtectValue<MMatchSpendType>		m_nSpendType;
+	MProtectValue<CCMatchSpendType>		m_nSpendType;
 
-	MProtectValue<MMatchAvatarMeshName>*		m_pAvatarMeshName;
+	MProtectValue<CCMatchAvatarMeshName>*		m_pAvatarMeshName;
 
 	unsigned long int		m_nColor;
 	int						m_nImageID;
@@ -357,14 +357,14 @@ struct MMatchItemDesc
 	char					m_szDryfireSndName[256];
 	char					m_szWeaponByFiber[256];		// melee 무기의 재질에 따른 소리
 
-	MMatchItemBonus			m_Bonus;
-	MMatchTicketType		m_TicketType;
+	CCMatchItemBonus			m_Bonus;
+	CCMatchTicketType		m_TicketType;
 	MProtectValue<int>		m_nMaxRentPeriod;	// 기간제 바운티 아이템의 최대 기간 정보 (날짜단위)
 
 	bool					m_bIsEnableMoveToAccountItem;
 
-	MMatchItemDesc();
-	~MMatchItemDesc();
+	CCMatchItemDesc();
+	~CCMatchItemDesc();
 
 	int GetSellBountyValue(int nCnt = 1) { return int(m_nBountyPrice.Ref() * 0.25) * nCnt; }
 
@@ -375,7 +375,7 @@ struct MMatchItemDesc
 	bool IsSpendableItem()		{ return m_bIsSpendableItem; }
 
 
-	void CacheCRC32( MMatchCRC32XORCache& crc );
+	void CacheCRC32( CCMatchCRC32XORCache& crc );
 
 	void ShiftFugitiveValues();
 
@@ -384,14 +384,14 @@ struct MMatchItemDesc
 };
 
 
-struct MMatchItemDescForDatabase
+struct CCMatchItemDescForDatabase
 {
 	unsigned long int m_nID;
 
 	int m_nResSex;
 	int	m_nResLevel;
 
-	MMatchItemSlotType	m_nSlot;
+	CCMatchItemSlotType	m_nSlot;
 
 	int m_nWeight;
 	int m_nBountyPrice;
@@ -411,42 +411,42 @@ struct MMatchItemDescForDatabase
 };
 
 // 슬롯과 파츠가 적합한지 체크
-bool IsSuitableItemSlot(MMatchItemSlotType nSlotType, MMatchCharItemParts nParts);
-MMatchCharItemParts GetSuitableItemParts(MMatchItemSlotType nSlotType);
-MMatchItemSlotType	GetSuitableItemSlot(MMatchCharItemParts nParts);
-bool IsWeaponItemSlotType(MMatchItemSlotType nSlotType);
-bool IsWeaponCharItemParts(MMatchCharItemParts nParts);
+bool IsSuitableItemSlot(CCMatchItemSlotType nSlotType, CCMatchCharItemParts nParts);
+CCMatchCharItemParts GetSuitableItemParts(CCMatchItemSlotType nSlotType);
+CCMatchItemSlotType	GetSuitableItemSlot(CCMatchCharItemParts nParts);
+bool IsWeaponItemSlotType(CCMatchItemSlotType nSlotType);
+bool IsWeaponCharItemParts(CCMatchCharItemParts nParts);
 
-char* GetItemSlotTypeStr(MMatchItemSlotType nSlotType);
-char* GetCharItemPartsStr(MMatchCharItemParts nParts);
+char* GetItemSlotTypeStr(CCMatchItemSlotType nSlotType);
+char* GetCharItemPartsStr(CCMatchCharItemParts nParts);
 
 // 무기타입 알아내기
-MMatchWeaponType GetWeaponType(MMatchMeleeItemType nMeleeItemType);
-MMatchWeaponType GetWeaponType(MMatchRangeItemType nRangeItemType);
-MMatchWeaponType GetWeaponType(MMatchCustomItemType nCustomItemType);
+CCMatchWeaponType GetWeaponType(CCMatchMeleeItemType nMeleeItemType);
+CCMatchWeaponType GetWeaponType(CCMatchRangeItemType nRangeItemType);
+CCMatchWeaponType GetWeaponType(CCMatchCustomItemType nCustomItemType);
 
 // 인챈트아이템인지 확인
-bool IsEnchantItem(MMatchItemDesc* pItemDesc);
+bool IsEnchantItem(CCMatchItemDesc* pItemDesc);
 
 /*
-class MMatchItemEffectDescMgr : public map<int, MMatchItemEffectDesc*>
+class CCMatchItemEffectDescMgr : public map<int, CCMatchItemEffectDesc*>
 {
 protected:
 	void ParseEffect(CCXmlElement& element);
 public:
-	MMatchItemEffectDescMgr();
-	virtual ~MMatchItemEffectDescMgr();
+	CCMatchItemEffectDescMgr();
+	virtual ~CCMatchItemEffectDescMgr();
 	bool ReadXml(const char* szFileName);
 	bool ReadXml(CCZFileSystem* pFileSystem, const char* szFileName);
 	void Clear();
-	MMatchItemEffectDesc* GetEffectDesc(int nID);
-	static MMatchItemEffectDescMgr* GetInstance();
+	CCMatchItemEffectDesc* GetEffectDesc(int nID);
+	static CCMatchItemEffectDescMgr* GetInstance();
 };
 
-inline MMatchItemEffectDescMgr* MGetMatchItemEffectDescMgr() { return MMatchItemEffectDescMgr::GetInstance(); }
+inline CCMatchItemEffectDescMgr* MGetMatchItemEffectDescMgr() { return CCMatchItemEffectDescMgr::GetInstance(); }
 */
 
-class MMatchItemDescMgr : public map<int, MMatchItemDesc*>
+class CCMatchItemDescMgr : public map<int, CCMatchItemDesc*>
 {
 	unsigned long m_nChecksum;
 
@@ -455,13 +455,13 @@ class MMatchItemDescMgr : public map<int, MMatchItemDesc*>
 protected:
 	bool ParseItem(CCXmlElement& element);
 public:
-	MMatchItemDescMgr();
-	virtual ~MMatchItemDescMgr();
+	CCMatchItemDescMgr();
+	virtual ~CCMatchItemDescMgr();
 	bool ReadXml(const char* szFileName);
 	bool ReadXml(CCZFileSystem* pFileSystem, const char* szFileName);
 	void Clear();
-	MMatchItemDesc* GetItemDesc(unsigned long int nID);
-	static MMatchItemDescMgr* GetInstance();
+	CCMatchItemDesc* GetItemDesc(unsigned long int nID);
+	static CCMatchItemDescMgr* GetInstance();
 
 	unsigned long GetChecksum() { return m_nChecksum; }
 
@@ -473,7 +473,7 @@ public:
 	bool ReadCache();
 	void WriteCache();
 };
-inline MMatchItemDescMgr* MGetMatchItemDescMgr() { return MMatchItemDescMgr::GetInstance(); }
+inline CCMatchItemDescMgr* MGetMatchItemDescMgr() { return CCMatchItemDescMgr::GetInstance(); }
 
 
 
@@ -501,12 +501,12 @@ typedef struct _DBCharItemCachingData
 } DBCharItemCachingData;
 
 
-class MMatchItem : public MBaseItem
+class CCMatchItem : public MBaseItem
 {
 private:
 protected:
 	CCUID				m_uidItem;	
-	MMatchItemDesc*		m_pDesc;					///< 디스크립터
+	CCMatchItemDesc*		m_pDesc;					///< 디스크립터
 	bool				m_bEquiped;					///< 장비하고 있는지 여부
 	unsigned long int	m_nRentItemRegTime;			///< 기간제 아이템일 경우 등록한 시간. 이 시간은 서버에 등록되는 시간임.
 
@@ -522,13 +522,13 @@ protected:
 	DBCharItemCachingData m_CharItemCachingData;
 
 protected:
-	void SetDesc(MMatchItemDesc* pDesc) { m_pDesc = pDesc; }
+	void SetDesc(CCMatchItemDesc* pDesc) { m_pDesc = pDesc; }
 
 public:
-	MMatchItem();
-	virtual ~MMatchItem();
+	CCMatchItem();
+	virtual ~CCMatchItem();
 
-	bool Create( const CCUID& uid, MMatchItemDesc* pDesc, const WORD nCountOfNonDesctroyItem, int nCount = 1);
+	bool Create( const CCUID& uid, CCMatchItemDesc* pDesc, const WORD nCountOfNonDesctroyItem, int nCount = 1);
 	void Destroy();
 
 	CCUID				GetUID() const								{ return m_uidItem; }
@@ -536,8 +536,8 @@ public:
 	unsigned long int	GetDescID() const;
 	
 	unsigned long int	GetRentItemRegTime() const					{ return m_nRentItemRegTime; }
-	MMatchItemDesc*		GetDesc() const;
-	MMatchItemType		GetItemType();
+	CCMatchItemDesc*		GetDesc() const;
+	CCMatchItemType		GetItemType();
 	
 	void				SetCIID(unsigned long int nCIID)			{ m_nCIID = nCIID; }	
 	void				SetEquiped(bool bIsEquiped)					{ m_bEquiped = bIsEquiped; }
@@ -563,8 +563,8 @@ public:
 };
 
 
-class MMatchItemMap;
-class MMatchCharInfo;
+class CCMatchItemMap;
+class CCMatchCharInfo;
 
 typedef struct _EquipedParts
 {
@@ -573,17 +573,17 @@ typedef struct _EquipedParts
 } EquipedParts;
 
 /// 장비하고있는 아이템
-class MMatchEquipedItem
+class CCMatchEquipedItem
 {
 protected:
-	// MMatchItem*		m_pParts[MMCIP_END];
+	// CCMatchItem*		m_pParts[MMCIP_END];
 	//EquipedParts	m_Parts[MMCIP_END];
 	CCUID			m_uidParts[ MMCIP_END ];	
 	
-	MMatchCharInfo*	m_pOwner;
+	CCMatchCharInfo*	m_pOwner;
 
 public:
-	MMatchEquipedItem() 
+	CCMatchEquipedItem() 
 	{ 
 		// memset(m_pParts, 0, sizeof(m_pParts)); 
 		memset( m_uidParts, 0, sizeof(m_uidParts) );
@@ -593,32 +593,32 @@ public:
 		m_pOwner = NULL;
 	}
 
-	virtual ~MMatchEquipedItem() 
+	virtual ~CCMatchEquipedItem() 
 	{ 
 		m_pOwner = NULL;
 	}
 public:
-	// bool SetItem(MMatchCharItemParts parts, MMatchItem* pMatchItem);
-	bool SetItem( MMatchCharItemParts parts, const CCUID& uidItem, MMatchItem* pItem );
+	// bool SetItem(CCMatchCharItemParts parts, CCMatchItem* pMatchItem);
+	bool SetItem( CCMatchCharItemParts parts, const CCUID& uidItem, CCMatchItem* pItem );
 
-	MMatchItem* GetItem(MMatchCharItemParts parts); //  { return m_pParts[parts]; }
-	void Remove(MMatchCharItemParts parts);
+	CCMatchItem* GetItem(CCMatchCharItemParts parts); //  { return m_pParts[parts]; }
+	void Remove(CCMatchCharItemParts parts);
 	void Remove(const CCUID& uidParts);
-	// bool IsEmpty(MMatchCharItemParts parts) { if (m_pParts[parts] != NULL) return false; return true; }
-	bool IsEmpty(MMatchCharItemParts parts); //  { if (m_pParts[parts] != NULL) return false; return true; }
+	// bool IsEmpty(CCMatchCharItemParts parts) { if (m_pParts[parts] != NULL) return false; return true; }
+	bool IsEmpty(CCMatchCharItemParts parts); //  { if (m_pParts[parts] != NULL) return false; return true; }
 	void GetTotalWeight(int* poutWeight, int* poutMaxWeight);
-	// bool IsEquipedItem(MMatchItem* pCheckItem, MMatchCharItemParts& outParts); // 해당 아이템이 장비중인지 체크
-	bool IsEquipedItem(const CCUID& uidItem, MMatchCharItemParts& outParts); // 해당 아이템이 장비중인지 체크
+	// bool IsEquipedItem(CCMatchItem* pCheckItem, CCMatchCharItemParts& outParts); // 해당 아이템이 장비중인지 체크
+	bool IsEquipedItem(const CCUID& uidItem, CCMatchCharItemParts& outParts); // 해당 아이템이 장비중인지 체크
 	void Clear();
-	void SetOwner( MMatchCharInfo* pOwner ) { _ASSERT( NULL != pOwner ); m_pOwner = pOwner; }
+	void SetOwner( CCMatchCharInfo* pOwner ) { _ASSERT( NULL != pOwner ); m_pOwner = pOwner; }
 
 
 private :
-	// MMatchItem* GetMyItem( MMatchCharItemParts parts );
+	// CCMatchItem* GetMyItem( CCMatchCharItemParts parts );
 };
 
 /// 캐릭터가 갖고 있는 아이템들
-class MMatchItemMap : public map<CCUID, MMatchItem*>
+class CCMatchItemMap : public map<CCUID, CCMatchItem*>
 {
 private:
 protected:
@@ -631,8 +631,8 @@ protected:
 	bool					m_bHasRentItem;			
 
 public:
-	MMatchItemMap();
-	virtual ~MMatchItemMap();
+	CCMatchItemMap();
+	virtual ~CCMatchItemMap();
 	bool IsEmpty() const { return empty(); }
 	int GetCount() const { return (int)size(); }
 	virtual bool CreateItem( const CCUID& uid
@@ -645,11 +645,11 @@ public:
 	bool			RemoveItem(const CCUID& uidItem);
 
 	virtual void	Clear();
-	MMatchItem*		GetItem(const CCUID& uidItem) const;
-	MMatchItem*		GetItemByItemID(const DWORD dwItemID) const;		//< 여러개의 ItemID가 있어도, 1개만 돌려준다(Spendable 때문에 구현)
+	CCMatchItem*		GetItem(const CCUID& uidItem) const;
+	CCMatchItem*		GetItemByItemID(const DWORD dwItemID) const;		//< 여러개의 ItemID가 있어도, 1개만 돌려준다(Spendable 때문에 구현)
 																		//< 좀 모호한 감이 있지만, 그래도 사용하자..
 
-	MMatchItem*		GetItemByCIID(const DWORD dwCIID) const;
+	CCMatchItem*		GetItemByCIID(const DWORD dwCIID) const;
 
 
 	bool			IsDoneDbAccess() const			{ return m_bDoneDbAccess; }
@@ -669,6 +669,6 @@ public:
 };
 
 
-bool IsExpiredRentItem( const MMatchItem* pMItem, const DWORD dwTick );
+bool IsExpiredRentItem( const CCMatchItem* pMItem, const DWORD dwTick );
 
 #include "cxr_CCMatchItem.h"

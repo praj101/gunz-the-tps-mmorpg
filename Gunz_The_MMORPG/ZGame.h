@@ -5,7 +5,7 @@
 
 #include "ZPrerequisites.h"
 
-#include "MMatchClient.h"
+#include "CCMatchClient.h"
 #include "MDataChecker.h"
 
 #include "RTypes.h"
@@ -172,15 +172,15 @@ public:
 
 	void ShowReplayInfo( bool bShow);
 
-	void OnExplosionGrenade(CCUID uidOwner,rvector pos,float fDamage,float fRange,float fMinDamage,float fKnockBack,MMatchTeam nTeamID);
-	void OnExplosionMagic(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc);
-	void OnExplosionMagicThrow(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,MMatchTeam nTeamID,bool bSkipNpc, rvector from, rvector to);
+	void OnExplosionGrenade(CCUID uidOwner,rvector pos,float fDamage,float fRange,float fMinDamage,float fKnockBack,CCMatchTeam nTeamID);
+	void OnExplosionMagic(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,CCMatchTeam nTeamID,bool bSkipNpc);
+	void OnExplosionMagicThrow(ZWeaponMagic *pWeapon, CCUID uidOwner,rvector pos,float fMinDamage,float fKnockBack,CCMatchTeam nTeamID,bool bSkipNpc, rvector from, rvector to);
 	void OnExplosionMagicNonSplash(ZWeaponMagic *pWeapon, CCUID uidOwner, CCUID uidTarget, rvector pos, float fKnockBack);
 	void OnReloadComplete(ZCharacter *pCharacter);
 	
-	void OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir, int type, MMatchCharItemParts sel_type);
+	void OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir, int type, CCMatchCharItemParts sel_type);
 
-	void OnChangeWeapon(CCUID& uid, MMatchCharItemParts parts);
+	void OnChangeWeapon(CCUID& uid, CCMatchCharItemParts parts);
 
 	rvector GetMyCharacterFirePosition(void);
 
@@ -213,7 +213,7 @@ public:
 	bool CreateMyCharacter(MTD_CharInfo* pCharInfo);//버프정보임시주석 , MTD_CharBuffInfo* pCharBuffInfo);
 	void DeleteCharacter(const CCUID& uid);
 	void RefreshCharacters();
-	void ConfigureCharacter(const CCUID& uidChar, MMatchTeam nTeam, unsigned char nPlayerFlags);
+	void ConfigureCharacter(const CCUID& uidChar, CCMatchTeam nTeam, unsigned char nPlayerFlags);
 
 	bool OnCommand(MCommand* pCommand);
 	bool OnCommand_Immidiate(MCommand* pCommand);
@@ -370,13 +370,13 @@ public:
 
 	void AutoAiming();
 
-	void OnPeerShot( const CCUID& uid, float fShotTime, const rvector& pos, const rvector& to, const MMatchCharItemParts sel_type);
+	void OnPeerShot( const CCUID& uid, float fShotTime, const rvector& pos, const rvector& to, const CCMatchCharItemParts sel_type);
 
 	void PostSpMotion(ZC_SPMOTION_TYPE type);
 
 	// peershot이 너무 길어져서 분리
 	void OnPeerShot_Melee(const CCUID& uidOwner, float fShotTime);
-	void OnPeerShot_Range(const MMatchCharItemParts sel_type, const CCUID& uidOwner, float fShotTime, const rvector& pos, const rvector& to);
+	void OnPeerShot_Range(const CCMatchCharItemParts sel_type, const CCUID& uidOwner, float fShotTime, const rvector& pos, const rvector& to);
 	//jintriple3 디버그 레지스터 핵 방어를 위해 OnPeerShot_Range를 쪼갬...
 	void OnPeerShot_Range_Damaged(ZObject* pOwner, float fShotTime, const rvector& pos, const rvector& to, ZPICKINFO pickinfo, DWORD dwPickPassFlag, rvector& v1, rvector& v2, ZItem *pItem, rvector& BulletMarkNormal, bool& bBulletMark, ZTargetType& nTargetType);
 	void OnPeerShot_Shotgun(ZItem *pItem, ZCharacter* pOwnerCharacter, float fShotTime, const rvector& pos, const rvector& to);
@@ -397,8 +397,8 @@ public:
 	void OnUseTrap(int nItemID, ZCharacter* pCharObj, rvector& pos);
 	void OnUseDynamite(int nItemID, ZCharacter* pCharObj, rvector& pos);
 
-	void CheckZoneTrap(CCUID uidOwner,rvector pos,MMatchItemDesc* pItemDesc, MMatchTeam nTeamID);
-	void OnExplosionDynamite(CCUID uidOwner, rvector pos, float fDamage, float fRange, float fKnockBack, MMatchTeam nTeamID);
+	void CheckZoneTrap(CCUID uidOwner,rvector pos,CCMatchItemDesc* pItemDesc, CCMatchTeam nTeamID);
+	void OnExplosionDynamite(CCUID uidOwner, rvector pos, float fDamage, float fRange, float fKnockBack, CCMatchTeam nTeamID);
 };
 
 

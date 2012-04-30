@@ -114,7 +114,7 @@ void ZWeaponRocket::Create(RMesh* pMesh,rvector &pos, rvector &dir,ZObject* pOwn
 	m_uidOwner=pOwner->GetUID();
 	m_nTeamID=pOwner->GetTeamID();
 
-	MMatchItemDesc* pDesc = NULL;
+	CCMatchItemDesc* pDesc = NULL;
 
 	if( pOwner->GetItems() )
 		if( pOwner->GetItems()->GetSelectedWeapon() )
@@ -319,7 +319,7 @@ void ZWeaponItemKit::Create(RMesh* pMesh,rvector &pos, rvector &velocity,ZObject
 	m_uidOwner=pOwner->GetUID();
 	m_nTeamID=pOwner->GetTeamID();
 
-	MMatchItemDesc* pDesc = NULL;
+	CCMatchItemDesc* pDesc = NULL;
 
 	m_bInit = false;
 
@@ -598,7 +598,7 @@ void ZWeaponGrenade::Create(RMesh* pMesh,rvector &pos, rvector &velocity,ZObject
 	m_uidOwner=pOwner->GetUID();
 	m_nTeamID=pOwner->GetTeamID();
 
-	MMatchItemDesc* pDesc = NULL;
+	CCMatchItemDesc* pDesc = NULL;
 
 	if( pOwner->GetItems() )
 		if( pOwner->GetItems()->GetSelectedWeapon() )
@@ -1551,7 +1551,7 @@ void ZWeaponDynamite::Create(RMesh* pMesh, rvector &pos, rvector &velocity, ZObj
 	m_uidOwner	= pOwner->GetUID();
 	m_nTeamID	= pOwner->GetTeamID();
 
-	MMatchItemDesc* pDesc = NULL;
+	CCMatchItemDesc* pDesc = NULL;
 
 	if( pOwner->GetItems() ) {
 		if( pOwner->GetItems()->GetSelectedWeapon() ) {
@@ -1704,7 +1704,7 @@ bool ZWeaponTrap::Init(RMesh* pMesh, rvector& pos, rvector& velocity, int nItemI
 {
 	ZMovingWeapon::Create(pMesh);
 
-	MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
+	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
 	if (!pDesc) return false;
 
 	m_fDamage=pDesc->m_nDamage.Ref();
@@ -1751,7 +1751,7 @@ bool ZWeaponTrap::Create(RMesh* pMesh, rvector& pos, rvector& velocity, int nIte
 		bool bEquiped = false;
 		for (int i=MMCIP_CUSTOM1; i<=MMCIP_CUSTOM2; ++i)
 		{
-			ZItem* pItem = pOwner->GetItems()->GetItem((MMatchCharItemParts)i);
+			ZItem* pItem = pOwner->GetItems()->GetItem((CCMatchCharItemParts)i);
 			if (pItem->GetDesc() && pItem->GetDesc()->m_nID == nItemId)
 				bEquiped = true;
 		}
@@ -1929,7 +1929,7 @@ void ZWeaponTrap::Activate()
 void ZWeaponTrap::AddEffectActivating(int nElapsedIfActivated, bool bFriendly)
 {
 	// 발동이 지속될 동안 보여질 이펙트 세팅
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nItemId);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nItemId);
 	if (!pItemDesc) return;
 	int nLifeTime = pItemDesc->m_nLifeTime.Ref();
 
@@ -1940,7 +1940,7 @@ bool ZWeaponTrap::UpdateOnActivated( float fElapsedTime )
 {
 	if (m_bActivated)
 	{
-		MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nItemId);
+		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nItemId);
 		if (!pItemDesc) return false;
 
 		float fCurrTime = ZGetGame()->GetTime();

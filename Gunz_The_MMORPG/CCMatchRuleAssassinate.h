@@ -2,10 +2,10 @@
 #define _MMATCHRULE_ASSASSINATE_H
 
 
-#include "MMatchRuleDeathMatch.h"
+#include "CCMatchRuleDeathMatch.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-class MMatchRuleAssassinate : public MMatchRuleTeamDeath {
+class CCMatchRuleAssassinate : public CCMatchRuleTeamDeath {
 private:
 	CCUID		m_uidRedCommander;
 	CCUID		m_uidBlueCommander;
@@ -17,8 +17,8 @@ protected:
 	virtual void OnRoundEnd();
 	virtual bool OnCheckRoundFinish();
 public:
-	MMatchRuleAssassinate(CCMatchStage* pStage);
-	virtual ~MMatchRuleAssassinate()				{}
+	CCMatchRuleAssassinate(CCMatchStage* pStage);
+	virtual ~CCMatchRuleAssassinate()				{}
 	virtual void* CreateRuleInfoBlob();
 	virtual void CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 								int nSrcExp, int* poutAttackerExp, int* poutTeamExp);

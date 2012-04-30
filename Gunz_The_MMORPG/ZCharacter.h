@@ -17,7 +17,7 @@
 #include "ZCharacterItem.h"
 #include "ZCharacterBuff.h"
 
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "RCharCloth.h"
 #include "ZFile.h"
 #include "Mempool.h"
@@ -149,7 +149,7 @@ struct ZCharacterProperty_Old
 {
 	char		szName[MATCHOBJECT_NAME_LENGTH];
 	char		szClanName[CLAN_NAME_LENGTH];
-	MMatchSex	nSex;
+	CCMatchSex	nSex;
 	int			nHair;
 	int			nFace;
 	int			nLevel;
@@ -187,7 +187,7 @@ struct ZCharacterProperty_CharClanName
 struct ZCharacterProperty
 {
 	MProtectValue<ZCharacterProperty_CharClanName> nameCharClan;
-	MMatchSex	nSex;
+	CCMatchSex	nSex;
 	int			nHair;
 	int			nFace;
 	int			nLevel;
@@ -425,7 +425,7 @@ protected:
 		DWORD			m_dwLastDamagedTime;		// 마지막으로 공격 받은 시간
 		ZSTUNTYPE		m_nStunType;				///< 맞는 애니메이션 종류.. 2:마지막타격,4:lightning,5:루프
 		ZDAMAGETYPE		m_LastDamageType;			///< 마지막 데미지 타입		
-		MMatchWeaponType m_LastDamageWeapon;		///< 마지막 데미지 무기..
+		CCMatchWeaponType m_LastDamageWeapon;		///< 마지막 데미지 무기..
 		rvector			m_LastDamageDir;			///< 마지막 데미지 방향 ( 죽는 모션을 결정 )
 		float			m_LastDamageDot;
 		float			m_LastDamageDistance;
@@ -528,7 +528,7 @@ public:
 
 	MProtectValue<int>				m_nVMID;	// VisualMesh ID
 	//CCUID	m_UID;		// 서버에서 부여한 캐릭터의 UID
-	MProtectValue<MMatchTeam>		m_nTeamID;	// Team ID
+	MProtectValue<CCMatchTeam>		m_nTeamID;	// Team ID
 
 	MProtectValue<MCharacterMoveMode>		m_nMoveMode;
 	MProtectValue<MCharacterMode>			m_nMode;
@@ -593,7 +593,7 @@ public:
 	virtual void UpdateMotion(float fDelta=0.f);	// 허리돌리기등의 애니메이션 상태관련
 	virtual void UpdateAnimation();
 
-	int  GetSelectWeaponDelay(MMatchItemDesc* pSelectItemDesc);
+	int  GetSelectWeaponDelay(CCMatchItemDesc* pSelectItemDesc);
 
 	void UpdateLoadAnimation();
 
@@ -643,7 +643,7 @@ public:
 //	void OnHeal(ZCharacter* pAttacter,int type,int heal);
 	void OnShot();
 
-	void ChangeWeapon(MMatchCharItemParts nParts);
+	void ChangeWeapon(CCMatchCharItemParts nParts);
 
 	int GetLastShotItemID()	{ return m_nLastShotItemID; }
 	float GetLastShotTime()						{ return m_fLastShotTime; }
@@ -676,7 +676,7 @@ public:
 	// Character Property
 	ZCharacterProperty* GetProperty() { return &m_Property; }
 
-	MMatchUserGradeID GetUserGrade()	{ return m_MInitialInfo.Ref().nUGradeID; }
+	CCMatchUserGradeID GetUserGrade()	{ return m_MInitialInfo.Ref().nUGradeID; }
 	unsigned int GetClanID()	{ return m_MInitialInfo.Ref().nClanCLID; }
 
 	void SetName(const char* szName) { m_Property.SetName(szName); }
@@ -712,8 +712,8 @@ public:
 	
 	bool IsObserverTarget();
 
-	MMatchTeam GetTeamID() { return m_nTeamID.Ref(); }
-	void SetTeamID(MMatchTeam nTeamID) { m_nTeamID.Set_CheckCrc(nTeamID); }
+	CCMatchTeam GetTeamID() { return m_nTeamID.Ref(); }
+	void SetTeamID(CCMatchTeam nTeamID) { m_nTeamID.Set_CheckCrc(nTeamID); }
 	bool IsSameTeam(ZCharacter* pCharacter) 
 	{ 
 		if (pCharacter->GetTeamID() == -1) return false;
@@ -727,7 +727,7 @@ public:
 	float GetLastThrowClearTime() { return m_damageInfo.Ref().m_tmLastThrowClear; }
 
 	// 동작이나 이벤트에 관한 것들.
-	//void Damaged(ZCharacter* pAttacker, rvector& dir, RMeshPartsType partstype,MMatchCharItemParts wtype,int nCount=-1);
+	//void Damaged(ZCharacter* pAttacker, rvector& dir, RMeshPartsType partstype,CCMatchCharItemParts wtype,int nCount=-1);
 	//void DamagedGrenade(CCUID uidOwner, rvector& dir, float fDamage,int nTeamID);
 	//void DamagedFalling(float fDamage);
 	//void DamagedKatanaSplash(ZCharacter* pAttacker,float fDamageRange);
@@ -749,7 +749,7 @@ public:
 	void ChangeLowPolyModel();
 	bool IsFallingToNarak() { return m_dwStatusBitPackingValue.Ref().m_bFallingToNarak; }
 
-	MMatchItemDesc* GetSelectItemDesc() {
+	CCMatchItemDesc* GetSelectItemDesc() {
 		if(GetItems())
 			if(GetItems()->GetSelectedWeapon())
 				return GetItems()->GetSelectedWeapon()->GetDesc();
@@ -762,7 +762,7 @@ public:
 	bool Save(ZFile *file);
 	bool Load(ZFile *file,int nVersion);	// 나중에 CCZFile * 로 포팅
 
-	RMesh *GetWeaponMesh(MMatchCharItemParts parts);
+	RMesh *GetWeaponMesh(CCMatchCharItemParts parts);
 
 	virtual float ColTest(const rvector& pos, const rvector& vec, float radius, rplane* out=0);
 	virtual bool IsAttackable();
@@ -778,14 +778,14 @@ public:
 
 	virtual void OnKnockback(rvector& dir, float fForce);
 //	virtual void OnDamage(int damage, float fRatio = 1.0f);
-	virtual void OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
+	virtual void OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
 	virtual void OnScream();
 
 	int GetDTLastWeekGrade() { return m_MInitialInfo.Ref().nDTLastWeekGrade; }
 	const MTD_CharInfo* GetCharInfo() const { return &m_MInitialInfo.Ref(); }
 };
 
-void ZChangeCharParts(RVisualMesh* pVMesh, MMatchSex nSex, int nHair, int nFace, const unsigned long int* pItemID);
+void ZChangeCharParts(RVisualMesh* pVMesh, CCMatchSex nSex, int nHair, int nFace, const unsigned long int* pItemID);
 void ZChangeCharWeaponMesh(RVisualMesh* pVMesh, unsigned long int nWeaponID);
 bool CheckTeenVersionMesh(RMesh** ppMesh);
 

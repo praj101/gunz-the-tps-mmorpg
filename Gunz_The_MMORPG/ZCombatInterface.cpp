@@ -200,7 +200,7 @@ bool ZCombatInterface::OnCreate()
 	m_AdminMsg.m_pChattingOutput->ReleaseFocus();
 
 	if (ZGetMyInfo()->IsAdminGrade()) {
-		MMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
+		CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 		if (pCache && pCache->GetUGrade()==MMUG_EVENTMASTER && pCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
 			ShowChatOutput(false);
 		}
@@ -840,7 +840,7 @@ void ZCombatInterface::DrawMyWeaponPont(MDrawContext* pDC)
 	TextRelative(pDC,660.f/800.f,510.f/600.f,m_szItemName);
 
 	// 탄알수
-	MMatchCharItemParts nParts = pCharacter->GetItems()->GetSelectedWeaponParts();
+	CCMatchCharItemParts nParts = pCharacter->GetItems()->GetSelectedWeaponParts();
 	if (nParts != MMCIP_MELEE && nParts < MMCIP_END) 
 	{
 		// melee일때는 탄알수 표시를 하지 않는다.
@@ -1497,11 +1497,11 @@ void ZCombatInterface::Update(float fElapsed)
 //	ZGetScreenEffectManager()->SetGauge_EXP((float)pCharacter->GetStatus()->fStamina/100.f);//임시로 stamina 로 테스트
 //	ZGetScreenEffectManager()->SetGauge_EXP(100.f);//임시로 stamina 로 테스트
 
-	MMatchWeaponType wtype = MWT_NONE;
+	CCMatchWeaponType wtype = MWT_NONE;
 
 	ZItem* pSItem = pCharacter->GetItems()->GetSelectedWeapon();
 
-	MMatchItemDesc* pSelectedItemDesc = NULL; 
+	CCMatchItemDesc* pSelectedItemDesc = NULL; 
 
 	if( pSItem ) {
 		pSelectedItemDesc = pSItem->GetDesc();
@@ -1543,7 +1543,7 @@ void ZCombatInterface::Update(float fElapsed)
 	GameCheckPickCharacter();
 }
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 void ZCombatInterface::SetPickTarget(bool bPick, ZCharacter* pCharacter)
 {
@@ -2243,7 +2243,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 	{
 		for(int i=0;i<2;i++)
 		{
-			MMatchTeam nTeam = (i==0) ? MMT_RED : MMT_BLUE;
+			CCMatchTeam nTeam = (i==0) ? MMT_RED : MMT_BLUE;
 			char *szClanName = (i==0) ? m_szRedClanName : m_szBlueClanName;
 			int nClanID = (i==0) ? m_nClanIDRed : m_nClanIDBlue;
 
@@ -2326,7 +2326,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 		pItem->uidUID = pCharacter->GetUID();
 
 		int nPing = (pCharacter->GetUID() == ZGetGameClient()->GetPlayerUID() ? 0 : MAX_PING);
-		MMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(pCharacter->GetUID());
+		CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(pCharacter->GetUID());
 		if (pPeer) {
 			if ( ZGetGame()->IsReplay())
 				nPing = 0;
@@ -2363,7 +2363,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 
 
 		// GameRoom User
-		MMatchObjCache* pCache = ZGetGameClient()->FindObjCache( pCharacter->GetUID());
+		CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache( pCharacter->GetUID());
 		if ( pCache)
 			pItem->bGameRoomUser = (pCache->GetPGrade() == MMPG_PREMIUM_IP) ? true : false;
 		else
@@ -2995,7 +2995,7 @@ void ZCombatInterface::GetResultInfo( void)
 
 		for ( int i = 0;  i < 2;  i++) 
 		{
-			MMatchTeam nTeam = (i==0) ? MMT_RED : MMT_BLUE;
+			CCMatchTeam nTeam = (i==0) ? MMT_RED : MMT_BLUE;
 			char *szClanName = (i==0) ? m_szRedClanName : m_szBlueClanName;
 			int nClanID = (i==0) ? m_nClanIDRed : m_nClanIDBlue;
 
@@ -3427,7 +3427,7 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 				TextRelative(pDC,clanx,0.15,pItem->szClan);
 
 				char szText[32];
-				sprintf(szText,"%d",ZGetGame()->GetMatch()->GetTeamScore((MMatchTeam)pItem->nTeam));
+				sprintf(szText,"%d",ZGetGame()->GetMatch()->GetTeamScore((CCMatchTeam)pItem->nTeam));
 
 				clanx = clancenter - .5f*(float)pClanFont->GetWidth(szText)/(float)MGetWorkspaceWidth();
 				TextRelative(pDC,clanx,0.2,szText);
@@ -3675,7 +3675,7 @@ void ZCombatInterface::OnFinish()
 
 		pItem->bMyChar = pCharacter->IsHero();
 	
-		MMatchObjCache* pCache = ZGetGameClient()->FindObjCache( pCharacter->GetUID());
+		CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache( pCharacter->GetUID());
 		if ( pCache)
 			pItem->bGameRoomUser = (pCache->GetPGrade() == MMPG_PREMIUM_IP) ? true : false;
 		else
@@ -3796,7 +3796,7 @@ void ZCombatInterface::GameCheckPickCharacter()
 	}
 }
 
-void ZCombatInterface::OnGadget(MMatchWeaponType nWeaponType)
+void ZCombatInterface::OnGadget(CCMatchWeaponType nWeaponType)
 {
 	if (m_pWeaponScreenEffect) m_pWeaponScreenEffect->OnGadget(nWeaponType);
 	m_CrossHair.Show(false);

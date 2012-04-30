@@ -441,7 +441,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 				ZItem *pItem = pNPC->GetItems()->GetItem(MMCIP_MELEE);
 				if(pItem)
 				{
-					MMatchItemDesc* pDesc = pItem->GetDesc();
+					CCMatchItemDesc* pDesc = pItem->GetDesc();
 					float fMeleeRange = pDesc->m_nRange.Ref();
 
 					rvector p1 = pNPC->GetPosition();
@@ -570,7 +570,7 @@ void ZScreenDebugger::OnDrawAIDebugInfo(MDrawContext *pDC)
 				ZItem *pItem = pNPC->GetItems()->GetItem(MMCIP_MELEE);
 				if(pItem)
 				{
-					MMatchItemDesc* pDesc = pItem->GetDesc();
+					CCMatchItemDesc* pDesc = pItem->GetDesc();
 					float fMeleeRange = pDesc->m_nRange.Ref();
 					float fMelleAngle = ToRadian( (float)pDesc->m_nAngle.Ref());
 

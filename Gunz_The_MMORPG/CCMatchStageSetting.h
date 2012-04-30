@@ -148,7 +148,7 @@ public:
 	bool						GetForcedEntry()			{ return m_StageSetting.Ref().bForcedEntryEnabled; }
 	bool						GetAutoTeamBalancing()		{ return m_StageSetting.Ref().bAutoTeamBalancing; }
 	const MSTAGE_SETTING_NODE*	GetStageSetting()			{ return &m_StageSetting.Ref(); }
-	const MMatchGameTypeInfo*	GetCurrGameTypeInfo();
+	const CCMatchGameTypeInfo*	GetCurrGameTypeInfo();
 	DWORD						GetTicketItemID()			{ return m_dwTicketItemID; }
 	int							GetRelayMapListCount()		{ return m_StageSetting.Ref().nRelayMapListCount; }
 	const RelayMap*				GetRelayMapList()			{ return m_StageSetting.Ref().MapList; }

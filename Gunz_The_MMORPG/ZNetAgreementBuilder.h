@@ -2,7 +2,7 @@
 #define _ZNETAGREEMENTBUILDER_H
 
 #include "CCUID.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include <list>
 using namespace std;
 
@@ -10,7 +10,7 @@ class ZNetAgreementBuilder
 {
 private:
 	int						m_nRequestID;
-	MMatchProposalMode		m_nProposalMode;
+	CCMatchProposalMode		m_nProposalMode;
 	bool					m_bProposingNow;
 
 	struct ZReplier
@@ -27,7 +27,7 @@ public:
 	ZNetAgreementBuilder();
 	virtual ~ZNetAgreementBuilder();
 	
-	bool Proposal(MMatchProposalMode nProposalMode, int nRequestID, char** ppReplierNames, int nReplierCount);
+	bool Proposal(CCMatchProposalMode nProposalMode, int nRequestID, char** ppReplierNames, int nReplierCount);
 	void CancelProposal();
 
 	enum _BuildReplyResult
@@ -38,9 +38,9 @@ public:
 		BRR_DISAGREED		= 3			// 거절한 사람이 있다.
 	};
 
-	ZNetAgreementBuilder::_BuildReplyResult BuildReply(const char* szReplierName, const MMatchProposalMode nProposalMode, 
+	ZNetAgreementBuilder::_BuildReplyResult BuildReply(const char* szReplierName, const CCMatchProposalMode nProposalMode, 
 													   int nRequestID, bool bAgreement);	// 모든 동의가 다 모아지면 return true
-	MMatchProposalMode GetProposalMode()	{ return m_nProposalMode; }
+	CCMatchProposalMode GetProposalMode()	{ return m_nProposalMode; }
 	int GetReplierNames(char** ppReplierNames, int nMaxCount);	// Return값이 실제 Replier 갯수
 	bool GetRejecter(char* out);
 };

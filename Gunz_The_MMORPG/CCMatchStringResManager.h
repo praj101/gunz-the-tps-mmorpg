@@ -3,11 +3,11 @@
 
 #include "MBaseStringResManager.h"
 
-class MMatchStringResManager : public MBaseStringResManager
+class CCMatchStringResManager : public MBaseStringResManager
 {
 public:
-	MMatchStringResManager();
-	virtual ~MMatchStringResManager();
+	CCMatchStringResManager();
+	virtual ~CCMatchStringResManager();
 	static void MakeInstance();
 };
 

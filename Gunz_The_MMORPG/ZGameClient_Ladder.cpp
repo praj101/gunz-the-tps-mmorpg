@@ -11,8 +11,8 @@
 #include "ZInterface.h"
 #include "ZApplication.h"
 #include "ZGameInterface.h"
-#include "MMatchChannel.h"
-#include "MMatchStage.h"
+#include "CCMatchChannel.h"
+#include "CCMatchStage.h"
 #include "ZPost.h"
 #include "MComboBox.h"
 #include "MTextArea.h"
@@ -94,7 +94,7 @@ bool IsWaitingRepliersAgreement()
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-void ZGameClient::OnResponseProposal(const int nResult, const MMatchProposalMode nProposalMode, const int nRequestID)
+void ZGameClient::OnResponseProposal(const int nResult, const CCMatchProposalMode nProposalMode, const int nRequestID)
 {
 	// 로비가 아니면 안된다.
 	if (ZApplication::GetGameInterface()->GetState() != GUNZ_LOBBY) 
@@ -125,7 +125,7 @@ void ZGameClient::OnResponseProposal(const int nResult, const MMatchProposalMode
 }
 
 void ZGameClient::OnAskAgreement(const CCUID& uidProposer, void* pMemberNamesBlob,
-					const MMatchProposalMode nProposalMode, const int nRequestID)
+					const CCMatchProposalMode nProposalMode, const int nRequestID)
 {
 	// 응답할 수 없는 상황이면 바로 거절한다.
 	if ((IsWaitingRepliersAgreement()) || (!ZGetGameInterface()->IsReadyToPropose()))
@@ -208,7 +208,7 @@ void ZGameClient::OnAskAgreement(const CCUID& uidProposer, void* pMemberNamesBlo
 void ZGameClient::OnReplyAgreement(const CCUID& uidProposer, 
 		                const CCUID& uidChar, 
 						const char* szReplierName, 
-						const MMatchProposalMode nProposalMode,
+						const CCMatchProposalMode nProposalMode,
 					    const int nRequestID, 
 						const bool bAgreement)
 {
@@ -291,7 +291,7 @@ void ZGameClient::OnReplyAgreement(const CCUID& uidProposer,
 }
 
 
-void ZGameClient::RequestProposal(const MMatchProposalMode nProposalMode, char** ppReplierCharNames, const int nReplierCount)
+void ZGameClient::RequestProposal(const CCMatchProposalMode nProposalMode, char** ppReplierCharNames, const int nReplierCount)
 {
 	// 각각에 맞게 validate 해야한다.
 	switch (nProposalMode)
@@ -320,7 +320,7 @@ void ZGameClient::RequestProposal(const MMatchProposalMode nProposalMode, char**
 	m_AgreementBuilder.Proposal(nProposalMode, m_nRequestID, ppReplierCharNames, nReplierCount);
 }
 
-void ZGameClient::ReplyAgreement(const CCUID& uidProposer, const MMatchProposalMode nProposalMode, bool bAgreement)
+void ZGameClient::ReplyAgreement(const CCUID& uidProposer, const CCMatchProposalMode nProposalMode, bool bAgreement)
 {
 	char szCharName[MATCHOBJECT_NAME_LENGTH];
 	sprintf(szCharName, ZGetMyInfo()->GetCharName());

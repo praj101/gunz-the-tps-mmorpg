@@ -47,7 +47,7 @@ public:
 protected:
 	int			m_WeaponType;
 	CCUID		m_uidOwner;
-	MMatchTeam	m_nTeamID;
+	CCMatchTeam	m_nTeamID;
 	float		m_fDamage;
 	int			m_SLSid; // 스텐실 라이트 아이디
 	int			m_nItemUID;
@@ -256,7 +256,7 @@ private:
 	float	m_fThrowedTime;
 	float	m_fActivatedTime;
 	float	m_fNextEffectTime;
-	MMatchDamageType m_nDamageType;
+	CCMatchDamageType m_nDamageType;
 	bool	m_bLanded;
 	bool	m_bActivated;
 	bool	m_bFriendly;

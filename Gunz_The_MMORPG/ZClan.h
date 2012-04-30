@@ -2,13 +2,13 @@
 #define _ZCLAN_H
 
 #include "ZPrerequisites.h"
-#include "MMatchClan.h"
+#include "CCMatchClan.h"
 #include "ZMessages.h"
 
 #include "ZApplication.h"
 #include "ZLanguageConf.h"
 
-inline const char* ZGetClanGradeStr(const MMatchClanGrade nGrade)
+inline const char* ZGetClanGradeStr(const CCMatchClanGrade nGrade)
 {
 	switch (nGrade)
 	{

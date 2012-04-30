@@ -8,7 +8,7 @@ using std::string;
 
 
 // 서버와 클라이언트가 공통으로 사용하는 데이터를 모아놓은 최소 클래스.
-class MMatchDBBaseGambleItem
+class CCMatchDBBaseGambleItem
 {
 protected :
 	DWORD	m_dwGambleItemID;
@@ -18,10 +18,10 @@ protected :
 	bool	m_bIsCash;
 
 protected :
-	MMatchDBBaseGambleItem() {}
+	CCMatchDBBaseGambleItem() {}
 
 public :
-	MMatchDBBaseGambleItem( const DWORD dwGIID
+	CCMatchDBBaseGambleItem( const DWORD dwGIID
 		, const string& strName
 		, const string& strDesc
 		, const DWORD dwPrice
@@ -34,7 +34,7 @@ public :
 		m_bIsCash			= bIsCash;
 	}
 
-	~MMatchDBBaseGambleItem() {}
+	~CCMatchDBBaseGambleItem() {}
 
 	const DWORD		GetGambleItemID() const	{ return m_dwGambleItemID; }
 	const string&	GetName() const			{ return m_strName; }

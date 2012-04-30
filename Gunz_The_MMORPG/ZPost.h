@@ -4,7 +4,7 @@
 #include "ZPrerequisites.h"
 #include "ZGameClient.h"
 #include "MBlobArray.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "MMath.h"
 #include "CheckReturnCallStack.h"
 
@@ -348,7 +348,7 @@ inline void ZPostStageTeam(const CCUID& uidChar, const CCUID& uidStage, int nTea
 	CHECK_RETURN_CALLSTACK(ZPostStageTeam);
 }
 
-inline void ZPostStageState(const CCUID& uidChar, const CCUID& uidStage, MMatchObjectStageState nStageState)
+inline void ZPostStageState(const CCUID& uidChar, const CCUID& uidStage, CCMatchObjectStageState nStageState)
 { 	
 	ZPOSTCMD3(MC_MATCH_STAGE_PLAYER_STATE, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage), MCommandParameterInt(int(nStageState)));
 	CHECK_RETURN_CALLSTACK(ZPostStageState);
@@ -605,13 +605,13 @@ inline void ZPostRequestSendAccountItem(const CCUID& uidChar, const CCUID& uidIt
 	ZPOSTCMD3(MC_MATCH_REQUEST_BRING_BACK_ACCOUNTITEM, MCommandParameterUID(uidChar), MCommandParameterUID(uidItem), MCommandParameterUInt(nItemCnt));
 }
 
-inline void ZPostRequestEquipItem(const CCUID& uidChar, const CCUID& uidItem, const MMatchCharItemParts parts)
+inline void ZPostRequestEquipItem(const CCUID& uidChar, const CCUID& uidItem, const CCMatchCharItemParts parts)
 {
 	ZPOSTCMD3(MC_MATCH_REQUEST_EQUIP_ITEM, MCommandParameterUID(uidChar), 
 		MCommandParameterUID(uidItem), MCommandParameterUInt(unsigned long int(parts))); 
 }
 
-inline void ZPostRequestTakeoffItem(const CCUID& uidChar, const MMatchCharItemParts parts)
+inline void ZPostRequestTakeoffItem(const CCUID& uidChar, const CCMatchCharItemParts parts)
 {
 	ZPOSTCMD2(MC_MATCH_REQUEST_TAKEOFF_ITEM, MCommandParameterUID(uidChar), 
 		MCommandParameterUInt(unsigned long int(parts))); 

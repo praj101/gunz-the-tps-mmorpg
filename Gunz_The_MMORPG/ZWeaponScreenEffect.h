@@ -8,19 +8,19 @@ class ZScreenEffect;
 class ZWeaponScreenEffect
 {
 private:
-	MMatchWeaponType		m_nWeaponType;
+	CCMatchWeaponType		m_nWeaponType;
 	MBitmap*				m_pSniferPanel;
 	//ZScreenEffect*			m_pSniferPanelEffect;
 
 
-	void InitWeapon(MMatchWeaponType nWeaponType);
-	void FinalWeapon(MMatchWeaponType nWeaponType);
+	void InitWeapon(CCMatchWeaponType nWeaponType);
+	void FinalWeapon(CCMatchWeaponType nWeaponType);
 public:
 	ZWeaponScreenEffect();
 	virtual ~ZWeaponScreenEffect();
 public:
 	void Draw(MDrawContext* pDC);
-	void OnGadget(MMatchWeaponType nWeaponType);
+	void OnGadget(CCMatchWeaponType nWeaponType);
 	void OnGadgetOff();
 	void Create();
 	void Destroy();

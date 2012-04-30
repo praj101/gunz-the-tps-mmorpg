@@ -177,7 +177,7 @@ public:
 	void EnChantSlashEffect(rvector* pOutPos,int cnt,ZC_ENCHANT etype,bool bDoubleWeapon);
 	void EnChantMovingEffect(rvector* pOutPos,int cnt,ZC_ENCHANT etype,bool bDoubleWeapon);
 
-	MMatchItemDesc* GetEnchantItemDesc();
+	CCMatchItemDesc* GetEnchantItemDesc();
 	ZC_ENCHANT	GetEnchantType();
 
 	void DrawShadow();		// Manager에서 호출한다.

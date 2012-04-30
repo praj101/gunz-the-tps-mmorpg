@@ -53,7 +53,7 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 		AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_FRIEND_ADD, ZMsg( MSG_MENUITEM_FRIENDADD)));
 
 
-		MMatchClanGrade myGrade = ZGetMyInfo()->GetClanGrade();
+		CCMatchClanGrade myGrade = ZGetMyInfo()->GetClanGrade();
 		if(myGrade == MCG_MASTER || myGrade == MCG_ADMIN) {	// 클랜 메뉴 추가
 			MPopupMenu::AddMenuItem("--------");
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_INVITE, ZMsg( MSG_MENUITEM_FRIENDCLANINVITE)));
@@ -81,7 +81,7 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_FOLLOW, ZMsg( MSG_MENUITEM_FRIENDFOLLOW)));
 #endif
 
-		MMatchClanGrade myGrade = ZGetMyInfo()->GetClanGrade();
+		CCMatchClanGrade myGrade = ZGetMyInfo()->GetClanGrade();
 		if(myGrade == MCG_MASTER || myGrade == MCG_ADMIN)
 			MPopupMenu::AddMenuItem("--------");
 	

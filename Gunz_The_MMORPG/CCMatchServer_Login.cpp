@@ -16,9 +16,9 @@
 #include "RTypes.h"
 #include "CCMatchUtil.h"
 #include <winbase.h>
-#include "MMatchPremiumIPCache.h"
+#include "CCMatchPremiumIPCache.h"
 #include "MCommandBuilder.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "CCMatchLocale.h"
 
 bool CCMatchServer::CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3)
@@ -130,7 +130,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 		return;
 	}
 
-	MMatchAccountInfo accountInfo;
+	CCMatchAccountInfo accountInfo;
 	if (!m_MatchDBMgr.GetAccountInfo(nAID, &accountInfo, MGetServerConfig()->GetServerID()))
 	{
 		// Notify Message 필요 -> 로그인 관련 - 해결(Login Fail 메세지 이용)
@@ -139,7 +139,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 		Post(pCmd);	
 	}
 
-	MMatchAccountPenaltyInfo accountpenaltyInfo;
+	CCMatchAccountPenaltyInfo accountpenaltyInfo;
 	if( !m_MatchDBMgr.GetAccountPenaltyInfo(nAID, &accountpenaltyInfo) ) 
 	{
 		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_GETACCOUNTINFO);
@@ -200,7 +200,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	CCMatchObject* pObj = GetObject(AllocUID);
 	pObj->AddCommListener(CommUID);
 	pObj->SetObjectType(MOT_PC);
-	memcpy(pObj->GetAccountInfo(), &accountInfo, sizeof(MMatchAccountInfo));
+	memcpy(pObj->GetAccountInfo(), &accountInfo, sizeof(CCMatchAccountInfo));
 	pObj->SetFreeLoginIP(bFreeLoginIP);
 	pObj->SetCountryCode3( strCountryCode3 );
 	pObj->UpdateTickLastPacketRecved();
@@ -278,12 +278,12 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* 
 	if (!CheckOnLoginPre(CommUID, nCmdVersion, bFreeLoginIP, strCountryCode3)) return;
 
 
-	MMatchAuthBuilder* pAuthBuilder = GetAuthBuilder();
+	CCMatchAuthBuilder* pAuthBuilder = GetAuthBuilder();
 	if (pAuthBuilder == NULL) {
 		LOG(LOG_PROG, "Critical Error : MatchAuthBuilder is not assigned.\n");
 		return;
 	}
-	MMatchAuthInfo* pAuthInfo = NULL;
+	CCMatchAuthInfo* pAuthInfo = NULL;
 	if (pAuthBuilder->ParseAuthInfo(szCPCookie, &pAuthInfo) == false) 
 	{
 		MGetServerStatusSingleton()->SetRunStatus(5);
@@ -307,7 +307,7 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* 
 
 	// Async DB
 	MAsyncDBJob_GetLoginInfo* pNewJob = new MAsyncDBJob_GetLoginInfo(CommUID);
-	pNewJob->Input(new MMatchAccountInfo(), 
+	pNewJob->Input(new CCMatchAccountInfo(), 
 					pUserID, 
 					pUniqueID, 
 					pCertificate, 
@@ -368,8 +368,8 @@ void CCMatchServer::OnMatchLoginFromDBAgent(const CCUID& CommUID, const char* sz
 
 	// Async DB
 	MAsyncDBJob_GetLoginInfo* pNewJob = new MAsyncDBJob_GetLoginInfo(CommUID);
-	pNewJob->Input(new MMatchAccountInfo,
-					new MMatchAccountPenaltyInfo,
+	pNewJob->Input(new CCMatchAccountInfo,
+					new CCMatchAccountPenaltyInfo,
 					pUserID, 
 					szPassword, 
 					szCertificate, 
@@ -398,8 +398,8 @@ void CCMatchServer::OnMatchLoginFailedFromDBAgent(const CCUID& CommUID, int nRes
 MCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const CCUID& uidComm, 
 													  CCUID& uidPlayer, 
 													  const char* szUserID, 
-													  MMatchUserGradeID nUGradeID, 
-													  MMatchPremiumGradeID nPGradeID,
+													  CCMatchUserGradeID nUGradeID, 
+													  CCMatchPremiumGradeID nPGradeID,
 //													  const unsigned char* szRandomValue,
 													  const unsigned char* pbyGuidReqMsg)
 {
@@ -466,8 +466,8 @@ MCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const CCUID& uidComm,
 
 
 bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm, 
-										const MMatchAccountInfo* pSrcAccountInfo,
-										const MMatchAccountPenaltyInfo* pSrcAccountPenaltyInfo,
+										const CCMatchAccountInfo* pSrcAccountInfo,
+										const CCMatchAccountPenaltyInfo* pSrcAccountPenaltyInfo,
 										bool bFreeLoginIP, string strCountryCode3, unsigned long nChecksumPack)
 {
 	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(uidComm);
@@ -491,8 +491,8 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 	pObj->AddCommListener(uidComm);
 	pObj->SetObjectType(MOT_PC);
 
-	memcpy(pObj->GetAccountInfo(), pSrcAccountInfo, sizeof(MMatchAccountInfo));
-	memcpy(pObj->GetAccountPenaltyInfo(), pSrcAccountPenaltyInfo, sizeof(MMatchAccountPenaltyInfo));
+	memcpy(pObj->GetAccountInfo(), pSrcAccountInfo, sizeof(CCMatchAccountInfo));
+	memcpy(pObj->GetAccountPenaltyInfo(), pSrcAccountPenaltyInfo, sizeof(CCMatchAccountPenaltyInfo));
 		
 	pObj->SetFreeLoginIP(bFreeLoginIP);
 	pObj->SetCountryCode3( strCountryCode3 );
@@ -563,7 +563,7 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 	// Client DataFile Checksum을 검사한다.
 	// 2006.2.20 dubble. filelist checksum으로 변경
 	unsigned long nChecksum = nChecksumPack ^ uidComm.High ^ uidComm.Low;
-	if( MGetServerConfig()->IsUseFileCrc() && !MMatchAntiHack::CheckClientFileListCRC(nChecksum, pObj->GetUID()) && 
+	if( MGetServerConfig()->IsUseFileCrc() && !CCMatchAntiHack::CheckClientFileListCRC(nChecksum, pObj->GetUID()) && 
 		!MGetServerConfig()->IsDebugLoginIPList(pObj->GetIPString()) )
 	{
 		LOG(LOG_PROG, "Invalid filelist crc (%u) , UserID(%s)\n ", nChecksum, pObj->GetAccountInfo()->m_szUserID);

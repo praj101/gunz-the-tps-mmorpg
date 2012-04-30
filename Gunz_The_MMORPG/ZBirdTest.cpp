@@ -10,7 +10,7 @@
 #include "ZInterfaceItem.h"
 #include "ZInterfaceListener.h"
 #include "MDebug.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "MBlobArray.h"
 #include "MTCPSocket.h"
 #include "ZGameClient.h"

@@ -958,7 +958,7 @@ void ZMyCharacter::OnShotRange()
 	dir = pickpos-vWeaponPos;
 	Normalize(dir);
 
-	MMatchWeaponType wtype = MWT_NONE;
+	CCMatchWeaponType wtype = MWT_NONE;
 		
 	if(pSelectedItem->GetDesc())
 		wtype = pSelectedItem->GetDesc()->m_nWeaponType.Ref();
@@ -1056,7 +1056,7 @@ void ZMyCharacter::OnShotItem()
 	rvector pos = rvector(0.0f,0.0f,0.0f);
 	int sel_type = GetItems()->GetSelectedWeaponParts();
 
-	MMatchWeaponType nWeaponType = pSelectedItem->GetDesc()->m_nWeaponType.Ref();
+	CCMatchWeaponType nWeaponType = pSelectedItem->GetDesc()->m_nWeaponType.Ref();
 	// 즉시 적용되는 아이템인 경우
 	if( nWeaponType==MWT_POTION )
 	{
@@ -1166,7 +1166,7 @@ void ZMyCharacter::OnShotCustom()
 		return;
 	}
 
-	MMatchItemDesc* pCustomDesc = pSelectedItem->GetDesc();
+	CCMatchItemDesc* pCustomDesc = pSelectedItem->GetDesc();
 	DWORD nWeaponDelay = pCustomDesc->m_nDelay.Ref();
 
 	// 수류탄도 애니메이션이 있어야한다.
@@ -1406,7 +1406,7 @@ void ZMyCharacter::ProcessGadget()
 	// 눌려지면 땅에 있을때 스킬이 발동
 //	if(m_bRButtonFirstPressed && m_bLand) {
 	if( zStatus.m_bRButtonFirstPressed && ZIsActionKeyPressed(ZACTION_USE_WEAPON2) && uStatus.m_bLand) {
-		MMatchWeaponType type = MWT_NONE;
+		CCMatchWeaponType type = MWT_NONE;
 
 		int sel_type = GetItems()->GetSelectedWeaponParts();
 		ZItem* pSItem = GetItems()->GetSelectedWeapon();
@@ -1513,7 +1513,7 @@ void ZMyCharacter::ProcessGuard()
 		return;
 	}
 
-	MMatchWeaponType type = pSItem->GetDesc()->m_nWeaponType.Ref();
+	CCMatchWeaponType type = pSItem->GetDesc()->m_nWeaponType.Ref();
 	if(type!=MWT_KATANA && type!=MWT_DOUBLE_KATANA) 
 	{
 		CHECK_RETURN_CALLSTACK(ProcessGuard);
@@ -1767,7 +1767,7 @@ void ZMyCharacter::ProcessShot()
 	ZItem* pSelectedItem = GetItems()->GetSelectedWeapon();
 	if ((pSelectedItem==NULL) || (pSelectedItem->GetDesc() == NULL)) return;
 
-	MMatchItemDesc* pRangeDesc = pSelectedItem->GetDesc();
+	CCMatchItemDesc* pRangeDesc = pSelectedItem->GetDesc();
 	DWORD nWeaponDelay = pRangeDesc->m_nDelay.Ref();
 
 	// 단도의 딜레이는 끝난 시간을 기준으로 한다. 애니메이션이 끝날때 다시 세팅해준다.
@@ -2150,7 +2150,7 @@ void ZMyCharacter::UpdateLimit()
 	// 우선선택된 무기들만 제한에 영향을 준다.. 반지나 의류등도 필요할때 추가..
 
 	ZMyCharaterStatusBitPacking & zStatus = m_statusFlags.Ref();
-	MMatchItemDesc* pDesc = GetSelectItemDesc();
+	CCMatchItemDesc* pDesc = GetSelectItemDesc();
 
 	zStatus.m_bLimitJump	= false;
 	zStatus.m_bLimitTumble	= false;
@@ -2475,7 +2475,7 @@ void ZMyCharacter::OnUpdate(float fDelta)
 
 		// 가진무기에따라서..
 //		RWeaponType type = m_pVMesh->GetSelectWeaponType();
-		MMatchWeaponType type = MWT_NONE;
+		CCMatchWeaponType type = MWT_NONE;
 
 		ZItem* pSItem = GetItems()->GetSelectedWeapon();
 
@@ -2555,7 +2555,7 @@ void ZMyCharacter::OnUpdate(float fDelta)
 				_ASSERT(pSelectedItem && pSelectedItem->GetDesc());
 
 				if(pSelectedItem) {
-					MMatchItemDesc* pRangeDesc = pSelectedItem->GetDesc();
+					CCMatchItemDesc* pRangeDesc = pSelectedItem->GetDesc();
 					DWORD nWeaponDelay = pRangeDesc->m_nDelay.Ref();
 
 					MEMBER_SET_CHECKCRC(m_shotTimeInfo, m_fNextShotTimeType[nParts], ZGetGame()->GetTime()+(float)(nWeaponDelay)*0.001f);
@@ -2633,7 +2633,7 @@ void ZMyCharacter::OnUpdate(float fDelta)
 		SetAnimationUpper( ZC_STATE_UPPER_NONE );
 	}
 */
-	MMatchWeaponType wtype = MWT_NONE;
+	CCMatchWeaponType wtype = MWT_NONE;
 
 	ZItem* pSItem = GetItems()->GetSelectedWeapon();
 
@@ -2854,10 +2854,10 @@ void ZMyCharacter::OnUpdate(float fDelta)
 /*
 	for(int i= MMCIP_HEAD; i< MMCIP_END; i++)
 	{
-		if(m_Items.GetItem((MMatchCharItemParts)i))
-			if(m_Items.GetItem((MMatchCharItemParts)i)->GetDesc())
-				if(m_Items.GetItem((MMatchCharItemParts)i)->GetDesc()->m_pMItemName)
-					m_Items.GetItem((MMatchCharItemParts)i)->GetDesc()->m_pMItemName->SetWarpingAdd(GetTickCount());
+		if(m_Items.GetItem((CCMatchCharItemParts)i))
+			if(m_Items.GetItem((CCMatchCharItemParts)i)->GetDesc())
+				if(m_Items.GetItem((CCMatchCharItemParts)i)->GetDesc()->m_pMItemName)
+					m_Items.GetItem((CCMatchCharItemParts)i)->GetDesc()->m_pMItemName->SetWarpingAdd(GetTickCount());
 	}
 */
 
@@ -3196,7 +3196,7 @@ void ZMyCharacter::OnDie()
 
 float ZMyCharacter::GetControllabilityFactor()
 {
-	MMatchWeaponType wtype = MWT_NONE;
+	CCMatchWeaponType wtype = MWT_NONE;
 
 	ZItem* pSItem = GetItems()->GetSelectedWeapon();
 
@@ -3465,7 +3465,7 @@ void ZMyCharacter::OnDelayedWork(ZDELAYEDWORKITEM *pItem)
 		break;
 	case ZDW_UPPERCUT :
 		if(zStatus.m_bSkill) {	// 아직 상태를 벗어나지 않았다면,,
-			MMatchWeaponType type = MWT_NONE;
+			CCMatchWeaponType type = MWT_NONE;
 
 			int sel_type = GetItems()->GetSelectedWeaponParts();
 			ZItem* pSItem = GetItems()->GetSelectedWeapon();
@@ -3480,7 +3480,7 @@ void ZMyCharacter::OnDelayedWork(ZDELAYEDWORKITEM *pItem)
 		break;
 	case ZDW_DASH :
 		if(zStatus.m_bSkill) {	// 아직 상태를 벗어나지 않았다면,,
-			MMatchWeaponType type = MWT_NONE;
+			CCMatchWeaponType type = MWT_NONE;
 
 			int sel_type = GetItems()->GetSelectedWeaponParts();
 			ZItem* pSItem = GetItems()->GetSelectedWeapon();
@@ -3623,7 +3623,7 @@ float ZMyCharacter::GetGravityConst()	// 중력의 영향을 얼만큼 받는지..
 	// 강베기 앞의 점프 모션동안 영향을 받지 않는다
 	if(zStatus.m_bSlash)
 	{
-		MMatchItemDesc *pDesc = GetItems()->GetItem(MMCIP_MELEE)->GetDesc();
+		CCMatchItemDesc *pDesc = GetItems()->GetItem(MMCIP_MELEE)->GetDesc();
 		if(pDesc->m_nWeaponType.Ref()==MWT_DOUBLE_KATANA) {
 			AniFrameInfo* pAniLow = m_pVMesh->GetFrameInfo(ani_mode_lower);
 			if( pAniLow->m_nFrame < 160*11) return 0;
@@ -3632,7 +3632,7 @@ float ZMyCharacter::GetGravityConst()	// 중력의 영향을 얼만큼 받는지..
 
 	// 쌍검 특수동작 점프 모션
 	if(zStatus.m_bSkill) {
-		MMatchItemDesc *pDesc = GetItems()->GetItem(MMCIP_MELEE)->GetDesc();
+		CCMatchItemDesc *pDesc = GetItems()->GetItem(MMCIP_MELEE)->GetDesc();
 		if(pDesc->m_nWeaponType.Ref()==MWT_DOUBLE_KATANA) {
 			AniFrameInfo* pAniLow = m_pVMesh->GetFrameInfo(ani_mode_lower);
 			if( pAniLow->m_nFrame < 160*20) return 0;
@@ -3647,7 +3647,7 @@ void ZMyCharacter::OnGuardSuccess()
 	MEMBER_SET_CHECKCRC(m_shotTimeInfo, m_fLastShotTime, ZGetGame()->GetTime());
 }
 
-void ZMyCharacter::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
+void ZMyCharacter::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
 {
 	ZCharacter::OnDamaged(pAttacker,srcPos,damageType,weaponType,fDamage,fPiercingRatio,nMeleeType);
 	ZGetScreenEffectManager()->AddAlert(GetPosition(),m_Direction, srcPos);

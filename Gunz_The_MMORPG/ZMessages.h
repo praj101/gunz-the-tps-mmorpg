@@ -4,7 +4,7 @@
 #include <string>
 #include "../../CSCommon/Include/MCommand.h"
 #include "CCZFileSystem.h"
-#include "../CSCommon/Include/MMatchObject.h"
+#include "../CSCommon/Include/CCMatchObject.h"
 
 #define ZOK										0			///< 에러없음
 #define ZERR_UNKNOWN							-1			///< 알지 못하는 에러
@@ -459,7 +459,7 @@
 #define MSG_WRONG_WORD_NAME					100300		///< 입력한 이름중에 사용할수 없는 단어가 있을시 단오를 출력해줌.
 
 
-const char* ZGetSexStr(MMatchSex nSex, bool bShort=false);
+const char* ZGetSexStr(CCMatchSex nSex, bool bShort=false);
 void ZGetTimeStrFromSec(char* poutStr, unsigned long int nSec);
 
 #endif

@@ -4,7 +4,7 @@
 #include "ZCharacterView.h"
 #include "ZIDLResource.h"
 #include "ZApplication.h"
-#include "MMatchObjCache.h"
+#include "CCMatchObjCache.h"
 #include "ZMyInfo.h"
 #include "ZGameClient.h"
 #include "zpost.h"
@@ -93,7 +93,7 @@ bool ZCharacterViewList::OnCommand(MWidget* pWidget, const char* szMessage)
 	return true;
 }
 
-void ZCharacterViewList::Add(const CCUID& uid, const char* szName, MMatchSex nSex, 
+void ZCharacterViewList::Add(const CCUID& uid, const char* szName, CCMatchSex nSex, 
 		 unsigned int nHair, unsigned int nFace, unsigned int nLevel, unsigned long int* itemids, bool bFireWall)
 {
 	if (Get(uid) != NULL)		return;
@@ -135,7 +135,7 @@ void ZCharacterViewList::Add(const CCUID& uid, const char* szName, MMatchSex nSe
 
 }
 
-void ZCharacterViewList::Add(MMatchObjCache* pCache)
+void ZCharacterViewList::Add(CCMatchObjCache* pCache)
 {
 	unsigned long int nItemids[MMCIP_END];
 	memset(nItemids, 0, sizeof(nItemids));
@@ -237,15 +237,15 @@ ZCharacterView* ZCharacterViewList::Get(const CCUID& uid)
 	return NULL;
 }
 
-void ZCharacterViewList::Assign(MMatchObjCacheMap* pObjCacheMap)
+void ZCharacterViewList::Assign(CCMatchObjCacheMap* pObjCacheMap)
 {
 	m_SelectViewUID = CCUID(0,0);
 
 	RemoveAll();
 
-	for (MMatchObjCacheMap::iterator itor = pObjCacheMap->begin(); itor != pObjCacheMap->end(); ++itor)
+	for (CCMatchObjCacheMap::iterator itor = pObjCacheMap->begin(); itor != pObjCacheMap->end(); ++itor)
 	{
-		MMatchObjCache* pObj = (*itor).second;
+		CCMatchObjCache* pObj = (*itor).second;
 
 		Add(pObj);
 	}
@@ -325,7 +325,7 @@ void ZCharacterViewList::ChangeMyCharacterInfo()
 	if(pmi) {
 
 		for (int i = 0; i < MMCIP_END; i++)	{
-			nItemids[i] = pil->GetEquipedItemID(MMatchCharItemParts(i));
+			nItemids[i] = pil->GetEquipedItemID(CCMatchCharItemParts(i));
 		}
 
 		int sex = pmi->GetSex();
@@ -464,7 +464,7 @@ void ZCharacterViewList::OnDraw(MDrawContext* pDC)
 }
 
 
-void ZCharacterViewList::ChangeVisualWeaponParts(MMatchCharItemParts nVisualWeaponParts)
+void ZCharacterViewList::ChangeVisualWeaponParts(CCMatchCharItemParts nVisualWeaponParts)
 {
 	int nCount = GetItemCount();
 

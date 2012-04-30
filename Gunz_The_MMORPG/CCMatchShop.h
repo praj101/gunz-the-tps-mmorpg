@@ -28,7 +28,7 @@ struct ShopItemNode
 };
 
 /// 상점
-class MMatchShop
+class CCMatchShop
 {
 private:
 protected:
@@ -40,8 +40,8 @@ protected:
 
 
 public:
-	MMatchShop();
-	virtual ~MMatchShop();
+	CCMatchShop();
+	virtual ~CCMatchShop();
 	bool Create(const char* szDescFileName);
 	void Destroy();
 
@@ -51,7 +51,7 @@ public:
 	ShopItemNode* GetSellItemByIndex(int nListIndex);			// 샵에서 팔고 있는 nListIndex번째 아이템 명세 반환
 	ShopItemNode* GetSellItemByItemID(int nItemID);				// 샵에서 팔고 있는 nItemID 아이템 명세 반환
 	
-	static MMatchShop* GetInstance();
+	static CCMatchShop* GetInstance();
 
 
 #ifdef _DEBUG
@@ -59,7 +59,7 @@ public:
 #endif
 };
 
-inline MMatchShop* MGetMatchShop() { return MMatchShop::GetInstance(); }
+inline CCMatchShop* MGetMatchShop() { return CCMatchShop::GetInstance(); }
 
 #define MTOK_SELL					"SELL"
 #define MTOK_SELL_ITEMID			"itemid"

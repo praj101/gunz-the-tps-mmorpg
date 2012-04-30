@@ -8,7 +8,7 @@
 
 
 // 아이템. 서버, 클라이언트 공통의 부모 클래스
-// 서버는 MMatchItem
+// 서버는 CCMatchItem
 // 클라이언트는 ZMyItemNode
 class MBaseItem
 {

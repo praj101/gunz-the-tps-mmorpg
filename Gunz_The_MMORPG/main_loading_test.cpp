@@ -23,7 +23,7 @@
 #include "ZApplication.h"
 #include "MDebug.h"
 #include "ZMessages.h"
-#include "MMatchNotify.h"
+#include "CCMatchNotify.h"
 #include "RealSpace2.h"
 #include "Mint.h"
 #include "ZGameInterface.h"
@@ -693,7 +693,7 @@ void HandleExceptionLog()
 
 	char* pszCharName = NULL;
 	MUID uidChar;
-	MMatchObjCache* pObj;
+	CCMatchObjCache* pObj;
 	char szPlayer[128];
 
 	if( pClient ) {

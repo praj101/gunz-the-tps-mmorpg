@@ -1,29 +1,29 @@
 #include "stdafx.h"
-#include "MMatchCharBRInfo.h"
+#include "CCMatchCharBRInfo.h"
 
 #include "CCMatchGlobal.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-MMatchCharBRInfo::MMatchCharBRInfo()
+CCMatchCharBRInfo::CCMatchCharBRInfo()
 : m_bCheckSkip(true), m_nLastCheckTime(0), m_nLastUpdateDBTime(0)
 {
 	SetBRInfo(-1, 0, 0, 0, 0);
 }
 
-MMatchCharBRInfo::MMatchCharBRInfo(int nBRID, int nBRTID, unsigned long int nBattleTime, int nRewardCount, int nKillCount)
+CCMatchCharBRInfo::CCMatchCharBRInfo(int nBRID, int nBRTID, unsigned long int nBattleTime, int nRewardCount, int nKillCount)
 : m_bCheckSkip(true), m_nLastCheckTime(0), m_nLastUpdateDBTime(0)
 {
 	SetBRInfo(nBRID, nBRTID, nBattleTime, nRewardCount, nKillCount);
 }
 
-void MMatchCharBRInfo::ResetInfo()
+void CCMatchCharBRInfo::ResetInfo()
 {
 	m_nBattleTime	= 0;
 	m_nKillCount	= 0;
 }
 
-void MMatchCharBRInfo::SetBRInfo(int nBRID, int nBRTID, unsigned long int nBattleTime, int nRewardCount, int nKillCount)
+void CCMatchCharBRInfo::SetBRInfo(int nBRID, int nBRTID, unsigned long int nBattleTime, int nRewardCount, int nKillCount)
 {
 	m_nBRID = nBRID;
 	m_nBRTID = nBRTID;
@@ -34,7 +34,7 @@ void MMatchCharBRInfo::SetBRInfo(int nBRID, int nBRTID, unsigned long int nBattl
 	m_nKillCount = nKillCount;
 }
 
-bool MMatchCharBRInfo::IsExpired(int nBRTID)
+bool CCMatchCharBRInfo::IsExpired(int nBRTID)
 {
 	if( m_nBRTID == nBRTID ) 		return false;
 	else if( m_nBRTID < nBRTID )	return true;
@@ -42,7 +42,7 @@ bool MMatchCharBRInfo::IsExpired(int nBRTID)
 	return false;
 }
 
-bool MMatchCharBRInfo::IsNeedUpdateDB(unsigned long int nTick)
+bool CCMatchCharBRInfo::IsNeedUpdateDB(unsigned long int nTick)
 {
 	if (nTick - GetLastUpdateDBTime() > CYCLE_CHAR_BATTLE_TIME_UPDATE_DB) 
 	{
@@ -53,7 +53,7 @@ bool MMatchCharBRInfo::IsNeedUpdateDB(unsigned long int nTick)
 	return false;
 }
 
-BRRESULT MMatchCharBRInfo::CheckBattleTimeReward(unsigned long int nTick, MMatchBRDescription* pDesc)
+BRRESULT CCMatchCharBRInfo::CheckBattleTimeReward(unsigned long int nTick, CCMatchBRDescription* pDesc)
 {
 	unsigned long int nAddedTime = nTick - GetLastCheckTime();
 	if (nAddedTime > CYCLE_CHAR_BATTLE_TIME_CHECK) 
@@ -73,7 +73,7 @@ BRRESULT MMatchCharBRInfo::CheckBattleTimeReward(unsigned long int nTick, MMatch
 }
 
 /*
-bool MMatchCharBRInfo::IsRewardTarget(unsigned long int nTick, MMatchBRDescription* pDesc)
+bool CCMatchCharBRInfo::IsRewardTarget(unsigned long int nTick, CCMatchBRDescription* pDesc)
 {
 	unsigned long int nAddedTime = nTick - GetLastCheckTime();
 	if (nAddedTime > CYCLE_CHAR_BATTLE_TIME_CHECK) 

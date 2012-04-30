@@ -4,7 +4,7 @@
 #include "CCSharedCommandTable.h"
 
 
-MMatchShutdown::~MMatchShutdown()
+CCMatchShutdown::~CCMatchShutdown()
 {
 	for (vector<MShutdownNotify*>::iterator i = m_ShutdownNotifyArray.begin(); i != m_ShutdownNotifyArray.end(); ++i)
 	{
@@ -14,7 +14,7 @@ MMatchShutdown::~MMatchShutdown()
 	m_ShutdownNotifyArray.clear();
 }
 
-bool MMatchShutdown::LoadXML_ShutdownNotify(const char* pszFileName)
+bool CCMatchShutdown::LoadXML_ShutdownNotify(const char* pszFileName)
 {
 /*	m_ShutdownNotifyArray.push_back(new MShutdownNotify(0, 1000, "Shutdown Started"));
 	m_ShutdownNotifyArray.push_back(new MShutdownNotify(1, 1000, "5"));
@@ -65,20 +65,20 @@ bool MMatchShutdown::LoadXML_ShutdownNotify(const char* pszFileName)
 	return true;
 }
 
-void MMatchShutdown::Start(unsigned long nClock)
+void CCMatchShutdown::Start(unsigned long nClock)
 {
 	m_bShutdown = true;
 	m_nProgressIndex = 0;
 	m_nTimeLastProgress = nClock;
 }
 
-void MMatchShutdown::SetProgress(int nIndex, unsigned long nClock)
+void CCMatchShutdown::SetProgress(int nIndex, unsigned long nClock)
 {
 	m_nProgressIndex = nIndex;
 	m_nTimeLastProgress = nClock;
 }
 
-void MMatchShutdown::Notify(int nIndex)
+void CCMatchShutdown::Notify(int nIndex)
 {
 	char* pszMsg = m_ShutdownNotifyArray[nIndex]->GetString();
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
@@ -90,17 +90,17 @@ void MMatchShutdown::Notify(int nIndex)
 	pServer->RouteToAllClient(pCmd);
 
 #ifdef _DEBUG
-	cclog( "MMatchShutdown::Notify - Notify : %s\n", pszMsg );
+	cclog( "CCMatchShutdown::Notify - Notify : %s\n", pszMsg );
 #endif
 }
 
-void MMatchShutdown::Terminate()
+void CCMatchShutdown::Terminate()
 {
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	pServer->Shutdown();
 }
 
-void MMatchShutdown::OnRun(unsigned long nClock)
+void CCMatchShutdown::OnRun(unsigned long nClock)
 {
 	if (IsShutdown() == false) return;
 

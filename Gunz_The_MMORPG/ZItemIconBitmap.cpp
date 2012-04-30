@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "ZItemIconBitmap.h"
 #include "MBitmap.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 
 
 // 파일 이름은 그냥 하드코딩..-_-;
-MBitmap* GetItemIconBitmap(MMatchItemDesc* pItemDesc)
+MBitmap* GetItemIconBitmap(CCMatchItemDesc* pItemDesc)
 {
 	if (pItemDesc == NULL) return false;
 
@@ -26,7 +26,7 @@ MBitmap* GetItemIconBitmap(MMatchItemDesc* pItemDesc)
 
 	case MMIST_CUSTOM:
 		{
-			MMatchWeaponType nWeaponType = pItemDesc->m_nWeaponType.Ref();
+			CCMatchWeaponType nWeaponType = pItemDesc->m_nWeaponType.Ref();
 
 			switch (nWeaponType)
 			{
@@ -68,7 +68,7 @@ MBitmap* GetItemIconBitmap(MMatchItemDesc* pItemDesc)
 	case MMIST_MELEE:
 	case MMIST_RANGE:
 		{
-			MMatchWeaponType type = pItemDesc->m_nWeaponType.Ref();
+			CCMatchWeaponType type = pItemDesc->m_nWeaponType.Ref();
 			{
 				switch (type) {
 
@@ -115,7 +115,7 @@ MBitmap* GetItemIconBitmap(MMatchItemDesc* pItemDesc)
 	return pBitmap;
 }
 
-const char* GetItemIconBitmap_Potion(MMatchItemDesc* pDesc)
+const char* GetItemIconBitmap_Potion(CCMatchItemDesc* pDesc)
 {
 	if (!pDesc) return "";
 
@@ -132,7 +132,7 @@ const char* GetItemIconBitmap_Potion(MMatchItemDesc* pDesc)
 	return "";
 }
 
-const char* GetItemIconBitmap_Trap(MMatchItemDesc* pDesc)
+const char* GetItemIconBitmap_Trap(CCMatchItemDesc* pDesc)
 {
 	if (!pDesc) return "";
 
@@ -142,14 +142,14 @@ const char* GetItemIconBitmap_Trap(MMatchItemDesc* pDesc)
 	case MMDT_COLD:		return "slot_icon_trap_cold";
 	default:
 		{
-			MMatchDamageType type = pDesc->m_nDamageType.Ref();
+			CCMatchDamageType type = pDesc->m_nDamageType.Ref();
 			_ASSERT(0);
 		}
 	}
 	return "";
 }
 
-MBitmap* GetItemThumbnailBitmap(MMatchItemDesc* pDesc)
+MBitmap* GetItemThumbnailBitmap(CCMatchItemDesc* pDesc)
 {
 	// 아이템의 썸네일 파일을 로딩
 	if (!pDesc) return NULL;

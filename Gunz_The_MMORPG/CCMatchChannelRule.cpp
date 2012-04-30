@@ -1,18 +1,18 @@
 #include "stdafx.h"
-#include "MMatchChannelRule.h"
+#include "CCMatchChannelRule.h"
 
-MMatchChannelRuleMgr::MMatchChannelRuleMgr() : MChannelRuleMgr()
+CCMatchChannelRuleMgr::CCMatchChannelRuleMgr() : MChannelRuleMgr()
 {
 
 }
 
-MMatchChannelRuleMgr::~MMatchChannelRuleMgr()
+CCMatchChannelRuleMgr::~CCMatchChannelRuleMgr()
 {
 
 }
 
-MMatchChannelRuleMgr* MMatchChannelRuleMgr::GetInstance()
+CCMatchChannelRuleMgr* CCMatchChannelRuleMgr::GetInstance()
 {
-	static MMatchChannelRuleMgr m_stChannelRuleMgr;
+	static CCMatchChannelRuleMgr m_stChannelRuleMgr;
 	return &m_stChannelRuleMgr;
 }

@@ -2,7 +2,7 @@
 #define _MMATCHDBGAMBLEITEM_H
 
 
-#include "MMatchDBBaseGambleItem.h"
+#include "CCMatchDBBaseGambleItem.h"
 
 
 #include <map>
@@ -13,7 +13,7 @@ using std::map;
 using std::vector;
 
 
-class MMatchGambleRewardItem
+class CCMatchGambleRewardItem
 {
 private :
 	DWORD	m_dwGambleRewardItemID;
@@ -23,14 +23,14 @@ private :
 	DWORD	m_dwItemCnt;
 	WORD	m_wRentHourPeriod;
 	WORD	m_wRate;
-	WORD	m_wRateRange;	// 이 값은 MMatchGambleItem에 AddGambleRewardItem으로 추가될때 계산되고, 
+	WORD	m_wRateRange;	// 이 값은 CCMatchGambleItem에 AddGambleRewardItem으로 추가될때 계산되고, 
 							//  Gamble을 할때 사용 된다.
 
 private :
-	MMatchGambleRewardItem() {}
+	CCMatchGambleRewardItem() {}
 
 public :
-	MMatchGambleRewardItem( const DWORD dwGambleRewardItemID
+	CCMatchGambleRewardItem( const DWORD dwGambleRewardItemID
 		, const DWORD dwGambleItemID
 		, const DWORD dwItemIDMale
 		, const DWORD dwItemIDFemale
@@ -48,7 +48,7 @@ public :
 		m_wRateRange			= 0;
 	}
 
-	~MMatchGambleRewardItem() {}
+	~CCMatchGambleRewardItem() {}
 
 	const DWORD GetGambleRewardItemID() const			{ return m_dwGambleRewardItemID; }
 	const DWORD GetGambleItemID() const					{ return m_dwGambleItemID; }
@@ -63,10 +63,10 @@ public :
 };
 
 
-class MMatchGambleItem : public MMatchDBBaseGambleItem
+class CCMatchGambleItem : public CCMatchDBBaseGambleItem
 {
 private :
-	vector< MMatchGambleRewardItem* > m_RewardItemList;
+	vector< CCMatchGambleRewardItem* > m_RewardItemList;
 
 	// 현제 시간을 기준으로의 차이.
     int		m_nStartTimeMin;
@@ -77,10 +77,10 @@ private :
 	WORD	m_dwTotalRate;
 
 private :
-	MMatchGambleItem() {}
+	CCMatchGambleItem() {}
 
 public :
-	MMatchGambleItem( const DWORD dwGambleItemID
+	CCMatchGambleItem( const DWORD dwGambleItemID
 		, const string& strName
 		, const string& strDescription
 		, const int nStartTimeMin
@@ -88,9 +88,9 @@ public :
 		, const DWORD dwPrice
 		, const bool bIsCash
 		, const bool bIsOpened );
-	~MMatchGambleItem();
+	~CCMatchGambleItem();
 
-	bool							AddGambleRewardItem( MMatchGambleRewardItem* pGRItem );
+	bool							AddGambleRewardItem( CCMatchGambleRewardItem* pGRItem );
 
 	void							Release();
 
@@ -102,7 +102,7 @@ public :
 	const WORD						GetTotalRate() const		{ return m_dwTotalRate; }
 
 
-	const MMatchGambleRewardItem*	GetGambleRewardItemByRate( const WORD wRate ) const;
+	const CCMatchGambleRewardItem*	GetGambleRewardItemByRate( const WORD wRate ) const;
 };
 
 

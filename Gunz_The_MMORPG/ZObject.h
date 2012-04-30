@@ -193,7 +193,7 @@ public:
 	virtual bool IsDie() { return false; }
 	virtual void SetDirection(rvector& dir);
 	virtual bool IsGuard()	{ return false; }
-	virtual MMatchTeam GetTeamID() { return MMT_ALL; }
+	virtual CCMatchTeam GetTeamID() { return MMT_ALL; }
 	
 	// 특정시점의 hit test 를 리턴해줘야 한다, pOutPos 가 있으면 hit된 위치를 리턴해줘야 한다
 	virtual ZOBJECTHITTEST HitTest( const rvector& origin, const rvector& to, float fTime, rvector *pOutPos=NULL );
@@ -219,10 +219,10 @@ public:
 //	virtual void OnDamage(int damage, float fRatio = 1.0f);
 
 	// 데미지를 입었다.
-	virtual void OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
+	virtual void OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
 
 	// 모션등이 변경되지 않고 피만 줄이기위해..
-	virtual void OnDamagedSkill(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
+	virtual void OnDamagedSkill(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
 
 	// 강베기를 맞았다
 	virtual void OnDamagedAnimation(ZObject *pAttacker,int type) { }

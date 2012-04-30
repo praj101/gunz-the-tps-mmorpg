@@ -15,7 +15,7 @@
 #include "ZTask.h"
 #include "ZTaskManager.h"
 #include "ZModule_HPAP.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 #include "ZNPCInfoFromServer.h"
 
 #include <list>
@@ -67,7 +67,7 @@ private:
 protected:
 	float					m_fTC;				// 난이도 조절 계수
 	int						m_nQL;				// 이넘의 QL - 게임정보의 QL과 같다.
-	MMatchItemDesc			m_ItemDesc;			// npc의 무기(혹은 아이템 디스크립션)
+	CCMatchItemDesc			m_ItemDesc;			// npc의 무기(혹은 아이템 디스크립션)
 	MQuestNPCInfo*			m_pNPCInfo;
 	ZActorAnimation			m_Animation;		// Animation부분을 관장
 	ZBrain*					m_pBrain;			// AI 부분을 관장
@@ -185,10 +185,10 @@ public:
 	// 동작/이벤트 상속
 	virtual bool IsDie();
 
-	virtual MMatchTeam GetTeamID() { return MMT_BLUE; }			// NPC는 무조건 BLUE팀
+	virtual CCMatchTeam GetTeamID() { return MMT_BLUE; }			// NPC는 무조건 BLUE팀
 
 //	virtual void OnDamage(int damage, float fRatio = 1.0f);
-	virtual void OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
+	virtual void OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);
 
 	// knockback을 적용받아야한다
 	virtual void OnKnockback(rvector& dir, float fForce);

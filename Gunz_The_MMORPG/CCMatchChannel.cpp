@@ -6,7 +6,7 @@
 #include "CCMatchStage.h"
 #include <math.h>
 #include "CCSmartRefreshImpl.h"
-//#include "MMatchMapSet.h"
+//#include "CCMatchMapSet.h"
 
 
 #define CCTICK_CHANNEL_RUN					100
@@ -292,7 +292,7 @@ bool CCMatchChannelMap::Add(const char* pszChannelName, const char* pszRuleName,
 {
 	CCUID uidChannel = UseUID();
 
-	CCMatchChannel* pChannel = new MMatchChannel;
+	CCMatchChannel* pChannel = new CCMatchChannel;
 	pChannel->Create(uidChannel, pszChannelName, pszRuleName, nType, nMaxPlayers, nLevelMin, nLevelMax, bIsTicketChannel, dwTicketItemID, bIsUseTicket, pszChannelNameStrResId);
 	Insert(uidChannel, pChannel);
 	*pAllocUID = uidChannel;

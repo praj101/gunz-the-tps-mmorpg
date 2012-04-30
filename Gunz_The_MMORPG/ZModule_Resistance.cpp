@@ -27,9 +27,9 @@ void ZModule_Resistance::InitStatus()
 	ZCharacterItem *pItems = pThisObj->GetItems();
 	for(int i=0;i<MMCIP_END;i++)
 	{
-		ZItem *pItem = pItems->GetItem((MMatchCharItemParts)i);
+		ZItem *pItem = pItems->GetItem((CCMatchCharItemParts)i);
 		if(pItem) {
-			MMatchItemDesc *pDesc = pItem->GetDesc();
+			CCMatchItemDesc *pDesc = pItem->GetDesc();
 			if(pDesc) {
 				m_nFR += pDesc->m_nFR.Ref();
 				m_nCR += pDesc->m_nCR.Ref();

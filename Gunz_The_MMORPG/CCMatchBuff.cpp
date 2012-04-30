@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "MMatchBuff.h"
-#include "MMatchCRC32XORCache.h"
+#include "CCMatchBuff.h"
+#include "CCMatchCRC32XORCache.h"
 
-MMatchBuffDesc::MMatchBuffDesc() : m_nBuffID(0)
+CCMatchBuffDesc::CCMatchBuffDesc() : m_nBuffID(0)
 {
-	m_pBuffInfo = new MProtectValue<MMatchBuffInfo>;
-	memset(&m_pBuffInfo->Ref(), 0, sizeof(MMatchBuffInfo));
+	m_pBuffInfo = new MProtectValue<CCMatchBuffInfo>;
+	memset(&m_pBuffInfo->Ref(), 0, sizeof(CCMatchBuffInfo));
 
 	m_pBuffInfo->Ref().fSpeed_Ratio = 1.0f;
 	m_pBuffInfo->MakeCrc();
@@ -19,12 +19,12 @@ MMatchBuffDesc::MMatchBuffDesc() : m_nBuffID(0)
 	memset(m_szBuffIconName, 0, sizeof(m_szBuffIconName));
 }
 
-MMatchBuffDesc::~MMatchBuffDesc()
+CCMatchBuffDesc::~CCMatchBuffDesc()
 {
 	delete m_pBuffInfo;
 }
 
-void MMatchBuffDesc::CacheCRC32( MMatchCRC32XORCache& crc )
+void CCMatchBuffDesc::CacheCRC32( CCMatchCRC32XORCache& crc )
 {
 	crc.CRC32XOR( m_nBuffID );
 
@@ -32,7 +32,7 @@ void MMatchBuffDesc::CacheCRC32( MMatchCRC32XORCache& crc )
 	crc.CRC32XOR( m_nBuffPeriod.Ref() );
 }
 
-void MMatchBuffDesc::ShiftFugitiveValues()
+void CCMatchBuffDesc::ShiftFugitiveValues()
 {
 	m_nBuffEffectType.ShiftHeapPos_CheckCrc();
 	m_nBuffPeriodType.ShiftHeapPos_CheckCrc();
@@ -41,18 +41,18 @@ void MMatchBuffDesc::ShiftFugitiveValues()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// MMatchItemDescMgr //////////////////////////////////////////////////////////
-MMatchBuffDescMgr::MMatchBuffDescMgr() : m_nChecksum(0)
+// CCMatchItemDescMgr //////////////////////////////////////////////////////////
+CCMatchBuffDescMgr::CCMatchBuffDescMgr() : m_nChecksum(0)
 {
 
 }
 
-MMatchBuffDescMgr::~MMatchBuffDescMgr()
+CCMatchBuffDescMgr::~CCMatchBuffDescMgr()
 {
 	Clear();
 }
 
-bool MMatchBuffDescMgr::ReadXml(const char* szFileName)
+bool CCMatchBuffDescMgr::ReadXml(const char* szFileName)
 {
 	m_nChecksum = MGetCCZFileChecksum(szFileName);
 
@@ -93,7 +93,7 @@ bool MMatchBuffDescMgr::ReadXml(const char* szFileName)
 }
 
 
-bool MMatchBuffDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
+bool CCMatchBuffDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 {
 	CCXmlDocument xmlIniData;
 	xmlIniData.Create();
@@ -166,17 +166,17 @@ bool MMatchBuffDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileNa
 	return true;
 }
 
-void MMatchBuffDescMgr::Clear()
+void CCMatchBuffDescMgr::Clear()
 {
 	while(!empty())
 	{
-		MMatchBuffDesc* pBuffDesc = (*begin()).second;
+		CCMatchBuffDesc* pBuffDesc = (*begin()).second;
 		delete pBuffDesc;
 		erase(begin());
 	}
 }
 
-MMatchBuffDesc* MMatchBuffDescMgr::GetBuffDesc(unsigned long int nBuffID)
+CCMatchBuffDesc* CCMatchBuffDescMgr::GetBuffDesc(unsigned long int nBuffID)
 {
 	iterator itor = find(nBuffID);
 	if (itor != end()) {
@@ -187,9 +187,9 @@ MMatchBuffDesc* MMatchBuffDescMgr::GetBuffDesc(unsigned long int nBuffID)
 	return NULL;
 }
 
-bool MMatchBuffDescMgr::ParseItem(CCXmlElement& element)
+bool CCMatchBuffDescMgr::ParseItem(CCXmlElement& element)
 {
-	MMatchBuffDesc* pNewDesc = new MMatchBuffDesc;
+	CCMatchBuffDesc* pNewDesc = new CCMatchBuffDesc;
 
 	int n = 0;
 	char szAttrValue[256];
@@ -261,16 +261,16 @@ bool MMatchBuffDescMgr::ParseItem(CCXmlElement& element)
 	return true;
 }
 
-bool MMatchBuffDescMgr::SetBuffName(MMatchItemDescMgr* pItemDescMgr)
+bool CCMatchBuffDescMgr::SetBuffName(CCMatchItemDescMgr* pItemDescMgr)
 {
-	MMatchItemDescMgr::iterator iter = pItemDescMgr->begin();
+	CCMatchItemDescMgr::iterator iter = pItemDescMgr->begin();
 	for( ; iter != pItemDescMgr->end(); iter++) 
 	{
-		MMatchItemDesc* pItemDesc = iter->second;
+		CCMatchItemDesc* pItemDesc = iter->second;
 
 		if( pItemDesc->m_nSpendType.Ref() == MMCT_LONGBUFF || pItemDesc->m_nSpendType.Ref() == MMCT_SHORTBUFF ) 
 		{
-			MMatchBuffDesc* pBuffDesc = MGetMatchBuffDescMgr()->GetBuffDesc(pItemDesc->m_nID);
+			CCMatchBuffDesc* pBuffDesc = MGetMatchBuffDescMgr()->GetBuffDesc(pItemDesc->m_nID);
 			if( pBuffDesc == NULL) {
 				_ASSERT(0);
 				return false;
@@ -295,8 +295,8 @@ bool MMatchBuffDescMgr::SetBuffName(MMatchItemDescMgr* pItemDescMgr)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// MMatchBuff
-void MMatchBuff::Reset()
+// CCMatchBuff
+void CCMatchBuff::Reset()
 {
 	m_uidBuff = CCUID(0, 0);
 
@@ -307,7 +307,7 @@ void MMatchBuff::Reset()
 	m_pBuffDesc = NULL;
 }
 
-bool MMatchBuff::Set(CCUID& uidBuff, int nBuffID, int nRegTime, int nBuffPeriodRemainder)
+bool CCMatchBuff::Set(CCUID& uidBuff, int nBuffID, int nRegTime, int nBuffPeriodRemainder)
 {
 	m_pBuffDesc = MGetMatchBuffDescMgr()->GetBuffDesc(nBuffID);
 	if( m_pBuffDesc == NULL ) return false;
@@ -321,13 +321,13 @@ bool MMatchBuff::Set(CCUID& uidBuff, int nBuffID, int nRegTime, int nBuffPeriodR
 	return true;
 }
 
-bool MMatchBuff::IsExpired(int nGlobalTick)
+bool CCMatchBuff::IsExpired(int nGlobalTick)
 {
 	if( GetBuffPeriodRemainder(nGlobalTick) <= 0 )	return true;
 	else											return false;
 }
 
-int MMatchBuff::GetBuffPeriodRemainder(int nGlobalTick)
+int CCMatchBuff::GetBuffPeriodRemainder(int nGlobalTick)
 { 
 	if( m_pBuffDesc == NULL ) {
 		return 0;
@@ -341,36 +341,36 @@ int MMatchBuff::GetBuffPeriodRemainder(int nGlobalTick)
 
 
 /////////////////////////////////////////////////////////////////////////////
-// MMatchShortBuffMap
-void MMatchShortBuffMap::Clear() 
+// CCMatchShortBuffMap
+void CCMatchShortBuffMap::Clear() 
 {
 	while(!empty()) {
-		delete (MMatchShortBuff*)begin()->second;
+		delete (CCMatchShortBuff*)begin()->second;
 		erase(begin());
 	}
 }
 
-void MMatchShortBuffMap::Remove(CCUID& uidBuff)
+void CCMatchShortBuffMap::Remove(CCUID& uidBuff)
 {
 	iterator iter = find(uidBuff);
 	if( iter != end() ) {
-		delete (MMatchShortBuff*)iter->second;
+		delete (CCMatchShortBuff*)iter->second;
 		erase(iter);		
 	}
 }
 
-bool MMatchShortBuffMap::Insert(CCUID& uidBuff, MMatchShortBuff* pBuff)
+bool CCMatchShortBuffMap::Insert(CCUID& uidBuff, CCMatchShortBuff* pBuff)
 {
 	iterator iter = find(uidBuff);
 	if( iter != end() ) { _ASSERT(0); return false; }
-	insert(pair<CCUID, MMatchShortBuff*>(uidBuff, pBuff));
+	insert(pair<CCUID, CCMatchShortBuff*>(uidBuff, pBuff));
 	return true;
 }
 
-MMatchShortBuff* MMatchShortBuffMap::GetShortBuffByBuffID(int nBuffID)
+CCMatchShortBuff* CCMatchShortBuffMap::GetShortBuffByBuffID(int nBuffID)
 {
 	for(iterator iter = begin(); iter != end(); iter++) {
-		MMatchShortBuff* pInfo = iter->second;
+		CCMatchShortBuff* pInfo = iter->second;
 		if(pInfo->GetBuffID() == nBuffID) return pInfo;
 	}
 	return NULL;

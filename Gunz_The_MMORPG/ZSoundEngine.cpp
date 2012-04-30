@@ -6,7 +6,7 @@
 #include "MDebug.h"
 //#include "RealSoundEffect.h"
 #include "RealSpace2.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 #include "ZConfiguration.h"
 #include "Physics.h"
 #include "Fileinfo.h"
@@ -348,7 +348,7 @@ void ZSoundEngine::SetEffectMute(bool bMute)
 }
 
 
-void ZSoundEngine::PlaySEFire(MMatchItemDesc *pDesc, float x, float y, float z, bool bHero)
+void ZSoundEngine::PlaySEFire(CCMatchItemDesc *pDesc, float x, float y, float z, bool bHero)
 {
 	if( !pDesc ) return;
 
@@ -380,12 +380,12 @@ void ZSoundEngine::PlaySEFire(MMatchItemDesc *pDesc, float x, float y, float z, 
 
 }
 
-void ZSoundEngine::PlaySEDryFire(MMatchItemDesc *pDesc, float x, float y, float z, bool bHero)
+void ZSoundEngine::PlaySEDryFire(CCMatchItemDesc *pDesc, float x, float y, float z, bool bHero)
 {
 
 }
 
-void ZSoundEngine::PlaySEReload(MMatchItemDesc *pDesc, float x, float y, float z, bool bHero)
+void ZSoundEngine::PlaySEReload(CCMatchItemDesc *pDesc, float x, float y, float z, bool bHero)
 {
 	if(!pDesc )	return;
 
@@ -709,7 +709,7 @@ void ZSoundEngine::StopMusic()
 	ZGetSoundFMod()->StopMusic();
 }
 
-void ZSoundEngine::PlaySoundBladeConcrete(MMatchItemDesc *pDesc, rvector pos)
+void ZSoundEngine::PlaySoundBladeConcrete(CCMatchItemDesc *pDesc, rvector pos)
 {
 	if(strcmp("rubber", pDesc->m_szWeaponByFiber) == 0)
 	{
@@ -719,7 +719,7 @@ void ZSoundEngine::PlaySoundBladeConcrete(MMatchItemDesc *pDesc, rvector pos)
 
 	PlaySound("blade_concrete", pos );	// 디폴트 쇠로 벽긁는 소리
 }
-void ZSoundEngine::PlaySoundBladeDamage(MMatchItemDesc *pDesc, rvector& pos)
+void ZSoundEngine::PlaySoundBladeDamage(CCMatchItemDesc *pDesc, rvector& pos)
 {
 	if(strcmp("rubber", pDesc->m_szWeaponByFiber) == 0)
 	{
@@ -729,7 +729,7 @@ void ZSoundEngine::PlaySoundBladeDamage(MMatchItemDesc *pDesc, rvector& pos)
 
 	PlaySound( "blade_damage", pos);	// 디폴트 쇠로 피격 소리
 }
-void ZSoundEngine::PlaySoundHangOnWall(MMatchItemDesc *pDesc, rvector& pos)
+void ZSoundEngine::PlaySoundHangOnWall(CCMatchItemDesc *pDesc, rvector& pos)
 {
 	if(strcmp("rubber", pDesc->m_szWeaponByFiber) == 0)
 	{
@@ -739,7 +739,7 @@ void ZSoundEngine::PlaySoundHangOnWall(MMatchItemDesc *pDesc, rvector& pos)
 
 	PlaySound("hangonwall", pos);
 }
-void ZSoundEngine::PlaySoundChargeComplete(MMatchItemDesc *pDesc, const rvector& pos)
+void ZSoundEngine::PlaySoundChargeComplete(CCMatchItemDesc *pDesc, const rvector& pos)
 {
 	if(strcmp("rubber", pDesc->m_szWeaponByFiber) == 0)
 	{
@@ -749,7 +749,7 @@ void ZSoundEngine::PlaySoundChargeComplete(MMatchItemDesc *pDesc, const rvector&
 
 	PlaySound("fx2/FX_ChargeComplete", pos );	// 디폴트 쇠로 벽긁는 소리
 }
-void ZSoundEngine::PlaySoundSmash(MMatchItemDesc *pDesc, rvector& pos, bool bObserverTarget)
+void ZSoundEngine::PlaySoundSmash(CCMatchItemDesc *pDesc, rvector& pos, bool bObserverTarget)
 {
 	if(strcmp("rubber", pDesc->m_szWeaponByFiber) == 0)
 	{
@@ -760,7 +760,7 @@ void ZSoundEngine::PlaySoundSmash(MMatchItemDesc *pDesc, rvector& pos, bool bObs
 	PlaySound(bObserverTarget ? "we_smash_2d" : "we_smash", pos );
 }
 
-void ZSoundEngine::PlaySoundSheath(MMatchItemDesc *pDesc, const rvector& pos, bool bObserverTarget)
+void ZSoundEngine::PlaySoundSheath(CCMatchItemDesc *pDesc, const rvector& pos, bool bObserverTarget)
 {
 	if(strcmp("rubber", pDesc->m_szWeaponByFiber) == 0)
 	{
@@ -771,7 +771,7 @@ void ZSoundEngine::PlaySoundSheath(MMatchItemDesc *pDesc, const rvector& pos, bo
 	PlaySound("fx_blade_sheath", pos, bObserverTarget );	// 디폴트 쇠 무기 꺼내는 소리
 }
 
-void ZSoundEngine::PlaySEFire(MMatchItemDesc *pDesc, float x, float y, float z, bool bPlayer)
+void ZSoundEngine::PlaySEFire(CCMatchItemDesc *pDesc, float x, float y, float z, bool bPlayer)
 {
 	if( !m_bSoundEnable || !pDesc )	return;
 
@@ -798,7 +798,7 @@ void ZSoundEngine::PlaySEFire(MMatchItemDesc *pDesc, float x, float y, float z, 
 	}
 }
 
-void ZSoundEngine::PlaySEDryFire(MMatchItemDesc *pDesc, float x, float y, float z, bool bPlayer)
+void ZSoundEngine::PlaySEDryFire(CCMatchItemDesc *pDesc, float x, float y, float z, bool bPlayer)
 {
 	if( !m_bSoundEnable || !pDesc )	return;
 
@@ -814,7 +814,7 @@ void ZSoundEngine::PlaySEDryFire(MMatchItemDesc *pDesc, float x, float y, float 
 	//PlaySound("762arifle_dryfire", rvector(x,y,z), bPlayer, false );
 }
 
-void ZSoundEngine::PlaySEReload(MMatchItemDesc *pDesc, float x, float y, float z, bool bPlayer)
+void ZSoundEngine::PlaySEReload(CCMatchItemDesc *pDesc, float x, float y, float z, bool bPlayer)
 {
 	if( !m_bSoundEnable || !pDesc )	return;
 

@@ -11,16 +11,16 @@
 #include "CCMatchObjCache.h"
 #include "CCMatchStage.h"
 #include "CCMatchTransDataType.h"
-#include "MMatchFormula.h"
+#include "CCMatchFormula.h"
 #include "CCMatchConfig.h"
 #include "CCCommandCommunicator.h"
 #include "CCMatchShop.h"
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "CCMatchWorldItemDesc.h"
-#include "MMatchQuestMonsterGroup.h"
+#include "CCMatchQuestMonsterGroup.h"
 #include "RTypes.h"
 #include "CCMatchChatRoom.h"
 #include "CCMatchUtil.h"
@@ -31,18 +31,18 @@
 #include "MQuestFormula.h"
 #include "CCQuestItem.h"
 #include "MSacrificeQItemTable.h"
-#include "MMatchPremiumIPCache.h"
+#include "CCMatchPremiumIPCache.h"
 #include "MCommandBuilder.h"
 #include "CCMatchLocale.h"
-#include "MMatchEvent.h"
-#include "MMatchEventManager.h"
-#include "MMatchEventFactory.h"
+#include "CCMatchEvent.h"
+#include "CCMatchEventManager.h"
+#include "CCMatchEventFactory.h"
 #include "../../MatchServer/HSHIELD/AntiCpSvrFunc.h"
 #include "CCMatchDBGambleItem.h"
-#include "MMatchCRC32XORCache.h"
+#include "CCMatchCRC32XORCache.h"
 #include "CCMatchCheckLoopTime.h"
 #include "MCrashDump.h"
-#include "MMatchDuelTournamentMgr.h"
+#include "CCMatchDuelTournamentMgr.h"
 
 #include "MAsyncDBJob_FriendList.h"
 #include "MAsyncDBJob_UpdateCharInfoData.h"
@@ -54,7 +54,7 @@
 #include "MAsyncDBJob_UpdateCharBRInfo.h"
 #include "MAsyncDBJob_RewardCharBR.h"
 
-#include "MMatchBuff.h"
+#include "CCMatchBuff.h"
 
 // 메모리 침범을 찾기위해서 다음을 define 해준다. debug 모드에서만 사용가능하다
 //#define _CHECK_MEMORY_CORRUPTION
@@ -139,7 +139,7 @@ void _CheckValidPointer(void* pPointer1, void* pPointer2, void* pPointer3, int n
 
 /////////////////////////////////////////////////////////
 
-void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
+void CopyCharInfoForTrans(MTD_CharInfo* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
 {
 	memset(pDest, 0, sizeof(MTD_CharInfo));
 
@@ -171,24 +171,24 @@ void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrcCharInfo, CCM
 		pDest->nWR = (unsigned short)pSrcCharInfo->m_nWR;
 
 		for (int i = 0; i < MMCIP_END; i++) {
-			if (pSrcCharInfo->m_EquipedItem.IsEmpty(MMatchCharItemParts(i))) {
+			if (pSrcCharInfo->m_EquipedItem.IsEmpty(CCMatchCharItemParts(i))) {
 				pDest->nEquipedItemDesc[i]  = 0;
 				pDest->nEquipedItemCount[i] = 0;
 				pDest->uidEquipedItem[i] = CCUID(0, 0);
 			}
 			else {
-				MMatchItem* pItem = pSrcCharInfo->m_EquipedItem.GetItem(MMatchCharItemParts(i));
+				CCMatchItem* pItem = pSrcCharInfo->m_EquipedItem.GetItem(CCMatchCharItemParts(i));
 				if( NULL == pItem ) {
 					pDest->nEquipedItemDesc[i]  = 0;
 					pDest->nEquipedItemCount[i] = 0;
 					pDest->uidEquipedItem[i] = CCUID(0, 0);
 				}
 				else {
-					MMatchItemDesc* pItemDesc = pItem->GetDesc();
+					CCMatchItemDesc* pItemDesc = pItem->GetDesc();
 					if (pItemDesc) {
 						pDest->nEquipedItemDesc[i]  = pItemDesc->m_nID;
 						pDest->nEquipedItemCount[i] = pItem->GetItemCount();
-						pDest->uidEquipedItem[i] = pSrcCharInfo->m_EquipedItem.GetItem((MMatchCharItemParts)i)->GetUID();
+						pDest->uidEquipedItem[i] = pSrcCharInfo->m_EquipedItem.GetItem((CCMatchCharItemParts)i)->GetUID();
 					}
 				}
 			}
@@ -214,7 +214,7 @@ void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrcCharInfo, CCM
 
 }
 
-void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
+void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
 {
 	memset(pDest, 0, sizeof(MTD_CharInfo_Detail));
 
@@ -244,13 +244,13 @@ void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrc
 
 		// 아이템셋
 		for (int i = 0; i < MMCIP_END; i++) {
-			if (pSrcCharInfo->m_EquipedItem.IsEmpty(MMatchCharItemParts(i))) {
+			if (pSrcCharInfo->m_EquipedItem.IsEmpty(CCMatchCharItemParts(i))) {
 				pDest->nEquipedItemDesc[i] = 0;
 			} else {
-				if( NULL == pSrcCharInfo->m_EquipedItem.GetItem(MMatchCharItemParts(i)) ) {
+				if( NULL == pSrcCharInfo->m_EquipedItem.GetItem(CCMatchCharItemParts(i)) ) {
 					pDest->nEquipedItemDesc[i] = 0;
 				} else {
-					pDest->nEquipedItemDesc[i] = pSrcCharInfo->m_EquipedItem.GetItem(MMatchCharItemParts(i))->GetDesc()->m_nID;
+					pDest->nEquipedItemDesc[i] = pSrcCharInfo->m_EquipedItem.GetItem(CCMatchCharItemParts(i))->GetDesc()->m_nID;
 				}
 			}
 		}
@@ -267,7 +267,7 @@ void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrc
 }
 //버프정보임시주석 
 /*
-void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, MMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
+void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
 {
 	memset(pDest, 0, sizeof(MTD_CharBuffInfo));
 
@@ -276,10 +276,10 @@ void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, MMatchCharInfo* pSrcCharI
 		int nIndex = 0;
 		CCMatchObjectCharBuff* pCharBuffObj = pSrcObject->GetCharBuff();
 		
-		MMatchShortBuffMap* pShortBuffMap = pCharBuffObj->GetShortBuffInfoMap();
-		for(MMatchShortBuffMap::iterator iter = pShortBuffMap->begin(); iter != pShortBuffMap->end(); iter++) 
+		CCMatchShortBuffMap* pShortBuffMap = pCharBuffObj->GetShortBuffInfoMap();
+		for(CCMatchShortBuffMap::iterator iter = pShortBuffMap->begin(); iter != pShortBuffMap->end(); iter++) 
 		{
-			MMatchShortBuff* pInfo = iter->second;
+			CCMatchShortBuff* pInfo = iter->second;
 
 			pDest->ShortBuffInfo[nIndex].uidBuff				= pInfo->GetBuffUID();
 			pDest->ShortBuffInfo[nIndex].nBuffID				= pInfo->GetBuffID();
@@ -330,7 +330,7 @@ bool IsExpiredBlockEndTime( const SYSTEMTIME& st )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-CCMatchServer::CCMatchServer(void) : m_pScheduler( 0 ), m_pDTMgr(new MMatchDuelTournamentMgr)
+CCMatchServer::CCMatchServer(void) : m_pScheduler( 0 ), m_pDTMgr(new CCMatchDuelTournamentMgr)
 {
 	_ASSERT(m_pInstance==NULL);
 	m_pInstance = this;
@@ -350,7 +350,7 @@ CCMatchServer::CCMatchServer(void) : m_pScheduler( 0 ), m_pDTMgr(new MMatchDuelT
 	// m_pScheduler = 0;
 
 	// 스트링 리소스는 제일 먼저 인스턴스를 생성해놔야 한다.
-	MMatchStringResManager::MakeInstance();
+	CCMatchStringResManager::MakeInstance();
 
 	// 포인터 침범 디버그코드
 	m_checkMemory1 = m_checkMemory2 = m_checkMemory3 = m_checkMemory4 = m_checkMemory5 = m_checkMemory6 =
@@ -444,7 +444,7 @@ bool CCMatchServer::LoadInitFile()
 		LOG(LOG_PROG, szText);
 	}
 
-	if (!MMatchFormula::Create()) 
+	if (!CCMatchFormula::Create()) 
 	{
 		LOG(LOG_PROG, "Open Formula Table FAILED\n");
 		return false;
@@ -583,14 +583,14 @@ bool CCMatchServer::LoadInitFile()
 void CCMatchServer::InitItemCRC32Cache()
 {
 // 전혀 사용하지 않는거라 주석처리
-/*	MMatchItemDescMgr::iterator it = MGetMatchItemDescMgr()->begin();
-	MMatchItemDescMgr::const_iterator end = MGetMatchItemDescMgr()->end();
-	MMatchItemDesc* pItemDesc = NULL;
-	MMatchCRC32XORCache CRC32Cache;
+/*	CCMatchItemDescMgr::iterator it = MGetMatchItemDescMgr()->begin();
+	CCMatchItemDescMgr::const_iterator end = MGetMatchItemDescMgr()->end();
+	CCMatchItemDesc* pItemDesc = NULL;
+	CCMatchCRC32XORCache CRC32Cache;
 
 	for( ; end != it; ++it )
 	{
-		pItemDesc = reinterpret_cast<MMatchItemDesc*>( it->second );
+		pItemDesc = reinterpret_cast<CCMatchItemDesc*>( it->second );
 
 		CRC32Cache.Reset();
 		pItemDesc->CacheCRC32( CRC32Cache );
@@ -812,7 +812,7 @@ bool CCMatchServer::Create(int nPort)
 		return false;
 	}
 
-	MMatchAntiHack::InitClientFileList();
+	CCMatchAntiHack::InitClientFileList();
 
 	if( !InitGambleMachine() )
 	{
@@ -890,7 +890,7 @@ void CCMatchServer::Destroy(void)
 
 	OnDestroy();
 /*
-	MMatchChannelMap::iterator itorChannel = m_ChannelMap.begin();
+	CCMatchChannelMap::iterator itorChannel = m_ChannelMap.begin();
 	while(itorChannel != m_ChannelMap.end()) {
 		CCUID uid = (*itorChannel).first;
 		ChannelRemove(uid, &itorChannel);
@@ -906,7 +906,7 @@ void CCMatchServer::Destroy(void)
 
 	MServer::Destroy();
 
-	MMatchStringResManager::FreeInstance();
+	CCMatchStringResManager::FreeInstance();
 
 	LOG(LOG_PROG, "Match Server Destoryed\n");
 }
@@ -1472,7 +1472,7 @@ void CCMatchServer::RouteToAllClient(MCommand* pCommand)
 
 void CCMatchServer::RouteToChannel(const CCUID& uidChannel, MCommand* pCommand)
 {
-	MMatchChannel* pChannel = FindChannel(uidChannel);
+	CCMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) 
 	{
 		delete pCommand;
@@ -1490,7 +1490,7 @@ void CCMatchServer::RouteToChannel(const CCUID& uidChannel, MCommand* pCommand)
 
 void CCMatchServer::RouteToChannelLobby(const CCUID& uidChannel, MCommand* pCommand)
 {
-	MMatchChannel* pChannel = FindChannel(uidChannel);
+	CCMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) 
 	{
 		delete pCommand;
@@ -1616,7 +1616,7 @@ void CCMatchServer::RouteToBattle(const CCUID& uidStage, MCommand* pCommand)
 
 void CCMatchServer::RouteToClan(const int nCLID, MCommand* pCommand)
 {
-	MMatchClan* pClan = FindClan(nCLID);
+	CCMatchClan* pClan = FindClan(nCLID);
 	if (pClan == NULL) 
 	{
 		delete pCommand;
@@ -1636,7 +1636,7 @@ void CCMatchServer::ResponseRoundState(const CCUID& uidStage)
 {
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
-	MMatchRule* pRule = pStage->GetRule();
+	CCMatchRule* pRule = pStage->GetRule();
 	if (pRule == NULL) return;
 
 	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_ROUNDSTATE, CCUID(0,0));
@@ -1654,7 +1654,7 @@ void CCMatchServer::ResponseRoundState(CCMatchObject* pObj, const CCUID& uidStag
 	if (pObj == NULL) return;
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
-	MMatchRule* pRule = pStage->GetRule();
+	CCMatchRule* pRule = pStage->GetRule();
 	if (pRule == NULL) return;
 
 	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_ROUNDSTATE, CCUID(0,0));
@@ -1706,7 +1706,7 @@ int CCMatchServer::ObjectRemove(const CCUID& uid, CCMatchObjectList::iterator* p
 		if( NULL != pObj->GetCharInfo() )
 			dwCID = pObj->GetCharInfo()->m_nCID;
 
-		MMatchChannel* pChannel = GetChannelMap()->Find( pObj->GetChannelUID() );
+		CCMatchChannel* pChannel = GetChannelMap()->Find( pObj->GetChannelUID() );
 		if( NULL != pChannel )
 			strChannelName = pChannel->GetName();
 
@@ -1732,8 +1732,8 @@ int CCMatchServer::ObjectRemove(const CCUID& uid, CCMatchObjectList::iterator* p
 
 	// Clear up the Object
 	if (pObj->GetChatRoomUID() != CCUID(0,0)) {
-		MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-		MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pObj->GetChatRoomUID());
+		CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
+		CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pObj->GetChatRoomUID());
 		if (pRoom)
 			pRoom->RemovePlayer(pObj->GetUID());
 	}
@@ -2175,7 +2175,7 @@ void CCMatchServer::OnUserWhere(const CCUID& uidComm, char* pszTargetName)
 
 	bool bUnknownChannel = true;
 
-	MMatchChannel* pChannel = FindChannel(pTargetObj->GetChannelUID());
+	CCMatchChannel* pChannel = FindChannel(pTargetObj->GetChannelUID());
 	if (pChannel) {
 		if (pTargetObj->GetPlace() == MMP_LOBBY)
 		{
@@ -2215,8 +2215,8 @@ void CCMatchServer::OnUserOption(const CCUID& uidComm, unsigned long nOptionFlag
 
 void CCMatchServer::OnChatRoomCreate(const CCUID& uidPlayer, const char* pszChatRoomName)
 {
-	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-	MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
+	CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
+	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
 	if (pRoom) {
 		NotifyMessage(uidPlayer, MATCHNOTIFY_CHATROOM_ALREADY_EXIST);	// Notify Already Exist
 		return;
@@ -2238,8 +2238,8 @@ void CCMatchServer::OnChatRoomCreate(const CCUID& uidPlayer, const char* pszChat
 
 void CCMatchServer::OnChatRoomJoin(const CCUID& uidComm, char* pszPlayerName, char* pszChatRoomName)
 {
-	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-	MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
+	CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
+	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
 
 	// 2008.08.28 채팅룸 부수적 문제 해결 http://dev:8181/projects/gunz/ticket/158
 	// 생성되지 않은 채팅방에 참가시도시 “존재하지 않는 채팅방입니다”라는 시스템메세지 출력
@@ -2269,8 +2269,8 @@ void CCMatchServer::OnChatRoomJoin(const CCUID& uidComm, char* pszPlayerName, ch
 
 void CCMatchServer::OnChatRoomLeave(const CCUID& uidComm, char* pszPlayerName, char* pszChatRoomName)
 {
-	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-	MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
+	CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
+	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
 	if (pRoom == NULL)
 		return;
 
@@ -2297,8 +2297,8 @@ void CCMatchServer::OnChatRoomSelectWrite(const CCUID& uidComm, const char* pszC
 	CCMatchObject* pPlayer = GetObject(uidComm);
 	if (pPlayer == NULL) return;
 
-	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-	MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
+	CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
+	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoomByName(pszChatRoomName);
 	if (pRoom == NULL) {
 		NotifyMessage(uidComm, MATCHNOTIFY_CHATROOM_NOT_EXIST);		// Notify Does not Exist
 		return;
@@ -2321,8 +2321,8 @@ void CCMatchServer::OnChatRoomInvite(const CCUID& uidComm, const char* pszTarget
 	CCMatchObject* pPlayer = GetPlayerByCommUID(uidComm);
 	if (pPlayer == NULL) return;
 
-	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-	MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pPlayer->GetChatRoomUID());
+	CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
+	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pPlayer->GetChatRoomUID());
 	if (pRoom == NULL) {
 		NotifyMessage(uidComm, MATCHNOTIFY_CHATROOM_NOT_EXIST);		// Notify Does not Exist
 		return;
@@ -2400,8 +2400,8 @@ void CCMatchServer::OnChatRoomChat(const CCUID& uidComm, const char* pszMessage)
 		return;
 	}
 
-	MMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-	MMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pPlayer->GetChatRoomUID());
+	CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
+	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pPlayer->GetChatRoomUID());
 	if (pRoom == NULL) {
 		NotifyMessage(uidComm, MATCHNOTIFY_CHATROOM_NOT_EXIST);		// Notify Does not Exist
 		return;
@@ -2517,7 +2517,7 @@ int CCMatchServer::ValidateChannelJoin(const CCUID& uidPlayer, const CCUID& uidC
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return MERR_CANNOT_JOIN_CHANNEL;
-	MMatchChannel* pChannel = FindChannel(uidChannel);
+	CCMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return MERR_CANNOT_JOIN_CHANNEL;
 
 	// 개발자나 영자는 레벨에 제한없음..
@@ -2579,8 +2579,8 @@ DWORD EquipItemTotalWeightExceptionHandler( PEXCEPTION_POINTERS ExceptionInfo )
 }
 
 
-void GetCharEquipItemTotalWeight( MMatchCharInfo* pCharInfo
-								 , const MMatchCharItemParts parts, MMatchItem* pItem
+void GetCharEquipItemTotalWeight( CCMatchCharInfo* pCharInfo
+								 , const CCMatchCharItemParts parts, CCMatchItem* pItem
 								 , int& nWeight
 								 , int& nMaxWeight )
 {
@@ -2600,7 +2600,7 @@ void GetCharEquipItemTotalWeight( MMatchCharInfo* pCharInfo
 	}
 }
 
-int CCMatchServer::ValidateEquipItem(CCMatchObject* pObj, MMatchItem* pItem, const MMatchCharItemParts parts)
+int CCMatchServer::ValidateEquipItem(CCMatchObject* pObj, CCMatchItem* pItem, const CCMatchCharItemParts parts)
 {
 	if (! IsEnabledObject(pObj)) return MERR_UNKNOWN;
 	if (pItem == NULL) return MERR_UNKNOWN;
@@ -2614,7 +2614,7 @@ int CCMatchServer::ValidateEquipItem(CCMatchObject* pObj, MMatchItem* pItem, con
 	int nWeight = 0;
 	int nMaxWeight = 0;
 
-	MMatchEquipedItem* pEquipedItem = &pObj->GetCharInfo()->m_EquipedItem;
+	CCMatchEquipedItem* pEquipedItem = &pObj->GetCharInfo()->m_EquipedItem;
 	GetCharEquipItemTotalWeight( pObj->GetCharInfo(), parts, pItem,  nWeight, nMaxWeight );
 
 	// 교체할 아이템의 무게를 뺀다.
@@ -2642,12 +2642,12 @@ int CCMatchServer::ValidateEquipItem(CCMatchObject* pObj, MMatchItem* pItem, con
 	// 양슬롯에 같은 무기를 장비하려는지 체크
 	if ((parts == MMCIP_PRIMARY) || (parts == MMCIP_SECONDARY))
 	{
-		MMatchCharItemParts tarparts = MMCIP_PRIMARY;
+		CCMatchCharItemParts tarparts = MMCIP_PRIMARY;
 		if (parts == MMCIP_PRIMARY) tarparts = MMCIP_SECONDARY;
 
 		if (!pEquipedItem->IsEmpty(tarparts))
 		{
-			MMatchItem* pTarItem = pEquipedItem->GetItem(tarparts);
+			CCMatchItem* pTarItem = pEquipedItem->GetItem(tarparts);
 			if (pTarItem)
 			{
 				if (pTarItem->GetDescID() == pItem->GetDescID())
@@ -2703,7 +2703,7 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 
 	vector<CCUID> vecRemoveItemUIDList;
 
-	MMatchItemMap::iterator itBegin, itEnd;
+	CCMatchItemMap::iterator itBegin, itEnd;
 
 	itBegin = pObject->GetCharInfo()->m_ItemList.begin();
 	itEnd = pObject->GetCharInfo()->m_ItemList.end();
@@ -2712,7 +2712,7 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 
 	for(; itBegin != itEnd; itBegin++) 
 	{
-		MMatchItem* pItem = (*itBegin).second;
+		CCMatchItem* pItem = (*itBegin).second;
 
 		if( pItem->IsNeedDBUpdate() ) 
 		{
@@ -2739,10 +2739,10 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 		for (int i = 0; i < nRemoveItemUIDListCount; i++)
 		{
 			CCUID uidItem = vecRemoveItemUIDList[i];
-			MMatchItem* pItem = pObject->GetCharInfo()->m_ItemList.GetItem(uidItem);
+			CCMatchItem* pItem = pObject->GetCharInfo()->m_ItemList.GetItem(uidItem);
 			if (pItem == NULL) continue;
 
-			MMatchCharItemParts nCheckParts = MMCIP_END;
+			CCMatchCharItemParts nCheckParts = MMCIP_END;
 			if (pObject->GetCharInfo()->m_EquipedItem.IsEquipedItem(uidItem, nCheckParts)) {
 				pObject->GetCharInfo()->m_EquipedItem.Remove(nCheckParts);
 
@@ -2766,7 +2766,7 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 
 bool CCMatchServer::CheckItemXMLFromDatabase()
 {
-	map<int, MMatchItemDescForDatabase*> ItemMapFromDatabase;
+	map<int, CCMatchItemDescForDatabase*> ItemMapFromDatabase;
 
 	if( m_MatchDBMgr.GetItemTable(ItemMapFromDatabase) == false ) {
 		cclog("Can't not Get Item Information From Database. FAILED\n");
@@ -2782,10 +2782,10 @@ bool CCMatchServer::CheckItemXMLFromDatabase()
 
 	cclog("== 1. Check Difference List From XML To DB\n");
 
-	for(MMatchItemDescMgr::iterator itBegin = MGetMatchItemDescMgr()->begin();
+	for(CCMatchItemDescMgr::iterator itBegin = MGetMatchItemDescMgr()->begin();
 		itBegin != MGetMatchItemDescMgr()->end(); itBegin++)
 	{
-		MMatchItemDesc *pItem = itBegin->second;
+		CCMatchItemDesc *pItem = itBegin->second;
 		if( ItemMapFromDatabase.find(pItem->m_nID) == ItemMapFromDatabase.end() )
 		{
 			cclog("     ItemID(%d) does not exist in Database\n", pItem->m_nID);
@@ -2798,10 +2798,10 @@ bool CCMatchServer::CheckItemXMLFromDatabase()
 	// 디비에만 있는 아이템이 존재할 수도 있습니다. 예비용으로 만들어둔거임..
 	cclog("== 2. Check Difference List From DB To XML\n");
 
-	for(map<int, MMatchItemDescForDatabase*>::iterator itBegin = ItemMapFromDatabase.begin();
+	for(map<int, CCMatchItemDescForDatabase*>::iterator itBegin = ItemMapFromDatabase.begin();
 		itBegin != ItemMapFromDatabase.end(); itBegin++)
 	{
-		MMatchItemDescForDatabase* pItem = itBegin->second;
+		CCMatchItemDescForDatabase* pItem = itBegin->second;
 		if( MGetMatchItemDescMgr()->GetItemDesc(pItem->m_nID) == NULL ) 
 		{
 			cclog("     ItemID(%d) does not exist in XML\n", pItem->m_nID);
@@ -2816,11 +2816,11 @@ bool CCMatchServer::CheckItemXMLFromDatabase()
 
 	cclog("== 3. Check Difference between XML and DB\n");
 
-	for(map<int, MMatchItemDescForDatabase*>::iterator itBegin = ItemMapFromDatabase.begin();
+	for(map<int, CCMatchItemDescForDatabase*>::iterator itBegin = ItemMapFromDatabase.begin();
 		itBegin != ItemMapFromDatabase.end(); itBegin++)
 	{
-		MMatchItemDescForDatabase* pItem1 = itBegin->second;
-		MMatchItemDesc* pItem2 = MGetMatchItemDescMgr()->GetItemDesc(pItem1->m_nID);
+		CCMatchItemDescForDatabase* pItem1 = itBegin->second;
+		CCMatchItemDesc* pItem2 = MGetMatchItemDescMgr()->GetItemDesc(pItem1->m_nID);
 
 		if( pItem2 != NULL ) 
 		{
@@ -2842,10 +2842,10 @@ bool CCMatchServer::CheckItemXMLFromDatabase()
 		cclog("========= Check zitem.xml or Item table in Database =========\n\n");
 	}
 
-	for(map<int, MMatchItemDescForDatabase*>::iterator itBegin = ItemMapFromDatabase.begin(); 
+	for(map<int, CCMatchItemDescForDatabase*>::iterator itBegin = ItemMapFromDatabase.begin(); 
 		itBegin != ItemMapFromDatabase.end(); itBegin++) 
 	{
-		MMatchItemDescForDatabase *pItem1 = itBegin->second;
+		CCMatchItemDescForDatabase *pItem1 = itBegin->second;
 		delete pItem1;
 	}
 
@@ -2856,7 +2856,7 @@ bool CCMatchServer::CheckItemXMLFromDatabase()
 	return bResult;
 }
 
-bool CCMatchServer::CompareMatchItem(MMatchItemDescForDatabase *pItem1, MMatchItemDesc *pItem2)
+bool CCMatchServer::CompareMatchItem(CCMatchItemDescForDatabase *pItem1, CCMatchItemDesc *pItem2)
 {
 	bool bResult = true;
 	char *szMsg[256] = {0, };
@@ -3033,10 +3033,10 @@ bool CCMatchServer::CheckItemXML()
 
 	fputs("\n\n--------------------------------------\n\n", fp);
 
-	for (MMatchItemDescMgr::iterator itor = MGetMatchItemDescMgr()->begin(); 
+	for (CCMatchItemDescMgr::iterator itor = MGetMatchItemDescMgr()->begin(); 
 		itor != MGetMatchItemDescMgr()->end(); ++itor)
 	{
-		MMatchItemDesc* pItemDesc = (*itor).second;
+		CCMatchItemDesc* pItemDesc = (*itor).second;
 
 		int nIsCashItem = 0;
 		int nResSex=1, nResLevel=0, nSlot=0, nWeight=0, nHP=0, nAP=0, nMaxWT=0, nIsSpendableItem=0;
@@ -3123,7 +3123,7 @@ bool CCMatchServer::CheckItemXML()
 		fprintf(fp, "<XML id=\"shop\">\n");
 
 		int id;
-		for (MMatchItemDescMgr::iterator itor = MGetMatchItemDescMgr()->begin(); itor != MGetMatchItemDescMgr()->end(); ++itor)
+		for (CCMatchItemDescMgr::iterator itor = MGetMatchItemDescMgr()->begin(); itor != MGetMatchItemDescMgr()->end(); ++itor)
 		{
 			id = itor->first;
 
@@ -3285,7 +3285,7 @@ bool CCMatchServer::CheckUpdateItemXML()
 
 unsigned long int CCMatchServer::GetStageListChecksum(CCUID& uidChannel, int nStageCursor, int nStageCount)
 {
-	MMatchChannel* pChannel = FindChannel(uidChannel);
+	CCMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return 0;
 
 	unsigned long int nStageListChecksum = 0;
@@ -3356,7 +3356,7 @@ bool CCMatchServer::InitScheduler()
 {
 	// 스케쥴 업데이트시 커멘드를 포스트하기 위해서,
 	//  CCMatchServer의 주소를 인자로 받아 멤버로 저장해둠.
-	m_pScheduler = new MMatchScheduleMgr( this );
+	m_pScheduler = new CCMatchScheduleMgr( this );
 	if( 0 == m_pScheduler )		
 		return false;
 
@@ -3389,7 +3389,7 @@ bool CCMatchServer::InitLocale()
 	}
 	else
 	{
-		ASSERT( 0 && "'MMatchConfig' is must be completed befor init 'MMatchLocale'." );
+		ASSERT( 0 && "'CCMatchConfig' is must be completed befor init 'CCMatchLocale'." );
 		return false;
 	}
 
@@ -3625,7 +3625,7 @@ const COUNT_CODE_STATUS CCMatchServer::CheckIsNonBlockCountry( const CCUID& Comm
 
 bool CCMatchServer::InitEvent()
 {
-	if( !MMatchEventDescManager::GetInstance().LoadEventXML(EVENT_XML_FILE_NAME) )
+	if( !CCMatchEventDescManager::GetInstance().LoadEventXML(EVENT_XML_FILE_NAME) )
 	{
 		ASSERT( 0 && "fail to Load Event.xml" );
 		cclog( "CCMatchServer::InitEvent - fail to Load %s\n", 
@@ -3633,7 +3633,7 @@ bool CCMatchServer::InitEvent()
 		return false;
 	}
 
-	if( !MMatchEventFactoryManager::GetInstance().LoadEventListXML(EVENT_LIST_XML_FILE_NAME) )
+	if( !CCMatchEventFactoryManager::GetInstance().LoadEventListXML(EVENT_LIST_XML_FILE_NAME) )
 	{
 		ASSERT( 0 && "fail to load EventList.xml" );
 		cclog( "CCMatchServer::InitEvent - fail to Load %s\n",	
@@ -3641,14 +3641,14 @@ bool CCMatchServer::InitEvent()
 		return false;
 	}
 
-	MMatchEventFactoryManager::GetInstance().SetUsableState( MGetServerConfig()->IsUseEvent() );
+	CCMatchEventFactoryManager::GetInstance().SetUsableState( MGetServerConfig()->IsUseEvent() );
 
 	EventPtrVec EvnPtrVec;
-	if( !MMatchEventFactoryManager::GetInstance().GetEventList(MMatchEvent::GAME_TYPE_ALL, ET_CUSTOM_EVENT, EvnPtrVec) )
+	if( !CCMatchEventFactoryManager::GetInstance().GetEventList(CCMatchEvent::GAME_TYPE_ALL, ET_CUSTOM_EVENT, EvnPtrVec) )
 	{
 		ASSERT( 0 && "이벤트 리스트 생성 실패.\n" );
 		cclog( "CCMatchServer::InitEvent - 리스트 생성 실패.\n" );
-		MMatchEventManager::ClearEventPtrVec( EvnPtrVec );
+		CCMatchEventManager::ClearEventPtrVec( EvnPtrVec );
 		return false;
 	}
 	m_CustomEventManager.ChangeEventList( EvnPtrVec );
@@ -3722,7 +3722,7 @@ void CCMatchServer::SendHShieldReqMsg()
 }
 
 
-bool CCMatchServer::IsEquipmentTypeItem( const MMatchItemDesc* pItemDesc )
+bool CCMatchServer::IsEquipmentTypeItem( const CCMatchItemDesc* pItemDesc )
 {
 	if( 0 == pItemDesc ) return false;
 
@@ -3774,8 +3774,8 @@ void CCMatchServer::RequestFirstGameguardAuth( const CCUID& uidUser, const DWORD
 
 bool CCMatchServer::InitGambleMachine()
 {
-	vector<MMatchGambleItem*>			vGambleItemList;
-	vector<MMatchGambleRewardItem*>		vGambleRewardItemList;
+	vector<CCMatchGambleItem*>			vGambleItemList;
+	vector<CCMatchGambleRewardItem*>		vGambleRewardItemList;
 
 	if( !GetDBMgr()->GetGambleItemList(vGambleItemList) )				return false;
 	if( !GetDBMgr()->GetGambleRewardItemList(vGambleRewardItemList) )	return false;
@@ -3795,7 +3795,7 @@ bool CCMatchServer::InitGambleMachine()
 
 	for( int i = 0; i < int(GambleItemIndexVec.size()); ++i )
 	{
-		const MMatchGambleItem* pGItem = GetGambleMachine().GetGambleItemByIndex( GambleItemIndexVec[i] );
+		const CCMatchGambleItem* pGItem = GetGambleMachine().GetGambleItemByIndex( GambleItemIndexVec[i] );
         if( NULL != pGItem )
 		{
 			cclog( "Shop GItem : %d\n", pGItem->GetGambleItemID() );
@@ -3816,13 +3816,13 @@ bool CCMatchServer::InitGambleMachine()
 
 bool CCMatchServer::InitBattletimeRewardMachine()
 {
-	vector<MMatchBRDescription*>	vBattletimeRewardDescription;
-	vector<MMatchBRItem*>			vBattletimeRewardItem;
+	vector<CCMatchBRDescription*>	vBattletimeRewardDescription;
+	vector<CCMatchBRItem*>			vBattletimeRewardItem;
 
 	if( !GetDBMgr()->GetBattletimeRewardList(vBattletimeRewardDescription) ) return false;
 	if( !GetDBMgr()->GetBattletimeRewardItemList(vBattletimeRewardItem) )			return false;
 
-	MMatchBRDescriptionMap BattletimeRewardDescriptionMap;
+	CCMatchBRDescriptionMap BattletimeRewardDescriptionMap;
 	MakeBattleTimeRewardDescriptionMap(vBattletimeRewardDescription, vBattletimeRewardItem, BattletimeRewardDescriptionMap);
 
 	GetBattleTimeRewardMachine().SetBattleTimeRewardMachine(BattletimeRewardDescriptionMap);
@@ -3831,28 +3831,28 @@ bool CCMatchServer::InitBattletimeRewardMachine()
 	return true;
 }
 
-void CCMatchServer::MakeBattleTimeRewardDescriptionMap(vector<MMatchBRDescription*>& vBattletimeRewardDescription, 
-													  vector<MMatchBRItem*>& vBattletimeRewardItem, 
-													  MMatchBRDescriptionMap& BattletimeRewardDescriptionMap)
+void CCMatchServer::MakeBattleTimeRewardDescriptionMap(vector<CCMatchBRDescription*>& vBattletimeRewardDescription, 
+													  vector<CCMatchBRItem*>& vBattletimeRewardItem, 
+													  CCMatchBRDescriptionMap& BattletimeRewardDescriptionMap)
 {
-	MMatchBRDescriptionMap::iterator iter;
+	CCMatchBRDescriptionMap::iterator iter;
 
 	// 1. Description 삽입하기
 	for(int i = 0; i < (int)vBattletimeRewardDescription.size(); i++) 
 	{
-		MMatchBRDescription* pDesc = vBattletimeRewardDescription[i];
-		BattletimeRewardDescriptionMap.insert(pair<int, MMatchBRDescription*>(pDesc->GetBRID(), pDesc));
+		CCMatchBRDescription* pDesc = vBattletimeRewardDescription[i];
+		BattletimeRewardDescriptionMap.insert(pair<int, CCMatchBRDescription*>(pDesc->GetBRID(), pDesc));
 	}
 
 	// 2. 해당 Description에 맞는 RewardItem 삽입하기
 	for(int i = 0; i < (int)vBattletimeRewardItem.size(); i++) 
 	{
-		MMatchBRItem* pRewardItem = vBattletimeRewardItem[i];
+		CCMatchBRItem* pRewardItem = vBattletimeRewardItem[i];
 
 		iter = BattletimeRewardDescriptionMap.find(pRewardItem->GetBRID());
 		if(iter != BattletimeRewardDescriptionMap.end()) 
 		{
-			MMatchBRDescription* pDesc = iter->second;
+			CCMatchBRDescription* pDesc = iter->second;
 			pDesc->AddRewardItem(pRewardItem);
 		}
 	}
@@ -3860,7 +3860,7 @@ void CCMatchServer::MakeBattleTimeRewardDescriptionMap(vector<MMatchBRDescriptio
 	// 3. 이상한 Description 빼주기
 	for(iter = BattletimeRewardDescriptionMap.begin(); iter != BattletimeRewardDescriptionMap.end();)
 	{
-		MMatchBRDescription* pDesc = iter->second;
+		CCMatchBRDescription* pDesc = iter->second;
 		if( pDesc->GetTotalRate() != 1000 ) 
 		{
 			//_ASSERT(0);
@@ -3886,7 +3886,7 @@ void CCMatchServer::OnAsyncResponse_GetBR_Description(MAsyncJob *pJobResult)
 		return;
 	}
 
-	MMatchBRDescriptionMap BattletimeRewardDescriptionMap;
+	CCMatchBRDescriptionMap BattletimeRewardDescriptionMap;
 	MakeBattleTimeRewardDescriptionMap(pJob->GetBattleTimeRewardDescription(), pJob->GetBattleTimeRewardItem(), BattletimeRewardDescriptionMap);
 
 	GetBattleTimeRewardMachine().SetBattleTimeRewardMachine(BattletimeRewardDescriptionMap);
@@ -3905,7 +3905,7 @@ void CCMatchServer::OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult)
 	if( pObj == NULL ) return;
 	if( pObj->GetCharInfo() == NULL ) return;
 
-	MMatchCharBRInfo* pInfo = pObj->GetCharInfo()->GetBRInfoMap().Get(pJob->GetBRID());
+	CCMatchCharBRInfo* pInfo = pObj->GetCharInfo()->GetBRInfoMap().Get(pJob->GetBRID());
 	if( pInfo == NULL ) return;
 
 	pInfo->SetBRInfo(pJob->GetCharBRInfo().GetBRID(), pJob->GetCharBRInfo().GetBRTID(), pJob->GetCharBRInfo().GetBattleTime(), 
@@ -3958,9 +3958,9 @@ void CCMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
 
 	if( NULL != MGetMatchItemDescMgr()->GetItemDesc(nItemID) )	//< Normal Item
 	{
-		MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
-		MMatchItem* pItem = pObj->GetCharInfo()->m_ItemList.GetItemByCIID(dwCIID);
+		CCMatchItem* pItem = pObj->GetCharInfo()->m_ItemList.GetItemByCIID(dwCIID);
 		if( pItem == NULL ) 
 		{
 			WORD wRentMinPeriod = RENT_PERIOD_UNLIMITED;
@@ -3969,7 +3969,7 @@ void CCMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
 				wRentMinPeriod = (wRentHourPeriod * 60) - 1;
 			}
 
-			pObj->GetCharInfo()->m_ItemList.CreateItem( MMatchItemMap::UseUID(), dwCIID, nItemID,
+			pObj->GetCharInfo()->m_ItemList.CreateItem( CCMatchItemMap::UseUID(), dwCIID, nItemID,
 				RENT_PERIOD_UNLIMITED != pJob->GetRentHourPeriod(), wRentMinPeriod, wRentHourPeriod, nItemCount);
 		}
 		else
@@ -3987,8 +3987,8 @@ void CCMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
 	} 
 	else if( NULL != MGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(pJob->GetItemID()) )	//< Gamble Item
 	{	
-		const MMatchCharGambleItem *pGItem = pObj->GetCharInfo()->m_GambleItemManager.GetGambleItemByCIID(pJob->GetCIID());
-		if( pGItem == NULL )	pObj->GetCharInfo()->m_GambleItemManager.AddGambleItem( MMatchItemMap::UseUID(), dwCIID, nItemID, nItemCount );
+		const CCMatchCharGambleItem *pGItem = pObj->GetCharInfo()->m_GambleItemManager.GetGambleItemByCIID(pJob->GetCIID());
+		if( pGItem == NULL )	pObj->GetCharInfo()->m_GambleItemManager.AddGambleItem( CCMatchItemMap::UseUID(), dwCIID, nItemID, nItemCount );
 		else					pObj->GetCharInfo()->m_GambleItemManager.SetGambleItemCount(dwCIID, pGItem->GetItemCount() + nItemCount);
 	} else { ASSERT( 0 ); return; }
 
@@ -4001,7 +4001,7 @@ void CCMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
 #endif
 
 
-	MMatchBRDescription* pDesc = GetBattleTimeRewardMachine().GetBattleTimeRewardDescription(pJob->GetBRID());
+	CCMatchBRDescription* pDesc = GetBattleTimeRewardMachine().GetBattleTimeRewardDescription(pJob->GetBRID());
 	if( pDesc != NULL )
 	{
 		if( pDesc->GetRewardCount() == 0 )	
@@ -4042,7 +4042,7 @@ void CCMatchServer::OnAsyncRequest_RewardCharBP(const CCUID& uidPlayer, int nBRI
 
 	bool bIsSpendable = false;
 
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if( pItemDesc != NULL ) 
 	{
 		bIsSpendable = pItemDesc->IsSpendableItem();

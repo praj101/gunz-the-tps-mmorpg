@@ -12,19 +12,19 @@
 #include "CCMatchObjCache.h"
 #include "CCMatchStage.h"
 #include "CCMatchTransDataType.h"
-#include "MMatchFormula.h"
+#include "CCMatchFormula.h"
 #include "CCMatchConfig.h"
 #include "CCCommandCommunicator.h"
 #include "CCMatchShop.h"
 #include "CCMatchTransDataType.h"
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 #include "MAsyncDBJob.h"
 #include "MAsyncDBJob_FriendList.h"
 #include "MAsyncDBJob_CharFinalize.h"
 #include "CCMatchUtil.h"
-#include "MMatchRuleBaseQuest.h"
+#include "CCMatchRuleBaseQuest.h"
 #include "CCMatchLocale.h"
 #include "CCMatchObject.h"
 
@@ -77,9 +77,9 @@ void CCMatchServer::OnRequestSelectChar(const CCUID& uidPlayer, const int nCharI
 
 	// Async DB //////////////////////////////
 	MAsyncDBJob_GetCharInfo* pJob=new MAsyncDBJob_GetCharInfo(uidPlayer, pObj->GetAccountInfo()->m_nAID, nCharIndex);
-	pJob->SetCharInfo(new MMatchCharInfo);
+	pJob->SetCharInfo(new CCMatchCharInfo);
 	pObj->m_DBJobQ.DBJobQ.push_back( pJob );
-	//pJob->SetFriendInfo(new MMatchFriendInfo);
+	//pJob->SetFriendInfo(new CCMatchFriendInfo);
 	// PostAsyncJob(pJob);
 
 }
@@ -108,13 +108,13 @@ bool CCMatchServer::ResponseDeleteChar(const CCUID& uidPlayer, const int nCharIn
 void CCMatchServer::OnRequestCreateChar(const CCUID& uidPlayer, const int nCharIndex, const char* szCharName,
 						 const unsigned int nSex, const unsigned int nHair, const unsigned int nFace, const unsigned int nCostume)
 {
-	MMatchSex sex = (nSex == 0) ? MMS_MALE : MMS_FEMALE;
-	ResponseCreateChar(uidPlayer, nCharIndex, szCharName, MMatchSex(nSex), nHair, nFace, nCostume);
+	CCMatchSex sex = (nSex == 0) ? MMS_MALE : MMS_FEMALE;
+	ResponseCreateChar(uidPlayer, nCharIndex, szCharName, CCMatchSex(nSex), nHair, nFace, nCostume);
 }
 
 
 bool CCMatchServer::ResponseCreateChar(const CCUID& uidPlayer, const int nCharIndex, const char* szCharName,
-						MMatchSex nSex, const unsigned int nHair, const unsigned int nFace,	const unsigned int nCostume)
+						CCMatchSex nSex, const unsigned int nHair, const unsigned int nFace,	const unsigned int nCostume)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
@@ -183,7 +183,7 @@ bool CCMatchServer::CharInitialize(const CCUID& uidPlayer)
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
 
-	MMatchCharInfo*	pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo*	pCharInfo = pObj->GetCharInfo();
 	if (pCharInfo == NULL) return false;
 
 	pCharInfo->m_nConnTime = GetTickTime();
@@ -214,7 +214,7 @@ bool CCMatchServer::CharInitialize(const CCUID& uidPlayer)
 	}
 
 	
-	// 클랜에 가입되어 있으면 MMatchMap에 등록
+	// 클랜에 가입되어 있으면 CCMatchMap에 등록
 	if (pCharInfo->m_ClanInfo.IsJoined())
 	{
 		// 클랜원에게 접속알림
@@ -232,7 +232,7 @@ bool CCMatchServer::CharInitialize(const CCUID& uidPlayer)
 		// 만약 클랜전 서버일 경우 클랜전 정보도 받아온다. - 엠블렘때문에 그냥 서버도 클랜정보 읽어옴
 //		if (MGetServerConfig()->GetServerMode() == CSM_CLAN)
 		{
-			MMatchClan* pClan = m_ClanMap.GetClan(pCharInfo->m_ClanInfo.m_nClanID);
+			CCMatchClan* pClan = m_ClanMap.GetClan(pCharInfo->m_ClanInfo.m_nClanID);
 			if (pClan)
 			{
 				if (!pClan->IsInitedClanInfoEx())
@@ -248,7 +248,7 @@ bool CCMatchServer::CharInitialize(const CCUID& uidPlayer)
 
 void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 {
-	MMatchCharInfo*	pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo*	pCharInfo = pObj->GetCharInfo();
 	if( NULL == pCharInfo )
 		return;
 
@@ -259,9 +259,9 @@ void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 	const DWORD dwTick = GetTickTime();
 
 	// 기간 만료 아이템이 있는지 체크하고 있으면 아이템 해제하고 통지한다.
-	for (MMatchItemMap::iterator itor = pCharInfo->m_ItemList.begin(); itor != pCharInfo->m_ItemList.end(); ++itor)
+	for (CCMatchItemMap::iterator itor = pCharInfo->m_ItemList.begin(); itor != pCharInfo->m_ItemList.end(); ++itor)
 	{
-		MMatchItem* pCheckItem = (*itor).second;
+		CCMatchItem* pCheckItem = (*itor).second;
 		if (pCheckItem->IsRentItem())
 		{
 			// 인스턴스 생성되고나서 지난 시간
@@ -272,7 +272,7 @@ void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 			if( IsExpiredRentItem(pCheckItem, dwTick) )
 			{
 				// 장비중이면 벗긴다.
-				MMatchCharItemParts nCheckParts = MMCIP_END;
+				CCMatchCharItemParts nCheckParts = MMCIP_END;
 				// if (pCharInfo->m_EquipedItem.IsEquipedItem(pCheckItem, nCheckParts))
 				if (pCharInfo->m_EquipedItem.IsEquipedItem(itor->first, nCheckParts))
 				{
@@ -322,12 +322,12 @@ void CCMatchServer::ResponseExpiredItemIDList(CCMatchObject* pObj, vector<unsign
 }
 
 // 수정되면 true
-bool CCMatchServer::CorrectEquipmentByLevel(CCMatchObject* pPlayer, MMatchCharItemParts nPart, int nLegalItemLevelDiff)	
+bool CCMatchServer::CorrectEquipmentByLevel(CCMatchObject* pPlayer, CCMatchCharItemParts nPart, int nLegalItemLevelDiff)	
 {
 	if (!IsEnabledObject(pPlayer)) return false;
 
 	if (pPlayer->GetCharInfo()->m_EquipedItem.IsEmpty(nPart) == false) {
-		MMatchItem* pItem = pPlayer->GetCharInfo()->m_EquipedItem.GetItem(nPart);
+		CCMatchItem* pItem = pPlayer->GetCharInfo()->m_EquipedItem.GetItem(nPart);
 		if (pItem->GetDesc())
 		{
 			if (pItem->GetDesc()->m_nResLevel.Ref() > (pPlayer->GetCharInfo()->m_nLevel+nLegalItemLevelDiff)) {
@@ -372,10 +372,10 @@ bool CCMatchServer::CharFinalize(const CCUID& uidPlayer)
 		pObj->m_DBJobQ.DBJobQ.push_back( pUpdateAccountLastLoginTimeJob );
 	}
 
-	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 	if( NULL == pCharInfo ) return false;
 
-	// 클랜에 가입되어 있으면 MMatchMap에서 삭제
+	// 클랜에 가입되어 있으면 CCMatchMap에서 삭제
 	if (pCharInfo->m_ClanInfo.IsJoined())
 	{
 		m_ClanMap.RemoveObject(uidPlayer, pObj);
@@ -410,10 +410,10 @@ bool CCMatchServer::CharFinalize(const CCUID& uidPlayer)
 	}
 
 	
-	for(MMatchCharBattleTimeRewardInfoMap::iterator iter = pCharInfo->GetBRInfoMap().begin();
+	for(CCMatchCharBattleTimeRewardInfoMap::iterator iter = pCharInfo->GetBRInfoMap().begin();
 		iter != pCharInfo->GetBRInfoMap().end(); iter++)
 	{
-		MMatchCharBRInfo* pInfo = iter->second;
+		CCMatchCharBRInfo* pInfo = iter->second;
 		OnAsyncRequest_UpdateCharBRInfo(uidPlayer, pInfo->GetBRID(), pInfo->GetBRTID(), pInfo->GetRewardCount(), pInfo->GetBattleTime(), pInfo->GetKillCount());
 	}
 		
@@ -432,7 +432,7 @@ void CCMatchServer::ResponseMySimpleCharInfo(const CCUID& uidPlayer)
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (! IsEnabledObject(pObj)) return;
 
-	MMatchCharInfo* pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 
 	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_MY_SIMPLE_CHARINFO, CCUID(0,0));
 
@@ -457,7 +457,7 @@ void CCMatchServer::OnRequestCopyToTestServer(const CCUID& uidPlayer)
 
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
-	MMatchCharInfo*	pCharInfo = pObj->GetCharInfo();
+	CCMatchCharInfo*	pCharInfo = pObj->GetCharInfo();
 	if (pCharInfo == NULL) return;
 
 
@@ -496,7 +496,7 @@ void CCMatchServer::OnFriendAdd(const CCUID& uidPlayer, const char* pszName)
 		return;
 	}
 
-	MMatchFriendNode* pNode = pObj->GetFriendInfo()->Find(pszName);
+	CCMatchFriendNode* pNode = pObj->GetFriendInfo()->Find(pszName);
 	if (pNode) {
 		NotifyMessage(uidPlayer, MATCHNOTIFY_FRIEND_ALREADY_EXIST);
 		return;
@@ -535,7 +535,7 @@ void CCMatchServer::OnFriendRemove(const CCUID& uidPlayer, const char* pszName)
 	if (! IsEnabledObject(pObj)) return;
 	if (pObj->GetFriendInfo() == NULL) return;
 
-	MMatchFriendNode* pNode = pObj->GetFriendInfo()->Find(pszName);
+	CCMatchFriendNode* pNode = pObj->GetFriendInfo()->Find(pszName);
 	if (pNode == NULL) {
 		NotifyMessage(uidPlayer, MATCHNOTIFY_FRIEND_NOT_EXIST);
 		return;
@@ -574,7 +574,7 @@ void CCMatchServer::OnFriendList(const CCUID& uidPlayer)
 	if (!pObj->DBFriendListRequested())
 	{
 		MAsyncDBJob_FriendList* pJob=new MAsyncDBJob_FriendList(uidPlayer, pObj->GetCharInfo()->m_nCID);
-		pJob->SetFriendInfo(new MMatchFriendInfo);
+		pJob->SetFriendInfo(new CCMatchFriendInfo);
 		pObj->m_DBJobQ.DBJobQ.push_back( pJob );
 		// PostAsyncJob(pJob);
 	}
@@ -596,12 +596,12 @@ void CCMatchServer::FriendList(const CCUID& uidPlayer)
 	// Update Friends Status and Description
 	pObj->GetFriendInfo()->UpdateDesc();
 
-	MMatchFriendList* pList = &pObj->GetFriendInfo()->m_FriendList;
+	CCMatchFriendList* pList = &pObj->GetFriendInfo()->m_FriendList;
 
 	void* pListArray = MMakeBlobArray(sizeof(MFRIENDLISTNODE), (int)pList->size());
 	int nIndex=0;
-	for (MMatchFriendList::iterator i=pList->begin(); i!=pList->end(); i++) {
-		MMatchFriendNode* pNode = (*i);
+	for (CCMatchFriendList::iterator i=pList->begin(); i!=pList->end(); i++) {
+		CCMatchFriendNode* pNode = (*i);
 		MFRIENDLISTNODE* pListNode = (MFRIENDLISTNODE*)MGetBlobArrayElement(pListArray, nIndex++);
 		pListNode->nState = pNode->nState;
 		strcpy(pListNode->szName, pNode->szName);

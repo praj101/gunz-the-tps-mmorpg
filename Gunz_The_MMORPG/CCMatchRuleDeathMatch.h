@@ -2,10 +2,10 @@
 #define _MMATCHRULE_DEATHMATCH_H
 
 
-#include "MMatchRule.h"
+#include "CCMatchRule.h"
 
 
-class MMatchRuleSoloDeath : public MMatchRule {
+class CCMatchRuleSoloDeath : public CCMatchRule {
 protected:
 	bool CheckKillCount(CCMatchObject* pOutObject);
 	virtual void OnBegin();
@@ -14,13 +14,13 @@ protected:
 	virtual bool OnCheckRoundFinish();
 	virtual bool RoundCount();
 public:
-	MMatchRuleSoloDeath(CCMatchStage* pStage);
-	virtual ~MMatchRuleSoloDeath() { }
+	CCMatchRuleSoloDeath(CCMatchStage* pStage);
+	virtual ~CCMatchRuleSoloDeath() { }
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_SOLO; }
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-class MMatchRuleTeamDeath : public MMatchRule {
+class CCMatchRuleTeamDeath : public CCMatchRule {
 protected:
 	bool GetAliveCount(int* pRedAliveCount, int* pBlueAliveCount);
 	virtual void OnBegin();
@@ -33,8 +33,8 @@ protected:
 	virtual bool RoundCount();
 	virtual bool OnCheckEnableBattleCondition();
 public:
-	MMatchRuleTeamDeath(CCMatchStage* pStage);
-	virtual ~MMatchRuleTeamDeath()				{}
+	CCMatchRuleTeamDeath(CCMatchStage* pStage);
+	virtual ~CCMatchRuleTeamDeath()				{}
 	virtual void CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 								int nSrcExp, int* poutAttackerExp, int* poutTeamExp);
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_TEAM; }
@@ -43,7 +43,7 @@ public:
 
 // Ãß°¡ by µ¿¼·
 ///////////////////////////////////////////////////////////////////////////////////////////////
-class MMatchRuleTeamDeath2 : public MMatchRule {
+class CCMatchRuleTeamDeath2 : public CCMatchRule {
 protected:
 	void GetTeamScore(int* pRedTeamScore, int* pBLueTeamScore);
 	virtual void OnBegin();
@@ -57,8 +57,8 @@ protected:
 	virtual void OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim);
 
 public:
-	MMatchRuleTeamDeath2(CCMatchStage* pStage);
-	virtual ~MMatchRuleTeamDeath2()				{}
+	CCMatchRuleTeamDeath2(CCMatchStage* pStage);
+	virtual ~CCMatchRuleTeamDeath2()				{}
 	virtual void CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 		int nSrcExp, int* poutAttackerExp, int* poutTeamExp);
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_TEAM2; }

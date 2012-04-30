@@ -18,7 +18,7 @@ enum BRRESULT
 	BRRESULT_RESET_INFO,
 };
 
-class MMatchCharBRInfo
+class CCMatchCharBRInfo
 {
 protected:
 	int m_nBRID;
@@ -35,8 +35,8 @@ protected:
 	unsigned long int m_nLastUpdateDBTime;
 
 public:
-	MMatchCharBRInfo();
-	MMatchCharBRInfo(int nBRID, int nBRTID, unsigned long int nBattleTime, int nRewardCount, int nKillCount);
+	CCMatchCharBRInfo();
+	CCMatchCharBRInfo(int nBRID, int nBRTID, unsigned long int nBattleTime, int nRewardCount, int nKillCount);
 
 	void ResetInfo();
 	void SetBRInfo(int nBRID, int nBRTID, unsigned long int nBattleTime, int nRewardCount, int nKillCount);
@@ -55,8 +55,8 @@ public:
 	bool IsExpired(int nBRTID);
 	bool IsNeedUpdateDB(unsigned long int nTick);
 
-	BRRESULT CheckBattleTimeReward(unsigned long int nTick, MMatchBRDescription* pDesc);
-	//bool IsRewardTarget(unsigned long int nTick, MMatchBRDescription* pDesc);	
+	BRRESULT CheckBattleTimeReward(unsigned long int nTick, CCMatchBRDescription* pDesc);
+	//bool IsRewardTarget(unsigned long int nTick, CCMatchBRDescription* pDesc);	
 
 	unsigned int GetLastCheckTime() { return m_nLastCheckTime; }
 	void SetLastCheckTime(unsigned long int nTime) { m_nLastCheckTime = nTime; }
@@ -65,17 +65,17 @@ public:
 	void SetLastUpdateDBTime(unsigned long int nTime) { m_nLastUpdateDBTime = nTime; }
 };
 
-class MMatchCharBattleTimeRewardInfoMap : public map<int, MMatchCharBRInfo*>
+class CCMatchCharBattleTimeRewardInfoMap : public map<int, CCMatchCharBRInfo*>
 {
 public:
-	bool Insert(int nBRID, MMatchCharBRInfo* pInfo)
+	bool Insert(int nBRID, CCMatchCharBRInfo* pInfo)
 	{
 		if( Get(nBRID) != NULL ) return false;
-		insert(pair<int, MMatchCharBRInfo*>(nBRID, pInfo));
+		insert(pair<int, CCMatchCharBRInfo*>(nBRID, pInfo));
 		return true;
 	}
 
-	MMatchCharBRInfo* Get(int nBRID)
+	CCMatchCharBRInfo* Get(int nBRID)
 	{
 		iterator iter = find(nBRID);
 		if( iter != end() ) return iter->second;

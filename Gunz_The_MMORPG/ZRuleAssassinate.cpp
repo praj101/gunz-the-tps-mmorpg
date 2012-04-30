@@ -3,7 +3,7 @@
 #include "ZMatch.h"
 #include "ZGame.h"
 #include "ZGlobal.h"
-#include "MMatchTransDataType.h"
+#include "CCMatchTransDataType.h"
 
 ZRuleAssassinate::ZRuleAssassinate(ZMatch* pMatch) : ZRuleTeamDeathMatch(pMatch)
 {

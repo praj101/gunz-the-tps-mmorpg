@@ -13,7 +13,7 @@ struct CMD_HISTORY_INFO
 };
 
 
-class MMatchStatus
+class CCMatchStatus
 {
 private:
 	bool			m_bCreated;
@@ -37,9 +37,9 @@ protected:
 
 	char				m_szDump[MATCHSTATUS_DUMP_LEN];
 public:
-	MMatchStatus();
-	virtual ~MMatchStatus();
-	static MMatchStatus* GetInstance();
+	CCMatchStatus();
+	virtual ~CCMatchStatus();
+	static CCMatchStatus* GetInstance();
 	bool Create(CCMatchServer* pMatchServer);
 public:
 	void SaveToLogFile();
@@ -72,12 +72,12 @@ public:
 	inline void Dump();
 };
 
-inline MMatchStatus* MGetServerStatusSingleton() 
+inline CCMatchStatus* MGetServerStatusSingleton() 
 {
-	return MMatchStatus::GetInstance();
+	return CCMatchStatus::GetInstance();
 }
 
-inline void MMatchStatus::SaveCmdHistory()
+inline void CCMatchStatus::SaveCmdHistory()
 {
 	int t=0;
 	for (int i = m_nHistoryCursor; i < MSTATUS_MAX_CMD_HISTORY; i++)
@@ -98,7 +98,7 @@ inline void MMatchStatus::SaveCmdHistory()
 	cclog("RunStatus : %d\n", m_nRunStatus);
 }
 
-inline void MMatchStatus::Dump()
+inline void CCMatchStatus::Dump()
 {
 	SaveCmdHistory();
 

@@ -22,7 +22,7 @@
 
 
 
-const DWORD MMatchDisconnStatusInfo::MINTERVAL_DISCONNECT_STATUS_MIN = (5 * 1000);
+const DWORD CCMatchDisconnStatusInfo::MINTERVAL_DISCONNECT_STATUS_MIN = (5 * 1000);
 
 CCMatchObject::CCMatchObject(const CCUID& uid) : MObject(uid) 
 { 
@@ -152,7 +152,7 @@ void CCMatchObject::SetStageCursor(int nStageCursor)
 	m_nStageCursor = nStageCursor;
 }
 
-void CCMatchObject::SetPlace(MMatchPlace nPlace)
+void CCMatchObject::SetPlace(CCMatchPlace nPlace)
 {
 	m_nPlace = nPlace;
 
@@ -193,7 +193,7 @@ void CCMatchObject::Tick(unsigned long int nTime)
 
 	if (CheckStageListTransfer() == true) {
 		// 로비에서 클랜채널에 있으면 클랜전 대기 클랜 리스트 업데이트해준다.
-		MMatchChannel* pChannel = pServer->FindChannel(GetChannelUID());
+		CCMatchChannel* pChannel = pServer->FindChannel(GetChannelUID());
 		if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel) && (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN))
 		{
 			if ((unsigned int)(nTime - m_nTimeLastStageListTrans) > CYCLE_MATCH_STANDBY_CLANLIST_UPDATE) {
@@ -241,7 +241,7 @@ void CCMatchObject::Tick(unsigned long int nTime)
 		if (nTime - GetRefreshClientChannelImplement()->GetLastUpdatedTime() > CYCLE_MATCHCHANNELPLAYERLISTUPDATE) {
 			GetRefreshClientChannelImplement()->SetLastUpdatedTime(nTime);
 
-			MMatchChannel* pChannel = pServer->FindChannel(GetChannelUID());
+			CCMatchChannel* pChannel = pServer->FindChannel(GetChannelUID());
 			if (pChannel) {
 				pChannel->SyncPlayerList(this, GetRefreshClientChannelImplement()->GetCategory());
 			}
@@ -252,7 +252,7 @@ void CCMatchObject::Tick(unsigned long int nTime)
 		if (nTime - GetRefreshClientClanMemberImplement()->GetLastUpdatedTime() > CYCLE_MATCHCHANNELCLANMEMBER) {
 			GetRefreshClientClanMemberImplement()->SetLastUpdatedTime(nTime);
 
-			MMatchClan* pClan = pServer->FindClan(GetCharInfo()->m_ClanInfo.m_nClanID);
+			CCMatchClan* pClan = pServer->FindClan(GetCharInfo()->m_ClanInfo.m_nClanID);
 			if (pClan) {
 				pClan->SyncPlayerList(this, GetRefreshClientClanMemberImplement()->GetCategory());
 			}
@@ -294,10 +294,10 @@ void CCMatchObject::SetBattleTimeReward(bool bVal)
 	{
 		unsigned long int nTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 
-		MMatchCharBattleTimeRewardInfoMap::iterator iter = m_pCharInfo->GetBRInfoMap().begin();
+		CCMatchCharBattleTimeRewardInfoMap::iterator iter = m_pCharInfo->GetBRInfoMap().begin();
 		for( ; iter !=  m_pCharInfo->GetBRInfoMap().end(); iter++ )
 		{
-			MMatchCharBRInfo* pInfo = iter->second;
+			CCMatchCharBRInfo* pInfo = iter->second;
 			pInfo->SetLastCheckTime(nTime);
 			pInfo->SetLastUpdateDBTime(nTime);
 		}
@@ -307,18 +307,18 @@ void CCMatchObject::SetBattleTimeReward(bool bVal)
 void CCMatchObject::BattleTimeReward(unsigned int nTime)
 {
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
-	MMatchBRDescriptionMap pMap = pServer->GetBattleTimeRewardMachine().GetBattleTimeRewardDescriptionMap();
-	for( MMatchBRDescriptionMap::iterator iter = pMap.begin(); iter != pMap.end(); iter++ )
+	CCMatchBRDescriptionMap pMap = pServer->GetBattleTimeRewardMachine().GetBattleTimeRewardDescriptionMap();
+	for( CCMatchBRDescriptionMap::iterator iter = pMap.begin(); iter != pMap.end(); iter++ )
 	{
-		MMatchBRDescription* pDesc = iter->second;
+		CCMatchBRDescription* pDesc = iter->second;
 
-		MMatchCharBRInfo* pInfo = m_pCharInfo->GetBRInfoMap().Get(pDesc->GetBRID());
+		CCMatchCharBRInfo* pInfo = m_pCharInfo->GetBRInfoMap().Get(pDesc->GetBRID());
 
 		// 만약 Description은 있지만, 정보가 없다면.. 새로 만들어서 삽입!
 		// (DB에 정보가 삽입될 때까지는 체크하지 않는다)
 		if( pInfo == NULL )
 		{	
-			pInfo = new MMatchCharBRInfo(pDesc->GetBRID(), pDesc->GetBRTID(), 0, 0, 0);
+			pInfo = new CCMatchCharBRInfo(pDesc->GetBRID(), pDesc->GetBRTID(), 0, 0, 0);
 
 			pInfo->SetLastCheckTime(nTime);
 			pInfo->SetLastUpdateDBTime(nTime);
@@ -338,7 +338,7 @@ void CCMatchObject::BattleTimeReward(unsigned int nTime)
 
 				if( nResult == BRRESULT_DO_REWARD )
 				{
-					MMatchBRItem* pBRItem = pDesc->GetRewardItem();
+					CCMatchBRItem* pBRItem = pDesc->GetRewardItem();
 					if( pBRItem == NULL ) { _ASSERT(0); return; }
 
 					pServer->OnAsyncRequest_RewardCharBP(m_UID, pInfo->GetBRID(), pInfo->GetBRTID(), 
@@ -470,25 +470,25 @@ void CCMatchObject::CheckNewbie(int nCharMaxLevel)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool MMatchCharInfo::EquipFromItemList()
+bool CCMatchCharInfo::EquipFromItemList()
 {
 	m_EquipedItem.Clear();
 	
-	for (MMatchItemMap::iterator itor = m_ItemList.begin(); itor != m_ItemList.end(); ++itor)
+	for (CCMatchItemMap::iterator itor = m_ItemList.begin(); itor != m_ItemList.end(); ++itor)
 	{
-		MMatchItem* pItem = (*itor).second;
+		CCMatchItem* pItem = (*itor).second;
 		pItem->SetEquiped(false);
 	}
 
 	for (int i = 0; i < MMCIP_END; i++)
 	{
 		if (m_nEquipedItemCIID[i] == 0) continue;
-		for (MMatchItemMap::iterator itor = m_ItemList.begin(); itor != m_ItemList.end(); ++itor)
+		for (CCMatchItemMap::iterator itor = m_ItemList.begin(); itor != m_ItemList.end(); ++itor)
 		{
-			MMatchItem* pItem = (*itor).second;
+			CCMatchItem* pItem = (*itor).second;
 			if ( m_nEquipedItemCIID[i] == pItem->GetCIID() )
 			{
-				if( m_EquipedItem.SetItem(MMatchCharItemParts(i), itor->first, pItem) ) {
+				if( m_EquipedItem.SetItem(CCMatchCharItemParts(i), itor->first, pItem) ) {
 					break;
 				} else {
 					return false;
@@ -500,14 +500,14 @@ bool MMatchCharInfo::EquipFromItemList()
 	return true;
 }
 
-void MMatchCharInfo::ClearItems()
+void CCMatchCharInfo::ClearItems()
 {
 	m_EquipedItem.Clear();
 	m_ItemList.Clear();
 	m_QuestItemList.Clear();
 }
 
-void MMatchCharInfo::Clear()
+void CCMatchCharInfo::Clear()
 {
 	m_nCID					= 0;
 	m_nCharNum				= 0;
@@ -546,7 +546,7 @@ void MMatchCharInfo::Clear()
 	m_IsSendMyItemListByRequestClient = false;
 }
 
-void MMatchCharInfo::GetTotalWeight(int* poutWeight, int* poutMaxWeight)
+void CCMatchCharInfo::GetTotalWeight(int* poutWeight, int* poutMaxWeight)
 {
 	int nWeight, nMaxWeight;
 
@@ -558,9 +558,9 @@ void MMatchCharInfo::GetTotalWeight(int* poutWeight, int* poutMaxWeight)
 }
 
 
-bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, MMatchSex nPlayerSex)
+bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, CCMatchSex nPlayerSex)
 {
-	MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc == NULL) return false;
 
 	// 성별 제한 조건
@@ -579,14 +579,14 @@ bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, MMatchSex nPla
 
 
 
-void CCMatchObject::SetFriendInfo(MMatchFriendInfo* pFriendInfo)
+void CCMatchObject::SetFriendInfo(CCMatchFriendInfo* pFriendInfo)
 {
 	m_bDBFriendListRequested = true;
 	m_pFriendInfo = pFriendInfo;
 }
 
 
-void CCMatchObject::SetCharInfo(MMatchCharInfo* pCharInfo)
+void CCMatchObject::SetCharInfo(CCMatchCharInfo* pCharInfo)
 { 
 	m_pCharInfo = pCharInfo; 
 #ifdef _QUEST_ITEM
@@ -627,7 +627,7 @@ bool CCMatchObject::IsEnabledRespawnDeathTime(unsigned int nNowTime)
 	// 캐릭터가 죽은후 6.5초안에 다시 죽었다는 메세지가 넘어오면 처리안해준다.
 	// 버그발생, 죽은후 6.5초안에 스테이지 나간 후 다시 배틀에들어와 죽는다면 true 리턴한다
 
-	MMatchBuffSummary* pBuffSummary = GetCharBuff()->GetBuffSummary();
+	CCMatchBuffSummary* pBuffSummary = GetCharBuff()->GetBuffSummary();
 	int nDelayAfterDying = pBuffSummary->GetRespawnTime(RESPAWN_DELAYTIME_AFTER_DYING);
 
 	if ((nNowTime - m_nDeadTime) > (nDelayAfterDying - 500)) return true;
@@ -647,7 +647,7 @@ void CCMatchObject::UpdateLastHShieldMsgRecved()
 	SetHShieldMsgRecved(true);		// 이 클라이언트는 최신 ReqMsg에 대한 응답을 보냈다.
 }
 
-void CCMatchObject::DisconnectHacker( MMatchHackingType eType )
+void CCMatchObject::DisconnectHacker( CCMatchHackingType eType )
 {
 	GetDisconnStatusInfo().SetStatus( MMDS_DISCONN_WAIT );
 
@@ -665,7 +665,7 @@ void CCMatchObject::DisconnectHacker( MMatchHackingType eType )
 }
 
 /*
-void CCMatchObject::SetBadUserDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus )
+void CCMatchObject::SetBadUserDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus )
 {
 	GetDisconnStatusInfo().SetStatus( DisStatus );
 
@@ -680,7 +680,7 @@ void CCMatchObject::SetBadUserDisconnectWaitInfo( const MMatchDisconnectStatus D
 }
 
 
-void CCMatchObject::SetXTrapHackerDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus )
+void CCMatchObject::SetXTrapHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus )
 {
 	GetDisconnStatusInfo().SetStatus( DisStatus );
 
@@ -695,7 +695,7 @@ void CCMatchObject::SetXTrapHackerDisconnectWaitInfo( const MMatchDisconnectStat
 }
 
 
-void CCMatchObject::SetHShieldHackerDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus )
+void CCMatchObject::SetHShieldHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus )
 {
 	GetDisconnStatusInfo().SetStatus( DisStatus );
 
@@ -710,7 +710,7 @@ void CCMatchObject::SetHShieldHackerDisconnectWaitInfo( const MMatchDisconnectSt
 }
 
 
-void CCMatchObject::SetBadFileCRCDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus )
+void CCMatchObject::SetBadFileCRCDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus )
 {
 	GetDisconnStatusInfo().SetStatus( DisStatus );
 
@@ -725,7 +725,7 @@ void CCMatchObject::SetBadFileCRCDisconnectWaitInfo( const MMatchDisconnectStatu
 }
 
 
-void CCMatchObject::SetGameguardHackerDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus )
+void CCMatchObject::SetGameguardHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus )
 {
 	GetDisconnStatusInfo().SetStatus( DisStatus );
 
@@ -740,7 +740,7 @@ void CCMatchObject::SetGameguardHackerDisconnectWaitInfo( const MMatchDisconnect
 }
 
 
-void CCMatchObject::SetDllInjectionDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus )
+void CCMatchObject::SetDllInjectionDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus )
 {
 	GetDisconnStatusInfo().SetStatus( DisStatus );
 
@@ -757,7 +757,7 @@ void CCMatchObject::SetDllInjectionDisconnectWaitInfo( const MMatchDisconnectSta
 }
 
 
-void CCMatchObject::SetInvalidStageSettingDisconnectWaitInfo( const MMatchDisconnectStatus DisStatus )
+void CCMatchObject::SetInvalidStageSettingDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus )
 {
 	GetDisconnStatusInfo().SetStatus( DisStatus );
 
@@ -778,7 +778,7 @@ void CCMatchObject::ResetCustomItemUseCount()
 {
 	for(int i = MMCIP_CUSTOM1; i < MMCIP_CUSTOM2 + 1; i++)
 	{
-		MMatchItem* pCustomItem = GetCharInfo()->m_EquipedItem.GetItem( MMatchCharItemParts(i) );
+		CCMatchItem* pCustomItem = GetCharInfo()->m_EquipedItem.GetItem( CCMatchCharItemParts(i) );
 		if( pCustomItem ) 
 		{
 			if( pCustomItem->GetDesc()->IsSpendableItem() == false )
@@ -808,7 +808,7 @@ const bool CCMatchObject::IncreaseCustomItemUseCount()
 
 	for(int i = MMCIP_CUSTOM1; i < MMCIP_CUSTOM2 + 1; i++)
 	{
-		MMatchItem* pCustomItem = GetCharInfo()->m_EquipedItem.GetItem( MMatchCharItemParts(i) );
+		CCMatchItem* pCustomItem = GetCharInfo()->m_EquipedItem.GetItem( CCMatchCharItemParts(i) );
 		if( pCustomItem ) 
 		{
 			if( pCustomItem->GetDesc()->IsSpendableItem() ) 
@@ -833,10 +833,10 @@ const bool CCMatchObject::IncreaseCustomItemUseCount()
 
 bool CCMatchObject::IsEquipCustomItem(int nItemId)
 {
-	MMatchItem* pItem;
+	CCMatchItem* pItem;
 	for (int i=MMCIP_CUSTOM1; i<=MMCIP_CUSTOM2; ++i)
 	{
-		pItem = GetCharInfo()->m_EquipedItem.GetItem((MMatchCharItemParts)i);
+		pItem = GetCharInfo()->m_EquipedItem.GetItem((CCMatchCharItemParts)i);
 		if (!pItem)
 			continue;
 		if (pItem->GetDescID() == nItemId)

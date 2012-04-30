@@ -1,27 +1,27 @@
 #include "stdafx.h"
-#include "MMatchRuleBerserker.h"
+#include "CCMatchRuleBerserker.h"
 #include "CCMatchTransDataType.h"
 #include "CCBlobArray.h"
 #include "CCMatchServer.h"
 
 //////////////////////////////////////////////////////////////////////////////////
-// MMatchRuleBerserker ///////////////////////////////////////////////////////////
-MMatchRuleBerserker::MMatchRuleBerserker(CCMatchStage* pStage) : MMatchRuleSoloDeath(pStage), m_uidBerserker(0,0)
+// CCMatchRuleBerserker ///////////////////////////////////////////////////////////
+CCMatchRuleBerserker::CCMatchRuleBerserker(CCMatchStage* pStage) : CCMatchRuleSoloDeath(pStage), m_uidBerserker(0,0)
 {
 
 }
 
-bool MMatchRuleBerserker::OnCheckRoundFinish()
+bool CCMatchRuleBerserker::OnCheckRoundFinish()
 {
-	return MMatchRuleSoloDeath::OnCheckRoundFinish();
+	return CCMatchRuleSoloDeath::OnCheckRoundFinish();
 }
 
-void MMatchRuleBerserker::OnRoundBegin()
+void CCMatchRuleBerserker::OnRoundBegin()
 {
 	m_uidBerserker = CCUID(0,0);
 }
 
-void* MMatchRuleBerserker::CreateRuleInfoBlob()
+void* CCMatchRuleBerserker::CreateRuleInfoBlob()
 {
 	void* pRuleInfoArray = MMakeBlobArray(sizeof(MTD_RuleInfo_Berserker), 1);
 	MTD_RuleInfo_Berserker* pRuleItem = (MTD_RuleInfo_Berserker*)MGetBlobArrayElement(pRuleInfoArray, 0);
@@ -33,14 +33,14 @@ void* MMatchRuleBerserker::CreateRuleInfoBlob()
 	return pRuleInfoArray;
 }
 
-void MMatchRuleBerserker::RouteAssignBerserker()
+void CCMatchRuleBerserker::RouteAssignBerserker()
 {	MCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ASSIGN_BERSERKER, CCUID(0, 0));
 	pNew->AddParameter(new MCmdParamUID(m_uidBerserker));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
 }
 
 
-CCUID MMatchRuleBerserker::RecommendBerserker()
+CCUID CCMatchRuleBerserker::RecommendBerserker()
 {
 	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) return CCUID(0,0);
@@ -59,11 +59,11 @@ CCUID MMatchRuleBerserker::RecommendBerserker()
 }
 
 
-void MMatchRuleBerserker::OnEnterBattle(CCUID& uidChar)
+void CCMatchRuleBerserker::OnEnterBattle(CCUID& uidChar)
 {
 }
 
-void MMatchRuleBerserker::OnLeaveBattle(CCUID& uidChar)
+void CCMatchRuleBerserker::OnLeaveBattle(CCUID& uidChar)
 {
 	if (uidChar == m_uidBerserker)
 	{
@@ -72,7 +72,7 @@ void MMatchRuleBerserker::OnLeaveBattle(CCUID& uidChar)
 	}
 }
 
-void MMatchRuleBerserker::OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim)
+void CCMatchRuleBerserker::OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim)
 {
 	// 희생자가 버서커이거나 현재 버서커가 한명도 없을때
 	if ((m_uidBerserker == uidVictim) || (m_uidBerserker == CCUID(0,0)))

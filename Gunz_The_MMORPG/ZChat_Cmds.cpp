@@ -1107,9 +1107,9 @@ void ChatCmd_Test(const char* line, const int argc, char **const argv)
 	char* pszCharName = argv[1];
 
 	ZGameClient* pClient = ZGetGameClient();
-	MMatchPeerInfoList* pList = pClient->GetPeers();
-	for (MMatchPeerInfoList::iterator i=pList->begin(); i!= pList->end(); i++) {
-		MMatchPeerInfo* pInfo = (*i).second;
+	CCMatchPeerInfoList* pList = pClient->GetPeers();
+	for (CCMatchPeerInfoList::iterator i=pList->begin(); i!= pList->end(); i++) {
+		CCMatchPeerInfo* pInfo = (*i).second;
 		if(stricmp(pInfo->CharInfo.szName, pszCharName) == 0) {
 			MCommand* pCmd = pClient->CreateCommand(MC_TEST_PEERTEST_PING, pInfo->uidChar);
 			pClient->Post(pCmd);

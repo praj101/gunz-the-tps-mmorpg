@@ -8,8 +8,8 @@ using namespace std;
 
 #include "CCMatchMap.h"
 #include "CCMatchGlobal.h"
-#include "MMatchKillTrackerConfig.h"
-#include "MMatchPowerLevelingConfig.h"
+#include "CCMatchKillTrackerConfig.h"
+#include "CCMatchPowerLevelingConfig.h"
 #pragma warning( disable: 4996 )
 #define _CRT_SECURE_NO_WARNINGS
 enum NHN_SERVERMODE
@@ -20,7 +20,7 @@ enum NHN_SERVERMODE
 	NSM_END,
 };
 
-class MMatchConfig
+class CCMatchConfig
 {
 private:
 	char				m_szDB_DNS[64];				///< DB DNS
@@ -105,8 +105,8 @@ private:
 	DWORD				m_dwMonitorUDPIP;
 	USHORT				m_nUDPPort;
 	
-	MMatchKillTrackerConfig		m_KillTrackConfig;
-	MMatchPowerLevelingConfig	m_PowerLevelingConfig;
+	CCMatchKillTrackerConfig		m_KillTrackConfig;
+	CCMatchPowerLevelingConfig	m_PowerLevelingConfig;
 
 
 	bool				m_bIsUseResourceCRC32CacheCheck;
@@ -131,9 +131,9 @@ private:
 	void InitLoopLogConfig();
 
 public:
-	MMatchConfig();
-	virtual ~MMatchConfig();
-	static MMatchConfig* GetInstance();
+	CCMatchConfig();
+	virtual ~CCMatchConfig();
+	static CCMatchConfig* GetInstance();
 	bool Create();
 	void Destroy();
 	void Clear();
@@ -203,8 +203,8 @@ public:
 	const DWORD GetMonitorUDPIP() { return m_dwMonitorUDPIP; }
 	const USHORT GetMonitorUDPPORT()	{ return m_nUDPPort; }
 
-	MMatchKillTrackerConfig& GetKillTrackerConfig() { return m_KillTrackConfig; }
-	MMatchPowerLevelingConfig& GetPowerLevelingConfig() { return m_PowerLevelingConfig; }
+	CCMatchKillTrackerConfig& GetKillTrackerConfig() { return m_KillTrackConfig; }
+	CCMatchPowerLevelingConfig& GetPowerLevelingConfig() { return m_PowerLevelingConfig; }
 
 	const bool IsUseResourceCRC32CacheCheck() { return m_bIsUseResourceCRC32CacheCheck; }
 
@@ -228,7 +228,7 @@ public:
 	bool IsSendLoginUserToDuelTournamentChannel() const  { return m_bSendLoginUserToDuelTournamentChannel; }
 };
 
-inline MMatchConfig* MGetServerConfig() { return MMatchConfig::GetInstance(); }
+inline CCMatchConfig* MGetServerConfig() { return CCMatchConfig::GetInstance(); }
 
 inline bool QuestTestServer() { return (MGetServerConfig()->GetServerMode() == CSM_TEST); }
 

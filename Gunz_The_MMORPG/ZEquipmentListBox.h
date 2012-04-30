@@ -123,7 +123,7 @@
 //	void SetupItemDescTooltip();
 //
 ////	void Add(const CCUID& uidItem, MBitmap* pIconBitmap, const char* szName, const char* szWeight, const char* szSlot, const char* szPrice);
-////	void Add(const CCUID& uidItem, MBitmap* pIconBitmap, const char* szName, int nWeight, MMatchItemSlotType nSlot, int nBountyPrice);
+////	void Add(const CCUID& uidItem, MBitmap* pIconBitmap, const char* szName, int nWeight, CCMatchItemSlotType nSlot, int nBountyPrice);
 //
 ////	void SetOnDropCallback(ZCB_ONDROP pCallback) { m_pOnDropFunc = pCallback; }
 //	void SetDescriptionWidget(MWidget *pWidget)	{ m_pDescFrame = pWidget; }

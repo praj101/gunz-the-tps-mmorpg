@@ -9,7 +9,7 @@ class CCMatchStage;
 
 class MLadderGameStrategy;
 class MClanGameStrategy;
-struct MMatchLadderTeamInfo;
+struct CCMatchLadderTeamInfo;
 
 class MBaseTeamGameStrategy
 {
@@ -30,12 +30,12 @@ public:
 	virtual void SetLadderGroup(MLadderGroup* pGroup, CCMatchObject** ppMemberObjects, int nMemberCount) = 0;
 
 	/// Stage에서 필요한 LadderInfo를 세팅한다.
-	virtual void SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+	virtual void SetStageLadderInfo(CCMatchLadderTeamInfo* poutRedLadderInfo, CCMatchLadderTeamInfo* poutBlueLadderInfo,
 									MLadderGroup* pRedGroup, MLadderGroup* pBlueGroup) = 0;
 
 	/// 게임이 끝났을때 결과를 DB 저장한다.
 	virtual void SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam nWinnerTeam, bool bIsDrawGame,
-		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo) = 0;
+		                               CCMatchLadderTeamInfo* pRedLadderInfo, CCMatchLadderTeamInfo* pBlueLadderInfo) = 0;
 
 	virtual int GetRandomMap(int nTeamMember) = 0;
 
@@ -59,10 +59,10 @@ public:
 					const int nReplierCount);
 	virtual int GetNewGroupID(CCMatchObject* pLeaderObject, CCMatchObject** ppMemberObjects, int nMemberCount);
 	virtual void SetLadderGroup(MLadderGroup* pGroup, CCMatchObject** ppMemberObjects, int nMemberCount) { }
-	virtual void SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+	virtual void SetStageLadderInfo(CCMatchLadderTeamInfo* poutRedLadderInfo, CCMatchLadderTeamInfo* poutBlueLadderInfo,
 									MLadderGroup* pRedGroup, MLadderGroup* pBlueGroup);
 	virtual void SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam nWinnerTeam, bool bIsDrawGame,
-		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo);
+		                               CCMatchLadderTeamInfo* pRedLadderInfo, CCMatchLadderTeamInfo* pBlueLadderInfo);
 	virtual int GetRandomMap(int nTeamMember);
 };
 
@@ -84,9 +84,9 @@ public:
 					const int nReplierCount);
 	virtual int GetNewGroupID(CCMatchObject* pLeaderObject, CCMatchObject** ppMemberObjects, int nMemberCount);
 	virtual void SetLadderGroup(MLadderGroup* pGroup, CCMatchObject** ppMemberObjects, int nMemberCount);
-	virtual void SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+	virtual void SetStageLadderInfo(CCMatchLadderTeamInfo* poutRedLadderInfo, CCMatchLadderTeamInfo* poutBlueLadderInfo,
 									MLadderGroup* pRedGroup, MLadderGroup* pBlueGroup);
 	virtual void SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam nWinnerTeam, bool bIsDrawGame,
-		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo);
+		                               CCMatchLadderTeamInfo* pRedLadderInfo, CCMatchLadderTeamInfo* pBlueLadderInfo);
 	virtual int GetRandomMap(int nTeamMember);
 };

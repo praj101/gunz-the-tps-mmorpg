@@ -10,11 +10,11 @@
 #include "ZCharacter.h"
 #include "MListBox.h"
 #include "MComboBox.h"
-#include "MMatchObject.h"
+#include "CCMatchObject.h"
 #include "RShaderMgr.h"
 #include "ZCharacterView.h"
 #include "MDebug.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 
 #include "MLabel.h"
 #include "MButton.h"
@@ -419,7 +419,7 @@ void ZCharacterSelectView::SelectChar(int nSelectIndex)
 	{
 		if (strlen(m_CharInfo[nSelectIndex].m_AccountCharInfo.szName) > 0)
 		{
-			ZChangeCharParts(m_pVisualMesh, MMatchSex(m_CharInfo[nSelectIndex].m_CharInfo.nSex), 
+			ZChangeCharParts(m_pVisualMesh, CCMatchSex(m_CharInfo[nSelectIndex].m_CharInfo.nSex), 
 				m_CharInfo[nSelectIndex].m_CharInfo.nHair, m_CharInfo[nSelectIndex].m_CharInfo.nFace, 
 				m_CharInfo[nSelectIndex].m_CharInfo.nEquipedItemDesc);
 
@@ -433,7 +433,7 @@ void ZCharacterSelectView::SelectChar(int nSelectIndex)
 					m_CharInfo[nSelectIndex].m_CharInfo.nEquipedItemDesc[MMCIP_CUSTOM1],
 					m_CharInfo[nSelectIndex].m_CharInfo.nEquipedItemDesc[MMCIP_CUSTOM2]);
 
-				MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
+				CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
 				RMesh* pMesh = NULL;
 
 				if (pDesc) {
@@ -507,35 +507,35 @@ void ZCharacterSelectView::OnChangedCharInfo(int sex,int index)
 
 	pLabel = (MLabel*)pResource->FindWidget("CC_MeleeLabel");
 	if (pLabel != NULL)	{
-		MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_MELEE]);
+		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_MELEE]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
 	pLabel = (MLabel*)pResource->FindWidget("CC_PrimaryLabel");
 	if (pLabel != NULL)	{
-		MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_PRIMARY]);
+		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_PRIMARY]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
 	pLabel = (MLabel*)pResource->FindWidget("CC_SecondaryLabel");
 	if (pLabel != NULL)	{
-		MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_SECONDARY]);
+		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_SECONDARY]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
 	pLabel = (MLabel*)pResource->FindWidget("CC_Item1Label");
 	if (pLabel != NULL)	{
-		MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM1]);
+		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM1]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
 	pLabel = (MLabel*)pResource->FindWidget("CC_Item2Label");
 	if (pLabel != NULL)	{
-		MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM2]);
+		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM2]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
@@ -558,7 +558,7 @@ void ZCharacterSelectView::OnChangedCharCostume()
 	if ((pSexCB != NULL) && (pHairCB!=NULL) && (pFaceCB!=NULL) && (pCostumeCB!=NULL) )
 //		&&(pListBox != NULL) )
 	{
-		MMatchSex nSex = MMatchSex(pSexCB->GetSelIndex());
+		CCMatchSex nSex = CCMatchSex(pSexCB->GetSelIndex());
 
 		if (nSex == MMS_MALE)
 		{
@@ -745,7 +745,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 			// 아이템 속성값 적용
 			for (int k = 0; k < MMCIP_END; k++)
 			{
-				MMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZCharacterSelectView::m_CharInfo[nIndex].m_CharInfo.nEquipedItemDesc[k]);
+				CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZCharacterSelectView::m_CharInfo[nIndex].m_CharInfo.nEquipedItemDesc[k]);
 				if (pItemDesc)
 				{
 					// 지금은 HP와 AP만 적용중

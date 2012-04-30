@@ -2,7 +2,7 @@
 #define _MMATCHTRANSDATATYPE_H
 
 #include "CCMatchObject.h"
-#include "MMatchRule.h"		// MMATCH_GAMETYPE, MMATCH_ROUNDSTATE, MMATCH_ROUNDRESULT 참조 -> 정리요망
+#include "CCMatchRule.h"		// MMATCH_GAMETYPE, MMATCH_ROUNDSTATE, MMATCH_ROUNDRESULT 참조 -> 정리요망
 #include "CCMatchStageSetting.h"
 #include "CCMatchGameType.h"
 #include "CCMatchGlobal.h"
@@ -26,7 +26,7 @@ struct MTD_CharInfo
 	// 캐릭터 정보
 	char				szName[MATCHOBJECT_NAME_LENGTH];
 	char				szClanName[CLAN_NAME_LENGTH];
-	MMatchClanGrade		nClanGrade;
+	CCMatchClanGrade		nClanGrade;
 	unsigned short		nClanContPoint;
 	char				nCharNum;
 	unsigned short		nLevel;
@@ -50,7 +50,7 @@ struct MTD_CharInfo
 	unsigned long int	nEquipedItemDesc[MMCIP_END];
 
 	// account 의 정보
-	MMatchUserGradeID	nUGradeID;
+	CCMatchUserGradeID	nUGradeID;
 
 	// ClanCLID
 	unsigned int		nClanCLID;
@@ -191,7 +191,7 @@ struct MTD_ChannelPlayerListNode
 	char			szClanName[CLAN_NAME_LENGTH];
 	char			nLevel;
 	char			nDTLastWeekGrade;
-	MMatchPlace		nPlace;
+	CCMatchPlace		nPlace;
 	unsigned char	nGrade;			// 로비에서는 uid 로 캐릭터의 등급을 알수가 없어서..
 	unsigned char	nPlayerFlags;	// 플레이어 속성(운영자숨김등) - MTD_PlayerFlags 사용
 	unsigned int	nCLID;			// ClanID
@@ -204,8 +204,8 @@ struct MTD_ClanMemberListNode
 	CCUID				uidPlayer;
 	char				szName[MATCHOBJECT_NAME_LENGTH];
 	char				nLevel;
-	MMatchClanGrade		nClanGrade;
-	MMatchPlace			nPlace;
+	CCMatchClanGrade		nClanGrade;
+	CCMatchPlace			nPlace;
 };
 
 enum MTD_WorldItemSubType
@@ -255,7 +255,7 @@ struct MTD_QuickJoinParam
 struct MTD_CharClanInfo
 {
 	char				szClanName[CLAN_NAME_LENGTH];		// 클랜 이름
-	MMatchClanGrade		nGrade;
+	CCMatchClanGrade		nGrade;
 };
 
 
@@ -264,7 +264,7 @@ struct MTD_CharInfo_Detail
 {
 	char				szName[32];						// 이름
 	char				szClanName[CLAN_NAME_LENGTH];	// 클랜이름
-	MMatchClanGrade		nClanGrade;						// 클랜직책
+	CCMatchClanGrade		nClanGrade;						// 클랜직책
 	int					nClanContPoint;					// 클랜 기여도
 	unsigned short		nLevel;							// 레벨
 	char				nSex;							// 성별
@@ -284,7 +284,7 @@ struct MTD_CharInfo_Detail
 
 	unsigned long int	nEquipedItemDesc[MMCIP_END];	// 아이템 정보
 
-	MMatchUserGradeID	nUGradeID;						// account UGrade
+	CCMatchUserGradeID	nUGradeID;						// account UGrade
 
 	// ClanCLID
 	unsigned int		nClanCLID;
@@ -578,11 +578,11 @@ void Make_MTDAccountItemNode(MTD_AccountItemNode* pout, int nAIID, unsigned long
 
 void Make_MTDQuestItemNode( MTD_QuestItemNode* pOut, const unsigned long int nItemID, const int nCount );
 
-struct MMatchWorldItem;
-void Make_MTDWorldItem(MTD_WorldItem* pOut, MMatchWorldItem* pWorldItem);
+struct CCMatchWorldItem;
+void Make_MTDWorldItem(MTD_WorldItem* pOut, CCMatchWorldItem* pWorldItem);
 
-class MMatchActiveTrap;
-void Make_MTDActivatedTrap(MTD_ActivatedTrap *pOut, MMatchActiveTrap* pTrapItem);
+class CCMatchActiveTrap;
+void Make_MTDActivatedTrap(MTD_ActivatedTrap *pOut, CCMatchActiveTrap* pTrapItem);
 
 // 경험치, 경험치 비율을 4byte로 조합
 // 상위 2바이트는 경험치, 하위 2바이트는 경험치의 퍼센트이다.

@@ -31,13 +31,13 @@ bool CCMatchObjectCharBuff::ApplyShortBuffInfo(int nBuffID, int nBuffSecondPerio
 		return false;
 	}
 
-	MMatchCharInfo* pCharInfo = GetObject()->GetCharInfo();
+	CCMatchCharInfo* pCharInfo = GetObject()->GetCharInfo();
 	if( pCharInfo == NULL ) {
 		_ASSERT(0);
 		return false;
 	}
 
-	MMatchShortBuff *pShortBuff = m_ShortBuffInfoMap.GetShortBuffByBuffID(nBuffID);
+	CCMatchShortBuff *pShortBuff = m_ShortBuffInfoMap.GetShortBuffByBuffID(nBuffID);
 	if( pShortBuff != NULL ) {	
 		m_ShortBuffInfoMap.Remove(pShortBuff->GetBuffUID());
 	} 
@@ -46,7 +46,7 @@ bool CCMatchObjectCharBuff::ApplyShortBuffInfo(int nBuffID, int nBuffSecondPerio
 		return false;
 	}
 
-	MMatchShortBuff *pNewShortBuff = new MMatchShortBuff;
+	CCMatchShortBuff *pNewShortBuff = new CCMatchShortBuff;
 	if( !pNewShortBuff->Set(CCMatchObjectCharBuff::UseUID(), nBuffID, timeGetTime(), nBuffSecondPeriod * 1000) ) {
 		delete pNewShortBuff;
 		_ASSERT(0);
@@ -74,10 +74,10 @@ bool CCMatchObjectCharBuff::Tick(int nGlobalTick)
 {
 	bool bResult = false;
 
-	MMatchShortBuffMap::iterator iter = m_ShortBuffInfoMap.begin();
+	CCMatchShortBuffMap::iterator iter = m_ShortBuffInfoMap.begin();
 	for( ; iter != m_ShortBuffInfoMap.end(); ) 
 	{
-		MMatchShortBuff* pBuff = iter->second;
+		CCMatchShortBuff* pBuff = iter->second;
 		if( pBuff->IsExpired(nGlobalTick) ) 
 		{
 			bResult = true;
@@ -99,9 +99,9 @@ bool CCMatchObjectCharBuff::Tick(int nGlobalTick)
 
 void CCMatchObjectCharBuff::MakeBuffSummary()
 {
-	MMatchShortBuffMap::iterator iter = m_ShortBuffInfoMap.begin();
+	CCMatchShortBuffMap::iterator iter = m_ShortBuffInfoMap.begin();
 	for( ; iter != m_ShortBuffInfoMap.end(); iter++) {
-		MMatchShortBuff* pBuff = iter->second;
+		CCMatchShortBuff* pBuff = iter->second;
 		if( pBuff->GetBuffID() != 0 ) {
 			m_BuffSummary.AddBuff(pBuff->GetBuffID());
 		}		

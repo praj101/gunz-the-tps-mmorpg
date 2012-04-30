@@ -2,8 +2,8 @@
 
 #include "ZPost.h"
 #include "MBlobArray.h"
-#include "MMatchTransDataType.h"
-#include "MMatchGlobal.h"
+#include "CCMatchTransDataType.h"
+#include "CCMatchGlobal.h"
 #include "ZGame.h"
 #include "ZMyCharacter.h"
 #include "ZGameClient.h"

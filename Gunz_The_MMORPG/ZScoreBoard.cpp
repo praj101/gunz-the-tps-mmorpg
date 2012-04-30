@@ -7,7 +7,7 @@
 #include "MFrame.h"
 #include "ZGameInterface.h"
 #include "ZApplication.h"
-#include "MMatchRule.h"
+#include "CCMatchRule.h"
 #include "ZMatch.h"
 
 void _AddListItem(MListBox* pList, const char* szString)
@@ -111,7 +111,7 @@ void ZScoreBoard::OnHide(void)
 	m_pFrame->Show(false);
 }
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,MMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 void ZScoreBoard::Refresh()
 {
@@ -125,7 +125,7 @@ void ZScoreBoard::Refresh()
 
 	MCOLOR _color;
 	char sp_name[256];
-	MMatchUserGradeID gid;
+	CCMatchUserGradeID gid;
 
 	m_pListBox->RemoveAll();
 
@@ -144,7 +144,7 @@ void ZScoreBoard::Refresh()
 		}
 
 		int nPing = (pCharacter->m_UID == ZGetGameClient()->GetPlayerUID() ? 0 : 999);
-		MMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(pCharacter->m_UID);
+		CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(pCharacter->m_UID);
 		if (pPeer) {
 			//nPing = int(pCharacter->m_fAveragePingTime*1000.f)
 			nPing = pPeer->GetPing(ZApplication::GetGame()->GetTickTime());

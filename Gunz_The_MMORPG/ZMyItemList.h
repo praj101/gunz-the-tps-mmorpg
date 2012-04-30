@@ -2,9 +2,9 @@
 #define _ZITEMLIST_H
 
 #include "ZPrerequisites.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 #include "MBaseItem.h"
-#include "MMatchGambleItem.h"
+#include "CCMatchGambleItem.h"
 #include "ZMyItem.h"
 #include "ZMyQuestItem.h"
 #include "ZGambleItemDefine.h"
@@ -77,12 +77,12 @@ public:
 	unsigned long int GetItemIDEquip(int nItemIndex);
 	unsigned long int GetItemID(const CCUID& uidItem);
 	unsigned long int GetAccountItemID(int nPos);
-	unsigned long int GetEquipedItemID(MMatchCharItemParts parts);
+	unsigned long int GetEquipedItemID(CCMatchCharItemParts parts);
 
 	ZMyItemNode* GetItem(int nItemIndex);
 	ZMyItemNode* GetItemEquip(int nItemIndex);
 	ZMyItemNode* GetItem(const CCUID& uidItem);
-	ZMyItemNode* GetEquipedItem(MMatchCharItemParts parts);
+	ZMyItemNode* GetEquipedItem(CCMatchCharItemParts parts);
 	ZMyItemNode* GetAccountItem(int nPos);
 	ZMyItemNode* GetAccountItemByAIID(int nAIID);
 
@@ -91,7 +91,7 @@ public:
 	const ZMyGambleItem* GetGambleItem(const CCUID& uidItem);
 	void SetGambleItemAll(MTD_GambleItemNode* pGItemNodes, int nGItemCount );
 
-	CCUID GetEquipedItemUID(MMatchCharItemParts parts);
+	CCUID GetEquipedItemUID(CCMatchCharItemParts parts);
 	void SetEquipItemsAll(CCUID* pnEquipItems);
 	void SetEquipItemInfo(CCUID* pEquipItemUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount);
 	

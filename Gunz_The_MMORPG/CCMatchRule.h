@@ -6,7 +6,7 @@
 #include "CCUID.h"
 #include "CCMatchGameType.h"
 #include "MQuestPlayer.h"
-#include "MMatchEventManager.h"
+#include "CCMatchEventManager.h"
 
 class CCMatchObject;
 class CCMatchStage;
@@ -38,9 +38,9 @@ enum MMATCH_ROUNDRESULT {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// 게임 룰 기본 베이스 클래스
-class MMatchRule {
+class CCMatchRule {
 protected:
-	// MMatchGameTypeInfo*	m_pGameTypeInfo;							///< 게임 타입 정보
+	// CCMatchGameTypeInfo*	m_pGameTypeInfo;							///< 게임 타입 정보
 
 	CCMatchStage*		m_pStage;									///< 스테이지 클래스
 	MMATCH_ROUNDSTATE	m_nRoundState;								///< 현재 라운드 상태
@@ -49,9 +49,9 @@ protected:
 	unsigned long		m_tmRoundStateTimer;
 	int					m_nLastTimeLimitAnnounce;					// 60, 30, 10 중 하나
 
-	MMatchEventManager m_OnBeginEventManager;						/// 게임을 시작할때 이벤트.
-	MMatchEventManager m_OnGameEventManager;						/// 베틀중 이벤트.
-	MMatchEventManager m_OnEndEventManager;							/// 게임이 끝날때 이벤트.
+	CCMatchEventManager m_OnBeginEventManager;						/// 게임을 시작할때 이벤트.
+	CCMatchEventManager m_OnGameEventManager;						/// 베틀중 이벤트.
+	CCMatchEventManager m_OnEndEventManager;							/// 게임이 끝날때 이벤트.
 
 protected:
 	virtual bool RoundCount() { return false; }						///< 라운드 카운트. 모든 라운드가 끝나면 false를 반환한다.
@@ -82,9 +82,9 @@ protected:
 	void RunOnGameEvent();
 	void RunOnEndEvent();
 public:
-	MMatchRule()					{ _ASSERT(false); }				///< 이 생성자는 절대 사용하지 않는다.
-	MMatchRule(CCMatchStage* pStage);								///< 생성자
-	virtual ~MMatchRule()			{}								///< 소멸자
+	CCMatchRule()					{ _ASSERT(false); }				///< 이 생성자는 절대 사용하지 않는다.
+	CCMatchRule(CCMatchStage* pStage);								///< 생성자
+	virtual ~CCMatchRule()			{}								///< 소멸자
 	CCMatchStage* GetStage()			{ return m_pStage; }			///< 스테이지 반환
 
 	int GetRoundCount()				{ return m_nRoundCount; }		///< 총 라운드 수 반환
@@ -92,9 +92,9 @@ public:
 	int GetRoundArg()				{ return m_nRoundArg; }			///< 라운드 인자 반환
 	void SetRoundArg(int nArg)		{ m_nRoundArg = nArg; }			///< 라운드 인자 설정
 
-	MMatchEventManager& GetOnBeginEventManager()	{ return m_OnBeginEventManager; }
-	MMatchEventManager& GetOnGameEventManager()		{ return m_OnGameEventManager; }
-	MMatchEventManager& GetOnEndEventManager()		{ return m_OnEndEventManager; }
+	CCMatchEventManager& GetOnBeginEventManager()	{ return m_OnBeginEventManager; }
+	CCMatchEventManager& GetOnGameEventManager()		{ return m_OnGameEventManager; }
+	CCMatchEventManager& GetOnEndEventManager()		{ return m_OnEndEventManager; }
 
 	MMATCH_ROUNDSTATE GetRoundState()	{ return m_nRoundState; }				///< 라운드 상태 반환
 	unsigned long GetRoundStateTimer()	{ return m_tmRoundStateTimer; }

@@ -283,7 +283,7 @@ void ZStageInterface::OnStageCharListSettup()
 			if ( ZGetGameClient()->GetMatchStageSetting()->GetMasterUID() == pCharNode->uidChar)
 				bMaster = true;
 
-			pItem->UpdatePlayer( pCharNode->uidChar,(MMatchObjectStageState)pCharNode->nState,bMaster,MMatchTeam(pCharNode->nTeam));
+			pItem->UpdatePlayer( pCharNode->uidChar,(CCMatchObjectStageState)pCharNode->nState,bMaster,CCMatchTeam(pCharNode->nTeam));
 		}
 	}
 }
@@ -343,7 +343,7 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 			if ( ZGetGameClient()->GetMatchStageSetting()->GetMasterUID() == pCharNode->uidChar)
 				bMaster = true;
 			
-			pItem->UpdatePlayer( pCharNode->uidChar,(MMatchObjectStageState)pCharNode->nState,bMaster,MMatchTeam(pCharNode->nTeam));
+			pItem->UpdatePlayer( pCharNode->uidChar,(CCMatchObjectStageState)pCharNode->nState,bMaster,CCMatchTeam(pCharNode->nTeam));
 		}
 	}
 
@@ -1064,7 +1064,7 @@ void ZStageInterface::UpdateSacrificeItem( void)
 			{
 				pPicture->SetBitmap( m_SacrificeItem[ i].GetIconBitmap());
 				char szMsg[ 128];
-				MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache( m_SacrificeItem[ i].GetUID());
+				CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache( m_SacrificeItem[ i].GetUID());
 				if ( pObjCache)
 					sprintf( szMsg, "%s (%s)", m_SacrificeItem[ i].GetName(), pObjCache->GetName());
 				else
@@ -2190,7 +2190,7 @@ void ZStageInterface::OnStartFail( const int nType, const CCUID& uidParam )
 		//}
 
 		// 입장권 누가 없는거야? -_-+ - by SungE
-		//const MMatchPeerInfo* pPeer = ZGetGameClient()->GetPeers()->Find( uidParam );
+		//const CCMatchPeerInfo* pPeer = ZGetGameClient()->GetPeers()->Find( uidParam );
 		//if( 0 != pPeer )
 		//{
 		//	char szMsg[ 128 ];

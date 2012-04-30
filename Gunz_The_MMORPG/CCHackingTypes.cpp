@@ -16,7 +16,7 @@ const PUNISH_TABLE_ITEM MPunishTable::PUNISH_TABLE[MMHT_END] =
 	{ 130007, "Sleep Account, Block by Admin",	0, 1, 0,	MMBL_ACCOUNT },	// MMHT_SLEEP_ACCOUNT, 운영자에 의해 휴면 계정으로 분류된 회원. 무조건 접속 불가능
 };
 
-const PUNISH_TABLE_ITEM& MPunishTable::GetPunish( MMatchHackingType eType )
+const PUNISH_TABLE_ITEM& MPunishTable::GetPunish( CCMatchHackingType eType )
 {
 	if(eType<0 || eType >=MMHT_END) return PUNISH_TABLE[0];
 

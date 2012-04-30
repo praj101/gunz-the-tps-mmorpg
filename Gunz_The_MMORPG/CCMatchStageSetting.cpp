@@ -158,7 +158,7 @@ void CCMatchStageSetting::UpdateCharSetting(const CCUID& uid, unsigned int nTeam
 
 
 
-const MMatchGameTypeInfo* CCMatchStageSetting::GetCurrGameTypeInfo()
+const CCMatchGameTypeInfo* CCMatchStageSetting::GetCurrGameTypeInfo()
 { 
 	return MGetGameTypeMgr()->GetInfo(m_StageSetting.Ref().nGameType); 
 }
