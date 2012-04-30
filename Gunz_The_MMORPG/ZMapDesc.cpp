@@ -383,7 +383,7 @@ bool ZMapDesc::Open(RBspObject* pBspObject)
 
 bool ZMapDesc::LoadSmokeDesc(const char* pFileName)
 {
-	MXmlDocument	Data;
+	CCXmlDocument	Data;
 	Data.Create();
 
 	CCZFile mzf;
@@ -407,7 +407,7 @@ bool ZMapDesc::LoadSmokeDesc(const char* pFileName)
 	delete buffer;
 	mzf.Close();
 
-	MXmlElement root, child;
+	CCXmlElement root, child;
 	char TagName[256];
 	char Attribute[256];
 	root = Data.GetDocumentElement();

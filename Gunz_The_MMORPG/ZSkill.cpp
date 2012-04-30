@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "ZSKill.h"
-#include "MXml.h"
+#include "CCXml.h"
 #include "CCZFileSystem.h"
 #include "ZGame.h"
 #include "ZModule_Resistance.h"
@@ -212,7 +212,7 @@ bool ZSkillManager::Create()
 	mlog("failed to load zskillxml.cache, load zskill.xml\n");
 #endif
 
-	MXmlDocument	xmlDocument;
+	CCXmlDocument	xmlDocument;
 
 	xmlDocument.Create();
 
@@ -247,7 +247,7 @@ bool ZSkillManager::Create()
 	mzf.Close();
 
 
-	MXmlElement rootElement, element;
+	CCXmlElement rootElement, element;
 	char szTagName[256];
 	char szTemp[256];
 	char szAttrName[256];
@@ -344,7 +344,7 @@ bool ZSkillManager::Create()
 
 
 			int iChildCount = element.GetChildNodeCount();
-			MXmlElement chrElement;
+			CCXmlElement chrElement;
 			for (int k = 0; k < iChildCount; k++)
 			{
 				chrElement = element.GetChildNode(k);

@@ -107,7 +107,7 @@ MChannelRule* MChannelRuleMgr::GetRule(MCHANNEL_RULE nChannelRule)
 	return NULL;
 }
 
-void MChannelRuleMgr::ParseRoot(const char* szTagName, MXmlElement* pElement)
+void MChannelRuleMgr::ParseRoot(const char* szTagName, CCXmlElement* pElement)
 {
 	if (!stricmp(szTagName, MTOK_CHANNELRULE)) 
 	{
@@ -116,7 +116,7 @@ void MChannelRuleMgr::ParseRoot(const char* szTagName, MXmlElement* pElement)
 }
 
 
-void MChannelRuleMgr::ParseRule(MXmlElement* pElement)
+void MChannelRuleMgr::ParseRule(CCXmlElement* pElement)
 {
 	// Get Rule Node
 	int nID = 0;
@@ -132,7 +132,7 @@ void MChannelRuleMgr::ParseRule(MXmlElement* pElement)
 #endif
 
 	// Get Map Nodes
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szTagName[256]=""; char szAttr[256]="";
 
 	int nCount = pElement->GetChildNodeCount();

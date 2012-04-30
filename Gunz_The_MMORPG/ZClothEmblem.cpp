@@ -893,7 +893,7 @@ void ZEmblemList::OnRestore()
 //////////////////////////////////////////////////////////////////////////
 void ZEmblemList::InitEnv( char* pFileName_ )
 {
-	MXmlDocument	Data;
+	CCXmlDocument	Data;
 	Data.Create();
 
 	CCZFile mzf;
@@ -914,7 +914,7 @@ void ZEmblemList::InitEnv( char* pFileName_ )
 	delete buffer;
 	mzf.Close();
 
-	MXmlElement root, child;
+	CCXmlElement root, child;
 	char TagName[256];
 	char Attribute[256];
 	root = Data.GetDocumentElement();
@@ -953,7 +953,7 @@ void ZEmblemList::InitEnv( char* pFileName_ )
 				p->GetWndGenerator()->SetWindPower( power );
 			}
 			
-			MXmlElement dummy;
+			CCXmlElement dummy;
 			int iDummyNum = child.GetChildNodeCount();
 			for( int j = 0 ; j < iDummyNum; ++j )
 			{

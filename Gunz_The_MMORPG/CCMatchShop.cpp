@@ -27,7 +27,7 @@ void MMatchShop::Destroy()
 
 bool MMatchShop::ReadXml(const char* szFileName)
 {
-	MXmlDocument	xmlDocument;
+	CCXmlDocument	xmlDocument;
 
 	xmlDocument.Create();
 
@@ -37,7 +37,7 @@ bool MMatchShop::ReadXml(const char* szFileName)
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlDocument.GetDocumentElement();
@@ -61,7 +61,7 @@ bool MMatchShop::ReadXml(const char* szFileName)
 	return true;
 }
 
-void MMatchShop::ParseSellItem(MXmlElement& element)
+void MMatchShop::ParseSellItem(CCXmlElement& element)
 {
 	ShopItemNode *pNewItemNode = new ShopItemNode;
 

@@ -1,7 +1,7 @@
 #ifndef _ZCONFIGURATION_H
 #define _ZCONFIGURATION_H
 
-#include "MXml.h"
+#include "CCXml.h"
 #include <string>
 #include <map>
 #include "ZActionDef.h"
@@ -187,7 +187,7 @@ private:
 	bool				m_bReservedSave;		// 단축키로 실시간 변경한 값을 파일로 아직 저장안한 경우
 
 protected:
-	void ParseLocaleSelectableLanguages(MXmlElement& selectableLangsElem);
+	void ParseLocaleSelectableLanguages(CCXmlElement& selectableLangsElem);
 
 public:
 	ZConfiguration();

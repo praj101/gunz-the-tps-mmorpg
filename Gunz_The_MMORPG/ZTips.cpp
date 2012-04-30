@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ZTips.h"
-#include "MXml.h"
+#include "CCXml.h"
 #include "Physics.h"
 #include "ZFilePath.h"
 
@@ -40,7 +40,7 @@ bool ZTips::Initialize(CCZFileSystem* pfs, const MLanguage LangID )
 
 	mlog( "Load XML from memory : %s(0x%04X)", FILENAME_TIPS, LangID);
 
-	MXmlDocument aXml;
+	CCXmlDocument aXml;
 	aXml.Create();
 	if(!aXml.LoadFromMemory(buffer, LangID))
 	{
@@ -52,7 +52,7 @@ bool ZTips::Initialize(CCZFileSystem* pfs, const MLanguage LangID )
 	mlog( "- SUCCESS\n");
 
 	int iCount, i;
-	MXmlElement		aParent, aChild;
+	CCXmlElement		aParent, aChild;
 	aParent = aXml.GetDocumentElement();
 	iCount = aParent.GetChildNodeCount();
 
@@ -72,12 +72,12 @@ bool ZTips::Initialize(CCZFileSystem* pfs, const MLanguage LangID )
 	return true;
 }
 
-void ZTips::ParseTips(MXmlElement* pElement)
+void ZTips::ParseTips(CCXmlElement* pElement)
 {
 	int nCategory=0;
 	pElement->GetAttribute(&nCategory, ZTOK_TIPS_ATTR_CATEGORY, 0);	// default´Â 0
 
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szTagName[256]=""; char szAttr[256]="";
 	char szContents[1024]="";
 

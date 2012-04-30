@@ -28,7 +28,7 @@ bool MMatchShutdown::LoadXML_ShutdownNotify(const char* pszFileName)
 	#define MTOK_SHUTDOWNNOTIFY		"SHUTDOWNNOTIFY"
 	#define MTOK_ATTR_DELAY			"delay"
 
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	if (!xmlIniData.LoadFromFile(pszFileName))
@@ -37,7 +37,7 @@ bool MMatchShutdown::LoadXML_ShutdownNotify(const char* pszFileName)
 		return false;
 	}
 
-	MXmlElement rootElement, childElement;
+	CCXmlElement rootElement, childElement;
 	char szTagName[256];
 	char szBuf[256];
 

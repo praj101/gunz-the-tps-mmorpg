@@ -40,9 +40,9 @@ ZIDLResource::~ZIDLResource()
 
 }
 
-ZCanvas* ZIDLResource::GetCanvas(MXmlElement& element)
+ZCanvas* ZIDLResource::GetCanvas(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 	MWidget* pParentWidget;	MListener* pListener;
 
@@ -64,9 +64,9 @@ ZCanvas* ZIDLResource::GetCanvas(MXmlElement& element)
 	return pCanvas;
 }
 
-ZMapListBox* ZIDLResource::GetMapListBox(MXmlElement& element)
+ZMapListBox* ZIDLResource::GetMapListBox(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 	MWidget* pParentWidget;	MListener* pListener;
 
@@ -88,9 +88,9 @@ ZMapListBox* ZIDLResource::GetMapListBox(MXmlElement& element)
 	return pListBox;
 }
 
-ZScoreBoardFrame* ZIDLResource::GetScoreBoardFrame(MXmlElement& element)
+ZScoreBoardFrame* ZIDLResource::GetScoreBoardFrame(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 	MWidget* pParentWidget;	MListener* pListener;
 	MBFrameLook* pFrameLook = NULL;
@@ -129,9 +129,9 @@ ZScoreBoardFrame* ZIDLResource::GetScoreBoardFrame(MXmlElement& element)
 }
 
 
-ZScoreListBox* ZIDLResource::GetScoreListBox(MXmlElement& element)
+ZScoreListBox* ZIDLResource::GetScoreListBox(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 	MWidget* pParentWidget;	MListener* pListener;
 
@@ -153,9 +153,9 @@ ZScoreListBox* ZIDLResource::GetScoreListBox(MXmlElement& element)
 	return pListBox;
 }
 
-ZItemSlotView* ZIDLResource::GetItemSlot(MXmlElement& element)
+ZItemSlotView* ZIDLResource::GetItemSlot(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 
 	MWidget* pParentWidget = GetParentWidget(element);
@@ -215,9 +215,9 @@ ZItemSlotView* ZIDLResource::GetItemSlot(MXmlElement& element)
 	return pWidget;
 
 }
-ZMeshView* ZIDLResource::GetMeshView(MXmlElement& element)
+ZMeshView* ZIDLResource::GetMeshView(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 
 	MWidget* pParentWidget = GetParentWidget(element);
@@ -252,9 +252,9 @@ ZMeshView* ZIDLResource::GetMeshView(MXmlElement& element)
 	return pWidget;
 }
 
-ZMeshViewList* ZIDLResource::GetMeshViewList(MXmlElement& element)
+ZMeshViewList* ZIDLResource::GetMeshViewList(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 
 	MWidget* pParentWidget = GetParentWidget(element);
@@ -282,9 +282,9 @@ ZMeshViewList* ZIDLResource::GetMeshViewList(MXmlElement& element)
 	return pWidget;
 }
 
-ZCharacterView* ZIDLResource::GetCharacterView(MXmlElement& element)
+ZCharacterView* ZIDLResource::GetCharacterView(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 
 	MWidget* pParentWidget = GetParentWidget(element);
@@ -311,9 +311,9 @@ ZCharacterView* ZIDLResource::GetCharacterView(MXmlElement& element)
 	return pWidget;
 }
 
-ZCharacterViewList* ZIDLResource::GetCharacterViewList(MXmlElement& element)
+ZCharacterViewList* ZIDLResource::GetCharacterViewList(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 
 	MWidget* pParentWidget = GetParentWidget(element);
@@ -340,9 +340,9 @@ ZCharacterViewList* ZIDLResource::GetCharacterViewList(MXmlElement& element)
 	return pWidget;
 }
 
-ZShopEquipListbox* ZIDLResource::GetEquipmentListBox(MXmlElement& element)
+ZShopEquipListbox* ZIDLResource::GetEquipmentListBox(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 
 	MWidget* pParentWidget = GetParentWidget(element);
@@ -415,9 +415,9 @@ ZShopEquipListbox* ZIDLResource::GetEquipmentListBox(MXmlElement& element)
 	return pWidget;
 }
 
-ZStageInfoBox* ZIDLResource::GetStageInfoBox(MXmlElement& element)
+ZStageInfoBox* ZIDLResource::GetStageInfoBox(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 
 	MWidget* pParentWidget = GetParentWidget(element);
@@ -453,9 +453,9 @@ ZStageInfoBox* ZIDLResource::GetStageInfoBox(MXmlElement& element)
 	return pWidget;
 }
 
-ZRoomListBox* ZIDLResource::GetRoomListBox( MXmlElement& element )
+ZRoomListBox* ZIDLResource::GetRoomListBox( CCXmlElement& element )
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 	char szAttr[4096];
 	
@@ -517,9 +517,9 @@ ZRoomListBox* ZIDLResource::GetRoomListBox( MXmlElement& element )
 	return pWidget;
 }
 
-ZClanListBox* ZIDLResource::GetClanListBox( MXmlElement& element )
+ZClanListBox* ZIDLResource::GetClanListBox( CCXmlElement& element )
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 //	char szAttr[4096];
 
@@ -540,9 +540,9 @@ ZClanListBox* ZIDLResource::GetClanListBox( MXmlElement& element )
 	return pWidget;
 }
 
-ZDuelTournamentRankingListBox* ZIDLResource::GetDuelTournamentRankingListBox( MXmlElement& element )
+ZDuelTournamentRankingListBox* ZIDLResource::GetDuelTournamentRankingListBox( CCXmlElement& element )
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 	//	char szAttr[4096];
 
@@ -563,9 +563,9 @@ ZDuelTournamentRankingListBox* ZIDLResource::GetDuelTournamentRankingListBox( MX
 	return pWidget;
 }
 
-ZServerView* ZIDLResource::GetServerView(MXmlElement& element)
+ZServerView* ZIDLResource::GetServerView(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[ 4096];
 
 	MWidget* pParentWidget = GetParentWidget( element);
@@ -592,9 +592,9 @@ ZServerView* ZIDLResource::GetServerView(MXmlElement& element)
 	return pWidget;
 }
 
-ZPlayerListBox* ZIDLResource::GetPlayerListBox( MXmlElement& element )
+ZPlayerListBox* ZIDLResource::GetPlayerListBox( CCXmlElement& element )
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 	char szAttr[4096];
 
@@ -654,9 +654,9 @@ ZPlayerListBox* ZIDLResource::GetPlayerListBox( MXmlElement& element )
 	return pWidget;
 }
 
-ZPlayerSelectListBox* ZIDLResource::GetPlayerSelectListBox(MXmlElement& element)
+ZPlayerSelectListBox* ZIDLResource::GetPlayerSelectListBox(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 //	char szAttr[4096];
 
@@ -684,9 +684,9 @@ ZPlayerSelectListBox* ZIDLResource::GetPlayerSelectListBox(MXmlElement& element)
 	return pWidget;
 }
 
-ZBmNumLabel* ZIDLResource::GetBmNumLabel(MXmlElement& element)
+ZBmNumLabel* ZIDLResource::GetBmNumLabel(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[1024];
 	MWidget* pParentWidget;	MListener* pListener;
 
@@ -720,9 +720,9 @@ ZBmNumLabel* ZIDLResource::GetBmNumLabel(MXmlElement& element)
 	return pBmLabel;
 }
 
-ZActionKey* ZIDLResource::GetActionKey(MXmlElement& element)
+ZActionKey* ZIDLResource::GetActionKey(CCXmlElement& element)
 {
-	MXmlElement childElement;
+	CCXmlElement childElement;
 	char szBuf[4096];
 	MWidget* pParentWidget;	MListener* pListener;
 
@@ -760,7 +760,7 @@ ZActionKey* ZIDLResource::GetActionKey(MXmlElement& element)
 	return pActionKey;
 }
 
-void ZIDLResource::Parse(MXmlElement& element)
+void ZIDLResource::Parse(CCXmlElement& element)
 {
 	MIDLResource::Parse(element);
 

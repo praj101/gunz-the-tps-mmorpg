@@ -2040,7 +2040,7 @@ bool ZStageInterface::ReadSenarioNameXML( void)
 
 
 	// XML 파일을 연다
-	MXmlDocument xmlQuestItemDesc;
+	CCXmlDocument xmlQuestItemDesc;
 	xmlQuestItemDesc.Create();
 
 	char			*buffer;
@@ -2073,10 +2073,10 @@ bool ZStageInterface::ReadSenarioNameXML( void)
 	int nStdScenarioCount = 1000;
 
 	// 데이터를 읽어온다
-	MXmlElement rootElement = xmlQuestItemDesc.GetDocumentElement();
+	CCXmlElement rootElement = xmlQuestItemDesc.GetDocumentElement();
 	for ( int i = 0;  i < rootElement.GetChildNodeCount();  i++)
 	{
-		MXmlElement chrElement = rootElement.GetChildNode( i);
+		CCXmlElement chrElement = rootElement.GetChildNode( i);
 
 		char szTagName[ 256];
 		chrElement.GetTagName( szTagName);

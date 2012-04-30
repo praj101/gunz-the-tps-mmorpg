@@ -1,14 +1,14 @@
 #pragma once
-class MXmlElement;
+class CCXmlElement;
 class CCZFileSystem;
 
-class MXmlParser
+class CCXmlParser
 {
 protected:
-	virtual void ParseRoot(const char* szTagName, MXmlElement* pElement) = 0;
+	virtual void ParseRoot(const char* szTagName, CCXmlElement* pElement) = 0;
 public:
-	MXmlParser() {}
-	virtual ~MXmlParser() {}
+	CCXmlParser() {}
+	virtual ~CCXmlParser() {}
 	bool ReadXml(const char* szFileName);								///< xml로부터 정보를 읽는다.
 	bool ReadXml(CCZFileSystem* pFileSystem,const char* szFileName);		///< xml로부터 정보를 읽는다.
 };

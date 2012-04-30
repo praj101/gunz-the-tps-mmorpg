@@ -50,7 +50,7 @@
 #include "ZCharacter.h"
 #include "ZMapDesc.h"
 
-#include "MXml.h"
+#include "CCXml.h"
 #include "ZGameClient.h"
 #include "MUtil.h"
 #include "RMeshMgr.h"

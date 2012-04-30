@@ -142,7 +142,7 @@ bool MQuestItemDescManager ::ReadXml( const char* szFileName )
 		return false;
 
 
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 
 	xmlIniData.Create();
 
@@ -152,7 +152,7 @@ bool MQuestItemDescManager ::ReadXml( const char* szFileName )
 		return false;
 	}
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -182,7 +182,7 @@ bool MQuestItemDescManager ::ReadXml( CCZFileSystem* pFileSystem, const char* sz
 	if( (0== pFileSystem) || (0 == szFileName) )
 		return false;
 
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	//	<-----------------
@@ -222,7 +222,7 @@ bool MQuestItemDescManager ::ReadXml( CCZFileSystem* pFileSystem, const char* sz
 	mzf.Close();
 	//	<------------------
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -245,7 +245,7 @@ bool MQuestItemDescManager ::ReadXml( CCZFileSystem* pFileSystem, const char* sz
 	return true;
 }
 
-void MQuestItemDescManager::ParseQuestItem( MXmlElement& element )
+void MQuestItemDescManager::ParseQuestItem( CCXmlElement& element )
 {
 	MQuestItemDesc* pNewQuestItemDesc = new MQuestItemDesc;
 	if( 0 == pNewQuestItemDesc )

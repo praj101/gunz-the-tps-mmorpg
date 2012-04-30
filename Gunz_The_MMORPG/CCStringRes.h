@@ -64,7 +64,7 @@ public:
 
 		mlog( "Load XML from memory : %s(0x%04X) ", pszFileName, nLangID);
 
-		MXmlDocument aXml;
+		CCXmlDocument aXml;
 		aXml.Create();
 		if(!aXml.LoadFromMemory(buffer, nLangID))
 		{
@@ -77,10 +77,10 @@ public:
 		mlog( "- SUCCESS\n");
 
 
-		MXmlElement aParent = aXml.GetDocumentElement();
+		CCXmlElement aParent = aXml.GetDocumentElement();
 		const int	iCount  = aParent.GetChildNodeCount();
 
-		MXmlElement	aChild;
+		CCXmlElement	aChild;
 		_T			CID;
 		char		szTagName[256];
 		char		szContents[512];

@@ -30,7 +30,7 @@ bool ZLocatorList::LoadXML( CCZFileSystem* pFileSystem, const char* pszListFile 
 	if( (0 == pszListFile) || (0 == strlen(pszListFile)) )
 		return false;
 
-	MXmlDocument	xmlIniData;
+	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
 
 	char *buffer;
@@ -69,7 +69,7 @@ bool ZLocatorList::LoadXML( CCZFileSystem* pFileSystem, const char* pszListFile 
 	mzf.Close();
 	//	<------------------
 
-	MXmlElement rootElement, chrElement, attrElement;
+	CCXmlElement rootElement, chrElement, attrElement;
 	char szTagName[256];
 
 	rootElement = xmlIniData.GetDocumentElement();
@@ -93,10 +93,10 @@ bool ZLocatorList::LoadXML( CCZFileSystem* pFileSystem, const char* pszListFile 
 }
 */
 
-bool ZLocatorList::ParseLocatorList( MXmlElement& element )
+bool ZLocatorList::ParseLocatorList( CCXmlElement& element )
 {
 	int iCount = element.GetChildNodeCount();
-	MXmlElement chrElement;
+	CCXmlElement chrElement;
 	char szTagName[256];
 
 	for (int i = 0; i < iCount; i++)
@@ -113,7 +113,7 @@ bool ZLocatorList::ParseLocatorList( MXmlElement& element )
 	return true;
 }
 
-bool ZLocatorList::ParseLocator( MXmlElement& element )
+bool ZLocatorList::ParseLocator( CCXmlElement& element )
 {
 #define MAX_IP_LEN 64
 

@@ -338,7 +338,7 @@ void ZChatCmdManager::AddAlias(const char* szNewCmdName, const char* szTarCmdNam
 #define ZCMD_TOK_ATTR_HELP	"help"
 
 
-void ZCmdXmlParser::ParseRoot(const char* szTagName, MXmlElement* pElement)
+void ZCmdXmlParser::ParseRoot(const char* szTagName, CCXmlElement* pElement)
 {
 	if (!stricmp(szTagName, ZCMD_TOK_CMD)) 
 	{
@@ -346,7 +346,7 @@ void ZCmdXmlParser::ParseRoot(const char* szTagName, MXmlElement* pElement)
 	}
 }
 
-void ZCmdXmlParser::ParseCmd(MXmlElement* pElement)
+void ZCmdXmlParser::ParseCmd(CCXmlElement* pElement)
 {
 	char szTemp[256]="";
 	int n = 0;
@@ -382,7 +382,7 @@ void ZCmdXmlParser::ParseCmd(MXmlElement* pElement)
 	}
 
 	int iChildCount = pElement->GetChildNodeCount();
-	MXmlElement chrElement;
+	CCXmlElement chrElement;
 	for (int i = 0; i < iChildCount; i++)
 	{
 		chrElement = pElement->GetChildNode(i);

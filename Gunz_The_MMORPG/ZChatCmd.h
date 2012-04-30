@@ -116,9 +116,9 @@ public:
 void ZImplodeChatCmdArgs(char* szOut, const int argc, char **const argv, int nFirstIndex=0);
 
 
-#include "MXmlParser.h"
+#include "CCXmlParser.h"
 
-class ZCmdXmlParser : public MXmlParser
+class ZCmdXmlParser : public CCXmlParser
 {
 public:
 	struct _CmdStr
@@ -135,8 +135,8 @@ public:
 private:
 	map<int, _CmdStr*>		m_CmdMap;
 
-	virtual void ParseRoot(const char* szTagName, MXmlElement* pElement);
-	void ParseCmd(MXmlElement* pElement);
+	virtual void ParseRoot(const char* szTagName, CCXmlElement* pElement);
+	void ParseCmd(CCXmlElement* pElement);
 public:
 	ZCmdXmlParser();
 	virtual ~ZCmdXmlParser();
