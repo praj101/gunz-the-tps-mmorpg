@@ -5,19 +5,19 @@
 #define TIME_CATEGORY_UPDATE	500		// 0.5 sec
 
 
-//// MRefreshCategory ////
-MRefreshCategory::MRefreshCategory(int nCategory)
+//// CCRefreshCategory ////
+CCRefreshCategory::CCRefreshCategory(int nCategory)
 {
 	m_nCategory = nCategory;
 	SetChecksum(0);
 	SetLastUpdateTick(0);
 }
 
-MRefreshCategory::~MRefreshCategory()
+CCRefreshCategory::~CCRefreshCategory()
 {
 }
 
-bool MRefreshCategory::UpdateChecksum(unsigned long nTick)
+bool CCRefreshCategory::UpdateChecksum(unsigned long nTick)
 {
 	if (nTick > GetLastUpdateTick() + TIME_CATEGORY_UPDATE) {
 		SetLastUpdateTick(nTick);
@@ -26,8 +26,8 @@ bool MRefreshCategory::UpdateChecksum(unsigned long nTick)
 	return false;
 }
 
-//// MRefreshClient ////
-MRefreshClient::MRefreshClient()
+//// CCRefreshClient ////
+CCRefreshClient::CCRefreshClient()
 {
 	SetCategory(0);
 	Enable(false);
@@ -35,11 +35,11 @@ MRefreshClient::MRefreshClient()
 	SetLastUpdatedTime(0);
 }
 
-MRefreshClient::~MRefreshClient()
+CCRefreshClient::~CCRefreshClient()
 {
 }
 
-bool MRefreshClient::Sync(unsigned long nChecksum)
+bool CCRefreshClient::Sync(unsigned long nChecksum)
 {
 	if (OnSync(nChecksum) == true) {
 		SetChecksum(nChecksum);
@@ -49,28 +49,28 @@ bool MRefreshClient::Sync(unsigned long nChecksum)
 	}
 }
 
-//// MSmartRefresh ////
-MSmartRefresh::MSmartRefresh()
+//// CCSmartRefresh ////
+CCSmartRefresh::CCSmartRefresh()
 {
 }
 
-MSmartRefresh::~MSmartRefresh()
+CCSmartRefresh::~CCSmartRefresh()
 {
 	Clear();
 }
 
-void MSmartRefresh::Clear()
+void CCSmartRefresh::Clear()
 {
 	while(m_CategoryMap.size() > 0) {
-		MRefreshCategory* pCategory = (*m_CategoryMap.begin()).second;
+		CCRefreshCategory* pCategory = (*m_CategoryMap.begin()).second;
 		delete pCategory;
 		m_CategoryMap.erase(m_CategoryMap.begin());
 	}
 }
 
-MRefreshCategory* MSmartRefresh::GetCategory(int nCategory)
+CCRefreshCategory* CCSmartRefresh::GetCategory(int nCategory)
 {
-	MRefreshCategoryMap::iterator i = m_CategoryMap.find(nCategory);
+	CCRefreshCategoryMap::iterator i = m_CategoryMap.find(nCategory);
 	if(i==m_CategoryMap.end())
 		return NULL;
 	else
@@ -78,22 +78,22 @@ MRefreshCategory* MSmartRefresh::GetCategory(int nCategory)
 	return NULL;
 }
 
-void MSmartRefresh::AddCategory(MRefreshCategory* pCategory)
+void CCSmartRefresh::AddCategory(CCRefreshCategory* pCategory)
 {
-	m_CategoryMap.insert(MRefreshCategoryMap::value_type(pCategory->GetCategory(), pCategory));
+	m_CategoryMap.insert(CCRefreshCategoryMap::value_type(pCategory->GetCategory(), pCategory));
 }
 
-void MSmartRefresh::UpdateCategory(unsigned int nTick)
+void CCSmartRefresh::UpdateCategory(unsigned int nTick)
 {
-	for (MRefreshCategoryMap::iterator i=m_CategoryMap.begin(); i!=m_CategoryMap.end(); i++) {
-		MRefreshCategory* pCategory = (*i).second;
+	for (CCRefreshCategoryMap::iterator i=m_CategoryMap.begin(); i!=m_CategoryMap.end(); i++) {
+		CCRefreshCategory* pCategory = (*i).second;
 		pCategory->UpdateChecksum(nTick);
 	}
 }
 
-bool MSmartRefresh::SyncClient(MRefreshClient* pClient)
+bool CCSmartRefresh::SyncClient(CCRefreshClient* pClient)
 {
-	MRefreshCategory* pCategory = GetCategory(pClient->GetCategory());
+	CCRefreshCategory* pCategory = GetCategory(pClient->GetCategory());
 	if (pCategory == NULL) 
 		return false;
 

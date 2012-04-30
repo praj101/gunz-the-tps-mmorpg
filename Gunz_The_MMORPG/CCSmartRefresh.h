@@ -8,7 +8,7 @@
 using namespace std;
 
 
-class MRefreshCategory {
+class CCRefreshCategory {
 protected:
 	int				m_nCategory;
 	unsigned long	m_nChecksum;
@@ -25,18 +25,18 @@ protected:
 	virtual bool OnUpdateChecksum(unsigned long nTick) = 0;
 
 public:
-	MRefreshCategory(int nCategory);
-	virtual ~MRefreshCategory();
+	CCRefreshCategory(int nCategory);
+	virtual ~CCRefreshCategory();
 
 	int GetCategory()							{ return m_nCategory; }
 	unsigned long GetChecksum()					{ return m_nChecksum; }
 
 	inline bool UpdateChecksum(unsigned long nTick);
 };
-class MRefreshCategoryMap : public map<int, MRefreshCategory*>{};
+class CCRefreshCategoryMap : public map<int, CCRefreshCategory*>{};
 
 
-class MRefreshClient {
+class CCRefreshClient {
 protected:
 	int				m_nCategory;
 	unsigned long	m_nChecksum;
@@ -47,8 +47,8 @@ protected:
 	virtual bool OnSync(unsigned long nChecksum) = 0;
 
 public:
-	MRefreshClient();
-	virtual ~MRefreshClient();
+	CCRefreshClient();
+	virtual ~CCRefreshClient();
 	
 	int GetCategory()								{ return m_nCategory; }
 	void SetCategory(int nCategory)					{ m_nCategory = nCategory; }
@@ -66,22 +66,22 @@ public:
 };
 
 
-class MSmartRefresh {
+class CCSmartRefresh {
 protected:
-	MRefreshCategoryMap		m_CategoryMap;
+	CCRefreshCategoryMap		m_CategoryMap;
 
 public:
-	MSmartRefresh();
-	virtual ~MSmartRefresh();
+	CCSmartRefresh();
+	virtual ~CCSmartRefresh();
 	void Clear();
 
-	MRefreshCategory* GetCategory(int nCategory);
-	void AddCategory(MRefreshCategory* pCategory);
+	CCRefreshCategory* GetCategory(int nCategory);
+	void AddCategory(CCRefreshCategory* pCategory);
 	void UpdateCategory(unsigned int nTick);
 
-//	void AddClient(MRefreshClient* pClient);
-//	void RemoveClient(MRefreshClient* pClient);
-	bool SyncClient(MRefreshClient* pClient);	// Refresh되면:True, 변동없으면:False
+//	void AddClient(CCRefreshClient* pClient);
+//	void RemoveClient(CCRefreshClient* pClient);
+	bool SyncClient(CCRefreshClient* pClient);	// Refresh되면:True, 변동없으면:False
 };
 
 
