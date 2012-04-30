@@ -5,7 +5,7 @@
 #include "CCMatchChannel.h"
 
 
-//// MRefreshCategoryChannel ////
+//// CCRefreshCategoryChannel ////
 bool CCRefreshCategoryChannelImpl::OnUpdateChecksum(unsigned long nTick)
 {
 	unsigned long nChecksum = 0;
@@ -29,7 +29,7 @@ bool CCRefreshCategoryChannelImpl::OnUpdateChecksum(unsigned long nTick)
 	return true;
 }
 
-//// MRefreshClientChannel ////
+//// CCRefreshClientChannel ////
 bool CCRefreshClientChannelImpl::OnSync(unsigned long nChecksum)
 {
 	CCMatchObject* pObj = GetMatchObject();
@@ -39,8 +39,8 @@ bool CCRefreshClientChannelImpl::OnSync(unsigned long nChecksum)
 }
 
 
-//// MRefreshCategoryClanMember ////
-bool MRefreshCategoryClanMemberImpl::OnUpdateChecksum(unsigned long nTick)
+//// CCRefreshCategoryClanMember ////
+bool CCRefreshCategoryClanMemberImpl::OnUpdateChecksum(unsigned long nTick)
 {
 	CCMatchClan* pClan = GetMatchClan();
 	unsigned long nChecksum = 0;
@@ -63,8 +63,8 @@ bool MRefreshCategoryClanMemberImpl::OnUpdateChecksum(unsigned long nTick)
 }
 
 
-//// MRefreshClientClanMemberImpl ////
-bool MRefreshClientClanMemberImpl::OnSync(unsigned long nChecksum)
+//// CCRefreshClientClanMemberImpl ////
+bool CCRefreshClientClanMemberImpl::OnSync(unsigned long nChecksum)
 {
 	CCMatchObject* pObj = GetMatchObject();
 	CCMatchServer::GetInstance()->ResponseClanMemberList(pObj->GetUID());

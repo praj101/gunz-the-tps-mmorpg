@@ -759,7 +759,7 @@ void CCMatchServer::OnClanRequestMemberList(const CCUID& uidChar)
 	CCMatchClan* pClan = FindClan(pObj->GetCharInfo()->m_ClanInfo.m_nClanID);
 	if (pClan == NULL) return;
 
-	MRefreshClientClanMemberImpl* pImpl = pObj->GetRefreshClientClanMemberImplement();
+	CCRefreshClientClanMemberImpl* pImpl = pObj->GetRefreshClientClanMemberImplement();
 	pImpl->SetCategory(0);
 	pImpl->SetChecksum(0);
 	pImpl->Enable(true);

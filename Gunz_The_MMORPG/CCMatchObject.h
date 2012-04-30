@@ -739,7 +739,7 @@ protected:
 	int				m_nStageCursor;
 
 	CCRefreshClientChannelImpl		m_RefreshClientChannelImpl;
-	MRefreshClientClanMemberImpl	m_RefreshClientClanMemberImpl;
+	CCRefreshClientClanMemberImpl	m_RefreshClientClanMemberImpl;
 
 	CCMatchObjectStageState	m_nStageState;	// 대기방에서의 상태정보
 	CCMatchTeam		m_nTeam;
@@ -863,7 +863,7 @@ public:
 	void SetStageListTransfer(bool bVal)	{ m_bStageListTransfer = bVal; UpdateStageListChecksum(0); }
 
 	CCRefreshClientChannelImpl* GetRefreshClientChannelImplement()		{ return &m_RefreshClientChannelImpl; }
-	MRefreshClientClanMemberImpl* GetRefreshClientClanMemberImplement()	{ return &m_RefreshClientClanMemberImpl; }
+	CCRefreshClientClanMemberImpl* GetRefreshClientClanMemberImplement()	{ return &m_RefreshClientClanMemberImpl; }
 
 	CCMatchTeam GetTeam()			{ return m_nTeam; }
 	void SetTeam(CCMatchTeam nTeam);

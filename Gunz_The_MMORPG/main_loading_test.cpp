@@ -863,8 +863,8 @@ void ClearTrashFiles()
 
 bool CheckFileList()
 {
-	MZFileSystem *pfs=ZApplication::GetFileSystem();
-	MZFile mzf;
+	CCZFileSystem *pfs=ZApplication::GetFileSystem();
+	CCZFile mzf;
 
 	string strFileNameFillist(FILENAME_FILELIST);
 #ifndef _DEBUG
@@ -1357,7 +1357,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	}
 
 	nRet = _AhnHS_SaveFuncAddress(6, _AhnHS_Initialize, _AhnHS_StartService,			// 핵실드 함수
-										ZCheckHackProcess, ZGetMZFileChecksum,				// 핵판별 자체함수
+										ZCheckHackProcess, ZGetCCZFileChecksum,				// 핵판별 자체함수
 										ZSetupDataChecker_Global, ZSetupDataChecker_Game);
 	if(nRet != ERROR_SUCCESS)
 	{
@@ -1437,7 +1437,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 	CheckFileAssociation();
 
-	// Initialize MZFileSystem - MUpdate 
+	// Initialize CCZFileSystem - MUpdate 
 	MRegistry::szApplicationName=APPLICATION_NAME;
 
 	g_App.InitFileSystem();
@@ -1452,7 +1452,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 #ifdef _PUBLISH
 //	#ifndef NETMARBLE_VERSION
-		MZFile::SetReadMode( MZIPREADFLAG_MRS2 );
+		CCZFile::SetReadMode( MZIPREADFLAG_MRS2 );
 //	#endif
 #endif
 

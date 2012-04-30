@@ -90,7 +90,7 @@ public :
 	}
 
 	bool ReadXml( const char* szFileName );
-	bool ReadXml( MZFileSystem* pFileSystem, const char* szFileName );
+	bool ReadXml( CCZFileSystem* pFileSystem, const char* szFileName );
 	void ParseQuestItem( CCXmlElement& element );
 	void Clear();
 
