@@ -231,6 +231,10 @@
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
 				<File
+					RelativePath=".\MemPool.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\ZChat.cpp"
 					>
 				</File>
@@ -2094,6 +2098,10 @@
 		</File>
 		<File
 			RelativePath=".\Core4R2.h"
+			>
+		</File>
+		<File
+			RelativePath=".\MemPool.h"
 			>
 		</File>
 		<File
