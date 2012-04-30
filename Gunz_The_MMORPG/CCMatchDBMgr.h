@@ -3,16 +3,16 @@
 #pragma warning( disable: 4996 )
 #include "ODBCRecordset.h"
 #include "CCMatchItem.h"
-#include "MMatchGlobal.h"
+#include "CCMatchGlobal.h"
 #include "CCQuestItem.h"
 #include "CCQuestConst.h"
-#include "MMatchDBFilter.h"
-#include "MCountryFilterDBMgr.h"
+#include "CCMatchDBFilter.h"
+#include "CCCountryFilterDBMgr.h"
 
-#include "MMatchBRMachine.h"
-#include "MMatchCharBRInfo.h"
+#include "CCMatchBRMachine.h"
+#include "CCMatchCharBRInfo.h"
 
-#include "MMatchStatus.h"
+#include "CCMatchStatus.h"
 
 #define _STATUS_DB_START	unsigned long int nStatusStartTime = timeGetTime();
 #define _STATUS_DB_END(nID) MGetServerStatusSingleton()->AddDBQuery(nID, timeGetTime()-nStatusStartTime);

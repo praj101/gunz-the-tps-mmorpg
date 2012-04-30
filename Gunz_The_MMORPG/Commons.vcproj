@@ -1469,6 +1469,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchDBMgr.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchDebug.cpp"
 			>
 		</File>
