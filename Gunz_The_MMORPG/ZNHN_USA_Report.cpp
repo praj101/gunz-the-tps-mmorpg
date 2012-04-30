@@ -41,7 +41,7 @@ bool ZNHNUSA_Report::InitReport( const char* szUserID, const char* pszGameStr )
 
 	if( 0 == HanReportInitGameStringWithDump(const_cast<char*>(pszGameStr)) )
 	{
-		mlog( "ZNHNUSA_Report::InitReport - success\n" );
+		cclog( "ZNHNUSA_Report::InitReport - success\n" );
 		return true;
 	}
 	else
@@ -61,7 +61,7 @@ void ZNHNUSA_Report::ReportStartGame()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportStartGame - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportStartGame - fail(%s)\n", szReport );
 	}
 }
 
@@ -73,7 +73,7 @@ void ZNHNUSA_Report::ReportInitGameGuard()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportInitGameGuard - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportInitGameGuard - fail(%s)\n", szReport );
 	}
 }
 
@@ -85,7 +85,7 @@ void ZNHNUSA_Report::ReportInitComplete()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportInitComplete - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportInitComplete - fail(%s)\n", szReport );
 	}
 }
 
@@ -97,7 +97,7 @@ void ZNHNUSA_Report::ReportCreateGameScreen()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportCreateGameScreen - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportCreateGameScreen - fail(%s)\n", szReport );
 	}
 }
 
@@ -109,7 +109,7 @@ void ZNHNUSA_Report::ReportDisplayServerList()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportDisplayServerList - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportDisplayServerList - fail(%s)\n", szReport );
 	}
 }
 
@@ -121,7 +121,7 @@ void ZNHNUSA_Report::ReportDisplaySelCharacter()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportDisplaySelCharacter - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportDisplaySelCharacter - fail(%s)\n", szReport );
 	}
 }
 
@@ -133,7 +133,7 @@ void ZNHNUSA_Report::ReportDisplayCreateCharacter()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportDisplayCreateCharacter - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportDisplayCreateCharacter - fail(%s)\n", szReport );
 	}
 }
 
@@ -145,7 +145,7 @@ void ZNHNUSA_Report::ReportSelectCharacter()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportSelectCharacter - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportSelectCharacter - fail(%s)\n", szReport );
 	}
 }
 
@@ -157,7 +157,7 @@ void ZNHNUSA_Report::ReportJoinChannel()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportJoinChannel - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportJoinChannel - fail(%s)\n", szReport );
 	}
 }
 
@@ -169,7 +169,7 @@ void ZNHNUSA_Report::ReportCompleteJoinChannel()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportCompleteJoinChannel - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportCompleteJoinChannel - fail(%s)\n", szReport );
 	}
 }
 
@@ -181,7 +181,7 @@ void ZNHNUSA_Report::ReportJoinRoom()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportJoinRoom - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportJoinRoom - fail(%s)\n", szReport );
 	}
 }
 
@@ -193,7 +193,7 @@ void ZNHNUSA_Report::ReportCompleteGameResult()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportCompleteGameResult - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportCompleteGameResult - fail(%s)\n", szReport );
 	}
 }
 
@@ -205,7 +205,7 @@ void ZNHNUSA_Report::ReportCloseGame()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportCloseGame - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportCloseGame - fail(%s)\n", szReport );
 	}
 }
 
@@ -217,7 +217,7 @@ void ZNHNUSA_Report::ReportCrashedGame()
 	if( 0 != HanReportSendPosLog(szReport) )
 	{
 		ASSERT( 0 );
-		mlog( "ZNHNUSA_Report::ReportCrashedGame - fail(%s)\n", szReport );
+		cclog( "ZNHNUSA_Report::ReportCrashedGame - fail(%s)\n", szReport );
 	}
 }
 

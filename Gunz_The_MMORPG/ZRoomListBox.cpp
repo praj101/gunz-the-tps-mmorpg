@@ -455,7 +455,7 @@ void ZRoomListBox::SetPage( )
 	//if( i == m_currPage ) return;
 	//
 	//m_currPage = i;
-	//mlog("%d 페이지 요청\n",i);
+	//cclog("%d 페이지 요청\n",i);
 }
 
 void ZRoomListBox::SetScroll(int nPrevStageCount, int nNextStageCount)

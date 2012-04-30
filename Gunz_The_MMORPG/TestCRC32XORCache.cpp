@@ -59,7 +59,7 @@ void T_InitItemDescMgr()
 
 	_ASSERT( !g_ItemDescMgr.empty() );
 
-	mlog( "test item desc count : %u\n", TEST_ITEM_COUNT );
+	cclog( "test item desc count : %u\n", TEST_ITEM_COUNT );
 }
 
 
@@ -105,7 +105,7 @@ void T_InitEquipItemList()
 		}
 	}
 
-	mlog( "test equip item count : %u\n", TEST_EQUIPLIST_COUNT *  TEST_EQUIP_ITEM_COUNT );
+	cclog( "test equip item count : %u\n", TEST_EQUIPLIST_COUNT *  TEST_EQUIP_ITEM_COUNT );
 }
 
 
@@ -303,7 +303,7 @@ void T_InitWItemDescMgr()
 
 	_ASSERT( !g_WItemDescMgr.empty() );
 
-	mlog( "test spawn info desc count : %u\n", TEST_WITEM_COUNT );
+	cclog( "test spawn info desc count : %u\n", TEST_WITEM_COUNT );
 }
 
 
@@ -345,7 +345,7 @@ void T_InitSpawnWItemList()
 		g_SpawnInfoList.insert( T_CCMatchMapsWorldItemSpawnInfoSetMap::value_type(nWItemID, pWItemDesc) );
 	}
 
-	mlog( "test spawn item count : %u\n", TEST_WITEM_SPAWN_COUNT );
+	cclog( "test spawn item count : %u\n", TEST_WITEM_SPAWN_COUNT );
 }
 
 

@@ -866,7 +866,7 @@ void ZIDLResource::TransText(char* szSrc, char* szOut)
 
 	if (!strnicmp(szOut, "STR:", 4))
 	{
-		mlog("%s , %s\n", szSrc, szOut);
+		cclog("%s , %s\n", szSrc, szOut);
 	}
 }
 

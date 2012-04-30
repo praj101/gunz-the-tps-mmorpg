@@ -44,7 +44,7 @@ bool MBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFileS
 	if (!m_StringTable.Initialize(strFileName.c_str(), nLangID, pfs))
 	{
 		_ASSERT(0);
-		mlog("Error!! - StringTable Initalize Failed\n");
+		cclog("Error!! - StringTable Initalize Failed\n");
 		return false;
 	}
 
@@ -53,7 +53,7 @@ bool MBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFileS
 	if (!m_ErrorTable.Initialize(strFileName.c_str(), nLangID, pfs))
 	{
 		_ASSERT(0);
-		mlog("Error!! - ErrorTable Initalize Failed\n");
+		cclog("Error!! - ErrorTable Initalize Failed\n");
 		return false;
 	}
 

@@ -52,12 +52,12 @@ bool MServer::Create(int nPort, const bool bReuse )
 
 	if(MCommandCommunicator::Create()==false) 
 	{
-		mlog( "MServer::Create - MCommandCommunicator::Create()==false\n" );
+		cclog( "MServer::Create - MCommandCommunicator::Create()==false\n" );
 		bResult = false;
 	}
 	if(m_RealCPNet.Create(nPort, bReuse)==false) 
 	{
-		mlog( "MServer::Create - m_RealCPNet.Create(%u)==false", nPort );
+		cclog( "MServer::Create - m_RealCPNet.Create(%u)==false", nPort );
 		bResult = false;
 	}
 

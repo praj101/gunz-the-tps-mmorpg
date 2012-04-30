@@ -116,7 +116,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 {
 	// szSubDir(대체경로)에서 먼저 파일을 찾고 없으면 szDir에서 로딩한다
 	// (대체경로에는 사용자가 옵션에서 선택한 언어용 비트맵을 넣어둔다)
-	mlog("start log bipmap\n");
+	cclog("start log bipmap\n");
 
 	const char *loadExts[] = { ".png", ".bmp", ".tga" };
 
@@ -215,7 +215,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 		}
 	}
 
-	mlog("end of load bitmaps2\n");
+	cclog("end of load bitmaps2\n");
 	//ZLoadBitmap(PATH_CUSTOM_CROSSHAIR, ".png", true);
 
 }
@@ -504,7 +504,7 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 {
 	DWORD _begin_time,_end_time;
 #define BEGIN_ { _begin_time = timeGetTime(); }
-#define END_(x) { _end_time = timeGetTime(); float f_time = (_end_time - _begin_time) / 1000.f; mlog("%s : %f \n", x,f_time ); }
+#define END_(x) { _end_time = timeGetTime(); float f_time = (_end_time - _begin_time) / 1000.f; cclog("%s : %f \n", x,f_time ); }
 
 
 	SetObjectTextureLevel(ZGetConfiguration()->GetVideo()->nCharTexLevel);
@@ -565,17 +565,17 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 
 		if (m_IDLResource.LoadFromFile(szFileName, this, ZGetFileSystem()))
 		{
-			mlog("IDLResource Loading Success!!\n");
+			cclog("IDLResource Loading Success!!\n");
 		}
 		else
 		{
-			mlog("IDLResource Loading Failed!!\n");
+			cclog("IDLResource Loading Failed!!\n");
 		}
 		bRet = false;
 	}
 	else
 	{
-		mlog("IDLResource Loading Success!!\n");
+		cclog("IDLResource Loading Success!!\n");
 	}
 	END_("IDL resources");
 
@@ -977,11 +977,11 @@ void ZGameInterface::FinalInterface()
 
 	m_IDLResource.Clear();
 
-	mlog("clear IDL resource end.\n");
+	cclog("clear IDL resource end.\n");
 
 	SetCursor(NULL);
 
-	mlog("Final interface end.\n");
+	cclog("Final interface end.\n");
 }
 
 bool ZGameInterface::ChangeInterfaceSkin(const char* szNewSkinName)
@@ -1083,7 +1083,7 @@ bool ZGameInterface::OnGameCreate(void)
 	FARPROC RetVal = GetProcAddress( hMod, "recv"); 
 	if ( (BYTE)RetVal == 0xE9)
 	{
-		mlog( "Hacking detected");
+		cclog( "Hacking detected");
 
 //		MessageBox(NULL, ZMsg(MSG_HACKING_DETECTED), ZMsg( MSG_WARNING), MB_OK);
 		ZApplication::GetGameInterface()->ShowWidget("HackWarnings", true, true);
@@ -1180,7 +1180,7 @@ bool ZGameInterface::OnGameCreate(void)
 	m_pGame=new ZGame;
 	if(!m_pGame->Create(ZApplication::GetFileSystem(), &gameLoading ))
 	{
-		mlog("ZGame 생성 실패\n");
+		cclog("ZGame 생성 실패\n");
 		SAFE_DELETE(m_pGame);
 		m_bLoading = false;
 		//m_pLoadingInterface->OnDestroy();
@@ -1266,7 +1266,7 @@ bool ZGameInterface::OnGameCreate(void)
 
 void ZGameInterface::OnGameDestroy(void)
 {
-	mlog( "game interface destory begin.\n" );
+	cclog( "game interface destory begin.\n" );
 	MPicture* pPicture;
 	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap1");
 	if(pPicture) pPicture->SetBitmap(NULL);
@@ -1310,7 +1310,7 @@ void ZGameInterface::OnGameDestroy(void)
 	// 동영상 캡쳐...2008.10.02
 	SAFE_DELETE(m_Capture);
 
-	mlog("game interface destroy finished\n");
+	cclog("game interface destroy finished\n");
 }
 
 void ZGameInterface::OnGreeterCreate(void)
@@ -1339,7 +1339,7 @@ void ZGameInterface::OnLoginCreate(void)
 	FARPROC RetVal = GetProcAddress( hMod, "recv"); 
 	if ( (BYTE)RetVal == 0xE9)
 	{
-		mlog( "Hacking detected");
+		cclog( "Hacking detected");
 
 //		MessageBox(NULL, ZMsg(MSG_HACKING_DETECTED), ZMsg( MSG_WARNING), MB_OK);
 		ZApplication::GetGameInterface()->ShowWidget("HackWarnings", true, true);
@@ -1435,7 +1435,7 @@ void ZGameInterface::OnLoginCreate(void)
 	// 넷마블도 이제 서버리스트를 보여주기 때문에 주석처리
 	// Netmarble 에서 로긴한 경우에 Standalone Login을 요구하면 게임종료
 	//if (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_NETMARBLE) {
-	//	mlog("Netmarble Logout \n");
+	//	cclog("Netmarble Logout \n");
 	//	ZApplication::Exit();
 	//	return;
 	//}
@@ -1666,7 +1666,7 @@ void ZGameInterface::OnNetmarbleLoginCreate(void)
 	if (pAuthInfo)
 	{
 #ifdef _DEBUG
-		mlog("Connect to Netmarble GunzServer(IP:%s , Port:%d) \n", pAuthInfo->GetServerIP(), pAuthInfo->GetServerPort());
+		cclog("Connect to Netmarble GunzServer(IP:%s , Port:%d) \n", pAuthInfo->GetServerIP(), pAuthInfo->GetServerPort());
 #endif
 		ZPostConnect(pAuthInfo->GetServerIP(), pAuthInfo->GetServerPort());
 	}
@@ -1969,7 +1969,7 @@ void ZGameInterface::OnStageCreate(void)
 	FARPROC RetVal = GetProcAddress( hMod, "recv"); 
 	if ( ZCheckHackProcess() || (BYTE)RetVal == 0xE9)
 	{
-		mlog( "Hacking detected");
+		cclog( "Hacking detected");
 
 //		MessageBox(NULL, ZMsg(MSG_HACKING_DETECTED), ZMsg( MSG_WARNING), MB_OK);
 		ZApplication::GetGameInterface()->ShowWidget("HackWarnings", true, true);
@@ -1978,7 +1978,7 @@ void ZGameInterface::OnStageCreate(void)
 	}
 
 
-	mlog("StageCreated\n");
+	cclog("StageCreated\n");
 
 	if (m_spGameClient)
 	{
@@ -2118,14 +2118,14 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 		m_spGameClient = new ZGameClient();
 
 	if(!m_Tips.Initialize(ZApplication::GetFileSystem(), ZGetLocale()->GetLanguage())) {
-		mlog("Check tips.xml\n");
+		cclog("Check tips.xml\n");
 		return false;
 	}
 	
 	ZLoadingProgress interfaceProgress("interfaceSkin",pLoadingProgress,.7f);
 	if(!InitInterface(ZGetConfiguration()->GetInterfaceSkinName(),&interfaceProgress))
 	{
-		mlog("ZGameInterface::OnCreate: Failed InitInterface\n");
+		cclog("ZGameInterface::OnCreate: Failed InitInterface\n");
 		return false;
 	}
 
@@ -2134,26 +2134,26 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	/*
 	if( !InitLocatorList(ZApplication::GetFileSystem(), "system/ZLocatorList.xml") )
 	{
-		mlog( "ZGameInterface::OnCreate: Fail InitLocatorList\n" );
+		cclog( "ZGameInterface::OnCreate: Fail InitLocatorList\n" );
 		// 로케이터를 못 읽어도 게임은 진행을 함. 
 		// return false;
 	}
 	*/
 	
 
-	// mlog("ZGameInterface::OnCreate : InitInterface \n");
+	// cclog("ZGameInterface::OnCreate : InitInterface \n");
 
 	m_pScreenEffectManager=new ZScreenEffectManager;
 	if(!m_pScreenEffectManager->Create()) 
 		return false;
 
-	mlog("Screen effect manager create success.\n" );
+	cclog("Screen effect manager create success.\n" );
 
 	m_pEffectManager = new ZEffectManager;
 	if(!m_pEffectManager->Create())
 		return false;
 
-	mlog("Effect manager create success.\n");
+	cclog("Effect manager create success.\n");
 	
 	//m_pCursorSurface=CreateImageSurface("Interface/Default/cursor.png");
 	//if( m_pCursorSurface != NULL )
@@ -2178,7 +2178,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 		m_spGameClient->CreateUPnP(nNetworkPort);
 		m_MyPort = nNetworkPort;
 			
-		mlog("Client create success.\n");
+		cclog("Client create success.\n");
 	}
 
 //	SetState(m_nInitialState);
@@ -2626,14 +2626,14 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	SetCursorEnable(true);
 
-	mlog( "game interface create success.\n" );
+	cclog( "game interface create success.\n" );
 
 	return true;
 }
 
 void ZGameInterface::OnDestroy()
 {
-	mlog("Destroy interface begin \n");
+	cclog("Destroy interface begin \n");
 
 	MTextArea* pTextArea = (MTextArea*)m_IDLResource.FindWidget("Shop_ItemDescription");
 	if (pTextArea) pTextArea->ChangeCustomLook(NULL);
@@ -2658,10 +2658,10 @@ void ZGameInterface::OnDestroy()
 	if (!m_sbRemainClientConnectionForResetApp)
 	{
 		m_spGameClient->Destroy();
-		mlog("destroy client.\n");
+		cclog("destroy client.\n");
 		
 		SAFE_DELETE(m_spGameClient);
-		// mlog("SAFE_DELETE(m_spGameClient) : \n");
+		// cclog("SAFE_DELETE(m_spGameClient) : \n");
 	}
 
 	SAFE_DELETE(m_pLoginBG);			// 해제 안되는 경우가 있길래 -_-;
@@ -2669,12 +2669,12 @@ void ZGameInterface::OnDestroy()
 	m_Tips.Finalize();
 	FinalInterface();
 
-	mlog("Destroy game interface done.\n");
+	cclog("Destroy game interface done.\n");
 }
 
 void ZGameInterface::OnShutdownState()
 {
-	mlog("ZGameInterface::OnShutdown() : begin \n");
+	cclog("ZGameInterface::OnShutdown() : begin \n");
 	
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 			MLabel* pLabel = (MLabel*)pResource->FindWidget("NetmarbleLoginMessage");
@@ -2682,7 +2682,7 @@ void ZGameInterface::OnShutdownState()
 			pLabel->SetText( ZErrStr(MERR_CLIENT_DISCONNECTED) );
 			ZApplication::GetGameInterface()->ShowWidget("NetmarbleLogin", true);
 
-	mlog("ZGameInterface::OnShutdown() : done() \n");
+	cclog("ZGameInterface::OnShutdown() : done() \n");
 }
 
 /*
@@ -6142,7 +6142,7 @@ void ZGameInterface::OnResponseBuyQuestItem( const int nResult, const int nBP )
 	else
 	{
 		// 정의되어있지 않음.
-		mlog( "ZGameInterface::OnCommand::MC_MATCH_RESPONSE_BUY_QUEST_ITEM - 정의되지 않은 결과처리.\n" );
+		cclog( "ZGameInterface::OnCommand::MC_MATCH_RESPONSE_BUY_QUEST_ITEM - 정의되지 않은 결과처리.\n" );
 		ASSERT( 0 );				
 	}
 
@@ -6302,7 +6302,7 @@ void ZGameInterface::OnResponseServerStatusInfoList( const int nListCount, void*
 			MTD_ServerStatusInfo* pss = (MTD_ServerStatusInfo*)MGetBlobArrayElement( pBlob, i );
 			if( 0 == pss )
 			{
-				mlog( "ZGameInterface::OnResponseServerStatusInfoList - %d번째에서 NULL포인터 발생.", i );
+				cclog( "ZGameInterface::OnResponseServerStatusInfoList - %d번째에서 NULL포인터 발생.", i );
 				continue;
 			}
 
@@ -6413,7 +6413,7 @@ void ZGameInterface::OnResponseServerStatusInfoList( const int nListCount, void*
 
 #ifdef _DEBUG
 			// 서버 로그 남김
-			mlog( "ServerList - ID:%d, Name:%s, IP:%s, Port:%d, Type:%d, (%d/%d)\n",
+			cclog( "ServerList - ID:%d, Name:%s, IP:%s, Port:%d, Type:%d, (%d/%d)\n",
 				pss->m_nServerID, szServName, strAddrBuf, pss->m_nPort, pss->m_nType, pss->m_nCurPlayer, pss->m_nMaxPlayer, "" );
 #endif
 		}
@@ -6552,14 +6552,14 @@ void ZGameInterface::OnRequestXTrapSeedKey(unsigned char *pComBuf)		// Update sg
 		{
 			ZGetGameClient()->Disconnect();
 			AfxMessageBox(szMsgBuf);
-			mlog("Disconnect() called!\n");
+			cclog("Disconnect() called!\n");
 		}
 		else
 		{
 			OnDisconnectMsg(MERR_FIND_HACKER);
-			mlog("OnDisconnectMsg() called!\n");
+			cclog("OnDisconnectMsg() called!\n");
 		}
-		mlog(szMsgBuf);
+		cclog(szMsgBuf);
         PostQuitMessage(0);
 	}
 #endif

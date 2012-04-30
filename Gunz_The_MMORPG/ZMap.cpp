@@ -76,7 +76,7 @@ bool InitMaps(MWidget *pWidget)
 
 	MChannelRule* pRule = ZGetChannelRuleMgr()->GetCurrentRule();
 	if (pRule == NULL) {
-		mlog("Init maps : no Current ChannelRule \n");
+		cclog("Init maps : no Current ChannelRule \n");
 		return false;
 	}
 

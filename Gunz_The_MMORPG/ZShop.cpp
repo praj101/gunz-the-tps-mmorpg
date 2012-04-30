@@ -220,7 +220,7 @@ void ZShop::SetItemsGamble( const vector<MTD_GambleItemNode*>& vGItemList)
 	ClearGamble();
 
 	if( IsAdminGrade(ZGetMyInfo()->GetUGradeID()) )
-		mlog( "Shop Gamble item count : %d\n", (int)vGItemList.size() );
+		cclog( "Shop Gamble item count : %d\n", (int)vGItemList.size() );
 
 	for ( int i = 0;  i < (int)vGItemList.size();  i++)
 	{
@@ -233,13 +233,13 @@ void ZShop::SetItemsGamble( const vector<MTD_GambleItemNode*>& vGItemList)
 			const ZGambleItemDefine* pGItemDef = ZGetGambleItemDefineMgr().GetGambleItemDefine( pNode->nItemID );
 			if( NULL != pGItemDef )
 			{
-				mlog( "shop gitem : %d, %s\n"
+				cclog( "shop gitem : %d, %s\n"
 					, pGItemDef->GetGambleItemID()
 					, pGItemDef->GetName().c_str() );
 			}
 			else
 			{
-				mlog ("invaled shop gitem : %d\n"
+				cclog ("invaled shop gitem : %d\n"
 					, pNode->nItemID );
 			}
 		}

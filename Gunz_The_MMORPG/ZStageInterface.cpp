@@ -2052,7 +2052,7 @@ bool ZStageInterface::ReadSenarioNameXML( void)
 #endif
 	if( !mzFile.Open(strFileScenario.c_str(), ZApplication::GetFileSystem())) 
 	{
-		mlog("Error while read : %s", strFileScenario.c_str());
+		cclog("Error while read : %s", strFileScenario.c_str());
 		xmlQuestItemDesc.Destroy();
 		return false;
 	} 

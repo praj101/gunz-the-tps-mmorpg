@@ -216,7 +216,7 @@ ZMapSpawnData* ZMapSpawnManager::GetSoloRandomData()
 			nIndex = nRandomNumber % GetSoloCount();
 	}
 
-//	mlog("spawn index %d \n" , nIndex);
+//	cclog("spawn index %d \n" , nIndex);
 
 	ZMapSpawnData* pSpawnData = GetSoloData(nIndex);
 

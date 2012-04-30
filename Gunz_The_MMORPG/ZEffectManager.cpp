@@ -38,7 +38,7 @@ public:
 			ZEffect *pDup = *itr;
 
 			_ASSERT(FALSE);
-			mlog("effect duplicated.\n");
+			cclog("effect duplicated.\n");
 		}
 		insert(pNew);
 	}
@@ -47,7 +47,7 @@ public:
 		if(find(pEffect)==end())
 		{
 			_ASSERT(FALSE);
-			mlog("effect not exist.\n");
+			cclog("effect not exist.\n");
 		}
 		erase(pEffect);
 	}
@@ -318,7 +318,7 @@ bool ZEffectManager::Create(void)
 	m_pEffectMeshMgr = new RMeshMgr;
 
 	if(m_pEffectMeshMgr->LoadXmlList("SFX/effect_list.xml")==-1) {
-		mlog("effect_list loding error\n");
+		cclog("effect_list loding error\n");
 	}
 
 	// 속도를 위한 index
@@ -657,7 +657,7 @@ void ZEffectManager::Add(ZEffect* pNew)
 	{
 		if( D3DXVec3Length( &( water_pos - src_pos ) ) < MAX_WATER_DEEP )
 		{
-//			mlog("water\n");
+//			cclog("water\n");
 			SAFE_DELETE(pNew);
 			return;
 		}
@@ -773,7 +773,7 @@ void ZEffectManager::Draw(unsigned long int nTime,int mode,float height)
 		// 실패했다
 		static int nErrorLogCount = 0;
 		if(nErrorLogCount<100) {
-			mlog("CreateStateBlock failed : %s",DXGetErrorString9(hr));
+			cclog("CreateStateBlock failed : %s",DXGetErrorString9(hr));
 		}
 	}
 
@@ -802,7 +802,7 @@ void ZEffectManager::Draw(unsigned long int nTime,int mode,float height)
 
 			if(pEffect==NULL) {
 				int _size = (int)m_Effects[d].size();
-				mlog("뜨아.. EffectManager NULL 문제 발생 ( %d list 요소) : size : %d \n",d,_size);
+				cclog("뜨아.. EffectManager NULL 문제 발생 ( %d list 요소) : size : %d \n",d,_size);
 				++node;
 			} else {
 				if(!pEffect->m_bWaterSkip) {
@@ -974,7 +974,7 @@ void ZEffectManager::Draw(unsigned long int nTime)
 			if(pEffect==NULL) {
 
 				int _size = (int)m_Effects[d].size();
-				mlog("뜨아.. EffectManager NULL 문제 발생 ( %d list 요소) : size : %d \n",d,_size);
+				cclog("뜨아.. EffectManager NULL 문제 발생 ( %d list 요소) : size : %d \n",d,_size);
 				++node;
 
 			} else {

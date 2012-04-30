@@ -57,13 +57,13 @@ MImplementRTTI(ZMyCharacter, ZCharacter);
 ZMyCharacter::ZMyCharacter() : ZCharacter()
 {
 #ifndef _PUBLISH	// 아래 출력문이 절대 실서비스에 나가지 않도록 주의
-	//mlog("ZMyCharacter : %x\n", (DWORD)&m_shotTimeInfo);
-	//mlog("ZCharacter,m_fLastReceivedTime : %x\n", (DWORD)&m_fLastReceivedTime);
-	////mlog("ZCharacter,m_nKillsThisRound : %x\n", (DWORD)&m_nKillsThisRound);
-	//mlog("ZCharacter : %x\n", (DWORD)&m_Property);
-	//mlog("ZCharacterObject : %x\n", (DWORD)&m_BasicHistory);
-	//mlog("ZObject : %x\n", (DWORD)&m_bRendered);
-	//mlog("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	//cclog("ZMyCharacter : %x\n", (DWORD)&m_shotTimeInfo);
+	//cclog("ZCharacter,m_fLastReceivedTime : %x\n", (DWORD)&m_fLastReceivedTime);
+	////cclog("ZCharacter,m_nKillsThisRound : %x\n", (DWORD)&m_nKillsThisRound);
+	//cclog("ZCharacter : %x\n", (DWORD)&m_Property);
+	//cclog("ZCharacterObject : %x\n", (DWORD)&m_BasicHistory);
+	//cclog("ZObject : %x\n", (DWORD)&m_bRendered);
+	//cclog("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 #endif
 
 	m_fCAFactor.Set_MakeCrc(1.0f);
@@ -600,7 +600,7 @@ void ZMyCharacter::ProcessInput(float fDelta)
 				uStatus.m_bLand=false;
 				zStatus.m_bWallHang=false;
 //				m_bJumpShot=false;
-//				mlog("2 jumpshot false\n");
+//				cclog("2 jumpshot false\n");
 
 				// 점프칼질중에 점프하면 모션을 생략한다
 				if(!zStatus.m_bJumpShot)
@@ -866,7 +866,7 @@ void ZMyCharacter::OnShotMelee()
 	}
 	else 
 	{
-//			mlog("zpost_melee !\n");
+//			cclog("zpost_melee !\n");
 		ZPostShotMelee(/*g_pGame->GetTime(),*/GetPosition(),m_nShot.Ref());
 		AddDelayedWork(ZGetGame()->GetTime()+0.2f,ZDW_SHOT);
 	}
@@ -885,7 +885,7 @@ void ZMyCharacter::OnShotRange()
 
 	if( pSelectedItem==NULL ) 
 	{
-		mlog("ZMyCharacter::OnShotRange pSelectedItem == NULL\n");
+		cclog("ZMyCharacter::OnShotRange pSelectedItem == NULL\n");
 		return;
 	}
 
@@ -1550,12 +1550,12 @@ void ZMyCharacter::ProcessGuard()
 			zStatus.m_bGuardStart = true;
 			zStatus.m_bWallHang = false;
 			zStatus.m_bJumpShot = false;
-//			mlog("1 jumpshot false\n");
+//			cclog("1 jumpshot false\n");
 			MEMBER_SET_CHECKCRC(m_timeInfo, m_fGuardStartTime, ZGetGame()->GetTime());
 
 			if(zStatus.m_bGuardKey) zStatus.m_bGuardByKey = true;
 			else					zStatus.m_bGuardByKey = false;
-//			mlog("guard start %d %d \n",m_bLButtonPressed,m_bRButtonPressed);
+//			cclog("guard start %d %d \n",m_bLButtonPressed,m_bRButtonPressed);
 
 //			m_bGuardKey = false;
             
@@ -2270,7 +2270,7 @@ void ZMyCharacter::OnUpdate(float fDelta)
 		SetVelocity(0,0,0);
 	}
 
-	//	mlog("uid:%d state: %d ani: %s \n ",m_UID.Low,m_State,m_szCurrentAnimation);
+	//	cclog("uid:%d state: %d ani: %s \n ",m_UID.Low,m_State,m_szCurrentAnimation);
 
 	zStatus.m_bMoving = Magnitude(rvector(GetVelocity().x,GetVelocity().y,0))>.1f;
 
@@ -2460,7 +2460,7 @@ void ZMyCharacter::OnUpdate(float fDelta)
 	// 첫번째 칼질은 딜레이가 있다
 	if(zStatus.m_bShot && m_nShot.Ref()==1 && !zStatus.m_b1ShotSended && ZGetGame()->GetTime()-m_f1ShotTime.Ref()>GUARD_TIME) {
 		zStatus.m_b1ShotSended=true;
-//		mlog("zpost_melee 첫번째칼질!\n");
+//		cclog("zpost_melee 첫번째칼질!\n");
 		ZPostShotMelee(/*g_pGame->GetTime(),*/GetPosition(),1);
 		AddDelayedWork(ZGetGame()->GetTime()+0.2f,ZDW_SHOT);
 	}
@@ -2730,7 +2730,7 @@ void ZMyCharacter::OnUpdate(float fDelta)
 		if(zStatus.m_bJumpShot)
 		{
 			zStatus.m_bJumpShot=false;
-//			mlog("3 jumpshot false\n");
+//			cclog("3 jumpshot false\n");
 		}
 
 		zStatus.m_bSkill=false;
@@ -2794,7 +2794,7 @@ void ZMyCharacter::OnUpdate(float fDelta)
 			zStatus.m_bGuardKey = false;
 			zStatus.m_bGuardByKey = false;
 			SetAnimationUpper(ZC_STATE_UPPER_NONE);
-	//		mlog("guard cancel %d %d !\n",m_bLButtonPressed , m_bRButtonPressed);
+	//		cclog("guard cancel %d %d !\n",m_bLButtonPressed , m_bRButtonPressed);
 		}
 	}
 

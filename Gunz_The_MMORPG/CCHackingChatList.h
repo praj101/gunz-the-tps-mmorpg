@@ -57,7 +57,7 @@ public :
 		{
 			m_ChatList.push_back( string(szChat) );
 			
-			mlog( "add hacking chat : %s\n", szChat );
+			cclog( "add hacking chat : %s\n", szChat );
 			if( !IsHackChat(szChat, strlen(szChat)) )
 			{
 				return false;

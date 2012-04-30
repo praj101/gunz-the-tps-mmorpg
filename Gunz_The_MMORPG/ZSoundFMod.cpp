@@ -39,25 +39,25 @@ bool ZSoundFMod::Create( HWND hwnd, FSOUND_OUTPUTTYPES type, int maxrate, int mi
 {
 	if (FSOUND_GetVersion() < FMOD_VERSION)
 	{
-		mlog("Error : You are using the wrong DLL version!  You should be using FMOD %.02f\n", FMOD_VERSION);
+		cclog("Error : You are using the wrong DLL version!  You should be using FMOD %.02f\n", FMOD_VERSION);
 		return false;
 	}
 
 	if( !FSOUND_SetHWND( hwnd ))
 	{
-		mlog("SetHWND: %s\n", FMOD_ErrorString(FSOUND_GetError()));;
+		cclog("SetHWND: %s\n", FMOD_ErrorString(FSOUND_GetError()));;
 	}	
 
 	//FMOD intialize
 	if( !FSOUND_SetOutput(-1)) // Auto-detect base on operating system
 	{
-		mlog("SetOutput: %s\n", FMOD_ErrorString(FSOUND_GetError()));
+		cclog("SetOutput: %s\n", FMOD_ErrorString(FSOUND_GetError()));
 		return false;
 	}
 
 	if( !FSOUND_SetDriver(0) )	// set Default Sound Card
 	{
-		mlog("SetDriver: %s\n", FMOD_ErrorString(FSOUND_GetError()));
+		cclog("SetDriver: %s\n", FMOD_ErrorString(FSOUND_GetError()));
 		return false;
 	}
 
@@ -69,11 +69,11 @@ bool ZSoundFMod::Create( HWND hwnd, FSOUND_OUTPUTTYPES type, int maxrate, int mi
 		FSOUND_GetDriverCaps( i, &DriverCaps);
 		if( DriverCaps & FSOUND_CAPS_HARDWARE )
 		{
-			mlog( "%d(%s): Hardware Mixing Supported\n", i, GetDriverName(i) );
+			cclog( "%d(%s): Hardware Mixing Supported\n", i, GetDriverName(i) );
 		}
 		else
 		{
-			mlog( "%d(%s): Hardware Mixing Not Supported\n", i, GetDriverName(i) );
+			cclog( "%d(%s): Hardware Mixing Not Supported\n", i, GetDriverName(i) );
 			
 			if( maxsoftwarechannels < 16 ) return false; // 하드웨어로 생성했는데 하드웨어를 지원하지 않는 카드일 경우..
 		}
@@ -82,26 +82,26 @@ bool ZSoundFMod::Create( HWND hwnd, FSOUND_OUTPUTTYPES type, int maxrate, int mi
 
 	if( !FSOUND_SetMinHardwareChannels( minchannels ))
 	{
-		mlog("SetMinHardwareChannels: %s\n", FMOD_ErrorString(FSOUND_GetError()));;
+		cclog("SetMinHardwareChannels: %s\n", FMOD_ErrorString(FSOUND_GetError()));;
 	}
 	if( !FSOUND_SetMaxHardwareChannels( maxchannels ))
 	{
-		mlog("SetMaxHardwareChannels: %s\n", FMOD_ErrorString(FSOUND_GetError()));;
+		cclog("SetMaxHardwareChannels: %s\n", FMOD_ErrorString(FSOUND_GetError()));;
 	}
 
 	if (!FSOUND_Init(maxrate, maxsoftwarechannels, flag)) // TODO : 만약 fx사운드 사용할 경우 마지막 파라미터 셋팅
 	{
-		mlog("Init: %s\n", FMOD_ErrorString(FSOUND_GetError()));
+		cclog("Init: %s\n", FMOD_ErrorString(FSOUND_GetError()));
 		return false;
 	}
 
 	// Music
 	if (!FSOUND_Stream_SetBufferSize(DEFAULT_STREAM_BUFFER_LENGTH))
 	{
-		mlog("Stream_SetBufferSize: %s\n", FMOD_ErrorString(FSOUND_GetError()));
+		cclog("Stream_SetBufferSize: %s\n", FMOD_ErrorString(FSOUND_GetError()));
 	}
 
-	mlog("[[[getMaxChannel%d]]]]\n", FSOUND_GetMaxChannels() );
+	cclog("[[[getMaxChannel%d]]]]\n", FSOUND_GetMaxChannels() );
 
 	return true;
 }
@@ -138,7 +138,7 @@ FSOUND_SAMPLE* ZSoundFMod::LoadWave( char* szSoundFileName, int Flag )
 	FSOUND_SAMPLE* r = FSOUND_Sample_Load(FSOUND_FREE, Buffer, (Flag | FSOUND_LOADMEMORY), 0, SoundFileLength);
 	if( r == 0 )
 	{
-		mlog("LoadWave: %s\n", FMOD_ErrorString(FSOUND_GetError()));
+		cclog("LoadWave: %s\n", FMOD_ErrorString(FSOUND_GetError()));
 	}
 	delete Buffer;
 
@@ -160,7 +160,7 @@ int ZSoundFMod::Play( FSOUND_SAMPLE* pFS, const rvector* pos, rvector* vel, int 
 		priority = 200;
 
  	int flag = FSOUND_Sample_GetMode(pFS);
-	//mlog("sound sample mode: %d\n", flag);
+	//cclog("sound sample mode: %d\n", flag);
 	
 	//if(bLoop) 
 	//{
@@ -185,7 +185,7 @@ int ZSoundFMod::Play( FSOUND_SAMPLE* pFS, const rvector* pos, rvector* vel, int 
 
 	if( r == -1 )
 	{
-		mlog("Play : %s\n", FMOD_ErrorString(FSOUND_GetError()));
+		cclog("Play : %s\n", FMOD_ErrorString(FSOUND_GetError()));
 		return r;
 	}
 	else if(!bPlayer)
@@ -238,11 +238,11 @@ void ZSoundFMod::SetVolume( int iChannel, int vol )
 {
 	if(!FSOUND_SetPaused(iChannel, true ))
 	{
-		mlog("SetPaused:%s\n",FMOD_ErrorString(FSOUND_GetError()));
+		cclog("SetPaused:%s\n",FMOD_ErrorString(FSOUND_GetError()));
 	}
 	if(!FSOUND_SetVolume( iChannel, vol ))
 	{
-		mlog("SetVolume:%s\n",FMOD_ErrorString(FSOUND_GetError()));
+		cclog("SetVolume:%s\n",FMOD_ErrorString(FSOUND_GetError()));
 	}
 	FSOUND_SetPaused(iChannel, false );
 }
@@ -398,7 +398,7 @@ void ZSoundFMod::SetSamplingBits( FSOUND_SAMPLE* pFS, bool b8Bits )
 	
 	if( !FSOUND_Sample_SetMode( pFS, Flag ))
 	{
-		mlog("SetSamplingBits: %s\n", FMOD_ErrorString(FSOUND_GetError()));
+		cclog("SetSamplingBits: %s\n", FMOD_ErrorString(FSOUND_GetError()));
 	}
 }
 
@@ -417,7 +417,7 @@ void ZSoundFMod::SetPan( int iChannel, float Pan )
 	Pan = max((min(Pan,1.0f)),-1.0f);
 	if(!FSOUND_SetPan( iChannel, (int)(255*((Pan+1)*0.5f))))
 	{
-		mlog("SetPan: %s\n", FMOD_ErrorString(FSOUND_GetError()));
+		cclog("SetPan: %s\n", FMOD_ErrorString(FSOUND_GetError()));
 	}
 }
 

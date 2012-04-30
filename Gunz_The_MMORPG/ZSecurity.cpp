@@ -108,7 +108,7 @@ bool ZCheckFileHack() // 사용하지 않는 펑션
 	unsigned long nChecksum = ZGetCCZFileChecksum(FILENAME_ZITEM_DESC);
 
 #ifndef _PUBLISH
-	mlog("ZITEM Checksum = %u", nChecksum);
+	cclog("ZITEM Checksum = %u", nChecksum);
 	return false;	// false == NO HACK
 #endif
 

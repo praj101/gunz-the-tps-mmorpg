@@ -247,7 +247,7 @@ public:
 
 	ZGameTimer* GetGameTimer()		{ return &m_GameTimer; }
 	unsigned long GetTickTime()		{ return m_GameTimer.GetGlobalTick(); }
-	float GetTime()					{ /*mlog("현재시간: %f \n", m_fTime.GetData());*/ return m_fTime.Ref(); }
+	float GetTime()					{ /*cclog("현재시간: %f \n", m_fTime.GetData());*/ return m_fTime.Ref(); }
 
 	int GetPing(CCUID& uid);
 

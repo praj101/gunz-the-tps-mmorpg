@@ -83,7 +83,7 @@ void ZMapListBox::Refresh(CCZFileSystem* pFS)
 
 	MChannelRule* pRule = ZGetChannelRuleMgr()->GetCurrentRule();
 	if (pRule == NULL) {
-		mlog("ZMapListBox::Refresh() > No Current ChannelRule \n");
+		cclog("ZMapListBox::Refresh() > No Current ChannelRule \n");
 		return;
 	}
 

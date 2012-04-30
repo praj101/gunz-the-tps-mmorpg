@@ -397,10 +397,10 @@ ZGame::~ZGame()
 bool ZGame::Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading )
 {
 	// 클랜전에서는 stagestate 가 없어서 CastStageBridgePeer 를 안해서 여기서호출
-	mlog("CastStageBridgePeer 호출 in Zgame::Create\n");
+	cclog("CastStageBridgePeer 호출 in Zgame::Create\n");
 	ZGetGameClient()->CastStageBridgePeer(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID());
 
-	mlog("game create begin , type = %d\n",ZGetGameClient()->GetMatchStageSetting()->GetGameType());
+	cclog("game create begin , type = %d\n",ZGetGameClient()->GetMatchStageSetting()->GetGameType());
 
 	SetReadyState(ZGAME_READYSTATE_INIT);	// Sync 맞을때까지 Game Loop 진입않도록
 
@@ -426,7 +426,7 @@ bool ZGame::Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading )
 			}
 			ZGetWorldManager()->AddWorld(pSecInfo->szTitle);
 #ifdef _DEBUG
-			mlog("map(%s)\n", pSecInfo ? pSecInfo->szTitle : "null");
+			cclog("map(%s)\n", pSecInfo ? pSecInfo->szTitle : "null");
 #endif
 		}
 	}else{
@@ -453,9 +453,9 @@ bool ZGame::Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading )
 	//if(!strlen(szMapFileName))
 	//	return false;
 
-	//mlog("ZGame::Create() :: ReloadAllAnimation Begin \n");
+	//cclog("ZGame::Create() :: ReloadAllAnimation Begin \n");
 	ZGetMeshMgr()->ReloadAllAnimation();// 읽지 않은 에니메이션이 있다면 로딩
-	mlog( "Reload all animation end \n" );
+	cclog( "Reload all animation end \n" );
 
 	//ZGetInitialLoading()->SetPercentage( 90.f );
 //	ZGetInitialLoading()->SetPercentage( 70.f );
@@ -474,7 +474,7 @@ bool ZGame::Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading )
 	//	return false;
 	//}
 
-	//mlog("ZGame::Create() GetWorld()->GetBsp()->Open %s \n",szMapFileName);
+	//cclog("ZGame::Create() GetWorld()->GetBsp()->Open %s \n",szMapFileName);
 
 	//GetWorld()->GetBsp()->OptimizeBoundingBox();
 
@@ -526,7 +526,7 @@ bool ZGame::Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading )
 	m_CharacterManager.Clear();
 	m_ObjectManager.Clear();
 
-	// mlog("ZGame::Create() m_CharacterManager.Clear done \n");
+	// cclog("ZGame::Create() m_CharacterManager.Clear done \n");
 
 	m_pMyCharacter = (ZMyCharacter*)m_CharacterManager.Add(ZGetGameClient()->GetPlayerUID(), rvector(0.0f, 0.0f, 0.0f),true);
 
@@ -600,7 +600,7 @@ bool ZGame::Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading )
 
 	// 도움말 화면생성..
 
-	mlog("game created ( %s )\n",tmpbuf);
+	cclog("game created ( %s )\n",tmpbuf);
 
 	ZGetGameInterface()->GetCamera()->SetLookMode(ZCAMERA_DEFAULT);
 
@@ -621,14 +621,14 @@ void ZGame::Destroy()
 
 	SetClearColor(0);
 
-	mlog("game destroy begin\n");
+	cclog("game destroy begin\n");
 
 	ZGetGameClient()->AgentDisconnect();
 
 	ZApplication::GetSoundEngine()->StopMusic();
 	ZApplication::GetSoundEngine()->CloseMusic();
 
-	mlog("Destroy sound engine()\n");
+	cclog("Destroy sound engine()\n");
 
 #ifdef _QUEST
 	{
@@ -638,7 +638,7 @@ void ZGame::Destroy()
 
 	m_Match.Destroy();
 
-	mlog("game destroy match destroy \n");
+	cclog("game destroy match destroy \n");
 
 	if (ZGetGameClient()->IsForcedEntry())
 	{
@@ -653,7 +653,7 @@ void ZGame::Destroy()
 
 	ReleaseFlashBangEffect();
 
-	// mlog("ZGame::Destroy SAFE_DELETE(m_pSkyBox) \n");
+	// cclog("ZGame::Destroy SAFE_DELETE(m_pSkyBox) \n");
 
 	RGetLenzFlare()->Clear();
 
@@ -666,7 +666,7 @@ void ZGame::Destroy()
 //	e_size += m_EffectManager.m_Effects[1].size();
 //	e_size += m_EffectManager.m_Effects[2].size();
 //	int w_size = m_WeaponManager.m_list.size();
-//	mlog("ZGame e_size : w_size : %d %d\n",e_size,w_size);
+//	cclog("ZGame e_size : w_size : %d %d\n",e_size,w_size);
 
 //	ZGetEffectManager()->Clear();
 	m_WeaponManager.Clear();
@@ -692,7 +692,7 @@ void ZGame::Destroy()
 	char tmpbuf[128];
 	_strtime( tmpbuf );
 
-	mlog("game destroyed ( %s )\n",tmpbuf);
+	cclog("game destroyed ( %s )\n",tmpbuf);
 }
 
 bool ZGame::CreateMyCharacter(MTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/)
@@ -704,7 +704,7 @@ bool ZGame::CreateMyCharacter(MTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pChar
 
 	ZGetEffectManager()->AddBerserkerIcon(m_pMyCharacter);
 
-	mlog("Create character : Name=%s Level=%d \n", pCharInfo->szName, pCharInfo->nLevel);
+	cclog("Create character : Name=%s Level=%d \n", pCharInfo->szName, pCharInfo->nLevel);
 	return true;
 }
 
@@ -1448,7 +1448,7 @@ void ZGame::OnCommand_Observer(MCommand* pCommand)
 		ZCharacter *pChar=m_CharacterManager.Find(pCommand->GetSenderUID());
 		if(pChar)
 		{
-			mlog("%s basic info : %3.3f \n",pChar->GetProperty()->szName,pZCommand->fTime);
+			cclog("%s basic info : %3.3f \n",pChar->GetProperty()->szName,pZCommand->fTime);
 		}
 		*/
 		OnPeerBasicInfo(pCommand,true,false);
@@ -1494,7 +1494,7 @@ void ZGame::OnReplayRun()
 			return;
 #endif
 
-		//		mlog("curtime = %d ( %3.3f ) time = %3.3f , id %d \n",timeGetTime(),GetTime(),pItem->fTime,pItem->pCommand->GetID());
+		//		cclog("curtime = %d ( %3.3f ) time = %3.3f , id %d \n",timeGetTime(),GetTime(),pItem->fTime,pItem->pCommand->GetID());
 
 		m_ReplayCommandList.erase(m_ReplayCommandList.begin());
 
@@ -1540,14 +1540,14 @@ void ZGame::OnReplayRun()
 				void* pBlob = pParam->GetPointer();
 
 				MTD_PeerListNode* pPeerNode = (MTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
-				mlog("[%d EnterBattleRoom Time:%3.3f]\n", pPeerNode->uidChar.Low, pItem->fTime);
+				cclog("[%d EnterBattleRoom Time:%3.3f]\n", pPeerNode->uidChar.Low, pItem->fTime);
 			}
 			break;
 		case MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT:
 			{			
 				CCUID uidChar;
 				pItem->pCommand->GetParameter(&uidChar, 0, MPT_UID);
-				mlog("[%d LeaveBattleRoom Time:%3.3f]\n", uidChar.Low, m_ReplayLogTime);
+				cclog("[%d LeaveBattleRoom Time:%3.3f]\n", uidChar.Low, m_ReplayLogTime);
 			}
 			break;
 		}
@@ -1596,10 +1596,10 @@ void ZGame::OnObserverRun()
 				break;
 			CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_Replay_UseItem[i].Item[j].Itemid);
 
-			mlog("[ uid:%d Item:%s(%d) UseCount:%d ]\n", m_Replay_UseItem[i].uid.Low, pItemDesc->m_pMItemName->Ref().m_szItemName, pItemDesc->m_nID, m_Replay_UseItem[i].Item[j].ItemUseCount);
+			cclog("[ uid:%d Item:%s(%d) UseCount:%d ]\n", m_Replay_UseItem[i].uid.Low, pItemDesc->m_pMItemName->Ref().m_szItemName, pItemDesc->m_nID, m_Replay_UseItem[i].Item[j].ItemUseCount);
 		}
 	}
-	mlog("[Replay Playtime: %f]\n[End Replay]\n", m_ReplayLogTime);
+	cclog("[Replay Playtime: %f]\n[End Replay]\n", m_ReplayLogTime);
 #endif
 }
 
@@ -1698,7 +1698,7 @@ bool ZGame::GetUserNameColor(CCUID uid,MCOLOR& UserNameColor,char* sp_name)
 
 		} 
 		else {
-			mlog("ZGame::GetUserNameColor ZGetMyInfo==NULL \n");
+			cclog("ZGame::GetUserNameColor ZGetMyInfo==NULL \n");
 		}
 	}
 	else 
@@ -2350,7 +2350,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 			ZApplication::GetGameInterface()->OnRequestGameguardAuth( dwIndex, dwValue1, dwValue2, dwValue3 );
 
 #ifdef _DEBUG
-			mlog( "zgame recevie request gameguard auth. CmdID(%u) : %u, %u, %u, %u\n", pCommand->GetID(), dwIndex, dwValue1, dwValue2, dwValue3 );
+			cclog( "zgame recevie request gameguard auth. CmdID(%u) : %u, %u, %u, %u\n", pCommand->GetID(), dwIndex, dwValue1, dwValue2, dwValue3 );
 #endif
 
 		}
@@ -2768,7 +2768,7 @@ void ZGame::OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir
 	if( abs(fCurrentTime - fShotTime) > TIME_ERROR_BETWEEN_RECIEVEDTIME_MYTIME )
 	{
 #ifdef _DEBUG
-		mlog("!!!!수류탄 핵!!!! 캐릭터 네임: %s      fShotTime : %f     fCurrentTime : %f \n", 
+		cclog("!!!!수류탄 핵!!!! 캐릭터 네임: %s      fShotTime : %f     fCurrentTime : %f \n", 
 			pOwnerCharacter->GetUserName(), (fShotTime - pOwnerCharacter->m_fTimeOffset) , fCurrentTime);
 #endif
 		return;
@@ -2995,7 +2995,7 @@ void ZGame::OnPeerShotSp(CCUID& uid, float fShotTime, rvector& pos, rvector& dir
 				break;
 			}
 		}
-		//mlog("[%s(%d) : %s(%d)]\n", pOwnerCharacter->GetCharInfo()->szName, uid.Low, pDesc->m_pMItemName->Ref().m_szItemName, pDesc->m_nID);
+		//cclog("[%s(%d) : %s(%d)]\n", pOwnerCharacter->GetCharInfo()->szName, uid.Low, pDesc->m_pMItemName->Ref().m_szItemName, pDesc->m_nID);
 	}
 #endif
 
@@ -4365,7 +4365,7 @@ void ZGame::OnPeerShot_Shotgun(ZItem *pItem, ZCharacter* pOwnerCharacter, float 
 	//// 디버그용 덤프
 	//{
 	//	if(strcmp("폭주천사다크",pTargetCharacter->GetProperty()->szName)==0) {
-	//		mlog("shot : %3.3f \n",fShotTime);
+	//		cclog("shot : %3.3f \n",fShotTime);
 	//	}
 	//}
 
@@ -4757,7 +4757,7 @@ bool ZGame::CanISeeAttacker( ZCharacter* pAtk, const rvector& vRequestPos )
 
 		rv = vRequestPos;
 
-		mlog( "len : %f(%f), res(%d)\n", Len, sqrt(Len), MAX_VIEW_LENGTH < Len );
+		cclog( "len : %f(%f), res(%d)\n", Len, sqrt(Len), MAX_VIEW_LENGTH < Len );
 #endif
 		return false;
 	}
@@ -4790,7 +4790,7 @@ void ZGame::OnPeerShot( const CCUID& uid, float fShotTime, const rvector& pos, c
 	if( abs(fCurrentTime - fShotTime) > TIME_ERROR_BETWEEN_RECIEVEDTIME_MYTIME )
 	{
 #ifdef _DEBUG
-		mlog("!!칼샷 핵!!!캐릭터 네임: %s      fShotTime : %f     fCurrentTime : %f \n", 
+		cclog("!!칼샷 핵!!!캐릭터 네임: %s      fShotTime : %f     fCurrentTime : %f \n", 
 			pOwnerCharacter->GetUserName(), (fShotTime - pOwnerCharacter->m_fTimeOffset) , fCurrentTime);
 #endif
 		return;
@@ -5502,7 +5502,7 @@ bool ZGame::CharacterOverlapCollision(ZObject* pFloorObject, float WorldFloorHei
 			if(pOverlapObject->nFloorCnt >= 3)
 			{
 				pOverlapObject->bJumpActivity = true;
-				mlog("Jump bug Activity \n");
+				cclog("Jump bug Activity \n");
 				return false;
 			}
 		}
@@ -6482,7 +6482,7 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 					ZChatOutput(MCOLOR(255, 200, 200), szAccumulationDamagePrint);
 
 #	ifdef _DUELTOURNAMENT_LOG_ENABLE_
-					mlog(szAccumulationDamagePrint);
+					cclog(szAccumulationDamagePrint);
 #	endif
 
 #endif
@@ -6791,7 +6791,7 @@ bool ZGame::OnLoadReplay(ZReplayLoader* pLoader)
 		}
 
 		ZGetCharacterManager()->Add(pChar);
-		mlog("%s : %d %d\n",pChar->GetProperty()->szName,pChar->GetUID().High,pChar->GetUID().Low);
+		cclog("%s : %d %d\n",pChar->GetProperty()->szName,pChar->GetUID().High,pChar->GetUID().Low);
 
 		pChar->SetVisible(true);
 	}
@@ -6850,7 +6850,7 @@ void ZGame::EndReplay()
 
 	DWORD dwReplayEndTime=timeGetTime();
 	
-	mlog("replay end. profile saved. playtime = %3.3f seconds , average fps = %3.3f \n", 
+	cclog("replay end. profile saved. playtime = %3.3f seconds , average fps = %3.3f \n", 
 		float(dwReplayEndTime-dwReplayStartTime)/1000.f,
 		1000.f*g_nFrameCount/float(dwReplayEndTime-dwReplayStartTime));
 
@@ -6968,7 +6968,7 @@ void ZGame::OnStageEnterBattle(MCmdEnterBattleParam nParam, MTD_PeerListNode* pP
 			ZChatOutput(MCOLOR(ZCOLOR_GAME_INFO), temp);
 		}
 #ifdef _REPLAY_TEST_LOG
-		mlog("[Add Character %s(%d)]\n", pChar->GetCharInfo()->szName, uidChar.Low);
+		cclog("[Add Character %s(%d)]\n", pChar->GetCharInfo()->szName, uidChar.Low);
 #endif
 	}
 
@@ -7008,7 +7008,7 @@ void ZGame::OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort, MTD_Pee
 	char szLog[256];
 	sprintf(szLog, "[%d:%d] ADDPEER: Char(%d:%d) IP:%s, Port:%d \n", 
 	GetPlayerUID().High, GetPlayerUID().Low, uidChar.High, uidChar.Low, szIP, nPort);
-	mlog(szLog);
+	cclog(szLog);
 	/////////////////////////////////////////////////
 	*/
 
@@ -7476,7 +7476,7 @@ void ZGame::MakeResourceCRC32( const DWORD dwKey, DWORD& out_crc32, DWORD& out_x
 	CRC32Cache.CRC32XOR( dwKey );
 
 #ifdef _DEBUG
-	mlog( "Start ResourceCRC32Cache : %u\n", CRC32Cache.GetXOR() );
+	cclog( "Start ResourceCRC32Cache : %u\n", CRC32Cache.GetXOR() );
 #endif
 
 	for( ; end != it; ++it )
@@ -7496,7 +7496,7 @@ void ZGame::MakeResourceCRC32( const DWORD dwKey, DWORD& out_crc32, DWORD& out_x
 #ifdef _DEBUG
 			if( 10 > dwOutputCount )
 			{
-				mlog( "ItemID : %d, CRCCache : %u\n"
+				cclog( "ItemID : %d, CRCCache : %u\n"
 					, pitemDesc->m_nID
 					, CRC32Cache.GetXOR() );
 			}
@@ -7507,7 +7507,7 @@ void ZGame::MakeResourceCRC32( const DWORD dwKey, DWORD& out_crc32, DWORD& out_x
 #ifdef _DEBUG
 	if( 10 > dwOutputCount )
 	{
-		mlog( "ResourceCRCSum : %u\n", CRC32Cache.GetXOR() );
+		cclog( "ResourceCRCSum : %u\n", CRC32Cache.GetXOR() );
 	}
 #endif
 	

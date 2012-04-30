@@ -117,7 +117,7 @@ bool MRealCPNet::Create(int nPort, const bool bReuse )
 
 void MRealCPNet::Destroy()
 {
-	mlog("RealCPNet> SessionCreated=%d, SessionDestroyed=%d \n", 
+	cclog("RealCPNet> SessionCreated=%d, SessionDestroyed=%d \n", 
 			g_LogSessionCreated, g_LogSessionDestroyed);
 
 	RCPLOG("RealCPNet> Begin Destroy \n");
@@ -989,9 +989,9 @@ __try{
 
 DWORD MRealCPNet::CrashDump(PEXCEPTION_POINTERS ExceptionInfo)
 {
-	mlog("CrashDump Entered 1\n");
+	cclog("CrashDump Entered 1\n");
 	EnterCriticalSection(&m_csCrashDump);
-	mlog("CrashDump Entered 2\n");
+	cclog("CrashDump Entered 2\n");
 
 	if (PathIsDirectory("Log") == FALSE)
 		CreateDirectory("Log", NULL);
@@ -1022,9 +1022,9 @@ DWORD MRealCPNet::CrashDump(PEXCEPTION_POINTERS ExceptionInfo)
 
 	DWORD ret = CrashExceptionDump(ExceptionInfo, szFileName, true);
 
-	mlog("CrashDump Leaving\n");
+	cclog("CrashDump Leaving\n");
 	LeaveCriticalSection(&m_csCrashDump);
-	mlog("CrashDump Leaved\n");
+	cclog("CrashDump Leaved\n");
 
 	return ret;
 }

@@ -150,7 +150,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 	{
 	case MC_MATCH_RESPONSE_ACCOUNT_CHARLIST:
 		{
-			mlog("Responsed Account Charlist\n");
+			cclog("Responsed Account Charlist\n");
 
 			MCommandParameter* pParam = pCommand->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) break;
@@ -935,7 +935,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 		{
 			// 정의되지 않은 커맨드 처리.
 #ifdef _DEBUG
-			// mlog( "ZGameInterface::OnCommand::default (%d) - 정의되지 않은 Command처리.\n", pCommand->GetID() );
+			// cclog( "ZGameInterface::OnCommand::default (%d) - 정의되지 않은 Command처리.\n", pCommand->GetID() );
 			// ASSERT( 0 );
 #endif
 		}

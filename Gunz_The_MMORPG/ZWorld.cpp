@@ -210,8 +210,8 @@ bool ZWorld::Create(ZLoadingProgress *pLoading )
 		sprintf( szBuf, "%s%s/flag.xml", szMapPath, ZGetGameClient()->GetMatchStageSetting()->GetMapName());
 		m_flags.InitEnv(szBuf);
 
-		// mlog("ZGame::Create() m_flags.InitEnv \n");
-		mlog( "create game enrvironment.\n" );
+		// cclog("ZGame::Create() m_flags.InitEnv \n");
+		cclog( "create game enrvironment.\n" );
 	}
 
 	m_pMapDesc = new ZMapDesc;
@@ -220,7 +220,7 @@ bool ZWorld::Create(ZLoadingProgress *pLoading )
 	sprintf( szBuf, "%s%s/smoke.xml", szMapPath, ZGetGameClient()->GetMatchStageSetting()->GetMapName());
 	m_pMapDesc->LoadSmokeDesc(szBuf);
 
-	// mlog("ZGame::Create() pMapDesc->LoadSmokeDesc \n");
+	// cclog("ZGame::Create() pMapDesc->LoadSmokeDesc \n");
 
 	// 맵레벨의 전역값 설정
 	FogInfo finfo = GetBsp()->GetFogInfo();
@@ -231,7 +231,7 @@ bool ZWorld::Create(ZLoadingProgress *pLoading )
 
 	m_bCreated = true;
 
-	mlog( "game world create success.\n" );
+	cclog( "game world create success.\n" );
 
 	return true;
 }

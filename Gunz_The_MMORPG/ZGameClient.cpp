@@ -208,7 +208,7 @@ bool ZPostCommand(MCommand* pCmd)
 			if (g_dwMainThreadID != GetCurrentThreadId())
 			{
 #ifdef _DEBUG
-				mlog("CMD THREAD MISMATCH : cmdId(%d), mainId(%d), currId(%d)\n", cmdId, g_dwMainThreadID, GetCurrentThreadId());
+				cclog("CMD THREAD MISMATCH : cmdId(%d), mainId(%d), currId(%d)\n", cmdId, g_dwMainThreadID, GetCurrentThreadId());
 #endif
 				_ASSERT(0);
 				MCommand* pC=ZNewCmd(MC_REQUEST_GIVE_ONESELF_UP);
@@ -330,20 +330,20 @@ int ZGameClient::OnResponseMatchLogin(const CCUID& uidServer, int nResult, const
 	ZGetMyInfo()->InitAccountInfo(szAccountID, nUGradeID, nPGradeID);
 
 	if ((nResult == 0) && (nRet == MOK)) {	// Login successful
-		mlog("Login Successful. \n");
+		cclog("Login Successful. \n");
 
 #ifdef _HSHIELD
 		int dwRet = _AhnHS_MakeGuidAckMsg(pbyGuidReqMsg,        // [in]
 										  ZGetMyInfo()->GetSystemInfo()->pbyGuidAckMsg // [out]
 										 );
 		if( dwRet != ERROR_SUCCESS )
-			mlog("Making Guid Ack Msg Failed. (Error code = %x)\n", dwRet);
+			cclog("Making Guid Ack Msg Failed. (Error code = %x)\n", dwRet);
 #endif
 
 		// 여기서 AccountCharList를 요청한다.
 		ZApplication::GetGameInterface()->ChangeToCharSelection();
 	} else {								// Login failed
-		mlog("Login Failed.(ErrCode=%d) \n", nResult);
+		cclog("Login Failed.(ErrCode=%d) \n", nResult);
 
 
 #ifdef LOCALE_NHNUSA
@@ -1359,7 +1359,7 @@ void ZGameClient::OutputMessage(const char* szMessage, MZMOMType nType)
 
 int ZGameClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp)
 {
-	mlog("Server Connected\n");
+	cclog("Server Connected\n");
 
 	int ret = CCMatchClient::OnConnected(sock, pTargetUID, pAllocUID, nTimeStamp);
 
@@ -1411,7 +1411,7 @@ int ZGameClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, u
 			ZGameguard::m_IsResponseFirstGameguardAuth = false;
 #endif
 
-			mlog("Login Posted\n");
+			cclog("Login Posted\n");
 		}
 	} else if (sock == m_AgentSocket.GetSocket()) {
 		
@@ -2330,13 +2330,13 @@ void ZGameClient::OnClanResponseEmblemURL(unsigned int nCLID, unsigned int nEmbl
 #endif
 
 #ifdef _DEBUG
-	mlog( "ZGameClient::OnClanResponseEmblemURL. full url : %s\n", szFullURL );
+	cclog( "ZGameClient::OnClanResponseEmblemURL. full url : %s\n", szFullURL );
 #endif
 
 	// 엠블렘 url이 빈 상태로 오는 경우가 있는 것 같다.
 	// 그러면 주소 뒷부분이 완성이 안되기 때문에 폴더리스트 전체를 요청하게 되는데 이러면 엠블렘파일서버 부하가 커진다고 한다..
 	if (0 == strlen(szEmblemURL)) {
-		mlog("Emblem url is null! clanID(%d)\n", nCLID);
+		cclog("Emblem url is null! clanID(%d)\n", nCLID);
 		return;
 	}
 
@@ -2392,7 +2392,7 @@ bool ZGameClient::CreateUPnP(unsigned short nUDPPort)
 	if(m_pUPnP->Create(nUDPPort))
 	{
 		TRACE("UPnP: Port: %d\n", nUDPPort);
-		mlog("%d upnp port forward initialized.\n",nUDPPort);
+		cclog("%d upnp port forward initialized.\n",nUDPPort);
 		return true;
 	}
 	else
@@ -2521,7 +2521,7 @@ void ZGameClient::OnResponseUpdateStageEquipLook( const CCUID& uidPlayer, const 
 	pObjCache->GetCostume()->nEquipedItemID[ nParts ] = nItemID;
 
 #ifdef _DEBUG
-	mlog( "update stage look : parts(%d), itemid(%d)\n"
+	cclog( "update stage look : parts(%d), itemid(%d)\n"
 		, nParts
 		, nItemID );
 #endif

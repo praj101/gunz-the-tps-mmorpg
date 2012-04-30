@@ -103,7 +103,7 @@ void ZInterfaceBackground::LoadMesh( void)
 				char szBuf[128];
 				sprintf( szBuf, "%s/smoke.xml", DIR_LOGIN );
 				m_pMapDesc->LoadSmokeDesc(szBuf);
-				mlog("Load smoke description mesh.\n");
+				cclog("Load smoke description mesh.\n");
 			}
 
 		}

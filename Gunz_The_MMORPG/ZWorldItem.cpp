@@ -102,7 +102,7 @@ bool ZWorldItem::ApplyWorldItem( ZCharacter* pCharacter )
 		break;
 
 	default:
-		mlog("정의 되지 않은 아이템 타입입니다\n");
+		cclog("정의 되지 않은 아이템 타입입니다\n");
 		return false;
 	}
 
@@ -175,7 +175,7 @@ bool ZWorldItemManager::ApplyWorldItem( WIL_Iterator& iter, ZCharacter* pCharact
 	ZWorldItem* pWorldItem = iter->second;
 	if( !pWorldItem->ApplyWorldItem( pCharacter ) )	
 	{
-		mlog("ApplyItem Function의 인자에 정확하지 않습니다.(아이템의 state에 문제가 있는것 같습니다)\n" );
+		cclog("ApplyItem Function의 인자에 정확하지 않습니다.(아이템의 state에 문제가 있는것 같습니다)\n" );
 		return false;	
 	}
 
@@ -221,7 +221,7 @@ ZWorldItem *ZWorldItemManager::AddWorldItem( int nID, short nItemID,MTD_WorldIte
 		map<short, CCMatchWorldItemDesc*>::iterator iter = MGetMatchWorldItemDescMgr()->find( nItemID );
 		if( iter == MGetMatchWorldItemDescMgr()->end() ) 
 		{
-			// mlog("추가하려는 월드아이템이 정의 되지 않은 이름입니다\n" );
+			// cclog("추가하려는 월드아이템이 정의 되지 않은 이름입니다\n" );
 			return NULL;
 		}
 		CCMatchWorldItemDesc* pDesc = iter->second;

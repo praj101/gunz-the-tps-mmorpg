@@ -63,7 +63,7 @@ void ZOptionInterface::InitInterfaceOption(void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	mlog("start InitInterface option\n");
+	cclog("start InitInterface option\n");
 	/*
 	// Mouse Sensitivity Min/Max (Z_MOUSE_SENSITIVITY_MIN ~ Z_MOUSE_SENSITIVITY_MAX)
 	BEGIN_WIDGETLIST("MouseSensitivitySlider", pResource, MSlider*, pWidget);
@@ -140,7 +140,7 @@ void ZOptionInterface::InitInterfaceOption(void)
 			{
 				int nDM = RGetAdapterModeCount( format[i] );
 
-				mlog("Number of Display mode : %d\n", nDM );
+				cclog("Number of Display mode : %d\n", nDM );
 
 				for( int idm = 0 ; idm < nDM; ++idm )
 				{
@@ -486,7 +486,7 @@ void ZOptionInterface::InitInterfaceOption(void)
 		}
 	}
 
-	mlog("end of InitInterface option ok\n");
+	cclog("end of InitInterface option ok\n");
 }
 
 bool ZOptionInterface::SaveInterfaceOption(void)
@@ -1340,7 +1340,7 @@ void ZOptionInterface::ResizeDefaultFont( int newScreenHeight )
 
 	if (!g_pDefFont->Create("Default", Z_LOCALE_DEFAULT_FONT, newFontHeight, 1.0f))
 	{
-		mlog("Fail to Recreate default font : MFontR2 / screen resize\n" );
+		cclog("Fail to Recreate default font : MFontR2 / screen resize\n" );
 		g_pDefFont->Destroy();
 		SAFE_DELETE( g_pDefFont );
 	}
@@ -1444,7 +1444,7 @@ bool ZOptionInterface::IsDiffScreenResolution()
 		if( ddm.Width == RGetScreenWidth() && ddm.Height == RGetScreenHeight() && ddm.Format == RGetPixelFormat() )
 			return false;
 #ifdef _DEBUG
-		mlog( "%d/%d , %d/%d, %d/%d\n", ddm.Width, RGetScreenWidth(), ddm.Height, RGetScreenHeight(), ddm.Format == D3DFMT_X8R8G8B8 ? 32 : 16, RGetPixelFormat() == D3DFMT_X8R8G8B8 ? 32 : 16 );
+		cclog( "%d/%d , %d/%d, %d/%d\n", ddm.Width, RGetScreenWidth(), ddm.Height, RGetScreenHeight(), ddm.Format == D3DFMT_X8R8G8B8 ? 32 : 16, RGetPixelFormat() == D3DFMT_X8R8G8B8 ? 32 : 16 );
 #endif
 	}
 	return true;
@@ -1462,7 +1462,7 @@ bool ZOptionInterface::TestScreenResolution()
 		map<int, D3DDISPLAYMODE>::iterator iter = gDisplayMode.find( pWidget->GetSelIndex() );
 		if( iter == gDisplayMode.end() )
 		{
-			mlog("선택한 해상도가 존재하지 않아서 해상도 변경에 실패하였습니다..\n" );
+			cclog("선택한 해상도가 존재하지 않아서 해상도 변경에 실패하였습니다..\n" );
 			return false;
 		}
 

@@ -121,7 +121,7 @@ void ZEffectFlashBang::SetBuffer()
 		&& FAILED( D3DXCreateTexture( RGetDevice(), SCREEN_BLUR_TEXTURE_SIZE_WIDTH, SCREEN_BLUR_TEXTURE_SIZE_HEIGHT, 1, 
 		D3DUSAGE_DYNAMIC|D3DUSAGE_RENDERTARGET, mode.Format, D3DPOOL_MANAGED, &mpBlurTexture)))
 		{
-			mlog( "Fail to create BLUR texture\n" );
+			cclog( "Fail to create BLUR texture\n" );
 			mbDrawCopyScreen	= false;
 			mpBlurTexture	= 0;
 			return;
@@ -140,7 +140,7 @@ void ZEffectFlashBang::SetBuffer()
 			RGetDevice()->GetDepthStencilSurface( &mpHoldDepthBuffer );	// 나중에 반드시 Release해줘야 한다.. Ref 증가..!
 		}
 
-		mlog("---------------------------------setBuffer\n");
+		cclog("---------------------------------setBuffer\n");
 	}
 
 	mbActivated		= false;
@@ -158,7 +158,7 @@ void ZEffectFlashBang::ReleaseBuffer()
 	SAFE_RELEASE( mpBlurTexture );
 	SAFE_RELEASE( mpDepthBuffer );
 	SAFE_RELEASE( mpHoldDepthBuffer );
-	mlog("------------------------ReleaseBuffer\n");
+	cclog("------------------------ReleaseBuffer\n");
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -319,7 +319,7 @@ void ZEffectFlashBang::PlaySound()
 	float restDuration	= mfDuration - ( ZGetGame()->GetTime() - mfStartTime );
 
 #ifdef _DEBUG
- 	mlog("Rest Duration : %f(%f,%f)\n", restDuration, mfStartTime, mfDuration );
+ 	cclog("Rest Duration : %f(%f,%f)\n", restDuration, mfStartTime, mfDuration );
 #endif
 	//volumn	= MAX_MUSIC_VOLUMN * ( 1.0f / (restDuration*restDuration) ) + MIN_VOLUMN;
 	//volumn	= max( min( MAX_MUSIC_VOLUMN, volumn ), 0.01f );

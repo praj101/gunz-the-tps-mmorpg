@@ -62,19 +62,19 @@ public:
 #endif
 		*/
 
-		mlog( "Load XML from memory : %s(0x%04X) ", pszFileName, nLangID);
+		cclog( "Load XML from memory : %s(0x%04X) ", pszFileName, nLangID);
 
 		CCXmlDocument aXml;
 		aXml.Create();
 		if(!aXml.LoadFromMemory(buffer, nLangID))
 		{
-			mlog( "- FAIL\n");
+			cclog( "- FAIL\n");
 			delete buffer;
 			return false;
 		}
 		delete buffer;
 
-		mlog( "- SUCCESS\n");
+		cclog( "- SUCCESS\n");
 
 
 		CCXmlElement aParent = aXml.GetDocumentElement();

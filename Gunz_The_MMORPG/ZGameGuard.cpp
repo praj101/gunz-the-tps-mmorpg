@@ -40,13 +40,13 @@ BOOL CALLBACK NPGameMonCallback( DWORD dwMsg, DWORD dwArg )
 			if( ZGameguard::m_IsResponseFirstGameguardAuth )
 			{
 				ZPsotResponseGameguardAuht( AuthData.dwIndex, AuthData.dwValue1, AuthData.dwValue2, AuthData.dwValue3 );
-				// mlog( "Recv ggnp default ok.\n" );
+				// cclog( "Recv ggnp default ok.\n" );
 			}
 			else
 			{
 				ZPostResponseFirstGameguardAuth( AuthData.dwIndex, AuthData.dwValue1, AuthData.dwValue2, AuthData.dwValue3 );
 				ZGameguard::m_IsResponseFirstGameguardAuth = true;
-				// mlog( "Recv ggnp step1 ok.\n" );
+				// cclog( "Recv ggnp step1 ok.\n" );
 			}
 		}
 		break;
@@ -125,7 +125,7 @@ bool ZGameguard::Init( const ZGMAEGUARD_MODE GameguardMode, const char* szArg )
         m_pNPGameLib = new CNPGameLib( szArg);
 
 #ifdef _DEBUG
-		mlog( "gameguard load '%s.ini'\n", szArg );
+		cclog( "gameguard load '%s.ini'\n", szArg );
 #endif
 	}
 	else if( ZGGM_REAL == GameguardMode )
@@ -134,12 +134,12 @@ bool ZGameguard::Init( const ZGMAEGUARD_MODE GameguardMode, const char* szArg )
 		m_pNPGameLib = new CNPGameLib( szArg );
 
 #ifdef _DEBUG
-		mlog( "gameguard load '%s.ini'\n", szArg );
+		cclog( "gameguard load '%s.ini'\n", szArg );
 #endif
 	}
 	else
 	{
-		mlog( "gameguard mode error...\n" );
+		cclog( "gameguard mode error...\n" );
 		ASSERT( 0 );
 		return false;
 	}
@@ -165,10 +165,10 @@ void ZGameguard::Release()
 {
 	if( 0 != m_pNPGameLib )
 	{
-		mlog( "delete gameguard instance...'\n");
+		cclog( "delete gameguard instance...'\n");
 		delete m_pNPGameLib;
 		m_pNPGameLib = 0;
-		mlog( "delete gameguard instance done.\n");
+		cclog( "delete gameguard instance done.\n");
 	}
 }
 
@@ -186,19 +186,19 @@ bool ZGameguard::CheckGameGuardRunning( const DWORD dwGlobalTime )
 	if( MAX_ELAPSED_TIME < (dwGlobalTime - m_dwLastCheckTime) )
 	{
 #ifdef _DEBUG
-		mlog( "Check GameGuard running...\n");
+		cclog( "Check GameGuard running...\n");
 #endif
 
 		DWORD dwRetVal = m_pNPGameLib->Check();
 		if( NPGAMEMON_SUCCESS != dwRetVal)
 		{
-			mlog( "ERROR : GameGuard is not running (errcode = %u)\n", dwRetVal);
+			cclog( "ERROR : GameGuard is not running (errcode = %u)\n", dwRetVal);
 
 			return false;	// exit game.
 		}
 
 #ifdef _DEBUG
-		mlog( "  >> Return code = %u\n", dwRetVal);
+		cclog( "  >> Return code = %u\n", dwRetVal);
 #endif
 
 		m_dwLastCheckTime = dwGlobalTime;
@@ -217,7 +217,7 @@ bool ZGameguard::CheckD3dDllHooking(DWORD dwGlobalTime)
 		if (/*m_pNPGameLib->*/CheckD3DDevice((LPVOID)RGetDevice(), "d3d9.dll"))
 		{
 			// d3d9 º¯Á¶µÊ!
-			mlog( "ERROR : GameGuard dll check.\n");
+			cclog( "ERROR : GameGuard dll check.\n");
 			return false;
 		}
 
@@ -254,7 +254,7 @@ void ZGameguard::SetCallbackMsg( const char* szCallbackMsg )
 
 	if( (0 == szCallbackMsg) || (MAX_CALLBACKMSG_LEN < strlen(szCallbackMsg)) )
 	{
-		mlog( "GameGuard callback message is overflow (length=%u)\n", strlen(szCallbackMsg));
+		cclog( "GameGuard callback message is overflow (length=%u)\n", strlen(szCallbackMsg));
 
 		return;
 	}
@@ -263,7 +263,7 @@ void ZGameguard::SetCallbackMsg( const char* szCallbackMsg )
 
 
 #ifdef _DEBUG
-	mlog( "Set GameGuard callback message... (%s)\n", m_szCallbackMsg);
+	cclog( "Set GameGuard callback message... (%s)\n", m_szCallbackMsg);
 #endif
 }
 
@@ -319,7 +319,7 @@ void ZGameguard::InitGameGuardFail( const DWORD dwResult )
 			break;
 	}
 	wsprintf(msg, "GameGuard execute error : %lu\n", dwResult);
-	mlog( msg );
+	cclog( msg );
 	MessageBox(NULL, lpszMsg, msg, MB_OK);
 }
 
@@ -336,7 +336,7 @@ void ZGameguard::SendToCallback( const DWORD dwIndex, const DWORD dwValue1, cons
 
 
 #ifdef _DEBUG
-	mlog( "Send to GameGuard callback message... (index=%u  value1=%u  value2=%u  value3=%u)\n",  dwIndex, dwValue1, dwValue2, dwValue3);
+	cclog( "Send to GameGuard callback message... (index=%u  value1=%u  value2=%u  value3=%u)\n",  dwIndex, dwValue1, dwValue2, dwValue3);
 #endif
 }
 

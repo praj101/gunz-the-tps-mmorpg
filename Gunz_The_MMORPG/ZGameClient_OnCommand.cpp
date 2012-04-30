@@ -232,7 +232,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				DWORD dwRet = _AhnHS_MakeAckMsg(pReqMsg, ZGetMyInfo()->GetSystemInfo()->pbyAckMsg);
 
 				if(dwRet != ERROR_SUCCESS)
-					mlog("Making Ack Msg Failed. (Error code = %x)\n", dwRet);
+					cclog("Making Ack Msg Failed. (Error code = %x)\n", dwRet);
 
 				MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_HSHIELD_PONG), pCommand->m_Sender, m_This);
 				pNew->AddParameter(new MCommandParameterUInt(nTimeStamp));
@@ -1403,15 +1403,15 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				{
 				case MERR_DT_WRONG_CHANNEL:
 					ZApplication::GetGameInterface()->ShowErrorMessage( nResult );
-					mlog("Error: Illegal request to join game, This isn't a duel tournament channel.\n");
+					cclog("Error: Illegal request to join game, This isn't a duel tournament channel.\n");
 					break;
 				case MERR_DT_CANNOT_CHALLENGE:
 					ZApplication::GetGameInterface()->ShowErrorMessage( nResult );
-					mlog("Error: failed to challenge a duel tournament game.\n");
+					cclog("Error: failed to challenge a duel tournament game.\n");
 					break;
 				case MERR_DT_ALREADY_JOIN:
 					ZApplication::GetGameInterface()->ShowErrorMessage( nResult );
-					mlog("Error: already trying to join a duel tournament game.\n");
+					cclog("Error: already trying to join a duel tournament game.\n");
 					break;
 				}
 			}

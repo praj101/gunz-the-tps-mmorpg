@@ -15,7 +15,7 @@ RVisualMesh* RTVisualMesh::GetVMesh(bool b)
 	if(m_pVisualMesh->m_pMesh==NULL) {
 		if( bInit == false ) {
 			if(b) {
-				mlog("RTVisualMesh::GetVMesh() 초기화 되지 않은 상태에서 사용하려 한다.주의.\n");
+				cclog("RTVisualMesh::GetVMesh() 초기화 되지 않은 상태에서 사용하려 한다.주의.\n");
 			}
 		}
 	}

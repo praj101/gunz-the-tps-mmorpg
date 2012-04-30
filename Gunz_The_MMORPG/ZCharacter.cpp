@@ -682,7 +682,7 @@ void ZCharacter::SetAnimationLower(ZC_STATE_LOWER nAni)
 	{
 		DWORD curtime = timeGetTime();
 		if(ZGetGame()->m_pMyCharacter==this)
-			mlog("animation - %d %s   - %d frame , interval %d \n",nAni,
+			cclog("animation - %d %s   - %d frame , interval %d \n",nAni,
 			m_pVMesh->GetFrameInfo(ani_mode_lower)->m_pAniSet->GetName(),m_pVMesh->GetFrameInfo(ani_mode_lower)->m_nFrame,
 			curtime-g_dwLastAnimationTime);
 		g_dwLastAnimationTime = curtime;
@@ -710,7 +710,7 @@ void ZCharacter::SetAnimationUpper(ZC_STATE_UPPER nAni)
 #ifdef TRACE_ANIMATION
 	{
 		DWORD curtime = timeGetTime();
-		mlog("upper Animation Index : %d %s @ %d \n", nAni ,g_AnimationInfoTableUpper[nAni].Name,curtime-g_dwLastAnimationTime);
+		cclog("upper Animation Index : %d %s @ %d \n", nAni ,g_AnimationInfoTableUpper[nAni].Name,curtime-g_dwLastAnimationTime);
 		if(m_AniState_Upper.Ref()==3 && nAni==0)
 		{
 			bool a=false;
@@ -728,7 +728,7 @@ void ZCharacter::SetAnimationUpper(ZC_STATE_UPPER nAni)
 			m_pAnimationInfo_Upper=&g_AnimationInfoTableUpper[nAni];
 			if( m_pAnimationInfo_Upper == NULL || m_pAnimationInfo_Upper->Name == NULL )
 			{
-				mlog("Fail to Get Animation Info.. Ani Index : [%d]\n", nAni );
+				cclog("Fail to Get Animation Info.. Ani Index : [%d]\n", nAni );
 				return;
 			}
 			SetAnimation(ani_mode_upper,m_pAnimationInfo_Upper->Name,m_pAnimationInfo_Upper->bEnableCancel,0);
@@ -1665,7 +1665,7 @@ void ZCharacter::OnUpdate(float fDelta)
 	/* // debug
 	if(g_pGame->m_pMyCharacter!=this)
 	{
-		mlog("animation - %d %s %d frame : pos %3.3f %3.3f %3.3f    meshpos %3.3f %3.3f %3.3f \n",m_AniState_Lower,m_pVMesh->m_pAniSet[0]->GetName(),
+		cclog("animation - %d %s %d frame : pos %3.3f %3.3f %3.3f    meshpos %3.3f %3.3f %3.3f \n",m_AniState_Lower,m_pVMesh->m_pAniSet[0]->GetName(),
 			m_pVMesh->m_nFrame[0],
 			m_Position.x,m_Position.y,m_Position.z,
 			MeshPosition.x,MeshPosition.y,MeshPosition.z);
@@ -2231,7 +2231,7 @@ float ZCharacter::GetMaxHP()
 		SetHP(fCurMaxHP * fRatio);
 
 #ifdef _DEBUG
-		mlog("ZCharacter::GetMaxHP() - preHP(%f), preMaxHP(%f), curHP(%f), curMaxHP(%f)\n", GetHP(), m_fPreMaxHP, fCurMaxHP * fRatio, fCurMaxHP);
+		cclog("ZCharacter::GetMaxHP() - preHP(%f), preMaxHP(%f), curHP(%f), curMaxHP(%f)\n", GetHP(), m_fPreMaxHP, fCurMaxHP * fRatio, fCurMaxHP);
 #endif
 	}
 
@@ -2252,7 +2252,7 @@ float ZCharacter::GetMaxAP()
 		SetAP(fCurMaxAP * fRatio);
 
 #ifdef _DEBUG
-		mlog("ZCharacter::GetMaxAP() - preAP(%f), preMaxAP(%f), curAP(%f), curMaxAP(%f)\n", GetAP(), m_fPreMaxAP, fCurMaxAP * fRatio, fCurMaxAP);
+		cclog("ZCharacter::GetMaxAP() - preAP(%f), preMaxAP(%f), curAP(%f), curMaxAP(%f)\n", GetAP(), m_fPreMaxAP, fCurMaxAP * fRatio, fCurMaxAP);
 #endif
 	}
 
@@ -3278,13 +3278,13 @@ void ZCharacter::InitMesh()
 	pMesh = ZGetMeshMgr()->Get(szMeshName);//원하는 모델을 붙여주기..
 
 	if(!pMesh) {
-		mlog("AddCharacter 원하는 모델을 찾을수 없음\n");
+		cclog("AddCharacter 원하는 모델을 찾을수 없음\n");
 	}
 
 	int nVMID = ZGetGame()->m_VisualMeshMgr.Add(pMesh);
 
 	if(nVMID==-1) {
-		mlog("AddCharacter 캐릭터 생성 실패\n");
+		cclog("AddCharacter 캐릭터 생성 실패\n");
 	}
 
 	m_nVMID.Set_CheckCrc(nVMID);
@@ -3611,8 +3611,8 @@ void ZCharacter::ChangeWeapon(CCMatchCharItemParts nParts)
 
 	if (pSelectedItemDesc==NULL) {
 		m_Items.SelectWeapon(BackupParts);
-		mlog("선택된 무기의 데이터가 없다.\n");
-		mlog("ZCharacter 무기상태와 RVisualMesh 의 무기상태가 틀려졌다\n");
+		cclog("선택된 무기의 데이터가 없다.\n");
+		cclog("ZCharacter 무기상태와 RVisualMesh 의 무기상태가 틀려졌다\n");
 		return;
 	}
 
@@ -3876,7 +3876,7 @@ void ZCharacter::ActDead()
 		}
 		SetAnimationLower(lower_motion);
 
-//		mlog("dir : %f %f %f / %d : force %f / dist %f \n",vDir.x,vDir.y,vDir.z,lower_motion,fForce,m_LastDamageDistance);
+//		cclog("dir : %f %f %f / %d : force %f / dist %f \n",vDir.x,vDir.y,vDir.z,lower_motion,fForce,m_LastDamageDistance);
 	}
 
 	if (GetStateUpper() != ZC_STATE_UPPER_NONE )

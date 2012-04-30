@@ -30,7 +30,7 @@ bool ZNHNUSA_Poll::ZHanPollInit( const char* pszGameId, const char* pszMemberId,
 	int nRetVal = HanPollInit( const_cast<char*>(pszGameId), const_cast<char*>(pszMemberId), nServiceCode);
 	if ( nRetVal < 0)
 	{
-		mlog( "Poll init fail : error code = %d \n", nRetVal);
+		cclog( "Poll init fail : error code = %d \n", nRetVal);
 		return false;
 	}
 
@@ -49,13 +49,13 @@ bool ZNHNUSA_Poll::ZHanPollInitGameString( const char* pszGameString)
 	}
 
 #ifdef _DEBUG
-	mlog( "Game String = %s\n", pszGameString);
+	cclog( "Game String = %s\n", pszGameString);
 #endif
 
 	int nRetVal = HanPollInitGameString( const_cast<char*>( pszGameString));
 	if ( nRetVal < 0)
 	{
-		mlog( "Poll init fail : error code = %d \n", nRetVal);
+		cclog( "Poll init fail : error code = %d \n", nRetVal);
 		return false;
 	}
 
@@ -71,7 +71,7 @@ int ZNHNUSA_Poll::ZHanPollProcess( const char* pszData)
 		return 0;
 
 	int nRetVal = HanPollProcess( const_cast<char*>( pszData));
-	mlog( "Return value = %d\n", nRetVal);
+	cclog( "Return value = %d\n", nRetVal);
 
 	return nRetVal;
 }

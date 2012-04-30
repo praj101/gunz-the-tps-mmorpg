@@ -36,14 +36,14 @@ bool ZStringResManager::OnInit()
 		if (!m_Messages.Initialize(strFileName.c_str(), ZGetLocale()->GetLanguage(), m_pFS))
 		{
 			_ASSERT(0);
-			mlog("Error!! - Messages Initalize Failed\n");
+			cclog("Error!! - Messages Initalize Failed\n");
 			return false;
 		}
 	}
 	else
 	{
 		ASSERT( 0 );
-		mlog( "'Configuration' or 'ZLocale' must be completed befor 'Message'.\n" );
+		cclog( "'Configuration' or 'ZLocale' must be completed befor 'Message'.\n" );
 		return false;
 	}
 

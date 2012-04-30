@@ -104,8 +104,8 @@ void ZReplayLoader::ChangeGameState()
 	ZGetObjectManager()->Clear();
 
 #ifdef _REPLAY_TEST_LOG
-	mlog("[Replay Start]\n");
-	mlog("[Map:%s, LimitTime:%d, GemeType:%d]\n", stageSetting.szMapName, stageSetting.nLimitTime, stageSetting.nGameType);
+	cclog("[Replay Start]\n");
+	cclog("[Map:%s, LimitTime:%d, GemeType:%d]\n", stageSetting.szMapName, stageSetting.nLimitTime, stageSetting.nGameType);
 #endif
 
 }
@@ -300,7 +300,7 @@ bool ZReplayLoader::LoadCharInfo(ZFile* file)
 
 		pChar->SetVisible(true);
 #ifdef _REPLAY_TEST_LOG
-		mlog("[Add Character %s(%d)]\n", pChar->GetUserName());
+		cclog("[Add Character %s(%d)]\n", pChar->GetUserName());
 #endif
 
 	}
@@ -387,7 +387,7 @@ MCommand* ZReplayLoader::CreateCommandFromStreamVersion2(char* pStream)
 	MCommandDesc* pDesc = pCM->GetCommandDescByID(nCommandID);
 	if (pDesc == NULL)
 	{
-		mlog("Error(MCommand::SetData): Wrong Command ID(%d)\n", nCommandID);
+		cclog("Error(MCommand::SetData): Wrong Command ID(%d)\n", nCommandID);
 		_ASSERT(0);
 
 		return pCommand;
@@ -722,7 +722,7 @@ MCommandParameter* ZReplayLoader::MakeVersion2CommandParameter(MCommandParameter
 		pParam = new MCommandParameterUInt64;
 		break;
 	default:
-		mlog("Error(MCommand::SetData): Wrong Param Type\n");
+		cclog("Error(MCommand::SetData): Wrong Param Type\n");
 		_ASSERT(false);		// Unknow Parameter!!!
 		return NULL;
 	}

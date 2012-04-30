@@ -40,7 +40,7 @@ void ZStencilLight::Destroy()
 
 	for( map<int, LightSource*>::iterator iter = m_LightSource.begin(); iter != m_LightSource.end(); )
 	{
-//		mlog("light %d deleted\n",iter->first);
+//		cclog("light %d deleted\n",iter->first);
 		LightSource* pLS = iter->second;
 		SAFE_DELETE(pLS);
 		iter = m_LightSource.erase(iter);
@@ -362,7 +362,7 @@ int ZStencilLight::AddLightSource( rvector& p, float power )
 	m_LightSource.insert( map<int,LightSource*>::value_type(m_id,pNew) );
 	int rid = m_id;
 	m_id = m_id>=MAXLSID?1:m_id+1;
-//	mlog("light %d added\n",rid);
+//	cclog("light %d added\n",rid);
 	return rid;
 }
 
@@ -377,7 +377,7 @@ int ZStencilLight::AddLightSource( rvector& p, float power,	DWORD lastTime )
 	m_LightSource.insert( map<int,LightSource*>::value_type(m_id,pNew) );
 	int rid = m_id;
 	m_id = m_id>=MAXLSID?1:m_id+1;
-//	mlog("light %d added\n",rid);
+//	cclog("light %d added\n",rid);
 	return rid;
 }
 
@@ -436,7 +436,7 @@ void ZStencilLight::Update()
 //			pLS->power *= 0.97f;
 			if(pLS->deadTime <= timeGetTime())
 			{
-//				mlog("light %d deleted\n",iter->first);
+//				cclog("light %d deleted\n",iter->first);
 				SAFE_DELETE(pLS);
 				iter = m_LightSource.erase(iter);
 				continue;

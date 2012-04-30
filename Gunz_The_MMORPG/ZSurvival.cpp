@@ -93,7 +93,7 @@ bool ZSurvival::Load()
 #endif
 	if (!m_DropTable.ReadXml(ZApplication::GetFileSystem(), strFileDropTable.c_str()))
 	{
-		mlog("Error while Read m_DropTable %s", strFileDropTable.c_str());
+		cclog("Error while Read m_DropTable %s", strFileDropTable.c_str());
 		return false;
 	}
 
@@ -103,7 +103,7 @@ bool ZSurvival::Load()
 #endif	
 	if (!m_NPCCatalogue.ReadXml(ZApplication::GetFileSystem(), strFileNameZNPC.c_str()))
 	{
-		mlog("Error while Read Item Descriptor %s", strFileNameZNPC.c_str());
+		cclog("Error while Read Item Descriptor %s", strFileNameZNPC.c_str());
 		return false;
 	}
 
@@ -115,7 +115,7 @@ bool ZSurvival::Load()
 #endif
 	if (!m_MapCatalogue.ReadXml(ZApplication::GetFileSystem(), strFileNameSurvivalMap.c_str()))
 	{
-		mlog("Read Survivalmap Catalogue Failed");
+		cclog("Read Survivalmap Catalogue Failed");
 		return false;
 	}
 
@@ -123,7 +123,7 @@ bool ZSurvival::Load()
 	RAniEventMgr* AniEventMgr = ZGetAniEventMgr();
 	if (!AniEventMgr->ReadXml(ZApplication::GetFileSystem(), "System/AnimationEvent.xml"))
 	{
-		mlog("Read Animation Event Failed");
+		cclog("Read Animation Event Failed");
 		return false;
 	}
 	m_bLoaded = true;
@@ -170,8 +170,8 @@ void ZSurvival::OnGameCreate()
 	if (m_MapCatalogue.IsHacked())
 	{
 		ZGetGameInterface()->ShowDisconnectMsg( MERR_FIND_HACKER, 30000 );
-		mlog(ZMsg(MSG_HACKING_DETECTED));
-		mlog("\nhacked XML.\n");
+		cclog(ZMsg(MSG_HACKING_DETECTED));
+		cclog("\nhacked XML.\n");
 	}
 }
 
@@ -1009,13 +1009,13 @@ bool ZSurvival::OnQuestCompleted(MCommand* pCommand)
 	// 월드아이템을 모두 없앤다.
 	//ZGetWorldItemManager()->Reset(true);
 
-	mlog("Quest Completed\n");
+	cclog("Quest Completed\n");
 	return true;
 }
 
 bool ZSurvival::OnQuestFailed(MCommand* pCommand)
 {
-	mlog("Quest Failed\n");
+	cclog("Quest Failed\n");
 
 #ifdef _QUEST_ITEM
 	m_bIsQuestComplete = false;
@@ -1083,7 +1083,7 @@ void ZSurvival::LoadNPCMeshes()
 
 	if (!m_GameInfo.IsInited()) 
 	{
-		mlog("not inialized Quest Game Info\n");
+		cclog("not inialized Quest Game Info\n");
 		_ASSERT(0);
 		return;
 	}
@@ -1102,7 +1102,7 @@ void ZSurvival::LoadNPCSounds()
 {
 	if (!m_GameInfo.IsInited())
 	{
-		mlog("ZSurvival::LoadNPCSounds - not inialized Quest Game Info\n");
+		cclog("ZSurvival::LoadNPCSounds - not inialized Quest Game Info\n");
 		return;
 	}
 
@@ -1115,7 +1115,7 @@ void ZSurvival::LoadNPCSounds()
 		MQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
 		if (!pSE->LoadNPCResource(npc))
 		{
-			mlog("failed npc sound\n");
+			cclog("failed npc sound\n");
 		}
 	}
 }

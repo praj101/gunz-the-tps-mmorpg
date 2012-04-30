@@ -45,7 +45,7 @@ void ZSoundEngine::OnCreate()
 
 	if( !LoadResource( SOUNDEFFECT_XML ) )
 	{
-		mlog("fail to load sound effect\n");
+		cclog("fail to load sound effect\n");
 	}
 
 }
@@ -215,7 +215,7 @@ int ZSoundEngine::PlaySoundCharacter(const char* szSoundName, rvector& pos, bool
 /*
 	char temp[256];
 	sprintf(temp, "Play Channel:%4d\n", nChannel);
-	mlog(temp);
+	cclog(temp);
 */
 
 
@@ -242,7 +242,7 @@ void ZSoundEngine::PlaySound(char* Name,rvector& pos,bool bHero, bool bLoop, DWO
 	//Culling
 #ifdef _DEBUG
 	// 너무 많이 남아서 주석 처리 했음. - by SungE 2007-04-17
-	// mlog("ZSoundEngine::PlaySound - %s, pos=%.1f %.1f %.1f, delay = %u\n", Name, pos.x, pos.y, pos.z, dwDelay);
+	// cclog("ZSoundEngine::PlaySound - %s, pos=%.1f %.1f %.1f, delay = %u\n", Name, pos.x, pos.y, pos.z, dwDelay);
 #endif
 	// SetPriority
 	if( dwDelay > 0 )
@@ -521,12 +521,12 @@ bool ZSoundEngine::Create(HWND hwnd, bool bHWMixing, ZLoadingProgress *pLoadingP
 		m_bSoundEnable = ZGetSoundFMod()->Create( hwnd, FSOUND_OUTPUT_DSOUND, 44100, 0, 0, 32, 0 ); // try software mode
 		if( !m_bSoundEnable )
 		{
-			mlog("Fail to Create Sound Engine..\n");
+			cclog("Fail to Create Sound Engine..\n");
 			return false;
 		}
 		else
 		{
-			mlog("Create SoundEngine with Software mode after failed with hardware mode..\n");
+			cclog("Create SoundEngine with Software mode after failed with hardware mode..\n");
 			m_bHWMixing = false;
 			Z_AUDIO_HWMIXING = false;
 		}
@@ -535,7 +535,7 @@ bool ZSoundEngine::Create(HWND hwnd, bool bHWMixing, ZLoadingProgress *pLoadingP
 
 	if( !LoadResource( SOUNDEFFECT_XML, pLoadingProgress ) )
 	{
-		mlog("fail to load sound effect\n");
+		cclog("fail to load sound effect\n");
 	}
 
 	ZGetSoundFMod()->SetRollFactor(3.f);
@@ -589,7 +589,7 @@ bool ZSoundEngine::Reset( HWND hwnd, bool bHWMixing )
 
 void ZSoundEngine::Destroy()
 {
-	mlog("Destroy sound engine.\n");
+	cclog("Destroy sound engine.\n");
 	for( SESMAP::iterator iter = m_SoundEffectSource.begin(); iter != m_SoundEffectSource.end(); ++iter )
 	{
 		SoundSource* pSS = iter->second;
@@ -613,10 +613,10 @@ void ZSoundEngine::Destroy()
 	StopMusic();
 	CloseMusic();
 
-	//mlog("ZSoundEngine::Destroy() : Close FMod\n");
+	//cclog("ZSoundEngine::Destroy() : Close FMod\n");
 	ZGetSoundFMod()->Close();
 
-	mlog("Destroy sound engine. success\n");
+	cclog("Destroy sound engine. success\n");
 }
 
 bool ZSoundEngine::SetSamplingBits( bool b8Bits )
@@ -783,7 +783,7 @@ void ZSoundEngine::PlaySEFire(CCMatchItemDesc *pDesc, float x, float y, float z,
 			char szBuffer[64];
 			sprintf( szBuffer, "%s_2d", szSndName );
 #ifdef _SOUND_LOG
-			mlog("%s stereo 2d sound is played..\n",szBuffer);
+			cclog("%s stereo 2d sound is played..\n",szBuffer);
 #endif
 			char* szDefault;
 			if (pDesc->m_nType.Ref() == MMIT_RANGE)
@@ -826,7 +826,7 @@ void ZSoundEngine::PlaySEReload(CCMatchItemDesc *pDesc, float x, float y, float 
 			char szBuffer[64];
 			sprintf( szBuffer, "%s_2d", szSndName );
 #ifdef _SOUND_LOG
-			mlog("%s stereo 2d sound is played..\n",szBuffer);
+			cclog("%s stereo 2d sound is played..\n",szBuffer);
 #endif
 			PlaySoundElseDefault(szBuffer,"we_rifle_reload_2d",rvector(x,y,z),bPlayer);
 		}
@@ -958,7 +958,7 @@ int ZSoundEngine::PlaySound(char* Name,const rvector& pos,bool bHero, bool bLoop
 	if(pSS == 0 )
 	{
 #ifdef _SOUND_LOG
-		mlog("No %sSound Source[%s]\n", bHero?"2d":"3d", Name);
+		cclog("No %sSound Source[%s]\n", bHero?"2d":"3d", Name);
 #endif
 		return 0;
 	}
@@ -970,7 +970,7 @@ int ZSoundEngine::PlaySound(char* Name,const rvector& pos,bool bHero, bool bLoop
 //	priority = 50;
 #ifdef _DEBUG
 	// 너무 많이 남아서 주석 처리 했음. - by SungE 2007-04-17
-	// mlog("ZSoundEngine::PlaySound - %s, priority=%d, pos=(%.1f %.1f %.1f) , delay=%u\n", Name, priority, pos.x, pos.y, pos.z, dwDelay);
+	// cclog("ZSoundEngine::PlaySound - %s, priority=%d, pos=(%.1f %.1f %.1f) , delay=%u\n", Name, priority, pos.x, pos.y, pos.z, dwDelay);
 #endif
 
 
@@ -991,7 +991,7 @@ int ZSoundEngine::PlaySound(char* Name,const rvector& pos,bool bHero, bool bLoop
 	if(pFS == NULL)
 	{
 #ifdef _SOUND_LOG
-		mlog("FSOUND_SAMPLE is Null for Sound Source[%s]\n", Name);
+		cclog("FSOUND_SAMPLE is Null for Sound Source[%s]\n", Name);
 #endif
 		return 0;
 	}
@@ -1010,12 +1010,12 @@ void ZSoundEngine::PlaySoundElseDefault(char* Name,char* NameDefault,rvector& po
 		if(pSS == 0)
 		{
 #ifdef _SOUND_LOG
-			mlog("No %sSound Source[%s] even Default Sound Source[%s]\n", bHero?"2d":"3d", Name, NameDefault);
+			cclog("No %sSound Source[%s] even Default Sound Source[%s]\n", bHero?"2d":"3d", Name, NameDefault);
 #endif
 			return;
 		}
 #ifdef _SOUND_LOG
-		mlog("No %sSound Source[%s] so Use Default Sound Source[%s]\n", bHero?"2d":"3d", Name, NameDefault);
+		cclog("No %sSound Source[%s] so Use Default Sound Source[%s]\n", bHero?"2d":"3d", Name, NameDefault);
 #endif
 	}
 
@@ -1039,7 +1039,7 @@ void ZSoundEngine::PlaySoundElseDefault(char* Name,char* NameDefault,rvector& po
 	if(pFS == NULL)
 	{
 #ifdef _SOUND_LOG
-		mlog("FSOUND_SAMPLE is Null for Sound Source[%s]\n", Name);
+		cclog("FSOUND_SAMPLE is Null for Sound Source[%s]\n", Name);
 #endif
 		return;
 	}
@@ -1055,7 +1055,7 @@ int ZSoundEngine::PlaySound( char* Name, bool bLoop, DWORD dwDelay )
 	if(pSS == 0 )
 	{
 #ifdef _SOUND_LOG
-		mlog("No 2DSound Source[%s]\n", Name);
+		cclog("No 2DSound Source[%s]\n", Name);
 #endif
 		return 0;
 	}
@@ -1075,7 +1075,7 @@ int ZSoundEngine::PlaySound( char* Name, bool bLoop, DWORD dwDelay )
 	if(pFS == NULL)
 	{
 #ifdef _SOUND_LOG
-		mlog("FSOUND_SAMPLE is Null for Sound Source[%s]\n", Name);
+		cclog("FSOUND_SAMPLE is Null for Sound Source[%s]\n", Name);
 #endif
 		return 0;
 	}
@@ -1360,7 +1360,7 @@ bool ZSoundEngine::LoadResource( char* pFileName_ ,ZLoadingProgress *pLoading )
 
 #ifdef _DEBUG
 		if(pFS==NULL && pFS2==NULL) {
-			mlog("cannot create sound : %s\n",szSoundName);
+			cclog("cannot create sound : %s\n",szSoundName);
 		}
 #endif
 	}
@@ -1441,7 +1441,7 @@ void ZSoundEngine::Set3DSoundUpdate(bool b)
 
 bool ZSoundEngine::Reload()
 {
-	mlog("Reload Sound Sources...\n");
+	cclog("Reload Sound Sources...\n");
 	for( SESMAP::iterator iter = m_SoundEffectSource.begin(); iter != m_SoundEffectSource.end(); ++iter )
 	{
 		SoundSource* pSS = iter->second;
@@ -1733,7 +1733,7 @@ bool ZSoundEngine::CheckCulling(char* szName, SoundSource* pSS, const rvector& v
 		if( fDistSq > (pSS->fMaxDistance*pSS->fMaxDistance) ) 
 		{
 #ifdef _SOUND_LOG
-			mlog("Cull by Distance[%s]\n", szName);
+			cclog("Cull by Distance[%s]\n", szName);
 #endif
 			return false;
 		}
@@ -1749,7 +1749,7 @@ bool ZSoundEngine::CheckCulling(char* szName, SoundSource* pSS, const rvector& v
 		{
 #ifdef _DEBUG
 			// 너무 많이 남아서 주석 처리 함. -- by SungE 2007-04-17
-			// mlog("--------- 복수 sound 출력(%s, %u)\n", szName, nNowTime - pSS->nLastPlayedTime);
+			// cclog("--------- 복수 sound 출력(%s, %u)\n", szName, nNowTime - pSS->nLastPlayedTime);
 #endif
 			return false;
 		}

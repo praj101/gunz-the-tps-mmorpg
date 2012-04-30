@@ -84,7 +84,7 @@ bool ZInitialLoading::AddBitmap( int index_, const char* bitmapName_ )
 	sprintf( Buff, "Scene%d", index_ );
 	if( !mBitmaps[index_].Create( Buff, RGetDevice(), bitmapName_ ) )
 	{
-		mlog("Fail to create Bitmap for Initial loading\n" );
+		cclog("Fail to create Bitmap for Initial loading\n" );
 		return false;
 	}
 	mbBitmap		= true;
@@ -98,7 +98,7 @@ bool	ZInitialLoading::AddBitmapBar( const char* bitmapName_ )
 {
 	if( !mBitmap_Bar[0].Create( "Progress_Bar", RGetDevice(), bitmapName_ ) )
 	{
-		mlog("Fail to create Bitmap for Initial loading\n" );
+		cclog("Fail to create Bitmap for Initial loading\n" );
 		return false;
 	}
 	mbBitmapBar	= true;
@@ -315,7 +315,7 @@ bool ZInitialLoading::AddBitmapGrade(const char* bitmapName_ )
 	if(!mBitmap_Grade) return false;
 	if( !mBitmap_Grade[0].Create( "Scene", RGetDevice(), bitmapName_ ) )
 	{
-		mlog("Fail to create Bitmap for Initial loading\n" );
+		cclog("Fail to create Bitmap for Initial loading\n" );
 		return false;
 	}
 	return true;

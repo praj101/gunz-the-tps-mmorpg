@@ -185,7 +185,7 @@ public:
 	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
 		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 
-			mlog("MLogoutListener !\n");
+			cclog("MLogoutListener !\n");
 			// 체크후 로그아웃~
 			/////////////////
 			ZPostDisconnect();
@@ -202,7 +202,7 @@ public:
 	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
 		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 
-			mlog("MExitListener !\n");
+			cclog("MExitListener !\n");
 			ZApplication::Exit();
 
 			return true;

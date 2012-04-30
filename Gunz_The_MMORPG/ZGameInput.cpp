@@ -210,8 +210,8 @@ bool ZGameInput::OnEvent(MEvent* pEvent)
 					}
 				}
 				return true;
-			case ZACTION_COMMUNITYITEM1:	mlog("Community Item1 Selected!\n"); return true;
-			case ZACTION_COMMUNITYITEM2:	mlog("Community Item2 Selected!\n"); return true;
+			case ZACTION_COMMUNITYITEM1:	cclog("Community Item1 Selected!\n"); return true;
+			case ZACTION_COMMUNITYITEM2:	cclog("Community Item2 Selected!\n"); return true;
 			case ZACTION_PREV_WEAPON:
 				{
 					if ( !ZGetGame()->IsReplay())
