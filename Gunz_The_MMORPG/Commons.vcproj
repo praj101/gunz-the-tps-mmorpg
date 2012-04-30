@@ -1885,6 +1885,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCPageArray.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCPageArray.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCPageArray.h"
 			>
 		</File>

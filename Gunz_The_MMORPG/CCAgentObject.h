@@ -4,20 +4,20 @@
 #include <windows.h>
 
 
-class MAgentObject : public MObject {
+class CCAgentObject : public CCObject {
 protected:
 	char 			m_szIP[64];
 	unsigned int	m_nTCPPort;
 	unsigned int	m_nUDPPort;
 
 public:
-	MAgentObject() {}
-	MAgentObject(const CCUID& uid) : MObject(uid) { 
+	CCAgentObject() {}
+	CCAgentObject(const CCUID& uid) : CCObject(uid) { 
 		ZeroMemory(m_szIP, sizeof(char)*64);	
 		m_nTCPPort=0;
 		m_nUDPPort=0;
 	}
-	virtual ~MAgentObject() {};
+	virtual ~CCAgentObject() {};
 
 	void SetAddr(char* szIP, unsigned short nTCPPort, unsigned short nUDPPort)	{ 
 		strcpy(m_szIP, szIP); m_nTCPPort = nTCPPort; m_nUDPPort = nUDPPort;
@@ -31,4 +31,4 @@ public:
 };
 
 
-class MAgentObjectMap : public map<CCUID, MAgentObject*>{};
+class CCAgentObjectMap : public map<CCUID, CCAgentObject*>{};

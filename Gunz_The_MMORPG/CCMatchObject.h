@@ -485,7 +485,7 @@ struct CCMatchObjectChannelInfo
 		uidChannel = CCUID(0,0);
 		uidRecentChannel = CCUID(0,0);
 		bChannelListTransfer = false;
-		nChannelListType = MCHANNEL_TYPE_PRESET;
+		nChannelListType = CCCHANNEL_TYPE_PRESET;
 		nChannelListChecksum = 0;
 		nTimeLastChannelListTrans = 0;
 	}
@@ -704,7 +704,7 @@ public:
 	bool IsSettingData() { return m_bIsSettingData; }
 };
 
-class CCMatchObject : public MObject {
+class CCMatchObject : public CCObject {
 protected:
 	CCMatchAccountInfo			m_AccountInfo;		// 계정 정보
 	CCMatchCharInfo*				m_pCharInfo;		// 캐릭터 정보
