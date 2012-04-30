@@ -69,25 +69,25 @@ const TCHAR g_szDB_GetCustomIP[]				= _T("{CALL spIPFltGetCustomIP ('%s')}" );
 
 
 
-MCountryFilterDBMgr::MCountryFilterDBMgr() 
+CCCountryFilterDBMgr::CCCountryFilterDBMgr() 
 {
 	m_pDB = 0;
 }
 
 
-MCountryFilterDBMgr::MCountryFilterDBMgr( MDatabase* pDatabase )
+CCCountryFilterDBMgr::CCCountryFilterDBMgr( MDatabase* pDatabase )
 {
 	if( 0 != pDatabase )
 		m_pDB = pDatabase;
 }
 
 
-MCountryFilterDBMgr::~MCountryFilterDBMgr()
+CCCountryFilterDBMgr::~CCCountryFilterDBMgr()
 {
 }
 
 
-bool MCountryFilterDBMgr::GetIPContryCode( const string& strIP, 
+bool CCCountryFilterDBMgr::GetIPContryCode( const string& strIP, 
 									 DWORD& dwIPFrom, 
 									 DWORD& dwIPTo, 
 									 string& strCountryCode )
@@ -124,7 +124,7 @@ bool MCountryFilterDBMgr::GetIPContryCode( const string& strIP,
 }
 
 
-bool MCountryFilterDBMgr::GetBlockCountryCodeList( BlockCountryCodeList& rfBlockCountryCodeList )
+bool CCCountryFilterDBMgr::GetBlockCountryCodeList( BlockCountryCodeList& rfBlockCountryCodeList )
 {
 	if( CheckOpen() )
 	{
@@ -168,7 +168,7 @@ bool MCountryFilterDBMgr::GetBlockCountryCodeList( BlockCountryCodeList& rfBlock
 }
 
 
-bool MCountryFilterDBMgr::GetIPtoCountryList( IPtoCountryList& rfIPtoCountryList )
+bool CCCountryFilterDBMgr::GetIPtoCountryList( IPtoCountryList& rfIPtoCountryList )
 {
 	if( !CheckOpen() )
 		return false;
@@ -212,7 +212,7 @@ bool MCountryFilterDBMgr::GetIPtoCountryList( IPtoCountryList& rfIPtoCountryList
 }
 
 
-bool MCountryFilterDBMgr::GetCustomIP( const string& strIP, DWORD& dwIPFrom, DWORD& dwIPTo, bool& bIsBlock, string& strCountryCode3, string& strComment )
+bool CCCountryFilterDBMgr::GetCustomIP( const string& strIP, DWORD& dwIPFrom, DWORD& dwIPTo, bool& bIsBlock, string& strCountryCode3, string& strComment )
 {
 	if( !CheckOpen() ) 
 		return false;
@@ -246,7 +246,7 @@ bool MCountryFilterDBMgr::GetCustomIP( const string& strIP, DWORD& dwIPFrom, DWO
 }
 
 
-bool MCountryFilterDBMgr::GetCustomIPList( CustomIPList& rfCustomIPList )
+bool CCCountryFilterDBMgr::GetCustomIPList( CustomIPList& rfCustomIPList )
 {
 	if( !CheckOpen() ) 
 		return false;
@@ -291,13 +291,13 @@ bool MCountryFilterDBMgr::GetCustomIPList( CustomIPList& rfCustomIPList )
 }
 
 
-bool MCountryFilterDBMgr::CheckOpen()
+bool CCCountryFilterDBMgr::CheckOpen()
 {
 	return (0 != GetDB()) && GetDB()->CheckOpen();
 }
 
 
-void MCountryFilterDBMgr::ReleaseDB()
+void CCCountryFilterDBMgr::ReleaseDB()
 {
 	if( 0 != m_pDB )
 	{

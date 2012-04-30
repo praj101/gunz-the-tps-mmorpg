@@ -5,12 +5,12 @@
 #include "CCCountryFilter.h"
 
 
-class MCountryFilterDBMgr
+class CCCountryFilterDBMgr
 {
 public:
-	MCountryFilterDBMgr();
-	MCountryFilterDBMgr( MDatabase* pDatabase );
-	virtual ~MCountryFilterDBMgr();
+	CCCountryFilterDBMgr();
+	CCCountryFilterDBMgr( MDatabase* pDatabase );
+	virtual ~CCCountryFilterDBMgr();
 
 	MDatabase* GetDB() { return m_pDB; }
 
