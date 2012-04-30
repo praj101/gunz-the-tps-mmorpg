@@ -2,7 +2,7 @@
 #define MMATCHDBMGR_H
 #pragma warning( disable: 4996 )
 #include "ODBCRecordset.h"
-#include "MMatchItem.h"
+#include "CCMatchItem.h"
 #include "MMatchGlobal.h"
 #include "CCQuestItem.h"
 #include "CCQuestConst.h"
