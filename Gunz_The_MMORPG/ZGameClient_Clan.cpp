@@ -400,7 +400,7 @@ void ZGameClient::OnClanAnswerJoinAgreement(const CCUID& uidClanAdmin, const cha
 
 	if (bAnswer)
 	{
-		if (IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), MCG_ADMIN))
+		if (IsUpperClanGrade(ZGetMyInfo()->GetClanGrade(), CCG_ADMIN))
 		{
 			char szClanName[256];
 			sprintf(szClanName, ZGetMyInfo()->GetClanName());

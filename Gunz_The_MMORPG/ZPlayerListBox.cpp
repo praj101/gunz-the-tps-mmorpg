@@ -671,11 +671,11 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, char* szName, in
 	bool bSpUser = false;
 
 	switch(nGrade) {
-		case MCG_MASTER : 
+		case CCG_MASTER : 
 			sprintf(szGradeName, ZMsg( MSG_WORD_CLAN_MASTER));
 			bSpUser = true;
 			break;
-		case MCG_ADMIN	: 
+		case CCG_ADMIN	: 
 			sprintf(szGradeName, ZMsg( MSG_WORD_CLAN_ADMIN));
 			bSpUser = true;
 			break;

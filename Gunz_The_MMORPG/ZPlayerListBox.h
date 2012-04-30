@@ -241,7 +241,7 @@ public:
 		m_szClanName[0] = PS_END;
 		m_szLevel[0] = 0;
 		m_Grade = MMUG_FREE;
-		m_ClanGrade = MCG_NONE;
+		m_ClanGrade = CCG_NONE;
 		m_Color = MCOLOR(0xFFCDCDCD);
 	}
 

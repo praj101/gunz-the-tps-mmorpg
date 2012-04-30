@@ -12,16 +12,16 @@ inline const char* ZGetClanGradeStr(const CCMatchClanGrade nGrade)
 {
 	switch (nGrade)
 	{
-	case MCG_NONE:		
+	case CCG_NONE:		
 		return ZMsg(MSG_WORD_CLAN_NONE); break;
 
-	case MCG_MASTER:	
+	case CCG_MASTER:	
 		return ZMsg(MSG_WORD_CLAN_MASTER); break;
 
-	case MCG_ADMIN:		
+	case CCG_ADMIN:		
 		return ZMsg(MSG_WORD_CLAN_ADMIN); break;
 
-	case MCG_MEMBER:	
+	case CCG_MEMBER:	
 		return ZMsg(MSG_WORD_CLAN_MEMBER); break;
 
 	default:
@@ -51,15 +51,15 @@ public:
 		return true;
 
 	case ZCMD_PLAYERMENU_CLAN_GRADE_MASTER:
-		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),MCG_MASTER);
+		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),CCG_MASTER);
 		return true;
 
 	case ZCMD_PLAYERMENU_CLAN_GRADE_ADMIN:
-		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),MCG_ADMIN);
+		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),CCG_ADMIN);
 		return true;
 
 	case ZCMD_PLAYERMENU_CLAN_GRADE_MEMBER:
-		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),MCG_MEMBER);
+		ZPostRequestChangeClanGrade(ZGetMyUID(),pMenu->GetTargetName(),CCG_MEMBER);
 		return true;
 
 	case ZCMD_PLAYERMENU_CLAN_LEAVE:

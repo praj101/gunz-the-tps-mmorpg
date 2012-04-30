@@ -785,7 +785,7 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 		C(MC_MATCH_CLAN_MASTER_REQUEST_CHANGE_GRADE, "Match.Clan.Master.RequestChangeGrade", "Request Change ClanGrade", MCDT_MACHINE2MACHINE)
 			P(MPT_UID, "uidClanMaster")		// 클랜 마스터
 			P(MPT_STR, "szMember")			// 변경하려고 하는 멤버 캐릭터이름
-			P_MINMAX(MPT_INT, "Grade", 0, MCG_END-1)				// 변경하고자 하는 권한
+			P_MINMAX(MPT_INT, "Grade", 0, CCG_END-1)				// 변경하고자 하는 권한
 		C(MC_MATCH_CLAN_MASTER_RESPONSE_CHANGE_GRADE, "Match.Clan.Master.ResponseChangeGrade", "Response Change ClanGrade", MCDT_MACHINE2MACHINE)
 			P(MPT_INT, "Result")
 

@@ -193,7 +193,7 @@ struct CCMatchCharClanInfo
 	{
 		m_nClanID = 0; 
 		// m_szClanName[0] = 0; 
-		m_nGrade=MCG_NONE;
+		m_nGrade=CCG_NONE;
 		m_nContPoint = 0;
 		m_strDeleteDate.clear();
 
