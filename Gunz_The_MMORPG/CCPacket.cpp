@@ -9,7 +9,7 @@
 //#ifdef _HSHIELD
 //	#include "MPacketHShieldCrypter.h"
 //#else
-	#include "MPacketCrypter.h"
+	#include "CCPacketCrypter.h"
 //#endif
 
 int MPacketHeader::CalcPacketSize(MPacketCrypter* pCrypter)

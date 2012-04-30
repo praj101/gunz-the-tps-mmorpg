@@ -1,5 +1,5 @@
 #pragma once
-#include "MCrypt.h"
+#include "CCCrypt.h"
 
 #define PACKET_CRYPTER_KEY_LEN		32
 
