@@ -2061,6 +2061,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCTCPSocket.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCTCPSocket.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCTeamGameStrategy.cpp"
 			>
 		</File>
