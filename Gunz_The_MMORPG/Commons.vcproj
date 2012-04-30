@@ -1617,6 +1617,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchDBFilter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchDBFilter.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchDBGambleItem.cpp"
 			>
 		</File>
