@@ -20,16 +20,16 @@
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
 #include "CCMatchStatus.h"
-#include "MAsyncDBJob.h"
-#include "MAsyncDBJob_FriendList.h"
-#include "MAsyncDBJob_CharFinalize.h"
+#include "CCAsyncDBJob.h"
+#include "CCAsyncDBJob_FriendList.h"
+#include "CCAsyncDBJob_CharFinalize.h"
 #include "CCMatchUtil.h"
 #include "CCMatchRuleBaseQuest.h"
 #include "CCMatchLocale.h"
 #include "CCMatchObject.h"
 
-#include "MAsyncDBJob_UpdateAccountLastLoginTime.h"
-#include "MAsyncDBJob_UpdateCharBRInfo.h"
+#include "CCAsyncDBJob_UpdateAccountLastLoginTime.h"
+#include "CCAsyncDBJob_UpdateCharBRInfo.h"
 
 void CCMatchServer::OnRequestAccountCharInfo(const CCUID& uidPlayer, int nCharNum)
 {

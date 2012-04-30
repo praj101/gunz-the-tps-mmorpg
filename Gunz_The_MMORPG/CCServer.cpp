@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "MServer.h"
-#include "MSharedCommandTable.h"
-#include "MCommandBuilder.h"
+#include "CCServer.h"
+#include "CCSharedCommandTable.h"
+#include "CCCommandBuilder.h"
 #include <stdarg.h>
 #include <windowsx.h>
-#include "MErrorTable.h"
+#include "CCErrorTable.h"
 #include "CCCRC32.h"
 // #include "MPacketHShieldCrypter.h"
 #include "CCMatchConfig.h"

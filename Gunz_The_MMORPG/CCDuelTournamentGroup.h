@@ -1,5 +1,5 @@
 #pragma once
-#include "MDuelTournamentTicket.h"
+#include "CCDuelTournamentTicket.h"
 
 #include <list>
 #include <map>

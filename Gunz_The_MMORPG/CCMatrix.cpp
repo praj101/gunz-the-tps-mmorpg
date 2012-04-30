@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MMatrix.h"
+#include "CCMatrix.h"
 
 static float _matIdentity[] = {
 	1, 0, 0, 0,

@@ -15,7 +15,7 @@
 #include "RTypes.h"
 #include "CCMatchStatus.h"
 #include "CCMatchSchedule.h"
-#include "MTypes.h"
+#include "CCTypes.h"
 #include "CCMatchConfig.h"
 
 #define _STATUS_CMD_START	unsigned long int nStatusStartTime = timeGetTime();

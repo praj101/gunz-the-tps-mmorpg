@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "CCBlobArray.h"
 
-#include "MAsyncDBJob_DuelTournament.h"
+#include "CCAsyncDBJob_DuelTournament.h"
 
 #include "CCMatchConfig.h"
 #include "CCMatchServer.h"

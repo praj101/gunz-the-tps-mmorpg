@@ -20,8 +20,8 @@
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
 #include "CCMatchStatus.h"
-#include "MAsyncDBJob.h"
-#include "MAsyncDBJob_WinTheClanGame.h"
+#include "CCAsyncDBJob.h"
+#include "CCAsyncDBJob_WinTheClanGame.h"
 #include "CCUtil.h"
 
 // 클랜 관련 공용 함수 ////////////////////////////////////////////////////////////////////////////

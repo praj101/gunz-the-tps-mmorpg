@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MHackingTypes.h"
+#include "CCHackingTypes.h"
 
 const PUNISH_TABLE_ITEM MPunishTable::PUNISH_TABLE[MMHT_END] =
 {

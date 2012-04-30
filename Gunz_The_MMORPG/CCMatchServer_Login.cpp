@@ -10,14 +10,14 @@
 #include "CCCommandCommunicator.h"
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
-#include "MAsyncDBJob.h"
-#include "MAsyncDBJob_GetLoginInfo.h"
-#include "MAsyncDBJob_InsertConnLog.h"
+#include "CCAsyncDBJob.h"
+#include "CCAsyncDBJob_GetLoginInfo.h"
+#include "CCAsyncDBJob_InsertConnLog.h"
 #include "RTypes.h"
 #include "CCMatchUtil.h"
 #include <winbase.h>
 #include "CCMatchPremiumIPCache.h"
-#include "MCommandBuilder.h"
+#include "CCCommandBuilder.h"
 #include "CCMatchStatus.h"
 #include "CCMatchLocale.h"
 

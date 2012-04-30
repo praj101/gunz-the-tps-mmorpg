@@ -21,17 +21,17 @@
 #include "CCDebug.h"
 #include "CCMatchAuth.h"
 #include "CCMatchStatus.h"
-#include "MAsyncDBJob.h"
-#include "MVoteDiscussImpl.h"
+#include "CCAsyncDBJob.h"
+#include "CCVoteDiscussImpl.h"
 #include "CCUtil.h"
 #include "CCMatchGameType.h"
 #include "CCMatchRuleBaseQuest.h"
 #include "CCMatchRuleQuest.h"
 #include "CCMatchRuleBerserker.h"
 #include "CCMatchRuleDuel.h"
-#include "MCrashDump.h"
+#include "CCCrashDump.h"
 
-#include "MAsyncDBJob_InsertGamePlayerLog.h"
+#include "CCAsyncDBJob_InsertGamePlayerLog.h"
 
 static bool StageShowInfo(CCMatchServer* pServer, const CCUID& uidPlayer, const CCUID& uidStage, char* pszChat);
 

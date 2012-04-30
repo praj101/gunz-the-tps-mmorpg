@@ -4,7 +4,7 @@
 #include "CCMatchDBMgr.h"
 #include "CCMatchConfig.h"
 //#include "CCMatchServer.h"
-#include "MAsyncDBJob.h"
+#include "CCAsyncDBJob.h"
 
 
 // CCUID CCQuestItemMap::m_uidGenerate = CCUID(0,0);

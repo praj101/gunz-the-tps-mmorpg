@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCPacketCrypter.h"
-#include "MPacket.h"
+#include "CCPacket.h"
 
 int MPacketCrypter::m_nSHL = (MCOMMAND_VERSION % 6) + 1;
 unsigned char MPacketCrypter::m_ShlMask = 0;

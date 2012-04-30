@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCMatchDebug.h"
-#include "MPdb.h"
+#include "CCPdb.h"
 
 //void SetSecurityErrorHandler(_secerr_handler_func func)
 //{

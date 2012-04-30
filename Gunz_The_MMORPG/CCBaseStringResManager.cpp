@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MBaseStringResManager.h"
+#include "CCBaseStringResManager.h"
 
 #define TOK_XML_STRING_HEADER		"STR:"
 

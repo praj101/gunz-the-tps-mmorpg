@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MCrypt.h"
+#include "CCCrypt.h"
 
 
 MSeed::MSeed()

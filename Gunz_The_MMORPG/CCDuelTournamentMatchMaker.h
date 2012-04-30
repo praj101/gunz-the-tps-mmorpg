@@ -1,4 +1,4 @@
-#include "MDuelTournamentGroup.h"
+#include "CCDuelTournamentGroup.h"
 
 //////////////////////////////////////////////////////////////////////
 // Duel Tournament의 Match-Up을 시켜주는 MatchMaker 클래스이다.
