@@ -4,12 +4,12 @@
 //#pragma once
 
 
-class MCriticalSection {
+class CCCriticalSection {
 	CRITICAL_SECTION	m_cs;
 
 public:
-	MCriticalSection() { InitializeCriticalSection(&m_cs);	}
-	~MCriticalSection() { DeleteCriticalSection(&m_cs); }
+	CCCriticalSection() { InitializeCriticalSection(&m_cs);	}
+	~CCCriticalSection() { DeleteCriticalSection(&m_cs); }
 	void Lock() { EnterCriticalSection(&m_cs); }
 	void Unlock() { LeaveCriticalSection(&m_cs); }
 };

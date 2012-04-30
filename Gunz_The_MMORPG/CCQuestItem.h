@@ -199,7 +199,7 @@ public :
 */
 private :
 	// static CCUID				m_uidGenerate;
-	// static MCriticalSection	m_csUIDGenerateLock;
+	// static CCCriticalSection	m_csUIDGenerateLock;
 	bool					m_bDoneDbAccess;		// 디비에서 정보를 가져왔었는지 여부
 };
 
