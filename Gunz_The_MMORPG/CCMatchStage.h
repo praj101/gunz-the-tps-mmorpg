@@ -1,5 +1,4 @@
-#ifndef MMATCHSTAGE_H
-#define MMATCHSTAGE_H
+#pragma once
 
 #include <vector>
 #include <list>
@@ -17,29 +16,29 @@ using namespace std;
 #include "CCMatchGlobal.h"
 #include "CCDuelTournamentGroup.h"
 
-#define MTICK_STAGE			100
+#define CCTICK_STAGE			100
 
-class MMatchObject;
-class MMatchStage;
-class MMatchServer;
-class MLadderGroup;
+class CCMatchObject;
+class CCMatchStage;
+class CCMatchServer;
+class CCLadderGroup;
 
 // 스테이지 타입
-enum MMatchStageType
+enum CCMatchStageType
 {
-	MST_NORMAL	= 0,			// 일반
-	MST_LADDER,					// 레더나 클랜게임
+	CCST_NORMAL	= 0,			// 일반
+	CCST_LADDER,					// 레더나 클랜게임
 	
-	MST_MAX
+	CCST_MAX
 };
 
-struct MMatchStageTeamBonus
+struct CCMatchStageTeamBonus
 {
 	bool		bApplyTeamBonus;		// 해당 게임에서 경험치 보너스가 적용되는지 여부
 };
 
 // Ladder전일경우 래더팀 정보
-struct MMatchLadderTeamInfo
+struct CCMatchLadderTeamInfo
 {
 	int		nTID;				// Ladder Team ID
 	int		nFirstMemberCount;	// 초기멤버수
@@ -52,20 +51,20 @@ struct MMatchLadderTeamInfo
 
 
 // Stage에서 사용하는 팀의 추가정보
-struct MMatchStageTeam
+struct CCMatchStageTeam
 {
 	int						nTeamBonusExp;			// 누적된 팀 경험치
 	int						nTeamTotalLevel;		// 팀원들의 레벨 총합 - 팀보너스 배분시 사용한다
 	int						nScore;					// 스코어
 	int						nSeriesOfVictories;		// 연승정보
 	int						nTotalKills;			// 누적 팀 킬수 (라운드 시작, 즉 게임 시작때 초기화 - 무한팀데스매치를 위함)
-	MMatchLadderTeamInfo	LadderInfo;
+	CCMatchLadderTeamInfo	LadderInfo;
 };
 
 
-struct MMatchStageSuicide
+struct CCMatchStageSuicide
 {
-	MMatchStageSuicide( const CCUID& uidUser, const DWORD dwExpireTime )
+	CCMatchStageSuicide( const CCUID& uidUser, const DWORD dwExpireTime )
 	{
 		m_uidUser		= uidUser;
 		m_dwExpireTime	= dwExpireTime;
@@ -78,7 +77,7 @@ struct MMatchStageSuicide
 };
 
 
-struct MMATCH_RESOURCECHECKINFO
+struct CCMATCH_RESOURCECHECKINFO
 {
 	DWORD	dwLastRequestTime;
 	DWORD	dwResourceCRC32Cache;
@@ -87,7 +86,7 @@ struct MMATCH_RESOURCECHECKINFO
 	bool	bIsChecked;
 };
 
-struct MMatchDuelTournamentMatch
+struct CCMatchDuelTournamentMatch
 {
 	int nMatchNumber;
 	int nNextMatchNumber;
@@ -95,39 +94,39 @@ struct MMatchDuelTournamentMatch
 	CCUID uidPlayer1;
 	CCUID uidPlayer2;
 	
-	MDUELTOURNAMENTROUNDSTATE nRoundState;
+	CCDUELTOURNAMENTROUNDSTATE nRoundState;
 };
 
-struct MMatchDuelTournamentStageInfo
+struct CCMatchDuelTournamentStageInfo
 {
-	MDUELTOURNAMENTTYPE nDuelTournamentType;
+	CCDUELTOURNAMENTTYPE nDuelTournamentType;
 
 	int nDuelTournamentNumber;
 	char szTimeStamp[DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1];
 
-	map<int, MMatchDuelTournamentMatch*> DuelTournamentMatchMap;
+	map<int, CCMatchDuelTournamentMatch*> DuelTournamentMatchMap;
 	int nDuelTournamentTotalRound;
 };
 
-typedef map<CCUID, MMATCH_RESOURCECHECKINFO>	ResourceCRC32CacheMap;
+typedef map<CCUID, CCMATCH_RESOURCECHECKINFO>	ResourceCRC32CacheMap;
 
 
-class MMatchCRC32XORCache;
+class CCMatchCRC32XORCache;
 
 
 // 스테이지 메인 클래스 - 스테이지와 관련된 일을 총괄한다.
-class MMatchStage {
+class CCMatchStage {
 private:
 	int						m_nIndex;
 	STAGE_STATE				m_nState;
-	MMatchStageType			m_nStageType;
+	CCMatchStageType			m_nStageType;
 	CCUID					m_uidStage;
 	CCUID					m_uidOwnerChannel;
 	char					m_szStageName[ STAGENAME_LENGTH ];
 	bool					m_bPrivate;		// 비밀방
 	char					m_szStagePassword[ STAGEPASSWD_LENGTH ];
-	MMatchStageTeamBonus	m_TeamBonus;
-	MMatchStageTeam			m_Teams[MMT_END];
+	CCMatchStageTeamBonus	m_TeamBonus;
+	CCMatchStageTeam			m_Teams[MMT_END];
 
 	CCUIDRefCache			m_ObjUIDCaches;
 	list<int>				m_BanCIDList;
@@ -141,14 +140,14 @@ private:
 	unsigned long			m_nLastRequestStartStageTime;
 
 	
-	MMatchStageSetting		m_StageSetting;
-	MMatchRule*				m_pRule;
+	CCMatchStageSetting		m_StageSetting;
+	CCMatchRule*				m_pRule;
 
 	CCUID					m_uidAgent;
 	bool					m_bAgentReady;
 	int						m_nRoundObjCount[MMT_END];
 
-	MVoteMgr				m_VoteMgr;
+	CCVoteMgr				m_VoteMgr;
 
 	char					m_szFirstMasterName[MATCHOBJECT_NAME_LENGTH];
 
@@ -163,7 +162,7 @@ private:
 	bool					m_bIsLastRelayMap;
 
 	void SetMasterUID(const CCUID& uid)	{ m_StageSetting.SetMasterUID(uid);}
-	MMatchRule* CreateRule(MMATCH_GAMETYPE nGameType);
+	CCMatchRule* CreateRule(MMATCH_GAMETYPE nGameType);
 
 	vector< MMatchStageSuicide > m_SuicideList;
 protected:
@@ -183,15 +182,15 @@ private :
 
 
 public:
-	MMatchWorldItemManager	m_WorldItemManager;
-	MMatchActiveTrapMgr		m_ActiveTrapManager;
+	CCMatchWorldItemManager	m_WorldItemManager;
+	CCMatchActiveTrapMgr		m_ActiveTrapManager;
 
 	void UpdateStateTimer();
 	unsigned long GetStateTimer()	{ return m_nStateTimer; }
 	unsigned long GetChecksum()		{ return m_nChecksum; }
 	unsigned long GetStartTime()	{ return m_nStartTime; }		///< 게임 시작한 시간
 public:
-	MMatchStage();
+	CCMatchStage();
 	virtual ~MMatchStage();
 
 	bool Create(const CCUID& uid, const char* pszName, bool bPrivate, const char* pszPassword, bool bIsAllowNullChannel, 
@@ -217,7 +216,7 @@ public:
 	char* GetFirstMasterName()	{ return m_szFirstMasterName; }
 	void SetFirstMasterName(char* pszName)	{ strcpy(m_szFirstMasterName, pszName); }
 
-	MMatchObject* GetObj(const CCUID& uid)	{ if (m_ObjUIDCaches.count(uid) == 0) return NULL; else return (MMatchObject*)(m_ObjUIDCaches[uid]); }			///< 추가by 동섭, 듀얼을 위해 -_-
+	CCMatchObject* GetObj(const CCUID& uid)	{ if (m_ObjUIDCaches.count(uid) == 0) return NULL; else return (MMatchObject*)(m_ObjUIDCaches[uid]); }			///< 추가by 동섭, 듀얼을 위해 -_-
 	size_t GetObjCount()					{ return m_ObjUIDCaches.size(); }
 	int GetPlayers();
 	CCUIDRefCache::iterator GetObjBegin()	{ return m_ObjUIDCaches.begin(); }
@@ -243,14 +242,14 @@ public:
 	bool CheckTick(unsigned long nClock);
 	void Tick(unsigned long nClock);
 
-	MMatchStageSetting* GetStageSetting() { return &m_StageSetting; }
+	CCMatchStageSetting* GetStageSetting() { return &m_StageSetting; }
 
-	MMatchRule* GetRule()			{ return m_pRule; }
+	CCMatchRule* GetRule()			{ return m_pRule; }
 	void ChangeRule(MMATCH_GAMETYPE nRule);
 	void GetTeamMemberCount(int* poutnRedTeamMember, int* poutnBlueTeamMember, int* poutSpecMember, bool bInBattle);
-	MMatchTeam GetRecommandedTeam();
+	CCMatchTeam GetRecommandedTeam();
 
-	MVoteMgr* GetVoteMgr()			{ return &m_VoteMgr; }
+	CCVoteMgr* GetVoteMgr()			{ return &m_VoteMgr; }
 
 	CCUID GetAgentUID()				{ return m_uidAgent; }
 	void SetAgentUID(CCUID uid)		{ m_uidAgent = uid; }
@@ -332,7 +331,7 @@ public :
 	void ClearGabageObject();
 
 private :
-	MChannelRule*	GetStageChannelRule();
+	CCChannelRule*	GetStageChannelRule();
 	bool			IsValidMap( const char* pMapName );
 	bool			IsClanServer();
 
@@ -348,13 +347,13 @@ private :
 	void			CheckResourceCRC32Cache( const DWORD dwClock );
 
 private:
-	MMatchDuelTournamentStageInfo m_nDTStageInfo;
+	CCMatchDuelTournamentStageInfo m_nDTStageInfo;
 
 	void MakeDuelTournamentMatchMap(MDUELTOURNAMENTROUNDSTATE nRoundState, int nMatchNumber);
 	void ClearDuelTournamentMatchMap();
 
-	MDUELTOURNAMENTROUNDSTATE GetDuelTournamentRoundState(MDUELTOURNAMENTTYPE nType);
-	MDUELTOURNAMENTROUNDSTATE GetDuelTournamentNextRoundState(MDUELTOURNAMENTROUNDSTATE nRoundState);
+	CCDUELTOURNAMENTROUNDSTATE GetDuelTournamentRoundState(MDUELTOURNAMENTTYPE nType);
+	CCDUELTOURNAMENTROUNDSTATE GetDuelTournamentNextRoundState(MDUELTOURNAMENTROUNDSTATE nRoundState);
 
 	int GetDuelTournamentNextOrder(MDUELTOURNAMENTROUNDSTATE nRoundState, int nOrder, int nTemp);
 public:
@@ -380,42 +379,38 @@ public:
 };
 
 
-inline MDUELTOURNAMENTROUNDSTATE MMatchStage::GetDuelTournamentNextRoundState(MDUELTOURNAMENTROUNDSTATE nRoundState)
+inline CCDUELTOURNAMENTROUNDSTATE MMatchStage::GetDuelTournamentNextRoundState(MDUELTOURNAMENTROUNDSTATE nRoundState)
 {
 	switch(nRoundState){
-		case MDUELTOURNAMENTROUNDSTATE_QUATERFINAL :		return MDUELTOURNAMENTROUNDSTATE_SEMIFINAL;
-		case MDUELTOURNAMENTROUNDSTATE_SEMIFINAL :			return MDUELTOURNAMENTROUNDSTATE_FINAL;
-		default :											return MDUELTOURNAMENTROUNDSTATE_MAX;
+		case CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL :		return CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL;
+		case CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL :			return CCDUELTOURNAMENTROUNDSTATE_FINAL;
+		default :											return CCDUELTOURNAMENTROUNDSTATE_MAX;
 	}
 }
 
-inline MDUELTOURNAMENTROUNDSTATE MMatchStage::GetDuelTournamentRoundState(MDUELTOURNAMENTTYPE nType)
+inline CCDUELTOURNAMENTROUNDSTATE CCMatchStage::GetDuelTournamentRoundState(MDUELTOURNAMENTTYPE nType)
 {
 	switch(nType) {		
-		case MDUELTOURNAMENTTYPE_QUATERFINAL :		return MDUELTOURNAMENTROUNDSTATE_QUATERFINAL;
-		case MDUELTOURNAMENTTYPE_SEMIFINAL :		return MDUELTOURNAMENTROUNDSTATE_SEMIFINAL;		
-		case MDUELTOURNAMENTTYPE_FINAL :			return MDUELTOURNAMENTROUNDSTATE_FINAL;
+		case CCDUELTOURNAMENTTYPE_QUATERFINAL :		return CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL;
+		case CCDUELTOURNAMENTTYPE_SEMIFINAL :		return CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL;		
+		case CCDUELTOURNAMENTTYPE_FINAL :			return CCDUELTOURNAMENTROUNDSTATE_FINAL;
 		default : ASSERT(0);
 	}
 
-	return MDUELTOURNAMENTROUNDSTATE_MAX;
+	return CCDUELTOURNAMENTROUNDSTATE_MAX;
 }
 
 
-class MMatchStageMap : public map<CCUID, MMatchStage*> {
+class CCMatchStageMap : public map<CCUID, CCMatchStage*> {
 	CCUID	m_uidGenerate;
 public:
-	MMatchStageMap()			{	m_uidGenerate = CCUID(0,0);	}
-	virtual ~MMatchStageMap()	{	}
+	CCMatchStageMap()			{	m_uidGenerate = CCUID(0,0);	}
+	virtual ~CCMatchStageMap()	{	}
 	CCUID UseUID()				{	m_uidGenerate.Increase();	return m_uidGenerate;	}
-	void Insert(const CCUID& uid, MMatchStage* pStage)	{	insert(value_type(uid, pStage));	}
+	void Insert(const CCUID& uid, CCMatchStage* pStage)	{	insert(value_type(uid, pStage));	}
 };
 
-MMatchItemBonusType GetStageBonusType(MMatchStageSetting* pStageSetting);
+CCMatchItemBonusType GetStageBonusType(CCMatchStageSetting* pStageSetting);
 
 
 #define TRANS_STAGELIST_NODE_COUNT	8	// 한번에 클라이언트에게 보내주는 스테이지노드 개수
-
-
-
-#endif
