@@ -1,7 +1,7 @@
 #pragma once
 
-#include "MSingleton.h"
-#include "MUtil.h"
+#include "CCSingleton.h"
+#include "CCUtil.h"
 
 // 여기에 하나 추가 하시면 아래 응징 테이블도 하나 추가하셔야 합니다
 enum CCMatchHackingType
