@@ -671,4 +671,4 @@ public:
 
 bool IsExpiredRentItem( const MMatchItem* pMItem, const DWORD dwTick );
 
-#include "../../StringLiteral/cxr_CCMatchItem.h"
+#include "cxr_CCMatchItem.h"
