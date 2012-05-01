@@ -41,7 +41,7 @@ void CCMatchServer::OnAdminTerminal(const CCUID& uidAdmin, const char* szText)
 
 	if (m_Admin.Execute(uidAdmin, szText))
 	{
-		MCommand* pNew = CreateCommand(MC_ADMIN_TERMINAL, CCUID(0,0));
+		CCCommand* pNew = CreateCommand(MC_ADMIN_TERMINAL, CCUID(0,0));
 		pNew->AddParameter(new MCmdParamUID(CCUID(0,0)));
 		pNew->AddParameter(new MCmdParamStr(szOut));
 		RouteToListener(pObj, pNew);
@@ -62,7 +62,7 @@ void CCMatchServer::OnAdminAnnounce(const CCUID& uidAdmin, const char* szChat, u
 
 	char szMsg[256];
 	strcpy(szMsg, szChat);
-	MCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidAdmin));
 	pCmd->AddParameter(new MCmdParamStr(szMsg));
 	pCmd->AddParameter(new MCmdParamUInt(nType));
@@ -86,7 +86,7 @@ void CCMatchServer::OnAdminRequestServerInfo(const CCUID& uidAdmin)
 
 	// 서버 정보 보여주는것 아직 안넣었음
 /*
-	MCommand* pNew = CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
+	CCCommand* pNew = CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamUInt(0));
 
 	RouteToListener(pObj, pNew);
@@ -138,7 +138,7 @@ void CCMatchServer::OnAdminRequestUpdateAccountUGrade(const CCUID& uidAdmin, con
 
 
 /*
-	MCommand* pNew = CreateCommand(MC_ADMIN_REQUEST_UPDATE_ACCOUNT_UGRADE, CCUID(0,0));
+	CCCommand* pNew = CreateCommand(MC_ADMIN_REQUEST_UPDATE_ACCOUNT_UGRADE, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamUInt(nRet));
 	RouteToListener(pObj, pNew);
 */
@@ -156,7 +156,7 @@ void CCMatchServer::OnAdminPingToAll(const CCUID& uidAdmin)
 		return;
 	}
 
-	MCommand* pNew = CreateCommand(MC_NET_PING, CCUID(0,0));
+	CCCommand* pNew = CreateCommand(MC_NET_PING, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamUInt(GetGlobalClockCount()));
 	RouteToAllConnection(pNew);
 }
@@ -199,11 +199,11 @@ void CCMatchServer::OnAdminHide(const CCUID& uidAdmin)
 	cclog( "reload hacking chat list.\n" );
 #endif
 
-	if (pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) {
-		pObj->SetPlayerFlag(MTD_PlayerFlags_AdminHide, false);
+	if (pObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide)) {
+		pObj->SetPlayerFlag(CCTD_PlayerFlags_AdminHide, false);
 		Announce(pObj, "Now Revealing...");
 	} else {
-		pObj->SetPlayerFlag(MTD_PlayerFlags_AdminHide, true);
+		pObj->SetPlayerFlag(CCTD_PlayerFlags_AdminHide, true);
 		Announce(pObj, "Now Hiding...");
 	}
 }
@@ -238,7 +238,7 @@ void CCMatchServer::OnAdminRequestKickPlayer(const CCUID& uidAdmin, const char* 
 		nRet = MERR_ADMIN_NO_TARGET;
 	}
 
-	MCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_KICK_PLAYER, CCUID(0,0));
+	CCCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_KICK_PLAYER, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamInt(nRet));
 	RouteToListener(pObj, pNew);
 }
@@ -269,7 +269,7 @@ void CCMatchServer::OnAdminRequestMutePlayer(const CCUID& uidAdmin, const char* 
 		nRet = MERR_ADMIN_NO_TARGET;
 	}
 
-	MCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_MUTE_PLAYER, CCUID(0,0));
+	CCCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_MUTE_PLAYER, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamInt(nRet));
 	
 	if( nRet == MOK ) {
@@ -305,7 +305,7 @@ void CCMatchServer::OnAdminRequestBlockPlayer(const CCUID& uidAdmin, const char*
 		nRet = MERR_ADMIN_NO_TARGET;
 	}
 
-	MCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_BLOCK_PLAYER, CCUID(0,0));
+	CCCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_BLOCK_PLAYER, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamInt(nRet));
 
 	if( nRet == MOK ) {

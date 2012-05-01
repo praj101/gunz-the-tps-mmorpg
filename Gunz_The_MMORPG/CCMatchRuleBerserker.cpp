@@ -23,9 +23,9 @@ void CCMatchRuleBerserker::OnRoundBegin()
 
 void* CCMatchRuleBerserker::CreateRuleInfoBlob()
 {
-	void* pRuleInfoArray = MMakeBlobArray(sizeof(MTD_RuleInfo_Berserker), 1);
-	MTD_RuleInfo_Berserker* pRuleItem = (MTD_RuleInfo_Berserker*)MGetBlobArrayElement(pRuleInfoArray, 0);
-	memset(pRuleItem, 0, sizeof(MTD_RuleInfo_Berserker));
+	void* pRuleInfoArray = MMakeBlobArray(sizeof(CCTD_RuleInfo_Berserker), 1);
+	CCTD_RuleInfo_Berserker* pRuleItem = (CCTD_RuleInfo_Berserker*)MGetBlobArrayElement(pRuleInfoArray, 0);
+	memset(pRuleItem, 0, sizeof(CCTD_RuleInfo_Berserker));
 	
 	pRuleItem->nRuleType = CCMATCH_GAMETYPE_BERSERKER;
 	pRuleItem->uidBerserker = m_uidBerserker;
@@ -34,7 +34,7 @@ void* CCMatchRuleBerserker::CreateRuleInfoBlob()
 }
 
 void CCMatchRuleBerserker::RouteAssignBerserker()
-{	MCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ASSIGN_BERSERKER, CCUID(0, 0));
+{	CCCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ASSIGN_BERSERKER, CCUID(0, 0));
 	pNew->AddParameter(new MCmdParamUID(m_uidBerserker));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
 }

@@ -28,8 +28,8 @@ private:
 	int				m_nRewardXP;				// 퀘스트에서 획득한 경험치.
 	int				m_nRewardBP;				// 퀘스트에서 획득한 바운티.
 	
-    virtual bool OnRewardQuest( MCommand* pCmd );
-	virtual bool OnNewMonsterInfo( MCommand* pCmd );	// 몬스터 모감에 등록될 새로 습득한 몬스터 정보.
+    virtual bool OnRewardQuest( CCCommand* pCmd );
+	virtual bool OnNewMonsterInfo( CCCommand* pCmd );	// 몬스터 모감에 등록될 새로 습득한 몬스터 정보.
 
 	virtual void GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pMyObtainQuestItemListBlob, void* pMyObtainZItemListBlob );
 
@@ -46,32 +46,32 @@ public :
 
 #endif
 
-	virtual bool OnNPCSpawn(MCommand* pCommand);
-	virtual bool OnNPCDead(MCommand* pCommand);
-	virtual bool OnPeerNPCDead(MCommand* pCommand);
-	virtual bool OnEntrustNPCControl(MCommand* pCommand);
-	virtual bool OnPeerNPCBasicInfo(MCommand* pCommand);
-	virtual bool OnPeerNPCHPInfo(MCommand* pCommand);
-	virtual bool OnPeerNPCAttackMelee(MCommand* pCommand);
-	virtual bool OnPeerNPCAttackRange(MCommand* pCommand);
-	virtual bool OnPeerNPCSkillStart(MCommand* pCommand);
-	virtual bool OnPeerNPCSkillExecute(MCommand* pCommand);
-	virtual bool OnPeerNPCBossHpAp(MCommand* pCommand);
-	virtual bool OnRefreshPlayerStatus(MCommand* pCommand);
-	virtual bool OnClearAllNPC(MCommand* pCommand);
-	virtual bool OnQuestRoundStart(MCommand* pCommand);
-	virtual bool OnQuestPlayerDead(MCommand* pCommand);
-	virtual bool OnQuestGameInfo(MCommand* pCommand);
-	virtual bool OnQuestCombatState(MCommand* pCommand);
-	virtual bool OnMovetoPortal(MCommand* pCommand);
-	virtual bool OnReadyToNewSector(MCommand* pCommand);
-	virtual bool OnSectorStart(MCommand* pCommand);
-	virtual bool OnObtainQuestItem(MCommand* pCommand);
-	virtual bool OnObtainZItem(MCommand* pCommand);
-	virtual bool OnSectorBonus(MCommand* pCommand);
-	virtual bool OnQuestCompleted(MCommand* pCommand);
-	virtual bool OnQuestFailed(MCommand* pCommand);
-	virtual bool OnQuestPing(MCommand* pCommand);
+	virtual bool OnNPCSpawn(CCCommand* pCommand);
+	virtual bool OnNPCDead(CCCommand* pCommand);
+	virtual bool OnPeerNPCDead(CCCommand* pCommand);
+	virtual bool OnEntrustNPCControl(CCCommand* pCommand);
+	virtual bool OnPeerNPCBasicInfo(CCCommand* pCommand);
+	virtual bool OnPeerNPCHPInfo(CCCommand* pCommand);
+	virtual bool OnPeerNPCAttackMelee(CCCommand* pCommand);
+	virtual bool OnPeerNPCAttackRange(CCCommand* pCommand);
+	virtual bool OnPeerNPCSkillStart(CCCommand* pCommand);
+	virtual bool OnPeerNPCSkillExecute(CCCommand* pCommand);
+	virtual bool OnPeerNPCBossHpAp(CCCommand* pCommand);
+	virtual bool OnRefreshPlayerStatus(CCCommand* pCommand);
+	virtual bool OnClearAllNPC(CCCommand* pCommand);
+	virtual bool OnQuestRoundStart(CCCommand* pCommand);
+	virtual bool OnQuestPlayerDead(CCCommand* pCommand);
+	virtual bool OnQuestGameInfo(CCCommand* pCommand);
+	virtual bool OnQuestCombatState(CCCommand* pCommand);
+	virtual bool OnMovetoPortal(CCCommand* pCommand);
+	virtual bool OnReadyToNewSector(CCCommand* pCommand);
+	virtual bool OnSectorStart(CCCommand* pCommand);
+	virtual bool OnObtainQuestItem(CCCommand* pCommand);
+	virtual bool OnObtainZItem(CCCommand* pCommand);
+	virtual bool OnSectorBonus(CCCommand* pCommand);
+	virtual bool OnQuestCompleted(CCCommand* pCommand);
+	virtual bool OnQuestFailed(CCCommand* pCommand);
+	virtual bool OnQuestPing(CCCommand* pCommand);
 
 
 	//ZQuestMap			m_Map;
@@ -91,8 +91,8 @@ public:
 	virtual void OnGameCreate();
 	virtual void OnGameDestroy();
 	virtual void OnGameUpdate(float fElapsed);
-	virtual bool OnCommand(MCommand* pCommand);				///< 게임 이외에 날라오는 커맨드 처리
-	virtual bool OnGameCommand(MCommand* pCommand);			///< 게임중 날라오는 커맨드 처리
+	virtual bool OnCommand(CCCommand* pCommand);				///< 게임 이외에 날라오는 커맨드 처리
+	virtual bool OnGameCommand(CCCommand* pCommand);			///< 게임중 날라오는 커맨드 처리
 
 	virtual void SetCheet(ZQuestCheetType nCheetType, bool bValue);
 	virtual bool GetCheet(ZQuestCheetType nCheetType);
@@ -105,10 +105,10 @@ public:
 	virtual ZQuestGameInfo* GetGameInfo()		{ return &m_GameInfo; }
 
 	// 상태에 상관없이 사용될수 있는 퀘스트 관련된 커맨드.
-	virtual bool OnSetMonsterBibleInfo( MCommand* pCmd );
+	virtual bool OnSetMonsterBibleInfo( CCCommand* pCmd );
 
 
-	virtual bool OnPrePeerNPCAttackMelee(MCommand* pCommand);	// 실제로 처리하는건 한타이밍 늦다
+	virtual bool OnPrePeerNPCAttackMelee(CCCommand* pCommand);	// 실제로 처리하는건 한타이밍 늦다
 	
 };
 

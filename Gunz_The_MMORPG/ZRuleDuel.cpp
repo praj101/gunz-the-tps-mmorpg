@@ -13,7 +13,7 @@ ZRuleDuel::~ZRuleDuel()
 }
 
 
-bool ZRuleDuel::OnCommand(MCommand* pCommand)
+bool ZRuleDuel::OnCommand(CCCommand* pCommand)
 {
 	if (!ZGetGame()) return false;
 

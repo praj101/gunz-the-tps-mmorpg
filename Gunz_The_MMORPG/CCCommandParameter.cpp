@@ -2,7 +2,7 @@
 #include "CCCommandParameter.h"
 #include <string.h>
 
-bool MCommandParamConditionMinMax::Check(MCommandParameter* pCP)
+bool CCCommandParamConditionMinMax::Check(CCCommandParameter* pCP)
 {
 	switch (pCP->GetType())
 	{
@@ -58,13 +58,13 @@ bool MCommandParamConditionMinMax::Check(MCommandParameter* pCP)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-MCommandParameterDesc::MCommandParameterDesc(MCommandParameterType nType, char* szDescription)
+CCCommandParameterDesc::CCCommandParameterDesc(CCCommandParameterType nType, char* szDescription)
 {
 	m_nType = nType;
 	strcpy(m_szDescription, szDescription);
 }
 
-void MCommandParameterDesc::InitializeConditions()
+void CCCommandParameterDesc::InitializeConditions()
 {
 	for(int i=0; i<(int)m_Conditions.size(); i++){
 		delete m_Conditions[i];
@@ -72,75 +72,75 @@ void MCommandParameterDesc::InitializeConditions()
 	m_Conditions.clear();
 }
 
-MCommandParameterDesc::~MCommandParameterDesc(void)
+CCCommandParameterDesc::~CCCommandParameterDesc(void)
 {
 	InitializeConditions();
 }
 
-void MCommandParameterDesc::AddCondition(MCommandParamCondition* pCondition)
+void CCCommandParameterDesc::AddCondition(CCCommandParamCondition* pCondition)
 {
 	m_Conditions.push_back(pCondition);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-MCommandParameterInt::MCommandParameterInt(void)
- : MCommandParameter(MPT_INT)
+CCCommandParameterInt::CCCommandParameterInt(void)
+ : CCCommandParameter(MPT_INT)
 {
 	m_Value = 0;
 }
-MCommandParameterInt::MCommandParameterInt(int Value)
- : MCommandParameter(MPT_INT)
+CCCommandParameterInt::CCCommandParameterInt(int Value)
+ : CCCommandParameter(MPT_INT)
 {
 	m_Value = Value;
 }
-MCommandParameter* MCommandParameterInt::Clone(void)
+CCCommandParameter* CCCommandParameterInt::Clone(void)
 {
-	return (new MCommandParameterInt(m_Value));
+	return (new CCCommandParameterInt(m_Value));
 }
-void MCommandParameterInt::GetValue(void* p)
+void CCCommandParameterInt::GetValue(void* p)
 {
 	*(int*)p = m_Value;
 }
-int MCommandParameterInt::GetData(char* pData, int nSize)
+int CCCommandParameterInt::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterInt::SetData(char* pData)
+int CCCommandParameterInt::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
 	return nValueSize;
 }
 
-MCommandParameterUInt::MCommandParameterUInt(void)
-: MCommandParameter(MPT_UINT)
+CCCommandParameterUInt::CCCommandParameterUInt(void)
+: CCCommandParameter(MPT_UINT)
 {
 	m_Value = 0;
 }
-MCommandParameterUInt::MCommandParameterUInt(unsigned int Value)
-: MCommandParameter(MPT_UINT)
+CCCommandParameterUInt::CCCommandParameterUInt(unsigned int Value)
+: CCCommandParameter(MPT_UINT)
 {
 	m_Value = Value;
 }
-MCommandParameter* MCommandParameterUInt::Clone(void)
+CCCommandParameter* CCCommandParameterUInt::Clone(void)
 {
-	return (new MCommandParameterUInt(m_Value));
+	return (new CCCommandParameterUInt(m_Value));
 }
-void MCommandParameterUInt::GetValue(void* p)
+void CCCommandParameterUInt::GetValue(void* p)
 {
 	*(unsigned int*)p = m_Value;
 }
-int MCommandParameterUInt::GetData(char* pData, int nSize)
+int CCCommandParameterUInt::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterUInt::SetData(char* pData)
+int CCCommandParameterUInt::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
@@ -148,32 +148,32 @@ int MCommandParameterUInt::SetData(char* pData)
 }
 
 
-MCommandParameterFloat::MCommandParameterFloat(void)
- : MCommandParameter(MPT_FLOAT)
+CCCommandParameterFloat::CCCommandParameterFloat(void)
+ : CCCommandParameter(MPT_FLOAT)
 {
 	m_Value = 0;
 }
-MCommandParameterFloat::MCommandParameterFloat(float Value)
- : MCommandParameter(MPT_FLOAT)
+CCCommandParameterFloat::CCCommandParameterFloat(float Value)
+ : CCCommandParameter(MPT_FLOAT)
 {
 	m_Value = Value;
 }
-MCommandParameter* MCommandParameterFloat::Clone(void)
+CCCommandParameter* CCCommandParameterFloat::Clone(void)
 {
-	return (new MCommandParameterFloat(m_Value));
+	return (new CCCommandParameterFloat(m_Value));
 }
-void MCommandParameterFloat::GetValue(void* p)
+void CCCommandParameterFloat::GetValue(void* p)
 {
 	*(float*)p = m_Value;
 }
-int MCommandParameterFloat::GetData(char* pData, int nSize)
+int CCCommandParameterFloat::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterFloat::SetData(char* pData)
+int CCCommandParameterFloat::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
@@ -181,13 +181,13 @@ int MCommandParameterFloat::SetData(char* pData)
 }
 
 
-MCommandParameterString::MCommandParameterString(void)
- : MCommandParameter(MPT_STR)
+CCCommandParameterString::CCCommandParameterString(void)
+ : CCCommandParameter(MPT_STR)
 {
 	m_Value = 0;
 }
-MCommandParameterString::MCommandParameterString(const char* Value)
- : MCommandParameter(MPT_STR)
+CCCommandParameterString::CCCommandParameterString(const char* Value)
+ : CCCommandParameter(MPT_STR)
 {
 	int nLen = (int)strlen(Value)+2;
 
@@ -200,22 +200,22 @@ MCommandParameterString::MCommandParameterString(const char* Value)
 	m_Value = new char[strlen(Value)+2];
 	strcpy(m_Value, Value);
 }
-MCommandParameterString::~MCommandParameterString(void)
+CCCommandParameterString::~CCCommandParameterString(void)
 {
 	if(m_Value!=NULL){
 		delete m_Value;
 		m_Value=NULL;
 	}
 }
-MCommandParameter* MCommandParameterString::Clone(void)
+CCCommandParameter* CCCommandParameterString::Clone(void)
 {
-	return (new MCommandParameterString(m_Value));
+	return (new CCCommandParameterString(m_Value));
 }
-void MCommandParameterString::GetValue(void* p)
+void CCCommandParameterString::GetValue(void* p)
 {
 	strcpy((char*)p, m_Value);
 }
-int MCommandParameterString::GetData(char* pData, int nSize)
+int CCCommandParameterString::GetData(char* pData, int nSize)
 {
 	if(m_Value==NULL) 
 	{
@@ -232,7 +232,7 @@ int MCommandParameterString::GetData(char* pData, int nSize)
 
 	return nValueSize+sizeof(nValueSize);
 }
-int MCommandParameterString::SetData(char* pData)
+int CCCommandParameterString::SetData(char* pData)
 {
 	if(m_Value!=NULL) 
 	{
@@ -249,38 +249,38 @@ int MCommandParameterString::SetData(char* pData)
 	return nValueSize+sizeof(nValueSize);
 }
 
-int MCommandParameterString::GetSize()
+int CCCommandParameterString::GetSize()
 {
 	if(m_Value==NULL) return 0;
 	return ((int)strlen(m_Value)+2 + sizeof(unsigned short));
 }
 
-MCommandParameterVector::MCommandParameterVector(void)
- : MCommandParameter(MPT_VECTOR)
+CCCommandParameterVector::CCCommandParameterVector(void)
+ : CCCommandParameter(MPT_VECTOR)
 {
 	m_fX = m_fY = m_fZ = 0;
 }
-MCommandParameterVector::MCommandParameterVector(float x ,float y, float z)
- : MCommandParameter(MPT_VECTOR)
+CCCommandParameterVector::CCCommandParameterVector(float x ,float y, float z)
+ : CCCommandParameter(MPT_VECTOR)
 {
 	m_fX = x;
 	m_fY = y;
 	m_fZ = z;
 }
-MCommandParameterVector::~MCommandParameterVector(void)
+CCCommandParameterVector::~CCCommandParameterVector(void)
 {
 }
-MCommandParameter* MCommandParameterVector::Clone(void)
+CCCommandParameter* CCCommandParameterVector::Clone(void)
 {
-	return (new MCommandParameterVector(m_fX, m_fY, m_fZ));
+	return (new CCCommandParameterVector(m_fX, m_fY, m_fZ));
 }
-void MCommandParameterVector::GetValue(void* p)
+void CCCommandParameterVector::GetValue(void* p)
 {
 	((float*)p)[0] = m_fX;
 	((float*)p)[1] = m_fY;
 	((float*)p)[2] = m_fZ;
 }
-int MCommandParameterVector::GetData(char* pData, int nSize)
+int CCCommandParameterVector::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_fX) * 3;
 	if(nValueSize>nSize) return 0;
@@ -288,7 +288,7 @@ int MCommandParameterVector::GetData(char* pData, int nSize)
 	memcpy(pData, v, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterVector::SetData(char* pData)
+int CCCommandParameterVector::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_fX) * 3;
 	float v[3];
@@ -299,74 +299,74 @@ int MCommandParameterVector::SetData(char* pData)
 	return nValueSize;
 }
 
-MCommandParameter* MCommandParameterBool::Clone(void)
+CCCommandParameter* CCCommandParameterBool::Clone(void)
 {
-	return (new MCommandParameterBool(m_Value));
+	return (new CCCommandParameterBool(m_Value));
 }
-void MCommandParameterBool::GetValue(void* p)
+void CCCommandParameterBool::GetValue(void* p)
 {
 	*(bool*)p = m_Value;
 }
-int MCommandParameterBool::GetData(char* pData, int nSize)
+int CCCommandParameterBool::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterBool::SetData(char* pData)
+int CCCommandParameterBool::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
 	return nValueSize;
 }
-void *MCommandParameterBool::GetPointer(void)
+void *CCCommandParameterBool::GetPointer(void)
 {
 	return &m_Value;
 }
 
-MCommandParameterUID::MCommandParameterUID(void)
- : MCommandParameter(MPT_UID)
+CCCommandParameterUID::CCCommandParameterUID(void)
+ : CCCommandParameter(MPT_UID)
 {
 }
-MCommandParameterUID::MCommandParameterUID(const CCUID& uid)
- : MCommandParameter(MPT_UID)
+CCCommandParameterUID::CCCommandParameterUID(const CCUID& uid)
+ : CCCommandParameter(MPT_UID)
 {
 	m_Value = uid;
 }
-MCommandParameterUID::~MCommandParameterUID(void)
+CCCommandParameterUID::~CCCommandParameterUID(void)
 {
 }
-MCommandParameterUID* MCommandParameterUID::Clone(void)
+CCCommandParameterUID* CCCommandParameterUID::Clone(void)
 {
-	return (new MCommandParameterUID(m_Value));
+	return (new CCCommandParameterUID(m_Value));
 }
-void MCommandParameterUID::GetValue(void* p)
+void CCCommandParameterUID::GetValue(void* p)
 {
 	*(CCUID*)p = m_Value;
 }
-int MCommandParameterUID::GetData(char* pData, int nSize)
+int CCCommandParameterUID::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterUID::SetData(char* pData)
+int CCCommandParameterUID::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
 	return nValueSize;
 }
 
-MCommandParameterBlob::MCommandParameterBlob(void)
-: MCommandParameter(MPT_BLOB)
+CCCommandParameterBlob::CCCommandParameterBlob(void)
+: CCCommandParameter(MPT_BLOB)
 {
 	m_Value = 0;
 	m_nSize = 0;
 }
-MCommandParameterBlob::MCommandParameterBlob(const void* Value, int nSize)
-: MCommandParameter(MPT_BLOB)
+CCCommandParameterBlob::CCCommandParameterBlob(const void* Value, int nSize)
+: CCCommandParameter(MPT_BLOB)
 {
 	if (nSize >= MAX_BLOB_SIZE || nSize<= 0)
 	{
@@ -379,7 +379,7 @@ MCommandParameterBlob::MCommandParameterBlob(const void* Value, int nSize)
 	memcpy(m_Value, Value, nSize);
 	m_nSize = nSize;
 }
-MCommandParameterBlob::~MCommandParameterBlob(void)
+CCCommandParameterBlob::~CCCommandParameterBlob(void)
 {
 	if(m_Value!=NULL){
 		delete[] m_Value;
@@ -387,15 +387,15 @@ MCommandParameterBlob::~MCommandParameterBlob(void)
 	}
 }
 
-MCommandParameterBlob* MCommandParameterBlob::Clone(void)
+CCCommandParameterBlob* CCCommandParameterBlob::Clone(void)
 {
-	return new MCommandParameterBlob(m_Value, m_nSize);
+	return new CCCommandParameterBlob(m_Value, m_nSize);
 }
-void MCommandParameterBlob::GetValue(void* p)
+void CCCommandParameterBlob::GetValue(void* p)
 {
 	memcpy(p, m_Value, m_nSize);
 }
-int MCommandParameterBlob::GetData(char* pData, int nSize)
+int CCCommandParameterBlob::GetData(char* pData, int nSize)
 {
 	if(m_Value==NULL) return 0;
 	if(m_nSize+(int)sizeof(m_nSize)>nSize) return 0;
@@ -405,7 +405,7 @@ int MCommandParameterBlob::GetData(char* pData, int nSize)
 
 	return m_nSize+sizeof(m_nSize);
 }
-int MCommandParameterBlob::SetData(char* pData)
+int CCCommandParameterBlob::SetData(char* pData)
 {
 	if(m_Value!=NULL) delete[] m_Value;
 
@@ -417,40 +417,40 @@ int MCommandParameterBlob::SetData(char* pData)
 	return m_nSize+sizeof(m_nSize);
 }
 
-int MCommandParameterBlob::GetSize()
+int CCCommandParameterBlob::GetSize()
 {
 	return (m_nSize+sizeof(m_nSize));
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-MCommandParameterChar::MCommandParameterChar(void)
- : MCommandParameter(MPT_CHAR)
+CCCommandParameterChar::CCCommandParameterChar(void)
+ : CCCommandParameter(MPT_CHAR)
 {
 	m_Value = 0;
 }
-MCommandParameterChar::MCommandParameterChar(char Value)
- : MCommandParameter(MPT_CHAR)
+CCCommandParameterChar::CCCommandParameterChar(char Value)
+ : CCCommandParameter(MPT_CHAR)
 {
 	m_Value = Value;
 }
 
-MCommandParameter* MCommandParameterChar::Clone(void)
+CCCommandParameter* CCCommandParameterChar::Clone(void)
 {
-	return (new MCommandParameterChar(m_Value));
+	return (new CCCommandParameterChar(m_Value));
 }
 
-void MCommandParameterChar::GetValue(void* p)
+void CCCommandParameterChar::GetValue(void* p)
 {
 	*(char*)p = m_Value;
 }
-int MCommandParameterChar::GetData(char* pData, int nSize)
+int CCCommandParameterChar::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterChar::SetData(char* pData)
+int CCCommandParameterChar::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
@@ -458,34 +458,34 @@ int MCommandParameterChar::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-MCommandParameterUChar::MCommandParameterUChar(void)
- : MCommandParameter(MPT_UCHAR)
+CCCommandParameterUChar::CCCommandParameterUChar(void)
+ : CCCommandParameter(MPT_UCHAR)
 {
 	m_Value = 0;
 }
-MCommandParameterUChar::MCommandParameterUChar(unsigned char Value)
- : MCommandParameter(MPT_UCHAR)
+CCCommandParameterUChar::CCCommandParameterUChar(unsigned char Value)
+ : CCCommandParameter(MPT_UCHAR)
 {
 	m_Value = Value;
 }
 
-MCommandParameter* MCommandParameterUChar::Clone(void)
+CCCommandParameter* CCCommandParameterUChar::Clone(void)
 {
-	return (new MCommandParameterUChar(m_Value));
+	return (new CCCommandParameterUChar(m_Value));
 }
 
-void MCommandParameterUChar::GetValue(void* p)
+void CCCommandParameterUChar::GetValue(void* p)
 {
 	*(unsigned char*)p = m_Value;
 }
-int MCommandParameterUChar::GetData(char* pData, int nSize)
+int CCCommandParameterUChar::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterUChar::SetData(char* pData)
+int CCCommandParameterUChar::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
@@ -493,34 +493,34 @@ int MCommandParameterUChar::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-MCommandParameterShort::MCommandParameterShort(void)
- : MCommandParameter(MPT_SHORT)
+CCCommandParameterShort::CCCommandParameterShort(void)
+ : CCCommandParameter(MPT_SHORT)
 {
 	m_Value = 0;
 }
-MCommandParameterShort::MCommandParameterShort(short Value)
- : MCommandParameter(MPT_SHORT)
+CCCommandParameterShort::CCCommandParameterShort(short Value)
+ : CCCommandParameter(MPT_SHORT)
 {
 	m_Value = Value;
 }
 
-MCommandParameter* MCommandParameterShort::Clone(void)
+CCCommandParameter* CCCommandParameterShort::Clone(void)
 {
-	return (new MCommandParameterShort(m_Value));
+	return (new CCCommandParameterShort(m_Value));
 }
 
-void MCommandParameterShort::GetValue(void* p)
+void CCCommandParameterShort::GetValue(void* p)
 {
 	*(short*)p = m_Value;
 }
-int MCommandParameterShort::GetData(char* pData, int nSize)
+int CCCommandParameterShort::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterShort::SetData(char* pData)
+int CCCommandParameterShort::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
@@ -528,34 +528,34 @@ int MCommandParameterShort::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-MCommandParameterUShort::MCommandParameterUShort(void)
- : MCommandParameter(MPT_USHORT)
+CCCommandParameterUShort::CCCommandParameterUShort(void)
+ : CCCommandParameter(MPT_USHORT)
 {
 	m_Value = 0;
 }
-MCommandParameterUShort::MCommandParameterUShort(unsigned short Value)
- : MCommandParameter(MPT_USHORT)
+CCCommandParameterUShort::CCCommandParameterUShort(unsigned short Value)
+ : CCCommandParameter(MPT_USHORT)
 {
 	m_Value = Value;
 }
 
-MCommandParameter* MCommandParameterUShort::Clone(void)
+CCCommandParameter* CCCommandParameterUShort::Clone(void)
 {
-	return (new MCommandParameterUShort(m_Value));
+	return (new CCCommandParameterUShort(m_Value));
 }
 
-void MCommandParameterUShort::GetValue(void* p)
+void CCCommandParameterUShort::GetValue(void* p)
 {
 	*(short*)p = m_Value;
 }
-int MCommandParameterUShort::GetData(char* pData, int nSize)
+int CCCommandParameterUShort::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterUShort::SetData(char* pData)
+int CCCommandParameterUShort::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
@@ -563,34 +563,34 @@ int MCommandParameterUShort::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-MCommandParameterInt64::MCommandParameterInt64(void)
- : MCommandParameter(MPT_INT64)
+CCCommandParameterInt64::CCCommandParameterInt64(void)
+ : CCCommandParameter(MPT_INT64)
 {
 	m_Value = 0;
 }
-MCommandParameterInt64::MCommandParameterInt64(int64 Value)
- : MCommandParameter(MPT_INT64)
+CCCommandParameterInt64::CCCommandParameterInt64(int64 Value)
+ : CCCommandParameter(MPT_INT64)
 {
 	m_Value = Value;
 }
 
-MCommandParameter* MCommandParameterInt64::Clone(void)
+CCCommandParameter* CCCommandParameterInt64::Clone(void)
 {
-	return (new MCommandParameterInt64(m_Value));
+	return (new CCCommandParameterInt64(m_Value));
 }
 
-void MCommandParameterInt64::GetValue(void* p)
+void CCCommandParameterInt64::GetValue(void* p)
 {
 	*(int64*)p = m_Value;
 }
-int MCommandParameterInt64::GetData(char* pData, int nSize)
+int CCCommandParameterInt64::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterInt64::SetData(char* pData)
+int CCCommandParameterInt64::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
@@ -598,34 +598,34 @@ int MCommandParameterInt64::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-MCommandParameterUInt64::MCommandParameterUInt64(void)
- : MCommandParameter(MPT_UINT64)
+CCCommandParameterUInt64::CCCommandParameterUInt64(void)
+ : CCCommandParameter(MPT_UINT64)
 {
 	m_Value = 0;
 }
-MCommandParameterUInt64::MCommandParameterUInt64(uint64 Value)
- : MCommandParameter(MPT_UINT64)
+CCCommandParameterUInt64::CCCommandParameterUInt64(uint64 Value)
+ : CCCommandParameter(MPT_UINT64)
 {
 	m_Value = Value;
 }
 
-MCommandParameter* MCommandParameterUInt64::Clone(void)
+CCCommandParameter* CCCommandParameterUInt64::Clone(void)
 {
-	return (new MCommandParameterUInt64(m_Value));
+	return (new CCCommandParameterUInt64(m_Value));
 }
 
-void MCommandParameterUInt64::GetValue(void* p)
+void CCCommandParameterUInt64::GetValue(void* p)
 {
 	*(uint64*)p = m_Value;
 }
-int MCommandParameterUInt64::GetData(char* pData, int nSize)
+int CCCommandParameterUInt64::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_Value);
 	if(nValueSize>nSize) return 0;
 	memcpy(pData, &m_Value, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterUInt64::SetData(char* pData)
+int CCCommandParameterUInt64::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_Value);
 	memcpy(&m_Value, pData, nValueSize);
@@ -635,41 +635,41 @@ int MCommandParameterUInt64::SetData(char* pData)
 
 
 /////////////////////////////////////////////////////////////////////////////////
-MCommandParameterShortVector::MCommandParameterShortVector(void)
- : MCommandParameter(MPT_SVECTOR)
+CCCommandParameterShortVector::CCCommandParameterShortVector(void)
+ : CCCommandParameter(MPT_SVECTOR)
 {
 	m_nX = m_nY = m_nZ = 0;
 }
-MCommandParameterShortVector::MCommandParameterShortVector(short x ,short y, short z)
- : MCommandParameter(MPT_SVECTOR)
+CCCommandParameterShortVector::CCCommandParameterShortVector(short x ,short y, short z)
+ : CCCommandParameter(MPT_SVECTOR)
 {
 	m_nX = x;
 	m_nY = y;
 	m_nZ = z;
 }
 
-MCommandParameterShortVector::MCommandParameterShortVector(float x ,float y, float z)
-: MCommandParameter(MPT_SVECTOR)
+CCCommandParameterShortVector::CCCommandParameterShortVector(float x ,float y, float z)
+: CCCommandParameter(MPT_SVECTOR)
 {
 	m_nX = (short)floorf(x + 0.5f);
 	m_nY = (short)floorf(y + 0.5f);
 	m_nZ = (short)floorf(z + 0.5f);
 }
 
-MCommandParameterShortVector::~MCommandParameterShortVector(void)
+CCCommandParameterShortVector::~CCCommandParameterShortVector(void)
 {
 }
-MCommandParameter* MCommandParameterShortVector::Clone(void)
+CCCommandParameter* CCCommandParameterShortVector::Clone(void)
 {
-	return (new MCommandParameterShortVector(m_nX, m_nY, m_nZ));
+	return (new CCCommandParameterShortVector(m_nX, m_nY, m_nZ));
 }
-void MCommandParameterShortVector::GetValue(void* p)
+void CCCommandParameterShortVector::GetValue(void* p)
 {
 	((short*)p)[0] = m_nX;
 	((short*)p)[1] = m_nY;
 	((short*)p)[2] = m_nZ;
 }
-int MCommandParameterShortVector::GetData(char* pData, int nSize)
+int CCCommandParameterShortVector::GetData(char* pData, int nSize)
 {
 	int nValueSize = sizeof(m_nX) * 3;
 	if(nValueSize>nSize) return 0;
@@ -677,7 +677,7 @@ int MCommandParameterShortVector::GetData(char* pData, int nSize)
 	memcpy(pData, v, nValueSize);
 	return nValueSize;
 }
-int MCommandParameterShortVector::SetData(char* pData)
+int CCCommandParameterShortVector::SetData(char* pData)
 {
 	int nValueSize = sizeof(m_nX) * 3;
 	short v[3];

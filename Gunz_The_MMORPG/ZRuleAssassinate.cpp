@@ -15,7 +15,7 @@ ZRuleAssassinate::~ZRuleAssassinate()
 
 }
 
-bool ZRuleAssassinate::OnCommand(MCommand* pCommand)
+bool ZRuleAssassinate::OnCommand(CCCommand* pCommand)
 {
 	if (!ZGetGame()) return false;
 
@@ -37,9 +37,9 @@ bool ZRuleAssassinate::OnCommand(MCommand* pCommand)
 	return false;
 }
 
-void ZRuleAssassinate::OnResponseRuleInfo(MTD_RuleInfo* pInfo)
+void ZRuleAssassinate::OnResponseRuleInfo(CCTD_RuleInfo* pInfo)
 {
-	MTD_RuleInfo_Assassinate* pAssassinateRule = (MTD_RuleInfo_Assassinate*)pInfo;
+	CCTD_RuleInfo_Assassinate* pAssassinateRule = (CCTD_RuleInfo_Assassinate*)pInfo;
 	AssignCommander(pAssassinateRule->uidRedCommander, pAssassinateRule->uidBlueCommander);
 }
 

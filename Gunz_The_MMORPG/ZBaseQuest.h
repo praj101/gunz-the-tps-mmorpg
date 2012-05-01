@@ -37,8 +37,8 @@ enum ZQuestCheetType
 class ZBaseQuest : public CCBaseQuest
 {
 #ifdef _QUEST_ITEM
-    virtual bool OnRewardQuest( MCommand* pCmd ) = 0;
-	virtual bool OnNewMonsterInfo( MCommand* pCmd ) = 0;
+    virtual bool OnRewardQuest( CCCommand* pCmd ) = 0;
+	virtual bool OnNewMonsterInfo( CCCommand* pCmd ) = 0;
 
 	virtual void GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pMyObtainQuestItemListBlob, void* pMyObtainZItemListBlob ) = 0;
 
@@ -55,32 +55,32 @@ public :
 
 #endif
 
-	virtual bool OnNPCSpawn(MCommand* pCommand) = 0;
-	virtual bool OnNPCDead(MCommand* pCommand) = 0;
-	virtual bool OnPeerNPCDead(MCommand* pCommand) = 0;
-	virtual bool OnEntrustNPCControl(MCommand* pCommand) = 0;
-	virtual bool OnPeerNPCBasicInfo(MCommand* pCommand) = 0;
-	virtual bool OnPeerNPCHPInfo(MCommand* pCommand) = 0;
-	virtual bool OnPeerNPCAttackMelee(MCommand* pCommand) = 0;
-	virtual bool OnPeerNPCAttackRange(MCommand* pCommand) = 0;
-	virtual bool OnPeerNPCSkillStart(MCommand* pCommand) = 0;
-	virtual bool OnPeerNPCSkillExecute(MCommand* pCommand) = 0;
-	virtual bool OnPeerNPCBossHpAp(MCommand* pCommand) = 0;
-	virtual bool OnRefreshPlayerStatus(MCommand* pCommand) = 0;
-	virtual bool OnClearAllNPC(MCommand* pCommand) = 0;
-	virtual bool OnQuestRoundStart(MCommand* pCommand) = 0;
-	virtual bool OnQuestPlayerDead(MCommand* pCommand) = 0;
-	virtual bool OnQuestGameInfo(MCommand* pCommand) = 0;
-	virtual bool OnQuestCombatState(MCommand* pCommand) = 0;
-	virtual bool OnMovetoPortal(MCommand* pCommand) = 0;
-	virtual bool OnReadyToNewSector(MCommand* pCommand) = 0;
-	virtual bool OnSectorStart(MCommand* pCommand) = 0;
-	virtual bool OnObtainQuestItem(MCommand* pCommand) = 0;
-	virtual bool OnObtainZItem(MCommand* pCommand) = 0;
-	virtual bool OnSectorBonus(MCommand* pCommand) = 0;
-	virtual bool OnQuestCompleted(MCommand* pCommand) = 0;
-	virtual bool OnQuestFailed(MCommand* pCommand) = 0;
-	virtual bool OnQuestPing(MCommand* pCommand) = 0;
+	virtual bool OnNPCSpawn(CCCommand* pCommand) = 0;
+	virtual bool OnNPCDead(CCCommand* pCommand) = 0;
+	virtual bool OnPeerNPCDead(CCCommand* pCommand) = 0;
+	virtual bool OnEntrustNPCControl(CCCommand* pCommand) = 0;
+	virtual bool OnPeerNPCBasicInfo(CCCommand* pCommand) = 0;
+	virtual bool OnPeerNPCHPInfo(CCCommand* pCommand) = 0;
+	virtual bool OnPeerNPCAttackMelee(CCCommand* pCommand) = 0;
+	virtual bool OnPeerNPCAttackRange(CCCommand* pCommand) = 0;
+	virtual bool OnPeerNPCSkillStart(CCCommand* pCommand) = 0;
+	virtual bool OnPeerNPCSkillExecute(CCCommand* pCommand) = 0;
+	virtual bool OnPeerNPCBossHpAp(CCCommand* pCommand) = 0;
+	virtual bool OnRefreshPlayerStatus(CCCommand* pCommand) = 0;
+	virtual bool OnClearAllNPC(CCCommand* pCommand) = 0;
+	virtual bool OnQuestRoundStart(CCCommand* pCommand) = 0;
+	virtual bool OnQuestPlayerDead(CCCommand* pCommand) = 0;
+	virtual bool OnQuestGameInfo(CCCommand* pCommand) = 0;
+	virtual bool OnQuestCombatState(CCCommand* pCommand) = 0;
+	virtual bool OnMovetoPortal(CCCommand* pCommand) = 0;
+	virtual bool OnReadyToNewSector(CCCommand* pCommand) = 0;
+	virtual bool OnSectorStart(CCCommand* pCommand) = 0;
+	virtual bool OnObtainQuestItem(CCCommand* pCommand) = 0;
+	virtual bool OnObtainZItem(CCCommand* pCommand) = 0;
+	virtual bool OnSectorBonus(CCCommand* pCommand) = 0;
+	virtual bool OnQuestCompleted(CCCommand* pCommand) = 0;
+	virtual bool OnQuestFailed(CCCommand* pCommand) = 0;
+	virtual bool OnQuestPing(CCCommand* pCommand) = 0;
 
 
 	//ZQuestMap			m_Map;
@@ -100,8 +100,8 @@ public:
 	virtual void OnGameCreate() = 0;
 	virtual void OnGameDestroy() = 0;
 	virtual void OnGameUpdate(float fElapsed) = 0;
-	virtual bool OnCommand(MCommand* pCommand) = 0;				///< 게임 이외에 날라오는 커맨드 처리
-	virtual bool OnGameCommand(MCommand* pCommand) = 0;			///< 게임중 날라오는 커맨드 처리
+	virtual bool OnCommand(CCCommand* pCommand) = 0;				///< 게임 이외에 날라오는 커맨드 처리
+	virtual bool OnGameCommand(CCCommand* pCommand) = 0;			///< 게임중 날라오는 커맨드 처리
 
 	virtual void SetCheet(ZQuestCheetType nCheetType, bool bValue) = 0;
 	virtual bool GetCheet(ZQuestCheetType nCheetType) = 0;
@@ -114,10 +114,10 @@ public:
 	virtual ZQuestGameInfo* GetGameInfo() = 0;
 
 	// 상태에 상관없이 사용될수 있는 퀘스트 관련된 커맨드.
-	virtual bool OnSetMonsterBibleInfo( MCommand* pCmd ) = 0;
+	virtual bool OnSetMonsterBibleInfo( CCCommand* pCmd ) = 0;
 
 
-	virtual bool OnPrePeerNPCAttackMelee(MCommand* pCommand) = 0;	// 실제로 처리하는건 한타이밍 늦다
+	virtual bool OnPrePeerNPCAttackMelee(CCCommand* pCommand) = 0;	// 실제로 처리하는건 한타이밍 늦다
 	
 };
 

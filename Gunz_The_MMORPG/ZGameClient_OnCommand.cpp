@@ -10,7 +10,7 @@
 #include "ZGameClient.h"
 #include "MSharedCommandTable.h"
 #include "ZConsole.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
 #include "MBlobArray.h"
 #include "ZInterface.h"
@@ -68,14 +68,14 @@ void OnQuestNPCList( void* pBlobNPCList, CCMATCH_GAMETYPE eGameType )
 	}
 
 	const int					nNPCCount		= MGetBlobArrayCount( pBlobNPCList );
-	MTD_NPCINFO*				pQuestNPCInfo	= NULL;
+	CCTD_NPCINFO*				pQuestNPCInfo	= NULL;
 	ZNPCInfoFromServerManager&	NPCMgr			= pBaseQuest->GetNPCInfoFromServerMgr();
 
 	NPCMgr.Clear();
 
 	for( int i = 0; i < nNPCCount; ++i )
 	{
-		pQuestNPCInfo = reinterpret_cast< MTD_NPCINFO* >( MGetBlobArrayElement(pBlobNPCList, i) );
+		pQuestNPCInfo = reinterpret_cast< CCTD_NPCINFO* >( MGetBlobArrayElement(pBlobNPCList, i) );
 		if( NULL == pQuestNPCInfo )
 		{
 			_ASSERT( 0 );
@@ -133,7 +133,7 @@ void TimeReward_ChatOutput_ResetChance(const char* szRewardResetDesc)
 
 
 
-bool ZGameClient::OnCommand(MCommand* pCommand)
+bool ZGameClient::OnCommand(CCCommand* pCommand)
 {
 	bool ret;
 	ret = CCMatchClient::OnCommand(pCommand);
@@ -161,11 +161,11 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(szSkinName, 0, MPT_STR, sizeof(szSkinName) );
 				if(ZApplication::GetGameInterface()->ChangeInterfaceSkin(szSkinName))
 				{
-					MClient::OutputMessage(MZMOM_LOCALREPLY, "Change Skin To %s", szSkinName);
+					CCClient::OutputMessage(CCZMOM_LOCALREPLY, "Change Skin To %s", szSkinName);
 				}
 				else
 				{
-					MClient::OutputMessage(MZMOM_LOCALREPLY, "Change Skin Failed");
+					CCClient::OutputMessage(CCZMOM_LOCALREPLY, "Change Skin Failed");
 				}
 			}
 			break;
@@ -185,8 +185,8 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			{
 				CCUID uid;
 				if (pCommand->GetParameter(&uid, 0, MPT_UID)==false) break;
-				MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_NET_PING), uid, m_This);
-				pNew->AddParameter(new MCommandParameterUInt(timeGetTime()));
+				CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_NET_PING), uid, m_This);
+				pNew->AddParameter(new CCCommandParameterUInt(timeGetTime()));
 				Post(pNew);
 				return true;
 			}
@@ -194,8 +194,8 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			{
 				unsigned int nTimeStamp;
 				if (pCommand->GetParameter(&nTimeStamp, 0, MPT_UINT)==false) break;
-				MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_NET_PONG), pCommand->m_Sender, m_This);
-				pNew->AddParameter(new MCommandParameterUInt(nTimeStamp));
+				CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_NET_PONG), pCommand->m_Sender, m_This);
+				pNew->AddParameter(new CCCommandParameterUInt(nTimeStamp));
 				Post(pNew);
 				return true;
 			}
@@ -204,7 +204,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				int nTimeStamp;
 				pCommand->GetParameter(&nTimeStamp, 0, MPT_UINT);
 
-				MClient::OutputMessage(MZMOM_LOCALREPLY, "Ping from (%u:%u) = %d", pCommand->GetSenderUID().High, pCommand->GetSenderUID().Low, timeGetTime()-nTimeStamp);
+				CCClient::OutputMessage(CCZMOM_LOCALREPLY, "Ping from (%u:%u) = %d", pCommand->GetSenderUID().High, pCommand->GetSenderUID().Low, timeGetTime()-nTimeStamp);
 			}
 			break;
 		case MC_UDP_PONG:
@@ -222,7 +222,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 				if(pCommand->GetParameter(&nTimeStamp, 0, MPT_UINT) == false) break;
 				
-				MCommandParameter* pParam = pCommand->GetParameter(1);
+				CCCommandParameter* pParam = pCommand->GetParameter(1);
 				if(pParam->GetType() != MPT_BLOB) 	break;
 				void* pBlob = pParam->GetPointer();
 				int nCount = MGetBlobArrayCount(pBlob);
@@ -234,8 +234,8 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				if(dwRet != ERROR_SUCCESS)
 					cclog("Making Ack Msg Failed. (Error code = %x)\n", dwRet);
 
-				MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_HSHIELD_PONG), pCommand->m_Sender, m_This);
-				pNew->AddParameter(new MCommandParameterUInt(nTimeStamp));
+				CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_HSHIELD_PONG), pCommand->m_Sender, m_This);
+				pNew->AddParameter(new CCCommandParameterUInt(nTimeStamp));
 				void* pBlob2 = MMakeBlobArray(sizeof(unsigned char), SIZEOF_ACKMSG);
 				unsigned char* pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob2, 0);
 				CopyMemory(pCmdBlock, ZGetMyInfo()->GetSystemInfo()->pbyAckMsg, SIZEOF_ACKMSG);
@@ -309,7 +309,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				sprintf(szBuf, "peer.addpeer 127.0.0.1 10001");
 				ConsoleInputEvent(szBuf);
 
-				MClient::OutputMessage(MZMOM_LOCALREPLY, "Done SetClient1");
+				CCClient::OutputMessage(CCZMOM_LOCALREPLY, "Done SetClient1");
 			}
 			break;
 		case ZC_TEST_SETCLIENT2:
@@ -320,7 +320,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				sprintf(szBuf, "peer.addpeer 127.0.0.1 10000");
 				ConsoleInputEvent(szBuf);
 
-				MClient::OutputMessage(MZMOM_LOCALREPLY, "Done SetClient2");
+				CCClient::OutputMessage(CCZMOM_LOCALREPLY, "Done SetClient2");
 			}
 			break;
 		case ZC_TEST_SETCLIENTALL:
@@ -344,7 +344,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 					ConsoleInputEvent(szBuf);
 				}
 
-				MClient::OutputMessage(MZMOM_LOCALREPLY, "Done SetClient All");
+				CCClient::OutputMessage(CCZMOM_LOCALREPLY, "Done SetClient All");
 			}
 			break;
 #endif
@@ -483,7 +483,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				pCommand->GetParameter(&nRelayMapType, 1, MPT_INT );
 				pCommand->GetParameter(&nRelayMapRepeatCount, 2, MPT_INT );
-				MCommandParameter* pParam = pCommand->GetParameter(3);
+				CCCommandParameter* pParam = pCommand->GetParameter(3);
 				if (pParam->GetType() != MPT_BLOB)	break;
 				void* pRelayMapListBlob = pParam->GetPointer();
 				if( NULL == pRelayMapListBlob )	break;
@@ -554,7 +554,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nPrevStageCount, 0, MPT_CHAR);
 				pCommand->GetParameter(&nNextStageCount, 1, MPT_CHAR);
 
-				MCommandParameter* pParam = pCommand->GetParameter(2);
+				CCCommandParameter* pParam = pCommand->GetParameter(2);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 				int nCount = MGetBlobArrayCount(pBlob);
@@ -569,7 +569,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nTotalPlayerCount,	0, MPT_UCHAR);
 				pCommand->GetParameter(&nPage,				1, MPT_UCHAR);
 
-				MCommandParameter* pParam = pCommand->GetParameter(2);
+				CCCommandParameter* pParam = pCommand->GetParameter(2);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 				int nCount = MGetBlobArrayCount(pBlob);
@@ -584,7 +584,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 				pCommand->GetParameter(&uidChannel, 0, MPT_UID);
 
-				MCommandParameter* pParam = pCommand->GetParameter(1);
+				CCCommandParameter* pParam = pCommand->GetParameter(1);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 				int nCount = MGetBlobArrayCount(pBlob);
@@ -594,7 +594,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_RESPONSE_FRIENDLIST:
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 				int nCount = MGetBlobArrayCount(pBlob);
@@ -607,12 +607,12 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 
-				MCommandParameter* pStageParam = pCommand->GetParameter(1);
+				CCCommandParameter* pStageParam = pCommand->GetParameter(1);
 				if(pStageParam->GetType()!=MPT_BLOB) break;
 				void* pStageBlob = pStageParam->GetPointer();
 				int nStageCount = MGetBlobArrayCount(pStageBlob);
 
-				MCommandParameter* pCharParam = pCommand->GetParameter(2);
+				CCCommandParameter* pCharParam = pCommand->GetParameter(2);
 				if(pCharParam->GetType()!=MPT_BLOB) break;
 				void* pCharBlob = pCharParam->GetPointer();
 				int nCharCount = MGetBlobArrayCount(pCharBlob);
@@ -694,7 +694,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CHANNEL_LIST:
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 				int nCount = MGetBlobArrayCount(pBlob);
@@ -751,7 +751,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				CCUID uidStage;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 
-				MCommandParameter* pParam = pCommand->GetParameter(1);
+				CCCommandParameter* pParam = pCommand->GetParameter(1);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pGameInfoBlob = pParam->GetPointer();
 
@@ -779,7 +779,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_SPAWN_WORLDITEM:
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if (pParam->GetType()!=MPT_BLOB) break;
 
 				void* pSpawnInfoBlob = pParam->GetPointer();
@@ -997,7 +997,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_UPDATE_CHAR_CLANINFO:
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 
@@ -1042,7 +1042,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_RESPONSE_MEMBER_LIST:
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 
@@ -1052,7 +1052,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_CLAN_RESPONSE_CLAN_INFO:
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 
@@ -1095,7 +1095,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_RESPONSE_CHARINFO_DETAIL:
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if (pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 
@@ -1124,7 +1124,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&uidProposer,		0, MPT_UID);
 //				pCommand->GetParameter(szProposerCharName,	1, MPT_STR);
 
-				MCommandParameter* pParam = pCommand->GetParameter(1);
+				CCCommandParameter* pParam = pCommand->GetParameter(1);
 				void* pMemberNamesBlob = pParam->GetPointer();
 
 				pCommand->GetParameter(&nProposalMode,		2, MPT_INT);
@@ -1208,7 +1208,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nPrevStageCount, 0, MPT_INT);
 				pCommand->GetParameter(&nNextStageCount, 1, MPT_INT);
 
-				MCommandParameter* pParam = pCommand->GetParameter(2);
+				CCCommandParameter* pParam = pCommand->GetParameter(2);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 
@@ -1311,7 +1311,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_EXPIRED_RENT_ITEM:
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 
@@ -1423,7 +1423,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				int nType;
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				pCommand->GetParameter(&nType, 1, MPT_INT);
-				MCommandParameter* pParam = pCommand->GetParameter(2);
+				CCCommandParameter* pParam = pCommand->GetParameter(2);
 				void* pBlobPlayerInfo = pParam->GetPointer();
 
 				OnDuelTournamentPrepare((CCDUELTOURNAMENTTYPE)nType, uidStage, pBlobPlayerInfo);
@@ -1508,7 +1508,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 		case MC_QUEST_NPCLIST :
 			{
-				MCommandParameter* pParam = pCommand->GetParameter( 0 );
+				CCCommandParameter* pParam = pCommand->GetParameter( 0 );
 				if( MPT_BLOB != pParam->GetType() ) 
 				{
 					break;
@@ -1584,7 +1584,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 		default:
 			if (!ret)
 			{
-//				MClient::OutputMessage(MZMOM_LOCALREPLY, "Command(%s) handler not found", pCommand->m_pCommandDesc->GetName());
+//				CCClient::OutputMessage(CCZMOM_LOCALREPLY, "Command(%s) handler not found", pCommand->m_pCommandDesc->GetName());
 //				return false;
 			}
 			break;

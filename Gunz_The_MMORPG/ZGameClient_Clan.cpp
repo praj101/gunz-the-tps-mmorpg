@@ -6,7 +6,7 @@
 #include "ZGameClient.h"
 #include "MSharedCommandTable.h"
 #include "ZConsole.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
 #include "MBlobArray.h"
 #include "ZInterface.h"
@@ -472,7 +472,7 @@ void ZGameClient::OnClanUpdateCharClanInfo(void* pBlob)
 	int nCount = MGetBlobArrayCount(pBlob);
 	if (nCount != 1) return;
 
-	MTD_CharClanInfo* pClanInfoNode = (MTD_CharClanInfo*)MGetBlobArrayElement(pBlob, 0);
+	CCTD_CharClanInfo* pClanInfoNode = (CCTD_CharClanInfo*)MGetBlobArrayElement(pBlob, 0);
 
 	ZGetMyInfo()->SetClanInfo(pClanInfoNode->szClanName, pClanInfoNode->nGrade);
 	ZGetMyInfo()->Serialize();
@@ -566,7 +566,7 @@ void ZGameClient::OnClanMemberList(void* pBlob)
 
 	for(int i=0; i<nCount; i++) 
 	{
-		MTD_ClanMemberListNode* pNode = (MTD_ClanMemberListNode*)MGetBlobArrayElement(pBlob, i);
+		CCTD_ClanMemberListNode* pNode = (CCTD_ClanMemberListNode*)MGetBlobArrayElement(pBlob, i);
 
 		ePlayerState state;
 		switch (pNode->nPlace)
@@ -590,13 +590,13 @@ void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 	int nCount = MGetBlobArrayCount(pBlob);
 	if(nCount != 1) return;
 
-	MTD_ClanInfo* pClanInfo = (MTD_ClanInfo*)MGetBlobArrayElement(pBlob, 0);
+	CCTD_ClanInfo* pClanInfo = (CCTD_ClanInfo*)MGetBlobArrayElement(pBlob, 0);
 	
 	// 이미 emblem을 가지고 있었으면 emblem interface 에 통보해준다
 	int nOldClanID = ZGetNetRepository()->GetClanInfo()->nCLID;
 
 	// repository에 클랜정보를 보관한다
-	memcpy(ZGetNetRepository()->GetClanInfo(),pClanInfo,sizeof(MTD_ClanInfo));
+	memcpy(ZGetNetRepository()->GetClanInfo(),pClanInfo,sizeof(CCTD_ClanInfo));
 
 //	cclog("OnClanResponseClanInfo : ");
 
@@ -702,7 +702,7 @@ void ZGameClient::OnClanStandbyClanList(int nPrevStageCount, int nNextStageCount
 
 	for(int i=0; i<nCount; i++) 
 	{
-		MTD_StandbyClanList* pNode = (MTD_StandbyClanList*)MGetBlobArrayElement(pBlob, i);
+		CCTD_StandbyClanList* pNode = (CCTD_StandbyClanList*)MGetBlobArrayElement(pBlob, i);
 
 		_ASSERT(i<4);
 		pListBox->SetInfo(i,pNode->nCLID,pNode->szClanName,pNode->nPlayers);

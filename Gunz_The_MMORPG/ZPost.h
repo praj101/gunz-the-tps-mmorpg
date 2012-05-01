@@ -72,7 +72,7 @@ inline void ZPostDuelTournamentHPAPInfo(UCHAR MaxHP, UCHAR MaxAP, UCHAR HP, UCHA
 inline void ZPostMove(rvector& vPos, rvector& vDir, rvector& vVelocity, 
 					  ZC_STATE_UPPER upper, ZC_STATE_LOWER lower)
 {
-	ZPOSTCMD5(MC_PEER_MOVE, MCommandParameterPos(vPos.x, vPos.y, vPos.z), MCommandParameterVector(vDir.x, vDir.y, vDir.z), MCommandParameterVector(vVelocity.x, vVelocity.y, vVelocity.z), MCommandParameterInt(int(upper)), MCommandParameterInt(int(lower)));
+	ZPOSTCMD5(MC_PEER_MOVE, CCCommandParameterPos(vPos.x, vPos.y, vPos.z), CCCommandParameterVector(vDir.x, vDir.y, vDir.z), CCCommandParameterVector(vVelocity.x, vVelocity.y, vVelocity.z), CCCommandParameterInt(int(upper)), CCCommandParameterInt(int(lower)));
 }
 
 //DLL Injection 핵에서 fShotTime을 조작해 무기의 딜레이 타임을 무시하고 겁나 빠른 속도로 shot이 가능하게 만든다. 
@@ -80,13 +80,13 @@ inline void ZPostMove(rvector& vPos, rvector& vDir, rvector& vVelocity,
 //해당 함수가 불렸을 때 패킷에 g_pGame->GetTime()을 보내는 것으로 대체했다. 
 //inline void ZPostSkill(/*float fShotTime,*/int nSkill,int sel_type)	// 스킬발동~!
 //{
-////	ZPOSTCMD3(MC_PEER_SKILL, MCmdParamFloat(fShotTime), MCmdParamInt(nSkill),MCommandParameterInt(sel_type));
-//	ZPOSTCMD3(MC_PEER_SKILL, MCmdParamFloat(ZGetGame()->GetTime()), MCmdParamInt(nSkill),MCommandParameterInt(sel_type));
+////	ZPOSTCMD3(MC_PEER_SKILL, MCmdParamFloat(fShotTime), MCmdParamInt(nSkill),CCCommandParameterInt(sel_type));
+//	ZPOSTCMD3(MC_PEER_SKILL, MCmdParamFloat(ZGetGame()->GetTime()), MCmdParamInt(nSkill),CCCommandParameterInt(sel_type));
 //	CHECK_RETURN_CALLSTACK(ZPostSkill);
 //}
 //dll-injection으로 호출 못하게 강제 인라이닝
 #define ZPostSkill(/*int*/ nSkill,/*int*/ sel_type)	{ \
-	ZPOSTCMD3(CLOAK_CMD_ID(MC_PEER_SKILL, 7636), MCmdParamFloat(ZGetGame()->GetTime()), MCmdParamInt(nSkill),MCommandParameterInt(sel_type)); \
+	ZPOSTCMD3(CLOAK_CMD_ID(MC_PEER_SKILL, 7636), MCmdParamFloat(ZGetGame()->GetTime()), MCmdParamInt(nSkill),CCCommandParameterInt(sel_type)); \
 }
 
 inline void ZPostChangeWeapon(int WeaponID)
@@ -109,7 +109,7 @@ inline void ZPostChangeCharacter()
 
 inline void ZPostAttack(int type, rvector& vPos)
 {
-	ZPOSTCMD2(MC_PEER_ATTACK, MCmdParamInt(type),MCommandParameterVector(vPos.x, vPos.y, vPos.z));
+	ZPOSTCMD2(MC_PEER_ATTACK, MCmdParamInt(type),CCCommandParameterVector(vPos.x, vPos.y, vPos.z));
 }
 
 inline void ZPostDamage(CCUID ChrUID,int damage)
@@ -122,7 +122,7 @@ inline void ZPostDamage(CCUID ChrUID,int damage)
 #ifdef _DEBUG
 inline void ZPostSpawn(rvector& vPos, rvector& vDir)	// For Local Test Only
 {
-	ZPOSTCMD2(MC_PEER_SPAWN, MCommandParameterPos(vPos.x, vPos.y, vPos.z), MCommandParameterDir(vDir.x, vDir.y, vDir.z));
+	ZPOSTCMD2(MC_PEER_SPAWN, CCCommandParameterPos(vPos.x, vPos.y, vPos.z), CCCommandParameterDir(vDir.x, vDir.y, vDir.z));
 }
 #endif
 
@@ -147,7 +147,7 @@ inline void ZPostSpawn(rvector& vPos, rvector& vDir)	// For Local Test Only
 								\
 	pdi.seltype = sel_type;		\
 								\
-	ZPOSTCMD1(CLOAK_CMD_ID(MC_PEER_DASH, 9964),MCommandParameterBlob(&pdi,sizeof(ZPACKEDDASHINFO)));	\
+	ZPOSTCMD1(CLOAK_CMD_ID(MC_PEER_DASH, 9964),CCCommandParameterBlob(&pdi,sizeof(ZPACKEDDASHINFO)));	\
 }
 
 inline void ZPostPeerChat(char* szMsg, int nTeam=0)
@@ -157,12 +157,12 @@ inline void ZPostPeerChat(char* szMsg, int nTeam=0)
 	const size_t nInputLen = strlen( szMsg );
 	if( 256 > nInputLen )
 	{
-		ZPOSTCMD2(MC_PEER_CHAT, MCmdParamInt(nTeam), MCommandParameterString(szMsg))	
+		ZPOSTCMD2(MC_PEER_CHAT, MCmdParamInt(nTeam), CCCommandParameterString(szMsg))	
 	}
 	else
 	{
 		strncpy( szSendMsg, szMsg, 255 );
-		ZPOSTCMD2(MC_PEER_CHAT, MCmdParamInt(nTeam), MCommandParameterString(szSendMsg))
+		ZPOSTCMD2(MC_PEER_CHAT, MCmdParamInt(nTeam), CCCommandParameterString(szSendMsg))
 	}
 
 	CHECK_RETURN_CALLSTACK(ZPostPeerChat);
@@ -205,7 +205,7 @@ inline void ZPostLogin(char* szUserID, char* szPassword, unsigned int nChecksumP
 		, MCmdParamStr(szPassword)
 		, MCmdParamInt(MCOMMAND_VERSION)
 		, MCmdParamUInt(nChecksumPack)
-		, MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+		, CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
 	MEraseBlobArray(pBlob);
 }
 
@@ -225,7 +225,7 @@ inline void ZPostNHNUSALogin( char* szLoginID, char* szAuthStr, unsigned int nCh
 	unsigned char *pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
 	CopyMemory( pCmdBlock, szEncryptMD5Value, MAX_MD5LENGH );
 
-	ZPOSTCMD5( MC_MATCH_LOGIN_NHNUSA, MCmdParamStr(szLoginID), MCmdParamStr(szAuthStr), MCmdParamInt(MCOMMAND_VERSION), MCmdParamUInt(nChecksumPack), MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)) );
+	ZPOSTCMD5( MC_MATCH_LOGIN_NHNUSA, MCmdParamStr(szLoginID), MCmdParamStr(szAuthStr), MCmdParamInt(MCOMMAND_VERSION), MCmdParamUInt(nChecksumPack), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)) );
 	MEraseBlobArray(pBlob);
 }
 
@@ -235,13 +235,13 @@ inline void ZPostGameOnJPLogin( const char* szString, const char* szStatIndex, u
 	unsigned char *pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
 	CopyMemory( pCmdBlock, szEncryptMD5Value, MAX_MD5LENGH );
 
-	ZPOSTCMD5( MC_MATCH_LOGIN_GAMEON_JP, MCmdParamStr(szString), MCmdParamStr(szStatIndex), MCmdParamInt(MCOMMAND_VERSION), MCmdParamUInt(nChecksumPack), MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	ZPOSTCMD5( MC_MATCH_LOGIN_GAMEON_JP, MCmdParamStr(szString), MCmdParamStr(szStatIndex), MCmdParamInt(MCOMMAND_VERSION), MCmdParamUInt(nChecksumPack), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
 	MEraseBlobArray(pBlob);
 }
 
 inline void ZPostChannelRequestJoin(const CCUID& uidChar, const CCUID& uidChannel)
 {
-	ZPOSTCMD2(MC_MATCH_CHANNEL_REQUEST_JOIN, MCommandParameterUID(uidChar), MCommandParameterUID(uidChannel));
+	ZPOSTCMD2(MC_MATCH_CHANNEL_REQUEST_JOIN, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidChannel));
 }
 
 inline void ZPostChannelRequestJoinFromChannelName(const CCUID& uidChar, int nChannelType, const char* szChannelName)
@@ -252,29 +252,29 @@ inline void ZPostChannelRequestJoinFromChannelName(const CCUID& uidChar, int nCh
 
 //강제 인라이닝
 #define ZPostChannelChat(/*const CCUID&*/ uidChar, /*const CCUID&*/ uidChannel, /*char**/ szChat) { \
-	ZPOSTCMD3(CLOAK_CMD_ID(MC_MATCH_CHANNEL_REQUEST_CHAT, 87252), MCommandParameterUID(uidChar), MCommandParameterUID(uidChannel), MCmdParamStr(szChat)); \
+	ZPOSTCMD3(CLOAK_CMD_ID(MC_MATCH_CHANNEL_REQUEST_CHAT, 87252), CCCommandParameterUID(uidChar), CCCommandParameterUID(uidChannel), MCmdParamStr(szChat)); \
 }
 
 inline void ZPostStartChannelList(const CCUID& uidChar, const int nChannelType)
 {
-	ZPOSTCMD2(MC_MATCH_CHANNEL_LIST_START, MCommandParameterUID(uidChar), MCommandParameterInt(nChannelType));
+	ZPOSTCMD2(MC_MATCH_CHANNEL_LIST_START, CCCommandParameterUID(uidChar), CCCommandParameterInt(nChannelType));
 }
 
 inline void ZPostStopChannelList(const CCUID& uidChar)
 {
-	ZPOSTCMD1(MC_MATCH_CHANNEL_LIST_STOP, MCommandParameterUID(uidChar));
+	ZPOSTCMD1(MC_MATCH_CHANNEL_LIST_STOP, CCCommandParameterUID(uidChar));
 
 }
 
 inline void ZPostStageCreate(const CCUID& uidChar, char* szStageName, bool bPrivate, char* szPassword)
 {
-	ZPOSTCMD4(MC_MATCH_STAGE_CREATE, MCommandParameterUID(uidChar), MCmdParamStr(szStageName),
+	ZPOSTCMD4(MC_MATCH_STAGE_CREATE, CCCommandParameterUID(uidChar), MCmdParamStr(szStageName),
 		MCmdParamBool(bPrivate), MCmdParamStr(szPassword));
 }
 
 inline void ZPostRequestStageJoin(const CCUID& uidChar, const CCUID& uidStage)
 {
-	ZPOSTCMD2(MC_MATCH_REQUEST_STAGE_JOIN, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage));
+	ZPOSTCMD2(MC_MATCH_REQUEST_STAGE_JOIN, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage));
 }
 
 inline void ZPostStageGo(int nRoomNo)
@@ -284,53 +284,53 @@ inline void ZPostStageGo(int nRoomNo)
 
 inline void ZPostRequestPrivateStageJoin(const CCUID& uidChar, const CCUID& uidStage, char* szPassword)
 {
-	ZPOSTCMD3(MC_MATCH_REQUEST_PRIVATE_STAGE_JOIN, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage),
+	ZPOSTCMD3(MC_MATCH_REQUEST_PRIVATE_STAGE_JOIN, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage),
 		MCmdParamStr(szPassword));
 }
 
 inline void ZPostStageLeave(const CCUID& uidChar)//, const CCUID& uidStage)
 {
-	ZPOSTCMD1(MC_MATCH_STAGE_LEAVE, MCommandParameterUID(uidChar));//, MCommandParameterUID(uidStage));
+	ZPOSTCMD1(MC_MATCH_STAGE_LEAVE, CCCommandParameterUID(uidChar));//, CCCommandParameterUID(uidStage));
 }
 
 inline void ZPostRequestStagePlayerList(const CCUID& uidStage)
 {
-	ZPOSTCMD1(MC_MATCH_STAGE_REQUEST_PLAYERLIST, MCommandParameterUID(uidStage));
+	ZPOSTCMD1(MC_MATCH_STAGE_REQUEST_PLAYERLIST, CCCommandParameterUID(uidStage));
 }
 
 inline void ZPostStageFollow(const char* pszTargetName)
 {
-	ZPOSTCMD1(MC_MATCH_STAGE_FOLLOW, MCommandParameterString( const_cast<char*>(pszTargetName) ));
+	ZPOSTCMD1(MC_MATCH_STAGE_FOLLOW, CCCommandParameterString( const_cast<char*>(pszTargetName) ));
 }
 
 inline void ZPostStageStart(const CCUID& uidChar, const CCUID& uidStage)
 {
-	ZPOSTCMD3(MC_MATCH_STAGE_START, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage), MCommandParameterInt(3));
+	ZPOSTCMD3(MC_MATCH_STAGE_START, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage), CCCommandParameterInt(3));
 }
 
 inline void ZPostStageMap(const CCUID& uidStage, char* szMap)
 {
-	ZPOSTCMD2(MC_MATCH_STAGE_MAP, MCommandParameterUID(uidStage), MCommandParameterString(szMap));
+	ZPOSTCMD2(MC_MATCH_STAGE_MAP, CCCommandParameterUID(uidStage), CCCommandParameterString(szMap));
 }
 
 inline void ZPostStageRelayMapElementUpdate(const CCUID& uidStage, int nType, int nRoundCount)
 {
-	ZPOSTCMD3(MC_MATCH_STAGE_RELAY_MAP_ELEMENT_UPDATE, MCommandParameterUID(uidStage), MCommandParameterInt(nType), MCommandParameterInt(nRoundCount));
+	ZPOSTCMD3(MC_MATCH_STAGE_RELAY_MAP_ELEMENT_UPDATE, CCCommandParameterUID(uidStage), CCCommandParameterInt(nType), CCCommandParameterInt(nRoundCount));
 }
 
 inline void ZPostStageRelayMapInfoUpdate(const CCUID& uidStage, int nType, int nRoundCount, void* pBlob)
 {
-	ZPOSTCMD4(MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE, MCommandParameterUID(uidStage), MCommandParameterInt(nType), MCommandParameterInt(nRoundCount), MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	ZPOSTCMD4(MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE, CCCommandParameterUID(uidStage), CCCommandParameterInt(nType), CCCommandParameterInt(nRoundCount), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
 }
 
 inline void ZPostStageChat(const CCUID& uidChar, const CCUID& uidStage, char* szChat)
 {
-	ZPOSTCMD3(MC_MATCH_STAGE_CHAT, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage), MCmdParamStr(szChat));
+	ZPOSTCMD3(MC_MATCH_STAGE_CHAT, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage), MCmdParamStr(szChat));
 }
 
 inline void ZPostRequestStageSetting(const CCUID& uidStage)
 {
-	ZPOSTCMD1(MC_MATCH_REQUEST_STAGESETTING, MCommandParameterUID(uidStage));
+	ZPOSTCMD1(MC_MATCH_REQUEST_STAGESETTING, CCCommandParameterUID(uidStage));
 }
 
 inline void ZPostStageSetting(const CCUID& uidChar, const CCUID& uidStage, MSTAGE_SETTING_NODE* pSetting)
@@ -338,19 +338,19 @@ inline void ZPostStageSetting(const CCUID& uidChar, const CCUID& uidStage, MSTAG
 	void* pBlob = MMakeBlobArray(sizeof(MSTAGE_SETTING_NODE), 1);
 	MSTAGE_SETTING_NODE* pBlobNode = (MSTAGE_SETTING_NODE*)MGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pBlobNode, pSetting, sizeof(MSTAGE_SETTING_NODE));
-	ZPOSTCMD3(MC_MATCH_STAGESETTING, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage), MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	ZPOSTCMD3(MC_MATCH_STAGESETTING, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
 	MEraseBlobArray(pBlob);
 }
 
 inline void ZPostStageTeam(const CCUID& uidChar, const CCUID& uidStage, int nTeam)
 {
-	ZPOSTCMD3(MC_MATCH_STAGE_TEAM, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage), MCommandParameterUInt(nTeam));
+	ZPOSTCMD3(MC_MATCH_STAGE_TEAM, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage), CCCommandParameterUInt(nTeam));
 	CHECK_RETURN_CALLSTACK(ZPostStageTeam);
 }
 
 inline void ZPostStageState(const CCUID& uidChar, const CCUID& uidStage, CCMatchObjectStageState nStageState)
 { 	
-	ZPOSTCMD3(MC_MATCH_STAGE_PLAYER_STATE, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage), MCommandParameterInt(int(nStageState)));
+	ZPOSTCMD3(MC_MATCH_STAGE_PLAYER_STATE, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage), CCCommandParameterInt(int(nStageState)));
 	CHECK_RETURN_CALLSTACK(ZPostStageState);
 }
 
@@ -370,8 +370,8 @@ inline void ZPostStageState(const CCUID& uidChar, const CCUID& uidStage, CCMatch
 //	info.toz = to.z;
 //	info.sel_type = sel_type;
 //
-//	ZPOSTCMD1(MC_PEER_SHOT, MCommandParameterBlob(&info,sizeof(ZPACKEDSHOTINFO)));
-////	ZPOSTCMD4(MC_PEER_SHOT, MCommandParameterFloat(fShotTime),MCommandParameterPos(vPos.x, vPos.y, vPos.z), MCommandParameterVector(vDir.x, vDir.y, vDir.z),MCommandParameterInt(sel_type));
+//	ZPOSTCMD1(MC_PEER_SHOT, CCCommandParameterBlob(&info,sizeof(ZPACKEDSHOTINFO)));
+////	ZPOSTCMD4(MC_PEER_SHOT, CCCommandParameterFloat(fShotTime),CCCommandParameterPos(vPos.x, vPos.y, vPos.z), CCCommandParameterVector(vDir.x, vDir.y, vDir.z),CCCommandParameterInt(sel_type));
 //	CHECK_RETURN_CALLSTACK(ZPostShot);
 //}
 //dll-injection으로 호출 못하도록 강제인라이닝
@@ -385,7 +385,7 @@ inline void ZPostStageState(const CCUID& uidChar, const CCUID& uidStage, CCMatch
 	info.toy = to.y;						\
 	info.toz = to.z;						\
 	info.sel_type = sel_type;				\
-	ZPOSTCMD1(CLOAK_CMD_ID(MC_PEER_SHOT, 1621), MCommandParameterBlob(&info,sizeof(ZPACKEDSHOTINFO)));	\
+	ZPOSTCMD1(CLOAK_CMD_ID(MC_PEER_SHOT, 1621), CCCommandParameterBlob(&info,sizeof(ZPACKEDSHOTINFO)));	\
 }
 
 //DLL Injection 핵에서 fShotTime을 조작해 무기의 딜레이 타임을 무시하고 겁나 빠른 속도로 shot이 가능하게 만든다. 
@@ -393,13 +393,13 @@ inline void ZPostStageState(const CCUID& uidChar, const CCUID& uidStage, CCMatch
 //해당 함수가 불렸을 때 패킷에 g_pGame->GetTime()을 보내는 것으로 대체했다. 
 //inline void ZPostShotMelee(/*float fShotTime,*/rvector &pos, int nShot)
 //{
-//	//ZPOSTCMD3(MC_PEER_SHOT_MELEE, MCommandParameterFloat(fShotTime),MCommandParameterPos(pos.x, pos.y, pos.z),MCommandParameterInt(nShot));
-//	ZPOSTCMD3(MC_PEER_SHOT_MELEE, MCommandParameterFloat(ZGetGame()->GetTime()),MCommandParameterPos(pos.x, pos.y, pos.z),MCommandParameterInt(nShot));
+//	//ZPOSTCMD3(MC_PEER_SHOT_MELEE, CCCommandParameterFloat(fShotTime),CCCommandParameterPos(pos.x, pos.y, pos.z),CCCommandParameterInt(nShot));
+//	ZPOSTCMD3(MC_PEER_SHOT_MELEE, CCCommandParameterFloat(ZGetGame()->GetTime()),CCCommandParameterPos(pos.x, pos.y, pos.z),CCCommandParameterInt(nShot));
 //	CHECK_RETURN_CALLSTACK(ZPostShotMelee);
 //}
 //dll-injection으로 호출 못하도록 강제인라이닝
 #define ZPostShotMelee(/*rvector&*/ pos, /*int*/ nShot) {	\
-	ZPOSTCMD3(CLOAK_CMD_ID(MC_PEER_SHOT_MELEE, 38274), MCommandParameterFloat(ZGetGame()->GetTime()),MCommandParameterPos(pos.x, pos.y, pos.z),MCommandParameterInt(nShot));	\
+	ZPOSTCMD3(CLOAK_CMD_ID(MC_PEER_SHOT_MELEE, 38274), CCCommandParameterFloat(ZGetGame()->GetTime()),CCCommandParameterPos(pos.x, pos.y, pos.z),CCCommandParameterInt(nShot));	\
 }
 
 inline void ZPostNPCRangeShot(CCUID uidOwner, float fShotTime,rvector &pos, rvector &to,int sel_type)
@@ -414,17 +414,17 @@ inline void ZPostNPCRangeShot(CCUID uidOwner, float fShotTime,rvector &pos, rvec
 	info.toz = to.z;
 	info.sel_type = sel_type;
 
-	ZPOSTCMD2(MC_QUEST_PEER_NPC_ATTACK_RANGE, MCommandParameterUID(uidOwner), MCommandParameterBlob(&info,sizeof(ZPACKEDSHOTINFO)));
+	ZPOSTCMD2(MC_QUEST_PEER_NPC_ATTACK_RANGE, CCCommandParameterUID(uidOwner), CCCommandParameterBlob(&info,sizeof(ZPACKEDSHOTINFO)));
 }
 
 inline void ZPostNPCSkillStart(CCUID uidOwner, int nSkill, CCUID uidTarget, rvector& targetPos)
 {
-	ZPOSTCMD4(MC_QUEST_PEER_NPC_SKILL_START, MCommandParameterUID(uidOwner), MCommandParameterInt(nSkill), MCommandParameterUID(uidTarget), MCommandParameterPos(targetPos.x,targetPos.y,targetPos.z) );
+	ZPOSTCMD4(MC_QUEST_PEER_NPC_SKILL_START, CCCommandParameterUID(uidOwner), CCCommandParameterInt(nSkill), CCCommandParameterUID(uidTarget), CCCommandParameterPos(targetPos.x,targetPos.y,targetPos.z) );
 }
 
 inline void ZPostNPCSkillExecute(CCUID uidOwner, int nSkill, CCUID uidTarget, rvector& targetPos)
 {
-	ZPOSTCMD4(MC_QUEST_PEER_NPC_SKILL_EXECUTE, MCommandParameterUID(uidOwner), MCommandParameterInt(nSkill), MCommandParameterUID(uidTarget), MCommandParameterPos(targetPos.x,targetPos.y,targetPos.z) );
+	ZPOSTCMD4(MC_QUEST_PEER_NPC_SKILL_EXECUTE, CCCommandParameterUID(uidOwner), CCCommandParameterInt(nSkill), CCCommandParameterUID(uidTarget), CCCommandParameterPos(targetPos.x,targetPos.y,targetPos.z) );
 }
 
 //DLL Injection 핵에서 fShotTime을 조작해 무기의 딜레이 타임을 무시하고 겁나 빠른 속도로 shot이 가능하게 만든다. 
@@ -432,62 +432,62 @@ inline void ZPostNPCSkillExecute(CCUID uidOwner, int nSkill, CCUID uidTarget, rv
 //해당 함수가 불렸을 때 패킷에 g_pGame->GetTime()을 보내는 것으로 대체했다.
 //inline void ZPostShotSp(/*float fShotTime,*/rvector& vPos, rvector& vDir,int type,int sel_type)
 //{
-////	ZPOSTCMD5(MC_PEER_SHOT_SP, MCommandParameterFloat(fShotTime),MCommandParameterPos(vPos.x, vPos.y, vPos.z), MCommandParameterVector(vDir.x, vDir.y, vDir.z),MCommandParameterInt(type),MCommandParameterInt(sel_type));
-//	ZPOSTCMD5(MC_PEER_SHOT_SP, MCommandParameterFloat(ZGetGame()->GetTime()),MCommandParameterPos(vPos.x, vPos.y, vPos.z), MCommandParameterVector(vDir.x, vDir.y, vDir.z),MCommandParameterInt(type),MCommandParameterInt(sel_type));
+////	ZPOSTCMD5(MC_PEER_SHOT_SP, CCCommandParameterFloat(fShotTime),CCCommandParameterPos(vPos.x, vPos.y, vPos.z), CCCommandParameterVector(vDir.x, vDir.y, vDir.z),CCCommandParameterInt(type),CCCommandParameterInt(sel_type));
+//	ZPOSTCMD5(MC_PEER_SHOT_SP, CCCommandParameterFloat(ZGetGame()->GetTime()),CCCommandParameterPos(vPos.x, vPos.y, vPos.z), CCCommandParameterVector(vDir.x, vDir.y, vDir.z),CCCommandParameterInt(type),CCCommandParameterInt(sel_type));
 //}
 //dll-injection으로 호출 못하도록 강제인라이닝
 #define ZPostShotSp(/*rvector&*/ vPos, /*rvector&*/ vDir, /*int*/ type, /*int*/ sel_type) {	\
 	if (!IsNaN(vPos) && !IsNaN(vDir)) { \
-		ZPOSTCMD5(CLOAK_CMD_ID(MC_PEER_SHOT_SP, 12783), MCommandParameterFloat(ZGetGame()->GetTime()), MCommandParameterPos(vPos.x, vPos.y, vPos.z), MCommandParameterVector(vDir.x, vDir.y, vDir.z), MCommandParameterInt(type), MCommandParameterInt(sel_type));	\
+		ZPOSTCMD5(CLOAK_CMD_ID(MC_PEER_SHOT_SP, 12783), CCCommandParameterFloat(ZGetGame()->GetTime()), CCCommandParameterPos(vPos.x, vPos.y, vPos.z), CCCommandParameterVector(vDir.x, vDir.y, vDir.z), CCCommandParameterInt(type), CCCommandParameterInt(sel_type));	\
 	} \
 }
 
 #define ZPostNotifyThrowedTrap(/*short*/ itemId) { \
-	ZPOSTCMD1(CLOAK_CMD_ID(MC_MATCH_NOTIFY_THROW_TRAPITEM, 19191), MCommandParameterShort(itemId)); \
+	ZPOSTCMD1(CLOAK_CMD_ID(MC_MATCH_NOTIFY_THROW_TRAPITEM, 19191), CCCommandParameterShort(itemId)); \
 }
 
 #define ZPostNotifyActivatedTrap(/*short*/ itemId, /*rvector*/ pos) { \
-	ZPOSTCMD2(CLOAK_CMD_ID(MC_MATCH_NOTIFY_ACTIVATED_TRAPITEM, 95737), MCommandParameterShort(itemId), MCmdParamShortVector(pos.x, pos.y, pos.z)); \
+	ZPOSTCMD2(CLOAK_CMD_ID(MC_MATCH_NOTIFY_ACTIVATED_TRAPITEM, 95737), CCCommandParameterShort(itemId), MCmdParamShortVector(pos.x, pos.y, pos.z)); \
 }
 
 #define ZPostBuffInfo(/*void**/ pBlob) { \
-	ZPOSTCMD1(MC_PEER_BUFF_INFO, MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob))); \
+	ZPOSTCMD1(MC_PEER_BUFF_INFO, CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob))); \
 }
 
 inline void ZPostReaction(float fTime, int id)
 {
-	ZPOSTCMD2(MC_PEER_REACTION, MCommandParameterFloat(fTime), MCommandParameterInt(id));
+	ZPOSTCMD2(MC_PEER_REACTION, CCCommandParameterFloat(fTime), CCCommandParameterInt(id));
 }
 
 inline void ZPostLoadingComplete(const CCUID& uidChar, int nPercent)
 {
-	ZPOSTCMD2(MC_MATCH_LOADING_COMPLETE, MCommandParameterUID(uidChar), MCmdParamInt(nPercent));
+	ZPOSTCMD2(MC_MATCH_LOADING_COMPLETE, CCCommandParameterUID(uidChar), MCmdParamInt(nPercent));
 }
 
 inline void ZPostStageEnterBattle(const CCUID& uidChar, const CCUID& uidStage)
 {
-	ZPOSTCMD2(MC_MATCH_STAGE_REQUEST_ENTERBATTLE, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage));
+	ZPOSTCMD2(MC_MATCH_STAGE_REQUEST_ENTERBATTLE, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage));
 }
 
 // 강제인라이닝
 #define ZPostStageLeaveBattle(/*const CCUID&*/ uidChar, /*bool*/bGameFinishLeaveBattle) { \
-	ZPOSTCMD2(CLOAK_CMD_ID(MC_MATCH_STAGE_LEAVEBATTLE_TO_SERVER, 19472), MCommandParameterUID(uidChar), MCmdParamBool(bGameFinishLeaveBattle));	\
+	ZPOSTCMD2(CLOAK_CMD_ID(MC_MATCH_STAGE_LEAVEBATTLE_TO_SERVER, 19472), CCCommandParameterUID(uidChar), MCmdParamBool(bGameFinishLeaveBattle));	\
 }
 
 inline void ZPostRequestPeerList(const CCUID& uidChar, const CCUID& uidStage)
 {
-	ZPOSTCMD2(MC_MATCH_REQUEST_PEERLIST, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage));
+	ZPOSTCMD2(MC_MATCH_REQUEST_PEERLIST, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage));
 }
 /*
 void ZPostGameRoundState(const CCUID& uidStage, int nState, int nRound)
 {
-ZPOSTCMD3(MC_MATCH_GAME_ROUNDSTATE, MCommandParameterUID(uidStage), MCommandParameterInt(nState), MCommandParameterInt(nRound));
+ZPOSTCMD3(MC_MATCH_GAME_ROUNDSTATE, CCCommandParameterUID(uidStage), CCCommandParameterInt(nState), CCCommandParameterInt(nRound));
 }
 */
 
 // 강제인라이닝
 #define ZPostGameKill(/*const CCUID&*/ uidAttacker) {	\
-	ZPOSTCMD1(CLOAK_CMD_ID(MC_MATCH_GAME_KILL, 27348), MCommandParameterUID(uidAttacker));	\
+	ZPOSTCMD1(CLOAK_CMD_ID(MC_MATCH_GAME_KILL, 27348), CCCommandParameterUID(uidAttacker));	\
 }
 
 inline void ZPostRequestTimeSync(unsigned long nTimeStamp)
@@ -500,61 +500,61 @@ inline void ZPostRequestTimeSync(unsigned long nTimeStamp)
 	void* pBlob = MMakeBlobArray(sizeof(unsigned char), SIZEOF_GUIDACKMSG);		\
 	unsigned char* pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);	\
 	CopyMemory(pCmdBlock, pbyGuidAckMsg, SIZEOF_GUIDACKMSG);					\
-	ZPOSTCMD1(CLOAK_CMD_ID(MC_MATCH_REQUEST_ACCOUNT_CHARLIST, 57821), MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));	\
+	ZPOSTCMD1(CLOAK_CMD_ID(MC_MATCH_REQUEST_ACCOUNT_CHARLIST, 57821), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));	\
 	MEraseBlobArray(pBlob);	\
 }
 
 inline void ZPostAccountCharInfo(int nCharNum)
 {
-	ZPOSTCMD1(MC_MATCH_REQUEST_ACCOUNT_CHARINFO, MCommandParameterChar((char)nCharNum));
+	ZPOSTCMD1(MC_MATCH_REQUEST_ACCOUNT_CHARINFO, CCCommandParameterChar((char)nCharNum));
 }
 
 // 강제인라이닝
 #define ZPostSelectMyChar(/*const CCUID&*/ uidChar, /*const int*/ nCharIndex) {	\
-	ZPOSTCMD2(CLOAK_CMD_ID(MC_MATCH_REQUEST_SELECT_CHAR, 33333), MCommandParameterUID(uidChar), MCommandParameterUInt(nCharIndex));	\
+	ZPOSTCMD2(CLOAK_CMD_ID(MC_MATCH_REQUEST_SELECT_CHAR, 33333), CCCommandParameterUID(uidChar), CCCommandParameterUInt(nCharIndex));	\
 }
 
 inline void ZPostDeleteMyChar(const CCUID& uidChar, const int nCharIndex, char* szCharName)
 {
-	ZPOSTCMD3(MC_MATCH_REQUEST_DELETE_CHAR, MCommandParameterUID(uidChar), MCommandParameterUInt(nCharIndex),
-		MCommandParameterString(szCharName));
+	ZPOSTCMD3(MC_MATCH_REQUEST_DELETE_CHAR, CCCommandParameterUID(uidChar), CCCommandParameterUInt(nCharIndex),
+		CCCommandParameterString(szCharName));
 }
 
 inline void ZPostCreateMyChar(const CCUID& uidChar, const int nCharIndex, char* szCharName,
 							  const int nSex, const int nHair, const int nFace, const int nCostume)
 {	
-	ZPOSTCMD7(MC_MATCH_REQUEST_CREATE_CHAR, MCommandParameterUID(uidChar), MCommandParameterUInt(nCharIndex),
-		MCommandParameterString(szCharName), MCommandParameterUInt(nSex), MCommandParameterUInt(nHair),
-		MCommandParameterUInt(nFace), MCommandParameterUInt(nCostume));
+	ZPOSTCMD7(MC_MATCH_REQUEST_CREATE_CHAR, CCCommandParameterUID(uidChar), CCCommandParameterUInt(nCharIndex),
+		CCCommandParameterString(szCharName), CCCommandParameterUInt(nSex), CCCommandParameterUInt(nHair),
+		CCCommandParameterUInt(nFace), CCCommandParameterUInt(nCostume));
 
 	CHECK_RETURN_CALLSTACK(ZPostCreateMyChar);
 }
 
 inline void ZPostSimpleCharInfo(const CCUID& uidChar)
 {
-	ZPOSTCMD1(MC_MATCH_REQUEST_SIMPLE_CHARINFO, MCommandParameterUID(uidChar));
+	ZPOSTCMD1(MC_MATCH_REQUEST_SIMPLE_CHARINFO, CCCommandParameterUID(uidChar));
 }
 
-inline void ZPostFinishedRoundInfo(const CCUID& uidStage, CCUID& uidChar, MTD_RoundPeerInfo* pPeerInfo, 
-								   int nPeerInfoCount, MTD_RoundKillInfo* pKillInfo, int nKillInfoCount)
+inline void ZPostFinishedRoundInfo(const CCUID& uidStage, CCUID& uidChar, CCTD_RoundPeerInfo* pPeerInfo, 
+								   int nPeerInfoCount, CCTD_RoundKillInfo* pKillInfo, int nKillInfoCount)
 {
-	void* pBlobPeerInfo = MMakeBlobArray(sizeof(MTD_RoundPeerInfo), nPeerInfoCount);
+	void* pBlobPeerInfo = MMakeBlobArray(sizeof(CCTD_RoundPeerInfo), nPeerInfoCount);
 	for (int i = 0; i < nPeerInfoCount; i++)
 	{
-		MTD_RoundPeerInfo* pNodePeerInfo = (MTD_RoundPeerInfo*)MGetBlobArrayElement(pBlobPeerInfo, i);
-		CopyMemory(pNodePeerInfo, &pPeerInfo[i], sizeof(MTD_RoundPeerInfo));
+		CCTD_RoundPeerInfo* pNodePeerInfo = (CCTD_RoundPeerInfo*)MGetBlobArrayElement(pBlobPeerInfo, i);
+		CopyMemory(pNodePeerInfo, &pPeerInfo[i], sizeof(CCTD_RoundPeerInfo));
 	}
 
-	void* pBlobKillInfo = MMakeBlobArray(sizeof(MTD_RoundKillInfo), nKillInfoCount);
+	void* pBlobKillInfo = MMakeBlobArray(sizeof(CCTD_RoundKillInfo), nKillInfoCount);
 	for (int i = 0; i < nKillInfoCount; i++)
 	{
-		MTD_RoundKillInfo* pNodeKillInfo = (MTD_RoundKillInfo*)MGetBlobArrayElement(pBlobKillInfo, i);
-		CopyMemory(pNodeKillInfo, &pKillInfo[i], sizeof(MTD_RoundKillInfo));
+		CCTD_RoundKillInfo* pNodeKillInfo = (CCTD_RoundKillInfo*)MGetBlobArrayElement(pBlobKillInfo, i);
+		CopyMemory(pNodeKillInfo, &pKillInfo[i], sizeof(CCTD_RoundKillInfo));
 	}
 
-	ZPOSTCMD4(MC_MATCH_ROUND_FINISHINFO, MCommandParameterUID(uidStage), MCommandParameterUID(uidChar), 
-		MCommandParameterBlob(pBlobPeerInfo, MGetBlobArraySize(pBlobPeerInfo)),
-		MCommandParameterBlob(pBlobKillInfo, MGetBlobArraySize(pBlobKillInfo)));
+	ZPOSTCMD4(MC_MATCH_ROUND_FINISHINFO, CCCommandParameterUID(uidStage), CCCommandParameterUID(uidChar), 
+		CCCommandParameterBlob(pBlobPeerInfo, MGetBlobArraySize(pBlobPeerInfo)),
+		CCCommandParameterBlob(pBlobKillInfo, MGetBlobArraySize(pBlobKillInfo)));
 
 	MEraseBlobArray(pBlobPeerInfo);
 	MEraseBlobArray(pBlobKillInfo);
@@ -562,65 +562,65 @@ inline void ZPostFinishedRoundInfo(const CCUID& uidStage, CCUID& uidChar, MTD_Ro
 
 inline void ZPostRequestBuyItem(const CCUID& uidChar, unsigned int nItemID, unsigned int nItemCnt = 1)
 {
-	ZPOSTCMD3(MC_MATCH_REQUEST_BUY_ITEM, MCommandParameterUID(uidChar), MCommandParameterUInt(nItemID), MCommandParameterUInt(nItemCnt));
+	ZPOSTCMD3(MC_MATCH_REQUEST_BUY_ITEM, CCCommandParameterUID(uidChar), CCCommandParameterUInt(nItemID), CCCommandParameterUInt(nItemCnt));
 }
 
 inline void ZPostRequestSellItem(const CCUID& uidChar, const CCUID& uidItem, unsigned int nItemCnt = 1)
 {
-	ZPOSTCMD3(MC_MATCH_REQUEST_SELL_ITEM, MCommandParameterUID(uidChar), MCommandParameterUID(uidItem), MCommandParameterUInt(nItemCnt));
+	ZPOSTCMD3(MC_MATCH_REQUEST_SELL_ITEM, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidItem), CCCommandParameterUInt(nItemCnt));
 }
 
 inline void ZPostRequestForcedEntry(const CCUID& uidChar, const CCUID& uidStage)
 {
-	ZPOSTCMD2(MC_MATCH_STAGE_REQUEST_FORCED_ENTRY, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage));
+	ZPOSTCMD2(MC_MATCH_STAGE_REQUEST_FORCED_ENTRY, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage));
 }
 
 inline void ZPostRequestShopItemList(const CCUID& uidChar, const int nFirstItemIndex, const int nItemCount)
 {
-	ZPOSTCMD3(MC_MATCH_REQUEST_SHOP_ITEMLIST, MCommandParameterUID(uidChar), 
-		MCommandParameterInt(nFirstItemIndex), MCommandParameterInt(nItemCount));
+	ZPOSTCMD3(MC_MATCH_REQUEST_SHOP_ITEMLIST, CCCommandParameterUID(uidChar), 
+		CCCommandParameterInt(nFirstItemIndex), CCCommandParameterInt(nItemCount));
 }
 
 inline void ZPostRequestCharacterItemList(const CCUID& uidChar)
 {
-	ZPOSTCMD1(MC_MATCH_REQUEST_CHARACTER_ITEMLIST, MCommandParameterUID(uidChar));
+	ZPOSTCMD1(MC_MATCH_REQUEST_CHARACTER_ITEMLIST, CCCommandParameterUID(uidChar));
 }
 
 inline void ZPostRequestCharacterItemListForce(const CCUID& uidChar)
 {
-	ZPOSTCMD1(MC_MATCH_REQUEST_CHARACTER_ITEMLIST_FORCE, MCommandParameterUID(uidChar));
+	ZPOSTCMD1(MC_MATCH_REQUEST_CHARACTER_ITEMLIST_FORCE, CCCommandParameterUID(uidChar));
 }
 
 inline void ZPostRequestAccountItemList(const CCUID& uidChar)
 {
-	ZPOSTCMD1(MC_MATCH_REQUEST_ACCOUNT_ITEMLIST, MCommandParameterUID(uidChar));
+	ZPOSTCMD1(MC_MATCH_REQUEST_ACCOUNT_ITEMLIST, CCCommandParameterUID(uidChar));
 }
 
 inline void ZPostRequestBringAccountItem(const CCUID& uidChar, const int nAIID, const int nItemID, const int nItemCnt)
 {
-	ZPOSTCMD4(MC_MATCH_REQUEST_BRING_ACCOUNTITEM, MCommandParameterUID(uidChar), MCommandParameterInt(nAIID), MCommandParameterInt(nItemID), MCommandParameterInt(nItemCnt));
+	ZPOSTCMD4(MC_MATCH_REQUEST_BRING_ACCOUNTITEM, CCCommandParameterUID(uidChar), CCCommandParameterInt(nAIID), CCCommandParameterInt(nItemID), CCCommandParameterInt(nItemCnt));
 }
 inline void ZPostRequestSendAccountItem(const CCUID& uidChar, const CCUID& uidItem, const int nItemCnt=1)
 {
-	ZPOSTCMD3(MC_MATCH_REQUEST_BRING_BACK_ACCOUNTITEM, MCommandParameterUID(uidChar), MCommandParameterUID(uidItem), MCommandParameterUInt(nItemCnt));
+	ZPOSTCMD3(MC_MATCH_REQUEST_BRING_BACK_ACCOUNTITEM, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidItem), CCCommandParameterUInt(nItemCnt));
 }
 
 inline void ZPostRequestEquipItem(const CCUID& uidChar, const CCUID& uidItem, const CCMatchCharItemParts parts)
 {
-	ZPOSTCMD3(MC_MATCH_REQUEST_EQUIP_ITEM, MCommandParameterUID(uidChar), 
-		MCommandParameterUID(uidItem), MCommandParameterUInt(unsigned long int(parts))); 
+	ZPOSTCMD3(MC_MATCH_REQUEST_EQUIP_ITEM, CCCommandParameterUID(uidChar), 
+		CCCommandParameterUID(uidItem), CCCommandParameterUInt(unsigned long int(parts))); 
 }
 
 inline void ZPostRequestTakeoffItem(const CCUID& uidChar, const CCMatchCharItemParts parts)
 {
-	ZPOSTCMD2(MC_MATCH_REQUEST_TAKEOFF_ITEM, MCommandParameterUID(uidChar), 
-		MCommandParameterUInt(unsigned long int(parts))); 
+	ZPOSTCMD2(MC_MATCH_REQUEST_TAKEOFF_ITEM, CCCommandParameterUID(uidChar), 
+		CCCommandParameterUInt(unsigned long int(parts))); 
 }
 
 // 다른 사람의 플레이어 정보 요청
 inline void ZPostRequestCharInfoDetail(const CCUID& uidChar, const char* pszCharName)
 {
-	ZPOSTCMD2(MC_MATCH_REQUEST_CHARINFO_DETAIL, MCommandParameterUID(uidChar), MCmdParamStr(const_cast<char*>(pszCharName)));
+	ZPOSTCMD2(MC_MATCH_REQUEST_CHARINFO_DETAIL, CCCommandParameterUID(uidChar), MCmdParamStr(const_cast<char*>(pszCharName)));
 }
 
 
@@ -648,18 +648,18 @@ inline void ZPostFriendMsg(const char* pszMsg)
 // 자살요청 - 직접호출하지말고 ZGameClient::RequestGameSuicide() 를 호출하도록 하자.
 inline void ZPostRequestSuicide(const CCUID& uidChar)
 {
-	ZPOSTCMD1(MC_MATCH_REQUEST_SUICIDE, MCommandParameterUID(uidChar));
+	ZPOSTCMD1(MC_MATCH_REQUEST_SUICIDE, CCCommandParameterUID(uidChar));
 }
 
 inline void ZPostAdminTerminal(const CCUID& uidChar, char* szMsg)
 {
-	ZPOSTCMD2(MC_ADMIN_TERMINAL, MCommandParameterUID(uidChar), MCommandParameterString(szMsg));
+	ZPOSTCMD2(MC_ADMIN_TERMINAL, CCCommandParameterUID(uidChar), CCCommandParameterString(szMsg));
 }
 
 inline void ZPostRequestGameInfo(const CCUID& uidChar, const CCUID& uidStage)
 {
-	ZPOSTCMD2(MC_MATCH_REQUEST_GAME_INFO, MCommandParameterUID(uidChar), 
-		MCommandParameterUID(uidStage));
+	ZPOSTCMD2(MC_MATCH_REQUEST_GAME_INFO, CCCommandParameterUID(uidChar), 
+		CCCommandParameterUID(uidStage));
 }
 
 inline void ZPostRequestRecommendChannel()
@@ -673,8 +673,8 @@ inline void ZPostRequestStageList(const CCUID& uidChar, const CCUID& uidChannel,
 	unsigned long int nNowTime = timeGetTime();
 	if ((nNowTime - st_nLastTime) > 500)
 	{
-		ZPOSTCMD3(MC_MATCH_REQUEST_STAGE_LIST, MCommandParameterUID(uidChar),
-			MCommandParameterUID(uidChannel), MCommandParameterInt(nStageCursor));
+		ZPOSTCMD3(MC_MATCH_REQUEST_STAGE_LIST, CCCommandParameterUID(uidChar),
+			CCCommandParameterUID(uidChannel), CCCommandParameterInt(nStageCursor));
 
 		st_nLastTime = nNowTime;
 	}
@@ -682,20 +682,20 @@ inline void ZPostRequestStageList(const CCUID& uidChar, const CCUID& uidChannel,
 
 inline void ZPostRequestChannelPlayerList(const CCUID& uidChar, const CCUID& uidChannel, const int nPage)
 {
-	ZPOSTCMD3(MC_MATCH_CHANNEL_REQUEST_PLAYER_LIST, MCommandParameterUID(uidChar),
-		MCommandParameterUID(uidChannel), MCommandParameterInt(nPage));
+	ZPOSTCMD3(MC_MATCH_CHANNEL_REQUEST_PLAYER_LIST, CCCommandParameterUID(uidChar),
+		CCCommandParameterUID(uidChannel), CCCommandParameterInt(nPage));
 }
 
 inline void ZPostRequestObtainWorldItem(const CCUID& uidChar, const int nItemUID)
 {
-	ZPOSTCMD2(MC_MATCH_REQUEST_OBTAIN_WORLDITEM, MCommandParameterUID(uidChar),
-		MCommandParameterInt(nItemUID));
+	ZPOSTCMD2(MC_MATCH_REQUEST_OBTAIN_WORLDITEM, CCCommandParameterUID(uidChar),
+		CCCommandParameterInt(nItemUID));
 }
 
 inline void ZPostRequestSpawnWorldItem(const CCUID& uidChar, const int nItemID, const rvector& pos, float fDropDelayTime)
 {
-	ZPOSTCMD4(MC_MATCH_REQUEST_SPAWN_WORLDITEM, MCommandParameterUID(uidChar),
-		MCommandParameterInt(nItemID), MCommandParameterPos(pos.x, pos.y, pos.z), MCommandParameterFloat(fDropDelayTime));
+	ZPOSTCMD4(MC_MATCH_REQUEST_SPAWN_WORLDITEM, CCCommandParameterUID(uidChar),
+		CCCommandParameterInt(nItemID), CCCommandParameterPos(pos.x, pos.y, pos.z), CCCommandParameterFloat(fDropDelayTime));
 }
 
 inline void ZPostLadderInvite(const CCUID& uidChar, const int nRequestID, char* szTeamName,
@@ -765,13 +765,13 @@ inline void ZPostRequestCopyToTestServer(const CCUID& uidChar)
 
 
 // 퀵조인 요청
-inline void ZPostRequestQuickJoin(const CCUID& uidChar, MTD_QuickJoinParam* pParam)
+inline void ZPostRequestQuickJoin(const CCUID& uidChar, CCTD_QuickJoinParam* pParam)
 {
-	void* pBlob = MMakeBlobArray(sizeof(MTD_QuickJoinParam), 1);
-	MTD_QuickJoinParam* pBlobNode = (MTD_QuickJoinParam*)MGetBlobArrayElement(pBlob, 0);
-	CopyMemory(pBlobNode, pParam, sizeof(MTD_QuickJoinParam));
+	void* pBlob = MMakeBlobArray(sizeof(CCTD_QuickJoinParam), 1);
+	CCTD_QuickJoinParam* pBlobNode = (CCTD_QuickJoinParam*)MGetBlobArrayElement(pBlob, 0);
+	CopyMemory(pBlobNode, pParam, sizeof(CCTD_QuickJoinParam));
 
-	ZPOSTCMD2(MC_MATCH_STAGE_REQUEST_QUICKJOIN, MCommandParameterUID(uidChar), MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	ZPOSTCMD2(MC_MATCH_STAGE_REQUEST_QUICKJOIN, CCCommandParameterUID(uidChar), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
 	MEraseBlobArray(pBlob);
 }
 
@@ -849,8 +849,8 @@ inline void ZPostRequestExpelClanMember(const CCUID& uidClanAdmin, const char* s
 inline void ZPostRequestChannelAllPlayerList(const CCUID& uidChar, const CCUID& uidChannel, const unsigned long int nPlaceFilter,
 											 const unsigned long int nOptions)
 {
-	ZPOSTCMD4(MC_MATCH_CHANNEL_REQUEST_ALL_PLAYER_LIST, MCommandParameterUID(uidChar),
-		MCommandParameterUID(uidChannel), MCommandParameterUInt(nPlaceFilter), MCommandParameterUInt(nOptions));
+	ZPOSTCMD4(MC_MATCH_CHANNEL_REQUEST_ALL_PLAYER_LIST, CCCommandParameterUID(uidChar),
+		CCCommandParameterUID(uidChannel), CCCommandParameterUInt(nPlaceFilter), CCCommandParameterUInt(nOptions));
 }
 
 // 클랜 메세지
@@ -875,10 +875,10 @@ inline void ZPostRequestClanInfo(const CCUID& uidChar, const char* szClanName)
 inline void ZPostRequestProposal(const CCUID& uidChar, const int nProposalMode, const int nRequestID,
 								 char** ppReplierCharNames, const int nReplierCount)
 {
-	void* pBlobRepliersName = MMakeBlobArray(sizeof(MTD_ReplierNode), nReplierCount);
+	void* pBlobRepliersName = MMakeBlobArray(sizeof(CCTD_ReplierNode), nReplierCount);
 	for (int i = 0; i < nReplierCount; i++)
 	{
-		MTD_ReplierNode* pReplierNode = (MTD_ReplierNode*)MGetBlobArrayElement(pBlobRepliersName, i);
+		CCTD_ReplierNode* pReplierNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pBlobRepliersName, i);
 		strcpy(pReplierNode->szName, ppReplierCharNames[i]);
 	}
 
@@ -902,10 +902,10 @@ inline void ZPostReplyAgreement(const CCUID& uidProposer, const CCUID& uidChar, 
 // 래더게임 신청
 inline void ZPostLadderRequestChallenge(char** ppMemberCharNames, const int nMemberCount, unsigned long int nOptions)	// 자신까지 포함
 {
-	void* pBlobMembersName = MMakeBlobArray(sizeof(MTD_ReplierNode), nMemberCount);
+	void* pBlobMembersName = MMakeBlobArray(sizeof(CCTD_ReplierNode), nMemberCount);
 	for (int i = 0; i < nMemberCount; i++)
 	{
-		MTD_LadderTeamMemberNode* pMemberNode = (MTD_LadderTeamMemberNode*)MGetBlobArrayElement(pBlobMembersName, i);
+		CCTD_LadderTeamMemberNode* pMemberNode = (CCTD_LadderTeamMemberNode*)MGetBlobArrayElement(pBlobMembersName, i);
 		strcpy(pMemberNode->szName, ppMemberCharNames[i]);
 	}
 
@@ -988,13 +988,13 @@ inline void ZPostAdminRequestSwitchLadderGame(const CCUID& uidChar, bool bEnable
 
 inline void ZPostAdminAnnounce(const CCUID& uidChar, char* szMsg, ZAdminAnnounceType nType)
 {
-	ZPOSTCMD3(MC_ADMIN_ANNOUNCE, MCommandParameterUID(uidChar), 
-		MCommandParameterString(szMsg), MCommandParameterUInt(nType));
+	ZPOSTCMD3(MC_ADMIN_ANNOUNCE, CCCommandParameterUID(uidChar), 
+		CCCommandParameterString(szMsg), CCCommandParameterUInt(nType));
 }
 
 inline void ZPostAdminHalt(const CCUID& uidChar)
 {
-	ZPOSTCMD1(MC_ADMIN_SERVER_HALT, MCommandParameterUID(uidChar) );
+	ZPOSTCMD1(MC_ADMIN_SERVER_HALT, CCCommandParameterUID(uidChar) );
 }
 
 inline void ZPostAdminReloadClientHash()
@@ -1053,7 +1053,7 @@ inline void ZPostAdminRemoveJjang(char* pszTargetName)
 // Emblem ////////////////////////////////////////////////////////////////////////////////////////////
 inline void ZPostRequestEmblemURL(void* pBlob)
 {
-	ZPOSTCMD1(MC_MATCH_CLAN_REQUEST_EMBLEMURL, MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	ZPOSTCMD1(MC_MATCH_CLAN_REQUEST_EMBLEMURL, CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
 }
 
 inline void ZPostClanEmblemReady(unsigned int nCLID, char* pszEmblemURL)
@@ -1135,22 +1135,22 @@ inline void ZPostRequestGetCharQuestItemInfo( const CCUID& uid )
 
 inline void ZPostRequestBuyQuestItem( const CCUID& uid, const unsigned long int nItemID, const int nCount = 1 )
 {
-	ZPOSTCMD3( MC_MATCH_REQUEST_BUY_QUEST_ITEM, MCmdParamUID(uid), MCommandParameterInt(nItemID), MCommandParameterInt(nCount) );
+	ZPOSTCMD3( MC_MATCH_REQUEST_BUY_QUEST_ITEM, MCmdParamUID(uid), CCCommandParameterInt(nItemID), CCCommandParameterInt(nCount) );
 }
 
 inline void ZPostRequestSellQuestItem( const CCUID& uid, const unsigned long int nItemID, const int nCount = 1 )
 {
-	ZPOSTCMD3( MC_MATCH_REQUEST_SELL_QUEST_ITEM, MCmdParamUID(uid), MCommandParameterInt(nItemID), MCommandParameterInt(nCount) );
+	ZPOSTCMD3( MC_MATCH_REQUEST_SELL_QUEST_ITEM, MCmdParamUID(uid), CCCommandParameterInt(nItemID), CCCommandParameterInt(nCount) );
 }
 
 inline void ZPostRequestDropSacrificeItem( const CCUID& uid, const int nSlotIndex, const unsigned long int nItemID )
 {
-	ZPOSTCMD3( MC_MATCH_REQUEST_DROP_SACRIFICE_ITEM, MCmdParamUID(uid), MCommandParameterInt(nSlotIndex), MCommandParameterInt(nItemID) );
+	ZPOSTCMD3( MC_MATCH_REQUEST_DROP_SACRIFICE_ITEM, MCmdParamUID(uid), CCCommandParameterInt(nSlotIndex), CCCommandParameterInt(nItemID) );
 }
 
 inline void ZPostRequestCallbackSacrificeItem( const CCUID& uid, const int nSlotIndex, const unsigned long int nItemID )
 {
-	ZPOSTCMD3( MC_MATCH_REQUEST_CALLBACK_SACRIFICE_ITEM, MCmdParamUID(uid), MCommandParameterInt(nSlotIndex), MCommandParameterInt(nItemID) );
+	ZPOSTCMD3( MC_MATCH_REQUEST_CALLBACK_SACRIFICE_ITEM, MCmdParamUID(uid), CCCommandParameterInt(nSlotIndex), CCCommandParameterInt(nItemID) );
 }
 
 inline void ZPostRequestQL( const CCUID& uid )
@@ -1165,7 +1165,7 @@ inline void ZPostRequestSacrificeSlotInfo( const CCUID& uid )
 
 inline void ZPostQuestStageMapset(const CCUID& uidStage, int nMapsetID)
 {
-	ZPOSTCMD2(MC_QUEST_STAGE_MAPSET, MCommandParameterUID(uidStage), MCommandParameterChar((char)nMapsetID));
+	ZPOSTCMD2(MC_QUEST_STAGE_MAPSET, CCCommandParameterUID(uidStage), CCCommandParameterChar((char)nMapsetID));
 }
 
 inline void ZPostRequestMonsterBibleInfo( const CCUID& uid )
@@ -1179,7 +1179,7 @@ inline void ZPostResponseXTrapSeedKey(unsigned char *szComBuf)			// Update sgk 0
 	unsigned char *pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pCmdBlock, szComBuf, 128);
 
-	ZPOSTCMD1(MC_RESPONSE_XTRAP_SEEDKEY, MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	ZPOSTCMD1(MC_RESPONSE_XTRAP_SEEDKEY, CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
 
 	MEraseBlobArray(pBlob);
 }

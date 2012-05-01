@@ -94,7 +94,7 @@ bool CCVoteMgr::CheckDiscuss()
 void CCVoteMgr::FinishDiscuss(bool bJudge)
 {
 	if (GetDiscuss()) {
-		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_VOTERESULT, CCUID(0,0));
+		CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_VOTERESULT, CCUID(0,0));
 		pCmd->AddParameter(new MCmdParamStr(GetDiscuss()->GetDiscussName()));
 		pCmd->AddParameter(new MCmdParamInt(bJudge?1:0));
 		CCMatchServer::GetInstance()->RouteToStage(GetDiscuss()->GetStageUID(), pCmd);
@@ -205,7 +205,7 @@ void CCVoteMgr::StopVote( const CCUID& uidUser )
 	if( !IsEnabledObject(pObj) )
 		return;
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_VOTE_STOP, CCUID(0, 0) );
+	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_VOTE_STOP, CCUID(0, 0) );
 	if( 0 == pCmd )
 		return;
 

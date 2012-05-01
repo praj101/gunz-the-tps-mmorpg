@@ -151,16 +151,16 @@ void CCDuelTournamentMatchLauncher::LaunchAvailableMatch( CCDUELTOURNAMENTTYPE n
 		if (false == matchMaker.PickGroupForPlayerAndRemove(vecUidPlayer,nPlayerCount, *pDTUser))
 			break;
 
-		LaunchMatchGroups( CCDUELTOURNAMENTTYPE(nType), vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR_OVERWAIT);
+		LaunchMatchGroups( CCDUELTOURNAMENTTYPE(nType), vecUidPlayer, CCDUELTOURNAMENTMATCHMAKINGFACTOR_OVERWAIT);
 	}
 
 	// TP가 비슷한 유저들을 매치해준다
 	matchMaker.PickMatchableGroupsAndRemove(vecUidPlayer, nPlayerCount, m_dwAcceptableTpGap);
 	if (!vecUidPlayer.empty())
-		LaunchMatchGroups( CCDUELTOURNAMENTTYPE(nType), vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR_TPGAP);
+		LaunchMatchGroups( CCDUELTOURNAMENTTYPE(nType), vecUidPlayer, CCDUELTOURNAMENTMATCHMAKINGFACTOR_TPGAP);
 }
 
-void CCDuelTournamentMatchLauncher::LaunchMatchGroups( CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
+void CCDuelTournamentMatchLauncher::LaunchMatchGroups( CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup& vecUidPlayer, CCDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
 {
 	CCDuelTournamentPickedGroup SmallPickedGroup;
 
@@ -184,7 +184,7 @@ void CCDuelTournamentMatchLauncher::LaunchMatchGroups( CCDUELTOURNAMENTTYPE nTyp
 	}
 }
 
-void CCDuelTournamentMatchLauncher::LaunchMatch( CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
+void CCDuelTournamentMatchLauncher::LaunchMatch( CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, CCDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
 {
 	pPickedGroup->Shuffle();
 	CCMatchServer* pServer = CCMatchServer::GetInstance();

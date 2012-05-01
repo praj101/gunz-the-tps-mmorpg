@@ -16,7 +16,7 @@ public:
 	ZMyBuffMgr(void);
 	~ZMyBuffMgr(void);
 
-//버프정보임시주석 	void Set(MTD_CharBuffInfo* pCharBuffInfo);
+//버프정보임시주석 	void Set(CCTD_CharBuffInfo* pCharBuffInfo);
 	void Clear();		
 };
 

@@ -451,7 +451,7 @@ void ZMyItemList::SetEquipItemsAll(CCUID* puidEquipItems)
 	}
 }
 
-void ZMyItemList::SetItemsAll(MTD_ItemNode* pItemNodes, const int nItemCount)
+void ZMyItemList::SetItemsAll(CCTD_ItemNode* pItemNodes, const int nItemCount)
 {
 	ClearItemMap();
 
@@ -473,7 +473,7 @@ void ZMyItemList::SetItemsAll(MTD_ItemNode* pItemNodes, const int nItemCount)
 	}
 }
 
-void ZMyItemList::SetGambleItemAll(MTD_GambleItemNode* pGItemNodes, int nGItemCount)
+void ZMyItemList::SetGambleItemAll(CCTD_GambleItemNode* pGItemNodes, int nGItemCount)
 {
 	m_GambleItemMgr.Release();
 
@@ -738,7 +738,7 @@ const ZMyGambleItem* ZMyItemList::GetGambleItem(const CCUID& uidItem)
 }
 
 #ifdef _QUEST_ITEM
-void ZMyItemList::SetQuestItemsAll( MTD_QuestItemNode* pQuestItemNode, const int nQuestItemCount )
+void ZMyItemList::SetQuestItemsAll( CCTD_QuestItemNode* pQuestItemNode, const int nQuestItemCount )
 {
 	if( 0 == pQuestItemNode)
 		return;

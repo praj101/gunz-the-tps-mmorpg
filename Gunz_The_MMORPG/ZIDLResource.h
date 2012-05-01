@@ -1,7 +1,7 @@
 #ifndef ZIDLRESOURCE_H
 #define ZIDLRESOURCE_H
 
-#include "MIDLResource.h"
+#include "CCIDLResource.h"
 #include "ZFilePath.h"
 
 
@@ -26,7 +26,7 @@ class ZDuelTournamentRankingListBox;
 class ZServerView;
 class ZActionKey;
 
-class ZIDLResource : public MIDLResource
+class ZIDLResource : public CCIDLResource
 {
 private:
 protected:

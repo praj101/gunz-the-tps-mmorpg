@@ -8,7 +8,7 @@ class ZNetRepository
 {
 private:
 //	ZMyInfo		m_MyInfo;
-	MTD_ClanInfo	m_ClanInfo;
+	CCTD_ClanInfo	m_ClanInfo;
 public:
 	ZNetRepository();
 	virtual ~ZNetRepository();
@@ -20,7 +20,7 @@ public:
 	// Get ¾¾¸®Áî
 //	ZMyInfo* GetMyInfo()	{ return &m_MyInfo; }
 
-	MTD_ClanInfo *GetClanInfo() { return &m_ClanInfo; }
+	CCTD_ClanInfo *GetClanInfo() { return &m_ClanInfo; }
 };
 
 

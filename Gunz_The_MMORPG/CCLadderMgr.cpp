@@ -9,7 +9,7 @@
 #include "CCMatchUtil.h"
 
 
-MLadderGroupMap* MLadderMgr::GetWaitGroupContainer(MLADDERTYPE nLadderType)
+MLadderGroupMap* MLadderMgr::GetWaitGroupContainer(CCLADDERTYPE nLadderType)
 {
 	if ((nLadderType < 0) || (nLadderType >= CCLADDERTYPE_MAX))
 	{
@@ -45,7 +45,7 @@ bool MLadderMgr::Init()
 	return true;
 }
 
-void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup)
+void MLadderMgr::AddGroup(CCLADDERTYPE nLadderType, MLadderGroup* pGroup)
 {
 	pGroup->SetLadderType(nLadderType);
 
@@ -59,7 +59,7 @@ void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup)
 	for (list<CCUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
 	{
 		CCUID uidPlayer = (*i);
-		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
+		CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
 		
 		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uidPlayer);
 		if (!IsEnabledObject(pObj))
@@ -80,13 +80,13 @@ bool MLadderMgr::Challenge(MLadderGroup* pGroup)
 	{
 		for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 		{
-			if (nPlayerCount == GetNeedMemberCount(MLADDERTYPE(i)))
+			if (nPlayerCount == GetNeedMemberCount(CCLADDERTYPE(i)))
 			{
-				AddGroup(MLADDERTYPE(i), pGroup);
+				AddGroup(CCLADDERTYPE(i), pGroup);
 			}
 		}
 
-		//AddGroup(MLADDERTYPE(nPlayerCount-1), pGroup);
+		//AddGroup(CCLADDERTYPE(nPlayerCount-1), pGroup);
 		return true;
 	}
 
@@ -107,7 +107,7 @@ void MLadderMgr::CancelChallenge(int nGroupID, const char* pszCancelName)
 {
 	MLadderGroup* pGroup = FindLadderGroup(nGroupID);
 	if (pGroup == NULL) return;
-	MLadderGroupMap* pGroupMap = GetWaitGroupContainer((MLADDERTYPE)pGroup->GetLadderType());
+	MLadderGroupMap* pGroupMap = GetWaitGroupContainer((CCLADDERTYPE)pGroup->GetLadderType());
 	if (pGroupMap == NULL) return;
 
 	for (list<CCUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
@@ -119,7 +119,7 @@ void MLadderMgr::CancelChallenge(int nGroupID, const char* pszCancelName)
 		pMemberObject->SetLadderChallenging(false);
 		pMemberObject->SetLadderGroupID(0);
 
-		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_CANCEL_CHALLENGE, uidMember);
+		CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_CANCEL_CHALLENGE, uidMember);
 		pCmd->AddParameter(new MCmdParamStr(pszCancelName));
 
 		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uidMember);
@@ -136,7 +136,7 @@ void MLadderMgr::CancelChallenge(int nGroupID, const char* pszCancelName)
 	delete pGroup;
 }
 
-int MLadderMgr::MakeMatch(MLADDERTYPE nLadderType)
+int MLadderMgr::MakeMatch(CCLADDERTYPE nLadderType)
 {
 	MLadderGroupMap* pWaitGroupMap = GetWaitGroupContainer(nLadderType);
 	if (pWaitGroupMap == NULL) return 0;
@@ -189,7 +189,7 @@ void MLadderMgr::CleaningGarbages()
 {
 	for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 	{
-		MLADDERTYPE nLadderType = MLADDERTYPE(i);
+		CCLADDERTYPE nLadderType = CCLADDERTYPE(i);
 
 		MLadderGroupMap* pWaitGroupMap = GetWaitGroupContainer(nLadderType);
 		if (pWaitGroupMap == NULL) continue;
@@ -230,7 +230,7 @@ void MLadderMgr::CleaningGarbages()
 	}
 }
 
-void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
+void MLadderMgr::LaunchLadder(CCLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 {
 #ifdef _DEBUG
 	//char szLog[128];
@@ -300,13 +300,13 @@ void MLadderMgr::Tick(unsigned long nTick)
 
 	for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 	{
-		MakeMatch(MLADDERTYPE(i));
+		MakeMatch(CCLADDERTYPE(i));
 	}
 
 	m_Stat.Tick(nTick);
 }
 
-int MLadderMgr::GetNeedMemberCount(MLADDERTYPE nLadderType)
+int MLadderMgr::GetNeedMemberCount(CCLADDERTYPE nLadderType)
 {
 	if ((nLadderType >= 0) && (nLadderType < CCLADDERTYPE_MAX))
 	{

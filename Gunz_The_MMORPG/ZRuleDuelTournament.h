@@ -6,14 +6,14 @@
 class ZRuleDuelTournament : public ZRule
 {
 public:
-	MTD_DuelTournamentGameInfo m_DTGameInfo;
-	MTD_DuelTournamentNextMatchPlayerInfo m_prevPlayerInfo;
-	MTD_DuelTournamentNextMatchPlayerInfo m_nextPlayerInfo;
+	CCTD_DuelTournamentGameInfo m_DTGameInfo;
+	CCTD_DuelTournamentNextMatchPlayerInfo m_prevPlayerInfo;
+	CCTD_DuelTournamentNextMatchPlayerInfo m_nextPlayerInfo;
 
 	int							m_nDTRoundCount;			// 우승하기위한 전체적인 라운드
 	int							m_nDTPlayCount;				// 한판의 승패를 가리기위한 경기
 
-	MDUELTOURNAMENTROUNDSTATE	m_eDTRoundState;
+	CCDUELTOURNAMENTROUNDSTATE	m_eDTRoundState;
 	DuelTournamentPlayer		m_QuaterFinalPlayer[8];
 	DuelTournamentPlayer		m_DTChampion;
 
@@ -43,8 +43,8 @@ public:
 
 	int	GetQueueIdx(const CCUID& uidChar);
 
-	virtual bool OnCommand(MCommand* pCommand);
-	virtual void AfterCommandProcessed( MCommand* pCommand );
+	virtual bool OnCommand(CCCommand* pCommand);
+	virtual void AfterCommandProcessed( CCCommand* pCommand );
 	virtual void OnSetRoundState(CCMATCH_ROUNDSTATE roundState);
 	virtual void OnUpdate(float fDelta);
 
@@ -56,10 +56,10 @@ public:
 	void SetMatchPlayerInfoUI(const CCUID& uidPlayer1, const CCUID& uidPlayer2);
 	void ShowMatchPlayerInfoUI(bool bShow);
 	void ShowMatchPlayerInfoUI_OnlyNextMatch(bool bShow);
-	void ShowWinLoseScreenEffect(MTD_DuelTournamentMatchResultInfo& DTGameResultInfo);
+	void ShowWinLoseScreenEffect(CCTD_DuelTournamentMatchResultInfo& DTGameResultInfo);
 
-	void SetRoundResultInfo(MTD_DuelTournamentRoundResultInfo& DTGameResultInfo);
-	void SetMatchResultInfo(MTD_DuelTournamentMatchResultInfo& DTGameResultInfo);
+	void SetRoundResultInfo(CCTD_DuelTournamentRoundResultInfo& DTGameResultInfo);
+	void SetMatchResultInfo(CCTD_DuelTournamentMatchResultInfo& DTGameResultInfo);
 	void ShowMatchOrder(CCDrawContext* pDC, bool isResult, float fElapsed);
 	DuelTournamentPlayer* GetPlayer(const CCUID& uid);
 	void DrawVictorySymbol(CCDrawContext* pDC, CCUID uidPlayer1, CCUID uidPlayer2);

@@ -5,7 +5,7 @@
 #include "ZApplication.h"
 #include "ZPost.h"
 #include "ZConsole.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZConfiguration.h"
 #include "FileInfo.h"
 #include "ZInterfaceItem.h"
@@ -15,11 +15,11 @@
 #include "MBlobArray.h"
 #include "MTCPSocket.h"
 #include "ZGameClient.h"
-#include "MCommandBuilder.h"
+#include "CCCommandBuilder.h"
 
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "MListBox.h"
-extern MCommandLogFrame* m_pLogFrame;
+extern CCCommandLogFrame* m_pLogFrame;
 
 #include "ZLanguageConf.h"
 
@@ -28,12 +28,12 @@ extern MCommandLogFrame* m_pLogFrame;
 // 여기서부터 테스트를 위한 코드 - Bird ////////////////////////////////////////////////
 //#ifdef _BIRDTEST
 
-bool ZBirdPostCommand(ZBirdDummyClient* pDummyClient, MCommand* pCmd)
+bool ZBirdPostCommand(ZBirdDummyClient* pDummyClient, CCCommand* pCmd)
 {
 	return pDummyClient->Post(pCmd);
 }
 
-ZBirdDummyClient::ZBirdDummyClient() : MCommandCommunicator()
+ZBirdDummyClient::ZBirdDummyClient() : CCCommandCommunicator()
 {
 	m_nDummyID = 0;
 	m_fnOnCommandCallBack = NULL;
@@ -41,7 +41,7 @@ ZBirdDummyClient::ZBirdDummyClient() : MCommandCommunicator()
 	m_szStageName[0] = 0;
 	m_szPlayerName[0] = 0;
 
-	m_pCommandBuilder = new MCommandBuilder(CCUID(0,0), CCUID(0,0), GetCommandManager());
+	m_pCommandBuilder = new CCCommandBuilder(CCUID(0,0), CCUID(0,0), GetCommandManager());
 
 	m_nPBufferTop = 0;
 	m_Server.SetInvalid();
@@ -68,17 +68,17 @@ ZBirdDummyClient::~ZBirdDummyClient()
 
 void ZBirdDummyClient::Create(int nID, ZBT_DummyONCommand pCallBack)
 {
-	MCommandCommunicator::Create();
+	CCCommandCommunicator::Create();
 
 	m_nDummyID = nID;
 	m_fnOnCommandCallBack = pCallBack;
 	m_pLogFrame->Show(true);
 }
 
-bool ZBirdDummyClient::Post(MCommand* pCommand)
+bool ZBirdDummyClient::Post(CCCommand* pCommand)
 {
 	LockRecv();
-	bool bRet = MCommandCommunicator::Post(pCommand);
+	bool bRet = CCCommandCommunicator::Post(pCommand);
 	UnlockRecv();
 	return bRet;
 }
@@ -100,12 +100,12 @@ void ZBirdDummyClient::OutputLocalInfo(void)
 {
 
 }
-void ZBirdDummyClient::OutputMessage(const char* szMessage, MZMOMType nType)
+void ZBirdDummyClient::OutputMessage(const char* szMessage, CCZMOMType nType)
 {
 
 }
 
-void ZBirdDummyClient::OnRegisterCommand(MCommandManager* pCommandManager)
+void ZBirdDummyClient::OnRegisterCommand(CCCommandManager* pCommandManager)
 {
 
 }
@@ -119,7 +119,7 @@ CCUID ZBirdDummyClient::GetSenderUIDBySocket(SOCKET socket)
 }
 
 
-void ZBirdDummyClient::SendCommand(MCommand* pCommand)
+void ZBirdDummyClient::SendCommand(CCCommand* pCommand)
 {
 	static unsigned char nSerial = 0;
 	nSerial++;
@@ -134,23 +134,23 @@ void ZBirdDummyClient::SendCommand(MCommand* pCommand)
 	m_ClientSocket.Send(pSendBuf, size);		
 }
 
-MCommand* ZBirdDummyClient::GetCommandSafe()
+CCCommand* ZBirdDummyClient::GetCommandSafe()
 {
 	LockRecv();
-	MCommand* pCmd = MCommandCommunicator::GetCommandSafe();
+	CCCommand* pCmd = CCCommandCommunicator::GetCommandSafe();
 	UnlockRecv();
 
 	return pCmd;
 }
 
-int ZBirdDummyClient::MakeCmdPacket(char* pOutPacket, int iMaxPacketSize, MCommand* pCommand)
+int ZBirdDummyClient::MakeCmdPacket(char* pOutPacket, int iMaxPacketSize, CCCommand* pCommand)
 {
-	MCommandMsg* pMsg = (MCommandMsg*)pOutPacket;
+	CCCommandMsg* pMsg = (CCCommandMsg*)pOutPacket;
 
 	pMsg->Buffer[0] = 0;
 	pMsg->nCheckSum = 0;
 	pMsg->nMsg = MSGID_COMMAND;
-	pMsg->nSize = (unsigned short)( sizeof(MPacketHeader) + pCommand->GetData(pMsg->Buffer, iMaxPacketSize-sizeof(MPacketHeader)) );
+	pMsg->nSize = (unsigned short)( sizeof(CCPacketHeader) + pCommand->GetData(pMsg->Buffer, iMaxPacketSize-sizeof(CCPacketHeader)) );
 
 	pMsg->nCheckSum = MBuildCheckSum(pMsg, pMsg->nSize);
 
@@ -177,13 +177,13 @@ bool ZBirdDummyClient::OnSockRecv(SOCKET sock, char* pPacket, DWORD dwSize)
 	m_pCommandBuilder->Read((char*)pPacket, dwSize);
 
 	LockRecv();
-	while(MCommand* pCmd = m_pCommandBuilder->GetCommand()) 
+	while(CCCommand* pCmd = m_pCommandBuilder->GetCommand()) 
 	{
 		Post(pCmd);
 	}
 	UnlockRecv();
 
-	while(MPacketHeader* pNetCmd = m_pCommandBuilder->GetNetCommand()) 
+	while(CCPacketHeader* pNetCmd = m_pCommandBuilder->GetNetCommand()) 
 	{
 		if (pNetCmd->nMsg == MSGID_REPLYCONNECT) 
 		{
@@ -207,7 +207,7 @@ bool ZBirdDummyClient::OnSockRecv(SOCKET sock, char* pPacket, DWORD dwSize)
 int ZBirdDummyClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID)
 {
 	if (sock == m_ClientSocket.GetSocket()) {
-		int ret = MCommandCommunicator::OnConnected(pTargetUID, pAllocUID, 0, NULL);
+		int ret = CCCommandCommunicator::OnConnected(pTargetUID, pAllocUID, 0, NULL);
 		m_Server = *pTargetUID;
 
 		if (m_pCommandBuilder)
@@ -284,7 +284,7 @@ void ZBirdDummyClient::OnStageLeave(const CCUID& uidChar, const CCUID& uidStage)
 }
 
 
-bool ZBirdDummyClient::OnCommand(MCommand* pCommand)
+bool ZBirdDummyClient::OnCommand(CCCommand* pCommand)
 {
 	switch(pCommand->GetID())
 	{
@@ -306,11 +306,11 @@ bool ZBirdDummyClient::OnCommand(MCommand* pCommand)
 			int nReturn = Connect(&socket, szIP, nPort);
 			if(nReturn!=MOK)
 			{
-				OutputMessage("Can't connect to communicator", MZMOM_ERROR);
-//				OutputMessage(MGetErrorString(nReturn), MZMOM_ERROR);
+				OutputMessage("Can't connect to communicator", CCZMOM_ERROR);
+//				OutputMessage(MGetErrorString(nReturn), CCZMOM_ERROR);
 				OutputMessage(
 					ZErrStr(nReturn), 
-					MZMOM_ERROR );
+					CCZMOM_ERROR );
 				break;
 			}
 		}

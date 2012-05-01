@@ -4,7 +4,7 @@
 #include "ZApplication.h"
 #include "ZPost.h"
 #include "ZConsole.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZConfiguration.h"
 #include "FileInfo.h"
 #include "ZInterfaceItem.h"
@@ -35,7 +35,7 @@ ZBirdDummyAIJoinFlood		g_DummyAI[MAX_CLIENT];
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-typedef void (*ZBT_ONCommand)(MCommand* pCmd);
+typedef void (*ZBT_ONCommand)(CCCommand* pCmd);
 
 
 char g_szBT_ID[256] = "";
@@ -43,15 +43,15 @@ ZGameInterface* g_pGIBirdTest = NULL;
 
 
 // 무한 더미 클라이언트 플러딩
-void OnBTDummyTest(MCommand* pCmd);
+void OnBTDummyTest(CCCommand* pCmd);
 void InitBTDummyClient();
 void UpdateBTDummyClient();
-void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd);
-void OnBTDummyJoinRoomFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd);
-void OnBTDummyGameFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd);
-void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd);
-void OnBTDummyEchoFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd);
-void OnBTDummyChannelChangeOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd);
+void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd);
+void OnBTDummyJoinRoomFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd);
+void OnBTDummyGameFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd);
+void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd);
+void OnBTDummyEchoFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd);
+void OnBTDummyChannelChangeOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd);
 
 // 현재 테스트하고 있는 항목 설정
 ZBT_ONCommand g_pBTCommandCallBack = NULL;
@@ -97,7 +97,7 @@ void ZGameInterface::OnBirdTestDraw()
 
 }
 
-void ZGameInterface::OnBirdTestCommand(MCommand* pCmd)
+void ZGameInterface::OnBirdTestCommand(CCCommand* pCmd)
 {
 	if (g_pBTCommandCallBack != NULL) g_pBTCommandCallBack(pCmd);
 }
@@ -155,7 +155,7 @@ void UpdateBTDummyClient()
 }
 
 // 무한 더미 클라이언트 플러딩 - 메인쓰레드
-void OnBTDummyTest(MCommand* pCmd)
+void OnBTDummyTest(CCCommand* pCmd)
 {
 	switch(pCmd->GetID())
 	{
@@ -183,7 +183,7 @@ void OnBTDummyTest(MCommand* pCmd)
 	}
 }
 
-bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
+bool OnCommonLogin(ZBirdDummyClient* pClient, CCCommand* pCmd)
 {
 	switch (pCmd->GetID())
 	{
@@ -192,13 +192,13 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 			sprintf(g_szBT_ID, "BirdTest%d", pClient->GetDummyID());
 			char szPassword[256] = "1111";
 
-			ZBIRDPOSTCMD4(pClient, MC_MATCH_LOGIN, MCmdParamStr(g_szBT_ID), MCmdParamStr(szPassword), MCommandParameterInt(MCOMMAND_VERSION),
-						MCommandParameterUInt(0));
+			ZBIRDPOSTCMD4(pClient, MC_MATCH_LOGIN, MCmdParamStr(g_szBT_ID), MCmdParamStr(szPassword), CCCommandParameterInt(MCOMMAND_VERSION),
+						CCCommandParameterUInt(0));
 		}
 		return true;
 	case MC_MATCH_RESPONSE_LOGIN:
 		{
-			ZBIRDPOSTCMD1(pClient, MC_MATCH_REQUEST_ACCOUNT_CHARLIST, MCommandParameterUID(pClient->GetPlayerUID()));
+			ZBIRDPOSTCMD1(pClient, MC_MATCH_REQUEST_ACCOUNT_CHARLIST, CCCommandParameterUID(pClient->GetPlayerUID()));
 		}
 		return true;
 	case MC_NET_ONDISCONNECT:
@@ -220,7 +220,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 		return true;
 	case MC_MATCH_RESPONSE_ACCOUNT_CHARLIST:
 		{
-			MCommandParameter* pParam = pCmd->GetParameter(0);
+			CCCommandParameter* pParam = pCmd->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pCharListBlob = pParam->GetPointer();
 			int nCount = MGetBlobArrayCount(pCharListBlob);
@@ -232,7 +232,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 				if (pCharInfo->nCharNum == 0)
 				{
 					ZBIRDPOSTCMD2(pClient, MC_MATCH_REQUEST_SELECT_CHAR,
-						MCommandParameterUID(pClient->GetPlayerUID()), MCommandParameterUInt(0));
+						CCCommandParameterUID(pClient->GetPlayerUID()), CCCommandParameterUInt(0));
 
 
 					bExistChar = true;
@@ -247,19 +247,19 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 				sprintf(szCharName, "버드꼬붕%d", pClient->GetDummyID());
 
 				ZBIRDPOSTCMD7(pClient, MC_MATCH_REQUEST_CREATE_CHAR, 
-					MCommandParameterUID(pClient->GetPlayerUID()), 
-					MCommandParameterUInt(0),
-					MCommandParameterString(szCharName), 
-					MCommandParameterUInt(0), 
-					MCommandParameterUInt(0),
-					MCommandParameterUInt(0), 
-					MCommandParameterUInt(0));
+					CCCommandParameterUID(pClient->GetPlayerUID()), 
+					CCCommandParameterUInt(0),
+					CCCommandParameterString(szCharName), 
+					CCCommandParameterUInt(0), 
+					CCCommandParameterUInt(0),
+					CCCommandParameterUInt(0), 
+					CCCommandParameterUInt(0));
 			}
 		}
 		return true;
 	case MC_MATCH_RESPONSE_CREATE_CHAR:
 		{
-			ZBIRDPOSTCMD1(pClient, MC_MATCH_REQUEST_ACCOUNT_CHARLIST, MCommandParameterUID(pClient->GetPlayerUID()));
+			ZBIRDPOSTCMD1(pClient, MC_MATCH_REQUEST_ACCOUNT_CHARLIST, CCCommandParameterUID(pClient->GetPlayerUID()));
 		}
 		return true;
 	case MC_MATCH_RESPONSE_SELECT_CHAR:
@@ -268,7 +268,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 			pCmd->GetParameter(&nResult, 0, MPT_INT);
 			if (nResult == MOK)
 			{
-				MCommandParameter* pParam = pCmd->GetParameter(1);
+				CCCommandParameter* pParam = pCmd->GetParameter(1);
 				if(pParam->GetType()!=MPT_BLOB) break;
 
 				void* pCharBlob = pParam->GetPointer();
@@ -282,7 +282,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 			}
 			else
 			{
-				ZBIRDPOSTCMD1(pClient, MC_MATCH_REQUEST_ACCOUNT_CHARLIST, MCommandParameterUID(pClient->GetPlayerUID()));
+				ZBIRDPOSTCMD1(pClient, MC_MATCH_REQUEST_ACCOUNT_CHARLIST, CCCommandParameterUID(pClient->GetPlayerUID()));
 			}
 		}
 		return true;
@@ -294,8 +294,8 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 //			strcpy(szChannelName, pClient->GetChannelName());
 
 			ZBIRDPOSTCMD2(pClient, MC_MATCH_CHANNEL_REQUEST_JOIN,
-				MCommandParameterUID(pClient->GetPlayerUID()), 
-				MCommandParameterUID(pClient->GetChannelUID()));
+				CCCommandParameterUID(pClient->GetPlayerUID()), 
+				CCCommandParameterUID(pClient->GetChannelUID()));
 
 		}
 		return true;
@@ -306,7 +306,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, MCommand* pCmd)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 로그인, 로그아웃 반복
-void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
+void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 {
 	switch (pCmd->GetID())
 	{
@@ -315,8 +315,8 @@ void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
 			sprintf(g_szBT_ID, "BirdTest%d", pClient->GetDummyID());
 			char szPassword[256] = "1111";
 
-			ZBIRDPOSTCMD4(pClient, MC_MATCH_LOGIN, MCmdParamStr(g_szBT_ID), MCmdParamStr(szPassword), MCommandParameterInt(MCOMMAND_VERSION),
-						MCommandParameterUInt(0));
+			ZBIRDPOSTCMD4(pClient, MC_MATCH_LOGIN, MCmdParamStr(g_szBT_ID), MCmdParamStr(szPassword), CCCommandParameterInt(MCOMMAND_VERSION),
+						CCCommandParameterUInt(0));
 
 
 			static unsigned long int stConnCount = 0;
@@ -360,7 +360,7 @@ void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
 }
 
 // 방 들어갔다 나왔다 하기
-void OnBTDummyJoinRoomFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
+void OnBTDummyJoinRoomFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 {
 	if (OnCommonLogin(pClient, pCmd)) return;
 
@@ -368,7 +368,7 @@ void OnBTDummyJoinRoomFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
 }
 
 // 게임 열심히 플레이 하자
-void OnBTDummyGameFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
+void OnBTDummyGameFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 {
 
 }
@@ -388,7 +388,7 @@ char g_szDummyChattingMsg[10][256] =
 };
 
 // 채널에서 죽어라 채팅하자
-void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
+void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 {
 	if (OnCommonLogin(pClient, pCmd)) return;
 
@@ -398,8 +398,8 @@ void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCm
 		{
 			int nChatIndex = rand() % 10;
 			ZBIRDPOSTCMD3(pClient, MC_MATCH_CHANNEL_REQUEST_CHAT,
-                MCommandParameterUID(pClient->GetPlayerUID()), 
-				MCommandParameterUID(pClient->GetChannelUID()), 
+                CCCommandParameterUID(pClient->GetPlayerUID()), 
+				CCCommandParameterUID(pClient->GetChannelUID()), 
 				MCmdParamStr(g_szDummyChattingMsg[nChatIndex])	);
 		}
 		break;
@@ -416,8 +416,8 @@ void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCm
 			{
 				int nChatIndex = rand() % 10;
 				ZBIRDPOSTCMD3(pClient, MC_MATCH_CHANNEL_REQUEST_CHAT,
-					MCommandParameterUID(pClient->GetPlayerUID()), 
-					MCommandParameterUID(pClient->GetChannelUID()), 
+					CCCommandParameterUID(pClient->GetPlayerUID()), 
+					CCCommandParameterUID(pClient->GetChannelUID()), 
 					MCmdParamStr(g_szDummyChattingMsg[nChatIndex]));
 			}
 
@@ -435,7 +435,7 @@ void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCm
 }
 
 // 죽어라 Echo 하기
-void OnBTDummyEchoFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
+void OnBTDummyEchoFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 {
 	switch (pCmd->GetID())
 	{
@@ -472,7 +472,7 @@ void OnBTDummyEchoFloodOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
 }
 
 // 채널변경 테스트
-void OnBTDummyChannelChangeOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
+void OnBTDummyChannelChangeOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 {
 	if (OnCommonLogin(pClient, pCmd)) return;
 
@@ -491,12 +491,12 @@ void OnBTDummyChannelChangeOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
 			}
 
 
-			ZBIRDPOSTCMD2(pClient, MC_MATCH_CHANNEL_LIST_START, MCommandParameterUID(pClient->GetPlayerUID()), MCommandParameterInt(0));
+			ZBIRDPOSTCMD2(pClient, MC_MATCH_CHANNEL_LIST_START, CCCommandParameterUID(pClient->GetPlayerUID()), CCCommandParameterInt(0));
 		}
 		break;
 	case MC_MATCH_CHANNEL_LIST:
 		{
-			MCommandParameter* pParam = pCmd->GetParameter(0);
+			CCCommandParameter* pParam = pCmd->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
 			int nCount = MGetBlobArrayCount(pBlob);
@@ -512,10 +512,10 @@ void OnBTDummyChannelChangeOnCommand(ZBirdDummyClient* pClient, MCommand* pCmd)
 
 			int nIndex = rand() % 2;
 
-			ZBIRDPOSTCMD1(pClient, MC_MATCH_CHANNEL_LIST_STOP, MCommandParameterUID(pClient->GetPlayerUID()));
+			ZBIRDPOSTCMD1(pClient, MC_MATCH_CHANNEL_LIST_STOP, CCCommandParameterUID(pClient->GetPlayerUID()));
 
 			ZBIRDPOSTCMD2(pClient, MC_MATCH_CHANNEL_REQUEST_JOIN, 
-				MCommandParameterUID(pClient->GetPlayerUID()), MCommandParameterUID(uidChannels[nIndex]));
+				CCCommandParameterUID(pClient->GetPlayerUID()), CCCommandParameterUID(uidChannels[nIndex]));
 
 		}
 		break;

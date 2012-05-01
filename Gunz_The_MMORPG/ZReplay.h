@@ -60,10 +60,10 @@ private:
 
 	void ChangeGameState();
 
-	MCommand* CreateCommandFromStream(char* pStream);
-	MCommand* CreateCommandFromStreamVersion2(char* pStream);
-	bool ParseVersion2Command(char* pStream, MCommand* pCmd);
-	MCommandParameter* MakeVersion2CommandParameter(MCommandParameterType nType, char* pStream, unsigned short int* pnDataCount);
+	CCCommand* CreateCommandFromStream(char* pStream);
+	CCCommand* CreateCommandFromStreamVersion2(char* pStream);
+	bool ParseVersion2Command(char* pStream, CCCommand* pCmd);
+	CCCommandParameter* MakeVersion2CommandParameter(CCCommandParameterType nType, char* pStream, unsigned short int* pnDataCount);
 public:
 	ZReplayLoader();
 	~ZReplayLoader() {}

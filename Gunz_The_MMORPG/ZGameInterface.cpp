@@ -5,7 +5,7 @@
 #include "ZPost.h"
 #include "UPnP.h"
 #include "ZConsole.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZConfiguration.h"
 #include "FileInfo.h"
 #include "ZInterfaceItem.h"
@@ -92,7 +92,7 @@
 #include "ZGameguard.h"
 #endif
 
-extern MCommandLogFrame* m_pLogFrame;
+extern CCCommandLogFrame* m_pLogFrame;
 
 static int g_debug_tex_update_cnt;
 bool ZGameInterface::m_bSkipGlobalEvent = false;
@@ -3079,7 +3079,7 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 			{
 				ServerInfo *serverInfo = (*itr);
 
-				MCommand* pCmd = GetGameClient()->CreateCommand(MC_UDP_PING, CCUID(0,0));
+				CCCommand* pCmd = GetGameClient()->CreateCommand(MC_UDP_PING, CCUID(0,0));
 				unsigned int nIP = (unsigned int)inet_addr(m_spGameClient->GetUDPInfo()->GetAddress());
 				pCmd->AddParameter(new MCmdParamUInt(dwCurrTime));
 				GetGameClient()->SendCommandByUDP(pCmd, serverInfo->szAgentIP, 7778);
@@ -4752,7 +4752,7 @@ void ZGameInterface::OnMoveMouse(int iDeltaX,int iDeltaY)
 }
 */
 
-void ZGameInterface::OnResponseShopItemList( const vector< MTD_ShopItemInfo*> &vShopItemList , const vector<MTD_GambleItemNode*>& vGItemList )
+void ZGameInterface::OnResponseShopItemList( const vector< CCTD_ShopItemInfo*> &vShopItemList , const vector<CCTD_GambleItemNode*>& vGItemList )
 {
 	ZGetShop()->SetItemsAll( vShopItemList );
 	ZGetShop()->SetItemsGamble( vGItemList );
@@ -4760,9 +4760,9 @@ void ZGameInterface::OnResponseShopItemList( const vector< MTD_ShopItemInfo*> &v
 }
 
 void ZGameInterface::OnResponseCharacterItemList(CCUID* puidEquipItem
-												 , MTD_ItemNode* pItemNodes
+												 , CCTD_ItemNode* pItemNodes
 												 , int nItemCount
-												 , MTD_GambleItemNode* pGItemNodes
+												 , CCTD_GambleItemNode* pGItemNodes
 												 , int nGItemCount )
 {
 	ZGetMyInfo()->GetItemList()->SetItemsAll(pItemNodes, nItemCount);
@@ -5541,7 +5541,7 @@ void ZGameInterface::Show112Dialog(bool bShow)
 
 void ZGameInterface::RequestQuickJoin()
 {
-	MTD_QuickJoinParam	quick_join_param;
+	CCTD_QuickJoinParam	quick_join_param;
 
 	quick_join_param.nMapEnum = 0xFFFFFFFF;
 
@@ -6106,7 +6106,7 @@ void ZGameInterface::ViewReplay( void)
 
 ////////////////////////////////////////////////////////////////
 #ifdef _QUEST_ITEM
-void ZGameInterface::OnResponseCharacterItemList_QuestItem( MTD_QuestItemNode* pQuestItemNode, int nQuestItemCount )
+void ZGameInterface::OnResponseCharacterItemList_QuestItem( CCTD_QuestItemNode* pQuestItemNode, int nQuestItemCount )
 {
 	if( 0 == pQuestItemNode)
 		return;
@@ -6299,7 +6299,7 @@ void ZGameInterface::OnResponseServerStatusInfoList( const int nListCount, void*
 
 		for( int i = 0; i < nListCount; ++i )
 		{
-			MTD_ServerStatusInfo* pss = (MTD_ServerStatusInfo*)MGetBlobArrayElement( pBlob, i );
+			CCTD_ServerStatusInfo* pss = (CCTD_ServerStatusInfo*)MGetBlobArrayElement( pBlob, i );
 			if( 0 == pss )
 			{
 				cclog( "ZGameInterface::OnResponseServerStatusInfoList - %d번째에서 NULL포인터 발생.", i );
@@ -6471,7 +6471,7 @@ void ZGameInterface::RequestServerStatusListInfo()
 	{
 		const string strIP = m_pLocatorList->GetIPByPos( i );
 
-		MCommand* pCmd = ZNewCmd( MC_REQUEST_SERVER_LIST_INFO );
+		CCCommand* pCmd = ZNewCmd( MC_REQUEST_SERVER_LIST_INFO );
 		if( 0 != pCmd )
 		{
  			for( int i = 0; i < 3; ++i )
@@ -6498,7 +6498,7 @@ void ZGameInterface::RequestServerStatusListInfo()
 	if ( pLocatorList->GetSize() < 1)
 		return;
 
-	MCommand* pCmd = ZNewCmd( MC_REQUEST_SERVER_LIST_INFO );
+	CCCommand* pCmd = ZNewCmd( MC_REQUEST_SERVER_LIST_INFO );
 	if( 0 != pCmd )
 	{
 		const string strIP = pLocatorList->GetIPByPos( m_nLocServ++);
@@ -6657,13 +6657,13 @@ void ZGameInterface::OnSendGambleItemList( void* pGItemArray, const DWORD dwCoun
 {
 	ZGetGambleItemDefineMgr().Release();
 
-	MTD_DBGambleItmeNode*	pGItem;
+	CCTD_DBGambleItmeNode*	pGItem;
 	ZGambleItemDefine*		pZGItem;
 
 
 	for( DWORD i = 0; i < dwCount; ++i )
 	{
-		pGItem = (MTD_DBGambleItmeNode*)MGetBlobArrayElement( pGItemArray, i );
+		pGItem = (CCTD_DBGambleItmeNode*)MGetBlobArrayElement( pGItemArray, i );
 		if( NULL ==  pGItem )
 			return;
 

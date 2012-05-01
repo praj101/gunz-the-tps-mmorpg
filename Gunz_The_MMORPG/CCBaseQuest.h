@@ -6,7 +6,7 @@
 #include "CCQuestNPC.h"
 #include "CCQuestMap.h"
 #include "CCQuestScenario.h"
-//#include "MSurvivalMap.h"
+//#include "CCSurvivalMap.h"
 #include "CCQuestDropTable.h"
 
 #include <map>
@@ -47,7 +47,7 @@ public:
 	inline CCQuestMapSectorInfo*		GetSurvivalSectorInfo(int nSectorID);	///< 섹터 정보 반환 - 서바이벌
 	inline CCQuestNPCInfo*			GetNPCInfo(CCQUEST_NPC nNPC);			///< NPC 정보 반환
 	inline CCQuestNPCInfo*			GetNPCPageInfo( int nPage);				///< NPC 정보 반환
-	//inline MSurvivalMapInfo*		GetSurvivalMapInfo(MSURVIVAL_MAP nMap);	///< 서바이벌 모드용 맵 정보 반환
+	//inline CCSurvivalMapInfo*		GetSurvivalMapInfo(MSURVIVAL_MAP nMap);	///< 서바이벌 모드용 맵 정보 반환
 	inline CCQuestDropTable*			GetDropTable();							///< 퀘스트 아이템 드롭 테이블 정보 반환
 	bool Create();															///< 초기화
 	int GetNumOfPage( void)			{ return (int)m_NPCCatalogue.size(); }
@@ -88,7 +88,7 @@ inline CCQuestNPCInfo* CCBaseQuest::GetNPCPageInfo( int nPage)
 	return m_NPCCatalogue.GetPageInfo(nPage);
 }
 
-//inline MSurvivalMapInfo* CCBaseQuest::GetSurvivalMapInfo(MSURVIVAL_MAP nMap)
+//inline CCSurvivalMapInfo* CCBaseQuest::GetSurvivalMapInfo(MSURVIVAL_MAP nMap)
 //{
 //	return m_SurvivalMapCatalogue.GetInfo(nMap);
 //}

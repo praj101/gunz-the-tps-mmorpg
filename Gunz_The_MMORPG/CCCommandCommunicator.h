@@ -13,19 +13,19 @@
 #endif
 
 
-class MCommandCommunicator;
-class MCommandBuilder;
+class CCCommandCommunicator;
+class CCCommandBuilder;
 
 
-/// 커뮤니케이터와의 접속을 위한 객체. MCommandCommunicator::Connect()의 파라미터로 들어간다.
-class MCommObject {
+/// 커뮤니케이터와의 접속을 위한 객체. CCCommandCommunicator::Connect()의 파라미터로 들어간다.
+class CCCommObject {
 protected:
 	CCUID					m_uid;
 
-	MCommandBuilder*		m_pCommandBuilder;
-	MPacketCrypter			m_PacketCrypter;
+	CCCommandBuilder*		m_pCommandBuilder;
+	CCPacketCrypter			m_PacketCrypter;
 
-	MCommandCommunicator*	m_pDirectConnection;	// 포인터 커넥션 Direction Connection
+	CCCommandCommunicator*	m_pDirectConnection;	// 포인터 커넥션 Direction Connection
 	DWORD					m_dwUserContext;
 
 	char					m_szIP[128];
@@ -35,17 +35,17 @@ protected:
 
 	bool					m_bPassiveSocket;
 public:
-	MCommObject(MCommandCommunicator* pCommunicator);
-	virtual ~MCommObject();
+	CCCommObject(CCCommandCommunicator* pCommunicator);
+	virtual ~CCCommObject();
 
 	CCUID GetUID()			{ return m_uid; }
 	void SetUID(CCUID uid)	{ m_uid = uid; }
 
-	MCommandBuilder*	GetCommandBuilder()				{ return m_pCommandBuilder; }
-	MPacketCrypter*		GetCrypter()					{ return &m_PacketCrypter; }
+	CCCommandBuilder*	GetCommandBuilder()				{ return m_pCommandBuilder; }
+	CCPacketCrypter*		GetCrypter()					{ return &m_PacketCrypter; }
 
-	MCommandCommunicator* GetDirectConnection()			{ return m_pDirectConnection; }
-	void SetDirectConnection(MCommandCommunicator* pDC)	{ m_pDirectConnection = pDC; }
+	CCCommandCommunicator* GetDirectConnection()			{ return m_pDirectConnection; }
+	void SetDirectConnection(CCCommandCommunicator* pDC)	{ m_pDirectConnection = pDC; }
 	DWORD GetUserContext()								{ return m_dwUserContext; }
 	void SetUserContext(DWORD dwContext)				{ m_dwUserContext = dwContext; }
 
@@ -70,47 +70,47 @@ public:
 };
 
 
-class MPacketInfo {
+class CCPacketInfo {
 public:
-	MCommObject*		m_pCommObj;
-	MPacketHeader*		m_pPacket;
+	CCCommObject*		m_pCommObj;
+	CCPacketHeader*		m_pPacket;
 
-	MPacketInfo(MCommObject* pCommObj, MPacketHeader* pPacket) { m_pCommObj = pCommObj, m_pPacket = pPacket; }
+	CCPacketInfo(CCCommObject* pCommObj, CCPacketHeader* pPacket) { m_pCommObj = pCommObj, m_pPacket = pPacket; }
 };
-typedef list<MPacketInfo*>			MPacketInfoList;
-typedef MPacketInfoList::iterator	MPacketInfoListItor;
+typedef list<CCPacketInfo*>			CCPacketInfoList;
+typedef CCPacketInfoList::iterator	CCPacketInfoListItor;
 
 
 /// 커맨드 기반의 통신을 목적으로한 커뮤니케이터
-class MCommandCommunicator{
+class CCCommandCommunicator{
 protected:
-	MCommandManager	m_CommandManager;		///< 커맨드 매니저
+	CCCommandManager	m_CommandManager;		///< 커맨드 매니저
 
 	CCUID			m_This;					///< 자기 커뮤니케이터 UID
 	CCUID			m_DefaultReceiver;		///< 커맨드를 파싱할때 기본이 되는 타겟 커뮤니케이터 UID
 
 protected:
 	/// Low-Level Command Transfer Function. 나중에 모아두었다가 블럭 전송등이 가능하게 해줄 수 있다.
-	virtual void SendCommand(MCommand* pCommand)=0;
+	virtual void SendCommand(CCCommand* pCommand)=0;
 	/// Low-Level Command Transfer Function. 나중에 모아두었다가 블럭 전송등이 가능하게 해줄 수 있다.
-	virtual void ReceiveCommand(MCommand* pCommand);
+	virtual void ReceiveCommand(CCCommand* pCommand);
 
 	/// 초기 커맨드 등록할때 불리는 함수
-	virtual void OnRegisterCommand(MCommandManager* pCommandManager);
+	virtual void OnRegisterCommand(CCCommandManager* pCommandManager);
 	/// 커뮤니케이터가 커맨드를 처리하기 위해 불리는 함수
-	virtual bool OnCommand(MCommand* pCommand);
+	virtual bool OnCommand(CCCommand* pCommand);
 	/// 커뮤니케이터 루프 전 준비
 	virtual void OnPrepareRun(void);
 	/// 커맨드를 처리하기 전에
-	virtual void OnPrepareCommand(MCommand* pCommand);
+	virtual void OnPrepareCommand(CCCommand* pCommand);
 	/// 커뮤니케이터 루프
 	virtual void OnRun(void);
 
 	/// Post()되는 기본 리시버 커뮤니케이터 설정
 	void SetDefaultReceiver(CCUID Receiver);
 public:
-	MCommandCommunicator(void);
-	virtual ~MCommandCommunicator(void);
+	CCCommandCommunicator(void);
+	virtual ~CCCommandCommunicator(void);
 
 	/// 초기화
 	bool Create(void);
@@ -120,27 +120,27 @@ public:
 	/// 다른 커뮤티케이터로 연결 설정
 	/// @param	pAllocUID	자기 Communicator가 배정받은 UID
 	/// @return				에러 코드 (MErrorTable.h 참조)
-	virtual int Connect(MCommObject* pCommObj)=0;
+	virtual int Connect(CCCommObject* pCommObj)=0;
 	/// 커넥션이 이루어진 경우
-	virtual int OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
+	virtual int OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj);
 	/// 연결 해제
 	virtual void Disconnect( const CCUID& uid)=0;
 
 	/// 커맨드 입력
-	virtual bool Post(MCommand* pCommand);
+	virtual bool Post(CCCommand* pCommand);
 	/// 스트링으로 커맨드 입력
 	virtual bool Post(char* szErrMsg, int nErrMsgCount, const char* szCommand);
 
-	virtual MCommand* GetCommandSafe();
+	virtual CCCommand* GetCommandSafe();
 
 	/// 실행 ( 커맨드 전송및 처리 )
 	void Run(void);
 
 	/// 커맨드 매니져 얻기
-	MCommandManager* GetCommandManager(void){
+	CCCommandManager* GetCommandManager(void){
 		return &m_CommandManager;
 	}
-	MCommand* CreateCommand(int nCmdID, const CCUID& TargetUID);
+	CCCommand* CreateCommand(int nCmdID, const CCUID& TargetUID);
 
 	// 의미가 없으므로ㅡ LOG_PROG 없애버리기
 
@@ -153,10 +153,10 @@ public:
 	CCUID GetUID(void){ return m_This; }
 
 #ifdef _CMD_PROFILE
-	MCommandProfiler		m_CommandProfiler;
+	CCCommandProfiler		m_CommandProfiler;
 #endif
 };
 
-int CalcPacketSize(MCommand* pCmd);
+int CalcPacketSize(CCCommand* pCmd);
 
 #endif

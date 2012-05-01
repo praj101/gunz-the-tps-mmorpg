@@ -90,7 +90,7 @@ public:
 	void Destroy();
 	void Serialize();		// UI 업데이트 - 여기서 내 정보에 대한 UI 업데이트를 하도록 하자.
 
-	//버프정보임시주석 void SetCharBuffInfo(MTD_CharBuffInfo* pMTD_CharBuffInfo);
+	//버프정보임시주석 void SetCharBuffInfo(CCTD_CharBuffInfo* pCCTD_CharBuffInfo);
 
 	// get 씨리즈
 	static ZMyInfo*		GetInstance();

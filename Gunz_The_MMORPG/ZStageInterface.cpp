@@ -1444,11 +1444,11 @@ void ZStageInterface::PostRelayMapInfoUpdate( void)
 	}
 	
 	//릴레이맵 리스트 전송
-	void* pMapArray = MMakeBlobArray(sizeof(MTD_RelayMap), pRelayMapListBox->GetCount());
+	void* pMapArray = MMakeBlobArray(sizeof(CCTD_RelayMap), pRelayMapListBox->GetCount());
 	int nMakeBlobCnt = 0;
 	for(int i=0; i<pRelayMapListBox->GetCount(); i++)
 	{
-		MTD_RelayMap* pRelayMapNode = (MTD_RelayMap*)MGetBlobArrayElement(pMapArray, nMakeBlobCnt);
+		CCTD_RelayMap* pRelayMapNode = (CCTD_RelayMap*)MGetBlobArrayElement(pMapArray, nMakeBlobCnt);
 		for (int j = 0; j < CCMATCH_MAP_COUNT; j++)
 		{
 			if(0 == strcmp(pRelayMapListBox->GetString(i), (char*)MGetMapDescMgr()->GetMapName(j)))

@@ -7,19 +7,19 @@
 using std::map;
 
 
-struct MTD_NPCINFO;
+struct CCTD_NPCINFO;
 
 
 
-class ZNPCInfoFromServerManager : public map< BYTE, MTD_NPCINFO*  >
+class ZNPCInfoFromServerManager : public map< BYTE, CCTD_NPCINFO*  >
 {
 public :
 	ZNPCInfoFromServerManager();
 	~ZNPCInfoFromServerManager();
 
-	bool CreateNPCInfo( const MTD_NPCINFO* pNPCInfo );
+	bool CreateNPCInfo( const CCTD_NPCINFO* pNPCInfo );
 
-	const MTD_NPCINFO* GetNPCInfo( const BYTE nNPCID );
+	const CCTD_NPCINFO* GetNPCInfo( const BYTE nNPCID );
 
 	void Clear();
 };

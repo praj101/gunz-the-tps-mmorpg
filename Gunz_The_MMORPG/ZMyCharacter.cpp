@@ -3714,8 +3714,8 @@ void ZMyCharacter::OnStun(float fTime)
 void* ZMyCharacter::MakeBuffEffectBlob()
 {
 	// 버프의 종류가 추가될 때 여기에 추가 처리를 해줘야 합니다
-	MTD_BuffInfo tempBuffInfo;
-	vector<MTD_BuffInfo> vec;
+	CCTD_BuffInfo tempBuffInfo;
+	vector<CCTD_BuffInfo> vec;
 	ZModule* pMod;
 	if (pMod = GetModule(ZMID_MOVABLE))
 	{
@@ -3731,11 +3731,11 @@ void* ZMyCharacter::MakeBuffEffectBlob()
 	int num = (int)vec.size();
 	if (num == 0) return NULL;
 	
-	void* pBlob = MMakeBlobArray(sizeof(MTD_BuffInfo), num);
+	void* pBlob = MMakeBlobArray(sizeof(CCTD_BuffInfo), num);
 	for (int i=0; i<num; ++i)
 	{
-		MTD_BuffInfo* pBuffInfo = (MTD_BuffInfo*)MGetBlobArrayElement(pBlob, i);
-		memcpy(pBuffInfo, &vec[i], sizeof(MTD_BuffInfo));
+		CCTD_BuffInfo* pBuffInfo = (CCTD_BuffInfo*)MGetBlobArrayElement(pBlob, i);
+		memcpy(pBuffInfo, &vec[i], sizeof(CCTD_BuffInfo));
 	}
 	return pBlob;
 }

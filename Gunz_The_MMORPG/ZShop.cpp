@@ -203,19 +203,19 @@ unsigned long int ZShop::GetItemID(int nIndex)
 	return m_vShopItem[nIndex]->nItemID;
 }
 
-void ZShop::SetItemsAll(const vector< MTD_ShopItemInfo*>& vShopItemList)
+void ZShop::SetItemsAll(const vector< CCTD_ShopItemInfo*>& vShopItemList)
 {
 	ClearShop();
 
 	for ( int i = 0;  i < (int)vShopItemList.size();  i++)
 	{
-		MTD_ShopItemInfo* pNode = new MTD_ShopItemInfo;
-		memcpy( pNode, vShopItemList[i], sizeof(MTD_ShopItemInfo));
+		CCTD_ShopItemInfo* pNode = new CCTD_ShopItemInfo;
+		memcpy( pNode, vShopItemList[i], sizeof(CCTD_ShopItemInfo));
 		m_vShopItem.push_back(pNode);
 	}
 }
 
-void ZShop::SetItemsGamble( const vector<MTD_GambleItemNode*>& vGItemList)
+void ZShop::SetItemsGamble( const vector<CCTD_GambleItemNode*>& vGItemList)
 {
 	ClearGamble();
 
@@ -224,8 +224,8 @@ void ZShop::SetItemsGamble( const vector<MTD_GambleItemNode*>& vGItemList)
 
 	for ( int i = 0;  i < (int)vGItemList.size();  i++)
 	{
-		MTD_GambleItemNode* pNode = new MTD_GambleItemNode;
-		memcpy( pNode, vGItemList[ i], sizeof( MTD_GambleItemNode));
+		CCTD_GambleItemNode* pNode = new CCTD_GambleItemNode;
+		memcpy( pNode, vGItemList[ i], sizeof( CCTD_GambleItemNode));
 		m_vGItemList.push_back( pNode);
 
 		if( IsAdminGrade(ZGetMyInfo()->GetUGradeID()) )

@@ -89,13 +89,13 @@ public:
 	ZMyItemNode* GetItemByDescId(int nItemId);
 
 	const ZMyGambleItem* GetGambleItem(const CCUID& uidItem);
-	void SetGambleItemAll(MTD_GambleItemNode* pGItemNodes, int nGItemCount );
+	void SetGambleItemAll(CCTD_GambleItemNode* pGItemNodes, int nGItemCount );
 
 	CCUID GetEquipedItemUID(CCMatchCharItemParts parts);
 	void SetEquipItemsAll(CCUID* pnEquipItems);
 	void SetEquipItemInfo(CCUID* pEquipItemUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount);
 	
-	void SetItemsAll(MTD_ItemNode* pItemNodes, const int nItemCount);	
+	void SetItemsAll(CCTD_ItemNode* pItemNodes, const int nItemCount);	
 	bool IsCreated() { return m_bCreated; }
 
 	CCUID GetForceItemUID(int nItemIndex);
@@ -125,7 +125,7 @@ public:
 	void				QuestItemClear()	{ m_QuestItemMap.Clear(); }
 
 	//ZMyGambleItemManager& GetGambleItemMap() { return m_GambleItemMgr;
-	void SetQuestItemsAll( MTD_QuestItemNode* pQuestItemNode, const int nQuestItemCount );
+	void SetQuestItemsAll( CCTD_QuestItemNode* pQuestItemNode, const int nQuestItemCount );
 };
 
 

@@ -28,7 +28,7 @@ private:
 public:
 	ZQuestGameInfo();
 	~ZQuestGameInfo();
-	void Init(MTD_QuestGameInfo* pMTDQuestGameInfo);
+	void Init(CCTD_QuestGameInfo* pMTDQuestGameInfo);
 	void Final();
 	void OnMovetoNewSector(int nSectorIndex, int nRepeated);				// 새로운 섹터로 이동
 

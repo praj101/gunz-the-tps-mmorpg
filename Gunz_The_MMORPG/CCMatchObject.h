@@ -490,13 +490,13 @@ struct CCMatchObjectChannelInfo
 	}
 };
 
-class MAsyncJob;
+class CCAsyncJob;
 class MBMatchGameguard;
 
 
-struct MASYNCJOBQ
+struct CCASYNCJOBQ
 {
-	list<MAsyncJob*>	DBJobQ;
+	list<CCAsyncJob*>	DBJobQ;
 	bool				bIsRunningAsyncJob;
 	int					nLastJobID;
 };
@@ -725,7 +725,7 @@ protected:
 	unsigned int	m_nPort;
 	bool			m_bFreeLoginIP;					// 인원제한 상관없이 로그인 허용된 클라이언트
 
-	unsigned char	m_nPlayerFlags;					// 휘발성 속성등 (MTD_PlayerFlags)
+	unsigned char	m_nPlayerFlags;					// 휘발성 속성등 (CCTD_PlayerFlags)
 	unsigned long	m_nUserOptionFlags;				// 귓말,초대 거부등의 옵션
 
 	CCUID			m_uidStage;
@@ -787,7 +787,7 @@ protected:
 	bool				m_IsRecvFirstGameguardResponse;
 
 public :
-	MASYNCJOBQ			m_DBJobQ;
+	CCASYNCJOBQ			m_DBJobQ;
 
 
 protected:

@@ -9,9 +9,9 @@
 #include "FileInfo.h"
 #include "MDebug.h"
 #include "MBlobArray.h"
-#include "MObject.h"
+#include "CCObject.h"
 #include "ZConsole.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZInterface.h"
 #include "ZGameInterface.h"
 #include "ZApplication.h"
@@ -62,7 +62,7 @@
 //#include "RParticleSystem.h"
 #include "ZItemDesc.h"
 
-//#include "MObjectCharacter.h"
+//#include "CCObjectCharacter.h"
 #include "MMath.h"
 #include "ZQuest.h"
 #include "CCMatchUtil.h"
@@ -695,7 +695,7 @@ void ZGame::Destroy()
 	cclog("game destroyed ( %s )\n",tmpbuf);
 }
 
-bool ZGame::CreateMyCharacter(CCTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/)
+bool ZGame::CreateMyCharacter(CCTD_CharInfo* pCharInfo/*, CCTD_CharBuffInfo* pCharBuffInfo*/)
 {
 	if (!m_pMyCharacter) return false;
 
@@ -1417,7 +1417,7 @@ bool IsIgnoreObserverCommand(int nID)
 	return true;
 }
 
-void ZGame::OnCommand_Observer(MCommand* pCommand)
+void ZGame::OnCommand_Observer(CCCommand* pCommand)
 {
 	if(!IsIgnoreObserverCommand(pCommand->GetID()))
 	{
@@ -1535,11 +1535,11 @@ void ZGame::OnReplayRun()
 				unsigned char nParam;
 				pItem->pCommand->GetParameter(&nParam,		0, MPT_UCHAR);
 
-				MCommandParameter* pParam = pItem->pCommand->GetParameter(1);
+				CCCommandParameter* pParam = pItem->pCommand->GetParameter(1);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 
-				MTD_PeerListNode* pPeerNode = (MTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
+				CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
 				cclog("[%d EnterBattleRoom Time:%3.3f]\n", pPeerNode->uidChar.Low, pItem->fTime);
 			}
 			break;
@@ -1619,7 +1619,7 @@ void ZGame::FlushObserverCommands()
 	}
 }
 
-bool ZGame::OnCommand(MCommand* pCommand)
+bool ZGame::OnCommand(CCCommand* pCommand)
 {
 	if(m_bRecording)
 	{
@@ -1712,7 +1712,7 @@ bool ZGame::GetUserNameColor(CCUID uid,sColor& UserNameColor,char* sp_name)
 	return GetUserGradeIDColor( gid, UserNameColor, sp_name );
 }
 
-void ZTranslateCommand(MCommand* pCmd, string& strLog)
+void ZTranslateCommand(CCCommand* pCmd, string& strLog)
 {
 	char szBuf[256]="";
 
@@ -1750,7 +1750,7 @@ void ZTranslateCommand(MCommand* pCmd, string& strLog)
 	strLog += strParams;
 }
 
-void ZLogCommand(MCommand* pCmd)
+void ZLogCommand(CCCommand* pCmd)
 {
 	if (pCmd->GetID() == MC_AGENT_TUNNELING_UDP) {
 		return;
@@ -1763,7 +1763,7 @@ void ZLogCommand(MCommand* pCmd)
 	OutputDebugString("\n");
 }
 
-bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
+bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 {
 	/* rpg 시대의 코드. 필요없는듯하다.
 	string test;
@@ -1794,11 +1794,11 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 			unsigned char nParam;
 			pCommand->GetParameter(&nParam,		0, MPT_UCHAR);
 
-			MCommandParameter* pParam = pCommand->GetParameter(1);
+			CCCommandParameter* pParam = pCommand->GetParameter(1);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
 
-			MTD_PeerListNode* pPeerNode = (MTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
+			CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
 
 			OnStageEnterBattle(MCmdEnterBattleParam(nParam), pPeerNode);
 		}
@@ -1818,7 +1818,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		{
 			CCUID uidStage;
 			pCommand->GetParameter(&uidStage, 0, MPT_UID);
-			MCommandParameter* pParam = pCommand->GetParameter(1);
+			CCCommandParameter* pParam = pCommand->GetParameter(1);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
 			int nCount = MGetBlobArrayCount(pBlob);
@@ -2022,7 +2022,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		{
 			if (!IsReplay()) break;
 
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if (pParam->GetType()!=MPT_BLOB) break;
 
 			void* pSpawnInfoBlob = pParam->GetPointer();
@@ -2043,7 +2043,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST:
 		{
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if (pParam->GetType()!=MPT_BLOB) break;
 
 			void* pActiveTrapBlob = pParam->GetPointer();
@@ -2065,7 +2065,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 	case MC_PEER_DASH	: OnPeerDash(pCommand); break;
 	case MC_PEER_SHOT:
 		{
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) break;	// 문제가 있다
 
 			ZPACKEDSHOTINFO *pinfo =(ZPACKEDSHOTINFO*)pParam->GetPointer();
@@ -2131,7 +2131,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		break;
 	case MC_PEER_BUFF_INFO:
 		{
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
 
@@ -2360,7 +2360,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 #ifdef _XTRAP
 	case MC_REQUEST_XTRAP_SEEDKEY:									// add sgk 0411
 		{
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if (pParam->GetType() != MPT_BLOB)
 			{
 				break;
@@ -2392,10 +2392,10 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
 
-			MCommandParameter* pParam = pCommand->GetParameter(1);
+			CCCommandParameter* pParam = pCommand->GetParameter(1);
 			if (pParam->GetType() != MPT_BLOB) break;
 			void* pCmdBuf = pParam->GetPointer();
-            MTD_CharBuffInfo* pCharBuffInfo = (MTD_CharBuffInfo*)MGetBlobArrayElement(pCmdBuf, 0);
+            CCTD_CharBuffInfo* pCharBuffInfo = (CCTD_CharBuffInfo*)MGetBlobArrayElement(pCmdBuf, 0);
 
 			OnGetSpendableBuffItemStatus(uidChar, pCharBuffInfo);
 			*/
@@ -2423,9 +2423,9 @@ rvector ZGame::GetMyCharacterFirePosition(void)
 
 // 옵저버 때에는 이 펑션의 역할이 분리된다 
 // 즉, 미리 history에 더해지고 적절한 타이밍에 실행된다.
-void ZGame::OnPeerBasicInfo(MCommand *pCommand,bool bAddHistory,bool bUpdate)
+void ZGame::OnPeerBasicInfo(CCCommand *pCommand,bool bAddHistory,bool bUpdate)
 {
-	MCommandParameter* pParam = pCommand->GetParameter(0);
+	CCCommandParameter* pParam = pCommand->GetParameter(0);
 	if(pParam->GetType()!=MPT_BLOB) return;
 
 	ZPACKEDBASICINFO* ppbi= (ZPACKEDBASICINFO*)pParam->GetPointer();
@@ -2440,7 +2440,7 @@ void ZGame::OnPeerBasicInfo(MCommand *pCommand,bool bAddHistory,bool bUpdate)
 	CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(uid);
 	if (pPeer) {
 		if (pPeer->IsOpened() == false) {
-			MCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
+			CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
 			pCmd->AddParameter(new MCmdParamUID(pPeer->uidChar));
 			ZGetGameClient()->Post(pCmd);
 
@@ -2542,7 +2542,7 @@ void ZGame::OnPeerBasicInfo(MCommand *pCommand,bool bAddHistory,bool bUpdate)
 	}
 }
 
-void ZGame::OnPeerHPInfo(MCommand *pCommand)
+void ZGame::OnPeerHPInfo(CCCommand *pCommand)
 {
 	CCUID uid = pCommand->GetSenderUID();
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
@@ -2558,7 +2558,7 @@ void ZGame::OnPeerHPInfo(MCommand *pCommand)
 }
 
 
-void ZGame::OnPeerHPAPInfo(MCommand *pCommand)
+void ZGame::OnPeerHPAPInfo(CCCommand *pCommand)
 {
 	CCUID uid = pCommand->GetSenderUID();
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
@@ -2576,7 +2576,7 @@ void ZGame::OnPeerHPAPInfo(MCommand *pCommand)
 	}
 }
 
-void ZGame::OnPeerDuelTournamentHPAPInfo(MCommand *pCommand)
+void ZGame::OnPeerDuelTournamentHPAPInfo(CCCommand *pCommand)
 {
 	CCUID uid = pCommand->GetSenderUID();
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
@@ -2616,7 +2616,7 @@ void ZGame::OnPeerDuelTournamentHPAPInfo(MCommand *pCommand)
 	static int g_nPongCount=0;
 #endif
 
-void ZGame::OnPeerPing(MCommand *pCommand)
+void ZGame::OnPeerPing(CCCommand *pCommand)
 {
 	if(m_bReplaying.Ref()) return;
 
@@ -2624,14 +2624,14 @@ void ZGame::OnPeerPing(MCommand *pCommand)
 	pCommand->GetParameter(&nTimeStamp, 0, MPT_UINT);
 	
 	// PONG 으로 응답한다
-	MCommandManager* MCmdMgr = ZGetGameClient()->GetCommandManager();
-	MCommand* pCmd = new MCommand(MCmdMgr->GetCommandDescByID(MC_PEER_PONG), 
+	CCCommandManager* MCmdMgr = ZGetGameClient()->GetCommandManager();
+	CCCommand* pCmd = new CCCommand(MCmdMgr->GetCommandDescByID(MC_PEER_PONG), 
 								  pCommand->GetSenderUID(), ZGetGameClient()->GetUID());	
 	pCmd->AddParameter(new MCmdParamUInt(nTimeStamp));
 	ZGetGameClient()->Post(pCmd);
 }
 
-void ZGame::OnPeerPong(MCommand *pCommand)
+void ZGame::OnPeerPong(CCCommand *pCommand)
 {
 	CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(pCommand->GetSenderUID());
 	if (pPeer == NULL)
@@ -2645,7 +2645,7 @@ void ZGame::OnPeerPong(MCommand *pCommand)
 
 /*
 	if (pPeer->IsOpened() == false) {
-		MCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
+		CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
 		pCmd->AddParameter(new MCmdParamUID(pPeer->uidChar));
 		ZGetGameClient()->Post(pCmd);
 
@@ -2657,7 +2657,7 @@ void ZGame::OnPeerPong(MCommand *pCommand)
 	#endif
 }
 
-void ZGame::OnPeerOpened(MCommand *pCommand)
+void ZGame::OnPeerOpened(CCCommand *pCommand)
 {
 	CCUID uidChar;
 	pCommand->GetParameter(&uidChar, 0, MPT_UID);
@@ -5097,7 +5097,7 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 			// Admin Grade
 			if (ZGetMyInfo()->IsAdminGrade()) {
 				CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-				if (pCache && pCache->CheckFlag(MTD_PlayerFlags_AdminHide))
+				if (pCache && pCache->CheckFlag(CCTD_PlayerFlags_AdminHide))
 				{
 					sprintf( szMsg, "^%d%s^9 스스로 패배",
 									(pAttacker->GetTeamID() == MMT_BLUE) ? 3 : 1,
@@ -5135,7 +5135,7 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 		// Admin Grade
 		if (ZGetMyInfo()->IsAdminGrade()) {
 			CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-			if (pCache && pCache->CheckFlag(MTD_PlayerFlags_AdminHide))
+			if (pCache && pCache->CheckFlag(CCTD_PlayerFlags_AdminHide))
 			{
 				sprintf( szMsg, "^%d%s^9 승리,  ^%d%s^9 패배",
 							(pAttacker->GetTeamID() == MMT_BLUE) ? 3 : 1, pAttacker->GetProperty()->GetName(),
@@ -5359,9 +5359,9 @@ void ZGame::OnPeerSpawn(CCUID& uid, rvector& pos, rvector& dir)
 		pCharacter->SetInvincibleTime( 5000);
 }
 
-void ZGame::OnPeerDash(MCommand* pCommand)
+void ZGame::OnPeerDash(CCCommand* pCommand)
 {
-	MCommandParameter* pParam = pCommand->GetParameter(0);
+	CCCommandParameter* pParam = pCommand->GetParameter(0);
 	if(pParam->GetType()!=MPT_BLOB) return;
 
 	CCUID uid = pCommand->GetSenderUID();
@@ -5982,7 +5982,7 @@ void ZGame::PostBasicInfo()
 		pbi.selweapon = m_pMyCharacter->GetItems()->GetSelectedWeaponParts();
 
 
-		ZPOSTCMD1(MC_PEER_BASICINFO,MCommandParameterBlob(&pbi,sizeof(ZPACKEDBASICINFO)));
+		ZPOSTCMD1(MC_PEER_BASICINFO,CCCommandParameterBlob(&pbi,sizeof(ZPACKEDBASICINFO)));
 	}
 }
 
@@ -6002,8 +6002,8 @@ void ZGame::PostPeerPingInfo()
 			if (pPeerInfo->uidChar != ZGetGameClient()->GetPlayerUID()) {
 				_ASSERT(pPeerInfo->uidChar != CCUID(0,0));
 
-				MCommandManager* MCmdMgr = ZGetGameClient()->GetCommandManager();
-				MCommand* pCmd = new MCommand(MCmdMgr->GetCommandDescByID(MC_PEER_PING), 
+				CCCommandManager* MCmdMgr = ZGetGameClient()->GetCommandManager();
+				CCCommand* pCmd = new CCCommand(MCmdMgr->GetCommandDescByID(MC_PEER_PING), 
 					pPeerInfo->uidChar, ZGetGameClient()->GetUID());	
 				pCmd->AddParameter(new MCmdParamUInt(nTimeStamp));
 				ZGetGameClient()->Post(pCmd);
@@ -6598,7 +6598,7 @@ void ZGame::StartRecording()
 	if(ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUEL)
 	{
 		ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
-		nWritten = zfwrite(&pDuel->QInfo,sizeof(MTD_DuelQueueInfo),1,m_pReplayFile);
+		nWritten = zfwrite(&pDuel->QInfo,sizeof(CCTD_DuelQueueInfo),1,m_pReplayFile);
 		if(nWritten==0) goto RECORDING_FAIL;
 	}
 	else if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
@@ -6617,7 +6617,7 @@ void ZGame::StartRecording()
 		if(nWritten==0) goto RECORDING_FAIL;
 
 		ZRuleDuelTournament* pRule = (ZRuleDuelTournament*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
-		nWritten = zfwrite((void*)&pRule->m_DTGameInfo,sizeof(MTD_DuelTournamentGameInfo),1,m_pReplayFile);
+		nWritten = zfwrite((void*)&pRule->m_DTGameInfo,sizeof(CCTD_DuelTournamentGameInfo),1,m_pReplayFile);
 		if(nWritten==0) goto RECORDING_FAIL;
 	}
 
@@ -6665,7 +6665,7 @@ void ZGame::StopRecording()
 	for(size_t i=0;i<m_ReplayCommandList.size();i++)
 	{
 		ZObserverCommandItem *pItem = *itr;
-		MCommand *pCommand = pItem->pCommand;
+		CCCommand *pCommand = pItem->pCommand;
 
 		const int BUF_SIZE = 1024;
 		char CommandBuffer[BUF_SIZE];
@@ -6821,7 +6821,7 @@ bool ZGame::OnLoadReplay(ZReplayLoader* pLoader)
 		zfread(CommandBuffer,nSize,1,file);
 
 		ZObserverCommandItem *pZCommand=new ZObserverCommandItem;
-		pZCommand->pCommand=new MCommand;
+		pZCommand->pCommand=new CCCommand;
 		pZCommand->pCommand->SetData(CommandBuffer,ZGetGameClient()->GetCommandManager());
 		pZCommand->pCommand->m_Sender=uidSender;
 		pZCommand->fTime=fTime;
@@ -6865,7 +6865,7 @@ void ZGame::ConfigureCharacter(const CCUID& uidChar, CCMatchTeam nTeam, unsigned
 	ZCharacter* pChar = pCharMgr->Find(uidChar);
 	if (pChar == NULL) return;
 
-	pChar->SetAdminHide((nPlayerFlags & MTD_PlayerFlags_AdminHide) !=0);
+	pChar->SetAdminHide((nPlayerFlags & CCTD_PlayerFlags_AdminHide) !=0);
 	pChar->SetTeamID(nTeam);
 	pChar->InitStatus();
 	pChar->InitRound();
@@ -6938,7 +6938,7 @@ void ZGame::DeleteCharacter(const CCUID& uid)
 }
 
 
-void ZGame::OnStageEnterBattle(MCmdEnterBattleParam nParam, MTD_PeerListNode* pPeerNode)
+void ZGame::OnStageEnterBattle(MCmdEnterBattleParam nParam, CCTD_PeerListNode* pPeerNode)
 {
 	if (ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) return;
 
@@ -6963,7 +6963,7 @@ void ZGame::OnStageEnterBattle(MCmdEnterBattleParam nParam, MTD_PeerListNode* pP
 		GetMatch()->OnForcedEntry(pChar);
 
 		char temp[256] = "";
-		if((pPeerNode->ExtendInfo.nPlayerFlags & MTD_PlayerFlags_AdminHide)==0) {
+		if((pPeerNode->ExtendInfo.nPlayerFlags & CCTD_PlayerFlags_AdminHide)==0) {
 			ZTransMsg(temp, MSG_GAME_JOIN_BATTLE, 1, pChar->GetUserAndClanName());
 			ZChatOutput(sColor(ZCOLOR_GAME_INFO), temp);
 		}
@@ -6999,7 +6999,7 @@ void ZGame::OnStageLeaveBattle(const CCUID& uidChar, const bool bIsRelayMap)//, 
 	}
 }
 
-void ZGame::OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort, MTD_PeerListNode* pNode)
+void ZGame::OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort, CCTD_PeerListNode* pNode)
 {
 	if ((ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) || (ZGetGame() == NULL)) return;
 
@@ -7042,8 +7042,8 @@ void ZGame::OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort, MTD_Pee
 			ConvertCharInfo(&currInfo, &pNode->CharInfo, ZReplayLoader::m_nVersion);
 			memcpy(&pNewPeerInfo->CharInfo,	&currInfo, sizeof(CCTD_CharInfo));	
 		}
-		//버프정보임시주석 memcpy(&pNewPeerInfo->CharBuffInfo, &(pNode->CharBuffInfo), sizeof(MTD_CharBuffInfo));			
-		memcpy(&pNewPeerInfo->ExtendInfo,	&(pNode->ExtendInfo),	sizeof(MTD_ExtendInfo));
+		//버프정보임시주석 memcpy(&pNewPeerInfo->CharBuffInfo, &(pNode->CharBuffInfo), sizeof(CCTD_CharBuffInfo));			
+		memcpy(&pNewPeerInfo->ExtendInfo,	&(pNode->ExtendInfo),	sizeof(CCTD_ExtendInfo));
 
 		ZGetGameClient()->AddPeer(pNewPeerInfo);	
 
@@ -7060,7 +7060,7 @@ void ZGame::OnPeerList(const CCUID& uidStage, void* pBlob, int nCount)
 	if ((ZGetGame() == NULL) || (ZGetCharacterManager() == NULL)) return;
 
 	for(int i=0; i<nCount; i++) {
-		MTD_PeerListNode* pNode = (MTD_PeerListNode*)MGetBlobArrayElement(pBlob, i);
+		CCTD_PeerListNode* pNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pBlob, i);
 		OnAddPeer(pNode->uidChar, pNode->dwIP, pNode->nPort, pNode);
 
 		ZCharacter* pChar = ZGetCharacterManager()->Find(pNode->uidChar);
@@ -7092,11 +7092,11 @@ void ZGame::OnPeerBuffInfo(const CCUID& uidSender, void* pBlobBuffInfo)
 	if (!pSender) return;
 	if (!pBlobBuffInfo) return;
 
-	MTD_BuffInfo* pBuffInfo = NULL;
+	CCTD_BuffInfo* pBuffInfo = NULL;
 	int numElem = MGetBlobArrayCount(pBlobBuffInfo);
 	for (int i=0; i<numElem; ++i)
 	{
-		pBuffInfo = (MTD_BuffInfo*)MGetBlobArrayElement(pBlobBuffInfo, i);
+		pBuffInfo = (CCTD_BuffInfo*)MGetBlobArrayElement(pBlobBuffInfo, i);
 
 		ApplyPotion(pBuffInfo->nItemId, pSender, (float)pBuffInfo->nRemainedTime);
 	}
@@ -7130,7 +7130,7 @@ void ZGame::OnGameRoundState(const CCUID& uidStage, int nRound, int nRoundState,
 }
 
 
-bool ZGame::FilterDelayedCommand(MCommand *pCommand)
+bool ZGame::FilterDelayedCommand(CCCommand *pCommand)
 {
 	bool bFiltered = true;
 	float fDelayTime = 0;
@@ -7169,7 +7169,7 @@ bool ZGame::FilterDelayedCommand(MCommand *pCommand)
 
 		case MC_PEER_SHOT:
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if(pParam->GetType()!=MPT_BLOB) break;	// 문제가 있다
 				ZPACKEDSHOTINFO *pinfo =(ZPACKEDSHOTINFO*)pParam->GetPointer();
 
@@ -7364,7 +7364,7 @@ void ZGame::ShowReplayInfo( bool bShow)
 	m_bShowReplayInfo = bShow;
 }
 
-void ZGame::OnLocalOptainSpecialWorldItem(MCommand* pCommand)
+void ZGame::OnLocalOptainSpecialWorldItem(CCCommand* pCommand)
 {
 	int nWorldItemID;
 	pCommand->GetParameter(&nWorldItemID   , 0, MPT_INT);
@@ -7391,7 +7391,7 @@ void ZGame::ReserveSuicide( void)
 }
 
 
-bool ZGame::OnRuleCommand(MCommand* pCommand)
+bool ZGame::OnRuleCommand(CCCommand* pCommand)
 {
 #ifdef _QUEST
 	if (ZGetQuest()->OnGameCommand(pCommand)) return true;
@@ -7415,13 +7415,13 @@ bool ZGame::OnRuleCommand(MCommand* pCommand)
 	return false;
 }
 
-void ZGame::OnResetTeamMembers(MCommand* pCommand)
+void ZGame::OnResetTeamMembers(CCCommand* pCommand)
 {
 	if (!m_Match.IsTeamPlay()) return;
 
 	ZChatOutput( sColor(ZCOLOR_GAME_INFO), ZMsg(MSG_GAME_MAKE_AUTO_BALANCED_TEAM) );
 
-	MCommandParameter* pParam = pCommand->GetParameter(0);
+	CCCommandParameter* pParam = pCommand->GetParameter(0);
 	if(pParam->GetType()!=MPT_BLOB) return;
 	void* pBlob = pParam->GetPointer();
 	int nCount = MGetBlobArrayCount(pBlob);
@@ -7430,7 +7430,7 @@ void ZGame::OnResetTeamMembers(MCommand* pCommand)
 
 	for (int i = 0; i < nCount; i++)
 	{
-		MTD_ResetTeamMembersData* pDataNode = (MTD_ResetTeamMembersData*)MGetBlobArrayElement(pBlob, i);
+		CCTD_ResetTeamMembersData* pDataNode = (CCTD_ResetTeamMembersData*)MGetBlobArrayElement(pBlob, i);
 
 		ZCharacter* pChar = pCharMgr->Find(pDataNode->m_uidPlayer);
 		if (pChar == NULL) continue;
@@ -7521,7 +7521,7 @@ void ZGame::OnResponseUseSpendableBuffItem(CCUID& uidItem, int nResult)
 }
 
 /*
-void ZGame::OnGetSpendableBuffItemStatus(CCUID& uidChar, MTD_CharBuffInfo* pCharBuffInfo)
+void ZGame::OnGetSpendableBuffItemStatus(CCUID& uidChar, CCTD_CharBuffInfo* pCharBuffInfo)
 {
 	if (uidChar != ZGetMyUID()) {
 		_ASSERT(0);

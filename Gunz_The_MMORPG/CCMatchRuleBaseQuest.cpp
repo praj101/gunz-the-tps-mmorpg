@@ -120,7 +120,7 @@ void CCMatchRuleBaseQuest::OnLeaveBattle(CCUID& uidChar)
 	{
 	}
 	CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uidChar);
-	if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) return;
+	if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide)) return;
 
 	m_NPCManager.OnDelPlayer(uidChar);
 	m_PlayerManager.DelPlayer(uidChar);
@@ -131,21 +131,21 @@ void CCMatchRuleBaseQuest::OnEnterBattle(CCUID& uidChar)
 
 }
 
-void CCMatchRuleBaseQuest::OnCommand(MCommand* pCommand)
+void CCMatchRuleBaseQuest::OnCommand(CCCommand* pCommand)
 {
 
 
 
 }
 
-void CCMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, MVector& pos)
+void CCMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, CCVector& pos)
 {
 	if (m_NPCManager.IsControllersNPC(uidSender, uidNPC))
 	{
 		CCQuestDropItem DropItem;
 		if (m_NPCManager.DestroyNPCObject(uidNPC, DropItem))
 		{
-			MCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_DEAD, uidSender);
+			CCCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_DEAD, uidSender);
 			pNew->AddParameter(new MCmdParamUID(uidKiller));
 			pNew->AddParameter(new MCmdParamUID(uidNPC));
 			CCMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
@@ -174,7 +174,7 @@ void CCMatchRuleBaseQuest::OnRequestPlayerDead(const CCUID& uidVictim)
 
 }
 
-void CCMatchRuleBaseQuest::CheckRewards(CCUID& uidPlayer, CCQuestDropItem* pDropItem, MVector& pos)
+void CCMatchRuleBaseQuest::CheckRewards(CCUID& uidPlayer, CCQuestDropItem* pDropItem, CCVector& pos)
 {
 	CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject(uidPlayer);
 	if (!pPlayer) return;
@@ -229,13 +229,13 @@ void CCMatchRuleBaseQuest::RefreshPlayerStatus()
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
-		if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) continue;
+		if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide)) continue;
 
 		// 모두 부활
 		pObj->SetAlive(true);
 	}
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_REFRESH_PLAYER_STATUS, CCUID(0,0));
+	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_REFRESH_PLAYER_STATUS, CCUID(0,0));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
@@ -244,7 +244,7 @@ void CCMatchRuleBaseQuest::ClearAllNPC()
 	m_NPCManager.ClearNPC();
 	m_nNPCSpawnCount = 0;
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_ALL_CLEAR, CCUID(0,0));
+	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_ALL_CLEAR, CCUID(0,0));
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
 
@@ -257,7 +257,7 @@ bool CCMatchRuleBaseQuest::CheckPlayersAlive()
 	{
 		pObj = (CCMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == false) continue;	// 배틀참가하고 있는 플레이어만 체크
-		if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) continue;
+		if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide)) continue;
 
 		if (pObj->CheckAlive()==true)
 		{
@@ -376,7 +376,7 @@ void CCMatchRuleBaseQuest::PostNewMonsterInfo( const CCUID& uidUser, const char 
 		return;
 
 	// 여기서 바로 처음 습득한 몬스터 정보를 보내줌.
-	MCommand* pMonInfoCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_NEW_MONSTER_INFO, uidUser );
+	CCCommand* pMonInfoCmd = CCMatchServer::GetInstance()->CreateCommand( MC_MATCH_NEW_MONSTER_INFO, uidUser );
 	if( 0 == pMonInfoCmd )
 	{
 		cclog( "CCMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 생성 실패.\n" );
@@ -516,7 +516,7 @@ void MakeNomalNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps&
 }
 
 
-void CopyMTD_NPCINFO( MTD_NPCINFO* pDest, const CCQuestNPCInfo* pSource )
+void CopyCCTD_NPCINFO( CCTD_NPCINFO* pDest, const CCQuestNPCInfo* pSource )
 {
 	pDest->m_nNPCTID			= pSource->nID;
 	pDest->m_nMaxHP				= pSource->nMaxHP;

@@ -17,7 +17,7 @@ ZRuleBerserker::~ZRuleBerserker()
 
 }
 
-bool ZRuleBerserker::OnCommand(MCommand* pCommand)
+bool ZRuleBerserker::OnCommand(CCCommand* pCommand)
 {
 	if (!ZGetGame()) return false;
 
@@ -60,9 +60,9 @@ bool ZRuleBerserker::OnCommand(MCommand* pCommand)
 	return false;
 }
 
-void ZRuleBerserker::OnResponseRuleInfo(MTD_RuleInfo* pInfo)
+void ZRuleBerserker::OnResponseRuleInfo(CCTD_RuleInfo* pInfo)
 {
-	MTD_RuleInfo_Berserker* pBerserkerRule = (MTD_RuleInfo_Berserker*)pInfo;
+	CCTD_RuleInfo_Berserker* pBerserkerRule = (CCTD_RuleInfo_Berserker*)pInfo;
 	AssignBerserker(pBerserkerRule->uidBerserker);
 }
 

@@ -8,8 +8,8 @@ using namespace std;
 #include "CCUID.h"
 
 
-class MCommand;
-class MCommandCommunicator;
+class CCCommand;
+class CCCommandCommunicator;
 class CCMatchObject;
 
 
@@ -29,7 +29,7 @@ protected:
 	char					m_nLevel;
 	CCMatchUserGradeID		m_nUGrade;
 	CCMatchPremiumGradeID	m_nPGrade;
-	unsigned char			m_nPlayerFlags;		// 플레이어 속성(운영자숨김등) - MTD_PlayerFlags 사용
+	unsigned char			m_nPlayerFlags;		// 플레이어 속성(운영자숨김등) - CCTD_PlayerFlags 사용
 	unsigned int			m_nCLID;			// ClanID
 	unsigned int			m_nEmblemChecksum;	// Emblem Checksum
 	CCMatchObjCacheCostume	m_Costume;
@@ -130,5 +130,5 @@ public:
 
 	void AddObject(CCMatchObject* pObj);
 	void Reset();
-	MCommand* GetResultCmd(MATCHCACHEMODE nType, MCommandCommunicator* pCmdComm);
+	CCCommand* GetResultCmd(MATCHCACHEMODE nType, CCCommandCommunicator* pCmdComm);
 };

@@ -1,7 +1,7 @@
 #ifndef MSHAREDCOMMANDTABLE_H
 #define MSHAREDCOMMANDTABLE_H
 
-class MCommandManager;
+class CCCommandManager;
 
 
 #define MCOMMAND_VERSION	58
@@ -23,7 +23,7 @@ class MCommandManager;
 
 
 /// 모든 커뮤니케이터가 공유하는 커맨드
-void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType);
+void MAddSharedCommandTable(CCCommandManager* pCommandManager, int nSharedType);
 
 
 /// 서버 클라이언트 공유 상수

@@ -165,7 +165,7 @@ protected:
 	}
 
 	virtual bool OnCheckRoundFinish() { return IsRoundFinish();}
-	virtual void OnCommand(MCommand* pCommand);
+	virtual void OnCommand(CCCommand* pCommand);
 
 	void OnPreCountDown();
 
@@ -183,8 +183,8 @@ protected:
 	void MakeNextMatch();
 	void RecordGameResult();
 
-	void UpdateDuelTournamentPlayerInfo(CCUID uidPlayer, MDUELTOURNAMENTROUNDSTATE nState, bool bIsWinner, int nChangeTP, bool bIsLeaveUser = false);
-	void InsertDuelTournamentGameLogDeatil(MDUELTOURNAMENTROUNDSTATE nDTRoundState, int nWinnerCID, int nLoserCID, int nGainTP, int nLoseTP, int nPlayTime);
+	void UpdateDuelTournamentPlayerInfo(CCUID uidPlayer, CCDUELTOURNAMENTROUNDSTATE nState, bool bIsWinner, int nChangeTP, bool bIsLeaveUser = false);
+	void InsertDuelTournamentGameLogDeatil(CCDUELTOURNAMENTROUNDSTATE nDTRoundState, int nWinnerCID, int nLoserCID, int nGainTP, int nLoseTP, int nPlayTime);
 
 	void SendDuelTournamentGameInfo(bool bIsRoundEnd = false);
 	void SendDuelTournamentNextGamePlayerInfo();

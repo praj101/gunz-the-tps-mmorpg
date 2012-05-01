@@ -762,7 +762,7 @@ ZActionKey* ZIDLResource::GetActionKey(CCXmlElement& element)
 
 void ZIDLResource::Parse(CCXmlElement& element)
 {
-	MIDLResource::Parse(element);
+	CCIDLResource::Parse(element);
 
 	char szTagName[256];
 	element.GetTagName(szTagName);

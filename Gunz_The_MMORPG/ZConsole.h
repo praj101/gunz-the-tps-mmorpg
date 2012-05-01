@@ -3,7 +3,7 @@
 
 #include "MConsoleFrame.h"
 
-void CreateConsole(MCommandManager* pCM);
+void CreateConsole(CCCommandManager* pCM);
 void DestroyConsole();
 void OutputToConsole(const char* pFormat,...);
 void ConsoleInputEvent(const char* szInputStr);

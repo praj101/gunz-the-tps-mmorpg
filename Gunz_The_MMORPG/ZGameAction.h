@@ -1,7 +1,7 @@
 #ifndef _ZGAMEACTION_H
 #define _ZGAMEACTION_H
 
-#include "MCommand.h"
+#include "CCCommand.h"
 
 // 이 enum 은 게임 프로토콜과 관련이 있으므로 변경은 불가. 추가만 하자
 enum ZREACTIONID{	// 내 반응을 다른사람에게 알린다
@@ -20,9 +20,9 @@ class ZMyCharacter;
 /// ZGame에서 캐릭터들간의 액션에 관한 것들(ZGame의 OnPeer씨리즈들)은 이곳으로 빼냅시다.
 class ZGameAction
 {
-	bool OnReaction(MCommand* pCommand);
-	bool OnPeerSkill(MCommand* pCommand);
-	bool OnEnchantDamage(MCommand* pCommand);
+	bool OnReaction(CCCommand* pCommand);
+	bool OnPeerSkill(CCCommand* pCommand);
+	bool OnEnchantDamage(CCCommand* pCommand);
 
 public:
 	bool ApplyFireEnchantDamage(ZObject* pTarget, ZObject* pOwner, int nDamage, int nDuration);
@@ -36,7 +36,7 @@ private:
 	void OnPeerSkill_Dash(ZCharacter *pOwnerCharacter);
 
 public:
-	bool OnCommand(MCommand* pCommand);
+	bool OnCommand(CCCommand* pCommand);
 };
 
 

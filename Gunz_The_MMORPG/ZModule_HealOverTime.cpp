@@ -93,7 +93,7 @@ void ZModule_HealOverTime::BeginHeal(CCMatchDamageType type, int nHealAmount, in
 	Active();
 }
 
-bool ZModule_HealOverTime::GetHealOverTimeBuffInfo( MTD_BuffInfo& out )
+bool ZModule_HealOverTime::GetHealOverTimeBuffInfo( CCTD_BuffInfo& out )
 {
 	if (!IsOnHeal()) return false;
 

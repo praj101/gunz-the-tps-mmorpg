@@ -11,8 +11,8 @@
 #include "RPathFinder.h"
 #include "RVisualMeshMgr.h"
 
-#include "MObjectTypes.h"
-//#include "MObjectCharacter.h"
+#include "CCObjectTypes.h"
+//#include "CCObjectCharacter.h"
 #include "ZItem.h"
 #include "ZCharacterItem.h"
 #include "ZCharacterBuff.h"
@@ -390,7 +390,7 @@ protected:
 public:
 	//버프정보임시주석 
 	/*
-	void SetCharacterBuff(MTD_CharBuffInfo* pCharBuffInfo);
+	void SetCharacterBuff(CCTD_CharBuffInfo* pCharBuffInfo);
 	ZCharacterBuff* GetCharacterBuff() { return &m_CharacterBuff;}
 	*/
 
@@ -503,7 +503,7 @@ public:
 	ZCharacter();
 	virtual ~ZCharacter();
 
-	virtual bool Create(CCTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/);//버프정보임시주석 
+	virtual bool Create(CCTD_CharInfo* pCharInfo/*, CCTD_CharBuffInfo* pCharBuffInfo*/);//버프정보임시주석 
 	virtual void Destroy();
 	
 	void InitMeshParts();

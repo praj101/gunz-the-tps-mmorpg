@@ -147,7 +147,7 @@ void ZCharacterViewList::Add(CCMatchObjCache* pCache)
 
 	Add(pCache->GetUID(), pCache->GetName(), pCache->GetCostume()->nSex,
 		pCache->GetCostume()->nHair, pCache->GetCostume()->nFace, pCache->GetLevel(),
-		nItemids, !pCache->CheckFlag(MTD_PlayerFlags_BridgePeer));
+		nItemids, !pCache->CheckFlag(CCTD_PlayerFlags_BridgePeer));
 
 	/*
 	ZCharacterView* pView = pWidget->Get(pCache->GetUID());
@@ -250,7 +250,7 @@ void ZCharacterViewList::Assign(CCMatchObjCacheMap* pObjCacheMap)
 		Add(pObj);
 	}
 
-	ZGetGameClient()->OutputMessage("CharacterViewList Assign", MZMOM_LOCALREPLY);
+	ZGetGameClient()->OutputMessage("CharacterViewList Assign", CCZMOM_LOCALREPLY);
 }
 
 MLabel* ZCharacterViewList::GetLobbyCharNameViewer()

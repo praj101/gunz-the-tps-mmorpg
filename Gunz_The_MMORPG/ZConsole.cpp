@@ -2,8 +2,8 @@
 
 #include "ZGameClient.h"
 #include "ZConsole.h"
-#include "MCommand.h"
-#include "MCommandManager.h"
+#include "CCCommand.h"
+#include "CCCommandManager.h"
 #include "ZApplication.h"
 #include "ZPost.h"
 
@@ -50,7 +50,7 @@ void ConsoleInputEvent(const char* szInputStr)
 }
 
 // 콘솔 초기화
-void CreateConsole(MCommandManager* pCM)
+void CreateConsole(CCCommandManager* pCM)
 {
 	g_pConsole = new MConsoleFrame("Console", Mint::GetInstance()->GetMainFrame(), Mint::GetInstance()->GetMainFrame());
 	g_pConsole->Show(false);
@@ -58,7 +58,7 @@ void CreateConsole(MCommandManager* pCM)
 	g_pConsole->SetBounds(0, 0, MGetWorkspaceWidth()/2-20, MGetWorkspaceHeight()/2);
 
 	for(int i=0; i<pCM->GetCommandDescCount(); i++){
-		MCommandDesc* pCD = pCM->GetCommandDesc(i);
+		CCCommandDesc* pCD = pCM->GetCommandDesc(i);
 		g_pConsole->AddCommand(pCD->GetName());
 	}
 }

@@ -13,7 +13,7 @@ using namespace std;
 #include "CCCommandParameter.h"
 #include "mempool.h"
 
-class MCommandManager;
+class CCCommandManager;
 
 // Command Description Flag
 #define MCDT_NOTINITIALIZED		0	///< 초기화가 안된 상태
@@ -31,25 +31,25 @@ class MCommandManager;
 #define MAX_COMMAND_PARAMS		255	///< 커맨드는 최고 255개까지 파라메타를 가질 수 있다.
 
 /// 커맨드의 속성을 정의
-/// - MCommandDesc::m_nID 와 같은 ID를 가진 MCommand는 MCommandDesc::m_ParamDescs에 정의된 파라미터를 가지게 된다.
-class MCommandDesc{
+/// - CCCommandDesc::m_nID 와 같은 ID를 가진 CCCommand는 CCCommandDesc::m_ParamDescs에 정의된 파라미터를 가지게 된다.
+class CCCommandDesc{
 protected:
 	int			m_nID;					///< Command ID
 	char		m_szName[256];			///< Name for Parsing
 	char		m_szDescription[256];	///< Description of Command
 	int			m_nFlag;				///< Command Description Flag
 
-	vector<MCommandParameterDesc*>	m_ParamDescs;	///< Parameters
+	vector<CCCommandParameterDesc*>	m_ParamDescs;	///< Parameters
 public:
 	/// @param nID				커맨드 ID
 	/// @param szName			커맨드 이름
 	/// @param szDescription	커맨드 설명
 	/// @param nFlag			커맨드 플래그, MCDT_NOTINITIALIZED
-	MCommandDesc(int nID, const char* szName, const char* szDescription, int nFlag);
-	virtual ~MCommandDesc(void);
+	CCCommandDesc(int nID, const char* szName, const char* szDescription, int nFlag);
+	virtual ~CCCommandDesc(void);
 
-	/// MCommandParameterDesc 추가
-	void AddParamDesc(MCommandParameterDesc* pParamDesc);
+	/// CCCommandParameterDesc 추가
+	void AddParamDesc(CCCommandParameterDesc* pParamDesc);
 
 	/// 플래그 검사
 	bool IsFlag(int nFlag) const;
@@ -60,7 +60,7 @@ public:
 	/// 설명 얻기
 	const char* GetDescription(void) const { return m_szDescription; }
 	/// Parameter Description 얻기
-	MCommandParameterDesc* GetParameterDesc(int i) const {
+	CCCommandParameterDesc* GetParameterDesc(int i) const {
 		if(i<0 || i>=(int)m_ParamDescs.size()) return NULL;
 		return m_ParamDescs[i];
 	}
@@ -68,25 +68,25 @@ public:
 	int GetParameterDescCount(void) const {
 		return (int)m_ParamDescs.size();
 	}
-	MCommandParameterType GetParameterType(int i) const
+	CCCommandParameterType GetParameterType(int i) const
 	{
 		if(i<0 || i>=(int)m_ParamDescs.size()) return MPT_END;
 		return m_ParamDescs[i]->GetType();
 	}
 	/// 자기복제 함수 - 버드 테스트에서만 사용한다.
-	MCommandDesc* Clone();
+	CCCommandDesc* Clone();
 };
 
 
 
 /// 머신과 머신 혹은 로컬에 전달되는 커멘드
-class MCommand : public CMemPool<MCommand> 
+class CCCommand : public CMemPool<CCCommand> 
 {
 public:
 	CCUID						m_Sender;				///< 메세지를 보내는 머신(혹은 오브젝트) UID
 	CCUID						m_Receiver;				///< 메세지를 받는 머신(혹은 오브젝트) UID
-	const MCommandDesc*			m_pCommandDesc;			///< 해당 커맨드의 Description
-	vector<MCommandParameter*>	m_Params;				///< 파라미터
+	const CCCommandDesc*			m_pCommandDesc;			///< 해당 커맨드의 Description
+	vector<CCCommandParameter*>	m_Params;				///< 파라미터
 	unsigned char				m_nSerialNumber;		///< 커맨드의 무결성을 체크하기 위한 일련번호
 	void ClearParam(int i);
 
@@ -97,33 +97,33 @@ protected:
 	void ClearParam(void);
 
 public:
-	MCommand(void);
-	MCommand(const MCommandDesc* pCommandDesc, CCUID Receiver, CCUID Sender);
-	MCommand::MCommand(int nID, CCUID Sender, CCUID Receiver, MCommandManager* pCommandManager);
-	virtual ~MCommand(void);
+	CCCommand(void);
+	CCCommand(const CCCommandDesc* pCommandDesc, CCUID Receiver, CCUID Sender);
+	CCCommand::CCCommand(int nID, CCUID Sender, CCUID Receiver, CCCommandManager* pCommandManager);
+	virtual ~CCCommand(void);
 
-	/// MCommandDesc으로 ID 지정
-	void SetID(const MCommandDesc* pCommandDesc);
+	/// CCCommandDesc으로 ID 지정
+	void SetID(const CCCommandDesc* pCommandDesc);
 	/// ID 지정
-	void MCommand::SetID(int nID, MCommandManager* pCommandManager);
+	void CCCommand::SetID(int nID, CCCommandManager* pCommandManager);
 	/// ID 얻기
 	int GetID(void) const { return m_pCommandDesc->GetID(); }
 	/// 설명 얻기
 	const char* GetDescription(void){ return m_pCommandDesc->GetDescription(); }
 
 	/// 파라미터 추가
-	bool AddParameter(MCommandParameter* pParam);
+	bool AddParameter(CCCommandParameter* pParam);
 	/// 파라미터 갯수 얻기
 	int GetParameterCount(void) const;
 	/// 파라미터 얻기
-	MCommandParameter* GetParameter(int i) const;
+	CCCommandParameter* GetParameter(int i) const;
 
 	/// 인덱스로 파라미터를 얻는다. 파라미터 타입을 정확하게 명시하지 않으면 false를 리턴한다.
 	/// @brief 파라미터 얻기
 	/// @param pValue	[out] 파라미터 값
 	/// @param i		[in] 파라미터 인덱스
 	/// @param t		[in] 파라미터 타입, 정확한 타입을 명시해줘야 한다.
-	bool GetParameter(void* pValue, int i, MCommandParameterType t, int nBufferSize=-1) const;
+	bool GetParameter(void* pValue, int i, CCCommandParameterType t, int nBufferSize=-1) const;
 
 	CCUID GetSenderUID(void){ return m_Sender; }
 	void SetSenderUID(const CCUID &uid) { m_Sender = uid; }
@@ -132,7 +132,7 @@ public:
 	bool IsLocalCommand(void){ return (m_Sender==m_Receiver); }
 
 	/// 같은 내용을 가진 커맨드 복제
-	MCommand* Clone(void) const;
+	CCCommand* Clone(void) const;
 
 	/// Description에 맞게끔 설정되었는가?
 	bool CheckRule(void);	
@@ -144,24 +144,24 @@ public:
 	int GetData(char* pData, int nSize);
 	/// 커맨드 메모리 블럭 데이터로부터 저장
 	/// @param pData	[in] 커맨드 데이터 블럭
-	/// @param pPM		[in] 커맨드 매니져(MCommandDesc를 enum할 수 있다.)
+	/// @param pPM		[in] 커맨드 매니져(CCCommandDesc를 enum할 수 있다.)
 	/// @return			성공 여부
-	bool SetData(char* pData, MCommandManager* pCM, unsigned short nDataLen=USHRT_MAX);
+	bool SetData(char* pData, CCCommandManager* pCM, unsigned short nDataLen=USHRT_MAX);
 
 	int GetSize();
 	int GetSerial() { return m_nSerialNumber; }
 };
 
 
-class MCommandSNChecker
+class CCCommandSNChecker
 {
 private:
 	int				m_nCapacity;
 	deque<int>		m_SNQueue;
 	set<int>		m_SNSet;
 public:
-	MCommandSNChecker();
-	~MCommandSNChecker();
+	CCCommandSNChecker();
+	~CCCommandSNChecker();
 	void InitCapacity(int nCapacity);
 	bool CheckValidate(int nSerialNumber);
 };
@@ -169,7 +169,7 @@ public:
 
 
 // 라인수 줄이기 위한 매크로
-#define NEWCMD(_ID)		(new MCommand(_ID))
+#define NEWCMD(_ID)		(new CCCommand(_ID))
 #define AP(_P)			AddParameter(new _P)
 #define MKCMD(_C, _ID)									{ _C = NEWCMD(_ID); }
 #define MKCMD1(_C, _ID, _P0)							{ _C = NEWCMD(_ID); _C->AP(_P0); }
@@ -181,7 +181,7 @@ public:
 
 
 // Short Name
-typedef MCommand				MCmd;
-typedef MCommandDesc			MCmdDesc;
+typedef CCCommand				MCmd;
+typedef CCCommandDesc			MCmdDesc;
 
 #endif

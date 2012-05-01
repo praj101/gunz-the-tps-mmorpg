@@ -17,8 +17,8 @@ private:
 public:
 	ZRuleBerserker(ZMatch* pMatch);
 	virtual ~ZRuleBerserker();
-	virtual bool OnCommand(MCommand* pCommand);
-	virtual void OnResponseRuleInfo(MTD_RuleInfo* pInfo);
+	virtual bool OnCommand(CCCommand* pCommand);
+	virtual void OnResponseRuleInfo(CCTD_RuleInfo* pInfo);
 	CCUID GetBerserkerUID() const { return m_uidBerserker; }
 };
 

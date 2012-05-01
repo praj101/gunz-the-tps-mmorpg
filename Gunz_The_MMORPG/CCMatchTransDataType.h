@@ -65,25 +65,25 @@ struct CCTD_CharInfo
 
 //버프정보임시주석 
 /*
-struct MTD_CharBuffInfo
+struct CCTD_CharBuffInfo
 {
 	MShortBuffInfo	ShortBuffInfo[MAX_CHARACTER_SHORT_BUFF_COUNT];	
 };*/
 
-struct MTD_BuffInfo
+struct CCTD_BuffInfo
 {
 	unsigned long int	nItemId;		// 버프를 일으킨 아이템ID
 	unsigned short		nRemainedTime;	// 버프 몇초 남았나 (초단위로 절사), 아이템에 따라서는 횟수가 담길 수도 있다
 };
 
 // 내 캐릭터 정보의 추가 정보
-struct MTD_MyExtraCharInfo
+struct CCTD_MyExtraCharInfo
 {
 	char	nLevelPercent;		///< 현재 경험치 습득 퍼센트
 };
 
 // 현재 사용하지 않는다.
-struct MTD_SimpleCharInfo
+struct CCTD_SimpleCharInfo
 {
 	char				szName[32];
 	char				nLevel;
@@ -94,34 +94,34 @@ struct MTD_SimpleCharInfo
 };
 
 
-struct MTD_MySimpleCharInfo
+struct CCTD_MySimpleCharInfo
 {
 	unsigned char		nLevel;
 	unsigned long int	nXP;
 	int					nBP;
 };
 
-struct MTD_CharLevelInfo
+struct CCTD_CharLevelInfo
 {
 	unsigned char		nLevel;
 	unsigned long int	nCurrLevelExp;
 	unsigned long int	nNextLevelExp;
 };
 
-struct MTD_RoundPeerInfo
+struct CCTD_RoundPeerInfo
 {
 	CCUID			uidChar;
 	unsigned char	nHP;
 	unsigned char	nAP;
 };
 
-struct MTD_RoundKillInfo
+struct CCTD_RoundKillInfo
 {
 	CCUID	uidAttacker;
 	CCUID	uidVictim;
 };
 
-struct MTD_ItemNode
+struct CCTD_ItemNode
 {
 	CCUID				uidItem;
 	unsigned long int	nItemID;
@@ -130,12 +130,12 @@ struct MTD_ItemNode
 	int					nCount;
 };
 
-struct MTD_RelayMap
+struct CCTD_RelayMap
 {
 	int				nMapID;
 };
 
-struct MTD_AccountItemNode
+struct CCTD_AccountItemNode
 {
 	int					nAIID;
 	unsigned long int	nItemID;
@@ -144,7 +144,7 @@ struct MTD_AccountItemNode
 };
 
 // 게임안 상태 정보
-struct MTD_GameInfoPlayerItem
+struct CCTD_GameInfoPlayerItem
 {
 	CCUID	uidPlayer;
 	bool	bAlive;
@@ -152,7 +152,7 @@ struct MTD_GameInfoPlayerItem
 	int		nDeathCount;
 };
 
-struct MTD_GameInfo
+struct CCTD_GameInfo
 {
 	char	nRedTeamScore;		// 팀전에서만 사용하는 레드팀정보
 	char	nBlueTeamScore;		// 팀전에서만 사용하는 블루팀정보
@@ -161,30 +161,30 @@ struct MTD_GameInfo
 	short	nBlueTeamKills;		// 무한팀데스매치에서만 사용하는 블루팀킬수
 };
 
-struct MTD_RuleInfo	
+struct CCTD_RuleInfo	
 {
 	unsigned char	nRuleType;
 };
 
-struct MTD_RuleInfo_Assassinate : public MTD_RuleInfo
+struct CCTD_RuleInfo_Assassinate : public CCTD_RuleInfo
 {
 	CCUID	uidRedCommander;
 	CCUID	uidBlueCommander;
 };
 
-struct MTD_RuleInfo_Berserker : public MTD_RuleInfo
+struct CCTD_RuleInfo_Berserker : public CCTD_RuleInfo
 {
 	CCUID	uidBerserker;
 };
 
 
-enum MTD_PlayerFlags {
-	MTD_PlayerFlags_AdminHide	= 1,
-	MTD_PlayerFlags_BridgePeer	= 1<<1,
-	MTD_PlayerFlags_Premium		= 1<<2			// 넷마블 피시방 보너스
+enum CCTD_PlayerFlags {
+	CCTD_PlayerFlags_AdminHide	= 1,
+	CCTD_PlayerFlags_BridgePeer	= 1<<1,
+	CCTD_PlayerFlags_Premium		= 1<<2			// 넷마블 피시방 보너스
 };
 
-struct MTD_ChannelPlayerListNode 
+struct CCTD_ChannelPlayerListNode 
 {
 	CCUID			uidPlayer;
 	char			szName[MATCHOBJECT_NAME_LENGTH];
@@ -193,13 +193,13 @@ struct MTD_ChannelPlayerListNode
 	char			nDTLastWeekGrade;
 	CCMatchPlace		nPlace;
 	unsigned char	nGrade;			// 로비에서는 uid 로 캐릭터의 등급을 알수가 없어서..
-	unsigned char	nPlayerFlags;	// 플레이어 속성(운영자숨김등) - MTD_PlayerFlags 사용
+	unsigned char	nPlayerFlags;	// 플레이어 속성(운영자숨김등) - CCTD_PlayerFlags 사용
 	unsigned int	nCLID;			// ClanID
 	unsigned int	nEmblemChecksum;// Emblem Checksum
 };
 
 
-struct MTD_ClanMemberListNode 
+struct CCTD_ClanMemberListNode 
 {
 	CCUID				uidPlayer;
 	char				szName[MATCHOBJECT_NAME_LENGTH];
@@ -208,14 +208,14 @@ struct MTD_ClanMemberListNode
 	CCMatchPlace			nPlace;
 };
 
-enum MTD_WorldItemSubType
+enum CCTD_WorldItemSubType
 {
-	MTD_Dynamic = 0,
-	MTD_Static  = 1,
+	CCTD_Dynamic = 0,
+	CCTD_Static  = 1,
 };
 
 // 아이템 스폰 정보
-struct MTD_WorldItem
+struct CCTD_WorldItem
 {
 	unsigned short	nUID;
 	unsigned short	nItemID;
@@ -232,7 +232,7 @@ struct MTD_WorldItem
 
 
 // 발동된 트랩 정보
-struct MTD_ActivatedTrap
+struct CCTD_ActivatedTrap
 {
 	CCUID				uidOwner;
 	unsigned short		nItemID;
@@ -244,7 +244,7 @@ struct MTD_ActivatedTrap
 
 
 // 바로게임하기 필터링 정보
-struct MTD_QuickJoinParam
+struct CCTD_QuickJoinParam
 {
 	unsigned long int	nMapEnum;		// 원하는 맵의 비트어레이
 	unsigned long int	nModeEnum;		// 윈하는 게임모드의 비트어레이
@@ -252,7 +252,7 @@ struct MTD_QuickJoinParam
 
 
 // 캐릭터의 클랜 업데이트 정보
-struct MTD_CharClanInfo
+struct CCTD_CharClanInfo
 {
 	char				szClanName[CLAN_NAME_LENGTH];		// 클랜 이름
 	CCMatchClanGrade		nGrade;
@@ -292,7 +292,7 @@ struct CCTD_CharInfo_Detail
 
 
 /// 방 리스트 달라고 요청할때 보내는 구조체
-struct MTD_StageListNode
+struct CCTD_StageListNode
 {
 	CCUID			uidStage;							///< 방 UID
 	unsigned char	nNo;								///< 방번호
@@ -308,41 +308,41 @@ struct MTD_StageListNode
 };
 
 /// 클라이언트가 알아야할 기타정보 : AdminHide 상태를 명시적으로 교환 & 녹화파일에 저장
-struct MTD_ExtendInfo
+struct CCTD_ExtendInfo
 {
 	char			nTeam;
-	unsigned char	nPlayerFlags;	// 플레이어 속성(운영자숨김등) - MTD_PlayerFlags 사용
+	unsigned char	nPlayerFlags;	// 플레이어 속성(운영자숨김등) - CCTD_PlayerFlags 사용
 	unsigned char	nReserved1;		// 여분
 	unsigned char	nReserved2;
 };
 
-struct MTD_PeerListNode
+struct CCTD_PeerListNode
 {
 	CCUID				uidChar;
 	DWORD				dwIP;
 	unsigned int		nPort;
 	CCTD_CharInfo		CharInfo;
-	//버프정보임시주석 MTD_CharBuffInfo	CharBuffInfo;
-	MTD_ExtendInfo		ExtendInfo;
+	//버프정보임시주석 CCTD_CharBuffInfo	CharBuffInfo;
+	CCTD_ExtendInfo		ExtendInfo;
 };
 
 
 // 동의 답변자
-struct MTD_ReplierNode
+struct CCTD_ReplierNode
 {
 	char szName[MATCHOBJECT_NAME_LENGTH];
 };
 
 
 // 래더 게임 신청 팀 그룹
-struct MTD_LadderTeamMemberNode
+struct CCTD_LadderTeamMemberNode
 {
 	char szName[MATCHOBJECT_NAME_LENGTH];
 
 };
 
 // 클랜 정보
-struct MTD_ClanInfo
+struct CCTD_ClanInfo
 {
 	char				szClanName[CLAN_NAME_LENGTH];		// 클랜 이름
 	short				nLevel;								// 레벨
@@ -359,7 +359,7 @@ struct MTD_ClanInfo
 };
 
 // 클랜전 대기중인 클랜 리스트
-struct MTD_StandbyClanList
+struct CCTD_StandbyClanList
 {
 	char				szClanName[CLAN_NAME_LENGTH];		// 클랜 이름
 	short				nPlayers;							// 대기중인 인원수
@@ -371,7 +371,7 @@ struct MTD_StandbyClanList
 
 
 // 퀘스트, 서바이벌의 게임 정보
-struct MTD_QuestGameInfo
+struct CCTD_QuestGameInfo
 {
 	unsigned short		nQL;												// 퀘스트 레벨
 	float				fNPC_TC;											// NPC 난이도 조절 계수
@@ -387,7 +387,7 @@ struct MTD_QuestGameInfo
 };
 
 // 퀘스트, 보상 내용
-struct MTD_QuestReward
+struct CCTD_QuestReward
 {
 	CCUID				uidPlayer;	// 해당 플레이어 UID
 	int					nXP;		// 해당 플레이어가 얻은 XP
@@ -395,14 +395,14 @@ struct MTD_QuestReward
 };
 
 // 퀘스트 아이템 보상 내용
-struct MTD_QuestItemNode
+struct CCTD_QuestItemNode
 {
 	int		m_nItemID;
 	int		m_nCount;
 };
 
 // 퀘스트 일반 아이템 보상 내용
-struct MTD_QuestZItemNode
+struct CCTD_QuestZItemNode
 {
 	unsigned int		m_nItemID;
 	int					m_nRentPeriodHour;
@@ -411,7 +411,7 @@ struct MTD_QuestZItemNode
 
 
 // 퀘스트에 사용할 NPC의 정보.
-struct MTD_NPCINFO
+struct CCTD_NPCINFO
 {
 	BYTE	m_nNPCTID;
 	WORD	m_nMaxHP;
@@ -431,17 +431,17 @@ struct MTD_NPCINFO
 };
 
 // 서바이벌 랭킹 정보
-struct MTD_SurvivalRanking
+struct CCTD_SurvivalRanking
 {
 	char	m_szCharName[MATCHOBJECT_NAME_LENGTH];
 	DWORD	m_dwPoint;
 	DWORD	m_dwRank;		// 공동순위가 있을 수 있으므로 실제 랭크 순위값은 이것으로 사용
 
-	MTD_SurvivalRanking() : m_dwPoint(0), m_dwRank(0) { m_szCharName[0] = 0; }
+	CCTD_SurvivalRanking() : m_dwPoint(0), m_dwRank(0) { m_szCharName[0] = 0; }
 };
 
 #if defined(LOCALE_NHNUSA)
-struct MTD_ServerStatusInfo
+struct CCTD_ServerStatusInfo
 {
 	DWORD			m_dwIP;
 	DWORD			m_dwAgentIP;
@@ -454,7 +454,7 @@ struct MTD_ServerStatusInfo
 	char			m_szServerName[ 64 ];
 };
 #else
-struct MTD_ServerStatusInfo
+struct CCTD_ServerStatusInfo
 {
 	DWORD			m_dwIP;
 	int				m_nPort;
@@ -467,7 +467,7 @@ struct MTD_ServerStatusInfo
 };
 #endif
 
-struct MTD_ResetTeamMembersData
+struct CCTD_ResetTeamMembersData
 {
 	CCUID			m_uidPlayer;		// 해당 플레이어
 	char			nTeam;				// 팀
@@ -476,7 +476,7 @@ struct MTD_ResetTeamMembersData
 
 // 듀얼 큐 정보
 
-struct MTD_DuelQueueInfo
+struct CCTD_DuelQueueInfo
 {
 	CCUID			m_uidChampion;
 	CCUID			m_uidChallenger;
@@ -486,7 +486,7 @@ struct MTD_DuelQueueInfo
 	bool			m_bIsRoundEnd;					// 라운드 끝날때인가
 };
 
-struct MTD_DuelTournamentGameInfo
+struct CCTD_DuelTournamentGameInfo
 {
 	CCUID			uidPlayer1;					// 진행할 게임의 참가할 Player1
 	CCUID			uidPlayer2;					// 진행할 게임의 참가할 Player1
@@ -499,14 +499,14 @@ struct MTD_DuelTournamentGameInfo
 	CCUID			WaitPlayerList[8];			// 대기자들의 CCUID
 };
 
-struct MTD_DuelTournamentNextMatchPlayerInfo
+struct CCTD_DuelTournamentNextMatchPlayerInfo
 {
 	CCUID			uidPlayer1;					// 진행할 게임의 참가할 Player1
 	CCUID			uidPlayer2;					// 진행할 게임의 참가할 Player1
 };
 
 
-struct MTD_DuelTournamentRoundResultInfo
+struct CCTD_DuelTournamentRoundResultInfo
 {
 	CCUID			uidWinnerPlayer;			// 현재 라운드의 승리자
 	CCUID			uidLoserPlayer;				// 현재 라운드의 패배자(180cm 이하...)
@@ -527,7 +527,7 @@ struct MTD_DuelTournamentRoundResultInfo
 	///////////////////////////////////////////////////////////
 };
 
-struct MTD_DuelTournamentMatchResultInfo
+struct CCTD_DuelTournamentMatchResultInfo
 {
 	int				nMatchNumber;
 	int				nMatchType;
@@ -548,7 +548,7 @@ enum ZAdminAnnounceType
 };
 
 // 겜블 아이템 데이터
-struct MTD_GambleItemNode
+struct CCTD_GambleItemNode
 {
 	CCUID			uidItem;
 	unsigned int	nItemID;							// 아이템 ID
@@ -557,7 +557,7 @@ struct MTD_GambleItemNode
 
 
 // 겜블 아이템 데이터
-struct MTD_DBGambleItmeNode
+struct CCTD_DBGambleItmeNode
 {
 	unsigned int	nItemID;							// 아이템 ID
 	char			szName[ MAX_GAMBLEITEMNAME_LEN ];	// 아이템 이름
@@ -567,22 +567,22 @@ struct MTD_DBGambleItmeNode
 };
 
 // Shop 아이템 데이터 - Added by 2010-03-18 홍기주
-struct MTD_ShopItemInfo
+struct CCTD_ShopItemInfo
 {
 	unsigned int	nItemID;
 	int				nItemCount;
 };
 /////////////////////////////////////////////////////////
-void Make_MTDItemNode(MTD_ItemNode* pout, CCUID& uidItem, unsigned long int nItemID, int nRentMinutePeriodRemainder, int iMaxUseHour, int nCount);
-void Make_MTDAccountItemNode(MTD_AccountItemNode* pout, int nAIID, unsigned long int nItemID, int nRentMinutePeriodRemainder, int nCount);
+void Make_MTDItemNode(CCTD_ItemNode* pout, CCUID& uidItem, unsigned long int nItemID, int nRentMinutePeriodRemainder, int iMaxUseHour, int nCount);
+void Make_MTDAccountItemNode(CCTD_AccountItemNode* pout, int nAIID, unsigned long int nItemID, int nRentMinutePeriodRemainder, int nCount);
 
-void Make_MTDQuestItemNode( MTD_QuestItemNode* pOut, const unsigned long int nItemID, const int nCount );
+void Make_MTDQuestItemNode( CCTD_QuestItemNode* pOut, const unsigned long int nItemID, const int nCount );
 
 struct CCMatchWorldItem;
-void Make_MTDWorldItem(MTD_WorldItem* pOut, CCMatchWorldItem* pWorldItem);
+void Make_MTDWorldItem(CCTD_WorldItem* pOut, CCMatchWorldItem* pWorldItem);
 
 class CCMatchActiveTrap;
-void Make_MTDActivatedTrap(MTD_ActivatedTrap *pOut, CCMatchActiveTrap* pTrapItem);
+void Make_MTDActivatedTrap(CCTD_ActivatedTrap *pOut, CCMatchActiveTrap* pTrapItem);
 
 // 경험치, 경험치 비율을 4byte로 조합
 // 상위 2바이트는 경험치, 하위 2바이트는 경험치의 퍼센트이다.

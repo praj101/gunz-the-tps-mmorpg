@@ -16,23 +16,23 @@
 
 
 
-class MPacketCrypter;
+class CCPacketCrypter;
 
 #pragma pack(1)
 
-struct MPacketHeader
+struct CCPacketHeader
 {
 	unsigned short nMsg;
 	unsigned short nSize;
 	unsigned short nCheckSum;
 
-	MPacketHeader() { nMsg=MSG_COMMAND; nSize=0; nCheckSum=0; }
-	int CalcPacketSize(MPacketCrypter* pCrypter);		// 만약 암호화되어있을 경우 패킷의 크기는 이 함수로만 알 수 있다.
+	CCPacketHeader() { nMsg=MSG_COMMAND; nSize=0; nCheckSum=0; }
+	int CalcPacketSize(CCPacketCrypter* pCrypter);		// 만약 암호화되어있을 경우 패킷의 크기는 이 함수로만 알 수 있다.
 														// nSize 변수에는 암호화된 값이 들어있을 수 있음
 };
 
 
-struct MReplyConnectMsg : public MPacketHeader
+struct MReplyConnectMsg : public CCPacketHeader
 {
 	unsigned int	nHostHigh;
 	unsigned int	nHostLow;
@@ -41,7 +41,7 @@ struct MReplyConnectMsg : public MPacketHeader
 	unsigned int	nTimeStamp;
 };
 
-struct MCommandMsg : public MPacketHeader
+struct CCCommandMsg : public CCPacketHeader
 {
 	char	Buffer[1];
 };
@@ -49,10 +49,10 @@ struct MCommandMsg : public MPacketHeader
 
 #pragma pack()
 
-// Tiny CheckSum for MCommandMsg
-inline unsigned short MBuildCheckSum(MPacketHeader* pPacket, int nPacketSize)
+// Tiny CheckSum for CCCommandMsg
+inline unsigned short MBuildCheckSum(CCPacketHeader* pPacket, int nPacketSize)
 {
-	int nStartOffset = sizeof(MPacketHeader);
+	int nStartOffset = sizeof(CCPacketHeader);
 	BYTE* pBulk = (BYTE*)pPacket;
 	//int nPacketSize = min(65535, pPacket->nSize);
 	nPacketSize = min(65535, nPacketSize);

@@ -5,21 +5,21 @@
 #include "CCStrEx.h"
 #include <Windows.h>	// for test
 
-void MCommandManager::InitializeCommandDesc(void)
+void CCCommandManager::InitializeCommandDesc(void)
 {
-	for(MCommandDescMap::iterator i=m_CommandDescs.begin(); i!=m_CommandDescs.end(); i++){
+	for(CCCommandDescMap::iterator i=m_CommandDescs.begin(); i!=m_CommandDescs.end(); i++){
 		delete (*i).second;
 	}
 	m_CommandDescs.clear();
 }
 
-MCommandManager::MCommandManager(void)
+CCCommandManager::CCCommandManager(void)
 {
 	InitializeCommandMemPool();
 	InitializeCommandDesc();
 }
 
-MCommandManager::~MCommandManager(void)
+CCCommandManager::~CCCommandManager(void)
 {
 	InitializeCommandDesc();
 	while(PeekCommand()) {
@@ -29,30 +29,30 @@ MCommandManager::~MCommandManager(void)
 	FinalizeCommandMemPool();
 }
 
-void MCommandManager::Initialize(void)
+void CCCommandManager::Initialize(void)
 {
-	for(MCommandList::iterator i=m_CommandQueue.begin(); i!=m_CommandQueue.end(); i++){
+	for(CCCommandList::iterator i=m_CommandQueue.begin(); i!=m_CommandQueue.end(); i++){
 		delete (*i);
 	}
 	m_CommandQueue.clear();
 }
 
-int MCommandManager::GetCommandDescCount(void) const
+int CCCommandManager::GetCommandDescCount(void) const
 {
 	return (int)m_CommandDescs.size();
 }
 
-int MCommandManager::GetCommandQueueCount(void) const
+int CCCommandManager::GetCommandQueueCount(void) const
 {
 	return (int)m_CommandQueue.size();
 }
 
 
-MCommandDesc* MCommandManager::GetCommandDesc(int i)
+CCCommandDesc* CCCommandManager::GetCommandDesc(int i)
 {
 	if(i<0 || i>=(int)m_CommandDescs.size()) return NULL;
 
-	MCommandDescMap::iterator itor = m_CommandDescs.begin();
+	CCCommandDescMap::iterator itor = m_CommandDescs.begin();
 
 	for (int t=0; t < i; t++)
 	{
@@ -64,18 +64,18 @@ MCommandDesc* MCommandManager::GetCommandDesc(int i)
 }
 
 
-void MCommandManager::AssignDescs(MCommandManager* pTarCM)
+void CCCommandManager::AssignDescs(CCCommandManager* pTarCM)
 {
-	for(MCommandDescMap::iterator i=m_CommandDescs.begin(); i!=m_CommandDescs.end(); i++)
+	for(CCCommandDescMap::iterator i=m_CommandDescs.begin(); i!=m_CommandDescs.end(); i++)
 	{
-		MCommandDesc* pDesc = (*i).second;
+		CCCommandDesc* pDesc = (*i).second;
 		pTarCM->AddCommandDesc(pDesc->Clone());
 	}
 }
 
-MCommandDesc* MCommandManager::GetCommandDescByID(int nID)
+CCCommandDesc* CCCommandManager::GetCommandDescByID(int nID)
 {
-	MCommandDescMap::iterator itor = m_CommandDescs.find(nID);
+	CCCommandDescMap::iterator itor = m_CommandDescs.find(nID);
 	if (itor != m_CommandDescs.end())
 	{
 		return (*itor).second;
@@ -84,13 +84,13 @@ MCommandDesc* MCommandManager::GetCommandDescByID(int nID)
 	return NULL;
 }
 
-void MCommandManager::AddCommandDesc(MCommandDesc* pCD)
+void CCCommandManager::AddCommandDesc(CCCommandDesc* pCD)
 {
 	_ASSERT(m_CommandDescs.find(pCD->GetID())==m_CommandDescs.end());	// 커맨드는 중복되면 안된다
-	m_CommandDescs.insert(MCommandDescMap::value_type(pCD->GetID(), pCD));
+	m_CommandDescs.insert(CCCommandDescMap::value_type(pCD->GetID(), pCD));
 }
 
-bool MCommandManager::Post(MCommand* pCmd)
+bool CCCommandManager::Post(CCCommand* pCmd)
 {
 	bool bCheckRule = pCmd->CheckRule();
 	_ASSERT(bCheckRule==true);
@@ -102,35 +102,35 @@ bool MCommandManager::Post(MCommand* pCmd)
 	return true;
 }
 
-MCommand* MCommandManager::GetCommand(void)
+CCCommand* CCCommandManager::GetCommand(void)
 {
 	if(m_CommandQueue.size()==0) return NULL;
 
-	MCommand* pCmd = *m_CommandQueue.begin();
+	CCCommand* pCmd = *m_CommandQueue.begin();
 	
 	m_CommandQueue.erase(m_CommandQueue.begin());
 
 	return pCmd;
 }
 
-MCommand* MCommandManager::PeekCommand(void)
+CCCommand* CCCommandManager::PeekCommand(void)
 {
 	if(m_CommandQueue.size()==0) return NULL;
 
-	MCommand* pCmd = *m_CommandQueue.begin();
+	CCCommand* pCmd = *m_CommandQueue.begin();
 	return pCmd;
 }
 
-void MCommandManager::GetSyntax(char* szSyntax, const MCommandDesc* pCD)
+void CCCommandManager::GetSyntax(char* szSyntax, const CCCommandDesc* pCD)
 {
 	sprintf(szSyntax, "%s ", pCD->GetName());
 	for(int i=0; i<pCD->GetParameterDescCount(); i++){
-		MCommandParameterDesc* pPD = pCD->GetParameterDesc(i);
+		CCCommandParameterDesc* pPD = pCD->GetParameterDesc(i);
 		sprintf(szSyntax, "%s %s", szSyntax, pPD->GetDescription());
 	}
 }
 
-bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMaxLength, const char* szMsg)
+bool CCCommandManager::ParseMessage(CCCommand* pCmd, char* szErrMsg, int nErrMsgMaxLength, const char* szMsg)
 {
 //#define USE_SLASH
 #ifdef USE_SLASH
@@ -156,17 +156,17 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 	char szTemp[ASMESSAGE_LENGTH];
 	strcpy(szTemp, la.GetByStr(0));
 
-	MCommandAliasMap::iterator itor = m_CommandAlias.find(string(szTemp));
+	CCCommandAliasMap::iterator itor = m_CommandAlias.find(string(szTemp));
 	if (itor != m_CommandAlias.end())
 	{
 		strcpy(szTemp, (*itor).second.c_str());
 	}
 
 	//for(int i=0; i<(int)m_CommandDescs.size(); i++){
-	for (MCommandDescMap::iterator itor = m_CommandDescs.begin(); itor != m_CommandDescs.end(); ++itor)
+	for (CCCommandDescMap::iterator itor = m_CommandDescs.begin(); itor != m_CommandDescs.end(); ++itor)
 	{
-		MCommandDesc* pCD = (*itor).second;
-		//MCommandDesc* pCD = m_CommandDescs[i];
+		CCCommandDesc* pCD = (*itor).second;
+		//CCCommandDesc* pCD = m_CommandDescs[i];
 
 		if(stricmp(szTemp, pCD->GetName())==0){
 			//if(pCD->IsFlag(ASCDF_CHEAT)==true && EnableDevDebug()==false) return false;	// 개발자 전용 커맨드이면... Debug가 Enable되어 있어야 한다.
@@ -177,17 +177,17 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 			int nLACount = 1;
 
 			for(int j=0; j<pCD->GetParameterDescCount(); j++){
-				MCommandParameterDesc* pPD = pCD->GetParameterDesc(j);
+				CCCommandParameterDesc* pPD = pCD->GetParameterDesc(j);
 
 				bool bSyntaxError = false;
-				MCommandParameter* pParam = NULL;
+				CCCommandParameter* pParam = NULL;
 				switch(pPD->GetType()){
 				case MPT_INT:
 					if(nLACount+1>nLAMaxCount){
 						bSyntaxError = true;
 						break;
 					}
-					pParam = new MCommandParameterInt(la.GetByInt(nLACount));
+					pParam = new CCCommandParameterInt(la.GetByInt(nLACount));
 					nLACount++;
 					break;
 				case MPT_UINT:
@@ -196,7 +196,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 							bSyntaxError = true;
 							break;
 						}
-						pParam = new MCommandParameterUInt(la.GetByLong(nLACount));
+						pParam = new CCCommandParameterUInt(la.GetByLong(nLACount));
 						nLACount++;
 						break;
 					}
@@ -206,7 +206,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 						bSyntaxError = true;
 						break;
 					}
-					pParam = new MCommandParameterFloat(la.GetByFloat(nLACount));
+					pParam = new CCCommandParameterFloat(la.GetByFloat(nLACount));
 					nLACount++;
 					break;
 				case MPT_STR:
@@ -214,7 +214,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 						bSyntaxError = true;
 						break;
 					}
-					pParam = new MCommandParameterString(la.GetByStr(nLACount));
+					pParam = new CCCommandParameterString(la.GetByStr(nLACount));
 					nLACount++;
 					break;
 				case MPT_VECTOR:
@@ -222,7 +222,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 						bSyntaxError = true;
 						break;
 					}
-					pParam = new MCommandParameterVector(la.GetByFloat(nLACount), la.GetByFloat(nLACount+1), la.GetByFloat(nLACount+2));
+					pParam = new CCCommandParameterVector(la.GetByFloat(nLACount), la.GetByFloat(nLACount+1), la.GetByFloat(nLACount+2));
 					nLACount+=3;
 					break;
 				case MPT_POS:
@@ -230,7 +230,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 						bSyntaxError = true;
 						break;
 					}
-					pParam = new MCommandParameterPos(la.GetByFloat(nLACount), la.GetByFloat(nLACount+1), la.GetByFloat(nLACount+2));
+					pParam = new CCCommandParameterPos(la.GetByFloat(nLACount), la.GetByFloat(nLACount+1), la.GetByFloat(nLACount+2));
 					nLACount+=3;
 					break;
 				case MPT_DIR:
@@ -238,7 +238,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 						bSyntaxError = true;
 						break;
 					}
-					pParam = new MCommandParameterDir(la.GetByFloat(nLACount), la.GetByFloat(nLACount+1), la.GetByFloat(nLACount+2));
+					pParam = new CCCommandParameterDir(la.GetByFloat(nLACount), la.GetByFloat(nLACount+1), la.GetByFloat(nLACount+2));
 					nLACount+=3;
 					break;
 				case MPT_COLOR:
@@ -246,7 +246,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 						bSyntaxError = true;
 						break;
 					}
-					pParam = new MCommandParameterColor(la.GetByFloat(nLACount), la.GetByFloat(nLACount+1), la.GetByFloat(nLACount+2));
+					pParam = new CCCommandParameterColor(la.GetByFloat(nLACount), la.GetByFloat(nLACount+1), la.GetByFloat(nLACount+2));
 					nLACount+=3;
 					break;
 				case MPT_BOOL:
@@ -254,7 +254,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 						bSyntaxError = true;
 						break;
 					}
-					pParam = new MCommandParameterBool(la.GetByInt(nLACount)>0?true:false);
+					pParam = new CCCommandParameterBool(la.GetByInt(nLACount)>0?true:false);
 					nLACount++;
 					break;
 					
@@ -264,7 +264,7 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 						break;
 					}
 					// UINT를 만들어야 한다.
-					pParam = new MCommandParameterUID(CCUID(la.GetByInt(nLACount), la.GetByInt(nLACount+1)));
+					pParam = new CCCommandParameterUID(CCUID(la.GetByInt(nLACount), la.GetByInt(nLACount+1)));
 					nLACount+=2;
 					break;
 					
@@ -295,69 +295,69 @@ bool MCommandManager::ParseMessage(MCommand* pCmd, char* szErrMsg, int nErrMsgMa
 	return false;
 }
 
-void MCommandManager::AddAlias(string szName, string szText)
+void CCCommandManager::AddAlias(string szName, string szText)
 {
-	m_CommandAlias.insert(MCommandAliasMap::value_type(szName, szText));
+	m_CommandAlias.insert(CCCommandAliasMap::value_type(szName, szText));
 }
 
-void MCommandManager::InitializeCommandMemPool()
+void CCCommandManager::InitializeCommandMemPool()
 {
 
-	InitMemPool(MCommand);
-	InitMemPool(MCommandParameterInt);
-	InitMemPool(MCommandParameterUInt);
-	InitMemPool(MCommandParameterFloat);
-	InitMemPool(MCommandParameterPos);
-	InitMemPool(MCommandParameterDir);
-	InitMemPool(MCommandParameterColor);
-	InitMemPool(MCommandParameterBool);
-	InitMemPool(MCommandParameterUID);
-	InitMemPool(MCommandParameterChar);
-	InitMemPool(MCommandParameterUChar);
-	InitMemPool(MCommandParameterShort);
-	InitMemPool(MCommandParameterUShort);
-	InitMemPool(MCommandParameterInt64);
-	InitMemPool(MCommandParameterUInt64);
-	InitMemPool(MCommandParameterShortVector);
+	InitMemPool(CCCommand);
+	InitMemPool(CCCommandParameterInt);
+	InitMemPool(CCCommandParameterUInt);
+	InitMemPool(CCCommandParameterFloat);
+	InitMemPool(CCCommandParameterPos);
+	InitMemPool(CCCommandParameterDir);
+	InitMemPool(CCCommandParameterColor);
+	InitMemPool(CCCommandParameterBool);
+	InitMemPool(CCCommandParameterUID);
+	InitMemPool(CCCommandParameterChar);
+	InitMemPool(CCCommandParameterUChar);
+	InitMemPool(CCCommandParameterShort);
+	InitMemPool(CCCommandParameterUShort);
+	InitMemPool(CCCommandParameterInt64);
+	InitMemPool(CCCommandParameterUInt64);
+	InitMemPool(CCCommandParameterShortVector);
 
 }
 
-void MCommandManager::FinalizeCommandMemPool()
+void CCCommandManager::FinalizeCommandMemPool()
 {
 
-	ReleaseMemPool(MCommandParameterInt);
-	ReleaseMemPool(MCommandParameterUInt);
-	ReleaseMemPool(MCommandParameterFloat);
-	ReleaseMemPool(MCommandParameterPos);
-	ReleaseMemPool(MCommandParameterDir);
-	ReleaseMemPool(MCommandParameterColor);
-	ReleaseMemPool(MCommandParameterBool);
-	ReleaseMemPool(MCommandParameterUID);
-	ReleaseMemPool(MCommandParameterChar);
-	ReleaseMemPool(MCommandParameterUChar);
-	ReleaseMemPool(MCommandParameterShort);
-	ReleaseMemPool(MCommandParameterUShort);
-	ReleaseMemPool(MCommandParameterInt64);
-	ReleaseMemPool(MCommandParameterUInt64);
-	ReleaseMemPool(MCommandParameterShortVector);
-	ReleaseMemPool(MCommand);
+	ReleaseMemPool(CCCommandParameterInt);
+	ReleaseMemPool(CCCommandParameterUInt);
+	ReleaseMemPool(CCCommandParameterFloat);
+	ReleaseMemPool(CCCommandParameterPos);
+	ReleaseMemPool(CCCommandParameterDir);
+	ReleaseMemPool(CCCommandParameterColor);
+	ReleaseMemPool(CCCommandParameterBool);
+	ReleaseMemPool(CCCommandParameterUID);
+	ReleaseMemPool(CCCommandParameterChar);
+	ReleaseMemPool(CCCommandParameterUChar);
+	ReleaseMemPool(CCCommandParameterShort);
+	ReleaseMemPool(CCCommandParameterUShort);
+	ReleaseMemPool(CCCommandParameterInt64);
+	ReleaseMemPool(CCCommandParameterUInt64);
+	ReleaseMemPool(CCCommandParameterShortVector);
+	ReleaseMemPool(CCCommand);
 
 
-	UninitMemPool(MCommandParameterInt);
-	UninitMemPool(MCommandParameterUInt);
-	UninitMemPool(MCommandParameterFloat);
-	UninitMemPool(MCommandParameterPos);
-	UninitMemPool(MCommandParameterDir);
-	UninitMemPool(MCommandParameterColor);
-	UninitMemPool(MCommandParameterBool);
-	UninitMemPool(MCommandParameterUID);
-	UninitMemPool(MCommandParameterChar);
-	UninitMemPool(MCommandParameterUChar);
-	UninitMemPool(MCommandParameterShort);
-	UninitMemPool(MCommandParameterUShort);
-	UninitMemPool(MCommandParameterInt64);
-	UninitMemPool(MCommandParameterUInt64);
-	UninitMemPool(MCommandParameterShortVector);
-	UninitMemPool(MCommand);
+	UninitMemPool(CCCommandParameterInt);
+	UninitMemPool(CCCommandParameterUInt);
+	UninitMemPool(CCCommandParameterFloat);
+	UninitMemPool(CCCommandParameterPos);
+	UninitMemPool(CCCommandParameterDir);
+	UninitMemPool(CCCommandParameterColor);
+	UninitMemPool(CCCommandParameterBool);
+	UninitMemPool(CCCommandParameterUID);
+	UninitMemPool(CCCommandParameterChar);
+	UninitMemPool(CCCommandParameterUChar);
+	UninitMemPool(CCCommandParameterShort);
+	UninitMemPool(CCCommandParameterUShort);
+	UninitMemPool(CCCommandParameterInt64);
+	UninitMemPool(CCCommandParameterUInt64);
+	UninitMemPool(CCCommandParameterShortVector);
+	UninitMemPool(CCCommand);
 
 }

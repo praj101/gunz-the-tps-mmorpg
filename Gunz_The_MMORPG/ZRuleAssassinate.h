@@ -14,8 +14,8 @@ private:
 public:
 	ZRuleAssassinate(ZMatch* pMatch);
 	virtual ~ZRuleAssassinate();
-	virtual bool OnCommand(MCommand* pCommand);
-	virtual void OnResponseRuleInfo(MTD_RuleInfo* pInfo);
+	virtual bool OnCommand(CCCommand* pCommand);
+	virtual void OnResponseRuleInfo(CCTD_RuleInfo* pInfo);
 };
 
 

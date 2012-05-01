@@ -271,7 +271,7 @@ bool ZObserver::IsVisibleSetTarget(ZCharacter* pCharacter)
 	/*
 	// AdminHide 처리
 	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-	if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide))
+	if (pObjCache && pObjCache->CheckFlag(CCTD_PlayerFlags_AdminHide))
 		return true;
 
 	// 디버그 버젼에서는 아무나 볼수 있다

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 //////////////////////////////////////////////////////////////////
-// Class:	MRealCPNet class (2001/10/25)
+// Class:	CCRealCPNet class (2001/10/25)
 // File:	RealCPNet.cpp
 // Author:	Kim young ho (moanus@maiet.net)
 //
@@ -31,7 +31,7 @@ void SetupRCPLog(RCPLOGFUNC* pFunc) { g_RCPLog = pFunc; }
 static int g_LogSessionCreated = 0;
 static int g_LogSessionDestroyed = 0;
 
-MRealCPNet::MRealCPNet()
+CCRealCPNet::CCRealCPNet()
 {
 	m_nPort				= DEFAULT_PORT;
 	m_bEndServer		= FALSE;            
@@ -46,11 +46,11 @@ MRealCPNet::MRealCPNet()
 	m_pListenSession = NULL;	// 초기화 추가. - by 추교성.
 }
 
-MRealCPNet::~MRealCPNet()
+CCRealCPNet::~CCRealCPNet()
 {
 }
 
-bool MRealCPNet::Create(int nPort, const bool bReuse )
+bool CCRealCPNet::Create(int nPort, const bool bReuse )
 {
 	SYSTEM_INFO         systemInfo;
 	WSADATA             wsaData;
@@ -115,7 +115,7 @@ bool MRealCPNet::Create(int nPort, const bool bReuse )
 	return true;
 }
 
-void MRealCPNet::Destroy()
+void CCRealCPNet::Destroy()
 {
 	cclog("RealCPNet> SessionCreated=%d, SessionDestroyed=%d \n", 
 			g_LogSessionCreated, g_LogSessionDestroyed);
@@ -180,7 +180,7 @@ void MRealCPNet::Destroy()
 
 // Create a socket with all the socket options we need, namely disable buffering
 // and set linger.
-SOCKET MRealCPNet::CreateSocket(void)
+SOCKET CCRealCPNet::CreateSocket(void)
 {
 	int         nRet;
 	int         nZero = 0;
@@ -233,7 +233,7 @@ SOCKET MRealCPNet::CreateSocket(void)
 }
 
 // Create a listening socket, bind, and set up its listening backlog.
-BOOL MRealCPNet::CreateListenSocket( const bool bReuse )
+BOOL CCRealCPNet::CreateListenSocket( const bool bReuse )
 {
 	SOCKADDR_IN	si_addrlocal;
 	int			nRet;
@@ -301,7 +301,7 @@ BOOL MRealCPNet::CreateListenSocket( const bool bReuse )
 // This sample implements neither of these techniques and is therefore
 // susceptible to the behaviour described above.
 //
-BOOL MRealCPNet::CreateAcceptSocket(BOOL fUpdateIOCP)
+BOOL CCRealCPNet::CreateAcceptSocket(BOOL fUpdateIOCP)
 {
 	int		nRet;
 	DWORD	dwRecvNumBytes = 0;     
@@ -358,9 +358,9 @@ BOOL MRealCPNet::CreateAcceptSocket(BOOL fUpdateIOCP)
 
 //  Allocate a context structures for the socket and add the socket to the IOCP.  
 //  Additionally, add the context structure to the global list of context structures.
-MRealSession* MRealCPNet::UpdateCompletionPort(SOCKET sd, RCP_IO_OPERATION nOperation, BOOL bAddToList)
+CCRealSession* CCRealCPNet::UpdateCompletionPort(SOCKET sd, RCP_IO_OPERATION nOperation, BOOL bAddToList)
 {
-	MRealSession* pSession;
+	CCRealSession* pSession;
     
 	pSession = CreateSession(sd, nOperation);
 	if (pSession == NULL) 
@@ -385,7 +385,7 @@ MRealSession* MRealCPNet::UpdateCompletionPort(SOCKET sd, RCP_IO_OPERATION nOper
 	return pSession;
 }
 
-bool MRealCPNet::MakeSockAddr(char* pszIP, int nPort, sockaddr_in* pSockAddr)
+bool CCRealCPNet::MakeSockAddr(char* pszIP, int nPort, sockaddr_in* pSockAddr)
 {
 	sockaddr_in 	RemoteAddr;
 	memset((char*)&RemoteAddr, 0, sizeof(sockaddr_in));
@@ -410,14 +410,14 @@ bool MRealCPNet::MakeSockAddr(char* pszIP, int nPort, sockaddr_in* pSockAddr)
 	return true;
 }
 
-bool MRealCPNet::CheckIPFloodAttack(sockaddr_in* pRemoteAddr, int* poutIPCount)
+bool CCRealCPNet::CheckIPFloodAttack(sockaddr_in* pRemoteAddr, int* poutIPCount)
 {
 	bool bResult = false;
 	int nIPCount = 0;
 
 	m_SessionMap.Lock();
-		for (MSessionMap::iterator i=m_SessionMap.begin(); i!=m_SessionMap.end(); i++) {
-			MRealSession* pSession = (*i).second;
+		for (CCSessionMap::iterator i=m_SessionMap.begin(); i!=m_SessionMap.end(); i++) {
+			CCRealSession* pSession = (*i).second;
 			if (pSession->GetSockAddr()->sin_addr.S_un.S_addr == pRemoteAddr->sin_addr.S_un.S_addr)
 				nIPCount++;
 			if (nIPCount > 32)
@@ -429,7 +429,7 @@ bool MRealCPNet::CheckIPFloodAttack(sockaddr_in* pRemoteAddr, int* poutIPCount)
 	return bResult;
 }
 
-bool MRealCPNet::Connect(SOCKET* pSocket, char* pszAddress, int nPort)
+bool CCRealCPNet::Connect(SOCKET* pSocket, char* pszAddress, int nPort)
 {
 	SOCKET sdConnect = CreateSocket();
 	if (INVALID_SOCKET == sdConnect) {
@@ -446,7 +446,7 @@ bool MRealCPNet::Connect(SOCKET* pSocket, char* pszAddress, int nPort)
 		return false;
 	}
 
-	MRealSession* pContextConnect = UpdateCompletionPort(sdConnect, RCP_IO_CONNECT, TRUE);
+	CCRealSession* pContextConnect = UpdateCompletionPort(sdConnect, RCP_IO_CONNECT, TRUE);
 	if (pContextConnect == NULL) {
 		RCPLOG("failed to update listen socket to IOCP\n");
 		closesocket(sdConnect);
@@ -487,12 +487,12 @@ bool MRealCPNet::Connect(SOCKET* pSocket, char* pszAddress, int nPort)
 	}
 }
 
-void MRealCPNet::Disconnect(SOCKET sd, bool bIsInCallback)
+void CCRealCPNet::Disconnect(SOCKET sd, bool bIsInCallback)
 {
 /*	m_SessionMap.Lock();
-		MRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
+		CCRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
 		if (pSession) {
-			pSession->SetSessionState(MRealSession::SESSIONSTATE_DEAD);
+			pSession->SetSessionState(CCRealSession::SESSIONSTATE_DEAD);
 			if (pSession->GetSocket() != INVALID_SOCKET)
 				closesocket(pSession->GetSocket());
 //			pSession->m_RecvIOContext.IOOperation = RCP_IO_DISCONNECT;
@@ -506,7 +506,7 @@ void MRealCPNet::Disconnect(SOCKET sd, bool bIsInCallback)
 	
 	int nErrCode;
 
-	MRealSession* pSession = m_SessionMap.GetSession(sd);
+	CCRealSession* pSession = m_SessionMap.GetSession(sd);
 
 	unsigned long nResult;
 	unsigned long Tick1 = GetTickCount();
@@ -558,7 +558,7 @@ void MRealCPNet::Disconnect(SOCKET sd, bool bIsInCallback)
 //  Close down a connection with a client.  This involves closing the socket (when 
 //  initiated as a result of a CTRL-C the socket closure is not graceful).  Additionally, 
 //  any context data associated with that socket is free'd.
-void MRealCPNet::CloseSession(MRealSession* pSession, BOOL bGraceful)
+void CCRealCPNet::CloseSession(CCRealSession* pSession, BOOL bGraceful)
 {
 	m_SessionMap.Lock();
 		if (m_SessionMap.IsExistUnsafe(pSession)) {
@@ -581,7 +581,7 @@ void MRealCPNet::CloseSession(MRealSession* pSession, BOOL bGraceful)
 				shutdown(sd, SD_BOTH);*/
 				closesocket(sd);
 				pSession->SetSocket(INVALID_SOCKET);
-				pSession->SetSessionState(MRealSession::SESSIONSTATE_DEAD);	// Set Dead Mark
+				pSession->SetSessionState(CCRealSession::SESSIONSTATE_DEAD);	// Set Dead Mark
 			}
 
 			if (m_fnCallback)
@@ -596,17 +596,17 @@ void MRealCPNet::CloseSession(MRealSession* pSession, BOOL bGraceful)
 } 
 
 // Free all context structure in the global list of context structures.
-VOID MRealCPNet::DeleteAllSession()
+VOID CCRealCPNet::DeleteAllSession()
 {
 	m_SessionMap.RemoveAll();
 	return;
 }
 
-bool MRealCPNet::GetAddress(SOCKET sd, char* pszAddress, int* pPort)
+bool CCRealCPNet::GetAddress(SOCKET sd, char* pszAddress, int* pPort)
 {
 	bool bResult = false;
 	m_SessionMap.Lock();
-		MRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
+		CCRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
 		if (pSession) {
 			strcpy(pszAddress, pSession->GetIPString());
 			*pPort = pSession->GetPort();
@@ -616,11 +616,11 @@ bool MRealCPNet::GetAddress(SOCKET sd, char* pszAddress, int* pPort)
 	return bResult;
 }
 
-void* MRealCPNet::GetUserContext(SOCKET sd)
+void* CCRealCPNet::GetUserContext(SOCKET sd)
 {
 	void* pRet = NULL;
 	m_SessionMap.Lock();
-		MRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
+		CCRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
 		if (pSession) {
 			pRet = pSession->GetUserContext();
 		}
@@ -628,10 +628,10 @@ void* MRealCPNet::GetUserContext(SOCKET sd)
 	return pRet;
 }
 
-void MRealCPNet::SetUserContext(SOCKET sd, void* pContext)
+void CCRealCPNet::SetUserContext(SOCKET sd, void* pContext)
 {
 	m_SessionMap.Lock();
-		MRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
+		CCRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
 		if (pSession) {
 			pSession->SetUserContext(pContext);
 		}
@@ -639,14 +639,14 @@ void MRealCPNet::SetUserContext(SOCKET sd, void* pContext)
 }
 
 // pPacket은 malloc, free
-bool MRealCPNet::Send(SOCKET sd, MPacketHeader* pPacket, int nSize)
+bool CCRealCPNet::Send(SOCKET sd, CCPacketHeader* pPacket, int nSize)
 {
 	_ASSERT(nSize > 0);
 
 	// Send Queue 구성하려면 여기에..
 
 	m_SessionMap.Lock();
-		MRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
+		CCRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
 		if (pSession) {
 			PostIOSend(sd, (char*)pPacket, nSize);
 		} else {
@@ -656,7 +656,7 @@ bool MRealCPNet::Send(SOCKET sd, MPacketHeader* pPacket, int nSize)
 	return true;
 }
 
-bool MRealCPNet::PostIOSend(SOCKET sd, char* pBuf, DWORD nBufLen)
+bool CCRealCPNet::PostIOSend(SOCKET sd, char* pBuf, DWORD nBufLen)
 {
 //	_ASSERT(nBufLen < MAX_BUFF_SIZE);
 
@@ -689,11 +689,11 @@ bool MRealCPNet::PostIOSend(SOCKET sd, char* pBuf, DWORD nBufLen)
 	return true;
 }
 
-void MRealCPNet::PostIORecv(SOCKET sd)
+void CCRealCPNet::PostIORecv(SOCKET sd)
 {
 	int nRet = 0;
 	m_SessionMap.Lock();
-		MRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
+		CCRealSession* pSession = m_SessionMap.GetSessionUnsafe(sd);
 		if (pSession) {
 			// RCP_IO_READ이벤트가 발생하면 그때 삭제가 된다.
 			// 생성 시점과 삭제 시점이 다르기 때문에 완벽하게 제어가 구조상 어려워서 방치를 함.
@@ -726,15 +726,15 @@ void MRealCPNet::PostIORecv(SOCKET sd)
 }
 
 // Allocate a socket context for the new connection.  
-MRealSession* MRealCPNet::CreateSession(SOCKET sd, RCP_IO_OPERATION ClientIO)
+CCRealSession* CCRealCPNet::CreateSession(SOCKET sd, RCP_IO_OPERATION ClientIO)
 {
-	MRealSession* pSession;
-	pSession = new MRealSession;
+	CCRealSession* pSession;
+	pSession = new CCRealSession;
 	if (pSession) {
 		pSession->SetSocket(sd);
 //		pSession->m_RecvIOContext.Init(ClientIO);
 	} else {
-		RCPLOG("new MRealSession Failed: %d\n", GetLastError());
+		RCPLOG("new CCRealSession Failed: %d\n", GetLastError());
 		return NULL;
 	}
 	g_LogSessionCreated++;
@@ -742,19 +742,19 @@ MRealSession* MRealCPNet::CreateSession(SOCKET sd, RCP_IO_OPERATION ClientIO)
 }
 
 // Worker thread that handles all I/O requests on any socket handle added to the IOCP.
-DWORD WINAPI MRealCPNet::WorkerThread(LPVOID WorkThreadContext)
+DWORD WINAPI CCRealCPNet::WorkerThread(LPVOID WorkThreadContext)
 {
 
 
 	BOOL				bSuccess = FALSE;
 	int					nRet;
 
-	MRealCPNet*			pRealCPNet = (MRealCPNet*)WorkThreadContext;
+	CCRealCPNet*			pRealCPNet = (CCRealCPNet*)WorkThreadContext;
 	HANDLE				hIOCP = pRealCPNet->m_hIOCP;
 
 	LPOVERLAPPED		lpOverlapped = NULL;
-	MRealSession*		pSession = NULL;
-	MRealSession*		lpAcceptSession = NULL;
+	CCRealSession*		pSession = NULL;
+	CCRealSession*		lpAcceptSession = NULL;
 
 	DWORD				dwRecvNumBytes = 0;
 	DWORD				dwSendNumBytes = 0;
@@ -912,7 +912,7 @@ __try{
 
 				if (pRealCPNet->m_fnCallback)
 					pRealCPNet->m_fnCallback(pRealCPNet->m_pCallbackContext, RCP_IO_ACCEPT, (DWORD)lpAcceptSession->GetSocket(), 
-											(MPacketHeader*)lpAcceptSession->m_RecvBuffer, (DWORD)dwIoSize);
+											(CCPacketHeader*)lpAcceptSession->m_RecvBuffer, (DWORD)dwIoSize);
 
 				pRealCPNet->PostIORecv(lpAcceptSession->GetSocket());
 
@@ -936,13 +936,13 @@ __try{
 				// DEAD인데 IoSize있는경우있음
 				pRealCPNet->m_SessionMap.Lock();
 					if (pRealCPNet->m_SessionMap.IsExistUnsafe(pSession)) {	// Ensure exist Session 
-						if (pSession->GetSessionState() != MRealSession::SESSIONSTATE_DEAD) {
+						if (pSession->GetSessionState() != CCRealSession::SESSIONSTATE_DEAD) {
 							sdRecv = pSession->GetSocket();
 							//lpIOContext->nTransBytes = dwIoSize;
 							if (pRealCPNet->m_fnCallback)
 								pRealCPNet->m_fnCallback(pRealCPNet->m_pCallbackContext, RCP_IO_READ, 
 													(DWORD)pSession->GetSocket(), 
-													(MPacketHeader*)pSession->m_RecvBuffer, (DWORD)dwIoSize);
+													(CCPacketHeader*)pSession->m_RecvBuffer, (DWORD)dwIoSize);
 						}
 					}
 				pRealCPNet->m_SessionMap.Unlock();
@@ -987,7 +987,7 @@ __try{
 } 
 
 
-DWORD MRealCPNet::CrashDump(PEXCEPTION_POINTERS ExceptionInfo)
+DWORD CCRealCPNet::CrashDump(PEXCEPTION_POINTERS ExceptionInfo)
 {
 	cclog("CrashDump Entered 1\n");
 	EnterCriticalSection(&m_csCrashDump);

@@ -201,7 +201,7 @@ bool ZCombatInterface::OnCreate()
 
 	if (ZGetMyInfo()->IsAdminGrade()) {
 		CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-		if (pCache && pCache->GetUGrade()==CCMUGEVENTMASTER && pCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
+		if (pCache && pCache->GetUGrade()==CCMUGEVENTMASTER && pCache->CheckFlag(CCTD_PlayerFlags_AdminHide)) {
 			ShowChatOutput(false);
 		}
 	}

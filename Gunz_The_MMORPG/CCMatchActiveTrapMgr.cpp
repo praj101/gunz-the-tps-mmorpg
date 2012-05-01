@@ -161,16 +161,16 @@ void CCMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
 
 	if (num <= 0) return;
 
-	void* pTrapArray = MMakeBlobArray(sizeof(MTD_ActivatedTrap), num);
+	void* pTrapArray = MMakeBlobArray(sizeof(CCTD_ActivatedTrap), num);
 
-	MTD_ActivatedTrap* pNode;
+	CCTD_ActivatedTrap* pNode;
 	int nIndex = 0;
 	for (ItorTrap it=m_listTrap.begin(); it!=m_listTrap.end(); ++it)
 	{
 		pTrap = *it;
 		if (pTrap->IsActivated())
 		{
-			pNode = (MTD_ActivatedTrap*)MGetBlobArrayElement(pTrapArray, nIndex++);
+			pNode = (CCTD_ActivatedTrap*)MGetBlobArrayElement(pTrapArray, nIndex++);
 			Make_MTDActivatedTrap(pNode, pTrap);
 		}
 		else
@@ -182,8 +182,8 @@ void CCMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
 		}
 	}
 
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
+	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
 	MEraseBlobArray(pTrapArray);
 
 	CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
@@ -199,13 +199,13 @@ void CCMatchActiveTrapMgr::RouteTrapActivationForForcedEnterd(CCMatchActiveTrap*
 	int numTarget = (int)pTrap->m_vecUidForcedEntered.size();
 	if (numTarget <= 0) return;
 
-	void* pTrapArray = MMakeBlobArray(sizeof(MTD_ActivatedTrap), 1);
+	void* pTrapArray = MMakeBlobArray(sizeof(CCTD_ActivatedTrap), 1);
 	
-	MTD_ActivatedTrap* pNode = (MTD_ActivatedTrap*)MGetBlobArrayElement(pTrapArray, 0);
+	CCTD_ActivatedTrap* pNode = (CCTD_ActivatedTrap*)MGetBlobArrayElement(pTrapArray, 0);
 	Make_MTDActivatedTrap(pNode, pTrap);
 
-	MCommand* pCommand = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, CCUID(0,0));
-	pCommand->AddParameter(new MCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
+	CCCommand* pCommand = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, CCUID(0,0));
+	pCommand->AddParameter(new CCCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
 
 	CCMatchObject* pObj;
 	for (int i=0; i<numTarget; ++i)
@@ -213,7 +213,7 @@ void CCMatchActiveTrapMgr::RouteTrapActivationForForcedEnterd(CCMatchActiveTrap*
 		pObj = m_pStage->GetObj( pTrap->m_vecUidForcedEntered[i]);
 		if (!pObj) continue;
 
-		MCommand* pSendCmd = pCommand->Clone();
+		CCCommand* pSendCmd = pCommand->Clone();
 		CCMatchServer::GetInstance()->RouteToListener(pObj, pSendCmd);
 	}
 

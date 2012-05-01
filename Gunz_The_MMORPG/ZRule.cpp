@@ -104,17 +104,17 @@ ZRule* ZRule::CreateRule(ZMatch* pMatch, CCMATCH_GAMETYPE nGameType)
 
 }
 
-bool ZRule::OnCommand(MCommand* pCommand)
+bool ZRule::OnCommand(CCCommand* pCommand)
 {
 	return false;
 }
 
-void ZRule::AfterCommandProcessed( MCommand* pCommand )
+void ZRule::AfterCommandProcessed( CCCommand* pCommand )
 {
 
 }
 
-void ZRule::OnResponseRuleInfo(MTD_RuleInfo* pInfo)
+void ZRule::OnResponseRuleInfo(CCTD_RuleInfo* pInfo)
 {
 
 }

@@ -153,12 +153,12 @@ void CCMatchCheckLoopTime::SaveLoopLogFile()
 	dwGap = m_dwEndPrepareRun - m_dwStartPrepareRun;
 	if (dwGap > 0)
 	{
-		cclog("MCommandCommunicator::Run() OnPrepareRun() [Gap : %5u]\n", dwGap);
+		cclog("CCCommandCommunicator::Run() OnPrepareRun() [Gap : %5u]\n", dwGap);
 	}
 	dwGap = m_dwEndCommand - m_dwStartCommand;
 	if (dwGap > 0)
 	{
-		cclog("MCommandCommunicator::Run() while (true)   [Gap : %5u]\n", dwGap);
+		cclog("CCCommandCommunicator::Run() while (true)   [Gap : %5u]\n", dwGap);
 	}
 	if (m_nVecCount > m_dwMaxCommandCount)
 	{

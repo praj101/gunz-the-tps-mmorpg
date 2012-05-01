@@ -183,7 +183,7 @@ protected:
 	virtual void OnBegin();								///< 전체 게임 시작시 호출
 	virtual void OnEnd();								///< 전체 게임 종료시 호출
 	virtual bool OnRun();								///< 게임틱시 호출
-	virtual void OnCommand(MCommand* pCommand);			///< 퀘스트에서만 사용하는 커맨드 처리
+	virtual void OnCommand(CCCommand* pCommand);			///< 퀘스트에서만 사용하는 커맨드 처리
 	virtual bool OnCheckRoundFinish();					///< 라운드가 끝났는지 체크
 public:
 	CCMatchRuleQuest(CCMatchStage* pStage);				///< 생성자

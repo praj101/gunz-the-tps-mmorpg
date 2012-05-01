@@ -9,7 +9,7 @@ unsigned long int MGetTimeDistance(unsigned long int nTimeA, unsigned long int n
 class CCZFileSystem;
 unsigned long MGetMemoryChecksum(char *pBuffer, int nLen);
 unsigned long MGetCCZFileChecksum(const char* pszFileName);
-void MMakeSeedKey(MPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp);
+void MMakeSeedKey(CCPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp);
 
 struct MShortVector
 {

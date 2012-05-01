@@ -26,7 +26,7 @@ public:
 	ZRuleTeamDeathMatch2(ZMatch* pMatch);
 	virtual ~ZRuleTeamDeathMatch2();
 
-	virtual bool OnCommand(MCommand* pCommand);
+	virtual bool OnCommand(CCCommand* pCommand);
 };
 
 

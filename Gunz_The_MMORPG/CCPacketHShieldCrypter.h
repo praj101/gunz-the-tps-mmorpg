@@ -2,11 +2,11 @@
 #include "../HShield/HsCryptLib.h"
 #include "CCPacket.h"
 
-class MPacketHShieldCrypter
+class CCPacketHShieldCrypter
 {
 public:
-	MPacketHShieldCrypter(void);
-	~MPacketHShieldCrypter(void);
+	CCPacketHShieldCrypter(void);
+	~CCPacketHShieldCrypter(void);
 
 	static DWORD Init();
 	static DWORD Encrypt(PBYTE pbyInput, UINT nInLength);

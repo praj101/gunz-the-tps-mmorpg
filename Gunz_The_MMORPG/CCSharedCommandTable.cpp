@@ -6,7 +6,7 @@
 #include "CCMatchObject.h"
 #include "CCMatchGlobal.h"
 
-void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
+void MAddSharedCommandTable(CCCommandManager* pCommandManager, int nSharedType)
 {
 	BEGIN_CMD_DESC(pCommandManager);
 

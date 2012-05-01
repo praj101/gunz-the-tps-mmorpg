@@ -12,7 +12,7 @@ ZNPCInfoFromServerManager::~ZNPCInfoFromServerManager()
 }
 
 
-const MTD_NPCINFO* ZNPCInfoFromServerManager::GetNPCInfo( const BYTE nNPCID )
+const CCTD_NPCINFO* ZNPCInfoFromServerManager::GetNPCInfo( const BYTE nNPCID )
 {
 	ZNPCInfoFromServerManager::const_iterator itFind = find( nNPCID );
 	if( end() == itFind )
@@ -38,7 +38,7 @@ void ZNPCInfoFromServerManager::Clear()
 }
 
 
-bool ZNPCInfoFromServerManager::CreateNPCInfo( const MTD_NPCINFO* pNPCInfo )
+bool ZNPCInfoFromServerManager::CreateNPCInfo( const CCTD_NPCINFO* pNPCInfo )
 {
 	if( NULL == pNPCInfo )
 	{
@@ -47,7 +47,7 @@ bool ZNPCInfoFromServerManager::CreateNPCInfo( const MTD_NPCINFO* pNPCInfo )
 
 	_ASSERTE( end() == find(pNPCInfo->m_nNPCTID) && "NPC타입이 중복되면 안된다." );
 
-	MTD_NPCINFO* pNewNPCInfo = new MTD_NPCINFO;
+	CCTD_NPCINFO* pNewNPCInfo = new CCTD_NPCINFO;
 	if( NULL == pNewNPCInfo )
 	{
 		return false;

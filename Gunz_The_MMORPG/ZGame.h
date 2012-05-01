@@ -67,7 +67,7 @@ struct ZPICKINFO {
 
 struct ZObserverCommandItem {
 	float fTime;
-	MCommand *pCommand;
+	CCCommand *pCommand;
 };
 
 class ZObserverCommandList : public list<ZObserverCommandItem*> {
@@ -123,7 +123,7 @@ protected:
 	set<const ZCharacter*>	m_setCharacterExceptFromNpcTarget;		// NPC가 타겟으로 삼지 않아야 하는 캐릭터
 
 	void OnPreDraw();
-	bool OnRuleCommand(MCommand* pCommand);
+	bool OnRuleCommand(CCCommand* pCommand);
 	bool InRanged( ZObject* pAttacker, ZObject* pVictim);
 	bool InRanged( ZObject* pAttacker, ZObject* pVictim, int &nDebugRegister/*디버그 레지스터 해킹 방지를 위한 변수*/);
 
@@ -210,13 +210,13 @@ public:
 	void InitRound();
 	void AddEffectRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg);
 
-	bool CreateMyCharacter(CCTD_CharInfo* pCharInfo);//버프정보임시주석 , MTD_CharBuffInfo* pCharBuffInfo);
+	bool CreateMyCharacter(CCTD_CharInfo* pCharInfo);//버프정보임시주석 , CCTD_CharBuffInfo* pCharBuffInfo);
 	void DeleteCharacter(const CCUID& uid);
 	void RefreshCharacters();
 	void ConfigureCharacter(const CCUID& uidChar, CCMatchTeam nTeam, unsigned char nPlayerFlags);
 
-	bool OnCommand(MCommand* pCommand);
-	bool OnCommand_Immidiate(MCommand* pCommand);
+	bool OnCommand(CCCommand* pCommand);
+	bool OnCommand_Immidiate(CCCommand* pCommand);
 
 	// 녹화 & 재생
 	void ToggleRecording();
@@ -233,7 +233,7 @@ public:
 
 	// 옵저버 
 	void OnObserverRun();
-	void OnCommand_Observer(MCommand* pCommand);
+	void OnCommand_Observer(CCCommand* pCommand);
 	void FlushObserverCommands();
 	int	GetObserverCommandListCount() { return (int)m_ObserverCommandList.size(); }
 
@@ -314,11 +314,11 @@ protected:
 	void OnReserveObserver();
 	void DrawDebugInfo();
 
-	void OnStageEnterBattle(MCmdEnterBattleParam nParam, MTD_PeerListNode* pPeerNode);
+	void OnStageEnterBattle(MCmdEnterBattleParam nParam, CCTD_PeerListNode* pPeerNode);
 	void OnStageLeaveBattle(const CCUID& uidChar, const bool bIsRelayMap);//, const CCUID& uidStage);
 	void OnPeerList(const CCUID& uidStage, void* pBlob, int nCount);
 	void OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort =	
-		MATCHCLIENT_DEFAULT_UDP_PORT, MTD_PeerListNode* pNode = NULL);
+		MATCHCLIENT_DEFAULT_UDP_PORT, CCTD_PeerListNode* pNode = NULL);
 	void OnGameRoundState(const CCUID& uidStage, int nRound, int nRoundState, int nArg);
 
 	void OnGameResponseTimeSync(unsigned int nLocalTimeStamp, unsigned int nGlobalTimeSync);
@@ -345,26 +345,26 @@ protected:
 	
 
 //	void OnPeerAdd();
-	void OnPeerBasicInfo(MCommand *pCommand,bool bAddHistory=true,bool bUpdate=true);
-	void OnPeerHPInfo(MCommand *pCommand);
-	void OnPeerHPAPInfo(MCommand *pCommand);
-	void OnPeerDuelTournamentHPAPInfo(MCommand *pCommand);
-	void OnPeerPing(MCommand *pCommand);
-	void OnPeerPong(MCommand *pCommand);
-	void OnPeerOpened(MCommand *pCommand);
-	void OnPeerDash(MCommand* pCommand);
+	void OnPeerBasicInfo(CCCommand *pCommand,bool bAddHistory=true,bool bUpdate=true);
+	void OnPeerHPInfo(CCCommand *pCommand);
+	void OnPeerHPAPInfo(CCCommand *pCommand);
+	void OnPeerDuelTournamentHPAPInfo(CCCommand *pCommand);
+	void OnPeerPing(CCCommand *pCommand);
+	void OnPeerPong(CCCommand *pCommand);
+	void OnPeerOpened(CCCommand *pCommand);
+	void OnPeerDash(CCCommand* pCommand);
 	void OnPeerBuffInfo(const CCUID& uidSender, void* pBlobBuffInfo);
 
 		
-	bool FilterDelayedCommand(MCommand *pCommand);
+	bool FilterDelayedCommand(CCCommand *pCommand);
 	void ProcessDelayedCommand();
 
 	// 투표는 봉인
 	//	void AdjustGlobalTime();
 	//	void AdjustMyData();
 
-	void OnLocalOptainSpecialWorldItem(MCommand* pCommand);
-	void OnResetTeamMembers(MCommand* pCommand);
+	void OnLocalOptainSpecialWorldItem(CCCommand* pCommand);
+	void OnResetTeamMembers(CCCommand* pCommand);
 
 public:
 
@@ -391,7 +391,7 @@ public:
 
 	void OnResponseUseSpendableBuffItem(CCUID& uidItem, int nResult);
 	//버프정보임시주석 
-	//void OnGetSpendableBuffItemStatus(CCUID& uidChar, MTD_CharBuffInfo* pCharBuffInfo);
+	//void OnGetSpendableBuffItemStatus(CCUID& uidChar, CCTD_CharBuffInfo* pCharBuffInfo);
 
 	void ApplyPotion(int nItemID, ZCharacter* pCharObj, float fRemainedTime);
 	void OnUseTrap(int nItemID, ZCharacter* pCharObj, rvector& pos);

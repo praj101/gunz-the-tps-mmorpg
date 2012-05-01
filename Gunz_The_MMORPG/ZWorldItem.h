@@ -50,7 +50,7 @@ protected:
 	char					m_modelName[MAX_NAME_LENGTH];	// 모델 이름
 	CCMATCH_WORLD_ITEM_TYPE	m_Type;							// 아이템의 종류
 	ZWORLD_ITEM_STATE		m_State;						// 아이템의 상태
-	MTD_WorldItemSubType	m_SubType;
+	CCTD_WorldItemSubType	m_SubType;
 	rvector					m_Position;						// 아이템의 월드 위치
 	rvector					m_Dir;
 	rvector					m_Up;
@@ -64,7 +64,7 @@ public:
 	bool					m_bisDraw;
 public:
 	// 아이템 생성
-	void Initialize( int nID, short nItemID, MTD_WorldItemSubType SubType, ZWORLD_ITEM_STATE state, unsigned int nSpawnTypeFlags,	// 스폰 형식
+	void Initialize( int nID, short nItemID, CCTD_WorldItemSubType SubType, ZWORLD_ITEM_STATE state, unsigned int nSpawnTypeFlags,	// 스폰 형식
 							rvector& position, float fAmount		);
 
 	virtual bool ApplyWorldItem( ZCharacter* pCharacter );					// 먹히기
@@ -80,7 +80,7 @@ public:
 	void SetName( char* szName )							{ strcpy(m_Name, szName );	};
 	void SetModelName( char* szName )						{ strcpy(m_modelName, szName );	};
 	
-	MTD_WorldItemSubType GetSubType()						{ return m_SubType; }
+	CCTD_WorldItemSubType GetSubType()						{ return m_SubType; }
 
 	rvector GetPosition() const									{ return m_Position; };
 	rvector GetDir() const									{ return m_Dir; };
@@ -145,7 +145,7 @@ protected:
 	void OnOptainWorldItem(ZWorldItem* pItem);
 public:
 	void update();																			// 캐릭터와의 충돌 체크, 아이템 생성시간 체크
-	ZWorldItem *AddWorldItem( int nID, short nItemID,MTD_WorldItemSubType nItemSubType, rvector& pos );	// 맵 로딩시 아이템 추가할때 호출하는 함수
+	ZWorldItem *AddWorldItem( int nID, short nItemID,CCTD_WorldItemSubType nItemSubType, rvector& pos );	// 맵 로딩시 아이템 추가할때 호출하는 함수
 			
 	bool DeleteWorldItem( int nID, bool bDrawRemoveEffect=false );
 

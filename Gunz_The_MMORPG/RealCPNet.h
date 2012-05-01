@@ -2,7 +2,7 @@
 #define REALCPNET_H
 
 //////////////////////////////////////////////////////////////////
-// Class:	MRealCPNet class (2001/10/25)
+// Class:	CCRealCPNet class (2001/10/25)
 // File:	RealCPNet.cpp
 // Author:	Kim young ho (moanus@maiet.net)
 //
@@ -27,9 +27,9 @@ using namespace std;
 #define MAX_WORKER_THREAD	16
 
 
-typedef list<MPacketHeader*>		MPacketList;
-typedef MPacketList::iterator		MPacketListItor;
-class MRealCPNet;
+typedef list<CCPacketHeader*>		CCPacketList;
+typedef CCPacketList::iterator		CCPacketListItor;
+class CCRealCPNet;
 
 
 typedef enum RCP_IO_OPERATION {
@@ -116,10 +116,10 @@ public:
 	int GetBufferSize()				{ return m_nBufferSize; }
 };
 
-// For AcceptEx, the IOCP key is the MRealSession for the listening socket,
+// For AcceptEx, the IOCP key is the CCRealSession for the listening socket,
 // so we need to another field SocketAccept in PER_IO_CONTEXT. When the outstanding
 // AcceptEx completes, this field is our connection socket handle.
-class MRealSession {
+class CCRealSession {
 public:
 	enum SESSIONSTATE { SESSIONSTATE_IDLE, SESSIONSTATE_ACTIVE, SESSIONSTATE_DEAD };
 
@@ -133,7 +133,7 @@ public:
 	CHAR						m_RecvBuffer[MAX_BUFF_SIZE];	// RCPOverlappedRecv 용도
 
 public:
-	MRealSession() { 
+	CCRealSession() { 
 		m_sdSocket = INVALID_SOCKET;
 		ZeroMemory(&m_SockAddr, sizeof(SOCKADDR_IN));
 		SetSessionState(SESSIONSTATE_IDLE); 
@@ -142,7 +142,7 @@ public:
 		ZeroMemory(m_RecvBuffer, sizeof(CHAR)*MAX_BUFF_SIZE);
 	}
 
-	virtual ~MRealSession() {}
+	virtual ~CCRealSession() {}
 
 	void SetSocket(SOCKET sd)	{ m_sdSocket = sd; }
 	SOCKET	GetSocket()			{ return m_sdSocket; }
@@ -162,29 +162,29 @@ public:
 };
 
 
-class MSessionMap : protected map<SOCKET, MRealSession*> {
+class CCSessionMap : protected map<SOCKET, CCRealSession*> {
 protected:
 	CRITICAL_SECTION	m_csLock;
 
 public:
-	MSessionMap()			{ InitializeCriticalSection(&m_csLock); }
-	virtual ~MSessionMap()	{ DeleteCriticalSection(&m_csLock); }
+	CCSessionMap()			{ InitializeCriticalSection(&m_csLock); }
+	virtual ~CCSessionMap()	{ DeleteCriticalSection(&m_csLock); }
 
 	// Safe Methods ////////////////////////////////////////////////////////
-	void Add(MRealSession* pSession) {
+	void Add(CCRealSession* pSession) {
 		Lock();
 			_ASSERT(pSession->GetSocket() != INVALID_SOCKET);
-			insert(MSessionMap::value_type(pSession->GetSocket(), pSession));
+			insert(CCSessionMap::value_type(pSession->GetSocket(), pSession));
 		Unlock();
 	}
-	bool Remove(SOCKET sd, MSessionMap::iterator* pNextItor=NULL) {
+	bool Remove(SOCKET sd, CCSessionMap::iterator* pNextItor=NULL) {
 		bool bResult = false;
 		Lock();
-			MSessionMap::iterator i = find(sd);
+			CCSessionMap::iterator i = find(sd);
 			if (i!=end()) {
-				MRealSession* pSession = (*i).second;
+				CCRealSession* pSession = (*i).second;
 				delete pSession;
-				MSessionMap::iterator itorTmp = erase(i);
+				CCSessionMap::iterator itorTmp = erase(i);
 				if (pNextItor)
 					*pNextItor = itorTmp;
 				bResult = true;
@@ -194,32 +194,32 @@ public:
 	}
 	void RemoveAll() {
 #ifdef _DEBUG
-		OutputDebugString("MSessionMap::RemoveAll() Proceeding \n");
+		OutputDebugString("CCSessionMap::RemoveAll() Proceeding \n");
 #endif
 		Lock();
-			MSessionMap::iterator itor = begin();
+			CCSessionMap::iterator itor = begin();
 			while( itor != end()) {
-				MRealSession* pSession = (*itor).second;
+				CCRealSession* pSession = (*itor).second;
 				delete pSession;
 				itor = erase(itor);
 			}
 		Unlock();
 #ifdef _DEBUG
-		OutputDebugString("MSessionMap::RemoveAll() Finished \n");
+		OutputDebugString("CCSessionMap::RemoveAll() Finished \n");
 #endif
 	}
 	bool IsExist(SOCKET sd) {
 		bool bResult = false;
 		Lock();
-			MSessionMap::iterator i = find(sd);
+			CCSessionMap::iterator i = find(sd);
 			if(i!=end()) bResult = true;				
 		Unlock();
 		return bResult;
 	}
-	MRealSession* GetSession(SOCKET sd) {
-		MRealSession* pSession = NULL;
+	CCRealSession* GetSession(SOCKET sd) {
+		CCRealSession* pSession = NULL;
 		Lock();
-			MSessionMap::iterator i = find(sd);
+			CCSessionMap::iterator i = find(sd);
 			if(i!=end()) 
 				pSession = (*i).second;
 		Unlock();
@@ -231,44 +231,44 @@ public:
 	void Lock()		{ EnterCriticalSection(&m_csLock); }
 	void Unlock()	{ LeaveCriticalSection(&m_csLock); }
 
-	MSessionMap::iterator GetBeginItorUnsafe()	{ return begin(); }
-	MSessionMap::iterator GetEndItorUnsafe()	{ return end(); }
-	MRealSession* GetSessionUnsafe(SOCKET sd) {		// 반드시 Lock과 Unlock을 동반해서 사용
-		MSessionMap::iterator i = find(sd);
+	CCSessionMap::iterator GetBeginItorUnsafe()	{ return begin(); }
+	CCSessionMap::iterator GetEndItorUnsafe()	{ return end(); }
+	CCRealSession* GetSessionUnsafe(SOCKET sd) {		// 반드시 Lock과 Unlock을 동반해서 사용
+		CCSessionMap::iterator i = find(sd);
 		if(i==end()) 
 			return NULL;
 		else
 			return (*i).second;
 	}
-	bool IsExistUnsafe(MRealSession* pSession) {
-		for (MSessionMap::iterator i=begin(); i!=end(); i++) {
-			MRealSession* pItorSession = (*i).second;
+	bool IsExistUnsafe(CCRealSession* pSession) {
+		for (CCSessionMap::iterator i=begin(); i!=end(); i++) {
+			CCRealSession* pItorSession = (*i).second;
 			if (pItorSession == pSession)
 				return true;
 		}
 		return false;
 	}
-	bool RemoveUnsafe(SOCKET sd, MSessionMap::iterator* pNextItor=NULL) {
+	bool RemoveUnsafe(SOCKET sd, CCSessionMap::iterator* pNextItor=NULL) {
 		bool bResult = false;
-		MSessionMap::iterator i = find(sd);
+		CCSessionMap::iterator i = find(sd);
 		if (i!=end()) {
-			MRealSession* pSession = (*i).second;
+			CCRealSession* pSession = (*i).second;
 			delete pSession;
-			MSessionMap::iterator itorTmp = erase(i);
+			CCSessionMap::iterator itorTmp = erase(i);
 			if (pNextItor)
 				*pNextItor = itorTmp;
 			bResult = true;
 		}
 		return bResult;
 	}
-friend MRealCPNet;
+friend CCRealCPNet;
 };
 
 
-typedef void(RCPCALLBACK)(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD dwKey, MPacketHeader* pPacket, DWORD dwPacketLen);
+typedef void(RCPCALLBACK)(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD dwKey, CCPacketHeader* pPacket, DWORD dwPacketLen);
 
 
-class MRealCPNet {
+class CCRealCPNet {
 private:
 	unsigned short		m_nPort;
 	BOOL				m_bEndServer;
@@ -280,8 +280,8 @@ private:
 	HANDLE				m_ThreadHandles[MAX_WORKER_THREAD];
 	HANDLE				m_hCleanupEvent;
 
-	MRealSession*		m_pListenSession;
-	MSessionMap			m_SessionMap;
+	CCRealSession*		m_pListenSession;
+	CCSessionMap			m_SessionMap;
 
 	CRITICAL_SECTION	m_csCrashDump;
 
@@ -296,7 +296,7 @@ protected:
 	BOOL CreateListenSocket( const bool bReuse );
 	BOOL CreateAcceptSocket(BOOL fUpdateIOCP);
 
-	MRealSession* UpdateCompletionPort(SOCKET sd, RCP_IO_OPERATION nOperation, BOOL bAddToList);
+	CCRealSession* UpdateCompletionPort(SOCKET sd, RCP_IO_OPERATION nOperation, BOOL bAddToList);
 	// bAddToList is FALSE for listening socket, and TRUE for connection sockets.
 	// As we maintain the context for listening socket in a global structure, we
 	// don't need to add it to the list.
@@ -307,14 +307,14 @@ protected:
 	static bool MakeSockAddr(char* pszIP, int nPort, sockaddr_in* pSockAddr);
 	bool CheckIPFloodAttack(sockaddr_in* pRemoteAddr, int* poutIPCount);
 
-	MRealSession* CreateSession(SOCKET sd, RCP_IO_OPERATION ClientIO);
+	CCRealSession* CreateSession(SOCKET sd, RCP_IO_OPERATION ClientIO);
 	void DeleteAllSession();
 
 	static DWORD WINAPI WorkerThread(LPVOID WorkContext);
 
 public:
-	MRealCPNet();
-	~MRealCPNet();
+	CCRealCPNet();
+	~CCRealCPNet();
 	bool Create(int nPort, const bool bReuse = false );
 	void Destroy();
 
@@ -323,13 +323,13 @@ public:
 
 	bool Connect(SOCKET* pSocket, char* pszAddress, int nPort);
 	void Disconnect(SOCKET sd, bool bIsInCallback = false);
-	VOID CloseSession(MRealSession* pSession, BOOL bGraceful);
+	VOID CloseSession(CCRealSession* pSession, BOOL bGraceful);
 
 	bool GetAddress(SOCKET sd, char* pszAddress, int* pPort);
 	void* GetUserContext(SOCKET sd);
 	void SetUserContext(SOCKET sd, void* pContext);
 
-	bool Send(SOCKET sd, MPacketHeader* pPacket, int nSize);	/// Packet은 malloc free 사용
+	bool Send(SOCKET sd, CCPacketHeader* pPacket, int nSize);	/// Packet은 malloc free 사용
 
 friend RCPCALLBACK;
 };
