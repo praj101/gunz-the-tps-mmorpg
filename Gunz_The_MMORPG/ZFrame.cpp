@@ -32,7 +32,7 @@ void ZFrame::Show(bool bVisible, bool bModal)
 		m_bExclusive=bModal;
 }
 
-void ZFrame::OnDraw(MDrawContext* pDC)
+void ZFrame::OnDraw(CCDrawContext* pDC)
 {
 //	bool bExclusive=false;
 	
@@ -53,8 +53,8 @@ void ZFrame::OnDraw(MDrawContext* pDC)
 	// 백그라운를 어둡게 만들고...
  	if( m_bExclusive ){
 
-		MRECT Full(0, 0, MGetWorkspaceWidth()-1, MGetWorkspaceHeight()-1);
-		MRECT PrevClip = pDC->GetClipRect();
+		sRect Full(0, 0, MGetWorkspaceWidth()-1, MGetWorkspaceHeight()-1);
+		sRect PrevClip = pDC->GetClipRect();
 		pDC->SetClipRect(Full);
 		unsigned char oldopacity=pDC->SetOpacity(200*fOpacity);
 		pDC->SetColor(0, 0, 0, 255);

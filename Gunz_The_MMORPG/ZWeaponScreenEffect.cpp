@@ -15,7 +15,7 @@ ZWeaponScreenEffect::~ZWeaponScreenEffect()
 
 }
 
-void ZWeaponScreenEffect::Draw(MDrawContext* pDC)
+void ZWeaponScreenEffect::Draw(CCDrawContext* pDC)
 {
 	return;
 
@@ -117,8 +117,8 @@ void ZWeaponScreenEffect::Create()
 	if ((nPrimaryWeaponType == MWT_SNIFER) || (nSecondaryWeaponType == MWT_SNIFER))
 	{
 		if (m_pSniferPanel) delete m_pSniferPanel;
-		m_pSniferPanel = new MBitmapR2;
-		((MBitmapR2*)m_pSniferPanel)->Create("snifer.png", RGetDevice(), "interface/Default/Combat/snifer.png");
+		m_pSniferPanel = new CCBitmapR2;
+		((CCBitmapR2*)m_pSniferPanel)->Create("snifer.png", RGetDevice(), "interface/Default/Combat/snifer.png");
 	}
 }
 

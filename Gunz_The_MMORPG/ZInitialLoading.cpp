@@ -45,8 +45,8 @@ bool ZInitialLoading::Initialize( int numScene_,
 	SAFE_DELETE_ARRAY( mBitmaps );
 	SAFE_DELETE_ARRAY( mBitmap_Bar );
 
-	mBitmaps	= new MBitmapR2[numScene_];
-	mBitmap_Bar	= new MBitmapR2[NUM_BAR_BITMAP];
+	mBitmaps	= new CCBitmapR2[numScene_];
+	mBitmap_Bar	= new CCBitmapR2[NUM_BAR_BITMAP];
 	miNumScene	= numScene_;
 	miCurrScene	= 0;
 
@@ -406,7 +406,7 @@ void	ZInitialLoading::Release()
 	mpStr				= NULL;
 }
 
-void	ZInitialLoading::SetText( MFontR2* pDc, float x, float y, char* str )
+void	ZInitialLoading::SetText( CCFontR2* pDc, float x, float y, char* str )
 {
 	mpDC	= pDc;
 	mtx		= x;
@@ -427,20 +427,20 @@ void	ZInitialLoading::DrawText()
 	}
 }
 
-extern MFontR2*		g_pDefFont;
-extern MDrawContextR2* g_pDC;
+extern CCFontR2*		g_pDefFont;
+extern CCDrawContextR2* g_pDC;
 void	ZInitialLoading::DrawTips()
 {
 //	return;			// 현재 적용안됨
 
 	const float fTipYRatio = 0.83f;
 
-	MFont *pFont= MFontManager::Get("FONTa10_O2Wht");
+	CCFont *pFont= CCFontManager::Get("FONTa10_O2Wht");
 	if (pFont == NULL) pFont = g_pDefFont;
 	if ((g_pDC != 0) && (pFont != 0))
 	{
 		g_pDC->SetFont(pFont);
-		g_pDC->SetColor(MCOLOR(0xFFFFFFFF));
+		g_pDC->SetColor(sColor(0xFFFFFFFF));
 
 		int x, y;
 		int nStrWidth = pFont->GetWidth(m_szTips);
@@ -483,7 +483,7 @@ void	ZInitialLoading::DrawTips()
 		}
 		else
 		{
-			g_pDC->SetColor( MCOLOR(0xFFDADADA));
+			g_pDC->SetColor( sColor(0xFFDADADA));
 			x = (RGetScreenWidth() - nStrWidth) / 2;
 			if (x < 1) x = 1;
 			y = (int)((float)RGetScreenHeight() * fTipYRatio);

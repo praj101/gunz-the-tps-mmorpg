@@ -52,17 +52,17 @@ void ZVoteInterface::CallVote(const char* pszDiscuss)
 	}
 }
 
-void ZVoteInterface::DrawVoteTargetlist(MDrawContext* pDC)
+void ZVoteInterface::DrawVoteTargetlist(CCDrawContext* pDC)
 {
 	if(GetShowTargetList() == false) return;
 
-	MFont *pFont=ZGetGameInterface()->GetCombatInterface()->GetGameFont();
+	CCFont *pFont=ZGetGameInterface()->GetCombatInterface()->GetGameFont();
 	pDC->SetFont(pFont);
 
 	float y = 0.3f;
 	float linespace = (float)pFont->GetHeight() * 1.1 / (float)MGetWorkspaceHeight();
 
-	pDC->SetColor(MCOLOR(0xFFFFFFFF));
+	pDC->SetColor(sColor(0xFFFFFFFF));
 
 	TextRelative( pDC, .05f, y, ZMsg(MSG_VOTE_SELECT_PLAYER_TO_KICK) );
 
@@ -75,20 +75,20 @@ void ZVoteInterface::DrawVoteTargetlist(MDrawContext* pDC)
 		char szBuffer[256];
 		sprintf(szBuffer,"[%c] %s", ConvIndexToKey(i), strName.c_str());
 
-		pDC->SetColor(MCOLOR(0xFFFFFFFF));
+		pDC->SetColor(sColor(0xFFFFFFFF));
 		TextRelative(pDC,.05f,y,szBuffer);
 
 		y+=linespace;
 	}
 
 	y+=linespace;
-	pDC->SetColor(MCOLOR(0xFFFFFFFF));
+	pDC->SetColor(sColor(0xFFFFFFFF));
 	
 	TextRelative(pDC,.05f,y, ZMsg(MSG_VOTE_SELECT_PLAYER_CANCEL));
 }
 
-void TextRelative(MDrawContext* pDC,float x,float y,const char *szText,bool bCenter);
-void ZVoteInterface::DrawVoteMessage(MDrawContext* pDC)		// 투표가 진행중일때 메시지
+void TextRelative(CCDrawContext* pDC,float x,float y,const char *szText,bool bCenter);
+void ZVoteInterface::DrawVoteMessage(CCDrawContext* pDC)		// 투표가 진행중일때 메시지
 {
 	// 투표 진행중일때 메시지
 	if ( (ZGetGameInterface()->GetState() == GUNZ_GAME) &&
@@ -96,9 +96,9 @@ void ZVoteInterface::DrawVoteMessage(MDrawContext* pDC)		// 투표가 진행중일때 메
 		ZGetGameClient()->IsVoteInProgress() && 
 		ZGetGameClient()->CanVote() ) 
 	{
-		MFont *pFont=ZGetGameInterface()->GetCombatInterface()->GetGameFont();
+		CCFont *pFont=ZGetGameInterface()->GetCombatInterface()->GetGameFont();
 		pDC->SetFont(pFont);
-		pDC->SetColor(MCOLOR(0x80ffffff));
+		pDC->SetColor(sColor(0x80ffffff));
 		TextRelative(pDC,300.f/800.f,550/600.f,ZGetGameClient()->GetVoteMessage());
 
 		if(timeGetTime()/500 % 2 == 0 ) {

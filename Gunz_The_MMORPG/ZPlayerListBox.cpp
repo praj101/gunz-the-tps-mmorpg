@@ -3,7 +3,7 @@
 #include "zapplication.h"
 #include "CCMatchObjCache.h"
 #include ".\zplayerlistbox.h"
-#include "MBitmap.h"
+#include "CCBitmap.h"
 #include "MListBox.h"
 #include "zpost.h"
 #include "ZCharacterView.h"
@@ -17,16 +17,16 @@
 
 #define PLAYERLIST_ITEM_HEIGHT	23
 
-bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name);
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
+bool GetUserGradeIDColor(CCMatchUserGradeID gid,sColor& UserNameColor,char* sp_name);
+bool GetUserInfoUID(CCUID uid,sColor& _color,char* sp_name,CCMatchUserGradeID& gid);
 
-void ZPlayerListBoxLook::OnItemDraw2(MDrawContext* pDC, MRECT& r, const char* szText, MCOLOR color, bool bSelected, bool bFocus, int nAdjustWidth)
+void ZPlayerListBoxLook::OnItemDraw2(CCDrawContext* pDC, sRect& r, const char* szText, sColor color, bool bSelected, bool bFocus, int nAdjustWidth)
 {
 	if(szText==NULL) return;
 
 	pDC->SetColor(color);
 
-	MRECT rtemp, rtemp2;
+	sRect rtemp, rtemp2;
 	rtemp2 = rtemp = pDC->GetClipRect();
 	rtemp2.x	+= r.x;
 	rtemp2.y	+= r.y;
@@ -42,23 +42,23 @@ void ZPlayerListBoxLook::OnItemDraw2(MDrawContext* pDC, MRECT& r, const char* sz
 }
 
 
-void ZPlayerListBoxLook::OnItemDraw2(MDrawContext* pDC, MRECT& r, MBitmap* pBitmap, bool bSelected, bool bFocus, int nAdjustWidth)
+void ZPlayerListBoxLook::OnItemDraw2(CCDrawContext* pDC, sRect& r, CCBitmap* pBitmap, bool bSelected, bool bFocus, int nAdjustWidth)
 {
 	if(pBitmap==NULL) return;
 
-	MRECT rtemp, rtemp2;
+	sRect rtemp, rtemp2;
 	rtemp2 = rtemp = pDC->GetClipRect();
 	rtemp2.w -= nAdjustWidth;
 	pDC->SetClipRect(rtemp2);
 
 	pDC->SetBitmap(pBitmap);
 //	pDC->Draw(r.x, r.y);
-	pDC->Draw(r, MRECT(0,0,pBitmap->GetWidth(),pBitmap->GetHeight()));
+	pDC->Draw(r, sRect(0,0,pBitmap->GetWidth(),pBitmap->GetHeight()));
 
 	pDC->SetClipRect(rtemp);
 }
 
-MRECT ZPlayerListBoxLook::GetClientRect(MListBox* pListBox, MRECT& r)
+sRect ZPlayerListBoxLook::GetClientRect(MListBox* pListBox, sRect& r)
 {
 	return r;
 }
@@ -74,7 +74,7 @@ float GetF(float _new)
 }
 
 
-void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, MDrawContext* pDC)
+void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, CCDrawContext* pDC)
 {
 	((ZPlayerListBox*)pListBox)->UpdateList(((ZPlayerListBox*)pListBox)->GetPlayerListMode());
 
@@ -82,17 +82,17 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, MDrawContext* pDC)
 	int newW = RGetScreenWidth();
 	float fA = GetF(newW);
 
-	m_SelectedPlaneColor = MCOLOR(180,220,180);
+	m_SelectedPlaneColor = sColor(180,220,180);
 
 	int nItemHeight = 23*fA;//pListBox->GetItemHeight();
 	int nShowCount = 0;
 
-	MRECT r = pListBox->GetClientRect();
+	sRect r = pListBox->GetClientRect();
 	MPOINT pos = pListBox->GetPosition();
 
 	int nHeaderHeight = nItemHeight;
 
-	MRECT rr = pListBox->m_Rect;
+	sRect rr = pListBox->m_Rect;
 	rr.x = 0;
 	rr.y = 0;
 
@@ -119,27 +119,27 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, MDrawContext* pDC)
 	// 테두리 그려주고
 
 	/*
-	MRECT cliprect = pDC->GetClipRect();//잠시풀어준다..
+	sRect cliprect = pDC->GetClipRect();//잠시풀어준다..
 
 	pDC->SetClipRect(0,0,RGetScreenWidth(),RGetScreenHeight());
 
 	pDC->SetColor(128,128,128);
-	pDC->Rectangle( MRECT(rr.x,rr.y,rr.w,rr.h) );
+	pDC->Rectangle( sRect(rr.x,rr.y,rr.w,rr.h) );
 	*/
 
 	/*
 	//오른쪽 검은색으로 그려주고
 	pDC->SetColor(0,0,0);
-	pDC->FillRectangle(MRECT(rr.x+rr.w-23*fA,rr.y+1,23*fA,rr.h-2));
+	pDC->FillRectangle(sRect(rr.x+rr.w-23*fA,rr.y+1,23*fA,rr.h-2));
 
 	// 오른쪽에 이미지 그려주고
 
 	if( ((ZPlayerListBox*)pListBox)->GetBitmap()) {
-		MBitmap* pBitmap = ((ZPlayerListBox*)pListBox)->GetBitmap();
+		CCBitmap* pBitmap = ((ZPlayerListBox*)pListBox)->GetBitmap();
 
 		pDC->SetBitmap(pBitmap);
-		pDC->Draw(MRECT(rr.x+rr.w-pBitmap->GetWidth()*fA,rr.y+1,pBitmap->GetWidth()*fA,pBitmap->GetHeight()*fA), 
-			MRECT(0,0,pBitmap->GetWidth(),pBitmap->GetHeight()));
+		pDC->Draw(sRect(rr.x+rr.w-pBitmap->GetWidth()*fA,rr.y+1,pBitmap->GetWidth()*fA,pBitmap->GetHeight()*fA), 
+			sRect(0,0,pBitmap->GetWidth(),pBitmap->GetHeight()));
 	}
 	*/
 
@@ -156,7 +156,7 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, MDrawContext* pDC)
 		}
 	}
 */
-	MBitmap* pBaseBmp = NULL;
+	CCBitmap* pBaseBmp = NULL;
 
 	for(int i=pListBox->GetStartItem(); i<pListBox->GetCount(); i++) {
 
@@ -178,9 +178,9 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, MDrawContext* pDC)
 //		if(bSelected && bFocused) {//선택된아이템표시
 		if(bSelected) {
 //			pDC->SetColor(109,207,246);
-//			pDC->FillRectangle(MRECT(p.x,p.y+1,r.x+r.w,nItemHeight-1));
+//			pDC->FillRectangle(sRect(p.x,p.y+1,r.x+r.w,nItemHeight-1));
 			pDC->SetColor(130,130,130);
-			pDC->Rectangle(MRECT(p.x+2,p.y+5,r.x+r.w-8,nItemHeight-4));		// 다시 그림(동환)
+			pDC->Rectangle(sRect(p.x+2,p.y+5,r.x+r.w-8,nItemHeight-4));		// 다시 그림(동환)
 		}
 
 		for(int j=0; j<max(pListBox->GetFieldCount(), 1); j++){
@@ -197,14 +197,14 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, MDrawContext* pDC)
 				nAdjustWidth = pListBox->GetScrollBar()->GetRect().w + pListBox->GetScrollBar()->GetRect().w/2;
 			}
 
-//			MRECT ir(p.x+nFieldStartX+4+5, p.y+4, nWidth-8, nItemHeight-8);
-//			MRECT irt(p.x+nFieldStartX+2+5, p.y+2, nWidth, nItemHeight);
-			MRECT ir(p.x+nFieldStartX+5, p.y+7, nWidth-7, nItemHeight-7);			// 다시 그림(동환)
-			MRECT irt(p.x+nFieldStartX, p.y+5, nWidth, nItemHeight);
+//			sRect ir(p.x+nFieldStartX+4+5, p.y+4, nWidth-8, nItemHeight-8);
+//			sRect irt(p.x+nFieldStartX+2+5, p.y+2, nWidth, nItemHeight);
+			sRect ir(p.x+nFieldStartX+5, p.y+7, nWidth-7, nItemHeight-7);			// 다시 그림(동환)
+			sRect irt(p.x+nFieldStartX, p.y+5, nWidth, nItemHeight);
 
 			const char* szText = pItem->GetString(j);
-			MBitmap* pBitmap = pItem->GetBitmap(j);
-			MCOLOR color = pItem->GetColor();
+			CCBitmap* pBitmap = pItem->GetBitmap(j);
+			sColor color = pItem->GetColor();
 
 
 			if(pBitmap!=NULL)//이미지 그리고
@@ -214,7 +214,7 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, MDrawContext* pDC)
 			{
 //				if(bSelected && bFocused)
 //				if(bSelected)
-//					color = MCOLOR(0,0,0);
+//					color = sColor(0,0,0);
 
 				OnItemDraw2(pDC, irt, szText, color, bSelected, bFocused, nAdjustWidth);
 			}
@@ -297,9 +297,9 @@ ZPlayerListBox::~ZPlayerListBox(void)
 
 void ZPlayerListBox::SetupButton(const char *szOn, const char *szOff)
 {
-	m_pButton->SetUpBitmap(MBitmapManager::Get(szOff));
-	m_pButton->SetDownBitmap(MBitmapManager::Get(szOn));
-	m_pButton->SetOverBitmap(MBitmapManager::Get(szOff));
+	m_pButton->SetUpBitmap(CCBitmapManager::Get(szOff));
+	m_pButton->SetDownBitmap(CCBitmapManager::Get(szOn));
+	m_pButton->SetOverBitmap(CCBitmapManager::Get(szOff));
 }
 
 void ZPlayerListBox::InitUI(PLAYERLISTMODE nMode)
@@ -389,7 +389,7 @@ void ZPlayerListBox::SetMode(PLAYERLISTMODE nMode)
 	}
 }
 /*
-void ZPlayerListBox::SetBitmap( MBitmap* pBitmap)
+void ZPlayerListBox::SetBitmap( CCBitmap* pBitmap)
 {
 	m_pBitmap	= pBitmap;
 }
@@ -415,7 +415,7 @@ void ZPlayerListBox::AddTestItems()
 //*/
 }
 
-void GetRectMul(MRECT* rect,MRECT* org_rect,float f)
+void GetRectMul(sRect* rect,sRect* org_rect,float f)
 {
 	rect->x = org_rect->x * f;
 	rect->y = org_rect->y * f;
@@ -487,7 +487,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char
 
 	char* szRefName = NULL;
 
-	MCOLOR _color;
+	sColor _color;
 	char sp_name[256];
 	bool bSpUser = false;
 
@@ -511,14 +511,14 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char
 
 	char szDTGradeIconFileName[64];
 	GetDuelTournamentGradeIconFileName(szDTGradeIconFileName, duelTournamentGrade);
-	MBitmap* pBmpDTGradeIcon = MBitmapManager::Get( szDTGradeIconFileName );
+	CCBitmap* pBmpDTGradeIcon = CCBitmapManager::Get( szDTGradeIconFileName );
 
 	//// 클랜 엠블럼
-	//MBitmap* pBitmapEmblem = NULL;
+	//CCBitmap* pBitmapEmblem = NULL;
 	//if ( strcmp( szClanName, "") != 0)
 	//	pBitmapEmblem = ZGetEmblemInterface()->GetClanEmblem( nClanID );
 
-	ZLobbyPlayerListItem* pItem = new ZLobbyPlayerListItem(puid, MBitmapManager::Get(szFileName), nClanID, szLevel, szRefName, szClanName, state, nGrade, pBmpDTGradeIcon );
+	ZLobbyPlayerListItem* pItem = new ZLobbyPlayerListItem(puid, CCBitmapManager::Get(szFileName), nClanID, szLevel, szRefName, szClanName, state, nGrade, pBmpDTGradeIcon );
 
 	if(bSpUser)
 		pItem->SetColor(_color);
@@ -539,7 +539,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int n
 
 	char* szRefName = NULL;
 
-	MCOLOR _color;
+	sColor _color;
 	char sp_name[256];
 	bool bSpUser = false;
 
@@ -555,7 +555,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int n
 		szRefName = szName;
 	}
 
-	MBitmap* pBitmap = NULL;
+	CCBitmap* pBitmap = NULL;
 	if(isMaster) {
 		switch (state) {
 			case MOSS_NONREADY	:
@@ -603,15 +603,15 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int n
 				break;
 		}
 	}
-	pBitmap = MBitmapManager::Get(szFileName);
+	pBitmap = CCBitmapManager::Get(szFileName);
 
 
 	char szDTGradeIconFileName[64];
 	GetDuelTournamentGradeIconFileName(szDTGradeIconFileName, duelTournamentGrade);
-	MBitmap* pBmpDTGradeIcon = MBitmapManager::Get( szDTGradeIconFileName );
+	CCBitmap* pBmpDTGradeIcon = CCBitmapManager::Get( szDTGradeIconFileName );
 
 	//// 클랜 엠블럼
-	//MBitmap* pBitmapEmblem = NULL;
+	//CCBitmap* pBitmapEmblem = NULL;
 	//if ( strcmp( szClanName, "") != 0)
 	//	pBitmapEmblem = ZGetEmblemInterface()->GetClanEmblem( nClanID );
 
@@ -651,7 +651,7 @@ void ZPlayerListBox::AddPlayer(ePlayerState state, char* szName, char* szLocatio
 		case PS_LOBBY	: strcpy(szFileName, "player_status_lobby.tga");	break;
 	}
 
-	MListBox::Add(new ZFriendPlayerListItem(CCUID(0,0),MBitmapManager::Get(szFileName), szName,NULL,szLocation,state,CCMUGFREE));
+	MListBox::Add(new ZFriendPlayerListItem(CCUID(0,0),CCBitmapManager::Get(szFileName), szName,NULL,szLocation,state,CCMUGFREE));
 }
 
 // mode PLAYERLISTMODE_CHANNEL_CLAN
@@ -666,7 +666,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, char* szName, in
 
 	char* szRefName = NULL;
 
-	MCOLOR _color = MCOLOR(240,64,64);
+	sColor _color = sColor(240,64,64);
 //	char sp_name[256];
 	bool bSpUser = false;
 
@@ -691,7 +691,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, char* szName, in
 		case PS_LOBBY	: strcpy(szFileName, "player_status_lobby.tga");	break;
 	}
 
-	ZClanPlayerListItem* pItem = new ZClanPlayerListItem(puid, MBitmapManager::Get(szFileName), szRefName, szGradeName, NULL, state, nGrade );
+	ZClanPlayerListItem* pItem = new ZClanPlayerListItem(puid, CCBitmapManager::Get(szFileName), szRefName, szGradeName, NULL, state, nGrade );
 
 	if(bSpUser)
 		pItem->SetColor(_color);
@@ -785,8 +785,8 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, boo
 		char szFileName[64] = "";
 		char szFileNameState[64] = "";
 
-		MBitmap* pBitmap = NULL;
-		MBitmap* pBitmapState = NULL;
+		CCBitmap* pBitmap = NULL;
+		CCBitmap* pBitmapState = NULL;
 
 		const MSTAGE_SETTING_NODE* pStageSetting = ZGetGameClient()->GetMatchStageSetting()->GetStageSetting();
 
@@ -851,8 +851,8 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, boo
 		case MOSS_EQUIPMENT	: strcpy(szFileNameState, "char_stat_equip.tga");		break;
 		}
 */
-		pBitmap = MBitmapManager::Get(szFileName);
-//		pBitmapState = MBitmapManager::Get(szFileNameState);
+		pBitmap = CCBitmapManager::Get(szFileName);
+//		pBitmapState = CCBitmapManager::Get(szFileNameState);
 
 		pItem->m_pBitmap = pBitmap;
 //		pItem->m_pBitmapState = pBitmapState;
@@ -896,8 +896,8 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, cha
 		char szFileNameState[64] = "";
 		char szLevel[64];
 
-		MBitmap* pBitmap = NULL;
-		MBitmap* pBitmapState = NULL;
+		CCBitmap* pBitmap = NULL;
+		CCBitmap* pBitmapState = NULL;
 
 		if(isMaster) {
 			switch (state) {
@@ -955,15 +955,15 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, cha
 		case MOSS_EQUIPMENT	: strcpy(szFileNameState, "char_stat_equip.tga");		break;
 		}
 */
-		pBitmap = MBitmapManager::Get(szFileName);
-//		pBitmapState = MBitmapManager::Get(szFileNameState);
+		pBitmap = CCBitmapManager::Get(szFileName);
+//		pBitmapState = CCBitmapManager::Get(szFileNameState);
 
 		pItem->m_pBitmap = pBitmap;
 //		pItem->m_pBitmapState = pBitmapState;
 
 		///////////////////////////////////////////////////////
 /*
-		MCOLOR _color;
+		sColor _color;
 		char sp_name[256];
 
 		if(GetUserInfoUID(puid,_color,sp_name,gid)) {
@@ -1081,7 +1081,7 @@ bool ZPlayerListBox::OnCommand(MWidget* pWidget, const char* szMessage)
 }
 bool ZPlayerListBox::OnEvent(MEvent* pEvent, MListener* pListener)
 {
-	MRECT rtClient = GetClientRect();
+	sRect rtClient = GetClientRect();
 
 	if(pEvent->nMessage==MWM_RBUTTONDOWN) {
 		if(rtClient.InPoint(pEvent->Pos)==true) {
@@ -1091,7 +1091,7 @@ bool ZPlayerListBox::OnEvent(MEvent* pEvent, MListener* pListener)
 
 				bool bShow = true;
 
-				MCOLOR _color;
+				sColor _color;
 				char sp_name[256];
 				CCMatchUserGradeID gid;
 
@@ -1243,7 +1243,7 @@ ZStagePlayerListBox::ZStagePlayerListBox(const char* szName, MWidget* pParent, M
 	SetItemHeight(23);
 
 //	m_pBitmap = NULL;
-	m_pBitmap = MBitmapManager::Get("playerlist_tab_game.png");
+	m_pBitmap = CCBitmapManager::Get("playerlist_tab_game.png");
 	
 	mSelectedPlayer = 0;
 	mStartToDisplay = 0;
@@ -1271,7 +1271,7 @@ ZStagePlayerListBox::~ZStagePlayerListBox(void)
 {
 }
 
-void ZStagePlayerListBox::SetBitmap( MBitmap* pBitmap)
+void ZStagePlayerListBox::SetBitmap( CCBitmap* pBitmap)
 {
 	m_pBitmap	= pBitmap;
 }
@@ -1341,8 +1341,8 @@ void ZStagePlayerListBox::UpdatePlayer(CCUID& puid,eStagePlayerState state, char
 
 		sprintf(szLevel,"Lv %2d",nLevel);
 
-		MBitmap* pBitmap = NULL;
-		MBitmap* pBitmapState = NULL;
+		CCBitmap* pBitmap = NULL;
+		CCBitmap* pBitmapState = NULL;
 
 		if(isMaster) {
 				 if(nTeam == MMT_RED)	strcpy(szFileName, "stg_status_master_red.tga");	
@@ -1363,8 +1363,8 @@ void ZStagePlayerListBox::UpdatePlayer(CCUID& puid,eStagePlayerState state, char
 		case MOSS_EQUIPMENT	: strcpy(szFileNameState, "char_stat_equip.tga");	break;
 		}
 
-		pBitmap = MBitmapManager::Get(szFileName);
-		pBitmapState = MBitmapManager::Get(szFileNameState);
+		pBitmap = CCBitmapManager::Get(szFileName);
+		pBitmapState = CCBitmapManager::Get(szFileNameState);
 
 		pItem->m_pBitmap = pBitmap;
 		pItem->m_pBitmapState = pBitmapState;
@@ -1390,8 +1390,8 @@ void ZStagePlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, 
 
 	sprintf(szLevel,"Lv %2d",nLevel);
 
-	MBitmap* pBitmap = NULL;
-	MBitmap* pBitmapState = NULL;
+	CCBitmap* pBitmap = NULL;
+	CCBitmap* pBitmapState = NULL;
 
 	if(isMaster) {
 			 if(nTeam == MMT_RED)	strcpy(szFileName, "stg_status_master_red.tga");	
@@ -1412,8 +1412,8 @@ void ZStagePlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, 
 		case MOSS_EQUIPMENT	: strcpy(szFileNameState, "char_stat_equip.tga");	break;
 	}
 
-	pBitmap = MBitmapManager::Get(szFileName);
-	pBitmapState = MBitmapManager::Get(szFileNameState);
+	pBitmap = CCBitmapManager::Get(szFileName);
+	pBitmapState = CCBitmapManager::Get(szFileNameState);
 
 //	MListBox::Add(new ZLobbyPlayerListItem(puid, pBitmap, szName, szLevel));
 	MListBox::Add(new ZStagePlayerListItem(puid, pBitmap, pBitmapState, szName, szLevel));

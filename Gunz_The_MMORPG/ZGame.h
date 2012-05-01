@@ -160,7 +160,7 @@ public:
 	bool IsCreated() { return m_bIsCreate; }
 
 	void Draw();
-	void Draw(MDrawContextR2 &dc);
+	void Draw(CCDrawContextR2 &dc);
 	void Update(float fElapsed);
 	void Destroy();
 
@@ -270,7 +270,7 @@ public:
 	bool GetSpawnRequested()			{ return m_bSpawnRequested; }
 	void SetSpawnRequested(bool bVal)	{ m_bSpawnRequested = bVal; }
 
-	bool GetUserNameColor(CCUID uid,MCOLOR& color,char* sp_name);
+	bool GetUserNameColor(CCUID uid,sColor& color,char* sp_name);
 	//jintriple3 디버그 레지스터 해킹 방지를 위해 CanAttack()함수를 이름만 바꿔서 사용.
 	bool CanAttack(ZObject *pAttacker, ZObject *pTarget);
 	bool CanAttack_DebugRegister(ZObject *pAttacker, ZObject *pTarget);

@@ -1,6 +1,6 @@
 #pragma once
 
-class MBitmapR2;
+class CCBitmapR2;
 #include "Core4r2.h"
 #include "CCThread.h"
 
@@ -17,9 +17,9 @@ enum LOADING_SCENE_MODE
 class ZInitialLoading
 {
 protected:
-	MBitmapR2*	mBitmaps;
-	MBitmapR2*	mBitmap_Bar;
-	MBitmapR2*	mBitmap_Grade;		// 게임물 등급 위원회 이미지
+	CCBitmapR2*	mBitmaps;
+	CCBitmapR2*	mBitmap_Bar;
+	CCBitmapR2*	mBitmap_Grade;		// 게임물 등급 위원회 이미지
 	DWORD		m_Grade_Time;
 	bool		m_bGradeFadeOutStart;
 	bool		m_bGrade;
@@ -31,7 +31,7 @@ protected:
 	bool		mbBitmapBar;
 	float		mx, my, mw, mh, msx, msy, msw, msh;
 	float		mtx, mty, mtw, mth;
-	MFontR2*	mpDC;
+	CCFontR2*	mpDC;
 	char*		mpStr;
 	int			m_nTipNum;
 	static ZInitialLoading	msInstance;
@@ -51,7 +51,7 @@ public:
 	void	DrawBar( float x_, float y_, float w_, float h_, float percent_ );
 	void	DrawGrade(float blendFactor); // 게임물 등급 위원회 이미지
 	void	DrawText();
-	void	SetText( MFontR2* pDc, float x, float y, char* str );
+	void	SetText( CCFontR2* pDc, float x, float y, char* str );
 	void	SetTipNum( int nTipNum)		{ m_nTipNum = nTipNum;	}
 	bool	Initialize( int numScene_, float x_, float y_, float w_, float h_, 	float sx_, float sy_, float sw_, float sh_, bool bTipsVisible=false);
 	bool	AddBitmap( int index_, const char* bitmapName_ );

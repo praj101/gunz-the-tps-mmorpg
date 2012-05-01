@@ -21,7 +21,7 @@ protected:
 	float m_ScrollButtonWidth;
 
 protected:
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 	virtual void OnSize(int w, int h);
 	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
 	int GetItemVisibleWidth(void);

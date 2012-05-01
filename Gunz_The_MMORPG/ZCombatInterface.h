@@ -115,8 +115,8 @@ protected:
 	ZIDLResource*		m_pIDLResource;
 
 	MLabel*				m_pTargetLabel;
-	MBitmap*			m_ppIcons[ZCI_END];		/// 칭찬 아이콘들
-	MBitmapR2*			m_pResultBgImg;
+	CCBitmap*			m_ppIcons[ZCI_END];		/// 칭찬 아이콘들
+	CCBitmapR2*			m_pResultBgImg;
 	
 	bool				m_bMenuVisible;
 	
@@ -164,27 +164,27 @@ protected:
 	void GameCheckPickCharacter();
 
 	// 화면에 그리는것과 관련된 펑션들
-	void IconRelative(MDrawContext* pDC,float x,float y,int nIcon);
+	void IconRelative(CCDrawContext* pDC,float x,float y,int nIcon);
 
-	void DrawFriendName(MDrawContext* pDC);			// 같은편 이름
-	void DrawEnemyName(MDrawContext* pDC);			// 적 이름
-	void DrawAllPlayerName(MDrawContext* pDC);		// 모든 팀 이름 표시 (Free Spectator)
+	void DrawFriendName(CCDrawContext* pDC);			// 같은편 이름
+	void DrawEnemyName(CCDrawContext* pDC);			// 적 이름
+	void DrawAllPlayerName(CCDrawContext* pDC);		// 모든 팀 이름 표시 (Free Spectator)
 
-	void DrawScoreBoard(MDrawContext* pDC);			// 점수 화면 (tab키)
-	void DrawDuelTournamentScoreBoard(MDrawContext* pDC);						// 듀얼 토너먼트 대진표 화면 (tab키)
-	void DrawPlayTime(MDrawContext* pDC, float xPos, float yPos);	// 플레이 시간
-	void DrawResultBoard(MDrawContext* pDC);		// 게임 결과화면
-	void DrawSoloSpawnTimeMessage(MDrawContext* pDC);	// 쏠로 스폰전 타이머 메시지
-	void DrawLeaveBattleTimeMessage(MDrawContext* pDC);	// 게임에서 나갈때 기다리는 시간표시
-//	void DrawVoteMessage(MDrawContext* pDC);		// 투표가 진행중일때 메시지
-//	void DrawKickPlayerList(MDrawContext* pDC);		// kick 할 플레이어 선택하는 화면
+	void DrawScoreBoard(CCDrawContext* pDC);			// 점수 화면 (tab키)
+	void DrawDuelTournamentScoreBoard(CCDrawContext* pDC);						// 듀얼 토너먼트 대진표 화면 (tab키)
+	void DrawPlayTime(CCDrawContext* pDC, float xPos, float yPos);	// 플레이 시간
+	void DrawResultBoard(CCDrawContext* pDC);		// 게임 결과화면
+	void DrawSoloSpawnTimeMessage(CCDrawContext* pDC);	// 쏠로 스폰전 타이머 메시지
+	void DrawLeaveBattleTimeMessage(CCDrawContext* pDC);	// 게임에서 나갈때 기다리는 시간표시
+//	void DrawVoteMessage(CCDrawContext* pDC);		// 투표가 진행중일때 메시지
+//	void DrawKickPlayerList(CCDrawContext* pDC);		// kick 할 플레이어 선택하는 화면
 	void GetResultInfo( void);
 
-	void DrawTDMScore(MDrawContext* pDC);
+	void DrawTDMScore(CCDrawContext* pDC);
 
-	void DrawNPCName(MDrawContext* pDC);	// 디버그용
+	void DrawNPCName(CCDrawContext* pDC);	// 디버그용
 
-	void UpdateNetworkAlive(MDrawContext* pDC);
+	void UpdateNetworkAlive(CCDrawContext* pDC);
 
 public:
 	ZCombatChat			m_Chat;
@@ -200,16 +200,16 @@ public:
 
 	virtual bool OnCreate();
 	virtual void OnDestroy();
-	virtual void OnDraw(MDrawContext* pDC);	// 그리는 순서때문에 직접 그린다
-	virtual void OnDrawCustom(MDrawContext* pDC);
-	virtual void DrawAfterWidgets(MDrawContext* pDC);	//MWidget에서 재정의한 함수, UI 위젯을 모두 그린 후 직접 DC에 추가로 그리기 위한 함수
-	void		 DrawPont(MDrawContext* pDC);
-	void		 DrawMyNamePont(MDrawContext* pDC);
-	void		 DrawMyWeaponPont(MDrawContext* pDC);
-	void		 DrawScore(MDrawContext* pDC);
-	void		 DrawBuffStatus(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);	// 그리는 순서때문에 직접 그린다
+	virtual void OnDrawCustom(CCDrawContext* pDC);
+	virtual void DrawAfterWidgets(CCDrawContext* pDC);	//MWidget에서 재정의한 함수, UI 위젯을 모두 그린 후 직접 DC에 추가로 그리기 위한 함수
+	void		 DrawPont(CCDrawContext* pDC);
+	void		 DrawMyNamePont(CCDrawContext* pDC);
+	void		 DrawMyWeaponPont(CCDrawContext* pDC);
+	void		 DrawScore(CCDrawContext* pDC);
+	void		 DrawBuffStatus(CCDrawContext* pDC);
 	void		 DrawFinish();
-	int DrawVictory( MDrawContext* pDC, int x, int y, int nWinCount, bool bGetWidth = false);
+	int DrawVictory( CCDrawContext* pDC, int x, int y, int nWinCount, bool bGetWidth = false);
 
 	virtual bool IsDone();
 
@@ -218,11 +218,11 @@ public:
 	void Resize(int w, int h);
 
 	void OutputChatMsg(const char* szMsg);
-	void OutputChatMsg(MCOLOR color, const char* szMsg);
+	void OutputChatMsg(sColor color, const char* szMsg);
 
 	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
 
-	static MFont *GetGameFont();
+	static CCFont *GetGameFont();
 	MPOINT GetCrosshairPoint() { return MPOINT(MGetWorkspaceWidth()/2,MGetWorkspaceHeight()/2); }
 	
 	ZBandiCapturer*	GetBandiCapturer()			{ return m_Capture; }					///< 동영상 캡쳐...by kammir 2008.10.02
@@ -279,6 +279,6 @@ public:
 	const char* GetBlueClanName() const { return m_szBlueClanName; }
 };
 
-void TextRelative(MDrawContext* pDC,float x,float y,const char *szText,bool bCenter=false);
+void TextRelative(CCDrawContext* pDC,float x,float y,const char *szText,bool bCenter=false);
 
 #endif

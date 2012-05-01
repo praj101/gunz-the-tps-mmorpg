@@ -31,7 +31,7 @@ public:
 	virtual bool OnCreate();
 	virtual void OnDestroy();
 
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
 
 	void Update();

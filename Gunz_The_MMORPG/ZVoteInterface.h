@@ -7,7 +7,7 @@
 #include <vector>
 using namespace std;
 
-class MDrawContext;
+class CCDrawContext;
 
 
 class ZVoteInterface {
@@ -38,8 +38,8 @@ public:
 	void VoteInput(char nKey);
 	void CancelVote();
 
-	void DrawVoteTargetlist(MDrawContext* pDC);
-	void DrawVoteMessage(MDrawContext* pDC);
+	void DrawVoteTargetlist(CCDrawContext* pDC);
+	void DrawVoteMessage(CCDrawContext* pDC);
 };
 
 

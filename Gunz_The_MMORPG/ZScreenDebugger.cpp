@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ZScreenDebugger.h"
-#include "MDrawContext.h"
+#include "CCDrawContext.h"
 #include "ZGame.h"
 #include "ZGameInterface.h"
 #include "ZGlobal.h"
@@ -32,14 +32,14 @@ ZScreenDebugger::~ZScreenDebugger()
 
 }
 
-extern MFontR2*		g_pDefFont;
+extern CCFontR2*		g_pDefFont;
 
-void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
+void ZScreenDebugger::DrawDebugInfo(CCDrawContext *pDC)
 {
 #ifdef _PUBLISH
 	if (m_nShowDebugInfo != 0) {
 		int sy=100;
-		pDC->SetColor(MCOLOR(0xFFffffff));
+		pDC->SetColor(sColor(0xFFffffff));
 		char buffer[256];
 
 		int nSendTraffic, nRecvTraffic;
@@ -73,7 +73,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 
 	ZCamera* pCamera = ZApplication::GetGameInterface()->GetCamera();
 
-	MFont *pFont=g_pDefFont;
+	CCFont *pFont=g_pDefFont;
 	pDC->SetFont(pFont);
 
 	RGetDevice()->SetTexture(0,NULL);
@@ -93,7 +93,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 
 
 	int sy=100;
-	pDC->SetColor(MCOLOR(0xFFffffff));
+	pDC->SetColor(sColor(0xFFffffff));
 	char buffer[256];
 
 #define OUTTEXT() { pDC->Text(0,sy,buffer); }
@@ -135,7 +135,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 		//NEXTLINE();
 		//{
 		//	sprintf( buffer, "2D Sound Effect Number : %d 3D Sound Effect Number : %d", ZGetSoundEngine()->GetMySoundEffectPlayer()->GetSoundEffectNum(), ZGetSoundEngine()->GetSoundEffectPlayer()->GetSoundEffectNum() );
-		//	pDC->SetColor( MCOLOR(0xFFFFFFFF) );
+		//	pDC->SetColor( sColor(0xFFFFFFFF) );
 		//	OUTTEXT();
 		//	NEXTLINE();
 		//}
@@ -264,7 +264,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 				}
 
 				sprintf(buffer,"speed %d = %d ÆÛ¼¾Æ® ( %d/%d ) ms (delay = %d) ",i, speed, org_time , delay_time,delay_time-org_time);
-				pDC->SetColor(MCOLOR(0xFFffffff));
+				pDC->SetColor(sColor(0xFFffffff));
 				OUTTEXT();
 				NEXTLINE();
 
@@ -278,7 +278,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 				pVMesh->GetMaxFrame( ani_mode_lower ),
 				ZGetGame()->m_pMyCharacter->GetCAFactor());
 
-			pDC->SetColor(MCOLOR(0xFFffffff));
+			pDC->SetColor(sColor(0xFFffffff));
 			OUTTEXT();
 			NEXTLINE();
 
@@ -289,7 +289,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 					pAniInfo[1]->m_nFrame,
 					pVMesh->GetMaxFrame( ani_mode_upper ));
 
-				pDC->SetColor(MCOLOR(0xFFffffff));
+				pDC->SetColor(sColor(0xFFffffff));
 				OUTTEXT();
 				NEXTLINE();
 			}else
@@ -336,7 +336,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 			,pCharacter->GetVelocity().x,pCharacter->GetVelocity().y,pCharacter->GetVelocity().z
 			);
 
-		pDC->SetColor(MCOLOR(0xFFFFFFFF));
+		pDC->SetColor(sColor(0xFFFFFFFF));
 		OUTTEXT();
 		NEXTLINE();
 	}
@@ -367,7 +367,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 			,pCharacter->GetVelocity().x,pCharacter->GetVelocity().y,pCharacter->GetVelocity().z
 			);
 
-		pDC->SetColor(MCOLOR(0xFFFFFFFF));
+		pDC->SetColor(sColor(0xFFFFFFFF));
 		OUTTEXT();
 		NEXTLINE();
 	}
@@ -403,7 +403,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 				(v+1)->x,(v+1)->y,(v+1)->z,
 				(v+2)->x,(v+2)->y,(v+2)->z);
 
-			pDC->SetColor(MCOLOR(0xFFffffff));
+			pDC->SetColor(sColor(0xFFffffff));
 			OUTTEXT();
 			NEXTLINE();
 
@@ -463,7 +463,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 
 		rvector checkpos=pCharacter->GetPosition() +rvector(0,0,90);
 		sprintf(buffer,"dist to floor = %6.3f ", ZGetGame()->m_pMyCharacter->GetDistToFloor());
-		pDC->SetColor(MCOLOR(0xFFffffff));
+		pDC->SetColor(sColor(0xFFffffff));
 		OUTTEXT();
 		NEXTLINE();
 
@@ -475,7 +475,7 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 
 	if(pZEM) {
 		sprintf(buffer,"effectmgr -> skip cnt : %d ,rendered :%d / %d", pZEM->m__skip_cnt , pZEM->m__rendered , pZEM->m__cnt );
-		pDC->SetColor(MCOLOR(0xFFffffff));
+		pDC->SetColor(sColor(0xFFffffff));
 		OUTTEXT();
 		NEXTLINE();
 	}	
@@ -484,14 +484,14 @@ void ZScreenDebugger::DrawDebugInfo(MDrawContext *pDC)
 
 	if(pZEM) {
 		sprintf(buffer,"screeneffectmgr -> %d ", pZSEM->GetCount() );
-		pDC->SetColor(MCOLOR(0xFFffffff));
+		pDC->SetColor(sColor(0xFFffffff));
 		OUTTEXT();
 		NEXTLINE();
 	}	
 
 	//{
 	//	sprintf( buffer, "2D Sound Effect Number : %d 3D Sound Effect Number : %d", ZGetSoundEngine()->GetMySoundEffectPlayer()->GetSoundEffectNum(), ZGetSoundEngine()->GetSoundEffectPlayer()->GetSoundEffectNum() );
-	//	pDC->SetColor( MCOLOR(0xFFFFFFFF) );
+	//	pDC->SetColor( sColor(0xFFFFFFFF) );
 	//	OUTTEXT();
 	//	NEXTLINE();
 	//}
@@ -525,10 +525,10 @@ static void DrawDebugInfo_NPCArc(rvector pos, rvector dir, float fRange, float f
 }
 
 
-void ZScreenDebugger::OnDrawAIDebugInfo(MDrawContext *pDC)
+void ZScreenDebugger::OnDrawAIDebugInfo(CCDrawContext *pDC)
 {
 #ifndef _PUBLISH
-	MFont *pFont=g_pDefFont;
+	CCFont *pFont=g_pDefFont;
 	pDC->SetFont(pFont);
 
 	RGetDevice()->SetTexture(0,NULL);
@@ -637,7 +637,7 @@ void ZScreenDebugger::OnDrawAIDebugInfo(MDrawContext *pDC)
 #endif
 }
 
-void ZScreenDebugger::DrawActorInfo(int num, MDrawContext *pDC, ZActor* pActor)
+void ZScreenDebugger::DrawActorInfo(int num, CCDrawContext *pDC, ZActor* pActor)
 {
 #ifndef _PUBLISH
 	char buf[256];
@@ -684,7 +684,7 @@ void ZScreenDebugger::DrawActorInfo(int num, MDrawContext *pDC, ZActor* pActor)
 #endif
 }
 
-void ZScreenDebugger::PrintText(MDrawContext* pDC, const char* buffer)
+void ZScreenDebugger::PrintText(CCDrawContext* pDC, const char* buffer)
 {
 #ifndef _PUBLISH
 	pDC->Text(0, m_nY,buffer);

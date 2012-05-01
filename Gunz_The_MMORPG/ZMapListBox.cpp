@@ -10,10 +10,10 @@
 
 #define PREVIEW_W	200
 
-void ZMapListBox::OnDraw(MDrawContext* pDC)
+void ZMapListBox::OnDraw(CCDrawContext* pDC)
 {
 	if(m_pThumbnail!=NULL){
-		MRECT r = GetClientRect();
+		sRect r = GetClientRect();
 		pDC->SetBitmap(m_pThumbnail);
 		pDC->Draw(r.x+r.w-PREVIEW_W+10, r.y);
 	}
@@ -53,7 +53,7 @@ ZMapListBox::ZMapListBox(const char* szName, MWidget* pParent, MListener* pListe
 {
 	SetBounds(0, 0, 300, 200);
 
-	MRECT r = GetClientRect();
+	sRect r = GetClientRect();
 
 	m_pListBox = new MListBox("MapList", this, this);
 	m_pListBox->SetBounds(r.x, r.y, r.w-PREVIEW_W-10, r.h-r.y);

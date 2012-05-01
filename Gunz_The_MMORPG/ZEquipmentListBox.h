@@ -10,7 +10,7 @@
 //
 //class ZEquipmentListItem_OLD : public MMultiColListItem{
 //protected:
-//	MBitmap*			m_pBitmap;
+//	CCBitmap*			m_pBitmap;
 //
 //	int					m_nAIID;		// 중앙은행에서 사용한다
 //	unsigned long		m_nItemID;
@@ -22,7 +22,7 @@
 //	char	m_szLevel[256];
 //	char	m_szPrice[256];
 //public:
-//	ZEquipmentListItem_OLD(const CCUID& uidItem, const unsigned long nItemID, MBitmap* pBitmap, const char* szName, const char* szLevel, const char* szPrice, bool bLeveRestricted)
+//	ZEquipmentListItem_OLD(const CCUID& uidItem, const unsigned long nItemID, CCBitmap* pBitmap, const char* szName, const char* szLevel, const char* szPrice, bool bLeveRestricted)
 //	{
 //		m_nAIID = 0;
 //		m_nItemID = nItemID;
@@ -34,7 +34,7 @@
 //		strcpy(m_szPrice, szPrice);
 //		m_bLevelResticted = bLeveRestricted;
 //	}
-//	ZEquipmentListItem_OLD(const int nAIID, const unsigned long nItemID, MBitmap* pBitmap, const char* szName, const char* szLevel, const char* szPrice, bool bLeveRestricted)
+//	ZEquipmentListItem_OLD(const int nAIID, const unsigned long nItemID, CCBitmap* pBitmap, const char* szName, const char* szLevel, const char* szPrice, bool bLeveRestricted)
 //	{
 //		m_nAIID = nAIID;
 //		m_nItemID = nItemID;
@@ -64,7 +64,7 @@
 //		return m_szName;
 //	}
 //
-//	virtual bool GetDragItem(MBitmap** ppDragBitmap, char* szDragString, char* szDragItemString)
+//	virtual bool GetDragItem(CCBitmap** ppDragBitmap, char* szDragString, char* szDragItemString)
 //	{
 //		*ppDragBitmap = GetBitmap(0);
 //		strcpy(szDragString, m_szName);
@@ -72,7 +72,7 @@
 //
 //		return true;
 //	}
-//	virtual MBitmap* GetBitmap(int i)
+//	virtual CCBitmap* GetBitmap(int i)
 //	{
 //		if (i == 0) return m_pBitmap;
 //		return NULL;
@@ -84,26 +84,26 @@
 //
 //	unsigned long	GetItemID()		{ return m_nItemID; }
 //
-//	virtual void OnDraw(MRECT& r, MDrawContext* pDC, bool bSelected, bool bMouseOver);
+//	virtual void OnDraw(sRect& r, CCDrawContext* pDC, bool bSelected, bool bMouseOver);
 //
 //	// 커서 위치가 아이템 설명 툴팁을 보여줄 위치인가 판단한다 - 현재 아이콘 위에서만 툴팁 보여줌
 //	// 인자는 모두 리스트 위젯의 로컬 좌표계로 주어야함
-//	bool IsPtInRectToShowToolTip(MRECT& rcItem, MPOINT& pt);
+//	bool IsPtInRectToShowToolTip(sRect& rcItem, MPOINT& pt);
 //	
 //	// 아이콘 보여줄 rect 알아내기 (항목 좌표계)
-//	void GetIconRect(MRECT& out, const MRECT& rcItem);
+//	void GetIconRect(sRect& out, const sRect& rcItem);
 //
 //	virtual int GetSortHint();
 //};
 //
 //class ZItemMenu;
-////typedef void (*ZCB_ONDROP)(void* pSelf, MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString);
+////typedef void (*ZCB_ONDROP)(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 //
 //class ZEquipmentListBox_OLD : public MMultiColListBox
 //{
 //protected:
 //	virtual bool IsDropable(MWidget* pSender);
-////	virtual bool OnDrop(MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString);
+////	virtual bool OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 //	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
 //
 //protected:
@@ -122,8 +122,8 @@
 //	char* GetItemDescriptionWidgetName();
 //	void SetupItemDescTooltip();
 //
-////	void Add(const CCUID& uidItem, MBitmap* pIconBitmap, const char* szName, const char* szWeight, const char* szSlot, const char* szPrice);
-////	void Add(const CCUID& uidItem, MBitmap* pIconBitmap, const char* szName, int nWeight, CCMatchItemSlotType nSlot, int nBountyPrice);
+////	void Add(const CCUID& uidItem, CCBitmap* pIconBitmap, const char* szName, const char* szWeight, const char* szSlot, const char* szPrice);
+////	void Add(const CCUID& uidItem, CCBitmap* pIconBitmap, const char* szName, int nWeight, CCMatchItemSlotType nSlot, int nBountyPrice);
 //
 ////	void SetOnDropCallback(ZCB_ONDROP pCallback) { m_pOnDropFunc = pCallback; }
 //	void SetDescriptionWidget(MWidget *pWidget)	{ m_pDescFrame = pWidget; }

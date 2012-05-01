@@ -53,7 +53,7 @@ void ZButton::OnHide(void)
 	MButton::OnHide();
 }
 
-void ZButton::OnDraw(MDrawContext* pDC)
+void ZButton::OnDraw(CCDrawContext* pDC)
 {
 	MButton::OnDraw(pDC);
 
@@ -103,16 +103,16 @@ void ZButton::OnDraw(MDrawContext* pDC)
 		}
 	}
 
-	MBitmapR2 *pBitmap=(MBitmapR2*)MBitmapManager::Get("button_glow.png");
+	CCBitmapR2 *pBitmap=(CCBitmapR2*)CCBitmapManager::Get("button_glow.png");
 	if(pBitmap)
 	{
 		DWORD defaultcolor = GetType()==MBT_NORMAL ? 0x20ff20 : 0xc0c020;
 		DWORD opacity=(DWORD)pDC->GetOpacity()*(DWORD)m_nIllumination / 255 ;
-		MRECT rt=GetRect();
+		sRect rt=GetRect();
 		MDrawEffect prevEffect = pDC->GetEffect();
 		pDC->SetEffect(MDE_ADD);
-		MCOLOR prevColor = pDC->GetBitmapColor();
-		pDC->SetBitmapColor(MCOLOR(defaultcolor));
+		sColor prevColor = pDC->GetBitmapColor();
+		pDC->SetBitmapColor(sColor(defaultcolor));
 		unsigned char prevOpacity = pDC->GetOpacity();
 		pDC->SetOpacity(opacity);
 		pDC->SetBitmap(pBitmap);
@@ -187,7 +187,7 @@ void ZBmButton::OnHide(void)
 	m_dwLastTime=timeGetTime();
 }
 
-void ZBmButton::OnDraw(MDrawContext* pDC)
+void ZBmButton::OnDraw(CCDrawContext* pDC)
 {
   	MBmButton::OnDraw(pDC);
 
@@ -238,16 +238,16 @@ void ZBmButton::OnDraw(MDrawContext* pDC)
 		}
 	}
 
-	MBitmapR2 *pBitmap=(MBitmapR2*)MBitmapManager::Get("button_glow.png");
+	CCBitmapR2 *pBitmap=(CCBitmapR2*)CCBitmapManager::Get("button_glow.png");
 	if(pBitmap)
 	{
 		DWORD defaultcolor = GetType()==MBT_NORMAL ? 0x20ff20 : 0xc0c020;
 		DWORD opacity=(DWORD)pDC->GetOpacity()*(DWORD)m_nIllumination / 255 ;
-		MRECT rt=GetRect();
+		sRect rt=GetRect();
 		MDrawEffect prevEffect = pDC->GetEffect();
 		pDC->SetEffect(MDE_ADD);
-		MCOLOR prevColor = pDC->GetBitmapColor();
-		pDC->SetBitmapColor(MCOLOR(defaultcolor));
+		sColor prevColor = pDC->GetBitmapColor();
+		pDC->SetBitmapColor(sColor(defaultcolor));
 		unsigned char prevOpacity = pDC->GetOpacity();
 		pDC->SetOpacity(opacity);
 		pDC->SetBitmap(pBitmap);

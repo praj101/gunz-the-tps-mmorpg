@@ -91,7 +91,7 @@ void ZMsgBox::Show(bool bVisible, bool bModal)
 	Enable(bVisible);
 }
 
-void ZMsgBox::OnDraw(MDrawContext* pDC)
+void ZMsgBox::OnDraw(CCDrawContext* pDC)
 {
 	float fOpacity = 0;
 	if(m_bNextVisible==false){	// Hide

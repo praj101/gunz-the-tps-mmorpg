@@ -3,7 +3,7 @@
 #include "ZGameInterface.h"
 #include "ZGameClient.h"
 #include "ZChat.h"
-#include "MDrawContext.h"
+#include "CCDrawContext.h"
 #include "ZNetRepository.h"
 
 #include "ZApplication.h"
@@ -52,7 +52,7 @@ void ZReportAbuse::Report(const char* szReason)
 
 void ZReportAbuse::OutputString(const char* szStr)
 {
-	char *pPureText = MDrawContext::GetPureText(szStr);
+	char *pPureText = CCDrawContext::GetPureText(szStr);
 	char temp[512];
 	strcpy(temp, pPureText);
 	free(pPureText);

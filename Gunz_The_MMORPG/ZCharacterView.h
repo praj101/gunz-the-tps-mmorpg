@@ -11,7 +11,7 @@
 class ZItemSlot{
 public:
 	unsigned long int	m_nItemID;
-	MRECT				m_Rect;
+	sRect				m_Rect;
 };
 
 struct ZCharacterViewInfo
@@ -49,9 +49,9 @@ protected:
 	void		 RepositionItemSlots(void);
 
 	virtual void OnSize(int w, int h);
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 	virtual bool IsDropable(MWidget* pSender);
-	virtual bool OnDrop(MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString);
+	virtual bool OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 public:
 	ZCharacterView(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
 	virtual ~ZCharacterView(void);

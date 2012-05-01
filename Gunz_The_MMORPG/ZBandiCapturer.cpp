@@ -105,7 +105,7 @@ bool ZBandiCapturer::IsCapturing()
 	return (m_bandiCaptureLibrary.IsCapturing() == TRUE);
 }
 
-void ZBandiCapturer::DrawCapture(MDrawContext* pDC)
+void ZBandiCapturer::DrawCapture(CCDrawContext* pDC)
 {
 	if(m_bandiCaptureLibrary.IsCapturing())
 	{
@@ -117,12 +117,12 @@ void ZBandiCapturer::DrawCapture(MDrawContext* pDC)
 
 }
 
-void ZBandiCapturer::OnDrawCapture(MDrawContext* pDC)
+void ZBandiCapturer::OnDrawCapture(CCDrawContext* pDC)
 {
-	MFont *pFont=MFontManager::Get("FONTa10_O2Wht");
+	CCFont *pFont=CCFontManager::Get("FONTa10_O2Wht");
 
 	pDC->SetFont(pFont);
-	pDC->SetColor(MCOLOR(0xFFFF0000));
+	pDC->SetColor(sColor(0xFFFF0000));
 
 	char szTemp[64];
 	// 녹화시간표시

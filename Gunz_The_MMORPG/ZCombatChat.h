@@ -52,9 +52,9 @@ public:
 	void Update();
 	void EnableInput(bool bEnable, bool bToTeam=false);
 	void OutputChatMsg(const char* szMsg);
-	void OutputChatMsg(MCOLOR color, const char* szMsg);
+	void OutputChatMsg(sColor color, const char* szMsg);
 
-	void OnDraw(MDrawContext* pDC);
+	void OnDraw(CCDrawContext* pDC);
 	bool IsChat() { return m_bChatInputVisible; }
 	bool IsTeamChat()	{ return m_bTeamChat; }
 	bool IsShow()
@@ -62,7 +62,7 @@ public:
 		if (m_pInputEdit == NULL) return false;
 		return m_pInputEdit->IsVisible();
 	}
-	void SetFont( MFont* pFont);
+	void SetFont( CCFont* pFont);
 
 	void ShowOutput(bool bShow);
 };

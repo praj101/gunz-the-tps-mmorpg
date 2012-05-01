@@ -98,12 +98,12 @@ void ZStageInterface::OnCreate( void)
 
 	pPicture = (MPicture*)pResource->FindWidget( "Stage_MainBGTop");
 	if ( pPicture)
-		pPicture->SetBitmap( MBitmapManager::Get( "main_bg_t.png"));
+		pPicture->SetBitmap( CCBitmapManager::Get( "main_bg_t.png"));
 	pPicture = (MPicture*)pResource->FindWidget( "Stage_FrameBG");
 	if ( pPicture)
 	{
-		m_pStageFrameImg = new MBitmapR2;
-		((MBitmapR2*)m_pStageFrameImg)->Create( "stage_frame.png", RGetDevice(), "interface/loadable/stage_frame.png");
+		m_pStageFrameImg = new CCBitmapR2;
+		((CCBitmapR2*)m_pStageFrameImg)->Create( "stage_frame.png", RGetDevice(), "interface/loadable/stage_frame.png");
 
 		if ( m_pStageFrameImg != NULL)
 			pPicture->SetBitmap( m_pStageFrameImg->GetSourceBitmap());
@@ -111,8 +111,8 @@ void ZStageInterface::OnCreate( void)
 	pPicture = (MPicture*)pResource->FindWidget( "Stage_ItemListBG");
 	if ( pPicture)
 	{
-		m_pItemListFrameImg = new MBitmapR2;
-		((MBitmapR2*)m_pItemListFrameImg)->Create( "itemlistframe.tga", RGetDevice(), "interface/loadable/itemlistframe.tga");
+		m_pItemListFrameImg = new CCBitmapR2;
+		((CCBitmapR2*)m_pItemListFrameImg)->Create( "itemlistframe.tga", RGetDevice(), "interface/loadable/itemlistframe.tga");
 
 		if ( m_pItemListFrameImg != NULL)
 			pPicture->SetBitmap( m_pItemListFrameImg->GetSourceBitmap());
@@ -120,7 +120,7 @@ void ZStageInterface::OnCreate( void)
 	MWidget* pWidget = (MWidget*)pResource->FindWidget( "Stage_ItemListView");
 	if ( pWidget)
 	{
-		MRECT rect;
+		sRect rect;
 		rect = pWidget->GetRect();
 		rect.x = -rect.w;
 		m_nListFramePos = rect.x;
@@ -138,7 +138,7 @@ void ZStageInterface::OnCreate( void)
 	MTextArea* pDesc = (MTextArea*)pResource->FindWidget( "Stage_ItemDesc");
 	if ( pDesc)
 	{
-		pDesc->SetTextColor( MCOLOR(0xFF808080));
+		pDesc->SetTextColor( sColor(0xFF808080));
 		//pDesc->SetText( "아이템을 화면 중앙에 있는 두개의 제단에 끌어놓음으로써 게임 레벨을 조정할 수 있습니다.");
 		char szText[256];
 		sprintf(szText, ZMsg( MSG_QUESTITEM_USE_DESCRIPTION ));
@@ -149,8 +149,8 @@ void ZStageInterface::OnCreate( void)
 		pPicture = (MPicture*)pResource->FindWidget( "Stage_RelayMapListBG" );
 		if(pPicture)
 		{ // f릴레이맵 리스트 배경 이미지
-			m_pRelayMapListFrameImg = new MBitmapR2;
-			((MBitmapR2*)m_pRelayMapListFrameImg)->Create( "relaymaplistframe.tga", RGetDevice(), "interface/loadable/relaymaplistframe.tga");
+			m_pRelayMapListFrameImg = new CCBitmapR2;
+			((CCBitmapR2*)m_pRelayMapListFrameImg)->Create( "relaymaplistframe.tga", RGetDevice(), "interface/loadable/relaymaplistframe.tga");
 
 			if(m_pRelayMapListFrameImg != NULL)
 				pPicture->SetBitmap(m_pRelayMapListFrameImg->GetSourceBitmap());
@@ -158,7 +158,7 @@ void ZStageInterface::OnCreate( void)
 		MWidget* pWidget = (MWidget*)pResource->FindWidget( "Stage_RelayMapListView");
 		if ( pWidget)
 		{
-			MRECT rect;
+			sRect rect;
 			rect = pWidget->GetRect();
 			rect.x = -rect.w;
 			m_nRelayMapListFramePos = rect.x;
@@ -226,7 +226,7 @@ void ZStageInterface::OnDestroy( void)
 
 	MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_MainBGTop");
 	if ( pPicture)
-		pPicture->SetBitmap( MBitmapManager::Get( "main_bg_t.png"));
+		pPicture->SetBitmap( CCBitmapManager::Get( "main_bg_t.png"));
 	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_FrameBG");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
@@ -409,7 +409,7 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 
 	// 화면 상단의 맵 이미지 설정하기
 	MPicture* pPicture = 0;
-	MBitmap* pBitmap = 0;
+	CCBitmap* pBitmap = 0;
 	char szMapName[256];
  	pPicture = (MPicture*)pResource->FindWidget( "Stage_MainBGTop");
 	if ( pPicture)
@@ -427,8 +427,8 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 			m_pTopBgImg = NULL;
 		}
 
-		m_pTopBgImg = new MBitmapR2;
-		((MBitmapR2*)m_pTopBgImg)->Create( "TopBgImg.png", RGetDevice(), szMapName);
+		m_pTopBgImg = new CCBitmapR2;
+		((CCBitmapR2*)m_pTopBgImg)->Create( "TopBgImg.png", RGetDevice(), szMapName);
 
 		if ( m_pTopBgImg != NULL)
 			pPicture->SetBitmap( m_pTopBgImg->GetSourceBitmap());
@@ -444,16 +444,16 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 	}
 
 	// 상하단 스트라이프의 색상 바꾸기
-#define SDM_COLOR			MCOLOR(255,0,0)
-#define TDM_COLOR			MCOLOR(0,255,0)
-#define SGD_COLOR			MCOLOR(0,0,255)
-#define TGD_COLOR			MCOLOR(255,255,0)
-#define ASSASIN_COLOR		MCOLOR(255,0,255)
-#define TRAINING_COLOR		MCOLOR(0,255,255)
-#define QUEST_COLOR			MCOLOR(255,255,255)
-#define SURVIVAL_COLOR		MCOLOR(255,255,255)
+#define SDM_COLOR			sColor(255,0,0)
+#define TDM_COLOR			sColor(0,255,0)
+#define SGD_COLOR			sColor(0,0,255)
+#define TGD_COLOR			sColor(255,255,0)
+#define ASSASIN_COLOR		sColor(255,0,255)
+#define TRAINING_COLOR		sColor(0,255,255)
+#define QUEST_COLOR			sColor(255,255,255)
+#define SURVIVAL_COLOR		sColor(255,255,255)
 
-	MCOLOR color;
+	sColor color;
 	switch ( ZGetGameClient()->GetMatchStageSetting()->GetGameType() )
 	{	
 		case CCMATCH_GAMETYPE_ASSASSINATE:
@@ -503,7 +503,7 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 
 		default:
 			_ASSERT(0);
-			color = MCOLOR(255,255,255,255);
+			color = sColor(255,255,255,255);
 	}
 	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Stage_StripBottom");
 	if(pPicture != NULL && !pPicture->IsAnim())
@@ -524,7 +524,7 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 void ZStageInterface::SetStageRelayMapImage()
 {
 	MPicture* pPicture = 0;
-	MBitmap* pBitmap = 0;
+	CCBitmap* pBitmap = 0;
 	char szMapName[256];
 	pPicture = (MPicture*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_MainBGTop");
 	if(!pPicture) return;
@@ -539,8 +539,8 @@ void ZStageInterface::SetStageRelayMapImage()
 			m_pTopBgImg = NULL;
 		}
 
-		m_pTopBgImg = new MBitmapR2;
-		((MBitmapR2*)m_pTopBgImg)->Create( "TopBgImg.png", RGetDevice(), szMapName);
+		m_pTopBgImg = new CCBitmapR2;
+		((CCBitmapR2*)m_pTopBgImg)->Create( "TopBgImg.png", RGetDevice(), szMapName);
 
 		if ( m_pTopBgImg != NULL)
 			pPicture->SetBitmap( m_pTopBgImg->GetSourceBitmap());
@@ -995,7 +995,7 @@ void ZStageInterface::GetSacrificeItemBoxPos( void)
 	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemListView");
 	if ( pWidget)
 	{
-		MRECT rect;
+		sRect rect;
 
 		switch ( m_nStateSacrificeItemBox)
 		{
@@ -1247,7 +1247,7 @@ public:
 			{
 				char szCount[ 128];
 				sprintf( szCount, "%s : %d", ZMsg( MSG_WORD_QUANTITY), pItemDesc->GetItemCount());
-				pDesc->SetTextColor( MCOLOR( 0xFFD0D0D0));
+				pDesc->SetTextColor( sColor( 0xFFD0D0D0));
 				pDesc->SetText( szCount);
 				pDesc->AddText( "\n");
 				pDesc->AddText( pItemDesc->GetItemDesc(), 0xFF808080);
@@ -1286,7 +1286,7 @@ MListener* ZGetSacrificeItemListBoxListener( void)
   
   desc : 희생 아이템 제거
 ************************************************************************/
-void OnDropCallbackRemoveSacrificeItem( void* pSelf, MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString)
+void OnDropCallbackRemoveSacrificeItem( void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	if ( (pSender == NULL) || (strcmp(pSender->GetClassName(), MINT_ITEMSLOTVIEW)))
 		return;
@@ -1383,7 +1383,7 @@ void ZStageInterface::SetRelayMapBoxPos( int nBoxPos)
 	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapListView");
 	if ( pWidget)
 	{
-		MRECT rect;
+		sRect rect;
 
 		switch ( nBoxPos)
 		{
@@ -1488,7 +1488,7 @@ void ZStageInterface::RelayMapCreateMapList()
 	{
 		if(strcmp(CCMATCH_MAPNAME_RELAYMAP, pCombo->GetString(i)) == 0)
 			continue;
-		RelayMapList* pRelayMapList = new RelayMapList( pCombo->GetString(i), MBitmapManager::Get( "Mark_Arrow.bmp"));
+		RelayMapList* pRelayMapList = new RelayMapList( pCombo->GetString(i), CCBitmapManager::Get( "Mark_Arrow.bmp"));
 		pMapListBox->Add( pRelayMapList);
 	}
 
@@ -1507,7 +1507,7 @@ void ZStageInterface::RelayMapCreateMapList()
 	for( int i = 0 ; i < ZGetGameClient()->GetMatchStageSetting()->GetRelayMapListCount(); ++i )
 	{// 릴레이맵 리스트에 데이터를 추가해준다.
 		int nMapID = arrayRelayMapList[i].nMapID;
-		RelayMapList* pRelayMapList = new RelayMapList( MGetMapDescMgr()->GetMapName(MGetMapDescMgr()->GetMapID(nMapID)), MBitmapManager::Get( "Mark_X.bmp"));
+		RelayMapList* pRelayMapList = new RelayMapList( MGetMapDescMgr()->GetMapName(MGetMapDescMgr()->GetMapID(nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
 		pRelaMapListBox->Add( pRelayMapList);
 	}
 }
@@ -1542,7 +1542,7 @@ public:
 			RelayMapList* pMapList = (RelayMapList*)pMapListBox->GetSelItem();
 			char szMapName[ MAPNAME_LENGTH ];
 			strcpy(szMapName, pMapList->GetString());
-			RelayMapList* pRelayMapList = new RelayMapList( szMapName, MBitmapManager::Get( "Mark_X.bmp"));
+			RelayMapList* pRelayMapList = new RelayMapList( szMapName, CCBitmapManager::Get( "Mark_X.bmp"));
 
 			pRelayMapListBox->Add( pRelayMapList);
 			pRelayMapListBox->ShowItem(pRelayMapListBox->GetCount());	// 스크롤 위치 세팅
@@ -1750,7 +1750,7 @@ bool ZStageInterface::OnResponseDropSacrificeItemOnSlot( const int nResult, cons
 	if( MOK == nResult)
 	{
 		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID);
-		MBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID, false);
+		CCBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID, false);
 
 		m_SacrificeItem[ nSlotIndex].SetSacrificeItemSlot( uidRequester, nItemID, pIconBitmap, pItemDesc->m_szQuestItemName, pItemDesc->m_nLevel);
 		SerializeSacrificeItemListBox();
@@ -1866,7 +1866,7 @@ bool ZStageInterface::OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const
 	if ( (uidOwner1 != CCUID(0,0)) && nItemID1)
 	{
 		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID1);
-		MBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID1, false);
+		CCBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID1, false);
 		m_SacrificeItem[ SACRIFICEITEM_SLOT0].SetSacrificeItemSlot( uidOwner1, nItemID1, pIconBitmap, pItemDesc->m_szQuestItemName, pItemDesc->m_nLevel);
 	}
 	else
@@ -1875,7 +1875,7 @@ bool ZStageInterface::OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const
 	if ( (uidOwner2 != CCUID(0,0)) && nItemID2)
 	{
 		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID2);
-		MBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID2, false);
+		CCBitmap* pIconBitmap = ZApplication::GetGameInterface()->GetQuestItemIcon( nItemID2, false);
 		m_SacrificeItem[ SACRIFICEITEM_SLOT1].SetSacrificeItemSlot( uidOwner2, nItemID2, pIconBitmap, pItemDesc->m_szQuestItemName, pItemDesc->m_nLevel);
 	}
 	else
@@ -1941,9 +1941,9 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
 	}
 
 
-#define		MAPSET_NORMAL		MCOLOR(0xFFFFFFFF)
-#define		MAPSET_SPECIAL		MCOLOR(0xFFFFFF40)			// Green
-//#define		MAPSET_SPECIAL		MCOLOR(0xFFFF2020)		// Red
+#define		MAPSET_NORMAL		sColor(0xFFFFFFFF)
+#define		MAPSET_SPECIAL		sColor(0xFFFFFF40)			// Green
+//#define		MAPSET_SPECIAL		sColor(0xFFFF2020)		// Red
 
 	// 여기서 시나리오 이름을 보여준다.
 	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_SenarioName");
@@ -1973,7 +1973,7 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
 			if ( itr != m_SenarioDesc.end())
 			{
 				pLabel->SetText( (*itr).second.m_szName);
-				pLabel->SetTextColor(MCOLOR(0xFFFFFF00));
+				pLabel->SetTextColor(sColor(0xFFFFFF00));
 				if ( pWidget)
 					pWidget->Show( true);
 
@@ -1990,7 +1990,7 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
 			{
 				// 특별시나리오가 없을경우는 정규시나리오이다.
 				pLabel->SetText("");
-				pLabel->SetTextColor(MCOLOR(0xFFFFFFFF));
+				pLabel->SetTextColor(sColor(0xFFFFFFFF));
 				if ( pWidget)
 					pWidget->Show( false);
 
@@ -2015,7 +2015,7 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
   arg  : none
   ret  : none
 ************************************************************************/
-void SacrificeItemSlotDesc::SetSacrificeItemSlot( const CCUID& uidUserID, const unsigned long int nItemID, MBitmap* pBitmap, const char* szItemName, const int nQL)
+void SacrificeItemSlotDesc::SetSacrificeItemSlot( const CCUID& uidUserID, const unsigned long int nItemID, CCBitmap* pBitmap, const char* szItemName, const int nQL)
 {
 	m_uidUserID = uidUserID;
 	m_nItemID = nItemID;

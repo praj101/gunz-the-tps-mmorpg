@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class MBitmap;
+class CCBitmap;
 class MScrollBar;
 
 enum ePlayerState
@@ -35,14 +35,14 @@ public:
 	ZPlayerListItem() {
 		m_PlayerUID = CCUID(0,0);
 		m_Grade = CCMUGFREE;
-		m_Color = MCOLOR(0xFFCDCDCD);
+		m_Color = sColor(0xFFCDCDCD);
 	}
 
-	void SetColor(MCOLOR c) {
+	void SetColor(sColor c) {
 		m_Color = c;
 	}
 
-	const MCOLOR GetColor(void) { 
+	const sColor GetColor(void) { 
 		return m_Color; 
 	}
 
@@ -50,7 +50,7 @@ public:
 
 	CCUID				m_PlayerUID;
 	CCMatchUserGradeID	m_Grade;		//이건 안쓰는 것 같다
-	MCOLOR				m_Color;
+	sColor				m_Color;
 
 
 	char			m_szName[MATCHOBJECT_NAME_LENGTH];
@@ -61,17 +61,17 @@ public:
 
 class ZLobbyPlayerListItem : public ZPlayerListItem{
 protected:
-	MBitmap* m_pBitmap;
-	MBitmap* m_pBmpDTGradeIcon;
-//	MBitmap* m_pBitmapEmblem;
+	CCBitmap* m_pBitmap;
+	CCBitmap* m_pBmpDTGradeIcon;
+//	CCBitmap* m_pBitmapEmblem;
 	unsigned int m_nClanID;
 
 public:
 	ePlayerState	m_nLobbyPlayerState;
 
 public:
-	ZLobbyPlayerListItem(const CCUID& puid, MBitmap* pBitmap, unsigned int nClanID, const char* szLevel, const char* szName, 
-		const char *szClanName, ePlayerState nLobbyPlayerState,CCMatchUserGradeID Grade, MBitmap* pBmpDTGradeIcon)
+	ZLobbyPlayerListItem(const CCUID& puid, CCBitmap* pBitmap, unsigned int nClanID, const char* szLevel, const char* szName, 
+		const char *szClanName, ePlayerState nLobbyPlayerState,CCMatchUserGradeID Grade, CCBitmap* pBmpDTGradeIcon)
 	{
 		m_pBitmap = pBitmap;
 		m_pBmpDTGradeIcon = pBmpDTGradeIcon;
@@ -120,7 +120,7 @@ public:
 		return NULL;
 	}
 
-	virtual MBitmap* GetBitmap(int i)
+	virtual CCBitmap* GetBitmap(int i)
 	{
 		if (i == 0) return m_pBitmap;
 		else if (i == 2)
@@ -143,13 +143,13 @@ public:
 class ZFriendPlayerListItem : public ZPlayerListItem{
 protected:
 	char		m_szLocation[128];
-	MBitmap*	m_pBitmap;
+	CCBitmap*	m_pBitmap;
 
 public:
 	ePlayerState	m_nLobbyPlayerState;
 
 public:
-	ZFriendPlayerListItem(const CCUID& puid, MBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLocation, 
+	ZFriendPlayerListItem(const CCUID& puid, CCBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLocation, 
 		ePlayerState nLobbyPlayerState,CCMatchUserGradeID Grade)
 	{
 		m_pBitmap = pBitmap;
@@ -194,7 +194,7 @@ public:
 		return NULL;
 	}
 
-	virtual MBitmap* GetBitmap(int i)
+	virtual CCBitmap* GetBitmap(int i)
 	{
 		if (i == 0) return m_pBitmap;
 		return NULL;
@@ -206,14 +206,14 @@ public:
 
 class ZClanPlayerListItem : public ZPlayerListItem{
 protected:
-	MBitmap* m_pBitmap;
+	CCBitmap* m_pBitmap;
 	CCMatchClanGrade	m_ClanGrade;
 
 public:
 	ePlayerState	m_nLobbyPlayerState;
 
 public:
-	ZClanPlayerListItem(const CCUID& puid, MBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLevel, 
+	ZClanPlayerListItem(const CCUID& puid, CCBitmap* pBitmap, const char* szName, const char* szClanName,const char* szLevel, 
 		ePlayerState nLobbyPlayerState,CCMatchClanGrade clanGrade)
 	{
 		m_pBitmap = pBitmap;
@@ -229,7 +229,7 @@ public:
 		else m_szClanName[0] = NULL;
 
 		m_ClanGrade = clanGrade;
-		m_Color = MCOLOR(0xFFCDCDCD);
+		m_Color = sColor(0xFFCDCDCD);
 	}
 
 	ZClanPlayerListItem(void)
@@ -242,7 +242,7 @@ public:
 		m_szLevel[0] = 0;
 		m_Grade = CCMUGFREE;
 		m_ClanGrade = CCG_NONE;
-		m_Color = MCOLOR(0xFFCDCDCD);
+		m_Color = sColor(0xFFCDCDCD);
 	}
 
 	virtual const char* GetString(void)
@@ -257,7 +257,7 @@ public:
 		return NULL;
 	}
 
-	virtual MBitmap* GetBitmap(int i)
+	virtual CCBitmap* GetBitmap(int i)
 	{
 		if (i == 0) return m_pBitmap;
 		return NULL;
@@ -292,13 +292,13 @@ public:
 	unsigned int m_nClanID;
 
 public:
-	MBitmap* m_pBitmap;
-	MBitmap* m_pBmpDTGradeIcon;
-//	MBitmap* m_pBitmapEmblem;
+	CCBitmap* m_pBitmap;
+	CCBitmap* m_pBmpDTGradeIcon;
+//	CCBitmap* m_pBitmapEmblem;
 
 public:
-	ZStagePlayerListItem(const CCUID& puid, MBitmap* pBitmap, unsigned int nClanID, const char* szName, const char* szClanName, 
-		const char* szLevel,CCMatchUserGradeID Grade, MBitmap* pBmpDTGradeIcon)
+	ZStagePlayerListItem(const CCUID& puid, CCBitmap* pBitmap, unsigned int nClanID, const char* szName, const char* szClanName, 
+		const char* szLevel,CCMatchUserGradeID Grade, CCBitmap* pBmpDTGradeIcon)
 	{
 		m_pBitmap = pBitmap;
 		m_pBmpDTGradeIcon = pBmpDTGradeIcon;
@@ -345,7 +345,7 @@ public:
 		return NULL;
 	}
 
-	virtual MBitmap* GetBitmap(int i)
+	virtual CCBitmap* GetBitmap(int i)
 	{
 		if (i == 0) return m_pBitmap;
 		else if (i == 2)
@@ -368,11 +368,11 @@ public:
 class ZPlayerListBoxLook : public MListBoxLook
 {
 public:
-	virtual void OnItemDraw2(MDrawContext* pDC, MRECT& r, const char* szText, MCOLOR color, bool bSelected, bool bFocus, int nAdjustWidth = 0);
-	virtual void OnItemDraw2(MDrawContext* pDC, MRECT& r, MBitmap* pBitmap, bool bSelected, bool bFocus, int nAdjustWidth);
-	virtual void OnDraw(MListBox* pListBox, MDrawContext* pDC);
+	virtual void OnItemDraw2(CCDrawContext* pDC, sRect& r, const char* szText, sColor color, bool bSelected, bool bFocus, int nAdjustWidth = 0);
+	virtual void OnItemDraw2(CCDrawContext* pDC, sRect& r, CCBitmap* pBitmap, bool bSelected, bool bFocus, int nAdjustWidth);
+	virtual void OnDraw(MListBox* pListBox, CCDrawContext* pDC);
 
-	virtual MRECT GetClientRect(MListBox* pListBox, MRECT& r);
+	virtual sRect GetClientRect(MListBox* pListBox, sRect& r);
 };
 
 class ZPlayerListBox : public MListBox
@@ -390,8 +390,8 @@ public:
 	};
 
 private:
-//	MBitmap*					m_pBitmap;
-//	MBitmap*					m_pBitmapIn;
+//	CCBitmap*					m_pBitmap;
+//	CCBitmap*					m_pBitmapIn;
 
 	MBmButton*					m_pButton;
 
@@ -421,9 +421,9 @@ public:
 	PLAYERLISTMODE GetMode() { return m_nMode; }
 	void SetMode(PLAYERLISTMODE mode);
 
-//	void SetBitmap( MBitmap* pBitmap );
-//	MBitmap* GetBitmap() {	return m_pBitmap; }
-//	MBitmap* GetBitmapIn() { return m_pBitmapIn; }
+//	void SetBitmap( CCBitmap* pBitmap );
+//	CCBitmap* GetBitmap() {	return m_pBitmap; }
+//	CCBitmap* GetBitmapIn() { return m_pBitmapIn; }
 
 	// mode PLAYERLISTMODE_CHANNEL
 	void AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char* szName, char* szClanName, unsigned int nClanID, CCMatchUserGradeID nGrade, int duelTournamentGrade );
@@ -481,7 +481,7 @@ public:
 class ZStagePlayerListBox : public MListBox
 {
 private:
-	MBitmap*		m_pBitmap;
+	CCBitmap*		m_pBitmap;
 
 	map< CCUID, sStagePlayerInfo*>	mPlayers;
 	vector<CCUID>					mPlayerOrder;
@@ -495,8 +495,8 @@ private:
 protected:
 
 public:
-	void SetBitmap( MBitmap* pBitmap );
-	MBitmap* GetBitmap() {	return m_pBitmap; }
+	void SetBitmap( CCBitmap* pBitmap );
+	CCBitmap* GetBitmap() {	return m_pBitmap; }
 
 	void AddPlayer(CCMatchObjCache* pCache);
 	void AddPlayer(CCUID& puid, CCMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,CCMatchTeam nTeam);

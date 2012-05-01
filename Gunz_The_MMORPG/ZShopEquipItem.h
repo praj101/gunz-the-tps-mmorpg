@@ -27,7 +27,7 @@ protected:
 	IShopEquipItemHandle_SendAccount*	m_pHandlerSendAccount;
 	IShopEquipItemHandle_BringAccount*	m_pHandlerBringAccount;
 
-	MBitmap* m_pIconBitmap;
+	CCBitmap* m_pIconBitmap;
 
 public:
 	ZShopEquipItem() 
@@ -54,7 +54,7 @@ public:
 	virtual bool CanEquip() = 0;
 	virtual bool CanSendAccount() = 0;
 	virtual bool CanSell() = 0;
-	virtual MBitmap* GetIcon() { return m_pIconBitmap; }
+	virtual CCBitmap* GetIcon() { return m_pIconBitmap; }
 	virtual const char* GetName(char* szBuf) = 0;
 	virtual const char* GetPriceText(char* szBuf);
 	virtual const char* GetLevelResText(char* szBuf) = 0;
@@ -191,7 +191,7 @@ public:
 	virtual const char* GetPriceText(char* szBuf);
 
 	void OpenSimpleConfirmDlg(ISimpleConfirmDlgDoneHandler* pDoneHandler);
-	void OpenCountableConfirmDlg(const char* szItemName, MBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
+	void OpenCountableConfirmDlg(const char* szItemName, CCBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
 
 	virtual void Buy() = 0;
 };
@@ -258,9 +258,9 @@ public:
 
 	void OpenSimpleConfirmDlg(ISimpleConfirmDlgDoneHandler* pDoneHandler);
 
-	void OpenCountableConfirmDlg(const char* szItemName, MBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
+	void OpenCountableConfirmDlg(const char* szItemName, CCBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
 
-	void OpenSellCashItemConfirmDlg(const char* szItemName, MBitmap* pIcon, int price, int count, ISellCashItemConfirmDlgDoneHandler* pHandler);
+	void OpenSellCashItemConfirmDlg(const char* szItemName, CCBitmap* pIcon, int price, int count, ISellCashItemConfirmDlgDoneHandler* pHandler);
 
 	virtual void Sell() = 0;
 };
@@ -311,7 +311,7 @@ public:
 	void SetItemUID(const CCUID& uid) { m_uidItem = uid; }
 	CCUID GetItemUID() { return m_uidItem; }
 
-	void OpenCountableConfirmDlg(const char* szItemName, MBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
+	void OpenCountableConfirmDlg(const char* szItemName, CCBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
 
 	virtual void Send() = 0;
 };
@@ -353,7 +353,7 @@ public:
 	ZMyItemNode* GetMyItemNode() { return m_pMyItemNode; }
 
 	void OpenSimpleConfirmDlg(ISimpleConfirmDlgDoneHandler* pDoneHandler);
-	void OpenCountableConfirmDlg(const char* szItemName, MBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
+	void OpenCountableConfirmDlg(const char* szItemName, CCBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
 
 	virtual void Bring() = 0;
 

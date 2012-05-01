@@ -22,7 +22,7 @@ class SacrificeItemSlotDesc
 protected:
 	CCUID		m_uidUserID;
 	int			m_nItemID;
-	MBitmap*	m_pIconBitmap;
+	CCBitmap*	m_pIconBitmap;
 	char		m_szItemName[25];
 	int			m_nQL;
 	bool		m_bExist;
@@ -39,11 +39,11 @@ public:
 	}
 
 public:
-	void SetSacrificeItemSlot( const CCUID& uidUserID, const unsigned long int nItemID, MBitmap* pBitmap, const char* szItemName, const int nQL);
+	void SetSacrificeItemSlot( const CCUID& uidUserID, const unsigned long int nItemID, CCBitmap* pBitmap, const char* szItemName, const int nQL);
 	void RemoveItem( void)						{ m_bExist = false; }
 
 	CCUID GetUID( void)							{ return m_uidUserID; }
-	MBitmap* GetIconBitmap( void)				{ return m_pIconBitmap; }
+	CCBitmap* GetIconBitmap( void)				{ return m_pIconBitmap; }
 	unsigned long int GetItemID( void)			{ return m_nItemID; }
 	const char* GetName( void)					{ return m_szItemName; }
 	int GetQL( void)							{ return m_nQL; }
@@ -56,13 +56,13 @@ class SacrificeItemListBoxItem : public MListItem
 {
 protected:
 	unsigned long		m_nItemID;
-	MBitmap*			m_pBitmap;
+	CCBitmap*			m_pBitmap;
 	char				m_szName[ 128];
 	int					m_nCount;
 	char				m_szDesc[ 256];
 
 public:
-	SacrificeItemListBoxItem( const unsigned long nItemID, MBitmap* pBitmap, const char* szName, int nCount, const char* szDesc)
+	SacrificeItemListBoxItem( const unsigned long nItemID, CCBitmap* pBitmap, const char* szName, int nCount, const char* szDesc)
 	{
 		m_nItemID = nItemID;
 		m_pBitmap = pBitmap;
@@ -81,14 +81,14 @@ public:
 
 		return NULL;
 	}
-	virtual MBitmap* GetBitmap( int i)
+	virtual CCBitmap* GetBitmap( int i)
 	{
 		if ( i == 0)
 			return m_pBitmap;
 
 		return NULL;
 	}
-	virtual bool GetDragItem(MBitmap** ppDragBitmap, char* szDragString, char* szDragItemString)
+	virtual bool GetDragItem(CCBitmap** ppDragBitmap, char* szDragString, char* szDragItemString)
 	{
 		*ppDragBitmap = GetBitmap(0);
 		strcpy( szDragString, m_szName);
@@ -108,11 +108,11 @@ class RelayMapList : public MListItem
 {
 protected:
 	char				m_szName[ 128];
-	MBitmap*			m_pBitmap;
+	CCBitmap*			m_pBitmap;
 
 public:
 	RelayMapList();
-	RelayMapList( const char* szName, MBitmap* pBitmap)
+	RelayMapList( const char* szName, CCBitmap* pBitmap)
 	{
 		strcpy( m_szName, szName);
 		m_pBitmap = pBitmap;
@@ -133,7 +133,7 @@ public:
 
 		return NULL;
 	}
-	virtual MBitmap* GetBitmap( int i)
+	virtual CCBitmap* GetBitmap( int i)
 	{
 		if ( i == 0)
 			return m_pBitmap;
@@ -177,10 +177,10 @@ protected:	// protected varialbes
 	int				m_nPosOfItem0, m_nPosOfItem1;
 	CCMATCH_GAMETYPE		m_nGameType;
 	bool			m_bPrevQuest;								// 이전 게임 타입이 퀘스트였는지 아닌지...
-	MBitmapR2*		m_pTopBgImg;								// 상단 맵 이미지
-	MBitmapR2*		m_pStageFrameImg;							// 프레임 이미지
-	MBitmapR2*		m_pItemListFrameImg;						// 아이템 리스트 프레임 이미지
-	MBitmapR2*		m_pRelayMapListFrameImg;					// 릴레이맵 리스트 프레임 이미지
+	CCBitmapR2*		m_pTopBgImg;								// 상단 맵 이미지
+	CCBitmapR2*		m_pStageFrameImg;							// 프레임 이미지
+	CCBitmapR2*		m_pItemListFrameImg;						// 아이템 리스트 프레임 이미지
+	CCBitmapR2*		m_pRelayMapListFrameImg;					// 릴레이맵 리스트 프레임 이미지
 	LIST_SCENARIONAME	 m_SenarioDesc;							// 퀘스트 시나리오 이름 리스트
 	bool			m_bRelayMapRegisterComplete;				// 릴레이맵 확인(등록)버튼 여부
 	bool			m_bEnableWidgetByRelayMap;					// 릴레이맵경우 위젯활성화 세팅(게임시작버튼 포함)
@@ -265,7 +265,7 @@ public:		// public functions
 	bool OnStopVote();
 };
 
-void OnDropCallbackRemoveSacrificeItem( void* pSelf, MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString);
+void OnDropCallbackRemoveSacrificeItem( void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 
 // Listner
 MListener* ZGetSacrificeItemListBoxListener( void);

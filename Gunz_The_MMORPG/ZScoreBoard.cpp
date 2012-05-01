@@ -56,7 +56,7 @@ void ZScoreBoard::OnDestroy()
 	m_pFrame = NULL;
 }
 
-void ZScoreBoard::OnDraw(MDrawContext* pDC)
+void ZScoreBoard::OnDraw(CCDrawContext* pDC)
 {
 	pDC->SetOpacity(255);
 }
@@ -111,7 +111,7 @@ void ZScoreBoard::OnHide(void)
 	m_pFrame->Show(false);
 }
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,sColor& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 void ZScoreBoard::Refresh()
 {
@@ -123,7 +123,7 @@ void ZScoreBoard::Refresh()
 
 	char* szRefName = NULL;
 
-	MCOLOR _color;
+	sColor _color;
 	char sp_name[256];
 	CCMatchUserGradeID gid;
 

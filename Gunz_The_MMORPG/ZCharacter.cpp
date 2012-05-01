@@ -4394,7 +4394,7 @@ void ZCharacter::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damag
 #ifdef _CHATOUTPUT_ENABLE_CHAR_DAMAGE_INFO_	// 내부빌드에서 대미지 정보 출력
 	char szDamagePrint[256];
 	sprintf(szDamagePrint, "%s에게 대미지[%2.1f], 남은 HP[%2.1f] AP[%2.1f]", GetUserName(), fDamage, GetHP(), GetAP());
-	ZChatOutput(MCOLOR(255, 100, 100), szDamagePrint);
+	ZChatOutput(sColor(255, 100, 100), szDamagePrint);
 #endif
 }
 

@@ -15,13 +15,13 @@ public:
 
 	ZShopEquipItem* GetItemData() { return m_pItemData; }
 
-	virtual void OnDraw(MRECT& r, MDrawContext* pDC, bool bSelected, bool bMouseOver);
+	virtual void OnDraw(sRect& r, CCDrawContext* pDC, bool bSelected, bool bMouseOver);
 	virtual const char* GetString() { return m_szName; }
 
-	virtual bool GetDragItem(MBitmap** ppDragBitmap, char* szDragString, char* szDragItemString);
+	virtual bool GetDragItem(CCBitmap** ppDragBitmap, char* szDragString, char* szDragItemString);
 	virtual int GetSortHint();
-	void GetIconRect(MRECT& out, const MRECT& rcItem);
-	bool IsPtInRectToShowToolTip(MRECT& rcItem, MPOINT& pt);
+	void GetIconRect(sRect& out, const sRect& rcItem);
+	bool IsPtInRectToShowToolTip(sRect& rcItem, MPOINT& pt);
 };
 
 
@@ -43,9 +43,9 @@ public:
 };
 
 
-void ShopPurchaseItemListBoxOnDrop(void* pSelf, MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString);
-void ShopSaleItemListBoxOnDrop(void* pSelf, MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString);
-void CharacterEquipmentItemListBoxOnDrop(void* pSelf, MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString);
+void ShopPurchaseItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+void ShopSaleItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+void CharacterEquipmentItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 
 
 MListener* ZGetShopListFilterListener(void);

@@ -48,7 +48,7 @@
 //	return true;
 //}
 //
-////bool ZEquipmentListBox_OLD::OnDrop(MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString)
+////bool ZEquipmentListBox_OLD::OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 ////{
 ////	if (m_pOnDropFunc != NULL)
 ////	{
@@ -76,7 +76,7 @@
 //
 //bool ZEquipmentListBox_OLD::OnEvent(MEvent* pEvent, MListener* pListener)
 //{
-//	MRECT rtClient = GetClientRect();
+//	sRect rtClient = GetClientRect();
 //
 //	if(pEvent->nMessage==MWM_MOUSEMOVE)
 //	{
@@ -133,8 +133,8 @@
 //
 //			m_idxItemLastTooltip = idxItem;
 //			ZEquipmentListItem_OLD* pItem = (ZEquipmentListItem_OLD*)Get(idxItem);
-//			MRECT rcListBox = GetRect();
-//			MRECT rcItem;
+//			sRect rcListBox = GetRect();
+//			sRect rcItem;
 //			if (pItem && CalcItemRect(idxItem, rcItem))	// 항목이 표시되고 있는 영역을 알아냄 (리스트 좌표계)
 //			{
 //				if (pItem->IsPtInRectToShowToolTip(rcItem, ptInList)) // 항목에게 이 좌표가 썸네일 이미지 영역인지 물어봄
@@ -155,7 +155,7 @@
 //					}
 //
 //					// 툴팁의 위치
-//					MRECT rcTextArea = pItemDescTextArea->GetRect();
+//					sRect rcTextArea = pItemDescTextArea->GetRect();
 //					MPOINT posDesc(rcItem.x, rcItem.y);
 //					posDesc = MClientToScreen(this, posDesc);
 //					posDesc.x -= pItemDescTextArea->GetClientWidth();			// 일단 아이콘의 왼쪽으로
@@ -480,14 +480,14 @@
 ////	return &g_EquipmentItemListBoxListener;
 ////}
 //
-//void ZEquipmentListItem_OLD::GetIconRect(MRECT& out, const MRECT& rcItem)
+//void ZEquipmentListItem_OLD::GetIconRect(sRect& out, const sRect& rcItem)
 //{
 //	int len = rcItem.h-4;
 //	out.Set(2, 2, len, len);
 //	//out.Set(2, 2, CONVERT800(60), CONVERT600(60));
 //}
 //
-//void ZEquipmentListItem_OLD::OnDraw(MRECT& r, MDrawContext* pDC, bool bSelected, bool bMouseOver)
+//void ZEquipmentListItem_OLD::OnDraw(sRect& r, CCDrawContext* pDC, bool bSelected, bool bMouseOver)
 //{
 //	// 배경색
 //	if (bSelected)
@@ -499,7 +499,7 @@
 //
 //	pDC->FillRectangle(r);
 //
-//	MRECT rcIcon;
+//	sRect rcIcon;
 //	GetIconRect(rcIcon, r);
 //	rcIcon.x += r.x;
 //	rcIcon.y += r.y;
@@ -514,7 +514,7 @@
 //	pDC->SetBitmap(m_pBitmap);
 //	pDC->Draw(rcIcon);
 //
-//	MRECT rc;	// 비트맵을 제외한 영역
+//	sRect rc;	// 비트맵을 제외한 영역
 //	rc.x = rcIcon.x + rcIcon.w + 2;
 //	rc.w = r.w - rcIcon.w - 6;
 //	rc.y = r.y + 2;
@@ -534,10 +534,10 @@
 //	// 썸네일 아이콘 위에 찍기 때문에 그림자를 그려서 시안성을 높인다
 //
 //	pDC->SetColor(20, 20, 20);
-//	pDC->Text(MRECT(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, MAM_LEFT | MAM_BOTTOM);	// 1픽셀씩 빗겨찍음
-//	pDC->Text(MRECT(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, MAM_LEFT | MAM_BOTTOM);
-//	pDC->Text(MRECT(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, MAM_LEFT | MAM_BOTTOM);
-//	pDC->Text(MRECT(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, MAM_LEFT | MAM_BOTTOM);
+//	pDC->Text(sRect(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, MAM_LEFT | MAM_BOTTOM);	// 1픽셀씩 빗겨찍음
+//	pDC->Text(sRect(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, MAM_LEFT | MAM_BOTTOM);
+//	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, MAM_LEFT | MAM_BOTTOM);
+//	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, MAM_LEFT | MAM_BOTTOM);
 //
 //	if (m_bLevelResticted)
 //		pDC->SetColor(200, 10, 10);
@@ -547,10 +547,10 @@
 //	pDC->Text(rcIcon, m_szLevel, MAM_LEFT | MAM_BOTTOM);
 //}
 //
-//bool ZEquipmentListItem_OLD::IsPtInRectToShowToolTip(MRECT& rcItem, MPOINT& pt)
+//bool ZEquipmentListItem_OLD::IsPtInRectToShowToolTip(sRect& rcItem, MPOINT& pt)
 //{
 //	// pt가 썸네일 아이콘 영역에 있는지 판단
-//	MRECT rcIcon;
+//	sRect rcIcon;
 //	GetIconRect(rcIcon, rcItem);
 //	// 리스트 좌표계로 변환
 //	rcIcon.x += rcItem.x;

@@ -34,7 +34,7 @@ bool CompareQuestScreenCharacter(ZCharacter* a, ZCharacter* b)
 }
 
 
-void ZCombatQuestScreen::OnDraw(MDrawContext* pDC)
+void ZCombatQuestScreen::OnDraw(CCDrawContext* pDC)
 {
 	/////////////////////////////////////////////
 	list<ZCharacter*>		SortedCharacterList;
@@ -81,8 +81,8 @@ void ZCombatQuestScreen::OnDraw(MDrawContext* pDC)
 		char szMsg[ 128];
 		ZTransMsg( szMsg, MSG_GAME_NEXT_N_MIN_AFTER, 1, szSec);
 
-		pDC->SetFont( MFontManager::Get("FONTa10_O2Wht"));
-		pDC->SetColor(MCOLOR(0xFFFFFFFF));
+		pDC->SetFont( CCFontManager::Get("FONTa10_O2Wht"));
+		pDC->SetColor(sColor(0xFFFFFFFF));
 
 		if (!bEventHide)
 			TextRelative(pDC,400.f/800.f,500.f/600.f, szMsg, true);
@@ -90,13 +90,13 @@ void ZCombatQuestScreen::OnDraw(MDrawContext* pDC)
 }
 
 
-void ZCombatQuestScreen::DrawPlayer(MDrawContext* pDC, int index, ZCharacter* pCharacter)
+void ZCombatQuestScreen::DrawPlayer(CCDrawContext* pDC, int index, ZCharacter* pCharacter)
 {
-	MFont *pFont = MFontManager::Get("FONTa10b");
+	CCFont *pFont = CCFontManager::Get("FONTa10b");
 	pDC->SetFont( pFont );
-	MCOLOR color = MCOLOR(0xFFFFFFFF);
-	if (pCharacter->IsDie()) color = MCOLOR(0xFF999999);
-	else if (pCharacter == ZGetGame()->m_pMyCharacter) color = MCOLOR(0xFFEEEE00);
+	sColor color = sColor(0xFFFFFFFF);
+	if (pCharacter->IsDie()) color = sColor(0xFF999999);
+	else if (pCharacter == ZGetGame()->m_pMyCharacter) color = sColor(0xFFEEEE00);
 	pDC->SetColor(color);
 
 	char szMsg[128];
@@ -125,13 +125,13 @@ void ZCombatQuestScreen::DrawPlayer(MDrawContext* pDC, int index, ZCharacter* pC
 	int bar_hp_width = (int)(BAR_WIDTH * ((float)pCharacter->GetHP() / pCharacter->GetProperty()->fMaxHP));
 	int bar_ap_width = (int)(BAR_WIDTH * ((float)pCharacter->GetAP() / pCharacter->GetProperty()->fMaxAP));
 
-	color = MCOLOR(0xFFD6290B);
+	color = sColor(0xFFD6290B);
 	int bar_y = screeny + pFont->GetHeight()+2;
 	pDC->SetColor(color);
 	pDC->FillRectangle(screenx, bar_y, bar_hp_width, BAR_HEIGHT);
 	pDC->Rectangle(screenx, bar_y, BAR_WIDTH, BAR_HEIGHT);
 
-	color = MCOLOR(0xFF3AAF3A);
+	color = sColor(0xFF3AAF3A);
 	pDC->SetColor(color);
 	bar_y += (BAR_HEIGHT + 2);
 	pDC->FillRectangle(screenx, bar_y, bar_ap_width, BAR_HEIGHT);

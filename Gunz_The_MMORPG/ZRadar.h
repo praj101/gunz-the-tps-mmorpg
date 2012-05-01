@@ -15,7 +15,7 @@ struct ZRadarNode
 class ZRadar : public ZInterface
 {
 protected:
-	MBitmapR2*		m_pBitmap;
+	CCBitmapR2*		m_pBitmap;
 	float			m_fMaxDistance;
 
 	ZRadarNode		m_Nodes[8];
@@ -25,7 +25,7 @@ public:
 	virtual ~ZRadar();
 	virtual bool OnCreate();
 	virtual void OnDestroy();
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
 	void OnAttack(rvector& pAttackerPos);
 

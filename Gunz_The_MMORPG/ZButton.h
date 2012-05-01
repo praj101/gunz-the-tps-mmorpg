@@ -21,7 +21,7 @@ protected:
 	virtual bool OnShow(void);
 	virtual void OnHide(void);
 
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 
 public:
 	ZButton(const char* szName, MWidget* pParent, MListener* pListener);
@@ -46,7 +46,7 @@ protected:
 	virtual bool OnShow(void);
 	virtual void OnHide(void);
 
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 
 public:
 	ZBmButton(const char* szName, MWidget* pParent, MListener* pListener);

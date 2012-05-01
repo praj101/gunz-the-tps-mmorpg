@@ -17,12 +17,12 @@ ZServerView::ZServerView(const char* szName, MWidget* pParent, MListener* pListe
 #ifdef LOCALE_NHNUSA
 	for(int i=0; i < AGENTMAXCOUNT; i++)
 		m_dAgentPing[i] = 300;
-	m_pPingBitmap[0] = MBitmapManager::Get( "AgentPing01.tga" );
-	m_pPingBitmap[1] = MBitmapManager::Get( "AgentPing02.tga" );
-	m_pPingBitmap[2] = MBitmapManager::Get( "AgentPing03.tga" );
-	m_pPingBitmap[3] = MBitmapManager::Get( "AgentPing04.tga" );
-	m_pPingBitmap[4] = MBitmapManager::Get( "AgentPing05.tga" );
-	m_pPingBitmap[5] = MBitmapManager::Get( "AgentPing06.tga" );
+	m_pPingBitmap[0] = CCBitmapManager::Get( "AgentPing01.tga" );
+	m_pPingBitmap[1] = CCBitmapManager::Get( "AgentPing02.tga" );
+	m_pPingBitmap[2] = CCBitmapManager::Get( "AgentPing03.tga" );
+	m_pPingBitmap[3] = CCBitmapManager::Get( "AgentPing04.tga" );
+	m_pPingBitmap[4] = CCBitmapManager::Get( "AgentPing05.tga" );
+	m_pPingBitmap[5] = CCBitmapManager::Get( "AgentPing06.tga" );
 #endif
 }
 
@@ -32,7 +32,7 @@ ZServerView::~ZServerView(void)
 	ClearServerList();
 }
 
-void ZServerView::OnDraw(MDrawContext* pDC)
+void ZServerView::OnDraw(CCDrawContext* pDC)
 {
 	for ( int nRowBlock = 0;  nRowBlock < 2/*nRow*/;  nRowBlock++)
 	{
@@ -87,7 +87,7 @@ void ZServerView::OnDraw(MDrawContext* pDC)
 	}
 }
 
-void ZServerView::PingImageDraw(MDrawContext* pDC, MRECT rectBox, int nImageCount, bool bIsLive)
+void ZServerView::PingImageDraw(CCDrawContext* pDC, sRect rectBox, int nImageCount, bool bIsLive)
 {
 	if ( !bIsLive)
 		return;
@@ -113,12 +113,12 @@ void ZServerView::PingImageDraw(MDrawContext* pDC, MRECT rectBox, int nImageCoun
 #endif
 }
 
-void ZServerView::IconDraw(MDrawContext* pDC, MRECT rectBox, int nType, bool bSelected)
+void ZServerView::IconDraw(CCDrawContext* pDC, sRect rectBox, int nType, bool bSelected)
 {
 	// Draw select bar
 	if ( bSelected)
 	{
-		MCOLOR color = MCOLOR(0xFF454545);
+		sColor color = sColor(0xFF454545);
 		color.a = ((timeGetTime() % 150) < 75) ? 255 : 210;
 		pDC->SetColor( color);
 		rectBox.y = rectBox.y - 1 * MGetWorkspaceHeight() / 600.f;
@@ -128,7 +128,7 @@ void ZServerView::IconDraw(MDrawContext* pDC, MRECT rectBox, int nType, bool bSe
 	}
 
 	// Draw Icon shadow
-	pDC->SetColor( MCOLOR(0xFF000000));
+	pDC->SetColor( sColor(0xFF000000));
 	pDC->FillRectangle( rectBox.x + 4, rectBox.y + 7, 7, 4);
 	pDC->FillRectangle( rectBox.x + 5, rectBox.y + 6, 5, 6);
 
@@ -136,32 +136,32 @@ void ZServerView::IconDraw(MDrawContext* pDC, MRECT rectBox, int nType, bool bSe
 	{
 	case 1 :	// Debug server
 		//sprintf( szText, pServerInfo->szName, nDebugCount++);
-		if ( bSelected)		pDC->SetColor( MCOLOR(0xFFFF0098));
-		else				pDC->SetColor( MCOLOR(0xFFAC5387));
+		if ( bSelected)		pDC->SetColor( sColor(0xFFFF0098));
+		else				pDC->SetColor( sColor(0xFFAC5387));
 		break;
 
 	case 2 :	// Match server
 		//sprintf( szText, pServerInfo->szName, nMatchCount++);
-		if ( bSelected)		pDC->SetColor( MCOLOR(0xFF00E9FF));
-		else				pDC->SetColor( MCOLOR(0xFF53A4AC));
+		if ( bSelected)		pDC->SetColor( sColor(0xFF00E9FF));
+		else				pDC->SetColor( sColor(0xFF53A4AC));
 		break;
 
 	case 3 :	// Clan server
 		//sprintf( szText, pServerInfo->szName, nClanCount++);
-		if ( bSelected)		pDC->SetColor( MCOLOR(0xFFFFBE00));
-		else				pDC->SetColor( MCOLOR(0xFFAC9553));
+		if ( bSelected)		pDC->SetColor( sColor(0xFFFFBE00));
+		else				pDC->SetColor( sColor(0xFFAC9553));
 		break;
 
 	case 4 :	// Quest server
 		//sprintf( szText, pServerInfo->szName, nQuestCount++);
-		if ( bSelected)		pDC->SetColor( MCOLOR(0xFF44FF00));
-		else				pDC->SetColor( MCOLOR(0xFF6BAC53));
+		if ( bSelected)		pDC->SetColor( sColor(0xFF44FF00));
+		else				pDC->SetColor( sColor(0xFF6BAC53));
 		break;
 
 	case 5 :	// Event server
 		//sprintf( szText, pServerInfo->szName, nEventCount++);
-		if ( bSelected)		pDC->SetColor( MCOLOR(0xFF8800FF));
-		else				pDC->SetColor( MCOLOR(0xFF8453AC));
+		if ( bSelected)		pDC->SetColor( sColor(0xFF8800FF));
+		else				pDC->SetColor( sColor(0xFF8453AC));
 		break;
 	}
 
@@ -170,7 +170,7 @@ void ZServerView::IconDraw(MDrawContext* pDC, MRECT rectBox, int nType, bool bSe
 	pDC->FillRectangle( rectBox.x + 4, rectBox.y + 5, 5, 6);
 }
 
-void ZServerView::ServerListDraw(MDrawContext* pDC, MRECT rectBox, ServerInfo* pServerInfo, bool bSelected)
+void ZServerView::ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* pServerInfo, bool bSelected)
 {
 	// Set server name
 	char szText[ 100];
@@ -185,11 +185,11 @@ void ZServerView::ServerListDraw(MDrawContext* pDC, MRECT rectBox, ServerInfo* p
 	{
 		sprintf( szText, "%s (checking)", pServerInfo->szName);
 
-		pDC->SetColor( MCOLOR(0xFF505050));
+		pDC->SetColor( sColor(0xFF505050));
 	}
 
 	// Draw name(아이콘 크기 만큼 띄어준다.)
-	pDC->SetColor( MCOLOR(0xFF000000));
+	pDC->SetColor( sColor(0xFF000000));
 	rectBox.x += 14;
 	rectBox.y += m_nTextOffset + 1;
 	pDC->Text( rectBox, szText, MAM_LEFT | MAM_VCENTER);		// Shadow
@@ -202,21 +202,21 @@ void ZServerView::ServerListDraw(MDrawContext* pDC, MRECT rectBox, ServerInfo* p
 		if ( bFulled)
 		{
 			if ( bSelected)
-				pDC->SetColor( MCOLOR(0xFFD00000));
+				pDC->SetColor( sColor(0xFFD00000));
 			else
-				pDC->SetColor( MCOLOR(0xFF900000));
+				pDC->SetColor( sColor(0xFF900000));
 		}
 		else
 		{
 			if ( bSelected)
-				pDC->SetColor( MCOLOR(0xFFFFFFFF));
+				pDC->SetColor( sColor(0xFFFFFFFF));
 			else
-				pDC->SetColor( MCOLOR(0xFFA0A0A0));
+				pDC->SetColor( sColor(0xFFA0A0A0));
 		}
 	}
 	else
 	{
-		pDC->SetColor( MCOLOR(0xFF505050));
+		pDC->SetColor( sColor(0xFF505050));
 	}
 
 	rectBox.x--;
@@ -230,7 +230,7 @@ bool ZServerView::OnEvent(MEvent* pEvent, MListener* pListener)
 
 
 	// Check rect range
-	MRECT r = GetClientRect();
+	sRect r = GetClientRect();
 	if ( r.InPoint( pEvent->Pos) == false)
 		return bRet;
 
@@ -238,7 +238,7 @@ bool ZServerView::OnEvent(MEvent* pEvent, MListener* pListener)
 	// LButton down
 	if ( pEvent->nMessage == MWM_LBUTTONDOWN)
 	{
-		MRECT rect;
+		sRect rect;
 		rect = GetClientRect();
 
 		int nSelect = 0;

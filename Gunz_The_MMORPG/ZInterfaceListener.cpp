@@ -78,7 +78,7 @@ class MHotBarButton : public MButton{
 protected:
 	char	m_szCommandString[256];
 protected:
-	virtual bool OnDrop(MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString){
+	virtual bool OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString){
 		m_pIcon = pBitmap;
 		AttachToolTip(szString);
 		strcpy(m_szCommandString, szItemString);
@@ -111,9 +111,9 @@ public:
 			ZGetGame()->ParseReservedWord(szParse, szCommandString);
 
 			char szErrMsg[256];
-			ZChatOutput(MCOLOR(0xFFFFFFFF), szCommandString);
+			ZChatOutput(sColor(0xFFFFFFFF), szCommandString);
 			if( ZGetGameClient()->Post(szErrMsg, 256, szParse)==false ){
-				ZChatOutput(MCOLOR(0xFFFFC600), szErrMsg);
+				ZChatOutput(sColor(0xFFFFC600), szErrMsg);
 			}
 
 			return true;
@@ -1913,8 +1913,8 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 					ZGetGameClient()->RequestProposal(MPROPOSAL_LADDER_INVITE, ppNames, nCount);
 				}else
 				{
-//					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), MGetErrorString(MSG_LADDER_INVALID_COUNT));
-					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
+//					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), MGetErrorString(MSG_LADDER_INVALID_COUNT));
+					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), 
 						ZErrStr(MSG_LADDER_INVALID_COUNT) );
 				}
 			}
@@ -1961,7 +1961,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 #endif
 				else
 				{
-					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
+					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), 
 						ZMsg(MSG_LADDER_INVALID_COUNT) );
 				}
 			}
@@ -2153,15 +2153,15 @@ BEGIN_IMPLEMENT_LISTENER(ZEquipmetRotateBtn, MBTN_CLK_MSG)
 		{
 			if ( pCharView->IsAutoRotate())
 			{
-				pButton->SetUpBitmap(   MBitmapManager::Get( "btn_rotate.tga"));
-				pButton->SetDownBitmap( MBitmapManager::Get( "btn_rotate.tga"));
-				pButton->SetOverBitmap( MBitmapManager::Get( "btn_rotate.tga"));
+				pButton->SetUpBitmap(   CCBitmapManager::Get( "btn_rotate.tga"));
+				pButton->SetDownBitmap( CCBitmapManager::Get( "btn_rotate.tga"));
+				pButton->SetOverBitmap( CCBitmapManager::Get( "btn_rotate.tga"));
 			}
 			else
 			{
-				pButton->SetUpBitmap(   MBitmapManager::Get( "btn_stop.tga"));
-				pButton->SetDownBitmap( MBitmapManager::Get( "btn_stop.tga"));
-				pButton->SetOverBitmap( MBitmapManager::Get( "btn_stop.tga"));
+				pButton->SetUpBitmap(   CCBitmapManager::Get( "btn_stop.tga"));
+				pButton->SetDownBitmap( CCBitmapManager::Get( "btn_stop.tga"));
+				pButton->SetOverBitmap( CCBitmapManager::Get( "btn_stop.tga"));
 			}
 		}
 	}

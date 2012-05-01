@@ -7,20 +7,20 @@
 
 class ZActionKeyLook : public MEditLook{
 public:
-	virtual void OnFrameDraw(MEdit* pEdit, MDrawContext* pDC);
-	virtual void OnDraw(MEdit* pEdit, MDrawContext* pDC);
+	virtual void OnFrameDraw(MEdit* pEdit, CCDrawContext* pDC);
+	virtual void OnDraw(MEdit* pEdit, CCDrawContext* pDC);
 };
 
-void ZActionKeyLook::OnFrameDraw(MEdit* pEdit, MDrawContext* pDC)
+void ZActionKeyLook::OnFrameDraw(MEdit* pEdit, CCDrawContext* pDC)
 {
-	MRECT r = pEdit->GetInitialClientRect();
+	sRect r = pEdit->GetInitialClientRect();
 	ZActionKey* pActionKey = (ZActionKey*)pEdit;	// -_-;
-	MCOLOR color = pActionKey->IsFocus() ? MCOLOR(200,200,200,255) : MCOLOR(100,100,100,255);
+	sColor color = pActionKey->IsFocus() ? sColor(200,200,200,255) : sColor(100,100,100,255);
 	pDC->SetColor(color);
 	pDC->Rectangle(r);
 }
 
-void ZActionKeyLook::OnDraw(MEdit* pEdit, MDrawContext* pDC) 
+void ZActionKeyLook::OnDraw(MEdit* pEdit, CCDrawContext* pDC) 
 {
 	MEditLook::OnDraw(pEdit,pDC,false);
 }
@@ -37,7 +37,7 @@ ZActionKey::ZActionKey(const char* szName, MWidget* pParent, MListener* pListene
 	LOOK_IN_CONSTRUCTOR();
 }
 
-void ZActionKey::OnDraw( MDrawContext* pDC )
+void ZActionKey::OnDraw( CCDrawContext* pDC )
 {
 	if( GetLook() != NULL )
 		GetLook()->OnDraw( this, pDC );

@@ -127,7 +127,7 @@ bool ZMiniMap::Create(const char *szName)
 	return true;
 }
 
-void ZMiniMap::OnDraw(MDrawContext* pDC)
+void ZMiniMap::OnDraw(CCDrawContext* pDC)
 {
 	if(!m_pBaseTexture) return ;
 
@@ -275,27 +275,27 @@ void ZMiniMap::OnDraw(MDrawContext* pDC)
 		pos.z = 0;
 		screen_pos = RGetTransformCoord(pos);
 
-		MCOLOR _color = MCOLOR(0xfffff696);
+		sColor _color = sColor(0xfffff696);
 
-		MFont *pFont=NULL;
+		CCFont *pFont=NULL;
 
 		if(pCharacter->IsAdminName()) {
-			pFont = MFontManager::Get("FONTa12_O1Org");
-			pDC->SetColor(MCOLOR(ZCOLOR_ADMIN_NAME));
+			pFont = CCFontManager::Get("FONTa12_O1Org");
+			pDC->SetColor(sColor(ZCOLOR_ADMIN_NAME));
 		}
 		else {
-			pFont = MFontManager::Get("FONTa12_O1Blr");
+			pFont = CCFontManager::Get("FONTa12_O1Blr");
 			if(ZGetGame()->GetMatch()->IsTeamPlay())
 				if(pCharacter->GetTeamID()==MMT_RED)
-					pFont = MFontManager::Get("FONTa12_O1Red");
+					pFont = CCFontManager::Get("FONTa12_O1Red");
 			pDC->SetColor(_color);
 		}
 
-//		pFont = MFontManager::Get("FONTa10b");
+//		pFont = CCFontManager::Get("FONTa10b");
 		pDC->SetBitmap(NULL);
 
 		/////// Outline Font //////////
-//				MFont *pFont=MFontManager::Get("FONTa12_O1Blr");
+//				CCFont *pFont=CCFontManager::Get("FONTa12_O1Blr");
 		if (pFont == NULL) _ASSERT(0);
 		pDC->SetFont(pFont);
 		///////////////////////////////
@@ -307,7 +307,7 @@ void ZMiniMap::OnDraw(MDrawContext* pDC)
 		if(ZGetGameInterface()->GetCombatInterface()->GetObserver()->GetTargetCharacter() == pCharacter) {
 
 			int nWidth = pDC->GetFont()->GetWidth(pCName);
-			pDC->SetColor(MCOLOR(0xffffffff));
+			pDC->SetColor(sColor(0xffffffff));
 
 #define MARGIN	5
 			pDC->FillRectangle(x-MARGIN,y-MARGIN,nWidth+MARGIN*2,pDC->GetFont()->GetHeight()+MARGIN*2);

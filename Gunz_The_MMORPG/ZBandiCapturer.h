@@ -14,7 +14,7 @@ public:
 	bool Start();
 	void Stop();
 	void ToggleStart();
-	void DrawCapture(MDrawContext* pDC);
+	void DrawCapture(CCDrawContext* pDC);
 	bool IsCapturing();
 	void SetResolution(int iResolution);
 	int GetResolution();
@@ -29,7 +29,7 @@ private:
 	long					m_lFileSize;
 	float					m_fToggleFileSize;
 
-	void OnDrawCapture(MDrawContext* pDC);
+	void OnDrawCapture(CCDrawContext* pDC);
 	BCAP_CONFIG GetConfig();
 	void GetFolder(TCHAR* szoutFolder);
 

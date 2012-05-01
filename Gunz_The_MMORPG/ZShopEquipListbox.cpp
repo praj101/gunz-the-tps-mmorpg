@@ -19,7 +19,7 @@ ZShopEquipListItem::~ZShopEquipListItem()
 	delete m_pItemData;
 }
 
-void ZShopEquipListItem::OnDraw( MRECT& r, MDrawContext* pDC, bool bSelected, bool bMouseOver )
+void ZShopEquipListItem::OnDraw( sRect& r, CCDrawContext* pDC, bool bSelected, bool bMouseOver )
 {
 	// 배경색
 	if (bSelected)
@@ -31,7 +31,7 @@ void ZShopEquipListItem::OnDraw( MRECT& r, MDrawContext* pDC, bool bSelected, bo
 
 	pDC->FillRectangle(r);
 
-	MRECT rcIcon;
+	sRect rcIcon;
 	GetIconRect(rcIcon, r);
 	rcIcon.x += r.x;
 	rcIcon.y += r.y;
@@ -43,7 +43,7 @@ void ZShopEquipListItem::OnDraw( MRECT& r, MDrawContext* pDC, bool bSelected, bo
 	pDC->SetBitmap(m_pItemData->GetIcon());
 	pDC->Draw(rcIcon);
 
-	MRECT rc;	// 비트맵을 제외한 영역
+	sRect rc;	// 비트맵을 제외한 영역
 	rc.x = rcIcon.x + rcIcon.w + 2;
 	rc.w = r.w - rcIcon.w - 6;
 	rc.y = r.y + 2;
@@ -63,10 +63,10 @@ void ZShopEquipListItem::OnDraw( MRECT& r, MDrawContext* pDC, bool bSelected, bo
 	// 썸네일 아이콘 위에 찍기 때문에 그림자를 그려서 시안성을 높인다
 
 	pDC->SetColor(20, 20, 20);
-	pDC->Text(MRECT(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, MAM_LEFT | MAM_BOTTOM);	// 1픽셀씩 빗겨찍음
-	pDC->Text(MRECT(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, MAM_LEFT | MAM_BOTTOM);
-	pDC->Text(MRECT(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, MAM_LEFT | MAM_BOTTOM);
-	pDC->Text(MRECT(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, MAM_LEFT | MAM_BOTTOM);
+	pDC->Text(sRect(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, MAM_LEFT | MAM_BOTTOM);	// 1픽셀씩 빗겨찍음
+	pDC->Text(sRect(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, MAM_LEFT | MAM_BOTTOM);
+	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, MAM_LEFT | MAM_BOTTOM);
+	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, MAM_LEFT | MAM_BOTTOM);
 
 	if (ZGetMyInfo()->GetLevel() < m_pItemData->GetLevelRes())
 		pDC->SetColor(200, 10, 10);
@@ -76,7 +76,7 @@ void ZShopEquipListItem::OnDraw( MRECT& r, MDrawContext* pDC, bool bSelected, bo
 	pDC->Text(rcIcon, m_szLevel, MAM_LEFT | MAM_BOTTOM);
 }
 
-bool ZShopEquipListItem::GetDragItem( MBitmap** ppDragBitmap, char* szDragString, char* szDragItemString )
+bool ZShopEquipListItem::GetDragItem( CCBitmap** ppDragBitmap, char* szDragString, char* szDragItemString )
 {
 	if (!m_pItemData) return true;
 
@@ -137,16 +137,16 @@ int ZShopEquipListItem::GetSortHint()
 	return 9999999;
 }
 
-void ZShopEquipListItem::GetIconRect(MRECT& out, const MRECT& rcItem)
+void ZShopEquipListItem::GetIconRect(sRect& out, const sRect& rcItem)
 {
 	int len = rcItem.h-4;
 	out.Set(2, 2, len, len);
 }
 
-bool ZShopEquipListItem::IsPtInRectToShowToolTip(MRECT& rcItem, MPOINT& pt)
+bool ZShopEquipListItem::IsPtInRectToShowToolTip(sRect& rcItem, MPOINT& pt)
 {
 	// pt가 썸네일 아이콘 영역에 있는지 판단
-	MRECT rcIcon;
+	sRect rcIcon;
 	GetIconRect(rcIcon, rcItem);
 	// 리스트 좌표계로 변환
 	rcIcon.x += rcItem.x;
@@ -166,7 +166,7 @@ ZShopEquipListbox::ZShopEquipListbox(const char* szName, MWidget* pParent, MList
 
 bool ZShopEquipListbox::OnEvent( MEvent* pEvent, MListener* pListener )
 {
-	MRECT rtClient = GetClientRect();
+	sRect rtClient = GetClientRect();
 
 	if(pEvent->nMessage==MWM_MOUSEMOVE)
 	{
@@ -200,8 +200,8 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 		if (idxItem!=-1)
 		{
 			ZShopEquipListItem* pItem = (ZShopEquipListItem*)Get(idxItem);
-			MRECT rcListBox = GetRect();
-			MRECT rcItem;
+			sRect rcListBox = GetRect();
+			sRect rcItem;
 			if (pItem && CalcItemRect(idxItem, rcItem))	// 항목이 표시되고 있는 영역을 알아냄 (리스트 좌표계)
 			{
 				if (pItem->IsPtInRectToShowToolTip(rcItem, ptInList)) // 항목에게 이 좌표가 썸네일 이미지 영역인지 물어봄
@@ -212,7 +212,7 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 					pItem->GetItemData()->FillItemDesc(pItemDescTextArea);
 
 					// 툴팁의 위치
-					MRECT rcTextArea = pItemDescTextArea->GetRect();
+					sRect rcTextArea = pItemDescTextArea->GetRect();
 					MPOINT posDesc(rcItem.x, rcItem.y);
 					posDesc = MClientToScreen(this, posDesc);
 					posDesc.x -= pItemDescTextArea->GetClientWidth();			// 일단 아이콘의 왼쪽으로
@@ -236,15 +236,15 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 
 // ============ ZShopPurchaseItemListBoxListener ===============================================
 
-void ShopPurchaseItemListBoxOnDrop(void* pSelf, MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString)
+void ShopPurchaseItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 }
 
-void ShopSaleItemListBoxOnDrop(void* pSelf, MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString)
+void ShopSaleItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 }
 
-void CharacterEquipmentItemListBoxOnDrop(void* pSelf, MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString)
+void CharacterEquipmentItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	if (pSender == NULL) return;
 	if (strcmp(pSender->GetClassName(), MINT_ITEMSLOTVIEW)) return;

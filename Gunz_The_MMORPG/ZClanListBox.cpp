@@ -10,7 +10,7 @@ ZClanListBox::ZClanListBox(const char* szName, MWidget* pParent, MListener* pLis
 	m_RoomWidth		= 0;
 	m_RoomHeight	= 0;
 
-	m_pRoomFrame = MBitmapManager::Get("banner_clan.bmp");
+	m_pRoomFrame = CCBitmapManager::Get("banner_clan.bmp");
 
 	for (int i = 0; i < NUM_DISPLAY_CLAN; i++)
 	{
@@ -25,7 +25,7 @@ ZClanListBox::~ZClanListBox()
 	ClearAll();
 }
 
-void ZClanListBox::OnDraw( MDrawContext* pDC )
+void ZClanListBox::OnDraw( CCDrawContext* pDC )
 {
 	const int nWidth = 376;	// 원래 위젯 크기
 	float fRatio = (float)m_Rect.w / (float)nWidth;
@@ -45,7 +45,7 @@ void ZClanListBox::OnDraw( MDrawContext* pDC )
 				pDC->Draw(0, y , (int)(fRatio * m_pRoomFrame->GetWidth()), (int)(fRatio * m_pRoomFrame->GetHeight()));
 
 				// 클랜 emblem
-				MBitmap *pBitmap = ZGetEmblemInterface()->GetClanEmblem( pInfo->nClanEmblemID);
+				CCBitmap *pBitmap = ZGetEmblemInterface()->GetClanEmblem( pInfo->nClanEmblemID);
 				if(pBitmap) {
 					int nSize = (int)(.95f * fRatio * m_pRoomFrame->GetHeight());
 					int nMargin = (int)(.05f * fRatio * m_pRoomFrame->GetHeight());
@@ -54,7 +54,7 @@ void ZClanListBox::OnDraw( MDrawContext* pDC )
 				}
 
 				// 대기중인 클랜 이름
-				pDC->SetColor(MCOLOR(0xffffffff));
+				pDC->SetColor(sColor(0xffffffff));
 				pDC->Text((int)(fRatio*40) , (int)(y + fRatio*10) , pInfo->szClanName);
 
 				// 대기중인 사람 수 ( x명 대기중 )

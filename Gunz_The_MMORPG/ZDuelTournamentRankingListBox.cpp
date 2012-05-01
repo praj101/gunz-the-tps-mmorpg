@@ -28,20 +28,20 @@ void ZDuelTournamentRankingListBox::ClearAll()
 void ZDuelTournamentRankingListBox::LoadInterfaceImgs()
 {
 	if (m_pBmpRankingItemBg == NULL) {
-		m_pBmpRankingItemBg = new MBitmapR2;
-		((MBitmapR2*)m_pBmpRankingItemBg)->Create( "DuelTournamentRankingItemBg.png", RGetDevice(), "Interface/loadable/DuelTournamentRankingItemBg.png");
+		m_pBmpRankingItemBg = new CCBitmapR2;
+		((CCBitmapR2*)m_pBmpRankingItemBg)->Create( "DuelTournamentRankingItemBg.png", RGetDevice(), "Interface/loadable/DuelTournamentRankingItemBg.png");
 	}
 	if (m_pBmpArrowUp == NULL) {
-		m_pBmpArrowUp = new MBitmapR2;
-		((MBitmapR2*)m_pBmpArrowUp)->Create( "arrow_up.tga", RGetDevice(), "Interface/loadable/arrow_up.tga");
+		m_pBmpArrowUp = new CCBitmapR2;
+		((CCBitmapR2*)m_pBmpArrowUp)->Create( "arrow_up.tga", RGetDevice(), "Interface/loadable/arrow_up.tga");
 	}
 	if (m_pBmpArrowDown == NULL) {
-		m_pBmpArrowDown = new MBitmapR2;
-		((MBitmapR2*)m_pBmpArrowDown)->Create( "arrow_down.tga", RGetDevice(), "Interface/loadable/arrow_down.tga");
+		m_pBmpArrowDown = new CCBitmapR2;
+		((CCBitmapR2*)m_pBmpArrowDown)->Create( "arrow_down.tga", RGetDevice(), "Interface/loadable/arrow_down.tga");
 	}
 	if (m_pBmpArrowBar == NULL) {
-		m_pBmpArrowBar = new MBitmapR2;
-		((MBitmapR2*)m_pBmpArrowBar)->Create( "arrow_bar.tga", RGetDevice(), "Interface/loadable/arrow_bar.tga");
+		m_pBmpArrowBar = new CCBitmapR2;
+		((CCBitmapR2*)m_pBmpArrowBar)->Create( "arrow_bar.tga", RGetDevice(), "Interface/loadable/arrow_bar.tga");
 	}
 }
 
@@ -60,7 +60,7 @@ void ZDuelTournamentRankingListBox::SetRankInfo( unsigned int nIndex, const ZDUE
 	m_rankingList[nIndex] = rankingItem;
 }
 
-void ZDuelTournamentRankingListBox::OnDraw( MDrawContext* pDC )
+void ZDuelTournamentRankingListBox::OnDraw( CCDrawContext* pDC )
 {
 	if (!m_pBmpRankingItemBg || !m_pBmpArrowUp || !m_pBmpArrowDown || !m_pBmpArrowBar) { _ASSERT(0); return; }
 
@@ -70,7 +70,7 @@ void ZDuelTournamentRankingListBox::OnDraw( MDrawContext* pDC )
 	const int nItemHeight = (int)(nHeight / 7.f);
 
 	char szTemp[128];
-	MRECT rc;
+	sRect rc;
 
 	for (int i=0; i<NUM_DISPLAY_DUELTOURNAMENT_RANKING; ++i)
 	{
@@ -87,7 +87,7 @@ void ZDuelTournamentRankingListBox::OnDraw( MDrawContext* pDC )
 
 		y = nY_firstItem + nItemHeight * i;
 
-		pDC->SetColor(MCOLOR(0xFFFFFFFF));
+		pDC->SetColor(sColor(0xFFFFFFFF));
 
 		// 순위
 		if (pRankItem->nRank == -1)	// 초기화 직후 순위정렬되지 않았을때 -1로 되어 있음
@@ -113,17 +113,17 @@ void ZDuelTournamentRankingListBox::OnDraw( MDrawContext* pDC )
 			pDC->Draw((int)(0.13f*nWidth), y + (nItemHeight - m_pBmpArrowBar->GetHeight()) * 0.5f);
 			
 			// 순위등락폭
-			pDC->SetColor(MCOLOR(0xFFAAFF00));
+			pDC->SetColor(sColor(0xFFAAFF00));
 			sprintf(szTemp, "%d", abs(pRankItem->nFluctuation));
 			//pDC->Text((int)(0.04f*nWidth), y, szTemp);
 			rc.Set((int)(0.16f*nWidth), y, (int)(fabs(0.16f - 0.26f)*nWidth), nItemHeight);
 			pDC->Text(rc, szTemp, MAM_LEFT|MAM_VCENTER);
-			pDC->SetColor(MCOLOR(0xFFFFFFFF));
+			pDC->SetColor(sColor(0xFFFFFFFF));
 		}
 
 		// 토너먼트 등급 엠블렘
 		GetDuelTournamentGradeIconFileName(szTemp, pRankItem->nGrade);
-		MBitmap* pGradeIcon = MBitmapManager::Get(szTemp);
+		CCBitmap* pGradeIcon = CCBitmapManager::Get(szTemp);
 		if (pGradeIcon) {
 			//int height1px = int(600.f/MGetWorkspaceHeight() + 0.5f);
 			
@@ -162,15 +162,15 @@ void ZDuelTournamentRankingListBox::OnDraw( MDrawContext* pDC )
 		// 내 랭킹 항목인 경우 하이라이트 이미지 덮어줌
 		if (i == m_nMyRankIndex)
 		{
-			MBitmapR2 *pBitmap=(MBitmapR2*)MBitmapManager::Get("button_glow.png");
+			CCBitmapR2 *pBitmap=(CCBitmapR2*)CCBitmapManager::Get("button_glow.png");
 			if(pBitmap) {
 				DWORD defaultcolor = 0x333333;
 				DWORD opacity=(DWORD)pDC->GetOpacity();
-				MRECT rt(0, y, nWidth, nItemHeight);
+				sRect rt(0, y, nWidth, nItemHeight);
 				MDrawEffect prevEffect = pDC->GetEffect();
 				pDC->SetEffect(MDE_ADD);
-				MCOLOR prevColor = pDC->GetBitmapColor();
-				pDC->SetBitmapColor(MCOLOR(defaultcolor));
+				sColor prevColor = pDC->GetBitmapColor();
+				pDC->SetBitmapColor(sColor(defaultcolor));
 				unsigned char prevOpacity = pDC->GetOpacity();
 				pDC->SetOpacity(opacity);
 				pDC->SetBitmap(pBitmap);

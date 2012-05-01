@@ -19,7 +19,7 @@ using namespace std;
 struct ZDropItemInfo
 {
 	string			m_strName;									// 이름
-	MBitmap*		m_pIcon;									// 아이콘 비트맵
+	CCBitmap*		m_pIcon;									// 아이콘 비트맵
 
 	ZDropItemInfo()
 	{
@@ -72,8 +72,8 @@ class ZMonsterBookInterface
 {
 // protected varialbes
 protected:
-	MBitmapR2*			m_pBookBgImg;							// 배경 책 이미지
-	MBitmapR2*			m_pIllustImg;							// 일러스트 비트맵 이미지
+	CCBitmapR2*			m_pBookBgImg;							// 배경 책 이미지
+	CCBitmapR2*			m_pIllustImg;							// 일러스트 비트맵 이미지
 
 	ZMonsterBookPage	m_mapMonsterBookPage;					// 몬스터 도감 페이지 리스트
 

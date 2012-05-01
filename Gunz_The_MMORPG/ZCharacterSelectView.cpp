@@ -625,9 +625,9 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 		if ( pLabel)
 		{
 			if ( i == nSelIndex)
-				pLabel->SetTextColor( MCOLOR(0xFFFFFFFF));		// Èò»ö
+				pLabel->SetTextColor( sColor(0xFFFFFFFF));		// Èò»ö
 			else
-				pLabel->SetTextColor( MCOLOR(0xFF606060));		// È¸»ö
+				pLabel->SetTextColor( sColor(0xFF606060));		// È¸»ö
 		}
 
 		sprintf( szName, "CharSel_Level%d", i);
@@ -635,9 +635,9 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 		if ( pLabel)
 		{
 			if ( i == nSelIndex)
-				pLabel->SetTextColor( MCOLOR(0xFFFFFFFF));		// Èò»ö
+				pLabel->SetTextColor( sColor(0xFFFFFFFF));		// Èò»ö
 			else
-				pLabel->SetTextColor( MCOLOR(0xFF606060));		// È¸»ö
+				pLabel->SetTextColor( sColor(0xFF606060));		// È¸»ö
 		}
 
 		sprintf( szName, "CharSel_ClanName%d", i);
@@ -645,9 +645,9 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 		if ( pLabel)
 		{
 			if ( i == nSelIndex)
-				pLabel->SetTextColor( MCOLOR(0xFFFFFFFF));		// Èò»ö
+				pLabel->SetTextColor( sColor(0xFFFFFFFF));		// Èò»ö
 			else
-				pLabel->SetTextColor( MCOLOR(0xFF606060));		// È¸»ö
+				pLabel->SetTextColor( sColor(0xFF606060));		// È¸»ö
 		}
 	}
 
@@ -758,7 +758,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 			if ( m_nSelectedCharacter == -1) m_nSelectedCharacter = nIndex;
 
 			char szWidgetName[256];
-			MRECT rect;
+			sRect rect;
 			sprintf( szWidgetName, "CharSel_Name%d", nIndex);
 
 			MLabel* pLabel;

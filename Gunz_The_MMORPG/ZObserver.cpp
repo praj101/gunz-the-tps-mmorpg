@@ -295,9 +295,9 @@ bool ZObserver::IsVisibleSetTarget(ZCharacter* pCharacter)
 
 }
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,sColor& _color,char* sp_name,CCMatchUserGradeID& gid);
 
-void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
+void ZObserver::DrawPlayerDuelHPAPBar(CCDrawContext* pDC)
 {
 	char	charName[3][100];
 	charName[0][0] = charName[1][0] = charName[2][0] = 0;
@@ -306,7 +306,7 @@ void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 	bool	bExistNextChallenger = false;
 	bool	bIsChampOserved = false;
 	bool	bIsChlngOserved = false;
-	MBitmap* pBitmap = NULL;
+	CCBitmap* pBitmap = NULL;
 
 
 	CCUID uidPlayer1, uidPlayer2, uidWaitQueue;
@@ -318,7 +318,7 @@ void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 		uidPlayer1 = pDuel->QInfo.m_uidChampion;
 		uidPlayer2 = pDuel->QInfo.m_uidChallenger;
 		uidWaitQueue = pDuel->QInfo.m_WaitQueue[0];
-		pBitmap = MBitmapManager::Get( "duel_score.tga");
+		pBitmap = CCBitmapManager::Get( "duel_score.tga");
 		ZGetCombatInterface()->DrawVictory( pDC, 162, 20, pDuel->QInfo.m_nVictory);	// 연승 마크 표시
 	}
 	else if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
@@ -326,7 +326,7 @@ void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 		ZRuleDuelTournament* pDuelTournament = (ZRuleDuelTournament*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		uidPlayer1 = pDuelTournament->m_nextPlayerInfo.uidPlayer1;
 		uidPlayer2 = pDuelTournament->m_nextPlayerInfo.uidPlayer2;
-		pBitmap = MBitmapManager::Get( "DuelTournament_score.tga");
+		pBitmap = CCBitmapManager::Get( "DuelTournament_score.tga");
 		((ZRuleDuelTournament*)ZGetGame()->GetMatch()->GetRule())->DrawVictorySymbol(pDC, uidPlayer1, uidPlayer2);	// 승리 마크 표시
 	}
 
@@ -452,26 +452,26 @@ void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 
 
 	// 이름 출력
-	MFont *pFont = MFontManager::Get("FONTa10_O2Wht");
+	CCFont *pFont = CCFontManager::Get("FONTa10_O2Wht");
 	if ( pFont == NULL)
 		_ASSERT(0);
 	pDC->SetFont( pFont);
 	int nTime = timeGetTime() % 200;
 	if ( bIsChampOserved && (nTime < 100))
-		pDC->SetColor(MCOLOR(0xFFFFFF00));
+		pDC->SetColor(sColor(0xFFFFFF00));
 	else
-		pDC->SetColor(MCOLOR(0xFFA0A0A0));
+		pDC->SetColor(sColor(0xFFA0A0A0));
 	TextRelative(pDC, 0.34f, 0.026f, charName[0], true);
 
 	if ( bIsChlngOserved && (nTime < 100))
-		pDC->SetColor(MCOLOR(0xFFFFFF00));
+		pDC->SetColor(sColor(0xFFFFFF00));
 	else
-		pDC->SetColor(MCOLOR(0xFFA0A0A0));
+		pDC->SetColor(sColor(0xFFA0A0A0));
 	TextRelative(pDC, 0.66f, 0.026f, charName[1], true);
 
 	if ( bExistNextChallenger)
 	{
-		MBitmap* pBitmap = MBitmapManager::Get( "icon_play.tga");
+		CCBitmap* pBitmap = CCBitmapManager::Get( "icon_play.tga");
 		if ( pBitmap)
 		{
 			pDC->SetBitmap( pBitmap);
@@ -481,7 +481,7 @@ void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 			pDC->Draw( 640.0f*fRx, 0, nIcon, nIcon);
 		}
 
-		pDC->SetColor( MCOLOR(0xFF808080));
+		pDC->SetColor( sColor(0xFF808080));
 		TextRelative( pDC, 0.83f, 0.01f, charName[ 2], false);
 	}
 
@@ -491,13 +491,13 @@ void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 	{
 	char szName[128];
 	sprintf(szName, "%s (HP:%d, AP:%d)", m_pTargetCharacter->GetUserName(), (int)m_pTargetCharacter->GetHP(), (int)m_pTargetCharacter->GetAP());
-	pDC->SetColor(MCOLOR(0xFFA0A0A0));
+	pDC->SetColor(sColor(0xFFA0A0A0));
 	TextRelative(pDC, 0.5f, 75.0f/800.0f, szName, true);
 	}
 	*/
 }
 
-void ZObserver::OnDraw(MDrawContext* pDC)
+void ZObserver::OnDraw(CCDrawContext* pDC)
 {
 	if ( ZGetGame()->IsReplay() && !ZGetGame()->IsShowReplayInfo())
 		return;
@@ -512,25 +512,25 @@ void ZObserver::OnDraw(MDrawContext* pDC)
 	// 운영자일 경우
 	if ( ZGetMyInfo()->IsAdminGrade())
 	{
-		MFont *pFont=MFontManager::Get("FONTb11b");
+		CCFont *pFont=CCFontManager::Get("FONTb11b");
 		if ( pFont == NULL)
 			_ASSERT(0);
 		pDC->SetFont(pFont);
 
 		// 테두리
-		MCOLOR backgroundcolor;
+		sColor backgroundcolor;
 		if ( m_pTargetCharacter->GetTeamID() == MMT_RED)
-			backgroundcolor = MCOLOR(100,0,0, 150);
+			backgroundcolor = sColor(100,0,0, 150);
 		else if ( m_pTargetCharacter->GetTeamID() == MMT_BLUE)
-			backgroundcolor = MCOLOR(0,0,100, 150);
+			backgroundcolor = sColor(0,0,100, 150);
 		else 
-			backgroundcolor = MCOLOR(0,0,0, 150);
+			backgroundcolor = sColor(0,0,0, 150);
 
 		pDC->SetColor(backgroundcolor);
 		pDC->FillRectangle( MGetWorkspaceWidth() / 2 - 170, MGetWorkspaceHeight() * (650.0f/800.0f) - 7, 340, 30);
 
 		// 텍스트
-		backgroundcolor = MCOLOR( 255,255,255, 255);
+		backgroundcolor = sColor( 255,255,255, 255);
 		pDC->SetColor( backgroundcolor);
 
 		char szName[128];
@@ -560,11 +560,11 @@ void ZObserver::OnDraw(MDrawContext* pDC)
 		char szName[128];
 		sprintf(szName, "%s (HP:%d, AP:%d)", m_pTargetCharacter->GetUserName(), (int)m_pTargetCharacter->GetHP(), (int)m_pTargetCharacter->GetAP());
 		if ( m_pTargetCharacter->IsAdminName())
-			pDC->SetColor(MCOLOR(ZCOLOR_ADMIN_NAME));
+			pDC->SetColor(sColor(ZCOLOR_ADMIN_NAME));
 		else
-			pDC->SetColor(MCOLOR(0xFFFFFFFF));
+			pDC->SetColor(sColor(0xFFFFFFFF));
 
-		MFont *pFont = MFontManager::Get( "FONTb11b");
+		CCFont *pFont = CCFontManager::Get( "FONTb11b");
 		if ( pFont == NULL)
 			_ASSERT(0);
 		pDC->SetFont( pFont);
@@ -584,7 +584,7 @@ void ZObserver::OnDraw(MDrawContext* pDC)
 
 		char szFileName[ 50];
 		sprintf( szFileName, "camera_%s.tga", szModes[pCamera->GetLookMode()]);
-		pDC->SetBitmap( MBitmapManager::Get( szFileName));
+		pDC->SetBitmap( CCBitmapManager::Get( szFileName));
 
 		float fGain = (float)MGetWorkspaceWidth() / 800.0f;
 		pDC->Draw( (int)(720.0f * fGain), (int)(7.0f * fGain), (int)(64.0f * fGain), (int)(64.0f * fGain));
@@ -622,35 +622,35 @@ void ZObserver::OnDraw(MDrawContext* pDC)
 		char szText[128];
 
 		// 배경 표시
-		MCOLOR backgroundcolor;
+		sColor backgroundcolor;
 
 		if (ZGetGame()->GetMatch()->IsTeamPlay())
 		{
-			backgroundcolor = MCOLOR(100,0,0, 150);
+			backgroundcolor = sColor(100,0,0, 150);
 			pDC->SetColor(backgroundcolor);
 			pDC->FillRectangleW( 700 * sizex, 37 * sizey, 85 * sizex, 22 * sizey);
-			backgroundcolor = MCOLOR(0,0,100, 150);
+			backgroundcolor = sColor(0,0,100, 150);
 			pDC->SetColor(backgroundcolor);
 			pDC->FillRectangleW( 700 * sizex, 62 * sizey, 85 * sizex, 22 * sizey);
 
 			// 인원수 표시
-			backgroundcolor = MCOLOR(255,180,180, 255);
+			backgroundcolor = sColor(255,180,180, 255);
 			pDC->SetColor(backgroundcolor);
 			sprintf( szText, "%s:%d", ZMsg( MSG_WORD_REDTEAM), nNumOfRedTeam); 
 			TextRelative( pDC, 0.92f, 40.0f/600.0f, szText, true);
-			backgroundcolor = MCOLOR(180,180,255, 255);
+			backgroundcolor = sColor(180,180,255, 255);
 			pDC->SetColor(backgroundcolor);
 			sprintf( szText, "%s:%d", ZMsg( MSG_WORD_BLUETEAM), nNumOfBlueTeam); 
 			TextRelative( pDC, 0.92f, 65.0f/600.0f, szText, true);
 		}
 		else
 		{
-/*			backgroundcolor = MCOLOR(0,0,0, 150);
+/*			backgroundcolor = sColor(0,0,0, 150);
 			pDC->SetColor(backgroundcolor);
 			pDC->FillRectangle( 700 * sizex, 37 * sizey, 85 * sizex, 22 * sizey);
 
 			// 인원수 표시
-			backgroundcolor = MCOLOR(180,180,180, 255);
+			backgroundcolor = sColor(180,180,180, 255);
 			pDC->SetColor(backgroundcolor);
 			sprintf( szText, "인원:%d", nNumOfTotal); 
 			TextRelative( pDC, 0.92f, 40.0f/600.0f, szText, true);

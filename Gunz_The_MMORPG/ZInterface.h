@@ -22,7 +22,7 @@ public:
 	virtual bool OnCreate();										// 초기화
 	virtual void OnDestroy();										// destroy 시 불림.
 
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 
 	virtual bool IsDone();											// 다음 인터페이스로 갈때 false를 리턴한다.
 

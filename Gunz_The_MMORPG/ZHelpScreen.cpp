@@ -44,7 +44,7 @@ struct CUSTOMVERTEX{
 #define FADEOUT_NUM_DRAWING		120
 #define BLENDING_NUM_DRAWING	240
 
-extern MDrawContextR2* g_pDC;
+extern CCDrawContextR2* g_pDC;
 
 void TextOutKeymap(int skey,int x,int y)
 {
@@ -88,7 +88,7 @@ void ZHelpScreen::ChangeMode() {
 	m_bDrawHelpScreen = !m_bDrawHelpScreen;
 
 	if(m_bDrawHelpScreen) {
-		m_pHelpScreenBitmap = new MBitmapR2;
+		m_pHelpScreenBitmap = new CCBitmapR2;
 		m_pHelpScreenBitmap->Create("HelpScreen",RGetDevice(), "Interface/default/help/key.png" );
 	}
 	else {
@@ -175,16 +175,16 @@ void ZHelpScreen::DrawHelpScreen()
 
 	// 굵은 폰트로 바인딩된 키그려주기...
 
-	g_pDC->SetColor(MCOLOR(0xFF000000));
+	g_pDC->SetColor(sColor(0xFF000000));
 
-//	g_pDC->SetFont(MFontManager::Get("FONTc8b"));
-//	g_pDC->SetFont(MFontManager::Get("FONTa12_O1Blr"));
-	g_pDC->SetFont(MFontManager::Get("FONTb11b"));
+//	g_pDC->SetFont(CCFontManager::Get("FONTc8b"));
+//	g_pDC->SetFont(CCFontManager::Get("FONTa12_O1Blr"));
+	g_pDC->SetFont(CCFontManager::Get("FONTb11b"));
 
 	float aspect_x = RGetScreenWidth()/800.f;
 	float aspect_y = RGetScreenHeight()/600.f;
 
-	MFontR2* pFont = (MFontR2*)g_pDC->GetFont();
+	CCFontR2* pFont = (CCFontR2*)g_pDC->GetFont();
 	pFont->m_fScale = 1.0f * aspect_x;
 
 	int nHeight = 193 * aspect_y;

@@ -57,9 +57,9 @@ protected:
 	float					m_RoomWidth;
 	float					m_RoomHeight;
 	sMapInfo				m_pMapInfo[NUM_DISPLAY_ROOM];
-	map<string, MBitmap*>	m_pMapImage;
-	map<CCMATCH_GAMETYPE, MBitmap*>	m_pIconImage;
-	MBitmap*				m_pRoomFrame;
+	map<string, CCBitmap*>	m_pMapImage;
+	map<CCMATCH_GAMETYPE, CCBitmap*>	m_pIconImage;
+	CCBitmap*				m_pRoomFrame;
 
 	int						m_Selection;
 	int						m_currPage;
@@ -72,7 +72,7 @@ protected:
 
 	CCUID					m_uidSelectedPrivateStageUID;
 protected:
-	virtual void	OnDraw( MDrawContext* pDC );
+	virtual void	OnDraw( CCDrawContext* pDC );
 	virtual bool	OnShow( void );
 	virtual bool	OnCommand( MWidget* pWidget, const char* szMassage );
 	virtual bool	OnEvent(MEvent* pEvent, MListener* pListener);
@@ -80,9 +80,9 @@ protected:
 	CCUID GetSelRoomUID();
 	CCUID GetSelectedPrivateStageUID();
 public:
-	void	SetBannerImage(char* pBannerName, MBitmap* pBitmap);
-	void	SetIconImage(CCMATCH_GAMETYPE type, MBitmap* pBitmap);
-	void	SetFrameImage(MBitmap* pBitmap){m_pRoomFrame = pBitmap;};
+	void	SetBannerImage(char* pBannerName, CCBitmap* pBitmap);
+	void	SetIconImage(CCMATCH_GAMETYPE type, CCBitmap* pBitmap);
+	void	SetFrameImage(CCBitmap* pBitmap){m_pRoomFrame = pBitmap;};
 	void	SetWidth( float width ) { m_RoomWidth	= width; }
 	void	SetHeight( float height ) { m_RoomHeight	= height; }
 	void	SetRoomName( int i, char* pRoomName, sMapInfo* info );

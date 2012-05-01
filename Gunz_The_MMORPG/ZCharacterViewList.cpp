@@ -387,7 +387,7 @@ void ZCharacterViewList::SetSelectCharacter(ZCharacterView* pSelectView)
 
 }
 
-void ZCharacterViewList::OnDraw(MDrawContext* pDC)
+void ZCharacterViewList::OnDraw(CCDrawContext* pDC)
 {
  	ZMeshViewList::OnDraw(pDC);
 
@@ -420,18 +420,18 @@ void ZCharacterViewList::OnDraw(MDrawContext* pDC)
 /*
 			char temp[10];
 
-			MRECT tr = MRECT( 40, 4, 12, 12);
+			sRect tr = sRect( 40, 4, 12, 12);
 			pDC->SetColor(255, 0, 0);
 			pDC->FillRectangle(tr);
-			tr = MRECT( 60, 4, 12, 12);
+			tr = sRect( 60, 4, 12, 12);
 			sprintf(temp,":%d",red);
 			pDC->SetColor(255, 255, 255);
 			pDC->Text(tr,temp);
 
-			tr = MRECT( 80, 3, 12, 12);
+			tr = sRect( 80, 3, 12, 12);
 			pDC->SetColor(0, 0, 255);
 			pDC->FillRectangle(tr);
-			tr = MRECT( 100, 4, 12, 12);
+			tr = sRect( 100, 4, 12, 12);
 			sprintf(temp,":%d",blue);
 			pDC->SetColor(255, 255, 255);
 			pDC->Text(tr,temp);

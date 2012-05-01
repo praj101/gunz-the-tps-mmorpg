@@ -2,7 +2,7 @@
 #define _ZSCREENDEBUGGER_H
 
 
-class MDrawContext;
+class CCDrawContext;
 
 class ZScreenDebugger
 {
@@ -10,13 +10,13 @@ private:
 	int		m_nShowDebugInfo;
 	int		m_nY;
 
-	void OnDrawAIDebugInfo(MDrawContext *pDC);
-	void DrawActorInfo(int num, MDrawContext *pDC, ZActor* pActor);
-	void PrintText(MDrawContext* pDC, const char* buffer);
+	void OnDrawAIDebugInfo(CCDrawContext *pDC);
+	void DrawActorInfo(int num, CCDrawContext *pDC, ZActor* pActor);
+	void PrintText(CCDrawContext* pDC, const char* buffer);
 public:
 	ZScreenDebugger();
 	~ZScreenDebugger();
-	void DrawDebugInfo(MDrawContext *pDC);
+	void DrawDebugInfo(CCDrawContext *pDC);
 	void SwitchDebugInfo();
 
 	bool IsVisible()	{ return (m_nShowDebugInfo != 0); }

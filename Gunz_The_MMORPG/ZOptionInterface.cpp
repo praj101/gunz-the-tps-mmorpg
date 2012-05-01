@@ -271,7 +271,7 @@ void ZOptionInterface::InitInterfaceOption(void)
 			//	pWidget->SetCheck( true );
 			//	pWidget->Enable( false );
 			//	MLabel* label = (MLabel*)pResource->FindWidget("Lightmap Label");
-			//	if(label) label->SetTextColor( MCOLOR( 64, 64, 64 ));
+			//	if(label) label->SetTextColor( sColor( 64, 64, 64 ));
 			//}
 		}
 
@@ -1136,7 +1136,7 @@ void ZOptionInterface::OptimizationVideoOption()
 	}
 
 	//pLabel = (MLabel*)pResource->FindWidget("Lightmap Label");
-	//if(pLabel!=0) pLabel->SetTextColor(MCOLOR(64,64,64));
+	//if(pLabel!=0) pLabel->SetTextColor(sColor(64,64,64));
 	pButton = (MButton*)pResource->FindWidget("LightMap");
 	if(pButton!=0) {
 		pButton->SetCheck(true);		
@@ -1175,7 +1175,7 @@ bool ZOptionInterface::ResizeWidgetRecursive( MWidget* pWidget/*, int w, int h*/
 		const float tempWidth = ((float)RGetScreenWidth()) / 800;
 		const float tempHeight = ((float)RGetScreenHeight()) / 600;
 
-		MRECT r=pWidget->GetIDLRect();
+		sRect r=pWidget->GetIDLRect();
 		r.x*=tempWidth;
 		r.w*=tempWidth;
 		r.y*=tempHeight;
@@ -1189,7 +1189,7 @@ bool ZOptionInterface::ResizeWidgetRecursive( MWidget* pWidget/*, int w, int h*/
 		MPOINT p = pWidget->GetPosition();
 		p.Scale( tempWidth, tempHeight );
 		pWidget->SetPosition( p );
-		MRECT r=pWidget->GetRect();
+		sRect r=pWidget->GetRect();
 		pWidget->SetSize( r.w*tempWidth, r.h*tempHeight );
 	}
 	return true;
@@ -1220,7 +1220,7 @@ void ZOptionInterface::AdjustMultipliedWidgetsManually()
 		pWidget = pResource->FindWidget( "LoginFrame");
 		if ( pWidget)
 		{
-			MRECT rect;
+			sRect rect;
 			rect = pWidget->GetRect();
 
 			//jintriple3 해상도에 따른 서버 선택 창 위치 중앙에서 약간 아래로...
@@ -1238,7 +1238,7 @@ void ZOptionInterface::AdjustMultipliedWidgetsManually()
 		pWidget = pResource->FindWidget( "Login_ConnectingMsg");
 		if ( pWidget)
 		{
-			MRECT rect;
+			sRect rect;
 			rect = pWidget->GetRect();
 			rect.x = 0;
 			rect.y = (int)(h * 0.66f);
@@ -1270,7 +1270,7 @@ void ZOptionInterface::AdjustMultipliedWidgetsManually()
 	if (pWidget) {
 		enum { LF_FILENAME, LF_VERSION, LF_MAX };
 		MListBox* pReplayListBox = (MListBox*)pWidget;
-		MRECT rc = pReplayListBox->GetClientRect();
+		sRect rc = pReplayListBox->GetClientRect();
 		if (pReplayListBox->GetFieldCount() == LF_MAX) {
 			pReplayListBox->GetField(LF_FILENAME)->nTabSize = rc.0.75f *
 		} else {
@@ -1299,7 +1299,7 @@ void ZOptionInterface::AdjustMultipliedWidgetsManually()
 
 	pWidget = pResource->FindWidget("CharCreation");
 	if (pWidget) {
-		MRECT rect;
+		sRect rect;
 		rect = pWidget->GetRect();
 		rect.x = 50 * ( RGetScreenWidth() / 800.0f);
 		rect.y = (int)((RGetScreenHeight() - rect.h) / 2.0f);
@@ -1319,13 +1319,13 @@ void ZOptionInterface::AdjustMultipliedWidgetsManually()
 
 	pWidget = pResource->FindWidget("BuyItemDetailFrame_Thumbnail");
 	if (pWidget) {	// 이 썸네일 이미지는 와이드 해상도에서도 정사각형으로 보이도록 조정
-		MRECT rc = pWidget->GetRect();
+		sRect rc = pWidget->GetRect();
 		rc.h = rc.w;
 		pWidget->SetBounds(rc);
 	}
 }
 
-extern MFontR2* g_pDefFont;
+extern CCFontR2* g_pDefFont;
 void ZOptionInterface::ResizeDefaultFont( int newScreenHeight )
 {
 	// 폰트를 기준 해상도(800*600)에서 몇배할 것인지 계산
@@ -1340,13 +1340,13 @@ void ZOptionInterface::ResizeDefaultFont( int newScreenHeight )
 
 	if (!g_pDefFont->Create("Default", Z_LOCALE_DEFAULT_FONT, newFontHeight, 1.0f))
 	{
-		cclog("Fail to Recreate default font : MFontR2 / screen resize\n" );
+		cclog("Fail to Recreate default font : CCFontR2 / screen resize\n" );
 		g_pDefFont->Destroy();
 		SAFE_DELETE( g_pDefFont );
 	}
 
 	// UI에서 로딩된 폰트들 크기 변경
-	MFontManager::Resize( fontResizeRatio, FONT_MINIMUM_HEIGHT ); //원래 크기(800*600기준UI)에 대해서 몇배율로 변화해야하는지를 알려줌
+	CCFontManager::Resize( fontResizeRatio, FONT_MINIMUM_HEIGHT ); //원래 크기(800*600기준UI)에 대해서 몇배율로 변화해야하는지를 알려줌
 }
 
 void ZOptionInterface::Resize(int w, int h)

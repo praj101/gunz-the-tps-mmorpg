@@ -1,16 +1,16 @@
 #include "stdafx.h"
 #include "ZItemIconBitmap.h"
-#include "MBitmap.h"
+#include "CCBitmap.h"
 #include "CCMatchItem.h"
 
 
 // 파일 이름은 그냥 하드코딩..-_-;
-MBitmap* GetItemIconBitmap(CCMatchItemDesc* pItemDesc)
+CCBitmap* GetItemIconBitmap(CCMatchItemDesc* pItemDesc)
 {
 	if (pItemDesc == NULL) return false;
 
 	// 아이템 썸네일 파일을 먼저 찾아봅니다. 만약 없으면 기존대로 종류별 아이콘을 로딩합니다.
-	MBitmap* pBitmapThumbnail = GetItemThumbnailBitmap(pItemDesc);
+	CCBitmap* pBitmapThumbnail = GetItemThumbnailBitmap(pItemDesc);
 	if (pBitmapThumbnail)
 		return pBitmapThumbnail;
 
@@ -110,7 +110,7 @@ MBitmap* GetItemIconBitmap(CCMatchItemDesc* pItemDesc)
 
 	strcat(szFileName, ".tga");	
 
-	MBitmap *pBitmap = MBitmapManager::Get(szFileName);
+	CCBitmap *pBitmap = CCBitmapManager::Get(szFileName);
 	_ASSERT(pBitmap!=NULL);
 	return pBitmap;
 }
@@ -149,19 +149,19 @@ const char* GetItemIconBitmap_Trap(CCMatchItemDesc* pDesc)
 	return "";
 }
 
-MBitmap* GetItemThumbnailBitmap(CCMatchItemDesc* pDesc)
+CCBitmap* GetItemThumbnailBitmap(CCMatchItemDesc* pDesc)
 {
 	// 아이템의 썸네일 파일을 로딩
 	if (!pDesc) return NULL;
 
-	MBitmap* pBitmap = ZGetGameInterface()->GetItemThumbnailMgr()->Get(pDesc->m_nID);
+	CCBitmap* pBitmap = ZGetGameInterface()->GetItemThumbnailMgr()->Get(pDesc->m_nID);
 	if (pBitmap) return pBitmap;
 
 	char szAliasName[32];
 	char szFilePath[256];
 	sprintf(szAliasName, "%d", pDesc->m_nID);
 	sprintf(szFilePath, "interface/loadable/itemicon%d.dds", pDesc->m_nID);
-	MBitmapR2* pNewBitmap = new MBitmapR2;
+	CCBitmapR2* pNewBitmap = new CCBitmapR2;
 	if (!pNewBitmap->Create(szAliasName, RGetDevice(), szFilePath)) {
 		delete pNewBitmap;
 		return NULL;

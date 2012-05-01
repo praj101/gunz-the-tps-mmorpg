@@ -543,7 +543,7 @@ void ZGameClient::OnClanMsg(const char* szSenderName, const char* szMsg)
 			sprintf(szText, "%s(%s) : %s", ZMsg( MSG_CHARINFO_CLAN), szSenderName, ". . . . .");
 	}
 
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_CLANMSG), szText);
+	ZChatOutput(sColor(ZCOLOR_CHAT_CLANMSG), szText);
 
 }
 
@@ -666,26 +666,26 @@ void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 
 	char szText[256];
 	sprintf(szText, "클랜명: %s", pClanInfo->szClanName);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_CLANMSG), szText);
+	ZChatOutput(sColor(ZCOLOR_CHAT_CLANMSG), szText);
 
 
 	sprintf(szText, "레벨: %d", pClanInfo->nLevel);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_CLANMSG), szText);
+	ZChatOutput(sColor(ZCOLOR_CHAT_CLANMSG), szText);
 
 	sprintf(szText, "경험치: %d", pClanInfo->nXP);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_CLANMSG), szText);
+	ZChatOutput(sColor(ZCOLOR_CHAT_CLANMSG), szText);
 
 	sprintf(szText, "포인트: %d", pClanInfo->nPoint);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_CLANMSG), szText);
+	ZChatOutput(sColor(ZCOLOR_CHAT_CLANMSG), szText);
 
 	sprintf(szText, "마스터: %s", pClanInfo->szMaster);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_CLANMSG), szText);
+	ZChatOutput(sColor(ZCOLOR_CHAT_CLANMSG), szText);
 
 	sprintf(szText, "전적: %d승 %d패", pClanInfo->nWins, pClanInfo->nLoses);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_CLANMSG), szText);
+	ZChatOutput(sColor(ZCOLOR_CHAT_CLANMSG), szText);
 
 	sprintf(szText, "클랜원정보: 총 %d명중 %d명 접속함", pClanInfo->nTotalMemberCount, pClanInfo->nConnedMember);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_CLANMSG), szText);
+	ZChatOutput(sColor(ZCOLOR_CHAT_CLANMSG), szText);
 	*/
 }
 
@@ -768,7 +768,7 @@ void ZGameClient::OnClanMemberConnected(const char* szMember)
 	char szMsg[256];
 //	ZTransMsg(szMsg, MSG_CLAN_MEMBER_CONNECTED, 1, szMember);
 	ZTransMsg(szMsg, MSG_CLAN_MEMBER_CONNECTED, 1, szMember);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_CLANMSG), szMsg);
+	ZChatOutput(sColor(ZCOLOR_CHAT_CLANMSG), szMsg);
 }
 
 

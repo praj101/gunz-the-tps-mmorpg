@@ -35,11 +35,11 @@ bool ZLoading::OnCreate()
 {
 	m_pBackGround=new MPicture("background",this,this);	// 직접그린다.
 
-	m_pBitmap = new MBitmapR2;
+	m_pBitmap = new CCBitmapR2;
 	m_pBitmap->Create("loading", RGetDevice(), "Interface/Default/Loading/loading_screen.tga");
 
 	//*/
-//	m_pBitmap=(MBitmapR2*)MBitmapManager::Get("loading01.png");
+//	m_pBitmap=(CCBitmapR2*)CCBitmapManager::Get("loading01.png");
 
 	
 	m_pBackGround->SetBitmap(m_pBitmap);
@@ -55,7 +55,7 @@ void ZLoading::OnDestroy()
 	SAFE_DELETE(m_pBitmap);
 }
 
-void ZLoading::OnDraw(MDrawContext* pDC)
+void ZLoading::OnDraw(CCDrawContext* pDC)
 {
 }
 

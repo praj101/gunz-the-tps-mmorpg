@@ -19,9 +19,9 @@ ZToolTip::ZToolTip(const char* szName, MWidget* pParent, MAlignmentMode align)
 //	m_pBitmap1 = NULL;
 //	m_pBitmap2 = NULL;
 
-//	m_pBitmap1 = MBitmapManager::Get("arrow butten_left.tga");
-	m_pBitmap1 = MBitmapManager::Get("tooltip_edge01.png");
-	m_pBitmap2 = MBitmapManager::Get("tooltip_edge02.png");
+//	m_pBitmap1 = CCBitmapManager::Get("arrow butten_left.tga");
+	m_pBitmap1 = CCBitmapManager::Get("tooltip_edge01.png");
+	m_pBitmap2 = CCBitmapManager::Get("tooltip_edge02.png");
 
 	SetBounds();
 
@@ -44,18 +44,18 @@ bold 빼고 가는 글씨로~
 
 bool IsToolTipEnable();
 
-void ZToolTip::OnDraw(MDrawContext* pDC)
+void ZToolTip::OnDraw(CCDrawContext* pDC)
 {
 /*
 	if(IsToolTipEnable()==false) {
 		return;
 	}
 */
-	MRECT r = GetClientRect();
+	sRect r = GetClientRect();
 
-//	pDC->SetColor(MCOLOR(DEFCOLOR_MTOOLTIP_PLANE));
+//	pDC->SetColor(sColor(DEFCOLOR_MTOOLTIP_PLANE));
 //	pDC->FillRectangle(r);
-//	pDC->SetColor(MCOLOR(DEFCOLOR_MTOOLTIP_OUTLINE));
+//	pDC->SetColor(sColor(DEFCOLOR_MTOOLTIP_OUTLINE));
 //	pDC->Rectangle(r);
 
 	// 최소사이즈 32 x 32 -> 16 2개씩은 찍을 수 있도록~
@@ -89,8 +89,8 @@ void ZToolTip::OnDraw(MDrawContext* pDC)
 			pDC->Draw(r.x, r.y+16, 16, r.h-32);
 
 			//중간색채우기
-			pDC->SetColor(MCOLOR(0xffD9D9D9));//임시
-			pDC->FillRectangle(MRECT(r.x+16,r.y+16,r.w-32,r.h-32));
+			pDC->SetColor(sColor(0xffD9D9D9));//임시
+			pDC->FillRectangle(sRect(r.x+16,r.y+16,r.w-32,r.h-32));
 
 			m_pBitmap2->SetDrawMode(MBM_RotR90);
 			pDC->SetBitmap( m_pBitmap2 );
@@ -122,10 +122,10 @@ void ZToolTip::OnDraw(MDrawContext* pDC)
 	else 
 		szName = m_szName;
 
-	MRECT text_r = MRECT(r.x+10,r.y+10,r.w-10,r.h-10);
+	sRect text_r = sRect(r.x+10,r.y+10,r.w-10,r.h-10);
 
-//	pDC->SetColor(MCOLOR(DEFCOLOR_MTOOLTIP_TEXT));//임시
-	pDC->SetColor(MCOLOR(0xff000000));//임시
+//	pDC->SetColor(sColor(DEFCOLOR_MTOOLTIP_TEXT));//임시
+	pDC->SetColor(sColor(0xff000000));//임시
 //	pDC->TextWithHighlight(text_r, szName, (MAM_HCENTER|MAM_VCENTER));
 	pDC->TextMultiLine(text_r, szName,ZTOOLTIP_LINE_GAP);	
 }
@@ -155,7 +155,7 @@ int GetLineCount(char* str,int& max) {
 
 void ZToolTip::SetBounds(void)
 {
-	MFont* pFont = GetFont();
+	CCFont* pFont = GetFont();
 
 	char szName[MWIDGET_NAME_LENGTH];
 
@@ -185,16 +185,16 @@ void ZToolTip::SetBounds(void)
 //		else w = min(w,_max_w);
 	}
 
-	MWidget::SetBounds(MRECT(x-ZTOOLTIP_WIDTH_GAP, y-ZTOOLTIP_HEIGHT_GAP,w,h));
+	MWidget::SetBounds(sRect(x-ZTOOLTIP_WIDTH_GAP, y-ZTOOLTIP_HEIGHT_GAP,w,h));
 }
 
 void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int nTextPixelHeight)
 {
 	/// parameter x,y is return value
 
-	MRECT pr = GetParent()->GetClientRect();
+	sRect pr = GetParent()->GetClientRect();
 
-	MRECT tr;	//tooltip rect
+	sRect tr;	//tooltip rect
 	tr.w = nTextPixelWidth+ZTOOLTIP_WIDTH_GAP/2;
 	tr.h = nTextPixelHeight+ZTOOLTIP_HEIGHT_GAP;
 
@@ -217,7 +217,7 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 	else
 		tr.y = 0;
 
-	MRECT str = MClientToScreen(GetParent(), tr);
+	sRect str = MClientToScreen(GetParent(), tr);
 	
 	int rightx = str.x+str.w;
 	if (rightx > MGetWorkspaceWidth()) {

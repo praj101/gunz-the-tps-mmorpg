@@ -81,8 +81,8 @@ RRESULT RenderScene(void *pParam);
 char cstrReleaseDate[512];// = "ReleaseDate : 12/22/2003";
 
 ZApplication	g_App;
-MDrawContextR2* g_pDC = NULL;
-MFontR2*		g_pDefFont = NULL;
+CCDrawContextR2* g_pDC = NULL;
+CCFontR2*		g_pDefFont = NULL;
 ZDirectInput	g_DInput;
 ZInput*			g_pInput = NULL;
 Core4Gunz		g_Mint;
@@ -164,15 +164,15 @@ RRESULT OnCreate(void *pParam)
 		_findclose(hFile);
 	}
 
-	g_pDefFont = new MFontR2;
+	g_pDefFont = new CCFontR2;
 
 	if( !g_pDefFont->Create("Default", Z_LOCALE_DEFAULT_FONT, DEFAULT_FONT_HEIGHT, 1.0f) )	{
-		cclog("Fail to Create defualt font : MFontR2 / main.cpp.. onCreate\n" );
+		cclog("Fail to Create defualt font : CCFontR2 / main.cpp.. onCreate\n" );
 		g_pDefFont->Destroy();
 		SAFE_DELETE( g_pDefFont );
 		g_pDefFont	= NULL;
 	}
-	g_pDC = new MDrawContextR2(RGetDevice());
+	g_pDC = new CCDrawContextR2(RGetDevice());
 
 #ifndef _FASTDEBUG
 	if( ZGetInitialLoading()->IsUseEnable() )
@@ -325,9 +325,9 @@ RRESULT OnDestroy(void *pParam)
 		_findclose(hFile);
 	}
 
-	MFontManager::Destroy();
-	MBitmapManager::Destroy();
-	MBitmapManager::DestroyAniBitmap();
+	CCFontManager::Destroy();
+	CCBitmapManager::Destroy();
+	CCBitmapManager::DestroyAniBitmap();
 
 	cclog("Bitmap manager destroy Animation bitmap.\n");
 
@@ -437,7 +437,7 @@ RRESULT OnRender(void *pParam)
 
 RRESULT OnInvalidate(void *pParam)
 {
-	MBitmapR2::m_dwStateBlock=NULL;
+	CCBitmapR2::m_dwStateBlock=NULL;
 
 	g_App.OnInvalidate();
 	
@@ -446,8 +446,8 @@ RRESULT OnInvalidate(void *pParam)
 
 RRESULT OnRestore(void *pParam)
 {
-	for(int i=0; i<MBitmapManager::GetCount(); i++){
-		MBitmapR2* pBitmap = (MBitmapR2*)MBitmapManager::Get(i);
+	for(int i=0; i<CCBitmapManager::GetCount(); i++){
+		CCBitmapR2* pBitmap = (CCBitmapR2*)CCBitmapManager::Get(i);
 		pBitmap->OnLostDevice();
 	}
 

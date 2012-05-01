@@ -5,14 +5,14 @@
 #include "MWidget.h"
 
 
-typedef void (*ZC_ONDRAW)(void* pSelf, MDrawContext* pDC);
+typedef void (*ZC_ONDRAW)(void* pSelf, CCDrawContext* pDC);
 
 class ZCanvas : public MWidget
 {
 private:
 protected:
 	ZC_ONDRAW			m_pOnDrawFunc;
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 public:
 	ZCanvas(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
 	virtual ~ZCanvas();

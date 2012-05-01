@@ -14,7 +14,7 @@ protected:
 	unsigned long int	m_nShowTime;
 	bool				m_bNextVisible;
 
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 
 public:
 	ZFrame(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);

@@ -28,7 +28,7 @@ class ZItemCountDlg
 {
 	ZITEMCOUNTDLG_MODE	m_mode;
 	string		m_strItemName;
-	MBitmap*	m_pItemIcon;
+	CCBitmap*	m_pItemIcon;
 	int			m_nPrice;
 	int			m_nMin, m_nMax;
 	IItemCountDlgDoneHandler* m_pDoneHandler;
@@ -36,7 +36,7 @@ class ZItemCountDlg
 	int			m_nCurrCount;
 
 public:
-	void Open(ZITEMCOUNTDLG_MODE mode, const char* szItemName, MBitmap* pIcon, int price, int nMin, int nMax, IItemCountDlgDoneHandler* pHandler);
+	void Open(ZITEMCOUNTDLG_MODE mode, const char* szItemName, CCBitmap* pIcon, int price, int nMin, int nMax, IItemCountDlgDoneHandler* pHandler);
 	void Close();
 	void UpdateDlg();
 	void AddCount(int n);
@@ -94,7 +94,7 @@ public:
 	ZSellCashItemConfirmDlg();
 	~ZSellCashItemConfirmDlg();
 
-	void Open(const char* szItemName, MBitmap* pIcon, int price, int count, ISellCashItemConfirmDlgDoneHandler* pHandler);
+	void Open(const char* szItemName, CCBitmap* pIcon, int price, int count, ISellCashItemConfirmDlgDoneHandler* pHandler);
 	void Update();
 
 	void Close();
@@ -119,5 +119,5 @@ public:
 	ZCashItemConfirmDlg();
 	~ZCashItemConfirmDlg();
 
-	void Open(MBitmap* pItemIcon, ICashItemConfirmDlgDoneHandler* pHandler);
+	void Open(CCBitmap* pItemIcon, ICashItemConfirmDlgDoneHandler* pHandler);
 };
