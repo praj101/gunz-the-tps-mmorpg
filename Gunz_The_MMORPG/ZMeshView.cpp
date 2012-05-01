@@ -25,7 +25,7 @@ RVisualMesh* RTVisualMesh::GetVMesh(bool b)
 void ZMeshView::DrawTestScene(void)
 {
 	/*
-	MRECT r = GetScreenRect();
+	sRect r = GetScreenRect();
 
 	/*
 	r.x = r.y = 0;
@@ -145,10 +145,10 @@ void ZMeshView::SetLight(rvector LPos)
 //	}	
 }
 
-void ZMeshView::OnDraw(MDrawContext* pDC)
+void ZMeshView::OnDraw(CCDrawContext* pDC)
 {
 	//pDC->SetColor(255, 255, 255);
-	MRECT r = GetClientRect();
+	sRect r = GetClientRect();
 	//pDC->Rectangle(r);
 	//DrawTestScene();
 
@@ -348,7 +348,7 @@ void ZMeshView::RotateVertical(float add_degree)
 
 bool ZMeshView::OnEvent(MEvent* pEvent, MListener* pListener)
 {
-	MRECT r = GetInitialClientRect();
+	sRect r = GetInitialClientRect();
 
 	static MPOINT st_LastPoint = pEvent->Pos;
 

@@ -196,7 +196,7 @@ ZItemSlotView* ZIDLResource::GetItemSlot(CCXmlElement& element)
 
 		if (!strcmp(szBuf, "BITMAP"))
 		{
-			MBitmap* pBitmap = GetBitmap(childElement);
+			CCBitmap* pBitmap = GetBitmap(childElement);
 			if (pBitmap != NULL)
 			{
 				pWidget->SetBackBitmap(pBitmap);
@@ -483,7 +483,7 @@ ZRoomListBox* ZIDLResource::GetRoomListBox( CCXmlElement& element )
 			{
 				childElement.GetContents(szAttr);
 
-				MBitmap* pBitmap =GetBitmap(childElement);
+				CCBitmap* pBitmap =GetBitmap(childElement);
 				if( pBitmap != 0 )
 					pWidget->SetBannerImage( szAttr, pBitmap);
 			}
@@ -492,7 +492,7 @@ ZRoomListBox* ZIDLResource::GetRoomListBox( CCXmlElement& element )
 				int mode;
 				childElement.GetAttribute(&mode, "mode");
 				childElement.GetContents(szAttr);
-				MBitmap* pBitmap = GetBitmap(childElement);
+				CCBitmap* pBitmap = GetBitmap(childElement);
 				if( pBitmap != 0 )
 					pWidget->SetIconImage( (CCMATCH_GAMETYPE)mode, pBitmap );
 			}
@@ -621,7 +621,7 @@ ZPlayerListBox* ZIDLResource::GetPlayerListBox( CCXmlElement& element )
 			if( strcmp(szAttr,"slot") == 0)
 			{
 				childElement.GetContents(szAttr);
-				MBitmap* pBitmap =GetBitmap(childElement);
+				CCBitmap* pBitmap =GetBitmap(childElement);
 				pWidget->SetBitmap(pBitmap);
 			}
 		}*/
@@ -709,7 +709,7 @@ ZBmNumLabel* ZIDLResource::GetBmNumLabel(CCXmlElement& element)
 		}
 		else if (!strcmp(szBuf, "BITMAP"))
 		{
-			MBitmap* pBitmap = GetBitmap(childElement);
+			CCBitmap* pBitmap = GetBitmap(childElement);
 
 			if (pBitmap != NULL)
 			{
@@ -852,10 +852,10 @@ MFrame*	ZIDLResource::CreateFrame(const char* szName, MWidget* pParent, MListene
 	return pFrame;
 }
 
-MFont* ZIDLResource::CreateFont(char* szAliasName, char* szFontName, int nHeight, 
+CCFont* ZIDLResource::CreateFont(char* szAliasName, char* szFontName, int nHeight, 
 								bool bBold, bool bItalic, int nOutlineStyle, bool bAntialiasing, DWORD nColorArg1, DWORD nColorArg2)
 {
-	MFontR2* pNew = new MFontR2;
+	CCFontR2* pNew = new CCFontR2;
 	pNew->Create(szAliasName, szFontName, nHeight, 1.0f, bBold, bItalic, nOutlineStyle, -1, bAntialiasing, nColorArg1, nColorArg2);
 	return pNew;
 }

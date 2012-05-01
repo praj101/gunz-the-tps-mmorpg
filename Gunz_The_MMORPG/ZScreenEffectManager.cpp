@@ -951,7 +951,7 @@ void ZScreenEffectManager::DrawMyBuffImage()
 	// TodoH(상) - 자신의 버프 효과 아이콘을 그려야 합니다. 리소스도 필요합니다.
 }
 
-void ZScreenEffectManager::DrawMyHPPanal(MDrawContext* pDC)
+void ZScreenEffectManager::DrawMyHPPanal(CCDrawContext* pDC)
 {
 	if(ZGetGameInterface()->GetCombatInterface()->GetObserverMode()) return;
 

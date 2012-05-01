@@ -22,8 +22,8 @@ private:
 
 	ZReportAbuse		m_ReportAbuse;
 
-	void LobbyChatOutput(const char* szChat,MCOLOR color = MCOLOR(ZCOLOR_CHAT_LOBBY_DEFALT) );
-	void StageChatOutput(const char* szChat,MCOLOR color = MCOLOR(ZCOLOR_CHAT_STAGE_DEFAULT) );
+	void LobbyChatOutput(const char* szChat,sColor color = sColor(ZCOLOR_CHAT_LOBBY_DEFALT) );
+	void StageChatOutput(const char* szChat,sColor color = sColor(ZCOLOR_CHAT_STAGE_DEFAULT) );
 
 	void InitCmds();
 	bool CheckRepeatInput(char* szMsg);
@@ -49,8 +49,8 @@ public:
 	virtual ~ZChat();
 
 	bool Input(char* szMsg);
-	void Output(const char* szMsg, ZCHAT_MSG_TYPE msgtype = CMT_NORMAL, ZCHAT_LOC loc=CL_CURRENT,MCOLOR _color=MCOLOR(0,0,0));
-	void Output(MCOLOR color, const char* szMsg, ZCHAT_LOC loc=CL_CURRENT);
+	void Output(const char* szMsg, ZCHAT_MSG_TYPE msgtype = CMT_NORMAL, ZCHAT_LOC loc=CL_CURRENT,sColor _color=sColor(0,0,0));
+	void Output(sColor color, const char* szMsg, ZCHAT_LOC loc=CL_CURRENT);
 
 	void Clear(ZCHAT_LOC loc=CL_CURRENT);
 	void Report112(const char* szReason);
@@ -62,7 +62,7 @@ public:
 };
 
 // 편의를 위해서 만든 함수 ---
-void ZChatOutput(const char* szMsg, ZChat::ZCHAT_MSG_TYPE msgtype=ZChat::CMT_NORMAL, ZChat::ZCHAT_LOC loc=ZChat::CL_CURRENT,MCOLOR _color=MCOLOR(ZCOLOR_CHAT_SYSTEM));
-void ZChatOutput(MCOLOR color, const char* szMsg, ZChat::ZCHAT_LOC loc=ZChat::CL_CURRENT);
+void ZChatOutput(const char* szMsg, ZChat::ZCHAT_MSG_TYPE msgtype=ZChat::CMT_NORMAL, ZChat::ZCHAT_LOC loc=ZChat::CL_CURRENT,sColor _color=sColor(ZCOLOR_CHAT_SYSTEM));
+void ZChatOutput(sColor color, const char* szMsg, ZChat::ZCHAT_LOC loc=ZChat::CL_CURRENT);
 void ZChatOutputMouseSensitivityChanged(int old, int neo);
 void ZChatOutputMouseSensitivityCurrent(int i);

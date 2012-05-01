@@ -31,7 +31,7 @@ public:
 
 	void Assign(CCMatchObjCacheMap* pObjCacheMap);
 
-	void OnDraw(MDrawContext* pDC);
+	void OnDraw(CCDrawContext* pDC);
 
 	void SetSelectCharacter(ZCharacterView* pSelectView);
 

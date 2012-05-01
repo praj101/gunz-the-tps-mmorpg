@@ -2,7 +2,7 @@
 #define _ZOBSERVER_H
 
 #include "ZPrerequisites.h"
-#include "MDrawContext.h"
+#include "CCDrawContext.h"
 
 class ZCharacter;
 class ZCamera;
@@ -81,8 +81,8 @@ public:
 
 	bool IsVisible() { return m_bVisible; }
 	void Show(bool bVisible);
-	void OnDraw(MDrawContext* pDC);
-	void DrawPlayerDuelHPAPBar(MDrawContext* pDC);
+	void OnDraw(CCDrawContext* pDC);
+	void DrawPlayerDuelHPAPBar(CCDrawContext* pDC);
 	float GetDelay() { return m_fDelay; }
 
 

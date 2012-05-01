@@ -102,14 +102,14 @@ void TimeReward_ChatOutput_RewardGet(const char* szRewardName, const char* szCha
 {
 	char szOutput[512];
 	ZTransMsg(szOutput,MSG_BONUS_REWARD_GET,3,szRewardName,szCharName,szItemName);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szOutput);
+	ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), szOutput);
 }
 
 void TimeReward_ChatOutput_NoChance(const char* szRewardName)
 {
 	char szOutput[512];
 	ZTransMsg(szOutput,MSG_BONUS_REWARD_NOCHANCE,1,szRewardName);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szOutput);
+	ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), szOutput);
 }
 
 void TimeReward_ChatOutput_RemainChance(int nRemainReward)
@@ -118,7 +118,7 @@ void TimeReward_ChatOutput_RemainChance(int nRemainReward)
 	char szRemain[64];
 	sprintf(szRemain, "%d", nRemainReward);
 	ZTransMsg(szOutput,MSG_BONUS_REWARD_REMAIN,1,szRemain);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szOutput);
+	ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), szOutput);
 }
 
 void TimeReward_ChatOutput_ResetChance(const char* szRewardResetDesc)
@@ -127,7 +127,7 @@ void TimeReward_ChatOutput_ResetChance(const char* szRewardResetDesc)
 	{
 		// 'xxx 시점에 기회가 다시 충전된다'를 표시
 		//ZTransMsg(szOutput,MSG_BONUS_REWARD_RESET,1,szRewardResetDesc);
-		ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szRewardResetDesc);
+		ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), szRewardResetDesc);
 	}
 }
 
@@ -1169,11 +1169,11 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				if(szCharName[0]!=0) {
 					char szOutput[256];
 					ZTransMsg(szOutput,MSG_LADDER_CANCEL,1,szCharName);
-					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szOutput);
+					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), szOutput);
 
 				}else	 // 이름이 없으면 실패한경우다.
 				{
-					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
+					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), 
 						ZMsg(MSG_LADDER_FAILED) );
 				}
 			}break;

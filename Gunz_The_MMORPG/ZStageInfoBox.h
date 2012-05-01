@@ -8,7 +8,7 @@ class ZStageInfoBox;
 
 class ZStageInfoBoxLook : public MListBoxLook {
 public:
-	virtual void OnDraw(ZStageInfoBox* pBox, MDrawContext* pDC);
+	virtual void OnDraw(ZStageInfoBox* pBox, CCDrawContext* pDC);
 };
 
 class ZStageInfoBox : public MListBox{
@@ -18,7 +18,7 @@ public:
 	ZStageInfoBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
 	virtual ~ZStageInfoBox(void);
 
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 	void SetLook(MBListBoxLook *pLook) { m_pLook=pLook; }
 };
 

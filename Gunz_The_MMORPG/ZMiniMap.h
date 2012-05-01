@@ -5,7 +5,7 @@
 
 _USING_NAMESPACE_REALSPACE2
 
-class MDrawContext;
+class CCDrawContext;
 
 class ZMiniMap {
 
@@ -26,7 +26,7 @@ public:
 
 	bool Create(const char *szName);
 
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 
 	float GetHeightMin() { return m_fCameraHeightMin; }
 	float GetHeightMax() { return m_fCameraHeightMax; }

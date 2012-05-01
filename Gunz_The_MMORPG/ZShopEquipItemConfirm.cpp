@@ -6,7 +6,7 @@ static ZIDLResource* GetIDLResource() {
 	return ZGetGameInterface()->GetIDLResource();
 }
 
-void ZItemCountDlg::Open(ZITEMCOUNTDLG_MODE mode, const char* szItemName, MBitmap* pIcon, int price, int nMin, int nMax, IItemCountDlgDoneHandler* pHandler )
+void ZItemCountDlg::Open(ZITEMCOUNTDLG_MODE mode, const char* szItemName, CCBitmap* pIcon, int price, int nMin, int nMax, IItemCountDlgDoneHandler* pHandler )
 {
 	m_mode = mode;
 	m_strItemName = szItemName;
@@ -206,7 +206,7 @@ ZSellCashItemConfirmDlg::~ZSellCashItemConfirmDlg()
 
 }
 
-void ZSellCashItemConfirmDlg::Open(const char* szItemName, MBitmap* pIcon, int price, int count, ISellCashItemConfirmDlgDoneHandler* pHandler)
+void ZSellCashItemConfirmDlg::Open(const char* szItemName, CCBitmap* pIcon, int price, int count, ISellCashItemConfirmDlgDoneHandler* pHandler)
 {
 	MPicture* pPicture = (MPicture*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Thumbnail");
 	if (pPicture)
@@ -276,7 +276,7 @@ void ZSellCashItemConfirmDlg::OnOkButton()
 
 
 
-void ZCashItemConfirmDlg::Open(MBitmap* pItemIcon, ICashItemConfirmDlgDoneHandler* pHandler)
+void ZCashItemConfirmDlg::Open(CCBitmap* pItemIcon, ICashItemConfirmDlgDoneHandler* pHandler)
 {/*
 	MPicture* pPicture = (MPicture*)GetIDLResource()->FindWidget("BuyItemDetailFrame_Thumbnail");
 	if (pPicture)

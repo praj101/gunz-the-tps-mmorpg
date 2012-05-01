@@ -48,7 +48,7 @@ public:
 protected:
 	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
 	void DrawTestScene(void);
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 
 	void RotateLeft(float add_degree=1.0f)			{ m_fCRot += add_degree; }
 	void RotateRight(float add_degree=1.0f)			{ m_fCRot -= add_degree; }

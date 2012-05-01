@@ -12,7 +12,7 @@ ZBmNumLabel::ZBmNumLabel(const char* szName, MWidget* pParent, MListener* pListe
 }
 
 
-void ZBmNumLabel::SetLabelBitmap(MBitmap* pLabelBitmap)
+void ZBmNumLabel::SetLabelBitmap(CCBitmap* pLabelBitmap)
 {
 	m_pLabelBitmap = pLabelBitmap;
 
@@ -71,7 +71,7 @@ int GetIndex(char c)
 	return n;
 }
 
-void ZBmNumLabel::OnDraw(MDrawContext* pDC)
+void ZBmNumLabel::OnDraw(CCDrawContext* pDC)
 {
 	// 높이가 원래는 32 이다. 해상도에 따라 비율을 맞춘다
 	float fRatio = (float)m_Rect.h / (float)32;
@@ -118,7 +118,7 @@ void ZBmNumLabel::OnDraw(MDrawContext* pDC)
 
 			sx = ((n+m_nIndexOffset) % nTexCol) * m_CharSize.w;
 			sy = ((n+m_nIndexOffset) / nTexCol) * m_CharSize.h;
-			MRECT SrcRect = MRECT(sx, sy, m_CharSize.w, m_CharSize.h);
+			sRect SrcRect = sRect(sx, sy, m_CharSize.w, m_CharSize.h);
 //			pDC->SetOpacity(255);
 			pDC->Draw(tx, ty, (int)(fRatio * nWidth), (int)(fRatio * m_CharSize.h), sx+(m_CharSize.w-nWidth)/2, sy, nWidth, m_CharSize.h);
 

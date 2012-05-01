@@ -4,7 +4,7 @@
 #include "ZMeshView.h"
 #include "MBmButton.h"
 
-void ZMeshViewList::OnDraw(MDrawContext* pDC)
+void ZMeshViewList::OnDraw(CCDrawContext* pDC)
 {
 	//pDC->SetColor(255, 255, 255);
 	//pDC->Rectangle(GetClientRect());
@@ -52,7 +52,7 @@ bool ZMeshViewList::OnCommand(MWidget* pWidget, const char* szMessage)
 #define LEFTRIGHT_WIDTH	20
 int ZMeshViewList::GetItemVisibleWidth(void)
 {
-	MRECT r = GetClientRect();
+	sRect r = GetClientRect();
 	int w = r.w - LEFTRIGHT_WIDTH*2;
 	return w;
 }
@@ -72,7 +72,7 @@ int ZMeshViewList::GetVisibleCount(void)
 
 void ZMeshViewList::RecalcBounds(void)
 {
-	MRECT r = GetClientRect();
+	sRect r = GetClientRect();
 
 	//m_pLeft->SetBounds(r.x, r.y, LEFTRIGHT_WIDTH, r.h);
 	//m_pRight->SetBounds(r.x+r.w-LEFTRIGHT_WIDTH, r.y, LEFTRIGHT_WIDTH, r.h);
@@ -114,15 +114,15 @@ ZMeshViewList::ZMeshViewList(const char* szName, MWidget* pParent, MListener* pL
 	//m_pRight = new MButton(">", this, this);
 	m_pBmLeft	= new MBmButton("", this, this);
 	m_pBmRight	= new MBmButton("", this, this);
-	m_pBmLeft->SetDownBitmap(MBitmapManager::Get("button_circle_left.tga"));
-	m_pBmLeft->SetOverBitmap(MBitmapManager::Get("button_circle_left.tga"));
-	m_pBmLeft->SetDisableBitmap(MBitmapManager::Get("button_circle_left.tga"));
-	m_pBmLeft->SetUpBitmap(MBitmapManager::Get("button_circle_left.tga"));
+	m_pBmLeft->SetDownBitmap(CCBitmapManager::Get("button_circle_left.tga"));
+	m_pBmLeft->SetOverBitmap(CCBitmapManager::Get("button_circle_left.tga"));
+	m_pBmLeft->SetDisableBitmap(CCBitmapManager::Get("button_circle_left.tga"));
+	m_pBmLeft->SetUpBitmap(CCBitmapManager::Get("button_circle_left.tga"));
 	m_pBmLeft->SetStretch(true);
-	m_pBmRight->SetDownBitmap(MBitmapManager::Get("button_circle_right.tga"));
-	m_pBmRight->SetOverBitmap(MBitmapManager::Get("button_circle_right.tga"));
-	m_pBmRight->SetDisableBitmap(MBitmapManager::Get("button_circle_right.tga"));
-	m_pBmRight->SetUpBitmap(MBitmapManager::Get("button_circle_right.tga"));
+	m_pBmRight->SetDownBitmap(CCBitmapManager::Get("button_circle_right.tga"));
+	m_pBmRight->SetOverBitmap(CCBitmapManager::Get("button_circle_right.tga"));
+	m_pBmRight->SetDisableBitmap(CCBitmapManager::Get("button_circle_right.tga"));
+	m_pBmRight->SetUpBitmap(CCBitmapManager::Get("button_circle_right.tga"));
 	m_pBmRight->SetStretch( true );
 
 	m_ScrollButtonWidth = LEFTRIGHT_WIDTH;

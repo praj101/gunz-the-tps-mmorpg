@@ -380,7 +380,7 @@ void ChatCmd_Whisper(const char* line, const int argc, char **const argv)
 		{
 			char text[1024];
 			sprintf(text, "%s (E%d)", str, MERR_TOO_SHORT_NAME);
-			ZChatOutput(MCOLOR(96,96,168), text, ZChat::CL_CURRENT);
+			ZChatOutput(sColor(96,96,168), text, ZChat::CL_CURRENT);
 		}
 	}
 	else if ( nNameLen > MAX_CHARNAME)		// 이름이 제한 글자수를 넘었다.
@@ -390,7 +390,7 @@ void ChatCmd_Whisper(const char* line, const int argc, char **const argv)
 		{
 			char text[1024];
 			sprintf(text, "%s (E%d)", str, MERR_TOO_LONG_NAME);
-			ZChatOutput(MCOLOR(96,96,168), text, ZChat::CL_CURRENT);
+			ZChatOutput(sColor(96,96,168), text, ZChat::CL_CURRENT);
 		}
 	}
 	else
@@ -400,7 +400,7 @@ void ChatCmd_Whisper(const char* line, const int argc, char **const argv)
 		// loop back
 		char szMsg[512];
 		sprintf(szMsg, "(To %s) : %s", szRName, pszMsg);	//jintriple3 유저 네임은 그대로 출력되도록...
-		ZChatOutput(MCOLOR(96,96,168), szMsg, ZChat::CL_CURRENT);
+		ZChatOutput(sColor(96,96,168), szMsg, ZChat::CL_CURRENT);
 	}
 }
 

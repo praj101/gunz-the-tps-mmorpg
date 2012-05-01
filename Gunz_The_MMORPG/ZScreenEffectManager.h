@@ -195,7 +195,7 @@ public:
 	void Draw();
 	void DrawScoreBoard();
 	void DrawSpectator();
-	void DrawMyHPPanal(MDrawContext* pDC);
+	void DrawMyHPPanal(CCDrawContext* pDC);
 	void DrawMyWeaponImage();
 	void DrawMyBuffImage();
 

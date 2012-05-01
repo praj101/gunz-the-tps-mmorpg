@@ -295,7 +295,7 @@ void ZCombatChat::OutputChatMsg(const char* szMsg)
 	ProcessChatMsg();
 }
 
-void ZCombatChat::OutputChatMsg(MCOLOR color, const char* szMsg)
+void ZCombatChat::OutputChatMsg(sColor color, const char* szMsg)
 {
 	if (m_pChattingOutput == NULL) return;
 
@@ -321,7 +321,7 @@ void ZCombatChat::ProcessChatMsg()
 }
 
 
-void ZCombatChat::OnDraw(MDrawContext* pDC)
+void ZCombatChat::OnDraw(CCDrawContext* pDC)
 {
 	if (m_pInputEdit)
 	{
@@ -333,7 +333,7 @@ void ZCombatChat::OnDraw(MDrawContext* pDC)
 	}
 }
 
-void ZCombatChat::SetFont( MFont* pFont)
+void ZCombatChat::SetFont( CCFont* pFont)
 {
 	m_pChattingOutput->SetFont( pFont);
 }

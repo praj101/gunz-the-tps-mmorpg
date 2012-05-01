@@ -15,7 +15,7 @@ class ZLoading : public ZInterface
 {
 protected:
 	MPicture*		m_pBackGround;
-	MBitmapR2*		m_pBitmap;
+	CCBitmapR2*		m_pBitmap;
 
 	int				m_iPercentage;
 
@@ -24,7 +24,7 @@ public:
 	virtual ~ZLoading();
 	virtual bool OnCreate();
 	virtual void OnDestroy();
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
 
 	void	Progress( eLoaindgState state );	

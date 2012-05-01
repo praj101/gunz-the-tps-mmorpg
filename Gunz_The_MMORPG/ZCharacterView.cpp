@@ -44,7 +44,7 @@ unsigned long int GetVisualWeaponID(unsigned long int nMeleeItemID, unsigned lon
 
 void ZCharacterView::RepositionItemSlots(void)
 {
-	MRECT r = GetClientRect();
+	sRect r = GetClientRect();
 
 #define ARMORLIST_TOP_SPACE	10
 #define ARMORLIST_BOTTOM_SPACE	50
@@ -54,14 +54,14 @@ void ZCharacterView::RepositionItemSlots(void)
 
 #define ITEM_SPACE	6
 	for(int i=0; i<LEFTITEM_COUNT; i++){
-		MRECT ir(r.x+r.w-nItemWidth-ARMORLIST_TOP_SPACE, r.y+10+nItemHeight*i, nItemWidth, nItemHeight);
+		sRect ir(r.x+r.w-nItemWidth-ARMORLIST_TOP_SPACE, r.y+10+nItemHeight*i, nItemWidth, nItemHeight);
 		ir.w-=ITEM_SPACE;
 		ir.h-=ITEM_SPACE;
 		m_ItemSlots[i].m_Rect = ir;
 	}
 
 	for(int i=0; i<MMCIP_END-LEFTITEM_COUNT; i++){
-		MRECT ir(r.x+nItemWidth*(i<3?i:i-3)+ARMORLIST_TOP_SPACE, r.y+r.h-nItemHeight*(i<3?2:1), nItemWidth, nItemHeight);
+		sRect ir(r.x+nItemWidth*(i<3?i:i-3)+ARMORLIST_TOP_SPACE, r.y+r.h-nItemHeight*(i<3?2:1), nItemWidth, nItemHeight);
 		ir.w-=ITEM_SPACE;
 		ir.h-=ITEM_SPACE;
 		m_ItemSlots[i+LEFTITEM_COUNT].m_Rect = ir;
@@ -73,7 +73,7 @@ void ZCharacterView::OnSize(int w, int h)
 	RepositionItemSlots();
 }
 
-void ZCharacterView::OnDraw(MDrawContext* pDC)
+void ZCharacterView::OnDraw(CCDrawContext* pDC)
 {
 	DWORD dwCurTime = timeGetTime();
 	if ( !m_bLButtonDown && m_bAutoRotate && m_bEnableRotate)
@@ -119,14 +119,14 @@ void ZCharacterView::OnDraw(MDrawContext* pDC)
 	if (GetDrawInfo() == false) 
 		return;
 
-	MRECT r; 
+	sRect r; 
 	/*= GetClientRect();
 
 	if (ZApplication::GetGameInterface()->GetState() == GUNZ_STAGE)
 	{
 		if (ZGetGameClient()->GetMatchStageSetting()->IsTeamPlay())
 		{
-			MRECT tr(66, 12, 16, 16);
+			sRect tr(66, 12, 16, 16);
 			if(m_Info.nTeam== MMT_RED){		// Rea Team
 				pDC->SetColor(255, 0, 0);
 				pDC->FillRectangle(tr);
@@ -189,12 +189,12 @@ void ZCharacterView::OnDraw(MDrawContext* pDC)
 	pDC->Text(r, szLevel, MAM_HCENTER);
 
 	if(m_Info.bFireWall==true){
-		MBitmap* pBitmap = MBitmapManager::Get("firewall.png");
+		CCBitmap* pBitmap = CCBitmapManager::Get("firewall.png");
 		pDC->SetBitmap(pBitmap);
 		pDC->Draw(0, 0);
 	}
 	if(m_Info.bNAT==true){
-		MBitmap* pBitmap = MBitmapManager::Get("nat.png");
+		CCBitmap* pBitmap = CCBitmapManager::Get("nat.png");
 		pDC->SetBitmap(pBitmap);
 		pDC->Draw(16, 0);
 	}
@@ -207,16 +207,16 @@ void ZCharacterView::OnDraw(MDrawContext* pDC)
 	pDC->Rectangle(r);
 	
 	pDC->SetColor( 255,255,255);
- 	pDC->Text( MRECT( r.x+27, r.y + r.h-22, r.w, 22 ), GetText(), MAM_VCENTER );
+ 	pDC->Text( sRect( r.x+27, r.y + r.h-22, r.w, 22 ), GetText(), MAM_VCENTER );
 
-	MBitmap* pBitmap = MBitmapManager::Get("level_marker.png");
+	CCBitmap* pBitmap = CCBitmapManager::Get("level_marker.png");
 	if(pBitmap != NULL ) pDC->SetBitmap( pBitmap );
 	pDC->Draw( r.x + r.w - 40, r.y + r.h - 20, 16, 16 );
 
 	pDC->SetColor( 255, 255, 255 );
 	char szLevel[16];
 	sprintf( szLevel, "%2d", m_Info.nLevel );
- 	pDC->Text( MRECT(r.x + r.w - 30, r.y + r.h - 22, 30, 22 ), szLevel );
+ 	pDC->Text( sRect(r.x + r.w - 30, r.y + r.h - 22, 30, 22 ), szLevel );
 */	// 동환이가 막음
 }
 
@@ -225,7 +225,7 @@ bool ZCharacterView::IsDropable(MWidget* pSender)
 	return false;
 }
 
-bool ZCharacterView::OnDrop(MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString)
+bool ZCharacterView::OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	return false;
 }
@@ -432,7 +432,7 @@ void ZCharacterView::OnRestore()
 		m_pTVisualMesh.m_pVisualMesh->OnRestore();
 }
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,sColor& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 void ZCharacterView::SetCharacter( CCUID uid  )
 {
@@ -447,7 +447,7 @@ void ZCharacterView::SetCharacter( CCUID uid  )
 			InitCharParts( pObj->GetCostume()->nSex, pObj->GetCostume()->nHair, pObj->GetCostume()->nFace, 
 				pObj->GetCostume()->nEquipedItemID );
 
-			MCOLOR _color;
+			sColor _color;
 			char sp_name[255];
 			CCMatchUserGradeID gid;
 

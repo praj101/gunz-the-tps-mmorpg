@@ -25,7 +25,7 @@ bool ZInterface::OnCreate()
 	return false;
 }
 
-void ZInterface::OnDraw(MDrawContext* pDC)
+void ZInterface::OnDraw(CCDrawContext* pDC)
 {
 }
 

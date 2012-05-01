@@ -28,15 +28,15 @@ class ZDuelTournamentRankingListBox : public MWidget {
 
 	ZDUELTOURNAMENTRANKINGITEM m_rankingList[NUM_DISPLAY_DUELTOURNAMENT_RANKING];
 
-	MBitmapR2* m_pBmpRankingItemBg;
-	MBitmapR2* m_pBmpArrowUp;
-	MBitmapR2* m_pBmpArrowDown;
-	MBitmapR2* m_pBmpArrowBar;
+	CCBitmapR2* m_pBmpRankingItemBg;
+	CCBitmapR2* m_pBmpArrowUp;
+	CCBitmapR2* m_pBmpArrowDown;
+	CCBitmapR2* m_pBmpArrowBar;
 
 	int m_nMyRankIndex;			// ≥ª ∑©≈∑ «•Ω√ ¿Œµ¶Ω∫
 
 protected:
-	virtual void	OnDraw( MDrawContext* pDC );
+	virtual void	OnDraw( CCDrawContext* pDC );
 
 public:
 	ZDuelTournamentRankingListBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);

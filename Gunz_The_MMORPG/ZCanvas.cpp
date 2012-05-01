@@ -2,7 +2,7 @@
 
 #include "ZCanvas.h"
 
-void ZCanvas::OnDraw(MDrawContext* pDC)
+void ZCanvas::OnDraw(CCDrawContext* pDC)
 {
 	if (m_pOnDrawFunc) 
 	{

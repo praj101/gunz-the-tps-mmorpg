@@ -22,13 +22,13 @@ protected:
 	float				m_RoomWidth;
 	float				m_RoomHeight;
 	ZCLANINFO			m_pClanInfo[NUM_DISPLAY_CLAN];
-	MBitmap*			m_pRoomFrame;
+	CCBitmap*			m_pRoomFrame;
 
 	int					m_Selection;
 	int					m_currPage;
 
 protected:
-	virtual void	OnDraw( MDrawContext* pDC );
+	virtual void	OnDraw( CCDrawContext* pDC );
 
 public:
 	void	SetWidth( float width ) { m_RoomWidth	= width; }

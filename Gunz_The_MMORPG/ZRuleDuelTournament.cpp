@@ -243,7 +243,7 @@ void ZRuleDuelTournament::SetRoundResultInfo(MTD_DuelTournamentRoundResultInfo& 
 			{ //if(만약 KO없이 시간제로 끝났다면)
 				char szTemp[256];
 				ZTransMsg(szTemp, MSG_GAME_DUELTOURNAMENT_MATCH_VICTORY, 1, pPlayer->m_szCharName);
-				ZChatOutput(MCOLOR(255, 200, 200), szTemp);
+				ZChatOutput(sColor(255, 200, 200), szTemp);
 			}
 		}
 		else
@@ -367,7 +367,7 @@ int ZRuleDuelTournament::GetQueueIdx(const CCUID& uidChar)
 	return -100;
 }
 
-void ZRuleDuelTournament::OnDraw(MDrawContext* pDC)
+void ZRuleDuelTournament::OnDraw(CCDrawContext* pDC)
 {
 	// 남은 시간표시
 	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDTInfo");
@@ -785,7 +785,7 @@ void ZRuleDuelTournament::UpdateUISlideAni(float fElapsed)
 			continue;
 		if (strstr(pChild->m_szIDLName, "Left"))
 		{
-			MRECT rc = pChild->GetIDLRect();
+			sRect rc = pChild->GetIDLRect();
 			MPOINT pt(rc.x, rc.y);
 			pt.x = (pt.x - fSlideDistance) + (fSlideDistance * fSlide);
 			
@@ -795,7 +795,7 @@ void ZRuleDuelTournament::UpdateUISlideAni(float fElapsed)
 		}
 		else if (strstr(pChild->m_szIDLName, "Right"))
 		{
-			MRECT rc = pChild->GetIDLRect();
+			sRect rc = pChild->GetIDLRect();
 			MPOINT pt(rc.x, rc.y);
 			pt.x = (pt.x + fSlideDistance) - (fSlideDistance * fSlide);
 			
@@ -811,11 +811,11 @@ void ZRuleDuelTournament::UpdateUISlideAni(float fElapsed)
 		m_fSlideElapsedTime = -1;
 }
 
-static void ColorText(MDrawContext* pDC, int x, int y, const char* sz, MCOLOR color=0)
+static void ColorText(CCDrawContext* pDC, int x, int y, const char* sz, sColor color=0)
 {
 	// 색지정해서 텍스트 출력을 돕는 함수
 	// color == 0이면 pDC의 현재 컬러로 출력
-	MCOLOR oldColor = pDC->GetColor();
+	sColor oldColor = pDC->GetColor();
 	
 	if (color.GetARGB() != 0)
 		pDC->SetColor(color);
@@ -825,7 +825,7 @@ static void ColorText(MDrawContext* pDC, int x, int y, const char* sz, MCOLOR co
 		pDC->SetColor(oldColor);
 }
 
-void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float fElapsed)
+void ZRuleDuelTournament::ShowMatchOrder(CCDrawContext* pDC, bool isResult, float fElapsed)
 {
 	const float YPOS[4] = {0.023f, 0.156f, 0.343f, 0.475f};
 	float fSceneWidth = (float)MGetWorkspaceWidth();
@@ -854,25 +854,25 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 		int xRight = screenx+(0.42f*fSceneWidth);
 		
 		// 내 이름 바탕엔 파랑바탕색을 깐다
-		MFont* pFont = pDC->GetFont();
+		CCFont* pFont = pDC->GetFont();
 		if (pFont)
 		{
 			if (ZGetMyUID() == m_QuaterFinalPlayer[i].uidPlayer)
 			{
 				int w = MMGetWidth(pFont, m_QuaterFinalPlayer[i].m_szCharName, (int)strlen(m_QuaterFinalPlayer[i].m_szCharName));
-				MRECT rc(xLeft, y, w, pFont->GetHeight());
+				sRect rc(xLeft, y, w, pFont->GetHeight());
 				DrawHighlight(pDC, rc);
 			}
 			else if (ZGetMyUID() == m_QuaterFinalPlayer[i+4].uidPlayer)
 			{
 				int w = MMGetWidth(pFont, m_QuaterFinalPlayer[i+4].m_szCharName, (int)strlen(m_QuaterFinalPlayer[i+4].m_szCharName));
-				MRECT rc(xRight, y, w, pFont->GetHeight());
+				sRect rc(xRight, y, w, pFont->GetHeight());
 				DrawHighlight(pDC, rc);
 			}
 		}
 
 		// 이름 스트링 출력
-		MCOLOR color = 0;
+		sColor color = 0;
 		color = (isResult && m_DTChampion.uidPlayer == m_QuaterFinalPlayer[i].uidPlayer) ? 0xFFFFFF00 : 0;
 		ColorText(pDC, xLeft, y, m_QuaterFinalPlayer[i].m_szCharName, color);
 
@@ -884,7 +884,7 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 		if (pPlayer1) {
 			GetDuelTournamentGradeIconFileName(szTemp, pPlayer1->GetDTGrade());
 			//{	GetDuelTournamentGradeIconFileName(szTemp, i+1);
-			MBitmap* pBmpDTGradeIcon = MBitmapManager::Get( szTemp );
+			CCBitmap* pBmpDTGradeIcon = CCBitmapManager::Get( szTemp );
 			pDC->SetBitmap(pBmpDTGradeIcon);
 			pDC->Draw( screenx-iconDTGradeSize-(0.004f*fSceneWidth), y-iconDTGradeSize*0.25f, iconDTGradeSize, iconDTGradeSize);
 		}
@@ -893,7 +893,7 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 		if (pPlayer2) {
 			GetDuelTournamentGradeIconFileName(szTemp, pPlayer2->GetDTGrade());
 			//{	GetDuelTournamentGradeIconFileName(szTemp, i+5);
-			MBitmap* pBmpDTGradeIcon = MBitmapManager::Get( szTemp );
+			CCBitmap* pBmpDTGradeIcon = CCBitmapManager::Get( szTemp );
 			pDC->SetBitmap(pBmpDTGradeIcon);
 			pDC->Draw( screenx+(0.532f*fSceneWidth)+(0.004f*fSceneWidth), y-iconDTGradeSize*0.25f, iconDTGradeSize, iconDTGradeSize);
 		}
@@ -915,7 +915,7 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 	}
 
 	// 대진표 이미지 그리기
-	MBitmap* pBitmap = MBitmapManager::Get( "matchschedule.tga");
+	CCBitmap* pBitmap = CCBitmapManager::Get( "matchschedule.tga");
 	if(pBitmap != NULL)
 	{
 		pDC->SetBitmap( pBitmap);
@@ -926,7 +926,7 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 		if(isResult)
 		{
 			// 결과창 1등 마크 효과
-			pBitmap = MBitmapManager::Get( "matchschedule_resultMark.tga");
+			pBitmap = CCBitmapManager::Get( "matchschedule_resultMark.tga");
 			if(pBitmap != NULL)
 			{
 				pDC->SetBitmap( pBitmap);
@@ -938,8 +938,8 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 	}
 
 	// 대진표 진행상태 보여주는 라인 그리기
-	pBitmap = MBitmapManager::Get( "matchschedule_line.tga");
-	MBitmap* pBitmap2 = MBitmapManager::Get( "matchschedule_line2.tga");
+	pBitmap = CCBitmapManager::Get( "matchschedule_line.tga");
+	CCBitmap* pBitmap2 = CCBitmapManager::Get( "matchschedule_line2.tga");
 	if(pBitmap != NULL && pBitmap2 != NULL)
 	{
 		const float LINE_YPOS[4] = {0.03f, 0.092f, 0.349f, 0.413f};
@@ -977,7 +977,7 @@ void ZRuleDuelTournament::ShowMatchOrder(MDrawContext* pDC, bool isResult, float
 	}
 
 	// 대전중인 플레이어 표현하는 노란 박스
-	pBitmap = MBitmapManager::Get( "matchschedule_box.tga");
+	pBitmap = CCBitmapManager::Get( "matchschedule_box.tga");
 	if(pBitmap != NULL)
 	{
 		unsigned char prevOpcacity = pDC->GetOpacity();
@@ -1041,16 +1041,16 @@ DuelTournamentPlayer* ZRuleDuelTournament::GetPlayer(const CCUID& uid)
 	return NULL;
 }
 
-void ZRuleDuelTournament::DrawHighlight(MDrawContext* pDC, const MRECT& rc)
+void ZRuleDuelTournament::DrawHighlight(CCDrawContext* pDC, const sRect& rc)
 {
-	MBitmapR2 *pBitmap=(MBitmapR2*)MBitmapManager::Get("button_glow.png");
+	CCBitmapR2 *pBitmap=(CCBitmapR2*)CCBitmapManager::Get("button_glow.png");
 	if(pBitmap) {
 		DWORD defaultcolor = 0x3030F0;
 		DWORD opacity=(DWORD)pDC->GetOpacity();
 		MDrawEffect prevEffect = pDC->GetEffect();
 		pDC->SetEffect(MDE_ADD);
-		MCOLOR prevColor = pDC->GetBitmapColor();
-		pDC->SetBitmapColor(MCOLOR(defaultcolor));
+		sColor prevColor = pDC->GetBitmapColor();
+		pDC->SetBitmapColor(sColor(defaultcolor));
 		unsigned char prevOpacity = pDC->GetOpacity();
 		pDC->SetOpacity(opacity);
 		pDC->SetBitmap(pBitmap);
@@ -1061,7 +1061,7 @@ void ZRuleDuelTournament::DrawHighlight(MDrawContext* pDC, const MRECT& rc)
 	}
 }
 
-void ZRuleDuelTournament::DrawVictorySymbol(MDrawContext* pDC, CCUID uidPlayer1, CCUID uidPlayer2)
+void ZRuleDuelTournament::DrawVictorySymbol(CCDrawContext* pDC, CCUID uidPlayer1, CCUID uidPlayer2)
 {
 	if(MDUELTOURNAMENTROUNDSTATE_QUATERFINAL == m_eDTRoundState)
 		return;	// 8강전일때는 승리마크가 필요없다.(표시도 안됨)
@@ -1075,7 +1075,7 @@ void ZRuleDuelTournament::DrawVictorySymbol(MDrawContext* pDC, CCUID uidPlayer1,
 	float fPosY = 0.067f;
 	float nSize = 23.f * fRx;
 
-	MBitmap* pBitmap_Blank = MBitmapManager::Get( "DuelTournament_VictorySymbol_Blank.tga");
+	CCBitmap* pBitmap_Blank = CCBitmapManager::Get( "DuelTournament_VictorySymbol_Blank.tga");
 	if (pBitmap_Blank)
 	{
 		pDC->SetBitmap( pBitmap_Blank);
@@ -1113,7 +1113,7 @@ void ZRuleDuelTournament::DrawVictorySymbol(MDrawContext* pDC, CCUID uidPlayer1,
 		return;
 
 
-	MBitmap* pBitmap = MBitmapManager::Get( "DuelTournament_VictorySymbol.tga");
+	CCBitmap* pBitmap = CCBitmapManager::Get( "DuelTournament_VictorySymbol.tga");
 	if ( !pBitmap)
 		return ;
 	pDC->SetBitmap( pBitmap);
@@ -1179,7 +1179,7 @@ int ZRuleDuelTournament::GetPingValue(CCUID uiPlayer)
 	}
 	return nPing;
 }
-void ZRuleDuelTournament::DrawInverse(MDrawContext* pDC, MBitmap* pBitmap, float x, float y, float fRateX, float fRateY, int nMirror)
+void ZRuleDuelTournament::DrawInverse(CCDrawContext* pDC, CCBitmap* pBitmap, float x, float y, float fRateX, float fRateY, int nMirror)
 {
 	pDC->SetBitmap(pBitmap);
 	float w = fRateX * pBitmap->GetWidth();

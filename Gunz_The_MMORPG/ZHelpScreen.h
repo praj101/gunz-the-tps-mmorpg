@@ -1,7 +1,7 @@
 #ifndef _ZHelpScreen_h
 #define _ZHelpScreen_h
 
-class MBitmapR2;
+class CCBitmapR2;
 
 class ZHelpScreen
 {
@@ -15,7 +15,7 @@ public:
 
 public:
 
-	MBitmapR2* m_pHelpScreenBitmap;
+	CCBitmapR2* m_pHelpScreenBitmap;
 
 	bool m_bDrawHelpScreen;
 

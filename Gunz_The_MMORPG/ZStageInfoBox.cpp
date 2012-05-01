@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "ZStageInfoBox.h"
-#include "MBitmapDrawer.h"
+#include "CCBitmapDrawer.h"
 
 //IMPLEMENT_LOOK(ZStageInfoBox, ZStageInfoBoxLook)
 
@@ -20,16 +20,16 @@ ZStageInfoBox::~ZStageInfoBox()
 {
 }
 
-void ZStageInfoBoxLook::OnDraw(ZStageInfoBox* pBox, MDrawContext* pDC)
+void ZStageInfoBoxLook::OnDraw(ZStageInfoBox* pBox, CCDrawContext* pDC)
 {
 	MListBoxLook::OnDraw(pBox,pDC);
 }
 
-void ZStageInfoBox::OnDraw(MDrawContext* pDC)
+void ZStageInfoBox::OnDraw(CCDrawContext* pDC)
 {
 	if(m_pLook)
 	{
-		MRECT r = GetInitialClientRect();
+		sRect r = GetInitialClientRect();
 
 		int nShowCount=0;
 		for(int i=GetStartItem(); i<GetCount(); i++){
@@ -38,7 +38,7 @@ void ZStageInfoBox::OnDraw(MDrawContext* pDC)
 
 			if(nShowCount>=GetShowItemCount()) break;
 
-			MRECT itemrect=MRECT(r.x,r.y+GetItemHeight()*(nShowCount-1),r.w,GetItemHeight());
+			sRect itemrect=sRect(r.x,r.y+GetItemHeight()*(nShowCount-1),r.w,GetItemHeight());
 			DrawBitmapFrame9(pDC, itemrect, m_pLook->m_pFrameBitmaps);
 		}
 	}

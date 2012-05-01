@@ -1,9 +1,9 @@
 #pragma once
 
-class MBitmap;
+class CCBitmap;
 struct CCMatchItemDesc;
 
-MBitmap* GetItemIconBitmap(CCMatchItemDesc* pItemDesc);
+CCBitmap* GetItemIconBitmap(CCMatchItemDesc* pItemDesc);
 const char* GetItemIconBitmap_Potion(CCMatchItemDesc* pDesc);
 const char* GetItemIconBitmap_Trap(CCMatchItemDesc* pDesc);
-MBitmap* GetItemThumbnailBitmap(CCMatchItemDesc* pDesc);
+CCBitmap* GetItemThumbnailBitmap(CCMatchItemDesc* pDesc);

@@ -3,9 +3,9 @@
 #include "ZGameClient.h"
 #include ".\zroomlistbox.h"
 #include "MButton.h"
-#include "MBitmap.h"
+#include "CCBitmap.h"
 #include "RTypes.h"
-#include "MDrawContext.h"
+#include "CCDrawContext.h"
 #include "MDebug.h"
 #include "MScrollBar.h"
 #include "ZApplication.h"
@@ -46,18 +46,18 @@ ZRoomListBox::ZRoomListBox(const char* szName, MWidget* pParent, MListener* pLis
 ZRoomListBox::~ZRoomListBox(void)
 {
 	//SAFE_DELETE_ARRAY(m_pMapInfo);
-	for( map<string, MBitmap*>::iterator	iter = m_pMapImage.begin(); iter != m_pMapImage.end(); )
+	for( map<string, CCBitmap*>::iterator	iter = m_pMapImage.begin(); iter != m_pMapImage.end(); )
 	{
 		m_pMapImage.erase(iter++);
 	}
 }
 
-void ZRoomListBox::OnDraw( MDrawContext* pDC )
+void ZRoomListBox::OnDraw( CCDrawContext* pDC )
 {
-	MBitmap* pBitmap;
-	MRECT		rect;
-	map<string, MBitmap*>::iterator iter;
-	map<CCMATCH_GAMETYPE, MBitmap*>::iterator iterIcon;
+	CCBitmap* pBitmap;
+	sRect		rect;
+	map<string, CCBitmap*>::iterator iter;
+	map<CCMATCH_GAMETYPE, CCBitmap*>::iterator iterIcon;
 	int pressed_reposition = 0;
 
  	int index = 0;
@@ -84,7 +84,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 			bRoomFull = true;
 		}
 		
-		iter = find_if( m_pMapImage.begin(), m_pMapImage.end(), string_key_equal<string, MBitmap*>(mapName));
+		iter = find_if( m_pMapImage.begin(), m_pMapImage.end(), string_key_equal<string, CCBitmap*>(mapName));
 		if( iter != m_pMapImage.end() )
 		{
 			pBitmap	= iter->second;
@@ -109,7 +109,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 
 		// infomation 그리기
 		char szBuf[128];
-		MRECT r;
+		sRect r;
 
 		// 방번호
  		r.x = width + m_RoomWidth*0.01f	+ pressed_reposition;
@@ -118,9 +118,9 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 		r.h = m_RoomHeight *0.5;
      	sprintf(szBuf,"%03d", m_pMapInfo[i].RoomNumber);
 
-		pDC->SetFont( MFontManager::Get("FONTc8b") );
+		pDC->SetFont( CCFontManager::Get("FONTc8b") );
 		pDC->SetColor( 0,0,0);
-		pDC->Text( MRECT( r.x+1, r.y+1, r.w, r.h), szBuf);
+		pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), szBuf);
 		if(  m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
 			pDC->SetColor( 115,146,173 );
 		else
@@ -135,7 +135,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 		sprintf(szBuf,"%d/%d", m_pMapInfo[i].nPeople, m_pMapInfo[i].nMaxPeople );
 
 		pDC->SetColor( 0,0,0);
-		pDC->Text( MRECT( r.x+1, r.y+1, r.w, r.h), szBuf);
+		pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), szBuf);
 		if(  m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
 			pDC->SetColor( 115,146,173 );
 		else
@@ -144,13 +144,13 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 
 
 		// 방 이름
-		pDC->SetFont( MFontManager::Get("FONTc8b") );
+		pDC->SetFont( CCFontManager::Get("FONTc8b") );
  		r.x = width + m_RoomWidth*0.12 + pressed_reposition;
  		r.y = height /*+ m_RoomHeight*0.3*/ + pressed_reposition;
   		r.w = m_RoomWidth*0.75;
 		r.h = m_RoomHeight/**0.85*/;
  		
-		MFont * pFont  = pDC->GetFont();
+		CCFont * pFont  = pDC->GetFont();
 		char szBufTemp[SMI_MAPNAME_LENGTH];
 		int strLength = 0;
 		int RoomWidth = pFont->GetWidth(m_pMapInfo[i].room_name);
@@ -170,7 +170,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 			strcat( szBufTemp, "..."	);
 
 			pDC->SetColor( 0,0,0);
-			pDC->Text( MRECT( r.x+1, r.y+1, r.w, r.h), szBufTemp, MAM_LEFT);
+			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), szBufTemp, MAM_LEFT);
 			if(  m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
 				pDC->SetColor( 115,146,173 );
 			else
@@ -180,7 +180,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 		else
 		{
 			pDC->SetColor( 0,0,0);
-			pDC->Text( MRECT( r.x+1, r.y+1, r.w, r.h), m_pMapInfo[i].room_name, MAM_LEFT);
+			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), m_pMapInfo[i].room_name, MAM_LEFT);
 			if(  m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
 				pDC->SetColor( 115,146,173 );
 			else
@@ -201,7 +201,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 			sprintf( szBufTemp, "%d~%d", max(m_pMapInfo[i].nMasterLevel - m_pMapInfo[i].nLimitLevel,1), m_pMapInfo[i].nMasterLevel + m_pMapInfo[i].nLimitLevel);
 
 			pDC->SetColor( 0,0,0);
-			pDC->Text( MRECT( r.x+1, r.y+1, r.w, r.h), szBufTemp);
+			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), szBufTemp);
 			if( m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
 				pDC->SetColor( 100, 100, 100 );
 			else
@@ -215,7 +215,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 			// 열쇠아이콘은 하드코드됨. 나중에 일반화해서 xml로 빼놔야할 듯..
 
 			#define FN_ROOMLIST_PRIVATE_KEY		"in_key.png"
-			pBitmap = MBitmapManager::Get(FN_ROOMLIST_PRIVATE_KEY);
+			pBitmap = CCBitmapManager::Get(FN_ROOMLIST_PRIVATE_KEY);
 			if (pBitmap != NULL) 
 			{
 				float x, y;
@@ -258,7 +258,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 		{
 			// 역시 플레이 아이콘도 하드코딩... -_-;
 			#define FN_ROOMLIST_PLAYICON		"icon_play.tga"
-			pBitmap = MBitmapManager::Get( FN_ROOMLIST_PLAYICON);
+			pBitmap = CCBitmapManager::Get( FN_ROOMLIST_PLAYICON);
 			if (pBitmap != NULL) 
 			{
 				float x, y;
@@ -297,11 +297,11 @@ bool ZRoomListBox::OnCommand( MWidget* pWidget, const char* szMassage )
 
 bool ZRoomListBox::OnEvent( MEvent* pEvent, MListener* pListener )
 {
-	MRECT r = GetInitialClientRect();
+	sRect r = GetInitialClientRect();
 
 	MPOINT ClickPos = pEvent->Pos;
 
-	MRECT	rect;
+	sRect	rect;
 
 	switch(pEvent->nMessage)
 	{
@@ -369,13 +369,13 @@ void ZRoomListBox::SetRoomName( int i, char* pRoomName, sMapInfo* info )
 	m_pMapInfo[i].roomState		= info->roomState;
 }
 
-void ZRoomListBox::SetBannerImage( char* pBannerName, MBitmap* pBitmap )
+void ZRoomListBox::SetBannerImage( char* pBannerName, CCBitmap* pBitmap )
 {
-	m_pMapImage.insert( map<string, MBitmap*>::value_type( string(pBannerName), pBitmap) );
+	m_pMapImage.insert( map<string, CCBitmap*>::value_type( string(pBannerName), pBitmap) );
 }
-void ZRoomListBox::SetIconImage( CCMATCH_GAMETYPE type, MBitmap* pBitmap )
+void ZRoomListBox::SetIconImage( CCMATCH_GAMETYPE type, CCBitmap* pBitmap )
 {
-	m_pIconImage.insert( map<CCMATCH_GAMETYPE, MBitmap*>::value_type( type, pBitmap ) );
+	m_pIconImage.insert( map<CCMATCH_GAMETYPE, CCBitmap*>::value_type( type, pBitmap ) );
 }
 
 void ZRoomListBox::SetRoom(const _RoomInfoArg* pRoomInfo)

@@ -108,8 +108,8 @@ void ZChangeGameState(GunzState state)
 
 void ZEmptyBitmap()
 {
-	MBitmapManager::Destroy();
-	MBitmapManager::DestroyAniBitmap();
+	CCBitmapManager::Destroy();
+	CCBitmapManager::DestroyAniBitmap();
 }
 
 void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadingProgress *pLoadingProgress)
@@ -200,9 +200,9 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 						szTargetFile = desc->m_szFileName;
 
 					//szFileName = desc->m_szFileName;
-					MBitmapR2* pBitmap = new MBitmapR2;
+					CCBitmapR2* pBitmap = new CCBitmapR2;
 					if(pBitmap->Create(aliasname, RGetDevice(), szTargetFile)==true)
-						MBitmapManager::Add(pBitmap);
+						CCBitmapManager::Add(pBitmap);
 					else
 						delete pBitmap;
 
@@ -228,7 +228,7 @@ if(pHotBar==NULL) return;
 #define HOTBAR_BTN_COUNT	10
 #define HOTBAR_BTN_WIDTH	32
 #define HOTBAR_SPINBTN_WIDTH	16
-MRECT HotBarClientRect = pHotBar->GetClientRect();
+sRect HotBarClientRect = pHotBar->GetClientRect();
 MButton* pNew = new MButton("<", pHotBar, pHotBar);
 pNew->SetBounds(HotBarClientRect.x, HotBarClientRect.y, HOTBAR_SPINBTN_WIDTH, HOTBAR_SPINBTN_WIDTH);
 pNew = new MButton(">", pHotBar, pHotBar);
@@ -241,17 +241,17 @@ pNew->SetBounds(HotBarClientRect.x+HOTBAR_SPINBTN_WIDTH+1+i*(HOTBAR_BTN_WIDTH+1)
 }
 */
 
-void AddListItem(MListBox* pList, MBitmap* pBitmap, const char* szString, const char* szItemString)
+void AddListItem(MListBox* pList, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	class MDragableListItem : public MDefaultListItem{
 		char m_szDragItemString[256];
 	public:
-		MDragableListItem(MBitmap* pBitmap, const char* szText, const char* szItemString)
+		MDragableListItem(CCBitmap* pBitmap, const char* szText, const char* szItemString)
 			: MDefaultListItem(pBitmap, szText){
 				if(szItemString!=NULL) strcpy(m_szDragItemString, szItemString);
 				else m_szDragItemString[0] = 0;
 			}
-			virtual bool GetDragItem(MBitmap** ppDragBitmap, char* szDragString, char* szDragItemString){
+			virtual bool GetDragItem(CCBitmap** ppDragBitmap, char* szDragString, char* szDragItemString){
 				*ppDragBitmap = GetBitmap(0);
 				if(GetString(1)!=NULL) strcpy(szDragString, GetString(1));
 				else szDragString[0] = 0;
@@ -275,8 +275,8 @@ bool InitSkillList(MWidget* pWidget)
 
 	pList->AddField("Icon", 32);
 	pList->AddField("Name", 600);
-	AddListItem(pList, MBitmapManager::Get("skill000.png"), "Fire-Ball", "Object.Skill $player $target 0");
-	AddListItem(pList, MBitmapManager::Get("skill001.png"), "Bull-Shit", "Object.Skill $player $target 1");
+	AddListItem(pList, CCBitmapManager::Get("skill000.png"), "Fire-Ball", "Object.Skill $player $target 0");
+	AddListItem(pList, CCBitmapManager::Get("skill001.png"), "Bull-Shit", "Object.Skill $player $target 1");
 	return true;
 }
 
@@ -300,7 +300,7 @@ bool InitItemList(MWidget* pWidget)
 		int d = i % 6;
 		sprintf(szItem, "item%03d.png", d);
 		sprintf(szName, "나무블레이드%d", i);
-		AddListItem(pList, MBitmapManager::Get(szItem), szName, "Command Something");
+		AddListItem(pList, CCBitmapManager::Get(szItem), szName, "Command Something");
 	}
 
 	return true;
@@ -622,7 +622,7 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	}
 
 	// 아이템 설명 textarea의 커스텀 룩을 지정
-	m_textAreaLookItemDesc.SetBgColor(MCOLOR(10, 10, 10, 220));
+	m_textAreaLookItemDesc.SetBgColor(sColor(10, 10, 10, 220));
 
 	MTextArea* pTextArea = (MTextArea*)m_IDLResource.FindWidget("Shop_ItemDescription");
 	if (pTextArea) pTextArea->ChangeCustomLook(&m_textAreaLookItemDesc);
@@ -1358,7 +1358,7 @@ void ZGameInterface::OnLoginCreate(void)
 		delete m_pLoginBG;
 		m_pLoginBG = NULL;
 	}
-	m_pLoginBG = new MBitmapR2;
+	m_pLoginBG = new CCBitmapR2;
 	bool bRead = false;
 	
 	// 외부 파일을 읽는다.
@@ -1396,8 +1396,8 @@ void ZGameInterface::OnLoginCreate(void)
 		m_pLoginPanel = NULL;
 	}
 
-	m_pLoginPanel = new MBitmapR2;
-	((MBitmapR2*)m_pLoginPanel)->Create( "loginpanel.png", RGetDevice(), "Interface/loadable/loginpanel.tga");
+	m_pLoginPanel = new CCBitmapR2;
+	((CCBitmapR2*)m_pLoginPanel)->Create( "loginpanel.png", RGetDevice(), "Interface/loadable/loginpanel.tga");
 	if ( m_pLoginPanel)
 	{
 		// 읽어온 비트맵 이미지 포인터를 해당 위젯에 넘겨줘서 표시한다
@@ -1779,43 +1779,43 @@ void ZGameInterface::OnLobbyCreate(void)
     pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_RoomListBG");
 	if ( pPicture)
 	{
-		m_pRoomListFrame = new MBitmapR2;
-		((MBitmapR2*)m_pRoomListFrame)->Create( "gamelist_panel.png", RGetDevice(), "interface/loadable/gamelist_panel.png");
+		m_pRoomListFrame = new CCBitmapR2;
+		((CCBitmapR2*)m_pRoomListFrame)->Create( "gamelist_panel.png", RGetDevice(), "interface/loadable/gamelist_panel.png");
 
 		if ( m_pRoomListFrame != NULL)
 			pPicture->SetBitmap( m_pRoomListFrame->GetSourceBitmap());
 
-		m_pDuelTournamentLobbyFrame = new MBitmapR2;
-		((MBitmapR2*)m_pDuelTournamentLobbyFrame)->Create( "dueltournament_lobby_panel.png", RGetDevice(), "interface/loadable/dueltournament_lobby_panel.png");
+		m_pDuelTournamentLobbyFrame = new CCBitmapR2;
+		((CCBitmapR2*)m_pDuelTournamentLobbyFrame)->Create( "dueltournament_lobby_panel.png", RGetDevice(), "interface/loadable/dueltournament_lobby_panel.png");
 	}
     pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_BottomBG");
 	if ( pPicture)
 	{
-		m_pBottomFrame = new MBitmapR2;
-		((MBitmapR2*)m_pBottomFrame)->Create( "bottom_panel.png", RGetDevice(), "interface/loadable/bottom_panel.png");
+		m_pBottomFrame = new CCBitmapR2;
+		((CCBitmapR2*)m_pBottomFrame)->Create( "bottom_panel.png", RGetDevice(), "interface/loadable/bottom_panel.png");
 
 		if ( m_pBottomFrame != NULL)
 			pPicture->SetBitmap( m_pBottomFrame->GetSourceBitmap());
 	}
 
-	m_pClanInfoBg = new MBitmapR2;
-	((MBitmapR2*)m_pClanInfoBg)->Create( "claninfo_panel.tga", RGetDevice(), "interface/loadable/claninfo_panel.tga");
+	m_pClanInfoBg = new CCBitmapR2;
+	((CCBitmapR2*)m_pClanInfoBg)->Create( "claninfo_panel.tga", RGetDevice(), "interface/loadable/claninfo_panel.tga");
 	if ( m_pClanInfoBg != NULL)
 	{
 		pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_ClanInfoBG");
 		if ( pPicture)	pPicture->SetBitmap( m_pClanInfoBg->GetSourceBitmap());
 	}
 
-	m_pDuelTournamentInfoBg = new MBitmapR2;
-	((MBitmapR2*)m_pDuelTournamentInfoBg)->Create( "dueltournamentinfo_panel.tga", RGetDevice(), "interface/loadable/dueltournamentinfo_panel.tga");
+	m_pDuelTournamentInfoBg = new CCBitmapR2;
+	((CCBitmapR2*)m_pDuelTournamentInfoBg)->Create( "dueltournamentinfo_panel.tga", RGetDevice(), "interface/loadable/dueltournamentinfo_panel.tga");
 	if ( m_pDuelTournamentInfoBg != NULL)
 	{
 		pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentInfoBG");
 		if ( pPicture)	pPicture->SetBitmap( m_pDuelTournamentInfoBg->GetSourceBitmap());
 	}
 
-	m_pDuelTournamentRankingLabel = new MBitmapR2;
-	((MBitmapR2*)m_pDuelTournamentRankingLabel)->Create( "DuelTournamentRankingLabel.png", RGetDevice(), "interface/loadable/DuelTournamentRankingLabel.png");
+	m_pDuelTournamentRankingLabel = new CCBitmapR2;
+	((CCBitmapR2*)m_pDuelTournamentRankingLabel)->Create( "DuelTournamentRankingLabel.png", RGetDevice(), "interface/loadable/DuelTournamentRankingLabel.png");
 	if ( m_pDuelTournamentRankingLabel != NULL)
 	{
 		pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentRankingListLabel");
@@ -2284,55 +2284,55 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	MTextArea* pTextArea = (MTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerNameList");
 	if ( pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerKillList");
 	if ( pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerDeathList");
 	if ( pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerNameList1");
 	if ( pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerKillList1");
 	if ( pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerDeathList1");
 	if ( pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerNameList2");
 	if ( pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerKillList2");
 	if ( pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerDeathList2");
 	if ( pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	MPicture* pPicture = (MPicture*)m_IDLResource.FindWidget( "CombatResult_Header");
@@ -2428,8 +2428,8 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 		pListBox->AddField( "NAME", 300);
 		pListBox->SetItemHeight( 32);
 		pListBox->SetVisibleHeader( false);
-		pListBox->SetFont( MFontManager::Get( "FONTa10b"));
-		pListBox->m_FontColor = MCOLOR( 0xFFFFF794);
+		pListBox->SetFont( CCFontManager::Get( "FONTa10b"));
+		pListBox->m_FontColor = sColor( 0xFFFFF794);
 		pListBox->m_bNullFrame = true;
 	}
 
@@ -2437,37 +2437,37 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_MyRank");
 	if (pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_MyName");
 	if (pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_MyRankPoint");
 	if (pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_PlayerRankList");
 	if (pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_PlayerNameList");
 	if (pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_PlayerRankPointList");
 	if (pTextArea)
 	{
-		pTextArea->SetFont( MFontManager::Get( "FONTa10b"));
+		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
 
@@ -2688,7 +2688,7 @@ void ZGameInterface::OnShutdownState()
 /*
 void ZGameInterface::DrawLoadingScreen(const char* szMessage, float t)
 {
-	MDrawContext* pDC = Mint::GetInstance()->GetDrawContext();
+	CCDrawContext* pDC = Mint::GetInstance()->GetDrawContext();
 	pDC->SetColor(0, 0, 0);
 	pDC->FillRectangle(0, 0, MGetWorkspaceWidth(), MGetWorkspaceHeight());
 	pDC->SetColor(255, 255, 255);
@@ -2864,7 +2864,7 @@ break;
 }
 */
 
-void ZGameInterface::OnDrawStateGame(MDrawContext* pDC)
+void ZGameInterface::OnDrawStateGame(CCDrawContext* pDC)
 {
 	if(m_pGame!=NULL) 
 	{
@@ -2893,7 +2893,7 @@ void ZGameInterface::OnDrawStateGame(MDrawContext* pDC)
 	m_ScreenDebugger.DrawDebugInfo(pDC);
 }
 
-void ZGameInterface::OnDrawStateLogin(MDrawContext* pDC)
+void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 {/*
 	if( m_pBackground!=0)
 	{
@@ -3090,7 +3090,7 @@ void ZGameInterface::OnDrawStateLogin(MDrawContext* pDC)
 #endif
 }
 
-void ZGameInterface::OnDrawStateLobbyNStage(MDrawContext* pDC)
+void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 {
 	ZIDLResource* pRes = ZApplication::GetGameInterface()->GetIDLResource();
 
@@ -3352,7 +3352,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(MDrawContext* pDC)
 			return;
 
 		int nEndPos = ZApplication::GetStageInterface()->m_nListFramePos;
-		MRECT rect = pWidget->GetRect();
+		sRect rect = pWidget->GetRect();
 		if ( rect.x != nEndPos)
 		{
 			int nNewPos = rect.x + ( nEndPos - rect.x) * 0.25;
@@ -3398,7 +3398,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(MDrawContext* pDC)
 	}
 }
 
-void ZGameInterface::OnDrawStateCharSelection(MDrawContext* pDC)
+void ZGameInterface::OnDrawStateCharSelection(CCDrawContext* pDC)
 {
 	if ( m_pBackground && m_pCharacterSelectView)
 	{
@@ -3414,7 +3414,7 @@ void ZGameInterface::OnDrawStateCharSelection(MDrawContext* pDC)
 	}
 }
 
-void ZGameInterface::OnDraw(MDrawContext *pDC)
+void ZGameInterface::OnDraw(CCDrawContext *pDC)
 {
 	m_nDrawCount++;
 
@@ -3474,10 +3474,10 @@ void ZGameInterface::OnDraw(MDrawContext *pDC)
 			sprintf( szText, "%d 시간이 경과했습니다. 잠시 휴식을 취하시기 바랍니다.", m_dwHourCount);
 		else
 			sprintf( szText, "%d 시간이 경과 하였습니다.", m_dwHourCount);
-		ZChatOutput( MCOLOR(ZCOLOR_CHAT_SYSTEM), szText);
+		ZChatOutput( sColor(ZCOLOR_CHAT_SYSTEM), szText);
 
 
-		ZChatOutput( MCOLOR(ZCOLOR_CHAT_SYSTEM), "본 게임은 15세 이용가로서 만 15세 미만은 이용할 수 없습니다.");
+		ZChatOutput( sColor(ZCOLOR_CHAT_SYSTEM), "본 게임은 15세 이용가로서 만 15세 미만은 이용할 수 없습니다.");
 	}
 #endif
 
@@ -4311,7 +4311,7 @@ void ZGameInterface::SaveScreenShot()
 
 			char szOutput[_MAX_PATH*2];
 			ZTransMsg( szOutput,MSG_SCREENSHOT_SAVED,1,szFullPathToNotify );
-			ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szOutput);
+			ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), szOutput);
 
 			//SAFE_DELETE(data); 어이쿠
 			delete[] data;
@@ -4325,7 +4325,7 @@ SCREENSHOTERROR:
 	delete[] data;
 	SAFE_RELEASE(frontbuffer);
 
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
+	ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), 
 		ZMsg(MSG_SCREENSHOT_CANT_SAVE) );
 
 	return;
@@ -5110,7 +5110,7 @@ void ZGameInterface::ShowEquipmentDialog(bool bShow)
 		/*pTextArea = (MTextArea*)pResource->FindWidget("Equip_ItemDescription3");
 		if ( pTextArea)
 		{
-			pTextArea->SetTextColor( MCOLOR( 180, 180, 180));
+			pTextArea->SetTextColor( sColor( 180, 180, 180));
 			pTextArea->SetText( ZMsg( MSG_SHOPMSG));
 		}*/
 
@@ -5965,7 +5965,7 @@ public:
 
 		return NULL;
 	}
-	virtual MBitmap* GetBitmap( int i)
+	virtual CCBitmap* GetBitmap( int i)
 	{
 		return NULL;
 	}
@@ -6171,7 +6171,7 @@ void ZGameInterface::OnResponseSellQuestItem( const int nResult, const int nBP )
 
 // 퀘스트용 아이템 아이콘 화일명(하드 코딩 덩어리~  -_-;)
 // 놓을데가 없어서 일단 여기다...  -_-;
-MBitmap* ZGameInterface::GetQuestItemIcon( int nItemID, bool bSmallIcon)
+CCBitmap* ZGameInterface::GetQuestItemIcon( int nItemID, bool bSmallIcon)
 {
 	char szFileName[ 64] = "";
 	switch ( nItemID)
@@ -6263,7 +6263,7 @@ MBitmap* ZGameInterface::GetQuestItemIcon( int nItemID, bool bSmallIcon)
 	strcat(szFileName, ".tga");
 
 
-	return MBitmapManager::Get( szFileName);
+	return CCBitmapManager::Get( szFileName);
 }
 
 
@@ -6738,7 +6738,7 @@ void ZGameInterface::UpdateDuelTournamantMyCharInfoUI()
 	GetDuelTournamentGradeIconFileName(szOutput, pCharInfo->lastWeekGrade);
 	MPicture* pPicture= (MPicture*)pRes->FindWidget("Lobby_DuelTournamentInfoEmblem");
 	if (pPicture) {
-		pPicture->SetBitmap(MBitmapManager::Get(szOutput));
+		pPicture->SetBitmap(CCBitmapManager::Get(szOutput));
 
 		char sz[32];
 		char szTooltip[256];

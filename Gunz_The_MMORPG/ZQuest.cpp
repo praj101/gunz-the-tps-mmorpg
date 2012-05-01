@@ -784,7 +784,7 @@ bool ZQuest::OnQuestCombatState(MCommand* pCommand)
 					ZGetWorldItemManager()->AddQuestPortal(portal_pos);
 					m_GameInfo.SetPortalPos(portal_pos);
 
-					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM_GAME), ZMsg(MSG_GAME_OPEN_PORTAL));
+					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM_GAME), ZMsg(MSG_GAME_OPEN_PORTAL));
 
 					m_tRemainedTime = timeGetTime() + PORTAL_MOVING_TIME;
 					m_bIsRoundClear = true;
@@ -967,7 +967,7 @@ bool ZQuest::OnObtainQuestItem(MCommand* pCommand)
 	{
 		char szMsg[ 128];
 		ZTransMsg( szMsg, MSG_GAME_GET_QUEST_ITEM, 1, pQuestItemDesc->m_szQuestItemName);
-		ZChatOutput( MCOLOR(ZCOLOR_CHAT_SYSTEM_GAME), szMsg);
+		ZChatOutput( sColor(ZCOLOR_CHAT_SYSTEM_GAME), szMsg);
 	}
 #endif
 
@@ -988,7 +988,7 @@ bool ZQuest::OnObtainZItem(MCommand* pCommand)
 	{
 		char szMsg[ 128];
 		ZTransMsg( szMsg, MSG_GAME_GET_QUEST_ITEM, 1, pItemDesc->m_pMItemName->Ref().m_szItemName);
-		ZChatOutput( MCOLOR(ZCOLOR_CHAT_SYSTEM_GAME), szMsg);
+		ZChatOutput( sColor(ZCOLOR_CHAT_SYSTEM_GAME), szMsg);
 	}
 #endif
 
@@ -1110,11 +1110,11 @@ bool ZQuest::OnRewardQuest( MCommand* pCmd )
 class ObtainItemListBoxItem : public MListItem
 {
 protected:
-	MBitmap*			m_pBitmap;
+	CCBitmap*			m_pBitmap;
 	char				m_szName[ 128];
 
 public:
-	ObtainItemListBoxItem( MBitmap* pBitmap, const char* szName)
+	ObtainItemListBoxItem( CCBitmap* pBitmap, const char* szName)
 	{
 		m_pBitmap = pBitmap;
 		strcpy( m_szName, szName);
@@ -1130,7 +1130,7 @@ public:
 
 		return NULL;
 	}
-	virtual MBitmap* GetBitmap( int i)
+	virtual CCBitmap* GetBitmap( int i)
 	{
 		if ( i == 0)
 			return m_pBitmap;

@@ -62,7 +62,7 @@ void ZItemSlotView::SetDefaultText(CCMatchCharItemParts nParts)
 	}
 }
 
-void ZItemSlotView::OnDraw(MDrawContext* pDC)
+void ZItemSlotView::OnDraw(CCDrawContext* pDC)
 {
 	if ( m_nParts == MMCIP_END) return;
 
@@ -78,7 +78,7 @@ void ZItemSlotView::OnDraw(MDrawContext* pDC)
 	if (nItemID != 0) 
 		pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
-	MRECT r;
+	sRect r;
 
 	// Draw select box
 	if ( m_bSelectBox)
@@ -88,7 +88,7 @@ void ZItemSlotView::OnDraw(MDrawContext* pDC)
 		r.y -= 5;
 		r.w += 10;
 		r.h += 10;
-		pDC->SetColor( MCOLOR( 0x60808080));
+		pDC->SetColor( sColor( 0x60808080));
 		pDC->FillRectangle( r);
 	}
 
@@ -111,7 +111,7 @@ void ZItemSlotView::OnDraw(MDrawContext* pDC)
 	}
 	else
 	{
-		MBitmap* pIconBitmap = GetItemIconBitmap(pItemDesc);
+		CCBitmap* pIconBitmap = GetItemIconBitmap(pItemDesc);
 
 		if (pIconBitmap)
 		{
@@ -122,10 +122,10 @@ void ZItemSlotView::OnDraw(MDrawContext* pDC)
 
 	// Draw Item box
 	if (m_bKindable) {
-		pDC->SetColor( MCOLOR( 0xFFFFFFFF));
+		pDC->SetColor( sColor( 0xFFFFFFFF));
 		pDC->Rectangle( x, 0, w, h);
 	} else {
-		pDC->SetColor( MCOLOR( 0xFF303030));
+		pDC->SetColor( sColor( 0xFF303030));
 		pDC->Rectangle( x, 0, w, h);
 	}
 
@@ -143,7 +143,7 @@ void ZItemSlotView::OnDraw(MDrawContext* pDC)
 
 	if ( pItemDesc != NULL)
 	{
-		pDC->SetColor( MCOLOR(0xFFC0C0C0));
+		pDC->SetColor( sColor(0xFFC0C0C0));
 
 		int nCount;
 		char szItemName[256] = {0, };
@@ -195,8 +195,8 @@ void ZItemSlotView::OnDraw(MDrawContext* pDC)
 	}
 	else
 	{
-		if (m_bSelectBox)	pDC->SetColor(MCOLOR(0xFF202020));
-		else				pDC->SetColor(MCOLOR(0xFF404040));
+		if (m_bSelectBox)	pDC->SetColor(sColor(0xFF202020));
+		else				pDC->SetColor(sColor(0xFF404040));
 
 		pDC->Text(r, m_szName, am);
 	}
@@ -235,7 +235,7 @@ bool ZItemSlotView::IsEquipableItem(unsigned long int nItemID, int nPlayerLevel,
 	return true;
 }
 
-bool ZItemSlotView::OnDrop(MWidget* pSender, MBitmap* pBitmap, const char* szString, const char* szItemString)
+bool ZItemSlotView::OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	if ( (pSender == NULL) || ( m_bDragAndDrop == false))
 		return false;
@@ -292,7 +292,7 @@ bool ZItemSlotView::OnEvent(MEvent* pEvent, MListener* pListener)
 	m_bSelectBox = false;
 
 	// Check rect range
-	MRECT r = GetClientRect();
+	sRect r = GetClientRect();
 	if ( r.InPoint( pEvent->Pos) == false)
 		return bRet;
 
@@ -317,7 +317,7 @@ bool ZItemSlotView::OnEvent(MEvent* pEvent, MListener* pListener)
 			// 드래그 & 드롭
 			if (pItemDesc && m_bDragAndDrop)
 			{
-				MBitmap* pIconBitmap = GetItemIconBitmap(pItemDesc);
+				CCBitmap* pIconBitmap = GetItemIconBitmap(pItemDesc);
 				Mint::GetInstance()->SetDragObject(this, pIconBitmap, pItemDesc->m_pMItemName->Ref().m_szItemName, 
 					pItemDesc->m_pMItemName->Ref().m_szItemName);
 			}
@@ -378,7 +378,7 @@ bool ZItemSlotView::OnEvent(MEvent* pEvent, MListener* pListener)
 }
 
 
-void ZItemSlotView::SetBackBitmap(MBitmap* pBitmap)
+void ZItemSlotView::SetBackBitmap(CCBitmap* pBitmap)
 {
 	m_pBackBitmap = pBitmap;
 	if( !GetStretch() && m_pBackBitmap!=NULL)
@@ -388,7 +388,7 @@ void ZItemSlotView::SetBackBitmap(MBitmap* pBitmap)
 
 }
 
-void ZItemSlotView::SetIConBitmap(MBitmap* pBitmap)
+void ZItemSlotView::SetIConBitmap(CCBitmap* pBitmap)
 {
 }
 
@@ -423,8 +423,8 @@ void ZItemSlotView::OnMouseIn( void )
 	ZShopEquipItem_Match::FillItemDesc(pItemDesc, pTextArea, pItemNode);
 
 	// 툴팁의 위치
-	MRECT rcSlotView = GetRect();
-	MRECT rcTextArea = pItemDescTextArea->GetRect();
+	sRect rcSlotView = GetRect();
+	sRect rcTextArea = pItemDescTextArea->GetRect();
 	MPOINT posDesc(rcSlotView.x, rcSlotView.y);
 	posDesc = MClientToScreen(GetParent(), posDesc);
 	posDesc.x = rcSlotView.x + rcSlotView.w + CONVERT800(20);	// 일단 슬롯뷰 우측으로

@@ -526,7 +526,7 @@ void ZShopEquipInterface::SelectShopTab(int nTabIndex)
 
 	// 구입, 판매 라벨
 	MPicture* pPicture;
-	MBitmap* pBitmap;
+	CCBitmap* pBitmap;
 	pPicture = (MPicture*)pResource->FindWidget("Shop_FrameTabLabel1");
 	if ( pPicture)
 		pPicture->Show(nTabIndex==0 ? true : false);
@@ -543,11 +543,11 @@ void ZShopEquipInterface::SelectShopTab(int nTabIndex)
 	if ( pPicture)
 	{
 		if ( nTabIndex == 0)
-			pBitmap = MBitmapManager::Get( "framepaneltab1.tga");
+			pBitmap = CCBitmapManager::Get( "framepaneltab1.tga");
 		else if ( nTabIndex == 1)
-			pBitmap = MBitmapManager::Get( "framepaneltab2.tga");
+			pBitmap = CCBitmapManager::Get( "framepaneltab2.tga");
 		else if ( nTabIndex == 2)
-			pBitmap = MBitmapManager::Get( "framepaneltab3.tga");
+			pBitmap = CCBitmapManager::Get( "framepaneltab3.tga");
 
 		if ( pBitmap)
 			pPicture->SetBitmap( pBitmap);
@@ -678,13 +678,13 @@ void ZShopEquipInterface::SelectEquipmentTab(int nTabIndex)
 
 	// 프레임 탭
 	pPicture = (MPicture*)pResource->FindWidget("Equip_TabLabel");
-	MBitmap* pBitmap;
+	CCBitmap* pBitmap;
 	if ( pPicture)
 	{
 		if ( nTabIndex == 0)
-			pBitmap = MBitmapManager::Get( "framepaneltab1.tga");
+			pBitmap = CCBitmapManager::Get( "framepaneltab1.tga");
 		else
-			pBitmap = MBitmapManager::Get( "framepaneltab2.tga");
+			pBitmap = CCBitmapManager::Get( "framepaneltab2.tga");
 
 		if ( pBitmap)
 			pPicture->SetBitmap( pBitmap);
@@ -777,7 +777,7 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 	sprintf( szWidgetName, "%s_EquipmentSlot_Head", szName);
 	MWidget* itemSlot = (MWidget*)pResource->FindWidget( szWidgetName);
 	if (itemSlot) {
-		MRECT rect = itemSlot->GetRect();
+		sRect rect = itemSlot->GetRect();
 
 		int nWidth;
 		if ( bOpen) nWidth = 220.0f * (float)RGetScreenWidth() / 800.0f;

@@ -395,7 +395,7 @@ unsigned long int ZGetClockDistance(unsigned long int nGlobalClock, unsigned lon
 #define HANDLE_COMMAND(message, fn)    \
 	case (message): return fn(pCommand);
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,sColor& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 
 #endif

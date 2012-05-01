@@ -835,7 +835,7 @@ bool ZSurvival::OnQuestCombatState(MCommand* pCommand)
 					ZGetWorldItemManager()->AddQuestPortal(portal_pos);
 					m_GameInfo.SetPortalPos(portal_pos);
 
-					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM_GAME), ZMsg(MSG_GAME_OPEN_PORTAL));
+					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM_GAME), ZMsg(MSG_GAME_OPEN_PORTAL));
 
 					m_tRemainedTime = timeGetTime() + PORTAL_MOVING_TIME;
 					m_bIsRoundClear = true;
@@ -1037,7 +1037,7 @@ bool ZSurvival::OnObtainQuestItem(MCommand* pCommand)
 	{
 		char szMsg[ 128];
 		ZTransMsg( szMsg, MSG_GAME_GET_QUEST_ITEM, 1, pQuestItemDesc->m_szQuestItemName);
-		ZChatOutput( MCOLOR(ZCOLOR_CHAT_SYSTEM_GAME), szMsg);
+		ZChatOutput( sColor(ZCOLOR_CHAT_SYSTEM_GAME), szMsg);
 	}
 #endif
 
@@ -1058,7 +1058,7 @@ bool ZSurvival::OnObtainZItem(MCommand* pCommand)
 	{
 		char szMsg[ 128];
 		ZTransMsg( szMsg, MSG_GAME_GET_QUEST_ITEM, 1, pItemDesc->m_pMItemName->Ref().m_szItemName);
-		ZChatOutput( MCOLOR(ZCOLOR_CHAT_SYSTEM_GAME), szMsg);
+		ZChatOutput( sColor(ZCOLOR_CHAT_SYSTEM_GAME), szMsg);
 	}
 #endif
 
@@ -1205,13 +1205,13 @@ bool ZSurvival::OnSurvivalRankingList(MCommand* pCmd)
 		if (pRank->m_dwRank == 0) break;
 
 		sprintf(szText, "%d", pRank->m_dwRank);
-		pWidgetRank->AddText( szText, MCOLOR( 0xFFFFF794));
+		pWidgetRank->AddText( szText, sColor( 0xFFFFF794));
 
-		if (strlen(pRank->m_szCharName) != 0) pWidgetName->AddText( pRank->m_szCharName, MCOLOR( 0xFFFFF794));
-		else								  pWidgetName->AddText( " ", MCOLOR( 0xFFFFF794));			
+		if (strlen(pRank->m_szCharName) != 0) pWidgetName->AddText( pRank->m_szCharName, sColor( 0xFFFFF794));
+		else								  pWidgetName->AddText( " ", sColor( 0xFFFFF794));			
 
 		sprintf(szText, "%d", pRank->m_dwPoint);
-		pWidgetPoint->AddText( szText, MCOLOR( 0xFFFFF794));
+		pWidgetPoint->AddText( szText, sColor( 0xFFFFF794));
 	}
 	return true;
 }
@@ -1239,12 +1239,12 @@ bool ZSurvival::OnSurvivalPrivateRanking(MCommand* pCmd)
 		sprintf(szText, "%d", nRank);
 	else
 		sprintf(szText, "--", nRank);
-	pWidgetRank->AddText(szText, MCOLOR( 0xFFFFFFCC));
+	pWidgetRank->AddText(szText, sColor( 0xFFFFFFCC));
 
 	sprintf(szText, "%d", nPoint);
-	pWidgetPoint->AddText(szText, MCOLOR( 0xFFFFFFCC));
+	pWidgetPoint->AddText(szText, sColor( 0xFFFFFFCC));
 
-	pWidgetName->AddText(ZGetGame()->m_pMyCharacter->GetUserName(), MCOLOR( 0xFFFFFFCC));
+	pWidgetName->AddText(ZGetGame()->m_pMyCharacter->GetUserName(), sColor( 0xFFFFFFCC));
 
 	return true;
 }
@@ -1271,11 +1271,11 @@ bool ZSurvival::OnSurvivalPrivateRanking(MCommand* pCmd)
 class ObtainItemListBoxItem : public MListItem
 {
 protected:
-	MBitmap*			m_pBitmap;
+	CCBitmap*			m_pBitmap;
 	char				m_szName[ 128];
 
 public:
-	ObtainItemListBoxItem( MBitmap* pBitmap, const char* szName)
+	ObtainItemListBoxItem( CCBitmap* pBitmap, const char* szName)
 	{
 		m_pBitmap = pBitmap;
 		strcpy( m_szName, szName);
@@ -1291,7 +1291,7 @@ public:
 
 		return NULL;
 	}
-	virtual MBitmap* GetBitmap( int i)
+	virtual CCBitmap* GetBitmap( int i)
 	{
 		if ( i == 0)
 			return m_pBitmap;

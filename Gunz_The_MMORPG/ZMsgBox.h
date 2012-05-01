@@ -9,7 +9,7 @@ protected:
 	bool				m_bNextVisible;
 	MListener*			m_pCustomListener;
 
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 
 public:
 	ZMsgBox(const char* szMessage, MWidget* pParent, MListener* pListener=NULL, MMsgBoxType nType=MT_NOTDECIDED );

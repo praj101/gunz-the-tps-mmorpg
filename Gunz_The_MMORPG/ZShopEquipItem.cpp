@@ -316,9 +316,9 @@ ZShopEquipItem_Gamble::ZShopEquipItem_Gamble(const ZGambleItemDefine* pDesc ) : 
 	_ASSERT(m_pItemDesc);
 
 	if( m_pItemDesc->IsCash() )
-		m_pIconBitmap = MBitmapManager::Get( "slot_icon_gamble_cash.tga");
+		m_pIconBitmap = CCBitmapManager::Get( "slot_icon_gamble_cash.tga");
 	else
-		m_pIconBitmap = MBitmapManager::Get( "slot_icon_gamble1.tga");
+		m_pIconBitmap = CCBitmapManager::Get( "slot_icon_gamble1.tga");
 }
 
 const char* ZShopEquipItem_Gamble::GetName(char* szBuf)
@@ -366,11 +366,11 @@ void ZShopEquipItem_Gamble::FillItemDesc(MTextArea* pTextArea)
 {
 	if (!pTextArea) return;
 
-	pTextArea->SetTextColor( MCOLOR(255,255,255));
+	pTextArea->SetTextColor( sColor(255,255,255));
 	pTextArea->SetText( m_pItemDesc->GetName().c_str());
 
 	pTextArea->AddText("\n\n\n");
-	pTextArea->AddText( m_pItemDesc->GetDescription().c_str(), MCOLOR( 120, 120, 120));
+	pTextArea->AddText( m_pItemDesc->GetDescription().c_str(), sColor( 120, 120, 120));
 
 	pTextArea->AdjustHeightByContent();
 }
@@ -482,22 +482,22 @@ void ZShopEquipItem_Match::FillItemDesc(CCMatchItemDesc* pItemDesc, MTextArea* p
 	if(!pTextArea) return;
 
 	// 장비 이름
-	pTextArea->SetTextColor( MCOLOR(255,255,255));
+	pTextArea->SetTextColor( sColor(255,255,255));
 	pTextArea->SetText( pItemDesc->m_pMItemName->Ref().m_szItemName);
 
 	// 제약사항
 	pTextArea->AddText( "\n\n");
-	pTextArea->AddText( GetRestrictionString(pItemDesc).c_str(), MCOLOR( 170, 170, 170));
+	pTextArea->AddText( GetRestrictionString(pItemDesc).c_str(), sColor( 170, 170, 170));
 
 	// 기능
 	pTextArea->AddText( "\n");
-	pTextArea->AddText( GetItemSpecString(pItemDesc).c_str(), MCOLOR( 170, 170, 170));
+	pTextArea->AddText( GetItemSpecString(pItemDesc).c_str(), sColor( 170, 170, 170));
 
 	// 소모성 표시
 	if (pItemDesc->IsSpendableItem())
 	{
 		pTextArea->AddText( "\n");
-		pTextArea->AddText( ZMsg(MSG_SHOPEQUIP_SPENDABLE), MCOLOR( 200, 0, 0));
+		pTextArea->AddText( ZMsg(MSG_SHOPEQUIP_SPENDABLE), sColor( 200, 0, 0));
 	}
 
 	//if (!bBriefly)
@@ -506,12 +506,12 @@ void ZShopEquipItem_Match::FillItemDesc(CCMatchItemDesc* pItemDesc, MTextArea* p
 		if (pRentalNode)
 		{
 			pTextArea->AddText( "\n");
-			pTextArea->AddText( GetPeriodItemString( pRentalNode).c_str(), MCOLOR( 200, 0, 0));
+			pTextArea->AddText( GetPeriodItemString( pRentalNode).c_str(), sColor( 200, 0, 0));
 		}
 
 		// 아이템 설명
 		pTextArea->AddText( "\n");
-		pTextArea->AddText( pItemDesc->m_szDesc, MCOLOR( 120, 120, 120));
+		pTextArea->AddText( pItemDesc->m_szDesc, sColor( 120, 120, 120));
 	}
 
 	pTextArea->AdjustHeightByContent();
@@ -584,22 +584,22 @@ void ZShopEquipItem_Quest::FillItemDesc(MTextArea* pTextArea)
 	if (!pTextArea) return;
 
 	// 장비 이름
-	pTextArea->SetTextColor( MCOLOR(255,255,255));
+	pTextArea->SetTextColor( sColor(255,255,255));
 	pTextArea->SetText( m_pItemDesc->m_szQuestItemName);
 	pTextArea->AddText( "\n");
 	char szText[256];
 	sprintf( szText, "(%s %s)", ZMsg( MSG_WORD_QUEST), ZMsg( MSG_WORD_ITEM));
-	pTextArea->AddText( szText, MCOLOR( 170, 170, 170));
+	pTextArea->AddText( szText, sColor( 170, 170, 170));
 	pTextArea->AddText( "\n\n");
 
 	// 제약사항
 	if (m_pItemDesc->m_bSecrifice)
 	{
 		sprintf( szText, "%s %s", ZMsg( MSG_WORD_SACRIFICE), ZMsg( MSG_WORD_ITEM));
-		pTextArea->AddText( szText, MCOLOR( 170, 170, 170));
+		pTextArea->AddText( szText, sColor( 170, 170, 170));
 	}
 	// 아이템 설명
-	pTextArea->AddText( m_pItemDesc->m_szDesc, MCOLOR( 120, 120, 120));
+	pTextArea->AddText( m_pItemDesc->m_szDesc, sColor( 120, 120, 120));
 
 	pTextArea->AdjustHeightByContent();
 }
@@ -762,23 +762,23 @@ void ZShopEquipItem_Set::FillItemDesc( MTextArea* pTextArea )
 	if (!pTextArea) return;
 
 	// 장비 이름
-	pTextArea->SetTextColor( MCOLOR(255,255,255));
+	pTextArea->SetTextColor( sColor(255,255,255));
 	pTextArea->SetText( m_pShopSetItem->GetName());
 
 	// 제약사항
 	pTextArea->AddText( "\n\n");
-	pTextArea->AddText( GetRestrictionString(m_nSexRes, GetLevelRes(), m_sumSetSpec.m_nWeight.Ref()).c_str(), MCOLOR( 170, 170, 170));
+	pTextArea->AddText( GetRestrictionString(m_nSexRes, GetLevelRes(), m_sumSetSpec.m_nWeight.Ref()).c_str(), sColor( 170, 170, 170));
 
 	// 기능
 	pTextArea->AddText( "\n");
-	pTextArea->AddText( GetItemSpecString(&m_sumSetSpec).c_str(), MCOLOR( 170, 170, 170));
+	pTextArea->AddText( GetItemSpecString(&m_sumSetSpec).c_str(), sColor( 170, 170, 170));
 
 	//todok 구매창에서 세부 설명 생략할 수 있도록 해주자
 	//if (!bBriefly)
 	{
 		// 아이템 설명
 		pTextArea->AddText( "\n");
-		pTextArea->AddText( m_pShopSetItem->GetDescription(), MCOLOR( 120, 120, 120));
+		pTextArea->AddText( m_pShopSetItem->GetDescription(), sColor( 120, 120, 120));
 	}
 
 	pTextArea->AdjustHeightByContent();
@@ -820,7 +820,7 @@ void IShopEquipItemHandle_Purchase::OpenSimpleConfirmDlg(ISimpleConfirmDlgDoneHa
 }
 
 void IShopEquipItemHandle_Purchase::OpenCountableConfirmDlg(
-	const char* szItemName, MBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler)
+	const char* szItemName, CCBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler)
 {
 	ZItemCountDlg* pDlg = ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg();
 	if (!pDlg) { _ASSERT(0); return; }
@@ -1044,7 +1044,7 @@ const char* IShopEquipItemHandle_Sell::GetPriceText( char* szBuf )
 	return szBuf;
 }
 
-void IShopEquipItemHandle_Sell::OpenCountableConfirmDlg(const char* szItemName, MBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler)
+void IShopEquipItemHandle_Sell::OpenCountableConfirmDlg(const char* szItemName, CCBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler)
 {
 	ZItemCountDlg* pDlg = ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg();
 	if (!pDlg) { _ASSERT(0); return; }
@@ -1058,7 +1058,7 @@ void IShopEquipItemHandle_Sell::OpenSimpleConfirmDlg( ISimpleConfirmDlgDoneHandl
 	pDlg->Open(ZMsg(MSG_SHOPEQUIP_SELL_CONFIRM), pDoneHandler);
 }
 
-void IShopEquipItemHandle_Sell::OpenSellCashItemConfirmDlg( const char* szItemName, MBitmap* pIcon, int price, int count, ISellCashItemConfirmDlgDoneHandler* pHandler )
+void IShopEquipItemHandle_Sell::OpenSellCashItemConfirmDlg( const char* szItemName, CCBitmap* pIcon, int price, int count, ISellCashItemConfirmDlgDoneHandler* pHandler )
 {
 	ZSellCashItemConfirmDlg* pDlg = ZGetGameInterface()->GetShopEquipInterface()->GetSellCashItemConfirmDlg();
 	if (!pDlg) { _ASSERT(0); return; }
@@ -1284,7 +1284,7 @@ void ZShopEquipItemHandle_SellQuest::OnDone(int nCount)
 
 // ============= IShopEquipItemHandle_SendAccount 은행 보내기 핸들러 ================================================
 
-void IShopEquipItemHandle_SendAccount::OpenCountableConfirmDlg( const char* szItemName, MBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler )
+void IShopEquipItemHandle_SendAccount::OpenCountableConfirmDlg( const char* szItemName, CCBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler )
 {
 	ZItemCountDlg* pDlg = ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg();
 	if (!pDlg) { _ASSERT(0); return; }
@@ -1377,7 +1377,7 @@ void IShopEquipItemHandle_BringAccount::OpenSimpleConfirmDlg( ISimpleConfirmDlgD
 	pDlg->Open(ZMsg(MSG_SHOPEQUIP_BRING_CONFIRM), pDoneHandler);
 }
 
-void IShopEquipItemHandle_BringAccount::OpenCountableConfirmDlg( const char* szItemName, MBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler )
+void IShopEquipItemHandle_BringAccount::OpenCountableConfirmDlg( const char* szItemName, CCBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler )
 {
 	ZItemCountDlg* pDlg = ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg();
 	if (!pDlg) { _ASSERT(0); return; }

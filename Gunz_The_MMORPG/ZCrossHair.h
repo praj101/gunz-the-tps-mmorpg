@@ -10,7 +10,7 @@
 #include "RBaseTexture.h"
 #include "Mint.h"
 #include "Mint4R2.h"
-#include "MBitmap.h"
+#include "CCBitmap.h"
 #include "ZFilePath.h"
 
 #define NUM_DEFAULT_CROSSHAIR		5
@@ -56,18 +56,18 @@ private:
 
 	ZCROSSHAIR_STATUS		m_nStatus;
 	bool					m_bVisible;
-	MBitmap*				m_pBitmaps[CH_MAX];
-	MBitmap*				m_pPickBitmaps[CH_MAX];
+	CCBitmap*				m_pBitmaps[CH_MAX];
+	CCBitmap*				m_pPickBitmaps[CH_MAX];
 	void Change(ZCrossHairPreset nPreset);
-	static void GetBitmaps(MBitmap** ppoutBitmap, MBitmap** ppoutPickBitmap, ZCrossHairPreset nPreset);
-	static void DrawCrossHair(MDrawContext* pDC, MBitmap** ppBitmaps, MPOINT& center, float fSizeFactor, float fCAFactor);
+	static void GetBitmaps(CCBitmap** ppoutBitmap, CCBitmap** ppoutPickBitmap, ZCrossHairPreset nPreset);
+	static void DrawCrossHair(CCDrawContext* pDC, CCBitmap** ppBitmaps, MPOINT& center, float fSizeFactor, float fCAFactor);
 public:
 	ZCrossHair();
 	virtual ~ZCrossHair();
 	void ChangeFromOption();
 	bool Create();
 	void Destroy();
-	void Draw(MDrawContext* pDC);
+	void Draw(CCDrawContext* pDC);
 	void SetState(ZCROSSHAIR_STATUS nState)	{ m_nStatus = nState; }
 	int GetHeight();
 	int GetWidth();
@@ -77,7 +77,7 @@ public:
 		m_bVisible = bVisible;
 	}
 
-	static void OnDrawOptionCrossHairPreview(void* pCanvas, MDrawContext *pDC);
+	static void OnDrawOptionCrossHairPreview(void* pCanvas, CCDrawContext *pDC);
 };
 
 

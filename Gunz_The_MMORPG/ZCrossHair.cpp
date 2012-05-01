@@ -43,7 +43,7 @@ void ZCrossHair::Destroy()
 	}
 }
 
-void ZCrossHair::GetBitmaps(MBitmap** ppoutBitmap, MBitmap** ppoutPickBitmap, ZCrossHairPreset nPreset)
+void ZCrossHair::GetBitmaps(CCBitmap** ppoutBitmap, CCBitmap** ppoutPickBitmap, ZCrossHairPreset nPreset)
 {
 	char szBar[CH_MAX][256], szPick[CH_MAX][256];
 	for (int i = 0; i < CH_MAX; i++)
@@ -84,10 +84,10 @@ void ZCrossHair::GetBitmaps(MBitmap** ppoutBitmap, MBitmap** ppoutPickBitmap, ZC
 	for (int i = 0; i < CH_MAX; i++) 
 	{
 		if (ppoutBitmap != NULL)
-			ppoutBitmap[i]=MBitmapManager::Get(szBar[i]);
+			ppoutBitmap[i]=CCBitmapManager::Get(szBar[i]);
 
 		if (ppoutPickBitmap != NULL)
-			ppoutPickBitmap[i] = MBitmapManager::Get(szPick[i]);
+			ppoutPickBitmap[i] = CCBitmapManager::Get(szPick[i]);
 	}
 }
 
@@ -111,7 +111,7 @@ void ZCrossHair::ChangeFromOption()
 
 }
 
-void ZCrossHair::DrawCrossHair(MDrawContext* pDC, MBitmap** ppBitmaps, MPOINT& center, 
+void ZCrossHair::DrawCrossHair(CCDrawContext* pDC, CCBitmap** ppBitmaps, MPOINT& center, 
 							   float fSizeFactor, float fCAFactor)
 {
 	int sizex = 32;
@@ -167,7 +167,7 @@ void ZCrossHair::DrawCrossHair(MDrawContext* pDC, MBitmap** ppBitmaps, MPOINT& c
 }
 
 
-void ZCrossHair::Draw(MDrawContext* pDC)
+void ZCrossHair::Draw(CCDrawContext* pDC)
 {
 	if(!m_bVisible) return;
 	if (ZGetGame()->m_pMyCharacter == NULL) return;
@@ -197,9 +197,9 @@ void ZCrossHair::Draw(MDrawContext* pDC)
 }
 
 
-void ZCrossHair::OnDrawOptionCrossHairPreview(void* pCanvas, MDrawContext *pDC)
+void ZCrossHair::OnDrawOptionCrossHairPreview(void* pCanvas, CCDrawContext *pDC)
 {
-	MBitmap* pBitmaps[CH_MAX] = {NULL, };
+	CCBitmap* pBitmaps[CH_MAX] = {NULL, };
 
 	int nSelIndex = 0;
 	MComboBox* pComboBox = (MComboBox*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CrossHairComboBox");

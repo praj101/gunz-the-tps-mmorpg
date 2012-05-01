@@ -20,15 +20,15 @@
 #define ZCHAT_CLEAR_DELAY				(1000 * 10)		// 반복 인식 제거 시간..10초
 
 
-void ZChatOutput(const char* szMsg, ZChat::ZCHAT_MSG_TYPE msgtype, ZChat::ZCHAT_LOC loc,MCOLOR _color)
+void ZChatOutput(const char* szMsg, ZChat::ZCHAT_MSG_TYPE msgtype, ZChat::ZCHAT_LOC loc,sColor _color)
 {
 	ZGetGameInterface()->GetChat()->Output(szMsg, msgtype, loc , _color);
-	void(*thisCall)(const char* , ZChat::ZCHAT_MSG_TYPE , ZChat::ZCHAT_LOC ,MCOLOR );
+	void(*thisCall)(const char* , ZChat::ZCHAT_MSG_TYPE , ZChat::ZCHAT_LOC ,sColor );
 	thisCall = ZChatOutput;
 	CHECK_RETURN_CALLSTACK(thisCall);
 }
 
-void ZChatOutput(MCOLOR color, const char* szMsg, ZChat::ZCHAT_LOC loc)
+void ZChatOutput(sColor color, const char* szMsg, ZChat::ZCHAT_LOC loc)
 {
 	ZGetGameInterface()->GetChat()->Output(color, szMsg, loc);
 }
@@ -37,14 +37,14 @@ void ZChatOutputMouseSensitivityChanged(int old, int neo)
 {
 	char sz[256] = "";
 	sprintf(sz, "%s [%d] -> [%d]", ZStr(std::string("UI_OPTION_20")), old, neo);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), sz);
+	ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), sz);
 }
 
 void ZChatOutputMouseSensitivityCurrent(int i)
 {
 	char sz[256] = "";
 	sprintf(sz, "%s [%d]", ZStr(std::string("UI_OPTION_20")), i);
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), sz);
+	ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), sz);
 }
 
 
@@ -218,7 +218,7 @@ bool ZChat::Input(char* szMsg)
 	return true;
 }
 
-void ZChat::Output(const char* szMsg, ZCHAT_MSG_TYPE msgtype, ZCHAT_LOC loc,MCOLOR _color)
+void ZChat::Output(const char* szMsg, ZCHAT_MSG_TYPE msgtype, ZCHAT_LOC loc,sColor _color)
 {
 	GunzState state = ZApplication::GetGameInterface()->GetState();
 
@@ -236,19 +236,19 @@ void ZChat::Output(const char* szMsg, ZCHAT_MSG_TYPE msgtype, ZCHAT_LOC loc,MCOL
 
 	if (msgtype == CMT_SYSTEM)
 	{
-		MCOLOR color = MCOLOR(ZCOLOR_CHAT_SYSTEM_GAME);
+		sColor color = sColor(ZCOLOR_CHAT_SYSTEM_GAME);
 
 		if (((loc == CL_CURRENT) && (state==GUNZ_GAME)) || (loc==CL_GAME))
 		{
-			color = MCOLOR(ZCOLOR_CHAT_SYSTEM_GAME);
+			color = sColor(ZCOLOR_CHAT_SYSTEM_GAME);
 		}
 		else if (((loc == CL_CURRENT) && (state==GUNZ_LOBBY)) || (loc==CL_LOBBY))
 		{
-			color = MCOLOR(ZCOLOR_CHAT_SYSTEM_LOBBY);
+			color = sColor(ZCOLOR_CHAT_SYSTEM_LOBBY);
 		}
 		else if (((loc == CL_CURRENT) && (state==GUNZ_STAGE)) || (loc==CL_STAGE))
 		{
-			color = MCOLOR(ZCOLOR_CHAT_SYSTEM_STAGE);
+			color = sColor(ZCOLOR_CHAT_SYSTEM_STAGE);
 		}
 
 		Output(color, szOutput, loc);
@@ -256,19 +256,19 @@ void ZChat::Output(const char* szMsg, ZCHAT_MSG_TYPE msgtype, ZCHAT_LOC loc,MCOL
 	}
 	else if (msgtype == CMT_BROADCAST)
 	{
-		MCOLOR color = MCOLOR(ZCOLOR_CHAT_BROADCAST_GAME);
+		sColor color = sColor(ZCOLOR_CHAT_BROADCAST_GAME);
 
 		if (((loc == CL_CURRENT) && (state==GUNZ_GAME)) || (loc==CL_GAME))
 		{
-			color = MCOLOR(ZCOLOR_CHAT_BROADCAST_GAME);
+			color = sColor(ZCOLOR_CHAT_BROADCAST_GAME);
 		}
 		else if (((loc == CL_CURRENT) && (state==GUNZ_LOBBY)) || (loc==CL_LOBBY))
 		{
-			color = MCOLOR(ZCOLOR_CHAT_BROADCAST_LOBBY);
+			color = sColor(ZCOLOR_CHAT_BROADCAST_LOBBY);
 		}
 		else if (((loc == CL_CURRENT) && (state==GUNZ_STAGE)) || (loc==CL_STAGE))
 		{
-			color = MCOLOR(ZCOLOR_CHAT_BROADCAST_STAGE);
+			color = sColor(ZCOLOR_CHAT_BROADCAST_STAGE);
 		}
 
 		Output(color, szOutput, loc);
@@ -299,7 +299,7 @@ void ZChat::Output(const char* szMsg, ZCHAT_MSG_TYPE msgtype, ZCHAT_LOC loc,MCOL
 	}
 }
 
-void ZChat::Output(MCOLOR color, const char* szMsg, ZCHAT_LOC loc)
+void ZChat::Output(sColor color, const char* szMsg, ZCHAT_LOC loc)
 {
 	m_ReportAbuse.OutputString(szMsg);
 
@@ -355,7 +355,7 @@ void ZChat::Clear(ZCHAT_LOC loc)
 
 #define MAX_CHAT_LINES	100
 
-void ZChat::LobbyChatOutput(const char* szChat,MCOLOR color)
+void ZChat::LobbyChatOutput(const char* szChat,sColor color)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	MTextArea* pWidget = (MTextArea*)pResource->FindWidget("ChannelChattingOutput");
@@ -367,7 +367,7 @@ void ZChat::LobbyChatOutput(const char* szChat,MCOLOR color)
 
 }
 
-void ZChat::StageChatOutput(const char* szChat,MCOLOR color)
+void ZChat::StageChatOutput(const char* szChat,sColor color)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	MTextArea* pWidget = (MTextArea*)pResource->FindWidget("StageChattingOutput");

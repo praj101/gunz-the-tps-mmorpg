@@ -32,11 +32,11 @@ void ZRadar::RotatePixel(int* poutX, int* poutY, int sx, int sy, int nHotSpotX, 
 
 bool ZRadar::OnCreate()
 {
-	m_pBitmap = (MBitmapR2*)MBitmapManager::Get("radar01.bmp");
+	m_pBitmap = (CCBitmapR2*)CCBitmapManager::Get("radar01.bmp");
 	if(!m_pBitmap) return false;
 
 	float fRot = 0.0f;
-	MRECT r = GetRect();
+	sRect r = GetRect();
 	int nDelta = (GetRect().h /2) - 90;
 
 	m_Nodes[0].x[0] = (r.w - m_pBitmap->GetWidth())  / 2;
@@ -72,7 +72,7 @@ void ZRadar::OnDestroy()
 }
 
 
-void ZRadar::OnDraw(MDrawContext* pDC)
+void ZRadar::OnDraw(CCDrawContext* pDC)
 {
 	bool ret = false;
 	for (int i = 0; i < 8; i++)

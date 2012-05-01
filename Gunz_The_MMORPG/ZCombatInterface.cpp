@@ -78,7 +78,7 @@ struct ZScoreBoardItem : public CMemPoolSm<ZScoreBoardItem>{
 	bool bCommander;
 	bool bGameRoomUser;
 
-	MCOLOR SpColor;
+	sColor SpColor;
 	bool  bSpColor;
 
 	ZScoreBoardItem( const CCUID& _uidUID, char* _szLevel, char *_szName,char *_szClan,int _nTeam,bool _bDeath,int _nExp,int _nKills,int _nDeaths,int _nPing,int _nDTLastWeekGrade, bool _bMyChar,bool _bGameRoomUser, bool _bCommander = false)
@@ -96,21 +96,21 @@ struct ZScoreBoardItem : public CMemPoolSm<ZScoreBoardItem>{
 		bMyChar = _bMyChar;
 		bCommander = _bCommander;
 		bSpColor = false;
-		SpColor = MCOLOR(0,0,0);
+		SpColor = sColor(0,0,0);
 		bGameRoomUser = _bGameRoomUser;
 		nDTLastWeekGrade = _nDTLastWeekGrade;
 	}
 	ZScoreBoardItem() {
 		bSpColor = false;
-		SpColor = MCOLOR(0,0,0);
+		SpColor = sColor(0,0,0);
 	}
 
-	void SetColor(MCOLOR c) { 
+	void SetColor(sColor c) { 
 		SpColor = c;
 		bSpColor = true;
 	}
 
-	MCOLOR GetColor() {
+	sColor GetColor() {
 		return SpColor;
 	}
 };
@@ -195,7 +195,7 @@ bool ZCombatInterface::OnCreate()
 	m_Chat.m_pChattingOutput->ReleaseFocus();
 
 	m_AdminMsg.Create( "CombatChatOutputAdmin",false);
-	MFont* pFont = MFontManager::Get( "FONTb11b");
+	CCFont* pFont = CCFontManager::Get( "FONTb11b");
 	m_AdminMsg.SetFont( pFont);
 	m_AdminMsg.m_pChattingOutput->ReleaseFocus();
 
@@ -206,11 +206,11 @@ bool ZCombatInterface::OnCreate()
 		}
 	}
 
-	m_ppIcons[0]=MBitmapManager::Get("medal_A.tga");
-	m_ppIcons[1]=MBitmapManager::Get("medal_U.tga");
-	m_ppIcons[2]=MBitmapManager::Get("medal_E.tga");
-	m_ppIcons[3]=MBitmapManager::Get("medal_F.tga");
-	m_ppIcons[4]=MBitmapManager::Get("medal_H.tga");
+	m_ppIcons[0]=CCBitmapManager::Get("medal_A.tga");
+	m_ppIcons[1]=CCBitmapManager::Get("medal_U.tga");
+	m_ppIcons[2]=CCBitmapManager::Get("medal_E.tga");
+	m_ppIcons[3]=CCBitmapManager::Get("medal_F.tga");
+	m_ppIcons[4]=CCBitmapManager::Get("medal_H.tga");
 
 	m_CrossHair.Create();
 	m_CrossHair.ChangeFromOption();
@@ -461,7 +461,7 @@ void ZCombatInterface::OnDestroy()
 	ZScoreBoardItem::Release();
 }
 
-void TextRelative(MDrawContext* pDC,float x,float y,const char *szText,bool bCenter)
+void TextRelative(CCDrawContext* pDC,float x,float y,const char *szText,bool bCenter)
 {
 	if( RGetIsWidthScreen() )
 		x = (x*800+80)/960.f;
@@ -469,14 +469,14 @@ void TextRelative(MDrawContext* pDC,float x,float y,const char *szText,bool bCen
 	int screenx=x*MGetWorkspaceWidth();
 	if(bCenter)
 	{
-		MFont *pFont=pDC->GetFont();
+		CCFont *pFont=pDC->GetFont();
 		screenx-=pFont->GetWidth(szText)/2;
 	}
 
 	pDC->Text(screenx,y*MGetWorkspaceHeight(),szText);
 }
 
-void BitmapRelative(MDrawContext* pDC, float x, float y, float w, float h, MBitmap* pBitmap, bool bCenter=false)
+void BitmapRelative(CCDrawContext* pDC, float x, float y, float w, float h, CCBitmap* pBitmap, bool bCenter=false)
 {
 	pDC->SetBitmap( pBitmap);
 
@@ -486,14 +486,14 @@ void BitmapRelative(MDrawContext* pDC, float x, float y, float w, float h, MBitm
 	int screenx=x*MGetWorkspaceWidth();
 	if(bCenter)
 	{
-		MFont *pFont=pDC->GetFont();
+		CCFont *pFont=pDC->GetFont();
 		screenx-=w/2;
 	}
 
 	pDC->Draw( screenx, y*MGetWorkspaceHeight(), w, h);
 }
 
-void MatchOrderRelative(MDrawContext* pDC, float x, float y, float fHalfGrid, int nMatchCount, int nCouple, bool bBlink)
+void MatchOrderRelative(CCDrawContext* pDC, float x, float y, float fHalfGrid, int nMatchCount, int nCouple, bool bBlink)
 {
 	// UI가 나오면 그림으로 대체할꺼임.... 그래서 매직넘버 사용
 	float screenx=x*MGetWorkspaceWidth();
@@ -553,7 +553,7 @@ void MatchOrderRelative(MDrawContext* pDC, float x, float y, float fHalfGrid, in
 		pDC->HLine(fRectX+fRectWidth+fLineWidth, fRectY+fRectHeight/2 + fHalf, fLineWidth);
 }
 
-void ZCombatInterface::DrawNPCName(MDrawContext* pDC)
+void ZCombatInterface::DrawNPCName(CCDrawContext* pDC)
 {
 	for(ZObjectManager::iterator itor = ZGetObjectManager()->begin();
 		itor != ZGetObjectManager()->end(); ++itor)
@@ -581,9 +581,9 @@ void ZCombatInterface::DrawNPCName(MDrawContext* pDC)
 		{
 			screen_pos = RGetTransformCoord(pObject->GetPosition()+rvector(0,0,100.f));
 
-			MFont *pFont=NULL;
-			pFont = pActor->CheckFlag(AF_MY_CONTROL) ? MFontManager::Get("FONTa12_O1Blr") : MFontManager::Get("FONTa12_O1Red");
-			pDC->SetColor(MCOLOR(0xFF00FF00));
+			CCFont *pFont=NULL;
+			pFont = pActor->CheckFlag(AF_MY_CONTROL) ? CCFontManager::Get("FONTa12_O1Blr") : CCFontManager::Get("FONTa12_O1Red");
+			pDC->SetColor(sColor(0xFF00FF00));
 			pDC->SetBitmap(NULL);
 			pDC->SetFont(pFont);
 
@@ -604,7 +604,7 @@ void ZCombatInterface::DrawNPCName(MDrawContext* pDC)
 	}
 }
 
-void ZCombatInterface::DrawTDMScore(MDrawContext* pDC)
+void ZCombatInterface::DrawTDMScore(CCDrawContext* pDC)
 {
 	int nBlueKills = ZGetGame()->GetMatch()->GetTeamKills(MMT_BLUE);
 	int nRedKills = ZGetGame()->GetMatch()->GetTeamKills(MMT_RED);
@@ -678,7 +678,7 @@ void ZCombatInterface::DrawTDMScore(MDrawContext* pDC)
 	}
 }
 
-void ZCombatInterface::UpdateNetworkAlive(MDrawContext* pDC)
+void ZCombatInterface::UpdateNetworkAlive(CCDrawContext* pDC)
 {
 	DWORD dw;
 	BOOL bIsNetworkAlive = IsNetworkAlive(&dw);
@@ -694,7 +694,7 @@ void ZCombatInterface::UpdateNetworkAlive(MDrawContext* pDC)
 	return ;
 }
 
-void ZCombatInterface::OnDraw(MDrawContext* pDC)
+void ZCombatInterface::OnDraw(CCDrawContext* pDC)
 {
 #ifdef LOCALE_KOREA
 	if(timeGetTime() - m_dLastTimeTick > 500)
@@ -798,7 +798,7 @@ void ZCombatInterface::OnDraw(MDrawContext* pDC)
 	if (ZGetGameInterface()->GetBandiCapturer() != NULL)
 		ZGetGameInterface()->GetBandiCapturer()->DrawCapture(pDC);
 }
-void ZCombatInterface::DrawMyNamePont(MDrawContext* pDC)
+void ZCombatInterface::DrawMyNamePont(CCDrawContext* pDC)
 {
 	if(ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 		return;
@@ -808,10 +808,10 @@ void ZCombatInterface::DrawMyNamePont(MDrawContext* pDC)
 	if (m_Observer.IsVisible())
 		return;
 
-	MFont *pFont=GetGameFont();
+	CCFont *pFont=GetGameFont();
 
 	pDC->SetFont(pFont);
-	pDC->SetColor(MCOLOR(0xFFFFFFFF));
+	pDC->SetColor(sColor(0xFFFFFFFF));
 
 	char buffer[256];
 
@@ -823,16 +823,16 @@ void ZCombatInterface::DrawMyNamePont(MDrawContext* pDC)
 		TextRelative(pDC,100.f/800.f,fCenterVert,buffer);
 	}
 }
-void ZCombatInterface::DrawMyWeaponPont(MDrawContext* pDC)
+void ZCombatInterface::DrawMyWeaponPont(CCDrawContext* pDC)
 {
 	ZCharacter* pCharacter = GetTargetCharacter();
 	if (pCharacter == NULL) return;
 	if (m_Observer.IsVisible()) return;
 
-	MFont *pFont=GetGameFont();
+	CCFont *pFont=GetGameFont();
 
 	pDC->SetFont(pFont);
-	pDC->SetColor(MCOLOR(0xFFFFFFFF));
+	pDC->SetColor(sColor(0xFFFFFFFF));
 
 	char buffer[256];
 
@@ -849,7 +849,7 @@ void ZCombatInterface::DrawMyWeaponPont(MDrawContext* pDC)
 	}
 }
 
-void ZCombatInterface::DrawPont(MDrawContext* pDC)
+void ZCombatInterface::DrawPont(CCDrawContext* pDC)
 {
 	ZCharacter* pCharacter = GetTargetCharacter();
 	if (pCharacter == NULL) return;
@@ -865,11 +865,11 @@ void ZCombatInterface::DrawPont(MDrawContext* pDC)
 		float fRx = (float)MGetWorkspaceWidth()  / 800.0f;
 		float fRy = (float)MGetWorkspaceHeight() / 600.0f;
 
-		MFont *pFont = MFontManager::Get( "FONTa10_O2Wht");
+		CCFont *pFont = CCFontManager::Get( "FONTa10_O2Wht");
 		if ( pFont == NULL)
 			_ASSERT(0);
 		pDC->SetFont( pFont);
-		pDC->SetColor( MCOLOR(0xFFFFFFFF));
+		pDC->SetColor( sColor(0xFFFFFFFF));
 
 		bool bIsChallengerDie = false;
 		int nMyChar = -1;
@@ -921,7 +921,7 @@ void ZCombatInterface::DrawPont(MDrawContext* pDC)
 			}
 		}
 
-		MBitmap* pBitmap = MBitmapManager::Get( "duel-mode.tga");
+		CCBitmap* pBitmap = CCBitmapManager::Get( "duel-mode.tga");
 		if ( pBitmap)
 		{
 			pDC->SetBitmap( pBitmap);
@@ -930,7 +930,7 @@ void ZCombatInterface::DrawPont(MDrawContext* pDC)
 			pDC->Draw( 8.0f*fRx, 153.0f*fRy, nIcon, nIcon);
 		}
 
-		pBitmap = MBitmapManager::Get( "icon_play.tga");
+		pBitmap = CCBitmapManager::Get( "icon_play.tga");
 		if ( pBitmap && ( charName[1][0] != 0))
 		{
 			pDC->SetBitmap( pBitmap);
@@ -940,21 +940,21 @@ void ZCombatInterface::DrawPont(MDrawContext* pDC)
 			pDC->Draw( 53.0f*fRx, 175.0f*fRy, nIcon, nIcon);
 		}
 
-		//MCOLOR color;
+		//sColor color;
 
 		int nTime = timeGetTime() % 200;
 		if ( nTime < 100)
-			pDC->SetColor( MCOLOR( 0xFFFFFF00));
+			pDC->SetColor( sColor( 0xFFFFFF00));
 		else
-			pDC->SetColor( MCOLOR( 0xFFA0A0A0));
+			pDC->SetColor( sColor( 0xFFA0A0A0));
 
 		if ( bIsChallengerDie)
-			pDC->SetColor( MCOLOR( 0xFF808080));
+			pDC->SetColor( sColor( 0xFF808080));
 
 		int nPosY = 160.0f*fRy;
 		pDC->Text( 60.0f*fRx, nPosY, charName[ 0]);
 
-		pDC->SetColor( MCOLOR(0xFF808080));
+		pDC->SetColor( sColor(0xFF808080));
 		nPosY += 20;
 		pDC->Text( 80.0f*fRx, nPosY, charName[ 1]);
 		nPosY += 15;
@@ -962,7 +962,7 @@ void ZCombatInterface::DrawPont(MDrawContext* pDC)
 	}
 }
 
-void ZCombatInterface::DrawScore(MDrawContext* pDC)
+void ZCombatInterface::DrawScore(CCDrawContext* pDC)
 {
 	m_bDrawScoreBoard = false;
 	if( ZIsActionKeyPressed(ZACTION_SCORE) == true ) {
@@ -992,7 +992,7 @@ void ZCombatInterface::DrawScore(MDrawContext* pDC)
 	}
 }
 
-void ZCombatInterface::DrawBuffStatus(MDrawContext* pDC)
+void ZCombatInterface::DrawBuffStatus(CCDrawContext* pDC)
 {
 	//버프정보임시주석 
 /*	if(ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
@@ -1004,10 +1004,10 @@ void ZCombatInterface::DrawBuffStatus(MDrawContext* pDC)
 		ZCharacterBuff *pCharBuff = pCharacter->GetCharacterBuff();
 		if( pCharBuff == NULL ) return;
 
-		MFont *pFont = GetGameFont();
+		CCFont *pFont = GetGameFont();
 
 		pDC->SetFont(pFont);		
-		pDC->SetColor(MCOLOR(0xFFFFFFFF));
+		pDC->SetColor(sColor(0xFFFFFFFF));
 
 		int nMinutes, nSeconds;
 		char szMsg[128] = { 0, };
@@ -1101,7 +1101,7 @@ void ZCombatInterface::DrawFinish()
 }
 
 
-int ZCombatInterface::DrawVictory( MDrawContext* pDC, int x, int y, int nWinCount, bool bGetWidth)
+int ZCombatInterface::DrawVictory( CCDrawContext* pDC, int x, int y, int nWinCount, bool bGetWidth)
 {
 //	nWinCount = 99;										// for test
 
@@ -1128,7 +1128,7 @@ int ZCombatInterface::DrawVictory( MDrawContext* pDC, int x, int y, int nWinCoun
 
 
     // Get image
-	MBitmap* pBitmap = MBitmapManager::Get( "killstone.tga");
+	CCBitmap* pBitmap = CCBitmapManager::Get( "killstone.tga");
 	if ( !pBitmap)
 		return 0;
 
@@ -1181,9 +1181,9 @@ int ZCombatInterface::DrawVictory( MDrawContext* pDC, int x, int y, int nWinCoun
 	// 연승 숫자 표시
 /*	if ( nWinCount >= 10)
 	{
-		pFont = MFontManager::Get( "FONTa9b");
+		pFont = CCFontManager::Get( "FONTa9b");
 		pDC->SetFont( pFont);
-		pDC->SetColor( MCOLOR(0xFFFFFFFF));
+		pDC->SetColor( sColor(0xFFFFFFFF));
 		char szVictory[ 16];
 		sprintf( szVictory, "%d", nWinCount);
 		TextRelative( pDC, 0.195f, 0.01f, szVictory, true);
@@ -1195,7 +1195,7 @@ int ZCombatInterface::DrawVictory( MDrawContext* pDC, int x, int y, int nWinCoun
 
 // TODO : 이게 필요 없는듯.
 // 그리는 순서때문에 만든 펑션
-void ZCombatInterface::OnDrawCustom(MDrawContext* pDC)
+void ZCombatInterface::OnDrawCustom(CCDrawContext* pDC)
 {
 	// 결과 화면 보인 이후에 일정 시간 후 자동 종료한다
 	if ( m_bShowResult)
@@ -1301,7 +1301,7 @@ void ZCombatInterface::OnDrawCustom(MDrawContext* pDC)
 }
 
 
-void ZCombatInterface::DrawSoloSpawnTimeMessage(MDrawContext* pDC)
+void ZCombatInterface::DrawSoloSpawnTimeMessage(CCDrawContext* pDC)
 {
 	if(ZGetGame()->m_pMyCharacter->IsAdminHide()) return;
 
@@ -1325,16 +1325,16 @@ void ZCombatInterface::DrawSoloSpawnTimeMessage(MDrawContext* pDC)
 					sprintf( szMsg, ZMsg(MSG_GAME_CLICK_FIRE) );
 				}
 
-				MFont *pFont=GetGameFont();
+				CCFont *pFont=GetGameFont();
 				pDC->SetFont(pFont);
-				pDC->SetColor(MCOLOR(0xFFFFFFFF));
+				pDC->SetColor(sColor(0xFFFFFFFF));
 				TextRelative(pDC,400.f/800.f,400.f/600.f, szMsg, true);
 			}
 		}
 	}
 }
 
-void ZCombatInterface::DrawLeaveBattleTimeMessage(MDrawContext* pDC)
+void ZCombatInterface::DrawLeaveBattleTimeMessage(CCDrawContext* pDC)
 {
 	char szMsg[128] = "";
 //	sprintf(szMsg, "%d 초후에 게임에서 나갑니다", m_nDrawLeaveBattleSeconds);
@@ -1343,9 +1343,9 @@ void ZCombatInterface::DrawLeaveBattleTimeMessage(MDrawContext* pDC)
 	sprintf( temp, "%d", m_nDrawLeaveBattleSeconds );
 	ZTransMsg( szMsg, MSG_GAME_EXIT_N_MIN_AFTER, 1, temp );
 
-	MFont *pFont=GetGameFont();
+	CCFont *pFont=GetGameFont();
 	pDC->SetFont(pFont);
-	pDC->SetColor(MCOLOR(0xFFFFFFFF));
+	pDC->SetColor(sColor(0xFFFFFFFF));
 	TextRelative(pDC,400.f/800.f,350.f/600.f, szMsg, true);
 }
 
@@ -1387,7 +1387,7 @@ void ZCombatInterface::OutputChatMsg(const char* szMsg)
 	m_Chat.OutputChatMsg(szMsg);
 }
 
-void ZCombatInterface::OutputChatMsg(MCOLOR color, const char* szMsg)
+void ZCombatInterface::OutputChatMsg(sColor color, const char* szMsg)
 {
 	m_Chat.OutputChatMsg(color, szMsg);
 }
@@ -1543,7 +1543,7 @@ void ZCombatInterface::Update(float fElapsed)
 	GameCheckPickCharacter();
 }
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid);
+bool GetUserInfoUID(CCUID uid,sColor& _color,char* sp_name,CCMatchUserGradeID& gid);
 
 void ZCombatInterface::SetPickTarget(bool bPick, ZCharacter* pCharacter)
 {
@@ -1602,7 +1602,7 @@ void ZCombatInterface::SetItemImageIndex(int nIndex)
 	BEGIN_WIDGETLIST("CombatItemPic", ZApplication::GetGameInterface()->GetIDLResource(),
 		MPicture*, pPicture);
 
-	pPicture->SetBitmap(MBitmapManager::Get(szTemp));
+	pPicture->SetBitmap(CCBitmapManager::Get(szTemp));
 
 	END_WIDGETLIST();
 }
@@ -1645,7 +1645,7 @@ void ZCombatInterface::UpdateCombo(ZCharacter* pCharacter)
 }
 
 
-void ZCombatInterface::DrawFriendName(MDrawContext* pDC)
+void ZCombatInterface::DrawFriendName(CCDrawContext* pDC)
 {
 	if (ZGetGame()->m_pMyCharacter == NULL) return;
 
@@ -1685,21 +1685,21 @@ void ZCombatInterface::DrawFriendName(MDrawContext* pDC)
 				*/
 				screen_pos = RGetTransformCoord(pCharacter->GetVisualMesh()->GetHeadPosition()+rvector(0,0,30.f));
 
-				MFont *pFont=NULL;
+				CCFont *pFont=NULL;
 
 				if(pCharacter->IsAdminName()) {
-					pFont = MFontManager::Get("FONTa12_O1Org");
-					pDC->SetColor(MCOLOR(ZCOLOR_ADMIN_NAME));
+					pFont = CCFontManager::Get("FONTa12_O1Org");
+					pDC->SetColor(sColor(ZCOLOR_ADMIN_NAME));
 				}
 				else {
-					pFont = MFontManager::Get("FONTa12_O1Blr");
-					pDC->SetColor(MCOLOR(0xFF00FF00));
+					pFont = CCFontManager::Get("FONTa12_O1Blr");
+					pDC->SetColor(sColor(0xFF00FF00));
 				}
 
 				pDC->SetBitmap(NULL);
 
 				/////// Outline Font //////////
-//				MFont *pFont=MFontManager::Get("FONTa12_O1Blr");
+//				CCFont *pFont=CCFontManager::Get("FONTa12_O1Blr");
 				if (pFont == NULL) _ASSERT(0);
 				pDC->SetFont(pFont);
 				///////////////////////////////
@@ -1712,7 +1712,7 @@ void ZCombatInterface::DrawFriendName(MDrawContext* pDC)
 	}
 }
 
-void ZCombatInterface::DrawEnemyName(MDrawContext* pDC)
+void ZCombatInterface::DrawEnemyName(CCDrawContext* pDC)
 {
 	MPOINT Cp = GetCrosshairPoint();
 
@@ -1742,14 +1742,14 @@ void ZCombatInterface::DrawEnemyName(MDrawContext* pDC)
 
 				/////// Outline Font //////////
 
-				MFont *pFont = NULL;//MFontManager::Get("FONTa12_O1Red");
+				CCFont *pFont = NULL;//CCFontManager::Get("FONTa12_O1Red");
 
 				if(pPickedCharacter->IsAdminName()) {
-					pDC->SetColor(MCOLOR(ZCOLOR_ADMIN_NAME));
-					pFont = MFontManager::Get("FONTa12_O1Org");
+					pDC->SetColor(sColor(ZCOLOR_ADMIN_NAME));
+					pFont = CCFontManager::Get("FONTa12_O1Org");
 				}
 				else {
-					pFont = MFontManager::Get("FONTa12_O1Red");
+					pFont = CCFontManager::Get("FONTa12_O1Red");
 				}
 
 				if (pFont == NULL) _ASSERT(0);
@@ -1762,7 +1762,7 @@ void ZCombatInterface::DrawEnemyName(MDrawContext* pDC)
 	}
 }
 
-void ZCombatInterface::DrawAllPlayerName(MDrawContext* pDC)
+void ZCombatInterface::DrawAllPlayerName(CCDrawContext* pDC)
 {
 	for(ZCharacterManager::iterator itor = ZGetGame()->m_CharacterManager.begin();
 		itor != ZGetGame()->m_CharacterManager.end(); ++itor)
@@ -1791,27 +1791,27 @@ void ZCombatInterface::DrawAllPlayerName(MDrawContext* pDC)
 			}else
 				screen_pos = RGetTransformCoord(pCharacter->GetVisualMesh()->GetHeadPosition()+rvector(0,0,30.f));
 
-			MFont *pFont=NULL;
+			CCFont *pFont=NULL;
 
 			if(pCharacter->IsAdminName()) {
-				pFont = MFontManager::Get("FONTa12_O1Org");
-				pDC->SetColor(MCOLOR(ZCOLOR_ADMIN_NAME));
+				pFont = CCFontManager::Get("FONTa12_O1Org");
+				pDC->SetColor(sColor(ZCOLOR_ADMIN_NAME));
 			}
 			else {
 				if (pCharacter->GetTeamID() == MMT_RED)
-					pFont = MFontManager::Get("FONTa12_O1Red");
+					pFont = CCFontManager::Get("FONTa12_O1Red");
 				else if (pCharacter->GetTeamID() == MMT_BLUE)
-					pFont = MFontManager::Get("FONTa12_O1Blr");
+					pFont = CCFontManager::Get("FONTa12_O1Blr");
 				else
-					pFont = MFontManager::Get("FONTa12_O1Blr");
+					pFont = CCFontManager::Get("FONTa12_O1Blr");
 
-				pDC->SetColor(MCOLOR(0xFF00FF00));
+				pDC->SetColor(sColor(0xFF00FF00));
 			}
 
 			pDC->SetBitmap(NULL);
 
 			/////// Outline Font //////////
-//				MFont *pFont=MFontManager::Get("FONTa12_O1Blr");
+//				CCFont *pFont=CCFontManager::Get("FONTa12_O1Blr");
 			if (pFont == NULL) _ASSERT(0);
 			pDC->SetFont(pFont);
 			///////////////////////////////
@@ -1823,9 +1823,9 @@ void ZCombatInterface::DrawAllPlayerName(MDrawContext* pDC)
 	}
 }
 
-MFont *ZCombatInterface::GetGameFont()
+CCFont *ZCombatInterface::GetGameFont()
 {
-	MFont *pFont=MFontManager::Get("FONTa10_O2Wht");
+	CCFont *pFont=CCFontManager::Get("FONTa10_O2Wht");
 	return pFont;
 }
 
@@ -1849,16 +1849,16 @@ bool CompareZScoreBoardItem(ZScoreBoardItem* a,ZScoreBoardItem* b) {
 	if(a->nKills < b->nKills) return false;
 	return false;
 }
-void ZCombatInterface::DrawDuelTournamentScoreBoard(MDrawContext* pDC)	// 듀얼 토너먼트 대진표 화면 (tab키)
+void ZCombatInterface::DrawDuelTournamentScoreBoard(CCDrawContext* pDC)	// 듀얼 토너먼트 대진표 화면 (tab키)
 {
 	// 보드를 그려준다.
 	ZGetScreenEffectManager()->DrawScoreBoard();
 
 
-	MFont *pFont=GetGameFont();
+	CCFont *pFont=GetGameFont();
 	pDC->SetFont(pFont);
 	pFont=pDC->GetFont();	// 만약 폰트가 없으면 다시 디폴트 폰트를 얻는다
-	pDC->SetColor(MCOLOR(TEXT_COLOR_TITLE));
+	pDC->SetColor(sColor(TEXT_COLOR_TITLE));
 
 	char szText[256];
 
@@ -1889,7 +1889,7 @@ void ZCombatInterface::DrawDuelTournamentScoreBoard(MDrawContext* pDC)	// 듀얼 �
 	// 대진표 그리기
 	((ZRuleDuelTournament*)ZGetGame()->GetMatch()->GetRule())->ShowMatchOrder(pDC, false, m_fElapsed);
 }
-void ZCombatInterface::DrawPlayTime(MDrawContext* pDC, float xPos, float yPos)	// 플레이 시간
+void ZCombatInterface::DrawPlayTime(CCDrawContext* pDC, float xPos, float yPos)	// 플레이 시간
 {
 	// #남은 시간을 얻고 싶으면 GetPlayTime()을 사용하세요
 	char szText[256];
@@ -1936,7 +1936,7 @@ int ZCombatInterface::GetPlayTime()
 }
 
 typedef list<ZScoreBoardItem*> ZSCOREBOARDITEMLIST;
-void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
+void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 {
 //#define TEST_CLAN_SCOREBOARD
 
@@ -1951,10 +1951,10 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 
 	ZGetScreenEffectManager()->DrawScoreBoard();
 
-	MFont *pFont=GetGameFont();
+	CCFont *pFont=GetGameFont();
 	pDC->SetFont(pFont);
 	pFont=pDC->GetFont();	// 만약 폰트가 없으면 다시 디폴트 폰트를 얻는다
-	pDC->SetColor(MCOLOR(TEXT_COLOR_TITLE));
+	pDC->SetColor(sColor(TEXT_COLOR_TITLE));
 
 	char szText[256];
 
@@ -2201,7 +2201,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 
 	// 컬럼 타이틀 출력
 	char szBuff[ 25];
-	pDC->SetColor(MCOLOR(TEXT_COLOR_TITLE));
+	pDC->SetColor(sColor(TEXT_COLOR_TITLE));
 	x = ITEM_XPOS[0];	// level
 	sprintf( szBuff, "%s", ZMsg(MSG_CHARINFO_LEVEL));
 	TextRelative(pDC,x,y, szBuff);
@@ -2247,19 +2247,19 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 			char *szClanName = (i==0) ? m_szRedClanName : m_szBlueClanName;
 			int nClanID = (i==0) ? m_nClanIDRed : m_nClanIDBlue;
 
-			MFont *pClanFont=MFontManager::Get("FONTb11b");
+			CCFont *pClanFont=CCFontManager::Get("FONTb11b");
 			if (pClanFont == NULL) _ASSERT(0);
 			pDC->SetFont(pClanFont);
-			pDC->SetColor(MCOLOR(TEXT_COLOR_CLAN_NAME));
+			pDC->SetColor(sColor(TEXT_COLOR_CLAN_NAME));
 
 			float clancenter = .5f*(ITEM_XPOS[0]-ITEM_XPOS[1]) + ITEM_XPOS[1];
 			float clanx = clancenter - .5f*((float)pClanFont->GetWidth(szClanName)/(float)MGetWorkspaceWidth());
 			float clany = y + linespace * ((nTeam==MMT_RED) ? .5f : 8.5f) ;
 
 			// 아이콘 출력
-			MBitmap *pbmp = ZGetEmblemInterface()->GetClanEmblem(nClanID);
+			CCBitmap *pbmp = ZGetEmblemInterface()->GetClanEmblem(nClanID);
 #ifdef TEST_CLAN_SCOREBOARD
-			pbmp = MBitmapManager::Get("btntxtr_gnd_on.png");//테스트용
+			pbmp = CCBitmapManager::Get("btntxtr_gnd_on.png");//테스트용
 #endif
 			if(pbmp) {
 				pDC->SetBitmap(pbmp);
@@ -2407,7 +2407,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 		if(nCount>nMaxLineCount) break;
 
 		// 배경 색깔을 결정한다
-		MCOLOR backgroundcolor;
+		sColor backgroundcolor;
 		if(pItem->bMyChar) {
 			backgroundcolor = BACKGROUND_COLOR_MYCHAR_DEATH_MATCH;
 			if(!bClanGame) {
@@ -2440,7 +2440,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 		{
 			int nIconSize = .8f * linespace * (float)MGetWorkspaceHeight();
 			float icony = itemy + (linespace - (float)nIconSize / (float)MGetWorkspaceHeight())*.5f;
-			BitmapRelative(pDC, ITEM_XPOS[0] - 0.043f, icony, nIconSize+4, nIconSize, MBitmapManager::Get( "icon_gameroom_s.tga"));
+			BitmapRelative(pDC, ITEM_XPOS[0] - 0.043f, icony, nIconSize+4, nIconSize, CCBitmapManager::Get( "icon_gameroom_s.tga"));
 		}
 
 		// 듀얼토너먼트 계급장 표시(이름 앞에)
@@ -2450,14 +2450,14 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 
 			char szDTGradeIconFileName[64];
 			GetDuelTournamentGradeIconFileName(szDTGradeIconFileName, pItem->nDTLastWeekGrade);
-			MBitmap* pBmpDTGradeIcon = MBitmapManager::Get( szDTGradeIconFileName );
+			CCBitmap* pBmpDTGradeIcon = CCBitmapManager::Get( szDTGradeIconFileName );
 
-			BitmapRelative(pDC, ITEM_XPOS[7], icony, nIconSize, nIconSize, MBitmapManager::Get( szDTGradeIconFileName));
+			BitmapRelative(pDC, ITEM_XPOS[7], icony, nIconSize, nIconSize, CCBitmapManager::Get( szDTGradeIconFileName));
 		}
 
 
 		// 글자 색깔을 결정한다.. (팀과 생사여부)
-		MCOLOR textcolor=pItem->bDeath ? TEXT_COLOR_DEATH_MATCH_DEAD : TEXT_COLOR_DEATH_MATCH;
+		sColor textcolor=pItem->bDeath ? TEXT_COLOR_DEATH_MATCH_DEAD : TEXT_COLOR_DEATH_MATCH;
 
 		if(!bClanGame)
 		{
@@ -2499,7 +2499,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 			float icony = itemy + (linespace - (float)nIconSize / (float)MGetWorkspaceHeight())*.5f;
 
 			if(pItem->szClan[0]) {
-				MBitmap *pbmp = ZGetEmblemInterface()->GetClanEmblem(pItem->nClanID);
+				CCBitmap *pbmp = ZGetEmblemInterface()->GetClanEmblem(pItem->nClanID);
 				if(pbmp) {
 					pDC->SetBitmap(pbmp);
 					int screenx=x*MGetWorkspaceWidth();
@@ -2522,32 +2522,32 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 			{
 				ZCharacter* pQuestPlayerInfo = (*itor).second;
 
-				MCOLOR tmpColor = pDC->GetColor();
+				sColor tmpColor = pDC->GetColor();
 
 				x=ITEM_XPOS[2];
 
 				if ( bDraw)
-					pDC->SetColor( MCOLOR( 0x40FF0000));
+					pDC->SetColor( sColor( 0x40FF0000));
 				else
-					pDC->SetColor( MCOLOR( 0x30000000));
+					pDC->SetColor( sColor( 0x30000000));
 				pDC->FillRectangleW( (x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight()+1, 0.08*MGetWorkspaceWidth(), 7);
 
 				if ( bDraw)
 				{
 					float nValue = 0.08 * pQuestPlayerInfo->GetHP() / pQuestPlayerInfo->GetMaxHP();
-					pDC->SetColor( MCOLOR( 0x90FF0000));
+					pDC->SetColor( sColor( 0x90FF0000));
 					pDC->FillRectangleW( (x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight()+1, nValue*MGetWorkspaceWidth(), 7);
 				}
 
 				if ( bDraw)
-					pDC->SetColor( MCOLOR( 0x4000FF00));
+					pDC->SetColor( sColor( 0x4000FF00));
 				else
-					pDC->SetColor( MCOLOR( 0x30000000));
+					pDC->SetColor( sColor( 0x30000000));
 				pDC->FillRectangleW( (x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight()+9, 0.08*MGetWorkspaceWidth(), 3);
 				if ( bDraw)
 				{
 					float nValue = 0.08 * pQuestPlayerInfo->GetAP() / pQuestPlayerInfo->GetMaxAP();
-					pDC->SetColor( MCOLOR( 0x9000FF00));
+					pDC->SetColor( sColor( 0x9000FF00));
 					pDC->FillRectangleW( (x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight()+9, nValue*MGetWorkspaceWidth(), 3);
 				}
 
@@ -2568,7 +2568,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 			sprintf(szText,"%d",pItem->nExp);
 			TextRelative(pDC,x,texty,szText,true);
 
-			MCOLOR color = pDC->GetColor();
+			sColor color = pDC->GetColor();
 
 			if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 			{
@@ -2623,7 +2623,7 @@ void AddCombatResultInfo( const char* szName, int nScore, int nKill, int nDeath,
 
 	MTextArea* pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerNameList");
 	if ( pWidget)
-		pWidget->AddText( szName, ( bMyChar ? MCOLOR( 0xFFFFF794) : MCOLOR( 0xFFFFF794)));
+		pWidget->AddText( szName, ( bMyChar ? sColor( 0xFFFFF794) : sColor( 0xFFFFF794)));
 
 	for ( int i = 0;  i < 16;  i++)
 	{
@@ -2652,14 +2652,14 @@ void AddCombatResultInfo( const char* szName, int nScore, int nKill, int nDeath,
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nKill);
-		pWidget->AddText( szText, MCOLOR( 0xFFFFF794));
+		pWidget->AddText( szText, sColor( 0xFFFFF794));
 	}
 
 	pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerDeathList");
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nDeath);
-		pWidget->AddText( szText, MCOLOR( 0xFFFFF794));
+		pWidget->AddText( szText, sColor( 0xFFFFF794));
 	}
 }
 
@@ -2670,7 +2670,7 @@ void AddClanResultInfoWin( const char* szName, int nScore, int nKill, int nDeath
 
 	MTextArea* pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList1");
 	if ( pWidget)
-		pWidget->AddText( szName, ( bMyChar ? MCOLOR( 0xFFFFF794) : MCOLOR( 0xFFFFF794)));
+		pWidget->AddText( szName, ( bMyChar ? sColor( 0xFFFFF794) : sColor( 0xFFFFF794)));
 
 	for ( int i = 0;  i < 4;  i++)
 	{
@@ -2699,14 +2699,14 @@ void AddClanResultInfoWin( const char* szName, int nScore, int nKill, int nDeath
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nKill);
-		pWidget->AddText( szText, MCOLOR( 0xFFFFF794));
+		pWidget->AddText( szText, sColor( 0xFFFFF794));
 	}
 
 	pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList1");
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nDeath);
-		pWidget->AddText( szText, MCOLOR( 0xFFFFF794));
+		pWidget->AddText( szText, sColor( 0xFFFFF794));
 	}
 }
 
@@ -2716,7 +2716,7 @@ void AddClanResultInfoLose( const char* szName, int nScore, int nKill, int nDeat
 
 	MTextArea* pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList2");
 	if ( pWidget)
-		pWidget->AddText( szName, ( bMyChar ? MCOLOR( 0xFFFFF794) : MCOLOR( 0xFFFFF794)));
+		pWidget->AddText( szName, ( bMyChar ? sColor( 0xFFFFF794) : sColor( 0xFFFFF794)));
 
 	for ( int i = 0;  i < 4;  i++)
 	{
@@ -2745,14 +2745,14 @@ void AddClanResultInfoLose( const char* szName, int nScore, int nKill, int nDeat
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nKill);
-		pWidget->AddText( szText, MCOLOR( 0xFFFFF794));
+		pWidget->AddText( szText, sColor( 0xFFFFF794));
 	}
 
 	pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList2");
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nDeath);
-		pWidget->AddText( szText, MCOLOR( 0xFFFFF794));
+		pWidget->AddText( szText, sColor( 0xFFFFF794));
 	}
 }
 
@@ -2809,7 +2809,7 @@ void ZCombatInterface::GetResultInfo( void)
 		MLabel* pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
 		if ( pLabel)
 		{
-			MRECT rect;
+			sRect rect;
 			rect = pLabel->GetRect();
 			rect.y = pTextArea->GetRect().y + _H18 * i - _H2;
 			rect.h = _H21;
@@ -2846,7 +2846,7 @@ void ZCombatInterface::GetResultInfo( void)
 		MLabel* pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
 		if ( pLabel)
 		{
-			MRECT rect;
+			sRect rect;
 			rect = pLabel->GetRect();
 			rect.y = pTextArea->GetRect().y + _H18 * i - _H2;
 			rect.h = _H21;
@@ -2883,7 +2883,7 @@ void ZCombatInterface::GetResultInfo( void)
 		MLabel* pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
 		if ( pLabel)
 		{
-			MRECT rect;
+			sRect rect;
 			rect = pLabel->GetRect();
 			rect.y = pTextArea->GetRect().y + _H18 * i - _H2;
 			rect.h = _H21;
@@ -2973,18 +2973,18 @@ void ZCombatInterface::GetResultInfo( void)
 		if ( ZGetGame()->GetMatch()->GetTeamScore( MMT_RED) == ZGetGame()->GetMatch()->GetTeamScore( MMT_BLUE))  // draw 
 		{
 			MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Win");
-			if ( pPicture) 	pPicture->SetBitmap( MBitmapManager::Get( "result_draw.tga"));
+			if ( pPicture) 	pPicture->SetBitmap( CCBitmapManager::Get( "result_draw.tga"));
 			
 			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Lose");
-			if ( pPicture) 	pPicture->SetBitmap( MBitmapManager::Get( "result_draw.tga"));
+			if ( pPicture) 	pPicture->SetBitmap( CCBitmapManager::Get( "result_draw.tga"));
 		}
 		else
 		{
 			MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Win");
-			if ( pPicture) 	pPicture->SetBitmap( MBitmapManager::Get( "result_win.tga"));
+			if ( pPicture) 	pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 
 			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Lose");
-			if ( pPicture) 	pPicture->SetBitmap( MBitmapManager::Get( "result_lose.tga"));
+			if ( pPicture) 	pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
 		}
 
 
@@ -3007,7 +3007,7 @@ void ZCombatInterface::GetResultInfo( void)
 				pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap2");
 			if ( pPicture)
 			{
-				MBitmap* pBitmap = ZGetEmblemInterface()->GetClanEmblem2( nClanID);
+				CCBitmap* pBitmap = ZGetEmblemInterface()->GetClanEmblem2( nClanID);
 				if ( pBitmap)
 				{
 					pPicture->SetBitmap( pBitmap);
@@ -3047,7 +3047,7 @@ void ZCombatInterface::GetResultInfo( void)
 				pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szName);
 				if ( pWidget)
 				{
-					MRECT rect2;
+					sRect rect2;
 					rect2.x = nStartX - _W17;
 					rect2.y = _H18 * j + nStartY;
 					rect2.w = _W21;
@@ -3138,7 +3138,7 @@ void ZCombatInterface::GetResultInfo( void)
 				pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szName);
 				if ( pWidget)
 				{
-					MRECT rect;
+					sRect rect;
 					rect = pWidget->GetRect();
 					rect.y = _H18 * i + nStartY;
 					rect.h = _H18;
@@ -3158,7 +3158,7 @@ void ZCombatInterface::GetResultInfo( void)
 					pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szName);
 					if ( pWidget)
 					{
-						MRECT rect2;
+						sRect rect2;
 						rect2 = pWidget->GetRect();
 						rect2.x = rect.x - _W20;
 						rect2.y = _H18 * i + nStartY;
@@ -3184,22 +3184,22 @@ void ZCombatInterface::GetResultInfo( void)
 			if ( pPicture)
 			{
 				if ( ZGetGame()->GetMatch()->GetTeamKills( MMT_RED) == ZGetGame()->GetMatch()->GetTeamKills( MMT_BLUE))
-					pPicture->SetBitmap( MBitmapManager::Get( "result_draw.tga"));
+					pPicture->SetBitmap( CCBitmapManager::Get( "result_draw.tga"));
 				else
 				{
 					if ( ZGetGame()->GetMatch()->GetTeamKills( MMT_RED) > ZGetGame()->GetMatch()->GetTeamKills( MMT_BLUE))
 					{
 						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == MMT_RED)
-							pPicture->SetBitmap( MBitmapManager::Get( "result_win.tga"));
+							pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 						else
-							pPicture->SetBitmap( MBitmapManager::Get( "result_lose.tga"));
+							pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
 					}
 					else
 					{
 						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == MMT_BLUE)
-							pPicture->SetBitmap( MBitmapManager::Get( "result_win.tga"));
+							pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 						else
-							pPicture->SetBitmap( MBitmapManager::Get( "result_lose.tga"));
+							pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
 					}
 				}
 
@@ -3216,22 +3216,22 @@ void ZCombatInterface::GetResultInfo( void)
 			if ( pPicture)
 			{
 				if ( ZGetGame()->GetMatch()->GetTeamScore( MMT_RED) == ZGetGame()->GetMatch()->GetTeamScore( MMT_BLUE))
-					pPicture->SetBitmap( MBitmapManager::Get( "result_draw.tga"));
+					pPicture->SetBitmap( CCBitmapManager::Get( "result_draw.tga"));
 				else
 				{
 					if ( ZGetGame()->GetMatch()->GetTeamScore( MMT_RED) > ZGetGame()->GetMatch()->GetTeamScore( MMT_BLUE))
 					{
 						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == MMT_RED)
-							pPicture->SetBitmap( MBitmapManager::Get( "result_win.tga"));
+							pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 						else
-							pPicture->SetBitmap( MBitmapManager::Get( "result_lose.tga"));
+							pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
 					}
 					else
 					{
 						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == MMT_BLUE)
-							pPicture->SetBitmap( MBitmapManager::Get( "result_win.tga"));
+							pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 						else
-							pPicture->SetBitmap( MBitmapManager::Get( "result_lose.tga"));
+							pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
 					}
 				}
 
@@ -3252,8 +3252,8 @@ void ZCombatInterface::GetResultInfo( void)
 
 
 	// 배경이미지 로딩
-	m_pResultBgImg = new MBitmapR2;
-	((MBitmapR2*)m_pResultBgImg)->Create( "resultbackground.png", RGetDevice(), szFileName);
+	m_pResultBgImg = new CCBitmapR2;
+	((CCBitmapR2*)m_pResultBgImg)->Create( "resultbackground.png", RGetDevice(), szFileName);
 	if ( m_pResultBgImg != NULL)
 	{
 		// 읽어온 비트맵 이미지 포인터를 해당 위젯에 넘겨줘서 표시한다
@@ -3263,7 +3263,7 @@ void ZCombatInterface::GetResultInfo( void)
 	}
 }
 
-void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
+void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 {
 ////////////////////////////////////////////////////////////////////////
 // 이함수는 호출하는 곳도 없다. 버리는 함수인것 같다. 실제로는 GetResultInfo()에서 그리는 듯.
@@ -3325,11 +3325,11 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 	float fOpacity=min(1.f,max(0,float(nFrame-FADE_START_FRAME)
 		/float(pvm->GetFrameInfo(ani_mode_lower)->m_pAniSet->GetMaxFrame()-FADE_START_FRAME)));
 
-	MFont *pFont=GetGameFont();
+	CCFont *pFont=GetGameFont();
 	pDC->SetFont(pFont);
 	pFont=pDC->GetFont();	// 만약 폰트가 없으면 다시 디폴트 폰트를 얻는다
 
-	MCOLOR opacity=MCOLOR(0,0,0,255*fOpacity);
+	sColor opacity=sColor(0,0,0,255*fOpacity);
 	pDC->SetOpacity(255*fOpacity);
 
 	float x,y;
@@ -3385,7 +3385,7 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 			float clancenter;
 			bool bDrawClanName = false;
 
-			MCOLOR backgroundcolor;
+			sColor backgroundcolor;
 
 			if(pItem->nTeam == ZGetGame()->m_pMyCharacter->GetTeamID()) {
 				x = 0.035f;
@@ -3415,11 +3415,11 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 
 			if(bDrawClanName)
 			{
-				MCOLOR textcolor = TEXT_COLOR_CLAN_NAME;
+				sColor textcolor = TEXT_COLOR_CLAN_NAME;
 				textcolor.a=opacity.a;
 				pDC->SetColor(textcolor);
 
-				MFont *pClanFont=MFontManager::Get("FONTb11b");
+				CCFont *pClanFont=CCFontManager::Get("FONTb11b");
 				if (pClanFont == NULL) _ASSERT(0);
 				pDC->SetFont(pClanFont);
 
@@ -3452,7 +3452,7 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 				(x-.01f)*MGetWorkspaceWidth(),y1,
 				.44f*MGetWorkspaceWidth(),y2-y1);
 
-			MCOLOR textcolor = TEXT_COLOR_DEATH_MATCH;
+			sColor textcolor = TEXT_COLOR_DEATH_MATCH;
 			textcolor.a=opacity.a;
 			pDC->SetColor(textcolor);
 			pDC->SetFont(pFont);
@@ -3487,7 +3487,7 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 			// 마지막줄이면 ... 을찍고 넘어간다
 			if(nCount==nMaxLineCount)
 			{
-			pDC->SetColor(MCOLOR(255,255,255,opacity.a));
+			pDC->SetColor(sColor(255,255,255,opacity.a));
 			x=0.50f;
 			TextRelative(pDC,x,y,".....");
 			break;
@@ -3495,7 +3495,7 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 			*/
 
 			// 배경 색깔을 결정한다
-			MCOLOR backgroundcolor= (nCount%2==0) ? BACKGROUND_COLOR1 : BACKGROUND_COLOR2;
+			sColor backgroundcolor= (nCount%2==0) ? BACKGROUND_COLOR1 : BACKGROUND_COLOR2;
 			if(pItem->bMyChar) backgroundcolor = 
 				(pItem->nTeam==MMT_RED) ? BACKGROUND_COLOR_MYCHAR_RED_TEAM :
 			(pItem->nTeam==MMT_BLUE ) ? BACKGROUND_COLOR_MYCHAR_BLUE_TEAM :
@@ -3513,7 +3513,7 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 			//		backgroundy=newbackgroundy;
 
 			// 글자 색깔을 결정한다.. 
-			MCOLOR textcolor= TEXT_COLOR_DEATH_MATCH ;
+			sColor textcolor= TEXT_COLOR_DEATH_MATCH ;
 
 			if(pItem->nTeam==MMT_RED)		// red
 				textcolor=TEXT_COLOR_RED_TEAM;
@@ -3549,7 +3549,7 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 
 			x=0.705f;
 
-			pDC->SetBitmapColor(MCOLOR(255,255,255,255*fOpacity));
+			pDC->SetBitmapColor(sColor(255,255,255,255*fOpacity));
 
 			IconRelative(pDC,x,texty,0);x+=iconspace;
 			IconRelative(pDC,x,texty,1);x+=iconspace;
@@ -3557,7 +3557,7 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 			IconRelative(pDC,x,texty,3);x+=iconspace;
 			IconRelative(pDC,x,texty,4);
 
-			pDC->SetBitmapColor(MCOLOR(255,255,255,255));
+			pDC->SetBitmapColor(sColor(255,255,255,255));
 
 			x=0.705f+(float(pFont->GetHeight()*1.3f)/MGetWorkspaceWidth());
 			sprintf(szText,"%d",pItem->nAllKill);
@@ -3576,9 +3576,9 @@ void ZCombatInterface::DrawResultBoard(MDrawContext* pDC)
 	}
 }
 
-void ZCombatInterface::IconRelative(MDrawContext* pDC,float x,float y,int nIcon)
+void ZCombatInterface::IconRelative(CCDrawContext* pDC,float x,float y,int nIcon)
 {
-	MBitmap *pbmp=m_ppIcons[nIcon];
+	CCBitmap *pbmp=m_ppIcons[nIcon];
 	if(!pbmp) return;
 
 	pDC->SetBitmap(pbmp);
@@ -3842,7 +3842,7 @@ void ZCombatInterface::ShowChatOutput(bool bShow)
 	ZGetConfiguration()->SetViewGameChat(bShow);
 }
 
-void ZCombatInterface::DrawAfterWidgets( MDrawContext* pDC )
+void ZCombatInterface::DrawAfterWidgets( CCDrawContext* pDC )
 {
 	// 듀얼토너먼트 결과창용 대진표를 그린다.
 	if(m_bShowResult)

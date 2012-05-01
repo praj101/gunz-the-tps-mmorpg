@@ -9,7 +9,7 @@ class ZWeaponScreenEffect
 {
 private:
 	CCMatchWeaponType		m_nWeaponType;
-	MBitmap*				m_pSniferPanel;
+	CCBitmap*				m_pSniferPanel;
 	//ZScreenEffect*			m_pSniferPanelEffect;
 
 
@@ -19,7 +19,7 @@ public:
 	ZWeaponScreenEffect();
 	virtual ~ZWeaponScreenEffect();
 public:
-	void Draw(MDrawContext* pDC);
+	void Draw(CCDrawContext* pDC);
 	void OnGadget(CCMatchWeaponType nWeaponType);
 	void OnGadgetOff();
 	void Create();

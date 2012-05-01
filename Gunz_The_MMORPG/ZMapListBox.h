@@ -10,10 +10,10 @@ class MTextArea;
 class ZMapListBox : public MWidget{
 protected:
 	MListBox*	m_pListBox;
-	MBitmap*	m_pThumbnail;
+	CCBitmap*	m_pThumbnail;
 
 protected:
-	virtual void OnDraw(MDrawContext* pDC);
+	virtual void OnDraw(CCDrawContext* pDC);
 	virtual bool OnShow(void);
 	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
 public:

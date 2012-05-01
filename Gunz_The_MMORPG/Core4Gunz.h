@@ -14,14 +14,14 @@ public:
 		RealSpace2::RFrame_Render();
 		//RenderScene(NULL);
 	}
-	virtual MBitmap* OpenBitmap(const char* szName){
+	virtual CCBitmap* OpenBitmap(const char* szName){
 
 		char aliasname[256];
 		char drive[_MAX_DRIVE],dir[_MAX_DIR],fname[_MAX_FNAME],ext[_MAX_EXT];
 		_splitpath(szName,drive,dir,fname,ext);
 		sprintf(aliasname,"%s%s",fname,ext);
 
-		MBitmapR2* pNew = new MBitmapR2;
+		CCBitmapR2* pNew = new CCBitmapR2;
 		bool bRet = pNew->Create(aliasname, RGetDevice(), szName);
 		if(bRet==false){
 			delete pNew;
@@ -29,8 +29,8 @@ public:
 		}
 		return pNew;
 	}
-	virtual MFont* OpenFont(const char* szName, int nHeight){
-		MFontR2* pNew = new MFontR2;
+	virtual CCFont* OpenFont(const char* szName, int nHeight){
+		CCFontR2* pNew = new CCFontR2;
 		pNew->Create(szName, szName, nHeight);
 		return pNew;
 	}

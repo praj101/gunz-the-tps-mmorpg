@@ -133,7 +133,7 @@ protected:
 	bool				m_bLoading;
 	bool				m_bWaitingArrangedGame;
 
-	MBitmap				*m_pMapThumbnail;///< 맵 썸네일
+	CCBitmap				*m_pMapThumbnail;///< 맵 썸네일
 
 	ZMsgBox*				m_pMsgBox;
 	ZMsgBox*				m_pConfirmMsgBox;
@@ -159,14 +159,14 @@ protected:
 	DWORD			m_dwRefreshTime;
 	int				m_nLocServ;
 
-	MBitmapR2*		m_pRoomListFrame;							// 게임방 리스트 프레임 이미지
-	MBitmapR2*		m_pDuelTournamentLobbyFrame;				// 듀얼토너먼트 채널일때의 프레임 이미지
-	MBitmapR2*		m_pBottomFrame;								// 하단 정보창 프레임 이미지
-	MBitmapR2*		m_pClanInfoBg;								// 클랜 정보 배경 이미지
-	MBitmapR2*		m_pDuelTournamentInfoBg;					// 듀얼토너먼트 전적 정보 배경 이미지
-	MBitmapR2*		m_pDuelTournamentRankingLabel;				// 듀얼토너먼트 랭킹 리스트 상단 레이블 이미지
-	MBitmapR2*		m_pLoginBG;									// 로그인 배경 이미지
-	MBitmapR2*		m_pLoginPanel;								// 로그인 패널 이미지
+	CCBitmapR2*		m_pRoomListFrame;							// 게임방 리스트 프레임 이미지
+	CCBitmapR2*		m_pDuelTournamentLobbyFrame;				// 듀얼토너먼트 채널일때의 프레임 이미지
+	CCBitmapR2*		m_pBottomFrame;								// 하단 정보창 프레임 이미지
+	CCBitmapR2*		m_pClanInfoBg;								// 클랜 정보 배경 이미지
+	CCBitmapR2*		m_pDuelTournamentInfoBg;					// 듀얼토너먼트 전적 정보 배경 이미지
+	CCBitmapR2*		m_pDuelTournamentRankingLabel;				// 듀얼토너먼트 랭킹 리스트 상단 레이블 이미지
+	CCBitmapR2*		m_pLoginBG;									// 로그인 배경 이미지
+	CCBitmapR2*		m_pLoginPanel;								// 로그인 패널 이미지
 
 	ZBitmapManager<int> m_ItemThumbnailMgr;							// 상점/장비창/듀얼토너먼트 게임중에 보여질 아이템 썸네일 매니저
 	//↑적절한 시기마다 모두 언로드해서 메모리를 낭비하지 않도록 해야 합니다. (상점 나갈때, 장비창 나갈때, 듀얼토너먼트 게임 나갈때)
@@ -277,10 +277,10 @@ protected:
 
 	void OnSendGambleItemList( void* pGItemArray, const DWORD dwCount );
 
-	void OnDrawStateGame(MDrawContext* pDC);
-	void OnDrawStateLogin(MDrawContext* pDC);
-	void OnDrawStateLobbyNStage(MDrawContext* pDC);
-	void OnDrawStateCharSelection(MDrawContext* pDC);
+	void OnDrawStateGame(CCDrawContext* pDC);
+	void OnDrawStateLogin(CCDrawContext* pDC);
+	void OnDrawStateLobbyNStage(CCDrawContext* pDC);
+	void OnDrawStateCharSelection(CCDrawContext* pDC);
 
 #ifdef _QUEST_ITEM
 	void OnResponseCharacterItemList_QuestItem( MTD_QuestItemNode* pQuestItemNode, int nQuestItemCount );
@@ -321,7 +321,7 @@ public:
 	void OnRestore();
 
 	bool Update(float fElapsed);
-	void OnDraw(MDrawContext *pDC);
+	void OnDraw(CCDrawContext *pDC);
 
 	void SetCursorEnable(bool bEnable);
 	void OnResetCursor();
@@ -454,7 +454,7 @@ public:
 	void OnAnnounceDeleteClan( const string& strAnnounce );
 
 	// 퀘스트 아이템 아이콘 비트맵 얻기(쓰는덴 많은데 마땅히 둘데가 없어서... -_-;)
-	MBitmap* GetQuestItemIcon( int nItemID, bool bSmallIcon);
+	CCBitmap* GetQuestItemIcon( int nItemID, bool bSmallIcon);
 
 	// ZActionKey 입력중 GlobalEvent 무력화
 	static bool CheckSkipGlobalEvent() { return m_bSkipGlobalEvent; }

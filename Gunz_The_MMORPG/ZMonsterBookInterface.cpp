@@ -221,11 +221,11 @@ void ZMonsterBookInterface::DrawPage( void)
 		m_pBookBgImg = NULL;
 	}
 
-	m_pBookBgImg = new MBitmapR2;
+	m_pBookBgImg = new CCBitmapR2;
 	if ( m_nCurrentPageNum == 0)
-		((MBitmapR2*)m_pBookBgImg)->Create( "monsterIllust.png", RGetDevice(), "interface/MonsterIllust/book_firstbg.jpg");
+		((CCBitmapR2*)m_pBookBgImg)->Create( "monsterIllust.png", RGetDevice(), "interface/MonsterIllust/book_firstbg.jpg");
 	else
-		((MBitmapR2*)m_pBookBgImg)->Create( "monsterIllust.png", RGetDevice(), "interface/MonsterIllust/book_bg.jpg");
+		((CCBitmapR2*)m_pBookBgImg)->Create( "monsterIllust.png", RGetDevice(), "interface/MonsterIllust/book_bg.jpg");
 
 	if ( m_pBookBgImg)
 	{
@@ -247,10 +247,10 @@ void ZMonsterBookInterface::DrawPage( void)
 		pPicture->SetBitmap( NULL);
 
 
-	m_pIllustImg = new MBitmapR2;
+	m_pIllustImg = new CCBitmapR2;
 	char szFileName[ 256];
 	sprintf( szFileName, "interface/MonsterIllust/monster_Illust%02d.jpg", pPageInfo->m_nID);
-	((MBitmapR2*)m_pIllustImg)->Create( "monsterIllust.png", RGetDevice(), szFileName);
+	((CCBitmapR2*)m_pIllustImg)->Create( "monsterIllust.png", RGetDevice(), szFileName);
 	if ( m_pIllustImg)
 	{
 		MPicture* pPicture = (MPicture*)pResource->FindWidget( "MonsterBook_MonsterIllust");
@@ -312,7 +312,7 @@ void ZMonsterBookInterface::DrawPage( void)
 	if ( pTextArea)
 	{
 		pTextArea->Clear();
-		pTextArea->AddText( m_nCurrentPageNum ? pPageInfo->m_strDesc.data() : "", MCOLOR( 0xFF321E00));
+		pTextArea->AddText( m_nCurrentPageNum ? pPageInfo->m_strDesc.data() : "", sColor( 0xFF321E00));
 		pTextArea->Show();
 	}
 
@@ -351,7 +351,7 @@ void ZMonsterBookInterface::DrawPage( void)
 		pTextArea->Clear();
 
 		for ( list<string>::iterator itrSkill = pPageInfo->m_Skill.begin();  itrSkill != pPageInfo->m_Skill.end();  itrSkill++)
-			pTextArea->AddText( (*itrSkill).data(), MCOLOR( 0xFF321E00));
+			pTextArea->AddText( (*itrSkill).data(), sColor( 0xFF321E00));
 	}
 
 
@@ -527,7 +527,7 @@ bool ZMonsterBookInterface::LoadMonsterBookInfo( void)
 				else
 				{
 					pItemNode->m_strName	= "?????";
-					pItemNode->m_pIcon		= MBitmapManager::Get( "slot_icon_unknown.tga");
+					pItemNode->m_pIcon		= CCBitmapManager::Get( "slot_icon_unknown.tga");
 				}
 
 

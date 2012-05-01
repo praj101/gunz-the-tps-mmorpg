@@ -51,7 +51,7 @@ public:
 	int GetDuelTournamentPlayCount() { return m_nDTPlayCount; }
 	CCUID GetChampion() { return m_DTChampion.uidPlayer; }
 
-	void OnDraw(MDrawContext* pDC);
+	void OnDraw(CCDrawContext* pDC);
 
 	void SetMatchPlayerInfoUI(const CCUID& uidPlayer1, const CCUID& uidPlayer2);
 	void ShowMatchPlayerInfoUI(bool bShow);
@@ -60,9 +60,9 @@ public:
 
 	void SetRoundResultInfo(MTD_DuelTournamentRoundResultInfo& DTGameResultInfo);
 	void SetMatchResultInfo(MTD_DuelTournamentMatchResultInfo& DTGameResultInfo);
-	void ShowMatchOrder(MDrawContext* pDC, bool isResult, float fElapsed);
+	void ShowMatchOrder(CCDrawContext* pDC, bool isResult, float fElapsed);
 	DuelTournamentPlayer* GetPlayer(const CCUID& uid);
-	void DrawVictorySymbol(MDrawContext* pDC, CCUID uidPlayer1, CCUID uidPlayer2);
+	void DrawVictorySymbol(CCDrawContext* pDC, CCUID uidPlayer1, CCUID uidPlayer2);
 
 	void SetPlayerHpApForUI(const CCUID& uidChar, float fmaxhp, float fmaxap, float fhp, float fap);		// UI를 위해 그려주기만할 용도
 	void GetPlayerHpApForUI(const CCUID& uidChar, float* fmaxhp, float* fmaxap, float* fhp, float* fap);		// UI를 위해 그려주기만할 용도
@@ -72,8 +72,8 @@ public:
 private:
 	void BeginPlayerInfoUISlideAni(bool bToCenter);
 	void UpdateUISlideAni(float fElapsed);
-	void DrawInverse(MDrawContext* pDC, MBitmap* pBitmap, float x, float y, float fRateX, float fRateY, int nMirror);
-	void DrawHighlight(MDrawContext* pDC, const MRECT& rc);
+	void DrawInverse(CCDrawContext* pDC, CCBitmap* pBitmap, float x, float y, float fRateX, float fRateY, int nMirror);
+	void DrawHighlight(CCDrawContext* pDC, const sRect& rc);
 
 	void RestoreStageExitButtonConfirmMessage();
 	void SetVisiblePlayerInfoUI(bool bLeft, bool bShow);

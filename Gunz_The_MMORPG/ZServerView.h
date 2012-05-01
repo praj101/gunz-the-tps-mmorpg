@@ -21,7 +21,7 @@ struct ServerInfo
 	bool	bIsLive;
 	int		nRow;
 	int		nCol;
-	MRECT	rRect;		// 서버리스트 선택을 화면 픽셀 클릭으로 변경
+	sRect	rRect;		// 서버리스트 선택을 화면 픽셀 클릭으로 변경
 	char	szAgentIP[ 32];
 };
 typedef list<ServerInfo*>	SERVERLIST;
@@ -39,16 +39,16 @@ protected:
 	int				m_nSelBoxSizeY;
 	int				m_nSelBoxSizeW;
 
-	MBitmap*		m_pPingBitmap[6];
+	CCBitmap*		m_pPingBitmap[6];
 	DWORD			m_dAgentPing[AGENTMAXCOUNT];
 
 protected:
-	virtual void OnDraw( MDrawContext* pDC);
+	virtual void OnDraw( CCDrawContext* pDC);
 	virtual bool OnEvent( MEvent* pEvent, MListener* pListener);
 
-	void ServerListDraw(MDrawContext* pDC, MRECT rectBox, ServerInfo* pServerInfo, bool bSelected);
-	void IconDraw(MDrawContext* pDC, MRECT rectBox, int nType, bool bSelected);
-	void PingImageDraw(MDrawContext* pDC, MRECT rectBox, int nImageCount, bool bIsLive);
+	void ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* pServerInfo, bool bSelected);
+	void IconDraw(CCDrawContext* pDC, sRect rectBox, int nType, bool bSelected);
+	void PingImageDraw(CCDrawContext* pDC, sRect rectBox, int nImageCount, bool bIsLive);
 
 public:
 	ZServerView( const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);

@@ -66,7 +66,7 @@
 
 
 
-bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name);
+bool GetUserGradeIDColor(CCMatchUserGradeID gid,sColor& UserNameColor,char* sp_name);
 
 MCommand* ZNewCmd(int nID)
 {
@@ -86,7 +86,7 @@ MCommand* ZNewCmd(int nID)
 }
 
 
-bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& gid)
+bool GetUserInfoUID(CCUID uid,sColor& _color,char* sp_name,CCMatchUserGradeID& gid)
 {
 	if( ZGetGameClient() == NULL)
 		return false;
@@ -586,7 +586,7 @@ void ZGameClient::OnChannelChat(const CCUID& uidChannel, char* szName, char* szC
 
 //	CCUID uid = GetObject(szName);
 //	CCMatchObjectCache* pObjCache = FindObjCache(uid);
-	MCOLOR _color = MCOLOR(0,0,0);
+	sColor _color = sColor(0,0,0);
 
 	CCMatchUserGradeID gid = (CCMatchUserGradeID) nGrade;
 //	gid = CCMUGDEVELOPER;
@@ -751,7 +751,7 @@ void ZGameClient::OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsig
 	else if (GetStageUID() == uidStage)
 	{
 		char sp_name[256];
-		MCOLOR _color;
+		sColor _color;
 		CCMatchUserGradeID gid = CCMUGFREE;
 
 		char name[ 32];
@@ -934,7 +934,7 @@ void ZGameClient::OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char*
 		
 	string name = GetObjName(uidChar);
 
-	MCOLOR _color = MCOLOR(0,0,0);
+	sColor _color = sColor(0,0,0);
 
 	CCMatchUserGradeID gid = CCMUGFREE;
 
@@ -1261,7 +1261,7 @@ void ZGameClient::OnStageRelayMapListUpdate(int nRelayMapType, int nRelayMapRepe
 	for( int i = 0 ; i < nRelayMapListCount; ++i )
 	{// 릴레이맵 리스트에 데이터를 추가해준다.
 		MTD_RelayMap* pNode = (MTD_RelayMap*)MGetBlobArrayElement(pStageRelayMapListBlob, i);
-		RelayMapList* pRelayMapList = new RelayMapList( MGetMapDescMgr()->GetMapName(MGetMapDescMgr()->GetMapID(pNode->nMapID)), MBitmapManager::Get( "Mark_X.bmp"));
+		RelayMapList* pRelayMapList = new RelayMapList( MGetMapDescMgr()->GetMapName(MGetMapDescMgr()->GetMapID(pNode->nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
 		pRelaMapListBox->Add( pRelayMapList);
 		relayMapList[i].nMapID = MGetMapDescMgr()->GetMapID(pNode->nMapID);
 	}
@@ -1305,7 +1305,7 @@ void ZGameClient::OnResponseStageSetting(const CCUID& uidStage, void* pStageBlob
 void ZGameClient::OnAgentError(int nError)
 {
 	if (ZGetGame()) {
-		const MCOLOR ChatColor = MCOLOR(0xffffffff);
+		const sColor ChatColor = sColor(0xffffffff);
 		ZChatOutput(ChatColor, "Agent Error : Agent not available");
 	}
 }
@@ -1321,7 +1321,7 @@ void ZGameClient::OnMatchNotify(unsigned int nMsgID)
 		ZGetGameInterface()->ShowMessage(strMsg.c_str());
 	}
 
-	ZChatOutput(MCOLOR(255,70,70),strMsg.data());
+	ZChatOutput(sColor(255,70,70),strMsg.data());
 
 
 	/*
@@ -1332,13 +1332,13 @@ void ZGameClient::OnMatchNotify(unsigned int nMsgID)
 	case GUNZ_LOBBY:
 		{
 			MListBox* pWidget = (MListBox*)pResource->FindWidget("ChannelChattingOutput");
-			if (pWidget) pWidget->Add(strMsg.data(), MCOLOR(255,70,70));
+			if (pWidget) pWidget->Add(strMsg.data(), sColor(255,70,70));
 		}
 		break;
 	case GUNZ_STAGE:
 		{
 			MListBox* pWidget = (MListBox*)pResource->FindWidget("StageChattingOutput");
-			if (pWidget) pWidget->Add(strMsg.data(), MCOLOR(255,70,70));
+			if (pWidget) pWidget->Add(strMsg.data(), sColor(255,70,70));
 		}
 		break;
 	case GUNZ_GAME:
@@ -1354,7 +1354,7 @@ void ZGameClient::OnMatchNotify(unsigned int nMsgID)
 void ZGameClient::OutputMessage(const char* szMessage, MZMOMType nType)
 {
 	OutputToConsole(szMessage);
-	ZChatOutput(MCOLOR(0xFFFFC600), szMessage);
+	ZChatOutput(sColor(0xFFFFC600), szMessage);
 }
 
 int ZGameClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp)
@@ -1781,7 +1781,7 @@ void ZGameClient::OnGameLevelUp(const CCUID& uidChar)
 
 			char temp[256] = "";
 			ZTransMsg(temp, MSG_GAME_LEVEL_UP, 1, pCharacter->GetUserAndClanName());
-			ZChatOutput(MCOLOR(ZCOLOR_GAME_INFO), temp);
+			ZChatOutput(sColor(ZCOLOR_GAME_INFO), temp);
 		}
 	}
 }
@@ -1796,7 +1796,7 @@ void ZGameClient::OnGameLevelDown(const CCUID& uidChar)
 
 			char temp[256] = "";
 			ZTransMsg(temp, MSG_GAME_LEVEL_DOWN, 1, pCharacter->GetUserAndClanName());
-			ZChatOutput(MCOLOR(ZCOLOR_GAME_INFO), temp);
+			ZChatOutput(sColor(ZCOLOR_GAME_INFO), temp);
 		}
 	}
 }
@@ -1956,7 +1956,7 @@ void ZGameClient::OnUserWhisper(char* pszSenderName, char* pszTargetName, char* 
 	}
 
 
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_WHISPER), szText, ZChat::CL_CURRENT);
+	ZChatOutput(sColor(ZCOLOR_CHAT_WHISPER), szText, ZChat::CL_CURRENT);
 
 	// 마지막에 귓속말을 보낸사람을 기억한다.
 	ZGetGameInterface()->GetChat()->SetWhisperLastSender(pszSenderName);	
@@ -2014,7 +2014,7 @@ void ZGameClient::OnChatRoomChat(char* pszChatRoomName, char* pszPlayerName, cha
 	char szText[256];
 //	sprintf(szText, "채팅방(%s) %s : %s", pszChatRoomName, pszPlayerName, pszChat);
 	ZTransMsg( szText, MRESULT_CHAT_ROOM, 3, pszChatRoomName, pszPlayerName, pszChat );
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_ROOMCHAT), szText, ZChat::CL_CURRENT);
+	ZChatOutput(sColor(ZCOLOR_CHAT_ROOMCHAT), szText, ZChat::CL_CURRENT);
 }
 
 void ZGameClient::RequestPrevStageList()
@@ -2144,7 +2144,7 @@ void ZGameClient::OnResponseResult(const int nResult)
 	{
 		if (ZApplication::GetGameInterface()->GetState() == GUNZ_GAME)
 		{
-			ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), ZErrStr(nResult) );
+			ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), ZErrStr(nResult) );
 		}
 		else 
 		{
@@ -2543,12 +2543,12 @@ void ZGameClient::OnAdminResponseKickPlayer(int nResult)
 		if( nResult != MOK ) {
 			const char *strError = ZErrStr( nResult );
 			if( strError ) {
-				ZChatOutput(strError, ZChat::CMT_NORMAL, ZChat::CL_LOBBY, MCOLOR(255,128, 64));
+				ZChatOutput(strError, ZChat::CMT_NORMAL, ZChat::CL_LOBBY, sColor(255,128, 64));
 			}
 		}	
 		else {
 #ifdef _DEBUG
-			ZChatOutput("성공", ZChat::CMT_NORMAL, ZChat::CL_LOBBY, MCOLOR(255,128, 64));
+			ZChatOutput("성공", ZChat::CMT_NORMAL, ZChat::CL_LOBBY, sColor(255,128, 64));
 #endif
 		}
 	}	
@@ -2561,12 +2561,12 @@ void ZGameClient::OnAdminResponseBlockPlayer(int nResult)
 		if( nResult != MOK ) {
 			const char *strError = ZErrStr( nResult );
 			if( strError ) {
-				ZChatOutput(strError, ZChat::CMT_NORMAL, ZChat::CL_LOBBY, MCOLOR(255, 128, 64));
+				ZChatOutput(strError, ZChat::CMT_NORMAL, ZChat::CL_LOBBY, sColor(255, 128, 64));
 			}
 		} 
 		else {
 #ifdef _DEBUG
-			ZChatOutput("성공", ZChat::CMT_NORMAL, ZChat::CL_LOBBY, MCOLOR(255, 128, 64));
+			ZChatOutput("성공", ZChat::CMT_NORMAL, ZChat::CL_LOBBY, sColor(255, 128, 64));
 #endif
 		}
 	}
@@ -2578,12 +2578,12 @@ void ZGameClient::OnAdminResponseMutePlayer(int nResult)
 		if( nResult != MOK ) {
 			const char *strError = ZErrStr( nResult );
 			if( strError ) {
-				ZChatOutput(strError, ZChat::CMT_NORMAL, ZChat::CL_LOBBY, MCOLOR(255, 128, 64));
+				ZChatOutput(strError, ZChat::CMT_NORMAL, ZChat::CL_LOBBY, sColor(255, 128, 64));
 			}
 		} 
 		else {
 #ifdef _DEBUG
-			ZChatOutput("성공", ZChat::CMT_NORMAL, ZChat::CL_LOBBY, MCOLOR(255, 128, 64));
+			ZChatOutput("성공", ZChat::CMT_NORMAL, ZChat::CL_LOBBY, sColor(255, 128, 64));
 #endif
 		}
 	}

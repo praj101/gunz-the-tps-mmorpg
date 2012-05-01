@@ -978,7 +978,7 @@ void ZGame::OnPreDraw()
 
 int g_debug_render_mode = 0;
 
-extern MDrawContextR2* g_pDC;
+extern CCDrawContextR2* g_pDC;
 
 void ZGame::Draw()
 {
@@ -1311,7 +1311,7 @@ void ZGame::DrawDebugInfo()
 {
 	char szTemp[256] = "";
 	int n = 20;
-	g_pDC->SetColor(MCOLOR(0xFFffffff));
+	g_pDC->SetColor(sColor(0xFFffffff));
 
 	for (ZCharacterManager::iterator itor = m_CharacterManager.begin(); itor != m_CharacterManager.end(); ++itor)
 	{
@@ -1360,13 +1360,13 @@ void ZGame::DrawDebugInfo()
 }
 
 
-void ZGame::Draw(MDrawContextR2 &dc)
+void ZGame::Draw(CCDrawContextR2 &dc)
 {
 	/*	// 패스노드 출력.. for debug
 	char buffer[256];
 	sprintf(buffer," state: %d , pathnode: %d",m_pMyCharacter->m_State,m_pMyCharacter->m_nPathNodeID);
 
-	dc.SetColor(MCOLOR(0xFFffffff));
+	dc.SetColor(sColor(0xFFffffff));
 	dc.Text(0,20,buffer);
 	//*/
 }
@@ -1655,28 +1655,28 @@ bool ZGame::OnCommand(MCommand* pCommand)
 
 // 유저 컬러
 
-bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name)
+bool GetUserGradeIDColor(CCMatchUserGradeID gid,sColor& UserNameColor,char* sp_name)
 {
-//		 if(gid == CCMUGFREE)			{ UserNameColor = MCOLOR(200,200,200); return true; }// 무료유저
-//	else if(gid == CCMUGREGULAR)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 정액유저
-//	else if(gid == CCMUGCRIMINAL)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 전과자
-//	else if(gid == CCMUGWARNING_1)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 1차경고
-//	else if(gid == CCMUGWARNING_2)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 2차경고
-//	else if(gid == CCMUGWARNING_3)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 3차경고
-//	else if(gid == CCMUGCHAT_LIMITED)	{ UserNameColor = MCOLOR(200,200,200); return true; }// 채팅 금지
-//	else if(gid == CCMUGPENALTY)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 기간 정지
-//	else if(gid == CCMUGBLOCKED)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 사용정지
+//		 if(gid == CCMUGFREE)			{ UserNameColor = sColor(200,200,200); return true; }// 무료유저
+//	else if(gid == CCMUGREGULAR)		{ UserNameColor = sColor(200,200,200); return true; }// 정액유저
+//	else if(gid == CCMUGCRIMINAL)		{ UserNameColor = sColor(200,200,200); return true; }// 전과자
+//	else if(gid == CCMUGWARNING_1)		{ UserNameColor = sColor(200,200,200); return true; }// 1차경고
+//	else if(gid == CCMUGWARNING_2)		{ UserNameColor = sColor(200,200,200); return true; }// 2차경고
+//	else if(gid == CCMUGWARNING_3)		{ UserNameColor = sColor(200,200,200); return true; }// 3차경고
+//	else if(gid == CCMUGCHAT_LIMITED)	{ UserNameColor = sColor(200,200,200); return true; }// 채팅 금지
+//	else if(gid == CCMUGPENALTY)		{ UserNameColor = sColor(200,200,200); return true; }// 기간 정지
+//	else if(gid == CCMUGBLOCKED)		{ UserNameColor = sColor(200,200,200); return true; }// 사용정지
 
 	if(gid == CCMUGDEVELOPER) 
 	{ 
-		UserNameColor = MCOLOR(255,128, 64); 
+		UserNameColor = sColor(255,128, 64); 
 		if(sp_name) { 
 			strcpy(sp_name,ZMsg(MSG_WORD_DEVELOPER));
 		}
 		return true; 
 	}
 	else if(gid == CCMUGADMIN) {
-		UserNameColor = MCOLOR(255,128, 64); 
+		UserNameColor = sColor(255,128, 64); 
 		if(sp_name) { 
 			strcpy(sp_name,ZMsg(MSG_WORD_ADMIN));
 		}
@@ -1686,7 +1686,7 @@ bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_n
 	return false;
 }
 
-bool ZGame::GetUserNameColor(CCUID uid,MCOLOR& UserNameColor,char* sp_name)
+bool ZGame::GetUserNameColor(CCUID uid,sColor& UserNameColor,char* sp_name)
 {
 	CCMatchUserGradeID gid = CCMUGFREE;
 
@@ -1891,13 +1891,13 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 			//jintriple3 줄 바꿈 문자 필터링 하는 부분..
 			CheckMsgAboutChat(szMsg);
 
-			MCOLOR ChatColor = MCOLOR(0xFFD0D0D0);
-			const MCOLOR TeamChatColor = MCOLOR(109,207,246);
+			sColor ChatColor = sColor(0xFFD0D0D0);
+			const sColor TeamChatColor = sColor(109,207,246);
 
 			CCUID uid=pCommand->GetSenderUID();
 			ZCharacter *pChar=ZGetCharacterManager()->Find(uid);
 
-			MCOLOR UserNameColor = MCOLOR(190,190,0);
+			sColor UserNameColor = sColor(190,190,0);
 
 			char sp_name[256];
 			bool bSpUser = GetUserNameColor(uid,UserNameColor,sp_name);
@@ -1924,7 +1924,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 						{
 							if ( !m_pMyCharacter->IsDie() && pChar->IsDie())
 							{
-								ChatColor = MCOLOR(0xFF808080);
+								ChatColor = sColor(0xFF808080);
 								strcpy( szMsg, "^0. . . . .");
 							}
 						}
@@ -5086,13 +5086,13 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 				sprintf( szMsg, ZMsg(MSG_GAME_LOSE_MYSELF) );
 			}
 
-			ZChatOutput(MCOLOR(0xFFCF2020), szMsg);
+			ZChatOutput(sColor(0xFFCF2020), szMsg);
 		}
 		else
 		{
 //			sprintf(szMsg, "%s님이 스스로 패배하였습니다.", szAttacker);
 			ZTransMsg( szMsg, MSG_GAME_WHO_LOSE_SELF, 1, szAttacker );
-			ZChatOutput(MCOLOR(0xFF707070), szMsg);
+			ZChatOutput(sColor(0xFF707070), szMsg);
 
 			// Admin Grade
 			if (ZGetMyInfo()->IsAdminGrade()) {
@@ -5114,7 +5114,7 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 	{
 //		sprintf(szMsg, "당신은 %s님으로부터 승리하였습니다.", szVictim );
 		ZTransMsg( szMsg, MSG_GAME_WIN_FROM_WHO, 1, szVictim );
-		ZChatOutput(MCOLOR(0xFF80FFFF), szMsg);
+		ZChatOutput(sColor(0xFF80FFFF), szMsg);
 	}
 
 	// 내가 죽었을 때
@@ -5122,7 +5122,7 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 	{
 //		sprintf(szMsg, "당신은 %s님에게 패배하였습니다.", szAttacker );
 		ZTransMsg( szMsg, MSG_GAME_LOSE_FROM_WHO, 1, szAttacker );
-		ZChatOutput(MCOLOR(0xFFCF2020), szMsg);
+		ZChatOutput(sColor(0xFFCF2020), szMsg);
 	}
 
 	// 다른 사람이 다른 사람 죽였을때
@@ -5130,7 +5130,7 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 	{
 // 		sprintf(szMsg, "%s님이 %s님으로부터 승리하였습니다.", szAttacker, szVictim );
 		ZTransMsg( szMsg, MSG_GAME_WHO_WIN_FROM_OTHER, 2, szAttacker, szVictim );
-		ZChatOutput(MCOLOR(0xFF707070), szMsg);
+		ZChatOutput(sColor(0xFF707070), szMsg);
 		
 		// Admin Grade
 		if (ZGetMyInfo()->IsAdminGrade()) {
@@ -5763,7 +5763,7 @@ if(fabs(pCharacter->m_fAccumulatedTimeError)>10.f)
 #ifndef _PUBLISH
 char szTemp[256];
 sprintf(szTemp, "%s님이 스피드핵 ? %3.1f", pCharacter->GetProperty()->szName,pCharacter->m_fAccumulatedTimeError);
-ZGetGameInterface()->OutputChatMsg(MCOLOR(0xFFFF0000), szTemp);
+ZGetGameInterface()->OutputChatMsg(sColor(0xFFFF0000), szTemp);
 #endif
 
 pCharacter->m_fAccumulatedTimeError=0;
@@ -6479,7 +6479,7 @@ void ZGame::AddEffectRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg)
 #ifndef _PUBLISH	// 내부빌드에서 누적 대미지 정보 출력
 					char szAccumulationDamagePrint[256];
 					sprintf(szAccumulationDamagePrint, "누적대미지[%2.1f] 서버에 보냄", fAccumulationDamage);
-					ZChatOutput(MCOLOR(255, 200, 200), szAccumulationDamagePrint);
+					ZChatOutput(sColor(255, 200, 200), szAccumulationDamagePrint);
 
 #	ifdef _DUELTOURNAMENT_LOG_ENABLE_
 					cclog(szAccumulationDamagePrint);
@@ -6638,7 +6638,7 @@ void ZGame::StartRecording()
 
 
 	m_bRecording=true;
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
+	ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), 
 		ZMsg(MSG_RECORD_STARTING));
 	return;
 
@@ -6650,7 +6650,7 @@ RECORDING_FAIL:	// 실패
 		m_pReplayFile = NULL;
 	}
 
-	ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), ZMsg(MSG_RECORD_CANT_SAVE));
+	ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), ZMsg(MSG_RECORD_CANT_SAVE));
 }
 
 void ZGame::StopRecording()
@@ -6697,7 +6697,7 @@ void ZGame::StopRecording()
 
 	if(bError)
 	{
-		ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), ZMsg(MSG_RECORD_CANT_SAVE));
+		ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), ZMsg(MSG_RECORD_CANT_SAVE));
 	}
 	else
 	{
@@ -6707,7 +6707,7 @@ void ZGame::StopRecording()
 		char szOutput[256];
 		// ZTranslateMessage(szOutput,MSG_RECORD_SAVED,1,szOutputFilename);
 		ZTransMsg(szOutput,MSG_RECORD_SAVED,1,szOutputFilename);
-		ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szOutput);
+		ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), szOutput);
 	}
 
 }
@@ -6965,7 +6965,7 @@ void ZGame::OnStageEnterBattle(MCmdEnterBattleParam nParam, MTD_PeerListNode* pP
 		char temp[256] = "";
 		if((pPeerNode->ExtendInfo.nPlayerFlags & MTD_PlayerFlags_AdminHide)==0) {
 			ZTransMsg(temp, MSG_GAME_JOIN_BATTLE, 1, pChar->GetUserAndClanName());
-			ZChatOutput(MCOLOR(ZCOLOR_GAME_INFO), temp);
+			ZChatOutput(sColor(ZCOLOR_GAME_INFO), temp);
 		}
 #ifdef _REPLAY_TEST_LOG
 		cclog("[Add Character %s(%d)]\n", pChar->GetCharInfo()->szName, uidChar.Low);
@@ -6986,7 +6986,7 @@ void ZGame::OnStageLeaveBattle(const CCUID& uidChar, const bool bIsRelayMap)//, 
 		if(pChar && !pChar->IsAdminHide() && !bIsRelayMap) {
 			char temp[256] = "";
 			ZTransMsg(temp, MSG_GAME_LEAVE_BATTLE, 1, pChar->GetUserAndClanName());
-			ZChatOutput(MCOLOR(ZCOLOR_GAME_INFO), temp);
+			ZChatOutput(sColor(ZCOLOR_GAME_INFO), temp);
 		}
 
 		ZGetGameClient()->DeletePeer(uidChar);
@@ -7419,7 +7419,7 @@ void ZGame::OnResetTeamMembers(MCommand* pCommand)
 {
 	if (!m_Match.IsTeamPlay()) return;
 
-	ZChatOutput( MCOLOR(ZCOLOR_GAME_INFO), ZMsg(MSG_GAME_MAKE_AUTO_BALANCED_TEAM) );
+	ZChatOutput( sColor(ZCOLOR_GAME_INFO), ZMsg(MSG_GAME_MAKE_AUTO_BALANCED_TEAM) );
 
 	MCommandParameter* pParam = pCommand->GetParameter(0);
 	if(pParam->GetType()!=MPT_BLOB) return;

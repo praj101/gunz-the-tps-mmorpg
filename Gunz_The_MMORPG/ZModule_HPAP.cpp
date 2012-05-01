@@ -68,7 +68,7 @@ void ZModule_HPAP::OnDamage(CCUID uidAttacker,float fDamage, float fRatio)
 #ifndef _PUBLISH	// 내부빌드에서 누적 대미지 정보 출력
 		char szAccumulationDamagePrint[256];
 		sprintf(szAccumulationDamagePrint, "피해 당한 누적대미지[%2.1f]", GetAccumulationDamage());
-		ZChatOutput(MCOLOR(255, 200, 100), szAccumulationDamagePrint);
+		ZChatOutput(sColor(255, 200, 100), szAccumulationDamagePrint);
 #endif
 	}
 
