@@ -3,7 +3,7 @@
 
 //#pragma	once
 
-#include "MRTTI.h"
+#include "CCRTTI.h"
 #include "ZCharacterObject.h"
 //#include "ZActor.h"
 #include "CCUID.h"

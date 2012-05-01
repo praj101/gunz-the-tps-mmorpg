@@ -4,7 +4,7 @@
 
 //#pragma once
 
-#include "MRTTI.h"
+#include "CCRTTI.h"
 #include "ZCharacter.h"
 
 enum ZChangeWeaponType

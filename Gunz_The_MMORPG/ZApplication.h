@@ -5,7 +5,7 @@
 //#include "ZGameInterface.h"
 #include "ZSoundEngine.h"
 #include "ZDirectInput.h"
-#include "MDataChecker.h"
+#include "CCDataChecker.h"
 #include "ZLanguageConf.h"
 #include "ZTimer.h"
 #include "ZEmblemInterface.h"
@@ -13,7 +13,7 @@
 #include "ZSkill.h"
 #include "ZWorldManager.h"
 
-#include "../RealSpace2/Include/RAniEventInfo.h"
+#include "RAniEventInfo.h"
 
 //class MMessenger;
 class ZGame;
@@ -64,7 +64,7 @@ private:
     char					m_szFileName[_MAX_PATH];	// 리플레이 혹은 standalone 맵이름
 	char					m_szCmdLine[ 4096 ];			// 초기 커맨드라인 저장
 	UINT					m_nTimerRes;
-	MDataChecker			m_GlobalDataChecker;
+	CCDataChecker			m_GlobalDataChecker;
 	bool					m_bLaunchDevelop;			///< 개발자버전 옵션
 	bool					m_bLaunchTest;				///< 테스트버전 옵션
 

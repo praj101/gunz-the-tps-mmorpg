@@ -4,13 +4,13 @@
 #include "ZPrerequisites.h"
 #include "CCUID.h"
 #include "RTypes.h"
-#include "MRTTI.h"
+#include "CCRTTI.h"
 #include "ZModule.h"
 #include "ZModule_Movable.h"
 #include "ZModule_HPAP.h"
 #include "ZCharacterItem.h"
 
-#include "MMemoryProxy.h"
+#include "CCMemoryProxy.h"
 
 #include <list>
 #include <string>
@@ -193,7 +193,7 @@ public:
 	virtual bool IsDie() { return false; }
 	virtual void SetDirection(rvector& dir);
 	virtual bool IsGuard()	{ return false; }
-	virtual CCMatchTeam GetTeamID() { return MMT_ALL; }
+	virtual CCMatchTeam GetTeamID() { return CCMT_ALL; }
 	
 	// 특정시점의 hit test 를 리턴해줘야 한다, pOutPos 가 있으면 hit된 위치를 리턴해줘야 한다
 	virtual ZOBJECTHITTEST HitTest( const rvector& origin, const rvector& to, float fTime, rvector *pOutPos=NULL );

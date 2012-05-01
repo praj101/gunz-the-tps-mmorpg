@@ -21,9 +21,9 @@ protected:
 	CCMatchStageSetting*		m_pStageSetting;
 	CCMATCH_ROUNDSTATE		m_nRoundState;
 	int						m_nCurrRound;
-	int						m_nTeamScore[MMT_END];
+	int						m_nTeamScore[CCMT_END];
 	int						m_nRoundKills;			// 현재라운드의 킬수 - FirstKill체크하려고 만듦
-	int						m_nTeamKillCount[MMT_END]; // 각 팀의 킬 수 총합
+	int						m_nTeamKillCount[CCMT_END]; // 각 팀의 킬 수 총합
 
 	unsigned long			m_nNowTime;
 	unsigned long			m_nStartTime;

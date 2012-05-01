@@ -1,7 +1,7 @@
 #ifndef _ZACTOR_H
 #define _ZACTOR_H
 
-#include "MRTTI.h"
+#include "CCRTTI.h"
 #include "ZCharacterObject.h"
 #include "ZCharacter.h"
 #include "CCUID.h"

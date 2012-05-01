@@ -3,7 +3,7 @@
 
 #include "ZModule.h"
 #include "ZModuleID.h"
-#include "MMemoryProxy.h"
+#include "CCMemoryProxy.h"
 
 class ZModule_HPAP : public ZModule {
 private:

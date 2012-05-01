@@ -14,7 +14,7 @@ protected:
 
 public:
 	bool			m_bTextColor;
-	cColor			m_BmTextColor;
+	sColor			m_BmTextColor;
 
 protected:
 	virtual void	OnDownDraw(CCDrawContext* pDC);

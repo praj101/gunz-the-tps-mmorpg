@@ -2,7 +2,7 @@
 #include "ZModule_ColdDamage.h"
 #include "ZGame.h"
 #include "ZApplication.h"
-#include "MRTTI.h"
+#include "CCRTTI.h"
 
 #define DAMAGE_DELAY	1.f			// 데미지 주는 간격
 #define EFFECT_DELAY	0.15f			// 이펙트 간격

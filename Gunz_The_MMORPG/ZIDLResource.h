@@ -52,7 +52,7 @@ protected:
 
 	virtual void TransText(char* szSrc, char* szOut);		// 국제화를 위한 함수
 	virtual void Parse(CCXmlElement& element);
-	virtual MFrame*	CreateFrame(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	virtual CCFrame*	CreateFrame(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual CCFont* CreateFont(char* szAliasName, char* szFontName, int nHeight
 		              ,bool bBold = false, bool bItalic = false, int nOutlineStyle = 0, bool bAntialiasing = false, DWORD nColorArg1=0, DWORD nColorArg2=0);
 public:

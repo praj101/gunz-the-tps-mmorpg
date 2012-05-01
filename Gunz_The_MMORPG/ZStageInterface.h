@@ -52,7 +52,7 @@ public:
 
 
 // 희생 아이템박스 리스트 아이템
-class SacrificeItemListBoxItem : public MListItem
+class SacrificeItemListBoxItem : public CCListItem
 {
 protected:
 	unsigned long		m_nItemID;
@@ -104,7 +104,7 @@ public:
 };
 
 // 릴레이맵 일시 맵 리스트
-class RelayMapList : public MListItem
+class RelayMapList : public CCListItem
 {
 protected:
 	char				m_szName[ 128];
@@ -152,13 +152,13 @@ enum SCENARIOTYPE
 };
 
 // 퀘스트 시나리오 이름 리스트
-struct MSenarioList
+struct CCSenarioList
 {
 	SCENARIOTYPE	m_ScenarioType;								// 시나리오 타입
 	char			m_szName[ 32];								// 퀘스트 시나리오 이름
 	char			m_szMapSet[ 32];							// 퀘스트 맵 셋 이름
 
-	MSenarioList()
+	CCSenarioList()
 	{
 		m_ScenarioType	= ST_STANDARD;
 		m_szName[ 0]	= 0;
@@ -166,7 +166,7 @@ struct MSenarioList
 	}
 };
 
-typedef map<int,MSenarioList>	LIST_SCENARIONAME;
+typedef map<int,CCSenarioList>	LIST_SCENARIONAME;
 
 // Class : ZStageInterface
 class ZStageInterface
@@ -265,12 +265,12 @@ public:		// public functions
 	bool OnStopVote();
 };
 
-void OnDropCallbackRemoveSacrificeItem( void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+void OnDropCallbackRemoveSacrificeItem( void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 
 // Listner
-MListener* ZGetSacrificeItemListBoxListener( void);
-MListener* ZGetRelayMapListBoxListener( void);
-MListener* ZGetMapListBoxListener( void);
+CCListener* ZGetSacrificeItemListBoxListener( void);
+CCListener* ZGetRelayMapListBoxListener( void);
+CCListener* ZGetMapListBoxListener( void);
 
 
 #endif

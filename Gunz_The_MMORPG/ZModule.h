@@ -2,7 +2,7 @@
 #define _ZMODULE_H
 
 #include <map>
-#include "MRTTI.h"
+#include "CCRTTI.h"
 
 using namespace std;
 

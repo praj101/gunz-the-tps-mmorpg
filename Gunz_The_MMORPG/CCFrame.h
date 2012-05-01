@@ -16,7 +16,7 @@ struct CCFrameBtn
 	bool		m_bMouseOver;
 	bool		m_bLButtonDown;
 	sRect		m_Rect;
-	CCAnchors	m_Anchors;
+	sAnchors	m_Anchors;
 	CCFrameBtn() { 
 		m_bVisible = false; 
 		m_bLButtonDown = false; 

@@ -1,7 +1,7 @@
 #ifndef _ZNETCHARACTER_H
 #define _ZNETCHARACTER_H
 
-#include "MRTTI.h"
+#include "CCRTTI.h"
 #include "ZCharacter.h"
 
 

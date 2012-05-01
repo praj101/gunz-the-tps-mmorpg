@@ -69,9 +69,9 @@ public:
 	void CheckDrawMode(float* fuv);
 
 	virtual void Draw(float x, float y, float w, float h, float sx, float sy, float sw, float sh, 
-		      DWORD dwColor, CCDrawEffect effect=MDE_NORMAL, bool bMirrorX=false, bool bMirrorY=false);
+		      DWORD dwColor, CCDrawEffect effect=CCDE_NORMAL, bool bMirrorX=false, bool bMirrorY=false);
 	virtual void DrawEx(float tx1, float ty1, float tx2, float ty2, 
-		        float tx3, float ty3, float tx4, float ty4, DWORD dwColor, CCDrawEffect effect=MDE_NORMAL);
+		        float tx3, float ty3, float tx4, float ty4, DWORD dwColor, CCDrawEffect effect=CCDE_NORMAL);
 
 	void OnLostDevice();
 	void OnResetDevice();
