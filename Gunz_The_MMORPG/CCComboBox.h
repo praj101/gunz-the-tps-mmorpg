@@ -7,7 +7,7 @@
 #define CCCOMBOLISTBOX			"ComboListBox"
 #define CCCMBBOX_CHANGED		"changed"
 
-class MIDLResource;
+class CCIDLResource;
 
 //ComboBox ListBox
 class CCComboListBox : public CCListBox{
@@ -25,7 +25,7 @@ public:
 };
 
 class CCComboBox : public CCButton{
-	friend MIDLResource;
+	friend CCIDLResource;
 
 	CCComboListBox*	m_pListBox;
 	int			m_iDropHeight;

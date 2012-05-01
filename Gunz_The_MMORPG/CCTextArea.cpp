@@ -827,7 +827,7 @@ void CCTextAreaLook::OnTextDraw(CCTextArea* pTextArea, CCDrawContext* pDC)
 
 	sRect r = pTextArea->GetClientRect();
 	r.w -= pTextArea->IsScrollBarVisible() ? pTextArea->GetScrollBarWidth() : 0;
-	pDC->SetClipRect(MClientToScreen(pTextArea,r));
+	pDC->SetClipRect(CCClientToScreen(pTextArea,r));
 
 	sRect textrt=r;
 	textrt.h=pTextArea->GetLineHeight();

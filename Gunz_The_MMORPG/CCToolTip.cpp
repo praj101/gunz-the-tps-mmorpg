@@ -48,7 +48,7 @@ void CCToolTip::SetBounds(void){
 		x = p.x;
 	}
 	y = pr.y-(nHeight+TOOLTIP_HEIGHT_GAP);
-	sPoint p = MClientToScreen(GetParent(), sPoint(0, y));
+	sPoint p = CCClientToScreen(GetParent(), sPoint(0, y));
 	if(p.y<0){
 		y = p.y+pr.h+(nHeight+TOOLTIP_HEIGHT_GAP);
 		if(y>CCGetWorkspaceHeight()) y = 0;

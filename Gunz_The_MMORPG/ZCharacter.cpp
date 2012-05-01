@@ -6,7 +6,7 @@
 #include "RVisualMeshMgr.h"
 #include "RealSpace2.h"
 #include "MDebug.h"
-#include "MObject.h"
+#include "CCObject.h"
 #include "ZPost.h"
 #include "ZGameInterface.h"
 #include "RBspObject.h"
@@ -3401,13 +3401,13 @@ void ZCharacter::InitProperties()
 	ZCharaterStatusBitPacking& uStatus = m_dwStatusBitPackingValue.Ref();
 
 	if (pObjCache && IsAdminGrade(pObjCache->GetUGrade()) && 
-		pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide))
+		pObjCache->CheckFlag(CCTD_PlayerFlags_AdminHide))
 		uStatus.m_bAdminHide = true;
 	else
 		uStatus.m_bAdminHide = false;
 }
 
-bool ZCharacter::Create(CCTD_CharInfo* pCharInfo/*, MTD_CharBuffInfo* pCharBuffInfo*/)
+bool ZCharacter::Create(CCTD_CharInfo* pCharInfo/*, CCTD_CharBuffInfo* pCharBuffInfo*/)
 {
 	_ASSERT(!m_bInitialized);
 
@@ -3683,7 +3683,7 @@ bool ZCharacter::IsObserverTarget()
 	return false;
 }
 /*//버프정보임시주석 
-void ZCharacter::SetCharacterBuff(MTD_CharBuffInfo* pCharBuffInfo)
+void ZCharacter::SetCharacterBuff(CCTD_CharBuffInfo* pCharBuffInfo)
 {
 	if( pCharBuffInfo == NULL ) {
 		_ASSERT(0);

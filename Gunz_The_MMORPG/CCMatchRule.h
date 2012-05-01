@@ -119,7 +119,7 @@ public:
 	// 게임중 나갔을때 호출된다.
 	virtual void OnLeaveBattle(CCUID& uidChar) {}		
 	/// 해당룰에서만 사용하는 커맨드는 직접 처리한다.
-	virtual void OnCommand(MCommand* pCommand) {}		
+	virtual void OnCommand(CCCommand* pCommand) {}		
 	/// 월드아이템 먹었을 경우 호출된다.
 	virtual void OnObtainWorldItem(CCMatchObject* pObj, int nItemID, int* pnExtraValues) {}
 	/// Kill시 호출

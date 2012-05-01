@@ -270,7 +270,7 @@ float ZModule_Movable::GetMoveSpeedRatio()
 	return 1.f + fRestrict + fHaste;
 }
 
-bool ZModule_Movable::GetHasteBuffInfo(MTD_BuffInfo& out)
+bool ZModule_Movable::GetHasteBuffInfo(CCTD_BuffInfo& out)
 {
 	if (!m_bHaste.Ref()) return false;
 	out.nItemId = m_nHasteItemId;

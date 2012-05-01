@@ -6,7 +6,7 @@
 #include <windowsx.h>
 #include "CCErrorTable.h"
 #include "CCCRC32.h"
-// #include "MPacketHShieldCrypter.h"
+// #include "CCPacketHShieldCrypter.h"
 #include "CCMatchConfig.h"
 
 static int g_LogCommObjectCreated = 0;
@@ -50,9 +50,9 @@ bool MServer::Create(int nPort, const bool bReuse )
 	
 	bool bResult = true;
 
-	if(MCommandCommunicator::Create()==false) 
+	if(CCCommandCommunicator::Create()==false) 
 	{
-		cclog( "MServer::Create - MCommandCommunicator::Create()==false\n" );
+		cclog( "MServer::Create - CCCommandCommunicator::Create()==false\n" );
 		bResult = false;
 	}
 	if(m_RealCPNet.Create(nPort, bReuse)==false) 
@@ -76,12 +76,12 @@ void MServer::Destroy(void)
 
 	LockCommList();
 		for(CCUIDRefCache::iterator i=m_CommRefCache.begin(); i!=m_CommRefCache.end(); i++){
-			delete (MCommObject*)(((*i).second));
+			delete (CCCommObject*)(((*i).second));
 		}
 		m_CommRefCache.clear();
 	UnlockCommList();
 
-	MCommandCommunicator::Destroy();
+	CCCommandCommunicator::Destroy();
 
 	DeleteCriticalSection(&m_csAcceptWaitQueue);
 	DeleteCriticalSection(&m_csCommList);
@@ -98,16 +98,16 @@ int MServer::GetCommObjCount()
 	return count;
 }
 
-void MServer::AddCommObject(const CCUID& uid, MCommObject* pCommObj)
+void MServer::AddCommObject(const CCUID& uid, CCCommObject* pCommObj)
 {
-	MCommObject* pOldCommObj = (MCommObject*)m_CommRefCache.GetRef(uid);
+	CCCommObject* pOldCommObj = (CCCommObject*)m_CommRefCache.GetRef(uid);
 	if (pOldCommObj != NULL)
 	{
 		return;
 	}
 
 	pCommObj->SetUID(uid);
-	MCommandBuilder* pCmdBuilder = pCommObj->GetCommandBuilder();
+	CCCommandBuilder* pCmdBuilder = pCommObj->GetCommandBuilder();
 	pCmdBuilder->SetUID(GetUID(), uid);
 
 	m_CommRefCache.insert(CCUIDRefCache::value_type(uid, pCommObj));
@@ -116,21 +116,21 @@ void MServer::AddCommObject(const CCUID& uid, MCommObject* pCommObj)
 
 void MServer::RemoveCommObject(const CCUID& uid)
 {
-	MCommObject* pNew = (MCommObject*)m_CommRefCache.Remove(uid);
+	CCCommObject* pNew = (CCCommObject*)m_CommRefCache.Remove(uid);
 	if (pNew) delete pNew;
 	g_LogCommObjectDestroyed++;
 }
 
-void MServer::InitCryptCommObject(MCommObject* pCommObj, unsigned int nTimeStamp)
+void MServer::InitCryptCommObject(CCCommObject* pCommObj, unsigned int nTimeStamp)
 {
-	MPacketCrypterKey key;
+	CCPacketCrypterKey key;
 
 	MMakeSeedKey(&key, m_This, pCommObj->GetUID(), nTimeStamp);
 	pCommObj->GetCrypter()->InitKey(&key);
 	pCommObj->GetCommandBuilder()->InitCrypt(pCommObj->GetCrypter(), true);
 }
 
-void MServer::PostSafeQueue(MCommand* pNew)
+void MServer::PostSafeQueue(CCCommand* pNew)
 {
 	LockSafeCmdQueue();
 	{
@@ -139,11 +139,11 @@ void MServer::PostSafeQueue(MCommand* pNew)
 	UnlockSafeCmdQueue();
 }
 
-void MServer::PostSafeQueue(MCommandBuilder* pCommandBuilder)
+void MServer::PostSafeQueue(CCCommandBuilder* pCommandBuilder)
 {
 	LockSafeCmdQueue();
 	{
-		MCommand *pNewCmd = NULL;
+		CCCommand *pNewCmd = NULL;
 		while(pNewCmd = pCommandBuilder->GetCommand()) {
 			m_SafeCmdQueue.push_back(pNewCmd);
 		}
@@ -151,20 +151,20 @@ void MServer::PostSafeQueue(MCommandBuilder* pCommandBuilder)
 	UnlockSafeCmdQueue();
 }
 
-void MServer::SendCommand(MCommand* pCommand)
+void MServer::SendCommand(CCCommand* pCommand)
 {
 	_ASSERT(pCommand->GetReceiverUID().High || pCommand->GetReceiverUID().Low);
 
 	DWORD nClientKey = NULL;
 	bool bGetComm = false;
 
-	MPacketCrypterKey CrypterKey;
+	CCPacketCrypterKey CrypterKey;
 
 	LockCommList();
-		MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(pCommand->m_Receiver);
+		CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(pCommand->m_Receiver);
 		if(pCommObj){
 			nClientKey = pCommObj->GetUserContext();
-			memcpy(&CrypterKey, pCommObj->GetCrypter()->GetKey(), sizeof(MPacketCrypterKey));
+			memcpy(&CrypterKey, pCommObj->GetCrypter()->GetKey(), sizeof(CCPacketCrypterKey));
 			bGetComm = true;
 		}
 	UnlockCommList();
@@ -191,9 +191,9 @@ void MServer::SendCommand(MCommand* pCommand)
 void MServer::OnPrepareRun(void)
 {
 	LockSafeCmdQueue();
-		MCommandList::iterator itorCmd;
+		CCCommandList::iterator itorCmd;
 		while ( (itorCmd = m_SafeCmdQueue.begin()) != m_SafeCmdQueue.end()) {
-			MCommand* pCmd = (*itorCmd);
+			CCCommand* pCmd = (*itorCmd);
 			m_SafeCmdQueue.pop_front();
 			GetCommandManager()->Post(pCmd);
 		}
@@ -205,7 +205,7 @@ void MServer::OnRun(void)
 
 }
 
-bool MServer::OnCommand(MCommand* pCommand)
+bool MServer::OnCommand(CCCommand* pCommand)
 {
 	switch(pCommand->GetID()){
 	case MC_LOCAL_LOGIN:
@@ -222,8 +222,8 @@ bool MServer::OnCommand(MCommand* pCommand)
 		{
 			char szMessage[256];
 			if (pCommand->GetParameter(szMessage, 0, MPT_STR, sizeof(szMessage) )==false) break;
-			MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_NET_ECHO), pCommand->m_Sender, m_This);
-			pNew->AddParameter(new MCommandParameterString(szMessage));
+			CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_NET_ECHO), pCommand->m_Sender, m_This);
+			pNew->AddParameter(new CCCommandParameterString(szMessage));
 			Post(pNew);
 			return true;
 		}
@@ -242,8 +242,8 @@ bool MServer::OnCommand(MCommand* pCommand)
 		{
 			CCUID uid;
 			if (pCommand->GetParameter(&uid, 0, MPT_UID)==false) break;
-			MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_NET_PING), uid, m_This);
-			pNew->AddParameter(new MCommandParameterUInt(timeGetTime()));
+			CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_NET_PING), uid, m_This);
+			pNew->AddParameter(new CCCommandParameterUInt(timeGetTime()));
 			Post(pNew);
 			return true;
 		}
@@ -253,8 +253,8 @@ bool MServer::OnCommand(MCommand* pCommand)
 		{
 			unsigned int nTimeStamp;
 			if (pCommand->GetParameter(&nTimeStamp, 0, MPT_UINT)==false) break;
-			MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_NET_PONG), pCommand->m_Sender, m_This);
-			pNew->AddParameter(new MCommandParameterUInt(nTimeStamp));
+			CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_NET_PONG), pCommand->m_Sender, m_This);
+			pNew->AddParameter(new CCCommandParameterUInt(nTimeStamp));
 			Post(pNew);
 			return true;
 		}
@@ -287,7 +287,7 @@ void MServer::OnNetPong(const CCUID& CommUID, unsigned int nTimeStamp)
 {
 }
 
-int MServer::Connect(MCommObject* pCommObj)
+int MServer::Connect(CCCommObject* pCommObj)
 {
 	/// Connecting Operation
 	/// ...
@@ -308,7 +308,7 @@ int MServer::Connect(MCommObject* pCommObj)
 	return MOK;
 }
 
-int MServer::ReplyConnect(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
+int MServer::ReplyConnect(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj)
 {
 	if (SendMsgReplyConnect(pTargetUID, pAllocUID, nTimeStamp, pCommObj) == true)
 		return MOK;
@@ -316,7 +316,7 @@ int MServer::ReplyConnect(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTim
 		return MERR_UNKNOWN;	
 }
 
-int MServer::OnAccept(MCommObject* pCommObj)
+int MServer::OnAccept(CCCommObject* pCommObj)
 {
 	// 할당할 수 있는 UID 공간이 없다.
 	CCUID AllocUID = UseUID();
@@ -331,9 +331,9 @@ int MServer::OnAccept(MCommObject* pCommObj)
 		m_AcceptWaitQueue.push_back(pCommObj);
 	UnlockAcceptWaitQueue();
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_LOCAL_LOGIN), m_This, m_This);
-	pNew->AddParameter(new MCommandParameterUID(pCommObj->GetUID()));
-	pNew->AddParameter(new MCommandParameterUID(CCUID(0,0)));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_LOCAL_LOGIN), m_This, m_This);
+	pNew->AddParameter(new CCCommandParameterUID(pCommObj->GetUID()));
+	pNew->AddParameter(new CCCommandParameterUID(CCUID(0,0)));
 	PostSafeQueue(pNew);
 
 	return MOK;
@@ -342,11 +342,11 @@ int MServer::OnAccept(MCommObject* pCommObj)
 // Login절차가 완성되면 Player고유의 PlayerUID사용. 임시로 생성된 AllocUID사용중
 void MServer::OnLocalLogin(CCUID CommUID, CCUID PlayerUID)
 {
-	MCommObject* pCommObj = NULL;
+	CCCommObject* pCommObj = NULL;
 
 	LockAcceptWaitQueue();
-	for (list<MCommObject*>::iterator i = m_AcceptWaitQueue.begin(); i!= m_AcceptWaitQueue.end(); i++) {
-		MCommObject* pTmpObj = (*i);
+	for (list<CCCommObject*>::iterator i = m_AcceptWaitQueue.begin(); i!= m_AcceptWaitQueue.end(); i++) {
+		CCCommObject* pTmpObj = (*i);
 		if (pTmpObj->GetUID() == CommUID) {
 			pCommObj = pTmpObj;
 			m_AcceptWaitQueue.erase(i);
@@ -378,7 +378,7 @@ void MServer::Disconnect( const CCUID& uid )
 	bool bGetComm = false;
 
 	LockCommList();
-		MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(uid);
+		CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(uid);
 		if(pCommObj){
 			nClientKey = pCommObj->GetUserContext();
 			bGetComm = true;
@@ -394,14 +394,14 @@ void MServer::Disconnect( const CCUID& uid )
 
 int MServer::OnDisconnect(const CCUID& uid)
 {
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_NET_CLEAR), m_This, m_This);
-	pNew->AddParameter(new MCommandParameterUID(uid));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_NET_CLEAR), m_This, m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uid));
 	PostSafeQueue(pNew);
 	
 	return MOK;
 }
 
-bool MServer::SendMsgReplyConnect(CCUID* pHostUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
+bool MServer::SendMsgReplyConnect(CCUID* pHostUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj)
 {
 	DWORD nKey = pCommObj->GetUserContext();
 	
@@ -417,10 +417,10 @@ bool MServer::SendMsgReplyConnect(CCUID* pHostUID, CCUID* pAllocUID, unsigned in
 	return m_RealCPNet.Send(nKey, pMsg, pMsg->nSize);
 }
 
-bool MServer::SendMsgCommand(DWORD nClientKey, char* pBuf, int nSize, unsigned short nMsgHeaderID, MPacketCrypterKey* pCrypterKey)
+bool MServer::SendMsgCommand(DWORD nClientKey, char* pBuf, int nSize, unsigned short nMsgHeaderID, CCPacketCrypterKey* pCrypterKey)
 {
-	int nBlockSize = nSize+sizeof(MPacketHeader);
-	MCommandMsg* pMsg = (MCommandMsg*)malloc(nBlockSize);
+	int nBlockSize = nSize+sizeof(CCPacketHeader);
+	CCCommandMsg* pMsg = (CCCommandMsg*)malloc(nBlockSize);
 	pMsg->Buffer[0] = 0;
 	pMsg->nCheckSum = 0;	// CheckSum에 포함되기 때문에 먼저 초기화 
 	pMsg->nMsg = nMsgHeaderID;;
@@ -437,17 +437,17 @@ bool MServer::SendMsgCommand(DWORD nClientKey, char* pBuf, int nSize, unsigned s
 
 //#ifdef _HSHIELD
 //		// 핵실드 암호화
-//		if (MPacketHShieldCrypter::Encrypt((PBYTE)&pMsg->nSize, sizeof(unsigned short)) != ERROR_SUCCESS)
+//		if (CCPacketHShieldCrypter::Encrypt((PBYTE)&pMsg->nSize, sizeof(unsigned short)) != ERROR_SUCCESS)
 //			return false;   
 //#else
 		// size 암호화
-		if (!MPacketCrypter::Encrypt((char*)&pMsg->nSize, sizeof(unsigned short), pCrypterKey))
+		if (!CCPacketCrypter::Encrypt((char*)&pMsg->nSize, sizeof(unsigned short), pCrypterKey))
 			return false;
 //#endif
 		char SendBuf[MAX_PACKET_SIZE];
 
 		// 커맨드 암호화
-		if (!MPacketCrypter::Encrypt(pBuf, nSize, SendBuf, nSize, pCrypterKey))
+		if (!CCPacketCrypter::Encrypt(pBuf, nSize, SendBuf, nSize, pCrypterKey))
 			return false;
 
 		CopyMemory(pMsg->Buffer, SendBuf, nSize);			
@@ -467,7 +467,7 @@ struct SOCKADDR_EXT : public SOCKADDR_IN {
 	char sin_ext[16];
 };
 
-void MServer::RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nKey, MPacketHeader* pPacket, DWORD dwPacketLen)
+void MServer::RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nKey, CCPacketHeader* pPacket, DWORD dwPacketLen)
 {
 	MServer* pServer = (MServer*)pCallbackContext;
 
@@ -479,7 +479,7 @@ void MServer::RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nK
 
 		pServer->m_RealCPNet.GetAddress(nKey, szIP, &nPort);
 
-		MCommObject* pCommObj = new MCommObject(pServer);
+		CCCommObject* pCommObj = new CCCommObject(pServer);
 		pCommObj->SetAddress(szIP, nPort);
 		pCommObj->SetUserContext(nKey);
 		pCommObj->SetPassiveSocket(true);
@@ -494,7 +494,7 @@ void MServer::RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nK
 	else if (nIO == RCP_IO_DISCONNECT) {
 		//pServer->DebugLog("MServer::RCPCallback(RCP_IO_DISCONNECT) \n");
 
-		MCommObject* pCommObj = (MCommObject*)pServer->m_RealCPNet.GetUserContext(nKey);
+		CCCommObject* pCommObj = (CCCommObject*)pServer->m_RealCPNet.GetUserContext(nKey);
 		if (pCommObj) {
 			pServer->OnDisconnect(pCommObj->GetUID());
 		}
@@ -504,13 +504,13 @@ void MServer::RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nK
 
 		bool bFloodCheck = pServer->IsFloodCheck();
 		pServer->LockCommList();
-		MCommObject* pCommObj = (MCommObject*)pServer->m_RealCPNet.GetUserContext(nKey);
+		CCCommObject* pCommObj = (CCCommObject*)pServer->m_RealCPNet.GetUserContext(nKey);
 		if ((pCommObj) && (pCommObj->IsAllowed()))
 		{
 			// New Cmd Buffer ////////////////
 			
 			// 080528 LockCommList 추가
-			MCommandBuilder* pCmdBuilder = pCommObj->GetCommandBuilder();
+			CCCommandBuilder* pCmdBuilder = pCommObj->GetCommandBuilder();
 
 			bool bIsFlooding = false;
 			if (!pCmdBuilder->Read((char*)pPacket, dwPacketLen, bFloodCheck, &bIsFlooding))
@@ -524,8 +524,8 @@ void MServer::RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nK
 
 				if( bIsFlooding ) {	
 					// Flooding 사용자 검출! 1시간동안 Ban하는 부분을 만들자!
-					MCommand* pNew = new MCommand(pServer->m_CommandManager.GetCommandDescByID(MC_NET_BANPLAYER_FLOODING), pServer->m_This, pServer->m_This);
-					pNew->AddParameter(new MCommandParameterUID(pCommObj->GetUID()));
+					CCCommand* pNew = new CCCommand(pServer->m_CommandManager.GetCommandDescByID(MC_NET_BANPLAYER_FLOODING), pServer->m_This, pServer->m_This);
+					pNew->AddParameter(new CCCommandParameterUID(pCommObj->GetUID()));
 					pServer->PostSafeQueue(pNew);
 
 					pCommObj->SetAllowed(false);				
@@ -544,7 +544,7 @@ void MServer::RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nK
 			{
 				pServer->PostSafeQueue(pCmdBuilder);
 
-				while(MPacketHeader* pNetCmd = pCmdBuilder->GetNetCommand()) {
+				while(CCPacketHeader* pNetCmd = pCmdBuilder->GetNetCommand()) {
 					if (pNetCmd->nMsg == MSGID_REPLYCONNECT) {
 						MReplyConnectMsg* pMsg = (MReplyConnectMsg*)pNetCmd;
 						CCUID HostUID, AllocUID;

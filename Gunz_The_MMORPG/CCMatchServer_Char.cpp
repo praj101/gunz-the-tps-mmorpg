@@ -37,7 +37,7 @@ void CCMatchServer::OnRequestAccountCharInfo(const CCUID& uidPlayer, int nCharNu
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MAsyncDBJob_GetAccountCharInfo* pJob=new MAsyncDBJob_GetAccountCharInfo(uidPlayer,pObj->GetAccountInfo()->m_nAID, nCharNum);
+	CCAsyncDBJob_GetAccountCharInfo* pJob=new CCAsyncDBJob_GetAccountCharInfo(uidPlayer,pObj->GetAccountInfo()->m_nAID, nCharNum);
 	
 	pObj->m_DBJobQ.DBJobQ.push_back( pJob );
 	// PostAsyncJob(pJob);
@@ -76,7 +76,7 @@ void CCMatchServer::OnRequestSelectChar(const CCUID& uidPlayer, const int nCharI
 #endif
 
 	// Async DB //////////////////////////////
-	MAsyncDBJob_GetCharInfo* pJob=new MAsyncDBJob_GetCharInfo(uidPlayer, pObj->GetAccountInfo()->m_nAID, nCharIndex);
+	CCAsyncDBJob_GetCharInfo* pJob=new CCAsyncDBJob_GetCharInfo(uidPlayer, pObj->GetAccountInfo()->m_nAID, nCharIndex);
 	pJob->SetCharInfo(new CCMatchCharInfo);
 	pObj->m_DBJobQ.DBJobQ.push_back( pJob );
 	//pJob->SetFriendInfo(new CCMatchFriendInfo);
@@ -97,7 +97,7 @@ bool CCMatchServer::ResponseDeleteChar(const CCUID& uidPlayer, const int nCharIn
 	if ((nCharIndex < 0) || (nCharIndex >= MAX_CHAR_COUNT)) return false;
 
 	// 생성조건 통과 - Post AsyncJob
-	MAsyncDBJob_DeleteChar* pJob = new MAsyncDBJob_DeleteChar(uidPlayer, pObj->GetAccountInfo()->m_nAID, nCharIndex, szCharName);
+	CCAsyncDBJob_DeleteChar* pJob = new CCAsyncDBJob_DeleteChar(uidPlayer, pObj->GetAccountInfo()->m_nAID, nCharIndex, szCharName);
 	pObj->m_DBJobQ.DBJobQ.push_back( pJob );
 	// PostAsyncJob(pJob);
 
@@ -124,9 +124,9 @@ bool CCMatchServer::ResponseCreateChar(const CCUID& uidPlayer, const int nCharIn
 	   (nFace >= MAX_COSTUME_FACE) || (nCostume >= MAX_COSTUME_TEMPLATE)) 
 	{
 		int nResult = -1;	// false
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, CCUID(0,0));
-		pNewCmd->AddParameter(new MCommandParameterInt(nResult));			// result
-		pNewCmd->AddParameter(new MCommandParameterString(szCharName));		// 만들어진 캐릭터 이름
+		CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, CCUID(0,0));
+		pNewCmd->AddParameter(new CCCommandParameterInt(nResult));			// result
+		pNewCmd->AddParameter(new CCCommandParameterString(szCharName));		// 만들어진 캐릭터 이름
 		RouteToListener(pObj, pNewCmd);
 		return false;
 	}
@@ -135,16 +135,16 @@ bool CCMatchServer::ResponseCreateChar(const CCUID& uidPlayer, const int nCharIn
 
 	nResult = ValidateMakingName(szCharName, MIN_CHARNAME, MAX_CHARNAME);
 	if (nResult != MOK) {
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, CCUID(0,0));
-		pNewCmd->AddParameter(new MCommandParameterInt(nResult));			// result
-		pNewCmd->AddParameter(new MCommandParameterString(szCharName));		// 만들어진 캐릭터 이름
+		CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CREATE_CHAR, CCUID(0,0));
+		pNewCmd->AddParameter(new CCCommandParameterInt(nResult));			// result
+		pNewCmd->AddParameter(new CCCommandParameterString(szCharName));		// 만들어진 캐릭터 이름
 		RouteToListener(pObj, pNewCmd);
 
 		return false;
 	}	
 
 	// 생성조건 통과 - Post AsyncJob
-	MAsyncDBJob_CreateChar* pJob = new MAsyncDBJob_CreateChar(uidPlayer, pObj->GetAccountInfo()->m_nAID, 
+	CCAsyncDBJob_CreateChar* pJob = new CCAsyncDBJob_CreateChar(uidPlayer, pObj->GetAccountInfo()->m_nAID, 
 											szCharName, nCharIndex, nSex, nHair, nFace, nCostume);
 	
 
@@ -218,8 +218,8 @@ bool CCMatchServer::CharInitialize(const CCUID& uidPlayer)
 	if (pCharInfo->m_ClanInfo.IsJoined())
 	{
 		// 클랜원에게 접속알림
-		MCommand* pNew = CreateCommand(MC_MATCH_CLAN_MEMBER_CONNECTED, CCUID(0,0));
-		pNew->AddParameter(new MCommandParameterString((char*)pCharInfo->m_szName));
+		CCCommand* pNew = CreateCommand(MC_MATCH_CLAN_MEMBER_CONNECTED, CCUID(0,0));
+		pNew->AddParameter(new CCCommandParameterString((char*)pCharInfo->m_szName));
 		RouteToClan(pCharInfo->m_ClanInfo.m_nClanID, pNew);
 
 
@@ -307,7 +307,7 @@ void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 void CCMatchServer::ResponseExpiredItemIDList(CCMatchObject* pObj, vector<unsigned long int>& vecExpiredItemIDList)
 {
 	int nBlobSize = (int)vecExpiredItemIDList.size();
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_EXPIRED_RENT_ITEM, CCUID(0,0));
+	CCCommand* pNewCmd = CreateCommand(MC_MATCH_EXPIRED_RENT_ITEM, CCUID(0,0));
 	
 	void* pExpiredItemIDArray = MMakeBlobArray(sizeof(unsigned long int), nBlobSize);
 
@@ -316,7 +316,7 @@ void CCMatchServer::ResponseExpiredItemIDList(CCMatchObject* pObj, vector<unsign
 		unsigned long int *pItemID = (unsigned long int*)MGetBlobArrayElement(pExpiredItemIDArray, i);
 		*pItemID = vecExpiredItemIDList[i];
 	}
-	pNewCmd->AddParameter(new MCommandParameterBlob(pExpiredItemIDArray, MGetBlobArraySize(pExpiredItemIDArray)));
+	pNewCmd->AddParameter(new CCCommandParameterBlob(pExpiredItemIDArray, MGetBlobArraySize(pExpiredItemIDArray)));
 	MEraseBlobArray(pExpiredItemIDArray);
 	RouteToListener(pObj, pNewCmd);
 }
@@ -364,7 +364,7 @@ bool CCMatchServer::CharFinalize(const CCUID& uidPlayer)
 	if( NULL != pObj->GetAccountInfo() )
 		nAID = pObj->GetAccountInfo()->m_nAID;
 
-	MAsyncDBJob_UpdateAccountLastLoginTime* pUpdateAccountLastLoginTimeJob = new MAsyncDBJob_UpdateAccountLastLoginTime(uidPlayer);
+	CCAsyncDBJob_UpdateAccountLastLoginTime* pUpdateAccountLastLoginTimeJob = new CCAsyncDBJob_UpdateAccountLastLoginTime(uidPlayer);
 	if( NULL != pUpdateAccountLastLoginTimeJob )
 	{
 		pUpdateAccountLastLoginTimeJob->Input( pObj->GetAccountInfo()->m_nAID );
@@ -391,7 +391,7 @@ bool CCMatchServer::CharFinalize(const CCUID& uidPlayer)
 			nPlayTime = MGetTimeDistance(pCharInfo->m_nConnTime, nNowTime) / 1000;
 		}
 
-		MAsyncDBJob_CharFinalize* pJob = new MAsyncDBJob_CharFinalize(uidPlayer);
+		CCAsyncDBJob_CharFinalize* pJob = new CCAsyncDBJob_CharFinalize(uidPlayer);
 		pJob->Input(nAID,
 			pCharInfo->m_nCID, 
 			nPlayTime, 
@@ -434,16 +434,16 @@ void CCMatchServer::ResponseMySimpleCharInfo(const CCUID& uidPlayer)
 
 	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_MY_SIMPLE_CHARINFO, CCUID(0,0));
+	CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_MY_SIMPLE_CHARINFO, CCUID(0,0));
 
-	void* pMyCharInfoArray = MMakeBlobArray(sizeof(MTD_MySimpleCharInfo), 1);
-	MTD_MySimpleCharInfo* pMyCharInfo = (MTD_MySimpleCharInfo*)MGetBlobArrayElement(pMyCharInfoArray, 0);
+	void* pMyCharInfoArray = MMakeBlobArray(sizeof(CCTD_MySimpleCharInfo), 1);
+	CCTD_MySimpleCharInfo* pMyCharInfo = (CCTD_MySimpleCharInfo*)MGetBlobArrayElement(pMyCharInfoArray, 0);
 
 	pMyCharInfo->nXP = pCharInfo->m_nXP;
 	pMyCharInfo->nBP = pCharInfo->m_nBP;
 	pMyCharInfo->nLevel = pCharInfo->m_nLevel;
 
-	pNewCmd->AddParameter(new MCommandParameterBlob(pMyCharInfoArray, MGetBlobArraySize(pMyCharInfoArray)));
+	pNewCmd->AddParameter(new CCCommandParameterBlob(pMyCharInfoArray, MGetBlobArraySize(pMyCharInfoArray)));
 	MEraseBlobArray(pMyCharInfoArray);
 
 	RouteToListener(pObj, pNewCmd);
@@ -471,8 +471,8 @@ void CCMatchServer::ResponseCopyToTestServer(const CCUID& uidPlayer, const int n
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_COPY_TO_TESTSERVER, CCUID(0,0));
-	pNewCmd->AddParameter(new MCommandParameterInt(nResult));		// result
+	CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_COPY_TO_TESTSERVER, CCUID(0,0));
+	pNewCmd->AddParameter(new CCCommandParameterInt(nResult));		// result
 	RouteToListener(pObj, pNewCmd);
 }
 
@@ -573,7 +573,7 @@ void CCMatchServer::OnFriendList(const CCUID& uidPlayer)
 	// ASync DB
 	if (!pObj->DBFriendListRequested())
 	{
-		MAsyncDBJob_FriendList* pJob=new MAsyncDBJob_FriendList(uidPlayer, pObj->GetCharInfo()->m_nCID);
+		CCAsyncDBJob_FriendList* pJob=new CCAsyncDBJob_FriendList(uidPlayer, pObj->GetCharInfo()->m_nCID);
 		pJob->SetFriendInfo(new CCMatchFriendInfo);
 		pObj->m_DBJobQ.DBJobQ.push_back( pJob );
 		// PostAsyncJob(pJob);
@@ -608,8 +608,8 @@ void CCMatchServer::FriendList(const CCUID& uidPlayer)
 		strcpy(pListNode->szDescription, pNode->szDescription);
 	}
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_FRIENDLIST, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterBlob(pListArray, MGetBlobArraySize(pListArray)));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_FRIENDLIST, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterBlob(pListArray, MGetBlobArraySize(pListArray)));
 	MEraseBlobArray(pListArray);
 	RouteToListener(pObj, pCmd);
 }
@@ -644,12 +644,12 @@ void CCMatchServer::ResponseCharInfoDetail(const CCUID& uidChar, const char* szC
 	CopyCharInfoDetailForTrans(&trans_charinfo_detail, pTarObject->GetCharInfo(), pTarObject);
 	
 
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CHARINFO_DETAIL, CCUID(0,0));
+	CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CHARINFO_DETAIL, CCUID(0,0));
 
 	void* pCharInfoArray = MMakeBlobArray(sizeof(CCTD_CharInfo_Detail), 1);
 	CCTD_CharInfo_Detail* pTransCharInfoDetail = (CCTD_CharInfo_Detail*)MGetBlobArrayElement(pCharInfoArray, 0);
 	memcpy(pTransCharInfoDetail, &trans_charinfo_detail, sizeof(CCTD_CharInfo_Detail));
-	pNewCmd->AddParameter(new MCommandParameterBlob(pCharInfoArray, MGetBlobArraySize(pCharInfoArray)));
+	pNewCmd->AddParameter(new CCCommandParameterBlob(pCharInfoArray, MGetBlobArraySize(pCharInfoArray)));
 	MEraseBlobArray(pCharInfoArray);
 
 	RouteToListener(pObject, pNewCmd);

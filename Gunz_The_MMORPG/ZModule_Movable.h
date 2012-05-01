@@ -77,7 +77,7 @@ public:
 	void SetMoveSpeedRestrictRatio(float fRatio, float fDuration);
 	void SetMoveSpeedHasteRatio(float fRatio, float fDuration, int nItemId);
 
-	bool GetHasteBuffInfo(MTD_BuffInfo& out);
+	bool GetHasteBuffInfo(CCTD_BuffInfo& out);
 
 	void ForceCollRadius35(bool b) { m_bForceCollRadius35 = b; }
 	

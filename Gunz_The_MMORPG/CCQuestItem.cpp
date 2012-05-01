@@ -490,7 +490,7 @@ bool DBQuestCachingData::DoUpdateDBCharQuestItemInfo()
 		return false;
 	}
 
-	MAsyncDBJob_UpdateQuestItemInfo* pAsyncJob = new MAsyncDBJob_UpdateQuestItemInfo(m_pObject->GetUID());
+	CCAsyncDBJob_UpdateQuestItemInfo* pAsyncJob = new CCAsyncDBJob_UpdateQuestItemInfo(m_pObject->GetUID());
 	if( 0 == pAsyncJob )
 	{
 		cclog( "DBQuestCachingData::DoUpdateDBCharQuestItemInfo - QuestItemUpdate async작업 실패.\n" );

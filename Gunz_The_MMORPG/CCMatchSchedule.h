@@ -6,7 +6,7 @@
 using std::vector;
 using std::list;
 
-class MCommand;
+class CCCommand;
 class MServer;
 class CCMatchScheduleImpl;
 
@@ -72,7 +72,7 @@ public:
 	void CorrectTime();
 
 	inline int					GetType()		{ return m_nType; }
-	inline MCommand*			GetCommand()	{ return m_pCmd; }
+	inline CCCommand*			GetCommand()	{ return m_pCmd; }
 	inline bool					IsNeedDelete()	{ return m_bIsNeedDelete; }
 	inline CCMatchScheduleImpl*	GetImpl()		{ return m_pImpl; }
 	inline int					GetErrorTime()	{ return m_nErrorTime; }
@@ -95,7 +95,7 @@ public:
 	inline unsigned char GetNextMin()	{ return m_cNextMin; }
 
 	inline void SetType( const int nType )				{ m_nType = nType; }
-	inline void SetCommand( MCommand* pCmd )			{ m_pCmd = pCmd; }
+	inline void SetCommand( CCCommand* pCmd )			{ m_pCmd = pCmd; }
 	inline void SetImpl( CCMatchScheduleImpl* pImpl )	{ m_pImpl = pImpl; }
 	inline void SetDeleteState( const bool bState )		{ m_bIsNeedDelete = bState; }
 	inline void SetErrorTime( const int nErrorTime )	{ m_nErrorTime = nErrorTime; }
@@ -134,7 +134,7 @@ public:
 private :
 	// int				nID;
 	int					m_nType;			// 스케쥴 타입( REPAT, COUNT, ONCE ).
-	MCommand*			m_pCmd;				// 스케쥴이 활성화 되었을때 실행할 명령.
+	CCCommand*			m_pCmd;				// 스케쥴이 활성화 되었을때 실행할 명령.
 	bool				m_bIsNeedDelete;	// true이면 스케쥴을 제거 또는 비활성화 함.
 	CCMatchScheduleImpl*	m_pImpl;			// 스케쥴이 수행되기전에 해야 할 수행자.
 
@@ -233,7 +233,7 @@ public :
 												const unsigned char cNextDay,	// 다음에 실행될 일의 상대값.	ex) 1일 후.
 												const unsigned char cNextHour,	// 다음에 실행될 시간의 상대값.	ex) 1시간 후.
 												const unsigned char cNextMin,	// 다음에 실행될 분의 상대값.	ex) 1분 후.
-												MCommand* pCmd					// 수행할 명령.
+												CCCommand* pCmd					// 수행할 명령.
 												);
 	CCMatchScheduleData* MakeCountScheduleData( const unsigned char cNextYear,	// 다음에 실행될 해의 상대값.	ex) 1년 후.
 											   const unsigned char cNextMonth,	// 다음에 실행될 달의 상대값.	ex) 1달 후.
@@ -241,14 +241,14 @@ public :
 											   const unsigned char cNextHour,	// 다음에 실행될 시간의 상대값.	ex) 1시간 후.
 											   const unsigned char cNextMin,	// 다음에 실행될 분의 상대값.	ex) 1분 후.
 											   const unsigned int nCount,		// 실행될 횟수.
-											   MCommand* pCmd					// 수행할 명령.
+											   CCCommand* pCmd					// 수행할 명령.
 											   );
 	CCMatchScheduleData* MakeOnceScheduleData( const unsigned char cYear,	// 실행될 해.
 											  const unsigned char cMonth,	// 실행될 달.
 											  const unsigned char cDay,		// 실행될 날.
                                               const unsigned char cHour,	// 실행될 시간.
                                               const unsigned char cMin,		// 실행될 분.
-                                              MCommand* pCmd				// 수행할 명령.	
+                                              CCCommand* pCmd				// 수행할 명령.	
 											  );
 
 	// 초기화.
@@ -332,4 +332,4 @@ private :
 struct tm* CCMatchGetLocalTime();
 char GetMaxDay( const int iMonth );
 char GetMaxDay();
-bool AddDynamicSchedule( CCMatchScheduleMgr* pScheduleMgr, const int nType, MCommand* pCmd, const int nYear, const int nMonth, const int nDay, const int nHour, const int nMin, const int nCount );
+bool AddDynamicSchedule( CCMatchScheduleMgr* pScheduleMgr, const int nType, CCCommand* pCmd, const int nYear, const int nMonth, const int nDay, const int nHour, const int nMin, const int nCount );

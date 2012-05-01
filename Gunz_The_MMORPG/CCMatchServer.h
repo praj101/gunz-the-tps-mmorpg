@@ -23,7 +23,7 @@
 #include "CCMatchStringResManager.h"
 #include "CCMatchEventManager.h"
 #include "CCMatchGambleMachine.h"
-#include "CCHackingCharList.h"
+#include "CCHackingChatList.h"
 #include "CCMatchObjectCommandHistory.h"
 #include "CCConnectHistory.h"
 
@@ -94,7 +94,7 @@ protected:
 	DWORD				m_checkMemory5;
 	CCMatchClanMap		m_ClanMap;
 	DWORD				m_checkMemory6;
-	MAgentObjectMap		m_AgentMap;
+	CCAgentObjectMap		m_AgentMap;
 	DWORD				m_checkMemory7;
 
 
@@ -103,7 +103,7 @@ protected:
 	DWORD				m_checkMemory9;
 	CCMatchDBMgr			m_MatchDBMgr;
 	DWORD				m_checkMemory10;
-	MAsyncProxy			m_AsyncProxy;
+	CCAsyncProxy			m_AsyncProxy;
 	DWORD				m_checkMemory11;
 	CCMatchAdmin			m_Admin;
 	DWORD				m_checkMemory12;
@@ -188,16 +188,16 @@ protected:
 	/// Destroy()호출시에 불리는 함수
 	virtual void OnDestroy(void);
 	/// 사용자 커맨드 등록
-	virtual void OnRegisterCommand(MCommandManager* pCommandManager);
+	virtual void OnRegisterCommand(CCCommandManager* pCommandManager);
 	/// 사용자 커맨드 처리
-	virtual bool OnCommand(MCommand* pCommand);
+	virtual bool OnCommand(CCCommand* pCommand);
 	/// 사용자 루프
 	virtual void OnRun(void);
 	/// 루프 전
 	virtual void OnPrepareRun();
 
-	virtual int Connect(MCommObject* pCommObj);	// 연결실패시 반드시 Disconnect() 호출해야함;
-	virtual int OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
+	virtual int Connect(CCCommObject* pCommObj);	// 연결실패시 반드시 Disconnect() 호출해야함;
+	virtual int OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj);
 
 	// virtual void OnNetClear(const CCUID& CommUID);
 	virtual void OnNetPong(const CCUID& CommUID, unsigned int nTimeStamp);
@@ -227,36 +227,36 @@ protected:
 
 	/// UDP
 	CCSafeUDP* GetSafeUDP() { return &m_SafeUDP; }
-	void SendCommandByUDP(MCommand* pCommand, char* szIP, int nPort);
-	void ParsePacket(char* pData, MPacketHeader* pPacketHeader, DWORD dwIP, WORD wRawPort);
+	void SendCommandByUDP(CCCommand* pCommand, char* szIP, int nPort);
+	void ParsePacket(char* pData, CCPacketHeader* pPacketHeader, DWORD dwIP, WORD wRawPort);
 	static bool UDPSocketRecvEvent(DWORD dwIP, WORD wRawPort, char* pPacket, DWORD dwSize);
-	void ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DWORD dwIP, WORD wRawPort);
+	void ParseUDPPacket(char* pData, CCPacketHeader* pPacketHeader, DWORD dwIP, WORD wRawPort);
 
 	/// Async DB
 	void ProcessAsyncJob();
-	void OnAsyncGetAccountCharList(MAsyncJob* pJobResult);
-	void OnAsyncGetAccountCharInfo(MAsyncJob* pJobResult);
-	void OnAsyncGetCharInfo(MAsyncJob* pJobResult);
-	void OnAsyncCreateChar(MAsyncJob* pJobResult);
-	void OnAsyncDeleteChar(MAsyncJob* pJobResult);
-	void OnAsyncGetFriendList(MAsyncJob* pJobInput);
-	void OnAsyncGetLoginInfo(MAsyncJob* pJobInput);
-	void OnAsyncWinTheClanGame(MAsyncJob* pJobInput);
-	void OnAsyncUpdateCharInfoData(MAsyncJob* pJobInput);
-	void OnAsyncCharFinalize(MAsyncJob* pJobInput);
-	void OnAsyncInsertConnLog(MAsyncJob* pJobResult);
-	void OnAsyncInsertGameLog(MAsyncJob* pJobResult);
-	void OnAsyncCreateClan(MAsyncJob* pJobResult);
-	void OnAsyncExpelClanMember(MAsyncJob* pJobResult);
-	void OnAsyncInsertEvent( MAsyncJob* pJobResult );
-	void OnAsyncUpdateIPtoCoutryList( MAsyncJob* pJobResult );
-	void OnAsyncUpdateBlockCountryCodeList( MAsyncJob* pJobResult );
-	void OnAsyncUpdateCustomIPList( MAsyncJob* pJobResult );
-	void OnAsyncGetAccountItemList( MAsyncJob* pJobResult );
-	void OnAsyncBuyQuestItem( MAsyncJob* pJobResult );
+	void OnAsyncGetAccountCharList(CCAsyncJob* pJobResult);
+	void OnAsyncGetAccountCharInfo(CCAsyncJob* pJobResult);
+	void OnAsyncGetCharInfo(CCAsyncJob* pJobResult);
+	void OnAsyncCreateChar(CCAsyncJob* pJobResult);
+	void OnAsyncDeleteChar(CCAsyncJob* pJobResult);
+	void OnAsyncGetFriendList(CCAsyncJob* pJobInput);
+	void OnAsyncGetLoginInfo(CCAsyncJob* pJobInput);
+	void OnAsyncWinTheClanGame(CCAsyncJob* pJobInput);
+	void OnAsyncUpdateCharInfoData(CCAsyncJob* pJobInput);
+	void OnAsyncCharFinalize(CCAsyncJob* pJobInput);
+	void OnAsyncInsertConnLog(CCAsyncJob* pJobResult);
+	void OnAsyncInsertGameLog(CCAsyncJob* pJobResult);
+	void OnAsyncCreateClan(CCAsyncJob* pJobResult);
+	void OnAsyncExpelClanMember(CCAsyncJob* pJobResult);
+	void OnAsyncInsertEvent( CCAsyncJob* pJobResult );
+	void OnAsyncUpdateIPtoCoutryList( CCAsyncJob* pJobResult );
+	void OnAsyncUpdateBlockCountryCodeList( CCAsyncJob* pJobResult );
+	void OnAsyncUpdateCustomIPList( CCAsyncJob* pJobResult );
+	void OnAsyncGetAccountItemList( CCAsyncJob* pJobResult );
+	void OnAsyncBuyQuestItem( CCAsyncJob* pJobResult );
 
 
-	virtual void OnProcessAsyncJob( MAsyncJob* pJob ) {}
+	virtual void OnProcessAsyncJob( CCAsyncJob* pJob ) {}
 
 	/// 스케쥴러 초기화
 	bool InitScheduler();
@@ -270,7 +270,7 @@ protected:
 	bool IsEquipmentTypeItem( const CCMatchItemDesc* pItemDesc );
 public:
 	/// Async DB
-	void PostAsyncJob(MAsyncJob* pJob );
+	void PostAsyncJob(CCAsyncJob* pJob );
 
 private :
 	// 추가적인 스케쥬을 추가하려면 이 함수를 재정의 하면 됨.
@@ -328,15 +328,15 @@ protected:
 	bool StageMaster(const CCUID& uidStage);
 
 protected:
-	MCommand* CreateCmdResponseStageSetting(const CCUID& uidStage);
-	MCommand* CreateCmdMatchResponseLoginOK(const CCUID& uidComm, 
+	CCCommand* CreateCmdResponseStageSetting(const CCUID& uidStage);
+	CCCommand* CreateCmdMatchResponseLoginOK(const CCUID& uidComm, 
 		CCUID& uidPlayer, 
 		const char* szUserID, 
 		CCMatchUserGradeID nUGradeID, 
 		CCMatchPremiumGradeID nPGradeID,
 		//											const unsigned char* szRandomValue,
 		const unsigned char* pbyGuidReqMsg);
-	MCommand* CreateCmdMatchResponseLoginFailed(const CCUID& uidComm, const int nResult);
+	CCCommand* CreateCmdMatchResponseLoginFailed(const CCUID& uidComm, const int nResult);
 
 
 	float GetDuelVictoryMultiflier(int nVictorty);		// 듀얼 연승일때의 가중치~
@@ -357,7 +357,7 @@ protected:
 	void OnStageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLeaveBattle);//, const CCUID& uidStage);
 	void OnStageChat(const CCUID& uidPlayer, const CCUID& uidStage, char* pszChat);
 	void OnRequestQuickJoin(const CCUID& uidPlayer, void* pQuickJoinBlob);
-	void ResponseQuickJoin(const CCUID& uidPlayer, MTD_QuickJoinParam* pQuickJoinParam);
+	void ResponseQuickJoin(const CCUID& uidPlayer, CCTD_QuickJoinParam* pQuickJoinParam);
 	void OnStageGo(const CCUID& uidPlayer, unsigned int nRoomNo);
 	void OnStageTeam(const CCUID& uidPlayer, const CCUID& uidStage, CCMatchTeam nTeam);
 	void OnStagePlayerState(const CCUID& uidPlayer, const CCUID& uidStage, CCMatchObjectStageState nStageState);
@@ -381,7 +381,7 @@ protected:
 	void OnGameRoundState(const CCUID& uidStage, int nState, int nRound);
 	// 코드 정리로 MBMatchServer로 내려감. 하지만 CCMatchStage에서 사용하고 있어서 인터페이스만 남김. - by SungE 2007-07-05
 
-	void OnRequestSpawn(const CCUID& uidChar, const MVector& pos, const MVector& dir);
+	void OnRequestSpawn(const CCUID& uidChar, const CCVector& pos, const CCVector& dir);
 	void OnGameRequestTimeSync(const CCUID& uidComm, unsigned long nLocalTimeStamp);
 	void OnGameReportTimeSync(const CCUID& uidComm, unsigned long nLocalTimeStamp, unsigned int nDataChecksum);
 	void OnUpdateFinishedRound(const CCUID& uidStage, const CCUID& uidChar, 
@@ -415,7 +415,7 @@ protected:	// 래더
 	void OnLadderInviteAgree(const CCUID& uidPlayer);
 	void OnLadderInviteCancel(const CCUID& uidPlayer);
 	bool IsLadderRequestUserInRequestClanMember( const CCUID& uidRequestMember
-		, const MTD_LadderTeamMemberNode* pRequestMemberNode );
+		, const CCTD_LadderTeamMemberNode* pRequestMemberNode );
 	void OnLadderRequestChallenge(const CCUID& uidRequestMember, void* pGroupBlob, unsigned long int nOptions);
 	void OnLadderRequestCancelChallenge(const CCUID& uidPlayer);
 
@@ -542,7 +542,7 @@ protected:
 
 public:
 	void OnDuelSetObserver(const CCUID& uidChar);
-	void OnDuelQueueInfo(const CCUID& uidStage, const MTD_DuelQueueInfo& QueueInfo);	// 쳇-.-
+	void OnDuelQueueInfo(const CCUID& uidStage, const CCTD_DuelQueueInfo& QueueInfo);	// 쳇-.-
 	void OnQuestSendPing(const CCUID& uidStage, unsigned long int t);
 
 protected :
@@ -578,7 +578,7 @@ protected :
 
 protected:
 	// 퀘스트 관련
-	void OnRequestNPCDead(const CCUID& uidSender, const CCUID& uidKiller, CCUID& uidNPC, MVector& pos);
+	void OnRequestNPCDead(const CCUID& uidSender, const CCUID& uidKiller, CCUID& uidNPC, CCVector& pos);
 	void OnQuestRequestDead(const CCUID& uidVictim);
 	void OnQuestTestRequestNPCSpawn(const CCUID& uidPlayer, int nNPCType, int nNPCCount);
 	void OnQuestTestRequestClearNPC(const CCUID& uidPlayer);
@@ -608,13 +608,13 @@ public :
 
 
 	int AgentAdd(const CCUID& uidComm);													/// Agent 생성	
-	int AgentRemove(const CCUID& uidAgent, MAgentObjectMap::iterator* pNextItor);		/// Agent 제거	
+	int AgentRemove(const CCUID& uidAgent, CCAgentObjectMap::iterator* pNextItor);		/// Agent 제거	
 	void AgentClear();																	/// 종료시 청소
 
 	/// Agent
-	MAgentObject* GetAgent(const CCUID& uidAgent);
-	MAgentObject* GetAgentByCommUID(const CCUID& uidComm);	
-	MAgentObject* FindFreeAgent();
+	CCAgentObject* GetAgent(const CCUID& uidAgent);
+	CCAgentObject* GetAgentByCommUID(const CCUID& uidComm);	
+	CCAgentObject* FindFreeAgent();
 	void ReserveAgent(CCMatchStage* pStage);
 
 protected:
@@ -642,32 +642,32 @@ public:
 
 	/// 서버의 공지 메시지 전송
 	void Announce(const CCUID& CommUID, char* pszMsg);
-	void Announce(MObject* pObj, char* pszMsg);
+	void Announce(CCObject* pObj, char* pszMsg);
 	/// 서버의 에러 메시지 전송
 	void AnnounceErrorMsg(const CCUID& CommUID, const int nErrorCode);
-	void AnnounceErrorMsg(MObject* pObj, const int nErrorCode);
+	void AnnounceErrorMsg(CCObject* pObj, const int nErrorCode);
 	/// Command를 Object의 Listener에게 전송
-	void RouteToListener(MObject* pObject, MCommand* pCommand);
+	void RouteToListener(CCObject* pObject, CCCommand* pCommand);
 	/// Command를 전체 커낵션으로 전송
-	void RouteToAllConnection(MCommand* pCommand);
+	void RouteToAllConnection(CCCommand* pCommand);
 	/// Command를 전체 클라이언트로 전송
-	void RouteToAllClient(MCommand* pCommand);
+	void RouteToAllClient(CCCommand* pCommand);
 	/// Command를 지정 Channel 참가자에게 전송
-	void RouteToChannel(const CCUID& uidChannel, MCommand* pCommand);
+	void RouteToChannel(const CCUID& uidChannel, CCCommand* pCommand);
 	/// Command를 지정 Channel 로비에 있는 참가자에게 전송
-	void RouteToChannelLobby(const CCUID& uidChannel, MCommand* pCommand);
+	void RouteToChannelLobby(const CCUID& uidChannel, CCCommand* pCommand);
 	/// Command를 지정 Stage 참가자에게 전송
-	void RouteToStage(const CCUID& uidStage, MCommand* pCommand);
+	void RouteToStage(const CCUID& uidStage, CCCommand* pCommand);
 	/// Command를 지정 Stage 내의 지정 참가자에게 전송
-	void RouteToObjInStage(const CCUID& uidStage, const CCUID& uidTargetObj, MCommand* pCommand);
+	void RouteToObjInStage(const CCUID& uidStage, const CCUID& uidTargetObj, CCCommand* pCommand);
 	/// Command를 지정 Stage 대기방 참가자에게 전송
-	void RouteToStageWaitRoom(const CCUID& uidStage, MCommand* pCommand);
+	void RouteToStageWaitRoom(const CCUID& uidStage, CCCommand* pCommand);
 	/// Command를 지정 Stage 배틀 참가자에게 전송
-	void RouteToBattle(const CCUID& uidStage, MCommand* pCommand);
+	void RouteToBattle(const CCUID& uidStage, CCCommand* pCommand);
 	/// Command를 지정 Clan 에게 전송
-	void RouteToClan(const int nCLID, MCommand* pCommand);
+	void RouteToClan(const int nCLID, CCCommand* pCommand);
 	// int 결과값있는 Command를 지정 Object Listener에게 전송
-	void RouteResponseToListener(MObject* pObject, const int nCmdID, int nResult);
+	void RouteResponseToListener(CCObject* pObject, const int nCmdID, int nResult);
 
 	void ResponseBridgePeer(const CCUID& uidChar, int nCode);
 	void ResponseRoundState(const CCUID& uidStage);
@@ -797,7 +797,7 @@ public :
 	void RequestGameguardAuth( const CCUID& uidUser, const DWORD dwIndex, const DWORD dwValue1, const DWORD dwValue2, const DWORD dwValue3 );
 	void RequestFirstGameguardAuth( const CCUID& uidUser, const DWORD dwIndex, const DWORD dwValue1, const DWORD dwValue2, const DWORD dwValue3 );
 
-	virtual bool IsSkeepByGameguardFirstAuth( MCommand* pCommand ) { return true; }
+	virtual bool IsSkeepByGameguardFirstAuth( CCCommand* pCommand ) { return true; }
 	//------------------- gameguard -------------------------------
 
 	// ---------------- Monitor --------------------------
@@ -821,9 +821,9 @@ public :
 	bool OnRequestSurvivalModePrivateRanking( const CCUID& uidStage, const CCUID& uidPlayer, DWORD dwScenarioID, DWORD dwCID );
 	bool OnPostSurvivalModeGameLog();
 
-	void OnAsyncSurvivalModeGroupRanking(MAsyncJob *pJobResult);
-	void OnAsyncSurvivalModePrivateRanking(MAsyncJob *pJobResult);
-	void OnAsyncSurvivalModeGameLog(MAsyncJob *pJobResult);
+	void OnAsyncSurvivalModeGroupRanking(CCAsyncJob *pJobResult);
+	void OnAsyncSurvivalModePrivateRanking(CCAsyncJob *pJobResult);
+	void OnAsyncSurvivalModeGameLog(CCAsyncJob *pJobResult);
 
 	virtual void Log(unsigned int nLogLevel, const char* szLog);
 
@@ -835,17 +835,17 @@ protected :
 
 	void ResponseDuelTournamentCharSideRanking(CCUID &uidPlayer);
 	void ResponseChannelJoin(CCUID uidPlayer, CCUID uidChannel, int nChannelType, const char* szChannelStrResId, bool bEnableInterface);
-	void ResponseDuelTournamentCharStatusInfo(CCUID &uidPlayer, MCommand *pCommand);
+	void ResponseDuelTournamentCharStatusInfo(CCUID &uidPlayer, CCCommand *pCommand);
 	void ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType);
 	void ResponseDuelTournamentCancelChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType);	
 
 	bool OnSyncRequest_InsertDuelTournamentGameLog(CCDUELTOURNAMENTTYPE nDTType, int nMatchFactor, CCDuelTournamentPickedGroup *pPickedGroup, int *nOutNumber, char *szOutTimeStamp);
 	
-	void OnAsyncResponse_GetDuelTournamentTimeStamp(MAsyncJob *pJobResult);
-	void OnAsyncResponse_GetDuelTournamentCharacterInfo(MAsyncJob *pJobResult);
-	void OnAsyncResponse_GetDuelTournamentPreviousCharacterInfo(MAsyncJob *pJobResult);
-	void OnAsyncResponse_GetDuelTournamentSideRanking(MAsyncJob *pJobResult);	
-	void OnAsyncResponse_GetDuelTournamentGroupRanking(MAsyncJob *pJobResult);
+	void OnAsyncResponse_GetDuelTournamentTimeStamp(CCAsyncJob *pJobResult);
+	void OnAsyncResponse_GetDuelTournamentCharacterInfo(CCAsyncJob *pJobResult);
+	void OnAsyncResponse_GetDuelTournamentPreviousCharacterInfo(CCAsyncJob *pJobResult);
+	void OnAsyncResponse_GetDuelTournamentSideRanking(CCAsyncJob *pJobResult);	
+	void OnAsyncResponse_GetDuelTournamentGroupRanking(CCAsyncJob *pJobResult);
 
 	bool OnAsyncRequest_GetDuelTournamentCharacterInfo(CCUID uidPlayer, DWORD dwCID);
 	bool OnAsyncRequest_GetDuelTournamentPreviousCharacterInfo(CCUID uidPlayer, DWORD dwCID);	
@@ -863,7 +863,7 @@ protected :
 	void RouteCmdDuelTournamentCancelMatch(CCDuelTournamentPickedGroup *pPickedGroup, int nErrorCode);
 
 public:	
-	void LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
+	void LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, CCDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
 
 	void SendDuelTournamentPreviousCharInfoToPlayer(CCUID uidPlayer);
 	void SendDuelTournamentCharInfoToPlayer(CCUID uidPlayer);
@@ -872,13 +872,13 @@ public:
 	bool OnAsyncRequest_GetDuelTournamentTimeStamp();
 	bool OnAsyncRequest_UpdateDuelTournamentCharacterInfo(CCUID uidPlayer, char *szTimeStamp);
 	bool OnAsyncRequest_UpdateDuelTournamentGameLog(char* szTimeStamp, int nGameNumber, CCUID uidChampion);
-	bool OnAsyncRequest_InsertDuelTournamentGameLogDetail(int nLogID, char* szTimeStamp, MDUELTOURNAMENTROUNDSTATE nDTRoundState, int nWinnerCID, int nLoserCID, int nGainTP, int nLoseTp, int nPlayTime);
+	bool OnAsyncRequest_InsertDuelTournamentGameLogDetail(int nLogID, char* szTimeStamp, CCDUELTOURNAMENTROUNDSTATE nDTRoundState, int nWinnerCID, int nLoserCID, int nGainTP, int nLoseTp, int nPlayTime);
 
 	void RouteCmdDuelTournamentStageSetting(CCUID uidStage);
-	void RouteCmdDuelTournamentMTDGameInfo(const CCUID& uidStage, MTD_DuelTournamentGameInfo& GameInfo);
-	void RouteCmdDuelTournamentMTDNextGamePlayerInfo(const CCUID& uidStage, MTD_DuelTournamentNextMatchPlayerInfo& PlayerInfo);
-	void RouteCmdDuelTournamentMTDRoundResultInfo(const CCUID& uidStage, MTD_DuelTournamentRoundResultInfo *RoundResultInfo);
-	void RouteCmdDuelTournamentMTDMatchResultInfo(const CCUID& uidStage, MTD_DuelTournamentMatchResultInfo *MatchResultInfo);
+	void RouteCmdDuelTournamentMTDGameInfo(const CCUID& uidStage, CCTD_DuelTournamentGameInfo& GameInfo);
+	void RouteCmdDuelTournamentMTDNextGamePlayerInfo(const CCUID& uidStage, CCTD_DuelTournamentNextMatchPlayerInfo& PlayerInfo);
+	void RouteCmdDuelTournamentMTDRoundResultInfo(const CCUID& uidStage, CCTD_DuelTournamentRoundResultInfo *RoundResultInfo);
+	void RouteCmdDuelTournamentMTDMatchResultInfo(const CCUID& uidStage, CCTD_DuelTournamentMatchResultInfo *MatchResultInfo);
 
 public:
 	//버프정보임시주석 void PostCmdCharacterBuffInfo(const CCUID& uidPlayer);
@@ -896,10 +896,10 @@ protected:
 											vector<CCMatchBRItem*>& vBattletimeRewardItem, 
 											CCMatchBRDescriptionMap& BattletimeRewardDescriptionMap);
 	
-	void OnAsyncResponse_GetBR_Description(MAsyncJob *pJobResult);	
-	void OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult);
-	void OnAsyncResponse_UpdateCharBRInfo(MAsyncJob *pJobResult);
-	void OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult);
+	void OnAsyncResponse_GetBR_Description(CCAsyncJob *pJobResult);	
+	void OnAsyncResponse_GetCharBRInfo(CCAsyncJob *pJobResult);
+	void OnAsyncResponse_UpdateCharBRInfo(CCAsyncJob *pJobResult);
+	void OnAsyncResponse_RewardCharBR(CCAsyncJob *pJobResult);
 
 	
 public:
@@ -914,7 +914,7 @@ public:
 
 void CopyCharInfoForTrans(CCTD_CharInfo* pDest, CCMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
 void CopyCharInfoDetailForTrans(CCTD_CharInfo_Detail* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject);
-//버프정보임시주석 void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, CCMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
+//버프정보임시주석 void CopyCharBuffInfoForTrans(CCTD_CharBuffInfo* pDest, CCMatchCharInfo* pSrc, CCMatchObject* pSrcObject);
 
 
 // line functions ///////////////////////////////////////////////////////////////////

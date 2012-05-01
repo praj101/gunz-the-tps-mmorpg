@@ -211,7 +211,7 @@ public:
 	uchar GetOpacity();
 
 	//Deprecated because it can confuse the global coordinate system and replace them with the local coordinate system function, 
-	//if you want to know the global coordinates MClientToScreen (), MScreenToClient () using the
+	//if you want to know the global coordinates CCClientToScreen (), MScreenToClient () using the
 	sRect GetScreenRect();
 
 	void AttachToolTip(const char* szToolTipString=NULL);		//Specifies the tooltip string

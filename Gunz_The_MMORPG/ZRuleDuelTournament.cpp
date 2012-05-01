@@ -35,7 +35,7 @@ ZRuleDuelTournament::~ZRuleDuelTournament()
 }
 
 
-bool ZRuleDuelTournament::OnCommand(MCommand* pCommand)
+bool ZRuleDuelTournament::OnCommand(CCCommand* pCommand)
 {
 	//char buf[256];
 	//sprintf(buf,"ZRuleDuelTournament[ID:%d]\n", pCommand->GetID());
@@ -94,7 +94,7 @@ bool ZRuleDuelTournament::OnCommand(MCommand* pCommand)
 
 	case MC_MATCH_DUELTOURNAMENT_GAME_ROUND_RESULT_INFO :
 		{
-			MTD_DuelTournamentRoundResultInfo DTGameResultInfo;
+			CCTD_DuelTournamentRoundResultInfo DTGameResultInfo;
 			pCommand->GetParameter(&DTGameResultInfo,	0, MPT_BLOB);
 
 			SetRoundResultInfo(DTGameResultInfo);
@@ -103,17 +103,17 @@ bool ZRuleDuelTournament::OnCommand(MCommand* pCommand)
 
 	case MC_MATCH_DUELTOURNAMENT_GAME_MATCH_RESULT_INFO :
 		{
-			MTD_DuelTournamentMatchResultInfo DTGameResultInfo;
+			CCTD_DuelTournamentMatchResultInfo DTGameResultInfo;
 			pCommand->GetParameter(&DTGameResultInfo,	0, MPT_BLOB);
 
 			//////////////////////////////////////////////////// LOG ////////////////////////////////////////////////////
 #ifdef _DUELTOURNAMENT_LOG_ENABLE_
 			char szbuf[32] = {0, };
-			switch((MDUELTOURNAMENTROUNDSTATE)DTGameResultInfo.nMatchType)
+			switch((CCDUELTOURNAMENTROUNDSTATE)DTGameResultInfo.nMatchType)
 			{
-			case MDUELTOURNAMENTROUNDSTATE_FINAL:		sprintf(szbuf, "ROUND_FINAL \n");		break;
-			case MDUELTOURNAMENTROUNDSTATE_SEMIFINAL:	sprintf(szbuf, "ROUND_SEMIFINAL \n");	break;
-			case MDUELTOURNAMENTROUNDSTATE_QUATERFINAL:	sprintf(szbuf, "ROUND_QUATERFINAL \n");	break;
+			case CCDUELTOURNAMENTROUNDSTATE_FINAL:		sprintf(szbuf, "ROUND_FINAL \n");		break;
+			case CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL:	sprintf(szbuf, "ROUND_SEMIFINAL \n");	break;
+			case CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL:	sprintf(szbuf, "ROUND_QUATERFINAL \n");	break;
 			default:									sprintf(szbuf, "ROUND_FAIL \n");		break;
 			}
 			cclog("[GAME_MATCH_RESULT] RoundType:%s, MatchNumber:%d, Winner(%d:%d), Loser(%d:%d), GainTP:%d, LoseTP:%d \n", 
@@ -130,7 +130,7 @@ bool ZRuleDuelTournament::OnCommand(MCommand* pCommand)
 	return false;
 }
 
-void ZRuleDuelTournament::AfterCommandProcessed( MCommand* pCommand )
+void ZRuleDuelTournament::AfterCommandProcessed( CCCommand* pCommand )
 {
 	switch (pCommand->GetID())
 	{
@@ -192,13 +192,13 @@ void ZRuleDuelTournament::InitCharacterList()
 
 	switch(eType)
 	{
-	case CCDUELTOURNAMENTTYPE_FINAL:			m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_FINAL;			break;
-	case CCDUELTOURNAMENTTYPE_SEMIFINAL:		m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_SEMIFINAL;		break;
-	case CCDUELTOURNAMENTTYPE_QUATERFINAL:	m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_QUATERFINAL;	break;
+	case CCDUELTOURNAMENTTYPE_FINAL:			m_eDTRoundState = CCDUELTOURNAMENTROUNDSTATE_FINAL;			break;
+	case CCDUELTOURNAMENTTYPE_SEMIFINAL:		m_eDTRoundState = CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL;		break;
+	case CCDUELTOURNAMENTTYPE_QUATERFINAL:	m_eDTRoundState = CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL;	break;
 	}
 }
 
-void ZRuleDuelTournament::SetRoundResultInfo(MTD_DuelTournamentRoundResultInfo& DTGameResultInfo)
+void ZRuleDuelTournament::SetRoundResultInfo(CCTD_DuelTournamentRoundResultInfo& DTGameResultInfo)
 {
 	///////////////////////////////////////////////////////////
 	// Notice 
@@ -271,7 +271,7 @@ void ZRuleDuelTournament::SetRoundResultInfo(MTD_DuelTournamentRoundResultInfo& 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
-void ZRuleDuelTournament::SetMatchResultInfo(MTD_DuelTournamentMatchResultInfo& DTGameResultInfo)
+void ZRuleDuelTournament::SetMatchResultInfo(CCTD_DuelTournamentMatchResultInfo& DTGameResultInfo)
 {
 	DuelTournamentPlayer winnerPlayer;
 	bool bFindPlayer = false;
@@ -305,9 +305,9 @@ void ZRuleDuelTournament::SetMatchResultInfo(MTD_DuelTournamentMatchResultInfo& 
 	int nMatchLevel = 0;
 	switch(m_eDTRoundState)
 	{
-	case MDUELTOURNAMENTROUNDSTATE_FINAL:				nMatchLevel = 3;	break;
-	case MDUELTOURNAMENTROUNDSTATE_SEMIFINAL:			nMatchLevel = 2;	break;
-	case MDUELTOURNAMENTROUNDSTATE_QUATERFINAL:			nMatchLevel = 1;	break;
+	case CCDUELTOURNAMENTROUNDSTATE_FINAL:				nMatchLevel = 3;	break;
+	case CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL:			nMatchLevel = 2;	break;
+	case CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL:			nMatchLevel = 1;	break;
 	}
 
 	bool bMatchResult = false;
@@ -327,10 +327,10 @@ void ZRuleDuelTournament::SetMatchResultInfo(MTD_DuelTournamentMatchResultInfo& 
 	++m_nDTRoundCount; // 다음 승부
 	if(m_nDTRoundCount == GetDTRoundCount(m_eDTRoundState))
 	{	// 현재 라운드 마지막 승부까지 갔으면, 다음 라운드로 변경해준다.
-		if((MDUELTOURNAMENTROUNDSTATE)DTGameResultInfo.nMatchType == MDUELTOURNAMENTROUNDSTATE_FINAL)
-			m_eDTRoundState = MDUELTOURNAMENTROUNDSTATE_MAX;
+		if((CCDUELTOURNAMENTROUNDSTATE)DTGameResultInfo.nMatchType == CCDUELTOURNAMENTROUNDSTATE_FINAL)
+			m_eDTRoundState = CCDUELTOURNAMENTROUNDSTATE_MAX;
 		else
-			m_eDTRoundState = (MDUELTOURNAMENTROUNDSTATE)--DTGameResultInfo.nMatchType;
+			m_eDTRoundState = (CCDUELTOURNAMENTROUNDSTATE)--DTGameResultInfo.nMatchType;
 		m_nDTRoundCount = 0;
 		++nMatchLevel;
 	}
@@ -501,7 +501,7 @@ void ZRuleDuelTournament::SetPreCountdownDetail(PRECOUNTDOWN_DETAIL eDetail)
 	}
 }
 
-void ZRuleDuelTournament::ShowWinLoseScreenEffect(MTD_DuelTournamentMatchResultInfo& DTGameResultInfo)
+void ZRuleDuelTournament::ShowWinLoseScreenEffect(CCTD_DuelTournamentMatchResultInfo& DTGameResultInfo)
 {
 	bool bLeftPlayerWin;
 /*		 if (m_nextPlayerInfo.uidPlayer1 == DTGameResultInfo.uidLoserPlayer &&
@@ -550,9 +550,9 @@ void ZRuleDuelTournament::ShowMatchPlayerInfoUI_OnlyNextMatch(bool bShow)
 	CCDUELTOURNAMENTTYPE eType = ZApplication::GetGameInterface()->GetDuelTournamentType();
 	switch(m_eDTRoundState)
 	{
-	case MDUELTOURNAMENTROUNDSTATE_FINAL:		ZTransMsg(sz, MSG_GAME_DUELTOURNAMENT_MATCH_FINAL);		break;
-	case MDUELTOURNAMENTROUNDSTATE_SEMIFINAL:	ZTransMsg(sz, MSG_GAME_DUELTOURNAMENT_MATCH_SEMIFINAL, 1, szRoundCount);	break;
-	case MDUELTOURNAMENTROUNDSTATE_QUATERFINAL:	ZTransMsg(sz, MSG_GAME_DUELTOURNAMENT_MATCH_QUATERFINAL, 1, szRoundCount);	break;
+	case CCDUELTOURNAMENTROUNDSTATE_FINAL:		ZTransMsg(sz, MSG_GAME_DUELTOURNAMENT_MATCH_FINAL);		break;
+	case CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL:	ZTransMsg(sz, MSG_GAME_DUELTOURNAMENT_MATCH_SEMIFINAL, 1, szRoundCount);	break;
+	case CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL:	ZTransMsg(sz, MSG_GAME_DUELTOURNAMENT_MATCH_QUATERFINAL, 1, szRoundCount);	break;
 	default: sprintf(sz, ""); break;
 	}
 
@@ -1063,7 +1063,7 @@ void ZRuleDuelTournament::DrawHighlight(CCDrawContext* pDC, const sRect& rc)
 
 void ZRuleDuelTournament::DrawVictorySymbol(CCDrawContext* pDC, CCUID uidPlayer1, CCUID uidPlayer2)
 {
-	if(MDUELTOURNAMENTROUNDSTATE_QUATERFINAL == m_eDTRoundState)
+	if(CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL == m_eDTRoundState)
 		return;	// 8강전일때는 승리마크가 필요없다.(표시도 안됨)
 
 	float fSceneWidth = (float)MGetWorkspaceWidth();
@@ -1080,7 +1080,7 @@ void ZRuleDuelTournament::DrawVictorySymbol(CCDrawContext* pDC, CCUID uidPlayer1
 	{
 		pDC->SetBitmap( pBitmap_Blank);
 
-		if(MDUELTOURNAMENTROUNDSTATE_QUATERFINAL != m_eDTRoundState)
+		if(CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL != m_eDTRoundState)
 		{ // 8강이 아닐때는 승리마크를 1개만 보여준다.
 			pDC->Draw( fPosX[0]*fSceneWidth, fPosY*fSceneHeigth, nSize, nSize, 0, 0, 23, 23);
 			pDC->Draw( fPosX[3]*fSceneWidth, fPosY*fSceneHeigth, nSize, nSize, 0, 0, 23, 23);

@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "ZCommandTable.h"
 #include "MSharedCommandTable.h"
-#include "MCommandManager.h"
+#include "CCCommandManager.h"
 
-void ZAddCommandTable(MCommandManager* pCommandManager)
+void ZAddCommandTable(CCCommandManager* pCommandManager)
 {
 	BEGIN_CMD_DESC(pCommandManager);
 

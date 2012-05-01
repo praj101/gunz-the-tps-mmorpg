@@ -31,7 +31,7 @@ public:
 	bool IsOnHeal() { return m_bOnHeal.Ref(); }
 	float GetHealBeginTime() { return m_fBeginTime.Ref(); }
 
-	bool GetHealOverTimeBuffInfo(MTD_BuffInfo& out);
+	bool GetHealOverTimeBuffInfo(CCTD_BuffInfo& out);
 
 	void ShiftFugitiveValues();
 };

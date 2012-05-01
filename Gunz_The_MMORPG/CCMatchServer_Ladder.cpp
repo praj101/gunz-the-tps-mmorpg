@@ -65,7 +65,7 @@ bool CCMatchServer::LadderJoin(const CCUID& uidPlayer, const CCUID& uidStage, CC
 	pStage->PlayerState(uidPlayer, MOSS_READY);
 	
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_PREPARE, uidPlayer);
+	CCCommand* pCmd = CreateCommand(MC_MATCH_LADDER_PREPARE, uidPlayer);
 	pCmd->AddParameter(new MCmdParamUID(uidStage));
 	pCmd->AddParameter(new MCmdParamInt(nTeam));
 	Post(pCmd);
@@ -143,7 +143,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	pSetting->SetRoundMax(99);		// 최대 99라운드까지 진행할 수 있다.
 	
 
-	MCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
+	CCCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
 	RouteToStage(uidStage, pCmd);	// Stage Setting 전송
 
 
@@ -169,11 +169,11 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 					CacheBuilder.AddObject(pScanObj);
 				}
 			}
-			MCommand* pCmdCacheAdd = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
+			CCCommand* pCmdCacheAdd = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
 			RouteToStage(pStage->GetUID(), pCmdCacheAdd);
 			/////////////////////////////////////////////////////////////////////////////////////////////
 
-			MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_LAUNCH, CCUID(0,0));
+			CCCommand* pCmd = CreateCommand(MC_MATCH_LADDER_LAUNCH, CCUID(0,0));
 			pCmd->AddParameter(new MCmdParamUID(uidStage));
 			pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
 			RouteToStage(uidStage, pCmd);
@@ -189,7 +189,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 
 
 bool CCMatchServer::IsLadderRequestUserInRequestClanMember( const CCUID& uidRequestMember
-														  , const MTD_LadderTeamMemberNode* pRequestMemberNode )
+														  , const CCTD_LadderTeamMemberNode* pRequestMemberNode )
 {
 	// - by SungE 2007-10-11 
 	// 해커가 MemberNamesBlob를 조작할 수 있기 때문에 요청자 자신의 이름을 저장하는 0번째 인덱스 노드를 
@@ -231,13 +231,13 @@ void CCMatchServer::OnLadderRequestChallenge(const CCUID& uidRequestMember, void
 	if (nMemberCount <= 0) return;
 
 	if( !IsLadderRequestUserInRequestClanMember(uidRequestMember
-		, (MTD_LadderTeamMemberNode*)MGetBlobArrayElement(pMemberNamesBlob, 0)) )
+		, (CCTD_LadderTeamMemberNode*)MGetBlobArrayElement(pMemberNamesBlob, 0)) )
 		return;
 	
 	CCMatchObject* pMemberObjects[MAX_CLANBATTLE_TEAM_MEMBER];
 	for (int i = 0; i < nMemberCount; i++)
 	{
-		MTD_LadderTeamMemberNode* pNode = (MTD_LadderTeamMemberNode*)MGetBlobArrayElement(pMemberNamesBlob, i);
+		CCTD_LadderTeamMemberNode* pNode = (CCTD_LadderTeamMemberNode*)MGetBlobArrayElement(pMemberNamesBlob, i);
 		if (pNode == NULL) break;
 		if ((strlen(pNode->szName) <= 0) || (strlen(pNode->szName) >= MATCHOBJECT_NAME_LENGTH)) return;
 
@@ -324,10 +324,10 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 	if (!MGetServerConfig()->IsEnabledCreateLadderGame())
 	{
 		// 메세지 보내주고 끝.
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
-		pNewCmd->AddParameter(new MCommandParameterInt(MERR_LADDER_NOT_SERVICE_TIME));
-		pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
-		pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
+		CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
+		pNewCmd->AddParameter(new CCCommandParameterInt(MERR_LADDER_NOT_SERVICE_TIME));
+		pNewCmd->AddParameter(new CCCommandParameterInt(nProposalMode));
+		pNewCmd->AddParameter(new CCCommandParameterInt(nRequestID));
 		RouteToListener(pProposerObject, pNewCmd);
 		return;
 	}
@@ -340,7 +340,7 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 
 	for (int i = 0; i < nReplierCount; i++)
 	{
-		MTD_ReplierNode* pNode = (MTD_ReplierNode*)MGetBlobArrayElement(pReplierNamesBlob, i);
+		CCTD_ReplierNode* pNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pReplierNamesBlob, i);
 		if (pNode == NULL) return;
 		if ((strlen(pNode->szName) <= 0) || (strlen(pNode->szName) >= MATCHOBJECT_NAME_LENGTH)) return;
 
@@ -350,10 +350,10 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 		if (!IsEnabledObject(ppReplierObjects[i]))
 		{
 			// 메세지 보내주고 끝.
-			MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
-			pNewCmd->AddParameter(new MCommandParameterInt(MERR_NO_TARGET));
-			pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
-			pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
+			CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
+			pNewCmd->AddParameter(new CCCommandParameterInt(MERR_NO_TARGET));
+			pNewCmd->AddParameter(new CCCommandParameterInt(nProposalMode));
+			pNewCmd->AddParameter(new CCCommandParameterInt(nRequestID));
 			RouteToListener(pProposerObject, pNewCmd);
 
 			return;
@@ -381,37 +381,37 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 
 	if (nRet != MOK)
 	{
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
-		pNewCmd->AddParameter(new MCommandParameterInt(nRet));
-		pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
-		pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
+		CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
+		pNewCmd->AddParameter(new CCCommandParameterInt(nRet));
+		pNewCmd->AddParameter(new CCCommandParameterInt(nProposalMode));
+		pNewCmd->AddParameter(new CCCommandParameterInt(nRequestID));
 		RouteToListener(pProposerObject, pNewCmd);
 		return;
 	}
 
 
 	int nMemberCount = nReplierCount+1;		// 제안자까지 
-	void* pBlobMembersNameArray = MMakeBlobArray(sizeof(MTD_ReplierNode), nMemberCount);
+	void* pBlobMembersNameArray = MMakeBlobArray(sizeof(CCTD_ReplierNode), nMemberCount);
 
-	MTD_ReplierNode* pProposerNode = (MTD_ReplierNode*)MGetBlobArrayElement(pBlobMembersNameArray, 0);
+	CCTD_ReplierNode* pProposerNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pBlobMembersNameArray, 0);
 	strcpy(pProposerNode->szName, pProposerObject->GetCharInfo()->m_szName);
 
 	for (int k = 0; k < nReplierCount; k++)
 	{
-		MTD_ReplierNode* pMemberNode = (MTD_ReplierNode*)MGetBlobArrayElement(pBlobMembersNameArray, k+1);
+		CCTD_ReplierNode* pMemberNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pBlobMembersNameArray, k+1);
 		strcpy(pMemberNode->szName, ppReplierObjects[k]->GetCharInfo()->m_szName);
 	}
 
 	// 답변자에게 동의를 물어본다.
 	for (int i = 0; i < nReplierCount; i++)
 	{
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_ASK_AGREEMENT, CCUID(0,0));
-		pNewCmd->AddParameter(new MCommandParameterUID(uidProposer));
-//		pNewCmd->AddParameter(new MCommandParameterString(pProposerObject->GetCharInfo()->m_szName));
-		pNewCmd->AddParameter(new MCommandParameterBlob(pBlobMembersNameArray, MGetBlobArraySize(pBlobMembersNameArray)));
+		CCCommand* pNewCmd = CreateCommand(MC_MATCH_ASK_AGREEMENT, CCUID(0,0));
+		pNewCmd->AddParameter(new CCCommandParameterUID(uidProposer));
+//		pNewCmd->AddParameter(new CCCommandParameterString(pProposerObject->GetCharInfo()->m_szName));
+		pNewCmd->AddParameter(new CCCommandParameterBlob(pBlobMembersNameArray, MGetBlobArraySize(pBlobMembersNameArray)));
 
-		pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
-		pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
+		pNewCmd->AddParameter(new CCCommandParameterInt(nProposalMode));
+		pNewCmd->AddParameter(new CCCommandParameterInt(nRequestID));
 		RouteToListener(ppReplierObjects[i], pNewCmd);
 
 
@@ -420,10 +420,10 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 
 
 	// 제안자에게 응답 보내줌
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
-	pNewCmd->AddParameter(new MCommandParameterInt(nRet));
-	pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
-	pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
+	CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));
+	pNewCmd->AddParameter(new CCCommandParameterInt(nRet));
+	pNewCmd->AddParameter(new CCCommandParameterInt(nProposalMode));
+	pNewCmd->AddParameter(new CCCommandParameterInt(nRequestID));
 	RouteToListener(pProposerObject, pNewCmd);
 
 }
@@ -435,13 +435,13 @@ void CCMatchServer::OnReplyAgreement(CCUID& uidProposer, CCUID& uidReplier, cons
 	if (! IsEnabledObject(pProposerObject)) return;
 
 	
-	MCommand* pNewCmd = CreateCommand(MC_MATCH_REPLY_AGREEMENT, CCUID(0,0));
-	pNewCmd->AddParameter(new MCommandParameterUID(uidProposer));
-	pNewCmd->AddParameter(new MCommandParameterUID(uidReplier));
-	pNewCmd->AddParameter(new MCommandParameterString(szReplierName));
-	pNewCmd->AddParameter(new MCommandParameterInt(nProposalMode));
-	pNewCmd->AddParameter(new MCommandParameterInt(nRequestID));
-	pNewCmd->AddParameter(new MCommandParameterBool(bAgreement));
+	CCCommand* pNewCmd = CreateCommand(MC_MATCH_REPLY_AGREEMENT, CCUID(0,0));
+	pNewCmd->AddParameter(new CCCommandParameterUID(uidProposer));
+	pNewCmd->AddParameter(new CCCommandParameterUID(uidReplier));
+	pNewCmd->AddParameter(new CCCommandParameterString(szReplierName));
+	pNewCmd->AddParameter(new CCCommandParameterInt(nProposalMode));
+	pNewCmd->AddParameter(new CCCommandParameterInt(nRequestID));
+	pNewCmd->AddParameter(new CCCommandParameterBool(bAgreement));
 
 	RouteToListener(pProposerObject, pNewCmd);	
 }

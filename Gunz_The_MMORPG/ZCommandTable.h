@@ -2,7 +2,7 @@
 #define _ZCOMMANDTABLE_H
 
 /// 클라이언트 커뮤니케이터가 사용하는 커맨드
-void ZAddCommandTable(MCommandManager* pCommandManager);
+void ZAddCommandTable(CCCommandManager* pCommandManager);
 
 
 // 콘솔 or 콘솔의 alias 관련 명령어 ///////////////////////////////////////////

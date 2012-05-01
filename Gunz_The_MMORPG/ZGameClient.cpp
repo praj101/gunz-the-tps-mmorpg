@@ -6,7 +6,7 @@
 #include "ZGameClient.h"
 #include "MSharedCommandTable.h"
 #include "ZConsole.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
 #include "MBlobArray.h"
 #include "ZInterface.h"
@@ -68,9 +68,9 @@
 
 bool GetUserGradeIDColor(CCMatchUserGradeID gid,sColor& UserNameColor,char* sp_name);
 
-MCommand* ZNewCmd(int nID)
+CCCommand* ZNewCmd(int nID)
 {
-	MCommandDesc* pCmdDesc = ZGetGameClient()->GetCommandManager()->GetCommandDescByID(nID);
+	CCCommandDesc* pCmdDesc = ZGetGameClient()->GetCommandManager()->GetCommandDescByID(nID);
 
 	CCUID uidTarget;
 	if (pCmdDesc->IsFlag(MCDT_PEER2PEER)==true)
@@ -78,7 +78,7 @@ MCommand* ZNewCmd(int nID)
 	else
 		uidTarget = ZGetGameClient()->GetServerUID();
 
-	MCommand* pCmd = new MCommand(nID, 
+	CCCommand* pCmd = new CCCommand(nID, 
 								  ZGetGameClient()->GetUID(), 
 								  uidTarget, 
 								  ZGetGameClient()->GetCommandManager());
@@ -103,12 +103,12 @@ bool GetUserInfoUID(CCUID uid,sColor& _color,char* sp_name,CCMatchUserGradeID& g
 }
 
 
-extern MCommandLogFrame* m_pLogFrame;
+extern CCCommandLogFrame* m_pLogFrame;
 extern ZIDLResource	g_IDLResource;
 
 
 
-bool ZPostCommand(MCommand* pCmd) 
+bool ZPostCommand(CCCommand* pCmd) 
 {
 	// Replay 중에는 아래 나열한 커맨드만 전송 허용
 	if (ZGetGame() && ZGetGame()->IsReplay())
@@ -211,7 +211,7 @@ bool ZPostCommand(MCommand* pCmd)
 				cclog("CMD THREAD MISMATCH : cmdId(%d), mainId(%d), currId(%d)\n", cmdId, g_dwMainThreadID, GetCurrentThreadId());
 #endif
 				_ASSERT(0);
-				MCommand* pC=ZNewCmd(MC_REQUEST_GIVE_ONESELF_UP);
+				CCCommand* pC=ZNewCmd(MC_REQUEST_GIVE_ONESELF_UP);
 				ZPostCommand(pC);
 			}
 
@@ -265,7 +265,7 @@ ZGameClient::ZGameClient() : CCMatchClient() , m_pUPnP(NULL)
 
 	// HShield Init
 // #ifdef _HSHIELD
-//	MPacketHShieldCrypter::Init();
+//	CCPacketHShieldCrypter::Init();
 //#endif
 
 #ifdef _LOCATOR // -by 추교성. Locator에 접속해서 커맨드를 받으려면 m_This의 UID가 (0,0)이 아니어야 함.
@@ -306,13 +306,13 @@ void ZGameClient::PriorityBoost(bool bBoost)
 }
 
 
-void ZGameClient::OnRegisterCommand(MCommandManager* pCommandManager)
+void ZGameClient::OnRegisterCommand(CCCommandManager* pCommandManager)
 {
 	CCMatchClient::OnRegisterCommand(pCommandManager);
 	ZAddCommandTable(pCommandManager);
 }
 
-void ZGameClient::OnPrepareCommand(MCommand* pCommand)
+void ZGameClient::OnPrepareCommand(CCCommand* pCommand)
 {
 #ifndef _PUBLISH
 	m_pLogFrame->AddCommand(GetGlobalClockCount(), pCommand);
@@ -426,7 +426,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			ZGetPlayerManager()->Clear();
 			for(int i=0; i<nCount; i++){
 				CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
-				if (pCache->CheckFlag(MTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
+				if (pCache->CheckFlag(CCTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
 					pList->AddPlayer(pCache->GetUID(),MOSS_NONREADY,pCache->GetLevel(),
 									pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,MMT_ALL, pCache->GetDTGrade());
 					
@@ -444,7 +444,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 		} else if (nType == MATCHCACHEMODE_ADD) {
 			for(int i=0; i<nCount; i++){
 				CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
-				if (pCache->CheckFlag(MTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
+				if (pCache->CheckFlag(CCTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
 					pList->AddPlayer(pCache->GetUID(),MOSS_NONREADY,pCache->GetLevel(),
 									 pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,MMT_ALL, pCache->GetDTGrade());
 					
@@ -727,8 +727,8 @@ void ZGameClient::OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsig
 		CastStageBridgePeer(uidChar, uidStage);
 	}
 
-	MCommand* pCmd = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_REQUEST_STAGESETTING), GetServerUID(), m_This);
-	pCmd->AddParameter(new MCommandParameterUID(GetStageUID()));
+	CCCommand* pCmd = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_REQUEST_STAGESETTING), GetServerUID(), m_This);
+	pCmd->AddParameter(new CCCommandParameterUID(GetStageUID()));
 	Post(pCmd);
 
 	if (uidChar == GetPlayerUID())
@@ -776,7 +776,7 @@ void ZGameClient::OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsig
 		if(GetUserInfoUID(uidChar,_color,sp_name,gid))
 		{
 			CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(uidChar);
-			if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide))
+			if (pObjCache && pObjCache->CheckFlag(CCTD_PlayerFlags_AdminHide))
 				return;	// Skip on AdminHide
 
 			strcpy( name, sp_name);
@@ -984,7 +984,7 @@ void ZGameClient::OnStageList(int nPrevStageCount, int nNextStageCount, void* pB
 	pRoomListBox->Clear();
 	for(int i=0; i<nCount; i++) {
 
-		MTD_StageListNode* pNode = (MTD_StageListNode*)MGetBlobArrayElement(pBlob, i);
+		CCTD_StageListNode* pNode = (CCTD_StageListNode*)MGetBlobArrayElement(pBlob, i);
 
 		// log debug
 		if( pNode ) 
@@ -1140,7 +1140,7 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 
 	for(int i=0; i<nCount; i++) 
 	{
-		MTD_ChannelPlayerListNode* pNode = (MTD_ChannelPlayerListNode*)MGetBlobArrayElement(pBlob, i);
+		CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)MGetBlobArrayElement(pBlob, i);
 		if( pNode ) 
 		{
 			ePlayerState state;
@@ -1152,7 +1152,7 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 			default: state = PS_LOBBY;
 			};
 
-			if ((pNode->nPlayerFlags & MTD_PlayerFlags_AdminHide) == true) {
+			if ((pNode->nPlayerFlags & CCTD_PlayerFlags_AdminHide) == true) {
 				//  Skip on AdminHide
 			} else {
 
@@ -1213,7 +1213,7 @@ void ZGameClient::OnChannelAllPlayerList(const CCUID& uidChannel, void* pBlob, i
 		pListBox->RemoveAll();
 		for(int i=0;i<nBlobCount;i++)
 		{
-			MTD_ChannelPlayerListNode* pNode = (MTD_ChannelPlayerListNode*)MGetBlobArrayElement(pBlob, i);
+			CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)MGetBlobArrayElement(pBlob, i);
 			if( pNode ) 
 			{
 				if (pNode->uidPlayer != GetPlayerUID())
@@ -1260,7 +1260,7 @@ void ZGameClient::OnStageRelayMapListUpdate(int nRelayMapType, int nRelayMapRepe
 	int nRelayMapListCount = MGetBlobArrayCount(pStageRelayMapListBlob);
 	for( int i = 0 ; i < nRelayMapListCount; ++i )
 	{// 릴레이맵 리스트에 데이터를 추가해준다.
-		MTD_RelayMap* pNode = (MTD_RelayMap*)MGetBlobArrayElement(pStageRelayMapListBlob, i);
+		CCTD_RelayMap* pNode = (CCTD_RelayMap*)MGetBlobArrayElement(pStageRelayMapListBlob, i);
 		RelayMapList* pRelayMapList = new RelayMapList( MGetMapDescMgr()->GetMapName(MGetMapDescMgr()->GetMapID(pNode->nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
 		pRelaMapListBox->Add( pRelayMapList);
 		relayMapList[i].nMapID = MGetMapDescMgr()->GetMapID(pNode->nMapID);
@@ -1351,7 +1351,7 @@ void ZGameClient::OnMatchNotify(unsigned int nMsgID)
 }
 
 
-void ZGameClient::OutputMessage(const char* szMessage, MZMOMType nType)
+void ZGameClient::OutputMessage(const char* szMessage, CCZMOMType nType)
 {
 	OutputToConsole(szMessage);
 	ZChatOutput(sColor(0xFFFFC600), szMessage);
@@ -1436,7 +1436,7 @@ void ZGameClient::GetEncryptMD5HashValue(char* szEncryptMD5Value)							// updat
 	char szEncryptValue[ MAX_MD5LENGH ] = {0, };
 	memcpy( szEncryptValue, szMD5Value, MAX_MD5LENGH );
 
-	m_ServerPacketCrypter.Encrypt( szEncryptValue, MAX_MD5LENGH, (MPacketCrypterKey *)m_ServerPacketCrypter.GetKey() );
+	m_ServerPacketCrypter.Encrypt( szEncryptValue, MAX_MD5LENGH, (CCPacketCrypterKey *)m_ServerPacketCrypter.GetKey() );
 
 	memcpy( szEncryptMD5Value, szEncryptValue, MAX_MD5LENGH );
 }
@@ -1586,7 +1586,7 @@ void ZGameClient::Tick(void)
 			for (CCMatchPeerInfoList::iterator i=PeerList->begin(); i!= PeerList->end(); i++) {
 				CCMatchPeerInfo* pPeer = (*i).second;
 				if (pPeer->GetProcess()) {
-					MCommand* pCmd = CreateCommand(MC_PEER_UDPTEST, pPeer->uidChar);
+					CCCommand* pCmd = CreateCommand(MC_PEER_UDPTEST, pPeer->uidChar);
 					SendCommandByUDP(pCmd, pPeer->szIP, pPeer->nPort);
 					delete pCmd;
 				}
@@ -1621,7 +1621,7 @@ void ZGameClient::Tick(void)
 #define CLOCK_REQUEST_ATTRIBUTE		1000	// CLOCK_REQUEST_ATTRIBUTE msec 마다 한번씩 요청
 	if(nClock-m_nPrevClockRequestAttribute>CLOCK_REQUEST_ATTRIBUTE){
 		m_nPrevClockRequestAttribute = nClock;
-		ZPOSTCMD1(MC_OBJECT_REQUEST_BASICATTR, MCommandParameterUID(g_MyChrUID));
+		ZPOSTCMD1(MC_OBJECT_REQUEST_BASICATTR, CCCommandParameterUID(g_MyChrUID));
 	}
 */
 }
@@ -1650,7 +1650,7 @@ void ZGameClient::OnBirdTest()
 	}
 
 	sprintf(szText, "BirdTest: %d, %s", nCount, szList);
-	MClient::OutputMessage(MZMOM_LOCALREPLY, szText);
+	CCClient::OutputMessage(CCZMOM_LOCALREPLY, szText);
 
 	ZCharacterViewList* pWidget = ZGetCharacterViewList(GUNZ_STAGE);
 	pWidget->RemoveAll();
@@ -1712,13 +1712,13 @@ void ZGameClient::OnResponsePeerRelay(const CCUID& uidPeer)
 
 void ZGameClient::StartStageList()
 {
-	MCommand* pCmd = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_LIST_START), GetServerUID(), m_This);	
+	CCCommand* pCmd = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_LIST_START), GetServerUID(), m_This);	
 	Post(pCmd);
 }
 
 void ZGameClient::StopStageList()
 {
-	MCommand* pCmd = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_LIST_STOP), GetServerUID(), m_This);	
+	CCCommand* pCmd = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_LIST_STOP), GetServerUID(), m_This);	
 	Post(pCmd);
 }
 
@@ -1808,7 +1808,7 @@ void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob,
 	// Game Info
 	int nGameInfoCount = MGetBlobArrayCount(pGameInfoBlob);
 	if (nGameInfoCount > 0) {
-		MTD_GameInfo* pGameInfo = (MTD_GameInfo*)MGetBlobArrayElement(pGameInfoBlob, 0);
+		CCTD_GameInfo* pGameInfo = (CCTD_GameInfo*)MGetBlobArrayElement(pGameInfoBlob, 0);
 		ZGetGame()->GetMatch()->SetTeamScore(MMT_RED, pGameInfo->nRedTeamScore);
 		ZGetGame()->GetMatch()->SetTeamScore(MMT_BLUE, pGameInfo->nBlueTeamScore);
 		ZGetGame()->GetMatch()->SetTeamKills(MMT_RED, pGameInfo->nRedTeamKills);
@@ -1820,7 +1820,7 @@ void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob,
 
 	for(int i=0; i<nPlayerCount; i++) 
 	{
-		MTD_GameInfoPlayerItem* pPlayerInfo = (MTD_GameInfoPlayerItem*)MGetBlobArrayElement(pPlayerInfoBlob, i);
+		CCTD_GameInfoPlayerItem* pPlayerInfo = (CCTD_GameInfoPlayerItem*)MGetBlobArrayElement(pPlayerInfoBlob, i);
 		ZCharacter* pCharacter = ZGetGame()->m_CharacterManager.Find(pPlayerInfo->uidPlayer);
 		if (pCharacter == NULL) continue;
 
@@ -1852,7 +1852,7 @@ void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob,
 	// RuleInfo는 PlayerInfo 다 세팅한 다음에 세팅한다. - 룰에따라 플레이어 정보를 바꿔주기 때문..
 	int nRuleCount = MGetBlobArrayCount(pRuleInfoBlob);
 	if (nRuleCount > 0) {
-		MTD_RuleInfo* pRuleInfoHeader = (MTD_RuleInfo*)MGetBlobArrayElement(pRuleInfoBlob, 0);
+		CCTD_RuleInfo* pRuleInfoHeader = (CCTD_RuleInfo*)MGetBlobArrayElement(pRuleInfoBlob, 0);
 
 		ZGetGame()->GetMatch()->OnResponseRuleInfo(pRuleInfoHeader);
 	}
@@ -1888,10 +1888,10 @@ void ZGameClient::OnSpawnWorldItem(void* pBlob)
 
 	for(int i=0; i<nWorldItemCount; i++) 
 	{
-		MTD_WorldItem* pWorldItemNode = (MTD_WorldItem*)MGetBlobArrayElement(pBlob, i);
+		CCTD_WorldItem* pWorldItemNode = (CCTD_WorldItem*)MGetBlobArrayElement(pBlob, i);
 
 		pWorldItem = ZGetWorldItemManager()->AddWorldItem( pWorldItemNode->nUID, pWorldItemNode->nItemID, 
-			(MTD_WorldItemSubType)pWorldItemNode->nItemSubType,
+			(CCTD_WorldItemSubType)pWorldItemNode->nItemSubType,
 			rvector( (float)pWorldItemNode->x, (float)pWorldItemNode->y, (float)pWorldItemNode->z) );
 
 		pMWeapon = ZGetGame()->m_WeaponManager.UpdateWorldItem(pWorldItemNode->nItemID,rvector( pWorldItemNode->x, pWorldItemNode->y, pWorldItemNode->z));
@@ -1927,7 +1927,7 @@ void ZGameClient::OnNotifyActivatedTrapItemList(void* pBlob)
 	ZObject* pOwner;
 	for(int i=0; i<numTrap; i++) 
 	{
-		MTD_ActivatedTrap* pTrap = (MTD_ActivatedTrap*)MGetBlobArrayElement(pBlob, i);
+		CCTD_ActivatedTrap* pTrap = (CCTD_ActivatedTrap*)MGetBlobArrayElement(pBlob, i);
 
 		pos.x = (float)pTrap->x;
 		pos.y = (float)pTrap->y;

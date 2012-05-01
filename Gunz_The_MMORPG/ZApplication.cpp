@@ -2,7 +2,7 @@
 
 #include "ZApplication.h"
 #include "ZGameInterface.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZConsole.h"
 #include "ZInterface.h"
 #include "Config.h"
@@ -59,7 +59,7 @@ ZTimer			ZApplication::m_Timer;
 ZEmblemInterface	ZApplication::m_EmblemInterface;
 ZSkillManager	ZApplication::m_SkillManager;				///< 스킬 매니저
 
-MCommandLogFrame* m_pLogFrame = NULL;
+CCCommandLogFrame* m_pLogFrame = NULL;
 
 
 ZApplication::ZApplication()
@@ -552,7 +552,7 @@ BirdGo:
 
 	// cclog("ZApplication::OnCreate : CreateConsole \n");
 
-	m_pLogFrame = new MCommandLogFrame("Command Log", Mint::GetInstance()->GetMainFrame(), Mint::GetInstance()->GetMainFrame());
+	m_pLogFrame = new CCCommandLogFrame("Command Log", Mint::GetInstance()->GetMainFrame(), Mint::GetInstance()->GetMainFrame());
 	int nHeight = MGetWorkspaceHeight()/3;
 	m_pLogFrame->SetBounds(0, MGetWorkspaceHeight()-nHeight-1, MGetWorkspaceWidth()-1, nHeight);
 	m_pLogFrame->Show(false);

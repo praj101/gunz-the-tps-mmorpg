@@ -4,7 +4,7 @@
 #include "muid.h"
 
 class ZBirdDummyClient;
-class MCommand;
+class CCCommand;
 
 
 class ZBirdDummyAI
@@ -34,7 +34,7 @@ public:
 	ZBirdDummyAI();
 	virtual ~ZBirdDummyAI();
 	void Create(ZBirdDummyClient* pClient);
-	virtual void OnCommand(MCommand* pCmd);
+	virtual void OnCommand(CCCommand* pCmd);
 	void Run();
 };
 
@@ -43,7 +43,7 @@ class ZBirdDummyAIMakeRoomFlood : public ZBirdDummyAI
 {
 public:
 	virtual void OnRun();
-	virtual void OnCommand(MCommand* pCmd);
+	virtual void OnCommand(CCCommand* pCmd);
 };
 
 class ZBirdDummyAIJoinFlood : public ZBirdDummyAI
@@ -54,7 +54,7 @@ public:
 	unsigned long		m_nReservedTime;
 	bool				m_bReserved;
 	char				m_szLastStage[256];
-	virtual void OnCommand(MCommand* pCmd);
+	virtual void OnCommand(CCCommand* pCmd);
 	virtual void OnRun();
 };
 

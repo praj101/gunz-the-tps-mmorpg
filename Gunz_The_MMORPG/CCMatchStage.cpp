@@ -233,7 +233,7 @@ CCUIDRefCache::iterator CCMatchStage::RemoveObject(const CCUID& uid)
 	CCUIDRefCache::iterator i = m_ObjUIDCaches.find(uid);
 	if (i==m_ObjUIDCaches.end()) 
 	{
-		//CCMatchServer::GetInstance()->LOG(MCommandCommunicator::LOG_FILE, "RemoveObject: Cannot Find Object uid");
+		//CCMatchServer::GetInstance()->LOG(CCCommandCommunicator::LOG_FILE, "RemoveObject: Cannot Find Object uid");
 		//cclog("RemoveObject: Cannot Find Object uid\n");
 		//_ASSERT(0);
 		return i;
@@ -621,7 +621,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 		char szMsg[ 256];
 		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_PERSONNEL_TOO_MUCH);
 
-		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
+		CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 		pCmd->AddParameter(new MCmdParamUInt(0));
 		pCmd->AddParameter(new MCmdParamStr(szMsg));
 		CCMatchServer::GetInstance()->RouteToStage(GetUID(), pCmd);
@@ -648,7 +648,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 
 		if ((GetMasterUID() != (*i).first) && (pObj->GetStageState() != MOSS_READY)) 
 		{
-			if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide))
+			if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide))
 				continue;	// 투명 운영자는 Ready 안해도됨
 
 			bNotReadyExist = true;
@@ -663,7 +663,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 			char szSend[256];
 			sprintf(szSend, "%s%d\a%s", MTOK_ANNOUNCE_PARAMSTR, MERR_HE_IS_NOT_READY, szName);	// 에러메시지ID와 인자를 \a로 구별한다
 
-			MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
+			CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 			pCmd->AddParameter(new MCmdParamUInt(0));
 			//pCmd->AddParameter(new MCmdParamStr(szMsg));
 			pCmd->AddParameter(new MCmdParamStr(szSend));
@@ -675,7 +675,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 	// 새로 추가됨. - by 추교성. 2005.04.19
 	if (bNotReadyExist)
 	{
-		MCommand* pCmdNotReady = CCMatchServer::GetInstance()->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
+		CCCommand* pCmdNotReady = CCMatchServer::GetInstance()->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
 		if( 0 == pCmdNotReady ) {
 			cclog( "CCMatchStage::StartGame - 커맨드 생성 실패.\n" );
 			bResult = false;
@@ -700,7 +700,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 	m_nLastRequestStartStageTime = CCMatchServer::GetInstance()->GetTickTime();
 
 	CCMatchObject* pMasterObj = CCMatchServer::GetInstance()->GetObject(GetMasterUID());
-	if (pMasterObj && IsAdminGrade(pMasterObj) && pMasterObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide))
+	if (pMasterObj && IsAdminGrade(pMasterObj) && pMasterObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide))
 		bResult = true;
 	
 	if (bResult == true) {
@@ -727,7 +727,7 @@ bool CCMatchStage::StartRelayGame( const bool bIsUseResourceCRC32CacheCheck )
 		char szMsg[ 256];
 		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_PERSONNEL_TOO_MUCH);
 
-		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
+		CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 		pCmd->AddParameter(new MCmdParamUInt(0));
 		pCmd->AddParameter(new MCmdParamStr(szMsg));
 		CCMatchServer::GetInstance()->RouteToStage(GetUID(), pCmd);
@@ -756,7 +756,7 @@ bool CCMatchStage::StartRelayGame( const bool bIsUseResourceCRC32CacheCheck )
 */
 
 	CCMatchObject* pMasterObj = CCMatchServer::GetInstance()->GetObject(GetMasterUID());
-	if (pMasterObj && IsAdminGrade(pMasterObj) && pMasterObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide))
+	if (pMasterObj && IsAdminGrade(pMasterObj) && pMasterObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide))
 		bResult = true;
 
 	if (bResult == true) {
@@ -916,7 +916,7 @@ void CCMatchStage::OnFinishGame()
 	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) {
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 
-		MCommand* pCmd = pServer->CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, pServer->GetUID());
+		CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, pServer->GetUID());
 		pCmd->AddParameter(new MCmdParamUID(pObj->GetUID()));
 		pCmd->AddParameter(new MCmdParamUID(GetUID()));
 		pServer->Post(pCmd);
@@ -1186,7 +1186,7 @@ void CCMatchStage::SetLadderTeam(CCMatchLadderTeamInfo* pRedLadderTeamInfo, CCMa
 	memcpy(&m_Teams[CCMT_BLUE].LadderInfo, pBlueLadderTeamInfo, sizeof(CCMatchLadderTeamInfo));
 }
 
-void CCMatchStage::OnCommand(MCommand* pCommand)
+void CCMatchStage::OnCommand(CCCommand* pCommand)
 {
 	if (m_pRule) m_pRule->OnCommand(pCommand);
 }
@@ -1303,22 +1303,22 @@ void CCMatchStage::ShuffleTeamMembers()
 	}
 
 	// 메세지 전송
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_RESET_TEAM_MEMBERS, CCUID(0,0));
+	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_RESET_TEAM_MEMBERS, CCUID(0,0));
 	int nMemberCount = (int)m_ObjUIDCaches.size();
-	void* pTeamMemberDataArray = MMakeBlobArray(sizeof(MTD_ResetTeamMembersData), nMemberCount);
+	void* pTeamMemberDataArray = MMakeBlobArray(sizeof(CCTD_ResetTeamMembersData), nMemberCount);
 
 	nCounter = 0;
 	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
-		MTD_ResetTeamMembersData* pNode = (MTD_ResetTeamMembersData*)MGetBlobArrayElement(pTeamMemberDataArray, nCounter);
+		CCTD_ResetTeamMembersData* pNode = (CCTD_ResetTeamMembersData*)MGetBlobArrayElement(pTeamMemberDataArray, nCounter);
 		pNode->m_uidPlayer = pObj->GetUID();
 		pNode->nTeam = (char)pObj->GetTeam();
 
 		nCounter++;
 	}
 
-	pCmd->AddParameter(new MCommandParameterBlob(pTeamMemberDataArray, MGetBlobArraySize(pTeamMemberDataArray)));
+	pCmd->AddParameter(new CCCommandParameterBlob(pTeamMemberDataArray, MGetBlobArraySize(pTeamMemberDataArray)));
 	MEraseBlobArray(pTeamMemberDataArray);
 	CCMatchServer::GetInstance()->RouteToBattle(GetUID(), pCmd);
 }
@@ -1382,7 +1382,7 @@ int CCMatchStage::GetPlayers()
 	{
 		CCMatchObject* pObj = (CCMatchObject*)((*i).second);
 		
-		if ( IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide))
+		if ( IsAdminGrade(pObj) && pObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide))
 			continue;
 
 		nPlayers++;
@@ -1419,7 +1419,7 @@ bool CCMatchStage::CheckDuelMap()
 		if( NULL == pMaster )
 			return false;
 
-		MCommand* pCmd = pServer->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
+		CCCommand* pCmd = pServer->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
 		if( 0 == pCmd )
 			return false;
 
@@ -1477,11 +1477,11 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 	//}
 
 	// 입장권을 가지고 있는지 검사한다.
-	if( !pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide) &&
+	if( !pObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide) &&
 		pObj->GetCharInfo()->m_ItemList.IsHave(m_StageSetting.GetTicketItemID()) )
 		return true;
 
-	MCommand* pCmd = MGetMatchServer()->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
+	CCCommand* pCmd = MGetMatchServer()->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
 	if( 0 != pCmd )
 	{
 		pCmd->AddParameter( new MCmdParamInt(INVALID_TACKET_USER) );
@@ -1632,7 +1632,7 @@ void CCMatchStage::ReserveSuicide( const CCUID& uidUser, const DWORD dwExpireTim
 
 	m_SuicideList.push_back( SuicideUser );
 
-	MCommand* pNew = MGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE_RESERVE, uidUser );
+	CCCommand* pNew = MGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE_RESERVE, uidUser );
 	if( NULL == pNew )
 		return;
 
@@ -1669,9 +1669,9 @@ void CCMatchStage::CheckSuicideReserve( const DWORD dwCurTime )
 
 			/////////////////////////////////////
 
-			MCommand* pNew = MGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE, CCUID(0, 0) );
-			pNew->AddParameter( new MCommandParameterInt(MOK) );
-			pNew->AddParameter( new MCommandParameterUID(it->m_uidUser) );
+			CCCommand* pNew = MGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE, CCUID(0, 0) );
+			pNew->AddParameter( new CCCommandParameterInt(MOK) );
+			pNew->AddParameter( new CCCommandParameterUID(it->m_uidUser) );
 			MGetMatchServer()->RouteToBattle( GetUID(), pNew );
 
 			// 한번 자살을 요청하면 3분 동안은 자살을 요청 할 수 없다.
@@ -1681,8 +1681,8 @@ void CCMatchStage::CheckSuicideReserve( const DWORD dwCurTime )
 			if ( MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
 			{ // 퀘스트 및 서바이버에서 자살할때 자살 본인외에는 죽는 처리가 안돼있어서 추가함
 				// 죽었다는 메세지 보냄
-				MCommand* pCmd = MGetMatchServer()->CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, CCUID(0,0));
-				pCmd->AddParameter(new MCommandParameterUID(it->m_uidUser));
+				CCCommand* pCmd = MGetMatchServer()->CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, CCUID(0,0));
+				pCmd->AddParameter(new CCCommandParameterUID(it->m_uidUser));
 				MGetMatchServer()->RouteToBattle(pStage->GetUID(), pCmd);	
 			}
 			
@@ -1787,7 +1787,7 @@ void CCMatchStage::RequestResourceCRC32Cache( const CCUID& uidPlayer )
 
 	SetResourceCRC32Cache( uidPlayer, dwCRC32Cache, dwXORCache );
 
-	MCommand* pCmd = MGetMatchServer()->CreateCommand( MC_REQUEST_RESOURCE_CRC32, uidPlayer );
+	CCCommand* pCmd = MGetMatchServer()->CreateCommand( MC_REQUEST_RESOURCE_CRC32, uidPlayer );
 	pCmd->AddParameter( new MCmdParamUInt(dwKey) );
 
 	MGetMatchServer()->Post( pCmd );
@@ -2021,7 +2021,7 @@ void CCMatchStage::SetDuelTournamentMatchList(CCDUELTOURNAMENTTYPE nType, CCDuel
 	m_nDTStageInfo.nDuelTournamentTotalRound = 0;
 	m_nDTStageInfo.DuelTournamentMatchMap.clear();
 
-	MDUELTOURNAMENTROUNDSTATE nRoundState = GetDuelTournamentRoundState(nType);
+	CCDUELTOURNAMENTROUNDSTATE nRoundState = GetDuelTournamentRoundState(nType);
 	MakeDuelTournamentMatchMap(nRoundState, 1);
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -2065,16 +2065,16 @@ void CCMatchStage::SetDuelTournamentMatchList(CCDUELTOURNAMENTTYPE nType, CCDuel
 	///////////////////////////////////////////////////////////////////////////////
 }
 
-void CCMatchStage::MakeDuelTournamentMatchMap(MDUELTOURNAMENTROUNDSTATE nRoundState, int nMatchNumber)
+void CCMatchStage::MakeDuelTournamentMatchMap(CCDUELTOURNAMENTROUNDSTATE nRoundState, int nMatchNumber)
 {
-	if(nRoundState == MDUELTOURNAMENTROUNDSTATE_MAX ) return;
+	if(nRoundState == CCDUELTOURNAMENTROUNDSTATE_MAX ) return;
 
 	int nRemainCount;
 
 	switch(nRoundState){
-		case MDUELTOURNAMENTROUNDSTATE_QUATERFINAL :		nRemainCount = 4; break;
-		case MDUELTOURNAMENTROUNDSTATE_SEMIFINAL :			nRemainCount = 2; break;
-		case MDUELTOURNAMENTROUNDSTATE_FINAL :				nRemainCount = 1; break;
+		case CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL :		nRemainCount = 4; break;
+		case CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL :			nRemainCount = 2; break;
+		case CCDUELTOURNAMENTROUNDSTATE_FINAL :				nRemainCount = 1; break;
 	}
 
 	int nTemp = 0;
@@ -2090,12 +2090,12 @@ void CCMatchStage::MakeDuelTournamentMatchMap(MDUELTOURNAMENTROUNDSTATE nRoundSt
 		pMatch->uidPlayer2 = CCUID(0, 0);
 
 		if( nMatchNumber % 2 == 0 ) nTemp++;
-		if( nRoundState == MDUELTOURNAMENTROUNDSTATE_FINAL ) pMatch->nNextMatchNumber = 0;
+		if( nRoundState == CCDUELTOURNAMENTROUNDSTATE_FINAL ) pMatch->nNextMatchNumber = 0;
 
 		m_nDTStageInfo.DuelTournamentMatchMap.insert(pair<int, CCMatchDuelTournamentMatch*>(nMatchNumber++, pMatch));
 		
-		if( pMatch->nRoundState == MDUELTOURNAMENTROUNDSTATE_FINAL )			m_nDTStageInfo.nDuelTournamentTotalRound += 3;
-		else if( pMatch->nRoundState == MDUELTOURNAMENTROUNDSTATE_SEMIFINAL )	m_nDTStageInfo.nDuelTournamentTotalRound += 3;
+		if( pMatch->nRoundState == CCDUELTOURNAMENTROUNDSTATE_FINAL )			m_nDTStageInfo.nDuelTournamentTotalRound += 3;
+		else if( pMatch->nRoundState == CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL )	m_nDTStageInfo.nDuelTournamentTotalRound += 3;
 		else																	m_nDTStageInfo.nDuelTournamentTotalRound += 1;
 	}
 
@@ -2114,15 +2114,15 @@ void CCMatchStage::ClearDuelTournamentMatchMap()
 	m_nDTStageInfo.DuelTournamentMatchMap.clear();
 }
 
-int CCMatchStage::GetDuelTournamentNextOrder(MDUELTOURNAMENTROUNDSTATE nRoundState, int nOrder, int nTemp)
+int CCMatchStage::GetDuelTournamentNextOrder(CCDUELTOURNAMENTROUNDSTATE nRoundState, int nOrder, int nTemp)
 {
 	int nResult;
 	int nAdditionalOrder = 0;
 
 	switch(nRoundState){
-		case MDUELTOURNAMENTROUNDSTATE_QUATERFINAL :		nAdditionalOrder = 4; break;
-		case MDUELTOURNAMENTROUNDSTATE_SEMIFINAL :			nAdditionalOrder = 2; break;
-		case MDUELTOURNAMENTROUNDSTATE_FINAL :				nAdditionalOrder = 0; break;		
+		case CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL :		nAdditionalOrder = 4; break;
+		case CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL :			nAdditionalOrder = 2; break;
+		case CCDUELTOURNAMENTROUNDSTATE_FINAL :				nAdditionalOrder = 0; break;		
 		default : ASSERT(0);
 	}
 

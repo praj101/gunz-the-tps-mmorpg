@@ -39,9 +39,9 @@ bool ZMyInfo::InitCharInfo(const char* szCharName, const char* szClanName, const
 	return true;
 }
 /*//버프정보임시주석 
-void ZMyInfo::SetCharBuffInfo(MTD_CharBuffInfo* pMTD_CharBuffInfo)
+void ZMyInfo::SetCharBuffInfo(CCTD_CharBuffInfo* pCCTD_CharBuffInfo)
 {
-	m_BuffMgr.Set(pMTD_CharBuffInfo);
+	m_BuffMgr.Set(pCCTD_CharBuffInfo);
 }*/
 
 void ZMyInfo::Destroy()

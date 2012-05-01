@@ -426,7 +426,7 @@ void ZItemSlotView::OnMouseIn( void )
 	sRect rcSlotView = GetRect();
 	sRect rcTextArea = pItemDescTextArea->GetRect();
 	MPOINT posDesc(rcSlotView.x, rcSlotView.y);
-	posDesc = MClientToScreen(GetParent(), posDesc);
+	posDesc = CCClientToScreen(GetParent(), posDesc);
 	posDesc.x = rcSlotView.x + rcSlotView.w + CONVERT800(20);	// 일단 슬롯뷰 우측으로
 	if (posDesc.y+rcTextArea.h > MGetWorkspaceHeight())			// 화면 하단에 짤리지 않게
 		posDesc.y = MGetWorkspaceHeight() - rcTextArea.h;

@@ -24,7 +24,7 @@
 
 const DWORD CCMatchDisconnStatusInfo::CCINTERVAL_DISCONNECT_STATUS_MIN = (5 * 1000);
 
-CCMatchObject::CCMatchObject(const CCUID& uid) : MObject(uid) 
+CCMatchObject::CCMatchObject(const CCUID& uid) : CCObject(uid) 
 { 
 	m_pCharInfo = NULL;
 	m_pFriendInfo = NULL;
@@ -143,7 +143,7 @@ void CCMatchObject::SetTeam(CCMatchTeam nTeam)
 { 
 	m_nTeam = nTeam; 
 
-	if (IsAdminGrade(this) && CheckPlayerFlags(MTD_PlayerFlags_AdminHide))
+	if (IsAdminGrade(this) && CheckPlayerFlags(CCTD_PlayerFlags_AdminHide))
 		m_nTeam = MMT_SPECTATOR;
 }
 
@@ -325,7 +325,7 @@ void CCMatchObject::BattleTimeReward(unsigned int nTime)
 
 			if( m_pCharInfo->GetBRInfoMap().Insert(pInfo->GetBRID(), pInfo) )
 			{
-				MAsyncDBJob_GetCharBRInfo* pJob = new MAsyncDBJob_GetCharBRInfo(m_UID);
+				CCAsyncDBJob_GetCharBRInfo* pJob = new CCAsyncDBJob_GetCharBRInfo(m_UID);
 				pJob->Input(m_pCharInfo->m_nCID, pDesc->GetBRID(), pDesc->GetBRTID());
 				m_DBJobQ.DBJobQ.push_back(pJob);
 			}

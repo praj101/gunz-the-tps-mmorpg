@@ -50,7 +50,7 @@ struct CCCHANNELLISTNODE {
 	unsigned int	nTicketID;
 };
 
-// typedef map<string, CCMatchObject*>			MObjectStrMap;
+// typedef map<string, CCMatchObject*>			CCObjectStrMap;
 typedef map<int, CCMatchStage*>				CCChannelStageMap;
 typedef CCPageArray<CCMatchObject*>			CCChannelUserArray;
 
@@ -75,7 +75,7 @@ private:
 	
 	CCUIDRefCache	m_ObjUIDCaches;			// 채널전체 플레이어들
 	CCUIDRefCache	m_ObjUIDLobbyCaches;	// 로비에 있는 플레이어들
-//	MObjectStrMap	m_ObjStrCaches;
+//	CCObjectStrMap	m_ObjStrCaches;
 
 	CCMatchStage*	m_pStages[MAX_CHANNEL_MAXSTAGES];
 	list<int>		m_UnusedStageIndexList;

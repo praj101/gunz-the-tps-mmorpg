@@ -600,7 +600,7 @@ void CCEditLook::OnTextDraw(CCEdit* pEdit, CCDrawContext* pDC, bool bShowLanguag
 	CCFont* pFont = pDC->GetFont();
 	sRect r = pEdit->GetClientRect();
 	r.x-=2;
-	sRect scr=MClientToScreen(pEdit,r);
+	sRect scr=CCClientToScreen(pEdit,r);
 	pDC->SetClipRect(scr);
 
 	if( bShowLanguageTab )

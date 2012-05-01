@@ -7,12 +7,12 @@
 class ZRuleDuel : public ZRule
 {
 public:
-	MTD_DuelQueueInfo QInfo;
+	CCTD_DuelQueueInfo QInfo;
 
 	ZRuleDuel(ZMatch* pMatch);
 	virtual ~ZRuleDuel();
 
-	virtual bool OnCommand(MCommand* pCommand);
+	virtual bool OnCommand(CCCommand* pCommand);
 
 	int	GetQueueIdx(const CCUID& uidChar);			// 0 : 챔피언   1 : 도전자  2~ : 관전자
 };

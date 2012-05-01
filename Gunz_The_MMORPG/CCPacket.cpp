@@ -7,19 +7,19 @@
 
 
 //#ifdef _HSHIELD
-//	#include "MPacketHShieldCrypter.h"
+//	#include "CCPacketHShieldCrypter.h"
 //#else
 	#include "CCPacketCrypter.h"
 //#endif
 
-int MPacketHeader::CalcPacketSize(MPacketCrypter* pCrypter)
+int CCPacketHeader::CalcPacketSize(CCPacketCrypter* pCrypter)
 {
 	unsigned short nPacketSize = 0;
 
 	if (nMsg == MSGID_COMMAND)
 	{
 //#ifdef _HSHIELD
-//		MPacketHShieldCrypter::Decrypt((PBYTE)&(nSize), sizeof(unsigned short), (PBYTE)&nPacketSize);
+//		CCPacketHShieldCrypter::Decrypt((PBYTE)&(nSize), sizeof(unsigned short), (PBYTE)&nPacketSize);
 //#else
 		if (pCrypter)
 		{

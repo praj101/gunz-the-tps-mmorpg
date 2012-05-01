@@ -21,11 +21,11 @@ protected:
 	unsigned long GetLastTick()	{ return m_nLastTick; }
 	void SetLastTick(unsigned long nTick)	{ m_nLastTick = nTick; }
 
-	inline MLadderGroupMap* GetWaitGroupContainer(MLADDERTYPE nLadderType);
+	inline MLadderGroupMap* GetWaitGroupContainer(CCLADDERTYPE nLadderType);
 
-	void AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup);
-	int MakeMatch(MLADDERTYPE nLadderType);
-	void LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB);
+	void AddGroup(CCLADDERTYPE nLadderType, MLadderGroup* pGroup);
+	int MakeMatch(CCLADDERTYPE nLadderType);
+	void LaunchLadder(CCLADDERTYPE nLadderType, int nGroupA, int nGroupB);
 	void RemoveFromGroupList(MLadderGroup* pGroup);
 	void CleaningGarbages();
 	unsigned long int GetTickInterval();
@@ -41,7 +41,7 @@ public:
 
 	void Tick(unsigned long nTick);
 	int GenerateID()	{ return ++m_idGenerate; }	
-	int GetNeedMemberCount(MLADDERTYPE nLadderType);
+	int GetNeedMemberCount(CCLADDERTYPE nLadderType);
 	int GetTotalGroupCount();
 	unsigned long GetChecksum(int nFirstIndex, int nGroupCount);
 

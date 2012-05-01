@@ -236,7 +236,7 @@ void ZSurvival::UpdateNavMeshWeight(float fDelta)
 
 }
 
-bool ZSurvival::OnCommand(MCommand* pCommand)
+bool ZSurvival::OnCommand(CCCommand* pCommand)
 {
 	switch (pCommand->GetID())
 	{
@@ -247,7 +247,7 @@ bool ZSurvival::OnCommand(MCommand* pCommand)
 	return false;
 }
 
-bool ZSurvival::OnGameCommand(MCommand* pCommand)
+bool ZSurvival::OnGameCommand(CCCommand* pCommand)
 {
 	switch (pCommand->GetID())
 	{
@@ -297,7 +297,7 @@ bool ZSurvival::OnGameCommand(MCommand* pCommand)
 	return false;
 }
 
-bool ZSurvival::OnNPCSpawn(MCommand* pCommand)
+bool ZSurvival::OnNPCSpawn(CCCommand* pCommand)
 {
 	if (ZGetGame() == NULL) return false;
 
@@ -425,7 +425,7 @@ bool ZSurvival::OnNPCSpawn(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnNPCDead(MCommand* pCommand)
+bool ZSurvival::OnNPCDead(CCCommand* pCommand)
 {
 	CCUID uidPlayer, uidNPC;
 
@@ -455,7 +455,7 @@ bool ZSurvival::OnNPCDead(MCommand* pCommand)
 }
 
 /*
-bool ZSurvival::OnQuestGroupLoad(MCommand* pCommand)
+bool ZSurvival::OnQuestGroupLoad(CCCommand* pCommand)
 {
 	if(!pCommand) return false;
 
@@ -484,7 +484,7 @@ bool ZSurvival::OnQuestGroupLoad(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnQuestGroupClear(MCommand* pCommand)
+bool ZSurvival::OnQuestGroupClear(CCCommand* pCommand)
 {
 	ZGetNpcMeshMgr()->UnLoadAll();
 
@@ -492,7 +492,7 @@ bool ZSurvival::OnQuestGroupClear(MCommand* pCommand)
 }
 */
 
-bool ZSurvival::OnEntrustNPCControl(MCommand* pCommand)
+bool ZSurvival::OnEntrustNPCControl(CCCommand* pCommand)
 {
 	CCUID uidChar, uidNPC;
 	pCommand->GetParameter(&uidChar,	0, MPT_UID);
@@ -513,9 +513,9 @@ bool ZSurvival::OnEntrustNPCControl(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnPeerNPCBasicInfo(MCommand* pCommand)
+bool ZSurvival::OnPeerNPCBasicInfo(CCCommand* pCommand)
 {
-	MCommandParameter* pParam = pCommand->GetParameter(0);
+	CCCommandParameter* pParam = pCommand->GetParameter(0);
 	if(pParam->GetType()!=MPT_BLOB) return false;
 
 	ZACTOR_BASICINFO* ppbi= (ZACTOR_BASICINFO*)pParam->GetPointer();
@@ -600,13 +600,13 @@ bool ZSurvival::OnPeerNPCBasicInfo(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnPeerNPCHPInfo(MCommand* pCommand)
+bool ZSurvival::OnPeerNPCHPInfo(CCCommand* pCommand)
 {
 
 	return true;
 }
 
-bool ZSurvival::OnPeerNPCBossHpAp(MCommand* pCommand)
+bool ZSurvival::OnPeerNPCBossHpAp(CCCommand* pCommand)
 {
 	CCUID uidBoss;
 	float fHp, fAp;
@@ -623,13 +623,13 @@ bool ZSurvival::OnPeerNPCBossHpAp(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnPrePeerNPCAttackMelee(MCommand* pCommand)	// 실제로 처리하는건 한타이밍 늦다
+bool ZSurvival::OnPrePeerNPCAttackMelee(CCCommand* pCommand)	// 실제로 처리하는건 한타이밍 늦다
 {
 	// TODO: 이때 애니메이션을 시작
 	return true;
 }
 
-bool ZSurvival::OnPeerNPCAttackMelee(MCommand* pCommand)
+bool ZSurvival::OnPeerNPCAttackMelee(CCCommand* pCommand)
 {
 	CCUID uidOwner;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
@@ -639,12 +639,12 @@ bool ZSurvival::OnPeerNPCAttackMelee(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnPeerNPCAttackRange(MCommand* pCommand)
+bool ZSurvival::OnPeerNPCAttackRange(CCCommand* pCommand)
 {
 	CCUID uidOwner;
 	pCommand->GetParameter(&uidOwner,	0, MPT_UID);
 
-	MCommandParameter* pParam = pCommand->GetParameter(1);
+	CCCommandParameter* pParam = pCommand->GetParameter(1);
 	if(pParam->GetType()!=MPT_BLOB) return false;	// 문제가 있다
 
 	ZPACKEDSHOTINFO *pinfo =(ZPACKEDSHOTINFO*)pParam->GetPointer();
@@ -696,14 +696,14 @@ bool ZSurvival::OnPeerNPCAttackRange(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnRefreshPlayerStatus(MCommand* pCommand)
+bool ZSurvival::OnRefreshPlayerStatus(CCCommand* pCommand)
 {
 	// 운영자 hide는 제외
 	bool bAdminHide = false;
 	if (ZGetMyInfo()->IsAdminGrade()) 
 	{
 		CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-		if (pCache && pCache->CheckFlag(MTD_PlayerFlags_AdminHide))
+		if (pCache && pCache->CheckFlag(CCTD_PlayerFlags_AdminHide))
 			bAdminHide = true;
 	}
 
@@ -734,14 +734,14 @@ bool ZSurvival::OnRefreshPlayerStatus(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnClearAllNPC(MCommand* pCommand)
+bool ZSurvival::OnClearAllNPC(CCCommand* pCommand)
 {
 	ZGetObjectManager()->ClearNPC();
 
 	return true;
 }
 
-bool ZSurvival::OnQuestRoundStart(MCommand* pCommand)
+bool ZSurvival::OnQuestRoundStart(CCCommand* pCommand)
 {
 	unsigned char nRound;
 	pCommand->GetParameter(&nRound,		0, MPT_UCHAR);
@@ -754,7 +754,7 @@ bool ZSurvival::OnQuestRoundStart(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnQuestPlayerDead(MCommand* pCommand)
+bool ZSurvival::OnQuestPlayerDead(CCCommand* pCommand)
 {
 	CCUID uidVictim;
 	pCommand->GetParameter(&uidVictim,		0, MPT_UID);
@@ -783,13 +783,13 @@ bool ZSurvival::OnQuestPlayerDead(MCommand* pCommand)
 }
 
 
-bool ZSurvival::OnQuestGameInfo(MCommand* pCommand)
+bool ZSurvival::OnQuestGameInfo(CCCommand* pCommand)
 {
-	MCommandParameter* pParam = pCommand->GetParameter(0);
+	CCCommandParameter* pParam = pCommand->GetParameter(0);
 	if(pParam->GetType()!=MPT_BLOB) return false;
 	void* pBlob = pParam->GetPointer();
 
-	MTD_QuestGameInfo* pQuestGameInfo= (MTD_QuestGameInfo*)MGetBlobArrayElement(pBlob, 0);
+	CCTD_QuestGameInfo* pQuestGameInfo= (CCTD_QuestGameInfo*)MGetBlobArrayElement(pBlob, 0);
 	
 	m_GameInfo.Init(pQuestGameInfo);
 
@@ -797,7 +797,7 @@ bool ZSurvival::OnQuestGameInfo(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnQuestCombatState(MCommand* pCommand)
+bool ZSurvival::OnQuestCombatState(CCCommand* pCommand)
 {
 	char nState;
 	pCommand->GetParameter(&nState,		0, MPT_CHAR);
@@ -849,7 +849,7 @@ bool ZSurvival::OnQuestCombatState(MCommand* pCommand)
 }
 
 
-bool ZSurvival::OnMovetoPortal(MCommand* pCommand)
+bool ZSurvival::OnMovetoPortal(CCCommand* pCommand)
 {
 	char nCurrSectorIndex;
 	unsigned char nCurrRepeatIndex;
@@ -895,7 +895,7 @@ bool ZSurvival::OnMovetoPortal(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnReadyToNewSector(MCommand* pCommand)
+bool ZSurvival::OnReadyToNewSector(CCCommand* pCommand)
 {
 	CCUID uidPlayer;
 	pCommand->GetParameter(&uidPlayer,	0, MPT_UID);
@@ -943,7 +943,7 @@ bool ZSurvival::OnReadyToNewSector(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnSectorStart(MCommand* pCommand)
+bool ZSurvival::OnSectorStart(CCCommand* pCommand)
 {
 	char nSectorIndex;
 	unsigned char nRepeatIndex;
@@ -980,18 +980,18 @@ bool ZSurvival::OnSectorStart(MCommand* pCommand)
 
 	// admin hide 이면 다시 옵저버를 활성화
 	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-	if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
+	if (pObjCache && pObjCache->CheckFlag(CCTD_PlayerFlags_AdminHide)) {
 		ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 	}
 
 	return true;
 }
 
-bool ZSurvival::OnQuestCompleted(MCommand* pCommand)
+bool ZSurvival::OnQuestCompleted(CCCommand* pCommand)
 {
 	m_bIsQuestComplete = true;
 
-	MCommandParameter* pParam = pCommand->GetParameter(0);
+	CCCommandParameter* pParam = pCommand->GetParameter(0);
 	if(pParam->GetType()!=MPT_BLOB) return false;
 
 	void* pBlob = pParam->GetPointer();
@@ -999,7 +999,7 @@ bool ZSurvival::OnQuestCompleted(MCommand* pCommand)
 
 	for (int i = 0; i < nBlobSize; i++)
 	{
-		MTD_QuestReward* pQuestRewardNode = (MTD_QuestReward*)MGetBlobArrayElement(pBlob, i);
+		CCTD_QuestReward* pQuestRewardNode = (CCTD_QuestReward*)MGetBlobArrayElement(pBlob, i);
 
 
 		// 여기서 보상 내용을 딴 곳에 저장해서 화면에 보여주면 됩니다. - bird
@@ -1013,7 +1013,7 @@ bool ZSurvival::OnQuestCompleted(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnQuestFailed(MCommand* pCommand)
+bool ZSurvival::OnQuestFailed(CCCommand* pCommand)
 {
 	cclog("Quest Failed\n");
 
@@ -1024,7 +1024,7 @@ bool ZSurvival::OnQuestFailed(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnObtainQuestItem(MCommand* pCommand)
+bool ZSurvival::OnObtainQuestItem(CCCommand* pCommand)
 {
 	unsigned long int nQuestItemID;
 	pCommand->GetParameter(&nQuestItemID,	0, MPT_UINT);
@@ -1045,7 +1045,7 @@ bool ZSurvival::OnObtainQuestItem(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnObtainZItem(MCommand* pCommand)
+bool ZSurvival::OnObtainZItem(CCCommand* pCommand)
 {
 	unsigned long int nItemID;
 	pCommand->GetParameter(&nItemID,	0, MPT_UINT);
@@ -1160,7 +1160,7 @@ void ZSurvival::MoveToNextSector()
 	}
 }
 
-bool ZSurvival::OnSurvivalResult(MCommand* pCmd)
+bool ZSurvival::OnSurvivalResult(CCCommand* pCmd)
 {
 	if( 0 == pCmd )
 		return false;
@@ -1177,7 +1177,7 @@ bool ZSurvival::OnSurvivalResult(MCommand* pCmd)
 	return true;
 }
 
-bool ZSurvival::OnSurvivalRankingList(MCommand* pCmd)
+bool ZSurvival::OnSurvivalRankingList(CCCommand* pCmd)
 {
 	if( 0 == pCmd ) return false;
 
@@ -1190,9 +1190,9 @@ bool ZSurvival::OnSurvivalRankingList(MCommand* pCmd)
 	pWidgetName->Clear();
 	pWidgetPoint->Clear();
 
-	MCommandParameter* pParam = pCmd->GetParameter( 0 );
-	void* pRankBlob = (MTD_SurvivalRanking*)pParam->GetPointer();
-	MTD_SurvivalRanking* pRank;
+	CCCommandParameter* pParam = pCmd->GetParameter( 0 );
+	void* pRankBlob = (CCTD_SurvivalRanking*)pParam->GetPointer();
+	CCTD_SurvivalRanking* pRank;
 	char szText[128];
 
 	int sizeBlob = MGetBlobArrayCount( pRankBlob );
@@ -1200,7 +1200,7 @@ bool ZSurvival::OnSurvivalRankingList(MCommand* pCmd)
 
 	for (int i = 0; i < size; ++i)
 	{
-		pRank = reinterpret_cast< MTD_SurvivalRanking* >( MGetBlobArrayElement(pRankBlob, i) );
+		pRank = reinterpret_cast< CCTD_SurvivalRanking* >( MGetBlobArrayElement(pRankBlob, i) );
 
 		if (pRank->m_dwRank == 0) break;
 
@@ -1216,7 +1216,7 @@ bool ZSurvival::OnSurvivalRankingList(MCommand* pCmd)
 	return true;
 }
 
-bool ZSurvival::OnSurvivalPrivateRanking(MCommand* pCmd)
+bool ZSurvival::OnSurvivalPrivateRanking(CCCommand* pCmd)
 {
 	if( 0 == pCmd ) return false;
 	
@@ -1250,7 +1250,7 @@ bool ZSurvival::OnSurvivalPrivateRanking(MCommand* pCmd)
 }
 
 #ifdef _QUEST_ITEM
-/*bool ZSurvival::OnRewardQuest( MCommand* pCmd )
+/*bool ZSurvival::OnRewardQuest( CCCommand* pCmd )
 {
 	if( 0 == pCmd )
 		return false;
@@ -1259,8 +1259,8 @@ bool ZSurvival::OnSurvivalPrivateRanking(MCommand* pCmd)
 
 	pCmd->GetParameter( &nXP, 0, MPT_INT );
 	pCmd->GetParameter( &nBP, 1, MPT_INT );
-	MCommandParameter* pParam1 = pCmd->GetParameter( 2 );
-	MCommandParameter* pParam2 = pCmd->GetParameter( 3 );
+	CCCommandParameter* pParam1 = pCmd->GetParameter( 2 );
+	CCCommandParameter* pParam2 = pCmd->GetParameter( 3 );
 
 	GetMyObtainQuestItemList( nXP, nBP, pParam1->GetPointer(), pParam2->GetPointer() );
 	
@@ -1310,7 +1310,7 @@ void ZSurvival::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pM
 
 	int							i;
 	int							nQuestItemCount;
-	MTD_QuestItemNode*			pQuestItemNode;
+	CCTD_QuestItemNode*			pQuestItemNode;
 	ZMyQuestItemNode*			pNewQuestItem;
 	ZMyQuestItemMap::iterator	itQItem;
 	ZMyInfo*					pMyInfo;
@@ -1325,7 +1325,7 @@ void ZSurvival::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pM
 
 	for( i = 0; i < nQuestItemCount; ++i )
 	{
-		pQuestItemNode = reinterpret_cast< MTD_QuestItemNode* >( MGetBlobArrayElement(pMyObtainQuestItemListBlob, i) );
+		pQuestItemNode = reinterpret_cast< CCTD_QuestItemNode* >( MGetBlobArrayElement(pMyObtainQuestItemListBlob, i) );
 
 		// 리스트 박스 업데이트
 		if ( pListBox && (pQuestItemNode->m_nCount > 0))
@@ -1376,7 +1376,7 @@ void ZSurvival::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pM
 	int nZItemCount = MGetBlobArrayCount( pMyObtainZItemListBlob );
 	for (int i = 0; i < nZItemCount; i++)
 	{
-		MTD_QuestZItemNode* pZItemNode = (MTD_QuestZItemNode*)( MGetBlobArrayElement(pMyObtainZItemListBlob, i) );
+		CCTD_QuestZItemNode* pZItemNode = (CCTD_QuestZItemNode*)( MGetBlobArrayElement(pMyObtainZItemListBlob, i) );
 
 		// 리스트 박스 업데이트
 		if ( pListBox )
@@ -1392,7 +1392,7 @@ void ZSurvival::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pM
 }
 
 
-bool ZSurvival::OnNewMonsterInfo( MCommand* pCmd )
+bool ZSurvival::OnNewMonsterInfo( CCCommand* pCmd )
 {
 	char nMonIndex;
 
@@ -1405,7 +1405,7 @@ bool ZSurvival::OnNewMonsterInfo( MCommand* pCmd )
 
 #endif
 
-bool ZSurvival::OnPeerNPCSkillStart(MCommand* pCommand)
+bool ZSurvival::OnPeerNPCSkillStart(CCCommand* pCommand)
 {
 	CCUID uidOwner,uidTarget;
 	int nSkill;
@@ -1425,7 +1425,7 @@ bool ZSurvival::OnPeerNPCSkillStart(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnPeerNPCSkillExecute(MCommand* pCommand)
+bool ZSurvival::OnPeerNPCSkillExecute(CCCommand* pCommand)
 {
 	CCUID uidOwner,uidTarget;
 	int nSkill;
@@ -1446,13 +1446,13 @@ bool ZSurvival::OnPeerNPCSkillExecute(MCommand* pCommand)
 }
 
 
-bool ZSurvival::OnSetMonsterBibleInfo( MCommand* pCmd )
+bool ZSurvival::OnSetMonsterBibleInfo( CCCommand* pCmd )
 {
 	if( 0 == pCmd )
 		return false;
 
 	CCUID				uid;
-	MCommandParameter*	pParam;
+	CCCommandParameter*	pParam;
 	void*				pMonBibleInfoBlob;
 	CCQuestMonsterBible*	pMonBible;
 
@@ -1470,7 +1470,7 @@ bool ZSurvival::OnSetMonsterBibleInfo( MCommand* pCmd )
 	return true;
 }
 
-bool ZSurvival::OnPeerNPCDead(MCommand* pCommand)
+bool ZSurvival::OnPeerNPCDead(CCCommand* pCommand)
 {
 	CCUID uidKiller, uidNPC;
 
@@ -1495,7 +1495,7 @@ bool ZSurvival::OnPeerNPCDead(MCommand* pCommand)
 	return true;
 }
 
-bool ZSurvival::OnSectorBonus(MCommand* pCommand)
+bool ZSurvival::OnSectorBonus(CCCommand* pCommand)
 {
 	CCUID uidPlayer;
 	unsigned long int nExpValue = 0;
@@ -1524,7 +1524,7 @@ bool ZSurvival::OnSectorBonus(MCommand* pCommand)
 }
 
 
-bool ZSurvival::OnQuestPing(MCommand* pCommand)
+bool ZSurvival::OnQuestPing(CCCommand* pCommand)
 {
 	unsigned long int TimeStamp;
 	pCommand->GetParameter(&TimeStamp,	0, MPT_UINT);

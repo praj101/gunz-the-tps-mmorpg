@@ -130,7 +130,7 @@ bool CCMatchChannel::CheckLifePeriod(){
 
 void CCMatchChannel::AddObject(const CCUID& uid, CCMatchObject* pObj){
 	m_ObjUIDCaches.Insert(uid, (void*)pObj); // Channel Cache
-	//m_ObjStrCaches.insert(MObjectStrMap::value_type(string(pObj->GetCharInfo()->m_szName), pObj));
+	//m_ObjStrCaches.insert(CCObjectStrMap::value_type(string(pObj->GetCharInfo()->m_szName), pObj));
 	
 	m_UserArray.Add(pObj);
 
@@ -151,7 +151,7 @@ void CCMatchChannel::RemoveObject(const CCUID& uid){
 /*
 	if (pObj)
 	{
-		MObjectStrMap::iterator Itor2 = m_ObjStrCaches.find(string(pObj->GetCharInfo()->m_szName));
+		CCObjectStrMap::iterator Itor2 = m_ObjStrCaches.find(string(pObj->GetCharInfo()->m_szName));
 		if (Itor2 != m_ObjStrCaches.end())
 		{
 			m_ObjStrCaches.erase(Itor2);
@@ -402,7 +402,7 @@ int CCMatchChannel::GetPlayers(){
 	{
 		CCMatchObject* pObj = (CCMatchObject*)((*i).second);
 		
-//		if ( IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide))		// 테스트 요함
+//		if ( IsAdminGrade(pObj) && pObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide))		// 테스트 요함
 //			continue;
 
 		nPlayers++;

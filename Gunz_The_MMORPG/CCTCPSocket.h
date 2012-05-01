@@ -24,7 +24,7 @@ using namespace std;
 
 class MTCPSocket;
 class MServerSocket;
-class MClientSocket;
+class CCClientSocket;
 
 struct MTCPSendQueueItem
 {
@@ -93,7 +93,7 @@ public:
 };
 
 /// 클라이언트용 소켓 쓰레드
-class MClientSocketThread : public MTCPSocketThread 
+class CCClientSocketThread : public MTCPSocketThread 
 {
 private:
 protected:
@@ -108,8 +108,8 @@ protected:
 	bool Recv();
 	void ClearSendList();
 public:
-	MClientSocketThread(MTCPSocket* pTCPSocket);
-	~MClientSocketThread();
+	CCClientSocketThread(MTCPSocket* pTCPSocket);
+	~CCClientSocketThread();
 	virtual void Run();
 
 	bool PushSend(char* pPacket, DWORD dwPacketSize);
@@ -221,7 +221,7 @@ public:
 };
 
 /// TCP 소켓 Client 클래스
-class MClientSocket: public MTCPSocket
+class CCClientSocket: public MTCPSocket
 {
 private:
 protected:
@@ -233,8 +233,8 @@ protected:
 
 	virtual void SimpleCloseSocket();	// 쓰레드는 죽이지 않고, 소켓만 닫을때. - by 추교성.
 public:
-	MClientSocket();
-	virtual ~MClientSocket();
+	CCClientSocket();
+	virtual ~CCClientSocket();
 
 	bool Connect(SOCKET* pSocket, char* szIP, int nPort);			// Client에서만 사용
 	bool Disconnect();
@@ -242,9 +242,9 @@ public:
 
 	virtual bool SimpleDisconnect();	// -by 추교성.
 
-	void SetRecvCallback(MCLIENTRECVCALLBACK pCallback) { ((MClientSocketThread*)(m_pSocketThread))->m_fnRecvCallback = pCallback; }
-	void SetConnectCallback(MCONNECTCALLBACK pCallback) { ((MClientSocketThread*)(m_pSocketThread))->m_fnConnectCallback = pCallback; }
-	void SetDisconnectCallback(MDISCONNECTCALLBACK pCallback) { ((MClientSocketThread*)(m_pSocketThread))->m_fnDisconnectCallback = pCallback; }
+	void SetRecvCallback(MCLIENTRECVCALLBACK pCallback) { ((CCClientSocketThread*)(m_pSocketThread))->m_fnRecvCallback = pCallback; }
+	void SetConnectCallback(MCONNECTCALLBACK pCallback) { ((CCClientSocketThread*)(m_pSocketThread))->m_fnConnectCallback = pCallback; }
+	void SetDisconnectCallback(MDISCONNECTCALLBACK pCallback) { ((CCClientSocketThread*)(m_pSocketThread))->m_fnDisconnectCallback = pCallback; }
 
 	const char* GetHost()	{ return m_szHost; }
 };

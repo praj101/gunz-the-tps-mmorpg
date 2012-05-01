@@ -214,7 +214,7 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 					// 툴팁의 위치
 					sRect rcTextArea = pItemDescTextArea->GetRect();
 					MPOINT posDesc(rcItem.x, rcItem.y);
-					posDesc = MClientToScreen(this, posDesc);
+					posDesc = CCClientToScreen(this, posDesc);
 					posDesc.x -= pItemDescTextArea->GetClientWidth();			// 일단 아이콘의 왼쪽으로
 					if (posDesc.y+rcTextArea.h > rcListBox.y + rcListBox.h)		// 리스트 박스 하단을 넘어가지 않게 하자
 						posDesc.y = rcListBox.y + rcListBox.h - rcTextArea.h;

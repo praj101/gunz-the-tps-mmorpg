@@ -21,7 +21,7 @@
 #define _STATUS_CMD_START	unsigned long int nStatusStartTime = timeGetTime();
 #define _STATUS_CMD_END		MGetServerStatusSingleton()->AddCmd(pCommand->GetID(), pCommand->GetSenderUID(), 0, timeGetTime()-nStatusStartTime);
 
-bool CCMatchServer::OnCommand(MCommand* pCommand)
+bool CCMatchServer::OnCommand(CCCommand* pCommand)
 {
 	// 서버 또는 Agent 가 보내는것을 제외하고 플러딩 검사
 	if(GetAgent(pCommand->GetSenderUID())==NULL && pCommand->GetSenderUID()!=m_This)
@@ -80,12 +80,12 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				if (pCommand->GetParameter(szPassword, 1, MPT_STR, MAX_USER_PASSWORD_STRING_LEN )==false) break;
 				if (pCommand->GetParameter(&nCommandVersion, 2, MPT_INT)==false) break;
 				if (pCommand->GetParameter(&nChecksumPack, 3, MPT_UINT)==false) break;
-				MCommandParameter* pLoginParam = pCommand->GetParameter(4);
+				CCCommandParameter* pLoginParam = pCommand->GetParameter(4);
 				if (pLoginParam->GetType() != MPT_BLOB) break;
 				void *pLoginBlob = pLoginParam->GetPointer();
 				if( NULL == pLoginBlob )
 				{
-					// Hacker가 Blob의 크기를 조정하면 MCommand를 만들때 Blob데이터가 NULL포인터를 가질수 있다.
+					// Hacker가 Blob의 크기를 조정하면 CCCommand를 만들때 Blob데이터가 NULL포인터를 가질수 있다.
 					break;
 				}
 				char *szEncryptMD5Value = (char *)MGetBlobArrayElement(pLoginBlob, 0);
@@ -394,7 +394,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		case MC_MATCH_GAME_REQUEST_SPAWN:
 			{
 				//CCUID uidChar;
-				MVector pos, dir;
+				CCVector pos, dir;
 
 				//pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&pos, 1, MPT_POS);
@@ -449,7 +449,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				CCUID uidPlayer = pCommand->GetSenderUID();
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
-				MCommandParameter* pQuickJoinParam = pCommand->GetParameter(1);
+				CCCommandParameter* pQuickJoinParam = pCommand->GetParameter(1);
 				if(pQuickJoinParam->GetType()!=MPT_BLOB) break;
 
 				void* pQuickJoinBlob = pQuickJoinParam->GetPointer();
@@ -537,7 +537,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&uidStage, 0, MPT_UID);
 				pCommand->GetParameter(&nType, 1, MPT_INT );
 				pCommand->GetParameter(&nRepeatCount, 2, MPT_INT );
-				MCommandParameter* pParam = pCommand->GetParameter(3);
+				CCCommandParameter* pParam = pCommand->GetParameter(3);
 				if (pParam->GetType() != MPT_BLOB)
 					break;
 				void* pRelayMapListBlob = pParam->GetPointer();
@@ -555,7 +555,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
 
-				MCommandParameter* pStageParam = pCommand->GetParameter(2);
+				CCCommandParameter* pStageParam = pCommand->GetParameter(2);
 				if(pStageParam->GetType()!=MPT_BLOB) break;
 				void* pStageBlob = pStageParam->GetPointer();
 				if( NULL == pStageBlob )
@@ -1341,7 +1341,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nMemberCount,		0, MPT_INT);
 				pCommand->GetParameter(&nOptions,			1, MPT_UINT);
 
-				MCommandParameter* pMemberNamesBlobParam = pCommand->GetParameter(2);
+				CCCommandParameter* pMemberNamesBlobParam = pCommand->GetParameter(2);
 				if(pMemberNamesBlobParam->GetType()!=MPT_BLOB) break;
 
 				void* pMemberNamesBlob = pMemberNamesBlobParam->GetPointer();
@@ -1368,7 +1368,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nRequestID,			2, MPT_INT);
 				pCommand->GetParameter(&nReplierCount,		3, MPT_INT);
 
-				MCommandParameter* pReplierNamesParam = pCommand->GetParameter(4);
+				CCCommandParameter* pReplierNamesParam = pCommand->GetParameter(4);
 				if(pReplierNamesParam->GetType()!=MPT_BLOB) break;
 
 				void* pReplierNamesBlob = pReplierNamesParam->GetPointer();
@@ -1421,7 +1421,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 		case MC_MATCH_CLAN_REQUEST_EMBLEMURL:
 			{
 				CCUID uidPlayer = pCommand->GetSenderUID();
-				MCommandParameter* pParam = pCommand->GetParameter(0);
+				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if (pParam->GetType() != MPT_BLOB)
 				{
 					break;
@@ -1443,7 +1443,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&s_pos,		2, MPT_SVECTOR);
 
 				CCUID uidSender = pCommand->GetSenderUID();
-				MVector pos = MVector((float)s_pos.x, (float)s_pos.y, (float)s_pos.z);
+				CCVector pos = CCVector((float)s_pos.x, (float)s_pos.y, (float)s_pos.z);
 
 				OnRequestNPCDead(uidSender, uidKiller, uidNPC, pos);
 

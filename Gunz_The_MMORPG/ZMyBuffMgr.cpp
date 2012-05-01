@@ -18,7 +18,7 @@ void ZMyBuffMgr::Clear()
 }
 
 //버프정보임시주석 
-/*void ZMyBuffMgr::Set(MTD_CharBuffInfo* pCharBuffInfo)
+/*void ZMyBuffMgr::Set(CCTD_CharBuffInfo* pCharBuffInfo)
 {
 	Clear();
 

@@ -149,14 +149,14 @@ void CCMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 	int nItemSize = (int)m_ItemMap.size();
 	if (nItemSize <= 0) return;
 
-	void* pItemArray = MMakeBlobArray(sizeof(MTD_WorldItem), nItemSize);
+	void* pItemArray = MMakeBlobArray(sizeof(CCTD_WorldItem), nItemSize);
 	
 
 	int nIndex = 0;
 	for (CCMatchWorldItemMap::iterator itor = m_ItemMap.begin(); itor != m_ItemMap.end(); ++itor)
 	{
 		CCMatchWorldItem* pWorldItem = (*itor).second;
-		MTD_WorldItem* pNode = (MTD_WorldItem*)MGetBlobArrayElement(pItemArray, nIndex++);
+		CCTD_WorldItem* pNode = (CCTD_WorldItem*)MGetBlobArrayElement(pItemArray, nIndex++);
 
 		Make_MTDWorldItem(pNode, pWorldItem);
 
@@ -167,8 +167,8 @@ void CCMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 	}
 
 	// 난입한 넘에게 아이템 정보 보내준다
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
+	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
 	MEraseBlobArray(pItemArray);
 
 	CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
@@ -425,7 +425,7 @@ void CCMatchWorldItemManager::Destroy()
 void CCMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldItemUID)
 {
 	// 먹었다고 라우팅
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, CCUID(0,0));
+	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidPlayer));
 	pCmd->AddParameter(new MCmdParamInt(nWorldItemUID));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
@@ -434,7 +434,7 @@ void CCMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int n
 void CCMatchWorldItemManager::RouteRemoveWorldItem(int nWorldItemUID)
 {
 	// 없어졌다고 라우팅
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_REMOVE_WORLDITEM, CCUID(0,0));
+	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_REMOVE_WORLDITEM, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamInt(nWorldItemUID));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
@@ -448,14 +448,14 @@ void CCMatchWorldItemManager::RouteSpawnWorldItem(CCMatchWorldItem* pWorldItem)
 
 
 	// 방인원에게 라우팅
-	MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, CCUID(0,0));
+	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, CCUID(0,0));
 
-	void* pItemArray = MMakeBlobArray(sizeof(MTD_WorldItem), 1);
-	MTD_WorldItem* pNode = (MTD_WorldItem*)MGetBlobArrayElement(pItemArray, 0);
+	void* pItemArray = MMakeBlobArray(sizeof(CCTD_WorldItem), 1);
+	CCTD_WorldItem* pNode = (CCTD_WorldItem*)MGetBlobArrayElement(pItemArray, 0);
 
 	Make_MTDWorldItem(pNode, pWorldItem);
 
-	pCmd->AddParameter(new MCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
+	pCmd->AddParameter(new CCCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
 	MEraseBlobArray(pItemArray);
 
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);

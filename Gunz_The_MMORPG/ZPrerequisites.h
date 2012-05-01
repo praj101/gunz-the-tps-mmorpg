@@ -19,7 +19,7 @@ _USING_NAMESPACE_REALSPACE2
 #include "RParticleSystem.h"
 
 #include "CCObject.h"
-//#include "MObjectCharacter.h"
+//#include "CCObjectCharacter.h"
 #include "CCMatchObject.h"
 #include "CCMatchStage.h"
 #include "CCMatchItem.h"

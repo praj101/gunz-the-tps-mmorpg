@@ -139,7 +139,7 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 	// Cache Add
 	CCMatchObjectCacheBuilder CacheBuilder;
 	CacheBuilder.AddObject(pObj);
-	MCommand* pCmdCacheAdd = CacheBuilder.GetResultCmd(MATCHCACHEMODE_ADD, this);
+	CCCommand* pCmdCacheAdd = CacheBuilder.GetResultCmd(MATCHCACHEMODE_ADD, this);
 	RouteToStage(pStage->GetUID(), pCmdCacheAdd);
 
 	// Join
@@ -153,11 +153,11 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 	pObj->SetTeam(pStage->GetRecommandedTeam());
 
 	// Cast Join
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_JOIN), CCUID(0,0), m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-	pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
-	pNew->AddParameter(new MCommandParameterUInt(pStage->GetIndex()+1));
-	pNew->AddParameter(new MCommandParameterString((char*)pStage->GetName()));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_JOIN), CCUID(0,0), m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+	pNew->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
+	pNew->AddParameter(new CCCommandParameterUInt(pStage->GetIndex()+1));
+	pNew->AddParameter(new CCCommandParameterString((char*)pStage->GetName()));
 	
 	if (pStage->GetState() == STAGE_STATE_STANDBY)  RouteToStage(pStage->GetUID(), pNew);
 	else											RouteToListener(pObj, pNew);
@@ -177,15 +177,15 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 			return false;
 		}
 	}
-    MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
+    CCCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
 	RouteToListener(pObj, pCmdCacheUpdate);
 
 
 	// Cast Master(방장)
 	CCUID uidMaster = pStage->GetMasterUID();
-	MCommand* pMasterCmd = CreateCommand(MC_MATCH_STAGE_MASTER, CCUID(0,0));
-	pMasterCmd->AddParameter(new MCommandParameterUID(uidStage));
-	pMasterCmd->AddParameter(new MCommandParameterUID(uidMaster));
+	CCCommand* pMasterCmd = CreateCommand(MC_MATCH_STAGE_MASTER, CCUID(0,0));
+	pMasterCmd->AddParameter(new CCCommandParameterUID(uidStage));
+	pMasterCmd->AddParameter(new CCCommandParameterUID(uidMaster));
 	RouteToListener(pObj, pMasterCmd);
 
 
@@ -268,9 +268,9 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 	}
 #endif
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_LEAVE), CCUID(0,0), m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-	// pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_LEAVE), CCUID(0,0), m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+	// pNew->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
 	RouteToStage(pStage->GetUID(), pNew);
 
 	pStage->RemoveObject(uidPlayer);
@@ -280,7 +280,7 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 	{
 		CCMatchObjectCacheBuilder CacheBuilder;
 		CacheBuilder.AddObject(pObj);
-		MCommand* pCmdCache = CacheBuilder.GetResultCmd(MATCHCACHEMODE_REMOVE, this);
+		CCCommand* pCmdCache = CacheBuilder.GetResultCmd(MATCHCACHEMODE_REMOVE, this);
 		RouteToStage(pStage->GetUID(), pCmdCache);
 	}
 
@@ -440,17 +440,17 @@ bool CCMatchServer::StageEnterBattle(const CCUID& uidPlayer, const CCUID& uidSta
 
 	pObj->SetPlace(MMP_BATTLE);
 
-	MCommand* pNew = CreateCommand(MC_MATCH_STAGE_ENTERBATTLE, CCUID(0,0));
-	//pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-	//pNew->AddParameter(new MCommandParameterUID(uidStage));
+	CCCommand* pNew = CreateCommand(MC_MATCH_STAGE_ENTERBATTLE, CCUID(0,0));
+	//pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+	//pNew->AddParameter(new CCCommandParameterUID(uidStage));
 
 	unsigned char nParam = MCEP_NORMAL;
 	if (pObj->IsForcedEntried()) nParam = MCEP_FORCED;
-	pNew->AddParameter(new MCommandParameterUChar(nParam));
+	pNew->AddParameter(new CCCommandParameterUChar(nParam));
 
-	void* pPeerArray = MMakeBlobArray(sizeof(MTD_PeerListNode), 1);
-	MTD_PeerListNode* pNode = (MTD_PeerListNode*)MGetBlobArrayElement(pPeerArray, 0);
-	memset(pNode, 0, sizeof(MTD_PeerListNode));
+	void* pPeerArray = MMakeBlobArray(sizeof(CCTD_PeerListNode), 1);
+	CCTD_PeerListNode* pNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pPeerArray, 0);
+	memset(pNode, 0, sizeof(CCTD_PeerListNode));
 	
 	pNode->uidChar	= pObj->GetUID();
 	pNode->dwIP		= pObj->GetIP();
@@ -463,7 +463,7 @@ bool CCMatchServer::StageEnterBattle(const CCUID& uidPlayer, const CCUID& uidSta
 	if (pStage->GetStageSetting()->IsTeamPlay())	pNode->ExtendInfo.nTeam = (char)pObj->GetTeam();
 	else											pNode->ExtendInfo.nTeam = 0;	
 
-	pNew->AddParameter(new MCommandParameterBlob(pPeerArray, MGetBlobArraySize(pPeerArray)));
+	pNew->AddParameter(new CCCommandParameterBlob(pPeerArray, MGetBlobArraySize(pPeerArray)));
 	MEraseBlobArray(pPeerArray);
 
 	RouteToStage(uidStage, pNew);
@@ -493,9 +493,9 @@ bool CCMatchServer::StageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLea
 	if (pStage == NULL)
 	{	// 클랜전시 한족이 다나가면 스테이지가 없어지므로 여기서 agent를 끊어준다. 
 		if (pObj->GetRelayPeer()) {
-			MAgentObject* pAgent = GetAgent(pObj->GetAgentUID());
+			CCAgentObject* pAgent = GetAgent(pObj->GetAgentUID());
 			if (pAgent) {
-				MCommand* pCmd = CreateCommand(MC_AGENT_PEER_UNBIND, pAgent->GetCommListener());
+				CCCommand* pCmd = CreateCommand(MC_AGENT_PEER_UNBIND, pAgent->GetCommListener());
 				pCmd->AddParameter(new MCmdParamUID(uidPlayer));
 				Post(pCmd);
 			}
@@ -518,7 +518,7 @@ bool CCMatchServer::StageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLea
 			CCMatchObject* pScanObj = (CCMatchObject*)(*i).second;
 			CacheBuilder.AddObject(pScanObj);
 		}
-		MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
+		CCCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
 		RouteToListener(pObj, pCmdCacheUpdate);
 	}
 
@@ -536,17 +536,17 @@ bool CCMatchServer::StageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLea
 	}
 
 	if (!bIsCorrect) {
-		MCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_RESULT, CCUID(0,0));
-		pNewCmd->AddParameter(new MCommandParameterInt(MERR_TAKEOFF_ITEM_BY_LEVELDOWN));
+		CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_RESULT, CCUID(0,0));
+		pNewCmd->AddParameter(new CCCommandParameterInt(MERR_TAKEOFF_ITEM_BY_LEVELDOWN));
 		RouteToListener(pObj, pNewCmd);
 	}
 	
 	CheckExpiredItems(pObj);		//< 기간 만료 아이템이 있는지 체크
 
 	if (pObj->GetRelayPeer()) {
-		MAgentObject* pAgent = GetAgent(pObj->GetAgentUID());
+		CCAgentObject* pAgent = GetAgent(pObj->GetAgentUID());
 		if (pAgent) {
-			MCommand* pCmd = CreateCommand(MC_AGENT_PEER_UNBIND, pAgent->GetCommListener());
+			CCCommand* pCmd = CreateCommand(MC_AGENT_PEER_UNBIND, pAgent->GetCommListener());
 			pCmd->AddParameter(new MCmdParamUID(uidPlayer));
 			Post(pCmd);
 		}
@@ -587,17 +587,17 @@ bool CCMatchServer::StageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLea
 					OnStageRelayStart(uidStage);
 				} 
 
-				MCommand* pNew = CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, CCUID(0,0));
-				pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-				pNew->AddParameter(new MCommandParameterBool(true));
+				CCCommand* pNew = CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, CCUID(0,0));
+				pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+				pNew->AddParameter(new CCCommandParameterBool(true));
 				RouteToStage(uidStage, pNew);
 			}
 		}
 		else
 		{	///< 메인 메뉴로 스테이지에 나옴		
-			MCommand* pNew = CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, CCUID(0,0));
-			pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-			pNew->AddParameter(new MCommandParameterBool(false));
+			CCCommand* pNew = CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, CCUID(0,0));
+			pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+			pNew->AddParameter(new CCCommandParameterBool(false));
 			RouteToStage(uidStage, pNew);			
 
 			if(bIsLeaveAllBattle) 
@@ -611,9 +611,9 @@ bool CCMatchServer::StageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLea
 	} 
 	else 
 	{
-		MCommand* pNew = CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, CCUID(0,0));
-		pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-		pNew->AddParameter(new MCommandParameterBool(false));
+		CCCommand* pNew = CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, CCUID(0,0));
+		pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+		pNew->AddParameter(new CCCommandParameterBool(false));
 		RouteToStage(uidStage, pNew);
 	}
 
@@ -651,10 +651,10 @@ bool CCMatchServer::StageChat(const CCUID& uidPlayer, const CCUID& uidStage, cha
 	}
 
 
-	MCommand* pCmd = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_CHAT), CCUID(0,0), m_This);
-	pCmd->AddParameter(new MCommandParameterUID(uidPlayer));
-	pCmd->AddParameter(new MCommandParameterUID(uidStage));
-	pCmd->AddParameter(new MCommandParameterString(pszChat));
+	CCCommand* pCmd = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_CHAT), CCUID(0,0), m_This);
+	pCmd->AddParameter(new CCCommandParameterUID(uidPlayer));
+	pCmd->AddParameter(new CCCommandParameterUID(uidStage));
+	pCmd->AddParameter(new CCCommandParameterString(pszChat));
 	RouteToStage(uidStage, pCmd);
 	return true;
 }
@@ -666,10 +666,10 @@ bool CCMatchServer::StageTeam(const CCUID& uidPlayer, const CCUID& uidStage, CCM
 
 	pStage->PlayerTeam(uidPlayer, nTeam);
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_STAGE_TEAM, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(uidPlayer));
-	pCmd->AddParameter(new MCommandParameterUID(uidStage));
-	pCmd->AddParameter(new MCommandParameterUInt(nTeam));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_TEAM, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(uidPlayer));
+	pCmd->AddParameter(new CCCommandParameterUID(uidStage));
+	pCmd->AddParameter(new CCCommandParameterUInt(nTeam));
 
 	RouteToStageWaitRoom(uidStage, pCmd);
 	return true;
@@ -685,10 +685,10 @@ bool CCMatchServer::StagePlayerState(const CCUID& uidPlayer, const CCUID& uidSta
 
 	pStage->PlayerState(uidPlayer, nStageState);
 	
-	MCommand* pCmd = CreateCommand(MC_MATCH_STAGE_PLAYER_STATE, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(uidPlayer));
-	pCmd->AddParameter(new MCommandParameterUID(uidStage));
-	pCmd->AddParameter(new MCommandParameterInt(nStageState));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_PLAYER_STATE, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(uidPlayer));
+	pCmd->AddParameter(new CCCommandParameterUID(uidStage));
+	pCmd->AddParameter(new CCCommandParameterInt(nStageState));
 	RouteToStage(uidStage, pCmd);
 	return true;
 }
@@ -700,9 +700,9 @@ bool CCMatchServer::StageMaster(const CCUID& uidStage)
 
 	CCUID uidMaster = pStage->GetMasterUID();
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_STAGE_MASTER, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(uidStage));
-	pCmd->AddParameter(new MCommandParameterUID(uidMaster));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_MASTER, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(uidStage));
+	pCmd->AddParameter(new CCCommandParameterUID(uidMaster));
 	RouteToStage(uidStage, pCmd);
 
 	return true;
@@ -715,7 +715,7 @@ void CCMatchServer::StageLaunch(const CCUID& uidStage)
 
 	ReserveAgent(pStage);
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_STAGE_LAUNCH, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_LAUNCH, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidStage));
 	pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
 	RouteToStage(uidStage, pCmd);
@@ -733,13 +733,13 @@ void CCMatchServer::StageRelayLaunch(const CCUID& uidStage)
 		CCMatchObject* pObj = (CCMatchObject*)GetObject(uidObj);
 		if (pObj) {
 			if( pObj->GetStageState() == MOSS_READY) {
-				MCommand* pCmd = CreateCommand(MC_MATCH_STAGE_RELAY_LAUNCH, CCUID(0,0));
+				CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_RELAY_LAUNCH, CCUID(0,0));
 				pCmd->AddParameter(new MCmdParamUID(uidStage));
 				pCmd->AddParameter(new MCmdParamStr(const_cast<char*>(pStage->GetMapName())));
 				pCmd->AddParameter(new MCmdParamBool(false));
 				RouteToListener(pObj, pCmd);
 			} else {
-				MCommand* pCmd = CreateCommand(MC_MATCH_STAGE_RELAY_LAUNCH, CCUID(0,0));
+				CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_RELAY_LAUNCH, CCUID(0,0));
 				pCmd->AddParameter(new MCmdParamUID(uidStage));
 				pCmd->AddParameter(new MCmdParamStr(const_cast<char*>(pStage->GetMapName())));
 				pCmd->AddParameter(new MCmdParamBool(true));
@@ -820,21 +820,21 @@ void CCMatchServer::StageFinishGame(const CCUID& uidStage)
 		}
 	}
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_STAGE_FINISH_GAME, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(uidStage));
-	pCmd->AddParameter(new MCommandParameterBool(bIsRelayMapUnFinish));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_FINISH_GAME, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(uidStage));
+	pCmd->AddParameter(new CCCommandParameterBool(bIsRelayMapUnFinish));
 	RouteToStage(uidStage, pCmd);
 
 	return;
 }
 
-MCommand* CCMatchServer::CreateCmdResponseStageSetting(const CCUID& uidStage)
+CCCommand* CCMatchServer::CreateCmdResponseStageSetting(const CCUID& uidStage)
 {
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return NULL;
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_STAGESETTING, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(pStage->GetUID()));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_STAGESETTING, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
 
 	CCMatchStageSetting* pSetting = pStage->GetStageSetting();
 
@@ -842,7 +842,7 @@ MCommand* CCMatchServer::CreateCmdResponseStageSetting(const CCUID& uidStage)
 	void* pStageSettingArray = MMakeBlobArray(sizeof(MSTAGE_SETTING_NODE), 1);
 	MSTAGE_SETTING_NODE* pNode = (MSTAGE_SETTING_NODE*)MGetBlobArrayElement(pStageSettingArray, 0);
 	CopyMemory(pNode, pSetting->GetStageSetting(), sizeof(MSTAGE_SETTING_NODE));
-	pCmd->AddParameter(new MCommandParameterBlob(pStageSettingArray, MGetBlobArraySize(pStageSettingArray)));
+	pCmd->AddParameter(new CCCommandParameterBlob(pStageSettingArray, MGetBlobArraySize(pStageSettingArray)));
 	MEraseBlobArray(pStageSettingArray);
 
 	// Param 2 : Char Settings
@@ -856,14 +856,14 @@ MCommand* CCMatchServer::CreateCmdResponseStageSetting(const CCUID& uidStage)
 		pCharNode->nTeam = pObj->GetTeam();
 		pCharNode->nState = pObj->GetStageState();
 	}
-	pCmd->AddParameter(new MCommandParameterBlob(pCharArray, MGetBlobArraySize(pCharArray)));
+	pCmd->AddParameter(new CCCommandParameterBlob(pCharArray, MGetBlobArraySize(pCharArray)));
 	MEraseBlobArray(pCharArray);
 
 	// Param 3 : Stage State
-	pCmd->AddParameter(new MCommandParameterInt((int)pStage->GetState()));
+	pCmd->AddParameter(new CCCommandParameterInt((int)pStage->GetState()));
 
 	// Param 4 : Stage Master
-	pCmd->AddParameter(new MCommandParameterUID(pStage->GetMasterUID()));
+	pCmd->AddParameter(new CCCommandParameterUID(pStage->GetMasterUID()));
 
 	return pCmd;
 }
@@ -1033,9 +1033,9 @@ void CCMatchServer::OnStageFollow(const CCUID& uidPlayer, const char* pszTargetN
 		//RouteResponseToListener( pPlayerObj, MC_MATCH_RESPONSE_STAGE_FOLLOW, MERR_CANNOT_FOLLOW_BY_PASSWORD );
 
 		// 해당방이 비밀방이면 비밀번호를 요구한다.
-		MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_REQUIRE_PASSWORD), CCUID(0,0), m_This);
-		pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
-		pNew->AddParameter(new MCommandParameterString((char*)pStage->GetName()));
+		CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_REQUIRE_PASSWORD), CCUID(0,0), m_This);
+		pNew->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
+		pNew->AddParameter(new CCCommandParameterString((char*)pStage->GetName()));
 		RouteToListener(pPlayerObj, pNew);
 	}
 }
@@ -1071,14 +1071,14 @@ void CCMatchServer::OnStageRequestPlayerList(const CCUID& uidPlayer, const CCUID
 		CCMatchObject* pScanObj = (CCMatchObject*)(*i).second;
 		CacheBuilder.AddObject(pScanObj);
 	}
-    MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
+    CCCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
 	RouteToListener(pObj, pCmdCacheUpdate);
 
 	// Cast Master(방장)
 	CCUID uidMaster = pStage->GetMasterUID();
-	MCommand* pMasterCmd = CreateCommand(MC_MATCH_STAGE_MASTER, CCUID(0,0));
-	pMasterCmd->AddParameter(new MCommandParameterUID(uidStage));
-	pMasterCmd->AddParameter(new MCommandParameterUID(uidMaster));
+	CCCommand* pMasterCmd = CreateCommand(MC_MATCH_STAGE_MASTER, CCUID(0,0));
+	pMasterCmd->AddParameter(new CCCommandParameterUID(uidStage));
+	pMasterCmd->AddParameter(new CCCommandParameterUID(uidMaster));
 	RouteToListener(pObj, pMasterCmd);
 
 	// Cast Character Setting
@@ -1198,10 +1198,10 @@ void CCMatchServer::OnStageStart(const CCUID& uidPlayer, const CCUID& uidStage, 
 	if (pStage->StartGame(MGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {
 		StageRelayMapBattleStart(uidPlayer, uidStage);
 
-		MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_START), CCUID(0,0), m_This);
-		pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-		pNew->AddParameter(new MCommandParameterUID(uidStage));
-		pNew->AddParameter(new MCommandParameterInt(min(nCountdown,3)));
+		CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_START), CCUID(0,0), m_This);
+		pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+		pNew->AddParameter(new CCCommandParameterUID(uidStage));
+		pNew->AddParameter(new CCCommandParameterInt(min(nCountdown,3)));
 		RouteToStage(uidStage, pNew);
 
 		// 디비에 로그를 남긴다.
@@ -1263,9 +1263,9 @@ void CCMatchServer::OnStageMap(const CCUID& uidStage, char* pszMapName)
 	pStage->SetMapName( pszMapName );
 	pStage->SetIsRelayMap(strcmp(CCMATCH_MAPNAME_RELAYMAP, pszMapName) == 0);
 	
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_MAP), CCUID(0,0), m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidStage));
-	pNew->AddParameter(new MCommandParameterString(pStage->GetMapName()));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_MAP), CCUID(0,0), m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uidStage));
+	pNew->AddParameter(new CCCommandParameterString(pStage->GetMapName()));
 
 	if ( MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType()))
 	{
@@ -1335,10 +1335,10 @@ void CCMatchServer::OnStageRelayMapElementUpdate(const CCUID& uidStage, int nTyp
 	pStage->SetRelayMapType((RELAY_MAP_TYPE)nType);
 	pStage->SetRelayMapRepeatCount((RELAY_MAP_REPEAT_COUNT)nRepeatCount);
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_RELAY_MAP_ELEMENT_UPDATE), CCUID(0,0), m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidStage));
-	pNew->AddParameter(new MCommandParameterInt((int)pStage->GetRelayMapType()));
-	pNew->AddParameter(new MCommandParameterInt((int)pStage->GetRelayMapRepeatCount()));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_RELAY_MAP_ELEMENT_UPDATE), CCUID(0,0), m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uidStage));
+	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapType()));
+	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapRepeatCount()));
 	RouteToStage(uidStage, pNew);
 }
 
@@ -1358,7 +1358,7 @@ void CCMatchServer::OnStageRelayMapListUpdate(const CCUID& uidStage, int nRelayM
 		nRelayMapListCount = MAX_RELAYMAP_LIST_COUNT;
 	for (int i = 0; i < nRelayMapListCount; i++)
 	{
-		MTD_RelayMap* pRelayMap = (MTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
+		CCTD_RelayMap* pRelayMap = (CCTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
 		if(!MGetMapDescMgr()->MIsCorrectMap(pRelayMap->nMapID))
 		{
 			cclog("OnStageRelayMapListUpdate Fail MIsCorrectMap ID[%d] \n", (int)pRelayMap->nMapID);
@@ -1374,21 +1374,21 @@ void CCMatchServer::OnStageRelayMapListUpdate(const CCUID& uidStage, int nRelayM
 
 
 	// 블럭 만들기, 맵리스트 세팅
-	void* pRelayMapListBlob = MMakeBlobArray(sizeof(MTD_RelayMap), pStage->GetRelayMapListCount());
+	void* pRelayMapListBlob = MMakeBlobArray(sizeof(CCTD_RelayMap), pStage->GetRelayMapListCount());
 	RelayMap RelayMapList[MAX_RELAYMAP_LIST_COUNT];
 	memcpy(RelayMapList, pStage->GetRelayMapList(), sizeof(RelayMap)*MAX_RELAYMAP_LIST_COUNT);
 	for (int i = 0; i < pStage->GetRelayMapListCount(); i++)
 	{
-		MTD_RelayMap* pRelayMapList = (MTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
+		CCTD_RelayMap* pRelayMapList = (CCTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
 		pRelayMapList->nMapID = RelayMapList[i].nMapID;
 	}
 
 	// 방장이 보낸 릴레이맵 정보를 방원들에게 보냄
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE), CCUID(0,0), m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidStage));
-	pNew->AddParameter(new MCommandParameterInt((int)pStage->GetRelayMapType()));
-	pNew->AddParameter(new MCommandParameterInt((int)pStage->GetRelayMapRepeatCount()));
-	pNew->AddParameter(new MCommandParameterBlob(pRelayMapListBlob, MGetBlobArraySize(pRelayMapListBlob)));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE), CCUID(0,0), m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uidStage));
+	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapType()));
+	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapRepeatCount()));
+	pNew->AddParameter(new CCCommandParameterBlob(pRelayMapListBlob, MGetBlobArraySize(pRelayMapListBlob)));
 	RouteToStage(uidStage, pNew);
 }
 void CCMatchServer::OnStageRelayMapListInfo(const CCUID& uidStage, const CCUID& uidChar)
@@ -1402,19 +1402,19 @@ void CCMatchServer::OnStageRelayMapListInfo(const CCUID& uidStage, const CCUID& 
 	if(pStage->GetState() == STAGE_STATE_STANDBY && pStage->GetMasterUID() == uidChar) return;	
 
 	// 블럭 만들기, 맵리스트 세팅
-	void* pRelayMapListBlob = MMakeBlobArray(sizeof(MTD_RelayMap), pStage->GetRelayMapListCount());
+	void* pRelayMapListBlob = MMakeBlobArray(sizeof(CCTD_RelayMap), pStage->GetRelayMapListCount());
 	RelayMap RelayMapList[MAX_RELAYMAP_LIST_COUNT];
 	memcpy(RelayMapList, pStage->GetRelayMapList(), sizeof(RelayMap)*MAX_RELAYMAP_LIST_COUNT);
 	for (int i = 0; i < pStage->GetRelayMapListCount(); i++)
 	{
-		MTD_RelayMap* pRelayMapList = (MTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
+		CCTD_RelayMap* pRelayMapList = (CCTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
 		pRelayMapList->nMapID = RelayMapList[i].nMapID;
 	}
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE), CCUID(0,0), m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidStage));
-	pNew->AddParameter(new MCommandParameterInt((int)pStage->GetRelayMapType()));
-	pNew->AddParameter(new MCommandParameterInt((int)pStage->GetRelayMapRepeatCount()));
-	pNew->AddParameter(new MCommandParameterBlob(pRelayMapListBlob, MGetBlobArraySize(pRelayMapListBlob)));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE), CCUID(0,0), m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uidStage));
+	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapType()));
+	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapRepeatCount()));
+	pNew->AddParameter(new CCCommandParameterBlob(pRelayMapListBlob, MGetBlobArraySize(pRelayMapListBlob)));
 	MEraseBlobArray(pRelayMapListBlob);
 
 	RouteToListener(pObj, pNew); // 방장이 릴레이맵 설정중에 업데이트된 설정으로 변경 될수가 있음
@@ -1569,7 +1569,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	pStage->ChangeRule(pNode->nGameType);
 
 
-	MCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
+	CCCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
 	RouteToStage(uidStage, pCmd);
 
 
@@ -1607,7 +1607,7 @@ void CCMatchServer::OnRequestStageSetting(const CCUID& uidComm, const CCUID& uid
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
-	MCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
+	CCCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
 	pCmd->m_Receiver = uidComm;
 	Post(pCmd);
 
@@ -1637,13 +1637,13 @@ void CCMatchServer::ResponseGameInfo(const CCUID& uidChar, const CCUID& uidStage
 	CCMatchObject* pObj = GetObject(uidChar); if (pObj == NULL) return;
 	if (pStage->GetRule() == NULL) return;
 
-	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_GAME_INFO, CCUID(0,0));
-	pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
+	CCCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_GAME_INFO, CCUID(0,0));
+	pNew->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
 
 	// 게임정보
-	void* pGameInfoArray = MMakeBlobArray(sizeof(MTD_GameInfo), 1);
-	MTD_GameInfo* pGameItem = (MTD_GameInfo*)MGetBlobArrayElement(pGameInfoArray, 0);
-	memset(pGameItem, 0, sizeof(MTD_GameInfo));
+	void* pGameInfoArray = MMakeBlobArray(sizeof(CCTD_GameInfo), 1);
+	CCTD_GameInfo* pGameItem = (CCTD_GameInfo*)MGetBlobArrayElement(pGameInfoArray, 0);
+	memset(pGameItem, 0, sizeof(CCTD_GameInfo));
 	
 	if (pStage->GetStageSetting()->IsTeamPlay())
 	{
@@ -1654,7 +1654,7 @@ void CCMatchServer::ResponseGameInfo(const CCUID& uidChar, const CCUID& uidStage
 		pGameItem->nBlueTeamKills = static_cast<short>(pStage->GetTeamKills(CCMT_BLUE));
 	}
 
-	pNew->AddParameter(new MCommandParameterBlob(pGameInfoArray, MGetBlobArraySize(pGameInfoArray)));
+	pNew->AddParameter(new CCCommandParameterBlob(pGameInfoArray, MGetBlobArraySize(pGameInfoArray)));
 	MEraseBlobArray(pGameInfoArray);
 
 	// 룰정보
@@ -1663,26 +1663,26 @@ void CCMatchServer::ResponseGameInfo(const CCUID& uidChar, const CCUID& uidStage
 		pRuleInfoArray = pStage->GetRule()->CreateRuleInfoBlob();
 	if (pRuleInfoArray == NULL)
 		pRuleInfoArray = MMakeBlobArray(0, 0);
-	pNew->AddParameter(new MCommandParameterBlob(pRuleInfoArray, MGetBlobArraySize(pRuleInfoArray)));
+	pNew->AddParameter(new CCCommandParameterBlob(pRuleInfoArray, MGetBlobArraySize(pRuleInfoArray)));
 	MEraseBlobArray(pRuleInfoArray);
 
 	// Battle에 들어간 사람만 List를 만든다.
 	int nPlayerCount = pStage->GetObjInBattleCount();
 
-	void* pPlayerItemArray = MMakeBlobArray(sizeof(MTD_GameInfoPlayerItem), nPlayerCount);
+	void* pPlayerItemArray = MMakeBlobArray(sizeof(CCTD_GameInfoPlayerItem), nPlayerCount);
 	int nIndex=0;
 	for (CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;
 
-		MTD_GameInfoPlayerItem* pPlayerItem = (MTD_GameInfoPlayerItem*)MGetBlobArrayElement(pPlayerItemArray, nIndex++);
+		CCTD_GameInfoPlayerItem* pPlayerItem = (CCTD_GameInfoPlayerItem*)MGetBlobArrayElement(pPlayerItemArray, nIndex++);
 		pPlayerItem->uidPlayer = pObj->GetUID();
 		pPlayerItem->bAlive = pObj->CheckAlive();
 		pPlayerItem->nKillCount = pObj->GetAllRoundKillCount();
 		pPlayerItem->nDeathCount = pObj->GetAllRoundDeathCount();
 	}
-	pNew->AddParameter(new MCommandParameterBlob(pPlayerItemArray, MGetBlobArraySize(pPlayerItemArray)));
+	pNew->AddParameter(new CCCommandParameterBlob(pPlayerItemArray, MGetBlobArraySize(pPlayerItemArray)));
 	MEraseBlobArray(pPlayerItemArray);
 
 	RouteToListener(pObj, pNew);
@@ -1693,7 +1693,7 @@ void CCMatchServer::OnMatchLoadingComplete(const CCUID& uidPlayer, int nPercent)
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_LOADING_COMPLETE, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_LOADING_COMPLETE, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidPlayer));
 	pCmd->AddParameter(new MCmdParamInt(nPercent));
 	RouteToStage(pObj->GetStageUID(), pCmd);	
@@ -1714,18 +1714,18 @@ void CCMatchServer::OnDuelSetObserver(const CCUID& uidChar)
 	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_SET_OBSERVER, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_SET_OBSERVER, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidChar));
 	RouteToBattle(pObj->GetStageUID(), pCmd);
 }
 
-void CCMatchServer::OnRequestSpawn(const CCUID& uidChar, const MVector& pos, const MVector& dir)
+void CCMatchServer::OnRequestSpawn(const CCUID& uidChar, const CCVector& pos, const CCVector& dir)
 {
 	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
 	// Do Not Spawn when AdminHiding
-	if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) return;
+	if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(CCTD_PlayerFlags_AdminHide)) return;
 
 
 	// 마지막 죽었던 시간과 새로 리스폰을 요청한 시간 사이에 2초 이상의 시간이 있었는지 검사한다.
@@ -1753,7 +1753,7 @@ void CCMatchServer::OnRequestSpawn(const CCUID& uidChar, const MVector& pos, con
 	pObj->ResetCustomItemUseCount();
 	pObj->SetAlive(true);
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_RESPONSE_SPAWN, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_RESPONSE_SPAWN, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidChar));
 	pCmd->AddParameter(new MCmdParamShortVector(pos.x, pos.y, pos.z));
 	pCmd->AddParameter(new MCmdParamShortVector(DirElementToShort(dir.x), DirElementToShort(dir.y), DirElementToShort(dir.z)));
@@ -1768,7 +1768,7 @@ void CCMatchServer::OnGameRequestTimeSync(const CCUID& uidComm, unsigned long nL
 	CCMatchTimeSyncInfo* pSync = pObj->GetSyncInfo();
 	pSync->Update(GetGlobalClockCount());
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_RESPONSE_TIMESYNC, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_RESPONSE_TIMESYNC, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUInt(nLocalTimeStamp));
 	pCmd->AddParameter(new MCmdParamUInt(GetGlobalClockCount()));
 	RouteToListener(pObj, pCmd);
@@ -1844,10 +1844,10 @@ void CCMatchServer::OnRequestSuicide(const CCUID& uidPlayer)
 
 	// OnGameKill(uidPlayer, uidPlayer);
 
-	//MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SUICIDE, CCUID(0,0));
+	//CCCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SUICIDE, CCUID(0,0));
 	//int nResult = MOK;
-	//pNew->AddParameter(new MCommandParameterInt(nResult));
-	//pNew->AddParameter(new MCommandParameterUID(uidPlayer));
+	//pNew->AddParameter(new CCCommandParameterInt(nResult));
+	//pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
 	//RouteToBattle(pObj->GetStageUID(), pNew);
 }
 
@@ -2150,16 +2150,16 @@ void CCMatchServer::ProcessPlayerXPBP(CCMatchStage* pStage, CCMatchObject* pPlay
 	{
 		if (nNewPlayerLevel > nPlayerLevel)
 		{
-			MCommand* pCmd = CreateCommand(MC_MATCH_GAME_LEVEL_UP, CCUID(0,0));
-			pCmd->AddParameter(new MCommandParameterUID(pPlayer->GetUID()));
-			pCmd->AddParameter(new MCommandParameterInt(nNewPlayerLevel));
+			CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_LEVEL_UP, CCUID(0,0));
+			pCmd->AddParameter(new CCCommandParameterUID(pPlayer->GetUID()));
+			pCmd->AddParameter(new CCCommandParameterInt(nNewPlayerLevel));
 			RouteToBattle(uidStage, pCmd);	
 		}
 		else if (nNewPlayerLevel < nPlayerLevel)
 		{
-			MCommand* pCmd = CreateCommand(MC_MATCH_GAME_LEVEL_DOWN, CCUID(0,0));
-			pCmd->AddParameter(new MCommandParameterUID(pPlayer->GetUID()));
-			pCmd->AddParameter(new MCommandParameterInt(nNewPlayerLevel));
+			CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_LEVEL_DOWN, CCUID(0,0));
+			pCmd->AddParameter(new CCCommandParameterUID(pPlayer->GetUID()));
+			pCmd->AddParameter(new CCCommandParameterInt(nNewPlayerLevel));
 			RouteToBattle(uidStage, pCmd);	
 		}
 	}
@@ -2244,18 +2244,18 @@ void CCMatchServer::ApplyObjectTeamBonus(CCMatchObject* pObject, int nAddedExp)
 	nExpArg = MakeExpTransData(nAddedExp, nPercent);
 
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_TEAMBONUS, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(pObject->GetUID()));
-	pCmd->AddParameter(new MCommandParameterUInt(nExpArg));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_TEAMBONUS, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(pObject->GetUID()));
+	pCmd->AddParameter(new CCCommandParameterUInt(nExpArg));
 	RouteToBattle(uidStage, pCmd);	
 
 
 	// 레벨업 메세지 보내기
 	if ((nNewLevel >= 0) && (nNewLevel > nCurrLevel))
 	{
-		MCommand* pCmd = CreateCommand(MC_MATCH_GAME_LEVEL_UP, CCUID(0,0));
-		pCmd->AddParameter(new MCommandParameterUID(pObject->GetUID()));
-		pCmd->AddParameter(new MCommandParameterInt(nNewLevel));
+		CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_LEVEL_UP, CCUID(0,0));
+		pCmd->AddParameter(new CCCommandParameterUID(pObject->GetUID()));
+		pCmd->AddParameter(new CCCommandParameterInt(nNewLevel));
 		RouteToBattle(uidStage, pCmd);	
 	}
 }
@@ -2386,11 +2386,11 @@ void CCMatchServer::PostGameDeadOnGameKill(CCUID& uidStage, CCMatchObject* pAtta
 	nPercent = CCMatchFormula::GetLevelPercent(nChrExp, nRealVictimLevel);
 	nVictimArg = MakeExpTransData(nSubedVictimExp, nPercent);
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_DEAD, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(pAttacker->GetUID()));
-	pCmd->AddParameter(new MCommandParameterUInt(nAttackerArg));
-	pCmd->AddParameter(new MCommandParameterUID(pVictim->GetUID()));
-	pCmd->AddParameter(new MCommandParameterUInt(nVictimArg));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_DEAD, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(pAttacker->GetUID()));
+	pCmd->AddParameter(new CCCommandParameterUInt(nAttackerArg));
+	pCmd->AddParameter(new CCCommandParameterUID(pVictim->GetUID()));
+	pCmd->AddParameter(new CCCommandParameterUInt(nVictimArg));
 	RouteToBattle(uidStage, pCmd);	
 }
 
@@ -2409,7 +2409,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 	}
 
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_LIST), CCUID(0,0), m_This);
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_LIST), CCUID(0,0), m_This);
 
 	int nPrevStageCount = -1, nNextStageCount = -1;
 	int nNextStageIndex = pChannel->GetMaxPlayers()-1;
@@ -2454,11 +2454,11 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 		nNextStageCount = pChannel->GetNextStageCount(nNextStageIndex);
 	}
 
-	pNew->AddParameter(new MCommandParameterChar((char)nPrevStageCount));
-	pNew->AddParameter(new MCommandParameterChar((char)nNextStageCount));
+	pNew->AddParameter(new CCCommandParameterChar((char)nPrevStageCount));
+	pNew->AddParameter(new CCCommandParameterChar((char)nNextStageCount));
 
 
-	void* pStageArray = MMakeBlobArray(sizeof(MTD_StageListNode), nRealStageCount);
+	void* pStageArray = MMakeBlobArray(sizeof(CCTD_StageListNode), nRealStageCount);
 	int nArrayIndex=0;
 
 	for (int i = /*nStageStartIndex*/nRealStageStartIndex; i < pChannel->GetMaxPlayers(); i++)
@@ -2477,7 +2477,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 
 		if (nArrayIndex >= nRealStageCount) break;
 
-		MTD_StageListNode* pNode = (MTD_StageListNode*)MGetBlobArrayElement(pStageArray, nArrayIndex++);
+		CCTD_StageListNode* pNode = (CCTD_StageListNode*)MGetBlobArrayElement(pStageArray, nArrayIndex++);
 		pNode->uidStage = pStage->GetUID();
 		strcpy(pNode->szStageName, pStage->GetName());
 		pNode->nNo = (unsigned char)(pStage->GetIndex() + 1);	// 사용자에게 보여주는 인덱스는 1부터 시작한다
@@ -2521,7 +2521,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 		}
 	}
 
-	pNew->AddParameter(new MCommandParameterBlob(pStageArray, MGetBlobArraySize(pStageArray)));
+	pNew->AddParameter(new CCCommandParameterBlob(pStageArray, MGetBlobArraySize(pStageArray)));
 	MEraseBlobArray(pStageArray);
 
 	RouteToListener(pChar, pNew);	
@@ -2542,11 +2542,11 @@ void CCMatchServer::OnStageRequestStageList(const CCUID& uidPlayer, const CCUID&
 
 void CCMatchServer::OnRequestQuickJoin(const CCUID& uidPlayer, void* pQuickJoinBlob)
 {
-	MTD_QuickJoinParam* pNode = (MTD_QuickJoinParam*)MGetBlobArrayElement(pQuickJoinBlob, 0);
+	CCTD_QuickJoinParam* pNode = (CCTD_QuickJoinParam*)MGetBlobArrayElement(pQuickJoinBlob, 0);
 	ResponseQuickJoin(uidPlayer, pNode);
 }
 
-void CCMatchServer::ResponseQuickJoin(const CCUID& uidPlayer, MTD_QuickJoinParam* pQuickJoinParam)
+void CCMatchServer::ResponseQuickJoin(const CCUID& uidPlayer, CCTD_QuickJoinParam* pQuickJoinParam)
 {
 	if (pQuickJoinParam == NULL) return;
 
@@ -2605,9 +2605,9 @@ void CCMatchServer::ResponseQuickJoin(const CCUID& uidPlayer, MTD_QuickJoinParam
 		nQuickJoinResult = MERR_CANNOT_NO_STAGE;
 	}
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_STAGE_RESPONSE_QUICKJOIN, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterInt(nQuickJoinResult));
-	pCmd->AddParameter(new MCommandParameterUID(uidRecommendedStage));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_RESPONSE_QUICKJOIN, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterInt(nQuickJoinResult));
+	pCmd->AddParameter(new CCCommandParameterUID(uidRecommendedStage));
 	RouteToListener(pObj, pCmd);	
 }
 
@@ -2772,7 +2772,7 @@ void CCMatchServer::OnVoteCallVote(const CCUID& uidPlayer, const char* pszDiscus
 	if (pStage->GetVoteMgr()->CallVote(pDiscuss)) {
 		pDiscuss->Vote(uidPlayer, MVOTE_YES);	// 발의자 무조건 찬성
 
-		MCommand* pCmd = CreateCommand(MC_MATCH_NOTIFY_CALLVOTE, CCUID(0,0));
+		CCCommand* pCmd = CreateCommand(MC_MATCH_NOTIFY_CALLVOTE, CCUID(0,0));
 		pCmd->AddParameter(new MCmdParamStr(pszDiscuss));
 		pCmd->AddParameter(new MCmdParamStr(pszArg));
 		RouteToStage(pStage->GetUID(), pCmd);
@@ -2825,11 +2825,11 @@ void CCMatchServer::VoteAbort( const CCUID& uidPlayer )
 	if( 0 == pObj )
 		return;
 
-	MCommand* pCmd = CreateCommand( MC_MATCH_VOTE_RESPONSE, CCUID(0, 0) );
+	CCCommand* pCmd = CreateCommand( MC_MATCH_VOTE_RESPONSE, CCUID(0, 0) );
 	if( 0 == pCmd )
 		return;
 
-	pCmd->AddParameter( new MCommandParameterInt(MERR_CANNOT_VOTE) );
+	pCmd->AddParameter( new CCCommandParameterInt(MERR_CANNOT_VOTE) );
 	RouteToListener( pObj, pCmd );
 }
 
@@ -2909,12 +2909,12 @@ void CCMatchServer::OnEventRequestJjang(const CCUID& uidAdmin, const char* pszTa
 	if (m_MatchDBMgr.EventJjangUpdate(pTargetObj->GetAccountInfo()->m_nAID, true)) {
 		CCMatchObjectCacheBuilder CacheBuilder;
 		CacheBuilder.AddObject(pTargetObj);
-		MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_REPLACE, this);
+		CCCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_REPLACE, this);
 		RouteToStage(pStage->GetUID(), pCmdCacheUpdate);
 
-		MCommand* pCmdUIUpdate = CreateCommand(MC_EVENT_UPDATE_JJANG, CCUID(0,0));
-		pCmdUIUpdate->AddParameter(new MCommandParameterUID(pTargetObj->GetUID()));
-		pCmdUIUpdate->AddParameter(new MCommandParameterBool(true));
+		CCCommand* pCmdUIUpdate = CreateCommand(MC_EVENT_UPDATE_JJANG, CCUID(0,0));
+		pCmdUIUpdate->AddParameter(new CCCommandParameterUID(pTargetObj->GetUID()));
+		pCmdUIUpdate->AddParameter(new CCCommandParameterBool(true));
 		RouteToStage(pStage->GetUID(), pCmdUIUpdate);
 	}
 }
@@ -2944,12 +2944,12 @@ void CCMatchServer::OnEventRemoveJjang(const CCUID& uidAdmin, const char* pszTar
 	if (m_MatchDBMgr.EventJjangUpdate(pTargetObj->GetAccountInfo()->m_nAID, false)) {
 		CCMatchObjectCacheBuilder CacheBuilder;
 		CacheBuilder.AddObject(pTargetObj);
-		MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_REPLACE, this);
+		CCCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_REPLACE, this);
 		RouteToStage(pStage->GetUID(), pCmdCacheUpdate);
 
-		MCommand* pCmdUIUpdate = CreateCommand(MC_EVENT_UPDATE_JJANG, CCUID(0,0));
-		pCmdUIUpdate->AddParameter(new MCommandParameterUID(pTargetObj->GetUID()));
-		pCmdUIUpdate->AddParameter(new MCommandParameterBool(false));
+		CCCommand* pCmdUIUpdate = CreateCommand(MC_EVENT_UPDATE_JJANG, CCUID(0,0));
+		pCmdUIUpdate->AddParameter(new CCCommandParameterUID(pTargetObj->GetUID()));
+		pCmdUIUpdate->AddParameter(new CCCommandParameterBool(false));
 		RouteToStage(pStage->GetUID(), pCmdUIUpdate);
 	}
 }
@@ -2966,28 +2966,28 @@ void CCMatchServer::OnStageGo(const CCUID& uidPlayer, unsigned int nRoomNo)
 
 	CCMatchStage* pStage = pChannel->GetStage(nRoomNo-1);
 	if (pStage) {
-		MCommand* pNew = CreateCommand(MC_MATCH_REQUEST_STAGE_JOIN, GetUID());
+		CCCommand* pNew = CreateCommand(MC_MATCH_REQUEST_STAGE_JOIN, GetUID());
 		pNew->SetSenderUID(uidPlayer);	// 플레이어가 보낸 메시지인 것처럼 위장
-		pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-		pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
+		pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+		pNew->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
 		Post(pNew);
 	}
 }
 
 
 
-void CCMatchServer::OnDuelQueueInfo(const CCUID& uidStage, const MTD_DuelQueueInfo& QueueInfo)
+void CCMatchServer::OnDuelQueueInfo(const CCUID& uidStage, const CCTD_DuelQueueInfo& QueueInfo)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_DUEL_QUEUEINFO, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamBlob(&QueueInfo, sizeof(MTD_DuelQueueInfo)));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_DUEL_QUEUEINFO, CCUID(0,0));
+	pCmd->AddParameter(new MCmdParamBlob(&QueueInfo, sizeof(CCTD_DuelQueueInfo)));
 	RouteToBattle(uidStage, pCmd);
 }
 
 
 void CCMatchServer::OnQuestSendPing(const CCUID& uidStage, unsigned long int t)
 {
-	MCommand* pCmd = CreateCommand(MC_QUEST_PING, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUInt(t));
+	CCCommand* pCmd = CreateCommand(MC_QUEST_PING, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUInt(t));
 	RouteToBattle(uidStage, pCmd);
 }
 
@@ -3008,7 +3008,7 @@ void CCMatchServer::SaveGameLog(const CCUID& uidStage)
 		{
 			CCMatchObject* pMaster = GetObject(pStage->GetMasterUID());
 
-			MAsyncDBJob_InsertGameLog* pJob = new MAsyncDBJob_InsertGameLog(uidStage);
+			CCAsyncDBJob_InsertGameLog* pJob = new CCAsyncDBJob_InsertGameLog(uidStage);
 			pJob->Input(pMaster == NULL ? 0 : pMaster->GetCharInfo()->m_nCID,
 				MGetMapDescMgr()->GetMapName(nMapID), 
 				MGetGameTypeMgr()->GetInfo(CCMATCH_GAMETYPE(nGameType))->szGameTypeStr);
@@ -3024,7 +3024,7 @@ void CCMatchServer::SaveGamePlayerLog(CCMatchObject* pObj, unsigned int nStageID
 	if( nStageID == 0 ) return;
 	if( pObj->GetCharInfo() == NULL ) return;
 
-	MAsyncDBJob_InsertGamePlayerLog* pJob = new MAsyncDBJob_InsertGamePlayerLog;
+	CCAsyncDBJob_InsertGamePlayerLog* pJob = new CCAsyncDBJob_InsertGamePlayerLog;
 	pJob->Input(nStageID, pObj->GetCharInfo()->m_nCID,
 		(GetGlobalClockCount() - pObj->GetCharInfo()->m_nBattleStartTime) / 1000,
 		pObj->GetCharInfo()->GetCharGamePlayInfo()->nKillCount,

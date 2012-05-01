@@ -23,13 +23,13 @@
 
 bool CCMatchServer::CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3)
 {
-	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
 	if (pCommObj == NULL) return false;
 
 	// 프로토콜 버전 체크
 	if (nCmdVersion != MCOMMAND_VERSION)
 	{
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_COMMAND_INVALID_VERSION);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_COMMAND_INVALID_VERSION);
 		Post(pCmd);	
 		return false;
 	}
@@ -53,7 +53,7 @@ bool CCMatchServer::CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool&
 
 		if ((int)m_Objects.size() >= MGetServerConfig()->GetMaxUser())
 		{
-			MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_FULL_PLAYERS);
+			CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_FULL_PLAYERS);
 			Post(pCmd);	
 			return false;
 		}
@@ -66,7 +66,7 @@ bool CCMatchServer::CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool&
 	{
 		IncreaseBlockCount();
 
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_BLOCK_IP);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_BLOCK_IP);
 		Post(pCmd);	
 		return false;
 	}
@@ -76,7 +76,7 @@ bool CCMatchServer::CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool&
 
 void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char* szPassword, int nCommandVersion, unsigned long nChecksumPack, char *szEncryptMd5Value)
 {
-//	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
+//	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
 //	if (pCommObj == NULL) return;
 
 	// 초기 위치의 노드는 검색해서 얻어낸다.
@@ -102,14 +102,14 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 		m_MatchDBMgr.GetLoginInfo(szUserID, &nAID, szDBPassword);
 #endif
 
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_WRONG_PASSWORD);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_WRONG_PASSWORD);
 		Post(pCmd);	
 
 		return;
 	}
 
 
-	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
 	if (pCommObj)
 	{
 		// 디비에 최종 접속시간을 업데이트 한다.
@@ -124,7 +124,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	// 패스워드가 틀렸을 경우 처리
 	if (strcmp(szDBPassword, szPassword))
 	{
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_WRONG_PASSWORD);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_WRONG_PASSWORD);
 		Post(pCmd);	
 
 		return;
@@ -135,14 +135,14 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	{
 		// Notify Message 필요 -> 로그인 관련 - 해결(Login Fail 메세지 이용)
 		// Disconnect(CommUID);
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_GETACCOUNTINFO);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_GETACCOUNTINFO);
 		Post(pCmd);	
 	}
 
 	CCMatchAccountPenaltyInfo accountpenaltyInfo;
 	if( !m_MatchDBMgr.GetAccountPenaltyInfo(nAID, &accountpenaltyInfo) ) 
 	{
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_GETACCOUNTINFO);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_GETACCOUNTINFO);
 		Post(pCmd);	
 	}
 
@@ -153,7 +153,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	{
 		// 내가 로그인일때 이미 로그인 돼있는 클라이언트가 있으면 이미 로그인 클라이언트에 
 		// 중복 로그인이란 메세지 보내고 접속을 끊음. - by kammir 2008.09.30
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(pCopyObj->GetUID(), MERR_MULTIPLE_LOGIN);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pCopyObj->GetUID(), MERR_MULTIPLE_LOGIN);
 		Post(pCmd);	
 		//Disconnect(pCopyObj->GetUID());
 	}
@@ -162,7 +162,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	// 사용정지 계정인지 확인한다.
 	if ((accountInfo.m_nUGrade == CCMUGBLOCKED) || (accountInfo.m_nUGrade == CCMUGPENALTY))
 	{
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_CCMUGBLOCKED);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_CCMUGBLOCKED);
 		Post(pCmd);	
 		return;
 	}
@@ -173,7 +173,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	if (MGetServerConfig()->IsUseMD5())				
 	{
 		unsigned char szMD5Value[ MAX_MD5LENGH ] = {0, };
-		pCommObj->GetCrypter()->Decrypt(szEncryptMd5Value, MAX_MD5LENGH, (MPacketCrypterKey*)pCommObj->GetCrypter()->GetKey());
+		pCommObj->GetCrypter()->Decrypt(szEncryptMd5Value, MAX_MD5LENGH, (CCPacketCrypterKey*)pCommObj->GetCrypter()->GetKey());
 		memcpy( szMD5Value, szEncryptMd5Value, MAX_MD5LENGH );
 
 		if ((memcmp(m_szMD5Value, szMD5Value, MAX_MD5LENGH)) != 0)
@@ -243,7 +243,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	}
 
 
-	MCommand* pCmd = CreateCmdMatchResponseLoginOK(CommUID, 
+	CCCommand* pCmd = CreateCmdMatchResponseLoginOK(CommUID, 
 												   AllocUID, 
 												   pObj->GetAccountInfo()->m_szUserID,
 												   pObj->GetAccountInfo()->m_nUGrade,
@@ -268,7 +268,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 /*
 void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* szCPCookie, const char* szSpareData, int nCmdVersion, unsigned long nChecksumPack)
 {
-	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
 	if (pCommObj == NULL) return;
 
 	bool bFreeLoginIP = false;
@@ -288,7 +288,7 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* 
 	{
 		MGetServerStatusSingleton()->SetRunStatus(5);
 
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_WRONG_PASSWORD);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_WRONG_PASSWORD);
 		Post(pCmd);	
 
 		LOG(LOG_PROG, "Netmarble Certification Failed\n");
@@ -306,7 +306,7 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* 
 	DWORD dwIP = pCommObj->GetIP();
 
 	// Async DB
-	MAsyncDBJob_GetLoginInfo* pNewJob = new MAsyncDBJob_GetLoginInfo(CommUID);
+	CCAsyncDBJob_GetLoginInfo* pNewJob = new CCAsyncDBJob_GetLoginInfo(CommUID);
 	pNewJob->Input(new CCMatchAccountInfo(), 
 					pUserID, 
 					pUniqueID, 
@@ -341,7 +341,7 @@ void CCMatchServer::OnMatchLoginFromNetmarbleJP(const CCUID& CommUID, const char
 	if (!MGetLocale()->PostLoginInfoToDBAgent(CommUID, szLoginID, szLoginPW, bFreeLoginIP, nChecksumPack, GetClientCount()))
 	{
 		cclog( "Server user full(DB agent error).\n" );
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_FULL_PLAYERS);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_FULL_PLAYERS);
 		Post(pCmd);
 		return;
 	}
@@ -350,7 +350,7 @@ void CCMatchServer::OnMatchLoginFromNetmarbleJP(const CCUID& CommUID, const char
 void CCMatchServer::OnMatchLoginFromDBAgent(const CCUID& CommUID, const char* szLoginID, const char* szName, int nSex, bool bFreeLoginIP, unsigned long nChecksumPack)
 {
 #ifndef LOCALE_NHNUSA
-	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(CommUID);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
 	if (pCommObj == NULL) return;
 
 	string strCountryCode3;
@@ -367,7 +367,7 @@ void CCMatchServer::OnMatchLoginFromDBAgent(const CCUID& CommUID, const char* sz
 	DWORD dwIP = pCommObj->GetIP();
 
 	// Async DB
-	MAsyncDBJob_GetLoginInfo* pNewJob = new MAsyncDBJob_GetLoginInfo(CommUID);
+	CCAsyncDBJob_GetLoginInfo* pNewJob = new CCAsyncDBJob_GetLoginInfo(CommUID);
 	pNewJob->Input(new CCMatchAccountInfo,
 					new CCMatchAccountPenaltyInfo,
 					pUserID, 
@@ -390,12 +390,12 @@ void CCMatchServer::OnMatchLoginFailedFromDBAgent(const CCUID& CommUID, int nRes
 {
 #ifndef LOCALE_NHNUSA
 	// 프로토콜 버전 체크
-	MCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, nResult);
+	CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, nResult);
 	Post(pCmd);	
 #endif
 }
 
-MCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const CCUID& uidComm, 
+CCCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const CCUID& uidComm, 
 													  CCUID& uidPlayer, 
 													  const char* szUserID, 
 													  CCMatchUserGradeID nUGradeID, 
@@ -403,54 +403,54 @@ MCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const CCUID& uidComm,
 //													  const unsigned char* szRandomValue,
 													  const unsigned char* pbyGuidReqMsg)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_LOGIN, uidComm);
-	pCmd->AddParameter(new MCommandParameterInt(MOK));
-	pCmd->AddParameter(new MCommandParameterString(MGetServerConfig()->GetServerName()));
-	pCmd->AddParameter(new MCommandParameterChar((char)MGetServerConfig()->GetServerMode()));
-	pCmd->AddParameter(new MCommandParameterString(szUserID));
-	pCmd->AddParameter(new MCommandParameterUChar((unsigned char)nUGradeID));
-	pCmd->AddParameter(new MCommandParameterUChar((unsigned char)nPGradeID));
-	pCmd->AddParameter(new MCommandParameterUID(uidPlayer));
-	pCmd->AddParameter(new MCommandParameterBool((bool)MGetServerConfig()->IsEnabledSurvivalMode()));
-	pCmd->AddParameter(new MCommandParameterBool((bool)MGetServerConfig()->IsEnabledDuelTournament()));
-//	pCmd->AddParameter(new MCommandParameterString(szRandomValue));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_LOGIN, uidComm);
+	pCmd->AddParameter(new CCCommandParameterInt(MOK));
+	pCmd->AddParameter(new CCCommandParameterString(MGetServerConfig()->GetServerName()));
+	pCmd->AddParameter(new CCCommandParameterChar((char)MGetServerConfig()->GetServerMode()));
+	pCmd->AddParameter(new CCCommandParameterString(szUserID));
+	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)nUGradeID));
+	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)nPGradeID));
+	pCmd->AddParameter(new CCCommandParameterUID(uidPlayer));
+	pCmd->AddParameter(new CCCommandParameterBool((bool)MGetServerConfig()->IsEnabledSurvivalMode()));
+	pCmd->AddParameter(new CCCommandParameterBool((bool)MGetServerConfig()->IsEnabledDuelTournament()));
+//	pCmd->AddParameter(new CCCommandParameterString(szRandomValue));
 
 //	void* pBlob1 = MMakeBlobArray(sizeof(unsigned char), 64);
 //	unsigned char *pCmdBlock1 = (unsigned char*)MGetBlobArrayElement(pBlob1, 0);
 //	CopyMemory(pCmdBlock1, szRandomValue, 64);
 
-//	pCmd->AddParameter(new MCommandParameterBlob(pBlob1, MGetBlobArraySize(pBlob1)));
+//	pCmd->AddParameter(new CCCommandParameterBlob(pBlob1, MGetBlobArraySize(pBlob1)));
 //	MEraseBlobArray(pBlob1);
 	
 	void* pBlob = MMakeBlobArray(sizeof(unsigned char), SIZEOF_GUIDREQMSG);
 	unsigned char* pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pCmdBlock, pbyGuidReqMsg, SIZEOF_GUIDREQMSG);
 
-	pCmd->AddParameter(new MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	pCmd->AddParameter(new CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
 	MEraseBlobArray(pBlob);
 
 	return pCmd;
 }
 
-MCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const CCUID& uidComm, const int nResult)
+CCCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const CCUID& uidComm, const int nResult)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_LOGIN, uidComm);
-	pCmd->AddParameter(new MCommandParameterInt(nResult));
-	pCmd->AddParameter(new MCommandParameterString(MGetServerConfig()->GetServerName()));
-	pCmd->AddParameter(new MCommandParameterChar((char)MGetServerConfig()->GetServerMode()));
-	pCmd->AddParameter(new MCommandParameterString("Ana"));
-	pCmd->AddParameter(new MCommandParameterUChar((unsigned char)CCMUGFREE));
-	pCmd->AddParameter(new MCommandParameterUChar((unsigned char)MMPG_FREE));
-	pCmd->AddParameter(new MCommandParameterUID(CCUID(0,0)));
-	pCmd->AddParameter(new MCommandParameterBool((bool)MGetServerConfig()->IsEnabledSurvivalMode()));
-	pCmd->AddParameter(new MCommandParameterBool((bool)MGetServerConfig()->IsEnabledDuelTournament()));
-//	pCmd->AddParameter(new MCommandParameterString("A"));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_LOGIN, uidComm);
+	pCmd->AddParameter(new CCCommandParameterInt(nResult));
+	pCmd->AddParameter(new CCCommandParameterString(MGetServerConfig()->GetServerName()));
+	pCmd->AddParameter(new CCCommandParameterChar((char)MGetServerConfig()->GetServerMode()));
+	pCmd->AddParameter(new CCCommandParameterString("Ana"));
+	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)CCMUGFREE));
+	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)MMPG_FREE));
+	pCmd->AddParameter(new CCCommandParameterUID(CCUID(0,0)));
+	pCmd->AddParameter(new CCCommandParameterBool((bool)MGetServerConfig()->IsEnabledSurvivalMode()));
+	pCmd->AddParameter(new CCCommandParameterBool((bool)MGetServerConfig()->IsEnabledDuelTournament()));
+//	pCmd->AddParameter(new CCCommandParameterString("A"));
 	
 //	unsigned char tmp1 = 'A';
 //	void* pBlob1 = MMakeBlobArray(sizeof(unsigned char), sizeof(unsigned char));
 //	unsigned char* pCmdBlock1 = (unsigned char*)MGetBlobArrayElement(pBlob1, 0);
 //	CopyMemory(pCmdBlock1, &tmp1, sizeof(unsigned char));
-//	pCmd->AddParameter(new MCommandParameterBlob(pBlob1, MGetBlobArraySize(pBlob1)));
+//	pCmd->AddParameter(new CCCommandParameterBlob(pBlob1, MGetBlobArraySize(pBlob1)));
 //	MEraseBlobArray(pBlob1);
 
 	unsigned char tmp = 0;
@@ -458,7 +458,7 @@ MCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const CCUID& uidComm,
 	unsigned char* pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pCmdBlock, &tmp, sizeof(unsigned char));
 
-	pCmd->AddParameter(new MCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	pCmd->AddParameter(new CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
 	MEraseBlobArray(pBlob);
 
 	return pCmd;
@@ -470,7 +470,7 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 										const CCMatchAccountPenaltyInfo* pSrcAccountPenaltyInfo,
 										bool bFreeLoginIP, string strCountryCode3, unsigned long nChecksumPack)
 {
-	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(uidComm);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(uidComm);
 	if (pCommObj == NULL) return false;
 
 	CCUID AllocUID = uidComm;
@@ -483,7 +483,7 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 	if (pObj == NULL) {
 		// Notify Message 필요 -> 로그인 관련 - 해결(Login Fail 메세지 이용)
 		// Disconnect(uidComm);
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(AllocUID, MERR_FAILED_LOGIN_RETRY);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(AllocUID, MERR_FAILED_LOGIN_RETRY);
 		Post(pCmd);	
 		return false;
 	}
@@ -538,12 +538,12 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 	if (!PreCheckAddObj(uidComm))
 	{
 		// 보안 관련 초기화 서버 설정에 문제가 생겼다고 로그인 실패를 리턴한다. //
-		MCommand* pCmd = CreateCmdMatchResponseLoginFailed(uidComm, MERR_FAILED_AUTHENTICATION);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(uidComm, MERR_FAILED_AUTHENTICATION);
 		Post(pCmd);	
 		return false;
 	}
 
-	MCommand* pCmd = CreateCmdMatchResponseLoginOK(uidComm, 
+	CCCommand* pCmd = CreateCmdMatchResponseLoginOK(uidComm, 
 												   AllocUID, 
 												   pObj->GetAccountInfo()->m_szUserID,
 												   pObj->GetAccountInfo()->m_nUGrade,
@@ -556,7 +556,7 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 	//m_MatchDBMgr.InsertConnLog(pObj->GetAccountInfo()->m_nAID, pObj->GetIPString(), pObj->GetCountryCode3() );
 
 	// 접속 로그
-	MAsyncDBJob_InsertConnLog* pNewJob = new MAsyncDBJob_InsertConnLog(uidComm);
+	CCAsyncDBJob_InsertConnLog* pNewJob = new CCAsyncDBJob_InsertConnLog(uidComm);
 	pNewJob->Input(pObj->GetAccountInfo()->m_nAID, pObj->GetIPString(), pObj->GetCountryCode3() );
 	PostAsyncJob(pNewJob);
 

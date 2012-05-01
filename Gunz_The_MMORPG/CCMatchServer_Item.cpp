@@ -89,7 +89,7 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL) || (pObj->GetAccountInfo() == NULL)) return;
 
-	MAsyncDBJob_GetAccountItemList* pGetAccountItemListJob = new MAsyncDBJob_GetAccountItemList(uidPlayer);
+	CCAsyncDBJob_GetAccountItemList* pGetAccountItemListJob = new CCAsyncDBJob_GetAccountItemList(uidPlayer);
 	if( NULL == pGetAccountItemListJob ) return;
 
 	pGetAccountItemListJob->Input( uidPlayer, pObj->GetAccountInfo()->m_nAID );
@@ -148,8 +148,8 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		}
 //	}
 //
-//	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_TAKEOFF_ITEM, CCUID(0,0));
-//	pNew->AddParameter(new MCommandParameterInt(nResult));
+//	CCCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_TAKEOFF_ITEM, CCUID(0,0));
+//	pNew->AddParameter(new CCCommandParameterInt(nResult));
 //	RouteToListener(pObj, pNew);	
 //
 //	if( MOK == nResult )
@@ -159,7 +159,7 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		// 만약 스테이지 안이면 스테이지에 알려서 유저의 Look을 업데이트 해줘야 한다.
 //		if( FindStage(pObj->GetStageUID())  )
 //		{
-//			MCommand* pEquipInfo = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, CCUID(0, 0) );
+//			CCCommand* pEquipInfo = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, CCUID(0, 0) );
 //			pEquipInfo->AddParameter( new MCmdParamUID(uidPlayer) );
 //			pEquipInfo->AddParameter( new MCmdParamInt(parts) );
 //			pEquipInfo->AddParameter( new MCmdParamInt(0) );
@@ -207,10 +207,10 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		}
 //	}
 //
-//	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_CHARACTER_ITEMLIST, uidPlayer);
+//	CCCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_CHARACTER_ITEMLIST, uidPlayer);
 //
 //	// 바운티 전송
-//	pNew->AddParameter(new MCommandParameterInt(pObj->GetCharInfo()->m_nBP));
+//	pNew->AddParameter(new CCCommandParameterInt(pObj->GetCharInfo()->m_nBP));
 //
 //	// 장비한 아이템 전송
 //	int nRealEquipedItemCount = 0;
@@ -231,17 +231,17 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		}
 //	}
 //
-//	pNew->AddParameter(new MCommandParameterBlob(pEquipItemArray, MGetBlobArraySize(pEquipItemArray)));
+//	pNew->AddParameter(new CCCommandParameterBlob(pEquipItemArray, MGetBlobArraySize(pEquipItemArray)));
 //	MEraseBlobArray(pEquipItemArray);
 //
 //
 //	// 갖고 있는 아이템 리스트 전송
 //	int nItemCount = pObj->GetCharInfo()->m_ItemList.GetCount();
 //
-//	void*			pItemArray					= MMakeBlobArray(sizeof(MTD_ItemNode), nItemCount);
+//	void*			pItemArray					= MMakeBlobArray(sizeof(CCTD_ItemNode), nItemCount);
 //	CCMatchItemMap*	pItemList					= &pObj->GetCharInfo()->m_ItemList;
 //	CCMatchItem*		pItem						= NULL;
-//	MTD_ItemNode*	pItemNode					= NULL;
+//	CCTD_ItemNode*	pItemNode					= NULL;
 //	unsigned long	nPassTime					= 0;
 //	int				nPassMinuteTime				= 0;
 //	int				iMaxUseHour					= 0;
@@ -252,7 +252,7 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //	{
 //		pItem = (*itor).second;
 //
-//		pItemNode					= (MTD_ItemNode*)MGetBlobArrayElement(pItemArray, nIndex++);
+//		pItemNode					= (CCTD_ItemNode*)MGetBlobArrayElement(pItemArray, nIndex++);
 //		nPassTime					= MGetTimeDistance(pItem->GetRentItemRegTime(), GetTickTime());
 //		nPassMinuteTime				= nPassTime / (1000 * 60);
 //		iMaxUseHour					= 0;		// 최대 사용시간 보내기(판매가격 계산을 위해)
@@ -277,17 +277,17 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //	}
 //
 //
-//	pNew->AddParameter(new MCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
+//	pNew->AddParameter(new CCCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
 //	MEraseBlobArray(pItemArray);
 //
 //	// 가지고 있는 겜블 아이템 리스트 전송
 //	int nGambleItemCount = pObj->GetCharInfo()->m_GambleItemManager.GetCount();
-//	void* pGambleItemArray = MMakeBlobArray(sizeof(MTD_GambleItemNode), nGambleItemCount);
+//	void* pGambleItemArray = MMakeBlobArray(sizeof(CCTD_GambleItemNode), nGambleItemCount);
 //
 //	for (int j = 0; j < nGambleItemCount; ++j)
 //	{
 //		const CCMatchCharGambleItem* pGambleItem = pObj->GetCharInfo()->m_GambleItemManager.GetGambleItem(j);
-//		MTD_GambleItemNode* pSendGambleItem = (MTD_GambleItemNode*)MGetBlobArrayElement(pGambleItemArray, j);
+//		CCTD_GambleItemNode* pSendGambleItem = (CCTD_GambleItemNode*)MGetBlobArrayElement(pGambleItemArray, j);
 //		if( pSendGambleItem != NULL )
 //		{
 //			pSendGambleItem->uidItem = pGambleItem->GetUID();
@@ -299,7 +299,7 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		}
 //	}
 //
-//	pNew->AddParameter(new MCommandParameterBlob(pGambleItemArray, MGetBlobArraySize(pGambleItemArray)));
+//	pNew->AddParameter(new CCCommandParameterBlob(pGambleItemArray, MGetBlobArraySize(pGambleItemArray)));
 //	MEraseBlobArray(pGambleItemArray);
 //
 //	PostSafeQueue( pNew );
@@ -420,18 +420,18 @@ void CCMatchServer::OnRequestUseSpendableBuffItem(const CCUID& uidPlayer, const 
 	{
 		UseSpendableItem(uidPlayer, uidItem);
 
-		MCommand *pCmd = CreateCommand( MC_MATCH_RESPONSE_USE_SPENDABLE_BUFF_ITEM, uidPlayer );
-		pCmd->AddParameter(new MCommandParameterUID(uidItem));
-		pCmd->AddParameter(new MCommandParameterInt(MOK));
+		CCCommand *pCmd = CreateCommand( MC_MATCH_RESPONSE_USE_SPENDABLE_BUFF_ITEM, uidPlayer );
+		pCmd->AddParameter(new CCCommandParameterUID(uidItem));
+		pCmd->AddParameter(new CCCommandParameterInt(MOK));
 		PostSafeQueue(pCmd);
 
 		PostCmdCharacterBuffInfo(uidPlayer);
 	} 
 	else 
 	{
-		MCommand *pCmd = CreateCommand( MC_MATCH_RESPONSE_USE_SPENDABLE_BUFF_ITEM, uidPlayer );
-		pCmd->AddParameter(new MCommandParameterUID(uidItem));
-		pCmd->AddParameter(new MCommandParameterInt(MERR_CANNOT_APPLY_BUFF_INFO));
+		CCCommand *pCmd = CreateCommand( MC_MATCH_RESPONSE_USE_SPENDABLE_BUFF_ITEM, uidPlayer );
+		pCmd->AddParameter(new CCCommandParameterUID(uidItem));
+		pCmd->AddParameter(new CCCommandParameterInt(MERR_CANNOT_APPLY_BUFF_INFO));
 		PostSafeQueue(pCmd);
 	}	
 }*/
@@ -445,14 +445,14 @@ void CCMatchServer::PostCmdCharacterBuffInfo(const CCUID& uidPlayer)
 	CCMatchCharInfo* pCharInfo = pObj->GetCharInfo();
 	if (pCharInfo == NULL) return;		
 
-	MCommand *pCmd = CreateCommand(MC_MATCH_SPENDABLE_BUFF_ITEM_STATUS, uidPlayer);	
+	CCCommand *pCmd = CreateCommand(MC_MATCH_SPENDABLE_BUFF_ITEM_STATUS, uidPlayer);	
 
-	void* pCharBuffInfoArray = MMakeBlobArray(sizeof(MTD_CharBuffInfo), 1);
-	MTD_CharBuffInfo* pMTD_CharBuffInfo = (MTD_CharBuffInfo*)MGetBlobArrayElement(pCharBuffInfoArray, 0);
-	CopyCharBuffInfoForTrans(pMTD_CharBuffInfo, pCharInfo, pObj);
+	void* pCharBuffInfoArray = MMakeBlobArray(sizeof(CCTD_CharBuffInfo), 1);
+	CCTD_CharBuffInfo* pCCTD_CharBuffInfo = (CCTD_CharBuffInfo*)MGetBlobArrayElement(pCharBuffInfoArray, 0);
+	CopyCharBuffInfoForTrans(pCCTD_CharBuffInfo, pCharInfo, pObj);
 
-	pCmd->AddParameter(new MCommandParameterUID(pObj->GetUID()));
-	pCmd->AddParameter(new MCommandParameterBlob(pCharBuffInfoArray, MGetBlobArraySize(pCharBuffInfoArray)));
+	pCmd->AddParameter(new CCCommandParameterUID(pObj->GetUID()));
+	pCmd->AddParameter(new CCCommandParameterBlob(pCharBuffInfoArray, MGetBlobArraySize(pCharBuffInfoArray)));
 	Post(pCmd);
 
 	MEraseBlobArray(pCharBuffInfoArray);

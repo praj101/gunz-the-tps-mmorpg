@@ -5,7 +5,7 @@
 #include "ZConfiguration.h"
 #include "ZGameClient.h"
 #include "MSharedCommandTable.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
 #include "MBlobArray.h"
 #include "ZInterface.h"
@@ -144,7 +144,7 @@ void ZGameClient::OnAskAgreement(const CCUID& uidProposer, void* pMemberNamesBlo
 
 	for (int i = 0; i < nMemberCount; i++)
 	{
-		MTD_ReplierNode* pReplierNode = (MTD_ReplierNode*)MGetBlobArrayElement(pMemberNamesBlob, i);
+		CCTD_ReplierNode* pReplierNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pMemberNamesBlob, i);
 		strcpy(szMemberNames[i], pReplierNode->szName);
 	}
 

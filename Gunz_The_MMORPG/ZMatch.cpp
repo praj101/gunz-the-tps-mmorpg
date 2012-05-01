@@ -437,7 +437,7 @@ void ZMatch::InitRound()
 
 	// AdminHide 처리
 	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-	if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
+	if (pObjCache && pObjCache->CheckFlag(CCTD_PlayerFlags_AdminHide)) {
 		ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 	} else {
 		// 옵져버 모드였으면 해제.
@@ -653,7 +653,7 @@ void ZMatch::OnForcedEntry(ZCharacter* pCharacter)
 	{
 		// AdminHide 처리
 		CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-		if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
+		if (pObjCache && pObjCache->CheckFlag(CCTD_PlayerFlags_AdminHide)) {
 			ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 		} else {
 			// 팀플레이면 스팩테이터
@@ -725,13 +725,13 @@ DWORD ZMatch::GetRemaindTime( void)
 }
 
 
-bool ZMatch::OnCommand(MCommand* pCommand)
+bool ZMatch::OnCommand(CCCommand* pCommand)
 {
 	if (m_pRule) return m_pRule->OnCommand(pCommand);
 	return false;
 }
 
-void ZMatch::OnResponseRuleInfo(MTD_RuleInfo* pInfo)
+void ZMatch::OnResponseRuleInfo(CCTD_RuleInfo* pInfo)
 {
 	if (pInfo->nRuleType != GetMatchType()) return;
 

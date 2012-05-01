@@ -233,7 +233,7 @@ void InsertLadderRandomMap(vector<int>& vec, int nNum, int nCount)
 
 MClanGameStrategy::MClanGameStrategy()
 {
-	for (int i = MLADDERTYPE_NORMAL_2VS2; i <= MLADDERTYPE_NORMAL_3VS3; i++)
+	for (int i = CCLADDERTYPE_NORMAL_2VS2; i <= CCLADDERTYPE_NORMAL_3VS3; i++)
 	{
 		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_MANSION,		10);
 		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_PRISON_II,		5);
@@ -248,7 +248,7 @@ MClanGameStrategy::MClanGameStrategy()
 		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_HIGH_HAVEN,		10);
 	}
 
-	for (int i = MLADDERTYPE_NORMAL_4VS4; i < CCLADDERTYPE_MAX; i++)
+	for (int i = CCLADDERTYPE_NORMAL_4VS4; i < CCLADDERTYPE_MAX; i++)
 	{
 		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_MANSION,		10);
 		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_PRISON_II,		5);
@@ -272,7 +272,7 @@ int MClanGameStrategy::ValidateChallenge(CCMatchObject** ppMemberObject, int nMe
 	bool bFit = false;
 	for (int i = 0; i < CCLADDERTYPE_MAX; i++)
 	{
-		if (nMemberCount == CCMatchServer::GetInstance()->GetLadderMgr()->GetNeedMemberCount(MLADDERTYPE(i)))
+		if (nMemberCount == CCMatchServer::GetInstance()->GetLadderMgr()->GetNeedMemberCount(CCLADDERTYPE(i)))
 		{
 			bFit = true;
 			break;
@@ -486,16 +486,16 @@ int MClanGameStrategy::GetRandomMap(int nTeamMember)
 	switch (nTeamMember)
 	{
 	case 2:
-		nVecIndex = MLADDERTYPE_NORMAL_2VS2;
+		nVecIndex = CCLADDERTYPE_NORMAL_2VS2;
 		break;
 	case 3:
-		nVecIndex = MLADDERTYPE_NORMAL_3VS3;
+		nVecIndex = CCLADDERTYPE_NORMAL_3VS3;
 		break;
 	case 4:
-		nVecIndex = MLADDERTYPE_NORMAL_4VS4;
+		nVecIndex = CCLADDERTYPE_NORMAL_4VS4;
 		break;
 //	case 8:
-//		nVecIndex = MLADDERTYPE_NORMAL_8VS8;
+//		nVecIndex = CCLADDERTYPE_NORMAL_8VS8;
 //		break;
 	};
 

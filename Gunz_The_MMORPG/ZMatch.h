@@ -43,8 +43,8 @@ public:
 	void Destroy();
 
 	void Update(float fDelta);
-	bool OnCommand(MCommand* pCommand);
-	void OnResponseRuleInfo(MTD_RuleInfo* pInfo);
+	bool OnCommand(CCCommand* pCommand);
+	void OnResponseRuleInfo(CCTD_RuleInfo* pInfo);
 	void SetRound(int nCurrRound);						///< 현재 라운드 설정
 	void OnForcedEntry(ZCharacter* pCharacter);			///< 난입했을 경우
 	void InitCharactersPosition();						///< 라운드 시작할때 캐릭터 위치 설정

@@ -6,7 +6,7 @@
 #include "ZConfiguration.h"
 #include "ZGameClient.h"
 #include "MSharedCommandTable.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
 #include "MBlobArray.h"
 #include "ZInterface.h"

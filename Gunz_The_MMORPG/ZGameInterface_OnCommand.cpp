@@ -4,7 +4,7 @@
 #include "ZApplication.h"
 #include "ZPost.h"
 #include "ZConsole.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZConfiguration.h"
 #include "FileInfo.h"
 #include "ZInterfaceItem.h"
@@ -74,7 +74,7 @@
 #endif
 
 
-bool ZGameInterface::OnCommand(MCommand* pCommand)
+bool ZGameInterface::OnCommand(CCCommand* pCommand)
 {
 #ifdef _BIRDTEST
 	ZApplication::GetGameInterface()->OnBirdTestCommand(pCommand);
@@ -104,10 +104,10 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 	else
 	{
 		// 보관해뒀던 zgame용 커맨드가 있으면 모두 처리한다
-		std::list<MCommand*>::iterator it = ZGetGameInterface()->m_listDelayedGameCmd.begin();
+		std::list<CCCommand*>::iterator it = ZGetGameInterface()->m_listDelayedGameCmd.begin();
 		for (;it!=ZGetGameInterface()->m_listDelayedGameCmd.end();)
 		{
-			MCommand* pWaitCmd = *it;
+			CCCommand* pWaitCmd = *it;
 			ZGetGame()->OnCommand(pWaitCmd);
 			delete pWaitCmd;
 			it = ZGetGameInterface()->m_listDelayedGameCmd.erase(it);
@@ -122,11 +122,11 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 	// 모드가 확정되기 전에 들어오므로 예외처리
 	if (pCommand->GetID() == MC_QUEST_GAME_INFO)
 	{
-		MCommandParameter* pParam = pCommand->GetParameter(0);
+		CCCommandParameter* pParam = pCommand->GetParameter(0);
 		if(pParam->GetType()!=MPT_BLOB) return false;
 		void* pBlob = pParam->GetPointer();
 
-		MTD_QuestGameInfo* pQuestGameInfo= (MTD_QuestGameInfo*)MGetBlobArrayElement(pBlob, 0);
+		CCTD_QuestGameInfo* pQuestGameInfo= (CCTD_QuestGameInfo*)MGetBlobArrayElement(pBlob, 0);
 		
 		if (ZGetGameTypeManager()->IsQuestOnly(pQuestGameInfo->eGameType))
 		{
@@ -152,7 +152,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 		{
 			cclog("Responsed Account Charlist\n");
 
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pCharListBlob = pParam->GetPointer();
 			int nCount = MGetBlobArrayCount(pCharListBlob);
@@ -182,7 +182,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 			char nCharNum;
 			pCommand->GetParameter(&nCharNum, 0, MPT_CHAR);
 
-			MCommandParameter* pParam = pCommand->GetParameter(1);
+			CCCommandParameter* pParam = pCommand->GetParameter(1);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pCharInfoBlob = pParam->GetPointer();
 			int nCount = MGetBlobArrayCount(pCharInfoBlob);
@@ -202,7 +202,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 			pCommand->GetParameter(&nResult, 0, MPT_INT);
 			if (nResult == MOK)
 			{
-				MCommandParameter* pParam = pCommand->GetParameter(1);
+				CCCommandParameter* pParam = pCommand->GetParameter(1);
 				if(pParam->GetType()!=MPT_BLOB) {
 					_ASSERT(0);
 					break;
@@ -231,7 +231,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 				}
 
 				void* pCharBuffBlob = pParam->GetPointer();
-				MTD_CharBuffInfo* pCharBuffInfo = (MTD_CharBuffInfo*)MGetBlobArrayElement(pCharBuffBlob, 0);
+				CCTD_CharBuffInfo* pCharBuffInfo = (CCTD_CharBuffInfo*)MGetBlobArrayElement(pCharBuffBlob, 0);
 				ZGetMyInfo()->SetCharBuffInfo(pCharBuffInfo);
 				*/
 
@@ -249,7 +249,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 					break;
 				}
 				void* pExtraCharBlob = pParam->GetPointer();
-				MTD_MyExtraCharInfo* pMyExtraCharInfo = (MTD_MyExtraCharInfo*)MGetBlobArrayElement(pExtraCharBlob, 0);
+				CCTD_MyExtraCharInfo* pMyExtraCharInfo = (CCTD_MyExtraCharInfo*)MGetBlobArrayElement(pExtraCharBlob, 0);
 
 				if (pMyExtraCharInfo) {
 					ZGetMyInfo()->SetLevelPercent((int)pMyExtraCharInfo->nLevelPercent);
@@ -329,10 +329,10 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 		{
 			int nGItemCount;
 			void* pGItemListBlob;
-			MTD_GambleItemNode* pGItem;
-			vector< MTD_GambleItemNode* > vGItemList;
+			CCTD_GambleItemNode* pGItem;
+			vector< CCTD_GambleItemNode* > vGItemList;
 
-			MCommandParameter* pGItemParam = pCommand->GetParameter( 0 );
+			CCCommandParameter* pGItemParam = pCommand->GetParameter( 0 );
 			if( MPT_BLOB != pGItemParam->GetType() ) {
 				_ASSERT( 0 );
 				break;
@@ -341,17 +341,17 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 			pGItemListBlob = pGItemParam->GetPointer();
 			nGItemCount = MGetBlobArrayCount( pGItemListBlob );
 			for( int j = 0; j < nGItemCount; ++j ) {
-				pGItem = (MTD_GambleItemNode*)MGetBlobArrayElement( pGItemListBlob, j );
+				pGItem = (CCTD_GambleItemNode*)MGetBlobArrayElement( pGItemListBlob, j );
 				vGItemList.push_back( pGItem );
 			}
 
 			///////////////////////////////// item list /////////////////////////////////////////////////////
 
 			int nItemCount = 0;
-			MTD_ShopItemInfo *pShopInfo = NULL;
-			vector< MTD_ShopItemInfo* > vShopItemList;
+			CCTD_ShopItemInfo *pShopInfo = NULL;
+			vector< CCTD_ShopItemInfo* > vShopItemList;
 
-			MCommandParameter* pParam = pCommand->GetParameter(1);
+			CCCommandParameter* pParam = pCommand->GetParameter(1);
 
 			if(pParam->GetType() != MPT_BLOB) {
 				_ASSERT(0);
@@ -363,7 +363,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 			vShopItemList.clear();
 
 			for (int i = 0; i < nItemCount; i++) {
-				pShopInfo = (MTD_ShopItemInfo*)MGetBlobArrayElement(pItemListBlob, i);
+				pShopInfo = (CCTD_ShopItemInfo*)MGetBlobArrayElement(pItemListBlob, i);
 				vShopItemList.push_back( pShopInfo );
 			}
 
@@ -380,7 +380,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 			pCommand->GetParameter(&nBounty, 0, MPT_INT);
 			ZGetMyInfo()->SetBP(nBounty);
 
-			MCommandParameter* pParam = pCommand->GetParameter(1);
+			CCCommandParameter* pParam = pCommand->GetParameter(1);
 			if(pParam->GetType()!=MPT_BLOB) 
 			{
 				_ASSERT(0);
@@ -403,23 +403,23 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 			pParam = pCommand->GetParameter(2);
 			void* pItemListBlob = pParam->GetPointer();
 			nItemCount = MGetBlobArrayCount(pItemListBlob);
-			MTD_ItemNode* pItemNodes = new MTD_ItemNode[nItemCount];
+			CCTD_ItemNode* pItemNodes = new CCTD_ItemNode[nItemCount];
 
 			for (int i = 0; i < nItemCount; i++)
 			{
-				pItemNodes[i] = *(MTD_ItemNode*)MGetBlobArrayElement(pItemListBlob, i);
+				pItemNodes[i] = *(CCTD_ItemNode*)MGetBlobArrayElement(pItemListBlob, i);
 			}
 
 			// gambleitem
 			pParam = pCommand->GetParameter(3);
 			void* pGItemListBlob = pParam->GetPointer();
 			int nGItemCount = MGetBlobArrayCount(pGItemListBlob);
-			MTD_GambleItemNode* pGItemNodes = new MTD_GambleItemNode[nGItemCount];
-			MTD_GambleItemNode* pTmpGItem;
+			CCTD_GambleItemNode* pGItemNodes = new CCTD_GambleItemNode[nGItemCount];
+			CCTD_GambleItemNode* pTmpGItem;
 
 			for (int i = 0; i < nGItemCount; i++)
 			{
-				pTmpGItem = (MTD_GambleItemNode*)MGetBlobArrayElement(pGItemListBlob, i);
+				pTmpGItem = (CCTD_GambleItemNode*)MGetBlobArrayElement(pGItemListBlob, i);
 
 				pGItemNodes[i].uidItem = pTmpGItem->uidItem;
 				pGItemNodes[i].nItemID = pTmpGItem->nItemID;
@@ -434,17 +434,17 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 		break;
 	case MC_MATCH_RESPONSE_ACCOUNT_ITEMLIST:
 		{
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			void* pItemListBlob = pParam->GetPointer();
 			int nItemCount = MGetBlobArrayCount(pItemListBlob);
 
-			MTD_AccountItemNode* pItemNodes = new MTD_AccountItemNode[nItemCount];
+			CCTD_AccountItemNode* pItemNodes = new CCTD_AccountItemNode[nItemCount];
 
 			ZGetMyInfo()->GetItemList()->ClearAccountItems();
 
 			for (int i = 0; i < nItemCount; i++)
 			{
-				pItemNodes[i] = *(MTD_AccountItemNode*)MGetBlobArrayElement(pItemListBlob, i);
+				pItemNodes[i] = *(CCTD_AccountItemNode*)MGetBlobArrayElement(pItemListBlob, i);
 				ZGetMyInfo()->GetItemList()->AddAccountItem(pItemNodes[i].nAIID, pItemNodes[i].nItemID, pItemNodes[i].nCount, pItemNodes[i].nRentMinutePeriodRemainder);
 			}
 
@@ -549,11 +549,11 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 		break;
 	case MC_MATCH_RESPONSE_MY_SIMPLE_CHARINFO:
 		{
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			void* pMySimpleCharInfoBlob = pParam->GetPointer();
 
-			MTD_MySimpleCharInfo* pCharInfo;
-			pCharInfo = (MTD_MySimpleCharInfo*)MGetBlobArrayElement(pMySimpleCharInfoBlob, 0);
+			CCTD_MySimpleCharInfo* pCharInfo;
+			pCharInfo = (CCTD_MySimpleCharInfo*)MGetBlobArrayElement(pMySimpleCharInfoBlob, 0);
 
 			ZGetMyInfo()->SetLevel(pCharInfo->nLevel);
 			ZGetMyInfo()->SetXP(pCharInfo->nXP);
@@ -584,7 +584,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 		// 듀얼 토너먼트
 	case MC_MATCH_DUELTOURNAMENT_RESPONSE_SIDERANKING_INFO:
 		{
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if (!pParam) { _ASSERT(0); break; }
 			void* pBlob = pParam->GetPointer();
 			int nCount = MGetBlobArrayCount( pBlob);
@@ -669,14 +669,14 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 		// ZQuest로 옮겨야 함.
 	case MC_MATCH_RESPONSE_CHAR_QUEST_ITEM_LIST :
 		{
-			MCommandParameter*	pParam			= pCommand->GetParameter(0);
+			CCCommandParameter*	pParam			= pCommand->GetParameter(0);
 			void*				pQuestItemBlob	= pParam->GetPointer();
 			int					nQuestItemCount	= MGetBlobArrayCount( pQuestItemBlob );
-			MTD_QuestItemNode*	pQuestItemNode	= new MTD_QuestItemNode[ nQuestItemCount ];
+			CCTD_QuestItemNode*	pQuestItemNode	= new CCTD_QuestItemNode[ nQuestItemCount ];
 
 			for( int i = 0; i < nQuestItemCount; ++i )
 			{
-				pQuestItemNode[ i ] = *(reinterpret_cast<MTD_QuestItemNode*>(MGetBlobArrayElement(pQuestItemBlob, i)));
+				pQuestItemNode[ i ] = *(reinterpret_cast<CCTD_QuestItemNode*>(MGetBlobArrayElement(pQuestItemBlob, i)));
 			}
 
 			ZApplication::GetGameInterface()->OnResponseCharacterItemList_QuestItem( pQuestItemNode, nQuestItemCount );
@@ -804,7 +804,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 #ifdef _LOCATOR
 	case MC_RESPONSE_SERVER_LIST_INFO :
 		{
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) 
 				return false;
 
@@ -842,7 +842,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 
 	case MC_REQUEST_XTRAP_SEEDKEY:		// add sgk 0402
 		{
-			MCommandParameter* pParam = pCommand->GetParameter(0);
+			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if (pParam->GetType() != MPT_BLOB)
 			{
 				break;
@@ -902,8 +902,8 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 
 	case MC_RESPONSE_GAMBLEITEMLIST :
 		{
-			vector< MTD_DBGambleItmeNode* >	vGItemList;
-			MCommandParameter*				pParam;
+			vector< CCTD_DBGambleItmeNode* >	vGItemList;
+			CCCommandParameter*				pParam;
 			void*							pGItemArray;
 			DWORD							dwGItemCount;
 

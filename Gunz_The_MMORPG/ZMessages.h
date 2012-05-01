@@ -2,7 +2,7 @@
 #define _ZMESSAGES_H
 
 #include <string>
-#include "../../CSCommon/Include/MCommand.h"
+#include "../../CSCommon/Include/CCCommand.h"
 #include "CCZFileSystem.h"
 #include "../CSCommon/Include/CCMatchObject.h"
 

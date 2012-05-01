@@ -5,7 +5,7 @@
 #include "CCCommandBuilder.h"
 #include "CCMatchCheckLoopTime.h"
 
-MCommObject::MCommObject(MCommandCommunicator* pCommunicator)
+CCCommObject::CCCommObject(CCCommandCommunicator* pCommunicator)
 {
 	m_uid = CCUID(0,0);
 
@@ -18,12 +18,12 @@ MCommObject::MCommObject(MCommandCommunicator* pCommunicator)
 	m_bAllowed = true;
 	m_bPassiveSocket = false;
 
-	m_pCommandBuilder = new MCommandBuilder(CCUID(0,0), pCommunicator->GetUID(), 
+	m_pCommandBuilder = new CCCommandBuilder(CCUID(0,0), pCommunicator->GetUID(), 
 											pCommunicator->GetCommandManager());
 
 }
 
-MCommObject::~MCommObject()
+CCCommObject::~CCCommObject()
 {
 	if (m_pCommandBuilder) {
 		delete m_pCommandBuilder;
@@ -31,45 +31,45 @@ MCommObject::~MCommObject()
 	}
 }
 
-void MCommandCommunicator::ReceiveCommand(MCommand* pCommand)
+void CCCommandCommunicator::ReceiveCommand(CCCommand* pCommand)
 {
 	pCommand->m_Receiver = m_This;
 	m_CommandManager.Post(pCommand);
 }
 
-void MCommandCommunicator::OnRegisterCommand(MCommandManager* pCommandManager)
+void CCCommandCommunicator::OnRegisterCommand(CCCommandManager* pCommandManager)
 {
 }
 
-bool MCommandCommunicator::OnCommand(MCommand* pCommand)
+bool CCCommandCommunicator::OnCommand(CCCommand* pCommand)
 {
 	return false;
 }
 
-void MCommandCommunicator::OnPrepareRun(void)
+void CCCommandCommunicator::OnPrepareRun(void)
 {
 }
 
-void MCommandCommunicator::OnPrepareCommand(MCommand* pCommand)
+void CCCommandCommunicator::OnPrepareCommand(CCCommand* pCommand)
 {
 }
 
-void MCommandCommunicator::OnRun(void)
+void CCCommandCommunicator::OnRun(void)
 {
 }
 
-void MCommandCommunicator::SetDefaultReceiver(CCUID Receiver)
+void CCCommandCommunicator::SetDefaultReceiver(CCUID Receiver)
 {
 	m_DefaultReceiver = Receiver;
 }
 
-MCommandCommunicator::MCommandCommunicator(void)
+CCCommandCommunicator::CCCommandCommunicator(void)
 {
 	m_This.SetZero();
 	m_DefaultReceiver.SetZero();
 }
 
-MCommandCommunicator::~MCommandCommunicator(void)
+CCCommandCommunicator::~CCCommandCommunicator(void)
 {
 	Destroy();
 #ifdef _CMD_PROFILE
@@ -77,7 +77,7 @@ MCommandCommunicator::~MCommandCommunicator(void)
 #endif
 }
 
-bool MCommandCommunicator::Create(void)
+bool CCCommandCommunicator::Create(void)
 {
 #ifdef _CMD_PROFILE
 	m_CommandProfiler.Init(&m_CommandManager);
@@ -87,34 +87,34 @@ bool MCommandCommunicator::Create(void)
 	return true;
 }
 
-void MCommandCommunicator::Destroy(void)
+void CCCommandCommunicator::Destroy(void)
 {
-	while(MCommand* pCmd = GetCommandSafe()) {
+	while(CCCommand* pCmd = GetCommandSafe()) {
 		delete pCmd;
 	}
 }
 
-int MCommandCommunicator::OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
+int CCCommandCommunicator::OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj)
 {
 	m_This = *pAllocUID;
 	SetDefaultReceiver(*pTargetUID);
 
 	if (pCommObj)
 	{
-		MCommandBuilder* pCmdBuilder = pCommObj->GetCommandBuilder();
+		CCCommandBuilder* pCmdBuilder = pCommObj->GetCommandBuilder();
 		pCmdBuilder->SetUID(*pAllocUID, *pTargetUID);
 	}
 	return MOK;
 }
 
-bool MCommandCommunicator::Post(MCommand* pCommand)
+bool CCCommandCommunicator::Post(CCCommand* pCommand)
 {
 	return m_CommandManager.Post(pCommand);
 }
 
-bool MCommandCommunicator::Post(char* szErrMsg, int nErrMsgCount, const char* szCommand)
+bool CCCommandCommunicator::Post(char* szErrMsg, int nErrMsgCount, const char* szCommand)
 {
-	MCommand* pCmd = new MCommand;
+	CCCommand* pCmd = new CCCommand;
 	if(m_CommandManager.ParseMessage(pCmd, szErrMsg, nErrMsgCount, szCommand)==false){
 		delete pCmd;
 		return false;
@@ -131,17 +131,17 @@ bool MCommandCommunicator::Post(char* szErrMsg, int nErrMsgCount, const char* sz
 	return true;
 }
 
-MCommand* MCommandCommunicator::CreateCommand(int nCmdID, const CCUID& TargetUID)
+CCCommand* CCCommandCommunicator::CreateCommand(int nCmdID, const CCUID& TargetUID)
 {
-	return new MCommand(m_CommandManager.GetCommandDescByID(nCmdID), TargetUID, m_This);
+	return new CCCommand(m_CommandManager.GetCommandDescByID(nCmdID), TargetUID, m_This);
 }
 
-MCommand* MCommandCommunicator::GetCommandSafe()
+CCCommand* CCCommandCommunicator::GetCommandSafe()
 {
 	return m_CommandManager.GetCommand();
 }
 
-void MCommandCommunicator::Run(void)
+void CCCommandCommunicator::Run(void)
 {
 	MGetCheckLoopTimeInstance()->SetPrepareRunTick();
 	OnPrepareRun();
@@ -150,7 +150,7 @@ void MCommandCommunicator::Run(void)
 	int nVecIndex;
 	while(1)
 	{
-		MCommand* pCommand = GetCommandSafe();
+		CCCommand* pCommand = GetCommandSafe();
 
 		if(pCommand==NULL) break;
 		
@@ -225,7 +225,7 @@ void MCommandCommunicator::Run(void)
 	OnRun();
 }
 
-void MCommandCommunicator::LOG(unsigned int nLogLevel, const char *pFormat,...)
+void CCCommandCommunicator::LOG(unsigned int nLogLevel, const char *pFormat,...)
 {
 	if (nLogLevel != LOG_DEBUG)
 	{
@@ -252,7 +252,7 @@ void MCommandCommunicator::LOG(unsigned int nLogLevel, const char *pFormat,...)
 }
 
 
-int CalcPacketSize(MCommand* pCmd)
+int CalcPacketSize(CCCommand* pCmd)
 {
-	return (sizeof(MPacketHeader) + pCmd->GetSize());
+	return (sizeof(CCPacketHeader) + pCmd->GetSize());
 }

@@ -56,8 +56,8 @@ void MTCPSocketThread::OnSocketError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent,
 		m_fnSocketErrorCallback(m_pCallbackContext, sock, ErrorEvent, ErrorCode);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-// MClientSocketThread /////////////////////////////////////////////////////////////////////
-bool MClientSocketThread::OnConnect(SOCKET sock)
+// CCClientSocketThread /////////////////////////////////////////////////////////////////////
+bool CCClientSocketThread::OnConnect(SOCKET sock)
 {
 	m_bActive = true;
 
@@ -67,7 +67,7 @@ bool MClientSocketThread::OnConnect(SOCKET sock)
 	return false;
 }
 
-bool MClientSocketThread::OnDisconnect(SOCKET sock)
+bool CCClientSocketThread::OnDisconnect(SOCKET sock)
 {
 	m_bActive = false;
 
@@ -77,7 +77,7 @@ bool MClientSocketThread::OnDisconnect(SOCKET sock)
 	return false;
 }
 
-void MClientSocketThread::ClearSendList()
+void CCClientSocketThread::ClearSendList()
 {
 	LockSend();
 	for (TCPSendListItor itor = m_SendList.begin(); itor != m_SendList.end(); )
@@ -102,7 +102,7 @@ void MClientSocketThread::ClearSendList()
 
 }
 
-bool MClientSocketThread::FlushSend()
+bool CCClientSocketThread::FlushSend()
 {
 	TCPSendListItor	SendItor;
 
@@ -173,7 +173,7 @@ bool MClientSocketThread::FlushSend()
 	return true;
 }
 
-void MClientSocketThread::Run()
+void CCClientSocketThread::Run()
 {
 	while(true) 
 	{	
@@ -318,7 +318,7 @@ void MClientSocketThread::Run()
 	m_bActive = false;
 }
 
-MClientSocketThread::MClientSocketThread(MTCPSocket* pTCPSocket): MTCPSocketThread(pTCPSocket)
+CCClientSocketThread::CCClientSocketThread(MTCPSocket* pTCPSocket): MTCPSocketThread(pTCPSocket)
 {
 	m_bActive = false;
 	m_fnRecvCallback = NULL;
@@ -326,12 +326,12 @@ MClientSocketThread::MClientSocketThread(MTCPSocket* pTCPSocket): MTCPSocketThre
 	m_fnDisconnectCallback = NULL;
 }
 
-MClientSocketThread::~MClientSocketThread()
+CCClientSocketThread::~CCClientSocketThread()
 {
 
 }
 
-bool MClientSocketThread::Recv()
+bool CCClientSocketThread::Recv()
 {
 	char			RecvBuf[MAX_RECVBUF_LEN];
 	int				nRecv = 0;
@@ -355,14 +355,14 @@ bool MClientSocketThread::Recv()
 	return true;
 }
 
-bool MClientSocketThread::OnRecv(SOCKET socket, char *pPacket, DWORD dwSize)
+bool CCClientSocketThread::OnRecv(SOCKET socket, char *pPacket, DWORD dwSize)
 {
 	if (m_fnRecvCallback) return m_fnRecvCallback(m_pCallbackContext, socket, pPacket, dwSize);
 
 	return false;
 }
 
-bool MClientSocketThread::PushSend(char *pPacket, DWORD dwPacketSize)
+bool CCClientSocketThread::PushSend(char *pPacket, DWORD dwPacketSize)
 {
 	if ((!m_bActive) || (m_SendList.size() > TCPSOCKET_MAX_SENDQUEUE_LEN)) return false;
 	
@@ -949,28 +949,28 @@ void MServerSocket::CloseSocket()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-// MClientSocket ///////////////////////////////////////////////////////////////////////////
-MClientSocket::MClientSocket(): MTCPSocket()
+// CCClientSocket ///////////////////////////////////////////////////////////////////////////
+CCClientSocket::CCClientSocket(): MTCPSocket()
 {
 	Initialize();
 }
 
-MClientSocket::~MClientSocket()
+CCClientSocket::~CCClientSocket()
 {
 	Finalize();
 }
 
-bool MClientSocket::Initialize()
+bool CCClientSocket::Initialize()
 {
 	MTCPSocket::Initialize();
 
-	m_pSocketThread = new MClientSocketThread(this);
+	m_pSocketThread = new CCClientSocketThread(this);
 	m_bInitialized = true;
 
 	return true;
 }
 
-void MClientSocket::Finalize()
+void CCClientSocket::Finalize()
 {
 	if (!m_bInitialized) return;
 	CloseSocket();
@@ -983,7 +983,7 @@ void MClientSocket::Finalize()
 	MTCPSocket::Finalize();
 }
 
-bool MClientSocket::Connect(SOCKET* pSocket, char *szIP, int nPort)
+bool CCClientSocket::Connect(SOCKET* pSocket, char *szIP, int nPort)
 {
 //	if (IsActive()) return false;
 
@@ -1042,28 +1042,28 @@ bool MClientSocket::Connect(SOCKET* pSocket, char *szIP, int nPort)
 	return true;
 }
 
-bool MClientSocket::Disconnect()
+bool CCClientSocket::Disconnect()
 {
 	if (!IsActive()) return false;
 
 	CloseSocket();
 
-	((MClientSocketThread*)m_pSocketThread)->OnDisconnect(m_Socket);
+	((CCClientSocketThread*)m_pSocketThread)->OnDisconnect(m_Socket);
 
 	return true;
 }
 
-bool MClientSocket::SimpleDisconnect()
+bool CCClientSocket::SimpleDisconnect()
 {
 	if( !IsActive() ) return false;
 
 	SimpleCloseSocket();
 
-	// ((MClientSocketThread*)m_pSocketThread)->OnDisconnect(m_Socket);
+	// ((CCClientSocketThread*)m_pSocketThread)->OnDisconnect(m_Socket);
 	return true;
 }
 
-bool MClientSocket::OpenSocket()
+bool CCClientSocket::OpenSocket()
 {
 	if (!MTCPSocket::OpenSocket()) return false;
 
@@ -1072,7 +1072,7 @@ bool MClientSocket::OpenSocket()
 	return true;
 }
 
-void MClientSocket::CloseSocket()
+void CCClientSocket::CloseSocket()
 {
 	if (IsActive()) 
 	{
@@ -1082,13 +1082,13 @@ void MClientSocket::CloseSocket()
 	}
 }
 
-void MClientSocket::SimpleCloseSocket()
+void CCClientSocket::SimpleCloseSocket()
 {
 	MTCPSocket::CloseSocket();
 }
 
-bool MClientSocket::Send(char *pPacket, DWORD dwPacketSize)
+bool CCClientSocket::Send(char *pPacket, DWORD dwPacketSize)
 {
 	if ((!m_bInitialized)) return false;
-	return ((MClientSocketThread*)(m_pSocketThread))->PushSend(pPacket, dwPacketSize);
+	return ((CCClientSocketThread*)(m_pSocketThread))->PushSend(pPacket, dwPacketSize);
 }

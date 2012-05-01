@@ -88,7 +88,7 @@ void CCMatchServer::ResponseDuelTournamentCharSideRanking(CCUID &uidPlayer)
 	}
 }
 
-void CCMatchServer::ResponseDuelTournamentCharStatusInfo(CCUID &uidPlayer, MCommand *pCommand)
+void CCMatchServer::ResponseDuelTournamentCharStatusInfo(CCUID &uidPlayer, CCCommand *pCommand)
 {
 	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
@@ -160,13 +160,13 @@ void CCMatchServer::SendDuelTournamentServiceTimeClose(const CCUID& uidPlayer)
 	if(IsEnabledObject(pDTObj) == false) return;
 	pDTObj->SetChallengeDuelTournament(false);
  
-	MCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_NOT_SERVICE_TIME, uidPlayer);
-	pCmd->AddParameter(new MCommandParameterInt(MGetServerConfig()->GetDuelTournamentServiceStartTime()));
-	pCmd->AddParameter(new MCommandParameterInt(MGetServerConfig()->GetDuelTournamentServiceEndTime()));
+	CCCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_NOT_SERVICE_TIME, uidPlayer);
+	pCmd->AddParameter(new CCCommandParameterInt(MGetServerConfig()->GetDuelTournamentServiceStartTime()));
+	pCmd->AddParameter(new CCCommandParameterInt(MGetServerConfig()->GetDuelTournamentServiceEndTime()));
 	Post(pCmd);
 }
 
-void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor)
+void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, CCDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor)
 {
 	if ( MGetServerConfig()->IsEnabledDuelTournament() == false ) return;
 
@@ -241,7 +241,7 @@ void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuel
 				if (pScanObj) CacheBuilder.AddObject(pScanObj);
 			}
 
-			MCommand* pCmdCacheAdd = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
+			CCCommand* pCmdCacheAdd = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
 			RouteToStage(pStage->GetUID(), pCmdCacheAdd);
 
 			int nOutNumber;
@@ -300,7 +300,7 @@ bool CCMatchServer::OnSyncRequest_InsertDuelTournamentGameLog(CCDUELTOURNAMENTTY
 // Async Request
 bool CCMatchServer::OnAsyncRequest_GetDuelTournamentTimeStamp()
 {
-	MAsyncDBJob_GetDuelTournamentTimeStamp *pAsyncDbJob = new MAsyncDBJob_GetDuelTournamentTimeStamp;
+	CCAsyncDBJob_GetDuelTournamentTimeStamp *pAsyncDbJob = new CCAsyncDBJob_GetDuelTournamentTimeStamp;
 	if( 0 == pAsyncDbJob ) return false;
 	CCMatchServer::GetInstance()->PostAsyncJob( pAsyncDbJob );
 	return true;
@@ -308,7 +308,7 @@ bool CCMatchServer::OnAsyncRequest_GetDuelTournamentTimeStamp()
 
 bool CCMatchServer::OnAsyncRequest_GetDuelTournamentCharacterInfo(CCUID uidPlayer, DWORD dwCID)
 {
-	MAsyncDBJob_GetDuelTournamentCharInfo *pAsyncDbJob = new MAsyncDBJob_GetDuelTournamentCharInfo;
+	CCAsyncDBJob_GetDuelTournamentCharInfo *pAsyncDbJob = new CCAsyncDBJob_GetDuelTournamentCharInfo;
 	if( 0 == pAsyncDbJob ) return false;
 
 	pAsyncDbJob->Input(uidPlayer, dwCID);
@@ -318,7 +318,7 @@ bool CCMatchServer::OnAsyncRequest_GetDuelTournamentCharacterInfo(CCUID uidPlaye
 
 bool CCMatchServer::OnAsyncRequest_GetDuelTournamentPreviousCharacterInfo(CCUID uidPlayer, DWORD dwCID)
 {
-	MAsyncDBJob_GetDuelTournamentPreviousCharInfo *pAsyncDbJob = new MAsyncDBJob_GetDuelTournamentPreviousCharInfo;
+	CCAsyncDBJob_GetDuelTournamentPreviousCharInfo *pAsyncDbJob = new CCAsyncDBJob_GetDuelTournamentPreviousCharInfo;
 	if( 0 == pAsyncDbJob ) return false;
 
 	pAsyncDbJob->Input(uidPlayer, dwCID);
@@ -331,7 +331,7 @@ bool CCMatchServer::OnAsyncRequest_UpdateDuelTournamentCharacterInfo(CCUID uidPl
 	CCMatchObject *pObj = GetObject(uidPlayer);
 	if( pObj == NULL ) return false;
 
-	MAsyncDBJob_UpdateDuelTournamentCharInfo *pAsyncDBJob = new MAsyncDBJob_UpdateDuelTournamentCharInfo;
+	CCAsyncDBJob_UpdateDuelTournamentCharInfo *pAsyncDBJob = new CCAsyncDBJob_UpdateDuelTournamentCharInfo;
 	if( 0 == pAsyncDBJob ) return false;
 
 	pAsyncDBJob->Input(pObj->GetCharInfo()->m_nCID, szTimeStamp, pObj->GetDuelTournamentCharInfo());
@@ -341,7 +341,7 @@ bool CCMatchServer::OnAsyncRequest_UpdateDuelTournamentCharacterInfo(CCUID uidPl
 
 bool CCMatchServer::OnAsyncRequest_GetDuelTournamentSideRankingInfo(CCUID uidPlayer, DWORD dwCID)
 {
-	MAsyncDBJob_GetDuelTournamentSideRankingInfo *pAsyncDbJob = new MAsyncDBJob_GetDuelTournamentSideRankingInfo;
+	CCAsyncDBJob_GetDuelTournamentSideRankingInfo *pAsyncDbJob = new CCAsyncDBJob_GetDuelTournamentSideRankingInfo;
 	if( 0 == pAsyncDbJob ) return false;
 
 	pAsyncDbJob->Input(uidPlayer, dwCID);
@@ -351,7 +351,7 @@ bool CCMatchServer::OnAsyncRequest_GetDuelTournamentSideRankingInfo(CCUID uidPla
 
 bool CCMatchServer::OnAsyncRequest_GetDuelTournamentGroupRankingInfo()
 {
-	MAsyncDBJob_GetDuelTournamentGroupRankingInfo *pAsyncDbJob = new MAsyncDBJob_GetDuelTournamentGroupRankingInfo;
+	CCAsyncDBJob_GetDuelTournamentGroupRankingInfo *pAsyncDbJob = new CCAsyncDBJob_GetDuelTournamentGroupRankingInfo;
 	if( 0 == pAsyncDbJob ) return false;
 
 	pAsyncDbJob->Input();
@@ -361,7 +361,7 @@ bool CCMatchServer::OnAsyncRequest_GetDuelTournamentGroupRankingInfo()
 
 bool CCMatchServer::OnAsyncRequest_UpdateDuelTournamentGameLog(char* szTimeStamp, int nGameNumber, CCUID uidChampion)
 {
-	MAsyncDBJob_UpdateDuelTournamentGameLog *pAsyncDbJob = new MAsyncDBJob_UpdateDuelTournamentGameLog;
+	CCAsyncDBJob_UpdateDuelTournamentGameLog *pAsyncDbJob = new CCAsyncDBJob_UpdateDuelTournamentGameLog;
 	if( 0 == pAsyncDbJob ) return false;
 
 	CCMatchObject *pObj = GetObject(uidChampion);
@@ -372,9 +372,9 @@ bool CCMatchServer::OnAsyncRequest_UpdateDuelTournamentGameLog(char* szTimeStamp
 	return true;
 }
 
-bool CCMatchServer::OnAsyncRequest_InsertDuelTournamentGameLogDetail(int nLogID, char* szTimeStamp, MDUELTOURNAMENTROUNDSTATE nDTRoundState, int nWinnerCID, int nLoserCID, int nGainTP, int nLoseTp, int nPlayTime) 
+bool CCMatchServer::OnAsyncRequest_InsertDuelTournamentGameLogDetail(int nLogID, char* szTimeStamp, CCDUELTOURNAMENTROUNDSTATE nDTRoundState, int nWinnerCID, int nLoserCID, int nGainTP, int nLoseTp, int nPlayTime) 
 {
-	MAsyncDBJob_InsertDuelTournamentGameLogDetail *pAsyncDbJob = new MAsyncDBJob_InsertDuelTournamentGameLogDetail;
+	CCAsyncDBJob_InsertDuelTournamentGameLogDetail *pAsyncDbJob = new CCAsyncDBJob_InsertDuelTournamentGameLogDetail;
 	if( 0 == pAsyncDbJob ) return false;
 
 	pAsyncDbJob->Input(nLogID, szTimeStamp, nDTRoundState, nWinnerCID, nLoserCID, nGainTP, nLoseTp, nPlayTime);
@@ -385,11 +385,11 @@ bool CCMatchServer::OnAsyncRequest_InsertDuelTournamentGameLogDetail(int nLogID,
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Async Response
-void CCMatchServer::OnAsyncResponse_GetDuelTournamentTimeStamp(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_GetDuelTournamentTimeStamp(CCAsyncJob *pJobResult)
 {
-	MAsyncDBJob_GetDuelTournamentTimeStamp* pJob = (MAsyncDBJob_GetDuelTournamentTimeStamp*)pJobResult;
+	CCAsyncDBJob_GetDuelTournamentTimeStamp* pJob = (CCAsyncDBJob_GetDuelTournamentTimeStamp*)pJobResult;
 
-	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
+	if( CCASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
 		cclog("CCMatchServer::OnAsyncResponse_GetDuelTournamentTimeStamp - 실패\n");
 		return;
 	}
@@ -402,11 +402,11 @@ void CCMatchServer::OnAsyncResponse_GetDuelTournamentTimeStamp(MAsyncJob *pJobRe
 	}	
 }
 
-void CCMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo(CCAsyncJob *pJobResult)
 {
-	MAsyncDBJob_GetDuelTournamentCharInfo* pJob = (MAsyncDBJob_GetDuelTournamentCharInfo*)pJobResult;
+	CCAsyncDBJob_GetDuelTournamentCharInfo* pJob = (CCAsyncDBJob_GetDuelTournamentCharInfo*)pJobResult;
 
-	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
+	if( CCASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
 		cclog("CCMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo - 실패\n");
 		return;
 	}
@@ -424,11 +424,11 @@ void CCMatchServer::OnAsyncResponse_GetDuelTournamentCharacterInfo(MAsyncJob *pJ
 	PostCmdDuelTournamentCharInfo(pObj->GetUID(), pObj->GetDuelTournamentCharInfo());
 }
 
-void CCMatchServer::OnAsyncResponse_GetDuelTournamentPreviousCharacterInfo(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_GetDuelTournamentPreviousCharacterInfo(CCAsyncJob *pJobResult)
 {
-	MAsyncDBJob_GetDuelTournamentPreviousCharInfo* pJob = (MAsyncDBJob_GetDuelTournamentPreviousCharInfo*)pJobResult;
+	CCAsyncDBJob_GetDuelTournamentPreviousCharInfo* pJob = (CCAsyncDBJob_GetDuelTournamentPreviousCharInfo*)pJobResult;
 
-	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
+	if( CCASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
 		cclog("CCMatchServer::OnAsyncResponse_GetDuelTournamentPreviousCharacterInfo - 실패\n");
 		return;
 	}
@@ -436,11 +436,11 @@ void CCMatchServer::OnAsyncResponse_GetDuelTournamentPreviousCharacterInfo(MAsyn
 	PostCmdDuelTournamentCharInfoPrevious(pJob->GetPlayerUID(), pJob->GetPrevTP(), pJob->GetPrevWins(), pJob->GetPrevLoses(), pJob->GetPrevRanking(), pJob->GetPrevFinalWins());
 }
 
-void CCMatchServer::OnAsyncResponse_GetDuelTournamentSideRanking(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_GetDuelTournamentSideRanking(CCAsyncJob *pJobResult)
 {
-	MAsyncDBJob_GetDuelTournamentSideRankingInfo* pJob = (MAsyncDBJob_GetDuelTournamentSideRankingInfo*)pJobResult;
+	CCAsyncDBJob_GetDuelTournamentSideRankingInfo* pJob = (CCAsyncDBJob_GetDuelTournamentSideRankingInfo*)pJobResult;
 
-	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
+	if( CCASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
 		cclog("CCMatchServer::OnAsyncResponse_GetDuelTournamentSideRanking - 실패\n");
 		return;
 	}
@@ -461,11 +461,11 @@ void CCMatchServer::OnAsyncResponse_GetDuelTournamentSideRanking(MAsyncJob *pJob
 	PostCmdDuelTournamentCharSideRankingInfo(pObj->GetUID(), pCharInfo->GetSideRankingList());
 }
 
-void CCMatchServer::OnAsyncResponse_GetDuelTournamentGroupRanking(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_GetDuelTournamentGroupRanking(CCAsyncJob *pJobResult)
 {
-	MAsyncDBJob_GetDuelTournamentGroupRankingInfo* pJob = (MAsyncDBJob_GetDuelTournamentGroupRankingInfo*)pJobResult;
+	CCAsyncDBJob_GetDuelTournamentGroupRankingInfo* pJob = (CCAsyncDBJob_GetDuelTournamentGroupRankingInfo*)pJobResult;
 
-	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
+	if( CCASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
 		cclog("CCMatchServer::OnAsyncResponse_GetDuelTournamentGroupRanking - 실패\n");
 		return;
 	}
@@ -478,8 +478,8 @@ void CCMatchServer::OnAsyncResponse_GetDuelTournamentGroupRanking(MAsyncJob *pJo
 // Post Command To Client(or Route to Stage)
 void CCMatchServer::PostCmdDuelTournamentChallenge(CCUID uidPlayer, int nResult)
 {
-	MCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_RESPONSE_JOINGAME, uidPlayer);
-	pCmd->AddParameter(new MCommandParameterInt(nResult));
+	CCCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_RESPONSE_JOINGAME, uidPlayer);
+	pCmd->AddParameter(new CCCommandParameterInt(nResult));
 	Post(pCmd);
 }
 
@@ -487,27 +487,27 @@ void CCMatchServer::PostCmdDuelTournamentCharInfo(CCUID uidPlayer, CCMatchObject
 {
 	if( pDTCharInfo == NULL ) return;
 
-	MCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_CHAR_INFO, uidPlayer);
-	pCmd->AddParameter(new MCommandParameterInt(pDTCharInfo->GetTP()));
-	pCmd->AddParameter(new MCommandParameterInt(pDTCharInfo->GetWins()));
-	pCmd->AddParameter(new MCommandParameterInt(pDTCharInfo->GetLoses()));
-	pCmd->AddParameter(new MCommandParameterInt(pDTCharInfo->GetRanking()));
-	pCmd->AddParameter(new MCommandParameterInt(pDTCharInfo->GetRankingIncrease()));
-	pCmd->AddParameter(new MCommandParameterInt(pDTCharInfo->GetFinalWins()));
-	pCmd->AddParameter(new MCommandParameterInt(pDTCharInfo->GetLastWeekGrade()));
+	CCCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_CHAR_INFO, uidPlayer);
+	pCmd->AddParameter(new CCCommandParameterInt(pDTCharInfo->GetTP()));
+	pCmd->AddParameter(new CCCommandParameterInt(pDTCharInfo->GetWins()));
+	pCmd->AddParameter(new CCCommandParameterInt(pDTCharInfo->GetLoses()));
+	pCmd->AddParameter(new CCCommandParameterInt(pDTCharInfo->GetRanking()));
+	pCmd->AddParameter(new CCCommandParameterInt(pDTCharInfo->GetRankingIncrease()));
+	pCmd->AddParameter(new CCCommandParameterInt(pDTCharInfo->GetFinalWins()));
+	pCmd->AddParameter(new CCCommandParameterInt(pDTCharInfo->GetLastWeekGrade()));
 
 	Post(pCmd);
 }
 
 void CCMatchServer::PostCmdDuelTournamentCharInfoPrevious(CCUID uidPlayer, int nPrevTP, int nPrevWins, int nPrevLoses, int nPrevRanking, int nPrevFinalWins)
 {
-	MCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_CHAR_INFO_PREVIOUS, uidPlayer);
+	CCCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_CHAR_INFO_PREVIOUS, uidPlayer);
 
-	pCmd->AddParameter(new MCommandParameterInt(nPrevTP));
-	pCmd->AddParameter(new MCommandParameterInt(nPrevWins));
-	pCmd->AddParameter(new MCommandParameterInt(nPrevLoses));
-	pCmd->AddParameter(new MCommandParameterInt(nPrevRanking));
-	pCmd->AddParameter(new MCommandParameterInt(nPrevFinalWins));
+	pCmd->AddParameter(new CCCommandParameterInt(nPrevTP));
+	pCmd->AddParameter(new CCCommandParameterInt(nPrevWins));
+	pCmd->AddParameter(new CCCommandParameterInt(nPrevLoses));
+	pCmd->AddParameter(new CCCommandParameterInt(nPrevRanking));
+	pCmd->AddParameter(new CCCommandParameterInt(nPrevFinalWins));
 
 	Post(pCmd);
 }
@@ -529,12 +529,12 @@ void CCMatchServer::PostCmdDuelTournamentCharSideRankingInfo(CCUID uidPlayer, li
 		memcpy(pInfoDest, pInfoSrc, sizeof(DTRankingInfo));
 	}
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_RESPONSE_SIDERANKING_INFO, uidPlayer);
+	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_RESPONSE_SIDERANKING_INFO, uidPlayer);
 	if( NULL == pCmd ) {
 		MEraseBlobArray( pBlobRanking );
 		return;
 	}
-	pCmd->AddParameter( new MCommandParameterBlob(pBlobRanking, MGetBlobArraySize(pBlobRanking)) );
+	pCmd->AddParameter( new CCCommandParameterBlob(pBlobRanking, MGetBlobArraySize(pBlobRanking)) );
 	MEraseBlobArray( pBlobRanking );
 
 	Post(pCmd);
@@ -542,8 +542,8 @@ void CCMatchServer::PostCmdDuelTournamentCharSideRankingInfo(CCUID uidPlayer, li
 
 void CCMatchServer::PostCmdDuelTournamentCancelMatch(CCUID uidPlayer, int nErrorCode)
 {
-	MCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_CANCEL_MATCH, uidPlayer);
-	pCmd->AddParameter(new MCommandParameterInt(nErrorCode));
+	CCCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_CANCEL_MATCH, uidPlayer);
+	pCmd->AddParameter(new CCCommandParameterInt(nErrorCode));
 	Post(pCmd);
 }
 
@@ -569,7 +569,7 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 		strcpy(pPlayerInfo->m_szCharName, pObj->GetCharInfo()->m_szName);
 	}
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_PREPARE_MATCH, CCUID(0, 0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_PREPARE_MATCH, CCUID(0, 0));
 	if( pCmd == NULL ) {
 		MEraseBlobArray(pBlobPlayerInfo);
 		return;
@@ -577,7 +577,7 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 
 	pCmd->AddParameter(new MCmdParamUID(uidStage));
 	pCmd->AddParameter(new MCmdParamInt(nType));
-	pCmd->AddParameter(new MCommandParameterBlob(pBlobPlayerInfo, MGetBlobArraySize(pBlobPlayerInfo)));
+	pCmd->AddParameter(new CCCommandParameterBlob(pBlobPlayerInfo, MGetBlobArraySize(pBlobPlayerInfo)));
 	MEraseBlobArray( pBlobPlayerInfo );
 
 	RouteToStage(uidStage, pCmd);
@@ -585,7 +585,7 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 
 void CCMatchServer::RouteCmdDuelTournamentStageSetting(CCUID uidStage)
 {
-	MCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
+	CCCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
 	RouteToStage(uidStage, pCmd);
 }
 
@@ -594,7 +594,7 @@ void CCMatchServer::RouteCmdDuelTournamentLaunchMatch(CCUID uidStage)
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_LAUNCH_MATCH, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_LAUNCH_MATCH, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidStage));
 	pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
 	RouteToStage(uidStage, pCmd);
@@ -609,32 +609,32 @@ void CCMatchServer::RouteCmdDuelTournamentCancelMatch(CCDuelTournamentPickedGrou
 	}
 }
 
-void CCMatchServer::RouteCmdDuelTournamentMTDGameInfo(const CCUID& uidStage, MTD_DuelTournamentGameInfo& GameInfo)
+void CCMatchServer::RouteCmdDuelTournamentMTDGameInfo(const CCUID& uidStage, CCTD_DuelTournamentGameInfo& GameInfo)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_INFO, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamBlob(&GameInfo, sizeof(MTD_DuelTournamentGameInfo)));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_INFO, CCUID(0,0));
+	pCmd->AddParameter(new MCmdParamBlob(&GameInfo, sizeof(CCTD_DuelTournamentGameInfo)));
 	RouteToBattle(uidStage, pCmd);
 }
 
-void CCMatchServer::RouteCmdDuelTournamentMTDNextGamePlayerInfo(const CCUID& uidStage, MTD_DuelTournamentNextMatchPlayerInfo& PlayerInfo)
+void CCMatchServer::RouteCmdDuelTournamentMTDNextGamePlayerInfo(const CCUID& uidStage, CCTD_DuelTournamentNextMatchPlayerInfo& PlayerInfo)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_NEXT_MATCH_PLYAERINFO, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamBlob(&PlayerInfo, sizeof(MTD_DuelTournamentNextMatchPlayerInfo)));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_NEXT_MATCH_PLYAERINFO, CCUID(0,0));
+	pCmd->AddParameter(new MCmdParamBlob(&PlayerInfo, sizeof(CCTD_DuelTournamentNextMatchPlayerInfo)));
 	RouteToBattle(uidStage, pCmd);
 }
 
 
-void CCMatchServer::RouteCmdDuelTournamentMTDRoundResultInfo(const CCUID& uidStage, MTD_DuelTournamentRoundResultInfo* RoundResultInfo)
+void CCMatchServer::RouteCmdDuelTournamentMTDRoundResultInfo(const CCUID& uidStage, CCTD_DuelTournamentRoundResultInfo* RoundResultInfo)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_ROUND_RESULT_INFO, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamBlob(RoundResultInfo, sizeof(MTD_DuelTournamentRoundResultInfo)));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_ROUND_RESULT_INFO, CCUID(0,0));
+	pCmd->AddParameter(new MCmdParamBlob(RoundResultInfo, sizeof(CCTD_DuelTournamentRoundResultInfo)));
 	RouteToBattle(uidStage, pCmd);
 }
 
-void CCMatchServer::RouteCmdDuelTournamentMTDMatchResultInfo(const CCUID& uidStage, MTD_DuelTournamentMatchResultInfo* MatchResultInfo)
+void CCMatchServer::RouteCmdDuelTournamentMTDMatchResultInfo(const CCUID& uidStage, CCTD_DuelTournamentMatchResultInfo* MatchResultInfo)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_MATCH_RESULT_INFO, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamBlob(MatchResultInfo, sizeof(MTD_DuelTournamentMatchResultInfo)));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_MATCH_RESULT_INFO, CCUID(0,0));
+	pCmd->AddParameter(new MCmdParamBlob(MatchResultInfo, sizeof(CCTD_DuelTournamentMatchResultInfo)));
 	RouteToBattle(uidStage, pCmd);
 }
 

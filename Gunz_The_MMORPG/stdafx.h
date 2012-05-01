@@ -69,5 +69,3 @@
 
 
 #include "CCMatchDebug.h"
-
-#endif

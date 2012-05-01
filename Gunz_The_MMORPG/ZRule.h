@@ -16,9 +16,9 @@ public:
 	ZRule(ZMatch* pMatch);
 	virtual ~ZRule();
 	void Update(float fDelta);
-	virtual bool OnCommand(MCommand* pCommand);
-	virtual void AfterCommandProcessed(MCommand* pCommand);
-	virtual void OnResponseRuleInfo(MTD_RuleInfo* pInfo);
+	virtual bool OnCommand(CCCommand* pCommand);
+	virtual void AfterCommandProcessed(CCCommand* pCommand);
+	virtual void OnResponseRuleInfo(CCTD_RuleInfo* pInfo);
 	virtual void OnSetRoundState(CCMATCH_ROUNDSTATE roundState) {}
 	static ZRule* CreateRule(ZMatch* pMatch, CCMATCH_GAMETYPE nGameType);
 

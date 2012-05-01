@@ -66,7 +66,7 @@ void ZCombatQuestScreen::OnDraw(CCDrawContext* pDC)
 		if (ZGetMyInfo()->IsAdminGrade()) 
 		{
 			CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-			if (pCache && pCache->CheckFlag(MTD_PlayerFlags_AdminHide)) bEventHide = true;
+			if (pCache && pCache->CheckFlag(CCTD_PlayerFlags_AdminHide)) bEventHide = true;
 		}
 
 		DWORD dwSec;

@@ -7,14 +7,14 @@
 #include <list>
 using namespace std;
 
-class MCommand;
+class CCCommand;
 
 /// 서버
-class MServer : public MCommandCommunicator {
+class MServer : public CCCommandCommunicator {
 protected:
-	MRealCPNet					m_RealCPNet;
+	CCRealCPNet					m_RealCPNet;
 
-	list<MCommObject*>			m_AcceptWaitQueue;
+	list<CCCommObject*>			m_AcceptWaitQueue;
 	CRITICAL_SECTION			m_csAcceptWaitQueue;
 
 	void LockAcceptWaitQueue()		{ EnterCriticalSection(&m_csAcceptWaitQueue); }
@@ -26,7 +26,7 @@ protected:
 	void LockCommList()			{ EnterCriticalSection(&m_csCommList); }
 	void UnlockCommList()		{ LeaveCriticalSection(&m_csCommList); }
 
-	MCommandList				m_SafeCmdQueue;
+	CCCommandList				m_SafeCmdQueue;
 	CRITICAL_SECTION			m_csSafeCmdQueue;
 	void LockSafeCmdQueue()		{ EnterCriticalSection(&m_csSafeCmdQueue); }
 	void UnlockSafeCmdQueue()	{ LeaveCriticalSection(&m_csSafeCmdQueue); }
@@ -35,32 +35,32 @@ protected:
 	// virtual CCUID UseUID(void) = 0;
 	virtual CCUID UseUID(void) { return CCUID(0, 0); }
 
-	void AddCommObject(const CCUID& uid, MCommObject* pCommObj);
+	void AddCommObject(const CCUID& uid, CCCommObject* pCommObj);
 	void RemoveCommObject(const CCUID& uid);
-	void InitCryptCommObject(MCommObject* pCommObj, unsigned int nTimeStamp);
+	void InitCryptCommObject(CCCommObject* pCommObj, unsigned int nTimeStamp);
 
-	void PostSafeQueue(MCommand* pNew);
-	void PostSafeQueue(MCommandBuilder* pCommandBuilder);
+	void PostSafeQueue(CCCommand* pNew);
+	void PostSafeQueue(CCCommandBuilder* pCommandBuilder);
 
 	/// Low-Level Command Transfer Function. 나중에 모아두었다가 블럭 전송등이 가능하게 해줄 수 있다.
-	void SendCommand(MCommand* pCommand);
-	void ParsePacket(MCommObject* pCommObj, MPacketHeader* pPacket);
+	void SendCommand(CCCommand* pCommand);
+	void ParsePacket(CCCommObject* pCommObj, CCPacketHeader* pPacket);
 
 	/// 커뮤니케이터 루프 전 준비
 	virtual void  OnPrepareRun(void);
 	/// 커뮤니케이터 루프
 	virtual void OnRun(void);
 	/// 사용자 커맨드 처리
-	virtual bool OnCommand(MCommand* pCommand);
+	virtual bool OnCommand(CCCommand* pCommand);
 
 	virtual void OnNetClear(const CCUID& CommUID);
 	virtual void OnNetPong(const CCUID& CommUID, unsigned int nTimeStamp);
 	virtual void OnHShieldPong(const CCUID& CommUID, unsigned int nTimeStamp) {};
 
-	bool SendMsgReplyConnect(CCUID* pHostUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
-	bool SendMsgCommand(DWORD nClientKey, char* pBuf, int nSize, unsigned short nMsgHeaderID, MPacketCrypterKey* pCrypterKey);
+	bool SendMsgReplyConnect(CCUID* pHostUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj);
+	bool SendMsgCommand(DWORD nClientKey, char* pBuf, int nSize, unsigned short nMsgHeaderID, CCPacketCrypterKey* pCrypterKey);
 
-	static void RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nKey, MPacketHeader* pPacket, DWORD dwPacketLen);	// Thread not safe
+	static void RCPCallback(void* pCallbackContext, RCP_IO_OPERATION nIO, DWORD nKey, CCPacketHeader* pPacket, DWORD dwPacketLen);	// Thread not safe
 
 	bool m_bFloodCheck;
 
@@ -89,9 +89,9 @@ public:
 	/// 다른 커뮤티케이터로 연결 설정
 	/// @param	pAllocUID	자기 Communicator가 배정받은 UID
 	/// @return				에러 코드 (MErrorTable.h 참조)
-	virtual int Connect(MCommObject* pCommObj);	// 연결실패시 반드시 Disconnect() 호출해야함
-	int ReplyConnect(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj);
-	virtual int OnAccept(MCommObject* pCommObj);
+	virtual int Connect(CCCommObject* pCommObj);	// 연결실패시 반드시 Disconnect() 호출해야함
+	int ReplyConnect(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj);
+	virtual int OnAccept(CCCommObject* pCommObj);
 	/// 로그인되었을때
 	virtual void OnLocalLogin(CCUID CommUID, CCUID PlayerUID);
 	/// 연결 해제

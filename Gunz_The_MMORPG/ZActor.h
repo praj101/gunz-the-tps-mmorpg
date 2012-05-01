@@ -6,7 +6,7 @@
 #include "ZCharacter.h"
 #include "CCUID.h"
 #include "RVisualMeshMgr.h"
-#include "MObjectTypes.h"
+#include "CCObjectTypes.h"
 #include "ZStateMachine.h"
 #include "ZAI_Base.h"
 #include "CCBaseQuest.h"
@@ -210,12 +210,12 @@ public:
 
 
 
-void SetClientNPCInfoFromServerNPCInfo( CCQuestNPCInfo* pClientNPCInfo, const MTD_NPCINFO* pServerNPCInfo );
+void SetClientNPCInfoFromServerNPCInfo( CCQuestNPCInfo* pClientNPCInfo, const CCTD_NPCINFO* pServerNPCInfo );
 
 
 
 // inline /////////////////////////////////////////////////////////////////////////////////////////
-inline const MTD_NPCINFO* GetMyActorServerNPCInfo( const CCQUEST_NPC nNPCID )
+inline const CCTD_NPCINFO* GetMyActorServerNPCInfo( const CCQUEST_NPC nNPCID )
 {
 	if( NULL == ZGetQuest() )
 	{
@@ -297,7 +297,7 @@ inline int ZActor::GetActualAP()
 
 inline int ZActor::GetActualMaxHP()
 {
-	const MTD_NPCINFO* pSvrQuestNPCInfo = GetMyActorServerNPCInfo( m_pNPCInfo->nID );
+	const CCTD_NPCINFO* pSvrQuestNPCInfo = GetMyActorServerNPCInfo( m_pNPCInfo->nID );
 	if( NULL == pSvrQuestNPCInfo )
 	{
 		return 0;
@@ -310,7 +310,7 @@ inline int ZActor::GetActualMaxHP()
 
 inline int ZActor::GetActualMaxAP()
 {
-	const MTD_NPCINFO* pSvrQuestNPCInfo = GetMyActorServerNPCInfo( m_pNPCInfo->nID );
+	const CCTD_NPCINFO* pSvrQuestNPCInfo = GetMyActorServerNPCInfo( m_pNPCInfo->nID );
 	if( NULL == pSvrQuestNPCInfo )
 	{
 		return 0;

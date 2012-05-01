@@ -198,7 +198,7 @@ protected:
 
 	bool			m_bGameFinishLeaveBattle;		// 배틀에서 나갈때 스테이지 종료 여부
 
-	list<MCommand*>	m_listDelayedGameCmd;
+	list<CCCommand*>	m_listDelayedGameCmd;
 
 // _DUELTOURNAMENT
 	vector<DTPlayerInfo> m_vecDTPlayerInfo;
@@ -209,7 +209,7 @@ protected:
 	virtual bool	OnEvent(MEvent* pEvent, MListener* pListener);
 	bool			OnDebugEvent(MEvent* pEvent, MListener* pListener);
 	virtual bool	OnCommand(MWidget* pWidget, const char* szMessage);
-	static bool		OnCommand(MCommand* pCommand);
+	static bool		OnCommand(CCCommand* pCommand);
 
 	bool ResizeWidget(const char* szName, int w, int h);
 	bool ResizeWidgetRecursive( MWidget* pWidget, int w, int h);
@@ -261,18 +261,18 @@ protected:
 	void OnBirdTestDestroy();
 	void OnBirdTestUpdate();
 	void OnBirdTestDraw();
-	void OnBirdTestCommand(MCommand* pCmd);
+	void OnBirdTestCommand(CCCommand* pCmd);
 #endif
 
 	void OnUpdateGameMessage(void);
 
 	void HideAllWidgets();
 
-	void OnResponseShopItemList( const vector< MTD_ShopItemInfo*> &vShopItemList  , const vector<MTD_GambleItemNode*>& vGItemList );
+	void OnResponseShopItemList( const vector< CCTD_ShopItemInfo*> &vShopItemList  , const vector<CCTD_GambleItemNode*>& vGItemList );
 	void OnResponseCharacterItemList(CCUID* puidEquipItem
-		, MTD_ItemNode* pItemNodes
+		, CCTD_ItemNode* pItemNodes
 		, int nItemCount
-		, MTD_GambleItemNode* pGItemNodes
+		, CCTD_GambleItemNode* pGItemNodes
 		, int nGItemCount );
 
 	void OnSendGambleItemList( void* pGItemArray, const DWORD dwCount );
@@ -283,7 +283,7 @@ protected:
 	void OnDrawStateCharSelection(CCDrawContext* pDC);
 
 #ifdef _QUEST_ITEM
-	void OnResponseCharacterItemList_QuestItem( MTD_QuestItemNode* pQuestItemNode, int nQuestItemCount );
+	void OnResponseCharacterItemList_QuestItem( CCTD_QuestItemNode* pQuestItemNode, int nQuestItemCount );
 	void OnResponseBuyQuestItem( const int nResult, const int nBP );
 	void OnResponseSellQuestItem( const int nResult, const int nBP );
 #endif

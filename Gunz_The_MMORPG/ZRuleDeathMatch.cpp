@@ -39,7 +39,7 @@ ZRuleTeamDeathMatch2::~ZRuleTeamDeathMatch2()
 
 }
 
-bool ZRuleTeamDeathMatch2::OnCommand(MCommand* pCommand)
+bool ZRuleTeamDeathMatch2::OnCommand(CCCommand* pCommand)
 {
 	if (!ZGetGame()) return false;
 

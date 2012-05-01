@@ -5,7 +5,7 @@
 #include "RVisualMeshMgr.h"
 #include "ZObject.h"
 #include "ZCharacter.h"
-#include "MObjectTypes.h"
+#include "CCObjectTypes.h"
 
 _USING_NAMESPACE_REALSPACE2
 

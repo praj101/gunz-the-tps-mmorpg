@@ -24,7 +24,7 @@
 #include "CCMatchTransDataType.h"
 #include "CCUtil.h"
 
-void CopyChannelPlayerListNodeForTrans(MTD_ChannelPlayerListNode* pDest, CCMatchObject* pSrcObject)
+void CopyChannelPlayerListNodeForTrans(CCTD_ChannelPlayerListNode* pDest, CCMatchObject* pSrcObject)
 {
 	pDest->uidPlayer = pSrcObject->GetUID();
 	strcpy(pDest->szName, pSrcObject->GetCharInfo()->m_szName);
@@ -258,17 +258,17 @@ void CCMatchServer::ResponseChannelJoin(CCUID uidPlayer, CCUID uidChannel, int n
 	CCMatchChannel *pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return;
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_JOIN), CCUID(0,0), m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidChannel));
-	pNew->AddParameter(new MCommandParameterInt(nChannelType));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_JOIN), CCUID(0,0), m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uidChannel));
+	pNew->AddParameter(new CCCommandParameterInt(nChannelType));
 
 	if (szChannelStrResId[0] != 0) {
-		pNew->AddParameter(new MCommandParameterString((char*)szChannelStrResId));	// 공식 채널이면 클라에서 현재 언어로 번역할 수 있도록 스트링리소스ID를 넘긴다
+		pNew->AddParameter(new CCCommandParameterString((char*)szChannelStrResId));	// 공식 채널이면 클라에서 현재 언어로 번역할 수 있도록 스트링리소스ID를 넘긴다
 	} else {
-		pNew->AddParameter(new MCommandParameterString((char*)pChannel->GetName()));
+		pNew->AddParameter(new CCCommandParameterString((char*)pChannel->GetName()));
 	}
 	
-	pNew->AddParameter(new MCommandParameterBool(bEnableInterface));
+	pNew->AddParameter(new CCCommandParameterBool(bEnableInterface));
 	RouteToListener(pObj, pNew);
 }
 
@@ -281,9 +281,9 @@ bool CCMatchServer::ChannelLeave(const CCUID& uidPlayer, const CCUID& uidChannel
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidPlayer);
 	if (pObj == NULL) return false;
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LEAVE),CCUID(0,0),m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-	pNew->AddParameter(new MCommandParameterUID(pChannel->GetUID()));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LEAVE),CCUID(0,0),m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+	pNew->AddParameter(new CCCommandParameterUID(pChannel->GetUID()));
 	RouteToListener(pObj, pNew);
 
 	if (pObj) 
@@ -321,9 +321,9 @@ bool StageGo(CCMatchServer* pServer, const CCUID& uidPlayer, char* pszChat)
 						CCMatchStage* pStage = pChannel->GetStage(nRoomNo-1);
 						if (pStage) {
 							//pServer->StageJoin(uidPlayer, pStage->GetUID());
-							MCommand* pNew = pServer->CreateCommand(MC_MATCH_REQUEST_STAGE_JOIN, pServer->GetUID());
-							pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-							pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
+							CCCommand* pNew = pServer->CreateCommand(MC_MATCH_REQUEST_STAGE_JOIN, pServer->GetUID());
+							pNew->AddParameter(new CCCommandParameterUID(uidPlayer));
+							pNew->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
 							pServer->Post(pNew);
 							bResult = true;
 						}
@@ -381,7 +381,7 @@ bool CCMatchServer::ChannelChat(const CCUID& uidPlayer, const CCUID& uidChannel,
 	{
 		pObj->SetChatBanUser();
 		
-		MCommand* pCmd = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_DUMB_CHAT), pObj->GetUID(), m_This);
+		CCCommand* pCmd = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_DUMB_CHAT), pObj->GetUID(), m_This);
 		Post(pCmd);
 
 		LOG(LOG_FILE, "CCMatchServer::ChannelChat - Set Dumb Player(CCUID:%d%d, Name:%s)", pObj->GetUID().High, pObj->GetUID().Low, pObj->GetName());
@@ -390,11 +390,11 @@ bool CCMatchServer::ChannelChat(const CCUID& uidPlayer, const CCUID& uidChannel,
 
 	///<여기까지....
 
-	MCommand* pCmd = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_CHAT), CCUID(0,0), m_This);
-	pCmd->AddParameter(new MCommandParameterUID(uidChannel));
-	pCmd->AddParameter(new MCommandParameterString(pObj->GetCharInfo()->m_szName));
-	pCmd->AddParameter(new MCommandParameterString(pszChat));
-	pCmd->AddParameter(new MCommandParameterInt(nGrade));
+	CCCommand* pCmd = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_CHAT), CCUID(0,0), m_This);
+	pCmd->AddParameter(new CCCommandParameterUID(uidChannel));
+	pCmd->AddParameter(new CCCommandParameterString(pObj->GetCharInfo()->m_szName));
+	pCmd->AddParameter(new CCCommandParameterString(pszChat));
+	pCmd->AddParameter(new CCCommandParameterInt(nGrade));
 
 	RouteToChannelLobby(uidChannel, pCmd);
 	return true;
@@ -413,9 +413,9 @@ void CCMatchServer::OnRequestRecommendedChannel(const CCUID& uidComm)
 		}		
 	}
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_RESPONSE_RECOMMANDED_CHANNEL),
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_RESPONSE_RECOMMANDED_CHANNEL),
 									uidComm, m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidChannel));
+	pNew->AddParameter(new CCCommandParameterUID(uidChannel));
 	Post(pNew);
 }
 
@@ -470,7 +470,7 @@ void CCMatchServer::ChannelList(const CCUID& uidPlayer, CCCHANNEL_TYPE nChannelT
 
 	nChannelCount = min(nChannelCount, MAX_CHANNEL_LIST_NODE);
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LIST), CCUID(0,0), m_This);
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LIST), CCUID(0,0), m_This);
 
 	void* pChannelArray = MMakeBlobArray(sizeof(CCCHANNELLISTNODE), nChannelCount);
 	int nIndex=0;
@@ -492,7 +492,7 @@ void CCMatchServer::ChannelList(const CCUID& uidPlayer, CCCHANNEL_TYPE nChannelT
 		pNode->bIsUseTicket = pChannel->IsUseTicket();
 		pNode->nTicketID = pChannel->GetTicketItemID();
 	}
-	pNew->AddParameter(new MCommandParameterBlob(pChannelArray, MGetBlobArraySize(pChannelArray)));
+	pNew->AddParameter(new CCCommandParameterBlob(pChannelArray, MGetBlobArraySize(pChannelArray)));
 	MEraseBlobArray(pChannelArray);
 
 	RouteToListener(pChar, pNew);
@@ -557,19 +557,19 @@ void CCMatchServer::ChannelResponsePlayerList(const CCUID& uidPlayer, const CCUI
 	else if (nNodeCount > NUM_PLAYERLIST_NODE) nNodeCount = NUM_PLAYERLIST_NODE;
 
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_PLAYER_LIST), CCUID(0,0), m_This);
-	//pNew->AddParameter(new MCommandParameterUID(uidChannel));
-	pNew->AddParameter(new MCommandParameterUChar((unsigned char)nObjCount));
-	pNew->AddParameter(new MCommandParameterUChar((unsigned char)nPage));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_PLAYER_LIST), CCUID(0,0), m_This);
+	//pNew->AddParameter(new CCCommandParameterUID(uidChannel));
+	pNew->AddParameter(new CCCommandParameterUChar((unsigned char)nObjCount));
+	pNew->AddParameter(new CCCommandParameterUChar((unsigned char)nPage));
 
-	void* pPlayerArray = MMakeBlobArray(sizeof(MTD_ChannelPlayerListNode), nNodeCount);
+	void* pPlayerArray = MMakeBlobArray(sizeof(CCTD_ChannelPlayerListNode), nNodeCount);
 
 	int nArrayIndex=0;
 	for (CCUIDRefCache::iterator i=FirstItor; i != pChannel->GetObjEnd(); i++) 
 	{
 		CCMatchObject* pScanObj = (CCMatchObject*)(*i).second;
 
-		MTD_ChannelPlayerListNode* pNode = (MTD_ChannelPlayerListNode*)MGetBlobArrayElement(pPlayerArray, nArrayIndex++);
+		CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)MGetBlobArrayElement(pPlayerArray, nArrayIndex++);
 
 		if (IsEnabledObject(pScanObj))
 		{
@@ -579,7 +579,7 @@ void CCMatchServer::ChannelResponsePlayerList(const CCUID& uidPlayer, const CCUI
 		if (nArrayIndex >= nNodeCount) break;
 	}
 
-	pNew->AddParameter(new MCommandParameterBlob(pPlayerArray, MGetBlobArraySize(pPlayerArray)));
+	pNew->AddParameter(new CCCommandParameterBlob(pPlayerArray, MGetBlobArraySize(pPlayerArray)));
 	MEraseBlobArray(pPlayerArray);
 	RouteToListener(pObj, pNew);
 }
@@ -648,16 +648,16 @@ void CCMatchServer::ChannelResponseAllPlayerList(const CCUID& uidPlayer, const C
 
 	if (nNodeCount <= 0) return;
 
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_ALL_PLAYER_LIST), CCUID(0,0), m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidChannel));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_ALL_PLAYER_LIST), CCUID(0,0), m_This);
+	pNew->AddParameter(new CCCommandParameterUID(uidChannel));
 
-	void* pPlayerArray = MMakeBlobArray(sizeof(MTD_ChannelPlayerListNode), nNodeCount);
+	void* pPlayerArray = MMakeBlobArray(sizeof(CCTD_ChannelPlayerListNode), nNodeCount);
 
 	for (int i = 0; i < nNodeCount; i++)
 	{
 		CCMatchObject* pScanObj = ppTransObjectArray[i];
 
-		MTD_ChannelPlayerListNode* pNode = (MTD_ChannelPlayerListNode*)MGetBlobArrayElement(pPlayerArray, i);
+		CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)MGetBlobArrayElement(pPlayerArray, i);
 
 		if (IsEnabledObject(pScanObj))
 		{
@@ -665,7 +665,7 @@ void CCMatchServer::ChannelResponseAllPlayerList(const CCUID& uidPlayer, const C
 		}
 	}
 
-	pNew->AddParameter(new MCommandParameterBlob(pPlayerArray, MGetBlobArraySize(pPlayerArray)));
+	pNew->AddParameter(new CCCommandParameterBlob(pPlayerArray, MGetBlobArraySize(pPlayerArray)));
 	MEraseBlobArray(pPlayerArray);
 	RouteToListener(pObj, pNew);
 }
@@ -679,8 +679,8 @@ void CCMatchServer::ResponseChannelRule(const CCUID& uidPlayer, const CCUID& uid
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) return;
 
-	MCommand* pNew = CreateCommand(MC_MATCH_CHANNEL_RESPONSE_RULE, CCUID(0,0));
-	pNew->AddParameter( new MCommandParameterUID(uidChannel) );
+	CCCommand* pNew = CreateCommand(MC_MATCH_CHANNEL_RESPONSE_RULE, CCUID(0,0));
+	pNew->AddParameter( new CCCommandParameterUID(uidChannel) );
 	pNew->AddParameter( new MCmdParamStr(const_cast<char*>(pChannel->GetRuleName())) );
 	RouteToListener(pObj, pNew);
 }

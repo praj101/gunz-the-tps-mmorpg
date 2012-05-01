@@ -44,11 +44,11 @@ unsigned long MGetCCZFileChecksum(const char* pszFileName)
 	return nChecksum;
 }
 
-void MMakeSeedKey(MPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp)
+void MMakeSeedKey(CCPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp)
 {
 	unsigned char* p = (unsigned char*)pKey->szKey;
 	// key
-	memset(p, 0, sizeof(MPacketCrypterKey));
+	memset(p, 0, sizeof(CCPacketCrypterKey));
 	int nUIDSize = sizeof(CCUID);
 
 	memcpy(p, &nTimeStamp, sizeof(unsigned int));

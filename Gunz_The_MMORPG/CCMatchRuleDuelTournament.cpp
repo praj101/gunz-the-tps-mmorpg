@@ -25,7 +25,7 @@ CCMatchRuleDuelTournament::CCMatchRuleDuelTournament(CCMatchStage* pStage) : CCM
 	m_CurrentMatchInfo.uidPlayer2 = CCUID(0, 0);
 	m_CurrentMatchInfo.nMatchNumber = 0;
 	m_CurrentMatchInfo.nNextMatchNumber = 0;
-	m_CurrentMatchInfo.nRoundState = MDUELTOURNAMENTROUNDSTATE_MAX;
+	m_CurrentMatchInfo.nRoundState = CCDUELTOURNAMENTROUNDSTATE_MAX;
 
 	InitMatchRecord();
 	InitRoundRecord();
@@ -260,7 +260,7 @@ void CCMatchRuleDuelTournament::OnRoundEnd()
 	// 승리자 처리 후, 매치가 종료되었는지 판단해본다.
 	// - 준결승, 결승일 경우 2선승제이고, 나머지는 1선승제이다.
 	// - 매치가 종료되었으면 OnMatchFinish를, 다음 라운드가 또 진행되야 하면 OnMatchNotFinish를 호출
-	if( m_CurrentMatchInfo.nRoundState == MDUELTOURNAMENTROUNDSTATE_SEMIFINAL || m_CurrentMatchInfo.nRoundState == MDUELTOURNAMENTROUNDSTATE_FINAL ) {
+	if( m_CurrentMatchInfo.nRoundState == CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL || m_CurrentMatchInfo.nRoundState == CCDUELTOURNAMENTROUNDSTATE_FINAL ) {
 		if( m_MatchRecord.nPlayer1WinCount > m_MatchRecord.nPlayer2WinCount && m_MatchRecord.nPlayer1WinCount > 1)		{ OnMatchFinish(true);} 
 		else if( m_MatchRecord.nPlayer1WinCount < m_MatchRecord.nPlayer2WinCount && m_MatchRecord.nPlayer2WinCount > 1) { OnMatchFinish(false);} 
 		else																											{ OnMatchNotFinish();}
@@ -325,7 +325,7 @@ void CCMatchRuleDuelTournament::OnLeaveBattle(CCUID& uidChar)
 	// 계속 진행해야되는 플레이어(패배자 등록이 안된 플레이어)일 경우, 감점 후 이탈
 	if( m_DTPlayerMap.IsLoser(uidChar) == false ) {
 		m_DTPlayerMap.SetLoser(uidChar);
-		UpdateDuelTournamentPlayerInfo(uidChar, MDUELTOURNAMENTROUNDSTATE_MAX, false, DUELTOURNAMENT_PLAYER_LEAVE_PENALTYPOINT, true);
+		UpdateDuelTournamentPlayerInfo(uidChar, CCDUELTOURNAMENTROUNDSTATE_MAX, false, DUELTOURNAMENT_PLAYER_LEAVE_PENALTYPOINT, true);
 	}
 }
 
@@ -421,7 +421,7 @@ void CCMatchRuleDuelTournament::SpawnPlayers()
 			m_CurrentMatchInfo.uidPlayer2 = CCUID(0, 0);
 		} 
 
-		if( m_CurrentMatchInfo.nRoundState == MDUELTOURNAMENTROUNDSTATE_FINAL ) {
+		if( m_CurrentMatchInfo.nRoundState == CCDUELTOURNAMENTROUNDSTATE_FINAL ) {
 			CCMatchStage* pStage = GetStage();
 			if (pStage != NULL) {
 				CCMatchStageSetting* pSetting = pStage->GetStageSetting();
@@ -503,7 +503,7 @@ void CCMatchRuleDuelTournament::RecordGameResult()
 
 	int nGainTP = DUELTOURNAMENT_PLAYER_UNEARNEDPOINT;
 	int nLoseTP = DUELTOURNAMENT_PLAYER_LEAVE_PENALTYPOINT;
-	bool bFinal = (m_CurrentMatchInfo.nRoundState == MDUELTOURNAMENTROUNDSTATE_FINAL);
+	bool bFinal = (m_CurrentMatchInfo.nRoundState == CCDUELTOURNAMENTROUNDSTATE_FINAL);
 
 	if( bIsLeave == false ){
 		nGainTP = m_DuelTournamentCalculator.Calc_WinnerTP(nWinnerCurTP, nLoserCurTP, bFinal);
@@ -588,7 +588,7 @@ bool CCMatchRuleDuelTournament::OnRun()
 					SetDTRoundState( CCMATCH_ROUNDSTATE_FINISH );					
 				}				
 			} else if (OnCheckBattleTimeOut(nClock - GetRoundStateTimer()) 
-				&& m_CurrentMatchInfo.nRoundState != MDUELTOURNAMENTROUNDSTATE_FINAL) 
+				&& m_CurrentMatchInfo.nRoundState != CCDUELTOURNAMENTROUNDSTATE_FINAL) 
 			{
 				m_RoundRecord.bIsTimeOut = true;
 
@@ -627,7 +627,7 @@ bool CCMatchRuleDuelTournament::OnRun()
 	return false;
 }
 
-void CCMatchRuleDuelTournament::OnCommand(MCommand* pCommand)
+void CCMatchRuleDuelTournament::OnCommand(CCCommand* pCommand)
 {
 	CCMatchRule::OnCommand(pCommand);
 
@@ -661,7 +661,7 @@ void CCMatchRuleDuelTournament::OnCommand(MCommand* pCommand)
 
 void CCMatchRuleDuelTournament::SendDuelTournamentNextGamePlayerInfo()
 {
-	MTD_DuelTournamentNextMatchPlayerInfo DTPlayerInfo;
+	CCTD_DuelTournamentNextMatchPlayerInfo DTPlayerInfo;
 
 	DTPlayerInfo.uidPlayer1	= m_CurrentMatchInfo.uidPlayer1;
 	DTPlayerInfo.uidPlayer2	= m_CurrentMatchInfo.uidPlayer2;
@@ -671,7 +671,7 @@ void CCMatchRuleDuelTournament::SendDuelTournamentNextGamePlayerInfo()
 
 void CCMatchRuleDuelTournament::SendDuelTournamentGameInfo(bool bIsRoundEnd)
 {
-	MTD_DuelTournamentGameInfo DTGameInfo;
+	CCTD_DuelTournamentGameInfo DTGameInfo;
 
 	DTGameInfo.uidPlayer1	= m_CurrentMatchInfo.uidPlayer1;
 	DTGameInfo.uidPlayer2	= m_CurrentMatchInfo.uidPlayer2;
@@ -694,7 +694,7 @@ void CCMatchRuleDuelTournament::SendDuelTournamentGameInfo(bool bIsRoundEnd)
 
 void CCMatchRuleDuelTournament::SendDuelTournamentRoundResultInfo(bool bIsMatchFinish, bool bIsRoundDraw)
 {
-	MTD_DuelTournamentRoundResultInfo DTRoundResultInfo;
+	CCTD_DuelTournamentRoundResultInfo DTRoundResultInfo;
 
 	DTRoundResultInfo.uidWinnerPlayer	= m_RoundRecord.uidWinnerPlayer;
 	DTRoundResultInfo.uidLoserPlayer	= m_RoundRecord.uidLoserPlayer;
@@ -710,7 +710,7 @@ void CCMatchRuleDuelTournament::SendDuelTournamentRoundResultInfo(bool bIsMatchF
 
 void CCMatchRuleDuelTournament::SendDuelTournamentMatchResultInfo()
 {
-	MTD_DuelTournamentMatchResultInfo DTMatchResultInfo;
+	CCTD_DuelTournamentMatchResultInfo DTMatchResultInfo;
 
 	DTMatchResultInfo.nMatchNumber		= m_CurrentMatchInfo.nMatchNumber;
 	DTMatchResultInfo.nMatchType		= m_CurrentMatchInfo.nRoundState;
@@ -725,7 +725,7 @@ void CCMatchRuleDuelTournament::SendDuelTournamentMatchResultInfo()
 		m_MatchRecord.uidWinner.High, m_MatchRecord.uidWinner.Low, m_MatchRecord.uidLoser.High, m_MatchRecord.uidLoser.Low);
 }
 
-void CCMatchRuleDuelTournament::UpdateDuelTournamentPlayerInfo(CCUID uidPlayer, MDUELTOURNAMENTROUNDSTATE nState, bool bIsWinner, int nChangeTP, bool bIsLeaveUser)
+void CCMatchRuleDuelTournament::UpdateDuelTournamentPlayerInfo(CCUID uidPlayer, CCDUELTOURNAMENTROUNDSTATE nState, bool bIsWinner, int nChangeTP, bool bIsLeaveUser)
 {
 	CCMatchObject* pObj1 = m_pStage->GetObj(uidPlayer);
 	if( pObj1 != NULL ){
@@ -745,15 +745,15 @@ void CCMatchRuleDuelTournament::UpdateDuelTournamentPlayerInfo(CCUID uidPlayer, 
 		}
 
 		switch(nState){
-			case MDUELTOURNAMENTROUNDSTATE_QUATERFINAL :	
+			case CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL :	
 				pDTCharInfo->IncreaseQuaterFinalCount();
 				if(bIsWinner) pDTCharInfo->IncreaseQuaterFinalWins(); 
 				break;
-			case MDUELTOURNAMENTROUNDSTATE_SEMIFINAL :		
+			case CCDUELTOURNAMENTROUNDSTATE_SEMIFINAL :		
 				pDTCharInfo->IncreaseSemiFinalCount();	
 				if(bIsWinner) pDTCharInfo->IncreaseSemiFinalWins();	
 				break;
-			case MDUELTOURNAMENTROUNDSTATE_FINAL :			
+			case CCDUELTOURNAMENTROUNDSTATE_FINAL :			
 				pDTCharInfo->IncreaseFinalCount();		
 				if(bIsWinner) pDTCharInfo->IncreaseFinalWins();		
 				break;
@@ -763,13 +763,13 @@ void CCMatchRuleDuelTournament::UpdateDuelTournamentPlayerInfo(CCUID uidPlayer, 
 
 		// Loser일 경우, DB에 업데이트를 해준다.
 		// Winner이지만, 결승전에서 이겼을 경우, DB에 업데이트를 해준다.
-		if( !bIsWinner || (bIsWinner && nState == MDUELTOURNAMENTROUNDSTATE_FINAL)){
+		if( !bIsWinner || (bIsWinner && nState == CCDUELTOURNAMENTROUNDSTATE_FINAL)){
 			CCMatchServer::GetInstance()->OnAsyncRequest_UpdateDuelTournamentCharacterInfo(uidPlayer, m_GameInfo.szTimeStamp);
 		} 
 	}
 }
 
-void CCMatchRuleDuelTournament::InsertDuelTournamentGameLogDeatil(MDUELTOURNAMENTROUNDSTATE nDTRoundState, int nWinnerCID, int nLoserCID, int nGainTP, int nLoseTP, int nPlayTime)
+void CCMatchRuleDuelTournament::InsertDuelTournamentGameLogDeatil(CCDUELTOURNAMENTROUNDSTATE nDTRoundState, int nWinnerCID, int nLoserCID, int nGainTP, int nLoseTP, int nPlayTime)
 {
 	CCMatchServer::GetInstance()->OnAsyncRequest_InsertDuelTournamentGameLogDetail(
 		m_GameInfo.nGameNumber, m_GameInfo.szTimeStamp, m_CurrentMatchInfo.nRoundState, nWinnerCID, nLoserCID, nGainTP, nLoseTP, nPlayTime);

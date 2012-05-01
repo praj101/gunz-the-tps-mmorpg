@@ -1111,7 +1111,7 @@ void ChatCmd_Test(const char* line, const int argc, char **const argv)
 	for (CCMatchPeerInfoList::iterator i=pList->begin(); i!= pList->end(); i++) {
 		CCMatchPeerInfo* pInfo = (*i).second;
 		if(stricmp(pInfo->CharInfo.szName, pszCharName) == 0) {
-			MCommand* pCmd = pClient->CreateCommand(MC_TEST_PEERTEST_PING, pInfo->uidChar);
+			CCCommand* pCmd = pClient->CreateCommand(MC_TEST_PEERTEST_PING, pInfo->uidChar);
 			pClient->Post(pCmd);
 		}
 	}
@@ -1285,7 +1285,7 @@ void ChatCmd_LaunchTest(const char* line,const int argc, char **const argv)
 {
 	// 사용하는 부분이 없어서 디버그용으로 수정함. -by SungE 2007-04-02
 #ifdef _DEBUG
-	MCommand* pCmd = ZGetGameClient()->CreateCommand(MC_MATCH_LADDER_LAUNCH, ZGetMyUID());
+	CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_MATCH_LADDER_LAUNCH, ZGetMyUID());
 	pCmd->AddParameter(new MCmdParamUID(CCUID(0,0)));
 	pCmd->AddParameter(new MCmdParamStr("Mansion"));
 	ZGetGameClient()->Post(pCmd);
@@ -1394,7 +1394,7 @@ void ChatCmd_QUESTTEST_LocalSpawnNPC(const char* line,const int argc, char **con
 	nNPCID = atoi(argv[1]);
 	if(argv[2]) nCount = atoi(argv[2]);
 
-	MCommand* pCmd = ZNewCmd(MC_QUEST_NPC_LOCAL_SPAWN);
+	CCCommand* pCmd = ZNewCmd(MC_QUEST_NPC_LOCAL_SPAWN);
 	pCmd->AddParameter(new MCmdParamUID(ZGetMyUID()));
 	
 	CCUID uidLocal;

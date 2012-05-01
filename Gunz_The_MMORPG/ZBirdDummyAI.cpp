@@ -5,7 +5,7 @@
 #include "ZApplication.h"
 #include "ZPost.h"
 #include "ZConsole.h"
-#include "MCommandLogFrame.h"
+#include "CCCommandLogFrame.h"
 #include "ZConfiguration.h"
 #include "FileInfo.h"
 #include "ZInterfaceItem.h"
@@ -38,7 +38,7 @@ ZBirdDummyAI::~ZBirdDummyAI()
 
 }
 
-void ZBirdDummyAI::OnCommand(MCommand* pCmd)
+void ZBirdDummyAI::OnCommand(CCCommand* pCmd)
 {
 	Sleep(1);
 	if (m_pClient == NULL) return;
@@ -65,7 +65,7 @@ void ZBirdDummyAI::Create(ZBirdDummyClient* pClient)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
+void ZBirdDummyAIMakeRoomFlood::OnCommand(CCCommand* pCmd)
 {
 	Sleep(1);
 	if (m_pClient == NULL) return;
@@ -94,7 +94,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 
 
 			ZBIRDPOSTCMD4(m_pClient, MC_MATCH_STAGE_CREATE, 
-				MCommandParameterUID(m_pClient->GetPlayerUID()), 
+				CCCommandParameterUID(m_pClient->GetPlayerUID()), 
 				MCmdParamStr(szStageName),
 				MCmdParamBool(false), 
 				MCmdParamStr(""));
@@ -121,7 +121,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 
 
 				ZBIRDPOSTCMD4(m_pClient, MC_MATCH_STAGE_CREATE, 
-					MCommandParameterUID(m_pClient->GetPlayerUID()), 
+					CCCommandParameterUID(m_pClient->GetPlayerUID()), 
 					MCmdParamStr(szStageName),
 					MCmdParamBool(false), 
 					MCmdParamStr(""));
@@ -142,9 +142,9 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 			{
 				m_nKillCount = 0;
 				ZBIRDPOSTCMD3(m_pClient, MC_MATCH_STAGE_START, 
-					MCommandParameterUID(m_pClient->GetPlayerUID()), 
-					MCommandParameterUID(m_pClient->GetStageUID()), 
-					MCommandParameterInt(3));
+					CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+					CCCommandParameterUID(m_pClient->GetStageUID()), 
+					CCCommandParameterInt(3));
 
 
 				static unsigned long int stJoinCount = 0;
@@ -162,13 +162,13 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 		{
 
 			ZBIRDPOSTCMD2(m_pClient, MC_MATCH_LOADING_COMPLETE, 
-				MCommandParameterUID(m_pClient->GetPlayerUID()), 
+				CCCommandParameterUID(m_pClient->GetPlayerUID()), 
 				MCmdParamInt(100));
 
 			// 게임에 들어갔다고 알림
 			ZBIRDPOSTCMD2(m_pClient, MC_MATCH_STAGE_REQUEST_ENTERBATTLE, 
-				MCommandParameterUID(m_pClient->GetPlayerUID()), 
-				MCommandParameterUID(m_pClient->GetStageUID()));
+				CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+				CCCommandParameterUID(m_pClient->GetStageUID()));
 
 		}
 		break;
@@ -181,11 +181,11 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 			pCmd->GetParameter(&uidStage, 1, MPT_UID);
 			pCmd->GetParameter(&nParam, 2, MPT_INT);
 
-			MCommandParameter* pParam = pCmd->GetParameter(3);
+			CCCommandParameter* pParam = pCmd->GetParameter(3);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
 
-			MTD_PeerListNode* pPeerNode = (MTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
+			CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
 
 			//OnStageEnterBattle(uidChar, uidStage, MCmdEnterBattleParam(nParam), pPeerNode);
 
@@ -195,8 +195,8 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 			}
 
 			ZBIRDPOSTCMD2(m_pClient, MC_MATCH_STAGE_LEAVEBATTLE_TO_SERVER, 
-				MCommandParameterUID(m_pClient->GetPlayerUID()), 
-				MCommandParameterUID(m_pClient->GetStageUID()));
+				CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+				CCCommandParameterUID(m_pClient->GetStageUID()));
 
 		}
 		break;
@@ -210,8 +210,8 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 			if (uidChar == m_pClient->GetPlayerUID())
 			{
 				ZBIRDPOSTCMD2(m_pClient, MC_MATCH_STAGE_LEAVEBATTLE_TO_SERVER, 
-					MCommandParameterUID(m_pClient->GetPlayerUID()), 
-					MCommandParameterUID(m_pClient->GetStageUID()));
+					CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+					CCCommandParameterUID(m_pClient->GetStageUID()));
 
 				m_bInCombat = false;
 			}
@@ -223,8 +223,8 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(MCommand* pCmd)
 			pCmd->GetParameter(&uidStage, 0, MPT_UID);
 			
 			ZBIRDPOSTCMD2(m_pClient, MC_MATCH_STAGE_LEAVEBATTLE_TO_SERVER, 
-				MCommandParameterUID(m_pClient->GetPlayerUID()), 
-				MCommandParameterUID(m_pClient->GetStageUID()));
+				CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+				CCCommandParameterUID(m_pClient->GetStageUID()));
 		}
 		break;
 
@@ -241,7 +241,7 @@ void ZBirdDummyAIMakeRoomFlood::OnRun()
 		{
 			m_nKillCount++;
 			ZBIRDPOSTCMD1(m_pClient, MC_MATCH_REQUEST_SUICIDE, 
-				MCommandParameterUID(m_pClient->GetPlayerUID()));
+				CCCommandParameterUID(m_pClient->GetPlayerUID()));
 
 			m_nKillLastTime = nNowTime;
 
@@ -249,15 +249,15 @@ void ZBirdDummyAIMakeRoomFlood::OnRun()
 			{
 				m_nKillCount = 0;
 				ZBIRDPOSTCMD2(m_pClient, MC_MATCH_STAGE_LEAVEBATTLE_TO_SERVER, 
-					MCommandParameterUID(m_pClient->GetPlayerUID()), 
-					MCommandParameterUID(m_pClient->GetStageUID()));
+					CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+					CCCommandParameterUID(m_pClient->GetStageUID()));
 			}
 		}
 	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-void ZBirdDummyAIJoinFlood::OnCommand(MCommand* pCmd)
+void ZBirdDummyAIJoinFlood::OnCommand(CCCommand* pCmd)
 {
 	Sleep(1);
 	if (m_pClient == NULL) return;
@@ -291,13 +291,13 @@ void ZBirdDummyAIJoinFlood::OnCommand(MCommand* pCmd)
 			pCmd->GetParameter(&nPrevStageCount, 0, MPT_INT);
 			pCmd->GetParameter(&nNextStageCount, 1, MPT_INT);
 
-			MCommandParameter* pParam = pCmd->GetParameter(2);
+			CCCommandParameter* pParam = pCmd->GetParameter(2);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
 			int nCount = MGetBlobArrayCount(pBlob);
 
 			for(int i=0; i<nCount; i++) {
-				MTD_StageListNode* pNode = (MTD_StageListNode*)MGetBlobArrayElement(pBlob, i);
+				CCTD_StageListNode* pNode = (CCTD_StageListNode*)MGetBlobArrayElement(pBlob, i);
 
 				// log debug
 				if( pNode ) 
@@ -308,8 +308,8 @@ void ZBirdDummyAIJoinFlood::OnCommand(MCommand* pCmd)
 
 						m_uidWantedRoom = pNode->uidStage;
 						ZBIRDPOSTCMD2(m_pClient, MC_MATCH_REQUEST_STAGE_JOIN,
-							MCommandParameterUID(m_pClient->GetPlayerUID()), 
-							MCommandParameterUID(pNode->uidStage));
+							CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+							CCCommandParameterUID(pNode->uidStage));
 						break;
 					}
 				}
@@ -324,8 +324,8 @@ void ZBirdDummyAIJoinFlood::OnCommand(MCommand* pCmd)
 			if (nResult != MOK)
 			{
 				ZBIRDPOSTCMD2(m_pClient, MC_MATCH_REQUEST_STAGE_JOIN,
-					MCommandParameterUID(m_pClient->GetPlayerUID()), 
-					MCommandParameterUID(m_uidWantedRoom));
+					CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+					CCCommandParameterUID(m_uidWantedRoom));
 
 			}
 		}
@@ -343,8 +343,8 @@ void ZBirdDummyAIJoinFlood::OnCommand(MCommand* pCmd)
 			pCmd->GetParameter(szStageName, 2, MPT_STR, sizeof(szStageName) );
 
 //			ZBIRDPOSTCMD2(m_pClient, MC_MATCH_STAGE_LEAVE,
-//				MCommandParameterUID(m_pClient->GetPlayerUID()), 
-//				MCommandParameterUID(m_uidWantedRoom));
+//				CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+//				CCCommandParameterUID(m_uidWantedRoom));
 
 				static unsigned long int stJoinCount = 0;
 				stJoinCount++;
@@ -368,8 +368,8 @@ void ZBirdDummyAIJoinFlood::OnRun()
 		if ((nNowTime - m_nReservedTime) > 10000)
 		{
 			ZBIRDPOSTCMD2(m_pClient, MC_MATCH_STAGE_LEAVE,
-				MCommandParameterUID(m_pClient->GetPlayerUID()), 
-				MCommandParameterUID(m_uidWantedRoom));
+				CCCommandParameterUID(m_pClient->GetPlayerUID()), 
+				CCCommandParameterUID(m_uidWantedRoom));
 
 
 			m_bReserved = false;

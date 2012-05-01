@@ -10,28 +10,28 @@
 
 int CCMatchServer::AgentAdd(const CCUID& uidComm)
 {
-	MAgentObject* pAgent = new MAgentObject(uidComm);
+	CCAgentObject* pAgent = new CCAgentObject(uidComm);
 
-	m_AgentMap.insert(MAgentObjectMap::value_type(pAgent->GetUID(), pAgent));
+	m_AgentMap.insert(CCAgentObjectMap::value_type(pAgent->GetUID(), pAgent));
 
 	LOG(LOG_PROG, "Agent Added (UID:%d%d)", pAgent->GetUID().High, pAgent->GetUID().Low);
 
 	return MOK;
 }
 
-int CCMatchServer::AgentRemove(const CCUID& uidAgent, MAgentObjectMap::iterator* pNextItor)
+int CCMatchServer::AgentRemove(const CCUID& uidAgent, CCAgentObjectMap::iterator* pNextItor)
 {
-	MAgentObjectMap::iterator i = m_AgentMap.find(uidAgent);
+	CCAgentObjectMap::iterator i = m_AgentMap.find(uidAgent);
 	if(i==m_AgentMap.end()) return MERR_OBJECT_INVALID;
 
-	MAgentObject* pAgent = (*i).second;
+	CCAgentObject* pAgent = (*i).second;
 
 	LOG(LOG_PROG, "Agent Removed (UID:%d%d)", pAgent->GetUID().High, pAgent->GetUID().Low);
 
 	// Clear up the Agent
 	delete pAgent;
 
-	MAgentObjectMap::iterator itorTemp = m_AgentMap.erase(i);
+	CCAgentObjectMap::iterator itorTemp = m_AgentMap.erase(i);
 	if (pNextItor)
 		*pNextItor = itorTemp;
 
@@ -40,25 +40,25 @@ int CCMatchServer::AgentRemove(const CCUID& uidAgent, MAgentObjectMap::iterator*
 
 void CCMatchServer::AgentClear()
 {
-	MAgentObjectMap::iterator i = m_AgentMap.begin();
+	CCAgentObjectMap::iterator i = m_AgentMap.begin();
 	for(;i!=m_AgentMap.end(); i++)
 	{
 		AgentRemove( i->first, &i);
 	}
 }
 
-MAgentObject* CCMatchServer::GetAgent(const CCUID& uidAgent)
+CCAgentObject* CCMatchServer::GetAgent(const CCUID& uidAgent)
 {
-	MAgentObjectMap::iterator i = m_AgentMap.find(uidAgent);
+	CCAgentObjectMap::iterator i = m_AgentMap.find(uidAgent);
 	if(i==m_AgentMap.end()) return NULL;
 	return (*i).second;
 }
 
 
-MAgentObject* CCMatchServer::GetAgentByCommUID(const CCUID& uidComm)
+CCAgentObject* CCMatchServer::GetAgentByCommUID(const CCUID& uidComm)
 {
-	for(MAgentObjectMap::iterator i=m_AgentMap.begin(); i!=m_AgentMap.end(); i++){
-		MAgentObject* pAgent = ((*i).second);
+	for(CCAgentObjectMap::iterator i=m_AgentMap.begin(); i!=m_AgentMap.end(); i++){
+		CCAgentObject* pAgent = ((*i).second);
 		for (list<CCUID>::iterator j=pAgent->m_CommListener.begin();j!=pAgent->m_CommListener.end();j++){
 			CCUID TargetUID = *j;
 			if (TargetUID == uidComm)
@@ -69,11 +69,11 @@ MAgentObject* CCMatchServer::GetAgentByCommUID(const CCUID& uidComm)
 }
 
 
-MAgentObject* CCMatchServer::FindFreeAgent()
+CCAgentObject* CCMatchServer::FindFreeAgent()
 {
-	MAgentObject* pFreeAgent = NULL;
-	for (MAgentObjectMap::iterator i=m_AgentMap.begin(); i!=m_AgentMap.end(); i++) {
-		MAgentObject* pAgent = (*i).second;
+	CCAgentObject* pFreeAgent = NULL;
+	for (CCAgentObjectMap::iterator i=m_AgentMap.begin(); i!=m_AgentMap.end(); i++) {
+		CCAgentObject* pAgent = (*i).second;
 		if ( (pFreeAgent == NULL) || (pFreeAgent->GetAssignCount() > pAgent->GetStageCount()) )
 			pFreeAgent = pAgent;
 	}
@@ -82,21 +82,21 @@ MAgentObject* CCMatchServer::FindFreeAgent()
 
 void CCMatchServer::ReserveAgent(CCMatchStage* pStage)
 {
-	MAgentObject* pFreeAgent = FindFreeAgent();
+	CCAgentObject* pFreeAgent = FindFreeAgent();
 	if (pFreeAgent == NULL) {
 		LOG(LOG_DEBUG, "No available Agent (Stage %d%d)", pStage->GetUID().High, pStage->GetUID().Low);
 		return;
 	}
 	pStage->SetAgentUID(pFreeAgent->GetUID());
 
-	MCommand* pCmd = CreateCommand(MC_AGENT_STAGE_RESERVE, pFreeAgent->GetCommListener());
+	CCCommand* pCmd = CreateCommand(MC_AGENT_STAGE_RESERVE, pFreeAgent->GetCommListener());
 	pCmd->AddParameter(new MCmdParamUID(pStage->GetUID()));
 	Post(pCmd);
 }
 
 void CCMatchServer::LocateAgentToClient(const CCUID& uidPlayer, const CCUID& uidAgent)
 {
-	MAgentObject* pAgent = GetAgent(uidAgent);
+	CCAgentObject* pAgent = GetAgent(uidAgent);
 	if (pAgent == NULL) 
 		return;
 
@@ -116,7 +116,7 @@ void CCMatchServer::LocateAgentToClient(const CCUID& uidPlayer, const CCUID& uid
 			, pAgent->GetUDPPort() );
 	}
 
-	MCommand* pCmd = CreateCommand(MC_AGENT_LOCATETO_CLIENT, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_AGENT_LOCATETO_CLIENT, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidAgent));
 	pCmd->AddParameter(new MCmdParamStr(pAgent->GetIP()));
 	pCmd->AddParameter(new MCmdParamInt(pAgent->GetTCPPort()));
@@ -131,7 +131,7 @@ void CCMatchServer::OnRegisterAgent(const CCUID& uidComm, char* szIP, int nTCPPo
 		uidComm.High, uidComm.Low, szIP, nTCPPort, nUDPPort);
 
 	// Remove Old Connections ////////////////////////
-	MAgentObject* pOldAgent = NULL;
+	CCAgentObject* pOldAgent = NULL;
 	while(pOldAgent=FindFreeAgent())
 	{
 		AgentRemove(pOldAgent->GetUID(), NULL);
@@ -146,14 +146,14 @@ void CCMatchServer::OnRegisterAgent(const CCUID& uidComm, char* szIP, int nTCPPo
 
 	// 패킷 시리얼 체크를 하지 않도록 한다.
 	LockCommList();
-	MCommObject* pCommObj = (MCommObject*)m_CommRefCache.GetRef(uidComm);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(uidComm);
 	if (pCommObj)
 	{
 		pCommObj->GetCommandBuilder()->SetCheckCommandSN(false);
 	}
 	UnlockCommList();
 
-	MAgentObject* pAgent = GetAgent(uidComm);
+	CCAgentObject* pAgent = GetAgent(uidComm);
 	pAgent->AddCommListener(uidComm);
 	pAgent->SetAddr(szIP, nTCPPort, nUDPPort);
 
@@ -171,7 +171,7 @@ void CCMatchServer::OnRegisterAgent(const CCUID& uidComm, char* szIP, int nTCPPo
 		char szMsg[512];
 		sprintf(szMsg, "TEST_STRING=%d  (%s)", i, szBulk);
 
-		MCommand* pCmd = CreateCommand(MC_AGENT_DEBUGTEST, pAgent->GetCommListener());
+		CCCommand* pCmd = CreateCommand(MC_AGENT_DEBUGTEST, pAgent->GetCommListener());
 		pCmd->AddParameter(new MCmdParamStr(szMsg));
 		Post(pCmd);
 	}
@@ -180,7 +180,7 @@ void CCMatchServer::OnRegisterAgent(const CCUID& uidComm, char* szIP, int nTCPPo
 
 void CCMatchServer::OnUnRegisterAgent(const CCUID& uidComm)
 {
-	MAgentObject* pAgent = GetAgentByCommUID(uidComm);
+	CCAgentObject* pAgent = GetAgentByCommUID(uidComm);
 	if (pAgent)
 		AgentRemove(pAgent->GetUID(), NULL);
 
@@ -191,7 +191,7 @@ void CCMatchServer::OnAgentStageReady(const CCUID& uidCommAgent, const CCUID& ui
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
-	MAgentObject* pAgent = GetAgentByCommUID(uidCommAgent);
+	CCAgentObject* pAgent = GetAgentByCommUID(uidCommAgent);
 	if (pAgent == NULL) return;
 	
 	pStage->SetAgentReady(true);
@@ -207,7 +207,7 @@ void CCMatchServer::OnAgentStageReady(const CCUID& uidCommAgent, const CCUID& ui
 
 void CCMatchServer::OnRequestLiveCheck(const CCUID& uidComm, unsigned long nTimeStamp, unsigned long nStageCount, unsigned long nUserCount)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_AGENT_RESPONSE_LIVECHECK, uidComm);
+	CCCommand* pCmd = CreateCommand(MC_MATCH_AGENT_RESPONSE_LIVECHECK, uidComm);
 	pCmd->AddParameter(new MCmdParamUInt(nTimeStamp));
 	PostSafeQueue(pCmd);
 }
@@ -222,7 +222,7 @@ void CCMatchServer::OnPeerReady(const CCUID& uidChar, const CCUID& uidPeer)
 
 	LocateAgentToClient(uidChar, pStage->GetAgentUID());
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_PEER_RELAY, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_PEER_RELAY, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(uidPeer));
 	RouteToListener(pChar, pCmd);
 
@@ -248,12 +248,12 @@ void CCMatchServer::OnRequestRelayPeer(const CCUID& uidChar, const CCUID& uidPee
 	CCMatchStage* pStage = FindStage(pChar->GetStageUID());
 	if (pStage == NULL) return;
 
-	MAgentObject* pAgent = GetAgent(pStage->GetAgentUID());
+	CCAgentObject* pAgent = GetAgent(pStage->GetAgentUID());
 	if (pAgent == NULL) {
 		pAgent = FindFreeAgent();
 		if (pAgent == NULL) {
 			// Notify Agent not ready
-			MCommand* pCmd = CreateCommand(MC_AGENT_ERROR, CCUID(0,0));
+			CCCommand* pCmd = CreateCommand(MC_AGENT_ERROR, CCUID(0,0));
 			pCmd->AddParameter(new MCmdParamInt(0));
 			RouteToListener(pChar, pCmd);
 			return;
@@ -271,13 +271,13 @@ void CCMatchServer::OnRequestRelayPeer(const CCUID& uidChar, const CCUID& uidPee
 	pStage->SetAgentReady(true);
 
 	// Send Relay order to Agent
-	MCommand* pCmd = CreateCommand(MC_AGENT_RELAY_PEER, pAgent->GetCommListener());
+	CCCommand* pCmd = CreateCommand(MC_AGENT_RELAY_PEER, pAgent->GetCommListener());
 	pCmd->AddParameter(new MCmdParamUID(uidChar));
 	pCmd->AddParameter(new MCmdParamUID(uidPeer));
 	pCmd->AddParameter(new MCmdParamUID(pStage->GetUID()));
 	Post(pCmd);
 
-/*	MCommand* pCmd2 = CreateCommand(MC_AGENT_RELAY_PEER, pAgent->GetCommListener());
+/*	CCCommand* pCmd2 = CreateCommand(MC_AGENT_RELAY_PEER, pAgent->GetCommListener());
 	pCmd2->AddParameter(new MCmdParamUID(uidPeer));
 	pCmd2->AddParameter(new MCmdParamUID(uidChar));
 	pCmd2->AddParameter(new MCmdParamUID(pStage->GetUID()));

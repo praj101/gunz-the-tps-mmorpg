@@ -197,7 +197,7 @@ public:
 		const CCMATCH_GAMETYPE GameType = CCMATCH_GAMETYPE_DEFAULT, const bool bIsCheckTicket = false, const DWORD dwTicketItemID = 0);
 
 	void Destroy();
-	void OnCommand(MCommand* pCommand);
+	void OnCommand(CCCommand* pCommand);
 	void OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim);
 	bool CheckAutoTeamBalancing();	// true이면 팀원을 섞어야 한다.
 	void ShuffleTeamMembers();

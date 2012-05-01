@@ -143,7 +143,7 @@ bool ZReplayLoader::LoadStageSettingEtc(ZFile* file)
 	if(m_StageSetting.nGameType==CCMATCH_GAMETYPE_DUEL)
 	{
 		ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
-		int nRead = zfread(&pDuel->QInfo,sizeof(MTD_DuelQueueInfo),1,file);
+		int nRead = zfread(&pDuel->QInfo,sizeof(CCTD_DuelQueueInfo),1,file);
 		if(nRead==0) return false;
 	}
 	if(m_StageSetting.nGameType==CCMATCH_GAMETYPE_DUELTOURNAMENT)
@@ -171,7 +171,7 @@ bool ZReplayLoader::LoadStageSettingEtc(ZFile* file)
 		pRule->InitCharacterList();
 
 		// 녹화시작 당시의 경기는 m_DTGameInfo 커맨드를 이미 받아버린 상태였기때문에 따로 로드해서 넣어줘야 에너지바가 제대로 출력된다
-		nRead = zfread(&pRule->m_DTGameInfo,sizeof(MTD_DuelTournamentGameInfo),1,file);
+		nRead = zfread(&pRule->m_DTGameInfo,sizeof(CCTD_DuelTournamentGameInfo),1,file);
 		if(nRead==0) return false;
 	}
 	return true;
@@ -352,24 +352,24 @@ bool ZReplayLoader::LoadCommandStream(ZFile* file)
 }
 
 
-MCommand* ZReplayLoader::CreateCommandFromStream(char* pStream)
+CCCommand* ZReplayLoader::CreateCommandFromStream(char* pStream)
 {
 	if (m_nVersion <= 2)
 	{
 		return CreateCommandFromStreamVersion2(pStream);
 	}
 
-	MCommand* pCommand = new MCommand;
+	CCCommand* pCommand = new CCCommand;
 	pCommand->SetData(pStream, ZGetGameClient()->GetCommandManager());
 	return pCommand;
 }
 
 
-MCommand* ZReplayLoader::CreateCommandFromStreamVersion2(char* pStream)
+CCCommand* ZReplayLoader::CreateCommandFromStreamVersion2(char* pStream)
 {
-	MCommandManager* pCM = ZGetGameClient()->GetCommandManager();
+	CCCommandManager* pCM = ZGetGameClient()->GetCommandManager();
 
-	MCommand* pCommand = new MCommand;
+	CCCommand* pCommand = new CCCommand;
 	
 	BYTE nParamCount = 0;
 	unsigned short int nDataCount = 0;
@@ -384,10 +384,10 @@ MCommand* ZReplayLoader::CreateCommandFromStreamVersion2(char* pStream)
 	memcpy(&nCommandID, pStream+nDataCount, sizeof(nCommandID));
 	nDataCount += sizeof(nCommandID);
 
-	MCommandDesc* pDesc = pCM->GetCommandDescByID(nCommandID);
+	CCCommandDesc* pDesc = pCM->GetCommandDescByID(nCommandID);
 	if (pDesc == NULL)
 	{
-		cclog("Error(MCommand::SetData): Wrong Command ID(%d)\n", nCommandID);
+		cclog("Error(CCCommand::SetData): Wrong Command ID(%d)\n", nCommandID);
 		_ASSERT(0);
 
 		return pCommand;
@@ -408,7 +408,7 @@ MCommand* ZReplayLoader::CreateCommandFromStreamVersion2(char* pStream)
 		memcpy(&nType, pStream+nDataCount, sizeof(BYTE));
 		nDataCount += sizeof(BYTE);
 
-		MCommandParameter* pParam = MakeVersion2CommandParameter((MCommandParameterType)nType, pStream, &nDataCount);
+		CCCommandParameter* pParam = MakeVersion2CommandParameter((CCCommandParameterType)nType, pStream, &nDataCount);
 		if (pParam == NULL) return false;
 		
 		pCommand->m_Params.push_back(pParam);
@@ -417,7 +417,7 @@ MCommand* ZReplayLoader::CreateCommandFromStreamVersion2(char* pStream)
 	return pCommand;
 }
 
-bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
+bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 {
 	switch (pCmd->GetID())
 	{
@@ -441,7 +441,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 
 	BYTE nParamCount = 0;
 	unsigned short int nDataCount = 0;
-	vector<MCommandParameter*> TempParams;
+	vector<CCCommandParameter*> TempParams;
 
 	// Count
 	memcpy(&nParamCount, pStream+nDataCount, sizeof(nParamCount));
@@ -453,7 +453,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 		memcpy(&nType, pStream+nDataCount, sizeof(BYTE));
 		nDataCount += sizeof(BYTE);
 
-		MCommandParameter* pParam = MakeVersion2CommandParameter((MCommandParameterType)nType, pStream, &nDataCount);
+		CCCommandParameter* pParam = MakeVersion2CommandParameter((CCCommandParameterType)nType, pStream, &nDataCount);
 		if (pParam == NULL) return false;
 		
 		TempParams.push_back(pParam);
@@ -532,8 +532,8 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 			REPLAY2_PeerListNode* pNode = (REPLAY2_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
 
 
-			void* pNewBlob = MMakeBlobArray(sizeof(MTD_PeerListNode), 1);
-			MTD_PeerListNode* pNewNode = (MTD_PeerListNode*)MGetBlobArrayElement(pNewBlob, 0);
+			void* pNewBlob = MMakeBlobArray(sizeof(CCTD_PeerListNode), 1);
+			CCTD_PeerListNode* pNewNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pNewBlob, 0);
 			pNewNode->uidChar = pNode->uidChar;
 			pNewNode->dwIP = inet_addr(pNode->szIP);
 			pNewNode->nPort = pNode->nPort;
@@ -545,7 +545,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 			
 
 			pCmd->AddParameter(new MCmdParamUChar((unsigned char)nParam));
-			pCmd->AddParameter(new MCommandParameterBlob(pNewBlob, MGetBlobArraySize(pNewBlob)));
+			pCmd->AddParameter(new CCCommandParameterBlob(pNewBlob, MGetBlobArraySize(pNewBlob)));
 
 			MEraseBlobArray(pNewBlob);
 		}
@@ -594,7 +594,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 
 			pdi.seltype = (BYTE)nSelType;
 
-			pCmd->AddParameter(new MCommandParameterBlob(&pdi,sizeof(ZPACKEDDASHINFO)));
+			pCmd->AddParameter(new CCCommandParameterBlob(&pdi,sizeof(ZPACKEDDASHINFO)));
 		}
 		break;
 	case MC_MATCH_SPAWN_WORLDITEM:
@@ -613,12 +613,12 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 			void* pBlob = TempParams[0]->GetPointer();
 			int nCount = MGetBlobArrayCount(pBlob);
 
-			void* pNewBlob = MMakeBlobArray(sizeof(MTD_WorldItem), nCount);
+			void* pNewBlob = MMakeBlobArray(sizeof(CCTD_WorldItem), nCount);
 
 			for (int i = 0; i < nCount; i++)
 			{
 				REPLAY2_WorldItem* pNode = (REPLAY2_WorldItem*)MGetBlobArrayElement(pBlob, i);
-				MTD_WorldItem* pNewNode = (MTD_WorldItem*)MGetBlobArrayElement(pNewBlob, i);
+				CCTD_WorldItem* pNewNode = (CCTD_WorldItem*)MGetBlobArrayElement(pNewBlob, i);
 
 				pNewNode->nUID = pNode->nUID;
 				pNewNode->nItemID = pNode->nItemID;
@@ -627,7 +627,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 				pNewNode->y = (short)Roundf(pNode->y);
 				pNewNode->z = (short)Roundf(pNode->z);
 			}
-			pCmd->AddParameter(new MCommandParameterBlob(pNewBlob, MGetBlobArraySize(pNewBlob)));
+			pCmd->AddParameter(new CCCommandParameterBlob(pNewBlob, MGetBlobArraySize(pNewBlob)));
 			MEraseBlobArray(pNewBlob);
 
 		}
@@ -650,25 +650,25 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, MCommand* pCmd)
 }
 
 
-MCommandParameter* ZReplayLoader::MakeVersion2CommandParameter(MCommandParameterType nType, char* pStream, unsigned short int* pnDataCount)
+CCCommandParameter* ZReplayLoader::MakeVersion2CommandParameter(CCCommandParameterType nType, char* pStream, unsigned short int* pnDataCount)
 {
-	MCommandParameter* pParam = NULL;
+	CCCommandParameter* pParam = NULL;
 
 	switch(nType) 
 	{
 	case MPT_INT:
-		pParam = new MCommandParameterInt;
+		pParam = new CCCommandParameterInt;
 		break;
 	case MPT_UINT:
-		pParam = new MCommandParameterUInt;
+		pParam = new CCCommandParameterUInt;
 		break;
 	case MPT_FLOAT:
-		pParam = new MCommandParameterFloat;
+		pParam = new CCCommandParameterFloat;
 		break;
 	case MPT_STR:
 		{
-			pParam = new MCommandParameterString;
-			MCommandParameterString* pStringParam = (MCommandParameterString*)pParam;
+			pParam = new CCCommandParameterString;
+			CCCommandParameterString* pStringParam = (CCCommandParameterString*)pParam;
 
 			char* pStreamData = pStream+ *pnDataCount;
 
@@ -683,46 +683,46 @@ MCommandParameter* ZReplayLoader::MakeVersion2CommandParameter(MCommandParameter
 		}
 		break;
 	case MPT_VECTOR:
-		pParam = new MCommandParameterVector;
+		pParam = new CCCommandParameterVector;
 		break;
 	case MPT_POS:
-		pParam = new MCommandParameterPos;
+		pParam = new CCCommandParameterPos;
 		break;
 	case MPT_DIR:
-		pParam = new MCommandParameterDir;
+		pParam = new CCCommandParameterDir;
 		break;
 	case MPT_BOOL:
-		pParam = new MCommandParameterBool;
+		pParam = new CCCommandParameterBool;
 		break;
 	case MPT_COLOR:
-		pParam = new MCommandParameterColor;
+		pParam = new CCCommandParameterColor;
 		break;
 	case MPT_UID:
-		pParam = new MCommandParameterUID;
+		pParam = new CCCommandParameterUID;
 		break;
 	case MPT_BLOB:
-		pParam = new MCommandParameterBlob;
+		pParam = new CCCommandParameterBlob;
 		break;
 	case MPT_CHAR:
-		pParam = new MCommandParameterChar;
+		pParam = new CCCommandParameterChar;
 		break;
 	case MPT_UCHAR:
-		pParam = new MCommandParameterUChar;
+		pParam = new CCCommandParameterUChar;
 		break;
 	case MPT_SHORT:
-		pParam = new MCommandParameterShort;
+		pParam = new CCCommandParameterShort;
 		break;
 	case MPT_USHORT:
-		pParam = new MCommandParameterUShort;
+		pParam = new CCCommandParameterUShort;
 		break;
 	case MPT_INT64:
-		pParam = new MCommandParameterInt64;
+		pParam = new CCCommandParameterInt64;
 		break;
 	case MPT_UINT64:
-		pParam = new MCommandParameterUInt64;
+		pParam = new CCCommandParameterUInt64;
 		break;
 	default:
-		cclog("Error(MCommand::SetData): Wrong Param Type\n");
+		cclog("Error(CCCommand::SetData): Wrong Param Type\n");
 		_ASSERT(false);		// Unknow Parameter!!!
 		return NULL;
 	}

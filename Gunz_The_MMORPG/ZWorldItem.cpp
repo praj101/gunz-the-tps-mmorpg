@@ -24,7 +24,7 @@ ZWorldItemManager ZWorldItemManager::msInstance;
 //////////////////////////////////////////////////////////////////////////
 //		ZWorldItem
 //////////////////////////////////////////////////////////////////////////
-void ZWorldItem::Initialize( int nID, short nItemID,MTD_WorldItemSubType SubType, ZWORLD_ITEM_STATE state, unsigned int nSpawnTypeFlags,  rvector& position, float fAmount )
+void ZWorldItem::Initialize( int nID, short nItemID,CCTD_WorldItemSubType SubType, ZWORLD_ITEM_STATE state, unsigned int nSpawnTypeFlags,  rvector& position, float fAmount )
 {
 	m_nID				= nID;
 	m_nItemID			= nItemID;
@@ -211,7 +211,7 @@ bool ZWorldItemManager::ApplyWorldItem( WIL_Iterator& iter, ZCharacter* pCharact
 	return true;
 }
 
-ZWorldItem *ZWorldItemManager::AddWorldItem( int nID, short nItemID,MTD_WorldItemSubType nItemSubType,rvector& pos )
+ZWorldItem *ZWorldItemManager::AddWorldItem( int nID, short nItemID,CCTD_WorldItemSubType nItemSubType,rvector& pos )
 {
 	ZWorldItem* pWorldItem = NULL;
 
@@ -426,7 +426,7 @@ void ZWorldItemManager::Reset(bool bDrawRemoveEffect)
 void ZWorldItemManager::AddQuestPortal(rvector& pos)
 {
 	int id = GenStandAlondID();
-	AddWorldItem(id, WORLDITEM_PORTAL_ID,MTD_Static, pos);
+	AddWorldItem(id, WORLDITEM_PORTAL_ID,CCTD_Static, pos);
 
 	ZGetSoundEngine()->PlaySound("fx_openportal",pos);
 }
@@ -484,7 +484,7 @@ void ZWorldItemDrawer::DrawWorldItem( ZWorldItem* pWorldItem, bool Rotate )
 	DWORD thistime = timeGetTime();
 
 	if( (pWorldItem->GetType()!=WIT_CLIENT)
-		&& (pWorldItem->GetSubType() != MTD_Static) )
+		&& (pWorldItem->GetSubType() != CCTD_Static) )
 	{
 		if( thistime > pWorldItem->m_dwStartTime + 6000) // 6ÃÊ ÀÌÈÄ
 		{

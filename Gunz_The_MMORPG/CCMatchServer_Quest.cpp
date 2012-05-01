@@ -9,7 +9,7 @@
 #include "CCMatchShop.h"
 #include "CCAsyncDBJob_BuyQuestItem.h"
 
-void CCMatchServer::OnRequestNPCDead(const CCUID& uidSender, const CCUID& uidKiller, CCUID& uidNPC, MVector& pos)
+void CCMatchServer::OnRequestNPCDead(const CCUID& uidSender, const CCUID& uidKiller, CCUID& uidNPC, CCVector& pos)
 {
 	CCMatchObject* pSender = GetObject(uidSender);
 	if (!IsEnabledObject(pSender)) { ASSERT( 0 ); return; }
@@ -55,10 +55,10 @@ void CCMatchServer::OnQuestRequestDead(const CCUID& uidVictim)
 
 	// 서버는 죽은줄 알고있었는데 또 죽었다고 신고들어온경우 죽었다는 메시지만 라우팅한다
 	if (pVictim->CheckAlive() == false) {	
-		MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SUICIDE, CCUID(0,0));
+		CCCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SUICIDE, CCUID(0,0));
 		int nResult = MOK;
-		pNew->AddParameter(new MCommandParameterInt(nResult));
-		pNew->AddParameter(new MCommandParameterUID(pVictim->GetUID()));
+		pNew->AddParameter(new CCCommandParameterInt(nResult));
+		pNew->AddParameter(new CCCommandParameterUID(pVictim->GetUID()));
 		RouteToBattle(pStage->GetUID(), pNew);
 		return;
 	}
@@ -67,8 +67,8 @@ void CCMatchServer::OnQuestRequestDead(const CCUID& uidVictim)
 
 
 	// 죽었다는 메세지 보냄
-	MCommand* pCmd = CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(uidVictim));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(uidVictim));
 	RouteToBattle(pStage->GetUID(), pCmd);	
 }
 
@@ -225,7 +225,7 @@ void CCMatchServer::OnResponseCharQuestItemList( const CCUID& uidSender )
 		}
 	}
 
-	MCommand* pNewCmd = CreateCommand( MC_MATCH_RESPONSE_CHAR_QUEST_ITEM_LIST, CCUID(0, 0) );
+	CCCommand* pNewCmd = CreateCommand( MC_MATCH_RESPONSE_CHAR_QUEST_ITEM_LIST, CCUID(0, 0) );
 	if( 0 == pNewCmd )
 	{
 		cclog( "CCMatchServer::OnResponseCharQuestItemList - Command생성 실패.\n" );
@@ -234,19 +234,19 @@ void CCMatchServer::OnResponseCharQuestItemList( const CCUID& uidSender )
 
 	// 갖고 있는 퀘스트 아이템 리스트 전송.
 	int					nIndex			= 0;
-	MTD_QuestItemNode*	pQuestItemNode	= 0;
-	void*				pQuestItemArray = MMakeBlobArray( static_cast<int>(sizeof(MTD_QuestItemNode)), 
+	CCTD_QuestItemNode*	pQuestItemNode	= 0;
+	void*				pQuestItemArray = MMakeBlobArray( static_cast<int>(sizeof(CCTD_QuestItemNode)), 
 														  static_cast<int>(pPlayer->GetCharInfo()->m_QuestItemList.size()) );
 
 	CCQuestItemMap::iterator itQItem, endQItem;
 	endQItem = pPlayer->GetCharInfo()->m_QuestItemList.end();
 	for( itQItem = pPlayer->GetCharInfo()->m_QuestItemList.begin(); itQItem != endQItem; ++itQItem )
 	{
-		pQuestItemNode = reinterpret_cast< MTD_QuestItemNode* >( MGetBlobArrayElement(pQuestItemArray, nIndex++) );
+		pQuestItemNode = reinterpret_cast< CCTD_QuestItemNode* >( MGetBlobArrayElement(pQuestItemArray, nIndex++) );
 		Make_MTDQuestItemNode( pQuestItemNode, itQItem->second->GetItemID(), itQItem->second->GetCount() );
 	}
 
-	pNewCmd->AddParameter( new MCommandParameterBlob(pQuestItemArray, MGetBlobArraySize(pQuestItemArray)) );
+	pNewCmd->AddParameter( new CCCommandParameterBlob(pQuestItemArray, MGetBlobArraySize(pQuestItemArray)) );
 	MEraseBlobArray( pQuestItemArray );
 
 	RouteToListener( pPlayer, pNewCmd );
@@ -286,7 +286,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 		// 바운티가 부족한다는 정보를 알려줘야 함.
 		// 임시로 CCMatchItem에서 사용하는걸 사용했음.
 		// 필요하면 Quest item에 맞는 커맨드로 수정해야 함.
-		MCommand* pBPLess = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
+		CCCommand* pBPLess = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
 		pBPLess->AddParameter( new MCmdParamInt(MERR_TOO_EXPENSIVE_BOUNTY) );
 		pBPLess->AddParameter( new MCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
 		RouteToListener(pPlayer, pBPLess);
@@ -302,7 +302,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 		} else {
 			// 가질수 있는 아이템의 최대 수를 넘어섰음.
 			// 임시로 CCMatchItem에서 사용하는걸 사용했음. 필요하면 Quest item에 맞는 커맨드로 수정해야 함.
-			MCommand* pTooMany = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
+			CCCommand* pTooMany = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
 			pTooMany->AddParameter( new MCmdParamInt(MERR_TOO_MANY_ITEM) );
 			pTooMany->AddParameter( new MCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
 			RouteToListener(pPlayer, pTooMany);
@@ -328,7 +328,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 	//UpdateCharItemDBCachingData(pPlayer);	///< Character Item에서 업데이트가 필요한 것들 업데이트 <-불필요함
 
 
-	MAsyncDBJob_BuyQuestItem* pBuyQuestItemJob = new MAsyncDBJob_BuyQuestItem( uidSender );
+	CCAsyncDBJob_BuyQuestItem* pBuyQuestItemJob = new CCAsyncDBJob_BuyQuestItem( uidSender );
 	if( NULL == pBuyQuestItemJob ) { return; }	
 	pBuyQuestItemJob->Input( uidSender, pPlayer->GetCharInfo()->m_nCID, nItemCount, pQuestItemDesc->m_nPrice);	// 디비에 바운티 더해준다
 	pPlayer->m_DBJobQ.DBJobQ.push_back( pBuyQuestItemJob );
@@ -379,7 +379,7 @@ void CCMatchServer::OnResponseSellQuestItem( const CCUID& uidSender, const unsig
 		int nPrice = ( pQItemDesc->GetSellBountyValue(nCount) );
 		if (!m_MatchDBMgr.UpdateCharBP(pPlayer->GetCharInfo()->m_nCID, nPrice))	{
 			/*
-			MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SELL_ITEM, CCUID(0,0));
+			CCCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SELL_ITEM, CCUID(0,0));
 			pNew->AddParameter(new MCmdParamInt(MERR_CANNOT_SELL_ITEM));
 			RouteToListener(pObj, pNew);
 
@@ -401,7 +401,7 @@ void CCMatchServer::OnResponseSellQuestItem( const CCUID& uidSender, const unsig
 	// 아이템 거래 카운트 증가. 내부에서 디비 업데이트 결정.
 	pPlayer->GetCharInfo()->GetDBQuestCachingData().IncreaseShopTradeCount();
 
-	MCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_SELL_QUEST_ITEM, CCUID(0, 0) );
+	CCCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_SELL_QUEST_ITEM, CCUID(0, 0) );
 	if( 0 == pCmd ) {
 		return;
 	}
@@ -621,7 +621,7 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const CCUID& uidSender )
 	memcpy( pMonBible, &(pCharInfo->m_QMonsterBible), MONSTER_BIBLE_SIZE );
 
 
-	MCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_MONSTER_BIBLE_INFO, CCUID(0, 0) );
+	CCCommand* pCmd = CreateCommand( MC_MATCH_RESPONSE_MONSTER_BIBLE_INFO, CCUID(0, 0) );
 	if( 0 == pCmd )
 	{
 		cclog( "CCMatchServer::OnResponseMonsterBibleInfo - create command fail.\n" );
@@ -629,7 +629,7 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const CCUID& uidSender )
 	}
 
 	pCmd->AddParameter( new MCmdParamUID(uidSender) );
-	pCmd->AddParameter( new MCommandParameterBlob(pMonBibleInfoBlob, MGetBlobArraySize(pMonBibleInfoBlob)) );
+	pCmd->AddParameter( new CCCommandParameterBlob(pMonBibleInfoBlob, MGetBlobArraySize(pMonBibleInfoBlob)) );
 
 	RouteToListener( pObj, pCmd );
 

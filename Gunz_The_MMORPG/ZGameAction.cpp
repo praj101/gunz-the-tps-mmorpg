@@ -14,7 +14,7 @@
 
 #define MAX_ENCHANT_DURATION	10.f
 
-bool ZGameAction::OnCommand(MCommand* pCommand)
+bool ZGameAction::OnCommand(CCCommand* pCommand)
 {
 	switch (pCommand->GetID())
 	{
@@ -26,7 +26,7 @@ bool ZGameAction::OnCommand(MCommand* pCommand)
 	return false;
 }
 
-bool ZGameAction::OnReaction(MCommand* pCommand)
+bool ZGameAction::OnReaction(CCCommand* pCommand)
 {
 	float fTime;
 	int nReactionID;
@@ -74,7 +74,7 @@ bool ZGameAction::OnReaction(MCommand* pCommand)
 	return true;
 }
 
-bool ZGameAction::OnPeerSkill(MCommand* pCommand)
+bool ZGameAction::OnPeerSkill(CCCommand* pCommand)
 {
 	float fTime;
 	int nSkill,sel_type;
@@ -619,7 +619,7 @@ void ZGameAction::OnPeerSkill_Dash(ZCharacter *pOwnerCharacter)
 }
 
 
-bool ZGameAction::OnEnchantDamage(MCommand* pCommand)
+bool ZGameAction::OnEnchantDamage(CCCommand* pCommand)
 {
 	CCUID ownerUID;
 	CCUID targetUID;

@@ -2,42 +2,42 @@
 #include "CCPacketCrypter.h"
 #include "CCPacket.h"
 
-int MPacketCrypter::m_nSHL = (MCOMMAND_VERSION % 6) + 1;
-unsigned char MPacketCrypter::m_ShlMask = 0;
+int CCPacketCrypter::m_nSHL = (MCOMMAND_VERSION % 6) + 1;
+unsigned char CCPacketCrypter::m_ShlMask = 0;
 
 
 ////////////////////////////////////////////////////////////////////////
-bool MPacketCrypter::InitKey(MPacketCrypterKey* pKey)
+bool CCPacketCrypter::InitKey(CCPacketCrypterKey* pKey)
 {
-	memcpy(&m_Key, pKey, sizeof(MPacketCrypterKey));
+	memcpy(&m_Key, pKey, sizeof(CCPacketCrypterKey));
 	return true;
 }
 
-bool MPacketCrypter::Encrypt(const char* pSource, int nSrcLen, char* pTarget, int nTarLen)
+bool CCPacketCrypter::Encrypt(const char* pSource, int nSrcLen, char* pTarget, int nTarLen)
 {
-	MPacketCrypter::Encrypt(pSource, nSrcLen, pTarget, nTarLen, &m_Key);
+	CCPacketCrypter::Encrypt(pSource, nSrcLen, pTarget, nTarLen, &m_Key);
 	return true;
 }
 
-bool MPacketCrypter::Decrypt(const char* pSource, int nSrcLen, char* pTarget, int nTarLen)
+bool CCPacketCrypter::Decrypt(const char* pSource, int nSrcLen, char* pTarget, int nTarLen)
 {
-	MPacketCrypter::Decrypt(pSource, nSrcLen, pTarget, nTarLen, &m_Key);
+	CCPacketCrypter::Decrypt(pSource, nSrcLen, pTarget, nTarLen, &m_Key);
 	return true;
 }
 
-bool MPacketCrypter::Encrypt(char* pSource, int nSrcLen)
+bool CCPacketCrypter::Encrypt(char* pSource, int nSrcLen)
 {
-	MPacketCrypter::Encrypt(pSource, nSrcLen, &m_Key);
+	CCPacketCrypter::Encrypt(pSource, nSrcLen, &m_Key);
 	return true;
 }
 
-bool MPacketCrypter::Decrypt(char* pSource, int nSrcLen)
+bool CCPacketCrypter::Decrypt(char* pSource, int nSrcLen)
 {
-	MPacketCrypter::Decrypt(pSource, nSrcLen, &m_Key);
+	CCPacketCrypter::Decrypt(pSource, nSrcLen, &m_Key);
 	return true;
 }
 
-bool MPacketCrypter::Encrypt(const char* pSource, int nSrcLen, char* pTarget, int nTarLen, MPacketCrypterKey* pKey)
+bool CCPacketCrypter::Encrypt(const char* pSource, int nSrcLen, char* pTarget, int nTarLen, CCPacketCrypterKey* pKey)
 {
 	int nKeyIndex = 0;
 	for (int i = 0; i < nSrcLen; i++)
@@ -53,7 +53,7 @@ bool MPacketCrypter::Encrypt(const char* pSource, int nSrcLen, char* pTarget, in
 	return true;
 }
 
-bool MPacketCrypter::Decrypt(const char* pSource, int nSrcLen, char* pTarget, int nTarLen, MPacketCrypterKey* pKey)
+bool CCPacketCrypter::Decrypt(const char* pSource, int nSrcLen, char* pTarget, int nTarLen, CCPacketCrypterKey* pKey)
 {
 	int nKeyIndex = 0;
 	for (int i = 0; i < nSrcLen; i++)
@@ -70,7 +70,7 @@ bool MPacketCrypter::Decrypt(const char* pSource, int nSrcLen, char* pTarget, in
 }
 
 
-char MPacketCrypter::_Enc(char s, char key)
+char CCPacketCrypter::_Enc(char s, char key)
 {
 	WORD w;
 	BYTE b, bh;
@@ -81,7 +81,7 @@ char MPacketCrypter::_Enc(char s, char key)
 	return( BYTE( b | bh ) ^ 0xF0 );
 }
 
-char MPacketCrypter::_Dec(char s, char key)
+char CCPacketCrypter::_Dec(char s, char key)
 {
 	BYTE b, bh, d;
 
@@ -93,7 +93,7 @@ char MPacketCrypter::_Dec(char s, char key)
 }
 
 
-bool MPacketCrypter::Encrypt(char* pSource, int nSrcLen, MPacketCrypterKey* pKey)
+bool CCPacketCrypter::Encrypt(char* pSource, int nSrcLen, CCPacketCrypterKey* pKey)
 {
 	int nKeyIndex = 0;
 	for (int i = 0; i < nSrcLen; i++)
@@ -107,7 +107,7 @@ bool MPacketCrypter::Encrypt(char* pSource, int nSrcLen, MPacketCrypterKey* pKey
 	return true;
 }
 
-bool MPacketCrypter::Decrypt(char* pSource, int nSrcLen, MPacketCrypterKey* pKey)
+bool CCPacketCrypter::Decrypt(char* pSource, int nSrcLen, CCPacketCrypterKey* pKey)
 {
 	int nKeyIndex = 0;
 	for (int i = 0; i < nSrcLen; i++)
@@ -122,13 +122,13 @@ bool MPacketCrypter::Decrypt(char* pSource, int nSrcLen, MPacketCrypterKey* pKey
 	return true;
 }
 
-MPacketCrypter::MPacketCrypter()
+CCPacketCrypter::CCPacketCrypter()
 {
 	InitConst();
-	memset(&m_Key, 0, sizeof(MPacketCrypterKey));
+	memset(&m_Key, 0, sizeof(CCPacketCrypterKey));
 }
 
-void MPacketCrypter::InitConst()
+void CCPacketCrypter::InitConst()
 {
 	m_nSHL = (MCOMMAND_VERSION % 6) + 1;
 

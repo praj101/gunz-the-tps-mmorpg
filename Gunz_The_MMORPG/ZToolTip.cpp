@@ -217,7 +217,7 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 	else
 		tr.y = 0;
 
-	sRect str = MClientToScreen(GetParent(), tr);
+	sRect str = CCClientToScreen(GetParent(), tr);
 	
 	int rightx = str.x+str.w;
 	if (rightx > MGetWorkspaceWidth()) {

@@ -375,7 +375,7 @@ void CCMatchScheduleMgr::Update()
 // 변동이 거의 업는 정적 스케쥴 업데이트.
 void CCMatchScheduleMgr::UpdateStaticSchedule()
 {
-	MCommand* pCmd = 0;
+	CCCommand* pCmd = 0;
 	ScheduleVecIter it, end;
 
 	end = m_vecStaticSchedule.end();
@@ -402,7 +402,7 @@ void CCMatchScheduleMgr::UpdateStaticSchedule()
 // 공지사항 스케쥴 업데이트.
 void CCMatchScheduleMgr::UpdateDynamicSchedule()
 {
-	MCommand* pCmd = 0;
+	CCCommand* pCmd = 0;
 	ScheduleLstIter it, end;
 
 	end = m_lstDynamicSchedule.end();
@@ -473,7 +473,7 @@ CCMatchScheduleData* CCMatchScheduleMgr::MakeRepeatScheduleData( const unsigned 
 															   const unsigned char cNextDay,	// 다음에 실행될 일의 상대값.	ex) 1일 후.
 															   const unsigned char cNextHour,	// 다음에 실행될 시간의 상대값.	ex) 1시간 후.
 															   const unsigned char cNextMin,	// 다음에 실행될 분의 상대값.	ex) 1분 후.
-															   MCommand* pCmd					// 수행할 명령.
+															   CCCommand* pCmd					// 수행할 명령.
 															   )
 {
 	if( 0 == pCmd ) return 0;
@@ -510,7 +510,7 @@ CCMatchScheduleData* CCMatchScheduleMgr::MakeCountScheduleData( const unsigned c
 															  const unsigned char cNextHour,	// 다음에 실행될 시간의 상대값.	ex) 1시간 후.
 															  const unsigned char cNextMin,		// 다음에 실행될 분의 상대값.	ex) 1분 후.
 															  const unsigned int nCount,		// 실행될 횟수.
-															  MCommand* pCmd					// 수행할 명령.
+															  CCCommand* pCmd					// 수행할 명령.
 															  )
 {
 	if( 0 == pCmd ) return 0;
@@ -548,7 +548,7 @@ CCMatchScheduleData* CCMatchScheduleMgr::MakeOnceScheduleData( const unsigned ch
 															 const unsigned char cDay,		// 실행될 날.
 															 const unsigned char cHour,		// 실행될 시간.
 															 const unsigned char cMin,		// 실행될 분.
-															 MCommand* pCmd					// 수행할 명령.	
+															 CCCommand* pCmd					// 수행할 명령.	
 															 )
 {
 	if( 0 == pCmd ) return 0;
@@ -668,7 +668,7 @@ char GetMaxDay()
 }
 
 
-bool AddDynamicSchedule( CCMatchScheduleMgr* pScheduleMgr, const int nType, MCommand* pCmd, const int nYear, const int nMonth, const int nDay, const int nHour, const int nMin, const int nCount )
+bool AddDynamicSchedule( CCMatchScheduleMgr* pScheduleMgr, const int nType, CCCommand* pCmd, const int nYear, const int nMonth, const int nDay, const int nHour, const int nMin, const int nCount )
 {
 	if( 0 == pScheduleMgr ) return false;
 

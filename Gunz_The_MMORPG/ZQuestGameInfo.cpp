@@ -14,7 +14,7 @@ ZQuestGameInfo::~ZQuestGameInfo()
 
 }
 
-void ZQuestGameInfo::Init(MTD_QuestGameInfo* pMTDQuestGameInfo)
+void ZQuestGameInfo::Init(CCTD_QuestGameInfo* pMTDQuestGameInfo)
 {
 	m_NPCInfoVector.clear();
 	m_MapSectorVector.clear();

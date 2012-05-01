@@ -6,7 +6,7 @@
 using namespace std;
 
 
-class MCommand;
+class CCCommand;
 
 
 #define CHATROOM_MAX_ROOMMEMBER	64
@@ -34,7 +34,7 @@ public:
 
 	void RouteChat(const CCUID& uidSender, char* pszMessage);
 	void RouteInfo(const CCUID& uidReceiver);
-	void RouteCommand(const MCommand* pCommand);
+	void RouteCommand(const CCCommand* pCommand);
 };
 
 

@@ -122,7 +122,7 @@ void ZActor::InitStatus()
 {
 	_ASSERT( NULL != m_pNPCInfo );
 
-	const MTD_NPCINFO* pQuestNPCInfo = GetMyActorServerNPCInfo( m_pNPCInfo->nID );
+	const CCTD_NPCINFO* pQuestNPCInfo = GetMyActorServerNPCInfo( m_pNPCInfo->nID );
 
 	//변조가 가능한 데이터는 서버가 보내준 정보로 수정을 한다.
 	SetClientNPCInfoFromServerNPCInfo( m_pNPCInfo, pQuestNPCInfo );
@@ -290,7 +290,7 @@ void ZActor::OnUpdate(float fDelta)
 
 
 //변조가 가능한 데이터는 서버가 보내준 정보로 수정을 한다.
-void SetClientNPCInfoFromServerNPCInfo( CCQuestNPCInfo* pClientNPCInfo, const MTD_NPCINFO* pServerNPCInfo )
+void SetClientNPCInfoFromServerNPCInfo( CCQuestNPCInfo* pClientNPCInfo, const CCTD_NPCINFO* pServerNPCInfo )
 {
 	pClientNPCInfo->nMaxHP			= pServerNPCInfo->m_nMaxHP;
 	pClientNPCInfo->nMaxAP			= pServerNPCInfo->m_nMaxAP;
@@ -313,7 +313,7 @@ void ZActor::InitFromNPCType(CCQUEST_NPC nNPCType, float fTC, int nQL)
 	m_pNPCInfo = ZGetQuest()->GetNPCInfo(nNPCType);
 	_ASSERT(m_pNPCInfo);
 
-	const MTD_NPCINFO* pNPCInfo = GetMyActorServerNPCInfo( nNPCType );
+	const CCTD_NPCINFO* pNPCInfo = GetMyActorServerNPCInfo( nNPCType );
 	if( NULL == pNPCInfo )
 	{
 		_ASSERT( 0 );
@@ -703,7 +703,7 @@ void ZActor::PostBasicInfo()
 		pbi.anistate = GetCurrAni();
 
 
-		ZPOSTCMD1(MC_QUEST_PEER_NPC_BASICINFO, MCommandParameterBlob(&pbi,sizeof(ZACTOR_BASICINFO)));
+		ZPOSTCMD1(MC_QUEST_PEER_NPC_BASICINFO, CCCommandParameterBlob(&pbi,sizeof(ZACTOR_BASICINFO)));
 
 
 		// history 에 보관
@@ -744,7 +744,7 @@ void ZActor::PostBossHpAp()
 			m_nLastTime[ACTOR_LASTTIME_HPINFO] = nNowTime;
 			
 			ZPOSTCMD3(MC_QUEST_PEER_NPC_BOSS_HPAP, MCmdParamUID(GetUID()), 
-				MCommandParameterFloat(m_pModule_HPAP->GetHP()), MCommandParameterFloat(m_pModule_HPAP->GetAP()));
+				CCCommandParameterFloat(m_pModule_HPAP->GetHP()), CCCommandParameterFloat(m_pModule_HPAP->GetAP()));
 		}
 	}
 }
@@ -926,7 +926,7 @@ void ZActor::Attack_Melee()
 {
 	m_Animation.Input(ZA_INPUT_ATTACK_MELEE);
 
-	ZPOSTCMD1(MC_QUEST_PEER_NPC_ATTACK_MELEE, MCommandParameterUID(GetUID()));
+	ZPOSTCMD1(MC_QUEST_PEER_NPC_ATTACK_MELEE, CCCommandParameterUID(GetUID()));
 }
 
 void ZActor::Attack_Range(rvector& dir)

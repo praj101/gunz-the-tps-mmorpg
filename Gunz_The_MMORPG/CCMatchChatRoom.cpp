@@ -75,7 +75,7 @@ void CCMatchChatRoom::RouteChat(const CCUID& uidSender, char* pszMessage)
 		CCUID uidTarget = (*i).first;
 		CCMatchObject* pTargetObj = pServer->GetObject(uidTarget);
 		if (pTargetObj) {
-			MCommand* pCmd = pServer->CreateCommand(MC_MATCH_CHATROOM_CHAT, CCUID(0,0));
+			CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_CHATROOM_CHAT, CCUID(0,0));
 			pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(GetName()) ));
 			pCmd->AddParameter(new MCmdParamStr(pSenderObj->GetName()));
 			pCmd->AddParameter(new MCmdParamStr(pszMessage));
@@ -89,7 +89,7 @@ void CCMatchChatRoom::RouteInfo(const CCUID& uidReceiver)
 	
 }
 
-void CCMatchChatRoom::RouteCommand(const MCommand* pCommand)
+void CCMatchChatRoom::RouteCommand(const CCCommand* pCommand)
 {
 	if( 0 == pCommand )
 		return;
@@ -99,7 +99,7 @@ void CCMatchChatRoom::RouteCommand(const MCommand* pCommand)
 		CCUID uidTarget = (*i).first;
 		CCMatchObject* pTargetObj = pServer->GetObject(uidTarget);
 		if (pTargetObj) {
-			MCommand* pRouteCmd = pCommand->Clone();
+			CCCommand* pRouteCmd = pCommand->Clone();
 			pServer->RouteToListener(pTargetObj, pRouteCmd);
 		}
 	}

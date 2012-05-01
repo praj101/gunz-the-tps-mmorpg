@@ -267,9 +267,9 @@ void CopyCharInfoDetailForTrans(CCTD_CharInfo_Detail* pDest, CCMatchCharInfo* pS
 }
 //버프정보임시주석 
 /*
-void CopyCharBuffInfoForTrans(MTD_CharBuffInfo* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
+void CopyCharBuffInfoForTrans(CCTD_CharBuffInfo* pDest, CCMatchCharInfo* pSrcCharInfo, CCMatchObject* pSrcObject)
 {
-	memset(pDest, 0, sizeof(MTD_CharBuffInfo));
+	memset(pDest, 0, sizeof(CCTD_CharBuffInfo));
 
 	if( pSrcCharInfo && pSrcObject ) 
 	{
@@ -939,9 +939,9 @@ void CCMatchServer::OnDestroy(void)
 	}
 }
 
-void CCMatchServer::OnRegisterCommand(MCommandManager* pCommandManager)
+void CCMatchServer::OnRegisterCommand(CCCommandManager* pCommandManager)
 {
-	MCommandCommunicator::OnRegisterCommand(pCommandManager);
+	CCCommandCommunicator::OnRegisterCommand(pCommandManager);
 	MAddSharedCommandTable(pCommandManager, MSCT_MATCHSERVER);
 	Log(LOG_PROG, "Command registeration completed\n");
 
@@ -954,7 +954,7 @@ void CCMatchServer::OnPrepareRun()
 	MGetServerStatusSingleton()->AddCmdCount(m_CommandManager.GetCommandQueueCount());
 }
 
-int CCMatchServer::Connect(MCommObject* pCommObj)
+int CCMatchServer::Connect(CCCommObject* pCommObj)
 {
 	if( pCommObj ) {
 		cclog("CCMatchServer::Connect - Target IP(%s), Target Port(%d)",pCommObj->GetIPString(), pCommObj->GetPort());
@@ -963,7 +963,7 @@ int CCMatchServer::Connect(MCommObject* pCommObj)
 	return MServer::Connect(pCommObj);
 }
 
-int CCMatchServer::OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, MCommObject* pCommObj)
+int CCMatchServer::OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj)
 {
 	if( pCommObj == NULL ) {
 		cclog("CCMatchServer::OnConnected - pTargetUID(%d%d), pAllocUID(%d%d)\n", pTargetUID->High, pTargetUID->Low, pAllocUID->High, pAllocUID->Low);
@@ -978,9 +978,9 @@ int CCMatchServer::OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int
 		
 	}
 
-	cclog("CCMatchServer::OnConnected - We should not call func which is called 'MCommandCommunicator::OnConnected'\n");
+	cclog("CCMatchServer::OnConnected - We should not call func which is called 'CCCommandCommunicator::OnConnected'\n");
 	return MOK;
-	//return MCommandCommunicator::OnConnected(pTargetUID, pAllocUID, nTimeStamp, pCommObj);
+	//return CCCommandCommunicator::OnConnected(pTargetUID, pAllocUID, nTimeStamp, pCommObj);
 }
 
 void CCMatchServer::OnRun(void)
@@ -1037,7 +1037,7 @@ void CCMatchServer::OnRun(void)
 
 		if( !pObj->m_DBJobQ.DBJobQ.empty() && !pObj->m_DBJobQ.bIsRunningAsyncJob )
 		{
-			MAsyncJob* pAsyncJob = pObj->m_DBJobQ.DBJobQ.front();
+			CCAsyncJob* pAsyncJob = pObj->m_DBJobQ.DBJobQ.front();
 			pObj->m_DBJobQ.DBJobQ.pop_front();
 			pObj->m_DBJobQ.nLastJobID = pAsyncJob->GetJobID();
 // #ifdef _DEBUG
@@ -1059,7 +1059,7 @@ void CCMatchServer::OnRun(void)
 		{
 			// DissconnectWait로 설정된 유저는 우선 클라이언트로 접속 종료를 알리고 
 			// 다음 루프에서 디비를 업데이트하고 접속 종료를 함.
-			MCommand* pCmd = CreateCommand( MC_MATCH_DISCONNMSG, pObj->GetUID() );
+			CCCommand* pCmd = CreateCommand( MC_MATCH_DISCONNMSG, pObj->GetUID() );
 			pCmd->AddParameter( new MCmdParamUInt(pObj->GetDisconnStatusInfo().GetMsgID()) );
 			Post( pCmd );
 
@@ -1132,12 +1132,12 @@ void CCMatchServer::OnRun(void)
 	{
 		tmLastGarbageSessionCleaning = nGlobalClock;
 
-		CMemPool<MCommandParameter>::GetCapacity();
+		CMemPool<CCCommandParameter>::GetCapacity();
 		LOG(LOG_PROG, "GARBAGE SESSION CLEANING : m_This(%d%d), ClientCount=%d, SessionCount=%d, AgentCount=%d, CommandPool=%d, objHistoryCount=%d\n", 
 			m_This.High, m_This.Low, GetClientCount(), GetCommObjCount(), GetAgentCount(),
-			CMemPool<MCommand>::GetCapacity(),
+			CMemPool<CCCommand>::GetCapacity(),
 			m_objectCommandHistory.GetObjectCount() );
-		MCommand* pNew = CreateCommand(MC_NET_PING, CCUID(0,0));
+		CCCommand* pNew = CreateCommand(MC_NET_PING, CCUID(0,0));
 		pNew->AddParameter(new MCmdParamUInt(GetGlobalClockCount()));
 		RouteToAllConnection(pNew);
 	}
@@ -1256,7 +1256,7 @@ void CCMatchServer::OnRun(void)
 	{
 		GetBattleTimeRewardMachine().SetLastUpdateTime(nGlobalClock);
 
-		MAsyncDBJob_GetBattleTimeRewardDescription *pJob = new MAsyncDBJob_GetBattleTimeRewardDescription;
+		CCAsyncDBJob_GetBattleTimeRewardDescription *pJob = new CCAsyncDBJob_GetBattleTimeRewardDescription;
 		CCMatchServer::GetInstance()->PostAsyncJob( pJob );
 	}
 }
@@ -1349,7 +1349,7 @@ void CCMatchServer::UpdateServerStatusDB()
 	nLastTime = nNowTime;
 }
 
-inline void CCMatchServer::RouteToListener(MObject* pObject, MCommand* pCommand)
+inline void CCMatchServer::RouteToListener(CCObject* pObject, CCCommand* pCommand)
 {
 	if (pObject == NULL) return;
 
@@ -1366,7 +1366,7 @@ inline void CCMatchServer::RouteToListener(MObject* pObject, MCommand* pCommand)
 		for (list<CCUID>::iterator itorUID=pObject->m_CommListener.begin(); itorUID!=pObject->m_CommListener.end(); itorUID++) {
 			CCUID TargetUID = *itorUID;
 
-			MCommand* pSendCmd;
+			CCCommand* pSendCmd;
 			if (nCount<=0)
 				pSendCmd = pCommand;
 			else
@@ -1378,9 +1378,9 @@ inline void CCMatchServer::RouteToListener(MObject* pObject, MCommand* pCommand)
 	}
 }
 
-void CCMatchServer::RouteResponseToListener(MObject* pObject, const int nCmdID, int nResult)
+void CCMatchServer::RouteResponseToListener(CCObject* pObject, const int nCmdID, int nResult)
 {
-	MCommand* pNew = CreateCommand(nCmdID, CCUID(0,0));
+	CCCommand* pNew = CreateCommand(nCmdID, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamInt(nResult));
 	RouteToListener(pObject, pNew);
 }
@@ -1388,23 +1388,23 @@ void CCMatchServer::RouteResponseToListener(MObject* pObject, const int nCmdID, 
 struct stRouteListenerNode
 {
 	DWORD				nUserContext;
-	MPacketCrypterKey	CryptKey;
+	CCPacketCrypterKey	CryptKey;
 	//SEED_ALG_INFO	CryptAlgInfo;
 };
 
-void CCMatchServer::RouteToAllConnection(MCommand* pCommand)
+void CCMatchServer::RouteToAllConnection(CCCommand* pCommand)
 {
 	queue<stRouteListenerNode*>	ListenerList;
 
 	// Queueing for SafeSend
 	LockCommList();
 		for(CCUIDRefCache::iterator i=m_CommRefCache.begin(); i!=m_CommRefCache.end(); i++){
-			MCommObject* pCommObj = (MCommObject*)((*i).second);
+			CCCommObject* pCommObj = (CCCommObject*)((*i).second);
 			if (pCommObj->GetUID() < CCUID(0,3)) continue;	// CCUID로 Client인지 판별할수 있는 코드 필요함
 
 			stRouteListenerNode* pNewNode = new stRouteListenerNode;
 			pNewNode->nUserContext = pCommObj->GetUserContext();
-			memcpy(&pNewNode->CryptKey, pCommObj->GetCrypter()->GetKey(), sizeof(MPacketCrypterKey));
+			memcpy(&pNewNode->CryptKey, pCommObj->GetCrypter()->GetKey(), sizeof(CCPacketCrypterKey));
 			ListenerList.push(pNewNode);
 		}
 	UnlockCommList();
@@ -1457,20 +1457,20 @@ void CCMatchServer::RouteToAllConnection(MCommand* pCommand)
 	delete pCommand;
 }
 
-void CCMatchServer::RouteToAllClient(MCommand* pCommand)
+void CCMatchServer::RouteToAllClient(CCCommand* pCommand)
 {
 	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++){
 		CCMatchObject* pObj = (CCMatchObject*)((*i).second);
 		if (pObj->GetUID() < CCUID(0,3)) continue;	// CCUID로 Client인지 판별할수 있는 코드 필요함
 		
-		MCommand* pSendCmd = pCommand->Clone();
+		CCCommand* pSendCmd = pCommand->Clone();
 		pSendCmd->m_Receiver = pObj->GetUID();
 		Post(pSendCmd);
 	}	
 	delete pCommand;
 }
 
-void CCMatchServer::RouteToChannel(const CCUID& uidChannel, MCommand* pCommand)
+void CCMatchServer::RouteToChannel(const CCUID& uidChannel, CCCommand* pCommand)
 {
 	CCMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) 
@@ -1480,15 +1480,15 @@ void CCMatchServer::RouteToChannel(const CCUID& uidChannel, MCommand* pCommand)
 	}
 
 	for (CCUIDRefCache::iterator i=pChannel->GetObjBegin(); i!=pChannel->GetObjEnd(); i++) {
-		MObject* pObj = (MObject*)(*i).second;
+		CCObject* pObj = (CCObject*)(*i).second;
 
-		MCommand* pSendCmd = pCommand->Clone();
+		CCCommand* pSendCmd = pCommand->Clone();
 		RouteToListener(pObj, pSendCmd);
 	}
 	delete pCommand;
 }
 
-void CCMatchServer::RouteToChannelLobby(const CCUID& uidChannel, MCommand* pCommand)
+void CCMatchServer::RouteToChannelLobby(const CCUID& uidChannel, CCCommand* pCommand)
 {
 	CCMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) 
@@ -1499,15 +1499,15 @@ void CCMatchServer::RouteToChannelLobby(const CCUID& uidChannel, MCommand* pComm
 
 	for (CCUIDRefCache::iterator i=pChannel->GetLobbyObjBegin(); i!=pChannel->GetLobbyObjEnd(); i++) 
 	{
-		MObject* pObj = (MObject*)(*i).second;
+		CCObject* pObj = (CCObject*)(*i).second;
 
-		MCommand* pSendCmd = pCommand->Clone();
+		CCCommand* pSendCmd = pCommand->Clone();
 		RouteToListener(pObj, pSendCmd);
 	}
 	delete pCommand;
 }
 
-void CCMatchServer::RouteToStage(const CCUID& uidStage, MCommand* pCommand)
+void CCMatchServer::RouteToStage(const CCUID& uidStage, CCCommand* pCommand)
 {
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) 
@@ -1517,12 +1517,12 @@ void CCMatchServer::RouteToStage(const CCUID& uidStage, MCommand* pCommand)
 	}
 
 	for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
-//		MObject* pObj = (MObject*)(*i).second;
+//		CCObject* pObj = (CCObject*)(*i).second;
 
 		CCUID uidObj = (CCUID)(*i).first;
-		MObject* pObj = (MObject*)GetObject(uidObj);
+		CCObject* pObj = (CCObject*)GetObject(uidObj);
 		if (pObj) {
-			MCommand* pSendCmd = pCommand->Clone();
+			CCCommand* pSendCmd = pCommand->Clone();
 			RouteToListener(pObj, pSendCmd);
 		} else {
 			LOG(LOG_PROG, "WARNING(RouteToStage) : Not Existing Obj(%u:%u)\n", uidObj.High, uidObj.Low);
@@ -1533,7 +1533,7 @@ void CCMatchServer::RouteToStage(const CCUID& uidStage, MCommand* pCommand)
 	delete pCommand;
 }
 
-void CCMatchServer::RouteToObjInStage(const CCUID& uidStage, const CCUID& uidTargetObj, MCommand* pCommand)
+void CCMatchServer::RouteToObjInStage(const CCUID& uidStage, const CCUID& uidTargetObj, CCCommand* pCommand)
 {
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) 
@@ -1543,13 +1543,13 @@ void CCMatchServer::RouteToObjInStage(const CCUID& uidStage, const CCUID& uidTar
 	}
 
 	for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
-		//		MObject* pObj = (MObject*)(*i).second;
+		//		CCObject* pObj = (CCObject*)(*i).second;
 
 		CCUID uidObj = (CCUID)(*i).first;
 		if (uidObj == uidTargetObj) {
-			MObject* pObj = (MObject*)GetObject(uidObj);
+			CCObject* pObj = (CCObject*)GetObject(uidObj);
 			if (pObj) {
-				MCommand* pSendCmd = pCommand->Clone();
+				CCCommand* pSendCmd = pCommand->Clone();
 				RouteToListener(pObj, pSendCmd);
 			} else {
 				LOG(LOG_PROG, "WARNING(RouteToStage) : Not Existing Obj(%u:%u)\n", uidObj.High, uidObj.Low);
@@ -1561,7 +1561,7 @@ void CCMatchServer::RouteToObjInStage(const CCUID& uidStage, const CCUID& uidTar
 	delete pCommand;
 }
 
-void CCMatchServer::RouteToStageWaitRoom(const CCUID& uidStage, MCommand* pCommand)
+void CCMatchServer::RouteToStageWaitRoom(const CCUID& uidStage, CCCommand* pCommand)
 {
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) 
@@ -1577,7 +1577,7 @@ void CCMatchServer::RouteToStageWaitRoom(const CCUID& uidStage, MCommand* pComma
 		if (pObj) {
 			if (! pObj->GetEnterBattle())
 			{
-				MCommand* pSendCmd = pCommand->Clone();
+				CCCommand* pSendCmd = pCommand->Clone();
 				RouteToListener(pObj, pSendCmd);
 			} 
 		}
@@ -1585,7 +1585,7 @@ void CCMatchServer::RouteToStageWaitRoom(const CCUID& uidStage, MCommand* pComma
 	delete pCommand;
 }
 
-void CCMatchServer::RouteToBattle(const CCUID& uidStage, MCommand* pCommand)
+void CCMatchServer::RouteToBattle(const CCUID& uidStage, CCCommand* pCommand)
 {
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) 
@@ -1602,7 +1602,7 @@ void CCMatchServer::RouteToBattle(const CCUID& uidStage, MCommand* pCommand)
 		if (pObj) {
 			if (pObj->GetEnterBattle())
 			{
-				MCommand* pSendCmd = pCommand->Clone();
+				CCCommand* pSendCmd = pCommand->Clone();
 				RouteToListener(pObj, pSendCmd);
 			} 
 		}else {
@@ -1614,7 +1614,7 @@ void CCMatchServer::RouteToBattle(const CCUID& uidStage, MCommand* pCommand)
 	delete pCommand;
 }
 
-void CCMatchServer::RouteToClan(const int nCLID, MCommand* pCommand)
+void CCMatchServer::RouteToClan(const int nCLID, CCCommand* pCommand)
 {
 	CCMatchClan* pClan = FindClan(nCLID);
 	if (pClan == NULL) 
@@ -1624,9 +1624,9 @@ void CCMatchServer::RouteToClan(const int nCLID, MCommand* pCommand)
 	}
 
 	for (CCUIDRefCache::iterator i=pClan->GetMemberBegin(); i!=pClan->GetMemberEnd(); i++) {
-		MObject* pObj = (MObject*)(*i).second;
+		CCObject* pObj = (CCObject*)(*i).second;
 
-		MCommand* pSendCmd = pCommand->Clone();
+		CCCommand* pSendCmd = pCommand->Clone();
 		RouteToListener(pObj, pSendCmd);
 	}
 	delete pCommand;
@@ -1639,11 +1639,11 @@ void CCMatchServer::ResponseRoundState(const CCUID& uidStage)
 	CCMatchRule* pRule = pStage->GetRule();
 	if (pRule == NULL) return;
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_ROUNDSTATE, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(pStage->GetUID()));
-	pCmd->AddParameter(new MCommandParameterInt(pRule->GetRoundCount()));
-	pCmd->AddParameter(new MCommandParameterInt(pRule->GetRoundState()));
-	pCmd->AddParameter(new MCommandParameterInt(pRule->GetRoundArg()));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_ROUNDSTATE, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
+	pCmd->AddParameter(new CCCommandParameterInt(pRule->GetRoundCount()));
+	pCmd->AddParameter(new CCCommandParameterInt(pRule->GetRoundState()));
+	pCmd->AddParameter(new CCCommandParameterInt(pRule->GetRoundArg()));
 
 	// 게임 안에 있는 플레이어에게만 전송
 	RouteToBattle(uidStage, pCmd);
@@ -1657,11 +1657,11 @@ void CCMatchServer::ResponseRoundState(CCMatchObject* pObj, const CCUID& uidStag
 	CCMatchRule* pRule = pStage->GetRule();
 	if (pRule == NULL) return;
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_ROUNDSTATE, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterUID(pStage->GetUID()));
-	pCmd->AddParameter(new MCommandParameterInt(pRule->GetRoundCount()));
-	pCmd->AddParameter(new MCommandParameterInt(pRule->GetRoundState()));
-	pCmd->AddParameter(new MCommandParameterInt(pRule->GetRoundArg()));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_ROUNDSTATE, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
+	pCmd->AddParameter(new CCCommandParameterInt(pRule->GetRoundCount()));
+	pCmd->AddParameter(new CCCommandParameterInt(pRule->GetRoundState()));
+	pCmd->AddParameter(new CCCommandParameterInt(pRule->GetRoundArg()));
 
 	RouteToListener(pObj, pCmd);
 }
@@ -1671,8 +1671,8 @@ void CCMatchServer::NotifyMessage(const CCUID& uidChar, int nMsgID)
 	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 	
-	MCommand* pNew=new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_NOTIFY), CCUID(0,0), m_This);
-	pNew->AddParameter(new MCommandParameterUInt(nMsgID));
+	CCCommand* pNew=new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_NOTIFY), CCUID(0,0), m_This);
+	pNew->AddParameter(new CCCommandParameterUInt(nMsgID));
 	RouteToListener(pObj, pNew);
 }
 
@@ -1710,7 +1710,7 @@ int CCMatchServer::ObjectRemove(const CCUID& uid, CCMatchObjectList::iterator* p
 		if( NULL != pChannel )
 			strChannelName = pChannel->GetName();
 
-		MAsyncDBJob_SetBlockHacking* pJob = new MAsyncDBJob_SetBlockHacking(uid);
+		CCAsyncDBJob_SetBlockHacking* pJob = new CCAsyncDBJob_SetBlockHacking(uid);
 
 		pJob->Input( pObj->GetAccountInfo()->m_nAID
 			, dwCID
@@ -1758,11 +1758,11 @@ int CCMatchServer::ObjectRemove(const CCUID& uid, CCMatchObjectList::iterator* p
 		pObj->FreeFriendInfo();
 	}
 
-	for( list<MAsyncJob*>::iterator itAJob = pObj->m_DBJobQ.DBJobQ.begin()
+	for( list<CCAsyncJob*>::iterator itAJob = pObj->m_DBJobQ.DBJobQ.begin()
 		; itAJob != pObj->m_DBJobQ.DBJobQ.end()
 		; itAJob = pObj->m_DBJobQ.DBJobQ.begin() )
 	{
-		MAsyncJob* pJob = *itAJob;
+		CCAsyncJob* pJob = *itAJob;
 
 		pObj->m_DBJobQ.DBJobQ.pop_front();
 
@@ -1841,22 +1841,22 @@ CCUID CCMatchServer::UseUID(void)
 
 void CCMatchServer::SetClientClockSynchronize(const CCUID& CommUID)
 {
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_CLOCK_SYNCHRONIZE), CommUID, m_This);
-	pNew->AddParameter(new MCommandParameterUInt(GetGlobalClockCount()));
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_CLOCK_SYNCHRONIZE), CommUID, m_This);
+	pNew->AddParameter(new CCCommandParameterUInt(GetGlobalClockCount()));
 	Post(pNew);
 }
 
 void CCMatchServer::Announce(const CCUID& CommUID, char* pszMsg)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, CommUID);
+	CCCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, CommUID);
 	pCmd->AddParameter(new MCmdParamUInt(0));
 	pCmd->AddParameter(new MCmdParamStr(pszMsg));
 	Post(pCmd);
 }
 
-void CCMatchServer::Announce(MObject* pObj, char* pszMsg)
+void CCMatchServer::Announce(CCObject* pObj, char* pszMsg)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUInt(0));
 	pCmd->AddParameter(new MCmdParamStr(pszMsg));
 	RouteToListener(pObj, pCmd);
@@ -1867,7 +1867,7 @@ void CCMatchServer::AnnounceErrorMsg(const CCUID& CommUID, const int nErrorCode)
 	// 다음 서버 패치때 Announce대신 ErrorCode로 클라이언트에 메세지를 전송할 수 있도록 만들 예정
 }
 
-void CCMatchServer::AnnounceErrorMsg(MObject* pObj, const int nErrorCode)
+void CCMatchServer::AnnounceErrorMsg(CCObject* pObj, const int nErrorCode)
 {
 
 }
@@ -1901,7 +1901,7 @@ void CCMatchServer::OnBridgePeer(const CCUID& uidChar, DWORD dwIP, DWORD nPort)
 
 	pObj->SetPeerAddr(dwIP, pszIP, (unsigned short)nPort);
 	pObj->SetBridgePeer(true);
-	pObj->SetPlayerFlag(MTD_PlayerFlags_BridgePeer, true);
+	pObj->SetPlayerFlag(CCTD_PlayerFlags_BridgePeer, true);
 
 	ResponseBridgePeer(uidChar, 0);
 }
@@ -1942,7 +1942,7 @@ void CCMatchServer::DebugTest()
 ///////////
 }
 
-void CCMatchServer::SendCommandByUDP(MCommand* pCommand, char* szIP, int nPort)
+void CCMatchServer::SendCommandByUDP(CCCommand* pCommand, char* szIP, int nPort)
 {
 	_ASSERT(0);	// 사용하지 않음
 	// 현재는 1024 size이상 보낼 수 없다.
@@ -1951,7 +1951,7 @@ void CCMatchServer::SendCommandByUDP(MCommand* pCommand, char* szIP, int nPort)
 	char* szBuf = new char[BUF_SIZE];
 	int iMaxPacketSize = BUF_SIZE;
 
-	MPacketHeader a_PacketHeader;
+	CCPacketHeader a_PacketHeader;
 	int iHeaderSize = sizeof(a_PacketHeader);
 	int size = pCommand->GetData(szBuf + iHeaderSize, iMaxPacketSize - iHeaderSize);
 	size += iHeaderSize;
@@ -1973,20 +1973,20 @@ bool CCMatchServer::UDPSocketRecvEvent(DWORD dwIP, WORD wRawPort, char* pPacket,
 		return true;
 	}
 
-	if (dwSize < sizeof(MPacketHeader)) return false;
+	if (dwSize < sizeof(CCPacketHeader)) return false;
 
-	MPacketHeader*	pPacketHeader;
-	pPacketHeader = (MPacketHeader*)pPacket;
+	CCPacketHeader*	pPacketHeader;
+	pPacketHeader = (CCPacketHeader*)pPacket;
 
 	if ((dwSize < pPacketHeader->nSize) || 
 		((pPacketHeader->nMsg != MSGID_COMMAND)&&(pPacketHeader->nMsg != MSGID_RAWCOMMAND))	) return false;
 
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
-	pServer->ParseUDPPacket(&pPacket[sizeof(MPacketHeader)], pPacketHeader, dwIP, wRawPort);
+	pServer->ParseUDPPacket(&pPacket[sizeof(CCPacketHeader)], pPacketHeader, dwIP, wRawPort);
 	return true;
 }
 
-void CCMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DWORD dwIP, WORD wRawPort)
+void CCMatchServer::ParseUDPPacket(char* pData, CCPacketHeader* pPacketHeader, DWORD dwIP, WORD wRawPort)
 {
 	switch (pPacketHeader->nMsg)
 	{
@@ -2004,7 +2004,7 @@ void CCMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DW
 				unsigned short nTotalSize = 0;
 				memcpy(&nTotalSize, pData, sizeof(nTotalSize));
 
-				MCommand* pCmd = new MCommand();
+				CCCommand* pCmd = new CCCommand();
 				if( !pCmd->SetData(pData, &m_CommandManager) )
 				{
 					delete pCmd;
@@ -2018,8 +2018,8 @@ void CCMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DW
 
 					unsigned long nPort = ntohs(wRawPort);
 
-					MCommandParameterUInt* pParamIP = (MCommandParameterUInt*)pCmd->GetParameter(1);
-					MCommandParameterUInt* pParamPort = (MCommandParameterUInt*)pCmd->GetParameter(2);
+					CCCommandParameterUInt* pParamIP = (CCCommandParameterUInt*)pCmd->GetParameter(1);
+					CCCommandParameterUInt* pParamPort = (CCCommandParameterUInt*)pCmd->GetParameter(2);
 					if (pParamIP==NULL || pParamIP->GetType()!=MPT_UINT)
 					{
 						delete pCmd;
@@ -2032,9 +2032,9 @@ void CCMatchServer::ParseUDPPacket(char* pData, MPacketHeader* pPacketHeader, DW
 					}
 
 					char pData[64];
-					MCommandParameterUInt(dwIP).GetData(pData, 64);
+					CCCommandParameterUInt(dwIP).GetData(pData, 64);
 					pParamIP->SetData(pData);
-					MCommandParameterUInt(nPort).GetData(pData, 64);
+					CCCommandParameterUInt(nPort).GetData(pData, 64);
 					pParamPort->SetData(pData);
 
 					PostSafeQueue(pCmd);
@@ -2066,7 +2066,7 @@ void CCMatchServer::ResponseBridgePeer(const CCUID& uidChar, int nCode)
 	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
-	MCommand* pNew = CreateCommand(MC_MATCH_BRIDGEPEER_ACK, CCUID(0,0));
+	CCCommand* pNew = CreateCommand(MC_MATCH_BRIDGEPEER_ACK, CCUID(0,0));
 	pNew->AddParameter(new MCmdParamUID(uidChar));
 	pNew->AddParameter(new MCmdParamInt(nCode));
 	RouteToListener(pObj, pNew);
@@ -2080,20 +2080,20 @@ void CCMatchServer::ResponsePeerList(const CCUID& uidChar, const CCUID& uidStage
 	CCMatchObject* pObj = GetObject(uidChar);
 	if (pObj == NULL) return;
 
-	MCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_PEERLIST, CCUID(0,0));
-	pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
+	CCCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_PEERLIST, CCUID(0,0));
+	pNew->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
 
 	// Battle에 들어간 사람만 List를 만든다.
 	int nPeerCount = pStage->GetObjInBattleCount();
 
-	void* pPeerArray = MMakeBlobArray(sizeof(MTD_PeerListNode), nPeerCount);
+	void* pPeerArray = MMakeBlobArray(sizeof(CCTD_PeerListNode), nPeerCount);
 	int nIndex=0;
 	for (CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;
 
-		MTD_PeerListNode* pNode = (MTD_PeerListNode*)MGetBlobArrayElement(pPeerArray, nIndex++);
-		memset(pNode, 0, sizeof(MTD_PeerListNode));
+		CCTD_PeerListNode* pNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pPeerArray, nIndex++);
+		memset(pNode, 0, sizeof(CCTD_PeerListNode));
 		
 		pNode->uidChar = pObj->GetUID();
 		pNode->dwIP = pObj->GetIP();
@@ -2107,7 +2107,7 @@ void CCMatchServer::ResponsePeerList(const CCUID& uidChar, const CCUID& uidStage
 		else								 			pNode->ExtendInfo.nTeam = 0;		
 	}
 
-	pNew->AddParameter(new MCommandParameterBlob(pPeerArray, MGetBlobArraySize(pPeerArray)));
+	pNew->AddParameter(new CCCommandParameterBlob(pPeerArray, MGetBlobArraySize(pPeerArray)));
 	MEraseBlobArray(pPeerArray);
 
 	RouteToListener(pObj, pNew);
@@ -2146,7 +2146,7 @@ void CCMatchServer::OnUserWhisper(const CCUID& uidComm, char* pszSenderName, cha
 		return;
 	}
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_USER_WHISPER, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_USER_WHISPER, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamStr(pObj->GetName()));
 	pCmd->AddParameter(new MCmdParamStr(pszTargetName));
 	pCmd->AddParameter(new MCmdParamStr(pszMessage));
@@ -2258,7 +2258,7 @@ void CCMatchServer::OnChatRoomJoin(const CCUID& uidComm, char* pszPlayerName, ch
 
 	if (pRoom->AddPlayer(uidComm)) {
 		// Notify Joinning to Participant
-		MCommand* pCmd = CreateCommand(MC_MATCH_CHATROOM_JOIN, CCUID(0,0));
+		CCCommand* pCmd = CreateCommand(MC_MATCH_CHATROOM_JOIN, CCUID(0,0));
 		pCmd->AddParameter(new MCmdParamStr(pObj->GetName()));
 		pCmd->AddParameter(new MCmdParamStr(pszChatRoomName));
 		pRoom->RouteCommand(pCmd);
@@ -2286,7 +2286,7 @@ void CCMatchServer::OnChatRoomLeave(const CCUID& uidComm, char* pszPlayerName, c
 		pChatRoomMgr->RemoveChatRoom(pRoom->GetUID());
 
 	// Notify to Player and Participant
-	MCommand* pCmd = CreateCommand(MC_MATCH_CHATROOM_LEAVE, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_CHATROOM_LEAVE, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamStr(pObj->GetName()));
 	pCmd->AddParameter(new MCmdParamStr(pszChatRoomName));
 	pRoom->RouteCommand(pCmd);
@@ -2347,7 +2347,7 @@ void CCMatchServer::OnChatRoomInvite(const CCUID& uidComm, const char* pszTarget
 		return;
 	}
 
-	MCommand* pCmd = CreateCommand(MC_MATCH_CHATROOM_INVITE, CCUID(0,0));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_CHATROOM_INVITE, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamStr(pPlayer->GetName()));
 	pCmd->AddParameter(new MCmdParamStr(const_cast<char*>(pszTargetName)));
 	pCmd->AddParameter(new MCmdParamStr(const_cast<char*>(pRoom->GetName())));
@@ -2690,7 +2690,7 @@ void CCMatchServer::UpdateCharDBCachingData(CCMatchObject* pObject)
 
 	if ((nAddedXP != 0) || (nAddedBP != 0) || (nAddedKillCount != 0) || (nAddedDeathCount != 0) || (nAddedPlayTime >= 0))
 	{
-		MAsyncDBJob_UpdateCharInfoData* pJob = new MAsyncDBJob_UpdateCharInfoData(pObject->GetUID());
+		CCAsyncDBJob_UpdateCharInfoData* pJob = new CCAsyncDBJob_UpdateCharInfoData(pObject->GetUID());
 		pJob->Input(pObject->GetCharInfo()->m_nCID, nAddedXP, nAddedBP, nAddedKillCount, nAddedDeathCount, nAddedPlayTime);
 		pObject->m_DBJobQ.DBJobQ.push_back( pJob );
 		pObject->GetCharInfo()->GetDBCachingData()->Reset();	///< 실패했는지는 알 수 없지만, 악용을 위해 Reset한다.
@@ -2708,7 +2708,7 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 	itBegin = pObject->GetCharInfo()->m_ItemList.begin();
 	itEnd = pObject->GetCharInfo()->m_ItemList.end();
 
-	MAsyncDBJob_UpdateCharItemInfoData* pJob = new MAsyncDBJob_UpdateCharItemInfoData(pObject->GetUID());
+	CCAsyncDBJob_UpdateCharItemInfoData* pJob = new CCAsyncDBJob_UpdateCharItemInfoData(pObject->GetUID());
 
 	for(; itBegin != itEnd; itBegin++) 
 	{
@@ -2749,7 +2749,7 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 				// 만약 스테이지 안이면 스테이지에 알려서 유저의 Look을 업데이트 해줘야 한다.
 				if( FindStage(pObject->GetStageUID())  )
 				{
-					MCommand* pCmd = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, CCUID(0, 0) );
+					CCCommand* pCmd = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, CCUID(0, 0) );
 					pCmd->AddParameter(new MCmdParamUID(pObject->GetUID()));
 					pCmd->AddParameter(new MCmdParamInt(nCheckParts));
 					pCmd->AddParameter(new MCmdParamInt(0));
@@ -3312,41 +3312,41 @@ unsigned long int CCMatchServer::GetStageListChecksum(CCUID& uidChannel, int nSt
 
 void CCMatchServer::BroadCastClanRenewVictories(const char* szWinnerClanName, const char* szLoserClanName, const int nVictories)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_CLAN_RENEW_VICTORIES, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterString(szWinnerClanName));
-	pCmd->AddParameter(new MCommandParameterString(szLoserClanName));
-	pCmd->AddParameter(new MCommandParameterInt(nVictories));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_CLAN_RENEW_VICTORIES, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterString(szWinnerClanName));
+	pCmd->AddParameter(new CCCommandParameterString(szLoserClanName));
+	pCmd->AddParameter(new CCCommandParameterInt(nVictories));
 
 	RouteToAllClient(pCmd);
 }
 
 void CCMatchServer::BroadCastClanInterruptVictories(const char* szWinnerClanName, const char* szLoserClanName, const int nVictories)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_CLAN_INTERRUPT_VICTORIES, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterString(szWinnerClanName));
-	pCmd->AddParameter(new MCommandParameterString(szLoserClanName));
-	pCmd->AddParameter(new MCommandParameterInt(nVictories));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_CLAN_INTERRUPT_VICTORIES, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterString(szWinnerClanName));
+	pCmd->AddParameter(new CCCommandParameterString(szLoserClanName));
+	pCmd->AddParameter(new CCCommandParameterInt(nVictories));
 
 	RouteToAllClient(pCmd);
 }
 
 void CCMatchServer::BroadCastDuelRenewVictories(const CCUID& chanID, const char* szChampionName, const char* szChannelName, int nRoomNumber, const int nVictories)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_DUEL_RENEW_VICTORIES, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterString(szChampionName));
-	pCmd->AddParameter(new MCommandParameterString(szChannelName));
-	pCmd->AddParameter(new MCommandParameterInt(nRoomNumber));
-	pCmd->AddParameter(new MCommandParameterInt(nVictories));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_DUEL_RENEW_VICTORIES, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterString(szChampionName));
+	pCmd->AddParameter(new CCCommandParameterString(szChannelName));
+	pCmd->AddParameter(new CCCommandParameterInt(nRoomNumber));
+	pCmd->AddParameter(new CCCommandParameterInt(nVictories));
 
 	RouteToChannel(chanID, pCmd);
 }
 
 void CCMatchServer::BroadCastDuelInterruptVictories(const CCUID& chanID, const char* szChampionName, const char* szInterrupterName, const int nVictories)
 {
-	MCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_DUEL_INTERRUPT_VICTORIES, CCUID(0,0));
-	pCmd->AddParameter(new MCommandParameterString(szChampionName));
-	pCmd->AddParameter(new MCommandParameterString(szInterrupterName));
-	pCmd->AddParameter(new MCommandParameterInt(nVictories));
+	CCCommand* pCmd = CreateCommand(MC_MATCH_BROADCAST_DUEL_INTERRUPT_VICTORIES, CCUID(0,0));
+	pCmd->AddParameter(new CCCommandParameterString(szChampionName));
+	pCmd->AddParameter(new CCCommandParameterString(szInterrupterName));
+	pCmd->AddParameter(new CCCommandParameterInt(nVictories));
 
 	RouteToChannel(chanID, pCmd);
 }
@@ -3441,7 +3441,7 @@ bool CCMatchServer::InitCountryFilterDB()
 
 void CCMatchServer::SetUseCountryFilter()
 {
-	MCommand* pCmd = CreateCommand( MC_LOCAL_UPDATE_USE_COUNTRY_FILTER, GetUID() );
+	CCCommand* pCmd = CreateCommand( MC_LOCAL_UPDATE_USE_COUNTRY_FILTER, GetUID() );
 	if( 0 != pCmd )
 		Post( pCmd );
 }
@@ -3449,7 +3449,7 @@ void CCMatchServer::SetUseCountryFilter()
 
 void CCMatchServer::UpdateIPtoCountryList()
 {
-	MCommand* pCmd = CreateCommand( MC_LOCAL_GET_DB_IP_TO_COUNTRY, GetUID() );
+	CCCommand* pCmd = CreateCommand( MC_LOCAL_GET_DB_IP_TO_COUNTRY, GetUID() );
 	if( 0 != pCmd )
 		Post( pCmd );
 }
@@ -3457,7 +3457,7 @@ void CCMatchServer::UpdateIPtoCountryList()
 
 void CCMatchServer::UpdateBlockCountryCodeLsit()
 {
-	MCommand* pCmd = CreateCommand( MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE, GetUID() );
+	CCCommand* pCmd = CreateCommand( MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE, GetUID() );
 	if( 0 != pCmd )
 		Post( pCmd );
 }
@@ -3465,7 +3465,7 @@ void CCMatchServer::UpdateBlockCountryCodeLsit()
 
 void CCMatchServer::UpdateCustomIPList()
 {
-	MCommand* pCmd = CreateCommand( MC_LOCAL_GET_DB_CUSTOM_IP, GetUID() );
+	CCCommand* pCmd = CreateCommand( MC_LOCAL_GET_DB_CUSTOM_IP, GetUID() );
 	if( 0 != pCmd )
 		Post( pCmd );
 }
@@ -3473,7 +3473,7 @@ void CCMatchServer::UpdateCustomIPList()
 
 void CCMatchServer::SetAccetpInvalidIP()
 {
-	MCommand* pCmd = CreateCommand( MC_LOCAL_UPDATE_ACCEPT_INVALID_IP, GetUID() );
+	CCCommand* pCmd = CreateCommand( MC_LOCAL_UPDATE_ACCEPT_INVALID_IP, GetUID() );
 	if( 0 != pCmd )
 		Post( pCmd );
 }
@@ -3546,10 +3546,10 @@ const CUSTOM_IP_STATUS CCMatchServer::CheckIsValidCustomIP( const CCUID& CommUID
 
 	if( bUseFilter && bIsBlock )
 	{
-		MCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, CommUID);
+		CCCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, CommUID);
 		if( 0 != pCmd )
 		{
-			pCmd->AddParameter( new MCommandParameterString(strComment.c_str()) );
+			pCmd->AddParameter( new CCCommandParameterString(strComment.c_str()) );
 			Post( pCmd );
 		}
 
@@ -3575,10 +3575,10 @@ const COUNT_CODE_STATUS CCMatchServer::CheckIsNonBlockCountry( const CCUID& Comm
 			return CCS_NONBLOCK;
 		else 
 		{
-			MCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, CommUID);
+			CCCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, CommUID);
 			if( 0 != pCmd )
 			{
-				pCmd->AddParameter( new MCommandParameterString(strRoutingURL.c_str()) );
+				pCmd->AddParameter( new CCCommandParameterString(strRoutingURL.c_str()) );
 				Post( pCmd );
 			}
 			return CCS_BLOCK;
@@ -3610,10 +3610,10 @@ const COUNT_CODE_STATUS CCMatchServer::CheckIsNonBlockCountry( const CCUID& Comm
 			return CCS_INVALID;			
 		}
 		
-		MCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, CommUID);
+		CCCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, CommUID);
 		if( 0 != pCmd )
 		{
-			pCmd->AddParameter( new MCommandParameterString(strCountryCode3.c_str()) );
+			pCmd->AddParameter( new CCCommandParameterString(strCountryCode3.c_str()) );
 			Post( pCmd );
 		}
 
@@ -3665,7 +3665,7 @@ void CCMatchServer::CustomCheckEventObj( const DWORD dwEventID, CCMatchObject* p
 void CCMatchServer::SendHShieldReqMsg()
 {
 	//{{RouteToAllClient HShieldReqMsg
-	MCommand* pCommand = CreateCommand(MC_HSHIELD_PING, CCUID(0,0));
+	CCCommand* pCommand = CreateCommand(MC_HSHIELD_PING, CCUID(0,0));
 	pCommand->AddParameter(new MCmdParamUInt(GetGlobalClockCount()));
 
 
@@ -3709,7 +3709,7 @@ void CCMatchServer::SendHShieldReqMsg()
 
 		pCommand->AddParameter(new MCmdParamBlob(pBlob, MGetBlobArraySize(pBlob)));
 
-		MCommand* pSendCmd = pCommand->Clone();
+		CCCommand* pSendCmd = pCommand->Clone();
 		pSendCmd->m_Receiver = pObj->GetUID();
 		Post(pSendCmd);
 
@@ -3734,7 +3734,7 @@ bool CCMatchServer::IsEquipmentTypeItem( const CCMatchItemDesc* pItemDesc )
 
 void CCMatchServer::RequestGameguardAuth( const CCUID& uidUser, const DWORD dwIndex, const DWORD dwValue1, const DWORD dwValue2, const DWORD dwValue3 )
 {
-	MCommand* pCmd = CreateCommand( MC_REQUEST_GAMEGUARD_AUTH, uidUser );
+	CCCommand* pCmd = CreateCommand( MC_REQUEST_GAMEGUARD_AUTH, uidUser );
 	if( 0 == pCmd ) 
 		return;
 
@@ -3754,7 +3754,7 @@ void CCMatchServer::RequestGameguardAuth( const CCUID& uidUser, const DWORD dwIn
 
 void CCMatchServer::RequestFirstGameguardAuth( const CCUID& uidUser, const DWORD dwIndex, const DWORD dwValue1, const DWORD dwValue2, const DWORD dwValue3 )
 {
-	MCommand* pCmd = this->CreateCommand( MC_REQUEST_FIRST_GAMEGUARD_AUTH, uidUser );
+	CCCommand* pCmd = this->CreateCommand( MC_REQUEST_FIRST_GAMEGUARD_AUTH, uidUser );
 	if( 0 == pCmd ) 
 		return;
 
@@ -3877,11 +3877,11 @@ void CCMatchServer::MakeBattleTimeRewardDescriptionMap(vector<CCMatchBRDescripti
 	BattletimeRewardDescriptionMap.MakeCRC32();
 }
 
-void CCMatchServer::OnAsyncResponse_GetBR_Description(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_GetBR_Description(CCAsyncJob *pJobResult)
 {
-	MAsyncDBJob_GetBattleTimeRewardDescription* pJob = (MAsyncDBJob_GetBattleTimeRewardDescription*)pJobResult;
+	CCAsyncDBJob_GetBattleTimeRewardDescription* pJob = (CCAsyncDBJob_GetBattleTimeRewardDescription*)pJobResult;
 
-	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
+	if( CCASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
 		cclog("CCMatchServer::OnAsyncResponse_GetBR_Description - 실패\n");
 		return;
 	}
@@ -3892,11 +3892,11 @@ void CCMatchServer::OnAsyncResponse_GetBR_Description(MAsyncJob *pJobResult)
 	GetBattleTimeRewardMachine().SetBattleTimeRewardMachine(BattletimeRewardDescriptionMap);
 }
 
-void CCMatchServer::OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_GetCharBRInfo(CCAsyncJob *pJobResult)
 {
-	MAsyncDBJob_GetCharBRInfo* pJob = (MAsyncDBJob_GetCharBRInfo*)pJobResult;
+	CCAsyncDBJob_GetCharBRInfo* pJob = (CCAsyncDBJob_GetCharBRInfo*)pJobResult;
 
-	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
+	if( CCASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
 		cclog("CCMatchServer::OnAsyncResponse_GetCharBRInfo - 실패\n");
 		return;
 	}
@@ -3922,21 +3922,21 @@ void CCMatchServer::OnAsyncResponse_GetCharBRInfo(MAsyncJob *pJobResult)
 
 }
 
-void CCMatchServer::OnAsyncResponse_UpdateCharBRInfo(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_UpdateCharBRInfo(CCAsyncJob *pJobResult)
 {
-	MAsyncDBJob_UpdateCharBRInfo* pJob = (MAsyncDBJob_UpdateCharBRInfo*)pJobResult;
+	CCAsyncDBJob_UpdateCharBRInfo* pJob = (CCAsyncDBJob_UpdateCharBRInfo*)pJobResult;
 
-	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
+	if( CCASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
 		cclog("CCMatchServer::OnAsyncResponse_UpdateCharBRInfo - 실패\n");
 		return;
 	}
 }
 
-void CCMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
+void CCMatchServer::OnAsyncResponse_RewardCharBR(CCAsyncJob *pJobResult)
 {
-	MAsyncDBJob_RewardCharBR* pJob = (MAsyncDBJob_RewardCharBR*)pJobResult;
+	CCAsyncDBJob_RewardCharBR* pJob = (CCAsyncDBJob_RewardCharBR*)pJobResult;
 
-	if( MASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
+	if( CCASYNC_RESULT_SUCCEED != pJob->GetResult() ) {
 		cclog("CCMatchServer::OnAsyncResponse_RewardCharBR - 실패\n");
 		return;
 	}
@@ -4021,7 +4021,7 @@ void CCMatchServer::OnAsyncResponse_RewardCharBR(MAsyncJob *pJobResult)
 
 void CCMatchServer::RouteCmdBattleTimeReward(const CCUID& uidPlayer, CCUID& uidStage, const char* pszName, const char* pszResetDesc, int nItemID, int nItemCnt, int nRentHourPeriod, int nRemainRewardCnt)
 {
-	MCommand* pNew = CreateCommand( MC_MATCH_REWARD_BATTLE_TIME, CCUID(0, 0) );
+	CCCommand* pNew = CreateCommand( MC_MATCH_REWARD_BATTLE_TIME, CCUID(0, 0) );
 
 	pNew->AddParameter( new MCmdParamUID(uidPlayer) );
 	pNew->AddParameter( new MCmdParamStr(pszName) );
@@ -4060,7 +4060,7 @@ void CCMatchServer::OnAsyncRequest_RewardCharBP(const CCUID& uidPlayer, int nBRI
 		}
 	}
 
-	MAsyncDBJob_RewardCharBR* pJob = new MAsyncDBJob_RewardCharBR(uidPlayer);
+	CCAsyncDBJob_RewardCharBR* pJob = new CCAsyncDBJob_RewardCharBR(uidPlayer);
 	pJob->Input(pObj->GetCharInfo()->m_nCID, nBRID, nBRTID, nRewardCount, nBattleTime, nKillCount, nItemID, nItemCnt, nRentHourPeriod, bIsSpendable);
 	pObj->m_DBJobQ.DBJobQ.push_back(pJob);
 }
@@ -4071,7 +4071,7 @@ void CCMatchServer::OnAsyncRequest_UpdateCharBRInfo(const CCUID& uidPlayer, int 
 	if( pObj == NULL ) return;
 	if( pObj->GetCharInfo() == NULL ) return;
 
-	MAsyncDBJob_UpdateCharBRInfo* pJob = new MAsyncDBJob_UpdateCharBRInfo(uidPlayer);
+	CCAsyncDBJob_UpdateCharBRInfo* pJob = new CCAsyncDBJob_UpdateCharBRInfo(uidPlayer);
 	pJob->Input(pObj->GetCharInfo()->m_nCID, nBRID, nBRTID, nRewardCount, nBattleTime, nKillCount);
 	pObj->m_DBJobQ.DBJobQ.push_back(pJob);
 }

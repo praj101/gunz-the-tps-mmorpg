@@ -29,7 +29,7 @@ void CCMatchRuleAssassinate::ChooseAdminAsCommander()
 	}
 
 	// Let players know the commander...
-	MCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, CCUID(0,0));
+	CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(m_uidRedCommander));
 	pCmd->AddParameter(new MCmdParamUID(m_uidBlueCommander));
 	pServer->RouteToStage(pStage->GetUID(), pCmd);
@@ -102,7 +102,7 @@ void CCMatchRuleAssassinate::OnRoundBegin()
 	}
 
 	// Let players know the commander...
-	MCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, CCUID(0,0));
+	CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUID(m_uidRedCommander));
 	pCmd->AddParameter(new MCmdParamUID(m_uidBlueCommander));
 	pServer->RouteToStage(pStage->GetUID(), pCmd);
@@ -156,9 +156,9 @@ bool CCMatchRuleAssassinate::OnCheckRoundFinish()
 
 void* CCMatchRuleAssassinate::CreateRuleInfoBlob()
 {
-	void* pRuleInfoArray = MMakeBlobArray(sizeof(MTD_RuleInfo_Assassinate), 1);
-	MTD_RuleInfo_Assassinate* pRuleItem = (MTD_RuleInfo_Assassinate*)MGetBlobArrayElement(pRuleInfoArray, 0);
-	memset(pRuleItem, 0, sizeof(MTD_RuleInfo_Assassinate));
+	void* pRuleInfoArray = MMakeBlobArray(sizeof(CCTD_RuleInfo_Assassinate), 1);
+	CCTD_RuleInfo_Assassinate* pRuleItem = (CCTD_RuleInfo_Assassinate*)MGetBlobArrayElement(pRuleInfoArray, 0);
+	memset(pRuleItem, 0, sizeof(CCTD_RuleInfo_Assassinate));
 	
 	pRuleItem->nRuleType = CCMATCH_GAMETYPE_ASSASSINATE;
 	pRuleItem->uidRedCommander = m_uidRedCommander;

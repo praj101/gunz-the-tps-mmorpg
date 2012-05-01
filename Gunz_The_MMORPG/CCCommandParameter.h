@@ -5,11 +5,11 @@
 #include "CCTypes.h"
 #include "mempool.h"
 #define _CRT_SECURE_NO_WARNINGS
-class MCommandParamCondition;
-class MCommandParamConditionMinMax;
+class CCCommandParamCondition;
+class CCCommandParamConditionMinMax;
 
 /// 커맨드 파라미터 타입
-enum MCommandParameterType{
+enum CCCommandParameterType{
 	MPT_INT		= 0,
 	MPT_UINT	= 1,
 	MPT_FLOAT	= 2,
@@ -40,39 +40,39 @@ enum MCommandParameterType{
 
 
 /// Command Parameter Description
-class MCommandParameterDesc{
+class CCCommandParameterDesc{
 protected:
-	MCommandParameterType				m_nType;
+	CCCommandParameterType				m_nType;
 	char								m_szDescription[64];
-	vector<MCommandParamCondition*>		m_Conditions;
+	vector<CCCommandParamCondition*>		m_Conditions;
 	void								InitializeConditions();
 public:
-	MCommandParameterDesc(MCommandParameterType nType, char* szDescription);
-	virtual ~MCommandParameterDesc(void);
+	CCCommandParameterDesc(CCCommandParameterType nType, char* szDescription);
+	virtual ~CCCommandParameterDesc(void);
 
-	MCommandParameterType GetType(void){ return m_nType; }
+	CCCommandParameterType GetType(void){ return m_nType; }
 	const char* GetDescription(void){ return m_szDescription; }
 
-	void AddCondition(MCommandParamCondition* pCondition);
+	void AddCondition(CCCommandParamCondition* pCondition);
 	bool HasConditions() { return (!m_Conditions.empty()); }
 	int GetConditionCount() { return (int)m_Conditions.size(); }
-	MCommandParamCondition* GetCondition(int n) { return m_Conditions[n]; }
+	CCCommandParamCondition* GetCondition(int n) { return m_Conditions[n]; }
 
 };
 
 
 /// Command Parameter Abstract Class
-class MCommandParameter{
+class CCCommandParameter{
 protected:
-	MCommandParameterType	m_nType;
+	CCCommandParameterType	m_nType;
 public:
-	MCommandParameter(MCommandParameterType nType){ m_nType = nType; }
-	virtual ~MCommandParameter(void){}
+	CCCommandParameter(CCCommandParameterType nType){ m_nType = nType; }
+	virtual ~CCCommandParameter(void){}
 
-	MCommandParameterType GetType(void){ return m_nType; }
+	CCCommandParameterType GetType(void){ return m_nType; }
 
 	/// 같은 파라미티 타입으로 복제
-	virtual MCommandParameter* Clone(void) = 0;
+	virtual CCCommandParameter* Clone(void) = 0;
 	/// 값 얻어내기
 	virtual void GetValue(void* p) = 0;
 	/// 메모리 블럭으로 저장
@@ -91,14 +91,14 @@ public:
 };
 
 /// 정수 파라미터
-class MCommandParameterInt : public MCommandParameter, public CMemPool<MCommandParameterInt> {
+class CCCommandParameterInt : public CCCommandParameter, public CMemPool<CCCommandParameterInt> {
 public:
 	int		m_Value;
 public:
-	MCommandParameterInt(void);
-	MCommandParameterInt(int Value);
+	CCCommandParameterInt(void);
+	CCCommandParameterInt(int Value);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -109,14 +109,14 @@ public:
 };
 
 /// 양수
-class MCommandParameterUInt : public MCommandParameter, public CMemPool<MCommandParameterUInt> {
+class CCCommandParameterUInt : public CCCommandParameter, public CMemPool<CCCommandParameterUInt> {
 public:
 	unsigned int		m_Value;
 public:
-	MCommandParameterUInt(void);
-	MCommandParameterUInt(unsigned int Value);
+	CCCommandParameterUInt(void);
+	CCCommandParameterUInt(unsigned int Value);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -127,14 +127,14 @@ public:
 };
 
 /// 소수 파라미터
-class MCommandParameterFloat : public MCommandParameter, public CMemPool<MCommandParameterFloat> {
+class CCCommandParameterFloat : public CCCommandParameter, public CMemPool<CCCommandParameterFloat> {
 public:
 	float	m_Value;
 public:
-	MCommandParameterFloat(void);
-	MCommandParameterFloat(float Value);
+	CCCommandParameterFloat(void);
+	CCCommandParameterFloat(float Value);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -145,15 +145,15 @@ public:
 };
 
 /// 스트링 파라미터(65533이하의 문자)
-class MCommandParameterString : public MCommandParameter{
+class CCCommandParameterString : public CCCommandParameter{
 public:
 	char*	m_Value;
 public:
-	MCommandParameterString(void);
-	MCommandParameterString(const char* Value);
-	virtual ~MCommandParameterString(void);
+	CCCommandParameterString(void);
+	CCCommandParameterString(const char* Value);
+	virtual ~CCCommandParameterString(void);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -175,17 +175,17 @@ public:
 };
 
 /// 3D 벡터 파라미터
-class MCommandParameterVector : public MCommandParameter {
+class CCCommandParameterVector : public CCCommandParameter {
 public:
 	float	m_fX;
 	float	m_fY;
 	float	m_fZ;
 public:
-	MCommandParameterVector(void);
-	MCommandParameterVector(float x ,float y, float z);
-	virtual ~MCommandParameterVector(void);
+	CCCommandParameterVector(void);
+	CCCommandParameterVector(float x ,float y, float z);
+	virtual ~CCCommandParameterVector(void);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -196,48 +196,48 @@ public:
 };
 
 /// 3D 포지션 파라미터
-class MCommandParameterPos : public MCommandParameterVector, public CMemPool<MCommandParameterPos> {
+class CCCommandParameterPos : public CCCommandParameterVector, public CMemPool<CCCommandParameterPos> {
 public:
-	MCommandParameterPos(void) : MCommandParameterVector() { m_nType=MPT_POS; }
-	MCommandParameterPos(float x, float y, float z) : MCommandParameterVector(x, y, z){ m_nType=MPT_POS; }
-	virtual ~MCommandParameterPos() { }
+	CCCommandParameterPos(void) : CCCommandParameterVector() { m_nType=MPT_POS; }
+	CCCommandParameterPos(float x, float y, float z) : CCCommandParameterVector(x, y, z){ m_nType=MPT_POS; }
+	virtual ~CCCommandParameterPos() { }
 
-	virtual MCommandParameter* Clone(void){ return new MCommandParameterPos(m_fX, m_fY, m_fZ); }
+	virtual CCCommandParameter* Clone(void){ return new CCCommandParameterPos(m_fX, m_fY, m_fZ); }
 	virtual const char* GetClassName(void){ return "Pos"; }
 };
 
 /// 3D 디렉션 파라미터
-class MCommandParameterDir : public MCommandParameterVector, public CMemPool<MCommandParameterDir> {
+class CCCommandParameterDir : public CCCommandParameterVector, public CMemPool<CCCommandParameterDir> {
 public:
-	MCommandParameterDir(void) : MCommandParameterVector() { m_nType=MPT_DIR; }
-	MCommandParameterDir(float x, float y, float z) : MCommandParameterVector(x, y, z){ m_nType=MPT_DIR; }
-	virtual ~MCommandParameterDir() { }
+	CCCommandParameterDir(void) : CCCommandParameterVector() { m_nType=MPT_DIR; }
+	CCCommandParameterDir(float x, float y, float z) : CCCommandParameterVector(x, y, z){ m_nType=MPT_DIR; }
+	virtual ~CCCommandParameterDir() { }
 
-	virtual MCommandParameter* Clone(void){ return new MCommandParameterDir(m_fX, m_fY, m_fZ); }
+	virtual CCCommandParameter* Clone(void){ return new CCCommandParameterDir(m_fX, m_fY, m_fZ); }
 	virtual const char* GetClassName(void){ return "Dir"; }
 };
 
 /// RGB 컬러 파라미터(나중에 Alpha값 추가될 예정)
-class MCommandParameterColor : public MCommandParameterVector, public CMemPool<MCommandParameterColor> {
+class CCCommandParameterColor : public CCCommandParameterVector, public CMemPool<CCCommandParameterColor> {
 public:
-	MCommandParameterColor(void) : MCommandParameterVector() { m_nType=MPT_COLOR; }
-	MCommandParameterColor(float r, float g, float b) : MCommandParameterVector(r, g, b){ m_nType=MPT_COLOR; }
-	virtual ~MCommandParameterColor() { }
+	CCCommandParameterColor(void) : CCCommandParameterVector() { m_nType=MPT_COLOR; }
+	CCCommandParameterColor(float r, float g, float b) : CCCommandParameterVector(r, g, b){ m_nType=MPT_COLOR; }
+	virtual ~CCCommandParameterColor() { }
 
-	virtual MCommandParameter* Clone(void){ return new MCommandParameterColor(m_fX, m_fY, m_fZ); }
+	virtual CCCommandParameter* Clone(void){ return new CCCommandParameterColor(m_fX, m_fY, m_fZ); }
 	virtual const char* GetClassName(void){ return "Color"; }
 };
 
 /// Bool 파라미터
-class MCommandParameterBool : public MCommandParameter, public CMemPool<MCommandParameterBool> {
+class CCCommandParameterBool : public CCCommandParameter, public CMemPool<CCCommandParameterBool> {
 	bool	m_Value;
 public:
-	MCommandParameterBool(void) : MCommandParameter(MPT_BOOL) { }
-	MCommandParameterBool(bool bValue) : MCommandParameter(MPT_BOOL) {
+	CCCommandParameterBool(void) : CCCommandParameter(MPT_BOOL) { }
+	CCCommandParameterBool(bool bValue) : CCCommandParameter(MPT_BOOL) {
 		m_Value = bValue;
 	}
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -248,15 +248,15 @@ public:
 };
 
 /// CCUID 파라미터
-class MCommandParameterUID : public MCommandParameter, public CMemPool<MCommandParameterUID> {
+class CCCommandParameterUID : public CCCommandParameter, public CMemPool<CCCommandParameterUID> {
 public:
 	CCUID	m_Value;
 public:
-	MCommandParameterUID(void);
-	MCommandParameterUID(const CCUID& uid);
-	virtual ~MCommandParameterUID(void);
+	CCCommandParameterUID(void);
+	CCCommandParameterUID(const CCUID& uid);
+	virtual ~CCCommandParameterUID(void);
 
-	virtual MCommandParameterUID* Clone(void);
+	virtual CCCommandParameterUID* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -266,16 +266,16 @@ public:
 	virtual int GetSize() { return sizeof(CCUID); }
 };
 
-class MCommandParameterBlob : public MCommandParameter{
+class CCCommandParameterBlob : public CCCommandParameter{
 public:
 	void*	m_Value;
 	unsigned int	m_nSize;
 public:
-	MCommandParameterBlob(void);
-	MCommandParameterBlob(const void* Value, int nSize);
-	virtual ~MCommandParameterBlob(void);
+	CCCommandParameterBlob(void);
+	CCCommandParameterBlob(const void* Value, int nSize);
+	virtual ~CCCommandParameterBlob(void);
 
-	virtual MCommandParameterBlob* Clone(void);
+	virtual CCCommandParameterBlob* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -287,15 +287,15 @@ public:
 
 
 /// char형 파라미터
-class MCommandParameterChar : public MCommandParameter, public CMemPool<MCommandParameterChar>
+class CCCommandParameterChar : public CCCommandParameter, public CMemPool<CCCommandParameterChar>
 {
 public:
 	char	m_Value;
 public:
-	MCommandParameterChar(void);
-	MCommandParameterChar(char Value);
+	CCCommandParameterChar(void);
+	CCCommandParameterChar(char Value);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -307,15 +307,15 @@ public:
 
 
 /// unsigned char형 파라미터
-class MCommandParameterUChar : public MCommandParameter, public CMemPool<MCommandParameterUChar>
+class CCCommandParameterUChar : public CCCommandParameter, public CMemPool<CCCommandParameterUChar>
 {
 public:
 	unsigned char	m_Value;
 public:
-	MCommandParameterUChar(void);
-	MCommandParameterUChar(unsigned char Value);
+	CCCommandParameterUChar(void);
+	CCCommandParameterUChar(unsigned char Value);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -327,15 +327,15 @@ public:
 
 
 /// short형 파라미터
-class MCommandParameterShort : public MCommandParameter, public CMemPool<MCommandParameterShort>
+class CCCommandParameterShort : public CCCommandParameter, public CMemPool<CCCommandParameterShort>
 {
 public:
 	short	m_Value;
 public:
-	MCommandParameterShort(void);
-	MCommandParameterShort(short Value);
+	CCCommandParameterShort(void);
+	CCCommandParameterShort(short Value);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -346,15 +346,15 @@ public:
 };
 
 /// unsigned short형 파라미터
-class MCommandParameterUShort : public MCommandParameter, public CMemPool<MCommandParameterUShort>
+class CCCommandParameterUShort : public CCCommandParameter, public CMemPool<CCCommandParameterUShort>
 {
 public:
 	unsigned short	m_Value;
 public:
-	MCommandParameterUShort(void);
-	MCommandParameterUShort(unsigned short Value);
+	CCCommandParameterUShort(void);
+	CCCommandParameterUShort(unsigned short Value);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -366,15 +366,15 @@ public:
 
 
 /// int64형 파라미터
-class MCommandParameterInt64 : public MCommandParameter, public CMemPool<MCommandParameterInt64>
+class CCCommandParameterInt64 : public CCCommandParameter, public CMemPool<CCCommandParameterInt64>
 {
 public:
 	int64	m_Value;
 public:
-	MCommandParameterInt64(void);
-	MCommandParameterInt64(int64 Value);
+	CCCommandParameterInt64(void);
+	CCCommandParameterInt64(int64 Value);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -385,15 +385,15 @@ public:
 };
 
 /// unsigned int64형 파라미터
-class MCommandParameterUInt64 : public MCommandParameter, public CMemPool<MCommandParameterUInt64>
+class CCCommandParameterUInt64 : public CCCommandParameter, public CMemPool<CCCommandParameterUInt64>
 {
 public:
 	uint64	m_Value;
 public:
-	MCommandParameterUInt64(void);
-	MCommandParameterUInt64(uint64 Value);
+	CCCommandParameterUInt64(void);
+	CCCommandParameterUInt64(uint64 Value);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -405,18 +405,18 @@ public:
 
 
 /// short형 3D 벡터 파라미터
-class MCommandParameterShortVector : public MCommandParameter, public CMemPool<MCommandParameterShortVector> {
+class CCCommandParameterShortVector : public CCCommandParameter, public CMemPool<CCCommandParameterShortVector> {
 public:
 	short	m_nX;
 	short	m_nY;
 	short	m_nZ;
 public:
-	MCommandParameterShortVector(void);
-	MCommandParameterShortVector(short x ,short y, short z);
-	MCommandParameterShortVector(float x ,float y, float z);	///< 내부에서 short로 변환해준다.
-	virtual ~MCommandParameterShortVector(void);
+	CCCommandParameterShortVector(void);
+	CCCommandParameterShortVector(short x ,short y, short z);
+	CCCommandParameterShortVector(float x ,float y, float z);	///< 내부에서 short로 변환해준다.
+	virtual ~CCCommandParameterShortVector(void);
 
-	virtual MCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone(void);
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
@@ -428,48 +428,48 @@ public:
 
 
 /// Command Parameter Condition Abstract Class
-class MCommandParamCondition
+class CCCommandParamCondition
 {
 public:
-	MCommandParamCondition(void) {}
-	virtual ~MCommandParamCondition(void) {}
-	virtual bool Check(MCommandParameter* pCP) = 0;
+	CCCommandParamCondition(void) {}
+	virtual ~CCCommandParamCondition(void) {}
+	virtual bool Check(CCCommandParameter* pCP) = 0;
 };
 
-class MCommandParamConditionMinMax : public MCommandParamCondition
+class CCCommandParamConditionMinMax : public CCCommandParamCondition
 {
 private:
 	int m_nMin;
 	int m_nMax;
 public:
-	MCommandParamConditionMinMax(int nMin, int nMax) : m_nMin(nMin), m_nMax(nMax) {}
-	virtual ~MCommandParamConditionMinMax(void) {}
-	virtual bool Check(MCommandParameter* pCP);
+	CCCommandParamConditionMinMax(int nMin, int nMax) : m_nMin(nMin), m_nMax(nMax) {}
+	virtual ~CCCommandParamConditionMinMax(void) {}
+	virtual bool Check(CCCommandParameter* pCP);
 };
 
 
 
 // Short Name
-typedef MCommandParameterBlob			MCmdParamBlob;
-typedef	MCommandParameterUID			MCmdParamUID;
-typedef MCommandParameter				MCmdParam;
-typedef MCommandParameterDesc			MCmdParamDesc;
-typedef MCommandParameterInt			MCmdParamInt;
-typedef MCommandParameterUInt			MCmdParamUInt;
-typedef MCommandParameterFloat			MCmdParamFloat;
-typedef MCommandParameterString			MCmdParamStr;
-typedef MCommandParameterVector			MCmdParamVector;
-typedef MCommandParameterPos			MCmdParamPos;
-typedef MCommandParameterDir			MCmdParamDir;
-typedef MCommandParameterColor			MCmdParamColor;
-typedef MCommandParameterBool			MCmdParamBool;
-typedef MCommandParameterChar			MCmdParamChar;
-typedef MCommandParameterUChar			MCmdParamUChar;
-typedef MCommandParameterShort			MCmdParamShort;
-typedef MCommandParameterUShort			MCmdParamUShort;
-typedef MCommandParameterInt64			MCmdParamInt64;
-typedef MCommandParameterUInt64			MCmdParamUInt64;
-typedef MCommandParameterShortVector	MCmdParamShortVector;
+typedef CCCommandParameterBlob			MCmdParamBlob;
+typedef	CCCommandParameterUID			MCmdParamUID;
+typedef CCCommandParameter				MCmdParam;
+typedef CCCommandParameterDesc			MCmdParamDesc;
+typedef CCCommandParameterInt			MCmdParamInt;
+typedef CCCommandParameterUInt			MCmdParamUInt;
+typedef CCCommandParameterFloat			MCmdParamFloat;
+typedef CCCommandParameterString			MCmdParamStr;
+typedef CCCommandParameterVector			MCmdParamVector;
+typedef CCCommandParameterPos			MCmdParamPos;
+typedef CCCommandParameterDir			MCmdParamDir;
+typedef CCCommandParameterColor			MCmdParamColor;
+typedef CCCommandParameterBool			MCmdParamBool;
+typedef CCCommandParameterChar			MCmdParamChar;
+typedef CCCommandParameterUChar			MCmdParamUChar;
+typedef CCCommandParameterShort			MCmdParamShort;
+typedef CCCommandParameterUShort			MCmdParamUShort;
+typedef CCCommandParameterInt64			MCmdParamInt64;
+typedef CCCommandParameterUInt64			MCmdParamUInt64;
+typedef CCCommandParameterShortVector	MCmdParamShortVector;
 
 
 

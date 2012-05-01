@@ -11,7 +11,7 @@
 #include "MEmblemMgr.h"
 #include "ZCommandUDPHackShield.h"
 
-typedef bool(ZONCOMMANDCALLBACK)(MCommand* pCommand);
+typedef bool(ZONCOMMANDCALLBACK)(CCCommand* pCommand);
 class MListBox;
 class ZCharacterViewList;
 class UPnP;
@@ -100,13 +100,13 @@ protected:
 	CCMatchStageSetting		m_MatchStageSetting;
 	bool					m_bForcedEntry;		///< 난입해서 들어가는지 여부
 protected:
-	virtual bool OnCommand(MCommand* pCommand);
+	virtual bool OnCommand(CCCommand* pCommand);
 	virtual bool OnSockDisconnect(SOCKET sock);
 	virtual bool OnSockConnect(SOCKET sock);
 	virtual void OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &ErrorCode);
 	virtual int OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp);
-	virtual void OnRegisterCommand(MCommandManager* pCommandManager);
-	virtual void OnPrepareCommand(MCommand* pCommand);	///< 커맨드를 처리하기 전에
+	virtual void OnRegisterCommand(CCCommandManager* pCommandManager);
+	virtual void OnPrepareCommand(CCCommand* pCommand);	///< 커맨드를 처리하기 전에
 	virtual int OnResponseMatchLogin(const CCUID& uidServer, int nResult, const char* szServerName, const CCMatchServerMode nServerMode,
 									 const char* szAccountID, const CCMatchUserGradeID nUGradeID, const CCMatchPremiumGradeID nPGradeID,
 									 const CCUID& uidPlayer, bool bEnabledSurvivalMode, bool bEnabledDuelTournament, unsigned char* szEncryptMsg);	// update sgk 0409
@@ -135,7 +135,7 @@ protected:
 
 	void OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsigned int nRoomNo, char* szStageName);
 	void OnStageLeave(const CCUID& uidChar, const CCUID& uidStage);
-//	void OnStageEnterBattle(const CCUID& uidChar, const CCUID& uidStage, MCmdEnterBattleParam nParam, MTD_PeerListNode* pPeerNode);
+//	void OnStageEnterBattle(const CCUID& uidChar, const CCUID& uidStage, MCmdEnterBattleParam nParam, CCTD_PeerListNode* pPeerNode);
 //	void OnStageLeaveBattle(const CCUID& uidChar, const CCUID& uidStage);
 	void OnStageStart(const CCUID& uidChar, const CCUID& uidStage, int nCountdown);
 	void OnStageRelayStart();
@@ -246,7 +246,7 @@ public:
 	unsigned long int GetClockCount(void) { return timeGetTime(); }		// 로컬 클럭 반환
 	unsigned long int GetGlobalClockCount(void);		///< 서버와 동기된 클럭을 반환한다.
 
-	virtual void OutputMessage(const char* szMessage, MZMOMType nType=MZMDM_GENERAL);
+	virtual void OutputMessage(const char* szMessage, CCZMOMType nType=CCZMDM_GENERAL);
 	
 	void SetOnCommandCallback(ZONCOMMANDCALLBACK pCallback) { m_fnOnCommandCallback = pCallback;}
 
@@ -372,25 +372,25 @@ protected:
 
 
 
-bool ZPostCommand(MCommand* pCmd);
+bool ZPostCommand(CCCommand* pCmd);
 
 // 내 플레이어의 uid
 #define ZGetMyUID() (ZGetGameClient() ? ZGetGameClient()->GetPlayerUID() : CCUID(0,0))
 
 
-MCommand* ZNewCmd(int nID);
+CCCommand* ZNewCmd(int nID);
 
 unsigned long int ZGetClockDistance(unsigned long int nGlobalClock, unsigned long int nLocalClock);
 
 // Post Command Macro For Convenience
-#define ZPOSTCMD0(_ID)									{ MCommand* pC=ZNewCmd(_ID); ZPostCommand(pC); }
-#define ZPOSTCMD1(_ID, _P0)								{ MCommand* pC=ZNewCmd(_ID); pC->AP(_P0); ZPostCommand(pC); }
-#define ZPOSTCMD2(_ID, _P0, _P1)						{ MCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); ZPostCommand(pC); }
-#define ZPOSTCMD3(_ID, _P0, _P1, _P2)					{ MCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); ZPostCommand(pC); }
-#define ZPOSTCMD4(_ID, _P0, _P1, _P2, _P3)				{ MCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); pC->AP(_P3); ZPostCommand(pC); }
-#define ZPOSTCMD5(_ID, _P0, _P1, _P2, _P3, _P4)			{ MCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); pC->AP(_P3); pC->AP(_P4); ZPostCommand(pC); }
-#define ZPOSTCMD6(_ID, _P0, _P1, _P2, _P3, _P4, _P5)	{ MCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); pC->AP(_P3); pC->AP(_P4); pC->AP(_P5); ZPostCommand(pC); }
-#define ZPOSTCMD7(_ID, _P0, _P1, _P2, _P3, _P4, _P5, _P6)	{ MCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); pC->AP(_P3); pC->AP(_P4); pC->AP(_P5); pC->AP(_P6); ZPostCommand(pC); }
+#define ZPOSTCMD0(_ID)									{ CCCommand* pC=ZNewCmd(_ID); ZPostCommand(pC); }
+#define ZPOSTCMD1(_ID, _P0)								{ CCCommand* pC=ZNewCmd(_ID); pC->AP(_P0); ZPostCommand(pC); }
+#define ZPOSTCMD2(_ID, _P0, _P1)						{ CCCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); ZPostCommand(pC); }
+#define ZPOSTCMD3(_ID, _P0, _P1, _P2)					{ CCCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); ZPostCommand(pC); }
+#define ZPOSTCMD4(_ID, _P0, _P1, _P2, _P3)				{ CCCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); pC->AP(_P3); ZPostCommand(pC); }
+#define ZPOSTCMD5(_ID, _P0, _P1, _P2, _P3, _P4)			{ CCCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); pC->AP(_P3); pC->AP(_P4); ZPostCommand(pC); }
+#define ZPOSTCMD6(_ID, _P0, _P1, _P2, _P3, _P4, _P5)	{ CCCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); pC->AP(_P3); pC->AP(_P4); pC->AP(_P5); ZPostCommand(pC); }
+#define ZPOSTCMD7(_ID, _P0, _P1, _P2, _P3, _P4, _P5, _P6)	{ CCCommand* pC=ZNewCmd(_ID); pC->AP(_P0); pC->AP(_P1); pC->AP(_P2); pC->AP(_P3); pC->AP(_P4); pC->AP(_P5); pC->AP(_P6); ZPostCommand(pC); }
 
 #define HANDLE_COMMAND(message, fn)    \
 	case (message): return fn(pCommand);
