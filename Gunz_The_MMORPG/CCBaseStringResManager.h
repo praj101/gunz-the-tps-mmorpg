@@ -8,10 +8,10 @@ const char FILENAME_MESSAGES[]			= "messages.xml";
 
 
 
-class MBaseStringResManager
+class CCBaseStringResManager
 {
 protected:
-	static MBaseStringResManager*	m_pInstance;
+	static CCBaseStringResManager*	m_pInstance;
 	string							m_strPath;
 	CCZFileSystem*					m_pFS;
 	MStringRes<int>					m_ErrorTable;
@@ -19,10 +19,10 @@ protected:
 
 	virtual bool OnInit() { return true; }
 public:
-	MBaseStringResManager();
-	virtual ~MBaseStringResManager();
+	CCBaseStringResManager();
+	virtual ~CCBaseStringResManager();
 	bool Init(const char* szPath, const int nLangID, CCZFileSystem* pfs=NULL );
-	static MBaseStringResManager* GetInstance();
+	static CCBaseStringResManager* GetInstance();
 	static void FreeInstance();
 
 	const char* GetErrorStr(int nID);
@@ -31,7 +31,7 @@ public:
 };
 
 
-inline MBaseStringResManager* MGetStringResManager()
+inline CCBaseStringResManager* MGetStringResManager()
 {
-	return MBaseStringResManager::GetInstance();
+	return CCBaseStringResManager::GetInstance();
 }

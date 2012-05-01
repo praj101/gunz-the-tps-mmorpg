@@ -894,7 +894,7 @@ void CCMatchStage::OnFinishGame()
 				bIsDrawGame = true;
 			}
 
-			MBaseTeamGameStrategy* pTeamGameStrategy = MBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+			CCBaseTeamGameStrategy* pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
 			if (pTeamGameStrategy)
 			{
 				pTeamGameStrategy->SavePointOnFinishGame(this, nWinnerTeam, bIsDrawGame, &m_Teams[CCMT_RED].LadderInfo,

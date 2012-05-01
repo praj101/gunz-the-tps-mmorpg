@@ -10,7 +10,7 @@
 // 아이템. 서버, 클라이언트 공통의 부모 클래스
 // 서버는 CCMatchItem
 // 클라이언트는 ZMyItemNode
-class MBaseItem
+class CCBaseItem
 {
 protected:
 	bool				m_bIsRentItem;						///< 기간제 아이템인지 여부
@@ -19,8 +19,8 @@ protected:
 	WORD				m_wRentHourPeriod;					///< 기간제 아이템일경우 최대 사용 시간.
 
 public:
-	MBaseItem(): m_bIsRentItem(false), m_nRentMinutePeriodRemainder(RENT_MINUTE_PERIOD_UNLIMITED), m_nCount(0), m_wRentHourPeriod(RENT_PERIOD_UNLIMITED)  { }
-	virtual	~MBaseItem() {}
+	CCBaseItem(): m_bIsRentItem(false), m_nRentMinutePeriodRemainder(RENT_MINUTE_PERIOD_UNLIMITED), m_nCount(0), m_wRentHourPeriod(RENT_PERIOD_UNLIMITED)  { }
+	virtual	~CCBaseItem() {}
 	
 	int			GetRentMinutePeriodRemainder() const	{ return ((IsRentItem()) ? m_nRentMinutePeriodRemainder : RENT_MINUTE_PERIOD_UNLIMITED); }
 	const WORD	GetRentHourPeriod() const				{ return m_wRentHourPeriod; }

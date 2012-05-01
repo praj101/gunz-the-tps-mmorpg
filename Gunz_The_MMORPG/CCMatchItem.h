@@ -501,7 +501,7 @@ typedef struct _DBCharItemCachingData
 } DBCharItemCachingData;
 
 
-class CCMatchItem : public MBaseItem
+class CCMatchItem : public CCBaseItem
 {
 private:
 protected:

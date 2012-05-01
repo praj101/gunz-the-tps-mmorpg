@@ -1,7 +1,4 @@
-#ifndef _MSYNC_H
-#define _MSYNC_H
-
-//#pragma once
+#pragma once
 
 
 class CCCriticalSection {
@@ -15,12 +12,12 @@ public:
 };
 
 
-class MSignalEvent {
+class CCSignalEvent {
 	HANDLE		m_hEvent;
 
 public:
-	MSignalEvent() { m_hEvent = CreateEvent(NULL, FALSE, FALSE, NULL); }
-	~MSignalEvent() { if (m_hEvent) { CloseHandle(m_hEvent); m_hEvent = NULL; } }
+	CCSignalEvent() { m_hEvent = CreateEvent(NULL, FALSE, FALSE, NULL); }
+	~CCSignalEvent() { if (m_hEvent) { CloseHandle(m_hEvent); m_hEvent = NULL; } }
 	HANDLE GetEvent() { return m_hEvent; }
 	BOOL SetEvent() { return ::SetEvent(m_hEvent); }
 	BOOL ResetEvent() { return ::ResetEvent(m_hEvent); }
@@ -72,5 +69,3 @@ public:
 		}
 	}
 };
-
-#endif

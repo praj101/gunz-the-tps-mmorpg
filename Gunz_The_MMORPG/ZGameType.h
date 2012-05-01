@@ -2,10 +2,10 @@
 #define _ZGAMETYPE_H
 
 
-#include "MBaseGameType.h"
+#include "CCBaseGameType.h"
 
 
-class ZGameTypeManager : public MBaseGameTypeCatalogue
+class ZGameTypeManager : public CCBaseGameTypeCatalogue
 {
 public:
 	ZGameTypeManager();

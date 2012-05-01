@@ -1,7 +1,7 @@
 #ifndef _ZQUEST_GAMEINFO_H
 #define _ZQUEST_GAMEINFO_H
 
-#include "MBaseQuest.h"
+#include "CCBaseQuest.h"
 #include "CCQuestLevel.h"
 #include <vector>
 using namespace std;

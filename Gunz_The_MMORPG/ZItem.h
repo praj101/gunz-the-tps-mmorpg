@@ -4,7 +4,7 @@
 #include "CCMatchItem.h"
 
 
-// 이거 나중에 MBaseItem을 부모로 하도록 바뀌어야 한다.
+// 이거 나중에 CCBaseItem을 부모로 하도록 바뀌어야 한다.
 class ZItem : public CCMatchItem
 {
 private:

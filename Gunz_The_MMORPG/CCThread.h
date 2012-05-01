@@ -3,14 +3,14 @@
 #include <MMsystem.h>
 
 
-class MThread {
+class CCThread {
 protected:
 	HANDLE		m_hThread;
 	DWORD		m_idThread;
 
 public:
-	MThread();
-	virtual ~MThread();
+	CCThread();
+	virtual ~CCThread();
 	void Create();
 	void Destroy();
 

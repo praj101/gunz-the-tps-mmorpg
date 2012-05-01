@@ -3,7 +3,7 @@
 
 #include "ZPrerequisites.h"
 #include "CCMatchItem.h"
-#include "MBaseItem.h"
+#include "CCBaseItem.h"
 #include "CCMatchGambleItem.h"
 #include "ZMyItem.h"
 #include "ZMyQuestItem.h"

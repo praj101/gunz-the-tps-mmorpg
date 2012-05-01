@@ -31,7 +31,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 int CCMatchServer::ValidateChallengeLadderGame(CCMatchObject** ppMemberObject, int nMemberCount)
 {
-	MBaseTeamGameStrategy* pTeamGameStrategy = MBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+	CCBaseTeamGameStrategy* pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
 	if (pTeamGameStrategy)
 	{
 		int nRet = pTeamGameStrategy->ValidateChallenge(ppMemberObject, nMemberCount);
@@ -112,7 +112,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	//////////////////////////////////////////////////////////////////////////////
 	int nRandomMap = 0;
 	// 클랜전은 Stage의 팀정보에 CLID까지 설정해야한다.
-	MBaseTeamGameStrategy* pTeamGameStrategy = MBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+	CCBaseTeamGameStrategy* pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
 	if (pTeamGameStrategy)
 	{
 		nRandomMap = pTeamGameStrategy->GetRandomMap((int)pGroupA->GetPlayerCount());
@@ -262,9 +262,9 @@ void CCMatchServer::OnLadderRequestChallenge(const CCUID& uidRequestMember, void
 
 	int nTeamID = 0;
 
-	MBaseTeamGameStrategy* pTeamGameStrategy = NULL;
+	CCBaseTeamGameStrategy* pTeamGameStrategy = NULL;
 
-	pTeamGameStrategy = MBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+	pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
 	if (pTeamGameStrategy)
 	{
         nTeamID = pTeamGameStrategy->GetNewGroupID(pLeaderObject, pMemberObjects, nMemberCount);

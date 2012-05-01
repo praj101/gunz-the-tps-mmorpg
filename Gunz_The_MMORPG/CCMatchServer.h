@@ -99,7 +99,7 @@ protected:
 
 
 	DWORD				m_checkMemory8;
-	MSafeUDP			m_SafeUDP;
+	CCSafeUDP			m_SafeUDP;
 	DWORD				m_checkMemory9;
 	CCMatchDBMgr			m_MatchDBMgr;
 	DWORD				m_checkMemory10;
@@ -226,7 +226,7 @@ protected:
 	int MessageSay(CCUID& uid, char* pszSay);
 
 	/// UDP
-	MSafeUDP* GetSafeUDP() { return &m_SafeUDP; }
+	CCSafeUDP* GetSafeUDP() { return &m_SafeUDP; }
 	void SendCommandByUDP(MCommand* pCommand, char* szIP, int nPort);
 	void ParsePacket(char* pData, MPacketHeader* pPacketHeader, DWORD dwIP, WORD wRawPort);
 	static bool UDPSocketRecvEvent(DWORD dwIP, WORD wRawPort, char* pPacket, DWORD dwSize);

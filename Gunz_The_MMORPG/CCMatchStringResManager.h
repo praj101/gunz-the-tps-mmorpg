@@ -3,7 +3,7 @@
 
 #include "CCBaseStringResManager.h"
 
-class CCMatchStringResManager : public MBaseStringResManager
+class CCMatchStringResManager : public CCBaseStringResManager
 {
 public:
 	CCMatchStringResManager();

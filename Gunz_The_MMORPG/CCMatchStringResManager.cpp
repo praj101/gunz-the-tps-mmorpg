@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCMatchStringResManager.h"
 
-CCMatchStringResManager::CCMatchStringResManager() : MBaseStringResManager()
+CCMatchStringResManager::CCMatchStringResManager() : CCBaseStringResManager()
 {
 
 }

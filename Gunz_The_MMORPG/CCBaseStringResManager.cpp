@@ -4,16 +4,16 @@
 #define TOK_XML_STRING_HEADER		"STR:"
 
 
-MBaseStringResManager* MBaseStringResManager::m_pInstance = NULL;
+CCBaseStringResManager* CCBaseStringResManager::m_pInstance = NULL;
 
-MBaseStringResManager* MBaseStringResManager::GetInstance()
+CCBaseStringResManager* CCBaseStringResManager::GetInstance()
 {
 	_ASSERT(m_pInstance != NULL);
 
 	return m_pInstance;
 }
 
-void MBaseStringResManager::FreeInstance()
+void CCBaseStringResManager::FreeInstance()
 {
 	if (m_pInstance)
 	{
@@ -22,17 +22,17 @@ void MBaseStringResManager::FreeInstance()
 	}
 }
 
-MBaseStringResManager::MBaseStringResManager()
+CCBaseStringResManager::CCBaseStringResManager()
 {
 
 }
 
-MBaseStringResManager::~MBaseStringResManager()
+CCBaseStringResManager::~CCBaseStringResManager()
 {
 	
 }
 
-bool MBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFileSystem* pfs )
+bool CCBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFileSystem* pfs )
 {
 	m_strPath = szPath;	
 	m_pFS = pfs;
@@ -62,17 +62,17 @@ bool MBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFileS
 }
 
 
-const char* MBaseStringResManager::GetErrorStr(int nID)
+const char* CCBaseStringResManager::GetErrorStr(int nID)
 {
 	return m_ErrorTable.GetStr(nID);
 }
 
-const char* MBaseStringResManager::GetString(string& key)
+const char* CCBaseStringResManager::GetString(string& key)
 {
 	return m_StringTable.GetStr(key);
 }
 
-const char* MBaseStringResManager::GetStringFromXml(const char* str)
+const char* CCBaseStringResManager::GetStringFromXml(const char* str)
 {
 	int nHeaderLen = (int)strlen(TOK_XML_STRING_HEADER);
 	int nStrLen = (int)strlen(str);

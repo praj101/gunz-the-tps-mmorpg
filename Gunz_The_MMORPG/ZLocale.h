@@ -1,7 +1,7 @@
 #ifndef _ZLOCALE_H
 #define _ZLOCALE_H
 
-#include "MBaseLocale.h"
+#include "CCBaseLocale.h"
 #include "ZBaseAuthInfo.h"
 #include "ZLocaleDefine.h"
 
@@ -17,7 +17,7 @@ class ZConfiguration;
 
 
 /// 지역화 관련 관리 클래스 
-class ZLocale : public MBaseLocale
+class ZLocale : public CCBaseLocale
 {
 private:
 	bool				m_bTeenMode;			// 한국에서만 사용하는 틴모드인지 여부

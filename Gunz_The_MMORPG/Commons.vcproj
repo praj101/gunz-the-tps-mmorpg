@@ -1157,6 +1157,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCBasePacket.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCBaseQuest.h"
 			>
 		</File>
@@ -1942,6 +1946,10 @@
 		</File>
 		<File
 			RelativePath=".\CCQuestScenario.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCSafeUDP.h"
 			>
 		</File>
 		<File

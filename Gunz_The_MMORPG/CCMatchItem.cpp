@@ -1188,7 +1188,7 @@ void CCMatchItemDescMgr::ShiftMemoryGradually()
 
 ///////////////////////////////////////////////////////////////////////////////
 // CCMatchItem /////////////////////////////////////////////////////////////////
-CCMatchItem::CCMatchItem() : MBaseItem(), m_nCIID(0), m_pDesc(NULL), m_bEquiped(false), m_nRentItemRegTime(0)
+CCMatchItem::CCMatchItem() : CCBaseItem(), m_nCIID(0), m_pDesc(NULL), m_bEquiped(false), m_nRentItemRegTime(0)
 {
 	m_nCountOfNonDestroyItem = 0;
 	m_nUseCountOfNonDestroyItem = 0;

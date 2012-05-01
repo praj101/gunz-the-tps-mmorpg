@@ -2,7 +2,7 @@
 #include "CCMatchGameType.h"
 #include "CCMatchMap.h"
 
-CCMatchGameTypeMgr::CCMatchGameTypeMgr() : MBaseGameTypeCatalogue()
+CCMatchGameTypeMgr::CCMatchGameTypeMgr() : CCBaseGameTypeCatalogue()
 {
 
 }
