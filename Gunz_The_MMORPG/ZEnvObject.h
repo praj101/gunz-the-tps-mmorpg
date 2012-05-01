@@ -1,7 +1,7 @@
 #ifndef _ZENVOBJECT_H
 #define _ZENVOBJECT_H
 
-#include "MRTTI.h"
+#include "CCRTTI.h"
 #include <list>
 #include <string>
 #include "ZObject.h"

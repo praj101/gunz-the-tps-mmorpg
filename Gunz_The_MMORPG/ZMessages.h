@@ -2,9 +2,9 @@
 #define _ZMESSAGES_H
 
 #include <string>
-#include "../../CSCommon/Include/CCCommand.h"
+#include "CCCommand.h"
 #include "CCZFileSystem.h"
-#include "../CSCommon/Include/CCMatchObject.h"
+#include "CCMatchObject.h"
 
 #define ZOK										0			///< 에러없음
 #define ZERR_UNKNOWN							-1			///< 알지 못하는 에러

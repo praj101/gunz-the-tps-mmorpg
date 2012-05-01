@@ -6,7 +6,7 @@
 #include "ZPrerequisites.h"
 
 #include "CCMatchClient.h"
-#include "MDataChecker.h"
+#include "CCDataChecker.h"
 
 #include "RTypes.h"
 #include "RBspObject.h"

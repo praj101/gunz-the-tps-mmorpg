@@ -1149,6 +1149,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAStar.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncProxy.h"
 			>
 		</File>
@@ -1321,6 +1325,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCGameClient.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCHackingChatList.h"
 			>
 		</File>
@@ -1330,6 +1338,10 @@
 		</File>
 		<File
 			RelativePath=".\CCHackingTypes.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCIDLResource.h"
 			>
 		</File>
 		<File
@@ -1953,6 +1965,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCPolygonMapModel.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCQuestDropTable.h"
 			>
 		</File>
@@ -1974,6 +1990,10 @@
 		</File>
 		<File
 			RelativePath=".\CCQuestScenario.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCRTTI.h"
 			>
 		</File>
 		<File
@@ -2097,6 +2117,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\Config.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Core4Gunz.h"
 			>
 		</File>
@@ -2209,6 +2233,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RMesh.h"
+			>
+		</File>
+		<File
+			RelativePath=".\RMeshMgr.h"
+			>
+		</File>
+		<File
 			RelativePath=".\RMtrl.cpp"
 			>
 		</File>
@@ -2250,6 +2282,10 @@
 		</File>
 		<File
 			RelativePath=".\RParticleSystem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\RPathFinder.h"
 			>
 		</File>
 		<File
@@ -2298,6 +2334,10 @@
 		</File>
 		<File
 			RelativePath=".\RVisualMesh.h"
+			>
+		</File>
+		<File
+			RelativePath=".\RVisualMeshMgr.h"
 			>
 		</File>
 		<File
@@ -2690,6 +2730,10 @@
 		</File>
 		<File
 			RelativePath=".\ZCommandUDPHackShield.h"
+			>
+		</File>
+		<File
+			RelativePath=".\zconf.h"
 			>
 		</File>
 		<File

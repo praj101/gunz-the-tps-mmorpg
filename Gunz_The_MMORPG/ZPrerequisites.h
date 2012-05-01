@@ -15,7 +15,7 @@ _USING_NAMESPACE_REALSPACE2
 #include "RVisualMeshMgr.h"
 #include "RMaterialList.h"
 #include "RAnimationMgr.h"	// This one
-#include "Mint4R2.h"
+#include "Core4R2.h"
 #include "RParticleSystem.h"
 
 #include "CCObject.h"

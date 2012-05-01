@@ -1,4 +1,4 @@
-#pragma one
+#pragma once
 #pragma warning(disable: 4786)
 
 #include "RTypes.h"

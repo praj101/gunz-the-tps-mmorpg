@@ -2,7 +2,7 @@
 #define _ZOBJECTMANAGER_H
 
 #include "ZPrerequisites.h"
-#include "MRTTI.h"
+#include "CCRTTI.h"
 #include "CCUID.h"
 #include "RVisualMeshMgr.h"
 #include "ZObject.h"

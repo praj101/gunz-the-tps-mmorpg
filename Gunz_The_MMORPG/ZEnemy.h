@@ -1,7 +1,7 @@
 #ifndef _ZENEMY_H
 #define _ZENEMY_H
 
-#include "MRTTI.h"
+#include "CCRTTI.h"
 #include "ZObject.h"
 #include "ZActor.h"
 

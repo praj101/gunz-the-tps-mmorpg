@@ -6,7 +6,7 @@
 #include "RTypes.h"
 #include "RMesh.h"
 #include "RVisualMeshMgr.h"
-#include "MRTTI.h"
+#include "CCRTTI.h"
 
 class RealSoundEffectPlay;
 

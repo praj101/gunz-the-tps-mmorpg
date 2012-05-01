@@ -59,5 +59,3 @@ public:
 	bool UpdateChecksum();
 	void BringError();
 };
-
-#endif
