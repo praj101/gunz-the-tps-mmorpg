@@ -77,13 +77,13 @@ struct CCMatchGameTypeInfo
 };
 
 
-class MBaseGameTypeCatalogue
+class CCBaseGameTypeCatalogue
 {
 private:
 	CCMatchGameTypeInfo			m_GameTypeInfo[CCMATCH_GAMETYPE_MAX];
 public:
-	MBaseGameTypeCatalogue();
-	virtual ~MBaseGameTypeCatalogue();
+	CCBaseGameTypeCatalogue();
+	virtual ~CCBaseGameTypeCatalogue();
 
 	inline CCMatchGameTypeInfo* GetInfo(CCMATCH_GAMETYPE nGameType);
 	inline const char* GetGameTypeStr(CCMATCH_GAMETYPE nGameType);
@@ -100,7 +100,7 @@ public:
 
 
 //////////////////////////////////////////////////////////////////////////////////
-inline bool MBaseGameTypeCatalogue::IsTeamGame(CCMATCH_GAMETYPE nGameType)
+inline bool CCBaseGameTypeCatalogue::IsTeamGame(CCMATCH_GAMETYPE nGameType)
 {
 	// 좀더 복잡해지면 Description에 teamgame인지 여부값을 넣도록 하자.
 
@@ -114,7 +114,7 @@ inline bool MBaseGameTypeCatalogue::IsTeamGame(CCMATCH_GAMETYPE nGameType)
 	return false;
 }
 
-inline bool MBaseGameTypeCatalogue::IsTeamLimitTime(CCMATCH_GAMETYPE nGameType)
+inline bool CCBaseGameTypeCatalogue::IsTeamLimitTime(CCMATCH_GAMETYPE nGameType)
 {
 	// 좀더 복잡해지면 Description에 teamgame인지 여부값을 넣도록 하자.
 
@@ -128,7 +128,7 @@ inline bool MBaseGameTypeCatalogue::IsTeamLimitTime(CCMATCH_GAMETYPE nGameType)
 	return false;
 }
 
-inline bool MBaseGameTypeCatalogue::IsWaitForRoundEnd(CCMATCH_GAMETYPE nGameType)
+inline bool CCBaseGameTypeCatalogue::IsWaitForRoundEnd(CCMATCH_GAMETYPE nGameType)
 {
 	// 라운드 끝날때까지 대기모드 하는가?
 
@@ -144,7 +144,7 @@ inline bool MBaseGameTypeCatalogue::IsWaitForRoundEnd(CCMATCH_GAMETYPE nGameType
 }
 
 
-inline bool MBaseGameTypeCatalogue::IsQuestDerived(CCMATCH_GAMETYPE nGameType)
+inline bool CCBaseGameTypeCatalogue::IsQuestDerived(CCMATCH_GAMETYPE nGameType)
 {
 	if ( (nGameType == CCMATCH_GAMETYPE_SURVIVAL) ||(nGameType == CCMATCH_GAMETYPE_QUEST) )
 	{
@@ -154,39 +154,39 @@ inline bool MBaseGameTypeCatalogue::IsQuestDerived(CCMATCH_GAMETYPE nGameType)
 	return false;
 }
 
-inline bool MBaseGameTypeCatalogue::IsQuestOnly(CCMATCH_GAMETYPE nGameType)
+inline bool CCBaseGameTypeCatalogue::IsQuestOnly(CCMATCH_GAMETYPE nGameType)
 {
 	return nGameType == CCMATCH_GAMETYPE_QUEST;
 }
 
-inline bool MBaseGameTypeCatalogue::IsSurvivalOnly(CCMATCH_GAMETYPE nGameType)
+inline bool CCBaseGameTypeCatalogue::IsSurvivalOnly(CCMATCH_GAMETYPE nGameType)
 {
 	return nGameType == CCMATCH_GAMETYPE_SURVIVAL;
 }
 
-inline const char* MBaseGameTypeCatalogue::GetGameTypeStr(CCMATCH_GAMETYPE nGameType)
+inline const char* CCBaseGameTypeCatalogue::GetGameTypeStr(CCMATCH_GAMETYPE nGameType)
 {
 	return m_GameTypeInfo[nGameType].szGameTypeStr;
 }
 
-inline void MBaseGameTypeCatalogue::SetGameTypeStr(CCMATCH_GAMETYPE nGameType, const char* szName)
+inline void CCBaseGameTypeCatalogue::SetGameTypeStr(CCMATCH_GAMETYPE nGameType, const char* szName)
 {
 	strcpy( m_GameTypeInfo[nGameType].szGameTypeStr, szName) ;
 }
 
-bool MBaseGameTypeCatalogue::IsCorrectGameType(const int nGameTypeID)
+bool CCBaseGameTypeCatalogue::IsCorrectGameType(const int nGameTypeID)
 {
 	if ((nGameTypeID < 0) || (nGameTypeID >= CCMATCH_GAMETYPE_MAX)) return false;
 	return true;
 }
 
-inline CCMatchGameTypeInfo* MBaseGameTypeCatalogue::GetInfo(CCMATCH_GAMETYPE nGameType)
+inline CCMatchGameTypeInfo* CCBaseGameTypeCatalogue::GetInfo(CCMATCH_GAMETYPE nGameType)
 {
 	_ASSERT((nGameType >= 0) && (nGameType < CCMATCH_GAMETYPE_MAX));
 	return &m_GameTypeInfo[nGameType];
 }
 
-inline bool MBaseGameTypeCatalogue::IsWorldItemSpawnEnable(CCMATCH_GAMETYPE nGameType)
+inline bool CCBaseGameTypeCatalogue::IsWorldItemSpawnEnable(CCMATCH_GAMETYPE nGameType)
 {
 	if ( (nGameType == CCMATCH_GAMETYPE_SURVIVAL) ||(nGameType == CCMATCH_GAMETYPE_QUEST) )
 	{

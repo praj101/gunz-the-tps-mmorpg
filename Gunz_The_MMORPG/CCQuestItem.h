@@ -123,21 +123,21 @@ struct SimpleQuestItem
 };
 
 // client와 server와의 공통된 부분.
-class MBaseQuestItem
+class CCBaseQuestItem
 {
 public: 
-	MBaseQuestItem() {}
-	virtual ~MBaseQuestItem() {}
+	CCBaseQuestItem() {}
+	virtual ~CCBaseQuestItem() {}
 };
 
 // server에 특화된 부분.
 // 퀘스트 아이템은 획득한 적이 있을 경우는 기본값 1을 Count에 설정을 함.
 //   그렇게이 카운트가 0이 아닌 1부터 시작을 하기에 실질적인 수량보다 1이 많음.
 //   현재 수량을 요구할시는 저장하고 있는 수량에 -1을 해서 반환을 해줘야 함.
-class CCQuestItem : public MBaseQuestItem
+class CCQuestItem : public CCBaseQuestItem
 {
 public:
-	CCQuestItem() : MBaseQuestItem(),  m_nCount( 0 ), m_pDesc( 0 ), m_bKnown( false )
+	CCQuestItem() : CCBaseQuestItem(),  m_nCount( 0 ), m_pDesc( 0 ), m_bKnown( false )
 	{
 	}
 

@@ -13,7 +13,7 @@ using std::map;
 #define MIN_ZQUEST_ITEM_COUNT 0
 
 // Description은 CCQuestItem에 있는걸 사용.
-class ZMyQuestItemNode : MBaseQuestItem
+class ZMyQuestItemNode : CCBaseQuestItem
 {
 public :
 	ZMyQuestItemNode() : m_nCount( 0 ), m_nItemID( 0 )

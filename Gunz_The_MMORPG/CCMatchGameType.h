@@ -4,7 +4,7 @@
 
 
 
-class CCMatchGameTypeMgr : public MBaseGameTypeCatalogue
+class CCMatchGameTypeMgr : public CCBaseGameTypeCatalogue
 {
 public:
 	CCMatchGameTypeMgr();

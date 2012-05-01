@@ -1,27 +1,27 @@
 #include "stdafx.h"
 #include "CCThread.h"
 
-// MThread class /////////////////////////////////////////////////////////////////////
-MThread::MThread() 
+// CCThread class /////////////////////////////////////////////////////////////////////
+CCThread::CCThread() 
 { 
 	m_hThread = NULL;
 	m_idThread = 0;
 }
 
-MThread::~MThread()
+CCThread::~CCThread()
 {
 	if (m_hThread)
 		Destroy();
 }
 
-void MThread::Create()
+void CCThread::Create()
 {
 //	OutputDebugString("<THREAD_CREATE/>\n");
 	m_hThread = CreateThread(NULL, 0, ThreadProc, this, 0, &m_idThread); 
 	OnCreate();
 }
 
-void MThread::Destroy()
+void CCThread::Destroy()
 {
 	OnDestroy();
 	if (m_hThread) {
@@ -32,10 +32,10 @@ void MThread::Destroy()
 //	OutputDebugString("<THREAD_DESTROY/>\n");
 }
 
-DWORD WINAPI MThread::ThreadProc(LPVOID pParam)
+DWORD WINAPI CCThread::ThreadProc(LPVOID pParam)
 {
 //	OutputDebugString("<MTHREAD_BEGIN>\n");
-	MThread* pThread = (MThread*)pParam;
+	CCThread* pThread = (CCThread*)pParam;
 
 	pThread->Run();
 

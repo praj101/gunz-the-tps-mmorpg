@@ -35,14 +35,14 @@ struct MTCPSendQueueItem
 typedef list<MTCPSendQueueItem*>	TCPSendList;
 typedef TCPSendList::iterator			TCPSendListItor;
 
-struct MSocketObj
+struct CCSocketObj
 {
 	SOCKET				sock;
 	HANDLE				event;
 	TCPSendList			sendlist;
 };
 
-typedef list<MSocketObj*>			SocketList;
+typedef list<CCSocketObj*>			SocketList;
 typedef SocketList::iterator		SocketListItor;
 
 enum SOCKET_ERROR_EVENT {eeGeneral, eeSend, eeReceive, eeConnect, eeDisconnect, eeAccept};
@@ -54,25 +54,25 @@ typedef bool(MCLIENTRECVCALLBACK)(void* pCallbackContext, SOCKET socket, char* p
 typedef bool(MCONNECTCALLBACK)(void* pCallbackContext, SOCKET sock);
 typedef bool(MDISCONNECTCALLBACK)(void* pCallbackContext, SOCKET sock);
 // server callback
-typedef bool(MSERVERRECVCALLBACK)(MSocketObj* pSocketObj, char* pPacket, DWORD dwSize);
-typedef bool(MACCEPTCALLBACK)(MSocketObj* pSocketObj);
-typedef bool(MDISCONNECTCLIENTCALLBACK)(MSocketObj* pSocketObj);
+typedef bool(MSERVERRECVCALLBACK)(CCSocketObj* pSocketObj, char* pPacket, DWORD dwSize);
+typedef bool(MACCEPTCALLBACK)(CCSocketObj* pSocketObj);
+typedef bool(MDISCONNECTCLIENTCALLBACK)(CCSocketObj* pSocketObj);
 
 /// 소켓 쓰레드
-class MTCPSocketThread : public MThread 
+class MTCPSocketThread : public CCThread 
 {
 private:
 protected:
 	MTCPSocket*				m_pTCPSocket;
-	MSignalEvent			m_SendEvent;
-	MSignalEvent			m_KillEvent;
+	CCSignalEvent			m_SendEvent;
+	CCSignalEvent			m_KillEvent;
 	CRITICAL_SECTION		m_csSendLock;
 	bool					m_bActive;
 
 	DWORD					m_nTotalSend;
 	DWORD					m_nTotalRecv;
-	MTrafficLog				m_SendTrafficLog;
-	MTrafficLog				m_RecvTrafficLog;
+	CCTrafficLog				m_SendTrafficLog;
+	CCTrafficLog				m_RecvTrafficLog;
 
 	virtual void OnSocketError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &ErrorCode);
 public:
@@ -130,22 +130,22 @@ private:
 protected:
 	CRITICAL_SECTION		m_csSocketLock;
 
-	bool OnRecv(MSocketObj* pSocketObj, char* pPacket, DWORD dwPacketSize);
-	bool OnAccept(MSocketObj* pSocketObj);
-	bool OnDisconnectClient(MSocketObj* pSocketObj);
+	bool OnRecv(CCSocketObj* pSocketObj, char* pPacket, DWORD dwPacketSize);
+	bool OnAccept(CCSocketObj* pSocketObj);
+	bool OnDisconnectClient(CCSocketObj* pSocketObj);
 
 	bool FlushSend();
-	bool Recv(MSocketObj* pSocketObj);
-	void FreeSocketObj(MSocketObj* pSocketObj);
+	bool Recv(CCSocketObj* pSocketObj);
+	void FreeSocketObj(CCSocketObj* pSocketObj);
 	SocketListItor RemoveSocketObj(SocketListItor itor);
 	void RenumberEventArray();
-	MSocketObj* InsertSocketObj(SOCKET sock, HANDLE event);
+	CCSocketObj* InsertSocketObj(SOCKET sock, HANDLE event);
 public:
 	MServerSocketThread(MTCPSocket* pTCPSocket);
 	~MServerSocketThread();	
 
-	void Disconnect(MSocketObj* pSocketObj);
-	bool PushSend(MSocketObj* pSocketObj, char *pPacket, DWORD dwPacketSize);
+	void Disconnect(CCSocketObj* pSocketObj);
+	bool PushSend(CCSocketObj* pSocketObj, char *pPacket, DWORD dwPacketSize);
 	virtual void Run();
 	virtual void Destroy();
 	virtual void Create();
@@ -205,9 +205,9 @@ public:
 
 	bool Listen(int nPort);
 	bool Close();
-	bool Disconnect(MSocketObj* pSocketObj);		// Server에서만 사용 
+	bool Disconnect(CCSocketObj* pSocketObj);		// Server에서만 사용 
 
-	bool Send(MSocketObj* pSocketObj, char* pPacket, DWORD dwPacketSize);	
+	bool Send(CCSocketObj* pSocketObj, char* pPacket, DWORD dwPacketSize);	
 
 
 	void SetRecvCallback(MSERVERRECVCALLBACK pCallback) { ((MServerSocketThread*)(m_pSocketThread))->m_fnRecvCallback = pCallback; }

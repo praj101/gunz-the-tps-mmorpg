@@ -5,7 +5,7 @@
 #include <map>
 using std::map;
 
-class ZMyItemNode : public MBaseItem
+class ZMyItemNode : public CCBaseItem
 {
 protected:
 	unsigned long int		m_nItemID;
@@ -14,7 +14,7 @@ protected:
 	
 public:
 	
-	ZMyItemNode() : MBaseItem(), m_nItemID(0), m_UID(CCUID(0,0)) { }
+	ZMyItemNode() : CCBaseItem(), m_nItemID(0), m_UID(CCUID(0,0)) { }
 	virtual	~ZMyItemNode() { }
 
 	void Create(CCUID& uidItem, unsigned long int nItemID, int nCount=1, 

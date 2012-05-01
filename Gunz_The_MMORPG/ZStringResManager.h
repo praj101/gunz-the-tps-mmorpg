@@ -2,9 +2,9 @@
 #define _ZSTRINGRES_MANAGER_H
 
 
-#include "../CSCommon/Include/MBaseStringResManager.h"
+#include "CCBaseStringResManager.h"
 
-class ZStringResManager : public MBaseStringResManager
+class ZStringResManager : public CCBaseStringResManager
 {
 protected:
 	MStringRes<int>			m_Messages;
@@ -22,7 +22,7 @@ public:
 
 inline ZStringResManager* ZGetStringResManager()
 {
-	return (ZStringResManager*)MBaseStringResManager::GetInstance();
+	return (ZStringResManager*)CCBaseStringResManager::GetInstance();
 }
 
 inline const char* ZMsg(const int nID) { return ZGetStringResManager()->GetMessageStr(nID); }

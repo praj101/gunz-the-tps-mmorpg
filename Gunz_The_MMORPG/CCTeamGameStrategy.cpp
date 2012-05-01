@@ -16,7 +16,7 @@
 #include "CCMatchLocale.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-MBaseTeamGameStrategy* MBaseTeamGameStrategy::GetInstance(CCMatchServerMode nServerMode)
+CCBaseTeamGameStrategy* CCBaseTeamGameStrategy::GetInstance(CCMatchServerMode nServerMode)
 {
 	switch (nServerMode)
 	{

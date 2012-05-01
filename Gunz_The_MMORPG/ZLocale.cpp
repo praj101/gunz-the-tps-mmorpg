@@ -26,7 +26,7 @@ ZLocale* ZLocale::GetInstance()
 	return &m_stLocale;
 }
 
-ZLocale::ZLocale() : MBaseLocale(), m_bTeenMode(false), m_pAuthInfo(NULL)
+ZLocale::ZLocale() : CCBaseLocale(), m_bTeenMode(false), m_pAuthInfo(NULL)
 {
 
 }

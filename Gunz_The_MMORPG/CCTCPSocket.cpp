@@ -28,7 +28,7 @@ void MTCPSocketThread::Create()
 	if (m_bActive) Destroy();
 
 	InitializeCriticalSection(&m_csSendLock);
-	MThread::Create(); 
+	CCThread::Create(); 
 	m_bActive = true;
 
 }
@@ -39,7 +39,7 @@ void MTCPSocketThread::Destroy()
 	m_bActive = false;
 
 	m_KillEvent.SetEvent(); 
-	MThread::Destroy();		// Wait for Thread Death
+	CCThread::Destroy();		// Wait for Thread Death
 
 	DeleteCriticalSection(&m_csSendLock); 
 
@@ -425,7 +425,7 @@ bool MServerSocketThread::FlushSend()
 	int result = 0;
 	MTCPSendQueueItem* pSendItem;
 	TCPSendListItor	SendItor;
-	MSocketObj*		pSocketObj;
+	CCSocketObj*		pSocketObj;
 	SocketListItor	SocketItor;
 
 	for (SocketItor = m_SocketList.begin(); SocketItor != m_SocketList.end(); ++SocketItor)		
@@ -457,7 +457,7 @@ bool MServerSocketThread::FlushSend()
 	return true;
 }
 
-bool MServerSocketThread::Recv(MSocketObj* pSocketObj)
+bool MServerSocketThread::Recv(CCSocketObj* pSocketObj)
 {
 	char			RecvBuf[MAX_RECVBUF_LEN];
 	int				nRecv = 0;
@@ -486,7 +486,7 @@ void MServerSocketThread::Run()
 	SOCKET Accept;
 	int Index = 0;
 	bool bEnd = false;
-	MSocketObj* pSocketObj;
+	CCSocketObj* pSocketObj;
 	WSANETWORKEVENTS NetEvent;
 	WSAEVENT hFDEvent, hNewEvent;
 	DWORD result;
@@ -538,7 +538,7 @@ void MServerSocketThread::Run()
 							hNewEvent = WSACreateEvent();
 							WSAEventSelect(Accept, hNewEvent, FD_READ | FD_WRITE | FD_CLOSE);
 
-							MSocketObj* pSocketObj;
+							CCSocketObj* pSocketObj;
 							pSocketObj = InsertSocketObj(Accept, hNewEvent);
 
 							// Accept Callback
@@ -649,7 +649,7 @@ void MServerSocketThread::Run()
 
 }
 
-bool MServerSocketThread::OnAccept(MSocketObj *pSocketObj)
+bool MServerSocketThread::OnAccept(CCSocketObj *pSocketObj)
 {
 	if (m_fnAcceptCallback)
 		return m_fnAcceptCallback(pSocketObj);
@@ -657,7 +657,7 @@ bool MServerSocketThread::OnAccept(MSocketObj *pSocketObj)
 	return false;
 }
 
-bool MServerSocketThread::OnDisconnectClient(MSocketObj* pSocketObj)
+bool MServerSocketThread::OnDisconnectClient(CCSocketObj* pSocketObj)
 {
 	if (m_fnDisconnectClientCallback)
 		return m_fnDisconnectClientCallback(pSocketObj);
@@ -665,7 +665,7 @@ bool MServerSocketThread::OnDisconnectClient(MSocketObj* pSocketObj)
 		return false;
 }
 
-bool MServerSocketThread::OnRecv(MSocketObj* pSocketObj, char* pPacket, DWORD dwPacketSize)
+bool MServerSocketThread::OnRecv(CCSocketObj* pSocketObj, char* pPacket, DWORD dwPacketSize)
 {
 	if (m_fnRecvCallback)
 		return m_fnRecvCallback(pSocketObj, pPacket, dwPacketSize);
@@ -673,11 +673,11 @@ bool MServerSocketThread::OnRecv(MSocketObj* pSocketObj, char* pPacket, DWORD dw
 	return false;
 }
 
-MSocketObj* MServerSocketThread::InsertSocketObj(SOCKET sock, HANDLE event)
+CCSocketObj* MServerSocketThread::InsertSocketObj(SOCKET sock, HANDLE event)
 {
 	LockSocket();
 
-	MSocketObj* pSocketObj = new MSocketObj;
+	CCSocketObj* pSocketObj = new CCSocketObj;
 
 	pSocketObj->sock = sock;
 	pSocketObj->event = event;
@@ -693,7 +693,7 @@ MSocketObj* MServerSocketThread::InsertSocketObj(SOCKET sock, HANDLE event)
 void MServerSocketThread::RenumberEventArray()
 {
 	int nEventIndex = 1 + 2;
-	MSocketObj* pSocketObj;
+	CCSocketObj* pSocketObj;
 
 	for (SocketListItor itor = m_SocketList.begin(); itor != m_SocketList.end(); ++itor)
 	{
@@ -702,7 +702,7 @@ void MServerSocketThread::RenumberEventArray()
 	}
 }
 
-void MServerSocketThread::FreeSocketObj(MSocketObj *pSocketObj)
+void MServerSocketThread::FreeSocketObj(CCSocketObj *pSocketObj)
 {
 	MTCPSendQueueItem* pSendItem;
 	TCPSendListItor	SendItor;
@@ -735,7 +735,7 @@ SocketListItor MServerSocketThread::RemoveSocketObj(SocketListItor itor)
 
 	LockSocket();
 
-	MSocketObj* pSocketObj = *itor;
+	CCSocketObj* pSocketObj = *itor;
 	ret_itor = m_SocketList.erase(itor);
 
 	WSASetEvent(m_EventArray);
@@ -745,7 +745,7 @@ SocketListItor MServerSocketThread::RemoveSocketObj(SocketListItor itor)
 	return ret_itor;
 }
 
-bool MServerSocketThread::PushSend(MSocketObj *pSocketObj, char *pPacket, DWORD dwPacketSize)
+bool MServerSocketThread::PushSend(CCSocketObj *pSocketObj, char *pPacket, DWORD dwPacketSize)
 {
 	if (pSocketObj->sendlist.size() > TCPSOCKET_MAX_SENDQUEUE_LEN) return false;
 
@@ -763,7 +763,7 @@ bool MServerSocketThread::PushSend(MSocketObj *pSocketObj, char *pPacket, DWORD 
 	return true;
 }
 
-void MServerSocketThread::Disconnect(MSocketObj *pSocketObj)
+void MServerSocketThread::Disconnect(CCSocketObj *pSocketObj)
 {
 	closesocket(pSocketObj->sock);
 
@@ -888,13 +888,13 @@ void MServerSocket::Finalize()
 	MTCPSocket::Finalize();
 }
 
-bool MServerSocket::Disconnect(MSocketObj *pSocketObj)
+bool MServerSocket::Disconnect(CCSocketObj *pSocketObj)
 {
 	((MServerSocketThread*)(m_pSocketThread))->Disconnect(pSocketObj);
 	return true;
 }
 
-bool MServerSocket::Send(MSocketObj *pSocketObj, char *pPacket, DWORD dwPacketSize)
+bool MServerSocket::Send(CCSocketObj *pSocketObj, char *pPacket, DWORD dwPacketSize)
 {
 	return ((MServerSocketThread*)(m_pSocketThread))->PushSend(pSocketObj, pPacket, dwPacketSize);
 }

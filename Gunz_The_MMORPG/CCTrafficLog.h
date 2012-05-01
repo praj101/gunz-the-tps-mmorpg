@@ -8,7 +8,7 @@
 // #pragma comment(lib,"winmm.lib")
 
 
-class MTrafficNode {
+class CCTrafficNode {
 protected:
 	unsigned long	m_nTimeStamp;
 	unsigned long	m_nTrafficSum;
@@ -20,11 +20,11 @@ public:
 };
 
 
-class MTrafficLog {
+class CCTrafficLog {
 protected:
 	int				m_nSamplingInterval;
 	unsigned char	m_nTrafficLogCount;
-	MTrafficNode*	m_pTrafficLogs;
+	CCTrafficNode*	m_pTrafficLogs;
 	int				m_nCursor;			// 마지막으로 기록된곳 가리킴
 
 public:
@@ -32,7 +32,7 @@ public:
 	#define DEFAULT_TRAFFICLOG_COUNT				10
 	#define MAX_TRAFFICLOG_COUNT					256
 
-	MTrafficLog() {
+	CCTrafficLog() {
 		m_nTrafficLogCount = 0;
 		m_pTrafficLogs = NULL;
 		m_nCursor = 0;
@@ -40,7 +40,7 @@ public:
 		SetSamplingInterval(DEFAILT_TRAFFICLOG_SAMPLING_INTERVAL);	// 0.1 sec
 		SetLogSize(DEFAULT_TRAFFICLOG_COUNT);		
 	}
-	virtual ~MTrafficLog() {
+	virtual ~CCTrafficLog() {
 		if (m_pTrafficLogs) {
 			m_nTrafficLogCount = 0;
 			delete [] m_pTrafficLogs;
@@ -53,8 +53,8 @@ public:
 			delete [] m_pTrafficLogs;
 
 		m_nTrafficLogCount = DEFAULT_TRAFFICLOG_COUNT;
-		m_pTrafficLogs = new MTrafficNode[m_nTrafficLogCount];
-		ZeroMemory(m_pTrafficLogs, sizeof(MTrafficNode) * m_nTrafficLogCount);
+		m_pTrafficLogs = new CCTrafficNode[m_nTrafficLogCount];
+		ZeroMemory(m_pTrafficLogs, sizeof(CCTrafficNode) * m_nTrafficLogCount);
 	}
 	void Record(unsigned long nTrafficSum) {	// Network 전송량의 누적치를 Arg로 사용
 		unsigned long nTime = timeGetTime();

@@ -1,7 +1,7 @@
 #ifndef _ZQUEST_MAP_H
 #define _ZQUEST_MAP_H
 
-#include "MBaseQuest.h"
+#include "CCBaseQuest.h"
 
 class ZQuestMap
 {

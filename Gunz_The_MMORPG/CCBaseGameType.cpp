@@ -56,7 +56,7 @@ void CCMatchGameTypeInfo::AddAllMap()
 	}
 }
 
-MBaseGameTypeCatalogue::MBaseGameTypeCatalogue()
+CCBaseGameTypeCatalogue::CCBaseGameTypeCatalogue()
 {
 #define _InitGameType(index, id, szGameTypeStr, fGameExpRatio, fTeamMyExpRatio, fTeamBonusExpRatio)		\
 m_GameTypeInfo[index].Set(id, szGameTypeStr, fGameExpRatio, fTeamMyExpRatio, fTeamBonusExpRatio);
@@ -91,7 +91,7 @@ _InitGameType(CCMATCH_GAMETYPE_CLASSIC_TEAM, CCMATCH_GAMETYPE_CLASSIC_TEAM,
 	}
 }
 
-MBaseGameTypeCatalogue::~MBaseGameTypeCatalogue()
+CCBaseGameTypeCatalogue::~CCBaseGameTypeCatalogue()
 {
 
 }

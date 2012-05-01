@@ -9,7 +9,7 @@
 #include "MObjectTypes.h"
 #include "ZStateMachine.h"
 #include "ZAI_Base.h"
-#include "MBaseQuest.h"
+#include "CCBaseQuest.h"
 #include "ZBrain.h"
 #include "ZActorAnimation.h"
 #include "ZTask.h"
@@ -336,7 +336,7 @@ inline int ZActor::CalcMaxAP(int nQL, int nSrcAP)
 // ○ NPC 정책
 //
 // * 모든 NPC는 같은 구조의 애니메이션 세트를 가진다. -> ZActorAnimation
-// * 모든 NPC는 같은 구조의 Brain을 가지고, 단지 수치로서 NPC의 아이덴티티를 확립한다. 수치는 MBaseQuest에 기술되어 있음.
+// * 모든 NPC는 같은 구조의 Brain을 가지고, 단지 수치로서 NPC의 아이덴티티를 확립한다. 수치는 CCBaseQuest에 기술되어 있음.
 // * NPC구조는 크게 AI를 관장하는 ZBrain과 몸체인 ZActor로 구분한다.
 // * ZTask란? : NPC의 일련의 행동 구분은 작게 Task로 구분된다. ZTask는 Command 패턴으로 되어있다. Task는 몸체에 달려 있으며, 
 //    ZBrain이 Task를 입력해줌으로써 ZActor를 행동하게 한다.

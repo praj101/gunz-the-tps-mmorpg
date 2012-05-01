@@ -1,7 +1,7 @@
 #ifndef _ZCHANNELRULE_H
 #define _ZCHANNELRULE_H
 
-#include "MBaseChannelRule.h"
+#include "CCBaseChannelRule.h"
 
 class ZChannelRuleMgr : public CCChannelRuleMgr
 {

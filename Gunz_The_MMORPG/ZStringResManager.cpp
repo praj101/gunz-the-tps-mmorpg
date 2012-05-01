@@ -16,7 +16,7 @@ void ZStringResManager::ResetInstance()
 }
 
 
-ZStringResManager::ZStringResManager() : MBaseStringResManager()
+ZStringResManager::ZStringResManager() : CCBaseStringResManager()
 {
 
 }

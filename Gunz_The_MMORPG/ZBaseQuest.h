@@ -2,7 +2,7 @@
 #define _ZBASEQUEST_H
 
 #include "ZGlobal.h"
-#include "MBaseQuest.h"
+#include "CCBaseQuest.h"
 #include "ZQuestMap.h"
 #include "ZQuestGameInfo.h"
 #include "ZMyItemList.h"
@@ -34,7 +34,7 @@ enum ZQuestCheetType
 // 퀘스트 코드를 가급적 건드리지 않기 위해서 퀘스트와 서바이벌에 공통으로 사용될 수 있는 코드가 있더라도 여기로 옮기지 않아서
 // 모든 함수가 순수가상함수이다.
 
-class ZBaseQuest : public MBaseQuest
+class ZBaseQuest : public CCBaseQuest
 {
 #ifdef _QUEST_ITEM
     virtual bool OnRewardQuest( MCommand* pCmd ) = 0;

@@ -88,7 +88,7 @@ inline CCQuestNPCInfo* CCBaseQuest::GetNPCPageInfo( int nPage)
 	return m_NPCCatalogue.GetPageInfo(nPage);
 }
 
-//inline MSurvivalMapInfo* MBaseQuest::GetSurvivalMapInfo(MSURVIVAL_MAP nMap)
+//inline MSurvivalMapInfo* CCBaseQuest::GetSurvivalMapInfo(MSURVIVAL_MAP nMap)
 //{
 //	return m_SurvivalMapCatalogue.GetInfo(nMap);
 //}
