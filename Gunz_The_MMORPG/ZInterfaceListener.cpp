@@ -212,7 +212,7 @@ public:
 };
 MExitListener	g_ExitListener;
 
-class MChannelChatInputListener : public MListener{
+class CCChannelChatInputListener : public MListener{
 public:
 	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
 		if(MWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
@@ -234,7 +234,7 @@ public:
 		return false;
 	}
 };
-MChannelChatInputListener	g_ChannelChatInputListener;
+CCChannelChatInputListener	g_ChannelChatInputListener;
 
 class MStageChatInputListener : public MListener{
 public:
@@ -521,7 +521,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageCreateBtnListener, MBTN_CLK_MSG)
 	MSTAGE_SETTING_NODE setting;
 	setting.uidStage = CCUID(0, 0);
 	memset(setting.szMapName, 0, sizeof(setting.szMapName));
-	setting.nGameType = MMATCH_GAMETYPE_DEATHMATCH_SOLO;
+	setting.nGameType = CCMATCH_GAMETYPE_DEATHMATCH_SOLO;
 	setting.nRoundMax = 10;
 	setting.nLimitTime = 10;
 	setting.nMaxPlayers = 8;
@@ -904,12 +904,12 @@ void PostMapname()
 		/// 맵이 변경되면 릴레이맵 리스트 세팅중을 끝낸다.
 		ZApplication::GetStageInterface()->SetIsRelayMapRegisterComplete(true);
 
-		if(strcmp(MMATCH_MAPNAME_RELAYMAP, pszSelItemString) == 0)
+		if(strcmp(CCMATCH_MAPNAME_RELAYMAP, pszSelItemString) == 0)
 		{
 			// 릴레이맵을 고르면 처음에 맨션맵 하나를 강제로 넣어준다
 			void* pRelayMapListBlob = MMakeBlobArray(sizeof(MTD_RelayMap), 1);	// 블럭 만들기, 맵리스트 세팅
 			MTD_RelayMap* pRelayMapList = (MTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, 0);
-			pRelayMapList->nMapID = MGetMapDescMgr()->GetMapID(MMATCH_MAP_MANSION);
+			pRelayMapList->nMapID = MGetMapDescMgr()->GetMapID(CCMATCH_MAP_MANSION);
 
 			ZPostStageRelayMapInfoUpdate(ZGetGameClient()->GetStageUID(), RELAY_MAP_TURN, RELAY_MAP_3REPEAT, pRelayMapListBlob);
 			MEraseBlobArray(pRelayMapListBlob);

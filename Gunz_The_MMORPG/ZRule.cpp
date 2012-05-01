@@ -26,69 +26,69 @@ void ZRule::Update(float fDelta)
 	OnUpdate(fDelta);
 }
 
-ZRule* ZRule::CreateRule(ZMatch* pMatch, MMATCH_GAMETYPE nGameType)
+ZRule* ZRule::CreateRule(ZMatch* pMatch, CCMATCH_GAMETYPE nGameType)
 {
 	switch(nGameType)
 	{
-	case MMATCH_GAMETYPE_DEATHMATCH_SOLO:
+	case CCMATCH_GAMETYPE_DEATHMATCH_SOLO:
 		{
 			return (new ZRuleSoloDeathMatch(pMatch));
 		}
 		break;
-	case MMATCH_GAMETYPE_DEATHMATCH_TEAM:
+	case CCMATCH_GAMETYPE_DEATHMATCH_TEAM:
 		{
 			return (new ZRuleTeamDeathMatch(pMatch));
 		}
 		break;
-	case MMATCH_GAMETYPE_GLADIATOR_SOLO:
+	case CCMATCH_GAMETYPE_GLADIATOR_SOLO:
 		{
 			return (new ZRuleSoloGladiator(pMatch));
 		}
 		break;
-	case MMATCH_GAMETYPE_GLADIATOR_TEAM:
+	case CCMATCH_GAMETYPE_GLADIATOR_TEAM:
 		{
 			return (new ZRuleTeamGladiator(pMatch));
 		}
 		break;
-	case MMATCH_GAMETYPE_ASSASSINATE:
+	case CCMATCH_GAMETYPE_ASSASSINATE:
 		{
 			return (new ZRuleAssassinate(pMatch));
 		}
 		break;
-	case MMATCH_GAMETYPE_TRAINING:
+	case CCMATCH_GAMETYPE_TRAINING:
 		{
 			return (new ZRuleTraining(pMatch));
 		}
 		break;
 #ifdef _QUEST
-	case MMATCH_GAMETYPE_SURVIVAL:
+	case CCMATCH_GAMETYPE_SURVIVAL:
 		{
 			return (new ZRuleSurvival(pMatch));
 		}
 		break;
-	case MMATCH_GAMETYPE_QUEST:
+	case CCMATCH_GAMETYPE_QUEST:
 		{
 			return (new ZRuleQuest(pMatch));
 		}
 		break;
 #endif
-	case MMATCH_GAMETYPE_BERSERKER:
+	case CCMATCH_GAMETYPE_BERSERKER:
 		{
 			return (new ZRuleBerserker(pMatch));
 		}
 		break;
-	case MMATCH_GAMETYPE_DEATHMATCH_TEAM2:
+	case CCMATCH_GAMETYPE_DEATHMATCH_TEAM2:
 		{
 			return (new ZRuleTeamDeathMatch2(pMatch));
 		}
 		break;
-	case MMATCH_GAMETYPE_DUEL:
+	case CCMATCH_GAMETYPE_DUEL:
 		{
 			return (new ZRuleDuel(pMatch));
 		}
 		break;
 
-	case MMATCH_GAMETYPE_DUELTOURNAMENT:
+	case CCMATCH_GAMETYPE_DUELTOURNAMENT:
 		{
 			return (new ZRuleDuelTournament(pMatch));
 		}

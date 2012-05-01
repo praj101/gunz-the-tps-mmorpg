@@ -1,5 +1,5 @@
-#ifndef _MMATCHRULE_BERSERKER_H
-#define _MMATCHRULE_BERSERKER_H
+#ifndef _CCMATCHRULE_BERSERKER_H
+#define _CCMATCHRULE_BERSERKER_H
 
 
 #include "CCMatchRule.h"
@@ -24,7 +24,7 @@ public:
 	virtual void OnEnterBattle(CCUID& uidChar);			///< 게임중 난입할때 호출된다.
 	virtual void OnLeaveBattle(CCUID& uidChar);			///< 게임중 나갔을때 호출된다.
 	virtual void OnGameKill(const CCUID& uidAttacker, const CCUID& uidVictim);
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_BERSERKER; }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_BERSERKER; }
 	CCUID& GetBerserker() { return m_uidBerserker; }
 };
 

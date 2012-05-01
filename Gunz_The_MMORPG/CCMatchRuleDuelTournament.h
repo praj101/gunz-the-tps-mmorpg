@@ -9,14 +9,14 @@
 
 using namespace std;
 
-struct MDuelTournamentGameInfo
+struct CCDuelTournamentGameInfo
 {
 	CCDUELTOURNAMENTTYPE		nType;
 	int						nGameNumber;
 	char					szTimeStamp[DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1];
 };
 
-struct MDuelTournamentMatchRecord
+struct CCDuelTournamentMatchRecord
 {
 	CCUID uidWinner, uidLoser;
 	int nCID1, nCID2;
@@ -32,7 +32,7 @@ struct MDuelTournamentMatchRecord
 	DWORD nFinishTime;
 };
 
-struct MDuelTournamentRoundRecord
+struct CCDuelTournamentRoundRecord
 {
 	CCUID uidWinnerPlayer;
 	CCUID uidLoserPlayer;
@@ -48,7 +48,7 @@ struct MDuelTournamentRoundRecord
 	DWORD nFinishTime;
 };
 
-class MDuelTournamentPlayerInfo
+class CCDuelTournamentPlayerInfo
 {	
 public:
 	CCUID uidPlayer;
@@ -56,52 +56,52 @@ public:
 	bool bLoser, bOutGame, bInMatch;
 };
 
-class MDuelTournamentPlayerMap : public map <CCUID, MDuelTournamentPlayerInfo*>
+class CCDuelTournamentPlayerMap : public map <CCUID, CCDuelTournamentPlayerInfo*>
 {
 public:
-	~MDuelTournamentPlayerMap() {
-		for(MDuelTournamentPlayerMap::iterator i=begin() ; i != end(); ++i){delete (*i).second;}
+	~CCDuelTournamentPlayerMap() {
+		for(CCDuelTournamentPlayerMap::iterator i=begin() ; i != end(); ++i){delete (*i).second;}
 		clear();
 	}
 
-	MDuelTournamentPlayerInfo* GetPlayerInfo(CCUID uidPlayer){
+	CCDuelTournamentPlayerInfo* GetPlayerInfo(CCUID uidPlayer){
 		if( find(uidPlayer) != end() ) return find(uidPlayer)->second;
 		return NULL;
 	}
 
-	void InsertPlayerInfo(CCUID uidPlayer, MDuelTournamentPlayerInfo *pInfo) {
-		insert(pair<CCUID, MDuelTournamentPlayerInfo*>(uidPlayer, pInfo));
+	void InsertPlayerInfo(CCUID uidPlayer, CCDuelTournamentPlayerInfo *pInfo) {
+		insert(pair<CCUID, CCDuelTournamentPlayerInfo*>(uidPlayer, pInfo));
 	}
 
 	bool EnterMatch(CCUID uidPlayer){ 
-		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
+		CCDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ){ pInfo->bInMatch = true; return true;}
 		return false;
 	}
 	
 	void LeaveMatch(CCUID uidPlayer){
-		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
+		CCDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ) pInfo->bInMatch = false;
 	}
 
 	void SetLoser(CCUID uidPlayer){
-		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
+		CCDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ) pInfo->bLoser = true;
 	}
 
 	bool IsLoser(CCUID uidPlayer){
-		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
+		CCDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ) return pInfo->bLoser;
 		return false;
 	}
 
 	void SetOutStage(CCUID uidPlayer){
-		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
+		CCDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo != NULL ) pInfo->bOutGame = true;
 	}
 
 	bool IsOutUser(CCUID uidPlayer) {
-		MDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
+		CCDuelTournamentPlayerInfo* pInfo = GetPlayerInfo(uidPlayer);
 		if( pInfo == NULL ) return true;
 		return pInfo->bOutGame;
 	}
@@ -109,16 +109,16 @@ public:
 
 class CCMatchRuleDuelTournament : public CCMatchRule {
 private:
-	MDuelTournamentGameInfo					m_GameInfo;
+	CCDuelTournamentGameInfo					m_GameInfo;
 	CCMatchDuelTournamentMatch				m_CurrentMatchInfo;	
 	map<int, CCMatchDuelTournamentMatch*>*	m_DuelTournamentMatchMap;
 
-	MDuelTournamentPlayerMap m_DTPlayerMap;
+	CCDuelTournamentPlayerMap m_DTPlayerMap;
 
-	MDuelTournamentMatchRecord m_MatchRecord;
-	MDuelTournamentRoundRecord m_RoundRecord;
+	CCDuelTournamentMatchRecord m_MatchRecord;
+	CCDuelTournamentRoundRecord m_RoundRecord;
 	
-	MDuelTournamentFormula m_DuelTournamentCalculator;
+	CCDuelTournamentFormula m_DuelTournamentCalculator;
 
 	bool					m_bIsRoundFinish;				///< 라운드 끝나는가
 	bool					m_bIsRoundTimeOut;
@@ -169,7 +169,7 @@ protected:
 
 	void OnPreCountDown();
 
-	void SetDTRoundState(MMATCH_ROUNDSTATE nState);
+	void SetDTRoundState(CCMATCH_ROUNDSTATE nState);
 
 	void InitMatchRecord();
 	void InitRoundRecord();
@@ -232,9 +232,9 @@ protected:
 
 		int nIndex = 0;
 		char szTemp[1024] = {0, };	
-		for (MDuelTournamentPlayerMap::iterator i = m_DTPlayerMap.begin(); i!= m_DTPlayerMap.end();  i++)
+		for (CCDuelTournamentPlayerMap::iterator i = m_DTPlayerMap.begin(); i!= m_DTPlayerMap.end();  i++)
 		{
-			MDuelTournamentPlayerInfo* pInfo = (*i).second;
+			CCDuelTournamentPlayerInfo* pInfo = (*i).second;
 			if( pInfo->bOutGame == false && pInfo->bInMatch == false ) {
 				CCMatchObject* pObj = m_pStage->GetObj((*i).first);
 
@@ -260,5 +260,5 @@ public:
 	CCMatchRuleDuelTournament(CCMatchStage* pStage);
 	virtual ~CCMatchRuleDuelTournament(){}
 
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DUELTOURNAMENT; }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_DUELTOURNAMENT; }
 };

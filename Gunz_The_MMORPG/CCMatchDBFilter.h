@@ -1,5 +1,5 @@
-#ifndef _MMATCH_DB_FILTER
-#define _MMATCH_DB_FILTER
+#ifndef _CCMATCH_DB_FILTER
+#define _CCMATCH_DB_FILTER
 
 
 
@@ -16,4 +16,4 @@ private :
 };
 
 
-#endif // _MMATCH_DB_FILTER
+#endif // _CCMATCH_DB_FILTER

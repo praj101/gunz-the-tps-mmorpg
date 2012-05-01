@@ -24,7 +24,7 @@ void CCMatchRuleAssassinate::ChooseAdminAsCommander()
 	m_uidBlueCommander = ChooseCommander(CCMT_BLUE);
 	if ( (m_uidRedCommander == CCUID(0,0)) || (m_uidBlueCommander == CCUID(0,0)) ) {
 		// Wait the game
-		SetRoundState(MMATCH_ROUNDSTATE_FREE);
+		SetRoundState(CCMATCH_ROUNDSTATE_FREE);
 		return;
 	}
 
@@ -62,7 +62,7 @@ const CCUID CCMatchRuleAssassinate::ChooseCommander(int nTeam)
 			if (pObj->GetEnterBattle() == false) 
 				continue;	// 배틀참가하고 있는 플레이어만 체크
 			
-			if (pObj->GetTeam() == nTeam && pObj->GetAccountInfo()->m_nUGrade == MMUG_ADMIN) 
+			if (pObj->GetTeam() == nTeam && pObj->GetAccountInfo()->m_nUGrade == CCMUGADMIN) 
 			{
 				return pObj->GetUID();
 			}
@@ -97,7 +97,7 @@ void CCMatchRuleAssassinate::OnRoundBegin()
 	m_uidBlueCommander = ChooseCommander(CCMT_BLUE);
 	if ( (m_uidRedCommander == CCUID(0,0)) || (m_uidBlueCommander == CCUID(0,0)) ) {
 		// Wait the game
-		SetRoundState(MMATCH_ROUNDSTATE_FREE);
+		SetRoundState(CCMATCH_ROUNDSTATE_FREE);
 		return;
 	}
 
@@ -120,34 +120,34 @@ bool CCMatchRuleAssassinate::OnCheckRoundFinish()
 {
 	CCMatchStage* pStage = GetStage();
 	if (pStage == NULL) {
-		SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
+		SetRoundArg(CCMATCH_ROUNDRESULT_DRAW);
 		return true;
 	}
 
 	CCMatchObject* pRedCommanderObj = CCMatchServer::GetInstance()->GetObject(m_uidRedCommander);
 	if ( (pRedCommanderObj==NULL) ||
 		 (pRedCommanderObj->GetStageUID() != pStage->GetUID()) ) {
-		SetRoundArg(MMATCH_ROUNDRESULT_BLUEWON);
+		SetRoundArg(CCMATCH_ROUNDRESULT_BLUEWON);
 		return true;
 	}
 
 	CCMatchObject* pBlueCommanderObj = CCMatchServer::GetInstance()->GetObject(m_uidBlueCommander);
 	if ( (pBlueCommanderObj==NULL) ||
 		 (pBlueCommanderObj->GetStageUID() != pStage->GetUID()) ) {
-		SetRoundArg(MMATCH_ROUNDRESULT_REDWON);
+		SetRoundArg(CCMATCH_ROUNDRESULT_REDWON);
 		return true;
 	}
 
 	if ( (pRedCommanderObj->CheckAlive() == false) && (pBlueCommanderObj->CheckAlive() == false) ) {
-		SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
+		SetRoundArg(CCMATCH_ROUNDRESULT_DRAW);
 		return true;
 	}
 	if (pRedCommanderObj->CheckAlive() == false) {
-		SetRoundArg(MMATCH_ROUNDRESULT_BLUEWON);
+		SetRoundArg(CCMATCH_ROUNDRESULT_BLUEWON);
 		return true;
 	}
 	if (pBlueCommanderObj->CheckAlive() == false) {
-		SetRoundArg(MMATCH_ROUNDRESULT_REDWON);
+		SetRoundArg(CCMATCH_ROUNDRESULT_REDWON);
 		return true;
 	}
 
@@ -160,7 +160,7 @@ void* CCMatchRuleAssassinate::CreateRuleInfoBlob()
 	MTD_RuleInfo_Assassinate* pRuleItem = (MTD_RuleInfo_Assassinate*)MGetBlobArrayElement(pRuleInfoArray, 0);
 	memset(pRuleItem, 0, sizeof(MTD_RuleInfo_Assassinate));
 	
-	pRuleItem->nRuleType = MMATCH_GAMETYPE_ASSASSINATE;
+	pRuleItem->nRuleType = CCMATCH_GAMETYPE_ASSASSINATE;
 	pRuleItem->uidRedCommander = m_uidRedCommander;
 	pRuleItem->uidBlueCommander = m_uidBlueCommander;
 

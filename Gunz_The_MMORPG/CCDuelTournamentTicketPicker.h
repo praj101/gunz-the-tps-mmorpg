@@ -1,13 +1,13 @@
 #pragma once
 
-class MDuelTournamentTicket;
-class MDuelTournamentTicketPicker
+class CCDuelTournamentTicket;
+class CCDuelTournamentTicketPicker
 {
 protected:
-	list <MDuelTournamentTicket *> m_TicketList;
+	list <CCDuelTournamentTicket *> m_TicketList;
 public:
-	void AddTicket(MDuelTournamentTicket *pTicket);
+	void AddTicket(CCDuelTournamentTicket *pTicket);
 	void Shuffle();
 
-	bool PickMatch(list<MDuelTournamentTicket*> *pTicketList, int nPlayerCount);
+	bool PickMatch(list<CCDuelTournamentTicket*> *pTicketList, int nPlayerCount);
 };

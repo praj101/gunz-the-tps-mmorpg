@@ -217,7 +217,7 @@ CCMatchMapsWorldItemSpawnInfo::~CCMatchMapsWorldItemSpawnInfo()
 bool CCMatchMapsWorldItemSpawnInfo::Read()
 {
 	char szFileName[256];
-	for (int i = 0; i < MMATCH_MAP_COUNT; i++)
+	for (int i = 0; i < CCMATCH_MAP_COUNT; i++)
 	{
 		sprintf(szFileName, "Maps/%s/%s", MGetMapDescMgr()->GetMapName(i), FILENAME_WORLDITEM_SPAWN);
 
@@ -270,7 +270,7 @@ bool CCMatchMapsWorldItemSpawnInfo::ReadXml(const char* szFileName, int nMapID)
 
 void CCMatchMapsWorldItemSpawnInfo::Clear()
 {
-	memset(m_MapsSpawnInfo, 0, sizeof(CCMatchMapsWorldItemSpawnInfoSet) * MMATCH_MAP_COUNT);
+	memset(m_MapsSpawnInfo, 0, sizeof(CCMatchMapsWorldItemSpawnInfoSet) * CCMATCH_MAP_COUNT);
 }
 
 CCMatchMapsWorldItemSpawnInfo* CCMatchMapsWorldItemSpawnInfo::GetInstance()
@@ -281,7 +281,7 @@ CCMatchMapsWorldItemSpawnInfo* CCMatchMapsWorldItemSpawnInfo::GetInstance()
 
 void CCMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(CCXmlElement& element, int nMapID)
 {
-	if ((nMapID < 0) || (nMapID >= MMATCH_MAP_COUNT)) return;
+	if ((nMapID < 0) || (nMapID >= CCMATCH_MAP_COUNT)) return;
 
 	CCXmlElement spawnElement;
 	char szGameTypeID[64] = "";

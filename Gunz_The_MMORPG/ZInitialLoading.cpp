@@ -593,7 +593,7 @@ void	ZInitialLoading::SetRandomTipsText()
 			szTips = ZGetGameInterface()->GetTips()->GetRandomTips();
 		}
 	}
-	else if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+	else if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
 		szTips = ZGetGameInterface()->GetTips()->GetTips(ZTIPS_CATEGORY_DUELTOURNAMENT, ZTIPMSG_ID_NEWBIE_SHOW_HELP);
 	}

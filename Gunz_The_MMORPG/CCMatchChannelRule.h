@@ -1,7 +1,7 @@
 #pragma once
 #include "CCBaseChannelRule.h"
 
-class CCMatchChannelRuleMgr : public MChannelRuleMgr
+class CCMatchChannelRuleMgr : public CCChannelRuleMgr
 {
 public:
 	CCMatchChannelRuleMgr();

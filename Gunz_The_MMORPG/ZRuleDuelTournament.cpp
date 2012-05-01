@@ -147,7 +147,7 @@ void ZRuleDuelTournament::AfterCommandProcessed( MCommand* pCommand )
 			if (!pCharacter) break;
 
 			// 게임중일땐 이 피어가 현재 출전자가 아니어야만 숨긴다
-			if (ZGetGame()->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
+			if (ZGetGame()->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)
 			{
 				if (uidChar != m_nextPlayerInfo.uidPlayer1 &&
 					uidChar != m_nextPlayerInfo.uidPlayer2)
@@ -421,15 +421,15 @@ void ZRuleDuelTournament::OnUpdate( float fDelta )
 
 	UpdateUISlideAni(fDelta);
 
-	if (ZGetGame()->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
+	if (ZGetGame()->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)
 		ShowMatchPlayerInfoUI(false);	// 컴터에 부하가 걸린 경우 플레이때도 대전자정보 UI가 닫히지 않는 경우가 생기는 현상 억제;;
 }
 
-void ZRuleDuelTournament::OnSetRoundState( MMATCH_ROUNDSTATE roundState )
+void ZRuleDuelTournament::OnSetRoundState( CCMATCH_ROUNDSTATE roundState )
 {
 	switch (roundState)
 	{
-	case MMATCH_ROUNDSTATE_PRE_COUNTDOWN:
+	case CCMATCH_ROUNDSTATE_PRE_COUNTDOWN:
 		{
 			// 프리카운트다운때 승패표시 후 다음매치 소개로 넘어가는데 이게 첫매치라면 승패표시는 건너뛴다
 			if (m_bFirstPreCountdown)
@@ -448,12 +448,12 @@ void ZRuleDuelTournament::OnSetRoundState( MMATCH_ROUNDSTATE roundState )
 			m_bFirstPreCountdown = false;
 		}
 		break;
-	case MMATCH_ROUNDSTATE_COUNTDOWN:
+	case CCMATCH_ROUNDSTATE_COUNTDOWN:
 		{
 			SetPreCountdownDetail(PCD_NOT_PRECOUNTDOWN);
 		}
 		break;
-	case MMATCH_ROUNDSTATE_EXIT:
+	case CCMATCH_ROUNDSTATE_EXIT:
 		{
 			// 결승전이 끝났을땐 PreCountdown으로 안들어가므로 finish때 대전 플레이어의 정보를 보여준다
 			BeginPlayerInfoUISlideAni(true);

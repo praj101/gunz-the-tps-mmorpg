@@ -33,7 +33,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 			if (MGetServerConfig()->IsUseBlockFlooding())
 			{
 				CCMatchObject* pObj = GetObject( pCommand->GetSenderUID() );
-				if( pObj && pObj->GetDisconnStatusInfo().GetStatus() == MMDS_CONNECTED)
+				if( pObj && pObj->GetDisconnStatusInfo().GetStatus() == CCMDS_CONNECTED)
 				{
 					LOG(LOG_FILE,"Command Flood detected");
 					LogObjectCommandHistory( pCommand->GetSenderUID() );
@@ -240,7 +240,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 //						break;
 //					}
 //
-//					if( MMDS_CONNECTED == pObj->GetDisconnStatusInfo().GetStatus() )
+//					if( CCMDS_CONNECTED == pObj->GetDisconnStatusInfo().GetStatus() )
 //					{
 //						pObj->SetBadUserDisconnectWaitInfo();
 //
@@ -988,7 +988,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&nItemID, 0, MPT_SHORT);
 				pCommand->GetParameter(&s_pos, 1, MPT_SVECTOR);
 
-				OnNotifyActivatedTrapItem(uidPlayer, nItemID, MVector3(s_pos.x, s_pos.y, s_pos.z));
+				OnNotifyActivatedTrapItem(uidPlayer, nItemID, CCVector3(s_pos.x, s_pos.y, s_pos.z));
 			}
 			break;
 
@@ -1674,7 +1674,7 @@ bool CCMatchServer::OnCommand(MCommand* pCommand)
 				if (MGetServerConfig()->IsUseBlockFlooding())
 				{
 					CCMatchObject* pObj = GetObject( uidPlayer );
-					if( pObj && pObj->GetDisconnStatusInfo().GetStatus() == MMDS_CONNECTED)
+					if( pObj && pObj->GetDisconnStatusInfo().GetStatus() == CCMDS_CONNECTED)
 					{
 						if( pObj->GetAccountName() ) {
 							LOG(LOG_PROG,"Ban Player On Flooding - (CCUID:%d%d, ID:%s)"

@@ -2,14 +2,14 @@
 
 #include "CCQuestConst.h"
 
-struct MQuestScenarioInfoMapJaco
+struct CCQuestScenarioInfoMapJaco
 {
-	MQUEST_NPC	nNPCID;
+	CCQUEST_NPC	nNPCID;
 	float		fRate;
 };
 
 
-struct MQuestScenarioInfoMaps
+struct CCQuestScenarioInfoMaps
 {
 	int										nKeySectorID;			///< 최종 섹터 ID
 	int										nKeyNPCID;				///< 키 NPC ID (퀘스트모드에서 최종 섹터에 출현하는 보스형NPC)
@@ -25,9 +25,9 @@ struct MQuestScenarioInfoMaps
 	unsigned int							nJacoSpawnTickTime;		///< 졸병 스폰 틱 타임
 	int										nJacoMinNPCCount;		///< 이값이하일때는 졸병이 스폰하지 않는다.
 	int										nJacoMaxNPCCount;		///< 이값이하일때는 졸병이 스폰하지 않는다.
-	vector<MQuestScenarioInfoMapJaco>		vecJacoArray;			///< 보스방에서 나올 졸병들
+	vector<CCQuestScenarioInfoMapJaco>		vecJacoArray;			///< 보스방에서 나올 졸병들
 
-	MQuestScenarioInfoMaps()
+	CCQuestScenarioInfoMaps()
 	{
 		nKeySectorID = 0;
 		nKeyNPCID = 0;
@@ -40,7 +40,7 @@ struct MQuestScenarioInfoMaps
 };
 
 /// 퀘스트 시나리오 정보
-struct MQuestScenarioInfo
+struct CCQuestScenarioInfo
 {
 	int				nID;										///< 시나리오 ID
 	char			szTitle[64];								///< 시나리오 이름
@@ -62,10 +62,10 @@ struct MQuestScenarioInfo
 	int				nMaxSpawn;									///< 섹터의 최대 NPC 스폰 횟수 (서바이벌용)
 	int				nMaxSpawnSameTime;							///< 섹터의 최대 동시 NPC 스폰량 (서바이벌용)
 
-	MQuestScenarioInfoMaps		Maps[SCENARIO_STANDARD_DICE_SIDES];
+	CCQuestScenarioInfoMaps		Maps[SCENARIO_STANDARD_DICE_SIDES];
 
 	/// 생성자
-	MQuestScenarioInfo()
+	CCQuestScenarioInfo()
 	{
 		nID = -1;
 		szTitle[0] = 0;
@@ -101,14 +101,14 @@ struct MQuestScenarioInfo
 };
 
 /// 시나리오 정보 관리자
-class MQuestScenarioCatalogue : public map<int, MQuestScenarioInfo*>
+class CCQuestScenarioCatalogue : public map<int, CCQuestScenarioInfo*>
 {
 private:
 	// 멤버 변수
 	int		m_nDefaultStandardScenarioID;
 	// 함수
 	void Clear();
-	void Insert(MQuestScenarioInfo* pScenarioInfo);
+	void Insert(CCQuestScenarioInfo* pScenarioInfo);
 	void ParseSpecialScenario(CCXmlElement& element);
 	void ParseStandardScenario(CCXmlElement& element);
 	void ParseNPCSetArray(CCXmlElement& element, vector<int>& vec);
@@ -121,13 +121,13 @@ private:
 	int CalcStandardScenarioID(int nMapsetID, int nQL);
 public:
 	CCQuestScenarioCatalogue();											///< 생성자
-	~MQuestScenarioCatalogue();											///< 소멸자
+	~CCQuestScenarioCatalogue();											///< 소멸자
 
 	bool ReadXml(const char* szFileName);								///< xml로부터 npc정보를 읽는다.
 	bool ReadXml(CCZFileSystem* pFileSystem,const char* szFileName);		///< xml로부터 npc정보를 읽는다.
 	
 
-	MQuestScenarioInfo* GetInfo(int nScenarioID);						///< 시나리오 정보 반환
+	CCQuestScenarioInfo* GetInfo(int nScenarioID);						///< 시나리오 정보 반환
 	/// 정규 시나리오 반환
 	/// @param nQL				퀘스트 레벨
 	/// @param nDice			주사위 굴림

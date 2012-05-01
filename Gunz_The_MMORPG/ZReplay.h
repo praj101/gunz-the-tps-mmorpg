@@ -6,7 +6,7 @@ struct REPLAY_STAGE_SETTING_NODE
 	CCUID				uidStage;
 	char				szMapName[MAPNAME_LENGTH];	// 맵이름
 	char				nMapIndex;					// 맵인덱스
-	MMATCH_GAMETYPE		nGameType;					// 게임타입
+	CCMATCH_GAMETYPE		nGameType;					// 게임타입
 	int					nRoundMax;					// 라운드
 	int					nLimitTime;					// 제한시간(1 - 1분)
 	int					nLimitLevel;				// 제한레벨

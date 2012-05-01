@@ -1,5 +1,5 @@
-#ifndef _MMATCHRULE_ASSASSINATE_H
-#define _MMATCHRULE_ASSASSINATE_H
+#ifndef _CCMATCHRULE_ASSASSINATE_H
+#define _CCMATCHRULE_ASSASSINATE_H
 
 
 #include "CCMatchRuleDeathMatch.h"
@@ -22,7 +22,7 @@ public:
 	virtual void* CreateRuleInfoBlob();
 	virtual void CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 								int nSrcExp, int* poutAttackerExp, int* poutTeamExp);
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_ASSASSINATE; }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_ASSASSINATE; }
 	void ChooseAdminAsCommander();
 };
 

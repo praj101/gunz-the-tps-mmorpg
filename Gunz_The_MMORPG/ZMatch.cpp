@@ -25,7 +25,7 @@
 ZMatch::ZMatch() : m_pRule(NULL)
 {
 	m_pStageSetting = ZGetGameClient()->GetMatchStageSetting();
-	m_nRoundState = MMATCH_ROUNDSTATE_PREPARE;
+	m_nRoundState = CCMATCH_ROUNDSTATE_PREPARE;
 	m_nLastDeadTime = 0;
 	m_nNowTime = 0;
 	m_nSoloSpawnTime = -1;
@@ -72,16 +72,16 @@ void ZMatch::Update(float fDelta)
 
 	switch (GetRoundState())
 	{
-	case MMATCH_ROUNDSTATE_PREPARE:
+	case CCMATCH_ROUNDSTATE_PREPARE:
 		{
 
 		}
 		break;
-	case MMATCH_ROUNDSTATE_PRE_COUNTDOWN:
+	case CCMATCH_ROUNDSTATE_PRE_COUNTDOWN:
 		{
 		}
 		break;
-	case MMATCH_ROUNDSTATE_COUNTDOWN:
+	case CCMATCH_ROUNDSTATE_COUNTDOWN:
 		{
 			if ((m_nNowTime - m_nStartTime) > ((READY_COUNT+1) * 1000))
 			{
@@ -89,7 +89,7 @@ void ZMatch::Update(float fDelta)
 			}
 		}
 		break;
-	case MMATCH_ROUNDSTATE_PLAY:
+	case CCMATCH_ROUNDSTATE_PLAY:
 		{
 			ProcessRespawn();
 		}
@@ -175,21 +175,21 @@ void ZMatch::OnDrawGameMessage()
 
 	switch (GetRoundState())
 	{
-	case MMATCH_ROUNDSTATE_PREPARE:
+	case CCMATCH_ROUNDSTATE_PREPARE:
 		{
 		}
 		break;
-	case MMATCH_ROUNDSTATE_COUNTDOWN:
-		{
-
-		}
-		break;
-	case MMATCH_ROUNDSTATE_PLAY:
+	case CCMATCH_ROUNDSTATE_COUNTDOWN:
 		{
 
 		}
 		break;
-	case MMATCH_ROUNDSTATE_FINISH:
+	case CCMATCH_ROUNDSTATE_PLAY:
+		{
+
+		}
+		break;
+	case CCMATCH_ROUNDSTATE_FINISH:
 		{
 
 		}
@@ -207,8 +207,8 @@ void ZMatch::OnDrawGameMessage()
 
 void ZMatch::SoloSpawn()
 {
-	if (GetMatchType() == MMATCH_GAMETYPE_DUEL) return;
-	if (GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT) return;
+	if (GetMatchType() == CCMATCH_GAMETYPE_DUEL) return;
+	if (GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT) return;
 
 	if (ZGetGame()->m_pMyCharacter->IsDie())
 	{
@@ -283,7 +283,7 @@ void ZMatch::InitCharactersPosition()
 	}
 
 	// 듀얼모드 일 경우
-	else if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
+	else if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 	{
 		ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		if ( pDuel)
@@ -320,7 +320,7 @@ void ZMatch::InitCharactersPosition()
 		}
 	}
 
-	else if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT )
+	else if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT )
 	{
 		ZRuleDuelTournament *pDTRule = (ZRuleDuelTournament*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		if (pDTRule)
@@ -401,7 +401,7 @@ void ZMatch::InitRound()
 #endif
 	} else {
 		if (ZGetGame()->GetSpawnRequested() == false) {
-			if (GetMatchType() == MMATCH_GAMETYPE_DUEL)
+			if (GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 			{
 //				ZRuleDuel* pDuel = (ZRuleDuel*)GetRule();
 //				if (pDuel->GetQueueIdx(ZGetMyUID()) <= 1){
@@ -416,7 +416,7 @@ void ZMatch::InitRound()
 					pCharacter->SetVisible(false);
 				}
 			}
-			else if(GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT){
+			else if(GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT){
 				for (ZCharacterManager::iterator itor = ZGetGame()->m_CharacterManager.begin();
 					itor != ZGetGame()->m_CharacterManager.end(); ++itor)
 				{
@@ -456,7 +456,7 @@ void ZMatch::InitRound()
 
 
 
-void ZMatch::SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
+void ZMatch::SetRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg)
 {
 	if (m_nRoundState == nRoundState) return;
 	m_nRoundState = nRoundState;
@@ -465,14 +465,14 @@ void ZMatch::SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 	char buf[128];
 	switch(ZGetGame()->GetMatch()->GetRoundState())
 	{
-	case MMATCH_ROUNDSTATE_PREPARE:		sprintf(buf, "RoundState: PREPARE \n"); break;
-	case MMATCH_ROUNDSTATE_COUNTDOWN:	sprintf(buf, "RoundState: COUNTDOWN \n"); break;
-	case MMATCH_ROUNDSTATE_PLAY:		sprintf(buf, "RoundState: PLAY \n"); break;
-	case MMATCH_ROUNDSTATE_FINISH:		sprintf(buf, "RoundState: FINISH \n"); break;
-	case MMATCH_ROUNDSTATE_EXIT:		sprintf(buf, "RoundState: EXIT \n"); break;
-	case MMATCH_ROUNDSTATE_FREE:		sprintf(buf, "RoundState: FREE \n"); break;
-	case MMATCH_ROUNDSTATE_FAILED:		sprintf(buf, "RoundState: FAILED \n"); break;
-	case MMATCH_ROUNDSTATE_PRE_COUNTDOWN: sprintf(buf, "RoundState: PRE_COUNTDOWN \n"); break;
+	case CCMATCH_ROUNDSTATE_PREPARE:		sprintf(buf, "RoundState: PREPARE \n"); break;
+	case CCMATCH_ROUNDSTATE_COUNTDOWN:	sprintf(buf, "RoundState: COUNTDOWN \n"); break;
+	case CCMATCH_ROUNDSTATE_PLAY:		sprintf(buf, "RoundState: PLAY \n"); break;
+	case CCMATCH_ROUNDSTATE_FINISH:		sprintf(buf, "RoundState: FINISH \n"); break;
+	case CCMATCH_ROUNDSTATE_EXIT:		sprintf(buf, "RoundState: EXIT \n"); break;
+	case CCMATCH_ROUNDSTATE_FREE:		sprintf(buf, "RoundState: FREE \n"); break;
+	case CCMATCH_ROUNDSTATE_FAILED:		sprintf(buf, "RoundState: FAILED \n"); break;
+	case CCMATCH_ROUNDSTATE_PRE_COUNTDOWN: sprintf(buf, "RoundState: PRE_COUNTDOWN \n"); break;
 	}
 	OutputDebugString(buf);
 #endif
@@ -483,23 +483,23 @@ void ZMatch::SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 	switch(m_nRoundState) 
 	{
 
-	case MMATCH_ROUNDSTATE_PREPARE: 
+	case CCMATCH_ROUNDSTATE_PREPARE: 
 		{
 
 		}
 		break;
-	case MMATCH_ROUNDSTATE_PRE_COUNTDOWN:
+	case CCMATCH_ROUNDSTATE_PRE_COUNTDOWN:
 		{
 		}
 		break;
-	case MMATCH_ROUNDSTATE_COUNTDOWN : 
+	case CCMATCH_ROUNDSTATE_COUNTDOWN : 
 		{
-			OutputDebugString("MMATCH_ROUNDSTATE_COUNTDOWN>> InitRound BEGIN \n");
+			OutputDebugString("CCMATCH_ROUNDSTATE_COUNTDOWN>> InitRound BEGIN \n");
 			InitRound();
-			OutputDebugString("MMATCH_ROUNDSTATE_COUNTDOWN>> InitRound END \n");
+			OutputDebugString("CCMATCH_ROUNDSTATE_COUNTDOWN>> InitRound END \n");
 		}
 		break;
-	case MMATCH_ROUNDSTATE_PLAY:
+	case CCMATCH_ROUNDSTATE_PLAY:
 		{
 			if (!IsTeamPlay())
 			{
@@ -507,11 +507,11 @@ void ZMatch::SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 			}
 		}
 		break;
-	case MMATCH_ROUNDSTATE_FINISH:
+	case CCMATCH_ROUNDSTATE_FINISH:
 		{
 			ZGetGame()->FlushObserverCommands();
 
-			if (GetMatchType() == MMATCH_GAMETYPE_DUEL)
+			if (GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 			{				
 				for (ZCharacterManager::iterator itor = ZGetGame()->m_CharacterManager.begin();
 					itor != ZGetGame()->m_CharacterManager.end(); ++itor)
@@ -524,7 +524,7 @@ void ZMatch::SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 					}
 				}	
 			}
-			else if(GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+			else if(GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 			{
 				//
 			}
@@ -538,26 +538,26 @@ void ZMatch::SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 
 			if (IsTeamPlay())
 			{
-				if (nArg == MMATCH_ROUNDRESULT_RED_ALL_OUT )
+				if (nArg == CCMATCH_ROUNDRESULT_RED_ALL_OUT )
 				{
 					if( m_nTeamScore[MMT_BLUE] < m_nTeamScore[MMT_RED] )
 						m_nTeamScore[MMT_BLUE] = m_nTeamScore[MMT_RED] = 0;
 					else
 						m_nTeamScore[MMT_BLUE]++;
 				}
-				else if( nArg ==  MMATCH_ROUNDRESULT_BLUE_ALL_OUT )
+				else if( nArg ==  CCMATCH_ROUNDRESULT_BLUE_ALL_OUT )
 				{
 					if( m_nTeamScore[MMT_RED] < m_nTeamScore[MMT_BLUE] )
                         m_nTeamScore[MMT_RED] =	m_nTeamScore[MMT_BLUE] = 0;
 					else
 						m_nTeamScore[MMT_RED]++;
 				}
-				else if (nArg == MMATCH_ROUNDRESULT_DRAW)
+				else if (nArg == CCMATCH_ROUNDRESULT_DRAW)
 				{
 					// Do nothing...
 				} 
 				else {
-					CCMatchTeam nTeamWon = (nArg == MMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
+					CCMatchTeam nTeamWon = (nArg == CCMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
 					if (nTeamWon == MMT_RED)
 						m_nTeamScore[MMT_RED]++;
 					else if (nTeamWon == MMT_BLUE)
@@ -566,12 +566,12 @@ void ZMatch::SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 			}
 		}
 		break;
-	case MMATCH_ROUNDSTATE_EXIT:
+	case CCMATCH_ROUNDSTATE_EXIT:
 		{
 			
 		}
 		break;
-	case MMATCH_ROUNDSTATE_FREE:
+	case CCMATCH_ROUNDSTATE_FREE:
 		{
 
 		}
@@ -586,11 +586,11 @@ const char* ZMatch::GetTeamName(int nTeamID)
 	switch (nTeamID)
 	{
 	case MMT_SPECTATOR:
-		return MMATCH_SPECTATOR_STR;
+		return CCMATCH_SPECTATOR_STR;
 	case MMT_RED:
-		return MMATCH_TEAM1_NAME_STR;
+		return CCMATCH_TEAM1_NAME_STR;
 	case MMT_BLUE:
-		return MMATCH_TEAM2_NAME_STR;
+		return CCMATCH_TEAM2_NAME_STR;
 	default:
 		return "";
 	}
@@ -657,7 +657,7 @@ void ZMatch::OnForcedEntry(ZCharacter* pCharacter)
 			ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 		} else {
 			// 팀플레이면 스팩테이터
-			if (IsWaitForRoundEnd()/* && ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUEL*/)
+			if (IsWaitForRoundEnd()/* && ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUEL*/)
 			{
 				pCharacter->SetVisible(false);
 				pCharacter->ForceDie();
@@ -673,7 +673,7 @@ void ZMatch::OnForcedEntry(ZCharacter* pCharacter)
 	{
 		// 팀플레이에 다른 플레이어가 난입하면 다음판부터 진행해야 하기때문에 캐릭터 보여주지 않음
 		// 단 FREE상태일 때에는 보여준다
-		if (IsWaitForRoundEnd() && (GetRoundState() != MMATCH_ROUNDSTATE_FREE))
+		if (IsWaitForRoundEnd() && (GetRoundState() != CCMATCH_ROUNDSTATE_FREE))
 		{
 			if (pCharacter != NULL)
 			{
@@ -688,7 +688,7 @@ int ZMatch::GetRemainedSpawnTime()
 {
 	int nTimeSec = -1;
 
-	if (GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
+	if (GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)
 	{
 		if (!IsWaitForRoundEnd())
 		{

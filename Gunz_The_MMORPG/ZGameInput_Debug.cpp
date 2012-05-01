@@ -366,9 +366,9 @@ bool ZGameInput::OnDebugEvent(MEvent* pEvent)
 						CCQuestNPCInfo* pNPCInfo = NULL;
 
 						if(ZGetQuest())
-							pNPCInfo = 	ZGetQuest()->GetNPCInfo(MQUEST_NPC(nNPCType));
+							pNPCInfo = 	ZGetQuest()->GetNPCInfo(CCQUEST_NPC(nNPCType));
 
-						ZActor* pNewActor = ZActor::CreateActor(MQUEST_NPC(nNPCType), 1.0f, 0);
+						ZActor* pNewActor = ZActor::CreateActor(CCQUEST_NPC(nNPCType), 1.0f, 0);
 						if (pNewActor)
 						{
 							pNewActor->SetUID(uidNPC);

@@ -46,7 +46,7 @@ void CCMatchRuleBaseQuest::OnEnd()
 
 bool CCMatchRuleBaseQuest::OnRun()
 {
-	if (GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
+	if (GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)
 	{
 		SendClientLatencyPing();
 		ReAssignNPC();
@@ -116,7 +116,7 @@ bool CCMatchRuleBaseQuest::OnCheckEnableBattleCondition()
 
 void CCMatchRuleBaseQuest::OnLeaveBattle(CCUID& uidChar)
 {
-	if (GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
+	if (GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)
 	{
 	}
 	CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uidChar);
@@ -160,7 +160,7 @@ void CCMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, 
 			//_ASSERT(0);
 		}else {
 			// 문제가있다.
-			if (GetGameType() == MMATCH_GAMETYPE_QUEST)
+			if (GetGameType() == CCMATCH_GAMETYPE_QUEST)
 				_ASSERT(0);
 
 			// 서바이벌에서는 몹이 남아도 보스만 죽으면 라운드가 끝나므로, npc 컨트롤러인 플레이어가 포탈을 타고
@@ -273,7 +273,7 @@ bool CCMatchRuleBaseQuest::CheckPlayersAlive()
 
 
 
-CCMatchNPCObject* CCMatchRuleBaseQuest::SpawnNPC(MQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC)
+CCMatchNPCObject* CCMatchRuleBaseQuest::SpawnNPC(CCQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC)
 {
 	CCMatchNPCObject* pNPCObject = m_NPCManager.CreateNPCObject(nNPC, nPosIndex, bKeyNPC);
 	if (pNPCObject)
@@ -290,7 +290,7 @@ void CCMatchRuleBaseQuest::OnRequestTestNPCSpawn(int nNPCType, int nNPCCount)
 	for (int i = 0; i < nNPCCount; i++)
 	{
 		int nPosIndex = RandomNumber(0, 26);
-        SpawnNPC(MQUEST_NPC(nNPCType), nPosIndex);
+        SpawnNPC(CCQUEST_NPC(nNPCType), nPosIndex);
 	}
 }
 
@@ -447,7 +447,7 @@ void CCMatchRuleBaseQuest::SendClientLatencyPing()
 	}
 }
 
-void InsertNPCIDonUnique( vector<MQUEST_NPC>& outNPCList, MQUEST_NPC nNPCID )
+void InsertNPCIDonUnique( vector<CCQUEST_NPC>& outNPCList, CCQUEST_NPC nNPCID )
 {
 	if( NPC_NONE == nNPCID )
 	{
@@ -460,10 +460,10 @@ void InsertNPCIDonUnique( vector<MQUEST_NPC>& outNPCList, MQUEST_NPC nNPCID )
 	}		
 }
 
-void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps )
+void MakeJacoNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps )
 {
 	// 해당 시나리오의 Key npc를 우선 등록한다. 보스전에 사용된다.
-	InsertNPCIDonUnique( outNPCList, MQUEST_NPC(ScenarioInfoMaps.nKeyNPCID) );
+	InsertNPCIDonUnique( outNPCList, CCQUEST_NPC(ScenarioInfoMaps.nKeyNPCID) );
 
 	const size_t nJacoArrayCount = ScenarioInfoMaps.vecJacoArray.size();
 
@@ -473,19 +473,19 @@ void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& S
 	}
 }
 
-void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps )
+void MakeSurvivalKeyNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps )
 {
 	// 해당 서바이벌 시나리오의 섹션별 Key npc를 등록한다.
 	const size_t nKeyNPCCount = ScenarioInfoMaps.vecKeyNPCArray.size();
 
 	for( size_t i = 0; i < nKeyNPCCount; ++i )
 	{
-		InsertNPCIDonUnique( outNPCList, MQUEST_NPC(ScenarioInfoMaps.vecKeyNPCArray[i]) );
+		InsertNPCIDonUnique( outNPCList, CCQUEST_NPC(ScenarioInfoMaps.vecKeyNPCArray[i]) );
 	}
 }
 
 
-void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest ) 
+void MakeNomalNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest ) 
 {
 	CCQuestNPCSetInfo*	pNPCSetInfo	= NULL;
 	int					nNPCSetID	= 0;
@@ -495,7 +495,7 @@ void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& 
 
 	for( size_t i = 0; i < nNPCSetArrayCount; ++i )
 	{
-		nNPCSetID = MQUEST_NPC( ScenarioInfoMaps.vecNPCSetArray[i] );
+		nNPCSetID = CCQUEST_NPC( ScenarioInfoMaps.vecNPCSetArray[i] );
 
 		pNPCSetInfo = pQuest->GetNPCSetInfo( nNPCSetID );
 		if( NULL == pNPCSetInfo )

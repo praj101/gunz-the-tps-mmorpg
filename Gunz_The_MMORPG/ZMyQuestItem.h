@@ -89,6 +89,6 @@ private :
 
 };
 
-typedef map<unsigned long int, ZMyQuestItemNode*> MQUESTITEMNODEMAP;
+typedef map<unsigned long int, ZMyQuestItemNode*> CCQUESTITEMNODEMAP;
 
 #endif

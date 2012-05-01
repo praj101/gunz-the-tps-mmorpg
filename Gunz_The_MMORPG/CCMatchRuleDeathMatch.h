@@ -1,5 +1,5 @@
-#ifndef _MMATCHRULE_DEATHMATCH_H
-#define _MMATCHRULE_DEATHMATCH_H
+#ifndef _CCMATCHRULE_DEATHMATCH_H
+#define _CCMATCHRULE_DEATHMATCH_H
 
 
 #include "CCMatchRule.h"
@@ -16,7 +16,7 @@ protected:
 public:
 	CCMatchRuleSoloDeath(CCMatchStage* pStage);
 	virtual ~CCMatchRuleSoloDeath() { }
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_SOLO; }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_DEATHMATCH_SOLO; }
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ public:
 	virtual ~CCMatchRuleTeamDeath()				{}
 	virtual void CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 								int nSrcExp, int* poutAttackerExp, int* poutTeamExp);
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_TEAM; }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_DEATHMATCH_TEAM; }
 };
 
 
@@ -61,7 +61,7 @@ public:
 	virtual ~CCMatchRuleTeamDeath2()				{}
 	virtual void CalcTeamBonus(CCMatchObject* pAttacker, CCMatchObject* pVictim,
 		int nSrcExp, int* poutAttackerExp, int* poutTeamExp);
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_TEAM2; }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_DEATHMATCH_TEAM2; }
 };
 
 

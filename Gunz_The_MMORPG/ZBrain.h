@@ -78,7 +78,7 @@ public:
 	ZBrain();
 	virtual ~ZBrain();
 
-	static ZBrain* CreateBrain( MQUEST_NPC nNPCType);
+	static ZBrain* CreateBrain( CCQUEST_NPC nNPCType);
 
 	void Init( ZActor* pBody);
 

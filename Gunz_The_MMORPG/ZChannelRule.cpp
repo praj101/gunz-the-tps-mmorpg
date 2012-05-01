@@ -6,7 +6,7 @@
 #include "ZGameClient.h"
 
 
-ZChannelRuleMgr::ZChannelRuleMgr() : MChannelRuleMgr()
+ZChannelRuleMgr::ZChannelRuleMgr() : CCChannelRuleMgr()
 {
 
 }
@@ -22,7 +22,7 @@ ZChannelRuleMgr* ZChannelRuleMgr::GetInstance()
 	return &g_ChannelRuleMgr;
 }
 
-MChannelRule* ZChannelRuleMgr::GetCurrentRule()
+CCChannelRule* ZChannelRuleMgr::GetCurrentRule()
 {
 	return GetRule(ZGetGameClient()->GetChannelRuleName());
 }

@@ -78,8 +78,8 @@ protected:
 	bool					m_bReserveStandUp;	// 쓰러지고 나서 일어나는데 지연 시간을 가짐
 	DWORD					m_dwStandUp;		// 쓰러지고 나서 일어나는데까지 걸리는 시간
 private:
-	void InitFromNPCType(MQUEST_NPC nNPCType, float fTC, int nQL);
-	void InitMesh(char* szMeshName, MQUEST_NPC nNPCType);
+	void InitFromNPCType(CCQUEST_NPC nNPCType, float fTC, int nQL);
+	void InitMesh(char* szMeshName, CCQUEST_NPC nNPCType);
 	void OnTaskFinished(ZTASK_ID nLastID);
 	static void OnTaskFinishedCallback(ZActor* pActor, ZTASK_ID nLastID);
 	inline static int CalcMaxHP(int nQL, int nSrcHP);
@@ -107,7 +107,7 @@ protected:
 	rvector				m_Accel;
 	float				m_fDelayTime;
 
-	MQUEST_NPC			m_nNPCType;				///< NPC 타입
+	CCQUEST_NPC			m_nNPCType;				///< NPC 타입
 
 //	ZBasicInfoHistory	m_BasicHistory;			///< 판정을 위해 몇초간의 데이터를 가지고있는다
 
@@ -136,7 +136,7 @@ protected:
 public:
 	ZActor();
 	virtual ~ZActor();
-	static ZActor* CreateActor(MQUEST_NPC nNPCType, float fTC, int nQL, bool bForceCollRadius35=false);
+	static ZActor* CreateActor(CCQUEST_NPC nNPCType, float fTC, int nQL, bool bForceCollRadius35=false);
 	void InputBasicInfo(ZBasicInfo* pni, BYTE anistate);
 	void InputBossHpAp(float fHp, float fAp);
 	void Input(AI_INPUT_SET nInput);
@@ -215,7 +215,7 @@ void SetClientNPCInfoFromServerNPCInfo( CCQuestNPCInfo* pClientNPCInfo, const MT
 
 
 // inline /////////////////////////////////////////////////////////////////////////////////////////
-inline const MTD_NPCINFO* GetMyActorServerNPCInfo( const MQUEST_NPC nNPCID )
+inline const MTD_NPCINFO* GetMyActorServerNPCInfo( const CCQUEST_NPC nNPCID )
 {
 	if( NULL == ZGetQuest() )
 	{

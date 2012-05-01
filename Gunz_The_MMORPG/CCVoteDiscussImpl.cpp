@@ -1,21 +1,21 @@
 #include "stdafx.h"
-#include "MVoteDiscussImpl.h"
+#include "CCVoteDiscussImpl.h"
 #include "CCMatchServer.h"
 #include "CCSharedCommandTable.h"
 #include "CCLex.h"
 
 
 ///////////////////////////////////////////////////////
-// MVoteDiscussBuilder
-MVoteDiscuss* MVoteDiscussBuilder::Build(const CCUID& uidDrafter, const CCUID& uidStage, const char* pszDiscuss, const char* pszArg)
+// CCVoteDiscussBuilder
+CCVoteDiscuss* CCVoteDiscussBuilder::Build(const CCUID& uidDrafter, const CCUID& uidStage, const char* pszDiscuss, const char* pszArg)
 {
 	if ( (stricmp(pszDiscuss, "joke") == 0) || (stricmp(pszDiscuss, "³ó´ã") == 0) ) {
-		MVoteDiscussJoke* pDiscuss = new MVoteDiscussJoke(uidStage);
+		CCVoteDiscussJoke* pDiscuss = new CCVoteDiscussJoke(uidStage);
 		pDiscuss->m_strJoke = pszArg;
 		return pDiscuss;
 	}
 	else if ( (stricmp(pszDiscuss, "kick") == 0) || (stricmp(pszDiscuss, "Ãß¹æ") == 0) ) {
-		MVoteDiscussKick* pDiscuss = new MVoteDiscussKick(uidStage);
+		CCVoteDiscussKick* pDiscuss = new CCVoteDiscussKick(uidStage);
 		pDiscuss->m_strTarget = pszArg;
 		return pDiscuss;
 	}
@@ -23,12 +23,12 @@ MVoteDiscuss* MVoteDiscussBuilder::Build(const CCUID& uidDrafter, const CCUID& u
 }
 
 ///////////////////////////////////////////////////////
-// MVoteDiscussJoke
-MVoteDiscussJoke::MVoteDiscussJoke(const CCUID& uidStage) : MVoteDiscuss(uidStage)
+// CCVoteDiscussJoke
+CCVoteDiscussJoke::CCVoteDiscussJoke(const CCUID& uidStage) : CCVoteDiscuss(uidStage)
 {
 }
 
-bool MVoteDiscussJoke::OnJudge(bool bJudge)
+bool CCVoteDiscussJoke::OnJudge(bool bJudge)
 {
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
 
@@ -45,12 +45,12 @@ bool MVoteDiscussJoke::OnJudge(bool bJudge)
 }
 
 ///////////////////////////////////////////////////////
-// MVoteDiscussKick
-MVoteDiscussKick::MVoteDiscussKick(const CCUID& uidStage) : MVoteDiscuss(uidStage)
+// CCVoteDiscussKick
+CCVoteDiscussKick::CCVoteDiscussKick(const CCUID& uidStage) : CCVoteDiscuss(uidStage)
 {
 }
 
-bool MVoteDiscussKick::OnJudge(bool bJudge)
+bool CCVoteDiscussKick::OnJudge(bool bJudge)
 {
 	CCMatchServer* pServer = CCMatchServer::GetInstance();
 	CCMatchStage* pStage = pServer->FindStage(GetStageUID());

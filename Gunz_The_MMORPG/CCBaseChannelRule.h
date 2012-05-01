@@ -39,7 +39,7 @@ enum CCCHANNEL_RULE {
 
 
 
-class MChannelRuleMapList : public list<int>
+class CCChannelRuleMapList : public list<int>
 {
 private:
 	set<int>		m_Set;
@@ -54,7 +54,7 @@ public:
 	bool Exist(const char* pszMapName, bool bOnlyDuel);
 };
 
-class MChannelRuleGameTypeList : public list<int>
+class CCChannelRuleGameTypeList : public list<int>
 {
 private:
 	set<int>		m_Set;
@@ -91,17 +91,17 @@ public:
 	}
 };
 
-class MChannelRule {
+class CCChannelRule {
 protected:
 	int							m_nID;
 	string						m_Name;
-	MChannelRuleMapList			m_MapList;
-	MChannelRuleGameTypeList	m_GameTypeList;
+	CCChannelRuleMapList			m_MapList;
+	CCChannelRuleGameTypeList	m_GameTypeList;
 	int							m_nDefault;
 
 public:
-	MChannelRule()						{}
-	virtual ~MChannelRule()				{}
+	CCChannelRule()						{}
+	virtual ~CCChannelRule()				{}
 	void Init(int nID, const char* pszName)
 	{
 		m_nDefault = 0;
@@ -129,25 +129,25 @@ public:
 #endif
 		return m_GameTypeList.Exist(nGameTypeID);
 	}
-	MChannelRuleMapList* GetMapList()					{ return &m_MapList; }
-	MChannelRuleGameTypeList* GetGameTypeList()			{ return &m_GameTypeList; }
+	CCChannelRuleMapList* GetMapList()					{ return &m_MapList; }
+	CCChannelRuleGameTypeList* GetGameTypeList()			{ return &m_GameTypeList; }
 	void SetDefault( int nDefault)						{ m_nDefault = nDefault; }
 	int GetDefault()									{ return m_nDefault; }
 };
 
 
 
-class MChannelRuleMgr : public map<string, MChannelRule*>, public CCXmlParser
+class CCChannelRuleMgr : public map<string, CCChannelRule*>, public CCXmlParser
 {
 private:
-	map<CCCHANNEL_RULE, MChannelRule*>		m_RuleTypeMap;
-	void AddRule(MChannelRule* pRule);
+	map<CCCHANNEL_RULE, CCChannelRule*>		m_RuleTypeMap;
+	void AddRule(CCChannelRule* pRule);
 public:
-	MChannelRuleMgr();
-	virtual ~MChannelRuleMgr();
+	CCChannelRuleMgr();
+	virtual ~CCChannelRuleMgr();
 	void Clear();	
-	MChannelRule* GetRule(const string& strName);
-	MChannelRule* GetRule(CCCHANNEL_RULE nChannelRule);
+	CCChannelRule* GetRule(const string& strName);
+	CCChannelRule* GetRule(CCCHANNEL_RULE nChannelRule);
 
 protected:
 	void ParseRule(CCXmlElement* element);

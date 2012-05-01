@@ -11,7 +11,7 @@ class ZQuestGameInfo
 {
 private:
 	bool							m_bInitialized;
-	vector<MQUEST_NPC>				m_NPCInfoVector;
+	vector<CCQUEST_NPC>				m_NPCInfoVector;
 	vector<CCQuestLevelSectorNode>	m_MapSectorVector;
 	int								m_nQL;						// 현재 시나리오의 퀘스트 레벨
 	float							m_fNPC_TC;
@@ -35,7 +35,7 @@ public:
 	// interface func
 	int GetNPCInfoCount();
 	int GetMapSectorCount();
-	MQUEST_NPC GetNPCInfo(int index);
+	CCQUEST_NPC GetNPCInfo(int index);
 	int GetMapSectorID(int index);
 	int GetMapSectorLink(int index);
 	bool IsInited();
@@ -74,7 +74,7 @@ inline int ZQuestGameInfo::GetMapSectorCount()
 { 
 	return (int)m_MapSectorVector.size(); 
 }
-inline MQUEST_NPC ZQuestGameInfo::GetNPCInfo(int index) 
+inline CCQUEST_NPC ZQuestGameInfo::GetNPCInfo(int index) 
 { 
 	return m_NPCInfoVector[index]; 
 }

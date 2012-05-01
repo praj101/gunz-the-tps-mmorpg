@@ -114,7 +114,7 @@ public:
 
 inline CCMatchBuffDescMgr* MGetMatchBuffDescMgr() { return CCMatchBuffDescMgr::GetInstance(); }
 
-#include "../../StringLiteral/cxr_CCMatchBuff.h"
+#include "cxr_CCMatchBuff.h"
 
 
 class CCMatchBuff

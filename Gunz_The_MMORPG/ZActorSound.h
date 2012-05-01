@@ -6,7 +6,7 @@ using namespace std;
 #include "CCQuestNPC.h"
 
 
-class ZActorSoundManager : public set<MQUEST_NPC>
+class ZActorSoundManager : public set<CCQUEST_NPC>
 {
 private:
 public:

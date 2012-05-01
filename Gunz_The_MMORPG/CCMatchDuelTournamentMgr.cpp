@@ -5,7 +5,7 @@
 
 CCMatchDuelTournamentMgr::CCMatchDuelTournamentMgr()
 : m_lastMatchedTick(0)
-, m_pDTMatchLauncher(new MDuelTournamentMatchLauncher)
+, m_pDTMatchLauncher(new CCDuelTournamentMatchLauncher)
 , m_nLastTimeCheckedTick(0)
 , m_bIsServiceTime(false)
 {
@@ -131,9 +131,9 @@ void CCMatchDuelTournamentMgr::Tick(unsigned long nCurTick)
 //=======================================================================================================================
 
 
-void MDuelTournamentMatchLauncher::LaunchAvailableMatch( CCDUELTOURNAMENTTYPE nType, MDuelTournamentMatchMaker& matchMaker, DWORD nCurTick )
+void CCDuelTournamentMatchLauncher::LaunchAvailableMatch( CCDUELTOURNAMENTTYPE nType, CCDuelTournamentMatchMaker& matchMaker, DWORD nCurTick )
 {
-	MDuelTournamentPickedGroup vecUidPlayer;
+	CCDuelTournamentPickedGroup vecUidPlayer;
 
 	int nPlayerCount = GetDTPlayerCount(CCDUELTOURNAMENTTYPE(nType));
 
@@ -144,7 +144,7 @@ void MDuelTournamentMatchLauncher::LaunchAvailableMatch( CCDUELTOURNAMENTTYPE nT
 	int nSafetyNet = 0;
 	while (nSafetyNet++ < numPlayer) // <= while(1)이어도 괜찮지만 만일의 경우 무한루프에 빠지는 것만은 피하고자함
 	{
-		const MDuelTournamentMatchMaker::DTUser* pDTUser = matchMaker.FindLongWaitPlayer(m_dwLimitUserWaitTime, nCurTick);
+		const CCDuelTournamentMatchMaker::DTUser* pDTUser = matchMaker.FindLongWaitPlayer(m_dwLimitUserWaitTime, nCurTick);
 		if (NULL == pDTUser)
 			break;
 
@@ -160,9 +160,9 @@ void MDuelTournamentMatchLauncher::LaunchAvailableMatch( CCDUELTOURNAMENTTYPE nT
 		LaunchMatchGroups( CCDUELTOURNAMENTTYPE(nType), vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR_TPGAP);
 }
 
-void MDuelTournamentMatchLauncher::LaunchMatchGroups( CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
+void CCDuelTournamentMatchLauncher::LaunchMatchGroups( CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
 {
-	MDuelTournamentPickedGroup SmallPickedGroup;
+	CCDuelTournamentPickedGroup SmallPickedGroup;
 
 	int nIndex = 0;
 	int nPlayerCount = GetDTPlayerCount(nType);
@@ -171,7 +171,7 @@ void MDuelTournamentMatchLauncher::LaunchMatchGroups( CCDUELTOURNAMENTTYPE nType
 		return;	// 0으로 나누기 방지
 	}
 
-	for( MDuelTournamentPickedGroup::iterator iter = vecUidPlayer.begin(); iter != vecUidPlayer.end(); ++iter)
+	for( CCDuelTournamentPickedGroup::iterator iter = vecUidPlayer.begin(); iter != vecUidPlayer.end(); ++iter)
 	{
 		nIndex++;
 
@@ -184,7 +184,7 @@ void MDuelTournamentMatchLauncher::LaunchMatchGroups( CCDUELTOURNAMENTTYPE nType
 	}
 }
 
-void MDuelTournamentMatchLauncher::LaunchMatch( CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
+void CCDuelTournamentMatchLauncher::LaunchMatch( CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor )
 {
 	pPickedGroup->Shuffle();
 	CCMatchServer* pServer = CCMatchServer::GetInstance();

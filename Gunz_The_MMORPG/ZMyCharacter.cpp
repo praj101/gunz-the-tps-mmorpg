@@ -285,7 +285,7 @@ void ZMyCharacter::OnDraw()
 
 void ZMyCharacter::ProcessInput(float fDelta)
 {
-	if (ZGetGame()->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PREPARE) return;
+	if (ZGetGame()->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PREPARE) return;
 	if (m_bInitialized==false) return;
 	if ( ZGetGame()->IsReservedSuicide())			// 자살 예정인 경우 움직이지 못하게 한다
 		return;
@@ -1667,7 +1667,7 @@ void ZMyCharacter::ProcessShot()
 	const ZCharaterStatusBitPacking & uStatus = m_dwStatusBitPackingValue.Ref();
 	ZMyCharaterStatusBitPacking & zStatus = m_statusFlags.Ref();
 
-	if (ZGetGame()->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PREPARE) return;
+	if (ZGetGame()->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PREPARE) return;
 	if (m_bInitialized==false) return;
 
 	// 오른버튼 누른상태서 왼버튼은 ProcessGadget()이 처리
@@ -2896,8 +2896,8 @@ void ZMyCharacter::OnDashAttacked(rvector &dir)
 	//jintriple3 디버그 레지스터 해킹 and 슈드 엔진...
 	if(uStatus.m_bBlast || uStatus.m_bBlastDrop || uStatus.m_bBlastStand )
 		return;
-	bool bForDebugRegister = ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2;
-	if(ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)
+	bool bForDebugRegister = ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2;
+	if(ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 		PROTECT_DEBUG_REGISTER(bForDebugRegister)
 			if(isInvincible())
 				return;
@@ -2941,8 +2941,8 @@ void ZMyCharacter::OnBlast(rvector &dir)
 	//jintriple3 디버그 레지스터 해킹 and 슈드 엔진...
 	if(uStatus.m_bBlast || uStatus.m_bBlastDrop || uStatus.m_bBlastStand )
 		return;
-	bool bForDebugRegister = ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2;
-	if(ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)
+	bool bForDebugRegister = ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2;
+	if(ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 		PROTECT_DEBUG_REGISTER(bForDebugRegister)
 			if(isInvincible())
 				return;

@@ -1,5 +1,5 @@
-#ifndef _MMATCHRULE_H
-#define _MMATCHRULE_H
+#ifndef _CCMATCHRULE_H
+#define _CCMATCHRULE_H
 
 #include "CCMatchItem.h"
 #include "CCMatchTransDataType.h"
@@ -13,26 +13,26 @@ class CCMatchStage;
 
 
 /// 게임 라운드 상태
-enum MMATCH_ROUNDSTATE {
-	MMATCH_ROUNDSTATE_PREPARE		= 0,			///< 준비 단계
-	MMATCH_ROUNDSTATE_COUNTDOWN		= 1,			///< 플레이 카운트 
-	MMATCH_ROUNDSTATE_PLAY			= 2,			///< 게임중
-	MMATCH_ROUNDSTATE_FINISH		= 3,			///< 종료
-	MMATCH_ROUNDSTATE_EXIT			= 4,			///< 대기방으로 나감
-	MMATCH_ROUNDSTATE_FREE			= 5,			///< 게임진행에 필요한 요건이 충족되지 않은 프리모드 상태
-	MMATCH_ROUNDSTATE_FAILED		= 6,			///< 게임클리어 실패.
-	MMATCH_ROUNDSTATE_PRE_COUNTDOWN = 7,			///< 플레이 프리 카운트 다운(일단, 듀얼토너먼트에서 사용)
+enum CCMATCH_ROUNDSTATE {
+	CCMATCH_ROUNDSTATE_PREPARE		= 0,			///< 준비 단계
+	CCMATCH_ROUNDSTATE_COUNTDOWN		= 1,			///< 플레이 카운트 
+	CCMATCH_ROUNDSTATE_PLAY			= 2,			///< 게임중
+	CCMATCH_ROUNDSTATE_FINISH		= 3,			///< 종료
+	CCMATCH_ROUNDSTATE_EXIT			= 4,			///< 대기방으로 나감
+	CCMATCH_ROUNDSTATE_FREE			= 5,			///< 게임진행에 필요한 요건이 충족되지 않은 프리모드 상태
+	CCMATCH_ROUNDSTATE_FAILED		= 6,			///< 게임클리어 실패.
+	CCMATCH_ROUNDSTATE_PRE_COUNTDOWN = 7,			///< 플레이 프리 카운트 다운(일단, 듀얼토너먼트에서 사용)
 
-	MMATCH_ROUNDSTATE_END	// Not using, just a END mark
+	CCMATCH_ROUNDSTATE_END	// Not using, just a END mark
 };
 
-enum MMATCH_ROUNDRESULT {
-	MMATCH_ROUNDRESULT_DRAW = 0,
-	MMATCH_ROUNDRESULT_REDWON,
-	MMATCH_ROUNDRESULT_BLUEWON,
-	MMATCH_ROUNDRESULT_RED_ALL_OUT,   // 클랜모드에서 이기고 있는쪽이 다 나가버린경우
-	MMATCH_ROUNDRESULT_BLUE_ALL_OUT,
-	MMATCH_ROUNDRESULT_END
+enum CCMATCH_ROUNDRESULT {
+	CCMATCH_ROUNDRESULT_DRAW = 0,
+	CCMATCH_ROUNDRESULT_REDWON,
+	CCMATCH_ROUNDRESULT_BLUEWON,
+	CCMATCH_ROUNDRESULT_RED_ALL_OUT,   // 클랜모드에서 이기고 있는쪽이 다 나가버린경우
+	CCMATCH_ROUNDRESULT_BLUE_ALL_OUT,
+	CCMATCH_ROUNDRESULT_END
 };
 
 
@@ -43,7 +43,7 @@ protected:
 	// CCMatchGameTypeInfo*	m_pGameTypeInfo;							///< 게임 타입 정보
 
 	CCMatchStage*		m_pStage;									///< 스테이지 클래스
-	MMATCH_ROUNDSTATE	m_nRoundState;								///< 현재 라운드 상태
+	CCMATCH_ROUNDSTATE	m_nRoundState;								///< 현재 라운드 상태
 	int					m_nRoundCount;								///< 라운드 수
 	int					m_nRoundArg;								///< 라운드의 추가 인자
 	unsigned long		m_tmRoundStateTimer;
@@ -68,7 +68,7 @@ protected:
 
 	void SetRoundStateTimer(unsigned long tmTime)	{ m_tmRoundStateTimer = tmTime; }
 	void InitRound();												///< 새로운 라운드 초기화
-	void SetRoundState(MMATCH_ROUNDSTATE nState);					///< 라운드 상태 변경
+	void SetRoundState(CCMATCH_ROUNDSTATE nState);					///< 라운드 상태 변경
 
 	void InitOnBeginEventManager();
 	void InitOnGameEventManager();
@@ -96,7 +96,7 @@ public:
 	CCMatchEventManager& GetOnGameEventManager()		{ return m_OnGameEventManager; }
 	CCMatchEventManager& GetOnEndEventManager()		{ return m_OnEndEventManager; }
 
-	MMATCH_ROUNDSTATE GetRoundState()	{ return m_nRoundState; }				///< 라운드 상태 반환
+	CCMATCH_ROUNDSTATE GetRoundState()	{ return m_nRoundState; }				///< 라운드 상태 반환
 	unsigned long GetRoundStateTimer()	{ return m_tmRoundStateTimer; }
 	unsigned long GetLastTimeLimitAnnounce()	{ return m_nLastTimeLimitAnnounce; }
 	void SetLastTimeLimitAnnounce(int nSeconds)	{ m_nLastTimeLimitAnnounce = nSeconds; }
@@ -134,7 +134,7 @@ public:
 
 	virtual bool CheckPlayersAlive() { return true; }
 	virtual void OnFailed() {}
-	virtual MMATCH_GAMETYPE GetGameType() = 0;
+	virtual CCMATCH_GAMETYPE GetGameType() = 0;
 };
 
 
@@ -147,18 +147,18 @@ public:
 
 
 
-inline bool IsGameRuleDeathMatch(MMATCH_GAMETYPE nGameType)
+inline bool IsGameRuleDeathMatch(CCMATCH_GAMETYPE nGameType)
 {
 	return (
-		(nGameType == MMATCH_GAMETYPE_DEATHMATCH_SOLO) || 
-		(nGameType == MMATCH_GAMETYPE_DEATHMATCH_TEAM) ||
-		(nGameType == MMATCH_GAMETYPE_TRAINING)
+		(nGameType == CCMATCH_GAMETYPE_DEATHMATCH_SOLO) || 
+		(nGameType == CCMATCH_GAMETYPE_DEATHMATCH_TEAM) ||
+		(nGameType == CCMATCH_GAMETYPE_TRAINING)
 	);
 }
-inline bool IsGameRuleGladiator(MMATCH_GAMETYPE nGameType)
+inline bool IsGameRuleGladiator(CCMATCH_GAMETYPE nGameType)
 {
-	return ((nGameType == MMATCH_GAMETYPE_GLADIATOR_SOLO) || 
-			(nGameType == MMATCH_GAMETYPE_GLADIATOR_TEAM));
+	return ((nGameType == CCMATCH_GAMETYPE_GLADIATOR_SOLO) || 
+			(nGameType == CCMATCH_GAMETYPE_GLADIATOR_TEAM));
 }
 
 #endif

@@ -37,7 +37,7 @@ struct sMapInfo
 	int			nLimitLevel;
 	bool		bPrivate;
 	GameState	roomState;
-	MMATCH_GAMETYPE		nGame_Type;
+	CCMATCH_GAMETYPE		nGame_Type;
 	
 	sMapInfo()
 	{
@@ -58,7 +58,7 @@ protected:
 	float					m_RoomHeight;
 	sMapInfo				m_pMapInfo[NUM_DISPLAY_ROOM];
 	map<string, MBitmap*>	m_pMapImage;
-	map<MMATCH_GAMETYPE, MBitmap*>	m_pIconImage;
+	map<CCMATCH_GAMETYPE, MBitmap*>	m_pIconImage;
 	MBitmap*				m_pRoomFrame;
 
 	int						m_Selection;
@@ -81,7 +81,7 @@ protected:
 	CCUID GetSelectedPrivateStageUID();
 public:
 	void	SetBannerImage(char* pBannerName, MBitmap* pBitmap);
-	void	SetIconImage(MMATCH_GAMETYPE type, MBitmap* pBitmap);
+	void	SetIconImage(CCMATCH_GAMETYPE type, MBitmap* pBitmap);
 	void	SetFrameImage(MBitmap* pBitmap){m_pRoomFrame = pBitmap;};
 	void	SetWidth( float width ) { m_RoomWidth	= width; }
 	void	SetHeight( float height ) { m_RoomHeight	= height; }
@@ -106,7 +106,7 @@ public:
         bool bLimitLevel;
 		int nMasterLevel;
 		int nLimitLevel;
-        MMATCH_GAMETYPE nGameType;
+        CCMATCH_GAMETYPE nGameType;
 		STAGE_STATE nStageState;
 	};
 	void SetRoom(const _RoomInfoArg* pRoomInfo);

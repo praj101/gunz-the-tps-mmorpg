@@ -175,7 +175,7 @@ protected:	// protected varialbes
 	bool			m_bDrawStartMovieOfQuest;
 	DWORD			m_dwClockOfStartMovie;
 	int				m_nPosOfItem0, m_nPosOfItem1;
-	MMATCH_GAMETYPE		m_nGameType;
+	CCMATCH_GAMETYPE		m_nGameType;
 	bool			m_bPrevQuest;								// 이전 게임 타입이 퀘스트였는지 아닌지...
 	MBitmapR2*		m_pTopBgImg;								// 상단 맵 이미지
 	MBitmapR2*		m_pStageFrameImg;							// 프레임 이미지

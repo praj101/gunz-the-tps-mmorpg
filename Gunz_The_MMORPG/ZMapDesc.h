@@ -58,7 +58,7 @@ public:
 	ZMapSpawnList	m_Spawns;
 
 //	ZMapSpawnList	m_SoloSpawns;
-//	ZMapSpawnList	m_TeamSpawns[MMATCH_TEAM_MAX_COUNT];
+//	ZMapSpawnList	m_TeamSpawns[CCMATCH_TEAM_MAX_COUNT];
 	ZMapSpawnList	m_SpawnArray[ZMST_MAX];
 
 

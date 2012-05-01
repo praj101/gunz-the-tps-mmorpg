@@ -56,7 +56,7 @@ struct MSTAGE_SETTING_NODE {
 	CCUID				uidStage;
 	char				szMapName[MAPNAME_LENGTH];	// 맵이름
 	char				nMapIndex;					// 맵인덱스
-	MMATCH_GAMETYPE		nGameType;					// 게임타입
+	CCMATCH_GAMETYPE		nGameType;					// 게임타입
 	int					nRoundMax;					// 라운드
 	int					nLimitTime;					// 제한시간(1 - 1분)
 	int					nLimitLevel;				// 제한레벨
@@ -82,17 +82,17 @@ struct MSTAGE_SETTING_NODE {
 };
 
 // 방 처음 만들었을때 스테이지 세팅 초기값
-#define MMATCH_DEFAULT_STAGESETTING_MAPNAME			"Mansion"
+#define CCMATCH_DEFAULT_STAGESETTING_MAPNAME			"Mansion"
 
-#define MMATCH_DEFAULT_STAGESETTING_GAMETYPE			MMATCH_GAMETYPE_DEATHMATCH_SOLO
-#define MMATCH_DEFAULT_STAGESETTING_ROUNDMAX			50		// 50라운드
-#define MMATCH_DEFAULT_STAGESETTING_LIMITTIME			30		// 30분
-#define MMATCH_DEFAULT_STAGESETTING_LIMITLEVEL			0		// 무제한
-#define MMATCH_DEFAULT_STAGESETTING_MAXPLAYERS			8		// 8명
-#define MMATCH_DEFAULT_STAGESETTING_TEAMKILL			false	// 팀킬불가
-#define MMATCH_DEFAULT_STAGESETTING_TEAM_WINTHEPOINT	false	// 선승제 여부
-#define MMATCH_DEFAULT_STAGESETTING_FORCEDENTRY			true	// 난입가능
-#define MMATCH_DEFAULT_STAGESETTING_AUTOTEAMBALANCING	true	// 오토팀밸런스
+#define CCMATCH_DEFAULT_STAGESETTING_GAMETYPE			CCMATCH_GAMETYPE_DEATHMATCH_SOLO
+#define CCMATCH_DEFAULT_STAGESETTING_ROUNDMAX			50		// 50라운드
+#define CCMATCH_DEFAULT_STAGESETTING_LIMITTIME			30		// 30분
+#define CCMATCH_DEFAULT_STAGESETTING_LIMITLEVEL			0		// 무제한
+#define CCMATCH_DEFAULT_STAGESETTING_MAXPLAYERS			8		// 8명
+#define CCMATCH_DEFAULT_STAGESETTING_TEAMKILL			false	// 팀킬불가
+#define CCMATCH_DEFAULT_STAGESETTING_TEAM_WINTHEPOINT	false	// 선승제 여부
+#define CCMATCH_DEFAULT_STAGESETTING_FORCEDENTRY			true	// 난입가능
+#define CCMATCH_DEFAULT_STAGESETTING_AUTOTEAMBALANCING	true	// 오토팀밸런스
 
 
 #define STAGESETTING_LIMITTIME_UNLIMITED				0		// 제한시간이 무제한은 0
@@ -143,7 +143,7 @@ public:
 	int							GetLimitLevel()				{ return m_StageSetting.Ref().nLimitLevel; }
 	CCUID						GetMasterUID()				{ return m_uidMaster; }
 	STAGE_STATE					GetStageState()				{ return m_nStageState; }
-	MMATCH_GAMETYPE				GetGameType()				{ return m_StageSetting.Ref().nGameType; }
+	CCMATCH_GAMETYPE				GetGameType()				{ return m_StageSetting.Ref().nGameType; }
 	int							GetMaxPlayers()				{ return m_StageSetting.Ref().nMaxPlayers; }
 	bool						GetForcedEntry()			{ return m_StageSetting.Ref().bForcedEntryEnabled; }
 	bool						GetAutoTeamBalancing()		{ return m_StageSetting.Ref().bAutoTeamBalancing; }
@@ -164,7 +164,7 @@ public:
 	void SetMapIndex(int nMapIndex);
 	void SetRoundMax(int nRound)					{ MEMBER_SET_CHECKCRC(m_StageSetting, nRoundMax, nRound); }
 	void SetLimitTime(int nTime)					{ MEMBER_SET_CHECKCRC(m_StageSetting, nLimitTime, nTime); }
-	void SetGameType(MMATCH_GAMETYPE type)			{ MEMBER_SET_CHECKCRC(m_StageSetting, nGameType, type); }
+	void SetGameType(CCMATCH_GAMETYPE type)			{ MEMBER_SET_CHECKCRC(m_StageSetting, nGameType, type); }
 	void SetStageState(STAGE_STATE nState)			{ m_nStageState = nState; }
 	void SetTeamWinThePoint(bool bValue)			{ MEMBER_SET_CHECKCRC(m_StageSetting, bTeamWinThePoint, bValue); }
 	void SetAutoTeamBalancing(bool bValue)			{ MEMBER_SET_CHECKCRC(m_StageSetting, bAutoTeamBalancing, bValue); }

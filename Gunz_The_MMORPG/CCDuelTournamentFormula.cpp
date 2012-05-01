@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCDuelTournamentFormula.h"
 
-int MDuelTournamentFormula::Calc_WinnerTP(int nWinnerTP, int nLoserTP, bool isFinal)
+int CCDuelTournamentFormula::Calc_WinnerTP(int nWinnerTP, int nLoserTP, bool isFinal)
 {
 	float fResult = 5.0f / (1 + pow(5.0f, float(nWinnerTP-nLoserTP) / 1000.0f));
 	
@@ -11,7 +11,7 @@ int MDuelTournamentFormula::Calc_WinnerTP(int nWinnerTP, int nLoserTP, bool isFi
 	else			return (int)fResult;
 }
 
-int MDuelTournamentFormula::Calc_LoserTP(int nWinnerGainTP, bool isFinal)
+int CCDuelTournamentFormula::Calc_LoserTP(int nWinnerGainTP, bool isFinal)
 {
 	float fWinnerGainTP = (float)nWinnerGainTP;
 	if (isFinal)

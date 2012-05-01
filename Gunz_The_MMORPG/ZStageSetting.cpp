@@ -124,12 +124,12 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 		MComboBox* pCB = (MComboBox*)pResource->FindWidget("StageType");
 		if (pCB == NULL) return false;
 		bool bExistGameType = false;
-		for (int i = 0; i < MMATCH_GAMETYPE_MAX; i++)
+		for (int i = 0; i < CCMATCH_GAMETYPE_MAX; i++)
 		{
-			if (!strcmp(pCB->GetText(), ZGetGameTypeManager()->GetGameTypeStr(MMATCH_GAMETYPE(i))))
+			if (!strcmp(pCB->GetText(), ZGetGameTypeManager()->GetGameTypeStr(CCMATCH_GAMETYPE(i))))
 			{
 				bExistGameType = true;
-				pOutNode->nGameType = ZGetGameTypeManager()->GetInfo(MMATCH_GAMETYPE(i))->nGameTypeID;
+				pOutNode->nGameType = ZGetGameTypeManager()->GetInfo(CCMATCH_GAMETYPE(i))->nGameTypeID;
 				break;
 			}
 		}
@@ -142,7 +142,7 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 	{
 		strcpy( pOutNode->szMapName, pCB->GetText());
 
-		if (0 == strcmp(MMATCH_MAPNAME_RELAYMAP, pOutNode->szMapName))
+		if (0 == strcmp(CCMATCH_MAPNAME_RELAYMAP, pOutNode->szMapName))
 			pOutNode->bIsRelayMap = true;
 		else
 			pOutNode->bIsRelayMap = false;
@@ -166,7 +166,7 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 		pOutNode->nRelayMapListCount = pRelayMapListBox->GetCount();
 		memset(pOutNode->MapList, -1, sizeof(RelayMap)*MAX_RELAYMAP_LIST_COUNT );
 		for (int i = 0; i < pRelayMapListBox->GetCount(); i++)
-			for (int j = 0; j < MMATCH_MAP_COUNT; j++)
+			for (int j = 0; j < CCMATCH_MAP_COUNT; j++)
 				if(0 == strcmp(pRelayMapListBox->GetString(i), (char*)MGetMapDescMgr()->GetMapName(j)))
 				{
 					RelayMap relayMap;
@@ -270,15 +270,15 @@ void ZStageSetting::ShowStageSettingDialog( const MSTAGE_SETTING_NODE* pStageSet
 		MComboBox* pCB = (MComboBox*)pResource->FindWidget("StageType");				
 		if (pCB)
 		{																					
-			for (int i = 0; i < MMATCH_GAMETYPE_MAX; i++)
+			for (int i = 0; i < CCMATCH_GAMETYPE_MAX; i++)
 			{																				
-				if (pStageSetting->nGameType == ZGetGameTypeManager()->GetInfo(MMATCH_GAMETYPE(i))->nGameTypeID)
+				if (pStageSetting->nGameType == ZGetGameTypeManager()->GetInfo(CCMATCH_GAMETYPE(i))->nGameTypeID)
 				{
 					int nGameType = i;
 
 					for (int j = 0; j < pCB->GetCount(); j++)
 					{
-						if (!stricmp(pCB->GetString(j), ZGetGameTypeManager()->GetInfo(MMATCH_GAMETYPE(i))->szGameTypeStr))
+						if (!stricmp(pCB->GetString(j), ZGetGameTypeManager()->GetInfo(CCMATCH_GAMETYPE(i))->szGameTypeStr))
 						{
                             pCB->SetSelIndex( j);
 							break;
@@ -529,23 +529,23 @@ void ZStageSetting::InitStageSettingGameType()
 	if (pResource == NULL) return;
 
 	MComboBox* pCB = (MComboBox*)pResource->FindWidget("StageType");
-	MChannelRule* pRule = ZGetChannelRuleMgr()->GetCurrentRule();
+	CCChannelRule* pRule = ZGetChannelRuleMgr()->GetCurrentRule();
 	if (pRule == NULL) return;
 	if(pCB == NULL) return;
 
-	MChannelRuleGameTypeList* pGameTypeList = pRule->GetGameTypeList();
+	CCChannelRuleGameTypeList* pGameTypeList = pRule->GetGameTypeList();
 
 	pCB->RemoveAll();														
 
-	for (MChannelRuleGameTypeList::iterator itor = pGameTypeList->begin(); itor != pGameTypeList->end(); ++itor)
+	for (CCChannelRuleGameTypeList::iterator itor = pGameTypeList->begin(); itor != pGameTypeList->end(); ++itor)
 	{
 		int nGameType = (*itor);
-		if ((nGameType < 0) || (nGameType >= MMATCH_GAMETYPE_MAX)) continue;
+		if ((nGameType < 0) || (nGameType >= CCMATCH_GAMETYPE_MAX)) continue;
 		// 아래 코드(#ifdef _QUEST)에서 퀘스트 채널을 사용하기위해 MODE="test"로 세팅했기때문에 
 		// 여기에서 퀘스트 타입을 추가할 필요없다... by kammir 20081117
-		if (nGameType == MMATCH_GAMETYPE_QUEST || nGameType == MMATCH_GAMETYPE_SURVIVAL)  
-			continue; // MMATCH_GAMETYPE_QUEST =7,//< 퀘스트
-		pCB->Add(ZGetGameTypeManager()->GetGameTypeStr(MMATCH_GAMETYPE(nGameType)));
+		if (nGameType == CCMATCH_GAMETYPE_QUEST || nGameType == CCMATCH_GAMETYPE_SURVIVAL)  
+			continue; // CCMATCH_GAMETYPE_QUEST =7,//< 퀘스트
+		pCB->Add(ZGetGameTypeManager()->GetGameTypeStr(CCMATCH_GAMETYPE(nGameType)));
 	}
 
 	#ifdef _QUEST // 퀘스트 개발용 디파인
@@ -553,20 +553,20 @@ void ZStageSetting::InitStageSettingGameType()
 		// 테스트 서버는 퀘스트,서바이벌 활성화
 		if ((ZGetGameClient()) && (ZGetGameClient()->GetServerMode() == CSM_TEST)) // server.ini에서 MODE="test"로 세팅으로 추가
 		{
-			pCB->Add(ZGetGameTypeManager()->GetGameTypeStr(MMATCH_GAMETYPE(MMATCH_GAMETYPE_QUEST)));
+			pCB->Add(ZGetGameTypeManager()->GetGameTypeStr(CCMATCH_GAMETYPE(CCMATCH_GAMETYPE_QUEST)));
 			
 #ifdef LOCALE_BRAZIL
 #else
 			// 브라질에서는 아직 서바이벌모드를 서비스 안함....나중에 서비스 할때 #ifdef를 풀어줘야함
 			// server.ini에서 SURVIVALENABLE=0이면 비활성화
 			if (ZGetGameClient()->IsEnabledSurvivalMode())
-				pCB->Add(ZGetGameTypeManager()->GetGameTypeStr(MMATCH_GAMETYPE(MMATCH_GAMETYPE_SURVIVAL)));
+				pCB->Add(ZGetGameTypeManager()->GetGameTypeStr(CCMATCH_GAMETYPE(CCMATCH_GAMETYPE_SURVIVAL)));
 #endif
 		}
 	}
 	#endif
 
-	pCB->SetSelIndex(MMATCH_GAMETYPE_DEFAULT);									
+	pCB->SetSelIndex(CCMATCH_GAMETYPE_DEFAULT);									
 }
 
 
@@ -601,7 +601,7 @@ void ZStageSetting::InitStageSettingGameFromGameType()
 	
 
 	int nGameType = 0;
-	MMATCH_GAMETYPE nPrevGameType = ZGetGameClient()->GetMatchStageSetting()->GetGameType();
+	CCMATCH_GAMETYPE nPrevGameType = ZGetGameClient()->GetMatchStageSetting()->GetGameType();
 
 	MComboBox* pCBType = (MComboBox*)pResource->FindWidget( "StageType");
 	if ( pCBType && (pCBType->GetCount() > 0))
@@ -633,7 +633,7 @@ void ZStageSetting::InitStageSettingGameFromGameType()
 
 
 	// Set game type
-	ZGetGameClient()->GetMatchStageSetting()->SetGameType( (MMATCH_GAMETYPE)nGameType);
+	ZGetGameClient()->GetMatchStageSetting()->SetGameType( (CCMATCH_GAMETYPE)nGameType);
 
 
 	// Set game setting

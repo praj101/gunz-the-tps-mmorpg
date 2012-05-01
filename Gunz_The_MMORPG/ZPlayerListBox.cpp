@@ -401,15 +401,15 @@ void ZPlayerListBox::AddTestItems()
 	switch (m_nMode)
 	{
 	case PLAYERLISTMODE_CHANNEL:
-		AddPlayer(CCUID(0,0),PS_FIGHT,34,"아이디6글자1","클랜명여섯자",24401,MMUG_FREE,1);
-		AddPlayer(CCUID(0,1),PS_WAIT ,10,"아이디6글자2","클랜명여섯자",24401,MMUG_FREE,2);
-		AddPlayer(CCUID(0,2),PS_LOBBY,11,"아이디6글자3","클랜명여섯자",24401,MMUG_FREE,3);
-		AddPlayer(CCUID(0,3),PS_LOBBY,99,"아이디6글자4","클랜명여섯자",24401,MMUG_FREE,4);
-		AddPlayer(CCUID(0,4),PS_LOBBY, 3,"아이디6글자5","클랜명여섯자",24401,MMUG_FREE,5);
-		AddPlayer(CCUID(0,5),PS_LOBBY, 1,"아이디6글자6","클랜명여섯자",24401,MMUG_FREE,6);
-		AddPlayer(CCUID(0,6),PS_LOBBY,33,"아이디6글자7","클랜명여섯자",24401,MMUG_FREE,7);
-		AddPlayer(CCUID(0,7),PS_LOBBY,45,"아이디6글자8","클랜명여섯자",24401,MMUG_FREE,8);
-		AddPlayer(CCUID(0,8),PS_LOBBY,44,"아이디6글자9","클랜명여섯자",24401,MMUG_FREE,9);
+		AddPlayer(CCUID(0,0),PS_FIGHT,34,"아이디6글자1","클랜명여섯자",24401,CCMUGFREE,1);
+		AddPlayer(CCUID(0,1),PS_WAIT ,10,"아이디6글자2","클랜명여섯자",24401,CCMUGFREE,2);
+		AddPlayer(CCUID(0,2),PS_LOBBY,11,"아이디6글자3","클랜명여섯자",24401,CCMUGFREE,3);
+		AddPlayer(CCUID(0,3),PS_LOBBY,99,"아이디6글자4","클랜명여섯자",24401,CCMUGFREE,4);
+		AddPlayer(CCUID(0,4),PS_LOBBY, 3,"아이디6글자5","클랜명여섯자",24401,CCMUGFREE,5);
+		AddPlayer(CCUID(0,5),PS_LOBBY, 1,"아이디6글자6","클랜명여섯자",24401,CCMUGFREE,6);
+		AddPlayer(CCUID(0,6),PS_LOBBY,33,"아이디6글자7","클랜명여섯자",24401,CCMUGFREE,7);
+		AddPlayer(CCUID(0,7),PS_LOBBY,45,"아이디6글자8","클랜명여섯자",24401,CCMUGFREE,8);
+		AddPlayer(CCUID(0,8),PS_LOBBY,44,"아이디6글자9","클랜명여섯자",24401,CCMUGFREE,9);
 		break;
 	}
 //*/
@@ -543,7 +543,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int n
 	char sp_name[256];
 	bool bSpUser = false;
 
-	CCMatchUserGradeID gid = MMUG_FREE;
+	CCMatchUserGradeID gid = CCMUGFREE;
 
 	if(GetUserInfoUID(puid,_color,sp_name,gid)){
 		sprintf(szLevel,"--");
@@ -651,7 +651,7 @@ void ZPlayerListBox::AddPlayer(ePlayerState state, char* szName, char* szLocatio
 		case PS_LOBBY	: strcpy(szFileName, "player_status_lobby.tga");	break;
 	}
 
-	MListBox::Add(new ZFriendPlayerListItem(CCUID(0,0),MBitmapManager::Get(szFileName), szName,NULL,szLocation,state,MMUG_FREE));
+	MListBox::Add(new ZFriendPlayerListItem(CCUID(0,0),MBitmapManager::Get(szFileName), szName,NULL,szLocation,state,CCMUGFREE));
 }
 
 // mode PLAYERLISTMODE_CHANNEL_CLAN
@@ -1101,7 +1101,7 @@ bool ZPlayerListBox::OnEvent(MEvent* pEvent, MListener* pListener)
 
 				GetUserInfoUID(pItem->GetUID(),_color,sp_name,gid);
 
-				if((gid==MMUG_DEVELOPER) || (gid==MMUG_ADMIN)) { // 개발자나 관리자라면..
+				if((gid==CCMUGDEVELOPER) || (gid==CCMUGADMIN)) { // 개발자나 관리자라면..
 					bShow = false;
 				}
 

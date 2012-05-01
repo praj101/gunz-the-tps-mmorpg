@@ -208,7 +208,7 @@ public:
 	bool CheckWall(ZObject* pObj1,ZObject* pObj2, int & nDebugRegister/*단순 비교용*/, bool bCoherentToPeer=false);
 
 	void InitRound();
-	void AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg);
+	void AddEffectRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg);
 
 	bool CreateMyCharacter(CCTD_CharInfo* pCharInfo);//버프정보임시주석 , MTD_CharBuffInfo* pCharBuffInfo);
 	void DeleteCharacter(const CCUID& uid);

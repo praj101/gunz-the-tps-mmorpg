@@ -204,10 +204,10 @@ int MLadderGameStrategy::GetRandomMap(int nTeamMember)
 
 	// Random 하게 맵을 고른다
 	list<int> mapList;
-	for (int i=0; i<MMATCH_MAP_MAX; i++) {
-		if (pConfig->IsEnableMap(MMATCH_MAP(i)))
+	for (int i=0; i<CCMATCH_MAP_MAX; i++) {
+		if (pConfig->IsEnableMap(CCMATCH_MAP(i)))
 		{
-			if(i != (int)MMATCH_MAP_RELAYMAP)
+			if(i != (int)CCMATCH_MAP_RELAYMAP)
 				mapList.push_back(i);
 		}
 	}
@@ -235,32 +235,32 @@ MClanGameStrategy::MClanGameStrategy()
 {
 	for (int i = MLADDERTYPE_NORMAL_2VS2; i <= MLADDERTYPE_NORMAL_3VS3; i++)
 	{
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_MANSION,		10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_PRISON_II,		5);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_BATTLE_ARENA,	10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_TOWN,			10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_DUNGEON,		2);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_PORT,			10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_CASTLE,			5);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_ISLAND,			5);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_GARDEN,			10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_FACTORY,		10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_HIGH_HAVEN,		10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_MANSION,		10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_PRISON_II,		5);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_BATTLE_ARENA,	10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_TOWN,			10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_DUNGEON,		2);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_PORT,			10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_CASTLE,			5);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_ISLAND,			5);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_GARDEN,			10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_FACTORY,		10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_HIGH_HAVEN,		10);
 	}
 
 	for (int i = MLADDERTYPE_NORMAL_4VS4; i < CCLADDERTYPE_MAX; i++)
 	{
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_MANSION,		10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_PRISON_II,		5);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_BATTLE_ARENA,	10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_TOWN,			10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_DUNGEON,		10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_PORT,			10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_ISLAND,			5);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_GARDEN,			10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_CASTLE,			10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_FACTORY,		10);
-		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_HIGH_HAVEN,		10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_MANSION,		10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_PRISON_II,		5);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_BATTLE_ARENA,	10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_TOWN,			10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_DUNGEON,		10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_PORT,			10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_ISLAND,			5);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_GARDEN,			10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_CASTLE,			10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_FACTORY,		10);
+		InsertLadderRandomMap(m_RandomMapVec[i], CCMATCH_MAP_HIGH_HAVEN,		10);
 	}
 }
 

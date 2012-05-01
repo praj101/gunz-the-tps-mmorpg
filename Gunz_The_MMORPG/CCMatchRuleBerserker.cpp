@@ -27,7 +27,7 @@ void* CCMatchRuleBerserker::CreateRuleInfoBlob()
 	MTD_RuleInfo_Berserker* pRuleItem = (MTD_RuleInfo_Berserker*)MGetBlobArrayElement(pRuleInfoArray, 0);
 	memset(pRuleItem, 0, sizeof(MTD_RuleInfo_Berserker));
 	
-	pRuleItem->nRuleType = MMATCH_GAMETYPE_BERSERKER;
+	pRuleItem->nRuleType = CCMATCH_GAMETYPE_BERSERKER;
 	pRuleItem->uidBerserker = m_uidBerserker;
 
 	return pRuleInfoArray;

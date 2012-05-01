@@ -3,13 +3,13 @@
 
 #include "MBaseChannelRule.h"
 
-class ZChannelRuleMgr : public MChannelRuleMgr
+class ZChannelRuleMgr : public CCChannelRuleMgr
 {
 public:
 	ZChannelRuleMgr();
 	virtual ~ZChannelRuleMgr();
 	static ZChannelRuleMgr* GetInstance();
-	MChannelRule* GetCurrentRule();
+	CCChannelRule* GetCurrentRule();
 };
 inline ZChannelRuleMgr* ZGetChannelRuleMgr() { return ZChannelRuleMgr::GetInstance(); }
 

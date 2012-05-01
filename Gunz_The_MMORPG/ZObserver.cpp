@@ -236,7 +236,7 @@ bool ZObserver::IsVisibleSetTarget(ZCharacter* pCharacter)
 
 	if(ZGetGame()->IsReplay()) return true;
 
-	if(ZGetGameClient()->GetMatchStageSetting()->GetGameType() == MMATCH_GAMETYPE_DUEL)				// 듀얼일때 챔피언도 도전자도 아니면 옵저브 할 수 없다.
+	if(ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUEL)				// 듀얼일때 챔피언도 도전자도 아니면 옵저브 할 수 없다.
 	{
 		ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		if (pDuel->GetQueueIdx(pCharacter->GetUID()) <= 1)	return true;
@@ -245,7 +245,7 @@ bool ZObserver::IsVisibleSetTarget(ZCharacter* pCharacter)
 
 	/*
 	// 듀얼 토너먼트일 때, 참가자면 옵저브 할 수 없다.
-	if(ZGetGameClient()->GetMatchStageSetting()->GetGameType() == MMATCH_GAMETYPE_DUEL)				
+	if(ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUEL)				
 	{
 		ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		if (pDuel->GetQueueIdx(pCharacter->GetUID()) <= 1)	return true;
@@ -312,7 +312,7 @@ void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 	CCUID uidPlayer1, uidPlayer2, uidWaitQueue;
 	uidWaitQueue.SetZero();
 
-	if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
+	if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 	{
 		ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		uidPlayer1 = pDuel->QInfo.m_uidChampion;
@@ -321,7 +321,7 @@ void ZObserver::DrawPlayerDuelHPAPBar(MDrawContext* pDC)
 		pBitmap = MBitmapManager::Get( "duel_score.tga");
 		ZGetCombatInterface()->DrawVictory( pDC, 162, 20, pDuel->QInfo.m_nVictory);	// 연승 마크 표시
 	}
-	else if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+	else if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
 		ZRuleDuelTournament* pDuelTournament = (ZRuleDuelTournament*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		uidPlayer1 = pDuelTournament->m_nextPlayerInfo.uidPlayer1;
@@ -538,24 +538,24 @@ void ZObserver::OnDraw(MDrawContext* pDC)
 		TextRelative(pDC, 0.5f, 650.0f/800.0f, szName, true);
 		
 		// 운영자계정, 듀얼토너먼트일때에 플레이어 게이지 출력
-		if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+		if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 		{
-			if ( ZGetGame()->GetMatch()->GetRoundState() != MMATCH_ROUNDSTATE_PRE_COUNTDOWN)
+			if ( ZGetGame()->GetMatch()->GetRoundState() != CCMATCH_ROUNDSTATE_PRE_COUNTDOWN)
 				DrawPlayerDuelHPAPBar(pDC);
 		}
 	}
 
 	// 듀얼 매치일 경우엔 게이지바를 표시한다
-	else if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL) 
+	else if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL) 
 	{
 		DrawPlayerDuelHPAPBar(pDC);
 	}
-	else if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+	else if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
-		if ( ZGetGame()->GetMatch()->GetRoundState() != MMATCH_ROUNDSTATE_PRE_COUNTDOWN)
+		if ( ZGetGame()->GetMatch()->GetRoundState() != CCMATCH_ROUNDSTATE_PRE_COUNTDOWN)
 			DrawPlayerDuelHPAPBar(pDC);
 	}
-	else if ( ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUEL)
+	else if ( ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUEL)
 	{
 		char szName[128];
 		sprintf(szName, "%s (HP:%d, AP:%d)", m_pTargetCharacter->GetUserName(), (int)m_pTargetCharacter->GetHP(), (int)m_pTargetCharacter->GetAP());
@@ -569,7 +569,7 @@ void ZObserver::OnDraw(MDrawContext* pDC)
 			_ASSERT(0);
 		pDC->SetFont( pFont);
 
-		if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)
+		if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 			TextRelative( pDC, 0.5f, 75.0f/800.0f, szName, true);
 		else
 			TextRelative( pDC, 0.5f, 50.0f/800.0f, szName, true);
@@ -593,7 +593,7 @@ void ZObserver::OnDraw(MDrawContext* pDC)
 
 
 	// Admin 옵져버일 경우에 남은 인원수 표시
-	if ( ZGetMyInfo()->IsAdminGrade() && (ZGetGameClient()->GetMatchStageSetting()->GetGameType() != MMATCH_GAMETYPE_DEATHMATCH_TEAM2))
+	if ( ZGetMyInfo()->IsAdminGrade() && (ZGetGameClient()->GetMatchStageSetting()->GetGameType() != CCMATCH_GAMETYPE_DEATHMATCH_TEAM2))
 	{
 		// 인원수 구하기
 		int nNumOfTotal=0, nNumOfRedTeam=0, nNumOfBlueTeam=0;

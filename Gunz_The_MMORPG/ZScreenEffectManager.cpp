@@ -958,9 +958,9 @@ void ZScreenEffectManager::DrawMyHPPanal(MDrawContext* pDC)
 	ZCharacter *pTargetCharacter = ZGetGameInterface()->GetCombatInterface()->GetTargetCharacter();
 	if(!pTargetCharacter || !pTargetCharacter->GetInitialized()) return;
 
-	if(ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUELTOURNAMENT)
+	if(ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
-		if ( (ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUEL) || ( !pTargetCharacter->IsObserverTarget()))
+		if ( (ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUEL) || ( !pTargetCharacter->IsObserverTarget()))
 		{
 			//		if(g_pGame&&(g_pGame->GetReadyState()==ZGAME_READYSTATE_RUN)) {
 			m_pHPPanel->Update();
@@ -1558,7 +1558,7 @@ void ZScreenEffectManager::ShockBossGauge(float fPower)
 
 void ZScreenEffectManager::DrawDuelEffects()
 {
-	if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() != MMATCH_GAMETYPE_DUEL) return;
+	if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() != CCMATCH_GAMETYPE_DUEL) return;
 
 	if (ZGetCombatInterface()->GetObserver()->IsVisible()) return;
 
@@ -1635,7 +1635,7 @@ void ZScreenEffectManager::UpdateDuelEffects()
 
 void ZScreenEffectManager::DrawTDMEffects()
 {
-	if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() != MMATCH_GAMETYPE_DEATHMATCH_TEAM2) return;
+	if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() != CCMATCH_GAMETYPE_DEATHMATCH_TEAM2) return;
 
 	unsigned int nNowTime = timeGetTime();
 

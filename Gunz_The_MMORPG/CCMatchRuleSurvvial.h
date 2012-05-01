@@ -108,17 +108,17 @@ private:
 
 	CCQuestStageGameInfo				m_StageGameInfo;	///< 대기방에서 필요한 현재 스테이지의 방정보
 
-	vector< MQUEST_NPC >			m_vecNPCInThisScenario;		///< 이 시나리오에서 쓰일 NPC 목록
-	map<MQUEST_NPC, CCQuestLevelReinforcedNPCStat>	m_mapReinforcedNPCStat;	///< 시나리오 반복을 거치며 강화된 NPC 능력치의 상태
+	vector< CCQUEST_NPC >			m_vecNPCInThisScenario;		///< 이 시나리오에서 쓰일 NPC 목록
+	map<CCQUEST_NPC, CCQuestLevelReinforcedNPCStat>	m_mapReinforcedNPCStat;	///< 시나리오 반복을 거치며 강화된 NPC 능력치의 상태
 
-	typedef map<MQUEST_NPC, CCQuestLevelReinforcedNPCStat>	MapReinforcedNPCStat;
+	typedef map<CCQUEST_NPC, CCQuestLevelReinforcedNPCStat>	MapReinforcedNPCStat;
 	typedef MapReinforcedNPCStat::iterator		ItorReinforedNPCStat;
 
 	// 함수 -------------------------
 	void ClearQuestLevel();
 	void MakeStageGameInfo();
 	void InitJacoSpawnTrigger();
-	void MakeNPCnSpawn(MQUEST_NPC nNPCID, bool bAddQuestDropItem, bool bKeyNPC);
+	void MakeNPCnSpawn(CCQUEST_NPC nNPCID, bool bAddQuestDropItem, bool bKeyNPC);
 	int GetRankInfo(int nKilledNpcHpApAccum, int nDeathCount);
 protected:
 	CCQuestLevel*			m_pQuestLevel;			///< 퀘스트 월드 레벨
@@ -246,7 +246,7 @@ public:
 	virtual bool							IsSacrificeItemDuplicated( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID );
 	virtual void							PreProcessLeaveStage( const CCUID& uidLeaverUID );
 	virtual void							DestroyAllSlot() {} // 서바이벌에서 사용않음
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_SURVIVAL; }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_SURVIVAL; }
 
 
 	void InsertNoParamQItemToPlayer( CCMatchObject* pPlayer, CCQuestItem* pQItem );

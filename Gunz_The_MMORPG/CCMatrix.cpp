@@ -8,4 +8,4 @@ static float _matIdentity[] = {
 	0, 0, 0, 1
 } ;
 
-const MMatrix MMatrix::IDENTITY(_matIdentity);
+const CCMatrix CCMatrix::IDENTITY(_matIdentity);

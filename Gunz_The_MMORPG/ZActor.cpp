@@ -308,7 +308,7 @@ void SetClientNPCInfoFromServerNPCInfo( CCQuestNPCInfo* pClientNPCInfo, const MT
 	pClientNPCInfo->fSpeed			= pServerNPCInfo->m_fDefaultSpeed;
 }
 
-void ZActor::InitFromNPCType(MQUEST_NPC nNPCType, float fTC, int nQL)
+void ZActor::InitFromNPCType(CCQUEST_NPC nNPCType, float fTC, int nQL)
 {
 	m_pNPCInfo = ZGetQuest()->GetNPCInfo(nNPCType);
 	_ASSERT(m_pNPCInfo);
@@ -381,7 +381,7 @@ void ZActor::InitFromNPCType(MQUEST_NPC nNPCType, float fTC, int nQL)
 	_ASSERT(m_pNPCInfo != NULL);
 }
 
-void ZActor::InitMesh(char* szMeshName, MQUEST_NPC nNPCType)
+void ZActor::InitMesh(char* szMeshName, CCQUEST_NPC nNPCType)
 {
 	// for test
 	RMesh* pMesh;
@@ -641,7 +641,7 @@ void ZActor::ProcessAI(float fDelta)
 
 
 
-ZActor* ZActor::CreateActor(MQUEST_NPC nNPCType, float fTC, int nQL, bool bForceCollRadius35)
+ZActor* ZActor::CreateActor(CCQUEST_NPC nNPCType, float fTC, int nQL, bool bForceCollRadius35)
 {
 	ZActor* pNewActor=NULL;
 

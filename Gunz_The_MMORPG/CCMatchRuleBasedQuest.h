@@ -49,7 +49,7 @@ protected:
 	/// NPC를 스폰시킨다.
 	/// @param nNPC			NPC 종류
 	/// @param nPosIndex	스폰 위치
-	CCMatchNPCObject* SpawnNPC(MQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC=false);
+	CCMatchNPCObject* SpawnNPC(CCQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC=false);
 
 	virtual void OnCompleted();					///< 퀘스트 성공시 호출된다.
 	virtual void OnFailed();					///< 퀘스트 실패시 호출된다.
@@ -122,8 +122,8 @@ public:
 };
 
 
-void InsertNPCIDonUnique( vector<MQUEST_NPC>& outNPCList, MQUEST_NPC nNPCID );
-void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps );
-void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps );
-void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest );
+void InsertNPCIDonUnique( vector<CCQUEST_NPC>& outNPCList, CCQUEST_NPC nNPCID );
+void MakeJacoNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps );
+void MakeSurvivalKeyNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps );
+void MakeNomalNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest );
 void CopyMTD_NPCINFO( MTD_NPCINFO* pDest, const CCQuestNPCInfo* pSource );

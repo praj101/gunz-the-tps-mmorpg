@@ -181,7 +181,7 @@ bool ZWorldItemManager::ApplyWorldItem( WIL_Iterator& iter, ZCharacter* pCharact
 
 	// 퀘스트에서 다른 팀을 기다리는 대기 상태인 경우..
 
-	if( ZGetQuest() && ZGetQuest()->GetQuestState() == MQUEST_COMBAT_PREPARE )
+	if( ZGetQuest() && ZGetQuest()->GetQuestState() == CCQUEST_COMBAT_PREPARE )
 		if( ZGetGame()->m_pMyCharacter->IsObserverTarget() )// 다음스테이지로 넘어가서 기다리는 경우
 			return true;
 

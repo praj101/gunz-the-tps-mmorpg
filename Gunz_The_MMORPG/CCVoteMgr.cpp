@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MVoteMgr.h"
+#include "CCVoteMgr.h"
 #include <algorithm>
 #include "CCMatchServer.h"
 #include "CCSharedCommandTable.h"
@@ -7,14 +7,14 @@
 
 
 /////////////////////////////////////////////////
-// MVoteDiscuss
-MVoteDiscuss::MVoteDiscuss(const CCUID& uidStage)
+// CCVoteDiscuss
+CCVoteDiscuss::CCVoteDiscuss(const CCUID& uidStage)
 {
 	m_uidStage = uidStage;
 	m_nBeginTime = CCMatchServer::GetInstance()->GetGlobalClockCount();
 }
 
-MVoteDiscuss::~MVoteDiscuss()
+CCVoteDiscuss::~CCVoteDiscuss()
 {
 	//while(m_YesVoterList.size()) {
 	//	m_YesVoterList.pop_front();
@@ -27,7 +27,7 @@ MVoteDiscuss::~MVoteDiscuss()
 	m_NoVoterList.clear();
 }
 
-bool MVoteDiscuss::CheckVoter(const CCUID& uid)
+bool CCVoteDiscuss::CheckVoter(const CCUID& uid)
 {
 	list<CCUID>::iterator iYes = find(m_YesVoterList.begin(), m_YesVoterList.end(), uid);
 	if (iYes!=m_YesVoterList.end())
@@ -40,7 +40,7 @@ bool MVoteDiscuss::CheckVoter(const CCUID& uid)
 	return false;
 }
 
-void MVoteDiscuss::Vote(const CCUID& uid, MVOTE nVote)
+void CCVoteDiscuss::Vote(const CCUID& uid, MVOTE nVote)
 {
 	if (CheckVoter(uid))
 		return;		// already voted
@@ -56,13 +56,13 @@ void MVoteDiscuss::Vote(const CCUID& uid, MVOTE nVote)
 }
 
 /////////////////////////////////////////////////
-// MVoteMgr
-MVoteMgr::MVoteMgr()
+// CCVoteMgr
+CCVoteMgr::CCVoteMgr()
 {
 	m_pDiscuss = NULL;
 }
 
-MVoteMgr::~MVoteMgr()
+CCVoteMgr::~CCVoteMgr()
 {
 	if (GetDiscuss()) {
 		delete GetDiscuss();
@@ -72,9 +72,9 @@ MVoteMgr::~MVoteMgr()
 	m_VoterMap.clear();
 }
 
-bool MVoteMgr::CheckDiscuss()
+bool CCVoteMgr::CheckDiscuss()
 {
-	MVoteDiscuss* pDiscuss = GetDiscuss();
+	CCVoteDiscuss* pDiscuss = GetDiscuss();
 	if (pDiscuss == NULL)
 		return false;
 
@@ -91,7 +91,7 @@ bool MVoteMgr::CheckDiscuss()
 		return false;
 }
 
-void MVoteMgr::FinishDiscuss(bool bJudge)
+void CCVoteMgr::FinishDiscuss(bool bJudge)
 {
 	if (GetDiscuss()) {
 		MCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_VOTERESULT, CCUID(0,0));
@@ -107,33 +107,33 @@ void MVoteMgr::FinishDiscuss(bool bJudge)
 	SetLastError(VOTEMGR_ERROR_OK);
 }
 
-MVoter* MVoteMgr::FindVoter(const CCUID& uid)
+CCVoter* CCVoteMgr::FindVoter(const CCUID& uid)
 {
-	MVoterMap::iterator i = m_VoterMap.find(uid);
+	CCVoterMap::iterator i = m_VoterMap.find(uid);
 	if (i != m_VoterMap.end())
 		return (*i).second;
 	else
 		return NULL;
 }
 
-void MVoteMgr::AddVoter(const CCUID& uid)
+void CCVoteMgr::AddVoter(const CCUID& uid)
 {
 	if (FindVoter(uid) != NULL) {
 		SetLastError(VOTEMGR_ERROR_OK);
 		return;
 	}
 
-	MVoter* pVoter = new MVoter(uid);
-	m_VoterMap.insert(MVoterMap::value_type(uid, pVoter));
+	CCVoter* pVoter = new CCVoter(uid);
+	m_VoterMap.insert(CCVoterMap::value_type(uid, pVoter));
 
 	SetLastError(VOTEMGR_ERROR_OK);
 }
 
-void MVoteMgr::RemoveVoter(const CCUID& uid)
+void CCVoteMgr::RemoveVoter(const CCUID& uid)
 {
-	MVoterMap::iterator i = m_VoterMap.find(uid);
+	CCVoterMap::iterator i = m_VoterMap.find(uid);
 	if (i != m_VoterMap.end()) {
-		MVoter* pVoter = (*i).second;
+		CCVoter* pVoter = (*i).second;
 		delete pVoter;
 		m_VoterMap.erase(i);
 	}
@@ -141,7 +141,7 @@ void MVoteMgr::RemoveVoter(const CCUID& uid)
 	SetLastError(VOTEMGR_ERROR_OK);
 }
 
-bool MVoteMgr::CallVote(MVoteDiscuss* pDiscuss)
+bool CCVoteMgr::CallVote(CCVoteDiscuss* pDiscuss)
 {
 	if (GetDiscuss()) {
 		SetLastError(VOTEMGR_ERROR_VOTE_INPROGRESS);
@@ -154,14 +154,14 @@ bool MVoteMgr::CallVote(MVoteDiscuss* pDiscuss)
 	return true;
 }
 
-bool MVoteMgr::Vote(const CCUID& uid, MVOTE nVote)
+bool CCVoteMgr::Vote(const CCUID& uid, MVOTE nVote)
 {
 	if (GetDiscuss() == NULL) {
 		SetLastError(VOTEMGR_ERROR_VOTE_NODISCUSS);
 		return false;
 	}
 
-	MVoteDiscuss* pDiscuss = GetDiscuss();
+	CCVoteDiscuss* pDiscuss = GetDiscuss();
 	if (pDiscuss->CheckVoter(uid)) {
 		SetLastError(VOTEMGR_ERROR_VOTE_ALREADY_VOTED);
 		return false;
@@ -173,7 +173,7 @@ bool MVoteMgr::Vote(const CCUID& uid, MVOTE nVote)
 	return true;
 }
 
-void MVoteMgr::Tick(unsigned long nClock)
+void CCVoteMgr::Tick(unsigned long nClock)
 {
 	if (GetDiscuss() == NULL)
 		return;
@@ -196,7 +196,7 @@ void MVoteMgr::Tick(unsigned long nClock)
 }
 
 
-void MVoteMgr::StopVote( const CCUID& uidUser )
+void CCVoteMgr::StopVote( const CCUID& uidUser )
 {
 	delete m_pDiscuss;
 	m_pDiscuss = NULL;

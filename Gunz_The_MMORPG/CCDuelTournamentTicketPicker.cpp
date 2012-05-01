@@ -3,24 +3,24 @@
 #include "CCDuelTournamentTicket.h"
 #include "CCDuelTournamentTicketPicker.h"
 
-void MDuelTournamentTicketPicker::AddTicket(MDuelTournamentTicket *pTicket)
+void CCDuelTournamentTicketPicker::AddTicket(CCDuelTournamentTicket *pTicket)
 {
 	m_TicketList.push_back(pTicket);
 }
 
-static bool CompareTicket(MDuelTournamentTicket* left, MDuelTournamentTicket* right) 
+static bool CompareTicket(CCDuelTournamentTicket* left, CCDuelTournamentTicket* right) 
 {
 	return left->GetTP() < right->GetTP();
 }
 
-void MDuelTournamentTicketPicker::Shuffle()
+void CCDuelTournamentTicketPicker::Shuffle()
 {
 	if (m_TicketList.empty()) return;
 /*
 #define TEMP_TICKET_LIST_COUNT	5
-	list <MDuelTournamentTicket *> TempTicketList[TEMP_TICKET_LIST_COUNT];
+	list <CCDuelTournamentTicket *> TempTicketList[TEMP_TICKET_LIST_COUNT];
 
-	for(list <MDuelTournamentTicket *>::iterator iter = m_DuelTournamentTicketList.begin(), int i = 0;
+	for(list <CCDuelTournamentTicket *>::iterator iter = m_DuelTournamentTicketList.begin(), int i = 0;
 		iter != m_DuelTournamentTicketList.end() ; ++iter, ++i ){
 		TempTicketList[i % TEMP_TICKET_LIST_COUNT] = (*iter);
 	}
@@ -33,7 +33,7 @@ void MDuelTournamentTicketPicker::Shuffle()
 	//m_TicketList.sort(CompareTicket);
 }
 
-bool MDuelTournamentTicketPicker::PickMatch(list<MDuelTournamentTicket*> *pTicketList, int nPlayerCount)
+bool CCDuelTournamentTicketPicker::PickMatch(list<CCDuelTournamentTicket*> *pTicketList, int nPlayerCount)
 {
 	if( nPlayerCount == 0 ) return false;
 

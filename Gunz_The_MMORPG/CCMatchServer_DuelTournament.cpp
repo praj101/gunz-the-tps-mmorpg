@@ -166,7 +166,7 @@ void CCMatchServer::SendDuelTournamentServiceTimeClose(const CCUID& uidPlayer)
 	Post(pCmd);
 }
 
-void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor)
+void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor)
 {
 	if ( MGetServerConfig()->IsEnabledDuelTournament() == false ) return;
 
@@ -188,7 +188,7 @@ void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, MDuelT
 	//////////////////////////////////////////////////////////////////////////////
 	// 선수들이 뛸 Stage 설정!
 
-	MMATCH_GAMETYPE nGameType = MMATCH_GAMETYPE_DUELTOURNAMENT;
+	CCMATCH_GAMETYPE nGameType = CCMATCH_GAMETYPE_DUELTOURNAMENT;
 	
 	pStage->ChangeRule(nGameType);	
 	pStage->SetStageType(MST_NORMAL);
@@ -211,10 +211,10 @@ void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, MDuelT
 #endif
 
 	// 디비에 로그를 남긴다.
-	if ( (MGetMapDescMgr()->MIsCorrectMap(nRandomMapIndex)) && (MGetGameTypeMgr()->IsCorrectGameType(MMATCH_GAMETYPE_DUELTOURNAMENT)) ) {
+	if ( (MGetMapDescMgr()->MIsCorrectMap(nRandomMapIndex)) && (MGetGameTypeMgr()->IsCorrectGameType(CCMATCH_GAMETYPE_DUELTOURNAMENT)) ) {
 
 		// 선수들 입장!
-		for (MDuelTournamentPickedGroup::iterator i=pPickedGroup->begin(); i!= pPickedGroup->end(); i++)
+		for (CCDuelTournamentPickedGroup::iterator i=pPickedGroup->begin(); i!= pPickedGroup->end(); i++)
 		{
 			CCUID uidPlayer = (*i);
 			if( DuelTournamentJoin(uidPlayer, uidStage) == false ){
@@ -278,12 +278,12 @@ void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, MDuelT
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sync Request
-bool CCMatchServer::OnSyncRequest_InsertDuelTournamentGameLog(CCDUELTOURNAMENTTYPE nDTType, int nMatchFactor, MDuelTournamentPickedGroup *pPickedGroup, int *nOutNumber, char *szOutTimeStamp)
+bool CCMatchServer::OnSyncRequest_InsertDuelTournamentGameLog(CCDUELTOURNAMENTTYPE nDTType, int nMatchFactor, CCDuelTournamentPickedGroup *pPickedGroup, int *nOutNumber, char *szOutTimeStamp)
 {
 	int nPlayerCID[8] = {0, };
 
 	int nIndex = 0;
-	for (MDuelTournamentPickedGroup::iterator i=pPickedGroup->begin(); i!= pPickedGroup->end(); i++)
+	for (CCDuelTournamentPickedGroup::iterator i=pPickedGroup->begin(); i!= pPickedGroup->end(); i++)
 	{
 		CCUID uidPlayer = (*i);
 		CCMatchObject* pObj = GetObject(uidPlayer);
@@ -547,7 +547,7 @@ void CCMatchServer::PostCmdDuelTournamentCancelMatch(CCUID uidPlayer, int nError
 	Post(pCmd);
 }
 
-void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, MDuelTournamentPickedGroup *pPickedGroup)
+void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, CCDuelTournamentPickedGroup *pPickedGroup)
 {
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
@@ -555,7 +555,7 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 	void* pBlobPlayerInfo = MMakeBlobArray(sizeof(DTPlayerInfo), (int)pPickedGroup->size() );
 
 	int index = 0;
-	MDuelTournamentPickedGroup::iterator iter;
+	CCDuelTournamentPickedGroup::iterator iter;
 	for(iter = pPickedGroup->begin(); iter != pPickedGroup->end(); ++iter){
 		DTPlayerInfo *pPlayerInfo = reinterpret_cast<DTPlayerInfo*>(MGetBlobArrayElement(pBlobPlayerInfo, index++));
 		CCMatchObject* pObj = GetObject(*iter);
@@ -600,9 +600,9 @@ void CCMatchServer::RouteCmdDuelTournamentLaunchMatch(CCUID uidStage)
 	RouteToStage(uidStage, pCmd);
 }
 
-void CCMatchServer::RouteCmdDuelTournamentCancelMatch(MDuelTournamentPickedGroup *pPickedGroup, int nErrorCode)
+void CCMatchServer::RouteCmdDuelTournamentCancelMatch(CCDuelTournamentPickedGroup *pPickedGroup, int nErrorCode)
 {
-	for (MDuelTournamentPickedGroup::iterator i=pPickedGroup->begin(); i!= pPickedGroup->end(); i++)
+	for (CCDuelTournamentPickedGroup::iterator i=pPickedGroup->begin(); i!= pPickedGroup->end(); i++)
 	{
 		CCUID uidPlayer = (*i);
 		PostCmdDuelTournamentCancelMatch(uidPlayer, nErrorCode);

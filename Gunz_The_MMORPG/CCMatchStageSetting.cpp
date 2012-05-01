@@ -22,16 +22,16 @@ unsigned long CCMatchStageSetting::GetChecksum()
 void CCMatchStageSetting::SetDefault()
 {
 	m_StageSetting.Ref().nMapIndex = 0;
-	strcpy(m_StageSetting.Ref().szMapName, MMATCH_DEFAULT_STAGESETTING_MAPNAME);
-	m_StageSetting.Ref().nGameType = MMATCH_DEFAULT_STAGESETTING_GAMETYPE;
-	m_StageSetting.Ref().bTeamKillEnabled = MMATCH_DEFAULT_STAGESETTING_TEAMKILL;
-	m_StageSetting.Ref().bTeamWinThePoint = MMATCH_DEFAULT_STAGESETTING_TEAM_WINTHEPOINT;
-	m_StageSetting.Ref().bForcedEntryEnabled = MMATCH_DEFAULT_STAGESETTING_FORCEDENTRY;
-	m_StageSetting.Ref().nLimitTime = MMATCH_DEFAULT_STAGESETTING_LIMITTIME;
-	m_StageSetting.Ref().nMaxPlayers = MMATCH_DEFAULT_STAGESETTING_MAXPLAYERS;
-	m_StageSetting.Ref().nRoundMax = MMATCH_DEFAULT_STAGESETTING_ROUNDMAX;
-	m_StageSetting.Ref().nLimitLevel = MMATCH_DEFAULT_STAGESETTING_LIMITLEVEL;
-	m_StageSetting.Ref().bAutoTeamBalancing = MMATCH_DEFAULT_STAGESETTING_AUTOTEAMBALANCING;
+	strcpy(m_StageSetting.Ref().szMapName, CCMATCH_DEFAULT_STAGESETTING_MAPNAME);
+	m_StageSetting.Ref().nGameType = CCMATCH_DEFAULT_STAGESETTING_GAMETYPE;
+	m_StageSetting.Ref().bTeamKillEnabled = CCMATCH_DEFAULT_STAGESETTING_TEAMKILL;
+	m_StageSetting.Ref().bTeamWinThePoint = CCMATCH_DEFAULT_STAGESETTING_TEAM_WINTHEPOINT;
+	m_StageSetting.Ref().bForcedEntryEnabled = CCMATCH_DEFAULT_STAGESETTING_FORCEDENTRY;
+	m_StageSetting.Ref().nLimitTime = CCMATCH_DEFAULT_STAGESETTING_LIMITTIME;
+	m_StageSetting.Ref().nMaxPlayers = CCMATCH_DEFAULT_STAGESETTING_MAXPLAYERS;
+	m_StageSetting.Ref().nRoundMax = CCMATCH_DEFAULT_STAGESETTING_ROUNDMAX;
+	m_StageSetting.Ref().nLimitLevel = CCMATCH_DEFAULT_STAGESETTING_LIMITLEVEL;
+	m_StageSetting.Ref().bAutoTeamBalancing = CCMATCH_DEFAULT_STAGESETTING_AUTOTEAMBALANCING;
 	m_StageSetting.Ref().uidStage = CCUID(0,0);
 	m_StageSetting.Ref().bIsRelayMap = false;
 	m_StageSetting.Ref().bIsStartRelayMap = false;
@@ -61,7 +61,7 @@ void CCMatchStageSetting::SetMapName(char* pszName)
 
 		// MapIndex까지 함께 세팅해준다.
 		m_StageSetting.Ref().nMapIndex = 0;
-		for (int i = 0; i < MMATCH_MAP_MAX; i++)
+		for (int i = 0; i < CCMATCH_MAP_MAX; i++)
 		{
 			if (!stricmp( MGetMapDescMgr()->GetMapName(i), pszName))
 			{

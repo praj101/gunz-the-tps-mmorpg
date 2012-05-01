@@ -1,23 +1,23 @@
 #include "stdafx.h"
 #include "CCDuelTournamentMatchMaker.h"
 
-MDuelTournamentMatchMaker::MDuelTournamentMatchMaker()
+CCDuelTournamentMatchMaker::CCDuelTournamentMatchMaker()
 : m_pMatchObjectContainer(NULL)
 {
 }
 
 
-MDuelTournamentMatchMaker::MDuelTournamentMatchMaker(CCMatchObjectContainer* moc)
+CCDuelTournamentMatchMaker::CCDuelTournamentMatchMaker(CCMatchObjectContainer* moc)
 : m_pMatchObjectContainer(moc)
 {
 }
 
-MDuelTournamentMatchMaker::~MDuelTournamentMatchMaker()
+CCDuelTournamentMatchMaker::~CCDuelTournamentMatchMaker()
 {
 	RemoveAll();
 }
 
-bool MDuelTournamentMatchMaker::AddPlayer( const CCUID& uid, int tp, DWORD curTime )
+bool CCDuelTournamentMatchMaker::AddPlayer( const CCUID& uid, int tp, DWORD curTime )
 {
 	if (uid.IsInvalid()) return false;
 
@@ -30,7 +30,7 @@ bool MDuelTournamentMatchMaker::AddPlayer( const CCUID& uid, int tp, DWORD curTi
 	return true;
 }
 
-bool MDuelTournamentMatchMaker::RemovePlayer(const CCUID& uid)
+bool CCDuelTournamentMatchMaker::RemovePlayer(const CCUID& uid)
 {
 	// 이진검색으로 바꿀 수 있을 것 같다..
 	for (ItorDTUser it=m_mapUser.begin(); it!=m_mapUser.end(); ++it) {
@@ -42,12 +42,12 @@ bool MDuelTournamentMatchMaker::RemovePlayer(const CCUID& uid)
 	return false;
 }
 
-void MDuelTournamentMatchMaker::RemoveAll()
+void CCDuelTournamentMatchMaker::RemoveAll()
 {
 	m_mapUser.clear();
 }
 
-void MDuelTournamentMatchMaker::PickMatchableGroups(vector<PairDTMatch>& out_vecMatchGroup, int numPick, int acceptableTpGap)
+void CCDuelTournamentMatchMaker::PickMatchableGroups(vector<PairDTMatch>& out_vecMatchGroup, int numPick, int acceptableTpGap)
 {
 	out_vecMatchGroup.clear();
 
@@ -85,7 +85,7 @@ void MDuelTournamentMatchMaker::PickMatchableGroups(vector<PairDTMatch>& out_vec
 	}
 }
 
-bool MDuelTournamentMatchMaker::PickGroupForPlayer(PairDTMatch& out_MatchGroup, int numPick, const DTUser& dtUser)
+bool CCDuelTournamentMatchMaker::PickGroupForPlayer(PairDTMatch& out_MatchGroup, int numPick, const DTUser& dtUser)
 {
 	if (numPick <= 1) return false;
 	if (int(m_mapUser.size()) < numPick) return false;
@@ -147,8 +147,8 @@ bool MDuelTournamentMatchMaker::PickGroupForPlayer(PairDTMatch& out_MatchGroup, 
 	return true;
 }
 
-const MDuelTournamentMatchMaker::DTUser*
-	MDuelTournamentMatchMaker::FindLongWaitPlayer(DWORD limitWaitTime, DWORD curTime)
+const CCDuelTournamentMatchMaker::DTUser*
+	CCDuelTournamentMatchMaker::FindLongWaitPlayer(DWORD limitWaitTime, DWORD curTime)
 {
 	for (ItorDTUser it=m_mapUser.begin(); it!=m_mapUser.end(); ++it)
 	{
@@ -158,7 +158,7 @@ const MDuelTournamentMatchMaker::DTUser*
 	return NULL;
 }
 
-void MDuelTournamentMatchMaker::RemovePlayers(const DTUser& begin, const DTUser& last)
+void CCDuelTournamentMatchMaker::RemovePlayers(const DTUser& begin, const DTUser& last)
 {
 	// remove users [begin, last]
 	ItorDTUser it1 = m_mapUser.find(begin);
@@ -170,7 +170,7 @@ void MDuelTournamentMatchMaker::RemovePlayers(const DTUser& begin, const DTUser&
 	m_mapUser.erase(it1, it2);
 }
 
-void MDuelTournamentMatchMaker::CleanDisabledUid()
+void CCDuelTournamentMatchMaker::CleanDisabledUid()
 {
 	if (!m_pMatchObjectContainer) {
 		_ASSERT(0);
@@ -186,7 +186,7 @@ void MDuelTournamentMatchMaker::CleanDisabledUid()
 	}
 }
 
-void MDuelTournamentMatchMaker::PickMatchableGroupsAndRemove( MDuelTournamentPickedGroup& out_matchGroup, int numPick, int acceptableTpGap )
+void CCDuelTournamentMatchMaker::PickMatchableGroupsAndRemove( CCDuelTournamentPickedGroup& out_matchGroup, int numPick, int acceptableTpGap )
 {
 	vector<MMockDTMatchMaker::PairDTMatch> vecMatchGroup;
 	PickMatchableGroups(vecMatchGroup, numPick, acceptableTpGap);
@@ -213,7 +213,7 @@ void MDuelTournamentMatchMaker::PickMatchableGroupsAndRemove( MDuelTournamentPic
 	}
 }
 
-bool MDuelTournamentMatchMaker::PickGroupForPlayerAndRemove( MDuelTournamentPickedGroup& out_matchGroup, int numPick, const DTUser& dtUser )
+bool CCDuelTournamentMatchMaker::PickGroupForPlayerAndRemove( CCDuelTournamentPickedGroup& out_matchGroup, int numPick, const DTUser& dtUser )
 {
 	PairDTMatch group;
 	bool result = PickGroupForPlayer(group, numPick, dtUser);
@@ -240,7 +240,7 @@ bool MDuelTournamentMatchMaker::PickGroupForPlayerAndRemove( MDuelTournamentPick
 	return true;
 }
 
-void MDuelTournamentMatchMaker::ServiceTimeClose()
+void CCDuelTournamentMatchMaker::ServiceTimeClose()
 {
 	for (ItorDTUser it=m_mapUser.begin(); it!=m_mapUser.end();++it)
 	{

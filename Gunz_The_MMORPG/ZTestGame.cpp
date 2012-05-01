@@ -22,7 +22,7 @@ void CreateTestGame(char *mapname, int nDummyCharacterCount, bool bShot,bool bAI
 
 	ZGetGame()->SetReadyState(ZGAME_READYSTATE_RUN);
 
-	ZGetGame()->GetMatch()->SetRoundState(MMATCH_ROUNDSTATE_PLAY);
+	ZGetGame()->GetMatch()->SetRoundState(CCMATCH_ROUNDSTATE_PLAY);
 
 	CCTD_CharInfo info;
 	strcpy(info.szName,"Maiet");

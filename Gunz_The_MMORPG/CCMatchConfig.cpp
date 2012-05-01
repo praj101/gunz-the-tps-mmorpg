@@ -554,7 +554,7 @@ void CCMatchConfig::ReadEnableMaps()
 		TrimStr(token, szInputMapName);
 
 		int nMapIndex = -1;
-		for (int i = 0; i < MMATCH_MAP_MAX; i++)
+		for (int i = 0; i < CCMATCH_MAP_MAX; i++)
 		{
 			if (!stricmp(szInputMapName, MGetMapDescMgr()->GetMapName(i)))
 			{
@@ -574,7 +574,7 @@ void CCMatchConfig::ReadEnableMaps()
 
 	if (nMapCount <= 0)
 	{
-		for (int i = 0; i < MMATCH_MAP_MAX; i++) m_EnableMaps.insert(set<int>::value_type(i));
+		for (int i = 0; i < CCMATCH_MAP_MAX; i++) m_EnableMaps.insert(set<int>::value_type(i));
 		m_bRestrictionMap = false;
 	}
 	else

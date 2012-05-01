@@ -58,7 +58,7 @@ bool CCMatchServer::StageAdd(CCMatchChannel* pChannel, const char* pszStageName,
 	}
 
 
-	MMATCH_GAMETYPE GameType = MMATCH_GAMETYPE_DEFAULT;
+	CCMATCH_GAMETYPE GameType = CCMATCH_GAMETYPE_DEFAULT;
 	bool bIsCheckTicket = false;
 	DWORD dwTicketID = 0;
 
@@ -226,7 +226,7 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 
 
 	// 방송 관계자면 방장권한을 자동으로 빼앗는다. - 온게임넷 비비빅 요청
-	if (MMUG_EVENTMASTER == pObj->GetAccountInfo()->m_nUGrade) {
+	if (CCMUGEVENTMASTER == pObj->GetAccountInfo()->m_nUGrade) {
 		OnEventChangeMaster(pObj->GetUID());
 	}
 
@@ -603,7 +603,7 @@ bool CCMatchServer::StageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLea
 			if(bIsLeaveAllBattle) 
 			{	///< 모두 스테이지에 있다면 릴레이맵 세팅을 다시 해준다.
 				pStage->m_bIsLastRelayMap = true;//릴레이맵을 끝낸다
-				pStage->GetStageSetting()->SetMapName(MMATCH_MAPNAME_RELAYMAP);
+				pStage->GetStageSetting()->SetMapName(CCMATCH_MAPNAME_RELAYMAP);
 				pStage->SetRelayMapCurrList(pStage->GetRelayMapList());
 				pStage->m_RelayMapRepeatCountRemained = pStage->GetRelayMapRepeatCount();
 			}
@@ -637,7 +637,7 @@ bool CCMatchServer::StageChat(const CCUID& uidPlayer, const CCUID& uidStage, cha
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) return false;
 
-	if (pObj->GetAccountInfo()->m_nUGrade == MMUG_CHAT_LIMITED) return false;
+	if (pObj->GetAccountInfo()->m_nUGrade == CCMUGCHAT_LIMITED) return false;
 
 //	InsertChatDBLog(uidPlayer, pszChat);
 
@@ -771,7 +771,7 @@ void CCMatchServer::StageFinishGame(const CCUID& uidStage)
 
 				pStage->m_bIsLastRelayMap = true;//릴레이맵을 끝낸다				
 				nRepeatCount = 0;
-				pStage->GetStageSetting()->SetMapName(MMATCH_MAPNAME_RELAYMAP);	//"RelayMap" 세팅
+				pStage->GetStageSetting()->SetMapName(CCMATCH_MAPNAME_RELAYMAP);	//"RelayMap" 세팅
 			}
 			pStage->m_RelayMapRepeatCountRemained = (RELAY_MAP_REPEAT_COUNT)nRepeatCount;
 			pStage->SetRelayMapCurrList(pStage->GetRelayMapList());
@@ -962,7 +962,7 @@ void CCMatchServer::OnPrivateStageJoin(const CCUID& uidPlayer, const CCUID& uidS
 
 	CCMatchUserGradeID ugid = pObj->GetAccountInfo()->m_nUGrade;
 
-	if (ugid == MMUG_DEVELOPER || ugid == MMUG_ADMIN) 
+	if (ugid == CCMUGDEVELOPER || ugid == CCMUGADMIN) 
 		bSkipPassword = true;
 
 	// 비밀방이 아니거나 패스워드가 틀리면 패스워드가 틀렸다고 응답한다.
@@ -1261,7 +1261,7 @@ void CCMatchServer::OnStageMap(const CCUID& uidStage, char* pszMapName)
 	if (strlen(pszMapName) < 2) return;
 
 	pStage->SetMapName( pszMapName );
-	pStage->SetIsRelayMap(strcmp(MMATCH_MAPNAME_RELAYMAP, pszMapName) == 0);
+	pStage->SetIsRelayMap(strcmp(CCMATCH_MAPNAME_RELAYMAP, pszMapName) == 0);
 	
 	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_MAP), CCUID(0,0), m_This);
 	pNew->AddParameter(new MCommandParameterUID(uidStage));
@@ -1307,7 +1307,7 @@ void CCMatchServer::StageRelayMapBattleStart(const CCUID& uidPlayer, const CCUID
 	else if(pStage->GetRelayMapType() == RELAY_MAP_RANDOM)
 		nRelayMapIndex = rand() % int(pStage->m_vecRelayMapsRemained.size());
 
-	if(MMATCH_MAP_RELAYMAP == pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID)
+	if(CCMATCH_MAP_RELAYMAP == pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID)
 	{
 		cclog("RelayMapBattleStart Fail Type[%d], RoundCount[Curr:%d][%d], ListCount[Curr:%d][%d] \n",  
 			pStage->GetRelayMapType(), pStage->m_RelayMapRepeatCountRemained, pStage->GetRelayMapRepeatCount(), (int)pStage->m_vecRelayMapsRemained.size(), pStage->GetRelayMapListCount());
@@ -1453,7 +1453,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	MSTAGE_SETTING_NODE* pNode = (MSTAGE_SETTING_NODE*)MGetBlobArrayElement(pStageBlob, 0);
 
 	// let's refactor
-	if( (pNode->nGameType < MMATCH_GAMETYPE_DEATHMATCH_SOLO) || (pNode->nGameType >= MMATCH_GAMETYPE_MAX)) {
+	if( (pNode->nGameType < CCMATCH_GAMETYPE_DEATHMATCH_SOLO) || (pNode->nGameType >= CCMATCH_GAMETYPE_MAX)) {
 		cclog(" stage setting game mode hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 		LogObjectCommandHistory( uidPlayer );
 
@@ -1465,7 +1465,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	}
 
 	// 서바이벌이 비활성 세팅인데 서바이벌 요청시
-	if( MGetServerConfig()->IsEnabledSurvivalMode()==false && pNode->nGameType==MMATCH_GAMETYPE_SURVIVAL) {
+	if( MGetServerConfig()->IsEnabledSurvivalMode()==false && pNode->nGameType==CCMATCH_GAMETYPE_SURVIVAL) {
 		cclog(" stage setting game mode hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 		LogObjectCommandHistory( uidPlayer );
 		pObj->DisconnectHacker( CCMHT_INVALIDSTAGESETTING );
@@ -1497,21 +1497,21 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	if ((pChannel) && (bCheckChannelRule))
 	{
 		// 세팅할 수 있는 맵, 게임타입인지 체크
-		MChannelRule* pRule = MGetChannelRuleMgr()->GetRule(pChannel->GetRuleType());
+		CCChannelRule* pRule = MGetChannelRuleMgr()->GetRule(pChannel->GetRuleType());
 		if (pRule)
 		{
 			if (!pRule->CheckGameType(pNode->nGameType))
 			{
-				pNode->nGameType = MMATCH_GAMETYPE_DEATHMATCH_SOLO;
+				pNode->nGameType = CCMATCH_GAMETYPE_DEATHMATCH_SOLO;
 			}
 
 			bool bDuelMode = false;
-			if ( pNode->nGameType == MMATCH_GAMETYPE_DUEL)
+			if ( pNode->nGameType == CCMATCH_GAMETYPE_DUEL)
 				bDuelMode = true;
 
 			if (!pRule->CheckMap(pNode->nMapIndex, bDuelMode))
 			{
-				strcpy(pNode->szMapName, MGetMapDescMgr()->GetMapName(MMATCH_MAP_MANSION));
+				strcpy(pNode->szMapName, MGetMapDescMgr()->GetMapName(CCMATCH_MAP_MANSION));
 				pNode->nMapIndex = 0;
 			}
 			else
@@ -1522,7 +1522,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 		}
 	}
 
-	MMATCH_GAMETYPE nLastGameType = pSetting->GetGameType();
+	CCMATCH_GAMETYPE nLastGameType = pSetting->GetGameType();
 
 	// 퀘스트 모드이면 무조건 난입불가, 최대인원 4명으로 세팅한다.
 	if (MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
@@ -1535,7 +1535,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 		// 퀘스트 서버가 아닌데 퀘스트 게임이면 솔로데스매치로 바꾼다.
 		if (!QuestTestServer())
 		{
-			pNode->nGameType = MMATCH_GAMETYPE_DEATHMATCH_SOLO;
+			pNode->nGameType = CCMATCH_GAMETYPE_DEATHMATCH_SOLO;
 		}
 	}
 
@@ -1550,7 +1550,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	}
 
 	// 릴레이맵 세팅
-	pStage->SetIsRelayMap(strcmp(MMATCH_MAPNAME_RELAYMAP, pNode->szMapName) == 0);
+	pStage->SetIsRelayMap(strcmp(CCMATCH_MAPNAME_RELAYMAP, pNode->szMapName) == 0);
 	pStage->SetIsStartRelayMap(false);
 
 	if(!pStage->IsRelayMap())
@@ -1583,20 +1583,20 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 		{
 //			OnStageMap(uidStage, GetQuest()->GetSurvivalMapInfo(MSURVIVAL_MAP(0))->szName);
 //			OnStageMap(uidStage, pSetting->GetMapName());
-			OnStageMap(uidStage, MMATCH_DEFAULT_STAGESETTING_MAPNAME);
+			OnStageMap(uidStage, CCMATCH_DEFAULT_STAGESETTING_MAPNAME);
 
 			CCMatchRuleBaseQuest* pQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule());
 			pQuest->RefreshStageGameInfo();
 		}
-		else if ( (nLastGameType != MMATCH_GAMETYPE_DUEL) && ( pSetting->GetGameType() == MMATCH_GAMETYPE_DUEL))
+		else if ( (nLastGameType != CCMATCH_GAMETYPE_DUEL) && ( pSetting->GetGameType() == CCMATCH_GAMETYPE_DUEL))
 		{
-			strcpy( szNewMap, MGetMapDescMgr()->GetMapName( MMATCH_MAP_HALL));
+			strcpy( szNewMap, MGetMapDescMgr()->GetMapName( CCMATCH_MAP_HALL));
 			OnStageMap(uidStage, szNewMap);
 		}
-		else if ( ((nLastGameType == MMATCH_GAMETYPE_QUEST) || (nLastGameType == MMATCH_GAMETYPE_SURVIVAL) || (nLastGameType == MMATCH_GAMETYPE_DUEL)) &&
-			      ((pSetting->GetGameType() != MMATCH_GAMETYPE_QUEST) && (pSetting->GetGameType() != MMATCH_GAMETYPE_SURVIVAL) && ( pSetting->GetGameType() != MMATCH_GAMETYPE_DUEL)))
+		else if ( ((nLastGameType == CCMATCH_GAMETYPE_QUEST) || (nLastGameType == CCMATCH_GAMETYPE_SURVIVAL) || (nLastGameType == CCMATCH_GAMETYPE_DUEL)) &&
+			      ((pSetting->GetGameType() != CCMATCH_GAMETYPE_QUEST) && (pSetting->GetGameType() != CCMATCH_GAMETYPE_SURVIVAL) && ( pSetting->GetGameType() != CCMATCH_GAMETYPE_DUEL)))
 		{
-			strcpy( szNewMap, MGetMapDescMgr()->GetMapName( MMATCH_MAP_MANSION));
+			strcpy( szNewMap, MGetMapDescMgr()->GetMapName( CCMATCH_MAP_MANSION));
 			OnStageMap(uidStage, szNewMap);
 		}
 	}
@@ -1615,7 +1615,7 @@ void CCMatchServer::OnRequestStageSetting(const CCUID& uidComm, const CCUID& uid
 	OnStageRelayMapListInfo(uidStage, uidComm);
 
 	CCMatchObject* pChar = GetObject(uidComm);
-	if (pChar && (MMUG_EVENTMASTER == pChar->GetAccountInfo()->m_nUGrade)) 	{
+	if (pChar && (CCMUGEVENTMASTER == pChar->GetAccountInfo()->m_nUGrade)) 	{
 		// 이벤트 마스터에게 처음 방만들었던 사람을 알려준다
 		StageShowInfo(this, uidComm, uidStage, "/showinfo");
 	}
@@ -1735,12 +1735,12 @@ void CCMatchServer::OnRequestSpawn(const CCUID& uidChar, const MVector& pos, con
 
 	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
-	if ( (pStage->GetRule()->GetRoundState() != MMATCH_ROUNDSTATE_PREPARE) && (!pObj->IsEnabledRespawnDeathTime(GetTickTime())) )
+	if ( (pStage->GetRule()->GetRoundState() != CCMATCH_ROUNDSTATE_PREPARE) && (!pObj->IsEnabledRespawnDeathTime(GetTickTime())) )
 		 return;
 
 	CCMatchRule* pRule = pStage->GetRule();					// 이런 식의 코드는 마음에 안들지만 -_-; 게임타입 보고 예외처리.
-	MMATCH_GAMETYPE gameType = pRule->GetGameType();		// 다른 방법 있나요.
-	if (gameType == MMATCH_GAMETYPE_DUEL)
+	CCMATCH_GAMETYPE gameType = pRule->GetGameType();		// 다른 방법 있나요.
+	if (gameType == CCMATCH_GAMETYPE_DUEL)
 	{
 		CCMatchRuleDuel* pDuel = (CCMatchRuleDuel*)pRule;		// RTTI 안써서 dynamic cast는 패스.. 예외처리도 짜증나고 -,.-
 		if (uidChar != pDuel->uidChampion && uidChar != pDuel->uidChallenger)
@@ -1894,7 +1894,7 @@ void CCMatchServer::OnNotifyThrowTrapItem(const CCUID& uidPlayer, const int nIte
 	pStage->OnNotifyThrowTrapItem(uidPlayer, nItemID);
 }
 
-void CCMatchServer::OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const MVector3& pos)
+void CCMatchServer::OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const CCVector3& pos)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
@@ -1920,18 +1920,18 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	bool bSuicide = false;		// 자살
 	if (pAttacker == pVictim) bSuicide = true;		
 
-	MMATCH_GAMETYPE nGameType = pStage->GetStageSetting()->GetGameType();
+	CCMATCH_GAMETYPE nGameType = pStage->GetStageSetting()->GetGameType();
 	float fGameExpRatio = MGetGameTypeMgr()->GetInfo(nGameType)->fGameExpRatio;
 
 	// 게임타입이 Training이면 바로 0리턴
-	if (nGameType == MMATCH_GAMETYPE_TRAINING)
+	if (nGameType == CCMATCH_GAMETYPE_TRAINING)
 	{
 		*poutAttackerExp = 0;
 		*poutVictimExp = 0;
 		return;
 	}
 	// 게임타입이 버서커일 경우
-	else if (nGameType == MMATCH_GAMETYPE_BERSERKER)
+	else if (nGameType == CCMATCH_GAMETYPE_BERSERKER)
 	{
 		CCMatchRuleBerserker* pRuleBerserker = (CCMatchRuleBerserker*)pStage->GetRule();
 
@@ -1949,7 +1949,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 			}
 		}
 	}
-	else if (nGameType == MMATCH_GAMETYPE_DUEL)
+	else if (nGameType == CCMATCH_GAMETYPE_DUEL)
 	{
 		CCMatchRuleDuel* pRuleDuel = (CCMatchRuleDuel*)pStage->GetRule();
 		if (pVictim->GetUID() == pRuleDuel->uidChallenger)
@@ -1969,7 +1969,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 
 	// 맵, 게임타입에 대한 경험치 비율 적용
 	int nMapIndex = pStage->GetStageSetting()->GetMapIndex();
-	if ((nMapIndex >=0) && (nMapIndex < MMATCH_MAP_COUNT))
+	if ((nMapIndex >=0) && (nMapIndex < CCMATCH_MAP_COUNT))
 	{
 		float fMapExpRatio = MGetMapDescMgr()->GetExpRatio(nMapIndex);
 		fGameExpRatio = fGameExpRatio * fMapExpRatio;
@@ -2003,15 +2003,15 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	}
 
 	// 죽은사람이 운영자, 개발자일 경우 경험치 두배
-	if ((pVictim->GetAccountInfo()->m_nUGrade == MMUG_ADMIN) || 
-		(pVictim->GetAccountInfo()->m_nUGrade == MMUG_DEVELOPER))
+	if ((pVictim->GetAccountInfo()->m_nUGrade == CCMUGADMIN) || 
+		(pVictim->GetAccountInfo()->m_nUGrade == CCMUGDEVELOPER))
 	{
 		nAttackerExp = nAttackerExp * 2;
 	}
 	// 죽인사람이 운영자, 개발자일 경우 경치다운 없음
 	if ((!bSuicide) &&
-		((pAttacker->GetAccountInfo()->m_nUGrade == MMUG_ADMIN) || 
-		(pAttacker->GetAccountInfo()->m_nUGrade == MMUG_DEVELOPER)))
+		((pAttacker->GetAccountInfo()->m_nUGrade == CCMUGADMIN) || 
+		(pAttacker->GetAccountInfo()->m_nUGrade == CCMUGDEVELOPER)))
 	{
 		nVictimExp = 0;
 	}
@@ -2312,19 +2312,19 @@ void CCMatchServer::ProcessCharPlayInfo(CCMatchObject* pPlayer)
 			{
 				switch((int)pStage->GetStageSetting()->GetGameType())
 				{
-				case MMATCH_GAMETYPE_DEATHMATCH_SOLO:	{sprintf(buf, "DEATHMATCH_SOLO");	} break;		///< 개인 데쓰매치
-				case MMATCH_GAMETYPE_DEATHMATCH_TEAM:	{sprintf(buf, "DEATHMATCH_TEAM");	} break;		///< 팀 데쓰매치
-				case MMATCH_GAMETYPE_GLADIATOR_SOLO:	{sprintf(buf, "GLADIATOR_SOLO");	} break;		///< 개인 글래디에이터
-				case MMATCH_GAMETYPE_GLADIATOR_TEAM:	{sprintf(buf, "GLADIATOR_TEAM");	} break;		///< 팀 글래디에이터
-				case MMATCH_GAMETYPE_ASSASSINATE:		{sprintf(buf, "ASSASSINATE");		} break;		///< 보스전
-				case MMATCH_GAMETYPE_TRAINING:			{sprintf(buf, "TRAINING");			} break;		///< 연습
+				case CCMATCH_GAMETYPE_DEATHMATCH_SOLO:	{sprintf(buf, "DEATHMATCH_SOLO");	} break;		///< 개인 데쓰매치
+				case CCMATCH_GAMETYPE_DEATHMATCH_TEAM:	{sprintf(buf, "DEATHMATCH_TEAM");	} break;		///< 팀 데쓰매치
+				case CCMATCH_GAMETYPE_GLADIATOR_SOLO:	{sprintf(buf, "GLADIATOR_SOLO");	} break;		///< 개인 글래디에이터
+				case CCMATCH_GAMETYPE_GLADIATOR_TEAM:	{sprintf(buf, "GLADIATOR_TEAM");	} break;		///< 팀 글래디에이터
+				case CCMATCH_GAMETYPE_ASSASSINATE:		{sprintf(buf, "ASSASSINATE");		} break;		///< 보스전
+				case CCMATCH_GAMETYPE_TRAINING:			{sprintf(buf, "TRAINING");			} break;		///< 연습
 
-				case MMATCH_GAMETYPE_SURVIVAL:			{sprintf(buf, "SURVIVAL");			} break;		///< 서바이벌
-				case MMATCH_GAMETYPE_QUEST:				{sprintf(buf, "QUEST");				} break;		///< 퀘스트
+				case CCMATCH_GAMETYPE_SURVIVAL:			{sprintf(buf, "SURVIVAL");			} break;		///< 서바이벌
+				case CCMATCH_GAMETYPE_QUEST:				{sprintf(buf, "QUEST");				} break;		///< 퀘스트
 
-				case MMATCH_GAMETYPE_BERSERKER:			{sprintf(buf, "BERSERKER");			} break;		
-				case MMATCH_GAMETYPE_DEATHMATCH_TEAM2:	{sprintf(buf, "DEATHMATCH_TEAM2");	} break;		
-				case MMATCH_GAMETYPE_DUEL:				{sprintf(buf, "DUEL");				} break;	
+				case CCMATCH_GAMETYPE_BERSERKER:			{sprintf(buf, "BERSERKER");			} break;		
+				case CCMATCH_GAMETYPE_DEATHMATCH_TEAM2:	{sprintf(buf, "DEATHMATCH_TEAM2");	} break;		
+				case CCMATCH_GAMETYPE_DUEL:				{sprintf(buf, "DUEL");				} break;	
 				default:								{sprintf(buf, "don't know");		} break;
 				}
 				cclog("%s BattlePlayT Error GameMode:%s, CID:%d, Name:%s, ServerCurrT:%u, BattleStartT:%u, PlayT:%d, PlayerConnectT:%u \n"
@@ -2487,7 +2487,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 		pNode->nGameType = pStage->GetStageSetting()->GetGameType();
 		
 		// 릴레이면 로비 방리스트 배너를 릴레이맵으로 유지해준다.
-		if(pStage->IsRelayMap()) pNode->nMapIndex = MMATCH_MAP_RELAYMAP;
+		if(pStage->IsRelayMap()) pNode->nMapIndex = CCMATCH_MAP_RELAYMAP;
 		else		 			 pNode->nMapIndex = pStage->GetStageSetting()->GetMapIndex();
 		
 		pNode->nSettingFlag = 0;
@@ -2734,7 +2734,7 @@ void CCMatchServer::OnVoteCallVote(const CCUID& uidPlayer, const char* pszDiscus
 		return;
 	}
 
-	if (pStage->GetRule() && pStage->GetRule()->GetGameType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+	if (pStage->GetRule() && pStage->GetRule()->GetGameType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
 		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_CANNOT_VOTE);
 		Announce(uidPlayer, szMsg);
@@ -2766,7 +2766,7 @@ void CCMatchServer::OnVoteCallVote(const CCUID& uidPlayer, const char* pszDiscus
 		return;
 	}
 
-	MVoteDiscuss* pDiscuss = MVoteDiscussBuilder::Build(uidPlayer, pStage->GetUID(), pszDiscuss, pszArg);
+	CCVoteDiscuss* pDiscuss = CCVoteDiscussBuilder::Build(uidPlayer, pStage->GetUID(), pszDiscuss, pszArg);
 	if (pDiscuss == NULL) return;
 
 	if (pStage->GetVoteMgr()->CallVote(pDiscuss)) {
@@ -2795,7 +2795,7 @@ void CCMatchServer::OnVoteYes(const CCUID& uidPlayer)
 	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
-	MVoteDiscuss* pDiscuss = pStage->GetVoteMgr()->GetDiscuss();
+	CCVoteDiscuss* pDiscuss = pStage->GetVoteMgr()->GetDiscuss();
     if (pDiscuss == NULL) return;
 
 	pDiscuss->Vote(uidPlayer, MVOTE_YES);
@@ -2809,7 +2809,7 @@ void CCMatchServer::OnVoteNo(const CCUID& uidPlayer)
 	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
-	MVoteDiscuss* pDiscuss = pStage->GetVoteMgr()->GetDiscuss();
+	CCVoteDiscuss* pDiscuss = pStage->GetVoteMgr()->GetDiscuss();
     if (pDiscuss == NULL) return;
 
 	pDiscuss->Vote(uidPlayer, MVOTE_NO);
@@ -2902,9 +2902,9 @@ void CCMatchServer::OnEventRequestJjang(const CCUID& uidAdmin, const char* pszTa
 	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 	if (pTargetObj == NULL) return;
 	if (IsAdminGrade(pTargetObj)) return;		// 어드민 대상으로 짱불가
-	if (MMUG_STAR == pTargetObj->GetAccountInfo()->m_nUGrade) return;	// 이미 짱
+	if (CCMUGSTAR == pTargetObj->GetAccountInfo()->m_nUGrade) return;	// 이미 짱
 
-	pTargetObj->GetAccountInfo()->m_nUGrade = MMUG_STAR;
+	pTargetObj->GetAccountInfo()->m_nUGrade = CCMUGSTAR;
 
 	if (m_MatchDBMgr.EventJjangUpdate(pTargetObj->GetAccountInfo()->m_nAID, true)) {
 		CCMatchObjectCacheBuilder CacheBuilder;
@@ -2939,7 +2939,7 @@ void CCMatchServer::OnEventRemoveJjang(const CCUID& uidAdmin, const char* pszTar
 	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 	if (pTargetObj == NULL) return;			// 어드민 대상으로 짱불가
 
-	pTargetObj->GetAccountInfo()->m_nUGrade = MMUG_FREE;
+	pTargetObj->GetAccountInfo()->m_nUGrade = CCMUGFREE;
 
 	if (m_MatchDBMgr.EventJjangUpdate(pTargetObj->GetAccountInfo()->m_nAID, false)) {
 		CCMatchObjectCacheBuilder CacheBuilder;
@@ -3011,7 +3011,7 @@ void CCMatchServer::SaveGameLog(const CCUID& uidStage)
 			MAsyncDBJob_InsertGameLog* pJob = new MAsyncDBJob_InsertGameLog(uidStage);
 			pJob->Input(pMaster == NULL ? 0 : pMaster->GetCharInfo()->m_nCID,
 				MGetMapDescMgr()->GetMapName(nMapID), 
-				MGetGameTypeMgr()->GetInfo(MMATCH_GAMETYPE(nGameType))->szGameTypeStr);
+				MGetGameTypeMgr()->GetInfo(CCMATCH_GAMETYPE(nGameType))->szGameTypeStr);
 			PostAsyncJob(pJob);
 		}
 	}

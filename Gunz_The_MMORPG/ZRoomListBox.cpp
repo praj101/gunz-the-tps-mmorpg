@@ -57,7 +57,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 	MBitmap* pBitmap;
 	MRECT		rect;
 	map<string, MBitmap*>::iterator iter;
-	map<MMATCH_GAMETYPE, MBitmap*>::iterator iterIcon;
+	map<CCMATCH_GAMETYPE, MBitmap*>::iterator iterIcon;
 	int pressed_reposition = 0;
 
  	int index = 0;
@@ -373,9 +373,9 @@ void ZRoomListBox::SetBannerImage( char* pBannerName, MBitmap* pBitmap )
 {
 	m_pMapImage.insert( map<string, MBitmap*>::value_type( string(pBannerName), pBitmap) );
 }
-void ZRoomListBox::SetIconImage( MMATCH_GAMETYPE type, MBitmap* pBitmap )
+void ZRoomListBox::SetIconImage( CCMATCH_GAMETYPE type, MBitmap* pBitmap )
 {
-	m_pIconImage.insert( map<MMATCH_GAMETYPE, MBitmap*>::value_type( type, pBitmap ) );
+	m_pIconImage.insert( map<CCMATCH_GAMETYPE, MBitmap*>::value_type( type, pBitmap ) );
 }
 
 void ZRoomListBox::SetRoom(const _RoomInfoArg* pRoomInfo)

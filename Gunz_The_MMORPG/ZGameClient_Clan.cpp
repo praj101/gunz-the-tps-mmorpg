@@ -539,7 +539,7 @@ void ZGameClient::OnClanMsg(const char* szSenderName, const char* szMsg)
 
 	if ( ZGetGame())
 	{
-		if ( (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)	&& !ZGetGame()->m_pMyCharacter->IsDie())
+		if ( (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)	&& !ZGetGame()->m_pMyCharacter->IsDie())
 			sprintf(szText, "%s(%s) : %s", ZMsg( MSG_CHARINFO_CLAN), szSenderName, ". . . . .");
 	}
 
