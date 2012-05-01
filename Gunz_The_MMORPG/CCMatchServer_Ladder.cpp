@@ -119,7 +119,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	};
 
 
-	MMATCH_GAMETYPE nGameType = MMATCH_GAMETYPE_DEATHMATCH_TEAM;
+	CCMATCH_GAMETYPE nGameType = CCMATCH_GAMETYPE_DEATHMATCH_TEAM;
 
 	// Game ¼³Á¤
 	pStage->SetStageType(MST_LADDER);

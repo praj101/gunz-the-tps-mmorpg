@@ -2466,7 +2466,7 @@ void ZCharacter::OnKnockback(rvector& dir, float fForce)
 ////	if (pAttacker == NULL) return;
 //
 //	// 지금 데미지를 줄수 있는 상황인가 ?
-//	bool bCanAttack = g_pGame->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PLAY;
+//	bool bCanAttack = g_pGame->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PLAY;
 //
 //	if (bCanAttack) {
 //
@@ -3331,8 +3331,8 @@ void ZCharacter::ChangeLowPolyModel()
 
 bool ZCharacter::IsAdminName()
 {
-	if(m_MInitialInfo.Ref().nUGradeID == MMUG_DEVELOPER ||
-		m_MInitialInfo.Ref().nUGradeID == MMUG_ADMIN)
+	if(m_MInitialInfo.Ref().nUGradeID == CCMUGDEVELOPER ||
+		m_MInitialInfo.Ref().nUGradeID == CCMUGADMIN)
 		return true;
 	return false;
 }
@@ -3373,13 +3373,13 @@ void ZCharacter::InitProperties()
 	m_fPreMaxHP = pCharInfo->nHP + fAddedHP;
 	m_fPreMaxAP = pCharInfo->nAP + fAddedAP;
 
-	if(GetUserGrade() == MMUG_DEVELOPER) {
+	if(GetUserGrade() == CCMUGDEVELOPER) {
 		m_pMUserAndClanName->CheckCrc();
 		strcpy(m_pMUserAndClanName->Ref().m_szUserName, ZMsg(MSG_WORD_DEVELOPER));
 		strcpy(m_pMUserAndClanName->Ref().m_szUserAndClanName, ZMsg(MSG_WORD_DEVELOPER));
 		m_pMUserAndClanName->MakeCrc();
 	}
-	else if(GetUserGrade() == MMUG_ADMIN) {
+	else if(GetUserGrade() == CCMUGADMIN) {
 		m_pMUserAndClanName->CheckCrc();
 		strcpy(m_pMUserAndClanName->Ref().m_szUserName,ZMsg(MSG_WORD_ADMIN));
 		strcpy(m_pMUserAndClanName->Ref().m_szUserAndClanName,ZMsg(MSG_WORD_ADMIN));
@@ -3890,8 +3890,8 @@ void ZCharacter::ActDead()
 	if(pLastAttacker && pLastAttacker!=this)
 	{		
 		if( ZGetGame()->GetTime()-pLastAttacker->m_killInfo.Ref().m_fLastKillTime < EXCELLENT_TIME 
-			&& ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUEL
-			&& ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUELTOURNAMENT)
+			&& ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUEL
+			&& ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
 		{
 			MEMBER_SET_CHECKCRC(pLastAttacker->GetStatus(), nExcellent, pLastAttacker->GetStatus().Ref().nExcellent+1)
 			pLastAttacker->AddIcon(ZCI_EXCELLENT);
@@ -3900,16 +3900,16 @@ void ZCharacter::ActDead()
 		MEMBER_SET_CHECKCRC(pLastAttacker->m_killInfo, m_fLastKillTime, ZGetGame()->GetTime());
 
 		// fantastic 판정
-		if(!uStatus.m_bLand && GetDistToFloor()>200.f && ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUEL
-			&& ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUELTOURNAMENT)
+		if(!uStatus.m_bLand && GetDistToFloor()>200.f && ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUEL
+			&& ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
 		{
 			MEMBER_SET_CHECKCRC(pLastAttacker->GetStatus(), nFantastic, pLastAttacker->GetStatus().Ref().nFantastic+1)
 			pLastAttacker->AddIcon(ZCI_FANTASTIC);
 		}
 
 		// unbelievable 판정
-		if(pLastAttacker && ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUEL
-			&& ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUELTOURNAMENT)
+		if(pLastAttacker && ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUEL
+			&& ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
 		{
 			m_killInfo.CheckCrc();
 			ZCharacter::KillInfo& lastAttackerKillInfo = m_killInfo.Ref();
@@ -4208,7 +4208,7 @@ bool ZCharacter::IsGuard()
 void ZCharacter::InitRound()
 {
 	// 온게임넷의 요청으로 짱 아이콘을 달아준다. initround시에, 난입할때 달아준다
-	if(GetUserGrade()==MMUG_STAR) {
+	if(GetUserGrade()==CCMUGSTAR) {
 		ZGetEffectManager()->AddStarEffect(this);        
 	}
 }
@@ -4352,9 +4352,9 @@ void ZCharacter::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damag
 	// 자기가 쏜 폭발 데미지 & 나락 데미지는 무조건 먹는다
 	bool bCanAttack = ZGetGame()->CanAttack(pAttacker,this) || (pAttacker==this && (damageType==ZD_EXPLOSION || damageType==ZD_FALLING));
 	bDebugRegister = ZGetGame()->CanAttack(pAttacker,this) || (pAttacker==this && (damageType==ZD_EXPLOSION || damageType==ZD_FALLING));
-    bool bReturnValue = ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2;
+    bool bReturnValue = ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2;
 
-	if(ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)
+	if(ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 	{
 		PROTECT_DEBUG_REGISTER(bReturnValue)
 		{

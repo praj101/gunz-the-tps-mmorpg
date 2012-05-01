@@ -17,7 +17,7 @@
 #include "CCQuestItem.h"
 
 CCMatchRuleSurvival::CCMatchRuleSurvival(CCMatchStage* pStage) : CCMatchRuleBaseQuest(pStage), m_pQuestLevel(NULL),
-m_nCombatState(MQUEST_COMBAT_NONE), m_nPrepareStartTime(0),
+m_nCombatState(CCQUEST_COMBAT_NONE), m_nPrepareStartTime(0),
 m_nCombatStartTime(0), m_nQuestCompleteTime(0), m_nPlayerCount( 0 )
 {
 	for( int i = 0; i < MAX_SACRIFICE_SLOT_COUNT; ++i )
@@ -96,7 +96,7 @@ void CCMatchRuleSurvival::RouteGameInfo()
 
 	if (m_pQuestLevel)
 	{
-		m_pQuestLevel->Make_MTDQuestGameInfo(pGameInfoNode, MMATCH_GAMETYPE_SURVIVAL);
+		m_pQuestLevel->Make_MTDQuestGameInfo(pGameInfoNode, CCMATCH_GAMETYPE_SURVIVAL);
 	}
 
 	pCmd->AddParameter(new MCommandParameterBlob(pBlobGameInfoArray, MGetBlobArraySize(pBlobGameInfoArray)));
@@ -177,7 +177,7 @@ void CCMatchRuleSurvival::OnBegin()
 	// 게임 시작전에 Log에 필요한 정보를 수집함.
 	CollectStartingQuestGameLogInfo();
 
-	SetCombatState(MQUEST_COMBAT_PREPARE);
+	SetCombatState(CCQUEST_COMBAT_PREPARE);
 }
 
 void CCMatchRuleSurvival::OnEnd()
@@ -192,7 +192,7 @@ bool CCMatchRuleSurvival::OnRun()
 	bool ret = CCMatchRuleBaseQuest::OnRun();
 	if (ret == false) return false;
 
-	if (GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
+	if (GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)
 	{
 		CombatProcess();
 	}
@@ -206,15 +206,15 @@ void CCMatchRuleSurvival::CombatProcess()
 {
 	switch (m_nCombatState)
 	{
-	case MQUEST_COMBAT_PREPARE:			// 모두들 섹터로 들어오기를 기다리는 시기
+	case CCQUEST_COMBAT_PREPARE:			// 모두들 섹터로 들어오기를 기다리는 시기
 		{
 			if (CheckReadytoNewSector())		// 모두 다 섹터에 들어올때까지 PREPARE
 			{
-				SetCombatState(MQUEST_COMBAT_PLAY);				
+				SetCombatState(CCQUEST_COMBAT_PLAY);				
 			};
 		}
 		break;
-	case MQUEST_COMBAT_PLAY:			// 실제 게임 플레이 시기
+	case CCQUEST_COMBAT_PLAY:			// 실제 게임 플레이 시기
 		{
 			COMBAT_PLAY_RESULT nResult = CheckCombatPlay();
 			switch(nResult)
@@ -229,7 +229,7 @@ void CCMatchRuleSurvival::CombatProcess()
 					// 서바이벌에는 월드아이템뿐이므로 아이템 먹을 시간을 제공하지 않아도됨
 					//if (CheckQuestCompleteDelayTime())
 					{
-						SetCombatState(MQUEST_COMBAT_COMPLETED);
+						SetCombatState(CCQUEST_COMBAT_COMPLETED);
 					}
 				}
 				break;
@@ -241,12 +241,12 @@ void CCMatchRuleSurvival::CombatProcess()
 			};
 		}
 		break;
-	case MQUEST_COMBAT_COMPLETED:			// 게임이 끝나고 다음 링크로 건너가는 시기
+	case CCQUEST_COMBAT_COMPLETED:			// 게임이 끝나고 다음 링크로 건너가는 시기
 		{
 			// 퀘스트 클리어가 아니고 다음 섹터가 남아 있으면 바로 PREPARE상태가 된다.
 			if (!m_bQuestCompleted)
 			{
-				SetCombatState(MQUEST_COMBAT_PREPARE);
+				SetCombatState(CCQUEST_COMBAT_PREPARE);
 			}
 		}
 		break;
@@ -262,12 +262,12 @@ void CCMatchRuleSurvival::OnBeginCombatState(CCQuestCombatState nState)
 
 	switch (nState)
 	{
-	case MQUEST_COMBAT_PREPARE:
+	case CCQUEST_COMBAT_PREPARE:
 		{
 			m_nPrepareStartTime = CCMatchServer::GetInstance()->GetTickTime();
 		}
 		break;
-	case MQUEST_COMBAT_PLAY:
+	case CCQUEST_COMBAT_PLAY:
 		{
 			// 지난 맵에서 남아있던 npc들을 제거
 			ClearAllNPC();
@@ -299,7 +299,7 @@ void CCMatchRuleSurvival::OnBeginCombatState(CCQuestCombatState nState)
 			}
 		}
 		break;
-	case MQUEST_COMBAT_COMPLETED:
+	case CCQUEST_COMBAT_COMPLETED:
 		{
 			if (CheckQuestCompleted())
 			{
@@ -323,9 +323,9 @@ void CCMatchRuleSurvival::OnEndCombatState(CCQuestCombatState nState)
 {
 	switch (nState)
 	{
-	case MQUEST_COMBAT_PREPARE:
+	case CCQUEST_COMBAT_PREPARE:
 		break;
-	case MQUEST_COMBAT_PLAY:
+	case CCQUEST_COMBAT_PLAY:
 		{
 			// 이번 라운드의 1인당 점수를 계산해서 누적 (이 누적값이 전체 게임의 점수가 됨)
 			// (게임 중간에 누가 나갈 수 있으므로 라운드마다 1인당 점수를 계산해서 누적한다)
@@ -349,7 +349,7 @@ void CCMatchRuleSurvival::OnEndCombatState(CCQuestCombatState nState)
 #endif
 		}
 		break;
-	case MQUEST_COMBAT_COMPLETED:
+	case CCQUEST_COMBAT_COMPLETED:
 		break;
 	};
 }
@@ -583,7 +583,7 @@ void CCMatchRuleSurvival::OnCompleted()
 #ifdef _QUEST_ITEM
 	// 여기서 DB로 QuestGameLog생성.
 	PostInsertQuestGameLogAsyncJob();	
-	SetCombatState(MQUEST_COMBAT_NONE);
+	SetCombatState(CCQUEST_COMBAT_NONE);
 #endif
 
 }
@@ -591,7 +591,7 @@ void CCMatchRuleSurvival::OnCompleted()
 // 퀘스트 실패시
 void CCMatchRuleSurvival::OnFailed()
 {
-	SetCombatState(MQUEST_COMBAT_NONE);
+	SetCombatState(CCQUEST_COMBAT_NONE);
 	m_bQuestCompleted = false;
 
 	SendGameResult();
@@ -649,7 +649,7 @@ void CCMatchRuleSurvival::ProcessCombatPlay()
 
 }
 
-void CCMatchRuleSurvival::MakeNPCnSpawn(MQUEST_NPC nNPCID, bool bAddQuestDropItem, bool bKeyNPC)
+void CCMatchRuleSurvival::MakeNPCnSpawn(CCQUEST_NPC nNPCID, bool bAddQuestDropItem, bool bKeyNPC)
 {
 	CCQuestNPCSpawnType nSpawnType = MNST_MELEE;
 	CCQuestNPCInfo* pNPCInfo = CCMatchServer::GetInstance()->GetQuest()->GetNPCInfo(nNPCID);
@@ -696,7 +696,7 @@ void CCMatchRuleSurvival::ProcessNPCSpawn()
 {
 	if (CheckNPCSpawnEnable())
 	{
-		MQUEST_NPC npc;
+		CCQUEST_NPC npc;
 		if (m_pQuestLevel->GetNPCQueue()->Pop(npc))
 		{
 			bool bKeyNPC = m_pQuestLevel->GetNPCQueue()->IsKeyNPC(npc);
@@ -721,7 +721,7 @@ void CCMatchRuleSurvival::ProcessNPCSpawn()
 	//				int nCount = (int)m_JacoSpawnTrigger.GetQueue().size();
 	//				for (int i = 0; i < nCount; i++)
 	//				{
-	//					MQUEST_NPC npc = m_JacoSpawnTrigger.GetQueue()[i];
+	//					CCQUEST_NPC npc = m_JacoSpawnTrigger.GetQueue()[i];
 	//					MakeNPCnSpawn(npc, false);
 	//				}
 	//			}
@@ -753,7 +753,7 @@ void CCMatchRuleSurvival::OnRequestTestSectorClear()
 {
 	ClearAllNPC();
 
-	SetCombatState(MQUEST_COMBAT_COMPLETED);
+	SetCombatState(CCQUEST_COMBAT_COMPLETED);
 }
 
 void CCMatchRuleSurvival::OnRequestTestFinish()
@@ -762,7 +762,7 @@ void CCMatchRuleSurvival::OnRequestTestFinish()
 
 	m_pQuestLevel->GetDynamicInfo()->nCurrSectorIndex = m_pQuestLevel->GetMapSectorCount()-1;
 
-	SetCombatState(MQUEST_COMBAT_COMPLETED);
+	SetCombatState(CCQUEST_COMBAT_COMPLETED);
 }
 
 
@@ -1152,7 +1152,7 @@ void CCMatchRuleSurvival::OnObtainWorldItem(CCMatchObject* pObj, int nItemID, in
 	if( 0 == pObj )
 		return;
 
-	if (m_nCombatState != MQUEST_COMBAT_PLAY) 
+	if (m_nCombatState != CCQUEST_COMBAT_PLAY) 
 	{
 #ifdef _DEBUG
 		cclog( "obtain quest item fail. not combat play.\n" );
@@ -1591,8 +1591,8 @@ const bool CCMatchRuleSurvival::PostNPCInfo()
 		return false;
 	}
 
-	vector< MQUEST_NPC >::iterator	itNL;
-	vector< MQUEST_NPC >::iterator	endNL;
+	vector< CCQUEST_NPC >::iterator	itNL;
+	vector< CCQUEST_NPC >::iterator	endNL;
 	CCQuestNPCInfo*					pQuestNPCInfo		= NULL;
 	int								nNPCIndex			= 0;
 	MTD_NPCINFO*					pMTD_QuestNPCInfo	= NULL;
@@ -1891,7 +1891,7 @@ void CCMatchRuleSurvival::ReinforceNPC()
 
 		CCMatchQuest* pQuest = CCMatchServer::GetInstance()->GetQuest();
 		CCQuestNPCInfo* pNpcInfo;
-		MQUEST_NPC npcID;
+		CCQUEST_NPC npcID;
 		for (unsigned int i=0; i<m_vecNPCInThisScenario.size(); ++i)
 		{
 			npcID = m_vecNPCInThisScenario[i];

@@ -956,7 +956,7 @@ void ZApplication::ParseStandAloneArguments(char* pszArgs)
 			char szTemp[256], szMap[256];
 			sscanf(str, "%s %s", szTemp, szMap);
 
-			ZGetGameClient()->GetMatchStageSetting()->SetGameType(MMATCH_GAMETYPE_QUEST);
+			ZGetGameClient()->GetMatchStageSetting()->SetGameType(CCMATCH_GAMETYPE_QUEST);
 			
 			CreateTestGame(szMap, 0, false, true, 0);
 			return;

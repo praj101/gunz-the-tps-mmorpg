@@ -28,7 +28,7 @@ public :
 	size_t			GetEventCount( const DWORD dwEventID );
 	bool			Empty()											{ return m_EventVec.empty(); }
 	CCMATCH_GAMETYPE GetLastSetGameType()							{ return m_GameType; }
-	void			SetGameType( const MMATCH_GAMETYPE GameType )	{ m_GameType = GameType; }
+	void			SetGameType( const CCMATCH_GAMETYPE GameType )	{ m_GameType = GameType; }
 
 	void CustomCheckEventObj( const DWORD dwEventID, CCMatchObject* pObj, void* pContext );
 	void CustomCheckEventObj( const DWORD dwEventListID, const DWORD dwEventID, CCMatchObject* pObj, void* pContext );

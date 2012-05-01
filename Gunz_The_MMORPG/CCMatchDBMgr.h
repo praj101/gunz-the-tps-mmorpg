@@ -1,5 +1,5 @@
-#ifndef MMATCHDBMGR_H
-#define MMATCHDBMGR_H
+#ifndef CCMATCHDBMGR_H
+#define CCMATCHDBMGR_H
 #pragma warning( disable: 4996 )
 #include "ODBCRecordset.h"
 #include "CCMatchItem.h"
@@ -8,7 +8,7 @@
 #include "CCQuestConst.h"
 #include "CCMatchDBFilter.h"
 #include "CCCountryFilterDBMgr.h"
-
+#include "CCMatchAccountPenaltyInfo.h"
 #include "CCMatchBRMachine.h"
 #include "CCMatchCharBRInfo.h"
 

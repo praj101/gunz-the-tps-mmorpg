@@ -22,7 +22,7 @@
 
 
 
-const DWORD CCMatchDisconnStatusInfo::MINTERVAL_DISCONNECT_STATUS_MIN = (5 * 1000);
+const DWORD CCMatchDisconnStatusInfo::CCINTERVAL_DISCONNECT_STATUS_MIN = (5 * 1000);
 
 CCMatchObject::CCMatchObject(const CCUID& uid) : MObject(uid) 
 { 
@@ -649,7 +649,7 @@ void CCMatchObject::UpdateLastHShieldMsgRecved()
 
 void CCMatchObject::DisconnectHacker( CCMatchHackingType eType )
 {
-	GetDisconnStatusInfo().SetStatus( MMDS_DISCONN_WAIT );
+	GetDisconnStatusInfo().SetStatus( CCMDS_DISCONN_WAIT );
 
 	const PUNISH_TABLE_ITEM& punish = MPunishTable::GetPunish(eType);
 

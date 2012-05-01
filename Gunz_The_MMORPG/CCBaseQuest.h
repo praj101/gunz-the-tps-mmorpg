@@ -42,10 +42,10 @@ protected:
 	void ProcessNPCDropTableMatching();		// npc.xml의 Droptable을 매칭시킨다.
 public:
 	CCBaseQuest();															///< 생성자
-	virtual ~MBaseQuest();													///< 소멸자
+	virtual ~CCBaseQuest();													///< 소멸자
 	inline CCQuestMapSectorInfo*		GetSectorInfo(int nSectorID);			///< 섹터 정보 반환 - 퀘스트
 	inline CCQuestMapSectorInfo*		GetSurvivalSectorInfo(int nSectorID);	///< 섹터 정보 반환 - 서바이벌
-	inline CCQuestNPCInfo*			GetNPCInfo(MQUEST_NPC nNPC);			///< NPC 정보 반환
+	inline CCQuestNPCInfo*			GetNPCInfo(CCQUEST_NPC nNPC);			///< NPC 정보 반환
 	inline CCQuestNPCInfo*			GetNPCPageInfo( int nPage);				///< NPC 정보 반환
 	//inline MSurvivalMapInfo*		GetSurvivalMapInfo(MSURVIVAL_MAP nMap);	///< 서바이벌 모드용 맵 정보 반환
 	inline CCQuestDropTable*			GetDropTable();							///< 퀘스트 아이템 드롭 테이블 정보 반환

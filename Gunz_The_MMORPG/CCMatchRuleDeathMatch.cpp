@@ -35,11 +35,11 @@ void CCMatchRuleTeamDeath::OnRoundEnd()
 	{
 		switch(m_nRoundArg)
 		{
-			case MMATCH_ROUNDRESULT_BLUE_ALL_OUT: m_pStage->OnRoundEnd_FromTeamGame(CCMT_RED);break;
-			case MMATCH_ROUNDRESULT_RED_ALL_OUT: m_pStage->OnRoundEnd_FromTeamGame(CCMT_BLUE); break;
-			case MMATCH_ROUNDRESULT_REDWON: m_pStage->OnRoundEnd_FromTeamGame(CCMT_RED); break;
-			case MMATCH_ROUNDRESULT_BLUEWON: m_pStage->OnRoundEnd_FromTeamGame(CCMT_BLUE); break;
-			case MMATCH_ROUNDRESULT_DRAW: break;
+			case CCMATCH_ROUNDRESULT_BLUE_ALL_OUT: m_pStage->OnRoundEnd_FromTeamGame(CCMT_RED);break;
+			case CCMATCH_ROUNDRESULT_RED_ALL_OUT: m_pStage->OnRoundEnd_FromTeamGame(CCMT_BLUE); break;
+			case CCMATCH_ROUNDRESULT_REDWON: m_pStage->OnRoundEnd_FromTeamGame(CCMT_RED); break;
+			case CCMATCH_ROUNDRESULT_BLUEWON: m_pStage->OnRoundEnd_FromTeamGame(CCMT_BLUE); break;
+			case CCMATCH_ROUNDRESULT_DRAW: break;
 		}
 	}
 
@@ -159,15 +159,15 @@ bool CCMatchRuleTeamDeath::OnCheckRoundFinish()
 		}
 
 		if( nBlueTeam ==0 && (pStage->GetTeamScore(CCMT_BLUE) > pStage->GetTeamScore(CCMT_RED)) )
-			SetRoundArg(MMATCH_ROUNDRESULT_BLUE_ALL_OUT);
+			SetRoundArg(CCMATCH_ROUNDRESULT_BLUE_ALL_OUT);
 		else if( nRedTeam ==0 && (pStage->GetTeamScore(CCMT_RED) > pStage->GetTeamScore(CCMT_BLUE)) )
-			SetRoundArg(MMATCH_ROUNDRESULT_RED_ALL_OUT);
+			SetRoundArg(CCMATCH_ROUNDRESULT_RED_ALL_OUT);
 		else if ( (nRedAliveCount == 0) && (nBlueAliveCount == 0) )
-			SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
+			SetRoundArg(CCMATCH_ROUNDRESULT_DRAW);
 		else if (nRedAliveCount == 0)
-			SetRoundArg(MMATCH_ROUNDRESULT_BLUEWON);
+			SetRoundArg(CCMATCH_ROUNDRESULT_BLUEWON);
 		else if (nBlueAliveCount == 0)
-			SetRoundArg(MMATCH_ROUNDRESULT_REDWON);
+			SetRoundArg(CCMATCH_ROUNDRESULT_REDWON);
 	}
 
 	if (nRedAliveCount==0 || nBlueAliveCount==0) return true;
@@ -181,10 +181,10 @@ void CCMatchRuleTeamDeath::OnRoundTimeOut()
 	GetAliveCount(&nRedAliveCount, &nBlueAliveCount);
 
 	if (nRedAliveCount > nBlueAliveCount)
-		SetRoundArg(MMATCH_ROUNDRESULT_REDWON);
+		SetRoundArg(CCMATCH_ROUNDRESULT_REDWON);
 	else if (nBlueAliveCount > nRedAliveCount)
-		SetRoundArg(MMATCH_ROUNDRESULT_BLUEWON);
-	else SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
+		SetRoundArg(CCMATCH_ROUNDRESULT_BLUEWON);
+	else SetRoundArg(CCMATCH_ROUNDRESULT_DRAW);
 }
 
 // 반환값이 false이면 게임이 끝난다.
@@ -296,7 +296,7 @@ bool CCMatchRuleSoloDeath::OnCheckRoundFinish()
 
 void CCMatchRuleSoloDeath::OnRoundTimeOut()
 {
-	SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
+	SetRoundArg(CCMATCH_ROUNDRESULT_DRAW);
 }
 
 
@@ -334,15 +334,15 @@ void CCMatchRuleTeamDeath2::OnRoundEnd()
 {
 	if (m_pStage != NULL)
 	{
-		if (m_nRoundArg == MMATCH_ROUNDRESULT_REDWON) 
+		if (m_nRoundArg == CCMATCH_ROUNDRESULT_REDWON) 
 		{
 			m_pStage->OnRoundEnd_FromTeamGame(CCMT_RED);
 		} 
-		else if (m_nRoundArg == MMATCH_ROUNDRESULT_BLUEWON) 
+		else if (m_nRoundArg == CCMATCH_ROUNDRESULT_BLUEWON) 
 		{
 			m_pStage->OnRoundEnd_FromTeamGame(CCMT_BLUE);
 		} 
-		else if (m_nRoundArg == MMATCH_ROUNDRESULT_DRAW) 
+		else if (m_nRoundArg == CCMATCH_ROUNDRESULT_DRAW) 
 		{ 
 			// Do Nothing
 		}
@@ -375,12 +375,12 @@ bool CCMatchRuleTeamDeath2::OnCheckRoundFinish()
 
 	if (nRedScore >= pStage->GetStageSetting()->GetRoundMax())
 	{
-		SetRoundArg(MMATCH_ROUNDRESULT_REDWON);
+		SetRoundArg(CCMATCH_ROUNDRESULT_REDWON);
 		return true;
 	}
 	else if (nBlueScore >= pStage->GetStageSetting()->GetRoundMax())
 	{
-		SetRoundArg(MMATCH_ROUNDRESULT_BLUEWON);
+		SetRoundArg(CCMATCH_ROUNDRESULT_BLUEWON);
 		return true;
 	}
 
@@ -390,7 +390,7 @@ bool CCMatchRuleTeamDeath2::OnCheckRoundFinish()
 void CCMatchRuleTeamDeath2::OnRoundTimeOut()
 {
 	if (!OnCheckRoundFinish())
-		SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
+		SetRoundArg(CCMATCH_ROUNDRESULT_DRAW);
 }
 
 // 반환값이 false이면 게임이 끝난다.

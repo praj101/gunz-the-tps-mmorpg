@@ -15,7 +15,7 @@ public:
 	int m_nTrapItemId;
 
 	// 이후 트랩이 발동되었다는 커맨드로 정보를 보충
-	MVector3 m_vPosActivated;
+	CCVector3 m_vPosActivated;
 	unsigned long m_nTimeActivated;
 
 	// 이 트랩이 던져졌으나 발동되기 전의 시간대에 난입한 유저의 uid를 여기 기억해 둠
@@ -44,7 +44,7 @@ public:
 	void Clear();
 
 	void AddThrowedTrap(const CCUID& uidOwner, int nItemId);
-	void OnActivated(const CCUID& uidOwner, int nItemId, const MVector3& vPos);
+	void OnActivated(const CCUID& uidOwner, int nItemId, const CCVector3& vPos);
 
 	void Update(unsigned long nClock);
 

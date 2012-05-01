@@ -4,7 +4,7 @@
 
 #define MAX_DT_GROUP_RANKING_COUNT 100
 
-class MDuelTournamentMatchLauncher;
+class CCDuelTournamentMatchLauncher;
 
 //////////////////////////////////////////////////////////////////////
 // Duel Tournament의 관리 클래스이다.
@@ -15,7 +15,7 @@ class MDuelTournamentMatchLauncher;
 class CCMatchDuelTournamentMgr
 {
 	CCMatchObjectContainer m_matchObjectContainer;
-	MDuelTournamentTimeChecker m_TimeChecker;
+	CCDuelTournamentTimeChecker m_TimeChecker;
 
 	DWORD m_lastMatchedTick;		// 마지막으로 매치 처리한 시각
 	DWORD m_nLastTimeCheckedTick;	// 마지막으로 TimeChecker를 실행한 시각
@@ -23,11 +23,11 @@ class CCMatchDuelTournamentMgr
 
 protected:	
 	DTRankingInfo m_GroupRankingBlob[MAX_DT_GROUP_RANKING_COUNT];
-	MDuelTournamentMatchMaker m_DTMatchMakers[CCDUELTOURNAMENTTYPE_MAX];
-	MDuelTournamentMatchLauncher* m_pDTMatchLauncher;
+	CCDuelTournamentMatchMaker m_DTMatchMakers[CCDUELTOURNAMENTTYPE_MAX];
+	CCDuelTournamentMatchLauncher* m_pDTMatchLauncher;
 
 	void ClearGroupRanking();
-	void LaunchMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer);
+	void LaunchMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup& vecUidPlayer);
 public:
 	CCMatchDuelTournamentMgr();
 	~CCMatchDuelTournamentMgr();
@@ -52,22 +52,22 @@ public:
 
 
 // CCMatchDuelTournamentMgr는 이 클래스를 이용해서 MatchMaker가 뽑아낸 그룹을 실제로 경기시킨다
-class MDuelTournamentMatchLauncher
+class CCDuelTournamentMatchLauncher
 {
 	DWORD m_dwLimitUserWaitTime;
 	DWORD m_dwAcceptableTpGap;
 
 public:
-	MDuelTournamentMatchLauncher() : m_dwLimitUserWaitTime(10000), m_dwAcceptableTpGap(10) {}
+	CCDuelTournamentMatchLauncher() : m_dwLimitUserWaitTime(10000), m_dwAcceptableTpGap(10) {}
 
 	void SetLimitUserWaitTime(DWORD n) { m_dwLimitUserWaitTime = n; }
 	void SetAcceptableTpGap(DWORD n) { m_dwAcceptableTpGap = n; }
 
-	void LaunchAvailableMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentMatchMaker& matchMaker, DWORD nCurTick);
+	void LaunchAvailableMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentMatchMaker& matchMaker, DWORD nCurTick);
 
 protected:
-	void LaunchMatchGroups(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
+	void LaunchMatchGroups(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup& vecUidPlayer, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
 
 	// 실제 CCMatchServer에게 경기 실행시키는 부분을 래핑하는 함수 (단위테스트 목적)
-	virtual void LaunchMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
+	virtual void LaunchMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
 };

@@ -74,7 +74,7 @@ bool InitMaps(MWidget *pWidget)
 		return true;
 	}
 
-	MChannelRule* pRule = ZGetChannelRuleMgr()->GetCurrentRule();
+	CCChannelRule* pRule = ZGetChannelRuleMgr()->GetCurrentRule();
 	if (pRule == NULL) {
 		cclog("Init maps : no Current ChannelRule \n");
 		return false;
@@ -91,7 +91,7 @@ bool InitMaps(MWidget *pWidget)
 //#endif
 
 		bool bDuelMode = false;
-		if ( ZGetGameClient() && (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == MMATCH_GAMETYPE_DUEL))
+		if ( ZGetGameClient() && (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUEL))
 			bDuelMode = true;
 
 		// 릴레이맵을 젤위에 넣어준다.
@@ -99,7 +99,7 @@ bool InitMaps(MWidget *pWidget)
 		{
 			for(int j=0 ; j< MGetMapDescMgr()->GetMapCount() ; j++)
 			{
-				if(strcmp(MMATCH_MAPNAME_RELAYMAP, MGetMapDescMgr()->GetMapName(j)) == 0)
+				if(strcmp(CCMATCH_MAPNAME_RELAYMAP, MGetMapDescMgr()->GetMapName(j)) == 0)
 				{
 					pCombo->Add(MGetMapDescMgr()->GetMapName(j));
 					bRelayMapInsert = true;
@@ -110,7 +110,7 @@ bool InitMaps(MWidget *pWidget)
 		}
 
 		if ( pRule->CheckMap( MGetMapDescMgr()->GetMapName(i), bDuelMode))
-			if(strcmp(MMATCH_MAPNAME_RELAYMAP, MGetMapDescMgr()->GetMapName(i)) != 0)
+			if(strcmp(CCMATCH_MAPNAME_RELAYMAP, MGetMapDescMgr()->GetMapName(i)) != 0)
 				pCombo->Add(MGetMapDescMgr()->GetMapName(i));
 	}
 

@@ -8,17 +8,17 @@ using namespace std;
 #include "CCUID.h"
 #include "CCMatchGlobal.h"
 
-class MDuelTournamentWaitGroup
+class CCDuelTournamentWaitGroup
 {
 protected:
 	CCDUELTOURNAMENTTYPE		m_nType;
-	map<CCUID, MDuelTournamentTicket*> m_PlayerTicketMap;
+	map<CCUID, CCDuelTournamentTicket*> m_PlayerTicketMap;
 
 	unsigned int m_nRegTime;
 	int m_nTickCount;
 
 public:
-	MDuelTournamentWaitGroup(CCDUELTOURNAMENTTYPE nType, unsigned int nRegTime)
+	CCDuelTournamentWaitGroup(CCDUELTOURNAMENTTYPE nType, unsigned int nRegTime)
 	{ 
 		m_nType = nType;
 		m_nRegTime = nRegTime;
@@ -33,16 +33,16 @@ public:
 	int GetTickCount()				{ return m_nTickCount; }
 
 	size_t GetPlayerTicketCount()							{ return m_PlayerTicketMap.size(); }
-	map<CCUID, MDuelTournamentTicket*>* GetPlayerTicketMap()	{ return &m_PlayerTicketMap; }
+	map<CCUID, CCDuelTournamentTicket*>* GetPlayerTicketMap()	{ return &m_PlayerTicketMap; }
 
-	void AddPlayerTicket(CCUID uidPlayer, MDuelTournamentTicket *pTicket) 
+	void AddPlayerTicket(CCUID uidPlayer, CCDuelTournamentTicket *pTicket) 
 	{
-		m_PlayerTicketMap.insert(pair<CCUID, MDuelTournamentTicket*>(uidPlayer, pTicket));
+		m_PlayerTicketMap.insert(pair<CCUID, CCDuelTournamentTicket*>(uidPlayer, pTicket));
 	}
 
-	MDuelTournamentTicket* FindPlayerTicket(CCUID uidPlayer) 
+	CCDuelTournamentTicket* FindPlayerTicket(CCUID uidPlayer) 
 	{
-		map<CCUID, MDuelTournamentTicket*>::iterator iter = m_PlayerTicketMap.find(uidPlayer);
+		map<CCUID, CCDuelTournamentTicket*>::iterator iter = m_PlayerTicketMap.find(uidPlayer);
 		if( iter == m_PlayerTicketMap.end() )
 			return NULL;
 
@@ -51,7 +51,7 @@ public:
 
 	void RemovePlayerTicket(CCUID uidPlayer) 
 	{
-		map<CCUID, MDuelTournamentTicket*>::iterator iter = m_PlayerTicketMap.find(uidPlayer);
+		map<CCUID, CCDuelTournamentTicket*>::iterator iter = m_PlayerTicketMap.find(uidPlayer);
 		if( iter == m_PlayerTicketMap.end() ) 
 			return;
 
@@ -64,7 +64,7 @@ public:
 };
 
 
-class MDuelTournamentPickedGroup : public vector<CCUID>
+class CCDuelTournamentPickedGroup : public vector<CCUID>
 {
 public:
 	void Shuffle() {

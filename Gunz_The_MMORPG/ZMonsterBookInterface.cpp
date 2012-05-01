@@ -449,7 +449,7 @@ bool ZMonsterBookInterface::LoadMonsterBookInfo( void)
 	m_nTotalPageNum = 0;
 
 
-	for ( map<MQUEST_NPC, CCQuestNPCInfo*>::iterator itr = pNPCCatalogue->begin();  itr != pNPCCatalogue->end();  itr++)
+	for ( map<CCQUEST_NPC, CCQuestNPCInfo*>::iterator itr = pNPCCatalogue->begin();  itr != pNPCCatalogue->end();  itr++)
 	{
 		// 하드 코드 : 이벤트용 NPC인 경우엔 빼준다
 		if ( (*itr).first >= 100)

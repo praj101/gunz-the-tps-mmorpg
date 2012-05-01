@@ -110,7 +110,7 @@ public :
 	void SetLastCheckTime( const DWORD dwCurTime );
 
 	// 유저가 따로 초기화를 필요할때는 이것을 재정의 하면 된다.
-	// MMatchEvent클래스를 생성시에 이 함수가 호출되어 같이 검사된다.
+	// CCMatchEvent클래스를 생성시에 이 함수가 호출되어 같이 검사된다.
 	virtual bool InitEvent() { return true; }
 	// 정해진 루틴이 아닌 따로 처리해 줘야하는 이벤트는 이 함수를 제정의해서 사용함.
 	// 처리시 필요한 유저타입데이터는 pContext로 넘겨서 처리.

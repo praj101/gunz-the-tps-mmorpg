@@ -1,5 +1,5 @@
-#ifndef _MMATCHDBGAMBLEITEM_H
-#define _MMATCHDBGAMBLEITEM_H
+#ifndef _CCMATCHDBGAMBLEITEM_H
+#define _CCMATCHDBGAMBLEITEM_H
 
 
 #include "CCMatchDBBaseGambleItem.h"

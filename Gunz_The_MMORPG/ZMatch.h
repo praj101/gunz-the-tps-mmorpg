@@ -19,7 +19,7 @@ private:
 protected:
 	ZRule*					m_pRule;
 	CCMatchStageSetting*		m_pStageSetting;
-	MMATCH_ROUNDSTATE		m_nRoundState;
+	CCMATCH_ROUNDSTATE		m_nRoundState;
 	int						m_nCurrRound;
 	int						m_nTeamScore[MMT_END];
 	int						m_nRoundKills;			// 현재라운드의 킬수 - FirstKill체크하려고 만듦
@@ -56,7 +56,7 @@ public:
 	int GetRoundReadyCount(void);
 	void GetTeamAliveCount(int* pnRedTeam, int* pnBlueTeam);
 	const char* GetTeamName(int nTeamID);
-	void SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg=0);
+	void SetRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg=0);
 
 	void SetRoundStartTime( void);
 	DWORD GetRemaindTime( void);
@@ -65,8 +65,8 @@ public:
 	inline bool IsTeamPlay();
 	inline bool IsWaitForRoundEnd();
 	inline bool IsQuestDrived();
-	inline MMATCH_ROUNDSTATE GetRoundState();
-	inline MMATCH_GAMETYPE GetMatchType();
+	inline CCMATCH_ROUNDSTATE GetRoundState();
+	inline CCMATCH_GAMETYPE GetMatchType();
 	inline bool GetTeamKillEnabled();
 	inline const char* GetMapName();
 	inline int GetTeamScore(CCMatchTeam nTeam);
@@ -102,11 +102,11 @@ inline bool ZMatch::IsWaitForRoundEnd()
 	return m_pStageSetting->IsWaitforRoundEnd(); 
 }
 
-inline MMATCH_ROUNDSTATE ZMatch::GetRoundState()
+inline CCMATCH_ROUNDSTATE ZMatch::GetRoundState()
 { 
 	return m_nRoundState; 
 }
-inline MMATCH_GAMETYPE ZMatch::GetMatchType()
+inline CCMATCH_GAMETYPE ZMatch::GetMatchType()
 { 
 	return m_pStageSetting->GetStageSetting()->nGameType; 
 }
@@ -152,8 +152,8 @@ inline void ZMatch::AddRoundKills()
 }
 inline bool ZMatch::IsRuleGladiator()
 {
-	return ((GetMatchType() == MMATCH_GAMETYPE_GLADIATOR_SOLO) || 
-			(GetMatchType() == MMATCH_GAMETYPE_GLADIATOR_TEAM));
+	return ((GetMatchType() == CCMATCH_GAMETYPE_GLADIATOR_SOLO) || 
+			(GetMatchType() == CCMATCH_GAMETYPE_GLADIATOR_TEAM));
 }
 inline ZRule* ZMatch::GetRule() 
 { 

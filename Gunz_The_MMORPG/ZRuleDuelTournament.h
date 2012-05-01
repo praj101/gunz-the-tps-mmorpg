@@ -45,7 +45,7 @@ public:
 
 	virtual bool OnCommand(MCommand* pCommand);
 	virtual void AfterCommandProcessed( MCommand* pCommand );
-	virtual void OnSetRoundState(MMATCH_ROUNDSTATE roundState);
+	virtual void OnSetRoundState(CCMATCH_ROUNDSTATE roundState);
 	virtual void OnUpdate(float fDelta);
 
 	int GetDuelTournamentPlayCount() { return m_nDTPlayCount; }

@@ -19,8 +19,8 @@ public:
 	virtual bool OnCommand(MCommand* pCommand);
 	virtual void AfterCommandProcessed(MCommand* pCommand);
 	virtual void OnResponseRuleInfo(MTD_RuleInfo* pInfo);
-	virtual void OnSetRoundState(MMATCH_ROUNDSTATE roundState) {}
-	static ZRule* CreateRule(ZMatch* pMatch, MMATCH_GAMETYPE nGameType);
+	virtual void OnSetRoundState(CCMATCH_ROUNDSTATE roundState) {}
+	static ZRule* CreateRule(ZMatch* pMatch, CCMATCH_GAMETYPE nGameType);
 
 
 	// 해당 Rule에서 상속 받아서 사용해야 할 것

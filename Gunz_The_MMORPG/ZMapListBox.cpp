@@ -81,7 +81,7 @@ void ZMapListBox::Refresh(CCZFileSystem* pFS)
 #define EXT	".rs"
 #define MAPDIRECTORY "Maps/"
 
-	MChannelRule* pRule = ZGetChannelRuleMgr()->GetCurrentRule();
+	CCChannelRule* pRule = ZGetChannelRuleMgr()->GetCurrentRule();
 	if (pRule == NULL) {
 		cclog("ZMapListBox::Refresh() > No Current ChannelRule \n");
 		return;

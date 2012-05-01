@@ -1,6 +1,6 @@
 #pragma once
 
-class MDuelTournamentTimeChecker
+class CCDuelTournamentTimeChecker
 {
 protected:
 	bool m_bTimeStampChanged;
@@ -10,8 +10,8 @@ protected:
 
 	char m_szTimeStamp[DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1];
 public:
-	MDuelTournamentTimeChecker(void);
-	~MDuelTournamentTimeChecker(void){}
+	CCDuelTournamentTimeChecker(void);
+	~CCDuelTournamentTimeChecker(void){}
 
 	void Tick(unsigned int nTick);
 

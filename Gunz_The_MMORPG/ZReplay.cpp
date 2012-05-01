@@ -140,13 +140,13 @@ bool ZReplayLoader::LoadStageSetting(ZFile* file)
 bool ZReplayLoader::LoadStageSettingEtc(ZFile* file)
 {
 	// 게임룰 별 추가 세팅값 로드
-	if(m_StageSetting.nGameType==MMATCH_GAMETYPE_DUEL)
+	if(m_StageSetting.nGameType==CCMATCH_GAMETYPE_DUEL)
 	{
 		ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		int nRead = zfread(&pDuel->QInfo,sizeof(MTD_DuelQueueInfo),1,file);
 		if(nRead==0) return false;
 	}
-	if(m_StageSetting.nGameType==MMATCH_GAMETYPE_DUELTOURNAMENT)
+	if(m_StageSetting.nGameType==CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
 		int tournamentType;
 		int nRead = zfread(&tournamentType,sizeof(int),1,file);

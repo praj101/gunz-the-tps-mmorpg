@@ -91,7 +91,7 @@ bool GetUserInfoUID(CCUID uid,MCOLOR& _color,char* sp_name,CCMatchUserGradeID& g
 	if( ZGetGameClient() == NULL)
 		return false;
 
-//	CCMatchUserGradeID gid = MMUG_FREE;
+//	CCMatchUserGradeID gid = CCMUGFREE;
 
 	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(uid);
 
@@ -589,7 +589,7 @@ void ZGameClient::OnChannelChat(const CCUID& uidChannel, char* szName, char* szC
 	MCOLOR _color = MCOLOR(0,0,0);
 
 	CCMatchUserGradeID gid = (CCMatchUserGradeID) nGrade;
-//	gid = MMUG_DEVELOPER;
+//	gid = CCMUGDEVELOPER;
 
 	char sp_name[256];
 
@@ -644,7 +644,7 @@ void ZGameClient::OnChannelList(void* pBlob, int nCount)
 
 void ZGameClient::OnChannelResponseRule(const CCUID& uidchannel, const char* pszRuleName)
 {
-	MChannelRule* pRule = ZGetChannelRuleMgr()->GetRule(pszRuleName);
+	CCChannelRule* pRule = ZGetChannelRuleMgr()->GetRule(pszRuleName);
 	if (pRule == NULL)
 		return;
 
@@ -752,7 +752,7 @@ void ZGameClient::OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsig
 	{
 		char sp_name[256];
 		MCOLOR _color;
-		CCMatchUserGradeID gid = MMUG_FREE;
+		CCMatchUserGradeID gid = CCMUGFREE;
 
 		char name[ 32];
 		char kill[ 32];
@@ -866,7 +866,7 @@ void ZGameClient::OnStageMap(const CCUID& uidStage, char* szMapName, bool bIsRel
 	if (uidStage != GetStageUID()) return;
 
 	m_MatchStageSetting.SetMapName(szMapName);
-	m_MatchStageSetting.SetIsRelayMap(strcmp(MMATCH_MAPNAME_RELAYMAP, szMapName) == 0);
+	m_MatchStageSetting.SetIsRelayMap(strcmp(CCMATCH_MAPNAME_RELAYMAP, szMapName) == 0);
 
 	ZApplication::GetGameInterface()->SerializeStageInterface();
 }
@@ -936,7 +936,7 @@ void ZGameClient::OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char*
 
 	MCOLOR _color = MCOLOR(0,0,0);
 
-	CCMatchUserGradeID gid = MMUG_FREE;
+	CCMatchUserGradeID gid = CCMUGFREE;
 
 	CCMatchObjCache* pObjCache = FindObjCache(uidChar);
 
@@ -944,7 +944,7 @@ void ZGameClient::OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char*
 		gid = pObjCache->GetUGrade();
 	}
 
-//	gid = MMUG_DEVELOPER;
+//	gid = CCMUGDEVELOPER;
 
 	char sp_name[256];
 
@@ -996,7 +996,7 @@ void ZGameClient::OnStageList(int nPrevStageCount, int nNextStageCount, void* pB
 			if (pNode->nSettingFlag & MSTAGENODE_FLAG_LIMITLEVEL) bLimitLevel = true;
 			
 			char szMapName[256] = "";
-			for (int tt = 0; tt < MMATCH_MAP_COUNT; tt++)
+			for (int tt = 0; tt < CCMATCH_MAP_COUNT; tt++)
 			{
 				if (MGetMapDescMgr()->GetMapID(tt) == pNode->nMapIndex)
 				{
@@ -1831,7 +1831,7 @@ void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob,
 		} 
 		else
 		{
-			if ((ZGetGame()->GetMatch()->IsTeamPlay()) && (ZGetGame()->GetMatch()->GetRoundState() != MMATCH_ROUNDSTATE_FREE))
+			if ((ZGetGame()->GetMatch()->IsTeamPlay()) && (ZGetGame()->GetMatch()->GetRoundState() != CCMATCH_ROUNDSTATE_FREE))
 			{
 				// 팀플일 경우 죽어있으면 그냥 보여주지 않는다. 
 				// - 함께 난입한 사람 0,0,0에 서있는것 안보이게 하려고..
@@ -1951,7 +1951,7 @@ void ZGameClient::OnUserWhisper(char* pszSenderName, char* pszTargetName, char* 
 
 	if ( ZGetGame())
 	{
-		if ( (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)	&& !ZGetGame()->m_pMyCharacter->IsDie())
+		if ( (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)	&& !ZGetGame()->m_pMyCharacter->IsDie())
 			ZTransMsg( szText, MSG_GAME_WHISPER, 2, pszSenderName, ". . . . .");
 	}
 
@@ -2130,7 +2130,7 @@ void ZGameClient::RequestGameSuicide()
 	ZMyCharacter* pMyCharacter = pGame->m_pMyCharacter;
 	if (!pMyCharacter) return;
 
-	if ((!pMyCharacter->IsDie()) &&  (pGame->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PLAY))
+	if ((!pMyCharacter->IsDie()) &&  (pGame->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PLAY))
 	{
 		pMyCharacter->SetLastDamageType(ZD_NONE);//폭탄에 패배 했다고만 안나오면됨~
 
@@ -2452,7 +2452,7 @@ void ZGameClient::ChangeQuestStage()
 		(CSM_TEST == ZGetGameClient()->GetServerMode()) &&
 		(0 == stricmp(CCCHANNEL_RULE_QUEST_STR, ZGetGameClient()->GetChannelRuleName())) &&
 		(!ZGetGameTypeManager()->IsQuestDerived(ZGetGameClient()->GetMatchStageSetting()->GetGameType())) && 
-		//(MMATCH_GAMETYPE_QUEST != ZGetGameClient()->GetMatchStageSetting()->GetGameType()) && 
+		//(CCMATCH_GAMETYPE_QUEST != ZGetGameClient()->GetMatchStageSetting()->GetGameType()) && 
 		ZGetGameClient()->AmIStageMaster() )
 	{
 		MSTAGE_SETTING_NODE StageSetting;
@@ -2463,7 +2463,7 @@ void ZGameClient::ChangeQuestStage()
 		StageSetting.bTeamKillEnabled = false;
 		StageSetting.bTeamWinThePoint = false;
 		//StageSetting.bVoteEnabled = true;
-		StageSetting.nGameType = MMATCH_GAMETYPE_QUEST;
+		StageSetting.nGameType = CCMATCH_GAMETYPE_QUEST;
 		StageSetting.nLimitLevel = 0;
 		StageSetting.nLimitTime = 20;
 		StageSetting.nMapIndex = 0;

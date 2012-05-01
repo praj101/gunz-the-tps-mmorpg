@@ -1,8 +1,8 @@
-#ifndef _MMATCHTRANSDATATYPE_H
-#define _MMATCHTRANSDATATYPE_H
+#ifndef _CCMATCHTRANSDATATYPE_H
+#define _CCMATCHTRANSDATATYPE_H
 
 #include "CCMatchObject.h"
-#include "CCMatchRule.h"		// MMATCH_GAMETYPE, MMATCH_ROUNDSTATE, MMATCH_ROUNDRESULT 참조 -> 정리요망
+#include "CCMatchRule.h"		// CCMATCH_GAMETYPE, CCMATCH_ROUNDSTATE, CCMATCH_ROUNDRESULT 참조 -> 정리요망
 #include "CCMatchStageSetting.h"
 #include "CCMatchGameType.h"
 #include "CCMatchGlobal.h"
@@ -300,7 +300,7 @@ struct MTD_StageListNode
 	char			nPlayers;							///< 현재인원
 	char			nMaxPlayers;						///< 최대인원
 	STAGE_STATE		nState;								///< 현재상태
-	MMATCH_GAMETYPE nGameType;							///< 게임 타입
+	CCMATCH_GAMETYPE nGameType;							///< 게임 타입
 	char			nMapIndex;							///< 맵
 	int				nSettingFlag;						///< 방 세팅 플래그(난입, 비밀방, 레벨제한)
 	char			nMasterLevel;						///< 방장 레벨
@@ -383,7 +383,7 @@ struct MTD_QuestGameInfo
 	unsigned short		nMapSectorID[MAX_QUEST_MAP_SECTOR_COUNT];			// 맵 노드 ID
 	char				nMapSectorLinkIndex[MAX_QUEST_MAP_SECTOR_COUNT];	// 맵 노드의 Link Index
 	unsigned char		nRepeat;											// 반복 횟수 (서바이벌용)
-	MMATCH_GAMETYPE		eGameType;											// 게임타입(퀘스트냐, 서바이벌이냐)
+	CCMATCH_GAMETYPE		eGameType;											// 게임타입(퀘스트냐, 서바이벌이냐)
 };
 
 // 퀘스트, 보상 내용

@@ -200,7 +200,7 @@ void CopyCharInfoForTrans(CCTD_CharInfo* pDest, CCMatchCharInfo* pSrcCharInfo, C
 	if (pSrcObject) {
 		pDest->nUGradeID = pSrcObject->GetAccountInfo()->m_nUGrade;
 	} else {
-		pDest->nUGradeID = MMUG_FREE;
+		pDest->nUGradeID = CCMUGFREE;
 	}
 
 	pDest->nClanCLID = pSrcCharInfo->m_ClanInfo.m_nClanID;
@@ -260,7 +260,7 @@ void CopyCharInfoDetailForTrans(CCTD_CharInfo_Detail* pDest, CCMatchCharInfo* pS
 	if (pSrcObject) {
 		pDest->nUGradeID = pSrcObject->GetAccountInfo()->m_nUGrade;
 	} else {
-		pDest->nUGradeID = MMUG_FREE;
+		pDest->nUGradeID = CCMUGFREE;
 	}
 
 	pDest->nClanCLID = pSrcCharInfo->m_ClanInfo.m_nClanID;
@@ -433,9 +433,9 @@ bool CCMatchServer::LoadInitFile()
 	{
 		char szText[512];
 		sprintf(szText, "Enable Maps: ");
-		for (int i = 0; i < MMATCH_MAP_MAX; i++)
+		for (int i = 0; i < CCMATCH_MAP_MAX; i++)
 		{
-			if (MGetServerConfig()->IsEnableMap(MMATCH_MAP(i)))
+			if (MGetServerConfig()->IsEnableMap(CCMATCH_MAP(i)))
 			{
 				strcat(szText, MGetMapDescMgr()->GetMapName(i)); 
 				strcat(szText, ", ");
@@ -1157,11 +1157,11 @@ void CCMatchServer::OnRun(void)
 		if (pObj->GetUID() < CCUID(0,3)) continue;	// CCUID로 Client인지 판별할수 있는 코드 필요함
 		if (GetTickTime() - pObj->GetTickLastPacketRecved() >= MINTERVAL_GARBAGE_SESSION_CLEANING)
 		{
-			if( pObj->GetDisconnStatusInfo().GetStatus() == MMDS_CONNECTED)
+			if( pObj->GetDisconnStatusInfo().GetStatus() == CCMDS_CONNECTED)
 			{
 				LOG(LOG_PROG, "TIMEOUT CLIENT CLEANING : %s(%u%u, %s) (ClientCnt=%d, SessionCnt=%d)", 
 					pObj->GetName(), pObj->GetUID().High, pObj->GetUID().Low, pObj->GetIPString(), GetClientCount(), GetCommObjCount());
-				pObj->GetDisconnStatusInfo().SetStatus(MMDS_DISCONN_WAIT);
+				pObj->GetDisconnStatusInfo().SetStatus(CCMDS_DISCONN_WAIT);
 				pObj->GetDisconnStatusInfo().SetMsgID(MERR_CLEANING_CLIENT);
 			}
 			// ObjectRemove(uid, &i);

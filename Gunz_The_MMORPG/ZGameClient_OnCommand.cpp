@@ -54,7 +54,7 @@
 
 
 
-void OnQuestNPCList( void* pBlobNPCList, MMATCH_GAMETYPE eGameType )
+void OnQuestNPCList( void* pBlobNPCList, CCMATCH_GAMETYPE eGameType )
 {
 	ZBaseQuest* pBaseQuest = NULL;
 	if (ZGetGameTypeManager()->IsQuestOnly(eGameType))
@@ -1527,7 +1527,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 					return false;
 				}
 
-				OnQuestNPCList( pBlobNPCList, (MMATCH_GAMETYPE)gameType );
+				OnQuestNPCList( pBlobNPCList, (CCMATCH_GAMETYPE)gameType );
 			}
 			break;
 

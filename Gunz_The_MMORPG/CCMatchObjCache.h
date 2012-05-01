@@ -42,7 +42,7 @@ public:
 	CCMatchObjCache()				{ 
 		m_szName[0] = NULL;
 		m_nLevel = 0;
-		m_nUGrade = MMUG_FREE;
+		m_nUGrade = CCMUGFREE;
 		m_nPGrade = MMPG_FREE;
 		memset(&m_Costume, 0, sizeof(CCMatchObjCacheCostume));
 		ResetFlag();

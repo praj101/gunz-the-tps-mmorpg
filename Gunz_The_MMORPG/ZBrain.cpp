@@ -24,7 +24,7 @@ ZBrain::~ZBrain()
 }
 
 
-ZBrain* ZBrain::CreateBrain( MQUEST_NPC nNPCType)
+ZBrain* ZBrain::CreateBrain( CCQUEST_NPC nNPCType)
 {
 	return new ZBrain();
 }

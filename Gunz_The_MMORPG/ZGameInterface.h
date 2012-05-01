@@ -523,7 +523,7 @@ __forceinline ZBaseQuest* ZGameInterface::GetQuest()
 {
 	if (m_pGame && m_pGame->GetMatch())
 	{
-		MMATCH_GAMETYPE gameType = ZGetGame()->GetMatch()->GetMatchType();
+		CCMATCH_GAMETYPE gameType = ZGetGame()->GetMatch()->GetMatchType();
 
 		if (m_GameTypeManager.IsQuestOnly( gameType ))
 			return static_cast<ZBaseQuest*>(&m_Quest);

@@ -262,7 +262,7 @@ public:
 	void SetVolumeControlwithDuration( float fStartPercent, float fEndPercent, DWORD dwDuration, bool bEffect, bool bBGM );
 
 	// NPC Sound 관련 함수
-	bool LoadNPCResource(MQUEST_NPC nNPC, ZLoadingProgress* pLoading = NULL);
+	bool LoadNPCResource(CCQUEST_NPC nNPC, ZLoadingProgress* pLoading = NULL);
 	void ReleaseNPCResources();
-	void PlayNPCSound(MQUEST_NPC nNPC, MQUEST_NPC_SOUND nSound, rvector& pos, bool bMyKill=true);
+	void PlayNPCSound(CCQUEST_NPC nNPC, CCQUEST_NPC_SOUND nSound, rvector& pos, bool bMyKill=true);
 };

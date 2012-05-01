@@ -32,7 +32,7 @@ ZQuest::ZQuest() : m_bLoaded(false), m_bCreatedOnce(false)
 
 	m_bIsQuestComplete = false;
 
-	m_QuestCombatState = MQUEST_COMBAT_NONE;
+	m_QuestCombatState = CCQUEST_COMBAT_NONE;
 
 	m_nRewardXP = 0;
 	m_nRewardBP = 0;
@@ -288,7 +288,7 @@ bool ZQuest::OnNPCSpawn(MCommand* pCommand)
 	pCommand->GetParameter(&nPositionIndex,		3, MPT_UCHAR);
 
 
-	MQUEST_NPC NPCType = MQUEST_NPC(nNPCType);
+	CCQUEST_NPC NPCType = CCQUEST_NPC(nNPCType);
 
 	ZMapSpawnType nSpawnType = ZMST_NPC_MELEE;
 
@@ -758,15 +758,15 @@ bool ZQuest::OnQuestCombatState(MCommand* pCommand)
 
 	switch (nCombatState)
 	{
-	case MQUEST_COMBAT_PREPARE:
+	case CCQUEST_COMBAT_PREPARE:
 		{
 		}
 		break;
-	case MQUEST_COMBAT_PLAY:
+	case CCQUEST_COMBAT_PLAY:
 		{
 		}
 		break;
-	case MQUEST_COMBAT_COMPLETED:
+	case CCQUEST_COMBAT_COMPLETED:
 		{
 			// 마지막 섹터는 다음 링크가 없다.
 			if (!m_GameInfo.IsCurrSectorLastSector())
@@ -1020,7 +1020,7 @@ void ZQuest::LoadNPCMeshes()
 
 	for (int i = 0; i < m_GameInfo.GetNPCInfoCount(); i++)
 	{
-		MQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
+		CCQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
 
 		ZGetNpcMeshMgr()->Load(GetNPCInfo(npc)->szMeshName);
 	}
@@ -1042,7 +1042,7 @@ void ZQuest::LoadNPCSounds()
 
 	for (int i = 0; i < m_GameInfo.GetNPCInfoCount(); i++)
 	{
-		MQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
+		CCQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
 		if (!pSE->LoadNPCResource(npc))
 		{
 			cclog("failed npc sound\n");

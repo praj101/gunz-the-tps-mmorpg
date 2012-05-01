@@ -83,7 +83,7 @@ void ZStageInterface::OnCreate( void)
 	m_bPrevQuest = false;
 	m_bDrawStartMovieOfQuest = false;
 	m_nStateSacrificeItemBox = 0;		// Hide
-	m_nGameType = MMATCH_GAMETYPE_DEATHMATCH_SOLO;
+	m_nGameType = CCMATCH_GAMETYPE_DEATHMATCH_SOLO;
 	m_SacrificeItem[ SACRIFICEITEM_SLOT0].RemoveItem();
 	m_SacrificeItem[ SACRIFICEITEM_SLOT1].RemoveItem();
 
@@ -414,9 +414,9 @@ void ZStageInterface::OnStageInterfaceSettup( void)
  	pPicture = (MPicture*)pResource->FindWidget( "Stage_MainBGTop");
 	if ( pPicture)
 	{
-		if( 0 == strcmp(MMATCH_MAPNAME_RELAYMAP, ZGetGameClient()->GetMatchStageSetting()->GetMapName()))
+		if( 0 == strcmp(CCMATCH_MAPNAME_RELAYMAP, ZGetGameClient()->GetMatchStageSetting()->GetMapName()))
 		{
-			sprintf( szMapName, "interface/loadable/%s", MGetMapDescMgr()->GetMapImageName( MMATCH_DEFAULT_STAGESETTING_MAPNAME));
+			sprintf( szMapName, "interface/loadable/%s", MGetMapDescMgr()->GetMapImageName( CCMATCH_DEFAULT_STAGESETTING_MAPNAME));
 		}
 		else
 			sprintf( szMapName, "interface/loadable/%s", MGetMapDescMgr()->GetMapImageName( ZGetGameClient()->GetMatchStageSetting()->GetMapName()));
@@ -456,48 +456,48 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 	MCOLOR color;
 	switch ( ZGetGameClient()->GetMatchStageSetting()->GetGameType() )
 	{	
-		case MMATCH_GAMETYPE_ASSASSINATE:
+		case CCMATCH_GAMETYPE_ASSASSINATE:
 			color = ASSASIN_COLOR;
 			break;
 
-		case MMATCH_GAMETYPE_DEATHMATCH_SOLO:
+		case CCMATCH_GAMETYPE_DEATHMATCH_SOLO:
 			color = SDM_COLOR;
 			break;
 
-		case MMATCH_GAMETYPE_DEATHMATCH_TEAM:
-		case MMATCH_GAMETYPE_DEATHMATCH_TEAM2:
+		case CCMATCH_GAMETYPE_DEATHMATCH_TEAM:
+		case CCMATCH_GAMETYPE_DEATHMATCH_TEAM2:
 			color = TDM_COLOR;
 			break;
 
-		case MMATCH_GAMETYPE_GLADIATOR_SOLO:
+		case CCMATCH_GAMETYPE_GLADIATOR_SOLO:
 			color = SGD_COLOR;
 			break;
 
-		case MMATCH_GAMETYPE_GLADIATOR_TEAM:
+		case CCMATCH_GAMETYPE_GLADIATOR_TEAM:
 			color = TGD_COLOR;
 			break;
 
-		case MMATCH_GAMETYPE_TRAINING:
+		case CCMATCH_GAMETYPE_TRAINING:
 			color = TRAINING_COLOR;
 			break;
 
 #ifdef _QUEST
-		case MMATCH_GAMETYPE_SURVIVAL:
+		case CCMATCH_GAMETYPE_SURVIVAL:
 			color = QUEST_COLOR;
 			break;
 
-		case MMATCH_GAMETYPE_QUEST:
+		case CCMATCH_GAMETYPE_QUEST:
 			color = SURVIVAL_COLOR;
 			break;
 #endif
-		case MMATCH_GAMETYPE_BERSERKER:
+		case CCMATCH_GAMETYPE_BERSERKER:
 			color = SDM_COLOR;
 			break;
 
-		case MMATCH_GAMETYPE_DUEL:
+		case CCMATCH_GAMETYPE_DUEL:
 			color = SDM_COLOR;
 			break;
-		case MMATCH_GAMETYPE_DUELTOURNAMENT:
+		case CCMATCH_GAMETYPE_DUELTOURNAMENT:
 			color = SDM_COLOR;
 			break;
 
@@ -604,11 +604,11 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 	// 게임 방식에 따라서 UI를 변경한다
 	MAnimation* pAniMapImg = (MAnimation*)pResource->FindWidget( "Stage_MapNameBG");
 	bool bQuestUI = false;
-	if ( (pSetting->nGameType == MMATCH_GAMETYPE_DEATHMATCH_SOLO) ||			// 데쓰매치 개인전이거나...
-		 (pSetting->nGameType == MMATCH_GAMETYPE_GLADIATOR_SOLO) ||				// 칼전 개인전이거나...
-		 (pSetting->nGameType == MMATCH_GAMETYPE_BERSERKER) ||					// 버서커모드이거나...
-		 (pSetting->nGameType == MMATCH_GAMETYPE_TRAINING) ||					// 트레이닝이거나...
-		 (pSetting->nGameType == MMATCH_GAMETYPE_DUEL))							// 듀얼모드 이면...
+	if ( (pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_SOLO) ||			// 데쓰매치 개인전이거나...
+		 (pSetting->nGameType == CCMATCH_GAMETYPE_GLADIATOR_SOLO) ||				// 칼전 개인전이거나...
+		 (pSetting->nGameType == CCMATCH_GAMETYPE_BERSERKER) ||					// 버서커모드이거나...
+		 (pSetting->nGameType == CCMATCH_GAMETYPE_TRAINING) ||					// 트레이닝이거나...
+		 (pSetting->nGameType == CCMATCH_GAMETYPE_DUEL))							// 듀얼모드 이면...
 	{
 		// 맵 이름 배경 이미지 변환
 		if ( pAniMapImg)
@@ -617,10 +617,10 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 		// 퀘스트 UI 감춤
 		bQuestUI = false;
 	}
-	else if ( (pSetting->nGameType == MMATCH_GAMETYPE_DEATHMATCH_TEAM) ||		// 데쓰매치 팀전이거나...
-		(pSetting->nGameType == MMATCH_GAMETYPE_DEATHMATCH_TEAM2) ||			// 무한데스매치 팀전이거나...
-		 (pSetting->nGameType == MMATCH_GAMETYPE_GLADIATOR_TEAM) ||				// 칼전 팀전이거나...
-		 (pSetting->nGameType == MMATCH_GAMETYPE_ASSASSINATE))					// 암살전 이면...
+	else if ( (pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_TEAM) ||		// 데쓰매치 팀전이거나...
+		(pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2) ||			// 무한데스매치 팀전이거나...
+		 (pSetting->nGameType == CCMATCH_GAMETYPE_GLADIATOR_TEAM) ||				// 칼전 팀전이거나...
+		 (pSetting->nGameType == CCMATCH_GAMETYPE_ASSASSINATE))					// 암살전 이면...
 	{
 		// 맵 이름 배경 이미지 변환
 		if ( pAniMapImg)
@@ -629,7 +629,7 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 		// 퀘스트 UI 감춤
 		bQuestUI = false;
 	}
-	else if ( pSetting->nGameType == MMATCH_GAMETYPE_SURVIVAL)					// 서바이벌 모드이면...
+	else if ( pSetting->nGameType == CCMATCH_GAMETYPE_SURVIVAL)					// 서바이벌 모드이면...
 	{
 		// 맵 이름 배경 이미지 변환
 		if ( pAniMapImg)
@@ -638,7 +638,7 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 		// 퀘스트 UI 감춤
 		bQuestUI = false;
 	}
-	else if ( pSetting->nGameType == MMATCH_GAMETYPE_QUEST)						// 퀘스트 모드이면...
+	else if ( pSetting->nGameType == CCMATCH_GAMETYPE_QUEST)						// 퀘스트 모드이면...
 	{
 		// 맵 이름 배경 이미지 변환
 		if ( pAniMapImg)
@@ -694,13 +694,13 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 		m_bPrevQuest = !m_bPrevQuest;
 	}
 
-	if ( (pSetting->nGameType == MMATCH_GAMETYPE_SURVIVAL) || (pSetting->nGameType == MMATCH_GAMETYPE_QUEST))
+	if ( (pSetting->nGameType == CCMATCH_GAMETYPE_SURVIVAL) || (pSetting->nGameType == CCMATCH_GAMETYPE_QUEST))
 		ZApplication::GetGameInterface()->EnableWidget( "StageSettingCaller", false);
 
 
 	// 라운드 선택 콤보박스 보이기
 //	bool bShowRound = true;
-//	if ( ( pSetting->nGameType == MMATCH_GAMETYPE_SURVIVAL) || ( pSetting->nGameType == MMATCH_GAMETYPE_QUEST))
+//	if ( ( pSetting->nGameType == CCMATCH_GAMETYPE_SURVIVAL) || ( pSetting->nGameType == CCMATCH_GAMETYPE_QUEST))
 //		bShowRound = false;
 	
 //	ZApplication::GetGameInterface()->ShowWidget( "StageRoundCountLabelBG", bShowRound);
@@ -712,12 +712,12 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageRoundCountLabel");
 	if ( pWidget)
 	{
-		if ((pSetting->nGameType == MMATCH_GAMETYPE_DEATHMATCH_SOLO) ||
-			(pSetting->nGameType == MMATCH_GAMETYPE_DEATHMATCH_TEAM2) ||		// 팀데스매치 익스트림일 때에도 Kill로 표시.... by kammir 20081117
-			(pSetting->nGameType == MMATCH_GAMETYPE_GLADIATOR_SOLO) ||
-			(pSetting->nGameType == MMATCH_GAMETYPE_TRAINING) ||
-			(pSetting->nGameType == MMATCH_GAMETYPE_BERSERKER) ||
-			(pSetting->nGameType == MMATCH_GAMETYPE_DUEL))
+		if ((pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_SOLO) ||
+			(pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2) ||		// 팀데스매치 익스트림일 때에도 Kill로 표시.... by kammir 20081117
+			(pSetting->nGameType == CCMATCH_GAMETYPE_GLADIATOR_SOLO) ||
+			(pSetting->nGameType == CCMATCH_GAMETYPE_TRAINING) ||
+			(pSetting->nGameType == CCMATCH_GAMETYPE_BERSERKER) ||
+			(pSetting->nGameType == CCMATCH_GAMETYPE_DUEL))
 			pWidget->SetText( ZMsg(MSG_WORD_KILL));
 
 		else
@@ -812,7 +812,7 @@ void ZStageInterface::ChangeStageEnableReady( bool bReady)
 	ZApplication::GetGameInterface()->EnableWidget( "StageTeamRed2", !bReady);
 	ZApplication::GetGameInterface()->EnableWidget( "Lobby_StageExit", !bReady);
 
-	if ( (m_nGameType == MMATCH_GAMETYPE_SURVIVAL) || (m_nGameType == MMATCH_GAMETYPE_QUEST))
+	if ( (m_nGameType == CCMATCH_GAMETYPE_SURVIVAL) || (m_nGameType == CCMATCH_GAMETYPE_QUEST))
 	{
 		ZApplication::GetGameInterface()->EnableWidget( "Stage_SacrificeItemListbox", !bReady);
 		ZApplication::GetGameInterface()->EnableWidget( "Stage_PutSacrificeItem",     !bReady);
@@ -882,7 +882,7 @@ void ZStageInterface::SetMapName( const char* szMapName)
 	if ( pMapCombo)
 	{
 		// 일단 임시 하드코딩(우에엥~ ㅠ.ㅠ)
-//		if ( m_nGameType == MMATCH_GAMETYPE_QUEST)
+//		if ( m_nGameType == CCMATCH_GAMETYPE_QUEST)
 //			pMapCombo->SetText( "Mansion");
 //		else
 			pMapCombo->SetText( szMapName);
@@ -1101,7 +1101,7 @@ void ZStageInterface::SerializeSacrificeItemListBox( void)
 	pListBox->RemoveAll();
 
 	// 리스트에 추가
-	for ( MQUESTITEMNODEMAP::iterator questitem_itor = ZGetMyInfo()->GetItemList()->GetQuestItemMap().begin();
+	for ( CCQUESTITEMNODEMAP::iterator questitem_itor = ZGetMyInfo()->GetItemList()->GetQuestItemMap().begin();
 		  questitem_itor != ZGetMyInfo()->GetItemList()->GetQuestItemMap().end();
 		  questitem_itor++)
 	{
@@ -1449,7 +1449,7 @@ void ZStageInterface::PostRelayMapInfoUpdate( void)
 	for(int i=0; i<pRelayMapListBox->GetCount(); i++)
 	{
 		MTD_RelayMap* pRelayMapNode = (MTD_RelayMap*)MGetBlobArrayElement(pMapArray, nMakeBlobCnt);
-		for (int j = 0; j < MMATCH_MAP_COUNT; j++)
+		for (int j = 0; j < CCMATCH_MAP_COUNT; j++)
 		{
 			if(0 == strcmp(pRelayMapListBox->GetString(i), (char*)MGetMapDescMgr()->GetMapName(j)))
 			{
@@ -1486,7 +1486,7 @@ void ZStageInterface::RelayMapCreateMapList()
 	pMapListBox->RemoveAll();	// 기존 릴레이맵 리스트를 모두 지워준다.
 	for( int i = 0 ; i < pCombo->GetCount(); ++i )
 	{
-		if(strcmp(MMATCH_MAPNAME_RELAYMAP, pCombo->GetString(i)) == 0)
+		if(strcmp(CCMATCH_MAPNAME_RELAYMAP, pCombo->GetString(i)) == 0)
 			continue;
 		RelayMapList* pRelayMapList = new RelayMapList( pCombo->GetString(i), MBitmapManager::Get( "Mark_Arrow.bmp"));
 		pMapListBox->Add( pRelayMapList);
@@ -1727,7 +1727,7 @@ bool ZStageInterface::IsShowStartMovieOfQuest( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	if ( m_nGameType == MMATCH_GAMETYPE_QUEST)
+	if ( m_nGameType == CCMATCH_GAMETYPE_QUEST)
 	{
 		if ( m_SacrificeItem[ SACRIFICEITEM_SLOT0].IsExist() || m_SacrificeItem[ SACRIFICEITEM_SLOT1].IsExist())
 			return true;

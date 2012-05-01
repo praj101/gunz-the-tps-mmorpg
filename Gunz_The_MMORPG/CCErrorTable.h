@@ -22,7 +22,7 @@
 #define MERR_CLIENT_CONNECTED_ALREADY						10001	///< 이미 접속중이다.
 #define MERR_COMMAND_INVALID_VERSION						10002	///< 서버와 클라이언트가 버전이 다르다.
 #define MERR_CLIENT_FULL_PLAYERS							10003	///< 서버 인원이 꽉찼다
-#define MERR_CLIENT_MMUG_BLOCKED							10004	///< 블럭당했다.
+#define MERR_CLIENT_CCMUGBLOCKED							10004	///< 블럭당했다.
 #define MERR_FAILED_AUTHENTICATION							10005	///< 사용자 인증에 오류가 발생하였습니다.
 #define MERR_MULTIPLE_LOGIN									10006	///< 다른 PC에서 동일 ID로 접속하였기 때문에 현재의 접속을 종료합니다.
 #define MERR_FAILED_LOGIN_RETRY								10007	///< 로그인 과정에서 오류가 생겼다. 잠시 후, 다시 시도해주세요.

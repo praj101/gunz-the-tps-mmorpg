@@ -130,9 +130,9 @@ bool ZChat::Input(char* szMsg)
 				int nCmdInputFlag = ZChatCmdManager::CIF_NORMAL;
 
 				// 관리자인지 판별
-				if ((ZGetMyInfo()->GetUGradeID() == MMUG_ADMIN) || 
-					(ZGetMyInfo()->GetUGradeID() == MMUG_DEVELOPER) ||
-					(ZGetMyInfo()->GetUGradeID() == MMUG_EVENTMASTER))
+				if ((ZGetMyInfo()->GetUGradeID() == CCMUGADMIN) || 
+					(ZGetMyInfo()->GetUGradeID() == CCMUGDEVELOPER) ||
+					(ZGetMyInfo()->GetUGradeID() == CCMUGEVENTMASTER))
 				{
 					nCmdInputFlag |= ZChatCmdManager::CIF_ADMIN;
 				}
@@ -171,7 +171,7 @@ bool ZChat::Input(char* szMsg)
 
 
 
-	if (ZGetMyInfo()->GetUGradeID() == MMUG_CHAT_LIMITED)
+	if (ZGetMyInfo()->GetUGradeID() == CCMUGCHAT_LIMITED)
 	{
 		ZChatOutput( ZMsg(MSG_CANNOT_CHAT) );
 		return false;

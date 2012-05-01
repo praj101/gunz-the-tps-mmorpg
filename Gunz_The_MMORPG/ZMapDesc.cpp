@@ -128,7 +128,7 @@ ZMapSpawnData* ZMapSpawnManager::GetSoloData(int nIndex)
 
 ZMapSpawnData* ZMapSpawnManager::GetTeamData(int nTeamIndex, int nDataIndex)
 {
-	if ((nTeamIndex < 0) || (nTeamIndex >= MMATCH_TEAM_MAX_COUNT)) 
+	if ((nTeamIndex < 0) || (nTeamIndex >= CCMATCH_TEAM_MAX_COUNT)) 
 	{
 		_ASSERT(0);
 		return NULL;

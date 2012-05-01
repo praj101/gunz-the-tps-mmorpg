@@ -102,7 +102,7 @@ void CCMatchServer::OnAdminServerHalt(const CCUID& uidAdmin)
 	CCMatchUserGradeID nGrade = pObj->GetAccountInfo()->m_nUGrade;
 
 	// 관리자 권한을 가진 사람이 아니면 무시.
-	if ((nGrade != MMUG_ADMIN) && (nGrade != MMUG_DEVELOPER)) return;
+	if ((nGrade != CCMUGADMIN) && (nGrade != CCMUGDEVELOPER)) return;
 
 	// Shutdown 시작	
 	m_MatchShutdown.Start(GetGlobalClockCount());	
@@ -256,7 +256,7 @@ void CCMatchServer::OnAdminRequestMutePlayer(const CCUID& uidAdmin, const char* 
 	{
 		pTargetObj->GetAccountPenaltyInfo()->SetPenaltyInfo(MPC_CHAT_BLOCK, nPenaltyHour);
 		
-		const MPenaltyInfo* pPenaltyInfo = pTargetObj->GetAccountPenaltyInfo()->GetPenaltyInfo(MPC_CHAT_BLOCK);
+		const CCPenaltyInfo* pPenaltyInfo = pTargetObj->GetAccountPenaltyInfo()->GetPenaltyInfo(MPC_CHAT_BLOCK);
 		if( m_MatchDBMgr.InsertAccountPenaltyInfo(pTargetObj->GetAccountInfo()->m_nAID
 			, pPenaltyInfo->nPenaltyCode, nPenaltyHour, pObj->GetAccountName()) == false ) 
 		{
@@ -292,7 +292,7 @@ void CCMatchServer::OnAdminRequestBlockPlayer(const CCUID& uidAdmin, const char*
 	{
 		pTargetObj->GetAccountPenaltyInfo()->SetPenaltyInfo(MPC_CONNECT_BLOCK, nPenaltyHour);
 
-		const MPenaltyInfo* pPenaltyInfo = pTargetObj->GetAccountPenaltyInfo()->GetPenaltyInfo(MPC_CONNECT_BLOCK);
+		const CCPenaltyInfo* pPenaltyInfo = pTargetObj->GetAccountPenaltyInfo()->GetPenaltyInfo(MPC_CONNECT_BLOCK);
 		if( m_MatchDBMgr.InsertAccountPenaltyInfo(pTargetObj->GetAccountInfo()->m_nAID
 			, pPenaltyInfo->nPenaltyCode, nPenaltyHour, pObj->GetAccountName()) == false ) 
 		{

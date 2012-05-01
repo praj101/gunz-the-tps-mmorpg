@@ -110,7 +110,7 @@ private:
 	void ClearQuestLevel();
 	void MakeStageGameInfo();
 	void InitJacoSpawnTrigger();
-	void MakeNPCnSpawn(MQUEST_NPC nNPCID, bool bAddQuestDropItem);
+	void MakeNPCnSpawn(CCQUEST_NPC nNPCID, bool bAddQuestDropItem);
 protected:
 	CCQuestLevel*			m_pQuestLevel;			///< 퀘스트 월드 레벨
 	CCQuestNPCSpawnTrigger	m_JacoSpawnTrigger;		///< 보스방일 경우 자코 매니져
@@ -225,7 +225,7 @@ public:
 	virtual bool							IsSacrificeItemDuplicated( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID );
 	virtual void							PreProcessLeaveStage( const CCUID& uidLeaverUID );
 	virtual void							DestroyAllSlot();
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_QUEST; }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_QUEST; }
 
 
 	void InsertNoParamQItemToPlayer( CCMatchObject* pPlayer, CCQuestItem* pQItem );

@@ -51,11 +51,11 @@ enum CCMatchItemSlotType
 };
 
 //핵 방지용.....
-#define MMATCH_PARTS_ITEM		100
-#define MMATCH_PARTS_PRIMARY	108
-#define MMATCH_PARTS_SECONDARY	109
-#define MMATCH_PARTS_CUSTOM1	110
-#define MMATCH_PARTS_CUSTOM2	111
+#define CCMATCH_PARTS_ITEM		100
+#define CCMATCH_PARTS_PRIMARY	108
+#define CCMATCH_PARTS_SECONDARY	109
+#define CCMATCH_PARTS_CUSTOM1	110
+#define CCMATCH_PARTS_CUSTOM2	111
 
 /// 장비부위 
 // MMCIP_END의 값과 각 enum에 배정된 값이 바뀌면 리플레이 로딩에 영향을 미치므로 수정하려면 주의가 필요함..

@@ -2069,6 +2069,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\cxr_CCMatchBuff.h"
+			>
+		</File>
+		<File
 			RelativePath=".\cxr_CCMatchItem.h"
 			>
 		</File>

@@ -77,7 +77,7 @@ void CCMatchActiveTrapMgr::AddThrowedTrap( const CCUID& uidOwner, int nItemId )
 	OutputDebugStr("AddThrowedTrap\n");
 }
 
-void CCMatchActiveTrapMgr::OnActivated( const CCUID& uidOwner, int nItemId, const MVector3& vPos )
+void CCMatchActiveTrapMgr::OnActivated( const CCUID& uidOwner, int nItemId, const CCVector3& vPos )
 {
 	if (!m_pStage) return;
 

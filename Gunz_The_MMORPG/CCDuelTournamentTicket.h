@@ -1,5 +1,5 @@
 #pragma once
-class MDuelTournamentTicket
+class CCDuelTournamentTicket
 {
 protected:
 	CCUID m_uidPlayer;
@@ -11,7 +11,7 @@ protected:
 
 	unsigned long m_nTickCount;
 public:
-	MDuelTournamentTicket(CCUID &uidPlayer, int nTP, int nLevel, int nWins, int nLoses) {
+	CCDuelTournamentTicket(CCUID &uidPlayer, int nTP, int nLevel, int nWins, int nLoses) {
 		m_uidPlayer = uidPlayer;
 
 		m_nTP = nTP;
@@ -22,7 +22,7 @@ public:
 		m_nTickCount = 0;
 	}
 
-	MDuelTournamentTicket(CCUID &uidPlayer, int nTP, int nLevel, int nWins, int nLoses, int nTick) {
+	CCDuelTournamentTicket(CCUID &uidPlayer, int nTP, int nLevel, int nWins, int nLoses, int nTick) {
 		m_uidPlayer = uidPlayer;
 
 		m_nTP = nTP;

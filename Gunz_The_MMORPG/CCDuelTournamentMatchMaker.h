@@ -25,7 +25,7 @@ public:
 	}
 };
 
-class MDuelTournamentMatchMaker
+class CCDuelTournamentMatchMaker
 {
 public:
 
@@ -57,9 +57,9 @@ protected:
 
 public:
 
-	MDuelTournamentMatchMaker();
-	MDuelTournamentMatchMaker(CCMatchObjectContainer* moc);
-	~MDuelTournamentMatchMaker();
+	CCDuelTournamentMatchMaker();
+	CCDuelTournamentMatchMaker(CCMatchObjectContainer* moc);
+	~CCDuelTournamentMatchMaker();
 
 	void SetMatchObjectContainer(CCMatchObjectContainer* p) { m_pMatchObjectContainer = p; }
 
@@ -69,14 +69,14 @@ public:
 
 	int GetNumPlayer() { return (int)m_mapUser.size(); }
 
-	void PickMatchableGroupsAndRemove(MDuelTournamentPickedGroup& out_matchGroup, int numPick, int acceptableTpGap);
-	bool PickGroupForPlayerAndRemove(MDuelTournamentPickedGroup& out_matchGroup, int numPick, const DTUser& dtUser);
+	void PickMatchableGroupsAndRemove(CCDuelTournamentPickedGroup& out_matchGroup, int numPick, int acceptableTpGap);
+	bool PickGroupForPlayerAndRemove(CCDuelTournamentPickedGroup& out_matchGroup, int numPick, const DTUser& dtUser);
 
 	// uid가 무효가 된 대기자들을 제거한다 (매치시키기 함수들을 사용하기 전에 한번 실행할 것)
 	void CleanDisabledUid();
 
 	// 일정 시간 이상 대기한 유저를 찾아낸다
-	const MDuelTournamentMatchMaker::DTUser* FindLongWaitPlayer(DWORD limitWaitTime, DWORD curTime);
+	const CCDuelTournamentMatchMaker::DTUser* FindLongWaitPlayer(DWORD limitWaitTime, DWORD curTime);
 
 	// 플레이어 범위 삭제 - 매칭된 플레이어 그룹을 대기자에서 뺄때 사용
 	void RemovePlayers(const DTUser& begin, const DTUser& last);
@@ -93,18 +93,18 @@ protected:
 };
 
 // 단위테스트에서 내부를 까보기 위해 상속한 클래스
-class MMockDTMatchMaker : public MDuelTournamentMatchMaker
+class MMockDTMatchMaker : public CCDuelTournamentMatchMaker
 {
 public:
-	using MDuelTournamentMatchMaker::MapDTUser;
-	using MDuelTournamentMatchMaker::ItorDTUser;
-	using MDuelTournamentMatchMaker::PairDTUser;
-	using MDuelTournamentMatchMaker::PairDTMatch;
+	using CCDuelTournamentMatchMaker::MapDTUser;
+	using CCDuelTournamentMatchMaker::ItorDTUser;
+	using CCDuelTournamentMatchMaker::PairDTUser;
+	using CCDuelTournamentMatchMaker::PairDTMatch;
 
-	using MDuelTournamentMatchMaker::PickMatchableGroups;
-	using MDuelTournamentMatchMaker::PickGroupForPlayer;
+	using CCDuelTournamentMatchMaker::PickMatchableGroups;
+	using CCDuelTournamentMatchMaker::PickGroupForPlayer;
 	
-	using MDuelTournamentMatchMaker::m_mapUser;
+	using CCDuelTournamentMatchMaker::m_mapUser;
 
-	MMockDTMatchMaker(CCMatchObjectContainer* moc) : MDuelTournamentMatchMaker(moc) {}
+	MMockDTMatchMaker(CCMatchObjectContainer* moc) : CCDuelTournamentMatchMaker(moc) {}
 };

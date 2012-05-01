@@ -23,7 +23,7 @@ void ZQuestGameInfo::Init(MTD_QuestGameInfo* pMTDQuestGameInfo)
 
 	for (int i = 0; i < pMTDQuestGameInfo->nNPCInfoCount; i++)
 	{
-		m_NPCInfoVector.push_back(MQUEST_NPC(pMTDQuestGameInfo->nNPCInfo[i]));
+		m_NPCInfoVector.push_back(CCQUEST_NPC(pMTDQuestGameInfo->nNPCInfo[i]));
 	}
 
 	for (int i = 0; i < pMTDQuestGameInfo->nMapSectorCount; i++)

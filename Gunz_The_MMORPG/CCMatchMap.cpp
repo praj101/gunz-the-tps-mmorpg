@@ -51,7 +51,7 @@ bool MMapDesc::Initialize(const char* szFileName)
 		{
 			if (szTagName[0] == '#') continue;
 
-			_ASSERT( 0 <= num && num < MMATCH_MAP_COUNT);
+			_ASSERT( 0 <= num && num < CCMATCH_MAP_COUNT);
 
 			aChild.GetAttribute(&m_MapVectors[num].nMapID, MMAP_ID);
 			aChild.GetAttribute(m_MapVectors[num].szMapName , MMAP_NAME);
@@ -176,7 +176,7 @@ float MMapDesc::GetExpRatio( const int nMapID)
 
 bool MMapDesc::MIsCorrectMap(const int nMapID)
 {
-	if ((nMapID < 0) || (nMapID >= MMATCH_MAP_MAX)) return false;
+	if ((nMapID < 0) || (nMapID >= CCMATCH_MAP_MAX)) return false;
 	return true;
 }
 
@@ -192,7 +192,7 @@ const char* MMapDesc::GetMapName(const int nMapID)
 
 const char* MMapDesc::GetMapImageName(const char* szMapName)
 {
-	for ( int i = 0;  i < MMATCH_MAP_COUNT;  i++)
+	for ( int i = 0;  i < CCMATCH_MAP_COUNT;  i++)
 	{
 		if ( stricmp( szMapName, m_MapVectors[ i].szMapName) == 0)
 			return m_MapVectors[ i].szMapImageName;
@@ -203,7 +203,7 @@ const char* MMapDesc::GetMapImageName(const char* szMapName)
 
 const char* MMapDesc::GetBannerName(const char* szMapName)
 {
-	for ( int i = 0;  i < MMATCH_MAP_COUNT;  i++)
+	for ( int i = 0;  i < CCMATCH_MAP_COUNT;  i++)
 	{
 		if ( stricmp( szMapName, m_MapVectors[ i].szMapName) == 0)
 			return m_MapVectors[ i].szBannerName;

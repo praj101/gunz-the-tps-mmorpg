@@ -1,5 +1,5 @@
-#ifndef _MMATCHCONFIG_H
-#define _MMATCHCONFIG_H
+#ifndef _CCMATCHCONFIG_H
+#define _CCMATCHCONFIG_H
 
 #include <string>
 #include <list>
@@ -149,7 +149,7 @@ public:
 	const int GetServerUDPPort()					{ return m_nServerUDPPort; }
 	const CCMatchServerMode		GetServerMode()		{ return m_nServerMode; }
 	bool IsResMap()									{ return m_bRestrictionMap; }	// 맵제한이 있는지 여부
-	bool IsEnableMap(const MMATCH_MAP nMap)										// 플레이가능한 맵인지 여부
+	bool IsEnableMap(const CCMATCH_MAP nMap)										// 플레이가능한 맵인지 여부
 	{
 		if (!m_bRestrictionMap) return true;
 		if (m_EnableMaps.find(nMap) != m_EnableMaps.end()) return true;

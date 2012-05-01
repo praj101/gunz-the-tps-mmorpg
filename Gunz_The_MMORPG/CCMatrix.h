@@ -5,7 +5,7 @@
 #include "CCVector3.h"
 #include <string.h>
 
-class MMatrix
+class CCMatrix
 {
 public:
 	union {
@@ -18,76 +18,76 @@ public:
 		float m[16];
 	};
 
-	MMatrix() {  }
-	MMatrix(float *f);
-	MMatrix(float (*f)[4]);
+	CCMatrix() {  }
+	CCMatrix(float *f);
+	CCMatrix(float (*f)[4]);
 
-	MMatrix& operator=(const MMatrix& other);
-	bool operator==(const MMatrix& other) const;
-	bool operator!=(const MMatrix& other) const;
-	MMatrix& operator*=(const MMatrix& other);
-	MMatrix operator*(const MMatrix& other) const;
+	CCMatrix& operator=(const CCMatrix& other);
+	bool operator==(const CCMatrix& other) const;
+	bool operator!=(const CCMatrix& other) const;
+	CCMatrix& operator*=(const CCMatrix& other);
+	CCMatrix operator*(const CCMatrix& other) const;
 
 	float& operator()(int row, int col) { return m[col * 4 + row]; }
 	const float& operator()(int row, int col) const {  return m[col * 4 + row]; }
 
 
 	void MakeIdentity();
-	void SetTranslation(const MVector3& trans);
-	void SetInverseTranslation( const MVector3& trans);
-	MVector3 GetTranslation() const;
-	void SetRotationRadians( const MVector3& rotation);
-	void SetRotationDegrees( const MVector3& rotation);
-	void SetScale( const MVector3& scale);
-	void TransformVect( MVector3& vect) const;
-	void TransformVect( const MVector3& in, MVector3& out) const;
+	void SetTranslation(const CCVector3& trans);
+	void SetInverseTranslation( const CCVector3& trans);
+	CCVector3 GetTranslation() const;
+	void SetRotationRadians( const CCVector3& rotation);
+	void SetRotationDegrees( const CCVector3& rotation);
+	void SetScale( const CCVector3& scale);
+	void TransformVect( CCVector3& vect) const;
+	void TransformVect( const CCVector3& in, CCVector3& out) const;
 	void SetProjectionMatrixFovRH(float fFOVy, float fAspectRatio, float zNear, float zFar);
 	void SetProjectionMatrixFovLH(float fFOVy, float fAspectRatio, float zNear, float zFar);
-	void SetLookAtMatrixLH(const MVector3& position, const MVector3& target, const MVector3& upVector);
-	void SetLookAtMatrixRH(const MVector3& position, const MVector3& target, const MVector3& upVector);
+	void SetLookAtMatrixLH(const CCVector3& position, const CCVector3& target, const CCVector3& upVector);
+	void SetLookAtMatrixRH(const CCVector3& position, const CCVector3& target, const CCVector3& upVector);
 
-	bool GetInverse( MMatrix *pOut, float *fDet );
+	bool GetInverse( CCMatrix *pOut, float *fDet );
 
-	static const MMatrix IDENTITY;
+	static const CCMatrix IDENTITY;
 };
 
 
 
-inline MMatrix::MMatrix(float *f)
+inline CCMatrix::CCMatrix(float *f)
 {
 	memcpy(&_11, f, sizeof(float)*4*4);
 }
 
-inline MMatrix::MMatrix(float (*f)[4])
+inline CCMatrix::CCMatrix(float (*f)[4])
 {
 	for(int i=0; i<4; i++)
 		memcpy(&_11 + 4*i, f[i], sizeof(float)*4);
 }
 
-inline MMatrix& MMatrix::operator=(const MMatrix& other)
+inline CCMatrix& CCMatrix::operator=(const CCMatrix& other)
 {
 	for (int i=0; i<16; i++)
 	{
-		MMatrix::m[i] = other.m[i];
+		CCMatrix::m[i] = other.m[i];
 	}
 	return *this;
 }
 
-inline bool MMatrix::operator==(const MMatrix& other) const
+inline bool CCMatrix::operator==(const CCMatrix& other) const
 {
 	for (int i=0; i<16; i++)
 	{
-		if (MMatrix::m[i] != other.m[i]) return false;
+		if (CCMatrix::m[i] != other.m[i]) return false;
 	}
 	return true;
 }
 
-inline bool MMatrix::operator!=(const MMatrix& other) const
+inline bool CCMatrix::operator!=(const CCMatrix& other) const
 {
 	return !(*this == other);
 }
 
-inline MMatrix& MMatrix::operator*=(const MMatrix& other)
+inline CCMatrix& CCMatrix::operator*=(const CCMatrix& other)
 {
 	float newMatrix[16];
 	const float* m1 = m, *m2 = other.m;
@@ -114,14 +114,14 @@ inline MMatrix& MMatrix::operator*=(const MMatrix& other)
 
 	for (int i=0; i<16;i++)
 	{
-		MMatrix::m[i] = newMatrix[i];
+		CCMatrix::m[i] = newMatrix[i];
 	}
 	return *this;
 }
 
-inline MMatrix MMatrix::operator*(const MMatrix& other) const
+inline CCMatrix CCMatrix::operator*(const CCMatrix& other) const
 {
-	MMatrix tmtrx;
+	CCMatrix tmtrx;
 	const float *m1 = m, *m2 = other.m;
 	float *m3 = tmtrx.m;
 
@@ -149,7 +149,7 @@ inline MMatrix MMatrix::operator*(const MMatrix& other) const
 
 }
 
-inline void MMatrix::MakeIdentity()
+inline void CCMatrix::MakeIdentity()
 {
 	for (int i = 0; i < 16; i++)
 	{
@@ -158,14 +158,14 @@ inline void MMatrix::MakeIdentity()
 	m[0] = m[5] = m[10] = m[15] = 1.0f;
 }
 
-inline void MMatrix::SetTranslation(const MVector3& trans)
+inline void CCMatrix::SetTranslation(const CCVector3& trans)
 {
 	_41 = trans.x;
 	_42 = trans.y;
 	_43 = trans.z;
 }
 
-inline void MMatrix::SetInverseTranslation( const MVector3& trans)
+inline void CCMatrix::SetInverseTranslation( const CCVector3& trans)
 {
 	_41 = -trans.x;
 	_42 = -trans.y;
@@ -173,17 +173,17 @@ inline void MMatrix::SetInverseTranslation( const MVector3& trans)
 
 }
 
-inline MVector3 MMatrix::GetTranslation() const
+inline CCVector3 CCMatrix::GetTranslation() const
 {
-	return MVector3(_41, _42, _43);
+	return CCVector3(_41, _42, _43);
 }
 
-inline void MMatrix::SetRotationRadians( const MVector3& rotation)
+inline void CCMatrix::SetRotationRadians( const CCVector3& rotation)
 {
 	SetRotationDegrees( rotation * (float)3.1415926535897932384626433832795 / 180.0 );
 }
 
-inline void MMatrix::SetRotationDegrees( const MVector3& rotation)
+inline void CCMatrix::SetRotationDegrees( const CCVector3& rotation)
 {
 	double cr = cos( rotation.x );
 	double sr = sin( rotation.x );
@@ -208,14 +208,14 @@ inline void MMatrix::SetRotationDegrees( const MVector3& rotation)
 	m[10] = (float)( cr*cp );
 }
 
-inline void MMatrix::SetScale(const MVector3& scale)
+inline void CCMatrix::SetScale(const CCVector3& scale)
 {
 	_11 = scale.x;
 	_22 = scale.y;
 	_33 = scale.z;
 }
 
-inline void MMatrix::TransformVect( MVector3& vect) const
+inline void CCMatrix::TransformVect( CCVector3& vect) const
 {
 	float vector[3];
 
@@ -229,7 +229,7 @@ inline void MMatrix::TransformVect( MVector3& vect) const
 
 }
 
-inline void MMatrix::TransformVect( const MVector3& in, MVector3& out) const
+inline void CCMatrix::TransformVect( const CCVector3& in, CCVector3& out) const
 {
 	out.x = in.x*_11 + in.y*_21 + in.z*_31 + _41;
 	out.y = in.x*_12 + in.y*_22 + in.z*_32 + _42;
@@ -237,12 +237,12 @@ inline void MMatrix::TransformVect( const MVector3& in, MVector3& out) const
 }
 
 
-inline bool MMatrix::GetInverse(MMatrix *pOut, float *fDet)
+inline bool CCMatrix::GetInverse(CCMatrix *pOut, float *fDet)
 {
 	/// The inverse is calculated using Cramers rule.
 	/// If no inverse exists then 'false' is returned.
 
-	const MMatrix &m = *this;
+	const CCMatrix &m = *this;
 
 	float d = (m(0, 0) * m(1, 1) - m(1, 0) * m(0, 1)) * (m(2, 2) * m(3, 3) - m(3, 2) * m(2, 3))	- (m(0, 0) * m(2, 1) - m(2, 0) * m(0, 1)) * (m(1, 2) * m(3, 3) - m(3, 2) * m(1, 3))
 			+ (m(0, 0) * m(3, 1) - m(3, 0) * m(0, 1)) * (m(1, 2) * m(2, 3) - m(2, 2) * m(1, 3))	+ (m(1, 0) * m(2, 1) - m(2, 0) * m(1, 1)) * (m(0, 2) * m(3, 3) - m(3, 2) * m(0, 3))
@@ -255,7 +255,7 @@ inline bool MMatrix::GetInverse(MMatrix *pOut, float *fDet)
 
 	d = 1.f / d;
 
-	MMatrix &out = *pOut;
+	CCMatrix &out = *pOut;
 
 	out(0, 0) = d * (m(1, 1) * (m(2, 2) * m(3, 3) - m(3, 2) * m(2, 3)) + m(2, 1) * (m(3, 2) * m(1, 3) - m(1, 2) * m(3, 3)) + m(3, 1) * (m(1, 2) * m(2, 3) - m(2, 2) * m(1, 3)));
 	out(1, 0) = d * (m(1, 2) * (m(2, 0) * m(3, 3) - m(3, 0) * m(2, 3)) + m(2, 2) * (m(3, 0) * m(1, 3) - m(1, 0) * m(3, 3)) + m(3, 2) * (m(1, 0) * m(2, 3) - m(2, 0) * m(1, 3)));
@@ -278,7 +278,7 @@ inline bool MMatrix::GetInverse(MMatrix *pOut, float *fDet)
 
 }
 
-inline void MMatrix::SetProjectionMatrixFovRH(float fFOVy, float fAspectRatio, float zNear, float zFar)
+inline void CCMatrix::SetProjectionMatrixFovRH(float fFOVy, float fAspectRatio, float zNear, float zFar)
 {
 	float yScale = 1/tan(fFOVy/2);
 	float xScale = fAspectRatio * yScale;
@@ -304,7 +304,7 @@ inline void MMatrix::SetProjectionMatrixFovRH(float fFOVy, float fAspectRatio, f
 	(*this)(3,3) = 0;
 }
 
-inline void MMatrix::SetProjectionMatrixFovLH(float fFOVy, float fAspectRatio, float zNear, float zFar)
+inline void CCMatrix::SetProjectionMatrixFovLH(float fFOVy, float fAspectRatio, float zNear, float zFar)
 {
 	float yScale = 1/tan(fFOVy/2);
 	float xScale = fAspectRatio * yScale;
@@ -330,15 +330,15 @@ inline void MMatrix::SetProjectionMatrixFovLH(float fFOVy, float fAspectRatio, f
 	(*this)(3,3) = 0;
 }
 
-inline void MMatrix::SetLookAtMatrixRH(const MVector3& eye, const MVector3& at, const MVector3& up)
+inline void CCMatrix::SetLookAtMatrixRH(const CCVector3& eye, const CCVector3& at, const CCVector3& up)
 {
-	MVector3 zaxis = eye - at;
+	CCVector3 zaxis = eye - at;
 	zaxis.Normalize();
 
-	MVector3 xaxis = up.CrossProduct(zaxis);
+	CCVector3 xaxis = up.CrossProduct(zaxis);
 	xaxis.Normalize();
 
-	MVector3 yaxis = zaxis.CrossProduct(xaxis);
+	CCVector3 yaxis = zaxis.CrossProduct(xaxis);
 
 	(*this)(0,0) = xaxis.x;
 	(*this)(1,0) = yaxis.x;
@@ -361,15 +361,15 @@ inline void MMatrix::SetLookAtMatrixRH(const MVector3& eye, const MVector3& at, 
 	(*this)(3,3) = 1.0f;
 }
 
-inline void MMatrix::SetLookAtMatrixLH(const MVector3& eye, const MVector3& at, const MVector3& up)
+inline void CCMatrix::SetLookAtMatrixLH(const CCVector3& eye, const CCVector3& at, const CCVector3& up)
 {
-	MVector3 zaxis = at - eye;
+	CCVector3 zaxis = at - eye;
 	zaxis.Normalize();
 
-	MVector3 xaxis = up.CrossProduct(zaxis);
+	CCVector3 xaxis = up.CrossProduct(zaxis);
 	xaxis.Normalize();
 
-	MVector3 yaxis = zaxis.CrossProduct(xaxis);
+	CCVector3 yaxis = zaxis.CrossProduct(xaxis);
 
 	(*this)(0,0) = xaxis.x;
 	(*this)(1,0) = yaxis.x;

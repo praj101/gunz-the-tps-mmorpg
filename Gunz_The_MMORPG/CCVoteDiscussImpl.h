@@ -1,30 +1,30 @@
 #pragma once
 
-#include "MVoteMgr.h"
+#include "CCVoteMgr.h"
 
 
-class MVoteDiscussBuilder {
+class CCVoteDiscussBuilder {
 public:
-	static MVoteDiscuss* Build(const CCUID& uidDrafter, const CCUID& uidStage, const char* pszDiscuss, const char* pszArg);
+	static CCVoteDiscuss* Build(const CCUID& uidDrafter, const CCUID& uidStage, const char* pszDiscuss, const char* pszArg);
 };
 
-class MVoteDiscussJoke : public MVoteDiscuss {
+class CCVoteDiscussJoke : public CCVoteDiscuss {
 public:
 	string		m_strJoke;
 
 public:
-	MVoteDiscussJoke(const CCUID& uidStage);
+	CCVoteDiscussJoke(const CCUID& uidStage);
 	virtual bool OnJudge(bool bJudge);
 
 	virtual string GetImplTarget() { return m_strJoke; }
 };
 
-class MVoteDiscussKick : public MVoteDiscuss {
+class CCVoteDiscussKick : public CCVoteDiscuss {
 public:
 	string		m_strTarget;
 
 public:
-	MVoteDiscussKick(const CCUID& uidStage);
+	CCVoteDiscussKick(const CCUID& uidStage);
 	virtual bool OnJudge(bool bJudge);
 
 	virtual string GetImplTarget() { return m_strTarget; }

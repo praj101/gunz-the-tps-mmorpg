@@ -260,7 +260,7 @@ public:
 	CCMatchStageSetting* GetMatchStageSetting() { return &m_MatchStageSetting; }
 	bool IsForcedEntry() { return m_bForcedEntry; }
 	bool IsLadderGame() { return m_bLadderGame; }
-	bool IsDuelTournamentGame() { return m_MatchStageSetting.GetGameType() == MMATCH_GAMETYPE_DUELTOURNAMENT; }
+	bool IsDuelTournamentGame() { return m_MatchStageSetting.GetGameType() == CCMATCH_GAMETYPE_DUELTOURNAMENT; }
 
 	void ReleaseForcedEntry();
 	void ClearStageSetting();

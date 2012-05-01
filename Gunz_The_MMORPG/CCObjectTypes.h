@@ -191,7 +191,7 @@ struct MCHARACTERDATA
 	// °ø°Ý·Â
 	int			iMATK;
 	int			iRATK;
-	int			iMCritical;
+	int			iCCCritical;
 	int			iRCritical;
 	int			iMAspd;
 	int			iRAspd;

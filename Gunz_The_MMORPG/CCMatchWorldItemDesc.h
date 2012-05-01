@@ -5,7 +5,7 @@ using namespace std;
 
 #define WORLDITEM_NAME_LENGTH		256
 
-enum MMATCH_WORLD_ITEM_TYPE
+enum CCMATCH_WORLD_ITEM_TYPE
 {
 	WIT_HP			= 0,
 	WIT_AP			= 1,
@@ -23,7 +23,7 @@ enum MMATCH_WORLD_ITEM_TYPE
 struct CCMatchWorldItemDesc
 {
 	short					m_nID;
-	MMATCH_WORLD_ITEM_TYPE	m_nItemType;
+	CCMATCH_WORLD_ITEM_TYPE	m_nItemType;
 	float					m_fAmount;
 	unsigned long int		m_nTime;
 	char					m_szModelName[WORLDITEM_NAME_LENGTH];
@@ -85,7 +85,7 @@ private:
 	bool ReadXml(const char* szFileName, int nMapID);
 protected:
 public:
-	CCMatchMapsWorldItemSpawnInfoSet		m_MapsSpawnInfo[MMATCH_MAP_COUNT];
+	CCMatchMapsWorldItemSpawnInfoSet		m_MapsSpawnInfo[CCMATCH_MAP_COUNT];
 	CCMatchMapsWorldItemSpawnInfo();
 	virtual ~CCMatchMapsWorldItemSpawnInfo();
 	

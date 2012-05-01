@@ -162,7 +162,7 @@ private:
 	bool					m_bIsLastRelayMap;
 
 	void SetMasterUID(const CCUID& uid)	{ m_StageSetting.SetMasterUID(uid);}
-	CCMatchRule* CreateRule(MMATCH_GAMETYPE nGameType);
+	CCMatchRule* CreateRule(CCMATCH_GAMETYPE nGameType);
 
 	vector< CCMatchStageSuicide > m_SuicideList;
 protected:
@@ -194,7 +194,7 @@ public:
 	virtual ~CCMatchStage();
 
 	bool Create(const CCUID& uid, const char* pszName, bool bPrivate, const char* pszPassword, bool bIsAllowNullChannel, 
-		const CCMATCH_GAMETYPE GameType = MMATCH_GAMETYPE_DEFAULT, const bool bIsCheckTicket = false, const DWORD dwTicketItemID = 0);
+		const CCMATCH_GAMETYPE GameType = CCMATCH_GAMETYPE_DEFAULT, const bool bIsCheckTicket = false, const DWORD dwTicketItemID = 0);
 
 	void Destroy();
 	void OnCommand(MCommand* pCommand);
@@ -245,7 +245,7 @@ public:
 	CCMatchStageSetting* GetStageSetting() { return &m_StageSetting; }
 
 	CCMatchRule* GetRule()			{ return m_pRule; }
-	void ChangeRule(MMATCH_GAMETYPE nRule);
+	void ChangeRule(CCMATCH_GAMETYPE nRule);
 	void GetTeamMemberCount(int* poutnRedTeamMember, int* poutnBlueTeamMember, int* poutSpecMember, bool bInBattle);
 	CCMatchTeam GetRecommandedTeam();
 
@@ -277,7 +277,7 @@ public:
 							   const float x, const float y, const float z, 
 							   int nLifeTime, int* pnExtraValues );
 	void OnNotifyThrowTrapItem(const CCUID& uidPlayer, const int nItemID);
-	void OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const MVector3& pos);
+	void OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const CCVector3& pos);
 
 
 	bool IsApplyTeamBonus();	// 팀전 보너스 적용여부 확인
@@ -288,7 +288,7 @@ public:
 	int GetTeamKills(CCMatchTeam nTeam)						{ return m_Teams[nTeam].nTotalKills; }
 	void AddTeamKills(CCMatchTeam nTeam, int amount=1)		{ m_Teams[nTeam].nTotalKills+=amount; }	
 
-	const MMatchStageType GetStageType()	{ return m_nStageType; }
+	const CCMatchStageType GetStageType()	{ return m_nStageType; }
 	int GetMinPlayerLevel();	// 방에 있는 플레이어중 최소 레벨을 구한다.
 
 	bool CheckUserWasVoted( const CCUID& uidPlayer );

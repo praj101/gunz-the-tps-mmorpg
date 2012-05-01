@@ -4,7 +4,7 @@
 CCMatchAccountPenaltyInfo::CCMatchAccountPenaltyInfo(void)
 {
 	for(int i = 0; i < MPC_MAX; i++) {
-		ClearPenaltyInfo((MPenaltyCode)i);
+		ClearPenaltyInfo((CCPenaltyCode)i);
 	}	
 }
 
@@ -12,12 +12,12 @@ CCMatchAccountPenaltyInfo::~CCMatchAccountPenaltyInfo(void)
 {
 }
 
-void CCMatchAccountPenaltyInfo::ClearPenaltyInfo(MPenaltyCode nCode)
+void CCMatchAccountPenaltyInfo::ClearPenaltyInfo(CCPenaltyCode nCode)
 {
-	memset(&m_PenaltyTable[(int)nCode], 0, sizeof(MPenaltyInfo));
+	memset(&m_PenaltyTable[(int)nCode], 0, sizeof(CCPenaltyInfo));
 }
 
-void CCMatchAccountPenaltyInfo::SetPenaltyInfo(MPenaltyCode nCode, int nPenaltyHour)
+void CCMatchAccountPenaltyInfo::SetPenaltyInfo(CCPenaltyCode nCode, int nPenaltyHour)
 {
 	if( nCode <= MPC_NONE || nCode >= MPC_MAX ) {
 		_ASSERT(0);
@@ -27,7 +27,7 @@ void CCMatchAccountPenaltyInfo::SetPenaltyInfo(MPenaltyCode nCode, int nPenaltyH
 	SetPenaltyInfo(nCode, GetPenaltyEndDate(nPenaltyHour));
 }
 
-void CCMatchAccountPenaltyInfo::SetPenaltyInfo(MPenaltyCode nCode, SYSTEMTIME sysPenaltyEndDate)
+void CCMatchAccountPenaltyInfo::SetPenaltyInfo(CCPenaltyCode nCode, SYSTEMTIME sysPenaltyEndDate)
 {
 	if( nCode <= MPC_NONE || nCode >= MPC_MAX ) {
 		_ASSERT(0);
@@ -58,7 +58,7 @@ SYSTEMTIME CCMatchAccountPenaltyInfo::GetPenaltyEndDate(int nPenaltyHour)
 	return sysTime;
 }
 
-bool CCMatchAccountPenaltyInfo::IsBlock(MPenaltyCode nCode)
+bool CCMatchAccountPenaltyInfo::IsBlock(CCPenaltyCode nCode)
 {
 	if( nCode <= MPC_NONE || nCode >= MPC_MAX ) {
 		_ASSERT(0);

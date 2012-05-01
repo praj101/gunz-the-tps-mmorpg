@@ -61,19 +61,19 @@ const bool CCMatchStage::SetChannelRuleForCreateStage(bool bIsAllowNullChannel)
 			return false;
 		}		
 
-		ChangeRule(MMATCH_GAMETYPE_DEFAULT);
+		ChangeRule(CCMATCH_GAMETYPE_DEFAULT);
 		return true;
 	}
 
-	MChannelRule* pChannelRule = MGetChannelRuleMgr()->GetRule( pChannel->GetRuleType() );
+	CCChannelRule* pChannelRule = MGetChannelRuleMgr()->GetRule( pChannel->GetRuleType() );
 	if( NULL == pChannelRule )
 	{
 		return false;
 	}
 
-	if( pChannelRule->CheckGameType(MMATCH_GAMETYPE_DEFAULT) )
+	if( pChannelRule->CheckGameType(CCMATCH_GAMETYPE_DEFAULT) )
 	{
-		ChangeRule(MMATCH_GAMETYPE_DEFAULT);
+		ChangeRule(CCMATCH_GAMETYPE_DEFAULT);
 	}
 	else
 	{
@@ -84,14 +84,14 @@ const bool CCMatchStage::SetChannelRuleForCreateStage(bool bIsAllowNullChannel)
 			return false;
 		}
 
-		ChangeRule( MMATCH_GAMETYPE(nGameType) );
+		ChangeRule( CCMATCH_GAMETYPE(nGameType) );
 	}
 
 	return true;
 }
 
 bool CCMatchStage::Create(const CCUID& uid, const char* pszName, bool bPrivate, const char* pszPassword, bool bIsAllowNullChannel, 
-	const MMATCH_GAMETYPE GameType, const bool bIsCheckTicket, const DWORD dwTicketItemID)
+	const CCMATCH_GAMETYPE GameType, const bool bIsCheckTicket, const DWORD dwTicketItemID)
 {
 	if ((strlen(pszName) >= STAGENAME_LENGTH) || (strlen(pszPassword) >= STAGENAME_LENGTH)) return false;
 
@@ -202,7 +202,7 @@ void CCMatchStage::AddObject(const CCUID& uid, const CCMatchObject* pObj)
 			m_nAdminObjectCount++;
 		}
 
-		if( GetStageSetting()->GetGameType() == MMATCH_GAMETYPE_DUELTOURNAMENT ){
+		if( GetStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUELTOURNAMENT ){
 			pObject->SetJoinDuelTournament(true);
 		}
 	}
@@ -255,7 +255,7 @@ CCUIDRefCache::iterator CCMatchStage::RemoveObject(const CCUID& uid)
 		pObj->SetPlace(MMP_LOBBY);
 		pObj->SetStageListTransfer(true);
 
-		if( GetStageSetting()->GetGameType() == MMATCH_GAMETYPE_DUELTOURNAMENT ){
+		if( GetStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUELTOURNAMENT ){
 			pObj->SetJoinDuelTournament(false);
 			CCMatchServer::GetInstance()->SendDuelTournamentCharInfoToPlayer(uid);
 		}
@@ -400,7 +400,7 @@ void CCMatchStage::Tick(unsigned long nClock)
 				{
 					OnFinishGame();
 
-					if (GetStageType() == MST_NORMAL && m_pRule->GetGameType() != MMATCH_GAMETYPE_DUELTOURNAMENT)
+					if (GetStageType() == MST_NORMAL && m_pRule->GetGameType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
 						ChangeState(STAGE_STATE_STANDBY);
 					else
 						ChangeState(STAGE_STATE_CLOSE);
@@ -428,66 +428,66 @@ void CCMatchStage::Tick(unsigned long nClock)
 
 }
 
-CCMatchRule* CCMatchStage::CreateRule(MMATCH_GAMETYPE nGameType)
+CCMatchRule* CCMatchStage::CreateRule(CCMATCH_GAMETYPE nGameType)
 {
 	switch (nGameType)
 	{
-	case MMATCH_GAMETYPE_DEATHMATCH_SOLO:
+	case CCMATCH_GAMETYPE_DEATHMATCH_SOLO:
 		{
 			return (new CCMatchRuleSoloDeath(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_DEATHMATCH_TEAM:
+	case CCMATCH_GAMETYPE_DEATHMATCH_TEAM:
 		{
 			return (new CCMatchRuleTeamDeath(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_GLADIATOR_SOLO:
+	case CCMATCH_GAMETYPE_GLADIATOR_SOLO:
 		{
 			return (new CCMatchRuleSoloGladiator(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_GLADIATOR_TEAM:
+	case CCMATCH_GAMETYPE_GLADIATOR_TEAM:
 		{
 			return (new CCMatchRuleTeamGladiator(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_ASSASSINATE:
+	case CCMATCH_GAMETYPE_ASSASSINATE:
 		{
 			return (new CCMatchRuleAssassinate(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_TRAINING:
+	case CCMATCH_GAMETYPE_TRAINING:
 		{
 			return (new CCMatchRuleTraining(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_SURVIVAL:
+	case CCMATCH_GAMETYPE_SURVIVAL:
 		{
 			return (new CCMatchRuleSurvival(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_QUEST:
+	case CCMATCH_GAMETYPE_QUEST:
 		{
 			return (new CCMatchRuleQuest(this));
 		}
 		break;
- 	case MMATCH_GAMETYPE_BERSERKER:
+ 	case CCMATCH_GAMETYPE_BERSERKER:
 		{
 			return (new CCMatchRuleBerserker(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_DEATHMATCH_TEAM2:
+	case CCMATCH_GAMETYPE_DEATHMATCH_TEAM2:
 		{
 			return (new CCMatchRuleTeamDeath2(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_DUEL:
+	case CCMATCH_GAMETYPE_DUEL:
 		{
 			return (new CCMatchRuleDuel(this));
 		}
 		break;
-	case MMATCH_GAMETYPE_DUELTOURNAMENT:
+	case CCMATCH_GAMETYPE_DUELTOURNAMENT:
 		{
 			return (new CCMatchRuleDuelTournament(this));
 		}
@@ -501,11 +501,11 @@ CCMatchRule* CCMatchStage::CreateRule(MMATCH_GAMETYPE nGameType)
 	return NULL;
 }
 
-void CCMatchStage::ChangeRule(MMATCH_GAMETYPE nRule)
+void CCMatchStage::ChangeRule(CCMATCH_GAMETYPE nRule)
 {
 	if ((m_pRule) && (m_pRule->GetGameType() == nRule)) return;
 
-	if ((nRule < 0) || (nRule >= MMATCH_GAMETYPE_MAX))
+	if ((nRule < 0) || (nRule >= CCMATCH_GAMETYPE_MAX))
 	{
 		CCMatchServer::GetInstance()->LOG(CCMatchServer::LOG_DEBUG, "ChangeRule Failed(%d)", nRule);
 		return;
@@ -591,14 +591,14 @@ void CCMatchStage::PlayerState(const CCUID& uidPlayer, CCMatchObjectStageState n
 
 bool _GetUserGradeIDName(CCMatchUserGradeID gid,char* sp_name)
 {
-	if(gid == MMUG_DEVELOPER) 
+	if(gid == CCMUGDEVELOPER) 
 	{ 
 		if(sp_name) {
 			strcpy(sp_name,"개발자");
 		}
 		return true; 
 	}
-	else if(gid == MMUG_ADMIN) {
+	else if(gid == CCMUGADMIN) {
 		
 		if(sp_name) { 
 			strcpy(sp_name,"운영자");
@@ -1021,7 +1021,7 @@ void CCMatchStage::OnNotifyThrowTrapItem(const CCUID& uidPlayer, const int nItem
 	m_ActiveTrapManager.AddThrowedTrap(uidPlayer, nItemID);
 }
 
-void CCMatchStage::OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const MVector3& pos)
+void CCMatchStage::OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const CCVector3& pos)
 {
 	if (GetState() != STAGE_STATE_RUN) return;
 
@@ -1098,7 +1098,7 @@ void CCMatchStage::OnApplyTeamBonus(CCMatchTeam nTeam)
 	if( MMT_END <= nTeam )
 		return;
 
-	if (GetStageType() != MMATCH_GAMETYPE_DEATHMATCH_TEAM2)		// 으아아악 이런 갓뎀코드를 만들다니 -_-;
+	if (GetStageType() != CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)		// 으아아악 이런 갓뎀코드를 만들다니 -_-;
 	{
 		for (CCUIDRefCache::iterator i=GetObjBegin(); i!=GetObjEnd(); i++) 
 		{
@@ -1214,14 +1214,14 @@ bool CCMatchStage::CheckUserWasVoted( const CCUID& uidPlayer )
 	if( !IsEnabledObject(pPlayer) )
 		return false;
 
-	MVoteMgr* pVoteMgr = GetVoteMgr();
+	CCVoteMgr* pVoteMgr = GetVoteMgr();
 	if( 0 == pVoteMgr )
 		return false;
 
 	if( !pVoteMgr->IsGoingOnVote() )
 		return false;
 
-	MVoteDiscuss* pVoteDiscuss = pVoteMgr->GetDiscuss();
+	CCVoteDiscuss* pVoteDiscuss = pVoteMgr->GetDiscuss();
 	if(  0 == pVoteDiscuss )
 		return false;
 
@@ -1394,7 +1394,7 @@ int CCMatchStage::GetPlayers()
 
 bool CCMatchStage::CheckDuelMap()
 {
-	if( MMATCH_GAMETYPE_DUEL != m_StageSetting.GetGameType() )
+	if( CCMATCH_GAMETYPE_DUEL != m_StageSetting.GetGameType() )
 		return true;
 
 	// 클랜전은 pChannel이 NULL이 되므로 추가적인 처리가 필요하다. - by SungE 2007-03-21.
@@ -1402,11 +1402,11 @@ bool CCMatchStage::CheckDuelMap()
 	if( MGetServerConfig()->IsClanServer() )
 		return true;
 	
-	MChannelRule* pRule = GetStageChannelRule();
+	CCChannelRule* pRule = GetStageChannelRule();
 	if( NULL == pRule )
 		return false;
 
-	MChannelRuleMapList* pChannelRuleMapList = pRule->GetMapList();
+	CCChannelRuleMapList* pChannelRuleMapList = pRule->GetMapList();
 	if( NULL == pChannelRuleMapList )
 		return false;
 
@@ -1560,7 +1560,7 @@ bool CCMatchStage::SetMapName( char* pszMapName )
 }
 
 
-MChannelRule* CCMatchStage::GetStageChannelRule()
+CCChannelRule* CCMatchStage::GetStageChannelRule()
 {
 	CCMatchServer* pServer = MGetMatchServer();
 
@@ -1588,12 +1588,12 @@ bool CCMatchStage::IsValidMap( const char* pMapName )
 	if( MGetGameTypeMgr()->IsQuestDerived(GetStageSetting()->GetGameType()) ) 
 		return true;
 
-	MChannelRule* pRule = GetStageChannelRule();
+	CCChannelRule* pRule = GetStageChannelRule();
 	if( NULL == pRule )
 		return false;
 
 	bool IsDule = false;
-	if( MMATCH_GAMETYPE_DUEL == m_StageSetting.GetGameType() )
+	if( CCMATCH_GAMETYPE_DUEL == m_StageSetting.GetGameType() )
 		IsDule = true;
 
 	// 퀘스트 모드에선 사용하지 않기로 함...
@@ -1746,7 +1746,7 @@ void CCMatchStage::SetResourceCRC32Cache( const CCUID& uidPlayer, const DWORD dw
 	ResourceCRC32CacheMap::iterator itFind = m_ResourceCRC32CacheMap.find( uidPlayer );
 	if( m_ResourceCRC32CacheMap.end() == itFind )
 	{
-		MMATCH_RESOURCECHECKINFO CRC32CacheInfo;
+		CCMATCH_RESOURCECHECKINFO CRC32CacheInfo;
 
 		CRC32CacheInfo.dwResourceCRC32Cache	= dwCRC32Cache;
 		CRC32CacheInfo.dwResourceXORCache	= dwXORCache;
@@ -1984,10 +1984,10 @@ void CCMatchStage::ClearGabageObject()
 
 int	CCMatchStage::GetDuelTournamentRandomMapIndex()
 {
-	MChannelRule *pChannelRule = MGetChannelRuleMgr()->GetRule(CCCHANNEL_RULE_DUELTOURNAMENT);
+	CCChannelRule *pChannelRule = MGetChannelRuleMgr()->GetRule(CCCHANNEL_RULE_DUELTOURNAMENT);
 	if( pChannelRule == NULL ) return -1;
 
-	MChannelRuleMapList* pMapList = pChannelRule->GetMapList();
+	CCChannelRuleMapList* pMapList = pChannelRule->GetMapList();
 	if( pMapList == NULL ) return -1;
 
 	int nMaxIndex = (int)pMapList->size();
@@ -1997,7 +1997,7 @@ int	CCMatchStage::GetDuelTournamentRandomMapIndex()
 		int nRandomMapIndex;
 		int nRandomVal = rand() % nMaxIndex;
 
-		MChannelRuleMapList::iterator iter;
+		CCChannelRuleMapList::iterator iter;
 		for(iter = pMapList->begin(); iter != pMapList->end(); iter++)
 		{
 			if( nRandomVal == 0 ) 
@@ -2012,7 +2012,7 @@ int	CCMatchStage::GetDuelTournamentRandomMapIndex()
 	return -1;
 }
 
-void CCMatchStage::SetDuelTournamentMatchList(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup *pPickedGroup)
+void CCMatchStage::SetDuelTournamentMatchList(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup *pPickedGroup)
 {
 	m_nDTStageInfo.nDuelTournamentType = nType;
 
@@ -2033,7 +2033,7 @@ void CCMatchStage::SetDuelTournamentMatchList(CCDUELTOURNAMENTTYPE nType, MDuelT
 	CCMatchDuelTournamentMatch *pMatch;
 
 	map<int, CCMatchDuelTournamentMatch*>::iterator iter = m_nDTStageInfo.DuelTournamentMatchMap.begin();
-	for (MDuelTournamentPickedGroup::iterator i=pPickedGroup->begin(); i!= pPickedGroup->end(); i++)
+	for (CCDuelTournamentPickedGroup::iterator i=pPickedGroup->begin(); i!= pPickedGroup->end(); i++)
 	{
 		if( nIndex % 2 == 0 ) {
 			pMatch = iter->second;
@@ -2170,7 +2170,7 @@ void CCMatchStage::SetRelayMapList(RelayMap* pRelayMapList)
 	// 하나도 없으면 맨션이라도 하나 넣어주자
 	if (count == 0)
 	{
-		pRelayMapList[0].nMapID = MMATCH_MAP_MANSION;
+		pRelayMapList[0].nMapID = CCMATCH_MAP_MANSION;
 		count = 1;
 	}
 

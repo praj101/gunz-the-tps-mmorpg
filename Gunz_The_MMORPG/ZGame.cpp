@@ -327,7 +327,7 @@ void TestCreateEffect(int nEffIndex)
 
 float CalcActualDamage(ZObject* pAttacker, ZObject* pVictim, float fDamage)
 {
-	if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_BERSERKER)
+	if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_BERSERKER)
 	{
 		ZRuleBerserker* pRule = (ZRuleBerserker*)ZGetGame()->GetMatch()->GetRule();
 		if ((pAttacker) && (pAttacker != pVictim) && (pAttacker->GetUID() == pRule->GetBerserkerUID()))
@@ -763,7 +763,7 @@ void ZGame::Update(float fElapsed)
 	{
 		PostBasicInfo();
 
-		if(ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUELTOURNAMENT)
+		if(ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
 			PostHPAPInfo();
 		else
 			PostDuelTournamentHPAPInfo(); // 듀얼토너먼트 에서만 처리해준다.
@@ -824,7 +824,7 @@ void ZGame::Update(float fElapsed)
 
 void ZGame::OnCameraUpdate(float Elapsed)
 {
-	if (m_Match.GetRoundState() == MMATCH_ROUNDSTATE_PREPARE)
+	if (m_Match.GetRoundState() == CCMATCH_ROUNDSTATE_PREPARE)
 	{
 		rvector dir = GetMapDesc()->GetWaitCamDir();
 		rvector pos = GetMapDesc()->GetWaitCamPos();
@@ -876,7 +876,7 @@ void ZGame::CheckMyCharDeadUnchecked()
 		uidAttacker = m_pMyCharacter->GetLastAttacker();
 
 	// 다음라운드로 넘어가기 위한 finish 상태에서는 메시지 라우팅을 생략한다
-	if( GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_FINISH) 
+	if( GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_FINISH) 
 	{
 		// 죽는 척은 한다
 		m_pMyCharacter->ActDead();
@@ -1091,7 +1091,7 @@ void ZGame::Draw()
 
 	GetWorld()->GetBsp()->DrawLight(&light);
 	//*/
-	if (m_Match.GetRoundState() != MMATCH_ROUNDSTATE_PREPARE)
+	if (m_Match.GetRoundState() != CCMATCH_ROUNDSTATE_PREPARE)
 	{
 		__BP(22,"ZGame::Draw::DrawCharacters");
 
@@ -1125,7 +1125,7 @@ void ZGame::Draw()
 
 	__EP(17);
 
-	if (m_Match.GetRoundState() != MMATCH_ROUNDSTATE_PREPARE)
+	if (m_Match.GetRoundState() != CCMATCH_ROUNDSTATE_PREPARE)
 	{
 		__BP(23,"ZGame::Draw::DrawWeapons and effects");
 #ifndef _PUBLISH
@@ -1657,17 +1657,17 @@ bool ZGame::OnCommand(MCommand* pCommand)
 
 bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_name)
 {
-//		 if(gid == MMUG_FREE)			{ UserNameColor = MCOLOR(200,200,200); return true; }// 무료유저
-//	else if(gid == MMUG_REGULAR)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 정액유저
-//	else if(gid == MMUG_CRIMINAL)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 전과자
-//	else if(gid == MMUG_WARNING_1)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 1차경고
-//	else if(gid == MMUG_WARNING_2)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 2차경고
-//	else if(gid == MMUG_WARNING_3)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 3차경고
-//	else if(gid == MMUG_CHAT_LIMITED)	{ UserNameColor = MCOLOR(200,200,200); return true; }// 채팅 금지
-//	else if(gid == MMUG_PENALTY)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 기간 정지
-//	else if(gid == MMUG_BLOCKED)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 사용정지
+//		 if(gid == CCMUGFREE)			{ UserNameColor = MCOLOR(200,200,200); return true; }// 무료유저
+//	else if(gid == CCMUGREGULAR)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 정액유저
+//	else if(gid == CCMUGCRIMINAL)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 전과자
+//	else if(gid == CCMUGWARNING_1)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 1차경고
+//	else if(gid == CCMUGWARNING_2)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 2차경고
+//	else if(gid == CCMUGWARNING_3)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 3차경고
+//	else if(gid == CCMUGCHAT_LIMITED)	{ UserNameColor = MCOLOR(200,200,200); return true; }// 채팅 금지
+//	else if(gid == CCMUGPENALTY)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 기간 정지
+//	else if(gid == CCMUGBLOCKED)		{ UserNameColor = MCOLOR(200,200,200); return true; }// 사용정지
 
-	if(gid == MMUG_DEVELOPER) 
+	if(gid == CCMUGDEVELOPER) 
 	{ 
 		UserNameColor = MCOLOR(255,128, 64); 
 		if(sp_name) { 
@@ -1675,7 +1675,7 @@ bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_n
 		}
 		return true; 
 	}
-	else if(gid == MMUG_ADMIN) {
+	else if(gid == CCMUGADMIN) {
 		UserNameColor = MCOLOR(255,128, 64); 
 		if(sp_name) { 
 			strcpy(sp_name,ZMsg(MSG_WORD_ADMIN));
@@ -1688,13 +1688,13 @@ bool GetUserGradeIDColor(CCMatchUserGradeID gid,MCOLOR& UserNameColor,char* sp_n
 
 bool ZGame::GetUserNameColor(CCUID uid,MCOLOR& UserNameColor,char* sp_name)
 {
-	CCMatchUserGradeID gid = MMUG_FREE;
+	CCMatchUserGradeID gid = CCMUGFREE;
 
 	if(m_pMyCharacter->GetUID()==uid) 
 	{
 		if(ZGetMyInfo()) {
 			gid = ZGetMyInfo()->GetUGradeID();
-//			gid = MMUG_DEVELOPER;//test
+//			gid = CCMUGDEVELOPER;//test
 
 		} 
 		else {
@@ -1920,7 +1920,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 						ZGetSoundEngine()->PlaySound("if_error");
 						char szTemp[sizeof(szMsg)+64];
 
-						if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)	// 듀얼 매치일때
+						if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)	// 듀얼 매치일때
 						{
 							if ( !m_pMyCharacter->IsDie() && pChar->IsDie())
 							{
@@ -2598,7 +2598,7 @@ void ZGame::OnPeerDuelTournamentHPAPInfo(MCommand *pCommand)
 	// 옵져버가 아닐때(직접 플래이를 할때)에 peer의 캐릭터 HP, AP를 갱신해주면 
 	// '내 캐릭터의 죽음은 내가 직접 판단한다'는 기존 p2p정책상 문제가 발생할 수 있어 캐릭터에 직접 HP/AP를 set하지 않고
 	// UI 출력용으로 따로 HP/AP값을 보관한다.
-	if(ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT) {
+	if(ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT) {
 		((ZRuleDuelTournament*)m_Match.GetRule())->SetPlayerHpApForUI(uid, (float)MaxHP, (float)MaxAP, (float)HP, (float)AP);
 	}
 
@@ -4879,7 +4879,7 @@ void ZGame::OnPeerDie(CCUID& uidVictim, CCUID& uidAttacker)
 		{
 			if (m_CharacterManager.GetCount() > 2)
 			{
-				if (GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUEL)
+				if (GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUEL)
 					ReserveObserver();
 			}
 		}
@@ -4901,7 +4901,7 @@ void ZGame::OnPeerDie(CCUID& uidVictim, CCUID& uidAttacker)
 	if (pAttacker == NULL) return;	// 죽인 사람이 누구인지 모를 경우는 그냥 리턴
 	if(pAttacker!=pVictim)	// 자살이 아니면 이펙트 보여줄거 보여주자
 	{
-		if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
+		if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 		{
 			if (pAttacker->GetKils() + 1 == 5)
 			{
@@ -5355,7 +5355,7 @@ void ZGame::OnPeerSpawn(CCUID& uid, rvector& pos, rvector& dir)
 	OutputDebugString(szLog);
 #endif
 
-	if (GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)
+	if (GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 		pCharacter->SetInvincibleTime( 5000);
 }
 
@@ -5703,7 +5703,7 @@ char* ZGame::GetSndNameFromBsp(const char* szSrcSndName, RMATERIAL* pMaterial)
 void ZGame::AdjustGlobalTime()
 {
 // 카운트 다운할때만 시간을 싱크한다
-//	if(GetMatch()->GetRoundState()!=MMATCH_ROUNDSTATE_COUNTDOWN) return;
+//	if(GetMatch()->GetRoundState()!=CCMATCH_ROUNDSTATE_COUNTDOWN) return;
 static DWORD nLastTime = GetTickTime();
 DWORD nNowTime = GetTickTime();
 if((nNowTime - nLastTime) < 100) return;	// 100밀리세컨드마다 체크
@@ -5798,9 +5798,9 @@ void ZGame::AutoAiming()
 
 	//	개발자나 관리자라면..
 
-	//	CCMatchUserGradeID gid = MMUG_FREE;
+	//	CCMatchUserGradeID gid = CCMUGFREE;
 	//	gid = ZGetMyInfo()->GetUGradeID();
-	//	if((gid == MMUG_DEVELOPER)||(gid==MMUG_ADMIN))
+	//	if((gid == CCMUGDEVELOPER)||(gid==CCMUGADMIN))
 
 	//	우선 테스트 모드에서 알지5만..
 
@@ -6150,7 +6150,7 @@ void ZGame::OnReserveObserver()
 	if (currentTime - m_nReservedObserverTime > RESERVED_OBSERVER_TIME)
 	{
 
-		if ((m_Match.GetRoundState() == MMATCH_ROUNDSTATE_PLAY) ||
+		if ((m_Match.GetRoundState() == CCMATCH_ROUNDSTATE_PLAY) ||
 			(m_Match.IsWaitForRoundEnd() && ZGetGameClient()->IsForcedEntry())
 			)
 		{
@@ -6214,16 +6214,16 @@ void ZGame::InitRound()
 	ZGetCharacterManager()->InitRound();
 }
 
-void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
+void ZGame::AddEffectRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg)
 {
 
 	switch(nRoundState) 
 	{
 
-	case MMATCH_ROUNDSTATE_COUNTDOWN : 
+	case CCMATCH_ROUNDSTATE_COUNTDOWN : 
 		{
 			// 이팩트 출력 - 팀플일 경우만 RoundStart이팩트 출력한다. 듀얼은 라운드 기다리지만 제외.
-			if (m_Match.IsWaitForRoundEnd() && m_Match.GetMatchType() != MMATCH_GAMETYPE_DUEL)
+			if (m_Match.IsWaitForRoundEnd() && m_Match.GetMatchType() != CCMATCH_GAMETYPE_DUEL)
 			{
 				if(m_Match.GetCurrRound()+1==m_Match.GetRoundCount())
 				{
@@ -6231,7 +6231,7 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 				}
 				else
 				{
-					if (GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+					if (GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 					{
 						// m_nCurrRound 가 0이면 1라운드이다.
 						ZRuleDuelTournament* pRule = (ZRuleDuelTournament*) m_Match.GetRule();
@@ -6247,25 +6247,25 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 			}
 		}
 		break;
-	case MMATCH_ROUNDSTATE_PLAY:
+	case CCMATCH_ROUNDSTATE_PLAY:
 		{
 			ZGetScreenEffectManager()->AddRock();
 		}
 		break;
-	case MMATCH_ROUNDSTATE_FINISH:
+	case CCMATCH_ROUNDSTATE_FINISH:
 		{
 			if (m_Match.IsTeamPlay())
 			{
 				int nRedTeam, nBlueTeam;
 				m_Match.GetTeamAliveCount(&nRedTeam, &nBlueTeam);
 				
-				if(nArg == MMATCH_ROUNDRESULT_RED_ALL_OUT || nArg ==  MMATCH_ROUNDRESULT_BLUE_ALL_OUT)
+				if(nArg == CCMATCH_ROUNDRESULT_RED_ALL_OUT || nArg ==  CCMATCH_ROUNDRESULT_BLUE_ALL_OUT)
 				{
 					ZGetScreenEffectManager()->AddWin();
 				}
-				else if (nArg == MMATCH_ROUNDRESULT_DRAW )
+				else if (nArg == CCMATCH_ROUNDRESULT_DRAW )
 				{
-					if (GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)
+					if (GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 					{
 						CCMatchTeam nMyTeam = (CCMatchTeam)m_pMyCharacter->GetTeamID();
 						CCMatchTeam nEnemyTeam = (nMyTeam == MMT_BLUE ? MMT_RED : MMT_BLUE);
@@ -6285,13 +6285,13 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 				}
 				else 
 				{
-					if (nArg == MMATCH_ROUNDRESULT_DRAW)
+					if (nArg == CCMATCH_ROUNDRESULT_DRAW)
 					{
 						ZGetGameInterface()->PlayVoiceSound( VOICE_DRAW_GAME, 1200);
 					}
 					else {
 						CCMatchTeam nMyTeam = (CCMatchTeam)m_pMyCharacter->GetTeamID();
-						CCMatchTeam nTeamWon = (nArg == MMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
+						CCMatchTeam nTeamWon = (nArg == CCMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
 
 						// 만약 강제로 팀이 바껴진 경우에는 반대편
 						if (ZGetMyInfo()->GetGameInfo()->bForcedChangeTeam)
@@ -6312,7 +6312,7 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 							ZGetScreenEffectManager()->AddLose();
 
 
-						if (GetMatch()->GetMatchType() == MMATCH_GAMETYPE_ASSASSINATE)
+						if (GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_ASSASSINATE)
 						{
 							if ( nTeamWon == MMT_RED)
 								ZGetGameInterface()->PlayVoiceSound( VOICE_BLUETEAM_BOSS_DOWN, 2100);
@@ -6389,7 +6389,7 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 
 
 			// 듀얼 모드일 경우
-			else if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
+			else if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 			{
 				ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 				if ( pDuel)
@@ -6461,7 +6461,7 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 					}
 				}
 			}
-			else if( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT )
+			else if( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT )
 			{
 				if(!ZGetCombatInterface()->GetObserver()->IsVisible())	// 옵져버가 아니면
 				{
@@ -6595,13 +6595,13 @@ void ZGame::StartRecording()
 	if(nWritten==0) goto RECORDING_FAIL;
 
 	// 게임룰 별 추가적인 스테이지 세팅값 저장
-	if(ZGetGameClient()->GetMatchStageSetting()->GetGameType() == MMATCH_GAMETYPE_DUEL)
+	if(ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUEL)
 	{
 		ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGameInterface()->GetGame()->GetMatch()->GetRule();
 		nWritten = zfwrite(&pDuel->QInfo,sizeof(MTD_DuelQueueInfo),1,m_pReplayFile);
 		if(nWritten==0) goto RECORDING_FAIL;
 	}
-	else if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+	else if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
 		int nType = (int)ZGetGameInterface()->GetDuelTournamentType();
 		nWritten = zfwrite(&nType,sizeof(int),1,m_pReplayFile);
@@ -6737,7 +6737,7 @@ bool ZGame::OnLoadReplay(ZReplayLoader* pLoader)
 
 	m_bReplaying.Set_CheckCrc(true);
 	SetReadyState(ZGAME_READYSTATE_RUN);
-	GetMatch()->SetRoundState(MMATCH_ROUNDSTATE_FREE);
+	GetMatch()->SetRoundState(CCMATCH_ROUNDSTATE_FREE);
 	ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 	ZGetGameInterface()->GetCombatInterface()->GetObserver()->SetTarget(ZGetGame()->m_pMyCharacter->GetUID());
 	g_bProfile=true;	
@@ -6830,7 +6830,7 @@ bool ZGame::OnLoadReplay(ZReplayLoader* pLoader)
 	}
 
 	SetReadyState(ZGAME_READYSTATE_RUN);
-	GetMatch()->SetRoundState(MMATCH_ROUNDSTATE_FREE);
+	GetMatch()->SetRoundState(CCMATCH_ROUNDSTATE_FREE);
 	ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 
 	ZGetGameInterface()->GetCombatInterface()->GetObserver()->SetTarget(m_pMyCharacter->GetUID());
@@ -6886,7 +6886,7 @@ void ZGame::RefreshCharacters()
 			pCharacter = m_CharacterManager.Add(pPeerInfo->uidChar, rvector(0.0f, 0.0f, 0.0f));
 			pCharacter->Create(&pPeerInfo->CharInfo);
 
-			if (m_Match.GetRoundState() == MMATCH_ROUNDSTATE_PREPARE)
+			if (m_Match.GetRoundState() == CCMATCH_ROUNDSTATE_PREPARE)
 			{
 				if (m_Match.IsTeamPlay())
 				{
@@ -7108,10 +7108,10 @@ void ZGame::OnGameRoundState(const CCUID& uidStage, int nRound, int nRoundState,
 	ZMatch* pMatch = GetMatch();
 	if (pMatch == NULL) return;
 
-	MMATCH_ROUNDSTATE RoundState = MMATCH_ROUNDSTATE(nRoundState);
+	CCMATCH_ROUNDSTATE RoundState = CCMATCH_ROUNDSTATE(nRoundState);
 
 	// 프리모드일경우
-	if ((RoundState == MMATCH_ROUNDSTATE_FREE) && (pMatch->GetRoundState() != RoundState))
+	if ((RoundState == CCMATCH_ROUNDSTATE_FREE) && (pMatch->GetRoundState() != RoundState))
 	{
 		pMatch->InitCharactersPosition();
 		m_pMyCharacter->SetVisible(true);
@@ -7123,7 +7123,7 @@ void ZGame::OnGameRoundState(const CCUID& uidStage, int nRound, int nRoundState,
 	pMatch->SetRoundState(RoundState, nArg);
 	AddEffectRoundState(RoundState, nArg);
 
-	if (RoundState == MMATCH_ROUNDSTATE_FINISH)
+	if (RoundState == CCMATCH_ROUNDSTATE_FINISH)
 	{
 		ZGetMyInfo()->GetGameInfo()->InitRound();	// 제일 마지막에 불려져야 한다.
 	}
@@ -7261,7 +7261,7 @@ bool ZGame::FilterDelayedCommand(MCommand *pCommand)
 void ZGame::PostSpMotion(ZC_SPMOTION_TYPE mtype)
 {
 	if(m_pMyCharacter==NULL) return;
-	if(m_Match.GetRoundState() != MMATCH_ROUNDSTATE_PLAY) return;
+	if(m_Match.GetRoundState() != CCMATCH_ROUNDSTATE_PLAY) return;
 
 	if( (m_pMyCharacter->m_AniState_Lower.Ref() == ZC_STATE_LOWER_IDLE1) || 
 		(m_pMyCharacter->m_AniState_Lower.Ref() == ZC_STATE_LOWER_IDLE2) || 
@@ -7303,7 +7303,7 @@ bool ZGame::CanAttack(ZObject *pAttacker, ZObject *pTarget)
 {
 	//### 이 함수를 수정하면 똑같이 CanAttack_DebugRegister()에도 적용해 주어야 합니다. ###
 	if(!IsReplay())
-		if(GetMatch()->GetRoundState() != MMATCH_ROUNDSTATE_PLAY) return false;
+		if(GetMatch()->GetRoundState() != CCMATCH_ROUNDSTATE_PLAY) return false;
 	if(pAttacker==NULL) return true;
 
 	if ( GetMatch()->IsTeamPlay() ) {
@@ -7330,7 +7330,7 @@ bool ZGame::CanAttack(ZObject *pAttacker, ZObject *pTarget)
 bool ZGame::CanAttack_DebugRegister(ZObject *pAttacker, ZObject *pTarget)
 {
 	if(!IsReplay())
-		if(GetMatch()->GetRoundState() != MMATCH_ROUNDSTATE_PLAY) return false;
+		if(GetMatch()->GetRoundState() != CCMATCH_ROUNDSTATE_PLAY) return false;
 	if(pAttacker==NULL) return true;
 
 	if ( GetMatch()->IsTeamPlay() ) {
@@ -7373,7 +7373,7 @@ void ZGame::OnLocalOptainSpecialWorldItem(MCommand* pCommand)
 	{
 	case WORLDITEM_PORTAL_ID:
 		{
-			MMATCH_GAMETYPE eGameType = ZGetGameClient()->GetMatchStageSetting()->GetGameType();
+			CCMATCH_GAMETYPE eGameType = ZGetGameClient()->GetMatchStageSetting()->GetGameType();
 			if (!ZGetGameTypeManager()->IsQuestDerived(eGameType)) break;
 
 			// 서버에 포탈로 이동한다고 전송

@@ -201,7 +201,7 @@ bool ZCombatInterface::OnCreate()
 
 	if (ZGetMyInfo()->IsAdminGrade()) {
 		CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
-		if (pCache && pCache->GetUGrade()==MMUG_EVENTMASTER && pCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
+		if (pCache && pCache->GetUGrade()==CCMUGEVENTMASTER && pCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
 			ShowChatOutput(false);
 		}
 	}
@@ -226,7 +226,7 @@ bool ZCombatInterface::OnCreate()
 	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatTDMInfo");
 	if ( pWidget)
 	{
-		if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)
+		if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 		{
 			int nMargin[ BMNUM_NUMOFCHARSET] = { 13,9,13,13,13,13,13,13,13,13,8,10,8 };
 
@@ -280,7 +280,7 @@ bool ZCombatInterface::OnCreate()
 		}
 	}
 
-	if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+	if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
 		// 듀얼토너먼트 남은시간 표시
 		MWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_TimeBack");
@@ -340,7 +340,7 @@ bool ZCombatInterface::OnCreate()
 	MButton* pExitConfirmButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageExit");
 	if (pExitConfirmButton) {
 		char szConfirmMsg[256];
-		if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+		if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 		{
 			ZTransMsg(szConfirmMsg, MSG_GAME_DUELTOURNAMENT_MATCH_EXITSTAGE_CONFIRM);	// TP 페널티 경고문
 			pExitConfirmButton->SetAlterableConfirmMessage(szConfirmMsg);
@@ -782,7 +782,7 @@ void ZCombatInterface::OnDraw(MDrawContext* pDC)
 		DrawScore(pDC);
 
 #ifdef _DUELTOURNAMENT
-		if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+		if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 		{
 			((ZRuleDuelTournament*)ZGetGame()->GetMatch()->GetRule())->OnDraw(pDC);
 		}
@@ -800,7 +800,7 @@ void ZCombatInterface::OnDraw(MDrawContext* pDC)
 }
 void ZCombatInterface::DrawMyNamePont(MDrawContext* pDC)
 {
-	if(ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+	if(ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 		return;
 
 	ZCharacter* pCharacter = GetTargetCharacter();
@@ -817,7 +817,7 @@ void ZCombatInterface::DrawMyNamePont(MDrawContext* pDC)
 
 	sprintf(buffer,"%d  %s", pCharacter->GetProperty()->nLevel, pCharacter->GetProperty()->GetName());
 
-	if ( (ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUEL) || ( !pCharacter->IsObserverTarget()))
+	if ( (ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUEL) || ( !pCharacter->IsObserverTarget()))
 	{
 		float fCenterVert = 0.018f - (float)pFont->GetHeight()/(float)RGetScreenHeight()/2;
 		TextRelative(pDC,100.f/800.f,fCenterVert,buffer);
@@ -858,7 +858,7 @@ void ZCombatInterface::DrawPont(MDrawContext* pDC)
 		return;
 
 	// 듀얼 모드일때(옵져버 모드 아님)
-	if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
+	if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 	{
 		char	charName[ 3][ 32];
 		charName[0][0] = charName[1][0] = charName[2][0] = 0;
@@ -969,7 +969,7 @@ void ZCombatInterface::DrawScore(MDrawContext* pDC)
 		if (m_Chat.IsShow() == false)
 			m_bDrawScoreBoard = true;
 	}
-	else if( ZGetGame()->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PREPARE ) {
+	else if( ZGetGame()->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PREPARE ) {
 		int cur_round = ZGetGame()->GetMatch()->GetCurrRound();
 		//		int max_round = ZGetGame()->GetMatch()->GetRoundCount();
 
@@ -978,14 +978,14 @@ void ZCombatInterface::DrawScore(MDrawContext* pDC)
 		}
 	}
 
-	if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)
+	if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 	{
 		DrawTDMScore(pDC);
 	}
 
 	if ( m_bDrawScoreBoard ) {
 // _DUELTOURNAMENT
-		if (ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUELTOURNAMENT)
+		if (ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
 			DrawScoreBoard(pDC);
 		else
 			DrawDuelTournamentScoreBoard(pDC);
@@ -995,7 +995,7 @@ void ZCombatInterface::DrawScore(MDrawContext* pDC)
 void ZCombatInterface::DrawBuffStatus(MDrawContext* pDC)
 {
 	//버프정보임시주석 
-/*	if(ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUELTOURNAMENT)
+/*	if(ZGetGame()->GetMatch()->GetMatchType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
 		ZCharacter* pCharacter = GetTargetCharacter();
 		if (pCharacter == NULL) return;
@@ -1306,7 +1306,7 @@ void ZCombatInterface::DrawSoloSpawnTimeMessage(MDrawContext* pDC)
 	if(ZGetGame()->m_pMyCharacter->IsAdminHide()) return;
 
 	ZMatch* pMatch = ZGetGame()->GetMatch();
-	if (pMatch->GetRoundState() == MMATCH_ROUNDSTATE_PLAY)
+	if (pMatch->GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)
 	{
 		if (!pMatch->IsWaitForRoundEnd())
 		{
@@ -1459,7 +1459,7 @@ void ZCombatInterface::Update(float fElapsed)
 	bool bPre = false;
 
 	if(g_pGame&&g_pGame->GetMatch()) {
-//	if(g_pGame&&g_pGame->GetMatch()->GetRoundState()==MMATCH_ROUNDSTATE_PLAY) {
+//	if(g_pGame&&g_pGame->GetMatch()->GetRoundState()==CCMATCH_ROUNDSTATE_PLAY) {
 //	if(g_pGame&&(g_pGame->GetReadyState()==ZGAME_READYSTATE_RUN)) {
 
 	if(bPre) 
@@ -1474,7 +1474,7 @@ void ZCombatInterface::Update(float fElapsed)
 		else							fGauge = 0.f;
 
 		if( ZGetGame()->GetMatch()->GetCurrRound()==0 && 
-			ZGetGame()->GetMatch()->GetRoundState()==MMATCH_ROUNDSTATE_PREPARE)
+			ZGetGame()->GetMatch()->GetRoundState()==CCMATCH_ROUNDSTATE_PREPARE)
 			fGauge = 100.f;
 
 		ZGetScreenEffectManager()->SetGauge_HP(fGauge);
@@ -1893,7 +1893,7 @@ void ZCombatInterface::DrawPlayTime(MDrawContext* pDC, float xPos, float yPos)	/
 {
 	// #남은 시간을 얻고 싶으면 GetPlayTime()을 사용하세요
 	char szText[256];
-	if ( ZGetGame()->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PLAY)				// 플레이 중이라면
+	if ( ZGetGame()->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)				// 플레이 중이라면
 	{
 		DWORD dwTime = ZGetGame()->GetMatch()->GetRemaindTime();
 		DWORD dwLimitTime = ZGetGameClient()->GetMatchStageSetting()->GetStageSetting()->nLimitTime;
@@ -1920,7 +1920,7 @@ void ZCombatInterface::DrawPlayTime(MDrawContext* pDC, float xPos, float yPos)	/
 int ZCombatInterface::GetPlayTime()
 {
 	// 초단위로 남은 라운드 시간을 리턴, 무효값일 때 -1 리턴함
-	if ( ZGetGame()->GetMatch()->GetRoundState() != MMATCH_ROUNDSTATE_PLAY)
+	if ( ZGetGame()->GetMatch()->GetRoundState() != CCMATCH_ROUNDSTATE_PLAY)
 		return -1;
 
 	DWORD dwLimitTime = ZGetGameClient()->GetMatchStageSetting()->GetStageSetting()->nLimitTime;
@@ -2001,7 +2001,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 		}
 		else
 		{
-			if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2) // 팀전일때 무한데스매치만 예외가 많이 발생합니다 =_=;
+			if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2) // 팀전일때 무한데스매치만 예외가 많이 발생합니다 =_=;
 				sprintf(szText, "%s : %d(Red) vs %d(Blue)",  ZGetGameTypeManager()->GetGameTypeStr(ZGetGame()->GetMatch()->GetMatchType()),
 															ZGetGame()->GetMatch()->GetTeamKills(MMT_RED), 
 															ZGetGame()->GetMatch()->GetTeamKills(MMT_BLUE));
@@ -2080,9 +2080,9 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 	}
 
 	// 진행도 표시
-	if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
+	if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 	{
-		if ( ZGetGame()->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PLAY)				// 플레이 중이라면
+		if ( ZGetGame()->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)				// 플레이 중이라면
 		{
 			DWORD dwTime = ZGetGame()->GetMatch()->GetRemaindTime();
 			DWORD dwLimitTime = ZGetGameClient()->GetMatchStageSetting()->GetStageSetting()->nLimitTime;
@@ -2113,7 +2113,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 	// 라운드를 기다려야 하는 종류라면 라운드 표시 아니면 시간 표시
 	else if ( ZGetGame()->GetMatch()->IsWaitForRoundEnd() && !bClanGame)
 	{
-		if ( ZGetGame()->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PLAY)				// 플레이 중이라면
+		if ( ZGetGame()->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)				// 플레이 중이라면
 		{
 			DWORD dwTime = ZGetGame()->GetMatch()->GetRemaindTime();
 			DWORD dwLimitTime = ZGetGameClient()->GetMatchStageSetting()->GetStageSetting()->nLimitTime;
@@ -2157,7 +2157,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 	// 남은 시간 표시( 클랜전 제외)
 	else if ( !bClanGame)
 	{
-		if ( ZGetGame()->GetMatch()->GetRoundState() == MMATCH_ROUNDSTATE_PLAY)				// 플레이 중이라면
+		if ( ZGetGame()->GetMatch()->GetRoundState() == CCMATCH_ROUNDSTATE_PLAY)				// 플레이 중이라면
 		{
 			DWORD dwTime = ZGetGame()->GetMatch()->GetRemaindTime();
 			DWORD dwLimitTime = ZGetGameClient()->GetMatchStageSetting()->GetStageSetting()->nLimitTime;
@@ -2348,12 +2348,12 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 			pItem->bCommander = false;
 
 		// 버서커모드의 버서커
-		if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_BERSERKER)
+		if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_BERSERKER)
 		{
 			if (pCharacter->IsTagger()) pItem->bCommander = true;
 		}
 
-		if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
+		if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 		{
 			ZRuleDuel* pDuel = (ZRuleDuel*)ZGetGame()->GetMatch()->GetRule();	// 위험 -_-
 			pItem->nDuelQueueIdx = pDuel->GetQueueIdx(pCharacter->GetUID());
@@ -2570,7 +2570,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 
 			MCOLOR color = pDC->GetColor();
 
-			if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
+			if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUEL)
 			{
 				if(!pItem->bDeath)
 					pDC->SetColor( 200, 0, 0);
@@ -3074,7 +3074,7 @@ void ZCombatInterface::GetResultInfo( void)
 				AddClanResultInfoLose( pItem->szName, pItem->nScore, pItem->nKills, pItem->nDeaths, pItem->bMyChar, pItem->bGameRoomUser);
 		}
 	}
-	else if(ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)	// 듀얼토너먼트면..
+	else if(ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)	// 듀얼토너먼트면..
 	{
 		strcpy( szFileName, "Interface/loadable/rstbg_deathmatch.jpg");
 		pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DuelTournamentResult");
@@ -3174,7 +3174,7 @@ void ZCombatInterface::GetResultInfo( void)
 
 		// 이미지 설정
 		MPicture* pPicture;
-		if ( ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DEATHMATCH_TEAM2)		// 으아아아악
+		if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)		// 으아아아악
 		{
 			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_Finish");
 			if ( pPicture)
@@ -3846,7 +3846,7 @@ void ZCombatInterface::DrawAfterWidgets( MDrawContext* pDC )
 {
 	// 듀얼토너먼트 결과창용 대진표를 그린다.
 	if(m_bShowResult)
-		if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+		if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 			((ZRuleDuelTournament*)ZGetGame()->GetMatch()->GetRule())->ShowMatchOrder(pDC, true, m_fElapsed);
 }
 

@@ -391,7 +391,7 @@ protected:
 	void OnRequestObtainWorldItem(const CCUID& uidPlayer, const int nItemUID);
 	void OnRequestSpawnWorldItem(const CCUID& uidPlayer, const int nItemID, const float x, const float y, const float z, float fDropDelayTime);
 	void OnNotifyThrowTrapItem(const CCUID& uidPlayer, const int nItemID);
-	void OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const MVector3& pos);
+	void OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const CCVector3& pos);
 
 	void OnUserWhisper(const CCUID& uidComm, char* pszSenderName, char* pszTargetName, char* pszMessage);
 	void OnUserWhere(const CCUID& uidComm, char* pszTargetName);
@@ -494,7 +494,7 @@ public:
 	void BroadCastDuelRenewVictories(const CCUID& chanID, const char* szChampionName, const char* szChannelName, int nRoomNumber, const int nVictories);
 	void BroadCastDuelInterruptVictories(const CCUID& chanID, const char* szChampionName, const char* szInterrupterName, const int nVictories);
 public:
-	friend MVoteDiscuss;
+	friend CCVoteDiscuss;
 	// ÅõÃÝ°ü·Ã.
 	void OnVoteCallVote(const CCUID& uidPlayer, const char* pszDiscuss, const char* pszArg);
 	void OnVoteYes(const CCUID& uidPlayer);
@@ -839,7 +839,7 @@ protected :
 	void ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType);
 	void ResponseDuelTournamentCancelChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType);	
 
-	bool OnSyncRequest_InsertDuelTournamentGameLog(CCDUELTOURNAMENTTYPE nDTType, int nMatchFactor, MDuelTournamentPickedGroup *pPickedGroup, int *nOutNumber, char *szOutTimeStamp);
+	bool OnSyncRequest_InsertDuelTournamentGameLog(CCDUELTOURNAMENTTYPE nDTType, int nMatchFactor, CCDuelTournamentPickedGroup *pPickedGroup, int *nOutNumber, char *szOutTimeStamp);
 	
 	void OnAsyncResponse_GetDuelTournamentTimeStamp(MAsyncJob *pJobResult);
 	void OnAsyncResponse_GetDuelTournamentCharacterInfo(MAsyncJob *pJobResult);
@@ -858,12 +858,12 @@ protected :
 	void PostCmdDuelTournamentCharSideRankingInfo(CCUID uidPlayer, list<DTRankingInfo*>* pSideRankingList);	
 	void PostCmdDuelTournamentCancelMatch(CCUID uidPlayer, int nErrorCode);
 
-	void RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, MDuelTournamentPickedGroup *pPickedGroup);	
+	void RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, CCDuelTournamentPickedGroup *pPickedGroup);	
 	void RouteCmdDuelTournamentLaunchMatch(CCUID uidStage);
-	void RouteCmdDuelTournamentCancelMatch(MDuelTournamentPickedGroup *pPickedGroup, int nErrorCode);
+	void RouteCmdDuelTournamentCancelMatch(CCDuelTournamentPickedGroup *pPickedGroup, int nErrorCode);
 
 public:	
-	void LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, MDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
+	void LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, MDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor);
 
 	void SendDuelTournamentPreviousCharInfoToPlayer(CCUID uidPlayer);
 	void SendDuelTournamentCharInfoToPlayer(CCUID uidPlayer);

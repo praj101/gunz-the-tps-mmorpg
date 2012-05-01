@@ -31,7 +31,7 @@ ZSurvival::ZSurvival() : m_bLoaded(false), m_bCreatedOnce(false)
 
 	m_bIsQuestComplete = false;
 
-	m_QuestCombatState = MQUEST_COMBAT_NONE;
+	m_QuestCombatState = CCQUEST_COMBAT_NONE;
 
 	m_nRewardXP = 0;
 	m_nRewardBP = 0;
@@ -310,7 +310,7 @@ bool ZSurvival::OnNPCSpawn(MCommand* pCommand)
 	pCommand->GetParameter(&nPositionIndex,		3, MPT_UCHAR);
 
 
-	MQUEST_NPC NPCType = MQUEST_NPC(nNPCType);
+	CCQUEST_NPC NPCType = CCQUEST_NPC(nNPCType);
 
 	ZMapSpawnType nSpawnType = ZMST_NPC_MELEE;
 
@@ -808,11 +808,11 @@ bool ZSurvival::OnQuestCombatState(MCommand* pCommand)
 
 	switch (nCombatState)
 	{
-	case MQUEST_COMBAT_PREPARE:
+	case CCQUEST_COMBAT_PREPARE:
 		{
 		}
 		break;
-	case MQUEST_COMBAT_PLAY:
+	case CCQUEST_COMBAT_PLAY:
 		{
 			ZGetObjectManager()->GetNPCObjectMap()->ForceInvisibleNewNpc(false);
 			ZGetEffectManager()->Clear();
@@ -821,7 +821,7 @@ bool ZSurvival::OnQuestCombatState(MCommand* pCommand)
 			ZGetWorldItemManager()->EnableDraw(true);
 		}
 		break;
-	case MQUEST_COMBAT_COMPLETED:
+	case CCQUEST_COMBAT_COMPLETED:
 		{
 			// 서바이벌이므로 마지막 섹터라도 포탈을 찍어야 한다. 그러나 마지막 반복의 막판이라면 포탈을 없게한다
 			if (!m_GameInfo.IsLastSectorInSurvival())
@@ -1090,7 +1090,7 @@ void ZSurvival::LoadNPCMeshes()
 
 	for (int i = 0; i < m_GameInfo.GetNPCInfoCount(); i++)
 	{
-		MQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
+		CCQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
 
 		ZGetNpcMeshMgr()->Load(GetNPCInfo(npc)->szMeshName);
 	}
@@ -1112,7 +1112,7 @@ void ZSurvival::LoadNPCSounds()
 
 	for (int i = 0; i < m_GameInfo.GetNPCInfoCount(); i++)
 	{
-		MQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
+		CCQUEST_NPC npc = m_GameInfo.GetNPCInfo(i);
 		if (!pSE->LoadNPCResource(npc))
 		{
 			cclog("failed npc sound\n");

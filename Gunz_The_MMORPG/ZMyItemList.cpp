@@ -291,7 +291,7 @@ void ZMyItemList::SerializeQItemList()
 	ZShopEquipItem_Quest* pWrappedItem;
 	ZShopEquipItemHandle_SellQuest* pHandleSell;
 
-	for ( MQUESTITEMNODEMAP::iterator itor = m_QuestItemMap.begin();  itor != m_QuestItemMap.end();  itor++)
+	for ( CCQUESTITEMNODEMAP::iterator itor = m_QuestItemMap.begin();  itor != m_QuestItemMap.end();  itor++)
 	{
 		ZMyQuestItemNode* pItemNode = (*itor).second;
 		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( pItemNode->GetItemID());

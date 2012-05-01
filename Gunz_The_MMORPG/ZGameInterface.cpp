@@ -356,7 +356,7 @@ ZGameInterface::ZGameInterface(const char* szName, MWidget* pParent, MListener* 
 
 	m_pMonsterBookInterface = new ZMonsterBookInterface();
 
-//	ZApplication::GetStageInterface()->SetMapName( MMATCH_DEFAULT_STAGESETTING_MAPNAME);
+//	ZApplication::GetStageInterface()->SetMapName( CCMATCH_DEFAULT_STAGESETTING_MAPNAME);
 	m_pMapThumbnail=NULL;
 
 	m_pCharacterSelectView = NULL;
@@ -1242,7 +1242,7 @@ bool ZGameInterface::OnGameCreate(void)
 	if( (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_STANDALONE_REPLAY) ||
 		(ZGetGameClient()->IsLadderGame()) || 
 		ZGetGameTypeManager()->IsQuestDerived(ZGetGameClient()->GetMatchStageSetting()->GetGameType()) ||
-		ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+		ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
 		m_CombatMenu.EnableItem(ZCombatMenu::ZCMI_BATTLE_EXIT, false);
 	}
@@ -2059,7 +2059,7 @@ void ZGameInterface::OnStageCreate(void)
 	// 방장이면 현재 게임 설정을 다시 설정한다.
 	if ( ZGetGameClient() && ZGetGameClient()->AmIStageMaster())
 	{
-		MChannelRule* pRule = ZGetChannelRuleMgr()->GetRule( ZGetGameClient()->GetChannelRuleName());
+		CCChannelRule* pRule = ZGetChannelRuleMgr()->GetRule( ZGetGameClient()->GetChannelRuleName());
 		if ( pRule)
 		{
 			MComboBox* pCB = (MComboBox*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageType");				
@@ -2546,20 +2546,20 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 
 	// 매치 타입을 다시 읽어들인다.
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_DEATHMATCH_SOLO, ZMsg( MSG_MT_DEATHMATCH_SOLO));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_DEATHMATCH_TEAM, ZMsg( MSG_MT_DEATHMATCH_TEAM));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_GLADIATOR_SOLO, ZMsg( MSG_MT_GLADIATOR_SOLO));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_GLADIATOR_TEAM, ZMsg( MSG_MT_GLADIATOR_TEAM));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_ASSASSINATE, ZMsg( MSG_MT_ASSASSINATE));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_TRAINING, ZMsg( MSG_MT_TRAINING));
-//	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_CLASSIC_SOLO, ZMsg( MSG_MT_CLASSIC_SOLO));
-//	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_CLASSIC_TEAM, ZMsg( MSG_MT_CLASSIC_TEAM));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_SURVIVAL, ZMsg( MSG_MT_SURVIVAL));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_QUEST, ZMsg( MSG_MT_QUEST));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_BERSERKER, ZMsg( MSG_MT_BERSERKER));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_DEATHMATCH_TEAM2, ZMsg( MSG_MT_DEATHMATCH_TEAM2));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_DUEL, ZMsg( MSG_MT_DUEL));
-	ZGetGameTypeManager()->SetGameTypeStr( MMATCH_GAMETYPE_DUELTOURNAMENT, ZMsg( MSG_MT_DUELTOURNAMENT));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_DEATHMATCH_SOLO, ZMsg( MSG_MT_DEATHMATCH_SOLO));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_DEATHMATCH_TEAM, ZMsg( MSG_MT_DEATHMATCH_TEAM));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_GLADIATOR_SOLO, ZMsg( MSG_MT_GLADIATOR_SOLO));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_GLADIATOR_TEAM, ZMsg( MSG_MT_GLADIATOR_TEAM));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_ASSASSINATE, ZMsg( MSG_MT_ASSASSINATE));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_TRAINING, ZMsg( MSG_MT_TRAINING));
+//	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_CLASSIC_SOLO, ZMsg( MSG_MT_CLASSIC_SOLO));
+//	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_CLASSIC_TEAM, ZMsg( MSG_MT_CLASSIC_TEAM));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_SURVIVAL, ZMsg( MSG_MT_SURVIVAL));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_QUEST, ZMsg( MSG_MT_QUEST));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_BERSERKER, ZMsg( MSG_MT_BERSERKER));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_DEATHMATCH_TEAM2, ZMsg( MSG_MT_DEATHMATCH_TEAM2));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_DUEL, ZMsg( MSG_MT_DUEL));
+	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_DUELTOURNAMENT, ZMsg( MSG_MT_DUELTOURNAMENT));
 
 #ifndef _DEBUG
 	MWidget* pWidget = m_IDLResource.FindWidget( "MonsterBookCaller");
@@ -5547,9 +5547,9 @@ void ZGameInterface::RequestQuickJoin()
 
 	// 트레이닝, 칼전은 뺀다.
 	quick_join_param.nModeEnum = 0;
-	SetBitSet(quick_join_param.nModeEnum, MMATCH_GAMETYPE_DEATHMATCH_SOLO);
-	SetBitSet(quick_join_param.nModeEnum, MMATCH_GAMETYPE_DEATHMATCH_TEAM);
-	SetBitSet(quick_join_param.nModeEnum, MMATCH_GAMETYPE_ASSASSINATE);
+	SetBitSet(quick_join_param.nModeEnum, CCMATCH_GAMETYPE_DEATHMATCH_SOLO);
+	SetBitSet(quick_join_param.nModeEnum, CCMATCH_GAMETYPE_DEATHMATCH_TEAM);
+	SetBitSet(quick_join_param.nModeEnum, CCMATCH_GAMETYPE_ASSASSINATE);
 
 
 

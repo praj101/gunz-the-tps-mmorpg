@@ -27,32 +27,32 @@ using namespace std;
 // 등급 - 이것은 디비의 UserGrade테이블과 싱크가 맞아야 한다.
 enum CCMatchUserGradeID
 {
-	MMUG_FREE			= 0,	// 무료 계정
-	MMUG_REGULAR		= 1,	// 정액 유저
-	MMUG_STAR			= 2,	// 스타유저(게임짱)
+	CCMUGFREE			= 0,	// 무료 계정
+	CCMUGREGULAR		= 1,	// 정액 유저
+	CCMUGSTAR			= 2,	// 스타유저(게임짱)
 
-	MMUG_CRIMINAL		= 100,	// 전과자
-	MMUG_WARNING_1		= 101,	// 1차 경고
-	MMUG_WARNING_2		= 102,	// 2차 경고
-	MMUG_WARNING_3		= 103,	// 3차 경고
-	MMUG_CHAT_LIMITED	= 104,  // 채팅 금지
-	MMUG_PENALTY		= 105,	// 기간 정지
+	CCMUGCRIMINAL		= 100,	// 전과자
+	CCMUGWARNING_1		= 101,	// 1차 경고
+	CCMUGWARNING_2		= 102,	// 2차 경고
+	CCMUGWARNING_3		= 103,	// 3차 경고
+	CCMUGCHAT_LIMITED	= 104,  // 채팅 금지
+	CCMUGPENALTY		= 105,	// 기간 정지
 
-	MMUG_EVENTMASTER	= 252,	// 이벤트 진행자
-	MMUG_BLOCKED		= 253,	// 사용 정지
-	MMUG_DEVELOPER		= 254,	// 개발자
-	MMUG_ADMIN			= 255	// 관리자
+	CCMUGEVENTMASTER	= 252,	// 이벤트 진행자
+	CCMUGBLOCKED		= 253,	// 사용 정지
+	CCMUGDEVELOPER		= 254,	// 개발자
+	CCMUGADMIN			= 255	// 관리자
 };
 
 
 
 enum CCMatchDisconnectStatus
 {
-	MMDS_CONNECTED = 1,
-	MMDS_DISCONN_WAIT,
-	MMDS_DISCONNECT,
+	CCMDS_CONNECTED = 1,
+	CCMDS_DISCONN_WAIT,
+	CCMDS_DISCONNECT,
 
-	MMDS_END,
+	CCMDS_END,
 };
 
 
@@ -89,7 +89,7 @@ struct CCMatchAccountInfo
 
 	int						m_nCCode;
 
-	CCMatchAccountInfo() : m_nAID(-1), m_nUGrade(MMUG_FREE), m_nPGrade(MMPG_FREE), m_nCCode(0)
+	CCMatchAccountInfo() : m_nAID(-1), m_nUGrade(CCMUGFREE), m_nPGrade(MMPG_FREE), m_nCCode(0)
 	{
 		m_HackingType				= CCMHT_NO;
 		m_dwHackingBlockEndTimeMS	= 0;
@@ -389,7 +389,7 @@ class CCMatchDisconnStatusInfo
 public :
 	CCMatchDisconnStatusInfo() 
 	{
-		m_DisconnStatus						= MMDS_CONNECTED;
+		m_DisconnStatus						= CCMDS_CONNECTED;
 		m_dwLastDisconnStatusUpdatedTime	= timeGetTime();
 		m_bIsSendDisconnMsg					= false;
 		m_dwDisconnSetTime					= 0;
@@ -442,7 +442,7 @@ public :
 	
 	void Update( const DWORD dwTime )
 	{
-		if( (dwTime - GetLastUpdatedTime()) > MINTERVAL_DISCONNECT_STATUS_MIN ) 
+		if( (dwTime - GetLastUpdatedTime()) > CCINTERVAL_DISCONNECT_STATUS_MIN ) 
 		{
 			if( CCMDS_DISCONN_WAIT == GetStatus() ) {
 				SetStatus( CCMDS_DISCONNECT );		
@@ -467,7 +467,7 @@ private :
 	bool					m_bIsSendDisconnMsg;
 	bool					m_bIsUpdateDB;
 
-	const static DWORD MINTERVAL_DISCONNECT_STATUS_MIN;
+	const static DWORD CCINTERVAL_DISCONNECT_STATUS_MIN;
 };
 
 
@@ -962,13 +962,13 @@ public:
 	const string&	GetCountryCode3() const							{ return m_strCountryCode3; }
 
 	void DisconnectHacker( CCMatchHackingType eType );
-// 	void SetXTrapHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetHShieldHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetBadFileCRCDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetBadUserDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetGameguardHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetDllInjectionDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
-// 	void SetInvalidStageSettingDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = MMDS_DISCONN_WAIT );
+// 	void SetXTrapHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = CCMDS_DISCONN_WAIT );
+// 	void SetHShieldHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = CCMDS_DISCONN_WAIT );
+// 	void SetBadFileCRCDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = CCMDS_DISCONN_WAIT );
+// 	void SetBadUserDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = CCMDS_DISCONN_WAIT );
+// 	void SetGameguardHackerDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = CCMDS_DISCONN_WAIT );
+// 	void SetDllInjectionDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = CCMDS_DISCONN_WAIT );
+// 	void SetInvalidStageSettingDisconnectWaitInfo( const CCMatchDisconnectStatus DisStatus = CCMDS_DISCONN_WAIT );
 
 public:
 	enum CCMO_ACTION
@@ -1162,9 +1162,9 @@ inline bool IsEnabledObject(CCMatchObject* pObject)
 
 inline bool IsAdminGrade(CCMatchUserGradeID nGrade) 
 {
-	if ((nGrade == MMUG_EVENTMASTER) || 
-		(nGrade == MMUG_ADMIN) || 
-		(nGrade == MMUG_DEVELOPER))
+	if ((nGrade == CCMUGEVENTMASTER) || 
+		(nGrade == CCMUGADMIN) || 
+		(nGrade == CCMUGDEVELOPER))
 		return true;
 
 	return false;

@@ -116,7 +116,7 @@ public:
 	CCMatchPremiumGradeID	GetPGradeID()		{ return m_nPGradeID; }
 	CCMatchClanGrade		GetClanGrade()	{ return m_nClanGrade; }
 	bool				IsAdminGrade() {
-		if ( (GetUGradeID() == MMUG_EVENTMASTER) || (GetUGradeID() == MMUG_DEVELOPER) || (GetUGradeID() == MMUG_ADMIN) )
+		if ( (GetUGradeID() == CCMUGEVENTMASTER) || (GetUGradeID() == CCMUGDEVELOPER) || (GetUGradeID() == CCMUGADMIN) )
 			return true;
 		else
 			return false;

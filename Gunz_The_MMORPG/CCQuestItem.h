@@ -1,5 +1,5 @@
-#ifndef _MQUEST_ITEM_H
-#define _MQUEST_ITEM_H
+#ifndef _CCQUEST_ITEM_H
+#define _CCQUEST_ITEM_H
 
 #include "CCUID.h"
 #include <map>

@@ -161,7 +161,7 @@ void CCMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 		Make_MTDWorldItem(pNode, pWorldItem);
 
 		CCMatchRule* pRule = m_pMatchStage->GetRule();					// °«µ© -_-;
-		if (pRule->GetGameType() == MMATCH_GAMETYPE_DUEL && pWorldItem->nItemID < 100)
+		if (pRule->GetGameType() == CCMATCH_GAMETYPE_DUEL && pWorldItem->nItemID < 100)
 			return;
 
 	}
@@ -274,7 +274,7 @@ void CCMatchWorldItemManager::OnStageBegin(CCMatchStageSetting* pStageSetting)
 	
 	m_SpawnInfos.clear();
 
-	if ((nMapID < 0) || (nMapID >= MMATCH_MAP_COUNT)) return;
+	if ((nMapID < 0) || (nMapID >= CCMATCH_MAP_COUNT)) return;
 	if (MGetGameTypeMgr()->IsWorldItemSpawnEnable(pStageSetting->GetGameType()))
 	{
 		CCMatchMapsWorldItemSpawnInfoSet* pSpawnInfoSet = &MGetMapsWorldItemSpawnInfo()->m_MapsSpawnInfo[nMapID];
@@ -442,7 +442,7 @@ void CCMatchWorldItemManager::RouteRemoveWorldItem(int nWorldItemUID)
 void CCMatchWorldItemManager::RouteSpawnWorldItem(CCMatchWorldItem* pWorldItem)
 {
 	CCMatchRule* pRule = m_pMatchStage->GetRule();					// °«µ© -_-;
-	if (pRule->GetGameType() == MMATCH_GAMETYPE_DUEL && pWorldItem->nItemID < 100)
+	if (pRule->GetGameType() == CCMATCH_GAMETYPE_DUEL && pWorldItem->nItemID < 100)
 		return;
 
 

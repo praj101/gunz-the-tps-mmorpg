@@ -350,7 +350,7 @@ void ChatCmd_Whisper(const char* line, const int argc, char **const argv)
 		return;
 	}
 
-	if (ZGetMyInfo()->GetUGradeID() == MMUG_CHAT_LIMITED)
+	if (ZGetMyInfo()->GetUGradeID() == CCMUGCHAT_LIMITED)
 	{
 		ZChatOutput( ZMsg(MSG_CANNOT_CHAT) );
 		return;
@@ -903,7 +903,7 @@ void ChatCmd_Clan(const char* line, const int argc, char **const argv)
 		break;
 	case ZClanCommandHelper::ZCLANCMD_MSG:
 		{
-			if (ZGetMyInfo()->GetUGradeID() == MMUG_CHAT_LIMITED)
+			if (ZGetMyInfo()->GetUGradeID() == CCMUGCHAT_LIMITED)
 			{
 				ZChatOutput( ZMsg(MSG_CANNOT_CHAT) );
 				break;

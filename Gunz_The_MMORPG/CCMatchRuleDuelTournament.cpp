@@ -53,9 +53,9 @@ void CCMatchRuleDuelTournament::OnBegin()
 		for(CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {			
 			CCMatchObject *pObj = CCMatchServer::GetInstance()->GetObject((*itor).first);
 			if( pObj != NULL ) {
-				MDuelTournamentPlayerInfo *pInfo = new MDuelTournamentPlayerInfo;
+				CCDuelTournamentPlayerInfo *pInfo = new CCDuelTournamentPlayerInfo;
 
-				memset(pInfo, 0, sizeof(MDuelTournamentPlayerInfo));
+				memset(pInfo, 0, sizeof(CCDuelTournamentPlayerInfo));
 				pInfo->nCID = pObj->GetCharInfo()->m_nCID;
 				pInfo->bInMatch = false;
 
@@ -527,17 +527,17 @@ void CCMatchRuleDuelTournament::RecordGameResult()
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
-void CCMatchRuleDuelTournament::SetDTRoundState(MMATCH_ROUNDSTATE nState)
+void CCMatchRuleDuelTournament::SetDTRoundState(CCMATCH_ROUNDSTATE nState)
 { 	
 	m_nRoundState = nState;
 	SetRoundStateTimer(CCMatchServer::GetInstance()->GetGlobalClockCount());
 
 	// 라운드가 새로 시작되면 라운드 초기화
-	if (nState == MMATCH_ROUNDSTATE_COUNTDOWN) {
+	if (nState == CCMATCH_ROUNDSTATE_COUNTDOWN) {
 		InitRound();
-	} else if( nState == MMATCH_ROUNDSTATE_PRE_COUNTDOWN ) {
+	} else if( nState == CCMATCH_ROUNDSTATE_PRE_COUNTDOWN ) {
 		OnPreCountDown();
-	} else if( nState == MMATCH_ROUNDSTATE_PLAY ) {
+	} else if( nState == CCMATCH_ROUNDSTATE_PLAY ) {
 		OnRoundBegin();
 	}
 
@@ -551,41 +551,41 @@ bool CCMatchRuleDuelTournament::OnRun()
 
 	switch (GetRoundState())
 	{
-	case MMATCH_ROUNDSTATE_PREPARE:	{
+	case CCMATCH_ROUNDSTATE_PREPARE:	{
 			if (GetStage()->CheckBattleEntry() == true) {
 				if (OnCheckEnableBattleCondition()) {
-					if( m_MatchRecord.bMatchFinish )	SetDTRoundState(MMATCH_ROUNDSTATE_PRE_COUNTDOWN);
-					else								SetDTRoundState(MMATCH_ROUNDSTATE_COUNTDOWN);
+					if( m_MatchRecord.bMatchFinish )	SetDTRoundState(CCMATCH_ROUNDSTATE_PRE_COUNTDOWN);
+					else								SetDTRoundState(CCMATCH_ROUNDSTATE_COUNTDOWN);
 				}
-				else									SetDTRoundState(MMATCH_ROUNDSTATE_FREE);
+				else									SetDTRoundState(CCMATCH_ROUNDSTATE_FREE);
 			}
 			return true;
 
 		}
 
-	case MMATCH_ROUNDSTATE_PRE_COUNTDOWN : {
+	case CCMATCH_ROUNDSTATE_PRE_COUNTDOWN : {
 			DWORD dwPeriod = DUELTOURNAMENT_PRECOUNTDOWN_NEXTMATCH_SHOWTIME;
 			if (m_CurrentMatchInfo.nMatchNumber != 1)
 				dwPeriod += DUELTOURNAMENT_PRECOUNTDOWN_WINLOSE_SHOWTIME;
 
-			if (nClock - GetRoundStateTimer() > dwPeriod) {SetDTRoundState(MMATCH_ROUNDSTATE_COUNTDOWN);}
+			if (nClock - GetRoundStateTimer() > dwPeriod) {SetDTRoundState(CCMATCH_ROUNDSTATE_COUNTDOWN);}
 			return true;
 		}
 
-	case MMATCH_ROUNDSTATE_COUNTDOWN: {
-			if (nClock - GetRoundStateTimer() > 2*1000) {SetDTRoundState(MMATCH_ROUNDSTATE_PLAY);}
+	case CCMATCH_ROUNDSTATE_COUNTDOWN: {
+			if (nClock - GetRoundStateTimer() > 2*1000) {SetDTRoundState(CCMATCH_ROUNDSTATE_PLAY);}
 			return true;
 		}
 
-	case MMATCH_ROUNDSTATE_PLAY: {
+	case CCMATCH_ROUNDSTATE_PLAY: {
 			// 게임하지 못할 상황이면 Free상태로 변환
-			if (!OnCheckEnableBattleCondition()) {SetDTRoundState(MMATCH_ROUNDSTATE_FREE);}
+			if (!OnCheckEnableBattleCondition()) {SetDTRoundState(CCMATCH_ROUNDSTATE_FREE);}
 
 			if (OnCheckRoundFinish()) {
 				if( m_RoundRecord.nFinishTime == 0 ) {m_RoundRecord.nFinishTime = nClock;} 
 				else if( nClock - m_RoundRecord.nFinishTime > 1500) {
 					m_RoundRecord.nFinishTime = 0;
-					SetDTRoundState( MMATCH_ROUNDSTATE_FINISH );					
+					SetDTRoundState( CCMATCH_ROUNDSTATE_FINISH );					
 				}				
 			} else if (OnCheckBattleTimeOut(nClock - GetRoundStateTimer()) 
 				&& m_CurrentMatchInfo.nRoundState != MDUELTOURNAMENTROUNDSTATE_FINAL) 
@@ -599,22 +599,22 @@ bool CCMatchRuleDuelTournament::OnRun()
 			return true;
 		}
 
-	case MMATCH_ROUNDSTATE_FINISH: {
+	case CCMATCH_ROUNDSTATE_FINISH: {
 			if (nClock - GetRoundStateTimer() > 1*1000) {				
 				OnRoundEnd();
 
-				if (RoundCount() == true)	{ SetDTRoundState(MMATCH_ROUNDSTATE_PREPARE);} 
-				else						{ SetDTRoundState(MMATCH_ROUNDSTATE_EXIT);}
+				if (RoundCount() == true)	{ SetDTRoundState(CCMATCH_ROUNDSTATE_PREPARE);} 
+				else						{ SetDTRoundState(CCMATCH_ROUNDSTATE_EXIT);}
 			} 
 			return true;
 		}
 
-	case MMATCH_ROUNDSTATE_FREE: {
-			if (OnCheckEnableBattleCondition()) {SetDTRoundState(MMATCH_ROUNDSTATE_PREPARE);}
+	case CCMATCH_ROUNDSTATE_FREE: {
+			if (OnCheckEnableBattleCondition()) {SetDTRoundState(CCMATCH_ROUNDSTATE_PREPARE);}
 			return true;
 		}
 
-	case MMATCH_ROUNDSTATE_EXIT: {
+	case CCMATCH_ROUNDSTATE_EXIT: {
 			return false;
 		}
 
@@ -681,8 +681,8 @@ void CCMatchRuleDuelTournament::SendDuelTournamentGameInfo(bool bIsRoundEnd)
 	DTGameInfo.nRoundCount	= m_MatchRecord.nRoundCount;
 
 	int i = 0;
-	for (MDuelTournamentPlayerMap::iterator iter = m_DTPlayerMap.begin(); iter != m_DTPlayerMap.end(); ++iter){
-		MDuelTournamentPlayerInfo* pInfo = (*iter).second;
+	for (CCDuelTournamentPlayerMap::iterator iter = m_DTPlayerMap.begin(); iter != m_DTPlayerMap.end(); ++iter){
+		CCDuelTournamentPlayerInfo* pInfo = (*iter).second;
 		if( pInfo->bOutGame == false && pInfo->bInMatch == false ) 
 			DTGameInfo.WaitPlayerList[i++] = (*iter).first;
 	}

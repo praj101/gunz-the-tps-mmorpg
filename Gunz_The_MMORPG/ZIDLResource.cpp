@@ -494,7 +494,7 @@ ZRoomListBox* ZIDLResource::GetRoomListBox( CCXmlElement& element )
 				childElement.GetContents(szAttr);
 				MBitmap* pBitmap = GetBitmap(childElement);
 				if( pBitmap != 0 )
-					pWidget->SetIconImage( (MMATCH_GAMETYPE)mode, pBitmap );
+					pWidget->SetIconImage( (CCMATCH_GAMETYPE)mode, pBitmap );
 			}
 		}
 		else if ( strcmp(szBuf, "SIZE") == 0 )

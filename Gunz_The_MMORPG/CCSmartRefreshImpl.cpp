@@ -10,7 +10,7 @@ bool CCRefreshCategoryChannelImpl::OnUpdateChecksum(unsigned long nTick)
 {
 	unsigned long nChecksum = 0;
 	int nPage = GetCategory();
-	MChannelUserArray* pArray = GetMatchChannel()->GetUserArray();
+	CCChannelUserArray* pArray = GetMatchChannel()->GetUserArray();
 	for (int i=0; i<pArray->GetPageSize(); i++) {
 		CCMatchObject* pObj = pArray->Get(nPage,i);
 		if (pObj == NULL) continue;

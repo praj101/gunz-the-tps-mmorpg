@@ -48,7 +48,7 @@ protected:
 	short					m_nItemID;						// 아이템 ID
 	char					m_Name[MAX_NAME_LENGTH];		// 아이템 이름
 	char					m_modelName[MAX_NAME_LENGTH];	// 모델 이름
-	MMATCH_WORLD_ITEM_TYPE	m_Type;							// 아이템의 종류
+	CCMATCH_WORLD_ITEM_TYPE	m_Type;							// 아이템의 종류
 	ZWORLD_ITEM_STATE		m_State;						// 아이템의 상태
 	MTD_WorldItemSubType	m_SubType;
 	rvector					m_Position;						// 아이템의 월드 위치
@@ -76,7 +76,7 @@ public:
 	void SetDir( const rvector& p )						{ m_Dir = p; };
 	void SetUp( const rvector& p )						{ m_Up = p; };
 	void SetState( ZWORLD_ITEM_STATE state )		{ m_State	= state; };
-	void SetType( MMATCH_WORLD_ITEM_TYPE type )	{ m_Type = type; };
+	void SetType( CCMATCH_WORLD_ITEM_TYPE type )	{ m_Type = type; };
 	void SetName( char* szName )							{ strcpy(m_Name, szName );	};
 	void SetModelName( char* szName )						{ strcpy(m_modelName, szName );	};
 	
@@ -86,7 +86,7 @@ public:
 	rvector GetDir() const									{ return m_Dir; };
 	rvector GetUp() const									{ return m_Up; };
 
-	MMATCH_WORLD_ITEM_TYPE GetType() const	{ return m_Type;	};
+	CCMATCH_WORLD_ITEM_TYPE GetType() const	{ return m_Type;	};
 	ZWORLD_ITEM_STATE GetState() const				{ return m_State; };
 	int GetID() const										{ return m_nID;	};	
 	short GetItemID() const											{ return m_nItemID; }

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCMatchChannelRule.h"
 
-CCMatchChannelRuleMgr::CCMatchChannelRuleMgr() : MChannelRuleMgr()
+CCMatchChannelRuleMgr::CCMatchChannelRuleMgr() : CCChannelRuleMgr()
 {
 
 }
