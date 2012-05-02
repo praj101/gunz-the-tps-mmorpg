@@ -29,9 +29,9 @@ class ZShopEquipListbox : public MMultiColListBox
 {
 	int m_idxItemLastTooltip;
 public:
-	ZShopEquipListbox(const char* szName, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZShopEquipListbox(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
 	void SetupItemDescTooltip();
 	char* GetItemDescTooltipName();
@@ -43,16 +43,16 @@ public:
 };
 
 
-void ShopPurchaseItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
-void ShopSaleItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
-void CharacterEquipmentItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+void ShopPurchaseItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+void ShopSaleItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+void CharacterEquipmentItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 
 
-MListener* ZGetShopListFilterListener(void);
-MListener* ZGetEquipListFilterListener(void);
+CCListener* ZGetShopListFilterListener(void);
+CCListener* ZGetEquipListFilterListener(void);
 
-MListener* ZGetShopSellItemListBoxListener(void);
-//MListener* ZGetCashShopItemListBoxListener(void);
-MListener* ZGetShopPurchaseItemListBoxListener(void);
-MListener* ZGetEquipmentMyItemListBoxListener(void);
-MListener* ZGetAccountItemListBoxListener(void);
+CCListener* ZGetShopSellItemListBoxListener(void);
+//CCListener* ZGetCashShopItemListBoxListener(void);
+CCListener* ZGetShopPurchaseItemListBoxListener(void);
+CCListener* ZGetEquipmentMyItemListBoxListener(void);
+CCListener* ZGetAccountItemListBoxListener(void);

@@ -96,26 +96,26 @@ public:
 		Clear();
 	}
 
-	RRenderNode(int Rmode,rmatrix& m,RMeshNode* pMNode,int nMtrl,int begin,int size,float vis_alpha) {
+	RRenderNode(int Rmode,rmatrix& m,RMeshNode* pCCNode,int nMtrl,int begin,int size,float vis_alpha) {
 		Clear();
-		Set(Rmode,m,pMNode,nMtrl,begin,size,vis_alpha);
+		Set(Rmode,m,pCCNode,nMtrl,begin,size,vis_alpha);
 	}
 
 	// 임시 예전것때문..
-	void Set(int Rmode,rmatrix& m,RMeshNode* pMNode,RMtrl* pMtrl,int begin,int size,float vis_alpha) {
+	void Set(int Rmode,rmatrix& m,RMeshNode* pCCNode,RMtrl* pMtrl,int begin,int size,float vis_alpha) {
 		m_RenderMode = Rmode;
 		m_matWorld = m;
-		m_pNode = pMNode;
+		m_pNode = pCCNode;
 		m_pMtrl = pMtrl;
 		m_begin = begin;
 		m_size	= size;
 		m_vis_alpha = vis_alpha;
 	}
 
-	void Set(int Rmode,rmatrix& m,RMeshNode* pMNode,int nMtrl,int begin,int size,float vis_alpha) {
+	void Set(int Rmode,rmatrix& m,RMeshNode* pCCNode,int nMtrl,int begin,int size,float vis_alpha) {
 		m_RenderMode = Rmode;
 		m_matWorld = m;
-		m_pNode = pMNode;
+		m_pNode = pCCNode;
 		m_nMtrl = nMtrl;
 		m_begin = begin;
 		m_size	= size;
@@ -221,7 +221,7 @@ public:
 	virtual ~RRenderNodeMgr() {
 	}
 
-	int Add(rmatrix& m,int mode,RMeshNode* pMNode,int nMtrl);
+	int Add(rmatrix& m,int mode,RMeshNode* pCCNode,int nMtrl);
 
 	void Clear();
 
@@ -392,7 +392,7 @@ public:
 	void SetMtrlUvAni_ON();
 	void SetMtrlUvAni_OFF();
 
-	void SetCharacterMtrl_ON(RMtrl* pMtrl,RMeshNode* pMNode,float vis_alpha,DWORD color);
+	void SetCharacterMtrl_ON(RMtrl* pMtrl,RMeshNode* pCCNode,float vis_alpha,DWORD color);
 	void SetCharacterMtrl_OFF(RMtrl* pMtrl,float vis_alpha);
 	int  GetCharacterMtrlMode(RMtrl* pMtrl,float vis_alpha);
 
@@ -615,7 +615,7 @@ public:
 	////////////////////////////////////
 	// tool
 
-	void		SetToolSelectNode(RMeshNode* pMNode) {	m_pToolSelectNode = pMNode;	}
+	void		SetToolSelectNode(RMeshNode* pCCNode) {	m_pToolSelectNode = pCCNode;	}
 	RMeshNode*	GetToolSelectNode()					 { return m_pToolSelectNode;  }
 	void		SetToolSelectNodeName(char* name)	 { SetToolSelectNode(GetMeshData(name)); }
 
@@ -686,7 +686,7 @@ bool RMeshRenderSEnd();
 
 void SetMtrl(RMtrl* pMtrl,float vis_alpha);
 
-void RenderNodeMgr_Add(rmatrix& m,RMeshNode* pMNode,int nMtrl);
+void RenderNodeMgr_Add(rmatrix& m,RMeshNode* pCCNode,int nMtrl);
 void RenderNodeMgr_Render();
 
 _NAMESPACE_REALSPACE2_END

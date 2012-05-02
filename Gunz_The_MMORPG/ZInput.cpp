@@ -42,7 +42,7 @@ void ZInput::OnActionKey(int nActionID, bool bPressed)
 	m_ActionKeyPressedTable[nActionID] = bPressed;
 	if(m_pEventListener==NULL) return;
 	
-	MEvent e;
+	CCEvent e;
 	e.nMessage = bPressed ? MWM_ACTIONKEYDOWN : MWM_ACTIONKEYUP;
 	e.nKey = nActionID;
 	m_pEventListener(&e);
@@ -62,7 +62,7 @@ void ZInput::ExclusiveEvent(ZVIRTUALKEY key)
 {
 	if(m_pExclusiveListener)
 	{
-		MEvent e;
+		CCEvent e;
 		e.nMessage = Z_DIRECTINPUTKEY_MESSAGE;
 		e.nKey = key;
 		m_pExclusiveListener(&e);

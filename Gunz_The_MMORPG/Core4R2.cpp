@@ -559,26 +559,26 @@ void CCBitmapR2::CheckDrawMode(float* fuv)
 
 		float temp[2];
 
-		if(m_DrawMode & MBM_FlipLR)	{//좌우 바꾸기
+		if(m_DrawMode & CCBM_FlipLR)	{//좌우 바꾸기
 			_swap(fuv[0],fuv[2]);
 			_swap(fuv[1],fuv[3]);
 			_swap(fuv[4],fuv[6]);
 			_swap(fuv[5],fuv[7]);
 		}
-		if(m_DrawMode & MBM_FlipUD) {//상하 바꾸기
+		if(m_DrawMode & CCBM_FlipUD) {//상하 바꾸기
 			_swap(fuv[0],fuv[6]);
 			_swap(fuv[1],fuv[7]);
 			_swap(fuv[2],fuv[4]);
 			_swap(fuv[3],fuv[5]);
 		}
-		if(m_DrawMode & MBM_RotL90) {
+		if(m_DrawMode & CCBM_RotL90) {
 			temp[0] = fuv[4];temp[1] = fuv[5];
 			fuv[4]  = fuv[6];fuv[5]  = fuv[7];
 			fuv[6]  = fuv[0];fuv[7]  = fuv[1];
 			fuv[0]  = fuv[2];fuv[1]  = fuv[3];
 			fuv[2]  = temp[0];fuv[3]  = temp[1];
 		}
-		if(m_DrawMode & MBM_RotR90) {
+		if(m_DrawMode & CCBM_RotR90) {
 			temp[0] = fuv[6];temp[1] = fuv[7];
 			fuv[6]  = fuv[4];fuv[7]  = fuv[5];
 			fuv[4]  = fuv[2];fuv[5]  = fuv[3];

@@ -17,7 +17,7 @@ protected:
 protected:
 	CCMatchCharItemParts m_nVisualWeaponParts;
 public:
-	ZCharacterViewList(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZCharacterViewList(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZCharacterViewList(void);
 
 	//void Add(const char* szName);
@@ -38,7 +38,7 @@ public:
 	void ChangeMyCharacterInfo();
 	void ChangeCharacterInfo();
 
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 
 	MLabel*	GetLobbyCharNameViewer();
 	MLabel*	GetStageCharNameViewer();

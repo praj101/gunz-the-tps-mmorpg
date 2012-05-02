@@ -4,8 +4,8 @@
 
 
 
-ZServerView::ZServerView(const char* szName, MWidget* pParent, MListener* pListener)
-: MWidget(szName, pParent, pListener)
+ZServerView::ZServerView(const char* szName, CCWidget* pParent, CCListener* pListener)
+: CCWidget(szName, pParent, pListener)
 {
 	m_cServerList.clear();
 	m_nSelectNum = -1;
@@ -224,9 +224,9 @@ void ZServerView::ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* 
 	pDC->Text( rectBox, szText, MAM_LEFT | MAM_VCENTER);
 }
 
-bool ZServerView::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZServerView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
-	bool bRet = MWidget::OnEvent(pEvent, pListener);
+	bool bRet = CCWidget::OnEvent(pEvent, pListener);
 
 
 	// Check rect range

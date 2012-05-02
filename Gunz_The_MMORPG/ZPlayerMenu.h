@@ -52,7 +52,7 @@ protected:
 	CCUID	m_PlayerUID;
 
 public:
-	ZPlayerMenu(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL, MPopupMenuTypes t=MPMT_VERTICAL);
+	ZPlayerMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, MPopupMenuTypes t=MPMT_VERTICAL);
 	void AddMenuItem(ZPlayerMenuItem* pMenuItem);
 
 	const char* GetTargetName()	{ return m_szPlayerName; }
@@ -65,7 +65,7 @@ public:
 };
 
 
-class ZPlayerMenuListener :	public MListener{
+class ZPlayerMenuListener :	public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 };

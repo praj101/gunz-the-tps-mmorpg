@@ -14,18 +14,18 @@ enum	eLoaindgState
 class ZLoading : public ZInterface
 {
 protected:
-	MPicture*		m_pBackGround;
+	CCPicture*		m_pBackGround;
 	CCBitmapR2*		m_pBitmap;
 
 	int				m_iPercentage;
 
 public:
-	ZLoading(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZLoading(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZLoading();
 	virtual bool OnCreate();
 	virtual void OnDestroy();
 	virtual void OnDraw(CCDrawContext* pDC);
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
 	void	Progress( eLoaindgState state );	
 	int		GetProgress() const;

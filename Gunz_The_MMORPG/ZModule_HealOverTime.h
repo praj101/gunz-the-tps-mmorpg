@@ -7,18 +7,18 @@
 // 시간의 흐름에 따라서 HP나 AP가 회복되는 효과를 위한 모듈
 
 class ZModule_HealOverTime : public ZModule {
-	MProtectValue<float>	m_fBeginTime;		// 힐 시작한 시간
-	MProtectValue<float>	m_fNextHealTime;	// 다음번 힐 받을 시간
+	CCProtectValue<float>	m_fBeginTime;		// 힐 시작한 시간
+	CCProtectValue<float>	m_fNextHealTime;	// 다음번 힐 받을 시간
 
-	MProtectValue<float>	m_fHeal;			// 1회 회복량
-	MProtectValue<int>		m_numHealDesire;	// 총 목표 회복횟수
-	MProtectValue<int>		m_numHealDone;		// 현재 회복한 횟수
+	CCProtectValue<float>	m_fHeal;			// 1회 회복량
+	CCProtectValue<int>		m_numHealDesire;	// 총 목표 회복횟수
+	CCProtectValue<int>		m_numHealDone;		// 현재 회복한 횟수
 
-	MProtectValue<CCMatchDamageType> m_type;
+	CCProtectValue<CCMatchDamageType> m_type;
 	CCMatchItemEffectId		m_nEffectId;
 	int						m_nItemId;			// 효과를 일으킨 아이템ID
 
-	MProtectValue<bool>		m_bOnHeal;	// 힐 받고 있는 중인가
+	CCProtectValue<bool>		m_bOnHeal;	// 힐 받고 있는 중인가
 
 public:
 	DECLARE_ID(ZMID_HEALOVERTIME)

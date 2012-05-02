@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ZPlayerSelectListBox.h"
 
-ZPlayerSelectListBox::ZPlayerSelectListBox(const char* szName, MWidget* pParent, MListener* pListener)
+ZPlayerSelectListBox::ZPlayerSelectListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
 :MListBox(szName,pParent,pListener)
 {
 }

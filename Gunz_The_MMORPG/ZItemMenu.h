@@ -25,7 +25,7 @@ protected:
 	CCUID	m_ItemUID;
 
 public:
-	ZItemMenu(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL, MPopupMenuTypes t=MPMT_VERTICAL);
+	ZItemMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, MPopupMenuTypes t=MPMT_VERTICAL);
 	void AddMenuItem(ZItemMenuItem* pMenuItem);
 
 	const char* GetTargetName()	{ return m_szItemName; }
@@ -38,7 +38,7 @@ public:
 };
 
 
-class ZItemMenuListener :	public MListener{
+class ZItemMenuListener :	public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 };

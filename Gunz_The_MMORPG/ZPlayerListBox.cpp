@@ -233,7 +233,7 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, CCDrawContext* pDC)
 
 IMPLEMENT_LOOK(ZPlayerListBox, ZPlayerListBoxLook)
 
-ZPlayerListBox::ZPlayerListBox(const char* szName, MWidget* pParent, MListener* pListener)
+ZPlayerListBox::ZPlayerListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MListBox(szName, pParent, pListener)
 {
 	LOOK_IN_CONSTRUCTOR()
@@ -338,7 +338,7 @@ void ZPlayerListBox::InitUI(PLAYERLISTMODE nMode)
 	}
 
 	// (좋지않은 구조) 클랜인데 클랜에 가입이 안되어있으면 생성 창을 보인다
-	MWidget *pFrame = ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyPlayerListClanCreateFrame");
+	CCWidget *pFrame = ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyPlayerListClanCreateFrame");
 	MButton* pButtonUp = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListPrev");
 	MButton* pButtonDn = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListNext");
 	if( pFrame)
@@ -1009,7 +1009,7 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, cha
 //	pCharView->m_Info.m_pMnTeam->SetWarpingAdd(GetTickCount());
 }
 
-bool ZPlayerListBox::OnCommand(MWidget* pWidget, const char* szMessage)
+bool ZPlayerListBox::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	if(pWidget==m_pButton) {
 		if( strcmp(szMessage, MBTN_CLK_MSG)==0 ) {
@@ -1079,7 +1079,7 @@ bool ZPlayerListBox::OnCommand(MWidget* pWidget, const char* szMessage)
 
 	return true;
 }
-bool ZPlayerListBox::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	sRect rtClient = GetClientRect();
 
@@ -1219,7 +1219,7 @@ IMPLEMENT_LOOK(ZStagePlayerListBox, ZPlayerListBoxLook)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-ZStagePlayerListBox::ZStagePlayerListBox(const char* szName, MWidget* pParent, MListener* pListener)
+ZStagePlayerListBox::ZStagePlayerListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MListBox(szName, pParent, pListener)
 {
 	LOOK_IN_CONSTRUCTOR()
@@ -1419,7 +1419,7 @@ void ZStagePlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, 
 	MListBox::Add(new ZStagePlayerListItem(puid, pBitmap, pBitmapState, szName, szLevel));
 }
 
-bool ZStagePlayerListBox::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZStagePlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	if(pEvent->nMessage==MWM_MOUSEMOVE)	{
 	}

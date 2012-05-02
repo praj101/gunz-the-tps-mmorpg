@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ZCommandTable.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "CCCommandManager.h"
 
 void ZAddCommandTable(CCCommandManager* pCommandManager)

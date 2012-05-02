@@ -4,5 +4,5 @@
 
 class ZPlayerSelectListBox : public MListBox {
 public:
-	ZPlayerSelectListBox(const char* szName, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZPlayerSelectListBox(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 };

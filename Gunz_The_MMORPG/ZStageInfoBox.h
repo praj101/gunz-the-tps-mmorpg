@@ -15,7 +15,7 @@ class ZStageInfoBox : public MListBox{
 //	DECLARE_LOOK(ZStageInfoBoxLook)
 	MBListBoxLook *m_pLook;
 public:
-	ZStageInfoBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZStageInfoBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZStageInfoBox(void);
 
 	virtual void OnDraw(CCDrawContext* pDC);

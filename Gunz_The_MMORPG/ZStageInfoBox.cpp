@@ -5,7 +5,7 @@
 
 //IMPLEMENT_LOOK(ZStageInfoBox, ZStageInfoBoxLook)
 
-ZStageInfoBox::ZStageInfoBox(const char* szName, MWidget* pParent, MListener* pListener)
+ZStageInfoBox::ZStageInfoBox(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MListBox(szName, pParent, pListener)
 {
 //	LOOK_IN_CONSTRUCTOR()

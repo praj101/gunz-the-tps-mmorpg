@@ -8,7 +8,7 @@ void OnTimer_CountDown(void* pParam)
 	ZCOUNTDOWN *pCountDown = (ZCOUNTDOWN*)pParam;
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pTargetWidget = pResource->FindWidget(pCountDown->szTargetWidget);
+	CCWidget* pTargetWidget = pResource->FindWidget(pCountDown->szTargetWidget);
 	if(!pTargetWidget || !pTargetWidget->IsVisible()) return;	// 없거나 숨겨졌으면 카운트를 중지한다.
 
 	if(pCountDown->nSeconds>0) {
@@ -17,7 +17,7 @@ void OnTimer_CountDown(void* pParam)
 		if(pCountDown->szLabelWidget!=NULL)
 		{
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-			MWidget* pWidget = pResource->FindWidget(pCountDown->szLabelWidget);
+			CCWidget* pWidget = pResource->FindWidget(pCountDown->szLabelWidget);
 			if(pWidget)
 			{
 				char buffer[256];

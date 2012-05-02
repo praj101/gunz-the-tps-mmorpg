@@ -938,14 +938,14 @@ void ZOptionInterface::ShowResizeConfirmDialog( bool Resized )
 	if( Resized )
 	{
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-		MWidget* pWidget = pResource->FindWidget("ViewConfirm");
+		CCWidget* pWidget = pResource->FindWidget("ViewConfirm");
 		if(pWidget!= 0)
 			pWidget->Show( true, true );
 	}
 	else
 	{
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-		MWidget* pWidget = pResource->FindWidget("ResizeConfirm");
+		CCWidget* pWidget = pResource->FindWidget("ResizeConfirm");
 		if(pWidget!= 0)
 			pWidget->Show( true, true );
 	}
@@ -993,7 +993,7 @@ bool ZOptionInterface::SetTimer( bool b, float time /* = 0.f  */ )
 void ZOptionInterface::ShowNetworkPortConfirmDialog()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("NetworkPortConfirm");
+	CCWidget* pWidget = pResource->FindWidget("NetworkPortConfirm");
 	if(pWidget!= 0) pWidget->Show( true, true );
 }
 
@@ -1155,16 +1155,16 @@ void ZOptionInterface::OptimizationVideoOption()
 	}
 }
 
-bool ZOptionInterface::ResizeWidgetRecursive( MWidget* pWidget/*, int w, int h*/)
+bool ZOptionInterface::ResizeWidgetRecursive( CCWidget* pWidget/*, int w, int h*/)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	//MWidget* pWidget = pResource->FindWidget(szName);
+	//CCWidget* pWidget = pResource->FindWidget(szName);
 	if(pWidget==NULL) return false;
 	int n = pWidget->GetChildCount();
 	for( int i = 0; i < n; ++i)
 	{
-		MWidget* pChildWidget = pWidget->GetChild(i);
+		CCWidget* pChildWidget = pWidget->GetChild(i);
 		ResizeWidgetRecursive( pChildWidget/*, w, h */);
 	}
 
@@ -1204,7 +1204,7 @@ void ZOptionInterface::AdjustMultipliedWidgetsManually()
 	int h = RGetScreenHeight();
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget;
+	CCWidget* pWidget;
 	
 	pWidget = pResource->FindWidget("Login");
 	if (pWidget) {
@@ -1366,13 +1366,13 @@ void ZOptionInterface::Resize(int w, int h)
 
 
 /*	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("StageCreateFrame");
+	CCWidget* pWidget = pResource->FindWidget("StageCreateFrame");
 	if (pWidget)
 	{
 		ResizeWidgetRecursive(pWidget);
 
 		int parentWidth=-1, parentHeight=-1;
-		MWidget* pParent = pWidget->GetParent();
+		CCWidget* pParent = pWidget->GetParent();
 		if (pParent) {
 			parentWidth = pParent->GetRect().w;
 			parentHeight = pParent->GetRect().h;
@@ -1494,7 +1494,7 @@ void ZOptionInterface::Update()
 		{
 			GetOldScreenResolution();
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-			MWidget* pWidget = pResource->FindWidget("ViewConfirm");
+			CCWidget* pWidget = pResource->FindWidget("ViewConfirm");
 			if(pWidget!= 0) pWidget->Show( false );
 		}
 	}
@@ -1527,7 +1527,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetOptionFrameButtonListener, MBTN_CLK_MSG)
 	// 옵션 프레임 보여주기
 	ZGetOptionInterface()->InitInterfaceOption();
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("Option");
+	CCWidget* pWidget = pResource->FindWidget("Option");
 	pWidget->Show(true, true);
 
 #ifdef LOCALE_NHNUSA
@@ -1560,7 +1560,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetSaveOptionButtonListener, MBTN_CLK_MSG)
 	/*
 	ZApplication::GetGameInterface()->SaveInterfaceOption();
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("Option");
+	CCWidget* pWidget = pResource->FindWidget("Option");
 	if(pWidget!=NULL) pWidget->Show(false);
 	//*/
 
@@ -1601,7 +1601,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetSaveOptionButtonListener, MBTN_CLK_MSG)
 
 		ZGetOptionInterface()->SaveInterfaceOption();
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-		MWidget* pWidget = pResource->FindWidget("Option");
+		CCWidget* pWidget = pResource->FindWidget("Option");
 		if(pWidget!=NULL) pWidget->Show(false);
 
 		if(bLanguageChanged)	// 재시작 확인 메세지 박스
@@ -1636,7 +1636,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetCancelOptionButtonListener, MBTN_CLK_MSG)
 		}
 	}
 
-	MWidget* pWidget = pResource->FindWidget("Option");
+	CCWidget* pWidget = pResource->FindWidget("Option");
 	
 	if(pWidget!=NULL) pWidget->Show(false);
 
@@ -1694,7 +1694,7 @@ END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER( ZGetRequestResizeListener, MBTN_CLK_MSG )
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ResizeConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ResizeConfirm");
 	if(pWidget!= 0) pWidget->Show( false );
 	//해상도 변경후
 	ZGetOptionInterface()->TestScreenResolution();
@@ -1704,7 +1704,7 @@ END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER( ZGetViewConfirmCancelListener, MBTN_CLK_MSG )
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ViewConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ViewConfirm");
 	if(pWidget!= 0) pWidget->Show( false );
 	// 해상도 원래대로 변경
  	ZGetOptionInterface()->SetTimer( false );
@@ -1718,7 +1718,7 @@ BEGIN_IMPLEMENT_LISTENER( ZGetViewConfrimAcceptListener, MBTN_CLK_MSG )
 	ZGetOptionInterface()->SaveInterfaceOption();
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ViewConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ViewConfirm");
 	if(pWidget!= 0) pWidget->Show( false );
 		
 	pWidget = pResource->FindWidget("Option");
@@ -1727,7 +1727,7 @@ END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER(ZGetCancelResizeConfirmListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ResizeConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ResizeConfirm");
 	if(pWidget!=NULL) pWidget->Show(false);
 END_IMPLEMENT_LISTENER()
 
@@ -1769,7 +1769,7 @@ END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER( ZGetNetworkPortChangeCancelListener, MBTN_CLK_MSG )
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("NetworkPortConfirm");
+	CCWidget* pWidget = pResource->FindWidget("NetworkPortConfirm");
 	if(pWidget!= 0) pWidget->Show(false);
 END_IMPLEMENT_LISTENER()
 
@@ -1808,23 +1808,23 @@ BEGIN_IMPLEMENT_LISTENER( ZGetMouseSensitivitySliderListener, MLIST_VALUE_CHANGE
 END_IMPLEMENT_LISTENER()
 
 // 이 에디트박스에서 메시지 두개를 처리해야하기 때문에 BEGIN_IMPLEMENT_LISTENER/END_IMPLEMENT_LISTENER 매크로를 안썼음
-MListener* ZGetMouseSensitivityEditListener(void){
-	class ListenerClass : public MListener
+CCListener* ZGetMouseSensitivityEditListener(void){
+	class ListenerClass : public CCListener
 	{
 	public:
-		virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
+		virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 			MEdit* pEdit= (MEdit*)pResource->FindWidget("MouseSensitivityEdit");
 			{
 				int i = atoi( pEdit->GetText());
 				int v = ZGetConfiguration()->ValidateMouseSensitivityInInt(i);
 
-				if(MWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true)
+				if(CCWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true)
 				{
 					SetMouseSensitivitySlider(v);
 					return true;
 				}
-				else if(MWidget::IsMsg(szMessage, MEDIT_KILL_FOCUS)==true)
+				else if(CCWidget::IsMsg(szMessage, MEDIT_KILL_FOCUS)==true)
 				{
 					SetMouseSensitivitySlider(v);
 					SetMouseSensitivityEdit(v);

@@ -450,8 +450,8 @@ public:
 	CCUID GetSelectedPlayerUID();
 	void SelectPlayer(CCUID);
 
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 
 //	CCUID	m_MyUID;
 //	CCUID	m_uidChannel;
@@ -463,7 +463,7 @@ public:
 
 	PLAYERLISTMODE GetPlayerListMode()		{ return m_nMode; }
 public:
-	ZPlayerListBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZPlayerListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZPlayerListBox(void);
 
 	DECLARE_LOOK(ZPlayerListBoxLook)
@@ -511,7 +511,7 @@ public:
 	int		m_nTotalPlayerCount;
 	int		m_nPage;
 
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
 
 	void SetWidth( float t ) { m_SlotWidth = t;	}
@@ -522,7 +522,7 @@ public:
 	float OnReSize();
 
 public:
-	ZStagePlayerListBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZStagePlayerListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZStagePlayerListBox(void);
 
 	DECLARE_LOOK(ZPlayerListBoxLook)

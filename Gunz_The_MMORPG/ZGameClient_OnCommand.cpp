@@ -8,7 +8,7 @@
 #include "MErrorTable.h"
 #include "ZConfiguration.h"
 #include "ZGameClient.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "ZConsole.h"
 #include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
@@ -1438,7 +1438,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 
 
 				ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-				MWidget* pWidget = pResource->FindWidget("DuelTournamentWaitMatchDialog");
+				CCWidget* pWidget = pResource->FindWidget("DuelTournamentWaitMatchDialog");
 				if(pWidget!=NULL)
 					pWidget->Show(false);
 

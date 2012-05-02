@@ -49,7 +49,7 @@ CCMatchItemDesc::CCMatchItemDesc() : m_nID(0), m_nSlot(MMIST_NONE), m_pEffect(NU
 	m_nDamageTime.Set_MakeCrc(0);
 	m_nLifeTime.Set_MakeCrc(0);
 
-	m_pMItemName = new MProtectValue<CCMatchItemName>;
+	m_pMItemName = new CCProtectValue<CCMatchItemName>;
 	memset(&m_pMItemName->Ref(), 0, sizeof(CCMatchItemName));
 	//memset(m_szItemName, 0, sizeof(m_szItemName));
 	memset(m_szDesc, 0, sizeof(m_szDesc));
@@ -69,7 +69,7 @@ CCMatchItemDesc::CCMatchItemDesc() : m_nID(0), m_nSlot(MMIST_NONE), m_pEffect(NU
 
 	m_nSpendType.Set_MakeCrc(MMCT_NONE);
 
-	m_pAvatarMeshName = new MProtectValue<CCMatchAvatarMeshName>;
+	m_pAvatarMeshName = new CCProtectValue<CCMatchAvatarMeshName>;
 	memset(&m_pAvatarMeshName->Ref(), 0, sizeof(CCMatchAvatarMeshName));
 	m_pAvatarMeshName->MakeCrc();
 }

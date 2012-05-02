@@ -186,13 +186,13 @@ struct ZCharacterProperty_CharClanName
 };
 struct ZCharacterProperty
 {
-	MProtectValue<ZCharacterProperty_CharClanName> nameCharClan;
+	CCProtectValue<ZCharacterProperty_CharClanName> nameCharClan;
 	CCMatchSex	nSex;
 	int			nHair;
 	int			nFace;
 	int			nLevel;
-	MProtectValue<float>		fMaxHP;		// 이 값을 바꾸고 자살->리스폰해서 HP를 뻥튀기하는 방식의 해킹
-	MProtectValue<float>		fMaxAP;
+	CCProtectValue<float>		fMaxHP;		// 이 값을 바꾸고 자살->리스폰해서 HP를 뻥튀기하는 방식의 해킹
+	CCProtectValue<float>		fMaxAP;
 	ZCharacterProperty() :	nSex(MMS_MALE),
 		nHair(0),
 		nFace(0),
@@ -374,9 +374,9 @@ protected:
 	
 
 	ZCharacterProperty					m_Property;		///< HP 등의 캐릭터 속성
-	MProtectValue<ZCharacterStatus>		m_Status;		///< 플레이어 상태값
+	CCProtectValue<ZCharacterStatus>		m_Status;		///< 플레이어 상태값
 
-	MProtectValue<CCTD_CharInfo>			m_MInitialInfo;		///< 캐릭터 초기정보
+	CCProtectValue<CCTD_CharInfo>			m_MInitialInfo;		///< 캐릭터 초기정보
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -413,13 +413,13 @@ public:
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 protected:
-	MProtectValue<ZUserAndClanName>*  m_pMUserAndClanName;  ///< 캐릭명,클랜명
+	CCProtectValue<ZUserAndClanName>*  m_pMUserAndClanName;  ///< 캐릭명,클랜명
 
 	struct KillInfo {
 		int			m_nKillsThisRound;				///< 이번라운드에서의 kills ( unbelievable 판정)
 		float		m_fLastKillTime;				///< 마지막에 죽인 시간 (excellent)를 표시하기 위함
 	};
-	MProtectValue<KillInfo> m_killInfo;
+	CCProtectValue<KillInfo> m_killInfo;
 
 	struct DamageInfo {
 		DWORD			m_dwLastDamagedTime;		// 마지막으로 공격 받은 시간
@@ -433,12 +433,12 @@ protected:
 		CCUID			m_LastThrower;				///< 마지막 띄운 사람
 		float			m_tmLastThrowClear;			///< 마지막 띄운 사람 잊어도 되는시간
 	};
-	MProtectValue<DamageInfo> m_damageInfo;
+	CCProtectValue<DamageInfo> m_damageInfo;
 
 	int	m_nWhichFootSound;	///< 발소리를 번갈아 내기위해 어느 발인지 저장한 변수
 
-	MProtectValue<DWORD>* m_pMdwInvincibleStartTime;		// 무적의 시작 시간
-	MProtectValue<DWORD>* m_pMdwInvincibleDuration;		// 무적의 지속시간
+	CCProtectValue<DWORD>* m_pMdwInvincibleStartTime;		// 무적의 시작 시간
+	CCProtectValue<DWORD>* m_pMdwInvincibleDuration;		// 무적의 지속시간
 
 	virtual void UpdateSound();
 
@@ -466,17 +466,17 @@ public:
 //	rplane	m_FloorPlane;			// 바닥 평면의 방정식
 //	float	m_fFallHeight;			// 낙하가 시작된 시점
 
-	MProtectValue<ZCharaterStatusBitPacking> m_dwStatusBitPackingValue;	// 얘는 인간적으로 crc체크까진 못하겠다...;;
+	CCProtectValue<ZCharaterStatusBitPacking> m_dwStatusBitPackingValue;	// 얘는 인간적으로 crc체크까진 못하겠다...;;
 
 	//mmemory proxy
-	MProtectValue<bool>* m_bCharged;
-	MProtectValue<bool>* m_bCharging;
+	CCProtectValue<bool>* m_bCharged;
+	CCProtectValue<bool>* m_bCharging;
 
 	
 
-	MProtectValue<float>	m_fChargedFreeTime;		// 힘모인게 풀리는 시간
-	MProtectValue<int>		m_nWallJumpDir;			// 벽점프하는 방향
-	MProtectValue<int>		m_nBlastType;			// 단도계열추가~
+	CCProtectValue<float>	m_fChargedFreeTime;		// 힘모인게 풀리는 시간
+	CCProtectValue<int>		m_nWallJumpDir;			// 벽점프하는 방향
+	CCProtectValue<int>		m_nBlastType;			// 단도계열추가~
 
 
 	ZC_STATE_LOWER	m_SpMotion;
@@ -514,30 +514,30 @@ public:
 	rvector m_DirectionLower,m_DirectionUpper;
 
 	// 이 변수들은 이동속도 해킹대상이 됨
-	MProtectValue<rvector> m_RealPositionBefore;			// 애니메이션의 움직임을 추적하기 위한 변수
-	MProtectValue<rvector> m_AnimationPositionDiff;
-	MProtectValue<rvector> m_Accel;
+	CCProtectValue<rvector> m_RealPositionBefore;			// 애니메이션의 움직임을 추적하기 위한 변수
+	CCProtectValue<rvector> m_AnimationPositionDiff;
+	CCProtectValue<rvector> m_Accel;
 
 
-	MProtectValue<ZC_STATE_UPPER>	m_AniState_Upper;		// 상체 애니메이션 상태
-	MProtectValue<ZC_STATE_LOWER>	m_AniState_Lower;		// 하체 애니메이션 상태 (기본)
+	CCProtectValue<ZC_STATE_UPPER>	m_AniState_Upper;		// 상체 애니메이션 상태
+	CCProtectValue<ZC_STATE_LOWER>	m_AniState_Lower;		// 하체 애니메이션 상태 (기본)
 	ZANIMATIONINFO *m_pAnimationInfo_Upper,*m_pAnimationInfo_Lower;
 
 	void AddIcon(int nIcon);
 //	float GetIconStartTime(int nIcon);
 
-	MProtectValue<int>				m_nVMID;	// VisualMesh ID
+	CCProtectValue<int>				m_nVMID;	// VisualMesh ID
 	//CCUID	m_UID;		// 서버에서 부여한 캐릭터의 UID
-	MProtectValue<CCMatchTeam>		m_nTeamID;	// Team ID
+	CCProtectValue<CCMatchTeam>		m_nTeamID;	// Team ID
 
-	MProtectValue<MCharacterMoveMode>		m_nMoveMode;
-	MProtectValue<MCharacterMode>			m_nMode;
-	MProtectValue<MCharacterState>			m_nState;
+	CCProtectValue<CCCharacterMoveMode>		m_nMoveMode;
+	CCProtectValue<CCCharacterMode>			m_nMode;
+	CCProtectValue<CCCharacterState>			m_nState;
 
 //	RVisualMesh*			m_pVMesh;
 
 //	float	m_fLastAdjustedTime;
-	MProtectValue<float>	m_fAttack1Ratio;//칼질등의 경우 첫번째비율을 나중타에도 적용한다..
+	CCProtectValue<float>	m_fAttack1Ratio;//칼질등의 경우 첫번째비율을 나중타에도 적용한다..
 //	rvector m_AdjustedNormal;
 
 	/*
@@ -669,9 +669,9 @@ public:
 		int		m_nSelectSlot;
 		ZSlot	m_Slot[ZC_SLOT_END];
 	};
-	MProtectValue<SlotInfo>	m_slotInfo;
+	CCProtectValue<SlotInfo>	m_slotInfo;
 
-	MProtectValue<ZCharacterStatus>& GetStatus()	{ return m_Status; }
+	CCProtectValue<ZCharacterStatus>& GetStatus()	{ return m_Status; }
 
 	// Character Property
 	ZCharacterProperty* GetProperty() { return &m_Property; }

@@ -10,7 +10,7 @@
 #include "MDebug.h"
 #include "ZPost.h"
 #include "ZPostLocal.h"
-#include "MDataChecker.h"
+#include "CCDataChecker.h"
 #include "CCUtil.h"
 
 using namespace RealSpace2;
@@ -94,7 +94,7 @@ bool ZWorldItem::ApplyWorldItem( ZCharacter* pCharacter )
 
 			//// MEMORYHACK 방지엔진에 알려준다.
 			//if (pCharacter->GetUID() == ZGetMyUID()) {
-			//	MDataChecker* pChecker = ZGetGame()->GetDataChecker();
+			//	CCDataChecker* pChecker = ZGetGame()->GetDataChecker();
 			//	pChecker->RenewCheck((BYTE*)pSeletedWeapon->GetBulletPointer(), sizeof(int));
 			//	pChecker->RenewCheck((BYTE*)pSeletedWeapon->GetAMagazinePointer(), sizeof(int));
 			//}

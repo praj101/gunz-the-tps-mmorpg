@@ -119,7 +119,7 @@ public:
 
 class CCMatchStageSetting {
 protected:
-	MProtectValue<MSTAGE_SETTING_NODE>	m_StageSetting;
+	CCProtectValue<MSTAGE_SETTING_NODE>	m_StageSetting;
 	CCUID					m_uidMaster;	// 방장
 	STAGE_STATE				m_nStageState;	// 현재 State (게임중,대기중,..)
 

@@ -6,9 +6,9 @@
 #include "Mint.h"
 
 // ZMsgBox Listener
-class ZMsgBoxListener : public MListener{
+class ZMsgBoxListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
 		ZMsgBox* pMsgBox = (ZMsgBox*)pWidget;
 		if (pMsgBox->GetCustomListener()) {
 			bool bResult = pMsgBox->GetCustomListener()->OnCommand(pWidget, szMessage);
@@ -16,7 +16,7 @@ public:
 			return bResult;
 		}
 
-		if(MWidget::IsMsg(szMessage, MMSGBOX_OK)==true){
+		if(CCWidget::IsMsg(szMessage, MMSGBOX_OK)==true){
 			const char* pText = pWidget->GetText();
 
 			// 인원이 꽉차 종료
@@ -39,15 +39,15 @@ public:
 };
 ZMsgBoxListener	g_MsgBoxListener;
 
-MListener* ZGetMsgBoxListener(void)
+CCListener* ZGetMsgBoxListener(void)
 {
 	return &g_MsgBoxListener;
 }
 
 // ZConfirmMsgBox Listener : Default Listener 일뿐. 물어볼때마다 CustomListener 지정해서 쓸것
-class ZConfirmMsgBoxListener : public MListener{
+class ZConfirmMsgBoxListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
 		ZMsgBox* pMsgBox = (ZMsgBox*)pWidget;
 		if (pMsgBox->GetCustomListener()) {
 			bool bResult = pMsgBox->GetCustomListener()->OnCommand(pWidget, szMessage);
@@ -61,7 +61,7 @@ public:
 };
 ZConfirmMsgBoxListener	g_CofirmMsgBoxListener;
 
-MListener* ZGetConfirmMsgBoxListener(void)
+CCListener* ZGetConfirmMsgBoxListener(void)
 {
 	return &g_CofirmMsgBoxListener;
 }
@@ -110,7 +110,7 @@ void ZMsgBox::OnDraw(CCDrawContext* pDC)
 	MMsgBox::OnDraw(pDC);
 }
 
-ZMsgBox::ZMsgBox(const char* szMessage, MWidget* pParent, MListener* pListener, MMsgBoxType nType)
+ZMsgBox::ZMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener, MMsgBoxType nType)
 : MMsgBox(szMessage,pParent,pListener,nType)
 {
 	m_bCanShade = false;

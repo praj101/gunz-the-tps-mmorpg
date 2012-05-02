@@ -27,7 +27,7 @@ public:
 
 	// 리사이즈 관련
 	void Resize(int w, int h);		/// 리사이즈를 통해 해상도에 적응하는 인터페이스를 구현한다.
-	bool ResizeWidgetRecursive( MWidget* pWidget/*, int w, int h*/);
+	bool ResizeWidgetRecursive( CCWidget* pWidget/*, int w, int h*/);
 	bool ResizeWidget(const char* szName, int w, int h);
 	void AdjustMultipliedWidgetsManually();
 	void ResizeDefaultFont( int newScreenHeight );

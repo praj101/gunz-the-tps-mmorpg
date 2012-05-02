@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ZCombatMenu.h"
-#include "MWidget.h"
+#include "CCWidget.h"
 #include "ZGameInterface.h"
 
 ZCombatMenu::ZCombatMenu()
@@ -21,27 +21,27 @@ ZCombatMenu::~ZCombatMenu()
 
 bool ZCombatMenu::IsEnableItem(ZCOMBAT_MENU_ITEM nItem)
 {
-	MWidget *pWidget= ZGetGameInterface()->GetIDLResource()->FindWidget( m_ItemStr[nItem].c_str() );
+	CCWidget *pWidget= ZGetGameInterface()->GetIDLResource()->FindWidget( m_ItemStr[nItem].c_str() );
 	if(pWidget) return pWidget->IsEnable();
 	return false;
 }
 
 void ZCombatMenu::EnableItem(ZCOMBAT_MENU_ITEM nItem, bool bEnable)
 {
-	MWidget *pWidget= ZGetGameInterface()->GetIDLResource()->FindWidget( m_ItemStr[nItem].c_str() );
+	CCWidget *pWidget= ZGetGameInterface()->GetIDLResource()->FindWidget( m_ItemStr[nItem].c_str() );
 	if(pWidget) pWidget->Enable(bEnable);
 }
 
 
 void ZCombatMenu::ShowModal(bool bShow)
 {
-	MWidget *pWidget= ZGetGameInterface()->GetIDLResource()->FindWidget( m_FrameStr.c_str() );
+	CCWidget *pWidget= ZGetGameInterface()->GetIDLResource()->FindWidget( m_FrameStr.c_str() );
 	if(pWidget) pWidget->Show(bShow, true);
 }
 
 bool ZCombatMenu::IsVisible()
 {
-	MWidget* pMenuWidget = ZGetGameInterface()->GetIDLResource()->FindWidget( m_FrameStr.c_str() );
+	CCWidget* pMenuWidget = ZGetGameInterface()->GetIDLResource()->FindWidget( m_FrameStr.c_str() );
 	if (pMenuWidget) return pMenuWidget->IsVisible();
 	return false;
 }

@@ -89,17 +89,17 @@ void ZStageInterface::OnCreate( void)
 
 	ReadSenarioNameXML();
 
-	MPicture* pPicture = (MPicture*)pResource->FindWidget( "Stage_SacrificeItemImage0");
+	CCPicture* pPicture = (CCPicture*)pResource->FindWidget( "Stage_SacrificeItemImage0");
 	if ( pPicture)
 		pPicture->SetOpacity( 255);
-	pPicture = (MPicture*)pResource->FindWidget( "Stage_SacrificeItemImage1");
+	pPicture = (CCPicture*)pResource->FindWidget( "Stage_SacrificeItemImage1");
 	if ( pPicture)
 		pPicture->SetOpacity( 255);
 
-	pPicture = (MPicture*)pResource->FindWidget( "Stage_MainBGTop");
+	pPicture = (CCPicture*)pResource->FindWidget( "Stage_MainBGTop");
 	if ( pPicture)
 		pPicture->SetBitmap( CCBitmapManager::Get( "main_bg_t.png"));
-	pPicture = (MPicture*)pResource->FindWidget( "Stage_FrameBG");
+	pPicture = (CCPicture*)pResource->FindWidget( "Stage_FrameBG");
 	if ( pPicture)
 	{
 		m_pStageFrameImg = new CCBitmapR2;
@@ -108,7 +108,7 @@ void ZStageInterface::OnCreate( void)
 		if ( m_pStageFrameImg != NULL)
 			pPicture->SetBitmap( m_pStageFrameImg->GetSourceBitmap());
 	}
-	pPicture = (MPicture*)pResource->FindWidget( "Stage_ItemListBG");
+	pPicture = (CCPicture*)pResource->FindWidget( "Stage_ItemListBG");
 	if ( pPicture)
 	{
 		m_pItemListFrameImg = new CCBitmapR2;
@@ -117,7 +117,7 @@ void ZStageInterface::OnCreate( void)
 		if ( m_pItemListFrameImg != NULL)
 			pPicture->SetBitmap( m_pItemListFrameImg->GetSourceBitmap());
 	}
-	MWidget* pWidget = (MWidget*)pResource->FindWidget( "Stage_ItemListView");
+	CCWidget* pWidget = (CCWidget*)pResource->FindWidget( "Stage_ItemListView");
 	if ( pWidget)
 	{
 		sRect rect;
@@ -146,7 +146,7 @@ void ZStageInterface::OnCreate( void)
 	}
 
 	{ // 릴레이맵 "RelayMap" 초기화
-		pPicture = (MPicture*)pResource->FindWidget( "Stage_RelayMapListBG" );
+		pPicture = (CCPicture*)pResource->FindWidget( "Stage_RelayMapListBG" );
 		if(pPicture)
 		{ // f릴레이맵 리스트 배경 이미지
 			m_pRelayMapListFrameImg = new CCBitmapR2;
@@ -155,7 +155,7 @@ void ZStageInterface::OnCreate( void)
 			if(m_pRelayMapListFrameImg != NULL)
 				pPicture->SetBitmap(m_pRelayMapListFrameImg->GetSourceBitmap());
 		}
-		MWidget* pWidget = (MWidget*)pResource->FindWidget( "Stage_RelayMapListView");
+		CCWidget* pWidget = (CCWidget*)pResource->FindWidget( "Stage_RelayMapListView");
 		if ( pWidget)
 		{
 			sRect rect;
@@ -195,7 +195,7 @@ void ZStageInterface::OnCreate( void)
 
 
 	// 채널 리스트 박스는 닫아버림
-	pWidget = (MWidget*)pResource->FindWidget( "ChannelListFrame");
+	pWidget = (CCWidget*)pResource->FindWidget( "ChannelListFrame");
 	if ( pWidget)
 		pWidget->Show( false);
 
@@ -224,17 +224,17 @@ void ZStageInterface::OnDestroy( void)
 {
 	ZApplication::GetGameInterface()->ShowWidget( "Stage", false);
 
-	MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_MainBGTop");
+	CCPicture* pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_MainBGTop");
 	if ( pPicture)
 		pPicture->SetBitmap( CCBitmapManager::Get( "main_bg_t.png"));
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_FrameBG");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_FrameBG");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemListBG");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemListBG");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
 
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapListBG");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapListBG");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
 
@@ -259,7 +259,7 @@ void ZStageInterface::OnDestroy( void)
 		m_pRelayMapListFrameImg = NULL;
 	}
 
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_CharacterInfo");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_CharacterInfo");
 	if ( pWidget)
 		pWidget->Enable( true);
 
@@ -408,10 +408,10 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 
 
 	// 화면 상단의 맵 이미지 설정하기
-	MPicture* pPicture = 0;
+	CCPicture* pPicture = 0;
 	CCBitmap* pBitmap = 0;
 	char szMapName[256];
- 	pPicture = (MPicture*)pResource->FindWidget( "Stage_MainBGTop");
+ 	pPicture = (CCPicture*)pResource->FindWidget( "Stage_MainBGTop");
 	if ( pPicture)
 	{
 		if( 0 == strcmp(CCMATCH_MAPNAME_RELAYMAP, ZGetGameClient()->GetMatchStageSetting()->GetMapName()))
@@ -505,14 +505,14 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 			_ASSERT(0);
 			color = sColor(255,255,255,255);
 	}
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Stage_StripBottom");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Stage_StripBottom");
 	if(pPicture != NULL && !pPicture->IsAnim())
 	{		
         pPicture->SetBitmapColor( color );
 		if(!(pPicture->GetBitmapColor().GetARGB() == pPicture->GetReservedBitmapColor().GetARGB()))
 			pPicture->SetAnimation( 2, 700.0f);
 	}
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Stage_StripTop");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Stage_StripTop");
 	if(pPicture != NULL && !pPicture->IsAnim())	
 	{
 		pPicture->SetBitmapColor( color );
@@ -523,10 +523,10 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 
 void ZStageInterface::SetStageRelayMapImage()
 {
-	MPicture* pPicture = 0;
+	CCPicture* pPicture = 0;
 	CCBitmap* pBitmap = 0;
 	char szMapName[256];
-	pPicture = (MPicture*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_MainBGTop");
+	pPicture = (CCPicture*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_MainBGTop");
 	if(!pPicture) return;
 	MListBox* pRelayMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 	if(pRelayMapListBox == NULL) return;
@@ -602,7 +602,7 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 	ZApplication::GetGameInterface()->UpdateBlueRedTeam();
 
 	// 게임 방식에 따라서 UI를 변경한다
-	MAnimation* pAniMapImg = (MAnimation*)pResource->FindWidget( "Stage_MapNameBG");
+	CCAnimation* pAniMapImg = (CCAnimation*)pResource->FindWidget( "Stage_MapNameBG");
 	bool bQuestUI = false;
 	if ( (pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_SOLO) ||			// 데쓰매치 개인전이거나...
 		 (pSetting->nGameType == CCMATCH_GAMETYPE_GLADIATOR_SOLO) ||				// 칼전 개인전이거나...
@@ -709,7 +709,7 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 
 
 	// 라운드 or Kill
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageRoundCountLabel");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageRoundCountLabel");
 	if ( pWidget)
 	{
 		if ((pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_SOLO) ||
@@ -942,7 +942,7 @@ void ZStageInterface::CloseSacrificeItemBox( void)
 	if ( pButton)
 		pButton->Show( true);
 
-	MWidget* pWidget = pResource->FindWidget( "Stage_CharacterInfo");
+	CCWidget* pWidget = pResource->FindWidget( "Stage_CharacterInfo");
 	if ( pWidget)
 		pWidget->Enable( true);
 
@@ -969,7 +969,7 @@ void ZStageInterface::HideSacrificeItemBox( void)
 	if ( pButton)
 		pButton->Show( true);
 
-	MWidget* pWidget = pResource->FindWidget( "Stage_CharacterInfo");
+	CCWidget* pWidget = pResource->FindWidget( "Stage_CharacterInfo");
 	if ( pWidget)
 		pWidget->Enable( true);
 
@@ -992,7 +992,7 @@ void ZStageInterface::GetSacrificeItemBoxPos( void)
 //	return;
 //#endif
 
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemListView");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemListView");
 	if ( pWidget)
 	{
 		sRect rect;
@@ -1057,7 +1057,7 @@ void ZStageInterface::UpdateSacrificeItem( void)
 	{
 		char szWidgetNameItem[ 128];
 		sprintf( szWidgetNameItem, "Stage_SacrificeItemImage%d", i);
-		MPicture* pPicture = (MPicture*)pResource->FindWidget( szWidgetNameItem);
+		CCPicture* pPicture = (CCPicture*)pResource->FindWidget( szWidgetNameItem);
 		if ( pPicture)
 		{
 			if ( m_SacrificeItem[ i].IsExist())
@@ -1130,7 +1130,7 @@ void ZStageInterface::SerializeSacrificeItemListBox( void)
 		}
 	}
 
-	MWidget* pWidget = pResource->FindWidget( "Stage_NoItemLabel");
+	CCWidget* pWidget = pResource->FindWidget( "Stage_NoItemLabel");
 	if ( pWidget)
 	{
 		if ( pListBox->GetCount() > 0)
@@ -1230,13 +1230,13 @@ void ZStageInterface::OnRemoveSacrificeItem( int nSlotNum)
   
   desc : 희생 아이템 리스트 박스 리스너
 ************************************************************************/
-class MSacrificeItemListBoxListener : public MListener
+class MSacrificeItemListBoxListener : public CCListener
 {
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
 		// On select
-		if ( MWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
+		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
 		{
 			MListBox* pListBox = (MListBox*)pWidget;
 
@@ -1258,7 +1258,7 @@ public:
 
 
 		// On double click
-		else if ( MWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+		else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
 		{
 			// Put item
 			if ( !ZApplication::GetStageInterface()->m_SacrificeItem[ 0].IsExist())
@@ -1275,7 +1275,7 @@ public:
 
 MSacrificeItemListBoxListener g_SacrificeItemListBoxListener;
 
-MListener* ZGetSacrificeItemListBoxListener( void)
+CCListener* ZGetSacrificeItemListBoxListener( void)
 {
 	return &g_SacrificeItemListBoxListener;
 }
@@ -1286,7 +1286,7 @@ MListener* ZGetSacrificeItemListBoxListener( void)
   
   desc : 희생 아이템 제거
 ************************************************************************/
-void OnDropCallbackRemoveSacrificeItem( void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
+void OnDropCallbackRemoveSacrificeItem( void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	if ( (pSender == NULL) || (strcmp(pSender->GetClassName(), MINT_ITEMSLOTVIEW)))
 		return;
@@ -1339,7 +1339,7 @@ void ZStageInterface::CloseRelayMapBox( void)
 	if ( pButton)
 		pButton->Show( true);
 
-	MWidget* pWidget = pResource->FindWidget( "Stage_CharacterInfo");
+	CCWidget* pWidget = pResource->FindWidget( "Stage_CharacterInfo");
 	if ( pWidget)
 		pWidget->Enable( true);
 
@@ -1364,7 +1364,7 @@ void ZStageInterface::HideRelayMapBox( void)
 	if ( pButton)
 		pButton->Show( true);
 
-	MWidget* pWidget = pResource->FindWidget( "Stage_CharacterInfo");
+	CCWidget* pWidget = pResource->FindWidget( "Stage_CharacterInfo");
 	if ( pWidget)
 		pWidget->Enable( true);
 
@@ -1380,7 +1380,7 @@ ret  : none
 ************************************************************************/
 void ZStageInterface::SetRelayMapBoxPos( int nBoxPos)
 {
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapListView");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapListView");
 	if ( pWidget)
 	{
 		sRect rect;
@@ -1517,16 +1517,16 @@ MMapListBoxListener
 
 desc : 맵 리스트 박스 리스너
 ************************************************************************/
-class MMapListBoxListener : public MListener
+class MMapListBoxListener : public CCListener
 {
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
 		// 스테이지 마스터가 아니면 맵 리스트를 컨트롤 할수없다.
 		if(!ZGetGameClient()->AmIStageMaster())
 			return false;
 		// On select
-		if ( MWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
+		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
 		{
 			// 맵리스트에서 선택된 맵정보를 릴레이맵 리스트에 추가한다.
 			MListBox* pMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_MapListbox");
@@ -1555,7 +1555,7 @@ public:
 		}
 
 		// On double click
-		else if ( MWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+		else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
 		{
 			return true;
 		}
@@ -1564,7 +1564,7 @@ public:
 	}
 };
 MMapListBoxListener g_MapListBoxListener;
-MListener* ZGetMapListBoxListener( void)
+CCListener* ZGetMapListBoxListener( void)
 {
 	return &g_MapListBoxListener;
 }
@@ -1574,16 +1574,16 @@ MRelayMapListBoxListener
 
 desc : 릴레이맵 리스트 박스 리스너
 ************************************************************************/
-class MRelayMapListBoxListener : public MListener
+class MRelayMapListBoxListener : public CCListener
 {
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
 		// 스테이지 마스터가 아니면 릴레이맵 리스트를 컨트롤 할수없다.
 		if(!ZGetGameClient()->AmIStageMaster())
 			return false;
 		// On select
-		if ( MWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
+		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
 		{
 			MListBox* pRelayMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 			if(pRelayMapListBox == NULL) return false;
@@ -1611,7 +1611,7 @@ public:
 		}
 
 		// On double click
-		else if ( MWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+		else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
 		{
 			return true;
 		}
@@ -1619,7 +1619,7 @@ public:
 	}
 };
 MRelayMapListBoxListener g_RelayMapListBoxListener;
-MListener* ZGetRelayMapListBoxListener( void)
+CCListener* ZGetRelayMapListBoxListener( void)
 {
 	return &g_RelayMapListBoxListener;
 }
@@ -1638,14 +1638,14 @@ void ZStageInterface::StartMovieOfQuest( void)
 	m_dwClockOfStartMovie = timeGetTime();
 
 	// 화염 애니메이션 시작
-	MAnimation* pAnimation = (MAnimation*)pResource->FindWidget( "Stage_Flame0");
+	CCAnimation* pAnimation = (CCAnimation*)pResource->FindWidget( "Stage_Flame0");
 	if ( pAnimation && m_SacrificeItem[ SACRIFICEITEM_SLOT0].IsExist())
 	{
 		pAnimation->SetCurrentFrame( 0);
 		pAnimation->Show( true);
 		pAnimation->SetRunAnimation( true);
 	}
-	pAnimation = (MAnimation*)pResource->FindWidget( "Stage_Flame1");
+	pAnimation = (CCAnimation*)pResource->FindWidget( "Stage_Flame1");
 	if ( pAnimation && m_SacrificeItem[ SACRIFICEITEM_SLOT1].IsExist())
 	{
 		pAnimation->SetCurrentFrame( 0);
@@ -1679,11 +1679,11 @@ void ZStageInterface::OnDrawStartMovieOfQuest( void)
 	if ( nOpacity < 0)
 		nOpacity = 0;
 
-	MPicture* pPicture = (MPicture*)pResource->FindWidget( "Stage_SacrificeItemImage0");
+	CCPicture* pPicture = (CCPicture*)pResource->FindWidget( "Stage_SacrificeItemImage0");
 	if ( pPicture && m_SacrificeItem[ SACRIFICEITEM_SLOT0].IsExist())
 		pPicture->SetOpacity( nOpacity);
 
-	pPicture = (MPicture*)pResource->FindWidget( "Stage_SacrificeItemImage1");
+	pPicture = (CCPicture*)pResource->FindWidget( "Stage_SacrificeItemImage1");
 	if ( pPicture && m_SacrificeItem[ SACRIFICEITEM_SLOT1].IsExist())
 		pPicture->SetOpacity( nOpacity);
 
@@ -1947,9 +1947,9 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
 
 	// 여기서 시나리오 이름을 보여준다.
 	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_SenarioName");
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_SenarioNameImg");
-	MPicture* pPictureL = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Lights0");
-	MPicture* pPictureR = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Lights1");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_SenarioNameImg");
+	CCPicture* pPictureL = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Lights0");
+	CCPicture* pPictureR = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Lights1");
 	if ( pLabel)
 	{
 		if (nScenarioID == 0)

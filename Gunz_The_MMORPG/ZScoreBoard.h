@@ -26,13 +26,13 @@ protected:
 		int nScore, int nKills, int nDeaths, int nPing);
 public:
 	ZScoreBoard(ZCharacterManager* pCharacterManager, ZIDLResource* pIDLResource,
-		        const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+		        const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZScoreBoard();
 	virtual bool OnCreate();
 	virtual void OnDestroy();
 
 	virtual void OnDraw(CCDrawContext* pDC);
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
 	void Update();
 };

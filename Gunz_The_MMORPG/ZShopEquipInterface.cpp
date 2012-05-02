@@ -12,7 +12,7 @@ static ZIDLResource* GetIDLResource() {
 // 버튼에 마우스오버할때 나타나는 초록빛이 사라지지 않아서 이렇게 해둔것 같다. 이코드가 여기저기 많아서 함수로 만들어버렸음
 void WidgetHideDisableShow(const char* szWidget)
 {
-	MWidget* pWidget = GetIDLResource()->FindWidget( szWidget);
+	CCWidget* pWidget = GetIDLResource()->FindWidget( szWidget);
 	if ( pWidget)
 	{
 		pWidget->Show( false);
@@ -23,7 +23,7 @@ void WidgetHideDisableShow(const char* szWidget)
 // 이렇게 된 곳도 있는데 이건 왜 숨기기만 하는지 모르겠다 -_-;
 void WidgetHideDisable(const char* szWidget)
 {
-	MWidget* pWidget = GetIDLResource()->FindWidget( szWidget);
+	CCWidget* pWidget = GetIDLResource()->FindWidget( szWidget);
 	if ( pWidget)
 	{
 		pWidget->Show( false);
@@ -34,7 +34,7 @@ void WidgetHideDisable(const char* szWidget)
 
 void WidgetEnableShow(const char* szWidget, bool bEnable, bool bShow)
 {
-	MWidget* pWidget = GetIDLResource()->FindWidget( szWidget);
+	CCWidget* pWidget = GetIDLResource()->FindWidget( szWidget);
 	if (pWidget)
 	{
 		pWidget->Enable(bEnable);
@@ -458,7 +458,7 @@ void ZShopEquipInterface::SelectShopTab(int nTabIndex)
 #endif
 #endif
 
-	MWidget* pWidget = pResource->FindWidget("AllEquipmentList");
+	CCWidget* pWidget = pResource->FindWidget("AllEquipmentList");
 	if (pWidget != NULL) pWidget->Show(nTabIndex==0 ? true : false);
 	pWidget = pResource->FindWidget("MyAllEquipmentList");
 	if (pWidget != NULL) pWidget->Show(nTabIndex==1 ? true : false);
@@ -525,21 +525,21 @@ void ZShopEquipInterface::SelectShopTab(int nTabIndex)
 
 
 	// 구입, 판매 라벨
-	MPicture* pPicture;
+	CCPicture* pPicture;
 	CCBitmap* pBitmap;
-	pPicture = (MPicture*)pResource->FindWidget("Shop_FrameTabLabel1");
+	pPicture = (CCPicture*)pResource->FindWidget("Shop_FrameTabLabel1");
 	if ( pPicture)
 		pPicture->Show(nTabIndex==0 ? true : false);
-	pPicture = (MPicture*)pResource->FindWidget("Shop_FrameTabLabel2");
+	pPicture = (CCPicture*)pResource->FindWidget("Shop_FrameTabLabel2");
 	if ( pPicture)
 		pPicture->Show(nTabIndex==1 ? true : false);
-	pPicture = (MPicture*)pResource->FindWidget("Shop_FrameTabLabel3");
+	pPicture = (CCPicture*)pResource->FindWidget("Shop_FrameTabLabel3");
 	if ( pPicture)
 		pPicture->Show(nTabIndex==2 ? true : false);
 
 
 	// 프레임 탭
-	pPicture = (MPicture*)pResource->FindWidget("Shop_TabLabel");
+	pPicture = (CCPicture*)pResource->FindWidget("Shop_TabLabel");
 	if ( pPicture)
 	{
 		if ( nTabIndex == 0)
@@ -598,7 +598,7 @@ void ZShopEquipInterface::SelectEquipmentTab(int nTabIndex)
 	}
 
 	// EQUIPMENTLISTBOX
-	MWidget* pWidget = pResource->FindWidget("EquipmentList");
+	CCWidget* pWidget = pResource->FindWidget("EquipmentList");
 	if (pWidget != NULL) pWidget->Show(nTabIndex==0 ? true:false);
 	pWidget = pResource->FindWidget("AccountItemList");
 	if (pWidget != NULL) pWidget->Show(nTabIndex==0 ? false:true);
@@ -667,17 +667,17 @@ void ZShopEquipInterface::SelectEquipmentTab(int nTabIndex)
 		pLabel->Show( nTabIndex==1 ? true : false);
 
 	// 탭 리스트
-	MPicture* pPicture;
-	pPicture = (MPicture*)pResource->FindWidget("Equip_ListLabel1");
+	CCPicture* pPicture;
+	pPicture = (CCPicture*)pResource->FindWidget("Equip_ListLabel1");
 	if ( pPicture)
 		pPicture->Show( nTabIndex==0 ? true : false);
-	pPicture = (MPicture*)pResource->FindWidget("Equip_ListLabel2");
+	pPicture = (CCPicture*)pResource->FindWidget("Equip_ListLabel2");
 	if ( pPicture)
 		pPicture->Show( nTabIndex==1 ? true : false);
 
 
 	// 프레임 탭
-	pPicture = (MPicture*)pResource->FindWidget("Equip_TabLabel");
+	pPicture = (CCPicture*)pResource->FindWidget("Equip_TabLabel");
 	CCBitmap* pBitmap;
 	if ( pPicture)
 	{
@@ -724,10 +724,10 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 
 
 	// Frame open/close background image
-	MPicture* pPicture;
+	CCPicture* pPicture;
 	strcpy( szTemp, szName);
 	strcat( szTemp, "_ArmorBGListFrameOpen");
-	pPicture = (MPicture*)pResource->FindWidget( szTemp);
+	pPicture = (CCPicture*)pResource->FindWidget( szTemp);
 	if(pPicture != NULL) {
 		if( bOpen && GetArmorWeaponTabIndex() == 0 )  { pPicture->Show(true); } 
 		else										{ pPicture->Show(false);}		
@@ -735,7 +735,7 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 
 	strcpy( szTemp, szName);
 	strcat( szTemp, "_ArmorBGListFrameClose");
-	pPicture = (MPicture*)pResource->FindWidget( szTemp);
+	pPicture = (CCPicture*)pResource->FindWidget( szTemp);
 	if(pPicture != NULL) {
 		if( !bOpen && GetArmorWeaponTabIndex() == 0 ) { pPicture->Show(true); } 
 		else										{ pPicture->Show(false);}		
@@ -745,7 +745,7 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 	// Frame open/close background image
 	strcpy( szTemp, szName);
 	strcat( szTemp, "_WeaponBGListFrameOpen");
-	pPicture = (MPicture*)pResource->FindWidget( szTemp);
+	pPicture = (CCPicture*)pResource->FindWidget( szTemp);
 	if(pPicture != NULL) {
 		if( bOpen && GetArmorWeaponTabIndex() == 1 )  { pPicture->Show(true); } 
 		else										{ pPicture->Show(false);}		
@@ -753,7 +753,7 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 
 	strcpy( szTemp, szName);
 	strcat( szTemp, "_WeaponBGListFrameClose");
-	pPicture = (MPicture*)pResource->FindWidget( szTemp);
+	pPicture = (CCPicture*)pResource->FindWidget( szTemp);
 	if(pPicture != NULL) {
 		if( !bOpen && GetArmorWeaponTabIndex() == 1 )  { pPicture->Show(true); } 
 		else										 { pPicture->Show(false);}		
@@ -775,7 +775,7 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 	// Resize item slot
 	char szWidgetName[ 256];
 	sprintf( szWidgetName, "%s_EquipmentSlot_Head", szName);
-	MWidget* itemSlot = (MWidget*)pResource->FindWidget( szWidgetName);
+	CCWidget* itemSlot = (CCWidget*)pResource->FindWidget( szWidgetName);
 	if (itemSlot) {
 		sRect rect = itemSlot->GetRect();
 
@@ -784,7 +784,7 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 		else		nWidth = min( rect.w, rect.h);
 
 		for ( int i = 0;  i < MMCIP_END;  i++) {
-			itemSlot = (MWidget*)pResource->FindWidget( GetItemSlotName( szName, i));
+			itemSlot = (CCWidget*)pResource->FindWidget( GetItemSlotName( szName, i));
 
 			if (itemSlot) {
 				if(GetArmorWeaponTabIndex() == GetArmorWeaponTabIndexContainItemParts((CCMatchCharItemParts)i)) {					
@@ -837,19 +837,19 @@ bool ZShopEquipInterface::IsEquipmentFrameListOpened( const char* szName)
 	ZIDLResource* pResource = GetIDLResource();
 
 	char szTemp[256];
-	MPicture* pPicture;
+	CCPicture* pPicture;
 	strcpy( szTemp, szName);
 	if (GetArmorWeaponTabIndex() == 0)
 	{
 		strcat( szTemp, "_ArmorBGListFrameOpen");
-		pPicture = (MPicture*)pResource->FindWidget( szTemp);
+		pPicture = (CCPicture*)pResource->FindWidget( szTemp);
 		if (pPicture) 
 			return pPicture->IsVisible();
 	}
 	else if (GetArmorWeaponTabIndex() == 1)
 	{
 		strcat( szTemp, "_WeaponBGListFrameOpen");
-		pPicture = (MPicture*)pResource->FindWidget( szTemp);
+		pPicture = (CCPicture*)pResource->FindWidget( szTemp);
 		if (pPicture) 
 			return pPicture->IsVisible();
 	}

@@ -205,15 +205,15 @@ protected:
 	CCDUELTOURNAMENTTYPE m_eDuelTournamentType;
 
 protected:
-	static bool		OnGlobalEvent(MEvent* pEvent);
-	virtual bool	OnEvent(MEvent* pEvent, MListener* pListener);
-	bool			OnDebugEvent(MEvent* pEvent, MListener* pListener);
-	virtual bool	OnCommand(MWidget* pWidget, const char* szMessage);
+	static bool		OnGlobalEvent(CCEvent* pEvent);
+	virtual bool	OnEvent(CCEvent* pEvent, CCListener* pListener);
+	bool			OnDebugEvent(CCEvent* pEvent, CCListener* pListener);
+	virtual bool	OnCommand(CCWidget* pWidget, const char* szMessage);
 	static bool		OnCommand(CCCommand* pCommand);
 
 	bool ResizeWidget(const char* szName, int w, int h);
-	bool ResizeWidgetRecursive( MWidget* pWidget, int w, int h);
-	void SetListenerWidget(const char* szName, MListener* pListener);
+	bool ResizeWidgetRecursive( CCWidget* pWidget, int w, int h);
+	void SetListenerWidget(const char* szName, CCListener* pListener);
 
 	void UpdateCursorEnable();
 	void UpdateDuelTournamentWaitMsgDots();
@@ -309,7 +309,7 @@ protected:
 	GUNZ_BIRDTEST
 */
 public:
-	ZGameInterface(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZGameInterface(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	~ZGameInterface();
 
 	static bool m_sbRemainClientConnectionForResetApp;	// 언어를 바꾸어서 리소스를 다시 로딩해야 할때 이걸 true로 해줘야 함
@@ -364,8 +364,8 @@ public:
 
 	void SaveScreenShot();
 
-	void ShowMessage(const char* szText, MListener* pCustomListenter=NULL, int nMessageID=0);
-	void ShowConfirmMessage(const char* szText, MListener* pCustomListenter=NULL);
+	void ShowMessage(const char* szText, CCListener* pCustomListenter=NULL, int nMessageID=0);
+	void ShowConfirmMessage(const char* szText, CCListener* pCustomListenter=NULL);
 	void ShowMessage(int nMessageID);
 	void ShowErrorMessage(int nErrorID);
 	void ShowErrorMessage(const char* szErrorMsg, int nErrorID);
@@ -538,9 +538,9 @@ __forceinline ZBaseQuest* ZGameInterface::GetQuest()
 
 #define BEGIN_WIDGETLIST(_ITEM, _IDLRESPTR, _CLASS, _INSTANCE)								\
 {																							\
-	MWidgetList WidgetList;																	\
+	CCWidgetList WidgetList;																	\
 	(_IDLRESPTR)->FindWidgets(WidgetList, _ITEM);											\
-	for (MWidgetList::iterator itor = WidgetList.begin(); itor != WidgetList.end(); ++itor) \
+	for (CCWidgetList::iterator itor = WidgetList.begin(); itor != WidgetList.end(); ++itor) \
 {																							\
 	if ((*itor) != NULL)																	\
 {																							\
@@ -564,6 +564,6 @@ inline void GetDuelTournamentGradeIconFileName(char* out_sz, int grade)
 }
 
 char* GetItemSlotName( const char* szName, int nItem);
-bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, MAlignmentMode mam=MAM_LEFT|MAM_TOP);
+bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, CCAlignmentMode mam=MAM_LEFT|MAM_TOP);
 
 #endif

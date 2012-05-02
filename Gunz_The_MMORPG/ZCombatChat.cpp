@@ -17,7 +17,7 @@
 
 /////////////////
 // ZTabPlayerList
-ZTabPlayerList::ZTabPlayerList(const char* szName, MWidget* pParent, MListener* pListener)
+ZTabPlayerList::ZTabPlayerList(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MListBox(szName, pParent, pListener)
 {
 	SetChatControl(NULL);
@@ -44,7 +44,7 @@ void ZTabPlayerList::OnHide(void)
 		m_pEditChat->SetFocus();
 }
 
-bool ZTabPlayerList::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZTabPlayerList::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	if(pEvent->nMessage==MWM_KEYDOWN){
 		if(pEvent->nKey==VK_ESCAPE) 
@@ -71,10 +71,10 @@ void ZTabPlayerList::OnPickPlayer()
 }
 /////////////////
 
-class MCombatChatInputListener : public MListener{
+class MCombatChatInputListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true)
 		{
 			if (strlen(pWidget->GetText()) >= 256) return false;
 
@@ -102,12 +102,12 @@ public:
 			}
 			return true;
 		}
-		else if(MWidget::IsMsg(szMessage, MEDIT_ESC_VALUE)==true)
+		else if(CCWidget::IsMsg(szMessage, MEDIT_ESC_VALUE)==true)
 		{
 			pWidget->SetText("");
 			ZGetCombatInterface()->EnableInputChat(false);
 		}
-		else if ((MWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (MWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
 		{
 			ZApplication::GetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -118,7 +118,7 @@ public:
 };
 MCombatChatInputListener	g_CombatChatInputListener;
 
-MListener* ZGetCombatChatInputListener(void)
+CCListener* ZGetCombatChatInputListener(void)
 {
 	return &g_CombatChatInputListener;
 }
@@ -144,7 +144,7 @@ ZCombatChat::~ZCombatChat()
 
 bool ZCombatChat::Create( const char* szOutputTxtarea,bool bUsePlayerList)
 {
-	MWidget* pWidget = m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATINPUT);
+	CCWidget* pWidget = m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATINPUT);
 	if (pWidget!=NULL)
 	{
 		pWidget->SetListener(ZGetCombatChatInputListener());
@@ -174,7 +174,7 @@ bool ZCombatChat::Create( const char* szOutputTxtarea,bool bUsePlayerList)
 		if(bUsePlayerList)
 		{
 			// TabPlayerList
-			MWidget* pPivot = m_pInputEdit->GetParent();
+			CCWidget* pPivot = m_pInputEdit->GetParent();
 			m_pTabPlayerList = new ZTabPlayerList("TabPlayerList", pPivot, ZGetCombatInterface());
 			m_pTabPlayerList->Show(false);
 			m_pTabPlayerList->SetBounds(m_pInputEdit->GetPosition().x, m_pInputEdit->GetPosition().y-120-5, 150, 120);

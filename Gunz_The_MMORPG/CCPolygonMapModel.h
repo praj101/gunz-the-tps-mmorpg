@@ -44,7 +44,7 @@ class MPolygonMapModel;
 
 // 검색 가능한 Point Node
 // 폴리곤의 각 모서리가 검색의 노드가 된다.
-class MPMPoint : public MNodeModel{
+class MPMPoint : public CCNodeModel{
 protected:
 friend class MPMPolygon;
 friend class MPMPortal;
@@ -87,7 +87,7 @@ public:
 	bool IsVisible(MPMPoint* pPN);
 
 	virtual int GetSuccessorCount(void);
-	virtual MNodeModel* GetSuccessor(int i);
+	virtual CCNodeModel* GetSuccessor(int i);
 
 	virtual float GetSuccessorCost(CCNodeModel* pSuccessor);
 	virtual float GetHeuristicCost(CCNodeModel* pNode);

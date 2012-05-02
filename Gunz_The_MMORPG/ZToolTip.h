@@ -1,7 +1,7 @@
 #ifndef ZTOOLTIP_H
 #define ZTOOLTIP_H
 
-#include "MWidget.h"
+#include "CCWidget.h"
 #include "MToolTip.h"
 
 #define MAX_TOOLTIP_LINE_STRING 40
@@ -9,7 +9,7 @@
 class ZToolTip : public MToolTip
 {
 public:
-	ZToolTip(const char* szName, MWidget* pParent, MAlignmentMode align=MAM_LEFT|MAM_TOP);
+	ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align=MAM_LEFT|MAM_TOP);
 	~ZToolTip();
 	virtual void OnDraw(CCDrawContext* pDC);
 	virtual void SetBounds(void);
@@ -21,7 +21,7 @@ private:
 	CCBitmap* m_pBitmap1;
 	CCBitmap* m_pBitmap2;
 
-	MAlignmentMode m_alignMode;		// 부모 기준 툴팁 위치
+	CCAlignmentMode m_alignMode;		// 부모 기준 툴팁 위치
 };
 
 #endif//ZTOOLTIP_H

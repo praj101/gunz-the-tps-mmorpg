@@ -43,7 +43,7 @@ CCCrc32Container* GetCrcContainer();
 //(RandMaskVal.exe by changing the value before the build. Define people by modifying the parse error is displayed.)
 
 template <typename T>
-class MProtectValue
+class CCProtectValue
 {
 	//Assign a value to the address pointer to put the value of address mask to hide itself
 	typedef unsigned char* MaskedPtr;
@@ -60,9 +60,9 @@ private:
 	}
 
 public:
-	MProtectValue()		 { m_pValue = ToMaskedPtr(new T); }
+	CCProtectValue()		 { m_pValue = ToMaskedPtr(new T); }
 
-	~MProtectValue()	 { 
+	~CCProtectValue()	 { 
 		delete ToNormalPtr(m_pValue);
 		::GetCrcContainer()->Remove(this);
 	}
@@ -115,8 +115,8 @@ public:
 private:
 	//Operator overloading would be convenient to write, but what happens actually forced to explicitly represent better for thinking that.
 
-	MProtectValue(T val) { m_pValue = ToMaskedPtr(new T(val)); }	//copy constructor.Rather confusing, let's hide him.
-	MProtectValue<T>& operator=(int) {}	//copy assignment operator, behind
+	CCProtectValue(T val) { m_pValue = ToMaskedPtr(new T(val)); }	//copy constructor.Rather confusing, let's hide him.
+	CCProtectValue<T>& operator=(int) {}	//copy assignment operator, behind
 };
 
 //USAGE: the value that you want to prevent hacking into the template wraps. 

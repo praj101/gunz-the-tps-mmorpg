@@ -14,29 +14,29 @@ private:
 	//float	m_fMaxSpeed;	// 최고속도
 	//bool	m_bGravity;		// 중력의 영향을 받는가?
 
-	MProtectValue<float>	m_fDistToFloor;	/// 바닥까지의 거리
-	MProtectValue<rplane>	m_FloorPlane;	/// 바닥 평면의 방정식
+	CCProtectValue<float>	m_fDistToFloor;	/// 바닥까지의 거리
+	CCProtectValue<rplane>	m_FloorPlane;	/// 바닥 평면의 방정식
 
 	rvector m_lastMove;		// 마지막으로 움직인 거리
 
-	MProtectValue<bool>		m_bFalling;		// 낙하중이다
-	MProtectValue<float>	m_fFallHeight;	// 낙하가 시작된 시점
+	CCProtectValue<bool>		m_bFalling;		// 낙하중이다
+	CCProtectValue<float>	m_fFallHeight;	// 낙하가 시작된 시점
 
-	MProtectValue<bool>		m_bLanding;		// 이번에 착지했나
-	MProtectValue<bool>		m_bAdjusted;	// 마지막 움직임이 (벽때문에) 비벼졌나
-	MProtectValue<float>	m_fLastAdjustedTime;	// 마지막으로 비빈 시간
+	CCProtectValue<bool>		m_bLanding;		// 이번에 착지했나
+	CCProtectValue<bool>		m_bAdjusted;	// 마지막 움직임이 (벽때문에) 비벼졌나
+	CCProtectValue<float>	m_fLastAdjustedTime;	// 마지막으로 비빈 시간
 
 	rvector m_Velocity;		// 곧 private 으로 간다
 
-	MProtectValue<bool>		m_bRestrict;		// 이속제한
-	MProtectValue<float>	m_fRestrictTime;	// 제한이 걸린 시각
-	MProtectValue<float>	m_fRestrictDuration;// 제한의 지속시간
-	MProtectValue<float>	m_fRestrictRatio;	// 감속 비율
+	CCProtectValue<bool>		m_bRestrict;		// 이속제한
+	CCProtectValue<float>	m_fRestrictTime;	// 제한이 걸린 시각
+	CCProtectValue<float>	m_fRestrictDuration;// 제한의 지속시간
+	CCProtectValue<float>	m_fRestrictRatio;	// 감속 비율
 
-	MProtectValue<bool>		m_bHaste;			// 가속보너스
-	MProtectValue<float>	m_fHasteTime;		// 가속이 걸린 시각
-	MProtectValue<float>	m_fHasteDuration;	// 가속의 지속시간
-	MProtectValue<float>	m_fHasteRatio;		// 가속 비율
+	CCProtectValue<bool>		m_bHaste;			// 가속보너스
+	CCProtectValue<float>	m_fHasteTime;		// 가속이 걸린 시각
+	CCProtectValue<float>	m_fHasteDuration;	// 가속의 지속시간
+	CCProtectValue<float>	m_fHasteRatio;		// 가속 비율
 
 	int		m_nHasteItemId;						// 가속을 일으킨 아이템 ID
 	float	m_fNextHasteEffectTime;

@@ -12,7 +12,7 @@
 #define ZTOOLTIP_MAX_W 350
 #define ZTOOLTIP_LINE_GAP 3
 
-ZToolTip::ZToolTip(const char* szName, MWidget* pParent, MAlignmentMode align)
+ZToolTip::ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align)
 : MToolTip(szName, pParent)
 {
 	m_alignMode = align;
@@ -67,8 +67,8 @@ void ZToolTip::OnDraw(CCDrawContext* pDC)
 		// 4 5 6
 		// 7 8 9
 
-		m_pBitmap1->SetDrawMode(MBM_Normal);
-		m_pBitmap2->SetDrawMode(MBM_Normal);
+		m_pBitmap1->SetDrawMode(CCBM_Normal);
+		m_pBitmap2->SetDrawMode(CCBM_Normal);
 
 		pDC->SetBitmap( m_pBitmap1 );
 		pDC->Draw(r.x, r.y, 16, 16);
@@ -76,7 +76,7 @@ void ZToolTip::OnDraw(CCDrawContext* pDC)
 		pDC->SetBitmap( m_pBitmap2 );
 		pDC->Draw(r.x+16, r.y, r.w-32,16);
 
-		m_pBitmap1->SetDrawMode(MBM_FlipLR);
+		m_pBitmap1->SetDrawMode(CCBM_FlipLR);
 
 		pDC->SetBitmap( m_pBitmap1 );
 		pDC->Draw(r.x+r.w-16, r.y, 16, 16);
@@ -84,7 +84,7 @@ void ZToolTip::OnDraw(CCDrawContext* pDC)
 		//그려야할사이즈가있다면~ 중간단계
 		if(r.h > 32) {
 
-			m_pBitmap2->SetDrawMode(MBM_RotL90);
+			m_pBitmap2->SetDrawMode(CCBM_RotL90);
 			pDC->SetBitmap( m_pBitmap2 );
 			pDC->Draw(r.x, r.y+16, 16, r.h-32);
 
@@ -92,27 +92,27 @@ void ZToolTip::OnDraw(CCDrawContext* pDC)
 			pDC->SetColor(sColor(0xffD9D9D9));//임시
 			pDC->FillRectangle(sRect(r.x+16,r.y+16,r.w-32,r.h-32));
 
-			m_pBitmap2->SetDrawMode(MBM_RotR90);
+			m_pBitmap2->SetDrawMode(CCBM_RotR90);
 			pDC->SetBitmap( m_pBitmap2 );
 			pDC->Draw(r.x+r.w-16, r.y+16, 16, r.h-32);
 		}
 
 		// 아래부분~
 
-		m_pBitmap1->SetDrawMode(MBM_FlipUD);
+		m_pBitmap1->SetDrawMode(CCBM_FlipUD);
 		pDC->SetBitmap( m_pBitmap1 );
 		pDC->Draw(r.x, r.y+r.h-16, 16, 16);
 
-		m_pBitmap2->SetDrawMode(MBM_FlipUD);
+		m_pBitmap2->SetDrawMode(CCBM_FlipUD);
 		pDC->SetBitmap( m_pBitmap2 );
 		pDC->Draw(r.x+16, r.y+r.h-16, r.w-32,16);
 
-		m_pBitmap1->SetDrawMode(MBM_FlipUD|MBM_FlipLR);
+		m_pBitmap1->SetDrawMode(CCBM_FlipUD|CCBM_FlipLR);
 		pDC->SetBitmap( m_pBitmap1 );
 		pDC->Draw(r.x+r.w-16, r.y+r.h-16, 16, 16);
 
-		m_pBitmap1->SetDrawMode(MBM_Normal);
-		m_pBitmap2->SetDrawMode(MBM_Normal);
+		m_pBitmap1->SetDrawMode(CCBM_Normal);
+		m_pBitmap2->SetDrawMode(CCBM_Normal);
 	}
 
 	char* szName = NULL;
@@ -185,7 +185,7 @@ void ZToolTip::SetBounds(void)
 //		else w = min(w,_max_w);
 	}
 
-	MWidget::SetBounds(sRect(x-ZTOOLTIP_WIDTH_GAP, y-ZTOOLTIP_HEIGHT_GAP,w,h));
+	CCWidget::SetBounds(sRect(x-ZTOOLTIP_WIDTH_GAP, y-ZTOOLTIP_HEIGHT_GAP,w,h));
 }
 
 void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int nTextPixelHeight)

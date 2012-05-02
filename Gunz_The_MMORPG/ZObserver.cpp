@@ -141,7 +141,7 @@ void ZObserver::ShowInfo(bool bShow)
 {
 	if (m_pTargetCharacter == NULL) return;
 /*
-	MWidget* pWidget = m_pIDLResource->FindWidget("ObserverInfoLabel");
+	CCWidget* pWidget = m_pIDLResource->FindWidget("ObserverInfoLabel");
 	
 	if (pWidget!=NULL)
 	{

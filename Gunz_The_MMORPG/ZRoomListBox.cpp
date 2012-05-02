@@ -26,8 +26,8 @@ public:
 	{		return ( stricmp(elem.first.c_str(), string_key.c_str())== 0);		}
 };
 
-ZRoomListBox::ZRoomListBox(const char* szName, MWidget* pParent, MListener* pListener)
-: MWidget(szName, pParent, pListener)
+ZRoomListBox::ZRoomListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
+: CCWidget(szName, pParent, pListener)
 {
 	m_nPrevStageCount = m_nNextStageCount = -1;
 	//m_pMapInfo			= new sMapInfo[NUM_DISPLAY_ROOM];
@@ -289,13 +289,13 @@ bool ZRoomListBox::OnShow()
 	return true;
 }
 
-bool ZRoomListBox::OnCommand( MWidget* pWidget, const char* szMassage )
+bool ZRoomListBox::OnCommand( CCWidget* pWidget, const char* szMassage )
 {
 	SetPage();
 	return true;
 }
 
-bool ZRoomListBox::OnEvent( MEvent* pEvent, MListener* pListener )
+bool ZRoomListBox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 {
 	sRect r = GetInitialClientRect();
 

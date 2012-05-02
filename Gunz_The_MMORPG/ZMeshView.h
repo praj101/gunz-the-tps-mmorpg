@@ -1,7 +1,7 @@
 #ifndef ZMESHVIEW_H
 #define ZMESHVIEW_H
 
-#include "MWidget.h"
+#include "CCWidget.h"
 #include "RMesh.h"
 #include "RVisualMeshMgr.h"
 
@@ -46,7 +46,7 @@ protected:
 public:
 	
 protected:
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 	void DrawTestScene(void);
 	virtual void OnDraw(CCDrawContext* pDC);
 
@@ -58,7 +58,7 @@ protected:
 	void ZoomIn(float add_distance = 1.0f);
 	void ZoomOut(float add_distance = 1.0f); 
 public:
-	ZMeshView(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZMeshView(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZMeshView(void);
 
 //	void SetMesh(RVisualMesh* pVisualMesh);

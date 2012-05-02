@@ -120,7 +120,7 @@ CCPicture::CCPicture(const char* szName, CCWidget* pParent, CCListener* pListene
 	m_iStretch = 0;
 	m_BitmapColor = 0xFFFFFFFF;
 	m_BitmapReseveColor = 0xFFFFFFFF;
-	m_DrawMode = MBM_Normal;
+	m_DrawMode = CCBM_Normal;
 	m_bSwaped = false;
 }
 

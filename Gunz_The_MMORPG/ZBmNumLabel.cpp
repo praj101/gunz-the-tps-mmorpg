@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "ZBmNumLabel.h"
 
-ZBmNumLabel::ZBmNumLabel(const char* szName, MWidget* pParent, MListener* pListener)
-: MWidget(szName, pParent, pListener)
+ZBmNumLabel::ZBmNumLabel(const char* szName, CCWidget* pParent, CCListener* pListener)
+: CCWidget(szName, pParent, pListener)
 {
 	m_pLabelBitmap = NULL;
 	m_AlignmentMode = MAM_RIGHT;

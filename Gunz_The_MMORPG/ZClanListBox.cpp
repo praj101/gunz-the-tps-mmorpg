@@ -3,8 +3,8 @@
 #include "ZApplication.h"
 #include "ZClanListBox.h"
 
-ZClanListBox::ZClanListBox(const char* szName, MWidget* pParent, MListener* pListener) 
-			: MWidget(szName, pParent, pListener)
+ZClanListBox::ZClanListBox(const char* szName, CCWidget* pParent, CCListener* pListener) 
+			: CCWidget(szName, pParent, pListener)
 {
 	m_iNumRoom		= 0;
 	m_RoomWidth		= 0;

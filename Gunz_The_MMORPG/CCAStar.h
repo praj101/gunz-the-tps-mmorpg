@@ -52,8 +52,8 @@ struct CCFORCEDNODE{
 	CCNodeModel* pFromNode;
 };
 
-class MAStar{
-	CCPtrList<MNodeModel>	m_ShortestPath;
+class CCAStar{
+	CCPtrList<CCNodeModel>	m_ShortestPath;
 	class CMSortedList : public CCPtrList<CCNodeModel>{
 	public:
 		int Compare(CCNodeModel *lpRecord1, CCNodeModel *lpRecord2){
@@ -70,7 +70,7 @@ class MAStar{
 public:
 	int		m_nNodeTraverseCount;		// ³ëµå Å½»ö È½¼ö
 
-	//CCPtrList<MNodeModel>	m_CloseStack;
+	//CCPtrList<CCNodeModel>	m_CloseStack;
 protected:
 	void PushOpen(CCNodeModel* pNode);
 	CCNodeModel* PopOpen(void);
@@ -78,9 +78,9 @@ protected:
 	bool IsOpenEmpty(void);
 	int IsOpenNode(CCNodeModel* pNode);
 	/*
-	void PushClose(MNodeModel* pNode);
-	MNodeModel* PopClose(void);
-	int IsCloseNode(MNodeModel* pNode);
+	void PushClose(CCNodeModel* pNode);
+	CCNodeModel* PopClose(void);
+	int IsCloseNode(CCNodeModel* pNode);
 	void RemoveClose(int i);
 	*/
 	bool IsForcedClose(CCNodeModel* pNode, CCNodeModel* pFromNode);
@@ -97,7 +97,7 @@ public:
 	CCNodeModel* GetShortestPath(int i);
 	void RemoveShortestPath(int i);
 
-	CCPtrList<MNodeModel>* GetShortestPath(void);
+	CCPtrList<CCNodeModel>* GetShortestPath(void);
 
 	void Reset(void);
 };

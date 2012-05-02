@@ -65,11 +65,11 @@ struct CCMatchBuffDesc
 {
 	unsigned long int		m_nBuffID;
 
-	MProtectValue<CCMatchBuffEffectType> m_nBuffEffectType;
-	MProtectValue<CCMatchBuffPeriodType>	m_nBuffPeriodType;
-	MProtectValue<int>					m_nBuffPeriod;
+	CCProtectValue<CCMatchBuffEffectType> m_nBuffEffectType;
+	CCProtectValue<CCMatchBuffPeriodType>	m_nBuffPeriodType;
+	CCProtectValue<int>					m_nBuffPeriod;
 
-	MProtectValue<CCMatchBuffInfo>*		m_pBuffInfo;
+	CCProtectValue<CCMatchBuffInfo>*		m_pBuffInfo;
 
 	char				m_szBuffName[128];
 	char				m_szBuffDesc[8192];

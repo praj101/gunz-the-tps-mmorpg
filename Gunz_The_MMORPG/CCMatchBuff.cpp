@@ -4,7 +4,7 @@
 
 CCMatchBuffDesc::CCMatchBuffDesc() : m_nBuffID(0)
 {
-	m_pBuffInfo = new MProtectValue<CCMatchBuffInfo>;
+	m_pBuffInfo = new CCProtectValue<CCMatchBuffInfo>;
 	memset(&m_pBuffInfo->Ref(), 0, sizeof(CCMatchBuffInfo));
 
 	m_pBuffInfo->Ref().fSpeed_Ratio = 1.0f;

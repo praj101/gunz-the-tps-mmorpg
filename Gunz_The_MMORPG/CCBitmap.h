@@ -1,90 +1,93 @@
 #pragma once
-/* 
-	CCBitmap.h
-*/
-
 #include "CCList.h"
 #include "CCTypes.h"
 
-#define CCBM_Normal	0
-#define CCBM_FlipLR	1
-#define CCBM_FlipUD	1<<1
+#define CCBM_Normal 0
+#define CCBM_FlipLR 1
+#define CCBM_FlipUD 1<<1
 #define CCBM_RotL90 1<<2
 #define CCBM_RotR90 1<<3
 
-#define CCBITMAP_NAME_LENGTH	128
-
+////////////////////////////////////////////////////
+// Bitmap abstract class
+//		시스템에 맞는 class로 override해서 사용한다.
+#define MBITMAP_NAME_LENGTH		128
 class CCBitmap{
 public:
-	char	m_szName[CCBITMAP_NAME_LENGTH];
+#ifdef _DEBUG
+	int		m_nTypeID;	// 같은 레벨의 클래스(MFont, CCDrawContex)를 사용하기 위한 ID
+#endif
+
+public:
+	char	m_szName[MBITMAP_NAME_LENGTH];
 	DWORD	m_DrawMode;
+public:
+	CCBitmap(void);
+	virtual ~CCBitmap(void);
 
-	CCBitmap();
-	virtual ~CCBitmap();
+	void CreatePartial(CCBitmap *pBitmap,sRect rt,const char *szName);		// partial bitmap 으로 생성한다
 
-	void CreatePartial(CCBitmap* pBitmap, sRect rt, const char* szName);
+	virtual bool Create(const char* szName);
+	virtual void Destroy(void);
 
-	virtual bool	Create(const char* szName);
-	virtual void	Destroy();
+	virtual void SetDrawMode(DWORD md) { m_DrawMode = md; }
+	virtual DWORD GetDrawMode() { return m_DrawMode; }
 
-	virtual void	SetDrawMode(DWORD md) { m_DrawMode=md; };
-	virtual DWORD	GetDrawMode() { return m_DrawMode; };
+	virtual int GetX(void) { return 0; }
+	virtual int GetY(void) { return 0; }
+	virtual int GetWidth(void) = 0;
+	virtual int GetHeight(void) = 0;
 
-	virtual int		GetX() { return 0; };
-	virtual int		GetY() { return 0; };
-	virtual int		GetWidth() = 0;
-	virtual int		GetHeight()= 0;
-
-	virtual CCBitmap* GetSourceBitmap() { return this; };
+	virtual CCBitmap *GetSourceBitmap() { return this; }
 };
 
 class CCPartialBitmap : public CCBitmap {
-	CCBitmap*	m_pSource;
-	sRect		m_rect;
+	CCBitmap	*m_pSource;
+	sRect	m_Rect;
 public:
 	CCPartialBitmap();
 	CCPartialBitmap(CCBitmap *pBitmap, sRect rt);
 
-	virtual int		GetX()		{ return m_rect.x; };
-	virtual int		GetY()		{ return m_rect.y; };
-	virtual int		GetWidth()	{ return m_rect.w; };
-	virtual int		GetHeight()	{ return m_rect.h; };
+	virtual int GetX(void) { return m_Rect.x; }
+	virtual int GetY(void) { return m_Rect.y; }
+	virtual int GetWidth(void) { return m_Rect.w; }
+	virtual int GetHeight(void) { return m_Rect.h; }
 
-	virtual CCBitmap* GetSourceBitmap() { return m_pSource; };
+	virtual CCBitmap *GetSourceBitmap() { return m_pSource; }
 };
 
 class CCAniBitmap{
+protected:
+#ifdef _DEBUG
+	friend class CCDrawContext;
+	int		m_nTypeID;		// 같은 레벨의 클래스(MFont, CCDrawContex)를 사용하기 위한 ID
+#endif
 public:
-	char	m_szName[CCBITMAP_NAME_LENGTH];
+	char	m_szName[MBITMAP_NAME_LENGTH];
 private:
 	CCLinkedList<CCBitmap>	m_Bitmaps;
-
 protected:
-	int		m_iCurrentFrame;
-	int		m_iDelay;
-
+	int		m_nCurFrame;
+	int		m_nDelay;
 public:
-	CCAniBitmap();
-	virtual ~CCAniBitmap();
-
+	CCAniBitmap(void);
+	virtual ~CCAniBitmap(void);
 	bool Create(const char* szName);
-	bool Destroy();
+	void Destroy(void);
 
 	void Add(CCBitmap* pBitmap);
+	CCBitmap* Get(int nFrame);
+	CCBitmap* Get(void);
 
-	CCBitmap* Get(int iFrame);
-	CCBitmap* Get();
+	int GetFrameCount(void);
+	int GetCurFrame(void);
 
-	int	GetFrameCount();
-	int	GetCurrentFrame();
+	bool MoveNext(void);
+	bool MovePrevious(void);
+	void MoveFirst(void);
+	void MoveLast(void);
+	bool Move(int nFrame);
 
-	bool MoveNext();
-	bool MovePrev();
-	void MoveFirst();
-	void MoveLast();
-	bool Move(int iFrame);
-
-	int GetDelay();
-	void SetDelay(int d) { m_iDelay = d; };
-
+	int GetDelay(void);
+	void SetDelay(int nDelay) { m_nDelay = nDelay; }
 };

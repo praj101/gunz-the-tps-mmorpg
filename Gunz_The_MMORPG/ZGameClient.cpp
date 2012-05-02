@@ -4,7 +4,7 @@
 #include "MErrorTable.h"
 #include "ZConfiguration.h"
 #include "ZGameClient.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "ZConsole.h"
 #include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
@@ -669,7 +669,7 @@ void ZGameClient::OnChannelResponseRule(const CCUID& uidchannel, const char* psz
 
 	bool bEnable = GetEnableInterface();
 
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageJoin");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageJoin");
 	if ( pWidget)		pWidget->Enable( bEnable);
 
 	pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageCreateFrameCaller");
@@ -1025,7 +1025,7 @@ void ZGameClient::OnStageList(int nPrevStageCount, int nNextStageCount, void* pB
 	}
 	pRoomListBox->SetScroll(nPrevStageCount, nNextStageCount);
 
-	MWidget* pBtn = pResource->FindWidget("StageBeforeBtn");
+	CCWidget* pBtn = pResource->FindWidget("StageBeforeBtn");
 	if (nPrevStageCount != -1)
 	{
 		if (nPrevStageCount == 0)
@@ -1201,7 +1201,7 @@ void ZGameClient::OnChannelAllPlayerList(const CCUID& uidChannel, void* pBlob, i
 
 	// 클랜생성창인지 팀게임 선택 창인지 찾아본다.
 
-	MWidget *pDialog = pResource->FindWidget("ClanCreateDialog");
+	CCWidget *pDialog = pResource->FindWidget("ClanCreateDialog");
 	if(pDialog && pDialog->IsVisible())
 		pListBox = (MListBox*)pResource->FindWidget("ClanSponsorSelect");
 
@@ -1374,7 +1374,7 @@ int ZGameClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, u
 			char szID[256];
 			char szPassword[256];
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-			MWidget* pWidget = pResource->FindWidget("LoginID");
+			CCWidget* pWidget = pResource->FindWidget("LoginID");
 			if(pWidget==NULL) return true;
 			strcpy(szID, pWidget->GetText());
 			pWidget = pResource->FindWidget("LoginPassword");
@@ -1459,7 +1459,7 @@ bool ZGameClient::OnSockDisconnect(SOCKET sock)
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 		MButton* pWidget = (MButton*)pResource->FindWidget("LoginOK");
 		if (pWidget) pWidget->Enable(true);
-		MWidget* pLogin = pResource->FindWidget("LoginFrame");
+		CCWidget* pLogin = pResource->FindWidget("LoginFrame");
 		if (pLogin) pLogin->Show(true);
 		pLogin = pResource->FindWidget("Login_ConnectingMsg");
 		if (pLogin) pLogin->Show(false);
@@ -1492,7 +1492,7 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 		MButton* pWidget = (MButton*)pResource->FindWidget("LoginOK");
 		if (pWidget) pWidget->Enable(true);
-		MWidget* pLogin = pResource->FindWidget("LoginFrame");
+		CCWidget* pLogin = pResource->FindWidget("LoginFrame");
 		if (pLogin) pLogin->Show(true);
 		pLogin = pResource->FindWidget("Login_ConnectingMsg");
 		if (pLogin) pLogin->Show(false);
@@ -2071,7 +2071,7 @@ void ZGameClient::OnLocalReport119()
 		pReasonEdit->SetFocus();
 	}
 
-	MWidget* pWidget = pResource->FindWidget("112Confirm");
+	CCWidget* pWidget = pResource->FindWidget("112Confirm");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(true);
@@ -2181,7 +2181,7 @@ void ZGameClient::OnResponseCharInfoDetail(void* pBlob)
 	return;
 #endif
 
-	MWidget* pWidget= ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Characterinfo");
+	CCWidget* pWidget= ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Characterinfo");
 	if(pWidget)
 		pWidget->Show();
 
@@ -2349,7 +2349,7 @@ void ZGameClient::OnClanEmblemReady(unsigned int nCLID, const char* szURL)
 
 	if(ZGetNetRepository()->GetClanInfo()->nCLID == nCLID) {
 		ZIDLResource* pRes = ZApplication::GetGameInterface()->GetIDLResource();
-		MPicture* pPicture= (MPicture*)pRes->FindWidget( "Lobby_ClanInfoEmblem" );
+		CCPicture* pPicture= (CCPicture*)pRes->FindWidget( "Lobby_ClanInfoEmblem" );
 		if ( pPicture)
 			pPicture->SetBitmap( ZGetEmblemInterface()->GetClanEmblem( nCLID));
 	}

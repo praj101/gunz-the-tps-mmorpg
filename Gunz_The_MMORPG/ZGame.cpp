@@ -5161,9 +5161,9 @@ void ZGame::OnReloadComplete(ZCharacter *pCharacter)
 /*	ZItem* pItem = pCharacter->GetItems()->GetSelectedWeapon();
 	//// 루프중 MEMORYHACK있었나 검사
 	if (pCharacter->GetUID() == ZGetMyUID() && pItem!=NULL) {
-		MDataChecker* pChecker = ZGetGame()->GetDataChecker();
-		MDataCheckNode* pCheckNodeA = pChecker->FindCheck((BYTE*)pItem->GetBulletPointer());
-		MDataCheckNode* pCheckNodeB = pChecker->FindCheck((BYTE*)pItem->GetAMagazinePointer());
+		CCDataChecker* pChecker = ZGetGame()->GetDataChecker();
+		CCDataCheckNode* pCheckNodeA = pChecker->FindCheck((BYTE*)pItem->GetBulletPointer());
+		CCDataCheckNode* pCheckNodeB = pChecker->FindCheck((BYTE*)pItem->GetAMagazinePointer());
 		if ( (pCheckNodeA && (pCheckNodeA->UpdateChecksum()==false)) ||
 		 	 (pCheckNodeB && (pCheckNodeB->UpdateChecksum()==false)) ) 
 		{
@@ -7357,7 +7357,7 @@ bool ZGame::CanAttack_DebugRegister(ZObject *pAttacker, ZObject *pTarget)
 
 void ZGame::ShowReplayInfo( bool bShow)
 {
-	MWidget* pWidget = ZGetGameInterface()->GetIDLResource()->FindWidget( "CombatChatOutput");
+	CCWidget* pWidget = ZGetGameInterface()->GetIDLResource()->FindWidget( "CombatChatOutput");
 	if ( pWidget)
 		pWidget->Show( bShow);
 

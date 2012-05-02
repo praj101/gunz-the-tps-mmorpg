@@ -24,7 +24,7 @@ struct ZDUELTOURNAMENTRANKINGITEM {
 	}
 };
 
-class ZDuelTournamentRankingListBox : public MWidget {
+class ZDuelTournamentRankingListBox : public CCWidget {
 
 	ZDUELTOURNAMENTRANKINGITEM m_rankingList[NUM_DISPLAY_DUELTOURNAMENT_RANKING];
 
@@ -39,7 +39,7 @@ protected:
 	virtual void	OnDraw( CCDrawContext* pDC );
 
 public:
-	ZDuelTournamentRankingListBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZDuelTournamentRankingListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	~ZDuelTournamentRankingListBox();
 
 	void ClearAll();

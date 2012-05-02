@@ -298,55 +298,55 @@ struct CCMatchItemDesc
 {
 	unsigned long int		m_nID;
 //	char					m_szItemName[128];
-	MProtectValue<CCMatchItemName>* m_pMItemName;
-	MProtectValue<int>		m_nTotalPoint;
-	MProtectValue<CCMatchWeaponType>	m_nWeaponType;
-	MProtectValue<CCMatchItemType>	m_nType;
-	MProtectValue<int>		m_nResSex;
-	MProtectValue<int>		m_nResLevel;
+	CCProtectValue<CCMatchItemName>* m_pMItemName;
+	CCProtectValue<int>		m_nTotalPoint;
+	CCProtectValue<CCMatchWeaponType>	m_nWeaponType;
+	CCProtectValue<CCMatchItemType>	m_nType;
+	CCProtectValue<int>		m_nResSex;
+	CCProtectValue<int>		m_nResLevel;
 	CCMatchItemSlotType		m_nSlot;
 	
-	MProtectValue<int>		m_nWeight;
-	MProtectValue<int>		m_nBountyPrice;
+	CCProtectValue<int>		m_nWeight;
+	CCProtectValue<int>		m_nBountyPrice;
 	bool					m_bIsCashItem;	
-	MProtectValue<int>		m_nDelay;
+	CCProtectValue<int>		m_nDelay;
 	CCMatchItemEffectDesc*	m_pEffect;
 	CCMatchItemEffectId		m_nEffectId;
-	MProtectValue<int>		m_nControllability;
-	MProtectValue<int>		m_nMagazine;
-	MProtectValue<int>		m_nMaxBullet;
-	MProtectValue<int>		m_nReloadTime;
+	CCProtectValue<int>		m_nControllability;
+	CCProtectValue<int>		m_nMagazine;
+	CCProtectValue<int>		m_nMaxBullet;
+	CCProtectValue<int>		m_nReloadTime;
 	bool					m_bSlugOutput;
-	MProtectValue<int>		m_nGadgetID;
-	MProtectValue<int>		m_nHP;
-	MProtectValue<int>		m_nAP;
-	MProtectValue<int>		m_nMaxWT;
-	MProtectValue<int>		m_nSF;
-	MProtectValue<int>		m_nFR;
-	MProtectValue<int>		m_nCR;
-	MProtectValue<int>		m_nPR;
-	MProtectValue<int>		m_nLR;
-	MProtectValue<int>		m_nLimitSpeed;
-	MProtectValue<int>		m_nLimitJump;
-	MProtectValue<int>		m_nLimitTumble;
-	MProtectValue<int>		m_nLimitWall;
-	MProtectValue<int>		m_nRange;		// melee무기 공격범위
-	MProtectValue<int>		m_nAngle;		// melee무기 공격각도
-	MProtectValue<int>		m_nEffectLevel;
+	CCProtectValue<int>		m_nGadgetID;
+	CCProtectValue<int>		m_nHP;
+	CCProtectValue<int>		m_nAP;
+	CCProtectValue<int>		m_nMaxWT;
+	CCProtectValue<int>		m_nSF;
+	CCProtectValue<int>		m_nFR;
+	CCProtectValue<int>		m_nCR;
+	CCProtectValue<int>		m_nPR;
+	CCProtectValue<int>		m_nLR;
+	CCProtectValue<int>		m_nLimitSpeed;
+	CCProtectValue<int>		m_nLimitJump;
+	CCProtectValue<int>		m_nLimitTumble;
+	CCProtectValue<int>		m_nLimitWall;
+	CCProtectValue<int>		m_nRange;		// melee무기 공격범위
+	CCProtectValue<int>		m_nAngle;		// melee무기 공격각도
+	CCProtectValue<int>		m_nEffectLevel;
 
 
-	MProtectValue<int>				m_nDamage;			// 무기류의 공격력
-	MProtectValue<int>				m_nItemPower;		// 소모성 아이템의 데미지 또는 회복량
-	MProtectValue<int>				m_nDamageTime;		// 도트 형태의 데미지나 회복이 들어가는 시간(0일 경우, 한 방만 들어간다)
-	MProtectValue<CCMatchDamageType>	m_nDamageType;		// 소모성 아이템의 데미지 타입 (데미지 속성 혹은 회복 속성)
-	MProtectValue<int>		m_nLifeTime;				// 작동 시간 (현재는 트랩의 작동시간에만 사용)
+	CCProtectValue<int>				m_nDamage;			// 무기류의 공격력
+	CCProtectValue<int>				m_nItemPower;		// 소모성 아이템의 데미지 또는 회복량
+	CCProtectValue<int>				m_nDamageTime;		// 도트 형태의 데미지나 회복이 들어가는 시간(0일 경우, 한 방만 들어간다)
+	CCProtectValue<CCMatchDamageType>	m_nDamageType;		// 소모성 아이템의 데미지 타입 (데미지 속성 혹은 회복 속성)
+	CCProtectValue<int>		m_nLifeTime;				// 작동 시간 (현재는 트랩의 작동시간에만 사용)
 
 	char					m_szDesc[8192];	// 설명
 
 	bool								m_bIsSpendableItem;
-	MProtectValue<CCMatchSpendType>		m_nSpendType;
+	CCProtectValue<CCMatchSpendType>		m_nSpendType;
 
-	MProtectValue<CCMatchAvatarMeshName>*		m_pAvatarMeshName;
+	CCProtectValue<CCMatchAvatarMeshName>*		m_pAvatarMeshName;
 
 	unsigned long int		m_nColor;
 	int						m_nImageID;
@@ -359,7 +359,7 @@ struct CCMatchItemDesc
 
 	CCMatchItemBonus			m_Bonus;
 	CCMatchTicketType		m_TicketType;
-	MProtectValue<int>		m_nMaxRentPeriod;	// 기간제 바운티 아이템의 최대 기간 정보 (날짜단위)
+	CCProtectValue<int>		m_nMaxRentPeriod;	// 기간제 바운티 아이템의 최대 기간 정보 (날짜단위)
 
 	bool					m_bIsEnableMoveToAccountItem;
 

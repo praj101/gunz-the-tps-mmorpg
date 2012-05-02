@@ -4,8 +4,8 @@
 #include <list>
 using namespace std;
 
-class MEvent;
-class MListener;
+class CCEvent;
+class CCListener;
 
 struct ZACTIONKEYITEM {
 	ZACTIONKEYITEM(float time,bool pressed,int key) { fTime=time;bPressed=pressed;nActionKey=key; }
@@ -39,14 +39,14 @@ protected:
 
 protected:
 	void GameCheckSequenceKeyCommand();		// 앞앞 등 연속키 커맨드를 체크한다.
-	bool OnDebugEvent(MEvent* pEvent);
+	bool OnDebugEvent(CCEvent* pEvent);
 	static bool ShowCombatInputChat();
 
 public:
 	ZGameInput();
 	virtual ~ZGameInput();
 
-	static bool OnEvent(MEvent* pEvent);
+	static bool OnEvent(CCEvent* pEvent);
 	void Update(float fElapsed);
 };
 

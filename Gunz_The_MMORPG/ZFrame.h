@@ -17,7 +17,7 @@ protected:
 	virtual void OnDraw(CCDrawContext* pDC);
 
 public:
-	ZFrame(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZFrame(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZFrame(void);
 
 	void Show(bool bVisible, bool bModal=false);

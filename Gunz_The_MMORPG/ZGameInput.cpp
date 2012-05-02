@@ -7,8 +7,8 @@
 #include "ZConfiguration.h"
 #include "ZActionDef.h"
 #include "Mint.h"
-#include "MEvent.h"
-#include "MWidget.h"
+#include "CCEvent.h"
+#include "CCWidget.h"
 #include "ZGameClient.h"
 #include "ZCombatInterface.h"
 #include "ZConsole.h"
@@ -49,18 +49,18 @@ ZGameInput::~ZGameInput()
 	m_pInstance = NULL;
 }
 
-bool ZGameInput::OnEvent(MEvent* pEvent)
+bool ZGameInput::OnEvent(CCEvent* pEvent)
 {
 	int sel = 0;
 
 	if ((ZGetGameInterface()->GetState() != GUNZ_GAME)) return false;
 	if ( ZGetGameInterface()->GetGame() == NULL ) return false;
 
-	MWidget* pMenuWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("CombatMenuFrame");
+	CCWidget* pMenuWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("CombatMenuFrame");
 	if ((pMenuWidget) && (pMenuWidget->IsVisible())) return false;
-	MWidget* pChatWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("CombatChatInput");
+	CCWidget* pChatWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("CombatChatInput");
 	if ((pChatWidget) && (pChatWidget->IsVisible())) return false;
-	MWidget* p112ConfirmWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("112Confirm");
+	CCWidget* p112ConfirmWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("112Confirm");
 	if (p112ConfirmWidget->IsVisible()) return false;
 
 #ifndef _PUBLISH
@@ -246,7 +246,7 @@ bool ZGameInput::OnEvent(MEvent* pEvent)
 				{
 					if ( ZGetGame()->IsReplay())
 						break;
-					if ( MEvent::GetShiftState())
+					if ( CCEvent::GetShiftState())
 						break;
 					if(ZGetGameInterface()->GetCombatInterface()->GetObserverMode())
 						break;
@@ -578,7 +578,7 @@ bool ZGameInput::ShowCombatInputChat()
 		ZCombatInterface* pCombatInterface = ZGetGameInterface()->GetCombatInterface();
 		if ((pCombatInterface) && (!pCombatInterface->IsChat()) && !ZGetGame()->IsReplay())
 		{
-			MWidget* pWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("112Confirm");
+			CCWidget* pWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("112Confirm");
 			if (pWidget && pWidget->IsVisible()) return false;
 			pCombatInterface->EnableInputChat(true);
 		}

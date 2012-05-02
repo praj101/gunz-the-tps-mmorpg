@@ -88,7 +88,7 @@ void CCAnimation::SetRunAnimation( bool bRun){
 	SetCurrentFrame( m_iCurrFrame);
 }
 
-int MAnimation::GetCurrentFrame( void){
+int CCAnimation::GetCurrentFrame( void){
 	if ( !m_bRunAnimation)
 		return m_iCurrFrame;
 

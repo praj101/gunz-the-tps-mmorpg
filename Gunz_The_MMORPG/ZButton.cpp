@@ -22,7 +22,7 @@ void ZButton::OnButtonUp(void)
 {
 }
 
-ZButton::ZButton(const char* szName, MWidget* pParent, MListener* pListener)
+ZButton::ZButton(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MButton(szName, pParent, pListener)
 {
 	m_nIllumination=0;
@@ -109,7 +109,7 @@ void ZButton::OnDraw(CCDrawContext* pDC)
 		DWORD defaultcolor = GetType()==MBT_NORMAL ? 0x20ff20 : 0xc0c020;
 		DWORD opacity=(DWORD)pDC->GetOpacity()*(DWORD)m_nIllumination / 255 ;
 		sRect rt=GetRect();
-		MDrawEffect prevEffect = pDC->GetEffect();
+		CCDrawEffect prevEffect = pDC->GetEffect();
 		pDC->SetEffect(MDE_ADD);
 		sColor prevColor = pDC->GetBitmapColor();
 		pDC->SetBitmapColor(sColor(defaultcolor));
@@ -158,7 +158,7 @@ void ZBmButton::OnButtonUp(void)
 {
 }
 
-ZBmButton::ZBmButton(const char* szName, MWidget* pParent, MListener* pListener)
+ZBmButton::ZBmButton(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MBmButton(szName, pParent, pListener)
 {
 	m_nIllumination=0;
@@ -244,7 +244,7 @@ void ZBmButton::OnDraw(CCDrawContext* pDC)
 		DWORD defaultcolor = GetType()==MBT_NORMAL ? 0x20ff20 : 0xc0c020;
 		DWORD opacity=(DWORD)pDC->GetOpacity()*(DWORD)m_nIllumination / 255 ;
 		sRect rt=GetRect();
-		MDrawEffect prevEffect = pDC->GetEffect();
+		CCDrawEffect prevEffect = pDC->GetEffect();
 		pDC->SetEffect(MDE_ADD);
 		sColor prevColor = pDC->GetBitmapColor();
 		pDC->SetBitmapColor(sColor(defaultcolor));

@@ -398,7 +398,7 @@ void ZMyCharacter::ProcessInput(float fDelta)
 					MEMBER_SET_CHECKCRC(m_timeInfo, m_fLastJumpPressedTime, ZGetGame()->GetTime());
 					zStatus.m_bJumpQueued=true;
 					zStatus.m_bWallJumpQueued=true;
-//					m_bWallJumpQueued=MEvent::GetRButtonState();	// 오른버튼+Jump 해야 벽타기
+//					m_bWallJumpQueued=CCEvent::GetRButtonState();	// 오른버튼+Jump 해야 벽타기
 					zStatus.m_bReleasedJump=false;
 //				}
 			}
@@ -1671,10 +1671,10 @@ void ZMyCharacter::ProcessShot()
 	if (m_bInitialized==false) return;
 
 	// 오른버튼 누른상태서 왼버튼은 ProcessGadget()이 처리
-	if ( zStatus.m_bRButtonPressed == true ) return; // 전코드: if (MEvent::GetRButtonState()) return;  
+	if ( zStatus.m_bRButtonPressed == true ) return; // 전코드: if (CCEvent::GetRButtonState()) return;  
 
 	/*
-	m_bLButtonPressed = MEvent::GetLButtonState() || MEvent::IsKeyDown(VK_CONTROL);
+	m_bLButtonPressed = CCEvent::GetLButtonState() || CCEvent::IsKeyDown(VK_CONTROL);
 
 	if(m_bLButtonPressed) {
 		if(m_bLButtonReleased)
@@ -2173,7 +2173,7 @@ void ZMyCharacter::UpdateLimit()
 
 void ZMyCharacter::UpdateButtonState()
 {
-//	bool bLButtonPressed = MEvent::GetLButtonState() || MEvent::IsKeyDown(VK_CONTROL);
+//	bool bLButtonPressed = CCEvent::GetLButtonState() || CCEvent::IsKeyDown(VK_CONTROL);
 //	modified by 정동섭 @ 2006/3/16 : 컨트롤키로 샷 안되게 함
 //	혹시 좌클릭으로만 가능하고 키보드의 샷키로는 불가능해야 하는 일이 있나요? -_-a
 	ZMyCharaterStatusBitPacking & zStatus = m_statusFlags.Ref();
@@ -2188,7 +2188,7 @@ void ZMyCharacter::UpdateButtonState()
 	zStatus.m_bLButtonPressed = bLButtonPressed;
 
 
-//	bool bRButtonPressed = MEvent::GetRButtonState();
+//	bool bRButtonPressed = CCEvent::GetRButtonState();
 	bool bRButtonPressed = ZIsActionKeyPressed(ZACTION_USE_WEAPON2);
 
 	// 눌려져있다가 떼진상태 검사
@@ -2368,7 +2368,7 @@ void ZMyCharacter::OnUpdate(float fDelta)
 
 #ifndef _PUBLISH
 	// 방향 보정
-	if(!MEvent::IsKeyDown(VK_MENU))
+	if(!CCEvent::IsKeyDown(VK_MENU))
 #endif
 	if (!uStatus.m_bDie)
 	{
@@ -3115,7 +3115,7 @@ void ZMyCharacter::InitItemBullet()
 {
 	ZCharacter::InitItemBullet();
 
-/*	MDataChecker* pChecker = ZGetGame()->GetDataChecker();
+/*	CCDataChecker* pChecker = ZGetGame()->GetDataChecker();
 
 	// 총알 초기화
 	if (!m_Items.GetItem(MMCIP_PRIMARY)->IsEmpty()) 

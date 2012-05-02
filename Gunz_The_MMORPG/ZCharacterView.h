@@ -23,7 +23,7 @@ struct ZCharacterViewInfo
 	int			nLevel;
 
 	//jintriple3 팀 바꾸기 핵 때문에..메모리 프록시로..
-	MProtectValue<int>* m_pMnTeam;
+	CCProtectValue<int>* m_pMnTeam;
 //	CCMatchTeam	nTeam;
 	CCMatchObjectStageState		nStageState;
 //	bool		bReady;
@@ -50,10 +50,10 @@ protected:
 
 	virtual void OnSize(int w, int h);
 	virtual void OnDraw(CCDrawContext* pDC);
-	virtual bool IsDropable(MWidget* pSender);
-	virtual bool OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+	virtual bool IsDropable(CCWidget* pSender);
+	virtual bool OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 public:
-	ZCharacterView(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZCharacterView(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZCharacterView(void);
 
 	void SetDrawInfo(bool bVal)	{ m_bDrawInfo = bVal; }

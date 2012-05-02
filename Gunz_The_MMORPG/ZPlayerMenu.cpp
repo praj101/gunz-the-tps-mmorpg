@@ -20,7 +20,7 @@ ZPlayerMenuItem::ZPlayerMenuItem(ZCMD_PLAYERMENU nCmdID, const char* szName) : M
 
 
 //// ZPlayerMenu ////
-ZPlayerMenu::ZPlayerMenu(const char* szName, MWidget* pParent, MListener* pListener, MPopupMenuTypes t) 
+ZPlayerMenu::ZPlayerMenu(const char* szName, CCWidget* pParent, CCListener* pListener, MPopupMenuTypes t) 
 : MPopupMenu(szName, pParent, pListener, t)
 {
 	m_szPlayerName[0] = NULL;
@@ -109,7 +109,7 @@ void ZPlayerMenu::Show(int x, int y, bool bVisible)
 
 
 //// ZPlayerMenuListener ////
-bool ZPlayerMenuListener::OnCommand(MWidget* pWidget, const char* szMessage)
+bool ZPlayerMenuListener::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	GunzState GunzState = ZApplication::GetGameInterface()->GetState();
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
@@ -226,7 +226,7 @@ bool ZPlayerMenuListener::OnCommand(MWidget* pWidget, const char* szMessage)
 
 	case ZCMD_PLAYERMENU_CLAN_LEAVE:
 		{
-			MWidget* pWidget = (MWidget*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ConfirmLeaveClan");
+			CCWidget* pWidget = (CCWidget*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ConfirmLeaveClan");
 			if ( pWidget)
 				pWidget->Show( true, true);
 		}

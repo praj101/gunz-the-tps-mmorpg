@@ -6,7 +6,7 @@
 #include "ZCharacter.h"
 #include "ZApplication.h"
 
-ZRadar::ZRadar(const char* szName, MWidget* pParent, MListener* pListener)
+ZRadar::ZRadar(const char* szName, CCWidget* pParent, CCListener* pListener)
 : ZInterface(szName, pParent, pListener)
 {
 	m_pBitmap = NULL;
@@ -112,7 +112,7 @@ void ZRadar::OnDraw(CCDrawContext* pDC)
 	}
 }
 
-bool ZRadar::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZRadar::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	return false;
 }

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCMatchClient.h"
 #include "MErrorTable.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "Msg.h"
 #include "MDebug.h"
 #include "MBlobArray.h"

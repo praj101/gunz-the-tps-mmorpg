@@ -8,7 +8,7 @@
 #include "ZConfiguration.h"
 #include "FileInfo.h"
 #include "ZInterfaceItem.h"
-#include "MPicture.h"
+#include "CCPicture.h"
 #include "ZInterfaceListener.h"
 #include "ZEffectSmoke.h"
 #include "ZEffectLightTracer.h"
@@ -592,7 +592,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			_ASSERT(nCount <= NUM_DISPLAY_DUELTOURNAMENT_RANKING);
 
 			ZIDLResource* pRes = ZApplication::GetGameInterface()->GetIDLResource();
-			MWidget* pWidget = pRes->FindWidget( "Lobby_DuelTournamentRankingList" );
+			CCWidget* pWidget = pRes->FindWidget( "Lobby_DuelTournamentRankingList" );
 			if (!pWidget) { _ASSERT(0); break; }
 
 			ZDuelTournamentRankingListBox* pRankingList = (ZDuelTournamentRankingListBox*)pWidget;
