@@ -28,7 +28,7 @@ public:
 	static ActionKeyForbidSet m_ForbidKey;
 
 protected:
-//	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+//	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 	virtual void OnSetFocus(void);
 	virtual void OnReleaseFocus(void);
 
@@ -36,12 +36,12 @@ protected:
 	static ZActionKey*				m_exclusiveActionKey;
 
 public:
-	ZActionKey(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL );
+	ZActionKey(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL );
 
 #define MINT_ACTIONKEY	"ActionKey"
 	virtual const char* GetClassName(void){ return MINT_ACTIONKEY; }
 
-	static bool		OnExclusiveEvent(MEvent* pEvent);
+	static bool		OnExclusiveEvent(CCEvent* pEvent);
 
 //	void GetActionKeyName(char* szActionKeyName);
 	void GetActionKey(int* pKey);

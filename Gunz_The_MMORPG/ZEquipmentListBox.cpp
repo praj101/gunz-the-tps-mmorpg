@@ -40,7 +40,7 @@
 //// 현재 입고 있는 부위를 새 아이템으로 바꿔 입을 때 생기는 능력치 변화를 표시한다
 //// pNewItemDesc=NULL 로 하면 기본 능력치로 초기화한다
 //
-//bool ZEquipmentListBox_OLD::IsDropable(MWidget* pSender)
+//bool ZEquipmentListBox_OLD::IsDropable(CCWidget* pSender)
 //{
 //	if (pSender == NULL) return false;
 //	if (strcmp(pSender->GetClassName(), MINT_ITEMSLOTVIEW)) return false;
@@ -48,7 +48,7 @@
 //	return true;
 //}
 //
-////bool ZEquipmentListBox_OLD::OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
+////bool ZEquipmentListBox_OLD::OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 ////{
 ////	if (m_pOnDropFunc != NULL)
 ////	{
@@ -74,7 +74,7 @@
 //	return "_noExistWidgetName_";
 //}
 //
-//bool ZEquipmentListBox_OLD::OnEvent(MEvent* pEvent, MListener* pListener)
+//bool ZEquipmentListBox_OLD::OnEvent(CCEvent* pEvent, CCListener* pListener)
 //{
 //	sRect rtClient = GetClientRect();
 //
@@ -125,7 +125,7 @@
 //	MTextArea* pItemDescTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szTextAreaName);
 //	if (pItemDescTextArea)
 //	{
-//		MPOINT ptInList = MScreenToClient(this, MEvent::LatestPos);
+//		MPOINT ptInList = MScreenToClient(this, CCEvent::LatestPos);
 //		int idxItem = FindItem(ptInList);
 //		if (idxItem!=-1)
 //		{
@@ -176,7 +176,7 @@
 //	ZGetGameInterface()->GetShopEquipInterface()->ShowItemDescription(false, pItemDescTextArea, this);
 //}
 //
-//ZEquipmentListBox_OLD::ZEquipmentListBox_OLD(const char* szName, MWidget* pParent, MListener* pListener)
+//ZEquipmentListBox_OLD::ZEquipmentListBox_OLD(const char* szName, CCWidget* pParent, CCListener* pListener)
 //: MMultiColListBox(szName, pParent, pListener)
 //{
 //	SetDesiredNumRow(4);
@@ -215,15 +215,15 @@
 //
 ///////////////////////////////////////////////////////////////////
 ////
-////class MShopPurchaseItemListBoxListener : public MListener{
+////class MShopPurchaseItemListBoxListener : public CCListener{
 ////public:
-////	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+////	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 ////	{
 ////		MButton* pButton1 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuyConfirmCaller");
 ////		MButton* pButton2 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuySpendableItemConfirmCaller");
 ////		MButton* pButton3 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuyCashConfirmCaller");
 ////
-////		if(MWidget::IsMsg(szMessage, MLB_ITEM_SEL) == true) {
+////		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL) == true) {
 ////
 ////			ZEquipmentListBox_OLD* pEquipmentListBox = (ZEquipmentListBox_OLD*)pWidget;
 ////			ZEquipmentListItem_OLD* pListItem = (ZEquipmentListItem_OLD*)pEquipmentListBox->GetSelItem();
@@ -341,9 +341,9 @@
 ////				return true;
 ////			}
 ////		}
-////		else if ( MWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+////		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
 ////		{
-////			MWidget* pWidget = (MWidget*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Shop_BuyConfirm");
+////			CCWidget* pWidget = (CCWidget*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Shop_BuyConfirm");
 ////			//			if ( pWidget)
 ////			//				pWidget->Show( true);
 ////
@@ -355,7 +355,7 @@
 ////};
 ////MShopPurchaseItemListBoxListener g_ShopPurchaseItemListBoxListener;
 ////
-////MListener* ZGetShopPurchaseItemListBoxListener(void)
+////CCListener* ZGetShopPurchaseItemListBoxListener(void)
 ////{
 ////	return &g_ShopPurchaseItemListBoxListener;
 ////}
@@ -363,11 +363,11 @@
 //
 //
 //////////
-////class MEquipmentItemListBoxListener : public MListener{
+////class MEquipmentItemListBoxListener : public CCListener{
 ////public:
-////	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+////	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 ////	{
-////		if ( MWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true) {
+////		if ( CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true) {
 ////			unsigned long int nItemID = 0;
 ////
 ////			ZEquipmentListBox_OLD* pEquipmentListBox = (ZEquipmentListBox_OLD*)pWidget;
@@ -464,7 +464,7 @@
 ////
 ////			return true;
 ////		}
-////		else if ( MWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+////		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
 ////		{
 ////			ZGetGameInterface()->GetShopEquipInterface()->Equip();		
 ////			return true;
@@ -475,7 +475,7 @@
 ////};
 ////MEquipmentItemListBoxListener g_EquipmentItemListBoxListener;
 ////
-////MListener* ZGetEquipmentItemListBoxListener(void)
+////CCListener* ZGetEquipmentItemListBoxListener(void)
 ////{
 ////	return &g_EquipmentItemListBoxListener;
 ////}

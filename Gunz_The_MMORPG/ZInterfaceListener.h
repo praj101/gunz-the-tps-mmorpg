@@ -1,18 +1,18 @@
 #ifndef ZINTERFACELISTENER_H
 #define ZINTERFACELISTENER_H
 
-class MListener;
+class CCListener;
 
 // 리스너 선언 매크로
-#define DECLARE_LISTENER(_FunctionName)	MListener* _FunctionName(void);
+#define DECLARE_LISTENER(_FunctionName)	CCListener* _FunctionName(void);
 
 /// 리스너 정의 매크로, BEGIN_ ~ END_ 사이에 원하는 코드를 넣는다.
 #define BEGIN_IMPLEMENT_LISTENER(_FunctionName, _szMessageName)					\
-	MListener* _FunctionName(void){										\
-class ListenerClass : public MListener{									\
+	CCListener* _FunctionName(void){										\
+class ListenerClass : public CCListener{									\
 public:																	\
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){	\
-	if(MWidget::IsMsg(szMessage, _szMessageName)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){	\
+	if(CCWidget::IsMsg(szMessage, _szMessageName)==true){
 
 #define END_IMPLEMENT_LISTENER()			\
 	return true;			\
@@ -26,19 +26,19 @@ public:																	\
 
 
 // Gunz에 쓰이는 전역 Listener Object 얻기
-MListener* ZGetChatInputListener(void);
-MListener* ZGetLoginListener(void);
-MListener* ZGetLogoutListener(void);
-MListener* ZGetExitListener(void);
-MListener* ZGetChannelChatInputListener(void);
-MListener* ZGetStageChatInputListener(void);
-MListener* ZGetGameStartListener(void);
-MListener* ZGetMapChangeListener(void);
-MListener* ZGetMapSelectListener(void);
-MListener* ZGetParentCloseListener(void);
-//MListener* ZGetCombatChatInputListener(void);
-MListener* ZGetStageCreateFrameCallerListener(void);
-MListener* ZGetSelectCharacterComboBoxListener(void);
+CCListener* ZGetChatInputListener(void);
+CCListener* ZGetLoginListener(void);
+CCListener* ZGetLogoutListener(void);
+CCListener* ZGetExitListener(void);
+CCListener* ZGetChannelChatInputListener(void);
+CCListener* ZGetStageChatInputListener(void);
+CCListener* ZGetGameStartListener(void);
+CCListener* ZGetMapChangeListener(void);
+CCListener* ZGetMapSelectListener(void);
+CCListener* ZGetParentCloseListener(void);
+//CCListener* ZGetCombatChatInputListener(void);
+CCListener* ZGetStageCreateFrameCallerListener(void);
+CCListener* ZGetSelectCharacterComboBoxListener(void);
 
 
 // 로그인

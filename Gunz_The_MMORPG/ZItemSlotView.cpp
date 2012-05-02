@@ -13,7 +13,7 @@
 #include "ZShopEquipListbox.h"
 
 
-ZItemSlotView::ZItemSlotView(const char* szName, MWidget* pParent, MListener* pListener)
+ZItemSlotView::ZItemSlotView(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MButton(szName, pParent, pListener)
 {
 	m_nItemID = -1;
@@ -130,7 +130,7 @@ void ZItemSlotView::OnDraw(CCDrawContext* pDC)
 	}
 
 	// Draw Name
-	MAlignmentMode am = MAM_VCENTER;
+	CCAlignmentMode am = MAM_VCENTER;
 	r = GetClientRect();
 	int margin = int(10 * MGetWorkspaceWidth() / 800.f);
 	r.x += w + margin;
@@ -208,7 +208,7 @@ void ZItemSlotView::SetParts(CCMatchCharItemParts nParts)
 	m_nParts = nParts;
 }
 
-bool ZItemSlotView::IsDropable(MWidget* pSender)
+bool ZItemSlotView::IsDropable(CCWidget* pSender)
 {
 	if (pSender == NULL)
 		return false;
@@ -235,7 +235,7 @@ bool ZItemSlotView::IsEquipableItem(unsigned long int nItemID, int nPlayerLevel,
 	return true;
 }
 
-bool ZItemSlotView::OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
+bool ZItemSlotView::OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	if ( (pSender == NULL) || ( m_bDragAndDrop == false))
 		return false;
@@ -285,7 +285,7 @@ bool ZItemSlotView::OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szSt
 	return true;
 }
 
-bool ZItemSlotView::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	bool bRet = MButton::OnEvent(pEvent, pListener);
 

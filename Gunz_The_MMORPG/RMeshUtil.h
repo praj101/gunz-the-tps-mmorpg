@@ -60,10 +60,6 @@ void draw_line(LPDIRECT3DDEVICE9 dev,D3DXVECTOR3* vec,int size,DWORD color);
 void draw_box(rmatrix* wmat , rvector& max,rvector& min,DWORD color);
 void draw_query_fill_box(rmatrix* wmat , rvector& max,rvector& min,DWORD color);
 
-void _GetModelTry(RLVertex* pVert,int size,DWORD color,int* face_num);
-void _draw_try(LPDIRECT3DDEVICE9 dev,rmatrix& mat,float size,DWORD color);
-void _draw_matrix(LPDIRECT3DDEVICE9 dev,rmatrix& mat,float size);
-void GetPath(const char* str,char* path);
 
 typedef struct {
 	DWORD	sig;
@@ -733,3 +729,8 @@ public:
 	}
 
 };
+
+void _GetModelTry(RLVertex* pVert,int size,DWORD color,int* face_num);
+void _draw_try(LPDIRECT3DDEVICE9 dev,rmatrix& mat,float size,DWORD color);
+void _draw_matrix(LPDIRECT3DDEVICE9 dev,rmatrix& mat,float size);
+void GetPath(const char* str,char* path);

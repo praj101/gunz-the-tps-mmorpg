@@ -36,7 +36,7 @@ bool ZMapListBox::OnShow(void)
 	return true;
 }
 
-bool ZMapListBox::OnCommand(MWidget* pWidget, const char* szMessage)
+bool ZMapListBox::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	if(pWidget==m_pListBox && strcmp(szMessage, MLB_ITEM_SEL)==0){
 		SetSelIndex(-1);
@@ -48,8 +48,8 @@ bool ZMapListBox::OnCommand(MWidget* pWidget, const char* szMessage)
 	return false;
 }
 
-ZMapListBox::ZMapListBox(const char* szName, MWidget* pParent, MListener* pListener)
-: MWidget(szName, pParent, pListener)
+ZMapListBox::ZMapListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
+: CCWidget(szName, pParent, pListener)
 {
 	SetBounds(0, 0, 300, 200);
 

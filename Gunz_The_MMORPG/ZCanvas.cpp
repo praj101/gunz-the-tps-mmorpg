@@ -10,7 +10,7 @@ void ZCanvas::OnDraw(CCDrawContext* pDC)
 	}
 }
 
-ZCanvas::ZCanvas(const char* szName, MWidget* pParent, MListener* pListener) : MWidget(szName, pParent, pListener)
+ZCanvas::ZCanvas(const char* szName, CCWidget* pParent, CCListener* pListener) : CCWidget(szName, pParent, pListener)
 {
 	m_pOnDrawFunc = NULL;
 }

@@ -2,7 +2,7 @@
 #define ZSERVERVIEW
 
 #include "ZPrerequisites.h"
-#include "MWidget.h"
+#include "CCWidget.h"
 #include <list>
 
 using namespace RealSpace2;
@@ -29,7 +29,7 @@ typedef list<ServerInfo*>	SERVERLIST;
 #define AGENTMAXCOUNT	20
 
 // Class ZServerView
-class ZServerView : public MWidget
+class ZServerView : public CCWidget
 {
 protected:
 	SERVERLIST		m_cServerList;
@@ -44,14 +44,14 @@ protected:
 
 protected:
 	virtual void OnDraw( CCDrawContext* pDC);
-	virtual bool OnEvent( MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent( CCEvent* pEvent, CCListener* pListener);
 
 	void ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* pServerInfo, bool bSelected);
 	void IconDraw(CCDrawContext* pDC, sRect rectBox, int nType, bool bSelected);
 	void PingImageDraw(CCDrawContext* pDC, sRect rectBox, int nImageCount, bool bIsLive);
 
 public:
-	ZServerView( const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZServerView( const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZServerView(void);
 
 

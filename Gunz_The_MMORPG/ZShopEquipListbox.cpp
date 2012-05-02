@@ -158,13 +158,13 @@ bool ZShopEquipListItem::IsPtInRectToShowToolTip(sRect& rcItem, MPOINT& pt)
 
 
 
-ZShopEquipListbox::ZShopEquipListbox(const char* szName, MWidget* pParent, MListener* pListener)
+ZShopEquipListbox::ZShopEquipListbox(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MMultiColListBox(szName, pParent, pListener)
 {
 	m_idxItemLastTooltip = -1;
 }
 
-bool ZShopEquipListbox::OnEvent( MEvent* pEvent, MListener* pListener )
+bool ZShopEquipListbox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 {
 	sRect rtClient = GetClientRect();
 
@@ -195,7 +195,7 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 	MTextArea* pItemDescTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szTextAreaName);
 	if (pItemDescTextArea)
 	{
-		MPOINT ptInList = MScreenToClient(this, MEvent::LatestPos);
+		MPOINT ptInList = MScreenToClient(this, CCEvent::LatestPos);
 		int idxItem = FindItem(ptInList);
 		if (idxItem!=-1)
 		{
@@ -236,15 +236,15 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 
 // ============ ZShopPurchaseItemListBoxListener ===============================================
 
-void ShopPurchaseItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
+void ShopPurchaseItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 }
 
-void ShopSaleItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
+void ShopSaleItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 }
 
-void CharacterEquipmentItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
+void CharacterEquipmentItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	if (pSender == NULL) return;
 	if (strcmp(pSender->GetClassName(), MINT_ITEMSLOTVIEW)) return;
@@ -256,11 +256,11 @@ void CharacterEquipmentItemListBoxOnDrop(void* pSelf, MWidget* pSender, CCBitmap
 
 // ============ ZShopPurchaseItemListBoxListener ===============================================
 
-class ZShopPurchaseItemListBoxListener : public MListener{
+class ZShopPurchaseItemListBoxListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(MWidget::IsMsg(szMessage, MLB_ITEM_SEL) == true)
+		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL) == true)
 		{
 			ZShopEquipListbox* pEquipmentListBox = (ZShopEquipListbox*)pWidget;
 			ZShopEquipListItem* pListItem = (ZShopEquipListItem*)pEquipmentListBox->GetSelItem();
@@ -278,7 +278,7 @@ public:
 
 			return true;
 		}
-		else if(MWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK) == true)
+		else if(CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK) == true)
 		{
 			ZGetGameInterface()->GetShopEquipInterface()->OnBuyButton();
 			return true;
@@ -289,16 +289,16 @@ public:
 };
 ZShopPurchaseItemListBoxListener g_ShopPurchaseItemListBoxListener;
 
-MListener* ZGetShopPurchaseItemListBoxListener(void)
+CCListener* ZGetShopPurchaseItemListBoxListener(void)
 {
 	return &g_ShopPurchaseItemListBoxListener;
 }
 
-class ZEquipMyItemListBoxListener : public MListener{
+class ZEquipMyItemListBoxListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if ( MWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true) {
+		if ( CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true) {
 
 			ZShopEquipListbox* pEquipmentListBox = (ZShopEquipListbox*)pWidget;
 			ZShopEquipListItem* pListItem = (ZShopEquipListItem*)pEquipmentListBox->GetSelItem();
@@ -318,7 +318,7 @@ public:
 
 			return true;
 		}
-		else if ( MWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
 		{
 			ZGetGameInterface()->GetShopEquipInterface()->Equip();		
 			return true;
@@ -329,17 +329,17 @@ public:
 };
 ZEquipMyItemListBoxListener g_EquipmentItemListBoxListener;
 
-MListener* ZGetEquipmentMyItemListBoxListener(void)
+CCListener* ZGetEquipmentMyItemListBoxListener(void)
 {
 	return &g_EquipmentItemListBoxListener;
 }
 
 
-class ZShopSellItemListBoxListener : public MListener{
+class ZShopSellItemListBoxListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(MWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true)
+		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true)
 		{
 			ZShopEquipListbox* pListbox = (ZShopEquipListbox*)pWidget;
 			ZShopEquipListItem* pListItem = (ZShopEquipListItem*)pListbox->GetSelItem();
@@ -352,7 +352,7 @@ public:
 			WidgetEnableShow("SellConfirmCaller", pListItem->GetItemData()->CanSell(), true);
 			return true;
 		}
-		else if ( MWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
 		{
 			ZGetGameInterface()->GetShopEquipInterface()->OnSellButton();
 			return true;
@@ -364,16 +364,16 @@ public:
 
 ZShopSellItemListBoxListener g_ShopSellItemListBoxListener;
 
-MListener* ZGetShopSellItemListBoxListener(void)
+CCListener* ZGetShopSellItemListBoxListener(void)
 {
 	return &g_ShopSellItemListBoxListener;
 }
 
-class ZAccountItemListBoxListener : public MListener{
+class ZAccountItemListBoxListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if ( MWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true) {
+		if ( CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true) {
 
 			ZShopEquipListbox* pListbox = (ZShopEquipListbox*)pWidget;
 			ZShopEquipListItem* pListItem = (ZShopEquipListItem*)pListbox->GetSelItem();
@@ -393,7 +393,7 @@ public:
 
 			return true;
 		}
-		else if ( MWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
 		{
 			ZGetGameInterface()->GetShopEquipInterface()->OnBringAccountButton();
 			return true;
@@ -405,17 +405,17 @@ public:
 
 ZAccountItemListBoxListener g_AccountItemListBoxListener;
 
-MListener* ZGetAccountItemListBoxListener(void)
+CCListener* ZGetAccountItemListBoxListener(void)
 {
 	return &g_AccountItemListBoxListener;
 }
 
 
-class ZShopListFilterListener : public MListener {
+class ZShopListFilterListener : public CCListener {
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(MWidget::IsMsg(szMessage, MCMBBOX_CHANGED)==true)
+		if(CCWidget::IsMsg(szMessage, MCMBBOX_CHANGED)==true)
 		{
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
@@ -442,18 +442,18 @@ public:
 
 ZShopListFilterListener g_ShopListFilterListener;
 
-MListener* ZGetShopListFilterListener()
+CCListener* ZGetShopListFilterListener()
 {
 	return &g_ShopListFilterListener;
 }
 
 /////////////////////////////////////////////////////////////////
 
-class MEquipListFilterListener : public MListener {
+class MEquipListFilterListener : public CCListener {
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(MWidget::IsMsg(szMessage, MCMBBOX_CHANGED)==true) {
+		if(CCWidget::IsMsg(szMessage, MCMBBOX_CHANGED)==true) {
 
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
@@ -475,19 +475,19 @@ public:
 
 MEquipListFilterListener g_EquipListFilterListener;
 
-MListener* ZGetEquipListFilterListener()
+CCListener* ZGetEquipListFilterListener()
 {
 	return &g_EquipListFilterListener;
 }
 
 
 //// 프리미엄이라고 되어 있는 탭 : 옛날에 개발하다 중단한 부분인것 같다. 검토후 제거
-//class MCashShopItemListBoxListener : public MListener
+//class MCashShopItemListBoxListener : public CCListener
 //{
 //public:
-//	virtual bool OnCommand( MWidget* pWidget, const char* szMessage)
+//	virtual bool OnCommand( CCWidget* pWidget, const char* szMessage)
 //	{
-//		if ( MWidget::IsMsg( szMessage, MLB_ITEM_SEL)==true)
+//		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL)==true)
 //		{
 //			unsigned long int nItemID = 0;
 //
@@ -522,7 +522,7 @@ MListener* ZGetEquipListFilterListener()
 //			}
 //		}
 //
-//		else if ( MWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+//		else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
 //		{
 //			return true;
 //		}
@@ -534,7 +534,7 @@ MListener* ZGetEquipListFilterListener()
 //
 //MCashShopItemListBoxListener g_CashShopItemListBoxListener;
 //
-//MListener* ZGetCashShopItemListBoxListener(void)
+//CCListener* ZGetCashShopItemListBoxListener(void)
 //{
 //	return &g_CashShopItemListBoxListener;
 //}

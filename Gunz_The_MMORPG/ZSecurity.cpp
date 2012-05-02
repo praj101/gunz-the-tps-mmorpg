@@ -2,7 +2,7 @@
 //#define _WIN32_WINNT	0x0400
 #include <winsock2.h>
 #include "ZSecurity.h"
-#include "MDataChecker.h"
+#include "CCDataChecker.h"
 //#include "MProcessController.h"
 #include "CCZFileSystem.h"
 #include "CCMatchItem.h"
@@ -122,7 +122,7 @@ bool ZCheckFileHack() // 사용하지 않는 펑션
 #endif
 }
 
-void ZSetupDataChecker_Global(MDataChecker* pDataChecker)
+void ZSetupDataChecker_Global(CCDataChecker* pDataChecker)
 {
 	pDataChecker->Clear();
 
@@ -141,7 +141,7 @@ void ZSetupDataChecker_Global(MDataChecker* pDataChecker)
 	*/
 }
 
-void ZSetupDataChecker_Game(MDataChecker* pDataChecker)
+void ZSetupDataChecker_Game(CCDataChecker* pDataChecker)
 {
 	pDataChecker->Clear();
 

@@ -59,9 +59,9 @@ enum ZC_ENCHANT {
 struct ZObjectCollision
 {
 private:
-	MProtectValue<bool>		bCollideable;		///< 충돌여부
-	MProtectValue<float>	fRadius;			///< 반지름
-	MProtectValue<float>	fHeight;			///< 높이
+	CCProtectValue<bool>		bCollideable;		///< 충돌여부
+	CCProtectValue<float>	fRadius;			///< 반지름
+	CCProtectValue<float>	fHeight;			///< 높이
 public:
 	ZObjectCollision() {
 		bCollideable.Set_MakeCrc(true);
@@ -99,7 +99,7 @@ public:
 
 	/* [[SHUFFLE_LINE]] ZObject */	ZCharacterItem			m_Items;			///< 장비하고 있는 아이템
 
-	/* [[SHUFFLE_LINE]] ZObject */	MProtectValue<rvector>	m_Position;			//mmemory proxy
+	/* [[SHUFFLE_LINE]] ZObject */	CCProtectValue<rvector>	m_Position;			//mmemory proxy
 
 	/* [[SHUFFLE_LINE]] ZObject */	RVisualMesh*			m_pVMesh;
 

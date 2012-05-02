@@ -15,7 +15,7 @@
 #define SACRIFICEITEM_SLOT1		1
 
 
-
+#include "CCListBox.h"
 // 아이템 슬롯에 있는 아이템 정보
 class SacrificeItemSlotDesc
 {

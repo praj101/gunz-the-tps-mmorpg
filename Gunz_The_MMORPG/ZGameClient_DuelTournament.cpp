@@ -5,7 +5,7 @@
 #include "MErrorTable.h"
 #include "ZConfiguration.h"
 #include "ZGameClient.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
 #include "MBlobArray.h"

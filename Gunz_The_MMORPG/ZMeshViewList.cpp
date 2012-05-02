@@ -16,7 +16,7 @@ void ZMeshViewList::OnSize(int w, int h)
 	RecalcBounds();
 }
 
-bool ZMeshViewList::OnCommand(MWidget* pWidget, const char* szMessage)
+bool ZMeshViewList::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	//if(pWidget==m_pLeft && strcmp(szMessage, MBTN_CLK_MSG)==0){
 	//	if(m_nItemStartIndex>0){
@@ -97,14 +97,14 @@ void ZMeshViewList::RecalcBounds(void)
 	else m_pBmRight->Enable(false);
 
 	for(int i=0; i<nCount; i++){
-		MWidget* pChild = GetItem(i);
+		CCWidget* pChild = GetItem(i);
 		pChild->SetBounds(r.x+LEFTRIGHT_WIDTH+(i-m_nItemStartIndex)*nItemWidth, r.y, nItemWidth, r.h);
 		if(i-m_nItemStartIndex<0 || i-m_nItemStartIndex>=nVisibleCount) pChild->Show(false);
 		else pChild->Show(true);
 	}
 }
 
-ZMeshViewList::ZMeshViewList(const char* szName, MWidget* pParent, MListener* pListener)
+ZMeshViewList::ZMeshViewList(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MGroup(szName, pParent, pListener)
 {
 	m_nItemStartIndex = 0;
@@ -163,7 +163,7 @@ void ZMeshViewList::RemoveAll(void)
 {
 	//m_Items.clear();
 	for(int i=GetChildCount()-1; i>=0; i--){
-		MWidget* pChild = GetChild(i);
+		CCWidget* pChild = GetChild(i);
 		//if(pChild==m_pLeft || pChild==m_pRight) continue;
 		if(pChild==m_pBmLeft || pChild==m_pBmRight) continue;
 		delete pChild;
@@ -174,7 +174,7 @@ void ZMeshViewList::Remove(int i)
 {
 	int nCount = 0;
 	for(int j=2; j<GetChildCount(); j++){
-		MWidget* pChild = GetChild(j);
+		CCWidget* pChild = GetChild(j);
 		if(nCount==i){
 			delete pChild;
 			return;

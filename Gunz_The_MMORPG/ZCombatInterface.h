@@ -2,11 +2,11 @@
 #define _ZCOMBATINTERFACE_H
 
 #include "ZInterface.h"
-#include "MPicture.h"
+#include "CCPicture.h"
 #include "MEdit.h"
 #include "MListBox.h"
 #include "MLabel.h"
-#include "MAnimation.h"
+#include "CCAnimation.h"
 #include "ZObserver.h"
 #include "ZCombatChat.h"
 #include "ZCrossHair.h"
@@ -192,7 +192,7 @@ public:
 	DWORD				m_nReservedOutTime;				// Finish 후에 밖으로 나가는 시간을 설정
 
 
-	ZCombatInterface(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZCombatInterface(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZCombatInterface();
 
 	void OnInvalidate();
@@ -202,7 +202,7 @@ public:
 	virtual void OnDestroy();
 	virtual void OnDraw(CCDrawContext* pDC);	// 그리는 순서때문에 직접 그린다
 	virtual void OnDrawCustom(CCDrawContext* pDC);
-	virtual void DrawAfterWidgets(CCDrawContext* pDC);	//MWidget에서 재정의한 함수, UI 위젯을 모두 그린 후 직접 DC에 추가로 그리기 위한 함수
+	virtual void DrawAfterWidgets(CCDrawContext* pDC);	//CCWidget에서 재정의한 함수, UI 위젯을 모두 그린 후 직접 DC에 추가로 그리기 위한 함수
 	void		 DrawPont(CCDrawContext* pDC);
 	void		 DrawMyNamePont(CCDrawContext* pDC);
 	void		 DrawMyWeaponPont(CCDrawContext* pDC);
@@ -220,7 +220,7 @@ public:
 	void OutputChatMsg(const char* szMsg);
 	void OutputChatMsg(sColor color, const char* szMsg);
 
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
 	static CCFont *GetGameFont();
 	MPOINT GetCrosshairPoint() { return MPOINT(MGetWorkspaceWidth()/2,MGetWorkspaceHeight()/2); }

@@ -64,7 +64,7 @@ void ZMonsterBookInterface::OnCreate( void)
 
 
 	// 로비 UI 감추기
-	MWidget* pWidget = pResource->FindWidget( "Lobby");
+	CCWidget* pWidget = pResource->FindWidget( "Lobby");
 	if ( pWidget)
 		pWidget->Show( false);
 
@@ -80,10 +80,10 @@ void ZMonsterBookInterface::OnCreate( void)
 
 	
 	// 스트립 이미지 애니메이션
-	MPicture* pPicture = (MPicture*)pResource->FindWidget( "MonsterBook_StripBottom");
+	CCPicture* pPicture = (CCPicture*)pResource->FindWidget( "MonsterBook_StripBottom");
  	if( pPicture)
 		pPicture->SetAnimation( 0, 1000.0f);
-	pPicture = (MPicture*)pResource->FindWidget( "MonsterBook_StripTop");
+	pPicture = (CCPicture*)pResource->FindWidget( "MonsterBook_StripTop");
 	if( pPicture)
 		pPicture->SetAnimation( 1, 1000.0f);
 }
@@ -103,7 +103,7 @@ void ZMonsterBookInterface::OnDestroy( void)
 
 
 	// 몬스터 도감 감추기
-	MWidget* pWidget = pResource->FindWidget( "MonsterBook");
+	CCWidget* pWidget = pResource->FindWidget( "MonsterBook");
 	if ( pWidget)
 		pWidget->Show( false);
 
@@ -112,7 +112,7 @@ void ZMonsterBookInterface::OnDestroy( void)
 	if ( m_pBookBgImg != NULL)
 	{
 		// 배경 책 이미지를 보여주는 위젯의 비트맵 이미지 포인터를 리셋한다
-		MPicture* pPicture = (MPicture*)pResource->FindWidget( "MonsterBook_BookBG");
+		CCPicture* pPicture = (CCPicture*)pResource->FindWidget( "MonsterBook_BookBG");
 		if ( pPicture)
 			pPicture->SetBitmap( NULL);
 	
@@ -124,7 +124,7 @@ void ZMonsterBookInterface::OnDestroy( void)
 	// 해당 몬스터의 일러스트 이미지 삭제
 	if ( m_pIllustImg)
 	{
-		MPicture* pPicture = (MPicture*)pResource->FindWidget( "MonsterBook_MonsterIllust");
+		CCPicture* pPicture = (CCPicture*)pResource->FindWidget( "MonsterBook_MonsterIllust");
 		if ( pPicture)
 			pPicture->SetBitmap( NULL);
 	
@@ -230,7 +230,7 @@ void ZMonsterBookInterface::DrawPage( void)
 	if ( m_pBookBgImg)
 	{
 		// 읽어온 비트맵 이미지 포인터를 해당 위젯에 넘겨줘서 표시한다
-		MPicture* pPicture = (MPicture*)pResource->FindWidget( "MonsterBook_BookBG");
+		CCPicture* pPicture = (CCPicture*)pResource->FindWidget( "MonsterBook_BookBG");
 		if ( pPicture)
 			pPicture->SetBitmap( m_pBookBgImg->GetSourceBitmap());
 	}
@@ -242,7 +242,7 @@ void ZMonsterBookInterface::DrawPage( void)
 		delete m_pIllustImg;
 		m_pIllustImg = NULL;
 	}
-	MPicture* pPicture = (MPicture*)pResource->FindWidget( "MonsterBook_MonsterIllust");
+	CCPicture* pPicture = (CCPicture*)pResource->FindWidget( "MonsterBook_MonsterIllust");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
 
@@ -253,7 +253,7 @@ void ZMonsterBookInterface::DrawPage( void)
 	((CCBitmapR2*)m_pIllustImg)->Create( "monsterIllust.png", RGetDevice(), szFileName);
 	if ( m_pIllustImg)
 	{
-		MPicture* pPicture = (MPicture*)pResource->FindWidget( "MonsterBook_MonsterIllust");
+		CCPicture* pPicture = (CCPicture*)pResource->FindWidget( "MonsterBook_MonsterIllust");
 		if ( pPicture)
 			pPicture->SetBitmap( m_pIllustImg->GetSourceBitmap());
 	}
@@ -361,7 +361,7 @@ void ZMonsterBookInterface::DrawPage( void)
 	{
 		char szWidgetName[ 50];
 		sprintf( szWidgetName, "MonsterBook_DropItem%d", i);
-		MPicture* pPicture = (MPicture*)pResource->FindWidget( szWidgetName);
+		CCPicture* pPicture = (CCPicture*)pResource->FindWidget( szWidgetName);
 		if ( pPicture)
 		{
 			if ( itrDropItem != pPageInfo->m_DropItem.end())
@@ -407,7 +407,7 @@ void ZMonsterBookInterface::DrawPage( void)
 
 
 	// 이전 페이지
-	MWidget* pWidget = pResource->FindWidget( "MonsterBook_PrevPageButton");
+	CCWidget* pWidget = pResource->FindWidget( "MonsterBook_PrevPageButton");
 	if ( pWidget)
 		pWidget->Show( (m_nCurrentPageNum > 0) ? true : false);
 

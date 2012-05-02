@@ -1,3 +1,4 @@
+#pragma once
 #include "CCDrawContext.h"
 #include "RFont.h"
 #include "RBaseTexture.h"

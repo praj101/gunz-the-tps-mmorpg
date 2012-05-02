@@ -220,17 +220,17 @@ void ZCharacterView::OnDraw(CCDrawContext* pDC)
 */	// 동환이가 막음
 }
 
-bool ZCharacterView::IsDropable(MWidget* pSender)
+bool ZCharacterView::IsDropable(CCWidget* pSender)
 {
 	return false;
 }
 
-bool ZCharacterView::OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
+bool ZCharacterView::OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	return false;
 }
 
-ZCharacterView::ZCharacterView(const char* szName, MWidget* pParent, MListener* pListener)
+ZCharacterView::ZCharacterView(const char* szName, CCWidget* pParent, CCListener* pListener)
 : ZMeshView(szName, pParent, pListener)
 {
 	// ZOrder변경되는 문제로 툴팁은 우선 보여주지 않는다.
@@ -265,7 +265,7 @@ ZCharacterView::ZCharacterView(const char* szName, MWidget* pParent, MListener* 
 	RepositionItemSlots();
 
 	//jintriple3 메모리 프록시..
-	m_Info.m_pMnTeam = new MProtectValue<int>;
+	m_Info.m_pMnTeam = new CCProtectValue<int>;
 	m_Info.m_pMnTeam->Set_MakeCrc(0);
 }
 

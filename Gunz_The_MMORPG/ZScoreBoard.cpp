@@ -18,7 +18,7 @@ void _AddListItem(MListBox* pList, const char* szString)
 
 
 ZScoreBoard::ZScoreBoard(ZCharacterManager* pCharacterManager, ZIDLResource* pIDLResource,
-						 const char* szName, MWidget* pParent, MListener* pListener)
+						 const char* szName, CCWidget* pParent, CCListener* pListener)
 : ZInterface(szName, pParent, pListener)
 {
 	m_pCharacterManager = pCharacterManager;
@@ -35,7 +35,7 @@ bool ZScoreBoard::OnCreate()
 	m_pFrame = NULL;
 	m_pListBox = NULL;
 
-	MWidget* pWidget = m_pIDLResource->FindWidget("CombatScoreBoardFrame");
+	CCWidget* pWidget = m_pIDLResource->FindWidget("CombatScoreBoardFrame");
 	if (pWidget == NULL) return false;
 	m_pFrame = (MFrame*)pWidget;
 
@@ -61,7 +61,7 @@ void ZScoreBoard::OnDraw(CCDrawContext* pDC)
 	pDC->SetOpacity(255);
 }
 
-bool ZScoreBoard::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZScoreBoard::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 
 
@@ -163,7 +163,7 @@ void ZScoreBoard::Refresh()
 			pCharacter->GetStatus()->nKills, pCharacter->GetStatus()->nDeaths, nPing);
 	}
 
-	MWidget* pWidget = m_pIDLResource->FindWidget("CombatScoreGameType");
+	CCWidget* pWidget = m_pIDLResource->FindWidget("CombatScoreGameType");
 	if (pWidget != NULL) 
 	{
 		pWidget->SetText(GetGameTypeStr(g_pGame->GetMatch()->GetMatchType()));

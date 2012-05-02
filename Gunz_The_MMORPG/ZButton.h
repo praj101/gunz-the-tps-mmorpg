@@ -24,7 +24,7 @@ protected:
 	virtual void OnDraw(CCDrawContext* pDC);
 
 public:
-	ZButton(const char* szName, MWidget* pParent, MListener* pListener);
+	ZButton(const char* szName, CCWidget* pParent, CCListener* pListener);
 	virtual ~ZButton(void);
 };
 
@@ -49,7 +49,7 @@ protected:
 	virtual void OnDraw(CCDrawContext* pDC);
 
 public:
-	ZBmButton(const char* szName, MWidget* pParent, MListener* pListener);
+	ZBmButton(const char* szName, CCWidget* pParent, CCListener* pListener);
 	virtual ~ZBmButton(void);
 };
 

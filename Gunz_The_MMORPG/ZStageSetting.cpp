@@ -381,7 +381,7 @@ void ZStageSetting::ShowStageSettingDialog( const MSTAGE_SETTING_NODE* pStageSet
 	{
 		AdjustLimitTimeStageSettingDialog();
 
-		MWidget* pFindWidget = pResource->FindWidget("StageSettingFrame");
+		CCWidget* pFindWidget = pResource->FindWidget("StageSettingFrame");
 		if(pFindWidget!=NULL) pFindWidget->Show(true, true);
 	}
 }
@@ -462,7 +462,7 @@ void ZStageSetting::ApplyStageSettingDialog()
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	if (pResource == NULL) return;
 
-	MWidget* pWidget = pResource->FindWidget("StageSettingFrame");
+	CCWidget* pWidget = pResource->FindWidget("StageSettingFrame");
 	if(pWidget!=NULL) pWidget->Show(false);
 
 	//	if(pWidget->GetParent()!=NULL) pWidget->GetParent()->Show(false);

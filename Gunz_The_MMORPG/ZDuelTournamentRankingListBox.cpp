@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "ZDuelTournamentRankingListBox.h"
 
-ZDuelTournamentRankingListBox::ZDuelTournamentRankingListBox(const char* szName, MWidget* pParent, MListener* pListener) 
-: MWidget(szName, pParent, pListener)
+ZDuelTournamentRankingListBox::ZDuelTournamentRankingListBox(const char* szName, CCWidget* pParent, CCListener* pListener) 
+: CCWidget(szName, pParent, pListener)
 {
 	m_pBmpRankingItemBg = NULL;
 	m_pBmpArrowUp = NULL;
@@ -167,7 +167,7 @@ void ZDuelTournamentRankingListBox::OnDraw( CCDrawContext* pDC )
 				DWORD defaultcolor = 0x333333;
 				DWORD opacity=(DWORD)pDC->GetOpacity();
 				sRect rt(0, y, nWidth, nItemHeight);
-				MDrawEffect prevEffect = pDC->GetEffect();
+				CCDrawEffect prevEffect = pDC->GetEffect();
 				pDC->SetEffect(MDE_ADD);
 				sColor prevColor = pDC->GetBitmapColor();
 				pDC->SetBitmapColor(sColor(defaultcolor));

@@ -264,7 +264,7 @@ void ZMeshView::OnDraw(CCDrawContext* pDC)
 */
 }
 
-ZMeshView::ZMeshView(const char* szName, MWidget* pParent, MListener* pListener)
+ZMeshView::ZMeshView(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MButton(szName, pParent, pListener)
 {
 //	m_pTVisualMesh.SetVisualMesh(NULL);
@@ -346,7 +346,7 @@ void ZMeshView::RotateVertical(float add_degree)
 	}
 }
 
-bool ZMeshView::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZMeshView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	sRect r = GetInitialClientRect();
 

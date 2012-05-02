@@ -58,7 +58,7 @@ void ZItemCountDlg::Open(ZITEMCOUNTDLG_MODE mode, const char* szItemName, CCBitm
 
 	UpdateDlg();
 
-	MWidget* pWidget = GetIDLResource()->FindWidget( "TradeCountableItemFrame");
+	CCWidget* pWidget = GetIDLResource()->FindWidget( "TradeCountableItemFrame");
 	if ( pWidget)
 		pWidget->Show( true, true);
 
@@ -69,7 +69,7 @@ void ZItemCountDlg::Open(ZITEMCOUNTDLG_MODE mode, const char* szItemName, CCBitm
 
 void ZItemCountDlg::Close()
 {
-	MWidget* pWidget = GetIDLResource()->FindWidget( "TradeCountableItemFrame");
+	CCWidget* pWidget = GetIDLResource()->FindWidget( "TradeCountableItemFrame");
 	if ( pWidget) pWidget->Show( false);
 }
 
@@ -77,7 +77,7 @@ void ZItemCountDlg::UpdateDlg()
 {
 	char szText[ 256];
 
-	MPicture* pPicture = (MPicture*)GetIDLResource()->FindWidget( "TradeCountableItem_ItemIcon");
+	CCPicture* pPicture = (CCPicture*)GetIDLResource()->FindWidget( "TradeCountableItem_ItemIcon");
 	if ( pPicture && m_pItemIcon)
 		pPicture->SetBitmap( m_pItemIcon);
 
@@ -166,7 +166,7 @@ ZSimpleConfirmDlg::~ZSimpleConfirmDlg()
 	delete m_pMsgbox;
 }
 
-bool ZSimpleConfirmDlg::OnCommand(MWidget* pWidget, const char* szMessage)
+bool ZSimpleConfirmDlg::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	if (pWidget == m_pMsgbox)
 	{
@@ -208,7 +208,7 @@ ZSellCashItemConfirmDlg::~ZSellCashItemConfirmDlg()
 
 void ZSellCashItemConfirmDlg::Open(const char* szItemName, CCBitmap* pIcon, int price, int count, ISellCashItemConfirmDlgDoneHandler* pHandler)
 {
-	MPicture* pPicture = (MPicture*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Thumbnail");
+	CCPicture* pPicture = (CCPicture*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Thumbnail");
 	if (pPicture)
 		pPicture->SetBitmap(pIcon);
 
@@ -261,7 +261,7 @@ void ZSellCashItemConfirmDlg::Update()
 
 void ZSellCashItemConfirmDlg::Close()
 {
-	MWidget* pWidget = GetIDLResource()->FindWidget( "SellCashItemConfirmFrame");
+	CCWidget* pWidget = GetIDLResource()->FindWidget( "SellCashItemConfirmFrame");
 	if ( pWidget) pWidget->Show( false);
 }
 
@@ -278,7 +278,7 @@ void ZSellCashItemConfirmDlg::OnOkButton()
 
 void ZCashItemConfirmDlg::Open(CCBitmap* pItemIcon, ICashItemConfirmDlgDoneHandler* pHandler)
 {/*
-	MPicture* pPicture = (MPicture*)GetIDLResource()->FindWidget("BuyItemDetailFrame_Thumbnail");
+	CCPicture* pPicture = (CCPicture*)GetIDLResource()->FindWidget("BuyItemDetailFrame_Thumbnail");
 	if (pPicture)
 		pPicture->SetBitmap(pItemIcon);
 

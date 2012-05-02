@@ -20,7 +20,7 @@ ZItemMenuItem::ZItemMenuItem(ZCMD_ITEMMENU nCmdID, const char* szName) : MMenuIt
 
 
 //// ZItemMenu ////
-ZItemMenu::ZItemMenu(const char* szName, MWidget* pParent, MListener* pListener, MPopupMenuTypes t) 
+ZItemMenu::ZItemMenu(const char* szName, CCWidget* pParent, CCListener* pListener, MPopupMenuTypes t) 
 : MPopupMenu(szName, pParent, pListener, t)
 {
 	m_szItemName[0] = NULL;
@@ -51,7 +51,7 @@ void ZItemMenu::Show(int x, int y, bool bVisible)
 
 
 //// ZItemMenuListener ////
-bool ZItemMenuListener::OnCommand(MWidget* pWidget, const char* szMessage)
+bool ZItemMenuListener::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	GunzState GunzState = ZApplication::GetGameInterface()->GetState();
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();

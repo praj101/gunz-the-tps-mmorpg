@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCClient.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include <stdarg.h>
 #include "MErrorTable.h"
 #include "Msg.h"

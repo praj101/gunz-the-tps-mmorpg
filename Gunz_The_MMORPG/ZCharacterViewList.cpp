@@ -30,7 +30,7 @@ void ZCharacterViewList::OnHide(void)
 	RemoveAll();
 }
 
-ZCharacterViewList::ZCharacterViewList(const char* szName, MWidget* pParent, MListener* pListener)
+ZCharacterViewList::ZCharacterViewList(const char* szName, CCWidget* pParent, CCListener* pListener)
 : ZMeshViewList(szName, pParent, pListener)
 {
 	/*
@@ -63,7 +63,7 @@ ZCharacterViewList::~ZCharacterViewList(void)
 {
 }
 
-bool ZCharacterViewList::OnCommand(MWidget* pWidget, const char* szMessage)
+bool ZCharacterViewList::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	if(ZMeshViewList::OnCommand(pWidget,szMessage)==false) {
 
@@ -454,7 +454,7 @@ void ZCharacterViewList::OnDraw(CCDrawContext* pDC)
 		}
 		else
 		{
-			MWidget* pWidget;
+			CCWidget* pWidget;
 			pWidget = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Red_Count" );
 			if(pWidget != 0) pWidget->Show( false );
 			pWidget = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Blue_Count" );
@@ -470,7 +470,7 @@ void ZCharacterViewList::ChangeVisualWeaponParts(CCMatchCharItemParts nVisualWea
 
 	for(int i=0; i<nCount; i++)
 	{
-		MWidget* pChild = GetItem(i);
+		CCWidget* pChild = GetItem(i);
 		if (!strcmp(pChild->GetClassName(), MINT_CHARACTERVIEW))
 		{
 			ZCharacterView* pCharacterView = (ZCharacterView*)pChild;

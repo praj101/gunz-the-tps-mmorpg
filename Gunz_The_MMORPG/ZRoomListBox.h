@@ -47,7 +47,7 @@ struct sMapInfo
 		bPrivate		= false;
 	}
 };
-class ZRoomListBox :	public MWidget
+class ZRoomListBox :	public CCWidget
 {
 protected:
 	int						m_nPrevStageCount;
@@ -74,8 +74,8 @@ protected:
 protected:
 	virtual void	OnDraw( CCDrawContext* pDC );
 	virtual bool	OnShow( void );
-	virtual bool	OnCommand( MWidget* pWidget, const char* szMassage );
-	virtual bool	OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool	OnCommand( CCWidget* pWidget, const char* szMassage );
+	virtual bool	OnEvent(CCEvent* pEvent, CCListener* pListener);
 protected:
 	CCUID GetSelRoomUID();
 	CCUID GetSelectedPrivateStageUID();
@@ -119,7 +119,7 @@ public:
 	const sMapInfo* GetSelMapInfo();
 	void SetPrivateStageUID(CCUID& uidStage);
 public:
-	ZRoomListBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZRoomListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZRoomListBox(void);
 
 };

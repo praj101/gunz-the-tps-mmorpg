@@ -2,7 +2,7 @@
 #define _ZRADAR_H
 
 #include "ZInterface.h"
-#include "MPicture.h"
+#include "CCPicture.h"
 
 struct ZRadarNode
 {
@@ -21,12 +21,12 @@ protected:
 	ZRadarNode		m_Nodes[8];
 	void RotatePixel(int* poutX, int* poutY, int sx, int sy, int nHotSpotX, int nHotSpotY, float fAngle);
 public:
-	ZRadar(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZRadar(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZRadar();
 	virtual bool OnCreate();
 	virtual void OnDestroy();
 	virtual void OnDraw(CCDrawContext* pDC);
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 	void OnAttack(rvector& pAttackerPos);
 
 	void SetMaxDistance(float fDist);

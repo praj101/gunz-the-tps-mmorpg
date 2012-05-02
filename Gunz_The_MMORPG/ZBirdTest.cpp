@@ -62,7 +62,7 @@ void ZGameInterface::OnBirdTestCreate()
 
 	char szID[256], szPassword[256];
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("LoginID");
+	CCWidget* pWidget = pResource->FindWidget("LoginID");
 	strcpy(szID, pWidget->GetText());
 
 	pWidget = pResource->FindWidget("LoginPassword");
@@ -106,8 +106,8 @@ void ZGameInterface::OnBirdTestCommand(CCCommand* pCmd)
 void InitBTDummyClient()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pAddr = pResource->FindWidget("ServerAddress");
-	MWidget* pPort = pResource->FindWidget("ServerPort");
+	CCWidget* pAddr = pResource->FindWidget("ServerAddress");
+	CCWidget* pPort = pResource->FindWidget("ServerPort");
 	if (!pAddr || !pPort) return;
 
 	ZBT_DummyONCommand pCallBackFunc;
@@ -204,8 +204,8 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, CCCommand* pCmd)
 	case MC_NET_ONDISCONNECT:
 		{
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-			MWidget* pAddr = pResource->FindWidget("ServerAddress");
-			MWidget* pPort = pResource->FindWidget("ServerPort");
+			CCWidget* pAddr = pResource->FindWidget("ServerAddress");
+			CCWidget* pPort = pResource->FindWidget("ServerPort");
 			if (!pAddr || !pPort) return true;
 
 			char szCmd[256];
@@ -334,8 +334,8 @@ void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 	case MC_NET_ONDISCONNECT:
 		{
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-			MWidget* pAddr = pResource->FindWidget("ServerAddress");
-			MWidget* pPort = pResource->FindWidget("ServerPort");
+			CCWidget* pAddr = pResource->FindWidget("ServerAddress");
+			CCWidget* pPort = pResource->FindWidget("ServerPort");
 			if (!pAddr || !pPort) return;
 
 			char szCmd[256];

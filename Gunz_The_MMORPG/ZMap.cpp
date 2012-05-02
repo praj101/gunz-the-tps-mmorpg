@@ -29,7 +29,7 @@ void ZGetCurrMapPath(char* outPath)
 	}
 }
 
-bool InitMaps(MWidget *pWidget)
+bool InitMaps(CCWidget *pWidget)
 {
 	if(!pWidget) return false;
 

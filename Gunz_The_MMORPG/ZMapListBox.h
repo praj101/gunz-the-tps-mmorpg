@@ -1,13 +1,13 @@
 #ifndef ZMAPLISTBOX_H
 #define ZMAPLISTBOX_H
 
-#include "MWidget.h"
+#include "CCWidget.h"
 
 class MListBox;
 class CCZFileSystem;
 class MTextArea;
 
-class ZMapListBox : public MWidget{
+class ZMapListBox : public CCWidget{
 protected:
 	MListBox*	m_pListBox;
 	CCBitmap*	m_pThumbnail;
@@ -15,9 +15,9 @@ protected:
 protected:
 	virtual void OnDraw(CCDrawContext* pDC);
 	virtual bool OnShow(void);
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 public:
-	ZMapListBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZMapListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZMapListBox(void);
 
 	void Refresh(CCZFileSystem* pFS);

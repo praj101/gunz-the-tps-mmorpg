@@ -6,7 +6,7 @@ using namespace std;
 #include "ZReportAbuse.h"
 #include "ZColorTable.h"
 
-class MWidget;
+class CCWidget;
 
 class ZChat
 {
@@ -55,7 +55,7 @@ public:
 	void Clear(ZCHAT_LOC loc=CL_CURRENT);
 	void Report112(const char* szReason);
 	bool CheckChatFilter(const char* szMsg);	///< 욕필터링 검사. 귓말등의 커맨드명령어에서는 따로 처리를 해줘야한다.
-	void FilterWhisperKey(MWidget* pWidget);
+	void FilterWhisperKey(CCWidget* pWidget);
 	void SetWhisperLastSender(char* szSenderName) { strcpy(m_szWhisperLastSender, szSenderName); }
 
 	ZChatCmdManager* GetCmdManager() { return &m_CmdManager; }

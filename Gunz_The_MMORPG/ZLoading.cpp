@@ -15,7 +15,7 @@ const int	ciPercentageList[NUM_LOADING_STATE] =
 };
 
 
-ZLoading::ZLoading(const char* szName, MWidget* pParent, MListener* pListener)
+ZLoading::ZLoading(const char* szName, CCWidget* pParent, CCListener* pListener)
 : ZInterface(szName, pParent, pListener)
 {
 	if (pParent)
@@ -33,7 +33,7 @@ ZLoading::~ZLoading()
 
 bool ZLoading::OnCreate()
 {
-	m_pBackGround=new MPicture("background",this,this);	// 직접그린다.
+	m_pBackGround=new CCPicture("background",this,this);	// 직접그린다.
 
 	m_pBitmap = new CCBitmapR2;
 	m_pBitmap->Create("loading", RGetDevice(), "Interface/Default/Loading/loading_screen.tga");
@@ -59,7 +59,7 @@ void ZLoading::OnDraw(CCDrawContext* pDC)
 {
 }
 
-bool ZLoading::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZLoading::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	return true;
 }

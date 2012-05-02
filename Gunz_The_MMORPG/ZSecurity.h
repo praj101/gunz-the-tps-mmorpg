@@ -5,13 +5,13 @@
 
 //// 각종 보안 및 해킹방지코드 ////
 
-class MDataChecker;
+class CCDataChecker;
 
 __forceinline bool ZCheckHackProcess();
 unsigned long ZGetCCZFileChecksum(const char* pszFileName);
 bool ZCheckFileHack();
-void ZSetupDataChecker_Global(MDataChecker* pDataChecker);
-void ZSetupDataChecker_Game(MDataChecker* pDataChecker);
+void ZSetupDataChecker_Global(CCDataChecker* pDataChecker);
+void ZSetupDataChecker_Game(CCDataChecker* pDataChecker);
 
 
 // ------ inline

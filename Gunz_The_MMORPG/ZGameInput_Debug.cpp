@@ -20,7 +20,7 @@ extern int  g_debug_render_mode;
 extern bool g_bVertex_Soft; 
 
 
-bool ZGameInput::OnDebugEvent(MEvent* pEvent)
+bool ZGameInput::OnDebugEvent(CCEvent* pEvent)
 {
 #ifdef _PUBLISH
 

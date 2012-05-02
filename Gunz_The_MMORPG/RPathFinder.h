@@ -33,7 +33,7 @@ public:
 };
 
 // 폴리곤단위 노드
-class MRPathNode : public MNodeModel{
+class MRPathNode : public CCNodeModel{
 	RPathList*	m_pPathList;
 	RPathNode*	m_pPathNode;
 public:
@@ -54,20 +54,20 @@ public:
 	virtual int GetSuccessorCount(void){
 		return (int)m_pPathNode->m_Neighborhoods.size();
 	}
-	virtual MNodeModel* GetSuccessor(int i){
+	virtual CCNodeModel* GetSuccessor(int i){
 		_ASSERT(i>=0 && i<(int)m_pPathNode->m_Neighborhoods.size());
-		return (MNodeModel*)((*m_pPathList)[m_pPathNode->m_Neighborhoods[i]->nIndex])->m_pUserData;
+		return (CCNodeModel*)((*m_pPathList)[m_pPathNode->m_Neighborhoods[i]->nIndex])->m_pUserData;
 	}
 
 	/// 두 노드 사이의 포탈 구하기
 	static bool GetSuccessorPortal(rvector v[2], MRPathNode* pParent, MRPathNode* pSuccessor);
 
 	/// 이웃 Node들의 Cost 얻기
-	virtual float GetSuccessorCost(MNodeModel* pSuccessor);
+	virtual float GetSuccessorCost(CCNodeModel* pSuccessor);
 	/// 시작점부터 이웃 Node들까지의 Cost 얻기
-	virtual float GetSuccessorCostFromStart(MNodeModel* pSuccessor);
+	virtual float GetSuccessorCostFromStart(CCNodeModel* pSuccessor);
 	/// Heuristic Estimation에 의한 pNode까지의 Cost 얻기
-	virtual float GetHeuristicCost(MNodeModel* pNode);
+	virtual float GetHeuristicCost(CCNodeModel* pNode);
 };
 
 /// Path 결과. 위치와 해당 노드
@@ -104,13 +104,13 @@ class RPathFinder{
 	RPathNode*	m_pEndNode;		// 목적 Node
 	rvector		m_StartPos;		// 시작 지점
 	rvector		m_EndPos;		// 목적 지점
-	MAStar		m_PolygonPathFinder;		// 폴리곤 노드를 위한 패스파인더
+	CCAStar		m_PolygonPathFinder;		// 폴리곤 노드를 위한 패스파인더
 	MPolygonMapModel	m_PolygonMapModel;	// VisibilityPath를 위한 맵 모델
 	float		m_fEnlarge;
 protected:
 //	bool Pick(RSBspNode** ppNode, int* pIndex, rvector* pPickPos, RPathNode** ppPathNode, int x, int y);
-	bool FindVisibilityPath(RVECTORLIST* pVisibilityPathList, rvector& StartPos, rvector& EndPos, CCPtrList<MNodeModel>* pPolygonShortestPath, MPolygonMapModel* pPolygonMapModel=NULL);
-	bool FindVisibilityPath(RPathResultList* pVisibilityPathList, rvector& StartPos, rvector& EndPos, CCPtrList<MNodeModel>* pPolygonShortestPath, MPolygonMapModel* pPolygonMapModel=NULL);
+	bool FindVisibilityPath(RVECTORLIST* pVisibilityPathList, rvector& StartPos, rvector& EndPos, CCPtrList<CCNodeModel>* pPolygonShortestPath, MPolygonMapModel* pPolygonMapModel=NULL);
+	bool FindVisibilityPath(RPathResultList* pVisibilityPathList, rvector& StartPos, rvector& EndPos, CCPtrList<CCNodeModel>* pPolygonShortestPath, MPolygonMapModel* pPolygonMapModel=NULL);
 public:
 	RPathFinder(void);
 	virtual ~RPathFinder(void);
@@ -148,7 +148,7 @@ public:
 
 	RPathNode* GetStartNode(void){ return m_pStartNode; }
 	RPathNode* GetEndNode(void){ return m_pEndNode; }
-	MAStar* GetPolygonPathFinder(void){ return &m_PolygonPathFinder; }
+	CCAStar* GetPolygonPathFinder(void){ return &m_PolygonPathFinder; }
 	MPolygonMapModel* GetPolygonMapModel(void){ return &m_PolygonMapModel; }
 };
 

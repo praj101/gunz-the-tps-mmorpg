@@ -3,7 +3,7 @@
 
 #include "ZPrerequisites.h"
 #include "CCMatchClient.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "CCMatchStage.h"
 #include "ZChannelRule.h"
 #include "ZGame.h"

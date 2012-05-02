@@ -9,19 +9,19 @@ class ZModule_HPAP : public ZModule {
 private:
 	// 핵 제작을 방해하기 위해 멤버변수의 위치를 빌드때마다 뒤섞기 위한 주석매크로(runtime/ShuffleCode.bat 실행)
 	// 멤버변수들 모두 중요하다. 무적핵을 만들기 위해 사용된다.
-	/* [[SHUFFLE_LINE]] moduleHPAP */	MProtectValue<float>	m_fMaxHP;
+	/* [[SHUFFLE_LINE]] moduleHPAP */	CCProtectValue<float>	m_fMaxHP;
 
 	/* [[SHUFFLE_LINE]] moduleHPAP */	bool					m_bAccumulationDamage;	// 누적 대미지 on off
-	/* [[SHUFFLE_LINE]] moduleHPAP */	MProtectValue<float>	m_fMask;				// HP AP 숫자를 감추기위해 더하는 수
+	/* [[SHUFFLE_LINE]] moduleHPAP */	CCProtectValue<float>	m_fMask;				// HP AP 숫자를 감추기위해 더하는 수
 
 	/* [[SHUFFLE_LINE]] moduleHPAP */	bool					m_bRealDamage_DebugRegister;	//jintriple3 디버그 레지스터 핵 용..
-	/* [[SHUFFLE_LINE]] moduleHPAP */	MProtectValue<float>	m_fHP;
+	/* [[SHUFFLE_LINE]] moduleHPAP */	CCProtectValue<float>	m_fHP;
 	
 	/* [[SHUFFLE_LINE]] moduleHPAP */	CCUID					m_LastAttacker;		///< 제일 마지막에 나한테 공격한 사람
-	/* [[SHUFFLE_LINE]] moduleHPAP */	MProtectValue<float>	m_fAP;
-	/* [[SHUFFLE_LINE]] moduleHPAP */	MProtectValue<bool>		m_bRealDamage;		// 실제로 데미지를 먹는지. (내가 컨트롤 안하는 것들은 안먹도록)
+	/* [[SHUFFLE_LINE]] moduleHPAP */	CCProtectValue<float>	m_fAP;
+	/* [[SHUFFLE_LINE]] moduleHPAP */	CCProtectValue<bool>		m_bRealDamage;		// 실제로 데미지를 먹는지. (내가 컨트롤 안하는 것들은 안먹도록)
 	/* [[SHUFFLE_LINE]] moduleHPAP */	float					m_fAccumulationDamage;	// 내가 죽기전까지 얻은 대미지 누적값(듀얼토너먼트 때문에 추가)
-	/* [[SHUFFLE_LINE]] moduleHPAP */	MProtectValue<float>	m_fMaxAP;
+	/* [[SHUFFLE_LINE]] moduleHPAP */	CCProtectValue<float>	m_fMaxAP;
 
 	float	GetMask() { return m_fMask.Ref(); }
 

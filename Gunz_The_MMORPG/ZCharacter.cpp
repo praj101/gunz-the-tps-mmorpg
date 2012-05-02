@@ -494,14 +494,14 @@ ZCharacter::ZCharacter() : ZCharacterObject(), m_DirectionLower(1,0,0),m_Directi
 	m_Collision.SetRadius(CHARACTER_RADIUS-2);
 	m_Collision.SetHeight(CHARACTER_HEIGHT);
 
-	m_bCharged = new MProtectValue<bool>;
+	m_bCharged = new CCProtectValue<bool>;
 	m_bCharged->Set_MakeCrc(false);
-	m_bCharging = new MProtectValue<bool>;
+	m_bCharging = new CCProtectValue<bool>;
 	m_bCharging->Set_MakeCrc(false);
 	
-	m_pMdwInvincibleStartTime = new MProtectValue<DWORD>;
+	m_pMdwInvincibleStartTime = new CCProtectValue<DWORD>;
 	m_pMdwInvincibleStartTime->Set_MakeCrc(0);
-	m_pMdwInvincibleDuration = new MProtectValue<DWORD>;
+	m_pMdwInvincibleDuration = new CCProtectValue<DWORD>;
 	m_pMdwInvincibleDuration->Set_MakeCrc(0);
 
 	ZCharaterStatusBitPacking uState;
@@ -519,7 +519,7 @@ ZCharacter::ZCharacter() : ZCharacterObject(), m_DirectionLower(1,0,0),m_Directi
 */
 	m_dwStatusBitPackingValue.Set(uState);
 
-	m_pMUserAndClanName	= new MProtectValue<ZUserAndClanName>;
+	m_pMUserAndClanName	= new CCProtectValue<ZUserAndClanName>;
 	m_pMUserAndClanName->Ref().m_szUserName[0] = 0;
 	m_pMUserAndClanName->Ref().m_szUserAndClanName[0] = 0;
 	m_pMUserAndClanName->MakeCrc();
@@ -2193,7 +2193,7 @@ void ZCharacter::OnChangeParts(RMeshPartsType partstype,int PartsID)
 
 				char* Name = NULL;
 
-				if(MEvent::GetCtrlState()) {
+				if(CCEvent::GetCtrlState()) {
 					Name = GetPartsNextName( partstype,m_pVMesh ,true);//¿Ã¿¸ø ...
 				}
 				else {

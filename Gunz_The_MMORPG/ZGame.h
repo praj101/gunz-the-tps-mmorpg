@@ -110,9 +110,9 @@ protected:
 
 //	ZWorld				*m_pWorld;
 	ZGameAction			*m_pGameAction;
-	MDataChecker		m_DataChecker;
+	CCDataChecker		m_DataChecker;
 	ZGameTimer			m_GameTimer;
-	MProtectValue<float> m_fTime;
+	CCProtectValue<float> m_fTime;
 
 	DWORD				m_nLastTime[ZLASTTIME_MAX];
 
@@ -251,7 +251,7 @@ public:
 
 	int GetPing(CCUID& uid);
 
-	MDataChecker* GetDataChecker()	{ return &m_DataChecker; }
+	CCDataChecker* GetDataChecker()	{ return &m_DataChecker; }
 
 	rvector GetFloor(rvector pos, rplane *pimpactplane=NULL, CCUID uID=CCUID(0,0) );
 	bool CharacterOverlapCollision(ZObject* pFloorObject, float WorldFloorHeight, float ObjectFloorHeight);
@@ -286,7 +286,7 @@ protected:
 	char m_szReplayFileName[_MAX_PATH];	// 리플레이 저장 완료 메시지 출력을 위해
 	ZFile *m_pReplayFile;
 //	FILE *m_pRecordingFile;
-	MProtectValue<bool> m_bReplaying;
+	CCProtectValue<bool> m_bReplaying;
 	bool m_bShowReplayInfo;
 
 	bool m_bRecording;

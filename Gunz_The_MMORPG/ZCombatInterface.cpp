@@ -115,7 +115,7 @@ struct ZScoreBoardItem : public CMemPoolSm<ZScoreBoardItem>{
 	}
 };
 
-ZCombatInterface::ZCombatInterface(const char* szName, MWidget* pParent, MListener* pListener)
+ZCombatInterface::ZCombatInterface(const char* szName, CCWidget* pParent, CCListener* pListener)
 : ZInterface(szName, pParent, pListener)
 {
 	m_fElapsed = 0;
@@ -223,7 +223,7 @@ bool ZCombatInterface::OnCreate()
 		m_pQuestScreen = new ZCombatQuestScreen();
 	}
 
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatTDMInfo");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatTDMInfo");
 	if ( pWidget)
 	{
 		if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
@@ -260,7 +260,7 @@ bool ZCombatInterface::OnCreate()
 			pWidget->Show( true);
 
 
-			MWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_RedWin");
+			CCWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_RedWin");
 			if ( pPicture)
 				pPicture->Show( true);
 			pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_BlueWin");
@@ -271,7 +271,7 @@ bool ZCombatInterface::OnCreate()
 		{
 			pWidget->Show( false);
 
-			MWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_RedWin");
+			CCWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_RedWin");
 			if ( pPicture)
 				pPicture->Show( false);
 			pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_BlueWin");
@@ -283,7 +283,7 @@ bool ZCombatInterface::OnCreate()
 	if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
 		// 듀얼토너먼트 남은시간 표시
-		MWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_TimeBack");
+		CCWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_TimeBack");
 		if ( pPicture)
 			pPicture->Show( true);
 
@@ -303,11 +303,11 @@ bool ZCombatInterface::OnCreate()
 			pWidget->Show( true);
 
 		// 대전자 정보 레이블 align (레이블align은 버그가 있어서 xml에서 지정할수 없다-_-;)
-		MWidget* pFrame = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_CharacterInfo");
+		CCWidget* pFrame = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_CharacterInfo");
 		if (pFrame)
 		{
 			int numChild = pFrame->GetChildCount();
-			MWidget* pChild = NULL;
+			CCWidget* pChild = NULL;
 			for (int i=0; i<numChild; ++i)
 			{
 				pChild = pFrame->GetChild(i);
@@ -419,7 +419,7 @@ void ZCombatInterface::OnDestroy()
 	ZGetSoundEngine()->Set3DSoundUpdate( false );
 #endif
 
-	MPicture *pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "GameResult_Background");
+	CCPicture *pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "GameResult_Background");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
 
@@ -430,7 +430,7 @@ void ZCombatInterface::OnDestroy()
 	}
 
 
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatTDMInfo");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatTDMInfo");
 	if ( pWidget)
 		pWidget->Show( false);
 
@@ -623,8 +623,8 @@ void ZCombatInterface::DrawTDMScore(CCDrawContext* pDC)
 		pBmNumLabel->SetNumber( nTargetKills);
 
 
-	MWidget* pRed = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_RedWin");
-	MWidget* pBlue = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_BlueWin");
+	CCWidget* pRed = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_RedWin");
+	CCWidget* pBlue = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_BlueWin");
 	if ( pRed && pBlue)
 	{
 		int nTime[] = { 1, 1400, 1400, 900, 900, 200 };
@@ -710,7 +710,7 @@ void ZCombatInterface::OnDraw(CCDrawContext* pDC)
 	bool bDrawAllPlayerName = false;
 
 	if(ZGetGame()->m_pMyCharacter->IsAdminHide()
-		&& MEvent::GetAltState() && ZGetCamera()->GetLookMode()!=ZCAMERA_MINIMAP)
+		&& CCEvent::GetAltState() && ZGetCamera()->GetLookMode()!=ZCAMERA_MINIMAP)
 		bDrawAllPlayerName = true;
 
 	if(ZGetCamera()->GetLookMode()==ZCAMERA_FREELOOK || bDrawAllPlayerName)
@@ -1047,7 +1047,7 @@ void ZCombatInterface::DrawFinish()
 
 		if ( timeGetTime() >= m_nReservedOutTime)
 		{
-			MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Option");
+			CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Option");
 			if ( pWidget)
 				pWidget->Show( false);
 			pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatMenuFrame");
@@ -1355,7 +1355,7 @@ bool ZCombatInterface::IsDone()
 	return false;
 }
 
-bool ZCombatInterface::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZCombatInterface::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	return false;
 }
@@ -1403,7 +1403,7 @@ void ZCombatInterface::SetItemName(const char* szName)
 
 void ZCombatInterface::ShowInfo(bool bVisible)
 {
-	MWidget* pWidget;
+	CCWidget* pWidget;
 	char szTemp[256];
 	for (int i = 0; i < 9; i++)
 	{
@@ -1600,7 +1600,7 @@ void ZCombatInterface::SetItemImageIndex(int nIndex)
 	char szTemp[256];
 	sprintf(szTemp, "item%02d.png", nIndex);
 	BEGIN_WIDGETLIST("CombatItemPic", ZApplication::GetGameInterface()->GetIDLResource(),
-		MPicture*, pPicture);
+		CCPicture*, pPicture);
 
 	pPicture->SetBitmap(CCBitmapManager::Get(szTemp));
 
@@ -1614,7 +1614,7 @@ void ZCombatInterface::SetMagazine(int nMagazine)
 	char szTemp[256];
 	sprintf(szTemp, "%02d", nMagazine);
 	BEGIN_WIDGETLIST("CombatMagazine", ZApplication::GetGameInterface()->GetIDLResource(),
-		MWidget*, pWidget);
+		CCWidget*, pWidget);
 
 	pWidget->SetText(szTemp);
 
@@ -2639,7 +2639,7 @@ void AddCombatResultInfo( const char* szName, int nScore, int nKill, int nDeath,
 				pLabel->SetAlignment( MAM_RIGHT);
 
 				sprintf( szWidget, "CombatResult_GameRoomImg%02d", i);
-				MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
+				CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
 				if ( pWidget)
 					pWidget->Show( bGameRoomUser);
 
@@ -2686,7 +2686,7 @@ void AddClanResultInfoWin( const char* szName, int nScore, int nKill, int nDeath
 				pLabel->SetAlignment( MAM_RIGHT);
 
 				sprintf( szWidget, "ClanResult_GameRoomImg1%d", i);
-				MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
+				CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
 				if ( pWidget)
 					pWidget->Show( bGameRoomUser);
 
@@ -2732,7 +2732,7 @@ void AddClanResultInfoLose( const char* szName, int nScore, int nKill, int nDeat
 				pLabel->SetAlignment( MAM_RIGHT);
 
 				sprintf( szWidget, "ClanResult_GameRoomImg2%d", i);
-				MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
+				CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
 				if ( pWidget)
 					pWidget->Show( bGameRoomUser);
 
@@ -2779,7 +2779,7 @@ void ZCombatInterface::GetResultInfo( void)
 	m_ResultItems.sort( CompareZResultBoardItem);
 
 	// Set UI
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult");
 	if ( pWidget)  pWidget->Show( false);
 	pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult");
 	if ( pWidget)  pWidget->Show( false);
@@ -2820,7 +2820,7 @@ void ZCombatInterface::GetResultInfo( void)
 		}
 
 		sprintf( szWidget, "CombatResult_GameRoomImg%02d", i);
-		MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
+		CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
 		if ( pWidget)
 			pWidget->Show( false);
 	}
@@ -2857,7 +2857,7 @@ void ZCombatInterface::GetResultInfo( void)
 		}
 
 		sprintf( szWidget, "ClanResult_GameRoomImg1%d", i);
-		MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
+		CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
 		if ( pWidget)
 			pWidget->Show( false);
 	}
@@ -2894,7 +2894,7 @@ void ZCombatInterface::GetResultInfo( void)
 		}
 
 		sprintf( szWidget, "ClanResult_GameRoomImg2%d", i);
-		MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
+		CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
 		if ( pWidget)
 			pWidget->Show( false);
 	}
@@ -2972,18 +2972,18 @@ void ZCombatInterface::GetResultInfo( void)
 		int nWinnerTeam;
 		if ( ZGetGame()->GetMatch()->GetTeamScore( MMT_RED) == ZGetGame()->GetMatch()->GetTeamScore( MMT_BLUE))  // draw 
 		{
-			MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Win");
+			CCPicture* pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Win");
 			if ( pPicture) 	pPicture->SetBitmap( CCBitmapManager::Get( "result_draw.tga"));
 			
-			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Lose");
+			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Lose");
 			if ( pPicture) 	pPicture->SetBitmap( CCBitmapManager::Get( "result_draw.tga"));
 		}
 		else
 		{
-			MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Win");
+			CCPicture* pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Win");
 			if ( pPicture) 	pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 
-			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Lose");
+			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Lose");
 			if ( pPicture) 	pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
 		}
 
@@ -3000,11 +3000,11 @@ void ZCombatInterface::GetResultInfo( void)
 			int nClanID = (i==0) ? m_nClanIDRed : m_nClanIDBlue;
 
 			// Put clan mark
-			MPicture* pPicture;
+			CCPicture* pPicture;
 			if ( nWinnerTeam == nTeam)
-				pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap1");
+				pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap1");
 			else
-				pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap2");
+				pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap2");
 			if ( pPicture)
 			{
 				CCBitmap* pBitmap = ZGetEmblemInterface()->GetClanEmblem2( nClanID);
@@ -3173,14 +3173,14 @@ void ZCombatInterface::GetResultInfo( void)
 
 
 		// 이미지 설정
-		MPicture* pPicture;
+		CCPicture* pPicture;
 		if ( ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)		// 으아아아악
 		{
-			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_Finish");
+			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_Finish");
 			if ( pPicture)
 				pPicture->Show( false);
 
-			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_WinLoseDraw");
+			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_WinLoseDraw");
 			if ( pPicture)
 			{
 				if ( ZGetGame()->GetMatch()->GetTeamKills( MMT_RED) == ZGetGame()->GetMatch()->GetTeamKills( MMT_BLUE))
@@ -3208,11 +3208,11 @@ void ZCombatInterface::GetResultInfo( void)
 		}
 		else if ( ZGetGameInterface()->m_bTeamPlay)		// 팀전이면...
 		{
-			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_Finish");
+			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_Finish");
 			if ( pPicture)
 				pPicture->Show( false);
 
-			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_WinLoseDraw");
+			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_WinLoseDraw");
 			if ( pPicture)
 			{
 				if ( ZGetGame()->GetMatch()->GetTeamScore( MMT_RED) == ZGetGame()->GetMatch()->GetTeamScore( MMT_BLUE))
@@ -3240,11 +3240,11 @@ void ZCombatInterface::GetResultInfo( void)
 		}
 		else										// 개인전이면...
 		{
-			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_Finish");
+			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_Finish");
 			if ( pPicture)
 				pPicture->Show( true);
 
-			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_WinLoseDraw");
+			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_WinLoseDraw");
 			if ( pPicture)
 				pPicture->Show( false);
 		}
@@ -3257,7 +3257,7 @@ void ZCombatInterface::GetResultInfo( void)
 	if ( m_pResultBgImg != NULL)
 	{
 		// 읽어온 비트맵 이미지 포인터를 해당 위젯에 넘겨줘서 표시한다
-		MPicture* pBgImage = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "GameResult_Background");
+		CCPicture* pBgImage = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "GameResult_Background");
 		if ( pBgImage)
 			pBgImage->SetBitmap( m_pResultBgImg->GetSourceBitmap());
 	}

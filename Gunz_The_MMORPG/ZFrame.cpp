@@ -72,7 +72,7 @@ void ZFrame::OnDraw(CCDrawContext* pDC)
 	MFrame::OnDraw(pDC);
 }
 
-ZFrame::ZFrame(const char* szName, MWidget* pParent, MListener* pListener)
+ZFrame::ZFrame(const char* szName, CCWidget* pParent, CCListener* pListener)
 			: MFrame(szName, pParent, pListener)
 {
 	m_bCanShade = false;

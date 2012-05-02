@@ -1,7 +1,7 @@
 #ifndef _ZCLANLISTBOX_H
 #define _ZCLANLISTBOX_H
 
-#include "MWidget.h"
+#include "CCWidget.h"
 #include "CCMatchGlobal.h"
 
 #define NUM_DISPLAY_CLAN	4
@@ -13,7 +13,7 @@ struct ZCLANINFO {
 	bool bEmpty;		// 비어있는방인지
 };
 
-class ZClanListBox : public MWidget {
+class ZClanListBox : public CCWidget {
 protected:
 	int					m_nPrevStageCount;
 	int					m_nNextStageCount;
@@ -35,7 +35,7 @@ public:
 	void	SetHeight( float height ) { m_RoomHeight	= height; }
 
 public:
-	ZClanListBox(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZClanListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZClanListBox(void);
 
 	void SetInfo(int nIndex, int nEmblemID, const char *szName, int nPlayers);

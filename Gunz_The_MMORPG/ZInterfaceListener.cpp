@@ -2,7 +2,7 @@
 
 #include "ZApplication.h"
 #include "ZInterfaceListener.h"
-#include "MWidget.h"
+#include "CCWidget.h"
 #include "MEdit.h"
 #include "MComboBox.h"
 #include "ZMapListBox.h"
@@ -46,10 +46,10 @@
 
 
 // Chat Input Listener
-class MChatInputListener : public MListener{
+class MChatInputListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
 			const char* szCommand = pWidget->GetText();
 			ZChatOutput(szCommand);
 
@@ -62,7 +62,7 @@ public:
 			pWidget->SetText("");
 			return true;
 		}
-		else if ((MWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (MWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
 		{
 			ZGetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -78,7 +78,7 @@ class MHotBarButton : public MButton{
 protected:
 	char	m_szCommandString[256];
 protected:
-	virtual bool OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString){
+	virtual bool OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString){
 		m_pIcon = pBitmap;
 		AttachToolTip(szString);
 		strcpy(m_szCommandString, szItemString);
@@ -87,11 +87,11 @@ protected:
 	}
 
 public:
-	MHotBarButton(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL)
+	MHotBarButton(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL)
 	: MButton(szName, pParent, pListener){
 		strcpy(m_szCommandString, "Command is not assigned");
 	}
-	virtual bool IsDropable(MWidget* pSender){
+	virtual bool IsDropable(CCWidget* pSender){
 		return true;
 	}
 	const char* GetCommandString(void){
@@ -100,10 +100,10 @@ public:
 };
 
 
-class MHotBarButtonListener : public MListener{
+class MHotBarButtonListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 			MHotBarButton* pButton = (MHotBarButton*)pWidget;
 			const char* szCommandString = pButton->GetCommandString();
 
@@ -123,10 +123,10 @@ public:
 };
 MHotBarButtonListener	g_HotBarButtonListener;
 
-class MLoginListener : public MListener{
+class MLoginListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true)
 		{
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
@@ -143,7 +143,7 @@ public:
 				if( !pServer->bIsLive )
 					return false;
 
-				MWidget* pWidget = pResource->FindWidget( "LoginOK");
+				CCWidget* pWidget = pResource->FindWidget( "LoginOK");
 				if ( pWidget)
 					pWidget->Enable( false);
 
@@ -162,8 +162,8 @@ public:
 
 				if ( pServer->nType == 7)	// Debug server Type1을 Type7로 변경
 				{
-					MWidget* pAddr = pResource->FindWidget( "ServerAddress");
-					MWidget* pPort = pResource->FindWidget( "ServerPort");
+					CCWidget* pAddr = pResource->FindWidget( "ServerAddress");
+					CCWidget* pPort = pResource->FindWidget( "ServerPort");
 
 					ZPostConnect( pAddr->GetText(), atoi(pPort->GetText()));		// Debug server
 				}
@@ -180,10 +180,10 @@ public:
 };
 MLoginListener	g_LoginListener;
 
-class MLogoutListener : public MListener{
+class MLogoutListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 
 			cclog("MLogoutListener !\n");
 			// 체크후 로그아웃~
@@ -197,10 +197,10 @@ public:
 };
 MLogoutListener	g_LogoutListener;
 
-class MExitListener : public MListener{
+class MExitListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 
 			cclog("MExitListener !\n");
 			ZApplication::Exit();
@@ -212,10 +212,10 @@ public:
 };
 MExitListener	g_ExitListener;
 
-class CCChannelChatInputListener : public MListener{
+class CCChannelChatInputListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
 			char szChat[512];
 			if (strlen(pWidget->GetText()) < 255)
 			{
@@ -227,7 +227,7 @@ public:
 			}
 			return true;
 		}
-		else if ((MWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (MWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
 		{
 			ZGetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -236,10 +236,10 @@ public:
 };
 CCChannelChatInputListener	g_ChannelChatInputListener;
 
-class MStageChatInputListener : public MListener{
+class MStageChatInputListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
 			char szChat[512];
 			if (strlen(pWidget->GetText()) < 255)
 			{
@@ -251,7 +251,7 @@ public:
 			}
 			return true;
 		}
-		else if ((MWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (MWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
 		{
 			ZGetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -262,10 +262,10 @@ public:
 MStageChatInputListener	g_StageChatInputListener;
 
 
-class MGameStartListener : public MListener{
+class MGameStartListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 
 			const MSTAGE_SETTING_NODE* pStageSetting = ZGetGameClient()->GetMatchStageSetting()->GetStageSetting();
 			int nPlayerCnt = (int)ZGetGameClient()->GetMatchStageSetting()->m_CharSettingList.size();
@@ -304,10 +304,10 @@ public:
 };
 MGameStartListener	g_GameStartListener;
 
-class MMapChangeListener : public MListener{
+class MMapChangeListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 			ZGetGameInterface()->ShowWidget("MapFrame", true, true);
 
 			return true;
@@ -317,10 +317,10 @@ public:
 };
 MMapChangeListener	g_MapChangeListener;
 
-class MMapSelectListener : public MListener{
+class MMapSelectListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 			ZMapListBox* pWidget = (ZMapListBox*)pResource->FindWidget("MapList");
 			char szMapName[_MAX_DIR];
@@ -342,10 +342,10 @@ MMapSelectListener	g_MapSelectListener;
 
 
 
-class MParentCloseListener : public MListener{
+class MParentCloseListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 			if(pWidget->GetParent()!=NULL) pWidget->GetParent()->Show(false);
 			return true;
 		}
@@ -355,12 +355,12 @@ public:
 MParentCloseListener	g_ParentCloseListener;
 
 
-class MStageCreateFrameCallerListener : public MListener{
+class MStageCreateFrameCallerListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-			MWidget* pFindWidget = pResource->FindWidget("StageCreateFrame");
+			CCWidget* pFindWidget = pResource->FindWidget("StageCreateFrame");
 			if(pFindWidget!=NULL) pFindWidget->Show(true, true);
 
 			MEdit* pPassEdit = (MEdit*)pResource->FindWidget("StagePassword");
@@ -380,11 +380,11 @@ MStageCreateFrameCallerListener	g_StageCreateFrameCallerListener;
 
 
 
-class MSelectCharacterComboBoxListener : public MListener{
+class MSelectCharacterComboBoxListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(MWidget::IsMsg(szMessage, MCMBBOX_CHANGED)==true)
+		if(CCWidget::IsMsg(szMessage, MCMBBOX_CHANGED)==true)
 		{
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
@@ -401,63 +401,63 @@ public:
 };
 MSelectCharacterComboBoxListener	g_SelectCharacterComboBoxListener;
 
-MListener* ZGetChatInputListener(void)
+CCListener* ZGetChatInputListener(void)
 {
 	return &g_ChatInputListener;
 }
 
-MListener* ZGetLoginListener(void)
+CCListener* ZGetLoginListener(void)
 {
 	return &g_LoginListener;
 }
 
-MListener* ZGetLogoutListener(void)
+CCListener* ZGetLogoutListener(void)
 {
 	return &g_LogoutListener;
 }
 
-MListener* ZGetExitListener(void)
+CCListener* ZGetExitListener(void)
 {
 	return &g_ExitListener;
 }
 
-MListener* ZGetChannelChatInputListener(void)
+CCListener* ZGetChannelChatInputListener(void)
 {
 	return &g_ChannelChatInputListener;
 }
 
-MListener* ZGetStageChatInputListener(void)
+CCListener* ZGetStageChatInputListener(void)
 {
 	return &g_StageChatInputListener;
 }
 
-MListener* ZGetGameStartListener(void)
+CCListener* ZGetGameStartListener(void)
 {
 	return &g_GameStartListener;
 }
 
-MListener* ZGetMapChangeListener(void)
+CCListener* ZGetMapChangeListener(void)
 {
 	return &g_MapChangeListener;
 }
 
-MListener* ZGetMapSelectListener(void)
+CCListener* ZGetMapSelectListener(void)
 {
 	return &g_MapSelectListener;
 }
 
-MListener* ZGetParentCloseListener(void)
+CCListener* ZGetParentCloseListener(void)
 {
 	return &g_ParentCloseListener;
 }
 
 
-MListener* ZGetStageCreateFrameCallerListener(void)
+CCListener* ZGetStageCreateFrameCallerListener(void)
 {
 	return &g_StageCreateFrameCallerListener;
 }
 
-MListener* ZGetSelectCharacterComboBoxListener(void)
+CCListener* ZGetSelectCharacterComboBoxListener(void)
 {
 	return &g_SelectCharacterComboBoxListener;
 }
@@ -481,7 +481,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageListFrameCallerListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
 	/*
-	MWidget* pFindWidget = pResource->FindWidget("StageListFrame");
+	CCWidget* pFindWidget = pResource->FindWidget("StageListFrame");
 	if(pFindWidget!=NULL) pFindWidget->Show(true, true);
 	*/
 	ZGetGameClient()->StartStageList();
@@ -490,7 +490,7 @@ END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER(ZGetStageCreateBtnListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pNameWidget = pResource->FindWidget("StageName");
+	CCWidget* pNameWidget = pResource->FindWidget("StageName");
 	if(pNameWidget==NULL) return true;
 	char szStageName[128], szStagePassword[128];
 	bool bPrivate = false;
@@ -554,7 +554,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPrivateStageJoinBtnListener, MBTN_CLK_MSG)
 		pRoomListBox->RequestSelPrivateStageJoin();
 	}
 
-	MWidget* pPrivateStageJoinFrame = pResource->FindWidget("PrivateStageJoinFrame");
+	CCWidget* pPrivateStageJoinFrame = pResource->FindWidget("PrivateStageJoinFrame");
 	if (pPrivateStageJoinFrame)
 	{
 		pPrivateStageJoinFrame->Show(false);
@@ -565,7 +565,7 @@ END_IMPLEMENT_LISTENER()
 // Channel
 BEGIN_IMPLEMENT_LISTENER(ZGetChannelListFrameCallerListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
+	CCWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
 	if(pFindWidget!=NULL) pFindWidget->Show(true, true);
 
 	MButton* pButton = (MButton*)pResource->FindWidget("MyClanChannel");
@@ -624,7 +624,7 @@ END_IMPLEMENT_LISTENER()
 // 기타 옵션
 BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingCallerListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("StageSettingFrame");
+	CCWidget* pWidget = pResource->FindWidget("StageSettingFrame");
 	if(pWidget!=NULL)
 		pWidget->Show(true, true);
 END_IMPLEMENT_LISTENER()
@@ -1012,7 +1012,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetSelectCharacterButtonListener, MBTN_CLK_MSG)
 		{
 			ZGetGameInterface()->OnCharSelect();
 
-			MWidget* pWidget = ZGetGameInterface()->GetIDLResource()->FindWidget( "CS_SelectCharDefKey");
+			CCWidget* pWidget = ZGetGameInterface()->GetIDLResource()->FindWidget( "CS_SelectCharDefKey");
 			pWidget->Enable( false);
 		}
 	}
@@ -1052,7 +1052,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetDeleteCharacterButtonListener, MBTN_CLK_MSG)
 		if (pYesEdit)
 			pYesEdit->SetText("");
 
-		MWidget* pWidget = pResource->FindWidget("CS_ConfirmDeleteChar");
+		CCWidget* pWidget = pResource->FindWidget("CS_ConfirmDeleteChar");
 		if (pWidget)
 		{
 			pWidget->Show(true, true);
@@ -1091,7 +1091,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetConfirmDeleteCharacterButtonListener, MBTN_CLK_MSG)
 				ZGetGameInterface()->ShowMessage( MSG_CHARDELETE_ERROR );
 		}
 
-		MWidget* pWidget = pResource->FindWidget( "CS_ConfirmDeleteChar");
+		CCWidget* pWidget = pResource->FindWidget( "CS_ConfirmDeleteChar");
 		if ( pWidget)
 			pWidget->Show( false);
 	}
@@ -1100,7 +1100,7 @@ END_IMPLEMENT_LISTENER()
 // 캐릭 삭제 확인창 닫기
 BEGIN_IMPLEMENT_LISTENER(ZGetCloseConfirmDeleteCharButtonListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("CS_ConfirmDeleteChar");
+	CCWidget* pWidget = pResource->FindWidget("CS_ConfirmDeleteChar");
 	if (pWidget)
 	{
 		pWidget->Show(false);
@@ -1187,7 +1187,7 @@ void SetCharacterInfoGroup(int n)
 	pBtn = (MButton*)pResource->FindWidget("ShowEquip_InfoGroup");
 	if(pBtn)pBtn->SetCheck(n==1);
 
-	MWidget *pFrame=(MFrame*)pResource->FindWidget("Char_infoGroup");
+	CCWidget *pFrame=(MFrame*)pResource->FindWidget("Char_infoGroup");
 	if(pFrame) pFrame->Show(n==0);
 	pFrame=(MFrame*)pResource->FindWidget("Equip_InfoGroup");
 	if(pFrame) pFrame->Show(n==1);
@@ -1227,7 +1227,7 @@ END_IMPLEMENT_LISTENER()
 void ShowPlayerListGroup(int i)
 {
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ChannelPlayerList_all");
+	CCWidget* pWidget = pResource->FindWidget("ChannelPlayerList_all");
 	if(pWidget!=NULL) ((MButton*)pWidget)->SetCheck(i==0?true:false);
 	pWidget = pResource->FindWidget("ChannelPlayerList_friend");
 	if(pWidget!=NULL) ((MButton*)pWidget)->SetCheck(i==1?true:false);
@@ -1278,10 +1278,10 @@ BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentAccountTabButtonListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 // 중앙은행에서 레벨 무시하고 가져오기 확인 (todok 수량 입력 때문에 구현하기가 빡세졌다.. 이게 꼭필요할까? 그냥 삭제하고 싶다)
-class ZLevelConfirmListener : public MListener{
+class ZLevelConfirmListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
 			//int nCount = ZGetGameInterface()->m_nBringSpendableItemCount;
 			//ZGetGameInterface()->GetShopEquipInterface()->BringAccountItem(nCount);
 		} 
@@ -1290,7 +1290,7 @@ public:
 	}
 } g_LevelConfirmListener;
 
-MListener* ZGetLevelConfirmListenter()
+CCListener* ZGetLevelConfirmListenter()
 {
 	return &g_LevelConfirmListener;
 }
@@ -1503,11 +1503,11 @@ BEGIN_IMPLEMENT_LISTENER( ZGetShopEquipmentCallerButtonListener, MBTN_CLK_MSG)
 	ZGetGameInterface()->ShowEquipmentDialog(true);
 END_IMPLEMENT_LISTENER()
 
-class ZMapListListener : public MListener{									
+class ZMapListListener : public CCListener{									
 	public:																	
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage)
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{	
-		if(MWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true)
+		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true)
 		{
 			MListBox* pList = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 			if(pList != NULL)
@@ -1523,7 +1523,7 @@ class ZMapListListener : public MListener{
 
 			return true;
 		}
-		if(MWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+		if(CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
 		{
 			MListBox* pList = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 			if(pList != NULL)
@@ -1536,7 +1536,7 @@ class ZMapListListener : public MListener{
 	}
 } g_MapListListener;
 
-MListener* ZGetStageMapListSelectionListener()
+CCListener* ZGetStageMapListSelectionListener()
 {
 	return &g_MapListListener;
 }
@@ -1564,7 +1564,7 @@ void ZReport112FromListener()
 		}
 
 
-		MWidget* pWidget = pResource->FindWidget("112Confirm");
+		CCWidget* pWidget = pResource->FindWidget("112Confirm");
 		if (pWidget)
 		{
 			pWidget->Show(false);
@@ -1580,7 +1580,7 @@ void ZReport112FromListener()
 */
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
-	MWidget* pWidget = pResource->FindWidget( "112Confirm");
+	CCWidget* pWidget = pResource->FindWidget( "112Confirm");
 	if ( !pWidget)
 		return;
 
@@ -1628,7 +1628,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementConfirm_OKButtonListener, MBTN_
 	ZGetGameClient()->AnswerSponsorAgreement(true);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementConfirm");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -1639,7 +1639,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementConfirm_CancelButtonListener, M
 	ZGetGameClient()->AnswerSponsorAgreement(false);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementConfirm");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -1648,7 +1648,7 @@ END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementWait_CancelButtonListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementWait");
+	CCWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementWait");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -1659,7 +1659,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementConfirm_OKButtonListener, MBTN_C
 	ZGetGameClient()->AnswerJoinerAgreement(true);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementConfirm");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -1670,7 +1670,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementConfirm_CancelButtonListener, MB
 	ZGetGameClient()->AnswerJoinerAgreement(false);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementConfirm");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -1679,7 +1679,7 @@ END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementWait_CancelButtonListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementWait");
+	CCWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementWait");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -1689,7 +1689,7 @@ END_IMPLEMENT_LISTENER();
 // 클랜 생성 창
 BEGIN_IMPLEMENT_LISTENER(ZGetLobbyPlayerListTabClanCreateButtonListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanCreateDialog");
+	CCWidget* pWidget = pResource->FindWidget("ClanCreateDialog");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(true,true);
@@ -1705,7 +1705,7 @@ END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogOk, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanCreateDialog");
+	CCWidget* pWidget = pResource->FindWidget("ClanCreateDialog");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -1789,7 +1789,7 @@ END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogClose, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanCreateDialog");
+	CCWidget* pWidget = pResource->FindWidget("ClanCreateDialog");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -1797,27 +1797,27 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogClose, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER();
 
 // 언어 변환 확인
-class ZLanguageChangeConfirmListener : public MListener{
+class ZLanguageChangeConfirmListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
 		pWidget->Show(false);
-		if(MWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
+		if(CCWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
 			ZGetGameInterface()->ReserveResetApp(true);
 		}
 		return false;
 	}
 } g_LanguageChangeConfirmListener;
 
-MListener* ZGetLanguageChangeConfirmListenter()
+CCListener* ZGetLanguageChangeConfirmListenter()
 {
 	return &g_LanguageChangeConfirmListener;
 }
 
 // 클랜 폐쇄 확인
-class ZClanCloseConfirmListener : public MListener{
+class ZClanCloseConfirmListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
 
 			char szClanName[256];
 			strcpy(szClanName, ZGetMyInfo()->GetClanName());
@@ -1830,16 +1830,16 @@ public:
 	}
 } g_ClanCloseConfirmListener;
 
-MListener* ZGetClanCloseConfirmListenter()
+CCListener* ZGetClanCloseConfirmListenter()
 {
 	return &g_ClanCloseConfirmListener;
 }
 
 // 클랜 탈퇴 확인
-class ZClanLeaveConfirmListener : public MListener{
+class ZClanLeaveConfirmListener : public CCListener{
 public:
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage){
-		if(MWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
+		if(CCWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
 			// 서버에 탈퇴 요청
 			ZPostRequestLeaveClan(ZGetMyUID());
 		} else {
@@ -1849,14 +1849,14 @@ public:
 	}
 } g_ClanLeaveConfirmListener;
 
-MListener* ZGetClanLeaveConfirmListenter()
+CCListener* ZGetClanLeaveConfirmListenter()
 {
 	return &g_ClanLeaveConfirmListener;
 }
 
 BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGameListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
+	CCWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(true,true);
@@ -1872,7 +1872,7 @@ END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
+	CCWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
 	if(pWidget!=NULL)
 		pWidget->Show(false);
 
@@ -1972,7 +1972,7 @@ END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogCloseListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
+	CCWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
 	if(pWidget!=NULL)
 		pWidget->Show(false);
 
@@ -1984,7 +1984,7 @@ END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementWait_CancelButtonListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ProposalAgreementWait");
+	CCWidget* pWidget = pResource->FindWidget("ProposalAgreementWait");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -1995,7 +1995,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementConfirm_OKButtonListener, MBTN_CLK
 	ZGetGameClient()->ReplyAgreement(true);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ProposalAgreementConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ProposalAgreementConfirm");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -2006,7 +2006,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementConfirm_CancelButtonListener, MBTN
 	ZGetGameClient()->ReplyAgreement(false);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ProposalAgreementConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ProposalAgreementConfirm");
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);
@@ -2015,7 +2015,7 @@ END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGame_CancelListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("LobbyFindClanTeam");
+	CCWidget* pWidget = pResource->FindWidget("LobbyFindClanTeam");
 	if(pWidget!=NULL)
 		pWidget->Show(false);
 
@@ -2058,7 +2058,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPrivateChannelEnterListener, MBTN_CLK_MSG)
 		{
 			ZPostChannelRequestJoinFromChannelName(ZGetMyUID(),CCCHANNEL_TYPE_USER,pEdit->GetText());
 
-			MWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
+			CCWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
 			if(pFindWidget!=NULL) pFindWidget->Show(false);
 		}
 	}
@@ -2096,7 +2096,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetMyClanChannel, MBTN_CLK_MSG)
 #endif
 
 		ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-		MWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
+		CCWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
 		if(pFindWidget!=NULL) pFindWidget->Show(false);
 	}
 	else {
@@ -2185,24 +2185,24 @@ BEGIN_IMPLEMENT_LISTENER(ZGetReplayExitButtonListener, MBTN_CLK_MSG)
 	ZGetGameInterface()->ShowReplayDialog( false);
 END_IMPLEMENT_LISTENER();
 
-MListener* ZGetReplayFileListBoxListener( void)
+CCListener* ZGetReplayFileListBoxListener( void)
 {
-	class ListenerClass : public MListener
+	class ListenerClass : public CCListener
 	{
 		public:
-		virtual bool OnCommand( MWidget* pWidget, const char* szMessage)
+		virtual bool OnCommand( CCWidget* pWidget, const char* szMessage)
 		{
 			// Item select
-			if ( MWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
+			if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
 			{
-				MWidget* pFindWidget = ZGetGameInterface()->GetIDLResource()->FindWidget( "Replay_View");
+				CCWidget* pFindWidget = ZGetGameInterface()->GetIDLResource()->FindWidget( "Replay_View");
 				if ( pFindWidget != NULL)
 					pFindWidget->Enable( true);
 
                 return true;
 			}
 			// Item double click
-			else if ( MWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+			else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
 			{
 				ZGetGameInterface()->ViewReplay();
 
@@ -2218,7 +2218,7 @@ MListener* ZGetReplayFileListBoxListener( void)
 
 
 BEGIN_IMPLEMENT_LISTENER(ZGetLeaveClanOKListener, MBTN_CLK_MSG)
-	MWidget* pWidget = (MWidget*)ZGetGameInterface()->GetIDLResource()->FindWidget( "ConfirmLeaveClan");
+	CCWidget* pWidget = (CCWidget*)ZGetGameInterface()->GetIDLResource()->FindWidget( "ConfirmLeaveClan");
 	if ( pWidget)
 		pWidget->Show( false);
 
@@ -2230,7 +2230,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetLeaveClanOKListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetLeaveClanCancelListener, MBTN_CLK_MSG)
-	MWidget* pWidget = (MWidget*)ZGetGameInterface()->GetIDLResource()->FindWidget( "ConfirmLeaveClan");
+	CCWidget* pWidget = (CCWidget*)ZGetGameInterface()->GetIDLResource()->FindWidget( "ConfirmLeaveClan");
 	if ( pWidget)
 		pWidget->Show( false);
 END_IMPLEMENT_LISTENER();

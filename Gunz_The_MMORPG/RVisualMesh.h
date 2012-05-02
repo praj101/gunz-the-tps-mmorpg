@@ -397,8 +397,8 @@ public:
 	void SetUVAnimation(float u,float v);
 	void ClearUvAnimation();
 
-	void UpdateWeaponDummyMatrix(RMeshNode* pMNode);// 무기 모델에 달린 더미일 경우..
-	void UpdateWeaponPartInfo(RMeshNode* pMNode);	// 무기 더미의 위치를 보관한다..
+	void UpdateWeaponDummyMatrix(RMeshNode* pCCNode);// 무기 모델에 달린 더미일 경우..
+	void UpdateWeaponPartInfo(RMeshNode* pCCNode);	// 무기 더미의 위치를 보관한다..
 
 	void OnRestore();
 	void OnInvalidate();

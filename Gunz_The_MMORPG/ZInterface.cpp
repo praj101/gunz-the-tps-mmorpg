@@ -6,8 +6,8 @@
 #include "MEdit.h"
 #include "ZPost.h"
 
-ZInterface::ZInterface(const char* szName, MWidget* pParent, MListener* pListener)
-: MWidget(szName,pParent,pListener)
+ZInterface::ZInterface(const char* szName, CCWidget* pParent, CCListener* pListener)
+: CCWidget(szName,pParent,pListener)
 {
 }
 

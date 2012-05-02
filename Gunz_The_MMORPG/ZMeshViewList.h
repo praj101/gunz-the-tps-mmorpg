@@ -23,13 +23,13 @@ protected:
 protected:
 	virtual void OnDraw(CCDrawContext* pDC);
 	virtual void OnSize(int w, int h);
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 	int GetItemVisibleWidth(void);
 	int GetItemWidth(void);
 	int GetVisibleCount(void);
 	void RecalcBounds(void);
 public:
-	ZMeshViewList(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZMeshViewList(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZMeshViewList(void);
 
 	int GetItemCount(void);

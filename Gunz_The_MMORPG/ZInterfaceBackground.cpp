@@ -132,14 +132,14 @@ void ZInterfaceBackground::OnUpdate(float fElapsed)
 void ZInterfaceBackground::Draw(void)
 {
 #ifdef _FASTDEBUG
-	MWidget* pWidget = (MWidget*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSelection");
+	CCWidget* pWidget = (CCWidget*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSelection");
 	if ( pWidget)
 	{
 		if ( ZApplication::GetGameInterface()->GetState() == GUNZ_CHARSELECTION)
 			pWidget->Show( true);
 	}
 
-	MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSel_TopScreen");
+	CCPicture* pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSel_TopScreen");
 	if ( pPicture)
 		pPicture->SetOpacity( 0);
 
@@ -227,13 +227,13 @@ void ZInterfaceBackground::Draw(void)
 		case  LOGIN_SCENE_FIXEDCHAR :
 		{
 			// Show menu UI
-			MWidget* pWidget = (MWidget*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSelection");
+			CCWidget* pWidget = (CCWidget*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSelection");
 			if ( pWidget)
 			{
 				if ( ZApplication::GetGameInterface()->GetState() == GUNZ_CHARSELECTION)
 					pWidget->Show( true);
 			}
-			MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSel_TopScreen");
+			CCPicture* pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSel_TopScreen");
 			if ( pPicture)
 				pPicture->SetOpacity( 0);
 
@@ -257,7 +257,7 @@ void ZInterfaceBackground::Draw(void)
 			vCamPos = m_vCamPosEd + ( m_vCamPosSt - m_vCamPosEd) * fGain;
 			vCamDir = m_vCamDirEd + ( m_vCamDirSt - m_vCamDirEd) * fGain;
 
-			MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSel_TopScreen");
+			CCPicture* pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSel_TopScreen");
 			if ( pPicture)
 			{
 				// Set wait time

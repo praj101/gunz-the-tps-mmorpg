@@ -199,7 +199,7 @@ void ZActor::OnDraw()
 }
 
 #include "ZActionDef.h"
-#include "MEvent.h"
+#include "CCEvent.h"
 
 #define IsKeyDown(key) ((GetAsyncKeyState(key) & 0x8000)!=0)
 

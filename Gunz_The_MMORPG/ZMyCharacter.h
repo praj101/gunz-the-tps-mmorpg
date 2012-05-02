@@ -117,7 +117,7 @@ public:
 		float	m_fNextShotTime;					// 다음번 무기 발사 가능 시간
 		float	m_fLastShotTime;					// 마지막 총에 맞은 시간
 	};
-	MProtectValue<ShotTimeInfo> m_shotTimeInfo;
+	CCProtectValue<ShotTimeInfo> m_shotTimeInfo;
 
 	struct TimeInfo
 	{
@@ -131,9 +131,9 @@ public:
 		float	m_bJumpSlashTime;				// 공중 강베기 시작시간
 		float	m_fGuardStartTime;				// 가드 발동시간
 	};
-	MProtectValue<TimeInfo> m_timeInfo;
+	CCProtectValue<TimeInfo> m_timeInfo;
 
-	MProtectValue<ZMyCharaterStatusBitPacking> m_statusFlags;	// 얘는 crc 체크는 포기
+	CCProtectValue<ZMyCharaterStatusBitPacking> m_statusFlags;	// 얘는 crc 체크는 포기
 
 	int		m_nTumbleDir;
 	int		m_nWallJump2Dir;
@@ -146,27 +146,27 @@ public:
 		float	m_fLastLButtonPressedTime;			// LButton 이 처음으로 눌려진 시간
 		float	m_fLastRButtonPressedTime;			// RButton 이 눌려진 시간
 	};
-	MProtectValue<ButtonTime> m_btnTime;
+	CCProtectValue<ButtonTime> m_btnTime;
 	
 	//int		m_nJumpShotType;
-	MProtectValue<int>		m_nShot;			// 칼질 연속기중 몇번째 인지
-	MProtectValue<float>	m_f1ShotTime;		// 첫번째 칼질 시작한 시간
-	MProtectValue<float>	m_fSkillTime;		// 발동한 시간
+	CCProtectValue<int>		m_nShot;			// 칼질 연속기중 몇번째 인지
+	CCProtectValue<float>	m_f1ShotTime;		// 첫번째 칼질 시작한 시간
+	CCProtectValue<float>	m_fSkillTime;		// 발동한 시간
 
 	/*
 	bool	m_bSkillSended;					// 어퍼컷도 보낼때 딜레이가 있다
 	*/
 
-	MProtectValue<int>		m_nGuardBlock;
+	CCProtectValue<int>		m_nGuardBlock;
 	
 
-	MProtectValue<float>		m_fDropTime;			// 누운시간.
+	CCProtectValue<float>		m_fDropTime;			// 누운시간.
 
 	rvector	m_vReserveDashAttackedDir;
 	float	m_fReserveDashAttackedTime;
 	CCUID	m_uidReserveDashAttacker;
 
-	MProtectValue<float>	m_fStunEndTime;				///< stun 풀리는 시간, 5번타입을 위함
+	CCProtectValue<float>	m_fStunEndTime;				///< stun 풀리는 시간, 5번타입을 위함
 
 
 	void WallJump2();
@@ -217,8 +217,8 @@ public:
 
 	OVERLAP_FLOOR* GetOverlapFloor() { return &m_OverlapFloor; }
 private:
-	MProtectValue<float> m_fCAFactor;		// Controllability Factor
-	MProtectValue<float> m_fElapsedCAFactorTime;
+	CCProtectValue<float> m_fCAFactor;		// Controllability Factor
+	CCProtectValue<float> m_fElapsedCAFactorTime;
 	OVERLAP_FLOOR m_OverlapFloor;
 
 	// 일정 시간 뒤에 처리해야 하는 일들이다
@@ -272,7 +272,7 @@ public:
 	virtual void OnStun(float fTime);
 
 protected:
-	MProtectValue<unsigned long> m_nLastUseSpendableItemTime;
+	CCProtectValue<unsigned long> m_nLastUseSpendableItemTime;
 public:
 	void	SetLastUseSpendableItemTime(unsigned long nValue)	{ m_nLastUseSpendableItemTime.Set_CheckCrc(nValue); }
 	int		GetLastUseSpendableItemTime()						{ return m_nLastUseSpendableItemTime.Ref(); }	

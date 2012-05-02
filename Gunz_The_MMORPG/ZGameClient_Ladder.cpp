@@ -4,7 +4,7 @@
 #include "MErrorTable.h"
 #include "ZConfiguration.h"
 #include "ZGameClient.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
 #include "MBlobArray.h"
@@ -44,7 +44,7 @@ void ShowProposalWaitFrame_OnExpire()
 void ShowProposalWaitFrame(bool bVisible, const char* szTitle, const char* szMessage)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ProposalAgreementWait");
+	CCWidget* pWidget = pResource->FindWidget("ProposalAgreementWait");
 	if(pWidget!=NULL)
 	{
 		if (bVisible)
@@ -81,7 +81,7 @@ void ShowProposalWaitFrame(bool bVisible, const char* szTitle, const char* szMes
 bool IsWaitingRepliersAgreement()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ProposalAgreementWait");
+	CCWidget* pWidget = pResource->FindWidget("ProposalAgreementWait");
 	if(pWidget!=NULL)
 	{
 		return pWidget->IsVisible();
@@ -191,7 +191,7 @@ void ZGameClient::OnAskAgreement(const CCUID& uidProposer, void* pMemberNamesBlo
 		pTextEdit->SetText(szTemp);
 	}
 
-	MWidget* pWidget = pResource->FindWidget("ProposalAgreementConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ProposalAgreementConfirm");
 	if(pWidget!=NULL)
 	{
 		static ZCOUNTDOWN countDown = {PROPOSAL_AGREEMENT_TIMEOUT_SEC,

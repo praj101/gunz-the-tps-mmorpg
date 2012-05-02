@@ -1273,7 +1273,7 @@ void RMeshNode::CheckAlignMapObject(rmatrix& hr_mat) // 맵오브젝트만..
 
 		rmatrix mat;
 
-		mat = ret_mat;//pMNode->m_mat_result;
+		mat = ret_mat;//pCCNode->m_mat_result;
 
 		rvector right = rvector(mat._11,mat._12,mat._13);
 		rvector dir	= rvector(mat._21,mat._22,mat._23);

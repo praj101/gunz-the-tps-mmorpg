@@ -18,7 +18,7 @@
 
 #include "MLabel.h"
 #include "MButton.h"
-#include "MPicture.h"
+#include "CCPicture.h"
 #include "ZMyInfo.h"
 
 #ifdef LOCALE_NHNUSA
@@ -614,7 +614,7 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 
 	// 초기화
 	char szName[256];
-	MWidget* pWidget;
+	CCWidget* pWidget;
 	MLabel* pLabel;
 
 	// 위치 재정렬
@@ -651,7 +651,7 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 		}
 	}
 
-	pWidget = (MWidget*)pResource->FindWidget("CS_SelectCharDefKey");
+	pWidget = (CCWidget*)pResource->FindWidget("CS_SelectCharDefKey");
 	pWidget->SetFocus();
 
 }
@@ -683,7 +683,7 @@ void ZCharacterSelectView::ClearInterfaces()
 {
 	// Initialize widgets
 	MLabel* pLabel;
-	MPicture* pPicture;
+	CCPicture* pPicture;
 	for (int i = 0; i < MAX_CHAR_COUNT; i++)
 	{
 		char szWidgetName[256];
@@ -704,12 +704,12 @@ void ZCharacterSelectView::ClearInterfaces()
 			pLabel->SetText( "");
 
 		sprintf( szWidgetName, "CharSel_SelectBtn%d", i);
-		pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+		pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 		if ( pPicture)
 			pPicture->Show( false);
 
 		sprintf( szWidgetName, "CharSel_Selectbar%d", i);
-		pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+		pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 		if ( pPicture)
 			pPicture->Show( false);
 	}
@@ -729,7 +729,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 	int nCount = MGetBlobArrayCount(pCharListBlob);
 
 	MButton* pButton;
-	MPicture* pPicture;
+	CCPicture* pPicture;
 
 	int nPosY = (int)( 390.0f * (RGetScreenHeight() / 600.0f));
 	for (int i = 0; i < nCount; i++)
@@ -803,7 +803,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 			}
 
 			sprintf( szWidgetName, "CharSel_Selectbar%d", nIndex);
-			pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 			if ( pPicture)
 			{
 				pPicture->Show( true);

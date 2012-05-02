@@ -100,7 +100,7 @@ public:
 	AniEventMgrIter			m_AniEventMgrIter;
 
 	bool ReadXml(CCZFileSystem* pFileSystem, const char* szFileName);
-	void ParseAniEvent(CCXmlElement* PNode, RAniIDEventSet* pAnimIdEventSet);
+	void ParseAniEvent(::CCXmlElement* PNode, RAniIDEventSet* pAnimIdEventSet);
 	RAniIDEventSet* GetAniIDEventSet(int id);
 	
 	void Destroy()

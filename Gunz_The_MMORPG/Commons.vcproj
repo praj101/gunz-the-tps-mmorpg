@@ -2285,6 +2285,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RPath.h"
+			>
+		</File>
+		<File
 			RelativePath=".\RPathFinder.h"
 			>
 		</File>

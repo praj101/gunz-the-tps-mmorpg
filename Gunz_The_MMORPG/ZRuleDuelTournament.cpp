@@ -370,9 +370,9 @@ int ZRuleDuelTournament::GetQueueIdx(const CCUID& uidChar)
 void ZRuleDuelTournament::OnDraw(CCDrawContext* pDC)
 {
 	// 남은 시간표시
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDTInfo");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDTInfo");
 	ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*) ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DT_RemainTime");
-	MWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DM_Infinity_Time");
+	CCWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DM_Infinity_Time");
 	if (pWidget && pBmNumLabel && pPicture)
 	{
 		DWORD dwTime = ZGetCombatInterface()->GetPlayTime();
@@ -536,7 +536,7 @@ void ZRuleDuelTournament::ShowWinLoseScreenEffect(CCTD_DuelTournamentMatchResult
 void ZRuleDuelTournament::ShowMatchPlayerInfoUI_OnlyNextMatch(bool bShow)
 {
 	// VS 이미지와 몇강인지 표시는 다음 매치 예고때만 보여준다
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_CharviewerVs");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_CharviewerVs");
 	if (pWidget)
 		pWidget->Show(bShow);
 
@@ -562,7 +562,7 @@ void ZRuleDuelTournament::ShowMatchPlayerInfoUI_OnlyNextMatch(bool bShow)
 
 void ZRuleDuelTournament::ShowMatchPlayerInfoUI(bool bShow)
 {
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_CharacterInfo");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_CharacterInfo");
 	if (pWidget)
 		pWidget->Show(bShow);
 
@@ -576,10 +576,10 @@ void ZRuleDuelTournament::SetVisiblePlayerInfoUI(bool bLeft, bool bShow)
 	if (!bLeft)
 		strcpy(szLeftRight, "Right");
 
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CombatDT_CharacterInfo");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CombatDT_CharacterInfo");
 	if (pWidget)
 	{
-		MWidget* pChild;
+		CCWidget* pChild;
 		int numChild = pWidget->GetChildCount();
 		for (int i=0; i<numChild; ++i)
 		{
@@ -594,7 +594,7 @@ void ZRuleDuelTournament::SetVisiblePlayerInfoUI(bool bLeft, bool bShow)
 void ZRuleDuelTournament::SetMatchPlayerInfoUI(const CCUID& uidPlayer1, const CCUID& uidPlayer2)
 {
 	// 매치 시작 전에 대전자 2명의 정보를 보여주는 위젯들 세팅
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_CharacterInfo");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_CharacterInfo");
 	if (!pWidget)
 		return;
 
@@ -751,7 +751,7 @@ void ZRuleDuelTournament::UpdateUISlideAni(float fElapsed)
 	if (m_fSlideElapsedTime == -1)
 		return;
 
-	MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CombatDT_CharacterInfo");
+	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CombatDT_CharacterInfo");
 	if (!pWidget || !pWidget->IsVisible()) return;
 
 	// 슬라이딩 시작위치 (오프셋: 왼쪽 위젯은 이만큼 왼쪽에서, 오른쪽 위젯은 이만큼 오른쪽에서부터)
@@ -773,7 +773,7 @@ void ZRuleDuelTournament::UpdateUISlideAni(float fElapsed)
 	float fs = f * (PI*0.5f);	// 0 ~ PI/2
 	float fSlide = sinf(fs);	// 슬라이딩이 서서히 느려지도록 sin값 사용
 
-	MWidget* pChild;
+	CCWidget* pChild;
 	int numChild = pWidget->GetChildCount();
 	for (int i=0; i<numChild; ++i)
 	{
@@ -1047,7 +1047,7 @@ void ZRuleDuelTournament::DrawHighlight(CCDrawContext* pDC, const sRect& rc)
 	if(pBitmap) {
 		DWORD defaultcolor = 0x3030F0;
 		DWORD opacity=(DWORD)pDC->GetOpacity();
-		MDrawEffect prevEffect = pDC->GetEffect();
+		CCDrawEffect prevEffect = pDC->GetEffect();
 		pDC->SetEffect(MDE_ADD);
 		sColor prevColor = pDC->GetBitmapColor();
 		pDC->SetBitmapColor(sColor(defaultcolor));

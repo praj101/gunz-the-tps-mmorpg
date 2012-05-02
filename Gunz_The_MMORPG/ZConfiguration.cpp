@@ -422,7 +422,7 @@ bool ZConfiguration::LoadSystem(const char* szFileName)
 		{
  			childElement.GetContents(&m_Locale.bIMESupport);
 
-			MEvent::SetIMESupport( m_Locale.bIMESupport);
+			CCEvent::SetIMESupport( m_Locale.bIMESupport);
 		}
 		if (parentElement.FindChildNode(ZTOK_LOCALE_HOMEPAGE, &childElement))
 		{

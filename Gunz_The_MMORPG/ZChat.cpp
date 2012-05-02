@@ -442,7 +442,7 @@ bool _InsertString(char* szTarget, const char* szInsert, int nPos, int nMaxTarge
 }
 
 // 채팅창에서 '/r ' 을 치면 이전에 귓말이 왔던 사람한테 바로 귓말 명령어로 변경
-void ZChat::FilterWhisperKey(MWidget* pWidget)
+void ZChat::FilterWhisperKey(CCWidget* pWidget)
 {
 	char text[256];
 	strcpy(text, pWidget->GetText());

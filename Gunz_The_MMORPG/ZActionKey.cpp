@@ -31,7 +31,7 @@ ActionKeyForbidSet ZActionKey::m_ForbidKey;
 ZActionKeyLook ZActionKey::m_DefaultLook;	
 ZActionKeyLook* ZActionKey::m_pStaticLook = &ZActionKey::m_DefaultLook;
 
-ZActionKey::ZActionKey(const char* szName, MWidget* pParent, MListener* pListener)
+ZActionKey::ZActionKey(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MEdit(szName, pParent, pListener ), m_bReadyInput(false), m_nKey(-1), m_nAltKey(-1)
 {
 	LOOK_IN_CONSTRUCTOR();
@@ -170,7 +170,7 @@ bool ZActionKey::IsForbidKey(int nkey)
 MGLOBALEVENTCALLBACK* ZActionKey::m_oldEventListener = NULL;
 ZActionKey*	ZActionKey::m_exclusiveActionKey = NULL;
 
-bool ZActionKey::OnExclusiveEvent(MEvent* pEvent)
+bool ZActionKey::OnExclusiveEvent(CCEvent* pEvent)
 {
 	_ASSERT(pEvent->nMessage == Z_DIRECTINPUTKEY_MESSAGE);
 

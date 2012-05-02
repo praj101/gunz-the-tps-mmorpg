@@ -7,16 +7,16 @@
 #include "ZGame.h"
 #include "RealSpace2.h"
 #include "RBaseTexture.h"
-#include "Mint.h"
-#include "Mint4R2.h"
+#include "Core.h"
+#include "Core4R2.h"
 
 _USING_NAMESPACE_REALSPACE2
 
 // interface 들의 base 클래스
 
-class ZInterface : public MWidget {
+class ZInterface : public CCWidget {
 public:
-	ZInterface(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZInterface(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZInterface();
 
 	virtual bool OnCreate();										// 초기화
@@ -26,7 +26,7 @@ public:
 
 	virtual bool IsDone();											// 다음 인터페이스로 갈때 false를 리턴한다.
 
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener)=0;	// interface 는 항상 이벤트를 처리한다.
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener)=0;	// interface 는 항상 이벤트를 처리한다.
 
 protected:
 	bool m_bDone;

@@ -34,7 +34,7 @@ public:
 		pNew->Create(szName, szName, nHeight);
 		return pNew;
 	}
-	virtual MWidget* NewWidget(const char* szClass, const char* szName, MWidget* pParent, MListener* pListener){
+	virtual CCWidget* NewWidget(const char* szClass, const char* szName, CCWidget* pParent, CCListener* pListener){
 		if(strcmp(szClass, MINT_BUTTON)==0) return new ZButton(szName, pParent, pListener);
 		else if( strcmp(szClass, MINT_BMBUTTON)==0) return new ZBmButton(szName, pParent, pListener);
 		else if( strcmp(szClass, MINT_MSGBOX)==0) return new ZMsgBox(szName, pParent, pListener);
@@ -50,8 +50,8 @@ public:
 		if (m_pDC && m_pMainFrame)
 			m_pMainFrame->DrawAfterWidgets(m_pDC);
 		
-		//		MPOINT p = MEvent::GetMousePos();
-		MPOINT p = MEvent::LatestPos;
+		//		MPOINT p = CCEvent::GetMousePos();
+		MPOINT p = CCEvent::LatestPos;
 
 		MCursorSystem::Draw(GetDrawContext(), p.x, p.y);	// RAONHAJE Mouse Cursor SoftwareDraw
 	}

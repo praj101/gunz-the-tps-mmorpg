@@ -2,7 +2,7 @@
 #define ZITEMSLOTVIEW_H
 
 #include "ZPrerequisites.h"
-#include "MWidget.h"
+#include "CCWidget.h"
 #include "RMesh.h"
 #include "RVisualMeshMgr.h"
 #include "ZMeshView.h"
@@ -30,11 +30,11 @@ protected:
 	bool					m_bHorizonalInverse;	// 좌우 반전해서 그릴것이냐 (아이콘이 오른쪽)
 
 	virtual void OnDraw(CCDrawContext* pDC);
-	virtual bool IsDropable(MWidget* pSender);
-	virtual bool OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+	virtual bool IsDropable(CCWidget* pSender);
+	virtual bool OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 
 	void SetDefaultText(CCMatchCharItemParts nParts);
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 	bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, CCMatchSex nPlayerSex);
 
 	virtual void OnMouseIn(void);
@@ -45,7 +45,7 @@ protected:
 public:
 	char					m_szItemSlotPlace[128];
 
-	ZItemSlotView(const char* szName=NULL, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZItemSlotView(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZItemSlotView(void);
 	CCMatchCharItemParts GetParts() { return m_nParts; }
 	void SetParts(CCMatchCharItemParts nParts);

@@ -15,12 +15,12 @@ protected:
 	MEdit*	m_pEditChat;
 
 public:
-	ZTabPlayerList(const char* szName, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZTabPlayerList(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	void SetChatControl(MEdit* pEdit)	{ m_pEditChat = pEdit; }
 
 	virtual bool OnShow(void);
 	virtual void OnHide(void);
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
 	void OnPickPlayer();
 };

@@ -4,7 +4,7 @@
 #include "MErrorTable.h"
 #include "ZConfiguration.h"
 #include "ZGameClient.h"
-#include "MSharedCommandTable.h"
+#include "CCSharedCommandTable.h"
 #include "ZConsole.h"
 #include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
@@ -60,7 +60,7 @@ struct Clan_Sponsors_Ticket
 bool IsWaitingClanCreatingAgree()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementWait");
+	CCWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementWait");
 	if(pWidget!=NULL)
 	{
 		return pWidget->IsVisible();
@@ -72,7 +72,7 @@ bool IsWaitingClanCreatingAgree()
 bool IsWaitingClanJoiningAgree()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementWait");
+	CCWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementWait");
 	if(pWidget!=NULL)
 	{
 		return pWidget->IsVisible();
@@ -88,7 +88,7 @@ void ShowClanSponsorAgreeWaitFrame_OnExpire()
 void ShowClanSponsorAgreeWaitFrame(bool bVisible)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementWait");
+	CCWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementWait");
 	if(pWidget!=NULL)
 	{
 		if (bVisible)
@@ -115,7 +115,7 @@ void ShowClanJoinerAgreeWaitFrame_OnExpire()
 void ShowClanJoinerAgreeWaitFrame(bool bVisible)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementWait");
+	CCWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementWait");
 	if(pWidget!=NULL)
 	{
 		if (bVisible)
@@ -196,7 +196,7 @@ void ZGameClient::OnClanAskSponsorAgreement(const int nRequestID, const char* sz
 		pTextEdit->SetText(szTemp);
 	}
 
-	MWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementConfirm");
 	if(pWidget!=NULL)
 	{
 		static ZCOUNTDOWN countDown = {30,"ClanSponsorAgreementConfirm_Remain",
@@ -378,7 +378,7 @@ void ZGameClient::OnClanAskJoinAgreement(const char* szClanName, CCUID& uidClanA
 		pTextEdit->SetText(szTemp);
 	}
 
-	MWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementConfirm");
+	CCWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementConfirm");
 	if(pWidget!=NULL)
 	{
 		static ZCOUNTDOWN countDown = {30,"ClanJoinerAgreementConfirm_Remain",
@@ -609,7 +609,7 @@ void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 
 	ZIDLResource* pRes = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MPicture* pPicture= (MPicture*)pRes->FindWidget( "Lobby_ClanInfoEmblem" );
+	CCPicture* pPicture= (CCPicture*)pRes->FindWidget( "Lobby_ClanInfoEmblem" );
 	if ( pPicture)
 		pPicture->SetBitmap( ZGetEmblemInterface()->GetClanEmblem2( pClanInfo->nCLID));
 
@@ -648,7 +648,7 @@ void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 
 	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_ClanInfoRanking");
 	pNumLabel->SetIndexOffset(16);	// 아래쪽 색다른 글씨로 찍는다
-	MWidget *pUnranked = pRes->FindWidget("Lobby_ClanInfoUnranked");
+	CCWidget *pUnranked = pRes->FindWidget("Lobby_ClanInfoUnranked");
 	if(nRanking == 0) {
 		pNumLabel->Show(false);
 		if ( pUnranked)
@@ -734,7 +734,7 @@ void ZGameClient::OnClanStandbyClanList(int nPrevStageCount, int nNextStageCount
 	}
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget* pBtn = pResource->FindWidget("StageBeforeBtn");
+	CCWidget* pBtn = pResource->FindWidget("StageBeforeBtn");
 	if (nPrevStageCount != -1)
 	{
 		if (nPrevStageCount == 0)

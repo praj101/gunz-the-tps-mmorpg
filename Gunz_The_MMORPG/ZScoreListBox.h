@@ -2,7 +2,7 @@
 #define _ZSCORELISTBOX_H
 
 #include <stdio.h>
-#include "MWidget.h"
+#include "CCWidget.h"
 #include "MListBox.h"
 #include "MFrame.h"
 
@@ -12,12 +12,12 @@ class ZScoreListBox : public MListBox
 {
 private:
 protected:
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener)
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener)
 	{
 		return false;
 	}
 public:
-	ZScoreListBox(const char* szName, MWidget* pParent=NULL, MListener* pListener=NULL);
+	ZScoreListBox(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~ZScoreListBox() { }
 };
 
@@ -85,12 +85,12 @@ class ZScoreBoardFrame : public MFrame
 {
 private:
 protected:
-	virtual bool OnEvent(MEvent* pEvent, MListener* pListener)
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener)
 	{
 		return false;
 	}
 public:
-	ZScoreBoardFrame(const char* szName, MWidget* pParent=NULL, MListener* pListener=NULL)
+	ZScoreBoardFrame(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL)
 		: MFrame(szName, pParent, pListener)
 	{
 

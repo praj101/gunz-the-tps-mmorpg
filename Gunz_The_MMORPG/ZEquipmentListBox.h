@@ -97,25 +97,25 @@
 //};
 //
 //class ZItemMenu;
-////typedef void (*ZCB_ONDROP)(void* pSelf, MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+////typedef void (*ZCB_ONDROP)(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 //
 //class ZEquipmentListBox_OLD : public MMultiColListBox
 //{
 //protected:
-//	virtual bool IsDropable(MWidget* pSender);
-////	virtual bool OnDrop(MWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
-//	virtual bool OnEvent(MEvent* pEvent, MListener* pListener);
+//	virtual bool IsDropable(CCWidget* pSender);
+////	virtual bool OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
+//	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 //
 //protected:
 ////	ZCB_ONDROP			m_pOnDropFunc;
-//	MWidget*			m_pDescFrame;
+//	CCWidget*			m_pDescFrame;
 //	int					m_idxItemLastTooltip;
 //protected:
 //	ZItemMenu*			m_pItemMenu;	// ZEquipmentList가 Exclusive라서 Popup이 Child일때만 Show()가능하다
 //	ZItemMenu* GetItemMenu()	{ return m_pItemMenu; }
 //
 //public:
-//	ZEquipmentListBox_OLD(const char* szName, MWidget* pParent=NULL, MListener* pListener=NULL);
+//	ZEquipmentListBox_OLD(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 //	virtual ~ZEquipmentListBox_OLD(void);
 //	void AttachMenu(ZItemMenu* pMenu);
 //
@@ -126,7 +126,7 @@
 ////	void Add(const CCUID& uidItem, CCBitmap* pIconBitmap, const char* szName, int nWeight, CCMatchItemSlotType nSlot, int nBountyPrice);
 //
 ////	void SetOnDropCallback(ZCB_ONDROP pCallback) { m_pOnDropFunc = pCallback; }
-//	void SetDescriptionWidget(MWidget *pWidget)	{ m_pDescFrame = pWidget; }
+//	void SetDescriptionWidget(CCWidget *pWidget)	{ m_pDescFrame = pWidget; }
 //
 //public:
 //	#define MINT_EQUIPMENTLISTBOX	"EquipmentListBox"
@@ -135,12 +135,12 @@
 //	//int		m_nLastItem;
 //};
 //
-////MListener* ZGetShopAllEquipmentFilterListener(void);
-////MListener* ZGetEquipAllEquipmentFilterListener(void);
+////CCListener* ZGetShopAllEquipmentFilterListener(void);
+////CCListener* ZGetEquipAllEquipmentFilterListener(void);
 //
-////MListener* ZGetShopSaleItemListBoxListener(void);
-////MListener* ZGetCashShopItemListBoxListener(void);
-////MListener* ZGetShopPurchaseItemListBoxListener(void);
-////MListener* ZGetEquipmentItemListBoxListener(void);
-////MListener* ZGetAccountItemListBoxListener(void);
+////CCListener* ZGetShopSaleItemListBoxListener(void);
+////CCListener* ZGetCashShopItemListBoxListener(void);
+////CCListener* ZGetShopPurchaseItemListBoxListener(void);
+////CCListener* ZGetEquipmentItemListBoxListener(void);
+////CCListener* ZGetAccountItemListBoxListener(void);
 #endif

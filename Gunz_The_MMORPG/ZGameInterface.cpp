@@ -9,7 +9,7 @@
 #include "ZConfiguration.h"
 #include "FileInfo.h"
 #include "ZInterfaceItem.h"
-#include "MPicture.h"
+#include "CCPicture.h"
 #include "ZInterfaceListener.h"
 #include "ZEffectSmoke.h"
 #include "ZEffectLightTracer.h"
@@ -221,7 +221,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 }
 
 /*
-void InitHotBar(MWidget* pHotBar)
+void InitHotBar(CCWidget* pHotBar)
 {
 if(pHotBar==NULL) return;
 
@@ -263,7 +263,7 @@ void AddListItem(MListBox* pList, CCBitmap* pBitmap, const char* szString, const
 	pList->Add(pNew);
 }
 
-bool InitSkillList(MWidget* pWidget)
+bool InitSkillList(CCWidget* pWidget)
 {
 	if(pWidget==NULL) return false;
 
@@ -280,7 +280,7 @@ bool InitSkillList(MWidget* pWidget)
 	return true;
 }
 
-bool InitItemList(MWidget* pWidget)
+bool InitItemList(CCWidget* pWidget)
 {
 	if(pWidget==NULL) return false;
 
@@ -308,7 +308,7 @@ bool InitItemList(MWidget* pWidget)
 
 #define DEFAULT_SLIDER_MAX			10000
 
-ZGameInterface::ZGameInterface(const char* szName, MWidget* pParent, MListener* pListener) : ZInterface(szName,pParent,pListener)
+ZGameInterface::ZGameInterface(const char* szName, CCWidget* pParent, CCListener* pListener) : ZInterface(szName,pParent,pListener)
 {
 	MSetString( 1, ZMsg(MSG_MENUITEM_OK));
 	MSetString( 2, ZMsg(MSG_MENUITEM_CANCEL));
@@ -1030,7 +1030,7 @@ static bool g_parts_change;
 
 bool ZGameInterface::ShowWidget(const char* szName, bool bVisible, bool bModal)
 {
-	MWidget* pWidget = m_IDLResource.FindWidget(szName);
+	CCWidget* pWidget = m_IDLResource.FindWidget(szName);
 
 	if ( pWidget == NULL)
 		return false;
@@ -1050,22 +1050,22 @@ bool ZGameInterface::ShowWidget(const char* szName, bool bVisible, bool bModal)
 	return true;
 }
 
-void ZGameInterface::SetListenerWidget(const char* szName, MListener* pListener)
+void ZGameInterface::SetListenerWidget(const char* szName, CCListener* pListener)
 {
-	BEGIN_WIDGETLIST(szName, &m_IDLResource, MWidget*, pWidget);
+	BEGIN_WIDGETLIST(szName, &m_IDLResource, CCWidget*, pWidget);
 	pWidget->SetListener(pListener);
 	END_WIDGETLIST();
 }
 
 void ZGameInterface::EnableWidget(const char* szName, bool bEnable)
 {
-	MWidget* pWidget = m_IDLResource.FindWidget(szName);
+	CCWidget* pWidget = m_IDLResource.FindWidget(szName);
 	if (pWidget) pWidget->Enable(bEnable);
 }
 
 void ZGameInterface::SetTextWidget(const char* szName, const char* szText)
 {
-	BEGIN_WIDGETLIST(szName, &m_IDLResource, MWidget*, pWidget);
+	BEGIN_WIDGETLIST(szName, &m_IDLResource, CCWidget*, pWidget);
 	pWidget->SetText(szText);
 	END_WIDGETLIST();
 }
@@ -1215,7 +1215,7 @@ bool ZGameInterface::OnGameCreate(void)
 	m_pCombatInterface->OnCreate();
 
 	
-	MWidget *pWidget = m_IDLResource.FindWidget("SkillFrame");
+	CCWidget *pWidget = m_IDLResource.FindWidget("SkillFrame");
 	if(pWidget!=NULL) pWidget->Show(true);
 
 	// Skill List
@@ -1267,13 +1267,13 @@ bool ZGameInterface::OnGameCreate(void)
 void ZGameInterface::OnGameDestroy(void)
 {
 	cclog( "game interface destory begin.\n" );
-	MPicture* pPicture;
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap1");
+	CCPicture* pPicture;
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap1");
 	if(pPicture) pPicture->SetBitmap(NULL);
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap2");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_ClanBitmap2");
 	if(pPicture) pPicture->SetBitmap(NULL);
 
-	MWidget *pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "GameResult");
+	CCWidget *pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "GameResult");
 	if ( pWidget) {
 		MFrame *pFrame = (MFrame*)pWidget;
 		pFrame->MFrame::Show( false);
@@ -1383,7 +1383,7 @@ void ZGameInterface::OnLoginCreate(void)
 	// 읽어온 비트맵 이미지 포인터를 해당 위젯에 넘겨줘서 표시한다
 	if ( bRead && m_pLoginBG)
 	{
-		MPicture* pPicture = (MPicture*)m_IDLResource.FindWidget( "Login_BackgrdImg");
+		CCPicture* pPicture = (CCPicture*)m_IDLResource.FindWidget( "Login_BackgrdImg");
 		if ( pPicture)
 			pPicture->SetBitmap( m_pLoginBG->GetSourceBitmap());
 	}
@@ -1401,7 +1401,7 @@ void ZGameInterface::OnLoginCreate(void)
 	if ( m_pLoginPanel)
 	{
 		// 읽어온 비트맵 이미지 포인터를 해당 위젯에 넘겨줘서 표시한다
-		MPicture* pPicture = (MPicture*)m_IDLResource.FindWidget( "Login_Panel");
+		CCPicture* pPicture = (CCPicture*)m_IDLResource.FindWidget( "Login_Panel");
 		if ( pPicture)
 			pPicture->SetBitmap( m_pLoginPanel->GetSourceBitmap());
 	}
@@ -1410,8 +1410,8 @@ void ZGameInterface::OnLoginCreate(void)
 	if (pLoginOk)
 		pLoginOk->Enable(true);
 
-	MWidget* pLoginFrame	= m_IDLResource.FindWidget( "LoginFrame");
-	MWidget* pLoginBG		= m_IDLResource.FindWidget( "Login_BackgrdImg");
+	CCWidget* pLoginFrame	= m_IDLResource.FindWidget( "LoginFrame");
+	CCWidget* pLoginBG		= m_IDLResource.FindWidget( "Login_BackgrdImg");
 	if (pLoginFrame)
 	{
 		if ( pLoginBG)
@@ -1444,7 +1444,7 @@ void ZGameInterface::OnLoginCreate(void)
 
 	ShowWidget("Login", true);
 	//ShowWidget("LoginFrame", true);
-	//BEGIN_WIDGETLIST("MaxHP", &m_IDLResource, MWidget*, pWidget);
+	//BEGIN_WIDGETLIST("MaxHP", &m_IDLResource, CCWidget*, pWidget);
 
 	ZServerView* pServerList = (ZServerView*)m_IDLResource.FindWidget( "SelectedServer");
 	if ( pServerList)
@@ -1464,7 +1464,7 @@ void ZGameInterface::OnLoginCreate(void)
 
 		pServerList->AddServer( "Debug Server", "", 0, 7, 0, 1000, true);			// Debug server
 		pServerList->SetCurrSel( 0);
-		MWidget* pWidget = m_IDLResource.FindWidget("LoginID");
+		CCWidget* pWidget = m_IDLResource.FindWidget("LoginID");
 		if(pWidget)	pWidget->SetFocus();
 #else
 		if ( ZIsLaunchDevelop())
@@ -1507,7 +1507,7 @@ void ZGameInterface::OnLoginCreate(void)
 	}
 
 
-	MWidget* pWidget = m_IDLResource.FindWidget("LoginID");
+	CCWidget* pWidget = m_IDLResource.FindWidget("LoginID");
 	if(pWidget)
 	{
 		char buffer[256];
@@ -1587,7 +1587,7 @@ void ZGameInterface::OnLoginDestroy(void)
 {
 	ShowWidget("Login", false);
 
-	MWidget* pWidget = m_IDLResource.FindWidget("LoginID");
+	CCWidget* pWidget = m_IDLResource.FindWidget("LoginID");
 	if(pWidget)
 	{
 		// 로긴이 성공하면 write 해야 하나.. 지금 check out 관계로 여기다 -_-;
@@ -1601,7 +1601,7 @@ void ZGameInterface::OnLoginDestroy(void)
 	if ( m_pLoginBG != NULL)
 	{
 		// 배경 이미지를 보여주는 위젯의 비트맵 이미지 포인터를 리셋한다
-		MPicture* pPicture = (MPicture*)m_IDLResource.FindWidget( "Login_BackgrdImg");
+		CCPicture* pPicture = (CCPicture*)m_IDLResource.FindWidget( "Login_BackgrdImg");
 		if ( pPicture)
 			pPicture->SetBitmap( NULL);
 	
@@ -1613,7 +1613,7 @@ void ZGameInterface::OnLoginDestroy(void)
 	if ( m_pLoginPanel != NULL)
 	{
 		// 패널 이미지를 보여주는 위젯의 비트맵 이미지 포인터를 리셋한다
-		MPicture* pPicture = (MPicture*)m_IDLResource.FindWidget( "Login_Panel");
+		CCPicture* pPicture = (CCPicture*)m_IDLResource.FindWidget( "Login_Panel");
 		if ( pPicture)
 			pPicture->SetBitmap( NULL);
 	
@@ -1753,7 +1753,7 @@ void ZGameInterface::OnLobbyCreate(void)
 	ShowWidget("Lobby", true);
 	EnableLobbyInterface(true);
 
-	MWidget* pWidget = m_IDLResource.FindWidget("StageName");
+	CCWidget* pWidget = m_IDLResource.FindWidget("StageName");
 	if(pWidget){
 		char buffer[256];
 		if (ZGetApplication()->GetSystemValue("StageName", buffer))
@@ -1770,13 +1770,13 @@ void ZGameInterface::OnLobbyCreate(void)
 	ShowWidget("StageFrame", true);
 	*/
 
-	MPicture* pPicture = 0;
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Lobby_StripBottom");
+	CCPicture* pPicture = 0;
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Lobby_StripBottom");
  	if(pPicture != NULL)	pPicture->SetAnimation( 0, 1000.0f);
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Lobby_StripTop");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Lobby_StripTop");
 	if(pPicture != NULL)	pPicture->SetAnimation( 1, 1000.0f);
 
-    pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_RoomListBG");
+    pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_RoomListBG");
 	if ( pPicture)
 	{
 		m_pRoomListFrame = new CCBitmapR2;
@@ -1788,7 +1788,7 @@ void ZGameInterface::OnLobbyCreate(void)
 		m_pDuelTournamentLobbyFrame = new CCBitmapR2;
 		((CCBitmapR2*)m_pDuelTournamentLobbyFrame)->Create( "dueltournament_lobby_panel.png", RGetDevice(), "interface/loadable/dueltournament_lobby_panel.png");
 	}
-    pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_BottomBG");
+    pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_BottomBG");
 	if ( pPicture)
 	{
 		m_pBottomFrame = new CCBitmapR2;
@@ -1802,7 +1802,7 @@ void ZGameInterface::OnLobbyCreate(void)
 	((CCBitmapR2*)m_pClanInfoBg)->Create( "claninfo_panel.tga", RGetDevice(), "interface/loadable/claninfo_panel.tga");
 	if ( m_pClanInfoBg != NULL)
 	{
-		pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_ClanInfoBG");
+		pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_ClanInfoBG");
 		if ( pPicture)	pPicture->SetBitmap( m_pClanInfoBg->GetSourceBitmap());
 	}
 
@@ -1810,7 +1810,7 @@ void ZGameInterface::OnLobbyCreate(void)
 	((CCBitmapR2*)m_pDuelTournamentInfoBg)->Create( "dueltournamentinfo_panel.tga", RGetDevice(), "interface/loadable/dueltournamentinfo_panel.tga");
 	if ( m_pDuelTournamentInfoBg != NULL)
 	{
-		pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentInfoBG");
+		pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentInfoBG");
 		if ( pPicture)	pPicture->SetBitmap( m_pDuelTournamentInfoBg->GetSourceBitmap());
 	}
 
@@ -1818,7 +1818,7 @@ void ZGameInterface::OnLobbyCreate(void)
 	((CCBitmapR2*)m_pDuelTournamentRankingLabel)->Create( "DuelTournamentRankingLabel.png", RGetDevice(), "interface/loadable/DuelTournamentRankingLabel.png");
 	if ( m_pDuelTournamentRankingLabel != NULL)
 	{
-		pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentRankingListLabel");
+		pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentRankingListLabel");
 		if ( pPicture)	pPicture->SetBitmap( m_pDuelTournamentRankingLabel->GetSourceBitmap());
 	}
 
@@ -1924,23 +1924,23 @@ void ZGameInterface::OnLobbyDestroy(void)
 {
 	ShowWidget("Lobby", false);
 
-	MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_RoomListBG");
+	CCPicture* pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_RoomListBG");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
 
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_BottomBG");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_BottomBG");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
     
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_ClanInfoBG");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_ClanInfoBG");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
 
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentInfoBG");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentInfoBG");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
 
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentRankingListLabel");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Lobby_DuelTournamentRankingListLabel");
 	if ( pPicture)
 		pPicture->SetBitmap( NULL);
 
@@ -1958,7 +1958,7 @@ void ZGameInterface::OnLobbyDestroy(void)
 		pDTRankingListBox->SetVisible(false);
 	}
 
-	MWidget* pWidget = m_IDLResource.FindWidget("StageName");
+	CCWidget* pWidget = m_IDLResource.FindWidget("StageName");
 	if(pWidget) ZGetApplication()->SetSystemValue("StageName", pWidget->GetText());
 }
 
@@ -2029,9 +2029,9 @@ void ZGameInterface::OnStageCreate(void)
 		pCharView->SetCharacter( ZGetMyUID());
 	}
 
-	MPicture* pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Stage_StripBottom");
+	CCPicture* pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Stage_StripBottom");
 	if(pPicture != NULL)	pPicture->SetBitmapColor(0xFFFFFFFF);
-	pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Stage_StripTop");
+	pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Stage_StripTop");
 	if(pPicture != NULL)	pPicture->SetBitmapColor(0xFFFFFFFF);
 
 	ZPostRequestStageSetting(ZGetGameClient()->GetStageUID());
@@ -2335,13 +2335,13 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	MPicture* pPicture = (MPicture*)m_IDLResource.FindWidget( "CombatResult_Header");
+	CCPicture* pPicture = (CCPicture*)m_IDLResource.FindWidget( "CombatResult_Header");
 	if ( pPicture)
 		pPicture->SetOpacity( 80);
-	pPicture = (MPicture*)m_IDLResource.FindWidget( "ClanResult_Header1");
+	pPicture = (CCPicture*)m_IDLResource.FindWidget( "ClanResult_Header1");
 	if ( pPicture)
 		pPicture->SetOpacity( 80);
-	pPicture = (MPicture*)m_IDLResource.FindWidget( "ClanResult_Header2");
+	pPicture = (CCPicture*)m_IDLResource.FindWidget( "ClanResult_Header2");
 	if ( pPicture)
 		pPicture->SetOpacity( 80);
 
@@ -2562,7 +2562,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	ZGetGameTypeManager()->SetGameTypeStr( CCMATCH_GAMETYPE_DUELTOURNAMENT, ZMsg( MSG_MT_DUELTOURNAMENT));
 
 #ifndef _DEBUG
-	MWidget* pWidget = m_IDLResource.FindWidget( "MonsterBookCaller");
+	CCWidget* pWidget = m_IDLResource.FindWidget( "MonsterBookCaller");
 	if ( pWidget)
 		pWidget->Show( false);
 #endif
@@ -2721,7 +2721,7 @@ bool ZGameInterface::SetState(GunzState nState)
 		if ( ZApplication::GetStageInterface()->IsShowStartMovieOfQuest())
 		{
 			ZApplication::GetStageInterface()->ChangeStageEnableReady( true);
-			MWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageReady");
+			CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageReady");
 			if ( pWidget)
 				pWidget->Enable( false);
 			ZApplication::GetStageInterface()->StartMovieOfQuest();
@@ -2734,7 +2734,7 @@ bool ZGameInterface::SetState(GunzState nState)
 	if(m_nState==GUNZ_GAME) OnGameDestroy();
 	else if(m_nState==GUNZ_LOGIN)
 	{
-		MWidget* pWidget = m_IDLResource.FindWidget( "Login_BackgrdImg");
+		CCWidget* pWidget = m_IDLResource.FindWidget( "Login_BackgrdImg");
 		if ( !pWidget)
 			OnLoginDestroy();
 	}
@@ -2769,7 +2769,7 @@ bool ZGameInterface::SetState(GunzState nState)
 	{
 		if ( m_nPreviousState == GUNZ_LOGIN)
 		{
-			MWidget* pWidget = m_IDLResource.FindWidget( "Login_BackgrdImg");
+			CCWidget* pWidget = m_IDLResource.FindWidget( "Login_BackgrdImg");
 			if ( !pWidget)
 				OnCharSelectionCreate();
 			else
@@ -2932,15 +2932,15 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 	}
 
 
-	MWidget* pWidget = m_IDLResource.FindWidget( "LoginFrame");
-	MPicture* pPicture = (MPicture*)m_IDLResource.FindWidget( "Login_BackgrdImg");
+	CCWidget* pWidget = m_IDLResource.FindWidget( "LoginFrame");
+	CCPicture* pPicture = (CCPicture*)m_IDLResource.FindWidget( "Login_BackgrdImg");
 	if ( !pWidget || !pPicture)
 		return;
 
 
 	ZServerView* pServerList = (ZServerView*)m_IDLResource.FindWidget( "SelectedServer");
 	MEdit* pPassword = (MEdit*)m_IDLResource.FindWidget( "LoginPassword");
-	MWidget* pLogin = m_IDLResource.FindWidget( "LoginOK");
+	CCWidget* pLogin = m_IDLResource.FindWidget( "LoginOK");
 	if ( pServerList && pPassword && pLogin)
 	{
 		if ( pServerList->IsSelected() && (int)strlen( pPassword->GetText()))
@@ -3333,12 +3333,12 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 		int nOpacity = 90.0f * ( sin( timeGetTime() * 0.003f) + 1) + 75;
 
 		MLabel* pLabel = (MLabel*)pRes->FindWidget( "Stage_SenarioName");
-		MPicture* pPicture = (MPicture*)pRes->FindWidget( "Stage_Lights0");
+		CCPicture* pPicture = (CCPicture*)pRes->FindWidget( "Stage_Lights0");
 		if ( pPicture)
 		{
 			pPicture->SetOpacity( nOpacity);
 		}
-		pPicture = (MPicture*)pRes->FindWidget( "Stage_Lights1");
+		pPicture = (CCPicture*)pRes->FindWidget( "Stage_Lights1");
 		if ( pPicture)
 		{
 			pPicture->SetOpacity( nOpacity);
@@ -3347,7 +3347,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 
 
 		// 희생 아이템 리스트 프레임 움직임
-		MWidget* pWidget = pRes->FindWidget( "Stage_ItemListView");
+		CCWidget* pWidget = pRes->FindWidget( "Stage_ItemListView");
 		if ( !pWidget)
 			return;
 
@@ -3632,7 +3632,7 @@ void ZGameInterface::RespawnMyCharacter()	// 혼자테스트할때 클릭하면 되살아난다.
 	m_pMyCharacter->SetDirection(dir);
 }
 
-bool ZGameInterface::OnGlobalEvent(MEvent* pEvent)
+bool ZGameInterface::OnGlobalEvent(CCEvent* pEvent)
 {
 	if (ZGameInterface::CheckSkipGlobalEvent() == true)
 		return true;
@@ -3677,7 +3677,7 @@ bool ZGameInterface::OnGlobalEvent(MEvent* pEvent)
 	return false;
 }
 
-bool ZGameInterface::OnDebugEvent(MEvent* pEvent, MListener* pListener)
+bool ZGameInterface::OnDebugEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	switch(pEvent->nMessage){
 	case MWM_KEYDOWN:
@@ -3716,7 +3716,7 @@ bool ZGameInterface::OnDebugEvent(MEvent* pEvent, MListener* pListener)
 	return false;
 }
 
-bool ZGameInterface::OnEvent(MEvent* pEvent, MListener* pListener)
+bool ZGameInterface::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 #ifndef _PUBLISH
 	if (OnDebugEvent(pEvent, pListener)) return true;
@@ -3725,7 +3725,7 @@ bool ZGameInterface::OnEvent(MEvent* pEvent, MListener* pListener)
 	return false;
 }
 
-bool ZGameInterface::OnCommand(MWidget* pWidget, const char* szMessage)
+bool ZGameInterface::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	if (pWidget==m_pPlayerMenu) {
 		MMenuItem* pItem = (MMenuItem*)pWidget;
@@ -4058,7 +4058,7 @@ bool ZGameInterface::Update(float fElapsed)
 	}
 
 	// 로비가 아닌데 토너먼트 참가창이 떠있으면 접속 끊겨서 로그인 화면으로 돌아간 경우 등이므로 참가창을 닫아준다
-	MWidget* pDTWaitMatchDlg = m_IDLResource.FindWidget("DuelTournamentWaitMatchDialog");
+	CCWidget* pDTWaitMatchDlg = m_IDLResource.FindWidget("DuelTournamentWaitMatchDialog");
 	if(pDTWaitMatchDlg && pDTWaitMatchDlg->IsVisible() && GetState()!=GUNZ_LOBBY )
 		OnDuelTournamentGameUI(false);
 
@@ -4115,7 +4115,7 @@ void ZGameInterface::UpdateCursorEnable()
 		SetCursorEnable(true);
 	else
 	{
-		MWidget* pWidget = m_IDLResource.FindWidget( "112Confirm");
+		CCWidget* pWidget = m_IDLResource.FindWidget( "112Confirm");
 		if ( pWidget && pWidget->IsVisible())
 			SetCursorEnable( true);
 
@@ -4331,7 +4331,7 @@ SCREENSHOTERROR:
 	return;
 }
 
-void ZGameInterface::ShowMessage(const char* szText, MListener* pCustomListenter, int nMessageID)
+void ZGameInterface::ShowMessage(const char* szText, CCListener* pCustomListenter, int nMessageID)
 {
 	if (pCustomListenter)
 		m_pMsgBox->SetCustomListener(pCustomListenter);
@@ -4352,7 +4352,7 @@ void ZGameInterface::ShowMessage(const char* szText, MListener* pCustomListenter
 	m_pMsgBox->Show(true, true);
 }
 
-void ZGameInterface::ShowConfirmMessage(const char* szText, MListener* pCustomListenter)
+void ZGameInterface::ShowConfirmMessage(const char* szText, CCListener* pCustomListenter)
 {
 	if (pCustomListenter)
 		m_pConfirmMsgBox->SetCustomListener(pCustomListenter);
@@ -4432,7 +4432,7 @@ void ZGameInterface::OnCharSelectionCreate(void)
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MWidget* pWidget = pResource->FindWidget( "CS_SelectCharDefKey");
+	CCWidget* pWidget = pResource->FindWidget( "CS_SelectCharDefKey");
 	if ( pWidget)
 		pWidget->Enable( true);
 
@@ -4839,7 +4839,7 @@ void ZGameInterface::HideAllWidgets()
 	ShowWidget("PrivateStageJoinFrame", false);
 }
 
-bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, MAlignmentMode mam) {
+bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, CCAlignmentMode mam) {
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
@@ -4847,7 +4847,7 @@ bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, MAlignmentMo
 	if(!szToolTipText)		return false;
 
 
-	MWidget* pWidget = pResource->FindWidget(szWidget);
+	CCWidget* pWidget = pResource->FindWidget(szWidget);
 
 	if(pWidget) {
 
@@ -5060,7 +5060,7 @@ void ZGameInterface::ShowEquipmentDialog(bool bShow)
 			}
 		}
 
-		MWidget* pWidget = pResource->FindWidget("Equipment");
+		CCWidget* pWidget = pResource->FindWidget("Equipment");
 		if(pWidget!=NULL) pWidget->Show(true, true);
 
 		BEGIN_WIDGETLIST( "EquipmentInformation", pResource, ZCharacterView*, pCharacterView);
@@ -5083,11 +5083,11 @@ void ZGameInterface::ShowEquipmentDialog(bool bShow)
 		ZPostStageState( ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MOSS_EQUIPMENT);
 
 		// Animation sprite
-		MPicture* pPicture = 0;
-		pPicture = (MPicture*)pResource->FindWidget("Equip_StripBottom");
+		CCPicture* pPicture = 0;
+		pPicture = (CCPicture*)pResource->FindWidget("Equip_StripBottom");
  		if( pPicture != NULL)
 			pPicture->SetAnimation( 0, 1000.0f);
-		pPicture = (MPicture*)pResource->FindWidget("Equip_StripTop");
+		pPicture = (CCPicture*)pResource->FindWidget("Equip_StripTop");
 		if( pPicture != NULL)
 			pPicture->SetAnimation( 1, 1000.0f);
 
@@ -5114,7 +5114,7 @@ void ZGameInterface::ShowEquipmentDialog(bool bShow)
 			pTextArea->SetText( ZMsg( MSG_SHOPMSG));
 		}*/
 
-		/*pPicture = (MPicture*)pResource->FindWidget("Equip_ItemIcon");
+		/*pPicture = (CCPicture*)pResource->FindWidget("Equip_ItemIcon");
 		pPicture->SetBitmap( NULL);*/
 		GetShopEquipInterface()->DrawCharInfoText();
 	}
@@ -5122,7 +5122,7 @@ void ZGameInterface::ShowEquipmentDialog(bool bShow)
 	{	// 스테이지 안 장비뷰어에서 나가기 버튼 선택
 		ZPostStageState( ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MOSS_NONREADY);
 
-		MWidget* pWidget = pResource->FindWidget("Equipment");
+		CCWidget* pWidget = pResource->FindWidget("Equipment");
 		if ( pWidget!=NULL)
 			pWidget->Show(false);
 
@@ -5150,11 +5150,11 @@ void ZGameInterface::ShowShopDialog(bool bShow)
 
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-		MPicture* pPicture = 0;
-		pPicture = (MPicture*)pResource->FindWidget("Shop_StripBottom");
+		CCPicture* pPicture = 0;
+		pPicture = (CCPicture*)pResource->FindWidget("Shop_StripBottom");
  		if( pPicture != NULL)
 			pPicture->SetAnimation( 0, 1000.0f);
-		pPicture = (MPicture*)pResource->FindWidget("Shop_StripTop");
+		pPicture = (CCPicture*)pResource->FindWidget("Shop_StripTop");
 		if( pPicture != NULL)
 			pPicture->SetAnimation( 1, 1000.0f);
 
@@ -5163,7 +5163,7 @@ void ZGameInterface::ShowShopDialog(bool bShow)
 		MTextArea* pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Shop_ItemDescription");
 		if(pTextArea)	pTextArea->SetText("");
 
-		//pPicture = (MPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Shop_ItemIcon");
+		//pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Shop_ItemIcon");
 		//pPicture->SetBitmap( NULL);
 
 		char buf[256];
@@ -5173,7 +5173,7 @@ void ZGameInterface::ShowShopDialog(bool bShow)
 			pLabel->SetText(buf);
 
 
-		MWidget* pWidget = pResource->FindWidget("Shop");
+		CCWidget* pWidget = pResource->FindWidget("Shop");
 		if(pWidget!=NULL)
 			pWidget->Show(true, true);
 		pWidget = pResource->FindWidget("BuyConfirmCaller");
@@ -5195,7 +5195,7 @@ void ZGameInterface::ShowShopDialog(bool bShow)
 		ZPostStageState(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MOSS_NONREADY);
 
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-		MWidget* pWidget = pResource->FindWidget("Shop");
+		CCWidget* pWidget = pResource->FindWidget("Shop");
 		if(pWidget!=NULL) pWidget->Show(false);
 
 		ShowWidget( "Lobby", true);
@@ -5216,7 +5216,7 @@ void ZGameInterface::ShowShopDialog(bool bShow)
 
 void ZGameInterface::EnableCharSelectionInterface(bool bEnable)
 {
-	MWidget* pWidget;
+	CCWidget* pWidget;
 
 	pWidget = m_IDLResource.FindWidget("CS_SelectChar");
 	if (pWidget) pWidget->Enable(bEnable);
@@ -5375,7 +5375,7 @@ void ZGameInterface::ShowPrivateStageJoinFrame(const char* szStageName)
 		pPassEdit->SetFocus();
 	}
 
-	MWidget* pPrivateStageJoinFrame = m_IDLResource.FindWidget("PrivateStageJoinFrame");
+	CCWidget* pPrivateStageJoinFrame = m_IDLResource.FindWidget("PrivateStageJoinFrame");
 	if (pPrivateStageJoinFrame)
 	{
 		pPrivateStageJoinFrame->Show(true, true);
@@ -5454,7 +5454,7 @@ bool ZGameInterface::IsMenuVisible()
 void ZGameInterface::Show112Dialog(bool bShow)
 {
 /*
-	MWidget* pWidget = m_IDLResource.FindWidget("112Confirm");
+	CCWidget* pWidget = m_IDLResource.FindWidget("112Confirm");
 	if(pWidget==NULL) return;
 
 	if (pWidget->IsVisible() == bShow) return;
@@ -5479,7 +5479,7 @@ void ZGameInterface::Show112Dialog(bool bShow)
 		}
 	}
 */
-	MWidget* pWidget = m_IDLResource.FindWidget( "112Confirm");
+	CCWidget* pWidget = m_IDLResource.FindWidget( "112Confirm");
 	if ( !pWidget)
 		return;
 
@@ -5565,7 +5565,7 @@ void ZGameInterface::SetupPlayerListButton(int index)
 
 	ZIDLResource *pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MWidget *pWidget;
+	CCWidget *pWidget;
 
 	pWidget = pResource->FindWidget("LobbyPlayerListTabChannel");
 	if(pWidget) pWidget->Show(index==0);
@@ -5588,7 +5588,7 @@ void ZGameInterface::SetupPlayerListButton(int index)
 void ZGameInterface::SetupPlayerListTab()
 {
 	ZIDLResource *pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MWidget *pWidget;
+	CCWidget *pWidget;
 	pWidget = pResource->FindWidget("LobbyPlayerListTabClan");
 	if(!pWidget || !pWidget->IsVisible()) return;
 
@@ -5606,7 +5606,7 @@ void ZGameInterface::InitClanLobbyUI(bool bClanBattleEnable)
 {
 	OnArrangedTeamGameUI(false);
 
-	MWidget *pWidget;
+	CCWidget *pWidget;
 
 	pWidget= m_IDLResource.FindWidget( "StageJoin" );
 	if(pWidget) pWidget->Show(!bClanBattleEnable);
@@ -5643,12 +5643,12 @@ void ZGameInterface::InitClanLobbyUI(bool bClanBattleEnable)
 
 void ZGameInterface::InitDuelTournamentLobbyUI(bool bEnableDuelTournamentUI)
 {
-	MWidget *pWidget;
+	CCWidget *pWidget;
 
 	pWidget= m_IDLResource.FindWidget( "Lobby_RoomListBG" );
 	if(pWidget) {
-		if (!bEnableDuelTournamentUI) ((MPicture*)pWidget)->SetBitmap( m_pRoomListFrame);
-		else ((MPicture*)pWidget)->SetBitmap( m_pDuelTournamentLobbyFrame);
+		if (!bEnableDuelTournamentUI) ((CCPicture*)pWidget)->SetBitmap( m_pRoomListFrame);
+		else ((CCPicture*)pWidget)->SetBitmap( m_pDuelTournamentLobbyFrame);
 	}
 
 	pWidget= m_IDLResource.FindWidget( "StageBeforeBtn");
@@ -5790,7 +5790,7 @@ void ZGameInterface::InitDuelTournamentLobbyUI(bool bEnableDuelTournamentUI)
 
 void ZGameInterface::InitChannelFrame(CCCHANNEL_TYPE nChannelType)
 {
-	MWidget* pWidget;
+	CCWidget* pWidget;
 
 	pWidget = m_IDLResource.FindWidget("PrivateChannelInput");
 	if(pWidget) pWidget->Show( nChannelType == CCCHANNEL_TYPE_USER );
@@ -5807,7 +5807,7 @@ void ZGameInterface::InitLadderUI(bool bLadderEnable)
 {
 	OnArrangedTeamGameUI(false);
 
-	MWidget *pWidget;
+	CCWidget *pWidget;
 
 	pWidget= m_IDLResource.FindWidget( "StageJoin" );
 	if(pWidget) pWidget->Show(!bLadderEnable);
@@ -5836,7 +5836,7 @@ void ZGameInterface::InitLadderUI(bool bLadderEnable)
 
 void ZGameInterface::OnArrangedTeamGameUI(bool bFinding)
 {
-	MWidget *pWidget;
+	CCWidget *pWidget;
 
 	pWidget= m_IDLResource.FindWidget( "ArrangedTeamGame" );
 	if(pWidget) pWidget->Show(!bFinding);
@@ -5866,7 +5866,7 @@ void ZGameInterface::OnArrangedTeamGameUI(bool bFinding)
 // 듀얼토너먼트 신청했을 때 화면상의 버튼들을 비활성화한다( 혹은 그반대)
 void ZGameInterface::OnDuelTournamentGameUI(bool bWaiting)
 {
-	MWidget *pWidget;
+	CCWidget *pWidget;
 
 	pWidget = m_IDLResource.FindWidget("DuelTournamentWaitMatchDialog");
 	if(pWidget) pWidget->Show(bWaiting);
@@ -5976,13 +5976,13 @@ void ZGameInterface::ShowReplayDialog( bool bShow)
 	if ( bShow)			// 보이기이면...
 	{
 		// 리플레이 화면 보이기
-		MWidget* pWidget;
-		pWidget = (MWidget*)m_IDLResource.FindWidget( "Replay");
+		CCWidget* pWidget;
+		pWidget = (CCWidget*)m_IDLResource.FindWidget( "Replay");
 		if ( pWidget)
 			pWidget->Show( true, true);
 
 		// '보기'버튼 비활성화
-		pWidget = (MWidget*)m_IDLResource.FindWidget( "Replay_View");
+		pWidget = (CCWidget*)m_IDLResource.FindWidget( "Replay_View");
 		if ( pWidget)
 			pWidget->Enable( false);
 
@@ -6690,7 +6690,7 @@ void ZGameInterface::SetAgentPing(DWORD nIP, DWORD nTimeStamp)
 
 void ZGameInterface::MultiplySize( float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight )
 {
-	MWidget::MultiplySize(byIDLWidth, byIDLHeight, byCurrWidth, byCurrHeight);
+	CCWidget::MultiplySize(byIDLWidth, byIDLHeight, byCurrWidth, byCurrHeight);
 
 	if (m_pMsgBox)
 		m_pMsgBox->MultiplySize(byIDLWidth, byIDLHeight, byCurrWidth, byCurrHeight);
@@ -6736,7 +6736,7 @@ void ZGameInterface::UpdateDuelTournamantMyCharInfoUI()
 		pNumLabel->SetText(szOutput);
 
 	GetDuelTournamentGradeIconFileName(szOutput, pCharInfo->lastWeekGrade);
-	MPicture* pPicture= (MPicture*)pRes->FindWidget("Lobby_DuelTournamentInfoEmblem");
+	CCPicture* pPicture= (CCPicture*)pRes->FindWidget("Lobby_DuelTournamentInfoEmblem");
 	if (pPicture) {
 		pPicture->SetBitmap(CCBitmapManager::Get(szOutput));
 

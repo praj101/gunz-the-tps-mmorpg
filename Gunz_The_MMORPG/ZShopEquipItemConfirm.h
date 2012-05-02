@@ -57,7 +57,7 @@ struct ISimpleConfirmDlgDoneHandler
 };
 
 // 구입,판매시 간단하게 유저 확인을 받는 메시지박스
-class ZSimpleConfirmDlg : public MListener
+class ZSimpleConfirmDlg : public CCListener
 {
 	MMsgBox* m_pMsgbox;
 	ISimpleConfirmDlgDoneHandler* m_pDoneHandler;
@@ -66,7 +66,7 @@ public:
 	ZSimpleConfirmDlg();
 	~ZSimpleConfirmDlg();
 
-	virtual bool OnCommand(MWidget* pWidget, const char* szMessage);
+	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 
 	void Open(const char* szMsg, ISimpleConfirmDlgDoneHandler* pHandler);
 };
