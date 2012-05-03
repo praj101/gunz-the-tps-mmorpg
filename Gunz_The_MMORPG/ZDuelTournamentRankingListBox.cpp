@@ -167,7 +167,7 @@ void ZDuelTournamentRankingListBox::OnDraw( CCDrawContext* pDC )
 				DWORD defaultcolor = 0x333333;
 				DWORD opacity=(DWORD)pDC->GetOpacity();
 				sRect rt(0, y, nWidth, nItemHeight);
-				CCDrawEffect prevEffect = pDC->GetEffect();
+				MDrawEffect prevEffect = pDC->GetEffect();
 				pDC->SetEffect(MDE_ADD);
 				sColor prevColor = pDC->GetBitmapColor();
 				pDC->SetBitmapColor(sColor(defaultcolor));
