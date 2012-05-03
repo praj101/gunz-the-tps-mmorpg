@@ -109,7 +109,7 @@ void ZButton::OnDraw(CCDrawContext* pDC)
 		DWORD defaultcolor = GetType()==MBT_NORMAL ? 0x20ff20 : 0xc0c020;
 		DWORD opacity=(DWORD)pDC->GetOpacity()*(DWORD)m_nIllumination / 255 ;
 		sRect rt=GetRect();
-		CCDrawEffect prevEffect = pDC->GetEffect();
+		MDrawEffect prevEffect = pDC->GetEffect();
 		pDC->SetEffect(MDE_ADD);
 		sColor prevColor = pDC->GetBitmapColor();
 		pDC->SetBitmapColor(sColor(defaultcolor));
@@ -244,7 +244,7 @@ void ZBmButton::OnDraw(CCDrawContext* pDC)
 		DWORD defaultcolor = GetType()==MBT_NORMAL ? 0x20ff20 : 0xc0c020;
 		DWORD opacity=(DWORD)pDC->GetOpacity()*(DWORD)m_nIllumination / 255 ;
 		sRect rt=GetRect();
-		CCDrawEffect prevEffect = pDC->GetEffect();
+		MDrawEffect prevEffect = pDC->GetEffect();
 		pDC->SetEffect(MDE_ADD);
 		sColor prevColor = pDC->GetBitmapColor();
 		pDC->SetBitmapColor(sColor(defaultcolor));
