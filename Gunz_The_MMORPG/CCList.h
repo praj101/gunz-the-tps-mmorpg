@@ -20,12 +20,14 @@ public:
 		m_lpContent	= NULL;
 	}
 
-	void SetPrevPointer(_T* pprev){ 
-		m_lpPrev = (_T*) pprev;
+	void SetPrevPointer(CCRecord<_T>* pprev){ 
+		m_lpPrev = pprev;
 	};
 	CCRecord<_T>* GetPrevPointer(){ return m_lpPrev; };
 
-	void SetNextPointer(_T* nnext){ m_lpNext = nnext; };
+	void SetNextPointer(CCRecord<_T>* nnext){ 
+		m_lpNext = nnext; 
+	};
 	CCRecord<_T>* GetNextPointer(){ return m_lpNext; };
 
 	_T* Get() { return m_lpContent; };
@@ -230,12 +232,12 @@ void CCLinkedList<_T>::Delete()
 	pnext		=m_lpCurrentRecord->GetNextPointer();
 
 	if(pprevious!=NULL)
-		pprevious->SetNextPointer((_T*)pnext);
+		pprevious->SetNextPointer(pnext);
 	else
 		m_lpFirstRecord=pnext;
 	
 	if(pnext!=NULL)
-		pnext->SetPrevPointer((_T*)pprevious);
+		pnext->SetPrevPointer(pprevious);
 	else
 		m_lpLastRecord=pprevious;
 
