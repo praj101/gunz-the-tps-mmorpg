@@ -7,7 +7,7 @@
 #include "ZMyInfo.h"
 #include "ZMyItemList.h"
 #include "ZPost.h"
-#include "MComboBox.h"
+#include "CCComboBox.h"
 #include "ZShopEquipInterface.h"
 #include "ZShopEquipItem.h"
 #include "ZShopEquipListbox.h"

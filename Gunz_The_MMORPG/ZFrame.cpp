@@ -3,7 +3,7 @@
 #include <MMSystem.h>
 
 #include "ZFrame.h"
-#include "Mint.h"
+#include "Core.h"
 
 #define TRANSIENT_TIME	300
 

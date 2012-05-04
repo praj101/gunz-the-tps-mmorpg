@@ -3,9 +3,9 @@
 
 #include "ZInterface.h"
 #include "CCPicture.h"
-#include "MEdit.h"
-#include "MListBox.h"
-#include "MLabel.h"
+#include "CCEdit.h"
+#include "CCListBox.h"
+#include "CCLabel.h"
 #include "CCAnimation.h"
 #include "ZObserver.h"
 #include "ZCombatChat.h"

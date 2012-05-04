@@ -1,6 +1,6 @@
 #pragma	once
 
-#include "MListBox.h"
+#include "CCListBox.h"
 
 class ZPlayerSelectListBox : public MListBox {
 public:

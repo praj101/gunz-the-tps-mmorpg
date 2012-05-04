@@ -450,7 +450,7 @@ void RMtrlMgr::ClearUsedMtrl()
 
 }
 
-#include "MProfiler.h"
+#include "CCProfiler.h"
 
 RMtrl*	RMtrlMgr::Get_s(int mtrl_id,int sub_id)
 {

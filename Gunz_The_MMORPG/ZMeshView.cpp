@@ -5,8 +5,8 @@
 #include "ZMeshView.h"
 #include "RealSpace2.h"
 #include "RShaderMgr.h"
-#include "MColorTable.h"
-#include "mdebug.h"
+#include "CCColorTable.h"
+#include "ccdebug.h"
 
 list<ZMeshView*> ZMeshView::msMeshViewList;
 

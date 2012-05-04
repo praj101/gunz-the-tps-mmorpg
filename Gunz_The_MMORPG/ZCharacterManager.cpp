@@ -4,7 +4,7 @@
 #include "ZCharacterManager.h"
 #include "ZMyCharacter.h"
 #include "ZNetCharacter.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZApplication.h"
 #include "ZShadow.h"
 #include "RCharCloth.h"

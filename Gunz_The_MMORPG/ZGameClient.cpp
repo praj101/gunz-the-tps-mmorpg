@@ -1,14 +1,14 @@
 #include "stdafx.h"
 
 #include <winsock2.h>
-#include "MErrorTable.h"
+#include "CCErrorTable.h"
 #include "ZConfiguration.h"
 #include "ZGameClient.h"
 #include "CCSharedCommandTable.h"
 #include "ZConsole.h"
 #include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "ZInterface.h"
 #include "ZApplication.h"
 #include "ZGameInterface.h"
@@ -20,11 +20,11 @@
 #include "ZPostLocal.h"
 #include "CCMatchNotify.h"
 #include "ZMatch.h"
-#include "MComboBox.h"
-#include "MTextArea.h"
+#include "CCComboBox.h"
+#include "CCTextArea.h"
 #include "ZCharacterViewList.h"
 #include "ZCharacterView.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZScreenEffectManager.h"
 #include "ZNetmarble.h"
 #include "ZRoomListBox.h"
@@ -34,7 +34,7 @@
 #include "ZChannelRule.h"
 #include "ZNetRepository.h"
 #include "ZMyInfo.h"
-#include "MToolTip.h"
+#include "CCToolTip.h"
 #include "ZColorTable.h"
 #include "ZClan.h"
 #include "ZSecurity.h"
@@ -45,7 +45,7 @@
 #include "ZLocale.h"
 #include "ZMap.h"
 #include "UPnP.h"
-#include "MMD5.h"
+#include "CCMD5.h"
 #include "ZPlayerManager.h"
 
 
@@ -1508,7 +1508,7 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 	}
 }
 
-#include "MListBox.h"
+#include "CCListBox.h"
 class MCharListItem : public MListItem {
 	CCUID	m_uid;
 	char	m_szName[32];

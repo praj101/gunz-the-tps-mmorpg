@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "ZConfiguration.h"
-#include "Mint.h"
+#include "Core.h"
 #include "ZInterface.h"
 //#include "ZGameInterface.h"
 #include "ZLocatorList.h"

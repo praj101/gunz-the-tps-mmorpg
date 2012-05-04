@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ZActionKey.h"
-#include "Mint.h"
+#include "Core.h"
 #include "ZInput.h"
 #include "ZOptionInterface.h"
 

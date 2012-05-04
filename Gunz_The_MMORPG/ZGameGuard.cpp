@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ZGameguard.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZPost.h"
 
 

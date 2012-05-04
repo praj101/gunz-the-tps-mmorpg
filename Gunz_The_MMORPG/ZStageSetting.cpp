@@ -2,8 +2,8 @@
 
 #include "ZStageSetting.h"
 #include "ZGameInterface.h"
-#include "MComboBox.h"
-#include "MFrame.h"
+#include "CCComboBox.h"
+#include "CCFrame.h"
 #include "ZApplication.h"
 #include "ZGameClient.h"
 #include "ZPost.h"

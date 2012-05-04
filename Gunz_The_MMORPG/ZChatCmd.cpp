@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ZChatCmd.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZMyInfo.h"
 
 void ZImplodeChatCmdArgs(char* szOut, const int argc, char **const argv, int nFirstIndex)

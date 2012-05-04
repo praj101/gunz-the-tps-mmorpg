@@ -7,7 +7,7 @@
 #include "ZReplay.h"
 #include "ZTestGame.h"
 #include "ZGameClient.h"
-#include "MMath.h"
+#include "CCMath.h"
 #include "ZMapDesc.h"
 
 #include "ZModule_Skills.h"

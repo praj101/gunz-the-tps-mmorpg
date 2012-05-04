@@ -4,11 +4,11 @@
 #include "CCMatchObjCache.h"
 #include ".\zplayerlistbox.h"
 #include "CCBitmap.h"
-#include "MListBox.h"
+#include "CCListBox.h"
 #include "zpost.h"
 #include "ZCharacterView.h"
 #include "ZPlayerMenu.h"
-#include "MToolTip.h"
+#include "CCToolTip.h"
 #include "ZButton.h"
 #include "ZMyInfo.h"
 

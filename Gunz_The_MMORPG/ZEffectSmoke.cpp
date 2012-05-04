@@ -4,7 +4,7 @@
 #include "ZEffectSmoke.h"
 #include "RealSpace2.h"
 #include "Physics.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 
 ZEffectSmoke::ZEffectSmoke(ZEffectBillboardSource* pEffectBillboardSource, rvector& Pos, rvector& Velocity, float fMinScale, float fMaxScale, unsigned long int nLifeTime)
 : ZEffectBillboard(pEffectBillboardSource)

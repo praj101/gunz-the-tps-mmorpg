@@ -3,9 +3,9 @@
 
 #include "ZPrerequisites.h"
 #include "ZGameClient.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "CCMatchTransDataType.h"
-#include "MMath.h"
+#include "CCMath.h"
 #include "CheckReturnCallStack.h"
 
 #pragma pack(1)

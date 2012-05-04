@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ZNHN_USA_Poll.h"
 #include ".\\nhn\\HanPollForClient.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 
 
 #ifndef _DEBUG

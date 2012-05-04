@@ -6,7 +6,7 @@
 #include "ZCharacterManager.h"
 #include "ZCamera.h"
 #include "ZGameInterface.h"
-#include "MLabel.h"
+#include "CCLabel.h"
 #include "ZCombatInterface.h"
 #include "ZApplication.h"
 #include "ZMyInfo.h"

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "ZPost.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "CCMatchTransDataType.h"
 #include "CCMatchGlobal.h"
 #include "ZGame.h"

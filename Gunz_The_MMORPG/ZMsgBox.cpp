@@ -3,7 +3,7 @@
 #include "ZGameClient.h"
 #include "ZApplication.h"
 #include "ZMsgBox.h"
-#include "Mint.h"
+#include "Core.h"
 
 // ZMsgBox Listener
 class ZMsgBoxListener : public CCListener{

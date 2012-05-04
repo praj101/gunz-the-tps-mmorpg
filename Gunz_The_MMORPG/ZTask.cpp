@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ZTask.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 
 
 void ZTask::ClearParams()

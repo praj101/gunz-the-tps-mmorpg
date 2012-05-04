@@ -1,7 +1,7 @@
 #ifndef _ZBIRDDUMMYAI_H
 #define _ZBIRDDUMMYAI_H
 
-#include "muid.h"
+#include "ccuid.h"
 
 class ZBirdDummyClient;
 class CCCommand;

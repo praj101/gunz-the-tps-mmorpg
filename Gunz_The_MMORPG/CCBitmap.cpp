@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCBitmap.h"
-#include "MDrawContext.h"
+#include "CCDrawContext.h"
 
 
 // CCBitmap Implementation

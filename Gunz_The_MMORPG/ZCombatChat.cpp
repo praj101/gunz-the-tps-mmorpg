@@ -8,8 +8,8 @@
 //#include "MListBox.h"
 #include "ZIDLResource.h"
 #include "ZPost.h"
-#include "MChattingFilter.h"
-#include "MTextArea.h"
+#include "CCChattingFilter.h"
+#include "CCTextArea.h"
 #include "ZConfiguration.h"
 
 #define MAX_CHAT_OUTPUT_LINE 7

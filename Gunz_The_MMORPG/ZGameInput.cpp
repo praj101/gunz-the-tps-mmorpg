@@ -6,7 +6,7 @@
 #include "ZGame.h"
 #include "ZConfiguration.h"
 #include "ZActionDef.h"
-#include "Mint.h"
+#include "Core.h"
 #include "CCEvent.h"
 #include "CCWidget.h"
 #include "ZGameClient.h"
@@ -586,7 +586,7 @@ bool ZGameInput::ShowCombatInputChat()
 	return true;
 }
 
-#include "MTextArea.h"
+#include "CCTextArea.h"
 
 void ZGameInput::Update(float fElapsed)
 {

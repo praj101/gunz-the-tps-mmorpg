@@ -2,7 +2,7 @@
 
 #include "ZApplication.h"
 #include "ZSoundFMod.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 
 #include "windows.h"
 #include "conio.h"

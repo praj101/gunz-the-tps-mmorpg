@@ -10,15 +10,15 @@
 #include "FileInfo.h"
 #include "ZInterfaceItem.h"
 #include "ZInterfaceListener.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "CCMatchTransDataType.h"
-#include "MBlobArray.h"
-#include "MTCPSocket.h"
+#include "CCBlobArray.h"
+#include "CCTCPSocket.h"
 #include "ZGameClient.h"
 #include "CCCommandBuilder.h"
 
 #include "CCCommandLogFrame.h"
-#include "MListBox.h"
+#include "CCListBox.h"
 extern CCCommandLogFrame* m_pLogFrame;
 
 #include "ZLanguageConf.h"

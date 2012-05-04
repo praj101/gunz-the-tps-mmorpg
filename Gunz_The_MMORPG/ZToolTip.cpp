@@ -2,7 +2,7 @@
 
 #include "ZApplication.h"
 #include "ZToolTip.h"
-#include "Mint4R2.h"
+#include "Core4R2.h"
 
 //#include "MTextArea.h"
 

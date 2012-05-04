@@ -8,8 +8,8 @@
 #include "ZGame.h"
 #include "RealSpace2.h"
 #include "RBaseTexture.h"
-#include "Mint.h"
-#include "Mint4R2.h"
+#include "Core.h"
+#include "Core4R2.h"
 #include "CCBitmap.h"
 #include "ZFilePath.h"
 

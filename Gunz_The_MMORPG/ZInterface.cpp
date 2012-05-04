@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
 #include "ZInterface.h"
-#include "MListBox.h"
-#include "MFormulaTable.h"
-#include "MEdit.h"
+#include "CCListBox.h"
+#include "CCFormulaTable.h"
+#include "CCEdit.h"
 #include "ZPost.h"
 
 ZInterface::ZInterface(const char* szName, CCWidget* pParent, CCListener* pListener)

@@ -5,7 +5,7 @@
 #include "RMesh.h"
 #include "RVisualMeshMgr.h"
 
-#include "MButton.h"
+#include "CCButton.h"
 
 using namespace RealSpace2;
 

@@ -3,8 +3,8 @@
 #include "CCErrorTable.h"
 #include "CCSharedCommandTable.h"
 #include "Msg.h"
-#include "MDebug.h"
-#include "MBlobArray.h"
+#include "CCDebug.h"
+#include "CCBlobArray.h"
 #include "CCMatchStage.h"
 
 
