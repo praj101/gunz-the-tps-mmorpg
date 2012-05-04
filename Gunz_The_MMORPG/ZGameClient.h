@@ -8,7 +8,7 @@
 #include "ZChannelRule.h"
 #include "ZGame.h"
 #include "ZNetAgreementBuilder.h"
-#include "MEmblemMgr.h"
+#include "CCEmblemMgr.h"
 #include "ZCommandUDPHackShield.h"
 
 typedef bool(ZONCOMMANDCALLBACK)(CCCommand* pCommand);

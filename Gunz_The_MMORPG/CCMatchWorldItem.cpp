@@ -146,10 +146,10 @@ void CCMatchWorldItemManager::Update()
 
 void CCMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 {
-	int nItemSize = (int)m_ItemMap.size();
-	if (nItemSize <= 0) return;
+	int nItesSize = (int)m_ItemMap.size();
+	if (nItesSize <= 0) return;
 
-	void* pItemArray = MMakeBlobArray(sizeof(CCTD_WorldItem), nItemSize);
+	void* pItemArray = MMakeBlobArray(sizeof(CCTD_WorldItem), nItesSize);
 	
 
 	int nIndex = 0;

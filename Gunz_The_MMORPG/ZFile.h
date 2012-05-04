@@ -33,8 +33,8 @@ public:
 
 
 ZFile *zfopen(const char *szFileName,bool bWrite = false);
-int zfread(void *pBuffer,int nItemSize,int nItemCount,ZFile *pFile);
-int zfwrite(const void *pBuffer,int nItemSize,int nItemCount,ZFile *pFile);
+int zfread(void *pBuffer,int nItesSize,int nItemCount,ZFile *pFile);
+int zfwrite(const void *pBuffer,int nItesSize,int nItemCount,ZFile *pFile);
 bool zfclose(ZFile *pFile);
 
 #endif // of _ZREPLAYFILE

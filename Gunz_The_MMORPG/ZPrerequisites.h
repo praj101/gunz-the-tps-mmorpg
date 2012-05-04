@@ -42,8 +42,8 @@ _USING_NAMESPACE_REALSPACE2
 
 
 
-#define __BP(i,n) MBeginProfile(i,n);
-#define __EP(i) MEndProfile(i);
+#define __BP(i,n) CCBeginProfile(i,n);
+#define __EP(i) CCEndProfile(i);
 #define __SAVEPROFILE(i) MSaveProfile(i);
 
 #else

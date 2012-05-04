@@ -828,8 +828,8 @@ static void ColorText(CCDrawContext* pDC, int x, int y, const char* sz, sColor c
 void ZRuleDuelTournament::ShowMatchOrder(CCDrawContext* pDC, bool isResult, float fElapsed)
 {
 	const float YPOS[4] = {0.023f, 0.156f, 0.343f, 0.475f};
-	float fSceneWidth = (float)MGetWorkspaceWidth();
-	float fSceneHeigth = (float)MGetWorkspaceHeight();
+	float fSceneWidth = (float)CCGetWorkspaceWidth();
+	float fSceneHeigth = (float)CCGetWorkspaceHeight();
 	float fStartX = 0.33f;
 	float fStartY = 0.37f;
 	if(isResult)
@@ -1066,8 +1066,8 @@ void ZRuleDuelTournament::DrawVictorySymbol(CCDrawContext* pDC, CCUID uidPlayer1
 	if(CCDUELTOURNAMENTROUNDSTATE_QUATERFINAL == m_eDTRoundState)
 		return;	// 8강전일때는 승리마크가 필요없다.(표시도 안됨)
 
-	float fSceneWidth = (float)MGetWorkspaceWidth();
-	float fSceneHeigth = (float)MGetWorkspaceHeight();
+	float fSceneWidth = (float)CCGetWorkspaceWidth();
+	float fSceneHeigth = (float)CCGetWorkspaceHeight();
 	float fRx = fSceneWidth  / 800.0f;
 	float fRy = fSceneHeigth / 600.0f;
 

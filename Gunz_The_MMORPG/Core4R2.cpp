@@ -311,8 +311,8 @@ void CCDrawContextR2::SetClipRect(sRect& r)
 		r.h += r.y;
 		r.y = 0;
 	}
-	if(r.x+r.w>=MGetWorkspaceWidth()) r.w = MGetWorkspaceWidth() - r.x;
-	if(r.y+r.h>=MGetWorkspaceHeight()) r.h = MGetWorkspaceHeight() - r.y;
+	if(r.x+r.w>=CCGetWorkspaceWidth()) r.w = CCGetWorkspaceWidth() - r.x;
+	if(r.y+r.h>=CCGetWorkspaceHeight()) r.h = CCGetWorkspaceHeight() - r.y;
 
 	D3DVIEWPORT9 vp;
 	vp.X = r.x;

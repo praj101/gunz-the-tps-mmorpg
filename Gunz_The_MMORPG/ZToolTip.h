@@ -2,14 +2,14 @@
 #define ZTOOLTIP_H
 
 #include "CCWidget.h"
-#include "MToolTip.h"
+#include "CCToolTip.h"
 
 #define MAX_TOOLTIP_LINE_STRING 40
 
 class ZToolTip : public MToolTip
 {
 public:
-	ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align=MAM_LEFT|MAM_TOP);
+	ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align=CCAM_LEFT|MAM_TOP);
 	~ZToolTip();
 	virtual void OnDraw(CCDrawContext* pDC);
 	virtual void SetBounds(void);

@@ -216,7 +216,7 @@ void CCSaveProfile(const char *filename){
 
 #else
 void MInitProfile() {}
-void MBeginProfile(int nIndex,const char *szName) {}
-void MEndProfile(int nIndex) {}
+void CCBeginProfile(int nIndex,const char *szName) {}
+void CCEndProfile(int nIndex) {}
 void MSaveProfile(const char *file) {}
 #endif

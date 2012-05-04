@@ -153,7 +153,7 @@ void ZObserver::ShowInfo(bool bShow)
 			sprintf(szName, "%s (HP:%d, AP:%d)", m_pTargetCharacter->GetUserName(), (int)m_pTargetCharacter->GetHP(), (int)m_pTargetCharacter->GetAP());
 			pWidget->SetText(szTemp);
 
-			((MLabel*)pWidget)->SetAlignment(MAM_HCENTER);
+			((MLabel*)pWidget)->SetAlignment(CCAM_HCENTER);
 		}
 	}
 */
@@ -407,8 +407,8 @@ void ZObserver::DrawPlayerDuelHPAPBar(CCDrawContext* pDC)
 		}
 	}
 
-	float fRx = (float)MGetWorkspaceWidth()  / 800.0f;
-	float fRy = (float)MGetWorkspaceHeight() / 600.0f;
+	float fRx = (float)CCGetWorkspaceWidth()  / 800.0f;
+	float fRy = (float)CCGetWorkspaceHeight() / 600.0f;
 
 	int nWidth;
 	float fPosy;
@@ -527,7 +527,7 @@ void ZObserver::OnDraw(CCDrawContext* pDC)
 			backgroundcolor = sColor(0,0,0, 150);
 
 		pDC->SetColor(backgroundcolor);
-		pDC->FillRectangle( MGetWorkspaceWidth() / 2 - 170, MGetWorkspaceHeight() * (650.0f/800.0f) - 7, 340, 30);
+		pDC->FillRectangle( CCGetWorkspaceWidth() / 2 - 170, CCGetWorkspaceHeight() * (650.0f/800.0f) - 7, 340, 30);
 
 		// 텍스트
 		backgroundcolor = sColor( 255,255,255, 255);
@@ -586,7 +586,7 @@ void ZObserver::OnDraw(CCDrawContext* pDC)
 		sprintf( szFileName, "camera_%s.tga", szModes[pCamera->GetLookMode()]);
 		pDC->SetBitmap( CCBitmapManager::Get( szFileName));
 
-		float fGain = (float)MGetWorkspaceWidth() / 800.0f;
+		float fGain = (float)CCGetWorkspaceWidth() / 800.0f;
 		pDC->Draw( (int)(720.0f * fGain), (int)(7.0f * fGain), (int)(64.0f * fGain), (int)(64.0f * fGain));
 	}
 
@@ -617,8 +617,8 @@ void ZObserver::OnDraw(CCDrawContext* pDC)
 		}
 
 		// 팀 이미지 표시
-		float sizex = MGetWorkspaceWidth() / 800.f;
-		float sizey = MGetWorkspaceHeight() / 600.f;
+		float sizex = CCGetWorkspaceWidth() / 800.f;
+		float sizey = CCGetWorkspaceHeight() / 600.f;
 		char szText[128];
 
 		// 배경 표시

@@ -676,9 +676,9 @@ CCCommandParameter* ZReplayLoader::MakeVersion2CommandParameter(CCCommandParamet
 			memcpy(&nValueSize, pStreamData, sizeof(nValueSize));
 			pStringParam->m_Value = new char[nValueSize];
 			memcpy(pStringParam->m_Value, pStreamData+sizeof(nValueSize), nValueSize);
-			int nParamSize = nValueSize+sizeof(nValueSize);
+			int nParasSize = nValueSize+sizeof(nValueSize);
 
-			*pnDataCount += nParamSize;
+			*pnDataCount += nParasSize;
 			return pParam;
 		}
 		break;

@@ -324,7 +324,7 @@ ZGameInterface::ZGameInterface(const char* szName, CCWidget* pParent, CCListener
 
 	m_pMyCharacter = NULL;
 
-	SetBounds(0, 0, MGetWorkspaceWidth(), MGetWorkspaceHeight());
+	SetBounds(0, 0, CCGetWorkspaceWidth(), CCGetWorkspaceHeight());
 
 	m_pGame = NULL;
 	m_pCombatInterface = NULL;
@@ -638,7 +638,7 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	// CenterMessage 가운데 정렬
 #define CENTERMESSAGE	"CenterMessage"
 	BEGIN_WIDGETLIST(CENTERMESSAGE, &m_IDLResource, MLabel*, pWidget);
-	pWidget->SetAlignment(MAM_HCENTER);
+	pWidget->SetAlignment(CCAM_HCENTER);
 	END_WIDGETLIST();
 
 	ZGetOptionInterface()->InitInterfaceOption();
@@ -1008,7 +1008,7 @@ bool ZGameInterface::ChangeInterfaceSkin(const char* szNewSkinName)
 			}break;
 		case GUNZ_CHARCREATION : ShowWidget("CharCreation", true); break;
 		}
-		ZGetOptionInterface()->Resize(MGetWorkspaceWidth(),MGetWorkspaceHeight());
+		ZGetOptionInterface()->Resize(CCGetWorkspaceWidth(),CCGetWorkspaceHeight());
 	}
 
 	return bSuccess;
@@ -2260,7 +2260,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	MListBox* pReplayBox = (MListBox*)m_IDLResource.FindWidget( "Replay_FileList");
 	if ( pReplayBox)
 	{
-		pReplayBox->m_FontAlign = MAM_VCENTER;
+		pReplayBox->m_FontAlign = CCAM_VCENTER;
 		pReplayBox->SetVisibleHeader( false);
 		pReplayBox->AddField( "NAME", 92);
 		pReplayBox->AddField( "VERSION", 8);
@@ -2280,7 +2280,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 
 	// 결과화면 리스트박스 초기화
-	int nLineHeightTextArea = int(18/600.f * MGetWorkspaceHeight());	// 800*600 해상도 기준으로 18픽셀
+	int nLineHeightTextArea = int(18/600.f * CCGetWorkspaceHeight());	// 800*600 해상도 기준으로 18픽셀
 	MTextArea* pTextArea = (MTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerNameList");
 	if ( pTextArea)
 	{
@@ -2371,7 +2371,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 		MListBox* pMapListBox = (MListBox*)m_IDLResource.FindWidget( "Stage_MapListbox" );
 		if ( pMapListBox)
 		{
-			pMapListBox->m_FontAlign = MAM_LEFT;
+			pMapListBox->m_FontAlign = CCAM_LEFT;
 			pMapListBox->AddField( "ICON", 23);
 			pMapListBox->AddField( "NAME", 170);
 			pMapListBox->SetItemHeight( 23);
@@ -2382,7 +2382,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 		MListBox* pRelayMapListBox = (MListBox*)m_IDLResource.FindWidget( "Stage_RelayMapListbox" );
 		if ( pRelayMapListBox)
 		{
-			pRelayMapListBox->m_FontAlign = MAM_LEFT;
+			pRelayMapListBox->m_FontAlign = CCAM_LEFT;
 			pRelayMapListBox->AddField( "ICON", 23);
 			pRelayMapListBox->AddField( "NAME", 170);
 			pRelayMapListBox->SetItemHeight( 23);
@@ -2395,7 +2395,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	MListBox* pListBox = (MListBox*)m_IDLResource.FindWidget( "Stage_SacrificeItemListbox");
 	if ( pListBox)
 	{
-		pListBox->m_FontAlign = MAM_VCENTER;
+		pListBox->m_FontAlign = CCAM_VCENTER;
 		pListBox->AddField( "ICON", 32);
 		pListBox->AddField( "NAME", 170);
 		pListBox->SetItemHeight( 32);
@@ -2423,7 +2423,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	pListBox = (MListBox*)m_IDLResource.FindWidget( "QuestResult_ItemListbox");
 	if ( pListBox)
 	{
-		pListBox->m_FontAlign = MAM_VCENTER;
+		pListBox->m_FontAlign = CCAM_VCENTER;
 		pListBox->AddField( "ICON", 35);
 		pListBox->AddField( "NAME", 300);
 		pListBox->SetItemHeight( 32);
@@ -2579,20 +2579,20 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	MComboBox* pCombo = (MComboBox*)m_IDLResource.FindWidget( "Shop_AllEquipmentFilter");
 	if ( pCombo)
 	{
-		pCombo->SetAlignment( MAM_LEFT);
-		pCombo->SetListboxAlignment( MAM_LEFT);
+		pCombo->SetAlignment( CCAM_LEFT);
+		pCombo->SetListboxAlignment( CCAM_LEFT);
 	}
 	pCombo = (MComboBox*)m_IDLResource.FindWidget( "Equip_AllEquipmentFilter");
 	if ( pCombo)
 	{
-		pCombo->SetAlignment( MAM_LEFT);
-		pCombo->SetListboxAlignment( MAM_LEFT);
+		pCombo->SetAlignment( CCAM_LEFT);
+		pCombo->SetListboxAlignment( CCAM_LEFT);
 	}
 
 
 	pCombo = (MComboBox*)m_IDLResource.FindWidget( "StageType");
 	if ( pCombo)
-		pCombo->SetListboxAlignment( MAM_LEFT);
+		pCombo->SetListboxAlignment( CCAM_LEFT);
 
 
 	// 캐릭터 뷰어
@@ -2606,23 +2606,23 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	// 듀얼토너먼트 로비 전적UI에 설명 툴팁 추가
 	char szTooltip[256];
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINLOSE_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLosePrev", szTooltip, MAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLosePrev", szTooltip, CCAM_RIGHT | MAM_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_TP_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoPointsPrev", szTooltip, MAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoPointsPrev", szTooltip, CCAM_RIGHT | MAM_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINNER_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinnersPrev", szTooltip, MAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinnersPrev", szTooltip, CCAM_RIGHT | MAM_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_RANK_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoRankingPrev", szTooltip, MAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoRankingPrev", szTooltip, CCAM_RIGHT | MAM_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINLOSE);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLose", szTooltip, MAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLose", szTooltip, CCAM_RIGHT | MAM_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_TP);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoPoints", szTooltip, MAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoPoints", szTooltip, CCAM_RIGHT | MAM_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINNER);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinners", szTooltip, MAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinners", szTooltip, CCAM_RIGHT | MAM_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_RANK);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoRanking", szTooltip, MAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoRanking", szTooltip, CCAM_RIGHT | MAM_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_SIDERANKLIST);
-	SetWidgetToolTipText("Lobby_DuelTournamentRankingList", szTooltip, MAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentRankingList", szTooltip, CCAM_RIGHT | MAM_TOP);
 
 	SetCursorEnable(true);
 
@@ -2690,11 +2690,11 @@ void ZGameInterface::DrawLoadingScreen(const char* szMessage, float t)
 {
 	CCDrawContext* pDC = Mint::GetInstance()->GetDrawContext();
 	pDC->SetColor(0, 0, 0);
-	pDC->FillRectangle(0, 0, MGetWorkspaceWidth(), MGetWorkspaceHeight());
+	pDC->FillRectangle(0, 0, CCGetWorkspaceWidth(), CCGetWorkspaceHeight());
 	pDC->SetColor(255, 255, 255);
-	pDC->Text(10, MGetWorkspaceHeight()-20, szMessage);
+	pDC->Text(10, CCGetWorkspaceHeight()-20, szMessage);
 	t = min(max(0, t), 1);
-	pDC->FillRectangle(0, 0, int(MGetWorkspaceWidth()*t), MGetWorkspaceHeight());
+	pDC->FillRectangle(0, 0, int(CCGetWorkspaceWidth()*t), CCGetWorkspaceHeight());
 
 	// Update Scene
 	Mint::GetInstance()->Update();
@@ -2928,7 +2928,7 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 			strcat( szMsg, ">");
 
 		pConnectingLabel->SetText( szMsg);
-		pConnectingLabel->SetAlignment( MAM_HCENTER | MAM_VCENTER);
+		pConnectingLabel->SetAlignment( CCAM_HCENTER | CCAM_VCENTER);
 	}
 
 
@@ -5767,7 +5767,7 @@ void ZGameInterface::InitDuelTournamentLobbyUI(bool bEnableDuelTournamentUI)
 				char szBuffer[256] = "";
 				ZTransMsg(szBuffer, MSG_LOBBY_DUELTOURNAMENT_NEEDPOINT_TONEXTRANK, 1, "32");
 				pWidget->SetText(szBuffer);
-				((MLabel*)pWidget)->SetAlignment(MAM_RIGHT);
+				((MLabel*)pWidget)->SetAlignment(CCAM_RIGHT);
 			}
 		}		
 		//
@@ -6744,7 +6744,7 @@ void ZGameInterface::UpdateDuelTournamantMyCharInfoUI()
 		char szTooltip[256];
 		sprintf(sz, "%d", pCharInfo->lastWeekGrade);
 		ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_GRADE, 1, sz);
-		SetWidgetToolTipText("Lobby_DuelTournamentInfoEmblem", szTooltip, MAM_VCENTER);
+		SetWidgetToolTipText("Lobby_DuelTournamentInfoEmblem", szTooltip, CCAM_VCENTER);
 	}
 }
 

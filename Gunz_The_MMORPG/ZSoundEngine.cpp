@@ -1088,7 +1088,7 @@ void ZSoundEngine::Run(void)
 	if( (currentTime - m_Time) < m_DelayTime ) return;
 	m_Time = currentTime;
 
-	MBeginProfile(31,"ZSoundEngine::Run");
+	CCBeginProfile(31,"ZSoundEngine::Run");
 
 	if( !m_bSoundEnable )	return;
 	if( !m_b3DSoundUpdate )	return;
@@ -1149,18 +1149,18 @@ void ZSoundEngine::Run(void)
 
 		m_ListenerPos = Pos;
 		
-		MBeginProfile(1004, "ZSoundEngine::Run : SetListener");
+		CCBeginProfile(1004, "ZSoundEngine::Run : SetListener");
 		if(m_bInverse)
 			ZGetSoundFMod()->SetListener( &Pos, NULL, -Orientation.x, -Orientation.y, Orientation.z, 0, 0, 1 );
 		else
 			ZGetSoundFMod()->SetListener( &Pos, NULL, Orientation.x, Orientation.y, Orientation.z, 0, 0, 1 );
 	
-		MEndProfile(1004);
-		MBeginProfile(33, "ZSoundEngine::Run : Update");
+		CCEndProfile(1004);
+		CCBeginProfile(33, "ZSoundEngine::Run : Update");
 		ZGetSoundFMod()->Update();
-		MEndProfile(33);
+		CCEndProfile(33);
 	}
-	MEndProfile(31);
+	CCEndProfile(31);
 }
 
 

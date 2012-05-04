@@ -722,7 +722,7 @@ void CCWidget::SetSize(int w, int h){
 	OnSize(w, h);
 }
 
-void CCWidget::SetSize(MSIZE& s){
+void CCWidget::SetSize(sSize& s){
 	SetSize(s.w, s.h);
 }
 
@@ -777,13 +777,13 @@ void CCWidget::GetBoundsAlignmentPosition(sPoint* p, CCAlignmentMode am, int w, 
 		if(GetParent()!=NULL) s.h = GetParent()->m_Rect.h;
 	}
 
-	if(m_BoundsAlignment&MAM_LEFT) p->x = 0;
-	else if(m_BoundsAlignment&MAM_RIGHT) p->x = s.w-m_Rect.w;
-	else if(m_BoundsAlignment&MAM_HCENTER) p->x = (s.w-m_Rect.w)/2;
+	if(m_BoundsAlignment&CCAM_LEFT) p->x = 0;
+	else if(m_BoundsAlignment&CCAM_RIGHT) p->x = s.w-m_Rect.w;
+	else if(m_BoundsAlignment&CCAM_HCENTER) p->x = (s.w-m_Rect.w)/2;
 
-	if(m_BoundsAlignment&MAM_LEFT) p->y = 0;
-	else if(m_BoundsAlignment&MAM_BOTTOM) p->y = s.h-m_Rect.h;
-	else if(m_BoundsAlignment&MAM_VCENTER) p->y = (s.h-m_Rect.h)/2;
+	if(m_BoundsAlignment&CCAM_LEFT) p->y = 0;
+	else if(m_BoundsAlignment&CCAM_BOTTOM) p->y = s.h-m_Rect.h;
+	else if(m_BoundsAlignment&CCAM_VCENTER) p->y = (s.h-m_Rect.h)/2;
 }
 
 void CCWidget::SetBoundsAlignment(CCAlignmentMode am, int w, int h){
@@ -817,7 +817,7 @@ void CCWidget::AttachToolTip(const char* szToolTipString){
 	m_pToolTip = new CCToolTip(szToolTipString, this);
 }
 
-void CCWidget::AttachToolTip(MToolTip* pToolTip){
+void CCWidget::AttachToolTip(CCToolTip* pToolTip){
 	DetachToolTip();
 	m_pToolTip = pToolTip;
 }

@@ -130,14 +130,14 @@ void ZItemSlotView::OnDraw(CCDrawContext* pDC)
 	}
 
 	// Draw Name
-	CCAlignmentMode am = MAM_VCENTER;
+	CCAlignmentMode am = CCAM_VCENTER;
 	r = GetClientRect();
-	int margin = int(10 * MGetWorkspaceWidth() / 800.f);
+	int margin = int(10 * CCGetWorkspaceWidth() / 800.f);
 	r.x += w + margin;
 	r.w -= (w + margin);
 
 	if (m_bHorizonalInverse) {
-		am = MAM_VCENTER | MAM_RIGHT;
+		am = CCAM_VCENTER | CCAM_RIGHT;
 		r.x = 0;
 	}
 
@@ -428,8 +428,8 @@ void ZItemSlotView::OnMouseIn( void )
 	MPOINT posDesc(rcSlotView.x, rcSlotView.y);
 	posDesc = CCClientToScreen(GetParent(), posDesc);
 	posDesc.x = rcSlotView.x + rcSlotView.w + CONVERT800(20);	// 일단 슬롯뷰 우측으로
-	if (posDesc.y+rcTextArea.h > MGetWorkspaceHeight())			// 화면 하단에 짤리지 않게
-		posDesc.y = MGetWorkspaceHeight() - rcTextArea.h;
+	if (posDesc.y+rcTextArea.h > CCGetWorkspaceHeight())			// 화면 하단에 짤리지 않게
+		posDesc.y = CCGetWorkspaceHeight() - rcTextArea.h;
 	pItemDescTextArea->SetPosition(posDesc);
 	pItemDescTextArea->SetZOrder(MZ_TOP);
 	ZGetGameInterface()->GetShopEquipInterface()->ShowItemDescription(true, pItemDescTextArea, this);

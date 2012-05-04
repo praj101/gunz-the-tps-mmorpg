@@ -462,7 +462,7 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	// cclog("Bird : 5\n");
 
-	m_pGameInterface->SetBounds(0,0,MGetWorkspaceWidth(),MGetWorkspaceHeight());
+	m_pGameInterface->SetBounds(0,0,CCGetWorkspaceWidth(),CCGetWorkspaceHeight());
 	END_("GameInterface Create");
 
 	giLoading.UpdateAndDraw(1.f);
@@ -553,8 +553,8 @@ BirdGo:
 	// cclog("ZApplication::OnCreate : CreateConsole \n");
 
 	m_pLogFrame = new CCCommandLogFrame("Command Log", Mint::GetInstance()->GetMainFrame(), Mint::GetInstance()->GetMainFrame());
-	int nHeight = MGetWorkspaceHeight()/3;
-	m_pLogFrame->SetBounds(0, MGetWorkspaceHeight()-nHeight-1, MGetWorkspaceWidth()-1, nHeight);
+	int nHeight = CCGetWorkspaceHeight()/3;
+	m_pLogFrame->SetBounds(0, CCGetWorkspaceHeight()-nHeight-1, CCGetWorkspaceWidth()-1, nHeight);
 	m_pLogFrame->Show(false);
 
 	m_pGameInterface->SetFocusEnable(true);

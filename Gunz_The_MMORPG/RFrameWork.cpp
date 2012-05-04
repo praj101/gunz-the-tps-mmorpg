@@ -283,8 +283,8 @@ long FAR PASCAL WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 #ifndef _PUBLISH
 
-#define __BP(i,n)	MBeginProfile(i,n);
-#define __EP(i)		MEndProfile(i);
+#define __BP(i,n)	CCBeginProfile(i,n);
+#define __EP(i)		CCEndProfile(i);
 
 #else
 

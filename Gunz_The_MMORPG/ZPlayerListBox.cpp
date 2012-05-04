@@ -1143,7 +1143,7 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 					posMenu.y = posItem.y + GetItemHeight()/2;
 					posMenu=CCClientToScreen(this,posMenu);
 
-					if(posMenu.y+pMenu->GetRect().h > MGetWorkspaceHeight()) {
+					if(posMenu.y+pMenu->GetRect().h > CCGetWorkspaceHeight()) {
 						posMenu.y-= pMenu->GetRect().h ;
 					}
 
@@ -1153,11 +1153,11 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 					posItem = pEvent->Pos;
 					MPOINT posMenu = CCClientToScreen(this, posItem);
 					
-					if ( (posMenu.x + pMenu->GetClientRect().w) > (MGetWorkspaceWidth() - 5))
-						posMenu.x = MGetWorkspaceWidth() - pMenu->GetClientRect().w - 5;
+					if ( (posMenu.x + pMenu->GetClientRect().w) > (CCGetWorkspaceWidth() - 5))
+						posMenu.x = CCGetWorkspaceWidth() - pMenu->GetClientRect().w - 5;
 
-					if ( (posMenu.y + pMenu->GetClientRect().h) > (MGetWorkspaceHeight() - 5))
-						posMenu.y = MGetWorkspaceHeight() - pMenu->GetClientRect().h - 5;
+					if ( (posMenu.y + pMenu->GetClientRect().h) > (CCGetWorkspaceHeight() - 5))
+						posMenu.y = CCGetWorkspaceHeight() - pMenu->GetClientRect().h - 5;
 
 					pMenu->Show( posMenu.x, posMenu.y);
 				}

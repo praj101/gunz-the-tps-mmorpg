@@ -46,7 +46,7 @@ bool RCylinder::isCollide( CDInfo* data_, CDInfoType cdType_ )
 	}
 
 	// 충돌이 있을 경우 input vertex의 normal 방향으로 vertex를 이동시킨다
-	*data_->clothCD.pos = intersection + ( (*data_->clothCD.n) * mRadius * 1.2 );
+	*data_->clothCD.pos = intersection + ( (*data_->clothCD.n) * mRadius * 1.2f );
 	//*data_->clothCD.pos = intersection + *data_->clothCD.n;
 
 	return true;

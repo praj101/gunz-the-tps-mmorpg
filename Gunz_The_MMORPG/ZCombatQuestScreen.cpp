@@ -104,8 +104,8 @@ void ZCombatQuestScreen::DrawPlayer(CCDrawContext* pDC, int index, ZCharacter* p
 	x = 10.0f / 800.0f;
 	y = (200.0f/600.0f) + ((20.0f / 600.0f) * index);
 
-	int screenx = x * MGetWorkspaceWidth();
-	int screeny = y * MGetWorkspaceHeight();
+	int screenx = x * CCGetWorkspaceWidth();
+	int screeny = y * CCGetWorkspaceHeight();
 
 
 	int nKills = 0;

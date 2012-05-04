@@ -52,8 +52,8 @@ void ZServerView::OnDraw(CCDrawContext* pDC)
 				}
 
 				// Set region
-				float fScreenRateX = MGetWorkspaceWidth() / 800.f;
-				float fScreenRateY = MGetWorkspaceHeight() / 600.f;
+				float fScreenRateX = CCGetWorkspaceWidth() / 800.f;
+				float fScreenRateY = CCGetWorkspaceHeight() / 600.f;
 
 #if defined(LOCALE_KOREA) || defined(_DEBUG)
 				pServerInfo->rRect.x = nRowBlock * m_nSelBoxSizeX * fScreenRateX + 10;
@@ -99,7 +99,7 @@ void ZServerView::PingImageDraw(CCDrawContext* pDC, sRect rectBox, int nImageCou
 	else if(m_dAgentPing[nImageCount] <  80 && m_dAgentPing[nImageCount] >=  40)		pDC->SetBitmap(m_pPingBitmap[4]);
 	else if(m_dAgentPing[nImageCount] <  40 && m_dAgentPing[nImageCount] >=   0)		pDC->SetBitmap(m_pPingBitmap[5]);
 	else pDC->SetBitmap(m_pPingBitmap[0]);
-	const int nMoveImage = int(220 * MGetWorkspaceWidth() / 800.f);
+	const int nMoveImage = int(220 * CCGetWorkspaceWidth() / 800.f);
 	pDC->Draw(rectBox.x+nMoveImage , rectBox.y, 25 , 16);
 #endif
 #ifdef  _DEBUG
@@ -108,7 +108,7 @@ void ZServerView::PingImageDraw(CCDrawContext* pDC, sRect rectBox, int nImageCou
 	{
 		sprintf(strPing, "%d", m_dAgentPing[nImageCount]);
 		rectBox.w = 210;
-		pDC->Text( rectBox, strPing, MAM_RIGHT | MAM_VCENTER);
+		pDC->Text( rectBox, strPing, CCAM_RIGHT | CCAM_VCENTER);
 	}
 #endif
 }
@@ -121,9 +121,9 @@ void ZServerView::IconDraw(CCDrawContext* pDC, sRect rectBox, int nType, bool bS
 		sColor color = sColor(0xFF454545);
 		color.a = ((timeGetTime() % 150) < 75) ? 255 : 210;
 		pDC->SetColor( color);
-		rectBox.y = rectBox.y - 1 * MGetWorkspaceHeight() / 600.f;
-		rectBox.w = 230 * MGetWorkspaceWidth() / 800.f;
-		rectBox.h = 15 * MGetWorkspaceHeight() / 600.f;
+		rectBox.y = rectBox.y - 1 * CCGetWorkspaceHeight() / 600.f;
+		rectBox.w = 230 * CCGetWorkspaceWidth() / 800.f;
+		rectBox.h = 15 * CCGetWorkspaceHeight() / 600.f;
 		pDC->FillRectangle( rectBox);
 	}
 
@@ -192,7 +192,7 @@ void ZServerView::ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* 
 	pDC->SetColor( sColor(0xFF000000));
 	rectBox.x += 14;
 	rectBox.y += m_nTextOffset + 1;
-	pDC->Text( rectBox, szText, MAM_LEFT | MAM_VCENTER);		// Shadow
+	pDC->Text( rectBox, szText, CCAM_LEFT | CCAM_VCENTER);		// Shadow
 
 	bool bFulled = false;
 	if ( (pServerInfo->nNumOfUser >= pServerInfo->nCapacity) || ( !pServerInfo->bIsLive))
@@ -221,7 +221,7 @@ void ZServerView::ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* 
 
 	rectBox.x--;
 	rectBox.y--;
-	pDC->Text( rectBox, szText, MAM_LEFT | MAM_VCENTER);
+	pDC->Text( rectBox, szText, CCAM_LEFT | CCAM_VCENTER);
 }
 
 bool ZServerView::OnEvent(CCEvent* pEvent, CCListener* pListener)

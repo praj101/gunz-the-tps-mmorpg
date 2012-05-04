@@ -13,8 +13,8 @@ _NAMESPACE_REALSPACE2_BEGIN
 /*
 #ifndef _PUBLISH
 
-#define __BP(i,n)	MBeginProfile(i,n);
-#define __EP(i)		MEndProfile(i);
+#define __BP(i,n)	CCBeginProfile(i,n);
+#define __EP(i)		CCEndProfile(i);
 
 #else
 */

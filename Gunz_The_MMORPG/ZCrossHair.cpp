@@ -172,9 +172,9 @@ void ZCrossHair::Draw(CCDrawContext* pDC)
 	if(!m_bVisible) return;
 	if (ZGetGame()->m_pMyCharacter == NULL) return;
 
-	const float sizefactor = (float)MGetWorkspaceWidth() / (float)800  * 1.f;
+	const float sizefactor = (float)CCGetWorkspaceWidth() / (float)800  * 1.f;
 
-	MPOINT center(MGetWorkspaceWidth()/2,MGetWorkspaceHeight()/2);
+	MPOINT center(CCGetWorkspaceWidth()/2,CCGetWorkspaceHeight()/2);
 
 	float fFactor = ZGetGame()->m_pMyCharacter->GetCAFactor();
 	fFactor = fFactor +0.2f;

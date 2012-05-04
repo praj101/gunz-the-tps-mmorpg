@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MMsgBox.h"
+#include "CCMsgBox.h"
 
 class ZShopEquipInterface;
 class ZShopEquipListItem;

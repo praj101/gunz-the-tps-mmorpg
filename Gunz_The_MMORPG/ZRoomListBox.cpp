@@ -170,22 +170,22 @@ void ZRoomListBox::OnDraw( CCDrawContext* pDC )
 			strcat( szBufTemp, "..."	);
 
 			pDC->SetColor( 0,0,0);
-			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), szBufTemp, MAM_LEFT);
+			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), szBufTemp, CCAM_LEFT);
 			if(  m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
 				pDC->SetColor( 115,146,173 );
 			else
 				pDC->SetColor( 255, 255, 255 );
-			pDC->Text(r, szBufTemp, MAM_LEFT );
+			pDC->Text(r, szBufTemp, CCAM_LEFT );
 		}
 		else
 		{
 			pDC->SetColor( 0,0,0);
-			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), m_pMapInfo[i].room_name, MAM_LEFT);
+			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), m_pMapInfo[i].room_name, CCAM_LEFT);
 			if(  m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
 				pDC->SetColor( 115,146,173 );
 			else
 				pDC->SetColor( 255, 255, 255 );
-			pDC->Text(r, m_pMapInfo[i].room_name, MAM_LEFT );
+			pDC->Text(r, m_pMapInfo[i].room_name, CCAM_LEFT );
 		}
 
 		

@@ -188,7 +188,7 @@ const CCMatchGambleItem* CCMatchGambleMachine::GetGambleItemByName( const string
 
 void CCMatchGambleMachine::GetOpenedGambleItemList( vector<DWORD>& outGItemList ) const
 {
-	const DWORD dwSize = GetGambleItemSize();
+	const DWORD dwSize = GetGambleItesSize();
 	for( DWORD i = 0; i < dwSize; ++i )
 	{
 		if( m_GambleItemVec[i]->IsOpened() )

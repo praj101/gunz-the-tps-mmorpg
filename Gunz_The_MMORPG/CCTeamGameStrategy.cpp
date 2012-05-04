@@ -448,7 +448,7 @@ void MClanGameStrategy::SavePointOnFinishGame(CCMatchStage* pStage, CCMatchTeam 
 	if (!bIsDrawGame)
 	{
 		// MatchMakingSystem 통계 입력
-		MLadderStatistics* pLS = CCMatchServer::GetInstance()->GetLadderMgr()->GetStatistics();
+		CCLadderStatistics* pLS = CCMatchServer::GetInstance()->GetLadderMgr()->GetStatistics();
 		pLS->InsertLevelRecord(pRedLadderInfo->nCharLevel, pBlueLadderInfo->nCharLevel, nWinnerTeam);
 		pLS->InsertContPointRecord(pRedLadderInfo->nContPoint, pBlueLadderInfo->nContPoint, nWinnerTeam);
 		pLS->InsertClanPointRecord(pWinnerClan->GetClanInfoEx()->nPoint, pLoserClan->GetClanInfoEx()->nPoint, CCMT_RED);

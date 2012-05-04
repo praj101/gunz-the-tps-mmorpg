@@ -60,7 +60,7 @@ void ZVoteInterface::DrawVoteTargetlist(CCDrawContext* pDC)
 	pDC->SetFont(pFont);
 
 	float y = 0.3f;
-	float linespace = (float)pFont->GetHeight() * 1.1 / (float)MGetWorkspaceHeight();
+	float linespace = (float)pFont->GetHeight() * 1.1 / (float)CCGetWorkspaceHeight();
 
 	pDC->SetColor(sColor(0xFFFFFFFF));
 

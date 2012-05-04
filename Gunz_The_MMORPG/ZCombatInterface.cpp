@@ -233,7 +233,7 @@ bool ZCombatInterface::OnCreate()
 			ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Blue");
 			if ( pBmNumLabel)
 			{
-				pBmNumLabel->SetAlignmentMode( MAM_HCENTER);
+				pBmNumLabel->SetAlignmentMode( CCAM_HCENTER);
 				pBmNumLabel->SetCharMargin( nMargin);
 				pBmNumLabel->SetNumber( 0);
 			}
@@ -241,7 +241,7 @@ bool ZCombatInterface::OnCreate()
 			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Red");
 			if ( pBmNumLabel)
 			{
-				pBmNumLabel->SetAlignmentMode( MAM_HCENTER);
+				pBmNumLabel->SetAlignmentMode( CCAM_HCENTER);
 				pBmNumLabel->SetIndexOffset( 16);
 				pBmNumLabel->SetCharMargin( nMargin);
 				pBmNumLabel->SetNumber( 0);
@@ -250,7 +250,7 @@ bool ZCombatInterface::OnCreate()
 			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Max");
 			if ( pBmNumLabel)
 			{
-				pBmNumLabel->SetAlignmentMode( MAM_HCENTER);
+				pBmNumLabel->SetAlignmentMode( CCAM_HCENTER);
 				pBmNumLabel->SetIndexOffset( 32);
 				int nMargin2[ BMNUM_NUMOFCHARSET] = { 18,12,18,18,18,18,18,18,18,18,18,18,18 };
 				pBmNumLabel->SetCharMargin( nMargin2);
@@ -291,7 +291,7 @@ bool ZCombatInterface::OnCreate()
 
 		if(pBmNumLabel)
 		{
-			pBmNumLabel->SetAlignmentMode( MAM_HCENTER);
+			pBmNumLabel->SetAlignmentMode( CCAM_HCENTER);
 			pBmNumLabel->SetIndexOffset( 32);
 			int nMargin[ BMNUM_NUMOFCHARSET] = { 18,12,18,18,18,18,18,18,18,18,18,18,18 };
 			pBmNumLabel->SetCharMargin(nMargin);
@@ -316,17 +316,17 @@ bool ZCombatInterface::OnCreate()
 					strstr(pChild->m_szIDLName, "CombatDT_PlayerInfo_"))
 				{
 					if (strstr(pChild->m_szIDLName, "Left"))
-						((MLabel*)pChild)->SetAlignment(MAM_RIGHT | MAM_VCENTER);
+						((MLabel*)pChild)->SetAlignment(CCAM_RIGHT | CCAM_VCENTER);
 					else if (strstr(pChild->m_szIDLName, "Right"))
-						((MLabel*)pChild)->SetAlignment(MAM_LEFT | MAM_VCENTER);
+						((MLabel*)pChild)->SetAlignment(CCAM_LEFT | CCAM_VCENTER);
 					else
-						((MLabel*)pChild)->SetAlignment(MAM_HCENTER | MAM_VCENTER);
+						((MLabel*)pChild)->SetAlignment(CCAM_HCENTER | CCAM_VCENTER);
 				}
 			}
 		}
 		MLabel* pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_MatchLevel");
         if (pLabel)
-			pLabel->SetAlignment(MAM_HCENTER | MAM_VCENTER);
+			pLabel->SetAlignment(CCAM_HCENTER | CCAM_VCENTER);
 
 		GetWidgetCharViewLeft()->SetEnableRotateZoom(false, false);
 		GetWidgetCharViewRight()->SetEnableRotateZoom(false, false);
@@ -466,14 +466,14 @@ void TextRelative(CCDrawContext* pDC,float x,float y,const char *szText,bool bCe
 	if( RGetIsWidthScreen() )
 		x = (x*800+80)/960.f;
 
-	int screenx=x*MGetWorkspaceWidth();
+	int screenx=x*CCGetWorkspaceWidth();
 	if(bCenter)
 	{
 		CCFont *pFont=pDC->GetFont();
 		screenx-=pFont->GetWidth(szText)/2;
 	}
 
-	pDC->Text(screenx,y*MGetWorkspaceHeight(),szText);
+	pDC->Text(screenx,y*CCGetWorkspaceHeight(),szText);
 }
 
 void BitmapRelative(CCDrawContext* pDC, float x, float y, float w, float h, CCBitmap* pBitmap, bool bCenter=false)
@@ -483,41 +483,41 @@ void BitmapRelative(CCDrawContext* pDC, float x, float y, float w, float h, CCBi
 	if( RGetIsWidthScreen() )
 		x = (x*800+80)/960.f;
 
-	int screenx=x*MGetWorkspaceWidth();
+	int screenx=x*CCGetWorkspaceWidth();
 	if(bCenter)
 	{
 		CCFont *pFont=pDC->GetFont();
 		screenx-=w/2;
 	}
 
-	pDC->Draw( screenx, y*MGetWorkspaceHeight(), w, h);
+	pDC->Draw( screenx, y*CCGetWorkspaceHeight(), w, h);
 }
 
 void MatchOrderRelative(CCDrawContext* pDC, float x, float y, float fHalfGrid, int nMatchCount, int nCouple, bool bBlink)
 {
 	// UI가 나오면 그림으로 대체할꺼임.... 그래서 매직넘버 사용
-	float screenx=x*MGetWorkspaceWidth();
-	float screeny=y*MGetWorkspaceHeight();
+	float screenx=x*CCGetWorkspaceWidth();
+	float screeny=y*CCGetWorkspaceHeight();
 
 	// 대진표 박스 그려주기
 	float fRectX = screenx-2;
 	float fRectY = screeny-4;
-	float fRectWidth = 0.138f*MGetWorkspaceWidth();
-	float fRectHeight = 0.04f*MGetWorkspaceHeight();
+	float fRectWidth = 0.138f*CCGetWorkspaceWidth();
+	float fRectHeight = 0.04f*CCGetWorkspaceHeight();
 	pDC->Rectangle(fRectX, fRectY, fRectWidth, fRectHeight );
 
 	if(bBlink)
 		return;
 	// 대진표 선들 그려주기
-	float fLineWidth = 0.032f*MGetWorkspaceWidth();
-	float fLineHeight = 0.038f*MGetWorkspaceHeight();
+	float fLineWidth = 0.032f*CCGetWorkspaceWidth();
+	float fLineHeight = 0.038f*CCGetWorkspaceHeight();
 
 	CCDUELTOURNAMENTTYPE eDTType = ZApplication::GetGameInterface()->GetDuelTournamentType();
 	switch(eDTType)
 	{
 	case CCDUELTOURNAMENTTYPE_FINAL:				//< 결승전부터
 		{
-			fLineWidth = 0.145f*MGetWorkspaceWidth();
+			fLineWidth = 0.145f*CCGetWorkspaceWidth();
 			if(nCouple != 1)
 				pDC->HLine(fRectX+fRectWidth, fRectY+fRectHeight/2, fLineWidth);
 			return;
@@ -525,20 +525,20 @@ void MatchOrderRelative(CCDrawContext* pDC, float x, float y, float fHalfGrid, i
 		break;
 	case CCDUELTOURNAMENTTYPE_SEMIFINAL:			//< 4강전부터
 		{
-			fLineWidth = 0.082f*MGetWorkspaceWidth();
-			fLineHeight = 0.049f*MGetWorkspaceHeight();
+			fLineWidth = 0.082f*CCGetWorkspaceWidth();
+			fLineHeight = 0.049f*CCGetWorkspaceHeight();
 		}
 		break;
 	case CCDUELTOURNAMENTTYPE_QUATERFINAL:		//< 8강전부터
 		{
-			fLineWidth = 0.032f*MGetWorkspaceWidth();
-			fLineHeight = 0.038f*MGetWorkspaceHeight();
+			fLineWidth = 0.032f*CCGetWorkspaceWidth();
+			fLineHeight = 0.038f*CCGetWorkspaceHeight();
 		}
 		break;
 	}
 
 	fLineHeight *= nMatchCount+0.9f;
-	float fHalf = fHalfGrid*MGetWorkspaceHeight();
+	float fHalf = fHalfGrid*CCGetWorkspaceHeight();
 	if(nCouple)
 	{
 		fLineHeight = -fLineHeight; // 대진표 세로선을 위로 그릴지 아래로 그릴지 정해준다.
@@ -862,8 +862,8 @@ void ZCombatInterface::DrawPont(CCDrawContext* pDC)
 	{
 		char	charName[ 3][ 32];
 		charName[0][0] = charName[1][0] = charName[2][0] = 0;
-		float fRx = (float)MGetWorkspaceWidth()  / 800.0f;
-		float fRy = (float)MGetWorkspaceHeight() / 600.0f;
+		float fRx = (float)CCGetWorkspaceWidth()  / 800.0f;
+		float fRy = (float)CCGetWorkspaceHeight() / 600.0f;
 
 		CCFont *pFont = CCFontManager::Get( "FONTa10_O2Wht");
 		if ( pFont == NULL)
@@ -1135,8 +1135,8 @@ int ZCombatInterface::DrawVictory( CCDrawContext* pDC, int x, int y, int nWinCou
 	pDC->SetBitmap( pBitmap);
 
 	// Get screen
-	float fRx = (float)MGetWorkspaceWidth()  / 800.0f;
-	float fRy = (float)MGetWorkspaceHeight() / 600.0f;
+	float fRx = (float)CCGetWorkspaceWidth()  / 800.0f;
+	float fRy = (float)CCGetWorkspaceHeight() / 600.0f;
 
 
 	// Get Image Number
@@ -1277,7 +1277,7 @@ void ZCombatInterface::OnDrawCustom(CCDrawContext* pDC)
 			char szText[ 100];
 			ZTransMsg( szText, MSG_GAME_EXIT_N_MIN_AFTER, 1, szRemaindTime);
 
-			pLabel->SetAlignment( MAM_HCENTER);
+			pLabel->SetAlignment( CCAM_HCENTER);
 			pLabel->SetText( szText);
 		}
 
@@ -1582,8 +1582,8 @@ void ZCombatInterface::SetPickTarget(bool bPick, ZCharacter* pCharacter)
 		int nCrosshairHeight = m_CrossHair.GetHeight();
 
 		int nLen = m_pTargetLabel->GetRect().w;
-		m_pTargetLabel->SetPosition(((MGetWorkspaceWidth()-m_pTargetLabel->GetRect().w)/2) ,(MGetWorkspaceHeight()/2) - nCrosshairHeight );
-		m_pTargetLabel->SetAlignment(MAM_HCENTER);
+		m_pTargetLabel->SetPosition(((CCGetWorkspaceWidth()-m_pTargetLabel->GetRect().w)/2) ,(CCGetWorkspaceHeight()/2) - nCrosshairHeight );
+		m_pTargetLabel->SetAlignment(CCAM_HCENTER);
 	}
 	else
 	{
@@ -2253,7 +2253,7 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 			pDC->SetColor(sColor(TEXT_COLOR_CLAN_NAME));
 
 			float clancenter = .5f*(ITEM_XPOS[0]-ITEM_XPOS[1]) + ITEM_XPOS[1];
-			float clanx = clancenter - .5f*((float)pClanFont->GetWidth(szClanName)/(float)MGetWorkspaceWidth());
+			float clanx = clancenter - .5f*((float)pClanFont->GetWidth(szClanName)/(float)CCGetWorkspaceWidth());
 			float clany = y + linespace * ((nTeam==MMT_RED) ? .5f : 8.5f) ;
 
 			// 아이콘 출력
@@ -2265,10 +2265,10 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 				pDC->SetBitmap(pbmp);
 
 				const float fIconSize = .1f;
-				int nIconSize = fIconSize * MGetWorkspaceWidth();
+				int nIconSize = fIconSize * CCGetWorkspaceWidth();
 
-				int screenx=(clancenter-.5f*fIconSize)*MGetWorkspaceWidth();
-				int screeny=(clany)*MGetWorkspaceHeight();
+				int screenx=(clancenter-.5f*fIconSize)*CCGetWorkspaceWidth();
+				int screeny=(clany)*CCGetWorkspaceHeight();
 
 				pDC->Draw(screenx,screeny,nIconSize,nIconSize);
 
@@ -2280,7 +2280,7 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 
 			// 점수 출력. 가운데 정렬
 			sprintf(szText,"%d",ZGetGame()->GetMatch()->GetTeamScore(nTeam));
-			clanx = clancenter - .5f*((float)pClanFont->GetWidth(szText)/(float)MGetWorkspaceWidth());
+			clanx = clancenter - .5f*((float)pClanFont->GetWidth(szText)/(float)CCGetWorkspaceWidth());
 			clany+=1.f*linespace;
 			TextRelative(pDC,clanx,clany,szText);
 
@@ -2422,11 +2422,11 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 
 		if(pItem->bMyChar || pItem->bCommander)
 		{
-			int y1 = itemy * MGetWorkspaceHeight();
-			int y2 = (y + linespace * nCount) * MGetWorkspaceHeight();
+			int y1 = itemy * CCGetWorkspaceHeight();
+			int y2 = (y + linespace * nCount) * CCGetWorkspaceHeight();
 
-			int x1 = bClanGame ? 0.43*MGetWorkspaceWidth() : 0.255*MGetWorkspaceWidth();
-			int x2 = (0.715+0.26)*MGetWorkspaceWidth();
+			int x1 = bClanGame ? 0.43*CCGetWorkspaceWidth() : 0.255*CCGetWorkspaceWidth();
+			int x2 = (0.715+0.26)*CCGetWorkspaceWidth();
 
 			pDC->SetColor(backgroundcolor);
 			pDC->FillRectangleW(x1,y1,x2-x1,y2-y1);
@@ -2438,15 +2438,15 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 		// PC방 유저일 경우에 PC방 마크를 표시한다.
 		if ( pItem->bGameRoomUser)	
 		{
-			int nIconSize = .8f * linespace * (float)MGetWorkspaceHeight();
-			float icony = itemy + (linespace - (float)nIconSize / (float)MGetWorkspaceHeight())*.5f;
+			int nIconSize = .8f * linespace * (float)CCGetWorkspaceHeight();
+			float icony = itemy + (linespace - (float)nIconSize / (float)CCGetWorkspaceHeight())*.5f;
 			BitmapRelative(pDC, ITEM_XPOS[0] - 0.043f, icony, nIconSize+4, nIconSize, CCBitmapManager::Get( "icon_gameroom_s.tga"));
 		}
 
 		// 듀얼토너먼트 계급장 표시(이름 앞에)
 		{
-			int nIconSize = .8f * linespace * (float)MGetWorkspaceHeight();
-			float icony = itemy + (linespace - (float)nIconSize / (float)MGetWorkspaceHeight())*.5f;
+			int nIconSize = .8f * linespace * (float)CCGetWorkspaceHeight();
+			float icony = itemy + (linespace - (float)nIconSize / (float)CCGetWorkspaceHeight())*.5f;
 
 			char szDTGradeIconFileName[64];
 			GetDuelTournamentGradeIconFileName(szDTGradeIconFileName, pItem->nDTLastWeekGrade);
@@ -2484,7 +2484,7 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 		pDC->SetFont(pFont);
 
 		// 글자를 가운데 정렬하기 위해 ..
-		float texty= itemy + (linespace - (float)pFont->GetHeight() / (float)MGetWorkspaceHeight())*.5f;
+		float texty= itemy + (linespace - (float)pFont->GetHeight() / (float)CCGetWorkspaceHeight())*.5f;
 		x = ITEM_XPOS[0];
 		TextRelative(pDC,x,texty,pItem->szLevel);
 
@@ -2495,21 +2495,21 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 		{
 			x = ITEM_XPOS[1];
 
-			int nIconSize = .8f * linespace * (float)MGetWorkspaceHeight();
-			float icony = itemy + (linespace - (float)nIconSize / (float)MGetWorkspaceHeight())*.5f;
+			int nIconSize = .8f * linespace * (float)CCGetWorkspaceHeight();
+			float icony = itemy + (linespace - (float)nIconSize / (float)CCGetWorkspaceHeight())*.5f;
 
 			if(pItem->szClan[0]) {
 				CCBitmap *pbmp = ZGetEmblemInterface()->GetClanEmblem(pItem->nClanID);
 				if(pbmp) {
 					pDC->SetBitmap(pbmp);
-					int screenx=x*MGetWorkspaceWidth();
-					int screeny=icony*MGetWorkspaceHeight();
+					int screenx=x*CCGetWorkspaceWidth();
+					int screeny=icony*CCGetWorkspaceHeight();
 
 					pDC->Draw(screenx,screeny,nIconSize,nIconSize);
 
 				}
 			}
-			x+= (float)nIconSize/(float)MGetWorkspaceWidth() +0.005f;
+			x+= (float)nIconSize/(float)CCGetWorkspaceWidth() +0.005f;
 			TextRelative(pDC,x,texty,pItem->szClan);
 		}
 
@@ -2530,25 +2530,25 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 					pDC->SetColor( sColor( 0x40FF0000));
 				else
 					pDC->SetColor( sColor( 0x30000000));
-				pDC->FillRectangleW( (x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight()+1, 0.08*MGetWorkspaceWidth(), 7);
+				pDC->FillRectangleW( (x*CCGetWorkspaceWidth()), texty*CCGetWorkspaceHeight()+1, 0.08*CCGetWorkspaceWidth(), 7);
 
 				if ( bDraw)
 				{
 					float nValue = 0.08 * pQuestPlayerInfo->GetHP() / pQuestPlayerInfo->GetMaxHP();
 					pDC->SetColor( sColor( 0x90FF0000));
-					pDC->FillRectangleW( (x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight()+1, nValue*MGetWorkspaceWidth(), 7);
+					pDC->FillRectangleW( (x*CCGetWorkspaceWidth()), texty*CCGetWorkspaceHeight()+1, nValue*CCGetWorkspaceWidth(), 7);
 				}
 
 				if ( bDraw)
 					pDC->SetColor( sColor( 0x4000FF00));
 				else
 					pDC->SetColor( sColor( 0x30000000));
-				pDC->FillRectangleW( (x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight()+9, 0.08*MGetWorkspaceWidth(), 3);
+				pDC->FillRectangleW( (x*CCGetWorkspaceWidth()), texty*CCGetWorkspaceHeight()+9, 0.08*CCGetWorkspaceWidth(), 3);
 				if ( bDraw)
 				{
 					float nValue = 0.08 * pQuestPlayerInfo->GetAP() / pQuestPlayerInfo->GetMaxAP();
 					pDC->SetColor( sColor( 0x9000FF00));
-					pDC->FillRectangleW( (x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight()+9, nValue*MGetWorkspaceWidth(), 3);
+					pDC->FillRectangleW( (x*CCGetWorkspaceWidth()), texty*CCGetWorkspaceHeight()+9, nValue*CCGetWorkspaceWidth(), 3);
 				}
 
 				pDC->SetColor( tmpColor);
@@ -2636,7 +2636,7 @@ void AddCombatResultInfo( const char* szName, int nScore, int nKill, int nDeath,
 			{
 				sprintf( szText, "%d", nScore);
 				pLabel->SetText( szText);
-				pLabel->SetAlignment( MAM_RIGHT);
+				pLabel->SetAlignment( CCAM_RIGHT);
 
 				sprintf( szWidget, "CombatResult_GameRoomImg%02d", i);
 				CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
@@ -2683,7 +2683,7 @@ void AddClanResultInfoWin( const char* szName, int nScore, int nKill, int nDeath
 			{
 				sprintf( szText, "%d", nScore);
 				pLabel->SetText( szText);
-				pLabel->SetAlignment( MAM_RIGHT);
+				pLabel->SetAlignment( CCAM_RIGHT);
 
 				sprintf( szWidget, "ClanResult_GameRoomImg1%d", i);
 				CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
@@ -2729,7 +2729,7 @@ void AddClanResultInfoLose( const char* szName, int nScore, int nKill, int nDeat
 			{
 				sprintf( szText, "%d", nScore);
 				pLabel->SetText( szText);
-				pLabel->SetAlignment( MAM_RIGHT);
+				pLabel->SetAlignment( CCAM_RIGHT);
 
 				sprintf( szWidget, "ClanResult_GameRoomImg2%d", i);
 				CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
@@ -2816,7 +2816,7 @@ void ZCombatInterface::GetResultInfo( void)
 			pLabel->SetBounds( rect);
 
 			pLabel->SetText( "");
-			pLabel->SetAlignment( MAM_LEFT | MAM_TOP);
+			pLabel->SetAlignment( CCAM_LEFT | MAM_TOP);
 		}
 
 		sprintf( szWidget, "CombatResult_GameRoomImg%02d", i);
@@ -2853,7 +2853,7 @@ void ZCombatInterface::GetResultInfo( void)
 			pLabel->SetBounds( rect);
 
 			pLabel->SetText( "");
-			pLabel->SetAlignment( MAM_LEFT | MAM_TOP);
+			pLabel->SetAlignment( CCAM_LEFT | MAM_TOP);
 		}
 
 		sprintf( szWidget, "ClanResult_GameRoomImg1%d", i);
@@ -2890,7 +2890,7 @@ void ZCombatInterface::GetResultInfo( void)
 			pLabel->SetBounds( rect);
 
 			pLabel->SetText( "");
-			pLabel->SetAlignment( MAM_LEFT | MAM_TOP);
+			pLabel->SetAlignment( CCAM_LEFT | MAM_TOP);
 		}
 
 		sprintf( szWidget, "ClanResult_GameRoomImg2%d", i);
@@ -3397,8 +3397,8 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 					clancenter = 0.25f;
 				}
 				backgroundcolor = (nLeft%2==0) ? BACKGROUND_COLOR1 : BACKGROUND_COLOR2;
-				y1 = itemy * MGetWorkspaceHeight();
-				y2 = (y + linespace * nLeft) * MGetWorkspaceHeight();
+				y1 = itemy * CCGetWorkspaceHeight();
+				y2 = (y + linespace * nLeft) * CCGetWorkspaceHeight();
 			}else {
 				x = 0.55f;
 				itemy = y + linespace * nRight;
@@ -3409,8 +3409,8 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 					clancenter = 0.75f;
 				}
 				backgroundcolor = (nRight%2==1) ? BACKGROUND_COLOR1 : BACKGROUND_COLOR2;
-				y1 = itemy * MGetWorkspaceHeight();
-				y2 = (y + linespace * nRight) * MGetWorkspaceHeight();
+				y1 = itemy * CCGetWorkspaceHeight();
+				y2 = (y + linespace * nRight) * CCGetWorkspaceHeight();
 			}
 
 			if(bDrawClanName)
@@ -3423,13 +3423,13 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 				if (pClanFont == NULL) _ASSERT(0);
 				pDC->SetFont(pClanFont);
 
-				float clanx = clancenter - .5f*(float)pClanFont->GetWidth(pItem->szClan)/(float)MGetWorkspaceWidth();
+				float clanx = clancenter - .5f*(float)pClanFont->GetWidth(pItem->szClan)/(float)CCGetWorkspaceWidth();
 				TextRelative(pDC,clanx,0.15,pItem->szClan);
 
 				char szText[32];
 				sprintf(szText,"%d",ZGetGame()->GetMatch()->GetTeamScore((CCMatchTeam)pItem->nTeam));
 
-				clanx = clancenter - .5f*(float)pClanFont->GetWidth(szText)/(float)MGetWorkspaceWidth();
+				clanx = clancenter - .5f*(float)pClanFont->GetWidth(szText)/(float)CCGetWorkspaceWidth();
 				TextRelative(pDC,clanx,0.2,szText);
 
 				// 칼럼표시
@@ -3449,8 +3449,8 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 			backgroundcolor.a=opacity.a>>1;
 			pDC->SetColor(backgroundcolor);
 			pDC->FillRectangleW(
-				(x-.01f)*MGetWorkspaceWidth(),y1,
-				.44f*MGetWorkspaceWidth(),y2-y1);
+				(x-.01f)*CCGetWorkspaceWidth(),y1,
+				.44f*CCGetWorkspaceWidth(),y2-y1);
 
 			sColor textcolor = TEXT_COLOR_DEATH_MATCH;
 			textcolor.a=opacity.a;
@@ -3472,7 +3472,7 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 		}
 	}else
 	{
-		//	int backgroundy=y*MGetWorkspaceHeight();
+		//	int backgroundy=y*CCGetWorkspaceHeight();
 		int nCount=0;
 
 		for(ZResultBoardList::iterator i=m_ResultItems.begin();i!=m_ResultItems.end();i++)
@@ -3504,12 +3504,12 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 			backgroundcolor.a=opacity.a>>1;
 			pDC->SetColor(backgroundcolor);
 
-			int y1 = itemy * MGetWorkspaceHeight();
-			int y2 = (y + linespace * nCount) * MGetWorkspaceHeight();
+			int y1 = itemy * CCGetWorkspaceHeight();
+			int y2 = (y + linespace * nCount) * CCGetWorkspaceHeight();
 
 			pDC->FillRectangleW(
-				0.022f*MGetWorkspaceWidth(),y1,
-				0.960*MGetWorkspaceWidth(),y2-y1);
+				0.022f*CCGetWorkspaceWidth(),y1,
+				0.960*CCGetWorkspaceWidth(),y2-y1);
 			//		backgroundy=newbackgroundy;
 
 			// 글자 색깔을 결정한다.. 
@@ -3559,7 +3559,7 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 
 			pDC->SetBitmapColor(sColor(255,255,255,255));
 
-			x=0.705f+(float(pFont->GetHeight()*1.3f)/MGetWorkspaceWidth());
+			x=0.705f+(float(pFont->GetHeight()*1.3f)/CCGetWorkspaceWidth());
 			sprintf(szText,"%d",pItem->nAllKill);
 			TextRelative(pDC,x,texty,szText);x+=iconspace;
 			sprintf(szText,"%d",pItem->nUnbelievable);
@@ -3582,8 +3582,8 @@ void ZCombatInterface::IconRelative(CCDrawContext* pDC,float x,float y,int nIcon
 	if(!pbmp) return;
 
 	pDC->SetBitmap(pbmp);
-	int screenx=x*MGetWorkspaceWidth();
-	int screeny=y*MGetWorkspaceHeight();
+	int screenx=x*CCGetWorkspaceWidth();
+	int screeny=y*CCGetWorkspaceHeight();
 
 	int nSize=pDC->GetFont()->GetHeight();
 	pDC->Draw(screenx,screeny,nSize,nSize);

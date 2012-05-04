@@ -568,9 +568,9 @@ void	ZInitialLoading::DrawTips()
 			if (g_pDC->GetFont())
 				fontHeight = int(g_pDC->GetFont()->GetHeight() * 1.2f);
 
-			nPosx = (int)( nPosx * MGetWorkspaceWidth()  / 800.f);
-			nPosy = (int)( nPosy * MGetWorkspaceHeight() / 600.f);
-			int leftMargin = int(5 * MGetWorkspaceWidth()  / 800.f);
+			nPosx = (int)( nPosx * CCGetWorkspaceWidth()  / 800.f);
+			nPosy = (int)( nPosy * CCGetWorkspaceHeight() / 600.f);
+			int leftMargin = int(5 * CCGetWorkspaceWidth()  / 800.f);
 			g_pDC->Text( nPosx,   nPosy,    szStr1);
 			g_pDC->Text( nPosx+leftMargin, nPosy+int(fontHeight*1.7f), szStr2);
 			g_pDC->Text( nPosx+leftMargin, nPosy+int(fontHeight*2.7f), szStr3);
