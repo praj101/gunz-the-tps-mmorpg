@@ -5,10 +5,10 @@ ZBmNumLabel::ZBmNumLabel(const char* szName, CCWidget* pParent, CCListener* pLis
 : CCWidget(szName, pParent, pListener)
 {
 	m_pLabelBitmap = NULL;
-	m_AlignmentMode = MAM_RIGHT;
+	m_AlignmentMode = CCAM_RIGHT;
 	m_nIndexOffset = 0;
 
-	SetCharSize( MSIZE(32, 32));
+	SetCharSize( sSize(32, 32));
 }
 
 
@@ -20,7 +20,7 @@ void ZBmNumLabel::SetLabelBitmap(CCBitmap* pLabelBitmap)
 	SetSize(m_pLabelBitmap->GetWidth(), m_pLabelBitmap->GetHeight());
 }
 
-void ZBmNumLabel::SetCharSize(MSIZE &size)
+void ZBmNumLabel::SetCharSize(sSize &size)
 {
 	m_CharSize = size;
 	
@@ -99,13 +99,13 @@ void ZBmNumLabel::OnDraw(CCDrawContext* pDC)
 
 	int tx = 0, ty = 0;
 
-	if((m_AlignmentMode & MAM_LEFT) != NULL)
+	if((m_AlignmentMode & CCAM_LEFT) != NULL)
 		tx = 0;
 
-	else if((m_AlignmentMode & MAM_RIGHT) != NULL)
+	else if((m_AlignmentMode & CCAM_RIGHT) != NULL)
 		tx = m_Rect.w - nTextWidth;
 
-	else if((m_AlignmentMode & MAM_HCENTER) != NULL)
+	else if((m_AlignmentMode & CCAM_HCENTER) != NULL)
 		tx = m_Rect.w / 2 - nTextWidth / 2;
 
 

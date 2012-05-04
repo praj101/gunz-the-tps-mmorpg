@@ -3,7 +3,7 @@
 #include "ZWater.h"
 #include "ZEffectManager.h"
 #include "ZSoundEngine.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZConfiguration.h"
 #include "RTypes.h"
 #include "ZSoundEngine.h"

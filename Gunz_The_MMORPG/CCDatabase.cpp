@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include ".\mdatabase.h"
+#include "mdatabase.h"
 
 CCDatabase::CCDatabase(void) : m_fnLogCallback( 0 )
 {

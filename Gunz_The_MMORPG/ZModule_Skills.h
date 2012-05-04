@@ -3,7 +3,7 @@
 
 #include "ZModule.h"
 #include "ZModuleID.h"
-#include "../CSCommon/Include/CCQuestNPC.h"
+#include "CCQuestNPC.h"
 #include "ZSkill.h"
 
 class ZModule_Skills : public ZModule {

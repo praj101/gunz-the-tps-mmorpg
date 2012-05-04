@@ -177,16 +177,16 @@ ZFile *zfopen(const char *szFileName,bool bWrite)
 	return NULL;
 }
 
-int zfread(void *pBuffer,int nItemSize,int nItemCount,ZFile *pFile)
+int zfread(void *pBuffer,int nItesSize,int nItemCount,ZFile *pFile)
 { 
-	int nByteRead = pFile->Read(pBuffer,nItemSize*nItemCount);
-	return  nByteRead/nItemSize;
+	int nByteRead = pFile->Read(pBuffer,nItesSize*nItemCount);
+	return  nByteRead/nItesSize;
 }
 
-int zfwrite(const void *pBuffer,int nItemSize,int nItemCount,ZFile *pFile)
+int zfwrite(const void *pBuffer,int nItesSize,int nItemCount,ZFile *pFile)
 { 
-	int nByteWritten = pFile->Write(pBuffer,nItemSize*nItemCount);
-	return  nByteWritten/nItemSize;
+	int nByteWritten = pFile->Write(pBuffer,nItesSize*nItemCount);
+	return  nByteWritten/nItesSize;
 }
 
 bool zfclose(ZFile *pFile)

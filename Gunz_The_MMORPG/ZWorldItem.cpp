@@ -7,7 +7,7 @@
 #include "ZWorldItem.h"
 #include "ZCharacter.h"
 #include "RDummyList.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZPost.h"
 #include "ZPostLocal.h"
 #include "CCDataChecker.h"

@@ -43,7 +43,7 @@ public :
 
 	void							Release();
 
-	const DWORD						GetGambleItemSize() const { return static_cast<DWORD>(m_GambleItemVec.size()); }
+	const DWORD						GetGambleItesSize() const { return static_cast<DWORD>(m_GambleItemVec.size()); }
 	const CCMatchGambleItem*			GetGambleItemByIndex( const DWORD dwIndex ) const;
 	const CCMatchGambleItem*			GetGambleItemByGambleItemID( const DWORD dwGambleItemID ) const;
 	const CCMatchGambleItem*			GetGambleItemByName( const string& strGambleItemName ) const;

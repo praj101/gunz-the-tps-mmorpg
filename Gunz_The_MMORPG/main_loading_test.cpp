@@ -424,7 +424,7 @@ RRESULT OnRender(void *pParam)
 		float fScore = 100-(fMs-(1000.f/60.f))*2;
 
 		sprintf(__buffer, "FPS : %3.3f %.3fÁ¡ (%.3f ms)",g_fFPS,fScore,fMs);
-		g_pDefFont->m_Font.DrawText( MGetWorkspaceWidth()-200,0,__buffer );
+		g_pDefFont->m_Font.DrawText( CCGetWorkspaceWidth()-200,0,__buffer );
 //		OutputDebugString(__buffer);
 	}
 
@@ -638,15 +638,15 @@ bool FindCrashFunc(char* pName)
 
 	posA += 16;
 
-//	int memsize = posB-posA-6;
-	int memsize = posB-posA;
-	memcpy(pName,&pBuffer[posA+posSource],memsize);
+//	int mesSize = posB-posA-6;
+	int mesSize = posB-posA;
+	memcpy(pName,&pBuffer[posA+posSource],mesSize);
 
-	pName[memsize] = 0;
+	pName[mesSize] = 0;
 
 	delete [] pBuffer;
 
-	for(int i=0;i<memsize;i++) {
+	for(int i=0;i<mesSize;i++) {
 		if(pName[i]==':') {
 			pName[i] = '-';
 		}
@@ -1133,7 +1133,7 @@ void UpgradeMrsFile()
 HANDLE Mutex = 0;
 
 #ifdef _HSHIELD
-int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam);
+int __stdcall AhnHS_Callback(long lCode, long lParasSize, void* pParam);
 #endif
 
 DWORD g_dwMainThreadID;
@@ -1772,7 +1772,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 }
 
 #ifdef _HSHIELD
-int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
+int __stdcall AhnHS_Callback(long lCode, long lParasSize, void* pParam)
 {
 //	TCHAR szTitle[256];
 

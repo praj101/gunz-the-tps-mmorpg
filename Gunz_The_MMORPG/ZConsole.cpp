@@ -55,7 +55,7 @@ void CreateConsole(CCCommandManager* pCM)
 	g_pConsole = new MConsoleFrame("Console", Mint::GetInstance()->GetMainFrame(), Mint::GetInstance()->GetMainFrame());
 	g_pConsole->Show(false);
 	g_pConsole->SetInputCallback(ConsoleInputEvent);
-	g_pConsole->SetBounds(0, 0, MGetWorkspaceWidth()/2-20, MGetWorkspaceHeight()/2);
+	g_pConsole->SetBounds(0, 0, CCGetWorkspaceWidth()/2-20, CCGetWorkspaceHeight()/2);
 
 	for(int i=0; i<pCM->GetCommandDescCount(); i++){
 		CCCommandDesc* pCD = pCM->GetCommandDesc(i);

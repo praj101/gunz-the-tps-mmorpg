@@ -147,8 +147,8 @@ LPDIRECT3DTEXTURE9	RBaseTexture::GetTexture()
 
 #ifdef	LOAD_TEST
 
-#define __BP(i,n)	MBeginProfile(i,n);
-#define __EP(i)		MEndProfile(i);
+#define __BP(i,n)	CCBeginProfile(i,n);
+#define __EP(i)		CCEndProfile(i);
 
 #else
 

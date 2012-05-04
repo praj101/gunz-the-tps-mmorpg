@@ -301,7 +301,7 @@ void ZMiniMap::OnDraw(CCDrawContext* pDC)
 		///////////////////////////////
 
 		int x = screen_pos.x - pDC->GetFont()->GetWidth(pCharacter->GetUserName()) / 2;
-		int y = screen_pos.y;// + MGetWorkspaceHeight()*0.05;
+		int y = screen_pos.y;// + CCGetWorkspaceHeight()*0.05;
 
 		/*
 		if(ZGetGameInterface()->GetCombatInterface()->GetObserver()->GetTargetCharacter() == pCharacter) {

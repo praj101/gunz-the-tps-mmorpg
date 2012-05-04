@@ -53,7 +53,7 @@ void ZFrame::OnDraw(CCDrawContext* pDC)
 	// 백그라운를 어둡게 만들고...
  	if( m_bExclusive ){
 
-		sRect Full(0, 0, MGetWorkspaceWidth()-1, MGetWorkspaceHeight()-1);
+		sRect Full(0, 0, CCGetWorkspaceWidth()-1, CCGetWorkspaceHeight()-1);
 		sRect PrevClip = pDC->GetClipRect();
 		pDC->SetClipRect(Full);
 		unsigned char oldopacity=pDC->SetOpacity(200*fOpacity);

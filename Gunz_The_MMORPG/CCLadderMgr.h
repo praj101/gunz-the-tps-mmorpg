@@ -16,7 +16,7 @@ protected:
 	MLadderGroupMap		m_WaitingMaps[CCLADDERTYPE_MAX];
 	list<MLadderGroup*>	m_GroupList;
 
-	MLadderStatistics	m_Stat;
+	CCLadderStatistics	m_Stat;
 protected:
 	unsigned long GetLastTick()	{ return m_nLastTick; }
 	void SetLastTick(unsigned long nTick)	{ m_nLastTick = nTick; }
@@ -51,7 +51,7 @@ public:
 	list<MLadderGroup*>::iterator GetGroupListEnd()			{ return m_GroupList.end(); }
 	size_t GetGroupCount()									{ return m_GroupList.size(); }
 
-	MLadderStatistics*	GetStatistics()						{ return &m_Stat; }
+	CCLadderStatistics*	GetStatistics()						{ return &m_Stat; }
 };
 
 

@@ -126,7 +126,7 @@ void ZToolTip::OnDraw(CCDrawContext* pDC)
 
 //	pDC->SetColor(sColor(DEFCOLOR_MTOOLTIP_TEXT));//임시
 	pDC->SetColor(sColor(0xff000000));//임시
-//	pDC->TextWithHighlight(text_r, szName, (MAM_HCENTER|MAM_VCENTER));
+//	pDC->TextWithHighlight(text_r, szName, (CCAM_HCENTER|CCAM_VCENTER));
 	pDC->TextMultiLine(text_r, szName,ZTOOLTIP_LINE_GAP);	
 }
 
@@ -198,11 +198,11 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 	tr.w = nTextPixelWidth+ZTOOLTIP_WIDTH_GAP/2;
 	tr.h = nTextPixelHeight+ZTOOLTIP_HEIGHT_GAP;
 
-	if (m_alignMode & MAM_LEFT)
+	if (m_alignMode & CCAM_LEFT)
 		tr.x = pr.x+(ZTOOLTIP_WIDTH_GAP/2+1);
-	else if (m_alignMode & MAM_RIGHT)
+	else if (m_alignMode & CCAM_RIGHT)
 		tr.x = pr.x+pr.w - tr.w;
-	else if (m_alignMode & MAM_HCENTER)
+	else if (m_alignMode & CCAM_HCENTER)
 		tr.x = pr.w/2 - tr.w/2;
 	else
 		tr.x = 0;
@@ -210,9 +210,9 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 
 	if (m_alignMode & MAM_TOP)
 		tr.y = pr.y-tr.h;
-	else if (m_alignMode & MAM_BOTTOM)
+	else if (m_alignMode & CCAM_BOTTOM)
 		tr.y = pr.y+pr.h;
-	else if (m_alignMode & MAM_VCENTER)
+	else if (m_alignMode & CCAM_VCENTER)
 		tr.y = pr.h/2 - tr.h/2;
 	else
 		tr.y = 0;
@@ -220,8 +220,8 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 	sRect str = CCClientToScreen(GetParent(), tr);
 	
 	int rightx = str.x+str.w;
-	if (rightx > MGetWorkspaceWidth()) {
-		int diff = rightx - MGetWorkspaceWidth();
+	if (rightx > CCGetWorkspaceWidth()) {
+		int diff = rightx - CCGetWorkspaceWidth();
 		tr.x -= diff;
 	}
 	int leftx = str.x;
@@ -229,8 +229,8 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 		tr.x = 0;
 
 	int bottomy = str.y+str.h;
-	if (bottomy > MGetWorkspaceHeight()) {
-		int diff = bottomy - MGetWorkspaceHeight();
+	if (bottomy > CCGetWorkspaceHeight()) {
+		int diff = bottomy - CCGetWorkspaceHeight();
 		tr.y -= diff;
 	}
 

@@ -95,7 +95,7 @@ void ZDuelTournamentRankingListBox::OnDraw( CCDrawContext* pDC )
 		else
 			sprintf(szTemp, "%d", pRankItem->nRank);
 		rc.Set((int)(0.01f*nWidth), y, (int)(fabs(0.01f - 0.11f)*nWidth), nItemHeight);
-		pDC->Text(rc, szTemp, MAM_RIGHT|MAM_VCENTER);
+		pDC->Text(rc, szTemp, CCAM_RIGHT|CCAM_VCENTER);
 
 		// 순위등락 화살표
 		if (pRankItem->nFluctuation == 0)
@@ -117,7 +117,7 @@ void ZDuelTournamentRankingListBox::OnDraw( CCDrawContext* pDC )
 			sprintf(szTemp, "%d", abs(pRankItem->nFluctuation));
 			//pDC->Text((int)(0.04f*nWidth), y, szTemp);
 			rc.Set((int)(0.16f*nWidth), y, (int)(fabs(0.16f - 0.26f)*nWidth), nItemHeight);
-			pDC->Text(rc, szTemp, MAM_LEFT|MAM_VCENTER);
+			pDC->Text(rc, szTemp, CCAM_LEFT|CCAM_VCENTER);
 			pDC->SetColor(sColor(0xFFFFFFFF));
 		}
 
@@ -125,7 +125,7 @@ void ZDuelTournamentRankingListBox::OnDraw( CCDrawContext* pDC )
 		GetDuelTournamentGradeIconFileName(szTemp, pRankItem->nGrade);
 		CCBitmap* pGradeIcon = CCBitmapManager::Get(szTemp);
 		if (pGradeIcon) {
-			//int height1px = int(600.f/MGetWorkspaceHeight() + 0.5f);
+			//int height1px = int(600.f/CCGetWorkspaceHeight() + 0.5f);
 			
 			int margin = (nItemHeight * 0.05f + 0.5f);
 			int size = nItemHeight-(margin*4);
@@ -137,27 +137,27 @@ void ZDuelTournamentRankingListBox::OnDraw( CCDrawContext* pDC )
 
 		// 이름
 		rc.Set((int)(0.34f*nWidth), y, (int)(fabs(0.34f - 0.55f)*nWidth), nItemHeight);
-		pDC->Text(rc, pRankItem->szCharName, MAM_HCENTER|MAM_VCENTER);
+		pDC->Text(rc, pRankItem->szCharName, CCAM_HCENTER|CCAM_VCENTER);
 
 		// 승패
 		sprintf(szTemp, "%d", pRankItem->nWins);
 		rc.Set((int)(0.57f*nWidth), y, (int)(fabs(0.57f - 0.67f)*nWidth), nItemHeight);
-		pDC->Text(rc, szTemp, MAM_RIGHT|MAM_VCENTER);
+		pDC->Text(rc, szTemp, CCAM_RIGHT|CCAM_VCENTER);
 		rc.Set((int)(0.67f*nWidth), y, (int)(fabs(0.67f - 0.68f)*nWidth), nItemHeight);
-		pDC->Text(rc, "/", MAM_HCENTER|MAM_VCENTER);
+		pDC->Text(rc, "/", CCAM_HCENTER|CCAM_VCENTER);
 		sprintf(szTemp, "%d", pRankItem->nLosses);
 		rc.Set((int)(0.68f*nWidth), y, (int)(fabs(0.68f - 0.78f)*nWidth), nItemHeight);
-		pDC->Text(rc, szTemp, MAM_LEFT|MAM_VCENTER);
+		pDC->Text(rc, szTemp, CCAM_LEFT|CCAM_VCENTER);
 
 		// 우승수
 		sprintf(szTemp, "%d", pRankItem->nWinners);
 		rc.Set((int)(0.8f*nWidth), y, (int)(fabs(0.8f - 0.91f)*nWidth), nItemHeight);
-		pDC->Text(rc, szTemp, MAM_RIGHT|MAM_VCENTER);
+		pDC->Text(rc, szTemp, CCAM_RIGHT|CCAM_VCENTER);
 
 		// 토너먼트 포인트
 		sprintf(szTemp, "%d", pRankItem->nPoint);
 		rc.Set((int)(0.92f*nWidth), y, (int)(fabs(0.92f - 0.99f)*nWidth), nItemHeight);
-		pDC->Text(rc, szTemp, MAM_RIGHT|MAM_VCENTER);
+		pDC->Text(rc, szTemp, CCAM_RIGHT|CCAM_VCENTER);
 
 		// 내 랭킹 항목인 경우 하이라이트 이미지 덮어줌
 		if (i == m_nMyRankIndex)

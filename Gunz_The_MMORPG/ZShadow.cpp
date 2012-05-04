@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
-#include ".\zshadow.h"
-#include ".\ZCharacter.h"
+#include "zshadow.h"
+#include "ZCharacter.h"
 #include "RBspObject.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 
 #define VALID_SHADOW_LENGTH 250
 #define VALID_SHADOW_BOUNDARY_SQUARE 62500

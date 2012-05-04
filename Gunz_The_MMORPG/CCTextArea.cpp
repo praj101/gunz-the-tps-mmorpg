@@ -842,11 +842,11 @@ void CCTextAreaLook::OnTextDraw(CCTextArea* pTextArea, CCDrawContext* pDC)
 			string text=string(pTextArea->GetTextLine(i));
 
 			text.insert(pTextArea->GetCaretPos().x,pTextArea->GetCompositionString());
-			pDC->Text(textrt,text.c_str(),MAM_LEFT);
+			pDC->Text(textrt,text.c_str(),CCAM_LEFT);
 
 		}
 		else {
-			pDC->Text(textrt,pTextArea->GetTextLine(i),MAM_LEFT);
+			pDC->Text(textrt,pTextArea->GetTextLine(i),CCAM_LEFT);
 		}
 		textrt.y+=pTextArea->GetLineHeight();
 	}

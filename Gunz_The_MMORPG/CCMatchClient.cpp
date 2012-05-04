@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCMatchClient.h"
-#include "MErrorTable.h"
+#include "CCErrorTable.h"
 #include "CCSharedCommandTable.h"
 #include "Msg.h"
 #include "MDebug.h"

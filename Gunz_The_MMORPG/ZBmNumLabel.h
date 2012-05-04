@@ -12,7 +12,7 @@
 class ZBmNumLabel : public CCWidget{
 protected:
 	CCBitmap*		m_pLabelBitmap;
-	MSIZE			m_CharSize;
+	sSize			m_CharSize;
 	CCAlignmentMode	m_AlignmentMode;
 	int				m_nIndexOffset;
 	int				m_nCharMargin[ BMNUM_NUMOFCHARSET];
@@ -22,7 +22,7 @@ public:
 	ZBmNumLabel(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 
 	void SetLabelBitmap(CCBitmap* pLabelBitmap);
-	void SetCharSize(MSIZE &size);
+	void SetCharSize(sSize &size);
 	void SetNumber(int n,bool bAddComma = false);
 	void SetIndexOffset(int nOffset) { m_nIndexOffset = nOffset; }
 	void SetCharMargin( int* nMargin);

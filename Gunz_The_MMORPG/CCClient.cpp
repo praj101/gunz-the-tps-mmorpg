@@ -2,7 +2,7 @@
 #include "CCClient.h"
 #include "CCSharedCommandTable.h"
 #include <stdarg.h>
-#include "MErrorTable.h"
+#include "CCErrorTable.h"
 #include "Msg.h"
 #include "MDebug.h"
 #include "CCCommandBuilder.h"

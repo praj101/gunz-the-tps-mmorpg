@@ -10,7 +10,7 @@
 #define MAX_LADDER_STATISTICS_CONTPOINT			200		// (10000 / 50)
 
 
-class MLadderStatistics
+class CCLadderStatistics
 {
 private:
 	struct _RECORD
@@ -33,8 +33,8 @@ private:
 	void _InsertClanPointRecord(int nClanPointDiff, bool bMorePointWin);
 	void _InsertContPointRecord(int nContPointDiff, bool bMorePointWin);
 public:
-	MLadderStatistics();
-	virtual ~MLadderStatistics();
+	CCLadderStatistics();
+	virtual ~CCLadderStatistics();
 	void Init();
 	void Tick(unsigned long nTick);
 

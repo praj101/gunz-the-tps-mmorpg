@@ -1,5 +1,5 @@
 #pragma once
-#include "MMultiColListBox.h"
+#include "CCMultiColListBox.h"
 #include "ZShopEquipItem.h"
 
 class ZShopEquipListItem : public MMultiColListItem

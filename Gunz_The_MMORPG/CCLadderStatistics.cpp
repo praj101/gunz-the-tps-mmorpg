@@ -7,17 +7,17 @@
 
 #define FILENAME_LADDER_STATISTICS			"ladder_stat.dat"
 
-MLadderStatistics::MLadderStatistics()
+CCLadderStatistics::CCLadderStatistics()
 {
 	
 }
 
-MLadderStatistics::~MLadderStatistics()
+CCLadderStatistics::~CCLadderStatistics()
 {
 
 }
 
-void MLadderStatistics::Init()
+void CCLadderStatistics::Init()
 {
 	memset(m_LevelVictoriesRates,		0, sizeof(_RECORD) * MAX_LADDER_STATISTICS_LEVEL);
 	memset(m_ClanPointVictoriesRates,	0, sizeof(_RECORD) * MAX_LADDER_STATISTICS_CLANPOINT);
@@ -28,7 +28,7 @@ void MLadderStatistics::Init()
 	Load();
 }
 
-void MLadderStatistics::Load()
+void CCLadderStatistics::Load()
 {
 	FILE* fp = fopen(FILENAME_LADDER_STATISTICS, "rb");
 	if (fp == NULL) return;
@@ -47,7 +47,7 @@ void MLadderStatistics::Load()
 	fclose(fp);
 }
 
-void MLadderStatistics::Save()
+void CCLadderStatistics::Save()
 {
 	FILE* fp = fopen(FILENAME_LADDER_STATISTICS, "wb");
 	if (fp == NULL) return;
@@ -64,7 +64,7 @@ void MLadderStatistics::Save()
 #define MTIME_LADDER_STAT_SAVE_TICK		3600000			// (1000 * 60 * 60)	1½Ã°£
 
 
-void MLadderStatistics::Tick(unsigned long nTick)
+void CCLadderStatistics::Tick(unsigned long nTick)
 {
 	if (nTick - GetLastTick() < MTIME_LADDER_STAT_SAVE_TICK)
 		return;
@@ -75,7 +75,7 @@ void MLadderStatistics::Tick(unsigned long nTick)
 	Save();
 }
 
-float MLadderStatistics::GetLevelVictoriesRate(int nLevelDiff)
+float CCLadderStatistics::GetLevelVictoriesRate(int nLevelDiff)
 {
 	int nIndex = nLevelDiff / LADDER_STATISTICS_LEVEL_UNIT;
 
@@ -87,7 +87,7 @@ float MLadderStatistics::GetLevelVictoriesRate(int nLevelDiff)
 	return (float(m_LevelVictoriesRates[nIndex].nWinCount) / float(m_LevelVictoriesRates[nIndex].nCount));
 }
 
-float MLadderStatistics::GetClanPointVictoriesRate(int nClanPointDiff)
+float CCLadderStatistics::GetClanPointVictoriesRate(int nClanPointDiff)
 {
 	int nIndex = nClanPointDiff / LADDER_STATISTICS_CLANPOINT_UNIT;
 
@@ -99,7 +99,7 @@ float MLadderStatistics::GetClanPointVictoriesRate(int nClanPointDiff)
 	return (float(m_ClanPointVictoriesRates[nIndex].nWinCount) / float(m_ClanPointVictoriesRates[nIndex].nCount));
 }
 
-float MLadderStatistics::GetContPointVictoriesRate(int nContPointDiff)
+float CCLadderStatistics::GetContPointVictoriesRate(int nContPointDiff)
 {
 	int nIndex = nContPointDiff / LADDER_STATISTICS_CONTPOINT_UNIT;
 
@@ -111,7 +111,7 @@ float MLadderStatistics::GetContPointVictoriesRate(int nContPointDiff)
 	return (float(m_ContPointVictoriesRates[nIndex].nWinCount) / float(m_ContPointVictoriesRates[nIndex].nCount));
 }
 
-void MLadderStatistics::_InsertLevelRecord(int nLevelDiff, bool bMoreLevelWin)
+void CCLadderStatistics::_InsertLevelRecord(int nLevelDiff, bool bMoreLevelWin)
 {
 	int nID = nLevelDiff / LADDER_STATISTICS_LEVEL_UNIT;
 	if (nID >= MAX_LADDER_STATISTICS_LEVEL) nID = MAX_LADDER_STATISTICS_LEVEL-1;
@@ -121,7 +121,7 @@ void MLadderStatistics::_InsertLevelRecord(int nLevelDiff, bool bMoreLevelWin)
 	m_LevelVictoriesRates[nID].nCount++;
 }
 
-void MLadderStatistics::_InsertClanPointRecord(int nClanPointDiff, bool bMorePointWin)
+void CCLadderStatistics::_InsertClanPointRecord(int nClanPointDiff, bool bMorePointWin)
 {
 	int nID = nClanPointDiff / LADDER_STATISTICS_CLANPOINT_UNIT;
 	if (nID >= MAX_LADDER_STATISTICS_CLANPOINT) nID = MAX_LADDER_STATISTICS_CLANPOINT-1;
@@ -131,7 +131,7 @@ void MLadderStatistics::_InsertClanPointRecord(int nClanPointDiff, bool bMorePoi
 	m_ClanPointVictoriesRates[nID].nCount++;
 }
 
-void MLadderStatistics::_InsertContPointRecord(int nContPointDiff, bool bMorePointWin)
+void CCLadderStatistics::_InsertContPointRecord(int nContPointDiff, bool bMorePointWin)
 {
 	int nID = nContPointDiff / LADDER_STATISTICS_CONTPOINT_UNIT;
 	if (nID >= MAX_LADDER_STATISTICS_CONTPOINT) nID = MAX_LADDER_STATISTICS_CONTPOINT-1;
@@ -142,7 +142,7 @@ void MLadderStatistics::_InsertContPointRecord(int nContPointDiff, bool bMorePoi
 }
 
 
-void MLadderStatistics::InsertLevelRecord(int nRedTeamCharLevel, int nBlueTeamCharLevel, CCMatchTeam nWinnerTeam)
+void CCLadderStatistics::InsertLevelRecord(int nRedTeamCharLevel, int nBlueTeamCharLevel, CCMatchTeam nWinnerTeam)
 {
 	int nLevelDiff = abs(nRedTeamCharLevel - nBlueTeamCharLevel);
 	bool bMoreLevelWin = false;
@@ -155,7 +155,7 @@ void MLadderStatistics::InsertLevelRecord(int nRedTeamCharLevel, int nBlueTeamCh
 
 }
 
-void MLadderStatistics::InsertClanPointRecord(int nRedTeamClanPoint, int nBlueTeamClanPoint, CCMatchTeam nWinnerTeam)
+void CCLadderStatistics::InsertClanPointRecord(int nRedTeamClanPoint, int nBlueTeamClanPoint, CCMatchTeam nWinnerTeam)
 {
 	int nClanPointDiff = abs(nRedTeamClanPoint - nBlueTeamClanPoint);
 	bool bMorePointWin = false;
@@ -167,7 +167,7 @@ void MLadderStatistics::InsertClanPointRecord(int nRedTeamClanPoint, int nBlueTe
 	_InsertClanPointRecord(nClanPointDiff, bMorePointWin);
 }
 
-void MLadderStatistics::InsertContPointRecord(int nRedTeamContPoint, int nBlueTeamContPoint, CCMatchTeam nWinnerTeam)
+void CCLadderStatistics::InsertContPointRecord(int nRedTeamContPoint, int nBlueTeamContPoint, CCMatchTeam nWinnerTeam)
 {
 	int nContPointDiff = abs(nRedTeamContPoint - nBlueTeamContPoint);
 	bool bMorePointWin = false;
@@ -182,7 +182,7 @@ void MLadderStatistics::InsertContPointRecord(int nRedTeamContPoint, int nBlueTe
 
 #include "stdlib.h"
 #include "CCDebug.h"
-void MLadderStatistics::PrintDebug()
+void CCLadderStatistics::PrintDebug()
 {
 	for (int i = 0; i < MAX_LADDER_STATISTICS_LEVEL*LADDER_STATISTICS_LEVEL_UNIT; i++)
 	{

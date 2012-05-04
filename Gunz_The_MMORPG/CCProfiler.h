@@ -127,5 +127,3 @@ public:
 #define _FA(_szFileName)				FINALANALYSIS(_szFileName)
 #define _PI(_szProfileName)				PROFILEINSTANCE(_szProfileName)
 
-
-#endif

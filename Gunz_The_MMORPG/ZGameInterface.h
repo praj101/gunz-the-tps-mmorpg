@@ -564,6 +564,6 @@ inline void GetDuelTournamentGradeIconFileName(char* out_sz, int grade)
 }
 
 char* GetItemSlotName( const char* szName, int nItem);
-bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, CCAlignmentMode mam=MAM_LEFT|MAM_TOP);
+bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, CCAlignmentMode mam=CCAM_LEFT|MAM_TOP);
 
 #endif

@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include ".\mcountryfilter.h"
+#include "mcountryfilter.h"
 
 
 #include <algorithm>
