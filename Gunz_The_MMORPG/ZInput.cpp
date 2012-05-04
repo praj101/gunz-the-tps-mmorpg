@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "ZInput.h"
-#include "Mint4Gunz.h"
+#include "Core4Gunz.h"
 #include "ZConfiguration.h"
 
 //////// ZInput 

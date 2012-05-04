@@ -1,8 +1,8 @@
 #ifndef ZBUTTON_H
 #define ZBUTTON_H
 
-#include "MButton.h"
-#include "MBmButton.h"
+#include "CCButton.h"
+#include "CCBmButton.h"
 
 class ZButton : public MButton{
 protected:

@@ -2,7 +2,7 @@
 
 #include "ZGame.h"
 #include "RealSpace2.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZSoundEngine.h"
 //#include "RealSoundEffect.h"
 #include "ZEffectFlashBang.h"

@@ -1,9 +1,9 @@
 #ifndef ZFRAME_H
 #define ZFRAME_H
 
-#include "MFrame.h"
-#include "MPopupMenu.h"
-#include "MSlider.h"
+#include "CCFrame.h"
+#include "CCPopupMenu.h"
+#include "CCSlider.h"
 
 class MFrame;
 

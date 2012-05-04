@@ -4,7 +4,7 @@
 #include "ZInterfaceBackground.h"
 #include "RealSpace2.h"
 #include "ZMapDesc.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZScreenEffectManager.h"
 
 #define DIR_LOGIN	"interface/login"

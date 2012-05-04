@@ -22,7 +22,7 @@
 #include "RMeshMgr.h"
 
 #include <crtdbg.h>
-#include "MDebug.h"
+#include "CCDebug.h"
 
 #include <dxerr9.h>
 

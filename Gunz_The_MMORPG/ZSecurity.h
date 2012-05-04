@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MWindowFinder.h"
+#include "CCWindowFinder.h"
 
 
 //// 각종 보안 및 해킹방지코드 ////

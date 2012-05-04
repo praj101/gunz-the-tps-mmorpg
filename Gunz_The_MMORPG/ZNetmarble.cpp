@@ -4,8 +4,8 @@
 #include <crtdbg.h>
 #include "ZNetmarble.h"
 #include "ZLocale.h"
-#include "MDebug.h"
-#include "MLex.h"
+#include "CCDebug.h"
+#include "CCLex.h"
 
 
 //// ZNetmarbleAuthInfo ////////////////

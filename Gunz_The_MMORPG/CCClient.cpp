@@ -4,11 +4,11 @@
 #include <stdarg.h>
 #include "CCErrorTable.h"
 #include "Msg.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "CCCommandBuilder.h"
-#include "MMatchUtil.h"
+#include "CCMatchUtil.h"
 //#include "CCPacketHShieldCrypter.h"
-#include "MMatchConfig.h"
+#include "CCMatchConfig.h"
 
 
 CCClient* CCClient::m_pInstance = NULL;

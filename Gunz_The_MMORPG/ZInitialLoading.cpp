@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
 #include "ZInitialLoading.h"
-#include "Mint4R2.h"
+#include "Core4R2.h"
 #include "RealSpace2.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZTips.h"
 #include "ZGameInterface.h"
 #include "ZGlobal.h"

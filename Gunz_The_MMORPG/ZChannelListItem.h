@@ -2,7 +2,7 @@
 #define _ZCHANNELLISTITEM_H
 
 
-#include "MListBox.h"
+#include "CCListBox.h"
 class ZChannelListItem : public MListItem {
 	CCUID			m_uidChannel;
 	char			m_szChannelName[64];

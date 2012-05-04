@@ -1,7 +1,7 @@
 #ifndef ZActionKey_H
 #define ZActionKey_H
 
-#include "MEdit.h"
+#include "CCEdit.h"
 #include <set>
 
 using namespace std;

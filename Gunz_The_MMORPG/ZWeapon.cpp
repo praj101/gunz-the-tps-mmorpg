@@ -10,7 +10,7 @@
 #include "ZSoundEngine.h"
 #include "ZApplication.h"
 
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZConfiguration.h"
 #include "RealSoundEffect.h"
 

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ZMap.h"
 #include "ZApplication.h"
-#include "MComboBox.h"
+#include "CCComboBox.h"
 #include "ZChannelRule.h"
 
 #include "ZGameClient.h"

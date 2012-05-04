@@ -3,7 +3,7 @@
 
 #include "CCWidget.h"
 #include "CCDrawContext.h"
-#include "MLookNFeel.h"
+#include "CCLookNFeel.h"
 
 #define BMNUM_NUMOFCHARSET		16
 

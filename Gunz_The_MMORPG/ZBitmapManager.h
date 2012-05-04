@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mint4R2.h"
+#include "Core4R2.h"
 
 // #비트맵 매니저
 // CCBitmapManager가 있긴 하지만 전역객체 형태로 사용되고 있습니다.

@@ -5,7 +5,7 @@
 #include "RealSpace2.h"
 #include "RLightList.h"
 #include "RDynamicLight.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 
 
 //////////////////////////////////////////////////////////////////////////

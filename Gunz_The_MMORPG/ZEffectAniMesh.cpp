@@ -7,7 +7,7 @@
 #include "ZCharacter.h"
 #include "ZObject.h"
 #include "RMaterialList.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 
 
 ZEffectAniMesh::ZEffectAniMesh(RMesh* pMesh, const rvector& Pos, rvector& dir)

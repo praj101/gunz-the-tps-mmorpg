@@ -1,8 +1,8 @@
 #ifndef _ZSTAGEINFOBOX_H
 #define _ZSTAGEINFOBOX_H
 
-#include "MListBox.h"
-#include "MBListBoxLook.h"
+#include "CCListBox.h"
+#include "CCBListBoxLook.h"
 
 class ZStageInfoBox;
 

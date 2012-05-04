@@ -1,7 +1,7 @@
 #ifndef ZMESHVIEWLIST_H
 #define ZMESHVIEWLIST_H
 
-#include "MGroup.h"
+#include "CCGroup.h"
 #include "RMesh.h"
 
 //class MButton;

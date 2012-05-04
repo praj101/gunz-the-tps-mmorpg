@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 #include "CCWidget.h"
-#include "MListBox.h"
-#include "MFrame.h"
+#include "CCListBox.h"
+#include "CCFrame.h"
 
 class ZListItemScore;
 

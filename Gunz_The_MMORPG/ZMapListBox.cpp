@@ -2,10 +2,10 @@
 
 #include "ZApplication.h"
 #include "ZMapListBox.h"
-#include "MListBox.h"
+#include "CCListBox.h"
 #include "CCZFileSystem.h"
-#include "Mint4R2.h"
-#include "MTextArea.h"
+#include "Core4R2.h"
+#include "CCTextArea.h"
 #include "ZChannelRule.h"
 
 #define PREVIEW_W	200

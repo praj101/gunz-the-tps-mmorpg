@@ -19,7 +19,7 @@
 #include "resource.h"
 #include "VersionNo.h"
 
-#include "Mint4R2.h"
+#include "Core4R2.h"
 #include "ZApplication.h"
 #include "CCDebug.h"
 #include "ZMessages.h"
@@ -55,7 +55,7 @@
 
 #include "CCTraceMemory.h"
 #include "ZInput.h"
-#include "Mint4Gunz.h"
+#include "Core4Gunz.h"
 #include "SecurityTest.h"
 #include "CheckReturnCallStack.h"
 

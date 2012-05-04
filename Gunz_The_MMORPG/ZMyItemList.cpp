@@ -2,8 +2,8 @@
 
 #include "ZMyItemList.h"
 #include "ZGameInterface.h"
-#include "MMultiColListBox.h"
-#include "MLabel.h"
+#include "CCMultiColListBox.h"
+#include "CCLabel.h"
 #include "ZApplication.h"
 #include "ZShopEquipListbox.h"
 #include "CCMatchTransDataType.h"

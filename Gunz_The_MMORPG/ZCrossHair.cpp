@@ -7,7 +7,7 @@
 #include "ZApplication.h"
 #include "ZGameInterface.h"
 #include "ZConfiguration.h"
-#include "MComboBox.h"
+#include "CCComboBox.h"
 #include "ZCanvas.h"
 
 ZCrossHair::ZCrossHair()

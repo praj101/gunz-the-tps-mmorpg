@@ -17,7 +17,7 @@
 #include "ZPost.h"
 #include "MComboBox.h"
 #include "MTextArea.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 #include "ZMyInfo.h"
 #include "ZNetRepository.h"
 #include "ZCountDown.h"

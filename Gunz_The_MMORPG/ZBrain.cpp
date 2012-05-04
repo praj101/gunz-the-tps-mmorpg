@@ -6,7 +6,7 @@
 #include "ZMyCharacter.h"
 #include "ZRangeWeaponHitDice.h"
 #include "ZModule_Skills.h"
-#include "MMath.h"
+#include "CCMath.h"
 #include "ZGame.h"
 #include "RNavigationNode.h"
 

@@ -1,10 +1,10 @@
 #include "stdafx.h"
 
 #include "ZScoreBoard.h"
-#include "MListBox.h"
+#include "CCListBox.h"
 #include "ZScoreListBox.h"
 #include "ZFrame.h"
-#include "MFrame.h"
+#include "CCFrame.h"
 #include "ZGameInterface.h"
 #include "ZApplication.h"
 #include "CCMatchRule.h"

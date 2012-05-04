@@ -3,7 +3,7 @@
 #include "ZGameInterface.h"
 #include "ZGame.h"
 #include "ZSoundEngine.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 //#include "RealSoundEffect.h"
 #include "RealSpace2.h"
 #include "CCMatchItem.h"
@@ -12,7 +12,7 @@
 #include "Fileinfo.h"
 #include "ZApplication.h"
 #include "ZSoundFMod.h"
-#include "MMath.h"
+#include "CCMath.h"
 #include "ZInitialLoading.h"
 
 _USING_NAMESPACE_REALSPACE2

@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "ZNHN_USA_Report.h"
 //#include "ZMyInfo.h"
-#include "MDebug.h"
+#include "CCDebug.h"
 
 #ifdef LOCALE_NHNUSA
 
