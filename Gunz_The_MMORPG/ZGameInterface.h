@@ -14,6 +14,7 @@
 #include "ZMyCharacter.h"
 #include "ZBandiCapturer.h" // 동영상 캡쳐
 #include "ZBitmapManager.h"
+#include "CCTextArea.h"
 /*
 #include "ZGame.h"
 #include "ZCharacter.h"
