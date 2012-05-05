@@ -467,7 +467,7 @@ void ZShopEquipInterface::SelectShopTab(int nTabIndex)
 
 
 	// Set filter
-	MComboBox* pComboBox = (MComboBox*)pResource->FindWidget( "Shop_AllEquipmentFilter");
+	CCComboBox* pComboBox = (CCComboBox*)pResource->FindWidget( "Shop_AllEquipmentFilter");
 	if(pComboBox) {
 		int sel = pComboBox->GetSelIndex();
 
@@ -479,13 +479,13 @@ void ZShopEquipInterface::SelectShopTab(int nTabIndex)
 	}
 
 	// 버튼 설정
-	MButton* pButton = (MButton*)pResource->FindWidget( "BuyConfirmCaller");
+	CCButton* pButton = (CCButton*)pResource->FindWidget( "BuyConfirmCaller");
 	if ( pButton)
 	{
 		pButton->Show( false);
 		pButton->Enable( false);
 	}
-	pButton = (MButton*)pResource->FindWidget( "SellConfirmCaller");
+	pButton = (CCButton*)pResource->FindWidget( "SellConfirmCaller");
 	if ( pButton)
 	{
 		pButton->Show( false);
@@ -494,32 +494,32 @@ void ZShopEquipInterface::SelectShopTab(int nTabIndex)
 
 	if ( nTabIndex == 0)
 	{
-		pButton = (MButton*)pResource->FindWidget( "BuyConfirmCaller");
+		pButton = (CCButton*)pResource->FindWidget( "BuyConfirmCaller");
 		if ( pButton) pButton->Show( true);
 	}
 	else if ( nTabIndex == 1)
 	{
-		pButton = (MButton*)pResource->FindWidget( "SellConfirmCaller");
+		pButton = (CCButton*)pResource->FindWidget( "SellConfirmCaller");
 		if ( pButton)
 			pButton->Show( true);
 	}
 	/* 수년전 만들다만 프리미엄 탭(캐쉬템) 코드임. 제거 예정
 	else if ( nTabIndex == 2)
 	{
-		pButton = (MButton*)pResource->FindWidget( "BuyCashConfirmCaller");
+		pButton = (CCButton*)pResource->FindWidget( "BuyCashConfirmCaller");
 		if ( pButton)
 			pButton->Show( true);
 	}
 	*/
 
 
-	pButton = (MButton*)pResource->FindWidget("AllEquipmentListCaller");
+	pButton = (CCButton*)pResource->FindWidget("AllEquipmentListCaller");
 	if (pButton != NULL)
 		pButton->Show(nTabIndex!=0 ? true : false);
-	pButton = (MButton*)pResource->FindWidget("MyAllEquipmentListCaller");
+	pButton = (CCButton*)pResource->FindWidget("MyAllEquipmentListCaller");
 	if (pButton != NULL)
 		pButton->Show(nTabIndex!=1 ? true : false);
-	pButton = (MButton*)pResource->FindWidget("CashEquipmentListCaller");
+	pButton = (CCButton*)pResource->FindWidget("CashEquipmentListCaller");
 	if (pButton != NULL)
 		pButton->Show(nTabIndex!=2 ? true : false);
 
@@ -586,7 +586,7 @@ void ZShopEquipInterface::SelectEquipmentTab(int nTabIndex)
 	SetKindableItem( MMIST_NONE);
 
 	// Set filter
-	MComboBox* pComboBox = (MComboBox*)pResource->FindWidget( "Equip_AllEquipmentFilter");
+	CCComboBox* pComboBox = (CCComboBox*)pResource->FindWidget( "Equip_AllEquipmentFilter");
 	if(pComboBox) {
 		int sel = pComboBox->GetSelIndex();
 
@@ -604,28 +604,28 @@ void ZShopEquipInterface::SelectEquipmentTab(int nTabIndex)
 	if (pWidget != NULL) pWidget->Show(nTabIndex==0 ? false:true);
 
 	// 탭 버튼
-	MButton* pButton = (MButton*)pResource->FindWidget( "Equip");
+	CCButton* pButton = (CCButton*)pResource->FindWidget( "Equip");
 	if ( pButton)
 	{
 		pButton->Show( false);
 		pButton->Enable( false);
 	}
 
-	pButton = (MButton*)pResource->FindWidget( "SendAccountItemBtn");
+	pButton = (CCButton*)pResource->FindWidget( "SendAccountItemBtn");
 	if ( pButton)
 	{
 		pButton->Show( false);
 		pButton->Enable( false);
 	}
 
-	pButton = (MButton*)pResource->FindWidget( "BringAccountItemBtn");
+	pButton = (CCButton*)pResource->FindWidget( "BringAccountItemBtn");
 	if ( pButton)
 	{
 		pButton->Show( false);
 		pButton->Enable( false);
 	}
 
-	pButton = (MButton*)pResource->FindWidget( "BringAccountSpendableItemConfirmOpen");
+	pButton = (CCButton*)pResource->FindWidget( "BringAccountSpendableItemConfirmOpen");
 	if ( pButton)
 	{
 		pButton->Show( false);
@@ -634,25 +634,25 @@ void ZShopEquipInterface::SelectEquipmentTab(int nTabIndex)
 
 	if ( nTabIndex == 0)
 	{
-		pButton = (MButton*)pResource->FindWidget( "Equip");
+		pButton = (CCButton*)pResource->FindWidget( "Equip");
 		if (pButton) pButton->Show(true);
 
-		pButton = (MButton*)pResource->FindWidget( "SendAccountItemBtn");
+		pButton = (CCButton*)pResource->FindWidget( "SendAccountItemBtn");
 		if (pButton) pButton->Show(true);
 	}
 	else if ( nTabIndex == 1)
 	{
-		pButton = (MButton*)pResource->FindWidget( "BringAccountItemBtn");
+		pButton = (CCButton*)pResource->FindWidget( "BringAccountItemBtn");
 		if ( pButton) pButton->Show( true);
 
-		pButton = (MButton*)pResource->FindWidget( "BringAccountSpendableItemConfirmOpen");
+		pButton = (CCButton*)pResource->FindWidget( "BringAccountSpendableItemConfirmOpen");
 		if ( pButton) pButton->Show( false);
 	}
 
-	pButton = (MButton*)pResource->FindWidget("Equipment_CharacterTab");
+	pButton = (CCButton*)pResource->FindWidget("Equipment_CharacterTab");
 	if (pButton)
 		pButton->Show( nTabIndex==0 ? false : true);
-	pButton = (MButton*)pResource->FindWidget("Equipment_AccountTab");
+	pButton = (CCButton*)pResource->FindWidget("Equipment_AccountTab");
 	if (pButton)
 		pButton->Show( nTabIndex==1 ? false : true);
 
@@ -761,15 +761,15 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 
 
 	// Frame open/close image
-	MButton* pButton;
+	CCButton* pButton;
 	strcpy( szTemp, szName);
 	strcat( szTemp, "_EquipListFrameCloseButton");
-	pButton = (MButton*)pResource->FindWidget( szTemp);
+	pButton = (CCButton*)pResource->FindWidget( szTemp);
 	if ( pButton != NULL) pButton->Show( bOpen);
 
 	strcpy( szTemp, szName);
 	strcat( szTemp, "_EquipListFrameOpenButton");
-	pButton = (MButton*)pResource->FindWidget( szTemp);
+	pButton = (CCButton*)pResource->FindWidget( szTemp);
 	if ( pButton != NULL) pButton->Show( !bOpen);
 
 	// Resize item slot
@@ -801,19 +801,19 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 	}
 
 	// 상점과 장비창의 탭 버튼 눌림 상태를 동기화해주자 -_-;
-	MBmButton* pTabBtn;
+	MBCCButton* pTabBtn;
 	if (GetArmorWeaponTabIndex() == 0)
 	{
-		pTabBtn = (MBmButton*)pResource->FindWidget("Shop_ArmorEquipmentTab");
+		pTabBtn = (MBCCButton*)pResource->FindWidget("Shop_ArmorEquipmentTab");
 		if (pTabBtn) pTabBtn->SetCheck(true);
-		pTabBtn = (MBmButton*)pResource->FindWidget("Equip_ArmorEquipmentTab");
+		pTabBtn = (MBCCButton*)pResource->FindWidget("Equip_ArmorEquipmentTab");
 		if (pTabBtn) pTabBtn->SetCheck(true);
 	}
 	else if (GetArmorWeaponTabIndex() == 1)
 	{
-		pTabBtn = (MBmButton*)pResource->FindWidget("Shop_WeaponEquipmentTab");
+		pTabBtn = (MBCCButton*)pResource->FindWidget("Shop_WeaponEquipmentTab");
 		if (pTabBtn) pTabBtn->SetCheck(true);
-		pTabBtn = (MBmButton*)pResource->FindWidget("Equip_WeaponEquipmentTab");
+		pTabBtn = (MBCCButton*)pResource->FindWidget("Equip_WeaponEquipmentTab");
 		if (pTabBtn) pTabBtn->SetCheck(true);
 	}
 }

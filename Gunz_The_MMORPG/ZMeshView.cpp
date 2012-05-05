@@ -152,7 +152,7 @@ void ZMeshView::OnDraw(CCDrawContext* pDC)
 	//pDC->Rectangle(r);
 	//DrawTestScene();
 
-	if (m_bLook) MButton::OnDraw(pDC);
+	if (m_bLook) CCButton::OnDraw(pDC);
 
 	if(m_pTVisualMesh.GetVMesh(false)==NULL) 
 		return;
@@ -265,7 +265,7 @@ void ZMeshView::OnDraw(CCDrawContext* pDC)
 }
 
 ZMeshView::ZMeshView(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MButton(szName, pParent, pListener)
+: CCButton(szName, pParent, pListener)
 {
 //	m_pTVisualMesh.SetVisualMesh(NULL);
 
@@ -383,5 +383,5 @@ bool ZMeshView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 	st_LastPoint = pEvent->Pos;
 
-	return MButton::OnEvent(pEvent, pListener);
+	return CCButton::OnEvent(pEvent, pListener);
 }

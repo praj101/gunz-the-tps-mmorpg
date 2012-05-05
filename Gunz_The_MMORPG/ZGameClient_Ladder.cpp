@@ -260,7 +260,7 @@ void ZGameClient::OnReplyAgreement(const CCUID& uidProposer,
 				// Balance ¿É¼Ç
 				int nBalancedMatching = 0;
 				ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-				MButton* pButton = (MButton*)pResource->FindWidget("BalancedMatchingCheckBox");
+				CCButton* pButton = (CCButton*)pResource->FindWidget("BalancedMatchingCheckBox");
 				if ((pButton) && (pButton->GetCheck()))
 				{
 					nBalancedMatching = 1;

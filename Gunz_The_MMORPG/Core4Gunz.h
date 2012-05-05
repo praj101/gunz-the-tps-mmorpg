@@ -36,7 +36,7 @@ public:
 	}
 	virtual CCWidget* NewWidget(const char* szClass, const char* szName, CCWidget* pParent, CCListener* pListener){
 		if(strcmp(szClass, MINT_BUTTON)==0) return new ZButton(szName, pParent, pListener);
-		else if( strcmp(szClass, MINT_BMBUTTON)==0) return new ZBmButton(szName, pParent, pListener);
+		else if( strcmp(szClass, MINT_BCCButton)==0) return new ZBCCButton(szName, pParent, pListener);
 		else if( strcmp(szClass, MINT_MSGBOX)==0) return new ZMsgBox(szName, pParent, pListener);
 		else if( strcmp(szClass, MINT_ACTIONKEY)==0) return new ZActionKey(szName, pParent, pListener);
 		return Mint::NewWidget(szClass, szName, pParent, pListener);

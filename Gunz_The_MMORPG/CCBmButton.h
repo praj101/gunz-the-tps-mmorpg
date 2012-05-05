@@ -3,9 +3,9 @@
 #include "CCButton.h"
 #include "CCEdit.h"
 
-#define CCBMBUTTON	"BmButton"
+#define CCBCCButton	"BCCButton"
 
-class CCBmButton : public CCButton{
+class CCBCCButton : public CCButton{
 protected:
 	CCBitmap*		m_pUpBitmap;
 	CCBitmap*		m_pDownBitmap;
@@ -24,7 +24,7 @@ protected:
 	virtual void	OnDraw(CCDrawContext* pDC);
 
 public:
-	CCBmButton(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
+	CCBCCButton(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 
 	void SetUpBitmap(CCBitmap* pBitmap);
 	void SetDownBitmap(CCBitmap* pBitmap);
@@ -33,5 +33,5 @@ public:
 
 	void SetStretch(bool b) { m_bStretch=b; };
 	virtual sRect GetClientRect() { return CCWidget::GetClientRect(); };
-	virtual const char* GetClassName(){ return CCBMBUTTON; };
+	virtual const char* GetClassName(){ return CCBCCButton; };
 };

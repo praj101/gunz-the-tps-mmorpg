@@ -419,7 +419,7 @@ public:
 		{
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
-			MComboBox* pComboBox = (MComboBox*)pResource->FindWidget("Shop_AllEquipmentFilter");
+			CCComboBox* pComboBox = (CCComboBox*)pResource->FindWidget("Shop_AllEquipmentFilter");
 			if ( pComboBox)
 			{
 				int sel = pComboBox->GetSelIndex();
@@ -457,7 +457,7 @@ public:
 
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
-			MComboBox* pComboBox = (MComboBox*)pResource->FindWidget("Equip_AllEquipmentFilter");
+			CCComboBox* pComboBox = (CCComboBox*)pResource->FindWidget("Equip_AllEquipmentFilter");
 			if ( pComboBox)
 			{
 				int sel = pComboBox->GetSelIndex();
@@ -513,7 +513,7 @@ CCListener* ZGetEquipListFilterListener()
 //				}
 //
 //
-//				MButton* pButton = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuyCashConfirmCaller");
+//				CCButton* pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuyCashConfirmCaller");
 //				if ( pButton)
 //					pButton->Enable( true);
 //

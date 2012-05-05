@@ -129,19 +129,19 @@ bool ZPlayerMenuListener::OnCommand(CCWidget* pWidget, const char* szMessage)
 			}
 			
 			if (GunzState == GUNZ_LOBBY) {
-				MEdit* pEdit = (MEdit*)pResource->FindWidget("ChannelChattingInput");
+				CCEdit* pEdit = (CCEdit*)pResource->FindWidget("ChannelChattingInput");
 				if (pEdit) {
 					pEdit->SetText(szMsg);
 					pEdit->SetFocus();
 				}
 			} else if (GunzState == GUNZ_STAGE) {
-				MEdit* pEdit = (MEdit*)pResource->FindWidget("StageChattingInput");
+				CCEdit* pEdit = (CCEdit*)pResource->FindWidget("StageChattingInput");
 				if (pEdit) {
 					pEdit->SetText(szMsg);
 					pEdit->SetFocus();
 				}
 			} else if (GunzState == GUNZ_GAME) {
-				MEdit* pEdit = (MEdit*)pResource->FindWidget("ChatInput");
+				CCEdit* pEdit = (CCEdit*)pResource->FindWidget("ChatInput");
 				if (pEdit) {
 					pEdit->SetText(szMsg);
 					pEdit->SetFocus();

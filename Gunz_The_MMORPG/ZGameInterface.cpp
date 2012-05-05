@@ -229,13 +229,13 @@ if(pHotBar==NULL) return;
 #define HOTBAR_BTN_WIDTH	32
 #define HOTBAR_SPINBTN_WIDTH	16
 sRect HotBarClientRect = pHotBar->GetClientRect();
-MButton* pNew = new MButton("<", pHotBar, pHotBar);
+CCButton* pNew = new CCButton("<", pHotBar, pHotBar);
 pNew->SetBounds(HotBarClientRect.x, HotBarClientRect.y, HOTBAR_SPINBTN_WIDTH, HOTBAR_SPINBTN_WIDTH);
-pNew = new MButton(">", pHotBar, pHotBar);
+pNew = new CCButton(">", pHotBar, pHotBar);
 pNew->SetBounds(HotBarClientRect.x, HotBarClientRect.y+HOTBAR_SPINBTN_WIDTH, HOTBAR_SPINBTN_WIDTH, HOTBAR_SPINBTN_WIDTH);
 
 for(int i=0; i<HOTBAR_BTN_COUNT; i++){
-MButton* pNew = new MHotBarButton(NULL, pHotBar, &g_HotBarButtonListener);
+CCButton* pNew = new MHotBarButton(NULL, pHotBar, &g_HotBarButtonListener);
 pNew->SetBounds(HotBarClientRect.x+HOTBAR_SPINBTN_WIDTH+1+i*(HOTBAR_BTN_WIDTH+1), HotBarClientRect.y, HOTBAR_BTN_WIDTH, HOTBAR_BTN_WIDTH);
 }
 }
@@ -790,8 +790,8 @@ bool ZGameInterface::InitInterfaceListener()
 	SetListenerWidget("MapList", ZGetStageMapListSelectionListener());
 //	SetListenerWidget("MapList_Caller", ZGetStageMapListCallerListener());
 
-	SetListenerWidget("Stage_SacrificeItemButton0", ZStageSacrificeItem0());
-	SetListenerWidget("Stage_SacrificeItemButton1", ZStageSacrificeItem1());
+	SetListenerWidget("Stage_SacrificeIteCCButton0", ZStageSacrificeItem0());
+	SetListenerWidget("Stage_SacrificeIteCCButton1", ZStageSacrificeItem1());
 	SetListenerWidget("Stage_PutSacrificeItem", ZStagePutSacrificeItem());
 	SetListenerWidget("Stage_SacrificeItemBoxOpen", ZStageSacrificeItemBoxOpen());
 	SetListenerWidget("Stage_SacrificeItemBoxClose", ZStageSacrificeItemBoxClose());
@@ -883,8 +883,8 @@ bool ZGameInterface::InitInterfaceListener()
 	SetListenerWidget("Equip_EquipListFrameCloseButton", ZEquipListFrameClose());
 	SetListenerWidget("Equipment_CharacterRotate", ZEquipmetRotateBtn());
 
-	SetListenerWidget("BringAccountItemBtn", ZGetBringAccountItemButtonListener());
-	SetListenerWidget("SendAccountItemBtn", ZGetSendAccountItemButtonListener());
+	SetListenerWidget("BringAccountItemBtn", ZGetBringAccountIteCCButtonListener());
+	SetListenerWidget("SendAccountItemBtn", ZGetSendAccountIteCCButtonListener());
 
 	// 캐릭터 선택 부분
 	SetListenerWidget("CS_SelectChar", ZGetSelectCharacterButtonListener());
@@ -929,7 +929,7 @@ bool ZGameInterface::InitInterfaceListener()
 
 
 	//112
-	SetListenerWidget("112_ConfirmEdit", ZGet112ConfirmEditListener());
+	SetListenerWidget("112_ConfirCCEdit", ZGet112ConfirCCEditListener());
 	SetListenerWidget("112_ConfirmOKButton", ZGet112ConfirmOKButtonListener());
 	SetListenerWidget("112_ConfirmCancelButton", ZGet112ConfirmCancelButtonListener());
 
@@ -1406,7 +1406,7 @@ void ZGameInterface::OnLoginCreate(void)
 			pPicture->SetBitmap( m_pLoginPanel->GetSourceBitmap());
 	}
 
-	MButton* pLoginOk = (MButton*)m_IDLResource.FindWidget( "LoginOK");
+	CCButton* pLoginOk = (CCButton*)m_IDLResource.FindWidget( "LoginOK");
 	if (pLoginOk)
 		pLoginOk->Enable(true);
 
@@ -1989,7 +1989,7 @@ void ZGameInterface::OnStageCreate(void)
 	ShowWidget("Equipment", false);
 	ShowWidget("Stage", true);
 	EnableStageInterface(true);
-	MButton* pObserverBtn = (MButton*)m_IDLResource.FindWidget("StageObserverBtn");
+	CCButton* pObserverBtn = (CCButton*)m_IDLResource.FindWidget("StageObserverBtn");
 	if ( pObserverBtn)
 		pObserverBtn->SetCheck( false);
 
@@ -2062,7 +2062,7 @@ void ZGameInterface::OnStageCreate(void)
 		CCChannelRule* pRule = ZGetChannelRuleMgr()->GetRule( ZGetGameClient()->GetChannelRuleName());
 		if ( pRule)
 		{
-			MComboBox* pCB = (MComboBox*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageType");				
+			CCComboBox* pCB = (CCComboBox*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageType");				
 			if ( pCB)
 			{
 				pCB->SetSelIndex( pRule->GetDefault());
@@ -2347,7 +2347,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	// 릴레이 맵
 	{
-		MComboBox* pCombo = (MComboBox*)m_IDLResource.FindWidget( "Stage_RelayMapType" );
+		CCComboBox* pCombo = (CCComboBox*)m_IDLResource.FindWidget( "Stage_RelayMapType" );
 		if ( pCombo)
 		{
 			pCombo->RemoveAll();
@@ -2355,7 +2355,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 			pCombo->Add(ZMsg( MSG_GAME_RELAYMAP_RANDOM));
 			pCombo->SetSelIndex(0);
 		}
-		pCombo = (MComboBox*)m_IDLResource.FindWidget( "Stage_RelayMapRepeatCount" );
+		pCombo = (CCComboBox*)m_IDLResource.FindWidget( "Stage_RelayMapRepeatCount" );
 		if ( pCombo)
 		{
 			pCombo->RemoveAll();
@@ -2406,13 +2406,13 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	}
 
 	// 희생 아이템 슬롯 초기화
-	itemSlot = (ZItemSlotView*)m_IDLResource.FindWidget( "Stage_SacrificeItemButton0");
+	itemSlot = (ZItemSlotView*)m_IDLResource.FindWidget( "Stage_SacrificeIteCCButton0");
 	if ( itemSlot)
 	{
 		itemSlot->EnableDragAndDrop( true);
 		strcpy( itemSlot->m_szItemSlotPlace, "SACRIFICE0");
 	}
-	itemSlot = (ZItemSlotView*)m_IDLResource.FindWidget( "Stage_SacrificeItemButton1");
+	itemSlot = (ZItemSlotView*)m_IDLResource.FindWidget( "Stage_SacrificeIteCCButton1");
 	if ( itemSlot)
 	{
 		itemSlot->EnableDragAndDrop( true);
@@ -2568,21 +2568,21 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 #endif
 
 #ifndef _QUEST_ITEM// 퀘스트 아이템 카테고리를 제거한다!
-	MComboBox* pComboBox = (MComboBox*)m_IDLResource.FindWidget( "Shop_AllEquipmentFilter");
+	CCComboBox* pComboBox = (CCComboBox*)m_IDLResource.FindWidget( "Shop_AllEquipmentFilter");
 	if ( pComboBox)
 		pComboBox->Remove( 10);
-	pComboBox = (MComboBox*)m_IDLResource.FindWidget( "Equip_AllEquipmentFilter");
+	pComboBox = (CCComboBox*)m_IDLResource.FindWidget( "Equip_AllEquipmentFilter");
 	if ( pComboBox)
 		pComboBox->Remove( 10);
 #endif
 
-	MComboBox* pCombo = (MComboBox*)m_IDLResource.FindWidget( "Shop_AllEquipmentFilter");
+	CCComboBox* pCombo = (CCComboBox*)m_IDLResource.FindWidget( "Shop_AllEquipmentFilter");
 	if ( pCombo)
 	{
 		pCombo->SetAlignment( CCAM_LEFT);
 		pCombo->SetListboxAlignment( CCAM_LEFT);
 	}
-	pCombo = (MComboBox*)m_IDLResource.FindWidget( "Equip_AllEquipmentFilter");
+	pCombo = (CCComboBox*)m_IDLResource.FindWidget( "Equip_AllEquipmentFilter");
 	if ( pCombo)
 	{
 		pCombo->SetAlignment( CCAM_LEFT);
@@ -2590,7 +2590,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	}
 
 
-	pCombo = (MComboBox*)m_IDLResource.FindWidget( "StageType");
+	pCombo = (CCComboBox*)m_IDLResource.FindWidget( "StageType");
 	if ( pCombo)
 		pCombo->SetListboxAlignment( CCAM_LEFT);
 
@@ -2939,7 +2939,7 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 
 
 	ZServerView* pServerList = (ZServerView*)m_IDLResource.FindWidget( "SelectedServer");
-	MEdit* pPassword = (MEdit*)m_IDLResource.FindWidget( "LoginPassword");
+	CCEdit* pPassword = (CCEdit*)m_IDLResource.FindWidget( "LoginPassword");
 	CCWidget* pLogin = m_IDLResource.FindWidget( "LoginOK");
 	if ( pServerList && pPassword && pLogin)
 	{
@@ -2961,7 +2961,7 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 		if (pLabel)
 			pLabel->SetText( ZErrStr( MERR_CLIENT_CONNECT_FAILED));
 
-		MButton* pLoginOK = (MButton*)m_IDLResource.FindWidget( "LoginOK");
+		CCButton* pLoginOK = (CCButton*)m_IDLResource.FindWidget( "LoginOK");
 		if (pLoginOK)
 			pLoginOK->Enable(true);
 
@@ -4567,10 +4567,10 @@ void ZGameInterface::OnRestore()
 
 void ZGameInterface::UpdateBlueRedTeam( void)
 {
-	MButton* pBlueTeamBtn  = (MButton*)m_IDLResource.FindWidget("StageTeamBlue");
-	MButton* pBlueTeamBtn2 = (MButton*)m_IDLResource.FindWidget("StageTeamBlue2");
-	MButton* pRedTeamBtn  = (MButton*)m_IDLResource.FindWidget("StageTeamRed");
-	MButton* pRedTeamBtn2 = (MButton*)m_IDLResource.FindWidget("StageTeamRed2");
+	CCButton* pBlueTeamBtn  = (CCButton*)m_IDLResource.FindWidget("StageTeamBlue");
+	CCButton* pBlueTeamBtn2 = (CCButton*)m_IDLResource.FindWidget("StageTeamBlue2");
+	CCButton* pRedTeamBtn  = (CCButton*)m_IDLResource.FindWidget("StageTeamRed");
+	CCButton* pRedTeamBtn2 = (CCButton*)m_IDLResource.FindWidget("StageTeamRed2");
 	if ((pRedTeamBtn == NULL) || (pBlueTeamBtn == NULL) || (pRedTeamBtn2 == NULL) || (pBlueTeamBtn2 == NULL))
 		return;
 
@@ -4608,7 +4608,7 @@ void ZGameInterface::UpdateBlueRedTeam( void)
 				pNumLabel->SetText(buffer);
 				pNumLabel->Show( true);
 			}
-			MButton* pButton = (MButton*)pRes->FindWidget( "StageTeamBlue");
+			CCButton* pButton = (CCButton*)pRes->FindWidget( "StageTeamBlue");
 			if ( pButton)
 				pButton->SetText( buffer);
 
@@ -4621,7 +4621,7 @@ void ZGameInterface::UpdateBlueRedTeam( void)
 				pNumLabel->SetText(buffer);
 				pNumLabel->Show( true);
 			}
-			pButton = (MButton*)pRes->FindWidget( "StageTeamRed");
+			pButton = (CCButton*)pRes->FindWidget( "StageTeamRed");
 			if ( pButton)
 				pButton->SetText( buffer);
 
@@ -4794,7 +4794,7 @@ void ZGameInterface::SerializeStageInterface()
 	if ( ZGetGameClient()->GetServerMode() == CSM_TEST)
 	{
 		// 나중에 랜덤맵 구현할때까지 그냥 맵 하나만 사용
-		MComboBox* pCBMapSelection = (MComboBox*)m_IDLResource.FindWidget( "MapSelection");
+		CCComboBox* pCBMapSelection = (CCComboBox*)m_IDLResource.FindWidget( "MapSelection");
 		if ( pCBMapSelection)
 		{
 			int nSelected = pCBMapSelection->GetSelIndex();
@@ -4811,7 +4811,7 @@ void ZGameInterface::SerializeStageInterface()
 	}
 #endif
 */
-	MComboBox* pCombo = (MComboBox*)m_IDLResource.FindWidget( "MapSelection");
+	CCComboBox* pCombo = (CCComboBox*)m_IDLResource.FindWidget( "MapSelection");
 	if ( pCombo)
 		InitMaps( pCombo);
 
@@ -5041,7 +5041,7 @@ void ZGameInterface::ShowEquipmentDialog(bool bShow)
 		ShowWidget( "Stage", false);
 		ShowWidget( "Shop",  false);
 
-		MButton* pButton = (MButton*)pResource->FindWidget("Equipment_to_Shop");
+		CCButton* pButton = (CCButton*)pResource->FindWidget("Equipment_to_Shop");
 		MLabel* pLabel = (MLabel*)pResource->FindWidget("Equip_Message");
 		if ( pButton && pLabel)
 		{
@@ -5298,7 +5298,7 @@ void ZGameInterface::EnableStageInterface(bool bEnable)
 	EnableWidget("Stage_Charviewer_info", bEnable);		// 정보보기 버튼
 	EnableWidget("StagePlayerNameInput_combo", bEnable);
 	EnableWidget("GameStart", bEnable);					// 게임시작 버튼
-	MButton* pButton = (MButton*)m_IDLResource.FindWidget("StageReady");				// 레디 버튼
+	CCButton* pButton = (CCButton*)m_IDLResource.FindWidget("StageReady");				// 레디 버튼
 	if ( pButton)
 	{
 		pButton->Enable( bEnable);
@@ -5342,7 +5342,7 @@ void ZGameInterface::SetRoomNoLight( int d )
 	{
 		char szBuffer[64];
 		sprintf(szBuffer, "Lobby_RoomNo%d", i);
-		MButton* pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget(szBuffer);
+		CCButton* pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget(szBuffer);
 		if(pButton)
 		{
 			bool bCheck = (i==d);
@@ -5353,7 +5353,7 @@ void ZGameInterface::SetRoomNoLight( int d )
 
 	char szBuffer[64];
 	sprintf(szBuffer, "Lobby_RoomNo%d", d);
-	MButton* pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget(szBuffer);
+	CCButton* pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget(szBuffer);
 	if(pButton) 
 		pButton->SetCheck(true);
 
@@ -5361,13 +5361,13 @@ void ZGameInterface::SetRoomNoLight( int d )
 
 void ZGameInterface::ShowPrivateStageJoinFrame(const char* szStageName)
 {
-	MEdit* pStageNameEdit = (MEdit*)m_IDLResource.FindWidget("PrivateStageName");
+	CCEdit* pStageNameEdit = (CCEdit*)m_IDLResource.FindWidget("PrivateStageName");
 	if (pStageNameEdit)
 	{
 		pStageNameEdit->SetText(szStageName);
 		pStageNameEdit->Enable(false);
 	}
-	MEdit* pPassEdit = (MEdit*)m_IDLResource.FindWidget("PrivateStagePassword");
+	CCEdit* pPassEdit = (CCEdit*)m_IDLResource.FindWidget("PrivateStagePassword");
 	if (pPassEdit!=NULL)
 	{
 		pPassEdit->SetMaxLength(STAGEPASSWD_LENGTH);
@@ -5464,7 +5464,7 @@ void ZGameInterface::Show112Dialog(bool bShow)
 	{
 		SetCursorEnable(true);
 
-		MEdit* pReasonEdit = (MEdit*)m_IDLResource.FindWidget("112_ConfirmEdit");
+		CCEdit* pReasonEdit = (CCEdit*)m_IDLResource.FindWidget("112_ConfirCCEdit");
 		if (pReasonEdit)
 		{
 			pReasonEdit->SetText("");
@@ -5493,8 +5493,8 @@ void ZGameInterface::Show112Dialog(bool bShow)
 		return;
 
 
-	MComboBox* pCombo1 = (MComboBox*)m_IDLResource.FindWidget( "112_ConfirmID");
-	MComboBox* pCombo2 = (MComboBox*)m_IDLResource.FindWidget( "112_ConfirmReason");
+	CCComboBox* pCombo1 = (CCComboBox*)m_IDLResource.FindWidget( "112_ConfirmID");
+	CCComboBox* pCombo2 = (CCComboBox*)m_IDLResource.FindWidget( "112_ConfirmReason");
 
 	if ( !pCombo1 || !pCombo2)
 		return;

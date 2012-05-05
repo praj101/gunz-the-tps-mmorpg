@@ -283,7 +283,7 @@ ZPlayerListBox::ZPlayerListBox(const char* szName, CCWidget* pParent, CCListener
 
 	SetListener(this);
 
-	m_pButton = new ZBmButton(NULL,this,this);
+	m_pButton = new ZBCCButton(NULL,this,this);
 	m_pButton->SetStretch(true);
 
 	m_nMode = PLAYERLISTMODE_CHANNEL;
@@ -339,8 +339,8 @@ void ZPlayerListBox::InitUI(PLAYERLISTMODE nMode)
 
 	// (좋지않은 구조) 클랜인데 클랜에 가입이 안되어있으면 생성 창을 보인다
 	CCWidget *pFrame = ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyPlayerListClanCreateFrame");
-	MButton* pButtonUp = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListPrev");
-	MButton* pButtonDn = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListNext");
+	CCButton* pButtonUp = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListPrev");
+	CCButton* pButtonDn = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListNext");
 	if( pFrame)
 	{
 		pFrame->Show(bShowClanCreateFrame);
@@ -629,10 +629,10 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int n
 		if( nTeam == MMT_BLUE)	bBlue = true;
 		if( nTeam == MMT_RED)	bRed = true;
 		
-		MButton* pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
+		CCButton* pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 		pButton->SetCheck( bBlue );
 
-		pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
+		pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
 		pButton->SetCheck( bRed );
 	}
 }
@@ -876,10 +876,10 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, boo
 		if( nTeam == MMT_BLUE)	bBlue = true;
 		if( nTeam == MMT_RED)	bRed = true;
 				
-		MButton* pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
+		CCButton* pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 		pButton->SetCheck( bBlue );
 
-		pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
+		pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
 		pButton->SetCheck( bRed );
 	}
 }
@@ -1000,10 +1000,10 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, cha
 		if( nTeam == MMT_BLUE)	bBlue = true;
 		if( nTeam == MMT_RED)	bRed = true;
 
-		MButton* pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
+		CCButton* pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 		pButton->SetCheck( bBlue );
 
-		pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
+		pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
 		pButton->SetCheck( bRed );
 	}
 //	pCharView->m_Info.m_pMnTeam->SetWarpingAdd(GetTickCount());
@@ -1423,7 +1423,7 @@ bool ZStagePlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	if(pEvent->nMessage==MWM_MOUSEMOVE)	{
 	}
-	else if(pEvent->nMessage==MWM_MBUTTONDOWN) {
+	else if(pEvent->nMessage==MWM_CCButtonDOWN) {
 		int k=0;
 	}
 

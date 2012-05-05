@@ -12,7 +12,7 @@ class ZActionKeyLook;
 
 /// ActionKey widget
 // 쓰이는 모든 key 값은 ZVIRTUALKEY 값이나, header include 하기 싫어서 걍 int 로 씀
-class ZActionKey : public MEdit{
+class ZActionKey : public CCEdit{
 	friend ZActionKeyLook;
 protected:
 	DECLARE_LOOK(ZActionKeyLook)

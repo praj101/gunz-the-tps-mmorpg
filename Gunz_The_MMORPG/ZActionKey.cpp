@@ -5,13 +5,13 @@
 #include "ZOptionInterface.h"
 
 
-class ZActionKeyLook : public MEditLook{
+class ZActionKeyLook : public CCEditLook{
 public:
-	virtual void OnFrameDraw(MEdit* pEdit, CCDrawContext* pDC);
-	virtual void OnDraw(MEdit* pEdit, CCDrawContext* pDC);
+	virtual void OnFrameDraw(CCEdit* pEdit, CCDrawContext* pDC);
+	virtual void OnDraw(CCEdit* pEdit, CCDrawContext* pDC);
 };
 
-void ZActionKeyLook::OnFrameDraw(MEdit* pEdit, CCDrawContext* pDC)
+void ZActionKeyLook::OnFrameDraw(CCEdit* pEdit, CCDrawContext* pDC)
 {
 	sRect r = pEdit->GetInitialClientRect();
 	ZActionKey* pActionKey = (ZActionKey*)pEdit;	// -_-;
@@ -20,9 +20,9 @@ void ZActionKeyLook::OnFrameDraw(MEdit* pEdit, CCDrawContext* pDC)
 	pDC->Rectangle(r);
 }
 
-void ZActionKeyLook::OnDraw(MEdit* pEdit, CCDrawContext* pDC) 
+void ZActionKeyLook::OnDraw(CCEdit* pEdit, CCDrawContext* pDC) 
 {
-	MEditLook::OnDraw(pEdit,pDC,false);
+	CCEditLook::OnDraw(pEdit,pDC,false);
 }
 
 
@@ -32,7 +32,7 @@ ZActionKeyLook ZActionKey::m_DefaultLook;
 ZActionKeyLook* ZActionKey::m_pStaticLook = &ZActionKey::m_DefaultLook;
 
 ZActionKey::ZActionKey(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MEdit(szName, pParent, pListener ), m_bReadyInput(false), m_nKey(-1), m_nAltKey(-1)
+: CCEdit(szName, pParent, pListener ), m_bReadyInput(false), m_nKey(-1), m_nAltKey(-1)
 {
 	LOOK_IN_CONSTRUCTOR();
 }

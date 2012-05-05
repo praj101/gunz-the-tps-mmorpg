@@ -33,7 +33,7 @@ bool InitMaps(CCWidget *pWidget)
 {
 	if(!pWidget) return false;
 
-	MComboBox* pCombo=(MComboBox*)pWidget;
+	CCComboBox* pCombo=(CCComboBox*)pWidget;
 	pCombo->RemoveAll();
 
 	// 퀘스트 모드는 scenario.xml에 기술된 맵들만 읽어들인다.

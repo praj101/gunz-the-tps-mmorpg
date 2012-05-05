@@ -49,7 +49,7 @@
 class MChatInputListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
+		if(CCWidget::IsMsg(szMessage, CCEdit_ENTER_VALUE)==true){
 			const char* szCommand = pWidget->GetText();
 			ZChatOutput(szCommand);
 
@@ -62,7 +62,7 @@ public:
 			pWidget->SetText("");
 			return true;
 		}
-		else if ((CCWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, CCEdit_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEdit_KEYDOWN_MSG)==true))
 		{
 			ZGetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -74,7 +74,7 @@ MChatInputListener	g_ChatInputListener;
 
 
 
-class MHotBarButton : public MButton{
+class MHotBarButton : public CCButton{
 protected:
 	char	m_szCommandString[256];
 protected:
@@ -88,7 +88,7 @@ protected:
 
 public:
 	MHotBarButton(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL)
-	: MButton(szName, pParent, pListener){
+	: CCButton(szName, pParent, pListener){
 		strcpy(m_szCommandString, "Command is not assigned");
 	}
 	virtual bool IsDropable(CCWidget* pSender){
@@ -215,7 +215,7 @@ MExitListener	g_ExitListener;
 class CCChannelChatInputListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
+		if(CCWidget::IsMsg(szMessage, CCEdit_ENTER_VALUE)==true){
 			char szChat[512];
 			if (strlen(pWidget->GetText()) < 255)
 			{
@@ -227,7 +227,7 @@ public:
 			}
 			return true;
 		}
-		else if ((CCWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, CCEdit_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEdit_KEYDOWN_MSG)==true))
 		{
 			ZGetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -239,7 +239,7 @@ CCChannelChatInputListener	g_ChannelChatInputListener;
 class MStageChatInputListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true){
+		if(CCWidget::IsMsg(szMessage, CCEdit_ENTER_VALUE)==true){
 			char szChat[512];
 			if (strlen(pWidget->GetText()) < 255)
 			{
@@ -251,7 +251,7 @@ public:
 			}
 			return true;
 		}
-		else if ((CCWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, CCEdit_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEdit_KEYDOWN_MSG)==true))
 		{
 			ZGetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -363,7 +363,7 @@ public:
 			CCWidget* pFindWidget = pResource->FindWidget("StageCreateFrame");
 			if(pFindWidget!=NULL) pFindWidget->Show(true, true);
 
-			MEdit* pPassEdit = (MEdit*)pResource->FindWidget("StagePassword");
+			CCEdit* pPassEdit = (CCEdit*)pResource->FindWidget("StagePassword");
 			if (pPassEdit!=NULL)
 			{
 				pPassEdit->SetMaxLength(STAGEPASSWD_LENGTH);
@@ -496,7 +496,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageCreateBtnListener, MBTN_CLK_MSG)
 	bool bPrivate = false;
 	strcpy(szStageName, pNameWidget->GetText());
 
-	MEdit* pPassEdit = (MEdit*)pResource->FindWidget("StagePassword");
+	CCEdit* pPassEdit = (CCEdit*)pResource->FindWidget("StagePassword");
 	if (pPassEdit)
 	{
 		if ((strlen(pPassEdit->GetText()) > 0) && (strlen(pPassEdit->GetText()) <= STAGEPASSWD_LENGTH))
@@ -568,11 +568,11 @@ BEGIN_IMPLEMENT_LISTENER(ZGetChannelListFrameCallerListener, MBTN_CLK_MSG)
 	CCWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
 	if(pFindWidget!=NULL) pFindWidget->Show(true, true);
 
-	MButton* pButton = (MButton*)pResource->FindWidget("MyClanChannel");
+	CCButton* pButton = (CCButton*)pResource->FindWidget("MyClanChannel");
 	if ( pButton)
 		pButton->Enable( ZGetMyInfo()->IsClanJoined());
 
-	pButton = (MButton*)pResource->FindWidget("ChannelList_DuelTournament");
+	pButton = (CCButton*)pResource->FindWidget("ChannelList_DuelTournament");
 	if ( pButton)
 		pButton->Show( ZGetGameClient()->IsEnabledDuelTournament());
 
@@ -638,18 +638,18 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingStageTypeListener, MCMBBOX_CHANGED)
 END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamRedListener, MBTN_CLK_MSG)
-	MButton* pButton = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
+	CCButton* pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
 	if(pButton && !pButton->GetCheck() ) pButton->SetCheck(true);
-	pButton = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
+	pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 	if(pButton) pButton->SetCheck( false );
 	ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_RED);
 END_IMPLEMENT_LISTENER()
 
 
 BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamBlueListener, MBTN_CLK_MSG)
-	MButton* pButton = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
+	CCButton* pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 	if(pButton && !pButton->GetCheck() ) pButton->SetCheck(true);
-	pButton = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
+	pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
 	if(pButton) pButton->SetCheck( false );
 	ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_BLUE);
 END_IMPLEMENT_LISTENER()
@@ -658,7 +658,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageReadyListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	
 	bool bReady = false;
-	MButton* pReadyBtn = (MButton*)pResource->FindWidget("StageReady");
+	CCButton* pReadyBtn = (CCButton*)pResource->FindWidget("StageReady");
 	if(pReadyBtn) bReady=pReadyBtn->GetCheck();
 
 	CCMatchObjectStageState nStageState;
@@ -674,14 +674,14 @@ END_IMPLEMENT_LISTENER()
 // 관전 모드 버튼
 BEGIN_IMPLEMENT_LISTENER(ZGetStageObserverBtnListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MButton* pObserverBtn = (MButton*)pResource->FindWidget("StageObserverBtn");
+	CCButton* pObserverBtn = (CCButton*)pResource->FindWidget("StageObserverBtn");
 	if ( pObserverBtn)
 	{
 		if ( pObserverBtn->GetCheck())
 			ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_SPECTATOR);
 		else
 		{
-			MButton* pBlueBtn = (MButton*)pResource->FindWidget("StageTeamBlue");
+			CCButton* pBlueBtn = (CCButton*)pResource->FindWidget("StageTeamBlue");
 
 			if ( ZGetGameInterface()->m_bTeamPlay) // 팀전 이면..
 			{
@@ -836,7 +836,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountDnButtonListener, MBTN_CL
 	ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg()->AddCount(-1);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountChangeListener, MEDIT_TEXT_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountChangeListener, CCEdit_TEXT_CHANGED)
 	ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg()->OnEditBoxChanged();
 END_IMPLEMENT_LISTENER()
 
@@ -858,11 +858,11 @@ END_IMPLEMENT_LISTENER()
 BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentSearchButtonListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSendAccountItemButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSendAccountIteCCButtonListener, MBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnSendAccountButton();	
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetBringAccountItemButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetBringAccountIteCCButtonListener, MBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnBringAccountButton();
 END_IMPLEMENT_LISTENER()
 
@@ -882,7 +882,7 @@ END_IMPLEMENT_LISTENER()
 void PostMapname()
 {
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MComboBox* pMapCombo = (MComboBox*)pResource->FindWidget("MapSelection");
+	CCComboBox* pMapCombo = (CCComboBox*)pResource->FindWidget("MapSelection");
 	const char* pszSelItemString = pMapCombo->GetSelItemString();
 
 	if (pszSelItemString) 
@@ -924,7 +924,7 @@ END_IMPLEMENT_LISTENER()
 BEGIN_IMPLEMENT_LISTENER(ZGetSelectMapPrevButtonListener, MBTN_CLK_MSG)
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MComboBox* pComboBox = (MComboBox*)pResource->FindWidget("MapSelection");
+	CCComboBox* pComboBox = (CCComboBox*)pResource->FindWidget("MapSelection");
 
 	if(pComboBox)
 	{
@@ -937,7 +937,7 @@ END_IMPLEMENT_LISTENER()
 BEGIN_IMPLEMENT_LISTENER(ZGetSelectMapNextButtonListener, MBTN_CLK_MSG)
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MComboBox* pComboBox = (MComboBox*)pResource->FindWidget("MapSelection");
+	CCComboBox* pComboBox = (CCComboBox*)pResource->FindWidget("MapSelection");
 
 	if(pComboBox)
 	{
@@ -1048,7 +1048,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetDeleteCharacterButtonListener, MBTN_CLK_MSG)
 		if (pCharNameLabel)
 			pCharNameLabel->SetText( pLabel->GetText());
 
-		MEdit* pYesEdit = (MEdit*)pResource->FindWidget("CS_DeleteCharNameEdit");
+		CCEdit* pYesEdit = (CCEdit*)pResource->FindWidget("CS_DeleteCharNameEdit");
 		if (pYesEdit)
 			pYesEdit->SetText("");
 
@@ -1071,7 +1071,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetConfirmDeleteCharacterButtonListener, MBTN_CLK_MSG)
 
 	if( ZCharacterSelectView::GetNumOfCharacter())
 	{
-		MEdit* pYesEdit = (MEdit*)pResource->FindWidget( "CS_DeleteCharNameEdit");
+		CCEdit* pYesEdit = (CCEdit*)pResource->FindWidget( "CS_DeleteCharNameEdit");
 		if (pYesEdit)
 		{
 			if ( (!stricmp( pYesEdit->GetText(), ZMsg(MSG_MENUITEM_YES))) && (ZCharacterSelectView::GetSelectedCharacter() >= 0) )
@@ -1123,12 +1123,12 @@ BEGIN_IMPLEMENT_LISTENER(ZGetCreateCharacterButtonListener, MBTN_CLK_MSG)
 	if(nEmptySlotIndex>=0)
 	{
 		ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-		MEdit* pEdit = (MEdit*)pResource->FindWidget("CC_CharName");
-		MComboBox* pSexCB, *pHairCB, *pFaceCB, *pCostumeCB;
-		pSexCB = (MComboBox*)pResource->FindWidget("CC_Sex");
-		pHairCB = (MComboBox*)pResource->FindWidget("CC_Hair");
-		pFaceCB = (MComboBox*)pResource->FindWidget("CC_Face");
-		pCostumeCB = (MComboBox*)pResource->FindWidget("CC_Costume");
+		CCEdit* pEdit = (CCEdit*)pResource->FindWidget("CC_CharName");
+		CCComboBox* pSexCB, *pHairCB, *pFaceCB, *pCostumeCB;
+		pSexCB = (CCComboBox*)pResource->FindWidget("CC_Sex");
+		pHairCB = (CCComboBox*)pResource->FindWidget("CC_Hair");
+		pFaceCB = (CCComboBox*)pResource->FindWidget("CC_Face");
+		pCostumeCB = (CCComboBox*)pResource->FindWidget("CC_Costume");
 
 
 		// 생성 조건인지 확인한다.
@@ -1182,9 +1182,9 @@ END_IMPLEMENT_LISTENER()
 void SetCharacterInfoGroup(int n)
 {
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MButton* pBtn = (MButton*)pResource->FindWidget("ShowChar_infoGroup");
+	CCButton* pBtn = (CCButton*)pResource->FindWidget("ShowChar_infoGroup");
 	if(pBtn)pBtn->SetCheck(n==0);
-	pBtn = (MButton*)pResource->FindWidget("ShowEquip_InfoGroup");
+	pBtn = (CCButton*)pResource->FindWidget("ShowEquip_InfoGroup");
 	if(pBtn)pBtn->SetCheck(n==1);
 
 	CCWidget *pFrame=(MFrame*)pResource->FindWidget("Char_infoGroup");
@@ -1228,11 +1228,11 @@ void ShowPlayerListGroup(int i)
 {
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ChannelPlayerList_all");
-	if(pWidget!=NULL) ((MButton*)pWidget)->SetCheck(i==0?true:false);
+	if(pWidget!=NULL) ((CCButton*)pWidget)->SetCheck(i==0?true:false);
 	pWidget = pResource->FindWidget("ChannelPlayerList_friend");
-	if(pWidget!=NULL) ((MButton*)pWidget)->SetCheck(i==1?true:false);
+	if(pWidget!=NULL) ((CCButton*)pWidget)->SetCheck(i==1?true:false);
 	pWidget = pResource->FindWidget("ChannelPlayerList_clan");
-	if(pWidget!=NULL) ((MButton*)pWidget)->SetCheck(i==2?true:false);
+	if(pWidget!=NULL) ((CCButton*)pWidget)->SetCheck(i==2?true:false);
 }
 
 BEGIN_IMPLEMENT_LISTENER(ZGetChannelPlayerOptionGroupAll, MBTN_CLK_MSG)
@@ -1333,8 +1333,8 @@ END_IMPLEMENT_LISTENER()
 BEGIN_IMPLEMENT_LISTENER(ZGetListenerGamePlayerListTabGame, MBTN_CLK_MSG)
 {
 	ZPlayerListBox* pList = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerList_");
-	MButton* pBtnGame = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabGame");
-	MButton* pBtnFriend = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabFriend");
+	CCButton* pBtnGame = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabGame");
+	CCButton* pBtnFriend = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabFriend");
 	if (pList && pBtnGame && pBtnFriend) {
 //		pBtnGame->Show(false);
 //		pBtnFriend->Show(true);
@@ -1346,8 +1346,8 @@ END_IMPLEMENT_LISTENER()
 BEGIN_IMPLEMENT_LISTENER(ZGetListenerGamePlayerListTabFriend, MBTN_CLK_MSG)
 {
 	ZPlayerListBox* pList = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerList_");
-	MButton* pBtnGame = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabGame");
-	MButton* pBtnFriend = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabFriend");
+	CCButton* pBtnGame = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabGame");
+	CCButton* pBtnFriend = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabFriend");
 	if (pList && pBtnGame && pBtnFriend) {
 //		pBtnGame->Show(true);
 //		pBtnFriend->Show(false);
@@ -1484,7 +1484,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo6ButtonListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 */
 BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNoButtonListener, MBTN_CLK_MSG)
-	MButton *pButton = (MButton*)pWidget;
+	CCButton *pButton = (CCButton*)pWidget;
 	int nIndexInGroup = pButton->GetIndexInGroup();
 	_ASSERT(0<=nIndexInGroup && nIndexInGroup<6);
 	nIndexInGroup++;	// 0~5 -> 1~6
@@ -1512,7 +1512,7 @@ class ZMapListListener : public CCListener{
 			MListBox* pList = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 			if(pList != NULL)
 			{
-				MComboBox* pCombo = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapSelection");
+				CCComboBox* pCombo = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapSelection");
 				if(pCombo != NULL )
 				{
 					int si = pList->GetSelIndex();
@@ -1552,7 +1552,7 @@ void ZReport112FromListener()
 {
 /*
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MEdit* pReasonEdit = (MEdit*)pResource->FindWidget("112_ConfirmEdit");
+	CCEdit* pReasonEdit = (CCEdit*)pResource->FindWidget("112_ConfirCCEdit");
 	if (pReasonEdit)
 	{
 		if (strlen(pReasonEdit->GetText()) < 10)
@@ -1584,8 +1584,8 @@ void ZReport112FromListener()
 	if ( !pWidget)
 		return;
 
-	MComboBox* pCombo1 = (MComboBox*)pResource->FindWidget( "112_ConfirmID");
-	MComboBox* pCombo2 = (MComboBox*)pResource->FindWidget( "112_ConfirmReason");
+	CCComboBox* pCombo1 = (CCComboBox*)pResource->FindWidget( "112_ConfirmID");
+	CCComboBox* pCombo2 = (CCComboBox*)pResource->FindWidget( "112_ConfirmReason");
 	
 	if ( !pCombo1 || !pCombo2)
 		return;
@@ -1611,7 +1611,7 @@ void ZReport112FromListener()
 }
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGet112ConfirmEditListener, MEDIT_ENTER_VALUE)
+BEGIN_IMPLEMENT_LISTENER(ZGet112ConfirCCEditListener, CCEdit_ENTER_VALUE)
 	ZReport112FromListener();
 END_IMPLEMENT_LISTENER();
 
@@ -1735,7 +1735,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogOk, MBTN_CLK_MSG)
 			// 정확한 수가 맞았으면..
 			if ( nCount==CLAN_SPONSORS_COUNT)
 			{
-				MEdit *pEditClanName= (MEdit*)pResource->FindWidget("ClanCreate_ClanName");
+				CCEdit *pEditClanName= (CCEdit*)pResource->FindWidget("ClanCreate_ClanName");
 				if ( !pEditClanName)
 					return true;
 
@@ -1950,7 +1950,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 					// Balance 옵션
 					int nBalancedMatching = 0;
 					ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-					MButton* pButton = (MButton*)pResource->FindWidget("BalancedMatchingCheckBox");
+					CCButton* pButton = (CCButton*)pResource->FindWidget("BalancedMatchingCheckBox");
 					if ((pButton) && (pButton->GetCheck()))
 					{
 						nBalancedMatching = 1;
@@ -2026,7 +2026,7 @@ END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetPrivateChannelEnterListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MEdit* pEdit = (MEdit*)pResource->FindWidget("PrivateChannelInput");
+	CCEdit* pEdit = (CCEdit*)pResource->FindWidget("PrivateChannelInput");
 	if(pEdit!=NULL)
 	{
 		int nNameLen = (int)strlen( pEdit->GetText());
@@ -2065,7 +2065,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPrivateChannelEnterListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetChannelList, MBTN_CLK_MSG)
-	MButton *pButton = (MButton*)pWidget;
+	CCButton *pButton = (CCButton*)pWidget;
 	int nIndexInGroup = pButton->GetIndexInGroup();
 	_ASSERT(0<=nIndexInGroup && nIndexInGroup<4);
 
@@ -2148,7 +2148,7 @@ BEGIN_IMPLEMENT_LISTENER(ZEquipmetRotateBtn, MBTN_CLK_MSG)
 	{
 		pCharView->EnableAutoRotate( !pCharView->IsAutoRotate());
 		
-		MBmButton* pButton = (MBmButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Equipment_CharacterRotate");
+		MBCCButton* pButton = (MBCCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Equipment_CharacterRotate");
 		if ( pButton)
 		{
 			if ( pCharView->IsAutoRotate())

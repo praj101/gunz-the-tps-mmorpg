@@ -121,7 +121,7 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 
 	// 게임타입
 	{																					
-		MComboBox* pCB = (MComboBox*)pResource->FindWidget("StageType");
+		CCComboBox* pCB = (CCComboBox*)pResource->FindWidget("StageType");
 		if (pCB == NULL) return false;
 		bool bExistGameType = false;
 		for (int i = 0; i < CCMATCH_GAMETYPE_MAX; i++)
@@ -137,7 +137,7 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 	}
 
 	// 릴레이맵 세팅
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget( "MapSelection");
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget( "MapSelection");
 	if ( pCB)
 	{
 		strcpy( pOutNode->szMapName, pCB->GetText());
@@ -150,12 +150,12 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 
 	}
 	// 릴레이맵 타입
-	pCB = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
+	pCB = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
 	if ( pCB)
 		pOutNode->nRelayMapType = (RELAY_MAP_TYPE)pCB->GetSelIndex();
 
 	// 릴레이맵 횟수
-	pCB = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
+	pCB = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
 	if ( pCB)
 		pOutNode->nRelayMapRepeatCount = (RELAY_MAP_REPEAT_COUNT)pCB->GetSelIndex();
 
@@ -180,7 +180,7 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 	/////////////////////////////////////////////////////////////////////////////////
 #define BUILD_STAGESETTING_LISTITEM( _WidgetItemName, _NodeVariable, _ItemList)	\
 {																				\
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget( _WidgetItemName);		\
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget( _WidgetItemName);		\
 	if ( pCB && (pCB->GetSelIndex() >= 0))										\
 	{																			\
 		int nItemCount = 0;														\
@@ -213,7 +213,7 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 /////////////////////////////////////////////////////////////////////////////////////////////
 #define BUILD_STAGESETTING_ITEM(_WidgetItemName, _NodeVariable, _ItemList, _nItemCount)		\
 {																					\
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget(_WidgetItemName);			\
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget(_WidgetItemName);			\
 	if (pCB == NULL) return false;													\
 	if (pCB->GetSelIndex() < _nItemCount)											\
 	{																				\
@@ -267,7 +267,7 @@ void ZStageSetting::ShowStageSettingDialog( const MSTAGE_SETTING_NODE* pStageSet
 
 	// 게임 타입
 	{																						
-		MComboBox* pCB = (MComboBox*)pResource->FindWidget("StageType");				
+		CCComboBox* pCB = (CCComboBox*)pResource->FindWidget("StageType");				
 		if (pCB)
 		{																					
 			for (int i = 0; i < CCMATCH_GAMETYPE_MAX; i++)
@@ -292,7 +292,7 @@ void ZStageSetting::ShowStageSettingDialog( const MSTAGE_SETTING_NODE* pStageSet
 /////////////////////////////////////////////////////////////////////////////////
 #define SHOWSTAGESETTING_LISTITEM( _WidgetItemName, _NodeVariable, _ItemList, _MaxValue)	\
 {																				\
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget( _WidgetItemName);		\
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget( _WidgetItemName);		\
 	if ( pCB)																	\
 	{																			\
 		int nSelect = pCB->GetSelIndex(), nItemCount = 0;						\
@@ -332,7 +332,7 @@ void ZStageSetting::ShowStageSettingDialog( const MSTAGE_SETTING_NODE* pStageSet
 /////////////////////////////////////////////////////////////////////////////////////////
 #define SHOWSTAGESETTING_ITEM(_WidgetItemName, _NodeVariable, _nItemCount, _ItemList)	\
 {																						\
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget(_WidgetItemName);				\
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget(_WidgetItemName);				\
 	if (pCB)																			\
 	{																					\
 		for (int i = 0; i < _nItemCount; i++)											\
@@ -364,7 +364,7 @@ void ZStageSetting::ShowStageSettingDialog( const MSTAGE_SETTING_NODE* pStageSet
 		STAGESETTING_TEAMBALANCING_MAX, StageSetting_TeamBalancing);
 
 
-	MComboBox* pCBTeamBanlance = (MComboBox*)pResource->FindWidget( "StageTeamBalancing");
+	CCComboBox* pCBTeamBanlance = (CCComboBox*)pResource->FindWidget( "StageTeamBalancing");
 	if ( pCBTeamBanlance)
 		pCBTeamBanlance->Enable( ZGetGameTypeManager()->IsTeamGame( pStageSetting->nGameType));
 
@@ -396,7 +396,7 @@ void ZStageSetting::InitStageSettingDialog()
 
 #define INITSTAGESETTING_ITEM(_WidgetItemName, _NodeVariable, _nItemCount, _ItemList, _nItemDefaultIndex)	\
 {																				\
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget(_WidgetItemName);		\
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget(_WidgetItemName);		\
 	if(pCB!=NULL)																\
 	{																			\
 		pCB->RemoveAll();														\
@@ -478,8 +478,8 @@ void ZStageSetting::AdjustLimitTimeStageSettingDialog()
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	if (pResource == NULL) return;
 
-	MComboBox* pCBLimitTime = (MComboBox*)pResource->FindWidget("StageLimitTime");
-	MComboBox* pCBType = (MComboBox*)pResource->FindWidget( "StageType");
+	CCComboBox* pCBLimitTime = (CCComboBox*)pResource->FindWidget("StageLimitTime");
+	CCComboBox* pCBType = (CCComboBox*)pResource->FindWidget( "StageType");
 	if ( pCBType && (pCBLimitTime->GetSelIndex() >= 0))
 	{
 		// 이거 완전 하드코드... 고민끝에 나두 어쩔수 읍땅.... -_-;
@@ -528,7 +528,7 @@ void ZStageSetting::InitStageSettingGameType()
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	if (pResource == NULL) return;
 
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget("StageType");
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget("StageType");
 	CCChannelRule* pRule = ZGetChannelRuleMgr()->GetCurrentRule();
 	if (pRule == NULL) return;
 	if(pCB == NULL) return;
@@ -586,7 +586,7 @@ void ZStageSetting::InitStageSettingGameFromGameType()
 /////////////////////////////////////////////////////////////////////////////////
 #define INITSTAGESETTING_LISTITEM( _WidgetItemName, _ItemList, _nItemDefaultIndex)	\
 {																				\
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget( _WidgetItemName);		\
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget( _WidgetItemName);		\
 	if ( pCB)																	\
 	{																			\
 		int nSelect = pCB->GetSelIndex(), nItemCount = 0;						\
@@ -603,7 +603,7 @@ void ZStageSetting::InitStageSettingGameFromGameType()
 	int nGameType = 0;
 	CCMATCH_GAMETYPE nPrevGameType = ZGetGameClient()->GetMatchStageSetting()->GetGameType();
 
-	MComboBox* pCBType = (MComboBox*)pResource->FindWidget( "StageType");
+	CCComboBox* pCBType = (CCComboBox*)pResource->FindWidget( "StageType");
 	if ( pCBType && (pCBType->GetCount() > 0))
 	{
 		// 이거 완전 무식한 하드코드... 고민끝에 나두 어쩔수 읍땅.... -_-;
@@ -652,7 +652,7 @@ void ZStageSetting::InitStageSettingGameFromGameType()
 
 
 	// Set map
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget( "MapSelection");
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget( "MapSelection");
 	if ( pCB)
 		InitMaps( pCB);
 }

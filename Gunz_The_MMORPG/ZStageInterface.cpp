@@ -165,10 +165,10 @@ void ZStageInterface::OnCreate( void)
 			pWidget->SetBounds( rect);
 		}
 
-		MComboBox* pCombo = (MComboBox*)pResource->FindWidget("Stage_RelayMapType");			
+		CCComboBox* pCombo = (CCComboBox*)pResource->FindWidget("Stage_RelayMapType");			
 		if ( pCombo)
 			pCombo->CloseComboBoxList();
-		pCombo = (MComboBox*)pResource->FindWidget("Stage_RelayMapRepeatCount");					
+		pCombo = (CCComboBox*)pResource->FindWidget("Stage_RelayMapRepeatCount");					
 		if ( pCombo)
 			pCombo->CloseComboBoxList();
 
@@ -184,12 +184,12 @@ void ZStageInterface::OnCreate( void)
 	ZApplication::GetGameInterface()->ShowWidget( "Stage_Flame1", false);
 
 	// 게임 방식인 채로 방 나갔다가 다른 방 들어가면 버그 생기는거 수정 
-	MComboBox* pCombo = (MComboBox*)pResource->FindWidget("StageType");			
+	CCComboBox* pCombo = (CCComboBox*)pResource->FindWidget("StageType");			
 	if ( pCombo)
 		pCombo->CloseComboBoxList();
 
 	// 맵리스트 연 채로 방 나갔다가 다른 방 들어가면 방장이 아닌데도 맵 바꿔지는 버그 수정
-	pCombo = (MComboBox*)pResource->FindWidget("MapSelection");					
+	pCombo = (CCComboBox*)pResource->FindWidget("MapSelection");					
 	if ( pCombo)
 		pCombo->CloseComboBoxList();
 
@@ -303,7 +303,7 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 	ZStageSetting::InitStageSettingGameType();
 /*
 	// 맵 종류를 설정한다.
-	MComboBox* pCB = (MComboBox*)pResource->FindWidget( "MapSelection");
+	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget( "MapSelection");
 	if ( pCB)
 	{
 		int nSelected = pCB->GetSelIndex();
@@ -580,8 +580,8 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 
 
 	// 관전 허용 여부 확인
-	MComboBox* pCombo = (MComboBox*)pResource->FindWidget( "StageObserver");
-	MButton* pObserverBtn = (MButton*)pResource->FindWidget( "StageObserverBtn");
+	CCComboBox* pCombo = (CCComboBox*)pResource->FindWidget( "StageObserver");
+	CCButton* pObserverBtn = (CCButton*)pResource->FindWidget( "StageObserverBtn");
 	MLabel* pObserverLabel = (MLabel*)pResource->FindWidget( "StageObserverLabel");
 	if ( pCombo && pObserverBtn && pObserverLabel)
 	{
@@ -659,8 +659,8 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 	ZApplication::GetGameInterface()->ShowWidget( "Stage_SacrificeItemImage1", bQuestUI);
 	ZApplication::GetGameInterface()->ShowWidget( "Stage_QuestLevel", bQuestUI);
 	ZApplication::GetGameInterface()->ShowWidget( "Stage_QuestLevelBG", bQuestUI);
-	ZApplication::GetGameInterface()->ShowWidget( "Stage_SacrificeItemButton0", bQuestUI);
-	ZApplication::GetGameInterface()->ShowWidget( "Stage_SacrificeItemButton1", bQuestUI);
+	ZApplication::GetGameInterface()->ShowWidget( "Stage_SacrificeIteCCButton0", bQuestUI);
+	ZApplication::GetGameInterface()->ShowWidget( "Stage_SacrificeIteCCButton1", bQuestUI);
 
 	if ( m_bPrevQuest != bQuestUI)
 	{
@@ -816,8 +816,8 @@ void ZStageInterface::ChangeStageEnableReady( bool bReady)
 	{
 		ZApplication::GetGameInterface()->EnableWidget( "Stage_SacrificeItemListbox", !bReady);
 		ZApplication::GetGameInterface()->EnableWidget( "Stage_PutSacrificeItem",     !bReady);
-		ZApplication::GetGameInterface()->EnableWidget( "Stage_SacrificeItemButton0", !bReady);
-		ZApplication::GetGameInterface()->EnableWidget( "Stage_SacrificeItemButton1", !bReady);
+		ZApplication::GetGameInterface()->EnableWidget( "Stage_SacrificeIteCCButton0", !bReady);
+		ZApplication::GetGameInterface()->EnableWidget( "Stage_SacrificeIteCCButton1", !bReady);
 		if ( ZGetGameClient()->AmIStageMaster())
 		{
 			ZApplication::GetGameInterface()->EnableWidget( "MapSelection", !bReady);
@@ -852,11 +852,11 @@ void ZStageInterface::ChangeStageEnableReady( bool bReady)
 		}
 	}
     
-	BEGIN_WIDGETLIST( "Stage_OptionFrame", pResource, MButton*, pButton);
+	BEGIN_WIDGETLIST( "Stage_OptionFrame", pResource, CCButton*, pButton);
 	pButton->Enable( !bReady);
 	END_WIDGETLIST();
 
-	BEGIN_WIDGETLIST( "EquipmentCaller", pResource, MButton*, pButton);
+	BEGIN_WIDGETLIST( "EquipmentCaller", pResource, CCButton*, pButton);
 	pButton->Enable( !bReady);
 	END_WIDGETLIST();
 
@@ -878,7 +878,7 @@ void ZStageInterface::SetMapName( const char* szMapName)
 	if ( szMapName == NULL)
 		return;
 
-	MComboBox* pMapCombo = (MComboBox*)pResource->FindWidget( "MapSelection");
+	CCComboBox* pMapCombo = (CCComboBox*)pResource->FindWidget( "MapSelection");
 	if ( pMapCombo)
 	{
 		// 일단 임시 하드코딩(우에엥~ ㅠ.ㅠ)
@@ -912,10 +912,10 @@ void ZStageInterface::OpenSacrificeItemBox( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MButton* pButton = (MButton*)pResource->FindWidget( "Stage_SacrificeItemBoxOpen");
+	CCButton* pButton = (CCButton*)pResource->FindWidget( "Stage_SacrificeItemBoxOpen");
 	if ( pButton)
 		pButton->Show( false);
-	pButton = (MButton*)pResource->FindWidget( "Stage_SacrificeItemBoxClose");
+	pButton = (CCButton*)pResource->FindWidget( "Stage_SacrificeItemBoxClose");
 	if ( pButton)
 		pButton->Show( true);
 
@@ -935,10 +935,10 @@ void ZStageInterface::CloseSacrificeItemBox( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MButton* pButton = (MButton*)pResource->FindWidget( "Stage_SacrificeItemBoxClose");
+	CCButton* pButton = (CCButton*)pResource->FindWidget( "Stage_SacrificeItemBoxClose");
 	if ( pButton)
 		pButton->Show( false);
-	pButton = (MButton*)pResource->FindWidget( "Stage_SacrificeItemBoxOpen");
+	pButton = (CCButton*)pResource->FindWidget( "Stage_SacrificeItemBoxOpen");
 	if ( pButton)
 		pButton->Show( true);
 
@@ -962,10 +962,10 @@ void ZStageInterface::HideSacrificeItemBox( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MButton* pButton = (MButton*)pResource->FindWidget( "Stage_SacrificeItemBoxClose");
+	CCButton* pButton = (CCButton*)pResource->FindWidget( "Stage_SacrificeItemBoxClose");
 	if ( pButton)
 		pButton->Show( false);
-	pButton = (MButton*)pResource->FindWidget( "Stage_SacrificeItemBoxOpen");
+	pButton = (CCButton*)pResource->FindWidget( "Stage_SacrificeItemBoxOpen");
 	if ( pButton)
 		pButton->Show( true);
 
@@ -1155,7 +1155,7 @@ void ZStageInterface::OnDropSacrificeItem( int nSlotNum)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MButton* pReadyBtn = (MButton*)pResource->FindWidget("StageReady");
+	CCButton* pReadyBtn = (CCButton*)pResource->FindWidget("StageReady");
 	if(pReadyBtn) 
 		if(pReadyBtn->GetCheck()) 
 		{	// 준비 완료버튼이 눌려있다면
@@ -1308,10 +1308,10 @@ void ZStageInterface::OpenRelayMapBox( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MButton* pButton = (MButton*)pResource->FindWidget( "Stage_RelayMapBoxOpen");
+	CCButton* pButton = (CCButton*)pResource->FindWidget( "Stage_RelayMapBoxOpen");
 	if ( pButton)
 		pButton->Show( false);
-	pButton = (MButton*)pResource->FindWidget( "Stage_RelayMapBoxClose");
+	pButton = (CCButton*)pResource->FindWidget( "Stage_RelayMapBoxClose");
 	if ( pButton)
 		pButton->Show( true);
 
@@ -1332,10 +1332,10 @@ void ZStageInterface::CloseRelayMapBox( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MButton* pButton = (MButton*)pResource->FindWidget( "Stage_RelayMapBoxClose");
+	CCButton* pButton = (CCButton*)pResource->FindWidget( "Stage_RelayMapBoxClose");
 	if ( pButton)
 		pButton->Show( false);
-	pButton = (MButton*)pResource->FindWidget( "Stage_RelayMapBoxOpen");
+	pButton = (CCButton*)pResource->FindWidget( "Stage_RelayMapBoxOpen");
 	if ( pButton)
 		pButton->Show( true);
 
@@ -1357,10 +1357,10 @@ void ZStageInterface::HideRelayMapBox( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MButton* pButton = (MButton*)pResource->FindWidget( "Stage_RelayMapBoxClose");
+	CCButton* pButton = (CCButton*)pResource->FindWidget( "Stage_RelayMapBoxClose");
 	if ( pButton)
 		pButton->Show( false);
-	pButton = (MButton*)pResource->FindWidget( "Stage_RelayMapBoxOpen");
+	pButton = (CCButton*)pResource->FindWidget( "Stage_RelayMapBoxOpen");
 	if ( pButton)
 		pButton->Show( true);
 
@@ -1413,9 +1413,9 @@ ret  : none
 ************************************************************************/
 void ZStageInterface::PostRelayMapElementUpdate( void)
 {
-	MComboBox* pCBRelayMapType = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
+	CCComboBox* pCBRelayMapType = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
 	if ( !pCBRelayMapType) return;
-	MComboBox* pCBRelayMapTurnCount = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
+	CCComboBox* pCBRelayMapTurnCount = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
 	if ( !pCBRelayMapTurnCount) return;
 	ZPostStageRelayMapElementUpdate(ZGetGameClient()->GetStageUID(), pCBRelayMapType->GetSelIndex(), pCBRelayMapTurnCount->GetSelIndex());
 }
@@ -1429,9 +1429,9 @@ ret  : none
 ************************************************************************/
 void ZStageInterface::PostRelayMapInfoUpdate( void)
 {
-	MComboBox* pCBRelayMapType = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
+	CCComboBox* pCBRelayMapType = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
 	if ( !pCBRelayMapType) return;
-	MComboBox* pCBRelayMapRepeatCount = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
+	CCComboBox* pCBRelayMapRepeatCount = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
 	if ( !pCBRelayMapRepeatCount) return;
 
 	MListBox* pRelayMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
@@ -1476,7 +1476,7 @@ ret  : none
 ************************************************************************/
 void ZStageInterface::RelayMapCreateMapList()
 {
-	MComboBox* pCombo = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapSelection");
+	CCComboBox* pCombo = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapSelection");
 	if(pCombo == NULL) return;
 
 	// 맵 리스트 만들어 주기

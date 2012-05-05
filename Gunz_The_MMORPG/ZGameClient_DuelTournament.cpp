@@ -15,7 +15,7 @@
 #include "CCMatchChannel.h"
 #include "CCMatchStage.h"
 #include "ZPost.h"
-#include "MComboBox.h"
+#include "CCComboBox.h"
 #include "CCTextArea.h"
 #include "CCDebug.h"
 #include "ZMyInfo.h"

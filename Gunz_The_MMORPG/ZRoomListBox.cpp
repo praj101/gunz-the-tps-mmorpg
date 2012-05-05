@@ -551,7 +551,7 @@ void ZRoomListBox::RequestSelPrivateStageJoin()
 
 	if (uidStageUID != CCUID(0,0))
 	{
-		MEdit* pPassEdit = (MEdit*)pResource->FindWidget("PrivateStagePassword");
+		CCEdit* pPassEdit = (CCEdit*)pResource->FindWidget("PrivateStagePassword");
 		if (pPassEdit!=NULL)
 		{
 			char szPassword[256];

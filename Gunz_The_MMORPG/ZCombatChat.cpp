@@ -74,7 +74,7 @@ void ZTabPlayerList::OnPickPlayer()
 class MCombatChatInputListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MEDIT_ENTER_VALUE)==true)
+		if(CCWidget::IsMsg(szMessage, CCEdit_ENTER_VALUE)==true)
 		{
 			if (strlen(pWidget->GetText()) >= 256) return false;
 
@@ -102,12 +102,12 @@ public:
 			}
 			return true;
 		}
-		else if(CCWidget::IsMsg(szMessage, MEDIT_ESC_VALUE)==true)
+		else if(CCWidget::IsMsg(szMessage, CCEdit_ESC_VALUE)==true)
 		{
 			pWidget->SetText("");
 			ZGetCombatInterface()->EnableInputChat(false);
 		}
-		else if ((CCWidget::IsMsg(szMessage, MEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, MEDIT_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, CCEdit_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEdit_KEYDOWN_MSG)==true))
 		{
 			ZApplication::GetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -168,7 +168,7 @@ bool ZCombatChat::Create( const char* szOutputTxtarea,bool bUsePlayerList)
 	pWidget = m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATINPUT);
 	if (pWidget!=NULL)
 	{
-		m_pInputEdit = (MEdit*)pWidget;
+		m_pInputEdit = (CCEdit*)pWidget;
 		m_pInputEdit->Show(false);
 
 		if(bUsePlayerList)

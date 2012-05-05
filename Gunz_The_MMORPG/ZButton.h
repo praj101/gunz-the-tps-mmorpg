@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CCButton.h"
-#include "CCBmButton.h"
+#include "CCBCCButton.h"
 
 class ZButton : public CCButton{
 protected:
@@ -27,7 +27,7 @@ public:
 	virtual ~ZButton(void);
 };
 
-class ZBmButton: public CCBmButton 
+class ZBCCButton: public CCBCCButton 
 {
 protected:
 	unsigned char	m_nIllumination;
@@ -48,6 +48,6 @@ protected:
 	virtual void OnDraw(CCDrawContext* pDC);
 
 public:
-	ZBmButton(const char* szName, CCWidget* pParent, CCListener* pListener);
-	virtual ~ZBmButton(void);
+	ZBCCButton(const char* szName, CCWidget* pParent, CCListener* pListener);
+	virtual ~ZBCCButton(void);
 };

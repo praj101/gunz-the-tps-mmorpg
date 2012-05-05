@@ -4,7 +4,7 @@
 #include "ZInterface.h"
 
 //class MListBox;
-class MEdit;
+class CCEdit;
 class CCTextArea;
 
 /////////////////
@@ -12,11 +12,11 @@ class CCTextArea;
 #define ZPLB_ITEM_PICKPLAYER	"picked"
 class ZTabPlayerList : public MListBox {
 protected:
-	MEdit*	m_pEditChat;
+	CCEdit*	m_pEditChat;
 
 public:
 	ZTabPlayerList(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	void SetChatControl(MEdit* pEdit)	{ m_pEditChat = pEdit; }
+	void SetChatControl(CCEdit* pEdit)	{ m_pEditChat = pEdit; }
 
 	virtual bool OnShow(void);
 	virtual void OnHide(void);
@@ -31,7 +31,7 @@ class ZCombatChat
 private:
 protected:
 	ZIDLResource*		m_pIDLResource;
-	MEdit*				m_pInputEdit;
+	CCEdit*				m_pInputEdit;
 	ZTabPlayerList*		m_pTabPlayerList;
 	bool				m_bChatInputVisible;
 	unsigned long int	m_nLastChattingMsgTime;

@@ -902,7 +902,7 @@ LRESULT CD3DArcBall::HandleMouseMessages( HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 	switch( uMsg )
 	{
-	case WM_MBUTTONDOWN:
+	case WM_CCButtonDOWN:
 		iCurMouseX = iMouseX;
 		iCurMouseY = iMouseY;
 		return TRUE;
