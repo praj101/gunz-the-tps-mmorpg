@@ -371,7 +371,7 @@ void ZRuleDuelTournament::OnDraw(CCDrawContext* pDC)
 {
 	// 남은 시간표시
 	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDTInfo");
-	ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*) ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DT_RemainTime");
+	ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*) ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DT_RemainTime");
 	CCWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DM_Infinity_Time");
 	if (pWidget && pBmNumLabel && pPicture)
 	{
@@ -674,31 +674,31 @@ void ZRuleDuelTournament::SetMatchPlayerInfoUI(const CCUID& uidPlayer1, const CC
 	idx = GetPlayerInfoIndex(uidPlayer2);
 	if (idx != -1) tp[1] = m_QuaterFinalPlayer[idx].m_nTP;
 
-	MLabel* pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Name_Left");
+	CCLabel* pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Name_Left");
 	if (pLabel)	pLabel->SetText(pCharInfo[0]->szName);
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Clan_Left");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Clan_Left");
 	if (pLabel)	pLabel->SetText(pCharInfo[0]->szClanName);
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Level_Left");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Level_Left");
 	if (pLabel)	{
 		sprintf(szTemp, "%d", pCharInfo[0]->nLevel);
 		pLabel->SetText(szTemp);
 	}
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_HP_Left");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_HP_Left");
 	if (pLabel)	{
 		sprintf(szTemp, "%d", hp[0]);
 		pLabel->SetText(szTemp);
 	}
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_AP_Left");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_AP_Left");
 	if (pLabel)	{
 		sprintf(szTemp, "%d", ap[0]);
 		pLabel->SetText(szTemp);
 	}
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_TP_Left");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_TP_Left");
 	if (pLabel)	{
 		sprintf(szTemp, "%d", tp[0]);
 		pLabel->SetText(szTemp);
 	}
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Grade_Left");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Grade_Left");
 	if (pLabel)	{
 		char sz[32];
 		sprintf(sz, "%d", pCharInfo[0]->nDTLastWeekGrade);
@@ -706,31 +706,31 @@ void ZRuleDuelTournament::SetMatchPlayerInfoUI(const CCUID& uidPlayer1, const CC
 		pLabel->SetText(szTemp);
 	}
 
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Name_Right");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Name_Right");
 	if (pLabel)	pLabel->SetText(pCharInfo[1]->szName);
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Clan_Right");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Clan_Right");
 	if (pLabel)	pLabel->SetText(pCharInfo[1]->szClanName);
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Level_Right");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Level_Right");
 	if (pLabel)	{
 		sprintf(szTemp, "%d", pCharInfo[1]->nLevel);
 		pLabel->SetText(szTemp);
 	}
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_HP_Right");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_HP_Right");
 	if (pLabel)	{
 		sprintf(szTemp, "%d", hp[1]);
 		pLabel->SetText(szTemp);
 	}
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_AP_Right");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_AP_Right");
 	if (pLabel)	{
 		sprintf(szTemp, "%d", ap[1]);
 		pLabel->SetText(szTemp);
 	}
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_TP_Right");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_TP_Right");
 	if (pLabel)	{
 		sprintf(szTemp, "%d", tp[1]);
 		pLabel->SetText(szTemp);
 	}
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Grade_Right");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_PlayerInfo_Grade_Right");
 	if (pLabel)	{
 		char sz[32];
 		sprintf(sz, "%d", pCharInfo[1]->nDTLastWeekGrade);

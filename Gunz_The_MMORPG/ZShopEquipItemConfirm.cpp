@@ -24,9 +24,9 @@ void ZItemCountDlg::Open(ZITEMCOUNTDLG_MODE mode, const char* szItemName, CCBitm
 
 	m_nCurrCount = 1;
 
-	MFrame* pFrame = (MFrame*)GetIDLResource()->FindWidget("TradeCountableItemFrame");
-	MLabel* pLabel1 = (MLabel*)GetIDLResource()->FindWidget("TradeCountableItem_Message");
-	MLabel* pLabel2 = (MLabel*)GetIDLResource()->FindWidget("TradeCountableItem_NullLabel");
+	CCFrame* pFrame = (CCFrame*)GetIDLResource()->FindWidget("TradeCountableItemFrame");
+	CCLabel* pLabel1 = (CCLabel*)GetIDLResource()->FindWidget("TradeCountableItem_Message");
+	CCLabel* pLabel2 = (CCLabel*)GetIDLResource()->FindWidget("TradeCountableItem_NullLabel");
 	CCButton* pBtn = (CCButton*)GetIDLResource()->FindWidget("TradeCountableItem_Ok");
 
 	switch (m_mode) {
@@ -85,7 +85,7 @@ void ZItemCountDlg::UpdateDlg()
 	m_nCurrCount = max(m_nCurrCount, m_nMin);
 	m_nCurrCount = min(m_nCurrCount, m_nMax);
 
-	MLabel* pLabel = (MLabel*)GetIDLResource()->FindWidget( "TradeCountableItem_Calculate");
+	CCLabel* pLabel = (CCLabel*)GetIDLResource()->FindWidget( "TradeCountableItem_Calculate");
 	if (pLabel)
 	{
 		if (m_mode == ZICD_SENDACCOUNT || m_mode == ZICD_BRINGACCOUNT)
@@ -102,7 +102,7 @@ void ZItemCountDlg::UpdateDlg()
 
 	if (m_mode == ZICD_SELL || m_mode == ZICD_BUY)
 	{
-		pLabel = (MLabel*)GetIDLResource()->FindWidget( "TradeCountableItem_Total");
+		pLabel = (CCLabel*)GetIDLResource()->FindWidget( "TradeCountableItem_Total");
 		if (pLabel)
 		{
 			sprintf( szText, "= %d bounty", m_nPrice * m_nCurrCount);
@@ -212,13 +212,13 @@ void ZSellCashItemConfirmDlg::Open(const char* szItemName, CCBitmap* pIcon, int 
 	if (pPicture)
 		pPicture->SetBitmap(pIcon);
 
-	MLabel* pLabel = (MLabel*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_ItemName");
+	CCLabel* pLabel = (CCLabel*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_ItemName");
 	if (pLabel)
 		pLabel->SetText(szItemName);
 
 	char szPrice[256];
 	sprintf(szPrice, "%d %s", price, ZMsg(MSG_CHARINFO_BOUNTY));
-	pLabel = (MLabel*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Bounty");
+	pLabel = (CCLabel*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Bounty");
 	if (pLabel)
 		pLabel->SetText(szPrice);
 
@@ -226,7 +226,7 @@ void ZSellCashItemConfirmDlg::Open(const char* szItemName, CCBitmap* pIcon, int 
 	if (pTextArea)
 		pTextArea->SetText( ZMsg(MSG_SHOPEQUIP_SELL_CASHITEM_CONFIRM));
 
-	MFrame* pFrame = (MFrame*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame");
+	CCFrame* pFrame = (CCFrame*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame");
 	if (pFrame)
 	{
 		pFrame->Show(true, true);
@@ -291,18 +291,18 @@ void ZCashItemConfirmDlg::Open(CCBitmap* pItemIcon, ICashItemConfirmDlgDoneHandl
 	//todok 캐쉬 보유량, 남을 캐쉬량 텍스트 세팅
 	int myCash = ZGetMyInfo()->GetCash();
 	char sz[256];
-	MLabel* pLabel = (MLabel*)GetIDLResource()->FindWidget("BuyItemDetailFrame_MyCash");
+	CCLabel* pLabel = (CCLabel*)GetIDLResource()->FindWidget("BuyItemDetailFrame_MyCash");
 	if (pLabel) {
 		sprintf(sz, "%d", myCash);
 		pLabel->SetText(sz);
 	}
 	
-	pLabel = (MLabel*)GetIDLResource()->FindWidget("BuyItemDetailFrame_RequiredCash");
+	pLabel = (CCLabel*)GetIDLResource()->FindWidget("BuyItemDetailFrame_RequiredCash");
 	if (pLabel) {
 		pLabel->SetText("500(test)");	//todok 임시코드
 	}
 
-	pLabel = (MLabel*)GetIDLResource()->FindWidget("BuyItemDetailFrame_RemainCash");
+	pLabel = (CCLabel*)GetIDLResource()->FindWidget("BuyItemDetailFrame_RemainCash");
 	if (pLabel) {
 		sprintf(sz, "%d", myCash - 500);	//todok 임시코드
 		pLabel->SetText(sz);
@@ -326,7 +326,7 @@ void ZCashItemConfirmDlg::Open(CCBitmap* pItemIcon, ICashItemConfirmDlgDoneHandl
 		pCombobox->SetSelIndex(0);
 	}
 
-	MFrame* pFrame = (MFrame*)GetIDLResource()->FindWidget("BuyItemDetailFrame");
+	CCFrame* pFrame = (CCFrame*)GetIDLResource()->FindWidget("BuyItemDetailFrame");
 	if (pFrame)
 	{
 		pFrame->Show(true, true);

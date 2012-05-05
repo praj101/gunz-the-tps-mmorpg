@@ -114,7 +114,7 @@ protected:
 
 	ZIDLResource*		m_pIDLResource;
 
-	MLabel*				m_pTargetLabel;
+	CCLabel*				m_pTargetLabel;
 	CCBitmap*			m_ppIcons[ZCI_END];		/// 칭찬 아이콘들
 	CCBitmapR2*			m_pResultBgImg;
 	

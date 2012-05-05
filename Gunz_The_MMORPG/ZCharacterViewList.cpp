@@ -67,7 +67,7 @@ bool ZCharacterViewList::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	if(ZMeshViewList::OnCommand(pWidget,szMessage)==false) {
 
-		if( strcmp(szMessage, MBTN_CLK_MSG)==0 ) {
+		if( strcmp(szMessage, CCBTN_CLK_MSG)==0 ) {
 
 			ZCharacterView* pSelectView = (ZCharacterView*)pWidget;
 			SetSelectCharacter( pSelectView );
@@ -253,19 +253,19 @@ void ZCharacterViewList::Assign(CCMatchObjCacheMap* pObjCacheMap)
 	ZGetGameClient()->OutputMessage("CharacterViewList Assign", CCZMOM_LOCALREPLY);
 }
 
-MLabel* ZCharacterViewList::GetLobbyCharNameViewer()
+CCLabel* ZCharacterViewList::GetLobbyCharNameViewer()
 {
 	if(m_pLobbyCharNameViewer==NULL) {
-		m_pLobbyCharNameViewer = (MLabel*)ZGetGameInterface()->GetIDLResource()->FindWidget("Lobby_Charviewer_NameLable");
+		m_pLobbyCharNameViewer = (CCLabel*)ZGetGameInterface()->GetIDLResource()->FindWidget("Lobby_Charviewer_NameLable");
 	}
 	return m_pLobbyCharNameViewer;
 
 }
 
-MLabel* ZCharacterViewList::GetStageCharNameViewer()
+CCLabel* ZCharacterViewList::GetStageCharNameViewer()
 {
 	if(m_pStageCharNameViewer==NULL) {
-		m_pStageCharNameViewer = (MLabel*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_Charviewer_NameLable");
+		m_pStageCharNameViewer = (CCLabel*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_Charviewer_NameLable");
 	}
 	return m_pStageCharNameViewer;
 }
@@ -438,15 +438,15 @@ void ZCharacterViewList::OnDraw(CCDrawContext* pDC)
 //*/
 			char cTemp[10];
 			sprintf( cTemp, "Red : %02d", red );
-			MLabel* pWidget;
-			pWidget = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Red_Count" );
+			CCLabel* pWidget;
+			pWidget = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Red_Count" );
 			if(pWidget != 0)
 			{
 				pWidget->SetTextColor(0xFFFF0000);
 				pWidget->SetText( cTemp );
 				pWidget->Show( true );
 				sprintf( cTemp, "Blue : %02d", blue );
-				pWidget = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Blue_Count" );
+				pWidget = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Blue_Count" );
 				pWidget->SetTextColor(0xFF0000FF);
 				pWidget->SetText( cTemp ); 
 				pWidget->Show( true );
@@ -455,9 +455,9 @@ void ZCharacterViewList::OnDraw(CCDrawContext* pDC)
 		else
 		{
 			CCWidget* pWidget;
-			pWidget = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Red_Count" );
+			pWidget = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Red_Count" );
 			if(pWidget != 0) pWidget->Show( false );
-			pWidget = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Blue_Count" );
+			pWidget = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Team_Blue_Count" );
 			if(pWidget != 0) pWidget->Show( false );
 		}
 	}

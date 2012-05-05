@@ -1,5 +1,4 @@
-#ifndef ZINTERFACELISTENER_H
-#define ZINTERFACELISTENER_H
+#pragma once
 
 class CCListener;
 
@@ -281,6 +280,3 @@ DECLARE_LISTENER(ZGetProposalAgreementConfirm_CancelButtonListener);
 
 // 언어 선택 후 재시작 확인 다이얼로그
 DECLARE_LISTENER(ZGetLanguageChangeConfirmListenter);
-
-
-#endif

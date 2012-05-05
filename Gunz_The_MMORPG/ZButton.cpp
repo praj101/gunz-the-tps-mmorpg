@@ -99,7 +99,7 @@ void ZButton::OnDraw(CCDrawContext* pDC)
 		else
 		{
 			m_bClicked=false;
-//			if(GetListener()) GetListener()->OnCommand(this, MBTN_CLK_MSG);
+//			if(GetListener()) GetListener()->OnCommand(this, CCBTN_CLK_MSG);
 		}
 	}
 
@@ -234,7 +234,7 @@ void ZButton::OnDraw(CCDrawContext* pDC)
 		else
 		{
 			m_bClicked=false;
-//			if(GetListener()) GetListener()->OnCommand(this, MBTN_CLK_MSG);
+//			if(GetListener()) GetListener()->OnCommand(this, CCBTN_CLK_MSG);
 		}
 	}
 

@@ -66,7 +66,7 @@ void ZOptionInterface::InitInterfaceOption(void)
 	cclog("start InitInterface option\n");
 	/*
 	// Mouse Sensitivity Min/Max (Z_MOUSE_SENSITIVITY_MIN ~ Z_MOUSE_SENSITIVITY_MAX)
-	BEGIN_WIDGETLIST("MouseSensitivitySlider", pResource, MSlider*, pWidget);
+	BEGIN_WIDGETLIST("MouseSensitivitySlider", pResource, CCSlider*, pWidget);
 	pWidget->SetMinMax(Z_MOUSE_SENSITIVITY_MIN, Z_MOUSE_SENSITIVITY_MAX);
 	pWidget->SetValue(Z_MOUSE_SENSITIVITY);
 	END_WIDGETLIST();
@@ -78,7 +78,7 @@ void ZOptionInterface::InitInterfaceOption(void)
 		pWidget->SetValue( ZGetConfiguration()->GetMouseSensitivityInInt());
 	}
 
-	pWidget = (MSlider*)pResource->FindWidget("JoystickSensitivitySlider");
+	pWidget = (CCSlider*)pResource->FindWidget("JoystickSensitivitySlider");
 	if(pWidget)
 	{
 		pWidget->SetMinMax(0, DEFAULT_SLIDER_MAX);
@@ -92,7 +92,7 @@ void ZOptionInterface::InitInterfaceOption(void)
 		pWidget->SetValue(Z_AUDIO_BGM_VOLUME*DEFAULT_SLIDER_MAX);
 	}
 
-	pWidget = (MSlider*)pResource->FindWidget("EffectVolumeSlider");
+	pWidget = (CCSlider*)pResource->FindWidget("EffectVolumeSlider");
 	if(pWidget)
 	{
 		pWidget->SetMinMax(0, DEFAULT_SLIDER_MAX);
@@ -270,7 +270,7 @@ void ZOptionInterface::InitInterfaceOption(void)
 			//{
 			//	pWidget->SetCheck( true );
 			//	pWidget->Enable( false );
-			//	MLabel* label = (MLabel*)pResource->FindWidget("Lightmap Label");
+			//	CCLabel* label = (CCLabel*)pResource->FindWidget("Lightmap Label");
 			//	if(label) label->SetTextColor( sColor( 64, 64, 64 ));
 			//}
 		}
@@ -494,23 +494,23 @@ bool ZOptionInterface::SaveInterfaceOption(void)
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
 	{ // 슬라이더
-		MSlider* pWidget = (MSlider*)pResource->FindWidget("MouseSensitivitySlider");
-		Z_MOUSE_SENSITIVITY = (float) ((MSlider*)pWidget)->GetValue() / (float)MOUSE_SENSITIVITY_MAX;
+		CCSlider* pWidget = (CCSlider*)pResource->FindWidget("MouseSensitivitySlider");
+		Z_MOUSE_SENSITIVITY = (float) ((CCSlider*)pWidget)->GetValue() / (float)MOUSE_SENSITIVITY_MAX;
 
-		pWidget = (MSlider*)pResource->FindWidget("JoystickSensitivitySlider");
-		Z_JOYSTICK_SENSITIVITY = (float) ((MSlider*)pWidget)->GetValue() / (float)DEFAULT_SLIDER_MAX;
+		pWidget = (CCSlider*)pResource->FindWidget("JoystickSensitivitySlider");
+		Z_JOYSTICK_SENSITIVITY = (float) ((CCSlider*)pWidget)->GetValue() / (float)DEFAULT_SLIDER_MAX;
 
-		pWidget = (MSlider*)pResource->FindWidget("BGMVolumeSlider");
+		pWidget = (CCSlider*)pResource->FindWidget("BGMVolumeSlider");
 		if(pWidget)
 		{
-			Z_AUDIO_BGM_VOLUME = (float) ((MSlider*)pWidget)->GetValue() / (float)DEFAULT_SLIDER_MAX;
+			Z_AUDIO_BGM_VOLUME = (float) ((CCSlider*)pWidget)->GetValue() / (float)DEFAULT_SLIDER_MAX;
 			ZGetSoundEngine()->SetMusicVolume(Z_AUDIO_BGM_VOLUME) ;
 		}
 
-		pWidget = (MSlider*)pResource->FindWidget("EffectVolumeSlider");
+		pWidget = (CCSlider*)pResource->FindWidget("EffectVolumeSlider");
 		if(pWidget)
 		{
-			Z_AUDIO_EFFECT_VOLUME = (float) ((MSlider*)pWidget)->GetValue() / (float)DEFAULT_SLIDER_MAX;
+			Z_AUDIO_EFFECT_VOLUME = (float) ((CCSlider*)pWidget)->GetValue() / (float)DEFAULT_SLIDER_MAX;
 
 			ZGetSoundEngine()->SetEffectVolume(Z_AUDIO_EFFECT_VOLUME);
 		}
@@ -920,7 +920,7 @@ bool ZOptionInterface::SaveInterfaceOption(void)
 	}
 
 	// 감마값 저장
-	MSlider* pSlider = (MSlider*)pResource->FindWidget("VideoGamma");
+	CCSlider* pSlider = (CCSlider*)pResource->FindWidget("VideoGamma");
 	if (pSlider != NULL) 
 	{
 		Z_VIDEO_GAMMA_VALUE = pSlider->GetValue();
@@ -983,7 +983,7 @@ bool ZOptionInterface::SetTimer( bool b, float time /* = 0.f  */ )
 		ZTransMsg( szText, MSG_BACKTOTHEPREV, 1, szBuf);
 
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-		MLabel* Countdown = (MLabel*)pResource->FindWidget( "ViewConfirm_CountDown" );
+		CCLabel* Countdown = (CCLabel*)pResource->FindWidget( "ViewConfirm_CountDown" );
 		if ( Countdown)
 			Countdown->SetText( szText);
 	}
@@ -1041,7 +1041,7 @@ void ZOptionInterface::OptimizationVideoOption()
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	CCButton* pButton = 0;
 	CCComboBox* pCombo = 0;
-	MLabel* pLabel = 0;
+	CCLabel* pLabel = 0;
 
 	ZGetConfiguration()->SetForceOptimization( true );
 
@@ -1135,7 +1135,7 @@ void ZOptionInterface::OptimizationVideoOption()
 		if(pButton!=0) pButton->SetCheck(true);
 	}
 
-	//pLabel = (MLabel*)pResource->FindWidget("Lightmap Label");
+	//pLabel = (CCLabel*)pResource->FindWidget("Lightmap Label");
 	//if(pLabel!=0) pLabel->SetTextColor(sColor(64,64,64));
 	pButton = (CCButton*)pResource->FindWidget("LightMap");
 	if(pButton!=0) {
@@ -1523,7 +1523,7 @@ void ZOptionInterface::OnActionKeySet(ZActionKey* pActionKey, ZVIRTUALKEY key)
 
 
 ///////////////////// 이하 interface listener
-BEGIN_IMPLEMENT_LISTENER(ZGetOptionFrameButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetOptionFrameButtonListener, CCBTN_CLK_MSG)
 	// 옵션 프레임 보여주기
 	ZGetOptionInterface()->InitInterfaceOption();
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
@@ -1542,7 +1542,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetOptionFrameButtonListener, MBTN_CLK_MSG)
 #endif
 
 #ifndef _MULTILANGUAGE	// 다중언어지원 디파인을 껐을땐 언어선택 콤보박스를 숨겨버린다
-	pWidget = (MLabel*)pResource->FindWidget( "LanguageSelectLabel");
+	pWidget = (CCLabel*)pResource->FindWidget( "LanguageSelectLabel");
 	if ( pWidget) {
 		pWidget->Show( false);
 	}
@@ -1555,7 +1555,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetOptionFrameButtonListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSaveOptionButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSaveOptionButtonListener, CCBTN_CLK_MSG)
 	// Save & Close
 	/*
 	ZApplication::GetGameInterface()->SaveInterfaceOption();
@@ -1621,7 +1621,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetSaveOptionButtonListener, MBTN_CLK_MSG)
 
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCancelOptionButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCancelOptionButtonListener, CCBTN_CLK_MSG)
 //	ZApplication::GetGameInterface()->SaveInterfaceOption();
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
@@ -1641,7 +1641,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetCancelOptionButtonListener, MBTN_CLK_MSG)
 	if(pWidget!=NULL) pWidget->Show(false);
 
 	// 원래 감마값으로 돌리기
-	MSlider* pSlider = (MSlider*)pResource->FindWidget("VideoGamma");
+	CCSlider* pSlider = (CCSlider*)pResource->FindWidget("VideoGamma");
 	if (pSlider != NULL) 
 	{
 		if (pSlider->GetValue() != Z_VIDEO_GAMMA_VALUE)
@@ -1658,7 +1658,7 @@ END_IMPLEMENT_LISTENER()
 ///////////////////////////////////////////////////
 /// control
 
-BEGIN_IMPLEMENT_LISTENER( ZGetLoadDefaultKeySettingListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetLoadDefaultKeySettingListener, CCBTN_CLK_MSG)
 	ZGetConfiguration()->LoadDefaultKeySetting( );
 	for(int i=0; i<ZACTION_COUNT; i++)
 	{
@@ -1683,7 +1683,7 @@ END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER(ZGetOptionGammaSliderChangeListener, MLIST_VALUE_CHANGED)
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MSlider* pSlider = (MSlider*)pResource->FindWidget("VideoGamma");
+	CCSlider* pSlider = (CCSlider*)pResource->FindWidget("VideoGamma");
 	if (pSlider != NULL) 
 	{
 		unsigned short nGamma = (unsigned short)pSlider->GetValue();
@@ -1692,7 +1692,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetOptionGammaSliderChangeListener, MLIST_VALUE_CHANGE
 	}
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZGetRequestResizeListener, MBTN_CLK_MSG )
+BEGIN_IMPLEMENT_LISTENER( ZGetRequestResizeListener, CCBTN_CLK_MSG )
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ResizeConfirm");
 	if(pWidget!= 0) pWidget->Show( false );
@@ -1702,7 +1702,7 @@ BEGIN_IMPLEMENT_LISTENER( ZGetRequestResizeListener, MBTN_CLK_MSG )
 	ZGetOptionInterface()->ShowResizeConfirmDialog( true );
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZGetViewConfirmCancelListener, MBTN_CLK_MSG )
+BEGIN_IMPLEMENT_LISTENER( ZGetViewConfirmCancelListener, CCBTN_CLK_MSG )
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ViewConfirm");
 	if(pWidget!= 0) pWidget->Show( false );
@@ -1711,7 +1711,7 @@ BEGIN_IMPLEMENT_LISTENER( ZGetViewConfirmCancelListener, MBTN_CLK_MSG )
 	ZGetOptionInterface()->GetOldScreenResolution();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZGetViewConfrimAcceptListener, MBTN_CLK_MSG )
+BEGIN_IMPLEMENT_LISTENER( ZGetViewConfrimAcceptListener, CCBTN_CLK_MSG )
 
 	ZGetOptionInterface()->SetTimer( false );
 
@@ -1725,20 +1725,20 @@ BEGIN_IMPLEMENT_LISTENER( ZGetViewConfrimAcceptListener, MBTN_CLK_MSG )
 	if(pWidget!=NULL) pWidget->Show(false);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCancelResizeConfirmListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCancelResizeConfirmListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ResizeConfirm");
 	if(pWidget!=NULL) pWidget->Show(false);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZSetOptimizationListener, MBTN_CLK_MSG )
+BEGIN_IMPLEMENT_LISTENER( ZSetOptimizationListener, CCBTN_CLK_MSG )
 	ZGetOptionInterface()->OptimizationVideoOption();
 END_IMPLEMENT_LISTENER()
 
 //////////////////////////////////////////////////
 /// sound
 
-BEGIN_IMPLEMENT_LISTENER( ZGet8BitSoundListener, MBTN_CLK_MSG )
+BEGIN_IMPLEMENT_LISTENER( ZGet8BitSoundListener, CCBTN_CLK_MSG )
 	CCButton* pWidget = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("8BitSound");
 	if(pWidget)
 	{
@@ -1747,7 +1747,7 @@ BEGIN_IMPLEMENT_LISTENER( ZGet8BitSoundListener, MBTN_CLK_MSG )
 		if(pWidget) pWidget->SetCheck(false);
 	}
 END_IMPLEMENT_LISTENER()
-BEGIN_IMPLEMENT_LISTENER( ZGet16BitSoundListener, MBTN_CLK_MSG )
+BEGIN_IMPLEMENT_LISTENER( ZGet16BitSoundListener, CCBTN_CLK_MSG )
 	CCButton* pWidget = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("16BitSound");
 	if(pWidget)
 	{
@@ -1760,14 +1760,14 @@ END_IMPLEMENT_LISTENER()
 
 /////////////////////////////////////////////////
 //// network
-BEGIN_IMPLEMENT_LISTENER( ZGetNetworkPortChangeRestartListener, MBTN_CLK_MSG )
+BEGIN_IMPLEMENT_LISTENER( ZGetNetworkPortChangeRestartListener, CCBTN_CLK_MSG )
 	ZGetOptionInterface()->SaveInterfaceOption();
 	ZChangeGameState(GUNZ_SHUTDOWN);
 	ZApplication* pApp = ZApplication::GetInstance();
 	pApp->Exit();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZGetNetworkPortChangeCancelListener, MBTN_CLK_MSG )
+BEGIN_IMPLEMENT_LISTENER( ZGetNetworkPortChangeCancelListener, CCBTN_CLK_MSG )
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("NetworkPortConfirm");
 	if(pWidget!= 0) pWidget->Show(false);
@@ -1778,7 +1778,7 @@ END_IMPLEMENT_LISTENER()
 static void SetMouseSensitivitySlider(int i)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MSlider* pSlider = (MSlider*)pResource->FindWidget("MouseSensitivitySlider");
+	CCSlider* pSlider = (CCSlider*)pResource->FindWidget("MouseSensitivitySlider");
 	if (pSlider) 
 	{
 		pSlider->SetValue(i);
@@ -1799,7 +1799,7 @@ static void SetMouseSensitivityEdit(int i)
 
 BEGIN_IMPLEMENT_LISTENER( ZGetMouseSensitivitySliderListener, MLIST_VALUE_CHANGED)
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MSlider* pSlider = (MSlider*)pResource->FindWidget("MouseSensitivitySlider");
+	CCSlider* pSlider = (CCSlider*)pResource->FindWidget("MouseSensitivitySlider");
 	if (pSlider != NULL) 
 	{
 		int i = ZGetConfiguration()->ValidateMouseSensitivityInInt( pSlider->GetValue());

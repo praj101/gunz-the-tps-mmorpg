@@ -18,28 +18,28 @@ void ZMeshViewList::OnSize(int w, int h)
 
 bool ZMeshViewList::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
-	//if(pWidget==m_pLeft && strcmp(szMessage, MBTN_CLK_MSG)==0){
+	//if(pWidget==m_pLeft && strcmp(szMessage, CCBTN_CLK_MSG)==0){
 	//	if(m_nItemStartIndex>0){
 	//		m_nItemStartIndex--;
 	//		RecalcBounds();
 	//	}
 	//	return true;
 	//}
-	//else if(pWidget==m_pRight && strcmp(szMessage, MBTN_CLK_MSG)==0){
+	//else if(pWidget==m_pRight && strcmp(szMessage, CCBTN_CLK_MSG)==0){
 	//	if(m_nItemStartIndex+GetVisibleCount()<GetItemCount()){
 	//		m_nItemStartIndex++;
 	//		RecalcBounds();
 	//	}
 	//	return true;
 	//}
-	if(pWidget==m_pBmLeft && strcmp(szMessage, MBTN_CLK_MSG)==0){
+	if(pWidget==m_pBmLeft && strcmp(szMessage, CCBTN_CLK_MSG)==0){
 		if(m_nItemStartIndex>0){
 			m_nItemStartIndex--;
 			RecalcBounds();
 		}
 		return true;
 	}
-	else if(pWidget==m_pBmRight && strcmp(szMessage, MBTN_CLK_MSG)==0){
+	else if(pWidget==m_pBmRight && strcmp(szMessage, CCBTN_CLK_MSG)==0){
 		if(m_nItemStartIndex+GetVisibleCount()<GetItemCount()){
 			m_nItemStartIndex++;
 			RecalcBounds();

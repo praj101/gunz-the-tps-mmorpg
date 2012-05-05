@@ -52,7 +52,7 @@ void ZCharacterSelectView::LoadLastChar()
 			{
 				char szWidget[256];
 				sprintf( szWidget, "CharSel_Name%d", i);
-				MLabel* pLabel = (MLabel*)pResource->FindWidget( szWidget);
+				CCLabel* pLabel = (CCLabel*)pResource->FindWidget( szWidget);
 
 				if ( pLabel)
 				{
@@ -337,8 +337,8 @@ bool ZCharacterSelectView::SelectMyCharacter()
 	char szWidgetName[256];
 	sprintf( szWidgetName, "CharSel_Name%d", m_nSelCharIndex);
 
-	MLabel* pLabel;
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+	CCLabel* pLabel;
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 	if ( pLabel)
 	{
 		char szName[ 256];
@@ -503,37 +503,37 @@ void ZCharacterSelectView::OnChangedCharInfo(int sex,int index)
 	nItemID[MMCIP_CUSTOM1]		= g_InitialCostume[index][sex].nCustom1ItemID;
 	nItemID[MMCIP_CUSTOM2]		= g_InitialCostume[index][sex].nCustom2ItemID;
 
-	MLabel* pLabel = NULL;
+	CCLabel* pLabel = NULL;
 
-	pLabel = (MLabel*)pResource->FindWidget("CC_MeleeLabel");
+	pLabel = (CCLabel*)pResource->FindWidget("CC_MeleeLabel");
 	if (pLabel != NULL)	{
 		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_MELEE]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
-	pLabel = (MLabel*)pResource->FindWidget("CC_PrimaryLabel");
+	pLabel = (CCLabel*)pResource->FindWidget("CC_PrimaryLabel");
 	if (pLabel != NULL)	{
 		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_PRIMARY]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
-	pLabel = (MLabel*)pResource->FindWidget("CC_SecondaryLabel");
+	pLabel = (CCLabel*)pResource->FindWidget("CC_SecondaryLabel");
 	if (pLabel != NULL)	{
 		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_SECONDARY]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
-	pLabel = (MLabel*)pResource->FindWidget("CC_Item1Label");
+	pLabel = (CCLabel*)pResource->FindWidget("CC_Item1Label");
 	if (pLabel != NULL)	{
 		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM1]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
-	pLabel = (MLabel*)pResource->FindWidget("CC_Item2Label");
+	pLabel = (CCLabel*)pResource->FindWidget("CC_Item2Label");
 	if (pLabel != NULL)	{
 		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM2]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
@@ -615,13 +615,13 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 	// 초기화
 	char szName[256];
 	CCWidget* pWidget;
-	MLabel* pLabel;
+	CCLabel* pLabel;
 
 	// 위치 재정렬
 	for ( int i = 0; i < MAX_CHAR_COUNT; i++)
 	{
 		sprintf( szName, "CharSel_Name%d", i);
-		pLabel = (MLabel*)pResource->FindWidget( szName);
+		pLabel = (CCLabel*)pResource->FindWidget( szName);
 		if ( pLabel)
 		{
 			if ( i == nSelIndex)
@@ -631,7 +631,7 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 		}
 
 		sprintf( szName, "CharSel_Level%d", i);
-		pLabel = (MLabel*)pResource->FindWidget( szName);
+		pLabel = (CCLabel*)pResource->FindWidget( szName);
 		if ( pLabel)
 		{
 			if ( i == nSelIndex)
@@ -641,7 +641,7 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 		}
 
 		sprintf( szName, "CharSel_ClanName%d", i);
-		pLabel = (MLabel*)pResource->FindWidget( szName);
+		pLabel = (CCLabel*)pResource->FindWidget( szName);
 		if ( pLabel)
 		{
 			if ( i == nSelIndex)
@@ -682,24 +682,24 @@ void ZCharacterSelectView::OnInvalidate()
 void ZCharacterSelectView::ClearInterfaces()
 {
 	// Initialize widgets
-	MLabel* pLabel;
+	CCLabel* pLabel;
 	CCPicture* pPicture;
 	for (int i = 0; i < MAX_CHAR_COUNT; i++)
 	{
 		char szWidgetName[256];
 
 		sprintf( szWidgetName, "CharSel_Name%d", i);
-		pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+		pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 		if ( pLabel)
 			pLabel->SetText( "");
 
 		sprintf( szWidgetName, "CharSel_Level%d", i);
-		pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+		pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 		if ( pLabel)
 			pLabel->SetText( "");
 
 		sprintf( szWidgetName, "CharSel_ClanName%d", i);
-		pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+		pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 		if ( pLabel)
 			pLabel->SetText( "");
 
@@ -761,8 +761,8 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 			sRect rect;
 			sprintf( szWidgetName, "CharSel_Name%d", nIndex);
 
-			MLabel* pLabel;
-			pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+			CCLabel* pLabel;
+			pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 			if ( pLabel)
 			{
 				pLabel->SetText( pAccountCharInfo->szName);
@@ -772,7 +772,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 			}
 
 			sprintf( szWidgetName, "CharSel_Level%d", nIndex);
-			pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+			pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 			if ( pLabel)
 			{
 				char szString[256];
@@ -784,7 +784,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 			}
 
 			sprintf( szWidgetName, "CharSel_ClanName%d", nIndex);
-			pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+			pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 			if ( pLabel)
 			{
 				/* 클랜정보는 뺐습니다. - bird

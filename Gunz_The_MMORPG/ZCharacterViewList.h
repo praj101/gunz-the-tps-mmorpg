@@ -40,8 +40,8 @@ public:
 
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 
-	MLabel*	GetLobbyCharNameViewer();
-	MLabel*	GetStageCharNameViewer();
+	CCLabel*	GetLobbyCharNameViewer();
+	CCLabel*	GetStageCharNameViewer();
 
 	ZCharacterView* GetLobbyCharViewer();
 	ZCharacterView* GetStageCharViewer();
@@ -58,8 +58,8 @@ public:
 
 public:
 
-	MLabel* m_pLobbyCharNameViewer;
-	MLabel* m_pStageCharNameViewer;
+	CCLabel* m_pLobbyCharNameViewer;
+	CCLabel* m_pStageCharNameViewer;
 
 	ZCharacterView* m_pLobbyCharViewer;
 	ZCharacterView* m_pStageCharViewer;

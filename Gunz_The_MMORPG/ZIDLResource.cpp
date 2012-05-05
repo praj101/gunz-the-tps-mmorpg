@@ -684,14 +684,14 @@ ZPlayerSelectListBox* ZIDLResource::GetPlayerSelectListBox(CCXmlElement& element
 	return pWidget;
 }
 
-ZBmNumLabel* ZIDLResource::GetBmNumLabel(CCXmlElement& element)
+ZBmNuCCLabel* ZIDLResource::GetBmNumLabel(CCXmlElement& element)
 {
 	CCXmlElement childElement;
 	char szBuf[1024];
 	CCWidget* pParentWidget;	CCListener* pListener;
 
 	pListener = pParentWidget = GetParentWidget(element);
-	ZBmNumLabel* pBmLabel = new ZBmNumLabel(MINT_ZBMNUMLABEL, pParentWidget, pListener);
+	ZBmNuCCLabel* pBmLabel = new ZBmNumLabel(MINT_ZBMNUMLABEL, pParentWidget, pListener);
 	InsertWidget(element, pBmLabel);
 
 	int iCount = element.GetChildNodeCount();
@@ -846,9 +846,9 @@ void ZIDLResource::Parse(CCXmlElement& element)
 	}
 }
 
-MFrame*	ZIDLResource::CreateFrame(const char* szName, CCWidget* pParent, CCListener* pListener)
+CCFrame*	ZIDLResource::CreateFrame(const char* szName, CCWidget* pParent, CCListener* pListener)
 {
-	MFrame* pFrame = new ZFrame(szName, pParent, pListener);
+	CCFrame* pFrame = new ZFrame(szName, pParent, pListener);
 	return pFrame;
 }
 
