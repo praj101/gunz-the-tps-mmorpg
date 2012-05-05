@@ -598,7 +598,7 @@ void ZGameInput::Update(float fElapsed)
 		{
 			dwLastTime = timeGetTime();
 			{
-				MTextArea *pTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget("CombatChatOutputTest");
+				CCTextArea *pTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget("CombatChatOutputTest");
 				if(pTextArea)
 				{
 					char szbuffer[256];
@@ -614,7 +614,7 @@ void ZGameInput::Update(float fElapsed)
 			}
 
 			{
-				MTextArea *pTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget("CombatChatOutput");
+				CCTextArea *pTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget("CombatChatOutput");
 				if(pTextArea)
 				{
 					char szbuffer[256];

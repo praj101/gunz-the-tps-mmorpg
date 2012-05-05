@@ -308,7 +308,7 @@ void ZMonsterBookInterface::DrawPage( void)
 
 
 	// 해당 몬스터의 설명을 업데이트 한다
-	MTextArea* pTextArea = (MTextArea*)pResource->FindWidget( "MonsterBook_MonsterDesc");
+	CCTextArea* pTextArea = (CCTextArea*)pResource->FindWidget( "MonsterBook_MonsterDesc");
 	if ( pTextArea)
 	{
 		pTextArea->Clear();
@@ -345,7 +345,7 @@ void ZMonsterBookInterface::DrawPage( void)
 
 
 	// 해당 몬스터의 특수기를 업데이트 한다
-	pTextArea = (MTextArea*)pResource->FindWidget( "MonsterBook_Attacks");
+	pTextArea = (CCTextArea*)pResource->FindWidget( "MonsterBook_Attacks");
 	if ( pTextArea)
 	{
 		pTextArea->Clear();

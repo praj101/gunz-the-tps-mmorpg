@@ -73,7 +73,7 @@ public:
 	void OnArmorWeaponTabButtonClicked(int nTab);
 
 public:
-	void ShowItemDescription(bool bShow, MTextArea* pTextArea, void* pCaller);
+	void ShowItemDescription(bool bShow, CCTextArea* pTextArea, void* pCaller);
 	
 	// 상점/장비창에서 캐릭터의 기본 정보나, 특정 장비를 교체했을 때의 정보 변화를 텍스트로 표시한다	
 	void DrawCharInfoText();

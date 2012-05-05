@@ -310,7 +310,7 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 			// 아이템 설명 업데이트
 			ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem( m_nParts);
-			MTextArea* pTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget( GetItemDescriptionWidgetName());
+			CCTextArea* pTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget( GetItemDescriptionWidgetName());
 			
 			ZShopEquipItem_Match::FillItemDesc(pItemDesc, pTextArea, pItemNode);
 
@@ -412,14 +412,14 @@ void ZItemSlotView::OnMouseIn( void )
 	if (nItemID == 0) return;
 
 	const char* szItemDescription = GetItemDescriptionWidgetName();
-	MTextArea* pItemDescTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szItemDescription);
+	CCTextArea* pItemDescTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szItemDescription);
 	if (!pItemDescTextArea) return;
 
 	pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 	// 아이템 설명 업데이트
 	ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem( m_nParts);
-	MTextArea* pTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget( szItemDescription);
+	CCTextArea* pTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget( szItemDescription);
 	ZShopEquipItem_Match::FillItemDesc(pItemDesc, pTextArea, pItemNode);
 
 	// 툴팁의 위치
@@ -439,7 +439,7 @@ void ZItemSlotView::OnMouseOut( void )
 {
 	MButton::OnMouseOut();
 
-	MTextArea* pItemDescTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(GetItemDescriptionWidgetName());
+	CCTextArea* pItemDescTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(GetItemDescriptionWidgetName());
 	if (!pItemDescTextArea) return;
 
 	ZGetGameInterface()->GetShopEquipInterface()->ShowItemDescription(false, pItemDescTextArea, this);

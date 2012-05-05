@@ -624,9 +624,9 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	// 아이템 설명 textarea의 커스텀 룩을 지정
 	m_textAreaLookItemDesc.SetBgColor(sColor(10, 10, 10, 220));
 
-	MTextArea* pTextArea = (MTextArea*)m_IDLResource.FindWidget("Shop_ItemDescription");
+	CCTextArea* pTextArea = (CCTextArea*)m_IDLResource.FindWidget("Shop_ItemDescription");
 	if (pTextArea) pTextArea->ChangeCustomLook(&m_textAreaLookItemDesc);
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget("Equip_ItemDescription");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget("Equip_ItemDescription");
 	if (pTextArea) pTextArea->ChangeCustomLook(&m_textAreaLookItemDesc);
 /*
 	MPanel* pPanel = new MPanel();
@@ -2281,55 +2281,55 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	// 결과화면 리스트박스 초기화
 	int nLineHeightTextArea = int(18/600.f * CCGetWorkspaceHeight());	// 800*600 해상도 기준으로 18픽셀
-	MTextArea* pTextArea = (MTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerNameList");
+	CCTextArea* pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerNameList");
 	if ( pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerKillList");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerKillList");
 	if ( pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerDeathList");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "CombatResult_PlayerDeathList");
 	if ( pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerNameList1");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerNameList1");
 	if ( pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerKillList1");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerKillList1");
 	if ( pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerDeathList1");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerDeathList1");
 	if ( pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerNameList2");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerNameList2");
 	if ( pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerKillList2");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerKillList2");
 	if ( pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerDeathList2");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "ClanResult_PlayerDeathList2");
 	if ( pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
@@ -2434,37 +2434,37 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	}
 
 	// 서바이벌 랭킹 리스트 박스 초기화
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_MyRank");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "SurvivalResult_MyRank");
 	if (pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_MyName");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "SurvivalResult_MyName");
 	if (pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_MyRankPoint");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "SurvivalResult_MyRankPoint");
 	if (pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_PlayerRankList");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "SurvivalResult_PlayerRankList");
 	if (pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_PlayerNameList");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "SurvivalResult_PlayerNameList");
 	if (pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
 		pTextArea->SetCustomLineHeight( nLineHeightTextArea);
 	}
-	pTextArea = (MTextArea*)m_IDLResource.FindWidget( "SurvivalResult_PlayerRankPointList");
+	pTextArea = (CCTextArea*)m_IDLResource.FindWidget( "SurvivalResult_PlayerRankPointList");
 	if (pTextArea)
 	{
 		pTextArea->SetFont( CCFontManager::Get( "FONTa10b"));
@@ -2635,7 +2635,7 @@ void ZGameInterface::OnDestroy()
 {
 	cclog("Destroy interface begin \n");
 
-	MTextArea* pTextArea = (MTextArea*)m_IDLResource.FindWidget("Shop_ItemDescription");
+	CCTextArea* pTextArea = (CCTextArea*)m_IDLResource.FindWidget("Shop_ItemDescription");
 	if (pTextArea) pTextArea->ChangeCustomLook(NULL);
 
 	//ZCharacterViewList* pCharViewList = (ZCharacterViewList*)m_IDLResource.FindWidget("StagePlayerList");
@@ -4860,7 +4860,7 @@ bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, CCAlignmentM
 			pWidget->AttachToolTip(new ZToolTip(szToolTipText, pWidget, mam));
 		}
 /*
-		MToolTip* pTT =	pWidget->GetToolTip();
+		CCToolTip* pTT =	pWidget->GetToolTip();
 		if(pTT) {
 			if(!szToolTipText[0]) {
 				pTT->AttachToolTip()
@@ -5104,10 +5104,10 @@ void ZGameInterface::ShowEquipmentDialog(bool bShow)
 		if ( pWidget != NULL)
 			pWidget->Enable( false);
 
-		MTextArea* pTextArea = (MTextArea*)pResource->FindWidget("Equip_ItemDescription");
+		CCTextArea* pTextArea = (CCTextArea*)pResource->FindWidget("Equip_ItemDescription");
 		if(pTextArea)	pTextArea->SetText("");
 
-		/*pTextArea = (MTextArea*)pResource->FindWidget("Equip_ItemDescription3");
+		/*pTextArea = (CCTextArea*)pResource->FindWidget("Equip_ItemDescription3");
 		if ( pTextArea)
 		{
 			pTextArea->SetTextColor( sColor( 180, 180, 180));
@@ -5160,7 +5160,7 @@ void ZGameInterface::ShowShopDialog(bool bShow)
 
 		// ZPostStageState(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MOSS_SHOP);
 
-		MTextArea* pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Shop_ItemDescription");
+		CCTextArea* pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Shop_ItemDescription");
 		if(pTextArea)	pTextArea->SetText("");
 
 		//pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("Shop_ItemIcon");

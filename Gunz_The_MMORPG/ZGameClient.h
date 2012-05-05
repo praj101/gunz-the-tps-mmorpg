@@ -50,7 +50,7 @@ private:
 	bool					m_bCanVote;				///< 투표권이 있는가
 
 	// 클랜 앰블럼 관련
-	MEmblemMgr				m_EmblemMgr;
+	CCEmblemMgr				m_EmblemMgr;
 
 	// 기타옵션 관련
 	bool					m_bPriorityBoost;		///< 성능최대화
@@ -335,7 +335,7 @@ protected:
 	void OnClanEmblemReady(unsigned int nCLID, const char* szURL);
 
 public:
-	MEmblemMgr *GetEmblemManager() { return &m_EmblemMgr; }	
+	CCEmblemMgr *GetEmblemManager() { return &m_EmblemMgr; }	
 
 	// UPnP
 protected:

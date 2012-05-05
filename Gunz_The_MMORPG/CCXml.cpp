@@ -18,7 +18,7 @@ using namespace std;
 	typedef MSXML2::IXMLDOMElementPtr				CCXmlDomElementPtr;
 	typedef MSXML2::IXMLDOMProcessingInstructionPtr CCXmlDomPIPtr;
 	typedef MSXML2::IXMLDOMNamedNodeMapPtr			CCXmlDomNamedNodeMapPtr;
-	typedef MSXML2::IXMLDOMTextPtr					CCXmlDomTextPtr;
+	typedef MSXML2::IXMLDOCCTextPtr					CCXmlDomTextPtr;
 	typedef MSXML2::IXMLDOMParseErrorPtr			CCXmlDomParseErrorPtr;
 #else
 	#import "msxml.dll" named_guids implementation_only
@@ -29,7 +29,7 @@ using namespace std;
 	typedef MSXML::IXMLDOMElementPtr				CCXmlDomElementPtr;
 	typedef MSXML::IXMLDOMProcessingInstructionPtr	CCXmlDomPIPtr;
 	typedef MSXML::IXMLDOMNamedNodeMapPtr			CCXmlDomNamedNodeMapPtr;
-	typedef MSXML::IXMLDOMTextPtr					CCXmlDomTextPtr;
+	typedef MSXML::IXMLDOCCTextPtr					CCXmlDomTextPtr;
 	typedef MSXML::IXMLDOMParseErrorPtr				CCXmlDomParseErrorPtr;
 
 //	using namespace MSXML;

@@ -5,7 +5,7 @@
 
 class MListBox;
 class CCZFileSystem;
-class MTextArea;
+class CCTextArea;
 
 class ZMapListBox : public CCWidget{
 protected:

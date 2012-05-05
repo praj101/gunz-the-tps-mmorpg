@@ -221,7 +221,7 @@ bool CCTextArea::OnCommand(CCWidget* pWindow, const char* szMessage){
 	return false;
 }
 
-bool MTextArea::MoveLeft(bool bBackspace){
+bool CCTextArea::MoveLeft(bool bBackspace){
 	if(IsDoubleCaretPos() && m_bCaretFirst==false && !bBackspace){
 		m_bCaretFirst=true;
 		return true;		

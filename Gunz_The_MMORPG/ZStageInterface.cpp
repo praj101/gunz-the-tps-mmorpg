@@ -135,7 +135,7 @@ void ZStageInterface::OnCreate( void)
 	MListBox* pListBox = (MListBox*)pResource->FindWidget( "Stage_SacrificeItemListbox");
 	if ( pListBox)
 		pListBox->RemoveAll();
-	MTextArea* pDesc = (MTextArea*)pResource->FindWidget( "Stage_ItemDesc");
+	CCTextArea* pDesc = (CCTextArea*)pResource->FindWidget( "Stage_ItemDesc");
 	if ( pDesc)
 	{
 		pDesc->SetTextColor( sColor(0xFF808080));
@@ -1170,7 +1170,7 @@ void ZStageInterface::OnDropSacrificeItem( int nSlotNum)
 	SacrificeItemListBoxItem* pItemDesc = (SacrificeItemListBoxItem*)pListBox->Get( pListBox->GetSelIndex());
 	if ( pItemDesc)
 	{
-		MTextArea* pDesc = (MTextArea*)pResource->FindWidget( "Stage_ItemDesc");
+		CCTextArea* pDesc = (CCTextArea*)pResource->FindWidget( "Stage_ItemDesc");
 
 		// 슬롯이 비어있으면 무조건 올림
 		if ( ! m_SacrificeItem[ nSlotNum].IsExist())
@@ -1216,7 +1216,7 @@ void ZStageInterface::OnRemoveSacrificeItem( int nSlotNum)
 									   nSlotNum,
 									   m_SacrificeItem[ nSlotNum].GetItemID());
 
-	MTextArea* pDesc = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
+	CCTextArea* pDesc = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
 	char szText[256];
 	sprintf(szText, ZMsg( MSG_QUESTITEM_USE_DESCRIPTION ));
 	pDesc->SetText(szText);
@@ -1242,7 +1242,7 @@ public:
 
 			// 아이템 설명 업데이트
 			SacrificeItemListBoxItem* pItemDesc = (SacrificeItemListBoxItem*)pListBox->GetSelItem();
-			MTextArea* pDesc = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
+			CCTextArea* pDesc = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
 			if ( pItemDesc && pDesc)
 			{
 				char szCount[ 128];
@@ -1800,7 +1800,7 @@ bool ZStageInterface::OnResponseCallbackSacrificeItem( const int nResult, const 
 
 		UpdateSacrificeItem();
 
-		MTextArea* pDesc = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
+		CCTextArea* pDesc = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
 		char szText[256];
 		sprintf(szText, ZMsg( MSG_QUESTITEM_USE_DESCRIPTION ));
 		pDesc->SetText(szText);
@@ -1883,7 +1883,7 @@ bool ZStageInterface::OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const
 
 	UpdateSacrificeItem();
 
-	MTextArea* pDesc = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
+	CCTextArea* pDesc = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
 	//if ( pDesc)
 	//	pDesc->Clear();
 
@@ -1893,7 +1893,7 @@ bool ZStageInterface::OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const
 
 bool ZStageInterface::OnQuestStartFailed( const int nState )
 {
-	MTextArea* pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageChattingOutput");
+	CCTextArea* pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageChattingOutput");
 	if ( pTextArea)
 	{
 		char text[256];
@@ -1905,14 +1905,14 @@ bool ZStageInterface::OnQuestStartFailed( const int nState )
 	if( MSQITRES_INV == nState )
 	{
 		// 해당 QL에대한 희생아이템 정보 테이블이 없음. 이경우는 맞지 않는 희생 아이템이 올려져 있을경우.
-		MTextArea* pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageChattingOutput");
+		CCTextArea* pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageChattingOutput");
 		if ( pTextArea)
 			pTextArea->AddText( "^1현재 놓여있는 아이템은 조건에 맞지 않아 게임을 시작할 수 없습니다.");
 	}
 	else if( MSQITRES_DUP == nState )
 	{
 		// 양쪽 슬롯에 같은 아이템이 올려져 있음.
-		MTextArea* pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageChattingOutput");
+		CCTextArea* pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageChattingOutput");
 		if ( pTextArea)
 			pTextArea->AddText( "^1같은 아이템 2개가 놓여있으므로 게임을 시작할 수 없습니다.");
 	}

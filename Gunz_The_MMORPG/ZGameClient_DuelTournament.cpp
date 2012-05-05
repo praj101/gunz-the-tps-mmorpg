@@ -16,7 +16,7 @@
 #include "CCMatchStage.h"
 #include "ZPost.h"
 #include "MComboBox.h"
-#include "MTextArea.h"
+#include "CCTextArea.h"
 #include "CCDebug.h"
 #include "ZMyInfo.h"
 #include "ZNetRepository.h"

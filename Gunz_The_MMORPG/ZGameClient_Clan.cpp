@@ -188,7 +188,7 @@ void ZGameClient::OnClanAskSponsorAgreement(const int nRequestID, const char* sz
 	m_uidRequestPlayer = uidMasterObject;
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MTextArea* pTextEdit = (MTextArea*)pResource->FindWidget("ClanSponsorAgreementConfirm_Textarea");
+	CCTextArea* pTextEdit = (CCTextArea*)pResource->FindWidget("ClanSponsorAgreementConfirm_Textarea");
 	if (pTextEdit)
 	{
 		char szTemp[256];
@@ -369,7 +369,7 @@ void ZGameClient::OnClanAskJoinAgreement(const char* szClanName, CCUID& uidClanA
 	m_uidRequestPlayer = uidClanAdmin;
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MTextArea* pTextEdit = (MTextArea*)pResource->FindWidget("ClanJoinerAgreementConfirm_Textarea");
+	CCTextArea* pTextEdit = (CCTextArea*)pResource->FindWidget("ClanJoinerAgreementConfirm_Textarea");
 	if (pTextEdit)
 	{
 		char szTemp[256];

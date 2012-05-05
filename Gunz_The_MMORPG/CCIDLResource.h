@@ -112,80 +112,80 @@ protected:
 	map<string, CCButtonGroup*>		m_ButtonGroupMap;
 
 	// 기본요소
-	sPoint			GetPoint(CCXmlElement& element);
-	sRect			GetRect(CCXmlElement& element);
-	sSize			GetSize(CCXmlElement& element);
-	sColor			GetColor(CCXmlElement& element);
-	CCBitmap*		GetBitmap(CCXmlElement& element);
-	CCBitmap*		GetBitmapAlias(CCXmlElement& element);	// 부분bitmap을 특정 이름으로 alias
-	sAnchors		GetAnchors(CCXmlElement& element);
-	CCAlignmentMode	GetAlignmentMode(CCXmlElement& element);
+	sPoint			GetPoint(::CCXmlElement& element);
+	sRect			GetRect(::CCXmlElement& element);
+	sSize			GetSize(::CCXmlElement& element);
+	sColor			GetColor(::CCXmlElement& element);
+	CCBitmap*		GetBitmap(::CCXmlElement& element);
+	CCBitmap*		GetBitmapAlias(::CCXmlElement& element);	// 부분bitmap을 특정 이름으로 alias
+	sAnchors		GetAnchors(::CCXmlElement& element);
+	CCAlignmentMode	GetAlignmentMode(::CCXmlElement& element);
 
 	// Widget
-	CCWidget*		GetParentWidget(CCXmlElement& element);
-	CCFrame*			GetFrame(CCXmlElement& element);
-	CCLabel*			GetLabel(CCXmlElement& element);
-	CCButton*		GetButton(CCXmlElement& element);
-	CCBmButton*		GetBmButton(CCXmlElement& element);
-	CCEdit*			GetEdit(CCXmlElement& element);
-	CCListBox*		GetListBox(CCXmlElement& element);
-	CCPicture*		GetPicture(CCXmlElement& element);
-	CCScrollBar*		GetScrollBar(CCXmlElement& element);
-	CCSlider*		GetSlider(CCXmlElement& element);
-	CCGroup*			GetGroup(CCXmlElement& element);
-	CCComboBox*		GetComboBox(CCXmlElement& element);
-	CCPopupMenu*		GetPopupMenu(CCXmlElement& element);
-	CCAniBitmap*		GetAniBitmap(CCXmlElement& element);
-	CCAnimation*		GetAnimation(CCXmlElement& element);
-	CCCursor*		GetCursor(CCXmlElement& element);
-	CCBmLabel*		GetBmLabel(CCXmlElement& element);
-	CCFont*			GetFont(CCXmlElement& element);
-	CCHotKey*		GetHotKey(CCXmlElement& element);
-//	MActionKey*		GetActionKey(CCXmlElement& element);
-	CCTextArea*		GetTextArea(CCXmlElement& element);
-	CCTabCtrl*		GetTabCtrl(CCXmlElement& element);
-	CCPanel*			GetPanel(CCXmlElement& element);
+	CCWidget*		GetParentWidget(::CCXmlElement& element);
+	CCFrame*			GetFrame(::CCXmlElement& element);
+	CCLabel*			GetLabel(::CCXmlElement& element);
+	CCButton*		GetButton(::CCXmlElement& element);
+	CCBmButton*		GetBmButton(::CCXmlElement& element);
+	CCEdit*			GetEdit(::CCXmlElement& element);
+	CCListBox*		GetListBox(::CCXmlElement& element);
+	CCPicture*		GetPicture(::CCXmlElement& element);
+	CCScrollBar*		GetScrollBar(::CCXmlElement& element);
+	CCSlider*		GetSlider(::CCXmlElement& element);
+	CCGroup*			GetGroup(::CCXmlElement& element);
+	CCComboBox*		GetComboBox(::CCXmlElement& element);
+	CCPopupMenu*		GetPopupMenu(::CCXmlElement& element);
+	CCAniBitmap*		GetAniBitmap(::CCXmlElement& element);
+	CCAnimation*		GetAnimation(::CCXmlElement& element);
+	CCCursor*		GetCursor(::CCXmlElement& element);
+	CCBmLabel*		GetBmLabel(::CCXmlElement& element);
+	CCFont*			GetFont(::CCXmlElement& element);
+	CCHotKey*		GetHotKey(::CCXmlElement& element);
+//	MActionKey*		GetActionKey(::CCXmlElement& element);
+	CCTextArea*		GetTextArea(::CCXmlElement& element);
+	CCTabCtrl*		GetTabCtrl(::CCXmlElement& element);
+	CCPanel*			GetPanel(::CCXmlElement& element);
 
 	// Look&Feel
-	CCBLabelLook*	GetLabelLook(CCXmlElement& element);
-	CCBButtonLook*	GetButtonLook(CCXmlElement& element);
-	CCBGroupLook*	GetGroupLook(CCXmlElement& element);
-	CCBFrameLook*	GetFrameLook(CCXmlElement& element);
-	CCBEditLook*		GetEditLook(CCXmlElement& element);
-	CCBListBoxLook*	GetListBoxLook(CCXmlElement& element, int nType);	///< nType: 0=ListBox, 1=ComboListBox
-	CCBScrollBarLook* GetScrollBarLook(CCXmlElement& element);
-	CCBArrowLook*	GetArrowLook(CCXmlElement& element);
-	CCBThumbLook*	GetThumbLook(CCXmlElement& element);
-	CCBSliderLook*	GetSliderLook(CCXmlElement& element);
-	CCBTextAreaLook*	GetTextAreaLook(CCXmlElement& element);
-	CCBSliderThumbLook* GetSliderThumbLook(CCXmlElement& element);
-	CCBTabCtrlLook*	GetTabCtrlLook(CCXmlElement& element);
+	CCBLabelLook*	GetLabelLook(::CCXmlElement& element);
+	CCBButtonLook*	GetButtonLook(::CCXmlElement& element);
+	CCBGroupLook*	GetGroupLook(::CCXmlElement& element);
+	CCBFrameLook*	GetFrameLook(::CCXmlElement& element);
+	CCBEditLook*		GetEditLook(::CCXmlElement& element);
+	CCBListBoxLook*	GetListBoxLook(::CCXmlElement& element, int nType);	///< nType: 0=ListBox, 1=ComboListBox
+	CCBScrollBarLook* GetScrollBarLook(::CCXmlElement& element);
+	CCBArrowLook*	GetArrowLook(::CCXmlElement& element);
+	CCBThumbLook*	GetThumbLook(::CCXmlElement& element);
+	CCBSliderLook*	GetSliderLook(::CCXmlElement& element);
+	CCBTextAreaLook*	GetTextAreaLook(::CCXmlElement& element);
+	CCBSliderThumbLook* GetSliderThumbLook(::CCXmlElement& element);
+	CCBTabCtrlLook*	GetTabCtrlLook(::CCXmlElement& element);
 
 	// Helper
-	CCPopupMenu* GetSubMenu(CCMenuItem* pParentMenuItem, CCXmlElement& element);
-	CCMenuItem* GetMenuItem(CCPopupMenu* pPopupMenu, CCXmlElement& element);
-	void GetRebounds(CCXmlElement& element);
+	CCPopupMenu* GetSubMenu(CCMenuItem* pParentMenuItem, ::CCXmlElement& element);
+	CCMenuItem* GetMenuItem(CCPopupMenu* pPopupMenu, ::CCXmlElement& element);
+	void GetRebounds(::CCXmlElement& element);
 
-	void GetFrameBtn(CCFrameBtn* pFrameBtn, CCBFrameLook* pFrameLook, CCXmlElement& element);
-	void GetBmButtonBitmaps(CCBitmap** ppBitmaps, CCXmlElement& element);
-	void GetBitmaps(CCBitmap** ppBitmaps, CCXmlElement& element, const int nBitmapCount);
-	void InsertWidget(CCXmlElement& element, CCWidget* pWidget);
+	void GetFrameBtn(CCFrameBtn* pFrameBtn, CCBFrameLook* pFrameLook, ::CCXmlElement& element);
+	void GetBmButtonBitmaps(CCBitmap** ppBitmaps, ::CCXmlElement& element);
+	void GetBitmaps(CCBitmap** ppBitmaps, ::CCXmlElement& element, const int nBitmapCount);
+	void InsertWidget(::CCXmlElement& element, CCWidget* pWidget);
 	void InsertWidget( const char* pItemName, CCWidget* pWidget );
-	bool GetCommonWidgetProperty(CCWidget* pWidget, CCXmlElement& element, const char* szTagName);
+	bool GetCommonWidgetProperty(CCWidget* pWidget, ::CCXmlElement& element, const char* szTagName);
 	void ClearLooks();
 
 	// 저장 관련 - 나중에 필요할때 만들자.
-	void SetLabel(CCXmlElement& element, CCLabel* pLabel);
-	void SetPoint(CCXmlElement& element, sPoint* pPoint, const char* szTagName);
-	void SetRect(CCXmlElement& element, sRect* pRect, const char* szTagName);
-	void SetSize(CCXmlElement& element, sSize* pSize, const char* szTagName);
-	void SetColor(CCXmlElement& element, sColor* pColor, const char* szTagName);
+	void SetLabel(::CCXmlElement& element, CCLabel* pLabel);
+	void SetPoint(::CCXmlElement& element, sPoint* pPoint, const char* szTagName);
+	void SetRect(::CCXmlElement& element, sRect* pRect, const char* szTagName);
+	void SetSize(::CCXmlElement& element, sSize* pSize, const char* szTagName);
+	void SetColor(::CCXmlElement& element, sColor* pColor, const char* szTagName);
 
 	virtual CCFrame*	CreateFrame(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual CCFont* CreateFont(char* szAliasName, char* szFontName, int nHeight, 
 		bool bBold = false, bool bItalic = false, int nOutlineStyle = 1, bool bAntialiasing = false, DWORD nColorArg1=0, DWORD nColorArg2=0);
 
-	virtual void Parse(CCXmlElement& element);
+	virtual void Parse(::CCXmlElement& element);
 	virtual void TransText(char* szSrc, char* szOut);		// 국제화를 위한 함수
 public:
 	CCIDLResource();

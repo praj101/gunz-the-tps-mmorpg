@@ -135,8 +135,8 @@ public:
 private:
 	map<int, _CmdStr*>		m_CmdMap;
 
-	virtual void ParseRoot(const char* szTagName, CCXmlElement* pElement);
-	void ParseCmd(CCXmlElement* pElement);
+	virtual void ParseRoot(const char* szTagName, ::CCXmlElement* pElement);
+	void ParseCmd(::CCXmlElement* pElement);
 public:
 	ZCmdXmlParser();
 	virtual ~ZCmdXmlParser();
