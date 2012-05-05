@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "RAnimationNode.h"
 #include "RealSpace2.h"
+#include "RMeshNodeStringTable.h"
 
 _USING_NAMESPACE_REALSPACE2
 
