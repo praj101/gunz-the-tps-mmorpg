@@ -2816,7 +2816,7 @@ void ZCombatInterface::GetResultInfo( void)
 			pLabel->SetBounds( rect);
 
 			pLabel->SetText( "");
-			pLabel->SetAlignment( CCAM_LEFT | MAM_TOP);
+			pLabel->SetAlignment( CCAM_LEFT | CCD_TOP);
 		}
 
 		sprintf( szWidget, "CombatResult_GameRoomImg%02d", i);
@@ -2853,7 +2853,7 @@ void ZCombatInterface::GetResultInfo( void)
 			pLabel->SetBounds( rect);
 
 			pLabel->SetText( "");
-			pLabel->SetAlignment( CCAM_LEFT | MAM_TOP);
+			pLabel->SetAlignment( CCAM_LEFT | CCD_TOP);
 		}
 
 		sprintf( szWidget, "ClanResult_GameRoomImg1%d", i);
@@ -2890,7 +2890,7 @@ void ZCombatInterface::GetResultInfo( void)
 			pLabel->SetBounds( rect);
 
 			pLabel->SetText( "");
-			pLabel->SetAlignment( CCAM_LEFT | MAM_TOP);
+			pLabel->SetAlignment( CCAM_LEFT | CCD_TOP);
 		}
 
 		sprintf( szWidget, "ClanResult_GameRoomImg2%d", i);

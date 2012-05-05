@@ -527,7 +527,7 @@
 //		pDC->SetColor(20, 20, 20);
 //
 //	// 아이템명, 가격
-//	pDC->TextMultiLine2(rc, GetString(), CONVERT600(2), true, CCAM_LEFT | MAM_TOP);
+//	pDC->TextMultiLine2(rc, GetString(), CONVERT600(2), true, CCAM_LEFT | CCD_TOP);
 //	pDC->Text(rc, m_szPrice, CCAM_RIGHT | CCAM_BOTTOM);
 //
 //	// 레벨 (레벨이 낮은 경우 붉은 표시)

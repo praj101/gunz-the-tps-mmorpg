@@ -208,7 +208,7 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 		tr.x = 0;
 	
 
-	if (m_alignMode & MAM_TOP)
+	if (m_alignMode & CCD_TOP)
 		tr.y = pr.y-tr.h;
 	else if (m_alignMode & CCAM_BOTTOM)
 		tr.y = pr.y+pr.h;

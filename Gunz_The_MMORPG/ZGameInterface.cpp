@@ -2606,23 +2606,23 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	// 듀얼토너먼트 로비 전적UI에 설명 툴팁 추가
 	char szTooltip[256];
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINLOSE_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLosePrev", szTooltip, CCAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLosePrev", szTooltip, CCAM_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_TP_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoPointsPrev", szTooltip, CCAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoPointsPrev", szTooltip, CCAM_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINNER_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinnersPrev", szTooltip, CCAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinnersPrev", szTooltip, CCAM_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_RANK_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoRankingPrev", szTooltip, CCAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoRankingPrev", szTooltip, CCAM_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINLOSE);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLose", szTooltip, CCAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLose", szTooltip, CCAM_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_TP);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoPoints", szTooltip, CCAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoPoints", szTooltip, CCAM_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINNER);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinners", szTooltip, CCAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinners", szTooltip, CCAM_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_RANK);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoRanking", szTooltip, CCAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoRanking", szTooltip, CCAM_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_SIDERANKLIST);
-	SetWidgetToolTipText("Lobby_DuelTournamentRankingList", szTooltip, CCAM_RIGHT | MAM_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentRankingList", szTooltip, CCAM_RIGHT | CCD_TOP);
 
 	SetCursorEnable(true);
 
