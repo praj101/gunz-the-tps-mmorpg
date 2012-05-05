@@ -141,24 +141,24 @@ void ZButton::OnButtonClick()
 
 
 
-void ZBCCButton::OnMouseIn(void)
+void ZButton::OnMouseIn(void)
 {
 	ZGetSoundEngine()->PlaySound("if_mouseover");
 }
 
-void ZBCCButton::OnMouseOut(void)
+void ZButton::OnMouseOut(void)
 {
 }
 
-void ZBCCButton::OnButtonDown(void)
+void ZButton::OnButtonDown(void)
 {
 }
 
-void ZBCCButton::OnButtonUp(void)
+void ZButton::OnButtonUp(void)
 {
 }
 
-ZBCCButton::ZBCCButton(const char* szName, CCWidget* pParent, CCListener* pListener)
+ZButton::ZButton(const char* szName, CCWidget* pParent, CCListener* pListener)
 : MBCCButton(szName, pParent, pListener)
 {
 	m_nIllumination=0;
@@ -169,11 +169,11 @@ ZBCCButton::ZBCCButton(const char* szName, CCWidget* pParent, CCListener* pListe
 	m_dwClickedTime = 0;
 }
 
-ZBCCButton::~ZBCCButton(void)
+ZButton::~ZButton(void)
 {
 }
 
-bool ZBCCButton::OnShow(void)
+bool ZButton::OnShow(void)
 {
 	m_bClicked=false;
 	m_dwCurrentTime=0;
@@ -181,13 +181,13 @@ bool ZBCCButton::OnShow(void)
 	return true;
 }
 
-void ZBCCButton::OnHide(void)
+void ZButton::OnHide(void)
 {
 	m_dwCurrentTime=0;
 	m_dwLastTime=timeGetTime();
 }
 
-void ZBCCButton::OnDraw(CCDrawContext* pDC)
+void ZButton::OnDraw(CCDrawContext* pDC)
 {
   	MBCCButton::OnDraw(pDC);
 
@@ -261,7 +261,7 @@ void ZBCCButton::OnDraw(CCDrawContext* pDC)
 	m_dwLastTime=currenttime;
 }
 
-void ZBCCButton::OnButtonClick()
+void ZButton::OnButtonClick()
 {
 	if(m_bClicked)	// 성질급한사람이 깜빡이는중에 또 누르면..
 		return;

@@ -283,7 +283,7 @@ ZPlayerListBox::ZPlayerListBox(const char* szName, CCWidget* pParent, CCListener
 
 	SetListener(this);
 
-	m_pButton = new ZBCCButton(NULL,this,this);
+	m_pButton = new ZButton(NULL,this,this);
 	m_pButton->SetStretch(true);
 
 	m_nMode = PLAYERLISTMODE_CHANNEL;

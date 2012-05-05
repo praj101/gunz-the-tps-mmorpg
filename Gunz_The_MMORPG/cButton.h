@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CCButton.h"
-#include "CCButton.h"
+#include "CCBCCButton.h"
 
 class cButton : public CCButton{
 protected:

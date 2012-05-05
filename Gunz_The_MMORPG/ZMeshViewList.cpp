@@ -2,7 +2,7 @@
 
 #include "ZMeshViewList.h"
 #include "ZMeshView.h"
-#include "CCButton.h"
+#include "CCBCCButton.h"
 
 void ZMeshViewList::OnDraw(CCDrawContext* pDC)
 {
