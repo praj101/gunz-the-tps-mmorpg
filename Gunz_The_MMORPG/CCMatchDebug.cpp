@@ -18,7 +18,7 @@ void __cdecl ReportBufferOverrun(int code, void * unused)
 		// cclog(str.c_str());
 
 		char szCrashLogFileName[ 1024 ] = {0,};
-		_snprintf( szCrashLogFileName, 1024, "Crash_%s", MGetLogFileName() );
+		_snprintf( szCrashLogFileName, 1024, "Crash_%s", CCGetLogFileName() );
 		WriteCrashInfo( NULL, szCrashLogFileName );
    }
 
