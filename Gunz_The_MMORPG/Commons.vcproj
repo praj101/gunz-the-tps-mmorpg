@@ -2141,6 +2141,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCWindowFinder.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCXmlParser.cpp"
 			>
 		</File>
