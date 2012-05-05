@@ -82,7 +82,7 @@ public:
 
 //	int					m_nSelectedCharacter;
 
-	MTextAreaLook		m_textAreaLookItemDesc;	// 상점에서 아이템 설명용 TextArea의 Look
+	CCTextAreaLook		m_textAreaLookItemDesc;	// 상점에서 아이템 설명용 TextArea의 Look
 	
 protected:
 	ZScreenEffectManager *m_pScreenEffectManager;

@@ -62,7 +62,7 @@ public:
 	virtual int GetPrice(bool& out_bCash);
 	virtual int GetLevelRes() = 0;
 
-	virtual void FillItemDesc(MTextArea* pTextArea) = 0;
+	virtual void FillItemDesc(CCTextArea* pTextArea) = 0;
 	virtual void UpdateCharInfoText() = 0;
 	virtual void UpdateCharacterView(ZCharacterView* pCharacterView) {}
 };
@@ -94,7 +94,7 @@ public:
 
 	virtual int GetLevelRes();
 
-	virtual void FillItemDesc(MTextArea* pTextArea);
+	virtual void FillItemDesc(CCTextArea* pTextArea);
 	virtual void UpdateCharInfoText();
 };
 
@@ -124,8 +124,8 @@ public:
 
 	virtual int GetLevelRes();
 
-	virtual void FillItemDesc(MTextArea* pTextArea);
-	static void FillItemDesc(CCMatchItemDesc* pItemDesc, MTextArea* pTextArea, ZMyItemNode* pRentalNode);
+	virtual void FillItemDesc(CCTextArea* pTextArea);
+	static void FillItemDesc(CCMatchItemDesc* pItemDesc, CCTextArea* pTextArea, ZMyItemNode* pRentalNode);
 	virtual void UpdateCharInfoText();
 	virtual void UpdateCharacterView(ZCharacterView* pCharacterView);
 };
@@ -150,7 +150,7 @@ public:
 
 	virtual int GetLevelRes();
 
-	virtual void FillItemDesc(MTextArea* pTextArea);
+	virtual void FillItemDesc(CCTextArea* pTextArea);
 	virtual void UpdateCharInfoText();
 };
 
@@ -176,7 +176,7 @@ public:
 
 	virtual int GetLevelRes();
 
-	virtual void FillItemDesc(MTextArea* pTextArea);
+	virtual void FillItemDesc(CCTextArea* pTextArea);
 	virtual void UpdateCharInfoText();
 	virtual void UpdateCharacterView(ZCharacterView* pCharacterView);
 };

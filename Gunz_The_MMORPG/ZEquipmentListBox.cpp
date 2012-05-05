@@ -7,7 +7,7 @@
 //#include "ZItemSlotView.h"
 //#include "ZShopEx.h"
 //#include "ZCharacterView.h"
-//#include "MTextArea.h"
+//#include "CCTextArea.h"
 //#include "ZMyInfo.h"
 //#include "ZMyItemList.h"
 //#include "MComboBox.h"
@@ -122,7 +122,7 @@
 //void ZEquipmentListBox_OLD::SetupItemDescTooltip()
 //{
 //	const char* szTextAreaName = GetItemDescriptionWidgetName();
-//	MTextArea* pItemDescTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szTextAreaName);
+//	CCTextArea* pItemDescTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szTextAreaName);
 //	if (pItemDescTextArea)
 //	{
 //		MPOINT ptInList = MScreenToClient(this, CCEvent::LatestPos);

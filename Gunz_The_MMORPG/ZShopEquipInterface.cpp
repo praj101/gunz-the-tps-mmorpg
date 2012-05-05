@@ -886,7 +886,7 @@ void ZShopEquipInterface::OnArmorWeaponTabButtonClicked(int nTab)
 	SelectEquipmentFrameList(NULL, bOpened);
 }
 
-void ZShopEquipInterface::ShowItemDescription(bool bShow, MTextArea* pTextArea, void* pCaller)
+void ZShopEquipInterface::ShowItemDescription(bool bShow, CCTextArea* pTextArea, void* pCaller)
 {
 	if (!pTextArea) return;
 
@@ -924,7 +924,7 @@ void ZShopEquipInterface::DrawCharInfoText(char* szShopOrEquip, int nReqLevel, i
 
 	if (0!=strcmp(szShopOrEquip, "Shop") && 0!=strcmp(szShopOrEquip, "Equip")) return;
 
-	MTextArea* pTextArea[3];
+	CCTextArea* pTextArea[3];
 	char sz1[256], sz2[256], szTextArea[64];
 	const char* szRed	= "^1";
 	const char* szGreen	= "^2";
@@ -936,7 +936,7 @@ void ZShopEquipInterface::DrawCharInfoText(char* szShopOrEquip, int nReqLevel, i
 	for (int i=0; i<3; ++i)
 	{
 		sprintf(szTextArea, "%s_MyInfo%d", szShopOrEquip, i+1);
-		pTextArea[i] = (MTextArea*)GetIDLResource()->FindWidget(szTextArea);
+		pTextArea[i] = (CCTextArea*)GetIDLResource()->FindWidget(szTextArea);
 		if (NULL == pTextArea[i])
 		{
 			_ASSERT(0);

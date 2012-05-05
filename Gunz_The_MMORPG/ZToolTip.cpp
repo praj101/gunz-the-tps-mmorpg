@@ -4,7 +4,7 @@
 #include "ZToolTip.h"
 #include "Core4R2.h"
 
-//#include "MTextArea.h"
+//#include "CCTextArea.h"
 
 #define ZTOOLTIP_WIDTH_GAP 10
 #define ZTOOLTIP_HEIGHT_GAP 10
@@ -13,7 +13,7 @@
 #define ZTOOLTIP_LINE_GAP 3
 
 ZToolTip::ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align)
-: MToolTip(szName, pParent)
+: CCToolTip(szName, pParent)
 {
 	m_alignMode = align;
 //	m_pBitmap1 = NULL;
@@ -25,8 +25,8 @@ ZToolTip::ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align)
 
 	SetBounds();
 
-//	m_pTextArea = new MTextArea;
-//	m_pTextArea->MTextArea( ZTOOLTIP_MAX_W );
+//	m_pTextArea = new CCTextArea;
+//	m_pTextArea->CCTextArea( ZTOOLTIP_MAX_W );
 }
 
 ZToolTip::~ZToolTip(void)

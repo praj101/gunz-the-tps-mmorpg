@@ -155,7 +155,7 @@ bool ZCombatChat::Create( const char* szOutputTxtarea,bool bUsePlayerList)
 	pWidget = m_pIDLResource->FindWidget( szOutputTxtarea);
 	if (pWidget!=NULL)
 	{
-		m_pChattingOutput = ((MTextArea*)pWidget);
+		m_pChattingOutput = ((CCTextArea*)pWidget);
 	}
 
 	if (m_pChattingOutput != NULL)

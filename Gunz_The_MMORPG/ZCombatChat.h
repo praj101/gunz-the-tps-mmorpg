@@ -5,7 +5,7 @@
 
 //class MListBox;
 class MEdit;
-class MTextArea;
+class CCTextArea;
 
 /////////////////
 // ZTabPlayerList
@@ -42,7 +42,7 @@ protected:
 	void UpdateChattingBox();
 	void ProcessChatMsg();
 public:
-	MTextArea*			m_pChattingOutput;
+	CCTextArea*			m_pChattingOutput;
 
 	ZCombatChat();
 	virtual ~ZCombatChat();

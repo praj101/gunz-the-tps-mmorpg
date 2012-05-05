@@ -51,7 +51,7 @@ void ShowProposalWaitFrame(bool bVisible, const char* szTitle, const char* szMes
 		{
 			pWidget->SetText(szTitle);
 
-			MTextArea* pTextArea = (MTextArea*)pResource->FindWidget("ProposalAgreementWait_Textarea");
+			CCTextArea* pTextArea = (CCTextArea*)pResource->FindWidget("ProposalAgreementWait_Textarea");
 			if (pTextArea) 
 			{
 				pTextArea->SetText(szMessage);
@@ -154,7 +154,7 @@ void ZGameClient::OnAskAgreement(const CCUID& uidProposer, void* pMemberNamesBlo
 	m_uidRequestPlayer = uidProposer;
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MTextArea* pTextEdit = (MTextArea*)pResource->FindWidget("ProposalAgreementConfirm_Textarea");
+	CCTextArea* pTextEdit = (CCTextArea*)pResource->FindWidget("ProposalAgreementConfirm_Textarea");
 	if (pTextEdit)
 	{
 		// 여기서 각각의 상황에 맞는 대사를 넣어줘야한다.

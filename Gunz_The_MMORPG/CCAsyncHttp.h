@@ -24,8 +24,8 @@
 503 Service Unavailable 
 */
 
-class MAsyncHttp;
-class MAsyncHttpContext {
+class CCAsyncHttp;
+class CCAsyncHttpContext {
 public:
 	enum MAHC_TYPE {
 		MAHC_TYPE_UNKNOWN,
@@ -35,23 +35,23 @@ public:
 
 protected:
 	MAHC_TYPE		m_ContextType;
-	MAsyncHttp*		m_pAsyncHttp;
+	CCAsyncHttp*		m_pAsyncHttp;
 public:
-	MAsyncHttpContext()
+	CCAsyncHttpContext()
 	{
 		m_ContextType = MAHC_TYPE_UNKNOWN;
 		m_pAsyncHttp = NULL;
 	}
-	MAsyncHttpContext(MAHC_TYPE nType, MAsyncHttp* pAsyncHttp)
+	CCAsyncHttpContext(MAHC_TYPE nType, CCAsyncHttp* pAsyncHttp)
 	{
 		m_ContextType = nType;
 		m_pAsyncHttp = pAsyncHttp;
 	}
 	MAHC_TYPE GetContextType()	{ return m_ContextType; }
-	MAsyncHttp* GetAsyncHttp()	{ return m_pAsyncHttp; }
+	CCAsyncHttp* GetAsyncHttp()	{ return m_pAsyncHttp; }
 };
 
-class MAsyncHttp {
+class CCAsyncHttp {
 protected:
 	HINTERNET	m_hInstance;
 	HINTERNET	m_hConnect;
@@ -67,8 +67,8 @@ protected:
 	bool		m_bTransferFinished;
 	bool		m_bVerbose;
 
-	MAsyncHttpContext	m_ConnectContext;
-	MAsyncHttpContext	m_RequestContext;
+	CCAsyncHttpContext	m_ConnectContext;
+	CCAsyncHttpContext	m_RequestContext;
 
 	int GetLastHttpStatusCode()		{ return m_nLastHttpStatusCode; }
 	void SetLastHttpStatusCode(int nCode)	{ m_nLastHttpStatusCode = nCode; }
@@ -82,8 +82,8 @@ protected:
 								DWORD dwContext, DWORD dwInternetStatus,
 								LPVOID lpStatusInfo, DWORD dwStatusInfoLen);
 public:
-	MAsyncHttp();
-	virtual ~MAsyncHttp();
+	CCAsyncHttp();
+	virtual ~CCAsyncHttp();
 
 	const char* GetBasePath()				{ return m_szBasePath; }
 	void SetBasePath(const char* pszPath)	{ strcpy(m_szBasePath, pszPath); }

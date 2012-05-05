@@ -1102,7 +1102,7 @@ void ZGameClient::OnResponseFriendList(void* pBlob, int nCount)
 		
 		if (pList) {
 			pList->AddPlayer(state, pNode->szName, pNode->szDescription);
-//			pList->AttachToolTip(new MToolTip("ToolTipTest", pList));	// ÅøÆÁÀ» ºÙÀÌ¸é BMButtonÀÌ ¸À°¨
+//			pList->AttachToolTip(new CCToolTip("ToolTipTest", pList));	// ÅøÆÁÀ» ºÙÀÌ¸é BMButtonÀÌ ¸À°¨
 		} else {
 			if (ZApplication::GetGameInterface()->GetState() != GUNZ_LOBBY )
 			{

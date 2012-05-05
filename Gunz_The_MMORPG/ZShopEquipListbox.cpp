@@ -192,7 +192,7 @@ char* ZShopEquipListbox::GetItemDescTooltipName()
 void ZShopEquipListbox::SetupItemDescTooltip()
 {
 	const char* szTextAreaName = GetItemDescTooltipName();
-	MTextArea* pItemDescTextArea = (MTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szTextAreaName);
+	CCTextArea* pItemDescTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szTextAreaName);
 	if (pItemDescTextArea)
 	{
 		MPOINT ptInList = MScreenToClient(this, CCEvent::LatestPos);

@@ -2621,7 +2621,7 @@ void AddCombatResultInfo( const char* szName, int nScore, int nKill, int nDeath,
 {
 	char szText[ 128];
 
-	MTextArea* pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerNameList");
+	CCTextArea* pWidget = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerNameList");
 	if ( pWidget)
 		pWidget->AddText( szName, ( bMyChar ? sColor( 0xFFFFF794) : sColor( 0xFFFFF794)));
 
@@ -2648,14 +2648,14 @@ void AddCombatResultInfo( const char* szName, int nScore, int nKill, int nDeath,
 		}
 	}
 
-	pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerKillList");
+	pWidget = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerKillList");
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nKill);
 		pWidget->AddText( szText, sColor( 0xFFFFF794));
 	}
 
-	pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerDeathList");
+	pWidget = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerDeathList");
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nDeath);
@@ -2668,7 +2668,7 @@ void AddClanResultInfoWin( const char* szName, int nScore, int nKill, int nDeath
 {
 	char szText[125];
 
-	MTextArea* pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList1");
+	CCTextArea* pWidget = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList1");
 	if ( pWidget)
 		pWidget->AddText( szName, ( bMyChar ? sColor( 0xFFFFF794) : sColor( 0xFFFFF794)));
 
@@ -2695,14 +2695,14 @@ void AddClanResultInfoWin( const char* szName, int nScore, int nKill, int nDeath
 		}
 	}
 
-	pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerKillList1");
+	pWidget = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerKillList1");
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nKill);
 		pWidget->AddText( szText, sColor( 0xFFFFF794));
 	}
 
-	pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList1");
+	pWidget = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList1");
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nDeath);
@@ -2714,7 +2714,7 @@ void AddClanResultInfoLose( const char* szName, int nScore, int nKill, int nDeat
 {
 	char szText[125];
 
-	MTextArea* pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList2");
+	CCTextArea* pWidget = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList2");
 	if ( pWidget)
 		pWidget->AddText( szName, ( bMyChar ? sColor( 0xFFFFF794) : sColor( 0xFFFFF794)));
 
@@ -2741,14 +2741,14 @@ void AddClanResultInfoLose( const char* szName, int nScore, int nKill, int nDeat
 		}
 	}
 
-	pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerKillList2");
+	pWidget = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerKillList2");
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nKill);
 		pWidget->AddText( szText, sColor( 0xFFFFF794));
 	}
 
-	pWidget = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList2");
+	pWidget = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList2");
 	if ( pWidget)
 	{
 		sprintf( szText, "%d", nDeath);
@@ -2797,7 +2797,7 @@ void ZCombatInterface::GetResultInfo( void)
 	const int _W21 = CONVERT800(21);
 	const int _W20 = CONVERT800(20);
 
-	MTextArea* pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerNameList");
+	CCTextArea* pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerNameList");
 	if ( pTextArea) {
 		pTextArea->Clear();
 		pTextArea->SetCustomLineHeight(_H18);
@@ -2824,17 +2824,17 @@ void ZCombatInterface::GetResultInfo( void)
 		if ( pWidget)
 			pWidget->Show( false);
 	}
-	pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerKillList");
+	pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerKillList");
 	if ( pTextArea) {
 		pTextArea->Clear();
 		pTextArea->SetCustomLineHeight(_H18);
 	}
-	pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerDeathList");
+	pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_PlayerDeathList");
 	if ( pTextArea) {
 		pTextArea->Clear();
 		pTextArea->SetCustomLineHeight(_H18);
 	}
-	pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList1");
+	pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList1");
 	if ( pTextArea) {
 		pTextArea->Clear();
 		pTextArea->SetCustomLineHeight(_H18);
@@ -2861,17 +2861,17 @@ void ZCombatInterface::GetResultInfo( void)
 		if ( pWidget)
 			pWidget->Show( false);
 	}
-	pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerKillList1");
+	pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerKillList1");
 	if ( pTextArea) {
 		pTextArea->Clear();
 		pTextArea->SetCustomLineHeight(_H18);
 	}
-	pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList1");
+	pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList1");
 	if ( pTextArea) {
 		pTextArea->Clear();
 		pTextArea->SetCustomLineHeight(_H18);
 	}
-	pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList2");
+	pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerNameList2");
 	if ( pTextArea) {
 		pTextArea->Clear();
 		pTextArea->SetCustomLineHeight(_H18);
@@ -2898,12 +2898,12 @@ void ZCombatInterface::GetResultInfo( void)
 		if ( pWidget)
 			pWidget->Show( false);
 	}
-	pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerKillList2");
+	pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerKillList2");
 	if ( pTextArea) {
 		pTextArea->Clear();
 		pTextArea->SetCustomLineHeight(_H18);
 	}
-	pTextArea = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList2");
+	pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_PlayerDeathList2");
 	if ( pTextArea) {
 		pTextArea->Clear();
 		pTextArea->SetCustomLineHeight(_H18);

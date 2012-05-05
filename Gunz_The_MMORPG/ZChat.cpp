@@ -343,12 +343,12 @@ void ZChat::Clear(ZCHAT_LOC loc)
 	}
 	else if (((loc == CL_CURRENT) && (state==GUNZ_LOBBY)) || (loc==CL_LOBBY))
 	{
-		MTextArea* pWidget = (MTextArea*)pResource->FindWidget("ChannelChattingOutput");
+		CCTextArea* pWidget = (CCTextArea*)pResource->FindWidget("ChannelChattingOutput");
 		if (pWidget != NULL) pWidget->Clear();
 	}
 	else if (((loc == CL_CURRENT) && (state==GUNZ_STAGE)) || (loc==CL_STAGE))
 	{
-		MTextArea* pWidget = (MTextArea*)pResource->FindWidget("StageChattingOutput");
+		CCTextArea* pWidget = (CCTextArea*)pResource->FindWidget("StageChattingOutput");
 		if (pWidget != NULL) pWidget->Clear();
 	}
 }
@@ -358,7 +358,7 @@ void ZChat::Clear(ZCHAT_LOC loc)
 void ZChat::LobbyChatOutput(const char* szChat,sColor color)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MTextArea* pWidget = (MTextArea*)pResource->FindWidget("ChannelChattingOutput");
+	CCTextArea* pWidget = (CCTextArea*)pResource->FindWidget("ChannelChattingOutput");
 	if(!pWidget) return;
 
 	pWidget->AddText(szChat,color);
@@ -370,7 +370,7 @@ void ZChat::LobbyChatOutput(const char* szChat,sColor color)
 void ZChat::StageChatOutput(const char* szChat,sColor color)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MTextArea* pWidget = (MTextArea*)pResource->FindWidget("StageChattingOutput");
+	CCTextArea* pWidget = (CCTextArea*)pResource->FindWidget("StageChattingOutput");
 	if(!pWidget) return;
 
 	pWidget->AddText(szChat,color);

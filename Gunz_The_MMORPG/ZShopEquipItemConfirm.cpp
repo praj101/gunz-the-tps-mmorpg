@@ -222,7 +222,7 @@ void ZSellCashItemConfirmDlg::Open(const char* szItemName, CCBitmap* pIcon, int 
 	if (pLabel)
 		pLabel->SetText(szPrice);
 
-	MTextArea* pTextArea = (MTextArea*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Warning");
+	CCTextArea* pTextArea = (CCTextArea*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Warning");
 	if (pTextArea)
 		pTextArea->SetText( ZMsg(MSG_SHOPEQUIP_SELL_CASHITEM_CONFIRM));
 

@@ -6,7 +6,7 @@
 
 #define MAX_TOOLTIP_LINE_STRING 40
 
-class ZToolTip : public MToolTip
+class ZToolTip : public CCToolTip
 {
 public:
 	ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align=CCAM_LEFT|MAM_TOP);
@@ -17,7 +17,7 @@ public:
 private:
 	void GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int nTextPixelHeight);
 
-	//	MTextArea* m_pTextArea;
+	//	CCTextArea* m_pTextArea;
 	CCBitmap* m_pBitmap1;
 	CCBitmap* m_pBitmap2;
 

@@ -362,7 +362,7 @@ int ZShopEquipItem_Gamble::GetLevelRes()
 	return 0;
 }
 
-void ZShopEquipItem_Gamble::FillItemDesc(MTextArea* pTextArea)
+void ZShopEquipItem_Gamble::FillItemDesc(CCTextArea* pTextArea)
 {
 	if (!pTextArea) return;
 
@@ -460,7 +460,7 @@ void ZShopEquipItem_Match::UpdateCharacterView(ZCharacterView* pCharacterView)
 		pCharacterView->ChangeVisualWeaponParts(nCharItemParts);
 }
 
-void ZShopEquipItem_Match::FillItemDesc(MTextArea* pTextArea)
+void ZShopEquipItem_Match::FillItemDesc(CCTextArea* pTextArea)
 {
 	ZMyItemNode* pRentalNode = NULL;
 	if (m_pHandlerSell)
@@ -477,7 +477,7 @@ void ZShopEquipItem_Match::FillItemDesc(MTextArea* pTextArea)
 	FillItemDesc(m_pItemDesc, pTextArea, pRentalNode);
 }
 
-void ZShopEquipItem_Match::FillItemDesc(CCMatchItemDesc* pItemDesc, MTextArea* pTextArea, ZMyItemNode* pRentalNode)
+void ZShopEquipItem_Match::FillItemDesc(CCMatchItemDesc* pItemDesc, CCTextArea* pTextArea, ZMyItemNode* pRentalNode)
 {
 	if(!pTextArea) return;
 
@@ -579,7 +579,7 @@ int ZShopEquipItem_Quest::GetLevelRes()
 	return 0;
 }
 
-void ZShopEquipItem_Quest::FillItemDesc(MTextArea* pTextArea)
+void ZShopEquipItem_Quest::FillItemDesc(CCTextArea* pTextArea)
 {
 	if (!pTextArea) return;
 
@@ -756,7 +756,7 @@ void ZShopEquipItem_Set::UpdateCharInfoText()
 		*/
 }
 
-void ZShopEquipItem_Set::FillItemDesc( MTextArea* pTextArea )
+void ZShopEquipItem_Set::FillItemDesc( CCTextArea* pTextArea )
 {
 	/*	세트 아이템이 오픈되면 코드를 알맞게 수정해서 사용하자
 	if (!pTextArea) return;

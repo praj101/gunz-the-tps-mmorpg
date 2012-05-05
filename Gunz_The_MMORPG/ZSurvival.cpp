@@ -1181,9 +1181,9 @@ bool ZSurvival::OnSurvivalRankingList(CCCommand* pCmd)
 {
 	if( 0 == pCmd ) return false;
 
-	MTextArea* pWidgetRank = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_PlayerRankList");
-	MTextArea* pWidgetName = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_PlayerNameList");
-	MTextArea* pWidgetPoint = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_PlayerRankPointList");
+	CCTextArea* pWidgetRank = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_PlayerRankList");
+	CCTextArea* pWidgetName = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_PlayerNameList");
+	CCTextArea* pWidgetPoint = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_PlayerRankPointList");
 	if (!pWidgetRank || !pWidgetName || !pWidgetPoint) return false;
 
 	pWidgetRank->Clear();
@@ -1220,9 +1220,9 @@ bool ZSurvival::OnSurvivalPrivateRanking(CCCommand* pCmd)
 {
 	if( 0 == pCmd ) return false;
 	
-	MTextArea* pWidgetRank = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_MyRank");
-	MTextArea* pWidgetName = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_MyName");
-	MTextArea* pWidgetPoint = (MTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_MyRankPoint");
+	CCTextArea* pWidgetRank = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_MyRank");
+	CCTextArea* pWidgetName = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_MyName");
+	CCTextArea* pWidgetPoint = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_MyRankPoint");
 	if (!pWidgetRank || !pWidgetName || !pWidgetPoint) return false;
 
 	pWidgetRank->Clear();
