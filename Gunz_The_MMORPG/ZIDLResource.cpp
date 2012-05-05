@@ -243,7 +243,7 @@ ZMeshView* ZIDLResource::GetMeshView(CCXmlElement& element)
 			map<string, MBButtonLook*>::iterator itor = m_ButtonLookMap.find(szItem);
 			if (itor != m_ButtonLookMap.end())
 			{
-				pWidget->ChangeCustomLook((MButtonLook*)(*itor).second);
+				pWidget->ChangeCustomLook((CCButtonLook*)(*itor).second);
 			}
 			pWidget->SetLook(true);
 		}

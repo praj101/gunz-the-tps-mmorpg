@@ -2,7 +2,7 @@
 
 #include "CCWidget.h"
 #include "CCLookNFeel.h"
-#include "CCBmButton.h"
+#include "CCBCCButton.h"
 
 #define CCFRAME					"Frame"
 #define CCFRAME_CLOSE_MSG		"close"

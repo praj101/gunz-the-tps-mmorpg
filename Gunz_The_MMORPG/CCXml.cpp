@@ -410,7 +410,7 @@ bool CCXmlElement::AddAttribute(const char* sAttrName, const char* sAttrText)
 	pAttrs = m_pDomNode->Getattributes();
 	pNode = pDom->createAttribute(pBSTRAttrName);
 	pNode->Puttext(pBSTRAttrText);
-	pAttrs->setNamedItem(pNode);
+	pAttrs->setNaCCEditem(pNode);
 
 	SysFreeString(pBSTRAttrName);
 	SysFreeString(pBSTRAttrText);

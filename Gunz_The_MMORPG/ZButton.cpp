@@ -23,7 +23,7 @@ void ZButton::OnButtonUp(void)
 }
 
 ZButton::ZButton(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MButton(szName, pParent, pListener)
+: CCButton(szName, pParent, pListener)
 {
 	m_nIllumination=0;
 	m_bClicked=false;
@@ -42,7 +42,7 @@ bool ZButton::OnShow(void)
 	m_bClicked=false;
 	m_dwCurrentTime=0;
 	m_dwLastTime=timeGetTime();
-	return MButton::OnShow();
+	return CCButton::OnShow();
 }
 
 void ZButton::OnHide(void)
@@ -50,12 +50,12 @@ void ZButton::OnHide(void)
 	m_dwCurrentTime=0;
 	m_dwLastTime=timeGetTime();
 
-	MButton::OnHide();
+	CCButton::OnHide();
 }
 
 void ZButton::OnDraw(CCDrawContext* pDC)
 {
-	MButton::OnDraw(pDC);
+	CCButton::OnDraw(pDC);
 
 	DWORD currenttime=timeGetTime();
 	DWORD elapsed=currenttime-m_dwLastTime;
@@ -131,7 +131,7 @@ void ZButton::OnButtonClick()
 	if(m_bClicked)	// 성질급한사람이 깜빡이는중에 또 누르면..
 		return;
 
-	MButton::OnButtonClick();
+	CCButton::OnButtonClick();
 	ZGetSoundEngine()->PlaySound("if_click");
 
 	m_dwClickedTime=m_dwCurrentTime;
@@ -141,25 +141,25 @@ void ZButton::OnButtonClick()
 
 
 
-void ZBmButton::OnMouseIn(void)
+void ZBCCButton::OnMouseIn(void)
 {
 	ZGetSoundEngine()->PlaySound("if_mouseover");
 }
 
-void ZBmButton::OnMouseOut(void)
+void ZBCCButton::OnMouseOut(void)
 {
 }
 
-void ZBmButton::OnButtonDown(void)
+void ZBCCButton::OnButtonDown(void)
 {
 }
 
-void ZBmButton::OnButtonUp(void)
+void ZBCCButton::OnButtonUp(void)
 {
 }
 
-ZBmButton::ZBmButton(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MBmButton(szName, pParent, pListener)
+ZBCCButton::ZBCCButton(const char* szName, CCWidget* pParent, CCListener* pListener)
+: MBCCButton(szName, pParent, pListener)
 {
 	m_nIllumination=0;
 	m_bClicked=false;
@@ -169,11 +169,11 @@ ZBmButton::ZBmButton(const char* szName, CCWidget* pParent, CCListener* pListene
 	m_dwClickedTime = 0;
 }
 
-ZBmButton::~ZBmButton(void)
+ZBCCButton::~ZBCCButton(void)
 {
 }
 
-bool ZBmButton::OnShow(void)
+bool ZBCCButton::OnShow(void)
 {
 	m_bClicked=false;
 	m_dwCurrentTime=0;
@@ -181,15 +181,15 @@ bool ZBmButton::OnShow(void)
 	return true;
 }
 
-void ZBmButton::OnHide(void)
+void ZBCCButton::OnHide(void)
 {
 	m_dwCurrentTime=0;
 	m_dwLastTime=timeGetTime();
 }
 
-void ZBmButton::OnDraw(CCDrawContext* pDC)
+void ZBCCButton::OnDraw(CCDrawContext* pDC)
 {
-  	MBmButton::OnDraw(pDC);
+  	MBCCButton::OnDraw(pDC);
 
 	DWORD currenttime=timeGetTime();
 	DWORD elapsed=currenttime-m_dwLastTime;
@@ -261,7 +261,7 @@ void ZBmButton::OnDraw(CCDrawContext* pDC)
 	m_dwLastTime=currenttime;
 }
 
-void ZBmButton::OnButtonClick()
+void ZBCCButton::OnButtonClick()
 {
 	if(m_bClicked)	// 성질급한사람이 깜빡이는중에 또 누르면..
 		return;
@@ -269,6 +269,6 @@ void ZBmButton::OnButtonClick()
 	m_dwClickedTime=m_dwCurrentTime;
 	m_bClicked=true;
 
-	MBmButton::OnButtonClick();
+	MBCCButton::OnButtonClick();
 	ZGetSoundEngine()->PlaySound("if_click");
 }

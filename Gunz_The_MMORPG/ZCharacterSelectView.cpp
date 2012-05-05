@@ -249,15 +249,15 @@ void ZCharacterSelectView::Draw()
 	Pos = m_pBackground->GetCharPos();
 	Dir = m_pBackground->GetCharDir();
 
-	static MButton* s_button_l;
-	static MButton* s_button_r;
+	static CCButton* s_button_l;
+	static CCButton* s_button_r;
 
 	if(s_button_l==NULL) {
-		s_button_l = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("Charviewer_Rotate_L---");
+		s_button_l = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("Charviewer_Rotate_L---");
 	}
 
 	if(s_button_r==NULL) {
-		s_button_r = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("Charviewer_Rotate_R---");
+		s_button_r = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("Charviewer_Rotate_R---");
 	}
 
 	if( s_button_l && s_button_l->IsButtonDown() ) {
@@ -549,11 +549,11 @@ void ZCharacterSelectView::OnChangedCharCostume()
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 //	MListBox* pListBox = (MListBox*)pResource->FindWidget("CS_CharList");
-	MComboBox* pSexCB, *pHairCB, *pFaceCB, *pCostumeCB;
-	pSexCB = (MComboBox*)pResource->FindWidget("CC_Sex");
-	pHairCB = (MComboBox*)pResource->FindWidget("CC_Hair");
-	pFaceCB = (MComboBox*)pResource->FindWidget("CC_Face");
-	pCostumeCB = (MComboBox*)pResource->FindWidget("CC_Costume");
+	CCComboBox* pSexCB, *pHairCB, *pFaceCB, *pCostumeCB;
+	pSexCB = (CCComboBox*)pResource->FindWidget("CC_Sex");
+	pHairCB = (CCComboBox*)pResource->FindWidget("CC_Hair");
+	pFaceCB = (CCComboBox*)pResource->FindWidget("CC_Face");
+	pCostumeCB = (CCComboBox*)pResource->FindWidget("CC_Costume");
 
 	if ((pSexCB != NULL) && (pHairCB!=NULL) && (pFaceCB!=NULL) && (pCostumeCB!=NULL) )
 //		&&(pListBox != NULL) )
@@ -728,7 +728,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 
 	int nCount = MGetBlobArrayCount(pCharListBlob);
 
-	MButton* pButton;
+	CCButton* pButton;
 	CCPicture* pPicture;
 
 	int nPosY = (int)( 390.0f * (RGetScreenHeight() / 600.0f));
@@ -814,7 +814,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 
 
 			sprintf( szWidgetName, "CharSel_SelectBtn%d", nIndex);
-			pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
+			pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 			if ( pButton)
 			{
 				pButton->Show( true);
@@ -832,13 +832,13 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 		}
 	}
 
-	pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CS_SelectChar");
+	pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CS_SelectChar");
 	if ( pButton)
 		pButton->Enable( (m_nNumOfCharacter) ? true : false);
-	pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CS_DeleteChar");
+	pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CS_DeleteChar");
 	if ( pButton)
 		pButton->Enable( (m_nNumOfCharacter) ? true : false);
-	pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CS_CreateChar");
+	pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CS_CreateChar");
 	if ( pButton)
 		pButton->Enable( (m_nNumOfCharacter == MAX_CHAR_COUNT) ? false : true);
 

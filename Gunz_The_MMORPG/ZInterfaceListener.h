@@ -169,9 +169,9 @@ DECLARE_LISTENER(ZGetAllEquipmentListCallerButtonListener)			// 구입버튼
 DECLARE_LISTENER(ZGetMyAllEquipmentListCallerButtonListener)		// 판매버튼
 DECLARE_LISTENER(ZGetCashEquipmentListCallerButtonListener)			// 캐쉬샵 버튼
 DECLARE_LISTENER(ZGetShopEquipmentCallerButtonListener)				// 샾->장비 버튼 선택
-DECLARE_LISTENER(ZGetSendAccountItemButtonListener)					// 보내기
+DECLARE_LISTENER(ZGetSendAccountIteCCButtonListener)					// 보내기
 
-DECLARE_LISTENER(ZGetBringAccountItemButtonListener)					// 가져오기
+DECLARE_LISTENER(ZGetBringAccountIteCCButtonListener)					// 가져오기
 
 DECLARE_LISTENER(ZShopItemEquipmentTabOpen);						// 케릭터 일반 장비탭 버튼
 DECLARE_LISTENER(ZShopWeaponEquipmentTabOpen);						// 케릭터 캡슐 장비탭 버튼
@@ -252,7 +252,7 @@ DECLARE_LISTENER(ZGetMonsterBookCaller);
 
 
 // 112 확인창
-DECLARE_LISTENER(ZGet112ConfirmEditListener);
+DECLARE_LISTENER(ZGet112ConfirCCEditListener);
 DECLARE_LISTENER(ZGet112ConfirmOKButtonListener);
 DECLARE_LISTENER(ZGet112ConfirmCancelButtonListener);
 

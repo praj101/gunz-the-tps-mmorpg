@@ -1197,7 +1197,7 @@ void ZRuleDuelTournament::RestoreStageExitButtonConfirmMessage()
 {
 	// 내가 출전할 경기가 남아있지 않으면 더이상 게임 나가기 버튼의 확인 대화상자에서 TP페널티 경고문을 보여줄 필요가 없으므로
 	// 메시지를 원래대로 복원
-	MButton* pButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageExit");
+	CCButton* pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageExit");
 	if (pButton) {
 		pButton->RestoreIDLConfirmMessage();
 	}

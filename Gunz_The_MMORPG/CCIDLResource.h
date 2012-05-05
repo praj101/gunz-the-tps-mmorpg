@@ -26,7 +26,7 @@ class CCToolTip;
 class CCPopupMenu;
 class CCAniBitmap;
 class CCAnimation;
-class CCBmButton;
+class CCBCCButton;
 class CCMenuItem;
 class CCBmLabel;
 class CCTextArea;
@@ -126,7 +126,7 @@ protected:
 	CCFrame*			GetFrame(::CCXmlElement& element);
 	CCLabel*			GetLabel(::CCXmlElement& element);
 	CCButton*		GetButton(::CCXmlElement& element);
-	CCBmButton*		GetBmButton(::CCXmlElement& element);
+	CCBCCButton*		GetBCCButton(::CCXmlElement& element);
 	CCEdit*			GetEdit(::CCXmlElement& element);
 	CCListBox*		GetListBox(::CCXmlElement& element);
 	CCPicture*		GetPicture(::CCXmlElement& element);
@@ -167,7 +167,7 @@ protected:
 	void GetRebounds(::CCXmlElement& element);
 
 	void GetFrameBtn(CCFrameBtn* pFrameBtn, CCBFrameLook* pFrameLook, ::CCXmlElement& element);
-	void GetBmButtonBitmaps(CCBitmap** ppBitmaps, ::CCXmlElement& element);
+	void GetBCCButtonBitmaps(CCBitmap** ppBitmaps, ::CCXmlElement& element);
 	void GetBitmaps(CCBitmap** ppBitmaps, ::CCXmlElement& element, const int nBitmapCount);
 	void InsertWidget(::CCXmlElement& element, CCWidget* pWidget);
 	void InsertWidget( const char* pItemName, CCWidget* pWidget );

@@ -651,7 +651,7 @@ void ZGameClient::OnChannelResponseRule(const CCUID& uidchannel, const char* psz
 	SetChannelRuleName(pszRuleName);
 
 	// 임시 처리?
-	MComboBox* pCombo = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapSelection");
+	CCComboBox* pCombo = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapSelection");
 	if(pCombo != NULL)
 	{
 		InitMaps(pCombo); 
@@ -1102,7 +1102,7 @@ void ZGameClient::OnResponseFriendList(void* pBlob, int nCount)
 		
 		if (pList) {
 			pList->AddPlayer(state, pNode->szName, pNode->szDescription);
-//			pList->AttachToolTip(new CCToolTip("ToolTipTest", pList));	// 툴팁을 붙이면 BMButton이 맛감
+//			pList->AttachToolTip(new CCToolTip("ToolTipTest", pList));	// 툴팁을 붙이면 BCCButton이 맛감
 		} else {
 			if (ZApplication::GetGameInterface()->GetState() != GUNZ_LOBBY )
 			{
@@ -1242,10 +1242,10 @@ void ZGameClient::UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting, STAGE_STATE 
 
 void ZGameClient::OnStageRelayMapListUpdate(int nRelayMapType, int nRelayMapRepeatCount, void* pStageRelayMapListBlob)
 {
-	MComboBox* pCBRelayMapType = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
+	CCComboBox* pCBRelayMapType = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
 	if(pCBRelayMapType)
 		pCBRelayMapType->SetSelIndex(nRelayMapType);
-	MComboBox* pCBRelayMapRepeatCount = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
+	CCComboBox* pCBRelayMapRepeatCount = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
 	if(pCBRelayMapRepeatCount)
 		pCBRelayMapRepeatCount->SetSelIndex(nRelayMapRepeatCount);
 
@@ -1275,10 +1275,10 @@ void ZGameClient::OnStageRelayMapListUpdate(int nRelayMapType, int nRelayMapRepe
 
 void ZGameClient::OnStageRelayMapElementUpdate(int nRelayMapType, int nRelayMapRepeatCount)
 {
-	MComboBox* pCombo = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
+	CCComboBox* pCombo = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapType" );
 	if ( pCombo)
 		pCombo->SetSelIndex(nRelayMapType);
-	pCombo = (MComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
+	pCombo = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
 	if ( pCombo)
 		pCombo->SetSelIndex(nRelayMapRepeatCount);
 }
@@ -1457,7 +1457,7 @@ bool ZGameClient::OnSockDisconnect(SOCKET sock)
 		ZPOSTCMD0(MC_NET_ONDISCONNECT);
 
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-		MButton* pWidget = (MButton*)pResource->FindWidget("LoginOK");
+		CCButton* pWidget = (CCButton*)pResource->FindWidget("LoginOK");
 		if (pWidget) pWidget->Enable(true);
 		CCWidget* pLogin = pResource->FindWidget("LoginFrame");
 		if (pLogin) pLogin->Show(true);
@@ -1490,7 +1490,7 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 		}
 	} else {
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-		MButton* pWidget = (MButton*)pResource->FindWidget("LoginOK");
+		CCButton* pWidget = (CCButton*)pResource->FindWidget("LoginOK");
 		if (pWidget) pWidget->Enable(true);
 		CCWidget* pLogin = pResource->FindWidget("LoginFrame");
 		if (pLogin) pLogin->Show(true);
@@ -2064,7 +2064,7 @@ void ZGameClient::OnLocalReport119()
 {
 /*
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MEdit* pReasonEdit = (MEdit*)pResource->FindWidget("112_ConfirmEdit");
+	CCEdit* pReasonEdit = (CCEdit*)pResource->FindWidget("112_ConfirCCEdit");
 	if (pReasonEdit)
 	{
 		pReasonEdit->SetText("");

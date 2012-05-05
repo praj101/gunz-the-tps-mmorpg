@@ -14,7 +14,7 @@
 
 
 ZItemSlotView::ZItemSlotView(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MButton(szName, pParent, pListener)
+: CCButton(szName, pParent, pListener)
 {
 	m_nItemID = -1;
 	m_nItemCount = 0;
@@ -287,7 +287,7 @@ bool ZItemSlotView::OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szS
 
 bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
-	bool bRet = MButton::OnEvent(pEvent, pListener);
+	bool bRet = CCButton::OnEvent(pEvent, pListener);
 
 	m_bSelectBox = false;
 
@@ -404,7 +404,7 @@ void ZItemSlotView::SetKindable( bool bKindable)
 
 void ZItemSlotView::OnMouseIn( void )
 {
-	MButton::OnMouseIn();
+	CCButton::OnMouseIn();
 
 	// 상점 및 장비 아이템 슬롯일 경우 툴팁 표시
 	unsigned long int nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(m_nParts);
@@ -437,7 +437,7 @@ void ZItemSlotView::OnMouseIn( void )
 
 void ZItemSlotView::OnMouseOut( void )
 {
-	MButton::OnMouseOut();
+	CCButton::OnMouseOut();
 
 	CCTextArea* pItemDescTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(GetItemDescriptionWidgetName());
 	if (!pItemDescTextArea) return;

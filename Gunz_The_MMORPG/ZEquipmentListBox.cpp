@@ -10,7 +10,7 @@
 //#include "CCTextArea.h"
 //#include "ZMyInfo.h"
 //#include "ZMyItemList.h"
-//#include "MComboBox.h"
+//#include "CCComboBox.h"
 //#include "ZItemMenu.h"
 //#include "ZShopEquipInterface.h"
 //
@@ -219,9 +219,9 @@
 ////public:
 ////	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 ////	{
-////		MButton* pButton1 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuyConfirmCaller");
-////		MButton* pButton2 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuySpendableItemConfirmCaller");
-////		MButton* pButton3 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuyCashConfirmCaller");
+////		CCButton* pButton1 = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuyConfirmCaller");
+////		CCButton* pButton2 = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuySpendableItemConfirmCaller");
+////		CCButton* pButton3 = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuyCashConfirmCaller");
 ////
 ////		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL) == true) {
 ////
@@ -385,11 +385,11 @@
 ////
 ////				ZGetGameInterface()->GetShopEquipInterface()->SetKindableItem( MMIST_NONE);
 ////
-////				MButton *pButton = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("Equip");
+////				CCButton *pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("Equip");
 ////				if (pButton) pButton->Enable( true);
 ////
-////				MButton *pButton1 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountItemBtn");
-////				MButton *pButton2 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountSpendableItemConfirmOpen");
+////				CCButton *pButton1 = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountItemBtn");
+////				CCButton *pButton2 = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountSpendableItemConfirmOpen");
 ////				if (pButton1) { pButton1->Show(false); pButton1->Enable(false); }
 ////				if (pButton2) { pButton2->Show(true);  pButton2->Enable( pGItemDesc->IsCash() ? true : false); }
 ////
@@ -398,9 +398,9 @@
 ////
 ////
 ////			// 일반 아이템...
-////			MButton* pButtonEquip = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("Equip");
-////			MButton* pButtonAccItemBtn1 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountItemBtn");
-////			MButton* pButtonAccItemBtn2 = (MButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountSpendableItemConfirmOpen");
+////			CCButton* pButtonEquip = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("Equip");
+////			CCButton* pButtonAccItemBtn1 = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountItemBtn");
+////			CCButton* pButtonAccItemBtn2 = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("SendAccountSpendableItemConfirmOpen");
 ////
 ////			CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
 ////			ZCharacterView* pCharacterView = (ZCharacterView*)ZGetGameInterface()->GetIDLResource()->FindWidget("EquipmentInformation");

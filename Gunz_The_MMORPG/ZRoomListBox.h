@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class MButton;
+class CCButton;
 //class MScrollBar;
 //class MStageListItem;
 

@@ -99,7 +99,7 @@ void ZCrossHair::Change(ZCrossHairPreset nPreset)
 void ZCrossHair::ChangeFromOption()
 {
 	// crosshair ¼³Á¤
-	MComboBox* pComboBox = (MComboBox*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CrossHairComboBox");
+	CCComboBox* pComboBox = (CCComboBox*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CrossHairComboBox");
 	if (pComboBox)
 	{
 		int nSelIndex = Z_ETC_CROSSHAIR;
@@ -202,7 +202,7 @@ void ZCrossHair::OnDrawOptionCrossHairPreview(void* pCanvas, CCDrawContext *pDC)
 	CCBitmap* pBitmaps[CH_MAX] = {NULL, };
 
 	int nSelIndex = 0;
-	MComboBox* pComboBox = (MComboBox*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CrossHairComboBox");
+	CCComboBox* pComboBox = (CCComboBox*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("CrossHairComboBox");
 	if (pComboBox)
 	{
 		nSelIndex = pComboBox->GetSelIndex();

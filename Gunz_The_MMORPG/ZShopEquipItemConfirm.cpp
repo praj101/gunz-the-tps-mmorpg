@@ -27,7 +27,7 @@ void ZItemCountDlg::Open(ZITEMCOUNTDLG_MODE mode, const char* szItemName, CCBitm
 	MFrame* pFrame = (MFrame*)GetIDLResource()->FindWidget("TradeCountableItemFrame");
 	MLabel* pLabel1 = (MLabel*)GetIDLResource()->FindWidget("TradeCountableItem_Message");
 	MLabel* pLabel2 = (MLabel*)GetIDLResource()->FindWidget("TradeCountableItem_NullLabel");
-	MButton* pBtn = (MButton*)GetIDLResource()->FindWidget("TradeCountableItem_Ok");
+	CCButton* pBtn = (CCButton*)GetIDLResource()->FindWidget("TradeCountableItem_Ok");
 
 	switch (m_mode) {
 		case ZICD_SELL:
@@ -110,7 +110,7 @@ void ZItemCountDlg::UpdateDlg()
 		}
 	}
 
-	MEdit* pEdit = (MEdit*)GetIDLResource()->FindWidget( "TradeCountableItem_CountNum");
+	CCEdit* pEdit = (CCEdit*)GetIDLResource()->FindWidget( "TradeCountableItem_CountNum");
 	if ( pEdit)
 	{
 		// 현재 에디트박스에 기입된 수량이 다르다면 갱신해준다
@@ -134,7 +134,7 @@ void ZItemCountDlg::AddCount( int n )
 
 void ZItemCountDlg::OnEditBoxChanged()
 {
-	MEdit* pEdit = (MEdit*)GetIDLResource()->FindWidget( "TradeCountableItem_CountNum");
+	CCEdit* pEdit = (CCEdit*)GetIDLResource()->FindWidget( "TradeCountableItem_CountNum");
 	if ( pEdit)
 	{
 		const char* sz = pEdit->GetText();
@@ -235,7 +235,7 @@ void ZSellCashItemConfirmDlg::Open(const char* szItemName, CCBitmap* pIcon, int 
 	m_pDoneHandler = pHandler;
 
 	// 유저가 지금 팔고자 하는 캐쉬아이템을 확실히 인지할수 있는 시간을 주기 위해 OK 버튼을 몇초후 활성화시킨다
-	MButton* pButton = (MButton*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Sell");
+	CCButton* pButton = (CCButton*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Sell");
 	if (pButton)
 	{
 		pButton->Enable(false);
@@ -253,7 +253,7 @@ void ZSellCashItemConfirmDlg::Update()
 	{
 		m_bWaitActivatingOkBtn = false;
 
-		MButton* pButton = (MButton*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Sell");
+		CCButton* pButton = (CCButton*)GetIDLResource()->FindWidget("SellCashItemConfirmFrame_Sell");
 		if (pButton)
 			pButton->Enable(true);
 	}
@@ -309,7 +309,7 @@ void ZCashItemConfirmDlg::Open(CCBitmap* pItemIcon, ICashItemConfirmDlgDoneHandl
 	}
 
 	// 콤보박스에 내용 넣기 (기간 혹은 묶음 수량)
-	MComboBox* pCombobox = (MComboBox*)GetIDLResource()->FindWidget("BuyItemDetailFrame_DetailCombo");
+	CCComboBox* pCombobox = (CCComboBox*)GetIDLResource()->FindWidget("BuyItemDetailFrame_DetailCombo");
 	if (pCombobox)
 	{
 		pCombobox->RemoveAll();

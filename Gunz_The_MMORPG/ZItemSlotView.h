@@ -12,7 +12,7 @@
 using namespace RealSpace2;
 
 
-class ZItemSlotView : public MButton{
+class ZItemSlotView : public CCButton{
 protected:
 	CCBitmap*				m_pBackBitmap;
 

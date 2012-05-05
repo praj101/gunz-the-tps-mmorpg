@@ -337,18 +337,18 @@ bool ZCombatInterface::OnCreate()
 	}
 
 	// 게임 나가기 버튼의 확인 메시지를 게임룰에 따라 변경한다
-	MButton* pExitConfirmButton = (MButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageExit");
-	if (pExitConfirmButton) {
+	CCButton* pExitConfirCCButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageExit");
+	if (pExitConfirCCButton) {
 		char szConfirmMsg[256];
 		if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 		{
 			ZTransMsg(szConfirmMsg, MSG_GAME_DUELTOURNAMENT_MATCH_EXITSTAGE_CONFIRM);	// TP 페널티 경고문
-			pExitConfirmButton->SetAlterableConfirmMessage(szConfirmMsg);
+			pExitConfirCCButton->SetAlterableConfirmMessage(szConfirmMsg);
 		}
 		else
 		{
 			// 그외 게임룰에 대해서는 디폴트 메시지
-			pExitConfirmButton->RestoreIDLConfirmMessage();
+			pExitConfirCCButton->RestoreIDLConfirmMessage();
 		}
 	}
 

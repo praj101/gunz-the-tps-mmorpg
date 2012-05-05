@@ -2,7 +2,7 @@
 
 #include "ZMeshViewList.h"
 #include "ZMeshView.h"
-#include "CCBmButton.h"
+#include "CCBCCButton.h"
 
 void ZMeshViewList::OnDraw(CCDrawContext* pDC)
 {
@@ -110,10 +110,10 @@ ZMeshViewList::ZMeshViewList(const char* szName, CCWidget* pParent, CCListener* 
 	m_nItemStartIndex = 0;
 	m_nItemWidth = 70;
 
-	//m_pLeft = new MButton("<", this, this);
-	//m_pRight = new MButton(">", this, this);
-	m_pBmLeft	= new MBmButton("", this, this);
-	m_pBmRight	= new MBmButton("", this, this);
+	//m_pLeft = new CCButton("<", this, this);
+	//m_pRight = new CCButton(">", this, this);
+	m_pBmLeft	= new MBCCButton("", this, this);
+	m_pBmRight	= new MBCCButton("", this, this);
 	m_pBmLeft->SetDownBitmap(CCBitmapManager::Get("button_circle_left.tga"));
 	m_pBmLeft->SetOverBitmap(CCBitmapManager::Get("button_circle_left.tga"));
 	m_pBmLeft->SetDisableBitmap(CCBitmapManager::Get("button_circle_left.tga"));

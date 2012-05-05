@@ -33,7 +33,7 @@ public:
 	RVisualMesh* m_pVisualMesh;
 };
 
-class ZMeshView : public MButton{
+class ZMeshView : public CCButton{
 protected:
 	RTVisualMesh	m_pTVisualMesh;
 	bool			m_bLook;
