@@ -32,8 +32,8 @@ struct sLineItem{
 };
 
 //
-typedef list<sListItem>				SLINELIST;
-typedef list<sListItem>::iterator	SLINELISTITERATOR;
+typedef list<sLineItem>				SLINELIST;
+typedef list<sLineItem>::iterator	SLINELISTITERATOR;
 
 class CCTextAreaLook{
 protected:

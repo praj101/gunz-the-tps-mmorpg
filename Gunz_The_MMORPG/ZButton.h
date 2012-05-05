@@ -51,5 +51,3 @@ public:
 	ZBmButton(const char* szName, CCWidget* pParent, CCListener* pListener);
 	virtual ~ZBmButton(void);
 };
-
-#endif
