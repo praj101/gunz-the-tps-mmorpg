@@ -10,6 +10,7 @@
 #include "CCDebug.h"
 #include "CCZFileSystem.h"
 #include "fileinfo.h"
+#include "RTypes.h"
 #include <list>
 using namespace std;
 

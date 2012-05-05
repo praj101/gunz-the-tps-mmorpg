@@ -138,7 +138,7 @@ protected:
 	CCAniBitmap*		GetAniBitmap(::CCXmlElement& element);
 	CCAnimation*		GetAnimation(::CCXmlElement& element);
 	CCCursor*		GetCursor(::CCXmlElement& element);
-	CCBCCLabel*		GetBmLabel(::CCXmlElement& element);
+	CCLabel*		GetBmLabel(::CCXmlElement& element);
 	CCFont*			GetFont(::CCXmlElement& element);
 	CCHotKey*		GetHotKey(::CCXmlElement& element);
 //	MActionKey*		GetActionKey(::CCXmlElement& element);
