@@ -183,9 +183,9 @@ bool ZCombatChat::Create( const char* szOutputTxtarea,bool bUsePlayerList)
 		}
 	}
 
-	MLabel* pLabelToTeam = (MLabel*)m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATMODE_TOTEAM);
+	CCLabel* pLabelToTeam = (CCLabel*)m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATMODE_TOTEAM);
 	if (pLabelToTeam) pLabelToTeam->Show(false);
-	MLabel* pLabelToAll = (MLabel*)m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATMODE_TOALL);
+	CCLabel* pLabelToAll = (CCLabel*)m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATMODE_TOALL);
 	if (pLabelToAll) pLabelToAll->Show(false);
 
 	return true;
@@ -238,8 +238,8 @@ void ZCombatChat::UpdateChattingBox()
 
 void ZCombatChat::EnableInput(bool bEnable, bool bToTeam)
 {
-	MLabel* pLabelToTeam = (MLabel*)m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATMODE_TOTEAM);
-	MLabel* pLabelToAll = (MLabel*)m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATMODE_TOALL);
+	CCLabel* pLabelToTeam = (CCLabel*)m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATMODE_TOTEAM);
+	CCLabel* pLabelToAll = (CCLabel*)m_pIDLResource->FindWidget(ZIITEM_COMBAT_CHATMODE_TOALL);
 	if (bEnable == true) {
 		SetTeamChat(bToTeam);
 		if (bToTeam) {

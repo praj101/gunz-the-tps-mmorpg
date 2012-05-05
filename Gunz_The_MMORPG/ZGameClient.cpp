@@ -1481,7 +1481,7 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 	if (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_NETMARBLE) {	
 		// 넷마블에서 로그인
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-		MLabel* pLabel = (MLabel*)pResource->FindWidget("NetmarbleLoginMessage");
+		CCLabel* pLabel = (CCLabel*)pResource->FindWidget("NetmarbleLoginMessage");
 		if (pLabel) {
 //			pLabel->SetText(MGetErrorString(MERR_CLIENT_CONNECT_FAILED));
 			pLabel->SetText(
@@ -1497,7 +1497,7 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 		pLogin = pResource->FindWidget("Login_ConnectingMsg");
 		if (pLogin) pLogin->Show(false);
 
-		MLabel* pLabel = (MLabel*)pResource->FindWidget("LoginError");
+		CCLabel* pLabel = (CCLabel*)pResource->FindWidget("LoginError");
 		if (pLabel) {
 //			pLabel->SetText(MGetErrorString(MERR_CLIENT_CONNECT_FAILED));
 			pLabel->SetText( ZErrStr(MERR_CLIENT_CONNECT_FAILED) );

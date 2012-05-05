@@ -614,7 +614,7 @@ void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 		pPicture->SetBitmap( ZGetEmblemInterface()->GetClanEmblem2( pClanInfo->nCLID));
 
 	// 클랜 이름
-	MLabel* pLabel = (MLabel*)pRes->FindWidget("Lobby_ClanInfoName");
+	CCLabel* pLabel = (CCLabel*)pRes->FindWidget("Lobby_ClanInfoName");
 	pLabel->SetText(ZGetNetRepository()->GetClanInfo()->szClanName);
 
 	// 접속된 사람수
@@ -627,26 +627,26 @@ void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 	ZTransMsg(szOutput,MSG_LOBBY_CLAN_DETAIL,2,
 		ZGetNetRepository()->GetClanInfo()->szMaster,szCount);
 
-	pLabel = (MLabel*)pRes->FindWidget("Lobby_ClanInfoDetail");
+	pLabel = (CCLabel*)pRes->FindWidget("Lobby_ClanInfoDetail");
 	pLabel->SetText(szOutput);
 
 
 	sprintf(szOutput,"%d/%d",ZGetNetRepository()->GetClanInfo()->nWins,ZGetNetRepository()->GetClanInfo()->nLosses);
-	ZBmNumLabel *pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_ClanInfoWinLose");
+	ZBmNumLabel *pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_ClanInfoWinLose");
 	pNumLabel->SetText(szOutput);
 
 	sprintf(szOutput,"%d", ZGetNetRepository()->GetClanInfo()->nPoint);
-	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_ClanInfoPoints");
+	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_ClanInfoPoints");
 	pNumLabel->SetText(szOutput);
 
-	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_ClanInfoTotalPoints");
+	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_ClanInfoTotalPoints");
 	//		sprintf(szOutput,"%d",ZGetNetRepository()->GetClanInfo()->nWins,ZGetNetRepository()->GetClanInfo()->nXP);
 	//		pNumLabel->SetText(szOutput);
 	pNumLabel->SetNumber(ZGetNetRepository()->GetClanInfo()->nTotalPoint,true);
 
 	int nRanking = pClanInfo->nRanking;
 
-	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_ClanInfoRanking");
+	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_ClanInfoRanking");
 	pNumLabel->SetIndexOffset(16);	// 아래쪽 색다른 글씨로 찍는다
 	CCWidget *pUnranked = pRes->FindWidget("Lobby_ClanInfoUnranked");
 	if(nRanking == 0) {

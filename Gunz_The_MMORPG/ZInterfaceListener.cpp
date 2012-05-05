@@ -103,7 +103,7 @@ public:
 class MHotBarButtonListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 			MHotBarButton* pButton = (MHotBarButton*)pWidget;
 			const char* szCommandString = pButton->GetCommandString();
 
@@ -126,7 +126,7 @@ MHotBarButtonListener	g_HotBarButtonListener;
 class MLoginListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true)
+		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true)
 		{
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
@@ -170,7 +170,7 @@ public:
 				else
 					ZPostConnect( pServer->szAddress, pServer->nPort);				// Game server
 
-				MLabel* pLabel = (MLabel*)pResource->FindWidget( "LoginError");
+				CCLabel* pLabel = (CCLabel*)pResource->FindWidget( "LoginError");
 				if ( pLabel)
 					pLabel->SetText("");
 			}
@@ -183,7 +183,7 @@ MLoginListener	g_LoginListener;
 class MLogoutListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 
 			cclog("MLogoutListener !\n");
 			// 체크후 로그아웃~
@@ -200,7 +200,7 @@ MLogoutListener	g_LogoutListener;
 class MExitListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 
 			cclog("MExitListener !\n");
 			ZApplication::Exit();
@@ -265,7 +265,7 @@ MStageChatInputListener	g_StageChatInputListener;
 class MGameStartListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 
 			const MSTAGE_SETTING_NODE* pStageSetting = ZGetGameClient()->GetMatchStageSetting()->GetStageSetting();
 			int nPlayerCnt = (int)ZGetGameClient()->GetMatchStageSetting()->m_CharSettingList.size();
@@ -307,7 +307,7 @@ MGameStartListener	g_GameStartListener;
 class MMapChangeListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 			ZGetGameInterface()->ShowWidget("MapFrame", true, true);
 
 			return true;
@@ -320,7 +320,7 @@ MMapChangeListener	g_MapChangeListener;
 class MMapSelectListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 			ZMapListBox* pWidget = (ZMapListBox*)pResource->FindWidget("MapList");
 			char szMapName[_MAX_DIR];
@@ -345,7 +345,7 @@ MMapSelectListener	g_MapSelectListener;
 class MParentCloseListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 			if(pWidget->GetParent()!=NULL) pWidget->GetParent()->Show(false);
 			return true;
 		}
@@ -358,7 +358,7 @@ MParentCloseListener	g_ParentCloseListener;
 class MStageCreateFrameCallerListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MBTN_CLK_MSG)==true){
+		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 			CCWidget* pFindWidget = pResource->FindWidget("StageCreateFrame");
 			if(pFindWidget!=NULL) pFindWidget->Show(true, true);
@@ -477,7 +477,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetMapListListener, MLB_ITEM_DBLCLK)
 	}
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageListFrameCallerListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageListFrameCallerListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
 	/*
@@ -488,7 +488,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageListFrameCallerListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageCreateBtnListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageCreateBtnListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pNameWidget = pResource->FindWidget("StageName");
 	if(pNameWidget==NULL) return true;
@@ -546,7 +546,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageCreateBtnListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 // 비밀방 들어가기 확인버튼
-BEGIN_IMPLEMENT_LISTENER(ZGetPrivateStageJoinBtnListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetPrivateStageJoinBtnListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	ZRoomListBox* pRoomListBox = (ZRoomListBox*)pResource->FindWidget("Lobby_StageList");
 	if (pRoomListBox)
@@ -563,7 +563,7 @@ END_IMPLEMENT_LISTENER()
 
 
 // Channel
-BEGIN_IMPLEMENT_LISTENER(ZGetChannelListFrameCallerListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetChannelListFrameCallerListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
 	if(pFindWidget!=NULL) pFindWidget->Show(true, true);
@@ -581,7 +581,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetChannelListFrameCallerListener, MBTN_CLK_MSG)
 	ZGetGameClient()->StartChannelList(nCurrentChannelType);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetChannelListJoinButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetChannelListJoinButtonListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	MListBox* pChannelList = (MListBox*)pResource->FindWidget("ChannelList");
 	ZChannelListItem* pItem = (ZChannelListItem*)pChannelList->GetSelItem();
@@ -592,7 +592,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetChannelListJoinButtonListener, MBTN_CLK_MSG)
 	ZGetGameClient()->StopChannelList();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetChannelListCloseButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetChannelListCloseButtonListener, CCBTN_CLK_MSG)
 	if(pWidget->GetParent()!=NULL) pWidget->GetParent()->Show(false);
 	ZGetGameClient()->StopChannelList();
 END_IMPLEMENT_LISTENER()
@@ -610,7 +610,7 @@ END_IMPLEMENT_LISTENER()
 
 
 // 스테이지 조인
-BEGIN_IMPLEMENT_LISTENER(ZGetStageJoinListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageJoinListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	ZRoomListBox* pRoomListBox = (ZRoomListBox*)pResource->FindWidget("Lobby_StageList");
 	if (pRoomListBox)
@@ -622,7 +622,7 @@ END_IMPLEMENT_LISTENER()
 
 
 // 기타 옵션
-BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingCallerListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingCallerListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("StageSettingFrame");
 	if(pWidget!=NULL)
@@ -637,7 +637,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingStageTypeListener, MCMBBOX_CHANGED)
 	}
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamRedListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamRedListener, CCBTN_CLK_MSG)
 	CCButton* pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
 	if(pButton && !pButton->GetCheck() ) pButton->SetCheck(true);
 	pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
@@ -646,7 +646,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamRedListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamBlueListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamBlueListener, CCBTN_CLK_MSG)
 	CCButton* pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 	if(pButton && !pButton->GetCheck() ) pButton->SetCheck(true);
 	pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
@@ -654,7 +654,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamBlueListener, MBTN_CLK_MSG)
 	ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_BLUE);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageReadyListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageReadyListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	
 	bool bReady = false;
@@ -672,7 +672,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageReadyListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 // 관전 모드 버튼
-BEGIN_IMPLEMENT_LISTENER(ZGetStageObserverBtnListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageObserverBtnListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCButton* pObserverBtn = (CCButton*)pResource->FindWidget("StageObserverBtn");
 	if ( pObserverBtn)
@@ -703,26 +703,26 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingChangedComboboxListener, MCMBBOX_CHANGE
 	ZStageSetting::PostDataToServer();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingApplyBtnListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingApplyBtnListener, CCBTN_CLK_MSG)
 	ZStageSetting::ApplyStageSettingDialog();
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyListener, CCBTN_CLK_MSG)
 	ZPostStageLeave(ZGetGameClient()->GetPlayerUID());//, ZGetGameClient()->GetStageUID());
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLoginStateButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLoginStateButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->SetState(GUNZ_LOGIN);
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetGreeterStateButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetGreeterStateButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->SetState(GUNZ_GREETER);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetBattleExitButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetBattleExitButtonListener, CCBTN_CLK_MSG)
 	// 클랜전이 진행중이면 종료하지 않는다
 	if ( !ZGetGameClient()->IsLadderGame())
 	{
@@ -732,30 +732,30 @@ BEGIN_IMPLEMENT_LISTENER(ZGetBattleExitButtonListener, MBTN_CLK_MSG)
 	}
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageExitButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageExitButtonListener, CCBTN_CLK_MSG)
 	if(pWidget->GetParent()!=NULL) pWidget->GetParent()->Show(false);
 //	ZGetGameInterface()->SetCursorEnable(false);
 	ZGetGameInterface()->ReserveLeaveStage();
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCombatMenuCloseButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCombatMenuCloseButtonListener, CCBTN_CLK_MSG)
 	if(pWidget->GetParent()!=NULL) pWidget->GetParent()->Show(false);
 //	ZGetGameInterface()->SetCursorEnable(false);
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetPreviousStateButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetPreviousStateButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->SetState(GUNZ_PREVIOUS);
 END_IMPLEMENT_LISTENER()
 
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetShopCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetShopCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowShopDialog();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetShopCloseButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetShopCloseButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowShopDialog(false);
 /*
 	상점은 장비가 안 바뀐다~
@@ -768,11 +768,11 @@ BEGIN_IMPLEMENT_LISTENER(ZGetShopCloseButtonListener, MBTN_CLK_MSG)
 */
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowEquipmentDialog();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentCloseButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentCloseButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowEquipmentDialog(false);
 
 {	
@@ -795,44 +795,44 @@ BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentCloseButtonListener, MBTN_CLK_MSG)
 
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCharSelectionCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCharSelectionCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ChangeToCharSelection();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetQuickJoinButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetQuickJoinButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->RequestQuickJoin();
 END_IMPLEMENT_LISTENER()
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyCharInfoCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyCharInfoCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowErrorMessage( MERR_NOT_SUPPORT );
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetBuyButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetBuyButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnBuyButton();
 END_IMPLEMENT_LISTENER()
 
 //------------------------------------------------------------------------------------------------------
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSellButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSellButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnSellButton();
 END_IMPLEMENT_LISTENER()
 
 //------------------------------------------------------------------------------------------------------
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCloseListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCloseListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg()->Close();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgOkButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgOkButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg()->OnDlgDone();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountUpButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountUpButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg()->AddCount(1);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountDnButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountDnButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg()->AddCount(-1);
 END_IMPLEMENT_LISTENER()
 
@@ -840,37 +840,37 @@ BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountChangeListener, CCEdit_TE
 	ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg()->OnEditBoxChanged();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSellCashItemConfirmDlgOkButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSellCashItemConfirmDlgOkButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->GetSellCashItemConfirmDlg()->OnOkButton();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSellCashItemConfirmDlgCancelListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSellCashItemConfirmDlgCancelListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->GetSellCashItemConfirmDlg()->Close();
 END_IMPLEMENT_LISTENER()
 
 //------------------------------------------------------------------------------------------------------
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetEquipButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetEquipButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->Equip();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentSearchButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentSearchButtonListener, CCBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSendAccountIteCCButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSendAccountIteCCButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnSendAccountButton();	
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetBringAccountIteCCButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetBringAccountIteCCButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnBringAccountButton();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetShopCachRechargeButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetShopCachRechargeButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowErrorMessage( MERR_NOT_SUPPORT );
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetShopSearchCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetShopSearchCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowErrorMessage( MERR_NOT_SUPPORT );
 END_IMPLEMENT_LISTENER()
 
@@ -921,7 +921,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetMapComboListener, MCMBBOX_CHANGED)
 	PostMapname();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSelectMapPrevButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSelectMapPrevButtonListener, CCBTN_CLK_MSG)
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCComboBox* pComboBox = (CCComboBox*)pResource->FindWidget("MapSelection");
@@ -934,7 +934,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetSelectMapPrevButtonListener, MBTN_CLK_MSG)
 
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSelectMapNextButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSelectMapNextButtonListener, CCBTN_CLK_MSG)
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCComboBox* pComboBox = (CCComboBox*)pResource->FindWidget("MapSelection");
@@ -950,21 +950,21 @@ END_IMPLEMENT_LISTENER()
 
 // 선택된 캐릭터 돌리며 보기 ( 카메라 돌리기 처리 )
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSelectCameraLeftButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSelectCameraLeftButtonListener, CCBTN_CLK_MSG)
  
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSelectCameraRightButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSelectCameraRightButtonListener, CCBTN_CLK_MSG)
 
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCreateCharacterLeftButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCreateCharacterLeftButtonListener, CCBTN_CLK_MSG)
 	if(ZGetGameInterface()->GetCharacterSelectView())
 		ZGetGameInterface()->GetCharacterSelectView()->CharacterLeft();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCreateCharacterRightButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCreateCharacterRightButtonListener, CCBTN_CLK_MSG)
 	if(ZGetGameInterface()->GetCharacterSelectView())
 		ZGetGameInterface()->GetCharacterSelectView()->CharacterRight();
 END_IMPLEMENT_LISTENER()
@@ -989,23 +989,23 @@ void CharacterSelect( int nNum)
 	ZGetGameInterface()->ChangeSelectedChar( nNum);
 }
 
-BEGIN_IMPLEMENT_LISTENER( ZGetSelectCharacterButtonListener0, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetSelectCharacterButtonListener0, CCBTN_CLK_MSG)
 	CharacterSelect( 0);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZGetSelectCharacterButtonListener1, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetSelectCharacterButtonListener1, CCBTN_CLK_MSG)
 	CharacterSelect( 1);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZGetSelectCharacterButtonListener2, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetSelectCharacterButtonListener2, CCBTN_CLK_MSG)
 	CharacterSelect( 2);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZGetSelectCharacterButtonListener3, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetSelectCharacterButtonListener3, CCBTN_CLK_MSG)
 	CharacterSelect( 3);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetSelectCharacterButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetSelectCharacterButtonListener, CCBTN_CLK_MSG)
 	if ( ZCharacterSelectView::GetNumOfCharacter())
 	{
 		if ( ZGetGameInterface()->GetCharacterSelectView() != NULL)
@@ -1022,16 +1022,16 @@ BEGIN_IMPLEMENT_LISTENER(ZGetSelectCharacterButtonListener, MBTN_CLK_MSG)
 	}
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetShowCreateCharacterButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetShowCreateCharacterButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->SetState(GUNZ_CHARCREATION);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetDeleteCharacterButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetDeleteCharacterButtonListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
 	char szName[256];
 	sprintf( szName, "CharSel_Name%d", ZCharacterSelectView::GetSelectedCharacter() );
-	MLabel* pLabel = (MLabel*)pResource->FindWidget( szName);
+	CCLabel* pLabel = (CCLabel*)pResource->FindWidget( szName);
 	
 	if( ZCharacterSelectView::GetNumOfCharacter())
 	{
@@ -1044,7 +1044,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetDeleteCharacterButtonListener, MBTN_CLK_MSG)
 			return true;
 		}
 
-		MLabel* pCharNameLabel = (MLabel*)pResource->FindWidget("CS_DeleteCharLabel");
+		CCLabel* pCharNameLabel = (CCLabel*)pResource->FindWidget("CS_DeleteCharLabel");
 		if (pCharNameLabel)
 			pCharNameLabel->SetText( pLabel->GetText());
 
@@ -1062,12 +1062,12 @@ BEGIN_IMPLEMENT_LISTENER(ZGetDeleteCharacterButtonListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 // 진짜 캐릭터 삭제
-BEGIN_IMPLEMENT_LISTENER(ZGetConfirmDeleteCharacterButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetConfirmDeleteCharacterButtonListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
 	char szName[256];
 	sprintf( szName, "CharSel_Name%d", ZCharacterSelectView::GetSelectedCharacter() );
-	MLabel* pLabel = (MLabel*)pResource->FindWidget( szName);
+	CCLabel* pLabel = (CCLabel*)pResource->FindWidget( szName);
 
 	if( ZCharacterSelectView::GetNumOfCharacter())
 	{
@@ -1098,7 +1098,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetConfirmDeleteCharacterButtonListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 // 캐릭 삭제 확인창 닫기
-BEGIN_IMPLEMENT_LISTENER(ZGetCloseConfirmDeleteCharButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCloseConfirmDeleteCharButtonListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("CS_ConfirmDeleteChar");
 	if (pWidget)
@@ -1109,7 +1109,7 @@ END_IMPLEMENT_LISTENER()
 
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCreateCharacterButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCreateCharacterButtonListener, CCBTN_CLK_MSG)
 	int nEmptySlotIndex=-1;
 	for(int i=0;i<4;i++)
 	{
@@ -1187,21 +1187,21 @@ void SetCharacterInfoGroup(int n)
 	pBtn = (CCButton*)pResource->FindWidget("ShowEquip_InfoGroup");
 	if(pBtn)pBtn->SetCheck(n==1);
 
-	CCWidget *pFrame=(MFrame*)pResource->FindWidget("Char_infoGroup");
+	CCWidget *pFrame=(CCFrame*)pResource->FindWidget("Char_infoGroup");
 	if(pFrame) pFrame->Show(n==0);
-	pFrame=(MFrame*)pResource->FindWidget("Equip_InfoGroup");
+	pFrame=(CCFrame*)pResource->FindWidget("Equip_InfoGroup");
 	if(pFrame) pFrame->Show(n==1);
 }
 
-BEGIN_IMPLEMENT_LISTENER(ZGetShowCharInfoGroupListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetShowCharInfoGroupListener, CCBTN_CLK_MSG)
 SetCharacterInfoGroup(0);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetShowEquipInfoGroupListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetShowEquipInfoGroupListener, CCBTN_CLK_MSG)
 SetCharacterInfoGroup(1);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCancelCreateCharacterButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCancelCreateCharacterButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->SetState(GUNZ_CHARSELECTION);
 END_IMPLEMENT_LISTENER()
 
@@ -1214,7 +1214,7 @@ BEGIN_IMPLEMENT_LISTENER(ZChangeCreateCharInfoListener, MCMBBOX_CHANGED)
 	}
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageForcedEntryToGameListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageForcedEntryToGameListener, CCBTN_CLK_MSG)
 	if(ZGetGameClient()->GetMatchStageSetting()->GetMapName()[0]!=0)
 	{
 		ZApplication::GetStageInterface()->ChangeStageEnableReady( true);
@@ -1235,34 +1235,34 @@ void ShowPlayerListGroup(int i)
 	if(pWidget!=NULL) ((CCButton*)pWidget)->SetCheck(i==2?true:false);
 }
 
-BEGIN_IMPLEMENT_LISTENER(ZGetChannelPlayerOptionGroupAll, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetChannelPlayerOptionGroupAll, CCBTN_CLK_MSG)
 ShowPlayerListGroup(0);
 END_IMPLEMENT_LISTENER()
-BEGIN_IMPLEMENT_LISTENER(ZGetChannelPlayerOptionGroupFriend, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetChannelPlayerOptionGroupFriend, CCBTN_CLK_MSG)
 ShowPlayerListGroup(1);
 END_IMPLEMENT_LISTENER()
-BEGIN_IMPLEMENT_LISTENER(ZGetChannelPlayerOptionGroupClan, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetChannelPlayerOptionGroupClan, CCBTN_CLK_MSG)
 ShowPlayerListGroup(2);
 END_IMPLEMENT_LISTENER()
 */
 
-BEGIN_IMPLEMENT_LISTENER(ZGetAllEquipmentListCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetAllEquipmentListCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->SelectShopTab(0);
 END_IMPLEMENT_LISTENER()
-BEGIN_IMPLEMENT_LISTENER(ZGetMyAllEquipmentListCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetMyAllEquipmentListCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->SelectShopTab(1);
 END_IMPLEMENT_LISTENER()
-BEGIN_IMPLEMENT_LISTENER(ZGetCashEquipmentListCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetCashEquipmentListCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->SelectShopTab(2);
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentCharacterTabButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentCharacterTabButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->SelectEquipmentTab(0);
 END_IMPLEMENT_LISTENER()
 
 // 중앙은행
-BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentAccountTabButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetEquipmentAccountTabButtonListener, CCBTN_CLK_MSG)
 	// 유져가 버튼 막 누르는 것을 방지하도록 한다.
 //	static unsigned long int st_nLastTime = 0;
 //	unsigned long int nNowTime = timeGetTime();
@@ -1300,7 +1300,7 @@ CCListener* ZGetLevelConfirmListenter()
 // 플레이어/친구 리스트 전환
 // 누르면 채널 -> 친구 -> 클랜 -> 채널 로 순환한다
 
-BEGIN_IMPLEMENT_LISTENER(ZGetListenerLobbyPlayerListTabChannel, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetListenerLobbyPlayerListTabChannel, CCBTN_CLK_MSG)
 {
 	ZPlayerListBox* pList = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerList");
 	if (pList) {
@@ -1310,7 +1310,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetListenerLobbyPlayerListTabChannel, MBTN_CLK_MSG)
 }
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetListenerLobbyPlayerListTabFriend, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetListenerLobbyPlayerListTabFriend, CCBTN_CLK_MSG)
 {
 	ZPlayerListBox* pList = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerList");
 	if (pList) {
@@ -1320,7 +1320,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetListenerLobbyPlayerListTabFriend, MBTN_CLK_MSG)
 }
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetListenerLobbyPlayerListTabClan, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetListenerLobbyPlayerListTabClan, CCBTN_CLK_MSG)
 {
 	ZPlayerListBox* pList = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerList");
 	if (pList) {
@@ -1330,7 +1330,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetListenerLobbyPlayerListTabClan, MBTN_CLK_MSG)
 }
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetListenerGamePlayerListTabGame, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetListenerGamePlayerListTabGame, CCBTN_CLK_MSG)
 {
 	ZPlayerListBox* pList = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerList_");
 	CCButton* pBtnGame = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabGame");
@@ -1343,7 +1343,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetListenerGamePlayerListTabGame, MBTN_CLK_MSG)
 }
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetListenerGamePlayerListTabFriend, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetListenerGamePlayerListTabFriend, CCBTN_CLK_MSG)
 {
 	ZPlayerListBox* pList = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerList_");
 	CCButton* pBtnGame = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerListTabGame");
@@ -1358,7 +1358,7 @@ END_IMPLEMENT_LISTENER()
 */
 ///////////////////////////////////////////////////////////////////////////
 // 특정갯수단위로 플레이어 리스트 갱신
-BEGIN_IMPLEMENT_LISTENER(ZGetPlayerListPrevListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetPlayerListPrevListener, CCBTN_CLK_MSG)
 {
 	ZPlayerListBox* pWidget = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerList");
 	if (pWidget->GetMode() == ZPlayerListBox::PLAYERLISTMODE_CHANNEL_FRIEND) {
@@ -1381,7 +1381,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPlayerListPrevListener, MBTN_CLK_MSG)
 }
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetPlayerListNextListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetPlayerListNextListener, CCBTN_CLK_MSG)
 {
 	ZPlayerListBox* pWidget = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerList");
 	if (pWidget->GetMode() == ZPlayerListBox::PLAYERLISTMODE_CHANNEL_FRIEND) {
@@ -1409,7 +1409,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPlayerListNextListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStagePlayerListPrevListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStagePlayerListPrevListener, CCBTN_CLK_MSG)
 {
 	ZPlayerListBox* pWidget = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerList_");
 	if (pWidget->GetMode() == ZPlayerListBox::PLAYERLISTMODE_STAGE_FRIEND) {
@@ -1423,7 +1423,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStagePlayerListPrevListener, MBTN_CLK_MSG)
 }
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStagePlayerListNextListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStagePlayerListNextListener, CCBTN_CLK_MSG)
 {
 	ZPlayerListBox* pWidget = (ZPlayerListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("StagePlayerList_");
 	if (pWidget->GetMode() == ZPlayerListBox::PLAYERLISTMODE_STAGE_FRIEND) {
@@ -1444,46 +1444,46 @@ BEGIN_IMPLEMENT_LISTENER(ZGetRoomListListener, MLIST_VALUE_CHANGED)
 	pWidget->SetPage();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyPrevRoomListButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyPrevRoomListButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->RequestPrevStageList();	
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomListPrevButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomListPrevButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->RequestNextStageList();
 END_IMPLEMENT_LISTENER()
 
 /*
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo1ButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo1ButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->RequestStageList(1);
 	ZGetGameInterface()->SetRoomNoLight(1);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo2ButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo2ButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->RequestStageList(2);
 	ZGetGameInterface()->SetRoomNoLight(2);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo3ButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo3ButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->RequestStageList(3);
 	ZGetGameInterface()->SetRoomNoLight(3);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo4ButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo4ButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->RequestStageList(4);
 	ZGetGameInterface()->SetRoomNoLight(4);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo5ButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo5ButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->RequestStageList(5);
 	ZGetGameInterface()->SetRoomNoLight(5);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo6ButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNo6ButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->RequestStageList(6);
 	ZGetGameInterface()->SetRoomNoLight(6);
 END_IMPLEMENT_LISTENER()
 */
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNoButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNoButtonListener, CCBTN_CLK_MSG)
 	CCButton *pButton = (CCButton*)pWidget;
 	int nIndexInGroup = pButton->GetIndexInGroup();
 	_ASSERT(0<=nIndexInGroup && nIndexInGroup<6);
@@ -1493,12 +1493,12 @@ BEGIN_IMPLEMENT_LISTENER(ZGetLobbyNextRoomNoButtonListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 
-BEGIN_IMPLEMENT_LISTENER( ZGetEquipmentShopCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetEquipmentShopCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowEquipmentDialog(false);
 	ZGetGameInterface()->ShowShopDialog(true);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZGetShopEquipmentCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetShopEquipmentCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowShopDialog(false);
 	ZGetGameInterface()->ShowEquipmentDialog(true);
 END_IMPLEMENT_LISTENER()
@@ -1541,7 +1541,7 @@ CCListener* ZGetStageMapListSelectionListener()
 	return &g_MapListListener;
 }
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageMapListCallerListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageMapListCallerListener, CCBTN_CLK_MSG)
 	MListBox* pList = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 	pList->Show(TRUE);
 END_IMPLEMENT_LISTENER();
@@ -1615,16 +1615,16 @@ BEGIN_IMPLEMENT_LISTENER(ZGet112ConfirCCEditListener, CCEdit_ENTER_VALUE)
 	ZReport112FromListener();
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGet112ConfirmOKButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGet112ConfirmOKButtonListener, CCBTN_CLK_MSG)
 	ZReport112FromListener();
 END_IMPLEMENT_LISTENER();
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGet112ConfirmCancelButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGet112ConfirmCancelButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->Show112Dialog(false);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementConfirm_OKButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementConfirm_OKButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->AnswerSponsorAgreement(true);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
@@ -1635,7 +1635,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementConfirm_OKButtonListener, MBTN_
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementConfirm_CancelButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementConfirm_CancelButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->AnswerSponsorAgreement(false);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
@@ -1646,7 +1646,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementConfirm_CancelButtonListener, M
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementWait_CancelButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementWait_CancelButtonListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ClanSponsorAgreementWait");
 	if(pWidget!=NULL)
@@ -1655,7 +1655,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanSponsorAgreementWait_CancelButtonListener, MBTN
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementConfirm_OKButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementConfirm_OKButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->AnswerJoinerAgreement(true);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
@@ -1666,7 +1666,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementConfirm_OKButtonListener, MBTN_C
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementConfirm_CancelButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementConfirm_CancelButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->AnswerJoinerAgreement(false);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
@@ -1677,7 +1677,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementConfirm_CancelButtonListener, MB
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementWait_CancelButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementWait_CancelButtonListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ClanJoinerAgreementWait");
 	if(pWidget!=NULL)
@@ -1687,7 +1687,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanJoinerAgreementWait_CancelButtonListener, MBTN_
 END_IMPLEMENT_LISTENER();
 
 // 클랜 생성 창
-BEGIN_IMPLEMENT_LISTENER(ZGetLobbyPlayerListTabClanCreateButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLobbyPlayerListTabClanCreateButtonListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ClanCreateDialog");
 	if(pWidget!=NULL)
@@ -1703,7 +1703,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetLobbyPlayerListTabClanCreateButtonListener, MBTN_CL
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogOk, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogOk, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ClanCreateDialog");
 	if(pWidget!=NULL)
@@ -1787,7 +1787,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogOk, MBTN_CLK_MSG)
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogClose, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogClose, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ClanCreateDialog");
 	if(pWidget!=NULL)
@@ -1854,7 +1854,7 @@ CCListener* ZGetClanLeaveConfirmListenter()
 	return &g_ClanLeaveConfirmListener;
 }
 
-BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGameListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGameListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
 	if(pWidget!=NULL)
@@ -1870,7 +1870,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGameListener, MBTN_CLK_MSG)
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
 	if(pWidget!=NULL)
@@ -1970,7 +1970,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogCloseListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogCloseListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
 	if(pWidget!=NULL)
@@ -1982,7 +1982,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogCloseListener, MBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER();
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementWait_CancelButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementWait_CancelButtonListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("ProposalAgreementWait");
 	if(pWidget!=NULL)
@@ -1991,7 +1991,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementWait_CancelButtonListener, MBTN_CL
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementConfirm_OKButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementConfirm_OKButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->ReplyAgreement(true);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
@@ -2002,7 +2002,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementConfirm_OKButtonListener, MBTN_CLK
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementConfirm_CancelButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementConfirm_CancelButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->ReplyAgreement(false);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
@@ -2013,7 +2013,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementConfirm_CancelButtonListener, MBTN
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGame_CancelListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGame_CancelListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCWidget* pWidget = pResource->FindWidget("LobbyFindClanTeam");
 	if(pWidget!=NULL)
@@ -2024,7 +2024,7 @@ END_IMPLEMENT_LISTENER();
 
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetPrivateChannelEnterListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetPrivateChannelEnterListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCEdit* pEdit = (CCEdit*)pResource->FindWidget("PrivateChannelInput");
 	if(pEdit!=NULL)
@@ -2064,7 +2064,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPrivateChannelEnterListener, MBTN_CLK_MSG)
 	}
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetChannelList, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetChannelList, CCBTN_CLK_MSG)
 	CCButton *pButton = (CCButton*)pWidget;
 	int nIndexInGroup = pButton->GetIndexInGroup();
 	_ASSERT(0<=nIndexInGroup && nIndexInGroup<4);
@@ -2086,7 +2086,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetChannelList, MBTN_CLK_MSG)
 	ZGetGameClient()->StartChannelList(nChannelType);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetMyClanChannel, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetMyClanChannel, CCBTN_CLK_MSG)
 	if(ZGetMyInfo()->IsClanJoined())
 	{
 		ZPostChannelRequestJoinFromChannelName(ZGetMyUID(),CCCHANNEL_TYPE_CLAN,ZGetMyInfo()->GetClanName());
@@ -2107,42 +2107,42 @@ END_IMPLEMENT_LISTENER();
 
 
 // Shop list frame open/close
-BEGIN_IMPLEMENT_LISTENER(ZShopItemEquipmentTabOpen, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZShopItemEquipmentTabOpen, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnArmorWeaponTabButtonClicked(0);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZShopWeaponEquipmentTabOpen, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZShopWeaponEquipmentTabOpen, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnArmorWeaponTabButtonClicked(1);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZShopListFrameClose, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZShopListFrameClose, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->SelectEquipmentFrameList(NULL, false);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZShopListFrameOpen, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZShopListFrameOpen, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->SelectEquipmentFrameList(NULL, true);
 END_IMPLEMENT_LISTENER();
 
 
 // Equipment list frame open/close
-BEGIN_IMPLEMENT_LISTENER(ZEquipItemEquipmentTabOpen, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZEquipItemEquipmentTabOpen, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnArmorWeaponTabButtonClicked(0);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZEquipWeaponEquipmentTabOpen, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZEquipWeaponEquipmentTabOpen, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->OnArmorWeaponTabButtonClicked(1);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZEquipListFrameClose, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZEquipListFrameClose, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->SelectEquipmentFrameList(NULL, false);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZEquipListFrameOpen, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZEquipListFrameOpen, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetShopEquipInterface()->SelectEquipmentFrameList(NULL, true);
 END_IMPLEMENT_LISTENER();
 
 // Equipment character view rotate
-BEGIN_IMPLEMENT_LISTENER(ZEquipmetRotateBtn, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZEquipmetRotateBtn, CCBTN_CLK_MSG)
 	ZCharacterView* pCharView = (ZCharacterView*)ZGetGameInterface()->GetIDLResource()->FindWidget( "EquipmentInformation");
 	if ( pCharView)
 	{
@@ -2169,19 +2169,19 @@ END_IMPLEMENT_LISTENER();
 
 
 // Replay
-BEGIN_IMPLEMENT_LISTENER(ZReplayOk, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZReplayOk, CCBTN_CLK_MSG)
 	ZGetGameInterface()->OnReplay();
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetReplayCallerButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetReplayCallerButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowReplayDialog( true);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetReplayViewButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetReplayViewButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ViewReplay();
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetReplayExitButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetReplayExitButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->ShowReplayDialog( false);
 END_IMPLEMENT_LISTENER();
 
@@ -2217,7 +2217,7 @@ CCListener* ZGetReplayFileListBoxListener( void)
 }
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLeaveClanOKListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLeaveClanOKListener, CCBTN_CLK_MSG)
 	CCWidget* pWidget = (CCWidget*)ZGetGameInterface()->GetIDLResource()->FindWidget( "ConfirmLeaveClan");
 	if ( pWidget)
 		pWidget->Show( false);
@@ -2229,7 +2229,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetLeaveClanOKListener, MBTN_CLK_MSG)
 		pPlayerListBox->SetMode(ZPlayerListBox::PLAYERLISTMODE_CHANNEL_CLAN);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER(ZGetLeaveClanCancelListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetLeaveClanCancelListener, CCBTN_CLK_MSG)
 	CCWidget* pWidget = (CCWidget*)ZGetGameInterface()->GetIDLResource()->FindWidget( "ConfirmLeaveClan");
 	if ( pWidget)
 		pWidget->Show( false);
@@ -2238,28 +2238,28 @@ END_IMPLEMENT_LISTENER();
 int g_lastPressedDuelTournamentGameBtn = 8;
 
 // 듀얼 토너먼트 참가 버튼
-BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentGameButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentGameButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->OnDuelTournamentGameUI(true);
 	ZPostDuelTournamentRequestJoinGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_QUATERFINAL);
 	g_lastPressedDuelTournamentGameBtn = 8;
 END_IMPLEMENT_LISTENER();
 
 // 듀얼 토너먼트 참가 테스트용 2인용 버튼
-BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentGame2TestButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentGame2TestButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->OnDuelTournamentGameUI(true);
 	ZPostDuelTournamentRequestJoinGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_FINAL);
 	g_lastPressedDuelTournamentGameBtn = 2;
 END_IMPLEMENT_LISTENER();
 
 // 듀얼 토너먼트 참가 테스트용 4인용 버튼
-BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentGame4TestButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentGame4TestButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->OnDuelTournamentGameUI(true);
 	ZPostDuelTournamentRequestJoinGame( ZGetMyUID(), CCDUELTOURNAMENTTYPE_SEMIFINAL);
 	g_lastPressedDuelTournamentGameBtn = 4;
 END_IMPLEMENT_LISTENER();
 
 // 듀얼 토너먼트 참가 취소 버튼
-BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentWaitCancelButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentWaitCancelButtonListener, CCBTN_CLK_MSG)
 	ZGetGameInterface()->OnDuelTournamentGameUI(false);
 
 #ifdef _PUBLISH
@@ -2275,27 +2275,27 @@ BEGIN_IMPLEMENT_LISTENER(ZGetDuelTournamentWaitCancelButtonListener, MBTN_CLK_MS
 END_IMPLEMENT_LISTENER();
 
 // 스테이지 희생 아이템
-BEGIN_IMPLEMENT_LISTENER( ZStageSacrificeItem0, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZStageSacrificeItem0, CCBTN_CLK_MSG)
 	ZApplication::GetStageInterface()->OnSacrificeItem0();
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER( ZStageSacrificeItem1, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZStageSacrificeItem1, CCBTN_CLK_MSG)
 	ZApplication::GetStageInterface()->OnSacrificeItem1();
 END_IMPLEMENT_LISTENER();
 
 // 스테이지 희생 아이템 선택 박스
-BEGIN_IMPLEMENT_LISTENER( ZStagePutSacrificeItem, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZStagePutSacrificeItem, CCBTN_CLK_MSG)
 	if ( !ZApplication::GetStageInterface()->m_SacrificeItem[ 0].IsExist())
 		ZApplication::GetStageInterface()->OnDropSacrificeItem( 0);
 	else if ( !ZApplication::GetStageInterface()->m_SacrificeItem[ 1].IsExist())
 		ZApplication::GetStageInterface()->OnDropSacrificeItem( 1);
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER( ZStageSacrificeItemBoxOpen, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZStageSacrificeItemBoxOpen, CCBTN_CLK_MSG)
 	ZApplication::GetStageInterface()->OpenSacrificeItemBox();
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER( ZStageSacrificeItemBoxClose, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZStageSacrificeItemBoxClose, CCBTN_CLK_MSG)
 	ZApplication::GetStageInterface()->CloseSacrificeItemBox();
 END_IMPLEMENT_LISTENER();
 
@@ -2309,21 +2309,21 @@ BEGIN_IMPLEMENT_LISTENER(ZGetRelayMapTurnCountListener, MCMBBOX_CHANGED)
 	ZApplication::GetStageInterface()->PostRelayMapElementUpdate();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER( ZStageRelayMapBoxOpen, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZStageRelayMapBoxOpen, CCBTN_CLK_MSG)
 	ZApplication::GetStageInterface()->OpenRelayMapBox();
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER( ZStageRelayMapBoxClose, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZStageRelayMapBoxClose, CCBTN_CLK_MSG)
 	ZApplication::GetStageInterface()->CloseRelayMapBox();
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER( ZGetRelayMapOKButtonListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetRelayMapOKButtonListener, CCBTN_CLK_MSG)
 	ZApplication::GetStageInterface()->PostRelayMapInfoUpdate();
 END_IMPLEMENT_LISTENER();
 
 
 // 게임 종료
-BEGIN_IMPLEMENT_LISTENER( ZGetGameResultQuit, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetGameResultQuit, CCBTN_CLK_MSG)
 	if ( ZGetGameClient()->IsLadderGame() || ZGetGameClient()->IsDuelTournamentGame())
 		PostMessage(g_hWnd, WM_CHANGE_GAMESTATE, GUNZ_LOBBY, 0);
 	else
@@ -2333,27 +2333,27 @@ END_IMPLEMENT_LISTENER();
 
 
 // 테스트 버튼
-BEGIN_IMPLEMENT_LISTENER( ZGetMonsterBookCaller, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetMonsterBookCaller, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetMonsterBookInterface()->OnCreate();
 END_IMPLEMENT_LISTENER();
 
 
 // 몬스터 도감
-BEGIN_IMPLEMENT_LISTENER( ZGetMonsterInterfacePrevPage, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetMonsterInterfacePrevPage, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetMonsterBookInterface()->OnPrevPage();
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER( ZGetMonsterInterfaceNextPage, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetMonsterInterfaceNextPage, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetMonsterBookInterface()->OnNextPage();
 END_IMPLEMENT_LISTENER();
 
-BEGIN_IMPLEMENT_LISTENER( ZGetMonsterInterfaceQuit, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetMonsterInterfaceQuit, CCBTN_CLK_MSG)
 	ZGetGameInterface()->GetMonsterBookInterface()->OnDestroy();
 END_IMPLEMENT_LISTENER();
 
 
 // 등록
-BEGIN_IMPLEMENT_LISTENER( ZGetRegisterListener, MBTN_CLK_MSG)
+BEGIN_IMPLEMENT_LISTENER( ZGetRegisterListener, CCBTN_CLK_MSG)
 //	ShellExecute( g_hWnd, "open", "IEXPLORE.EXE", "http://www.gunzonline.com/start.htm", NULL, SW_SHOW);
 //	ShowWindow( g_hWnd, SW_SHOWMINIMIZED);
 END_IMPLEMENT_LISTENER();

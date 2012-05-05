@@ -637,7 +637,7 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 
 	// CenterMessage 가운데 정렬
 #define CENTERMESSAGE	"CenterMessage"
-	BEGIN_WIDGETLIST(CENTERMESSAGE, &m_IDLResource, MLabel*, pWidget);
+	BEGIN_WIDGETLIST(CENTERMESSAGE, &m_IDLResource, CCLabel*, pWidget);
 	pWidget->SetAlignment(CCAM_HCENTER);
 	END_WIDGETLIST();
 
@@ -1275,7 +1275,7 @@ void ZGameInterface::OnGameDestroy(void)
 
 	CCWidget *pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "GameResult");
 	if ( pWidget) {
-		MFrame *pFrame = (MFrame*)pWidget;
+		MFrame *pFrame = (CCFrame*)pWidget;
 		pFrame->MFrame::Show( false);
 	}
 
@@ -1424,11 +1424,11 @@ void ZGameInterface::OnLoginCreate(void)
 	if ( pLoginFrame)
 		pLoginFrame->Show( false);
 
-	MLabel* pErrorLabel = (MLabel*)m_IDLResource.FindWidget( "LoginError");
+	CCLabel* pErrorLabel = (CCLabel*)m_IDLResource.FindWidget( "LoginError");
 	if ( pErrorLabel)
 		pErrorLabel->SetText( "");
 
-	MLabel* pPasswd = (MLabel*)m_IDLResource.FindWidget( "LoginPassword");
+	CCLabel* pPasswd = (CCLabel*)m_IDLResource.FindWidget( "LoginPassword");
 	if ( pPasswd)
 		pPasswd->SetText( "");
 
@@ -2474,70 +2474,70 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	// BmNumLabel 초기화
 	int nMargin[ BMNUM_NUMOFCHARSET] = { 15,15,15,15,15,15,15,15,15,15,8,10,8 };
 	int nMarginNarrow[ BMNUM_NUMOFCHARSET] = { 12,12,12,12,12,12,12,12,12,12,8,10,8 };
-	ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_ClanInfoWinLose");
+	ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_ClanInfoWinLose");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMargin);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_ClanInfoPoints");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_ClanInfoPoints");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMargin);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_ClanInfoTotalPoints");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_ClanInfoTotalPoints");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMargin);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_ClanInfoRanking");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_ClanInfoRanking");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMargin);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoWinLose");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoWinLose");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMarginNarrow);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoPoints");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoPoints");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMarginNarrow);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoWinners");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoWinners");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMarginNarrow);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoRanking");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoRanking");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMarginNarrow);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoWinLosePrev");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoWinLosePrev");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMarginNarrow);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoPointsPrev");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoPointsPrev");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMarginNarrow);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoWinnersPrev");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoWinnersPrev");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMarginNarrow);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoRankingPrev");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "Lobby_DuelTournamentInfoRankingPrev");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMarginNarrow);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "QuestResult_GetPlusXP");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "QuestResult_GetPlusXP");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMargin);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "QuestResult_GetMinusXP");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "QuestResult_GetMinusXP");
 	if ( pBmNumLabel)
 	{
 		pBmNumLabel->SetCharMargin( nMargin);
 		pBmNumLabel->SetIndexOffset( 16);
 	}
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "QuestResult_GetTotalXP");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "QuestResult_GetTotalXP");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMargin);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "QuestResult_GetBounty");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "QuestResult_GetBounty");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMargin);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "SurvivalResult_GetReachedRound");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "SurvivalResult_GetReachedRound");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMargin);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "SurvivalResult_GetPoint");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "SurvivalResult_GetPoint");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetCharMargin( nMargin);
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "SurvivalResult_GetXP");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "SurvivalResult_GetXP");
 	if ( pBmNumLabel)
 	{
 		pBmNumLabel->SetCharMargin( nMargin);
 		pBmNumLabel->SetIndexOffset( 16);
 	}
-	pBmNumLabel = (ZBmNumLabel*)m_IDLResource.FindWidget( "SurvivalResult_GetBounty");
+	pBmNumLabel = (ZBmNuCCLabel*)m_IDLResource.FindWidget( "SurvivalResult_GetBounty");
 	if ( pBmNumLabel)
 	{
 		pBmNumLabel->SetCharMargin( nMargin);
@@ -2677,7 +2677,7 @@ void ZGameInterface::OnShutdownState()
 	cclog("ZGameInterface::OnShutdown() : begin \n");
 	
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-			MLabel* pLabel = (MLabel*)pResource->FindWidget("NetmarbleLoginMessage");
+			CCLabel* pLabel = (CCLabel*)pResource->FindWidget("NetmarbleLoginMessage");
 //			pLabel->SetText(MGetErrorString(MERR_CLIENT_DISCONNECTED));
 			pLabel->SetText( ZErrStr(MERR_CLIENT_DISCONNECTED) );
 			ZApplication::GetGameInterface()->ShowWidget("NetmarbleLogin", true);
@@ -2915,7 +2915,7 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 	}
 #endif
 
-	MLabel* pConnectingLabel = (MLabel*)m_IDLResource.FindWidget( "Login_ConnectingMsg");
+	CCLabel* pConnectingLabel = (CCLabel*)m_IDLResource.FindWidget( "Login_ConnectingMsg");
 	if ( pConnectingLabel)
 	{
 		char szMsg[ 128];
@@ -2957,7 +2957,7 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 	{
 		m_bLoginTimeout = false;
 
-		MLabel* pLabel = (MLabel*)m_IDLResource.FindWidget( "LoginError");
+		CCLabel* pLabel = (CCLabel*)m_IDLResource.FindWidget( "LoginError");
 		if (pLabel)
 			pLabel->SetText( ZErrStr( MERR_CLIENT_CONNECT_FAILED));
 
@@ -3107,7 +3107,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 		// Lobby
 		char buf[512];
 		// 이름
-		MLabel* pLabel = (MLabel*)pRes->FindWidget("Lobby_PlayerName");
+		CCLabel* pLabel = (CCLabel*)pRes->FindWidget("Lobby_PlayerName");
 		if (pLabel)
 		{
 			sprintf( buf, "%s", ZGetMyInfo()->GetCharName() );
@@ -3115,37 +3115,37 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 		}
 		// 상세정보 (동환이가 추가)
 		// Clan
-		pLabel = (MLabel*)pRes->FindWidget("Lobby_PlayerSpecClan");
+		pLabel = (CCLabel*)pRes->FindWidget("Lobby_PlayerSpecClan");
 		sprintf( buf, "%s : %s", ZMsg( MSG_CHARINFO_CLAN), ZGetMyInfo()->GetClanName());
 		if (pLabel) pLabel->SetText(buf);
 		// LV
-		pLabel = (MLabel*)pRes->FindWidget("Lobby_PlayerSpecLevel");
+		pLabel = (CCLabel*)pRes->FindWidget("Lobby_PlayerSpecLevel");
 		sprintf( buf, "%s : %d %s", ZMsg( MSG_CHARINFO_LEVEL), ZGetMyInfo()->GetLevel(), ZMsg(MSG_CHARINFO_LEVELMARKER));
 		if (pLabel) pLabel->SetText(buf);
 		// XP
-		pLabel = (MLabel*)pRes->FindWidget("Lobby_PlayerSpecXP");
+		pLabel = (CCLabel*)pRes->FindWidget("Lobby_PlayerSpecXP");
 		sprintf( buf, "%s : %d%%", ZMsg( MSG_CHARINFO_XP), ZGetMyInfo()->GetLevelPercent());
 		if (pLabel) pLabel->SetText(buf);
 		// BP
-		pLabel = (MLabel*)pRes->FindWidget("Lobby_PlayerSpecBP");
+		pLabel = (CCLabel*)pRes->FindWidget("Lobby_PlayerSpecBP");
 		sprintf( buf, "%s : %d", ZMsg( MSG_CHARINFO_BOUNTY), ZGetMyInfo()->GetBP());
 		if (pLabel) pLabel->SetText(buf);
 		// HP
-		pLabel = (MLabel*)pRes->FindWidget("Lobby_PlayerSpecHP");
+		pLabel = (CCLabel*)pRes->FindWidget("Lobby_PlayerSpecHP");
 		sprintf( buf, "%s : %d", ZMsg( MSG_CHARINFO_HP), ZGetMyInfo()->GetHP());
 		if (pLabel) pLabel->SetText(buf);
 		// AP
-		pLabel = (MLabel*)pRes->FindWidget("Lobby_PlayerSpecAP");
+		pLabel = (CCLabel*)pRes->FindWidget("Lobby_PlayerSpecAP");
 		sprintf( buf, "%s : %d", ZMsg( MSG_CHARINFO_AP), ZGetMyInfo()->GetAP());
 		if (pLabel) pLabel->SetText(buf);
 		// WT
-		pLabel = (MLabel*)pRes->FindWidget("Lobby_PlayerSpecWT");
+		pLabel = (CCLabel*)pRes->FindWidget("Lobby_PlayerSpecWT");
 		ZMyItemList* pItems= ZGetMyInfo()->GetItemList();
 		sprintf( buf, "%s : %d/%d", ZMsg( MSG_CHARINFO_WEIGHT), pItems->GetEquipedTotalWeight(), pItems->GetMaxWeight());
 		if (pLabel) pLabel->SetText(buf);
 
 		// 채널 정보
-		pLabel = (MLabel*)pRes->FindWidget("Lobby_ChannelName");
+		pLabel = (CCLabel*)pRes->FindWidget("Lobby_ChannelName");
 		sprintf( buf, "%s > %s > %s", ZGetGameClient()->GetServerName(), ZMsg( MSG_WORD_LOBBY), ZGetGameClient()->GetChannelName());
 		if (pLabel) 
 			pLabel->SetText(buf);
@@ -3178,7 +3178,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 
 
 			// 이름
-			MLabel* pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerName");
+			CCLabel* pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerName");
 			if ( pLabel)
 			{
 				if ( bShowMe)
@@ -3189,7 +3189,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// 클랜
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecClan");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecClan");
 			if ( pLabel)
 			{
 				if ( bShowMe)
@@ -3205,7 +3205,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// 레벨
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecLevel");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecLevel");
 			if ( pLabel)
 			{
 				if ( bShowMe)
@@ -3216,7 +3216,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// XP
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecXP");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecXP");
 			if ( pLabel)
 			{
 				if ( bShowMe)
@@ -3228,7 +3228,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// BP
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecBP");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecBP");
 			if ( pLabel)
 			{
 				if ( bShowMe)
@@ -3240,7 +3240,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// HP
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecHP");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecHP");
 			if ( pLabel)
 			{
 				if ( bShowMe)
@@ -3252,7 +3252,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// AP
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecAP");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecAP");
 			if ( pLabel)
 			{
 				if ( bShowMe)
@@ -3264,7 +3264,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// WT
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecWT");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecWT");
 			if ( pLabel)
 			{
 				ZMyItemList* pItems= ZGetMyInfo()->GetItemList();
@@ -3280,7 +3280,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			
 
 			// Ranking
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecRanking");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecRanking");
 			if ( pLabel && pInfo)
 			{
 				if ( pInfo->GetRank() == 0)
@@ -3291,7 +3291,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// Kill
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecKill");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecKill");
 			if ( pLabel && pInfo)
 			{
 				sprintf( buf, "%s : %d", ZMsg( MSG_CHARINFO_KILL), pInfo->GetKill());
@@ -3299,7 +3299,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// Death
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecDeath");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecDeath");
 			if ( pLabel && pInfo)
 			{
 				sprintf( buf, "%s : %d", ZMsg( MSG_CHARINFO_DEATH), pInfo->GetDeath());
@@ -3307,7 +3307,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 			}
 
 			// Winning percent
-			pLabel = (MLabel*)pRes->FindWidget("Stage_PlayerSpecWinning");
+			pLabel = (CCLabel*)pRes->FindWidget("Stage_PlayerSpecWinning");
 			if ( pLabel && pInfo)
 			{
 				sprintf( buf, "%s : %.1f%%", ZMsg( MSG_CHARINFO_WINNING), pInfo->GetWinningRatio());
@@ -3332,7 +3332,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 		// 광선 이미지 Opacity 조절
 		int nOpacity = 90.0f * ( sin( timeGetTime() * 0.003f) + 1) + 75;
 
-		MLabel* pLabel = (MLabel*)pRes->FindWidget( "Stage_SenarioName");
+		CCLabel* pLabel = (CCLabel*)pRes->FindWidget( "Stage_SenarioName");
 		CCPicture* pPicture = (CCPicture*)pRes->FindWidget( "Stage_Lights0");
 		if ( pPicture)
 		{
@@ -4042,7 +4042,7 @@ bool ZGameInterface::Update(float fElapsed)
 
 	if(GetState()==GUNZ_LOBBY && m_bWaitingArrangedGame) {
         // 임시로
-		MLabel *pLabel = (MLabel*)m_IDLResource.FindWidget("LobbyWaitingArrangedGameLabel");
+		MLabel *pLabel = (CCLabel*)m_IDLResource.FindWidget("LobbyWaitingArrangedGameLabel");
 		if(pLabel) {
 			int nCount = (timeGetTime()/500)%5;
 			char dots[10];
@@ -4129,7 +4129,7 @@ void ZGameInterface::UpdateDuelTournamentWaitMsgDots()
 	// '듀얼토너먼트 참가중' 다이얼로그 메시지의 ... 길이를 시간에 따라 조정한다
 	if(GetState()!=GUNZ_LOBBY) return;
     
-	MLabel *pLabel = (MLabel*)m_IDLResource.FindWidget("DuelTournamentWaitMatchLabel");
+	MLabel *pLabel = (CCLabel*)m_IDLResource.FindWidget("DuelTournamentWaitMatchLabel");
 	if(pLabel == NULL || !pLabel->IsVisible()) return;
 
 	const char* szText = pLabel->GetText();
@@ -4602,7 +4602,7 @@ void ZGameInterface::UpdateBlueRedTeam( void)
 
 //			sprintf(buffer,"%d",nB);
 			sprintf(buffer,"%s:%d", ZMsg( MSG_WORD_BLUETEAM), nB);
-			pNumLabel = (ZBmNumLabel*)pRes->FindWidget("StageNumOfBlueTeam");
+			pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("StageNumOfBlueTeam");
 			if ( pNumLabel)
 			{
 				pNumLabel->SetText(buffer);
@@ -4614,7 +4614,7 @@ void ZGameInterface::UpdateBlueRedTeam( void)
 
 //			sprintf(buffer,"%d",nR);
 			sprintf(buffer,"%s:%d", ZMsg( MSG_WORD_REDTEAM), nR);
-			pNumLabel = (ZBmNumLabel*)pRes->FindWidget("StageNumOfRedTeam");
+			pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("StageNumOfRedTeam");
 			if ( pNumLabel)
 			{
 				pNumLabel->SetIndexOffset(16);
@@ -4626,7 +4626,7 @@ void ZGameInterface::UpdateBlueRedTeam( void)
 				pButton->SetText( buffer);
 
 			sprintf( buffer, "%s : %d", ZMsg( MSG_WORD_PLAYERS), nB+nR);
-			MLabel* pLabel = (MLabel*)pRes->FindWidget( "Stage_NumOfPerson");
+			CCLabel* pLabel = (CCLabel*)pRes->FindWidget( "Stage_NumOfPerson");
 			if ( pLabel)
 				pLabel->SetText( buffer);
 		}
@@ -4657,16 +4657,16 @@ void ZGameInterface::UpdateBlueRedTeam( void)
 
 			char buffer[64];
 
-			pNumLabel = (ZBmNumLabel*)pRes->FindWidget("StageNumOfBlueTeam");
+			pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("StageNumOfBlueTeam");
 			if ( pNumLabel)
 				pNumLabel->Show( false);
 
-			pNumLabel = (ZBmNumLabel*)pRes->FindWidget("StageNumOfRedTeam");
+			pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("StageNumOfRedTeam");
 			if ( pNumLabel)
 				pNumLabel->Show( false);
 
 			sprintf( buffer, "%s : %d", ZMsg( MSG_WORD_PLAYERS), nPlayerNum);
-			MLabel* pLabel = (MLabel*)pRes->FindWidget( "Stage_NumOfPerson");
+			CCLabel* pLabel = (CCLabel*)pRes->FindWidget( "Stage_NumOfPerson");
 			if ( pLabel)
 				pLabel->SetText( buffer);
 		}
@@ -5042,7 +5042,7 @@ void ZGameInterface::ShowEquipmentDialog(bool bShow)
 		ShowWidget( "Shop",  false);
 
 		CCButton* pButton = (CCButton*)pResource->FindWidget("Equipment_to_Shop");
-		MLabel* pLabel = (MLabel*)pResource->FindWidget("Equip_Message");
+		CCLabel* pLabel = (CCLabel*)pResource->FindWidget("Equip_Message");
 		if ( pButton && pLabel)
 		{
 			char buf[ 256];
@@ -5167,7 +5167,7 @@ void ZGameInterface::ShowShopDialog(bool bShow)
 		//pPicture->SetBitmap( NULL);
 
 		char buf[256];
-		MLabel* pLabel = (MLabel*)pResource->FindWidget("Shop_Message");
+		CCLabel* pLabel = (CCLabel*)pResource->FindWidget("Shop_Message");
 		sprintf( buf, "%s > %s > %s", ZGetGameClient()->GetServerName(), ZMsg( MSG_WORD_LOBBY), ZMsg( MSG_WORD_SHOP));
 		if (pLabel) 
 			pLabel->SetText(buf);
@@ -5767,22 +5767,22 @@ void ZGameInterface::InitDuelTournamentLobbyUI(bool bEnableDuelTournamentUI)
 				char szBuffer[256] = "";
 				ZTransMsg(szBuffer, MSG_LOBBY_DUELTOURNAMENT_NEEDPOINT_TONEXTRANK, 1, "32");
 				pWidget->SetText(szBuffer);
-				((MLabel*)pWidget)->SetAlignment(CCAM_RIGHT);
+				((CCLabel*)pWidget)->SetAlignment(CCAM_RIGHT);
 			}
 		}		
 		//
 		//char szOutput[256];
 		//sprintf(szOutput,"%d/%d",823458,823458);
-		//ZBmNumLabel *pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinLose");
+		//ZBmNumLabel *pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinLose");
 		//pNumLabel->SetText(szOutput);
 		//sprintf(szOutput,"%d",8518);
-		//pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoPoints");
+		//pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoPoints");
 		//pNumLabel->SetText(szOutput);
 		//sprintf(szOutput,"%d",820098);
-		//pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinners");
+		//pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinners");
 		//pNumLabel->SetText(szOutput);
 		//sprintf(szOutput,"%d",823528);
-		//pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoRanking");
+		//pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoRanking");
 		//pNumLabel->SetText(szOutput);
 	}
 */
@@ -6717,21 +6717,21 @@ void ZGameInterface::UpdateDuelTournamantMyCharInfoUI()
 
 	char szOutput[256];
 	sprintf(szOutput,"%d/%d",pCharInfo->wins,pCharInfo->losses);
-	ZBmNumLabel *pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinLose");
+	ZBmNumLabel *pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinLose");
 	if (pNumLabel)
 		pNumLabel->SetText(szOutput);
 	sprintf(szOutput,"%d",pCharInfo->tournamentPoint);
-	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoPoints");
+	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoPoints");
 	if (pNumLabel)
 		pNumLabel->SetText(szOutput);
 	sprintf(szOutput,"%d",pCharInfo->winners);
-	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinners");
+	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinners");
 	if (pNumLabel)
 		pNumLabel->SetText(szOutput);
 
 	int ranking = (pCharInfo->ranking == -1) ? 0 : pCharInfo->ranking;
 	sprintf(szOutput,"%d",ranking);
-	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoRanking");
+	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoRanking");
 	if (pNumLabel)
 		pNumLabel->SetText(szOutput);
 
@@ -6758,21 +6758,21 @@ void ZGameInterface::UpdateDuelTournamantMyCharInfoPreviousUI()
 
 	char szOutput[256];
 	sprintf(szOutput,"%d/%d",pCharInfo->wins,pCharInfo->losses);
-	ZBmNumLabel *pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinLosePrev");
+	ZBmNumLabel *pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinLosePrev");
 	if (pNumLabel)
 	{
 		pNumLabel->SetIndexOffset(16);		// 색다른 글씨로 찍는다
 		pNumLabel->SetText(szOutput);
 	}
 	sprintf(szOutput,"%d",pCharInfo->tournamentPoint);
-	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoPointsPrev");
+	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoPointsPrev");
 	if (pNumLabel)
 	{
 		pNumLabel->SetIndexOffset(16);
 		pNumLabel->SetText(szOutput);
 	}
 	sprintf(szOutput,"%d",pCharInfo->winners);
-	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinnersPrev");
+	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoWinnersPrev");
 	if (pNumLabel)
 	{
 		pNumLabel->SetIndexOffset(16);
@@ -6781,7 +6781,7 @@ void ZGameInterface::UpdateDuelTournamantMyCharInfoPreviousUI()
 	
 	int ranking = (pCharInfo->ranking == -1) ? 0 : pCharInfo->ranking;
 	sprintf(szOutput,"%d",ranking);
-	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoRankingPrev");
+	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_DuelTournamentInfoRankingPrev");
 	if (pNumLabel)
 	{
 		pNumLabel->SetIndexOffset(16);

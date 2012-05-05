@@ -126,7 +126,7 @@ void ZStageInterface::OnCreate( void)
 		m_nListFramePos = rect.x;
 		pWidget->SetBounds( rect);
 	}
-	MLabel* pLabel = (MLabel*)pResource->FindWidget( "Stage_SenarioName");
+	CCLabel* pLabel = (CCLabel*)pResource->FindWidget( "Stage_SenarioName");
 	if ( pLabel)
 		pLabel->SetText( "");
 	pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_SenarioNameImg");
@@ -435,7 +435,7 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 	}
 	
 	// 정보창에 게임방제 설정하기
-	MLabel* pLabel = (MLabel*)pResource->FindWidget( "StageNameLabel");
+	CCLabel* pLabel = (CCLabel*)pResource->FindWidget( "StageNameLabel");
 	if ( pLabel != 0)
 	{
 		char szStr[ 256];
@@ -582,7 +582,7 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 	// 관전 허용 여부 확인
 	CCComboBox* pCombo = (CCComboBox*)pResource->FindWidget( "StageObserver");
 	CCButton* pObserverBtn = (CCButton*)pResource->FindWidget( "StageObserverBtn");
-	MLabel* pObserverLabel = (MLabel*)pResource->FindWidget( "StageObserverLabel");
+	CCLabel* pObserverLabel = (CCLabel*)pResource->FindWidget( "StageObserverLabel");
 	if ( pCombo && pObserverBtn && pObserverLabel)
 	{
 		if ( pCombo->GetSelIndex() == 1)
@@ -681,7 +681,7 @@ void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSettin
 		}
 		else
 		{
-			MLabel* pLabel = (MLabel*)pResource->FindWidget( "Stage_SenarioName");
+			CCLabel* pLabel = (CCLabel*)pResource->FindWidget( "Stage_SenarioName");
 			if ( pLabel)
 				pLabel->SetText( "");
 			ZApplication::GetGameInterface()->ShowWidget( "Stage_SenarioNameImg", false);
@@ -1829,7 +1829,7 @@ bool ZStageInterface::OnResponseQL( const int nQL )
 	ZGetQuest()->GetGameInfo()->SetQuestLevel( nQL);
 
 	// 스테이지 영역에 있는 퀘스트 레벨 표시 수정
-	MLabel* pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_QuestLevel");
+	CCLabel* pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_QuestLevel");
 	if ( pLabel)
 	{
 		char szText[125];
@@ -1932,7 +1932,7 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
 	if (!ZGetGameTypeManager()->IsQuestOnly(ZGetGameClient()->GetMatchStageSetting()->GetGameType())) return;
 
 	// 스테이지 영역에 있는 퀘스트 레벨 표시 수정
-	MLabel* pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_QuestLevel");
+	CCLabel* pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_QuestLevel");
 	if ( pLabel)
 	{
 		char szText[125];
@@ -1946,7 +1946,7 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
 //#define		MAPSET_SPECIAL		sColor(0xFFFF2020)		// Red
 
 	// 여기서 시나리오 이름을 보여준다.
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_SenarioName");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_SenarioName");
 	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_SenarioNameImg");
 	CCPicture* pPictureL = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Lights0");
 	CCPicture* pPictureR = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_Lights1");

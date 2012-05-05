@@ -658,11 +658,11 @@ void ZShopEquipInterface::SelectEquipmentTab(int nTabIndex)
 
 
 	// ÅÇ ¶óº§
-	MLabel* pLabel;
-	pLabel = (MLabel*)pResource->FindWidget("Equipment_FrameTabLabel1");
+	CCLabel* pLabel;
+	pLabel = (CCLabel*)pResource->FindWidget("Equipment_FrameTabLabel1");
 	if ( pLabel)
 		pLabel->Show( nTabIndex==0 ? true : false);
-	pLabel = (MLabel*)pResource->FindWidget("Equipment_FrameTabLabel2");
+	pLabel = (CCLabel*)pResource->FindWidget("Equipment_FrameTabLabel2");
 	if ( pLabel)
 		pLabel->Show( nTabIndex==1 ? true : false);
 

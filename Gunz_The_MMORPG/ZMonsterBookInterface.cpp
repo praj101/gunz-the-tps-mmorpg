@@ -260,7 +260,7 @@ void ZMonsterBookInterface::DrawPage( void)
 
 
 	// 해당 몬스터의 이름을 업데이트 한다
-	MLabel* pLabel = (MLabel*)pResource->FindWidget( "MonsterBook_MonsterName");
+	CCLabel* pLabel = (CCLabel*)pResource->FindWidget( "MonsterBook_MonsterName");
 	if (pLabel)
 	{
 		pLabel->SetText( m_nCurrentPageNum ? pPageInfo->m_strName.data() : "");
@@ -269,7 +269,7 @@ void ZMonsterBookInterface::DrawPage( void)
 
 
 	// 해당 몬스터의 등급을 업데이트 한다
-	pLabel = (MLabel*)pResource->FindWidget( "MonsterBook_MonsterGrade");
+	pLabel = (CCLabel*)pResource->FindWidget( "MonsterBook_MonsterGrade");
 	if ( pLabel)
 	{
 		char szGrade[ 64] = { 0, };
@@ -318,7 +318,7 @@ void ZMonsterBookInterface::DrawPage( void)
 
 
 	// 해당 몬스터의 HP를 업데이트 한다
-	pLabel = (MLabel*)pResource->FindWidget( "MonsterBook_MonsterHP");
+	pLabel = (CCLabel*)pResource->FindWidget( "MonsterBook_MonsterHP");
 	if ( pLabel)
 	{
 		char szHP[ 128] = { 0, };
@@ -381,7 +381,7 @@ void ZMonsterBookInterface::DrawPage( void)
 
 
 	// 페이지 번호를 업데이트 한다
-	pLabel = (MLabel*)pResource->FindWidget( "MonsterBook_PageNumber");
+	pLabel = (CCLabel*)pResource->FindWidget( "MonsterBook_PageNumber");
 	if ( pLabel)
 	{
 		char szPageNum[ 20] = { 0, };
@@ -394,7 +394,7 @@ void ZMonsterBookInterface::DrawPage( void)
 
 
 	// 달성률을 표시한다
-	pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "MonsterBook_Complete");
+	pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "MonsterBook_Complete");
 	if ( pLabel)
 	{
 		char szComplete[ 128] = { 0, };

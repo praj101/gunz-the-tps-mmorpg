@@ -5,7 +5,7 @@
 #include "ZCharacterManager.h"
 
 
-class MFrame;
+class CCFrame;
 class ZFrame;
 class ZScoreListBox;
 
@@ -13,7 +13,7 @@ class ZScoreBoard : public ZInterface
 {
 private:
 protected:
-	MFrame*				m_pFrame;
+	CCFrame*				m_pFrame;
 	ZScoreListBox*		m_pListBox;
 	ZCharacterManager*	m_pCharacterManager;
 	ZIDLResource*		m_pIDLResource;

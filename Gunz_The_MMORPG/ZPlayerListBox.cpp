@@ -1012,7 +1012,7 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, cha
 bool ZPlayerListBox::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	if(pWidget==m_pButton) {
-		if( strcmp(szMessage, MBTN_CLK_MSG)==0 ) {
+		if( strcmp(szMessage, CCBTN_CLK_MSG)==0 ) {
 			switch(GetMode()) {
 				//채널안에서 로테이트
 			case PLAYERLISTMODE_CHANNEL :

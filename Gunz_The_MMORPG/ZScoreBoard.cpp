@@ -37,7 +37,7 @@ bool ZScoreBoard::OnCreate()
 
 	CCWidget* pWidget = m_pIDLResource->FindWidget("CombatScoreBoardFrame");
 	if (pWidget == NULL) return false;
-	m_pFrame = (MFrame*)pWidget;
+	m_pFrame = (CCFrame*)pWidget;
 
 	pWidget = m_pIDLResource->FindWidget("CombatScoreListBox");
 	if (pWidget != NULL) m_pListBox = (ZScoreListBox*)pWidget;
