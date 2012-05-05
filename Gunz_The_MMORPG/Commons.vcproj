@@ -1265,6 +1265,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCCrashDump.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCCrypt.cpp"
 			>
 		</File>
