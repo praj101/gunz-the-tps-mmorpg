@@ -1141,6 +1141,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\bandicap.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAgentObject.cpp"
 			>
 		</File>
@@ -1150,6 +1154,10 @@
 		</File>
 		<File
 			RelativePath=".\CCAStar.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncHttp.h"
 			>
 		</File>
 		<File
@@ -1313,6 +1321,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCEmblemMgr.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCErrorTable.h"
 			>
 		</File>
@@ -1338,6 +1350,10 @@
 		</File>
 		<File
 			RelativePath=".\CCHackingTypes.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCHttpSpooler.h"
 			>
 		</File>
 		<File
@@ -1498,6 +1514,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchDBBaseGambleItem.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchDBBaseGambleItem.h"
 			>
 		</File>
 		<File
@@ -1981,6 +2001,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCQuestLevel.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCQuestMap.h"
 			>
 		</File>
@@ -1990,6 +2014,10 @@
 		</File>
 		<File
 			RelativePath=".\CCQuestScenario.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCRegistry.h"
 			>
 		</File>
 		<File
@@ -2145,6 +2173,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\main.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Msg.h"
 			>
 		</File>
@@ -2186,6 +2218,10 @@
 		</File>
 		<File
 			RelativePath=".\RError.h"
+			>
+		</File>
+		<File
+			RelativePath=".\resource.h"
 			>
 		</File>
 		<File
@@ -2370,6 +2406,10 @@
 		</File>
 		<File
 			RelativePath=".\TestCRC32XORCache.h"
+			>
+		</File>
+		<File
+			RelativePath=".\VersionNo.h"
 			>
 		</File>
 		<File

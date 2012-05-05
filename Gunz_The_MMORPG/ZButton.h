@@ -1,10 +1,9 @@
-#ifndef ZBUTTON_H
-#define ZBUTTON_H
+#pragma once
 
 #include "CCButton.h"
 #include "CCBmButton.h"
 
-class ZButton : public MButton{
+class ZButton : public CCButton{
 protected:
 	unsigned char	m_nIllumination;
 	DWORD			m_dwCurrentTime;
@@ -28,7 +27,7 @@ public:
 	virtual ~ZButton(void);
 };
 
-class ZBmButton: public MBmButton 
+class ZBmButton: public CCBmButton 
 {
 protected:
 	unsigned char	m_nIllumination;

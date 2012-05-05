@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../sdk/BandiCaptureLibrary/Include/bandicap.h"
+#include "bandicap.h"
 
 // 동영상 캡쳐...2008.10.02
 class ZBandiCapturer

@@ -59,11 +59,11 @@ class ZShopEquipInterface;
 
 enum ZChangeWeaponType;
 
-class MUserDataListItem : public MDefaultListItem{
+class CCUserDataListItem : public CCDefaultListItem{
 	int m_nUserData;
 public:
-	MUserDataListItem(const char* szText, int nUserData)
-		: MDefaultListItem(szText){
+	CCUserDataListItem(const char* szText, int nUserData)
+		: CCDefaultListItem(szText){
 			m_nUserData=nUserData;
 		}
 

@@ -6,8 +6,6 @@
 
 using namespace std;
 
-
-
 class ZPlayerInfo
 {
 private:
@@ -19,7 +17,7 @@ private:
 
 
 public:
-	ZPlayerInfo()		{ m_szName[ 0] = m_nRank = m_nKill = m_nDeath = m_fWinningRatio = 0.0f;		}
+	ZPlayerInfo()		{ m_szName[ 0] = m_nRank = m_nKill = m_nDeath = m_fWinningRatio = 0;		}
 	ZPlayerInfo( const char* name, int rank, int kill, int death)
 	{
 		strcpy( m_szName, name);
