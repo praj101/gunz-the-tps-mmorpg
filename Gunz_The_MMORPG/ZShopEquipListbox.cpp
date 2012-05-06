@@ -143,7 +143,7 @@ void ZShopEquipListItem::GetIconRect(sRect& out, const sRect& rcItem)
 	out.Set(2, 2, len, len);
 }
 
-bool ZShopEquipListItem::IsPtInRectToShowToolTip(sRect& rcItem, MPOINT& pt)
+bool ZShopEquipListItem::IsPtInRectToShowToolTip(sRect& rcItem, sPoint& pt)
 {
 	// pt가 썸네일 아이콘 영역에 있는지 판단
 	sRect rcIcon;
@@ -195,7 +195,7 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 	CCTextArea* pItemDescTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szTextAreaName);
 	if (pItemDescTextArea)
 	{
-		MPOINT ptInList = MScreenToClient(this, CCEvent::LatestPos);
+		sPoint ptInList = MScreenToClient(this, CCEvent::LatestPos);
 		int idxItem = FindItem(ptInList);
 		if (idxItem!=-1)
 		{
@@ -213,7 +213,7 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 
 					// 툴팁의 위치
 					sRect rcTextArea = pItemDescTextArea->GetRect();
-					MPOINT posDesc(rcItem.x, rcItem.y);
+					sPoint posDesc(rcItem.x, rcItem.y);
 					posDesc = CCClientToScreen(this, posDesc);
 					posDesc.x -= pItemDescTextArea->GetClientWidth();			// 일단 아이콘의 왼쪽으로
 					if (posDesc.y+rcTextArea.h > rcListBox.y + rcListBox.h)		// 리스트 박스 하단을 넘어가지 않게 하자
@@ -247,7 +247,7 @@ void ShopSaleItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap
 void CharacterEquipmentItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	if (pSender == NULL) return;
-	if (strcmp(pSender->GetClassName(), MINT_ITEMSLOTVIEW)) return;
+	if (strcmp(pSender->GetClassName(), CORE_ITEMSLOTVIEW)) return;
 
 	ZItemSlotView* pItemSlotView = (ZItemSlotView*)pSender;
 

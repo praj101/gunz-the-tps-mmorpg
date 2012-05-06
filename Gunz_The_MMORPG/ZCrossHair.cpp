@@ -111,7 +111,7 @@ void ZCrossHair::ChangeFromOption()
 
 }
 
-void ZCrossHair::DrawCrossHair(CCDrawContext* pDC, CCBitmap** ppBitmaps, MPOINT& center, 
+void ZCrossHair::DrawCrossHair(CCDrawContext* pDC, CCBitmap** ppBitmaps, sPoint& center, 
 							   float fSizeFactor, float fCAFactor)
 {
 	int sizex = 32;
@@ -174,7 +174,7 @@ void ZCrossHair::Draw(CCDrawContext* pDC)
 
 	const float sizefactor = (float)CCGetWorkspaceWidth() / (float)800  * 1.f;
 
-	MPOINT center(CCGetWorkspaceWidth()/2,CCGetWorkspaceHeight()/2);
+	sPoint center(CCGetWorkspaceWidth()/2,CCGetWorkspaceHeight()/2);
 
 	float fFactor = ZGetGame()->m_pMyCharacter->GetCAFactor();
 	fFactor = fFactor +0.2f;
@@ -223,7 +223,7 @@ void ZCrossHair::OnDrawOptionCrossHairPreview(void* pCanvas, CCDrawContext *pDC)
 	
 
 	float sizefactor = 1.0f;
-	MPOINT center(width/2,height/2);
+	sPoint center(width/2,height/2);
 	float fFactor = 0.5f + 0.2f;
 
 	DrawCrossHair(pDC, pBitmaps, center, sizefactor, fFactor);

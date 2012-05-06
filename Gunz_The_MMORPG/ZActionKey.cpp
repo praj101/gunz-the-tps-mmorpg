@@ -46,7 +46,7 @@ void ZActionKey::OnDraw( CCDrawContext* pDC )
 /*
 void ZActionKey::GetActionKeyName(char* szActionKeyName)
 {
-	const char* szKeyName = Mint::GetInstance()->GetActionKeyName(m_nKey);
+	const char* szKeyName = Core::GetInstance()->GetActionKeyName(m_nKey);
 	if(szKeyName!=NULL) strcpy(szActionKeyName, szKeyName);
 	else strcpy(szActionKeyName, "N/A");
 }
@@ -141,13 +141,13 @@ bool ZActionKey::DeleteActionKey(int nKey)
 bool ZActionKey::RegisterActionKey(int nActionID)
 {
 	return ZGetInput()->RegisterActionKey(nActionID, m_nKey);
-//	return Mint::GetInstance()->RegisterActionKey(nActionID, m_nKey);
+//	return Core::GetInstance()->RegisterActionKey(nActionID, m_nKey);
 }
 
 bool ZActionKey::UnregisterActionKey(void)
 {
 	return ZGetInput()->UnregisterActionKey(m_nKey);
-//	return Mint::GetInstance()->UnregisterActionKey(m_nKey);
+//	return Core::GetInstance()->UnregisterActionKey(m_nKey);
 }
 */
 

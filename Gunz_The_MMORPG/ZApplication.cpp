@@ -451,7 +451,7 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 	ZLoadingProgress giLoading("GameInterface",pLoadingProgress,.35f);
 
 	BEGIN_;
-	m_pGameInterface=new ZGameInterface("GameInterface",Mint::GetInstance()->GetMainFrame(),Mint::GetInstance()->GetMainFrame());
+	m_pGameInterface=new ZGameInterface("GameInterface",Core::GetInstance()->GetMainFrame(),Core::GetInstance()->GetMainFrame());
 	m_pGameInterface->m_nInitialState = m_nInitialState;
 	if(!m_pGameInterface->OnCreate(&giLoading))
 	{
@@ -552,7 +552,7 @@ BirdGo:
 
 	// cclog("ZApplication::OnCreate : CreateConsole \n");
 
-	m_pLogFrame = new CCCommandLogFrame("Command Log", Mint::GetInstance()->GetMainFrame(), Mint::GetInstance()->GetMainFrame());
+	m_pLogFrame = new CCCommandLogFrame("Command Log", Core::GetInstance()->GetMainFrame(), Core::GetInstance()->GetMainFrame());
 	int nHeight = CCGetWorkspaceHeight()/3;
 	m_pLogFrame->SetBounds(0, CCGetWorkspaceHeight()-nHeight-1, CCGetWorkspaceWidth()-1, nHeight);
 	m_pLogFrame->Show(false);
@@ -783,7 +783,7 @@ void ZApplication::OnUpdate()
 
 	// 아무곳에서나 찍기 위해서..
 
-//	if(Mint::GetInstance()) {
+//	if(Core::GetInstance()) {
 		if(ZIsActionKeyPressed(ZACTION_SCREENSHOT)) {
 			if(m_pGameInterface)
 				m_pGameInterface->SaveScreenShot();
@@ -826,16 +826,16 @@ bool ZApplication::OnDraw()
 
 	__BP(3,"ZApplication::Draw");
 
-		__BP(4,"ZApplication::Draw::Mint::Run");
+		__BP(4,"ZApplication::Draw::Core::Run");
 			if(ZGetGameInterface()->GetState()!=GUNZ_GAME)	// 게임안에서는 막는다
 			{
-				Mint::GetInstance()->Run();
+				Core::GetInstance()->Run();
 			}
 		__EP(4);
 
-		__BP(5,"ZApplication::Draw::Mint::Draw");
+		__BP(5,"ZApplication::Draw::Core::Draw");
 
-			Mint::GetInstance()->Draw();
+			Core::GetInstance()->Draw();
 
 		__EP(5);
 

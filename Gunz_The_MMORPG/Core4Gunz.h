@@ -8,7 +8,7 @@
 
 _USING_NAMESPACE_REALSPACE2
 
-class Mint4Gunz : public Mint{
+class Core4Gunz : public Core{
 public:
 	virtual void Update(void){
 		RealSpace2::RFrame_Render();
@@ -35,24 +35,24 @@ public:
 		return pNew;
 	}
 	virtual CCWidget* NewWidget(const char* szClass, const char* szName, CCWidget* pParent, CCListener* pListener){
-		if(strcmp(szClass, MINT_BUTTON)==0) return new ZButton(szName, pParent, pListener);
-		else if( strcmp(szClass, MINT_BCCButton)==0) return new ZButton(szName, pParent, pListener);
-		else if( strcmp(szClass, MINT_MSGBOX)==0) return new ZMsgBox(szName, pParent, pListener);
-		else if( strcmp(szClass, MINT_ACTIONKEY)==0) return new ZActionKey(szName, pParent, pListener);
-		return Mint::NewWidget(szClass, szName, pParent, pListener);
+		if(strcmp(szClass, CORE_CCBUTTON)==0) return new ZButton(szName, pParent, pListener);
+		else if( strcmp(szClass, CORE_CCBUTTON)==0) return new ZButton(szName, pParent, pListener);
+		else if( strcmp(szClass, CCMSGBOX)==0) return new ZMsgBox(szName, pParent, pListener);
+		else if( strcmp(szClass, CORE_ACTIONKEY)==0) return new ZActionKey(szName, pParent, pListener);
+		return Core::NewWidget(szClass, szName, pParent, pListener);
 	}
 
 	virtual const char* GetActionKeyName(unsigned long int nKey);
 
 	virtual void Draw(void){
-		Mint::Draw();
+		Core::Draw();
 
 		if (m_pDC && m_pMainFrame)
 			m_pMainFrame->DrawAfterWidgets(m_pDC);
 		
-		//		MPOINT p = CCEvent::GetMousePos();
-		MPOINT p = CCEvent::LatestPos;
+		//		sPoint p = CCEvent::GetMousePos();
+		sPoint p = CCEvent::LatestPos;
 
-		MCursorSystem::Draw(GetDrawContext(), p.x, p.y);	// RAONHAJE Mouse Cursor SoftwareDraw
+		CCCursorSystem::Draw(GetDrawContext(), p.x, p.y);	// RAONHAJE Mouse Cursor SoftwareDraw
 	}
 };

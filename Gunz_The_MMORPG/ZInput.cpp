@@ -22,7 +22,7 @@ const ZVIRTUALKEY JOY_BASE			= 512;
 const ZVIRTUALKEY JOY_BUTTON_BASE	= 512+16;	// pov 최대4개(*4방향)
 
 extern ZDirectInput	g_DInput;
-extern Mint4Gunz	g_Mint;
+extern Core4Gunz	g_Core;
 
 ZInput::ZInput(ZDirectInput* pDI) : m_pDirectInput(pDI), m_pEventListener(NULL), m_pExclusiveListener(NULL)
 {

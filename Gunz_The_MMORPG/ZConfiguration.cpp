@@ -91,7 +91,7 @@ void ZConfiguration::Destroy()
 
 	while(m_HotKeys.size())
 	{
-		Mint::GetInstance()->UnregisterHotKey(m_HotKeys.begin()->first);
+		Core::GetInstance()->UnregisterHotKey(m_HotKeys.begin()->first);
 		delete m_HotKeys.begin()->second;
 		m_HotKeys.erase(m_HotKeys.begin());
 	}
@@ -712,7 +712,7 @@ bool ZConfiguration::LoadHotKey(const char* szFileName)
 
 					photkey->command=string(command);
 
-					int nHotkeyID=Mint::GetInstance()->RegisterHotKey(photkey->nModifier,photkey->nVirtKey);
+					int nHotkeyID=Core::GetInstance()->RegisterHotKey(photkey->nModifier,photkey->nVirtKey);
 
 					m_HotKeys.insert(ZHOTKEYS::value_type(nHotkeyID,photkey));
 				}

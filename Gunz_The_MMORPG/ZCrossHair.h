@@ -60,7 +60,7 @@ private:
 	CCBitmap*				m_pPickBitmaps[CH_MAX];
 	void Change(ZCrossHairPreset nPreset);
 	static void GetBitmaps(CCBitmap** ppoutBitmap, CCBitmap** ppoutPickBitmap, ZCrossHairPreset nPreset);
-	static void DrawCrossHair(CCDrawContext* pDC, CCBitmap** ppBitmaps, MPOINT& center, float fSizeFactor, float fCAFactor);
+	static void DrawCrossHair(CCDrawContext* pDC, CCBitmap** ppBitmaps, sPoint& center, float fSizeFactor, float fCAFactor);
 public:
 	ZCrossHair();
 	virtual ~ZCrossHair();

@@ -75,8 +75,8 @@ public:
 	virtual void OnRestore();
 
 public:
-	#define MINT_CHARACTERVIEW	"CharacterView"
-	virtual const char* GetClassName(void){ return MINT_CHARACTERVIEW; }
+	#define CORE_CHARACTERVIEW	"CharacterView"
+	virtual const char* GetClassName(void){ return CORE_CHARACTERVIEW; }
 	
 	void SetCharacter( CCUID uid );
 	const CCUID& GetCharacter() { return m_Info.UID; }

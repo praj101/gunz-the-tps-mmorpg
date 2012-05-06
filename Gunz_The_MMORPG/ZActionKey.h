@@ -38,8 +38,8 @@ protected:
 public:
 	ZActionKey(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL );
 
-#define MINT_ACTIONKEY	"ActionKey"
-	virtual const char* GetClassName(void){ return MINT_ACTIONKEY; }
+#define CORE_ACTIONKEY	"ActionKey"
+	virtual const char* GetClassName(void){ return CORE_ACTIONKEY; }
 
 	static bool		OnExclusiveEvent(CCEvent* pEvent);
 

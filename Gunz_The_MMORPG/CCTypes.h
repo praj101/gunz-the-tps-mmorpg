@@ -25,8 +25,8 @@
 			\_	Contains collor information and conversion data. Allows for extraction
 				of color and presentation of color via unsigned long int values.
 */
-#define MINT_ARGB(a,r,g,b)	((((unsigned long int)a)&0xFF)<<24) | ((((unsigned long int)r)&0xFF)<<16)	| ((((unsigned long int)g)&0xFF)<<8) | (((unsigned long int)b)&0xFF)
-#define MINT_RGB(r,g,b)		((((unsigned long int)r)&0xFF)<<16) | ((((unsigned long int)g)&0xFF)<<8)	| (((unsigned long int)b)&0xFF)
+#define CORE_ARGB(a,r,g,b)	((((unsigned long int)a)&0xFF)<<24) | ((((unsigned long int)r)&0xFF)<<16)	| ((((unsigned long int)g)&0xFF)<<8) | (((unsigned long int)b)&0xFF)
+#define CORE_RGB(r,g,b)		((((unsigned long int)r)&0xFF)<<16) | ((((unsigned long int)g)&0xFF)<<8)	| (((unsigned long int)b)&0xFF)
 #define uchar unsigned char
 #define ulong unsigned long
 #define uint  unsigned int
@@ -126,9 +126,9 @@ public:
 	};
 
 	ulong int GetARGB(){
-		return MINT_ARGB(a,r,g,b);
+		return CORE_ARGB(a,r,g,b);
 	}
 	ulong int GetRGB(){
-		return MINT_RGB(r,g,b);
+		return CORE_RGB(r,g,b);
 	}
 };

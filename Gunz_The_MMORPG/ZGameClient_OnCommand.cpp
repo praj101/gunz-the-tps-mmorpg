@@ -281,7 +281,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 					pCommand->GetParameter(&iConHeight, 1, MPT_INT);
 					if ((iConWidth > 30) && (iConHeight > 30))
 					{
-						MPOINT point = ZGetConsole()->GetPosition();
+						sPoint point = ZGetConsole()->GetPosition();
 						ZGetConsole()->SetBounds(point.x, point.y, iConWidth, iConHeight);
 					}
 				}

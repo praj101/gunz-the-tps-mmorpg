@@ -44,11 +44,11 @@ using namespace std;
 // CONSTANTS
 #define BACKGROUND_COLOR1					0xff202020
 #define BACKGROUND_COLOR2					0xff000000
-#define BACKGROUND_COLOR_MYCHAR_DEATH_MATCH	MINT_ARGB(255*40/100,140,180,255)
-#define BACKGROUND_COLOR_MYCHAR_RED_TEAM	MINT_ARGB(255*40/100,255,50,50)
-#define BACKGROUND_COLOR_MYCHAR_BLUE_TEAM	MINT_ARGB(255*40/100,50,50,255)
+#define BACKGROUND_COLOR_MYCHAR_DEATH_MATCH	CORE_ARGB(255*40/100,140,180,255)
+#define BACKGROUND_COLOR_MYCHAR_RED_TEAM	CORE_ARGB(255*40/100,255,50,50)
+#define BACKGROUND_COLOR_MYCHAR_BLUE_TEAM	CORE_ARGB(255*40/100,50,50,255)
 
-#define BACKGROUND_COLOR_COMMANDER			MINT_ARGB(255*40/100,255,88,255)
+#define BACKGROUND_COLOR_COMMANDER			CORE_ARGB(255*40/100,255,88,255)
 
 #define TEXT_COLOR_TITLE			0xFFAAAAAA
 #define TEXT_COLOR_DEATH_MATCH		0xfffff696
@@ -312,7 +312,7 @@ bool ZCombatInterface::OnCreate()
 			{
 				pChild = pFrame->GetChild(i);
 				if (pChild &&
-					strcmp(pChild->GetClassName(), MINT_LABEL) == 0 &&
+					strcmp(pChild->GetClassName(), CORE_LABEL) == 0 &&
 					strstr(pChild->m_szIDLName, "CombatDT_PlayerInfo_"))
 				{
 					if (strstr(pChild->m_szIDLName, "Left"))
@@ -1714,7 +1714,7 @@ void ZCombatInterface::DrawFriendName(CCDrawContext* pDC)
 
 void ZCombatInterface::DrawEnemyName(CCDrawContext* pDC)
 {
-	MPOINT Cp = GetCrosshairPoint();
+	sPoint Cp = GetCrosshairPoint();
 
 	ZPICKINFO pickinfo;
 
@@ -3715,7 +3715,7 @@ CCUID ZCombatInterface::GetTargetUID()
 
 void ZCombatInterface::GameCheckPickCharacter()
 {
-	MPOINT Cp = GetCrosshairPoint();
+	sPoint Cp = GetCrosshairPoint();
 
 	ZPICKINFO pickinfo;
 

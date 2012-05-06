@@ -350,7 +350,7 @@ bool ZMeshView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	sRect r = GetInitialClientRect();
 
-	static MPOINT st_LastPoint = pEvent->Pos;
+	static sPoint st_LastPoint = pEvent->Pos;
 
 	switch(pEvent->nMessage)
 	{

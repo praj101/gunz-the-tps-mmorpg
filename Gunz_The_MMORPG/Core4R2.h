@@ -4,7 +4,7 @@
 #include "RBaseTexture.h"
 #include "DirectX/D3dx9.h"
 
-#define MINT_R2_CLASS_TYPE	0x1130		// RTTI와 같은 기능을 _DEBUG모드에서 구현하기 위한 ID
+#define CORE_R2_CLASS_TYPE	0x1130		// RTTI와 같은 기능을 _DEBUG모드에서 구현하기 위한 ID
 
 class CCDrawContextR2 : public CCDrawContext{
 protected:

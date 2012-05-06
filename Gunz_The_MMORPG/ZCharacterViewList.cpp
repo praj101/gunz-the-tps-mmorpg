@@ -471,7 +471,7 @@ void ZCharacterViewList::ChangeVisualWeaponParts(CCMatchCharItemParts nVisualWea
 	for(int i=0; i<nCount; i++)
 	{
 		CCWidget* pChild = GetItem(i);
-		if (!strcmp(pChild->GetClassName(), MINT_CHARACTERVIEW))
+		if (!strcmp(pChild->GetClassName(), CORE_CHARACTERVIEW))
 		{
 			ZCharacterView* pCharacterView = (ZCharacterView*)pChild;
 			pCharacterView->ChangeVisualWeaponParts(nVisualWeaponParts);

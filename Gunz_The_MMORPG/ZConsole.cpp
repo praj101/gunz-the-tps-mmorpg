@@ -52,7 +52,7 @@ void ConsoleInputEvent(const char* szInputStr)
 // 콘솔 초기화
 void CreateConsole(CCCommandManager* pCM)
 {
-	g_pConsole = new MConsoleFrame("Console", Mint::GetInstance()->GetMainFrame(), Mint::GetInstance()->GetMainFrame());
+	g_pConsole = new MConsoleFrame("Console", Core::GetInstance()->GetMainFrame(), Core::GetInstance()->GetMainFrame());
 	g_pConsole->Show(false);
 	g_pConsole->SetInputCallback(ConsoleInputEvent);
 	g_pConsole->SetBounds(0, 0, CCGetWorkspaceWidth()/2-20, CCGetWorkspaceHeight()/2);

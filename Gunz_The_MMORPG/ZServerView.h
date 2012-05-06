@@ -71,8 +71,8 @@ public:
 
 	SERVERLIST GetServerList()				{ return m_cServerList; }
 
-#define MINT_SERVERVIEW	"ServerView"
-	virtual const char* GetClassName(void){ return MINT_SERVERVIEW; }
+#define CORE_SERVERVIEW	"ServerView"
+	virtual const char* GetClassName(void){ return CORE_SERVERVIEW; }
 
 };
 

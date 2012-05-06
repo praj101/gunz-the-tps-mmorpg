@@ -267,7 +267,7 @@ bool InitSkillList(CCWidget* pWidget)
 {
 	if(pWidget==NULL) return false;
 
-	if(strcmp(pWidget->GetClassName(), MINT_LISTBOX)!=0) return false;
+	if(strcmp(pWidget->GetClassName(), CORE_LISTBOX)!=0) return false;
 	MListBox* pList = (MListBox*)pWidget;
 
 	pList->SetItemHeight(32);
@@ -284,7 +284,7 @@ bool InitItemList(CCWidget* pWidget)
 {
 	if(pWidget==NULL) return false;
 
-	if(strcmp(pWidget->GetClassName(), MINT_LISTBOX)!=0) return false;
+	if(strcmp(pWidget->GetClassName(), CORE_LISTBOX)!=0) return false;
 	MListBox* pList = (MListBox*)pWidget;
 
 	//	pList->SetViewStyle(MVS_ICON);
@@ -338,7 +338,7 @@ ZGameInterface::ZGameInterface(const char* szName, CCWidget* pParent, CCListener
 	m_nState = GUNZ_NA;
 
 	m_bCursor = true;
-	MCursorSystem::Show(m_bCursor);
+	CCCursorSystem::Show(m_bCursor);
 
 	//m_bCursor = false;
 	m_bLogin = false;
@@ -351,8 +351,8 @@ ZGameInterface::ZGameInterface(const char* szName, CCWidget* pParent, CCListener
 	m_pDuelTournamentInfoBg = NULL;
 	m_pDuelTournamentRankingLabel = NULL;
 
-	m_pMsgBox = new ZMsgBox("", Mint::GetInstance()->GetMainFrame(), this, MT_OK);
-	m_pConfirmMsgBox = new ZMsgBox("", Mint::GetInstance()->GetMainFrame(), this, MT_YESNO);
+	m_pMsgBox = new ZMsgBox("", Core::GetInstance()->GetMainFrame(), this, MT_OK);
+	m_pConfirmMsgBox = new ZMsgBox("", Core::GetInstance()->GetMainFrame(), this, MT_YESNO);
 
 	m_pMonsterBookInterface = new ZMonsterBookInterface();
 
@@ -384,7 +384,7 @@ ZGameInterface::ZGameInterface(const char* szName, CCWidget* pParent, CCListener
 	m_bLeaveBattleReserved = false;
 	m_bLeaveStageReserved = false;
 
-	Mint::GetInstance()->SetGlobalEvent(ZGameInterface::OnGlobalEvent);
+	Core::GetInstance()->SetGlobalEvent(ZGameInterface::OnGlobalEvent);
 	ZGetInput()->SetEventListener(ZGameInterface::OnGlobalEvent);
 
 	m_pPlayerMenu = NULL;
@@ -1286,7 +1286,7 @@ void ZGameInterface::OnGameDestroy(void)
 	if (m_pGameInput)
 	{
 		delete m_pGameInput; m_pGameInput = NULL;
-//		Mint::GetInstance()->SetGlobalEvent(NULL);
+//		Core::GetInstance()->SetGlobalEvent(NULL);
 	}
 
 	if (m_pCombatInterface)
@@ -2688,7 +2688,7 @@ void ZGameInterface::OnShutdownState()
 /*
 void ZGameInterface::DrawLoadingScreen(const char* szMessage, float t)
 {
-	CCDrawContext* pDC = Mint::GetInstance()->GetDrawContext();
+	CCDrawContext* pDC = Core::GetInstance()->GetDrawContext();
 	pDC->SetColor(0, 0, 0);
 	pDC->FillRectangle(0, 0, CCGetWorkspaceWidth(), CCGetWorkspaceHeight());
 	pDC->SetColor(255, 255, 255);
@@ -2697,7 +2697,7 @@ void ZGameInterface::DrawLoadingScreen(const char* szMessage, float t)
 	pDC->FillRectangle(0, 0, int(CCGetWorkspaceWidth()*t), CCGetWorkspaceHeight());
 
 	// Update Scene
-	Mint::GetInstance()->Update();
+	Core::GetInstance()->Update();
 }
 */
 
@@ -4087,7 +4087,7 @@ void ZGameInterface::SetCursorEnable(bool bEnable)
 	if(m_bCursor==bEnable) return;
 
 	m_bCursor = bEnable;
-	MCursorSystem::Show(bEnable);
+	CCCursorSystem::Show(bEnable);
 
 	/*
 	if(!bEnable)
@@ -4167,11 +4167,11 @@ void ZGameInterface::SetMapThumbnail(const char* szMapName)
 	char szThumbnail[256];
 	sprintf(szThumbnail, "maps/%s/%s.rs.bmp", szMapName,szMapName);
 
-	m_pMapThumbnail=Mint::GetInstance()->OpenBitmap(szThumbnail);
+	m_pMapThumbnail=Core::GetInstance()->OpenBitmap(szThumbnail);
 	if(!m_pMapThumbnail)
 	{
 		sprintf(szThumbnail, "maps/%s/%s.bmp", szMapName,szMapName);
-		m_pMapThumbnail=Mint::GetInstance()->OpenBitmap(szThumbnail);
+		m_pMapThumbnail=Core::GetInstance()->OpenBitmap(szThumbnail);
 	}
 }
 
