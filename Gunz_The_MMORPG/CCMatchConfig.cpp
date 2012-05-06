@@ -186,7 +186,7 @@ bool CCMatchConfig::Create()
 	char szAllowIP[1024] = "";
 	char* pNextArg = szAllowIP;
 	GetPrivateProfileString("SERVER", "FREELOGINIP", "", szAllowIP, 1024, SERVER_CONFIG_FILENAME);
-	MLex lex;
+	CCLex lex;
 	while(true) {
 		char szIP[128] = "";
 		pNextArg = lex.GetOneArg(pNextArg, szIP);

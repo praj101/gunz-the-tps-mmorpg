@@ -1193,6 +1193,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAsyncDBJob_FriendList.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncDBJob_InsertCharBRInfo.h"
 			>
 		</File>
@@ -2049,6 +2053,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCNJ_DBAgentClient.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCObjectTypes.h"
 			>
 		</File>
@@ -2101,6 +2109,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCQuestFormula.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCQuestItem.cpp"
 			>
 		</File>
@@ -2130,6 +2142,10 @@
 		</File>
 		<File
 			RelativePath=".\CCRTTI.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCSacrificeQItemTable.h"
 			>
 		</File>
 		<File
@@ -2302,6 +2318,10 @@
 		</File>
 		<File
 			RelativePath=".\HMAC_SHA1.h"
+			>
+		</File>
+		<File
+			RelativePath=".\HsCryptLib.h"
 			>
 		</File>
 		<File

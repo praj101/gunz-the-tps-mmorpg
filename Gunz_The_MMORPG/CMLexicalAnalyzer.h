@@ -1,7 +1,7 @@
 #ifndef CMLEXICALANALYZER_H
 #define CMLEXICALANALYZER_H
 
-#include "CMPtrList.h"
+#include "CCPtrList.h"
 
 class CMLexicalAnalyzer{
 	CMPtrList<char>		m_Tokens;

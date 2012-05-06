@@ -5,7 +5,7 @@
 #ifndef _MASYNCDBJOB_DUELTOURNAMENT
 #define _MASYNCDBJOB_DUELTOURNAMENT
 
-#include "MAsyncDBJob.h"
+#include "CCAsyncDBJob.h"
 
 
 class MAsyncDBJob_GetDuelTournamentTimeStamp : public MAsyncJob
