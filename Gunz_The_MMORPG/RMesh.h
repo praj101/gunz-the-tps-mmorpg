@@ -90,7 +90,7 @@ enum ALPHAPASS {
 
 //	visual mesh
 
-class RRenderNode //: public CMemPoolSm<RRenderNode>
+class RRenderNode //: public MemPoolSm<RRenderNode>
 {
 public:
 	RRenderNode() {

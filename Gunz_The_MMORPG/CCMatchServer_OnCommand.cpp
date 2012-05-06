@@ -984,7 +984,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 			{
 				CCUID uidPlayer = pCommand->GetSenderUID();
 				int nItemID = 0;
-				MShortVector s_pos;
+				CCShortVector s_pos;
 				pCommand->GetParameter(&nItemID, 0, MPT_SHORT);
 				pCommand->GetParameter(&s_pos, 1, MPT_SVECTOR);
 
@@ -1437,7 +1437,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 		case MC_QUEST_REQUEST_NPC_DEAD:
 			{
 				CCUID uidKiller, uidNPC;
-				MShortVector s_pos;
+				CCShortVector s_pos;
 				pCommand->GetParameter(&uidKiller,	0, MPT_UID);
 				pCommand->GetParameter(&uidNPC,		1, MPT_UID);
 				pCommand->GetParameter(&s_pos,		2, MPT_SVECTOR);

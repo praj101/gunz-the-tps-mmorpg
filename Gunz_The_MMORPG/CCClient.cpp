@@ -89,7 +89,7 @@ int CCClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, unsi
 
 		// 암호키 설정
 		CCPacketCrypterKey key;
-		MMakeSeedKey(&key, *pTargetUID, *pAllocUID, nTimeStamp);
+		CCMakeSeedKey(&key, *pTargetUID, *pAllocUID, nTimeStamp);
 		m_ServerPacketCrypter.InitKey(&key);
 		pCmdBuilder->InitCrypt(&m_ServerPacketCrypter, false);
 

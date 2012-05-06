@@ -275,7 +275,7 @@ void CCMatchObject::Tick(unsigned long int nTime)
 	//버프정보임시주석 
 	/*if( m_pCharInfo ) {		
 		if( nTime - m_CharBuffInfo.GetLastCheckBuffInfoTime() > CYCLE_CHAR_BUFF_CHECK ) {			
-			int nPlayTime = MGetTimeDistance(m_pCharInfo->m_nConnTime, nTime) / 1000;
+			int nPlayTime = CCGetTimeDistance(m_pCharInfo->m_nConnTime, nTime) / 1000;
 			m_pCharInfo->UpdatePlayTime(nPlayTime);
 
 			bool bChanged = m_CharBuffInfo.Tick(nTime);

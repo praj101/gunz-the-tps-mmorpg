@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct LightSource : public CMemPoolSm<LightSource>
+struct LightSource : public MemPoolSm<LightSource>
 {
 	bool bAttenuation;
 	rvector pos;

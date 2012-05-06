@@ -6,7 +6,7 @@
 
 #include "mempool.h"
 // 사용안하는것들은 지운다..
-class ZEffectLightFragment : public ZEffectBillboard , public CMemPoolSm<ZEffectLightFragment>
+class ZEffectLightFragment : public ZEffectBillboard , public MemPoolSm<ZEffectLightFragment>
 {
 protected:
 	unsigned long int m_nStartTime;
@@ -22,7 +22,7 @@ public:
 	virtual bool Draw(unsigned long int nTime);
 };
 
-class ZEffectLightFragment2 : public ZEffectBillboard2 , public CMemPoolSm<ZEffectLightFragment2>
+class ZEffectLightFragment2 : public ZEffectBillboard2 , public MemPoolSm<ZEffectLightFragment2>
 {
 protected:
 	unsigned long int m_nStartTime;

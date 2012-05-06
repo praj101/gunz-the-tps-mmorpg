@@ -7,7 +7,7 @@
 
 // 사용안하는것들은 지운다..
 
-class ZEffectLightTracer : public ZEffectBillboard , public CMemPoolSm<ZEffectLightTracer>
+class ZEffectLightTracer : public ZEffectBillboard , public MemPoolSm<ZEffectLightTracer>
 {
 protected:
 	unsigned long int m_nStartTime;

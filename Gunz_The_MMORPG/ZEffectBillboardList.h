@@ -9,7 +9,7 @@
 #include "mempool.h"
 #include "RMeshUtil.h"
 
-struct ZEFFECTBILLBOARDITEM : public ZEFFECTITEM , public CMemPoolSm<ZEFFECTBILLBOARDITEM>{
+struct ZEFFECTBILLBOARDITEM : public ZEFFECTITEM , public MemPoolSm<ZEFFECTBILLBOARDITEM>{
 	rvector position;
 	rvector normal;
 	rvector	up;
@@ -46,7 +46,7 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-struct ZEFFECTSHADOWITEM : public ZEFFECTITEM , public CMemPoolSm<ZEFFECTSHADOWITEM>{
+struct ZEFFECTSHADOWITEM : public ZEFFECTITEM , public MemPoolSm<ZEFFECTSHADOWITEM>{
 	DWORD	dwColor;
 	rmatrix worldmat;
 };
@@ -69,7 +69,7 @@ public:
 
 class ZCharacter;
 
-struct ZEFFECTBILLBOARDTEXANIITEM : public ZEFFECTITEM , public CMemPoolSm<ZEFFECTBILLBOARDTEXANIITEM>{
+struct ZEFFECTBILLBOARDTEXANIITEM : public ZEFFECTITEM , public MemPoolSm<ZEFFECTBILLBOARDTEXANIITEM>{
 	rvector position;
 	rvector normal;
 	rvector	up;

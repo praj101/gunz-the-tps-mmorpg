@@ -18,14 +18,14 @@
 //		- new : 현재 비어 있는 메모리가 있으면 할당 else 실제 객체의 new를 호출
 //
 //	* 사용법
-//		- CMemPool을 사용하는 객체는 CMemPool을 상속받는다
+//		- MemPool을 사용하는 객체는 MemPool을 상속받는다
 //		- 사용하기 전 InitMemPool을 호출한다
 //		- 사용후 더이상 사용하지 않을때 UninitMemPool을 호출한다
 //		- 언제라도 Free Slot에 Hold되어 있는 메모리를 해제하고 싶으면 ReleaseMemPool을 호출한다
 //
 //	* 예
 //
-//	class CTest:public CMemPool<CTest>
+//	class CTest:public MemPool<CTest>
 //	{
 //	public:
 //		CTest();
@@ -52,12 +52,12 @@
 //
 //////////////////////////////////////////////////////////////////////////
 
-#define InitMemPool(T)		CMemPool<T>::_InitCS()
-#define UninitMemPool(T)	CMemPool<T>::_DeleteCS();
-#define ReleaseMemPool(T)	CMemPool<T>::Release();
+#define InitMemPool(T)		MemPool<T>::_InitCS()
+#define UninitMemPool(T)	MemPool<T>::_DeleteCS();
+#define ReleaseMemPool(T)	MemPool<T>::Release();
 
 template< typename T >
-class CMemPool
+class MemPool
 {
 private:
 	static int	m_nCapacity;
@@ -88,13 +88,13 @@ public:
 	static void* operator new( size_t size_ );
 	static void  operator delete( void* deadObject_, size_t size_ );
 public:
-	CMemPool(void)	{};
-	~CMemPool(void)	{};
+	MemPool(void)	{};
+	~MemPool(void)	{};
 };
 
 // new
 template<typename T>
-void* CMemPool<T>::operator new( size_t size_ )
+void* MemPool<T>::operator new( size_t size_ )
 {
 	T* instance;
 	EnterCriticalSection( &m_csLock );
@@ -122,7 +122,7 @@ void* CMemPool<T>::operator new( size_t size_ )
 
 // delete
 template<typename T>
-void CMemPool<T>::operator delete( void* deadObject_, size_t size_ )
+void MemPool<T>::operator delete( void* deadObject_, size_t size_ )
 {
 	EnterCriticalSection( &m_csLock );
 
@@ -135,7 +135,7 @@ void CMemPool<T>::operator delete( void* deadObject_, size_t size_ )
 // Release
 // 현재 할당되어 있지 않은 메모리 해제~~
 template<typename T>
-void CMemPool<T>::Release()
+void MemPool<T>::Release()
 {
 	// KeeperManager(PatchInterface)는 여러개의 클라이언트를 가질수 있음.
 	//  2개이상의 클라이언트가 종료될때 이부분이 중복 호출이 되어, 
@@ -159,14 +159,14 @@ void CMemPool<T>::Release()
 }
 
 template<typename T>
-int	CMemPool<T>::GetCapacity()
+int	MemPool<T>::GetCapacity()
 {
 	return m_nCapacity;
 }
 
-template<typename T> CRITICAL_SECTION CMemPool<T>::m_csLock;
-template<typename T> T* CMemPool<T>::m_list;
-template<typename T> int CMemPool<T>::m_nCapacity = 0;
+template<typename T> CRITICAL_SECTION MemPool<T>::m_csLock;
+template<typename T> T* MemPool<T>::m_list;
+template<typename T> int MemPool<T>::m_nCapacity = 0;
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -174,7 +174,7 @@ template<typename T> int CMemPool<T>::m_nCapacity = 0;
 ////////////////////////////////////////////////////////////////////////////
 
 template < typename T >
-class CMemPoolSm
+class MemPoolSm
 {
 protected:
 	static T*	m_list;
@@ -187,13 +187,13 @@ public:
 	static void Release();
 
 public:
-	CMemPoolSm(void) {};
-	~CMemPoolSm(void) {};
+	MemPoolSm(void) {};
+	~MemPoolSm(void) {};
 };
 
 
 template<typename T>
-void* CMemPoolSm<T>::operator new( size_t size_ )
+void* MemPoolSm<T>::operator new( size_t size_ )
 {
 	T* instance;
 
@@ -215,7 +215,7 @@ void* CMemPoolSm<T>::operator new( size_t size_ )
 }
 
 template<typename T>
-void CMemPoolSm<T>::operator delete( void* deadObject_, size_t size_ )
+void MemPoolSm<T>::operator delete( void* deadObject_, size_t size_ )
 {
 	((T*)deadObject_)->m_next = m_list;
 	m_list	= (T*)deadObject_;
@@ -226,7 +226,7 @@ void CMemPoolSm<T>::operator delete( void* deadObject_, size_t size_ )
 
 // 현재 할당되어 있지 않은 메모리 해제~~
 template<typename T>
-void CMemPoolSm<T>::Release()
+void MemPoolSm<T>::Release()
 {
 	T* pInstace	= m_list;
 	while( pInstace != NULL ) {
@@ -239,6 +239,6 @@ void CMemPoolSm<T>::Release()
 
 /////////////////////////////////////////////////////////////////////////
 
-template<typename T> T* CMemPoolSm<T>::m_list;
+template<typename T> T* MemPoolSm<T>::m_list;
 
 #endif//_MemPool_h

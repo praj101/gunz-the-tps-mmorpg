@@ -4,14 +4,14 @@
 #include "CCUID.h"
 
 // 유틸리티 펑션들
-unsigned long int MGetTimeDistance(unsigned long int nTimeA, unsigned long int nTimeB);
+unsigned long int CCGetTimeDistance(unsigned long int nTimeA, unsigned long int nTimeB);
 
 class CCZFileSystem;
-unsigned long MGetMemoryChecksum(char *pBuffer, int nLen);
-unsigned long MGetCCZFileChecksum(const char* pszFileName);
-void MMakeSeedKey(CCPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp);
+unsigned long CCGetMemoryChecksum(char *pBuffer, int nLen);
+unsigned long CCGetCCZFileChecksum(const char* pszFileName);
+void CCMakeSeedKey(CCPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp);
 
-struct MShortVector
+struct CCShortVector
 {
 	short x;
 	short y;

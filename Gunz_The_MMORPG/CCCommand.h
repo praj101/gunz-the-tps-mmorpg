@@ -80,7 +80,7 @@ public:
 
 
 /// 머신과 머신 혹은 로컬에 전달되는 커멘드
-class CCCommand : public CMemPool<CCCommand> 
+class CCCommand : public MemPool<CCCommand> 
 {
 public:
 	CCUID						m_Sender;				///< 메세지를 보내는 머신(혹은 오브젝트) UID

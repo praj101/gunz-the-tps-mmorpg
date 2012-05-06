@@ -17,7 +17,7 @@ void SetUserDefineFont(char* FontName);
 
 _NAMESPACE_REALSPACE2_BEGIN
 
-struct RCHARINFO : public CMemPoolSm<RCHARINFO> {		// 한글자의 정보를 갖는다
+struct RCHARINFO : public MemPoolSm<RCHARINFO> {		// 한글자의 정보를 갖는다
 	int nWidth;
 	int nFontTextureID;
 	int nFontTextureIndex;

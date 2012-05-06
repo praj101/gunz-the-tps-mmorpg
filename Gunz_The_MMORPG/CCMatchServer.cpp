@@ -239,7 +239,7 @@ void CopyCharInfoDetailForTrans(CCTD_CharInfo_Detail* pDest, CCMatchCharInfo* pS
 		unsigned long int nNowTime = CCMatchServer::GetInstance()->GetTickTime();
 
 		// 접속시간
-		pDest->nConnPlayTimeSec = MGetTimeDistance(pSrcCharInfo->m_nConnTime, nNowTime) / 1000;
+		pDest->nConnPlayTimeSec = CCGetTimeDistance(pSrcCharInfo->m_nConnTime, nNowTime) / 1000;
 		pDest->nTotalPlayTimeSec = pDest->nConnPlayTimeSec + pSrcCharInfo->m_nTotalPlayTimeSec;
 
 		// 아이템셋
@@ -561,7 +561,7 @@ bool CCMatchServer::LoadInitFile()
 		return false;
 	}
 
-	unsigned long nItemChecksum = MGetCCZFileChecksum(FILENAME_ITEM_DESC);
+	unsigned long nItemChecksum = CCGetCCZFileChecksum(FILENAME_ITEM_DESC);
 	SetItemFileChecksum(nItemChecksum);
 
 
@@ -1132,10 +1132,10 @@ void CCMatchServer::OnRun(void)
 	{
 		tmLastGarbageSessionCleaning = nGlobalClock;
 
-		CMemPool<CCCommandParameter>::GetCapacity();
+		MemPool<CCCommandParameter>::GetCapacity();
 		LOG(LOG_PROG, "GARBAGE SESSION CLEANING : m_This(%d%d), ClientCount=%d, SessionCount=%d, AgentCount=%d, CommandPool=%d, objHistoryCount=%d\n", 
 			m_This.High, m_This.Low, GetClientCount(), GetCommObjCount(), GetAgentCount(),
-			CMemPool<CCCommand>::GetCapacity(),
+			MemPool<CCCommand>::GetCapacity(),
 			m_objectCommandHistory.GetObjectCount() );
 		CCCommand* pNew = CreateCommand(MC_NET_PING, CCUID(0,0));
 		pNew->AddParameter(new CCCmdParamUInt(GetGlobalClockCount()));
