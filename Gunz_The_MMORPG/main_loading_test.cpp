@@ -1229,7 +1229,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	g_dwMainThreadID = GetCurrentThreadId();
 	
 #ifdef _MTRACEMEMORY
-	MInitTraceMemory();
+	CCInitTraceMemory();
 #endif
 
 	//_CrtSetBreakAlloc(994464);
@@ -1727,7 +1727,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 #endif
 
 #ifdef _MTRACEMEMORY
-	MShutdownTraceMemory();
+	CCShutdownTraceMemory();
 #endif
 
 #ifdef _HSHIELD
