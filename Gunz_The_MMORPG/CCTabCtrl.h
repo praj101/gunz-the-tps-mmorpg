@@ -20,11 +20,11 @@ public:
 
 class CCTabItem{
 public:
+	CCTabItem(CCWidget* pFrame, CCButton* pButton, CCListener* pListener);
+
 	CCWidget*	pFrame;
 	CCButton*	pButton;
 	CCListener*	pButtonListener;
-
-	CCTabItem(CCWidget* pFrame, CCButton* pButton, CCListener* pListener);
 };
 
 class CCTabList : public list<CCTabItem*> {};
