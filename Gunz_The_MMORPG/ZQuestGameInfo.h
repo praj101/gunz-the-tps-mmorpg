@@ -57,7 +57,7 @@ public:
 	int GetQuestLevel( void)				{ return m_nQL; }
 	int GetNumOfObtainQuestItem( void)		{ return m_nNumOfObtainQuestItem; }
 	void IncreaseObtainQuestItem( void)		{ m_nNumOfObtainQuestItem++; }
-	vector<CCUID>& GetBosses(void)			{ return m_Bosses; }
+	vector<CCUID>& GetBosses()			{ return m_Bosses; }
 	CCUID GetBoss();
 	void SetPortalPos(rvector& pos)			{ m_vPortalPos = pos; }
 	rvector GetPortalPos()					{ return m_vPortalPos; }

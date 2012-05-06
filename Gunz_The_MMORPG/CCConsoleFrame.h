@@ -52,11 +52,11 @@ protected:
 	virtual void OnDraw(CCDrawContext* pDC);
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 	friend CCConsoleEdit;
-	virtual void OnBrowseCommand(void);
-	virtual bool OnShow(void);
+	virtual void OnBrowseCommand();
+	virtual bool OnShow();
 public:
 	CCConsoleFrame(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~CCConsoleFrame(void);
+	virtual ~CCConsoleFrame();
 
 	void OutputMessage(const char* sStr);
 	void ClearMessage();

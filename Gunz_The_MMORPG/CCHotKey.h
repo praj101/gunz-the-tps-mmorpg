@@ -17,17 +17,17 @@ protected:
 	bool			m_bShift;
 
 protected:
-	virtual void OnRun(void);
+	virtual void OnRun();
 	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
 public:
 	CCHotKey(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 
-	virtual const char* GetClassName(void){ return CCHOTKEY; }
+	virtual const char* GetClassName(){ return CCHOTKEY; }
 
 	void GetHotKeyName(char* szHotKeyName);
 	void GetHotKey(unsigned int* pKey, bool* pCtrl, bool* pAlt, bool* pShift);
 
-	int RegisterHotKey(void);
+	int RegisterHotKey();
 	void UnregisterHotKey(int nID);
 };

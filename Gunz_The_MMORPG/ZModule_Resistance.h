@@ -10,12 +10,12 @@ class ZModule_Resistance : public ZModule
 	int m_nPR;
 	int m_nLR;
 
-	void OnAdd(void);
+	void OnAdd();
 
 public:
 	DECLARE_ID(ZMID_RESISTANCE)
 	ZModule_Resistance();
-	virtual ~ZModule_Resistance(void);
+	virtual ~ZModule_Resistance();
 
 	virtual void InitStatus();
 

@@ -484,11 +484,11 @@ bool CCTextArea::OnEvent(CCEvent* pEvent, CCListener* pListener){
 	return false;
 }
 
-void CCTextArea::OnSetFocus(void){
+void CCTextArea::OnSetFocus(){
 	Core::GetInstance()->EnableIME(true);
 }
 
-void CCTextArea::OnReleaseFocus(void){
+void CCTextArea::OnReleaseFocus(){
 	Core::GetInstance()->EnableIME(false);
 }
 
@@ -602,7 +602,7 @@ void CCTextArea::SetTextColor(sColor color){
 	m_TextColor = color;
 }
 
-sColor CCTextArea::GetTextColor(void){
+sColor CCTextArea::GetTextColor(){
 	return m_TextColor;
 }
 
@@ -692,7 +692,7 @@ void CCTextAreaLook::OnFrameDraw(CCTextArea* pTextArea, CCDrawContext* pDC){
 	}
 }
 
-const char* CCTextArea::GetCompositionString(void){
+const char* CCTextArea::GetCompositionString(){
 	return m_szIMECompositionString;
 }
 

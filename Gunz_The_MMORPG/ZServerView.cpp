@@ -27,7 +27,7 @@ ZServerView::ZServerView(const char* szName, CCWidget* pParent, CCListener* pLis
 }
 
 
-ZServerView::~ZServerView(void)
+ZServerView::~ZServerView()
 {
 	ClearServerList();
 }

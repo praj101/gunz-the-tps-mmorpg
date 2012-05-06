@@ -104,7 +104,7 @@ second boundary. */
 		s->tm_hour, s->tm_min, s->tm_sec);
 }
 
-void CCZFileSystem::RemoveFileList(void)
+void CCZFileSystem::RemoveFileList()
 {
 	while(1){
 		CCFLISTITOR i=m_ZFileList.begin();
@@ -310,13 +310,13 @@ unsigned int CCZFileSystem::GetTotalCRC()
 	return nCRCTotal;
 }
 
-CCZFileSystem::CCZFileSystem(void) : m_pCheckList(NULL)
+CCZFileSystem::CCZFileSystem() : m_pCheckList(NULL)
 {
 	m_szBasePath[0] = 0;
 	m_szUpdateName[0] = 0;
 }
 
-CCZFileSystem::~CCZFileSystem(void)
+CCZFileSystem::~CCZFileSystem()
 {
 	Destroy();
 }
@@ -352,7 +352,7 @@ bool CCZFileSystem::Create(const char* szBasePath,const char* szUpdateName)
 	return true;
 }
 
-void CCZFileSystem::Destroy(void)
+void CCZFileSystem::Destroy()
 {
 	m_szBasePath[0] = 0;
 	RemoveFileList();
@@ -366,7 +366,7 @@ void CCZFileSystem::Destroy(void)
 	}
 }
 
-int CCZFileSystem::GetFileCount(void) const
+int CCZFileSystem::GetFileCount() const
 {
 	return m_ZFileList.size();
 }
@@ -729,7 +729,7 @@ bool CCZFile::Open( const char* szFileName, const char* szZipFileName, bool bFil
 
 
 //Close the file
-void CCZFile::Close(void)
+void CCZFile::Close()
 {
 	if ( m_IsZipFile)
 		m_Zip.Finalize();
@@ -756,7 +756,7 @@ void CCZFile::Close(void)
 }
 
 
-unsigned long CCZFile::GetLength(void)
+unsigned long CCZFile::GetLength()
 {
 //	return ( m_IsEncrypted) ? m_iEncryptFileSize : m_iFileSize;
 	return m_iFileSize;

@@ -36,7 +36,7 @@ public:
 		m=2147483647; q=127773; a=16807; r=2836;
 		seed = timeGetTime();
 	}
-	unsigned long Random(void);
+	unsigned long Random();
 	int MakeNumber(int nFrom, int nTo);
 	static void GetTime(struct timeval *t);
 	static struct timeval TimeSub(struct timeval Src1, struct timeval Src2);

@@ -17,8 +17,8 @@ class ZProfiler
 	int GetRelativeIndex(int nIndex);
 
 public:
-	ZProfiler(void);
-	virtual ~ZProfiler(void);
+	ZProfiler();
+	virtual ~ZProfiler();
 
 	void Update();
 	void Render();

@@ -18,7 +18,7 @@ protected:
 
 public:
 	ZFrame(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZFrame(void);
+	virtual ~ZFrame();
 
 	void Show(bool bVisible, bool bModal=false);
 };

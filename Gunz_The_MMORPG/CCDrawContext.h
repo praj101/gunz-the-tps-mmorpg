@@ -74,12 +74,12 @@ public:
 	// Clipping ( Screen Coordinate )
 	virtual void SetClipRect(sRect& r);
 	void SetClipRect(int x, int y, int w, int h);
-	sRect GetClipRect(void);
+	sRect GetClipRect();
 
 	// Logical Origin
 	void SetOrigin(int x, int y);
 	void SetOrigin(sPoint& p);
-	sPoint GetOrigin(void);
+	sPoint GetOrigin();
 
 	// Draw Effect
 	void SetEffect(CCDrawEffect effect);

@@ -19,7 +19,7 @@ void ZMapListBox::OnDraw(CCDrawContext* pDC)
 	}
 }
 
-bool ZMapListBox::OnShow(void)
+bool ZMapListBox::OnShow()
 {
 	Refresh(ZApplication::GetFileSystem());
 
@@ -65,7 +65,7 @@ ZMapListBox::ZMapListBox(const char* szName, CCWidget* pParent, CCListener* pLis
 	m_pThumbnail = NULL;
 }
 
-ZMapListBox::~ZMapListBox(void)
+ZMapListBox::~ZMapListBox()
 {
 	if(m_pThumbnail!=NULL){
 		delete m_pThumbnail;
@@ -110,7 +110,7 @@ void ZMapListBox::Refresh(CCZFileSystem* pFS)
 	}
 }
 
-const char* ZMapListBox::GetSelItemString(void)
+const char* ZMapListBox::GetSelItemString()
 {
 	return m_pListBox->GetSelItemString();
 }

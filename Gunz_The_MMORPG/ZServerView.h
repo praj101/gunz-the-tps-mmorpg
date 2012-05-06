@@ -52,7 +52,7 @@ protected:
 
 public:
 	ZServerView( const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZServerView(void);
+	virtual ~ZServerView();
 
 
 	void ClearServerList( void);
@@ -72,7 +72,7 @@ public:
 	SERVERLIST GetServerList()				{ return m_cServerList; }
 
 #define CORE_SERVERVIEW	"ServerView"
-	virtual const char* GetClassName(void){ return CORE_SERVERVIEW; }
+	virtual const char* GetClassName(){ return CORE_SERVERVIEW; }
 
 };
 

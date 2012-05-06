@@ -53,10 +53,10 @@ protected:
 		return &(m_pGridMap[nXPos+nYPos*m_nXDivision]);
 	}
 public:
-	CCGridMap(void){
+	CCGridMap(){
 		m_pGridMap = NULL;
 	}
-	virtual ~CCGridMap(void){
+	virtual ~CCGridMap(){
 		Destroy();
 	}
 
@@ -80,7 +80,7 @@ public:
 		m_nYDivision = nYDivision;
 	}
 	/// «ÿ¡¶
-	void Destroy(void){
+	void Destroy(){
 		if(m_pGridMap!=NULL){
 			delete[] m_pGridMap;
 			m_pGridMap = NULL;
@@ -159,27 +159,27 @@ public:
 	}
 
 	/// ∏ ¿« Ω√¿€ X
-	float GetSX(void) const { return m_fSX; }
+	float GetSX() const { return m_fSX; }
 	/// ∏ ¿« Ω√¿€ Y
-	float GetSY(void) const { return m_fSY; }
+	float GetSY() const { return m_fSY; }
 	/// ∏ ¿« ≥° X
-	float GetEX(void) const { return m_fEX; }
+	float GetEX() const { return m_fEX; }
 	/// ∏ ¿« ≥° Y
-	float GetEY(void) const { return m_fEY; }
+	float GetEY() const { return m_fEY; }
 
 	/// ∏ ¿« X√‡ ≈©±‚
-	float GetXSize(void) const { return m_fEX-m_fSX; }
+	float GetXSize() const { return m_fEX-m_fSX; }
 	/// ∏ ¿« Y√‡ ≈©±‚
-	float GetYSize(void) const { return m_fEY-m_fSY; }
+	float GetYSize() const { return m_fEY-m_fSY; }
 	/// ∏ ¿« X√‡ ºø ∞πºˆ
-	int GetXDivision(void) const { return m_nXDivision; }
+	int GetXDivision() const { return m_nXDivision; }
 	/// ∏ ¿« Y√‡ ºø ∞πºˆ
-	int GetYDivision(void) const { return m_nYDivision; }
+	int GetYDivision() const { return m_nYDivision; }
 
 	/// ∏ ¿« X√‡ ºø ≈©±‚
-	float GetXDivisionSize(void) const { return GetXSize() / (float)m_nXDivision; }
+	float GetXDivisionSize() const { return GetXSize() / (float)m_nXDivision; }
 	/// ∏ ¿« Y√‡ ºø ≈©±‚
-	float GetYDivisionSize(void) const { return GetYSize() / (float)m_nYDivision; }
+	float GetYDivisionSize() const { return GetYSize() / (float)m_nYDivision; }
 
 	/// x, y ¿ßƒ°¿« ºø ¡§∫∏ æÚ±‚
 	CCRefCell* GetCell(int x, int y){
@@ -194,11 +194,11 @@ public:
 		return &(m_pGridMap[i]);
 	}
 	/// ºø ∞πºˆ æÚ±‚
-	int GetCellCount(void){
+	int GetCellCount(){
 		return m_nXDivision*m_nYDivision;
 	}
 	/// ∏µÁ ºø √ ±‚»≠«œ±‚
-	void ClearAllCell(void){
+	void ClearAllCell(){
 		int nCellCount = GetCellCount();
 		for(int i=0; i<nCellCount; i++){
 			CCRefCell* pRefCell = GetCell(i);

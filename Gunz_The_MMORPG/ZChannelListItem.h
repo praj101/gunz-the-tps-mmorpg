@@ -23,7 +23,7 @@ public:
 		m_nMaxPlayers = nMaxPlayers;
 	}
 	virtual ~ZChannelListItem()			{}
-	virtual const char* GetString(void)	{ 
+	virtual const char* GetString()	{ 
 		sprintf(m_szItemString,"%s (%d/%d)",m_szChannelName,m_nPlayers,m_nMaxPlayers);
 		return m_szItemString; 
 	}

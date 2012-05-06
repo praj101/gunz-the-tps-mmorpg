@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCDuelTournamentTimeChecker.h"
 
-CCDuelTournamentTimeChecker::CCDuelTournamentTimeChecker(void)
+CCDuelTournamentTimeChecker::CCDuelTournamentTimeChecker()
 {
 	memset(m_szTimeStamp, 0, DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1);
 

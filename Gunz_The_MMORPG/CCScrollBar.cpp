@@ -21,11 +21,11 @@ CCArrow::CCArrow(const char* szName, CCWidget* pParent, CCListener* pListener)
 	LOOK_IN_CONSTRUCTOR()
 }
 
-sSize CCArrow::GetDefaultSize(void){
+sSize CCArrow::GetDefaultSize(){
 	return sSize(CONVERT800(CCSCROLLBAR_DEFAULT_WIDTH), CONVERT800(CCSCROLLBAR_DEFAULT_WIDTH));
 }
 
-void CCScrollBar::OnRun(void){
+void CCScrollBar::OnRun(){
 	CCListener* pListener = GetListener();
 	if(pListener==NULL) 
 		return;
@@ -162,7 +162,7 @@ void CCScrollBar::OnSize(int w, int h){
 	RecalcThumbBounds();
 }
 
-int CCScrollBar::GetThumbMoveRange(void){
+int CCScrollBar::GetThumbMoveRange(){
 	sRect r = GetClientRect();
 	if(m_iScrollBarType==CCSBT_VERTICAL)
 		return ( r.h - (m_pUp->GetRect().h+m_pDown->GetRect().h+m_pThumb->GetRect().h) );
@@ -170,7 +170,7 @@ int CCScrollBar::GetThumbMoveRange(void){
 		return ( r.w - (m_pUp->GetRect().w+m_pDown->GetRect().w+m_pThumb->GetRect().w) );
 }
 
-int CCScrollBar::GetMoveRange(void){
+int CCScrollBar::GetMoveRange(){
 	sRect r = GetClientRect();
 	if(m_iScrollBarType==CCSBT_VERTICAL)
 		return ( r.h - (m_pUp->GetRect().h+m_pDown->GetRect().h) );
@@ -178,7 +178,7 @@ int CCScrollBar::GetMoveRange(void){
 		return ( r.w - (m_pUp->GetRect().w+m_pDown->GetRect().w) );
 }
 
-int CCScrollBar::GetThumbSize(void){
+int CCScrollBar::GetThumbSize(){
 	int nDiff = m_iMaxValue-m_iMinValue;
 	int nMoveRange = GetMoveRange();
 	int nThumbSize = nMoveRange - nDiff * 3;
@@ -186,7 +186,7 @@ int CCScrollBar::GetThumbSize(void){
 	return max(nThumbSize, narrowWidth);
 }
 
-void CCScrollBar::RecalcThumbPos(void){
+void CCScrollBar::RecalcThumbPos(){
 	sRect r = GetClientRect();
 	int nSpace = GetThumbMoveRange();
 	int nValueWidth = m_iMaxValue - m_iMinValue;
@@ -199,7 +199,7 @@ void CCScrollBar::RecalcThumbPos(void){
 		m_pThumb->SetPosition(r.x+m_pUp->GetRect().w+nThumbPos, r.y);
 }
 
-void CCScrollBar::RecalcThumbBounds(void){
+void CCScrollBar::RecalcThumbBounds(){
 	sRect r = GetClientRect();
 	if(m_iScrollBarType==CCSBT_VERTICAL)
 		m_pThumb->SetSize(r.w, GetThumbSize());
@@ -242,7 +242,7 @@ CCScrollBar::CCScrollBar(CCWidget* pParent, CCListener* pListener, CCScrollBarTy
 	Initialize(t);
 }
 
-CCScrollBar::~CCScrollBar(void){
+CCScrollBar::~CCScrollBar(){
 	if(m_pUp!=NULL) delete m_pUp;
 	if(m_pDown!=NULL) delete m_pDown;
 	if(m_pThumb!=NULL) delete m_pThumb;
@@ -270,11 +270,11 @@ void CCScrollBar::SetValueAdjusted(int nValue){
 	RecalcThumbPos();
 }
 
-int CCScrollBar::GetValue(void){
+int CCScrollBar::GetValue(){
 	return m_iValue;
 }
 
-CCScrollBarTypes CCScrollBar::GetType(void){
+CCScrollBarTypes CCScrollBar::GetType(){
 	return m_iScrollBarType;
 }
 
@@ -309,7 +309,7 @@ void CCScrollBar::ChangeCustomThumbLook(CCThumbLook *pThumbLook){
 	m_pThumb->ChangeCustomLook(pThumbLook);
 }
 
-int CCScrollBar::GetDefaultBreadth(void){
+int CCScrollBar::GetDefaultBreadth(){
 	sSize s = m_pUp->GetDefaultSize();
 	if(GetType()==CCSBT_VERTICAL) return s.w;
 	else return s.h;

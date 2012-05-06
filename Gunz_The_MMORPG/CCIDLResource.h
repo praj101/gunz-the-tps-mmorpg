@@ -71,7 +71,7 @@ class CCBTabCtrlLook;
 class CCWidgetMMap : public multimap<string, CCWidget*>
 {
 public:
-	virtual ~CCWidgetMMap(void){ Clear(); }
+	virtual ~CCWidgetMMap(){ Clear(); }
 
 	void Clear() {
 		while(empty()==false)

@@ -13,7 +13,7 @@ typedef CCGridMap<CCObject*>	CCObjectGridMap;
 
 
 /// 변수를 이용한 RTTI 구현. Class Declaration
-#define DECLARE_RTTI()								public: static const char* _m_RTTI_szClassName; virtual const char* GetClassName(void){ return _m_RTTI_szClassName; }
+#define DECLARE_RTTI()								public: static const char* _m_RTTI_szClassName; virtual const char* GetClassName(){ return _m_RTTI_szClassName; }
 /// 변수를 이용한 RTTI 구현. Class Implementation
 #define IMPLEMENT_RTTI(_Class)						const char* _Class::_m_RTTI_szClassName = #_Class;
 /// 같은 클래스타입인가?
@@ -73,7 +73,7 @@ public:
 
 	/*
 protected:
-	void UpdateObjectCache(void);
+	void UpdateObjectCache();
 	*/
 
 protected:
@@ -84,9 +84,9 @@ public:
 	CCObject();
 //	CCObject(CCUID& uid, CCMap* pMap, rvector& Pos);	// Map Navication Object
 	CCObject(const CCUID& uid);	// No Map Object
-	virtual ~CCObject(void)	{};
+	virtual ~CCObject()	{};
 
-	inline const CCUID GetUID(void) const { return m_UID; }
+	inline const CCUID GetUID() const { return m_UID; }
 
 	/// 현재 위치 설정
 //	void SetPos(rvector& Pos){ SetPos(0, 0, Pos, Pos); }
@@ -95,7 +95,7 @@ public:
 	/// 패스로 지정
 //	void SetPath(MOBJECTPATH* p, int nCount);
 	/// 현재 시간의 오브젝트 위치 얻기
-//	const rvector GetPos(void){ return m_Pos; }
+//	const rvector GetPos(){ return m_Pos; }
 	/// SpawnID 얻기 (Spawn Object 아니면 0)
 //	int GetSpawnID() { return m_nSpawnID; }
 //	void SetSpawnID(int nSpawnID) { m_nSpawnID = nSpawnID; }
@@ -111,7 +111,7 @@ public:
 	/// 현재 맵 설정
 //	void SetMap(CCMap* pMap){ m_pMap = pMap; }
 	/// 현재 속해있는 맵 얻기
-//	CCMap* GetMap(void){ return m_pMap; }
+//	CCMap* GetMap(){ return m_pMap; }
 	
 
 	void AddCommListener(CCUID ListenerUID);

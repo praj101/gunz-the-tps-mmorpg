@@ -17,7 +17,7 @@ protected:
 
 public:
 	ZEffectLightFragment(ZEffectBillboardSource* pEffectBillboardSource, rvector& Pos, rvector& Velocity);
-	virtual ~ZEffectLightFragment(void);
+	virtual ~ZEffectLightFragment();
 
 	virtual bool Draw(unsigned long int nTime);
 };
@@ -33,7 +33,7 @@ protected:
 
 public:
 	ZEffectLightFragment2(LPDIRECT3DTEXTURE9 pEffectBillboardTexture, rvector& Pos, rvector& Velocity);
-	virtual ~ZEffectLightFragment2(void);
+	virtual ~ZEffectLightFragment2();
 
 	virtual bool Draw(unsigned long int nTime);
 };

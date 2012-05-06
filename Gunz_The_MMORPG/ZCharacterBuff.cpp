@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ZCharacterBuff.h"
 
-ZCharacterBuff::ZCharacterBuff(void)
+ZCharacterBuff::ZCharacterBuff()
 {
 	Clear();
 }

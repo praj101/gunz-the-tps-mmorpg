@@ -55,7 +55,7 @@ public:
 public:
 	ZCharacterSelectView();
 	~ZCharacterSelectView();
-	void Draw(void);
+	void Draw();
 	void SetBackground(ZInterfaceBackground* pBackground) { m_pBackground = pBackground; }
 	bool SelectMyCharacter();
 	void SelectChar(int nSelectIndex);

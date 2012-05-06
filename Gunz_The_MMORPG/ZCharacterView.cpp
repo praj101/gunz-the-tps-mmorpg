@@ -42,7 +42,7 @@ unsigned long int GetVisualWeaponID(unsigned long int nMeleeItemID, unsigned lon
 }
 
 
-void ZCharacterView::RepositionItemSlots(void)
+void ZCharacterView::RepositionItemSlots()
 {
 	sRect r = GetClientRect();
 
@@ -269,7 +269,7 @@ ZCharacterView::ZCharacterView(const char* szName, CCWidget* pParent, CCListener
 	m_Info.m_pMnTeam->Set_MakeCrc(0);
 }
 
-ZCharacterView::~ZCharacterView(void)
+ZCharacterView::~ZCharacterView()
 {
 	delete m_Info.m_pMnTeam;
 }

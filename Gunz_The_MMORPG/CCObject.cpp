@@ -120,7 +120,7 @@ CCObject::CCObject(const CCUID& uid)
 //	m_ObjectType = CCOT_NONE;
 }
 /*
-CCObject::~CCObject(void)
+CCObject::~CCObject()
 {
 	if (m_pMap)
 		m_pMap->Del(m_hRef);

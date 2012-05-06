@@ -56,7 +56,7 @@ public:
 	bool IsActiveModule(int nID);
 
 	virtual void UpdateModules(float fElapsed);
-	virtual void InitModuleStatus(void);
+	virtual void InitModuleStatus();
 };
 
 #define DECLARE_ID(_ID)		int GetID() { return _ID; }

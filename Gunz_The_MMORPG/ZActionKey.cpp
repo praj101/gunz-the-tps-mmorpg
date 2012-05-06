@@ -144,7 +144,7 @@ bool ZActionKey::RegisterActionKey(int nActionID)
 //	return Core::GetInstance()->RegisterActionKey(nActionID, m_nKey);
 }
 
-bool ZActionKey::UnregisterActionKey(void)
+bool ZActionKey::UnregisterActionKey()
 {
 	return ZGetInput()->UnregisterActionKey(m_nKey);
 //	return Core::GetInstance()->UnregisterActionKey(m_nKey);
@@ -191,7 +191,7 @@ bool ZActionKey::OnExclusiveEvent(CCEvent* pEvent)
 	return true;
 }
 
-void ZActionKey::OnSetFocus(void)
+void ZActionKey::OnSetFocus()
 {
 	_ASSERT(m_exclusiveActionKey==NULL);
 

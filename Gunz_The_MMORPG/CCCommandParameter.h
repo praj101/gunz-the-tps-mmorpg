@@ -48,10 +48,10 @@ protected:
 	void								InitializeConditions();
 public:
 	CCCommandParameterDesc(CCCommandParameterType nType, char* szDescription);
-	virtual ~CCCommandParameterDesc(void);
+	virtual ~CCCommandParameterDesc();
 
-	CCCommandParameterType GetType(void){ return m_nType; }
-	const char* GetDescription(void){ return m_szDescription; }
+	CCCommandParameterType GetType(){ return m_nType; }
+	const char* GetDescription(){ return m_szDescription; }
 
 	void AddCondition(CCCommandParamCondition* pCondition);
 	bool HasConditions() { return (!m_Conditions.empty()); }
@@ -67,12 +67,12 @@ protected:
 	CCCommandParameterType	m_nType;
 public:
 	CCCommandParameter(CCCommandParameterType nType){ m_nType = nType; }
-	virtual ~CCCommandParameter(void){}
+	virtual ~CCCommandParameter(){}
 
-	CCCommandParameterType GetType(void){ return m_nType; }
+	CCCommandParameterType GetType(){ return m_nType; }
 
 	/// 같은 파라미티 타입으로 복제
-	virtual CCCommandParameter* Clone(void) = 0;
+	virtual CCCommandParameter* Clone() = 0;
 	/// 값 얻어내기
 	virtual void GetValue(void* p) = 0;
 	/// 메모리 블럭으로 저장
@@ -80,10 +80,10 @@ public:
 	/// 메모리 블럭으로 지정
 	virtual int SetData(char* pData) = 0;
 	/// 첫 포인터 얻기
-	virtual void *GetPointer(void) =0; 
+	virtual void *GetPointer() =0; 
 
 	/// 타입 이름 얻기
-	virtual const char* GetClassName(void) = 0;
+	virtual const char* GetClassName() = 0;
 	/// 스트링으로 값 얻기
 	virtual void GetString(char* szValue) = 0;
 	/// 사이즈 얻기
@@ -95,15 +95,15 @@ class CCCommandParameterInt : public CCCommandParameter, public MemPool<CCComman
 public:
 	int		m_Value;
 public:
-	CCCommandParameterInt(void);
+	CCCommandParameterInt();
 	CCCommandParameterInt(int Value);
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "Int"; }
+	virtual const char* GetClassName(){ return "Int"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%d", m_Value); }
 	virtual int GetSize() { return sizeof(int); }
 };
@@ -113,15 +113,15 @@ class CCCommandParameterUInt : public CCCommandParameter, public MemPool<CCComma
 public:
 	unsigned int		m_Value;
 public:
-	CCCommandParameterUInt(void);
+	CCCommandParameterUInt();
 	CCCommandParameterUInt(unsigned int Value);
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "UInt"; }
+	virtual const char* GetClassName(){ return "UInt"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%u", m_Value); }
 	virtual int GetSize() { return sizeof(unsigned int); }
 };
@@ -131,15 +131,15 @@ class CCCommandParameterFloat : public CCCommandParameter, public MemPool<CCComm
 public:
 	float	m_Value;
 public:
-	CCCommandParameterFloat(void);
+	CCCommandParameterFloat();
 	CCCommandParameterFloat(float Value);
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "Float"; }
+	virtual const char* GetClassName(){ return "Float"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%f", m_Value); }
 	virtual int GetSize() { return sizeof(float); }
 };
@@ -149,16 +149,16 @@ class CCCommandParameterString : public CCCommandParameter{
 public:
 	char*	m_Value;
 public:
-	CCCommandParameterString(void);
+	CCCommandParameterString();
 	CCCommandParameterString(const char* Value);
-	virtual ~CCCommandParameterString(void);
+	virtual ~CCCommandParameterString();
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "String"; }
+	virtual const char* GetClassName(){ return "String"; }
 	virtual void GetString(char* szValue)
 	{ 
 		// 이함수는 반드시 szValue버퍼의 길이가 m_Value의 길이보다 길어야 함.
@@ -181,16 +181,16 @@ public:
 	float	m_fY;
 	float	m_fZ;
 public:
-	CCCommandParameterVector(void);
+	CCCommandParameterVector();
 	CCCommandParameterVector(float x ,float y, float z);
-	virtual ~CCCommandParameterVector(void);
+	virtual ~CCCommandParameterVector();
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_fX; }
-	virtual const char* GetClassName(void){ return "Vector"; }
+	virtual const char* GetClassName(){ return "Vector"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%.2f,%.2f,%.2f", m_fX, m_fY, m_fZ); }
 	virtual int GetSize() { return (sizeof(float)*3); }
 };
@@ -198,51 +198,51 @@ public:
 /// 3D 포지션 파라미터
 class CCCommandParameterPos : public CCCommandParameterVector, public MemPool<CCCommandParameterPos> {
 public:
-	CCCommandParameterPos(void) : CCCommandParameterVector() { m_nType=MPT_POS; }
+	CCCommandParameterPos() : CCCommandParameterVector() { m_nType=MPT_POS; }
 	CCCommandParameterPos(float x, float y, float z) : CCCommandParameterVector(x, y, z){ m_nType=MPT_POS; }
 	virtual ~CCCommandParameterPos() { }
 
-	virtual CCCommandParameter* Clone(void){ return new CCCommandParameterPos(m_fX, m_fY, m_fZ); }
-	virtual const char* GetClassName(void){ return "Pos"; }
+	virtual CCCommandParameter* Clone(){ return new CCCommandParameterPos(m_fX, m_fY, m_fZ); }
+	virtual const char* GetClassName(){ return "Pos"; }
 };
 
 /// 3D 디렉션 파라미터
 class CCCommandParameterDir : public CCCommandParameterVector, public MemPool<CCCommandParameterDir> {
 public:
-	CCCommandParameterDir(void) : CCCommandParameterVector() { m_nType=MPT_DIR; }
+	CCCommandParameterDir() : CCCommandParameterVector() { m_nType=MPT_DIR; }
 	CCCommandParameterDir(float x, float y, float z) : CCCommandParameterVector(x, y, z){ m_nType=MPT_DIR; }
 	virtual ~CCCommandParameterDir() { }
 
-	virtual CCCommandParameter* Clone(void){ return new CCCommandParameterDir(m_fX, m_fY, m_fZ); }
-	virtual const char* GetClassName(void){ return "Dir"; }
+	virtual CCCommandParameter* Clone(){ return new CCCommandParameterDir(m_fX, m_fY, m_fZ); }
+	virtual const char* GetClassName(){ return "Dir"; }
 };
 
 /// RGB 컬러 파라미터(나중에 Alpha값 추가될 예정)
 class CCCommandParameterColor : public CCCommandParameterVector, public MemPool<CCCommandParameterColor> {
 public:
-	CCCommandParameterColor(void) : CCCommandParameterVector() { m_nType=MPT_COLOR; }
+	CCCommandParameterColor() : CCCommandParameterVector() { m_nType=MPT_COLOR; }
 	CCCommandParameterColor(float r, float g, float b) : CCCommandParameterVector(r, g, b){ m_nType=MPT_COLOR; }
 	virtual ~CCCommandParameterColor() { }
 
-	virtual CCCommandParameter* Clone(void){ return new CCCommandParameterColor(m_fX, m_fY, m_fZ); }
-	virtual const char* GetClassName(void){ return "Color"; }
+	virtual CCCommandParameter* Clone(){ return new CCCommandParameterColor(m_fX, m_fY, m_fZ); }
+	virtual const char* GetClassName(){ return "Color"; }
 };
 
 /// Bool 파라미터
 class CCCommandParameterBool : public CCCommandParameter, public MemPool<CCCommandParameterBool> {
 	bool	m_Value;
 public:
-	CCCommandParameterBool(void) : CCCommandParameter(MPT_BOOL) { }
+	CCCommandParameterBool() : CCCommandParameter(MPT_BOOL) { }
 	CCCommandParameterBool(bool bValue) : CCCommandParameter(MPT_BOOL) {
 		m_Value = bValue;
 	}
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
-	virtual void *GetPointer(void); 
-	virtual const char* GetClassName(void){ return "Bool"; }
+	virtual void *GetPointer(); 
+	virtual const char* GetClassName(){ return "Bool"; }
 	virtual void GetString(char* szValue){ if(m_Value==true) strcpy(szValue, "true"); else strcpy(szValue, "false"); }
 	virtual int GetSize() { return sizeof(bool); }
 };
@@ -252,16 +252,16 @@ class CCCommandParameterUID : public CCCommandParameter, public MemPool<CCComman
 public:
 	CCUID	m_Value;
 public:
-	CCCommandParameterUID(void);
+	CCCommandParameterUID();
 	CCCommandParameterUID(const CCUID& uid);
-	virtual ~CCCommandParameterUID(void);
+	virtual ~CCCommandParameterUID();
 
-	virtual CCCommandParameterUID* Clone(void);
+	virtual CCCommandParameterUID* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "UID"; }
+	virtual const char* GetClassName(){ return "UID"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%u:%u", m_Value.High, m_Value.Low); }
 	virtual int GetSize() { return sizeof(CCUID); }
 };
@@ -271,16 +271,16 @@ public:
 	void*	m_Value;
 	unsigned int	m_nSize;
 public:
-	CCCommandParameterBlob(void);
+	CCCommandParameterBlob();
 	CCCommandParameterBlob(const void* Value, int nSize);
-	virtual ~CCCommandParameterBlob(void);
+	virtual ~CCCommandParameterBlob();
 
-	virtual CCCommandParameterBlob* Clone(void);
+	virtual CCCommandParameterBlob* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return m_Value; }
-	virtual const char* GetClassName(void){ return "Blob"; }
+	virtual const char* GetClassName(){ return "Blob"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%02X%02X..", *((unsigned char*)(m_Value)), *((unsigned char*)(m_Value)+1)); }
 	virtual int GetSize();
 };
@@ -292,15 +292,15 @@ class CCCommandParameterChar : public CCCommandParameter, public MemPool<CCComma
 public:
 	char	m_Value;
 public:
-	CCCommandParameterChar(void);
+	CCCommandParameterChar();
 	CCCommandParameterChar(char Value);
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "Char"; }
+	virtual const char* GetClassName(){ return "Char"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%d", m_Value); }
 	virtual int GetSize() { return sizeof(char); }
 };
@@ -312,15 +312,15 @@ class CCCommandParameterUChar : public CCCommandParameter, public MemPool<CCComm
 public:
 	unsigned char	m_Value;
 public:
-	CCCommandParameterUChar(void);
+	CCCommandParameterUChar();
 	CCCommandParameterUChar(unsigned char Value);
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "UChar"; }
+	virtual const char* GetClassName(){ return "UChar"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%u", m_Value); }
 	virtual int GetSize() { return sizeof(unsigned char); }
 };
@@ -332,15 +332,15 @@ class CCCommandParameterShort : public CCCommandParameter, public MemPool<CCComm
 public:
 	short	m_Value;
 public:
-	CCCommandParameterShort(void);
+	CCCommandParameterShort();
 	CCCommandParameterShort(short Value);
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "Short"; }
+	virtual const char* GetClassName(){ return "Short"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%d", m_Value); }
 	virtual int GetSize() { return sizeof(short); }
 };
@@ -351,15 +351,15 @@ class CCCommandParameterUShort : public CCCommandParameter, public MemPool<CCCom
 public:
 	unsigned short	m_Value;
 public:
-	CCCommandParameterUShort(void);
+	CCCommandParameterUShort();
 	CCCommandParameterUShort(unsigned short Value);
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "UShort"; }
+	virtual const char* GetClassName(){ return "UShort"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%u", m_Value); }
 	virtual int GetSize() { return sizeof(unsigned short); }
 };
@@ -371,15 +371,15 @@ class CCCommandParameterInt64 : public CCCommandParameter, public MemPool<CCComm
 public:
 	int64	m_Value;
 public:
-	CCCommandParameterInt64(void);
+	CCCommandParameterInt64();
 	CCCommandParameterInt64(int64 Value);
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "Int64"; }
+	virtual const char* GetClassName(){ return "Int64"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%lld", m_Value); }
 	virtual int GetSize() { return sizeof(int64); }
 };
@@ -390,15 +390,15 @@ class CCCommandParameterUInt64 : public CCCommandParameter, public MemPool<CCCom
 public:
 	uint64	m_Value;
 public:
-	CCCommandParameterUInt64(void);
+	CCCommandParameterUInt64();
 	CCCommandParameterUInt64(uint64 Value);
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_Value; }
-	virtual const char* GetClassName(void){ return "UInt64"; }
+	virtual const char* GetClassName(){ return "UInt64"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%llu", m_Value); }
 	virtual int GetSize() { return sizeof(uint64); }
 };
@@ -411,17 +411,17 @@ public:
 	short	m_nY;
 	short	m_nZ;
 public:
-	CCCommandParameterShortVector(void);
+	CCCommandParameterShortVector();
 	CCCommandParameterShortVector(short x ,short y, short z);
 	CCCommandParameterShortVector(float x ,float y, float z);	///< 내부에서 short로 변환해준다.
-	virtual ~CCCommandParameterShortVector(void);
+	virtual ~CCCommandParameterShortVector();
 
-	virtual CCCommandParameter* Clone(void);
+	virtual CCCommandParameter* Clone();
 	virtual void GetValue(void* p);
 	virtual int GetData(char* pData, int nSize);
 	virtual int SetData(char* pData);
 	virtual void *GetPointer() { return &m_nX; }
-	virtual const char* GetClassName(void){ return "ShortVector"; }
+	virtual const char* GetClassName(){ return "ShortVector"; }
 	virtual void GetString(char* szValue){ sprintf(szValue, "%d,%d,%d", m_nX, m_nY, m_nZ); }
 	virtual int GetSize() { return (sizeof(short)*3); }
 };
@@ -431,8 +431,8 @@ public:
 class CCCommandParamCondition
 {
 public:
-	CCCommandParamCondition(void) {}
-	virtual ~CCCommandParamCondition(void) {}
+	CCCommandParamCondition() {}
+	virtual ~CCCommandParamCondition() {}
 	virtual bool Check(CCCommandParameter* pCP) = 0;
 };
 
@@ -443,7 +443,7 @@ private:
 	int m_nMax;
 public:
 	CCCommandParamConditionMinMax(int nMin, int nMax) : m_nMin(nMin), m_nMax(nMax) {}
-	virtual ~CCCommandParamConditionMinMax(void) {}
+	virtual ~CCCommandParamConditionMinMax() {}
 	virtual bool Check(CCCommandParameter* pCP);
 };
 

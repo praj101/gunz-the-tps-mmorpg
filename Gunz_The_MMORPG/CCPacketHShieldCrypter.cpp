@@ -4,11 +4,11 @@
 HSCRYPT_KEYINFO CCPacketHShieldCrypter::m_HsKeyInfo;
 unsigned char CCPacketHShieldCrypter::m_OutputBuf[MAX_PACKET_SIZE];
 
-CCPacketHShieldCrypter::CCPacketHShieldCrypter(void)
+CCPacketHShieldCrypter::CCPacketHShieldCrypter()
 {
 }
 
-CCPacketHShieldCrypter::~CCPacketHShieldCrypter(void)
+CCPacketHShieldCrypter::~CCPacketHShieldCrypter()
 {
 }
 

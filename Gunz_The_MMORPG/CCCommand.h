@@ -46,7 +46,7 @@ public:
 	/// @param szDescription	커맨드 설명
 	/// @param nFlag			커맨드 플래그, MCDT_NOTINITIALIZED
 	CCCommandDesc(int nID, const char* szName, const char* szDescription, int nFlag);
-	virtual ~CCCommandDesc(void);
+	virtual ~CCCommandDesc();
 
 	/// CCCommandParameterDesc 추가
 	void AddParamDesc(CCCommandParameterDesc* pParamDesc);
@@ -54,18 +54,18 @@ public:
 	/// 플래그 검사
 	bool IsFlag(int nFlag) const;
 	/// 아이디 얻기
-	int GetID(void) const { return m_nID; }
+	int GetID() const { return m_nID; }
 	/// 이름 얻기
-	const char* GetName(void) const { return m_szName; }
+	const char* GetName() const { return m_szName; }
 	/// 설명 얻기
-	const char* GetDescription(void) const { return m_szDescription; }
+	const char* GetDescription() const { return m_szDescription; }
 	/// Parameter Description 얻기
 	CCCommandParameterDesc* GetParameterDesc(int i) const {
 		if(i<0 || i>=(int)m_ParamDescs.size()) return NULL;
 		return m_ParamDescs[i];
 	}
 	/// Parameter Description 갯수 얻기
-	int GetParameterDescCount(void) const {
+	int GetParameterDescCount() const {
 		return (int)m_ParamDescs.size();
 	}
 	CCCommandParameterType GetParameterType(int i) const
@@ -92,29 +92,29 @@ public:
 
 protected:
 	/// 초기화
-	void Reset(void);
+	void Reset();
 	/// 파라미터 초기화
-	void ClearParam(void);
+	void ClearParam();
 
 public:
-	CCCommand(void);
+	CCCommand();
 	CCCommand(const CCCommandDesc* pCommandDesc, CCUID Receiver, CCUID Sender);
 	CCCommand::CCCommand(int nID, CCUID Sender, CCUID Receiver, CCCommandManager* pCommandManager);
-	virtual ~CCCommand(void);
+	virtual ~CCCommand();
 
 	/// CCCommandDesc으로 ID 지정
 	void SetID(const CCCommandDesc* pCommandDesc);
 	/// ID 지정
 	void CCCommand::SetID(int nID, CCCommandManager* pCommandManager);
 	/// ID 얻기
-	int GetID(void) const { return m_pCommandDesc->GetID(); }
+	int GetID() const { return m_pCommandDesc->GetID(); }
 	/// 설명 얻기
-	const char* GetDescription(void){ return m_pCommandDesc->GetDescription(); }
+	const char* GetDescription(){ return m_pCommandDesc->GetDescription(); }
 
 	/// 파라미터 추가
 	bool AddParameter(CCCommandParameter* pParam);
 	/// 파라미터 갯수 얻기
-	int GetParameterCount(void) const;
+	int GetParameterCount() const;
 	/// 파라미터 얻기
 	CCCommandParameter* GetParameter(int i) const;
 
@@ -125,17 +125,17 @@ public:
 	/// @param t		[in] 파라미터 타입, 정확한 타입을 명시해줘야 한다.
 	bool GetParameter(void* pValue, int i, CCCommandParameterType t, int nBufferSize=-1) const;
 
-	CCUID GetSenderUID(void){ return m_Sender; }
+	CCUID GetSenderUID(){ return m_Sender; }
 	void SetSenderUID(const CCUID &uid) { m_Sender = uid; }
-	CCUID GetReceiverUID(void){ return m_Receiver; }
+	CCUID GetReceiverUID(){ return m_Receiver; }
 
-	bool IsLocalCommand(void){ return (m_Sender==m_Receiver); }
+	bool IsLocalCommand(){ return (m_Sender==m_Receiver); }
 
 	/// 같은 내용을 가진 커맨드 복제
-	CCCommand* Clone(void) const;
+	CCCommand* Clone() const;
 
 	/// Description에 맞게끔 설정되었는가?
-	bool CheckRule(void);	
+	bool CheckRule();	
 
 	/// 커맨드 메모리 블럭 데이터로 얻어내기
 	/// @param pData	[out] 커맨드 데이터 블럭

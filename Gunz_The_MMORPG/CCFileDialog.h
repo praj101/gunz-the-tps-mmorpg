@@ -34,14 +34,14 @@ protected:
 
 public:
 	CCFileDialog(const char* szFilter, CCWidget* pParent, CCListener* pListener=NULL);
-	~CCFileDialog(void);
+	~CCFileDialog();
 
-	const char* GetFileName(void);
-	const char* GetPathName(void);
+	const char* GetFileName();
+	const char* GetPathName();
 	void Refresh(const char* szFilter=NULL);
 
-	const char* GetBaseDir(void);
+	const char* GetBaseDir();
 
 	void SetType(CCFileDialogType fdt);
-	virtual const char* GetClassName(void){ return CCFILEDIALOG; }
+	virtual const char* GetClassName(){ return CCFILEDIALOG; }
 };

@@ -2,11 +2,11 @@
 #include ".\zlocatorlist.h"
 #include "CCZFileSystem.h"
 
-ZLocatorList::ZLocatorList(void)
+ZLocatorList::ZLocatorList()
 {
 }
 
-ZLocatorList::~ZLocatorList(void)
+ZLocatorList::~ZLocatorList()
 {
 }
 

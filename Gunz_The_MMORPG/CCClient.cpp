@@ -60,7 +60,7 @@ CCClient::~CCClient()
 	DeleteCriticalSection(&m_csRecvLock);
 }
 
-CCClient* CCClient::GetInstance(void)
+CCClient* CCClient::GetInstance()
 {
 	return m_pInstance;
 }

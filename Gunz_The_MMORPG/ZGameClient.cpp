@@ -1517,7 +1517,7 @@ public:
 		m_uid = uid; strcpy(m_szName, szName); 
 	}
 	virtual ~MCharListItem()			{}
-	virtual const char* GetString(void)	{ return m_szName; }
+	virtual const char* GetString()	{ return m_szName; }
 	CCUID GetUID()						{ return m_uid; }
 	char* GetName()						{ return m_szName; }
 
@@ -1534,7 +1534,7 @@ int ZGameClient::FindListItem(MListBox* pListBox, const CCUID& uid)
 	return -1;
 }
 
-unsigned long int ZGameClient::GetGlobalClockCount(void)
+unsigned long int ZGameClient::GetGlobalClockCount()
 {
 	unsigned long int nLocalClock = GetClockCount();
 	if (m_bIsBigGlobalClock) return (nLocalClock + m_nClockDistance);
@@ -1559,7 +1559,7 @@ void ZGameClient::StartBridgePeer()
 	UpdateBridgePeerTime(0);
 }
 
-void ZGameClient::Tick(void)
+void ZGameClient::Tick()
 {
     m_MatchStageSetting.AntiHack_CheckCrc();
 

@@ -53,8 +53,8 @@ public:		// public functions
 	ZEmblemInterface( void);									// Constructor
 	~ZEmblemInterface( void);									// Destructor
 
-	void Create(void);
-	void Destroy(void);
+	void Create();
+	void Destroy();
 
 	bool AddClanInfo( UINT nClanID);							// Add clan infomation
 	bool DeleteClanInfo( UINT nClanID);							// Delete clan infomation

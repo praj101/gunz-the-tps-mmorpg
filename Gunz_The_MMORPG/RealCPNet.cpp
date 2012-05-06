@@ -180,7 +180,7 @@ void CCRealCPNet::Destroy()
 
 // Create a socket with all the socket options we need, namely disable buffering
 // and set linger.
-SOCKET CCRealCPNet::CreateSocket(void)
+SOCKET CCRealCPNet::CreateSocket()
 {
 	int         nRet;
 	int         nZero = 0;

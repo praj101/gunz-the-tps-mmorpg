@@ -32,7 +32,7 @@ ZInput::ZInput(ZDirectInput* pDI) : m_pDirectInput(pDI), m_pEventListener(NULL),
 	m_fRotationDeltaY = 0;
 }
 
-ZInput::~ZInput(void)
+ZInput::~ZInput()
 {
 }
 

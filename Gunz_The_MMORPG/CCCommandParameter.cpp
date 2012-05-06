@@ -72,7 +72,7 @@ void CCCommandParameterDesc::InitializeConditions()
 	m_Conditions.clear();
 }
 
-CCCommandParameterDesc::~CCCommandParameterDesc(void)
+CCCommandParameterDesc::~CCCommandParameterDesc()
 {
 	InitializeConditions();
 }
@@ -83,7 +83,7 @@ void CCCommandParameterDesc::AddCondition(CCCommandParamCondition* pCondition)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-CCCommandParameterInt::CCCommandParameterInt(void)
+CCCommandParameterInt::CCCommandParameterInt()
  : CCCommandParameter(MPT_INT)
 {
 	m_Value = 0;
@@ -93,7 +93,7 @@ CCCommandParameterInt::CCCommandParameterInt(int Value)
 {
 	m_Value = Value;
 }
-CCCommandParameter* CCCommandParameterInt::Clone(void)
+CCCommandParameter* CCCommandParameterInt::Clone()
 {
 	return (new CCCommandParameterInt(m_Value));
 }
@@ -115,7 +115,7 @@ int CCCommandParameterInt::SetData(char* pData)
 	return nValueSize;
 }
 
-CCCommandParameterUInt::CCCommandParameterUInt(void)
+CCCommandParameterUInt::CCCommandParameterUInt()
 : CCCommandParameter(MPT_UINT)
 {
 	m_Value = 0;
@@ -125,7 +125,7 @@ CCCommandParameterUInt::CCCommandParameterUInt(unsigned int Value)
 {
 	m_Value = Value;
 }
-CCCommandParameter* CCCommandParameterUInt::Clone(void)
+CCCommandParameter* CCCommandParameterUInt::Clone()
 {
 	return (new CCCommandParameterUInt(m_Value));
 }
@@ -148,7 +148,7 @@ int CCCommandParameterUInt::SetData(char* pData)
 }
 
 
-CCCommandParameterFloat::CCCommandParameterFloat(void)
+CCCommandParameterFloat::CCCommandParameterFloat()
  : CCCommandParameter(MPT_FLOAT)
 {
 	m_Value = 0;
@@ -158,7 +158,7 @@ CCCommandParameterFloat::CCCommandParameterFloat(float Value)
 {
 	m_Value = Value;
 }
-CCCommandParameter* CCCommandParameterFloat::Clone(void)
+CCCommandParameter* CCCommandParameterFloat::Clone()
 {
 	return (new CCCommandParameterFloat(m_Value));
 }
@@ -181,7 +181,7 @@ int CCCommandParameterFloat::SetData(char* pData)
 }
 
 
-CCCommandParameterString::CCCommandParameterString(void)
+CCCommandParameterString::CCCommandParameterString()
  : CCCommandParameter(MPT_STR)
 {
 	m_Value = 0;
@@ -200,14 +200,14 @@ CCCommandParameterString::CCCommandParameterString(const char* Value)
 	m_Value = new char[strlen(Value)+2];
 	strcpy(m_Value, Value);
 }
-CCCommandParameterString::~CCCommandParameterString(void)
+CCCommandParameterString::~CCCommandParameterString()
 {
 	if(m_Value!=NULL){
 		delete m_Value;
 		m_Value=NULL;
 	}
 }
-CCCommandParameter* CCCommandParameterString::Clone(void)
+CCCommandParameter* CCCommandParameterString::Clone()
 {
 	return (new CCCommandParameterString(m_Value));
 }
@@ -255,7 +255,7 @@ int CCCommandParameterString::GetSize()
 	return ((int)strlen(m_Value)+2 + sizeof(unsigned short));
 }
 
-CCCommandParameterVector::CCCommandParameterVector(void)
+CCCommandParameterVector::CCCommandParameterVector()
  : CCCommandParameter(MPT_VECTOR)
 {
 	m_fX = m_fY = m_fZ = 0;
@@ -267,10 +267,10 @@ CCCommandParameterVector::CCCommandParameterVector(float x ,float y, float z)
 	m_fY = y;
 	m_fZ = z;
 }
-CCCommandParameterVector::~CCCommandParameterVector(void)
+CCCommandParameterVector::~CCCommandParameterVector()
 {
 }
-CCCommandParameter* CCCommandParameterVector::Clone(void)
+CCCommandParameter* CCCommandParameterVector::Clone()
 {
 	return (new CCCommandParameterVector(m_fX, m_fY, m_fZ));
 }
@@ -299,7 +299,7 @@ int CCCommandParameterVector::SetData(char* pData)
 	return nValueSize;
 }
 
-CCCommandParameter* CCCommandParameterBool::Clone(void)
+CCCommandParameter* CCCommandParameterBool::Clone()
 {
 	return (new CCCommandParameterBool(m_Value));
 }
@@ -320,12 +320,12 @@ int CCCommandParameterBool::SetData(char* pData)
 	memcpy(&m_Value, pData, nValueSize);
 	return nValueSize;
 }
-void *CCCommandParameterBool::GetPointer(void)
+void *CCCommandParameterBool::GetPointer()
 {
 	return &m_Value;
 }
 
-CCCommandParameterUID::CCCommandParameterUID(void)
+CCCommandParameterUID::CCCommandParameterUID()
  : CCCommandParameter(MPT_UID)
 {
 }
@@ -334,10 +334,10 @@ CCCommandParameterUID::CCCommandParameterUID(const CCUID& uid)
 {
 	m_Value = uid;
 }
-CCCommandParameterUID::~CCCommandParameterUID(void)
+CCCommandParameterUID::~CCCommandParameterUID()
 {
 }
-CCCommandParameterUID* CCCommandParameterUID::Clone(void)
+CCCommandParameterUID* CCCommandParameterUID::Clone()
 {
 	return (new CCCommandParameterUID(m_Value));
 }
@@ -359,7 +359,7 @@ int CCCommandParameterUID::SetData(char* pData)
 	return nValueSize;
 }
 
-CCCommandParameterBlob::CCCommandParameterBlob(void)
+CCCommandParameterBlob::CCCommandParameterBlob()
 : CCCommandParameter(MPT_BLOB)
 {
 	m_Value = 0;
@@ -379,7 +379,7 @@ CCCommandParameterBlob::CCCommandParameterBlob(const void* Value, int nSize)
 	memcpy(m_Value, Value, nSize);
 	m_nSize = nSize;
 }
-CCCommandParameterBlob::~CCCommandParameterBlob(void)
+CCCommandParameterBlob::~CCCommandParameterBlob()
 {
 	if(m_Value!=NULL){
 		delete[] m_Value;
@@ -387,7 +387,7 @@ CCCommandParameterBlob::~CCCommandParameterBlob(void)
 	}
 }
 
-CCCommandParameterBlob* CCCommandParameterBlob::Clone(void)
+CCCommandParameterBlob* CCCommandParameterBlob::Clone()
 {
 	return new CCCommandParameterBlob(m_Value, m_nSize);
 }
@@ -423,7 +423,7 @@ int CCCommandParameterBlob::GetSize()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-CCCommandParameterChar::CCCommandParameterChar(void)
+CCCommandParameterChar::CCCommandParameterChar()
  : CCCommandParameter(MPT_CHAR)
 {
 	m_Value = 0;
@@ -434,7 +434,7 @@ CCCommandParameterChar::CCCommandParameterChar(char Value)
 	m_Value = Value;
 }
 
-CCCommandParameter* CCCommandParameterChar::Clone(void)
+CCCommandParameter* CCCommandParameterChar::Clone()
 {
 	return (new CCCommandParameterChar(m_Value));
 }
@@ -458,7 +458,7 @@ int CCCommandParameterChar::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-CCCommandParameterUChar::CCCommandParameterUChar(void)
+CCCommandParameterUChar::CCCommandParameterUChar()
  : CCCommandParameter(MPT_UCHAR)
 {
 	m_Value = 0;
@@ -469,7 +469,7 @@ CCCommandParameterUChar::CCCommandParameterUChar(unsigned char Value)
 	m_Value = Value;
 }
 
-CCCommandParameter* CCCommandParameterUChar::Clone(void)
+CCCommandParameter* CCCommandParameterUChar::Clone()
 {
 	return (new CCCommandParameterUChar(m_Value));
 }
@@ -493,7 +493,7 @@ int CCCommandParameterUChar::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-CCCommandParameterShort::CCCommandParameterShort(void)
+CCCommandParameterShort::CCCommandParameterShort()
  : CCCommandParameter(MPT_SHORT)
 {
 	m_Value = 0;
@@ -504,7 +504,7 @@ CCCommandParameterShort::CCCommandParameterShort(short Value)
 	m_Value = Value;
 }
 
-CCCommandParameter* CCCommandParameterShort::Clone(void)
+CCCommandParameter* CCCommandParameterShort::Clone()
 {
 	return (new CCCommandParameterShort(m_Value));
 }
@@ -528,7 +528,7 @@ int CCCommandParameterShort::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-CCCommandParameterUShort::CCCommandParameterUShort(void)
+CCCommandParameterUShort::CCCommandParameterUShort()
  : CCCommandParameter(MPT_USHORT)
 {
 	m_Value = 0;
@@ -539,7 +539,7 @@ CCCommandParameterUShort::CCCommandParameterUShort(unsigned short Value)
 	m_Value = Value;
 }
 
-CCCommandParameter* CCCommandParameterUShort::Clone(void)
+CCCommandParameter* CCCommandParameterUShort::Clone()
 {
 	return (new CCCommandParameterUShort(m_Value));
 }
@@ -563,7 +563,7 @@ int CCCommandParameterUShort::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-CCCommandParameterInt64::CCCommandParameterInt64(void)
+CCCommandParameterInt64::CCCommandParameterInt64()
  : CCCommandParameter(MPT_INT64)
 {
 	m_Value = 0;
@@ -574,7 +574,7 @@ CCCommandParameterInt64::CCCommandParameterInt64(int64 Value)
 	m_Value = Value;
 }
 
-CCCommandParameter* CCCommandParameterInt64::Clone(void)
+CCCommandParameter* CCCommandParameterInt64::Clone()
 {
 	return (new CCCommandParameterInt64(m_Value));
 }
@@ -598,7 +598,7 @@ int CCCommandParameterInt64::SetData(char* pData)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-CCCommandParameterUInt64::CCCommandParameterUInt64(void)
+CCCommandParameterUInt64::CCCommandParameterUInt64()
  : CCCommandParameter(MPT_UINT64)
 {
 	m_Value = 0;
@@ -609,7 +609,7 @@ CCCommandParameterUInt64::CCCommandParameterUInt64(uint64 Value)
 	m_Value = Value;
 }
 
-CCCommandParameter* CCCommandParameterUInt64::Clone(void)
+CCCommandParameter* CCCommandParameterUInt64::Clone()
 {
 	return (new CCCommandParameterUInt64(m_Value));
 }
@@ -635,7 +635,7 @@ int CCCommandParameterUInt64::SetData(char* pData)
 
 
 /////////////////////////////////////////////////////////////////////////////////
-CCCommandParameterShortVector::CCCommandParameterShortVector(void)
+CCCommandParameterShortVector::CCCommandParameterShortVector()
  : CCCommandParameter(MPT_SVECTOR)
 {
 	m_nX = m_nY = m_nZ = 0;
@@ -656,10 +656,10 @@ CCCommandParameterShortVector::CCCommandParameterShortVector(float x ,float y, f
 	m_nZ = (short)floorf(z + 0.5f);
 }
 
-CCCommandParameterShortVector::~CCCommandParameterShortVector(void)
+CCCommandParameterShortVector::~CCCommandParameterShortVector()
 {
 }
-CCCommandParameter* CCCommandParameterShortVector::Clone(void)
+CCCommandParameter* CCCommandParameterShortVector::Clone()
 {
 	return (new CCCommandParameterShortVector(m_nX, m_nY, m_nZ));
 }

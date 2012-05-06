@@ -43,8 +43,8 @@ public:
 	void SetScene(int nSceneNumber);
 
 	void LoadMesh( void);
-	void Free(void);
-	void Draw(void);
+	void Free();
+	void Draw();
 
 	void OnUpdate(float fElapsed);
 	void OnInvalidate();

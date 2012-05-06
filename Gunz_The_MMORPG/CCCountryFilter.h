@@ -118,8 +118,8 @@ private :
 class CCCountryFilter
 {
 public: // Common
-	CCCountryFilter(void);
-	virtual ~CCCountryFilter(void);
+	CCCountryFilter();
+	virtual ~CCCountryFilter();
 
 	bool Create( BlockCountryCodeList& rfBlockCountryCodeList, 
 				 IPtoCountryList& rfIPtoCountryList,

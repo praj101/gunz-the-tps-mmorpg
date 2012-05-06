@@ -5,11 +5,11 @@ ZModule_Resistance::ZModule_Resistance()
 {
 }
 
-ZModule_Resistance::~ZModule_Resistance(void)
+ZModule_Resistance::~ZModule_Resistance()
 {
 }
 
-void ZModule_Resistance::OnAdd(void)
+void ZModule_Resistance::OnAdd()
 {
 	_ASSERT(MIsDerivedFromClass(ZObject,m_pContainer));
 }

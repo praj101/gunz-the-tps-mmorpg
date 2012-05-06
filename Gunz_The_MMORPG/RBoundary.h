@@ -62,6 +62,6 @@ public:
 	virtual void setBottomCentre( const rvector& in_ ){};
 
 public:
-	RBoundary(void);
-	~RBoundary(void);
+	RBoundary();
+	~RBoundary();
 };

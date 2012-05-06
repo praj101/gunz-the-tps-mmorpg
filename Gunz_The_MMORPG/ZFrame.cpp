@@ -81,7 +81,7 @@ ZFrame::ZFrame(const char* szName, CCWidget* pParent, CCListener* pListener)
 	SetOpacity(0);
 }
 
-ZFrame::~ZFrame(void)
+ZFrame::~ZFrame()
 {
 }
 

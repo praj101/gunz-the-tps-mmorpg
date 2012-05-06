@@ -189,7 +189,7 @@ protected:
 	virtual void OnAgentConnected(const CCUID& uidAgentServer, const CCUID& uidAlloc);
 	virtual void OnAgentError(int nError);
 
-	void OutputLocalInfo(void);
+	void OutputLocalInfo();
 
 	virtual void SendCommand(CCCommand* pCommand);
 	bool SendCommandToAgent(CCCommand* pCommand);

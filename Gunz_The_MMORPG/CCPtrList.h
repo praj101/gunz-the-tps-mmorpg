@@ -62,7 +62,7 @@ public:
 	_T*			m_lpContent;
 
 	// 멤버 초기화
-	CCPtrRecord(void){
+	CCPtrRecord(){
 		m_lpNext		=NULL;
 		m_lpPrevious	=NULL;
 		m_lpContent		=NULL;
@@ -72,7 +72,7 @@ public:
 		m_lpPrevious=pprevious;
 	}
 	// 이전 노드 얻기
-	CCPtrRecord<_T>* GetPreviousPointer(void){
+	CCPtrRecord<_T>* GetPreviousPointer(){
 		return m_lpPrevious;
 	}
 	// 다음 노드 세팅
@@ -80,16 +80,16 @@ public:
 		m_lpNext=pnext;
 	}
 	// 다음 노드 얻기
-	CCPtrRecord<_T>* GetNextPointer(void){
+	CCPtrRecord<_T>* GetNextPointer(){
 		return m_lpNext;
 	}
 	// 내용 얻기
-	_T *Get(void){
+	_T *Get(){
 		return m_lpContent;
 	}
 	/*
 	레퍼런스는 모호함을 유발함으로, 사용하지 않는다.
-	_T &Get(void){
+	_T &Get(){
 		return *m_lpContent;
 	}
 	*/
@@ -108,12 +108,12 @@ private:
 	//MString					m_lpszErrorString;	// 에러 스트링
 public:
 	// 변수 초기화
-	CCPtrList(void);
+	CCPtrList();
 	// 리스트 해제(알아서 레코드를 모두 삭제한다)
-	virtual ~CCPtrList(void);
+	virtual ~CCPtrList();
 
 	// 에러 메세지 얻기
-	//MString GetErrorMessage(void){return m_lpszErrorString;}
+	//MString GetErrorMessage(){return m_lpszErrorString;}
 
 	// 현재 위치 이전에 레코드 삽입(new로 생성된 객체가 그대로 박힌다.)
 	bool InsertBefore(_T *lpRecord);
@@ -127,40 +127,40 @@ public:
 	bool AddSorted(_T *lpRecord);
 	
 	// 현재 위치의 레코드를 삭제
-	void Delete(void);
+	void Delete();
 	// 지정된 위치의 레코드를 삭제
 	void Delete(int iindex);
 	// 모든 레코드 삭제
-	void DeleteAll(void);
+	void DeleteAll();
 
 	// Added by Kim young ho
 	// 현재 위치의 레코드를 삭제, but Record의 content는 삭제하지 않음 
-	void DeleteRecord(void);
+	void DeleteRecord();
 	// 지정된 위치의 레코드를 삭제, but Record의 content는 삭제하지 않음 
 	void DeleteRecord(int iindex);
 	// 모든 레코드 삭제, but Record의 content는 삭제하지 않음 
-	void DeleteRecordAll(void);
+	void DeleteRecordAll();
 
 	// 레코드의 개수 얻어내기
-	int GetCount(void){return m_nListCount;}
+	int GetCount(){return m_nListCount;}
 	// 레코드의 현재 위치 얻어내기
-	int GetIndex(void){return m_nCurrentPosition;}
+	int GetIndex(){return m_nCurrentPosition;}
 
 	////////////////////////////////////////////
 	// 리스트내의 포인터를 이용한 이동및 값 얻기
 	// 이전 레코드로
-	bool PreviousRecord(void);
+	bool PreviousRecord();
 	// 다음 레코드로
-	bool NextRecord(void);
+	bool NextRecord();
 	// 지정된 위치로
 	void MoveRecord(int iindex);
 	// 맨 처음으로
-	void MoveFirst(void);
+	void MoveFirst();
 	// 맨 마지막으로
-	void MoveLast(void);
+	void MoveLast();
 
 	// 현재 레코드의 내용을 얻어낸다.
-	_T *Get(void);
+	_T *Get();
 
 	// 지정된 인덱스의 값을 얻어낸다.
 	_T *Get(int iindex);
@@ -176,7 +176,7 @@ public:
 	virtual int Compare(_T *lpRecord1,_T *lpRecord2){return -10;/*false*/}
 
 	// Quick Sort를 실행한다.
-	void Sort(void);
+	void Sort();
 private:
 	// Quick Sort의 서브 함수
 	void QuickSort(int first,int last);
@@ -184,7 +184,7 @@ private:
 
 // 변수 초기화
 template<class _T>
-CCPtrList<_T>::CCPtrList(void)
+CCPtrList<_T>::CCPtrList()
 {
 	m_lpFirstRecord=NULL;
 	m_lpLastRecord=NULL;
@@ -195,7 +195,7 @@ CCPtrList<_T>::CCPtrList(void)
 
 // 리스트 해제(알아서 레코드를 모두 삭제한다)
 template<class _T>
-CCPtrList<_T>::~CCPtrList(void)
+CCPtrList<_T>::~CCPtrList()
 {
 	DeleteAll();
 
@@ -427,7 +427,7 @@ bool CCPtrList<_T>::AddSorted(_T *lpRecord)
 
 // 현재 위치의 레코드를 삭제
 template<class _T>
-void CCPtrList<_T>::Delete(void)
+void CCPtrList<_T>::Delete()
 {
 	// 현재 레코드의 포인터는 NULL일수 없다.
 	_ASSERT(m_lpCurrentRecord!=NULL);
@@ -491,7 +491,7 @@ void CCPtrList<_T>::Delete(int iindex)
 
 // 모든 레코드 삭제
 template<class _T>
-void CCPtrList<_T>::DeleteAll(void)
+void CCPtrList<_T>::DeleteAll()
 {
 	while(m_nListCount!=0)
 		Delete();
@@ -500,7 +500,7 @@ void CCPtrList<_T>::DeleteAll(void)
 
 // 현재 위치의 레코드를 삭제, but Record의 content는 삭제하지 않음  
 template<class _T>
-void CCPtrList<_T>::DeleteRecord(void)
+void CCPtrList<_T>::DeleteRecord()
 {
 	// 현재 레코드의 포인터는 NULL일수 없다.
 	_ASSERT(m_lpCurrentRecord!=NULL);
@@ -561,7 +561,7 @@ void CCPtrList<_T>::DeleteRecord(int iindex)
 
 // 모든 레코드 삭제, but Record의 content는 삭제하지 않음 
 template<class _T>
-void CCPtrList<_T>::DeleteRecordAll(void)
+void CCPtrList<_T>::DeleteRecordAll()
 {
 	while(m_nListCount!=0)
 		DeleteRecord();
@@ -571,7 +571,7 @@ void CCPtrList<_T>::DeleteRecordAll(void)
 
 // 이전 레코드로
 template<class _T>
-bool CCPtrList<_T>::PreviousRecord(void)
+bool CCPtrList<_T>::PreviousRecord()
 {
 	// 현재 레코드의 포인터는 NULL일수 없다.
 	// 즉, 아무것도 저장되어 있지 않은 상태
@@ -592,7 +592,7 @@ bool CCPtrList<_T>::PreviousRecord(void)
 
 // 다음 레코드로
 template<class _T>
-bool CCPtrList<_T>::NextRecord(void)
+bool CCPtrList<_T>::NextRecord()
 {
 	// 현재 레코드의 포인터는 NULL일수 없다.
 	// 즉, 아무것도 저장되어 있지 않은 상태
@@ -636,7 +636,7 @@ void CCPtrList<_T>::MoveRecord(int iindex)
 
 // 맨 처음으로
 template<class _T>
-void CCPtrList<_T>::MoveFirst(void)
+void CCPtrList<_T>::MoveFirst()
 {
 	m_nCurrentPosition=0;
 	m_lpCurrentRecord=m_lpFirstRecord;
@@ -644,7 +644,7 @@ void CCPtrList<_T>::MoveFirst(void)
 
 // 맨 마지막으로
 template<class _T>
-void CCPtrList<_T>::MoveLast(void)
+void CCPtrList<_T>::MoveLast()
 {
 	if(m_nListCount>0){
 		m_nCurrentPosition=m_nListCount-1;
@@ -654,7 +654,7 @@ void CCPtrList<_T>::MoveLast(void)
 
 // 현재 레코드의 내용을 얻어낸다.
 template<class _T>
-_T *CCPtrList<_T>::Get(void)
+_T *CCPtrList<_T>::Get()
 {
 	// 현재 레코드의 포인터는 NULL일수 없다.
 	// 즉, 아무것도 저장되어 있지 않은 상태
@@ -683,7 +683,7 @@ _T &CCPtrList<_T>::operator[](int iindex)
 
 // Quick Sort를 실행한다.
 template<class _T>
-void CCPtrList<_T>::Sort(void)
+void CCPtrList<_T>::Sort()
 {
 	if(GetCount()<=1)return;
 	QuickSort(0,GetCount()-1);

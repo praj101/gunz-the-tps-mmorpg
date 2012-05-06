@@ -262,11 +262,11 @@ const int IPRangeAlgorithm<T>::MakeEmptyBlock( const DWORD dwInsertIP, T& tVecto
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-CCCountryFilter::CCCountryFilter(void)
+CCCountryFilter::CCCountryFilter()
 {
 }
 
-CCCountryFilter::~CCCountryFilter(void)
+CCCountryFilter::~CCCountryFilter()
 {
 	ReleaseCountryCode();
 	ReleaseBlockCountryCode();

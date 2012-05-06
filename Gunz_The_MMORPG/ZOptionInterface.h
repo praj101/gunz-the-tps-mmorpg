@@ -16,13 +16,13 @@ class ZOptionInterface
 
 
 public:
-	ZOptionInterface(void);
-	virtual ~ZOptionInterface(void);
+	ZOptionInterface();
+	virtual ~ZOptionInterface();
 
-	void Update(void);
+	void Update();
 
-	void InitInterfaceOption(void);
-	bool SaveInterfaceOption(void);
+	void InitInterfaceOption();
+	bool SaveInterfaceOption();
 
 	void OptimizationVideoOption();
 

@@ -34,7 +34,7 @@ public:
 
 	// Sound Link
 
-	void  ClearSoundFile(void);
+	void  ClearSoundFile();
 	bool  SetSoundFileName(char* pSoundName);
 	char* GetSoundFileName();
 	bool  IsHaveSoundFile();

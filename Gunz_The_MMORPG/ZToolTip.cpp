@@ -29,7 +29,7 @@ ZToolTip::ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align)
 //	m_pTextArea->CCTextArea( ZTOOLTIP_MAX_W );
 }
 
-ZToolTip::~ZToolTip(void)
+ZToolTip::~ZToolTip()
 {
 
 }
@@ -153,7 +153,7 @@ int GetLineCount(char* str,int& max) {
 	return line;
 }
 
-void ZToolTip::SetBounds(void)
+void ZToolTip::SetBounds()
 {
 	CCFont* pFont = GetFont();
 

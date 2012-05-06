@@ -228,32 +228,32 @@ protected:
 
 	void LeaveBattle();
 
-	void OnGreeterCreate(void);
-	void OnGreeterDestroy(void);
+	void OnGreeterCreate();
+	void OnGreeterDestroy();
 
-	void OnLoginCreate(void);
-	void OnLoginDestroy(void);
+	void OnLoginCreate();
+	void OnLoginDestroy();
 
-	void OnDirectLoginCreate(void);
-	void OnDirectLoginDestroy(void);
+	void OnDirectLoginCreate();
+	void OnDirectLoginDestroy();
 
-	void OnNetmarbleLoginCreate(void);
-	void OnNetmarbleLoginDestroy(void);
+	void OnNetmarbleLoginCreate();
+	void OnNetmarbleLoginDestroy();
 
-	void OnGameOnLoginCreate(void);
-	void OnGameOnLoginDestroy(void);
+	void OnGameOnLoginCreate();
+	void OnGameOnLoginDestroy();
 
-	void OnLobbyCreate(void);
-	void OnLobbyDestroy(void);
+	void OnLobbyCreate();
+	void OnLobbyDestroy();
 
-	void OnStageCreate(void);
-	void OnStageDestroy(void);
+	void OnStageCreate();
+	void OnStageDestroy();
 
-	void OnCharSelectionCreate(void);
-	void OnCharSelectionDestroy(void);
+	void OnCharSelectionCreate();
+	void OnCharSelectionDestroy();
 
-	void OnCharCreationCreate(void);
-	void OnCharCreationDestroy(void);
+	void OnCharCreationCreate();
+	void OnCharCreationDestroy();
 
 	void OnShutdownState();
 
@@ -265,7 +265,7 @@ protected:
 	void OnBirdTestCommand(CCCommand* pCmd);
 #endif
 
-	void OnUpdateGameMessage(void);
+	void OnUpdateGameMessage();
 
 	void HideAllWidgets();
 
@@ -329,11 +329,11 @@ public:
 	bool IsCursorEnable() { return m_bCursor; }
 
 	bool SetState(GunzState nState);
-	GunzState GetState(void){ return m_nState; }
+	GunzState GetState(){ return m_nState; }
 	
-	void UpdateBlueRedTeam(void);		// 동환이가 추가
+	void UpdateBlueRedTeam();		// 동환이가 추가
 
-	void ChangeToCharSelection(void);	///< 캐릭터 선택으로 이동
+	void ChangeToCharSelection();	///< 캐릭터 선택으로 이동
 
 	bool ChangeInterfaceSkin(const char* szNewSkinName);
 
@@ -357,7 +357,7 @@ public:
 
 	void ReserveLeaveStage();	// 스테이지에서 나갈때 일정시간 흐른뒤 나간다
 	void ReserveLeaveBattle();	// 대기방으로 나갈떄 일정시간 흐른뒤 나간다
-	void FinishGame(void);
+	void FinishGame();
 	bool IsLeaveBattleReserved() { return m_bLeaveBattleReserved; }
 
 	void ReserveResetApp(bool b)	{ m_bReserveResetApp = b; }
@@ -377,12 +377,12 @@ public:
 	void SetTeenVersion(bool bt) { m_bTeenVersion = bt; }
 	bool GetTeenVersion() { return m_bTeenVersion; }
 
-	void OnCharSelect(void);
+	void OnCharSelect();
 
 
 	// GunzState에 따른 Create/Destroy 핸들러
-	bool OnGameCreate(void);
-	void OnGameDestroy(void);
+	bool OnGameCreate();
+	void OnGameDestroy();
 	void OnGameUpdate(float fElapsed);
 
 
@@ -489,10 +489,10 @@ public:
 	bool GetIsGameFinishLeaveBattle()			{ return m_bGameFinishLeaveBattle; }
 
 	// 바깥에서 얻을만한 인터페이스들 (__forceinline 는 dll-injection 핵 방해를 위한 것)
-	__forceinline ZGameClient* GetGameClient(void)			{ return m_spGameClient; }
-	__forceinline ZGame* GetGame(void)						{ return m_pGame; }
-	__forceinline ZCombatInterface* GetCombatInterface(void) { return m_pCombatInterface; }
-	__forceinline ZShopEquipInterface* GetShopEquipInterface(void) { return m_pShopEquipInterface; }
+	__forceinline ZGameClient* GetGameClient()			{ return m_spGameClient; }
+	__forceinline ZGame* GetGame()						{ return m_pGame; }
+	__forceinline ZCombatInterface* GetCombatInterface() { return m_pCombatInterface; }
+	__forceinline ZShopEquipInterface* GetShopEquipInterface() { return m_pShopEquipInterface; }
 	__forceinline ZCamera* GetCamera()						{ return &m_Camera; }
 	__forceinline ZCharacter*	GetMyCharacter()			{ return (ZCharacter*)m_pMyCharacter; }
 	__forceinline ZBaseQuest* GetQuest();					// 퀘스트/서바이벌 중 현재 모드에 맞는 걸 반환
@@ -507,7 +507,7 @@ public:
 	void SetGameClient(ZGameClient* pGameClient){ m_spGameClient = pGameClient; }
 	
 	ZCharacterSelectView* GetCharacterSelectView() { return m_pCharacterSelectView; }
-	ZIDLResource* GetIDLResource(void)			{ return &m_IDLResource; }
+	ZIDLResource* GetIDLResource()			{ return &m_IDLResource; }
 	ZPlayerMenu* GetPlayerMenu()				{ return m_pPlayerMenu; }
 	ZMiniMap*	GetMiniMap()					{ return m_pMiniMap; }
 	

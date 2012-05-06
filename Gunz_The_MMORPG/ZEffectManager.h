@@ -64,7 +64,7 @@ public:
 	ZEffectType		m_nType;
 public:
 	ZEffect();
-	virtual ~ZEffect(void);
+	virtual ~ZEffect();
 
 	virtual bool CheckRenderAble(int level,float dist);
 	virtual void CheckWaterSkip(int mode,float height);
@@ -75,7 +75,7 @@ public:
 
 	virtual bool IsDeleteTime() { return false; }
 
-	ZEffectDrawMode	GetDrawMode(void);
+	ZEffectDrawMode	GetDrawMode();
 
 	bool	isEffectType(ZEffectType type);
 	void    SetEffectType(ZEffectType type);
@@ -308,8 +308,8 @@ public:
 
 public:
 
-	ZEffectManager(void);
-	virtual ~ZEffectManager(void);
+	ZEffectManager();
+	virtual ~ZEffectManager();
 
 	bool Create();
 	void CheckWaterSkip(int mode,float height);

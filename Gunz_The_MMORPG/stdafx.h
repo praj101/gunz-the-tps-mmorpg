@@ -20,9 +20,9 @@
 #define _SECURE_SCL 0 
 
 #undef _ASSERT
-#define _ASSERT(expr) ((void)0)
+#define _ASSERT(expr) (()0)
 #undef ASSERT
-#define ASSERT(f)          ((void)0)
+#define ASSERT(f)          (()0)
 */
 
 // stl

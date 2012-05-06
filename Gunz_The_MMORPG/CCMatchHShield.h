@@ -26,6 +26,6 @@ struct CCMatchObjectHShieldInfo
 class CCMatchHShield
 {
 public:
-	CCMatchHShield(void);
-	virtual ~CCMatchHShield(void);
+	CCMatchHShield();
+	virtual ~CCMatchHShield();
 };

@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "CCMatchAccountPenaltyInfo.h"
 
-CCMatchAccountPenaltyInfo::CCMatchAccountPenaltyInfo(void)
+CCMatchAccountPenaltyInfo::CCMatchAccountPenaltyInfo()
 {
 	for(int i = 0; i < MPC_MAX; i++) {
 		ClearPenaltyInfo((CCPenaltyCode)i);
 	}	
 }
 
-CCMatchAccountPenaltyInfo::~CCMatchAccountPenaltyInfo(void)
+CCMatchAccountPenaltyInfo::~CCMatchAccountPenaltyInfo()
 {
 }
 

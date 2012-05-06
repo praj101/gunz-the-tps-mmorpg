@@ -94,7 +94,7 @@ public:
 	virtual bool IsDropable(CCWidget* pSender){
 		return true;
 	}
-	const char* GetCommandString(void){
+	const char* GetCommandString(){
 		return m_szCommandString;
 	}
 };
@@ -401,63 +401,63 @@ public:
 };
 MSelectCharacterComboBoxListener	g_SelectCharacterComboBoxListener;
 
-CCListener* ZGetChatInputListener(void)
+CCListener* ZGetChatInputListener()
 {
 	return &g_ChatInputListener;
 }
 
-CCListener* ZGetLoginListener(void)
+CCListener* ZGetLoginListener()
 {
 	return &g_LoginListener;
 }
 
-CCListener* ZGetLogoutListener(void)
+CCListener* ZGetLogoutListener()
 {
 	return &g_LogoutListener;
 }
 
-CCListener* ZGetExitListener(void)
+CCListener* ZGetExitListener()
 {
 	return &g_ExitListener;
 }
 
-CCListener* ZGetChannelChatInputListener(void)
+CCListener* ZGetChannelChatInputListener()
 {
 	return &g_ChannelChatInputListener;
 }
 
-CCListener* ZGetStageChatInputListener(void)
+CCListener* ZGetStageChatInputListener()
 {
 	return &g_StageChatInputListener;
 }
 
-CCListener* ZGetGameStartListener(void)
+CCListener* ZGetGameStartListener()
 {
 	return &g_GameStartListener;
 }
 
-CCListener* ZGetMapChangeListener(void)
+CCListener* ZGetMapChangeListener()
 {
 	return &g_MapChangeListener;
 }
 
-CCListener* ZGetMapSelectListener(void)
+CCListener* ZGetMapSelectListener()
 {
 	return &g_MapSelectListener;
 }
 
-CCListener* ZGetParentCloseListener(void)
+CCListener* ZGetParentCloseListener()
 {
 	return &g_ParentCloseListener;
 }
 
 
-CCListener* ZGetStageCreateFrameCallerListener(void)
+CCListener* ZGetStageCreateFrameCallerListener()
 {
 	return &g_StageCreateFrameCallerListener;
 }
 
-CCListener* ZGetSelectCharacterComboBoxListener(void)
+CCListener* ZGetSelectCharacterComboBoxListener()
 {
 	return &g_SelectCharacterComboBoxListener;
 }

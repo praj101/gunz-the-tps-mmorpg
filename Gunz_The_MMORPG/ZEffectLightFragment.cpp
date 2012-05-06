@@ -22,7 +22,7 @@ ZEffectLightFragment::ZEffectLightFragment(ZEffectBillboardSource* pEffectBillbo
 
 	m_nDrawMode = ZEDM_ADD;
 }
-ZEffectLightFragment::~ZEffectLightFragment(void)
+ZEffectLightFragment::~ZEffectLightFragment()
 {
 }
 
@@ -64,7 +64,7 @@ ZEffectLightFragment2::ZEffectLightFragment2(LPDIRECT3DTEXTURE9 pEffectBillboard
 
 	m_nDrawMode = ZEDM_ALPHAMAP;
 }
-ZEffectLightFragment2::~ZEffectLightFragment2(void)
+ZEffectLightFragment2::~ZEffectLightFragment2()
 {
 }
 

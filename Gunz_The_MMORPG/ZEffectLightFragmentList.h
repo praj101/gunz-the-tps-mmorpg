@@ -8,8 +8,8 @@
 class ZEffectLightFragmentList : public ZEffectBillboardList
 {
 public:
-	ZEffectLightFragmentList(void);
-	~ZEffectLightFragmentList(void);
+	ZEffectLightFragmentList();
+	~ZEffectLightFragmentList();
 
 	virtual void BeginState();
 	virtual void Update(float fElapsed);

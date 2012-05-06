@@ -8,7 +8,7 @@ using namespace RealSpace2;
 //	持失切
 //////////////////////////////////////////////////////////////////////////
 
-RCylinder::RCylinder(void)
+RCylinder::RCylinder()
 :mTopCentre(0,0,0),	mBottomCentre(0,0,0), mHeight(0), mRadius(0), mCylinder(0)
 {
 	D3DXMatrixIdentity(&mWorld);
@@ -19,7 +19,7 @@ RCylinder::RCylinder(void)
 //	社瑚切
 //////////////////////////////////////////////////////////////////////////
 
-RCylinder::~RCylinder(void)
+RCylinder::~RCylinder()
 {
 	SAFE_RELEASE( mCylinder );
 }

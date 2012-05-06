@@ -50,19 +50,19 @@ class ZInput;
 extern ZDirectInput	g_DInput;
 extern ZInput* g_pInput;
 
-bool					ZIsLaunchDevelop(void);
+bool					ZIsLaunchDevelop();
 
-RMeshMgr*				ZGetNpcMeshMgr(void);
-RMeshMgr*				ZGetMeshMgr(void);
-RMeshMgr*				ZGetWeaponMeshMgr(void);
-RAniEventMgr*			ZGetAniEventMgr(void);
+RMeshMgr*				ZGetNpcMeshMgr();
+RMeshMgr*				ZGetMeshMgr();
+RMeshMgr*				ZGetWeaponMeshMgr();
+RAniEventMgr*			ZGetAniEventMgr();
 
-ZSoundEngine*			ZGetSoundEngine(void);
+ZSoundEngine*			ZGetSoundEngine();
 
-ZEffectManager*			ZGetEffectManager(void);
-ZScreenEffectManager*	ZGetScreenEffectManager(void);
+ZEffectManager*			ZGetEffectManager();
+ZScreenEffectManager*	ZGetScreenEffectManager();
 
-int						ZGetSVNRevision(void);
+int						ZGetSVNRevision();
 
 
 // dll-injection으로 호출하는 핵 때문에 매크로 인라이닝
@@ -89,7 +89,7 @@ int						ZGetSVNRevision(void);
 #define ZGetWorld()				(ZGetWorldManager()->GetCurrent())
 
 inline ZEmblemInterface*	ZGetEmblemInterface() { return ZApplication::GetInstance()->GetEmblemInterface(); }
-inline ZOptionInterface*	ZGetOptionInterface(void) { return ZApplication::GetInstance()->GetOptionInterface(); }
+inline ZOptionInterface*	ZGetOptionInterface() { return ZApplication::GetInstance()->GetOptionInterface(); }
 
 
 #define ZIsActionKeyPressed(_ActionID)	(ZGetInput()->IsActionKeyPressed(_ActionID))

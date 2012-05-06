@@ -9,8 +9,8 @@ class ZWorldManager : public vector<ZWorld*>
 	set<ZWorld*>	m_Worlds;
 
 public:
-	ZWorldManager(void);
-	virtual ~ZWorldManager(void);
+	ZWorldManager();
+	virtual ~ZWorldManager();
 
 	void Destroy();
 

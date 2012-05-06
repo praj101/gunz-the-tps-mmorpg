@@ -22,21 +22,21 @@ public:
 	char	m_szName[MBITMAP_NAME_LENGTH];
 	DWORD	m_DrawMode;
 public:
-	CCBitmap(void);
-	virtual ~CCBitmap(void);
+	CCBitmap();
+	virtual ~CCBitmap();
 
 	void CreatePartial(CCBitmap *pBitmap,sRect rt,const char *szName);		// partial bitmap 으로 생성한다
 
 	virtual bool Create(const char* szName);
-	virtual void Destroy(void);
+	virtual void Destroy();
 
 	virtual void SetDrawMode(DWORD md) { m_DrawMode = md; }
 	virtual DWORD GetDrawMode() { return m_DrawMode; }
 
-	virtual int GetX(void) { return 0; }
-	virtual int GetY(void) { return 0; }
-	virtual int GetWidth(void) { return 0; };
-	virtual int GetHeight(void){ return 0; };
+	virtual int GetX() { return 0; }
+	virtual int GetY() { return 0; }
+	virtual int GetWidth() { return 0; };
+	virtual int GetHeight(){ return 0; };
 
 	virtual CCBitmap *GetSourceBitmap() { return this; }
 };
@@ -48,10 +48,10 @@ public:
 	CCPartialBitmap();
 	CCPartialBitmap(CCBitmap *pBitmap, sRect rt);
 
-	virtual int GetX(void) { return m_Rect.x; }
-	virtual int GetY(void) { return m_Rect.y; }
-	virtual int GetWidth(void) { return m_Rect.w; }
-	virtual int GetHeight(void) { return m_Rect.h; }
+	virtual int GetX() { return m_Rect.x; }
+	virtual int GetY() { return m_Rect.y; }
+	virtual int GetWidth() { return m_Rect.w; }
+	virtual int GetHeight() { return m_Rect.h; }
 
 	virtual CCBitmap *GetSourceBitmap() { return m_pSource; }
 };
@@ -70,24 +70,24 @@ protected:
 	int		m_nCurFrame;
 	int		m_nDelay;
 public:
-	CCAniBitmap(void);
-	virtual ~CCAniBitmap(void);
+	CCAniBitmap();
+	virtual ~CCAniBitmap();
 	bool Create(const char* szName);
-	void Destroy(void);
+	void Destroy();
 
 	void Add(CCBitmap* pBitmap);
 	CCBitmap* Get(int nFrame);
-	CCBitmap* Get(void);
+	CCBitmap* Get();
 
-	int GetFrameCount(void);
-	int GetCurFrame(void);
+	int GetFrameCount();
+	int GetCurFrame();
 
-	bool MoveNext(void);
-	bool MovePrevious(void);
-	void MoveFirst(void);
-	void MoveLast(void);
+	bool MoveNext();
+	bool MovePrevious();
+	void MoveFirst();
+	void MoveLast();
 	bool Move(int nFrame);
 
-	int GetDelay(void);
+	int GetDelay();
 	void SetDelay(int nDelay) { m_nDelay = nDelay; }
 };

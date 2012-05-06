@@ -14,15 +14,15 @@ protected:
 
 protected:
 	virtual void OnDraw(CCDrawContext* pDC);
-	virtual bool OnShow(void);
+	virtual bool OnShow();
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 public:
 	ZMapListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZMapListBox(void);
+	virtual ~ZMapListBox();
 
 	void Refresh(CCZFileSystem* pFS);
 
-	const char* GetSelItemString(void);
+	const char* GetSelItemString();
 
 	void SetSelIndex(int i);
 };

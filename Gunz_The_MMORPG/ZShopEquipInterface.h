@@ -34,13 +34,13 @@ public:
 	ZSimpleConfirmDlg* GetSimpleConfirmDlg() { return m_pSimpleConfirmDlg; }
 	ZSellCashItemConfirmDlg* GetSellCashItemConfirmDlg() { return m_pSellCashItemConfirmDlg; }
 
-	void OnSellButton(void);
+	void OnSellButton();
 
-	void OnBuyButton(void);
+	void OnBuyButton();
 
 	CCMatchCharItemParts RecommendEquipParts(CCMatchItemSlotType slot);
 
-	bool Equip(void);
+	bool Equip();
 	bool Equip(CCMatchCharItemParts parts, CCUID& uidItem);
 
 	void SetKindableItem( CCMatchItemSlotType nSlotType);

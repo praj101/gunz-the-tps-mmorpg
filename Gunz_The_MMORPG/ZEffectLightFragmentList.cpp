@@ -3,13 +3,13 @@
 #include "RealSpace2.h"
 #include "ZEffectLightFragmentList.h"
 
-ZEffectLightFragmentList::ZEffectLightFragmentList(void)
+ZEffectLightFragmentList::ZEffectLightFragmentList()
 {
 	m_fLifeTime = 1.f;
 	m_fVanishTime = .5f;
 }
 
-ZEffectLightFragmentList::~ZEffectLightFragmentList(void)
+ZEffectLightFragmentList::~ZEffectLightFragmentList()
 {
 }
 

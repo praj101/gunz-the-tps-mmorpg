@@ -149,7 +149,7 @@ void ZMatch::ProcessRespawn()
 
 }
 
-int ZMatch::GetRoundReadyCount(void)
+int ZMatch::GetRoundReadyCount()
 {
 	return ( READY_COUNT - (timeGetTime() - m_nStartTime) / 1000 );
 }

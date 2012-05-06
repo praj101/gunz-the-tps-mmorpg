@@ -22,7 +22,7 @@ RVisualMesh* RTVisualMesh::GetVMesh(bool b)
 	return m_pVisualMesh;
 }
 
-void ZMeshView::DrawTestScene(void)
+void ZMeshView::DrawTestScene()
 {
 	/*
 	sRect r = GetScreenRect();
@@ -287,7 +287,7 @@ ZMeshView::ZMeshView(const char* szName, CCWidget* pParent, CCListener* pListene
 	msMeshViewList.push_back(this);
 }
 
-ZMeshView::~ZMeshView(void)
+ZMeshView::~ZMeshView()
 {
 	for( list<ZMeshView*>::iterator iter = msMeshViewList.begin(); iter != msMeshViewList.end(); ++iter )
 	{

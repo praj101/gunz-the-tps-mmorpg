@@ -53,7 +53,7 @@ public:
 
 	int GetRemainedSpawnTime();
 	int GetRoundCount(); 
-	int GetRoundReadyCount(void);
+	int GetRoundReadyCount();
 	void GetTeamAliveCount(int* pnRedTeam, int* pnBlueTeam);
 	const char* GetTeamName(int nTeamID);
 	void SetRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg=0);

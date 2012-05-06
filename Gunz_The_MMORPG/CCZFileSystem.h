@@ -43,7 +43,7 @@ class CCZFileSystem{
 protected:
 	bool AddItem(CCZFILEDESC*);
 
-	void RemoveFileList(void);
+	void RemoveFileList();
 	// RefreshFileList Pure File List
 	void RefreshFileList(const char* szBasePath);
 	// Expand Z File List From File List
@@ -53,13 +53,13 @@ protected:
 	int GetUpdatePackageNumber(const char *szPackageFileName);
 
 public:
-	CCZFileSystem(void);
-	virtual ~CCZFileSystem(void);
+	CCZFileSystem();
+	virtual ~CCZFileSystem();
 
 	bool Create(const char* szBasePath,const char* szUpdateName=NULL);
-	void Destroy(void);
+	void Destroy();
 
-	int GetFileCount(void) const;
+	int GetFileCount() const;
 	const char* GetFileName(int i);
 	const CCZFILEDESC* GetFileDesc(int i);
 
@@ -124,13 +124,13 @@ public:
 
 	bool Seek(long off,int mode);
 
-	void Close(void);
+	void Close();
 
 	static void SetReadMode(unsigned long mode) {	m_dwReadMode = mode; }
-	static unsigned long GetReadMode(void)  { return m_dwReadMode; }
+	static unsigned long GetReadMode()  { return m_dwReadMode; }
 	static bool isMode(unsigned long mode ) { return (m_dwReadMode & mode) ? true : false ; }
 
-	unsigned long GetLength(void);
+	unsigned long GetLength();
 	bool Read(void* pBuffer, int nMaxSize);
 
 };

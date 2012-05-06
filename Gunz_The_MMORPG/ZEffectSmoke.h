@@ -19,7 +19,7 @@ protected:
 	rvector	m_Velocity;
 public:
 	ZEffectSmoke(ZEffectBillboardSource* pEffectBillboardSource, rvector& Pos, rvector& Velocity, float fMinScale, float fMaxScale, unsigned long int nLifeTime);
-	virtual ~ZEffectSmoke(void);
+	virtual ~ZEffectSmoke();
 
 	virtual bool Draw(unsigned long int nTime);
 };
@@ -36,7 +36,7 @@ protected:
 
 public:
 	ZEffectLandingSmoke(ZEffectBillboardSource* pEffectBillboardSource, rvector& Pos, rvector& Velocity, float fMinScale, float fMaxScale, unsigned long int nLifeTime);
-	virtual ~ZEffectLandingSmoke(void);
+	virtual ~ZEffectLandingSmoke();
 
 	virtual bool Draw(unsigned long int nTime);
 };

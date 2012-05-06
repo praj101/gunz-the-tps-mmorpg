@@ -17,4 +17,4 @@ enum RERROR
 };
 
 void RSetError(int nErrCode);
-int RGetLastError(void);
+int RGetLastError();

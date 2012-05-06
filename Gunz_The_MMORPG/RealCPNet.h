@@ -292,7 +292,7 @@ private:
 	DWORD CrashDump(PEXCEPTION_POINTERS ExceptionInfo);
 
 protected:
-	SOCKET CreateSocket(void);
+	SOCKET CreateSocket();
 	BOOL CreateListenSocket( const bool bReuse );
 	BOOL CreateAcceptSocket(BOOL fUpdateIOCP);
 

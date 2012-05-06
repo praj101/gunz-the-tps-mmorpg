@@ -13,8 +13,8 @@ protected:
 	bool InsertShortBuffInfo(MShortBuffInfo *pShortInfo);
 
 public:
-	ZMyBuffMgr(void);
-	~ZMyBuffMgr(void);
+	ZMyBuffMgr();
+	~ZMyBuffMgr();
 
 //버프정보임시주석 	void Set(CCTD_CharBuffInfo* pCharBuffInfo);
 	void Clear();		

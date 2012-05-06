@@ -419,14 +419,14 @@ bool RLenzFlare::IsReady()
 //////////////////////////////////////////////////////////////////////////
 //	持失切 / 社瑚切
 //////////////////////////////////////////////////////////////////////////
-RLenzFlare::RLenzFlare(void)
+RLenzFlare::RLenzFlare()
 {
 	//++msRef;
 //	Initialize();
 	miElementOrder=NULL;
 }
 
-RLenzFlare::~RLenzFlare(void)
+RLenzFlare::~RLenzFlare()
 {
 	//--msRef;
 	SAFE_DELETE_ARRAY( miElementOrder );

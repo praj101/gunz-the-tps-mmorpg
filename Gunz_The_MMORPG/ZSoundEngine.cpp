@@ -1082,7 +1082,7 @@ int ZSoundEngine::PlaySound( char* Name, bool bLoop, DWORD dwDelay )
 	return PlaySE( pFS, rvector(0,0,0), 200, true, bLoop );
 }
 
-void ZSoundEngine::Run(void)
+void ZSoundEngine::Run()
 {
 	DWORD currentTime = timeGetTime();
 	if( (currentTime - m_Time) < m_DelayTime ) return;

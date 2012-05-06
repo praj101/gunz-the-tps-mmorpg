@@ -221,7 +221,7 @@ bool ZEffect::Draw(unsigned long int nTime)
 	return true;
 }
 
-ZEffectDrawMode	ZEffect::GetDrawMode(void)
+ZEffectDrawMode	ZEffect::GetDrawMode()
 {
 	return m_nDrawMode;
 }
@@ -257,11 +257,11 @@ void ZEffect::SetDistOption(float l0,float l1,float l2)
 bool CreateCommonRectVertexBuffer();	
 void RealeaseCommonRectVertexBuffer();	// ZEffectBillboard.cpp
 
-ZEffectManager::ZEffectManager(void) : m_bEnableDraw(true)
+ZEffectManager::ZEffectManager() : m_bEnableDraw(true)
 {
 }
 
-bool ZEffectManager::Create(void)
+bool ZEffectManager::Create()
 {
 	char szFileName[256];
 
@@ -508,7 +508,7 @@ ZEffectWeaponEnchant* ZEffectManager::GetWeaponEnchant(ZC_ENCHANT type)
 
 //#define _DELETE(node)
 
-ZEffectManager::~ZEffectManager(void)
+ZEffectManager::~ZEffectManager()
 {
 	Clear();
 

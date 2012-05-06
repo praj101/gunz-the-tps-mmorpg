@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "RBoundary.h"
 
-RBoundary::RBoundary(void)
+RBoundary::RBoundary()
 {
 }
 
-RBoundary::~RBoundary(void)
+RBoundary::~RBoundary()
 {
 	//for( iterCOList itr = mChildren.begin(); itr != mChildren.end(); ++itr )
 	//{

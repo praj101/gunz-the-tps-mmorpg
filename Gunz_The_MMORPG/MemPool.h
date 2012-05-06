@@ -88,8 +88,8 @@ public:
 	static void* operator new( size_t size_ );
 	static void  operator delete( void* deadObject_, size_t size_ );
 public:
-	MemPool(void)	{};
-	~MemPool(void)	{};
+	MemPool()	{};
+	~MemPool()	{};
 };
 
 // new
@@ -187,8 +187,8 @@ public:
 	static void Release();
 
 public:
-	MemPoolSm(void) {};
-	~MemPoolSm(void) {};
+	MemPoolSm() {};
+	~MemPoolSm() {};
 };
 
 

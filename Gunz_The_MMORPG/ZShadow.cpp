@@ -15,7 +15,7 @@ rvector ZShadow::mNormal;
 //////////////////////////////////////////////////////////////////////////
 //	Constructor / Desturctor
 //////////////////////////////////////////////////////////////////////////
-ZShadow::ZShadow(void)
+ZShadow::ZShadow()
 {
 	// normal¿∫ +z
 	mNormal = rvector( 0.f, 0.f, 1.f);
@@ -27,7 +27,7 @@ ZShadow::ZShadow(void)
 	bRFShadow = false;
 }
 
-ZShadow::~ZShadow(void)
+ZShadow::~ZShadow()
 {
 
 }

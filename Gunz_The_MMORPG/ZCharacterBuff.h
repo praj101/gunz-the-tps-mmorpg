@@ -8,8 +8,8 @@ class ZCharacterBuff
 {
 protected:
 public:
-	ZCharacterBuff(void);
-	~ZCharacterBuff(void){}
+	ZCharacterBuff();
+	~ZCharacterBuff(){}
 
 protected:	
 	ZShortBuff m_ShortBuff[MAX_CHARACTER_SHORT_BUFF_COUNT];

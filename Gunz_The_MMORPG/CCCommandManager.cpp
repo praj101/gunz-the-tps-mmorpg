@@ -5,7 +5,7 @@
 #include "CCStrEx.h"
 #include <Windows.h>	// for test
 
-void CCCommandManager::InitializeCommandDesc(void)
+void CCCommandManager::InitializeCommandDesc()
 {
 	for(CCCommandDescMap::iterator i=m_CommandDescs.begin(); i!=m_CommandDescs.end(); i++){
 		delete (*i).second;
@@ -13,13 +13,13 @@ void CCCommandManager::InitializeCommandDesc(void)
 	m_CommandDescs.clear();
 }
 
-CCCommandManager::CCCommandManager(void)
+CCCommandManager::CCCommandManager()
 {
 	InitializeCommandMemPool();
 	InitializeCommandDesc();
 }
 
-CCCommandManager::~CCCommandManager(void)
+CCCommandManager::~CCCommandManager()
 {
 	InitializeCommandDesc();
 	while(PeekCommand()) {
@@ -29,7 +29,7 @@ CCCommandManager::~CCCommandManager(void)
 	FinalizeCommandMemPool();
 }
 
-void CCCommandManager::Initialize(void)
+void CCCommandManager::Initialize()
 {
 	for(CCCommandList::iterator i=m_CommandQueue.begin(); i!=m_CommandQueue.end(); i++){
 		delete (*i);
@@ -37,12 +37,12 @@ void CCCommandManager::Initialize(void)
 	m_CommandQueue.clear();
 }
 
-int CCCommandManager::GetCommandDescCount(void) const
+int CCCommandManager::GetCommandDescCount() const
 {
 	return (int)m_CommandDescs.size();
 }
 
-int CCCommandManager::GetCommandQueueCount(void) const
+int CCCommandManager::GetCommandQueueCount() const
 {
 	return (int)m_CommandQueue.size();
 }
@@ -102,7 +102,7 @@ bool CCCommandManager::Post(CCCommand* pCmd)
 	return true;
 }
 
-CCCommand* CCCommandManager::GetCommand(void)
+CCCommand* CCCommandManager::GetCommand()
 {
 	if(m_CommandQueue.size()==0) return NULL;
 
@@ -113,7 +113,7 @@ CCCommand* CCCommandManager::GetCommand(void)
 	return pCmd;
 }
 
-CCCommand* CCCommandManager::PeekCommand(void)
+CCCommand* CCCommandManager::PeekCommand()
 {
 	if(m_CommandQueue.size()==0) return NULL;
 

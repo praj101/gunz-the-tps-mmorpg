@@ -44,12 +44,12 @@ protected:
 	static BOOL CALLBACK EnumJoyObjectsCallback( const DIDEVICEOBJECTINSTANCE* pdidoi, VOID* pContext );
 
 public:
-	ZDirectInput(void);
-	virtual ~ZDirectInput(void);
+	ZDirectInput();
+	virtual ~ZDirectInput();
 
 	bool CreateDirectInput();
 	bool Create(HWND hWnd, BOOL bExclusive=TRUE, BOOL bImmediateMode=TRUE);
-	void Destroy(void);
+	void Destroy();
 
 	void OnActivate(bool bActive);
 

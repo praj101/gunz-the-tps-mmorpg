@@ -23,7 +23,7 @@ ZTabPlayerList::ZTabPlayerList(const char* szName, CCWidget* pParent, CCListener
 	SetChatControl(NULL);
 }
 
-bool ZTabPlayerList::OnShow(void)
+bool ZTabPlayerList::OnShow()
 {
 	RemoveAll();
 
@@ -38,7 +38,7 @@ bool ZTabPlayerList::OnShow(void)
 	return true;
 }
 
-void ZTabPlayerList::OnHide(void)
+void ZTabPlayerList::OnHide()
 {
 	if (m_pEditChat)
 		m_pEditChat->SetFocus();
@@ -118,7 +118,7 @@ public:
 };
 MCombatChatInputListener	g_CombatChatInputListener;
 
-CCListener* ZGetCombatChatInputListener(void)
+CCListener* ZGetCombatChatInputListener()
 {
 	return &g_CombatChatInputListener;
 }

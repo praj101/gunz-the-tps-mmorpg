@@ -96,7 +96,7 @@ void ZBirdDummyClient::Disconnect(CCUID uid)
 	m_ClientSocket.Disconnect();
 }
 
-void ZBirdDummyClient::OutputLocalInfo(void)
+void ZBirdDummyClient::OutputLocalInfo()
 {
 
 }

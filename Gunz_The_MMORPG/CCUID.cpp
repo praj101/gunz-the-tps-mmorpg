@@ -3,16 +3,16 @@
 #include <windows.h>
 
 
-CCUID CCUID::Invalid(void)
+CCUID CCUID::Invalid()
 {
 	return CCUID(0,0);
 }
 
-CCUIDRefMap::CCUIDRefMap(void)
+CCUIDRefMap::CCUIDRefMap()
 {
 	m_CurrentCCUID.SetZero();
 }
-CCUIDRefMap::~CCUIDRefMap(void)
+CCUIDRefMap::~CCUIDRefMap()
 {
 }
 
@@ -47,7 +47,7 @@ CCUIDRANGE CCUIDRefMap::Reserve(int nSize)
 	return r;
 }
 
-CCUIDRANGE CCUIDRefMap::GetReservedCount(void)
+CCUIDRANGE CCUIDRefMap::GetReservedCount()
 {
 	CCUIDRANGE r;
 	r.Start = CCUID(0, 2);
@@ -56,12 +56,12 @@ CCUIDRANGE CCUIDRefMap::GetReservedCount(void)
 }
 
 /*
-CCUIDRefArray::CCUIDRefArray(void)
+CCUIDRefArray::CCUIDRefArray()
 {
 	m_CurrentCCUID.SetZero();
 	push_back(NULL);
 }
-CCUIDRefArray::~CCUIDRefArray(void)
+CCUIDRefArray::~CCUIDRefArray()
 {
 }
 
@@ -82,10 +82,10 @@ void* CCUIDRefArray::GetRef(CCUID& uid)
 }
 */
 
-CCUIDRefCache::CCUIDRefCache(void)
+CCUIDRefCache::CCUIDRefCache()
 {
 }
-CCUIDRefCache::~CCUIDRefCache(void)
+CCUIDRefCache::~CCUIDRefCache()
 {
 }
 

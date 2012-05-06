@@ -12,12 +12,12 @@ class CCFileBox : public CCListBox{
 public:
 	//@ Param szFilter file filters (for example: *. Exe)
 	CCFileBox(const char* szFilter, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~CCFileBox(void);
+	virtual ~CCFileBox();
 
 	//Refresh the list filter values
 	//@ Param szFilter file filters (for example: *. Exe)
 	void Refresh(const char* szFilter=NULL);
-	const char* GetBaseDir(void);
+	const char* GetBaseDir();
 
-	virtual const char* GetClassName(void){ return CCFILEBOX; }
+	virtual const char* GetClassName(){ return CCFILEBOX; }
 };

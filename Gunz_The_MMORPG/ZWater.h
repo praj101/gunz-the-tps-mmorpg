@@ -56,8 +56,8 @@ protected:
 	void Ripple( rvector& pos, int iAmplitude, float fFrequency );
 
 public:
-	ZWater(void);
-	~ZWater(void);
+	ZWater();
+	~ZWater();
 };
 
 class ZWaterList : public list<ZWater*>

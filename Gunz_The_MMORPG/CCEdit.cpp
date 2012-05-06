@@ -373,7 +373,7 @@ void CCEdit::SetText(const char* szText){
 		m_iStartPos=m_iCaretPos;
 }
 
-const char* CCEdit::GetText(void){
+const char* CCEdit::GetText(){
 	return m_pBuffer;
 }
 
@@ -393,17 +393,17 @@ void CCEdit::AddText(const char* szText){
 	}
 }
 
-int CCEdit::MoveCaretHome(void){
+int CCEdit::MoveCaretHome(){
 	m_iCaretPos = 0;
 	return m_iCaretPos;
 }
 
-int CCEdit::MoveCaretEnd(void){
+int CCEdit::MoveCaretEnd(){
 	m_iCaretPos = strlen(m_pBuffer);
 	return m_iCaretPos;
 }
 
-int CCEdit::MoveCaretPrev(void){
+int CCEdit::MoveCaretPrev(){
 	m_iCaretPos = PrevPos(m_pBuffer, m_iCaretPos);
 	if(m_iCaretPos<m_iStartPos)
 	{
@@ -413,21 +413,21 @@ int CCEdit::MoveCaretPrev(void){
 	return m_iCaretPos;
 }
 
-int CCEdit::MoveCaretNext(void){
+int CCEdit::MoveCaretNext(){
 	m_iCaretPos = NextPos(m_pBuffer, m_iCaretPos);
 	_ASSERT(m_iCaretPos>=0 && m_iCaretPos<=(int)strlen(m_pBuffer));
 	return m_iCaretPos;
 }
 
-int CCEdit::GetMaxLength(void){
+int CCEdit::GetMaxLength(){
 	return m_iMaxLength;
 }
 
-const char* CCEdit::GetCompositionString(void){
+const char* CCEdit::GetCompositionString(){
 	return m_szIMECompositionString;
 }
 
-int CCEdit::GetCarretPos(void){
+int CCEdit::GetCarretPos(){
 	return m_iCaretPos;
 }
 
@@ -466,7 +466,7 @@ void CCEdit::SetPasswordField(bool bPassword){
 	m_bPassword = bPassword;
 }
 
-bool CCEdit::IsPasswordField(void){
+bool CCEdit::IsPasswordField(){
 	return m_bPassword;
 }
 

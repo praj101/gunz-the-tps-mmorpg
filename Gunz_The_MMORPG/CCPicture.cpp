@@ -134,7 +134,7 @@ void CCPicture::SetBitmap(CCBitmap* pBitmap){
 		SetSize(m_pBitmap->GetWidth(), m_pBitmap->GetHeight());
 }
 
-CCBitmap* CCPicture::GetBitmap(void){
+CCBitmap* CCPicture::GetBitmap(){
 	return m_pBitmap;
 }
 

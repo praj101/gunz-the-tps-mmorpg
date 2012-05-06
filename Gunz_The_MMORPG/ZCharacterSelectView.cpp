@@ -129,7 +129,7 @@ ZCharacterSelectView::ZCharacterSelectView()
 	m_pShadow	= new ZShadow;
 }
 
-ZCharacterSelectView::~ZCharacterSelectView(void)
+ZCharacterSelectView::~ZCharacterSelectView()
 {
 #ifdef _FASTDEBUG
 	return;

@@ -10,7 +10,7 @@ _USING_NAMESPACE_REALSPACE2
 
 class Core4Gunz : public Core{
 public:
-	virtual void Update(void){
+	virtual void Update(){
 		RealSpace2::RFrame_Render();
 		//RenderScene(NULL);
 	}
@@ -44,7 +44,7 @@ public:
 
 	virtual const char* GetActionKeyName(unsigned long int nKey);
 
-	virtual void Draw(void){
+	virtual void Draw(){
 		Core::Draw();
 
 		if (m_pDC && m_pMainFrame)

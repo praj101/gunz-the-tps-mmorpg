@@ -31,8 +31,8 @@ using namespace RealSpace2;
 class RCharCloth : public RCloth
 {
 public:
-	RCharCloth(void);
-	virtual ~RCharCloth(void);
+	RCharCloth();
+	virtual ~RCharCloth();
 
 public:
 	bool create( RMesh* pMesh_, RMeshNode* pMeshNode_ );

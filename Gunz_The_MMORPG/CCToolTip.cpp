@@ -28,10 +28,10 @@ CCToolTip::CCToolTip(const char* szName, CCWidget* pParent)
 	Show(false);
 }
 
-CCToolTip::~CCToolTip(void){
+CCToolTip::~CCToolTip(){
 }
 
-void CCToolTip::SetBounds(void){
+void CCToolTip::SetBounds(){
 	CCFont* pFont = GetFont();
 
 	char szName[CCWIDGET_NAME_LENGTH];
@@ -65,6 +65,6 @@ void CCToolTip::SetText(const char* szText){
 	SetBounds();
 }
 
-bool CCToolTip::IsUseParentName(void){
+bool CCToolTip::IsUseParentName(){
 	return m_bUseParentName;
 }

@@ -23,7 +23,7 @@ struct CCWIDGETRESOURCE{
 
 	class CCWIDGETINFOLIST : public list<CCWIDGETINFO*>{
 	public:
-		virtual ~CCWIDGETINFOLIST(void){
+		virtual ~CCWIDGETINFOLIST(){
 			// Delete Automatically
 			while(empty()==false){
 				delete (*begin());
@@ -35,7 +35,7 @@ struct CCWIDGETRESOURCE{
 
 class CCResourceMap : public map<string, CCWIDGETRESOURCE*>{
 public:
-	virtual ~CCResourceMap(void){
+	virtual ~CCResourceMap(){
 		// Delete Automatically
 		while(empty()==false){
 			delete (*begin()).second;

@@ -51,7 +51,7 @@ class ZInput
 
 public:
 	ZInput(ZDirectInput* pDI);
-	virtual ~ZInput(void);
+	virtual ~ZInput();
 	
 	static const char* GetUndefinedKeyName();
 

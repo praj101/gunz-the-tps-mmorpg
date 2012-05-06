@@ -100,22 +100,22 @@ protected:
 	/// 커뮤니케이터가 커맨드를 처리하기 위해 불리는 함수
 	virtual bool OnCommand(CCCommand* pCommand);
 	/// 커뮤니케이터 루프 전 준비
-	virtual void OnPrepareRun(void);
+	virtual void OnPrepareRun();
 	/// 커맨드를 처리하기 전에
 	virtual void OnPrepareCommand(CCCommand* pCommand);
 	/// 커뮤니케이터 루프
-	virtual void OnRun(void);
+	virtual void OnRun();
 
 	/// Post()되는 기본 리시버 커뮤니케이터 설정
 	void SetDefaultReceiver(CCUID Receiver);
 public:
-	CCCommandCommunicator(void);
-	virtual ~CCCommandCommunicator(void);
+	CCCommandCommunicator();
+	virtual ~CCCommandCommunicator();
 
 	/// 초기화
-	bool Create(void);
+	bool Create();
 	/// 해제
-	void Destroy(void);
+	void Destroy();
 
 	/// 다른 커뮤티케이터로 연결 설정
 	/// @param	pAllocUID	자기 Communicator가 배정받은 UID
@@ -134,10 +134,10 @@ public:
 	virtual CCCommand* GetCommandSafe();
 
 	/// 실행 ( 커맨드 전송및 처리 )
-	void Run(void);
+	void Run();
 
 	/// 커맨드 매니져 얻기
-	CCCommandManager* GetCommandManager(void){
+	CCCommandManager* GetCommandManager(){
 		return &m_CommandManager;
 	}
 	CCCommand* CreateCommand(int nCmdID, const CCUID& TargetUID);
@@ -150,7 +150,7 @@ public:
 	void LOG(unsigned int nLogLevel, const char *pFormat,...);
 
 	/// 자신의 UID를 얻어낸다.
-	CCUID GetUID(void){ return m_This; }
+	CCUID GetUID(){ return m_This; }
 
 #ifdef _CMD_PROFILE
 	CCCommandProfiler		m_CommandProfiler;

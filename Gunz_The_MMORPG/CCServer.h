@@ -32,8 +32,8 @@ protected:
 	void UnlockSafeCmdQueue()	{ LeaveCriticalSection(&m_csSafeCmdQueue); }
 
 	/// 새로운 UID 얻어내기
-	// virtual CCUID UseUID(void) = 0;
-	virtual CCUID UseUID(void) { return CCUID(0, 0); }
+	// virtual CCUID UseUID() = 0;
+	virtual CCUID UseUID() { return CCUID(0, 0); }
 
 	void AddCommObject(const CCUID& uid, CCCommObject* pCommObj);
 	void RemoveCommObject(const CCUID& uid);
@@ -47,9 +47,9 @@ protected:
 	void ParsePacket(CCCommObject* pCommObj, CCPacketHeader* pPacket);
 
 	/// 커뮤니케이터 루프 전 준비
-	virtual void  OnPrepareRun(void);
+	virtual void  OnPrepareRun();
 	/// 커뮤니케이터 루프
-	virtual void OnRun(void);
+	virtual void OnRun();
 	/// 사용자 커맨드 처리
 	virtual bool OnCommand(CCCommand* pCommand);
 
@@ -76,13 +76,13 @@ public:	// For Debugging
 	}
 
 public:
-	MServer(void);
-	~MServer(void);
+	MServer();
+	~MServer();
 
 	/// 초기화
 	bool Create(int nPort, const bool bReuse = false );
 	/// 해제
-	void Destroy(void);
+	void Destroy();
 	int GetCommObjCount();
 
 

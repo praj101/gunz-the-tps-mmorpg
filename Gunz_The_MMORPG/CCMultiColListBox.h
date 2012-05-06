@@ -144,5 +144,5 @@ public:
 	DECLARE_LOOK(CCMultiColListBoxLook)
 	DECLARE_LOOK_CLIENT()
 
-	virtual const char* GetClassName(void){ return CCMULTICOLLISTBOX; }
+	virtual const char* GetClassName(){ return CCMULTICOLLISTBOX; }
 };

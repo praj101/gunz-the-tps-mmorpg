@@ -47,7 +47,7 @@ public:
 	
 protected:
 	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
-	void DrawTestScene(void);
+	void DrawTestScene();
 	virtual void OnDraw(CCDrawContext* pDC);
 
 	void RotateLeft(float add_degree=1.0f)			{ m_fCRot += add_degree; }
@@ -59,7 +59,7 @@ protected:
 	void ZoomOut(float add_distance = 1.0f); 
 public:
 	ZMeshView(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZMeshView(void);
+	virtual ~ZMeshView();
 
 //	void SetMesh(RVisualMesh* pVisualMesh);
 	void SetLight(rvector LPos);

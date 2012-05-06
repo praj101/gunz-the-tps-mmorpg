@@ -63,7 +63,7 @@ protected:
 	virtual bool OnCommand(CCWidget* pWindow, const char* szMessage);
 	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 	virtual void OnSize(int w, int h);
-	virtual bool OnShow(void);
+	virtual bool OnShow();
 
 	void ResizeBtnsByAnchors(int w, int h);
 	void OnCloseButtonClick();
@@ -71,7 +71,7 @@ protected:
 
 public:
 	CCFrame(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~CCFrame(void);
+	virtual ~CCFrame();
 
 	void SetShade(bool bShade);
 	void SetMovable(bool bValue) { m_bMovable = bValue; }
@@ -80,5 +80,5 @@ public:
 
 
 
-	virtual const char* GetClassName(void){ return CCFRAME; }
+	virtual const char* GetClassName(){ return CCFRAME; }
 };

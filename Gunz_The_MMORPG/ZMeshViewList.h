@@ -24,19 +24,19 @@ protected:
 	virtual void OnDraw(CCDrawContext* pDC);
 	virtual void OnSize(int w, int h);
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
-	int GetItemVisibleWidth(void);
-	int GetItemWidth(void);
-	int GetVisibleCount(void);
-	void RecalcBounds(void);
+	int GetItemVisibleWidth();
+	int GetItemWidth();
+	int GetVisibleCount();
+	void RecalcBounds();
 public:
 	ZMeshViewList(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZMeshViewList(void);
+	virtual ~ZMeshViewList();
 
-	int GetItemCount(void);
+	int GetItemCount();
 	ZMeshView* GetItem(int i);
 
 	void Add(RealSpace2::RMesh* pMeshRef);
-	void RemoveAll(void);
+	void RemoveAll();
 	void Remove(int i);
 
 	void SetItemWidth(int nWidth);

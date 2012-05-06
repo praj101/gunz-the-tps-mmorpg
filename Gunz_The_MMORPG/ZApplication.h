@@ -114,16 +114,16 @@ public:
 	static void ResetTimer();	// 첫 update 를 부르기 전에 불러준다.
 	static void Exit();
 	/// Singleton Instance
-	__forceinline static ZApplication*		GetInstance(void);
+	__forceinline static ZApplication*		GetInstance();
 	/// Singleton Current Interface
-	__forceinline static ZGameInterface*	GetGameInterface(void);
-	__forceinline static ZStageInterface*	GetStageInterface(void);
-	__forceinline static ZOptionInterface*	GetOptionInterface(void);
+	__forceinline static ZGameInterface*	GetGameInterface();
+	__forceinline static ZStageInterface*	GetStageInterface();
+	__forceinline static ZOptionInterface*	GetOptionInterface();
 	/// Singleton Zip File System
-	__forceinline static CCZFileSystem*		GetFileSystem(void);
+	__forceinline static CCZFileSystem*		GetFileSystem();
 	/// Singleton ZGameClient
-	__forceinline static ZTimer*			GetTimer(void);
-	static ZSoundEngine*		GetSoundEngine(void);
+	__forceinline static ZTimer*			GetTimer();
+	static ZSoundEngine*		GetSoundEngine();
 	static RMeshMgr*			GetNpcMeshMgr()			{ return &m_NPCMeshMgr;}
 	static RMeshMgr*			GetMeshMgr()			{ return &m_MeshMgr; }
 	static RMeshMgr*			GetWeaponMeshMgr()		{ return &m_WeaponMeshMgr; }
@@ -146,34 +146,34 @@ public:
 	void PreCheckArguments();
 };
 
-__forceinline ZApplication* ZApplication::GetInstance(void)
+__forceinline ZApplication* ZApplication::GetInstance()
 {
 	return m_pInstance;
 }
 
-__forceinline ZGameInterface* ZApplication::GetGameInterface(void)
+__forceinline ZGameInterface* ZApplication::GetGameInterface()
 {
 	ZApplication* pApp = GetInstance();
 	if(pApp==NULL) return NULL;
 	return pApp->m_pGameInterface;		// 현재인터페이스가 ZGameInterface라고 가정한다. 세이프코드가 필요하다.
 }
-__forceinline ZStageInterface* ZApplication::GetStageInterface(void)
+__forceinline ZStageInterface* ZApplication::GetStageInterface()
 {
 	ZApplication* pApp = GetInstance();
 	if(pApp==NULL) return NULL;
 	return pApp->m_pStageInterface;
 }
-__forceinline ZOptionInterface* ZApplication::GetOptionInterface(void)
+__forceinline ZOptionInterface* ZApplication::GetOptionInterface()
 {
 	ZApplication* pApp = GetInstance();
 	if(pApp==NULL) return NULL;
 	return pApp->m_pOptionInterface;
 }
-__forceinline CCZFileSystem* ZApplication::GetFileSystem(void)
+__forceinline CCZFileSystem* ZApplication::GetFileSystem()
 {
 	return &m_FileSystem;
 }
-__forceinline ZTimer* ZApplication::GetTimer(void)
+__forceinline ZTimer* ZApplication::GetTimer()
 {
 	return &m_Timer;
 }

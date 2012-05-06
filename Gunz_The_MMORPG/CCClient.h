@@ -55,7 +55,7 @@ protected:
 	virtual bool OnCommand(CCCommand* pCommand);
 
 	/// 로컬 정보를 출력한다.
-	virtual void OutputLocalInfo(void) = 0;
+	virtual void OutputLocalInfo() = 0;
 	/// 기본 출력
 	virtual void OutputMessage(const char* szMessage, CCZMOMType nType=CCZMDM_GENERAL) = 0;
 
@@ -79,9 +79,9 @@ public:
 	virtual ~CCClient();
 
 	/// 전역 인스턴스 얻기
-	static CCClient* GetInstance(void);
+	static CCClient* GetInstance();
 
-	CCUID GetServerUID(void){ return m_Server; }
+	CCUID GetServerUID(){ return m_Server; }
 	virtual CCUID GetSenderUIDBySocket(SOCKET socket);
 	CCClientSocket* GetClientSocket()						{ return &m_ClientSocket; }
 	void GetTraffic(int* nSendTraffic, int* nRecvTraffic)	{ return m_ClientSocket.GetTraffic(nSendTraffic, nRecvTraffic); }

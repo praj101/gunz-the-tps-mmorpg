@@ -45,7 +45,7 @@ DWORD WINAPI CCThread::ThreadProc(LPVOID pParam)
 }
 
 // MTime class ///////////////////////////////////////////////////////////////////////
-DWORD MTime::Random(void)
+DWORD MTime::Random()
 {
    register int lo, hi, test;
 

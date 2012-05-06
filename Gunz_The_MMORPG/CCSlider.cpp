@@ -22,19 +22,19 @@ CCSliderThumb::CCSliderThumb(const char* szName, CCWidget* pParent, CCListener* 
 	LOOK_IN_CONSTRUCTOR()
 }
 
-sSize CCSliderThumb::GetDefaultSize(void){
+sSize CCSliderThumb::GetDefaultSize(){
 	if(GetLook()!=NULL) return GetLook()->GetDefaultSize(this);
 	return sSize(CCSCROLLBAR_DEFAULT_WIDTH, CCSCROLLBAR_DEFAULT_WIDTH);
 }
 
 IMPLEMENT_LOOK(CCSlider, CCScrollBarLook)
 
-int CCSlider::GetThumbSize(void){
+int CCSlider::GetThumbSize(){
 	int narrowWidth = (m_iScrollBarType==CCSBT_VERTICAL) ? GetClientRect().w : GetClientRect().h;
 	return narrowWidth;
 }
 
-void CCSlider::Initialize(void){
+void CCSlider::Initialize(){
 	delete m_pThumb;
 	m_pThumb = new CCSliderThumb(NULL, this, this);
 	sSize s = ((CCSliderThumb*)m_pThumb)->GetDefaultSize();
@@ -53,5 +53,5 @@ CCSlider::CCSlider(CCWidget* pParent, CCListener* pListener)
 	Initialize();
 }
 
-CCSlider::~CCSlider(void){
+CCSlider::~CCSlider(){
 }

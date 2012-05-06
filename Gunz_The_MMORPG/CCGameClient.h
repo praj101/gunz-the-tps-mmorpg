@@ -18,7 +18,7 @@ protected:
 	virtual void OnRegisterCommand(CCCommandManager* pCommandManager);
 	virtual bool OnCommand(CCCommand* pCommand);
 
-	void OutputLocalInfo(void);
+	void OutputLocalInfo();
 	
 public:
 	CCGameClient();

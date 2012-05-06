@@ -18,7 +18,7 @@ protected:
 
 public:
 	ZEffectLightTracer(ZEffectBillboardSource* pEffectBillboardSource, D3DXVECTOR3& Start, D3DXVECTOR3& End);
-	virtual ~ZEffectLightTracer(void);
+	virtual ~ZEffectLightTracer();
 
 	virtual bool Draw(unsigned long int nTime);
 };

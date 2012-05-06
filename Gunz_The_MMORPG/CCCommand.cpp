@@ -12,7 +12,7 @@ CCCommandDesc::CCCommandDesc(int nID, const char* szName, const char* szDescript
 	m_nFlag = nFlag;
 }
 
-CCCommandDesc::~CCCommandDesc(void)
+CCCommandDesc::~CCCommandDesc()
 {
 	for(int i=0; i<(int)m_ParamDescs.size(); i++){
 		delete m_ParamDescs[i];
@@ -43,7 +43,7 @@ CCCommandDesc* CCCommandDesc::Clone()
 	return pNewDesc;
 }
 ////////////////////////////////////////////////////////////////////////
-void CCCommand::Reset(void)
+void CCCommand::Reset()
 {
 	m_pCommandDesc = NULL;
 	m_nSerialNumber = 0;
@@ -52,7 +52,7 @@ void CCCommand::Reset(void)
 	ClearParam();
 }
 
-void CCCommand::ClearParam(void)
+void CCCommand::ClearParam()
 {
 	const int nParamCount = GetParameterCount();
 	for(int i=0; i<nParamCount; ++i){
@@ -68,7 +68,7 @@ void CCCommand::ClearParam(int i)
 	m_Params.erase(m_Params.begin() + i);
 }
 
-CCCommand::CCCommand(void)
+CCCommand::CCCommand()
 {
 	Reset();
 }
@@ -90,7 +90,7 @@ CCCommand::CCCommand(int nID, CCUID Sender, CCUID Receiver, CCCommandManager* pC
 }
 
 
-CCCommand::~CCCommand(void)
+CCCommand::~CCCommand()
 {
 	ClearParam();
 }
@@ -130,7 +130,7 @@ bool CCCommand::AddParameter(CCCommandParameter* pParam)
 	return true;
 }
 
-int CCCommand::GetParameterCount(void) const
+int CCCommand::GetParameterCount() const
 {
 	return (int)m_Params.size();
 }
@@ -183,7 +183,7 @@ bool CCCommand::GetParameter(void* pValue, int i, CCCommandParameterType t, int 
 	return true;
 }
 
-CCCommand* CCCommand::Clone(void) const
+CCCommand* CCCommand::Clone() const
 {
 	if(m_pCommandDesc==NULL) return NULL;
 	CCCommand* pClone = new CCCommand(m_pCommandDesc, m_Receiver, m_Sender);
@@ -200,7 +200,7 @@ CCCommand* CCCommand::Clone(void) const
 	return pClone;
 }
 
-bool CCCommand::CheckRule(void)
+bool CCCommand::CheckRule()
 {
 	_ASSERT(m_pCommandDesc!=NULL);
 	if(m_pCommandDesc==NULL) return false;

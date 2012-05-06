@@ -23,19 +23,19 @@ class CCSliderThumb : public CCThumb{
 	DECLARE_LOOK_CLIENT()
 public:
 	CCSliderThumb(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual sSize GetDefaultSize(void);
+	virtual sSize GetDefaultSize();
 };
 
 class CCSlider : public CCScrollBar{
 	DECLARE_LOOK(CCScrollBarLook)
 	DECLARE_LOOK_CLIENT()
 protected:
-	virtual int GetThumbSize(void);
-	void Initialize(void);
+	virtual int GetThumbSize();
+	void Initialize();
 public:
 	CCSlider(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	CCSlider(CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~CCSlider(void);
+	virtual ~CCSlider();
 
-	virtual const char* GetClassName(void){ return CCSLIDER; }
+	virtual const char* GetClassName(){ return CCSLIDER; }
 };

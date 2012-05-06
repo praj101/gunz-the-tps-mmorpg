@@ -191,7 +191,7 @@
 //	m_idxItemLastTooltip = -1;
 //}
 //
-//ZEquipmentListBox_OLD::~ZEquipmentListBox_OLD(void)
+//ZEquipmentListBox_OLD::~ZEquipmentListBox_OLD()
 //{
 //	if (m_pItemMenu) {
 //		delete m_pItemMenu;
@@ -355,7 +355,7 @@
 ////};
 ////MShopPurchaseItemListBoxListener g_ShopPurchaseItemListBoxListener;
 ////
-////CCListener* ZGetShopPurchaseItemListBoxListener(void)
+////CCListener* ZGetShopPurchaseItemListBoxListener()
 ////{
 ////	return &g_ShopPurchaseItemListBoxListener;
 ////}
@@ -475,7 +475,7 @@
 ////};
 ////MEquipmentItemListBoxListener g_EquipmentItemListBoxListener;
 ////
-////CCListener* ZGetEquipmentItemListBoxListener(void)
+////CCListener* ZGetEquipmentItemListBoxListener()
 ////{
 ////	return &g_EquipmentItemListBoxListener;
 ////}
