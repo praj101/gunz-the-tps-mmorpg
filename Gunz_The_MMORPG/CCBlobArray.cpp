@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include <memory.h>
 
 void* CCMakeBlobArray(int nOneBlobSize, int nBlobCount)

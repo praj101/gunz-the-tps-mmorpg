@@ -86,7 +86,7 @@ ZEffectGunFire::Draw(unsigned long int nTime)
 	// Light
 //	D3DCOLORVALUE d = {1, 1, 1, 1};
 //	D3DCOLORVALUE z = {0, 0, 0, 0};
-//	D3DLIGHT9 light;
+//	D3DLIGHT light;
 //	light.Type = D3DLIGHT_POINT;
 //	light.Diffuse = d;
 //	light.Specular = d;

@@ -49,7 +49,7 @@ protected:
 	rvector*		mpWind;
 	float			mfBaseMaxPower;
 	rvector			mBaseWind;
-	D3DLIGHT9*		mpLight;
+	D3DLIGHT*		mpLight;
 
 	RWindGenerator	mWndGenerator;
 

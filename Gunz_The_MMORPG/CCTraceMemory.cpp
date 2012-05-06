@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #ifndef _DEBUG
-
 void CCInitTraceMemory()		{ }
 void CCShutdownTraceMemory()	{ }
 

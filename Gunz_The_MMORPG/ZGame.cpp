@@ -1070,7 +1070,7 @@ void ZGame::Draw()
 	}
 
 	/*
-	D3DLIGHT9 light;
+	D3DLIGHT light;
 	light.Type			= D3DLIGHT_POINT;
 	light.Ambient.r		= 0.1f;
 	light.Ambient.g		= 0.1f;

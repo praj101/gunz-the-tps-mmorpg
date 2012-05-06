@@ -14,7 +14,7 @@ extern "C" {
 #endif //__cplusplus
 
 //
-//  DXGetErrorString9
+//  DXGetErrorString
 //  
 //  Desc:  Converts a DirectX 9 or earlier HRESULT to a string 
 //
@@ -23,13 +23,13 @@ extern "C" {
 //
 //  Return: Converted string 
 //
-const char*  WINAPI DXGetErrorString9A(HRESULT hr);
-const WCHAR* WINAPI DXGetErrorString9W(HRESULT hr);
+const char*  WINAPI DXGetErrorStringA(HRESULT hr);
+const WCHAR* WINAPI DXGetErrorStringW(HRESULT hr);
 
 #ifdef UNICODE
-#define DXGetErrorString9 DXGetErrorString9W
+#define DXGetErrorString DXGetErrorStringW
 #else
-#define DXGetErrorString9 DXGetErrorString9A
+#define DXGetErrorString DXGetErrorStringA
 #endif 
 
 

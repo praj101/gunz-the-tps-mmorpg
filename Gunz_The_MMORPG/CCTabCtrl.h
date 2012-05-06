@@ -35,7 +35,7 @@ class CCTabCtrl : public CCWidget{
 public:
 	CCTabCtrl(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	CCTabCtrl(CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~MTabCtrl();
+	virtual ~CCTabCtrl();
 
 	void	Add(CCButton *pButton, CCWidget *pFrame);
 	void	RemoveAll();

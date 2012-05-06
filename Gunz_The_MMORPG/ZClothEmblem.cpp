@@ -180,8 +180,8 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 		}
 	}
 
-	mpLight	= new D3DLIGHT9;
-	memset( mpLight, 0, sizeof(D3DLIGHT9));
+	mpLight	= new D3DLIGHT;
+	memset( mpLight, 0, sizeof(D3DLIGHT));
 
 	mpLight->Ambient.r = 0.3;
 	mpLight->Ambient.g = 0.3;

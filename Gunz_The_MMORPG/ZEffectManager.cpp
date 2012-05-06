@@ -773,7 +773,7 @@ void ZEffectManager::Draw(unsigned long int nTime,int mode,float height)
 		// 실패했다
 		static int nErrorLogCount = 0;
 		if(nErrorLogCount<100) {
-			cclog("CreateStateBlock failed : %s",DXGetErrorString9(hr));
+			cclog("CreateStateBlock failed : %s",DXGetErrorString(hr));
 		}
 	}
 

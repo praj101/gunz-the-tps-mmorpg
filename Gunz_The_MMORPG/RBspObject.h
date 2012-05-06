@@ -271,7 +271,7 @@ public:
 
 
 	bool DrawLight(RSBspNode *pNode,int nMaterial);
-	void DrawLight(D3DLIGHT9 *pLight);			// 광원 처리를.. 멀티 패스로 덧그린다.
+	void DrawLight(D3DLIGHT *pLight);			// 광원 처리를.. 멀티 패스로 덧그린다.
 
 	bool GenerateLightmap(const char *filename,int nMaxLightmapSize,int nMinLightmapSize,int nSuperSample,float fToler,RGENERATELIGHTMAPCALLBACK pProgressFn=NULL);
 	bool GeneratePathData(const char *filename,float fAngle, float fToler);

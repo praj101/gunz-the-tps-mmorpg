@@ -60,7 +60,7 @@ public:
 //	DWORD getShader( char* shader_, bool& stat );
 	void setMtrl( D3DXCOLOR& rColor_, float fVisAlpha_ );
 	void setMtrl( RMtrl* pMtrl_, float fVisAlpha_ );
-	void setLight( int iLignt_, D3DLIGHT9* pLight_ );
+	void setLight( int iLignt_, D3DLIGHT* pLight_ );
 	void setAmbient( DWORD value_ ); // global ambient
 	void LightEnable( int iLignt_, bool bEnable_ );
 
@@ -73,7 +73,7 @@ public:
 	bool SetEnable();
 
 	static RMtrl* mpMtrl;
-	static D3DLIGHT9 mLight[MAX_LIGHT];
+	static D3DLIGHT mLight[MAX_LIGHT];
 
 public:
 	static RShaderMgr* getShaderMgr();

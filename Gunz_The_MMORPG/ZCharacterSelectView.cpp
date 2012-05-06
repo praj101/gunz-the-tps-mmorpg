@@ -156,7 +156,7 @@ void ZCharacterSelectView::DrawCharacterLight(rvector& vCharPos)
 		}
 	}
 
-	D3DLIGHT9 light;
+	D3DLIGHT light;
 
 	light.Type			= D3DLIGHT_POINT;
 	light.Ambient.r		= 0.1f;
@@ -190,7 +190,7 @@ void ZCharacterSelectView::DrawCharacterLight(rvector& vCharPos)
 
 	m_pVisualMesh->SetLight(0,&light,false);
 
-	memset( &light, 0, sizeof(D3DLIGHT9)	);
+	memset( &light, 0, sizeof(D3DLIGHT)	);
 	light.Attenuation1 = 0.005f;
 
 	m_pVisualMesh->SetLight(1,&light,true);
@@ -202,7 +202,7 @@ void ZCharacterSelectView::DrawCharacterLight(rvector& vCharPos)
 //	{
 //		RGetShaderMgr()->setLight( 0, &light );
 //		RGetShaderMgr()->LightEnable( 0, TRUE );
-//		memset( &light, 0, sizeof(D3DLIGHT9) );
+//		memset( &light, 0, sizeof(D3DLIGHT) );
 //		light.Attenuation1 = 0.005f;
 //		RGetShaderMgr()->setLight( 1, &light );
 //		RGetShaderMgr()->LightEnable( 1, TRUE );
