@@ -283,7 +283,7 @@ struct ZCharacterStatus
 // 이것은 캐릭터끼리 주고받는 데이터로 나중에 투표 판정의 근거가 된다.
 /*
 struct ZHPItem {
-	CCUID muid;
+	CCUID CCUID;
 	float fHP;
 };
 */

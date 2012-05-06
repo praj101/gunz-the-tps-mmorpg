@@ -8,7 +8,7 @@
 
 #include "MAsyncDBJob.h"
 
-class MAsyncDBJob_InsertSurvivalModeGameLog : public MAsyncJob 
+class MAsyncDBJob_InsertSurvivalModeGameLog : public CCAsyncJob 
 {
 protected:
 	char m_szGameName[MAX_CHATROOMNAME_STRING_LEN];
@@ -25,7 +25,7 @@ protected:
 	DWORD m_dwGamePlayTime;
 
 public:
-	MAsyncDBJob_InsertSurvivalModeGameLog() : MAsyncJob(MASYNCJOB_INSERT_SURVIVALMODE_GAME_LOG, MUID(0, 0)){}
+	MAsyncDBJob_InsertSurvivalModeGameLog() : CCAsyncJob(CCAsyncJob_INSERT_SURVIVALMODE_GAME_LOG, CCUID(0, 0)){}
 	~MAsyncDBJob_InsertSurvivalModeGameLog(){}
 
 	void Input(char *szGameName, DWORD dwScenarioID, DWORD dwTotalRound, 
@@ -57,13 +57,13 @@ public:
 
 
 
-class MAsyncDBJob_GetSurvivalModeGroupRanking : public MAsyncJob 
+class MAsyncDBJob_GetSurvivalModeGroupRanking : public CCAsyncJob 
 {
 protected:
 	vector<RANKINGINFO*> m_RankingVec[MAX_SURVIVAL_SCENARIO_COUNT];
 
 public:
-	MAsyncDBJob_GetSurvivalModeGroupRanking() : MAsyncJob(MASYNCJOB_GET_SURVIVALMODE_GROUP_RANKING, MUID(0, 0)){}
+	MAsyncDBJob_GetSurvivalModeGroupRanking() : CCAsyncJob(CCAsyncJob_GET_SURVIVALMODE_GROUP_RANKING, CCUID(0, 0)){}
 	~MAsyncDBJob_GetSurvivalModeGroupRanking() {
 		for (int s=0; s<MAX_SURVIVAL_SCENARIO_COUNT; ++s)
 			for (unsigned int i=0; i<m_RankingVec[s].size(); ++i)
@@ -86,20 +86,20 @@ public:
 
 
 
-class MAsyncDBJob_GetSurvivalModePrivateRanking : public MAsyncJob 
+class MAsyncDBJob_GetSurvivalModePrivateRanking : public CCAsyncJob 
 {
 protected:
-	MUID m_uidStage;
-	MUID m_uidPlayer;
+	CCUID m_uidStage;
+	CCUID m_uidPlayer;
 	DWORD m_dwScenarioID;
 	DWORD m_dwCID;
 	RANKINGINFO m_RankingInfo[MAX_SURVIVAL_SCENARIO_COUNT];
 
 public:
-	MAsyncDBJob_GetSurvivalModePrivateRanking() : MAsyncJob(MASYNCJOB_GET_SURVIVALMODE_PRIVATE_RANKING, MUID(0, 0)){}
+	MAsyncDBJob_GetSurvivalModePrivateRanking() : CCAsyncJob(CCAsyncJob_GET_SURVIVALMODE_PRIVATE_RANKING, CCUID(0, 0)){}
 	~MAsyncDBJob_GetSurvivalModePrivateRanking(){}
 
-	void Input(const MUID& uidStage, const MUID& uidPlayer, DWORD dwScenarioID, DWORD dwCID)
+	void Input(const CCUID& uidStage, const CCUID& uidPlayer, DWORD dwScenarioID, DWORD dwCID)
 	{
 		m_uidStage = uidStage;
 		m_uidPlayer = uidPlayer;
@@ -117,8 +117,8 @@ public:
 
 	virtual void Run(void* pContext);
 
-	MUID GetStageUID()						{ return m_uidStage; }
-	MUID GetPlayerUID()						{ return m_uidPlayer; }
+	CCUID GetStageUID()						{ return m_uidStage; }
+	CCUID GetPlayerUID()						{ return m_uidPlayer; }
 	DWORD GetScenarioID()					{ return m_dwScenarioID; }
 	DWORD GetCID()							{ return m_dwCID; }
 

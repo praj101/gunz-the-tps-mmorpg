@@ -168,7 +168,7 @@ public:
 	virtual void Run(void* pContext);
 };
 
-class CCAsyncDBJob_UpdateCharClanContPoint : public MAsyncJob {
+class CCAsyncDBJob_UpdateCharClanContPoint : public CCAsyncJob {
 protected:
 	int					m_nCID;
 	int					m_nCLID;
@@ -211,16 +211,16 @@ public:
 	}
 	virtual ~MAsyncDBJob_GetAccountCharInfo()	{}
 
-	const MUID&		GetUID()		{ return m_uid; }
+	const CCUID&		GetUID()		{ return m_uid; }
 	MTD_CharInfo*	GetCharInfo()	{ return &m_CharInfo; }
 	const int		GetCharNum()	{ return m_nCharNum; }
 	
 	virtual void Run(void* pContext);
 };
 
-class MAsyncDBJob_CreateChar : public MAsyncJob {
+class MAsyncDBJob_CreateChar : public CCAsyncJob {
 protected:
-	MUID		m_uid;
+	CCUID		m_uid;
 
 protected: // Input Argument
 	int			m_nAID;
@@ -236,8 +236,8 @@ protected:	// Output Result
 	MCommand*	m_pResultCommand;
 
 public:
-	MAsyncDBJob_CreateChar(const MUID& uid, int nAID, const char* szCharName, int nCharNum, int nSex, int nHair, int nFace, int nCostume)
-	: MAsyncJob(CCASYNCJOB_CREATECHAR, uid)
+	MAsyncDBJob_CreateChar(const CCUID& uid, int nAID, const char* szCharName, int nCharNum, int nSex, int nHair, int nFace, int nCostume)
+	: CCAsyncJob(CCASYNCJOB_CREATECHAR, uid)
 	{
 		m_uid = uid;
 		m_nAID = nAID;
@@ -252,7 +252,7 @@ public:
 	}
 	virtual ~MAsyncDBJob_CreateChar()	{}
 
-	const MUID& GetUID()		{ return m_uid; }
+	const CCUID& GetUID()		{ return m_uid; }
 
 
 	const int GetDBResult() { return m_nResult; }
@@ -261,9 +261,9 @@ public:
 	virtual void Run(void* pContext);
 };
 
-class MAsyncDBJob_DeleteChar : public MAsyncJob {
+class MAsyncDBJob_DeleteChar : public CCAsyncJob {
 protected:
-	MUID		m_uid;
+	CCUID		m_uid;
 
 protected: // Input Argument
 	int			m_nAID;
@@ -274,8 +274,8 @@ protected:	// Output Result
 	int			m_nDeleteResult;
 
 public:
-	MAsyncDBJob_DeleteChar(const MUID& uid, int nAID, int nCharNum, const char* szCharName)
-	: MAsyncJob(CCASYNCJOB_DELETECHAR, uid)
+	MAsyncDBJob_DeleteChar(const CCUID& uid, int nAID, int nCharNum, const char* szCharName)
+	: CCAsyncJob(CCASYNCJOB_DELETECHAR, uid)
 	{
 		m_uid = uid;
 		m_nAID = nAID;
@@ -285,7 +285,7 @@ public:
 	}
 	virtual ~MAsyncDBJob_DeleteChar()	{}
 
-	const MUID& GetUID()		{ return m_uid; }
+	const CCUID& GetUID()		{ return m_uid; }
 	int GetDeleteResult()		{ return m_nDeleteResult; }
 
 	virtual void Run(void* pContext);
@@ -294,7 +294,7 @@ public:
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-class MAsyncDBJob_InsertGameLog : public MAsyncJob {
+class MAsyncDBJob_InsertGameLog : public CCAsyncJob {
 protected: // Input Argument
 	unsigned int	m_nMasterCID;
 
@@ -314,7 +314,7 @@ protected:	// Output Result
 	unsigned int m_nID;
 
 public:
-	MAsyncDBJob_InsertGameLog(const MUID& uidStage)	: MAsyncJob(CCASYNCJOB_INSERTGAMELOG, uidStage) {}
+	MAsyncDBJob_InsertGameLog(const CCUID& uidStage)	: CCAsyncJob(CCASYNCJOB_INSERTGAMELOG, uidStage) {}
 	virtual ~MAsyncDBJob_InsertGameLog()	{}
 /*
 	bool Input(const char* szGameName, 
@@ -333,13 +333,13 @@ public:
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-class MAsyncDBJob_CreateClan : public MAsyncJob {
+class MAsyncDBJob_CreateClan : public CCAsyncJob {
 protected:
-	MUID		m_uidMaster;
-	MUID		m_uidMember1;
-	MUID		m_uidMember2;
-	MUID		m_uidMember3;
-	MUID		m_uidMember4;
+	CCUID		m_uidMaster;
+	CCUID		m_uidMember1;
+	CCUID		m_uidMember2;
+	CCUID		m_uidMember3;
+	CCUID		m_uidMember4;
 protected: // Input Argument
 	char		m_szClanName[256];
 	int			m_nMasterCID;
@@ -351,7 +351,7 @@ protected:	// Output Result
 	bool		m_bDBResult;
 	int			m_nNewCLID;
 public:
-	MAsyncDBJob_CreateClan(const MUID& uidOwne)	: MAsyncJob(CCASYNCJOB_CREATECLAN, uidOwne) ,
+	MAsyncDBJob_CreateClan(const CCUID& uidOwne)	: CCAsyncJob(CCASYNCJOB_CREATECLAN, uidOwne) ,
 											  m_bDBResult(false), 
 											  m_nNewCLID(0)
 	{
@@ -364,25 +364,25 @@ public:
 			   const int nMember2CID,
                const int nMember3CID, 
 			   const int nMember4CID,
-			   const MUID& uidMaster,
-			   const MUID& uidMember1,
-			   const MUID& uidMember2,
-			   const MUID& uidMember3,
-			   const MUID& uidMember4);
+			   const CCUID& uidMaster,
+			   const CCUID& uidMember1,
+			   const CCUID& uidMember2,
+			   const CCUID& uidMember3,
+			   const CCUID& uidMember4);
 	virtual void Run(void* pContext);
 	bool GetDBResult() { return m_bDBResult; }
 	int GetNewCLID() { return m_nNewCLID; }
-	const MUID& GetMasterUID() { return m_uidMaster; }
-	const MUID& GetMember1UID() { return m_uidMember1; }
-	const MUID& GetMember2UID() { return m_uidMember2; }
-	const MUID& GetMember3UID() { return m_uidMember3; }
-	const MUID& GetMember4UID() { return m_uidMember4; }
+	const CCUID& GetMasterUID() { return m_uidMaster; }
+	const CCUID& GetMember1UID() { return m_uidMember1; }
+	const CCUID& GetMember2UID() { return m_uidMember2; }
+	const CCUID& GetMember3UID() { return m_uidMember3; }
+	const CCUID& GetMember4UID() { return m_uidMember4; }
 	const char* GetClanName() { return m_szClanName; }
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-class MAsyncDBJob_ExpelClanMember : public MAsyncJob {
+class MAsyncDBJob_ExpelClanMember : public CCAsyncJob {
 protected:
-	MUID		m_uidAdmin;
+	CCUID		m_uidAdmin;
 protected: // Input Argument
 	int			m_nCLID;
 	int			m_nClanGrade;
@@ -391,16 +391,16 @@ protected: // Input Argument
 protected:	// Output Result
 	int			m_nDBResult;
 public:
-	MAsyncDBJob_ExpelClanMember(const MUID& uidOwner)	: MAsyncJob(CCASYNCJOB_EXPELCLANMEMBER, uidOwner), m_nDBResult(0)
+	MAsyncDBJob_ExpelClanMember(const CCUID& uidOwner)	: CCAsyncJob(CCASYNCJOB_EXPELCLANMEMBER, uidOwner), m_nDBResult(0)
 	{
 	
 	}
 	virtual ~MAsyncDBJob_ExpelClanMember()	{}
-	bool Input(const MUID& uidAdmin, int nCLID, int nClanGrade, const char* szTarMember);
+	bool Input(const CCUID& uidAdmin, int nCLID, int nClanGrade, const char* szTarMember);
 	virtual void Run(void* pContext);
 
 	int GetDBResult() { return m_nDBResult; }
-	const MUID& GetAdminUID() { return m_uidAdmin; }
+	const CCUID& GetAdminUID() { return m_uidAdmin; }
 	const char* GetTarMember() { return m_szTarMember; }
 };
 
@@ -411,10 +411,10 @@ class MQuestPlayerLogInfo;
 
 #define MAX_QUEST_LOG_PLAYER_COUNT 3 // 방장을 제외하고 최대 인원.
 
-class MAsyncDBJob_InsertQuestGameLog : public MAsyncJob 
+class MAsyncDBJob_InsertQuestGameLog : public CCAsyncJob 
 {
 public :
-	MAsyncDBJob_InsertQuestGameLog() : MAsyncJob(CCASYNCJOB_INSERTQUESTGAMELOG, MUID(0, 0)), m_nMasterCID( 0 ), m_nScenarioID( 0 )
+	MAsyncDBJob_InsertQuestGameLog() : CCAsyncJob(CCASYNCJOB_INSERTQUESTGAMELOG, CCUID(0, 0)), m_nMasterCID( 0 ), m_nScenarioID( 0 )
 	{
 	}
 
@@ -447,10 +447,10 @@ private :
 	int								m_nTotalRewardQItemCount;
 };
 
-class MAsyncDBJob_UpdateQuestItemInfo : public MAsyncJob
+class MAsyncDBJob_UpdateQuestItemInfo : public CCAsyncJob
 {
 public :
-	MAsyncDBJob_UpdateQuestItemInfo (const MUID& uidOwner) : MAsyncJob( CCASYNCJOB_UPDATEQUESTITEMINFO, uidOwner )
+	MAsyncDBJob_UpdateQuestItemInfo (const CCUID& uidOwner) : CCAsyncJob( CCASYNCJOB_UPDATEQUESTITEMINFO, uidOwner )
 	{
 	}
 
@@ -470,10 +470,10 @@ private :
 
 
 
-class MAsyncDBJob_SetBlockHacking : public MAsyncJob
+class MAsyncDBJob_SetBlockHacking : public CCAsyncJob
 {
 public :
-	MAsyncDBJob_SetBlockHacking(const MUID& uidOwner) : MAsyncJob( CCASYNCJOB_SETBLOCKHACKING, uidOwner )
+	MAsyncDBJob_SetBlockHacking(const CCUID& uidOwner) : CCAsyncJob( CCASYNCJOB_SETBLOCKHACKING, uidOwner )
 	{
 	}
 
@@ -506,10 +506,10 @@ private :
 };
 
 
-class MAsyncDBJob_ResetAccountHackingBlock : public MAsyncJob
+class MAsyncDBJob_ResetAccountHackingBlock : public CCAsyncJob
 {
 public :
-	MAsyncDBJob_ResetAccountHackingBlock(const MUID& uidOwner) : MAsyncJob( CCASYNCJOB_RESETACCOUNTHACKINGBLOCK, uidOwner )
+	MAsyncDBJob_ResetAccountHackingBlock(const CCUID& uidOwner) : CCAsyncJob( CCASYNCJOB_RESETACCOUNTHACKINGBLOCK, uidOwner )
 	{
 	}
 

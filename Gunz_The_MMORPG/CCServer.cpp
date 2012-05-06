@@ -276,14 +276,14 @@ bool MServer::OnCommand(CCCommand* pCommand)
 	return false;
 }
 
-void MServer::OnNetClear(const CCUID& CommUID)
+void MServer::OnNetClear(const CCUID& ComCCUID)
 {
 	LockCommList();
-		RemoveCommObject(CommUID);
+		RemoveCommObject(ComCCUID);
 	UnlockCommList();
 }
 
-void MServer::OnNetPong(const CCUID& CommUID, unsigned int nTimeStamp)
+void MServer::OnNetPong(const CCUID& ComCCUID, unsigned int nTimeStamp)
 {
 }
 
@@ -340,14 +340,14 @@ int MServer::OnAccept(CCCommObject* pCommObj)
 }
 
 // Login절차가 완성되면 Player고유의 PlayerUID사용. 임시로 생성된 AllocUID사용중
-void MServer::OnLocalLogin(CCUID CommUID, CCUID PlayerUID)
+void MServer::OnLocalLogin(CCUID ComCCUID, CCUID PlayerUID)
 {
 	CCCommObject* pCommObj = NULL;
 
 	LockAcceptWaitQueue();
 	for (list<CCCommObject*>::iterator i = m_AcceptWaitQueue.begin(); i!= m_AcceptWaitQueue.end(); i++) {
 		CCCommObject* pTmpObj = (*i);
-		if (pTmpObj->GetUID() == CommUID) {
+		if (pTmpObj->GetUID() == ComCCUID) {
 			pCommObj = pTmpObj;
 			m_AcceptWaitQueue.erase(i);
 			break;
@@ -365,7 +365,7 @@ void MServer::OnLocalLogin(CCUID CommUID, CCUID PlayerUID)
 		InitCryptCommObject(pCommObj, nTimeStamp);
 	UnlockCommList();
 
-	int nResult = ReplyConnect(&m_This, &CommUID, nTimeStamp, pCommObj);
+	int nResult = ReplyConnect(&m_This, &ComCCUID, nTimeStamp, pCommObj);
 
 /*	char szMsg[128];
 	sprintf(szMsg, "Accept from %s:%d \n", pCommObj->GetIP(), pCommObj->GetPort());

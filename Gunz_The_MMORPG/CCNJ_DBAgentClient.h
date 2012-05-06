@@ -3,7 +3,7 @@
 
 
 #include "MCustomClient.h"
-#include "MUID.h"
+#include "CCUID.h"
 #include <string>
 #include <map>
 using namespace std;
@@ -61,7 +61,7 @@ typedef struct _NJ_PACKET
 
 struct MDBAgentPoolNode
 {
-	MUID			uidComm;
+	CCUID			uidComm;
 	unsigned long	nChecksumPack;
 	bool			bFreeLoginIP;
 };
@@ -73,7 +73,7 @@ public:
 	{
 		Clear();
 	}
-	void Insert(string strLoginID, MUID uidComm, unsigned long nChecksumPack, bool bFreeLoginIP)
+	void Insert(string strLoginID, CCUID uidComm, unsigned long nChecksumPack, bool bFreeLoginIP)
 	{
 		MDBAgentPoolNode* pNewNode = new MDBAgentPoolNode;
 		pNewNode->uidComm = uidComm;
@@ -135,7 +135,7 @@ protected:
 public:
 	MNJ_DBAgentClient(int nGameCode, int nServerCode);
 	virtual ~MNJ_DBAgentClient();
-	void Send(const MUID& uidComm, const char* szCN, const char* szPW, bool bFreeLoginIP, unsigned long nChecksumPack, int nTotalUserCount);
+	void Send(const CCUID& uidComm, const char* szCN, const char* szPW, bool bFreeLoginIP, unsigned long nChecksumPack, int nTotalUserCount);
 	bool IsConnected() { return m_bConnected; }
 };
 

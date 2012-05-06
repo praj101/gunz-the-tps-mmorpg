@@ -40,7 +40,7 @@ protected:
 	/// @param uidPlayer	공격자 플레이어 UID
 	/// @param pDropItem	드롭할 아이템
 	/// @param pos			위치
-	void CheckRewards(MUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos);
+	void CheckRewards(CCUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos);
 	bool CheckPlayersAlive();								///< 플레이어가 모두 죽었는지 체크
 	virtual void ProcessNPCSpawn() = 0;						///< NPC 스폰작업
 	virtual bool CheckNPCSpawnEnable() = 0;					///< NPC가 스폰 가능한지 여부
@@ -68,11 +68,11 @@ public:
 	/// @param uidKiller		죽인 플레이어
 	/// @param uidNPC			죽은 NPC
 	/// @param pos				NPC 위치
-	virtual void OnRequestNPCDead(MUID& uidSender, MUID& uidKiller, MUID& uidNPC, MVector& pos);
+	virtual void OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, MVector& pos);
 
 	/// 플레이어 죽었을 때 호출
 	/// @param uidVictim		죽은 플레이어 UID
-	virtual void OnRequestPlayerDead(const MUID& uidVictim);
+	virtual void OnRequestPlayerDead(const CCUID& uidVictim);
 	virtual void OnRequestTestNPCSpawn(int nNPCType, int nNPCCount);
 	virtual void OnRequestTestClearNPC();
 
@@ -83,10 +83,10 @@ public:
 
 	/// 플레이어가 포탈로 이동했을 경우 호출된다.
 	/// @param uidPlayer			이동한 플레이어 UID
-	virtual void OnRequestMovetoPortal(const MUID& uidPlayer) = 0;
+	virtual void OnRequestMovetoPortal(const CCUID& uidPlayer) = 0;
 	/// 포탈로 이동하고 나서 이동이 완료되었을 경우 호출된다.
 	/// @param uidPlayer			플레이어 UID
-	virtual void OnReadyToNewSector(const MUID& uidPlayer) = 0;
+	virtual void OnReadyToNewSector(const CCUID& uidPlayer) = 0;
 
 	virtual void OnRequestTestSectorClear() = 0;
 	virtual void OnRequestTestFinish() = 0;
@@ -94,30 +94,30 @@ public:
 
 	// 퀘스트때문에 추가된 가상 인터페이스.
 	// 구조에대해 좀더 생각을 해봐야함. 너무 많은 인터페이스가 MMatchRule까지 올라와 버렸음... - by 추교성.
-	virtual void OnRequestDropSacrificeItemOnSlot( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
-	virtual void OnResponseDropSacrificeItemOnSlot( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
-	virtual void OnRequestCallbackSacrificeItem( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
-	virtual void OnResponseCallBackSacrificeItem( const MUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )	{}
-	virtual void OnRequestQL( const MUID& uidSender ) {}
-	virtual void OnResponseQL_ToStage( const MUID& uidStage )	{}
-	virtual void OnRequestSacrificeSlotInfo( const MUID& uidSender ) {}
-	virtual void OnResponseSacrificeSlotInfoToListener( const MUID& uidSender ) {}
-	virtual void OnResponseSacrificeSlotInfoToStage( const MUID& uidStage )	{}
+	virtual void OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
+	virtual void OnResponseDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
+	virtual void OnRequestCallbackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
+	virtual void OnResponseCallBackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )	{}
+	virtual void OnRequestQL( const CCUID& uidSender ) {}
+	virtual void OnResponseQL_ToStage( const CCUID& uidStage )	{}
+	virtual void OnRequestSacrificeSlotInfo( const CCUID& uidSender ) {}
+	virtual void OnResponseSacrificeSlotInfoToListener( const CCUID& uidSender ) {}
+	virtual void OnResponseSacrificeSlotInfoToStage( const CCUID& uidStage )	{}
 	virtual void OnChangeCondition() {}
 
 	virtual bool							PrepareStart() { return true; }
-	virtual void							PreProcessLeaveStage( const MUID& uidLeaverUID );
+	virtual void							PreProcessLeaveStage( const CCUID& uidLeaverUID );
 
 
 	// 몬스터 바이블 추가 인터페이스.
-	virtual void CheckMonsterBible( const MUID& uidUser, const int nMonsterBibleIndex );
-	virtual void PostNewMonsterInfo( const MUID& uidUser, const char nMonIndex );
+	virtual void CheckMonsterBible( const CCUID& uidUser, const int nMonsterBibleIndex );
+	virtual void PostNewMonsterInfo( const CCUID& uidUser, const char nMonIndex );
 	
 public:
 	MMatchRuleBaseQuest(MMatchStage* pStage);			///< 생성자
 	virtual ~MMatchRuleBaseQuest();						///< 소멸자
-	virtual void OnEnterBattle(MUID& uidChar);			///< 게임중 난입할때 호출된다.
-	virtual void OnLeaveBattle(MUID& uidChar);			///< 게임중 나갔을때 호출된다.
+	virtual void OnEnterBattle(CCUID& uidChar);			///< 게임중 난입할때 호출된다.
+	virtual void OnLeaveBattle(CCUID& uidChar);			///< 게임중 나갔을때 호출된다.
 
 	virtual void RefreshStageGameInfo() = 0;
 };

@@ -328,7 +328,7 @@ const char* ZShopEquipItem_Gamble::GetName(char* szBuf)
 	char sz[256];
 	if (m_pHandlerSell)
 	{
-		CCUID uid = m_pHandlerSell->GetItemUID();
+		CCUID uid = m_pHandlerSell->GetIteCCUID();
 		const ZMyGambleItem* pMyGambleItem = ZGetMyInfo()->GetItemList()->GetGambleItem(uid);
 		if (pMyGambleItem && pMyGambleItem->GetItemCount() > 0)
 		{
@@ -421,7 +421,7 @@ const char* ZShopEquipItem_Match::GetName( char* szBuf )
 	}
 	else if (m_pHandlerSell)
 	{
-		ZMyItemNode* pMyItemNode = ZGetMyInfo()->GetItemList()->GetItem( m_pHandlerSell->GetItemUID());
+		ZMyItemNode* pMyItemNode = ZGetMyInfo()->GetItemList()->GetItem( m_pHandlerSell->GetIteCCUID());
 		if (pMyItemNode)
 			sprintf(sz, "\n(x%d)", pMyItemNode->GetItemCount());
 	}
@@ -465,7 +465,7 @@ void ZShopEquipItem_Match::FillItemDesc(CCTextArea* pTextArea)
 	ZMyItemNode* pRentalNode = NULL;
 	if (m_pHandlerSell)
 	{
-		CCUID uidItem = m_pHandlerSell->GetItemUID();
+		CCUID uidItem = m_pHandlerSell->GetIteCCUID();
 		pRentalNode = ZGetMyInfo()->GetItemList()->GetItem(uidItem);
 	}
 	else if (m_pHandlerBringAccount)
@@ -1109,7 +1109,7 @@ void ZShopEquipItemHandle_SellGamble::Sell()
 	int nPrice = 0;
 	if (!GetPrice(nPrice)) return;
 
-	const ZMyGambleItem *pMyGItem = ZGetMyInfo()->GetItemList()->GetGambleItem( GetItemUID());
+	const ZMyGambleItem *pMyGItem = ZGetMyInfo()->GetItemList()->GetGambleItem( GetIteCCUID());
 	if (!pMyGItem)  { _ASSERT(0); return; }
 	int nMax = pMyGItem->GetItemCount();
 
@@ -1122,7 +1122,7 @@ void ZShopEquipItemHandle_SellGamble::Sell()
 
 void ZShopEquipItemHandle_SellGamble::OnDone(int nCount)
 {
-	ZPostRequestSellItem(ZGetGameClient()->GetPlayerUID(), GetItemUID(), nCount);
+	ZPostRequestSellItem(ZGetGameClient()->GetPlayerUID(), GetIteCCUID(), nCount);
 }
 
 // ============= ZShopEquipItemHandle_SellMatch 판매 핸들러 : 장비 ================================================
@@ -1140,7 +1140,7 @@ bool ZShopEquipItemHandle_SellMatch::GetPrice( int& out_nPrice )
 	CCMatchItemDesc* pDesc = m_pItem->GetDesc();
 	if (!pDesc) { _ASSERT(pDesc); return false; }
 
-	ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetItem( GetItemUID());
+	ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetItem( GetIteCCUID());
 	if (!pItemNode) return false;
 
 	if (!pDesc->IsCashItem())
@@ -1194,7 +1194,7 @@ void ZShopEquipItemHandle_SellMatch::Sell()
 
 	if (m_pItem->GetDesc()->IsSpendableItem())
 	{
-		ZMyItemNode* pMyItemNode = ZGetMyInfo()->GetItemList()->GetItem( GetItemUID());
+		ZMyItemNode* pMyItemNode = ZGetMyInfo()->GetItemList()->GetItem( GetIteCCUID());
 		if (!pMyItemNode) { _ASSERT(0); return; }
 
 		int nMax = pMyItemNode->GetItemCount();
@@ -1223,18 +1223,18 @@ void ZShopEquipItemHandle_SellMatch::Sell()
 void ZShopEquipItemHandle_SellMatch::OnDone(bool bOk)
 {
 	if (!bOk) return;
-	ZPostRequestSellItem(ZGetGameClient()->GetPlayerUID(), GetItemUID());
+	ZPostRequestSellItem(ZGetGameClient()->GetPlayerUID(), GetIteCCUID());
 }
 
 void ZShopEquipItemHandle_SellMatch::OnDone(int nCount)
 {
-	ZPostRequestSellItem(ZGetGameClient()->GetPlayerUID(), GetItemUID(), nCount);
+	ZPostRequestSellItem(ZGetGameClient()->GetPlayerUID(), GetIteCCUID(), nCount);
 }
 
 void ZShopEquipItemHandle_SellMatch::OnConfirmSellCashItem(bool bOk)
 {
 	if (!bOk) return;
-	ZPostRequestSellItem(ZGetGameClient()->GetPlayerUID(), GetItemUID());
+	ZPostRequestSellItem(ZGetGameClient()->GetPlayerUID(), GetIteCCUID());
 }
 
 // ============= ZShopEquipItemHandle_SellQuest 판매 핸들러 : 퀘스트 ================================================
@@ -1305,7 +1305,7 @@ void ZShopEquipItemHandle_SendAccountGamble::Send()
 	if (!m_pItem->CanSendAccount()) return;
 
 
-	const ZMyGambleItem* pMyGItem = ZGetMyInfo()->GetItemList()->GetGambleItem(GetItemUID());
+	const ZMyGambleItem* pMyGItem = ZGetMyInfo()->GetItemList()->GetGambleItem(GetIteCCUID());
 	int nMax = pMyGItem->GetItemCount();
 
 	OpenCountableConfirmDlg(
@@ -1322,7 +1322,7 @@ void ZShopEquipItemHandle_SendAccountGamble::OnDone(int nCount)
 
 	if (nCount <= 0) return;
 
-	ZPostRequestSendAccountItem(ZGetMyUID(), GetItemUID(), nCount);
+	ZPostRequestSendAccountItem(ZGetMyUID(), GetIteCCUID(), nCount);
 }
 
 // ============= ZShopEquipItemHandle_SendAccountMatch 은행 보내기 핸들러 : 장비 ================================================
@@ -1340,7 +1340,7 @@ void ZShopEquipItemHandle_SendAccountMatch::Send()
 
 	if (m_pItem->GetDesc()->IsSpendableItem())
 	{
-		ZMyItemNode* pMyItemNode = ZGetMyInfo()->GetItemList()->GetItem( GetItemUID());
+		ZMyItemNode* pMyItemNode = ZGetMyInfo()->GetItemList()->GetItem( GetIteCCUID());
 		if (!pMyItemNode) { _ASSERT(0); return; }
 
 		int nMax = pMyItemNode->GetItemCount();
@@ -1353,7 +1353,7 @@ void ZShopEquipItemHandle_SendAccountMatch::Send()
 	}
 	else
 	{
-		ZPostRequestSendAccountItem(ZGetMyUID(), GetItemUID());
+		ZPostRequestSendAccountItem(ZGetMyUID(), GetIteCCUID());
 	}
 }
 
@@ -1364,7 +1364,7 @@ void ZShopEquipItemHandle_SendAccountMatch::OnDone(int nCount)
 
 	if (nCount <= 0) return;
 
-	ZPostRequestSendAccountItem(ZGetMyUID(), GetItemUID(), nCount);
+	ZPostRequestSendAccountItem(ZGetMyUID(), GetIteCCUID(), nCount);
 }
 
 

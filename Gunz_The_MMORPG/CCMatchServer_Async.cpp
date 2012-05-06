@@ -271,8 +271,8 @@ void CCMatchServer::OnAsyncGetLoginInfo(CCAsyncJob* pJobInput)
 	if (pJob->GetResult() != CCASYNC_RESULT_SUCCEED) 
 	{		
 		// Notify Message 필요 -> 로그인 관련 - 해결(Login Fail 메세지 이용)
-		// Disconnect(pJob->GetCommUID());
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetCommUID(), MERR_FAILED_GETACCOUNTINFO);
+		// Disconnect(pJob->GetComCCUID());
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetComCCUID(), MERR_FAILED_GETACCOUNTINFO);
 		Post(pCmd);
 
 		pJob->DeleteMemory();
@@ -301,20 +301,20 @@ void CCMatchServer::OnAsyncGetLoginInfo(CCAsyncJob* pJobInput)
 	// 사용정지 계정인지 확인한다.
 	if ((pAccountInfo->m_nUGrade == CCMUGBLOCKED) || (pAccountInfo->m_nUGrade == CCMUGPENALTY))
 	{
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetCommUID(), MERR_CLIENT_CCMUGBLOCKED);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetComCCUID(), MERR_CLIENT_CCMUGBLOCKED);
 		Post(pCmd);
 
 		pJob->DeleteMemory();
 		return;
 	}
 
-	AddObjectOnMatchLogin(pJob->GetCommUID(), pJob->GetAccountInfo(), pJob->GetAccountPenaltyInfo(), 
+	AddObjectOnMatchLogin(pJob->GetComCCUID(), pJob->GetAccountInfo(), pJob->GetAccountPenaltyInfo(), 
 		pJob->IsFreeLoginIP(), pJob->GetCountryCode3(), pJob->GetChecksumPack());
 
 /*
 	// 할당...
-	CCUID AllocUID = CommUID;
-	int nErrCode = ObjectAdd(CommUID);
+	CCUID AllocUID = ComCCUID;
+	int nErrCode = ObjectAdd(ComCCUID);
 	if(nErrCode!=MOK) {
 		LOG(LOG_DEBUG, MErrStr(nErrCode) );
 	}
@@ -322,27 +322,27 @@ void CCMatchServer::OnAsyncGetLoginInfo(CCAsyncJob* pJobInput)
 	CCMatchObject* pObj = GetObject(AllocUID);
 	if (pObj == NULL)
 	{
-		Disconnect(CommUID);
+		Disconnect(ComCCUID);
 		delete pJob->GetAccountInfo();
 		return;
 	}
 
-	pObj->AddCommListener(CommUID);
+	pObj->AddCommListener(ComCCUID);
 	pObj->SetObjectType(MOT_PC);
 	memcpy(pObj->GetAccountInfo(), pAccountInfo, sizeof(CCMatchAccountInfo));
 	pObj->SetFreeLoginIP(pJob->IsFreeLoginIP());
 	pObj->SetCountryCode3( pJob->GetCountryCode3() );
 
 
-	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(ComCCUID);
 	if (pCommObj != NULL)
 	{
 		pObj->SetPeerAddr(pCommObj->GetIP(), pCommObj->GetIPString(), pCommObj->GetPort());
 	}
 	
-	SetClientClockSynchronize(CommUID);
+	SetClientClockSynchronize(ComCCUID);
 
-	CCCommand* pCmd = CreateCmdMatchResponseLoginOK(CommUID, AllocUID, pAccountInfo->m_szUserID, pAccountInfo->m_nUGrade, pAccountInfo->m_nPGrade);
+	CCCommand* pCmd = CreateCmdMatchResponseLoginOK(ComCCUID, AllocUID, pAccountInfo->m_szUserID, pAccountInfo->m_nUGrade, pAccountInfo->m_nPGrade);
 	Post(pCmd);	
 
 
@@ -353,10 +353,10 @@ void CCMatchServer::OnAsyncGetLoginInfo(CCAsyncJob* pJobInput)
 
 #ifndef _DEBUG
 	// Client DataFile Checksum을 검사한다.
-	unsigned long nChecksum = pJob->GetChecksumPack() ^ CommUID.High ^ CommUID.Low;
+	unsigned long nChecksum = pJob->GetChecksumPack() ^ ComCCUID.High ^ ComCCUID.Low;
 	if (nChecksum != GetItemFileChecksum()) {
 		LOG(LOG_PROG, "Invalid ZItemChecksum(%u) , UserID(%s) ", nChecksum, pObj->GetAccountInfo()->m_szUserID);
-		Disconnect(CommUID);
+		Disconnect(ComCCUID);
 	}
 #endif
 

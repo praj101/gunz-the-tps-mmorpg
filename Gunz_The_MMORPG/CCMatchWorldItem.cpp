@@ -359,11 +359,11 @@ void CCMatchWorldItemManager::DelItem(short nUID)
 }
 
 
-bool CCMatchWorldItemManager::Obtain(CCMatchObject* pObj, short nItemUID, int* poutItemID, int* poutExtraValues)
+bool CCMatchWorldItemManager::Obtain(CCMatchObject* pObj, short nIteCCUID, int* poutItemID, int* poutExtraValues)
 {
 	if (m_pMatchStage == NULL) return false;
 
-	CCMatchWorldItemMap::iterator itor = m_ItemMap.find(nItemUID);
+	CCMatchWorldItemMap::iterator itor = m_ItemMap.find(nIteCCUID);
 	if (itor != m_ItemMap.end())
 	{
 		CCMatchWorldItem* pWorldItem = (*itor).second;
@@ -375,8 +375,8 @@ bool CCMatchWorldItemManager::Obtain(CCMatchObject* pObj, short nItemUID, int* p
 			poutExtraValues[i] = pWorldItem->nExtraValue[i];
 		}
 
-		RouteObtainWorldItem(pObj->GetUID(), (int)nItemUID);
-		DelItem(nItemUID);
+		RouteObtainWorldItem(pObj->GetUID(), (int)nIteCCUID);
+		DelItem(nIteCCUID);
 
 		return true;
 	}
@@ -422,20 +422,20 @@ void CCMatchWorldItemManager::Destroy()
 
 }
 
-void CCMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldItemUID)
+void CCMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldIteCCUID)
 {
 	// 먹었다고 라우팅
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParamUID(uidPlayer));
-	pCmd->AddParameter(new CCCmdParamInt(nWorldItemUID));
+	pCmd->AddParameter(new CCCmdParaCCUID(uidPlayer));
+	pCmd->AddParameter(new CCCmdParamInt(nWorldIteCCUID));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
 
-void CCMatchWorldItemManager::RouteRemoveWorldItem(int nWorldItemUID)
+void CCMatchWorldItemManager::RouteRemoveWorldItem(int nWorldIteCCUID)
 {
 	// 없어졌다고 라우팅
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_REMOVE_WORLDITEM, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParamInt(nWorldItemUID));
+	pCmd->AddParameter(new CCCmdParamInt(nWorldIteCCUID));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
 

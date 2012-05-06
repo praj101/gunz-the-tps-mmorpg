@@ -1859,16 +1859,16 @@ void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob,
 	CHECK_RETURN_CALLSTACK(OnResponseGameInfo);
 }
 
-void ZGameClient::OnObtainWorldItem(const CCUID& uidChar, const int nItemUID)
+void ZGameClient::OnObtainWorldItem(const CCUID& uidChar, const int nIteCCUID)
 {
 	if (ZGetGame() == NULL) return;
 
 	ZCharacter* pCharacter = ZGetGame()->m_CharacterManager.Find(uidChar);
 	if (pCharacter)
 	{
-		ZGetWorldItemManager()->ApplyWorldItem( nItemUID, pCharacter );
+		ZGetWorldItemManager()->ApplyWorldItem( nIteCCUID, pCharacter );
 
-		ZWeapon* pWeapon = ZGetGame()->m_WeaponManager.GetWorldItem(nItemUID);
+		ZWeapon* pWeapon = ZGetGame()->m_WeaponManager.GetWorldItem(nIteCCUID);
 
 		ZWeaponItemKit* pItemKit = MDynamicCast(ZWeaponItemKit, pWeapon);
 		if( pItemKit ) { pItemKit->m_bDeath = true; }
@@ -1898,19 +1898,19 @@ void ZGameClient::OnSpawnWorldItem(void* pBlob)
 		
 		if( pWorldItem && (pItemKit = MDynamicCast(ZWeaponItemKit, pMWeapon)) ) 
 		{
-			pItemKit->SetItemUID(pWorldItemNode->nUID);
+			pItemKit->SetIteCCUID(pWorldItemNode->nUID);
 			pWorldItem->m_bisDraw = false;
 		}
 	}
 }
 
-void ZGameClient::OnRemoveWorldItem(const int nItemUID)
+void ZGameClient::OnRemoveWorldItem(const int nIteCCUID)
 {
 	if (ZGetGame() == NULL) return;
 
-	ZGetWorldItemManager()->DeleteWorldItem( nItemUID, true );
+	ZGetWorldItemManager()->DeleteWorldItem( nIteCCUID, true );
 
-	ZWeapon* pWeapon = ZGetGame()->m_WeaponManager.GetWorldItem(nItemUID);
+	ZWeapon* pWeapon = ZGetGame()->m_WeaponManager.GetWorldItem(nIteCCUID);
 	ZWeaponItemKit* pItemKit = MDynamicCast(ZWeaponItemKit,pWeapon);
 	if( pItemKit ) { pItemKit->m_bDeath = true; }
 }

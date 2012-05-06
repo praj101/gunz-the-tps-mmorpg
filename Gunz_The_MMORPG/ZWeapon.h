@@ -36,8 +36,8 @@ public:
 	virtual bool Update(float fElapsedTime);
 
 	int	 GetWeaponType()		{ return m_WeaponType; }
-	void SetItemUID(int nUID)	{ m_nItemUID = nUID; }
-	int  GetItemUID()			{ return m_nItemUID; }
+	void SetIteCCUID(int nUID)	{ m_nIteCCUID = nUID; }
+	int  GetIteCCUID()			{ return m_nIteCCUID; }
 
 public:
 	RVisualMesh* m_pVMesh;
@@ -50,7 +50,7 @@ protected:
 	CCMatchTeam	m_nTeamID;
 	float		m_fDamage;
 	int			m_SLSid; // 스텐실 라이트 아이디
-	int			m_nItemUID;
+	int			m_nIteCCUID;
 };
 
 class ZMovingWeapon : public ZWeapon {

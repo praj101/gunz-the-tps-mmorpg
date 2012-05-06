@@ -13,7 +13,7 @@
 
 void CCMatchServer::ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType)
 {
-	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
+	CCMatchObject *pDTObj = GetPlayerByComCCUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
 	CCMatchChannel *pChannel = FindChannel(pDTObj->GetChannelUID());
@@ -44,7 +44,7 @@ void CCMatchServer::ResponseDuelTournamentJoinChallenge(CCUID &uidPlayer, CCDUEL
 
 void CCMatchServer::ResponseDuelTournamentCancelChallenge(CCUID &uidPlayer, CCDUELTOURNAMENTTYPE nType)
 {
-	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
+	CCMatchObject *pDTObj = GetPlayerByComCCUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
 	CCMatchChannel *pChannel = FindChannel(pDTObj->GetChannelUID());
@@ -71,7 +71,7 @@ void CCMatchServer::ResponseDuelTournamentCancelChallenge(CCUID &uidPlayer, CCDU
 
 void CCMatchServer::ResponseDuelTournamentCharSideRanking(CCUID &uidPlayer)
 {
-	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
+	CCMatchObject *pDTObj = GetPlayerByComCCUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
 	CCMatchObjectDuelTournamentCharInfo *pInfo = pDTObj->GetDuelTournamentCharInfo();
@@ -90,7 +90,7 @@ void CCMatchServer::ResponseDuelTournamentCharSideRanking(CCUID &uidPlayer)
 
 void CCMatchServer::ResponseDuelTournamentCharStatusInfo(CCUID &uidPlayer, CCCommand *pCommand)
 {
-	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
+	CCMatchObject *pDTObj = GetPlayerByComCCUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
 	CCMatchStage *pStage = FindStage(pDTObj->GetStageUID());
@@ -101,7 +101,7 @@ void CCMatchServer::ResponseDuelTournamentCharStatusInfo(CCUID &uidPlayer, CCCom
 
 void CCMatchServer::SendDuelTournamentPreviousCharInfoToPlayer(CCUID uidPlayer)
 {
-	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
+	CCMatchObject *pDTObj = GetPlayerByComCCUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
 	OnAsyncRequest_GetDuelTournamentPreviousCharacterInfo(uidPlayer, pDTObj->GetCharInfo()->m_nCID);
@@ -109,7 +109,7 @@ void CCMatchServer::SendDuelTournamentPreviousCharInfoToPlayer(CCUID uidPlayer)
 
 void CCMatchServer::SendDuelTournamentCharInfoToPlayer(CCUID uidPlayer)
 {
-	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
+	CCMatchObject *pDTObj = GetPlayerByComCCUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
 	if( pDTObj->GetDuelTournamentCharInfo() == NULL ) {
@@ -156,7 +156,7 @@ void CCMatchServer::SendDuelTournamentServiceTimeClose(const CCUID& uidPlayer)
 	if ( MGetServerConfig()->IsEnabledDuelTournament() == false ) return;
 
 	// 듀얼토너먼트 참가신청 취소
-	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
+	CCMatchObject *pDTObj = GetPlayerByComCCUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 	pDTObj->SetChallengeDuelTournament(false);
  
@@ -514,7 +514,7 @@ void CCMatchServer::PostCmdDuelTournamentCharInfoPrevious(CCUID uidPlayer, int n
 
 void CCMatchServer::PostCmdDuelTournamentCharSideRankingInfo(CCUID uidPlayer, list<DTRankingInfo*>* pSideRankingList)
 {
-	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
+	CCMatchObject *pDTObj = GetPlayerByComCCUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
 	void* pBlobRanking = CCMakeBlobArray(sizeof(DTRankingInfo), (int)pSideRankingList->size() );
@@ -575,7 +575,7 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 		return;
 	}
 
-	pCmd->AddParameter(new CCCmdParamUID(uidStage));
+	pCmd->AddParameter(new CCCmdParaCCUID(uidStage));
 	pCmd->AddParameter(new CCCmdParamInt(nType));
 	pCmd->AddParameter(new CCCommandParameterBlob(pBlobPlayerInfo, CCGetBlobArraySize(pBlobPlayerInfo)));
 	CCEraseBlobArray( pBlobPlayerInfo );
@@ -595,7 +595,7 @@ void CCMatchServer::RouteCmdDuelTournamentLaunchMatch(CCUID uidStage)
 	if (pStage == NULL) return;
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_LAUNCH_MATCH, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParamUID(uidStage));
+	pCmd->AddParameter(new CCCmdParaCCUID(uidStage));
 	pCmd->AddParameter(new CCCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
 	RouteToStage(uidStage, pCmd);
 }

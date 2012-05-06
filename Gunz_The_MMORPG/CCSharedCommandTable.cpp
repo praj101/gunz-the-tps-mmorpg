@@ -102,14 +102,14 @@ void MAddSharedCommandTable(CCCommandManager* pCommandManager, int nSharedType)
 			P(MPT_INT, "CommandVersion");
 			P(MPT_UINT, "nChecksumPack");
 		C(MC_MATCH_LOGIN_FROM_DBAGENT, "Match.LoginFromDBAgent", "Login from DBAgent", MCDT_LOCAL)
-			P(MPT_UID, "CommUID");
+			P(MPT_UID, "ComCCUID");
 			P(MPT_STR, "LoginID");
 			P(MPT_STR, "Name");
 			P(MPT_INT, "Sex");
 			P(MPT_BOOL, "bFreeLoginIP")
 			P(MPT_UINT, "nChecksumPack")
 		C(MC_MATCH_LOGIN_FROM_DBAGENT_FAILED, "Match.LoginFailedFromDBAgent", "Login Failed from DBAgent", MCDT_LOCAL)
-			P(MPT_UID, "CommUID");
+			P(MPT_UID, "ComCCUID");
 			P(MPT_INT, "Result")
 		C(MC_MATCH_FIND_HACKING, "Match.FinH", "FinH", MCDT_MACHINE2MACHINE)
 		C( MC_MATCH_DISCONNMSG, "MC_MATCH_DISCONNMSG", "disconnect reason", MCDT_MACHINE2MACHINE )
@@ -635,10 +635,10 @@ void MAddSharedCommandTable(CCCommandManager* pCommandManager, int nSharedType)
 
 		C(MC_MATCH_REQUEST_OBTAIN_WORLDITEM, "Match.Request.Obtain.WorldItem", "Request Obtain WorldItem", MCDT_MACHINE2MACHINE)
 			P(MPT_UID, "uidChar")
-			P(MPT_INT, "nItemUID")
+			P(MPT_INT, "nIteCCUID")
 		C(MC_MATCH_OBTAIN_WORLDITEM, "Match.WorldItem.Obtain", "Obtain WorldItem", MCDT_MACHINE2MACHINE)
 			P(MPT_UID, "uidChar")
-			P(MPT_INT, "nItemUID")
+			P(MPT_INT, "nIteCCUID")
 		C(MC_MATCH_SPAWN_WORLDITEM, "Match.WorldItem.Spawn", "Spawn WorldItem", MCDT_MACHINE2MACHINE)
 			P(MPT_BLOB, "SpawnInfo")
 		C(MC_MATCH_REQUEST_SPAWN_WORLDITEM, "Match.Request.Spawn.WorldItem", "Request Spawn WorldItem", MCDT_MACHINE2MACHINE)
@@ -647,7 +647,7 @@ void MAddSharedCommandTable(CCCommandManager* pCommandManager, int nSharedType)
 			P(MPT_POS, "ItemPos")
 			P(MPT_FLOAT, "ItemDropDelayTime")
 		C(MC_MATCH_REMOVE_WORLDITEM, "Match.Request.Spawn.WorldItem", "Request Spawn WorldItem", MCDT_MACHINE2MACHINE)
-			P(MPT_INT, "nWorldItemUID")		// world item¿« UID
+			P(MPT_INT, "nWorldIteCCUID")		// world item¿« UID
 
 		C(MC_MATCH_RESET_TEAM_MEMBERS, "Match.Reset.TeamMembers", "Reset Team Members", MCDT_MACHINE2MACHINE)
 			P(MPT_BLOB, "TeamMemberData")

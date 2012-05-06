@@ -31,7 +31,7 @@ bool CCMatchChatRoom::AddPlayer(const CCUID& uidPlayer)
 	if( !IsEnabledObject(pPlayer) )
 		return false;
 
-	pPlayer->SetChatRoomUID(GetUID());
+	pPlayer->SetChatRooCCUID(GetUID());
 
 	m_PlayerList.Insert(uidPlayer, pPlayer);
 	return true;
@@ -57,7 +57,7 @@ void CCMatchChatRoom::RemovePlayer(const CCUID& uidPlayer)
 		CCMatchObject* pPlayer = pServer->GetObject(uidPlayer);
 		if( !IsEnabledObject(pPlayer) )
 			return;
-		pPlayer->SetChatRoomUID(CCUID(0,0));
+		pPlayer->SetChatRooCCUID(CCUID(0,0));
 	}
 }
 

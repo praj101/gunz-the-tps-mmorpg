@@ -216,8 +216,8 @@ protected:
 
 public:				// 젠장 -_-; 리플레이에서 이 이벤트들 처리해야 함;
 	void OnSpawnWorldItem(void* pBlob);
-	void OnObtainWorldItem(const CCUID& uidChar, const int nItemUID);
-	void OnRemoveWorldItem(const int nItemUID);
+	void OnObtainWorldItem(const CCUID& uidChar, const int nIteCCUID);
+	void OnRemoveWorldItem(const int nIteCCUID);
 
 	void OnNotifyActivatedTrapItemList(void* pBlob);
 

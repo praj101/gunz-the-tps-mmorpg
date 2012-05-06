@@ -8,13 +8,13 @@
 #include "CCAsyncDBJob.h"
 
 
-class MAsyncDBJob_GetDuelTournamentTimeStamp : public MAsyncJob
+class MAsyncDBJob_GetDuelTournamentTimeStamp : public CCAsyncJob
 {
 protected:
 	char m_szTimeStamp[DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1];
 
 public:
-	MAsyncDBJob_GetDuelTournamentTimeStamp() : MAsyncJob(MASYNCJOB_GET_DUELTOURNAMENT_TIMESTAMP, MUID(0, 0)) {}
+	MAsyncDBJob_GetDuelTournamentTimeStamp() : CCAsyncJob(CCAsyncJob_GET_DUELTOURNAMENT_TIMESTAMP, CCUID(0, 0)) {}
 	~MAsyncDBJob_GetDuelTournamentTimeStamp(){}
 
 
@@ -23,35 +23,35 @@ public:
 	char* GetTimeStamp(){ return m_szTimeStamp; }
 };
 
-class MAsyncDBJob_GetDuelTournamentCharInfo : public MAsyncJob
+class MAsyncDBJob_GetDuelTournamentCharInfo : public CCAsyncJob
 {
 protected:
 	DWORD m_dwPlayerCID;
 
-	MUID m_uidPlayer;
+	CCUID m_uidPlayer;
 	MMatchObjectDuelTournamentCharInfo m_pDTCharInfo;
 public:
-	MAsyncDBJob_GetDuelTournamentCharInfo() : MAsyncJob(MASYNCJOB_GET_DUELTOURNAMENT_CHARINFO, MUID(0, 0)) {
+	MAsyncDBJob_GetDuelTournamentCharInfo() : CCAsyncJob(CCAsyncJob_GET_DUELTOURNAMENT_CHARINFO, CCUID(0, 0)) {
 		m_dwPlayerCID = 0;
-		m_uidPlayer = MUID(0, 0);
+		m_uidPlayer = CCUID(0, 0);
 	}
 	~MAsyncDBJob_GetDuelTournamentCharInfo(){}
 
-	void Input(MUID uidPlayer, DWORD dwPlayerCID) {
+	void Input(CCUID uidPlayer, DWORD dwPlayerCID) {
 		m_uidPlayer = uidPlayer;
 		m_dwPlayerCID = dwPlayerCID;		
 	}
 
 	virtual void Run(void* pContext);
 
-	MUID GetPlayerUID()									{ return m_uidPlayer; }
+	CCUID GetPlayerUID()									{ return m_uidPlayer; }
 	MMatchObjectDuelTournamentCharInfo* GetDTCharInfo()	{ return &m_pDTCharInfo; }	
 };
 
-class MAsyncDBJob_GetDuelTournamentPreviousCharInfo : public MAsyncJob
+class MAsyncDBJob_GetDuelTournamentPreviousCharInfo : public CCAsyncJob
 {
 protected:
-	MUID m_uidPlayer;
+	CCUID m_uidPlayer;
 	DWORD m_dwPlayerCID;	
 
 	int m_nPrevTP;
@@ -60,9 +60,9 @@ protected:
 	int m_nPrevRanking;
 	int m_nPrevFinalWins;
 public:
-	MAsyncDBJob_GetDuelTournamentPreviousCharInfo() : MAsyncJob(MASYNCJOB_GET_DUELTOURNAMENT_PREVIOUS_CHARINFO, MUID(0, 0)) {
+	MAsyncDBJob_GetDuelTournamentPreviousCharInfo() : CCAsyncJob(CCAsyncJob_GET_DUELTOURNAMENT_PREVIOUS_CHARINFO, CCUID(0, 0)) {
 		m_dwPlayerCID = 0;
-		m_uidPlayer = MUID(0, 0);
+		m_uidPlayer = CCUID(0, 0);
 
 		m_nPrevTP = 0;
 		m_nPrevWins = 0;
@@ -73,13 +73,13 @@ public:
 	~MAsyncDBJob_GetDuelTournamentPreviousCharInfo(){}
 
 
-	void Input(MUID uidPlayer, DWORD dwPlayerCID) {
+	void Input(CCUID uidPlayer, DWORD dwPlayerCID) {
 		m_uidPlayer = uidPlayer;
 		m_dwPlayerCID = dwPlayerCID;		
 	}
 
 	virtual void Run(void* pContext);
-	MUID GetPlayerUID()					{ return m_uidPlayer; }
+	CCUID GetPlayerUID()					{ return m_uidPlayer; }
 
 	int GetPrevTP()						{ return m_nPrevTP; }
 	int GetPrevWins()					{ return m_nPrevWins; }
@@ -90,7 +90,7 @@ public:
 
 };
 
-class MAsyncDBJob_UpdateDuelTournamentCharInfo : public MAsyncJob
+class MAsyncDBJob_UpdateDuelTournamentCharInfo : public CCAsyncJob
 {
 protected:
 	DWORD m_dwPlayerCID;
@@ -98,7 +98,7 @@ protected:
 	MMatchObjectDuelTournamentCharInfo *m_pDTCharInfo;
 
 public:
-	MAsyncDBJob_UpdateDuelTournamentCharInfo() : MAsyncJob(MASYNCJOB_UPDATE_DUELTOURNAMENT_CHARINFO, MUID(0, 0)) {
+	MAsyncDBJob_UpdateDuelTournamentCharInfo() : CCAsyncJob(CCAsyncJob_UPDATE_DUELTOURNAMENT_CHARINFO, CCUID(0, 0)) {
 		m_dwPlayerCID = 0;
 		m_pDTCharInfo = NULL;
 		ZeroMemory(m_szTimeStamp, DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1);
@@ -121,7 +121,7 @@ public:
 };
 
 
-class MAsyncDBJob_UpdateDuelTournamentGameLog : public MAsyncJob
+class MAsyncDBJob_UpdateDuelTournamentGameLog : public CCAsyncJob
 {
 protected:
 	int m_nLogID;
@@ -129,7 +129,7 @@ protected:
 	char m_szTimeStamp[DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1];
 
 public:
-	MAsyncDBJob_UpdateDuelTournamentGameLog() : MAsyncJob(MASYNCJOB_UPDATE_DUELTOURNAMENT_GAMELOG, MUID(0, 0)) {
+	MAsyncDBJob_UpdateDuelTournamentGameLog() : CCAsyncJob(CCAsyncJob_UPDATE_DUELTOURNAMENT_GAMELOG, CCUID(0, 0)) {
 		memset(m_szTimeStamp, 0, DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1);
 	}
 	~MAsyncDBJob_UpdateDuelTournamentGameLog(){}
@@ -145,7 +145,7 @@ public:
 };
 
 
-class MAsyncDBJob_InsertDuelTournamentGameLogDetail : public MAsyncJob
+class MAsyncDBJob_InsertDuelTournamentGameLogDetail : public CCAsyncJob
 {
 protected:
 	int m_nLogID;
@@ -160,7 +160,7 @@ protected:
 	int m_nLoseTP;
 
 public:
-	MAsyncDBJob_InsertDuelTournamentGameLogDetail() : MAsyncJob(MASYNCJOB_INSERT_DUELTOURNAMENT_GAMELOGDETAIL, MUID(0, 0)) {
+	MAsyncDBJob_InsertDuelTournamentGameLogDetail() : CCAsyncJob(CCAsyncJob_INSERT_DUELTOURNAMENT_GAMELOGDETAIL, CCUID(0, 0)) {
 		memset(m_szTimeStamp, 0, DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1);
 	}
 	~MAsyncDBJob_InsertDuelTournamentGameLogDetail(){}
@@ -181,17 +181,17 @@ public:
 	virtual void Run(void* pContext);
 };
 
-class MAsyncDBJob_GetDuelTournamentSideRankingInfo : public MAsyncJob
+class MAsyncDBJob_GetDuelTournamentSideRankingInfo : public CCAsyncJob
 {
 protected:
 	DWORD m_dwPlayerCID;
 
-	MUID m_uidPlayer;
+	CCUID m_uidPlayer;
 	list<DTRankingInfo*> m_SideRankingList;
 public:
-	MAsyncDBJob_GetDuelTournamentSideRankingInfo() : MAsyncJob(MASYNCJOB_GET_DUELTOURNAMENT_SIDERANKING, MUID(0, 0)) {
+	MAsyncDBJob_GetDuelTournamentSideRankingInfo() : CCAsyncJob(CCAsyncJob_GET_DUELTOURNAMENT_SIDERANKING, CCUID(0, 0)) {
 		m_dwPlayerCID = 0;
-		m_uidPlayer = MUID(0, 0);
+		m_uidPlayer = CCUID(0, 0);
 	}
 
 	~MAsyncDBJob_GetDuelTournamentSideRankingInfo()
@@ -200,14 +200,14 @@ public:
 	}
 
 
-	void Input(MUID uidPlayer, DWORD dwPlayerCID) {
+	void Input(CCUID uidPlayer, DWORD dwPlayerCID) {
 		m_uidPlayer = uidPlayer;
 		m_dwPlayerCID = dwPlayerCID;		
 	}
 
 	virtual void Run(void* pContext);
 
-	MUID GetPlayerUID()							{ return m_uidPlayer; }
+	CCUID GetPlayerUID()							{ return m_uidPlayer; }
 	list<DTRankingInfo*>* GetSideRankingList()	{ return &m_SideRankingList; }	
 
 	void RemoveListAll()
@@ -223,13 +223,13 @@ public:
 };
 
 
-class MAsyncDBJob_GetDuelTournamentGroupRankingInfo : public MAsyncJob
+class MAsyncDBJob_GetDuelTournamentGroupRankingInfo : public CCAsyncJob
 {
 protected:
 	list<DTRankingInfo*> m_GroupRankingList;
 
 public:
-	MAsyncDBJob_GetDuelTournamentGroupRankingInfo() : MAsyncJob(MASYNCJOB_GET_DUELTOURNAMENT_GROUPRANKING, MUID(0, 0)) 
+	MAsyncDBJob_GetDuelTournamentGroupRankingInfo() : CCAsyncJob(CCAsyncJob_GET_DUELTOURNAMENT_GROUPRANKING, CCUID(0, 0)) 
 	{}
 
 	~MAsyncDBJob_GetDuelTournamentGroupRankingInfo()

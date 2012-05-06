@@ -1731,9 +1731,9 @@ int CCMatchServer::ObjectRemove(const CCUID& uid, CCMatchObjectList::iterator* p
 	}
 
 	// Clear up the Object
-	if (pObj->GetChatRoomUID() != CCUID(0,0)) {
+	if (pObj->GetChatRooCCUID() != CCUID(0,0)) {
 		CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-		CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pObj->GetChatRoomUID());
+		CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pObj->GetChatRooCCUID());
 		if (pRoom)
 			pRoom->RemovePlayer(pObj->GetUID());
 	}
@@ -1790,7 +1790,7 @@ CCMatchObject* CCMatchServer::GetObject(const CCUID& uid)
 	return (*i).second;
 }
 
-CCMatchObject* CCMatchServer::GetPlayerByCommUID(const CCUID& uid)
+CCMatchObject* CCMatchServer::GetPlayerByComCCUID(const CCUID& uid)
 {
 	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++){
 		CCMatchObject* pObj = ((*i).second);
@@ -1839,16 +1839,16 @@ CCUID CCMatchServer::UseUID()
 	return ret;
 }
 
-void CCMatchServer::SetClientClockSynchronize(const CCUID& CommUID)
+void CCMatchServer::SetClientClockSynchronize(const CCUID& ComCCUID)
 {
-	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_CLOCK_SYNCHRONIZE), CommUID, m_This);
+	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_CLOCK_SYNCHRONIZE), ComCCUID, m_This);
 	pNew->AddParameter(new CCCommandParameterUInt(GetGlobalClockCount()));
 	Post(pNew);
 }
 
-void CCMatchServer::Announce(const CCUID& CommUID, char* pszMsg)
+void CCMatchServer::Announce(const CCUID& ComCCUID, char* pszMsg)
 {
-	CCCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, CommUID);
+	CCCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, ComCCUID);
 	pCmd->AddParameter(new CCCmdParamUInt(0));
 	pCmd->AddParameter(new CCCmdParamStr(pszMsg));
 	Post(pCmd);
@@ -1862,7 +1862,7 @@ void CCMatchServer::Announce(CCObject* pObj, char* pszMsg)
 	RouteToListener(pObj, pCmd);
 }
 
-void CCMatchServer::AnnounceErrorMsg(const CCUID& CommUID, const int nErrorCode)
+void CCMatchServer::AnnounceErrorMsg(const CCUID& ComCCUID, const int nErrorCode)
 {
 	// 다음 서버 패치때 Announce대신 ErrorCode로 클라이언트에 메세지를 전송할 수 있도록 만들 예정
 }
@@ -2067,7 +2067,7 @@ void CCMatchServer::ResponseBridgePeer(const CCUID& uidChar, int nCode)
 	if (pObj == NULL) return;
 
 	CCCommand* pNew = CreateCommand(MC_MATCH_BRIDGEPEER_ACK, CCUID(0,0));
-	pNew->AddParameter(new CCCmdParamUID(uidChar));
+	pNew->AddParameter(new CCCmdParaCCUID(uidChar));
 	pNew->AddParameter(new CCCmdParamInt(nCode));
 	RouteToListener(pObj, pNew);
 }
@@ -2132,7 +2132,7 @@ void CCMatchServer::OnUserWhisper(const CCUID& uidComm, char* pszSenderName, cha
 	if (strlen(pszSenderName) < 2) return;
 	if (strlen(pszTargetName) < 2) return;
 
-	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByComCCUID(uidComm);
 	if (pObj == NULL) return;
 
 	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
@@ -2157,7 +2157,7 @@ void CCMatchServer::OnUserWhere(const CCUID& uidComm, char* pszTargetName)
 {
 	if (strlen(pszTargetName) < 2) return;
 
-	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByComCCUID(uidComm);
 	if (!IsEnabledObject(pObj)) return;
 
 	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
@@ -2207,7 +2207,7 @@ void CCMatchServer::OnUserWhere(const CCUID& uidComm, char* pszTargetName)
 
 void CCMatchServer::OnUserOption(const CCUID& uidComm, unsigned long nOptionFlags)
 {
-	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByComCCUID(uidComm);
 	if (pObj == NULL) return;
 
 	pObj->SetUserOption(nOptionFlags);
@@ -2248,7 +2248,7 @@ void CCMatchServer::OnChatRoomJoin(const CCUID& uidComm, char* pszPlayerName, ch
 		return;
 	}
 	
-	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByComCCUID(uidComm);
 	if (pObj == NULL) return;
 
 	if (pRoom->GetUserCount() > CHATROOM_MAX_ROOMMEMBER) {
@@ -2274,7 +2274,7 @@ void CCMatchServer::OnChatRoomLeave(const CCUID& uidComm, char* pszPlayerName, c
 	if (pRoom == NULL)
 		return;
 
-	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByComCCUID(uidComm);
 	if (pObj == NULL) return;
 
 	pRoom->RemovePlayer(uidComm);
@@ -2311,18 +2311,18 @@ void CCMatchServer::OnChatRoomSelectWrite(const CCUID& uidComm, const char* pszC
 		return;
 	}
 
-	pPlayer->SetChatRoomUID(pRoom->GetUID());
+	pPlayer->SetChatRooCCUID(pRoom->GetUID());
 }
 
 void CCMatchServer::OnChatRoomInvite(const CCUID& uidComm, const char* pszTargetName)
 {
 	if (strlen(pszTargetName) < 2) return;
 
-	CCMatchObject* pPlayer = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pPlayer = GetPlayerByComCCUID(uidComm);
 	if (pPlayer == NULL) return;
 
 	CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pPlayer->GetChatRoomUID());
+	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pPlayer->GetChatRooCCUID());
 	if (pRoom == NULL) {
 		NotifyMessage(uidComm, MATCHNOTIFY_CHATROOM_NOT_EXIST);		// Notify Does not Exist
 		return;
@@ -2395,13 +2395,13 @@ void CCMatchServer::OnChatRoomChat(const CCUID& uidComm, const char* pszMessage)
 // 		return;
 // #endif
 
-	if (pPlayer->GetChatRoomUID() == CCUID(0,0)) {
+	if (pPlayer->GetChatRooCCUID() == CCUID(0,0)) {
 		NotifyMessage(uidComm, MATCHNOTIFY_CHATROOM_NOT_USING);		// Notify No ChatRoom
 		return;
 	}
 
 	CCMatchChatRoomMgr* pChatRoomMgr = GetChatRoomMgr();
-	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pPlayer->GetChatRoomUID());
+	CCMatchChatRoom* pRoom = pChatRoomMgr->FindChatRoom(pPlayer->GetChatRooCCUID());
 	if (pRoom == NULL) {
 		NotifyMessage(uidComm, MATCHNOTIFY_CHATROOM_NOT_EXIST);		// Notify Does not Exist
 		return;
@@ -2661,17 +2661,17 @@ int CCMatchServer::ValidateEquipItem(CCMatchObject* pObj, CCMatchItem* pItem, co
 	return MOK;
 }
 
-void CCMatchServer::OnNetPong(const CCUID& CommUID, unsigned int nTimeStamp)
+void CCMatchServer::OnNetPong(const CCUID& ComCCUID, unsigned int nTimeStamp)
 {
-	CCMatchObject* pObj = GetObject(CommUID);
+	CCMatchObject* pObj = GetObject(ComCCUID);
 	if (pObj) {
 		pObj->UpdateTickLastPacketRecved();	// Last Packet Timestamp
 	}
 }
 
-void CCMatchServer::OnHShieldPong(const CCUID& CommUID, unsigned int nTimeStamp)
+void CCMatchServer::OnHShieldPong(const CCUID& ComCCUID, unsigned int nTimeStamp)
 {
-	CCMatchObject* pObj = GetObject(CommUID);
+	CCMatchObject* pObj = GetObject(ComCCUID);
 	if (pObj) 
 		pObj->UpdateLastHShieldMsgRecved();	// Last Packet Timestamp
 }
@@ -2701,7 +2701,7 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 {
 	if (!IsEnabledObject(pObject)) return;
 
-	vector<CCUID> vecRemoveItemUIDList;
+	vector<CCUID> vecRemoveIteCCUIDList;
 
 	CCMatchItemMap::iterator itBegin, itEnd;
 
@@ -2727,18 +2727,18 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 		if( pItem->GetDesc() && 
 			pItem->GetDesc()->IsSpendableItem() && 
 			pItem->GetItemCount() <= 0 ) {
-			vecRemoveItemUIDList.push_back(pItem->GetUID());
+			vecRemoveIteCCUIDList.push_back(pItem->GetUID());
 		}
 	}
 
 	pObject->m_DBJobQ.DBJobQ.push_back( pJob );
 
-	if (!vecRemoveItemUIDList.empty())
+	if (!vecRemoveIteCCUIDList.empty())
 	{
-		int nRemoveItemUIDListCount = (int)vecRemoveItemUIDList.size();
-		for (int i = 0; i < nRemoveItemUIDListCount; i++)
+		int nRemoveIteCCUIDListCount = (int)vecRemoveIteCCUIDList.size();
+		for (int i = 0; i < nRemoveIteCCUIDListCount; i++)
 		{
-			CCUID uidItem = vecRemoveItemUIDList[i];
+			CCUID uidItem = vecRemoveIteCCUIDList[i];
 			CCMatchItem* pItem = pObject->GetCharInfo()->m_ItemList.GetItem(uidItem);
 			if (pItem == NULL) continue;
 
@@ -2750,7 +2750,7 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 				if( FindStage(pObject->GetStageUID())  )
 				{
 					CCCommand* pCmd = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, CCUID(0, 0) );
-					pCmd->AddParameter(new CCCmdParamUID(pObject->GetUID()));
+					pCmd->AddParameter(new CCCmdParaCCUID(pObject->GetUID()));
 					pCmd->AddParameter(new CCCmdParamInt(nCheckParts));
 					pCmd->AddParameter(new CCCmdParamInt(0));
 					RouteToStage(pObject->GetStageUID(), pCmd);
@@ -3479,13 +3479,13 @@ void CCMatchServer::SetAccetpInvalidIP()
 }
 
 
-bool CCMatchServer::CheckIsValidIP( const CCUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
+bool CCMatchServer::CheckIsValidIP( const CCUID& ComCCUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
 {
-	switch( CheckIsValidCustomIP(CommUID, strIP, strCountryCode3, bUseFilter) )
+	switch( CheckIsValidCustomIP(ComCCUID, strIP, strCountryCode3, bUseFilter) )
 	{
 	case CIS_INVALID :
 		{	// 서버에 해당 IP정보가 없으면
-			switch( CheckIsNonBlockCountry(CommUID, strIP, strCountryCode3, bUseFilter) )
+			switch( CheckIsNonBlockCountry(ComCCUID, strIP, strCountryCode3, bUseFilter) )
 			{	// DB에서 해당 IP를 찾는다.
 			case CCS_NONBLOCK :
 				{
@@ -3536,7 +3536,7 @@ bool CCMatchServer::CheckIsValidIP( const CCUID& CommUID, const string& strIP, s
 	return false;
 }
 
-const CUSTOM_IP_STATUS CCMatchServer::CheckIsValidCustomIP( const CCUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
+const CUSTOM_IP_STATUS CCMatchServer::CheckIsValidCustomIP( const CCUID& ComCCUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
 {
 	string strComment;
 	bool bIsBlock = false;
@@ -3546,7 +3546,7 @@ const CUSTOM_IP_STATUS CCMatchServer::CheckIsValidCustomIP( const CCUID& CommUID
 
 	if( bUseFilter && bIsBlock )
 	{
-		CCCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, CommUID);
+		CCCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, ComCCUID);
 		if( 0 != pCmd )
 		{
 			pCmd->AddParameter( new CCCommandParameterString(strComment.c_str()) );
@@ -3562,7 +3562,7 @@ const CUSTOM_IP_STATUS CCMatchServer::CheckIsValidCustomIP( const CCUID& CommUID
 }
 
 
-const COUNT_CODE_STATUS CCMatchServer::CheckIsNonBlockCountry( const CCUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
+const COUNT_CODE_STATUS CCMatchServer::CheckIsNonBlockCountry( const CCUID& ComCCUID, const string& strIP, string& strCountryCode3, const bool bUseFilter )
 {
 	if( !bUseFilter )
 		return CCS_NONBLOCK;
@@ -3575,7 +3575,7 @@ const COUNT_CODE_STATUS CCMatchServer::CheckIsNonBlockCountry( const CCUID& Comm
 			return CCS_NONBLOCK;
 		else 
 		{
-			CCCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, CommUID);
+			CCCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, ComCCUID);
 			if( 0 != pCmd )
 			{
 				pCmd->AddParameter( new CCCommandParameterString(strRoutingURL.c_str()) );
@@ -3610,7 +3610,7 @@ const COUNT_CODE_STATUS CCMatchServer::CheckIsNonBlockCountry( const CCUID& Comm
 			return CCS_INVALID;			
 		}
 		
-		CCCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, CommUID);
+		CCCommand* pCmd = CreateCommand(MC_RESPONSE_BLOCK_COUNTRYCODE, ComCCUID);
 		if( 0 != pCmd )
 		{
 			pCmd->AddParameter( new CCCommandParameterString(strCountryCode3.c_str()) );
@@ -4023,7 +4023,7 @@ void CCMatchServer::RouteCmdBattleTimeReward(const CCUID& uidPlayer, CCUID& uidS
 {
 	CCCommand* pNew = CreateCommand( MC_MATCH_REWARD_BATTLE_TIME, CCUID(0, 0) );
 
-	pNew->AddParameter( new CCCmdParamUID(uidPlayer) );
+	pNew->AddParameter( new CCCmdParaCCUID(uidPlayer) );
 	pNew->AddParameter( new CCCmdParamStr(pszName) );
 	pNew->AddParameter( new CCCmdParamStr(pszResetDesc) );
 	pNew->AddParameter( new CCCmdParamUInt(nItemID) );

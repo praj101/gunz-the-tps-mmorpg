@@ -255,7 +255,7 @@ void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 	if (!pCharInfo->m_ItemList.HasRentItem()) return;
 
 	vector<unsigned long int> vecExpiredItemIDList;
-	vector<CCUID> vecExpiredItemUIDList;				// 만료된 아이템 UID
+	vector<CCUID> vecExpiredIteCCUIDList;				// 만료된 아이템 UID
 	const DWORD dwTick = GetTickTime();
 
 	// 기간 만료 아이템이 있는지 체크하고 있으면 아이템 해제하고 통지한다.
@@ -283,7 +283,7 @@ void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 				int nExpiredItemID = pCheckItem->GetDescID();
 				if (nExpiredItemID != 0)
 				{
-					vecExpiredItemUIDList.push_back(pCheckItem->GetUID());
+					vecExpiredIteCCUIDList.push_back(pCheckItem->GetUID());
 					vecExpiredItemIDList.push_back(nExpiredItemID);
 				}
 			}
@@ -293,11 +293,11 @@ void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 	// 만료된 아이템이 있으면 통지
 	if (!vecExpiredItemIDList.empty())
 	{
-		int nExpiredItemUIDListCount = (int)vecExpiredItemUIDList.size();
-		for (int i = 0; i < nExpiredItemUIDListCount; i++)
+		int nExpiredIteCCUIDListCount = (int)vecExpiredIteCCUIDList.size();
+		for (int i = 0; i < nExpiredIteCCUIDListCount; i++)
 		{
 			// 실제로 여기서 아이템을 지운다.
-			RemoveExpiredCharItem(pObj, vecExpiredItemUIDList[i]);
+			RemoveExpiredCharItem(pObj, vecExpiredIteCCUIDList[i]);
 		}
 
 		ResponseExpiredItemIDList(pObj, vecExpiredItemIDList);

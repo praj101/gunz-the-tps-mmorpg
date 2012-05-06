@@ -852,8 +852,8 @@ public:
 
 	CCUID GetStageUID()					{ return m_uidStage; }
 	void SetStageUID(const CCUID& uid)	{ m_uidStage = uid; }
-	CCUID GetChatRoomUID()				{ return m_uidChatRoom; }
-	void SetChatRoomUID(const CCUID& uid){ m_uidChatRoom = uid; }
+	CCUID GetChatRooCCUID()				{ return m_uidChatRoom; }
+	void SetChatRooCCUID(const CCUID& uid){ m_uidChatRoom = uid; }
 
 	bool CheckChannelListTransfer()	{ return m_ChannelInfo.bChannelListTransfer; }
 	void SetChannelListTransfer(const bool bVal, const CCCHANNEL_TYPE nChannelType=CCCHANNEL_TYPE_PRESET);

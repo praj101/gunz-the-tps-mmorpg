@@ -22,7 +22,7 @@ public:
 class ZItemMenu : public MPopupMenu {
 protected:
 	char	m_szItemName[128];
-	CCUID	m_ItemUID;
+	CCUID	m_IteCCUID;
 
 public:
 	ZItemMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, MPopupMenuTypes t=MPMT_VERTICAL);
@@ -30,8 +30,8 @@ public:
 
 	const char* GetTargetName()	{ return m_szItemName; }
 	void SetTargetName(const char* pszItemName) { strcpy(m_szItemName, pszItemName); }
-	const CCUID& GetTargetUID()	{ return m_ItemUID; }
-	void SetTargetUID(const CCUID& uidTarget)	{ m_ItemUID = uidTarget; }
+	const CCUID& GetTargetUID()	{ return m_IteCCUID; }
+	void SetTargetUID(const CCUID& uidTarget)	{ m_IteCCUID = uidTarget; }
 
 	void SetupMenu();
 	virtual void Show(int x, int y, bool bVisible=true);

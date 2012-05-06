@@ -251,8 +251,8 @@ class IShopEquipItemHandle_Sell
 public:
 	IShopEquipItemHandle_Sell() : m_uidItem(0,0) {}
 	virtual ~IShopEquipItemHandle_Sell() {}
-	void SetItemUID(const CCUID& uid) { m_uidItem = uid; }
-	CCUID GetItemUID() { return m_uidItem; }
+	void SetIteCCUID(const CCUID& uid) { m_uidItem = uid; }
+	CCUID GetIteCCUID() { return m_uidItem; }
 	virtual bool GetPrice(int& out_nPrice) = 0;
 	virtual const char* GetPriceText(char* szBuf);
 
@@ -308,8 +308,8 @@ class IShopEquipItemHandle_SendAccount
 public:
 	IShopEquipItemHandle_SendAccount() :  m_uidItem(0,0) {}
 	virtual ~IShopEquipItemHandle_SendAccount() {}
-	void SetItemUID(const CCUID& uid) { m_uidItem = uid; }
-	CCUID GetItemUID() { return m_uidItem; }
+	void SetIteCCUID(const CCUID& uid) { m_uidItem = uid; }
+	CCUID GetIteCCUID() { return m_uidItem; }
 
 	void OpenCountableConfirmDlg(const char* szItemName, CCBitmap* pIconBmp, int nPrice, int nMax, IItemCountDlgDoneHandler* pDoneHandler);
 

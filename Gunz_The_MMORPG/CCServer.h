@@ -53,9 +53,9 @@ protected:
 	/// 사용자 커맨드 처리
 	virtual bool OnCommand(CCCommand* pCommand);
 
-	virtual void OnNetClear(const CCUID& CommUID);
-	virtual void OnNetPong(const CCUID& CommUID, unsigned int nTimeStamp);
-	virtual void OnHShieldPong(const CCUID& CommUID, unsigned int nTimeStamp) {};
+	virtual void OnNetClear(const CCUID& ComCCUID);
+	virtual void OnNetPong(const CCUID& ComCCUID, unsigned int nTimeStamp);
+	virtual void OnHShieldPong(const CCUID& ComCCUID, unsigned int nTimeStamp) {};
 
 	bool SendMsgReplyConnect(CCUID* pHostUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj);
 	bool SendMsgCommand(DWORD nClientKey, char* pBuf, int nSize, unsigned short nMsgHeaderID, CCPacketCrypterKey* pCrypterKey);
@@ -93,7 +93,7 @@ public:
 	int ReplyConnect(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj);
 	virtual int OnAccept(CCCommObject* pCommObj);
 	/// 로그인되었을때
-	virtual void OnLocalLogin(CCUID CommUID, CCUID PlayerUID);
+	virtual void OnLocalLogin(CCUID ComCCUID, CCUID PlayerUID);
 	/// 연결 해제
 	virtual void Disconnect( const CCUID& uid );	
 	virtual int OnDisconnect(const CCUID& uid);	// Thread not safe

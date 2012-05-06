@@ -682,7 +682,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 		}
 
 		pCmdNotReady->AddParameter( new CCCmdParamInt(ALL_PLAYER_NOT_READY) );
-		pCmdNotReady->AddParameter( new CCCmdParamUID(CCUID(0, 0)) );
+		pCmdNotReady->AddParameter( new CCCmdParaCCUID(CCUID(0, 0)) );
 
 		CCMatchObject* pMaster = CCMatchServer::GetInstance()->GetObject( GetMasterUID() );
 		if( IsEnabledObject(pMaster) ) {
@@ -917,8 +917,8 @@ void CCMatchStage::OnFinishGame()
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 
 		CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, pServer->GetUID());
-		pCmd->AddParameter(new CCCmdParamUID(pObj->GetUID()));
-		pCmd->AddParameter(new CCCmdParamUID(GetUID()));
+		pCmd->AddParameter(new CCCmdParaCCUID(pObj->GetUID()));
+		pCmd->AddParameter(new CCCmdParaCCUID(GetUID()));
 		pServer->Post(pCmd);
 	}
 	*/
@@ -967,14 +967,14 @@ void CCMatchStage::SetOwnerChannel(CCUID& uidOwnerChannel, int nIndex)
 	m_nIndex = nIndex;
 }
 
-void CCMatchStage::ObtainWorldItem(CCMatchObject* pObj, const int nItemUID)
+void CCMatchStage::ObtainWorldItem(CCMatchObject* pObj, const int nIteCCUID)
 {
 	if (GetState() != STAGE_STATE_RUN) return;
 
 	int nItemID=0;
 	int nExtraValues[WORLDITEM_EXTRAVALUE_NUM];
 
-	if (m_WorldItemManager.Obtain(pObj, short(nItemUID), &nItemID, nExtraValues))
+	if (m_WorldItemManager.Obtain(pObj, short(nIteCCUID), &nItemID, nExtraValues))
 	{
 		if (m_pRule)
 		{
@@ -1424,7 +1424,7 @@ bool CCMatchStage::CheckDuelMap()
 			return false;
 
 		pCmd->AddParameter( new CCCmdParamInt(INVALID_MAP) );
-		pCmd->AddParameter( new CCCmdParamUID(CCUID(0, 0)) );
+		pCmd->AddParameter( new CCCmdParaCCUID(CCUID(0, 0)) );
 
 		pServer->RouteToListener( pMaster, pCmd );
 		
@@ -1485,7 +1485,7 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 	if( 0 != pCmd )
 	{
 		pCmd->AddParameter( new CCCmdParamInt(INVALID_TACKET_USER) );
-		pCmd->AddParameter( new CCCmdParamUID(pObj->GetUID()) );
+		pCmd->AddParameter( new CCCmdParaCCUID(pObj->GetUID()) );
 
 		MGetMatchServer()->RouteToStage( GetUID(), pCmd );
 	}

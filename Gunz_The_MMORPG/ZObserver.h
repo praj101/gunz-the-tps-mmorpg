@@ -77,7 +77,7 @@ public:
 	void Destroy();
 	void ChangeToNextTarget();
 	bool SetFirstTarget();
-	void SetTarget(CCUID muid);
+	void SetTarget(CCUID CCUID);
 
 	bool IsVisible() { return m_bVisible; }
 	void Show(bool bVisible);

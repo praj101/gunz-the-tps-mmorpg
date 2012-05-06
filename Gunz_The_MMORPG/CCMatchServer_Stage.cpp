@@ -496,7 +496,7 @@ bool CCMatchServer::StageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLea
 			CCAgentObject* pAgent = GetAgent(pObj->GetAgentUID());
 			if (pAgent) {
 				CCCommand* pCmd = CreateCommand(MC_AGENT_PEER_UNBIND, pAgent->GetCommListener());
-				pCmd->AddParameter(new CCCmdParamUID(uidPlayer));
+				pCmd->AddParameter(new CCCmdParaCCUID(uidPlayer));
 				Post(pCmd);
 			}
 		}
@@ -547,7 +547,7 @@ bool CCMatchServer::StageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishLea
 		CCAgentObject* pAgent = GetAgent(pObj->GetAgentUID());
 		if (pAgent) {
 			CCCommand* pCmd = CreateCommand(MC_AGENT_PEER_UNBIND, pAgent->GetCommListener());
-			pCmd->AddParameter(new CCCmdParamUID(uidPlayer));
+			pCmd->AddParameter(new CCCmdParaCCUID(uidPlayer));
 			Post(pCmd);
 		}
 	}	
@@ -716,7 +716,7 @@ void CCMatchServer::StageLaunch(const CCUID& uidStage)
 	ReserveAgent(pStage);
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_LAUNCH, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParamUID(uidStage));
+	pCmd->AddParameter(new CCCmdParaCCUID(uidStage));
 	pCmd->AddParameter(new CCCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
 	RouteToStage(uidStage, pCmd);
 }
@@ -734,13 +734,13 @@ void CCMatchServer::StageRelayLaunch(const CCUID& uidStage)
 		if (pObj) {
 			if( pObj->GetStageState() == MOSS_READY) {
 				CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_RELAY_LAUNCH, CCUID(0,0));
-				pCmd->AddParameter(new CCCmdParamUID(uidStage));
+				pCmd->AddParameter(new CCCmdParaCCUID(uidStage));
 				pCmd->AddParameter(new CCCmdParamStr(const_cast<char*>(pStage->GetMapName())));
 				pCmd->AddParameter(new CCCmdParamBool(false));
 				RouteToListener(pObj, pCmd);
 			} else {
 				CCCommand* pCmd = CreateCommand(MC_MATCH_STAGE_RELAY_LAUNCH, CCUID(0,0));
-				pCmd->AddParameter(new CCCmdParamUID(uidStage));
+				pCmd->AddParameter(new CCCmdParaCCUID(uidStage));
 				pCmd->AddParameter(new CCCmdParamStr(const_cast<char*>(pStage->GetMapName())));
 				pCmd->AddParameter(new CCCmdParamBool(true));
 				RouteToListener(pObj, pCmd);
@@ -1222,7 +1222,7 @@ void CCMatchServer::OnStageRelayStart(const CCUID& uidStage)
 
 void CCMatchServer::OnStartStageList(const CCUID& uidComm)
 {
-	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByComCCUID(uidComm);
 	if (pObj == NULL) return;
 
 	pObj->SetStageListTransfer(true);
@@ -1230,7 +1230,7 @@ void CCMatchServer::OnStartStageList(const CCUID& uidComm)
 
 void CCMatchServer::OnStopStageList(const CCUID& uidComm)
 {
-	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByComCCUID(uidComm);
 	if (pObj == NULL) return;
 
 	pObj->SetStageListTransfer(false);
@@ -1694,7 +1694,7 @@ void CCMatchServer::OnMatchLoadingComplete(const CCUID& uidPlayer, int nPercent)
 	if (pObj == NULL) return;
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_LOADING_COMPLETE, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParamUID(uidPlayer));
+	pCmd->AddParameter(new CCCmdParaCCUID(uidPlayer));
 	pCmd->AddParameter(new CCCmdParamInt(nPercent));
 	RouteToStage(pObj->GetStageUID(), pCmd);	
 }
@@ -1715,7 +1715,7 @@ void CCMatchServer::OnDuelSetObserver(const CCUID& uidChar)
 	if (pObj == NULL) return;
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_SET_OBSERVER, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParamUID(uidChar));
+	pCmd->AddParameter(new CCCmdParaCCUID(uidChar));
 	RouteToBattle(pObj->GetStageUID(), pCmd);
 }
 
@@ -1754,7 +1754,7 @@ void CCMatchServer::OnRequestSpawn(const CCUID& uidChar, const CCVector& pos, co
 	pObj->SetAlive(true);
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_GAME_RESPONSE_SPAWN, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParamUID(uidChar));
+	pCmd->AddParameter(new CCCmdParaCCUID(uidChar));
 	pCmd->AddParameter(new CCCmdParamShortVector(pos.x, pos.y, pos.z));
 	pCmd->AddParameter(new CCCmdParamShortVector(DirElementToShort(dir.x), DirElementToShort(dir.y), DirElementToShort(dir.z)));
 	RouteToBattle(pObj->GetStageUID(), pCmd);
@@ -1762,7 +1762,7 @@ void CCMatchServer::OnRequestSpawn(const CCUID& uidChar, const CCVector& pos, co
 
 void CCMatchServer::OnGameRequestTimeSync(const CCUID& uidComm, unsigned long nLocalTimeStamp)
 {
-	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByComCCUID(uidComm);
 	if (pObj == NULL) return;
 
 	CCMatchTimeSyncInfo* pSync = pObj->GetSyncInfo();
@@ -1776,7 +1776,7 @@ void CCMatchServer::OnGameRequestTimeSync(const CCUID& uidComm, unsigned long nL
 
 void CCMatchServer::OnGameReportTimeSync(const CCUID& uidComm, unsigned long nLocalTimeStamp, unsigned int nDataChecksum)
 {
-	CCMatchObject* pObj = GetPlayerByCommUID(uidComm);
+	CCMatchObject* pObj = GetPlayerByComCCUID(uidComm);
 	if (pObj == NULL) return;
 
 	pObj->UpdateTickLastPacketRecved();	// Last Packet Timestamp
@@ -1851,14 +1851,14 @@ void CCMatchServer::OnRequestSuicide(const CCUID& uidPlayer)
 	//RouteToBattle(pObj->GetStageUID(), pNew);
 }
 
-void CCMatchServer::OnRequestObtainWorldItem(const CCUID& uidPlayer, const int nItemUID)
+void CCMatchServer::OnRequestObtainWorldItem(const CCUID& uidPlayer, const int nIteCCUID)
 {
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return;
 	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
-	pStage->ObtainWorldItem(pObj, nItemUID);
+	pStage->ObtainWorldItem(pObj, nIteCCUID);
 }
 
 void CCMatchServer::OnRequestSpawnWorldItem(const CCUID& uidPlayer, const int nItemID, const float x, const float y, const float z, float fDropDelayTime)

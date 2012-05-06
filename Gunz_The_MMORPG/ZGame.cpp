@@ -2010,12 +2010,12 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 			if (!IsReplay()) break;
 
 			CCUID uidPlayer;
-			int nItemUID;
+			int nIteCCUID;
 
 			pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
-			pCommand->GetParameter(&nItemUID, 1, MPT_INT);
+			pCommand->GetParameter(&nIteCCUID, 1, MPT_INT);
 
-			ZGetGameClient()->OnObtainWorldItem(uidPlayer, nItemUID);
+			ZGetGameClient()->OnObtainWorldItem(uidPlayer, nIteCCUID);
 		}
 		break;
 	case MC_MATCH_SPAWN_WORLDITEM:
@@ -2034,11 +2034,11 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 		{
 			if (!IsReplay()) break;
 
-			int nItemUID;
+			int nIteCCUID;
 
-			pCommand->GetParameter(&nItemUID, 0, MPT_INT);
+			pCommand->GetParameter(&nIteCCUID, 0, MPT_INT);
 
-			ZGetGameClient()->OnRemoveWorldItem(nItemUID);
+			ZGetGameClient()->OnRemoveWorldItem(nIteCCUID);
 		}
 		break;
 	case MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST:
@@ -2441,7 +2441,7 @@ void ZGame::OnPeerBasicInfo(CCCommand *pCommand,bool bAddHistory,bool bUpdate)
 	if (pPeer) {
 		if (pPeer->IsOpened() == false) {
 			CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
-			pCmd->AddParameter(new CCCmdParamUID(pPeer->uidChar));
+			pCmd->AddParameter(new CCCmdParaCCUID(pPeer->uidChar));
 			ZGetGameClient()->Post(pCmd);
 
 			pPeer->SetOpened(true);
@@ -2646,7 +2646,7 @@ void ZGame::OnPeerPong(CCCommand *pCommand)
 /*
 	if (pPeer->IsOpened() == false) {
 		CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
-		pCmd->AddParameter(new CCCmdParamUID(pPeer->uidChar));
+		pCmd->AddParameter(new CCCmdParaCCUID(pPeer->uidChar));
 		ZGetGameClient()->Post(pCmd);
 
 		pPeer->SetOpened(true);
@@ -5862,7 +5862,7 @@ void ZGame::AdjustMyData()
 
 		for(int j=0;j<pItem->nCount;j++)
 		{
-			CCUID uid=pItem->pHPTable[j].muid;
+			CCUID uid=pItem->pHPTable[j].CCUID;
 			ZCharacter *pchar=m_CharacterManager.Find(uid);
 			if(pchar)
 			{

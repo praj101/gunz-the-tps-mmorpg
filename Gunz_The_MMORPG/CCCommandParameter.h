@@ -451,7 +451,7 @@ public:
 
 // Short Name
 typedef CCCommandParameterBlob			CCCmdParamBlob;
-typedef	CCCommandParameterUID			CCCmdParamUID;
+typedef	CCCommandParameterUID			CCCmdParaCCUID;
 typedef CCCommandParameter				CCCmdParam;
 typedef CCCommandParameterDesc			CCCmdParamDesc;
 typedef CCCommandParameterInt			CCCmdParamInt;
