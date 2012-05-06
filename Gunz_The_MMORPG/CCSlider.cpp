@@ -39,17 +39,17 @@ void CCSlider::Initialize(void){
 	m_pThumb = new CCSliderThumb(NULL, this, this);
 	sSize s = ((CCSliderThumb*)m_pThumb)->GetDefaultSize();
 	m_pThumb->SetSize(s.w, s.h);
-	m_pThumb->m_iDirection = CCBT_HORIZONTAL;
+	m_pThumb->m_iDirection = CCSBT_HORIZONTAL;
 	LOOK_IN_CONSTRUCTOR()
 }
 
 CCSlider::CCSlider(const char* szName, CCWidget* pParent, CCListener* pListener)
-: CCScrollBar(szName, pParent, pListener, CCBT_HORIZONTAL){
+: CCScrollBar(szName, pParent, pListener, CCSBT_HORIZONTAL){
 	Initialize();
 }
 
 CCSlider::CCSlider(CCWidget* pParent, CCListener* pListener)
-: CCScrollBar(pParent, pListener, CCBT_HORIZONTAL){
+: CCScrollBar(pParent, pListener, CCSBT_HORIZONTAL){
 	Initialize();
 }
 
