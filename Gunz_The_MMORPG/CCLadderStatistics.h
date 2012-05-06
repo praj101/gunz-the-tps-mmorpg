@@ -1,3 +1,4 @@
+#pragma once
 #include "CCMatchGlobal.h"
 
 #define LADDER_STATISTICS_LEVEL_UNIT			5		// 레벨은 5레벨을 한단위로 통계 계산

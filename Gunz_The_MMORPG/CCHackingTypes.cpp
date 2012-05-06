@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCHackingTypes.h"
 
-const PUNISH_TABLE_ITEM MPunishTable::PUNISH_TABLE[CCMHT_END] =
+const PUNISH_TABLE_ITEM CCPunishTable::PUNISH_TABLE[CCMHT_END] =
 {
 	{ 0,	  "none",							0, 0, 0,	CCMBL_NO },		// CCMHT_NO = 0,							
 	{ 130001, "irregularity player",			0, 0, 10,	CCMBL_LOGONLY },	// CCMHT_XTRAP_HACKER, 10분후 접속 가능.

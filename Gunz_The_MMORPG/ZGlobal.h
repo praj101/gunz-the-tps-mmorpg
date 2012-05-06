@@ -4,7 +4,6 @@ bool					ZIsLaunchDevelop(); //This must be Before #include "ZApplication.h" or 
 
 //#include "RMesh.h"
 #include "ZApplication.h"
-
 // 전역적으로 사용하는 것은 이곳에다 넣도록 하자
 #ifdef LOCALE_BRAZIL
 #define APPLICATION_NAME		"Gunz The MMORPG"

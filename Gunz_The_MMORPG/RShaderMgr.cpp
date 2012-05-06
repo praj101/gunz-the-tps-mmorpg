@@ -11,7 +11,7 @@ RShaderMgr RShaderMgr::msInstance;
 //bool RShaderMgr::shader_enabled = true;		// 지원 여부
 bool RShaderMgr::mbUsingShader	= true;		// 사용 여부
 RMtrl* RShaderMgr::mpMtrl = 0;
-D3DLIGHT RShaderMgr::mLight[MAX_LIGHT];
+D3DLIGHT9 RShaderMgr::mLight[MAX_LIGHT];
 
 RShaderMgr* RGetShaderMgr()
 {
@@ -334,7 +334,7 @@ void RShaderMgr::setLight( int iLignt_, D3DLIGHT9* pLight_ )
 	mLight[iLignt_].Attenuation0 = pLight_->Attenuation0;
 	mLight[iLignt_].Attenuation1 = pLight_->Attenuation1;
 	mLight[iLignt_].Attenuation2 = pLight_->Attenuation2;
-	mLight[iLignt_].sPosition = pLight_->sPosition;
+	mLight[iLignt_].Position = pLight_->Position;
 
 	mbNeedUpdate[iLignt_] = true;
 }
@@ -372,7 +372,7 @@ void RShaderMgr::Update()
 			D3DXVECTOR3 attenuation = D3DXVECTOR3( mLight[0].Attenuation0, mLight[0].Attenuation1, mLight[0].Attenuation2 );
 			dev->SetVertexShaderConstantF( LIGHT_ATTENUATION, (float*)&attenuation, 1);
 
-			dev->SetVertexShaderConstantF( LIGHT0_POSITION, (float*)&mLight[0].sPosition, 1);
+			dev->SetVertexShaderConstantF( LIGHT0_POSITION, (float*)&mLight[0].Position, 1);
 			dev->SetVertexShaderConstantF( LIGHT0_AMBIENT, (float*)&mLight[0].Ambient, 1);
 			dev->SetVertexShaderConstantF( LIGHT0_DIFFUSE, (float*)&mLight[0].Diffuse, 1);
 			dev->SetVertexShaderConstantF( LIGHT0_SPECULAR, (float*)&mLight[0].Specular, 1);
@@ -400,7 +400,7 @@ void RShaderMgr::Update()
 			D3DXVECTOR3 attenuation = D3DXVECTOR3( mLight[1].Attenuation0, mLight[1].Attenuation1, mLight[1].Attenuation2 );
 			dev->SetVertexShaderConstantF( LIGHT_ATTENUATION1, (float*)&attenuation, 1);
 
-			dev->SetVertexShaderConstantF( LIGHT1_POSITION, (float*)&mLight[1].sPosition, 1);
+			dev->SetVertexShaderConstantF( LIGHT1_POSITION, (float*)&mLight[1].Position, 1);
 			dev->SetVertexShaderConstantF( LIGHT1_AMBIENT, (float*)&mLight[1].Ambient, 1);
 			dev->SetVertexShaderConstantF( LIGHT1_DIFFUSE, (float*)&mLight[1].Diffuse, 1);
 			dev->SetVertexShaderConstantF( LIGHT1_SPECULAR, (float*)&mLight[1].Specular, 1);

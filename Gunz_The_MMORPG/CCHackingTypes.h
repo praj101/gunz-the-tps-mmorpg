@@ -31,7 +31,7 @@ struct PUNISH_TABLE_ITEM {
 	CCMatchBlockLevel	eLevel;
 };
 
-class MPunishTable {
+class CCPunishTable {
 	static const PUNISH_TABLE_ITEM PUNISH_TABLE[CCMHT_END];
 public:
 	static const PUNISH_TABLE_ITEM& GetPunish( CCMatchHackingType eType );
