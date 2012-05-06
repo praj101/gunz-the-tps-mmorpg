@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CCZFileSystem.h"
-#include "ZGameInterface.h"
+//#include "ZGameInterface.h"
 #include "ZSoundEngine.h"
 #include "ZDirectInput.h"
 #include "CCDataChecker.h"
