@@ -80,7 +80,7 @@ struct MCallStackInfo
 	DWORD *pCallStack;
 };
 
-static BOOL CALLBACK EnumLoadedModulesCallback(LPSTR pModuleName, ULONG ulModuleBase,  ULONG ulModuleSize,  PVOID pUserContext)
+static BOOL CALLBACK EnumLoadedModulesCallback64(LPSTR pModuleName, ULONG ulModuleBase,  ULONG ulModuleSize,  PVOID pUserContext)
 {
     if (!SymLoadModule((HANDLE)pUserContext, 0, pModuleName, 0, ulModuleBase, ulModuleSize))
     {
@@ -103,7 +103,7 @@ bool InitializeSymbols()
 
 	if (osver.dwPlatformId == VER_PLATFORM_WIN32_NT)
 	{
-		if (!EnumerateLoadedModules(hProcess, EnumLoadedModulesCallback, (PVOID)hProcess))
+		if (!EnumerateLoadedModules64(hProcess, (PENUMLOADED_MODULES_CALLBACK64)EnumLoadedModulesCallback64, (PVOID)hProcess))
 		{
 //			::MessageBox(NULL,"EnumerateLoadedModules failed","error",MB_OK);
 		}

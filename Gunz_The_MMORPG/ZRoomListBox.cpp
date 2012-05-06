@@ -170,22 +170,22 @@ void ZRoomListBox::OnDraw( CCDrawContext* pDC )
 			strcat( szBufTemp, "..."	);
 
 			pDC->SetColor( 0,0,0);
-			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), szBufTemp, CCAM_LEFT);
+			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), szBufTemp, CCD_LEFT);
 			if(  m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
 				pDC->SetColor( 115,146,173 );
 			else
 				pDC->SetColor( 255, 255, 255 );
-			pDC->Text(r, szBufTemp, CCAM_LEFT );
+			pDC->Text(r, szBufTemp, CCD_LEFT );
 		}
 		else
 		{
 			pDC->SetColor( 0,0,0);
-			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), m_pMapInfo[i].room_name, CCAM_LEFT);
+			pDC->Text( sRect( r.x+1, r.y+1, r.w, r.h), m_pMapInfo[i].room_name, CCD_LEFT);
 			if(  m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
 				pDC->SetColor( 115,146,173 );
 			else
 				pDC->SetColor( 255, 255, 255 );
-			pDC->Text(r, m_pMapInfo[i].room_name, CCAM_LEFT );
+			pDC->Text(r, m_pMapInfo[i].room_name, CCD_LEFT );
 		}
 
 		
@@ -307,7 +307,7 @@ bool ZRoomListBox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 	{
 		if(r.InPoint(ClickPos)==true)
 		{
-			case MWM_LBUTTONDOWN:
+			case CCWM_LBUTTONDOWN:
 			{	
 				for( int i = 0 ; i < NUM_DISPLAY_ROOM; ++i )
 				{

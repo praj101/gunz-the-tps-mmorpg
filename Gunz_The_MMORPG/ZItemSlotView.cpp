@@ -297,7 +297,7 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		return bRet;
 
 
-	if ( pEvent->nMessage == MWM_LBUTTONDOWN)
+	if ( pEvent->nMessage == CCWM_LBUTTONDOWN)
 	{
 		m_bSelectBox = true;
 

@@ -192,7 +192,7 @@ void ZServerView::ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* 
 	pDC->SetColor( sColor(0xFF000000));
 	rectBox.x += 14;
 	rectBox.y += m_nTextOffset + 1;
-	pDC->Text( rectBox, szText, CCAM_LEFT | CCAM_VCENTER);		// Shadow
+	pDC->Text( rectBox, szText, CCD_LEFT | CCAM_VCENTER);		// Shadow
 
 	bool bFulled = false;
 	if ( (pServerInfo->nNumOfUser >= pServerInfo->nCapacity) || ( !pServerInfo->bIsLive))
@@ -221,7 +221,7 @@ void ZServerView::ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* 
 
 	rectBox.x--;
 	rectBox.y--;
-	pDC->Text( rectBox, szText, CCAM_LEFT | CCAM_VCENTER);
+	pDC->Text( rectBox, szText, CCD_LEFT | CCAM_VCENTER);
 }
 
 bool ZServerView::OnEvent(CCEvent* pEvent, CCListener* pListener)
@@ -236,7 +236,7 @@ bool ZServerView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 
 	// LButton down
-	if ( pEvent->nMessage == MWM_LBUTTONDOWN)
+	if ( pEvent->nMessage == CCWM_LBUTTONDOWN)
 	{
 		sRect rect;
 		rect = GetClientRect();

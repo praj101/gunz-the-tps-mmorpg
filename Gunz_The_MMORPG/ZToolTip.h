@@ -9,7 +9,7 @@
 class ZToolTip : public CCToolTip
 {
 public:
-	ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align=CCAM_LEFT|CCD_TOP);
+	ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align=CCD_LEFT|CCD_TOP);
 	~ZToolTip();
 	virtual void OnDraw(CCDrawContext* pDC);
 	virtual void SetBounds(void);

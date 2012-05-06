@@ -2371,7 +2371,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 		MListBox* pMapListBox = (MListBox*)m_IDLResource.FindWidget( "Stage_MapListbox" );
 		if ( pMapListBox)
 		{
-			pMapListBox->m_FontAlign = CCAM_LEFT;
+			pMapListBox->m_FontAlign = CCD_LEFT;
 			pMapListBox->AddField( "ICON", 23);
 			pMapListBox->AddField( "NAME", 170);
 			pMapListBox->SetItemHeight( 23);
@@ -2382,7 +2382,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 		MListBox* pRelayMapListBox = (MListBox*)m_IDLResource.FindWidget( "Stage_RelayMapListbox" );
 		if ( pRelayMapListBox)
 		{
-			pRelayMapListBox->m_FontAlign = CCAM_LEFT;
+			pRelayMapListBox->m_FontAlign = CCD_LEFT;
 			pRelayMapListBox->AddField( "ICON", 23);
 			pRelayMapListBox->AddField( "NAME", 170);
 			pRelayMapListBox->SetItemHeight( 23);
@@ -2579,20 +2579,20 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	CCComboBox* pCombo = (CCComboBox*)m_IDLResource.FindWidget( "Shop_AllEquipmentFilter");
 	if ( pCombo)
 	{
-		pCombo->SetAlignment( CCAM_LEFT);
-		pCombo->SetListboxAlignment( CCAM_LEFT);
+		pCombo->SetAlignment( CCD_LEFT);
+		pCombo->SetListboxAlignment( CCD_LEFT);
 	}
 	pCombo = (CCComboBox*)m_IDLResource.FindWidget( "Equip_AllEquipmentFilter");
 	if ( pCombo)
 	{
-		pCombo->SetAlignment( CCAM_LEFT);
-		pCombo->SetListboxAlignment( CCAM_LEFT);
+		pCombo->SetAlignment( CCD_LEFT);
+		pCombo->SetListboxAlignment( CCD_LEFT);
 	}
 
 
 	pCombo = (CCComboBox*)m_IDLResource.FindWidget( "StageType");
 	if ( pCombo)
-		pCombo->SetListboxAlignment( CCAM_LEFT);
+		pCombo->SetListboxAlignment( CCD_LEFT);
 
 
 	// 캐릭터 뷰어

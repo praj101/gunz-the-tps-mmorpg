@@ -89,7 +89,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 //			ConsoleInputEvent(hk->command.c_str());
 		}break;
 
-	case MWM_LBUTTONDOWN:
+	case CCWM_LBUTTONDOWN:
 		{
 			ZCombatInterface* pCombatInterface = ZGetGameInterface()->GetCombatInterface();
 

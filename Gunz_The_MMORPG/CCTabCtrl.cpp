@@ -15,14 +15,14 @@ void CCTabCtrlLook::OnDraw(CCTabCtrl* pTabCtrl, CCDrawContext* pDC){
 
 sRect CCTabCtrlLook::GetClientRect(CCTabCtrl* pTabCtrl, sRect& r){
 	sRect t = r;
-	t.EnLarge(-1);
+	t.Enlarge(-1);
 	return t;
 }
 
-CCTabItem::CCTabItem(CCWidget *pFrame,CCButton *pButton,CCListener *pListener)//MTabItem{
-	CCTabItem::pFrame = pFrame;
-	CCTabItem::pButton = pButton;
-	CCTabItem::pButtonListener= pListener;
+CCTabItem::CCTabItem(CCWidget *zpFrame,CCButton *zpButton,CCListener *zpListener)//MTabItem{
+	pFrame = zpFrame;
+	pButton = zpButton;
+	pButtonListener= zpListener;
 }
 
 CCTabCtrl::CCTabCtrl(const char* szName, CCWidget* pParent, CCListener* pListener) : CCWidget(szName, pParent, pListener)//MTabCtrl{

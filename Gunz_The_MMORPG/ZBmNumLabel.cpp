@@ -99,7 +99,7 @@ void ZBmNumLabel::OnDraw(CCDrawContext* pDC)
 
 	int tx = 0, ty = 0;
 
-	if((m_AlignmentMode & CCAM_LEFT) != NULL)
+	if((m_AlignmentMode & CCD_LEFT) != NULL)
 		tx = 0;
 
 	else if((m_AlignmentMode & CCD_RIGHT) != NULL)
