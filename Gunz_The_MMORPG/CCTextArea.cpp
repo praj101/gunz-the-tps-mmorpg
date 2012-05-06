@@ -509,7 +509,7 @@ bool CCTextArea::InputFilterKey(int iKey,bool bCtrl){
 
 	case VK_RETURN :
 		if(GetLength()<GetMaxLen()){
-			MLineItem newline(m_CurrentLine->color,string(m_CurrentLine->text.begin()+m_CaretPos.x,m_CurrentLine->text.end()));
+			CCLineItem newline(m_CurrentLine->color,string(m_CurrentLine->text.begin()+m_CaretPos.x,m_CurrentLine->text.end()));
 			m_CurrentLine->text.erase(m_CaretPos.x,m_CurrentLine->text.size());
 			m_CurrentLine++;
 			m_CurrentLine=m_Lines.insert(m_CurrentLine,newline);
@@ -586,7 +586,7 @@ CCTextArea::CCTextArea(int nMaxLen, const char* szName, CCWidget* pParent, CCLis
 	m_szIMECompositionString[0] = NULL;
 	m_bEditable = true;
 	
-	m_pScrollBar = new MScrollBar(this, this);
+	m_pScrollBar = new CCScrollBar(this, this);
 	m_pScrollBar->Show(false,false);
 
 	SetFocusEnable(true);
@@ -889,7 +889,7 @@ void CCTextArea::AddText(const char *szText,sColor color){
 		m_CurrentLine->color=color;
 		m_CurrentLine->text.append(string(szCurrent,nCharCount));
 		
-		m_Lines.push_back(MLineItem(color,string()));
+		m_Lines.push_back(CCLineItem(color,string()));
 		m_CurrentLine = m_Lines.end();
 		m_CurrentLine--;
 		
