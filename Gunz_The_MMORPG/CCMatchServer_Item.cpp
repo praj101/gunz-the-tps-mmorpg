@@ -215,10 +215,10 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //	// 장비한 아이템 전송
 //	int nRealEquipedItemCount = 0;
 //	int nIndex = 0;
-//	void* pEquipItemArray = MMakeBlobArray(sizeof(CCUID), MMCIP_END);
+//	void* pEquipItemArray = CCMakeBlobArray(sizeof(CCUID), MMCIP_END);
 //	for (int i = 0; i < MMCIP_END; i++)
 //	{
-//		CCUID* pUID = (CCUID*)MGetBlobArrayElement(pEquipItemArray, nIndex++);
+//		CCUID* pUID = (CCUID*)CCGetBlobArrayElement(pEquipItemArray, nIndex++);
 //
 //		if (!pObj->GetCharInfo()->m_EquipedItem.IsEmpty(CCMatchCharItemParts(i)))
 //		{
@@ -231,14 +231,14 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		}
 //	}
 //
-//	pNew->AddParameter(new CCCommandParameterBlob(pEquipItemArray, MGetBlobArraySize(pEquipItemArray)));
-//	MEraseBlobArray(pEquipItemArray);
+//	pNew->AddParameter(new CCCommandParameterBlob(pEquipItemArray, CCGetBlobArraySize(pEquipItemArray)));
+//	CCEraseBlobArray(pEquipItemArray);
 //
 //
 //	// 갖고 있는 아이템 리스트 전송
 //	int nItemCount = pObj->GetCharInfo()->m_ItemList.GetCount();
 //
-//	void*			pItemArray					= MMakeBlobArray(sizeof(CCTD_ItemNode), nItemCount);
+//	void*			pItemArray					= CCMakeBlobArray(sizeof(CCTD_ItemNode), nItemCount);
 //	CCMatchItemMap*	pItemList					= &pObj->GetCharInfo()->m_ItemList;
 //	CCMatchItem*		pItem						= NULL;
 //	CCTD_ItemNode*	pItemNode					= NULL;
@@ -252,7 +252,7 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //	{
 //		pItem = (*itor).second;
 //
-//		pItemNode					= (CCTD_ItemNode*)MGetBlobArrayElement(pItemArray, nIndex++);
+//		pItemNode					= (CCTD_ItemNode*)CCGetBlobArrayElement(pItemArray, nIndex++);
 //		nPassTime					= MGetTimeDistance(pItem->GetRentItemRegTime(), GetTickTime());
 //		nPassMinuteTime				= nPassTime / (1000 * 60);
 //		iMaxUseHour					= 0;		// 최대 사용시간 보내기(판매가격 계산을 위해)
@@ -277,17 +277,17 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //	}
 //
 //
-//	pNew->AddParameter(new CCCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
-//	MEraseBlobArray(pItemArray);
+//	pNew->AddParameter(new CCCommandParameterBlob(pItemArray, CCGetBlobArraySize(pItemArray)));
+//	CCEraseBlobArray(pItemArray);
 //
 //	// 가지고 있는 겜블 아이템 리스트 전송
 //	int nGambleItemCount = pObj->GetCharInfo()->m_GambleItemManager.GetCount();
-//	void* pGambleItemArray = MMakeBlobArray(sizeof(CCTD_GambleItemNode), nGambleItemCount);
+//	void* pGambleItemArray = CCMakeBlobArray(sizeof(CCTD_GambleItemNode), nGambleItemCount);
 //
 //	for (int j = 0; j < nGambleItemCount; ++j)
 //	{
 //		const CCMatchCharGambleItem* pGambleItem = pObj->GetCharInfo()->m_GambleItemManager.GetGambleItem(j);
-//		CCTD_GambleItemNode* pSendGambleItem = (CCTD_GambleItemNode*)MGetBlobArrayElement(pGambleItemArray, j);
+//		CCTD_GambleItemNode* pSendGambleItem = (CCTD_GambleItemNode*)CCGetBlobArrayElement(pGambleItemArray, j);
 //		if( pSendGambleItem != NULL )
 //		{
 //			pSendGambleItem->uidItem = pGambleItem->GetUID();
@@ -299,8 +299,8 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		}
 //	}
 //
-//	pNew->AddParameter(new CCCommandParameterBlob(pGambleItemArray, MGetBlobArraySize(pGambleItemArray)));
-//	MEraseBlobArray(pGambleItemArray);
+//	pNew->AddParameter(new CCCommandParameterBlob(pGambleItemArray, CCGetBlobArraySize(pGambleItemArray)));
+//	CCEraseBlobArray(pGambleItemArray);
 //
 //	PostSafeQueue( pNew );
 //
@@ -447,13 +447,13 @@ void CCMatchServer::PostCmdCharacterBuffInfo(const CCUID& uidPlayer)
 
 	CCCommand *pCmd = CreateCommand(MC_MATCH_SPENDABLE_BUFF_ITEM_STATUS, uidPlayer);	
 
-	void* pCharBuffInfoArray = MMakeBlobArray(sizeof(CCTD_CharBuffInfo), 1);
-	CCTD_CharBuffInfo* pCCTD_CharBuffInfo = (CCTD_CharBuffInfo*)MGetBlobArrayElement(pCharBuffInfoArray, 0);
+	void* pCharBuffInfoArray = CCMakeBlobArray(sizeof(CCTD_CharBuffInfo), 1);
+	CCTD_CharBuffInfo* pCCTD_CharBuffInfo = (CCTD_CharBuffInfo*)CCGetBlobArrayElement(pCharBuffInfoArray, 0);
 	CopyCharBuffInfoForTrans(pCCTD_CharBuffInfo, pCharInfo, pObj);
 
 	pCmd->AddParameter(new CCCommandParameterUID(pObj->GetUID()));
-	pCmd->AddParameter(new CCCommandParameterBlob(pCharBuffInfoArray, MGetBlobArraySize(pCharBuffInfoArray)));
+	pCmd->AddParameter(new CCCommandParameterBlob(pCharBuffInfoArray, CCGetBlobArraySize(pCharBuffInfoArray)));
 	Post(pCmd);
 
-	MEraseBlobArray(pCharBuffInfoArray);
+	CCEraseBlobArray(pCharBuffInfoArray);
 }*/

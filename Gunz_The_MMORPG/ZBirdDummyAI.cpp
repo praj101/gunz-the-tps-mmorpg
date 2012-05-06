@@ -185,7 +185,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(CCCommand* pCmd)
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
 
-			CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
+			CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)CCGetBlobArrayElement(pBlob, 0);
 
 			//OnStageEnterBattle(uidChar, uidStage, MCmdEnterBattleParam(nParam), pPeerNode);
 
@@ -294,10 +294,10 @@ void ZBirdDummyAIJoinFlood::OnCommand(CCCommand* pCmd)
 			CCCommandParameter* pParam = pCmd->GetParameter(2);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
-			int nCount = MGetBlobArrayCount(pBlob);
+			int nCount = CCGetBlobArrayCount(pBlob);
 
 			for(int i=0; i<nCount; i++) {
-				CCTD_StageListNode* pNode = (CCTD_StageListNode*)MGetBlobArrayElement(pBlob, i);
+				CCTD_StageListNode* pNode = (CCTD_StageListNode*)CCGetBlobArrayElement(pBlob, i);
 
 				// log debug
 				if( pNode ) 

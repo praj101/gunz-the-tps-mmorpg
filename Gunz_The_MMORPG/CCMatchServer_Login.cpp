@@ -415,19 +415,19 @@ CCCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const CCUID& uidComm,
 	pCmd->AddParameter(new CCCommandParameterBool((bool)MGetServerConfig()->IsEnabledDuelTournament()));
 //	pCmd->AddParameter(new CCCommandParameterString(szRandomValue));
 
-//	void* pBlob1 = MMakeBlobArray(sizeof(unsigned char), 64);
-//	unsigned char *pCmdBlock1 = (unsigned char*)MGetBlobArrayElement(pBlob1, 0);
+//	void* pBlob1 = CCMakeBlobArray(sizeof(unsigned char), 64);
+//	unsigned char *pCmdBlock1 = (unsigned char*)CCGetBlobArrayElement(pBlob1, 0);
 //	CopyMemory(pCmdBlock1, szRandomValue, 64);
 
-//	pCmd->AddParameter(new CCCommandParameterBlob(pBlob1, MGetBlobArraySize(pBlob1)));
-//	MEraseBlobArray(pBlob1);
+//	pCmd->AddParameter(new CCCommandParameterBlob(pBlob1, CCGetBlobArraySize(pBlob1)));
+//	CCEraseBlobArray(pBlob1);
 	
-	void* pBlob = MMakeBlobArray(sizeof(unsigned char), SIZEOF_GUIDREQMSG);
-	unsigned char* pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
+	void* pBlob = CCMakeBlobArray(sizeof(unsigned char), SIZEOF_GUIDREQMSG);
+	unsigned char* pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pCmdBlock, pbyGuidReqMsg, SIZEOF_GUIDREQMSG);
 
-	pCmd->AddParameter(new CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
-	MEraseBlobArray(pBlob);
+	pCmd->AddParameter(new CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));
+	CCEraseBlobArray(pBlob);
 
 	return pCmd;
 }
@@ -447,19 +447,19 @@ CCCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const CCUID& uidComm
 //	pCmd->AddParameter(new CCCommandParameterString("A"));
 	
 //	unsigned char tmp1 = 'A';
-//	void* pBlob1 = MMakeBlobArray(sizeof(unsigned char), sizeof(unsigned char));
-//	unsigned char* pCmdBlock1 = (unsigned char*)MGetBlobArrayElement(pBlob1, 0);
+//	void* pBlob1 = CCMakeBlobArray(sizeof(unsigned char), sizeof(unsigned char));
+//	unsigned char* pCmdBlock1 = (unsigned char*)CCGetBlobArrayElement(pBlob1, 0);
 //	CopyMemory(pCmdBlock1, &tmp1, sizeof(unsigned char));
-//	pCmd->AddParameter(new CCCommandParameterBlob(pBlob1, MGetBlobArraySize(pBlob1)));
-//	MEraseBlobArray(pBlob1);
+//	pCmd->AddParameter(new CCCommandParameterBlob(pBlob1, CCGetBlobArraySize(pBlob1)));
+//	CCEraseBlobArray(pBlob1);
 
 	unsigned char tmp = 0;
-	void* pBlob = MMakeBlobArray(sizeof(unsigned char), sizeof(unsigned char));
-	unsigned char* pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
+	void* pBlob = CCMakeBlobArray(sizeof(unsigned char), sizeof(unsigned char));
+	unsigned char* pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pCmdBlock, &tmp, sizeof(unsigned char));
 
-	pCmd->AddParameter(new CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
-	MEraseBlobArray(pBlob);
+	pCmd->AddParameter(new CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));
+	CCEraseBlobArray(pBlob);
 
 	return pCmd;
 }

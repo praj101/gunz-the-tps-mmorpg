@@ -126,7 +126,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 		if(pParam->GetType()!=MPT_BLOB) return false;
 		void* pBlob = pParam->GetPointer();
 
-		CCTD_QuestGameInfo* pQuestGameInfo= (CCTD_QuestGameInfo*)MGetBlobArrayElement(pBlob, 0);
+		CCTD_QuestGameInfo* pQuestGameInfo= (CCTD_QuestGameInfo*)CCGetBlobArrayElement(pBlob, 0);
 		
 		if (ZGetGameTypeManager()->IsQuestOnly(pQuestGameInfo->eGameType))
 		{
@@ -155,7 +155,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pCharListBlob = pParam->GetPointer();
-			int nCount = MGetBlobArrayCount(pCharListBlob);
+			int nCount = CCGetBlobArrayCount(pCharListBlob);
 
 			// 캐릭터 정보 가져오기
 			ZCharacterSelectView::OnReceivedAccountCharInfo(pCharListBlob);
@@ -185,7 +185,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			CCCommandParameter* pParam = pCommand->GetParameter(1);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pCharInfoBlob = pParam->GetPointer();
-			int nCount = MGetBlobArrayCount(pCharInfoBlob);
+			int nCount = CCGetBlobArrayCount(pCharInfoBlob);
 
 			ZCharacterSelectView::OnReceivedCharInfo(nCharNum, pCharInfoBlob);
 
@@ -209,7 +209,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 				}
 
 				void* pCharBlob = pParam->GetPointer();
-				CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharBlob, 0);
+				CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)CCGetBlobArrayElement(pCharBlob, 0);
 				
 				// 마지막 선택 캐릭 저장
 				ZCharacterSelectView::SetLastChar(pCharInfo->szName);
@@ -231,7 +231,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 				}
 
 				void* pCharBuffBlob = pParam->GetPointer();
-				CCTD_CharBuffInfo* pCharBuffInfo = (CCTD_CharBuffInfo*)MGetBlobArrayElement(pCharBuffBlob, 0);
+				CCTD_CharBuffInfo* pCharBuffInfo = (CCTD_CharBuffInfo*)CCGetBlobArrayElement(pCharBuffBlob, 0);
 				ZGetMyInfo()->SetCharBuffInfo(pCharBuffInfo);
 				*/
 
@@ -249,7 +249,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 					break;
 				}
 				void* pExtraCharBlob = pParam->GetPointer();
-				CCTD_MyExtraCharInfo* pMyExtraCharInfo = (CCTD_MyExtraCharInfo*)MGetBlobArrayElement(pExtraCharBlob, 0);
+				CCTD_MyExtraCharInfo* pMyExtraCharInfo = (CCTD_MyExtraCharInfo*)CCGetBlobArrayElement(pExtraCharBlob, 0);
 
 				if (pMyExtraCharInfo) {
 					ZGetMyInfo()->SetLevelPercent((int)pMyExtraCharInfo->nLevelPercent);
@@ -339,9 +339,9 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			}
 
 			pGItemListBlob = pGItemParam->GetPointer();
-			nGItemCount = MGetBlobArrayCount( pGItemListBlob );
+			nGItemCount = CCGetBlobArrayCount( pGItemListBlob );
 			for( int j = 0; j < nGItemCount; ++j ) {
-				pGItem = (CCTD_GambleItemNode*)MGetBlobArrayElement( pGItemListBlob, j );
+				pGItem = (CCTD_GambleItemNode*)CCGetBlobArrayElement( pGItemListBlob, j );
 				vGItemList.push_back( pGItem );
 			}
 
@@ -359,11 +359,11 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			}
 
 			void* pItemListBlob = pParam->GetPointer();
-			nItemCount = MGetBlobArrayCount(pItemListBlob);
+			nItemCount = CCGetBlobArrayCount(pItemListBlob);
 			vShopItemList.clear();
 
 			for (int i = 0; i < nItemCount; i++) {
-				pShopInfo = (CCTD_ShopItemInfo*)MGetBlobArrayElement(pItemListBlob, i);
+				pShopInfo = (CCTD_ShopItemInfo*)CCGetBlobArrayElement(pItemListBlob, i);
 				vShopItemList.push_back( pShopInfo );
 			}
 
@@ -387,7 +387,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 				break;
 			}
 			void* pEquipItemListBlob = pParam->GetPointer();
-			nEquipItemCount = MGetBlobArrayCount(pEquipItemListBlob);
+			nEquipItemCount = CCGetBlobArrayCount(pEquipItemListBlob);
 			if (nEquipItemCount != MMCIP_END)
 			{
 				_ASSERT(0);
@@ -395,31 +395,31 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			}
 
 			for (int i = 0; i < MMCIP_END; i++) {
-				uidEquipItems[i] = *(CCUID*)MGetBlobArrayElement(pEquipItemListBlob, i);
+				uidEquipItems[i] = *(CCUID*)CCGetBlobArrayElement(pEquipItemListBlob, i);
 			}
 
 
 			// 갖고 있는 아이템
 			pParam = pCommand->GetParameter(2);
 			void* pItemListBlob = pParam->GetPointer();
-			nItemCount = MGetBlobArrayCount(pItemListBlob);
+			nItemCount = CCGetBlobArrayCount(pItemListBlob);
 			CCTD_ItemNode* pItemNodes = new CCTD_ItemNode[nItemCount];
 
 			for (int i = 0; i < nItemCount; i++)
 			{
-				pItemNodes[i] = *(CCTD_ItemNode*)MGetBlobArrayElement(pItemListBlob, i);
+				pItemNodes[i] = *(CCTD_ItemNode*)CCGetBlobArrayElement(pItemListBlob, i);
 			}
 
 			// gambleitem
 			pParam = pCommand->GetParameter(3);
 			void* pGItemListBlob = pParam->GetPointer();
-			int nGItemCount = MGetBlobArrayCount(pGItemListBlob);
+			int nGItemCount = CCGetBlobArrayCount(pGItemListBlob);
 			CCTD_GambleItemNode* pGItemNodes = new CCTD_GambleItemNode[nGItemCount];
 			CCTD_GambleItemNode* pTmpGItem;
 
 			for (int i = 0; i < nGItemCount; i++)
 			{
-				pTmpGItem = (CCTD_GambleItemNode*)MGetBlobArrayElement(pGItemListBlob, i);
+				pTmpGItem = (CCTD_GambleItemNode*)CCGetBlobArrayElement(pGItemListBlob, i);
 
 				pGItemNodes[i].uidItem = pTmpGItem->uidItem;
 				pGItemNodes[i].nItemID = pTmpGItem->nItemID;
@@ -436,7 +436,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 		{
 			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			void* pItemListBlob = pParam->GetPointer();
-			int nItemCount = MGetBlobArrayCount(pItemListBlob);
+			int nItemCount = CCGetBlobArrayCount(pItemListBlob);
 
 			CCTD_AccountItemNode* pItemNodes = new CCTD_AccountItemNode[nItemCount];
 
@@ -444,7 +444,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 
 			for (int i = 0; i < nItemCount; i++)
 			{
-				pItemNodes[i] = *(CCTD_AccountItemNode*)MGetBlobArrayElement(pItemListBlob, i);
+				pItemNodes[i] = *(CCTD_AccountItemNode*)CCGetBlobArrayElement(pItemListBlob, i);
 				ZGetMyInfo()->GetItemList()->AddAccountItem(pItemNodes[i].nAIID, pItemNodes[i].nItemID, pItemNodes[i].nCount, pItemNodes[i].nRentMinutePeriodRemainder);
 			}
 
@@ -553,7 +553,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			void* pMySimpleCharInfoBlob = pParam->GetPointer();
 
 			CCTD_MySimpleCharInfo* pCharInfo;
-			pCharInfo = (CCTD_MySimpleCharInfo*)MGetBlobArrayElement(pMySimpleCharInfoBlob, 0);
+			pCharInfo = (CCTD_MySimpleCharInfo*)CCGetBlobArrayElement(pMySimpleCharInfoBlob, 0);
 
 			ZGetMyInfo()->SetLevel(pCharInfo->nLevel);
 			ZGetMyInfo()->SetXP(pCharInfo->nXP);
@@ -587,7 +587,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			CCCommandParameter* pParam = pCommand->GetParameter(0);
 			if (!pParam) { _ASSERT(0); break; }
 			void* pBlob = pParam->GetPointer();
-			int nCount = MGetBlobArrayCount( pBlob);
+			int nCount = CCGetBlobArrayCount( pBlob);
 			
 			_ASSERT(nCount <= NUM_DISPLAY_DUELTOURNAMENT_RANKING);
 
@@ -600,7 +600,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 
 			for (int i=0; i<nCount; ++i)
 			{
-				DTRankingInfo *pRankInfo = reinterpret_cast<DTRankingInfo*>(MGetBlobArrayElement(pBlob, i));
+				DTRankingInfo *pRankInfo = reinterpret_cast<DTRankingInfo*>(CCGetBlobArrayElement(pBlob, i));
 				if (!pRankInfo) { _ASSERT(0); break; }
 				
 				ZDUELTOURNAMENTRANKINGITEM tempItem;
@@ -625,7 +625,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			int myRankIndex = -1;
 			for (int i=0; i<nCount; ++i)
 			{
-				DTRankingInfo *pRankInfo = reinterpret_cast<DTRankingInfo*>(MGetBlobArrayElement(pBlob, i));
+				DTRankingInfo *pRankInfo = reinterpret_cast<DTRankingInfo*>(CCGetBlobArrayElement(pBlob, i));
 				if (!pRankInfo) { _ASSERT(0); break; }
 
 				if (0 == strcmp(pRankInfo->m_szCharName, ZGetMyInfo()->GetCharName())) {
@@ -636,8 +636,8 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 
 			pRankingList->SetMyRankIndex(myRankIndex);
 
-			DTRankingInfo *pMyRankInfo = reinterpret_cast<DTRankingInfo*>(MGetBlobArrayElement(pBlob, myRankIndex));
-			DTRankingInfo *pCloseRankInfo = reinterpret_cast<DTRankingInfo*>(MGetBlobArrayElement(pBlob, myRankIndex - 1));
+			DTRankingInfo *pMyRankInfo = reinterpret_cast<DTRankingInfo*>(CCGetBlobArrayElement(pBlob, myRankIndex));
+			DTRankingInfo *pCloseRankInfo = reinterpret_cast<DTRankingInfo*>(CCGetBlobArrayElement(pBlob, myRankIndex - 1));
 
 			// '다음 순위까지 xx포인트 남았습니다' 출력
 			pWidget = pRes->FindWidget("Lobby_DuelTournamentNeedPointNextRank");
@@ -671,12 +671,12 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 		{
 			CCCommandParameter*	pParam			= pCommand->GetParameter(0);
 			void*				pQuestItemBlob	= pParam->GetPointer();
-			int					nQuestItemCount	= MGetBlobArrayCount( pQuestItemBlob );
+			int					nQuestItemCount	= CCGetBlobArrayCount( pQuestItemBlob );
 			CCTD_QuestItemNode*	pQuestItemNode	= new CCTD_QuestItemNode[ nQuestItemCount ];
 
 			for( int i = 0; i < nQuestItemCount; ++i )
 			{
-				pQuestItemNode[ i ] = *(reinterpret_cast<CCTD_QuestItemNode*>(MGetBlobArrayElement(pQuestItemBlob, i)));
+				pQuestItemNode[ i ] = *(reinterpret_cast<CCTD_QuestItemNode*>(CCGetBlobArrayElement(pQuestItemBlob, i)));
 			}
 
 			ZApplication::GetGameInterface()->OnResponseCharacterItemList_QuestItem( pQuestItemNode, nQuestItemCount );
@@ -812,7 +812,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			if( 0 == pBlob ) 
 				return false;
 
-			int nCount = MGetBlobArrayCount(pBlob);
+			int nCount = CCGetBlobArrayCount(pBlob);
 
 			if( 0 < nCount )
 				ZApplication::GetGameInterface()->OnResponseServerStatusInfoList( nCount, pBlob );
@@ -848,7 +848,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 				break;
 			}
 			void* pComBuf = pParam->GetPointer();
-			unsigned char *szComBuf = (unsigned char *)MGetBlobArrayElement(pComBuf, 0);
+			unsigned char *szComBuf = (unsigned char *)CCGetBlobArrayElement(pComBuf, 0);
 			ZApplication::GetGameInterface()->OnRequestXTrapSeedKey(szComBuf);
 		}
 		break;
@@ -915,7 +915,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 			if( NULL == pGItemArray )
 				break;
 
-			dwGItemCount = MGetBlobArrayCount( pGItemArray );
+			dwGItemCount = CCGetBlobArrayCount( pGItemArray );
 
 			ZApplication::GetGameInterface()->OnSendGambleItemList( pGItemArray, dwGItemCount );
 		}

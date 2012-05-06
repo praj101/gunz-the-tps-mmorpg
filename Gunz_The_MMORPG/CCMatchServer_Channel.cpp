@@ -472,7 +472,7 @@ void CCMatchServer::ChannelList(const CCUID& uidPlayer, CCCHANNEL_TYPE nChannelT
 
 	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_LIST), CCUID(0,0), m_This);
 
-	void* pChannelArray = MMakeBlobArray(sizeof(CCCHANNELLISTNODE), nChannelCount);
+	void* pChannelArray = CCMakeBlobArray(sizeof(CCCHANNELLISTNODE), nChannelCount);
 	int nIndex=0;
 	for (map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(nChannelType); 
 		itor!=m_ChannelMap.GetTypesChannelMapEnd(nChannelType); itor++) {
@@ -481,7 +481,7 @@ void CCMatchServer::ChannelList(const CCUID& uidPlayer, CCCHANNEL_TYPE nChannelT
 
 		CCMatchChannel* pChannel = (*itor).second;
 
-		CCCHANNELLISTNODE* pNode = (CCCHANNELLISTNODE*)MGetBlobArrayElement(pChannelArray, nIndex++);
+		CCCHANNELLISTNODE* pNode = (CCCHANNELLISTNODE*)CCGetBlobArrayElement(pChannelArray, nIndex++);
 		pNode->uidChannel = pChannel->GetUID();
 		pNode->nNo = nIndex;
 		pNode->nPlayers = (unsigned char)pChannel->GetObjCount();
@@ -492,8 +492,8 @@ void CCMatchServer::ChannelList(const CCUID& uidPlayer, CCCHANNEL_TYPE nChannelT
 		pNode->bIsUseTicket = pChannel->IsUseTicket();
 		pNode->nTicketID = pChannel->GetTicketItemID();
 	}
-	pNew->AddParameter(new CCCommandParameterBlob(pChannelArray, MGetBlobArraySize(pChannelArray)));
-	MEraseBlobArray(pChannelArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pChannelArray, CCGetBlobArraySize(pChannelArray)));
+	CCEraseBlobArray(pChannelArray);
 
 	RouteToListener(pChar, pNew);
 }
@@ -562,14 +562,14 @@ void CCMatchServer::ChannelResponsePlayerList(const CCUID& uidPlayer, const CCUI
 	pNew->AddParameter(new CCCommandParameterUChar((unsigned char)nObjCount));
 	pNew->AddParameter(new CCCommandParameterUChar((unsigned char)nPage));
 
-	void* pPlayerArray = MMakeBlobArray(sizeof(CCTD_ChannelPlayerListNode), nNodeCount);
+	void* pPlayerArray = CCMakeBlobArray(sizeof(CCTD_ChannelPlayerListNode), nNodeCount);
 
 	int nArrayIndex=0;
 	for (CCUIDRefCache::iterator i=FirstItor; i != pChannel->GetObjEnd(); i++) 
 	{
 		CCMatchObject* pScanObj = (CCMatchObject*)(*i).second;
 
-		CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)MGetBlobArrayElement(pPlayerArray, nArrayIndex++);
+		CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)CCGetBlobArrayElement(pPlayerArray, nArrayIndex++);
 
 		if (IsEnabledObject(pScanObj))
 		{
@@ -579,8 +579,8 @@ void CCMatchServer::ChannelResponsePlayerList(const CCUID& uidPlayer, const CCUI
 		if (nArrayIndex >= nNodeCount) break;
 	}
 
-	pNew->AddParameter(new CCCommandParameterBlob(pPlayerArray, MGetBlobArraySize(pPlayerArray)));
-	MEraseBlobArray(pPlayerArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pPlayerArray, CCGetBlobArraySize(pPlayerArray)));
+	CCEraseBlobArray(pPlayerArray);
 	RouteToListener(pObj, pNew);
 }
 
@@ -651,13 +651,13 @@ void CCMatchServer::ChannelResponseAllPlayerList(const CCUID& uidPlayer, const C
 	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CHANNEL_RESPONSE_ALL_PLAYER_LIST), CCUID(0,0), m_This);
 	pNew->AddParameter(new CCCommandParameterUID(uidChannel));
 
-	void* pPlayerArray = MMakeBlobArray(sizeof(CCTD_ChannelPlayerListNode), nNodeCount);
+	void* pPlayerArray = CCMakeBlobArray(sizeof(CCTD_ChannelPlayerListNode), nNodeCount);
 
 	for (int i = 0; i < nNodeCount; i++)
 	{
 		CCMatchObject* pScanObj = ppTransObjectArray[i];
 
-		CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)MGetBlobArrayElement(pPlayerArray, i);
+		CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)CCGetBlobArrayElement(pPlayerArray, i);
 
 		if (IsEnabledObject(pScanObj))
 		{
@@ -665,8 +665,8 @@ void CCMatchServer::ChannelResponseAllPlayerList(const CCUID& uidPlayer, const C
 		}
 	}
 
-	pNew->AddParameter(new CCCommandParameterBlob(pPlayerArray, MGetBlobArraySize(pPlayerArray)));
-	MEraseBlobArray(pPlayerArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pPlayerArray, CCGetBlobArraySize(pPlayerArray)));
+	CCEraseBlobArray(pPlayerArray);
 	RouteToListener(pObj, pNew);
 }
 

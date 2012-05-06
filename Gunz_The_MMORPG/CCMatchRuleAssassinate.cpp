@@ -156,8 +156,8 @@ bool CCMatchRuleAssassinate::OnCheckRoundFinish()
 
 void* CCMatchRuleAssassinate::CreateRuleInfoBlob()
 {
-	void* pRuleInfoArray = MMakeBlobArray(sizeof(CCTD_RuleInfo_Assassinate), 1);
-	CCTD_RuleInfo_Assassinate* pRuleItem = (CCTD_RuleInfo_Assassinate*)MGetBlobArrayElement(pRuleInfoArray, 0);
+	void* pRuleInfoArray = CCMakeBlobArray(sizeof(CCTD_RuleInfo_Assassinate), 1);
+	CCTD_RuleInfo_Assassinate* pRuleItem = (CCTD_RuleInfo_Assassinate*)CCGetBlobArrayElement(pRuleInfoArray, 0);
 	memset(pRuleItem, 0, sizeof(CCTD_RuleInfo_Assassinate));
 	
 	pRuleItem->nRuleType = CCMATCH_GAMETYPE_ASSASSINATE;

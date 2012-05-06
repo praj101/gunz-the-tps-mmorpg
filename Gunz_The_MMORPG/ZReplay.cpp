@@ -472,7 +472,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 				float fAP;
 			};
 
-			REPLAY2_HP_AP_INFO* pBlobData = (REPLAY2_HP_AP_INFO*)MGetBlobArrayElement(pBlob, 0);
+			REPLAY2_HP_AP_INFO* pBlobData = (REPLAY2_HP_AP_INFO*)CCGetBlobArrayElement(pBlob, 0);
 			pCmd->AddParameter(new MCmdParamFloat(pBlobData->fHP));
 			pCmd->AddParameter(new MCmdParamFloat(pBlobData->fAP));
 		}
@@ -486,7 +486,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 				float fHP;
 			};
 
-			REPLAY2_HP_INFO* pBlobData = (REPLAY2_HP_INFO*)MGetBlobArrayElement(pBlob, 0);
+			REPLAY2_HP_INFO* pBlobData = (REPLAY2_HP_INFO*)CCGetBlobArrayElement(pBlob, 0);
 			pCmd->AddParameter(new MCmdParamFloat(pBlobData->fHP));
 		}
 		break;
@@ -528,12 +528,12 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 
 
 			void* pBlob = TempParams[3]->GetPointer();
-			//int nCount = MGetBlobArrayCount(pBlob);
-			REPLAY2_PeerListNode* pNode = (REPLAY2_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
+			//int nCount = CCGetBlobArrayCount(pBlob);
+			REPLAY2_PeerListNode* pNode = (REPLAY2_PeerListNode*)CCGetBlobArrayElement(pBlob, 0);
 
 
-			void* pNewBlob = MMakeBlobArray(sizeof(CCTD_PeerListNode), 1);
-			CCTD_PeerListNode* pNewNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pNewBlob, 0);
+			void* pNewBlob = CCMakeBlobArray(sizeof(CCTD_PeerListNode), 1);
+			CCTD_PeerListNode* pNewNode = (CCTD_PeerListNode*)CCGetBlobArrayElement(pNewBlob, 0);
 			pNewNode->uidChar = pNode->uidChar;
 			pNewNode->dwIP = inet_addr(pNode->szIP);
 			pNewNode->nPort = pNode->nPort;
@@ -545,9 +545,9 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 			
 
 			pCmd->AddParameter(new MCmdParamUChar((unsigned char)nParam));
-			pCmd->AddParameter(new CCCommandParameterBlob(pNewBlob, MGetBlobArraySize(pNewBlob)));
+			pCmd->AddParameter(new CCCommandParameterBlob(pNewBlob, CCGetBlobArraySize(pNewBlob)));
 
-			MEraseBlobArray(pNewBlob);
+			CCEraseBlobArray(pNewBlob);
 		}
 		break;
 	case MC_MATCH_STAGE_LIST:
@@ -611,14 +611,14 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 
 
 			void* pBlob = TempParams[0]->GetPointer();
-			int nCount = MGetBlobArrayCount(pBlob);
+			int nCount = CCGetBlobArrayCount(pBlob);
 
-			void* pNewBlob = MMakeBlobArray(sizeof(CCTD_WorldItem), nCount);
+			void* pNewBlob = CCMakeBlobArray(sizeof(CCTD_WorldItem), nCount);
 
 			for (int i = 0; i < nCount; i++)
 			{
-				REPLAY2_WorldItem* pNode = (REPLAY2_WorldItem*)MGetBlobArrayElement(pBlob, i);
-				CCTD_WorldItem* pNewNode = (CCTD_WorldItem*)MGetBlobArrayElement(pNewBlob, i);
+				REPLAY2_WorldItem* pNode = (REPLAY2_WorldItem*)CCGetBlobArrayElement(pBlob, i);
+				CCTD_WorldItem* pNewNode = (CCTD_WorldItem*)CCGetBlobArrayElement(pNewBlob, i);
 
 				pNewNode->nUID = pNode->nUID;
 				pNewNode->nItemID = pNode->nItemID;
@@ -627,8 +627,8 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 				pNewNode->y = (short)Roundf(pNode->y);
 				pNewNode->z = (short)Roundf(pNode->z);
 			}
-			pCmd->AddParameter(new CCCommandParameterBlob(pNewBlob, MGetBlobArraySize(pNewBlob)));
-			MEraseBlobArray(pNewBlob);
+			pCmd->AddParameter(new CCCommandParameterBlob(pNewBlob, CCGetBlobArraySize(pNewBlob)));
+			CCEraseBlobArray(pNewBlob);
 
 		}
 		break;

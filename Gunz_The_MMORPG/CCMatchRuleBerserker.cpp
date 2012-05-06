@@ -23,8 +23,8 @@ void CCMatchRuleBerserker::OnRoundBegin()
 
 void* CCMatchRuleBerserker::CreateRuleInfoBlob()
 {
-	void* pRuleInfoArray = MMakeBlobArray(sizeof(CCTD_RuleInfo_Berserker), 1);
-	CCTD_RuleInfo_Berserker* pRuleItem = (CCTD_RuleInfo_Berserker*)MGetBlobArrayElement(pRuleInfoArray, 0);
+	void* pRuleInfoArray = CCMakeBlobArray(sizeof(CCTD_RuleInfo_Berserker), 1);
+	CCTD_RuleInfo_Berserker* pRuleItem = (CCTD_RuleInfo_Berserker*)CCGetBlobArrayElement(pRuleInfoArray, 0);
 	memset(pRuleItem, 0, sizeof(CCTD_RuleInfo_Berserker));
 	
 	pRuleItem->nRuleType = CCMATCH_GAMETYPE_BERSERKER;

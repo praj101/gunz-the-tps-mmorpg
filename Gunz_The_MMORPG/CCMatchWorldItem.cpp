@@ -149,14 +149,14 @@ void CCMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 	int nItesSize = (int)m_ItemMap.size();
 	if (nItesSize <= 0) return;
 
-	void* pItemArray = MMakeBlobArray(sizeof(CCTD_WorldItem), nItesSize);
+	void* pItemArray = CCMakeBlobArray(sizeof(CCTD_WorldItem), nItesSize);
 	
 
 	int nIndex = 0;
 	for (CCMatchWorldItemMap::iterator itor = m_ItemMap.begin(); itor != m_ItemMap.end(); ++itor)
 	{
 		CCMatchWorldItem* pWorldItem = (*itor).second;
-		CCTD_WorldItem* pNode = (CCTD_WorldItem*)MGetBlobArrayElement(pItemArray, nIndex++);
+		CCTD_WorldItem* pNode = (CCTD_WorldItem*)CCGetBlobArrayElement(pItemArray, nIndex++);
 
 		Make_MTDWorldItem(pNode, pWorldItem);
 
@@ -168,8 +168,8 @@ void CCMatchWorldItemManager::RouteAllItems(CCMatchObject* pObj)
 
 	// 난입한 넘에게 아이템 정보 보내준다
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, CCUID(0,0));
-	pCmd->AddParameter(new CCCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
-	MEraseBlobArray(pItemArray);
+	pCmd->AddParameter(new CCCommandParameterBlob(pItemArray, CCGetBlobArraySize(pItemArray)));
+	CCEraseBlobArray(pItemArray);
 
 	CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
 }
@@ -450,13 +450,13 @@ void CCMatchWorldItemManager::RouteSpawnWorldItem(CCMatchWorldItem* pWorldItem)
 	// 방인원에게 라우팅
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_SPAWN_WORLDITEM, CCUID(0,0));
 
-	void* pItemArray = MMakeBlobArray(sizeof(CCTD_WorldItem), 1);
-	CCTD_WorldItem* pNode = (CCTD_WorldItem*)MGetBlobArrayElement(pItemArray, 0);
+	void* pItemArray = CCMakeBlobArray(sizeof(CCTD_WorldItem), 1);
+	CCTD_WorldItem* pNode = (CCTD_WorldItem*)CCGetBlobArrayElement(pItemArray, 0);
 
 	Make_MTDWorldItem(pNode, pWorldItem);
 
-	pCmd->AddParameter(new CCCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
-	MEraseBlobArray(pItemArray);
+	pCmd->AddParameter(new CCCommandParameterBlob(pItemArray, CCGetBlobArraySize(pItemArray)));
+	CCEraseBlobArray(pItemArray);
 
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }

@@ -891,7 +891,7 @@ bool CheckFileList()
 	delete buffer;
 
 	int iCount, i;
-	CCXmlElement		aParent, aChild;
+	::CCXmlElement		aParent, aChild;
 	aParent = aXml.GetDocumentElement();
 	iCount = aParent.GetChildNodeCount();
 
@@ -1020,9 +1020,9 @@ void CheckFileAssociation()
 
 	// 체크해봐서 등록이 안되어있으면 등록한다. 사용자에게 물어볼수도 있겠다.
 	char szValue[256];
-	if(!MRegistry::Read(HKEY_CLASSES_ROOT,"."GUNZ_REC_FILE_EXT,NULL,szValue))
+	if(!CCRegistry::Read(HKEY_CLASSES_ROOT,"."GUNZ_REC_FILE_EXT,NULL,szValue))
 	{
-		MRegistry::Write(HKEY_CLASSES_ROOT,"."GUNZ_REC_FILE_EXT,NULL,GUNZ_REPLAY_CLASS_NAME);
+		CCRegistry::Write(HKEY_CLASSES_ROOT,"."GUNZ_REC_FILE_EXT,NULL,GUNZ_REPLAY_CLASS_NAME);
 
 		char szModuleFileName[_MAX_PATH] = {0,};
 		GetModuleFileName(NULL, szModuleFileName, _MAX_DIR);
@@ -1030,7 +1030,7 @@ void CheckFileAssociation()
 		char szCommand[_MAX_PATH];
 		sprintf(szCommand,"\"%s\" \"%%1\"",szModuleFileName);
 
-		MRegistry::Write(HKEY_CLASSES_ROOT,GUNZ_REPLAY_CLASS_NAME"\\shell\\open\\command",NULL,szCommand);
+		CCRegistry::Write(HKEY_CLASSES_ROOT,GUNZ_REPLAY_CLASS_NAME"\\shell\\open\\command",NULL,szCommand);
 
 		SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_FLUSH, NULL, NULL);
 	}
@@ -1219,7 +1219,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_CHECK_CRT_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_DELAY_FREE_MEM_DF);
 
-	InitLog(MLOGSTYLE_DEBUGSTRING|MLOGSTYLE_FILE);
+	InitLog(CCLOGSTYLE_DEBUGSTRING|CCLOGSTYLE_FILE);
 
 	g_fpOnCrcFail = CrcFailExitApp;
 
@@ -1439,7 +1439,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	CheckFileAssociation();
 
 	// Initialize CCZFileSystem - MUpdate 
-	MRegistry::szApplicationName=APPLICATION_NAME;
+	CCRegistry::szApplicationName=APPLICATION_NAME;
 
 	g_App.InitFileSystem();
 //	cclog("CheckSum: %u \n", ZApplication::GetFileSystem()->GetTotalCRC());
@@ -1510,7 +1510,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	if (ZApplication::GetInstance()->ParseArguments(cmdline) == false)
 	{
 		// Korean or Japan Version
-		if ((ZGetLocale()->GetCountry() == MC_KOREA) || (ZGetLocale()->GetCountry() == MC_JAPAN))
+		if ((ZGetLocale()->GetCountry() == CCC_KOREA) || (ZGetLocale()->GetCountry() == CCC_JAPAN))
 		{
 			cclog("Routed to Website \n");
 

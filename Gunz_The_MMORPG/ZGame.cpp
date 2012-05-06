@@ -1539,7 +1539,7 @@ void ZGame::OnReplayRun()
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 
-				CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
+				CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)CCGetBlobArrayElement(pBlob, 0);
 				cclog("[%d EnterBattleRoom Time:%3.3f]\n", pPeerNode->uidChar.Low, pItem->fTime);
 			}
 			break;
@@ -1798,7 +1798,7 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
 
-			CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pBlob, 0);
+			CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)CCGetBlobArrayElement(pBlob, 0);
 
 			OnStageEnterBattle(MCmdEnterBattleParam(nParam), pPeerNode);
 		}
@@ -1821,7 +1821,7 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 			CCCommandParameter* pParam = pCommand->GetParameter(1);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
-			int nCount = MGetBlobArrayCount(pBlob);
+			int nCount = CCGetBlobArrayCount(pBlob);
 			OnPeerList(uidStage, pBlob, nCount);
 		}
 		break;
@@ -2366,7 +2366,7 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 				break;
 			}
 			void* pComBuf = pParam->GetPointer();
-			unsigned char *szComBuf = (unsigned char *)MGetBlobArrayElement(pComBuf, 0);
+			unsigned char *szComBuf = (unsigned char *)CCGetBlobArrayElement(pComBuf, 0);
 			ZApplication::GetGameInterface()->OnRequestXTrapSeedKey(szComBuf);
 		}
 		break;
@@ -2395,7 +2395,7 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 			CCCommandParameter* pParam = pCommand->GetParameter(1);
 			if (pParam->GetType() != MPT_BLOB) break;
 			void* pCmdBuf = pParam->GetPointer();
-            CCTD_CharBuffInfo* pCharBuffInfo = (CCTD_CharBuffInfo*)MGetBlobArrayElement(pCmdBuf, 0);
+            CCTD_CharBuffInfo* pCharBuffInfo = (CCTD_CharBuffInfo*)CCGetBlobArrayElement(pCmdBuf, 0);
 
 			OnGetSpendableBuffItemStatus(uidChar, pCharBuffInfo);
 			*/
@@ -7060,7 +7060,7 @@ void ZGame::OnPeerList(const CCUID& uidStage, void* pBlob, int nCount)
 	if ((ZGetGame() == NULL) || (ZGetCharacterManager() == NULL)) return;
 
 	for(int i=0; i<nCount; i++) {
-		CCTD_PeerListNode* pNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pBlob, i);
+		CCTD_PeerListNode* pNode = (CCTD_PeerListNode*)CCGetBlobArrayElement(pBlob, i);
 		OnAddPeer(pNode->uidChar, pNode->dwIP, pNode->nPort, pNode);
 
 		ZCharacter* pChar = ZGetCharacterManager()->Find(pNode->uidChar);
@@ -7079,7 +7079,7 @@ void ZGame::PostMyBuffInfo()
 		if (pBlob)
 		{
 			ZPostBuffInfo(pBlob);
-			MEraseBlobArray(pBlob);
+			CCEraseBlobArray(pBlob);
 		}
 	}
 }
@@ -7093,10 +7093,10 @@ void ZGame::OnPeerBuffInfo(const CCUID& uidSender, void* pBlobBuffInfo)
 	if (!pBlobBuffInfo) return;
 
 	CCTD_BuffInfo* pBuffInfo = NULL;
-	int numElem = MGetBlobArrayCount(pBlobBuffInfo);
+	int numElem = CCGetBlobArrayCount(pBlobBuffInfo);
 	for (int i=0; i<numElem; ++i)
 	{
-		pBuffInfo = (CCTD_BuffInfo*)MGetBlobArrayElement(pBlobBuffInfo, i);
+		pBuffInfo = (CCTD_BuffInfo*)CCGetBlobArrayElement(pBlobBuffInfo, i);
 
 		ApplyPotion(pBuffInfo->nItemId, pSender, (float)pBuffInfo->nRemainedTime);
 	}
@@ -7424,13 +7424,13 @@ void ZGame::OnResetTeamMembers(CCCommand* pCommand)
 	CCCommandParameter* pParam = pCommand->GetParameter(0);
 	if(pParam->GetType()!=MPT_BLOB) return;
 	void* pBlob = pParam->GetPointer();
-	int nCount = MGetBlobArrayCount(pBlob);
+	int nCount = CCGetBlobArrayCount(pBlob);
 
 	ZCharacterManager* pCharMgr = ZGetCharacterManager();
 
 	for (int i = 0; i < nCount; i++)
 	{
-		CCTD_ResetTeamMembersData* pDataNode = (CCTD_ResetTeamMembersData*)MGetBlobArrayElement(pBlob, i);
+		CCTD_ResetTeamMembersData* pDataNode = (CCTD_ResetTeamMembersData*)CCGetBlobArrayElement(pBlob, i);
 
 		ZCharacter* pChar = pCharMgr->Find(pDataNode->m_uidPlayer);
 		if (pChar == NULL) continue;

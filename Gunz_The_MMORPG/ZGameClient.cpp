@@ -425,7 +425,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			pList->RemoveAll();
 			ZGetPlayerManager()->Clear();
 			for(int i=0; i<nCount; i++){
-				CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
+				CCMatchObjCache* pCache = (CCMatchObjCache*)CCGetBlobArrayElement(pBlob, i);
 				if (pCache->CheckFlag(CCTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
 					pList->AddPlayer(pCache->GetUID(),MOSS_NONREADY,pCache->GetLevel(),
 									pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,MMT_ALL, pCache->GetDTGrade());
@@ -443,7 +443,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			}
 		} else if (nType == MATCHCACHEMODE_ADD) {
 			for(int i=0; i<nCount; i++){
-				CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
+				CCMatchObjCache* pCache = (CCMatchObjCache*)CCGetBlobArrayElement(pBlob, i);
 				if (pCache->CheckFlag(CCTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
 					pList->AddPlayer(pCache->GetUID(),MOSS_NONREADY,pCache->GetLevel(),
 									 pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,MMT_ALL, pCache->GetDTGrade());
@@ -461,7 +461,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			}
 		} else if (nType == MATCHCACHEMODE_REMOVE) {
 			for(int i=0; i<nCount; i++){
-				CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
+				CCMatchObjCache* pCache = (CCMatchObjCache*)CCGetBlobArrayElement(pBlob, i);
 				pList->DelPlayer(pCache->GetUID());
 
 				ZGetPlayerManager()->RemovePlayer( pCache->GetUID());
@@ -474,16 +474,16 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 		//// Emblem // 클랜 URL이 없는 vector를 서버에 보낸다.
 		if(vecClanID.size() > 0)
 		{
-			void* pBlob = MMakeBlobArray(sizeof(int), (int)vecClanID.size()); /// nOneBlobSize만큼 nBlobCount갯수만큼 배열한 블럭 만들기
+			void* pBlob = CCMakeBlobArray(sizeof(int), (int)vecClanID.size()); /// nOneBlobSize만큼 nBlobCount갯수만큼 배열한 블럭 만들기
 			int nCount = 0;
 			for(vector<int>::iterator it = vecClanID.begin(); it != vecClanID.end(); it++, nCount++)
 			{
-				int *nClanID = (int*)MGetBlobArrayElement(pBlob, nCount);
+				int *nClanID = (int*)CCGetBlobArrayElement(pBlob, nCount);
 				*nClanID = *it;
 			}
 
 			ZPostRequestEmblemURL(pBlob);
-			MEraseBlobArray(pBlob);
+			CCEraseBlobArray(pBlob);
 			vecClanID.clear();
 		}
 	}
@@ -624,7 +624,7 @@ void ZGameClient::OnChannelList(void* pBlob, int nCount)
 	const char* szChannelName = NULL;
 	pWidget->RemoveAll();
 	for(int i=0; i<nCount; i++){
-		CCCHANNELLISTNODE* pNode = (CCCHANNELLISTNODE*)MGetBlobArrayElement(pBlob, i);
+		CCCHANNELLISTNODE* pNode = (CCCHANNELLISTNODE*)CCGetBlobArrayElement(pBlob, i);
 
 		// 공식채널의 경우 스트링리소스ID를 받아서 사용자가 선택한 언어로 번역된 스트링을 보여주자
 		if (pNode->szChannelNameStrResId[0] != 0){
@@ -984,7 +984,7 @@ void ZGameClient::OnStageList(int nPrevStageCount, int nNextStageCount, void* pB
 	pRoomListBox->Clear();
 	for(int i=0; i<nCount; i++) {
 
-		CCTD_StageListNode* pNode = (CCTD_StageListNode*)MGetBlobArrayElement(pBlob, i);
+		CCTD_StageListNode* pNode = (CCTD_StageListNode*)CCGetBlobArrayElement(pBlob, i);
 
 		// log debug
 		if( pNode ) 
@@ -1089,7 +1089,7 @@ void ZGameClient::OnResponseFriendList(void* pBlob, int nCount)
 
 	char szBuf[128];
 	for(int i=0; i<nCount; i++){
-		MFRIENDLISTNODE* pNode = (MFRIENDLISTNODE*)MGetBlobArrayElement(pBlob, i);
+		MFRIENDLISTNODE* pNode = (MFRIENDLISTNODE*)CCGetBlobArrayElement(pBlob, i);
 
 		ePlayerState state;
 		switch (pNode->nState)
@@ -1140,7 +1140,7 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 
 	for(int i=0; i<nCount; i++) 
 	{
-		CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)MGetBlobArrayElement(pBlob, i);
+		CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)CCGetBlobArrayElement(pBlob, i);
 		if( pNode ) 
 		{
 			ePlayerState state;
@@ -1174,16 +1174,16 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 	//// Emblem // 클랜 URL이 없는 vector를 서버에 보낸다.
 	if(vecClanID.size() > 0)
 	{
-		void* pBlob = MMakeBlobArray(sizeof(int), (int)vecClanID.size()); /// nOneBlobSize만큼 nBlobCount갯수만큼 배열한 블럭 만들기
+		void* pBlob = CCMakeBlobArray(sizeof(int), (int)vecClanID.size()); /// nOneBlobSize만큼 nBlobCount갯수만큼 배열한 블럭 만들기
 		int nCount = 0;
 		for(vector<int>::iterator it = vecClanID.begin(); it != vecClanID.end(); it++, nCount++)
 		{
-			int *nClanID = (int*)MGetBlobArrayElement(pBlob, nCount);
+			int *nClanID = (int*)CCGetBlobArrayElement(pBlob, nCount);
 			*nClanID = *it;
 		}
 
 		ZPostRequestEmblemURL(pBlob);
-		MEraseBlobArray(pBlob);
+		CCEraseBlobArray(pBlob);
 		vecClanID.clear();
 	}
 
@@ -1213,7 +1213,7 @@ void ZGameClient::OnChannelAllPlayerList(const CCUID& uidChannel, void* pBlob, i
 		pListBox->RemoveAll();
 		for(int i=0;i<nBlobCount;i++)
 		{
-			CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)MGetBlobArrayElement(pBlob, i);
+			CCTD_ChannelPlayerListNode* pNode = (CCTD_ChannelPlayerListNode*)CCGetBlobArrayElement(pBlob, i);
 			if( pNode ) 
 			{
 				if (pNode->uidPlayer != GetPlayerUID())
@@ -1257,10 +1257,10 @@ void ZGameClient::OnStageRelayMapListUpdate(int nRelayMapType, int nRelayMapRepe
 		relayMapList[i].nMapID = -1;
 	// 기존 릴레이맵 리스트를 모두 지워준다.
 	pRelaMapListBox->RemoveAll();
-	int nRelayMapListCount = MGetBlobArrayCount(pStageRelayMapListBlob);
+	int nRelayMapListCount = CCGetBlobArrayCount(pStageRelayMapListBlob);
 	for( int i = 0 ; i < nRelayMapListCount; ++i )
 	{// 릴레이맵 리스트에 데이터를 추가해준다.
-		CCTD_RelayMap* pNode = (CCTD_RelayMap*)MGetBlobArrayElement(pStageRelayMapListBlob, i);
+		CCTD_RelayMap* pNode = (CCTD_RelayMap*)CCGetBlobArrayElement(pStageRelayMapListBlob, i);
 		RelayMapList* pRelayMapList = new RelayMapList( MGetMapDescMgr()->GetMapName(MGetMapDescMgr()->GetMapID(pNode->nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
 		pRelaMapListBox->Add( pRelayMapList);
 		relayMapList[i].nMapID = MGetMapDescMgr()->GetMapID(pNode->nMapID);
@@ -1289,13 +1289,13 @@ void ZGameClient::OnResponseStageSetting(const CCUID& uidStage, void* pStageBlob
 	if (GetStageUID() != uidStage) return;
 	if (nStageCount <= 0 || nCharCount<=0) return;
 
-	MSTAGE_SETTING_NODE* pNode = (MSTAGE_SETTING_NODE*)MGetBlobArrayElement(pStageBlob, 0);
+	MSTAGE_SETTING_NODE* pNode = (MSTAGE_SETTING_NODE*)CCGetBlobArrayElement(pStageBlob, 0);
 	UpdateStageSetting(pNode, nStageState, uidMaster);
 
 	// Char Setting
 	m_MatchStageSetting.ResetCharSetting();
 	for(int i=0; i<nCharCount; i++){
-		MSTAGE_CHAR_SETTING_NODE* pCharSetting = (MSTAGE_CHAR_SETTING_NODE*)MGetBlobArrayElement(pCharBlob, i);
+		MSTAGE_CHAR_SETTING_NODE* pCharSetting = (MSTAGE_CHAR_SETTING_NODE*)CCGetBlobArrayElement(pCharBlob, i);
 		m_MatchStageSetting.UpdateCharSetting(pCharSetting->uidChar, pCharSetting->nTeam, pCharSetting->nState);
 	}	
 
@@ -1806,9 +1806,9 @@ void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob,
 	if (ZGetGame() == NULL) return;
 
 	// Game Info
-	int nGameInfoCount = MGetBlobArrayCount(pGameInfoBlob);
+	int nGameInfoCount = CCGetBlobArrayCount(pGameInfoBlob);
 	if (nGameInfoCount > 0) {
-		CCTD_GameInfo* pGameInfo = (CCTD_GameInfo*)MGetBlobArrayElement(pGameInfoBlob, 0);
+		CCTD_GameInfo* pGameInfo = (CCTD_GameInfo*)CCGetBlobArrayElement(pGameInfoBlob, 0);
 		ZGetGame()->GetMatch()->SetTeamScore(MMT_RED, pGameInfo->nRedTeamScore);
 		ZGetGame()->GetMatch()->SetTeamScore(MMT_BLUE, pGameInfo->nBlueTeamScore);
 		ZGetGame()->GetMatch()->SetTeamKills(MMT_RED, pGameInfo->nRedTeamKills);
@@ -1816,11 +1816,11 @@ void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob,
 	}
 
 	// Player Info
-	int nPlayerCount = MGetBlobArrayCount(pPlayerInfoBlob);
+	int nPlayerCount = CCGetBlobArrayCount(pPlayerInfoBlob);
 
 	for(int i=0; i<nPlayerCount; i++) 
 	{
-		CCTD_GameInfoPlayerItem* pPlayerInfo = (CCTD_GameInfoPlayerItem*)MGetBlobArrayElement(pPlayerInfoBlob, i);
+		CCTD_GameInfoPlayerItem* pPlayerInfo = (CCTD_GameInfoPlayerItem*)CCGetBlobArrayElement(pPlayerInfoBlob, i);
 		ZCharacter* pCharacter = ZGetGame()->m_CharacterManager.Find(pPlayerInfo->uidPlayer);
 		if (pCharacter == NULL) continue;
 
@@ -1850,9 +1850,9 @@ void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob,
 
 	// Rule Info
 	// RuleInfo는 PlayerInfo 다 세팅한 다음에 세팅한다. - 룰에따라 플레이어 정보를 바꿔주기 때문..
-	int nRuleCount = MGetBlobArrayCount(pRuleInfoBlob);
+	int nRuleCount = CCGetBlobArrayCount(pRuleInfoBlob);
 	if (nRuleCount > 0) {
-		CCTD_RuleInfo* pRuleInfoHeader = (CCTD_RuleInfo*)MGetBlobArrayElement(pRuleInfoBlob, 0);
+		CCTD_RuleInfo* pRuleInfoHeader = (CCTD_RuleInfo*)CCGetBlobArrayElement(pRuleInfoBlob, 0);
 
 		ZGetGame()->GetMatch()->OnResponseRuleInfo(pRuleInfoHeader);
 	}
@@ -1879,7 +1879,7 @@ void ZGameClient::OnSpawnWorldItem(void* pBlob)
 {
 	if (ZGetGame() == NULL) return;
 
-	int nWorldItemCount = MGetBlobArrayCount(pBlob);
+	int nWorldItemCount = CCGetBlobArrayCount(pBlob);
 
 	ZWeaponItemKit*		pItemKit  = NULL;
 
@@ -1888,7 +1888,7 @@ void ZGameClient::OnSpawnWorldItem(void* pBlob)
 
 	for(int i=0; i<nWorldItemCount; i++) 
 	{
-		CCTD_WorldItem* pWorldItemNode = (CCTD_WorldItem*)MGetBlobArrayElement(pBlob, i);
+		CCTD_WorldItem* pWorldItemNode = (CCTD_WorldItem*)CCGetBlobArrayElement(pBlob, i);
 
 		pWorldItem = ZGetWorldItemManager()->AddWorldItem( pWorldItemNode->nUID, pWorldItemNode->nItemID, 
 			(CCTD_WorldItemSubType)pWorldItemNode->nItemSubType,
@@ -1921,13 +1921,13 @@ void ZGameClient::OnNotifyActivatedTrapItemList(void* pBlob)
 
 	// 서버가 난입한 유저에게 현재 맵상에 발동되어 있는 트랩 목록을 알려주는 커맨드 핸들러
 
-	int numTrap = MGetBlobArrayCount(pBlob);
+	int numTrap = CCGetBlobArrayCount(pBlob);
 
 	rvector pos;
 	ZObject* pOwner;
 	for(int i=0; i<numTrap; i++) 
 	{
-		CCTD_ActivatedTrap* pTrap = (CCTD_ActivatedTrap*)MGetBlobArrayElement(pBlob, i);
+		CCTD_ActivatedTrap* pTrap = (CCTD_ActivatedTrap*)CCGetBlobArrayElement(pBlob, i);
 
 		pos.x = (float)pTrap->x;
 		pos.y = (float)pTrap->y;
@@ -2185,10 +2185,10 @@ void ZGameClient::OnResponseCharInfoDetail(void* pBlob)
 	if(pWidget)
 		pWidget->Show();
 
-	int nCount = MGetBlobArrayCount(pBlob);
+	int nCount = CCGetBlobArrayCount(pBlob);
 	if (nCount != 1) return;
 
-	CCTD_CharInfo_Detail* pCharInfoDetail = (CCTD_CharInfo_Detail*)MGetBlobArrayElement(pBlob, 0);
+	CCTD_CharInfo_Detail* pCharInfoDetail = (CCTD_CharInfo_Detail*)CCGetBlobArrayElement(pBlob, 0);
 
 /*
   == 플레이어 정보 다이알로그에 들어가야 하는 것들 ==
@@ -2358,14 +2358,14 @@ void ZGameClient::OnClanEmblemReady(unsigned int nCLID, const char* szURL)
 
 void ZGameClient::OnExpiredRentItem(void* pBlob)
 {
-	int nBlobSize = MGetBlobArrayCount(pBlob);
+	int nBlobSize = CCGetBlobArrayCount(pBlob);
 
 	char szText[1024];
 	sprintf(szText, "%s\n", ZMsg( MSG_EXPIRED));
 
 	for(int i=0; i < nBlobSize; i++)
 	{
-		unsigned long int* pExpiredItemID = (unsigned long int*)MGetBlobArrayElement(pBlob, i);
+		unsigned long int* pExpiredItemID = (unsigned long int*)CCGetBlobArrayElement(pBlob, i);
 
 		char szItemText[256];
 

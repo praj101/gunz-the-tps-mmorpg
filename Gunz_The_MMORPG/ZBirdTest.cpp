@@ -223,12 +223,12 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, CCCommand* pCmd)
 			CCCommandParameter* pParam = pCmd->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pCharListBlob = pParam->GetPointer();
-			int nCount = MGetBlobArrayCount(pCharListBlob);
+			int nCount = CCGetBlobArrayCount(pCharListBlob);
 
 			bool bExistChar = false;
 			for (int i = 0; i < nCount; i++)
 			{
-				CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharListBlob, i);
+				CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)CCGetBlobArrayElement(pCharListBlob, i);
 				if (pCharInfo->nCharNum == 0)
 				{
 					ZBIRDPOSTCMD2(pClient, MC_MATCH_REQUEST_SELECT_CHAR,
@@ -272,7 +272,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, CCCommand* pCmd)
 				if(pParam->GetType()!=MPT_BLOB) break;
 
 				void* pCharBlob = pParam->GetPointer();
-				CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharBlob, 0);
+				CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)CCGetBlobArrayElement(pCharBlob, 0);
 
 				// 내정보 저장
 				pClient->SetPlayerName(pCharInfo->szName);
@@ -499,13 +499,13 @@ void OnBTDummyChannelChangeOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 			CCCommandParameter* pParam = pCmd->GetParameter(0);
 			if(pParam->GetType()!=MPT_BLOB) break;
 			void* pBlob = pParam->GetPointer();
-			int nCount = MGetBlobArrayCount(pBlob);
+			int nCount = CCGetBlobArrayCount(pBlob);
 		
 			CCUID uidChannels[100];
 
 			for(int i=0; i<nCount; i++)
 			{
-				CCCHANNELLISTNODE* pNode = (CCCHANNELLISTNODE*)MGetBlobArrayElement(pBlob, i);
+				CCCHANNELLISTNODE* pNode = (CCCHANNELLISTNODE*)CCGetBlobArrayElement(pBlob, i);
 
 				if (i<100) uidChannels[i] = pNode->uidChannel;
 			}

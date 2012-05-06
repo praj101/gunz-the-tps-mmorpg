@@ -226,18 +226,18 @@ void CCMatchServer::OnLadderRequestChallenge(const CCUID& uidRequestMember, void
 		return;
 	}
 
-	int nBlobCount = MGetBlobArrayCount(pMemberNamesBlob);
+	int nBlobCount = CCGetBlobArrayCount(pMemberNamesBlob);
 	int nMemberCount = nBlobCount;
 	if (nMemberCount <= 0) return;
 
 	if( !IsLadderRequestUserInRequestClanMember(uidRequestMember
-		, (CCTD_LadderTeamMemberNode*)MGetBlobArrayElement(pMemberNamesBlob, 0)) )
+		, (CCTD_LadderTeamMemberNode*)CCGetBlobArrayElement(pMemberNamesBlob, 0)) )
 		return;
 	
 	CCMatchObject* pMemberObjects[MAX_CLANBATTLE_TEAM_MEMBER];
 	for (int i = 0; i < nMemberCount; i++)
 	{
-		CCTD_LadderTeamMemberNode* pNode = (CCTD_LadderTeamMemberNode*)MGetBlobArrayElement(pMemberNamesBlob, i);
+		CCTD_LadderTeamMemberNode* pNode = (CCTD_LadderTeamMemberNode*)CCGetBlobArrayElement(pMemberNamesBlob, i);
 		if (pNode == NULL) break;
 		if ((strlen(pNode->szName) <= 0) || (strlen(pNode->szName) >= MATCHOBJECT_NAME_LENGTH)) return;
 
@@ -333,14 +333,14 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 	}
 
 
-	int nBlobCount = MGetBlobArrayCount(pReplierNamesBlob);
+	int nBlobCount = CCGetBlobArrayCount(pReplierNamesBlob);
 	if (nBlobCount != nReplierCount) return;
 
 	CCMatchObject* ppReplierObjects[MAX_REPLIER];
 
 	for (int i = 0; i < nReplierCount; i++)
 	{
-		CCTD_ReplierNode* pNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pReplierNamesBlob, i);
+		CCTD_ReplierNode* pNode = (CCTD_ReplierNode*)CCGetBlobArrayElement(pReplierNamesBlob, i);
 		if (pNode == NULL) return;
 		if ((strlen(pNode->szName) <= 0) || (strlen(pNode->szName) >= MATCHOBJECT_NAME_LENGTH)) return;
 
@@ -391,14 +391,14 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 
 
 	int nMemberCount = nReplierCount+1;		// 제안자까지 
-	void* pBlobMembersNameArray = MMakeBlobArray(sizeof(CCTD_ReplierNode), nMemberCount);
+	void* pBlobMembersNameArray = CCMakeBlobArray(sizeof(CCTD_ReplierNode), nMemberCount);
 
-	CCTD_ReplierNode* pProposerNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pBlobMembersNameArray, 0);
+	CCTD_ReplierNode* pProposerNode = (CCTD_ReplierNode*)CCGetBlobArrayElement(pBlobMembersNameArray, 0);
 	strcpy(pProposerNode->szName, pProposerObject->GetCharInfo()->m_szName);
 
 	for (int k = 0; k < nReplierCount; k++)
 	{
-		CCTD_ReplierNode* pMemberNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pBlobMembersNameArray, k+1);
+		CCTD_ReplierNode* pMemberNode = (CCTD_ReplierNode*)CCGetBlobArrayElement(pBlobMembersNameArray, k+1);
 		strcpy(pMemberNode->szName, ppReplierObjects[k]->GetCharInfo()->m_szName);
 	}
 
@@ -408,7 +408,7 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 		CCCommand* pNewCmd = CreateCommand(MC_MATCH_ASK_AGREEMENT, CCUID(0,0));
 		pNewCmd->AddParameter(new CCCommandParameterUID(uidProposer));
 //		pNewCmd->AddParameter(new CCCommandParameterString(pProposerObject->GetCharInfo()->m_szName));
-		pNewCmd->AddParameter(new CCCommandParameterBlob(pBlobMembersNameArray, MGetBlobArraySize(pBlobMembersNameArray)));
+		pNewCmd->AddParameter(new CCCommandParameterBlob(pBlobMembersNameArray, CCGetBlobArraySize(pBlobMembersNameArray)));
 
 		pNewCmd->AddParameter(new CCCommandParameterInt(nProposalMode));
 		pNewCmd->AddParameter(new CCCommandParameterInt(nRequestID));
@@ -416,7 +416,7 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 
 
 	}
-	MEraseBlobArray(pBlobMembersNameArray);
+	CCEraseBlobArray(pBlobMembersNameArray);
 
 
 	// 제안자에게 응답 보내줌

@@ -2086,13 +2086,13 @@ void CCMatchServer::ResponsePeerList(const CCUID& uidChar, const CCUID& uidStage
 	// Battle에 들어간 사람만 List를 만든다.
 	int nPeerCount = pStage->GetObjInBattleCount();
 
-	void* pPeerArray = MMakeBlobArray(sizeof(CCTD_PeerListNode), nPeerCount);
+	void* pPeerArray = CCMakeBlobArray(sizeof(CCTD_PeerListNode), nPeerCount);
 	int nIndex=0;
 	for (CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;
 
-		CCTD_PeerListNode* pNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pPeerArray, nIndex++);
+		CCTD_PeerListNode* pNode = (CCTD_PeerListNode*)CCGetBlobArrayElement(pPeerArray, nIndex++);
 		memset(pNode, 0, sizeof(CCTD_PeerListNode));
 		
 		pNode->uidChar = pObj->GetUID();
@@ -2107,8 +2107,8 @@ void CCMatchServer::ResponsePeerList(const CCUID& uidChar, const CCUID& uidStage
 		else								 			pNode->ExtendInfo.nTeam = 0;		
 	}
 
-	pNew->AddParameter(new CCCommandParameterBlob(pPeerArray, MGetBlobArraySize(pPeerArray)));
-	MEraseBlobArray(pPeerArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pPeerArray, CCGetBlobArraySize(pPeerArray)));
+	CCEraseBlobArray(pPeerArray);
 
 	RouteToListener(pObj, pNew);
 }
@@ -3703,18 +3703,18 @@ void CCMatchServer::SendHShieldReqMsg()
 		if(dwRet != ERROR_SUCCESS)
 			LOG(LOG_FILE, "@MakeReqMsg - %s Making Req Msg Failed. (Error code = 0x%x, CrcInfo Address = 0x%x)", pObj->GetAccountName(), dwRet, pObj->GetHShieldInfo()->m_pCRCInfo);
 
-		void* pBlob = MMakeBlobArray(sizeof(unsigned char), SIZEOF_REQMSG);
-		unsigned char* pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
+		void* pBlob = CCMakeBlobArray(sizeof(unsigned char), SIZEOF_REQMSG);
+		unsigned char* pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 		CopyMemory(pCmdBlock, pbyReqMsg, SIZEOF_REQMSG);
 
-		pCommand->AddParameter(new MCmdParamBlob(pBlob, MGetBlobArraySize(pBlob)));
+		pCommand->AddParameter(new MCmdParamBlob(pBlob, CCGetBlobArraySize(pBlob)));
 
 		CCCommand* pSendCmd = pCommand->Clone();
 		pSendCmd->m_Receiver = pObj->GetUID();
 		Post(pSendCmd);
 
 		pObj->SetHShieldMsgRecved(false);	// 새로 보냈으니 초기화해야지
-		MEraseBlobArray(pBlob);
+		CCEraseBlobArray(pBlob);
 		pCommand->ClearParam(1);
 	}	
 
