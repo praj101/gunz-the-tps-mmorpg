@@ -79,7 +79,7 @@ public:
 
 
 	/// 외부 파일로부터 금칙단어 리스트를 읽어들인다
-	bool LoadFromFile( MZFileSystem* pfs, const char* szFileName);
+	bool LoadFromFile( CCZFileSystem* pfs, const char* szFileName);
 
 	/// 로딩된 금칙단어가 몇개인지 반환한다
 	int GetNumAbuseWords();

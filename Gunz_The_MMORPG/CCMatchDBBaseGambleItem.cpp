@@ -3,6 +3,7 @@
 
 
 #include <string>
+#include <windows.h>
 
 using std::string;
 

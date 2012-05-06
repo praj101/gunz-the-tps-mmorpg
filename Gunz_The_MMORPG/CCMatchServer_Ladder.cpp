@@ -122,7 +122,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	CCMATCH_GAMETYPE nGameType = CCMATCH_GAMETYPE_DEATHMATCH_TEAM;
 
 	// Game 설정
-	pStage->SetStageType(MST_LADDER);
+	pStage->SetStageType(CCST_LADDER);
 	pStage->ChangeRule(nGameType);
 
 	// 클랜전은 Stage의 팀정보에 CLID까지 설정해야한다.

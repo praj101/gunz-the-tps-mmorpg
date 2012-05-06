@@ -28,7 +28,7 @@ CCDrawContextR2::CCDrawContextR2(LPDIRECT3DDEVICE9 pd3dDevice)
 {
 	m_pd3dDevice = pd3dDevice;
 #ifdef _DEBUG
-	m_nTypeID = CORE_R2_CLASS_TYPE;
+	m_iTypeID = CORE_R2_CLASS_TYPE;
 #endif
 }
 
@@ -220,7 +220,7 @@ void CCDrawContextR2::Draw(CCBitmap *pBitmap, int x, int y, int w, int h, int sx
 
 	//pBitmap->Draw((float)x+m_Origin.x, (float)y+m_Origin.y, (float)w, (float)h, (float)sx, (float)sy, (float)sw, (float)sh, color.GetARGB(), m_Effect);
 	
-	sColor color(m_BitmapColor.r,m_BitmapColor.g,m_BitmapColor.b,m_nOpacity);
+	sColor color(m_BitmapColor.r,m_BitmapColor.g,m_BitmapColor.b,m_iOpacity);
 //	sColor color(255,255,255,m_nOpacity);
 	((CCBitmapR2*)pBitmap)->Draw((float)x+m_Origin.x, (float)y+m_Origin.y, (float)w, (float)h, (float)sx, (float)sy, (float)sw, (float)sh, color.GetARGB(), m_Effect, bMirrorX, bMirrorY);
 }
@@ -231,7 +231,7 @@ void CCDrawContextR2::DrawEx(int tx1, int ty1, int tx2, int ty2, int tx3, int ty
 	CCBitmapR2* pBitmap = (CCBitmapR2*)m_pBitmap;
 	if(pBitmap==NULL) return;
 	_ASSERT(pBitmap->m_nTypeID==CORE_R2_CLASS_TYPE);
-	sColor color(0xFF, 0xFF, 0xFF, m_nOpacity);
+	sColor color(0xFF, 0xFF, 0xFF, m_iOpacity);
 
 	pBitmap->DrawEx((float)tx1+m_Origin.x, (float)ty1+m_Origin.y,
 		            (float)tx2+m_Origin.x, (float)ty2+m_Origin.y,
@@ -246,7 +246,7 @@ bool CCDrawContextR2::BeginFont()
 	if(m_pFont==NULL)
 		pFont = (CCFontR2*)CCFontManager::Get(NULL);
 
-	_ASSERT(pFont->m_nTypeID==CORE_R2_CLASS_TYPE);
+	_ASSERT(pFont->m_uTypeID==CORE_R2_CLASS_TYPE);
 
 	return pFont->m_Font.BeginFont();
 }
@@ -258,7 +258,7 @@ bool CCDrawContextR2::EndFont()
 	if(m_pFont==NULL) 
 		pFont = (CCFontR2*)CCFontManager::Get(NULL);
 
-	_ASSERT(pFont->m_nTypeID==CORE_R2_CLASS_TYPE);
+	_ASSERT(pFont->m_iTypeID==CORE_R2_CLASS_TYPE);
 
 	return pFont->m_Font.EndFont();
 }
@@ -288,7 +288,7 @@ int CCDrawContextR2::Text(int x, int y, const char* szText)
 	pFont->m_Font.DrawText((float)x, (float)y, szText, m_Color.GetARGB(), pFont->m_fScale,bShadow,CORE_ARGB(m_Color.a,0,0,0));
 */
 	DWORD dwColor = m_Color.GetARGB();
-	if(pFont->m_nOutlineStyle==1)
+	if(pFont->m_iOutlineStyle==1)
 		dwColor = 0xffffffff;
 
 	pFont->m_Font.DrawText((float)x, (float)y, szText, dwColor , pFont->m_fScale);
@@ -458,19 +458,19 @@ void CCBitmapR2::BeginState(CCDrawEffect effect)
 
 		switch (effect)
 		{
-		case MDE_NORMAL:
+		case CCDE_NORMAL:
 			{
 				m_pd3dDevice->SetRenderState( D3DRS_SRCBLEND,   D3DBLEND_SRCALPHA );
 				m_pd3dDevice->SetRenderState( D3DRS_DESTBLEND,  D3DBLEND_INVSRCALPHA );
 			}
 			break;
-		case MDE_ADD:
+		case CCDE_ADD:
 			{
 				m_pd3dDevice->SetRenderState( D3DRS_SRCBLEND,   D3DBLEND_SRCALPHA );
 				m_pd3dDevice->SetRenderState( D3DRS_DESTBLEND,  D3DBLEND_ONE );
 			}
 			break;
-		case MDE_MULTIPLY:
+		case CCDE_MULTIPLY:
 			{
 				m_pd3dDevice->SetRenderState( D3DRS_SRCBLEND,   D3DBLEND_ZERO );
 				m_pd3dDevice->SetRenderState( D3DRS_DESTBLEND,  D3DBLEND_SRCCOLOR );

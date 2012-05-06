@@ -12,7 +12,7 @@ struct ST_COMMAND_TIMEGAP
 
 typedef vector<ST_COMMAND_TIMEGAP> VEC_COMMAND;
 
-class MMatchCheckLoopTime
+class CCMatchCheckLoopTime
 {
 private:
 	DWORD m_dwStartLoop;
@@ -80,12 +80,12 @@ private:
 	DWORD m_dwMaxLoopGap;
 	bool m_bInit;
 	bool m_bIsRun;
-	MMatchCheckLoopTime();
+	CCMatchCheckLoopTime();
 
 public:
-	virtual ~MMatchCheckLoopTime();
+	virtual ~CCMatchCheckLoopTime();
 
-	static MMatchCheckLoopTime* GetInstance();
+	static CCMatchCheckLoopTime* GetInstance();
 
 	void SetInit()					{ m_bInit = true; }
 	void SetLoopCheckRun()			{ m_bIsRun = true; }
@@ -121,7 +121,7 @@ public:
 	void SetEndLoop()				{ m_dwEndKillTracker = GetTickCount(); m_dwEndLoop = m_dwEndKillTracker; }
 };
 
-inline MMatchCheckLoopTime* MGetCheckLoopTimeInstance()
+inline CCMatchCheckLoopTime* MGetCheckLoopTimeInstance()
 {
-	return MMatchCheckLoopTime::GetInstance();
+	return CCMatchCheckLoopTime::GetInstance();
 }

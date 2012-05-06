@@ -488,7 +488,7 @@ void CCMatchServer::OnAsyncGetAccountCharList(CCAsyncJob* pJobResult)
 //	RouteToListener(pObj, pNewCmd);
 //
 //#ifdef _DELETE_CLAN
-//	if( MMCDS_NORMAL != pJob->GetDeleteState() )
+//	if( CCMCDS_NORMAL != pJob->GetDeleteState() )
 //	{
 //		if( MMCDS_WAIT )
 //		{

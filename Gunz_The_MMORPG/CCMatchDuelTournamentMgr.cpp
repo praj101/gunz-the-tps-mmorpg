@@ -40,7 +40,7 @@ void CCMatchDuelTournamentMgr::AddGroupRanking(list<DTRankingInfo*>* pRankingLis
 	list<DTRankingInfo*>::iterator iter = pRankingList->begin();
 	for(; iter != pRankingList->end(); ++iter) {
 		DTRankingInfo* pInfo = (*iter);
-		memcpy(&m_GroupRankingBlob[pInfo->m_nRanking-1], pInfo, sizeof(DTRankingInfo));
+		memcpy(&m_GroupRankingBlob[pInfo->m_iRanking-1], pInfo, sizeof(DTRankingInfo));
 	}
 }
 

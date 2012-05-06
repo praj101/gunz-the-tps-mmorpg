@@ -2,14 +2,14 @@
 #define _SACRIFICE_QUEST_ITEM_TABLE
 
 
-#include "MQuestConst.h"
+#include "CCQuestConst.h"
 
-class MQuestSacrificeSlot;
+class CCQuestSacrificeSlot;
 
 
 #define SACRIFICE_TABLE_XML "SacrificeTable.xml"
 
-/* MQuestConst.h로 이동.
+/* CCQuestConst.h로 이동.
 #define MSQITRES_NOR  1	// 특별시나리오에 해당하는 희생아이템만 없고, 일반시나리오에 대한 희생 아이템만 있는 상황.
 #define MSQITRES_SPC  2	// 읿나 시나리오 아이템과 특별시나리오에 해당하는 희생아이템이 있음.
 #define MSQITRES_INV  3	// 해당 QL에대한 희생아이템 정보 테이블이 없음. 이경우는 맞지 않는 희생 아이템이 올려져 있을경우.
@@ -75,16 +75,16 @@ public :
 		return SacrificeQItemTable;
 	}
 
-	int	 FindSacriQItemInfo( const int nQL, MQuestSacrificeSlot* pSacrificeSlot, int& outResultQL );
+	int	 FindSacriQItemInfo( const int nQL, CCQuestSacrificeSlot* pSacrificeSlot, int& outResultQL );
 	bool ReadXML( const char* pszFileName );
-	bool ReadXml( MZFileSystem* pFileSystem, const char* szFileName );
+	bool ReadXml( CCZFileSystem* pFileSystem, const char* szFileName );
 
 	MSacrificeQItemInfo* GetResultTable() { return m_pResultTable; }
 
 	bool TestInitTable();
 
 private :
-	void ParseTable( MXmlElement& element );
+	void ParseTable( ::CCXmlElement& element );
 
 	MSacrificeQItemInfo* m_pResultTable;	// CheckInvalidSlot에의해 해당하는 테이블이 검색되면 여기에 셋팅됨.
 };

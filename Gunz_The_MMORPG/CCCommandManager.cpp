@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCCommandManager.h"
-#include "CMLexicalAnalyzer.h"
+#include "CCLexicalAnalyzer.h"
 #include <algorithm>
 #include "CCStrEx.h"
 #include <Windows.h>	// for test
@@ -140,7 +140,7 @@ bool CCCommandManager::ParseMessage(CCCommand* pCmd, char* szErrMsg, int nErrMsg
 	}
 #endif
 
-	CMLexicalAnalyzer la;
+	CCLexicalAnalyzer la;
 #ifdef USE_SLASH
 	la.Create(szMsg+1);
 #else

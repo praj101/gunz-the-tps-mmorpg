@@ -13,22 +13,22 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class MQuestLevel;
+class CCQuestLevel;
 
 /// 서바이벌 룰 클래스
-class MMatchRuleSurvival : public MMatchRuleBaseQuest {
+class CCMatchRuleSurvival : public CCMatchRuleBaseQuest {
 
 	typedef pair< CCUID, unsigned long int > SacrificeSlot;	// <아이템을 올려놓은 유저의 UID, 올려놓은 아이템의 ItemID.>
 
-	class MQuestSacrificeSlot
+	class CCQuestSacrificeSlot
 	{
 	public :
-		MQuestSacrificeSlot() 
+		CCQuestSacrificeSlot() 
 		{
 			Release();
 		}
 
-		~MQuestSacrificeSlot()
+		~CCQuestSacrificeSlot()
 		{
 		}
 
@@ -73,7 +73,7 @@ private:
 	// 타입정의 ---------------------
 
 	/// 대기방에서 필요한 현재 스테이지의 방정보. 게임중에서는 m_pQuestLevel에 진짜값이 저장된다.
-	struct MQuestStageGameInfo
+	struct CCQuestStageGameInfo
 	{
 		int				nQL;
 		int				nPlayerQL;
@@ -89,11 +89,11 @@ private:
 	};
 
 	/// 서바이벌 시나리오 반복할 때마다 강화되는 NPC의 능력치를 보관
-	struct MQuestLevelReinforcedNPCStat
+	struct CCQuestLevelReinforcedNPCStat
 	{
 		float			fMaxHP;
 		float			fMaxAP;
-		MQuestLevelReinforcedNPCStat() : fMaxAP(1), fMaxHP(1) {}
+		CCQuestLevelReinforcedNPCStat() : fMaxAP(1), fMaxHP(1) {}
 	};
 
 	// 멤버변수 ---------------------
@@ -102,29 +102,29 @@ private:
 	unsigned long	m_nCombatStartTime;		///< 섹터이동하고서 새로운 전투 시작한 시간
 	unsigned long	m_nQuestCompleteTime;	///< 퀘스트 클리어때 시간
 
-	MQuestSacrificeSlot				m_SacrificeSlot[ MAX_SACRIFICE_SLOT_COUNT ];
+	CCQuestSacrificeSlot				m_SacrificeSlot[ MAX_SACRIFICE_SLOT_COUNT ];
 	//int								m_iScenarioState;
 	int								m_nPlayerCount;
-	MMatchSurvivalGameLogInfoManager	m_SurvivalGameLogInfoMgr;
+	CCMatchSurvivalGameLogInfoManager	m_SurvivalGameLogInfoMgr;
 
-	MQuestStageGameInfo				m_StageGameInfo;	///< 대기방에서 필요한 현재 스테이지의 방정보
+	CCQuestStageGameInfo				m_StageGameInfo;	///< 대기방에서 필요한 현재 스테이지의 방정보
 
-	vector< MQUEST_NPC >			m_vecNPCInThisScenario;		///< 이 시나리오에서 쓰일 NPC 목록
-	map<MQUEST_NPC, MQuestLevelReinforcedNPCStat>	m_mapReinforcedNPCStat;	///< 시나리오 반복을 거치며 강화된 NPC 능력치의 상태
+	vector< CCQUEST_NPC >			m_vecNPCInThisScenario;		///< 이 시나리오에서 쓰일 NPC 목록
+	map<CCQUEST_NPC, CCQuestLevelReinforcedNPCStat>	m_mapReinforcedNPCStat;	///< 시나리오 반복을 거치며 강화된 NPC 능력치의 상태
 
-	typedef map<MQUEST_NPC, MQuestLevelReinforcedNPCStat>	MapReinforcedNPCStat;
+	typedef map<CCQUEST_NPC, CCQuestLevelReinforcedNPCStat>	MapReinforcedNPCStat;
 	typedef MapReinforcedNPCStat::iterator		ItorReinforedNPCStat;
 
 	// 함수 -------------------------
 	void ClearQuestLevel();
 	void MakeStageGameInfo();
 	void InitJacoSpawnTrigger();
-	void MakeNPCnSpawn(MQUEST_NPC nNPCID, bool bAddQuestDropItem, bool bKeyNPC);
+	void MakeNPCnSpawn(CCQUEST_NPC nNPCID, bool bAddQuestDropItem, bool bKeyNPC);
 	int GetRankInfo(int nKilledNpcHpApAccum, int nDeathCount);
 protected:
-	MQuestLevel*			m_pQuestLevel;			///< 퀘스트 월드 레벨
-	MQuestNPCSpawnTrigger	m_JacoSpawnTrigger;		///< 보스방일 경우 자코 매니져
-	MQuestCombatState		m_nCombatState;			///< 섹터내 전투 상태
+	CCQuestLevel*			m_pQuestLevel;			///< 퀘스트 월드 레벨
+	CCQuestNPCSpawnTrigger	m_JacoSpawnTrigger;		///< 보스방일 경우 자코 매니져
+	CCQuestCombatState		m_nCombatState;			///< 섹터내 전투 상태
 
 	virtual void ProcessNPCSpawn();				///< NPC 스폰작업
 	virtual bool CheckNPCSpawnEnable();			///< NPC가 스폰 가능한지 여부
@@ -159,12 +159,12 @@ protected:
 	/// 퀘스트 레벨 생성
 	bool MakeQuestLevel();
 	/// 섹터 전투 처리 작업
-	/// - 나중에 일련의 Combat 상태 관리는 Survival만들때 MMatchRuleBaseQuest로 옮겨져야 한다.
+	/// - 나중에 일련의 Combat 상태 관리는 Survival만들때 CCMatchRuleBaseQuest로 옮겨져야 한다.
 	void CombatProcess();
 	/// 다음 섹터로 이동
 	void MoveToNextSector();			
 	/// 섹터 전투 상태 변환
-	void SetCombatState(MQuestCombatState nState);
+	void SetCombatState(CCQuestCombatState nState);
 	/// 다음 섹터로 이동완료되었는지 체크
 	bool CheckReadytoNewSector();
 	/// 섹터 라운드가 끝났는지 체크한다.
@@ -181,27 +181,27 @@ protected:
 	void ProcessCombatPlay();
 
 	/// 해당 전투 상태 처음 시작할때
-	void OnBeginCombatState(MQuestCombatState nState);
+	void OnBeginCombatState(CCQuestCombatState nState);
 	/// 해당 전투 상태 끝났을때
-	void OnEndCombatState(MQuestCombatState nState);
+	void OnEndCombatState(CCQuestCombatState nState);
 
 	///< 게임종료후 보상 분배
 	void MakeRewardList();
 	///< 경험치와 바운티를 배분.
-	//void DistributeXPnBP( MQuestPlayerInfo* pPlayerInfo, const int nRewardXP, const int nRewardBP, const int nScenarioQL );	// 서바이벌에서 사용않음
+	//void DistributeXPnBP( CCQuestPlayerInfo* pPlayerInfo, const int nRewardXP, const int nRewardBP, const int nScenarioQL );	// 서바이벌에서 사용않음
 	///< 퀘스트에서 얻은 퀘스트 아이템 분배.		
-	//bool DistributeQItem( MQuestPlayerInfo* pPlayerInfo, void** ppoutSimpleQuestItemBlob); 	// 서바이벌에서 사용않음
+	//bool DistributeQItem( CCQuestPlayerInfo* pPlayerInfo, void** ppoutSimpleQuestItemBlob); 	// 서바이벌에서 사용않음
 	///< 퀘스트에서 얻은 일반 아이템 분배.		
-	//bool DistributeZItem( MQuestPlayerInfo* pPlayerInfo, void** ppoutQuestRewardZItemBlob);	// 서바이벌에서 사용않음
+	//bool DistributeZItem( CCQuestPlayerInfo* pPlayerInfo, void** ppoutQuestRewardZItemBlob);	// 서바이벌에서 사용않음
 protected:
 	virtual void OnBegin();								///< 전체 게임 시작시 호출
 	virtual void OnEnd();								///< 전체 게임 종료시 호출
 	virtual bool OnRun();								///< 게임틱시 호출
-	virtual void OnCommand(MCommand* pCommand);			///< 퀘스트에서만 사용하는 커맨드 처리
+	virtual void OnCommand(CCCommand* pCommand);			///< 퀘스트에서만 사용하는 커맨드 처리
 	virtual bool OnCheckRoundFinish();					///< 라운드가 끝났는지 체크
 public:
-	MMatchRuleSurvival(MMatchStage* pStage);				///< 생성자
-	virtual ~MMatchRuleSurvival();							///< 소멸자
+	CCMatchRuleSurvival(CCMatchStage* pStage);				///< 생성자
+	virtual ~CCMatchRuleSurvival();							///< 소멸자
 
 	virtual void RefreshStageGameInfo();
 
@@ -210,7 +210,7 @@ public:
 	/// @param uidKiller		죽인 플레이어
 	/// @param uidNPC			죽은 NPC
 	/// @param pos				NPC 위치
-	virtual void OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, MVector& pos);
+	virtual void OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, CCVector& pos);
 
 	/// 플레이어 죽었을 때 호출
 	/// @param uidVictim		죽은 플레이어 UID
@@ -220,7 +220,7 @@ public:
 	/// @param pObj				플레이어 오브젝트
 	/// @param nItemID			월드 아이템 ID
 	/// @param nQuestItemID		퀘스트 아이템 ID
-	virtual void OnObtainWorldItem(MMatchObject* pObj, int nItemID, int* pnExtraValues);
+	virtual void OnObtainWorldItem(CCMatchObject* pObj, int nItemID, int* pnExtraValues);
 
 	virtual void OnRequestTestSectorClear();
 	virtual void OnRequestTestFinish();
@@ -250,7 +250,7 @@ public:
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_SURVIVAL; }
 
 
-	void InsertNoParamQItemToPlayer( MMatchObject* pPlayer, MQuestItem* pQItem );
+	void InsertNoParamQItemToPlayer( CCMatchObject* pPlayer, CCQuestItem* pQItem );
 
 	void PostInsertQuestGameLogAsyncJob();
 
@@ -259,8 +259,8 @@ public:
 	// 게임이 끝나고 필요한 정보 수집.
 	void CollectEndQuestGameLogInfo();
 
-	//void RouteRewardCommandToStage( MMatchObject* pPlayer, const int nRewardXP, const int nRewardBP, void* pSimpleQuestItemBlob, void* pSimpleZItemBlob );
-	void RouteResultCommandToStage( MMatchObject* pPlayer, int nReachedRound, int nPoint);
+	//void RouteRewardCommandToStage( CCMatchObject* pPlayer, const int nRewardXP, const int nRewardBP, void* pSimpleQuestItemBlob, void* pSimpleZItemBlob );
+	void RouteResultCommandToStage( CCMatchObject* pPlayer, int nReachedRound, int nPoint);
 
 private :
 	int CalcuOwnerQItemCount( const CCUID& uidPlayer, const unsigned long nItemID );
