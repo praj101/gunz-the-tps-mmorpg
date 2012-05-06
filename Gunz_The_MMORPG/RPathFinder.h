@@ -1,9 +1,6 @@
 // PathFinder for RealSpace2
 // MAI Required.
-
-#ifndef RPATHFINDER_H
-#define RPATHFINDER_H
-
+#pragma once
 #include <list>
 using namespace std;
 
@@ -167,4 +164,3 @@ bool IsPathInNode(rvector& Pos, rvector& NextPos, RPathNode* pNode, RPathNode* p
 
 _NAMESPACE_REALSPACE2_END
 
-#endif

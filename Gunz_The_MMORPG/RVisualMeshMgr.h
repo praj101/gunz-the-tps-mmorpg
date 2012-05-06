@@ -1,6 +1,4 @@
-#ifndef _RVisualMeshMgr_h
-#define _RVisualMeshMgr_h
-
+#pragma once
 //#if _MSC_VER > 1000
 //#pragma once
 //#endif // _MSC_VER > 1000
@@ -49,5 +47,3 @@ public:
 extern bool g_bBirdRenderTest;
 
 _NAMESPACE_REALSPACE2_END
-
-#endif//_RVisualMeshMgr_h

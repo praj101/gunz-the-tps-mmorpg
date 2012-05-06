@@ -548,9 +548,6 @@ public:
 	~RCharacterVisualMesh() {
 
 	}
-
-public:
-
 };
 
 _NAMESPACE_REALSPACE2_END

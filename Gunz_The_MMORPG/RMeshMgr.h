@@ -1,6 +1,4 @@
-#ifndef _RMeshMgr_h
-#define _RMeshMgr_h
-
+#pragma once
 //#if _MSC_VER > 1000
 //#pragma once
 //#endif // _MSC_VER > 1000
@@ -90,5 +88,3 @@ public:
 };
 
 _NAMESPACE_REALSPACE2_END
-
-#endif//_RMeshMgr_h
