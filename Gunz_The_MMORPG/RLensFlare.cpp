@@ -330,8 +330,8 @@ bool RLenzFlare::Create( const char* filename_ )
 	//}
 
 	// xml을 읽어 플레어의 종류와 순서 그리고 엘레먼트의 수를 정한다
-	CCXmlDocument	XmlDoc;
-	CCXmlElement		PNode,Node;
+	::CCXmlDocument	XmlDoc;
+	::CCXmlElement		PNode,Node;
 
 	XmlDoc.Create();
 
@@ -444,7 +444,7 @@ bool RLenzFlare::ReadXmlElement(CCXmlElement* PNode,char* Path)
 	char buffer[16];
 	char NodeName[64];
 	
-	CCXmlElement Node, Leaf;
+	::CCXmlElement Node, Leaf;
 	
 	PNode->GetNodeName(NodeName);
 	int nCnt = PNode->GetChildNodeCount();

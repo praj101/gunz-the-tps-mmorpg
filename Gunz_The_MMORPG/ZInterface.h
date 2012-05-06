@@ -26,7 +26,7 @@ public:
 
 	virtual bool IsDone();											// 다음 인터페이스로 갈때 false를 리턴한다.
 
-	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener)=0;	// interface 는 항상 이벤트를 처리한다.
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener){return false;}	// interface 는 항상 이벤트를 처리한다.
 
 protected:
 	bool m_bDone;

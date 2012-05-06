@@ -18,7 +18,7 @@ using namespace std;
 	typedef MSXML2::IXMLDOMElementPtr				CCXmlDomElementPtr;
 	typedef MSXML2::IXMLDOMProcessingInstructionPtr CCXmlDomPIPtr;
 	typedef MSXML2::IXMLDOMNamedNodeMapPtr			CCXmlDomNamedNodeMapPtr;
-	typedef MSXML2::IXMLDOCCTextPtr					CCXmlDomTextPtr;
+	typedef MSXML2::IXMLDOMTextPtr					CCXmlDomTextPtr;
 	typedef MSXML2::IXMLDOMParseErrorPtr			CCXmlDomParseErrorPtr;
 #else
 	#import "msxml.dll" named_guids implementation_only
@@ -39,7 +39,7 @@ BSTR _AsciiToBSTR(const char* ascii)
 {
 	WCHAR wide[1024];
 	int ret=::MultiByteToWideChar(CP_ACP, 0, ascii, -1, wide, 1024);
-	MASSERT(ret!=0);
+	CCASSERT(ret!=0);
 	return SysAllocString(wide);
 }
 
@@ -410,7 +410,7 @@ bool CCXmlElement::AddAttribute(const char* sAttrName, const char* sAttrText)
 	pAttrs = m_pDomNode->Getattributes();
 	pNode = pDom->createAttribute(pBSTRAttrName);
 	pNode->Puttext(pBSTRAttrText);
-	pAttrs->setNaCCEditem(pNode);
+	pAttrs->setNamedItem(pNode);
 
 	SysFreeString(pBSTRAttrName);
 	SysFreeString(pBSTRAttrText);
