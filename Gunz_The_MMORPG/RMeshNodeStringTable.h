@@ -1,6 +1,8 @@
 #pragma once
 #pragma warning(disable : 4996)
-
+#ifdef WIN32
+	#include <windows.h>
+#endif
 #include <string>
 #include <hash_map>
 

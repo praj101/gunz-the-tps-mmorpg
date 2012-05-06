@@ -989,7 +989,7 @@ void RBspObject::SetObjectLight(rvector vPos)
 
 	if(first) {
 
-		light.sPosition = first->sPosition;
+		light.Position = first->sPosition;
 
 //		light.Diffuse.r  = first->Color.x*lightmapcolor.x;
 //		light.Diffuse.g  = first->Color.y*lightmapcolor.y;
@@ -1103,7 +1103,7 @@ void RBspObject::DrawObjects()
 			light.Attenuation1 = 0.0001f;
 			light.Attenuation2 = 0.f;
 
-			light.sPosition = pInfo->pLight->sPosition + v_add;
+			light.Position = pInfo->pLight->sPosition + v_add;
 
 			rvector lightmapcolor(1,1,1);
 
@@ -1707,7 +1707,7 @@ bool RBspObject::Open_ObjectList(CCXmlElement *pElement)
 
 	cclog("BspObject open object list : begin\n");
 
-	CCXmlElement	aObjectNode,aChild;
+	::CCXmlElement	aObjectNode,aChild;
 	int nCount = pElement->GetChildNodeCount();
 
 //	RMesh* pBaseMtrlMesh=NULL;//юс╫ц
@@ -1868,7 +1868,7 @@ bool RBspObject::Make_LenzFalreList()
 
 		if( stricmp( pDummy->szName.c_str(), "sun_dummy" ) == 0 )
 		{
-			if( !RGetLenzFlare()->SetLight( pDummy->sPosition ))
+			if( !RGetLenzFlare()->SetLight( pDummy->Position ))
 			{
 				cclog( "Fail to Set LenzFlare Position...\n" );
 			}
@@ -4380,8 +4380,8 @@ bool RBspObject::DrawLight(RSBspNode *pNode,int nMaterial)
 
 				WORD indices[3] = { m_pOcIndices[index++],m_pOcIndices[index++],m_pOcIndices[index++] };
 
-				float fPlaneDotCoord = pPlane->a * g_pTargetLight->sPosition.x + pPlane->b * g_pTargetLight->sPosition.y +
-					pPlane->c * g_pTargetLight->sPosition.z +pPlane->d;
+				float fPlaneDotCoord = pPlane->a * g_pTargetLight->Position.x + pPlane->b * g_pTargetLight->Position.y +
+					pPlane->c * g_pTargetLight->Position.z +pPlane->d;
 
 				if(fPlaneDotCoord>g_pTargetLight->Range) continue;
 
@@ -4401,11 +4401,11 @@ bool RBspObject::DrawLight(RSBspNode *pNode,int nMaterial)
 				}
 
 				rvector t;
-				t = v[0].coord - g_pTargetLight->sPosition;
+				t = v[0].coord - g_pTargetLight->Position;
 
 				for(int j=0;j<3;j++)
 				{
-					rvector l = v[j].coord - g_pTargetLight->sPosition;
+					rvector l = v[j].coord - g_pTargetLight->Position;
 					l *= 1.f/g_pTargetLight->Range;
 
 					v[j].tu1 = -DotProduct(pdi->pUAxis[i],l) * .5 + .5;
@@ -4468,7 +4468,7 @@ void RBspObject::DrawLight(D3DLIGHT *pLight)
 	g_nCall=0;
 	g_nFrameNumber++;
 
-	int nChosen=ChooseNodes(m_pOcRoot,rvector(pLight->sPosition),pLight->Range);
+	int nChosen=ChooseNodes(m_pOcRoot,rvector(pLight->Position),pLight->Range);
 
 //	pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW );
 

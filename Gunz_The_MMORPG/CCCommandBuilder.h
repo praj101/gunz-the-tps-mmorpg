@@ -65,7 +65,7 @@ public:
 public:
 	CCCmdBufTestor() { m_nBufferNext = 0; }
 	int PostCmd(CCCommand* pCommand) {
-		const BUF_SIZE = 1024;
+		const int BUF_SIZE = 1024;
 		char SendBuf[BUF_SIZE];
 		int nSize = pCommand->GetData(SendBuf, BUF_SIZE);
 		
