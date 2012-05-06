@@ -273,12 +273,12 @@ void ZCharacterObject::Draw_SetLight(const rvector& vPosition)
 	//	specular, emit 속성은 사용안함
 
 #define CHARACTER_AMBIENT	0.0
-	D3DLIGHT9 Light;
+	D3DLIGHT Light;
 	rvector pos;
 	rvector char_pos = vPosition;
 	char_pos.z += 180.f;
 
-	memset( &Light, 0, sizeof( D3DLIGHT9 ));	// 초기화
+	memset( &Light, 0, sizeof( D3DLIGHT ));	// 초기화
 
 	//	0번 라이트 begine
 	Light.Type		= D3DLIGHT_POINT;
@@ -366,7 +366,7 @@ void ZCharacterObject::Draw_SetLight(const rvector& vPosition)
 	// 0번 라이트 end
 
 	// 1번 라이트 begine
-	ZeroMemory( &Light, sizeof(D3DLIGHT9) );
+	ZeroMemory( &Light, sizeof(D3DLIGHT) );
 	RLightList* pLightList = 0;
 	RLIGHT* pLight = 0;
 	RLIGHT* pSelectedLight = 0;

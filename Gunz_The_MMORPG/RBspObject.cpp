@@ -959,9 +959,9 @@ void RBspObject::SetObjectLight(rvector vPos)
 
 	RLightList *pllist = GetObjectLightList();
 
-	D3DLIGHT9 light;
+	D3DLIGHT light;
 
-	ZeroMemory( &light, sizeof(D3DLIGHT9) );
+	ZeroMemory( &light, sizeof(D3DLIGHT) );
 
 	light.Type       = D3DLIGHT_POINT;
 
@@ -1093,8 +1093,8 @@ void RBspObject::DrawObjects()
 
 		if( pInfo->pLight && bLight )
 		{
-			D3DLIGHT9 light;
-			ZeroMemory( &light, sizeof(D3DLIGHT9) );
+			D3DLIGHT light;
+			ZeroMemory( &light, sizeof(D3DLIGHT) );
 
 			light.Type       = D3DLIGHT_POINT;
 
@@ -2332,7 +2332,7 @@ bool RBspObject::OpenLightmap()
 			D3DX_FILTER_TRIANGLE|D3DX_FILTER_MIRROR, 
 			0, NULL, NULL, &m_ppLightmapTextures[i]);
 
-		if(hr!=D3D_OK) cclog("lightmap texture 积己 角菩 %s \n",DXGetErrorString9(hr));
+		if(hr!=D3D_OK) cclog("lightmap texture 积己 角菩 %s \n",DXGetErrorString(hr));
 		delete bmpmemory;
 //		delete memory;
 	}
@@ -4354,7 +4354,7 @@ bool RBspObject::LockLightVB()
 	return true;
 }
 
-D3DLIGHT9 *g_pTargetLight;
+D3DLIGHT *g_pTargetLight;
 DWORD		g_dwTargetLightColor;
 
 bool RBspObject::DrawLight(RSBspNode *pNode,int nMaterial)
@@ -4445,7 +4445,7 @@ bool RBspObject::DrawLight(RSBspNode *pNode,int nMaterial)
 	return true;
 }
 
-void RBspObject::DrawLight(D3DLIGHT9 *pLight)
+void RBspObject::DrawLight(D3DLIGHT *pLight)
 {
 	LPDIRECT3DDEVICE9 pd3dDevice=RGetDevice();
 	if(!m_pVertexBuffer)

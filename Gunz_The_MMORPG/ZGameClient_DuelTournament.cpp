@@ -8,7 +8,7 @@
 #include "CCSharedCommandTable.h"
 #include "CCCommandLogFrame.h"
 #include "ZIDLResource.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "ZInterface.h"
 #include "ZApplication.h"
 #include "ZGameInterface.h"

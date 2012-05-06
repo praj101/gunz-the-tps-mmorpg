@@ -777,13 +777,13 @@ void CCWidget::GetBoundsAlignmentPosition(sPoint* p, CCAlignmentMode am, int w, 
 		if(GetParent()!=NULL) s.h = GetParent()->m_Rect.h;
 	}
 
-	if(m_BoundsAlignment&CCAM_LEFT) p->x = 0;
+	if(m_BoundsAlignment&CCD_LEFT) p->x = 0;
 	else if(m_BoundsAlignment&CCAM_RIGHT) p->x = s.w-m_Rect.w;
 	else if(m_BoundsAlignment&CCAM_HCENTER) p->x = (s.w-m_Rect.w)/2;
 
-	if(m_BoundsAlignment&CCAM_LEFT) p->y = 0;
-	else if(m_BoundsAlignment&CCAM_BOTTOM) p->y = s.h-m_Rect.h;
-	else if(m_BoundsAlignment&CCAM_VCENTER) p->y = (s.h-m_Rect.h)/2;
+	if(m_BoundsAlignment&CCD_LEFT) p->y = 0;
+	else if(m_BoundsAlignment&CCD_BOTTOM) p->y = s.h-m_Rect.h;
+	else if(m_BoundsAlignment&CCD_VCENTER) p->y = (s.h-m_Rect.h)/2;
 }
 
 void CCWidget::SetBoundsAlignment(CCAlignmentMode am, int w, int h){
@@ -867,7 +867,7 @@ sRect CCWidget::GetInitialClientRect(void){
 	return CCWidget::GetClientRect();
 }
 
-void CCWidget::SetZOrder(MZOrder z){
+void CCWidget::SetZOrder(CCZOrder z){
 	if(m_pParent==NULL) return;
 
 	CCWidget* pParent = m_pParent;

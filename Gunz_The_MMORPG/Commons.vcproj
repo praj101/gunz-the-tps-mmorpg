@@ -1697,6 +1697,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchPowerLevelingConfig.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchPremiumIPCache.cpp"
 			>
 		</File>
@@ -1730,6 +1734,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchRuleBaseQuest.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleBaseQuest.h"
 			>
 		</File>
 		<File
@@ -1777,11 +1785,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchRuleSurvival.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchRuleSurvvial.h"
 			>
 		</File>
 		<File
 			RelativePath=".\CCMatchRuleTraining.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleTraining.h"
 			>
 		</File>
 		<File

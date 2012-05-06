@@ -11,7 +11,7 @@ RShaderMgr RShaderMgr::msInstance;
 //bool RShaderMgr::shader_enabled = true;		// 지원 여부
 bool RShaderMgr::mbUsingShader	= true;		// 사용 여부
 RMtrl* RShaderMgr::mpMtrl = 0;
-D3DLIGHT9 RShaderMgr::mLight[MAX_LIGHT];
+D3DLIGHT RShaderMgr::mLight[MAX_LIGHT];
 
 RShaderMgr* RGetShaderMgr()
 {
@@ -322,7 +322,7 @@ void RShaderMgr::setMtrl( D3DXCOLOR& rColor_, float fVisAlpha_ )
 	mbNeedUpdate[2] = true;
 }
 
-void RShaderMgr::setLight( int iLignt_, D3DLIGHT9* pLight_ )
+void RShaderMgr::setLight( int iLignt_, D3DLIGHT* pLight_ )
 {
 	if(!mbUsingShader) return;
 	if(iLignt_>=MAX_LIGHT) return;

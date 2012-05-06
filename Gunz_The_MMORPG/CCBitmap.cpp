@@ -10,7 +10,7 @@ CCBitmap::CCBitmap(void)
 #ifdef _DEBUG
 	m_nTypeID = CORE_BASE_CLASS_TYPE;
 #endif
-	m_DrawMode = MBM_Normal;
+	m_DrawMode = CCBM_Normal;
 }
 
 CCBitmap::~CCBitmap(void)

@@ -342,7 +342,7 @@ void RVisualLightMgr::Clone(RVisualMesh* pVMesh)
 	}
 }
 
-void RVisualLightMgr::SetLight(int index,D3DLIGHT9* light,bool ShaderOnly)
+void RVisualLightMgr::SetLight(int index,D3DLIGHT* light,bool ShaderOnly)
 {
 	if(light) {
 		m_Light[index] = *light;
