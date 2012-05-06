@@ -158,10 +158,10 @@ BOOL CCLinkedList<_T>::Insert(_T *lpRecord)
 		if(ptemp==NULL)
 			return false;
 		ptemp->m_lpContent=lpRecord;
-		ptemp->SetPreviousPointer(m_lpCurrentRecord);
+		ptemp->SetPrevPointer(m_lpCurrentRecord);
 		ptemp->SetNextPointer(m_lpCurrentRecord->GetNextPointer());
 		if((ptemp->GetNextPointer()!=NULL))
-			(ptemp->GetNextPointer())->SetPreviousPointer(ptemp);
+			(ptemp->GetNextPointer())->SetPrevPointer(ptemp);
 		else
 			m_lpLastRecord=ptemp;
 
@@ -297,7 +297,7 @@ void CCLinkedList<_T>::DeleteRecord()
 		m_lpFirstRecord=pnext;
 	
 	if(pnext!=NULL)
-		pnext->SetPreviousPointer(pprevious);
+		pnext->SetPrevPointer(pprevious);
 	else
 		m_lpLastRecord=pprevious;
 

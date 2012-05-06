@@ -19,10 +19,10 @@ sRect CCTabCtrlLook::GetClientRect(CCTabCtrl* pTabCtrl, sRect& r){
 	return t;
 }
 
-CCTabItem::CCTabItem(CCWidget *zpFrame,CCButton *zpButton,CCListener *zpListener){
-	pFrame = zpFrame;
-	pButton = zpButton;
-	pButtonListener= zpListener;
+CCTabItem::CCTabItem(CCWidget *pFrame,CCButton *pButton,CCListener *pListener){
+	CCTabItem::pFrame = pFrame;
+	CCTabItem::pButton = pButton;
+	CCTabItem::pButtonListener= pListener;
 }
 
 CCTabCtrl::CCTabCtrl(const char* szName, CCWidget* pParent, CCListener* pListener) : CCWidget(szName, pParent, pListener){
@@ -90,7 +90,7 @@ bool CCTabCtrl::OnCommand(CCWidget* pWidget, const char* szMessage){
 	for(CCTabList::iterator i=m_TabList.begin();i!=m_TabList.end();i++){
 		CCTabItem *pItem = *i;
 		if(pItem->pButton == pWidget) {
-			if(strcmp(szMessage, CCTN_CLK_MSG)==0) {
+			if(strcmp(szMessage, CCBTN_CLK_MSG)==0) {
 				SetSelIndex(nIndex);
 			}
 			return pItem->pButtonListener->OnCommand(pWidget,szMessage);

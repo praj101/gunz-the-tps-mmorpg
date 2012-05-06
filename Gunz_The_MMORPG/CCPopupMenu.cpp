@@ -31,7 +31,7 @@ void CCPopupMenuLook::OnDraw(CCPopupMenu* pPopupMenu, CCDrawContext* pDC){
 }
 
 sRect CCPopupMenuLook::GetClientRect(CCPopupMenu* pPopupMenu, sRect& r){
-	if(pPopupMenu->GetPopupMenuType()==CCMT_VERTICAL)
+	if(pPopupMenu->GetPopupMenuType()==CCPMT_VERTICAL)
 		return sRect(1, 1, r.w-2, r.h-2);
 	else
 		return pPopupMenu->GetInitialClientRect();
@@ -120,7 +120,7 @@ CCPopupMenu* CCMenuItem::GetSubMenu(void){
 
 void CCMenuItem::Select(bool bSelect)
 {
-	Selected = bSelect;
+	m_bSelected = bSelect;
 
 	sRect r = GetClientRect();
 
