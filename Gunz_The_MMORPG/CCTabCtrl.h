@@ -27,6 +27,8 @@ public:
 	CCTabItem(CCWidget* pFrame, CCButton* pButton, CCListener* pListener);
 };
 
+class CCTabList : public list<CCTabItem*> {};
+
 class CCTabCtrl : public CCWidget{
 	protected:
 	int			m_iCurrentSel;

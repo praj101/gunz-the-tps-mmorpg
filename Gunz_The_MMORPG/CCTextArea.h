@@ -89,8 +89,8 @@ protected:
 	virtual void OnSetFocus(void);
 	virtual void OnReleaseFocus(void);
 	
-	virtual bool InputFilterKey(int iKey,bool bCtrl);	// CCWM_KEYDOWN
-	virtual bool InputFilterChar(int iKey);	// MWM_CHAR
+	virtual bool InputFilterKey(int uKey,bool bCtrl);	// CCWM_KEYDOWN
+	virtual bool InputFilterChar(int uKey);	// MWM_CHAR
 
 	bool OnLButtonDown(sPoint pos);
 	void OnScrollBarChanged(int nPos);

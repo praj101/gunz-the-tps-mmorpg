@@ -10,7 +10,7 @@
 	((_ScanCodeTable[_ScanCode]&0x80)?true:false)
 
 struct ZDIBUFFER{
-	BYTE iKey;
+	BYTE uKey;
 	bool bPressed;
 };
 
@@ -61,7 +61,7 @@ public:
 	//Load the keyboard buffer, scan the code and Down / Up flags, including the read buffer to increase the number of returns.
 	DWORD GetKeyboardBufferedData(ZDIBUFFER* pBuffer,unsigned int nBuffer);
 
-	const char* GetKeyName(unsigned long int iKey);
+	const char* GetKeyName(unsigned long int uKey);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////
