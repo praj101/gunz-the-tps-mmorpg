@@ -2,10 +2,11 @@
 
 #include "RMeshNodeStringTable.h"
 
+////////////////////////////////////////////////////////////////////////////////////
+
 //_USING_NAMESPACE_REALSPACE2
 
-_NAMESPACE_REALSPACE2_BEGIN
-
+//_NAMESPACE_REALSPACE2_BEGIN
 
 RMeshNodeStringTable::RMeshNodeStringTable()
 {
@@ -99,4 +100,4 @@ RMeshNodeStringTable* RGetMeshNodeStringTable()
 	return RMeshNodeStringTable::GetInstance();
 }
 
-_NAMESPACE_REALSPACE2_END
+//_NAMESPACE_REALSPACE2_END

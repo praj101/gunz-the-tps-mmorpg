@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _RVisualMesh_h
+#define _RVisualMesh_h
+
 #include "RVisualMeshUtil.h"
 #include "RAniEventInfo.h"
 
@@ -42,10 +44,10 @@ public:
 
 	bool			m_bChangeAnimation;
 
-	DWORD			m_iReserveTime;
+	DWORD			m_nReserveTime;
 
-	int				m_iFrame;
-	int				m_iAddFrame;
+	int				m_nFrame;
+	int				m_nAddFrame;
 	DWORD			m_save_time;
 	DWORD			m_1frame_time;
 
@@ -81,7 +83,7 @@ public:
 		m_fMaxValue = 0.f;
 		m_dwStartTime = 0;
 		m_dwEndTime = 0;
-		m_iType = 0;
+		m_nType = 0;
 		m_fCurValue = 0.f;
 		m_dwReturnMaxTime = 0;
 
@@ -103,7 +105,7 @@ public:
 
 public:
 
-	int   m_iType;
+	int   m_nType;
 	bool  m_bActive;
 	bool  m_bReturn;
 	float m_fMaxValue;
@@ -138,7 +140,7 @@ class RQuery
 public:
 	RQuery() {
 
-		m_iSpendingTime=NULL;
+		m_nSpendingTime=NULL;
 		m_DataCnt=NULL;
 		m_Query=NULL;
 
@@ -176,7 +178,7 @@ public:
 		m_DataCnt = 0;
 
 		while( m_Query->GetData( (void*)&m_DataCnt,sizeof(DWORD),D3DGETDATA_FLUSH) == S_FALSE ) {
-			m_iSpendingTime++;
+			m_nSpendingTime++;
 			nCnt++;
 			if(nCnt>5000) {			// 무한루프 돌면 안되니까..
 				m_DataCnt = 1000;	// 대충 그려졌다고 본다..
@@ -199,7 +201,7 @@ public:
 
 public:
 
-	int					m_iSpendingTime;
+	int					m_nSpendingTime;
 	DWORD				m_DataCnt;
 	LPDIRECT3DQUERY9	m_Query;
 };
@@ -397,8 +399,8 @@ public:
 	void SetUVAnimation(float u,float v);
 	void ClearUvAnimation();
 
-	void UpdateWeaponDummyMatrix(RMeshNode* pCCNode);// 무기 모델에 달린 더미일 경우..
-	void UpdateWeaponPartInfo(RMeshNode* pCCNode);	// 무기 더미의 위치를 보관한다..
+	void UpdateWeaponDummyMatrix(RMeshNode* pMNode);// 무기 모델에 달린 더미일 경우..
+	void UpdateWeaponPartInfo(RMeshNode* pMNode);	// 무기 더미의 위치를 보관한다..
 
 	void OnRestore();
 	void OnInvalidate();
@@ -489,7 +491,7 @@ public:
 	int				m_id;
 	float			m_fVis;
 
-	int				m_iAnimationState;
+	int				m_nAnimationState;
 
 	D3DCOLORVALUE	m_NPCBlendColor;
 
@@ -513,7 +515,7 @@ public:
 	rmatrix			m_UpperRotMat;
 
 	RAnimationNode**	m_pAniNodeTable;
-	int					m_iAniNodeTableCnt;
+	int					m_nAniNodeTableCnt;
 
 	ROcclusionList*		m_pTOCCL;
 
@@ -551,3 +553,5 @@ public:
 };
 
 _NAMESPACE_REALSPACE2_END
+
+#endif//_RVisualMesh_h
