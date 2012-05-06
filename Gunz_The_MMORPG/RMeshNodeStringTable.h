@@ -1,12 +1,12 @@
 #pragma once
 #pragma warning(disable : 4996)
-#ifdef WIN32
-	#include <windows.h>
-#endif
+
+#include <windows.h>
 #include <string>
 #include <hash_map>
 
-_NAMESPACE_REALSPACE2_BEGIN
+//_NAMESPACE_REALSPACE2_BEGIN
+typedef hash_map< string , int > rmesh_node_table;
 
 enum RMeshNodeNameType
 {
@@ -72,8 +72,6 @@ enum RMeshNodeNameType
 	RMeshNodeNameType_End
 };
 
-typedef hash_map< string , int > rmesh_node_table;
-
 class RMeshNodeStringTable
 {
 public:
@@ -93,4 +91,4 @@ public:
 
 RMeshNodeStringTable* RGetMeshNodeStringTable();
 
-_NAMESPACE_REALSPACE2_END
+//_NAMESPACE_REALSPACE2_END

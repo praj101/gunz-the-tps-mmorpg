@@ -4,8 +4,8 @@
 #include <string>
 #include "RTypes.h"
 #include "RNameSpace.h"
-_NAMESPACE_REALSPACE2_BEGIN
 using namespace std;
+_NAMESPACE_REALSPACE2_BEGIN
 
 class CCXmlElement;
 
