@@ -112,7 +112,7 @@ void CCTextArea::MoveLast(){
 
 int CCTextArea::GetTotalLineCount(int& nStartLine, int& nCurrentLine){
 	int nTotalLine = 0;
-	CCLINELISTITERATOR itr = m_Lines.begin();
+	SLINELISTITERATOR itr = m_Lines.begin();
 	for(int i=0;i<GetLineCount();i++)
 	{
 		sRect rectScrollBar;
@@ -145,7 +145,7 @@ int CCTextArea::GetTotalLineCount(int& nStartLine, int& nCurrentLine){
 	return nTotalLine;
 }
 
-void SSTextArea::UpdateScrollBar(bool bAdjustStart){	
+void CCTextArea::UpdateScrollBar(bool bAdjustStart){	
 	CCFont *pFont=GetFont();
 	sRect r=GetClientRect();
 

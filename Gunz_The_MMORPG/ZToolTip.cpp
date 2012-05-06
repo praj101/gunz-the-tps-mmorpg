@@ -126,7 +126,7 @@ void ZToolTip::OnDraw(CCDrawContext* pDC)
 
 //	pDC->SetColor(sColor(DEFCOLOR_MTOOLTIP_TEXT));//임시
 	pDC->SetColor(sColor(0xff000000));//임시
-//	pDC->TextWithHighlight(text_r, szName, (CCAM_HCENTER|CCAM_VCENTER));
+//	pDC->TextWithHighlight(text_r, szName, (CCD_HCENTER|CCAM_VCENTER));
 	pDC->TextMultiLine(text_r, szName,ZTOOLTIP_LINE_GAP);	
 }
 
@@ -200,9 +200,9 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 
 	if (m_alignMode & CCAM_LEFT)
 		tr.x = pr.x+(ZTOOLTIP_WIDTH_GAP/2+1);
-	else if (m_alignMode & CCAM_RIGHT)
+	else if (m_alignMode & CCD_RIGHT)
 		tr.x = pr.x+pr.w - tr.w;
-	else if (m_alignMode & CCAM_HCENTER)
+	else if (m_alignMode & CCD_HCENTER)
 		tr.x = pr.w/2 - tr.w/2;
 	else
 		tr.x = 0;

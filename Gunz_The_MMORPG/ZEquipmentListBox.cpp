@@ -528,7 +528,7 @@
 //
 //	// 아이템명, 가격
 //	pDC->TextMultiLine2(rc, GetString(), CONVERT600(2), true, CCAM_LEFT | CCD_TOP);
-//	pDC->Text(rc, m_szPrice, CCAM_RIGHT | CCAM_BOTTOM);
+//	pDC->Text(rc, m_szPrice, CCD_RIGHT | CCAM_BOTTOM);
 //
 //	// 레벨 (레벨이 낮은 경우 붉은 표시)
 //	// 썸네일 아이콘 위에 찍기 때문에 그림자를 그려서 시안성을 높인다

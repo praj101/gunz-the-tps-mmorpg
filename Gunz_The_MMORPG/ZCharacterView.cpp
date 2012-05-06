@@ -140,7 +140,7 @@ void ZCharacterView::OnDraw(CCDrawContext* pDC)
 		if (m_Info.bMaster == true) 
 		{
 			pDC->SetColor(171, 245, 167);
-			pDC->Text(r, "Master", CCAM_VCENTER|CCAM_HCENTER);
+			pDC->Text(r, "Master", CCAM_VCENTER|CCD_HCENTER);
 		}
 		else 
 		{
@@ -154,19 +154,19 @@ void ZCharacterView::OnDraw(CCDrawContext* pDC)
 			case MOSS_READY:
 				{
 					pDC->SetColor(255, 255, 255);
-					pDC->Text(r, "Ready", CCAM_VCENTER|CCAM_HCENTER);
+					pDC->Text(r, "Ready", CCAM_VCENTER|CCD_HCENTER);
 				}
 				break;
 			case MOSS_SHOP:
 				{
 					pDC->SetColor(252, 231, 122);
-					pDC->Text(r, "Shop", CCAM_VCENTER|CCAM_HCENTER);
+					pDC->Text(r, "Shop", CCAM_VCENTER|CCD_HCENTER);
 				}
 				break;
 			case MOSS_EQUIPMENT:
 				{
 					pDC->SetColor(252, 231, 122);
-					pDC->Text(r, "Equipment", CCAM_VCENTER|CCAM_HCENTER);
+					pDC->Text(r, "Equipment", CCAM_VCENTER|CCD_HCENTER);
 				}
 				break;
 			}
@@ -179,14 +179,14 @@ void ZCharacterView::OnDraw(CCDrawContext* pDC)
 	r.y = r.h-TEXTAREA_HEIGHT;
 	r.h = TEXTAREA_HEIGHT;
 	pDC->SetColor(255, 255, 255);
-	pDC->Text(r, GetText(), CCAM_HCENTER);
+	pDC->Text(r, GetText(), CCD_HCENTER);
 
 	// 레벨을 쓴다.
 	r.y -= TEXTAREA_HEIGHT;
 	char szLevel[16];
 	sprintf(szLevel, "Lv.%d", m_Info.nLevel);
 	pDC->SetColor(255, 125, 125);
-	pDC->Text(r, szLevel, CCAM_HCENTER);
+	pDC->Text(r, szLevel, CCD_HCENTER);
 
 	if(m_Info.bFireWall==true){
 		CCBitmap* pBitmap = CCBitmapManager::Get("firewall.png");

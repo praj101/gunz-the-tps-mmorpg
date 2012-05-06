@@ -456,7 +456,7 @@ bool CCWidget::EventDefaultKey(CCEvent* pEvent){
 		}
 	}
 
-	if(strcmp(GetClassName(), CCBUTTON)!=0) return false;
+	if(strcmp(GetClassName(), CORE_CCBUTTON)!=0) return false;
 
 	CCButton* pButton = (CCButton*)this;
 	if((pButton->m_iKeyAssigned==CCBKA_ENTER && pEvent->uKey==VK_RETURN) ||
@@ -778,8 +778,8 @@ void CCWidget::GetBoundsAlignmentPosition(sPoint* p, CCAlignmentMode am, int w, 
 	}
 
 	if(m_BoundsAlignment&CCD_LEFT) p->x = 0;
-	else if(m_BoundsAlignment&CCAM_RIGHT) p->x = s.w-m_Rect.w;
-	else if(m_BoundsAlignment&CCAM_HCENTER) p->x = (s.w-m_Rect.w)/2;
+	else if(m_BoundsAlignment&CCD_RIGHT) p->x = s.w-m_Rect.w;
+	else if(m_BoundsAlignment&CCD_HCENTER) p->x = (s.w-m_Rect.w)/2;
 
 	if(m_BoundsAlignment&CCD_LEFT) p->y = 0;
 	else if(m_BoundsAlignment&CCD_BOTTOM) p->y = s.h-m_Rect.h;
@@ -874,10 +874,10 @@ void CCWidget::SetZOrder(CCZOrder z){
 	pParent->RemoveChild(this);
 
 	switch(z){
-	case MZ_TOP:
+	case CC_TOP:
 		pParent->AddChild(this);
 		break;
-	case MZ_BOTTOM:
+	case CC_BOTTOM:
 		pParent->InsertChild(this);
 		break;
 	}

@@ -5,7 +5,7 @@ ZBmNumLabel::ZBmNumLabel(const char* szName, CCWidget* pParent, CCListener* pLis
 : CCWidget(szName, pParent, pListener)
 {
 	m_pLabelBitmap = NULL;
-	m_AlignmentMode = CCAM_RIGHT;
+	m_AlignmentMode = CCD_RIGHT;
 	m_nIndexOffset = 0;
 
 	SetCharSize( sSize(32, 32));
@@ -102,10 +102,10 @@ void ZBmNumLabel::OnDraw(CCDrawContext* pDC)
 	if((m_AlignmentMode & CCAM_LEFT) != NULL)
 		tx = 0;
 
-	else if((m_AlignmentMode & CCAM_RIGHT) != NULL)
+	else if((m_AlignmentMode & CCD_RIGHT) != NULL)
 		tx = m_Rect.w - nTextWidth;
 
-	else if((m_AlignmentMode & CCAM_HCENTER) != NULL)
+	else if((m_AlignmentMode & CCD_HCENTER) != NULL)
 		tx = m_Rect.w / 2 - nTextWidth / 2;
 
 
