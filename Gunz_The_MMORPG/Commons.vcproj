@@ -1193,6 +1193,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAsyncDBJob_InsertCharBRInfo.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncDBJob_SurvivalMode.h"
 			>
 		</File>
@@ -1425,6 +1429,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCInetUtil.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCLadderGroup.h"
 			>
 		</File>
@@ -1562,6 +1570,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchCheckLookTime.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchCheckLoopTime.h"
 			>
 		</File>
 		<File
@@ -2254,6 +2266,10 @@
 		</File>
 		<File
 			RelativePath=".\CheckReturnCallStack.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CMLexicalAnalyzer.h"
 			>
 		</File>
 		<File
