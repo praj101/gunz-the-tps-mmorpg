@@ -5,6 +5,7 @@
 #include "CCZFileSystem.h"
 #include "ZActorSound.h"
 #include "CCQuestNPC.h"
+#include "RTypes.h"
 
 #include <map>
 #include <string>
