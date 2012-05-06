@@ -201,7 +201,7 @@ public:
 	bool UpdateClanGrade(const int nCLID, const int nMemberCID, const int nClanGrade);
 	bool ExpelClanMember(const int nCLID, const int nAdminGrade, TCHAR* szMember, int* noutRet);
 
-	struct MDB_ClanInfo
+	struct CCDB_ClanInfo
 	{
 		int		nCLID;
 		char	szClanName[CLAN_NAME_LENGTH];
