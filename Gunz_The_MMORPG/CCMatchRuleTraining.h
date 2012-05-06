@@ -2,7 +2,7 @@
 #define _MMATCHRULE_TRAINING_H
 
 
-#include "MMatchRuleDeathMatch.h"
+#include "CCMatchRuleDeathMatch.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 class MMatchRuleTraining : public MMatchRuleSoloDeath {

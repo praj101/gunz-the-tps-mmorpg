@@ -24,7 +24,7 @@ private:
 
 public:
 	CCLex(CCLEXNODE* pNode = 0)		{ m_pCmdTable = pNode; }
-	virtual ~MLex()		{}
+	virtual ~CCLex()		{}
 
 	char* GetOneArg(char *pszArg, char *pszOutArg);
 	char* GetOneArg(char *pszArg, char *pszOutArg, char *pszOutArg2);//jintriple3  귓속말 할때 to: 다음에 소문자로만 나오던 캐릭터 이름을 원래 이름으로 처리.
