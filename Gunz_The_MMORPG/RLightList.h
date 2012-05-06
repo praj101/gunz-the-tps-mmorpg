@@ -3,16 +3,17 @@
 #include <string>
 #include "RTypes.h"
 #include "RNameSpace.h"
+#include "CCXml.h"
 using namespace std;
 _NAMESPACE_REALSPACE2_BEGIN
 
-class CCXmlElement;
+//class CCXmlElement;
 
 struct RLIGHT
 {
 	string	Name;
 	rvector Color;
-	rvector Position;
+	rvector sPosition;
 	float	fIntensity;
 	float	fAttnStart,fAttnEnd;
 	DWORD	dwFlags;

@@ -815,7 +815,7 @@ bool CCZFile::Read( void* pBuffer, int nMaxSize)
 	if ( m_IsBufferd) 
 	{
 		//Validate the range of
-		if ( nMaxSize > ( GetLength() - m_iPos))
+		if ( nMaxSize > ( (int)GetLength() - m_iPos))
 			return false;
 
 
