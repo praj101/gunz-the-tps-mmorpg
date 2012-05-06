@@ -3,7 +3,9 @@
 #include "RVisualMeshMgr.h"
 #include "CCDebug.h"
 #include "RealSpace2.h"
+
 #include "CCProfiler.h"
+
 #include "RCharCloth.h"
 
 _USING_NAMESPACE_REALSPACE2
@@ -13,8 +15,8 @@ _NAMESPACE_REALSPACE2_BEGIN
 /*
 #ifndef _PUBLISH
 
-#define __BP(i,n)	CCBeginProfile(i,n);
-#define __EP(i)		CCEndProfile(i);
+#define __BP(i,n)	MBeginProfile(i,n);
+#define __EP(i)		MEndProfile(i);
 
 #else
 */
@@ -31,9 +33,9 @@ AniFrameInfo::AniFrameInfo()
 	m_isPlayDone	 = false;
 	m_bChangeAnimation = false;
 
-	m_iReserveTime	= 0;
-	m_iFrame		= 0;
-	m_iAddFrame		= 0;
+	m_nReserveTime	= 0;
+	m_nFrame		= 0;
+	m_nAddFrame		= 0;
 
 	m_save_time		= 0;
 	m_1frame_time	= 0;
@@ -57,11 +59,11 @@ AniFrameInfo::AniFrameInfo()
 
 void AniFrameInfo::ClearFrame()
 {
-	m_iFrame			= 0;
+	m_nFrame			= 0;
 	m_save_time			= timeGetTime();
 	m_pAniSetNext		= NULL;
 	m_pAniSetReserve	= NULL;
-	m_iReserveTime		= 0;
+	m_nReserveTime		= 0;
 }
 
 void AniFrameInfo::Frame(RAniMode amode,RVisualMesh* pVMesh)
@@ -93,7 +95,7 @@ void AniFrameInfo::Frame(RAniMode amode,RVisualMesh* pVMesh)
 			}
 		}
 
-		m_iFrame = m_iAddFrame;	// 모션상태는 같고 무기만 바뀐경우 때문에
+		m_nFrame = m_nAddFrame;	// 모션상태는 같고 무기만 바뀐경우 때문에
 
 		if(m_pAniSet->IsHaveSoundFile()) {
 			RAniSoundInfo* pSInfo = &m_SoundInfo;
@@ -146,20 +148,20 @@ void AniFrameInfo::Frame(RAniMode amode,RVisualMesh* pVMesh)
 				//	모션 이름으로 된것들 상태들이 정해지면 ID 로 바꾸기...
 
 				if( looptype == RAniLoopType_OnceIdle) {
-					m_iFrame = max_frame - 1;
+					m_nFrame = max_frame - 1;
 					m_save_time = cur;
 					m_1frame_time = cur;
 					return;
 				}
 				else if( looptype == RAniLoopType_HoldLastFrame) {
-					m_iFrame = max_frame - 1;
+					m_nFrame = max_frame - 1;
 					m_isPlayDone = true; 
 					m_save_time = cur;
 					m_1frame_time = cur;
 					return;
 				}
 				else if( looptype == RAniLoopType_OnceLowerBody) {
-					m_iFrame = max_frame - 1;
+					m_nFrame = max_frame - 1;
 					m_pAniSet = NULL;
 					m_save_time = cur;
 					return;
@@ -176,11 +178,11 @@ void AniFrameInfo::Frame(RAniMode amode,RVisualMesh* pVMesh)
 
 	if( m_pAniSetReserve ) {
 
-		if( cur > m_iReserveTime ) {
+		if( cur > m_nReserveTime ) {
 
 			pVMesh->SetAnimation(amode,m_pAniSetReserve);
 			m_pAniSetReserve = NULL;
-			m_iReserveTime = 0;
+			m_nReserveTime = 0;
 			m_save_time = cur;
 			m_isPlayDone = false;
 		}
@@ -201,28 +203,28 @@ void AniFrameInfo::Frame(RAniMode amode,RVisualMesh* pVMesh)
 
 //	m_fSpeed = 2.1f;
 
-	m_iFrame += (int)(delta * m_fSpeed);
+	m_nFrame += (int)(delta * m_fSpeed);
 
 	// frame 을 나눠서 사용할 경우 대비
 	if(bf != 0) {
-		m_iFrame += bf;
+		m_nFrame += bf;
 	}
 
-	if ( m_iFrame >=  ef) {
+	if ( m_nFrame >=  ef) {
 
 		if( looptype == RAniLoopType_HoldLastFrame ) {
-			m_iFrame = max_frame - 1;
+			m_nFrame = max_frame - 1;
 		}
 		else if( looptype == RAniLoopType_OnceIdle ) {
-			m_iFrame = max_frame - 1;
+			m_nFrame = max_frame - 1;
 		}
 		else if( looptype == RAniLoopType_OnceLowerBody) {
-			m_iFrame = max_frame - 1;
+			m_nFrame = max_frame - 1;
 		}
 		else if( looptype == RAniLoopType_Loop) {
 			// 반복 타잎일 경우
 			if(ef!=0)
-				m_iFrame %= ef;
+				m_nFrame %= ef;
 		}
 
 		m_isPlayDone		= true;	// loop 떄마다..
@@ -240,7 +242,7 @@ void AniFrameInfo::Frame(RAniMode amode,RVisualMesh* pVMesh)
 		{
 			if( !(*m_iterCheckAniEvent) )
 			{
-				if( (*(m_pAniNameEventSet->m_AniNameEventSetIter))->GetBeginFrame() <= m_iFrame )
+				if( (*(m_pAniNameEventSet->m_AniNameEventSetIter))->GetBeginFrame() <= m_nFrame )
 				{
 					(*(m_pAniNameEventSet->m_AniNameEventSetIter))->m_vPos.x = pVMesh->m_WorldMat._41;
 					(*(m_pAniNameEventSet->m_AniNameEventSetIter))->m_vPos.y = pVMesh->m_WorldMat._42;
@@ -294,7 +296,7 @@ void RFrameTime::Update() {
 
 	// 여러가지 그래프 지원..
 
-	if(m_iType==0) {
+	if(m_nType==0) {
 
 		// 시간에 따라 점차증가..점차감소 +-값에 따라..
 
@@ -307,7 +309,7 @@ void RFrameTime::Update() {
 
 
 	}
-	else if(m_iType==1) {
+	else if(m_nType==1) {
 
 	}
 }
@@ -342,7 +344,7 @@ void RVisualLightMgr::Clone(RVisualMesh* pVMesh)
 	}
 }
 
-void RVisualLightMgr::SetLight(int index,D3DLIGHT* light,bool ShaderOnly)
+void RVisualLightMgr::SetLight(int index,D3DLIGHT9* light,bool ShaderOnly)
 {
 	if(light) {
 		m_Light[index] = *light;
@@ -403,7 +405,7 @@ RVisualMesh::RVisualMesh() {
 
 	m_id = -1;
 
-	m_iAnimationState = APState_Stop;
+	m_nAnimationState = APState_Stop;
 
 	m_vBMax = rvector( 1.f, 1.f, 1.f);
 	m_vBMin = rvector(-1.f,-1.f,-1.f);
@@ -477,7 +479,7 @@ RVisualMesh::RVisualMesh() {
 	m_bRenderInstantly = false;
 
 	m_pAniNodeTable = NULL;
-	m_iAniNodeTableCnt = 0;
+	m_nAniNodeTableCnt = 0;
 
 	m_bRenderMatrix = false;
 
@@ -705,7 +707,7 @@ void RVisualMesh::Play(RAniMode amode) {
 	AniFrameInfo* pInfo = GetFrameInfo(amode);
 	if( pInfo == NULL ) return;
 
-	m_iAnimationState = APState_Play;
+	m_nAnimationState = APState_Play;
 
 	pInfo->m_isPlayDone		= false;
 	pInfo->m_isOncePlayDone	= false;
@@ -717,10 +719,10 @@ void RVisualMesh::Stop(RAniMode amode) {
 	AniFrameInfo* pInfo = GetFrameInfo(amode);
 	if( pInfo == NULL ) return;
 
-	m_iAnimationState = APState_Stop;
+	m_nAnimationState = APState_Stop;
 
 	if(m_pMesh) {
-		pInfo->m_iFrame = 0;
+		pInfo->m_nFrame = 0;
 	}
 
 	pInfo->m_isPlayDone = false;
@@ -733,7 +735,7 @@ void RVisualMesh::Pause(RAniMode amode) {
 	AniFrameInfo* pInfo = GetFrameInfo(amode);
 	if( pInfo == NULL ) return;
 
-	m_iAnimationState = APState_Pause;//m_iFrame 은 유지..
+	m_nAnimationState = APState_Pause;//m_nFrame 은 유지..
 
 	pInfo->m_isPlayDone = false;
 }
@@ -763,12 +765,12 @@ void RVisualMesh::Frame() {
 
 	if(m_pMesh) {
 
-		if( m_iAnimationState == APState_Play )	{
+		if( m_nAnimationState == APState_Play )	{
 
 			Frame(ani_mode_lower);
 			Frame(ani_mode_upper);
 		}
-		else if( m_iAnimationState == APState_Pause ) {
+		else if( m_nAnimationState == APState_Pause ) {
 
 		}
 	}
@@ -897,7 +899,7 @@ void RVisualMesh::Render(bool low,bool render_buffer) {
 			if(m_pLowPolyMesh) {
 
 				m_pLowPolyMesh->SetAnimation( pAniLow->m_pAniSet,pAniUp->m_pAniSet );
-				m_pLowPolyMesh->SetFrame(pAniLow->m_iFrame,pAniUp->m_iFrame);
+				m_pLowPolyMesh->SetFrame(pAniLow->m_nFrame,pAniUp->m_nFrame);
 				m_pLowPolyMesh->SetMeshVis(m_fVis);
 				m_pLowPolyMesh->SetVisualMesh(this);
 				m_pLowPolyMesh->Render(&m_WorldMat,true); // 파츠교환없이 자신만 그리기..
@@ -917,7 +919,7 @@ void RVisualMesh::Render(bool low,bool render_buffer) {
 
 			m_pMesh->SetAnimation( pAniLow->m_pAniSet,pAniUp->m_pAniSet );
 
-			m_pMesh->SetFrame( pAniLow->m_iFrame,pAniUp->m_iFrame);
+			m_pMesh->SetFrame( pAniLow->m_nFrame,pAniUp->m_nFrame);
 			m_pMesh->SetMeshVis(m_fVis);
 
 			m_pMesh->SetVisualMesh(this);
@@ -974,7 +976,7 @@ bool RVisualMesh::UpdateSpWeaponFire()
 
 					// 특수무기를 던져야하는 시점
 
-					if( pAniUp->m_iFrame > 2 * 160 ) {
+					if( pAniUp->m_nFrame > 2 * 160 ) {
 						m_bGrenadeRenderOnoff = false;
 						m_bGrenadeFire = false;
 						m_bAddGrenade = true;
@@ -1799,7 +1801,7 @@ void RVisualMesh::SetWorldMatrix(rmatrix& mat) {
 void RVisualMesh::AddWeapon(RWeaponMotionType type,RMesh* pMesh,RAnimation* pAni)
 {
 	if((type < eq_weapon_etc)||(type > eq_weapon_end-1)) {
-		cclog("RVisualMesh::AddWeapon 니가 RVisualMesh 를 깨먹는구나~~~\n");
+		mlog("RVisualMesh::AddWeapon 니가 RVisualMesh 를 깨먹는구나~~~\n");
 	}
 
 	RemoveWeapon(type);
@@ -2070,12 +2072,12 @@ bool RVisualMesh::SetAnimation(RAniMode animode,RAnimation* pAniSet,bool b)
 			float ff = 0.f;
 
 			if( pInfo->m_pAniSet->GetMaxFrame())
-				ff = pInfo->m_iFrame / (float) pInfo->m_pAniSet->GetMaxFrame();
+				ff = pInfo->m_nFrame / (float) pInfo->m_pAniSet->GetMaxFrame();
 
-			pInfo->m_iAddFrame = pAniSet->GetMaxFrame() * ff; 
+			pInfo->m_nAddFrame = pAniSet->GetMaxFrame() * ff; 
 		}
 		else {
-			pInfo->m_iAddFrame = 0;
+			pInfo->m_nAddFrame = 0;
 		}
 
 //		ClearFrame();
@@ -2101,7 +2103,7 @@ void RVisualMesh::UpdateMotionTable()
 
 	int meshnode_cnt = m_pMesh->m_data_num;
 
-	if( m_iAniNodeTableCnt != meshnode_cnt) {//모델이 바뀔일은 없지만..
+	if( m_nAniNodeTableCnt != meshnode_cnt) {//모델이 바뀔일은 없지만..
 		if(m_pAniNodeTable) {
 			delete [] m_pAniNodeTable;
 			m_pAniNodeTable = NULL;
@@ -2110,11 +2112,11 @@ void RVisualMesh::UpdateMotionTable()
 
 	if(m_pAniNodeTable == NULL) {
 		m_pAniNodeTable = new RAnimationNode*[meshnode_cnt];
-		m_iAniNodeTableCnt = meshnode_cnt;
+		m_nAniNodeTableCnt = meshnode_cnt;
 		memset(m_pAniNodeTable,0,sizeof(RAnimationNode*)*meshnode_cnt);
 	}
 	else {
-		memset(m_pAniNodeTable,0,sizeof(RAnimationNode*)*m_iAniNodeTableCnt);
+		memset(m_pAniNodeTable,0,sizeof(RAnimationNode*)*m_nAniNodeTableCnt);
 	}
 
 	// 연결..
@@ -2319,7 +2321,7 @@ bool RVisualMesh::SetReserveAnimation(RAniMode animode,RAnimation* pAniSet,int t
 
 	if(pInfo==NULL) return false;
 
-	pInfo->m_iReserveTime = timeGetTime() + tick;
+	pInfo->m_nReserveTime = timeGetTime() + tick;
 	pInfo->m_pAniSetReserve = pAniSet;
 
 //	CheckAnimationType(m_pAniSet[animode]);
@@ -2358,7 +2360,7 @@ void RVisualMesh::OutputDebugString_CharacterState()
 	AddText(m_id);
 //	AddText(m_fSpeed[0]);
 //	AddText(m_fSpeed[1]);
-	AddText(m_iAnimationState);
+	AddText(m_nAnimationState);
 
 //	AddText(m_isOncePlayDone[ani_mode_lower]);
 //	AddText(m_isOncePlayDone[ani_mode_upper]);
@@ -2366,8 +2368,8 @@ void RVisualMesh::OutputDebugString_CharacterState()
 //	AddText(m_isPlayDone[ani_mode_lower]);
 //	AddText(m_isPlayDone[ani_mode_upper]);
 
-//	AddText(m_iFrame[ani_mode_lower]);
-//	AddText(m_iFrame[ani_mode_upper]);
+//	AddText(m_nFrame[ani_mode_lower]);
+//	AddText(m_nFrame[ani_mode_upper]);
 
 //	if(m_pAniSet[ani_mode_lower]) {
 //		AddText(m_pAniSet[ani_mode_lower]->m_filename);
@@ -2427,7 +2429,7 @@ rvector	RVisualMesh::GetFootPosition()
 	if(m_pMesh) {
 
 		m_pMesh->SetAnimation( pAniLow->m_pAniSet,pAniUp->m_pAniSet );
-		m_pMesh->SetFrame( pAniLow->m_iFrame,pAniUp->m_iFrame );
+		m_pMesh->SetFrame( pAniLow->m_nFrame,pAniUp->m_nFrame );
 		m_pMesh->SetMeshVis(m_fVis);
 		m_pMesh->SetVisualMesh(this);
 
