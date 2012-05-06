@@ -492,7 +492,7 @@ int ZRoomListBox::GetLastStageCursor()
 	return 0;
 }
 
-CCUID ZRoomListBox::GetSelRoomUID()
+CCUID ZRoomListBox::GetSelRooCCUID()
 {
 	if ((m_Selection >= 0) && (m_Selection < NUM_DISPLAY_ROOM))
 	{
@@ -512,7 +512,7 @@ void ZRoomListBox::RequestSelStageJoin()
 {
 	CCUID uidChar = ZGetGameClient()->GetPlayerUID();
 
-	if (GetSelRoomUID() != CCUID(0,0))
+	if (GetSelRooCCUID() != CCUID(0,0))
 	{
 		if ( (ZGetMyInfo()->IsAdminGrade() == false) && (m_pMapInfo[m_Selection].bPrivate) )
 		{
@@ -534,7 +534,7 @@ void ZRoomListBox::RequestSelStageJoin()
 		}
 		else
 		{
-			ZPostRequestStageJoin(uidChar, GetSelRoomUID());	// 공개방
+			ZPostRequestStageJoin(uidChar, GetSelRooCCUID());	// 공개방
 			ZApplication::GetGameInterface()->EnableLobbyInterface(false);
 		}
 	}
@@ -547,7 +547,7 @@ void ZRoomListBox::RequestSelPrivateStageJoin()
 
 	CCUID uidStageUID = GetSelectedPrivateStageUID();
 
-	if (uidStageUID == CCUID(0,0)) uidStageUID = GetSelRoomUID();
+	if (uidStageUID == CCUID(0,0)) uidStageUID = GetSelRooCCUID();
 
 	if (uidStageUID != CCUID(0,0))
 	{

@@ -41,7 +41,7 @@
 MImplementRootRTTI(ZWeapon);
 
 ZWeapon::ZWeapon() : m_pVMesh(NULL), m_nWorldItemID(0), m_WeaponType(ZWeaponType_None), m_SLSid(0) {
-	m_nItemUID = -1;
+	m_nIteCCUID = -1;
 }
 
 ZWeapon::~ZWeapon() {

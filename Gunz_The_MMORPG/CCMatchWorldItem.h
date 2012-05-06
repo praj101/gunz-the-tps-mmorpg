@@ -96,8 +96,8 @@ private:
 	void ClearItems();
 
 	void RouteSpawnWorldItem(CCMatchWorldItem* pWorldItem);
-	void RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldItemUID);
-	void RouteRemoveWorldItem(int nWorldItemUID);
+	void RouteObtainWorldItem(const CCUID& uidPlayer, int nWorldIteCCUID);
+	void RouteRemoveWorldItem(int nWorldIteCCUID);
 public:
 	CCMatchWorldItemManager();
 	virtual ~CCMatchWorldItemManager();
@@ -111,7 +111,7 @@ public:
 	void OnStageEnd();
 	void Update();
 
-	bool Obtain(CCMatchObject* pObj, short nItemUID, int* poutItemID, int* poutExtraValues);
+	bool Obtain(CCMatchObject* pObj, short nIteCCUID, int* poutItemID, int* poutExtraValues);
 	void SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, float fDropDelayTime);
 	void SpawnDynamicItem(CCMatchObject* pObj, const int nItemID, const float x, const float y, const float z, 
 						  int nLifeTime, int* pnExtraValues );

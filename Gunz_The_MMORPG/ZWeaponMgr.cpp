@@ -243,7 +243,7 @@ ZWeapon* ZWeaponMgr::GetWorldItem(int nItemID)
 		pWeapon = (*node);
 //		pMWeapon = MDynamicCast( ZMovingWeapon, pWeapon );
 
-		if(pWeapon->GetItemUID()==nItemID ) {
+		if(pWeapon->GetIteCCUID()==nItemID ) {
 			return pWeapon;
 		}
 
@@ -270,11 +270,11 @@ ZMovingWeapon* ZWeaponMgr::UpdateWorldItem(int nItemID,rvector& pos)
 		pMWeapon = MDynamicCast( ZMovingWeapon, pWeapon );
 
 		if(pMWeapon) {
-			// pMWeapon->GetItemUID 값이 -1이면 생성만 됐고 아직 서버에서 할당된 값(UID)이 세팅이 안됐기때문에
+			// pMWeapon->GetIteCCUID 값이 -1이면 생성만 됐고 아직 서버에서 할당된 값(UID)이 세팅이 안됐기때문에
 			// 세팅이 안된것들 중에서 가장 가까운 아이템을 찾아 나의것으로 세팅해준다
 			// 랜덤값을 생성해 서버에 유저ID를 함께보내고 다시 서버로 그값을 받아 매치되는걸
 			// 월드 아이템으로 세팅해줘야 하지만.......20090218 by kammir
-			if(pMWeapon->GetItemUID() == -1)
+			if(pMWeapon->GetIteCCUID() == -1)
 //			if(pMWeapon->m_nWorldItemID == nItemID) 
 			{
 /*

@@ -95,7 +95,7 @@ unsigned long int ZMyItemList::GetEquipedItemID(CCMatchCharItemParts parts)
 	return m_nEquipItemID[parts];
 }
 
-CCUID ZMyItemList::GetEquipedItemUID(CCMatchCharItemParts parts)
+CCUID ZMyItemList::GetEquipedIteCCUID(CCMatchCharItemParts parts)
 {
 	CCUID uid = m_uidEquipItems[parts];
 
@@ -228,7 +228,7 @@ void ZMyItemList::SerializeZItemList()
 	MMultiColListBox* pSellListBox = (MMultiColListBox*)pResource->FindWidget("MyAllEquipmentList");
 	if( NULL == pSellListBox ) return;
 
-	MakeMyItemUIDList();
+	MakeMyIteCCUIDList();
 
 	ZShopEquipItem_Match* pWrappedItem;
 	ZShopEquipItemHandle_SellMatch* pHandleSell;
@@ -253,19 +253,19 @@ void ZMyItemList::SerializeZItemList()
 
 			pWrappedItem = new ZShopEquipItem_Match(pItemDesc);
 			pHandleSell = new ZShopEquipItemHandle_SellMatch(pWrappedItem);
-			pHandleSell->SetItemUID(uidItem);
+			pHandleSell->SetIteCCUID(uidItem);
 			pWrappedItem->SetHandleSell(pHandleSell);
 			pHandleSendAcc = new ZShopEquipItemHandle_SendAccountMatch(pWrappedItem);
-			pHandleSendAcc->SetItemUID(uidItem);
+			pHandleSendAcc->SetIteCCUID(uidItem);
 			pWrappedItem->SetHandleSendAccount(pHandleSendAcc);
 			pMyListBox->Add(new ZShopEquipListItem(pWrappedItem));
 
 			pWrappedItem = new ZShopEquipItem_Match(pItemDesc);
 			pHandleSell = new ZShopEquipItemHandle_SellMatch(pWrappedItem);
-			pHandleSell->SetItemUID(uidItem);
+			pHandleSell->SetIteCCUID(uidItem);
 			pWrappedItem->SetHandleSell(pHandleSell);
 			pHandleSendAcc = new ZShopEquipItemHandle_SendAccountMatch(pWrappedItem);
-			pHandleSendAcc->SetItemUID(uidItem);
+			pHandleSendAcc->SetIteCCUID(uidItem);
 			pWrappedItem->SetHandleSendAccount(pHandleSendAcc);
 			pSellListBox->Add(new ZShopEquipListItem(pWrappedItem));
 
@@ -339,25 +339,25 @@ void ZMyItemList::SerializeGItemList()
 
 		pWrappedItem = new ZShopEquipItem_Gamble(pGItemDesc);
 		pHandleSell = new ZShopEquipItemHandle_SellGamble(pWrappedItem);
-		pHandleSell->SetItemUID(pGItem->GetUID());
+		pHandleSell->SetIteCCUID(pGItem->GetUID());
 		pWrappedItem->SetHandleSell(pHandleSell);
 		pHandleSendAcc = new ZShopEquipItemHandle_SendAccountGamble(pWrappedItem);
-		pHandleSendAcc->SetItemUID(pGItem->GetUID());
+		pHandleSendAcc->SetIteCCUID(pGItem->GetUID());
 		pWrappedItem->SetHandleSendAccount(pHandleSendAcc);
 		pMyListBox->Add(new ZShopEquipListItem(pWrappedItem));
 
 		pWrappedItem = new ZShopEquipItem_Gamble(pGItemDesc);
 		pHandleSell = new ZShopEquipItemHandle_SellGamble(pWrappedItem);
-		pHandleSell->SetItemUID(pGItem->GetUID());
+		pHandleSell->SetIteCCUID(pGItem->GetUID());
 		pWrappedItem->SetHandleSell(pHandleSell);
 		pHandleSendAcc = new ZShopEquipItemHandle_SendAccountGamble(pWrappedItem);
-		pHandleSendAcc->SetItemUID(pGItem->GetUID());
+		pHandleSendAcc->SetIteCCUID(pGItem->GetUID());
 		pWrappedItem->SetHandleSendAccount(pHandleSendAcc);
 		pSellListBox->Add(new ZShopEquipListItem(pWrappedItem));
 	}
 }
 
-void ZMyItemList::MakeMyItemUIDList()
+void ZMyItemList::MakeMyIteCCUIDList()
 {
 	m_ItemIndexVector.clear();
 	m_ItemIndexVectorEquip.clear();
@@ -427,9 +427,9 @@ void ZMyItemList::SerializeAccountItem()
 	}
 }
 
-void ZMyItemList::SetEquipItemInfo(CCUID* pEquipItemUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount)
+void ZMyItemList::SetEquipItemInfo(CCUID* pEquipIteCCUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount)
 {
-	memcpy(m_uidEquipItems,		pEquipItemUID,		sizeof(CCUID)*MMCIP_END);
+	memcpy(m_uidEquipItems,		pEquipIteCCUID,		sizeof(CCUID)*MMCIP_END);
 	memcpy(m_nEquipItemID,		pEquipItemID,		sizeof(m_nEquipItemID));
 	memcpy(m_nEquipItemCount,	pEquipItemCount,	sizeof(m_nEquipItemCount));	// 장비하고 있는 아이템의 갯수도 표시!
 }
@@ -484,21 +484,21 @@ void ZMyItemList::SetGambleItemAll(CCTD_GambleItemNode* pGItemNodes, int nGItemC
 	}
 }
 
-CCUID ZMyItemList::GetForceItemUID(int nItemIndex)
+CCUID ZMyItemList::GetForceIteCCUID(int nItemIndex)
 {
 	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVector.size())) return CCUID(0,0);
 
 	return m_ItemIndexVector[nItemIndex];
 }
 
-CCUID ZMyItemList::GetItemUID(int nItemIndex)
+CCUID ZMyItemList::GetIteCCUID(int nItemIndex)
 {
 	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVector.size())) return CCUID(0,0);
 
 	return m_ItemIndexVector[nItemIndex];
 }
 
-CCUID ZMyItemList::GetItemUIDEquip(int nItemIndex)
+CCUID ZMyItemList::GetIteCCUIDEquip(int nItemIndex)
 {
 	if ((nItemIndex < 0) || (nItemIndex >= (int)m_ItemIndexVectorEquip.size())) return CCUID(0,0);
 

@@ -769,12 +769,12 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 		case MC_MATCH_OBTAIN_WORLDITEM:
 			{
 				CCUID uidPlayer;
-				int nItemUID;
+				int nIteCCUID;
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
-				pCommand->GetParameter(&nItemUID, 1, MPT_INT);
+				pCommand->GetParameter(&nIteCCUID, 1, MPT_INT);
 
-				OnObtainWorldItem(uidPlayer, nItemUID);
+				OnObtainWorldItem(uidPlayer, nIteCCUID);
 			}
 			break;
 		case MC_MATCH_SPAWN_WORLDITEM:
@@ -789,11 +789,11 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 			break;
 		case MC_MATCH_REMOVE_WORLDITEM:
 			{
-				int nItemUID;
+				int nIteCCUID;
 
-				pCommand->GetParameter(&nItemUID, 0, MPT_INT);
+				pCommand->GetParameter(&nIteCCUID, 0, MPT_INT);
 
-				OnRemoveWorldItem(nItemUID);
+				OnRemoveWorldItem(nIteCCUID);
 			}
 			break;
 

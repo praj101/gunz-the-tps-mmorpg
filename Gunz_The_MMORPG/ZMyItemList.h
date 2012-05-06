@@ -91,16 +91,16 @@ public:
 	const ZMyGambleItem* GetGambleItem(const CCUID& uidItem);
 	void SetGambleItemAll(CCTD_GambleItemNode* pGItemNodes, int nGItemCount );
 
-	CCUID GetEquipedItemUID(CCMatchCharItemParts parts);
+	CCUID GetEquipedIteCCUID(CCMatchCharItemParts parts);
 	void SetEquipItemsAll(CCUID* pnEquipItems);
-	void SetEquipItemInfo(CCUID* pEquipItemUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount);
+	void SetEquipItemInfo(CCUID* pEquipIteCCUID, unsigned long int* pEquipItemID, unsigned long int* pEquipItemCount);
 	
 	void SetItemsAll(CCTD_ItemNode* pItemNodes, const int nItemCount);	
 	bool IsCreated() { return m_bCreated; }
 
-	CCUID GetForceItemUID(int nItemIndex);
-	CCUID GetItemUID(int nItemIndex);
-	CCUID GetItemUIDEquip(int nItemIndex);
+	CCUID GetForceIteCCUID(int nItemIndex);
+	CCUID GetIteCCUID(int nItemIndex);
+	CCUID GetIteCCUIDEquip(int nItemIndex);
 
 	void Serialize();
 	void SerializeAccountItem();		// 창고 인터페이스를 동기화한다
@@ -109,7 +109,7 @@ public:
 	int GetEquipedAPModifier();
 	int GetMaxWeight();
 
-	void MakeMyItemUIDList();
+	void MakeMyIteCCUIDList();
 	
 	void SerializeZItemList();
 	void SerializeQItemList();

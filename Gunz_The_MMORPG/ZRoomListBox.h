@@ -77,7 +77,7 @@ protected:
 	virtual bool	OnCommand( CCWidget* pWidget, const char* szMassage );
 	virtual bool	OnEvent(CCEvent* pEvent, CCListener* pListener);
 protected:
-	CCUID GetSelRoomUID();
+	CCUID GetSelRooCCUID();
 	CCUID GetSelectedPrivateStageUID();
 public:
 	void	SetBannerImage(char* pBannerName, CCBitmap* pBitmap);

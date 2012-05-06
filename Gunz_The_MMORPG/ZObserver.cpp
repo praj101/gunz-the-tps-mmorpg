@@ -693,10 +693,10 @@ void ZObserver::CheckDeadTarget()
 	nLastTime = nNowTime;
 }
 
-void ZObserver::SetTarget(CCUID muid)
+void ZObserver::SetTarget(CCUID CCUID)
 {
 	ZCharacter* pCharacter = NULL;
-	pCharacter = ZGetGame()->m_CharacterManager.Find(muid);
+	pCharacter = ZGetGame()->m_CharacterManager.Find(CCUID);
 	if(pCharacter)
 	{
 		SetTarget(pCharacter);

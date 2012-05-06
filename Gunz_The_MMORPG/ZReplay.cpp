@@ -467,7 +467,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 			void* pBlob = TempParams[1]->GetPointer();
 			struct REPLAY2_HP_AP_INFO 
 			{
-				CCUID muid;
+				CCUID CCUID;
 				float fHP;
 				float fAP;
 			};
@@ -482,7 +482,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 			void* pBlob = TempParams[1]->GetPointer();
 			struct REPLAY2_HP_INFO 
 			{
-				CCUID muid;
+				CCUID CCUID;
 				float fHP;
 			};
 
@@ -569,7 +569,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 			TempParams[1]->GetValue(&pos);
 			TempParams[2]->GetValue(&dir);
 
-			pCmd->AddParameter(new CCCmdParamUID(uidChar));
+			pCmd->AddParameter(new CCCmdParaCCUID(uidChar));
 			pCmd->AddParameter(new CCCmdParamShortVector(pos.x, pos.y, pos.z));
 			pCmd->AddParameter(new CCCmdParamShortVector(DirElementToShort(dir.x), DirElementToShort(dir.y), DirElementToShort(dir.z)));
 		}

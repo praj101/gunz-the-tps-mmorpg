@@ -21,15 +21,15 @@
 #include "CCMatchStatus.h"
 #include "CCMatchLocale.h"
 
-bool CCMatchServer::CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3)
+bool CCMatchServer::CheckOnLoginPre(const CCUID& ComCCUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3)
 {
-	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(ComCCUID);
 	if (pCommObj == NULL) return false;
 
 	// 프로토콜 버전 체크
 	if (nCmdVersion != MCOMMAND_VERSION)
 	{
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_COMMAND_INVALID_VERSION);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_COMMAND_INVALID_VERSION);
 		Post(pCmd);	
 		return false;
 	}
@@ -53,20 +53,20 @@ bool CCMatchServer::CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool&
 
 		if ((int)m_Objects.size() >= MGetServerConfig()->GetMaxUser())
 		{
-			CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_FULL_PLAYERS);
+			CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_FULL_PLAYERS);
 			Post(pCmd);	
 			return false;
 		}
 	}
 
 	// 접속을 막아놓은 지역의 IP인가
-	if( CheckIsValidIP(CommUID, pCommObj->GetIPString(), strCountryCode3, MGetServerConfig()->IsUseFilter()) )
+	if( CheckIsValidIP(ComCCUID, pCommObj->GetIPString(), strCountryCode3, MGetServerConfig()->IsUseFilter()) )
 		IncreaseNonBlockCount();
 	else
 	{
 		IncreaseBlockCount();
 
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_BLOCK_IP);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_FAILED_BLOCK_IP);
 		Post(pCmd);	
 		return false;
 	}
@@ -74,9 +74,9 @@ bool CCMatchServer::CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool&
 	return true;
 }
 
-void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char* szPassword, int nCommandVersion, unsigned long nChecksumPack, char *szEncryptMd5Value)
+void CCMatchServer::OnMatchLogin(CCUID ComCCUID, const char* szUserID, const char* szPassword, int nCommandVersion, unsigned long nChecksumPack, char *szEncryptMd5Value)
 {
-//	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
+//	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(ComCCUID);
 //	if (pCommObj == NULL) return;
 
 	// 초기 위치의 노드는 검색해서 얻어낸다.
@@ -89,7 +89,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	bool bFreeLoginIP = false;
 
 	// 프로토콜, 최대인원 체크
-	if (!CheckOnLoginPre(CommUID, nCommandVersion, bFreeLoginIP, strCountryCode3)) return;
+	if (!CheckOnLoginPre(ComCCUID, nCommandVersion, bFreeLoginIP, strCountryCode3)) return;
 
 
 	// 원래 계정은 넷마블에 있으므로 해당 계정이 없으면 새로 생성한다. 
@@ -102,14 +102,14 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 		m_MatchDBMgr.GetLoginInfo(szUserID, &nAID, szDBPassword);
 #endif
 
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_WRONG_PASSWORD);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_WRONG_PASSWORD);
 		Post(pCmd);	
 
 		return;
 	}
 
 
-	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(ComCCUID);
 	if (pCommObj)
 	{
 		// 디비에 최종 접속시간을 업데이트 한다.
@@ -124,7 +124,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	// 패스워드가 틀렸을 경우 처리
 	if (strcmp(szDBPassword, szPassword))
 	{
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_WRONG_PASSWORD);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_WRONG_PASSWORD);
 		Post(pCmd);	
 
 		return;
@@ -134,15 +134,15 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	if (!m_MatchDBMgr.GetAccountInfo(nAID, &accountInfo, MGetServerConfig()->GetServerID()))
 	{
 		// Notify Message 필요 -> 로그인 관련 - 해결(Login Fail 메세지 이용)
-		// Disconnect(CommUID);
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_GETACCOUNTINFO);
+		// Disconnect(ComCCUID);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_FAILED_GETACCOUNTINFO);
 		Post(pCmd);	
 	}
 
 	CCMatchAccountPenaltyInfo accountpenaltyInfo;
 	if( !m_MatchDBMgr.GetAccountPenaltyInfo(nAID, &accountpenaltyInfo) ) 
 	{
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_FAILED_GETACCOUNTINFO);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_FAILED_GETACCOUNTINFO);
 		Post(pCmd);	
 	}
 
@@ -162,7 +162,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	// 사용정지 계정인지 확인한다.
 	if ((accountInfo.m_nUGrade == CCMUGBLOCKED) || (accountInfo.m_nUGrade == CCMUGPENALTY))
 	{
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_CCMUGBLOCKED);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_CCMUGBLOCKED);
 		Post(pCmd);	
 		return;
 	}
@@ -181,24 +181,24 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 			// "정상적인 실행파일이 아닙니다." 이런 오류 패킷이 없어서 전송 생략
 			LOG(LOG_PROG, "MD5 error : AID(%u).\n \n", accountInfo.m_nAID);
 			// 접속 끊어버리자
-//			Disconnect(CommUID);
+//			Disconnect(ComCCUID);
 			return;
 		}
 	}
 #endif
 
 	// 로그인성공하여 오브젝트(CCMatchObject) 생성
-	AddObjectOnMatchLogin(CommUID, &accountInfo, &accountpenaltyInfo, bFreeLoginIP, strCountryCode3, nChecksumPack);
+	AddObjectOnMatchLogin(ComCCUID, &accountInfo, &accountpenaltyInfo, bFreeLoginIP, strCountryCode3, nChecksumPack);
 
 /*
-	CCUID AllocUID = CommUID;
-	int nErrCode = ObjectAdd(CommUID);
+	CCUID AllocUID = ComCCUID;
+	int nErrCode = ObjectAdd(ComCCUID);
 	if(nErrCode!=MOK){
 		LOG(LOG_DEBUG, MErrStr(nErrCode) );
 	}
 
 	CCMatchObject* pObj = GetObject(AllocUID);
-	pObj->AddCommListener(CommUID);
+	pObj->AddCommListener(ComCCUID);
 	pObj->SetObjectType(MOT_PC);
 	memcpy(pObj->GetAccountInfo(), &accountInfo, sizeof(CCMatchAccountInfo));
 	pObj->SetFreeLoginIP(bFreeLoginIP);
@@ -210,7 +210,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 		pObj->SetPeerAddr(pCommObj->GetIP(), pCommObj->GetIPString(), pCommObj->GetPort());
 	}
 	
-	SetClientClockSynchronize(CommUID);
+	SetClientClockSynchronize(ComCCUID);
 
 
 	// 프리미엄 IP를 체크한다.
@@ -243,7 +243,7 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 	}
 
 
-	CCCommand* pCmd = CreateCmdMatchResponseLoginOK(CommUID, 
+	CCCommand* pCmd = CreateCmdMatchResponseLoginOK(ComCCUID, 
 												   AllocUID, 
 												   pObj->GetAccountInfo()->m_szUserID,
 												   pObj->GetAccountInfo()->m_nUGrade,
@@ -255,10 +255,10 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 
 #ifndef _DEBUG
 	// Client DataFile Checksum을 검사한다.
-	unsigned long nChecksum = nChecksumPack ^ CommUID.High ^ CommUID.Low;
+	unsigned long nChecksum = nChecksumPack ^ ComCCUID.High ^ ComCCUID.Low;
 	if (nChecksum != GetItemFileChecksum()) {
 		LOG(LOG_PROG, "Invalid ZItemChecksum(%u) , UserID(%s) ", nChecksum, pObj->GetAccountInfo()->m_szUserID);
-		Disconnect(CommUID);
+		Disconnect(ComCCUID);
 	}
 #endif
 
@@ -266,16 +266,16 @@ void CCMatchServer::OnMatchLogin(CCUID CommUID, const char* szUserID, const char
 }
 
 /*
-void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* szCPCookie, const char* szSpareData, int nCmdVersion, unsigned long nChecksumPack)
+void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& ComCCUID, const char* szCPCookie, const char* szSpareData, int nCmdVersion, unsigned long nChecksumPack)
 {
-	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(ComCCUID);
 	if (pCommObj == NULL) return;
 
 	bool bFreeLoginIP = false;
 	string strCountryCode3;
 
 	// 프로토콜, 최대인원 체크
-	if (!CheckOnLoginPre(CommUID, nCmdVersion, bFreeLoginIP, strCountryCode3)) return;
+	if (!CheckOnLoginPre(ComCCUID, nCmdVersion, bFreeLoginIP, strCountryCode3)) return;
 
 
 	CCMatchAuthBuilder* pAuthBuilder = GetAuthBuilder();
@@ -288,7 +288,7 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* 
 	{
 		MGetServerStatusSingleton()->SetRunStatus(5);
 
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_WRONG_PASSWORD);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_WRONG_PASSWORD);
 		Post(pCmd);	
 
 		LOG(LOG_PROG, "Netmarble Certification Failed\n");
@@ -306,7 +306,7 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* 
 	DWORD dwIP = pCommObj->GetIP();
 
 	// Async DB
-	CCAsyncDBJob_GetLoginInfo* pNewJob = new CCAsyncDBJob_GetLoginInfo(CommUID);
+	CCAsyncDBJob_GetLoginInfo* pNewJob = new CCAsyncDBJob_GetLoginInfo(ComCCUID);
 	pNewJob->Input(new CCMatchAccountInfo(), 
 					pUserID, 
 					pUniqueID, 
@@ -329,32 +329,32 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& CommUID, const char* 
 }
 */
 
-void CCMatchServer::OnMatchLoginFromNetmarbleJP(const CCUID& CommUID, const char* szLoginID, const char* szLoginPW, int nCmdVersion, unsigned long nChecksumPack)
+void CCMatchServer::OnMatchLoginFromNetmarbleJP(const CCUID& ComCCUID, const char* szLoginID, const char* szLoginPW, int nCmdVersion, unsigned long nChecksumPack)
 {
 	bool bFreeLoginIP = false;
 	string strCountryCode3;
 
 	// 프로토콜, 최대인원 체크
-	if (!CheckOnLoginPre(CommUID, nCmdVersion, bFreeLoginIP, strCountryCode3)) return;
+	if (!CheckOnLoginPre(ComCCUID, nCmdVersion, bFreeLoginIP, strCountryCode3)) return;
 
 	// DBAgent에 먼저 보내고 응답을 받으면 로그인 프로세스를 진행한다.
-	if (!MGetLocale()->PostLoginInfoToDBAgent(CommUID, szLoginID, szLoginPW, bFreeLoginIP, nChecksumPack, GetClientCount()))
+	if (!MGetLocale()->PostLoginInfoToDBAgent(ComCCUID, szLoginID, szLoginPW, bFreeLoginIP, nChecksumPack, GetClientCount()))
 	{
 		cclog( "Server user full(DB agent error).\n" );
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, MERR_CLIENT_FULL_PLAYERS);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_FULL_PLAYERS);
 		Post(pCmd);
 		return;
 	}
 }
 
-void CCMatchServer::OnMatchLoginFromDBAgent(const CCUID& CommUID, const char* szLoginID, const char* szName, int nSex, bool bFreeLoginIP, unsigned long nChecksumPack)
+void CCMatchServer::OnMatchLoginFromDBAgent(const CCUID& ComCCUID, const char* szLoginID, const char* szName, int nSex, bool bFreeLoginIP, unsigned long nChecksumPack)
 {
 #ifndef LOCALE_NHNUSA
-	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(CommUID);
+	CCCommObject* pCommObj = (CCCommObject*)m_CommRefCache.GetRef(ComCCUID);
 	if (pCommObj == NULL) return;
 
 	string strCountryCode3;
-	CheckIsValidIP( CommUID, pCommObj->GetIPString(), strCountryCode3, false );
+	CheckIsValidIP( ComCCUID, pCommObj->GetIPString(), strCountryCode3, false );
 
 	const char* pUserID = szLoginID;
 	char szPassword[16] = "";			// 패스워드는 없다
@@ -367,7 +367,7 @@ void CCMatchServer::OnMatchLoginFromDBAgent(const CCUID& CommUID, const char* sz
 	DWORD dwIP = pCommObj->GetIP();
 
 	// Async DB
-	CCAsyncDBJob_GetLoginInfo* pNewJob = new CCAsyncDBJob_GetLoginInfo(CommUID);
+	CCAsyncDBJob_GetLoginInfo* pNewJob = new CCAsyncDBJob_GetLoginInfo(ComCCUID);
 	pNewJob->Input(new CCMatchAccountInfo,
 					new CCMatchAccountPenaltyInfo,
 					pUserID, 
@@ -386,11 +386,11 @@ void CCMatchServer::OnMatchLoginFromDBAgent(const CCUID& CommUID, const char* sz
 #endif
 }
 
-void CCMatchServer::OnMatchLoginFailedFromDBAgent(const CCUID& CommUID, int nResult)
+void CCMatchServer::OnMatchLoginFailedFromDBAgent(const CCUID& ComCCUID, int nResult)
 {
 #ifndef LOCALE_NHNUSA
 	// 프로토콜 버전 체크
-	CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(CommUID, nResult);
+	CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, nResult);
 	Post(pCmd);	
 #endif
 }

@@ -199,14 +199,14 @@ protected:
 	virtual int Connect(CCCommObject* pCommObj);	// 연결실패시 반드시 Disconnect() 호출해야함;
 	virtual int OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int nTimeStamp, CCCommObject* pCommObj);
 
-	// virtual void OnNetClear(const CCUID& CommUID);
-	virtual void OnNetPong(const CCUID& CommUID, unsigned int nTimeStamp);
-	virtual void OnHShieldPong(const CCUID& CommUID, unsigned int nTimeStamp);
-	bool CheckOnLoginPre(const CCUID& CommUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3);
-	void OnMatchLogin(CCUID CommUID, const char* szUserID, const char* szPassword, int nCommandVersion, unsigned long nChecksumPack, char *szEncryptMd5Value);
-	void OnMatchLoginFromNetmarbleJP(const CCUID& CommUID, const char* szLoginID, const char* szLoginPW, int nCmdVersion, unsigned long nChecksumPack);
-	void OnMatchLoginFromDBAgent(const CCUID& CommUID, const char* szLoginID, const char* szName, int nSex, bool bFreeLoginIP, unsigned long nChecksumPack);
-	void OnMatchLoginFailedFromDBAgent(const CCUID& CommUID, int nResult);
+	// virtual void OnNetClear(const CCUID& ComCCUID);
+	virtual void OnNetPong(const CCUID& ComCCUID, unsigned int nTimeStamp);
+	virtual void OnHShieldPong(const CCUID& ComCCUID, unsigned int nTimeStamp);
+	bool CheckOnLoginPre(const CCUID& ComCCUID, int nCmdVersion, bool& outbFreeIP, string& strCountryCode3);
+	void OnMatchLogin(CCUID ComCCUID, const char* szUserID, const char* szPassword, int nCommandVersion, unsigned long nChecksumPack, char *szEncryptMd5Value);
+	void OnMatchLoginFromNetmarbleJP(const CCUID& ComCCUID, const char* szLoginID, const char* szLoginPW, int nCmdVersion, unsigned long nChecksumPack);
+	void OnMatchLoginFromDBAgent(const CCUID& ComCCUID, const char* szLoginID, const char* szName, int nSex, bool bFreeLoginIP, unsigned long nChecksumPack);
+	void OnMatchLoginFailedFromDBAgent(const CCUID& ComCCUID, int nResult);
 	void OnBridgePeer(const CCUID& uidChar, DWORD dwIP, DWORD nPort);
 
 	bool AddObjectOnMatchLogin(const CCUID& uidComm, 
@@ -388,7 +388,7 @@ protected:
 		void* pPeerInfo, void* pKillInfo);
 	void OnRequestForcedEntry(const CCUID& uidStage, const CCUID& uidChar);
 	void OnRequestSuicide(const CCUID& uidPlayer);
-	void OnRequestObtainWorldItem(const CCUID& uidPlayer, const int nItemUID);
+	void OnRequestObtainWorldItem(const CCUID& uidPlayer, const int nIteCCUID);
 	void OnRequestSpawnWorldItem(const CCUID& uidPlayer, const int nItemID, const float x, const float y, const float z, float fDropDelayTime);
 	void OnNotifyThrowTrapItem(const CCUID& uidPlayer, const int nItemID);
 	void OnNotifyActivatedTrapItem(const CCUID& uidPlayer, const int nItemID, const CCVector3& pos);
@@ -613,7 +613,7 @@ public :
 
 	/// Agent
 	CCAgentObject* GetAgent(const CCUID& uidAgent);
-	CCAgentObject* GetAgentByCommUID(const CCUID& uidComm);	
+	CCAgentObject* GetAgentByComCCUID(const CCUID& uidComm);	
 	CCAgentObject* FindFreeAgent();
 	void ReserveAgent(CCMatchStage* pStage);
 
@@ -629,7 +629,7 @@ public:
 	/// UID로 오브젝트 얻어내기
 	CCMatchObject* GetObject(const CCUID& uid);
 	/// UID로 캐릭터 오브젝트 얻어내기
-	CCMatchObject* GetPlayerByCommUID(const CCUID& uid);
+	CCMatchObject* GetPlayerByComCCUID(const CCUID& uid);
 	/// Name으로 오브젝트 얻어내기
 	CCMatchObject* GetPlayerByName(const char* pszName);
 	/// AID로 오브젝트 얻어내기
@@ -641,10 +641,10 @@ public:
 	CCMatchChannel* FindChannel(const CCCHANNEL_TYPE nChannelType, const char* pszChannelName);
 
 	/// 서버의 공지 메시지 전송
-	void Announce(const CCUID& CommUID, char* pszMsg);
+	void Announce(const CCUID& ComCCUID, char* pszMsg);
 	void Announce(CCObject* pObj, char* pszMsg);
 	/// 서버의 에러 메시지 전송
-	void AnnounceErrorMsg(const CCUID& CommUID, const int nErrorCode);
+	void AnnounceErrorMsg(const CCUID& ComCCUID, const int nErrorCode);
 	void AnnounceErrorMsg(CCObject* pObj, const int nErrorCode);
 	/// Command를 Object의 Listener에게 전송
 	void RouteToListener(CCObject* pObject, CCCommand* pCommand);
@@ -700,7 +700,7 @@ public:
 	/// 현재 클럭 얻어내기
 	unsigned long int GetGlobalClockCount() const;
 	/// 클라이언트에게 클럭을 맞추게 한다.
-	void SetClientClockSynchronize(const CCUID& CommUID);
+	void SetClientClockSynchronize(const CCUID& ComCCUID);
 	/// Local Clock을 Global Clock으로 변환
 	static unsigned long int ConvertLocalClockToGlobalClock(unsigned long int nLocalClock, unsigned long int nLocalClockDistance);
 	/// Global Clock을 Local Clock으로 변환
@@ -742,8 +742,8 @@ protected :
 	// fitler
 	CCCountryFilter& GetCountryFilter()					{ return m_CountryFilter; }
 	bool InitCountryFilterDB();
-	const CUSTOM_IP_STATUS	CheckIsValidCustomIP( const CCUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter );
-	const COUNT_CODE_STATUS CheckIsNonBlockCountry( const CCUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter );
+	const CUSTOM_IP_STATUS	CheckIsValidCustomIP( const CCUID& ComCCUID, const string& strIP, string& strCountryCode3, const bool bUseFilter );
+	const COUNT_CODE_STATUS CheckIsNonBlockCountry( const CCUID& ComCCUID, const string& strIP, string& strCountryCode3, const bool bUseFilter );
 
 public :
 	bool CheckUpdateItemXML();
@@ -761,7 +761,7 @@ public :
 	void IncreaseNonBlockCount()						{ ++m_dwNonBlockCount = 0; }
 	DWORD GetBlockCount()								{ return m_dwBlockCount; }
 	DWORD GetNonBlockCount()							{ return m_dwNonBlockCount; }
-	bool CheckIsValidIP( const CCUID& CommUID, const string& strIP, string& strCountryCode3, const bool bUseFilter );
+	bool CheckIsValidIP( const CCUID& ComCCUID, const string& strIP, string& strCountryCode3, const bool bUseFilter );
 	// filter
 
 public :

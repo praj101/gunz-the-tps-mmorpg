@@ -257,7 +257,7 @@ bool ZItemSlotView::OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szS
 		if (pItemDesc == NULL) return false;
 		
 		IShopEquipItemHandle_Sell* pHandleSell = pWrappedMatchItem->GetHandleSell();
-		CCUID uidItem = pHandleSell->GetItemUID();
+		CCUID uidItem = pHandleSell->GetIteCCUID();
 
 		if (!IsSuitableItemSlot(pItemDesc->m_nSlot, m_nParts)) return false;
 		if (!IsEquipableItem(pItemDesc->m_nID, 99, ZGetMyInfo()->GetSex())) return false;
@@ -267,7 +267,7 @@ bool ZItemSlotView::OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szS
 	
 	else if (strcmp(pSender->GetClassName(), CORE_ITEMSLOTVIEW)==0) {	// Equip ½½·Ô¿¡¼­ Equip ½½·ÔÀ¸·Î
 		ZItemSlotView* pWidget = (ZItemSlotView*)pSender;
-		CCUID uidItem = ZGetMyInfo()->GetItemList()->GetEquipedItemUID(pWidget->GetParts());
+		CCUID uidItem = ZGetMyInfo()->GetItemList()->GetEquipedIteCCUID(pWidget->GetParts());
 		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
 		if (pItemDesc == NULL) return false;
 		if (!IsSuitableItemSlot(pItemDesc->m_nSlot, m_nParts)) return false;

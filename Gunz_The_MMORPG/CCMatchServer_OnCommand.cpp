@@ -110,32 +110,32 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 			break;
 		case MC_MATCH_LOGIN_FROM_DBAGENT:
 			{
-				CCUID CommUID;
+				CCUID ComCCUID;
 				char szLoginID[256];
 				char szName[256];
 				int nSex;
 				bool bFreeLoginIP;
 				unsigned long nChecksumPack;
 
-				if (pCommand->GetParameter(&CommUID,		0, MPT_UID)==false) break;
+				if (pCommand->GetParameter(&ComCCUID,		0, MPT_UID)==false) break;
 				if (pCommand->GetParameter(szLoginID,		1, MPT_STR, sizeof(szLoginID) )==false) break;
 				if (pCommand->GetParameter(szName,			2, MPT_STR, sizeof(szName) )==false) break;
 				if (pCommand->GetParameter(&nSex,			3, MPT_INT)==false) break;
 				if (pCommand->GetParameter(&bFreeLoginIP,	4, MPT_BOOL)==false) break;
 				if (pCommand->GetParameter(&nChecksumPack,	5, MPT_UINT)==false) break;
 
-				OnMatchLoginFromDBAgent(CommUID, szLoginID, szName, nSex, bFreeLoginIP, nChecksumPack);
+				OnMatchLoginFromDBAgent(ComCCUID, szLoginID, szName, nSex, bFreeLoginIP, nChecksumPack);
 			}
 			break;
 		case MC_MATCH_LOGIN_FROM_DBAGENT_FAILED:
 			{
-				CCUID CommUID;
+				CCUID ComCCUID;
 				int nResult;
 
-				if (pCommand->GetParameter(&CommUID,	0, MPT_UID)==false) break;
+				if (pCommand->GetParameter(&ComCCUID,	0, MPT_UID)==false) break;
 				if (pCommand->GetParameter(&nResult,	1, MPT_INT)==false) break;
 
-				OnMatchLoginFailedFromDBAgent(CommUID, nResult);
+				OnMatchLoginFailedFromDBAgent(ComCCUID, nResult);
 			}
 			break;
 
@@ -948,12 +948,12 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 		case MC_MATCH_REQUEST_OBTAIN_WORLDITEM:
 			{
 				CCUID uidPlayer = pCommand->GetSenderUID();
-				int nItemUID = 0;
+				int nIteCCUID = 0;
 
 				//pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
-				pCommand->GetParameter(&nItemUID, 1, MPT_INT);
+				pCommand->GetParameter(&nIteCCUID, 1, MPT_INT);
 
-				OnRequestObtainWorldItem(uidPlayer, nItemUID);
+				OnRequestObtainWorldItem(uidPlayer, nIteCCUID);
 			}
 			break;
 		case MC_MATCH_REQUEST_SPAWN_WORLDITEM:

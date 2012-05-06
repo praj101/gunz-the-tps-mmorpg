@@ -6,17 +6,17 @@
 
 
 
-class MAsyncDBJob_FriendList : public MAsyncJob {
+class MAsyncDBJob_FriendList : public CCAsyncJob {
 protected:
-	MUID			m_uid;
+	CCUID			m_uid;
 	
 protected:	// Input Argument
 	int				m_nCID;
 protected:	// Output Result
 	MMatchFriendInfo*	m_pFriendInfo;
 public:
-	MAsyncDBJob_FriendList(const MUID& uid, int nCID)
-		: MAsyncJob(MASYNCJOB_FRIENDLIST, uid)
+	MAsyncDBJob_FriendList(const CCUID& uid, int nCID)
+		: CCAsyncJob(CCAsyncJob_FRIENDLIST, uid)
 	{
 		m_pFriendInfo = NULL;
 		m_uid = uid;
@@ -24,7 +24,7 @@ public:
 	}
 	virtual ~MAsyncDBJob_FriendList()	{}
 
-	const MUID& GetUID()			{ return m_uid; }
+	const CCUID& GetUID()			{ return m_uid; }
 	MMatchFriendInfo* GetFriendInfo()			{ return m_pFriendInfo; }
 	void SetFriendInfo(MMatchFriendInfo* pFriendInfo)	{ m_pFriendInfo = pFriendInfo; }
 

@@ -225,7 +225,7 @@ bool ZShopEquipInterface::Equip()
 			else
 			{
 				if (!pWrapperGItem->GetHandleSell()) { _ASSERT(0); return false; }
-				ZPostRequestGamble( pWrapperGItem->GetHandleSell()->GetItemUID() );
+				ZPostRequestGamble( pWrapperGItem->GetHandleSell()->GetIteCCUID() );
 				ZPostRequestCharacterItemList( ZGetGameClient()->GetPlayerUID() );
 			}
 		}
@@ -240,7 +240,7 @@ bool ZShopEquipInterface::Equip()
 	ZShopEquipItem_Match* pWrappedZItem = (ZShopEquipItem_Match*)pListItem->GetItemData();
 	if (!pWrappedZItem->GetHandleSell()) { _ASSERT(0); return false; }
 
-	CCUID uidItem = pWrappedZItem->GetHandleSell()->GetItemUID();
+	CCUID uidItem = pWrappedZItem->GetHandleSell()->GetIteCCUID();
 	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
 	if (!pItemDesc) return false;
 
