@@ -2357,7 +2357,7 @@ void CCMatchServer::OnChatRoomInvite(const CCUID& uidComm, const char* pszTarget
 
 // RAONHAJE 임시코드
 #ifdef _DEBUG
-	#include "CMLexicalAnalyzer.h"
+	#include "CCLexicalAnalyzer.h"
 	bool StageFinish(CCMatchServer* pServer, const CCUID& uidPlayer, char* pszChat)
 	{
 		CCMatchObject* pChar = pServer->GetObject(uidPlayer);
@@ -2367,7 +2367,7 @@ void CCMatchServer::OnChatRoomInvite(const CCUID& uidComm, const char* pszTarget
 		if (pStage == NULL) return false;
 
 		bool bResult = false;
-		CMLexicalAnalyzer lex;
+		CCLexicalAnalyzer lex;
 		lex.Create(pszChat);
 
 		if (lex.GetCount() >= 1) {

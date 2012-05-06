@@ -19,7 +19,7 @@ void RDummyList::Clear()
 
 bool RDummyList::Open(CCXmlElement *pElement)
 {
-	CCXmlElement	aDummyNode,aChild;
+	::CCXmlElement	aDummyNode,aChild;
 	int nCount = pElement->GetChildNodeCount();
 
 	char szTagName[256],szContents[256];
@@ -70,9 +70,9 @@ bool RDummyList::Open(CCXmlElement *pElement)
 	return true;
 }
 
-bool RDummyList::Save(CCXmlElement *pElement)
+bool RDummyList::Save(::CCXmlElement *pElement)
 {
-	CCXmlElement	aDummyListElement = pElement->CreateChildElement(RTOK_DUMMYLIST);
+	::CCXmlElement	aDummyListElement = pElement->CreateChildElement(RTOK_DUMMYLIST);
 
 	for(RDummyList::iterator itor = begin(); itor != end(); ++itor)
 	{

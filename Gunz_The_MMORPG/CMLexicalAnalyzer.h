@@ -3,12 +3,12 @@
 
 #include "CCPtrList.h"
 
-class CMLexicalAnalyzer{
-	CMPtrList<char>		m_Tokens;
+class CCLexicalAnalyzer{
+	CCPtrList<char>		m_Tokens;
 	//char				m_szOriginal[256];
 public:
-	CMLexicalAnalyzer(void);
-	~CMLexicalAnalyzer(void);
+	CCLexicalAnalyzer(void);
+	~CCLexicalAnalyzer(void);
 
 	bool Create(const char *pStr);
 	void Destroy(void);

@@ -3,11 +3,11 @@
 
 
 #include "winsock2.h"
-#include "MXml.h"
+#include "CCXml.h"
 
 /// 퀘스트에서 사용하는 공식 모음 클래스. 
 /// - 모두 static으로 되어있다.
-class MQuestFormula
+class CCQuestFormula
 {
 private:
 

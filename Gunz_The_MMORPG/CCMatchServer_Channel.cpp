@@ -297,7 +297,7 @@ bool CCMatchServer::ChannelLeave(const CCUID& uidPlayer, const CCUID& uidChannel
 
 /*
 // RAONHAJE 임시코드
-#include "CMLexicalAnalyzer.h"
+#include "CCLexicalAnalyzer.h"
 bool StageGo(CCMatchServer* pServer, const CCUID& uidPlayer, char* pszChat)
 {
 	CCMatchObject* pChar = pServer->GetObject(uidPlayer);
@@ -307,7 +307,7 @@ bool StageGo(CCMatchServer* pServer, const CCUID& uidPlayer, char* pszChat)
 	if (pChannel == NULL) return false;
 
 	bool bResult = false;
-	CMLexicalAnalyzer lex;
+	CCLexicalAnalyzer lex;
 	lex.Create(pszChat);
 
 	if (lex.GetCount() >= 1) {

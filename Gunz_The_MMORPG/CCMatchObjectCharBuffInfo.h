@@ -1,3 +1,4 @@
+#pragma once
 #include "CCMatchBuff.h"
 #include "CCMatchBuffSummary.h"
 

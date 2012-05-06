@@ -1105,7 +1105,7 @@ void CCMatchServer::OnStageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishL
 }
 
 
-#include "CMLexicalAnalyzer.h"
+#include "CCLexicalAnalyzer.h"
 // 강퇴 임시코드
 bool StageKick(CCMatchServer* pServer, const CCUID& uidPlayer, const CCUID& uidStage, char* pszChat)
 {
@@ -1116,7 +1116,7 @@ bool StageKick(CCMatchServer* pServer, const CCUID& uidPlayer, const CCUID& uidS
 	if (uidPlayer != pStage->GetMasterUID()) return false;
 
 	bool bResult = false;
-	CMLexicalAnalyzer lex;
+	CCLexicalAnalyzer lex;
 	lex.Create(pszChat);
 
 	if (lex.GetCount() >= 1) {
@@ -1158,7 +1158,7 @@ bool StageShowInfo(CCMatchServer* pServer, const CCUID& uidPlayer, const CCUID& 
 	if (uidPlayer != pStage->GetMasterUID()) return false;
 
 	bool bResult = false;
-	CMLexicalAnalyzer lex;
+	CCLexicalAnalyzer lex;
 	lex.Create(pszChat);
 
 	if (lex.GetCount() >= 1) {

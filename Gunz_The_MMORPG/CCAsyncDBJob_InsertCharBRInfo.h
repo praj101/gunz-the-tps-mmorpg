@@ -14,7 +14,7 @@ protected:	// Input Value
 
 public:
 	CCAsyncDBJob_GetCharBRInfo(CCUID& uidOwner) : 
-	  CCAsyncJob(CCAsyncJob_GET_CHAR_BR_INFO, uidOwner) {}
+	  CCAsyncJob(CCASYNCJOB_GET_CHAR_BR_INFO, uidOwner) {}
 
 	virtual ~CCAsyncDBJob_GetCharBRInfo() {}
 

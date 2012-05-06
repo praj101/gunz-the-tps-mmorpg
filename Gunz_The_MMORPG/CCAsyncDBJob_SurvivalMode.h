@@ -6,9 +6,9 @@
 #ifndef _MASYNCDBJOB_INSERTSURVIVALLOG_H
 #define _MASYNCDBJOB_INSERTSURVIVALLOG_H
 
-#include "MAsyncDBJob.h"
+#include "CCAsyncDBJob.h"
 
-class MAsyncDBJob_InsertSurvivalModeGameLog : public CCAsyncJob 
+class CCAsyncDBJob_InsertSurvivalModeGameLog : public CCAsyncJob 
 {
 protected:
 	char m_szGameName[MAX_CHATROOMNAME_STRING_LEN];
@@ -25,8 +25,8 @@ protected:
 	DWORD m_dwGamePlayTime;
 
 public:
-	MAsyncDBJob_InsertSurvivalModeGameLog() : CCAsyncJob(CCAsyncJob_INSERT_SURVIVALMODE_GAME_LOG, CCUID(0, 0)){}
-	~MAsyncDBJob_InsertSurvivalModeGameLog(){}
+	CCAsyncDBJob_InsertSurvivalModeGameLog() : CCAsyncJob(CCASYNCJOB_INSERT_SURVIVALMODE_GAME_LOG, CCUID(0, 0)){}
+	~CCAsyncDBJob_InsertSurvivalModeGameLog(){}
 
 	void Input(char *szGameName, DWORD dwScenarioID, DWORD dwTotalRound, 
 				DWORD dwMasterPlayerCID, DWORD dwMasterPlayerRankPoint,
@@ -57,14 +57,14 @@ public:
 
 
 
-class MAsyncDBJob_GetSurvivalModeGroupRanking : public CCAsyncJob 
+class CCAsyncDBJob_GetSurvivalModeGroupRanking : public CCAsyncJob 
 {
 protected:
 	vector<RANKINGINFO*> m_RankingVec[MAX_SURVIVAL_SCENARIO_COUNT];
 
 public:
-	MAsyncDBJob_GetSurvivalModeGroupRanking() : CCAsyncJob(CCAsyncJob_GET_SURVIVALMODE_GROUP_RANKING, CCUID(0, 0)){}
-	~MAsyncDBJob_GetSurvivalModeGroupRanking() {
+	CCAsyncDBJob_GetSurvivalModeGroupRanking() : CCAsyncJob(CCASYNCJOB_GET_SURVIVALMODE_GROUP_RANKING, CCUID(0, 0)){}
+	~CCAsyncDBJob_GetSurvivalModeGroupRanking() {
 		for (int s=0; s<MAX_SURVIVAL_SCENARIO_COUNT; ++s)
 			for (unsigned int i=0; i<m_RankingVec[s].size(); ++i)
 				delete m_RankingVec[s][i];
@@ -86,7 +86,7 @@ public:
 
 
 
-class MAsyncDBJob_GetSurvivalModePrivateRanking : public CCAsyncJob 
+class CCAsyncDBJob_GetSurvivalModePrivateRanking : public CCAsyncJob 
 {
 protected:
 	CCUID m_uidStage;
@@ -96,8 +96,8 @@ protected:
 	RANKINGINFO m_RankingInfo[MAX_SURVIVAL_SCENARIO_COUNT];
 
 public:
-	MAsyncDBJob_GetSurvivalModePrivateRanking() : CCAsyncJob(CCAsyncJob_GET_SURVIVALMODE_PRIVATE_RANKING, CCUID(0, 0)){}
-	~MAsyncDBJob_GetSurvivalModePrivateRanking(){}
+	CCAsyncDBJob_GetSurvivalModePrivateRanking() : CCAsyncJob(CCASYNCJOB_GET_SURVIVALMODE_PRIVATE_RANKING, CCUID(0, 0)){}
+	~CCAsyncDBJob_GetSurvivalModePrivateRanking(){}
 
 	void Input(const CCUID& uidStage, const CCUID& uidPlayer, DWORD dwScenarioID, DWORD dwCID)
 	{

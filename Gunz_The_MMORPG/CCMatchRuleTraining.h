@@ -5,11 +5,11 @@
 #include "CCMatchRuleDeathMatch.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-class MMatchRuleTraining : public MMatchRuleSoloDeath {
+class CCMatchRuleTraining : public CCMatchRuleSoloDeath {
 public:
-	MMatchRuleTraining(MMatchStage* pStage);
-	virtual ~MMatchRuleTraining()	{ }
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_TRAINING; }
+	CCMatchRuleTraining(CCMatchStage* pStage);
+	virtual ~CCMatchRuleTraining()	{ }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_TRAINING; }
 };
 
 

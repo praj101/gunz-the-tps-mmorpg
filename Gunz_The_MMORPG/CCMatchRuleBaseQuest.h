@@ -6,13 +6,13 @@
 #include "CCMatchQuestRound.h"
 
 
-class MMatchQuestGameLogInfoManager;
+class CCMatchQuestGameLogInfoManager;
 
 /// 퀘스트룰들의 부모 클래스
-class MMatchRuleBaseQuest : public MMatchRule {
+class CCMatchRuleBaseQuest : public CCMatchRule {
 protected:
-	MMatchNPCManager			m_NPCManager;				///< NPC 관리자
-	MQuestPlayerManager			m_PlayerManager;			///< 플레이어 관리자
+	CCMatchNPCManager			m_NPCManager;				///< NPC 관리자
+	CCQuestPlayerManager			m_PlayerManager;			///< 플레이어 관리자
 	bool						m_bQuestCompleted;			///< 퀘스트가 끝났는지 여부
 
 	unsigned long int			m_nLastNPCSpawnTime;		// for test
@@ -34,13 +34,13 @@ protected:
 	virtual bool RoundCount();							///< 라운드 카운트. 모든 라운드가 끝나면 false를 반환한다.
 	virtual bool OnCheckEnableBattleCondition();		///< 게임 가능한지 체크
 
-	virtual void OnCommand(MCommand* pCommand);			///< 퀘스트에서만 사용하는 커맨드 처리
+	virtual void OnCommand(CCCommand* pCommand);			///< 퀘스트에서만 사용하는 커맨드 처리
 protected:
 	/// npc가 죽고 나서 드롭아이템이 있는지 체크하고 있으면 아이템을 드롭시킨다.
 	/// @param uidPlayer	공격자 플레이어 UID
 	/// @param pDropItem	드롭할 아이템
 	/// @param pos			위치
-	void CheckRewards(CCUID& uidPlayer, MQuestDropItem* pDropItem, MVector& pos);
+	void CheckRewards(CCUID& uidPlayer, CCQuestDropItem* pDropItem, CCVector& pos);
 	bool CheckPlayersAlive();								///< 플레이어가 모두 죽었는지 체크
 	virtual void ProcessNPCSpawn() = 0;						///< NPC 스폰작업
 	virtual bool CheckNPCSpawnEnable() = 0;					///< NPC가 스폰 가능한지 여부
@@ -50,7 +50,7 @@ protected:
 	/// NPC를 스폰시킨다.
 	/// @param nNPC			NPC 종류
 	/// @param nPosIndex	스폰 위치
-	MMatchNPCObject* SpawnNPC(MQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC=false);
+	CCMatchNPCObject* SpawnNPC(CCQUEST_NPC nNPC, int nPosIndex, bool bKeyNPC=false);
 
 	virtual void OnCompleted();					///< 퀘스트 성공시 호출된다.
 	virtual void OnFailed();					///< 퀘스트 실패시 호출된다.
@@ -68,7 +68,7 @@ public:
 	/// @param uidKiller		죽인 플레이어
 	/// @param uidNPC			죽은 NPC
 	/// @param pos				NPC 위치
-	virtual void OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, MVector& pos);
+	virtual void OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, CCUID& uidNPC, CCVector& pos);
 
 	/// 플레이어 죽었을 때 호출
 	/// @param uidVictim		죽은 플레이어 UID
@@ -93,7 +93,7 @@ public:
 
 
 	// 퀘스트때문에 추가된 가상 인터페이스.
-	// 구조에대해 좀더 생각을 해봐야함. 너무 많은 인터페이스가 MMatchRule까지 올라와 버렸음... - by 추교성.
+	// 구조에대해 좀더 생각을 해봐야함. 너무 많은 인터페이스가 CCMatchRule까지 올라와 버렸음... - by 추교성.
 	virtual void OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
 	virtual void OnResponseDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
 	virtual void OnRequestCallbackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID ) {}
@@ -114,8 +114,8 @@ public:
 	virtual void PostNewMonsterInfo( const CCUID& uidUser, const char nMonIndex );
 	
 public:
-	MMatchRuleBaseQuest(MMatchStage* pStage);			///< 생성자
-	virtual ~MMatchRuleBaseQuest();						///< 소멸자
+	CCMatchRuleBaseQuest(CCMatchStage* pStage);			///< 생성자
+	virtual ~CCMatchRuleBaseQuest();						///< 소멸자
 	virtual void OnEnterBattle(CCUID& uidChar);			///< 게임중 난입할때 호출된다.
 	virtual void OnLeaveBattle(CCUID& uidChar);			///< 게임중 나갔을때 호출된다.
 
@@ -123,8 +123,8 @@ public:
 };
 
 
-void InsertNPCIDonUnique( vector<MQUEST_NPC>& outNPCList, MQUEST_NPC nNPCID );
-void MakeJacoNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps );
-void MakeSurvivalKeyNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps );
-void MakeNomalNPCList( vector<MQUEST_NPC>& outNPCList, MQuestScenarioInfoMaps& ScenarioInfoMaps, MMatchQuest* pQuest );
-void CopyMTD_NPCINFO( MTD_NPCINFO* pDest, const MQuestNPCInfo* pSource );
+void InsertNPCIDonUnique( vector<CCQUEST_NPC>& outNPCList, CCQUEST_NPC nNPCID );
+void MakeJacoNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps );
+void MakeSurvivalKeyNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps );
+void MakeNomalNPCList( vector<CCQUEST_NPC>& outNPCList, CCQuestScenarioInfoMaps& ScenarioInfoMaps, CCMatchQuest* pQuest );
+void CopyCCTD_NPCINFO( CCTD_NPCINFO* pDest, const CCQuestNPCInfo* pSource );

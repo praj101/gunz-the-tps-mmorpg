@@ -191,7 +191,7 @@ void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuel
 	CCMATCH_GAMETYPE nGameType = CCMATCH_GAMETYPE_DUELTOURNAMENT;
 	
 	pStage->ChangeRule(nGameType);	
-	pStage->SetStageType(MST_NORMAL);
+	pStage->SetStageType(CCST_NORMAL);
 	pStage->SetDuelTournamentMatchList(nType, pPickedGroup);
 
 	int nRandomMapIndex = pStage->GetDuelTournamentRandomMapIndex();
@@ -564,7 +564,7 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 			return;
 		}
 
-        pPlayerInfo->m_nTP = pObj->GetDuelTournamentCharInfo()->GetTP();
+        pPlayerInfo->m_iTP = pObj->GetDuelTournamentCharInfo()->GetTP();
 		pPlayerInfo->uidPlayer = pObj->GetUID();
 		strcpy(pPlayerInfo->m_szCharName, pObj->GetCharInfo()->m_szName);
 	}

@@ -9,7 +9,7 @@
 #include "RAnimationMgr.h"
 #include "mempool.h"
 
-class MXmlElement;
+class CCXmlElement;
 
 _NAMESPACE_REALSPACE2_BEGIN
 
@@ -340,7 +340,7 @@ public:
 	bool ReadXml(char* fname);
 	bool SaveXml(char* fname);
 
-	bool ReadXmlElement(MXmlElement* pNode,char* Path);
+	bool ReadXmlElement(CCXmlElement* pNode,char* Path);
 
 	bool ReadElu(char* fname);
 	bool SaveElu(char* fname);

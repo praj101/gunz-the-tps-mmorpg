@@ -269,16 +269,16 @@ void CCQuestItemDescManager::ParseQuestItem( CCXmlElement& element )
 		}
 		else if( 0 == strcmp(MQICTOK_TYPE, szAttrName) )
 		{
-			if( 0 == strcmp(szAttrValue, "page") )				pNewQuestItemDesc->m_nType = MMQIT_PAGE;
-			else if( 0 == strcmp(szAttrValue, "skull") )		pNewQuestItemDesc->m_nType = MMQIT_SKULL;
-			else if( 0 == strcmp(szAttrValue, "fresh") )		pNewQuestItemDesc->m_nType = MMQIT_FRESH;
-			else if( 0 == strcmp(szAttrValue, "ring") )			pNewQuestItemDesc->m_nType = MMQIT_RING;
-			else if( 0 == strcmp(szAttrValue, "necklace") )		pNewQuestItemDesc->m_nType = MMQIT_NECKLACE;
-			else if( 0 == strcmp(szAttrValue, "doll") )			pNewQuestItemDesc->m_nType = MMQIT_DOLL;
-			else if( 0 == strcmp(szAttrValue, "book") )			pNewQuestItemDesc->m_nType = MMQIT_BOOK;
-			else if( 0 == strcmp(szAttrValue, "object") )		pNewQuestItemDesc->m_nType = MMQIT_OBJECT;
-			else if( 0 == strcmp(szAttrValue, "sword") )		pNewQuestItemDesc->m_nType = MMQIT_SWORD;
-			else if( 0 == stricmp(szAttrValue, "monbible") )	pNewQuestItemDesc->m_nType = MMQIT_MONBIBLE;
+			if( 0 == strcmp(szAttrValue, "page") )				pNewQuestItemDesc->m_nType = CCQIT_PAGE;
+			else if( 0 == strcmp(szAttrValue, "skull") )		pNewQuestItemDesc->m_nType = CCQIT_SKULL;
+			else if( 0 == strcmp(szAttrValue, "fresh") )		pNewQuestItemDesc->m_nType = CCQIT_FRESH;
+			else if( 0 == strcmp(szAttrValue, "ring") )			pNewQuestItemDesc->m_nType = CCQIT_RING;
+			else if( 0 == strcmp(szAttrValue, "necklace") )		pNewQuestItemDesc->m_nType = CCQIT_NECKLACE;
+			else if( 0 == strcmp(szAttrValue, "doll") )			pNewQuestItemDesc->m_nType = CCQIT_DOLL;
+			else if( 0 == strcmp(szAttrValue, "book") )			pNewQuestItemDesc->m_nType = CCQIT_BOOK;
+			else if( 0 == strcmp(szAttrValue, "object") )		pNewQuestItemDesc->m_nType = CCQIT_OBJECT;
+			else if( 0 == strcmp(szAttrValue, "sword") )		pNewQuestItemDesc->m_nType = CCQIT_SWORD;
+			else if( 0 == stricmp(szAttrValue, "monbible") )	pNewQuestItemDesc->m_nType = CCQIT_MONBIBLE;
 		}
 		else if( 0 == strcmp(MQICTOK_DESC, szAttrName) )
 		{
@@ -307,7 +307,7 @@ void CCQuestItemDescManager::ParseQuestItem( CCXmlElement& element )
 	insert( value_type(pNewQuestItemDesc->m_nItemID, pNewQuestItemDesc) );
 
 	// Monster bible타입의 퀘스트 아이템은 Param값을 page로 사용함.
-	if( MMQIT_MONBIBLE == pNewQuestItemDesc->m_nType )
+	if( CCQIT_MONBIBLE == pNewQuestItemDesc->m_nType )
 		m_MonsterBibleMgr.insert( map<int, CCQuestItemDesc*>::value_type(pNewQuestItemDesc->m_nParam, pNewQuestItemDesc) );
 }
 
