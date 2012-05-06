@@ -146,8 +146,8 @@ void CCMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, 
 		if (m_NPCManager.DestroyNPCObject(uidNPC, DropItem))
 		{
 			CCCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_DEAD, uidSender);
-			pNew->AddParameter(new MCmdParamUID(uidKiller));
-			pNew->AddParameter(new MCmdParamUID(uidNPC));
+			pNew->AddParameter(new CCCmdParamUID(uidKiller));
+			pNew->AddParameter(new CCCmdParamUID(uidNPC));
 			CCMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
 
 			CheckRewards(uidKiller, &DropItem, pos);
@@ -382,7 +382,7 @@ void CCMatchRuleBaseQuest::PostNewMonsterInfo( const CCUID& uidUser, const char 
 		cclog( "CCMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 생성 실패.\n" );
 		return;
 	}
-	pMonInfoCmd->AddParameter( new MCmdParamChar(nMonIndex) );
+	pMonInfoCmd->AddParameter( new CCCmdParamChar(nMonIndex) );
 
 	if( !CCMatchServer::GetInstance()->Post(pMonInfoCmd) )
 		cclog( "CCMatchRuleBaseQuest::CheckMonsterBible - 새로 습득한 몬스터 정보를 알려주는 커맨드 POST실패.\n" );

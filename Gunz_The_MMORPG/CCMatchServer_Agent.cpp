@@ -90,7 +90,7 @@ void CCMatchServer::ReserveAgent(CCMatchStage* pStage)
 	pStage->SetAgentUID(pFreeAgent->GetUID());
 
 	CCCommand* pCmd = CreateCommand(MC_AGENT_STAGE_RESERVE, pFreeAgent->GetCommListener());
-	pCmd->AddParameter(new MCmdParamUID(pStage->GetUID()));
+	pCmd->AddParameter(new CCCmdParamUID(pStage->GetUID()));
 	Post(pCmd);
 }
 
@@ -117,10 +117,10 @@ void CCMatchServer::LocateAgentToClient(const CCUID& uidPlayer, const CCUID& uid
 	}
 
 	CCCommand* pCmd = CreateCommand(MC_AGENT_LOCATETO_CLIENT, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamUID(uidAgent));
-	pCmd->AddParameter(new MCmdParamStr(pAgent->GetIP()));
-	pCmd->AddParameter(new MCmdParamInt(pAgent->GetTCPPort()));
-	pCmd->AddParameter(new MCmdParamInt(pAgent->GetUDPPort()));
+	pCmd->AddParameter(new CCCmdParamUID(uidAgent));
+	pCmd->AddParameter(new CCCmdParamStr(pAgent->GetIP()));
+	pCmd->AddParameter(new CCCmdParamInt(pAgent->GetTCPPort()));
+	pCmd->AddParameter(new CCCmdParamInt(pAgent->GetUDPPort()));
 	RouteToListener(pChar, pCmd);
 }
 
@@ -172,7 +172,7 @@ void CCMatchServer::OnRegisterAgent(const CCUID& uidComm, char* szIP, int nTCPPo
 		sprintf(szMsg, "TEST_STRING=%d  (%s)", i, szBulk);
 
 		CCCommand* pCmd = CreateCommand(MC_AGENT_DEBUGTEST, pAgent->GetCommListener());
-		pCmd->AddParameter(new MCmdParamStr(szMsg));
+		pCmd->AddParameter(new CCCmdParamStr(szMsg));
 		Post(pCmd);
 	}
 	//////////////////////////////////////////////////////////// */
@@ -208,7 +208,7 @@ void CCMatchServer::OnAgentStageReady(const CCUID& uidCommAgent, const CCUID& ui
 void CCMatchServer::OnRequestLiveCheck(const CCUID& uidComm, unsigned long nTimeStamp, unsigned long nStageCount, unsigned long nUserCount)
 {
 	CCCommand* pCmd = CreateCommand(MC_MATCH_AGENT_RESPONSE_LIVECHECK, uidComm);
-	pCmd->AddParameter(new MCmdParamUInt(nTimeStamp));
+	pCmd->AddParameter(new CCCmdParamUInt(nTimeStamp));
 	PostSafeQueue(pCmd);
 }
 
@@ -223,7 +223,7 @@ void CCMatchServer::OnPeerReady(const CCUID& uidChar, const CCUID& uidPeer)
 	LocateAgentToClient(uidChar, pStage->GetAgentUID());
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_PEER_RELAY, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamUID(uidPeer));
+	pCmd->AddParameter(new CCCmdParamUID(uidPeer));
 	RouteToListener(pChar, pCmd);
 
 	static int nCount = 0;
@@ -254,7 +254,7 @@ void CCMatchServer::OnRequestRelayPeer(const CCUID& uidChar, const CCUID& uidPee
 		if (pAgent == NULL) {
 			// Notify Agent not ready
 			CCCommand* pCmd = CreateCommand(MC_AGENT_ERROR, CCUID(0,0));
-			pCmd->AddParameter(new MCmdParamInt(0));
+			pCmd->AddParameter(new CCCmdParamInt(0));
 			RouteToListener(pChar, pCmd);
 			return;
 		}
@@ -272,15 +272,15 @@ void CCMatchServer::OnRequestRelayPeer(const CCUID& uidChar, const CCUID& uidPee
 
 	// Send Relay order to Agent
 	CCCommand* pCmd = CreateCommand(MC_AGENT_RELAY_PEER, pAgent->GetCommListener());
-	pCmd->AddParameter(new MCmdParamUID(uidChar));
-	pCmd->AddParameter(new MCmdParamUID(uidPeer));
-	pCmd->AddParameter(new MCmdParamUID(pStage->GetUID()));
+	pCmd->AddParameter(new CCCmdParamUID(uidChar));
+	pCmd->AddParameter(new CCCmdParamUID(uidPeer));
+	pCmd->AddParameter(new CCCmdParamUID(pStage->GetUID()));
 	Post(pCmd);
 
 /*	CCCommand* pCmd2 = CreateCommand(MC_AGENT_RELAY_PEER, pAgent->GetCommListener());
-	pCmd2->AddParameter(new MCmdParamUID(uidPeer));
-	pCmd2->AddParameter(new MCmdParamUID(uidChar));
-	pCmd2->AddParameter(new MCmdParamUID(pStage->GetUID()));
+	pCmd2->AddParameter(new CCCmdParamUID(uidPeer));
+	pCmd2->AddParameter(new CCCmdParamUID(uidChar));
+	pCmd2->AddParameter(new CCCmdParamUID(pStage->GetUID()));
 	Post(pCmd2);*/
 
 //	for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {

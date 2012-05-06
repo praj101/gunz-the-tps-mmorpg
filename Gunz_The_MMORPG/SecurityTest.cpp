@@ -6,6 +6,6 @@
 
 void testCallstack()
 {
-	mlog( "Call testCallstack.\n" );
+	cclog( "Call testCallstack.\n" );
 	CHECK_RETURN_CALLSTACK(testCallstack);
 }

@@ -314,7 +314,7 @@ protected:
 	void OnReserveObserver();
 	void DrawDebugInfo();
 
-	void OnStageEnterBattle(MCmdEnterBattleParam nParam, CCTD_PeerListNode* pPeerNode);
+	void OnStageEnterBattle(CCCmdEnterBattleParam nParam, CCTD_PeerListNode* pPeerNode);
 	void OnStageLeaveBattle(const CCUID& uidChar, const bool bIsRelayMap);//, const CCUID& uidStage);
 	void OnPeerList(const CCUID& uidStage, void* pBlob, int nCount);
 	void OnAddPeer(const CCUID& uidChar, DWORD dwIP, const int nPort =	

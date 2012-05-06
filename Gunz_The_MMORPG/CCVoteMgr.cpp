@@ -95,8 +95,8 @@ void CCVoteMgr::FinishDiscuss(bool bJudge)
 {
 	if (GetDiscuss()) {
 		CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_VOTERESULT, CCUID(0,0));
-		pCmd->AddParameter(new MCmdParamStr(GetDiscuss()->GetDiscussName()));
-		pCmd->AddParameter(new MCmdParamInt(bJudge?1:0));
+		pCmd->AddParameter(new CCCmdParamStr(GetDiscuss()->GetDiscussName()));
+		pCmd->AddParameter(new CCCmdParamInt(bJudge?1:0));
 		CCMatchServer::GetInstance()->RouteToStage(GetDiscuss()->GetStageUID(), pCmd);
 
 		GetDiscuss()->OnJudge(bJudge);

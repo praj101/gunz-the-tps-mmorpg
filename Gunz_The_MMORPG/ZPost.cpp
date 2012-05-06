@@ -20,7 +20,7 @@ void ZPostUserOption()
 	if (Z_ETC_REJECT_INVITE)
 		nOptionFlags |= MBITFLAG_USEROPTION_REJECT_INVITE;
 
-	ZPOSTCMD1(MC_MATCH_USER_OPTION, MCmdParamUInt(nOptionFlags));
+	ZPOSTCMD1(MC_MATCH_USER_OPTION, CCCmdParamUInt(nOptionFlags));
 }
 
 

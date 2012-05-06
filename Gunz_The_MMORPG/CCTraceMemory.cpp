@@ -136,7 +136,7 @@ void MDumpCallStack(int lRequest);
 
 int MyReportHook( int reportType, char *message, int *returnValue )
 {
-//	mlog("test : %s\n",message);
+//	cclog("test : %s\n",message);
 
 	// {1234} 와 같은형식의 memory leak 리포트를 가로채서 콜스택을 덤프한다
 	if(message[0]=='{' && message[strlen(message)-2]=='}' && message[strlen(message)-1]==' ') {

@@ -575,8 +575,8 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 		return;
 	}
 
-	pCmd->AddParameter(new MCmdParamUID(uidStage));
-	pCmd->AddParameter(new MCmdParamInt(nType));
+	pCmd->AddParameter(new CCCmdParamUID(uidStage));
+	pCmd->AddParameter(new CCCmdParamInt(nType));
 	pCmd->AddParameter(new CCCommandParameterBlob(pBlobPlayerInfo, CCGetBlobArraySize(pBlobPlayerInfo)));
 	CCEraseBlobArray( pBlobPlayerInfo );
 
@@ -595,8 +595,8 @@ void CCMatchServer::RouteCmdDuelTournamentLaunchMatch(CCUID uidStage)
 	if (pStage == NULL) return;
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_LAUNCH_MATCH, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamUID(uidStage));
-	pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
+	pCmd->AddParameter(new CCCmdParamUID(uidStage));
+	pCmd->AddParameter(new CCCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
 	RouteToStage(uidStage, pCmd);
 }
 
@@ -612,14 +612,14 @@ void CCMatchServer::RouteCmdDuelTournamentCancelMatch(CCDuelTournamentPickedGrou
 void CCMatchServer::RouteCmdDuelTournamentMTDGameInfo(const CCUID& uidStage, CCTD_DuelTournamentGameInfo& GameInfo)
 {
 	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_INFO, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamBlob(&GameInfo, sizeof(CCTD_DuelTournamentGameInfo)));
+	pCmd->AddParameter(new CCCmdParamBlob(&GameInfo, sizeof(CCTD_DuelTournamentGameInfo)));
 	RouteToBattle(uidStage, pCmd);
 }
 
 void CCMatchServer::RouteCmdDuelTournamentMTDNextGamePlayerInfo(const CCUID& uidStage, CCTD_DuelTournamentNextMatchPlayerInfo& PlayerInfo)
 {
 	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_NEXT_MATCH_PLYAERINFO, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamBlob(&PlayerInfo, sizeof(CCTD_DuelTournamentNextMatchPlayerInfo)));
+	pCmd->AddParameter(new CCCmdParamBlob(&PlayerInfo, sizeof(CCTD_DuelTournamentNextMatchPlayerInfo)));
 	RouteToBattle(uidStage, pCmd);
 }
 
@@ -627,14 +627,14 @@ void CCMatchServer::RouteCmdDuelTournamentMTDNextGamePlayerInfo(const CCUID& uid
 void CCMatchServer::RouteCmdDuelTournamentMTDRoundResultInfo(const CCUID& uidStage, CCTD_DuelTournamentRoundResultInfo* RoundResultInfo)
 {
 	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_ROUND_RESULT_INFO, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamBlob(RoundResultInfo, sizeof(CCTD_DuelTournamentRoundResultInfo)));
+	pCmd->AddParameter(new CCCmdParamBlob(RoundResultInfo, sizeof(CCTD_DuelTournamentRoundResultInfo)));
 	RouteToBattle(uidStage, pCmd);
 }
 
 void CCMatchServer::RouteCmdDuelTournamentMTDMatchResultInfo(const CCUID& uidStage, CCTD_DuelTournamentMatchResultInfo* MatchResultInfo)
 {
 	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_GAME_MATCH_RESULT_INFO, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamBlob(MatchResultInfo, sizeof(CCTD_DuelTournamentMatchResultInfo)));
+	pCmd->AddParameter(new CCCmdParamBlob(MatchResultInfo, sizeof(CCTD_DuelTournamentMatchResultInfo)));
 	RouteToBattle(uidStage, pCmd);
 }
 

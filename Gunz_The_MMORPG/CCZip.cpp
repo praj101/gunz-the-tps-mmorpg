@@ -127,7 +127,7 @@ CCZip::CCZip(void)
 	m_pDirData = NULL;
 	m_ppDir = NULL;
 	m_iDirEntries = 0;
-	m_iZipMode = ZMode_Zip;
+	m_iZipMode = CCModeZip;
 //	m_dwReadMode = CCZIPREADFLAG_ZIP | CCZIPREADFLAG_MRS | CCZIPREADFLAG_MRS2 | CCZIPREADFLAG_FILE;
 	m_dwReadMode = 0;
 }
@@ -139,13 +139,13 @@ CCZip::~CCZip(void)
 
 bool CCZip::isReadAble(unsigned long mode)
 {
-	if(m_iZipMode == ZMode_Zip) {
+	if(m_iZipMode == CCModeZip) {
 		return ( CCZIPREADFLAG_ZIP & mode) ? true : false ; 	
 	}
-	else if(m_iZipMode == ZMode_Mrs) {
+	else if(m_iZipMode == CCModeMrs) {
 		return ( CCZIPREADFLAG_MRS & mode) ? true : false ; 
 	}
-	else if(m_iZipMode == ZMode_Mrs2) {
+	else if(m_iZipMode == CCModeMrs2) {
 		return ( CCZIPREADFLAG_MRS2 & mode) ? true : false ; 
 	}
 	return false;
@@ -163,18 +163,18 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 	m_dwReadMode = ReadMode;
 
 	if(isZip(fp)) {
-		m_iZipMode = ZMode_Zip;
+		m_iZipMode = CCModeZip;
 		//If the player that is not supported by ...
 		if(isMode(CCZIPREADFLAG_ZIP)==false)
 			return false;
 	}
 	else if(isVersion1Mrs(fp)) {
-		m_iZipMode = ZMode_Mrs;
+		m_iZipMode = CCModeMrs;
 		if(isMode(CCZIPREADFLAG_MRS)==false)
 			return false;
 	}
 	else {//mrs2 more ...
-		m_iZipMode = ZMode_Mrs2;
+		m_iZipMode = CCModeMrs2;
 		if(isMode(CCZIPREADFLAG_MRS2)==false)
 			return false;
 	}
@@ -186,7 +186,7 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 	memset(&dh, 0, sizeof(dh));
 	fread(&dh, sizeof(dh), 1, fp);
 
-	if( m_iZipMode>=ZMode_Mrs2 )							// mrs2 more data from the recovery.
+	if( m_iZipMode>=CCModeMrs2 )							// mrs2 more data from the recovery.
 		RecoveryChar((char*)&dh,sizeof(CCZIPDIRHEADER));		//v2 is greater than ...
 
 	//If you are manipulating the data .... zip, mrs1, mrs2 Unless the all ...
@@ -201,7 +201,7 @@ bool CCZip::Initialize(FILE* fp,unsigned long ReadMode)
 	memset(m_pDirData, 0, dh.dirSize + dh.nDirEntries*sizeof(*m_ppDir));
 	fread(m_pDirData, dh.dirSize, 1, fp);
 
-	if( m_iZipMode>=ZMode_Mrs2 )
+	if( m_iZipMode>=CCModeMrs2 )
 		RecoveryChar( (char*)m_pDirData , dh.dirSize );//mrs If the conversion.
 
 	char *pfh = m_pDirData;
@@ -364,7 +364,7 @@ bool CCZip::ReadFile(int i, void* pBuffer, int nMaxSize)
 
 	fread(&h, sizeof(h), 1, m_fp);
 
-	if(m_iZipMode >= ZMode_Mrs2)
+	if(m_iZipMode >= CCModeMrs2)
 		RecoveryChar((char*)&h,sizeof(h));
 
 	if(h.sig!=CCZIPLOCALHEADER::SIGNATURE)

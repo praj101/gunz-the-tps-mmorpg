@@ -135,7 +135,7 @@ protected:
 
 	void OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsigned int nRoomNo, char* szStageName);
 	void OnStageLeave(const CCUID& uidChar, const CCUID& uidStage);
-//	void OnStageEnterBattle(const CCUID& uidChar, const CCUID& uidStage, MCmdEnterBattleParam nParam, CCTD_PeerListNode* pPeerNode);
+//	void OnStageEnterBattle(const CCUID& uidChar, const CCUID& uidStage, CCCmdEnterBattleParam nParam, CCTD_PeerListNode* pPeerNode);
 //	void OnStageLeaveBattle(const CCUID& uidChar, const CCUID& uidStage);
 	void OnStageStart(const CCUID& uidChar, const CCUID& uidStage, int nCountdown);
 	void OnStageRelayStart();
@@ -308,7 +308,7 @@ public:
 	void RequestGameSuicide();
 	// game 에서 불러준다
 	//void OnGameRoundState(const CCUID& uidStage, int nRoundState, int nRound);
-	void OnStageEnterBattle(const CCUID& uidChar, MCmdEnterBattleParam nParam);
+	void OnStageEnterBattle(const CCUID& uidChar, CCCmdEnterBattleParam nParam);
 public:
 	// Validate 씨리즈
 	int ValidateRequestDeleteChar();

@@ -691,7 +691,7 @@ void ZGameClient::OnChannelResponseRule(const CCUID& uidchannel, const char* psz
 	if ( pWidget)		pWidget->Enable( bEnable);
 }
 
-void ZGameClient::OnStageEnterBattle(const CCUID& uidChar, MCmdEnterBattleParam nParam)
+void ZGameClient::OnStageEnterBattle(const CCUID& uidChar, CCCmdEnterBattleParam nParam)
 {	
 	// 이것은 ZGame 에서 불러준다
 	if (uidChar == GetPlayerUID())		// enter한사람이 나자신일 경우
@@ -1476,7 +1476,7 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 {
 	CCMatchClient::OnSockError(sock, ErrorEvent, ErrorCode);
 
-	ZPOSTCMD1(MC_NET_ONERROR, MCmdParamInt(ErrorCode));
+	ZPOSTCMD1(MC_NET_ONERROR, CCCmdParamInt(ErrorCode));
 
 	if (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_NETMARBLE) {	
 		// 넷마블에서 로그인

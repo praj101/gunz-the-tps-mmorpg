@@ -138,7 +138,7 @@ void InitBTDummyClient()
 			// 서버에 연결한다
 			char szCmd[256];
 			sprintf(szCmd, "%s:%u", pAddr->GetText(), atoi(pPort->GetText()));
-			ZBIRDPOSTCMD1(&g_DummyClient[nCaseCounter], MC_NET_CONNECT, MCmdParamStr(szCmd));
+			ZBIRDPOSTCMD1(&g_DummyClient[nCaseCounter], MC_NET_CONNECT, CCCmdParamStr(szCmd));
 
 			nCaseCounter++;
 		}
@@ -192,7 +192,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, CCCommand* pCmd)
 			sprintf(g_szBT_ID, "BirdTest%d", pClient->GetDummyID());
 			char szPassword[256] = "1111";
 
-			ZBIRDPOSTCMD4(pClient, MC_MATCH_LOGIN, MCmdParamStr(g_szBT_ID), MCmdParamStr(szPassword), CCCommandParameterInt(MCOMMAND_VERSION),
+			ZBIRDPOSTCMD4(pClient, MC_MATCH_LOGIN, CCCmdParamStr(g_szBT_ID), CCCmdParamStr(szPassword), CCCommandParameterInt(MCOMMAND_VERSION),
 						CCCommandParameterUInt(0));
 		}
 		return true;
@@ -210,7 +210,7 @@ bool OnCommonLogin(ZBirdDummyClient* pClient, CCCommand* pCmd)
 
 			char szCmd[256];
 			sprintf(szCmd, "%s:%u", pAddr->GetText(), atoi(pPort->GetText()));
-			ZBIRDPOSTCMD1(pClient, MC_NET_CONNECT, MCmdParamStr(szCmd));
+			ZBIRDPOSTCMD1(pClient, MC_NET_CONNECT, CCCmdParamStr(szCmd));
 		}
 		return true;
 	case MC_NET_ONERROR:
@@ -315,7 +315,7 @@ void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 			sprintf(g_szBT_ID, "BirdTest%d", pClient->GetDummyID());
 			char szPassword[256] = "1111";
 
-			ZBIRDPOSTCMD4(pClient, MC_MATCH_LOGIN, MCmdParamStr(g_szBT_ID), MCmdParamStr(szPassword), CCCommandParameterInt(MCOMMAND_VERSION),
+			ZBIRDPOSTCMD4(pClient, MC_MATCH_LOGIN, CCCmdParamStr(g_szBT_ID), CCCmdParamStr(szPassword), CCCommandParameterInt(MCOMMAND_VERSION),
 						CCCommandParameterUInt(0));
 
 
@@ -340,7 +340,7 @@ void OnBTDummyConnFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 
 			char szCmd[256];
 			sprintf(szCmd, "%s:%u", pAddr->GetText(), atoi(pPort->GetText()));
-			ZBIRDPOSTCMD1(pClient, MC_NET_CONNECT, MCmdParamStr(szCmd));
+			ZBIRDPOSTCMD1(pClient, MC_NET_CONNECT, CCCmdParamStr(szCmd));
 			return;
 		}
 		break;
@@ -400,7 +400,7 @@ void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pC
 			ZBIRDPOSTCMD3(pClient, MC_MATCH_CHANNEL_REQUEST_CHAT,
                 CCCommandParameterUID(pClient->GetPlayerUID()), 
 				CCCommandParameterUID(pClient->GetChannelUID()), 
-				MCmdParamStr(g_szDummyChattingMsg[nChatIndex])	);
+				CCCmdParamStr(g_szDummyChattingMsg[nChatIndex])	);
 		}
 		break;
 	case MC_MATCH_CHANNEL_CHAT:
@@ -418,7 +418,7 @@ void OnBTDummyChannelChatFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pC
 				ZBIRDPOSTCMD3(pClient, MC_MATCH_CHANNEL_REQUEST_CHAT,
 					CCCommandParameterUID(pClient->GetPlayerUID()), 
 					CCCommandParameterUID(pClient->GetChannelUID()), 
-					MCmdParamStr(g_szDummyChattingMsg[nChatIndex]));
+					CCCmdParamStr(g_szDummyChattingMsg[nChatIndex]));
 			}
 
 			static unsigned long int st_nChatCount = 0;
@@ -441,7 +441,7 @@ void OnBTDummyEchoFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 	{
 	case MC_NET_ONCONNECT:
 		{
-			ZBIRDPOSTCMD1(pClient, MC_NET_ECHO, MCmdParamStr("무궁화 꽃이 피었습니다.무궁화 꽃이 피었습니다.무궁화 꽃이 피었습니다."));
+			ZBIRDPOSTCMD1(pClient, MC_NET_ECHO, CCCmdParamStr("무궁화 꽃이 피었습니다.무궁화 꽃이 피었습니다.무궁화 꽃이 피었습니다."));
 		}
 		break;
 	case MC_NET_ONDISCONNECT:
@@ -465,7 +465,7 @@ void OnBTDummyEchoFloodOnCommand(ZBirdDummyClient* pClient, CCCommand* pCmd)
 				AddToLogFrame(pClient->GetDummyID(), szTemp);
 			}
 
-			ZBIRDPOSTCMD1(pClient, MC_NET_ECHO, MCmdParamStr("무궁화 꽃이 피었습니다.무궁화 꽃이 피었습니다.무궁화 꽃이 피었습니다."));
+			ZBIRDPOSTCMD1(pClient, MC_NET_ECHO, CCCmdParamStr("무궁화 꽃이 피었습니다.무궁화 꽃이 피었습니다.무궁화 꽃이 피었습니다."));
 		}
 		break;
 	}

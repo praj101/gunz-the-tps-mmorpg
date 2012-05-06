@@ -19,7 +19,7 @@ bool ZVoteInterface::OnVoteRun(int nTargetIndex)
 
 	string strTarget = m_TargetList[nTargetIndex];
 
-	ZPOSTCMD2(MC_MATCH_CALLVOTE, MCmdParamStr("kick"), MCmdParamStr(strTarget.c_str()) );
+	ZPOSTCMD2(MC_MATCH_CALLVOTE, CCCmdParamStr("kick"), CCCmdParamStr(strTarget.c_str()) );
 	ZPOSTCMD0(MC_MATCH_VOTE_YES);	
 
 	Clear();

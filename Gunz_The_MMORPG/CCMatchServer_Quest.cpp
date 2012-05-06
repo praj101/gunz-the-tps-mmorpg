@@ -287,8 +287,8 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 		// 임시로 CCMatchItem에서 사용하는걸 사용했음.
 		// 필요하면 Quest item에 맞는 커맨드로 수정해야 함.
 		CCCommand* pBPLess = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
-		pBPLess->AddParameter( new MCmdParamInt(MERR_TOO_EXPENSIVE_BOUNTY) );
-		pBPLess->AddParameter( new MCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
+		pBPLess->AddParameter( new CCCmdParamInt(MERR_TOO_EXPENSIVE_BOUNTY) );
+		pBPLess->AddParameter( new CCCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
 		RouteToListener(pPlayer, pBPLess);
 		return;
 	}
@@ -303,8 +303,8 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 			// 가질수 있는 아이템의 최대 수를 넘어섰음.
 			// 임시로 CCMatchItem에서 사용하는걸 사용했음. 필요하면 Quest item에 맞는 커맨드로 수정해야 함.
 			CCCommand* pTooMany = CreateCommand( MC_MATCH_RESPONSE_BUY_QUEST_ITEM, CCUID(0,0) );
-			pTooMany->AddParameter( new MCmdParamInt(MERR_TOO_MANY_ITEM) );
-			pTooMany->AddParameter( new MCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
+			pTooMany->AddParameter( new CCCmdParamInt(MERR_TOO_MANY_ITEM) );
+			pTooMany->AddParameter( new CCCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
 			RouteToListener(pPlayer, pTooMany);
 			return;
 		}
@@ -380,7 +380,7 @@ void CCMatchServer::OnResponseSellQuestItem( const CCUID& uidSender, const unsig
 		if (!m_MatchDBMgr.UpdateCharBP(pPlayer->GetCharInfo()->m_nCID, nPrice))	{
 			/*
 			CCCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_SELL_ITEM, CCUID(0,0));
-			pNew->AddParameter(new MCmdParamInt(MERR_CANNOT_SELL_ITEM));
+			pNew->AddParameter(new CCCmdParamInt(MERR_CANNOT_SELL_ITEM));
 			RouteToListener(pObj, pNew);
 
 			return false;
@@ -406,8 +406,8 @@ void CCMatchServer::OnResponseSellQuestItem( const CCUID& uidSender, const unsig
 		return;
 	}
 
-	pCmd->AddParameter( new MCmdParamInt(MOK) );
-	pCmd->AddParameter( new MCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
+	pCmd->AddParameter( new CCCmdParamInt(MOK) );
+	pCmd->AddParameter( new CCCmdParamInt(pPlayer->GetCharInfo()->m_nBP) );
 	RouteToListener( pPlayer, pCmd );
 
 	// 퀘스트 아이템 리스트를 다시 전송함.
@@ -628,7 +628,7 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const CCUID& uidSender )
 		return;
 	}
 
-	pCmd->AddParameter( new MCmdParamUID(uidSender) );
+	pCmd->AddParameter( new CCCmdParamUID(uidSender) );
 	pCmd->AddParameter( new CCCommandParameterBlob(pMonBibleInfoBlob, CCGetBlobArraySize(pMonBibleInfoBlob)) );
 
 	RouteToListener( pObj, pCmd );

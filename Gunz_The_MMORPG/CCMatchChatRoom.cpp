@@ -76,9 +76,9 @@ void CCMatchChatRoom::RouteChat(const CCUID& uidSender, char* pszMessage)
 		CCMatchObject* pTargetObj = pServer->GetObject(uidTarget);
 		if (pTargetObj) {
 			CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_CHATROOM_CHAT, CCUID(0,0));
-			pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(GetName()) ));
-			pCmd->AddParameter(new MCmdParamStr(pSenderObj->GetName()));
-			pCmd->AddParameter(new MCmdParamStr(pszMessage));
+			pCmd->AddParameter(new CCCmdParamStr( const_cast<char*>(GetName()) ));
+			pCmd->AddParameter(new CCCmdParamStr(pSenderObj->GetName()));
+			pCmd->AddParameter(new CCCmdParamStr(pszMessage));
 			pServer->RouteToListener(pTargetObj, pCmd);
 		}
 	}

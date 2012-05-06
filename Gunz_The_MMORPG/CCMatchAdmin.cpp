@@ -138,9 +138,9 @@ bool CCMatchServer::OnAdminExecute(MAdminArgvInfo* pAI, char* szOut)
 
 
 		CCCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, CCUID(0,0));
-		pCmd->AddParameter(new MCmdParamUID(CCUID(0,0)));
-		pCmd->AddParameter(new MCmdParamStr(szMsg));
-		pCmd->AddParameter(new MCmdParamUInt(nMsgType));
+		pCmd->AddParameter(new CCCmdParamUID(CCUID(0,0)));
+		pCmd->AddParameter(new CCCmdParamStr(szMsg));
+		pCmd->AddParameter(new CCCmdParamUInt(nMsgType));
 
 		RouteToAllClient(pCmd);
 	}
@@ -169,8 +169,8 @@ void CCMatchServer::AdminTerminalOutput(const CCUID& uidAdmin, const char* szTex
 	strcpy(szMsg, szText);
 
 	CCCommand* pCmd = CreateCommand(MC_ADMIN_TERMINAL, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamUID(uidAdmin));
-	pCmd->AddParameter(new MCmdParamStr(szMsg));
+	pCmd->AddParameter(new CCCmdParamUID(uidAdmin));
+	pCmd->AddParameter(new CCCmdParamStr(szMsg));
 
 	RouteToListener(pObj, pCmd);
 }

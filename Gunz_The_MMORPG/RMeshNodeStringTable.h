@@ -5,7 +5,7 @@
 #include <hash_map>
 
 _NAMESPACE_REALSPACE2_BEGIN
-
+;
 enum RMeshNodeNameType
 {
 	RMeshNodeNameType_None = 0,

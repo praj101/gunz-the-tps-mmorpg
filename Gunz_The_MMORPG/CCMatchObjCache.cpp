@@ -80,7 +80,7 @@ void CCMatchObjectCacheBuilder::Reset()
 CCCommand* CCMatchObjectCacheBuilder::GetResultCmd(MATCHCACHEMODE nMode, CCCommandCommunicator* pCmdComm)
 {
 	CCCommand* pCmd = pCmdComm->CreateCommand(MC_MATCH_OBJECT_CACHE, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamUChar(nMode));
+	pCmd->AddParameter(new CCCmdParamUChar(nMode));
 	int nCount = (int)m_ObjectCacheList.size();
 	void* pCacheArray = CCMakeBlobArray(sizeof(CCMatchObjCache), nCount);
 	int nIndex=0;
@@ -99,7 +99,7 @@ CCCommand* CCMatchObjectCacheBuilder::GetResultCmd(MATCHCACHEMODE nMode, CCComma
 
 		pTrgCache->AssignCostume(pSrcCache->GetCostume());
 	}
-	pCmd->AddParameter(new MCmdParamBlob(pCacheArray, CCGetBlobArraySize(pCacheArray)));
+	pCmd->AddParameter(new CCCmdParamBlob(pCacheArray, CCGetBlobArraySize(pCacheArray)));
 	CCEraseBlobArray(pCacheArray);
 
 	return pCmd;

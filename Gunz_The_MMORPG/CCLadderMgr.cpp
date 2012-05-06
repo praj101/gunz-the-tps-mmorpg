@@ -120,7 +120,7 @@ void MLadderMgr::CancelChallenge(int nGroupID, const char* pszCancelName)
 		pMemberObject->SetLadderGroupID(0);
 
 		CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_CANCEL_CHALLENGE, uidMember);
-		pCmd->AddParameter(new MCmdParamStr(pszCancelName));
+		pCmd->AddParameter(new CCCmdParamStr(pszCancelName));
 
 		CCMatchObject* pObj = CCMatchServer::GetInstance()->GetObject(uidMember);
 		if (!IsEnabledObject(pObj))

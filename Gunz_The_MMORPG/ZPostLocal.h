@@ -18,7 +18,7 @@ inline void ZPostLocalMessage(int nMessageID)
 
 inline void ZPostLocalEventOptainSpecialWorldItem(const int nWorldItemID)
 {
-	ZPOSTCMD1(ZC_EVENT_OPTAIN_SPECIAL_WORLDITEM, MCmdParamInt(nWorldItemID));
+	ZPOSTCMD1(ZC_EVENT_OPTAIN_SPECIAL_WORLDITEM, CCCmdParamInt(nWorldItemID));
 }
 
 

@@ -71,7 +71,7 @@ CCMatchPeerInfoList::~CCMatchPeerInfoList()
 {
 	Clear();
 	DeleteCriticalSection(&m_csLock);
-	mlog("PeerInfoList Released\n");
+	cclog("PeerInfoList Released\n");
 }
 
 bool CCMatchPeerInfoList::Delete(CCMatchPeerInfo* pPeerInfo)
@@ -171,7 +171,7 @@ CCMatchClient::CCMatchClient()
 	SetAgentPeerPort(7776);
 
 	m_szServerName[0] = 0;
-	m_nServerMode = MSM_NORMAL;
+	m_nServerMode = CSM_NORMAL;
 	m_bEnabledSurvivalMode = false;
 	m_bEnabledDuelTournament = false;
 
@@ -459,7 +459,7 @@ int CCMatchClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID,
 		nErrorCode = WSAGetLastError();
 	char* pszIP = inet_ntoa(SockAddr.sin_addr);
 	unsigned int nPort = ntohs(SockAddr.sin_port);
-	mlog("UDP Address = %s:%d \n", pszIP, nPort);
+	cclog("UDP Address = %s:%d \n", pszIP, nPort);
 #endif
 
 	if (sock == m_ClientSocket.GetSocket()) {
@@ -486,7 +486,7 @@ void CCMatchClient::OnAgentConnected(const CCUID& uidAgentServer, const CCUID& u
 	m_AgentPacketCrypter.InitKey(&key);
 
 //	CCCommand* pCmd = CreateCommand(MC_AGENT_PEER_BIND, GetAgentServerUID());
-//	pCmd->AddParameter(new MCmdParamUID(GetPlayerUID()));
+//	pCmd->AddParameter(new CCCmdParamUID(GetPlayerUID()));
 //	Post(pCmd);
 }
 
@@ -576,7 +576,7 @@ void CCMatchClient::OnUDPTestReply(const CCUID& uidChar)
 char szLog[64];
 sprintf(szLog, "[%d:%d] UDP_TEST_REPLY: from (%d:%d) \n", 
 		GetPlayerUID().High, GetPlayerUID().Low, uidChar.High, uidChar.Low);
-mlog(szLog);
+cclog(szLog);
 #endif
 /////////////////////////////////////////////////
 	CCMatchPeerInfo* pPeer = FindPeer(uidChar);
@@ -597,8 +597,8 @@ void CCMatchClient::UpdateUDPTestProcess()
 				pPeer->StopUDPTest();
 
 				CCCommand* pCmd = CreateCommand(MC_MATCH_REQUEST_PEER_RELAY, GetServerUID());
-				pCmd->AddParameter(new MCmdParamUID(GetPlayerUID()));
-				pCmd->AddParameter(new MCmdParamUID(pPeer->uidChar));
+				pCmd->AddParameter(new CCCmdParamUID(GetPlayerUID()));
+				pCmd->AddParameter(new CCCmdParamUID(pPeer->uidChar));
 				Post(pCmd);
 			} else {
 				nProcessCount++;
@@ -612,10 +612,10 @@ void CCMatchClient::UpdateUDPTestProcess()
 void CCMatchClient::OnResponseAgentLogin()
 {
 	CCCommand* pCmd = CreateCommand(MC_AGENT_PEER_BINDTCP, GetAgentServerUID());
-	pCmd->AddParameter(new MCmdParamUID(GetPlayerUID()));
+	pCmd->AddParameter(new CCCmdParamUID(GetPlayerUID()));
 	Post(pCmd);	
 
-	mlog("Logged in Agent, Bind TCP \n");
+	cclog("Logged in Agent, Bind TCP \n");
 }
 
 void CCMatchClient::OnLocateAgentToClient(const CCUID& uidAgent, char* szIP, int nPort, int nUDPPort)
@@ -626,12 +626,12 @@ void CCMatchClient::OnLocateAgentToClient(const CCUID& uidAgent, char* szIP, int
 	if (GetBridgePeerFlag() == false) {
 		AgentConnect(NULL, szIP, nPort);
 // #ifdef _DEBUG
-		mlog("Connect to Agent by TCP (%s:%d) \n", szIP, nPort);
+		cclog("Connect to Agent by TCP (%s:%d) \n", szIP, nPort);
 // #endif
 	} else {
 		StartAgentPeerConnect();
 // #ifdef _DEBUG
-		mlog("Connect to Agent by UDP (%s:%d) \n", szIP, nPort);
+		cclog("Connect to Agent by UDP (%s:%d) \n", szIP, nPort);
 // #endif
 	}
 }
@@ -640,7 +640,7 @@ CCCommand* CCMatchClient::MakeCmdFromTunnelingBlob(const CCUID& uidSender, void*
 {
 	if (nBlobArrayCount != 1) 
 	{
-		mlog("MakeCmdFromTunnelingBlob: BlobArrayCount is not 1\n");
+		cclog("MakeCmdFromTunnelingBlob: BlobArrayCount is not 1\n");
 		return NULL;
 	}
 
@@ -649,7 +649,7 @@ CCCommand* CCMatchClient::MakeCmdFromTunnelingBlob(const CCUID& uidSender, void*
 	int nSize = CCGetBlobArraySize(pBlob) - (sizeof(int) * 2);
 	if ((nSize <= 0) || (nSize >= MAX_BLOB_SIZE))
 	{
-		mlog("MakeCmdFromTunnelingBlob: Blob Size Error(size = %d)\n", nSize);
+		cclog("MakeCmdFromTunnelingBlob: Blob Size Error(size = %d)\n", nSize);
 		return NULL;
 	}
 
@@ -714,7 +714,7 @@ void CCMatchClient::OnAllowTunnelingUDP()
 {
 	SetAllowTunneling(true);
 	SetAgentPeerFlag(true);
-	mlog("TUNNELING_UDP_ALLOWED \n");
+	cclog("TUNNELING_UDP_ALLOWED \n");
 }
 
 void CCMatchClient::OnAgentError(int nError)
@@ -853,7 +853,7 @@ bool CCMatchClient::MakeTunnelingCommandBlob(CCCommand* pWrappingCmd, CCCommand*
 	char* pCmdBlock = (char*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pCmdBlock, pCmdData, nSize);
 
-	pWrappingCmd->AddParameter(new MCmdParamBlob(pBlob, CCGetBlobArraySize(pBlob)));
+	pWrappingCmd->AddParameter(new CCCmdParamBlob(pBlob, CCGetBlobArraySize(pBlob)));
 
 	CCEraseBlobArray(pBlob);
 	delete [] pCmdData;
@@ -867,8 +867,8 @@ void CCMatchClient::SendCommandByTunneling(CCCommand* pCommand)
 	} else {
 		if (GetBridgePeerFlag() == false) {
 			CCCommand* pCmd = CreateCommand(MC_AGENT_TUNNELING_TCP, GetAgentServerUID());
-				pCmd->AddParameter(new MCmdParamUID(GetPlayerUID()));
-				pCmd->AddParameter(new MCmdParamUID(pCommand->GetReceiverUID()));
+				pCmd->AddParameter(new CCCmdParamUID(GetPlayerUID()));
+				pCmd->AddParameter(new CCCmdParamUID(pCommand->GetReceiverUID()));
 				
 				// Create Param : Command Blob ////
 				if (!MakeTunnelingCommandBlob(pCmd, pCommand))
@@ -880,8 +880,8 @@ void CCMatchClient::SendCommandByTunneling(CCCommand* pCommand)
 			delete pCmd;	// PACKETQUEUE 만들때까지 delete 임시로 사용
 		} else {
 			CCCommand* pCmd = CreateCommand(MC_AGENT_TUNNELING_UDP, GetAgentServerUID());
-				pCmd->AddParameter(new MCmdParamUID(GetPlayerUID()));
-				pCmd->AddParameter(new MCmdParamUID(pCommand->GetReceiverUID()));
+				pCmd->AddParameter(new CCCmdParamUID(GetPlayerUID()));
+				pCmd->AddParameter(new CCCmdParamUID(pCommand->GetReceiverUID()));
 				// Create Param : Command Blob ////
 				if (!MakeTunnelingCommandBlob(pCmd, pCommand))
 				{
@@ -1029,7 +1029,7 @@ void CCMatchClient::ParseUDPPacket(char* pData, CCPacketHeader* pPacketHeader, D
 			if (pPacketHeader->nCheckSum != nCheckSum) {
 				static int nLogCount = 0;
 				if (nLogCount++ < 100) {	// Log Flooding 방지
-					mlog("CCMatchClient::ParseUDPPacket() -> CHECKSUM ERROR(R=%u/C=%u)\n", 
+					cclog("CCMatchClient::ParseUDPPacket() -> CHECKSUM ERROR(R=%u/C=%u)\n", 
 						pPacketHeader->nCheckSum, nCheckSum);
 				}
 				return;
@@ -1037,7 +1037,7 @@ void CCMatchClient::ParseUDPPacket(char* pData, CCPacketHeader* pPacketHeader, D
 				CCCommand* pCmd = new CCCommand();
 				if (!pCmd->SetData(pData, &m_CommandManager))
 				{
-					mlog("CCMatchClient::ParseUDPPacket() -> SetData Error\n");
+					cclog("CCMatchClient::ParseUDPPacket() -> SetData Error\n");
 
 					delete pCmd;
 					return;
@@ -1083,7 +1083,7 @@ void CCMatchClient::ParseUDPPacket(char* pData, CCPacketHeader* pPacketHeader, D
 					UnlockRecv();
 				} else {
 #ifdef _DEBUG
-					mlog("%s(ID:%d) is Denied Command!\n"
+					cclog("%s(ID:%d) is Denied Command!\n"
 						, pCmd->m_pCommandDesc->GetName(), pCmd->GetID());
 #endif
 				}
@@ -1098,7 +1098,7 @@ void CCMatchClient::ParseUDPPacket(char* pData, CCPacketHeader* pPacketHeader, D
 			if (pPacketHeader->nCheckSum != nCheckSum) {
 				static int nLogCount = 0;
 				if (nLogCount++ < 100) {	// Log Flooding 방지
-					mlog("CCMatchClient::ParseUDPPacket() -> CHECKSUM ERROR(R=%u/C=%u)\n", 
+					cclog("CCMatchClient::ParseUDPPacket() -> CHECKSUM ERROR(R=%u/C=%u)\n", 
 						pPacketHeader->nCheckSum, nCheckSum);
 				}
 				return;
@@ -1109,7 +1109,7 @@ void CCMatchClient::ParseUDPPacket(char* pData, CCPacketHeader* pPacketHeader, D
 
 				if (!m_PeerPacketCrypter.Decrypt(pData, nCmdSize))
 				{
-					mlog("CCMatchClient::ParseUDPPacket() -> Decrypt Error\n");
+					cclog("CCMatchClient::ParseUDPPacket() -> Decrypt Error\n");
 
 					delete pCmd; pCmd = NULL;
 					return;
@@ -1123,7 +1123,7 @@ void CCMatchClient::ParseUDPPacket(char* pData, CCPacketHeader* pPacketHeader, D
 					Addr.sin_port = nPort;
 					char* pszIP = inet_ntoa(Addr.sin_addr);
 
-					mlog("CCMatchClient::ParseUDPPacket() -> MSGID_COMMAND SetData Error(%s:%d), size=%d\n", 
+					cclog("CCMatchClient::ParseUDPPacket() -> MSGID_COMMAND SetData Error(%s:%d), size=%d\n", 
 						pszIP, nPort, nCmdSize);
 
 					delete pCmd; pCmd = NULL;
@@ -1161,7 +1161,7 @@ void CCMatchClient::ParseUDPPacket(char* pData, CCPacketHeader* pPacketHeader, D
 					UnlockRecv();
 				} else {
 #ifdef _DEBUG
-					mlog("%s(ID:%d) is Denied Command!\n"
+					cclog("%s(ID:%d) is Denied Command!\n"
 						, pCmd->m_pCommandDesc->GetName(), pCmd->GetID());
 #endif
 				}
@@ -1229,7 +1229,7 @@ void CCMatchClient::StartUDPTest(const CCUID& uidChar)
 
 void CCMatchClient::InitPeerCrypt(const CCUID& uidStage, unsigned int nChecksum)
 {
-	//mlog("Init Peer Crypt (%u,%u,%u)\n", uidStage.High, uidStage.Low, nChecksum);
+	//cclog("Init Peer Crypt (%u,%u,%u)\n", uidStage.High, uidStage.Low, nChecksum);
 
 	CCPacketCrypterKey key;
 	MMakeSeedKey(&key, CCUID(3465, nChecksum), uidStage, 9578234);

@@ -426,8 +426,8 @@ void CCMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int n
 {
 	// 먹었다고 라우팅
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamUID(uidPlayer));
-	pCmd->AddParameter(new MCmdParamInt(nWorldItemUID));
+	pCmd->AddParameter(new CCCmdParamUID(uidPlayer));
+	pCmd->AddParameter(new CCCmdParamInt(nWorldItemUID));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
 
@@ -435,7 +435,7 @@ void CCMatchWorldItemManager::RouteRemoveWorldItem(int nWorldItemUID)
 {
 	// 없어졌다고 라우팅
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_REMOVE_WORLDITEM, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamInt(nWorldItemUID));
+	pCmd->AddParameter(new CCCmdParamInt(nWorldItemUID));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }
 
