@@ -907,12 +907,12 @@ void PostMapname()
 		if(strcmp(CCMATCH_MAPNAME_RELAYMAP, pszSelItemString) == 0)
 		{
 			// 릴레이맵을 고르면 처음에 맨션맵 하나를 강제로 넣어준다
-			void* pRelayMapListBlob = MMakeBlobArray(sizeof(CCTD_RelayMap), 1);	// 블럭 만들기, 맵리스트 세팅
-			CCTD_RelayMap* pRelayMapList = (CCTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, 0);
+			void* pRelayMapListBlob = CCMakeBlobArray(sizeof(CCTD_RelayMap), 1);	// 블럭 만들기, 맵리스트 세팅
+			CCTD_RelayMap* pRelayMapList = (CCTD_RelayMap*)CCGetBlobArrayElement(pRelayMapListBlob, 0);
 			pRelayMapList->nMapID = MGetMapDescMgr()->GetMapID(CCMATCH_MAP_MANSION);
 
 			ZPostStageRelayMapInfoUpdate(ZGetGameClient()->GetStageUID(), RELAY_MAP_TURN, RELAY_MAP_3REPEAT, pRelayMapListBlob);
-			MEraseBlobArray(pRelayMapListBlob);
+			CCEraseBlobArray(pRelayMapListBlob);
 		}
 	}
 }

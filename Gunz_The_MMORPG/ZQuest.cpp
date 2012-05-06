@@ -739,7 +739,7 @@ bool ZQuest::OnQuestGameInfo(CCCommand* pCommand)
 	if(pParam->GetType()!=MPT_BLOB) return false;
 	void* pBlob = pParam->GetPointer();
 
-	CCTD_QuestGameInfo* pQuestGameInfo= (CCTD_QuestGameInfo*)MGetBlobArrayElement(pBlob, 0);
+	CCTD_QuestGameInfo* pQuestGameInfo= (CCTD_QuestGameInfo*)CCGetBlobArrayElement(pBlob, 0);
 	
 	m_GameInfo.Init(pQuestGameInfo);
 
@@ -924,11 +924,11 @@ bool ZQuest::OnQuestCompleted(CCCommand* pCommand)
 	if(pParam->GetType()!=MPT_BLOB) return false;
 
 	void* pBlob = pParam->GetPointer();
-	int nBlobSize = MGetBlobArrayCount(pBlob);
+	int nBlobSize = CCGetBlobArrayCount(pBlob);
 
 	for (int i = 0; i < nBlobSize; i++)
 	{
-		CCTD_QuestReward* pQuestRewardNode = (CCTD_QuestReward*)MGetBlobArrayElement(pBlob, i);
+		CCTD_QuestReward* pQuestRewardNode = (CCTD_QuestReward*)CCGetBlobArrayElement(pBlob, i);
 
 
 		// 여기서 보상 내용을 딴 곳에 저장해서 화면에 보여주면 됩니다. - bird
@@ -1158,11 +1158,11 @@ void ZQuest::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pMyOb
 		pListBox->RemoveAll();
 
 	// 퀘스트 아이템 -----------------
-	nQuestItemCount = MGetBlobArrayCount( pMyObtainQuestItemListBlob );
+	nQuestItemCount = CCGetBlobArrayCount( pMyObtainQuestItemListBlob );
 
 	for( i = 0; i < nQuestItemCount; ++i )
 	{
-		pQuestItemNode = reinterpret_cast< CCTD_QuestItemNode* >( MGetBlobArrayElement(pMyObtainQuestItemListBlob, i) );
+		pQuestItemNode = reinterpret_cast< CCTD_QuestItemNode* >( CCGetBlobArrayElement(pMyObtainQuestItemListBlob, i) );
 
 		// 리스트 박스 업데이트
 		if ( pListBox && (pQuestItemNode->m_nCount > 0))
@@ -1210,10 +1210,10 @@ void ZQuest::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pMyOb
 	}
 
 	// 일반 아이템 -----------------
-	int nZItemCount = MGetBlobArrayCount( pMyObtainZItemListBlob );
+	int nZItemCount = CCGetBlobArrayCount( pMyObtainZItemListBlob );
 	for (int i = 0; i < nZItemCount; i++)
 	{
-		CCTD_QuestZItemNode* pZItemNode = (CCTD_QuestZItemNode*)( MGetBlobArrayElement(pMyObtainZItemListBlob, i) );
+		CCTD_QuestZItemNode* pZItemNode = (CCTD_QuestZItemNode*)( CCGetBlobArrayElement(pMyObtainZItemListBlob, i) );
 
 		// 리스트 박스 업데이트
 		if ( pListBox )
@@ -1302,7 +1302,7 @@ bool ZQuest::OnSetMonsterBibleInfo( CCCommand* pCmd )
 
 	pParam				= pCmd->GetParameter(1);
 	pMonBibleInfoBlob	= pParam->GetPointer();
-	pMonBible			= reinterpret_cast< CCQuestMonsterBible* >( MGetBlobArrayElement(pMonBibleInfoBlob, 0) );
+	pMonBible			= reinterpret_cast< CCQuestMonsterBible* >( CCGetBlobArrayElement(pMonBibleInfoBlob, 0) );
 
 	return true;
 }

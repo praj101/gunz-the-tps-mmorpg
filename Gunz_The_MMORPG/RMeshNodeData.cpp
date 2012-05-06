@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "RMeshNodeData.h"
+#include "RShaderMgr.h"
 #include "RealSpace2.h"
 
 _USING_NAMESPACE_REALSPACE2

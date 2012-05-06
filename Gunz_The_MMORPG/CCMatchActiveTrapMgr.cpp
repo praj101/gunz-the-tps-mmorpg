@@ -161,7 +161,7 @@ void CCMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
 
 	if (num <= 0) return;
 
-	void* pTrapArray = MMakeBlobArray(sizeof(CCTD_ActivatedTrap), num);
+	void* pTrapArray = CCMakeBlobArray(sizeof(CCTD_ActivatedTrap), num);
 
 	CCTD_ActivatedTrap* pNode;
 	int nIndex = 0;
@@ -170,7 +170,7 @@ void CCMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
 		pTrap = *it;
 		if (pTrap->IsActivated())
 		{
-			pNode = (CCTD_ActivatedTrap*)MGetBlobArrayElement(pTrapArray, nIndex++);
+			pNode = (CCTD_ActivatedTrap*)CCGetBlobArrayElement(pTrapArray, nIndex++);
 			Make_MTDActivatedTrap(pNode, pTrap);
 		}
 		else
@@ -183,8 +183,8 @@ void CCMatchActiveTrapMgr::RouteAllTraps(CCMatchObject* pObj)
 	}
 
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, CCUID(0,0));
-	pCmd->AddParameter(new CCCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
-	MEraseBlobArray(pTrapArray);
+	pCmd->AddParameter(new CCCommandParameterBlob(pTrapArray, CCGetBlobArraySize(pTrapArray)));
+	CCEraseBlobArray(pTrapArray);
 
 	CCMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
 }
@@ -199,13 +199,13 @@ void CCMatchActiveTrapMgr::RouteTrapActivationForForcedEnterd(CCMatchActiveTrap*
 	int numTarget = (int)pTrap->m_vecUidForcedEntered.size();
 	if (numTarget <= 0) return;
 
-	void* pTrapArray = MMakeBlobArray(sizeof(CCTD_ActivatedTrap), 1);
+	void* pTrapArray = CCMakeBlobArray(sizeof(CCTD_ActivatedTrap), 1);
 	
-	CCTD_ActivatedTrap* pNode = (CCTD_ActivatedTrap*)MGetBlobArrayElement(pTrapArray, 0);
+	CCTD_ActivatedTrap* pNode = (CCTD_ActivatedTrap*)CCGetBlobArrayElement(pTrapArray, 0);
 	Make_MTDActivatedTrap(pNode, pTrap);
 
 	CCCommand* pCommand = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_ACTIATED_TRAPITEM_LIST, CCUID(0,0));
-	pCommand->AddParameter(new CCCommandParameterBlob(pTrapArray, MGetBlobArraySize(pTrapArray)));
+	pCommand->AddParameter(new CCCommandParameterBlob(pTrapArray, CCGetBlobArraySize(pTrapArray)));
 
 	CCMatchObject* pObj;
 	for (int i=0; i<numTarget; ++i)
@@ -218,7 +218,7 @@ void CCMatchActiveTrapMgr::RouteTrapActivationForForcedEnterd(CCMatchActiveTrap*
 	}
 
 	delete pCommand;
-	MEraseBlobArray(pTrapArray);
+	CCEraseBlobArray(pTrapArray);
 
 	pTrap->m_vecUidForcedEntered.clear();
 }

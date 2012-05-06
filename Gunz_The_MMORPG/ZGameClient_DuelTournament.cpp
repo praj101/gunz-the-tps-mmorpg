@@ -31,12 +31,12 @@ void ZGameClient::OnDuelTournamentPrepare(CCDUELTOURNAMENTTYPE nType, CCUID uidS
 
 	vector<DTPlayerInfo> vecDTPlayerInfo;
 
-	int nCount = MGetBlobArrayCount(pBlobPlayerInfo);
+	int nCount = CCGetBlobArrayCount(pBlobPlayerInfo);
 	if(nCount != GetDTPlayerCount(nType)) { _ASSERT(!"듀얼 토너먼트 타입에 대한 인원수가 안맞음");}
 
 	for (int i=0; i<nCount; ++i)
 	{
-		DTPlayerInfo *pPlayerInfo = reinterpret_cast<DTPlayerInfo*>(MGetBlobArrayElement(pBlobPlayerInfo, i));
+		DTPlayerInfo *pPlayerInfo = reinterpret_cast<DTPlayerInfo*>(CCGetBlobArrayElement(pBlobPlayerInfo, i));
 		if (!pPlayerInfo) { _ASSERT(0); break; }
 
 		DTPlayerInfo playerInfo;

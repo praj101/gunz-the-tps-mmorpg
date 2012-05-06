@@ -196,16 +196,16 @@ void CCMatchServer::UpdateCharClanInfo(CCMatchObject* pObject, const int nCLID, 
 
 	// route까지 여기서 해준다.
 	CCCommand* pNewCmd = CreateCommand(MC_MATCH_CLAN_UPDATE_CHAR_CLANINFO, CCUID(0,0));
-	void* pClanInfoArray = MMakeBlobArray(sizeof(CCTD_CharClanInfo), 1);
+	void* pClanInfoArray = CCMakeBlobArray(sizeof(CCTD_CharClanInfo), 1);
 
-	CCTD_CharClanInfo* pClanInfo = (CCTD_CharClanInfo*)MGetBlobArrayElement(pClanInfoArray, 0);
+	CCTD_CharClanInfo* pClanInfo = (CCTD_CharClanInfo*)CCGetBlobArrayElement(pClanInfoArray, 0);
 	
 	strcpy(pClanInfo->szClanName, szClanName);
 	pClanInfo->nGrade = nGrade;
 
 	
-	pNewCmd->AddParameter(new CCCommandParameterBlob(pClanInfoArray, MGetBlobArraySize(pClanInfoArray)));
-	MEraseBlobArray(pClanInfoArray);
+	pNewCmd->AddParameter(new CCCommandParameterBlob(pClanInfoArray, CCGetBlobArraySize(pClanInfoArray)));
+	CCEraseBlobArray(pClanInfoArray);
 
 	RouteToListener(pObject, pNewCmd);
 
@@ -781,14 +781,14 @@ void CCMatchServer::ResponseClanMemberList(const CCUID& uidChar)
 
 	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CLAN_RESPONSE_MEMBER_LIST), CCUID(0,0), m_This);
 
-	void* pMemberArray = MMakeBlobArray(sizeof(CCTD_ClanMemberListNode), nNodeCount);
+	void* pMemberArray = CCMakeBlobArray(sizeof(CCTD_ClanMemberListNode), nNodeCount);
 
 	int nArrayIndex=0;
 	for (CCUIDRefCache::iterator itor= pClan->GetMemberBegin(); itor != pClan->GetMemberEnd(); ++itor) 
 	{
 		CCMatchObject* pScanObj = (CCMatchObject*)(*itor).second;
 
-		CCTD_ClanMemberListNode* pNode = (CCTD_ClanMemberListNode*)MGetBlobArrayElement(pMemberArray, nArrayIndex++);
+		CCTD_ClanMemberListNode* pNode = (CCTD_ClanMemberListNode*)CCGetBlobArrayElement(pMemberArray, nArrayIndex++);
 
 		if (IsEnabledObject(pScanObj))
 		{
@@ -798,8 +798,8 @@ void CCMatchServer::ResponseClanMemberList(const CCUID& uidChar)
 		if (nArrayIndex >= nNodeCount) break;
 	}
 
-	pNew->AddParameter(new CCCommandParameterBlob(pMemberArray, MGetBlobArraySize(pMemberArray)));
-	MEraseBlobArray(pMemberArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pMemberArray, CCGetBlobArraySize(pMemberArray)));
+	CCEraseBlobArray(pMemberArray);
 	RouteToListener(pObject, pNew);
 }
 
@@ -829,12 +829,12 @@ void CCMatchServer::OnClanRequestClanInfo(const CCUID& uidChar, const char* szCl
 
 	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_CLAN_RESPONSE_CLAN_INFO), CCUID(0,0), m_This);
 
-	void* pClanInfoArray = MMakeBlobArray(sizeof(CCTD_ClanInfo), 1);
-	CCTD_ClanInfo* pClanInfo = (CCTD_ClanInfo*)MGetBlobArrayElement(pClanInfoArray, 0);
+	void* pClanInfoArray = CCMakeBlobArray(sizeof(CCTD_ClanInfo), 1);
+	CCTD_ClanInfo* pClanInfo = (CCTD_ClanInfo*)CCGetBlobArrayElement(pClanInfoArray, 0);
 	CopyClanInfoForTrans(pClanInfo, pClan);
 
-	pNew->AddParameter(new CCCommandParameterBlob(pClanInfoArray, MGetBlobArraySize(pClanInfoArray)));
-	MEraseBlobArray(pClanInfoArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pClanInfoArray, CCGetBlobArraySize(pClanInfoArray)));
+	CCEraseBlobArray(pClanInfoArray);
 	RouteToListener(pObject, pNew);
 }
 
@@ -843,12 +843,12 @@ void CCMatchServer::OnClanRequestEmblemURL(const CCUID& uidChar, void* pEmblemUR
 	CCMatchObject* pObject = GetObject(uidChar);
 	if (! IsEnabledObject(pObject)) return;
 
-	int nClanURLCount = MGetBlobArrayCount(pEmblemURLListBlob);
+	int nClanURLCount = CCGetBlobArrayCount(pEmblemURLListBlob);
 	if (nClanURLCount < 1) return;
 
 	for (int i = 0; i < nClanURLCount; i++)
 	{
-		int* pClanID = (int*)MGetBlobArrayElement(pEmblemURLListBlob, i);
+		int* pClanID = (int*)CCGetBlobArrayElement(pEmblemURLListBlob, i);
 		CCMatchClan* pClan = m_ClanMap.GetClan(*pClanID);
 		if (pClan == NULL) continue;
 
@@ -893,13 +893,13 @@ void CCMatchServer::StandbyClanList(const CCUID& uidPlayer, int nClanListStartIn
 	}
 
 	int nArrayIndex=0;
-	void* pClanListArray = MMakeBlobArray(sizeof(CCTD_StandbyClanList), nRealCount);
+	void* pClanListArray = CCMakeBlobArray(sizeof(CCTD_StandbyClanList), nRealCount);
 
 	for (int i = 0; i < nRealCount; i++)
 	{
 		if (itorGroup == GetLadderMgr()->GetGroupListEnd()) break;
 
-		CCTD_StandbyClanList* pNode = (CCTD_StandbyClanList*)MGetBlobArrayElement(pClanListArray, i);
+		CCTD_StandbyClanList* pNode = (CCTD_StandbyClanList*)CCGetBlobArrayElement(pClanListArray, i);
 		memset(pNode, 0, sizeof(CCTD_StandbyClanList));
 
 		MLadderGroup* pLadderGroup = *itorGroup;
@@ -925,8 +925,8 @@ void CCMatchServer::StandbyClanList(const CCUID& uidPlayer, int nClanListStartIn
 		itorGroup++;
 	}
 
-	pNew->AddParameter(new CCCommandParameterBlob(pClanListArray, MGetBlobArraySize(pClanListArray)));
-	MEraseBlobArray(pClanListArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pClanListArray, CCGetBlobArraySize(pClanListArray)));
+	CCEraseBlobArray(pClanListArray);
 	
 	RouteToListener(pObject, pNew);	
 }

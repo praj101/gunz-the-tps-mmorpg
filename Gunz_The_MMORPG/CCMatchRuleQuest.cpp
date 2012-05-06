@@ -91,16 +91,16 @@ void CCMatchRuleQuest::RouteGameInfo()
 {
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_GAME_INFO, CCUID(0,0));
 
-	void* pBlobGameInfoArray = MMakeBlobArray(sizeof(CCTD_QuestGameInfo), 1);
-	CCTD_QuestGameInfo* pGameInfoNode = (CCTD_QuestGameInfo*)MGetBlobArrayElement(pBlobGameInfoArray, 0);
+	void* pBlobGameInfoArray = CCMakeBlobArray(sizeof(CCTD_QuestGameInfo), 1);
+	CCTD_QuestGameInfo* pGameInfoNode = (CCTD_QuestGameInfo*)CCGetBlobArrayElement(pBlobGameInfoArray, 0);
 
 	if (m_pQuestLevel)
 	{
 		m_pQuestLevel->Make_MTDQuestGameInfo(pGameInfoNode, CCMATCH_GAMETYPE_QUEST);
 	}
 
-	pCmd->AddParameter(new CCCommandParameterBlob(pBlobGameInfoArray, MGetBlobArraySize(pBlobGameInfoArray)));
-	MEraseBlobArray(pBlobGameInfoArray);
+	pCmd->AddParameter(new CCCommandParameterBlob(pBlobGameInfoArray, CCGetBlobArraySize(pBlobGameInfoArray)));
+	CCEraseBlobArray(pBlobGameInfoArray);
 
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
@@ -110,13 +110,13 @@ void CCMatchRuleQuest::RouteCompleted()
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_COMPLETED, CCUID(0,0));
 
 	int nSize = (int)m_PlayerManager.size();
-	void* pBlobRewardArray = MMakeBlobArray(sizeof(CCTD_QuestReward), nSize);
+	void* pBlobRewardArray = CCMakeBlobArray(sizeof(CCTD_QuestReward), nSize);
 
 	int idx = 0;
 	for (CCQuestPlayerManager::iterator itor = m_PlayerManager.begin(); itor != m_PlayerManager.end(); ++itor)
 	{
 		CCQuestPlayerInfo* pPlayerInfo = (*itor).second;
-		CCTD_QuestReward* pRewardNode = (CCTD_QuestReward*)MGetBlobArrayElement(pBlobRewardArray, idx);
+		CCTD_QuestReward* pRewardNode = (CCTD_QuestReward*)CCGetBlobArrayElement(pBlobRewardArray, idx);
 		idx++;
 
 		pRewardNode->uidPlayer = (*itor).first;
@@ -124,8 +124,8 @@ void CCMatchRuleQuest::RouteCompleted()
 		pRewardNode->nBP = pPlayerInfo->nBP;
 	}
 
-	pCmd->AddParameter(new CCCommandParameterBlob(pBlobRewardArray, MGetBlobArraySize(pBlobRewardArray)));
-	MEraseBlobArray(pBlobRewardArray);
+	pCmd->AddParameter(new CCCommandParameterBlob(pBlobRewardArray, CCGetBlobArraySize(pBlobRewardArray)));
+	CCEraseBlobArray(pBlobRewardArray);
 
 	CCMatchServer::GetInstance()->RouteToStage(GetStage()->GetUID(), pCmd);
 }
@@ -783,7 +783,7 @@ void CCMatchRuleQuest::DistributeReward()
 		// 커맨드 생성.
 		RouteRewardCommandToStage( pPlayer, (*itor).second->nXP, (*itor).second->nBP, pSimpleQuestItemBlob, pSimpleZItemBlob );
 
-		MEraseBlobArray( pSimpleQuestItemBlob );
+		CCEraseBlobArray( pSimpleQuestItemBlob );
 
 		MGetMatchServer()->ResponseCharacterItemList( pPlayer->GetUID() );
 	}
@@ -959,7 +959,7 @@ bool CCMatchRuleQuest::DistributeQItem( CCQuestPlayerInfo* pPlayerInfo, void** p
 	CCQuestItemMap* pObtainQuestItemMap = &pPlayerInfo->RewardQuestItemMap;
 
 	// Client로 전송할수 있는 형태로 Quest item정보를 저장할 Blob생성.
-	void* pSimpleQuestItemBlob = MMakeBlobArray( sizeof(CCTD_QuestItemNode), static_cast<int>(pObtainQuestItemMap->size()) );
+	void* pSimpleQuestItemBlob = CCMakeBlobArray( sizeof(CCTD_QuestItemNode), static_cast<int>(pObtainQuestItemMap->size()) );
 	if( 0 == pSimpleQuestItemBlob )
 	{
 		cclog( "CCMatchRuleQuest::DistributeReward - Quest item 정보를 보낼 Blob생성에 실패.\n" );
@@ -1005,7 +1005,7 @@ bool CCMatchRuleQuest::DistributeQItem( CCQuestPlayerInfo* pPlayerInfo, void** p
 		}
 
 		CCTD_QuestItemNode* pQuestItemNode;
-		pQuestItemNode = reinterpret_cast< CCTD_QuestItemNode* >( MGetBlobArrayElement(pSimpleQuestItemBlob, nBlobIndex++) );
+		pQuestItemNode = reinterpret_cast< CCTD_QuestItemNode* >( CCGetBlobArrayElement(pSimpleQuestItemBlob, nBlobIndex++) );
 		Make_MTDQuestItemNode( pQuestItemNode, pQItem->GetItemID(), pQItem->GetCount() );
 	}
 
@@ -1021,14 +1021,14 @@ bool CCMatchRuleQuest::DistributeZItem( CCQuestPlayerInfo* pPlayerInfo, void** p
 	// 아이템 갯수가 MAX_QUEST_REWARD_ITEM_COUNT(500개)보다 많으면 일반아이템은 추가해주지 않는다.
 	if(!MGetMatchServer()->CheckUserCanDistributeRewardItem(pPlayer))
 	{
-		*ppoutQuestRewardZItemBlob = MMakeBlobArray( sizeof(CCTD_QuestZItemNode), 0 );
+		*ppoutQuestRewardZItemBlob = CCMakeBlobArray( sizeof(CCTD_QuestZItemNode), 0 );
 		return true;	// 단, 다른것들(XP, BP, 퀘스트희생 아이템 등)은 업데이트 해준다.
 	}
 
 	CCQuestRewardZItemList* pObtainZItemList = &pPlayerInfo->RewardZItemList;
 
 	// Client로 전송할수 있는 형태로 Quest item정보를 저장할 Blob생성.
-	void* pSimpleZItemBlob = MMakeBlobArray( sizeof(CCTD_QuestZItemNode), (int)(pObtainZItemList->size()) );
+	void* pSimpleZItemBlob = CCMakeBlobArray( sizeof(CCTD_QuestZItemNode), (int)(pObtainZItemList->size()) );
 	if( 0 == pSimpleZItemBlob )
 	{
 		cclog( "CCMatchRuleQuest::DistributeZItem - Ztem 정보를 보낼 Blob생성에 실패.\n" );
@@ -1055,7 +1055,7 @@ bool CCMatchRuleQuest::DistributeZItem( CCQuestPlayerInfo* pPlayerInfo, void** p
 		CCMatchServer::GetInstance()->DistributeZItem(pPlayer->GetUID(), iteminfo.nItemID, true, iteminfo.nRentPeriodHour, 1);
 
 		// 블롭생성
-		CCTD_QuestZItemNode* pZItemNode  = (CCTD_QuestZItemNode*)(MGetBlobArrayElement(pSimpleZItemBlob, nBlobIndex++));
+		CCTD_QuestZItemNode* pZItemNode  = (CCTD_QuestZItemNode*)(CCGetBlobArrayElement(pSimpleZItemBlob, nBlobIndex++));
 		pZItemNode->m_nItemID			= iteminfo.nItemID;
 		pZItemNode->m_nRentPeriodHour	= iteminfo.nRentPeriodHour;
 	}
@@ -1076,8 +1076,8 @@ void CCMatchRuleQuest::RouteRewardCommandToStage( CCMatchObject* pPlayer, const 
 
 	pNewCmd->AddParameter( new MCmdParamInt(nRewardXP) );
 	pNewCmd->AddParameter( new MCmdParamInt(nRewardBP) );
-	pNewCmd->AddParameter( new CCCommandParameterBlob(pSimpleQuestItemBlob, MGetBlobArraySize(pSimpleQuestItemBlob)) );
-	pNewCmd->AddParameter( new CCCommandParameterBlob(pSimpleZItemBlob, MGetBlobArraySize(pSimpleZItemBlob)) );
+	pNewCmd->AddParameter( new CCCommandParameterBlob(pSimpleQuestItemBlob, CCGetBlobArraySize(pSimpleQuestItemBlob)) );
+	pNewCmd->AddParameter( new CCCommandParameterBlob(pSimpleZItemBlob, CCGetBlobArraySize(pSimpleZItemBlob)) );
 
 	CCMatchServer::GetInstance()->RouteToListener( pPlayer, pNewCmd );
 }
@@ -1541,7 +1541,7 @@ const bool CCMatchRuleQuest::PostNPCInfo()
 		MakeNomalNPCList( NPCList, pScenarioInfo->Maps[i], pQuest );
 	}
 
-	void* pBlobNPC = MMakeBlobArray(sizeof(CCTD_NPCINFO), int(NPCList.size()) );
+	void* pBlobNPC = CCMakeBlobArray(sizeof(CCTD_NPCINFO), int(NPCList.size()) );
 	if( NULL == pBlobNPC )
 	{
 		return false;
@@ -1559,15 +1559,15 @@ const bool CCMatchRuleQuest::PostNPCInfo()
 		pQuestNPCInfo = pQuest->GetNPCInfo( (*itNL) );	
 		if( NULL == pQuestNPCInfo )
 		{
-			MEraseBlobArray( pBlobNPC );
+			CCEraseBlobArray( pBlobNPC );
 			return false;
 		}
 			
-		pCCTD_QuestNPCInfo = reinterpret_cast< CCTD_NPCINFO* >( MGetBlobArrayElement(pBlobNPC, nNPCIndex++) );
+		pCCTD_QuestNPCInfo = reinterpret_cast< CCTD_NPCINFO* >( CCGetBlobArrayElement(pBlobNPC, nNPCIndex++) );
 		if( NULL == pCCTD_QuestNPCInfo )
 		{
 			_ASSERT( 0 );
-			MEraseBlobArray( pBlobNPC );
+			CCEraseBlobArray( pBlobNPC );
 			return false;
 		}
 
@@ -1577,16 +1577,16 @@ const bool CCMatchRuleQuest::PostNPCInfo()
 	CCCommand* pCmdNPCList = MGetMatchServer()->CreateCommand( MC_QUEST_NPCLIST, CCUID(0, 0) );
 	if( NULL == pCmdNPCList )
 	{
-		MEraseBlobArray( pBlobNPC );
+		CCEraseBlobArray( pBlobNPC );
 		return false;
 	}
 
-	pCmdNPCList->AddParameter( new CCCommandParameterBlob(pBlobNPC, MGetBlobArraySize(pBlobNPC)) );
+	pCmdNPCList->AddParameter( new CCCommandParameterBlob(pBlobNPC, CCGetBlobArraySize(pBlobNPC)) );
 	pCmdNPCList->AddParameter( new CCCommandParameterInt(GetGameType()) );
 	
 	MGetMatchServer()->RouteToStage( m_pStage->GetUID(), pCmdNPCList );
 
-	MEraseBlobArray( pBlobNPC );
+	CCEraseBlobArray( pBlobNPC );
 
 	return true;
 }

@@ -469,10 +469,10 @@ ZPlayerListBox* GetProperClanListOutput()
 
 void ZGameClient::OnClanUpdateCharClanInfo(void* pBlob)
 {
-	int nCount = MGetBlobArrayCount(pBlob);
+	int nCount = CCGetBlobArrayCount(pBlob);
 	if (nCount != 1) return;
 
-	CCTD_CharClanInfo* pClanInfoNode = (CCTD_CharClanInfo*)MGetBlobArrayElement(pBlob, 0);
+	CCTD_CharClanInfo* pClanInfoNode = (CCTD_CharClanInfo*)CCGetBlobArrayElement(pBlob, 0);
 
 	ZGetMyInfo()->SetClanInfo(pClanInfoNode->szClanName, pClanInfoNode->nGrade);
 	ZGetMyInfo()->Serialize();
@@ -556,7 +556,7 @@ void ZGameClient::OnClanMemberList(void* pBlob)
 
 	int nStartIndex = pPlayerListBox->GetStartItem();
 
-	int nCount = MGetBlobArrayCount(pBlob);
+	int nCount = CCGetBlobArrayCount(pBlob);
 
 	if(nCount) {
 		pPlayerListBox->RemoveAll();
@@ -566,7 +566,7 @@ void ZGameClient::OnClanMemberList(void* pBlob)
 
 	for(int i=0; i<nCount; i++) 
 	{
-		CCTD_ClanMemberListNode* pNode = (CCTD_ClanMemberListNode*)MGetBlobArrayElement(pBlob, i);
+		CCTD_ClanMemberListNode* pNode = (CCTD_ClanMemberListNode*)CCGetBlobArrayElement(pBlob, i);
 
 		ePlayerState state;
 		switch (pNode->nPlace)
@@ -587,10 +587,10 @@ void ZGameClient::OnClanMemberList(void* pBlob)
 
 void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 {
-	int nCount = MGetBlobArrayCount(pBlob);
+	int nCount = CCGetBlobArrayCount(pBlob);
 	if(nCount != 1) return;
 
-	CCTD_ClanInfo* pClanInfo = (CCTD_ClanInfo*)MGetBlobArrayElement(pBlob, 0);
+	CCTD_ClanInfo* pClanInfo = (CCTD_ClanInfo*)CCGetBlobArrayElement(pBlob, 0);
 	
 	// 이미 emblem을 가지고 있었으면 emblem interface 에 통보해준다
 	int nOldClanID = ZGetNetRepository()->GetClanInfo()->nCLID;
@@ -691,7 +691,7 @@ void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 
 void ZGameClient::OnClanStandbyClanList(int nPrevStageCount, int nNextStageCount, void* pBlob)
 {
-	int nCount = MGetBlobArrayCount(pBlob);
+	int nCount = CCGetBlobArrayCount(pBlob);
 
 	ZIDLResource* pRes = ZApplication::GetGameInterface()->GetIDLResource();
 	ZClanListBox* pListBox = (ZClanListBox*)pRes->FindWidget("Lobby_ClanList");
@@ -702,7 +702,7 @@ void ZGameClient::OnClanStandbyClanList(int nPrevStageCount, int nNextStageCount
 
 	for(int i=0; i<nCount; i++) 
 	{
-		CCTD_StandbyClanList* pNode = (CCTD_StandbyClanList*)MGetBlobArrayElement(pBlob, i);
+		CCTD_StandbyClanList* pNode = (CCTD_StandbyClanList*)CCGetBlobArrayElement(pBlob, i);
 
 		_ASSERT(i<4);
 		pListBox->SetInfo(i,pNode->nCLID,pNode->szClanName,pNode->nPlayers);
@@ -720,16 +720,16 @@ void ZGameClient::OnClanStandbyClanList(int nPrevStageCount, int nNextStageCount
 	//// Emblem // 클랜 URL이 없는 vector를 서버에 보낸다.
 	if(vecClanID.size() > 0)
 	{
-		void* pBlob = MMakeBlobArray(sizeof(int), (int)vecClanID.size()); /// nOneBlobSize만큼 nBlobCount갯수만큼 배열한 블럭 만들기
+		void* pBlob = CCMakeBlobArray(sizeof(int), (int)vecClanID.size()); /// nOneBlobSize만큼 nBlobCount갯수만큼 배열한 블럭 만들기
 		int nCount = 0;
 		for(vector<int>::iterator it = vecClanID.begin(); it != vecClanID.end(); it++, nCount++)
 		{
-			int *nClanID = (int*)MGetBlobArrayElement(pBlob, nCount);
+			int *nClanID = (int*)CCGetBlobArrayElement(pBlob, nCount);
 			*nClanID = *it;
 		}
 
 		ZPostRequestEmblemURL(pBlob);
-		MEraseBlobArray(pBlob);
+		CCEraseBlobArray(pBlob);
 		vecClanID.clear();
 	}
 

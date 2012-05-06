@@ -305,7 +305,7 @@ bool CCMatchClient::OnCommand(CCCommand* pCommand)
 //					break;
 //				}
 //				void* pBlob1 = pParam1->GetPointer();
-//				unsigned char *szRandomValue = (unsigned char*)MGetBlobArrayElement(pBlob1, 0);
+//				unsigned char *szRandomValue = (unsigned char*)CCGetBlobArrayElement(pBlob1, 0);
 
 				CCCommandParameter* pParam = pCommand->GetParameter(9);
 				if (pParam->GetType()!=MPT_BLOB) break;
@@ -313,8 +313,8 @@ bool CCMatchClient::OnCommand(CCCommand* pCommand)
 				if( NULL == pBlob )
 					break;
 
-				int nCount = MGetBlobArrayCount(pBlob);
-				unsigned char* pbyGuidReqMsg = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
+				int nCount = CCGetBlobArrayCount(pBlob);
+				unsigned char* pbyGuidReqMsg = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 
 				OnResponseMatchLogin(pCommand->GetSenderUID(), nResult, szServerName, CCMatchServerMode(nServerMode), 
 					szAccountID, CCMatchUserGradeID(nUGradeID), CCMatchPremiumGradeID(nPGradeID), uidPlayer, bEnabledSurvivalMode, bEnabledDuelTournament, pbyGuidReqMsg);
@@ -330,7 +330,7 @@ bool CCMatchClient::OnCommand(CCCommand* pCommand)
 				if( NULL == pBlob )
 					break;
 
-				int nCount = MGetBlobArrayCount(pBlob);
+				int nCount = CCGetBlobArrayCount(pBlob);
 				OnObjectCache((unsigned int)nType, pBlob, nCount);
 			}
 			break;
@@ -364,7 +364,7 @@ bool CCMatchClient::OnCommand(CCCommand* pCommand)
 				void* pBlob = pParam->GetPointer();
 				if( NULL == pBlob )
 					break;
-				int nCount = MGetBlobArrayCount(pBlob);
+				int nCount = CCGetBlobArrayCount(pBlob);
 
 				OnTunnelingTCP(uidSender, pBlob, nCount);
 			}
@@ -381,7 +381,7 @@ bool CCMatchClient::OnCommand(CCCommand* pCommand)
 				if( NULL == pBlob )
 					break;
 
-				int nCount = MGetBlobArrayCount(pBlob);
+				int nCount = CCGetBlobArrayCount(pBlob);
 
 				OnTunnelingUDP(uidSender, pBlob, nCount);
 			}
@@ -517,7 +517,7 @@ void CCMatchClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 {
 	if (nType == MATCHCACHEMODE_REPLACE) {
 		for(int i=0; i<nCount; i++){
-			CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
+			CCMatchObjCache* pCache = (CCMatchObjCache*)CCGetBlobArrayElement(pBlob, i);
 			ReplaceObjCache(pCache);
 		}
 	} else {
@@ -525,7 +525,7 @@ void CCMatchClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			ClearObjCaches();
 
 		for(int i=0; i<nCount; i++){
-			CCMatchObjCache* pCache = (CCMatchObjCache*)MGetBlobArrayElement(pBlob, i);
+			CCMatchObjCache* pCache = (CCMatchObjCache*)CCGetBlobArrayElement(pBlob, i);
 			if (nType==MATCHCACHEMODE_ADD || nType==MATCHCACHEMODE_UPDATE)
 				UpdateObjCache(pCache);
 			else if (nType == MATCHCACHEMODE_REMOVE)
@@ -644,9 +644,9 @@ CCCommand* CCMatchClient::MakeCmdFromTunnelingBlob(const CCUID& uidSender, void*
 		return NULL;
 	}
 
-	char* pPacket = (char*)MGetBlobArrayElement(pBlob, 0);
+	char* pPacket = (char*)CCGetBlobArrayElement(pBlob, 0);
 
-	int nSize = MGetBlobArraySize(pBlob) - (sizeof(int) * 2);
+	int nSize = CCGetBlobArraySize(pBlob) - (sizeof(int) * 2);
 	if ((nSize <= 0) || (nSize >= MAX_BLOB_SIZE))
 	{
 		mlog("MakeCmdFromTunnelingBlob: Blob Size Error(size = %d)\n", nSize);
@@ -849,13 +849,13 @@ bool CCMatchClient::MakeTunnelingCommandBlob(CCCommand* pWrappingCmd, CCCommand*
 		delete [] pCmdData; return false;
 	}
 
-	void* pBlob = MMakeBlobArray(nSize, 1);
-	char* pCmdBlock = (char*)MGetBlobArrayElement(pBlob, 0);
+	void* pBlob = CCMakeBlobArray(nSize, 1);
+	char* pCmdBlock = (char*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pCmdBlock, pCmdData, nSize);
 
-	pWrappingCmd->AddParameter(new MCmdParamBlob(pBlob, MGetBlobArraySize(pBlob)));
+	pWrappingCmd->AddParameter(new MCmdParamBlob(pBlob, CCGetBlobArraySize(pBlob)));
 
-	MEraseBlobArray(pBlob);
+	CCEraseBlobArray(pBlob);
 	delete [] pCmdData;
 
 	return true;

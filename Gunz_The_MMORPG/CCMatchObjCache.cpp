@@ -82,10 +82,10 @@ CCCommand* CCMatchObjectCacheBuilder::GetResultCmd(MATCHCACHEMODE nMode, CCComma
 	CCCommand* pCmd = pCmdComm->CreateCommand(MC_MATCH_OBJECT_CACHE, CCUID(0,0));
 	pCmd->AddParameter(new MCmdParamUChar(nMode));
 	int nCount = (int)m_ObjectCacheList.size();
-	void* pCacheArray = MMakeBlobArray(sizeof(CCMatchObjCache), nCount);
+	void* pCacheArray = CCMakeBlobArray(sizeof(CCMatchObjCache), nCount);
 	int nIndex=0;
 	for (CCMatchObjCacheList::iterator itor=m_ObjectCacheList.begin(); itor!=m_ObjectCacheList.end(); itor++) {
-		CCMatchObjCache* pTrgCache = (CCMatchObjCache*)MGetBlobArrayElement(pCacheArray, nIndex++);
+		CCMatchObjCache* pTrgCache = (CCMatchObjCache*)CCGetBlobArrayElement(pCacheArray, nIndex++);
 		CCMatchObjCache* pSrcCache = (*itor);
 
 		
@@ -99,8 +99,8 @@ CCCommand* CCMatchObjectCacheBuilder::GetResultCmd(MATCHCACHEMODE nMode, CCComma
 
 		pTrgCache->AssignCostume(pSrcCache->GetCostume());
 	}
-	pCmd->AddParameter(new MCmdParamBlob(pCacheArray, MGetBlobArraySize(pCacheArray)));
-	MEraseBlobArray(pCacheArray);
+	pCmd->AddParameter(new MCmdParamBlob(pCacheArray, CCGetBlobArraySize(pCacheArray)));
+	CCEraseBlobArray(pCacheArray);
 
 	return pCmd;
 }

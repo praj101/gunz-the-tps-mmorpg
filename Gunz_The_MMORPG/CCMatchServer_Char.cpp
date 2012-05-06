@@ -309,15 +309,15 @@ void CCMatchServer::ResponseExpiredItemIDList(CCMatchObject* pObj, vector<unsign
 	int nBlobSize = (int)vecExpiredItemIDList.size();
 	CCCommand* pNewCmd = CreateCommand(MC_MATCH_EXPIRED_RENT_ITEM, CCUID(0,0));
 	
-	void* pExpiredItemIDArray = MMakeBlobArray(sizeof(unsigned long int), nBlobSize);
+	void* pExpiredItemIDArray = CCMakeBlobArray(sizeof(unsigned long int), nBlobSize);
 
 	for (int i = 0; i < nBlobSize; i++)
 	{
-		unsigned long int *pItemID = (unsigned long int*)MGetBlobArrayElement(pExpiredItemIDArray, i);
+		unsigned long int *pItemID = (unsigned long int*)CCGetBlobArrayElement(pExpiredItemIDArray, i);
 		*pItemID = vecExpiredItemIDList[i];
 	}
-	pNewCmd->AddParameter(new CCCommandParameterBlob(pExpiredItemIDArray, MGetBlobArraySize(pExpiredItemIDArray)));
-	MEraseBlobArray(pExpiredItemIDArray);
+	pNewCmd->AddParameter(new CCCommandParameterBlob(pExpiredItemIDArray, CCGetBlobArraySize(pExpiredItemIDArray)));
+	CCEraseBlobArray(pExpiredItemIDArray);
 	RouteToListener(pObj, pNewCmd);
 }
 
@@ -436,15 +436,15 @@ void CCMatchServer::ResponseMySimpleCharInfo(const CCUID& uidPlayer)
 
 	CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_MY_SIMPLE_CHARINFO, CCUID(0,0));
 
-	void* pMyCharInfoArray = MMakeBlobArray(sizeof(CCTD_MySimpleCharInfo), 1);
-	CCTD_MySimpleCharInfo* pMyCharInfo = (CCTD_MySimpleCharInfo*)MGetBlobArrayElement(pMyCharInfoArray, 0);
+	void* pMyCharInfoArray = CCMakeBlobArray(sizeof(CCTD_MySimpleCharInfo), 1);
+	CCTD_MySimpleCharInfo* pMyCharInfo = (CCTD_MySimpleCharInfo*)CCGetBlobArrayElement(pMyCharInfoArray, 0);
 
 	pMyCharInfo->nXP = pCharInfo->m_nXP;
 	pMyCharInfo->nBP = pCharInfo->m_nBP;
 	pMyCharInfo->nLevel = pCharInfo->m_nLevel;
 
-	pNewCmd->AddParameter(new CCCommandParameterBlob(pMyCharInfoArray, MGetBlobArraySize(pMyCharInfoArray)));
-	MEraseBlobArray(pMyCharInfoArray);
+	pNewCmd->AddParameter(new CCCommandParameterBlob(pMyCharInfoArray, CCGetBlobArraySize(pMyCharInfoArray)));
+	CCEraseBlobArray(pMyCharInfoArray);
 
 	RouteToListener(pObj, pNewCmd);
 }
@@ -598,19 +598,19 @@ void CCMatchServer::FriendList(const CCUID& uidPlayer)
 
 	CCMatchFriendList* pList = &pObj->GetFriendInfo()->m_FriendList;
 
-	void* pListArray = MMakeBlobArray(sizeof(MFRIENDLISTNODE), (int)pList->size());
+	void* pListArray = CCMakeBlobArray(sizeof(MFRIENDLISTNODE), (int)pList->size());
 	int nIndex=0;
 	for (CCMatchFriendList::iterator i=pList->begin(); i!=pList->end(); i++) {
 		CCMatchFriendNode* pNode = (*i);
-		MFRIENDLISTNODE* pListNode = (MFRIENDLISTNODE*)MGetBlobArrayElement(pListArray, nIndex++);
+		MFRIENDLISTNODE* pListNode = (MFRIENDLISTNODE*)CCGetBlobArrayElement(pListArray, nIndex++);
 		pListNode->nState = pNode->nState;
 		strcpy(pListNode->szName, pNode->szName);
 		strcpy(pListNode->szDescription, pNode->szDescription);
 	}
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_FRIENDLIST, CCUID(0,0));
-	pCmd->AddParameter(new CCCommandParameterBlob(pListArray, MGetBlobArraySize(pListArray)));
-	MEraseBlobArray(pListArray);
+	pCmd->AddParameter(new CCCommandParameterBlob(pListArray, CCGetBlobArraySize(pListArray)));
+	CCEraseBlobArray(pListArray);
 	RouteToListener(pObj, pCmd);
 }
 
@@ -646,11 +646,11 @@ void CCMatchServer::ResponseCharInfoDetail(const CCUID& uidChar, const char* szC
 
 	CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_CHARINFO_DETAIL, CCUID(0,0));
 
-	void* pCharInfoArray = MMakeBlobArray(sizeof(CCTD_CharInfo_Detail), 1);
-	CCTD_CharInfo_Detail* pTransCharInfoDetail = (CCTD_CharInfo_Detail*)MGetBlobArrayElement(pCharInfoArray, 0);
+	void* pCharInfoArray = CCMakeBlobArray(sizeof(CCTD_CharInfo_Detail), 1);
+	CCTD_CharInfo_Detail* pTransCharInfoDetail = (CCTD_CharInfo_Detail*)CCGetBlobArrayElement(pCharInfoArray, 0);
 	memcpy(pTransCharInfoDetail, &trans_charinfo_detail, sizeof(CCTD_CharInfo_Detail));
-	pNewCmd->AddParameter(new CCCommandParameterBlob(pCharInfoArray, MGetBlobArraySize(pCharInfoArray)));
-	MEraseBlobArray(pCharInfoArray);
+	pNewCmd->AddParameter(new CCCommandParameterBlob(pCharInfoArray, CCGetBlobArraySize(pCharInfoArray)));
+	CCEraseBlobArray(pCharInfoArray);
 
 	RouteToListener(pObject, pNewCmd);
 }

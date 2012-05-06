@@ -387,11 +387,11 @@ void CCMatchServer::OnAsyncGetAccountCharList(CCAsyncJob* pJobResult)
 	int							nCharMaxLevel	= 0;
 
 	CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_ACCOUNT_CHARLIST, CCUID(0,0));
-	void* pCharArray = MMakeBlobArray(sizeof(CCTD_AccountCharInfo), nCharCount);
+	void* pCharArray = CCMakeBlobArray(sizeof(CCTD_AccountCharInfo), nCharCount);
 
 	for (int i = 0; i < nCharCount; i++)
 	{
-		pTransCharInfo = (CCTD_AccountCharInfo*)MGetBlobArrayElement(pCharArray, i);
+		pTransCharInfo = (CCTD_AccountCharInfo*)CCGetBlobArrayElement(pCharArray, i);
 		memcpy(pTransCharInfo, &pCharList[i], sizeof(CCTD_AccountCharInfo));
 
 		nCharMaxLevel = max(nCharMaxLevel, pTransCharInfo->nLevel);
@@ -399,8 +399,8 @@ void CCMatchServer::OnAsyncGetAccountCharList(CCAsyncJob* pJobResult)
 
 	pObj->CheckNewbie( nCharMaxLevel );
 
-	pNewCmd->AddParameter(new CCCommandParameterBlob(pCharArray, MGetBlobArraySize(pCharArray)));
-	MEraseBlobArray(pCharArray);
+	pNewCmd->AddParameter(new CCCommandParameterBlob(pCharArray, CCGetBlobArraySize(pCharArray)));
+	CCEraseBlobArray(pCharArray);
     
 	RouteToListener( pObj, pNewCmd );
 }
@@ -470,20 +470,20 @@ void CCMatchServer::OnAsyncGetAccountCharList(CCAsyncJob* pJobResult)
 //	CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_SELECT_CHAR, CCUID(0,0));
 //	pNewCmd->AddParameter(new CCCommandParameterInt(MOK));		// result
 //
-//	void* pCharArray = MMakeBlobArray(sizeof(CCTD_CharInfo), 1);
-//	CCTD_CharInfo* pTransCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharArray, 0);
+//	void* pCharArray = CCMakeBlobArray(sizeof(CCTD_CharInfo), 1);
+//	CCTD_CharInfo* pTransCharInfo = (CCTD_CharInfo*)CCGetBlobArrayElement(pCharArray, 0);
 //	memcpy(pTransCharInfo, &trans_charinfo, sizeof(CCTD_CharInfo));
-//	pNewCmd->AddParameter(new CCCommandParameterBlob(pCharArray, MGetBlobArraySize(pCharArray)));
-//	MEraseBlobArray(pCharArray);
+//	pNewCmd->AddParameter(new CCCommandParameterBlob(pCharArray, CCGetBlobArraySize(pCharArray)));
+//	CCEraseBlobArray(pCharArray);
 //
 //
 //	// 내 캐릭터의 추가 정보
-//	void* pMyExtraInfoArray = MMakeBlobArray(sizeof(CCTD_MyExtraCharInfo), 1);
-//	CCTD_MyExtraCharInfo* pMyExtraInfo = (CCTD_MyExtraCharInfo*)MGetBlobArrayElement(pMyExtraInfoArray, 0);
+//	void* pMyExtraInfoArray = CCMakeBlobArray(sizeof(CCTD_MyExtraCharInfo), 1);
+//	CCTD_MyExtraCharInfo* pMyExtraInfo = (CCTD_MyExtraCharInfo*)CCGetBlobArrayElement(pMyExtraInfoArray, 0);
 //	int nPercent = CCMatchFormula::GetLevelPercent(trans_charinfo.nXP, (int)trans_charinfo.nLevel);
 //	pMyExtraInfo->nLevelPercent = (char)nPercent;
-//	pNewCmd->AddParameter(new CCCommandParameterBlob(pMyExtraInfoArray, MGetBlobArraySize(pMyExtraInfoArray)));
-//	MEraseBlobArray(pMyExtraInfoArray);
+//	pNewCmd->AddParameter(new CCCommandParameterBlob(pMyExtraInfoArray, CCGetBlobArraySize(pMyExtraInfoArray)));
+//	CCEraseBlobArray(pMyExtraInfoArray);
 //
 //	RouteToListener(pObj, pNewCmd);
 //
@@ -883,13 +883,13 @@ void CCMatchServer::OnAsyncGetAccountItemList( CCAsyncJob* pJobResult )
 			}
 		}
 
-		void* pItemArray = MMakeBlobArray(sizeof(CCTD_AccountItemNode), nCountableAccountItemCount);		
+		void* pItemArray = CCMakeBlobArray(sizeof(CCTD_AccountItemNode), nCountableAccountItemCount);		
 
 		int nIndex = 0;
 		for (int i = 0; i < nAccountItemCount; i++)
 		{
 			if( accountItems[i].nItemID == 0 ) continue;
-			CCTD_AccountItemNode* pItemNode = (CCTD_AccountItemNode*)MGetBlobArrayElement(pItemArray, nIndex);			
+			CCTD_AccountItemNode* pItemNode = (CCTD_AccountItemNode*)CCGetBlobArrayElement(pItemArray, nIndex);			
 
 			_ASSERTE( ((NULL != MGetMatchItemDescMgr()->GetItemDesc(accountItems[i].nItemID)) 
 				|| (NULL != m_GambleMachine.GetGambleItemByGambleItemID(accountItems[i].nItemID)))
@@ -905,8 +905,8 @@ void CCMatchServer::OnAsyncGetAccountItemList( CCAsyncJob* pJobResult )
 			}			
 		}
 
-		pNew->AddParameter(new CCCommandParameterBlob(pItemArray, MGetBlobArraySize(pItemArray)));
-		MEraseBlobArray(pItemArray);
+		pNew->AddParameter(new CCCommandParameterBlob(pItemArray, CCGetBlobArraySize(pItemArray)));
+		CCEraseBlobArray(pItemArray);
 
 		PostSafeQueue( pNew );
 	}

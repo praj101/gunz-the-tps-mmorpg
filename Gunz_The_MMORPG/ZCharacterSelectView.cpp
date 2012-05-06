@@ -726,7 +726,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 	ClearCharInfo();
 	ClearInterfaces();
 
-	int nCount = MGetBlobArrayCount(pCharListBlob);
+	int nCount = CCGetBlobArrayCount(pCharListBlob);
 
 	CCButton* pButton;
 	CCPicture* pPicture;
@@ -734,7 +734,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 	int nPosY = (int)( 390.0f * (RGetScreenHeight() / 600.0f));
 	for (int i = 0; i < nCount; i++)
 	{
-		CCTD_AccountCharInfo* pAccountCharInfo = (CCTD_AccountCharInfo*)MGetBlobArrayElement(pCharListBlob, i);
+		CCTD_AccountCharInfo* pAccountCharInfo = (CCTD_AccountCharInfo*)CCGetBlobArrayElement(pCharListBlob, i);
 		if ( (pAccountCharInfo->nCharNum >= 0) && (pAccountCharInfo->nCharNum < MAX_CHAR_COUNT))
 		{
 			int nIndex = pAccountCharInfo->nCharNum;
@@ -850,11 +850,11 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 
 void ZCharacterSelectView::OnReceivedCharInfo(int nCharNum, void* pCharInfoBlob)
 {
-	int nCount = MGetBlobArrayCount(pCharInfoBlob);
+	int nCount = CCGetBlobArrayCount(pCharInfoBlob);
 	if (nCount != 1) return;
 	if ((nCharNum < 0) || (nCharNum > MAX_CHAR_COUNT)) return;
 
-	CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)MGetBlobArrayElement(pCharInfoBlob, 0);
+	CCTD_CharInfo* pCharInfo = (CCTD_CharInfo*)CCGetBlobArrayElement(pCharInfoBlob, 0);
 	memcpy(&ZCharacterSelectView::m_CharInfo[nCharNum].m_CharInfo, pCharInfo, sizeof(CCTD_CharInfo));
 
 	m_CharInfo[nCharNum].m_bLoaded = true;

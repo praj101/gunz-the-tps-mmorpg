@@ -235,19 +235,19 @@ void CCMatchServer::OnResponseCharQuestItemList( const CCUID& uidSender )
 	// 갖고 있는 퀘스트 아이템 리스트 전송.
 	int					nIndex			= 0;
 	CCTD_QuestItemNode*	pQuestItemNode	= 0;
-	void*				pQuestItemArray = MMakeBlobArray( static_cast<int>(sizeof(CCTD_QuestItemNode)), 
+	void*				pQuestItemArray = CCMakeBlobArray( static_cast<int>(sizeof(CCTD_QuestItemNode)), 
 														  static_cast<int>(pPlayer->GetCharInfo()->m_QuestItemList.size()) );
 
 	CCQuestItemMap::iterator itQItem, endQItem;
 	endQItem = pPlayer->GetCharInfo()->m_QuestItemList.end();
 	for( itQItem = pPlayer->GetCharInfo()->m_QuestItemList.begin(); itQItem != endQItem; ++itQItem )
 	{
-		pQuestItemNode = reinterpret_cast< CCTD_QuestItemNode* >( MGetBlobArrayElement(pQuestItemArray, nIndex++) );
+		pQuestItemNode = reinterpret_cast< CCTD_QuestItemNode* >( CCGetBlobArrayElement(pQuestItemArray, nIndex++) );
 		Make_MTDQuestItemNode( pQuestItemNode, itQItem->second->GetItemID(), itQItem->second->GetCount() );
 	}
 
-	pNewCmd->AddParameter( new CCCommandParameterBlob(pQuestItemArray, MGetBlobArraySize(pQuestItemArray)) );
-	MEraseBlobArray( pQuestItemArray );
+	pNewCmd->AddParameter( new CCCommandParameterBlob(pQuestItemArray, CCGetBlobArraySize(pQuestItemArray)) );
+	CCEraseBlobArray( pQuestItemArray );
 
 	RouteToListener( pPlayer, pNewCmd );
 }
@@ -604,14 +604,14 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const CCUID& uidSender )
 		return;
 	}	
 
-	void* pMonBibleInfoBlob = MMakeBlobArray( MONSTER_BIBLE_SIZE, 1 );
+	void* pMonBibleInfoBlob = CCMakeBlobArray( MONSTER_BIBLE_SIZE, 1 );
 	if( 0 == pMonBibleInfoBlob )
 	{
 		cclog( "CCMatchServer::OnResponseMonsterBibleInfo - make blob fail.\n" );
 		return;
 	}
 
-	CCQuestMonsterBible* pMonBible = reinterpret_cast< CCQuestMonsterBible * >( MGetBlobArrayElement(pMonBibleInfoBlob, 0) );
+	CCQuestMonsterBible* pMonBible = reinterpret_cast< CCQuestMonsterBible * >( CCGetBlobArrayElement(pMonBibleInfoBlob, 0) );
 	if( 0 == pMonBible )
 	{
 		cclog( "CCMatchServer::OnResponseMonsterBibleInfo - typecast fail.\n" );
@@ -629,11 +629,11 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const CCUID& uidSender )
 	}
 
 	pCmd->AddParameter( new MCmdParamUID(uidSender) );
-	pCmd->AddParameter( new CCCommandParameterBlob(pMonBibleInfoBlob, MGetBlobArraySize(pMonBibleInfoBlob)) );
+	pCmd->AddParameter( new CCCommandParameterBlob(pMonBibleInfoBlob, CCGetBlobArraySize(pMonBibleInfoBlob)) );
 
 	RouteToListener( pObj, pCmd );
 
-	MEraseBlobArray( pMonBibleInfoBlob );
+	CCEraseBlobArray( pMonBibleInfoBlob );
 }
 
 

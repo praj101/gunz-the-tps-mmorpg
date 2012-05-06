@@ -139,12 +139,12 @@ void ZGameClient::OnAskAgreement(const CCUID& uidProposer, void* pMemberNamesBlo
 
 	char szMemberNames[MAX_REPLIER][256];		// 0 번째는 제안자
 
-	int nMemberCount = MGetBlobArrayCount(pMemberNamesBlob);
+	int nMemberCount = CCGetBlobArrayCount(pMemberNamesBlob);
 	if (nMemberCount < 1) return;
 
 	for (int i = 0; i < nMemberCount; i++)
 	{
-		CCTD_ReplierNode* pReplierNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pMemberNamesBlob, i);
+		CCTD_ReplierNode* pReplierNode = (CCTD_ReplierNode*)CCGetBlobArrayElement(pMemberNamesBlob, i);
 		strcpy(szMemberNames[i], pReplierNode->szName);
 	}
 

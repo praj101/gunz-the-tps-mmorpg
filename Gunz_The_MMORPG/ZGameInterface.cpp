@@ -6299,7 +6299,7 @@ void ZGameInterface::OnResponseServerStatusInfoList( const int nListCount, void*
 
 		for( int i = 0; i < nListCount; ++i )
 		{
-			CCTD_ServerStatusInfo* pss = (CCTD_ServerStatusInfo*)MGetBlobArrayElement( pBlob, i );
+			CCTD_ServerStatusInfo* pss = (CCTD_ServerStatusInfo*)CCGetBlobArrayElement( pBlob, i );
 			if( 0 == pss )
 			{
 				cclog( "ZGameInterface::OnResponseServerStatusInfoList - %d번째에서 NULL포인터 발생.", i );
@@ -6663,7 +6663,7 @@ void ZGameInterface::OnSendGambleItemList( void* pGItemArray, const DWORD dwCoun
 
 	for( DWORD i = 0; i < dwCount; ++i )
 	{
-		pGItem = (CCTD_DBGambleItmeNode*)MGetBlobArrayElement( pGItemArray, i );
+		pGItem = (CCTD_DBGambleItmeNode*)CCGetBlobArrayElement( pGItemArray, i );
 		if( NULL ==  pGItem )
 			return;
 

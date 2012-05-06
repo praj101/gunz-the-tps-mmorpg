@@ -67,7 +67,7 @@ void OnQuestNPCList( void* pBlobNPCList, CCMATCH_GAMETYPE eGameType )
 		return;
 	}
 
-	const int					nNPCCount		= MGetBlobArrayCount( pBlobNPCList );
+	const int					nNPCCount		= CCGetBlobArrayCount( pBlobNPCList );
 	CCTD_NPCINFO*				pQuestNPCInfo	= NULL;
 	ZNPCInfoFromServerManager&	NPCMgr			= pBaseQuest->GetNPCInfoFromServerMgr();
 
@@ -75,7 +75,7 @@ void OnQuestNPCList( void* pBlobNPCList, CCMATCH_GAMETYPE eGameType )
 
 	for( int i = 0; i < nNPCCount; ++i )
 	{
-		pQuestNPCInfo = reinterpret_cast< CCTD_NPCINFO* >( MGetBlobArrayElement(pBlobNPCList, i) );
+		pQuestNPCInfo = reinterpret_cast< CCTD_NPCINFO* >( CCGetBlobArrayElement(pBlobNPCList, i) );
 		if( NULL == pQuestNPCInfo )
 		{
 			_ASSERT( 0 );
@@ -225,9 +225,9 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 				CCCommandParameter* pParam = pCommand->GetParameter(1);
 				if(pParam->GetType() != MPT_BLOB) 	break;
 				void* pBlob = pParam->GetPointer();
-				int nCount = MGetBlobArrayCount(pBlob);
+				int nCount = CCGetBlobArrayCount(pBlob);
 
-				unsigned char* pReqMsg = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
+				unsigned char* pReqMsg = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 				
 				DWORD dwRet = _AhnHS_MakeAckMsg(pReqMsg, ZGetMyInfo()->GetSystemInfo()->pbyAckMsg);
 
@@ -236,13 +236,13 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 
 				CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_HSHIELD_PONG), pCommand->m_Sender, m_This);
 				pNew->AddParameter(new CCCommandParameterUInt(nTimeStamp));
-				void* pBlob2 = MMakeBlobArray(sizeof(unsigned char), SIZEOF_ACKMSG);
-				unsigned char* pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob2, 0);
+				void* pBlob2 = CCMakeBlobArray(sizeof(unsigned char), SIZEOF_ACKMSG);
+				unsigned char* pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob2, 0);
 				CopyMemory(pCmdBlock, ZGetMyInfo()->GetSystemInfo()->pbyAckMsg, SIZEOF_ACKMSG);
 
-				pNew->AddParameter(new MCmdParamBlob(pBlob2, MGetBlobArraySize(pBlob2)));
-//				MEraseBlobArray(pBlob);
-				MEraseBlobArray(pBlob2);
+				pNew->AddParameter(new MCmdParamBlob(pBlob2, CCGetBlobArraySize(pBlob2)));
+//				CCEraseBlobArray(pBlob);
+				CCEraseBlobArray(pBlob2);
 				Post(pNew);
 				
 				return true;
@@ -557,7 +557,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 				CCCommandParameter* pParam = pCommand->GetParameter(2);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
-				int nCount = MGetBlobArrayCount(pBlob);
+				int nCount = CCGetBlobArrayCount(pBlob);
 
 				OnStageList((int)nPrevStageCount, (int)nNextStageCount, pBlob, nCount);
 			}
@@ -572,7 +572,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 				CCCommandParameter* pParam = pCommand->GetParameter(2);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
-				int nCount = MGetBlobArrayCount(pBlob);
+				int nCount = CCGetBlobArrayCount(pBlob);
 
 				OnChannelPlayerList((int)nTotalPlayerCount, (int)nPage, pBlob, nCount);
 
@@ -587,7 +587,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 				CCCommandParameter* pParam = pCommand->GetParameter(1);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
-				int nCount = MGetBlobArrayCount(pBlob);
+				int nCount = CCGetBlobArrayCount(pBlob);
 
 				OnChannelAllPlayerList(uidChannel, pBlob, nCount);
 			}
@@ -597,7 +597,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
-				int nCount = MGetBlobArrayCount(pBlob);
+				int nCount = CCGetBlobArrayCount(pBlob);
 
 				OnResponseFriendList(pBlob, nCount);
 			}
@@ -610,12 +610,12 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 				CCCommandParameter* pStageParam = pCommand->GetParameter(1);
 				if(pStageParam->GetType()!=MPT_BLOB) break;
 				void* pStageBlob = pStageParam->GetPointer();
-				int nStageCount = MGetBlobArrayCount(pStageBlob);
+				int nStageCount = CCGetBlobArrayCount(pStageBlob);
 
 				CCCommandParameter* pCharParam = pCommand->GetParameter(2);
 				if(pCharParam->GetType()!=MPT_BLOB) break;
 				void* pCharBlob = pCharParam->GetPointer();
-				int nCharCount = MGetBlobArrayCount(pCharBlob);
+				int nCharCount = CCGetBlobArrayCount(pCharBlob);
 
 				int nStageState;
 				pCommand->GetParameter(&nStageState, 3, MPT_INT);
@@ -697,7 +697,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 				CCCommandParameter* pParam = pCommand->GetParameter(0);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
-				int nCount = MGetBlobArrayCount(pBlob);
+				int nCount = CCGetBlobArrayCount(pBlob);
 				OnChannelList(pBlob, nCount);
 			}
 			break;

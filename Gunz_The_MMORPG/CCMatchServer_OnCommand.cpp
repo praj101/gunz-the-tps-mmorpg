@@ -88,7 +88,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 					// Hacker가 Blob의 크기를 조정하면 CCCommand를 만들때 Blob데이터가 NULL포인터를 가질수 있다.
 					break;
 				}
-				char *szEncryptMD5Value = (char *)MGetBlobArrayElement(pLoginBlob, 0);
+				char *szEncryptMD5Value = (char *)CCGetBlobArrayElement(pLoginBlob, 0);
 				
 				OnMatchLogin(pCommand->GetSenderUID(), szUserID, szPassword, nCommandVersion, nChecksumPack, szEncryptMD5Value);
 			}
@@ -561,7 +561,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 				if( NULL == pStageBlob )
 					break;
 
-				int nStageCount = MGetBlobArrayCount(pStageBlob);
+				int nStageCount = CCGetBlobArrayCount(pStageBlob);
 
 				OnStageSetting(uidPlayer, uidStage, pStageBlob, nStageCount);
 			}

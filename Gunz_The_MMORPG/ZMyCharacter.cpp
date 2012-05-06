@@ -3731,10 +3731,10 @@ void* ZMyCharacter::MakeBuffEffectBlob()
 	int num = (int)vec.size();
 	if (num == 0) return NULL;
 	
-	void* pBlob = MMakeBlobArray(sizeof(CCTD_BuffInfo), num);
+	void* pBlob = CCMakeBlobArray(sizeof(CCTD_BuffInfo), num);
 	for (int i=0; i<num; ++i)
 	{
-		CCTD_BuffInfo* pBuffInfo = (CCTD_BuffInfo*)MGetBlobArrayElement(pBlob, i);
+		CCTD_BuffInfo* pBuffInfo = (CCTD_BuffInfo*)CCGetBlobArrayElement(pBlob, i);
 		memcpy(pBuffInfo, &vec[i], sizeof(CCTD_BuffInfo));
 	}
 	return pBlob;

@@ -517,25 +517,25 @@ void CCMatchServer::PostCmdDuelTournamentCharSideRankingInfo(CCUID uidPlayer, li
 	CCMatchObject *pDTObj = GetPlayerByCommUID(uidPlayer);
 	if(IsEnabledObject(pDTObj) == false) return;
 
-	void* pBlobRanking = MMakeBlobArray(sizeof(DTRankingInfo), (int)pSideRankingList->size() );
+	void* pBlobRanking = CCMakeBlobArray(sizeof(DTRankingInfo), (int)pSideRankingList->size() );
 
 	int index = 0;
 	list<DTRankingInfo*>::iterator iter;
 	for(iter = pSideRankingList->begin(); iter != pSideRankingList->end(); ++iter){
-		DTRankingInfo *pInfoDest = reinterpret_cast<DTRankingInfo *>(MGetBlobArrayElement(pBlobRanking, index++));	
+		DTRankingInfo *pInfoDest = reinterpret_cast<DTRankingInfo *>(CCGetBlobArrayElement(pBlobRanking, index++));	
 		DTRankingInfo *pInfoSrc = (*iter);
 
-		if( pInfoDest == NULL || pInfoSrc == NULL ) { MEraseBlobArray( pBlobRanking ); return; }
+		if( pInfoDest == NULL || pInfoSrc == NULL ) { CCEraseBlobArray( pBlobRanking ); return; }
 		memcpy(pInfoDest, pInfoSrc, sizeof(DTRankingInfo));
 	}
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_RESPONSE_SIDERANKING_INFO, uidPlayer);
 	if( NULL == pCmd ) {
-		MEraseBlobArray( pBlobRanking );
+		CCEraseBlobArray( pBlobRanking );
 		return;
 	}
-	pCmd->AddParameter( new CCCommandParameterBlob(pBlobRanking, MGetBlobArraySize(pBlobRanking)) );
-	MEraseBlobArray( pBlobRanking );
+	pCmd->AddParameter( new CCCommandParameterBlob(pBlobRanking, CCGetBlobArraySize(pBlobRanking)) );
+	CCEraseBlobArray( pBlobRanking );
 
 	Post(pCmd);
 }
@@ -552,15 +552,15 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 
-	void* pBlobPlayerInfo = MMakeBlobArray(sizeof(DTPlayerInfo), (int)pPickedGroup->size() );
+	void* pBlobPlayerInfo = CCMakeBlobArray(sizeof(DTPlayerInfo), (int)pPickedGroup->size() );
 
 	int index = 0;
 	CCDuelTournamentPickedGroup::iterator iter;
 	for(iter = pPickedGroup->begin(); iter != pPickedGroup->end(); ++iter){
-		DTPlayerInfo *pPlayerInfo = reinterpret_cast<DTPlayerInfo*>(MGetBlobArrayElement(pBlobPlayerInfo, index++));
+		DTPlayerInfo *pPlayerInfo = reinterpret_cast<DTPlayerInfo*>(CCGetBlobArrayElement(pBlobPlayerInfo, index++));
 		CCMatchObject* pObj = GetObject(*iter);
 		if (pObj == NULL){
-			MEraseBlobArray(pBlobPlayerInfo);
+			CCEraseBlobArray(pBlobPlayerInfo);
 			return;
 		}
 
@@ -571,14 +571,14 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_PREPARE_MATCH, CCUID(0, 0));
 	if( pCmd == NULL ) {
-		MEraseBlobArray(pBlobPlayerInfo);
+		CCEraseBlobArray(pBlobPlayerInfo);
 		return;
 	}
 
 	pCmd->AddParameter(new MCmdParamUID(uidStage));
 	pCmd->AddParameter(new MCmdParamInt(nType));
-	pCmd->AddParameter(new CCCommandParameterBlob(pBlobPlayerInfo, MGetBlobArraySize(pBlobPlayerInfo)));
-	MEraseBlobArray( pBlobPlayerInfo );
+	pCmd->AddParameter(new CCCommandParameterBlob(pBlobPlayerInfo, CCGetBlobArraySize(pBlobPlayerInfo)));
+	CCEraseBlobArray( pBlobPlayerInfo );
 
 	RouteToStage(uidStage, pCmd);
 }

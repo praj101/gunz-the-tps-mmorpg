@@ -448,8 +448,8 @@ bool CCMatchServer::StageEnterBattle(const CCUID& uidPlayer, const CCUID& uidSta
 	if (pObj->IsForcedEntried()) nParam = MCEP_FORCED;
 	pNew->AddParameter(new CCCommandParameterUChar(nParam));
 
-	void* pPeerArray = MMakeBlobArray(sizeof(CCTD_PeerListNode), 1);
-	CCTD_PeerListNode* pNode = (CCTD_PeerListNode*)MGetBlobArrayElement(pPeerArray, 0);
+	void* pPeerArray = CCMakeBlobArray(sizeof(CCTD_PeerListNode), 1);
+	CCTD_PeerListNode* pNode = (CCTD_PeerListNode*)CCGetBlobArrayElement(pPeerArray, 0);
 	memset(pNode, 0, sizeof(CCTD_PeerListNode));
 	
 	pNode->uidChar	= pObj->GetUID();
@@ -463,8 +463,8 @@ bool CCMatchServer::StageEnterBattle(const CCUID& uidPlayer, const CCUID& uidSta
 	if (pStage->GetStageSetting()->IsTeamPlay())	pNode->ExtendInfo.nTeam = (char)pObj->GetTeam();
 	else											pNode->ExtendInfo.nTeam = 0;	
 
-	pNew->AddParameter(new CCCommandParameterBlob(pPeerArray, MGetBlobArraySize(pPeerArray)));
-	MEraseBlobArray(pPeerArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pPeerArray, CCGetBlobArraySize(pPeerArray)));
+	CCEraseBlobArray(pPeerArray);
 
 	RouteToStage(uidStage, pNew);
 
@@ -839,25 +839,25 @@ CCCommand* CCMatchServer::CreateCmdResponseStageSetting(const CCUID& uidStage)
 	CCMatchStageSetting* pSetting = pStage->GetStageSetting();
 
 	// Param 1 : Stage Settings
-	void* pStageSettingArray = MMakeBlobArray(sizeof(MSTAGE_SETTING_NODE), 1);
-	MSTAGE_SETTING_NODE* pNode = (MSTAGE_SETTING_NODE*)MGetBlobArrayElement(pStageSettingArray, 0);
+	void* pStageSettingArray = CCMakeBlobArray(sizeof(MSTAGE_SETTING_NODE), 1);
+	MSTAGE_SETTING_NODE* pNode = (MSTAGE_SETTING_NODE*)CCGetBlobArrayElement(pStageSettingArray, 0);
 	CopyMemory(pNode, pSetting->GetStageSetting(), sizeof(MSTAGE_SETTING_NODE));
-	pCmd->AddParameter(new CCCommandParameterBlob(pStageSettingArray, MGetBlobArraySize(pStageSettingArray)));
-	MEraseBlobArray(pStageSettingArray);
+	pCmd->AddParameter(new CCCommandParameterBlob(pStageSettingArray, CCGetBlobArraySize(pStageSettingArray)));
+	CCEraseBlobArray(pStageSettingArray);
 
 	// Param 2 : Char Settings
 	int nCharCount = (int)pStage->GetObjCount();
-	void* pCharArray = MMakeBlobArray(sizeof(MSTAGE_CHAR_SETTING_NODE), nCharCount);
+	void* pCharArray = CCMakeBlobArray(sizeof(MSTAGE_CHAR_SETTING_NODE), nCharCount);
 	int nIndex=0;
 	for (CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) {
-		MSTAGE_CHAR_SETTING_NODE* pCharNode = (MSTAGE_CHAR_SETTING_NODE*)MGetBlobArrayElement(pCharArray, nIndex++);
+		MSTAGE_CHAR_SETTING_NODE* pCharNode = (MSTAGE_CHAR_SETTING_NODE*)CCGetBlobArrayElement(pCharArray, nIndex++);
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		pCharNode->uidChar = pObj->GetUID();
 		pCharNode->nTeam = pObj->GetTeam();
 		pCharNode->nState = pObj->GetStageState();
 	}
-	pCmd->AddParameter(new CCCommandParameterBlob(pCharArray, MGetBlobArraySize(pCharArray)));
-	MEraseBlobArray(pCharArray);
+	pCmd->AddParameter(new CCCommandParameterBlob(pCharArray, CCGetBlobArraySize(pCharArray)));
+	CCEraseBlobArray(pCharArray);
 
 	// Param 3 : Stage State
 	pCmd->AddParameter(new CCCommandParameterInt((int)pStage->GetState()));
@@ -1353,12 +1353,12 @@ void CCMatchServer::OnStageRelayMapListUpdate(const CCUID& uidStage, int nRelayM
 	RelayMap relayMapList[MAX_RELAYMAP_LIST_COUNT];
 	for (int i = 0; i < MAX_RELAYMAP_LIST_COUNT; i++)
 		relayMapList[i].nMapID = -1;
-	int nRelayMapListCount = MGetBlobArrayCount(pRelayMapListBlob);
+	int nRelayMapListCount = CCGetBlobArrayCount(pRelayMapListBlob);
 	if(nRelayMapListCount > MAX_RELAYMAP_LIST_COUNT)
 		nRelayMapListCount = MAX_RELAYMAP_LIST_COUNT;
 	for (int i = 0; i < nRelayMapListCount; i++)
 	{
-		CCTD_RelayMap* pRelayMap = (CCTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
+		CCTD_RelayMap* pRelayMap = (CCTD_RelayMap*)CCGetBlobArrayElement(pRelayMapListBlob, i);
 		if(!MGetMapDescMgr()->MIsCorrectMap(pRelayMap->nMapID))
 		{
 			cclog("OnStageRelayMapListUpdate Fail MIsCorrectMap ID[%d] \n", (int)pRelayMap->nMapID);
@@ -1374,12 +1374,12 @@ void CCMatchServer::OnStageRelayMapListUpdate(const CCUID& uidStage, int nRelayM
 
 
 	// 블럭 만들기, 맵리스트 세팅
-	void* pRelayMapListBlob = MMakeBlobArray(sizeof(CCTD_RelayMap), pStage->GetRelayMapListCount());
+	void* pRelayMapListBlob = CCMakeBlobArray(sizeof(CCTD_RelayMap), pStage->GetRelayMapListCount());
 	RelayMap RelayMapList[MAX_RELAYMAP_LIST_COUNT];
 	memcpy(RelayMapList, pStage->GetRelayMapList(), sizeof(RelayMap)*MAX_RELAYMAP_LIST_COUNT);
 	for (int i = 0; i < pStage->GetRelayMapListCount(); i++)
 	{
-		CCTD_RelayMap* pRelayMapList = (CCTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
+		CCTD_RelayMap* pRelayMapList = (CCTD_RelayMap*)CCGetBlobArrayElement(pRelayMapListBlob, i);
 		pRelayMapList->nMapID = RelayMapList[i].nMapID;
 	}
 
@@ -1388,7 +1388,7 @@ void CCMatchServer::OnStageRelayMapListUpdate(const CCUID& uidStage, int nRelayM
 	pNew->AddParameter(new CCCommandParameterUID(uidStage));
 	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapType()));
 	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapRepeatCount()));
-	pNew->AddParameter(new CCCommandParameterBlob(pRelayMapListBlob, MGetBlobArraySize(pRelayMapListBlob)));
+	pNew->AddParameter(new CCCommandParameterBlob(pRelayMapListBlob, CCGetBlobArraySize(pRelayMapListBlob)));
 	RouteToStage(uidStage, pNew);
 }
 void CCMatchServer::OnStageRelayMapListInfo(const CCUID& uidStage, const CCUID& uidChar)
@@ -1402,20 +1402,20 @@ void CCMatchServer::OnStageRelayMapListInfo(const CCUID& uidStage, const CCUID& 
 	if(pStage->GetState() == STAGE_STATE_STANDBY && pStage->GetMasterUID() == uidChar) return;	
 
 	// 블럭 만들기, 맵리스트 세팅
-	void* pRelayMapListBlob = MMakeBlobArray(sizeof(CCTD_RelayMap), pStage->GetRelayMapListCount());
+	void* pRelayMapListBlob = CCMakeBlobArray(sizeof(CCTD_RelayMap), pStage->GetRelayMapListCount());
 	RelayMap RelayMapList[MAX_RELAYMAP_LIST_COUNT];
 	memcpy(RelayMapList, pStage->GetRelayMapList(), sizeof(RelayMap)*MAX_RELAYMAP_LIST_COUNT);
 	for (int i = 0; i < pStage->GetRelayMapListCount(); i++)
 	{
-		CCTD_RelayMap* pRelayMapList = (CCTD_RelayMap*)MGetBlobArrayElement(pRelayMapListBlob, i);
+		CCTD_RelayMap* pRelayMapList = (CCTD_RelayMap*)CCGetBlobArrayElement(pRelayMapListBlob, i);
 		pRelayMapList->nMapID = RelayMapList[i].nMapID;
 	}
 	CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE), CCUID(0,0), m_This);
 	pNew->AddParameter(new CCCommandParameterUID(uidStage));
 	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapType()));
 	pNew->AddParameter(new CCCommandParameterInt((int)pStage->GetRelayMapRepeatCount()));
-	pNew->AddParameter(new CCCommandParameterBlob(pRelayMapListBlob, MGetBlobArraySize(pRelayMapListBlob)));
-	MEraseBlobArray(pRelayMapListBlob);
+	pNew->AddParameter(new CCCommandParameterBlob(pRelayMapListBlob, CCGetBlobArraySize(pRelayMapListBlob)));
+	CCEraseBlobArray(pRelayMapListBlob);
 
 	RouteToListener(pObj, pNew); // 방장이 릴레이맵 설정중에 업데이트된 설정으로 변경 될수가 있음
 }
@@ -1435,7 +1435,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	}
 
 	if( pObj->GetStageUID()!=uidStage ||  nStageCount!=1 ||
-		MGetBlobArraySize(pStageBlob) != (sizeof(MSTAGE_SETTING_NODE)+sizeof(int)*2) )
+		CCGetBlobArraySize(pStageBlob) != (sizeof(MSTAGE_SETTING_NODE)+sizeof(int)*2) )
 	{
 		cclog(" stage setting hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 		LogObjectCommandHistory( uidPlayer );
@@ -1450,7 +1450,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	}
 
 
-	MSTAGE_SETTING_NODE* pNode = (MSTAGE_SETTING_NODE*)MGetBlobArrayElement(pStageBlob, 0);
+	MSTAGE_SETTING_NODE* pNode = (MSTAGE_SETTING_NODE*)CCGetBlobArrayElement(pStageBlob, 0);
 
 	// let's refactor
 	if( (pNode->nGameType < CCMATCH_GAMETYPE_DEATHMATCH_SOLO) || (pNode->nGameType >= CCMATCH_GAMETYPE_MAX)) {
@@ -1641,8 +1641,8 @@ void CCMatchServer::ResponseGameInfo(const CCUID& uidChar, const CCUID& uidStage
 	pNew->AddParameter(new CCCommandParameterUID(pStage->GetUID()));
 
 	// 게임정보
-	void* pGameInfoArray = MMakeBlobArray(sizeof(CCTD_GameInfo), 1);
-	CCTD_GameInfo* pGameItem = (CCTD_GameInfo*)MGetBlobArrayElement(pGameInfoArray, 0);
+	void* pGameInfoArray = CCMakeBlobArray(sizeof(CCTD_GameInfo), 1);
+	CCTD_GameInfo* pGameItem = (CCTD_GameInfo*)CCGetBlobArrayElement(pGameInfoArray, 0);
 	memset(pGameItem, 0, sizeof(CCTD_GameInfo));
 	
 	if (pStage->GetStageSetting()->IsTeamPlay())
@@ -1654,36 +1654,36 @@ void CCMatchServer::ResponseGameInfo(const CCUID& uidChar, const CCUID& uidStage
 		pGameItem->nBlueTeamKills = static_cast<short>(pStage->GetTeamKills(CCMT_BLUE));
 	}
 
-	pNew->AddParameter(new CCCommandParameterBlob(pGameInfoArray, MGetBlobArraySize(pGameInfoArray)));
-	MEraseBlobArray(pGameInfoArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pGameInfoArray, CCGetBlobArraySize(pGameInfoArray)));
+	CCEraseBlobArray(pGameInfoArray);
 
 	// 룰정보
 	void* pRuleInfoArray = NULL;
 	if (pStage->GetRule())
 		pRuleInfoArray = pStage->GetRule()->CreateRuleInfoBlob();
 	if (pRuleInfoArray == NULL)
-		pRuleInfoArray = MMakeBlobArray(0, 0);
-	pNew->AddParameter(new CCCommandParameterBlob(pRuleInfoArray, MGetBlobArraySize(pRuleInfoArray)));
-	MEraseBlobArray(pRuleInfoArray);
+		pRuleInfoArray = CCMakeBlobArray(0, 0);
+	pNew->AddParameter(new CCCommandParameterBlob(pRuleInfoArray, CCGetBlobArraySize(pRuleInfoArray)));
+	CCEraseBlobArray(pRuleInfoArray);
 
 	// Battle에 들어간 사람만 List를 만든다.
 	int nPlayerCount = pStage->GetObjInBattleCount();
 
-	void* pPlayerItemArray = MMakeBlobArray(sizeof(CCTD_GameInfoPlayerItem), nPlayerCount);
+	void* pPlayerItemArray = CCMakeBlobArray(sizeof(CCTD_GameInfoPlayerItem), nPlayerCount);
 	int nIndex=0;
 	for (CCUIDRefCache::iterator itor=pStage->GetObjBegin(); itor!=pStage->GetObjEnd(); itor++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*itor).second;
 		if (pObj->GetEnterBattle() == false) continue;
 
-		CCTD_GameInfoPlayerItem* pPlayerItem = (CCTD_GameInfoPlayerItem*)MGetBlobArrayElement(pPlayerItemArray, nIndex++);
+		CCTD_GameInfoPlayerItem* pPlayerItem = (CCTD_GameInfoPlayerItem*)CCGetBlobArrayElement(pPlayerItemArray, nIndex++);
 		pPlayerItem->uidPlayer = pObj->GetUID();
 		pPlayerItem->bAlive = pObj->CheckAlive();
 		pPlayerItem->nKillCount = pObj->GetAllRoundKillCount();
 		pPlayerItem->nDeathCount = pObj->GetAllRoundDeathCount();
 	}
-	pNew->AddParameter(new CCCommandParameterBlob(pPlayerItemArray, MGetBlobArraySize(pPlayerItemArray)));
-	MEraseBlobArray(pPlayerItemArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pPlayerItemArray, CCGetBlobArraySize(pPlayerItemArray)));
+	CCEraseBlobArray(pPlayerItemArray);
 
 	RouteToListener(pObj, pNew);
 }
@@ -2458,7 +2458,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 	pNew->AddParameter(new CCCommandParameterChar((char)nNextStageCount));
 
 
-	void* pStageArray = MMakeBlobArray(sizeof(CCTD_StageListNode), nRealStageCount);
+	void* pStageArray = CCMakeBlobArray(sizeof(CCTD_StageListNode), nRealStageCount);
 	int nArrayIndex=0;
 
 	for (int i = /*nStageStartIndex*/nRealStageStartIndex; i < pChannel->GetMaxPlayers(); i++)
@@ -2477,7 +2477,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 
 		if (nArrayIndex >= nRealStageCount) break;
 
-		CCTD_StageListNode* pNode = (CCTD_StageListNode*)MGetBlobArrayElement(pStageArray, nArrayIndex++);
+		CCTD_StageListNode* pNode = (CCTD_StageListNode*)CCGetBlobArrayElement(pStageArray, nArrayIndex++);
 		pNode->uidStage = pStage->GetUID();
 		strcpy(pNode->szStageName, pStage->GetName());
 		pNode->nNo = (unsigned char)(pStage->GetIndex() + 1);	// 사용자에게 보여주는 인덱스는 1부터 시작한다
@@ -2521,8 +2521,8 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 		}
 	}
 
-	pNew->AddParameter(new CCCommandParameterBlob(pStageArray, MGetBlobArraySize(pStageArray)));
-	MEraseBlobArray(pStageArray);
+	pNew->AddParameter(new CCCommandParameterBlob(pStageArray, CCGetBlobArraySize(pStageArray)));
+	CCEraseBlobArray(pStageArray);
 
 	RouteToListener(pChar, pNew);	
 }
@@ -2542,7 +2542,7 @@ void CCMatchServer::OnStageRequestStageList(const CCUID& uidPlayer, const CCUID&
 
 void CCMatchServer::OnRequestQuickJoin(const CCUID& uidPlayer, void* pQuickJoinBlob)
 {
-	CCTD_QuickJoinParam* pNode = (CCTD_QuickJoinParam*)MGetBlobArrayElement(pQuickJoinBlob, 0);
+	CCTD_QuickJoinParam* pNode = (CCTD_QuickJoinParam*)CCGetBlobArrayElement(pQuickJoinBlob, 0);
 	ResponseQuickJoin(uidPlayer, pNode);
 }
 

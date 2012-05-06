@@ -1305,21 +1305,21 @@ void CCMatchStage::ShuffleTeamMembers()
 	// 메세지 전송
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_RESET_TEAM_MEMBERS, CCUID(0,0));
 	int nMemberCount = (int)m_ObjUIDCaches.size();
-	void* pTeamMemberDataArray = MMakeBlobArray(sizeof(CCTD_ResetTeamMembersData), nMemberCount);
+	void* pTeamMemberDataArray = CCMakeBlobArray(sizeof(CCTD_ResetTeamMembersData), nMemberCount);
 
 	nCounter = 0;
 	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
-		CCTD_ResetTeamMembersData* pNode = (CCTD_ResetTeamMembersData*)MGetBlobArrayElement(pTeamMemberDataArray, nCounter);
+		CCTD_ResetTeamMembersData* pNode = (CCTD_ResetTeamMembersData*)CCGetBlobArrayElement(pTeamMemberDataArray, nCounter);
 		pNode->m_uidPlayer = pObj->GetUID();
 		pNode->nTeam = (char)pObj->GetTeam();
 
 		nCounter++;
 	}
 
-	pCmd->AddParameter(new CCCommandParameterBlob(pTeamMemberDataArray, MGetBlobArraySize(pTeamMemberDataArray)));
-	MEraseBlobArray(pTeamMemberDataArray);
+	pCmd->AddParameter(new CCCommandParameterBlob(pTeamMemberDataArray, CCGetBlobArraySize(pTeamMemberDataArray)));
+	CCEraseBlobArray(pTeamMemberDataArray);
 	CCMatchServer::GetInstance()->RouteToBattle(GetUID(), pCmd);
 }
 

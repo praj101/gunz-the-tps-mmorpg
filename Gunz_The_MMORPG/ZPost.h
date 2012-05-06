@@ -197,16 +197,16 @@ inline void ZPostDisconnect()
 
 inline void ZPostLogin(char* szUserID, char* szPassword, unsigned int nChecksumPack, char *szEncryptMD5Value)
 {
-	void *pBlob = MMakeBlobArray( MAX_MD5LENGH, 1 );
-	unsigned char *pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
+	void *pBlob = CCMakeBlobArray( MAX_MD5LENGH, 1 );
+	unsigned char *pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory( pCmdBlock, szEncryptMD5Value, MAX_MD5LENGH );
 	
 	ZPOSTCMD5(MC_MATCH_LOGIN, MCmdParamStr(szUserID)
 		, MCmdParamStr(szPassword)
 		, MCmdParamInt(MCOMMAND_VERSION)
 		, MCmdParamUInt(nChecksumPack)
-		, CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
-	MEraseBlobArray(pBlob);
+		, CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));
+	CCEraseBlobArray(pBlob);
 }
 
 inline void ZPostNetmarbleLogin(const char* szAuthCookie, const char* szDataCookie, const char* szCPCookie, char* szSpareParam, unsigned int nChecksumPack)
@@ -221,22 +221,22 @@ inline void ZPostNetmarbleJPLogin(char* szLoginID, char* szLoginPW, unsigned int
 
 inline void ZPostNHNUSALogin( char* szLoginID, char* szAuthStr, unsigned int nChecksumPack, char *szEncryptMD5Value )
 {
-	void *pBlob = MMakeBlobArray( MAX_MD5LENGH, 1 );
-	unsigned char *pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
+	void *pBlob = CCMakeBlobArray( MAX_MD5LENGH, 1 );
+	unsigned char *pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory( pCmdBlock, szEncryptMD5Value, MAX_MD5LENGH );
 
-	ZPOSTCMD5( MC_MATCH_LOGIN_NHNUSA, MCmdParamStr(szLoginID), MCmdParamStr(szAuthStr), MCmdParamInt(MCOMMAND_VERSION), MCmdParamUInt(nChecksumPack), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)) );
-	MEraseBlobArray(pBlob);
+	ZPOSTCMD5( MC_MATCH_LOGIN_NHNUSA, MCmdParamStr(szLoginID), MCmdParamStr(szAuthStr), MCmdParamInt(MCOMMAND_VERSION), MCmdParamUInt(nChecksumPack), CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)) );
+	CCEraseBlobArray(pBlob);
 }
 
 inline void ZPostGameOnJPLogin( const char* szString, const char* szStatIndex, unsigned int nChecksumPack, char *szEncryptMD5Value )
 {
-	void *pBlob = MMakeBlobArray( MAX_MD5LENGH, 1 );
-	unsigned char *pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
+	void *pBlob = CCMakeBlobArray( MAX_MD5LENGH, 1 );
+	unsigned char *pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory( pCmdBlock, szEncryptMD5Value, MAX_MD5LENGH );
 
-	ZPOSTCMD5( MC_MATCH_LOGIN_GAMEON_JP, MCmdParamStr(szString), MCmdParamStr(szStatIndex), MCmdParamInt(MCOMMAND_VERSION), MCmdParamUInt(nChecksumPack), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
-	MEraseBlobArray(pBlob);
+	ZPOSTCMD5( MC_MATCH_LOGIN_GAMEON_JP, MCmdParamStr(szString), MCmdParamStr(szStatIndex), MCmdParamInt(MCOMMAND_VERSION), MCmdParamUInt(nChecksumPack), CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));
+	CCEraseBlobArray(pBlob);
 }
 
 inline void ZPostChannelRequestJoin(const CCUID& uidChar, const CCUID& uidChannel)
@@ -320,7 +320,7 @@ inline void ZPostStageRelayMapElementUpdate(const CCUID& uidStage, int nType, in
 
 inline void ZPostStageRelayMapInfoUpdate(const CCUID& uidStage, int nType, int nRoundCount, void* pBlob)
 {
-	ZPOSTCMD4(MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE, CCCommandParameterUID(uidStage), CCCommandParameterInt(nType), CCCommandParameterInt(nRoundCount), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	ZPOSTCMD4(MC_MATCH_STAGE_RELAY_MAP_INFO_UPDATE, CCCommandParameterUID(uidStage), CCCommandParameterInt(nType), CCCommandParameterInt(nRoundCount), CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));
 }
 
 inline void ZPostStageChat(const CCUID& uidChar, const CCUID& uidStage, char* szChat)
@@ -335,11 +335,11 @@ inline void ZPostRequestStageSetting(const CCUID& uidStage)
 
 inline void ZPostStageSetting(const CCUID& uidChar, const CCUID& uidStage, MSTAGE_SETTING_NODE* pSetting)
 {
-	void* pBlob = MMakeBlobArray(sizeof(MSTAGE_SETTING_NODE), 1);
-	MSTAGE_SETTING_NODE* pBlobNode = (MSTAGE_SETTING_NODE*)MGetBlobArrayElement(pBlob, 0);
+	void* pBlob = CCMakeBlobArray(sizeof(MSTAGE_SETTING_NODE), 1);
+	MSTAGE_SETTING_NODE* pBlobNode = (MSTAGE_SETTING_NODE*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pBlobNode, pSetting, sizeof(MSTAGE_SETTING_NODE));
-	ZPOSTCMD3(MC_MATCH_STAGESETTING, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
-	MEraseBlobArray(pBlob);
+	ZPOSTCMD3(MC_MATCH_STAGESETTING, CCCommandParameterUID(uidChar), CCCommandParameterUID(uidStage), CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));
+	CCEraseBlobArray(pBlob);
 }
 
 inline void ZPostStageTeam(const CCUID& uidChar, const CCUID& uidStage, int nTeam)
@@ -451,7 +451,7 @@ inline void ZPostNPCSkillExecute(CCUID uidOwner, int nSkill, CCUID uidTarget, rv
 }
 
 #define ZPostBuffInfo(/*void**/ pBlob) { \
-	ZPOSTCMD1(MC_PEER_BUFF_INFO, CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob))); \
+	ZPOSTCMD1(MC_PEER_BUFF_INFO, CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob))); \
 }
 
 inline void ZPostReaction(float fTime, int id)
@@ -497,11 +497,11 @@ inline void ZPostRequestTimeSync(unsigned long nTimeStamp)
 
 // 강제인라이닝
 #define ZPostAccountCharList(/*const unsigned char**/ pbyGuidAckMsg) {			\
-	void* pBlob = MMakeBlobArray(sizeof(unsigned char), SIZEOF_GUIDACKMSG);		\
-	unsigned char* pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);	\
+	void* pBlob = CCMakeBlobArray(sizeof(unsigned char), SIZEOF_GUIDACKMSG);		\
+	unsigned char* pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);	\
 	CopyMemory(pCmdBlock, pbyGuidAckMsg, SIZEOF_GUIDACKMSG);					\
-	ZPOSTCMD1(CLOAK_CMD_ID(MC_MATCH_REQUEST_ACCOUNT_CHARLIST, 57821), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));	\
-	MEraseBlobArray(pBlob);	\
+	ZPOSTCMD1(CLOAK_CMD_ID(MC_MATCH_REQUEST_ACCOUNT_CHARLIST, 57821), CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));	\
+	CCEraseBlobArray(pBlob);	\
 }
 
 inline void ZPostAccountCharInfo(int nCharNum)
@@ -538,26 +538,26 @@ inline void ZPostSimpleCharInfo(const CCUID& uidChar)
 inline void ZPostFinishedRoundInfo(const CCUID& uidStage, CCUID& uidChar, CCTD_RoundPeerInfo* pPeerInfo, 
 								   int nPeerInfoCount, CCTD_RoundKillInfo* pKillInfo, int nKillInfoCount)
 {
-	void* pBlobPeerInfo = MMakeBlobArray(sizeof(CCTD_RoundPeerInfo), nPeerInfoCount);
+	void* pBlobPeerInfo = CCMakeBlobArray(sizeof(CCTD_RoundPeerInfo), nPeerInfoCount);
 	for (int i = 0; i < nPeerInfoCount; i++)
 	{
-		CCTD_RoundPeerInfo* pNodePeerInfo = (CCTD_RoundPeerInfo*)MGetBlobArrayElement(pBlobPeerInfo, i);
+		CCTD_RoundPeerInfo* pNodePeerInfo = (CCTD_RoundPeerInfo*)CCGetBlobArrayElement(pBlobPeerInfo, i);
 		CopyMemory(pNodePeerInfo, &pPeerInfo[i], sizeof(CCTD_RoundPeerInfo));
 	}
 
-	void* pBlobKillInfo = MMakeBlobArray(sizeof(CCTD_RoundKillInfo), nKillInfoCount);
+	void* pBlobKillInfo = CCMakeBlobArray(sizeof(CCTD_RoundKillInfo), nKillInfoCount);
 	for (int i = 0; i < nKillInfoCount; i++)
 	{
-		CCTD_RoundKillInfo* pNodeKillInfo = (CCTD_RoundKillInfo*)MGetBlobArrayElement(pBlobKillInfo, i);
+		CCTD_RoundKillInfo* pNodeKillInfo = (CCTD_RoundKillInfo*)CCGetBlobArrayElement(pBlobKillInfo, i);
 		CopyMemory(pNodeKillInfo, &pKillInfo[i], sizeof(CCTD_RoundKillInfo));
 	}
 
 	ZPOSTCMD4(MC_MATCH_ROUND_FINISHINFO, CCCommandParameterUID(uidStage), CCCommandParameterUID(uidChar), 
-		CCCommandParameterBlob(pBlobPeerInfo, MGetBlobArraySize(pBlobPeerInfo)),
-		CCCommandParameterBlob(pBlobKillInfo, MGetBlobArraySize(pBlobKillInfo)));
+		CCCommandParameterBlob(pBlobPeerInfo, CCGetBlobArraySize(pBlobPeerInfo)),
+		CCCommandParameterBlob(pBlobKillInfo, CCGetBlobArraySize(pBlobKillInfo)));
 
-	MEraseBlobArray(pBlobPeerInfo);
-	MEraseBlobArray(pBlobKillInfo);
+	CCEraseBlobArray(pBlobPeerInfo);
+	CCEraseBlobArray(pBlobKillInfo);
 }
 
 inline void ZPostRequestBuyItem(const CCUID& uidChar, unsigned int nItemID, unsigned int nItemCnt = 1)
@@ -767,12 +767,12 @@ inline void ZPostRequestCopyToTestServer(const CCUID& uidChar)
 // 퀵조인 요청
 inline void ZPostRequestQuickJoin(const CCUID& uidChar, CCTD_QuickJoinParam* pParam)
 {
-	void* pBlob = MMakeBlobArray(sizeof(CCTD_QuickJoinParam), 1);
-	CCTD_QuickJoinParam* pBlobNode = (CCTD_QuickJoinParam*)MGetBlobArrayElement(pBlob, 0);
+	void* pBlob = CCMakeBlobArray(sizeof(CCTD_QuickJoinParam), 1);
+	CCTD_QuickJoinParam* pBlobNode = (CCTD_QuickJoinParam*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pBlobNode, pParam, sizeof(CCTD_QuickJoinParam));
 
-	ZPOSTCMD2(MC_MATCH_STAGE_REQUEST_QUICKJOIN, CCCommandParameterUID(uidChar), CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
-	MEraseBlobArray(pBlob);
+	ZPOSTCMD2(MC_MATCH_STAGE_REQUEST_QUICKJOIN, CCCommandParameterUID(uidChar), CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));
+	CCEraseBlobArray(pBlob);
 }
 
 
@@ -875,18 +875,18 @@ inline void ZPostRequestClanInfo(const CCUID& uidChar, const char* szClanName)
 inline void ZPostRequestProposal(const CCUID& uidChar, const int nProposalMode, const int nRequestID,
 								 char** ppReplierCharNames, const int nReplierCount)
 {
-	void* pBlobRepliersName = MMakeBlobArray(sizeof(CCTD_ReplierNode), nReplierCount);
+	void* pBlobRepliersName = CCMakeBlobArray(sizeof(CCTD_ReplierNode), nReplierCount);
 	for (int i = 0; i < nReplierCount; i++)
 	{
-		CCTD_ReplierNode* pReplierNode = (CCTD_ReplierNode*)MGetBlobArrayElement(pBlobRepliersName, i);
+		CCTD_ReplierNode* pReplierNode = (CCTD_ReplierNode*)CCGetBlobArrayElement(pBlobRepliersName, i);
 		strcpy(pReplierNode->szName, ppReplierCharNames[i]);
 	}
 
 	ZPOSTCMD5(MC_MATCH_REQUEST_PROPOSAL, MCmdParamUID(uidChar), MCmdParamInt(nProposalMode),
 		MCmdParamInt(nRequestID), MCmdParamInt(nReplierCount), 
-		MCmdParamBlob(pBlobRepliersName, MGetBlobArraySize(pBlobRepliersName)));
+		MCmdParamBlob(pBlobRepliersName, CCGetBlobArraySize(pBlobRepliersName)));
 
-	MEraseBlobArray(pBlobRepliersName);
+	CCEraseBlobArray(pBlobRepliersName);
 }
 
 
@@ -902,18 +902,18 @@ inline void ZPostReplyAgreement(const CCUID& uidProposer, const CCUID& uidChar, 
 // 래더게임 신청
 inline void ZPostLadderRequestChallenge(char** ppMemberCharNames, const int nMemberCount, unsigned long int nOptions)	// 자신까지 포함
 {
-	void* pBlobMembersName = MMakeBlobArray(sizeof(CCTD_ReplierNode), nMemberCount);
+	void* pBlobMembersName = CCMakeBlobArray(sizeof(CCTD_ReplierNode), nMemberCount);
 	for (int i = 0; i < nMemberCount; i++)
 	{
-		CCTD_LadderTeamMemberNode* pMemberNode = (CCTD_LadderTeamMemberNode*)MGetBlobArrayElement(pBlobMembersName, i);
+		CCTD_LadderTeamMemberNode* pMemberNode = (CCTD_LadderTeamMemberNode*)CCGetBlobArrayElement(pBlobMembersName, i);
 		strcpy(pMemberNode->szName, ppMemberCharNames[i]);
 	}
 
 	ZPOSTCMD3( MC_MATCH_LADDER_REQUEST_CHALLENGE, MCmdParamInt(nMemberCount), MCmdParamUInt(nOptions),
-			   MCmdParamBlob(pBlobMembersName, MGetBlobArraySize(pBlobMembersName)) );
+			   MCmdParamBlob(pBlobMembersName, CCGetBlobArraySize(pBlobMembersName)) );
 		
 
-	MEraseBlobArray(pBlobMembersName);
+	CCEraseBlobArray(pBlobMembersName);
 }
 
 inline void ZPostLadderCancel()
@@ -1053,7 +1053,7 @@ inline void ZPostAdminRemoveJjang(char* pszTargetName)
 // Emblem ////////////////////////////////////////////////////////////////////////////////////////////
 inline void ZPostRequestEmblemURL(void* pBlob)
 {
-	ZPOSTCMD1(MC_MATCH_CLAN_REQUEST_EMBLEMURL, CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	ZPOSTCMD1(MC_MATCH_CLAN_REQUEST_EMBLEMURL, CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));
 }
 
 inline void ZPostClanEmblemReady(unsigned int nCLID, char* pszEmblemURL)
@@ -1175,13 +1175,13 @@ inline void ZPostRequestMonsterBibleInfo( const CCUID& uid )
 
 inline void ZPostResponseXTrapSeedKey(unsigned char *szComBuf)			// Update sgk 0706
 {
-	void *pBlob = MMakeBlobArray(sizeof(unsigned char), 128);
-	unsigned char *pCmdBlock = (unsigned char*)MGetBlobArrayElement(pBlob, 0);
+	void *pBlob = CCMakeBlobArray(sizeof(unsigned char), 128);
+	unsigned char *pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 	CopyMemory(pCmdBlock, szComBuf, 128);
 
-	ZPOSTCMD1(MC_RESPONSE_XTRAP_SEEDKEY, CCCommandParameterBlob(pBlob, MGetBlobArraySize(pBlob)));
+	ZPOSTCMD1(MC_RESPONSE_XTRAP_SEEDKEY, CCCommandParameterBlob(pBlob, CCGetBlobArraySize(pBlob)));
 
-	MEraseBlobArray(pBlob);
+	CCEraseBlobArray(pBlob);
 }
 
 inline void ZPsotResponseGameguardAuht( const DWORD dwIndex, const DWORD dwValue1, const DWORD dwValue2, const DWORD dwValue3 )

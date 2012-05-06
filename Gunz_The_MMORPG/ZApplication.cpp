@@ -1006,12 +1006,12 @@ bool ZApplication::InitLocale()
 
 bool ZApplication::GetSystemValue(const char* szField, char* szData)
 {
-	return MRegistry::Read(HKEY_CURRENT_USER, szField, szData);
+	return CCRegistry::Read(HKEY_CURRENT_USER, szField, szData);
 }
 
 void ZApplication::SetSystemValue(const char* szField, const char* szData)
 {
-	MRegistry::Write(HKEY_CURRENT_USER, szField, szData);
+	CCRegistry::Write(HKEY_CURRENT_USER, szField, szData);
 }
 
 
