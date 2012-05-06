@@ -1593,7 +1593,7 @@ void RBspObject::OnRestore()
 		Sort_Nodes(m_pOcRoot);
 }
 
-bool RBspObject::Open_MaterialList(CCXmlElement *pElement)
+bool RBspObject::Open_MaterialList(::CCXmlElement *pElement)
 {
 	RMaterialList ml;
 	ml.Open(pElement);
@@ -1653,7 +1653,7 @@ bool RBspObject::Open_MaterialList(CCXmlElement *pElement)
 }
 
 
-bool RBspObject::Open_LightList(CCXmlElement *pElement)
+bool RBspObject::Open_LightList(::CCXmlElement *pElement)
 {
 	RLightList llist;
 	llist.Open(pElement);
@@ -1701,7 +1701,7 @@ bool RBspObject::Open_OcclusionList(CCXmlElement *pElement)
 	return true;
 }
 
-bool RBspObject::Open_ObjectList(CCXmlElement *pElement)
+bool RBspObject::Open_ObjectList(::CCXmlElement *pElement)
 {
 	int i;
 
@@ -1880,7 +1880,7 @@ bool RBspObject::Make_LenzFalreList()
 	return true;
 }
 
-bool RBspObject::Open_DummyList(CCXmlElement *pElement)
+bool RBspObject::Open_DummyList(::CCXmlElement *pElement)
 {
 	m_DummyList.Open(pElement);
 
@@ -1888,7 +1888,7 @@ bool RBspObject::Open_DummyList(CCXmlElement *pElement)
 	return true;
 }
 
-bool RBspObject::Set_Fog(CCXmlElement *pElement)
+bool RBspObject::Set_Fog(::CCXmlElement *pElement)
 {
 	CCXmlElement childElem;
 	DWORD dwColor = 0;

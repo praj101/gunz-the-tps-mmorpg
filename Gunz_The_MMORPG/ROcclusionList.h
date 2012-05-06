@@ -7,7 +7,7 @@
 using namespace std;
 _NAMESPACE_REALSPACE2_BEGIN
 
-class CCXmlElement;
+class ::CCXmlElement;
 
 class ROcclusion {
 public:

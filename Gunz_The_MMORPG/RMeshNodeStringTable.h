@@ -1,12 +1,10 @@
 #pragma once
-#pragma warning(disable : 4996)
-
-#include <windows.h>
 #include <string>
 #include <hash_map>
 
+#pragma warning(disable : 4996)
+
 //_NAMESPACE_REALSPACE2_BEGIN
-typedef hash_map< string , int > rmesh_node_table;
 
 enum RMeshNodeNameType
 {
@@ -71,6 +69,8 @@ enum RMeshNodeNameType
 
 	RMeshNodeNameType_End
 };
+
+typedef stdext::hash_map< std::string , int > rmesh_node_table;
 
 class RMeshNodeStringTable
 {

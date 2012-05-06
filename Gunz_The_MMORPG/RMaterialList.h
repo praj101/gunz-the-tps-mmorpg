@@ -33,11 +33,11 @@ public:
 	bool Open(void* pMemory,int nSize);
 	*/
 
-	bool Open(CCXmlElement *pElement);
-	bool Save(CCXmlElement *pElement);
+	bool Open(::CCXmlElement *pElement);
+	bool Save(::CCXmlElement *pElement);
 
 private:
-	bool Open_Material(CCXmlElement *pElement);
+	bool Open_Material(::CCXmlElement *pElement);
 };
 
 _NAMESPACE_REALSPACE2_END
