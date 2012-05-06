@@ -10,7 +10,7 @@ protected:
 
 	ZMyBuffSummary	m_BuffSummary;
 
-	bool InsertShortBuffInfo(MShortBuffInfo *pShortInfo);
+	bool InsertShortBuffInfo(CCShortBuffInfo *pShortInfo);
 
 public:
 	ZMyBuffMgr();

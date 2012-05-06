@@ -11,7 +11,7 @@
 #endif
 
 
-#include ".\\GameGuard\\NPGameLib.h"
+#include "NPGameLib.h"
 
 
 #pragma comment( lib, "ws2_32.lib" )

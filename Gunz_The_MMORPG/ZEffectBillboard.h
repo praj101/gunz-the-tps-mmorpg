@@ -2,8 +2,8 @@
 #define ZEFFECTBILLBOARD_H
 
 #include "ZEffectManager.h"
-#include <d3dx9math.h>
-#include <d3d9.h>
+#include "DirectX/d3dx9math.h"
+#include "DirectX/d3d9.h"
 #include "RBaseTexture.h"
 
 struct CUSTOMVERTEX{

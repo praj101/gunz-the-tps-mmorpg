@@ -73,7 +73,7 @@ void ZFrame::OnDraw(CCDrawContext* pDC)
 }
 
 ZFrame::ZFrame(const char* szName, CCWidget* pParent, CCListener* pListener)
-			: MFrame(szName, pParent, pListener)
+			: CCFrame(szName, pParent, pListener)
 {
 	m_bCanShade = false;
 	m_bNextVisible = false;

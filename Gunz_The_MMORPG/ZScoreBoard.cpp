@@ -79,7 +79,7 @@ void ZScoreBoard::Add(const char* szTeam, const char* szID, const char* szState,
 {
 	if (m_pListBox == NULL) return;
 
-	MListItem* pNew = new ZListItemScore(szTeam, szID, szState, nScore, nKills, nDeaths, nPing);
+	CCListItem* pNew = new ZListItemScore(szTeam, szID, szState, nScore, nKills, nDeaths, nPing);
 	m_pListBox->Add(pNew);
 }
 
