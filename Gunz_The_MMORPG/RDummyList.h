@@ -27,8 +27,8 @@ private:
 public:
 	virtual ~RDummyList();
 
-	bool Open(CCXmlElement *pElement);
-	bool Save(CCXmlElement *pElement);
+	bool Open(::CCXmlElement *pElement);
+	bool Save(::CCXmlElement *pElement);
 };
 
 _NAMESPACE_REALSPACE2_END
