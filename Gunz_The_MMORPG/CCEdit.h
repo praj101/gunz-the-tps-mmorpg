@@ -74,8 +74,8 @@ public:
 protected:
 	virtual bool	OnEvent(CCEvent* pEvent, CCListener* pListener);
 
-	virtual bool	InputFilterKey(int iKey);
-	virtual bool	InputFilterChar(int iKey);
+	virtual bool	InputFilterKey(int uKey);
+	virtual bool	InputFilterChar(int uKey);
 
 	virtual void	OnSetFocus();
 	virtual void	OnReleaseFocus();

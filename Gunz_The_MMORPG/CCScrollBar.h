@@ -110,8 +110,8 @@ public:
 	CCScrollBar(CCWidget* pParent=NULL, CCListener* pListener=NULL, CCScrollBarTypes t=CCSBT_VERTICAL);
 	virtual ~CCScrollBar();
 
-	void ChangeCustoCCArrowLook(CCArrowLook *pArrowLook);
-	void ChangeCustoCCThumbLook(CCThumbLook *pThumbLook);
+	void ChangeCustomArrowLook(CCArrowLook *pArrowLook);
+	void ChangeCustomThumbLook(CCThumbLook *pThumbLook);
 
 	void SetMinMax(int nMin, int nMax);
 	int GetMin(){ return m_iMinValue; }

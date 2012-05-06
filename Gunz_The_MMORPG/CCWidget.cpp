@@ -459,8 +459,8 @@ bool CCWidget::EventDefaultKey(CCEvent* pEvent){
 	if(strcmp(GetClassName(), CORE_CCBUTTON)!=0) return false;
 
 	CCButton* pButton = (CCButton*)this;
-	if((pButton->m_iKeyAssigned==CCBKA_ENTER && pEvent->uKey==VK_RETURN) ||
-		(pButton->m_iKeyAssigned==CCBKA_ESC && pEvent->uKey==VK_ESCAPE))
+	if((pButton->m_uKeyAssigned==CCBKA_ENTER && pEvent->uKey==VK_RETURN) ||
+		(pButton->m_uKeyAssigned==CCBKA_ESC && pEvent->uKey==VK_ESCAPE))
 		if(DefaultCommand()==true) return true;
 
 	return false;

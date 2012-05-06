@@ -347,7 +347,7 @@ public:
 	int frame;
 };
 
-class RVertexAniKey : public D3DXVECTOR3 {
+class RVertexAnuKey : public D3DXVECTOR3 {
 public:
 	int frame;
 };

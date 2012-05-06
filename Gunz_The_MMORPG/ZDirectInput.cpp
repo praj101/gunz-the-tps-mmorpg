@@ -38,11 +38,11 @@ BOOL CALLBACK EnumDeviceObjectsCB( LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRe
     // Extract the passed pointer
 	char** szKeyNameTable = (char**)pvRef;
 
-	int iKey = lpddoi->dwOfs;
-	if(iKey<0 || iKey>=KEYNAMETABLE_COUNT) return DIENUM_STOP;
+	int uKey = lpddoi->dwOfs;
+	if(uKey<0 || uKey>=KEYNAMETABLE_COUNT) return DIENUM_STOP;
 
-	szKeyNameTable[iKey] = new char[strlen(lpddoi->tszName)+2];
-	strcpy(szKeyNameTable[iKey], lpddoi->tszName);
+	szKeyNameTable[uKey] = new char[strlen(lpddoi->tszName)+2];
+	strcpy(szKeyNameTable[uKey], lpddoi->tszName);
 
 	return DIENUM_CONTINUE;
 }
@@ -172,7 +172,7 @@ bool ZDirectInput::Create(HWND hWnd, BOOL bExclusive, BOOL bImmediateMode)
 
     if( FAILED( hr = m_pDI->CreateDevice( GUID_SysKeyboard, &m_pKeyboard, NULL ) ) ) return false;
     
-    if( FAILED( hr = m_pKeyboard->SetDataFormat( &c_dfDIKeyboard ) ) ) return false;
+    if( FAILED( hr = m_pKeyboard->SetDataFormat( &c_dfDuKeyboard ) ) ) return false;
 
 	hr = m_pKeyboard->SetCooperativeLevel( hWnd, dwCoopFlags );
     if( hr == DIERR_UNSUPPORTED && !bForeground && bExclusive )
@@ -365,7 +365,7 @@ DWORD ZDirectInput::GetKeyboardBufferedData(ZDIBUFFER* pBuffer,unsigned int nBuf
     }
 
     for( i = 0; i < min(dwElements,nBuffer); i++ ) {
-		pBuffer[i].iKey = BYTE(didod[i].dwOfs & 0xFF);
+		pBuffer[i].uKey = BYTE(didod[i].dwOfs & 0xFF);
 		pBuffer[i].bPressed = (didod[i].dwData & 0x80)?true:false;
     }
     return dwElements;
@@ -402,10 +402,10 @@ DWORD ZDirectInput::GetMouseBufferedData(int* pSumX,int* pSumY, ZDIBUFFER* pBuff
 	{
 		int nButton = (dims2.lZ) > 0 ? 0 : 1;
 		pBuffer[nCount].bPressed = true;
-		pBuffer[nCount].iKey = nButton;
+		pBuffer[nCount].uKey = nButton;
 		nCount++;
 		pBuffer[nCount].bPressed = false;
-		pBuffer[nCount].iKey = nButton;
+		pBuffer[nCount].uKey = nButton;
 		nCount++;
 	}
 
@@ -417,7 +417,7 @@ DWORD ZDirectInput::GetMouseBufferedData(int* pSumX,int* pSumY, ZDIBUFFER* pBuff
 		{
 			m_bMouseButtonStates[i] = bPressed;
 			pBuffer[nCount].bPressed = bPressed;
-			pBuffer[nCount].iKey = i+2;
+			pBuffer[nCount].uKey = i+2;
 			nCount++;
 		}
 	}
@@ -429,13 +429,13 @@ DWORD ZDirectInput::GetMouseBufferedData(int* pSumX,int* pSumY, ZDIBUFFER* pBuff
 	return nCount;
 }
 
-const char* ZDirectInput::GetKeyName(unsigned long int iKey)
+const char* ZDirectInput::GetKeyName(unsigned long int uKey)
 {
-	if(iKey<0 || iKey>=KEYNAMETABLE_COUNT){
-		static char* szUnknowiKeyName = "N/A";
-		return szUnknowiKeyName;
+	if(uKey<0 || uKey>=KEYNAMETABLE_COUNT){
+		static char* szUnknowuKeyName = "N/A";
+		return szUnknowuKeyName;
 	}
-	return m_szKeyNameTable[iKey];
+	return m_szKeyNameTable[uKey];
 }
 
 

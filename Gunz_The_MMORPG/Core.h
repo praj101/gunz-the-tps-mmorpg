@@ -27,7 +27,7 @@ class CCEvent;
 #define CCMODIFIER_ALT			MOD_ALT
 #define CCMODIFIER_CTRL			MOD_CONTROL
 #define CCMODIFIER_SHIFT		MOD_SHIFT
-#define CCIsActioiKeyPressed(i)	(Core::GetInstance()->IsActioiKeyPressed(i))
+#define CCIsActiouKeyPressed(i)	(Core::GetInstance()->IsActiouKeyPressed(i))
 #define IsHangul(x)				((uchar)(x)>127)
 
 typedef bool (MGLOBALEVENTCALLBACK)(CCEvent* pEvent);

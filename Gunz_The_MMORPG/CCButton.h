@@ -25,7 +25,7 @@ enum CCButtonType{
 	CCBT_PUSH2
 };
 //The default key properties
-enum CCButtoiKeyAssigned{
+enum CCButtouKeyAssigned{
 	CCBKA_NONE=0,
 	CCBKA_ENTER,
 	CCBKA_ESC
@@ -70,7 +70,7 @@ public:
 	bool				m_bEnableEnter;			//button, press the Enter key when focus is activated (Default: true)
 	bool				m_bHighlight;			//Highlight (&) support
 	CCBitmap*			m_pIcon;				//Icon	
-	CCButtoiKeyAssigned	m_iKeyAssigned;			//Key Assigned	
+	CCButtouKeyAssigned	m_uKeyAssigned;			//Key Assigned	
 	CCMsgBox*			m_pMsgBox;				//the confirmation message with a message box
 	string				m_strIDLConfirmText;	//xml defined in the confirmation message
 

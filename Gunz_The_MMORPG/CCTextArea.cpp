@@ -429,14 +429,14 @@ bool CCTextArea::OnEvent(CCEvent* pEvent, CCListener* pListener){
 	case CCWM_KEYDOWN:
 		if (m_bEditable)
 		{
-			bool bResult = InputFilterKey(pEvent->iKey,pEvent->bCtrl);
+			bool bResult = InputFilterKey(pEvent->uKey,pEvent->bCtrl);
 			UpdateScrollBar(true);
 			return bResult;
 		}
 		break;
 	case CCWM_CHAR:
-		if(IsFocus() && m_bEditable && GetLength()<GetMaxLen() && InputFilterChar(pEvent->iKey)==false){
-			m_CurrentLine->text.insert(m_CurrentLine->text.begin()+m_CaretPos.x,(char)pEvent->iKey);
+		if(IsFocus() && m_bEditable && GetLength()<GetMaxLen() && InputFilterChar(pEvent->uKey)==false){
+			m_CurrentLine->text.insert(m_CurrentLine->text.begin()+m_CaretPos.x,(char)pEvent->uKey);
 			m_CaretPos.x++;
 			m_iCurrentSize++;
 			UpdateScrollBar(true);
@@ -492,11 +492,11 @@ void CCTextArea::OnReleaseFocus(void){
 	Core::GetInstance()->EnableIME(false);
 }
 
-bool CCTextArea::InputFilterKey(int iKey,bool bCtrl){
-	if(iKey!=VK_UP && iKey!=VK_DOWN)
+bool CCTextArea::InputFilterKey(int uKey,bool bCtrl){
+	if(uKey!=VK_UP && uKey!=VK_DOWN)
 		m_bVerticalMoving=false;
 
-	switch(iKey){
+	switch(uKey){
 	case VK_LEFT : MoveLeft();return true;
 	case VK_RIGHT : MoveRight();return true;
 	case VK_UP : if(bCtrl) ScrollUp(); else MoveUp(); return true;
@@ -525,23 +525,23 @@ bool CCTextArea::InputFilterKey(int iKey,bool bCtrl){
 	return false;
 }
 
-bool CCTextArea::InputFilterChar(int iKey){
-	if(iKey==VK_BACK){
+bool CCTextArea::InputFilterChar(int uKey){
+	if(uKey==VK_BACK){
 		return true;
 	}
-	else if(iKey==VK_ESCAPE){
+	else if(uKey==VK_ESCAPE){
 		CCListener* pListener = GetListener();
 		if(pListener!=NULL) pListener->OnCommand(this, CCTEXTAREA_ESC_VALUE);
 		return true;
 	}
-	else if(iKey==22){	// Ctrl+'V'
+	else if(uKey==22){	// Ctrl+'V'
 		return true;
 	}
-	else if(iKey==3){	// Ctrl+'C'
+	else if(uKey==3){	// Ctrl+'C'
 		return true;
 	}
 
-	switch(iKey){
+	switch(uKey){
 	case VK_TAB:
 	case VK_RETURN:
 		return true;
