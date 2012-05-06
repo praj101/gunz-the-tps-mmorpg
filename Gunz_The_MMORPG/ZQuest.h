@@ -2,6 +2,7 @@
 #define _ZQUEST_H
 
 #include "ZBaseQuest.h"
+#include "ZGlobal.h"
 
 bool ZIsLaunchDevelop();
 // 퀘스트 관련 전역 클래스
@@ -124,7 +125,7 @@ inline void ZQuest::SetCheet(ZQuestCheetType nCheetType, bool bValue)
 
 inline bool ZQuest::GetCheet(ZQuestCheetType nCheetType) 
 { 
-	if (!ZIsLaunchDevelop()) return false;
+	if (ZIsLaunchDevelop()) return false;
 	return m_Cheet[nCheetType];
 }
 
