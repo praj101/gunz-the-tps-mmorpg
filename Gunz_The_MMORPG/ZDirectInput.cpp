@@ -172,7 +172,7 @@ bool ZDirectInput::Create(HWND hWnd, BOOL bExclusive, BOOL bImmediateMode)
 
     if( FAILED( hr = m_pDI->CreateDevice( GUID_SysKeyboard, &m_pKeyboard, NULL ) ) ) return false;
     
-    if( FAILED( hr = m_pKeyboard->SetDataFormat( &c_dfDuKeyboard ) ) ) return false;
+    if( FAILED( hr = m_pKeyboard->SetDataFormat( &c_dfDIKeyboard ) ) ) return false;
 
 	hr = m_pKeyboard->SetCooperativeLevel( hWnd, dwCoopFlags );
     if( hr == DIERR_UNSUPPORTED && !bForeground && bExclusive )

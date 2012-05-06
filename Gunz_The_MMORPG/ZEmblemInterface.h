@@ -14,6 +14,7 @@
 #include <map>								// Include map
 #include "CCMatchGlobal.h"					// Include CCMatchGlobal.h
 #include "CCBitmap.h"						// Include CCBitmap.h
+#include "RTypes.h"
 using namespace std;
 
 

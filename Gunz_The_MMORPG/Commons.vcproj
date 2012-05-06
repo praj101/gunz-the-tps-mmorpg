@@ -1155,6 +1155,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="NOTES"
+				>
+				<File
+					RelativePath=".\Graphical User Interface.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\AntiCPSvrFunc.h"
