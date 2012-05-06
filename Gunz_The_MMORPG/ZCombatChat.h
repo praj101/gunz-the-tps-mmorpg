@@ -10,7 +10,7 @@ class CCTextArea;
 /////////////////
 // ZTabPlayerList
 #define ZPLB_ITEM_PICKPLAYER	"picked"
-class ZTabPlayerList : public MListBox {
+class ZTabPlayerList : public CCListBox {
 protected:
 	CCEdit*	m_pEditChat;
 

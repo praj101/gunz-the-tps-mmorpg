@@ -168,7 +168,7 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, CCDrawContext* pDC)
 
 //		cclog(" ------- p.y = %d %d \n",p.y,nItemHeight);
 
-		MListItem* pItem = pListBox->Get(i);
+		CCListItem* pItem = pListBox->Get(i);
 		bool bSelected = pItem->m_bSelected;
 //		bool bSelected = (pListBox->IsSelected()) ? (pListBox->GetSelIndex()==i) : false;
 		bool bFocused = (pListBox->IsFocus());

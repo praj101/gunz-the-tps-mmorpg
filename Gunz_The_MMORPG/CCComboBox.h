@@ -66,7 +66,7 @@ public:
 	void SetPrevSel();
 
 	void Add(const char* szItem);
-	void Add(MListItem* pItem);
+	void Add(CCListItem* pItem);
 	const char* GetString(int i);
 	CCListItem* Get(int i);
 	void Remove(int i);
