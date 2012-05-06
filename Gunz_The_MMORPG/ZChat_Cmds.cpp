@@ -125,7 +125,7 @@ void ZChat::InitCmds()
 	ZCmdXmlParser parser;
 	if (!parser.ReadXml(ZApplication::GetFileSystem(), FILENAME_CHATCMDS))
 	{
-		MLog("Error while Read Item Descriptor %s", "system/chatcmds.xml");
+		CCLog("Error while Read Item Descriptor %s", "system/chatcmds.xml");
 	}
 
 	_CC_ACX(CCMD_ID_HELP,				&ChatCmd_Help,				CCF_ALL, ARGVNoMin, ARGVNoMax, true);

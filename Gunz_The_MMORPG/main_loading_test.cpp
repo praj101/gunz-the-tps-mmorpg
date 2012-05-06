@@ -18,6 +18,7 @@
 #include "main.h"
 #include "resource.h"
 #include "VersionNo.h"
+#include "ZPost.h"
 
 #include "Core4R2.h"
 #include "ZApplication.h"
@@ -43,7 +44,7 @@
 #include "ZUtil.h"
 #include "ZOptionInterface.h"
 #include "HMAC_SHA1.h"
-
+#include "ZStringResManager.h"
 #ifdef USING_VERTEX_SHADER
 #include "RShaderMgr.h"
 #endif
@@ -550,7 +551,7 @@ void ResetAppResource()
 	SetModeParams();
 
 	if( !ZApplication::GetInstance()->InitLocale() )
-		MLog("In changing language... InitLocale error !!!\n");
+		CCLog("In changing language... InitLocale error !!!\n");
 
 	ZGetConfiguration()->Load_StringResDependent();
 	OnCreate(0);
@@ -1444,7 +1445,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 //	cclog("CheckSum: %u \n", ZApplication::GetFileSystem()->GetTotalCRC());
 
 	//if(!InitializeMessage(ZApplication::GetFileSystem())) {
-	//	MLog("Check Messages.xml\n");
+	//	CCLog("Check Messages.xml\n");
 	//	return 0;
 	//}
 
@@ -1468,7 +1469,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	ZStringResManager::MakeInstance();
 	if( !ZApplication::GetInstance()->InitLocale() )
 	{
-		MLog("Locale Init error !!!\n");
+		CCLog("Locale Init error !!!\n");
 		return false;
 	}
 
@@ -1477,7 +1478,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	// 여기서 메크로 컨버팅... 먼가 구리구리~~ -by SungE.
 	if( !ZGetConfiguration()->LateStringConvert() )
 	{
-		MLog( "main.cpp - Late string convert fale.\n" );
+		CCLog( "main.cpp - Late string convert fale.\n" );
 		return false;
 	}
 
@@ -1590,7 +1591,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 #endif
 
 	if(!InitializeNotify(ZApplication::GetFileSystem())) {
-		MLog("Check notify.xml\n");
+		CCLog("Check notify.xml\n");
 		return 0;
 	}
 	else 
@@ -1601,7 +1602,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	// font 있는가 검사..
 
 	if(CheckFont()==false) {
-		MLog("폰트가 없는 유저가 폰트 선택을 취소\n");
+		CCLog("폰트가 없는 유저가 폰트 선택을 취소\n");
 		return 0;
 	}
 

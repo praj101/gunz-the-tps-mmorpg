@@ -123,7 +123,7 @@ public:
 };
 MHotBarButtonListener	g_HotBarButtonListener;
 
-class MLoginListener : public CCListener{
+class CCLoginListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
 		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true)
@@ -178,14 +178,14 @@ public:
 		return false;
 	}
 };
-MLoginListener	g_LoginListener;
+CCLoginListener	g_LoginListener;
 
-class MLogoutListener : public CCListener{
+class CCLogoutListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
 		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 
-			cclog("MLogoutListener !\n");
+			cclog("CCLogoutListener !\n");
 			// 체크후 로그아웃~
 			/////////////////
 			ZPostDisconnect();
@@ -195,7 +195,7 @@ public:
 		return false;
 	}
 };
-MLogoutListener	g_LogoutListener;
+CCLogoutListener	g_LogoutListener;
 
 class MExitListener : public CCListener{
 public:

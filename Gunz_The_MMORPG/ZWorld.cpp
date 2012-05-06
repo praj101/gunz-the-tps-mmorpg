@@ -78,7 +78,7 @@ bool ZWorld::Create(ZLoadingProgress *pLoading )
 #endif
 	if(!m_pBsp->Open(m_szBspName, descExt, RBspObject::ROF_RUNTIME,ZWorldProgressCallBack,pLoading))
 	{
-		MLog("error while loading %s \n",m_szName);
+		CCLog("error while loading %s \n",m_szName);
 		// 맵로딩에 실패하면 저장해둔 맵정보를 모두 지워준다.(버그수정:로딩에 실패할경우 실패된 맵정보를 그냥 저장 했었다)
 		ZGetWorldManager()->Clear();
 		return false;

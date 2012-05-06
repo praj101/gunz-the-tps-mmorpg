@@ -509,6 +509,10 @@
 						RelativePath=".\HMAC_SHA1.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\SecurityTest.cpp"
+						>
+					</File>
 					<Filter
 						Name="Widgets"
 						>
@@ -2169,6 +2173,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CheckReturnCallStack.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Config.h"
 			>
 		</File>
@@ -2414,6 +2422,10 @@
 		</File>
 		<File
 			RelativePath=".\RVisualMeshUtil.h"
+			>
+		</File>
+		<File
+			RelativePath=".\SecurityTest.h"
 			>
 		</File>
 		<File

@@ -566,11 +566,11 @@ BirdGo:
 	{
 		if (!MGetMatchItemDescMgr()->ReadXml(GetFileSystem(), strFileNameZItem.c_str()))
 		{
-			MLog("Error while Read Item Descriptor %s\n", strFileNameZItem.c_str());
+			CCLog("Error while Read Item Descriptor %s\n", strFileNameZItem.c_str());
 		}
 		if (!MGetMatchItemDescMgr()->ReadXml(GetFileSystem(), strFileNameZItemLocale.c_str()))
 		{
-			MLog("Error while Read Item Descriptor %s\n", strFileNameZItemLocale.c_str());
+			CCLog("Error while Read Item Descriptor %s\n", strFileNameZItemLocale.c_str());
 		}
 
 		MGetMatchItemDescMgr()->WriteCache();
@@ -579,27 +579,27 @@ BirdGo:
 
 	if( !MGetMatchBuffDescMgr()->ReadXml(GetFileSystem(), strFileNameZBuff.c_str()) )
 	{
-		MLog("Error while Read Buff Descriptor %s\n", strFileNameZBuff.c_str());
+		CCLog("Error while Read Buff Descriptor %s\n", strFileNameZBuff.c_str());
 	}
 	cclog("Load zBuff info success.\n");
 
 
 //	if (!MGetMatchItemEffectDescMgr()->ReadXml(GetFileSystem(), FILENAME_ZITEMEFFECT_DESC))
 //	{
-//		MLog("Error while Read Item Descriptor %s\n", FILENAME_ZITEMEFFECT_DESC);
+//		CCLog("Error while Read Item Descriptor %s\n", FILENAME_ZITEMEFFECT_DESC);
 //	}
 //	cclog("Init effect manager success.\n");
 
 	if (!MGetMatchWorldItemDescMgr()->ReadXml(GetFileSystem(), strFileNameWorlditem.c_str() ))
 	{
-		MLog("Error while Read Item Descriptor %s\n", strFileNameWorlditem.c_str());
+		CCLog("Error while Read Item Descriptor %s\n", strFileNameWorlditem.c_str());
 	}
 	cclog("Init world item manager success.\n");
 
 	
 	if (!MGetMapDescMgr()->Initialize(GetFileSystem(), "system/map.xml"))
 	{
-		MLog("Error while Read map Descriptor %s\n", "system/map.xml");
+		CCLog("Error while Read map Descriptor %s\n", "system/map.xml");
 	}
 	cclog("Init map Descriptor success.\n");
 
@@ -610,13 +610,13 @@ BirdGo:
 #endif
 	if (!ZGetChannelRuleMgr()->ReadXml(GetFileSystem(), strFileChannelRule.c_str()))
 	{
-		MLog("Error while Read Item Descriptor %s\n", strFileChannelRule.c_str());
+		CCLog("Error while Read Item Descriptor %s\n", strFileChannelRule.c_str());
 	}
 	cclog("Init channel rule manager success.\n");
 /*
 	if (!MGetNPCGroupMgr()->ReadXml(GetFileSystem(), "system/monstergroup.xml"))
 	{
-		MLog("Error while Read Item Descriptor %s", "system/monstergroup.xml");
+		CCLog("Error while Read Item Descriptor %s", "system/monstergroup.xml");
 	}
 	cclog("ZApplication::OnCreate : ZGetNPCGroupMgr()->ReadXml \n");
 */
@@ -625,7 +625,7 @@ BirdGo:
 	if (!bSucceedLoadAbuse || MGetChattingFilter()->GetNumAbuseWords() == 0)
 	{
 		// 해킹으로 abuse-list 파일자체를 없애거나 내용을 비웠을 경우 실행을 멈추게 하자
-		MLog("Error while Read Abuse Filter %s\n", strFileNameAbuse.c_str());
+		CCLog("Error while Read Abuse Filter %s\n", strFileNameAbuse.c_str());
 		MessageBox(NULL, ZErrStr(MERR_FIND_INVALIDFILE), ZMsg( MSG_WARNING), MB_OK);	// TODO: 풀스크린에서 메시지 박스는 좀 곤란함;
 		return false;
 	}
@@ -637,14 +637,14 @@ BirdGo:
 #ifdef _QUEST_ITEM
 	if( !GetQuestItemDescMgr().ReadXml(GetFileSystem(), FILENAME_QUESTITEM_DESC) )
 	{
-		MLog( "Error while read quest tiem descrition xml file.\n" );
+		CCLog( "Error while read quest tiem descrition xml file.\n" );
 	}
 #endif
 
 	cclog("Init chatting filter. success\n");
 
 	if(!m_SkillManager.Create()) {
-		MLog("Error while create skill manager\n");
+		CCLog("Error while create skill manager\n");
 	}
 
 	END_("ETC ..");
@@ -669,7 +669,7 @@ BirdGo:
 
 	if (ZCheckFileHack() == true)
 	{
-		MLog("File Check Failed\n");
+		CCLog("File Check Failed\n");
 		return false;
 	}
 

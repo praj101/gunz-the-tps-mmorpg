@@ -1445,7 +1445,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 
 	if(!OpenDescription(xmlname))
 	{
-		MLog("Error while loading %s\n",xmlname);
+		CCLog("Error while loading %s\n",xmlname);
 		return false;
 	}
 	if(pfnProgressCallback) pfnProgressCallback(CallbackParam,.3f);
@@ -1454,7 +1454,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 
 	if(!OpenRs(filename))
 	{
-		MLog("Error while loading %s\n",filename);
+		CCLog("Error while loading %s\n",filename);
 		return false;
 	}
 
@@ -1465,7 +1465,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 	char pathfilename[_MAX_PATH];
 	sprintf(pathfilename,"%s.pat",filename);
 	if((nOpenFlag==ROF_ALL || nOpenFlag==ROF_BSPANDPATH) && !OpenPathNode(pathfilename))
-		MLog("Error while loading %s\n",pathfilename);
+		CCLog("Error while loading %s\n",pathfilename);
 */
 
 
@@ -1473,7 +1473,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 	sprintf(bspname,"%s.bsp",filename);
 	if(!OpenBsp(bspname))
 	{
-		MLog("Error while loading %s\n",bspname);
+		CCLog("Error while loading %s\n",bspname);
 		return false;
 	}
 
@@ -1484,7 +1484,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 	sprintf(colfilename,"%s.col",filename);
 	if(!OpenCol(colfilename))
 	{
-		MLog("Error while loading %s\n",colfilename);
+		CCLog("Error while loading %s\n",colfilename);
 		return false;
 	}
 
@@ -1493,7 +1493,7 @@ bool RBspObject::Open(const char *filename, const char* descExtension, ROpenFlag
 	sprintf(navfilename,"%s.nav",filename);
 	if(!OpenNav(navfilename))
 	{
-		//MLog("Error while loading %s\n",navfilename);
+		//CCLog("Error while loading %s\n",navfilename);
 		//return false;
 	}
 
