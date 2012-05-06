@@ -1,5 +1,4 @@
-#ifndef _ZBASEQUEST_H
-#define _ZBASEQUEST_H
+#pragma once
 
 #include "ZGlobal.h"
 #include "CCBaseQuest.h"
@@ -7,8 +6,6 @@
 #include "ZQuestGameInfo.h"
 #include "ZMyItemList.h"
 #include "ZNPCInfoFromServer.h"
-
-
 
 #include <set>
 
@@ -120,6 +117,3 @@ public:
 	virtual bool OnPrePeerNPCAttackMelee(CCCommand* pCommand) = 0;	// 실제로 처리하는건 한타이밍 늦다
 	
 };
-
-
-#endif

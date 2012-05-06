@@ -1,5 +1,6 @@
-#ifndef _ZGLOBAL_H
-#define _ZGLOBAL_H
+#pragma once
+
+bool					ZIsLaunchDevelop(); //This must be Before #include "ZApplication.h" or it cant find the define... ?.?
 
 //#include "RMesh.h"
 #include "ZApplication.h"
@@ -23,7 +24,6 @@
 #define SCREENSHOT_FOLDER	"/Screenshots"
 #define REPLAY_FOLDER		"/Replay"
 #define EMBLEM_FOLDER		"/Emblem"
-
 
 class CCZFileSystem;
 class MMessenger;
@@ -50,7 +50,7 @@ class ZInput;
 extern ZDirectInput	g_DInput;
 extern ZInput* g_pInput;
 
-bool					ZIsLaunchDevelop();
+//
 
 RMeshMgr*				ZGetNpcMeshMgr();
 RMeshMgr*				ZGetMeshMgr();
@@ -98,6 +98,3 @@ inline ZOptionInterface*	ZGetOptionInterface() { return ZApplication::GetInstanc
 #define PROTECT_DEBUG_REGISTER(b) if(GetTickCount() >0)if(GetTickCount() >0)if(GetTickCount() >0)if(b)
 //jintriple3 디버그 레지스터 해킹 방어 위한 비교 숫자.
 #define FOR_DEBUG_REGISTER 1000
-
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef _ZAPPLICATION_H
-#define _ZAPPLICATION_H
+#pragma once
 
 #include "CCZFileSystem.h"
 #include "ZGameInterface.h"
@@ -177,5 +176,3 @@ __forceinline ZTimer* ZApplication::GetTimer()
 {
 	return &m_Timer;
 }
-
-#endif
