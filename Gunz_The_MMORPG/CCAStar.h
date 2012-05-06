@@ -19,10 +19,10 @@ public:
 	CCNodeModel*	m_pParent;
 	int			m_nVisitID;
 public:
-	CCNodeModel(void);
-	virtual ~CCNodeModel(void);
+	CCNodeModel();
+	virtual ~CCNodeModel();
 	// 이웃 Node 얻기
-	virtual int GetSuccessorCount(void) = 0;
+	virtual int GetSuccessorCount() = 0;
 	virtual CCNodeModel* GetSuccessor(int i) = 0;
 
 	// 이웃 Node들의 Cost 얻기
@@ -39,10 +39,10 @@ public:
 	// Heuristic Estimation에 의한 pNode까지의 Cost 얻기
 	virtual float GetHeuristicCost(CCNodeModel* pNode) = 0;
 
-	float GetTotalCost(void){
+	float GetTotalCost(){
 		return m_fCostFromStart+m_fCostToGoal;
 	}
-	virtual float GetTotalCostPriority(void){	// 우선순위를 결정하기 위한 Total Cost
+	virtual float GetTotalCostPriority(){	// 우선순위를 결정하기 위한 Total Cost
 		return GetTotalCost();	// 대부분 GetTotalCost()와 같다.
 	}
 };
@@ -73,31 +73,31 @@ public:
 	//CCPtrList<CCNodeModel>	m_CloseStack;
 protected:
 	void PushOpen(CCNodeModel* pNode);
-	CCNodeModel* PopOpen(void);
-	CCNodeModel* PopLowestCostOpen(void);
-	bool IsOpenEmpty(void);
+	CCNodeModel* PopOpen();
+	CCNodeModel* PopLowestCostOpen();
+	bool IsOpenEmpty();
 	int IsOpenNode(CCNodeModel* pNode);
 	/*
 	void PushClose(CCNodeModel* pNode);
-	CCNodeModel* PopClose(void);
+	CCNodeModel* PopClose();
 	int IsCloseNode(CCNodeModel* pNode);
 	void RemoveClose(int i);
 	*/
 	bool IsForcedClose(CCNodeModel* pNode, CCNodeModel* pFromNode);
 
 public:
-	CCAStar(void);
+	CCAStar();
 
 	void AddForcedClose(CCNodeModel* pNode, CCNodeModel* pFromNode);	// 강제로 Close 정의
-	void RemoveForcedClose(void);
+	void RemoveForcedClose();
 
 	bool FindPath(CCNodeModel* pStartNode, CCNodeModel* pGoalNode, int nLimit=-1, float fMinHeuristicValue=-1, bool bIncludeStartNode=false);
 
-	int GetShortestPathCount(void);
+	int GetShortestPathCount();
 	CCNodeModel* GetShortestPath(int i);
 	void RemoveShortestPath(int i);
 
-	CCPtrList<CCNodeModel>* GetShortestPath(void);
+	CCPtrList<CCNodeModel>* GetShortestPath();
 
-	void Reset(void);
+	void Reset();
 };

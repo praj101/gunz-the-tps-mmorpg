@@ -119,8 +119,8 @@ protected:
 	CCMatchBRDescriptionMap m_RewardDescription;
 
 public:
-	CCMatchBRMachine(void);
-	~CCMatchBRMachine(void);
+	CCMatchBRMachine();
+	~CCMatchBRMachine();
 
 	void SetBattleTimeRewardMachine(CCMatchBRDescriptionMap DescriptionMap);
 

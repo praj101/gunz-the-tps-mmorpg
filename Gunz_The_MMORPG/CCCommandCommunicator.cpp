@@ -46,7 +46,7 @@ bool CCCommandCommunicator::OnCommand(CCCommand* pCommand)
 	return false;
 }
 
-void CCCommandCommunicator::OnPrepareRun(void)
+void CCCommandCommunicator::OnPrepareRun()
 {
 }
 
@@ -54,7 +54,7 @@ void CCCommandCommunicator::OnPrepareCommand(CCCommand* pCommand)
 {
 }
 
-void CCCommandCommunicator::OnRun(void)
+void CCCommandCommunicator::OnRun()
 {
 }
 
@@ -63,13 +63,13 @@ void CCCommandCommunicator::SetDefaultReceiver(CCUID Receiver)
 	m_DefaultReceiver = Receiver;
 }
 
-CCCommandCommunicator::CCCommandCommunicator(void)
+CCCommandCommunicator::CCCommandCommunicator()
 {
 	m_This.SetZero();
 	m_DefaultReceiver.SetZero();
 }
 
-CCCommandCommunicator::~CCCommandCommunicator(void)
+CCCommandCommunicator::~CCCommandCommunicator()
 {
 	Destroy();
 #ifdef _CMD_PROFILE
@@ -77,7 +77,7 @@ CCCommandCommunicator::~CCCommandCommunicator(void)
 #endif
 }
 
-bool CCCommandCommunicator::Create(void)
+bool CCCommandCommunicator::Create()
 {
 #ifdef _CMD_PROFILE
 	m_CommandProfiler.Init(&m_CommandManager);
@@ -87,7 +87,7 @@ bool CCCommandCommunicator::Create(void)
 	return true;
 }
 
-void CCCommandCommunicator::Destroy(void)
+void CCCommandCommunicator::Destroy()
 {
 	while(CCCommand* pCmd = GetCommandSafe()) {
 		delete pCmd;
@@ -141,7 +141,7 @@ CCCommand* CCCommandCommunicator::GetCommandSafe()
 	return m_CommandManager.GetCommand();
 }
 
-void CCCommandCommunicator::Run(void)
+void CCCommandCommunicator::Run()
 {
 	MGetCheckLoopTimeInstance()->SetPrepareRunTick();
 	OnPrepareRun();

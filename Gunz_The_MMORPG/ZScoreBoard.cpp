@@ -95,7 +95,7 @@ void ZScoreBoard::Update()
 
 }
 
-bool ZScoreBoard::OnShow(void)
+bool ZScoreBoard::OnShow()
 {
 	if (m_pFrame == NULL) return false;
 
@@ -104,7 +104,7 @@ bool ZScoreBoard::OnShow(void)
 
 	return true;
 }
-void ZScoreBoard::OnHide(void)
+void ZScoreBoard::OnHide()
 {
 	if (m_pFrame == NULL) return;
 

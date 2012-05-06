@@ -41,8 +41,8 @@ public:
 	inline void setTransform( rmatrix& world_ );
 
 public:
-	RCylinder(void);
-	virtual ~RCylinder(void);
+	RCylinder();
+	virtual ~RCylinder();
 };
 
 void RCylinder::setTopCentre( const rvector& in_ ) { mTopCentre = in_; mHeight = D3DXVec3Length(&(mTopCentre - mBottomCentre)); }

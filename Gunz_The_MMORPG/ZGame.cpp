@@ -2414,7 +2414,7 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 	return false;
 }
 
-rvector ZGame::GetMyCharacterFirePosition(void)
+rvector ZGame::GetMyCharacterFirePosition()
 {
 	rvector p = ZGetGame()->m_pMyCharacter->GetPosition();
 	p.z += 160.f;

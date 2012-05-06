@@ -43,7 +43,7 @@ ZRoomListBox::ZRoomListBox(const char* szName, CCWidget* pParent, CCListener* pL
 	m_uidSelectedPrivateStageUID	= CCUID(0,0);
 }
 
-ZRoomListBox::~ZRoomListBox(void)
+ZRoomListBox::~ZRoomListBox()
 {
 	//SAFE_DELETE_ARRAY(m_pMapInfo);
 	for( map<string, CCBitmap*>::iterator	iter = m_pMapImage.begin(); iter != m_pMapImage.end(); )

@@ -12,7 +12,7 @@ public:
 	CCToolTip(const char* szName, CCWidget* pParent);
 	virtual ~CCToolTip();
 
-	virtual void SetBounds(void); //Was removed?
+	virtual void SetBounds(); //Was removed?
 
 	void SetText(const char* szText);
 	bool IsUseParentName();

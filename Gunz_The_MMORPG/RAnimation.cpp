@@ -142,7 +142,7 @@ bool RAnimation::IsLoadDone()
 	return m_isLoadDone;
 }
 
-void RAnimation::ClearSoundFile(void)
+void RAnimation::ClearSoundFile()
 {
 	m_sound_name[0] = NULL;
 	m_bIsHaveSound = false;

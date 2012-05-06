@@ -4,44 +4,44 @@
 #include "ZQuest.h"
 //#include "SVNRevision/SVNRevision.cpp"
 
-bool ZIsLaunchDevelop(void) { 
+bool ZIsLaunchDevelop() { 
 	return ZApplication::GetInstance()->IsLaunchDevelop(); 
 }
-bool ZIsLaunchTest(void) { 
+bool ZIsLaunchTest() { 
 	return ZApplication::GetInstance()->IsLaunchTest(); 
 }
 
-RMeshMgr* ZGetNpcMeshMgr(void) { 
+RMeshMgr* ZGetNpcMeshMgr() { 
 	return ZApplication::GetNpcMeshMgr(); 
 }
 
-RMeshMgr* ZGetMeshMgr(void) { 
+RMeshMgr* ZGetMeshMgr() { 
 	return ZApplication::GetMeshMgr(); 
 }
 
-RMeshMgr* ZGetWeaponMeshMgr(void) { 
+RMeshMgr* ZGetWeaponMeshMgr() { 
 	return ZApplication::GetWeaponMeshMgr(); 
 }
 
-RAniEventMgr* ZGetAniEventMgr(void)
+RAniEventMgr* ZGetAniEventMgr()
 {
 	return ZApplication::GetAniEventMgr();
 }
 
-ZSoundEngine* ZGetSoundEngine(void) { 
+ZSoundEngine* ZGetSoundEngine() { 
 	return ZApplication::GetSoundEngine(); 
 }
 
-ZEffectManager*	ZGetEffectManager(void) { 
+ZEffectManager*	ZGetEffectManager() { 
 //	return &g_pGame->m_EffectManager; 
 	return ZGetGameInterface()->GetEffectManager(); 
 }
 
-ZScreenEffectManager* ZGetScreenEffectManager(void) { 
+ZScreenEffectManager* ZGetScreenEffectManager() { 
 	return ZGetGameInterface()->GetScreenEffectManager(); 
 }
 
-int ZGetSVNRevision(void)
+int ZGetSVNRevision()
 {
 	return 0;
 	//return GlobalGetSVNRevision();

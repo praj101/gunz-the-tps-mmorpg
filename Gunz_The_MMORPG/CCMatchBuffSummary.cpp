@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "CCMatchBuffSummary.h"
 
-CCMatchBuffSummary::CCMatchBuffSummary(void)
+CCMatchBuffSummary::CCMatchBuffSummary()
 {
 	Clear();
 }
 
-CCMatchBuffSummary::~CCMatchBuffSummary(void)
+CCMatchBuffSummary::~CCMatchBuffSummary()
 {
 }
 

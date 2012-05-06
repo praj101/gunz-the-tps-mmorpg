@@ -29,7 +29,7 @@ public:
 	void SetAlignmentMode( CCAlignmentMode am)			{ m_AlignmentMode = am; }
 
 #define CORE_ZBMNUMLABEL	"BmNumLabel"
-	virtual const char* GetClassName(void){ return CORE_ZBMNUMLABEL; }
+	virtual const char* GetClassName(){ return CORE_ZBMNUMLABEL; }
 };
 
 #endif

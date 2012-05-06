@@ -850,7 +850,7 @@ bool ZApplication::OnDraw()
 	return m_pGameInterface->IsDone();
 }
 
-ZSoundEngine* ZApplication::GetSoundEngine(void)
+ZSoundEngine* ZApplication::GetSoundEngine()
 {
 	return &m_SoundEngine;
 }

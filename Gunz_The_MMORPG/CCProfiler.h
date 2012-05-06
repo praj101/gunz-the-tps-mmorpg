@@ -27,7 +27,7 @@ struct CCPROFILELOG{
 // Temporary Profile Call Stack
 class CCProfileStack : public stack<CCPROFILEITEM*>{
 public:
-	virtual ~CCProfileStack(void);
+	virtual ~CCProfileStack();
 };
 
 // One Loop Log
@@ -39,7 +39,7 @@ public:
 	*/
 	void AddProfile(CCPROFILELOG* pPL);
 
-	int GetTotalTime(void);
+	int GetTotalTime();
 };
 
 
@@ -56,24 +56,24 @@ protected:
 	char*			m_szFirstProfileName;		// 맨처음 시작한 프로파일 이름 ( Depth 0 )
 
 public:
-	CCProfiler(void);
-	virtual ~CCProfiler(void);
+	CCProfiler();
+	virtual ~CCProfiler();
 
 	void BeginProfile(char* szProfileName);
 	void EndProfile(char* szProfileName);
 
 	bool FinalAnalysis(char* szFileName);
 
-	int GetTotalTime(void);
+	int GetTotalTime();
 
 	// One Loop Profiling
 	void EnableOneLoopProfile(bool bEnable);
-	bool IsOneLoopProfile(void);
+	bool IsOneLoopProfile();
 	// if not enabled, return NULL
-	CCProfileLoop* GetOneLoopProfile(void);
+	CCProfileLoop* GetOneLoopProfile();
 
 	// Accumulated Profile Result
-	CCProfileLoop* GetProfile(void);
+	CCProfileLoop* GetProfile();
 };
 
 
@@ -88,7 +88,7 @@ public:
 		g_DefaultProfiler.BeginProfile(szProfileName);
 		strcpy(m_szProfileName, szProfileName);
 	}
-	virtual ~CCProfileInstance(void){
+	virtual ~CCProfileInstance(){
 		g_DefaultProfiler.EndProfile(m_szProfileName);
 	}
 };

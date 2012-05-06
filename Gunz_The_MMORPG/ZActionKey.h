@@ -29,8 +29,8 @@ public:
 
 protected:
 //	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
-	virtual void OnSetFocus(void);
-	virtual void OnReleaseFocus(void);
+	virtual void OnSetFocus();
+	virtual void OnReleaseFocus();
 
 	static MGLOBALEVENTCALLBACK*	m_oldEventListener;
 	static ZActionKey*				m_exclusiveActionKey;
@@ -39,7 +39,7 @@ public:
 	ZActionKey(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL );
 
 #define CORE_ACTIONKEY	"ActionKey"
-	virtual const char* GetClassName(void){ return CORE_ACTIONKEY; }
+	virtual const char* GetClassName(){ return CORE_ACTIONKEY; }
 
 	static bool		OnExclusiveEvent(CCEvent* pEvent);
 
@@ -54,7 +54,7 @@ public:
 	void UpdateText();	// text 내용을 갱신한다
 
 	//bool RegisterActionKey(int nActionID);
-	//bool UnregisterActionKey(void);
+	//bool UnregisterActionKey();
 	
 	static void RegisterForbidKey(int nkey);
 	bool IsForbidKey(int nkey);

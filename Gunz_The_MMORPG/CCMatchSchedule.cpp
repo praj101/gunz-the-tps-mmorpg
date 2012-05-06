@@ -35,13 +35,13 @@ void CCMatchDayOfMonth::Init()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-CCMatchScheduleData::CCMatchScheduleData(void) : m_cYear( 0 ), m_cMonth( 0 ), m_cDay( 0 ), m_cHour( 0 ), m_cMin( 0 ), 
+CCMatchScheduleData::CCMatchScheduleData() : m_cYear( 0 ), m_cMonth( 0 ), m_cDay( 0 ), m_cHour( 0 ), m_cMin( 0 ), 
 	m_pCmd( 0 ), m_nType( -1 ), m_bIsNeedDelete( false ), // ,nID( 0 ),
 	m_cNextYear( 0 ), m_cNextMonth( 0 ), m_cNextDay( 0 ), m_cNextHour( 0 ), m_cNextMin( 0 ), m_nCount( 0 )
 {
 }
 
-CCMatchScheduleData::~CCMatchScheduleData(void)
+CCMatchScheduleData::~CCMatchScheduleData()
 {
 }
 

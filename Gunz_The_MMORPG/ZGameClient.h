@@ -114,7 +114,7 @@ protected:
 	virtual void OnObjectCache(unsigned int nType, void* pBlob, int nCount);
 	virtual void OnAgentError(int nError);
 
-	virtual void OnPrepareRun(void);
+	virtual void OnPrepareRun();
 
 protected:
 	void OnMatchNotify(unsigned int nMsgID);
@@ -243,8 +243,8 @@ public:
 	bool GetRejectInvite()				{ return m_bRejectInvite; }
 	void SetRejectInvite(bool bVal)		{ m_bRejectInvite = bVal; }
 
-	unsigned long int GetClockCount(void) { return timeGetTime(); }		// 로컬 클럭 반환
-	unsigned long int GetGlobalClockCount(void);		///< 서버와 동기된 클럭을 반환한다.
+	unsigned long int GetClockCount() { return timeGetTime(); }		// 로컬 클럭 반환
+	unsigned long int GetGlobalClockCount();		///< 서버와 동기된 클럭을 반환한다.
 
 	virtual void OutputMessage(const char* szMessage, CCZMOMType nType=CCZMDM_GENERAL);
 	
@@ -254,7 +254,7 @@ public:
 //	void StartGame();
 //	void FinalizeGame();
 
-	void Tick(void);
+	void Tick();
 	void Disconnect()							{ CCMatchClient::Disconnect(m_Server); }
 	
 	CCMatchStageSetting* GetMatchStageSetting() { return &m_MatchStageSetting; }

@@ -33,7 +33,7 @@ private:
 	static void PreCalcNeedExp();
 	static void PreCalcGettingExp();
 public:
-	static bool Create(void);
+	static bool Create();
 	static unsigned long int CalcPanaltyEXP(int nAttackerLevel, int nVictimLevel);
 	static unsigned long int GetSuicidePanaltyEXP(int nLevel);
 	static unsigned long int GetGettingExp(int nAttackerLevel, int nVictimLevel);

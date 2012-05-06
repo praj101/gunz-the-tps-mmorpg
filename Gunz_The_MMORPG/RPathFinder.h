@@ -17,7 +17,7 @@ class RSBspNode;
 
 class RVECTORLIST : public list<rvector*>{
 public:
-	virtual ~RVECTORLIST(void){
+	virtual ~RVECTORLIST(){
 		Clear();
 	}
 
@@ -42,13 +42,13 @@ public:
 	static MRPathNode*	m_pEndNode;		/// 검색할 도착 노드
 public:
 	MRPathNode(RPathList* pPathList, RPathNode* pPathNode);
-	virtual ~MRPathNode(void);
+	virtual ~MRPathNode();
 
-	RPathNode* GetRPathNode(void){ return m_pPathNode; }
-	int GetRPathNodeIndex(void){ return m_pPathNode->m_nIndex; }
+	RPathNode* GetRPathNode(){ return m_pPathNode; }
+	int GetRPathNodeIndex(){ return m_pPathNode->m_nIndex; }
 
 	/// 이웃 Node 얻기
-	virtual int GetSuccessorCount(void){
+	virtual int GetSuccessorCount(){
 		return (int)m_pPathNode->m_Neighborhoods.size();
 	}
 	virtual CCNodeModel* GetSuccessor(int i){
@@ -72,7 +72,7 @@ struct RPATHRESULT{
 	rvector		Pos;
 	MRPathNode*	pPathNode;
 
-	RPATHRESULT(void){}
+	RPATHRESULT(){}
 	RPATHRESULT(rvector& Pos, MRPathNode* pPathNode){
 		RPATHRESULT::Pos = Pos;
 		RPATHRESULT::pPathNode = pPathNode;
@@ -81,7 +81,7 @@ struct RPATHRESULT{
 
 class RPathResultList : public list<RPATHRESULT*>{
 public:
-	virtual ~RPathResultList(void){
+	virtual ~RPathResultList(){
 		Clear();
 	}
 
@@ -109,11 +109,11 @@ protected:
 	bool FindVisibilityPath(RVECTORLIST* pVisibilityPathList, rvector& StartPos, rvector& EndPos, CCPtrList<CCNodeModel>* pPolygonShortestPath, MPolygonMapModel* pPolygonMapModel=NULL);
 	bool FindVisibilityPath(RPathResultList* pVisibilityPathList, rvector& StartPos, rvector& EndPos, CCPtrList<CCNodeModel>* pPolygonShortestPath, MPolygonMapModel* pPolygonMapModel=NULL);
 public:
-	RPathFinder(void);
-	virtual ~RPathFinder(void);
+	RPathFinder();
+	virtual ~RPathFinder();
 
 	void Create(RBspObject* pBSPObject);
-	void Destroy(void);
+	void Destroy();
 
 	/// 시작점 설정
 	/// @param	sx		화면 좌표계 x
@@ -143,10 +143,10 @@ public:
 	/// 검색할 유닛의 크기에 따라 포탈의 크기를 조절해 준다.
 	void Enlarge(float fMargin);
 
-	RPathNode* GetStartNode(void){ return m_pStartNode; }
-	RPathNode* GetEndNode(void){ return m_pEndNode; }
-	CCAStar* GetPolygonPathFinder(void){ return &m_PolygonPathFinder; }
-	MPolygonMapModel* GetPolygonMapModel(void){ return &m_PolygonMapModel; }
+	RPathNode* GetStartNode(){ return m_pStartNode; }
+	RPathNode* GetEndNode(){ return m_pEndNode; }
+	CCAStar* GetPolygonPathFinder(){ return &m_PolygonPathFinder; }
+	MPolygonMapModel* GetPolygonMapModel(){ return &m_PolygonMapModel; }
 };
 
 

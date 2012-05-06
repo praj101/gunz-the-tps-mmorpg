@@ -195,9 +195,9 @@ public:
 	virtual ~CCXmlDocument();
 
 	/// 초기화. 이 함수는 이 클래스를 사용하기 전에 꼭 수행되어야 한다
-	bool				Create(void);
+	bool				Create();
 	/// 마무리.
-	bool				Destroy(void);
+	bool				Destroy();
 
 	/// XML 파일을 읽는다.
 	bool				LoadFromFile(const char* m_sFileName);

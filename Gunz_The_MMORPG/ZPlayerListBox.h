@@ -42,7 +42,7 @@ public:
 		m_Color = c;
 	}
 
-	const sColor GetColor(void) { 
+	const sColor GetColor() { 
 		return m_Color; 
 	}
 
@@ -93,7 +93,7 @@ public:
 		ZGetEmblemInterface()->DeleteClanInfo(m_nClanID);
 	}
 
-	ZLobbyPlayerListItem(void)
+	ZLobbyPlayerListItem()
 	{
 		m_pBitmap = NULL;
 		m_pBmpDTGradeIcon = NULL;
@@ -107,7 +107,7 @@ public:
 		m_Grade = CCMUGFREE;
 	}
 
-	virtual const char* GetString(void)
+	virtual const char* GetString()
 	{
 		return m_szName;
 	}
@@ -170,7 +170,7 @@ public:
 		m_Grade = Grade;
 	}
 
-	ZFriendPlayerListItem(void)
+	ZFriendPlayerListItem()
 	{
 		m_pBitmap = NULL;
 		m_PlayerUID = CCUID(0,0);
@@ -182,7 +182,7 @@ public:
 		m_Grade = CCMUGFREE;
 	}
 
-	virtual const char* GetString(void)
+	virtual const char* GetString()
 	{
 		return m_szName;
 	}
@@ -232,7 +232,7 @@ public:
 		m_Color = sColor(0xFFCDCDCD);
 	}
 
-	ZClanPlayerListItem(void)
+	ZClanPlayerListItem()
 	{
 		m_pBitmap = NULL;
 		m_PlayerUID = CCUID(0,0);
@@ -245,7 +245,7 @@ public:
 		m_Color = sColor(0xFFCDCDCD);
 	}
 
-	virtual const char* GetString(void)
+	virtual const char* GetString()
 	{
 		return m_szName;
 	}
@@ -320,7 +320,7 @@ public:
 		ZGetEmblemInterface()->DeleteClanInfo(m_nClanID);
 	}
 
-	ZStagePlayerListItem(void)
+	ZStagePlayerListItem()
 	{
 		m_pBitmap = NULL;
 		m_pBmpDTGradeIcon = NULL;
@@ -332,7 +332,7 @@ public:
 		m_Grade = CCMUGFREE;
 	}
 
-	virtual const char* GetString(void)
+	virtual const char* GetString()
 	{
 		return m_szName;
 	}
@@ -464,7 +464,7 @@ public:
 	PLAYERLISTMODE GetPlayerListMode()		{ return m_nMode; }
 public:
 	ZPlayerListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZPlayerListBox(void);
+	virtual ~ZPlayerListBox();
 
 	DECLARE_LOOK(ZPlayerListBoxLook)
 	DECLARE_LOOK_CLIENT()
@@ -523,7 +523,7 @@ public:
 
 public:
 	ZStagePlayerListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZStagePlayerListBox(void);
+	virtual ~ZStagePlayerListBox();
 
 	DECLARE_LOOK(ZPlayerListBoxLook)
 	DECLARE_LOOK_CLIENT()

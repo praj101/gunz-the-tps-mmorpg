@@ -290,7 +290,7 @@ ZPlayerListBox::ZPlayerListBox(const char* szName, CCWidget* pParent, CCListener
 	InitUI(m_nMode);
 }
 
-ZPlayerListBox::~ZPlayerListBox(void)
+ZPlayerListBox::~ZPlayerListBox()
 {
 	SAFE_DELETE(m_pButton);
 }
@@ -1267,7 +1267,7 @@ ZStagePlayerListBox::ZStagePlayerListBox(const char* szName, CCWidget* pParent, 
 	m_nOldW = RGetScreenWidth();
 }
 
-ZStagePlayerListBox::~ZStagePlayerListBox(void)
+ZStagePlayerListBox::~ZStagePlayerListBox()
 {
 }
 

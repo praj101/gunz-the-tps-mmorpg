@@ -9,7 +9,7 @@ protected:
 	RealSpace2::RMesh*	m_pMesh;
 public:
 	ZEffectMeshSource(const char* szMeshName);
-	virtual ~ZEffectMeshSource(void);
+	virtual ~ZEffectMeshSource();
 
 	void Draw(rvector &Pos, rvector &Dir, rvector &Up, rvector &Scale, float fOpacity);
 };

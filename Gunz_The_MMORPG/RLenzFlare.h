@@ -88,8 +88,8 @@ public:
 	rvector GetLightPos( int i ) const { return mLightList[i]; }
 
 public:
-	RLenzFlare(void);
-	~RLenzFlare(void);
+	RLenzFlare();
+	~RLenzFlare();
 };
 
 #ifndef __DEFINED_GLOBAL_LENZFLARE_METHOD__

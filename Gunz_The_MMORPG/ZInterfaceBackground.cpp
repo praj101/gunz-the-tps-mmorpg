@@ -129,7 +129,7 @@ void ZInterfaceBackground::OnUpdate(float fElapsed)
 	ZGetScreenEffectManager()->UpdateEffects();
 }
 
-void ZInterfaceBackground::Draw(void)
+void ZInterfaceBackground::Draw()
 {
 #ifdef _FASTDEBUG
 	CCWidget* pWidget = (CCWidget*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CharSelection");

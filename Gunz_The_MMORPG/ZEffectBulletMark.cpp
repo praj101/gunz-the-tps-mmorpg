@@ -20,7 +20,7 @@ ZEffectBulletMark::ZEffectBulletMark(ZEffectBillboardSource* pEffectBillboardSou
 //	g_bullet_mark_cnt++;
 }
 
-ZEffectBulletMark::~ZEffectBulletMark(void)
+ZEffectBulletMark::~ZEffectBulletMark()
 {
 //	g_bullet_mark_cnt--;
 }

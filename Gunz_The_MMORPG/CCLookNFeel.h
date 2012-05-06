@@ -23,7 +23,7 @@
 // Start
 #define DECLARE_LOOK_CLIENT()								\
 	public:													\
-		virtual sRect GetClientRect(void){					\
+		virtual sRect GetClientRect(){					\
 		if(GetLook()==NULL)									\
 			return CCWidget::GetClientRect();				\
 		return GetLook()->GetClientRect(this,				\

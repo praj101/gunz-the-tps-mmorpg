@@ -50,14 +50,14 @@ bool ZMeshViewList::OnCommand(CCWidget* pWidget, const char* szMessage)
 }
 
 #define LEFTRIGHT_WIDTH	20
-int ZMeshViewList::GetItemVisibleWidth(void)
+int ZMeshViewList::GetItemVisibleWidth()
 {
 	sRect r = GetClientRect();
 	int w = r.w - LEFTRIGHT_WIDTH*2;
 	return w;
 }
 
-int ZMeshViewList::GetItemWidth(void)
+int ZMeshViewList::GetItemWidth()
 {
 	int nVisibleCount = GetVisibleCount();
 	if(nVisibleCount==0) nVisibleCount = 1;
@@ -65,12 +65,12 @@ int ZMeshViewList::GetItemWidth(void)
 	return GetItemVisibleWidth()/nVisibleCount;
 }
 
-int ZMeshViewList::GetVisibleCount(void)
+int ZMeshViewList::GetVisibleCount()
 {
 	return GetItemVisibleWidth()/m_nItemWidth;
 }
 
-void ZMeshViewList::RecalcBounds(void)
+void ZMeshViewList::RecalcBounds()
 {
 	sRect r = GetClientRect();
 
@@ -130,7 +130,7 @@ ZMeshViewList::ZMeshViewList(const char* szName, CCWidget* pParent, CCListener* 
 	//for(int i=0; i<2; i++) AddItem(NULL);
 }
 
-ZMeshViewList::~ZMeshViewList(void)
+ZMeshViewList::~ZMeshViewList()
 {
 	//SAFE_DELETE(m_pLeft);
 	//SAFE_DELETE(m_pRight);
@@ -140,7 +140,7 @@ ZMeshViewList::~ZMeshViewList(void)
 	RemoveAll();
 }
 
-int ZMeshViewList::GetItemCount(void)
+int ZMeshViewList::GetItemCount()
 {
 	return GetChildCount()-2;	// ÁÂ/¿ì ¹öÆ° 2°³ »©°í
 }
@@ -159,7 +159,7 @@ void ZMeshViewList::Add(RMesh* pMeshRef)
 	RecalcBounds();
 }
 
-void ZMeshViewList::RemoveAll(void)
+void ZMeshViewList::RemoveAll()
 {
 	//m_Items.clear();
 	for(int i=GetChildCount()-1; i>=0; i--){

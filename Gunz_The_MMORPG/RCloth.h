@@ -25,8 +25,8 @@ struct RVertex;
 class RCloth
 {
 public:
-	RCloth(void);
-	virtual ~RCloth(void);
+	RCloth();
+	virtual ~RCloth();
 
 protected:
 	

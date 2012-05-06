@@ -12,7 +12,7 @@
 
 #undef _DONOTUSE_DINPUT_MOUSE
 
-ZDirectInput::ZDirectInput(void) : m_iJoyButtons(0), m_iJoyPovs(0), m_bForceFeedback(false)
+ZDirectInput::ZDirectInput() : m_iJoyButtons(0), m_iJoyPovs(0), m_bForceFeedback(false)
 {
 	m_bInitialized = FALSE;
 	m_pDI = NULL;
@@ -27,7 +27,7 @@ ZDirectInput::ZDirectInput(void) : m_iJoyButtons(0), m_iJoyPovs(0), m_bForceFeed
 	m_hD3DLibrary = NULL;
 }
 
-ZDirectInput::~ZDirectInput(void)
+ZDirectInput::~ZDirectInput()
 {
 	Destroy();
 }
@@ -312,7 +312,7 @@ bool ZDirectInput::Create(HWND hWnd, BOOL bExclusive, BOOL bImmediateMode)
     return true;
 }
 
-void ZDirectInput::Destroy(void)
+void ZDirectInput::Destroy()
 {
 	m_bInitialized = false;
 

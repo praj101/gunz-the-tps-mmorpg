@@ -22,8 +22,8 @@ typedef vector<RPath*>		RPATHLIST;
 
 class RPathNode {
 public:
-	RPathNode(void);
-	~RPathNode(void);
+	RPathNode();
+	~RPathNode();
 
 	rplane plane;
 	RVERTEXLIST vertices;

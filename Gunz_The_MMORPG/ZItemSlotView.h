@@ -37,8 +37,8 @@ protected:
 	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 	bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, CCMatchSex nPlayerSex);
 
-	virtual void OnMouseIn(void);
-	virtual void OnMouseOut(void);
+	virtual void OnMouseIn();
+	virtual void OnMouseOut();
 
 	const char* GetItemDescriptionWidgetName();
 
@@ -46,7 +46,7 @@ public:
 	char					m_szItemSlotPlace[128];
 
 	ZItemSlotView(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZItemSlotView(void);
+	virtual ~ZItemSlotView();
 	CCMatchCharItemParts GetParts() { return m_nParts; }
 	void SetParts(CCMatchCharItemParts nParts);
 
@@ -63,7 +63,7 @@ public:
 
 
 #define CORE_ITEMSLOTVIEW	"ItemSlotView"
-	virtual const char* GetClassName(void){ return CORE_ITEMSLOTVIEW; }
+	virtual const char* GetClassName(){ return CORE_ITEMSLOTVIEW; }
 };
 
 

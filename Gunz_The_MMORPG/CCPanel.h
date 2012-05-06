@@ -34,12 +34,12 @@ public:
 	CCPanel(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 
 	void	SetBackgroundColor(sColor color);
-	sColor	GetBackgroundColor(void);
+	sColor	GetBackgroundColor();
 
 
 	void	SetBorderColor(sColor color);
-	sColor	GetBorderColor(void);
+	sColor	GetBorderColor();
 	void	SetBorderStyle(CCBorderStyle style);
 	CCBorderStyle GetBorderStyle();
-	virtual const char* GetClassName(void){ return CCPANEL; }
+	virtual const char* GetClassName(){ return CCPANEL; }
 };

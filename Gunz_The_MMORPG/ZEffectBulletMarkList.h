@@ -15,7 +15,7 @@ struct ZEFFECTBULLETMARKITEM : public ZEFFECTITEM , public MemPoolSm<ZEFFECTBULL
 class ZEffectBulletMarkList : public ZEffectBase
 {
 public:
-	ZEffectBulletMarkList(void);
+	ZEffectBulletMarkList();
 
 	void Add(rvector &pos,rvector &normal);
 

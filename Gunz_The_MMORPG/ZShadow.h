@@ -23,8 +23,8 @@ _USING_NAMESPACE_REALSPACE2
 class ZShadow
 {
 public:
-	ZShadow(void);
-	virtual ~ZShadow(void);
+	ZShadow();
+	virtual ~ZShadow();
 
 private:	
 

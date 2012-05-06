@@ -330,7 +330,7 @@ bool IsExpiredBlockEndTime( const SYSTEMTIME& st )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-CCMatchServer::CCMatchServer(void) : m_pScheduler( 0 ), m_pDTMgr(new CCMatchDuelTournamentMgr)
+CCMatchServer::CCMatchServer() : m_pScheduler( 0 ), m_pDTMgr(new CCMatchDuelTournamentMgr)
 {
 	_ASSERT(m_pInstance==NULL);
 	m_pInstance = this;
@@ -398,7 +398,7 @@ void CCMatchServer::CheckMemoryTest(int nState, int nValue)
 	CHECK(21);    
 }
 
-CCMatchServer::~CCMatchServer(void)
+CCMatchServer::~CCMatchServer()
 {
 	delete m_pDTMgr;
 
@@ -863,7 +863,7 @@ bool CCMatchServer::Create(int nPort)
 	return true;
 }
 
-void CCMatchServer::Destroy(void)
+void CCMatchServer::Destroy()
 {
 	m_bCreated = false;
 
@@ -916,7 +916,7 @@ void CCMatchServer::Shutdown()
 	Log(LOG_PROG, "MatchServer Shutting down...\n");
 }
 
-bool CCMatchServer::OnCreate(void)
+bool CCMatchServer::OnCreate()
 {
 	if( MGetServerConfig()->IsEnabledDuelTournament() ) {		
 		GetDTMgr()->Init();
@@ -926,7 +926,7 @@ bool CCMatchServer::OnCreate(void)
 
 	return true;
 }
-void CCMatchServer::OnDestroy(void)
+void CCMatchServer::OnDestroy()
 {
 	if( 0 != m_pScheduler ){
 		m_pScheduler->Release();
@@ -983,7 +983,7 @@ int CCMatchServer::OnConnected(CCUID* pTargetUID, CCUID* pAllocUID, unsigned int
 	//return CCCommandCommunicator::OnConnected(pTargetUID, pAllocUID, nTimeStamp, pCommObj);
 }
 
-void CCMatchServer::OnRun(void)
+void CCMatchServer::OnRun()
 {
 //	CheckMemoryCorruption();
 
@@ -1830,7 +1830,7 @@ CCMatchObject* CCMatchServer::GetPlayerByAID(unsigned long int nAID)
 
 
 
-CCUID CCMatchServer::UseUID(void)
+CCUID CCMatchServer::UseUID()
 {
 	LockUIDGenerate();
 		CCUID ret = m_NextUseUID;
@@ -1906,12 +1906,12 @@ void CCMatchServer::OnBridgePeer(const CCUID& uidChar, DWORD dwIP, DWORD nPort)
 	ResponseBridgePeer(uidChar, 0);
 }
 
-CCMatchServer* CCMatchServer::GetInstance(void)
+CCMatchServer* CCMatchServer::GetInstance()
 {
 	return m_pInstance;
 }
 
-unsigned long int CCMatchServer::GetGlobalClockCount(void) const
+unsigned long int CCMatchServer::GetGlobalClockCount() const
 {
 	unsigned long int i = timeGetTime();
 	return i;

@@ -622,7 +622,7 @@ bool CCXmlElement::RemoveAttribute(const char* sAttrName)
 //-----------------------------------------------------------------------------
 
 
-CCXmlDocument::CCXmlDocument(void)
+CCXmlDocument::CCXmlDocument()
 {
 	m_bInitialized = false;
 
@@ -631,14 +631,14 @@ CCXmlDocument::CCXmlDocument(void)
 	CoInitialize(NULL);
 }
 
-CCXmlDocument::~CCXmlDocument(void)
+CCXmlDocument::~CCXmlDocument()
 {
 	if (m_bInitialized) Destroy();
 
 	CoUninitialize();
 }
 
-bool CCXmlDocument::Create(void)
+bool CCXmlDocument::Create()
 {
 	// CoInitialize()를 먼저 수행하기 위해 동적으로 할당함.
 	m_ppDom = new CCXmlDomDocPtr;
@@ -657,7 +657,7 @@ bool CCXmlDocument::Create(void)
 	return true;
 }
 
-bool CCXmlDocument::Destroy(void)
+bool CCXmlDocument::Destroy()
 {
 	if (!m_bInitialized) return false;
 

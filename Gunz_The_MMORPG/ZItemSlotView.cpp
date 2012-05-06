@@ -28,7 +28,7 @@ ZItemSlotView::ZItemSlotView(const char* szName, CCWidget* pParent, CCListener* 
 	m_szItemSlotPlace[0] = '\0';
 }
 
-ZItemSlotView::~ZItemSlotView(void)
+ZItemSlotView::~ZItemSlotView()
 {
 }
 

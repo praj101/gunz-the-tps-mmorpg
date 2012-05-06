@@ -289,7 +289,7 @@ public:
 };
 ZShopPurchaseItemListBoxListener g_ShopPurchaseItemListBoxListener;
 
-CCListener* ZGetShopPurchaseItemListBoxListener(void)
+CCListener* ZGetShopPurchaseItemListBoxListener()
 {
 	return &g_ShopPurchaseItemListBoxListener;
 }
@@ -329,7 +329,7 @@ public:
 };
 ZEquipMyItemListBoxListener g_EquipmentItemListBoxListener;
 
-CCListener* ZGetEquipmentMyItemListBoxListener(void)
+CCListener* ZGetEquipmentMyItemListBoxListener()
 {
 	return &g_EquipmentItemListBoxListener;
 }
@@ -364,7 +364,7 @@ public:
 
 ZShopSellItemListBoxListener g_ShopSellItemListBoxListener;
 
-CCListener* ZGetShopSellItemListBoxListener(void)
+CCListener* ZGetShopSellItemListBoxListener()
 {
 	return &g_ShopSellItemListBoxListener;
 }
@@ -405,7 +405,7 @@ public:
 
 ZAccountItemListBoxListener g_AccountItemListBoxListener;
 
-CCListener* ZGetAccountItemListBoxListener(void)
+CCListener* ZGetAccountItemListBoxListener()
 {
 	return &g_AccountItemListBoxListener;
 }
@@ -534,7 +534,7 @@ CCListener* ZGetEquipListFilterListener()
 //
 //MCashShopItemListBoxListener g_CashShopItemListBoxListener;
 //
-//CCListener* ZGetCashShopItemListBoxListener(void)
+//CCListener* ZGetCashShopItemListBoxListener()
 //{
 //	return &g_CashShopItemListBoxListener;
 //}

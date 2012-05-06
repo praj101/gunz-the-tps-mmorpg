@@ -11,15 +11,15 @@ class CCDragObject{
 
 public:
 	CCDragObject(int nID, const char* szString, CCBitmap* pBitmap);
-	virtual ~CCDragObject(void);
+	virtual ~CCDragObject();
 
-	int GetID(void){
+	int GetID(){
 		return m_iID;
 	}
-	const char* GetString(void){
+	const char* GetString(){
 		return m_szString;
 	}
-	CCBitmap* GetBitmap(void){
+	CCBitmap* GetBitmap(){
 		return m_pBitmap;
 	}
 };

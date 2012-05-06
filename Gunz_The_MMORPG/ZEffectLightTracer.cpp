@@ -27,7 +27,7 @@ ZEffectLightTracer::ZEffectLightTracer(ZEffectBillboardSource* pEffectBillboardS
 
 	m_Pos = m_Start;
 }
-ZEffectLightTracer::~ZEffectLightTracer(void)
+ZEffectLightTracer::~ZEffectLightTracer()
 {
 }
 

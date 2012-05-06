@@ -1070,7 +1070,7 @@ void ZGameInterface::SetTextWidget(const char* szName, const char* szText)
 	END_WIDGETLIST();
 }
 
-bool ZGameInterface::OnGameCreate(void)
+bool ZGameInterface::OnGameCreate()
 {
 	// 배틀 진입시 다른 위젯은 모두 false 처리
 	HideAllWidgets();
@@ -1264,7 +1264,7 @@ bool ZGameInterface::OnGameCreate(void)
 	return true;
 }
 
-void ZGameInterface::OnGameDestroy(void)
+void ZGameInterface::OnGameDestroy()
 {
 	cclog( "game interface destory begin.\n" );
 	CCPicture* pPicture;
@@ -1313,7 +1313,7 @@ void ZGameInterface::OnGameDestroy(void)
 	cclog("game interface destroy finished\n");
 }
 
-void ZGameInterface::OnGreeterCreate(void)
+void ZGameInterface::OnGreeterCreate()
 {
 	ShowWidget("Greeter", true);
 
@@ -1324,7 +1324,7 @@ void ZGameInterface::OnGreeterCreate(void)
 	ZApplication::GetSoundEngine()->OpenMusic( BGMID_INTRO, ZApplication::GetFileSystem());
 }
 
-void ZGameInterface::OnGreeterDestroy(void)
+void ZGameInterface::OnGreeterDestroy()
 {
 	ShowWidget("Greeter", false);
 
@@ -1332,7 +1332,7 @@ void ZGameInterface::OnGreeterDestroy(void)
 		m_pBackground->SetScene(LOGIN_SCENE_FALLDOWN);
 }
 
-void ZGameInterface::OnLoginCreate(void)
+void ZGameInterface::OnLoginCreate()
 {
 	// WPE hacking protect
 	HMODULE hMod = GetModuleHandle( "ws2_32.dll"); 
@@ -1583,7 +1583,7 @@ void ZGameInterface::OnLoginCreate(void)
 	ZPostConnect("192.168.0.60", 6000);	//*/
 #endif
 }
-void ZGameInterface::OnLoginDestroy(void)
+void ZGameInterface::OnLoginDestroy()
 {
 	ShowWidget("Login", false);
 
@@ -1624,7 +1624,7 @@ void ZGameInterface::OnLoginDestroy(void)
 	ZGetShop()->Destroy();
 }
 
-void ZGameInterface::OnDirectLoginCreate(void)
+void ZGameInterface::OnDirectLoginCreate()
 {
 #ifdef LOCALE_KOREA
 
@@ -1633,7 +1633,7 @@ void ZGameInterface::OnDirectLoginCreate(void)
 #endif
 }
 
-void ZGameInterface::OnDirectLoginDestroy(void)
+void ZGameInterface::OnDirectLoginDestroy()
 {
 #ifdef LOCALE_KOREA
 
@@ -1643,7 +1643,7 @@ void ZGameInterface::OnDirectLoginDestroy(void)
 }
 
 #include "ZNetmarble.h"
-void ZGameInterface::OnNetmarbleLoginCreate(void)
+void ZGameInterface::OnNetmarbleLoginCreate()
 {
 	if ( m_pBackground)
 	{
@@ -1673,14 +1673,14 @@ void ZGameInterface::OnNetmarbleLoginCreate(void)
 	else _ASSERT(0);
 }
 
-void ZGameInterface::OnNetmarbleLoginDestroy(void)
+void ZGameInterface::OnNetmarbleLoginDestroy()
 {
 		if ( m_pBackground)
 			m_pBackground->SetScene(LOGIN_SCENE_FALLDOWN);
 }
 
 
-void ZGameInterface::OnGameOnLoginCreate(void)
+void ZGameInterface::OnGameOnLoginCreate()
 {
 	if ( m_pBackground)
 	{
@@ -1706,14 +1706,14 @@ void ZGameInterface::OnGameOnLoginCreate(void)
 		_ASSERT(0);
 }
 
-void ZGameInterface::OnGameOnLoginDestroy(void)
+void ZGameInterface::OnGameOnLoginDestroy()
 {
 		if ( m_pBackground)
 			m_pBackground->SetScene(LOGIN_SCENE_FALLDOWN);
 }
 
 
-void ZGameInterface::OnLobbyCreate(void)
+void ZGameInterface::OnLobbyCreate()
 {
 	/*if( m_pAmbSound != NULL )
 	{
@@ -1920,7 +1920,7 @@ void ZGameInterface::InitLobbyUIByChannelType()
 }
 
 
-void ZGameInterface::OnLobbyDestroy(void)
+void ZGameInterface::OnLobbyDestroy()
 {
 	ShowWidget("Lobby", false);
 
@@ -1962,7 +1962,7 @@ void ZGameInterface::OnLobbyDestroy(void)
 	if(pWidget) ZGetApplication()->SetSystemValue("StageName", pWidget->GetText());
 }
 
-void ZGameInterface::OnStageCreate(void)
+void ZGameInterface::OnStageCreate()
 {
 	// WPE hacking protect
 	HMODULE hMod = GetModuleHandle( "ws2_32.dll"); 
@@ -2076,7 +2076,7 @@ void ZGameInterface::OnStageCreate(void)
 	ZApplication::GetStageInterface()->OnCreate();
 }
 
-void ZGameInterface::OnStageDestroy(void)
+void ZGameInterface::OnStageDestroy()
 {
 	ZApplication::GetStageInterface()->OnDestroy();
 }
@@ -2815,7 +2815,7 @@ _NAMESPACE_REALSPACE2_END
 
 
 /*
-void ZGameInterface::OnUpdateGameMessage(void)
+void ZGameInterface::OnUpdateGameMessage()
 {
 switch (ZGetGame()->GetMatch()->GetMatchState())
 {
@@ -4419,7 +4419,7 @@ void ZGameInterface::ChangeSelectedChar(int nNum)
 
 }
 
-void ZGameInterface::OnCharSelectionCreate(void)
+void ZGameInterface::OnCharSelectionCreate()
 {
 	ZApplication::GetSoundEngine()->OpenMusic( BGMID_INTRO, ZApplication::GetFileSystem());
 
@@ -4450,7 +4450,7 @@ void ZGameInterface::OnCharSelectionCreate(void)
 #endif
 }
 
-void ZGameInterface::OnCharSelect(void)
+void ZGameInterface::OnCharSelect()
 {
 	if( m_pCharacterSelectView->SelectMyCharacter() == false )
 		return;
@@ -4465,13 +4465,13 @@ void ZGameInterface::OnCharSelect(void)
 #endif
 }
 
-void ZGameInterface::OnCharSelectionDestroy(void)
+void ZGameInterface::OnCharSelectionDestroy()
 {
 	ShowWidget("CharSelection", false);
 	if (m_pCharacterSelectView!=NULL) SAFE_DELETE(m_pCharacterSelectView);
 }
 
-void ZGameInterface::OnCharCreationCreate(void)
+void ZGameInterface::OnCharCreationCreate()
 {
 	ShowWidget("CharSelection", false);
 	ShowWidget("CharCreation", true);
@@ -4487,7 +4487,7 @@ void ZGameInterface::OnCharCreationCreate(void)
 #endif
 }
 
-void ZGameInterface::OnCharCreationDestroy(void)
+void ZGameInterface::OnCharCreationDestroy()
 {
 	ShowWidget("CharCreation", false);
 	ShowWidget("CharSelection", true);
@@ -4495,7 +4495,7 @@ void ZGameInterface::OnCharCreationDestroy(void)
 	if (m_pCharacterSelectView!=NULL) SAFE_DELETE(m_pCharacterSelectView);
 }
 
-void ZGameInterface::ChangeToCharSelection(void)
+void ZGameInterface::ChangeToCharSelection()
 {
 	ZCharacterSelectView::ClearCharInfo();
 	ZPostAccountCharList(ZGetMyInfo()->GetSystemInfo()->pbyGuidAckMsg);		// update sgk 0409 // 캐릭터 리스트 요청

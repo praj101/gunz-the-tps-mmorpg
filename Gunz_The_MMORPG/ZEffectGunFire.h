@@ -22,7 +22,7 @@ protected:
 
 public:
 	ZEffectGunFire(ZEffectBillboardSource*	pSources[2], D3DXVECTOR3& Pos, D3DXVECTOR3& Dir,ZCharacter* pChar);
-	virtual ~ZEffectGunFire(void);
+	virtual ~ZEffectGunFire();
 
 	virtual bool Draw(unsigned long int nTime);
 
@@ -55,7 +55,7 @@ protected:
 
 public:
 	ZEffectGunFire2(ZEffectBillboardSource*	pSources[4], D3DXVECTOR3& Pos, D3DXVECTOR3& Dir,ZCharacter* pChar);
-	virtual ~ZEffectGunFire2(void);
+	virtual ~ZEffectGunFire2();
 
 	virtual bool Draw(unsigned long int nTime);
 

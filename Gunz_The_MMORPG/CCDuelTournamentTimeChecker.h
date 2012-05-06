@@ -10,8 +10,8 @@ protected:
 
 	char m_szTimeStamp[DUELTOURNAMENT_TIMESTAMP_MAX_LENGTH + 1];
 public:
-	CCDuelTournamentTimeChecker(void);
-	~CCDuelTournamentTimeChecker(void){}
+	CCDuelTournamentTimeChecker();
+	~CCDuelTournamentTimeChecker(){}
 
 	void Tick(unsigned int nTick);
 

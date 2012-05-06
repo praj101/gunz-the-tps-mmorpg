@@ -36,13 +36,13 @@ ZEmblemInterface::~ZEmblemInterface( void)
 	Destroy();
 }
 
-void ZEmblemInterface::Create(void)
+void ZEmblemInterface::Create()
 {
 	// "No emblem" written as a bitmap pointer is obtained in advance.
 	m_pBitmapNoEmblem = CCBitmapManager::Get( "no_emblem.png");
 }
 
-void ZEmblemInterface::Destroy(void)
+void ZEmblemInterface::Destroy()
 {
 	ClearClanInfo();
 }

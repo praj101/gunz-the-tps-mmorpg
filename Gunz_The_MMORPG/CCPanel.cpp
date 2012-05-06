@@ -18,7 +18,7 @@ void CCPanel::SetBorderColor(sColor color){
 }
 
 
-sColor CCPanel::GetBorderColor(void){
+sColor CCPanel::GetBorderColor(){
 	return m_BorderColor;
 }
 
@@ -34,7 +34,7 @@ void CCPanel::SetBackgroundColor(sColor color){
 	m_BackgroundColor = color;
 }
 
-sColor CCPanel::GetBackgroundColor(void){
+sColor CCPanel::GetBackgroundColor(){
 	return m_BackgroundColor;
 }
 

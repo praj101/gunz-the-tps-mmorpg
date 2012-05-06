@@ -47,7 +47,7 @@
 //		m_bLevelResticted = bLeveRestricted;
 //	}
 //
-//	ZEquipmentListItem_OLD(void)
+//	ZEquipmentListItem_OLD()
 //	{
 //		m_nAIID = 0;
 //		m_nItemID = 0;
@@ -59,7 +59,7 @@
 //		m_szPrice[0] = 0;
 //		m_bLevelResticted = false;
 //	}
-//	virtual const char* GetString(void)
+//	virtual const char* GetString()
 //	{
 //		return m_szName;
 //	}
@@ -116,7 +116,7 @@
 //
 //public:
 //	ZEquipmentListBox_OLD(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-//	virtual ~ZEquipmentListBox_OLD(void);
+//	virtual ~ZEquipmentListBox_OLD();
 //	void AttachMenu(ZItemMenu* pMenu);
 //
 //	char* GetItemDescriptionWidgetName();
@@ -130,17 +130,17 @@
 //
 //public:
 //	#define CORE_EQUIPMENTLISTBOX	"EquipmentListBox"
-//	virtual const char* GetClassName(void){ return CORE_EQUIPMENTLISTBOX; }
+//	virtual const char* GetClassName(){ return CORE_EQUIPMENTLISTBOX; }
 //	//DWORD	m_dwLastMouseMove;
 //	//int		m_nLastItem;
 //};
 //
-////CCListener* ZGetShopAllEquipmentFilterListener(void);
-////CCListener* ZGetEquipAllEquipmentFilterListener(void);
+////CCListener* ZGetShopAllEquipmentFilterListener();
+////CCListener* ZGetEquipAllEquipmentFilterListener();
 //
-////CCListener* ZGetShopSaleItemListBoxListener(void);
-////CCListener* ZGetCashShopItemListBoxListener(void);
-////CCListener* ZGetShopPurchaseItemListBoxListener(void);
-////CCListener* ZGetEquipmentItemListBoxListener(void);
-////CCListener* ZGetAccountItemListBoxListener(void);
+////CCListener* ZGetShopSaleItemListBoxListener();
+////CCListener* ZGetCashShopItemListBoxListener();
+////CCListener* ZGetShopPurchaseItemListBoxListener();
+////CCListener* ZGetEquipmentItemListBoxListener();
+////CCListener* ZGetAccountItemListBoxListener();
 #endif

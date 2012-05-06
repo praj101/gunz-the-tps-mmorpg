@@ -739,7 +739,7 @@ void ZClothEmblem::OnRestore()
 //////////////////////////////////////////////////////////////////////////
 //	생성자 / 소멸자
 //////////////////////////////////////////////////////////////////////////
-ZClothEmblem::ZClothEmblem(void)
+ZClothEmblem::ZClothEmblem()
 {
 	//setOption( 1, 0.10, 1.0f );	//	초기값
 	setOption(1, 0.15f,1.0f);
@@ -756,7 +756,7 @@ ZClothEmblem::ZClothEmblem(void)
 	mbIsInFrustrum = true;
 }
 
-ZClothEmblem::~ZClothEmblem(void)
+ZClothEmblem::~ZClothEmblem()
 {
 	SAFE_DELETE(mpWind);
 	SAFE_DELETE(mpLight);

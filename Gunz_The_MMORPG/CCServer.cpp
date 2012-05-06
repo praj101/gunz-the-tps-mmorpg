@@ -30,7 +30,7 @@ void __cdecl RCPLog(const char *pFormat,...)
 	OutputDebugString(szBuf);
 }
 
-MServer::MServer(void)
+MServer::MServer()
 {
 	SetName("NoName");	// For Debug
 #ifdef _DEBUG
@@ -38,7 +38,7 @@ MServer::MServer(void)
 #endif
 }
 
-MServer::~MServer(void)
+MServer::~MServer()
 {
 }
 
@@ -66,7 +66,7 @@ bool MServer::Create(int nPort, const bool bReuse )
 	return bResult;
 }
 
-void MServer::Destroy(void)
+void MServer::Destroy()
 {
 	// Log 
 	RCPLog("MServer::Destroy() CommObjectCreated=%d, CommObjectDestroyed=%d \n", 
@@ -188,7 +188,7 @@ void MServer::SendCommand(CCCommand* pCommand)
 	}
 }
 
-void MServer::OnPrepareRun(void)
+void MServer::OnPrepareRun()
 {
 	LockSafeCmdQueue();
 		CCCommandList::iterator itorCmd;
@@ -200,7 +200,7 @@ void MServer::OnPrepareRun(void)
 	UnlockSafeCmdQueue();
 }
 
-void MServer::OnRun(void)
+void MServer::OnRun()
 {
 
 }

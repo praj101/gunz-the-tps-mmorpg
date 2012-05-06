@@ -33,7 +33,7 @@ CCTabCtrl::CCTabCtrl(CCWidget* pParent, CCListener* pListener) : CCWidget("TabCt
 	LOOK_IN_CONSTRUCTOR()
 }
 
-CCTabCtrl::~CCTabCtrl(void){
+CCTabCtrl::~CCTabCtrl(){
 	RemoveAll();
 }
 
@@ -43,7 +43,7 @@ void CCTabCtrl::Add(CCButton *pButton, CCWidget *pFrame){
 	m_TabList.push_back(pItem);
 }
 
-void CCTabCtrl::RemoveAll(void){
+void CCTabCtrl::RemoveAll(){
 	while(m_TabList.size() > 0) {
 		CCTabItem* pItem = *m_TabList.begin();
 		delete pItem;
@@ -51,11 +51,11 @@ void CCTabCtrl::RemoveAll(void){
 	}
 }
 
-int CCTabCtrl::GetCount(void){
+int CCTabCtrl::GetCount(){
 	return m_TabList.size();
 }
 
-int CCTabCtrl::GetSelIndex(void){
+int CCTabCtrl::GetSelIndex(){
 	return m_iCurrentSel;
 }
 

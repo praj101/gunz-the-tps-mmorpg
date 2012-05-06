@@ -18,7 +18,7 @@ ZEffectSmoke::ZEffectSmoke(ZEffectBillboardSource* pEffectBillboardSource, rvect
 	m_Velocity = Velocity;
 }
 
-ZEffectSmoke::~ZEffectSmoke(void)
+ZEffectSmoke::~ZEffectSmoke()
 {
 }
 
@@ -57,7 +57,7 @@ ZEffectLandingSmoke::ZEffectLandingSmoke(ZEffectBillboardSource* pEffectBillboar
 	m_Velocity = Normal;
 }
 
-ZEffectLandingSmoke::~ZEffectLandingSmoke(void)
+ZEffectLandingSmoke::~ZEffectLandingSmoke()
 {
 }
 
@@ -160,7 +160,7 @@ ZEffectDash::ZEffectDash(ZEffectBillboardSource* pESource1,ZEffectBillboardSourc
 	m_Scale = rvector(85,85,85);
 }
 
-ZEffectDash::~ZEffectDash(void) {
+ZEffectDash::~ZEffectDash() {
 
 }
 

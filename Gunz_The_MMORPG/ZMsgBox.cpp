@@ -39,7 +39,7 @@ public:
 };
 ZMsgBoxListener	g_MsgBoxListener;
 
-CCListener* ZGetMsgBoxListener(void)
+CCListener* ZGetMsgBoxListener()
 {
 	return &g_MsgBoxListener;
 }
@@ -61,7 +61,7 @@ public:
 };
 ZConfirmMsgBoxListener	g_CofirmMsgBoxListener;
 
-CCListener* ZGetConfirmMsgBoxListener(void)
+CCListener* ZGetConfirmMsgBoxListener()
 {
 	return &g_CofirmMsgBoxListener;
 }
@@ -120,6 +120,6 @@ ZMsgBox::ZMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener
 	m_pCustomListener = NULL;
 }
 
-ZMsgBox::~ZMsgBox(void)
+ZMsgBox::~ZMsgBox()
 {
 }

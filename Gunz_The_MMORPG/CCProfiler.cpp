@@ -10,7 +10,7 @@ CCProfiler	g_DefaultProfiler;	// Default Global Profiler
 
 
 
-CCProfileStack::~CCProfileStack(void)
+CCProfileStack::~CCProfileStack()
 {
 	while(empty()==false){
 		CCPROFILEITEM* pProfileItem = top();
@@ -90,7 +90,7 @@ void CCProfileLoop::SetProfile(int nTime)
 }
 */
 
-int CCProfileLoop::GetTotalTime(void)
+int CCProfileLoop::GetTotalTime()
 {
 	int nMinDepth = 9999;
 	int nTotalTime = 0;
@@ -116,14 +116,14 @@ int CCProfileLoop::GetTotalTime(void)
 }
 
 
-CCProfiler::CCProfiler(void)
+CCProfiler::CCProfiler()
 {
 	m_pOneLoopProfile = NULL;
 	m_bEnableOneLoopProfile = false;
 	m_szFirstProfileName = NULL;
 	m_pOneLoopProfileResult = NULL;
 }
-CCProfiler::~CCProfiler(void)
+CCProfiler::~CCProfiler()
 {
 	if(m_pOneLoopProfile!=NULL){
 		delete m_pOneLoopProfile;
@@ -295,7 +295,7 @@ bool CCProfiler::FinalAnalysis(char* szFileName)
 	return true;
 }
 
-int CCProfiler::GetTotalTime(void)
+int CCProfiler::GetTotalTime()
 {
 	return m_ProfileLoop.GetTotalTime();
 }
@@ -310,17 +310,17 @@ void CCProfiler::EnableOneLoopProfile(bool bEnable)
 	m_bEnableOneLoopProfile = bEnable;
 }
 
-bool CCProfiler::IsOneLoopProfile(void)
+bool CCProfiler::IsOneLoopProfile()
 {
 	return m_bEnableOneLoopProfile;
 }
 
-CCProfileLoop* CCProfiler::GetOneLoopProfile(void)
+CCProfileLoop* CCProfiler::GetOneLoopProfile()
 {
 	return m_pOneLoopProfileResult;
 }
 
-CCProfileLoop* CCProfiler::GetProfile(void)
+CCProfileLoop* CCProfiler::GetProfile()
 {
 	return m_pOneLoopProfile;
 }

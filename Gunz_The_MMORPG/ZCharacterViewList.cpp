@@ -20,12 +20,12 @@ ZCharacterViewList* ZGetCharacterViewList(GunzState nState)
 	return NULL;
 }
 
-bool ZCharacterViewList::OnShow(void)
+bool ZCharacterViewList::OnShow()
 {
 	return true;
 }
 
-void ZCharacterViewList::OnHide(void)
+void ZCharacterViewList::OnHide()
 {
 	RemoveAll();
 }
@@ -59,7 +59,7 @@ ZCharacterViewList::ZCharacterViewList(const char* szName, CCWidget* pParent, CC
 	m_MyUid	= CCUID(0,0);
 }
 
-ZCharacterViewList::~ZCharacterViewList(void)
+ZCharacterViewList::~ZCharacterViewList()
 {
 }
 

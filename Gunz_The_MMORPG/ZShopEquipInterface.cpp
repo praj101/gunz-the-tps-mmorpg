@@ -79,7 +79,7 @@ ZShopEquipListItem* ZShopEquipInterface::GetListCurSelItem(const char* szListWid
 	return NULL;
 }
 
-void ZShopEquipInterface::OnSellButton(void)
+void ZShopEquipInterface::OnSellButton()
 {
 	static unsigned long int st_LastRequestTime = 0;	///< 막 누르는 것 방지
 	unsigned long int nNowTime = timeGetTime();
@@ -97,7 +97,7 @@ void ZShopEquipInterface::OnSellButton(void)
 		pListItem->GetItemData()->GetHandleSell()->Sell();
 }
 
-void ZShopEquipInterface::OnBuyButton(void)
+void ZShopEquipInterface::OnBuyButton()
 {
 	static unsigned long int st_LastRequestTime = 0;	///< 막 누르는 것 방지
 	unsigned long int nNowTime = timeGetTime();
@@ -193,7 +193,7 @@ CCMatchCharItemParts ZShopEquipInterface::RecommendEquipParts(CCMatchItemSlotTyp
 	return parts;
 }
 
-bool ZShopEquipInterface::Equip(void)
+bool ZShopEquipInterface::Equip()
 {
 	static unsigned long int st_LastRequestTime = 0;	///< 막 누르는 것 방지
 	unsigned long int nNowTime = timeGetTime();

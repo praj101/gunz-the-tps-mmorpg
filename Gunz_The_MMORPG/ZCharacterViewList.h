@@ -12,13 +12,13 @@ class CCMatchObjCache;
 
 class ZCharacterViewList : public ZMeshViewList{
 protected:
-	virtual bool OnShow(void);
-	virtual void OnHide(void);
+	virtual bool OnShow();
+	virtual void OnHide();
 protected:
 	CCMatchCharItemParts m_nVisualWeaponParts;
 public:
 	ZCharacterViewList(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZCharacterViewList(void);
+	virtual ~ZCharacterViewList();
 
 	//void Add(const char* szName);
 	void Add(const CCUID& uid, const char* szName, CCMatchSex nSex, unsigned int nHair, unsigned int nFace, 

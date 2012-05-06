@@ -3,7 +3,7 @@
 
 #include "mmsystem.h"
 
-ZProfiler::ZProfiler(void) : m_nRingHead(0)
+ZProfiler::ZProfiler() : m_nRingHead(0)
 {
 	m_dwLastTime = timeGetTime();
 	for(int i=0;i<FRAME_RING_BUFFER_SIZE;i++)
@@ -13,7 +13,7 @@ ZProfiler::ZProfiler(void) : m_nRingHead(0)
 	}
 }
 
-ZProfiler::~ZProfiler(void)
+ZProfiler::~ZProfiler()
 {
 }
 

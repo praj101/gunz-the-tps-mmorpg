@@ -5,7 +5,7 @@
 
 // CCBitmap Implementation
 /////////////////////////
-CCBitmap::CCBitmap(void)
+CCBitmap::CCBitmap()
 {
 #ifdef _DEBUG
 	m_nTypeID = CC_BASE_CLASS_TYPE;
@@ -13,7 +13,7 @@ CCBitmap::CCBitmap(void)
 	m_DrawMode = CCBM_Normal;
 }
 
-CCBitmap::~CCBitmap(void)
+CCBitmap::~CCBitmap()
 {
 	Destroy();
 }
@@ -26,16 +26,16 @@ bool CCBitmap::Create(const char* szName)
 	return true;
 }
 
-void CCBitmap::Destroy(void)
+void CCBitmap::Destroy()
 {
 }
 
-CCAniBitmap::CCAniBitmap(void)
+CCAniBitmap::CCAniBitmap()
 {
 	m_nCurFrame = 0;
 }
 
-CCAniBitmap::~CCAniBitmap(void)
+CCAniBitmap::~CCAniBitmap()
 {
 	Destroy();
 }
@@ -48,7 +48,7 @@ bool CCAniBitmap::Create(const char* szName)
 	return true;
 }
 
-void CCAniBitmap::Destroy(void)
+void CCAniBitmap::Destroy()
 {
 	m_Bitmaps.DeleteRecordAll();
 }
@@ -64,41 +64,41 @@ CCBitmap* CCAniBitmap::Get(int nFrame)
 	return m_Bitmaps.Get(nFrame);
 }
 
-CCBitmap* CCAniBitmap::Get(void)
+CCBitmap* CCAniBitmap::Get()
 {
 	return Get(m_nCurFrame);
 }
 
-int CCAniBitmap::GetFrameCount(void)
+int CCAniBitmap::GetFrameCount()
 {
 	return m_Bitmaps.GetCount();
 }
 
-int CCAniBitmap::GetCurFrame(void)
+int CCAniBitmap::GetCurFrame()
 {
 	return m_nCurFrame;
 }
 
-bool CCAniBitmap::MoveNext(void)
+bool CCAniBitmap::MoveNext()
 {
 	if(m_nCurFrame+1>=GetFrameCount()) return false;
 	m_nCurFrame++;
 	return true;
 }
 
-bool CCAniBitmap::MovePrevious(void)
+bool CCAniBitmap::MovePrevious()
 {
 	if(m_nCurFrame-1<0) return false;
 	m_nCurFrame--;
 	return true;
 }
 
-void CCAniBitmap::MoveFirst(void)
+void CCAniBitmap::MoveFirst()
 {
 	m_nCurFrame = 0;
 }
 
-void CCAniBitmap::MoveLast(void)
+void CCAniBitmap::MoveLast()
 {
 	m_nCurFrame = GetFrameCount();
 }
@@ -110,7 +110,7 @@ bool CCAniBitmap::Move(int nFrame)
 	return true;
 }
 
-int CCAniBitmap::GetDelay(void)
+int CCAniBitmap::GetDelay()
 {
 	return m_nDelay;
 }

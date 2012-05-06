@@ -3,11 +3,11 @@
 class CCListener;
 
 // 리스너 선언 매크로
-#define DECLARE_LISTENER(_FunctionName)	CCListener* _FunctionName(void);
+#define DECLARE_LISTENER(_FunctionName)	CCListener* _FunctionName();
 
 /// 리스너 정의 매크로, BEGIN_ ~ END_ 사이에 원하는 코드를 넣는다.
 #define BEGIN_IMPLEMENT_LISTENER(_FunctionName, _szMessageName)					\
-	CCListener* _FunctionName(void){										\
+	CCListener* _FunctionName(){										\
 class ListenerClass : public CCListener{									\
 public:																	\
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){	\
@@ -25,19 +25,19 @@ public:																	\
 
 
 // Gunz에 쓰이는 전역 Listener Object 얻기
-CCListener* ZGetChatInputListener(void);
-CCListener* ZGetLoginListener(void);
-CCListener* ZGetLogoutListener(void);
-CCListener* ZGetExitListener(void);
-CCListener* ZGetChannelChatInputListener(void);
-CCListener* ZGetStageChatInputListener(void);
-CCListener* ZGetGameStartListener(void);
-CCListener* ZGetMapChangeListener(void);
-CCListener* ZGetMapSelectListener(void);
-CCListener* ZGetParentCloseListener(void);
-//CCListener* ZGetCombatChatInputListener(void);
-CCListener* ZGetStageCreateFrameCallerListener(void);
-CCListener* ZGetSelectCharacterComboBoxListener(void);
+CCListener* ZGetChatInputListener();
+CCListener* ZGetLoginListener();
+CCListener* ZGetLogoutListener();
+CCListener* ZGetExitListener();
+CCListener* ZGetChannelChatInputListener();
+CCListener* ZGetStageChatInputListener();
+CCListener* ZGetGameStartListener();
+CCListener* ZGetMapChangeListener();
+CCListener* ZGetMapSelectListener();
+CCListener* ZGetParentCloseListener();
+//CCListener* ZGetCombatChatInputListener();
+CCListener* ZGetStageCreateFrameCallerListener();
+CCListener* ZGetSelectCharacterComboBoxListener();
 
 
 // 로그인

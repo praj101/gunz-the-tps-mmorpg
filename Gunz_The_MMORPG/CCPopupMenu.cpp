@@ -7,7 +7,7 @@
 
 IMPLEMENT_LOOK(CCPopupMenu, CCPopupMenuLook)
 
-CCPopupMenuLook::CCPopupMenuLook(void){//MPopupMenuLook
+CCPopupMenuLook::CCPopupMenuLook(){//MPopupMenuLook
 	m_SelectedPlaneColor = DEFCOLOR_CCLIST_SELECTEDPLANE;
 	m_SelectedTextColor = DEFCOLOR_CCLIST_SELECTEDTEXT;
 	m_UnfocusedSelectedPlaneColor = DEFCOLOR_DARK;
@@ -83,37 +83,37 @@ CCMenuItem::CCMenuItem(const char* szName) : CCWidget(szName, NULL, NULL){
 	m_bSelected = false;
 }
 
-CCMenuItem::~CCMenuItem(void){
+CCMenuItem::~CCMenuItem(){
 	while(m_Children.GetCount()>0){
 		CCWidget* pWidget = m_Children.Get(0);
 		delete pWidget;
 	}
 }
 
-bool CCMenuItem::IsSelected(void){
+bool CCMenuItem::IsSelected(){
 	return m_bSelected;
 }
 
-int CCMenuItem::GetWidth(void){
+int CCMenuItem::GetWidth(){
 	CCFont* pFont = GetFont();
 	const char* szText = GetText();
 
 	return pFont->GetWidth(szText) + MENUITEM_MARGIN_X;
 }
 
-int CCMenuItem::GetHeight(void){
+int CCMenuItem::GetHeight(){
 	CCFont* pFont = GetFont();
 	return pFont->GetHeight() + MENUITEM_MARGIN_Y;
 	return GetClientRect().h;
 }
 
-CCPopupMenu* CCMenuItem::CreateSubMenu(void){
+CCPopupMenu* CCMenuItem::CreateSubMenu(){
 	if(m_Children.GetCount()>0) return (CCPopupMenu *)m_Children.Get(0);
 	CCPopupMenu* pSubMenu = new CCPopupMenu("SubMenu", this, GetParent());
 	return pSubMenu;
 }
 
-CCPopupMenu* CCMenuItem::GetSubMenu(void){
+CCPopupMenu* CCMenuItem::GetSubMenu(){
 	if(m_Children.GetCount()>0) return (CCPopupMenu *)m_Children.Get(0);
 	return NULL;
 }
@@ -165,7 +165,7 @@ CCPopupMenu::CCPopupMenu(const char* szName, CCWidget* pParent, CCListener* pLis
 	LOOK_IN_CONSTRUCTOR()
 }
 
-CCPopupMenu::~CCPopupMenu(void){
+CCPopupMenu::~CCPopupMenu(){
 	while(m_Children.GetCount()>0){
 		CCWidget* pWidget = m_Children.Get(0);
 		delete pWidget;
@@ -220,7 +220,7 @@ void CCPopupMenu::RemoveMenuItem(CCMenuItem* pMenuItem){
 	delete pMenuItem;
 }
 
-void CCPopupMenu::RemoveAllMenuItem(void){
+void CCPopupMenu::RemoveAllMenuItem(){
 	while(GetChildCount()>0){
 		CCWidget* pChild = m_Children.Get(0);
 		delete pChild;
@@ -241,7 +241,7 @@ void CCPopupMenu::SetType(CCPopupMenuTypes t){
 	m_iPopupMenuType = t;
 }
 
-CCPopupMenuTypes CCPopupMenu::GetType(void){
+CCPopupMenuTypes CCPopupMenu::GetType(){
 	return m_iPopupMenuType;
 }
 

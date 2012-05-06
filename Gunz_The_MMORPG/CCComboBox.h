@@ -15,13 +15,13 @@ protected:
 	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 public:
 	CCComboListBox(CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~CCComboListBox(void){}
+	virtual ~CCComboListBox(){}
 
 	DECLARE_LOOK(CCListBoxLook)
 	DECLARE_LOOK_CLIENT()
 
 
-	virtual const char* GetClassName(void){ return CCCOMBOLISTBOX; }
+	virtual const char* GetClassName(){ return CCCOMBOLISTBOX; }
 };
 
 class CCComboBox : public CCButton{
@@ -42,7 +42,7 @@ protected:
 
 public:
 	CCComboBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~CCComboBox(void);
+	virtual ~CCComboBox();
 
 	void SetDropSize(int nHeight);
 
@@ -70,31 +70,31 @@ public:
 	const char* GetString(int i);
 	CCListItem* Get(int i);
 	void Remove(int i);
-	void RemoveAll(void);
-	int GetCount(void);
-	int GetSelIndex(void);
+	void RemoveAll();
+	int GetCount();
+	int GetSelIndex();
 	bool SetSelIndex(int i);
-	const char* GetSelItemString(void);
-	CCListItem* GetSelItem(void);
+	const char* GetSelItemString();
+	CCListItem* GetSelItem();
 
 	//Field Support
 	void AddField(const char* szFieldName, int nTabSize) { m_pListBox->AddField(szFieldName, nTabSize); }
 	void RemoveField(const char* szFieldName) { m_pListBox->RemoveField(szFieldName); }
 	CCLISTFIELD* GetField(int i) { return m_pListBox->GetField(i); }
-	int GetFieldCount(void) { return m_pListBox->GetFieldCount(); }
+	int GetFieldCount() { return m_pListBox->GetFieldCount(); }
 
-	bool IsVisibleHeader(void) { return m_pListBox->IsVisibleHeader(); }
+	bool IsVisibleHeader() { return m_pListBox->IsVisibleHeader(); }
 	void SetVisibleHeader(bool bVisible) { m_pListBox->SetVisibleHeader(bVisible); }
 
 	virtual void SetListener(CCListener* pListener);
-	virtual CCListener* GetListener(void);
+	virtual CCListener* GetListener();
 
-	void Sort(void);
+	void Sort();
 
 	void SetListboxAlignment( CCAlignmentMode am)		{ m_pListBox->m_FontAlign = am; }
 
 
-	virtual const char* GetClassName(void){ return CCCOMBOBOX; }
+	virtual const char* GetClassName(){ return CCCOMBOBOX; }
 
 	virtual void OnReleaseFocus();
 

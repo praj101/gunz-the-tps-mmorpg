@@ -23,11 +23,11 @@ void CCLabel::SetTextColor(sColor color){
 	m_TextColor = color;
 }
 
-sColor CCLabel::GetTextColor(void){
+sColor CCLabel::GetTextColor(){
 	return m_TextColor;
 }
 
-CCAlignmentMode CCLabel::GetAlignment(void){
+CCAlignmentMode CCLabel::GetAlignment(){
 	return m_AlignmentMode;
 }
 

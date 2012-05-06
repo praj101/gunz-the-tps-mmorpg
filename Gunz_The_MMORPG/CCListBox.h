@@ -34,10 +34,10 @@ class CCListItem{
 public:
 	bool m_bSelected;
 
-	CCListItem(void) { m_bSelected = false; }
-	virtual ~CCListItem(void){}
+	CCListItem() { m_bSelected = false; }
+	virtual ~CCListItem(){}
 
-	virtual const char* GetString(void) = 0;
+	virtual const char* GetString() = 0;
 	virtual const char* GetString(int i){
 		if(i==0) return GetString();
 		return NULL;
@@ -45,14 +45,14 @@ public:
 	virtual void SetString(const char *szText){
 	}
 
-	CCBitmap* GetBitmap(void){
+	CCBitmap* GetBitmap(){
 		return GetBitmap(0);
 	}
 	virtual CCBitmap* GetBitmap(int i){
 		return NULL;
 	}
 
-	virtual const sColor GetColor(void) { return GetColor(0); }
+	virtual const sColor GetColor() { return GetColor(0); }
 	virtual const sColor GetColor(int i) { 
 		return sColor(DEFCOLOR_CCLIST_TEXT);
 	}
@@ -85,7 +85,7 @@ public:
 		m_szString = NULL;
 		m_pBitmap = pBitmap;
 	}
-	virtual ~CCListFieldItem(void){
+	virtual ~CCListFieldItem(){
 		if(m_szString!=NULL){
 			delete[] m_szString;
 			m_szString = NULL;
@@ -93,7 +93,7 @@ public:
 		m_szString = NULL;
 	}
 
-	virtual const char* GetString(void){
+	virtual const char* GetString(){
 		return m_szString;
 	}
 	virtual void SetString(const char* szString){
@@ -105,7 +105,7 @@ public:
 	void SetColor(sColor color) { m_Color = color; }
 	virtual const sColor GetColor() { return m_Color; }
 
-	CCBitmap* GetBitmap(void){ return m_pBitmap; }
+	CCBitmap* GetBitmap(){ return m_pBitmap; }
 	void SetBitmap(CCBitmap* pBitmap){ m_pBitmap = pBitmap; }
 };
 
@@ -113,7 +113,7 @@ public:
 class CCDefaultListItem : public CCListItem{
 	CCPtrList<CCListFieldItem>	m_Items;
 public:
-	CCDefaultListItem(void){
+	CCDefaultListItem(){
 	}
 	CCDefaultListItem(const char* szText, const sColor color) {
 		CCListFieldItem* pNew = new CCListFieldItem(szText, color);
@@ -129,13 +129,13 @@ public:
 		pNew = new CCListFieldItem(szText);
 		m_Items.Add(pNew);
 	}
-	virtual ~CCDefaultListItem(void){
+	virtual ~CCDefaultListItem(){
 		for(int i=0; i<m_Items.GetCount(); i++){
 			CCListFieldItem* pItem = m_Items.Get(i);
 			delete pItem;
 		}
 	}
-	virtual const char* GetString(void){
+	virtual const char* GetString(){
 		if(m_Items.GetCount()>0) return m_Items.Get(0)->GetString();
 		return NULL;
 	}
@@ -178,7 +178,7 @@ protected:
 	virtual int OnItemDraw(CCDrawContext* pDC, sRect& r, CCBitmap* pBitmap, bool bSelected, bool bFocus, int nAdjustWidth = 0);
 	virtual void OnFrameDraw(CCListBox* pListBox, CCDrawContext* pDC);
 public:
-	CCListBoxLook(void);
+	CCListBoxLook();
 
 	virtual void OnDraw(CCListBox* pListBox, CCDrawContext* pDC);
 	virtual sRect GetClientRect(CCListBox* pListBox, sRect& r);
@@ -190,7 +190,7 @@ protected:
 	public:
 		bool	m_bAscend;
 	public:
-		SortedItemList(void){
+		SortedItemList(){
 			m_bAscend = true;
 		}
 		virtual int Compare(CCListItem *lpRecord1,CCListItem *lpRecord2){
@@ -226,8 +226,8 @@ protected:
 	virtual bool OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 	virtual bool IsDropable(CCWidget* pSender)		{ return m_bDragAndDrop; }
 
-	void RecalcList(void);			
-	void RecalcScrollBar(void);		
+	void RecalcList();			
+	void RecalcScrollBar();		
 
 	int FindNextItem(int i, char c);
 
@@ -235,7 +235,7 @@ protected:
 
 	virtual bool OnCommand(CCWidget* pWindow, const char* szMessage);
 
-	void Initialize(void);
+	void Initialize();
 
 public:
 	sColor m_FontColor;
@@ -244,7 +244,7 @@ public:
 public:
 	CCListBox(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	CCListBox(CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~CCListBox(void);
+	virtual ~CCListBox();
 
 	void	Add(const char* szItem);
 	void	Add(const char* szItem, sColor color);
@@ -254,42 +254,42 @@ public:
 	bool	Set(int i, const char* szItem);
 	bool	Set(int i, CCListItem* pItem);
 	void	Remove(int i);
-	void	RemoveAll(void);
+	void	RemoveAll();
 	bool	Swap(int i, int j);
-	int		GetCount(void);
-	int		GetSelIndex(void);
+	int		GetCount();
+	int		GetSelIndex();
 	bool	SetSelIndex(int i);
-	const char* GetSelItemString(void);
-	CCListItem* GetSelItem(void);
+	const char* GetSelItemString();
+	CCListItem* GetSelItem();
 
-	int		GetSelCount(void);
+	int		GetSelCount();
 
 	int		FindItem(sPoint& p);
 	bool	GetItemPos(sPoint* p, int i);
 
-	int		GetItemHeight(void);
+	int		GetItemHeight();
 	void	SetItemHeight(int nHeight);
 
 	bool	IsShowItem(int i);
 	void	ShowItem(int i);
 	void	SetStartItem(int i);
-	int		GetStartItem(void);
-	int		GetShowItemCount(void);
+	int		GetStartItem();
+	int		GetShowItemCount();
 
-	CCScrollBar* GetScrollBar(void);
+	CCScrollBar* GetScrollBar();
 
 	void	Sort(bool bAscend=true);
 
 	void	AddField(const char* szFieldName, int nTabSize);
 	void	RemoveField(const char* szFieldName);
 	CCLISTFIELD* GetField(int i);
-	int		GetFieldCount(void);
-	void	RemoveAllField(void);
+	int		GetFieldCount();
+	void	RemoveAllField();
 
-	bool	IsVisibleHeader(void);
+	bool	IsVisibleHeader();
 	void	SetVisibleHeader(bool bVisible);
 
-	bool	IsAlwaysVisibleScrollbar(void);
+	bool	IsAlwaysVisibleScrollbar();
 	void	SetAlwaysVisibleScrollbar(bool bVisible);
 
 	bool	IsSelected() { return m_bSelected; }
@@ -308,6 +308,6 @@ public:
 	DECLARE_LOOK_CLIENT()
 
 
-	virtual const char* GetClassName(void){ return CCLISTBOX; }
+	virtual const char* GetClassName(){ return CCLISTBOX; }
 };
 

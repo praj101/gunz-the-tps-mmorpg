@@ -40,7 +40,7 @@ static int widths[]={ 640,800,1024,1280,1600,1280,1440, 1650, 1920, 2560};
 static int heights[]={ 480,600,768,960,1200,800,900, 1050, 1200, 1600};
 
 
-ZOptionInterface::ZOptionInterface(void)
+ZOptionInterface::ZOptionInterface()
 {
 	mbTimer = false;
 
@@ -54,12 +54,12 @@ ZOptionInterface::ZOptionInterface(void)
 
 }
 
-ZOptionInterface::~ZOptionInterface(void)
+ZOptionInterface::~ZOptionInterface()
 {
 	gDisplayMode.clear();
 }
 
-void ZOptionInterface::InitInterfaceOption(void)
+void ZOptionInterface::InitInterfaceOption()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
@@ -489,7 +489,7 @@ void ZOptionInterface::InitInterfaceOption(void)
 	cclog("end of InitInterface option ok\n");
 }
 
-bool ZOptionInterface::SaveInterfaceOption(void)
+bool ZOptionInterface::SaveInterfaceOption()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
@@ -1808,7 +1808,7 @@ BEGIN_IMPLEMENT_LISTENER( ZGetMouseSensitivitySliderListener, MLIST_VALUE_CHANGE
 END_IMPLEMENT_LISTENER()
 
 // 이 에디트박스에서 메시지 두개를 처리해야하기 때문에 BEGIN_IMPLEMENT_LISTENER/END_IMPLEMENT_LISTENER 매크로를 안썼음
-CCListener* ZGetMouseSensitivityEditListener(void){
+CCListener* ZGetMouseSensitivityEditListener(){
 	class ListenerClass : public CCListener
 	{
 	public:

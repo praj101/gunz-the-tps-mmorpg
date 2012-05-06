@@ -18,8 +18,8 @@ public:
 	ZTabPlayerList(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	void SetChatControl(CCEdit* pEdit)	{ m_pEditChat = pEdit; }
 
-	virtual bool OnShow(void);
-	virtual void OnHide(void);
+	virtual bool OnShow();
+	virtual void OnHide();
 	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
 	void OnPickPlayer();

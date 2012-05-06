@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "ccdatabase.h"
 
-CCDatabase::CCDatabase(void) : m_fnLogCallback( 0 )
+CCDatabase::CCDatabase() : m_fnLogCallback( 0 )
 {
 	m_strDSNConnect = "";
 
@@ -10,7 +10,7 @@ CCDatabase::CCDatabase(void) : m_fnLogCallback( 0 )
 	m_dwOptions |= CDatabase::useCursorLib;
 }
 
-CCDatabase::~CCDatabase(void)
+CCDatabase::~CCDatabase()
 {
 }
 

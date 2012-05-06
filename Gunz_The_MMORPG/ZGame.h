@@ -182,7 +182,7 @@ public:
 
 	void OnChangeWeapon(CCUID& uid, CCMatchCharItemParts parts);
 
-	rvector GetMyCharacterFirePosition(void);
+	rvector GetMyCharacterFirePosition();
 
 	void CheckMyCharDead(float fElapsed);
 	//jintriple3 디버그 레지스터 핵 방어 위해 checkMyChatDead를 두개로 쪼갬..

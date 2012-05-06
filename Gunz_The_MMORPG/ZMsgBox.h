@@ -13,7 +13,7 @@ protected:
 
 public:
 	ZMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener=NULL, CCMsgBoxType nType=MT_NOTDECIDED );
-	virtual ~ZMsgBox(void);
+	virtual ~ZMsgBox();
 
 	void SetCustomListener(CCListener* pListener) { m_pCustomListener = pListener; }
 	CCListener* GetCustomListener() { return m_pCustomListener; }
@@ -22,5 +22,5 @@ public:
 };
 
 
-CCListener* ZGetMsgBoxListener(void);
-CCListener* ZGetConfirmMsgBoxListener(void);
+CCListener* ZGetMsgBoxListener();
+CCListener* ZGetConfirmMsgBoxListener();

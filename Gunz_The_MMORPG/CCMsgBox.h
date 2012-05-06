@@ -28,25 +28,25 @@ protected:
 	CCMsgBoxType	m_iType;
 
 protected:
-	virtual bool OnShow(void);
+	virtual bool OnShow();
 	virtual void OnSize(int w, int h);
 
 	virtual bool OnCommand(CCWidget* pWindow, const char* szMessage);
 
 public:
 	CCMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener=NULL, CCMsgBoxType nType=MT_NOTDECIDED );
-	virtual ~CCMsgBox(void);
+	virtual ~CCMsgBox();
 
 	void SetType(CCMsgBoxType nType);
 	void SetTitle(const char* szTitle);
-	const char* GetTitle(void);
+	const char* GetTitle();
 	void SetMessage(const char* szMessage);
-	const char* GetMessage(void);
+	const char* GetMessage();
 	virtual void SetText(const char* szText);
-	virtual const char* GetText(void);
+	virtual const char* GetText();
 
 	virtual void MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight);
 	void AdjustSize();
 
-	virtual const char* GetClassName(void){ return CCMSGBOX; }
+	virtual const char* GetClassName(){ return CCMSGBOX; }
 };

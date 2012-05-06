@@ -19,7 +19,7 @@ public:
 	void SetOnDrawCallback(ZC_ONDRAW pCallback) { m_pOnDrawFunc = pCallback; }
 
 	#define CORE_CANVAS			"Canvas"
-	virtual const char* GetClassName(void){ return CORE_CANVAS; }
+	virtual const char* GetClassName(){ return CORE_CANVAS; }
 };
 
 

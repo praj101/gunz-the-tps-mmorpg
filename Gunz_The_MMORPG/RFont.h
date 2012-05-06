@@ -104,18 +104,18 @@ class RFont {
 	static	bool	m_bInFont;		// beginfont endfont 사이에 있는지.
 
 public:
-	RFont(void);
-	virtual ~RFont(void);
+	RFont();
+	virtual ~RFont();
 
 	bool Create(const TCHAR* szFontName, int nHeight, bool bBold=false, bool bItalic=false, int nOutlineStyle=0, int nCacheSize=-1, bool bAntiAlias=false, DWORD nColorArg1=0, DWORD nColorArg2=0);
-	void Destroy(void);
+	void Destroy();
 
 	bool BeginFont();
 	bool EndFont();
 
 	void DrawText(float x, float y, const TCHAR* szText, DWORD dwColor=0xFFFFFFFF, float fScale=1.0f);
 
-	int GetHeight(void){ return m_iHeight; }
+	int GetHeight(){ return m_iHeight; }
 	int GetTextWidth(const TCHAR* szText, int nSize=-1);
 };
 

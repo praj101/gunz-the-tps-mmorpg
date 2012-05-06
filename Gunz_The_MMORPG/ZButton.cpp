@@ -5,20 +5,20 @@
 #include "ZSoundEngine.h"
 
 
-void ZButton::OnMouseIn(void)
+void ZButton::OnMouseIn()
 {
 	ZGetSoundEngine()->PlaySound("if_mouseover");
 }
 
-void ZButton::OnMouseOut(void)
+void ZButton::OnMouseOut()
 {
 }
 
-void ZButton::OnButtonDown(void)
+void ZButton::OnButtonDown()
 {
 }
 
-void ZButton::OnButtonUp(void)
+void ZButton::OnButtonUp()
 {
 }
 
@@ -33,11 +33,11 @@ ZButton::ZButton(const char* szName, CCWidget* pParent, CCListener* pListener)
 	m_dwClickedTime = 0;
 }
 
-ZButton::~ZButton(void)
+ZButton::~ZButton()
 {
 }
 
-bool ZButton::OnShow(void)
+bool ZButton::OnShow()
 {
 	m_bClicked=false;
 	m_dwCurrentTime=0;
@@ -45,7 +45,7 @@ bool ZButton::OnShow(void)
 	return CCButton::OnShow();
 }
 
-void ZButton::OnHide(void)
+void ZButton::OnHide()
 {
 	m_dwCurrentTime=0;
 	m_dwLastTime=timeGetTime();
@@ -141,20 +141,20 @@ void ZButton::OnButtonClick()
 
 
 
-void ZButton::OnMouseIn(void)
+void ZButton::OnMouseIn()
 {
 	ZGetSoundEngine()->PlaySound("if_mouseover");
 }
 
-void ZButton::OnMouseOut(void)
+void ZButton::OnMouseOut()
 {
 }
 
-void ZButton::OnButtonDown(void)
+void ZButton::OnButtonDown()
 {
 }
 
-void ZButton::OnButtonUp(void)
+void ZButton::OnButtonUp()
 {
 }
 
@@ -169,11 +169,11 @@ ZButton::ZButton(const char* szName, CCWidget* pParent, CCListener* pListener)
 	m_dwClickedTime = 0;
 }
 
-ZButton::~ZButton(void)
+ZButton::~ZButton()
 {
 }
 
-bool ZButton::OnShow(void)
+bool ZButton::OnShow()
 {
 	m_bClicked=false;
 	m_dwCurrentTime=0;
@@ -181,7 +181,7 @@ bool ZButton::OnShow(void)
 	return true;
 }
 
-void ZButton::OnHide(void)
+void ZButton::OnHide()
 {
 	m_dwCurrentTime=0;
 	m_dwLastTime=timeGetTime();

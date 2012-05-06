@@ -96,7 +96,7 @@ void ZModuleContainer::UpdateModules(float fElapsed)
 	}
 }
 
-void ZModuleContainer::InitModuleStatus(void)
+void ZModuleContainer::InitModuleStatus()
 {
 	for(ZMODULEMAP::iterator i=m_Modules.begin();i!=m_Modules.end();i++) {
 		ZModule *pModule = i->second;

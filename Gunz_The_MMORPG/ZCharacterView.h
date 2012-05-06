@@ -46,7 +46,7 @@ protected:
 	DWORD				m_dwTime;				// 회전 시간
 	
 protected:
-	void		 RepositionItemSlots(void);
+	void		 RepositionItemSlots();
 
 	virtual void OnSize(int w, int h);
 	virtual void OnDraw(CCDrawContext* pDC);
@@ -54,7 +54,7 @@ protected:
 	virtual bool OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 public:
 	ZCharacterView(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZCharacterView(void);
+	virtual ~ZCharacterView();
 
 	void SetDrawInfo(bool bVal)	{ m_bDrawInfo = bVal; }
 	bool GetDrawInfo()			{ return m_bDrawInfo; }
@@ -76,7 +76,7 @@ public:
 
 public:
 	#define CORE_CHARACTERVIEW	"CharacterView"
-	virtual const char* GetClassName(void){ return CORE_CHARACTERVIEW; }
+	virtual const char* GetClassName(){ return CORE_CHARACTERVIEW; }
 	
 	void SetCharacter( CCUID uid );
 	const CCUID& GetCharacter() { return m_Info.UID; }

@@ -36,7 +36,7 @@ public:
 
 public:
 	ZClanListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZClanListBox(void);
+	virtual ~ZClanListBox();
 
 	void SetInfo(int nIndex, int nEmblemID, const char *szName, int nPlayers);
 	void Clear(int nIndex);

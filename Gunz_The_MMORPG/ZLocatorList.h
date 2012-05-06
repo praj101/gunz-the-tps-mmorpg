@@ -13,8 +13,8 @@ class CCZFileSystem;
 class ZLocatorList : public map< int, string >
 {
 public:
-	ZLocatorList(void);
-	virtual ~ZLocatorList(void);
+	ZLocatorList();
+	virtual ~ZLocatorList();
 
 	void AddIP( const char* szIP);
 

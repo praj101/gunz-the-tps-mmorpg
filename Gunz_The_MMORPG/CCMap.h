@@ -27,29 +27,29 @@ protected:
 
 public:
 	CCMap(int nID, const char* szName);
-	virtual ~CCMap(void);
+	virtual ~CCMap();
 
-	int GetID(void){ return m_nID; }
-	const char* GetName(void){ return m_szName; }
+	int GetID(){ return m_nID; }
+	const char* GetName(){ return m_szName; }
 
 	int Create(const char* szFileName, CCZFileSystem* pZFS=NULL);
-	void Destroy(void);
+	void Destroy();
 
 	/*
 	void AddRef(CCObject* pObj);
 	void DelRef(CCObject* pObj);
 	*/
 
-	void RandomLocate(void);
+	void RandomLocate();
 
-	RealSpace2::RBspObject*	GetBspObject(void){ return m_pBspObj; }
+	RealSpace2::RBspObject*	GetBspObject(){ return m_pBspObj; }
 };
 
 /// ¸Ê ÄÁÅ×ÀÌ³Ê
 class CCMapManager : public vector<CCMap*>{
 public:
-	CCMapManager(void);
-	virtual ~CCMapManager(void);
+	CCMapManager();
+	virtual ~CCMapManager();
 
 	CCMap* Get(const char* szName);
 	int GetID(const char* szName);

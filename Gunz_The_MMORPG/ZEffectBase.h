@@ -44,8 +44,8 @@ protected:
 	rvector m_Scale;
 
 public:
-	ZEffectBase(void);
-	~ZEffectBase(void);
+	ZEffectBase();
+	~ZEffectBase();
 
 	bool Create(const char *szTextureName);
 	void Destroy();

@@ -19,7 +19,7 @@ protected:
 public:
 	RAStarNode();
 	virtual ~RAStarNode();
-	float GetTotalCost(void)							{ return m_fCostFromStart + m_fCostToGoal; }
+	float GetTotalCost()							{ return m_fCostFromStart + m_fCostToGoal; }
 	// 이웃 Node들의 Cost 얻기
 	float GetSuccessorCost(int i)						{ return GetSuccessorCost(GetSuccessor(i)); }
 

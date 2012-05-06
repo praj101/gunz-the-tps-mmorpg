@@ -27,7 +27,7 @@ ZEffectGunFire::ZEffectGunFire(ZEffectBillboardSource*	pSources[2], D3DXVECTOR3&
 
 }
 
-ZEffectGunFire::~ZEffectGunFire(void)
+ZEffectGunFire::~ZEffectGunFire()
 {
 }
 
@@ -136,7 +136,7 @@ ZEffectGunFire2::ZEffectGunFire2(ZEffectBillboardSource* pSources[4], D3DXVECTOR
 	}
 }
 
-ZEffectGunFire2::~ZEffectGunFire2(void)
+ZEffectGunFire2::~ZEffectGunFire2()
 {
 }
 

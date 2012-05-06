@@ -17,8 +17,8 @@ protected:
 	ZScoreListBox*		m_pListBox;
 	ZCharacterManager*	m_pCharacterManager;
 	ZIDLResource*		m_pIDLResource;
-	virtual bool OnShow(void);
-	virtual void OnHide(void);
+	virtual bool OnShow();
+	virtual void OnHide();
 
 	void Refresh();
 	void Clear();

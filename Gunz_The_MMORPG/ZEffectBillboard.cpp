@@ -73,7 +73,7 @@ ZEffectBillboardSource::ZEffectBillboardSource(const char* szTextureFileName)
 */
 }
 
-ZEffectBillboardSource::~ZEffectBillboardSource(void)
+ZEffectBillboardSource::~ZEffectBillboardSource()
 {
 	if(m_pTex) {
 		RDestroyBaseTexture(m_pTex);
@@ -166,7 +166,7 @@ ZEffectBillboard::ZEffectBillboard(ZEffectBillboardSource* pEffectBillboardSourc
 	m_pEffectBillboardSource = pEffectBillboardSource;
 }
 
-ZEffectBillboard::~ZEffectBillboard(void)
+ZEffectBillboard::~ZEffectBillboard()
 {
 }
 
@@ -183,19 +183,19 @@ bool ZEffectBillboard::Draw(unsigned long int nTime)
 
 
 
-ZEffectBillboardDrawer::ZEffectBillboardDrawer(void)
+ZEffectBillboardDrawer::ZEffectBillboardDrawer()
 {
 //	m_pVB = NULL;
 	m_bCreate = false;
 }
 
-ZEffectBillboardDrawer::~ZEffectBillboardDrawer(void)
+ZEffectBillboardDrawer::~ZEffectBillboardDrawer()
 {
 //	SAFE_RELEASE(m_pVB);
 	m_bCreate = false;
 }
 
-void ZEffectBillboardDrawer::Create(void)
+void ZEffectBillboardDrawer::Create()
 {
 	if(m_bCreate) return;
 /*
@@ -297,7 +297,7 @@ ZEffectBillboard2::ZEffectBillboard2(LPDIRECT3DTEXTURE9 pEffectBillboardTexture)
 	if(m_EffectBillboardDrawer.IsCreated()==false) m_EffectBillboardDrawer.Create();
 }
 
-ZEffectBillboard2::~ZEffectBillboard2(void)
+ZEffectBillboard2::~ZEffectBillboard2()
 {
 }
 

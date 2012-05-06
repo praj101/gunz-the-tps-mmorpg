@@ -38,7 +38,7 @@ public:
 
 public:
 #define CORE_EQUIPMENTLISTBOX	"EquipmentListBox"
-	virtual const char* GetClassName(void){ return CORE_EQUIPMENTLISTBOX; }
+	virtual const char* GetClassName(){ return CORE_EQUIPMENTLISTBOX; }
 
 };
 
@@ -48,11 +48,11 @@ void ShopSaleItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap
 void CharacterEquipmentItemListBoxOnDrop(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 
 
-CCListener* ZGetShopListFilterListener(void);
-CCListener* ZGetEquipListFilterListener(void);
+CCListener* ZGetShopListFilterListener();
+CCListener* ZGetEquipListFilterListener();
 
-CCListener* ZGetShopSellItemListBoxListener(void);
-//CCListener* ZGetCashShopItemListBoxListener(void);
-CCListener* ZGetShopPurchaseItemListBoxListener(void);
-CCListener* ZGetEquipmentMyItemListBoxListener(void);
-CCListener* ZGetAccountItemListBoxListener(void);
+CCListener* ZGetShopSellItemListBoxListener();
+//CCListener* ZGetCashShopItemListBoxListener();
+CCListener* ZGetShopPurchaseItemListBoxListener();
+CCListener* ZGetEquipmentMyItemListBoxListener();
+CCListener* ZGetAccountItemListBoxListener();

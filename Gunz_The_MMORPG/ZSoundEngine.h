@@ -233,7 +233,7 @@ public:
 	bool isPlayAble(char* name);
 	bool isPlayAbleMtrl(char* name);//특수목적용~
 
-	void Run(void);
+	void Run();
 	void UpdateAmbSound(rvector& Pos, rvector& Ori);
 	float GetArea( rvector& Pos, AmbSound& a );
 

@@ -121,7 +121,7 @@ void RecoveryChar(char* pData,int _size)
 }
 
 
-CCZip::CCZip(void)
+CCZip::CCZip()
 {
 	m_fp = NULL;
 	m_pDirData = NULL;
@@ -132,7 +132,7 @@ CCZip::CCZip(void)
 	m_dwReadMode = 0;
 }
 
-CCZip::~CCZip(void)
+CCZip::~CCZip()
 {
 	Finalize();
 }
@@ -251,7 +251,7 @@ bool CCZip::Finalize()
 	return true;
 }
 
-int CCZip::GetFileCount(void) const
+int CCZip::GetFileCount() const
 {
 	return m_iDirEntries;
 }

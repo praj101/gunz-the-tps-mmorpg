@@ -2,7 +2,7 @@
 #include "CCGridMap.h"
 
 
-void compile_test(void)
+void compile_test()
 {
 	CCGridMap<int> m;
 	m.Create(0, 0, 100, 100, 10, 10);

@@ -64,40 +64,40 @@ friend class MPolygonMapModel;
 	
 protected:
 	bool IsParentVisiblePoint(MPMPoint* p);	// Parent Point(Path설정중에..)에서 p가 보이는가 테스트
-	void GenerateVisiblePoint(void);		// 보이는 점 찾기
-	void ResetVisibleList(void);
+	void GenerateVisiblePoint();		// 보이는 점 찾기
+	void ResetVisibleList();
 	void AddVisiblePoint(MPMPoint* pPoint);
 
 public:
 	MPMPoint(float x, float y, float z, int nRoomIndex);
 	MPMPoint(float x, float y, float z, list<int>& RoomIndexs);
-	MPMPoint(void);
+	MPMPoint();
 
-	inline float GetX(void){ return m_fX; }
-	inline float GetY(void){ return m_fY; }
-	inline float GetZ(void){ return m_fZ; }
+	inline float GetX(){ return m_fX; }
+	inline float GetY(){ return m_fY; }
+	inline float GetZ(){ return m_fZ; }
 
-	MPMPoint* GetPrevPoint(void){ return m_pPrevPoint; }
-	MPMPoint* GetNextPoint(void){ return m_pNextPoint; }
+	MPMPoint* GetPrevPoint(){ return m_pPrevPoint; }
+	MPMPoint* GetNextPoint(){ return m_pNextPoint; }
 
-	int GetVisiblePointCount(void);
+	int GetVisiblePointCount();
 	MPMPoint* GetVisiblePoint(int i);
 
-	void ResetConnectPoint(void);
+	void ResetConnectPoint();
 	bool IsVisible(MPMPoint* pPN);
 
-	virtual int GetSuccessorCount(void);
+	virtual int GetSuccessorCount();
 	virtual CCNodeModel* GetSuccessor(int i);
 
 	virtual float GetSuccessorCost(CCNodeModel* pSuccessor);
 	virtual float GetHeuristicCost(CCNodeModel* pNode);
 
 	/// 이 노드가 속한 Room중에 가장 작은 인덱스
-	int GetMinRoomIndex(void);
+	int GetMinRoomIndex();
 	/// 이 노드가 속한 Room중에 가장 큰 인덱스
-	int GetMaxRoomIndex(void);
+	int GetMaxRoomIndex();
 
-	//virtual float GetTotalCostPriority(void){ return m_fCostToGoal; }	// Goal까지의 Cost만을 고려한다.
+	//virtual float GetTotalCostPriority(){ return m_fCostToGoal; }	// Goal까지의 Cost만을 고려한다.
 };
 
 
@@ -132,11 +132,11 @@ protected:
 	MPMPoint*				m_pMergeTestEnd;
 	//int						m_nMergeBeginIndex, m_nMergeEndIndex;	// 머지테스트할 시작과 끝 인덱스
 protected:
-	MPMPOLYGONDIR TestPolygonDir(void);			// 폴리곤 방향 테스트
+	MPMPOLYGONDIR TestPolygonDir();			// 폴리곤 방향 테스트
 
-	void Initialize(void);
+	void Initialize();
 public:
-	MPMPolygon(void);
+	MPMPolygon();
 	// Rect Type의 Polygon 생성
 	MPMPolygon(MPMPoint* lt, MPMPoint* rt, MPMPoint* rb, MPMPoint* lb);
 
@@ -146,7 +146,7 @@ public:
 
 	// 하나 이상의 연속된 에지를 공유하는 두 폴리곤을 머지하는 인터페이스, 머지하려는 폴리곤의 포인트를 하나씩 추가해 나가는 방식
 	void Merge(MPMPoint* pPointNode);
-	void MergeReset(void);	// Merge에 관련된 임시 데이터를 리셋한다.
+	void MergeReset();	// Merge에 관련된 임시 데이터를 리셋한다.
 
 	void InsertBefore(int nIndex, MPMPoint* pPointNode);
 	void AddAfter(int nIndex, MPMPoint* pPointNode);
@@ -161,8 +161,8 @@ public:
 	bool IsInnerPoint(float x, float y, bool bTestClockwise);
 	MPMPOLYGONDIR IsInnerPoint(float* t, float x, float y);
 
-	MPMPoint* GetStartPoint(void);
-	MPMPoint* GetEndPoint(void);
+	MPMPoint* GetStartPoint();
+	MPMPoint* GetEndPoint();
 	MPMPoint* Get(int i);
 
 	void Add(MPMPolygon* pPO);
@@ -170,13 +170,13 @@ public:
 	void GetPointNormal(float* x, float* y, int i);
 	void Enlarge(float fMargin);
 
-	void RebuildConnection(void);
+	void RebuildConnection();
 
 	bool IsIntersect(MPMPoint** p1, MPMPoint** p2, float* t, float x1, float y1, float x2, float y2);	// p1->p2?
 	float GetNearestContactPoint(float* px, float* py, float x, float y, bool bInverse=false);			// 가장 가까운 폴리곤 라인위에 점
 	//float GetContactPointByLineTest(float* px, float* py, float x, float y, int nTestCount);			// 라인을 nTestCount만큼 그어봐서 가장 가까운 점 찾기, 가장 가까운 점을 찾긴 어렵지만... 제한된 테스트 횟수를 보장한다.
 
-	MPMPOLYGONDIR GetDir(void);		// Winding Dir
+	MPMPOLYGONDIR GetDir();		// Winding Dir
 };
 
 // Point 추가시 폴리곤을 끝을 명시.
@@ -237,7 +237,7 @@ public:
 	int			m_nPortalIndex;
 public:
 	MPMPortal(MPMPoint* pPos1, MPMPoint* pPos2, int nPortalIndex);
-	virtual ~MPMPortal(void);
+	virtual ~MPMPortal();
 	void Enlarge(float fMargin);
 };
 
@@ -260,11 +260,11 @@ public:
 	CCLinkedList<MPMPortal>		m_PortalList;
 
 protected:
-	void Change(void);									// 맵의 변화 지정
+	void Change();									// 맵의 변화 지정
 	void GetInnerClosedPolygon(CCPtrList<MPMPolygon>* pPolygons, int nPointType, MPMPOLYGONDIR dir);	// nPointType=0 Start, nPointType=1 End Point
 
-	bool TestEndPointInPolygon(void);					// 끝점이 폴리곤 안에 갇혀 있는지 테스트, 미리 테스트함으로써 써치 타임에 성능 항상을 꽤할수 있다.
-	bool TestStartPointInPolygon(void);					// 시작점이 폴리곤 안에 갇혀 있는지 테스트, 미리 테스트함으로써 써치 타임에 성능 항상을 꽤할수 있다.
+	bool TestEndPointInPolygon();					// 끝점이 폴리곤 안에 갇혀 있는지 테스트, 미리 테스트함으로써 써치 타임에 성능 항상을 꽤할수 있다.
+	bool TestStartPointInPolygon();					// 시작점이 폴리곤 안에 갇혀 있는지 테스트, 미리 테스트함으로써 써치 타임에 성능 항상을 꽤할수 있다.
 
 	// 폴리곤 리스트중에 Non-Intersect하는 지점 추천(sx,sy 시작점, ex,ey 끝점)
 	bool FindNonIntersectPosition(CCPtrList<MPMPolygon>* pPolygons, float* rx, float* ry, float sx, float sy, float ex, float ey);
@@ -276,16 +276,16 @@ protected:
 	bool RecommendEndPoint(float* pRecX, float* pRecY);	// 충돌하지 않는 지점으로 추천(return true면 재지정, 따라서.. TestEndPointInPolygon()을 해줘야 한다.
 
 	friend class MPMPoint;
-	void ClearVisibledList(void);				// MPMPoint::m_VisibledList Clear
+	void ClearVisibledList();				// MPMPoint::m_VisibledList Clear
 
 	bool IsVisibleEdgePoint(MPMPoint* p1, MPMPoint* p2, int nBeginRoom, int nEndRoom);					// p1->p2?	( Edge만 검사 )
 	int IsBiDirectionVisiblePoint(float* pT1, float* pT2, MPMPoint* p1, MPMPoint* p2);					// 0: 없음, 1: p1->p2, 2:p2->p1, 3:p1<->p2
 
 public:
-	MPolygonMapModel(void);
-	virtual ~MPolygonMapModel(void);
+	MPolygonMapModel();
+	virtual ~MPolygonMapModel();
 
-	void Destroy(void);
+	void Destroy();
 
 	MPMPoint* AddPoint(float x, float y, float z, int nRoomIndex, bool bCheckDup=false);							// 일반점 추가 ( Point가 겹칠 수 있는 경우 중복 체크를 한다. )
 	MPMPoint* AddPoint(float x, float y, float z, list<int>& RoomIndexs, bool bCheckDup=false);					// 일반점 추가 ( Point가 겹칠 수 있는 경우 중복 체크를 한다. )
@@ -296,8 +296,8 @@ public:
 
 	MPMPoint* AddStartPoint(float x, float y, float z, int nRoomIndex);				// 시작점 추가
 	MPMPoint* AddEndPoint(float x, float y, float z, int nRoomIndex);				// 끝 점 추가
-	MPMPoint* GetStartPoint(void);
-	MPMPoint* GetEndPoint(void);
+	MPMPoint* GetStartPoint();
+	MPMPoint* GetEndPoint();
 
 	void SetStartPoint(float x, float y, float z, int nRoomIndex);					// 시작점
 	void SetEndPoint(float x, float y, float z, int nRoomIndex);					// 끝 점
@@ -309,7 +309,7 @@ public:
 	void AddEndPoint(MPMPoint* pPoint);												// 끝 점 추가
 	void AddPortal(MPMPortal* pPortal);												// 포탈 추가
 
-	void Clear(void);																	// 추가된 Point, Polygon 초기화
+	void Clear();																	// 추가된 Point, Polygon 초기화
 
 	MPMRESULT PreparePathFinding(float* pRecX, float* pRecY);							// Path Finding Prepare ( End Point를 적절히 위치시킨다.)
 
@@ -319,8 +319,8 @@ public:
 
 	void SetPolygonSharedMap(MPOLYGONIDPAIRMAP* pSharedMap);
 
-	bool IsEndPointInPolygon(void);														// 끝 점이 폴리곤에 갇혀 있는가?
-	void MergeBreakPolygon(void);														// 서로 다른 열려있는(MPMPAT_END) 폴리곤들중 시작점이나 끝점이 겹쳐서 연결이 가능한 폴리곤 합치기
+	bool IsEndPointInPolygon();														// 끝 점이 폴리곤에 갇혀 있는가?
+	void MergeBreakPolygon();														// 서로 다른 열려있는(MPMPAT_END) 폴리곤들중 시작점이나 끝점이 겹쳐서 연결이 가능한 폴리곤 합치기
 
 	MPMPolygon* IsInnerClosedPolygon(float x, float y, bool bTestClockwise=true);		// 점이 폴리곤 안에 속해 있는가?
 	void IsInnerClosedPolygon(CCPtrList<MPMPolygon>* pPolygons, float x, float y, bool bTestClockwise=true);	// 점이 폴리곤 안에 속해 있는가?
@@ -336,7 +336,7 @@ public:
 
 	void Enlarge(float fMargin);
 
-	int GetChangeCount(void);
+	int GetChangeCount();
 };
 
 #endif

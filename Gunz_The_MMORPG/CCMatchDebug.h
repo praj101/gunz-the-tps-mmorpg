@@ -8,12 +8,12 @@
 	#ifdef _ASSERT
 	#undef _ASSERT
 	#endif
-	#define _ASSERT(X)		((void)0)
+	#define _ASSERT(X)		(()0)
 
 	#ifdef OutputDebugString
 	#undef OutputDebugString
 	#endif
-	#define OutputDebugString(X)		((void)0)
+	#define OutputDebugString(X)		(()0)
 #endif
 
 // 컴파일러옵션 /GS옵션을 사용할때 버퍼 오버런이 났을 경우 뜨는 메시지 박스를 가로챈다.

@@ -12,7 +12,7 @@ public:
 	ZToolTip(const char* szName, CCWidget* pParent, CCAlignmentMode align=CCD_LEFT|CCD_TOP);
 	~ZToolTip();
 	virtual void OnDraw(CCDrawContext* pDC);
-	virtual void SetBounds(void);
+	virtual void SetBounds();
 
 private:
 	void GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int nTextPixelHeight);

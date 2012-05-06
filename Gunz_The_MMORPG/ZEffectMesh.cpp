@@ -32,7 +32,7 @@ ZEffectMeshSource::ZEffectMeshSource(const char* szMeshName)
 	_ASSERT(bRet==true);
 }
 
-ZEffectMeshSource::~ZEffectMeshSource(void)
+ZEffectMeshSource::~ZEffectMeshSource()
 {
 	delete m_pMesh;
 }

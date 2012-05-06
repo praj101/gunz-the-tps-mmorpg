@@ -42,7 +42,7 @@ protected:
 	virtual void OnRegisterCommand(CCCommandManager* pCommandManager);
 	virtual bool OnCommand(CCCommand* pCommand);
 
-	virtual void OutputLocalInfo(void);
+	virtual void OutputLocalInfo();
 	virtual void OutputMessage(const char* szMessage, CCZMOMType nType=CCZMDM_GENERAL);
 
 	virtual void SendCommand(CCCommand* pCommand);

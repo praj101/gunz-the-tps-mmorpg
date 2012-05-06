@@ -108,8 +108,8 @@ public:
 	static int GetRefCount() { return msRef;}
 
 public:
-	ZClothEmblem(void);
-	virtual ~ZClothEmblem(void);
+	ZClothEmblem();
+	virtual ~ZClothEmblem();
 
 };
 

@@ -23,17 +23,17 @@ protected:
 	CCCommandList		m_CommandQueue;			///< Posted Command List
 	CCCommandAliasMap	m_CommandAlias;			///< Aliases
 protected:
-	void InitializeCommandDesc(void);
+	void InitializeCommandDesc();
 	void InitializeCommandMemPool();
 	void FinalizeCommandMemPool();
 public:
-	CCCommandManager(void);
-	virtual ~CCCommandManager(void);
+	CCCommandManager();
+	virtual ~CCCommandManager();
 
-	void Initialize(void);
+	void Initialize();
 
-	int GetCommandDescCount(void) const;
-	int GetCommandQueueCount(void) const;
+	int GetCommandDescCount() const;
+	int GetCommandQueueCount() const;
 	CCCommandDesc* GetCommandDesc(int i);
 	CCCommandDesc* GetCommandDescByID(int nID);
 	void AssignDescs(CCCommandManager* pTarCM);
@@ -45,9 +45,9 @@ public:
 	bool Post(CCCommand* pNew);
 
 	/// 가장 먼저 추가된 커맨드를 읽어들임
-	CCCommand* GetCommand(void);
+	CCCommand* GetCommand();
 	/// 가장 먼저 추가된 커맨드를 CommandManager에서 지우지 않고 읽어들임
-	CCCommand* PeekCommand(void);
+	CCCommand* PeekCommand();
 
 	/// Command Description의 문법 설명 스트링 얻어내기
 	void GetSyntax(char* szSyntax, const CCCommandDesc* pCD);

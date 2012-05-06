@@ -12,8 +12,8 @@ typedef void(LOGCALLBACK)( const string& strLog );
 class CCDatabase
 {
 public:
-	CCDatabase(void);
-	~CCDatabase(void);
+	CCDatabase();
+	~CCDatabase();
 
 	CDatabase* GetDatabase()	{ return &m_DB; }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-typedef void(ZCOUNTDOWNEVENTCALLBACK)(void);
+typedef void(ZCOUNTDOWNEVENTCALLBACK)();
 
 // 카운트다운 하다가 0이 되면 콜백을 실행한다
 struct ZCOUNTDOWN {

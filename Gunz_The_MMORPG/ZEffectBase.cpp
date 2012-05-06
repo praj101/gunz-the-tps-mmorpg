@@ -7,7 +7,7 @@ LPDIRECT3DINDEXBUFFER9	ZEffectBase::m_pIB = NULL;
 DWORD	ZEffectBase::m_dwBase = EFFECTBASE_DISCARD_COUNT;
 
 
-ZEffectBase::ZEffectBase(void)
+ZEffectBase::ZEffectBase()
 {
 	m_fLifeTime=2.f;
 	m_fVanishTime=1.f;
@@ -15,7 +15,7 @@ ZEffectBase::ZEffectBase(void)
 	m_Scale=rvector(1.f,1.f,1.f);
 }
 
-ZEffectBase::~ZEffectBase(void)
+ZEffectBase::~ZEffectBase()
 {
 	Clear();
 	Destroy();

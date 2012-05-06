@@ -120,6 +120,6 @@ public:
 	void SetPrivateStageUID(CCUID& uidStage);
 public:
 	ZRoomListBox(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~ZRoomListBox(void);
+	virtual ~ZRoomListBox();
 
 };

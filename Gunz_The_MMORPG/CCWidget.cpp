@@ -137,7 +137,7 @@ bool CCWidget::RemoveExclusive(CCWidget* pWidget){
 	return false;
 }
 
-CCWidget* CCWidget::GetLatestExclusive(void){
+CCWidget* CCWidget::GetLatestExclusive(){
 	if(m_Exclusive.GetCount()>0) return m_Exclusive.Get(m_Exclusive.GetCount()-1);
 	return NULL;
 }
@@ -208,7 +208,7 @@ CCWidget::CCWidget(const char* szName, CCWidget* pParent, CCListener* pListener)
 
 }
 
-CCWidget::~CCWidget(void){
+CCWidget::~CCWidget(){
 	ReleaseExclusive();
 
 	for(int i=0; i<m_Children.GetCount(); i++){
@@ -222,7 +222,7 @@ CCWidget::~CCWidget(void){
 	DetachToolTip();
 }
 
-void CCWidget::OnRun(void){
+void CCWidget::OnRun(){
 }
 
 void CCWidget::OnDraw(CCDrawContext* pDC){
@@ -235,7 +235,7 @@ bool CCWidget::OnEvent(CCEvent* pEvent, CCListener* pListener){
 	return false;
 }
 
-void CCWidget::Run(void){
+void CCWidget::Run(){
 	OnRun();
 
 	for(int i=0; i<m_Children.GetCount(); i++){
@@ -305,7 +305,7 @@ void CCWidget::DrawAfterWidgets( CCDrawContext* pDC ){
 	}
 }
 
-void CCWidget::Redraw(void){
+void CCWidget::Redraw(){
 	Core::GetInstance()->Update();
 }
 
@@ -466,11 +466,11 @@ bool CCWidget::EventDefaultKey(CCEvent* pEvent){
 	return false;
 }
 
-bool CCWidget::OnShow(void){
+bool CCWidget::OnShow(){
 	return true;
 }
 
-void CCWidget::OnHide(void){
+void CCWidget::OnHide(){
 }
 
 void CCWidget::OnSize(int w, int h){
@@ -567,11 +567,11 @@ void CCWidget::Enable(bool bEnable){
 	m_bEnable = bEnable;
 }
 
-bool CCWidget::IsVisible(void){
+bool CCWidget::IsVisible(){
 	return m_bVisible;
 }
 
-bool CCWidget::IsEnable(void){
+bool CCWidget::IsEnable(){
 	return m_bEnable;
 }
 
@@ -579,7 +579,7 @@ void CCWidget::SetResizable(bool bEnable){
 	m_bResizable = bEnable;
 }
 
-bool CCWidget::IsResizable(void){
+bool CCWidget::IsResizable(){
 	return m_bResizable;
 }
 
@@ -587,11 +587,11 @@ void CCWidget::SetListener(CCListener* pListener){
 	m_pListener = pListener;
 }
 
-CCListener* CCWidget::GetListener(void){
+CCListener* CCWidget::GetListener(){
 	return m_pListener;
 }
 
-int CCWidget::GetID(void){
+int CCWidget::GetID(){
 	return m_iID;
 }
 
@@ -610,15 +610,15 @@ void CCWidget::SetText(const char* szText){
 	SetLabelAccelerator();
 }
 
-const char* CCWidget::GetText(void){
+const char* CCWidget::GetText(){
 	return m_szName;
 }
 
-void CCWidget::SetCapture(void){
+void CCWidget::SetCapture(){
 	CCWidget::m_pCapturedWidget = this;
 }
 
-void CCWidget::ReleaseCapture(void){
+void CCWidget::ReleaseCapture(){
 	CCWidget::m_pCapturedWidget = NULL;
 }
 
@@ -626,11 +626,11 @@ void CCWidget::SetFocusEnable(bool bEnable){
 	m_bFocusEnable = bEnable;
 }
 
-bool CCWidget::IsFocusEnable(void){
+bool CCWidget::IsFocusEnable(){
 	return m_bFocusEnable;
 }
 
-void CCWidget::SetFocus(void){
+void CCWidget::SetFocus(){
 	if(m_bFocusEnable==false) 
 		return;
 
@@ -646,21 +646,21 @@ void CCWidget::SetFocus(void){
 	OnSetFocus();
 }
 
-void CCWidget::ReleaseFocus(void){
+void CCWidget::ReleaseFocus(){
 	if(CCWidget::m_pFocusedWidget==this) OnReleaseFocus();
 	CCWidget::m_pFocusedWidget = NULL;
 }
 
-bool CCWidget::IsFocus(void){
+bool CCWidget::IsFocus(){
 	if(CCWidget::m_pFocusedWidget==this) return true;
 	return false;
 }
 
-CCWidget* CCWidget::GetParent(void){
+CCWidget* CCWidget::GetParent(){
 	return m_pParent;
 }
 
-int CCWidget::GetChildCount(void){
+int CCWidget::GetChildCount(){
 	return m_Children.GetCount();
 }
 
@@ -677,14 +677,14 @@ int CCWidget::GetChildIndex(CCWidget* pWidget){
 	return -1;
 }
 
-void CCWidget::SetExclusive(void){
+void CCWidget::SetExclusive(){
 	if(m_pParent!=NULL){
 		m_pParent->AddExclusive(this);
 		SetFocus();
 	}
 }
 
-void CCWidget::ReleaseExclusive(void){
+void CCWidget::ReleaseExclusive(){
 	if(m_pParent!=NULL)
 		m_pParent->RemoveExclusive(this);
 }
@@ -695,7 +695,7 @@ CCCursor* CCWidget::SetCursor(CCCursor* pCursor){
 	return pTemp;
 }
 
-CCCursor* CCWidget::GetCursor(void){
+CCCursor* CCWidget::GetCursor(){
 	return m_pCursor;
 }
 
@@ -705,7 +705,7 @@ CCFont* CCWidget::SetFont(CCFont* pFont){
 	return pTemp;
 }
 
-CCFont* CCWidget::GetFont(void){
+CCFont* CCWidget::GetFont(){
 	if(m_pFont==NULL) return CCFontManager::Get(NULL);
 	else return m_pFont;
 }
@@ -751,15 +751,15 @@ void CCWidget::SetBounds(int x, int y, int w, int h){
 	SetSize(w, h);
 }
 
-sPoint CCWidget::GetPosition(void){
+sPoint CCWidget::GetPosition(){
 	return sPoint(m_Rect.x, m_Rect.y);
 }
 
-sRect CCWidget::GetRect(void){
+sRect CCWidget::GetRect(){
 	return m_Rect;
 }
 
-sRect CCWidget::GetIDLRect(void){
+sRect CCWidget::GetIDLRect(){
 	return m_IDLRect;
 }
 
@@ -796,12 +796,12 @@ void CCWidget::SetBoundsAlignment(CCAlignmentMode am, int w, int h){
 	m_Rect.y = p.y;
 }
 
-CCAlignmentMode CCWidget::GetBoundsAlignment(void){
+CCAlignmentMode CCWidget::GetBoundsAlignment(){
 	return m_BoundsAlignment;
 }
 
 
-sRect CCWidget::GetScreenRect(void){
+sRect CCWidget::GetScreenRect(){
 	if(m_pParent!=NULL){
 		sRect sr = m_pParent->GetScreenRect();
 		sRect r = m_Rect;
@@ -822,12 +822,12 @@ void CCWidget::AttachToolTip(CCToolTip* pToolTip){
 	m_pToolTip = pToolTip;
 }
 
-void CCWidget::DetachToolTip(void){
+void CCWidget::DetachToolTip(){
 	if(m_pToolTip!=NULL) delete m_pToolTip;
 	m_pToolTip = NULL;
 }
 
-CCToolTip* CCWidget::GetToolTip(void){
+CCToolTip* CCWidget::GetToolTip(){
 	return m_pToolTip;
 }
 
@@ -836,18 +836,18 @@ void CCWidget::SetAccelerator(int a){
 	else m_iAccelerator = a;
 }
 
-void CCWidget::SetLabelAccelerator(void){
+void CCWidget::SetLabelAccelerator(){
 	SetAccelerator(GetLabelAccelerator());
 }
 
-char CCWidget::GetLabelAccelerator(void){
+char CCWidget::GetLabelAccelerator(){
 	char szAnd[2] = {GetAndChar(m_szName), 0};
 	_strupr(szAnd);
 	if(szAnd[0]==0) return -1;
 	return szAnd[0];
 }
 
-char CCWidget::GetToolTipAccelerator(void){
+char CCWidget::GetToolTipAccelerator(){
 	if(m_pToolTip!=NULL){
 		char szAnd[2] = {GetAndChar(m_pToolTip->m_szName), 0};
 		_strupr(szAnd);
@@ -859,11 +859,11 @@ char CCWidget::GetToolTipAccelerator(void){
 	}
 }
 
-sRect CCWidget::GetClientRect(void){
+sRect CCWidget::GetClientRect(){
 	return sRect(0, 0, m_Rect.w, m_Rect.h);
 }
 
-sRect CCWidget::GetInitialClientRect(void){
+sRect CCWidget::GetInitialClientRect(){
 	return CCWidget::GetClientRect();
 }
 
@@ -883,7 +883,7 @@ void CCWidget::SetZOrder(CCZOrder z){
 	}
 }
 
-CCWidget* CCWidget::FindExclusiveDescendant(void){
+CCWidget* CCWidget::FindExclusiveDescendant(){
 	if(m_Exclusive.GetCount()>0) return m_Exclusive.Get(m_Exclusive.GetCount()-1);
 
 	for(int i=0; i<m_Children.GetCount(); i++){
@@ -1077,7 +1077,7 @@ sRect CCScreenToClient(CCWidget* pWidget, sRect& p){
 	return sRect(p.x-r.x, p.y-r.y, p.w, p.h);
 }
 
-sPoint GetCursorPosition(void){
+sPoint GetCursorPosition(){
 	POINT p;
 	GetCursorPos(&p);
 	sPoint mp;

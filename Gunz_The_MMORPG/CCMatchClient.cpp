@@ -442,7 +442,7 @@ void CCMatchClient::OnRegisterCommand(CCCommandManager* pCommandManager)
 	MAddSharedCommandTable(pCommandManager, MSCT_CLIENT);
 }
 
-void CCMatchClient::OutputLocalInfo(void)
+void CCMatchClient::OutputLocalInfo()
 {
 	OutputMessage("MAIET Match Client", CCZMOM_LOCALREPLY);
 	OutputMessage(CCZMOM_LOCALREPLY, "UID : %u:%u", m_This.High, m_This.Low);

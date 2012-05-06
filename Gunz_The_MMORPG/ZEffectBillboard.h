@@ -19,7 +19,7 @@ protected:
 //	CUSTOMVERTEX	m_pVertices[4];
 public:
 	ZEffectBillboardSource(const char* szTextureFileName);
-	virtual ~ZEffectBillboardSource(void);
+	virtual ~ZEffectBillboardSource();
 
 	bool Draw(rvector &Pos, rvector &Dir, rvector &Up, rvector &Scale, float fOpacity);
 };
@@ -37,7 +37,7 @@ public:
 
 public:
 	ZEffectBillboard(ZEffectBillboardSource* pEffectBillboardSource);
-	virtual ~ZEffectBillboard(void);
+	virtual ~ZEffectBillboard();
 
 	void SetSource(ZEffectBillboardSource*	pSource) {
 		m_pEffectBillboardSource = pSource;
@@ -58,11 +58,11 @@ protected:
 //	CUSTOMVERTEX	m_pVertices[4];
 	bool			m_bCreate;
 public:
-	ZEffectBillboardDrawer(void);
-	virtual ~ZEffectBillboardDrawer(void);
+	ZEffectBillboardDrawer();
+	virtual ~ZEffectBillboardDrawer();
 
-	void Create(void);
-	bool IsCreated(void){ return m_bCreate; }
+	void Create();
+	bool IsCreated(){ return m_bCreate; }
 
 	bool Draw(LPDIRECT3DTEXTURE9 pEffectBillboardTexture, rvector &Pos, rvector &Dir, rvector &Up, rvector &Scale, float fOpacity);
 };
@@ -80,7 +80,7 @@ public:
 	float			m_fOpacity;
 public:
 	ZEffectBillboard2(LPDIRECT3DTEXTURE9 pEffectBillboardTexture);
-	virtual ~ZEffectBillboard2(void);
+	virtual ~ZEffectBillboard2();
 
 	virtual bool Draw(unsigned long int nTime);
 

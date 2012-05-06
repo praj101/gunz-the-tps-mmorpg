@@ -5,8 +5,8 @@
 class CCPacketHShieldCrypter
 {
 public:
-	CCPacketHShieldCrypter(void);
-	~CCPacketHShieldCrypter(void);
+	CCPacketHShieldCrypter();
+	~CCPacketHShieldCrypter();
 
 	static DWORD Init();
 	static DWORD Encrypt(PBYTE pbyInput, UINT nInLength);

@@ -153,19 +153,19 @@ protected:
 	const DWORD GetBuffCRC32Cache( const int nBuffID );
 
 public:
-	CCMatchServer(void);
-	virtual ~CCMatchServer(void);
+	CCMatchServer();
+	virtual ~CCMatchServer();
 
 	/// 전역 인스턴스 얻기
-	static CCMatchServer* GetInstance(void);
+	static CCMatchServer* GetInstance();
 
 	/// 초기화
 	bool Create(int nPort);
 	/// 해제
-	void Destroy(void);
+	void Destroy();
 	virtual void Shutdown();
 	/// 새로운 UID 얻어내기
-	virtual CCUID UseUID(void);
+	virtual CCUID UseUID();
 
 	CCMatchAuthBuilder* GetAuthBuilder()					{ return m_pAuthBuilder; }
 #ifndef NEW_AUTH_MODULE
@@ -184,15 +184,15 @@ public:
 
 protected:
 	/// Create()호출시에 불리는 함수
-	virtual bool OnCreate(void);
+	virtual bool OnCreate();
 	/// Destroy()호출시에 불리는 함수
-	virtual void OnDestroy(void);
+	virtual void OnDestroy();
 	/// 사용자 커맨드 등록
 	virtual void OnRegisterCommand(CCCommandManager* pCommandManager);
 	/// 사용자 커맨드 처리
 	virtual bool OnCommand(CCCommand* pCommand);
 	/// 사용자 루프
-	virtual void OnRun(void);
+	virtual void OnRun();
 	/// 루프 전
 	virtual void OnPrepareRun();
 
@@ -501,7 +501,7 @@ public:
 	void OnVoteNo(const CCUID& uidPlayer);
 	void VoteAbort( const CCUID& uidPlayer );
 
-	void OnAdminServerHalt(void);
+	void OnAdminServerHalt();
 
 protected:
 	// 관리자 기능
@@ -698,7 +698,7 @@ public:
 
 
 	/// 현재 클럭 얻어내기
-	unsigned long int GetGlobalClockCount(void) const;
+	unsigned long int GetGlobalClockCount() const;
 	/// 클라이언트에게 클럭을 맞추게 한다.
 	void SetClientClockSynchronize(const CCUID& CommUID);
 	/// Local Clock을 Global Clock으로 변환

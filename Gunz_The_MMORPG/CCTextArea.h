@@ -86,8 +86,8 @@ protected:
 	virtual void OnSize(int w, int h);
 	virtual bool OnCommand(CCWidget* pWindow, const char* szMessage);
 	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
-	virtual void OnSetFocus(void);
-	virtual void OnReleaseFocus(void);
+	virtual void OnSetFocus();
+	virtual void OnReleaseFocus();
 	
 	virtual bool InputFilterKey(int uKey,bool bCtrl);	// CCWM_KEYDOWN
 	virtual bool InputFilterChar(int uKey);	// MWM_CHAR
@@ -120,7 +120,7 @@ public:
 	CCTextArea(int nMaxLen = 120, const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~CCTextArea();
 
-	virtual const char* GetClassName(void){ return CCTEXTAREA; }
+	virtual const char* GetClassName(){ return CCTEXTAREA; }
 
 	sPoint	GetCaretPos() { return m_CaretPos; }
 	int		GetStartLine() { return m_iStartLine; }
@@ -141,7 +141,7 @@ public:
 	void	SetMaxLen(int nMaxLen);
 	int		GetMaxLen() { return m_iMaxLen; }
 
-	const char* GetCompositionString(void);
+	const char* GetCompositionString();
 
 	void	SetEditable(bool editable){ m_bEditable = editable; }
 	bool	GetEditable() { return m_bEditable; }
@@ -154,7 +154,7 @@ public:
 	void	SetIndentation(int nIndentation) { m_iIndentation = nIndentation; }
 	
 	void	SetTextColor(sColor color);
-	sColor	GetTextColor(void);
+	sColor	GetTextColor();
 
 	void	Clear();
 

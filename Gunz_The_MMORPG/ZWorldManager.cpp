@@ -4,11 +4,11 @@
 #include "ZWorldManager.h"
 #include "ZInitialLoading.h"
 
-ZWorldManager::ZWorldManager(void) : m_nCurrent(-1)
+ZWorldManager::ZWorldManager() : m_nCurrent(-1)
 {
 }
 
-ZWorldManager::~ZWorldManager(void)
+ZWorldManager::~ZWorldManager()
 {
 }
 

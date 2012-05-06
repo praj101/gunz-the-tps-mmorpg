@@ -66,8 +66,8 @@ public:
 		ONCE,
 	};
 
-	CCMatchScheduleData(void);
-	~CCMatchScheduleData(void);
+	CCMatchScheduleData();
+	~CCMatchScheduleData();
 
 	void CorrectTime();
 

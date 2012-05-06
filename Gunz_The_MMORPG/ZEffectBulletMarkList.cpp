@@ -12,7 +12,7 @@
 //#define BULLETMARK_DISCARD_COUNT	1024
 #define BULLETMARK_FLUSH_COUNT		256
 
-ZEffectBulletMarkList::ZEffectBulletMarkList(void)
+ZEffectBulletMarkList::ZEffectBulletMarkList()
 {
 	m_fLifeTime=3.f;
 	m_fVanishTime=1.f;
