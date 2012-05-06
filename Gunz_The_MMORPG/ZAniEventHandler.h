@@ -6,7 +6,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma once
 
-#include "../RealSpace2/Include/RAniEventInfo.h"
+#include "RAniEventInfo.h"
 
 
 class ZAniEventHandler

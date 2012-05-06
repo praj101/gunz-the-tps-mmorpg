@@ -216,7 +216,7 @@ public:
 		char	szEmblemUrl[256];
 		int		nEmblemChecksum;
 	};
-	bool GetClanInfo(const int nCLID, MDB_ClanInfo* poutClanInfo);
+	bool GetClanInfo(const int nCLID, CCDB_ClanInfo* poutClanInfo);
 	bool UpdateCharClanContPoint(const int nCID, const int nCLID, const int nAddedContPoint);
 
 
