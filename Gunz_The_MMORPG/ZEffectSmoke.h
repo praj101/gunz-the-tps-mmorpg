@@ -8,7 +8,7 @@
 
 // 사용안하는것들은 지운다..
 
-class ZEffectSmoke : public ZEffectBillboard , public CMemPoolSm<ZEffectSmoke>
+class ZEffectSmoke : public ZEffectBillboard , public MemPoolSm<ZEffectSmoke>
 {
 protected:
 	unsigned long int m_nStartTime;
@@ -24,7 +24,7 @@ public:
 	virtual bool Draw(unsigned long int nTime);
 };
 
-class ZEffectLandingSmoke : public ZEffectBillboard , public CMemPoolSm<ZEffectLandingSmoke>
+class ZEffectLandingSmoke : public ZEffectBillboard , public MemPoolSm<ZEffectLandingSmoke>
 {
 protected:
 	unsigned long int m_nStartTime;
@@ -41,7 +41,7 @@ public:
 	virtual bool Draw(unsigned long int nTime);
 };
  
-class ZEffectSmokeGrenade : public ZEffectBillboard , public CMemPoolSm<ZEffectSmokeGrenade>
+class ZEffectSmokeGrenade : public ZEffectBillboard , public MemPoolSm<ZEffectSmokeGrenade>
 {
 protected:
 	unsigned long int m_nStartTime;

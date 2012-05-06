@@ -108,7 +108,7 @@ void CheckMsgAboutChat(char * msg)
 
 // Particle Å×½ºÆ® ///////////////////////////
 
-struct RSnowParticle : public RParticle , CMemPoolSm<RSnowParticle>
+struct RSnowParticle : public RParticle , MemPoolSm<RSnowParticle>
 {
 
 	virtual bool Update(float fTimeElapsed);
@@ -2186,7 +2186,7 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 	case MC_MATCH_GAME_RESPONSE_SPAWN:
 		{
 			CCUID uidChar;
-			MShortVector s_pos, s_dir;
+			CCShortVector s_pos, s_dir;
 
 			pCommand->GetParameter(&uidChar, 0, MPT_UID);
 			pCommand->GetParameter(&s_pos, 1, MPT_SVECTOR);

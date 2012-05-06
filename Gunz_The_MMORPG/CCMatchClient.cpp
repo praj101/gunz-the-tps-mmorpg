@@ -482,7 +482,7 @@ void CCMatchClient::OnAgentConnected(const CCUID& uidAgentServer, const CCUID& u
 	SetAllowTunneling(false);
 
 	CCPacketCrypterKey key;
-	MMakeSeedKey(&key, uidAgentServer, uidAlloc, 0);
+	CCMakeSeedKey(&key, uidAgentServer, uidAlloc, 0);
 	m_AgentPacketCrypter.InitKey(&key);
 
 //	CCCommand* pCmd = CreateCommand(MC_AGENT_PEER_BIND, GetAgentServerUID());
@@ -1232,7 +1232,7 @@ void CCMatchClient::InitPeerCrypt(const CCUID& uidStage, unsigned int nChecksum)
 	//cclog("Init Peer Crypt (%u,%u,%u)\n", uidStage.High, uidStage.Low, nChecksum);
 
 	CCPacketCrypterKey key;
-	MMakeSeedKey(&key, CCUID(3465, nChecksum), uidStage, 9578234);
+	CCMakeSeedKey(&key, CCUID(3465, nChecksum), uidStage, 9578234);
 
 	m_PeerPacketCrypter.InitKey(&key);
 }

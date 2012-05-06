@@ -253,7 +253,7 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		pItem = (*itor).second;
 //
 //		pItemNode					= (CCTD_ItemNode*)CCGetBlobArrayElement(pItemArray, nIndex++);
-//		nPassTime					= MGetTimeDistance(pItem->GetRentItemRegTime(), GetTickTime());
+//		nPassTime					= CCGetTimeDistance(pItem->GetRentItemRegTime(), GetTickTime());
 //		nPassMinuteTime				= nPassTime / (1000 * 60);
 //		iMaxUseHour					= 0;		// 최대 사용시간 보내기(판매가격 계산을 위해)
 //		nRentMinutePeriodRemainder	= RENT_MINUTE_PERIOD_UNLIMITED;

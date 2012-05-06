@@ -59,18 +59,18 @@ public:
 };
 
 
-class ZEffectSlash : public ZEffectAniMesh , public CMemPoolSm<ZEffectSlash> {
+class ZEffectSlash : public ZEffectAniMesh , public MemPoolSm<ZEffectSlash> {
 public:
 	ZEffectSlash(RMesh* pMesh, const rvector& Pos, rvector& Dir);
 };
 
-class ZEffectDash : public ZEffectAniMesh , public CMemPoolSm<ZEffectDash> {
+class ZEffectDash : public ZEffectAniMesh , public MemPoolSm<ZEffectDash> {
 public:
 	ZEffectDash(RMesh* pMesh, rvector& Pos, rvector& Dir,CCUID uidTarget);
 	virtual bool Draw(unsigned long int nTime);
 };
 
-class ZEffectLevelUp : public ZEffectAniMesh , public CMemPoolSm<ZEffectLevelUp> {
+class ZEffectLevelUp : public ZEffectAniMesh , public MemPoolSm<ZEffectLevelUp> {
 public:
 	ZEffectLevelUp(RMesh* pMesh, rvector& Pos, rvector& Dir,rvector& AddPos,ZObject* pObj);
 	virtual bool Draw(unsigned long int nTime);
@@ -79,7 +79,7 @@ public:
 	rvector m_vAddPos;
 };
 
-class ZEffectPartsTypePos : public ZEffectAniMesh , public CMemPoolSm<ZEffectPartsTypePos> {
+class ZEffectPartsTypePos : public ZEffectAniMesh , public MemPoolSm<ZEffectPartsTypePos> {
 public:
 	ZEffectPartsTypePos(RMesh* pMesh, rvector& Pos, rvector& Dir,rvector& AddPos,ZObject* pObj);
 	virtual bool Draw(unsigned long int nTime);
@@ -88,7 +88,7 @@ public:
 	rvector m_vAddPos;
 };
 
-class ZEffectWeaponEnchant : public ZEffectAniMesh , public CMemPoolSm<ZEffectWeaponEnchant> {
+class ZEffectWeaponEnchant : public ZEffectAniMesh , public MemPoolSm<ZEffectWeaponEnchant> {
 public:
 	ZEffectWeaponEnchant(RMesh* pMesh, rvector& Pos, rvector& Dir, ZObject* pObj);
 	virtual bool Draw(unsigned long int nTime);
@@ -102,7 +102,7 @@ public:
 	RMeshPartsPosInfoType m_type;
 };
 
-class ZEffectShot : public ZEffectAniMesh , public CMemPoolSm<ZEffectShot> {
+class ZEffectShot : public ZEffectAniMesh , public MemPoolSm<ZEffectShot> {
 public:
 	ZEffectShot(RMesh* pMesh, rvector& Pos, rvector& Dir,ZObject* pObj);
 	virtual bool Draw(unsigned long int nTime);
@@ -127,7 +127,7 @@ public:
 };
 
 
-class ZEffectBerserkerIconLoop : public ZEffectIcon, public CMemPoolSm<ZEffectBerserkerIconLoop> {
+class ZEffectBerserkerIconLoop : public ZEffectIcon, public MemPoolSm<ZEffectBerserkerIconLoop> {
 private:
 	unsigned int m_nElapsedTime;
 public:

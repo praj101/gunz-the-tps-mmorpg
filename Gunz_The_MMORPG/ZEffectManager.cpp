@@ -73,7 +73,7 @@ int	 GetEffectLevel()
 	return g_nEffectLevel;
 }
 
-class ZEffectCharging : public ZEffectAniMesh, public CMemPoolSm<ZEffectCharging> {
+class ZEffectCharging : public ZEffectAniMesh, public MemPoolSm<ZEffectCharging> {
 public:
 	ZEffectCharging(RMesh* pMesh, const rvector& Pos, rvector& Dir,ZObject* pObj)
 		: ZEffectAniMesh(pMesh,Pos,Dir)
@@ -118,7 +118,7 @@ public:
 	}
 };
 
-class ZEffectCharged : public ZEffectAniMesh, public CMemPoolSm<ZEffectCharged> {
+class ZEffectCharged : public ZEffectAniMesh, public MemPoolSm<ZEffectCharged> {
 public:
 	ZEffectCharged(RMesh* pMesh, const rvector& Pos, rvector& Dir,ZObject* pObj)
 		: ZEffectAniMesh(pMesh,Pos,Dir)

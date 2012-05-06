@@ -35,7 +35,7 @@ void CCMatchClan::Clear(){
 void CCMatchClan::InitClanInfoFromDB(){
 	if (m_nCLID == 0) return;
 
-	CCMatchDBMgr::ClanInfoEx dbClanInfo;
+	CCMatchDBMgr::CCDB_ClanInfo dbClanInfo;
 
 	if (CCMatchServer::GetInstance()->GetDBMgr()->GetClanInfo(m_nCLID, &dbClanInfo)){
 		InitClanInfoEx(dbClanInfo.nLevel, dbClanInfo.nTotalPoint, dbClanInfo.nPoint, dbClanInfo.nRanking,

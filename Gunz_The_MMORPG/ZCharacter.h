@@ -288,7 +288,7 @@ struct ZHPItem {
 };
 */
 
-//struct ZHPInfoItem : public CMemPoolSm<ZHPInfoItem>{
+//struct ZHPInfoItem : public MemPoolSm<ZHPInfoItem>{
 //	ZHPInfoItem()	{ pHPTable=NULL; }
 //	~ZHPInfoItem()	{ if(pHPTable) delete pHPTable; }
 //	

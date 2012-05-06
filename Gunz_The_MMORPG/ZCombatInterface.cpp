@@ -60,7 +60,7 @@ using namespace std;
 #define TEXT_COLOR_SPECTATOR		0xff808080
 #define TEXT_COLOR_CLAN_NAME		0xffffffff
 
-struct ZScoreBoardItem : public CMemPoolSm<ZScoreBoardItem>{
+struct ZScoreBoardItem : public MemPoolSm<ZScoreBoardItem>{
 	CCUID uidUID;
 	char szLevel[16];
 	char szName[64];

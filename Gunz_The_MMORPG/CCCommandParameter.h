@@ -91,7 +91,7 @@ public:
 };
 
 /// 정수 파라미터
-class CCCommandParameterInt : public CCCommandParameter, public CMemPool<CCCommandParameterInt> {
+class CCCommandParameterInt : public CCCommandParameter, public MemPool<CCCommandParameterInt> {
 public:
 	int		m_Value;
 public:
@@ -109,7 +109,7 @@ public:
 };
 
 /// 양수
-class CCCommandParameterUInt : public CCCommandParameter, public CMemPool<CCCommandParameterUInt> {
+class CCCommandParameterUInt : public CCCommandParameter, public MemPool<CCCommandParameterUInt> {
 public:
 	unsigned int		m_Value;
 public:
@@ -127,7 +127,7 @@ public:
 };
 
 /// 소수 파라미터
-class CCCommandParameterFloat : public CCCommandParameter, public CMemPool<CCCommandParameterFloat> {
+class CCCommandParameterFloat : public CCCommandParameter, public MemPool<CCCommandParameterFloat> {
 public:
 	float	m_Value;
 public:
@@ -196,7 +196,7 @@ public:
 };
 
 /// 3D 포지션 파라미터
-class CCCommandParameterPos : public CCCommandParameterVector, public CMemPool<CCCommandParameterPos> {
+class CCCommandParameterPos : public CCCommandParameterVector, public MemPool<CCCommandParameterPos> {
 public:
 	CCCommandParameterPos(void) : CCCommandParameterVector() { m_nType=MPT_POS; }
 	CCCommandParameterPos(float x, float y, float z) : CCCommandParameterVector(x, y, z){ m_nType=MPT_POS; }
@@ -207,7 +207,7 @@ public:
 };
 
 /// 3D 디렉션 파라미터
-class CCCommandParameterDir : public CCCommandParameterVector, public CMemPool<CCCommandParameterDir> {
+class CCCommandParameterDir : public CCCommandParameterVector, public MemPool<CCCommandParameterDir> {
 public:
 	CCCommandParameterDir(void) : CCCommandParameterVector() { m_nType=MPT_DIR; }
 	CCCommandParameterDir(float x, float y, float z) : CCCommandParameterVector(x, y, z){ m_nType=MPT_DIR; }
@@ -218,7 +218,7 @@ public:
 };
 
 /// RGB 컬러 파라미터(나중에 Alpha값 추가될 예정)
-class CCCommandParameterColor : public CCCommandParameterVector, public CMemPool<CCCommandParameterColor> {
+class CCCommandParameterColor : public CCCommandParameterVector, public MemPool<CCCommandParameterColor> {
 public:
 	CCCommandParameterColor(void) : CCCommandParameterVector() { m_nType=MPT_COLOR; }
 	CCCommandParameterColor(float r, float g, float b) : CCCommandParameterVector(r, g, b){ m_nType=MPT_COLOR; }
@@ -229,7 +229,7 @@ public:
 };
 
 /// Bool 파라미터
-class CCCommandParameterBool : public CCCommandParameter, public CMemPool<CCCommandParameterBool> {
+class CCCommandParameterBool : public CCCommandParameter, public MemPool<CCCommandParameterBool> {
 	bool	m_Value;
 public:
 	CCCommandParameterBool(void) : CCCommandParameter(MPT_BOOL) { }
@@ -248,7 +248,7 @@ public:
 };
 
 /// CCUID 파라미터
-class CCCommandParameterUID : public CCCommandParameter, public CMemPool<CCCommandParameterUID> {
+class CCCommandParameterUID : public CCCommandParameter, public MemPool<CCCommandParameterUID> {
 public:
 	CCUID	m_Value;
 public:
@@ -287,7 +287,7 @@ public:
 
 
 /// char형 파라미터
-class CCCommandParameterChar : public CCCommandParameter, public CMemPool<CCCommandParameterChar>
+class CCCommandParameterChar : public CCCommandParameter, public MemPool<CCCommandParameterChar>
 {
 public:
 	char	m_Value;
@@ -307,7 +307,7 @@ public:
 
 
 /// unsigned char형 파라미터
-class CCCommandParameterUChar : public CCCommandParameter, public CMemPool<CCCommandParameterUChar>
+class CCCommandParameterUChar : public CCCommandParameter, public MemPool<CCCommandParameterUChar>
 {
 public:
 	unsigned char	m_Value;
@@ -327,7 +327,7 @@ public:
 
 
 /// short형 파라미터
-class CCCommandParameterShort : public CCCommandParameter, public CMemPool<CCCommandParameterShort>
+class CCCommandParameterShort : public CCCommandParameter, public MemPool<CCCommandParameterShort>
 {
 public:
 	short	m_Value;
@@ -346,7 +346,7 @@ public:
 };
 
 /// unsigned short형 파라미터
-class CCCommandParameterUShort : public CCCommandParameter, public CMemPool<CCCommandParameterUShort>
+class CCCommandParameterUShort : public CCCommandParameter, public MemPool<CCCommandParameterUShort>
 {
 public:
 	unsigned short	m_Value;
@@ -366,7 +366,7 @@ public:
 
 
 /// int64형 파라미터
-class CCCommandParameterInt64 : public CCCommandParameter, public CMemPool<CCCommandParameterInt64>
+class CCCommandParameterInt64 : public CCCommandParameter, public MemPool<CCCommandParameterInt64>
 {
 public:
 	int64	m_Value;
@@ -385,7 +385,7 @@ public:
 };
 
 /// unsigned int64형 파라미터
-class CCCommandParameterUInt64 : public CCCommandParameter, public CMemPool<CCCommandParameterUInt64>
+class CCCommandParameterUInt64 : public CCCommandParameter, public MemPool<CCCommandParameterUInt64>
 {
 public:
 	uint64	m_Value;
@@ -405,7 +405,7 @@ public:
 
 
 /// short형 3D 벡터 파라미터
-class CCCommandParameterShortVector : public CCCommandParameter, public CMemPool<CCCommandParameterShortVector> {
+class CCCommandParameterShortVector : public CCCommandParameter, public MemPool<CCCommandParameterShortVector> {
 public:
 	short	m_nX;
 	short	m_nY;

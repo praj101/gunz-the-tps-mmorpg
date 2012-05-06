@@ -54,7 +54,7 @@ CCMatchBuffDescMgr::~CCMatchBuffDescMgr()
 
 bool CCMatchBuffDescMgr::ReadXml(const char* szFileName)
 {
-	m_nChecksum = MGetCCZFileChecksum(szFileName);
+	m_nChecksum = CCGetCCZFileChecksum(szFileName);
 
 	CCXmlDocument xmlIniData;
 
@@ -127,7 +127,7 @@ bool CCMatchBuffDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileN
 
 	mzf.Read(buffer,mzf.GetLength());
 
-	m_nChecksum = MGetMemoryChecksum(buffer,mzf.GetLength());
+	m_nChecksum = CCGetMemoryChecksum(buffer,mzf.GetLength());
 
 	if(!xmlIniData.LoadFromMemory(buffer))
 	{

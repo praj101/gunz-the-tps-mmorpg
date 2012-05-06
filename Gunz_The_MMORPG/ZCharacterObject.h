@@ -137,7 +137,7 @@ struct ZBasicInfo {
 //	ZC_STATE_LOWER lowerstate;
 };
 
-struct ZBasicInfoItem : public CMemPoolSm<ZBasicInfoItem>
+struct ZBasicInfoItem : public MemPoolSm<ZBasicInfoItem>
 {
 	ZBasicInfo info;
 	float	fReceivedTime;

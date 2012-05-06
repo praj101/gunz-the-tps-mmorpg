@@ -2295,7 +2295,7 @@ void CCMatchServer::ProcessCharPlayInfo(CCMatchObject* pPlayer)
 	unsigned long int nBattlePlayingTimeSec = 0;
 	if(pPlayer->GetCharInfo()->m_nBattleStartTime != 0)
 	{
-		nBattlePlayingTimeSec = MGetTimeDistance(pPlayer->GetCharInfo()->m_nBattleStartTime, nNowTime) / 1000;	// 배틀을 진행한 시간
+		nBattlePlayingTimeSec = CCGetTimeDistance(pPlayer->GetCharInfo()->m_nBattleStartTime, nNowTime) / 1000;	// 배틀을 진행한 시간
 		
 		/*
 		// 아무 처리도 하지 않는데, 왜 로그는 남기는건가요? 일단 주석 처리합니다. - carrot318
@@ -2334,7 +2334,7 @@ void CCMatchServer::ProcessCharPlayInfo(CCMatchObject* pPlayer)
 		*/
 		//pPlayer->GetCharInfo()->m_nBattleStartTime = 0;
 	}
-	unsigned long int nLoginTotalTimeSec = MGetTimeDistance(pPlayer->GetCharInfo()->m_nConnTime, nNowTime) / 1000;	// 게임을 진행한 시간
+	unsigned long int nLoginTotalTimeSec = CCGetTimeDistance(pPlayer->GetCharInfo()->m_nConnTime, nNowTime) / 1000;	// 게임을 진행한 시간
 
 	// 이상적으로 경험치가 획득했으면 로그를 남겨준다.
 	// 아무 처리도 하지 않는데, 왜 로그는 남기는건가요? 일단 주석 처리합니다. - carrot318

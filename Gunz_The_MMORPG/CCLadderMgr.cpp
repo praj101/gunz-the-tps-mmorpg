@@ -153,7 +153,7 @@ int MLadderMgr::MakeMatch(CCLADDERTYPE nLadderType)
 /*
 #ifdef _DEBUG
 		const unsigned int MIN_ADDTICKET_TICK = 3000;
-		if (MGetTimeDistance(CCMatchServer::GetInstance()->GetTickTime(), pGroup->GetRegTime()) < MIN_ADDTICKET_TICK) continue;
+		if (CCGetTimeDistance(CCMatchServer::GetInstance()->GetTickTime(), pGroup->GetRegTime()) < MIN_ADDTICKET_TICK) continue;
 #endif
 */
 

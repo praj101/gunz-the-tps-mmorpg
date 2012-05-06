@@ -45,7 +45,7 @@ public:
 	}
 };
 
-class ZEffectStaticMesh : public ZEffectMesh , public CMemPoolSm<ZEffectStaticMesh>
+class ZEffectStaticMesh : public ZEffectMesh , public MemPoolSm<ZEffectStaticMesh>
 {
 
 protected:

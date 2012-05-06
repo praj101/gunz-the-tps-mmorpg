@@ -3,7 +3,7 @@
 #include "CCZFileSystem.h"
 
 
-unsigned long int MGetTimeDistance(unsigned long int nTimeA, unsigned long int nTimeB)
+unsigned long int CCGetTimeDistance(unsigned long int nTimeA, unsigned long int nTimeB)
 {
 	if(nTimeB >= nTimeA)
 	{
@@ -17,7 +17,7 @@ unsigned long int MGetTimeDistance(unsigned long int nTimeA, unsigned long int n
 	return 0;
 }
 
-unsigned long MGetMemoryChecksum(char *pBuffer, int nLen)
+unsigned long CCGetMemoryChecksum(char *pBuffer, int nLen)
 {
 	unsigned long nChecksum = 0;
 	for (int i=0; i<nLen; i++)
@@ -26,7 +26,7 @@ unsigned long MGetMemoryChecksum(char *pBuffer, int nLen)
 	return nChecksum;
 }
 
-unsigned long MGetCCZFileChecksum(const char* pszFileName) 
+unsigned long CCGetCCZFileChecksum(const char* pszFileName) 
 {
 	CCZFile mzf;
 	if(!mzf.Open(pszFileName)) 
@@ -39,12 +39,12 @@ unsigned long MGetCCZFileChecksum(const char* pszFileName)
 	mzf.Read(pBuffer, nLen);
 	mzf.Close();
 
-	unsigned long nChecksum = MGetMemoryChecksum(pBuffer,nLen);
+	unsigned long nChecksum = CCGetMemoryChecksum(pBuffer,nLen);
 	delete pBuffer;
 	return nChecksum;
 }
 
-void MMakeSeedKey(CCPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp)
+void CCMakeSeedKey(CCPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp)
 {
 	unsigned char* p = (unsigned char*)pKey->szKey;
 	// key
@@ -84,7 +84,7 @@ void MMakeSeedKey(CCPacketCrypterKey* pKey, const CCUID& uidServer, const CCUID&
 }
 
 /*
-void MMakeSeedKey(BYTE Key[SEED_USER_KEY_LEN], BYTE IV[SEED_BLOCK_LEN], const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp)
+void CCMakeSeedKey(BYTE Key[SEED_USER_KEY_LEN], BYTE IV[SEED_BLOCK_LEN], const CCUID& uidServer, const CCUID& uidClient, unsigned int nTimeStamp)
 {
 	// key
 	memset(Key, 0, sizeof(BYTE)*SEED_USER_KEY_LEN);

@@ -529,7 +529,7 @@ CCMatchItemDescMgr::~CCMatchItemDescMgr()
 
 bool CCMatchItemDescMgr::ReadXml(const char* szFileName)
 {
-	m_nChecksum = MGetCCZFileChecksum(szFileName);
+	m_nChecksum = CCGetCCZFileChecksum(szFileName);
 
 	CCXmlDocument xmlIniData;
 
@@ -648,7 +648,7 @@ bool CCMatchItemDescMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileN
 
 	mzf.Read(buffer,mzf.GetLength());
 
-	m_nChecksum = MGetMemoryChecksum(buffer,mzf.GetLength());
+	m_nChecksum = CCGetMemoryChecksum(buffer,mzf.GetLength());
 
 	if(!xmlIniData.LoadFromMemory(buffer))
 	{
@@ -1930,7 +1930,7 @@ bool IsExpiredRentItem( const CCMatchItem* pMItem, const DWORD dwTick )
 	if( 0 == pMItem )			return false;
 	if( !pMItem->IsRentItem() ) return false;
 	
-	const DWORD dwPassTime			= MGetTimeDistance( pMItem->GetRentItemRegTime(), dwTick );
+	const DWORD dwPassTime			= CCGetTimeDistance( pMItem->GetRentItemRegTime(), dwTick );
 	const DWORD dwPassMinuteTime	= dwPassTime / 60000; // (1000 * 60);
 
 	if (static_cast<int>((pMItem->GetRentMinutePeriodRemainder() - dwPassMinuteTime)) > 0)

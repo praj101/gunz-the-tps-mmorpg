@@ -958,11 +958,11 @@
 					Name="Mem Pool"
 					>
 					<File
-						RelativePath=".\CCMemPool.cpp"
+						RelativePath=".\MemPool.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\CCMemPool.h"
+						RelativePath=".\MemPool.h"
 						>
 					</File>
 				</Filter>

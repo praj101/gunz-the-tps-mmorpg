@@ -125,7 +125,7 @@ void MServer::InitCryptCommObject(CCCommObject* pCommObj, unsigned int nTimeStam
 {
 	CCPacketCrypterKey key;
 
-	MMakeSeedKey(&key, m_This, pCommObj->GetUID(), nTimeStamp);
+	CCMakeSeedKey(&key, m_This, pCommObj->GetUID(), nTimeStamp);
 	pCommObj->GetCrypter()->InitKey(&key);
 	pCommObj->GetCommandBuilder()->InitCrypt(pCommObj->GetCrypter(), true);
 }

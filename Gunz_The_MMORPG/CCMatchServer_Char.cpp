@@ -265,7 +265,7 @@ void CCMatchServer::CheckExpiredItems(CCMatchObject* pObj)
 		if (pCheckItem->IsRentItem())
 		{
 			// 인스턴스 생성되고나서 지난 시간
-			/// unsigned long int nPassTime = MGetTimeDistance(pCheckItem->GetRentItemRegTime(), dwTick);
+			/// unsigned long int nPassTime = CCGetTimeDistance(pCheckItem->GetRentItemRegTime(), dwTick);
 			// int nPassMinuteTime = nPassTime / (1000 * 60);
 
 			// if ((pCheckItem->GetRentMinutePeriodRemainder()-nPassMinuteTime) <= 0) // 함수 호출로 수정. - by SungE
@@ -388,7 +388,7 @@ bool CCMatchServer::CharFinalize(const CCUID& uidPlayer)
 		unsigned long int nNowTime = GetTickTime();
 
 		if (pCharInfo->m_nConnTime != 0) {
-			nPlayTime = MGetTimeDistance(pCharInfo->m_nConnTime, nNowTime) / 1000;
+			nPlayTime = CCGetTimeDistance(pCharInfo->m_nConnTime, nNowTime) / 1000;
 		}
 
 		CCAsyncDBJob_CharFinalize* pJob = new CCAsyncDBJob_CharFinalize(uidPlayer);

@@ -615,7 +615,7 @@ bool CCMatchRuleSurvival::CheckQuestCompleted()
 		// 최소한 각 섹터별 게임 시작 딜레이 * 섹터수만큼은 시간이 흘러야 게임이 끝날 수 있다고 가정함.
 		unsigned long int nCheckTime = QUEST_COMBAT_PLAY_START_DELAY * m_pQuestLevel->GetMapSectorCount();
 
-		if (MGetTimeDistance(nStartTime, nNowTime) < nCheckTime) return false;
+		if (CCGetTimeDistance(nStartTime, nNowTime) < nCheckTime) return false;
 
 		// 서바이벌이니 시나리오 섹터 수 * 반복횟수를 채워야 끝낼수 있다
 		if (m_pQuestLevel->GetStaticInfo()->pScenario->nRepeat == (m_pQuestLevel->GetDynamicInfo()->nRepeated+1) &&
@@ -634,7 +634,7 @@ bool CCMatchRuleSurvival::CheckQuestCompleteDelayTime()
 		unsigned long int nNowTime = CCMatchServer::GetInstance()->GetTickTime();
 		if (m_nQuestCompleteTime == 0)
 			m_nQuestCompleteTime = nNowTime;
-		if (MGetTimeDistance(m_nQuestCompleteTime, nNowTime) > QUEST_COMPLETE_DELAY)
+		if (CCGetTimeDistance(m_nQuestCompleteTime, nNowTime) > QUEST_COMPLETE_DELAY)
 			return true;
 
 		return false;
