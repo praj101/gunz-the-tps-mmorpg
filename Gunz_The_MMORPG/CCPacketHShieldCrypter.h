@@ -1,5 +1,5 @@
 #pragma once
-#include "../HShield/HsCryptLib.h"
+#include "HsCryptLib.h"
 #include "CCPacket.h"
 
 class CCPacketHShieldCrypter

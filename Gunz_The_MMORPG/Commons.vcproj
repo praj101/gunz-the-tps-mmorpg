@@ -1177,6 +1177,18 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAsyncDBJob.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_DuelTournament.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_SurvivalMode.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncHttp.h"
 			>
 		</File>
@@ -1250,6 +1262,10 @@
 		</File>
 		<File
 			RelativePath=".\CCCommandCommunicator.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommandLogFrame.h"
 			>
 		</File>
 		<File
@@ -1418,6 +1434,10 @@
 		</File>
 		<File
 			RelativePath=".\CCLadderStatistics.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCLex.h"
 			>
 		</File>
 		<File
@@ -1649,6 +1669,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchLocale.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchMap.cpp"
 			>
 		</File>
@@ -1714,6 +1738,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchQuest.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchQuestRound.h"
 			>
 		</File>
 		<File
@@ -2034,6 +2062,10 @@
 		</File>
 		<File
 			RelativePath=".\CCPolygonMapModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCProcessController.h"
 			>
 		</File>
 		<File
