@@ -19,7 +19,7 @@
 #include "CCProfiler.h"
 #include "RShaderMgr.h"
 #include "RLenzFlare.h"
-#include "DirectX/dxerr9.h"
+#include "DirectX/dxerr.h"
 #include "RNavigationNode.h"
 
 using namespace std;
