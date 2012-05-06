@@ -502,6 +502,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCTraceMemory.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\HMAC_SHA1.cpp"
 						>
 					</File>
@@ -2089,6 +2093,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCSysInfo.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCTCPSocket.cpp"
 			>
 		</File>
@@ -2106,6 +2114,10 @@
 		</File>
 		<File
 			RelativePath=".\CCThread.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCTraceMemory.h"
 			>
 		</File>
 		<File
