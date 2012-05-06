@@ -117,7 +117,7 @@ void ZDuelTournamentRankingListBox::OnDraw( CCDrawContext* pDC )
 			sprintf(szTemp, "%d", abs(pRankItem->nFluctuation));
 			//pDC->Text((int)(0.04f*nWidth), y, szTemp);
 			rc.Set((int)(0.16f*nWidth), y, (int)(fabs(0.16f - 0.26f)*nWidth), nItemHeight);
-			pDC->Text(rc, szTemp, CCAM_LEFT|CCAM_VCENTER);
+			pDC->Text(rc, szTemp, CCD_LEFT|CCAM_VCENTER);
 			pDC->SetColor(sColor(0xFFFFFFFF));
 		}
 
@@ -147,7 +147,7 @@ void ZDuelTournamentRankingListBox::OnDraw( CCDrawContext* pDC )
 		pDC->Text(rc, "/", CCD_HCENTER|CCAM_VCENTER);
 		sprintf(szTemp, "%d", pRankItem->nLosses);
 		rc.Set((int)(0.68f*nWidth), y, (int)(fabs(0.68f - 0.78f)*nWidth), nItemHeight);
-		pDC->Text(rc, szTemp, CCAM_LEFT|CCAM_VCENTER);
+		pDC->Text(rc, szTemp, CCD_LEFT|CCAM_VCENTER);
 
 		// ¿ì½Â¼ö
 		sprintf(szTemp, "%d", pRankItem->nWinners);

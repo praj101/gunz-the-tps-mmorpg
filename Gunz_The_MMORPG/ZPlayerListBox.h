@@ -10,7 +10,7 @@
 using namespace std;
 
 class CCBitmap;
-class MScrollBar;
+class CCScrollBar;
 
 enum ePlayerState
 {

@@ -195,7 +195,7 @@ void CCTextArea::OnScrollBarChanged(int nPos){
 	int nCurrentLine = 0;
 
 	int nTotalLine = 0;
-	CCLINELISTITERATOR itr = m_Lines.begin();
+	SLINELISTITERATOR itr = m_Lines.begin();
 	for(int i=0;i<GetLineCount();i++){
 		const char *szText = itr->text.c_str();
 		int nLine = CCGetLineCount(GetFont(),szText,GetClientWidth(),m_bWordWrap,m_bColorSupport,m_iIndentation);
@@ -385,7 +385,7 @@ void CCTextArea::DeleteCurrent(){
 	}
 	else
 	if(m_CaretPos.y+1<(int)m_Lines.size()){
-		CCLINELISTITERATOR willbedel=m_CurrentLine;
+		SLINELISTITERATOR willbedel=m_CurrentLine;
 		willbedel++;
 		m_CurrentLine->text+=willbedel->text;
 		m_Lines.erase(willbedel);
@@ -472,7 +472,7 @@ bool CCTextArea::OnEvent(CCEvent* pEvent, CCListener* pListener){
 
 		return false;
 
-	case MWM_LBUTTONDOWN: 
+	case CCWM_LBUTTONDOWN: 
 		{
 			sRect r = GetClientRect();
 			if(r.InPoint(pEvent->sPos)==true){
@@ -492,11 +492,11 @@ void CCTextArea::OnReleaseFocus(void){
 	Core::GetInstance()->EnableIME(false);
 }
 
-bool CCTextArea::InputFilterKey(int uKey,bool bCtrl){
-	if(uKey!=VK_UP && uKey!=VK_DOWN)
+bool CCTextArea::InputFilterKey(int iKey,bool bCtrl){
+	if(iKey!=VK_UP && iKey!=VK_DOWN)
 		m_bVerticalMoving=false;
 
-	switch(uKey){
+	switch(iKey){
 	case VK_LEFT : MoveLeft();return true;
 	case VK_RIGHT : MoveRight();return true;
 	case VK_UP : if(bCtrl) ScrollUp(); else MoveUp(); return true;
@@ -509,7 +509,7 @@ bool CCTextArea::InputFilterKey(int uKey,bool bCtrl){
 
 	case VK_RETURN :
 		if(GetLength()<GetMaxLen()){
-			CCLineItem newline(m_CurrentLine->color,string(m_CurrentLine->text.begin()+m_CaretPos.x,m_CurrentLine->text.end()));
+			sLineItem newline(m_CurrentLine->color,string(m_CurrentLine->text.begin()+m_CaretPos.x,m_CurrentLine->text.end()));
 			m_CurrentLine->text.erase(m_CaretPos.x,m_CurrentLine->text.size());
 			m_CurrentLine++;
 			m_CurrentLine=m_Lines.insert(m_CurrentLine,newline);
@@ -525,23 +525,23 @@ bool CCTextArea::InputFilterKey(int uKey,bool bCtrl){
 	return false;
 }
 
-bool CCTextArea::InputFilterChar(int uKey){
-	if(uKey==VK_BACK){
+bool CCTextArea::InputFilterChar(int iKey){
+	if(iKey==VK_BACK){
 		return true;
 	}
-	else if(uKey==VK_ESCAPE){
+	else if(iKey==VK_ESCAPE){
 		CCListener* pListener = GetListener();
 		if(pListener!=NULL) pListener->OnCommand(this, CCTEXTAREA_ESC_VALUE);
 		return true;
 	}
-	else if(uKey==22){	// Ctrl+'V'
+	else if(iKey==22){	// Ctrl+'V'
 		return true;
 	}
-	else if(uKey==3){	// Ctrl+'C'
+	else if(iKey==3){	// Ctrl+'C'
 		return true;
 	}
 
-	switch(uKey){
+	switch(iKey){
 	case VK_TAB:
 	case VK_RETURN:
 		return true;
@@ -560,7 +560,7 @@ void CCTextArea::SetMaxLen(int nMaxLen){
 
 	m_CaretPos=sPoint(0,0);
 
-	m_Lines.push_back(CCLineItem(CCTEXTAREA_DEFAULT_TEXT_COLOR,string()));
+	m_Lines.push_back(sLineItem(CCTEXTAREA_DEFAULT_TEXT_COLOR,string()));
 	m_CurrentLine=m_Lines.begin();
 }
 
@@ -581,7 +581,7 @@ CCTextArea::CCTextArea(int nMaxLen, const char* szName, CCWidget* pParent, CCLis
 	int h = GetLineHeight()+2;
 	SetTextOffset(sPoint(1, 1));
 
-	m_TextColor = CCCOLOR(DEFCOLOR_CCEDIT_TEXT); 
+	m_TextColor = sColor(DEFCOLOR_CCEDIT_TEXT); 
 
 	m_szIMECompositionString[0] = NULL;
 	m_bEditable = true;
@@ -616,7 +616,7 @@ bool CCTextArea::GetText(char *pBuffer,int nBufferSize){
 	int nSize=0;
 	char *temp=pBuffer;
 	temp[0]=0;
-	CCLINELISTITERATOR i;
+	SLINELISTITERATOR i;
 	for(i=m_Lines.begin();i!=m_Lines.end();i++){
 		strcpy(temp,i->text.c_str());temp+=i->text.size();
 		strcat(temp,"\n");temp++;
@@ -630,14 +630,14 @@ bool CCTextArea::GetText(char *pBuffer,int nBufferSize){
 
 const char* CCTextArea::GetTextLine(int nLine){
 	if(nLine>=(int)m_Lines.size()) return NULL;
-	CCLINELISTITERATOR i=m_Lines.begin();
+	SLINELISTITERATOR i=m_Lines.begin();
 	for(int j=0;j<nLine;j++,i++);
 	return i->text.c_str();
 }
 
-CCLINELISTITERATOR CCTextArea::GetIterator(int nLine){
+SLINELISTITERATOR CCTextArea::GetIterator(int nLine){
 	if(nLine>=(int)m_Lines.size()) return m_Lines.end();
-	CCLINELISTITERATOR i=m_Lines.begin();
+	SLINELISTITERATOR i=m_Lines.begin();
 	for(int j=0;j<nLine;j++,i++);
 	return i;
 }
@@ -653,7 +653,7 @@ void CCTextArea::SetText(const char *szText){
 	while(nStart<nLength){
 		nNext=text.find(10,nStart);
 		if(nNext==-1) nNext=nLength;
-		m_Lines.push_back(CCLineItem(m_TextColor,text.substr(nStart,nNext-nStart)));
+		m_Lines.push_back(sLineItem(m_TextColor,text.substr(nStart,nNext-nStart)));
 		m_iCurrentSize+=nNext-nStart;
 		nStart=nNext+1;
 	}
@@ -663,7 +663,7 @@ void CCTextArea::SetText(const char *szText){
 	m_CaretPos=sPoint(0,0);
 
 	if(!m_Lines.size())
-		m_Lines.push_back(CCLineItem(m_TextColor,string()));
+		m_Lines.push_back(sLineItem(m_TextColor,string()));
 	m_CurrentLine=m_Lines.begin();
 
 	UpdateScrollBar();
@@ -736,7 +736,7 @@ void CCTextAreaLook::OnTextDraw_WordWrap(CCTextArea* pTextArea, CCDrawContext* p
 	int nStartLineSkipLine = pTextArea->m_iStartLineSkipLine;
 	int nIndentation = pTextArea->m_iIndentation;
 	
-	CCLINELISTITERATOR itor=pTextArea->GetIterator(pTextArea->GetStartLine());
+	SLINELISTITERATOR itor=pTextArea->GetIterator(pTextArea->GetStartLine());
 	
 	for(;itor!=pTextArea->m_Lines.end();itor++)
 	{
@@ -842,11 +842,11 @@ void CCTextAreaLook::OnTextDraw(CCTextArea* pTextArea, CCDrawContext* pDC)
 			string text=string(pTextArea->GetTextLine(i));
 
 			text.insert(pTextArea->GetCaretPos().x,pTextArea->GetCompositionString());
-			pDC->Text(textrt,text.c_str(),CCAM_LEFT);
+			pDC->Text(textrt,text.c_str(),CCD_LEFT);
 
 		}
 		else {
-			pDC->Text(textrt,pTextArea->GetTextLine(i),CCAM_LEFT);
+			pDC->Text(textrt,pTextArea->GetTextLine(i),CCD_LEFT);
 		}
 		textrt.y+=pTextArea->GetLineHeight();
 	}
@@ -889,7 +889,7 @@ void CCTextArea::AddText(const char *szText,sColor color){
 		m_CurrentLine->color=color;
 		m_CurrentLine->text.append(string(szCurrent,nCharCount));
 		
-		m_Lines.push_back(CCLineItem(color,string()));
+		m_Lines.push_back(sLineItem(color,string()));
 		m_CurrentLine = m_Lines.end();
 		m_CurrentLine--;
 		

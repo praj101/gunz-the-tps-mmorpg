@@ -56,24 +56,24 @@ void ZShopEquipListItem::OnDraw( sRect& r, CCDrawContext* pDC, bool bSelected, b
 		pDC->SetColor(20, 20, 20);
 
 	// 아이템명, 가격
-	pDC->TextMultiLine2(rc, GetString(), CONVERT600(2), true, CCAM_LEFT | CCD_TOP);
+	pDC->TextMultiLine2(rc, GetString(), CONVERT600(2), true, CCD_LEFT | CCD_TOP);
 	pDC->Text(rc, m_szPrice, CCD_RIGHT | CCAM_BOTTOM);
 
 	// 레벨 (레벨이 낮은 경우 붉은 표시)
 	// 썸네일 아이콘 위에 찍기 때문에 그림자를 그려서 시안성을 높인다
 
 	pDC->SetColor(20, 20, 20);
-	pDC->Text(sRect(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCAM_LEFT | CCAM_BOTTOM);	// 1픽셀씩 빗겨찍음
-	pDC->Text(sRect(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCAM_LEFT | CCAM_BOTTOM);
-	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, CCAM_LEFT | CCAM_BOTTOM);
-	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, CCAM_LEFT | CCAM_BOTTOM);
+	pDC->Text(sRect(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCAM_BOTTOM);	// 1픽셀씩 빗겨찍음
+	pDC->Text(sRect(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCAM_BOTTOM);
+	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, CCD_LEFT | CCAM_BOTTOM);
+	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, CCD_LEFT | CCAM_BOTTOM);
 
 	if (ZGetMyInfo()->GetLevel() < m_pItemData->GetLevelRes())
 		pDC->SetColor(200, 10, 10);
 	else
 		pDC->SetColor(200, 200, 200);
 
-	pDC->Text(rcIcon, m_szLevel, CCAM_LEFT | CCAM_BOTTOM);
+	pDC->Text(rcIcon, m_szLevel, CCD_LEFT | CCAM_BOTTOM);
 }
 
 bool ZShopEquipListItem::GetDragItem( CCBitmap** ppDragBitmap, char* szDragString, char* szDragItemString )

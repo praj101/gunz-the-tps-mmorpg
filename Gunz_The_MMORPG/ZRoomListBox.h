@@ -6,7 +6,7 @@
 using namespace std;
 
 class CCButton;
-//class MScrollBar;
+//class CCScrollBar;
 //class MStageListItem;
 
 
@@ -68,7 +68,7 @@ protected:
 	int						m_iGapHeight;
 	int						m_iGapCenter;
 
-	//MScrollBar*		m_pScrollBar;
+	//CCScrollBar*		m_pScrollBar;
 
 	CCUID					m_uidSelectedPrivateStageUID;
 protected:

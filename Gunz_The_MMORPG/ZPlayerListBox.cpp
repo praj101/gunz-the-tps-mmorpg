@@ -269,7 +269,7 @@ ZPlayerListBox::ZPlayerListBox(const char* szName, CCWidget* pParent, CCListener
 	mSelectedPlayer = 0;
 	mStartToDisplay = 0;
 //	mPlayerOrder.reserve( sizeof(CCUID)*100 );
-//	m_pScrollBar = new MScrollBar( this, this );
+//	m_pScrollBar = new CCScrollBar( this, this );
 //	ZApplication::GetGameInterface()->GetIDLResource()->InsertWidget("PlayerListScrollBar", m_pScrollBar );
 	m_bAlwaysVisibleScrollbar = false;
 	m_bHideScrollBar = true;
@@ -1248,7 +1248,7 @@ ZStagePlayerListBox::ZStagePlayerListBox(const char* szName, CCWidget* pParent, 
 	mSelectedPlayer = 0;
 	mStartToDisplay = 0;
 	mPlayerOrder.reserve( sizeof(CCUID)*100 );
-//	m_pScrollBar = new MScrollBar( this, this );
+//	m_pScrollBar = new CCScrollBar( this, this );
 //	ZApplication::GetGameInterface()->GetIDLResource()->InsertWidget("PlayerListScrollBar", m_pScrollBar );
 
 //	AddPlayer(CCUID(0,0), MOSS_READY		, "aaaaa", 10 ,true ,MMT_RED );
