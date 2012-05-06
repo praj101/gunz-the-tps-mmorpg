@@ -13,6 +13,7 @@
 #include "CCResourceManager.h"				// Include MResourceManager.h
 #include "FileInfo.h"
 #include "ZGameClient.h"
+#include "ZGameInterface.h"
 
 
 
