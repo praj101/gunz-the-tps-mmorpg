@@ -501,6 +501,10 @@
 						RelativePath=".\CCThread.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\HMAC_SHA1.cpp"
+						>
+					</File>
 					<Filter
 						Name="Widgets"
 						>
@@ -2181,6 +2185,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\HMAC_SHA1.h"
+			>
+		</File>
+		<File
 			RelativePath=".\main.h"
 			>
 		</File>
@@ -2402,6 +2410,10 @@
 		</File>
 		<File
 			RelativePath=".\seed.h"
+			>
+		</File>
+		<File
+			RelativePath=".\SHA1.h"
 			>
 		</File>
 		<File
