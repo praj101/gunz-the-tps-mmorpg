@@ -68,7 +68,7 @@ public:
 	Core();
 	virtual ~Core();
 
-	bool	Init(int iwidth, int iheight, CCDrawContext* pDC, CCFont* pDefaultFont);
+	bool	Initialize(int iwidth, int iheight, CCDrawContext* pDC, CCFont* pDefaultFont);
 	void	Finalize();
 
 	bool	ProcessEvent(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);

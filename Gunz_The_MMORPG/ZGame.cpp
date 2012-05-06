@@ -470,7 +470,7 @@ bool ZGame::Create(CCZFileSystem *pfs, ZLoadingProgress *pLoading )
 
 	//if(!GetWorld()->GetBsp()->Open(szMapFileName))
 	//{
-	//	MLog("error while loading %s \n",szMapFileName);
+	//	CCLog("error while loading %s \n",szMapFileName);
 	//	return false;
 	//}
 
