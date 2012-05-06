@@ -6,9 +6,9 @@
 
 // 전역적으로 사용하는 것은 이곳에다 넣도록 하자
 #ifdef LOCALE_BRAZIL
-#define APPLICATION_NAME		"The Duel"
+#define APPLICATION_NAME		"Gunz The MMORPG"
 #else
-#define APPLICATION_NAME		"Gunz"
+#define APPLICATION_NAME		"Gunz The MMORPG"
 #endif
 
 // 저장되는 폴더
