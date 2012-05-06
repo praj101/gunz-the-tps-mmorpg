@@ -1687,7 +1687,7 @@ bool RBspObject::Open_LightList(::CCXmlElement *pElement)
 	return true;
 }
 
-bool RBspObject::Open_OcclusionList(CCXmlElement *pElement)
+bool RBspObject::Open_OcclusionList(::CCXmlElement *pElement)
 {
 	m_OcclusionList.Open(pElement);
 
@@ -1890,7 +1890,7 @@ bool RBspObject::Open_DummyList(::CCXmlElement *pElement)
 
 bool RBspObject::Set_Fog(::CCXmlElement *pElement)
 {
-	CCXmlElement childElem;
+	::CCXmlElement childElem;
 	DWORD dwColor = 0;
 	int color;
 	char name[8];
@@ -1912,9 +1912,9 @@ bool RBspObject::Set_Fog(::CCXmlElement *pElement)
 	return true;
 }
 
-bool RBspObject::Set_AmbSound(CCXmlElement *pElement)
+bool RBspObject::Set_AmbSound(::CCXmlElement *pElement)
 {
-	CCXmlElement childElem, contentElem;
+	::CCXmlElement childElem, contentElem;
 	char szBuffer[128];
 	AmbSndInfo* asinfo = NULL;
 
@@ -2013,7 +2013,7 @@ bool RBspObject::OpenDescription(const char *filename)
 	}
 
 	int iCount, i;
-	CCXmlElement		aParent, aChild;
+	::CCXmlElement		aParent, aChild;
 	aParent = aXml.GetDocumentElement();
 	iCount = aParent.GetChildNodeCount();
 
@@ -4354,7 +4354,7 @@ bool RBspObject::LockLightVB()
 	return true;
 }
 
-D3DLIGHT *g_pTargetLight;
+D3DLIGHT9 *g_pTargetLight;
 DWORD		g_dwTargetLightColor;
 
 bool RBspObject::DrawLight(RSBspNode *pNode,int nMaterial)
@@ -4445,7 +4445,7 @@ bool RBspObject::DrawLight(RSBspNode *pNode,int nMaterial)
 	return true;
 }
 
-void RBspObject::DrawLight(D3DLIGHT *pLight)
+void RBspObject::DrawLight(D3DLIGHT9 *pLight)
 {
 	LPDIRECT3DDEVICE9 pd3dDevice=RGetDevice();
 	if(!m_pVertexBuffer)

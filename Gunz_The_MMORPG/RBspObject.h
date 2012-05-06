@@ -425,16 +425,16 @@ private:
 	bool ReadString(CCZFile *pfile,char *buffer,int nBufferSize);
 	bool Open_Nodes(RSBspNode *pNode,CCZFile *pfile);
 	bool Open_ColNodes(RSolidBspNode *pNode,CCZFile *pfile);
-	bool Open_MaterialList(CCXmlElement *pElement);
-	bool Open_LightList(CCXmlElement *pElement);
-	bool Open_ObjectList(CCXmlElement *pElement);
-	bool Open_DummyList(CCXmlElement *pElement);
+	bool Open_MaterialList(::CCXmlElement *pElement);
+	bool Open_LightList(::CCXmlElement *pElement);
+	bool Open_ObjectList(::CCXmlElement *pElement);
+	bool Open_DummyList(::CCXmlElement *pElement);
 //	bool Open_LightList(CCZFile *pfile);
 	bool Open_ConvexPolygons(CCZFile *pfile);
-	bool Open_OcclusionList(CCXmlElement *pElement);
+	bool Open_OcclusionList(::CCXmlElement *pElement);
 	bool Make_LenzFalreList();
-	bool Set_Fog(CCXmlElement *pElement);
-	bool Set_AmbSound(CCXmlElement *pElement);
+	bool Set_Fog(::CCXmlElement *pElement);
+	bool Set_AmbSound(::CCXmlElement *pElement);
 
 	void CreateRenderInfo();
 	void CreatePolygonTableAndIndexBuffer();

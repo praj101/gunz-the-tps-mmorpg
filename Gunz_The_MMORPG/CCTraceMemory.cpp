@@ -258,3 +258,5 @@ void MDumpCallStack(int lRequest)
 #endif
 	}
 }
+
+#endif
