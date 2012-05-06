@@ -3,6 +3,7 @@
 
 #include "ZBaseQuest.h"
 
+bool ZIsLaunchDevelop();
 // 퀘스트 관련 전역 클래스
 class ZQuest : public ZBaseQuest
 {

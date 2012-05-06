@@ -3,7 +3,7 @@
 
 
 class CCDrawContext;
-
+class ZActor;
 class ZScreenDebugger
 {
 private:

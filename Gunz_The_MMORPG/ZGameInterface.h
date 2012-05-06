@@ -15,6 +15,7 @@
 #include "ZBandiCapturer.h" // µ¿¿µ»ó Ä¸ÃÄ
 #include "ZBitmapManager.h"
 #include "CCTextArea.h"
+#include "CCListBox.h"
 /*
 #include "ZGame.h"
 #include "ZCharacter.h"
@@ -57,6 +58,7 @@ class ZLocatorList;
 class ZGameInput;
 class ZMonsterBookInterface;
 class ZShopEquipInterface;
+class ZInterface;
 
 enum ZChangeWeaponType;
 
