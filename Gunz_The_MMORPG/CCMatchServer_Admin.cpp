@@ -42,8 +42,8 @@ void CCMatchServer::OnAdminTerminal(const CCUID& uidAdmin, const char* szText)
 	if (m_Admin.Execute(uidAdmin, szText))
 	{
 		CCCommand* pNew = CreateCommand(MC_ADMIN_TERMINAL, CCUID(0,0));
-		pNew->AddParameter(new MCmdParamUID(CCUID(0,0)));
-		pNew->AddParameter(new MCmdParamStr(szOut));
+		pNew->AddParameter(new CCCmdParamUID(CCUID(0,0)));
+		pNew->AddParameter(new CCCmdParamStr(szOut));
 		RouteToListener(pObj, pNew);
 	}
 }
@@ -63,9 +63,9 @@ void CCMatchServer::OnAdminAnnounce(const CCUID& uidAdmin, const char* szChat, u
 	char szMsg[256];
 	strcpy(szMsg, szChat);
 	CCCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamUID(uidAdmin));
-	pCmd->AddParameter(new MCmdParamStr(szMsg));
-	pCmd->AddParameter(new MCmdParamUInt(nType));
+	pCmd->AddParameter(new CCCmdParamUID(uidAdmin));
+	pCmd->AddParameter(new CCCmdParamStr(szMsg));
+	pCmd->AddParameter(new CCCmdParamUInt(nType));
 
 	RouteToAllClient(pCmd);
 }
@@ -87,7 +87,7 @@ void CCMatchServer::OnAdminRequestServerInfo(const CCUID& uidAdmin)
 	// 서버 정보 보여주는것 아직 안넣었음
 /*
 	CCCommand* pNew = CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
-	pNew->AddParameter(new MCmdParamUInt(0));
+	pNew->AddParameter(new CCCmdParamUInt(0));
 
 	RouteToListener(pObj, pNew);
 */
@@ -139,7 +139,7 @@ void CCMatchServer::OnAdminRequestUpdateAccountUGrade(const CCUID& uidAdmin, con
 
 /*
 	CCCommand* pNew = CreateCommand(MC_ADMIN_REQUEST_UPDATE_ACCOUNT_UGRADE, CCUID(0,0));
-	pNew->AddParameter(new MCmdParamUInt(nRet));
+	pNew->AddParameter(new CCCmdParamUInt(nRet));
 	RouteToListener(pObj, pNew);
 */
 }
@@ -157,7 +157,7 @@ void CCMatchServer::OnAdminPingToAll(const CCUID& uidAdmin)
 	}
 
 	CCCommand* pNew = CreateCommand(MC_NET_PING, CCUID(0,0));
-	pNew->AddParameter(new MCmdParamUInt(GetGlobalClockCount()));
+	pNew->AddParameter(new CCCmdParamUInt(GetGlobalClockCount()));
 	RouteToAllConnection(pNew);
 }
 
@@ -239,7 +239,7 @@ void CCMatchServer::OnAdminRequestKickPlayer(const CCUID& uidAdmin, const char* 
 	}
 
 	CCCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_KICK_PLAYER, CCUID(0,0));
-	pNew->AddParameter(new MCmdParamInt(nRet));
+	pNew->AddParameter(new CCCmdParamInt(nRet));
 	RouteToListener(pObj, pNew);
 }
 
@@ -270,7 +270,7 @@ void CCMatchServer::OnAdminRequestMutePlayer(const CCUID& uidAdmin, const char* 
 	}
 
 	CCCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_MUTE_PLAYER, CCUID(0,0));
-	pNew->AddParameter(new MCmdParamInt(nRet));
+	pNew->AddParameter(new CCCmdParamInt(nRet));
 	
 	if( nRet == MOK ) {
 		RouteToListener(pTargetObj, pNew->Clone());
@@ -306,7 +306,7 @@ void CCMatchServer::OnAdminRequestBlockPlayer(const CCUID& uidAdmin, const char*
 	}
 
 	CCCommand* pNew = CreateCommand(MC_ADMIN_RESPONSE_BLOCK_PLAYER, CCUID(0,0));
-	pNew->AddParameter(new MCmdParamInt(nRet));
+	pNew->AddParameter(new CCCmdParamInt(nRet));
 
 	if( nRet == MOK ) {
 		Disconnect(pTargetObj->GetUID());

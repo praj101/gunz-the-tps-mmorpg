@@ -145,7 +145,7 @@ bool CCZFileSystem::AddItem(CCZFILEDESC* pDesc)
 		m_ZFileList.erase(it);
 	}
 
-	m_ZFileList.insert(ZFLIST::value_type(string(key), pDesc));
+	m_ZFileList.insert(CCFLIST::value_type(string(key), pDesc));
 	return true;
 }
 

@@ -3081,7 +3081,7 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 
 				CCCommand* pCmd = GetGameClient()->CreateCommand(MC_UDP_PING, CCUID(0,0));
 				unsigned int nIP = (unsigned int)inet_addr(m_spGameClient->GetUDPInfo()->GetAddress());
-				pCmd->AddParameter(new MCmdParamUInt(dwCurrTime));
+				pCmd->AddParameter(new CCCmdParamUInt(dwCurrTime));
 				GetGameClient()->SendCommandByUDP(pCmd, serverInfo->szAgentIP, 7778);
 				delete pCmd;
 			}

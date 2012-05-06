@@ -160,9 +160,9 @@ void CCMatchServer::ResponseAccountItemList(const CCUID& uidPlayer)
 //		if( FindStage(pObj->GetStageUID())  )
 //		{
 //			CCCommand* pEquipInfo = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, CCUID(0, 0) );
-//			pEquipInfo->AddParameter( new MCmdParamUID(uidPlayer) );
-//			pEquipInfo->AddParameter( new MCmdParamInt(parts) );
-//			pEquipInfo->AddParameter( new MCmdParamInt(0) );
+//			pEquipInfo->AddParameter( new CCCmdParamUID(uidPlayer) );
+//			pEquipInfo->AddParameter( new CCCmdParamInt(parts) );
+//			pEquipInfo->AddParameter( new CCCmdParamInt(0) );
 //			RouteToStage( pObj->GetStageUID(), pEquipInfo );
 //		}
 //	}

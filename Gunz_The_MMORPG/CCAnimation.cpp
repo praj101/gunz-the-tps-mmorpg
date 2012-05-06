@@ -12,24 +12,24 @@ void CCAnimation::OnDraw(CCDrawContext* pDC){
 	int nFrameCount = m_pAniBitmap->GetFrameCount();	// Get frame count
 
 	if ( m_iPlayMode == CCPM_FORWARDONCE){
-		m_iCurrFrame = nCurFrame;
+		m_iCurrentFrame = nCurFrame;
 
 		if ( nCurFrame >= nFrameCount)
-            m_iCurrFrame = nFrameCount - 1;
+            m_iCurrentFrame = nFrameCount - 1;
 	}
 
 	else if ( m_iPlayMode == CCPM_REPETITION)
-		m_iCurrFrame = nCurFrame % nFrameCount;
+		m_iCurrentFrame = nCurFrame % nFrameCount;
 
 	else if ( m_iPlayMode == CCPM_FORWARDNBACKWARD)
 	{
 		int nIterCount = nCurFrame / nFrameCount;
-		m_iCurrFrame = nCurFrame % nFrameCount;
+		m_iCurrentFrame = nCurFrame % nFrameCount;
 		if ( (nIterCount % 2) == 1)
-			m_iCurrFrame = nFrameCount - m_iCurrFrame - 1;
+			m_iCurrentFrame = nFrameCount - m_iCurrentFrame - 1;
 	}
 
-	CCBitmap* pBitmap = m_pAniBitmap->Get( m_iCurrFrame);
+	CCBitmap* pBitmap = m_pAniBitmap->Get( m_iCurrentFrame);
 	pDC->SetBitmap( pBitmap);
 	sRect r = GetClientRect();
 	pDC->Draw( r.x, r.y, r.w, r.h);
@@ -69,7 +69,7 @@ CCAnimation::CCAnimation(const char* szName, CCAniBitmap* pAniBitmap, CCWidget* 
 	m_iStartTime = timeGetTime();
 
 	m_iPlayMode = CCPM_FORWARDONCE;
-	m_iCurrFrame = 0;
+	m_iCurrentFrame = 0;
 	m_bRunAnimation = true;
 }
 
@@ -85,12 +85,12 @@ void CCAnimation::InitStartTime(){
 
 void CCAnimation::SetRunAnimation( bool bRun){
 	m_bRunAnimation = bRun;
-	SetCurrentFrame( m_iCurrFrame);
+	SetCurrentFrame( m_iCurrentFrame);
 }
 
 int CCAnimation::GetCurrentFrame( void){
 	if ( !m_bRunAnimation)
-		return m_iCurrFrame;
+		return m_iCurrentFrame;
 
 	int nCurrTime = timeGetTime();		// Get current time
 	int nCurrFrame;						// Get current frame
@@ -104,7 +104,7 @@ int CCAnimation::GetCurrentFrame( void){
 }
 
 void CCAnimation::SetCurrentFrame( int nFrame){
-	m_iCurrFrame = nFrame;
+	m_iCurrentFrame = nFrame;
 
 	if ( nFrame < m_pAniBitmap->GetFrameCount())
         m_iStartTime = timeGetTime() - ( nFrame * m_iDelay * DELAY_CONSTANT);

@@ -1800,7 +1800,7 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 
 			CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)CCGetBlobArrayElement(pBlob, 0);
 
-			OnStageEnterBattle(MCmdEnterBattleParam(nParam), pPeerNode);
+			OnStageEnterBattle(CCCmdEnterBattleParam(nParam), pPeerNode);
 		}
 		break;
 	case MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT:
@@ -2441,7 +2441,7 @@ void ZGame::OnPeerBasicInfo(CCCommand *pCommand,bool bAddHistory,bool bUpdate)
 	if (pPeer) {
 		if (pPeer->IsOpened() == false) {
 			CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
-			pCmd->AddParameter(new MCmdParamUID(pPeer->uidChar));
+			pCmd->AddParameter(new CCCmdParamUID(pPeer->uidChar));
 			ZGetGameClient()->Post(pCmd);
 
 			pPeer->SetOpened(true);
@@ -2624,10 +2624,10 @@ void ZGame::OnPeerPing(CCCommand *pCommand)
 	pCommand->GetParameter(&nTimeStamp, 0, MPT_UINT);
 	
 	// PONG 으로 응답한다
-	CCCommandManager* MCmdMgr = ZGetGameClient()->GetCommandManager();
-	CCCommand* pCmd = new CCCommand(MCmdMgr->GetCommandDescByID(MC_PEER_PONG), 
+	CCCommandManager* CCCmdMgr = ZGetGameClient()->GetCommandManager();
+	CCCommand* pCmd = new CCCommand(CCCmdMgr->GetCommandDescByID(MC_PEER_PONG), 
 								  pCommand->GetSenderUID(), ZGetGameClient()->GetUID());	
-	pCmd->AddParameter(new MCmdParamUInt(nTimeStamp));
+	pCmd->AddParameter(new CCCmdParamUInt(nTimeStamp));
 	ZGetGameClient()->Post(pCmd);
 }
 
@@ -2646,7 +2646,7 @@ void ZGame::OnPeerPong(CCCommand *pCommand)
 /*
 	if (pPeer->IsOpened() == false) {
 		CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
-		pCmd->AddParameter(new MCmdParamUID(pPeer->uidChar));
+		pCmd->AddParameter(new CCCmdParamUID(pPeer->uidChar));
 		ZGetGameClient()->Post(pCmd);
 
 		pPeer->SetOpened(true);
@@ -6002,10 +6002,10 @@ void ZGame::PostPeerPingInfo()
 			if (pPeerInfo->uidChar != ZGetGameClient()->GetPlayerUID()) {
 				_ASSERT(pPeerInfo->uidChar != CCUID(0,0));
 
-				CCCommandManager* MCmdMgr = ZGetGameClient()->GetCommandManager();
-				CCCommand* pCmd = new CCCommand(MCmdMgr->GetCommandDescByID(MC_PEER_PING), 
+				CCCommandManager* CCCmdMgr = ZGetGameClient()->GetCommandManager();
+				CCCommand* pCmd = new CCCommand(CCCmdMgr->GetCommandDescByID(MC_PEER_PING), 
 					pPeerInfo->uidChar, ZGetGameClient()->GetUID());	
-				pCmd->AddParameter(new MCmdParamUInt(nTimeStamp));
+				pCmd->AddParameter(new CCCmdParamUInt(nTimeStamp));
 				ZGetGameClient()->Post(pCmd);
 
 #ifdef _DEBUG
@@ -6038,7 +6038,7 @@ void ZGame::PostSyncReport()
 			ZPostLocalMessage(MSG_HACKING_DETECTED);
 		}
 */
-		ZPOSTCMD2(MC_MATCH_GAME_REPORT_TIMESYNC, MCmdParamUInt(nNowTime), MCmdParamUInt(nDataChecksum));
+		ZPOSTCMD2(MC_MATCH_GAME_REPORT_TIMESYNC, CCCmdParamUInt(nNowTime), CCCmdParamUInt(nDataChecksum));
 	}
 }
 
@@ -6938,7 +6938,7 @@ void ZGame::DeleteCharacter(const CCUID& uid)
 }
 
 
-void ZGame::OnStageEnterBattle(MCmdEnterBattleParam nParam, CCTD_PeerListNode* pPeerNode)
+void ZGame::OnStageEnterBattle(CCCmdEnterBattleParam nParam, CCTD_PeerListNode* pPeerNode)
 {
 	if (ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) return;
 

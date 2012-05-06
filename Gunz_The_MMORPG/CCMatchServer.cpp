@@ -1060,7 +1060,7 @@ void CCMatchServer::OnRun(void)
 			// DissconnectWait로 설정된 유저는 우선 클라이언트로 접속 종료를 알리고 
 			// 다음 루프에서 디비를 업데이트하고 접속 종료를 함.
 			CCCommand* pCmd = CreateCommand( MC_MATCH_DISCONNMSG, pObj->GetUID() );
-			pCmd->AddParameter( new MCmdParamUInt(pObj->GetDisconnStatusInfo().GetMsgID()) );
+			pCmd->AddParameter( new CCCmdParamUInt(pObj->GetDisconnStatusInfo().GetMsgID()) );
 			Post( pCmd );
 
 			// 접속 종료를 클라이언트에 통보된 상태로 설정.
@@ -1138,7 +1138,7 @@ void CCMatchServer::OnRun(void)
 			CMemPool<CCCommand>::GetCapacity(),
 			m_objectCommandHistory.GetObjectCount() );
 		CCCommand* pNew = CreateCommand(MC_NET_PING, CCUID(0,0));
-		pNew->AddParameter(new MCmdParamUInt(GetGlobalClockCount()));
+		pNew->AddParameter(new CCCmdParamUInt(GetGlobalClockCount()));
 		RouteToAllConnection(pNew);
 	}
 
@@ -1381,7 +1381,7 @@ inline void CCMatchServer::RouteToListener(CCObject* pObject, CCCommand* pComman
 void CCMatchServer::RouteResponseToListener(CCObject* pObject, const int nCmdID, int nResult)
 {
 	CCCommand* pNew = CreateCommand(nCmdID, CCUID(0,0));
-	pNew->AddParameter(new MCmdParamInt(nResult));
+	pNew->AddParameter(new CCCmdParamInt(nResult));
 	RouteToListener(pObject, pNew);
 }
 
@@ -1849,16 +1849,16 @@ void CCMatchServer::SetClientClockSynchronize(const CCUID& CommUID)
 void CCMatchServer::Announce(const CCUID& CommUID, char* pszMsg)
 {
 	CCCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, CommUID);
-	pCmd->AddParameter(new MCmdParamUInt(0));
-	pCmd->AddParameter(new MCmdParamStr(pszMsg));
+	pCmd->AddParameter(new CCCmdParamUInt(0));
+	pCmd->AddParameter(new CCCmdParamStr(pszMsg));
 	Post(pCmd);
 }
 
 void CCMatchServer::Announce(CCObject* pObj, char* pszMsg)
 {
 	CCCommand* pCmd = CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamUInt(0));
-	pCmd->AddParameter(new MCmdParamStr(pszMsg));
+	pCmd->AddParameter(new CCCmdParamUInt(0));
+	pCmd->AddParameter(new CCCmdParamStr(pszMsg));
 	RouteToListener(pObj, pCmd);
 }
 
@@ -2067,8 +2067,8 @@ void CCMatchServer::ResponseBridgePeer(const CCUID& uidChar, int nCode)
 	if (pObj == NULL) return;
 
 	CCCommand* pNew = CreateCommand(MC_MATCH_BRIDGEPEER_ACK, CCUID(0,0));
-	pNew->AddParameter(new MCmdParamUID(uidChar));
-	pNew->AddParameter(new MCmdParamInt(nCode));
+	pNew->AddParameter(new CCCmdParamUID(uidChar));
+	pNew->AddParameter(new CCCmdParamInt(nCode));
 	RouteToListener(pObj, pNew);
 }
 
@@ -2147,9 +2147,9 @@ void CCMatchServer::OnUserWhisper(const CCUID& uidComm, char* pszSenderName, cha
 	}
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_USER_WHISPER, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamStr(pObj->GetName()));
-	pCmd->AddParameter(new MCmdParamStr(pszTargetName));
-	pCmd->AddParameter(new MCmdParamStr(pszMessage));
+	pCmd->AddParameter(new CCCmdParamStr(pObj->GetName()));
+	pCmd->AddParameter(new CCCmdParamStr(pszTargetName));
+	pCmd->AddParameter(new CCCmdParamStr(pszMessage));
 	RouteToListener(pTargetObj, pCmd);
 }
 
@@ -2259,8 +2259,8 @@ void CCMatchServer::OnChatRoomJoin(const CCUID& uidComm, char* pszPlayerName, ch
 	if (pRoom->AddPlayer(uidComm)) {
 		// Notify Joinning to Participant
 		CCCommand* pCmd = CreateCommand(MC_MATCH_CHATROOM_JOIN, CCUID(0,0));
-		pCmd->AddParameter(new MCmdParamStr(pObj->GetName()));
-		pCmd->AddParameter(new MCmdParamStr(pszChatRoomName));
+		pCmd->AddParameter(new CCCmdParamStr(pObj->GetName()));
+		pCmd->AddParameter(new CCCmdParamStr(pszChatRoomName));
 		pRoom->RouteCommand(pCmd);
 	} else {
 		NotifyMessage(uidComm, MATCHNOTIFY_CHATROOM_JOIN_FAILED);		// Notify Join a room Failed
@@ -2287,8 +2287,8 @@ void CCMatchServer::OnChatRoomLeave(const CCUID& uidComm, char* pszPlayerName, c
 
 	// Notify to Player and Participant
 	CCCommand* pCmd = CreateCommand(MC_MATCH_CHATROOM_LEAVE, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamStr(pObj->GetName()));
-	pCmd->AddParameter(new MCmdParamStr(pszChatRoomName));
+	pCmd->AddParameter(new CCCmdParamStr(pObj->GetName()));
+	pCmd->AddParameter(new CCCmdParamStr(pszChatRoomName));
 	pRoom->RouteCommand(pCmd);
 }
 
@@ -2348,9 +2348,9 @@ void CCMatchServer::OnChatRoomInvite(const CCUID& uidComm, const char* pszTarget
 	}
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_CHATROOM_INVITE, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamStr(pPlayer->GetName()));
-	pCmd->AddParameter(new MCmdParamStr(const_cast<char*>(pszTargetName)));
-	pCmd->AddParameter(new MCmdParamStr(const_cast<char*>(pRoom->GetName())));
+	pCmd->AddParameter(new CCCmdParamStr(pPlayer->GetName()));
+	pCmd->AddParameter(new CCCmdParamStr(const_cast<char*>(pszTargetName)));
+	pCmd->AddParameter(new CCCmdParamStr(const_cast<char*>(pRoom->GetName())));
 	RouteToListener(pTargetObj, pCmd);
 
 }
@@ -2750,9 +2750,9 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 				if( FindStage(pObject->GetStageUID())  )
 				{
 					CCCommand* pCmd = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, CCUID(0, 0) );
-					pCmd->AddParameter(new MCmdParamUID(pObject->GetUID()));
-					pCmd->AddParameter(new MCmdParamInt(nCheckParts));
-					pCmd->AddParameter(new MCmdParamInt(0));
+					pCmd->AddParameter(new CCCmdParamUID(pObject->GetUID()));
+					pCmd->AddParameter(new CCCmdParamInt(nCheckParts));
+					pCmd->AddParameter(new CCCmdParamInt(0));
 					RouteToStage(pObject->GetStageUID(), pCmd);
 				}
 			}
@@ -3666,7 +3666,7 @@ void CCMatchServer::SendHShieldReqMsg()
 {
 	//{{RouteToAllClient HShieldReqMsg
 	CCCommand* pCommand = CreateCommand(MC_HSHIELD_PING, CCUID(0,0));
-	pCommand->AddParameter(new MCmdParamUInt(GetGlobalClockCount()));
+	pCommand->AddParameter(new CCCmdParamUInt(GetGlobalClockCount()));
 
 
 	unsigned long HSOption = ANTICPSVR_CHECK_GAME_MEMORY;
@@ -3707,7 +3707,7 @@ void CCMatchServer::SendHShieldReqMsg()
 		unsigned char* pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob, 0);
 		CopyMemory(pCmdBlock, pbyReqMsg, SIZEOF_REQMSG);
 
-		pCommand->AddParameter(new MCmdParamBlob(pBlob, CCGetBlobArraySize(pBlob)));
+		pCommand->AddParameter(new CCCmdParamBlob(pBlob, CCGetBlobArraySize(pBlob)));
 
 		CCCommand* pSendCmd = pCommand->Clone();
 		pSendCmd->m_Receiver = pObj->GetUID();
@@ -3738,10 +3738,10 @@ void CCMatchServer::RequestGameguardAuth( const CCUID& uidUser, const DWORD dwIn
 	if( 0 == pCmd ) 
 		return;
 
-	pCmd->AddParameter( new MCmdParamUInt(dwIndex) );
-	pCmd->AddParameter( new MCmdParamUInt(dwValue1) );
-	pCmd->AddParameter( new MCmdParamUInt(dwValue2) );
-	pCmd->AddParameter( new MCmdParamUInt(dwValue3) );
+	pCmd->AddParameter( new CCCmdParamUInt(dwIndex) );
+	pCmd->AddParameter( new CCCmdParamUInt(dwValue1) );
+	pCmd->AddParameter( new CCCmdParamUInt(dwValue2) );
+	pCmd->AddParameter( new CCCmdParamUInt(dwValue3) );
 
 	PostSafeQueue( pCmd );
 
@@ -3758,10 +3758,10 @@ void CCMatchServer::RequestFirstGameguardAuth( const CCUID& uidUser, const DWORD
 	if( 0 == pCmd ) 
 		return;
 
-	pCmd->AddParameter( new MCmdParamUInt(dwIndex) );
-	pCmd->AddParameter( new MCmdParamUInt(dwValue1) );
-	pCmd->AddParameter( new MCmdParamUInt(dwValue2) );
-	pCmd->AddParameter( new MCmdParamUInt(dwValue3) );
+	pCmd->AddParameter( new CCCmdParamUInt(dwIndex) );
+	pCmd->AddParameter( new CCCmdParamUInt(dwValue1) );
+	pCmd->AddParameter( new CCCmdParamUInt(dwValue2) );
+	pCmd->AddParameter( new CCCmdParamUInt(dwValue3) );
 
 	PostSafeQueue( pCmd );
 
@@ -4023,13 +4023,13 @@ void CCMatchServer::RouteCmdBattleTimeReward(const CCUID& uidPlayer, CCUID& uidS
 {
 	CCCommand* pNew = CreateCommand( MC_MATCH_REWARD_BATTLE_TIME, CCUID(0, 0) );
 
-	pNew->AddParameter( new MCmdParamUID(uidPlayer) );
-	pNew->AddParameter( new MCmdParamStr(pszName) );
-	pNew->AddParameter( new MCmdParamStr(pszResetDesc) );
-	pNew->AddParameter( new MCmdParamUInt(nItemID) );
-	pNew->AddParameter( new MCmdParamUInt(nItemCnt) );
-	pNew->AddParameter( new MCmdParamUInt(nRentHourPeriod) );
-	pNew->AddParameter( new MCmdParamInt(nRemainRewardCnt) );
+	pNew->AddParameter( new CCCmdParamUID(uidPlayer) );
+	pNew->AddParameter( new CCCmdParamStr(pszName) );
+	pNew->AddParameter( new CCCmdParamStr(pszResetDesc) );
+	pNew->AddParameter( new CCCmdParamUInt(nItemID) );
+	pNew->AddParameter( new CCCmdParamUInt(nItemCnt) );
+	pNew->AddParameter( new CCCmdParamUInt(nRentHourPeriod) );
+	pNew->AddParameter( new CCCmdParamInt(nRemainRewardCnt) );
 
 	RouteToBattle(uidStage, pNew);
 }

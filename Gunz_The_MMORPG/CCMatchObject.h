@@ -1144,7 +1144,7 @@ const string g_szFaceMeshName[MAX_COSTUME_FACE][2] =
 //여자는 eq_face_newface01 - 15
 
 // MC_MATCH_STAGE_ENTERBATTLE 커맨드에서 쓰이는 파라메타
-enum MCmdEnterBattleParam
+enum CCCmdEnterBattleParam
 {
 	MCEP_NORMAL = 0,
 	MCEP_FORCED = 1,		// 난입

@@ -681,7 +681,7 @@ void CCMatchServer::ResponseChannelRule(const CCUID& uidPlayer, const CCUID& uid
 
 	CCCommand* pNew = CreateCommand(MC_MATCH_CHANNEL_RESPONSE_RULE, CCUID(0,0));
 	pNew->AddParameter( new CCCommandParameterUID(uidChannel) );
-	pNew->AddParameter( new MCmdParamStr(const_cast<char*>(pChannel->GetRuleName())) );
+	pNew->AddParameter( new CCCmdParamStr(const_cast<char*>(pChannel->GetRuleName())) );
 	RouteToListener(pObj, pNew);
 }
 

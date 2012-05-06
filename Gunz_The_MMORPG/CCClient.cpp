@@ -273,21 +273,21 @@ int CCClient::MakeCmdPacket(char* pOutPacket, int iMaxPacketSize, CCPacketCrypte
 //		DWORD dwRet = CCPacketHShieldCrypter::Encrypt((PBYTE)&pMsg->nSize, sizeof(unsigned short));
 //		if(dwRet != ERROR_SUCCESS)
 //		{
-//			mlog("CCClient::MakeCmdPacket -> HShield Encrypt error. (Error code : %d)\n", dwRet);
+//			cclog("CCClient::MakeCmdPacket -> HShield Encrypt error. (Error code : %d)\n", dwRet);
 //			return 0;
 //		}
 //#else
 		// size 암호화
 		if (!pPacketCrypter->Encrypt((char*)&pMsg->nSize, sizeof(unsigned short)))
 		{
-			mlog("CCClient::MakeCmdPacket -> Size Encrypt error\n");
+			cclog("CCClient::MakeCmdPacket -> Size Encrypt error\n");
 			return 0;
 		}
 //#endif
 		// 커맨드 암호화
 		if (!pPacketCrypter->Encrypt(pMsg->Buffer, nCmdSize))
 		{
-			mlog("CCClient::MakeCmdPacket -> Cmd Encrypt error\n");
+			cclog("CCClient::MakeCmdPacket -> Cmd Encrypt error\n");
 			return 0;
 		}
 

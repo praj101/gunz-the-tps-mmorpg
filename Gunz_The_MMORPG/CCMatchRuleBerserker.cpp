@@ -35,7 +35,7 @@ void* CCMatchRuleBerserker::CreateRuleInfoBlob()
 
 void CCMatchRuleBerserker::RouteAssignBerserker()
 {	CCCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ASSIGN_BERSERKER, CCUID(0, 0));
-	pNew->AddParameter(new MCmdParamUID(m_uidBerserker));
+	pNew->AddParameter(new CCCmdParamUID(m_uidBerserker));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
 }
 

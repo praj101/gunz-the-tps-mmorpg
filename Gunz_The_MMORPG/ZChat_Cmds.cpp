@@ -1286,8 +1286,8 @@ void ChatCmd_LaunchTest(const char* line,const int argc, char **const argv)
 	// 사용하는 부분이 없어서 디버그용으로 수정함. -by SungE 2007-04-02
 #ifdef _DEBUG
 	CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_MATCH_LADDER_LAUNCH, ZGetMyUID());
-	pCmd->AddParameter(new MCmdParamUID(CCUID(0,0)));
-	pCmd->AddParameter(new MCmdParamStr("Mansion"));
+	pCmd->AddParameter(new CCCmdParamUID(CCUID(0,0)));
+	pCmd->AddParameter(new CCCmdParamStr("Mansion"));
 	ZGetGameClient()->Post(pCmd);
 #endif
 }
@@ -1300,7 +1300,7 @@ void ChatCmd_Callvote(const char* line,const int argc, char **const argv)
 		return;
 	}
 
-	ZPOSTCMD2(MC_MATCH_CALLVOTE, MCmdParamStr(argv[1]), MCmdParamStr(argv[2]))
+	ZPOSTCMD2(MC_MATCH_CALLVOTE, CCCmdParamStr(argv[1]), CCCmdParamStr(argv[2]))
 }
 
 void ChatCmd_VoteYes(const char* line,const int argc, char **const argv)
@@ -1395,15 +1395,15 @@ void ChatCmd_QUESTTEST_LocalSpawnNPC(const char* line,const int argc, char **con
 	if(argv[2]) nCount = atoi(argv[2]);
 
 	CCCommand* pCmd = ZNewCmd(MC_QUEST_NPC_LOCAL_SPAWN);
-	pCmd->AddParameter(new MCmdParamUID(ZGetMyUID()));
+	pCmd->AddParameter(new CCCmdParamUID(ZGetMyUID()));
 	
 	CCUID uidLocal;
 	uidLocal.High = 10000;
 	uidLocal.Low = (unsigned long)ZGetObjectManager()->size();
 
-	pCmd->AddParameter(new MCmdParamUID(uidLocal));
-	pCmd->AddParameter(new MCmdParamUChar((unsigned char)nNPCID));
-	pCmd->AddParameter(new MCmdParamUChar((unsigned char)0));
+	pCmd->AddParameter(new CCCmdParamUID(uidLocal));
+	pCmd->AddParameter(new CCCmdParamUChar((unsigned char)nNPCID));
+	pCmd->AddParameter(new CCCmdParamUChar((unsigned char)0));
 
 	ZPostCommand(pCmd);
 #endif

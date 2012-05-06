@@ -494,6 +494,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCCommandBuilder.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCMatchClient.cpp"
 						>
 					</File>
@@ -1234,6 +1238,10 @@
 		</File>
 		<File
 			RelativePath=".\CCCommand.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommandBuilder.h"
 			>
 		</File>
 		<File

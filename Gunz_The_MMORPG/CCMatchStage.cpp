@@ -622,8 +622,8 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_PERSONNEL_TOO_MUCH);
 
 		CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
-		pCmd->AddParameter(new MCmdParamUInt(0));
-		pCmd->AddParameter(new MCmdParamStr(szMsg));
+		pCmd->AddParameter(new CCCmdParamUInt(0));
+		pCmd->AddParameter(new CCCmdParamStr(szMsg));
 		CCMatchServer::GetInstance()->RouteToStage(GetUID(), pCmd);
 
 		return false;
@@ -664,9 +664,9 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 			sprintf(szSend, "%s%d\a%s", MTOK_ANNOUNCE_PARAMSTR, MERR_HE_IS_NOT_READY, szName);	// 에러메시지ID와 인자를 \a로 구별한다
 
 			CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
-			pCmd->AddParameter(new MCmdParamUInt(0));
-			//pCmd->AddParameter(new MCmdParamStr(szMsg));
-			pCmd->AddParameter(new MCmdParamStr(szSend));
+			pCmd->AddParameter(new CCCmdParamUInt(0));
+			//pCmd->AddParameter(new CCCmdParamStr(szMsg));
+			pCmd->AddParameter(new CCCmdParamStr(szSend));
 			CCMatchServer::GetInstance()->RouteToStage(GetUID(), pCmd);
 		}
 	}
@@ -681,8 +681,8 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 			bResult = false;
 		}
 
-		pCmdNotReady->AddParameter( new MCmdParamInt(ALL_PLAYER_NOT_READY) );
-		pCmdNotReady->AddParameter( new MCmdParamUID(CCUID(0, 0)) );
+		pCmdNotReady->AddParameter( new CCCmdParamInt(ALL_PLAYER_NOT_READY) );
+		pCmdNotReady->AddParameter( new CCCmdParamUID(CCUID(0, 0)) );
 
 		CCMatchObject* pMaster = CCMatchServer::GetInstance()->GetObject( GetMasterUID() );
 		if( IsEnabledObject(pMaster) ) {
@@ -728,8 +728,8 @@ bool CCMatchStage::StartRelayGame( const bool bIsUseResourceCRC32CacheCheck )
 		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_PERSONNEL_TOO_MUCH);
 
 		CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
-		pCmd->AddParameter(new MCmdParamUInt(0));
-		pCmd->AddParameter(new MCmdParamStr(szMsg));
+		pCmd->AddParameter(new CCCmdParamUInt(0));
+		pCmd->AddParameter(new CCCmdParamStr(szMsg));
 		CCMatchServer::GetInstance()->RouteToStage(GetUID(), pCmd);
 
 		return false;
@@ -917,8 +917,8 @@ void CCMatchStage::OnFinishGame()
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 
 		CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, pServer->GetUID());
-		pCmd->AddParameter(new MCmdParamUID(pObj->GetUID()));
-		pCmd->AddParameter(new MCmdParamUID(GetUID()));
+		pCmd->AddParameter(new CCCmdParamUID(pObj->GetUID()));
+		pCmd->AddParameter(new CCCmdParamUID(GetUID()));
 		pServer->Post(pCmd);
 	}
 	*/
@@ -1423,8 +1423,8 @@ bool CCMatchStage::CheckDuelMap()
 		if( 0 == pCmd )
 			return false;
 
-		pCmd->AddParameter( new MCmdParamInt(INVALID_MAP) );
-		pCmd->AddParameter( new MCmdParamUID(CCUID(0, 0)) );
+		pCmd->AddParameter( new CCCmdParamInt(INVALID_MAP) );
+		pCmd->AddParameter( new CCCmdParamUID(CCUID(0, 0)) );
 
 		pServer->RouteToListener( pMaster, pCmd );
 		
@@ -1484,8 +1484,8 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 	CCCommand* pCmd = MGetMatchServer()->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
 	if( 0 != pCmd )
 	{
-		pCmd->AddParameter( new MCmdParamInt(INVALID_TACKET_USER) );
-		pCmd->AddParameter( new MCmdParamUID(pObj->GetUID()) );
+		pCmd->AddParameter( new CCCmdParamInt(INVALID_TACKET_USER) );
+		pCmd->AddParameter( new CCCmdParamUID(pObj->GetUID()) );
 
 		MGetMatchServer()->RouteToStage( GetUID(), pCmd );
 	}
@@ -1788,7 +1788,7 @@ void CCMatchStage::RequestResourceCRC32Cache( const CCUID& uidPlayer )
 	SetResourceCRC32Cache( uidPlayer, dwCRC32Cache, dwXORCache );
 
 	CCCommand* pCmd = MGetMatchServer()->CreateCommand( MC_REQUEST_RESOURCE_CRC32, uidPlayer );
-	pCmd->AddParameter( new MCmdParamUInt(dwKey) );
+	pCmd->AddParameter( new CCCmdParamUInt(dwKey) );
 
 	MGetMatchServer()->Post( pCmd );
 }

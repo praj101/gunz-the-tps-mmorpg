@@ -37,8 +37,8 @@ bool CCVoteDiscussJoke::OnJudge(bool bJudge)
 	sprintf(szMsg, "%s", m_strJoke.c_str());
 
 	CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_ANNOUNCE, CCUID(0,0));
-	pCmd->AddParameter(new MCmdParamUInt(0));
-	pCmd->AddParameter(new MCmdParamStr(szMsg));
+	pCmd->AddParameter(new CCCmdParamUInt(0));
+	pCmd->AddParameter(new CCCmdParamStr(szMsg));
 	pServer->RouteToStage(GetStageUID(), pCmd);
 
 	return true;

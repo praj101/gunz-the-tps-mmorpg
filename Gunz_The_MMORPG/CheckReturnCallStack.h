@@ -16,7 +16,7 @@
 														DWORD top		= (DWORD)0x00401000 + 0x246000; \
 														DWORD bottom	= (DWORD)0x00401000; \
 														if( (ret_ptr_dlrjsTmwlakdy <= bottom) || (ret_ptr_dlrjsTmwlakdy >= top) ) { \
-														MCommand* pC=ZNewCmd(MC_REQUEST_GIVE_ONESELF_UP); ZPostCommand(pC); } 
+														CCCommand* pC=ZNewCmd(MC_REQUEST_GIVE_ONESELF_UP); ZPostCommand(pC); } 
 #else
 #define CHECK_RETURN_CALLSTACK(FuncName)
 #endif
@@ -37,15 +37,15 @@
 													DWORD top		= (DWORD)0x00401000 + 0x246000; \
 													DWORD bottom	= (DWORD)0x00401000; \
 													if( (ret_ptr_dlrjsTmwlakdy <= bottom) || (ret_ptr_dlrjsTmwlakdy >= top) ) { \
-													MCommand* pC=ZNewCmd(MC_REQUEST_GIVE_ONESELF_UP); ZPostCommand(pC); } 
+													CCCommand* pC=ZNewCmd(MC_REQUEST_GIVE_ONESELF_UP); ZPostCommand(pC); } 
 #else
 #define CHECK_RETURN_CALLSTACK_ESP(FuncName)
 #endif
 
 
 
-// mlog("callstack : 0x%X~0x%X, 0x%X\n", bottom, top, ret_ptr_dlrjsTmwlakdy ); \
-// mlog("func addr : 0x%x\n", dwI ); \
+// cclog("callstack : 0x%X~0x%X, 0x%X\n", bottom, top, ret_ptr_dlrjsTmwlakdy ); \
+// cclog("func addr : 0x%x\n", dwI ); \
 // printf("callstack hack : 0x%X~0x%X, 0x%X\n", bottom, top, ret_ptr_dlrjsTmwlakdy ); \
 
 

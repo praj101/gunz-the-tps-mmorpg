@@ -95,9 +95,9 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(CCCommand* pCmd)
 
 			ZBIRDPOSTCMD4(m_pClient, MC_MATCH_STAGE_CREATE, 
 				CCCommandParameterUID(m_pClient->GetPlayerUID()), 
-				MCmdParamStr(szStageName),
-				MCmdParamBool(false), 
-				MCmdParamStr(""));
+				CCCmdParamStr(szStageName),
+				CCCmdParamBool(false), 
+				CCCmdParamStr(""));
 
 		}
 		break;
@@ -122,9 +122,9 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(CCCommand* pCmd)
 
 				ZBIRDPOSTCMD4(m_pClient, MC_MATCH_STAGE_CREATE, 
 					CCCommandParameterUID(m_pClient->GetPlayerUID()), 
-					MCmdParamStr(szStageName),
-					MCmdParamBool(false), 
-					MCmdParamStr(""));
+					CCCmdParamStr(szStageName),
+					CCCmdParamBool(false), 
+					CCCmdParamStr(""));
 
 			}
 		}
@@ -163,7 +163,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(CCCommand* pCmd)
 
 			ZBIRDPOSTCMD2(m_pClient, MC_MATCH_LOADING_COMPLETE, 
 				CCCommandParameterUID(m_pClient->GetPlayerUID()), 
-				MCmdParamInt(100));
+				CCCmdParamInt(100));
 
 			// 게임에 들어갔다고 알림
 			ZBIRDPOSTCMD2(m_pClient, MC_MATCH_STAGE_REQUEST_ENTERBATTLE, 
@@ -187,7 +187,7 @@ void ZBirdDummyAIMakeRoomFlood::OnCommand(CCCommand* pCmd)
 
 			CCTD_PeerListNode* pPeerNode = (CCTD_PeerListNode*)CCGetBlobArrayElement(pBlob, 0);
 
-			//OnStageEnterBattle(uidChar, uidStage, MCmdEnterBattleParam(nParam), pPeerNode);
+			//OnStageEnterBattle(uidChar, uidStage, CCCmdEnterBattleParam(nParam), pPeerNode);
 
 			if (uidChar == m_pClient->GetPlayerUID())
 			{

@@ -181,7 +181,7 @@ public:
 
 
 // Short Name
-typedef CCCommand				MCmd;
-typedef CCCommandDesc			MCmdDesc;
+typedef CCCommand				CCCmd;
+typedef CCCommandDesc			CCCmdDesc;
 
 #endif

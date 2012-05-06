@@ -450,26 +450,26 @@ public:
 
 
 // Short Name
-typedef CCCommandParameterBlob			MCmdParamBlob;
-typedef	CCCommandParameterUID			MCmdParamUID;
-typedef CCCommandParameter				MCmdParam;
-typedef CCCommandParameterDesc			MCmdParamDesc;
-typedef CCCommandParameterInt			MCmdParamInt;
-typedef CCCommandParameterUInt			MCmdParamUInt;
-typedef CCCommandParameterFloat			MCmdParamFloat;
-typedef CCCommandParameterString			MCmdParamStr;
-typedef CCCommandParameterVector			MCmdParamVector;
-typedef CCCommandParameterPos			MCmdParamPos;
-typedef CCCommandParameterDir			MCmdParamDir;
-typedef CCCommandParameterColor			MCmdParamColor;
-typedef CCCommandParameterBool			MCmdParamBool;
-typedef CCCommandParameterChar			MCmdParamChar;
-typedef CCCommandParameterUChar			MCmdParamUChar;
-typedef CCCommandParameterShort			MCmdParamShort;
-typedef CCCommandParameterUShort			MCmdParamUShort;
-typedef CCCommandParameterInt64			MCmdParamInt64;
-typedef CCCommandParameterUInt64			MCmdParamUInt64;
-typedef CCCommandParameterShortVector	MCmdParamShortVector;
+typedef CCCommandParameterBlob			CCCmdParamBlob;
+typedef	CCCommandParameterUID			CCCmdParamUID;
+typedef CCCommandParameter				CCCmdParam;
+typedef CCCommandParameterDesc			CCCmdParamDesc;
+typedef CCCommandParameterInt			CCCmdParamInt;
+typedef CCCommandParameterUInt			CCCmdParamUInt;
+typedef CCCommandParameterFloat			CCCmdParamFloat;
+typedef CCCommandParameterString			CCCmdParamStr;
+typedef CCCommandParameterVector			CCCmdParamVector;
+typedef CCCommandParameterPos			CCCmdParamPos;
+typedef CCCommandParameterDir			CCCmdParamDir;
+typedef CCCommandParameterColor			CCCmdParamColor;
+typedef CCCommandParameterBool			CCCmdParamBool;
+typedef CCCommandParameterChar			CCCmdParamChar;
+typedef CCCommandParameterUChar			CCCmdParamUChar;
+typedef CCCommandParameterShort			CCCmdParamShort;
+typedef CCCommandParameterUShort			CCCmdParamUShort;
+typedef CCCommandParameterInt64			CCCmdParamInt64;
+typedef CCCommandParameterUInt64			CCCmdParamUInt64;
+typedef CCCommandParameterShortVector	CCCmdParamShortVector;
 
 
 

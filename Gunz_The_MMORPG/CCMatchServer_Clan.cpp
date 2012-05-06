@@ -853,9 +853,9 @@ void CCMatchServer::OnClanRequestEmblemURL(const CCUID& uidChar, void* pEmblemUR
 		if (pClan == NULL) continue;
 
 		CCCommand* pNew = CreateCommand(MC_MATCH_CLAN_RESPONSE_EMBLEMURL, CCUID(0,0));
-		pNew->AddParameter(new MCmdParamInt(pClan->GetCLID()));
-		pNew->AddParameter(new MCmdParamInt(pClan->GetEmblemChecksum()));
-		pNew->AddParameter(new MCmdParamStr(pClan->GetEmblemURL()));
+		pNew->AddParameter(new CCCmdParamInt(pClan->GetCLID()));
+		pNew->AddParameter(new CCCmdParamInt(pClan->GetEmblemChecksum()));
+		pNew->AddParameter(new CCCmdParamStr(pClan->GetEmblemURL()));
 		RouteToListener(pObject, pNew);
 	}
 }

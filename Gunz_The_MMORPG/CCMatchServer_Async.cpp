@@ -495,7 +495,7 @@ void CCMatchServer::OnAsyncGetAccountCharList(CCAsyncJob* pJobResult)
 //			// 글랜 폐쇄 날짜를 알려줌.
 //			
 //			CCCommand* pCmdDelClan = CreateCommand( MC_MATCH_CLAN_ACCOUNCE_DELETE, pObj->GetUID() );
-//			pCmdDelClan->AddParameter( new MCmdParamStr(pObj->GetCharInfo()->m_ClanInfo.m_strDeleteDate.c_str()) );
+//			pCmdDelClan->AddParameter( new CCCmdParamStr(pObj->GetCharInfo()->m_ClanInfo.m_strDeleteDate.c_str()) );
 //			Post( pCmdDelClan );
 //		}
 //		else if( MMCDS_DELETE )
@@ -630,7 +630,7 @@ void CCMatchServer::OnAsyncCharFinalize(CCAsyncJob* pJobInput)
 //
 //
 //	CCCommand* pNew = CreateCommand(MC_MATCH_RESPONSE_BRING_ACCOUNTITEM, CCUID(0,0));
-//	pNew->AddParameter(new MCmdParamInt(nRet));
+//	pNew->AddParameter(new CCCmdParamInt(nRet));
 //	RouteToListener(pObj, pNew);
 //
 //
@@ -817,8 +817,8 @@ void CCMatchServer::OnAsyncInsertEvent( CCAsyncJob* pJobResult )
 				pCmd = CreateCommand( MC_MATCH_ANNOUNCE, it->uidUser );
 				if( 0 != pCmd )
 				{
-					pCmd->AddParameter( new MCmdParamUInt(0) );
-					pCmd->AddParameter( new MCmdParamStr(pEventJob->GetAnnounce().c_str()) );
+					pCmd->AddParameter( new CCCmdParamUInt(0) );
+					pCmd->AddParameter( new CCCmdParamStr(pEventJob->GetAnnounce().c_str()) );
 					Post( pCmd );
 				}
 			}
@@ -935,8 +935,8 @@ void CCMatchServer::OnAsyncBuyQuestItem( CCAsyncJob* pJobReslt )
 		return;
 	}
 	
-	pNewCmd->AddParameter( new MCmdParamInt(MOK) );
-	pNewCmd->AddParameter( new MCmdParamInt(pCharInfo->m_nBP) );
+	pNewCmd->AddParameter( new CCCmdParamInt(MOK) );
+	pNewCmd->AddParameter( new CCCmdParamInt(pCharInfo->m_nBP) );
 	PostSafeQueue( pNewCmd );
 
 	// 퀘스트 아이템 리스트를 다시 전송함.

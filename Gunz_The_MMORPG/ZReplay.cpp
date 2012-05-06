@@ -473,8 +473,8 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 			};
 
 			REPLAY2_HP_AP_INFO* pBlobData = (REPLAY2_HP_AP_INFO*)CCGetBlobArrayElement(pBlob, 0);
-			pCmd->AddParameter(new MCmdParamFloat(pBlobData->fHP));
-			pCmd->AddParameter(new MCmdParamFloat(pBlobData->fAP));
+			pCmd->AddParameter(new CCCmdParamFloat(pBlobData->fHP));
+			pCmd->AddParameter(new CCCmdParamFloat(pBlobData->fAP));
 		}
 		break;
 	case MC_PEER_HPINFO:
@@ -487,16 +487,16 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 			};
 
 			REPLAY2_HP_INFO* pBlobData = (REPLAY2_HP_INFO*)CCGetBlobArrayElement(pBlob, 0);
-			pCmd->AddParameter(new MCmdParamFloat(pBlobData->fHP));
+			pCmd->AddParameter(new CCCmdParamFloat(pBlobData->fHP));
 		}
 		break;
 	case MC_MATCH_OBJECT_CACHE:
 		{
 			unsigned int nType;
 			TempParams[0]->GetValue(&nType);
-			MCmdParamBlob* pBlobParam = ((MCmdParamBlob*)TempParams[1])->Clone();
+			CCCmdParamBlob* pBlobParam = ((CCCmdParamBlob*)TempParams[1])->Clone();
 
-			pCmd->AddParameter(new MCmdParamUChar((unsigned char)nType));
+			pCmd->AddParameter(new CCCmdParamUChar((unsigned char)nType));
 			pCmd->AddParameter(pBlobParam);
 		}
 		break;
@@ -544,7 +544,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 			pNewNode->ExtendInfo.nReserved2 = pNode->ExtendInfo.nReserved1;
 			
 
-			pCmd->AddParameter(new MCmdParamUChar((unsigned char)nParam));
+			pCmd->AddParameter(new CCCmdParamUChar((unsigned char)nParam));
 			pCmd->AddParameter(new CCCommandParameterBlob(pNewBlob, CCGetBlobArraySize(pNewBlob)));
 
 			CCEraseBlobArray(pNewBlob);
@@ -569,9 +569,9 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 			TempParams[1]->GetValue(&pos);
 			TempParams[2]->GetValue(&dir);
 
-			pCmd->AddParameter(new MCmdParamUID(uidChar));
-			pCmd->AddParameter(new MCmdParamShortVector(pos.x, pos.y, pos.z));
-			pCmd->AddParameter(new MCmdParamShortVector(DirElementToShort(dir.x), DirElementToShort(dir.y), DirElementToShort(dir.z)));
+			pCmd->AddParameter(new CCCmdParamUID(uidChar));
+			pCmd->AddParameter(new CCCmdParamShortVector(pos.x, pos.y, pos.z));
+			pCmd->AddParameter(new CCCmdParamShortVector(DirElementToShort(dir.x), DirElementToShort(dir.y), DirElementToShort(dir.z)));
 		}
 		break;
 	case MC_PEER_DASH:

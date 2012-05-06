@@ -240,7 +240,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 				unsigned char* pCmdBlock = (unsigned char*)CCGetBlobArrayElement(pBlob2, 0);
 				CopyMemory(pCmdBlock, ZGetMyInfo()->GetSystemInfo()->pbyAckMsg, SIZEOF_ACKMSG);
 
-				pNew->AddParameter(new MCmdParamBlob(pBlob2, CCGetBlobArraySize(pBlob2)));
+				pNew->AddParameter(new CCCmdParamBlob(pBlob2, CCGetBlobArraySize(pBlob2)));
 //				CCEraseBlobArray(pBlob);
 				CCEraseBlobArray(pBlob2);
 				Post(pNew);
