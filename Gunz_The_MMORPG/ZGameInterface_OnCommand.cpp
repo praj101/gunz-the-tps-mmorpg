@@ -659,7 +659,7 @@ bool ZGameInterface::OnCommand(CCCommand* pCommand)
 				}
 
 				pWidget->SetText(szBuffer);
-				((CCLabel*)pWidget)->SetAlignment(CCAM_RIGHT);
+				((CCLabel*)pWidget)->SetAlignment(CCD_RIGHT);
 			}
 		}
 		break;

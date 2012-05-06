@@ -137,7 +137,7 @@ void ZItemSlotView::OnDraw(CCDrawContext* pDC)
 	r.w -= (w + margin);
 
 	if (m_bHorizonalInverse) {
-		am = CCAM_VCENTER | CCAM_RIGHT;
+		am = CCAM_VCENTER | CCD_RIGHT;
 		r.x = 0;
 	}
 

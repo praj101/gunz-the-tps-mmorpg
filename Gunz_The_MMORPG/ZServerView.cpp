@@ -108,7 +108,7 @@ void ZServerView::PingImageDraw(CCDrawContext* pDC, sRect rectBox, int nImageCou
 	{
 		sprintf(strPing, "%d", m_dAgentPing[nImageCount]);
 		rectBox.w = 210;
-		pDC->Text( rectBox, strPing, CCAM_RIGHT | CCAM_VCENTER);
+		pDC->Text( rectBox, strPing, CCD_RIGHT | CCAM_VCENTER);
 	}
 #endif
 }

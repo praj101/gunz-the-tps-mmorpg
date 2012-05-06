@@ -638,7 +638,7 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	// CenterMessage 가운데 정렬
 #define CENTERMESSAGE	"CenterMessage"
 	BEGIN_WIDGETLIST(CENTERMESSAGE, &m_IDLResource, CCLabel*, pWidget);
-	pWidget->SetAlignment(CCAM_HCENTER);
+	pWidget->SetAlignment(CCD_HCENTER);
 	END_WIDGETLIST();
 
 	ZGetOptionInterface()->InitInterfaceOption();
@@ -2606,23 +2606,23 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	// 듀얼토너먼트 로비 전적UI에 설명 툴팁 추가
 	char szTooltip[256];
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINLOSE_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLosePrev", szTooltip, CCAM_RIGHT | CCD_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLosePrev", szTooltip, CCD_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_TP_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoPointsPrev", szTooltip, CCAM_RIGHT | CCD_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoPointsPrev", szTooltip, CCD_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINNER_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinnersPrev", szTooltip, CCAM_RIGHT | CCD_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinnersPrev", szTooltip, CCD_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_RANK_PREV);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoRankingPrev", szTooltip, CCAM_RIGHT | CCD_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoRankingPrev", szTooltip, CCD_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINLOSE);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLose", szTooltip, CCAM_RIGHT | CCD_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinLose", szTooltip, CCD_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_TP);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoPoints", szTooltip, CCAM_RIGHT | CCD_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoPoints", szTooltip, CCD_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_WINNER);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinners", szTooltip, CCAM_RIGHT | CCD_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoWinners", szTooltip, CCD_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_RANK);
-	SetWidgetToolTipText("Lobby_DuelTournamentInfoRanking", szTooltip, CCAM_RIGHT | CCD_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentInfoRanking", szTooltip, CCD_RIGHT | CCD_TOP);
 	ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_SIDERANKLIST);
-	SetWidgetToolTipText("Lobby_DuelTournamentRankingList", szTooltip, CCAM_RIGHT | CCD_TOP);
+	SetWidgetToolTipText("Lobby_DuelTournamentRankingList", szTooltip, CCD_RIGHT | CCD_TOP);
 
 	SetCursorEnable(true);
 
@@ -2928,7 +2928,7 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 			strcat( szMsg, ">");
 
 		pConnectingLabel->SetText( szMsg);
-		pConnectingLabel->SetAlignment( CCAM_HCENTER | CCAM_VCENTER);
+		pConnectingLabel->SetAlignment( CCD_HCENTER | CCAM_VCENTER);
 	}
 
 
@@ -5767,7 +5767,7 @@ void ZGameInterface::InitDuelTournamentLobbyUI(bool bEnableDuelTournamentUI)
 				char szBuffer[256] = "";
 				ZTransMsg(szBuffer, MSG_LOBBY_DUELTOURNAMENT_NEEDPOINT_TONEXTRANK, 1, "32");
 				pWidget->SetText(szBuffer);
-				((CCLabel*)pWidget)->SetAlignment(CCAM_RIGHT);
+				((CCLabel*)pWidget)->SetAlignment(CCD_RIGHT);
 			}
 		}		
 		//

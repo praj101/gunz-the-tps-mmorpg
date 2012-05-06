@@ -153,7 +153,7 @@ void ZObserver::ShowInfo(bool bShow)
 			sprintf(szName, "%s (HP:%d, AP:%d)", m_pTargetCharacter->GetUserName(), (int)m_pTargetCharacter->GetHP(), (int)m_pTargetCharacter->GetAP());
 			pWidget->SetText(szTemp);
 
-			((CCLabel*)pWidget)->SetAlignment(CCAM_HCENTER);
+			((CCLabel*)pWidget)->SetAlignment(CCD_HCENTER);
 		}
 	}
 */

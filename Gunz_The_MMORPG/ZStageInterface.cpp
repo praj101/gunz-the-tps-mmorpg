@@ -1967,7 +1967,7 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
 		}
 		else
 		{
-			pLabel->SetAlignment( CCAM_HCENTER | CCAM_VCENTER);
+			pLabel->SetAlignment( CCD_HCENTER | CCAM_VCENTER);
 
 			LIST_SCENARIONAME::iterator itr =  m_SenarioDesc.find( nScenarioID);
 			if ( itr != m_SenarioDesc.end())

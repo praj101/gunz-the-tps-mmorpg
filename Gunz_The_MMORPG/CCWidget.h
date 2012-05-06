@@ -17,9 +17,9 @@ class CCWidget;
 class CCToolTip;
 class CCResourceMap;
 //Widget's Z-order
-enum CCOrder{
+enum CCZOrder{
 	CC_TOP = 0,		//To the front
-	CC_Bottom		//Back
+	CC_BOTTOM		//Back
 }; 
 
 struct sAnchors{
@@ -227,7 +227,7 @@ public:
 	virtual sRect GetClientRect();					//Widget's customized Client Rect
 	sRect GetInitialClientRect();					//Widget of the original Client Rect (0, 0, width, height)
 
-	void SetZOrder(CCOrder z);										//Child Widget changing the order to adjust the drawing order.
+	void SetZOrder(CCZOrder z);										//Child Widget changing the order to adjust the drawing order.
 	CCWidget* FindExclusiveDescendant();							//The descendants of the very first discovery Exclusive Widget Widget return
 
 	CCWidget* Find(int x, int y){ return Find(sPoint(x, y)); }					//Location search widget

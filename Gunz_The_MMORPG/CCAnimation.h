@@ -27,7 +27,7 @@ public:
 	
 	void SetAniBitmap(CCAniBitmap* pAniBitmap);
 	void InitStartTime();
-	CCBitmap* GetBitamp();
+	CCBitmap* GetBitmap();
 
 	virtual const char* GetClassName() { return CCANIMATION; };
 

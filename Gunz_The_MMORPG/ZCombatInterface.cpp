@@ -233,7 +233,7 @@ bool ZCombatInterface::OnCreate()
 			ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Blue");
 			if ( pBmNumLabel)
 			{
-				pBmNumLabel->SetAlignmentMode( CCAM_HCENTER);
+				pBmNumLabel->SetAlignmentMode( CCD_HCENTER);
 				pBmNumLabel->SetCharMargin( nMargin);
 				pBmNumLabel->SetNumber( 0);
 			}
@@ -241,7 +241,7 @@ bool ZCombatInterface::OnCreate()
 			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Red");
 			if ( pBmNumLabel)
 			{
-				pBmNumLabel->SetAlignmentMode( CCAM_HCENTER);
+				pBmNumLabel->SetAlignmentMode( CCD_HCENTER);
 				pBmNumLabel->SetIndexOffset( 16);
 				pBmNumLabel->SetCharMargin( nMargin);
 				pBmNumLabel->SetNumber( 0);
@@ -250,7 +250,7 @@ bool ZCombatInterface::OnCreate()
 			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Max");
 			if ( pBmNumLabel)
 			{
-				pBmNumLabel->SetAlignmentMode( CCAM_HCENTER);
+				pBmNumLabel->SetAlignmentMode( CCD_HCENTER);
 				pBmNumLabel->SetIndexOffset( 32);
 				int nMargin2[ BMNUM_NUMOFCHARSET] = { 18,12,18,18,18,18,18,18,18,18,18,18,18 };
 				pBmNumLabel->SetCharMargin( nMargin2);
@@ -291,7 +291,7 @@ bool ZCombatInterface::OnCreate()
 
 		if(pBmNumLabel)
 		{
-			pBmNumLabel->SetAlignmentMode( CCAM_HCENTER);
+			pBmNumLabel->SetAlignmentMode( CCD_HCENTER);
 			pBmNumLabel->SetIndexOffset( 32);
 			int nMargin[ BMNUM_NUMOFCHARSET] = { 18,12,18,18,18,18,18,18,18,18,18,18,18 };
 			pBmNumLabel->SetCharMargin(nMargin);
@@ -316,17 +316,17 @@ bool ZCombatInterface::OnCreate()
 					strstr(pChild->m_szIDLName, "CombatDT_PlayerInfo_"))
 				{
 					if (strstr(pChild->m_szIDLName, "Left"))
-						((CCLabel*)pChild)->SetAlignment(CCAM_RIGHT | CCAM_VCENTER);
+						((CCLabel*)pChild)->SetAlignment(CCD_RIGHT | CCAM_VCENTER);
 					else if (strstr(pChild->m_szIDLName, "Right"))
 						((CCLabel*)pChild)->SetAlignment(CCAM_LEFT | CCAM_VCENTER);
 					else
-						((CCLabel*)pChild)->SetAlignment(CCAM_HCENTER | CCAM_VCENTER);
+						((CCLabel*)pChild)->SetAlignment(CCD_HCENTER | CCAM_VCENTER);
 				}
 			}
 		}
 		CCLabel* pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_MatchLevel");
         if (pLabel)
-			pLabel->SetAlignment(CCAM_HCENTER | CCAM_VCENTER);
+			pLabel->SetAlignment(CCD_HCENTER | CCAM_VCENTER);
 
 		GetWidgetCharViewLeft()->SetEnableRotateZoom(false, false);
 		GetWidgetCharViewRight()->SetEnableRotateZoom(false, false);
@@ -1277,7 +1277,7 @@ void ZCombatInterface::OnDrawCustom(CCDrawContext* pDC)
 			char szText[ 100];
 			ZTransMsg( szText, MSG_GAME_EXIT_N_MIN_AFTER, 1, szRemaindTime);
 
-			pLabel->SetAlignment( CCAM_HCENTER);
+			pLabel->SetAlignment( CCD_HCENTER);
 			pLabel->SetText( szText);
 		}
 
@@ -1583,7 +1583,7 @@ void ZCombatInterface::SetPickTarget(bool bPick, ZCharacter* pCharacter)
 
 		int nLen = m_pTargetLabel->GetRect().w;
 		m_pTargetLabel->SetPosition(((CCGetWorkspaceWidth()-m_pTargetLabel->GetRect().w)/2) ,(CCGetWorkspaceHeight()/2) - nCrosshairHeight );
-		m_pTargetLabel->SetAlignment(CCAM_HCENTER);
+		m_pTargetLabel->SetAlignment(CCD_HCENTER);
 	}
 	else
 	{
@@ -2636,7 +2636,7 @@ void AddCombatResultInfo( const char* szName, int nScore, int nKill, int nDeath,
 			{
 				sprintf( szText, "%d", nScore);
 				pLabel->SetText( szText);
-				pLabel->SetAlignment( CCAM_RIGHT);
+				pLabel->SetAlignment( CCD_RIGHT);
 
 				sprintf( szWidget, "CombatResult_GameRoomImg%02d", i);
 				CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
@@ -2683,7 +2683,7 @@ void AddClanResultInfoWin( const char* szName, int nScore, int nKill, int nDeath
 			{
 				sprintf( szText, "%d", nScore);
 				pLabel->SetText( szText);
-				pLabel->SetAlignment( CCAM_RIGHT);
+				pLabel->SetAlignment( CCD_RIGHT);
 
 				sprintf( szWidget, "ClanResult_GameRoomImg1%d", i);
 				CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
@@ -2729,7 +2729,7 @@ void AddClanResultInfoLose( const char* szName, int nScore, int nKill, int nDeat
 			{
 				sprintf( szText, "%d", nScore);
 				pLabel->SetText( szText);
-				pLabel->SetAlignment( CCAM_RIGHT);
+				pLabel->SetAlignment( CCD_RIGHT);
 
 				sprintf( szWidget, "ClanResult_GameRoomImg2%d", i);
 				CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidget);
