@@ -122,14 +122,14 @@ public:
 
 	int GetLightCount();
 
-	void SetLight(int index,D3DLIGHT* light,bool ShaderOnly);
+	void SetLight(int index,D3DLIGHT9* light,bool ShaderOnly);
 
 	void UpdateLight();
 
 	void Clone(RVisualMesh* pVMesh);
 
 public:
-	D3DLIGHT m_Light[VISUAL_LIGHT_MAX];
+	D3DLIGHT9 m_Light[VISUAL_LIGHT_MAX];
 	int		  m_LightEnable[VISUAL_LIGHT_MAX];
 };
 
@@ -436,7 +436,7 @@ public:
 
 	// Light Setting
 
-	void SetLight(int index,D3DLIGHT* light,bool ShaderOnly) {	m_LightMgr.SetLight(index,light,ShaderOnly);}
+	void SetLight(int index,D3DLIGHT9* light,bool ShaderOnly) {	m_LightMgr.SetLight(index,light,ShaderOnly);}
 	void UpdateLight() { m_LightMgr.UpdateLight(); }
 
 public:
