@@ -776,13 +776,13 @@ void CCTextAreaLook::OnTextDraw_WordWrap(CCTextArea* pTextArea, CCDrawContext* p
 			nLine = pDC->TextMultiLine(textrt, szText, 0, true, nIndentation, nSkipLine, pPositions);
 
 			if(pTextArea->IsFocus() && bCurrentLine==true){
-				Mint* pMint = Mint::GetInstance();
+				Core* pCore = Core::GetInstance();
 				const char* szComposition = pTextArea->GetCompositionString();
 				int nCompLen = strlen(szComposition);
 				for(int i=0; i<nCompLen; i+=(IsHangul(szComposition[i])?2:1)) {
 					int pos = pTextArea->GetCaretPos().x+i;
 					if (pPositions && pos < nTextLen)
-						pMint->DrawCompositionAttribute(pDC, pPositions[pos], pTextArea->GetCompositionString(), i);
+						pCore->DrawCompositionAttribute(pDC, pPositions[pos], pTextArea->GetCompositionString(), i);
 				}
 			}
 
@@ -805,7 +805,7 @@ void CCTextAreaLook::OnTextDraw_WordWrap(CCTextArea* pTextArea, CCDrawContext* p
 		
 		sPoint carpos;
 		Core* pCore = Core::GetInstance();
-		if(bCurrentLine==true && nCarY>=0 && pTextArea->GetCaretPosition(&carpos, 1, szText, pTextArea->GetCaretPos().x+pMint->m_iCompositionCaretPosition, pTextArea->m_bCaretFirst)){
+		if(bCurrentLine==true && nCarY>=0 && pTextArea->GetCaretPosition(&carpos, 1, szText, pTextArea->GetCaretPos().x+pCore->m_iCompositionCaretPosition, pTextArea->m_bCaretFirst)){
 			carpos.x+=textrt.x;
 			carpos.y=nCarY + carpos.y*pTextArea->GetLineHeight();
 

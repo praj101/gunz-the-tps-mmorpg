@@ -62,8 +62,8 @@ public:
 	void SetHorizontalInverse(bool b) { m_bHorizonalInverse = b; }
 
 
-#define MINT_ITEMSLOTVIEW	"ItemSlotView"
-	virtual const char* GetClassName(void){ return MINT_ITEMSLOTVIEW; }
+#define CORE_ITEMSLOTVIEW	"ItemSlotView"
+	virtual const char* GetClassName(void){ return CORE_ITEMSLOTVIEW; }
 };
 
 

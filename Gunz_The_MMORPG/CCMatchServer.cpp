@@ -1126,9 +1126,9 @@ void CCMatchServer::OnRun(void)
 	// Garbage Session Cleaning
 	MGetCheckLoopTimeInstance()->SetPingTick();
 
-#define MINTERVAL_GARBAGE_SESSION_PING	(3 * 60 * 1000)	// 3 min
+#define COREERVAL_GARBAGE_SESSION_PING	(3 * 60 * 1000)	// 3 min
 	static unsigned long tmLastGarbageSessionCleaning = nGlobalClock;
-	if (nGlobalClock - tmLastGarbageSessionCleaning > MINTERVAL_GARBAGE_SESSION_PING)
+	if (nGlobalClock - tmLastGarbageSessionCleaning > COREERVAL_GARBAGE_SESSION_PING)
 	{
 		tmLastGarbageSessionCleaning = nGlobalClock;
 
@@ -1150,12 +1150,12 @@ void CCMatchServer::OnRun(void)
 	
 	
 	// Garbage MatchObject Cleaning
-#define MINTERVAL_GARBAGE_SESSION_CLEANING	10*60*1000		// 10 min
+#define COREERVAL_GARBAGE_SESSION_CLEANING	10*60*1000		// 10 min
 	for(CCMatchObjectList::iterator i=m_Objects.begin(); i!=m_Objects.end(); i++)
 	{
 		CCMatchObject* pObj = (CCMatchObject*)((*i).second);
 		if (pObj->GetUID() < CCUID(0,3)) continue;	// CCUID로 Client인지 판별할수 있는 코드 필요함
-		if (GetTickTime() - pObj->GetTickLastPacketRecved() >= MINTERVAL_GARBAGE_SESSION_CLEANING)
+		if (GetTickTime() - pObj->GetTickLastPacketRecved() >= COREERVAL_GARBAGE_SESSION_CLEANING)
 		{
 			if( pObj->GetDisconnStatusInfo().GetStatus() == CCMDS_CONNECTED)
 			{

@@ -21,7 +21,7 @@ public:
 	virtual bool GetDragItem(CCBitmap** ppDragBitmap, char* szDragString, char* szDragItemString);
 	virtual int GetSortHint();
 	void GetIconRect(sRect& out, const sRect& rcItem);
-	bool IsPtInRectToShowToolTip(sRect& rcItem, MPOINT& pt);
+	bool IsPtInRectToShowToolTip(sRect& rcItem, sPoint& pt);
 };
 
 
@@ -37,8 +37,8 @@ public:
 	char* GetItemDescTooltipName();
 
 public:
-#define MINT_EQUIPMENTLISTBOX	"EquipmentListBox"
-	virtual const char* GetClassName(void){ return MINT_EQUIPMENTLISTBOX; }
+#define CORE_EQUIPMENTLISTBOX	"EquipmentListBox"
+	virtual const char* GetClassName(void){ return CORE_EQUIPMENTLISTBOX; }
 
 };
 

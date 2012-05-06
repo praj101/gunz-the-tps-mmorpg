@@ -105,7 +105,7 @@ public:
 
 	#define EVENT_NOT_PROCESSED		0x00
 	#define	EVENT_PROCESSED			0x01
-	#define	EVENT_MINT_TRANSLATED	0x02
+	#define	EVENT_CORE_TRANSLATED	0x02
 
 	int TranslateEvent(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 };

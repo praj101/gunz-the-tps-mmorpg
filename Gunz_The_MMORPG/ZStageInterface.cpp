@@ -1288,7 +1288,7 @@ CCListener* ZGetSacrificeItemListBoxListener( void)
 ************************************************************************/
 void OnDropCallbackRemoveSacrificeItem( void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
-	if ( (pSender == NULL) || (strcmp(pSender->GetClassName(), MINT_ITEMSLOTVIEW)))
+	if ( (pSender == NULL) || (strcmp(pSender->GetClassName(), CORE_ITEMSLOTVIEW)))
 		return;
 
 	ZItemSlotView* pItemSlotView = (ZItemSlotView*)pSender;

@@ -910,7 +910,7 @@ void ZMyCharacter::OnShotRange()
 	// 총질 애니메이션
 		SetAnimationUpper(ZC_STATE_UPPER_SHOT);
 
-	MPOINT Cp = MPOINT(0, 0);
+	sPoint Cp = sPoint(0, 0);
 	ZPICKINFO zpi;
 	rvector pickpos;
 
@@ -1107,7 +1107,7 @@ void ZMyCharacter::OnShotItem()
 
 	///////////////////////////////////////
 
-	MPOINT Cp = MPOINT(0, 0);
+	sPoint Cp = sPoint(0, 0);
 	ZPICKINFO zpi;
 	rvector pickpos;
 
@@ -1220,7 +1220,7 @@ void ZMyCharacter::OnShotRocket()
 		return;
 	}
 
-	MPOINT Cp = MPOINT(0, 0);
+	sPoint Cp = sPoint(0, 0);
 	RBSPPICKINFO bpi;
 
 	memset(&bpi,0,sizeof(RBSPPICKINFO));

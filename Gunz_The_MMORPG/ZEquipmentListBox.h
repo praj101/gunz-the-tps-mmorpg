@@ -88,7 +88,7 @@
 //
 //	// 커서 위치가 아이템 설명 툴팁을 보여줄 위치인가 판단한다 - 현재 아이콘 위에서만 툴팁 보여줌
 //	// 인자는 모두 리스트 위젯의 로컬 좌표계로 주어야함
-//	bool IsPtInRectToShowToolTip(sRect& rcItem, MPOINT& pt);
+//	bool IsPtInRectToShowToolTip(sRect& rcItem, sPoint& pt);
 //	
 //	// 아이콘 보여줄 rect 알아내기 (항목 좌표계)
 //	void GetIconRect(sRect& out, const sRect& rcItem);
@@ -129,8 +129,8 @@
 //	void SetDescriptionWidget(CCWidget *pWidget)	{ m_pDescFrame = pWidget; }
 //
 //public:
-//	#define MINT_EQUIPMENTLISTBOX	"EquipmentListBox"
-//	virtual const char* GetClassName(void){ return MINT_EQUIPMENTLISTBOX; }
+//	#define CORE_EQUIPMENTLISTBOX	"EquipmentListBox"
+//	virtual const char* GetClassName(void){ return CORE_EQUIPMENTLISTBOX; }
 //	//DWORD	m_dwLastMouseMove;
 //	//int		m_nLastItem;
 //};

@@ -28,7 +28,7 @@ CCDrawContextR2::CCDrawContextR2(LPDIRECT3DDEVICE9 pd3dDevice)
 {
 	m_pd3dDevice = pd3dDevice;
 #ifdef _DEBUG
-	m_nTypeID = MINT_R2_CLASS_TYPE;
+	m_nTypeID = CORE_R2_CLASS_TYPE;
 #endif
 }
 
@@ -210,7 +210,7 @@ void CCDrawContextR2::Draw(CCBitmap *pBitmap, int x, int y, int w, int h, int sx
 {
 	if(pBitmap==NULL) return;
 
-	_ASSERT(pBitmap->m_nTypeID==MINT_R2_CLASS_TYPE);
+	_ASSERT(pBitmap->m_nTypeID==CORE_R2_CLASS_TYPE);
 
 	// clip rect 넘어가는 것은 컬링
 
@@ -230,7 +230,7 @@ void CCDrawContextR2::DrawEx(int tx1, int ty1, int tx2, int ty2, int tx3, int ty
 {
 	CCBitmapR2* pBitmap = (CCBitmapR2*)m_pBitmap;
 	if(pBitmap==NULL) return;
-	_ASSERT(pBitmap->m_nTypeID==MINT_R2_CLASS_TYPE);
+	_ASSERT(pBitmap->m_nTypeID==CORE_R2_CLASS_TYPE);
 	sColor color(0xFF, 0xFF, 0xFF, m_nOpacity);
 
 	pBitmap->DrawEx((float)tx1+m_Origin.x, (float)ty1+m_Origin.y,
@@ -246,7 +246,7 @@ bool CCDrawContextR2::BeginFont()
 	if(m_pFont==NULL)
 		pFont = (CCFontR2*)CCFontManager::Get(NULL);
 
-	_ASSERT(pFont->m_nTypeID==MINT_R2_CLASS_TYPE);
+	_ASSERT(pFont->m_nTypeID==CORE_R2_CLASS_TYPE);
 
 	return pFont->m_Font.BeginFont();
 }
@@ -258,7 +258,7 @@ bool CCDrawContextR2::EndFont()
 	if(m_pFont==NULL) 
 		pFont = (CCFontR2*)CCFontManager::Get(NULL);
 
-	_ASSERT(pFont->m_nTypeID==MINT_R2_CLASS_TYPE);
+	_ASSERT(pFont->m_nTypeID==CORE_R2_CLASS_TYPE);
 
 	return pFont->m_Font.EndFont();
 }
@@ -270,7 +270,7 @@ int CCDrawContextR2::Text(int x, int y, const char* szText)
 	if(m_pFont==NULL) 
 		pFont = (CCFontR2*)CCFontManager::Get(NULL);
 
-	_ASSERT(pFont->m_nTypeID==MINT_R2_CLASS_TYPE);
+	_ASSERT(pFont->m_nTypeID==CORE_R2_CLASS_TYPE);
 
 	x += m_Origin.x;
 	y += m_Origin.y;
@@ -281,11 +281,11 @@ int CCDrawContextR2::Text(int x, int y, const char* szText)
 	if (pFont->m_nOutlineStyle <= 0) {	// 아웃라인폰트 아니면 그림자덧대기
 		if (m_Color.r+m_Color.g+m_Color.b > 300) {
 			bShadow = true;
-//			pFont->m_Font.DrawText((float)x+1.0f, (float)y+1.0f, szText, MINT_ARGB(m_Color.a,0,0,0), pFont->m_fScale);
+//			pFont->m_Font.DrawText((float)x+1.0f, (float)y+1.0f, szText, CORE_ARGB(m_Color.a,0,0,0), pFont->m_fScale);
 		}
 	}
 
-	pFont->m_Font.DrawText((float)x, (float)y, szText, m_Color.GetARGB(), pFont->m_fScale,bShadow,MINT_ARGB(m_Color.a,0,0,0));
+	pFont->m_Font.DrawText((float)x, (float)y, szText, m_Color.GetARGB(), pFont->m_fScale,bShadow,CORE_ARGB(m_Color.a,0,0,0));
 */
 	DWORD dwColor = m_Color.GetARGB();
 	if(pFont->m_nOutlineStyle==1)
@@ -330,7 +330,7 @@ void CCDrawContextR2::SetClipRect(sRect& r)
 CCBitmapR2::CCBitmapR2()
 {
 #ifdef _DEBUG
-	m_nTypeID = MINT_R2_CLASS_TYPE;
+	m_nTypeID = CORE_R2_CLASS_TYPE;
 #endif
 	m_nWidth = m_nHeight = 0;
 	m_pd3dDevice = NULL;
@@ -715,7 +715,7 @@ void CCBitmapR2::OnResetDevice()
 CCFontR2::CCFontR2()
 {
 #ifdef _DEBUG
-	m_nTypeID = MINT_R2_CLASS_TYPE;
+	m_nTypeID = CORE_R2_CLASS_TYPE;
 #endif
 	m_fScale = 1.0f;
 }

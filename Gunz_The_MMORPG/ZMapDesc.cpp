@@ -460,7 +460,7 @@ bool ZMapDesc::LoadSmokeDesc(const char* pFileName)
 				pMapSmoke->m_fLife = fLife;
 			}
 
-			if( child.GetAttribute( Attribute, "TOGGLEMINTIME" )) {
+			if( child.GetAttribute( Attribute, "TOGGLECOREIME" )) {
 
 				float fToggleMinTime=0.f;
 				sscanf( Attribute, "%f", &fToggleMinTime );

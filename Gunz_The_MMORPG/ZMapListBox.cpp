@@ -129,5 +129,5 @@ void ZMapListBox::SetSelIndex(int i)
 	char szThumbnail[256];
 	sprintf(szThumbnail, "%s.rs.bmp", szName);
 
-	m_pThumbnail = Mint::GetInstance()->OpenBitmap(szThumbnail);
+	m_pThumbnail = Core::GetInstance()->OpenBitmap(szThumbnail);
 }

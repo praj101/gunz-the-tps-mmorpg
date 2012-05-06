@@ -28,8 +28,8 @@ public:
 	void SetCharMargin( int* nMargin);
 	void SetAlignmentMode( CCAlignmentMode am)			{ m_AlignmentMode = am; }
 
-#define MINT_ZBMNUMLABEL	"BmNumLabel"
-	virtual const char* GetClassName(void){ return MINT_ZBMNUMLABEL; }
+#define CORE_ZBMNUMLABEL	"BmNumLabel"
+	virtual const char* GetClassName(void){ return CORE_ZBMNUMLABEL; }
 };
 
 #endif

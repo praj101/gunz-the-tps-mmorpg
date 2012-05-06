@@ -85,7 +85,7 @@ CCDrawContextR2* g_pDC = NULL;
 CCFontR2*		g_pDefFont = NULL;
 ZDirectInput	g_DInput;
 ZInput*			g_pInput = NULL;
-Core4Gunz		g_Mint;
+Core4Gunz		g_Core;
 
 HRESULT GetDirectXVersionViaDxDiag( DWORD* pdwDirectXVersionMajor, DWORD* pdwDirectXVersionMinor, TCHAR* pcDirectXVersionLetter );
 
@@ -196,8 +196,8 @@ RRESULT OnCreate(void *pParam)
 #endif
 
 
-	g_Mint.Initialize(800, 600, g_pDC, g_pDefFont);
-	Mint::GetInstance()->SetHWND(RealSpace2::g_hWnd);
+	g_Core.Initialize(800, 600, g_pDC, g_pDefFont);
+	Core::GetInstance()->SetHWND(RealSpace2::g_hWnd);
 
 	cclog("interface Initialize success\n");
 
@@ -220,8 +220,8 @@ RRESULT OnCreate(void *pParam)
 	ZGetSoundEngine()->SetEffectMute(Z_AUDIO_EFFECT_MUTE);
 	ZGetSoundEngine()->SetMusicMute(Z_AUDIO_BGM_MUTE);
 
-	g_Mint.SetWorkspaceSize(g_ModeParams.nWidth, g_ModeParams.nHeight);
-	g_Mint.GetMainFrame()->SetSize(g_ModeParams.nWidth, g_ModeParams.nHeight);
+	g_Core.SetWorkspaceSize(g_ModeParams.nWidth, g_ModeParams.nHeight);
+	g_Core.GetMainFrame()->SetSize(g_ModeParams.nWidth, g_ModeParams.nHeight);
 	ZGetOptionInterface()->Resize(g_ModeParams.nWidth, g_ModeParams.nHeight);
 
 //	ZGetInitialLoading()->SetPercentage( 80.f );
@@ -229,7 +229,7 @@ RRESULT OnCreate(void *pParam)
     
 	// Default Key
 	for(int i=0; i<ZACTION_COUNT; i++){
-//		g_Mint.RegisterActionKey(i, ZGetConfiguration()->GetKeyboard()->ActionKeys[i].nScanCode);
+//		g_Core.RegisterActionKey(i, ZGetConfiguration()->GetKeyboard()->ActionKeys[i].nScanCode);
 		ZACTIONKEYDESCRIPTION& keyDesc = ZGetConfiguration()->GetKeyboard()->ActionKeys[i];
 		g_pInput->RegisterActionKey(i, keyDesc.nVirtualKey);
 		if(keyDesc.nVirtualKeyAlt!=-1)
@@ -290,7 +290,7 @@ RRESULT OnDestroy(void *pParam)
 
 	SAFE_DELETE(g_pDefFont);
 
-	g_Mint.Finalize();
+	g_Core.Finalize();
 
 	cclog("interface finalize.\n");
 
@@ -806,7 +806,7 @@ long FAR PASCAL WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 	}
 
-	if(Mint::GetInstance()->ProcessEvent(hWnd, message, wParam, lParam)==true)
+	if(Core::GetInstance()->ProcessEvent(hWnd, message, wParam, lParam)==true)
 	{
 		if (ZGetGameInterface() && ZGetGameInterface()->IsReservedResetApp())	// for language changing
 		{

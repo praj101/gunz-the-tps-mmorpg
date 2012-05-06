@@ -58,7 +58,7 @@ void ZFrame::OnDraw(CCDrawContext* pDC)
 		pDC->SetClipRect(Full);
 		unsigned char oldopacity=pDC->SetOpacity(200*fOpacity);
 		pDC->SetColor(0, 0, 0, 255);
-		MPOINT PrevOrigin = pDC->GetOrigin();
+		sPoint PrevOrigin = pDC->GetOrigin();
 		pDC->SetOrigin(0, 0);
 		pDC->FillRectangle(Full);
 

@@ -299,7 +299,7 @@ bool ZRoomListBox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 {
 	sRect r = GetInitialClientRect();
 
-	MPOINT ClickPos = pEvent->Pos;
+	sPoint ClickPos = pEvent->Pos;
 
 	sRect	rect;
 

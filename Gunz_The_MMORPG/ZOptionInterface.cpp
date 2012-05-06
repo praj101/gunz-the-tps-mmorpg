@@ -533,8 +533,8 @@ bool ZOptionInterface::SaveInterfaceOption(void)
 		if(pWidget==NULL) continue;
 		int nKey = 0;
 		pWidget->GetActionKey(&nKey);
-		//		Mint::GetInstance()->UnregisterActionKey(i);
-		//		Mint::GetInstance()->RegisterActionKey(i, nKey);	// 키 등록
+		//		Core::GetInstance()->UnregisterActionKey(i);
+		//		Core::GetInstance()->RegisterActionKey(i, nKey);	// 키 등록
 
 //		ZGetInput()->UnregisterActionKey(i);
 		ZGetInput()->RegisterActionKey(i,nKey);
@@ -1186,7 +1186,7 @@ bool ZOptionInterface::ResizeWidgetRecursive( CCWidget* pWidget/*, int w, int h*
 	{
 		const float tempWidth = ((float)RGetScreenWidth()) / mOldScreenWidth;
 		const float tempHeight = ((float)RGetScreenHeight()) / mOldScreenHeight;
-		MPOINT p = pWidget->GetPosition();
+		sPoint p = pWidget->GetPosition();
 		p.Scale( tempWidth, tempHeight );
 		pWidget->SetPosition( p );
 		sRect r=pWidget->GetRect();
@@ -1414,8 +1414,8 @@ void ZOptionInterface::GetOldScreenResolution()
 	mnOldBpp = RGetPixelFormat();
 
 	RResetDevice( &ModeParams );
-	Mint::GetInstance()->SetWorkspaceSize(ModeParams.nWidth, ModeParams.nHeight);
-	Mint::GetInstance()->GetMainFrame()->SetSize(ModeParams.nWidth, ModeParams.nHeight);
+	Core::GetInstance()->SetWorkspaceSize(ModeParams.nWidth, ModeParams.nHeight);
+	Core::GetInstance()->GetMainFrame()->SetSize(ModeParams.nWidth, ModeParams.nHeight);
 	Resize(ModeParams.nWidth, ModeParams.nHeight);
 
 	D3DDISPLAYMODE ddm;
@@ -1479,8 +1479,8 @@ bool ZOptionInterface::TestScreenResolution()
 
 		RResetDevice(&ModeParams);
 
-		Mint::GetInstance()->SetWorkspaceSize(ModeParams.nWidth, ModeParams.nHeight);
-		Mint::GetInstance()->GetMainFrame()->SetSize(ModeParams.nWidth, ModeParams.nHeight);
+		Core::GetInstance()->SetWorkspaceSize(ModeParams.nWidth, ModeParams.nHeight);
+		Core::GetInstance()->GetMainFrame()->SetSize(ModeParams.nWidth, ModeParams.nHeight);
 		Resize(ModeParams.nWidth, ModeParams.nHeight);
 	}
 	return true;
@@ -1668,8 +1668,8 @@ BEGIN_IMPLEMENT_LISTENER( ZGetLoadDefaultKeySettingListener, CCBTN_CLK_MSG)
 		if(pWidget==NULL) continue;
 		//unsigned int nKey = 0;
 		//pWidget->GetActionKey(&nKey);
-		//Mint::GetInstance()->UnregisterActionKey(i);
-		//Mint::GetInstance()->RegisterActionKey(i, nKey);	// 키 등록
+		//Core::GetInstance()->UnregisterActionKey(i);
+		//Core::GetInstance()->RegisterActionKey(i, nKey);	// 키 등록
 		//m_Keyboard.ActionKeys[i].nScanCode = nKey;	// 옵션 저장
 		pWidget->ClearActionKey();
 		pWidget->SetActionKey(ZGetConfiguration()->GetKeyboard()->ActionKeys[i].nVirtualKey);

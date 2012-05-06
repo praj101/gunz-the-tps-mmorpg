@@ -88,7 +88,7 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, CCDrawContext* pDC)
 	int nShowCount = 0;
 
 	sRect r = pListBox->GetClientRect();
-	MPOINT pos = pListBox->GetPosition();
+	sPoint pos = pListBox->GetPosition();
 
 	int nHeaderHeight = nItemHeight;
 
@@ -149,7 +149,7 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, CCDrawContext* pDC)
 	{
 		pDC->SetColor(0,0,0);
 		for(int i=0; i<pListBox->GetShowItemCount(); i++) {
-			MPOINT p;
+			sPoint p;
 			p.x = r.x;
 			p.y = r.y+nItemHeight*i+1;
 			pDC->HLine(1,p.y+nItemHeight-1,rr.w-1);
@@ -160,7 +160,7 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, CCDrawContext* pDC)
 
 	for(int i=pListBox->GetStartItem(); i<pListBox->GetCount(); i++) {
 
-		MPOINT p;
+		sPoint p;
 		p.x = r.x;
 		p.y = r.y+nHeaderHeight+nItemHeight*nShowCount;
 //		p.x = 0;
@@ -1136,9 +1136,9 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 					};
 
 					// 위치를 조절해준다
-/*					MPOINT posItem;
+/*					sPoint posItem;
 					GetItemPos(&posItem, nSelItem);
-					MPOINT posMenu;
+					sPoint posMenu;
 					posMenu.x = posItem.x + GetRect().w/2;
 					posMenu.y = posItem.y + GetItemHeight()/2;
 					posMenu=CCClientToScreen(this,posMenu);
@@ -1149,9 +1149,9 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 					pMenu->Show(posMenu.x, posMenu.y, true);
 */
-					MPOINT posItem;
+					sPoint posItem;
 					posItem = pEvent->Pos;
-					MPOINT posMenu = CCClientToScreen(this, posItem);
+					sPoint posMenu = CCClientToScreen(this, posItem);
 					
 					if ( (posMenu.x + pMenu->GetClientRect().w) > (CCGetWorkspaceWidth() - 5))
 						posMenu.x = CCGetWorkspaceWidth() - pMenu->GetClientRect().w - 5;
@@ -1192,9 +1192,9 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 				if (nSelItem != -1) {
 					ZFriendPlayerListItem* pItem = (ZFriendPlayerListItem*)Get(nSelItem);
 
-					MPOINT posItem;
+					sPoint posItem;
 					GetItemPos(&posItem, nSelItem);
-					MPOINT posToolTip;
+					sPoint posToolTip;
 					posToolTip.x = GetRect().x + posItem.x + GetRect().w/2;
 					posToolTip.y = GetRect().y + posItem.y + GetItemHeight()/2;
 

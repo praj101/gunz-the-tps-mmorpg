@@ -12,7 +12,7 @@
 #define CCBTN_IN_MSG		"in"		//button, place the cursor over the eases
 #define CCBTN_OUT_MSG		"out"		//button, place your cursor over the flush eases
 
-#define CCBUTTON			"Button"
+#define CORE_CCBUTTON			"Button"
 
 
 class CCMsgBox;
@@ -152,7 +152,7 @@ public:
 	virtual void MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight);
 
 
-	virtual const char* GetClassName(){ return CCBUTTON; }
+	virtual const char* GetClassName(){ return CORE_CCBUTTON; }
 };
 
 //Button group classes needed to implement

@@ -240,7 +240,7 @@ bool ZItemSlotView::OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szS
 	if ( (pSender == NULL) || ( m_bDragAndDrop == false))
 		return false;
 
-	if (strcmp(pSender->GetClassName(), MINT_EQUIPMENTLISTBOX)==0) {
+	if (strcmp(pSender->GetClassName(), CORE_EQUIPMENTLISTBOX)==0) {
 
 		// widget id 설정
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
@@ -265,7 +265,7 @@ bool ZItemSlotView::OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szS
 		ZGetGameInterface()->GetShopEquipInterface()->Equip( m_nParts, uidItem );
 	}
 	
-	else if (strcmp(pSender->GetClassName(), MINT_ITEMSLOTVIEW)==0) {	// Equip 슬롯에서 Equip 슬롯으로
+	else if (strcmp(pSender->GetClassName(), CORE_ITEMSLOTVIEW)==0) {	// Equip 슬롯에서 Equip 슬롯으로
 		ZItemSlotView* pWidget = (ZItemSlotView*)pSender;
 		CCUID uidItem = ZGetMyInfo()->GetItemList()->GetEquipedItemUID(pWidget->GetParts());
 		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
@@ -318,7 +318,7 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 			if (pItemDesc && m_bDragAndDrop)
 			{
 				CCBitmap* pIconBitmap = GetItemIconBitmap(pItemDesc);
-				Mint::GetInstance()->SetDragObject(this, pIconBitmap, pItemDesc->m_pMItemName->Ref().m_szItemName, 
+				Core::GetInstance()->SetDragObject(this, pIconBitmap, pItemDesc->m_pMItemName->Ref().m_szItemName, 
 					pItemDesc->m_pMItemName->Ref().m_szItemName);
 			}
 
@@ -337,7 +337,7 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 			// 드래그 & 드롭
 			if ( m_bDragAndDrop)
 			{
-				Mint::GetInstance()->SetDragObject( this,
+				Core::GetInstance()->SetDragObject( this,
 													ZApplication::GetStageInterface()->m_SacrificeItem[ nSlotNum].GetIconBitmap(),
 													ZApplication::GetStageInterface()->m_SacrificeItem[ nSlotNum].GetName(),
 													ZApplication::GetStageInterface()->m_SacrificeItem[ nSlotNum].GetName());
@@ -425,7 +425,7 @@ void ZItemSlotView::OnMouseIn( void )
 	// 툴팁의 위치
 	sRect rcSlotView = GetRect();
 	sRect rcTextArea = pItemDescTextArea->GetRect();
-	MPOINT posDesc(rcSlotView.x, rcSlotView.y);
+	sPoint posDesc(rcSlotView.x, rcSlotView.y);
 	posDesc = CCClientToScreen(GetParent(), posDesc);
 	posDesc.x = rcSlotView.x + rcSlotView.w + CONVERT800(20);	// 일단 슬롯뷰 우측으로
 	if (posDesc.y+rcTextArea.h > CCGetWorkspaceHeight())			// 화면 하단에 짤리지 않게

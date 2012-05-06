@@ -1,7 +1,7 @@
 #pragma once
 /*
 	C_elestial c_O_ding g_R_aphical int_E_rface
-	CORE.h - Related to Mint.h
+	CORE.h - Related to Core.h
 */
 
 #include <windows.h>

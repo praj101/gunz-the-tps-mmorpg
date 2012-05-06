@@ -691,7 +691,7 @@ ZBmNuCCLabel* ZIDLResource::GetBmNumLabel(CCXmlElement& element)
 	CCWidget* pParentWidget;	CCListener* pListener;
 
 	pListener = pParentWidget = GetParentWidget(element);
-	ZBmNuCCLabel* pBmLabel = new ZBmNumLabel(MINT_ZBMNUMLABEL, pParentWidget, pListener);
+	ZBmNuCCLabel* pBmLabel = new ZBmNumLabel(CORE_ZBMNUMLABEL, pParentWidget, pListener);
 	InsertWidget(element, pBmLabel);
 
 	int iCount = element.GetChildNodeCount();
@@ -727,7 +727,7 @@ ZActionKey* ZIDLResource::GetActionKey(CCXmlElement& element)
 	CCWidget* pParentWidget;	CCListener* pListener;
 
 	pListener = pParentWidget = GetParentWidget(element);
-	ZActionKey* pActionKey = (ZActionKey*)Mint::GetInstance()->NewWidget(MINT_ACTIONKEY, "", pParentWidget, pListener);
+	ZActionKey* pActionKey = (ZActionKey*)Core::GetInstance()->NewWidget(CORE_ACTIONKEY, "", pParentWidget, pListener);
 	InsertWidget(element, pActionKey);
 
 	int iCount = element.GetChildNodeCount();

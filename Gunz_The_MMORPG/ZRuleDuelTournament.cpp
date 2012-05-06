@@ -786,7 +786,7 @@ void ZRuleDuelTournament::UpdateUISlideAni(float fElapsed)
 		if (strstr(pChild->m_szIDLName, "Left"))
 		{
 			sRect rc = pChild->GetIDLRect();
-			MPOINT pt(rc.x, rc.y);
+			sPoint pt(rc.x, rc.y);
 			pt.x = (pt.x - fSlideDistance) + (fSlideDistance * fSlide);
 			
 			pt.x = pt.x / 800.f * RGetScreenWidth();
@@ -796,7 +796,7 @@ void ZRuleDuelTournament::UpdateUISlideAni(float fElapsed)
 		else if (strstr(pChild->m_szIDLName, "Right"))
 		{
 			sRect rc = pChild->GetIDLRect();
-			MPOINT pt(rc.x, rc.y);
+			sPoint pt(rc.x, rc.y);
 			pt.x = (pt.x + fSlideDistance) - (fSlideDistance * fSlide);
 			
 			pt.x = pt.x / 800.f * RGetScreenWidth();
