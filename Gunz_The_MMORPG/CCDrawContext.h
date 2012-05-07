@@ -43,7 +43,7 @@ protected:
 	sRect			m_Clip;
 	sPoint			m_Origin;
 	CCDrawEffect	m_Effect;
-	uchar			m_cOpacity;
+	uchar			m_iOpacity;
 
 public:
 	CCDrawContext();

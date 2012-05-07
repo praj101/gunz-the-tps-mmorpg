@@ -3,7 +3,8 @@
 #include "Core.h"
 #include "ZInput.h"
 #include "ZOptionInterface.h"
-
+#include "ZApplication.h"
+ZInput*			g_pInput;
 
 class ZActionKeyLook : public CCEditLook{
 public:
@@ -73,7 +74,7 @@ void ZActionKey::ClearActionKey()
 void ZActionKey::UpdateText()
 {
 	char szBuffer[256] = "";
-	ZGetInput()->GetInputKeyName(m_nKey, szBuffer,sizeof(szBuffer));
+	ZGetInput->GetInputKeyName(m_nKey, szBuffer,sizeof(szBuffer));
 
 	if(m_nAltKey!=-1)
 	{
@@ -172,7 +173,7 @@ ZActionKey*	ZActionKey::m_exclusiveActionKey = NULL;
 
 bool ZActionKey::OnExclusiveEvent(CCEvent* pEvent)
 {
-	_ASSERT(pEvent->nMessage == Z_DIRECTINPUTKEY_MESSAGE);
+	_ASSERT(pEvent->iMessage == Z_DIRECTINPUTKEY_MESSAGE);
 
 	// 포커스가 생길때의 이벤트 (lbutton 이나 tab )을 무시한다
 	if(!m_exclusiveActionKey->m_bReadyInput)

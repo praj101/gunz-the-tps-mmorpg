@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include "ZTimer.h"
+#include "RMeshUtil.h"
 using namespace std;
 
 class ZObject;

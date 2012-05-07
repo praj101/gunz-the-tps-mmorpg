@@ -2,6 +2,7 @@
 #define ZActionKey_H
 
 #include "CCEdit.h"
+#include "Core.h"
 #include <set>
 
 using namespace std;

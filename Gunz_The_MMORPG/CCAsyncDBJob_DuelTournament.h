@@ -189,7 +189,7 @@ protected:
 	CCUID m_uidPlayer;
 	list<DTRankingInfo*> m_SideRankingList;
 public:
-	CCAsyncDBJob_GetDuelTournamentSideRankingInfo() : CCAsyncJob(CCASYNCJOLB_GET_DUELTOURNAMENT_SIDERANKING, CCUID(0, 0)) {
+	CCAsyncDBJob_GetDuelTournamentSideRankingInfo() : CCAsyncJob(CCASYNCJOB_GET_DUELTOURNAMENT_SIDERANKING, CCUID(0, 0)) {
 		m_dwPlayerCID = 0;
 		m_uidPlayer = CCUID(0, 0);
 	}

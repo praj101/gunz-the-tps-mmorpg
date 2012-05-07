@@ -4,7 +4,10 @@
 #include <crtdbg.h>
 #include "CCZFileSystem.h"
 #include "RVersions.h"
-
+#include "RTypes.h"
+#include "ZInput.h"
+float Magnitude(const rvector &x);
+extern ZInput*			g_pInput;
 RNavigationMesh::RNavigationMesh()
 {
 	m_iVertCount = 0;

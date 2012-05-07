@@ -28,7 +28,7 @@ CCDrawContextR2::CCDrawContextR2(LPDIRECT3DDEVICE9 pd3dDevice)
 {
 	m_pd3dDevice = pd3dDevice;
 #ifdef _DEBUG
-	m_iTypeID = CORE_R2_CLASS_TYPE;
+//	m_iTypeID = CORE_R2_CLASS_TYPE;
 #endif
 }
 
@@ -246,7 +246,8 @@ bool CCDrawContextR2::BeginFont()
 	if(m_pFont==NULL)
 		pFont = (CCFontR2*)CCFontManager::Get(NULL);
 
-	_ASSERT(pFont->m_uTypeID==CORE_R2_CLASS_TYPE);
+	// No idea where they thought this was, but it doesnt exist.
+	//_ASSERT(pFont->m_uTypeID==CORE_R2_CLASS_TYPE);
 
 	return pFont->m_Font.BeginFont();
 }
@@ -258,7 +259,8 @@ bool CCDrawContextR2::EndFont()
 	if(m_pFont==NULL) 
 		pFont = (CCFontR2*)CCFontManager::Get(NULL);
 
-	_ASSERT(pFont->m_iTypeID==CORE_R2_CLASS_TYPE);
+	// No idea where they thought this was, but it doesnt exist.
+	//_ASSERT(pFont->m_iTypeID==CORE_R2_CLASS_TYPE);
 
 	return pFont->m_Font.EndFont();
 }
@@ -269,8 +271,9 @@ int CCDrawContextR2::Text(int x, int y, const char* szText)
 
 	if(m_pFont==NULL) 
 		pFont = (CCFontR2*)CCFontManager::Get(NULL);
-
-	_ASSERT(pFont->m_nTypeID==CORE_R2_CLASS_TYPE);
+	
+	// No idea where they thought this was, but it doesnt exist.
+	//_ASSERT(pFont->m_nTypeID==CORE_R2_CLASS_TYPE);
 
 	x += m_Origin.x;
 	y += m_Origin.y;
@@ -715,7 +718,7 @@ void CCBitmapR2::OnResetDevice()
 CCFontR2::CCFontR2()
 {
 #ifdef _DEBUG
-	m_nTypeID = CORE_R2_CLASS_TYPE;
+//	m_nTypeID = CORE_R2_CLASS_TYPE;
 #endif
 	m_fScale = 1.0f;
 }
@@ -737,7 +740,7 @@ bool CCFontR2::Create(const char* szAliasName, const char* szFontName, int nHeig
 
 	m_fScale = fScale;
 
-	m_nOutlineStyle = nOutlineStyle;
+	m_iOutlineStyle = nOutlineStyle;
 	m_ColorArg1 = nColorArg1;
 	m_ColorArg2 = nColorArg2;
 	m_bAntiAlias = bAntiAlias;
@@ -757,7 +760,7 @@ bool CCFontR2::Resize(float ratio, int nMinimumHeight)
 		height,
 		m_creationInfo.bBold, 
 		m_creationInfo.bItalic, 
-		m_nOutlineStyle, 
+		m_iOutlineStyle, 
 		m_creationInfo.nCacheSize, 
 		m_bAntiAlias, 
 		m_ColorArg1, 
