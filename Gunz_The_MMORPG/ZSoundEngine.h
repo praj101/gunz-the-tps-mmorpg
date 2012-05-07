@@ -6,6 +6,7 @@
 #include "ZActorSound.h"
 #include "CCQuestNPC.h"
 #include "RTypes.h"
+#include "RBspObject.h"
 
 #include <map>
 #include <string>

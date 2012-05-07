@@ -827,7 +827,7 @@ __try{
 
 				if (pRCPAccept->GetSocket() == INVALID_SOCKET) {
 					#ifdef _DEBUG
-					static nInvalidAccept = 0;
+					static int nInvalidAccept = 0;
 					char szLog[64]; sprintf(szLog, "Accept with INVALID_SOCKET (Count=%d) \n", nInvalidAccept++);
 					OutputDebugString(szLog);
 					#endif

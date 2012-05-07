@@ -436,7 +436,7 @@ RLenzFlare::~RLenzFlare()
 //	HELPERs
 //////////////////////////////////////////////////////////////////////////
 
-bool RLenzFlare::ReadXmlElement(CCXmlElement* PNode,char* Path)
+bool RLenzFlare::ReadXmlElement(::CCXmlElement* PNode,char* Path)
 {
 	int i,j;
 	int index;

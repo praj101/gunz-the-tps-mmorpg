@@ -185,7 +185,7 @@ public:
 	// 동작/이벤트 상속
 	virtual bool IsDie();
 
-	virtual CCMatchTeam GetTeamID() { return MMT_BLUE; }			// NPC는 무조건 BLUE팀
+	virtual CCMatchTeam GetTeamID() { return CCMT_BLUE; }			// NPC는 무조건 BLUE팀
 
 //	virtual void OnDamage(int damage, float fRatio = 1.0f);
 	virtual void OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, CCMatchWeaponType weaponType, float fDamage, float fPiercingRatio=1.f, int nMeleeType=-1);

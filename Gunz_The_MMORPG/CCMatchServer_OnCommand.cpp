@@ -1448,7 +1448,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 				OnRequestNPCDead(uidSender, uidKiller, uidNPC, pos);
 
 #ifdef _DEBUG
-				static a = 0;
+				static int a = 0;
 				cclog( "npc dead : %d.\n", a++ );
 #endif
 			}

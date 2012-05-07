@@ -16,6 +16,7 @@
 
 
 #include "CCListBox.h"
+#include "Core4R2.h"
 // 아이템 슬롯에 있는 아이템 정보
 class SacrificeItemSlotDesc
 {

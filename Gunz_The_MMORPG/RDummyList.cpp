@@ -17,7 +17,7 @@ void RDummyList::Clear()
 	clear();
 }
 
-bool RDummyList::Open(CCXmlElement *pElement)
+bool RDummyList::Open(::CCXmlElement *pElement)
 {
 	::CCXmlElement	aDummyNode,aChild;
 	int nCount = pElement->GetChildNodeCount();
@@ -49,7 +49,7 @@ bool RDummyList::Open(CCXmlElement *pElement)
 					int nCnt = sscanf( szContents, "%f %f %f", &temp.x, &temp.y, &temp.z );
 					if (nCnt == 3)
 					{
-						pNewDummy->sPosition = temp;
+						pNewDummy->Position = temp;
 					}
 				}
 				else if(stricmp(szTagName,RTOK_DIRECTION)==0)	
@@ -81,14 +81,14 @@ bool RDummyList::Save(::CCXmlElement *pElement)
 		RDummy *pDummy = *itor;
 		char buffer[256];
 
-		CCXmlElement		aElement,aChild;
+		::CCXmlElement		aElement,aChild;
 		aElement = aDummyListElement.CreateChildElement(RTOK_DUMMY);
 
 		aElement.AddAttribute(RTOK_NAME,pDummy->szName.c_str());
 
 		aElement.AppendText("\n\t\t\t");
 		aChild=aElement.CreateChildElement(RTOK_POSITION);
-		aChild.SetContents(Format(buffer,pDummy->sPosition));
+		aChild.SetContents(Format(buffer,pDummy->Position));
 
 		aElement.AppendText("\n\t\t\t");
 		aChild=aElement.CreateChildElement(RTOK_DIRECTION);

@@ -81,7 +81,7 @@ int						ZGetSVNRevision();
 
 #define ZGetGameTypeManager()	((ZApplication::GetGameInterface()) ? ZApplication::GetGameInterface()->GetGameTypeManager() : NULL)
 
-#define ZGetInput()				(g_pInput)
+#define ZGetInput				g_pInput
 #define ZGetCamera()			(ZApplication::GetGameInterface() ? ZApplication::GetGameInterface()->GetCamera() : NULL)
 
 #define ZGetWorldManager()		ZApplication::GetInstance()->GetWorldManager()
@@ -91,7 +91,7 @@ inline ZEmblemInterface*	ZGetEmblemInterface() { return ZApplication::GetInstanc
 inline ZOptionInterface*	ZGetOptionInterface() { return ZApplication::GetInstance()->GetOptionInterface(); }
 
 
-#define ZIsActionKeyPressed(_ActionID)	(ZGetInput()->IsActionKeyPressed(_ActionID))
+#define ZIsActionKeyPressed(_ActionID)	ZGetInput()->IsActionKeyPressed(_ActionID)
 
 //jintriple3 ¸ÞÅ©·Î..
 #define PROTECT_DEBUG_REGISTER(b) if(GetTickCount() >0)if(GetTickCount() >0)if(GetTickCount() >0)if(b)

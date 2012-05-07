@@ -15,7 +15,7 @@ protected:	// Input Argument
 protected:	// Output Result
 	CCMatchFriendInfo*	m_pFriendInfo;
 public:
-	CCASYNCJOB_FRIENDLIST(const CCUID& uid, int nCID)
+	CCAsyncDBJob_FriendList(const CCUID& uid, int nCID)
 		: CCAsyncJob(CCASYNCJOB_FRIENDLIST, uid)
 	{
 		m_pFriendInfo = NULL;

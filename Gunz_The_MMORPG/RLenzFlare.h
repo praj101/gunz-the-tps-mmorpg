@@ -62,7 +62,7 @@ protected:
 	int								miNumLight;
 
 protected:
-	static	bool	ReadXmlElement(CCXmlElement* PNode,char* Path);
+	static	bool	ReadXmlElement(::CCXmlElement* PNode,char* Path);
 	bool		open( const char* pFileName_, CCZFileSystem* pfs_ );
 	bool		draw( float x_, float y_,				// 위치
 					float width_, float height_,		// 크기
