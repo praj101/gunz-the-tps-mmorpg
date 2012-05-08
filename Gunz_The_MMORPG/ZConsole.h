@@ -9,6 +9,6 @@ void OutputToConsole(const char* pFormat,...);
 void ConsoleInputEvent(const char* szInputStr);
 
 
-MConsoleFrame* ZGetConsole();
+CCConsoleFrame* ZGetConsole();
 
 #endif

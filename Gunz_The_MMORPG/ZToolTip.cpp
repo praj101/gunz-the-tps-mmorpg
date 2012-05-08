@@ -2,6 +2,7 @@
 
 #include "ZApplication.h"
 #include "ZToolTip.h"
+#include "Core.h"
 #include "Core4R2.h"
 
 //#include "CCTextArea.h"
@@ -157,7 +158,7 @@ void ZToolTip::SetBounds()
 {
 	CCFont* pFont = GetFont();
 
-	char szName[MWIDGET_NAME_LENGTH];
+	char szName[CCWIDGET_NAME_LENGTH];
 
 	RemoveAnd(szName, m_bUseParentName==true?GetParent()->m_szName:m_szName);
 
@@ -210,9 +211,9 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 
 	if (m_alignMode & CCD_TOP)
 		tr.y = pr.y-tr.h;
-	else if (m_alignMode & CCAM_BOTTOM)
+	else if (m_alignMode & CCD_BOTTOM)
 		tr.y = pr.y+pr.h;
-	else if (m_alignMode & CCAM_VCENTER)
+	else if (m_alignMode & CCD_VCENTER)
 		tr.y = pr.h/2 - tr.h/2;
 	else
 		tr.y = 0;
@@ -220,7 +221,7 @@ void ZToolTip::GetPosAlignedWithParent(int& x, int& y, int nTextPixelWidth, int 
 	sRect str = CCClientToScreen(GetParent(), tr);
 	
 	int rightx = str.x+str.w;
-	if (rightx > CCGetWorkspaceWidth()) {
+	if (rightx > CGetWorkspaceWidth()) {
 		int diff = rightx - CCGetWorkspaceWidth();
 		tr.x -= diff;
 	}

@@ -1,7 +1,7 @@
 #ifndef _ZTASKMANAGER_H
 #define _ZTASKMANAGER_H
 
-
+#include "RTypes.h"
 typedef void (*ZTM_ONFINISHED)(ZActor* pActor, ZTASK_ID nLastID);
 
 /// 태스크 관리자

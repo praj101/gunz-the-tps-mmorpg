@@ -6,7 +6,7 @@
 using namespace std;
 
 #include "ZTaskID.h"
-
+#include "ZActor.h"
 /// task °á°ú
 enum ZTaskResult
 {
