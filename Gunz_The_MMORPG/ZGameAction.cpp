@@ -11,6 +11,7 @@
 #include "ZModule_ColdDamage.h"
 #include "ZModule_LightningDamage.h"
 #include "ZModule_PoisonDamage.h"
+#include "ZGameInterface.h"
 
 #define MAX_ENCHANT_DURATION	10.f
 
