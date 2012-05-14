@@ -4,6 +4,7 @@
 #include "ZInput.h"
 #include "ZOptionInterface.h"
 #include "ZApplication.h"
+#include "ZGlobal.h"
 ZInput*			g_pInput;
 
 class ZActionKeyLook : public CCEditLook{
@@ -74,7 +75,7 @@ void ZActionKey::ClearActionKey()
 void ZActionKey::UpdateText()
 {
 	char szBuffer[256] = "";
-	ZGetInput->GetInputKeyName(m_nKey, szBuffer,sizeof(szBuffer));
+	ZGetInput()->GetInputKeyName(m_nKey, szBuffer,sizeof(szBuffer));
 
 	if(m_nAltKey!=-1)
 	{
@@ -184,7 +185,7 @@ bool ZActionKey::OnExclusiveEvent(CCEvent* pEvent)
 		// 한번 입력되었으면 끝.
 //		if (pEvent->nKey != 1) // 1 -> ESC
 		{
-			m_exclusiveActionKey->SetActionKey(pEvent->nKey);
+			m_exclusiveActionKey->SetActionKey(pEvent->uKey);
 		}
 		m_exclusiveActionKey->ReleaseFocus();
 	}

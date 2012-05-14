@@ -4,6 +4,7 @@ bool					ZIsLaunchDevelop(); //This must be Before #include "ZApplication.h" or 
 
 //#include "RMesh.h"
 #include "ZApplication.h"
+//#include "ZGameInterface.h"
 // 전역적으로 사용하는 것은 이곳에다 넣도록 하자
 #ifdef LOCALE_BRAZIL
 #define APPLICATION_NAME		"Gunz The MMORPG"
@@ -81,7 +82,7 @@ int						ZGetSVNRevision();
 
 #define ZGetGameTypeManager()	((ZApplication::GetGameInterface()) ? ZApplication::GetGameInterface()->GetGameTypeManager() : NULL)
 
-#define ZGetInput				g_pInput
+#define ZGetInput()				g_pInput
 #define ZGetCamera()			(ZApplication::GetGameInterface() ? ZApplication::GetGameInterface()->GetCamera() : NULL)
 
 #define ZGetWorldManager()		ZApplication::GetInstance()->GetWorldManager()
