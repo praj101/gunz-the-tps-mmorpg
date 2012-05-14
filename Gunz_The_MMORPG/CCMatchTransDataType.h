@@ -67,7 +67,7 @@ struct CCTD_CharInfo
 /*
 struct CCTD_CharBuffInfo
 {
-	MShortBuffInfo	ShortBuffInfo[MAX_CHARACTER_SHORT_BUFF_COUNT];	
+	CCShortBuffInfo	ShortBuffInfo[MAX_CHARACTER_SHORT_BUFF_COUNT];	
 };*/
 
 struct CCTD_BuffInfo

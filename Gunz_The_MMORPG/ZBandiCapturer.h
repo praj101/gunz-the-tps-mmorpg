@@ -1,7 +1,7 @@
 #pragma once
 
 #include "bandicap.h"
-
+#include "DirectX/D3D9.h"
 // 동영상 캡쳐...2008.10.02
 class ZBandiCapturer
 {

@@ -221,7 +221,7 @@ void ZMatch::SoloSpawn()
 		{
 			int nSpawnIndex[2] = { 0, 0 };
 			for (int i = 0; i < 2; i++)
-				if (ZGetGame()->m_pMyCharacter->GetTeamID() == MMT_RED + i)
+				if (ZGetGame()->m_pMyCharacter->GetTeamID() == CCMT_RED + i)
 					pSpawnData = ZGetGame()->GetMapDesc()->GetSpawnManager()->GetTeamData(i, nSpawnIndex[i]);
 		}
 		else
@@ -265,7 +265,7 @@ void ZMatch::InitCharactersPosition()
 			ZCharacter* pCharacter = (*itor).second;
 			for (int i = 0; i < 2; i++)
 			{
-				if (pCharacter->GetTeamID() == MMT_RED + i)
+				if (pCharacter->GetTeamID() == CCMT_RED + i)
 				{
 					ZMapSpawnData* pSpawnData = ZGetGame()->GetMapDesc()->GetSpawnManager()->GetTeamData(i, nSpawnIndex[i]);
 					if (pSpawnData != NULL)
@@ -540,28 +540,28 @@ void ZMatch::SetRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg)
 			{
 				if (nArg == CCMATCH_ROUNDRESULT_RED_ALL_OUT )
 				{
-					if( m_nTeamScore[MMT_BLUE] < m_nTeamScore[MMT_RED] )
-						m_nTeamScore[MMT_BLUE] = m_nTeamScore[MMT_RED] = 0;
+					if( m_nTeamScore[CCMT_BLUE] < m_nTeamScore[CCMT_RED] )
+						m_nTeamScore[CCMT_BLUE] = m_nTeamScore[CCMT_RED] = 0;
 					else
-						m_nTeamScore[MMT_BLUE]++;
+						m_nTeamScore[CCMT_BLUE]++;
 				}
 				else if( nArg ==  CCMATCH_ROUNDRESULT_BLUE_ALL_OUT )
 				{
-					if( m_nTeamScore[MMT_RED] < m_nTeamScore[MMT_BLUE] )
-                        m_nTeamScore[MMT_RED] =	m_nTeamScore[MMT_BLUE] = 0;
+					if( m_nTeamScore[CCMT_RED] < m_nTeamScore[CCMT_BLUE] )
+                        m_nTeamScore[CCMT_RED] =	m_nTeamScore[CCMT_BLUE] = 0;
 					else
-						m_nTeamScore[MMT_RED]++;
+						m_nTeamScore[CCMT_RED]++;
 				}
 				else if (nArg == CCMATCH_ROUNDRESULT_DRAW)
 				{
 					// Do nothing...
 				} 
 				else {
-					CCMatchTeam nTeamWon = (nArg == CCMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
-					if (nTeamWon == MMT_RED)
-						m_nTeamScore[MMT_RED]++;
-					else if (nTeamWon == MMT_BLUE)
-						m_nTeamScore[MMT_BLUE]++;
+					CCMatchTeam nTeamWon = (nArg == CCMATCH_ROUNDRESULT_REDWON ? CCMT_RED : CCMT_BLUE);
+					if (nTeamWon == CCMT_RED)
+						m_nTeamScore[CCMT_RED]++;
+					else if (nTeamWon == CCMT_BLUE)
+						m_nTeamScore[CCMT_BLUE]++;
 				}
 			}
 		}
@@ -585,11 +585,11 @@ const char* ZMatch::GetTeamName(int nTeamID)
 {
 	switch (nTeamID)
 	{
-	case MMT_SPECTATOR:
+	case CCMT_SPECTATOR:
 		return CCMATCH_SPECTATOR_STR;
-	case MMT_RED:
+	case CCMT_RED:
 		return CCMATCH_TEAM1_NAME_STR;
-	case MMT_BLUE:
+	case CCMT_BLUE:
 		return CCMATCH_TEAM2_NAME_STR;
 	default:
 		return "";

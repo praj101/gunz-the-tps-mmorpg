@@ -2,7 +2,7 @@
 #define ZEQUIPMENTLISTBOX_H
 
 //#include "ZPrerequisites.h"
-//#include "MMultiColListBox.h"
+//#include "CCMultiColListBox.h"
 //
 //bool ZGetIsCashItem(unsigned long nItemID);
 //
@@ -99,7 +99,7 @@
 //class ZItemMenu;
 ////typedef void (*ZCB_ONDROP)(void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString);
 //
-//class ZEquipmentListBox_OLD : public MMultiColListBox
+//class ZEquipmentListBox_OLD : public CCMultiColListBox
 //{
 //protected:
 //	virtual bool IsDropable(CCWidget* pSender);

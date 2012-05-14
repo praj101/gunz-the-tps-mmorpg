@@ -179,8 +179,8 @@ void ZScoreBoard::Refresh()
 		if (ZApplication::GetGame()->GetMatch()->IsTeamPlay())
 		{
 			char szTemp2[128];
-			sprintf(szTemp2, "     Score %2d(Red) : %2d(Blue)", g_pGame->GetMatch()->GetTeamScore(MMT_RED), 
-				g_pGame->GetMatch()->GetTeamScore(MMT_BLUE));
+			sprintf(szTemp2, "     Score %2d(Red) : %2d(Blue)", g_pGame->GetMatch()->GetTeamScore(CCMT_RED), 
+				g_pGame->GetMatch()->GetTeamScore(CCMT_BLUE));
 			strcpy(szTemp, szTemp2);
 		}
 		pWidget->SetText(szTemp);

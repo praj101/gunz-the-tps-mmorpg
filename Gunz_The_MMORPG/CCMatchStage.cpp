@@ -530,7 +530,7 @@ int CCMatchStage::GetTeamMemberCount(CCMatchTeam nTeam)
 	for (CCUIDRefCache::iterator i=m_ObjUIDCaches.begin(); i!=m_ObjUIDCaches.end(); i++) 
 	{
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
-		if (pObj->GetTeam() == MMT_SPECTATOR)
+		if (pObj->GetTeam() == CCMT_SPECTATOR)
 			nSpec++;
 		else if (pObj->GetTeam() == CCMT_RED)
 			nRed++;
@@ -538,7 +538,7 @@ int CCMatchStage::GetTeamMemberCount(CCMatchTeam nTeam)
 			nBlue++;
 	}
 
-	if (nTeam == MMT_SPECTATOR)
+	if (nTeam == CCMT_SPECTATOR)
 		return nSpec;
 	else if (nTeam == CCMT_RED)
 		return nRed;
@@ -807,7 +807,7 @@ void CCMatchStage::OnStartGame()
 		pObj->SetVoteState( false );
 	}
 	
-	for (int i = 0; i < MMT_END; i++)
+	for (int i = 0; i < CCMT_END; i++)
 	{
 		m_Teams[i].nScore = 0;
 		m_Teams[i].nSeriesOfVictories = 0;
@@ -1042,7 +1042,7 @@ void CCMatchStage::OnInitRound()
 	// 팀보너스 초기화
 	m_TeamBonus.bApplyTeamBonus = false;
 
-	for (int i = 0; i < MMT_END; i++)
+	for (int i = 0; i < CCMT_END; i++)
 	{
 		m_Teams[i].nTeamBonusExp = 0;
 		m_Teams[i].nTeamTotalLevel = 0;
@@ -1089,13 +1089,13 @@ void CCMatchStage::OnInitRound()
 
 void CCMatchStage::AddTeamBonus(int nExp, CCMatchTeam nTeam)
 {
-	if( MMT_END > nTeam )
+	if( CCMT_END > nTeam )
 		m_Teams[nTeam].nTeamBonusExp += nExp;
 }
 
 void CCMatchStage::OnApplyTeamBonus(CCMatchTeam nTeam)
 {
-	if( MMT_END <= nTeam )
+	if( CCMT_END <= nTeam )
 		return;
 
 	if (GetStageType() != CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)		// 으아아악 이런 갓뎀코드를 만들다니 -_-;
@@ -1157,7 +1157,7 @@ void CCMatchStage::OnApplyTeamBonus(CCMatchTeam nTeam)
 
 void CCMatchStage::OnRoundEnd_FromTeamGame(CCMatchTeam nWinnerTeam)
 {
-	if( MMT_END <= nWinnerTeam )
+	if( CCMT_END <= nWinnerTeam )
 		return;
 
 	// 팀 보너스 적용
@@ -1265,7 +1265,7 @@ void CCMatchStage::ShuffleTeamMembers()
 	if ((m_nStageType == MST_LADDER) || (m_StageSetting.IsTeamPlay() == false)) return;
 	if (m_ObjUIDCaches.empty()) return;
 
-	int nTeamMemberCount[MMT_END] = {0, };
+	int nTeamMemberCount[CCMT_END] = {0, };
 	CCMatchTeam nWinnerTeam;
 
 	GetTeamMemberCount(&nTeamMemberCount[CCMT_RED], &nTeamMemberCount[CCMT_BLUE], NULL, true);
@@ -1328,7 +1328,7 @@ bool CCMatchStage::CheckAutoTeamBalancing()
 	if ((m_nStageType == MST_LADDER) || (m_StageSetting.IsTeamPlay() == false)) return false;
 	if (m_StageSetting.GetAutoTeamBalancing() == false) return false;
 
-	int nMemberCount[MMT_END] = {0, };
+	int nMemberCount[CCMT_END] = {0, };
 	GetTeamMemberCount(&nMemberCount[CCMT_RED], &nMemberCount[CCMT_BLUE], NULL, true);
 
 	// 2명 이상 인원수가 차이나고 인원수 많은 팀이 3연승이상 계속될 경우 팀을 섞는다.
@@ -1368,7 +1368,7 @@ void CCMatchStage::GetTeamMemberCount(int* poutnRedTeamMember, int* poutnBlueTea
 			{
 			case CCMT_RED:		if (poutnRedTeamMember) (*poutnRedTeamMember)++; break;
 			case CCMT_BLUE:		if (poutnBlueTeamMember) (*poutnBlueTeamMember)++; break;
-			case MMT_SPECTATOR:	if (poutSpecMember) (*poutSpecMember)++; break;
+			case CCMT_SPECTATOR:	if (poutSpecMember) (*poutSpecMember)++; break;
 			};
 		}
 	}

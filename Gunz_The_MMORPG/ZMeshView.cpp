@@ -83,9 +83,9 @@ void ZMeshView::DrawTestScene()
 
 void ZMeshView::SetLight(rvector LPos)
 {
-	D3DLIGHT light;
+	D3DLIGHT9 light;
 
-	ZeroMemory( &light, sizeof(D3DLIGHT) );
+	ZeroMemory( &light, sizeof(D3DLIGHT9) );
 
 	light.Type = D3DLIGHT_POINT;
 

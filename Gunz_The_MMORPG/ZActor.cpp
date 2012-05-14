@@ -17,6 +17,9 @@
 #include "ZQuest.h"
 #include "ZInput.h"
 
+// Added
+#include "ZPost.h"
+
 MImplementRTTI(ZActor, ZCharacterObject);
 
 ///////////////////////////////////////////////////////////////////////

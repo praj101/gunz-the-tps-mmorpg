@@ -22,6 +22,8 @@ desc : 무기 사용 키 커스터마이즈 관련
 #include "ZGameConst.h"
 #include "ZInput.h"
 
+#include "ZCombatInterface.h"
+
 #define CHARGE_SHOT		// 모아서 강베기 가능
 
 //#define UNLIMITED_JUMP						// 이거 해놓으면 무한점프

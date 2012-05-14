@@ -161,11 +161,11 @@ void ZMyItemList::Serialize()
 	if( NULL == pResource ) return;
 
 	// 내 장비 목록.
-	MMultiColListBox* pListbox1 = (MMultiColListBox*)pResource->FindWidget("EquipmentList");
+	CCMultiColListBox* pListbox1 = (CCMultiColListBox*)pResource->FindWidget("EquipmentList");
 	if( NULL == pListbox1 ) return;
 
 	// 상점에 팔수 있는 목록.
-	MMultiColListBox* pListbox2 = (MMultiColListBox*)pResource->FindWidget("MyAllEquipmentList");
+	CCMultiColListBox* pListbox2 = (CCMultiColListBox*)pResource->FindWidget("MyAllEquipmentList");
 	if( NULL == pListbox2 ) return;
 
 	int nOldSelIndex1 = pListbox1->GetSelIndex();
@@ -222,10 +222,10 @@ void ZMyItemList::SerializeZItemList()
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	if( NULL == pResource ) return;
 
-	MMultiColListBox* pMyListBox = (MMultiColListBox*)pResource->FindWidget("EquipmentList");
+	CCMultiColListBox* pMyListBox = (CCMultiColListBox*)pResource->FindWidget("EquipmentList");
 	if( NULL == pMyListBox ) return;
 
-	MMultiColListBox* pSellListBox = (MMultiColListBox*)pResource->FindWidget("MyAllEquipmentList");
+	CCMultiColListBox* pSellListBox = (CCMultiColListBox*)pResource->FindWidget("MyAllEquipmentList");
 	if( NULL == pSellListBox ) return;
 
 	MakeMyIteCCUIDList();
@@ -282,10 +282,10 @@ void ZMyItemList::SerializeQItemList()
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	if( NULL == pResource ) return;
 
-	MMultiColListBox* pMyListBox = (MMultiColListBox*)pResource->FindWidget("EquipmentList");
+	CCMultiColListBox* pMyListBox = (CCMultiColListBox*)pResource->FindWidget("EquipmentList");
 	if( NULL == pMyListBox ) return;
 
-	MMultiColListBox* pSellListBox = (MMultiColListBox*)pResource->FindWidget("MyAllEquipmentList");
+	CCMultiColListBox* pSellListBox = (CCMultiColListBox*)pResource->FindWidget("MyAllEquipmentList");
 	if( NULL == pSellListBox ) return;
 
 	ZShopEquipItem_Quest* pWrappedItem;
@@ -318,10 +318,10 @@ void ZMyItemList::SerializeGItemList()
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	if( NULL == pResource ) return;
 
-	MMultiColListBox* pMyListBox = (MMultiColListBox*)pResource->FindWidget("EquipmentList");
+	CCMultiColListBox* pMyListBox = (CCMultiColListBox*)pResource->FindWidget("EquipmentList");
 	if( NULL == pMyListBox ) return;
 
-	MMultiColListBox* pSellListBox = (MMultiColListBox*)pResource->FindWidget("MyAllEquipmentList");
+	CCMultiColListBox* pSellListBox = (CCMultiColListBox*)pResource->FindWidget("MyAllEquipmentList");
 	if( NULL == pSellListBox ) return;
 
 	ZShopEquipItem_Gamble* pWrappedItem;
@@ -383,7 +383,7 @@ void ZMyItemList::MakeMyIteCCUIDList()
 void ZMyItemList::SerializeAccountItem()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MMultiColListBox* pListBox = (MMultiColListBox*)pResource->FindWidget("AccountItemList");
+	CCMultiColListBox* pListBox = (CCMultiColListBox*)pResource->FindWidget("AccountItemList");
 	if (!pListBox) return;
 
 	pListBox->RemoveAll();

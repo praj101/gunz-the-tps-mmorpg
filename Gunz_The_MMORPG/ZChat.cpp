@@ -197,7 +197,7 @@ bool ZChat::Input(char* szMsg)
 	case GUNZ_GAME:
 		{
 			ZCombatInterface* pCombatInterface = ZGetGameInterface()->GetCombatInterface();
-			int nTeam = MMT_ALL;
+			int nTeam = CCMT_ALL;
 			if (pCombatInterface->IsTeamChat() || bTeamChat)
 				nTeam = ZGetGame()->m_pMyCharacter->GetTeamID();
 			ZPostPeerChat(szMsg, nTeam);

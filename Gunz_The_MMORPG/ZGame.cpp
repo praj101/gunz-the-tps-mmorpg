@@ -1882,7 +1882,7 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 		break;
 	case MC_PEER_CHAT:
 		{
-			int nTeam = MMT_ALL;
+			int nTeam = CCMT_ALL;
 			char szMsg[CHAT_STRING_LEN];
 			memset(szMsg, 0, sizeof(szMsg));
 
@@ -1913,7 +1913,7 @@ bool ZGame::OnCommand_Immidiate(CCCommand* pCommand)
 				int nMyTeam = ZGetGame()->m_pMyCharacter->GetTeamID();
 
 				// 일반 채팅 말 일때...
-				if ( (nTeam == MMT_ALL) || (nTeam == MMT_SPECTATOR))
+				if ( (nTeam == CCMT_ALL) || (nTeam == CCMT_SPECTATOR))
 				{
 					if ( !ZGetGameClient()->GetRejectNormalChat() || ( strcmp( pChar->GetUserName(), ZGetMyInfo()->GetCharName()) == 0))
 					{
@@ -5100,7 +5100,7 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 				if (pCache && pCache->CheckFlag(CCTD_PlayerFlags_AdminHide))
 				{
 					sprintf( szMsg, "^%d%s^9 스스로 패배",
-									(pAttacker->GetTeamID() == MMT_BLUE) ? 3 : 1,
+									(pAttacker->GetTeamID() == CCMT_BLUE) ? 3 : 1,
 									pAttacker->GetProperty()->GetName());
 					ZGetGameInterface()->GetCombatInterface()->m_AdminMsg.OutputChatMsg( szMsg);
 				}
@@ -5138,8 +5138,8 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 			if (pCache && pCache->CheckFlag(CCTD_PlayerFlags_AdminHide))
 			{
 				sprintf( szMsg, "^%d%s^9 승리,  ^%d%s^9 패배",
-							(pAttacker->GetTeamID() == MMT_BLUE) ? 3 : 1, pAttacker->GetProperty()->GetName(),
-							(pVictim->GetTeamID() == MMT_BLUE) ? 3 : 1,   pVictim->GetProperty()->GetName());
+							(pAttacker->GetTeamID() == CCMT_BLUE) ? 3 : 1, pAttacker->GetProperty()->GetName(),
+							(pVictim->GetTeamID() == CCMT_BLUE) ? 3 : 1,   pVictim->GetProperty()->GetName());
 				ZGetGameInterface()->GetCombatInterface()->m_AdminMsg.OutputChatMsg( szMsg);
 			}
 		}
@@ -6268,7 +6268,7 @@ void ZGame::AddEffectRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg)
 					if (GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2)
 					{
 						CCMatchTeam nMyTeam = (CCMatchTeam)m_pMyCharacter->GetTeamID();
-						CCMatchTeam nEnemyTeam = (nMyTeam == MMT_BLUE ? MMT_RED : MMT_BLUE);
+						CCMatchTeam nEnemyTeam = (nMyTeam == CCMT_BLUE ? CCMT_RED : CCMT_BLUE);
 
 						int nMyScore = GetMatch()->GetTeamKills(nMyTeam);
 						int nEnemyScore = GetMatch()->GetTeamKills(nEnemyTeam);
@@ -6291,7 +6291,7 @@ void ZGame::AddEffectRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg)
 					}
 					else {
 						CCMatchTeam nMyTeam = (CCMatchTeam)m_pMyCharacter->GetTeamID();
-						CCMatchTeam nTeamWon = (nArg == CCMATCH_ROUNDRESULT_REDWON ? MMT_RED : MMT_BLUE);
+						CCMatchTeam nTeamWon = (nArg == CCMATCH_ROUNDRESULT_REDWON ? CCMT_RED : CCMT_BLUE);
 
 						// 만약 강제로 팀이 바껴진 경우에는 반대편
 						if (ZGetMyInfo()->GetGameInfo()->bForcedChangeTeam)
@@ -6314,14 +6314,14 @@ void ZGame::AddEffectRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg)
 
 						if (GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_ASSASSINATE)
 						{
-							if ( nTeamWon == MMT_RED)
+							if ( nTeamWon == CCMT_RED)
 								ZGetGameInterface()->PlayVoiceSound( VOICE_BLUETEAM_BOSS_DOWN, 2100);
 							else
 								ZGetGameInterface()->PlayVoiceSound( VOICE_REDTEAM_BOSS_DOWN, 2000);
 						}
 						else
 						{
-							if ( nTeamWon == MMT_RED)
+							if ( nTeamWon == CCMT_RED)
 								ZGetGameInterface()->PlayVoiceSound( VOICE_RED_TEAM_WON, 1400);
 							else
 								ZGetGameInterface()->PlayVoiceSound( VOICE_BLUE_TEAM_WON, 1400);
@@ -6344,10 +6344,10 @@ void ZGame::AddEffectRoundState(CCMATCH_ROUNDSTATE nRoundState, int nArg)
 						if (pCharacter == NULL) return;
 						
 						if(j==0) {	
-							nTeam = MMT_RED;
+							nTeam = CCMT_RED;
 						} 
 						else if(j==1) { 
-							nTeam = MMT_BLUE;	
+							nTeam = CCMT_BLUE;	
 						}	
 
 						if(pCharacter->GetTeamID() != nTeam) 

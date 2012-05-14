@@ -3,7 +3,7 @@
 #include "ZBrain.h"
 #include "ZBehavior_Idle.h"
 #include "ZBehavior_Attack.h"
-
+#include "ZActor.h"
 ZBehavior::ZBehavior() : m_pCurrState(NULL), m_pBrain(NULL)
 {
 }

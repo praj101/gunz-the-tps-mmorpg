@@ -159,7 +159,7 @@ bool ZShopEquipListItem::IsPtInRectToShowToolTip(sRect& rcItem, sPoint& pt)
 
 
 ZShopEquipListbox::ZShopEquipListbox(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MMultiColListBox(szName, pParent, pListener)
+: CCMultiColListBox(szName, pParent, pListener)
 {
 	m_idxItemLastTooltip = -1;
 }
@@ -174,7 +174,7 @@ bool ZShopEquipListbox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 		//return true;			  // 메시지를 먹어버리면 툴팁이 안나온다
 	}
 
-	return MMultiColListBox::OnEvent(pEvent, pListener);
+	return CCMultiColListBox::OnEvent(pEvent, pListener);
 }
 
 char* ZShopEquipListbox::GetItemDescTooltipName()

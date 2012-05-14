@@ -411,7 +411,7 @@ void ZCharacterViewList::OnDraw(CCDrawContext* pDC)
 
 				if( pChild ) {
 
-					if(pChild->m_Info.m_pMnTeam->Ref() == (int)MMT_RED)	red++;
+					if(pChild->m_Info.m_pMnTeam->Ref() == (int)CCMT_RED)	red++;
 					else								blue++;
 				}
 			}

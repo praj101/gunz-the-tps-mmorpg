@@ -559,21 +559,21 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int n
 	if(isMaster) {
 		switch (state) {
 			case MOSS_NONREADY	:
-				if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_master_red.tga");
-				else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_master_blue.tga");
-				else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
+				if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_master_red.tga");
+				else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_master_blue.tga");
+				else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
 				else 							strcpy(szFileName, "stg_status_master_normal.tga");
 				break;
 			case MOSS_READY		:
-				if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_master_red_ready.tga");
-				else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_master_blue_ready.tga");
-				else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
+				if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_master_red_ready.tga");
+				else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_master_blue_ready.tga");
+				else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
 				else 							strcpy(szFileName, "stg_status_master_normal_ready.tga");
 				break;
 			case MOSS_EQUIPMENT	: 
-				if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_master_red_equip.tga");
-				else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_master_blue_equip.tga");
-				else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
+				if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_master_red_equip.tga");
+				else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_master_blue_equip.tga");
+				else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
 				else 							strcpy(szFileName, "stg_status_master_normal_equip.tga");
 				break;
 			default :
@@ -584,21 +584,21 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int n
 	else {
 		switch (state) {
 			case MOSS_NONREADY	:
-				if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_member_red.tga");
-				else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_member_blue.tga");	
-				else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");	
+				if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_member_red.tga");
+				else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_member_blue.tga");	
+				else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");	
 				else							strcpy(szFileName, "stg_status_member_normal.tga");	
 				break;
 			case MOSS_READY		: 
-				if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_member_red_ready.tga");
-				else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_member_blue_ready.tga");	
-				else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");	
+				if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_member_red_ready.tga");
+				else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_member_blue_ready.tga");	
+				else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");	
 				else							strcpy(szFileName, "stg_status_member_normal_ready.tga");	
 				break;
 			case MOSS_EQUIPMENT	: 
-				if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_member_red_equip.tga");
-				else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_member_blue_equip.tga");	
-				else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");	
+				if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_member_red_equip.tga");
+				else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_member_blue_equip.tga");	
+				else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");	
 				else							strcpy(szFileName, "stg_status_member_normal_equip.tga");	
 				break;
 		}
@@ -626,8 +626,8 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int n
 	{
 		bool bBlue, bRed;
 		bBlue = bRed = false;
-		if( nTeam == MMT_BLUE)	bBlue = true;
-		if( nTeam == MMT_RED)	bRed = true;
+		if( nTeam == CCMT_BLUE)	bBlue = true;
+		if( nTeam == CCMT_RED)	bRed = true;
 		
 		CCButton* pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 		pButton->SetCheck( bBlue );
@@ -790,29 +790,29 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, boo
 
 		const MSTAGE_SETTING_NODE* pStageSetting = ZGetGameClient()->GetMatchStageSetting()->GetStageSetting();
 
-		if ( (nTeam != MMT_SPECTATOR) && (ZGetGameTypeManager()->IsTeamGame(pStageSetting->nGameType) == false))
+		if ( (nTeam != CCMT_SPECTATOR) && (ZGetGameTypeManager()->IsTeamGame(pStageSetting->nGameType) == false))
 		{
-			nTeam = MMT_ALL;
+			nTeam = CCMT_ALL;
 		}
 
 		if(isMaster) {
 			switch (state) {
 				case MOSS_NONREADY	:
-					if(nTeam == MMT_RED)			{ strcpy(szFileName, "stg_status_master_red.tga");				pItem->m_nTeam = 1;}
-					else if(nTeam == MMT_BLUE)		{ strcpy(szFileName, "stg_status_master_blue.tga");				pItem->m_nTeam = 2;}
-					else if(nTeam == MMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_master_observer.tga");			pItem->m_nTeam = 3;}
+					if(nTeam == CCMT_RED)			{ strcpy(szFileName, "stg_status_master_red.tga");				pItem->m_nTeam = 1;}
+					else if(nTeam == CCMT_BLUE)		{ strcpy(szFileName, "stg_status_master_blue.tga");				pItem->m_nTeam = 2;}
+					else if(nTeam == CCMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_master_observer.tga");			pItem->m_nTeam = 3;}
 					else 							{ strcpy(szFileName, "stg_status_master_normal.tga");			pItem->m_nTeam = 0;}
 					break;
 				case MOSS_READY		:
-					if(nTeam == MMT_RED)			{ strcpy(szFileName, "stg_status_master_red_ready.tga");		pItem->m_nTeam = 1;}
-					else if(nTeam == MMT_BLUE)		{ strcpy(szFileName, "stg_status_master_blue_ready.tga");		pItem->m_nTeam = 2;}
-					else if(nTeam == MMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_master_observer.tga");			pItem->m_nTeam = 3;}
+					if(nTeam == CCMT_RED)			{ strcpy(szFileName, "stg_status_master_red_ready.tga");		pItem->m_nTeam = 1;}
+					else if(nTeam == CCMT_BLUE)		{ strcpy(szFileName, "stg_status_master_blue_ready.tga");		pItem->m_nTeam = 2;}
+					else if(nTeam == CCMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_master_observer.tga");			pItem->m_nTeam = 3;}
 					else 							{ strcpy(szFileName, "stg_status_master_normal_ready.tga");		pItem->m_nTeam = 0;}
 					break;
 				case MOSS_EQUIPMENT	: 
-					if(nTeam == MMT_RED)			{ strcpy(szFileName, "stg_status_master_red_equip.tga");		pItem->m_nTeam = 1;}
-					else if(nTeam == MMT_BLUE)		{ strcpy(szFileName, "stg_status_master_blue_equip.tga");		pItem->m_nTeam = 2;}
-					else if(nTeam == MMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_master_observer.tga");			pItem->m_nTeam = 3;}
+					if(nTeam == CCMT_RED)			{ strcpy(szFileName, "stg_status_master_red_equip.tga");		pItem->m_nTeam = 1;}
+					else if(nTeam == CCMT_BLUE)		{ strcpy(szFileName, "stg_status_master_blue_equip.tga");		pItem->m_nTeam = 2;}
+					else if(nTeam == CCMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_master_observer.tga");			pItem->m_nTeam = 3;}
 					else 							{ strcpy(szFileName, "stg_status_master_normal_equip.tga");		pItem->m_nTeam = 0;}
 					break;
 				default :
@@ -823,21 +823,21 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, boo
 		else {
 			switch (state) {
 				case MOSS_NONREADY	:
-					if(nTeam == MMT_RED)			{ strcpy(szFileName, "stg_status_member_red.tga");				pItem->m_nTeam = 1;}
-					else if(nTeam == MMT_BLUE)		{ strcpy(szFileName, "stg_status_member_blue.tga");				pItem->m_nTeam = 2;}
-					else if(nTeam == MMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_member_observer.tga");			pItem->m_nTeam = 3;}
+					if(nTeam == CCMT_RED)			{ strcpy(szFileName, "stg_status_member_red.tga");				pItem->m_nTeam = 1;}
+					else if(nTeam == CCMT_BLUE)		{ strcpy(szFileName, "stg_status_member_blue.tga");				pItem->m_nTeam = 2;}
+					else if(nTeam == CCMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_member_observer.tga");			pItem->m_nTeam = 3;}
 					else 							{ strcpy(szFileName, "stg_status_member_normal.tga");			pItem->m_nTeam = 0;}
 					break;
 				case MOSS_READY		: 
-					if(nTeam == MMT_RED)			{ strcpy(szFileName, "stg_status_member_red_ready.tga");		pItem->m_nTeam = 1;}
-					else if(nTeam == MMT_BLUE)		{ strcpy(szFileName, "stg_status_member_blue_ready.tga");		pItem->m_nTeam = 2;}
-					else if(nTeam == MMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_member_observer.tga");			pItem->m_nTeam = 3;}
+					if(nTeam == CCMT_RED)			{ strcpy(szFileName, "stg_status_member_red_ready.tga");		pItem->m_nTeam = 1;}
+					else if(nTeam == CCMT_BLUE)		{ strcpy(szFileName, "stg_status_member_blue_ready.tga");		pItem->m_nTeam = 2;}
+					else if(nTeam == CCMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_member_observer.tga");			pItem->m_nTeam = 3;}
 					else 							{ strcpy(szFileName, "stg_status_member_normal_ready.tga");		pItem->m_nTeam = 0;}
 					break;
 				case MOSS_EQUIPMENT	: 
-					if(nTeam == MMT_RED)			{ strcpy(szFileName, "stg_status_member_red_equip.tga");		pItem->m_nTeam = 1;}
-					else if(nTeam == MMT_BLUE)		{ strcpy(szFileName, "stg_status_member_blue_equip.tga");		pItem->m_nTeam = 2;}
-					else if(nTeam == MMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_member_observer.tga");			pItem->m_nTeam = 3;}
+					if(nTeam == CCMT_RED)			{ strcpy(szFileName, "stg_status_member_red_equip.tga");		pItem->m_nTeam = 1;}
+					else if(nTeam == CCMT_BLUE)		{ strcpy(szFileName, "stg_status_member_blue_equip.tga");		pItem->m_nTeam = 2;}
+					else if(nTeam == CCMT_SPECTATOR)	{ strcpy(szFileName, "stg_status_member_observer.tga");			pItem->m_nTeam = 3;}
 					else 							{ strcpy(szFileName, "stg_status_member_normal_equip.tga");		pItem->m_nTeam = 0;}
 					break;
 			}
@@ -869,12 +869,12 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, boo
 		pCharView->m_Info.nStageState = state;
 	}
 
-	if( (nTeam != MMT_SPECTATOR) && (ZGetMyUID() == puid ))
+	if( (nTeam != CCMT_SPECTATOR) && (ZGetMyUID() == puid ))
 	{
 		bool bBlue, bRed;
 		bBlue = bRed = false;
-		if( nTeam == MMT_BLUE)	bBlue = true;
-		if( nTeam == MMT_RED)	bRed = true;
+		if( nTeam == CCMT_BLUE)	bBlue = true;
+		if( nTeam == CCMT_RED)	bRed = true;
 				
 		CCButton* pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 		pButton->SetCheck( bBlue );
@@ -902,21 +902,21 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, cha
 		if(isMaster) {
 			switch (state) {
 				case MOSS_NONREADY	:
-					if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_master_red.tga");
-					else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_master_blue.tga");
-					else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
+					if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_master_red.tga");
+					else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_master_blue.tga");
+					else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
 					else 							strcpy(szFileName, "stg_status_master_normal.tga");
 					break;
 				case MOSS_READY		:
-					if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_master_red_ready.tga");
-					else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_master_blue_ready.tga");
-					else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
+					if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_master_red_ready.tga");
+					else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_master_blue_ready.tga");
+					else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
 					else 							strcpy(szFileName, "stg_status_master_normal_ready.tga");
 					break;
 				case MOSS_EQUIPMENT	: 
-					if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_master_red_equip.tga");
-					else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_master_blue_equip.tga");
-					else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
+					if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_master_red_equip.tga");
+					else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_master_blue_equip.tga");
+					else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_master_observer.tga");
 					else 							strcpy(szFileName, "stg_status_master_normal_equip.tga");
 					break;
 				default :
@@ -927,21 +927,21 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, cha
 		else {
 			switch (state) {
 				case MOSS_NONREADY	:
-					if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_member_red.tga");
-					else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_member_blue.tga");
-					else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");
+					if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_member_red.tga");
+					else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_member_blue.tga");
+					else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");
 					else 							strcpy(szFileName, "stg_status_member_normal.tga");
 					break;
 				case MOSS_READY		: 
-					if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_member_red_ready.tga");
-					else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_member_blue_ready.tga");
-					else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");
+					if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_member_red_ready.tga");
+					else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_member_blue_ready.tga");
+					else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");
 					else 							strcpy(szFileName, "stg_status_member_normal_ready.tga");
 					break;
 				case MOSS_EQUIPMENT	: 
-					if(nTeam == MMT_RED)			strcpy(szFileName, "stg_status_member_red_equip.tga");
-					else if(nTeam == MMT_BLUE)		strcpy(szFileName, "stg_status_member_blue_equip.tga");
-					else if(nTeam == MMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");
+					if(nTeam == CCMT_RED)			strcpy(szFileName, "stg_status_member_red_equip.tga");
+					else if(nTeam == CCMT_BLUE)		strcpy(szFileName, "stg_status_member_blue_equip.tga");
+					else if(nTeam == CCMT_SPECTATOR)	strcpy(szFileName, "stg_status_member_observer.tga");
 					else 							strcpy(szFileName, "stg_status_member_normal_equip.tga");
 					break;
 			}
@@ -997,8 +997,8 @@ void ZPlayerListBox::UpdatePlayer(CCUID& puid,CCMatchObjectStageState state, cha
 	{
 		bool bBlue, bRed;
 		bBlue = bRed = false;
-		if( nTeam == MMT_BLUE)	bBlue = true;
-		if( nTeam == MMT_RED)	bRed = true;
+		if( nTeam == CCMT_BLUE)	bBlue = true;
+		if( nTeam == CCMT_RED)	bRed = true;
 
 		CCButton* pButton = (CCButton*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 		pButton->SetCheck( bBlue );
@@ -1251,10 +1251,10 @@ ZStagePlayerListBox::ZStagePlayerListBox(const char* szName, CCWidget* pParent, 
 //	m_pScrollBar = new CCScrollBar( this, this );
 //	ZApplication::GetGameInterface()->GetIDLResource()->InsertWidget("PlayerListScrollBar", m_pScrollBar );
 
-//	AddPlayer(CCUID(0,0), MOSS_READY		, "aaaaa", 10 ,true ,MMT_RED );
-//	AddPlayer(CCUID(0,1), MOSS_SHOP		, "bbbbb", 11 ,false,MMT_BLUE);
-//	AddPlayer(CCUID(0,2), MOSS_EQUIPMENT	, "ccccc", 12 ,false,MMT_RED );
-//	AddPlayer(CCUID(0,3), MOSS_NONREADY	, "ddddd", 13 ,false,MMT_BLUE);
+//	AddPlayer(CCUID(0,0), MOSS_READY		, "aaaaa", 10 ,true ,CCMT_RED );
+//	AddPlayer(CCUID(0,1), MOSS_SHOP		, "bbbbb", 11 ,false,CCMT_BLUE);
+//	AddPlayer(CCUID(0,2), MOSS_EQUIPMENT	, "ccccc", 12 ,false,CCMT_RED );
+//	AddPlayer(CCUID(0,3), MOSS_NONREADY	, "ddddd", 13 ,false,CCMT_BLUE);
 
 	m_bAlwaysVisibleScrollbar = false;
 	m_bHideScrollBar = true;
@@ -1345,13 +1345,13 @@ void ZStagePlayerListBox::UpdatePlayer(CCUID& puid,eStagePlayerState state, char
 		CCBitmap* pBitmapState = NULL;
 
 		if(isMaster) {
-				 if(nTeam == MMT_RED)	strcpy(szFileName, "stg_status_master_red.tga");	
-			else if(nTeam == MMT_BLUE)	strcpy(szFileName, "stg_status_master_blue.tga");	
+				 if(nTeam == CCMT_RED)	strcpy(szFileName, "stg_status_master_red.tga");	
+			else if(nTeam == CCMT_BLUE)	strcpy(szFileName, "stg_status_master_blue.tga");	
 			else 						strcpy(szFileName, "stg_status_master_normal.tga");	
 		}
 		else {
-			if(nTeam == MMT_RED)		strcpy(szFileName, "stg_status_member_red.tga");	
-			else if(nTeam == MMT_BLUE)	strcpy(szFileName, "stg_status_member_blue.tga");	
+			if(nTeam == CCMT_RED)		strcpy(szFileName, "stg_status_member_red.tga");	
+			else if(nTeam == CCMT_BLUE)	strcpy(szFileName, "stg_status_member_blue.tga");	
 			else						strcpy(szFileName, " ");	
 		}
 
@@ -1379,7 +1379,7 @@ void ZStagePlayerListBox::AddPlayer(CCMatchObjCache* pCache)
 {
 	if(!pCache) return;
 
-	AddPlayer(pCache->GetUID(), MOSS_NONREADY,pCache->GetName(), pCache->GetLevel(),false,MMT_ALL);
+	AddPlayer(pCache->GetUID(), MOSS_NONREADY,pCache->GetName(), pCache->GetLevel(),false,CCMT_ALL);
 }
 
 void ZStagePlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, char* szName, int  nLevel ,bool isMaster,CCMatchTeam nTeam)
@@ -1394,13 +1394,13 @@ void ZStagePlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, 
 	CCBitmap* pBitmapState = NULL;
 
 	if(isMaster) {
-			 if(nTeam == MMT_RED)	strcpy(szFileName, "stg_status_master_red.tga");	
-		else if(nTeam == MMT_BLUE)	strcpy(szFileName, "stg_status_master_blue.tga");	
+			 if(nTeam == CCMT_RED)	strcpy(szFileName, "stg_status_master_red.tga");	
+		else if(nTeam == CCMT_BLUE)	strcpy(szFileName, "stg_status_master_blue.tga");	
 		else 						strcpy(szFileName, "stg_status_master_normal.tga");	
 	}
 	else {
-		if(nTeam == MMT_RED)		strcpy(szFileName, "stg_status_member_red.tga");	
-		else if(nTeam == MMT_BLUE)	strcpy(szFileName, "stg_status_member_blue.tga");	
+		if(nTeam == CCMT_RED)		strcpy(szFileName, "stg_status_member_red.tga");	
+		else if(nTeam == CCMT_BLUE)	strcpy(szFileName, "stg_status_member_blue.tga");	
 		else						strcpy(szFileName, " ");	
 	}
 

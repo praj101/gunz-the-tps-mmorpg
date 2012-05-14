@@ -111,7 +111,7 @@ bool ZShop::CheckTypeWithListFilter(int type, bool bEnchantItem)
 void ZShop::Serialize()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MMultiColListBox* pListBox = (MMultiColListBox*)pResource->FindWidget("AllEquipmentList");
+	CCMultiColListBox* pListBox = (CCMultiColListBox*)pResource->FindWidget("AllEquipmentList");
 
 	if (!pListBox) { _ASSERT(0); return; }
 	pListBox->RemoveAll();
