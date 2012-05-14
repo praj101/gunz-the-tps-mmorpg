@@ -150,7 +150,7 @@ __forceinline ZApplication* ZApplication::GetInstance()
 	return m_pInstance;
 }
 
-__forceinline static ZGameInterface* ZApplication::GetGameInterface()
+__forceinline ZGameInterface* ZApplication::GetGameInterface()
 {
 	ZApplication* pApp = GetInstance();
 	if(pApp==NULL) return NULL;
