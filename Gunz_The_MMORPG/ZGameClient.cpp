@@ -428,7 +428,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 				CCMatchObjCache* pCache = (CCMatchObjCache*)CCGetBlobArrayElement(pBlob, i);
 				if (pCache->CheckFlag(CCTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
 					pList->AddPlayer(pCache->GetUID(),MOSS_NONREADY,pCache->GetLevel(),
-									pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,MMT_ALL, pCache->GetDTGrade());
+									pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,CCMT_ALL, pCache->GetDTGrade());
 					
 					// Emblem // 클랜 URL이 없으면 Vector에 쌓는다
 					if (m_EmblemMgr.CheckEmblem(pCache->GetCLID(), pCache->GetEmblemChecksum())) {
@@ -446,7 +446,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 				CCMatchObjCache* pCache = (CCMatchObjCache*)CCGetBlobArrayElement(pBlob, i);
 				if (pCache->CheckFlag(CCTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
 					pList->AddPlayer(pCache->GetUID(),MOSS_NONREADY,pCache->GetLevel(),
-									 pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,MMT_ALL, pCache->GetDTGrade());
+									 pCache->GetName(),pCache->GetClanName(),pCache->GetCLID(),false,CCMT_ALL, pCache->GetDTGrade());
 					
 					// Emblem // 클랜 URL이 없으면 Vector에 쌓는다
 					if (m_EmblemMgr.CheckEmblem(pCache->GetCLID(), pCache->GetEmblemChecksum())) {
@@ -886,7 +886,7 @@ void ZGameClient::OnStageTeam(const CCUID& uidChar, const CCUID& uidStage, unsig
 
 void ZGameClient::OnStagePlayerState(const CCUID& uidChar, const CCUID& uidStage, CCMatchObjectStageState nStageState)
 {
-	int nTeam = MMT_SPECTATOR;
+	int nTeam = CCMT_SPECTATOR;
 	MSTAGE_CHAR_SETTING_NODE* pCharNode = m_MatchStageSetting.FindCharSetting(uidChar);
 	if (pCharNode != NULL)
 	{
@@ -905,7 +905,7 @@ void ZGameClient::OnStagePlayerState(const CCUID& uidChar, const CCUID& uidStage
 
 void ZGameClient::OnStageMaster(const CCUID& uidStage, const CCUID& uidChar)
 {
-	int nTeam = MMT_SPECTATOR;
+	int nTeam = CCMT_SPECTATOR;
 	CCMatchObjectStageState nStageState = MOSS_NONREADY;
 	MSTAGE_CHAR_SETTING_NODE* pCharNode = m_MatchStageSetting.FindCharSetting(uidChar);
 	if (pCharNode) 
@@ -1809,10 +1809,10 @@ void ZGameClient::OnResponseGameInfo(const CCUID& uidStage, void* pGameInfoBlob,
 	int nGameInfoCount = CCGetBlobArrayCount(pGameInfoBlob);
 	if (nGameInfoCount > 0) {
 		CCTD_GameInfo* pGameInfo = (CCTD_GameInfo*)CCGetBlobArrayElement(pGameInfoBlob, 0);
-		ZGetGame()->GetMatch()->SetTeamScore(MMT_RED, pGameInfo->nRedTeamScore);
-		ZGetGame()->GetMatch()->SetTeamScore(MMT_BLUE, pGameInfo->nBlueTeamScore);
-		ZGetGame()->GetMatch()->SetTeamKills(MMT_RED, pGameInfo->nRedTeamKills);
-		ZGetGame()->GetMatch()->SetTeamKills(MMT_BLUE, pGameInfo->nBlueTeamKills);
+		ZGetGame()->GetMatch()->SetTeamScore(CCMT_RED, pGameInfo->nRedTeamScore);
+		ZGetGame()->GetMatch()->SetTeamScore(CCMT_BLUE, pGameInfo->nBlueTeamScore);
+		ZGetGame()->GetMatch()->SetTeamKills(CCMT_RED, pGameInfo->nRedTeamKills);
+		ZGetGame()->GetMatch()->SetTeamKills(CCMT_BLUE, pGameInfo->nBlueTeamKills);
 	}
 
 	// Player Info

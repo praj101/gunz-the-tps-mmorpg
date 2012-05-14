@@ -427,7 +427,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 				}
 				break;
 			case 'T' :
-				if(ZGetGame()->m_pMyCharacter->GetTeamID()==MMT_SPECTATOR &&
+				if(ZGetGame()->m_pMyCharacter->GetTeamID()==CCMT_SPECTATOR &&
 					ZGetGame()->GetMatch()->IsTeamPlay() && 
 					pCombatInterface->GetObserver()->IsVisible()) {
 						ZObserver *pObserver = pCombatInterface->GetObserver();

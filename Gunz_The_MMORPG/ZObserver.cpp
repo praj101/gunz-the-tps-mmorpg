@@ -109,7 +109,7 @@ void ZObserver::Show(bool bVisible)
 	if (bVisible)
 	{
 		if(ZGetGame()->GetMatch()->IsTeamPlay()) {
-			if(ZGetGame()->m_pMyCharacter->GetTeamID()==MMT_BLUE) 
+			if(ZGetGame()->m_pMyCharacter->GetTeamID()==CCMT_BLUE) 
 				m_nType = ZOM_BLUE;
 			else
 				m_nType = ZOM_RED;
@@ -261,10 +261,10 @@ bool ZObserver::IsVisibleSetTarget(ZCharacter* pCharacter)
 
 	if(m_nType==ZOM_ANYONE) return true;
 
-	if(m_nType==ZOM_RED && pCharacter->GetTeamID()==MMT_RED)
+	if(m_nType==ZOM_RED && pCharacter->GetTeamID()==CCMT_RED)
 		return true;
 
-	if(m_nType==ZOM_BLUE && pCharacter->GetTeamID()==MMT_BLUE)
+	if(m_nType==ZOM_BLUE && pCharacter->GetTeamID()==CCMT_BLUE)
 		return true;
 
 
@@ -519,9 +519,9 @@ void ZObserver::OnDraw(CCDrawContext* pDC)
 
 		// 테두리
 		sColor backgroundcolor;
-		if ( m_pTargetCharacter->GetTeamID() == MMT_RED)
+		if ( m_pTargetCharacter->GetTeamID() == CCMT_RED)
 			backgroundcolor = sColor(100,0,0, 150);
-		else if ( m_pTargetCharacter->GetTeamID() == MMT_BLUE)
+		else if ( m_pTargetCharacter->GetTeamID() == CCMT_BLUE)
 			backgroundcolor = sColor(0,0,100, 150);
 		else 
 			backgroundcolor = sColor(0,0,0, 150);
@@ -603,16 +603,16 @@ void ZObserver::OnDraw(CCDrawContext* pDC)
 		{
 			pCharacter = (*itor).second;
 	
-			if ( pCharacter->GetTeamID() == MMT_SPECTATOR)		// 옵저버는 뺸다
+			if ( pCharacter->GetTeamID() == CCMT_SPECTATOR)		// 옵저버는 뺸다
 				continue;
 
 			if(pCharacter->IsAdminHide()) continue;
 		
 			if ( (pCharacter->GetTeamID()==4) && ( !pCharacter->IsDie()))
 				nNumOfTotal++;
-			else if ( (pCharacter->GetTeamID()==MMT_RED) && ( !pCharacter->IsDie()))
+			else if ( (pCharacter->GetTeamID()==CCMT_RED) && ( !pCharacter->IsDie()))
 				nNumOfRedTeam++;
-			else if ( (pCharacter->GetTeamID()==MMT_BLUE) && ( !pCharacter->IsDie()))
+			else if ( (pCharacter->GetTeamID()==CCMT_BLUE) && ( !pCharacter->IsDie()))
 				nNumOfBlueTeam++;
 		}
 

@@ -206,7 +206,7 @@ void ZMiniMap::OnDraw(CCDrawContext* pDC)
 
 		DWORD color = 0xfffff696;
 		if(ZGetGame()->GetMatch()->IsTeamPlay())
-			if(pCharacter->GetTeamID()==MMT_RED)
+			if(pCharacter->GetTeamID()==CCMT_RED)
 				color = 0xffff8080;
 			else color = 0xff8080ff;
 
@@ -286,7 +286,7 @@ void ZMiniMap::OnDraw(CCDrawContext* pDC)
 		else {
 			pFont = CCFontManager::Get("FONTa12_O1Blr");
 			if(ZGetGame()->GetMatch()->IsTeamPlay())
-				if(pCharacter->GetTeamID()==MMT_RED)
+				if(pCharacter->GetTeamID()==CCMT_RED)
 					pFont = CCFontManager::Get("FONTa12_O1Red");
 			pDC->SetColor(_color);
 		}

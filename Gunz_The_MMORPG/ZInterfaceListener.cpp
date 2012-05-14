@@ -642,7 +642,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamRedListener, CCBTN_CLK_MSG)
 	if(pButton && !pButton->GetCheck() ) pButton->SetCheck(true);
 	pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamBlue");
 	if(pButton) pButton->SetCheck( false );
-	ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_RED);
+	ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), CCMT_RED);
 END_IMPLEMENT_LISTENER()
 
 
@@ -651,7 +651,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageTeamBlueListener, CCBTN_CLK_MSG)
 	if(pButton && !pButton->GetCheck() ) pButton->SetCheck(true);
 	pButton = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("StageTeamRed");
 	if(pButton) pButton->SetCheck( false );
-	ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_BLUE);
+	ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), CCMT_BLUE);
 END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER(ZGetStageReadyListener, CCBTN_CLK_MSG)
@@ -678,7 +678,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageObserverBtnListener, CCBTN_CLK_MSG)
 	if ( pObserverBtn)
 	{
 		if ( pObserverBtn->GetCheck())
-			ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_SPECTATOR);
+			ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), CCMT_SPECTATOR);
 		else
 		{
 			CCButton* pBlueBtn = (CCButton*)pResource->FindWidget("StageTeamBlue");
@@ -686,13 +686,13 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageObserverBtnListener, CCBTN_CLK_MSG)
 			if ( ZGetGameInterface()->m_bTeamPlay) // 팀전 이면..
 			{
 				if ( pBlueBtn->GetCheck())
-					ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_BLUE);
+					ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), CCMT_BLUE);
 				else
-					ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_RED);
+					ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), CCMT_RED);
 			}
 			else	// 개인전이면...
 			{
-				ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), MMT_ALL);
+				ZPostStageTeam(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetStageUID(), CCMT_ALL);
 			}
 		}
 	}

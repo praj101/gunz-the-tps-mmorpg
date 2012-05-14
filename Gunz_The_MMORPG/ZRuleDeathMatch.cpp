@@ -56,7 +56,7 @@ bool ZRuleTeamDeathMatch2::OnCommand(CCCommand* pCommand)
 			ZCharacter* pAttacker = ZGetGame()->m_CharacterManager.Find(uidAttacker);
 			ZCharacter* pVictim = ZGetGame()->m_CharacterManager.Find(uidVictim);
 			
-			m_pMatch->AddTeamKills(pVictim->GetTeamID() == MMT_BLUE ? MMT_RED : MMT_BLUE);
+			m_pMatch->AddTeamKills(pVictim->GetTeamID() == CCMT_BLUE ? CCMT_RED : CCMT_BLUE);
 		}
 		break;
 	}

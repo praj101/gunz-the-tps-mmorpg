@@ -1642,8 +1642,8 @@ void ZScreenEffectManager::DrawTDMEffects()
 	m_pTDScoreBoard->Update();
 	m_pTDScoreBoard->Draw(nNowTime);
 
-	int nBlueKills = ZGetGame()->GetMatch()->GetTeamKills(MMT_BLUE);
-	int nRedKills = ZGetGame()->GetMatch()->GetTeamKills(MMT_RED);
+	int nBlueKills = ZGetGame()->GetMatch()->GetTeamKills(CCMT_BLUE);
+	int nRedKills = ZGetGame()->GetMatch()->GetTeamKills(CCMT_RED);
 	int diff = abs(nRedKills - nBlueKills);
 
 

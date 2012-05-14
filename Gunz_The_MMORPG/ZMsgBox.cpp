@@ -85,7 +85,7 @@ void ZMsgBox::Show(bool bVisible, bool bModal)
 	}
 	m_bNextVisible = bVisible;
 
-	MMsgBox::Show(bVisible,bModal);
+	CCMsgBox::Show(bVisible,bModal);
 	m_bVisible = true;
 
 	Enable(bVisible);
@@ -107,11 +107,11 @@ void ZMsgBox::OnDraw(CCDrawContext* pDC)
 		SetOpacity(unsigned char(fOpacity*0xFF));
 	}
 
-	MMsgBox::OnDraw(pDC);
+	CCMsgBox::OnDraw(pDC);
 }
 
-ZMsgBox::ZMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener, MMsgBoxType nType)
-: MMsgBox(szMessage,pParent,pListener,nType)
+ZMsgBox::ZMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener, CCMsgBoxType nType)
+: CCMsgBox(szMessage,pParent,pListener,nType)
 {
 	m_bCanShade = false;
 	m_bNextVisible = false;

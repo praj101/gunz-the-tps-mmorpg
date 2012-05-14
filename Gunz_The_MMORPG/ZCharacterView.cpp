@@ -127,11 +127,11 @@ void ZCharacterView::OnDraw(CCDrawContext* pDC)
 		if (ZGetGameClient()->GetMatchStageSetting()->IsTeamPlay())
 		{
 			sRect tr(66, 12, 16, 16);
-			if(m_Info.nTeam== MMT_RED){		// Rea Team
+			if(m_Info.nTeam== CCMT_RED){		// Rea Team
 				pDC->SetColor(255, 0, 0);
 				pDC->FillRectangle(tr);
 			}
-			else if(m_Info.nTeam==MMT_BLUE){	// Blue Team
+			else if(m_Info.nTeam==CCMT_BLUE){	// Blue Team
 				pDC->SetColor(0, 0, 255);
 				pDC->FillRectangle(tr);
 			}

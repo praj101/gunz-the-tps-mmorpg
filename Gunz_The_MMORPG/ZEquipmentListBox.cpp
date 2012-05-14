@@ -116,7 +116,7 @@
 //		}*/
 //	}
 //
-//	return MMultiColListBox::OnEvent(pEvent, pListener);
+//	return CCMultiColListBox::OnEvent(pEvent, pListener);
 //}
 //
 //void ZEquipmentListBox_OLD::SetupItemDescTooltip()
@@ -177,7 +177,7 @@
 //}
 //
 //ZEquipmentListBox_OLD::ZEquipmentListBox_OLD(const char* szName, CCWidget* pParent, CCListener* pListener)
-//: MMultiColListBox(szName, pParent, pListener)
+//: CCMultiColListBox(szName, pParent, pListener)
 //{
 //	SetDesiredNumRow(4);
 //

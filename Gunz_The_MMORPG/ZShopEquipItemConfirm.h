@@ -59,7 +59,7 @@ struct ISimpleConfirmDlgDoneHandler
 // 구입,판매시 간단하게 유저 확인을 받는 메시지박스
 class ZSimpleConfirmDlg : public CCListener
 {
-	MMsgBox* m_pMsgbox;
+	CCMsgBox* m_pMsgbox;
 	ISimpleConfirmDlgDoneHandler* m_pDoneHandler;
 
 public:

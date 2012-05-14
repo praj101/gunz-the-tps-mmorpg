@@ -606,8 +606,8 @@ void ZCombatInterface::DrawNPCName(CCDrawContext* pDC)
 
 void ZCombatInterface::DrawTDMScore(CCDrawContext* pDC)
 {
-	int nBlueKills = ZGetGame()->GetMatch()->GetTeamKills(MMT_BLUE);
-	int nRedKills = ZGetGame()->GetMatch()->GetTeamKills(MMT_RED);
+	int nBlueKills = ZGetGame()->GetMatch()->GetTeamKills(CCMT_BLUE);
+	int nRedKills = ZGetGame()->GetMatch()->GetTeamKills(CCMT_RED);
 	int nTargetKills = ZGetGameClient()->GetMatchStageSetting()->GetRoundMax();
 
 
@@ -1798,9 +1798,9 @@ void ZCombatInterface::DrawAllPlayerName(CCDrawContext* pDC)
 				pDC->SetColor(sColor(ZCOLOR_ADMIN_NAME));
 			}
 			else {
-				if (pCharacter->GetTeamID() == MMT_RED)
+				if (pCharacter->GetTeamID() == CCMT_RED)
 					pFont = CCFontManager::Get("FONTa12_O1Red");
-				else if (pCharacter->GetTeamID() == MMT_BLUE)
+				else if (pCharacter->GetTeamID() == CCMT_BLUE)
 					pFont = CCFontManager::Get("FONTa12_O1Blr");
 				else
 					pFont = CCFontManager::Get("FONTa12_O1Blr");
@@ -1969,8 +1969,8 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 		{
 			ZCharacter* pCharacter = (*itor).second;
 
-			if(pCharacter->GetTeamID() == MMT_BLUE) nBlue ++;
-			if(pCharacter->GetTeamID() == MMT_RED) nRed ++;
+			if(pCharacter->GetTeamID() == CCMT_BLUE) nBlue ++;
+			if(pCharacter->GetTeamID() == CCMT_RED) nRed ++;
 		}
 
 		char nvsn[32];
@@ -1996,19 +1996,19 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 		if ( bClanGame)
 		{
 			sprintf(szText, "%d (%s)  VS  %d (%s)", 
-				ZGetGame()->GetMatch()->GetTeamScore(MMT_RED), m_szRedClanName,
-				ZGetGame()->GetMatch()->GetTeamScore(MMT_BLUE), m_szBlueClanName);
+				ZGetGame()->GetMatch()->GetTeamScore(CCMT_RED), m_szRedClanName,
+				ZGetGame()->GetMatch()->GetTeamScore(CCMT_BLUE), m_szBlueClanName);
 		}
 		else
 		{
 			if (ZGetGame()->GetMatch()->GetMatchType() == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2) // 팀전일때 무한데스매치만 예외가 많이 발생합니다 =_=;
 				sprintf(szText, "%s : %d(Red) vs %d(Blue)",  ZGetGameTypeManager()->GetGameTypeStr(ZGetGame()->GetMatch()->GetMatchType()),
-															ZGetGame()->GetMatch()->GetTeamKills(MMT_RED), 
-															ZGetGame()->GetMatch()->GetTeamKills(MMT_BLUE));
+															ZGetGame()->GetMatch()->GetTeamKills(CCMT_RED), 
+															ZGetGame()->GetMatch()->GetTeamKills(CCMT_BLUE));
 			else
 				sprintf(szText, "%s : %d(Red) vs %d(Blue)",  ZGetGameTypeManager()->GetGameTypeStr(ZGetGame()->GetMatch()->GetMatchType()),
-															ZGetGame()->GetMatch()->GetTeamScore(MMT_RED), 
-															ZGetGame()->GetMatch()->GetTeamScore(MMT_BLUE));
+															ZGetGame()->GetMatch()->GetTeamScore(CCMT_RED), 
+															ZGetGame()->GetMatch()->GetTeamScore(CCMT_BLUE));
 		}
 	}
 	else
@@ -2243,7 +2243,7 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 	{
 		for(int i=0;i<2;i++)
 		{
-			CCMatchTeam nTeam = (i==0) ? MMT_RED : MMT_BLUE;
+			CCMatchTeam nTeam = (i==0) ? CCMT_RED : CCMT_BLUE;
 			char *szClanName = (i==0) ? m_szRedClanName : m_szBlueClanName;
 			int nClanID = (i==0) ? m_nClanIDRed : m_nClanIDBlue;
 
@@ -2254,7 +2254,7 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 
 			float clancenter = .5f*(ITEM_XPOS[0]-ITEM_XPOS[1]) + ITEM_XPOS[1];
 			float clanx = clancenter - .5f*((float)pClanFont->GetWidth(szClanName)/(float)CCGetWorkspaceWidth());
-			float clany = y + linespace * ((nTeam==MMT_RED) ? .5f : 8.5f) ;
+			float clany = y + linespace * ((nTeam==CCMT_RED) ? .5f : 8.5f) ;
 
 			// 아이콘 출력
 			CCBitmap *pbmp = ZGetEmblemInterface()->GetClanEmblem(nClanID);
@@ -2295,7 +2295,7 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 	{
 		ZCharacter* pCharacter = (*itor).second;
 
-		if(pCharacter->GetTeamID() == MMT_SPECTATOR) continue;	// 옵저버는 뺸다
+		if(pCharacter->GetTeamID() == CCMT_SPECTATOR) continue;	// 옵저버는 뺸다
 
 		if(pCharacter->IsAdminHide()) continue;
 
@@ -2315,7 +2315,7 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 
 		
 		pItem->nClanID = pCharacter->GetClanID();
-		pItem->nTeam = ZGetGame()->GetMatch()->IsTeamPlay() ? pCharacter->GetTeamID() : MMT_END;
+		pItem->nTeam = ZGetGame()->GetMatch()->IsTeamPlay() ? pCharacter->GetTeamID() : CCMT_END;
 		pItem->bDeath = pCharacter->IsDie();
 		if ( ZGetGameTypeManager()->IsQuestDerived( ZGetGame()->GetMatch()->GetMatchType()))
 			pItem->nExp = pCharacter->GetStatus().Ref().nKills * 100;
@@ -2336,7 +2336,7 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 		pItem->nPing = nPing;
 		pItem->bMyChar = pCharacter->IsHero();
 		
-		if(ZGetGame()->m_pMyCharacter->GetTeamID()==MMT_SPECTATOR &&
+		if(ZGetGame()->m_pMyCharacter->GetTeamID()==CCMT_SPECTATOR &&
 			m_Observer.IsVisible() && m_Observer.GetTargetCharacter()==pCharacter)
 			pItem->bMyChar = true;
 
@@ -2381,7 +2381,7 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 
 	int nCurrentTeamIndex;
 	if(ZGetGame()->GetMatch()->IsTeamPlay())
-		nCurrentTeamIndex=MMT_RED;
+		nCurrentTeamIndex=CCMT_RED;
 	else
 	{
 		if (items.size() > 0) 
@@ -2412,8 +2412,8 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 			backgroundcolor = BACKGROUND_COLOR_MYCHAR_DEATH_MATCH;
 			if(!bClanGame) {
 				backgroundcolor = 
-					(pItem->nTeam==MMT_RED) ? BACKGROUND_COLOR_MYCHAR_RED_TEAM :
-				(pItem->nTeam==MMT_BLUE ) ? BACKGROUND_COLOR_MYCHAR_BLUE_TEAM :
+					(pItem->nTeam==CCMT_RED) ? BACKGROUND_COLOR_MYCHAR_RED_TEAM :
+				(pItem->nTeam==CCMT_BLUE ) ? BACKGROUND_COLOR_MYCHAR_BLUE_TEAM :
 				BACKGROUND_COLOR_MYCHAR_DEATH_MATCH;
 			}
 		}
@@ -2461,13 +2461,13 @@ void ZCombatInterface::DrawScoreBoard(CCDrawContext* pDC)
 
 		if(!bClanGame)
 		{
-			if(pItem->nTeam==MMT_RED)		// red
+			if(pItem->nTeam==CCMT_RED)		// red
 				textcolor=pItem->bDeath ? TEXT_COLOR_RED_TEAM_DEAD : TEXT_COLOR_RED_TEAM ;
 			else
-				if(pItem->nTeam==MMT_BLUE)		// blue
+				if(pItem->nTeam==CCMT_BLUE)		// blue
 					textcolor=pItem->bDeath ? TEXT_COLOR_BLUE_TEAM_DEAD : TEXT_COLOR_BLUE_TEAM ;
 				else
-					if(pItem->nTeam==MMT_SPECTATOR)
+					if(pItem->nTeam==CCMT_SPECTATOR)
 						textcolor = TEXT_COLOR_SPECTATOR;
 
 		}
@@ -2761,20 +2761,20 @@ void ZCombatInterface::GetResultInfo( void)
 {
 	// Sort list
 #ifdef _DEBUG
-	m_ResultItems.push_back(new ZResultBoardItem("test01", "RED Clan",  MMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test02", "RED Clan",  MMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test03", "RED Clan",  MMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test04", "RED Clan",  MMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test05", "RED Clan",  MMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test06", "RED Clan",  MMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test07", "RED Clan",  MMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test08", "BLUE Clan", MMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test09", "BLUE Clan", MMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test10", "BLUE Clan", MMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test11", "BLUE Clan", MMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test12", "BLUE Clan", MMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test13", "BLUE Clan", MMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
-	m_ResultItems.push_back(new ZResultBoardItem("test14", "BLUE Clan", MMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test01", "RED Clan",  CCMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test02", "RED Clan",  CCMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test03", "RED Clan",  CCMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test04", "RED Clan",  CCMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test05", "RED Clan",  CCMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test06", "RED Clan",  CCMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test07", "RED Clan",  CCMT_RED,  ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test08", "BLUE Clan", CCMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test09", "BLUE Clan", CCMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test10", "BLUE Clan", CCMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test11", "BLUE Clan", CCMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test12", "BLUE Clan", CCMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test13", "BLUE Clan", CCMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
+	m_ResultItems.push_back(new ZResultBoardItem("test14", "BLUE Clan", CCMT_BLUE, ((rand()%80000)-5000), (rand()%100), (rand()%100)));
 #endif
 	m_ResultItems.sort( CompareZResultBoardItem);
 
@@ -2970,7 +2970,7 @@ void ZCombatInterface::GetResultInfo( void)
 
 		// Get winner team
 		int nWinnerTeam;
-		if ( ZGetGame()->GetMatch()->GetTeamScore( MMT_RED) == ZGetGame()->GetMatch()->GetTeamScore( MMT_BLUE))  // draw 
+		if ( ZGetGame()->GetMatch()->GetTeamScore( CCMT_RED) == ZGetGame()->GetMatch()->GetTeamScore( CCMT_BLUE))  // draw 
 		{
 			CCPicture* pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "ClanResult_Win");
 			if ( pPicture) 	pPicture->SetBitmap( CCBitmapManager::Get( "result_draw.tga"));
@@ -2988,14 +2988,14 @@ void ZCombatInterface::GetResultInfo( void)
 		}
 
 
-		if ( ZGetGame()->GetMatch()->GetTeamScore( MMT_RED) > ZGetGame()->GetMatch()->GetTeamScore( MMT_BLUE))
-			nWinnerTeam = MMT_RED;
+		if ( ZGetGame()->GetMatch()->GetTeamScore( CCMT_RED) > ZGetGame()->GetMatch()->GetTeamScore( CCMT_BLUE))
+			nWinnerTeam = CCMT_RED;
 		else
-			nWinnerTeam = MMT_BLUE;
+			nWinnerTeam = CCMT_BLUE;
 
 		for ( int i = 0;  i < 2;  i++) 
 		{
-			CCMatchTeam nTeam = (i==0) ? MMT_RED : MMT_BLUE;
+			CCMatchTeam nTeam = (i==0) ? CCMT_RED : CCMT_BLUE;
 			char *szClanName = (i==0) ? m_szRedClanName : m_szBlueClanName;
 			int nClanID = (i==0) ? m_nClanIDRed : m_nClanIDBlue;
 
@@ -3064,7 +3064,7 @@ void ZCombatInterface::GetResultInfo( void)
 		{
 			ZResultBoardItem *pItem = *i;
 
-			if ( (pItem->nTeam != MMT_RED) && (pItem->nTeam != MMT_BLUE))
+			if ( (pItem->nTeam != CCMT_RED) && (pItem->nTeam != CCMT_BLUE))
 				continue;
 
 			// Put info
@@ -3122,7 +3122,7 @@ void ZCombatInterface::GetResultInfo( void)
 			{
 				ZResultBoardItem *pItem = *itrList;
 
-				if ( (pItem->nTeam == MMT_RED) || (pItem->nTeam == MMT_BLUE) || (pItem->nTeam == 4))
+				if ( (pItem->nTeam == CCMT_RED) || (pItem->nTeam == CCMT_BLUE) || (pItem->nTeam == 4))
 					AddCombatResultInfo( pItem->szName, pItem->nScore, pItem->nKills, pItem->nDeaths, pItem->bMyChar, pItem->bGameRoomUser);
 
 				nTeam = pItem->nTeam;
@@ -3130,10 +3130,10 @@ void ZCombatInterface::GetResultInfo( void)
 			}
 
 
-            for ( int j = MMT_RED;  j <= MMT_BLUE;  j++)
+            for ( int j = CCMT_RED;  j <= CCMT_BLUE;  j++)
 			{
 				char szName[ 128];
-				sprintf( szName, "CombatResult_%sTeamBG%02d", ((j==MMT_RED) ? "Red" : "Blue"), i);
+				sprintf( szName, "CombatResult_%sTeamBG%02d", ((j==CCMT_RED) ? "Red" : "Blue"), i);
 
 				pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szName);
 				if ( pWidget)
@@ -3183,20 +3183,20 @@ void ZCombatInterface::GetResultInfo( void)
 			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_WinLoseDraw");
 			if ( pPicture)
 			{
-				if ( ZGetGame()->GetMatch()->GetTeamKills( MMT_RED) == ZGetGame()->GetMatch()->GetTeamKills( MMT_BLUE))
+				if ( ZGetGame()->GetMatch()->GetTeamKills( CCMT_RED) == ZGetGame()->GetMatch()->GetTeamKills( CCMT_BLUE))
 					pPicture->SetBitmap( CCBitmapManager::Get( "result_draw.tga"));
 				else
 				{
-					if ( ZGetGame()->GetMatch()->GetTeamKills( MMT_RED) > ZGetGame()->GetMatch()->GetTeamKills( MMT_BLUE))
+					if ( ZGetGame()->GetMatch()->GetTeamKills( CCMT_RED) > ZGetGame()->GetMatch()->GetTeamKills( CCMT_BLUE))
 					{
-						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == MMT_RED)
+						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == CCMT_RED)
 							pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 						else
 							pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
 					}
 					else
 					{
-						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == MMT_BLUE)
+						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == CCMT_BLUE)
 							pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 						else
 							pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
@@ -3215,20 +3215,20 @@ void ZCombatInterface::GetResultInfo( void)
 			pPicture = (CCPicture*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatResult_WinLoseDraw");
 			if ( pPicture)
 			{
-				if ( ZGetGame()->GetMatch()->GetTeamScore( MMT_RED) == ZGetGame()->GetMatch()->GetTeamScore( MMT_BLUE))
+				if ( ZGetGame()->GetMatch()->GetTeamScore( CCMT_RED) == ZGetGame()->GetMatch()->GetTeamScore( CCMT_BLUE))
 					pPicture->SetBitmap( CCBitmapManager::Get( "result_draw.tga"));
 				else
 				{
-					if ( ZGetGame()->GetMatch()->GetTeamScore( MMT_RED) > ZGetGame()->GetMatch()->GetTeamScore( MMT_BLUE))
+					if ( ZGetGame()->GetMatch()->GetTeamScore( CCMT_RED) > ZGetGame()->GetMatch()->GetTeamScore( CCMT_BLUE))
 					{
-						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == MMT_RED)
+						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == CCMT_RED)
 							pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 						else
 							pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
 					}
 					else
 					{
-						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == MMT_BLUE)
+						if ( ZGetGame()->m_pMyCharacter->GetTeamID() == CCMT_BLUE)
 							pPicture->SetBitmap( CCBitmapManager::Get( "result_win.tga"));
 						else
 							pPicture->SetBitmap( CCBitmapManager::Get( "result_lose.tga"));
@@ -3298,11 +3298,11 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 		{
 			char *szEffectNames[] = { "clan_win", "clan_draw", "clan_lose" };
 
-			int nRed = ZGetGame()->GetMatch()->GetTeamScore(MMT_RED);
-			int nBlue = ZGetGame()->GetMatch()->GetTeamScore(MMT_BLUE);
+			int nRed = ZGetGame()->GetMatch()->GetTeamScore(CCMT_RED);
+			int nBlue = ZGetGame()->GetMatch()->GetTeamScore(CCMT_BLUE);
 			int nLeft,nRight;
 
-			if(ZGetGame()->m_pMyCharacter->GetTeamID()==MMT_RED) {
+			if(ZGetGame()->m_pMyCharacter->GetTeamID()==CCMT_RED) {
 				nLeft = (nRed==nBlue) ? 1 : (nRed>nBlue) ? 0 : 2;
 			}else
 				nLeft = (nRed==nBlue) ? 1 : (nRed<nBlue) ? 0 : 2;
@@ -3352,19 +3352,19 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 
 	/*
 	m_ResultItems.clear();
-	g_pGame->m_pMyCharacter->SetTeamID(MMT_RED);
-	m_ResultItems.push_back(new ZResultBoardItem("test1","지옥의발차기",MMT_RED,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test2","지옥의발차기",MMT_RED,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test3","지옥의발차기",MMT_RED,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test4","지옥의발차기",MMT_RED,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test5","지옥의발차기",MMT_RED,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test6","지옥의발차기",MMT_RED,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test7","지옥의발차기",MMT_RED,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test8","지옥의발차기",MMT_RED,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test1","대략낭패",MMT_BLUE,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test2","대략낭패",MMT_BLUE,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test3","대략낭패",MMT_BLUE,0,0,0));
-	m_ResultItems.push_back(new ZResultBoardItem("test4","대략낭패",MMT_BLUE,0,0,0,true));
+	g_pGame->m_pMyCharacter->SetTeamID(CCMT_RED);
+	m_ResultItems.push_back(new ZResultBoardItem("test1","지옥의발차기",CCMT_RED,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test2","지옥의발차기",CCMT_RED,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test3","지옥의발차기",CCMT_RED,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test4","지옥의발차기",CCMT_RED,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test5","지옥의발차기",CCMT_RED,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test6","지옥의발차기",CCMT_RED,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test7","지옥의발차기",CCMT_RED,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test8","지옥의발차기",CCMT_RED,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test1","대략낭패",CCMT_BLUE,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test2","대략낭패",CCMT_BLUE,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test3","대략낭패",CCMT_BLUE,0,0,0));
+	m_ResultItems.push_back(new ZResultBoardItem("test4","대략낭패",CCMT_BLUE,0,0,0,true));
 	*/
 
 	if(bClanGame)
@@ -3497,8 +3497,8 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 			// 배경 색깔을 결정한다
 			sColor backgroundcolor= (nCount%2==0) ? BACKGROUND_COLOR1 : BACKGROUND_COLOR2;
 			if(pItem->bMyChar) backgroundcolor = 
-				(pItem->nTeam==MMT_RED) ? BACKGROUND_COLOR_MYCHAR_RED_TEAM :
-			(pItem->nTeam==MMT_BLUE ) ? BACKGROUND_COLOR_MYCHAR_BLUE_TEAM :
+				(pItem->nTeam==CCMT_RED) ? BACKGROUND_COLOR_MYCHAR_RED_TEAM :
+			(pItem->nTeam==CCMT_BLUE ) ? BACKGROUND_COLOR_MYCHAR_BLUE_TEAM :
 			BACKGROUND_COLOR_MYCHAR_DEATH_MATCH;
 
 			backgroundcolor.a=opacity.a>>1;
@@ -3515,13 +3515,13 @@ void ZCombatInterface::DrawResultBoard(CCDrawContext* pDC)
 			// 글자 색깔을 결정한다.. 
 			sColor textcolor= TEXT_COLOR_DEATH_MATCH ;
 
-			if(pItem->nTeam==MMT_RED)		// red
+			if(pItem->nTeam==CCMT_RED)		// red
 				textcolor=TEXT_COLOR_RED_TEAM;
 			else
-				if(pItem->nTeam==MMT_BLUE)		// blue
+				if(pItem->nTeam==CCMT_BLUE)		// blue
 					textcolor=TEXT_COLOR_BLUE_TEAM;
 				else
-					if(pItem->nTeam==MMT_SPECTATOR)
+					if(pItem->nTeam==CCMT_SPECTATOR)
 						textcolor = TEXT_COLOR_SPECTATOR;
 
 			textcolor.a=opacity.a;
@@ -3632,7 +3632,7 @@ void ZCombatInterface::OnFinish()
 
 	if(ZGetGame()->GetMatch()->IsTeamPlay() && !ZGetGameClient()->IsLadderGame())
 	{
-		int nRed = ZGetGame()->GetMatch()->GetTeamScore(MMT_RED), nBlue = ZGetGame()->GetMatch()->GetTeamScore(MMT_BLUE);
+		int nRed = ZGetGame()->GetMatch()->GetTeamScore(CCMT_RED), nBlue = ZGetGame()->GetMatch()->GetTeamScore(CCMT_BLUE);
 		if(nRed==nBlue)
 			m_pResultPanel_Team = ZGetScreenEffectManager()->CreateScreenEffect("teamdraw");
 		else
@@ -3662,7 +3662,7 @@ void ZCombatInterface::OnFinish()
 
 		strcpy(pItem->szClan,pCharacter->GetProperty()->GetClanName());
 		pItem->nClanID = pCharacter->GetClanID();
-		pItem->nTeam = ZGetGame()->GetMatch()->IsTeamPlay() ? pCharacter->GetTeamID() : MMT_END;
+		pItem->nTeam = ZGetGame()->GetMatch()->IsTeamPlay() ? pCharacter->GetTeamID() : CCMT_END;
 		pItem->nScore = pCharacter->GetStatus().Ref().nExp;
 		pItem->nKills = pCharacter->GetStatus().Ref().nKills;
 		pItem->nDeaths = pCharacter->GetStatus().Ref().nDeaths;
@@ -3819,14 +3819,14 @@ void ZCombatInterface::OnAddCharacter(ZCharacter *pChar)
 {
 	bool bClanGame = ZGetGameClient()->IsLadderGame();
 	if(bClanGame) {
-		if (pChar->GetTeamID() == MMT_RED) {
+		if (pChar->GetTeamID() == CCMT_RED) {
 			if(m_nClanIDRed==0) {
 				m_nClanIDRed = pChar->GetClanID();
 				ZGetEmblemInterface()->AddClanInfo(m_nClanIDRed);
 				strcpy(m_szRedClanName,pChar->GetProperty()->GetClanName());
 			}
 		}
-		else if (pChar->GetTeamID() == MMT_BLUE) {
+		else if (pChar->GetTeamID() == CCMT_BLUE) {
 			if(m_nClanIDBlue==0) {
 				m_nClanIDBlue = pChar->GetClanID();
 				ZGetEmblemInterface()->AddClanInfo(m_nClanIDBlue);

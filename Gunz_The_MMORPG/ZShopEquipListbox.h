@@ -25,7 +25,7 @@ public:
 };
 
 
-class ZShopEquipListbox : public MMultiColListBox
+class ZShopEquipListbox : public CCMultiColListBox
 {
 	int m_idxItemLastTooltip;
 public:

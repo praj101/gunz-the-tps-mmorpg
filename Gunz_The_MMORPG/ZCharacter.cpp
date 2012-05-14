@@ -403,7 +403,7 @@ ZCharacter::ZCharacter() : ZCharacterObject(), m_DirectionLower(1,0,0),m_Directi
 
 	m_SpMotion = ZC_STATE_TAUNT;
 	
-	m_nTeamID.Set_MakeCrc(MMT_ALL);
+	m_nTeamID.Set_MakeCrc(CCMT_ALL);
 
 	m_nBlastType.Set_MakeCrc(0);
 	

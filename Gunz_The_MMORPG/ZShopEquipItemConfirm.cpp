@@ -155,7 +155,7 @@ void ZItemCountDlg::OnDlgDone()
 
 ZSimpleConfirmDlg::ZSimpleConfirmDlg()
 {
-	m_pMsgbox = (MMsgBox*)Core::GetInstance()->NewWidget(CORE_MSGBOX, "", Core::GetInstance()->GetMainFrame(), this);
+	m_pMsgbox = (CCMsgBox*)Core::GetInstance()->NewWidget(CORE_MSGBOX, "", Core::GetInstance()->GetMainFrame(), this);
 	m_pMsgbox->SetType(MT_OKCANCEL);
 
 	m_pDoneHandler = NULL;

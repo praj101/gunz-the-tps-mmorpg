@@ -54,7 +54,7 @@ CCMatchObject::CCMatchObject(const CCUID& uid) : CCObject(uid)
 	m_RefreshClientChannelImpl.SetMatchObject(this);
 	m_RefreshClientClanMemberImpl.SetMatchObject(this);
 
-	m_nTeam=MMT_ALL;
+	m_nTeam=CCMT_ALL;
 	SetLadderGroupID(0);
 	m_nStageState = MOSS_NONREADY;
 	m_bEnterBattle=false;
@@ -144,7 +144,7 @@ void CCMatchObject::SetTeam(CCMatchTeam nTeam)
 	m_nTeam = nTeam; 
 
 	if (IsAdminGrade(this) && CheckPlayerFlags(CCTD_PlayerFlags_AdminHide))
-		m_nTeam = MMT_SPECTATOR;
+		m_nTeam = CCMT_SPECTATOR;
 }
 
 void CCMatchObject::SetStageCursor(int nStageCursor)
