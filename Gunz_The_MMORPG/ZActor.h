@@ -18,6 +18,10 @@
 #include "CCMatchTransDataType.h"
 #include "ZNPCInfoFromServer.h"
 
+// Added
+//#include "ZGlobal.h"
+#include "ZGameInterface.h"
+
 #include <list>
 #include <string>
 using namespace std;

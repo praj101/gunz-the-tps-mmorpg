@@ -5,6 +5,8 @@
 #include "ZOptionInterface.h"
 #include "ZApplication.h"
 #include "ZGlobal.h"
+
+#include "ZGameInterface.h"
 ZInput*			g_pInput;
 
 class ZActionKeyLook : public CCEditLook{
