@@ -2,7 +2,7 @@
 #include "CCMultiColListBox.h"
 #include "ZShopEquipItem.h"
 
-class ZShopEquipListItem : public MMultiColListItem
+class ZShopEquipListItem : public CCMultiColListItem
 {
 	ZShopEquipItem* m_pItemData;
 	char m_szName[256];

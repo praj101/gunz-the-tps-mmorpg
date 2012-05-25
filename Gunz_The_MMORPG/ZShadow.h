@@ -16,6 +16,9 @@
 #include "RMeshUtil.h"
 #include "RBaseTexture.h"
 
+// Added
+#include "ZCharacterObject.h"
+
 class ZCharacter;
 
 _USING_NAMESPACE_REALSPACE2
