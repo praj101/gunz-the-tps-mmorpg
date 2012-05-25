@@ -440,11 +440,11 @@ void CCMatchObject::SetChannelListTransfer(const bool bVal, const CCCHANNEL_TYPE
 	UpdateChannelListChecksum(0); 
 }
 
-bool CCMatchObject::CheckEnableAction(MMO_ACTION nAction)
+bool CCMatchObject::CheckEnableAction(CCMO_ACTION nAction)
 {
 	switch (nAction)
 	{
-	case MMOA_STAGE_FOLLOW:		// 따라가기가 가능한 상태인지 여부
+	case CCMOA_STAGE_FOLLOW:		// 따라가기가 가능한 상태인지 여부
 		{
 			if (GetPlace() != MMP_LOBBY) return false;
 			if (IsLadderChallenging()) return false;
@@ -651,7 +651,7 @@ void CCMatchObject::DisconnectHacker( CCMatchHackingType eType )
 {
 	GetDisconnStatusInfo().SetStatus( CCMDS_DISCONN_WAIT );
 
-	const PUNISH_TABLE_ITEM& punish = MPunishTable::GetPunish(eType);
+	const PUNISH_TABLE_ITEM& punish = CCPunishTable::GetPunish(eType);
 
 	GetDisconnStatusInfo().SetMsgID( punish.dwMessageID ); 
 	GetDisconnStatusInfo().SetHackingType( eType ); 

@@ -3,8 +3,11 @@
 
 #include "RTypes.h"
 
+class ZTask;
+
 // Added
 //#include "ZTask.h"
+#include "ZActor.h"
 
 typedef void (*ZTM_ONFINISHED)(ZActor* pActor, ZTASK_ID nLastID);
 

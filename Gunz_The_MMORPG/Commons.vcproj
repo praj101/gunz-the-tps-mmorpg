@@ -486,6 +486,14 @@
 					UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 					>
 					<File
+						RelativePath=".\CCAsyncDBJob_UpdateCharBRInfo.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCAsyncDBJobRewardCharBR.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCBlobArray.cpp"
 						>
 					</File>
@@ -1201,7 +1209,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAsyncDBJob_RewardCharBR.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncDBJob_SurvivalMode.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_UpdateCharBRInfo.h"
 			>
 		</File>
 		<File
