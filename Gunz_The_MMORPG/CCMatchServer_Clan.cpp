@@ -267,7 +267,7 @@ void CCMatchServer::OnClanRequestCreateClan(const CCUID& uidPlayer, const int nR
 	bool bCheckRejectInvite = false;
 	for (int i = 0; i < CLAN_SPONSORS_COUNT; i++)
 	{
-		if (pSponsorObjects[i]->CheckUserOption(MBITFLAG_USEROPTION_REJECT_INVITE) == true) {
+		if (pSponsorObjects[i]->CheckUserOption(CCBITFLAG_USEROPTION_REJECT_INVITE) == true) {
 			bCheckRejectInvite = true;
 			NotifyMessage(pSponsorObjects[i]->GetUID(), MATCHNOTIFY_USER_INVITE_IGNORED);
 		}
@@ -409,7 +409,7 @@ void CCMatchServer::ResponseCloseClan(const CCUID& uidClanMaster, const char* sz
 	if (!m_MatchDBMgr.ReserveCloseClan(pMasterObject->GetCharInfo()->m_ClanInfo.m_nClanID,
 										pMasterObject->GetCharInfo()->m_ClanInfo.m_szClanName,
 										pMasterObject->GetCharInfo()->m_nCID,
-										MGetStrLocalTime(DAY_OF_DELETE_CLAN, 0, 0, MDT_YMD)))
+										MGetStrLocalTime(DAY_OF_DELETE_CLAN, 0, 0, CCDT_YMD)))
 	{
 		RouteResponseToListener(pMasterObject, MC_MATCH_CLAN_RESPONSE_CLOSE_CLAN, MERR_CLAN_CANNOT_CLOSE);
 		return;
@@ -439,7 +439,7 @@ void CCMatchServer::ResponseJoinClan(const CCUID& uidClanAdmin, const char* szCl
 	}
 
 	// 대상이 초청거부 상태이면 초청못한다
-	if (pJoinerObject->CheckUserOption(MBITFLAG_USEROPTION_REJECT_INVITE) == true) {
+	if (pJoinerObject->CheckUserOption(CCBITFLAG_USEROPTION_REJECT_INVITE) == true) {
 		NotifyMessage(pAdminObject->GetUID(), MATCHNOTIFY_USER_INVITE_REJECTED);
 		return;
 	}
