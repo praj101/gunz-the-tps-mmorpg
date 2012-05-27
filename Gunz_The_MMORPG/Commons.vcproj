@@ -485,78 +485,6 @@
 					Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 					UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 					>
-					<File
-						RelativePath=".\CCAsyncDBJob_UpdateCharBRInfo.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJobRewardCharBR.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBlobArray.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCClient.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCCommandBuilder.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCCustomClient.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchClient.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchEventFactory.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchQuestGameLog.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchSurvivalGameLog.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCQuestLevel.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCQuestLevelGenerator.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCQuestNPCSpawnTrigger.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCSurvivalRankInfo.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCThread.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCTraceMemory.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\HMAC_SHA1.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\SecurityTest.cpp"
-						>
-					</File>
 					<Filter
 						Name="Widgets"
 						>
@@ -1225,11 +1153,35 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAsyncDBJob_BuyQuestItem.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_BuyQuestItem.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncDBJob_DuelTournament.h"
 			>
 		</File>
 		<File
 			RelativePath=".\CCAsyncDBJob_FriendList.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_GetAccountItemList.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_GetAccountItemList.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_GetLoginInfo.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_GetLoginInfo.h"
 			>
 		</File>
 		<File
@@ -1245,7 +1197,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAsyncDBJob_UpdateCharBRInfo.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncDBJob_UpdateCharBRInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_WinTheClanGame.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_WinTheClanGame.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJobRewardCharBR.cpp"
 			>
 		</File>
 		<File
@@ -1293,6 +1261,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCBlobArray.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCBlobArray.h"
 			>
 		</File>
@@ -1309,6 +1281,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCClient.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCClient.h"
 			>
 		</File>
@@ -1318,6 +1294,10 @@
 		</File>
 		<File
 			RelativePath=".\CCCommand.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCommandBuilder.cpp"
 			>
 		</File>
 		<File
@@ -1386,6 +1366,10 @@
 		</File>
 		<File
 			RelativePath=".\CCCrypt.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCCustomClient.cpp"
 			>
 		</File>
 		<File
@@ -1629,6 +1613,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchClient.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchClient.h"
 			>
 		</File>
@@ -1690,6 +1678,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchEvent.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchEventFactory.cpp"
 			>
 		</File>
 		<File
@@ -1825,6 +1817,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchQuestGameLog.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchQuestGameLog.h"
 			>
 		</File>
@@ -1874,6 +1870,14 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchRuleDeathMatch.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleDuel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchRuleDuel.h"
 			>
 		</File>
 		<File
@@ -2061,6 +2065,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchSurvivalGameLog.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchSurvivalGameLog.h"
 			>
 		</File>
@@ -2185,7 +2193,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCQuestLevel.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCQuestLevel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCQuestLevelGenerator.cpp"
 			>
 		</File>
 		<File
@@ -2194,6 +2210,10 @@
 		</File>
 		<File
 			RelativePath=".\CCQuestMap.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCQuestNPCSpawnTrigger.cpp"
 			>
 		</File>
 		<File
@@ -2269,6 +2289,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCSurvivalRankInfo.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCSurvivalRankInfo.h"
 			>
 		</File>
@@ -2301,7 +2325,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCThread.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCThread.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCTraceMemory.cpp"
 			>
 		</File>
 		<File
@@ -2357,6 +2389,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CGLEncription.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CGLEncription.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CheckReturnCallStack.h"
 			>
 		</File>
@@ -2390,6 +2430,10 @@
 		</File>
 		<File
 			RelativePath=".\cxr_inc.h"
+			>
+		</File>
+		<File
+			RelativePath=".\HMAC_SHA1.cpp"
 			>
 		</File>
 		<File
@@ -2626,6 +2670,10 @@
 		</File>
 		<File
 			RelativePath=".\RVisualMeshUtil.h"
+			>
+		</File>
+		<File
+			RelativePath=".\SecurityTest.cpp"
 			>
 		</File>
 		<File
