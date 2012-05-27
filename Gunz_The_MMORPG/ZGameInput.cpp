@@ -75,10 +75,10 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 
 
 	////////////////////////////////////////////////////////////////////////////
-	switch(pEvent->nMessage){
-	case MWM_HOTKEY:
+	switch(pEvent->iMessage){
+	case CCWM_HOTKEY:
 		{
-			int nKey = pEvent->nKey;
+			int nKey = pEvent->uKey;
 			ZHOTKEY *hk=ZGetConfiguration()->GetHotkey(nKey);
 			//if(ProcessLowLevelCommand(hk->command.c_str())==false)
 			
@@ -154,13 +154,13 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 		return true;
 	case MWM_ACTIONRELEASED:
 		{
-			switch(pEvent->nKey){
+			switch(pEvent->uKey){
 			case ZACTION_FORWARD:
 			case ZACTION_BACK:
 			case ZACTION_LEFT:
 			case ZACTION_RIGHT:
 				if (m_pInstance) 
-					m_pInstance->m_ActionKeyHistory.push_back(ZACTIONKEYITEM(ZGetGame()->GetTime(),false,pEvent->nKey));
+					m_pInstance->m_ActionKeyHistory.push_back(ZACTIONKEYITEM(ZGetGame()->GetTime(),false,pEvent->uKey));
 				return true;
 
 			case ZACTION_DEFENCE:
@@ -174,14 +174,14 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 	case MWM_ACTIONPRESSED:
 		if ( !ZGetGame()->IsReservedSuicide())		// 자살 예정인 경우 대쉬를 할수없게 막는다
 		{
-		switch(pEvent->nKey){
+		switch(pEvent->uKey){
 			case ZACTION_FORWARD:
 			case ZACTION_BACK:
 			case ZACTION_LEFT:
 			case ZACTION_RIGHT:
 			case ZACTION_JUMP:
 				if (m_pInstance) 
-					m_pInstance->m_ActionKeyHistory.push_back(ZACTIONKEYITEM(ZGetGame()->GetTime(),true,pEvent->nKey));
+					m_pInstance->m_ActionKeyHistory.push_back(ZACTIONKEYITEM(ZGetGame()->GetTime(),true,pEvent->uKey));
 				return true;
 			case ZACTION_MELEE_WEAPON:
 				{
@@ -204,7 +204,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			case ZACTION_ITEM1:
 			case ZACTION_ITEM2:
 				{
-					int nIndex = pEvent->nKey - ZACTION_ITEM1 + ZCWT_CUSTOM1;
+					int nIndex = pEvent->uKey - ZACTION_ITEM1 + ZCWT_CUSTOM1;
 					if ( !ZGetGame()->IsReplay()) {
 						ZGetGameInterface()->ChangeWeapon(ZChangeWeaponType(nIndex));
 					}
@@ -253,12 +253,12 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 
 					ZC_SPMOTION_TYPE mtype;
 
-						 if(pEvent->nKey == ZACTION_TAUNT) mtype = ZC_SPMOTION_TAUNT;
-					else if(pEvent->nKey == ZACTION_BOW  ) mtype = ZC_SPMOTION_BOW;
-					else if(pEvent->nKey == ZACTION_WAVE ) mtype = ZC_SPMOTION_WAVE;
-					else if(pEvent->nKey == ZACTION_LAUGH) mtype = ZC_SPMOTION_LAUGH;
-					else if(pEvent->nKey == ZACTION_CRY  ) mtype = ZC_SPMOTION_CRY;
-					else if(pEvent->nKey == ZACTION_DANCE) mtype = ZC_SPMOTION_DANCE;
+						 if(pEvent->uKey == ZACTION_TAUNT) mtype = ZC_SPMOTION_TAUNT;
+					else if(pEvent->uKey == ZACTION_BOW  ) mtype = ZC_SPMOTION_BOW;
+					else if(pEvent->uKey == ZACTION_WAVE ) mtype = ZC_SPMOTION_WAVE;
+					else if(pEvent->uKey == ZACTION_LAUGH) mtype = ZC_SPMOTION_LAUGH;
+					else if(pEvent->uKey == ZACTION_CRY  ) mtype = ZC_SPMOTION_CRY;
+					else if(pEvent->uKey == ZACTION_DANCE) mtype = ZC_SPMOTION_DANCE;
 					else 
 						return true;
 
@@ -305,7 +305,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 					int nPrev = ZGetConfiguration()->GetMouseSensitivityInInt();
 					float senstivity = Z_MOUSE_SENSITIVITY;
 
-					if (pEvent->nKey == ZACTION_SENSITIVITY_INC)
+					if (pEvent->uKey == ZACTION_SENSITIVITY_INC)
 						senstivity += 0.01f;
 					else
 						senstivity -= 0.01f;
@@ -326,7 +326,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 		{
 			ZCombatInterface* pCombatInterface = ZGetGameInterface()->GetCombatInterface();
 
-			switch (pEvent->nKey)
+			switch (pEvent->uKey)
 			{
 			
 			case VK_F1:
@@ -338,14 +338,14 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			case VK_F7:
 			case VK_F8:
 
-				if( pEvent->nKey == VK_F1 ) sel = 0;
-				else if( pEvent->nKey == VK_F2 ) sel = 1;
-				else if( pEvent->nKey == VK_F3 ) sel = 2;
-				else if( pEvent->nKey == VK_F4 ) sel = 3;
-				else if( pEvent->nKey == VK_F5 ) sel = 4;
-				else if( pEvent->nKey == VK_F6 ) sel = 5;
-				else if( pEvent->nKey == VK_F7 ) sel = 6;
-				else if( pEvent->nKey == VK_F8 ) sel = 7;
+				if( pEvent->uKey == VK_F1 ) sel = 0;
+				else if( pEvent->uKey == VK_F2 ) sel = 1;
+				else if( pEvent->uKey == VK_F3 ) sel = 2;
+				else if( pEvent->uKey == VK_F4 ) sel = 3;
+				else if( pEvent->uKey == VK_F5 ) sel = 4;
+				else if( pEvent->uKey == VK_F6 ) sel = 5;
+				else if( pEvent->uKey == VK_F7 ) sel = 6;
+				else if( pEvent->uKey == VK_F8 ) sel = 7;
 
 				if(ZGetConfiguration()) {
 
@@ -400,12 +400,12 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			case 'Y':
 			case 'N':
 				if (pCombatInterface->GetObserver()->IsVisible())
-					pCombatInterface->GetObserver()->OnKeyEvent(pEvent->bCtrl, pEvent->nKey);
+					pCombatInterface->GetObserver()->OnKeyEvent(pEvent->bCtrl, pEvent->uKey);
 
 				if (ZGetGameClient()->CanVote() ||
 					ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->GetShowTargetList() ) 
 				{
-					ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->VoteInput(pEvent->nKey);
+					ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->VoteInput(pEvent->uKey);
 				}
 				break;
 			case VK_ESCAPE:		// 메뉴를 부르거나 kick player를 취소한다
@@ -502,7 +502,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 		{
 			ZMatch* pMatch = ZGetGame()->GetMatch();
 			if (pMatch->IsTeamPlay()) {
-				switch(pEvent->nKey) {
+				switch(pEvent->uKey) {
 				case '\'':
 				case '\"':
 					{
@@ -514,7 +514,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			}
 
 			// for deutsch, spanish keyboard
-			if (pEvent->nKey == '/') {
+			if (pEvent->uKey == '/') {
 				if (!ShowCombatInputChat()) return false;
 			}
 		}
@@ -523,7 +523,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 	case MWM_SYSKEYDOWN:
 		{
 			// alt+a ~ z(65~90)
-			if(pEvent->nKey==90){	// Alt+'Z' // 모든 UI 감추기... by kammir 20081020
+			if(pEvent->uKey==90){	// Alt+'Z' // 모든 UI 감추기... by kammir 20081020
 				ZGetCombatInterface()->SetIsShowUI(!ZGetCombatInterface()->IsShowUI());
 				if (ZGetGame())
 				{

@@ -231,7 +231,7 @@ bool ZServerView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 	// Check rect range
 	sRect r = GetClientRect();
-	if ( r.InPoint( pEvent->Pos) == false)
+	if ( r.InPoint( pEvent->sPos) == false)
 		return bRet;
 
 
@@ -247,9 +247,9 @@ bool ZServerView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 			ServerInfo* pServerInfo = (*itr);
 
 			// 세팅된 서버리스트 좌표로 서버선택 처리
-			if( pServerInfo->rRect.x <= pEvent->Pos.x && pEvent->Pos.x <= (pServerInfo->rRect.x + pServerInfo->rRect.w) )
+			if( pServerInfo->rRect.x <= pEvent->sPos.x && pEvent->sPos.x <= (pServerInfo->rRect.x + pServerInfo->rRect.w) )
 			{
-				if(pServerInfo->rRect.y <= pEvent->Pos.y && pEvent->Pos.y <= (pServerInfo->rRect.y + pServerInfo->rRect.h)) 
+				if(pServerInfo->rRect.y <= pEvent->sPos.y && pEvent->sPos.y <= (pServerInfo->rRect.y + pServerInfo->rRect.h)) 
 				{
 					if ( pServerInfo->bIsLive && pServerInfo->nType != 0)
 					{

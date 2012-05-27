@@ -1,44 +1,44 @@
-#ifndef MBScrollBarLook_H
-#define MBScrollBarLook_H
+#ifndef CCBScrollBarLook_H
+#define CCBScrollBarLook_H
 
-#include "MScrollBar.h"
+#include "CCScrollBar.h"
 
-class MBArrowLook : public MArrowLook{
+class CCBArrowLook : public MArrowLook{
 public:
-	MBitmap*	m_pArrowBitmaps[8];
+	CCBitmap*	m_pArrowBitmaps[8];
 protected:
-	virtual void OnDrawUpArrow(MDrawContext* pDC, MRECT& r, bool bPressed);
-	virtual void OnDrawDownArrow(MDrawContext* pDC, MRECT& r, bool bPressed);
-	virtual void OnDrawLeftArrow(MDrawContext* pDC, MRECT& r, bool bPressed);
-	virtual void OnDrawRightArrow(MDrawContext* pDC, MRECT& r, bool bPressed);
+	virtual void OnDrawUpArrow(CCDrawContext* pDC, sRect& r, bool bPressed);
+	virtual void OnDrawDownArrow(CCDrawContext* pDC, sRect& r, bool bPressed);
+	virtual void OnDrawLeftArrow(CCDrawContext* pDC, sRect& r, bool bPressed);
+	virtual void OnDrawRightArrow(CCDrawContext* pDC, sRect& r, bool bPressed);
 public:
-	MBArrowLook(void);
+	CCBArrowLook(void);
 
 	virtual MSIZE GetDefaultSize(MArrow* pThumb);
 };
 
-class MBThumbLook : public MThumbLook{
+class CCBThumbLook : public MThumbLook{
 public:
-	MBitmap*	m_pHBitmaps[3];
-	MBitmap*	m_pHPressedBitmaps[3];
-	MBitmap*	m_pVBitmaps[3];
-	MBitmap*	m_pVPressedBitmaps[3];
+	CCBitmap*	m_pHBitmaps[3];
+	CCBitmap*	m_pHPressedBitmaps[3];
+	CCBitmap*	m_pVBitmaps[3];
+	CCBitmap*	m_pVPressedBitmaps[3];
 public:
-	virtual void OnDraw(MThumb* pThumb, MDrawContext* pDC);
+	virtual void OnDraw(MThumb* pThumb, CCDrawContext* pDC);
 
-	MBThumbLook(void);
+	CCBThumbLook(void);
 };
 
-class MBScrollBarLook : public MScrollBarLook{
+class CCBScrollBarLook : public CCScrollBarLook{
 public:
-	MBitmap*	m_pHFrameBitmaps[3];
-	MBitmap*	m_pVFrameBitmaps[3];
+	CCBitmap*	m_pHFrameBitmaps[3];
+	CCBitmap*	m_pVFrameBitmaps[3];
 
 public:
-	MBScrollBarLook(void);
+	CCBScrollBarLook(void);
 
-	virtual void OnDraw(MScrollBar* pScrollBar, MDrawContext* pDC);
-	virtual MRECT GetClientRect(MScrollBar* pScrollBar, MRECT& r);
+	virtual void OnDraw(CCScrollBar* pScrollBar, CCDrawContext* pDC);
+	virtual sRect GetClientRect(CCScrollBar* pScrollBar, sRect& r);
 };
 
 #endif

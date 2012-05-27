@@ -6,12 +6,12 @@
 
 class ZStageInfoBox;
 
-class ZStageInfoBoxLook : public MListBoxLook {
+class ZStageInfoBoxLook : public CCListBoxLook {
 public:
 	virtual void OnDraw(ZStageInfoBox* pBox, CCDrawContext* pDC);
 };
 
-class ZStageInfoBox : public MListBox{
+class ZStageInfoBox : public CCListBox{
 //	DECLARE_LOOK(ZStageInfoBoxLook)
 	MBListBoxLook *m_pLook;
 public:

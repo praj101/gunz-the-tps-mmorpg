@@ -3,7 +3,7 @@
 
 #include "ZInterface.h"
 
-//class MListBox;
+//class CCListBox;
 class CCEdit;
 class CCTextArea;
 

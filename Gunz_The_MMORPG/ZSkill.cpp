@@ -247,7 +247,7 @@ bool ZSkillManager::Create()
 	mzf.Close();
 
 
-	CCXmlElement rootElement, element;
+	::CCXmlElement rootElement, element;
 	char szTagName[256];
 	char szTemp[256];
 	char szAttrName[256];
@@ -344,7 +344,7 @@ bool ZSkillManager::Create()
 
 
 			int iChildCount = element.GetChildNodeCount();
-			CCXmlElement chrElement;
+			::CCXmlElement chrElement;
 			for (int k = 0; k < iChildCount; k++)
 			{
 				chrElement = element.GetChildNode(k);

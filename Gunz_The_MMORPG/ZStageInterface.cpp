@@ -132,7 +132,7 @@ void ZStageInterface::OnCreate( void)
 	pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_SenarioNameImg");
 	if ( pWidget)
 		pWidget->Show( false);
-	MListBox* pListBox = (MListBox*)pResource->FindWidget( "Stage_SacrificeItemListbox");
+	CCListBox* pListBox = (CCListBox*)pResource->FindWidget( "Stage_SacrificeItemListbox");
 	if ( pListBox)
 		pListBox->RemoveAll();
 	CCTextArea* pDesc = (CCTextArea*)pResource->FindWidget( "Stage_ItemDesc");
@@ -172,10 +172,10 @@ void ZStageInterface::OnCreate( void)
 		if ( pCombo)
 			pCombo->CloseComboBoxList();
 
-		MListBox* pListBox = (MListBox*)pResource->FindWidget( "Stage_RelayMapListbox");
+		CCListBox* pListBox = (CCListBox*)pResource->FindWidget( "Stage_RelayMapListbox");
 		if ( pListBox)
 			pListBox->RemoveAll();
-		pListBox = (MListBox*)pResource->FindWidget( "Stage_MapListbox");
+		pListBox = (CCListBox*)pResource->FindWidget( "Stage_MapListbox");
 		if ( pListBox)
 			pListBox->RemoveAll();
 	}
@@ -528,7 +528,7 @@ void ZStageInterface::SetStageRelayMapImage()
 	char szMapName[256];
 	pPicture = (CCPicture*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_MainBGTop");
 	if(!pPicture) return;
-	MListBox* pRelayMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
+	CCListBox* pRelayMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 	if(pRelayMapListBox == NULL) return;
 	if( 0 < pRelayMapListBox->GetCount())
 	{
@@ -1092,7 +1092,7 @@ void ZStageInterface::SerializeSacrificeItemListBox( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MListBox* pListBox = (MListBox*)pResource->FindWidget( "Stage_SacrificeItemListbox");
+	CCListBox* pListBox = (CCListBox*)pResource->FindWidget( "Stage_SacrificeItemListbox");
 	if ( !pListBox)
 		return;
 
@@ -1163,7 +1163,7 @@ void ZStageInterface::OnDropSacrificeItem( int nSlotNum)
 			return;	// 희생아이템을 슬롯에 올리지 않는다.
 		}
 
-	MListBox* pListBox = (MListBox*)pResource->FindWidget( "Stage_SacrificeItemListbox");
+	CCListBox* pListBox = (CCListBox*)pResource->FindWidget( "Stage_SacrificeItemListbox");
 	if ( !pListBox || (pListBox->GetSelIndex() < 0))
 		return;
 
@@ -1238,7 +1238,7 @@ public:
 		// On select
 		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
 		{
-			MListBox* pListBox = (MListBox*)pWidget;
+			CCListBox* pListBox = (CCListBox*)pWidget;
 
 			// 아이템 설명 업데이트
 			SacrificeItemListBoxItem* pItemDesc = (SacrificeItemListBoxItem*)pListBox->GetSelItem();
@@ -1434,7 +1434,7 @@ void ZStageInterface::PostRelayMapInfoUpdate( void)
 	CCComboBox* pCBRelayMapRepeatCount = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
 	if ( !pCBRelayMapRepeatCount) return;
 
-	MListBox* pRelayMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
+	CCListBox* pRelayMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 	if(pRelayMapListBox == NULL) return;
 
 	if(pRelayMapListBox->GetCount() <= 0)	
@@ -1480,7 +1480,7 @@ void ZStageInterface::RelayMapCreateMapList()
 	if(pCombo == NULL) return;
 
 	// 맵 리스트 만들어 주기
-	MListBox* pMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_MapListbox");
+	CCListBox* pMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_MapListbox");
 	if(pMapListBox == NULL) return;
 
 	pMapListBox->RemoveAll();	// 기존 릴레이맵 리스트를 모두 지워준다.
@@ -1498,7 +1498,7 @@ void ZStageInterface::RelayMapCreateMapList()
 		return;
 
 	// 릴레이맵 리스트 만들어 주기
-	MListBox* pRelaMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
+	CCListBox* pRelaMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 	if(pRelaMapListBox == NULL) return;
 	RelayMap arrayRelayMapList[MAX_RELAYMAP_LIST_COUNT];
 	memcpy(arrayRelayMapList, ZGetGameClient()->GetMatchStageSetting()->GetRelayMapList(), sizeof(RelayMap)*MAX_RELAYMAP_LIST_COUNT);
@@ -1529,9 +1529,9 @@ public:
 		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
 		{
 			// 맵리스트에서 선택된 맵정보를 릴레이맵 리스트에 추가한다.
-			MListBox* pMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_MapListbox");
+			CCListBox* pMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_MapListbox");
 			if(pMapListBox == NULL) return false;
-			MListBox* pRelayMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
+			CCListBox* pRelayMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 			if(pRelayMapListBox == NULL) return false;
 			if(MAX_RELAYMAP_LIST_COUNT <= pRelayMapListBox->GetCount()) 
 			{
@@ -1585,7 +1585,7 @@ public:
 		// On select
 		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
 		{
-			MListBox* pRelayMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
+			CCListBox* pRelayMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 			if(pRelayMapListBox == NULL) return false;
 			if(pRelayMapListBox->GetCount() > 1)
 			{	// 맵이 최소한 한개라도 있어야 한다.

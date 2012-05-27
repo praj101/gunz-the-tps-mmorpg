@@ -1,3 +1,4 @@
+#pragma once
 #include "ZPrerequisites.h"
 #include <vector>
 using namespace std;

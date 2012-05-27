@@ -13,22 +13,22 @@ ZItemMenuListener listenerItemMenu;
 
 
 //// ZItemMenuItem ////
-ZItemMenuItem::ZItemMenuItem(ZCMD_ITEMMENU nCmdID, const char* szName) : MMenuItem(szName)
+ZItemMenuItem::ZItemMenuItem(ZCMD_ITEMMENU nCmdID, const char* szName) : CCMenuItem(szName)
 {
 	m_nCmdID = nCmdID;
 }
 
 
 //// ZItemMenu ////
-ZItemMenu::ZItemMenu(const char* szName, CCWidget* pParent, CCListener* pListener, MPopupMenuTypes t) 
-: MPopupMenu(szName, pParent, pListener, t)
+ZItemMenu::ZItemMenu(const char* szName, CCWidget* pParent, CCListener* pListener, CCPopupMenuTypes t) 
+: CCPopupMenu(szName, pParent, pListener, t)
 {
 	m_szItemName[0] = NULL;
 }
 
 void ZItemMenu::AddMenuItem(ZItemMenuItem* pMenuItem)
 {
-	MPopupMenu::AddMenuItem(pMenuItem);
+	CCPopupMenu::AddMenuItem(pMenuItem);
 	pMenuItem->SetListener(&listenerItemMenu);
 }
 
@@ -46,7 +46,7 @@ void ZItemMenu::SetupMenu()
 
 void ZItemMenu::Show(int x, int y, bool bVisible)
 {
-	MPopupMenu::Show(x, y, bVisible);
+	CCPopupMenu::Show(x, y, bVisible);
 }
 
 
@@ -57,7 +57,7 @@ bool ZItemMenuListener::OnCommand(CCWidget* pWidget, const char* szMessage)
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
 	ZItemMenu* pMenu = (ZItemMenu*)pWidget->GetParent();
-	((MPopupMenu*)pMenu)->Show(false);
+	((CCPopupMenu*)pMenu)->Show(false);
 	ZItemMenuItem* pItem = (ZItemMenuItem*)pWidget;
 
 	switch(pItem->GetCmdID()) {

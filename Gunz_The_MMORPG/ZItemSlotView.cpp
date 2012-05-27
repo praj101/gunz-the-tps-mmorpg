@@ -293,7 +293,7 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 	// Check rect range
 	sRect r = GetClientRect();
-	if ( r.InPoint( pEvent->Pos) == false)
+	if ( r.InPoint( pEvent->sPos) == false)
 		return bRet;
 
 

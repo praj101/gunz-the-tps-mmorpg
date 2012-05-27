@@ -37,7 +37,7 @@ enum ZCMD_PLAYERMENU {
 };
 
 
-class ZPlayerMenuItem : public MMenuItem {
+class ZPlayerMenuItem : public CCMenuItem {
 protected:
 	ZCMD_PLAYERMENU		m_nCmdID;
 public:
@@ -46,13 +46,13 @@ public:
 };
 
 
-class ZPlayerMenu : public MPopupMenu {
+class ZPlayerMenu : public CCPopupMenu {
 protected:
 	char	m_szPlayerName[128];
 	CCUID	m_PlayerUID;
 
 public:
-	ZPlayerMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, MPopupMenuTypes t=MPMT_VERTICAL);
+	ZPlayerMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, CCPopupMenuTypes t=MPMT_VERTICAL);
 	void AddMenuItem(ZPlayerMenuItem* pMenuItem);
 
 	const char* GetTargetName()	{ return m_szPlayerName; }

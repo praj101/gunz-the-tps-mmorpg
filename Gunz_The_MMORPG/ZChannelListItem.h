@@ -3,7 +3,7 @@
 
 
 #include "CCListBox.h"
-class ZChannelListItem : public MListItem {
+class ZChannelListItem : public CCListItem {
 	CCUID			m_uidChannel;
 	char			m_szChannelName[64];
 	

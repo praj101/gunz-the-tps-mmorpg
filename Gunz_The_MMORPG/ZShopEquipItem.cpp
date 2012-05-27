@@ -4,6 +4,7 @@
 #include "ZCharacterView.h"
 #include "ZShop.h"
 #include "ZShopEquipInterface.h"
+#include "ZStringResManager.h"
 #include "CCMatchItemFunction.h"
 
 string GetRestrictionString(int nResSex, int nResLevel, int nWeight)

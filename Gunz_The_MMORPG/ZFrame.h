@@ -5,9 +5,9 @@
 #include "CCPopupMenu.h"
 #include "CCSlider.h"
 
-class MFrame;
+class CCFrame;
 
-class ZFrame : public MFrame
+class ZFrame : public CCFrame
 {
 protected:
 	bool				m_bExclusive;

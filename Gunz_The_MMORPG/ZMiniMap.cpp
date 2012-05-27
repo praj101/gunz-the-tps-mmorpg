@@ -66,7 +66,7 @@ bool ZMiniMap::Create(const char *szName)
 	mzf.Read(buffer,mzf.GetLength());
 	buffer[mzf.GetLength()]=0;
 
-	CCXmlDocument aXml;
+	::CCXmlDocument aXml;
 	aXml.Create();
 	if(!aXml.LoadFromMemory(buffer))
 	{
@@ -75,7 +75,7 @@ bool ZMiniMap::Create(const char *szName)
 	}
 
 	int iCount, i;
-	CCXmlElement		aParent, aChild;
+	::CCXmlElement		aParent, aChild;
 	aParent = aXml.GetDocumentElement();
 	iCount = aParent.GetChildNodeCount();
 

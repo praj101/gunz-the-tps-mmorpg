@@ -29,9 +29,9 @@ void CCAsyncDBJob_RewardCharBR::Run(void* pContext)
 
 	if( !pDBMgr->RewardCharBattleTimeReward(m_nCID, m_nBRID, m_nBRTID, m_nBattleTime, m_nKillCount, m_nItemID, m_nItemCnt, m_nRentHourPeriod, m_bIsSpendable, &m_nCIID) )
 	{
-		SetResult(MASYNC_RESULT_FAILED);
+		SetResult(CCASYNC_RESULT_FAILED);
 		return;
 	}
 
-	SetResult(MASYNC_RESULT_SUCCEED);
+	SetResult(CCASYNC_RESULT_SUCCEED);
 }

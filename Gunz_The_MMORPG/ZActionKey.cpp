@@ -185,7 +185,7 @@ bool ZActionKey::OnExclusiveEvent(CCEvent* pEvent)
 	}else
 	{
 		// 한번 입력되었으면 끝.
-//		if (pEvent->nKey != 1) // 1 -> ESC
+//		if (pEvent->uKey != 1) // 1 -> ESC
 		{
 			m_exclusiveActionKey->SetActionKey(pEvent->uKey);
 		}

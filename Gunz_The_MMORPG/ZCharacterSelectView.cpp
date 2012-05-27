@@ -548,7 +548,7 @@ void ZCharacterSelectView::OnChangedCharCostume()
 	if (m_pVisualMesh == NULL) return;
 
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-//	MListBox* pListBox = (MListBox*)pResource->FindWidget("CS_CharList");
+//	CCListBox* pListBox = (CCListBox*)pResource->FindWidget("CS_CharList");
 	CCComboBox* pSexCB, *pHairCB, *pFaceCB, *pCostumeCB;
 	pSexCB = (CCComboBox*)pResource->FindWidget("CC_Sex");
 	pHairCB = (CCComboBox*)pResource->FindWidget("CC_Hair");

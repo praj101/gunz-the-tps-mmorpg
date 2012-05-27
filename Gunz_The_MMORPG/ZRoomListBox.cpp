@@ -299,7 +299,7 @@ bool ZRoomListBox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 {
 	sRect r = GetInitialClientRect();
 
-	sPoint ClickPos = pEvent->Pos;
+	sPoint ClickPos = pEvent->sPos;
 
 	sRect	rect;
 
@@ -330,7 +330,7 @@ bool ZRoomListBox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 				}
 				return true;
 			}
-			case MWM_LBUTTONDBLCLK:
+			case CCWM_LBUTTONDBLCLK:
 			{
 				for( int i = 0 ; i < NUM_DISPLAY_ROOM; ++i )
 				{

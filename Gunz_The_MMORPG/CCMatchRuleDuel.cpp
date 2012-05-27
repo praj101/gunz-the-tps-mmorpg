@@ -123,7 +123,7 @@ bool CCMatchRuleDuel::OnCheckRoundFinish()
 
 void CCMatchRuleDuel::OnRoundTimeOut()
 {
-	SetRoundArg(MMATCH_ROUNDRESULT_DRAW);
+	SetRoundArg(CCMATCH_ROUNDRESULT_DRAW);
 }
 
 

@@ -613,7 +613,7 @@ void ZGameClient::OnChannelChat(const CCUID& uidChannel, char* szName, char* szC
 void ZGameClient::OnChannelList(void* pBlob, int nCount)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MListBox* pWidget = (MListBox*)pResource->FindWidget("ChannelList");
+	CCListBox* pWidget = (CCListBox*)pResource->FindWidget("ChannelList");
 	if (pWidget == NULL) {
 		ZGetGameClient()->StopChannelList();
 		return;
@@ -655,7 +655,7 @@ void ZGameClient::OnChannelResponseRule(const CCUID& uidchannel, const char* psz
 	if(pCombo != NULL)
 	{
 		InitMaps(pCombo); 
-		MListBox* pList = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
+		CCListBox* pList = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 		pList->RemoveAll();
 		if( pList != NULL )
 		{
@@ -929,7 +929,7 @@ void ZGameClient::OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char*
 
 /*
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MListBox* pWidget = (MListBox*)pResource->FindWidget("StageChattingOutput");
+	CCListBox* pWidget = (CCListBox*)pResource->FindWidget("StageChattingOutput");
 */
 		
 	string name = GetObjName(uidChar);
@@ -1197,17 +1197,17 @@ void ZGameClient::OnChannelAllPlayerList(const CCUID& uidChannel, void* pBlob, i
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	MListBox* pListBox = NULL;
+	CCListBox* pListBox = NULL;
 
 	// 클랜생성창인지 팀게임 선택 창인지 찾아본다.
 
 	CCWidget *pDialog = pResource->FindWidget("ClanCreateDialog");
 	if(pDialog && pDialog->IsVisible())
-		pListBox = (MListBox*)pResource->FindWidget("ClanSponsorSelect");
+		pListBox = (CCListBox*)pResource->FindWidget("ClanSponsorSelect");
 
 	pDialog = pResource->FindWidget("ArrangedTeamGameDialog");
 	if(pDialog && pDialog->IsVisible())
-		pListBox = (MListBox*)pResource->FindWidget("ArrangedTeamSelect");
+		pListBox = (CCListBox*)pResource->FindWidget("ArrangedTeamSelect");
 
 	if(pListBox && pListBox->IsVisible())  {
 		pListBox->RemoveAll();
@@ -1249,7 +1249,7 @@ void ZGameClient::OnStageRelayMapListUpdate(int nRelayMapType, int nRelayMapRepe
 	if(pCBRelayMapRepeatCount)
 		pCBRelayMapRepeatCount->SetSelIndex(nRelayMapRepeatCount);
 
-	MListBox* pRelaMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
+	CCListBox* pRelaMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 	if(pRelaMapListBox == NULL) return;
 
 	RelayMap relayMapList[MAX_RELAYMAP_LIST_COUNT];
@@ -1331,13 +1331,13 @@ void ZGameClient::OnMatchNotify(unsigned int nMsgID)
 	switch(nState) {
 	case GUNZ_LOBBY:
 		{
-			MListBox* pWidget = (MListBox*)pResource->FindWidget("ChannelChattingOutput");
+			CCListBox* pWidget = (CCListBox*)pResource->FindWidget("ChannelChattingOutput");
 			if (pWidget) pWidget->Add(strMsg.data(), sColor(255,70,70));
 		}
 		break;
 	case GUNZ_STAGE:
 		{
-			MListBox* pWidget = (MListBox*)pResource->FindWidget("StageChattingOutput");
+			CCListBox* pWidget = (CCListBox*)pResource->FindWidget("StageChattingOutput");
 			if (pWidget) pWidget->Add(strMsg.data(), sColor(255,70,70));
 		}
 		break;
@@ -1509,7 +1509,7 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 }
 
 #include "CCListBox.h"
-class MCharListItem : public MListItem {
+class MCharListItem : public CCListItem {
 	CCUID	m_uid;
 	char	m_szName[32];
 public:
@@ -1525,7 +1525,7 @@ public:
 
 };
 
-int ZGameClient::FindListItem(MListBox* pListBox, const CCUID& uid)
+int ZGameClient::FindListItem(CCListBox* pListBox, const CCUID& uid)
 {
 	for (int i=0; i<pListBox->GetCount(); i++) {
 		MCharListItem* pItem = (MCharListItem*)pListBox->Get(i);
@@ -1610,7 +1610,7 @@ void ZGameClient::Tick()
 /*		if (GetCountdown() > 0) {
 			if (Countdown(nClock) == true) {
 				ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-				MListBox* pWidget = (MListBox*)pResource->FindWidget("StageChattingOutput");
+				CCListBox* pWidget = (CCListBox*)pResource->FindWidget("StageChattingOutput");
 				char szMsg[256];
 				sprintf(szMsg, "    %d", GetCountdown()+1);
 				pWidget->Add(szMsg);

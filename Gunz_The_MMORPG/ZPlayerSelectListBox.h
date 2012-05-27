@@ -2,7 +2,7 @@
 
 #include "CCListBox.h"
 
-class ZPlayerSelectListBox : public MListBox {
+class ZPlayerSelectListBox : public CCListBox {
 public:
 	ZPlayerSelectListBox(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 };

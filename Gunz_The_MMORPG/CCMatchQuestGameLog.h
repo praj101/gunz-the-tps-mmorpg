@@ -1,5 +1,5 @@
-#ifndef _MMATCH_QUESTGAMELOG_H
-#define _MMATCH_QUESTGAMELOG_H
+#ifndef _CCMATCH_QUESTGAMELOG_H
+#define _CCMATCH_QUESTGAMELOG_H
 
 
 typedef map< unsigned long int, int >	QItemLogMap;

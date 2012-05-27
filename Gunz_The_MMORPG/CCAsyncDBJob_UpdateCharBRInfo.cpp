@@ -23,9 +23,9 @@ void CCAsyncDBJob_UpdateCharBRInfo::Run(void* pContext)
 
 	if( !pDBMgr->UpdateCharBRInfo(m_nCID, m_nBRID, m_nBRTID, m_nRewardCount, m_nBattleTime, m_nKillCount) )
 	{
-		SetResult(MASYNC_RESULT_FAILED);
+		SetResult(CCASYNC_RESULT_FAILED);
 		return;
 	}
 
-	SetResult(MASYNC_RESULT_SUCCEED);
+	SetResult(CCASYNC_RESULT_SUCCEED);
 }

@@ -8,7 +8,7 @@ void ZMeshViewList::OnDraw(CCDrawContext* pDC)
 {
 	//pDC->SetColor(255, 255, 255);
 	//pDC->Rectangle(GetClientRect());
-	MGroup::OnDraw(pDC);
+	CCGroup::OnDraw(pDC);
 }
 
 void ZMeshViewList::OnSize(int w, int h)
@@ -105,7 +105,7 @@ void ZMeshViewList::RecalcBounds()
 }
 
 ZMeshViewList::ZMeshViewList(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MGroup(szName, pParent, pListener)
+: CCGroup(szName, pParent, pListener)
 {
 	m_nItemStartIndex = 0;
 	m_nItemWidth = 70;

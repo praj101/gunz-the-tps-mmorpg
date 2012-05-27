@@ -59,7 +59,7 @@ public:
 class CCAniBitmap{
 protected:
 #ifdef _DEBUG
-	friend class MDrawContext;
+	friend class CCDrawContext;
 	int		m_nTypeID;		// 같은 레벨의 클래스(MFont, MDrawContex)를 사용하기 위한 ID
 #endif
 public:

@@ -31,7 +31,7 @@ bool CCQuestNPCSpawnTrigger::CheckSpawnEnable(int nCurrNPCCount)
 {
 	unsigned int nNowTime = timeGetTime();
 
-	if (MGetTimeDistance(m_nLastTime, nNowTime) < m_Info.nSpawnTickTime) return false;
+	if (CCGetTimeDistance(m_nLastTime, nNowTime) < m_Info.nSpawnTickTime) return false;
 
 	m_nLastTime = nNowTime;
 

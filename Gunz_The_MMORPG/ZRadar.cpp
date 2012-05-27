@@ -96,12 +96,12 @@ void ZRadar::OnDraw(CCDrawContext* pDC)
 					pDC->SetBitmap(m_pBitmap);
 					pDC->SetOpacity(0xFF);
 
-					pDC->SetEffect(MDE_ADD);
+					pDC->SetEffect(CCDE_ADD);
 					pDC->DrawEx(m_Nodes[i].x[0], m_Nodes[i].y[0], 
 						m_Nodes[i].x[1], m_Nodes[i].y[1], 
 						m_Nodes[i].x[2], m_Nodes[i].y[2], 
 						m_Nodes[i].x[3], m_Nodes[i].y[3]);
-					pDC->SetEffect(MDE_NORMAL);
+					pDC->SetEffect(CCDE_NORMAL);
 				}
 			}
 			else

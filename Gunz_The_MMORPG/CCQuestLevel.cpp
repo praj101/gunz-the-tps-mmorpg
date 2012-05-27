@@ -17,7 +17,7 @@ CCQuestNPCQueue::~CCQuestNPCQueue()
 
 }
 
-void CCQuestNPCQueue::Make(int nQLD, CCQuestNPCSetInfo* pNPCSetInfo, MQUEST_NPC nKeyNPC)
+void CCQuestNPCQueue::Make(int nQLD, CCQuestNPCSetInfo* pNPCSetInfo, CCQUEST_NPC nKeyNPC)
 {
 	if (pNPCSetInfo == NULL) return;
 
@@ -62,7 +62,7 @@ void CCQuestNPCQueue::Make(int nQLD, CCQuestNPCSetInfo* pNPCSetInfo, MQUEST_NPC 
 	for (int i = 0; i < nSize; i++)
 	{
 		int nTarIndex = RandomNumber(i, nSize-1);
-		MQUEST_NPC temp = m_Queue[nTarIndex];
+		CCQUEST_NPC temp = m_Queue[nTarIndex];
 		m_Queue[nTarIndex] = m_Queue[i];
 		m_Queue[i] = temp;
 	}
@@ -77,7 +77,7 @@ void CCQuestNPCQueue::Make(int nQLD, CCQuestNPCSetInfo* pNPCSetInfo, MQUEST_NPC 
 		m_bContainKeyNPC = false;
 }
 
-bool CCQuestNPCQueue::Pop(MQUEST_NPC& outNPC)
+bool CCQuestNPCQueue::Pop(CCQUEST_NPC& outNPC)
 {
 	if (IsEmpty()) return false;
 
@@ -87,7 +87,7 @@ bool CCQuestNPCQueue::Pop(MQUEST_NPC& outNPC)
 	return true;
 }
 
-bool CCQuestNPCQueue::GetFirst(MQUEST_NPC& outNPC)
+bool CCQuestNPCQueue::GetFirst(CCQUEST_NPC& outNPC)
 {
 	if (IsEmpty()) return false;
 	outNPC = m_Queue[m_nCursor];
@@ -112,7 +112,7 @@ int CCQuestNPCQueue::GetCount()
 	return (int)m_Queue.size();
 }
 
-bool CCQuestNPCQueue::IsKeyNPC(MQUEST_NPC npc)
+bool CCQuestNPCQueue::IsKeyNPC(CCQUEST_NPC npc)
 {
 	if (!IsEmpty() && IsContainKeyNPC()) // Make()에서 큐 첫번째 칸에 KeyNPC를 넣었으므로 그것과 비교
 		return npc==m_Queue[0];
@@ -131,7 +131,7 @@ CCQuestLevel::~CCQuestLevel()
 
 }
 
-const bool CCQuestLevel::Make_MTDQuestGameInfo(MTD_QuestGameInfo* pout, MMATCH_GAMETYPE eGameType)
+const bool CCQuestLevel::Make_MTDQuestGameInfo(MTD_QuestGameInfo* pout, CCMATCH_GAMETYPE eGameType)
 {
 	if( MAX_QUEST_NPC_INFO_COUNT <= static_cast<int>(m_StaticInfo.NPCs.size()) )
 	{
@@ -148,7 +148,7 @@ const bool CCQuestLevel::Make_MTDQuestGameInfo(MTD_QuestGameInfo* pout, MMATCH_G
 	
 	pout->nNPCInfoCount = (int)m_StaticInfo.NPCs.size();
 	int idx = 0;
-	for (set<MQUEST_NPC>::iterator itor = m_StaticInfo.NPCs.begin(); itor != m_StaticInfo.NPCs.end(); ++itor)
+	for (set<CCQUEST_NPC>::iterator itor = m_StaticInfo.NPCs.begin(); itor != m_StaticInfo.NPCs.end(); ++itor)
 	{
 		pout->nNPCInfo[idx] = (*itor);
 		idx++;
@@ -171,7 +171,7 @@ const bool CCQuestLevel::Make_MTDQuestGameInfo(MTD_QuestGameInfo* pout, MMATCH_G
 }
 
 
-void CCQuestLevel::Init(int nScenarioID, int nDice, MMATCH_GAMETYPE eGameType)
+void CCQuestLevel::Init(int nScenarioID, int nDice, CCMATCH_GAMETYPE eGameType)
 {
 	CCQuestScenarioInfo* pScenario = NULL;
 	CCMatchQuest* pQuest = CCMatchServer::GetInstance()->GetQuest();
@@ -212,7 +212,7 @@ void CCQuestLevel::Init(int nScenarioID, int nDice, MMATCH_GAMETYPE eGameType)
 	InitCurrSector(eGameType);
 }
 
-bool CCQuestLevel::InitSectors(MMATCH_GAMETYPE eGameType)
+bool CCQuestLevel::InitSectors(CCMATCH_GAMETYPE eGameType)
 {
 	if (m_StaticInfo.pScenario == NULL) 
 	{
@@ -321,13 +321,13 @@ bool CCQuestLevel::InitNPCs()
 		}
 		
 		// base npc는 따로 넣는다.
-		m_StaticInfo.NPCs.insert(set<MQUEST_NPC>::value_type(pNPCSetInfo->nBaseNPC));
+		m_StaticInfo.NPCs.insert(set<CCQUEST_NPC>::value_type(pNPCSetInfo->nBaseNPC));
 
 		int nNPCSize = (int)pNPCSetInfo->vecNPCs.size();
 		for (int j = 0; j < nNPCSize; j++)
 		{
-			MQUEST_NPC npc = (MQUEST_NPC)pNPCSetInfo->vecNPCs[j].nNPC;
-			m_StaticInfo.NPCs.insert(set<MQUEST_NPC>::value_type(npc));
+			CCQUEST_NPC npc = (CCQUEST_NPC)pNPCSetInfo->vecNPCs[j].nNPC;
+			m_StaticInfo.NPCs.insert(set<CCQUEST_NPC>::value_type(npc));
 		}
 	}
 
@@ -342,7 +342,7 @@ int CCQuestLevel::GetMapSectorCount()
 }
 
 
-bool CCQuestLevel::MoveToNextSector(MMATCH_GAMETYPE eGameType)
+bool CCQuestLevel::MoveToNextSector(CCMATCH_GAMETYPE eGameType)
 {
 	if (MGetGameTypeMgr()->IsQuestOnly(eGameType))
 	{
@@ -372,7 +372,7 @@ bool CCQuestLevel::MoveToNextSector(MMATCH_GAMETYPE eGameType)
 	return true;
 }
 
-void CCQuestLevel::InitCurrSector(MMATCH_GAMETYPE eGameType)
+void CCQuestLevel::InitCurrSector(CCMATCH_GAMETYPE eGameType)
 {
 	// npc queue 세팅
 	CCMatchQuest* pQuest = CCMatchServer::GetInstance()->GetQuest();
@@ -402,7 +402,7 @@ void CCQuestLevel::InitCurrSector(MMATCH_GAMETYPE eGameType)
 		if ((m_StaticInfo.pScenario->Maps[m_StaticInfo.nDice].nKeyNPCID != 0) &&
 			(m_DynamicInfo.nCurrSectorIndex == GetMapSectorCount() - 1))
 		{
-			m_NPCQueue.Make(m_StaticInfo.nQLD, pNPCSetInfo, MQUEST_NPC(m_StaticInfo.pScenario->Maps[m_StaticInfo.nDice].nKeyNPCID));
+			m_NPCQueue.Make(m_StaticInfo.nQLD, pNPCSetInfo, CCQUEST_NPC(m_StaticInfo.pScenario->Maps[m_StaticInfo.nDice].nKeyNPCID));
 			if (m_StaticInfo.pScenario->Maps[m_StaticInfo.nDice].bKeyNPCIsBoss)
 			{
 				m_DynamicInfo.bCurrBossSector = true;
@@ -427,7 +427,7 @@ void CCQuestLevel::InitCurrSector(MMATCH_GAMETYPE eGameType)
 
 		if (keyNpcID != NPC_NONE)
 		{
-			m_NPCQueue.Make(m_StaticInfo.nQLD, pNPCSetInfo, MQUEST_NPC(keyNpcID));
+			m_NPCQueue.Make(m_StaticInfo.nQLD, pNPCSetInfo, CCQUEST_NPC(keyNpcID));
 			m_DynamicInfo.bCurrBossSector = false;	// 서바이벌엔 보스가 없다(몹은 보스용 몹이지만 퀘스트에서의 보스처럼 다루지 않음)
 		}
 		else
@@ -451,7 +451,7 @@ void CCQuestLevel::InitCurrSector(MMATCH_GAMETYPE eGameType)
 		ASSERT(0);
 }
 
-void CCQuestLevel::InitStaticInfo(MMATCH_GAMETYPE eGameType)
+void CCQuestLevel::InitStaticInfo(CCMATCH_GAMETYPE eGameType)
 {
 	if (m_StaticInfo.pScenario)
 	{

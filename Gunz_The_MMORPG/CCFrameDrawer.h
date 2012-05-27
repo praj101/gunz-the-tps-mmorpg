@@ -11,7 +11,7 @@ enum CCFDTextStyle{
 //Frame for drawing class
 //This can be supported through the skin.
 //Default Frame Drawer
-class MFrameDrawer{
+class CCFrameDrawer{
 public:
 	virtual void DrawOuterBevel(CCDrawContext* pDC, sRect& r);		//Draw the outer contour
 	virtual void DrawInnerBevel(CCDrawContext* pDC, sRect& r);		//Draw the inner contour

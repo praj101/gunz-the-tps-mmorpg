@@ -28,14 +28,14 @@ void CCAsyncDBJob_GetLoginInfo::Run(void* pContext)
 	// 계정 정보를 읽는다.
 	if (!pDBMgr->GetAccountInfo(m_nAID, m_pAccountInfo, MGetServerConfig()->GetServerID()))
 	{
-		SetResult(MASYNC_RESULT_FAILED);
+		SetResult(CCASYNC_RESULT_FAILED);
 		return;
 	}
 
 	// 계정 페널티 정보를 읽는다. - 2010-08-10 홍기주
 	if( !pDBMgr->GetAccountPenaltyInfo(m_nAID, m_pAccountPenaltyInfo) ) 
 	{
-		SetResult(MASYNC_RESULT_FAILED);
+		SetResult(CCASYNC_RESULT_FAILED);
 		return;
 	}
 
@@ -65,7 +65,7 @@ void CCAsyncDBJob_GetLoginInfo::Run(void* pContext)
 		if (bIsPremiumIP) m_pAccountInfo->m_nPGrade = MMPG_PREMIUM_IP;
 	}
 
-	SetResult(MASYNC_RESULT_SUCCEED);
+	SetResult(CCASYNC_RESULT_SUCCEED);
 }
 
 

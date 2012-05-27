@@ -10,7 +10,7 @@
 #include "CCMatchRule.h"
 #include "ZMatch.h"
 
-void _AddListItem(MListBox* pList, const char* szString)
+void _AddListItem(CCListBox* pList, const char* szString)
 {
 	MDefaultListItem* pNew = new MDefaultListItem(szString);
 	pList->Add(pNew);

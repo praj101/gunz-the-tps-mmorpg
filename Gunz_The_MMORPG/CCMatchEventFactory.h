@@ -1,5 +1,5 @@
-#ifndef _MMATCH_EVENT_FACTORY
-#define _MMATCH_EVENT_FACTORY
+#ifndef _CCMATCH_EVENT_FACTORY
+#define _CCMATCH_EVENT_FACTORY
 
 
 #include "CCBaseGameType.h"

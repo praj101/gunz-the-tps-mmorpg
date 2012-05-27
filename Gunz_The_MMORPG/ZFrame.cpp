@@ -23,7 +23,7 @@ void ZFrame::Show(bool bVisible, bool bModal)
 	}
 	m_bNextVisible = bVisible;
 
-	MFrame::Show(bVisible,bModal);
+	CCFrame::Show(bVisible,bModal);
 	m_bVisible = true;
 	
  	Enable(bVisible);
@@ -69,7 +69,7 @@ void ZFrame::OnDraw(CCDrawContext* pDC)
 	}
 
 	// 프레임 그리기
-	MFrame::OnDraw(pDC);
+	CCFrame::OnDraw(pDC);
 }
 
 ZFrame::ZFrame(const char* szName, CCWidget* pParent, CCListener* pListener)

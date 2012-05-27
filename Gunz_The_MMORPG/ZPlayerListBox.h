@@ -30,7 +30,7 @@ struct sPlayerInfo
 };
 */
 
-class ZPlayerListItem : public MListItem {
+class ZPlayerListItem : public CCListItem {
 public:
 	ZPlayerListItem() {
 		m_PlayerUID = CCUID(0,0);
@@ -365,17 +365,17 @@ public:
 	CCUID& GetUID() { return m_PlayerUID; }
 };
 
-class ZPlayerListBoxLook : public MListBoxLook
+class ZPlayerListBoxLook : public CCListBoxLook
 {
 public:
 	virtual void OnItemDraw2(CCDrawContext* pDC, sRect& r, const char* szText, sColor color, bool bSelected, bool bFocus, int nAdjustWidth = 0);
 	virtual void OnItemDraw2(CCDrawContext* pDC, sRect& r, CCBitmap* pBitmap, bool bSelected, bool bFocus, int nAdjustWidth);
-	virtual void OnDraw(MListBox* pListBox, CCDrawContext* pDC);
+	virtual void OnDraw(CCListBox* pListBox, CCDrawContext* pDC);
 
-	virtual sRect GetClientRect(MListBox* pListBox, sRect& r);
+	virtual sRect GetClientRect(CCListBox* pListBox, sRect& r);
 };
 
-class ZPlayerListBox : public MListBox
+class ZPlayerListBox : public CCListBox
 {
 public:
 	enum PLAYERLISTMODE {
@@ -478,7 +478,7 @@ public:
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /*
-class ZStagePlayerListBox : public MListBox
+class ZStagePlayerListBox : public CCListBox
 {
 private:
 	CCBitmap*		m_pBitmap;

@@ -12,7 +12,7 @@
 #include "ZCommandUDPHackShield.h"
 
 typedef bool(ZONCOMMANDCALLBACK)(CCCommand* pCommand);
-class MListBox;
+class CCListBox;
 class ZCharacterViewList;
 class UPnP;
 
@@ -89,7 +89,7 @@ protected:
 		return false;
 	}
 
-	static int FindListItem(MListBox* pListBox, const CCUID& uid);
+	static int FindListItem(CCListBox* pListBox, const CCUID& uid);
 
 protected:
 	ZONCOMMANDCALLBACK*		m_fnOnCommandCallback;
