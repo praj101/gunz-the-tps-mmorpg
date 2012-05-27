@@ -37,7 +37,7 @@
 #include "CCMatchEvent.h"
 #include "CCMatchEventManager.h"
 #include "CCMatchEventFactory.h"
-#include "../../MatchServer/HSHIELD/AntiCpSvrFunc.h"
+//#include "../../MatchServer/HSHIELD/AntiCpSvrFunc.h"
 #include "CCMatchDBGambleItem.h"
 #include "CCMatchCRC32XORCache.h"
 #include "CCMatchCheckLoopTime.h"
