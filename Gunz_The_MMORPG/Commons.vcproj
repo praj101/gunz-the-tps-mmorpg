@@ -510,6 +510,22 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCMatchQuestGameLog.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCQuestLevel.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCQuestLevelGenerator.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCQuestNPCSpawnTrigger.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCSurvivalRankInfo.cpp"
 						>
 					</File>
@@ -1789,6 +1805,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchQuestGameLog.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchQuestRound.h"
 			>
 		</File>
@@ -2141,7 +2161,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCQuestLevelGenerator.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCQuestMap.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCQuestNPCSpawnTrigger.h"
 			>
 		</File>
 		<File
@@ -2202,6 +2230,10 @@
 		</File>
 		<File
 			RelativePath=".\CCSmartRefreshImpl.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCStrEx.h"
 			>
 		</File>
 		<File

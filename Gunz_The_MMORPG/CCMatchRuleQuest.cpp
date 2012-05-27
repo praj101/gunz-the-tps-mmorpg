@@ -988,7 +988,7 @@ bool CCMatchRuleQuest::DistributeQItem( CCQuestPlayerInfo* pPlayerInfo, void** p
 		// 보상받은 횟수를 검사를 함.
 		pPlayer->GetCharInfo()->m_DBQuestCachingData.IncreaseRewardCount();
 
-		if( MMQIT_MONBIBLE == pQItemDesc->m_nType )
+		if( CCQIT_MONBIBLE == pQItemDesc->m_nType )
 		{
 			// 몬스터 도감 처리.
 			if( !pPlayer->GetCharInfo()->m_QMonsterBible.IsKnownMonster(pQItemDesc->m_nParam) )
