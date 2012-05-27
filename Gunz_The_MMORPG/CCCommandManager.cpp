@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CCCommandManager.h"
-#include "CCLexicalAnalyzer.h"
+#include "CMLexicalAnalyzer.h"
 #include <algorithm>
 #include "CCStrEx.h"
 #include <Windows.h>	// for test

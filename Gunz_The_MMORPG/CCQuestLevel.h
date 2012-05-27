@@ -139,7 +139,7 @@ public:
 	/// @param nDice				주사위 굴림
 	void Init(int nScenarioID, int nDice, CCMATCH_GAMETYPE eGameType);
 	/// 설정된 월드레벨을 바탕으로 클라이언트에 보내줄 전송데이타를 만든다.
-	const bool Make_CCTDQuestGameInfo(CCTD_QuestGameInfo* pout, CCMATCH_GAMETYPE eGameType);
+	const bool Make_MTDQuestGameInfo(CCTD_QuestGameInfo* pout, CCMATCH_GAMETYPE eGameType);
 	/// 맵섹터 수 반환
 	/// @return		섹터 수
 	int GetMapSectorCount();
