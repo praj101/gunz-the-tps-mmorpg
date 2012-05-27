@@ -35,7 +35,7 @@ using namespace std;
 
 class CCMatchAuthBuilder;
 class CCMatchScheduleMgr;
-class MNJ_DBAgentClient;
+class CCNJ_DBAgentClient;
 class MBMatchMonitor;
 class CCMatchGambleMachine;
 class CCMatchDuelTournamentMgr;
@@ -315,7 +315,7 @@ public:
 	CCMatchStage* FindStage(const CCUID& uidStage);
 protected:
 	friend CCMatchStage;
-	friend MNJ_DBAgentClient;
+	friend CCNJ_DBAgentClient;
 	bool StageAdd(CCMatchChannel* pChannel, const char* pszStageName, bool bPrivate, const char* pszStagePassword, CCUID* pAllocUID, bool bIsAllowNullChannel = false);
 	bool StageRemove(const CCUID& uidStage, CCMatchStageMap::iterator* pNextItor);
 	bool StageJoin(const CCUID& uidPlayer, const CCUID& uidStage);

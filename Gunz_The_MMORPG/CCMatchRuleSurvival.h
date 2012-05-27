@@ -247,7 +247,7 @@ public:
 	virtual bool							IsSacrificeItemDuplicated( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID );
 	virtual void							PreProcessLeaveStage( const CCUID& uidLeaverUID );
 	virtual void							DestroyAllSlot() {} // 서바이벌에서 사용않음
-	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_SURVIVAL; }
+	virtual CCMATCH_GAMETYPE GetGameType() { return CCMATCH_GAMETYPE_SURVIVAL; }
 
 
 	void InsertNoParamQItemToPlayer( CCMatchObject* pPlayer, CCQuestItem* pQItem );

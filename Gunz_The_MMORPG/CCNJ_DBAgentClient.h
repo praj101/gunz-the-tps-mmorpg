@@ -2,7 +2,7 @@
 #define _MNJ_DBAGENTCLIENT_H
 
 
-#include "MCustomClient.h"
+#include "CCCustomClient.h"
 #include "CCUID.h"
 #include <string>
 #include <map>
@@ -59,23 +59,23 @@ typedef struct _NJ_PACKET
 } NJ_PACKET;
 
 
-struct MDBAgentPoolNode
+struct CCDBAgentPoolNode
 {
 	CCUID			uidComm;
 	unsigned long	nChecksumPack;
 	bool			bFreeLoginIP;
 };
 
-class MDBAgentPool : public map<string, MDBAgentPoolNode*>
+class CCDBAgentPool : public map<string, CCDBAgentPoolNode*>
 {
 public:
-	virtual ~MDBAgentPool()
+	virtual ~CCDBAgentPool()
 	{
 		Clear();
 	}
 	void Insert(string strLoginID, CCUID uidComm, unsigned long nChecksumPack, bool bFreeLoginIP)
 	{
-		MDBAgentPoolNode* pNewNode = new MDBAgentPoolNode;
+		CCDBAgentPoolNode* pNewNode = new CCDBAgentPoolNode;
 		pNewNode->uidComm = uidComm;
 		pNewNode->nChecksumPack = nChecksumPack;
 		pNewNode->bFreeLoginIP = bFreeLoginIP;
@@ -87,17 +87,17 @@ public:
 		iterator itor = find(strLoginID);
 		if (itor != end())
 		{
-			MDBAgentPoolNode* pNode = (*itor).second;
+			CCDBAgentPoolNode* pNode = (*itor).second;
 			delete pNode;
 			erase(itor);
 		}
 	}
-	MDBAgentPoolNode* GetNode(string strLoginID)
+	CCDBAgentPoolNode* GetNode(string strLoginID)
 	{
 		iterator itor = find(strLoginID);
 		if (itor != end())
 		{
-			MDBAgentPoolNode* pNode = (*itor).second;
+			CCDBAgentPoolNode* pNode = (*itor).second;
 			return pNode;
 		}
 
@@ -113,7 +113,7 @@ public:
 	}
 };
 
-class MNJ_DBAgentClient : public MCustomClient
+class CCNJ_DBAgentClient : public CCCustomClient
 {
 private:
 	int					m_nGameCode;
@@ -121,7 +121,7 @@ private:
 	bool				m_bConnected;
 	char				m_cPacketBuf[NJ_QUE_SIZE];
 	int					m_nQueueTop;
-	MDBAgentPool		m_Pool;
+	CCDBAgentPool		m_Pool;
 
 	CRITICAL_SECTION	m_csPoolLock;
 	void LockPool()		{ EnterCriticalSection(&m_csPoolLock); }
@@ -133,8 +133,8 @@ protected:
 	virtual bool OnSockDisconnect(SOCKET sock);
 	virtual bool OnSockRecv(SOCKET sock, char* pPacket, DWORD dwSize);
 public:
-	MNJ_DBAgentClient(int nGameCode, int nServerCode);
-	virtual ~MNJ_DBAgentClient();
+	CCNJ_DBAgentClient(int nGameCode, int nServerCode);
+	virtual ~CCNJ_DBAgentClient();
 	void Send(const CCUID& uidComm, const char* szCN, const char* szPW, bool bFreeLoginIP, unsigned long nChecksumPack, int nTotalUserCount);
 	bool IsConnected() { return m_bConnected; }
 };

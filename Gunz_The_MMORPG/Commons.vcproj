@@ -506,11 +506,23 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCCustomClient.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCMatchClient.cpp"
 						>
 					</File>
 					<File
+						RelativePath=".\CCMatchEventFactory.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCMatchQuestGameLog.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCMatchSurvivalGameLog.cpp"
 						>
 					</File>
 					<File
@@ -1377,6 +1389,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCCustomClient.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCDatabase.cpp"
 			>
 		</File>
@@ -1677,6 +1693,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMatchEventFactory.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMatchEventManager.h"
 			>
 		</File>
@@ -1806,6 +1826,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchQuestGameLog.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchQuestMonsterGroup.h"
 			>
 		</File>
 		<File
@@ -2034,6 +2058,10 @@
 		</File>
 		<File
 			RelativePath=".\CCMatchStringResManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCMatchSurvivalGameLog.h"
 			>
 		</File>
 		<File
