@@ -1269,7 +1269,7 @@ void ZOptionInterface::AdjustMultipliedWidgetsManually()
 	pWidget = pResource->FindWidget("Replay_FileList");
 	if (pWidget) {
 		enum { LF_FILENAME, LF_VERSION, LF_MAX };
-		MListBox* pReplayListBox = (MListBox*)pWidget;
+		CCListBox* pReplayListBox = (CCListBox*)pWidget;
 		sRect rc = pReplayListBox->GetClientRect();
 		if (pReplayListBox->GetFieldCount() == LF_MAX) {
 			pReplayListBox->GetField(LF_FILENAME)->nTabSize = rc.0.75f *

@@ -1,5 +1,5 @@
-#ifndef _MMATCHRULE_TRAINING_H
-#define _MMATCHRULE_TRAINING_H
+#ifndef _CCMATCHRULE_TRAINING_H
+#define _CCMATCHRULE_TRAINING_H
 
 
 #include "CCMatchRuleDeathMatch.h"

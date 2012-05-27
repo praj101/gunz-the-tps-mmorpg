@@ -7,7 +7,7 @@
 
 IMPLEMENT_LOOK(CCPopupMenu, CCPopupMenuLook)
 
-CCPopupMenuLook::CCPopupMenuLook(){//MPopupMenuLook
+CCPopupMenuLook::CCPopupMenuLook(){//CCPopupMenuLook
 	m_SelectedPlaneColor = DEFCOLOR_CCLIST_SELECTEDPLANE;
 	m_SelectedTextColor = DEFCOLOR_CCLIST_SELECTEDTEXT;
 	m_UnfocusedSelectedPlaneColor = DEFCOLOR_DARK;
@@ -37,7 +37,7 @@ sRect CCPopupMenuLook::GetClientRect(CCPopupMenu* pPopupMenu, sRect& r){
 		return pPopupMenu->GetInitialClientRect();
 }
 
-void CCMenuItem::OnDrawMenuItem(CCDrawContext* pDC, bool bSelected){//MMenuItem
+void CCMenuItem::OnDrawMenuItem(CCDrawContext* pDC, bool bSelected){//CCMenuItem
 	sRect r = GetClientRect();	
 	pDC->SetColor(bSelected==true?sColor(DEFCOLOR_CCPOPUP_SELECTEDPLANE):sColor(DEFCOLOR_CCPOPUP_PLANE));
 	pDC->FillRectangle(r);
@@ -138,7 +138,7 @@ void CCMenuItem::Select(bool bSelect)
 	}
 }
 
-bool CCPopupMenu::OnEvent(CCEvent* pEvent, CCListener* pListener){//MPopupMenu
+bool CCPopupMenu::OnEvent(CCEvent* pEvent, CCListener* pListener){//CCPopupMenu
 	sRect r = GetClientRect();
 	switch(pEvent->iMessage){
 	case CCWM_LBUTTONDOWN:

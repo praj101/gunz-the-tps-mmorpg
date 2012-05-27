@@ -301,7 +301,7 @@ void ZStencilLight::Render()
 		LightSource* pLS = iter->second;
 		if(!isInViewFrustum(pLS->pos, RGetViewFrustum())) continue;
 
-		D3DLIGHT light;
+		D3DLIGHT9 light;
 		light.Type			= D3DLIGHT_POINT;
 		light.Ambient.r		= 0.1f;
 		light.Ambient.g		= 0.1f;

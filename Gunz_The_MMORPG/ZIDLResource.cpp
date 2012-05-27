@@ -119,7 +119,7 @@ ZScoreBoardFrame* ZIDLResource::GetScoreBoardFrame(CCXmlElement& element)
 			if (itor != m_FrameLookMap.end())
 			{
 				pFrameLook = (MBFrameLook*)(*itor).second;
-				pFrame->ChangeCustomLook((MFrameLook*)pFrameLook);
+				pFrame->ChangeCustomLook((CCFrameLook*)pFrameLook);
 			}
 		}
 	}
@@ -379,7 +379,7 @@ ZShopEquipListbox* ZIDLResource::GetEquipmentListBox(CCXmlElement& element)
 			memset(szItem, 0, sizeof(szItem));
 			childElement.GetContents(szItem);
 
-			map<string, MBScrollBarLook*>::iterator itor = m_ScrollBarLookMap.find(szItem);
+			map<string, CCBScrollBarLook*>::iterator itor = m_ScrollBarLookMap.find(szItem);
 			if (itor != m_ScrollBarLookMap.end())
 				pWidget->GetScrollBar()->ChangeCustomLook((*itor).second);
 		}else if (!strcmp(szBuf, "ARROWLOOK"))
@@ -388,7 +388,7 @@ ZShopEquipListbox* ZIDLResource::GetEquipmentListBox(CCXmlElement& element)
 			memset(szItem, 0, sizeof(szItem));
 			childElement.GetContents(szItem);
 
-			map<string, MBArrowLook*>::iterator itor = m_ArrowLookMap.find(szItem);
+			map<string, CCBArrowLook*>::iterator itor = m_ArrowLookMap.find(szItem);
 			if (itor != m_ArrowLookMap.end())
 				pWidget->GetScrollBar()->ChangeCustomArrowLook((*itor).second);
 		}else if (!strcmp(szBuf, "THUMBLOOK"))
@@ -397,7 +397,7 @@ ZShopEquipListbox* ZIDLResource::GetEquipmentListBox(CCXmlElement& element)
 			memset(szItem, 0, sizeof(szItem));
 			childElement.GetContents(szItem);
 
-			map<string, MBThumbLook*>::iterator itor = m_ThumbLookMap.find(szItem);
+			map<string, CCBThumbLook*>::iterator itor = m_ThumbLookMap.find(szItem);
 			if (itor != m_ThumbLookMap.end())
 				pWidget->GetScrollBar()->ChangeCustomThumbLook((*itor).second);
 		}else if (!strcmp(szBuf, "NUMCOLUMN"))

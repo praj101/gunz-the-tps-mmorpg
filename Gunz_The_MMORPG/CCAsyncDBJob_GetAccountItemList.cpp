@@ -6,14 +6,14 @@ void CCAsyncDBJob_GetAccountItemList::Run( void* pContext )
 {
 	CCMatchDBMgr* pDBMgr = (CCMatchDBMgr*)pContext;
 
-	MAccountItemNode ExpiredItemList[MAX_EXPIRED_ACCOUNT_ITEM];
+	CCAccountItemNode ExpiredItemList[MAX_EXPIRED_ACCOUNT_ITEM];
 	int nExpiredItemCount = 0;
 
 	// 디비에서 AccountItem을 가져온다
 	if (!pDBMgr->GetAccountItemInfo(m_dwAID, m_AccountItems, &m_nItemCount, MAX_ACCOUNT_ITEM
 		,ExpiredItemList, &nExpiredItemCount, MAX_EXPIRED_ACCOUNT_ITEM))
 	{
-		SetResult(MASYNC_RESULT_FAILED);
+		SetResult(CCASYNC_RESULT_FAILED);
 		return;
 	}
 
@@ -29,5 +29,5 @@ void CCAsyncDBJob_GetAccountItemList::Run( void* pContext )
 		}
 	}
 
-	SetResult(MASYNC_RESULT_SUCCEED);
+	SetResult(CCASYNC_RESULT_SUCCEED);
 }

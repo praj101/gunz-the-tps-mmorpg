@@ -67,7 +67,7 @@ public:
 
 	void Clear();
 
-	bool ParseGameTypeList( int nGameTypeNum, CCXmlElement& element);
+	bool ParseGameTypeList( int nGameTypeNum, ::CCXmlElement& element);
 
 	ZGameTypeConfig* GetGameTypeCfg( int nGameTypeNum);
 
@@ -86,7 +86,7 @@ public:
 */
 
 private :
-	bool ParseRound( ZGameTypeConfig* pConfig, CCXmlElement& element);
-	bool ParseLimitTime( ZGameTypeConfig* pConfig, CCXmlElement& element);
-	bool ParseMaxPlayers( ZGameTypeConfig* pConfig, CCXmlElement& element);
+	bool ParseRound( ZGameTypeConfig* pConfig, ::CCXmlElement& element);
+	bool ParseLimitTime( ZGameTypeConfig* pConfig, ::CCXmlElement& element);
+	bool ParseMaxPlayers( ZGameTypeConfig* pConfig, ::CCXmlElement& element);
 };

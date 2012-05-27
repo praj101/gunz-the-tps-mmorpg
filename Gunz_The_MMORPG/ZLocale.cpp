@@ -63,9 +63,9 @@ bool ZLocale::OnInit()
 
 bool ZLocale::ParseArguments(const char* pszArgs)
 {
-	switch (m_nCountry)
+	switch (m_iCountry)
 	{
-	case MC_KOREA:
+	case CCC_KOREA:
 		{
 			cclog("LOCALE:KOREA \n");
 #ifdef LOCALE_KOREA
@@ -83,7 +83,7 @@ bool ZLocale::ParseArguments(const char* pszArgs)
 		}
 		break;
 
-	case MC_JAPAN:
+	case CCC_JAPAN:
 		{
 			cclog("LOCALE:JAPAN \n");
 #ifdef LOCALE_JAPAN
@@ -102,7 +102,7 @@ bool ZLocale::ParseArguments(const char* pszArgs)
 		}
 		break;
 
-	case MC_NHNUSA :
+	case CCC_NHNUSA :
 		{
 #ifdef LOCALE_NHNUSA
 			if( NHN_USA_ParseArgument(pszArgs) )
@@ -135,14 +135,14 @@ bool ZLocale::CreateAuthInfo()
 
 	switch (m_nCountry)
 	{
-	case MC_KOREA:
+	case CCC_KOREA:
 		{
 #ifdef LOCALE_KOREA
 			m_pAuthInfo = new ZNetmarbleAuthInfo();
 #endif // LOCALE_KOREA
 		}
 		break;
-	case MC_JAPAN:
+	case CCC_JAPAN:
 		{
 #ifdef LOCALE_JAPAN
 			m_pAuthInfo = new ZGameOnJPAuthInfo();
@@ -150,7 +150,7 @@ bool ZLocale::CreateAuthInfo()
 		}
 		break;
 
-	case MC_NHNUSA :
+	case CCC_NHNUSA :
 		{
 #ifdef LOCALE_NHNUSA
 			m_pAuthInfo = new ZNHN_USAAuthInfo();
@@ -201,7 +201,7 @@ void ZLocale::PostLoginViaHomepage(CCUID* pAllocUID)
 	switch (m_nCountry)
 	{
 #ifdef LOCALE_KOREA
-	case MC_KOREA:
+	case CCC_KOREA:
 		{
 			char szSpareParam[3] = {1,2,0};
 			ZNetmarbleAuthInfo* pAuthInfo = (ZNetmarbleAuthInfo*)m_pAuthInfo;
@@ -211,7 +211,7 @@ void ZLocale::PostLoginViaHomepage(CCUID* pAllocUID)
 #endif //LOCALE_KOREA
 
 #ifdef LOCALE_JAPAN
-	case MC_JAPAN:
+	case CCC_JAPAN:
 		{
 			char szEncryptMD5Value[ MAX_MD5LENGH ] = {0, };
 			ZGetGameClient()->GetEncryptMD5HashValue( szEncryptMD5Value );
@@ -227,7 +227,7 @@ void ZLocale::PostLoginViaHomepage(CCUID* pAllocUID)
 #endif	// LOCALE_JAPAN
 
 #ifdef LOCALE_NHNUSA
-	case MC_NHNUSA :
+	case CCC_NHNUSA :
 		{
 			ZNHN_USAAuthInfo* pNHNAuth = (ZNHN_USAAuthInfo*)m_pAuthInfo;
 			if( 0 == pNHNAuth )

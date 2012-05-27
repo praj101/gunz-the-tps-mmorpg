@@ -583,7 +583,7 @@ END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER(ZGetChannelListJoinButtonListener, CCBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MListBox* pChannelList = (MListBox*)pResource->FindWidget("ChannelList");
+	CCListBox* pChannelList = (CCListBox*)pResource->FindWidget("ChannelList");
 	ZChannelListItem* pItem = (ZChannelListItem*)pChannelList->GetSelItem();
 	if (pItem) {
 		ZGetGameClient()->RequestChannelJoin(pItem->GetUID());
@@ -599,7 +599,7 @@ END_IMPLEMENT_LISTENER()
 
 BEGIN_IMPLEMENT_LISTENER(ZGetChannelListListener, MLB_ITEM_DBLCLK)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
-	MListBox* pChannelList = (MListBox*)pResource->FindWidget("ChannelList");
+	CCListBox* pChannelList = (CCListBox*)pResource->FindWidget("ChannelList");
 	ZChannelListItem* pItem = (ZChannelListItem*)pChannelList->GetSelItem();
 	if (pItem) {
 		ZGetGameClient()->RequestChannelJoin(pItem->GetUID());
@@ -1509,7 +1509,7 @@ class ZMapListListener : public CCListener{
 	{	
 		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true)
 		{
-			MListBox* pList = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
+			CCListBox* pList = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 			if(pList != NULL)
 			{
 				CCComboBox* pCombo = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapSelection");
@@ -1525,7 +1525,7 @@ class ZMapListListener : public CCListener{
 		}
 		if(CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
 		{
-			MListBox* pList = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
+			CCListBox* pList = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 			if(pList != NULL)
 			{
 				pList->Show(FALSE);
@@ -1542,7 +1542,7 @@ CCListener* ZGetStageMapListSelectionListener()
 }
 
 BEGIN_IMPLEMENT_LISTENER(ZGetStageMapListCallerListener, CCBTN_CLK_MSG)
-	MListBox* pList = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
+	CCListBox* pList = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 	pList->Show(TRUE);
 END_IMPLEMENT_LISTENER();
 
@@ -1718,7 +1718,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogOk, CCBTN_CLK_MSG)
 			int nCount = 0;
 			for(int i=0;i<pPlayerList->GetCount();i++)
 			{
-				MListItem *pItem = pPlayerList->Get(i);
+				CCListItem *pItem = pPlayerList->Get(i);
 				if(pItem->m_bSelected) {
 					if(nCount>=CLAN_SPONSORS_COUNT) break;
 					strcpy(szSponsors[nCount],pItem->GetString());
@@ -1892,7 +1892,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, CCBTN_CLK_MSG)
 		int nCount = 0;
 		for(int i=0;i<pPlayerList->GetCount();i++)
 		{
-			MListItem *pItem = pPlayerList->Get(i);
+			CCListItem *pItem = pPlayerList->Get(i);
 			if(pItem->m_bSelected) {
 				if(nCount>=nMaxInviteCount) {
 					nCount++;

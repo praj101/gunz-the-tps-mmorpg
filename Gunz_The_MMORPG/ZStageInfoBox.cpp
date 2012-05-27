@@ -6,7 +6,7 @@
 //IMPLEMENT_LOOK(ZStageInfoBox, ZStageInfoBoxLook)
 
 ZStageInfoBox::ZStageInfoBox(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MListBox(szName, pParent, pListener)
+: CCListBox(szName, pParent, pListener)
 {
 //	LOOK_IN_CONSTRUCTOR()
 
@@ -22,7 +22,7 @@ ZStageInfoBox::~ZStageInfoBox()
 
 void ZStageInfoBoxLook::OnDraw(ZStageInfoBox* pBox, CCDrawContext* pDC)
 {
-	MListBoxLook::OnDraw(pBox,pDC);
+	CCListBoxLook::OnDraw(pBox,pDC);
 }
 
 void ZStageInfoBox::OnDraw(CCDrawContext* pDC)
@@ -43,5 +43,5 @@ void ZStageInfoBox::OnDraw(CCDrawContext* pDC)
 		}
 	}
 	
-	MListBox::OnDraw(pDC);
+	CCListBox::OnDraw(pDC);
 }

@@ -53,7 +53,7 @@ bool InitMaps(CCWidget *pWidget)
 
 
 			// 있으면 콤보 박스에 이미 존재하는지 검사.
-			MSenarioList Scenario = (*itr).second;
+			CCSenarioList Scenario = (*itr).second;
 			bool bFind = false;
 
 			for ( int k = 0;  k < pCombo->GetCount();  k++)

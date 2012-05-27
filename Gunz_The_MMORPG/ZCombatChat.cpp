@@ -5,7 +5,7 @@
 #include "ZInterfaceItem.h"
 #include "ZApplication.h"
 #include "ZInterfaceListener.h"
-//#include "MListBox.h"
+//#include "CCListBox.h"
 #include "ZIDLResource.h"
 #include "ZPost.h"
 #include "CCChattingFilter.h"
@@ -18,7 +18,7 @@
 /////////////////
 // ZTabPlayerList
 ZTabPlayerList::ZTabPlayerList(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MListBox(szName, pParent, pListener)
+: CCListBox(szName, pParent, pListener)
 {
 	SetChatControl(NULL);
 }
@@ -46,20 +46,20 @@ void ZTabPlayerList::OnHide()
 
 bool ZTabPlayerList::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
-	if(pEvent->nMessage==MWM_KEYDOWN){
-		if(pEvent->nKey==VK_ESCAPE) 
+	if(pEvent->iMessage==MWM_KEYDOWN){
+		if(pEvent->uKey==VK_ESCAPE) 
 		{
 			Show(false);
 			return true;
 		}
-		else if( (pEvent->nKey==VK_TAB) || (pEvent->nKey==VK_RETURN) || (pEvent->nKey==VK_SPACE))
+		else if( (pEvent->uKey==VK_TAB) || (pEvent->uKey==VK_RETURN) || (pEvent->uKey==VK_SPACE))
 		{
 			OnPickPlayer();
 			Show(false);
 			return true;
 		}
 	}
-	return MListBox::OnEvent(pEvent, pListener);
+	return CCListBox::OnEvent(pEvent, pListener);
 }
 
 void ZTabPlayerList::OnPickPlayer()

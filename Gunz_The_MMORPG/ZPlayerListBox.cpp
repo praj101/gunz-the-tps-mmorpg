@@ -58,7 +58,7 @@ void ZPlayerListBoxLook::OnItemDraw2(CCDrawContext* pDC, sRect& r, CCBitmap* pBi
 	pDC->SetClipRect(rtemp);
 }
 
-sRect ZPlayerListBoxLook::GetClientRect(MListBox* pListBox, sRect& r)
+sRect ZPlayerListBoxLook::GetClientRect(CCListBox* pListBox, sRect& r)
 {
 	return r;
 }
@@ -74,7 +74,7 @@ float GetF(float _new)
 }
 
 
-void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, CCDrawContext* pDC)
+void ZPlayerListBoxLook::OnDraw(CCListBox* pListBox, CCDrawContext* pDC)
 {
 	((ZPlayerListBox*)pListBox)->UpdateList(((ZPlayerListBox*)pListBox)->GetPlayerListMode());
 
@@ -234,7 +234,7 @@ void ZPlayerListBoxLook::OnDraw(MListBox* pListBox, CCDrawContext* pDC)
 IMPLEMENT_LOOK(ZPlayerListBox, ZPlayerListBoxLook)
 
 ZPlayerListBox::ZPlayerListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MListBox(szName, pParent, pListener)
+: CCListBox(szName, pParent, pListener)
 {
 	LOOK_IN_CONSTRUCTOR()
 /*
@@ -523,7 +523,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, int  nLevel,char
 	if(bSpUser)
 		pItem->SetColor(_color);
 
-	MListBox::Add( pItem );
+	CCListBox::Add( pItem );
 }
 
 // mode PLAYERLISTMODE_STAGE
@@ -620,7 +620,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, int n
 	if(bSpUser)
 		pItem->SetColor(_color);
 
-	MListBox::Add( pItem );
+	CCListBox::Add( pItem );
 
 	if( ZGetMyUID() == puid )
 	{
@@ -651,7 +651,7 @@ void ZPlayerListBox::AddPlayer(ePlayerState state, char* szName, char* szLocatio
 		case PS_LOBBY	: strcpy(szFileName, "player_status_lobby.tga");	break;
 	}
 
-	MListBox::Add(new ZFriendPlayerListItem(CCUID(0,0),CCBitmapManager::Get(szFileName), szName,NULL,szLocation,state,CCMUGFREE));
+	CCListBox::Add(new ZFriendPlayerListItem(CCUID(0,0),CCBitmapManager::Get(szFileName), szName,NULL,szLocation,state,CCMUGFREE));
 }
 
 // mode PLAYERLISTMODE_CHANNEL_CLAN
@@ -696,7 +696,7 @@ void ZPlayerListBox::AddPlayer(CCUID& puid, ePlayerState state, char* szName, in
 	if(bSpUser)
 		pItem->SetColor(_color);
 
-	MListBox::Add( pItem );
+	CCListBox::Add( pItem );
 }
 
 void ZPlayerListBox::DelPlayer(CCUID& puid)
@@ -1084,8 +1084,8 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 	sRect rtClient = GetClientRect();
 
 	if(pEvent->nMessage==MWM_RBUTTONDOWN) {
-		if(rtClient.InPoint(pEvent->Pos)==true) {
-			int nSelItem = FindItem(pEvent->Pos);
+		if(rtClient.InPoint(pEvent->sPos)==true) {
+			int nSelItem = FindItem(pEvent->sPos);
 			if (nSelItem != -1) {
 				ZLobbyPlayerListItem* pItem = (ZLobbyPlayerListItem*)Get(nSelItem);
 
@@ -1150,7 +1150,7 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 					pMenu->Show(posMenu.x, posMenu.y, true);
 */
 					sPoint posItem;
-					posItem = pEvent->Pos;
+					posItem = pEvent->sPos;
 					sPoint posMenu = CCClientToScreen(this, posItem);
 					
 					if ( (posMenu.x + pMenu->GetClientRect().w) > (CCGetWorkspaceWidth() - 5))
@@ -1170,9 +1170,9 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 	// 플레이어 정보 출력
 	else if ( pEvent->nMessage == MWM_LBUTTONDBLCLK)
 	{
-		if ( rtClient.InPoint( pEvent->Pos) == true)
+		if ( rtClient.InPoint( pEvent->sPos) == true)
 		{
-			int nSelItem = FindItem( pEvent->Pos);
+			int nSelItem = FindItem( pEvent->sPos);
 
 			if ( nSelItem != -1)
 			{
@@ -1187,8 +1187,8 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 /*	if (GetToolTip()) {
 		if ( (GetMode() == PLAYERLISTMODE_CHANNEL_FRIEND) || (GetMode() == PLAYERLISTMODE_STAGE_FRIEND) ) {
-			if(rtClient.InPoint(pEvent->Pos)==true) {
-				int nSelItem = FindItem(pEvent->Pos);
+			if(rtClient.InPoint(pEvent->sPos)==true) {
+				int nSelItem = FindItem(pEvent->sPos);
 				if (nSelItem != -1) {
 					ZFriendPlayerListItem* pItem = (ZFriendPlayerListItem*)Get(nSelItem);
 
@@ -1209,7 +1209,7 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		}
 	}
 */
-	return MListBox::OnEvent(pEvent, pListener);;
+	return CCListBox::OnEvent(pEvent, pListener);;
 }
 
 
@@ -1220,7 +1220,7 @@ IMPLEMENT_LOOK(ZStagePlayerListBox, ZPlayerListBoxLook)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ZStagePlayerListBox::ZStagePlayerListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MListBox(szName, pParent, pListener)
+: CCListBox(szName, pParent, pListener)
 {
 	LOOK_IN_CONSTRUCTOR()
 
@@ -1415,8 +1415,8 @@ void ZStagePlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, 
 	pBitmap = CCBitmapManager::Get(szFileName);
 	pBitmapState = CCBitmapManager::Get(szFileNameState);
 
-//	MListBox::Add(new ZLobbyPlayerListItem(puid, pBitmap, szName, szLevel));
-	MListBox::Add(new ZStagePlayerListItem(puid, pBitmap, pBitmapState, szName, szLevel));
+//	CCListBox::Add(new ZLobbyPlayerListItem(puid, pBitmap, szName, szLevel));
+	CCListBox::Add(new ZStagePlayerListItem(puid, pBitmap, pBitmapState, szName, szLevel));
 }
 
 bool ZStagePlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
@@ -1427,7 +1427,7 @@ bool ZStagePlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		int k=0;
 	}
 
-	return MListBox::OnEvent(pEvent, pListener);
+	return CCListBox::OnEvent(pEvent, pListener);
 }
 */
 /*
@@ -1439,7 +1439,7 @@ void ZStagePlayerListBox::AddPlayer( CCMatchObjCache* pCache )
 	strcpy( pInfo->szName, pCache->GetName() );
 	pInfo->Level	=	pCache->GetLevel();
 
-	MListBox::Add(new ZLobbyPlayerListItem(uidItem, pIconBitmap, szName, szWeight, szSlot, szPrice));
+	CCListBox::Add(new ZLobbyPlayerListItem(uidItem, pIconBitmap, szName, szWeight, szSlot, szPrice));
 }
 */
 
@@ -1465,7 +1465,7 @@ void ZPlayerListBox::SelectPlayer(CCUID uid)
 
 void ZPlayerListBox::MultiplySize( float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight )
 {
-	MListBox::MultiplySize(byIDLWidth, byIDLHeight, byCurrWidth, byCurrHeight);
+	CCListBox::MultiplySize(byIDLWidth, byIDLHeight, byCurrWidth, byCurrHeight);
 
 	OnSize(GetRect().w, GetRect().h);	// onsize안에서 커스텀하게 처리하는 부분들을 실행시키자
 }

@@ -8,8 +8,8 @@
 class MBCCButton;
 class ZMeshView;
 
-// 프레임을 그리기 위해 MGroup을 상속받는다.
-class ZMeshViewList : public MGroup{
+// 프레임을 그리기 위해 CCGroup을 상속받는다.
+class ZMeshViewList : public CCGroup{
 protected:
 	int	m_nItemStartIndex;	// 아이템 시작 인덱스
 	int	m_nItemWidth;		// 아이템 가로 크기

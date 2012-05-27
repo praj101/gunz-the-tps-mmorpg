@@ -1107,7 +1107,7 @@ bool ZQuest::OnRewardQuest( CCCommand* pCmd )
 }
 
 // 획득 아이템 리스트 박스 업데이트
-class ObtainItemListBoxItem : public MListItem
+class ObtainItemListBoxItem : public CCListItem
 {
 protected:
 	CCBitmap*			m_pBitmap;
@@ -1153,7 +1153,7 @@ void ZQuest::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pMyOb
 	ZMyInfo*					pMyInfo;
 
 	pMyInfo = ZGetMyInfo();
-	MListBox* pListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_ItemListbox");
+	CCListBox* pListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_ItemListbox");
 	if ( pListBox)
 		pListBox->RemoveAll();
 

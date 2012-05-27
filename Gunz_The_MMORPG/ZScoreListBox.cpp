@@ -3,7 +3,7 @@
 #include "ZScoreListBox.h"
 
 ZScoreListBox::ZScoreListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MListBox(szName, pParent, pListener)
+: CCListBox(szName, pParent, pListener)
 {
 	SetFocusEnable(false);
 

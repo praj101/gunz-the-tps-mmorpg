@@ -85,8 +85,8 @@
 //	}
 //	else if(pEvent->nMessage==MWM_RBUTTONDOWN) {
 //		// 현재 사용되고 있지 않은 코드인것 같습니다. 주석처리함
-//		/*if(rtClient.InPoint(pEvent->Pos)==true) {
-//			int nSelItem = FindItem(pEvent->Pos);
+//		/*if(rtClient.InPoint(pEvent->sPos)==true) {
+//			int nSelItem = FindItem(pEvent->sPos);
 //			if ( (nSelItem != -1) && GetItemMenu())
 //			{
 //				SetSelIndex(nSelItem);
@@ -202,7 +202,7 @@
 //void ZEquipmentListBox_OLD::AttachMenu(ZItemMenu* pMenu) 
 //{ 
 //	m_pItemMenu = pMenu;
-//	((MPopupMenu*)m_pItemMenu)->Show(false);
+//	((CCPopupMenu*)m_pItemMenu)->Show(false);
 //}
 //
 //// Listener //////////////////////////////////////////////////////////////////////////////////////////

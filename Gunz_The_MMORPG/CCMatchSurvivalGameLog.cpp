@@ -41,7 +41,7 @@ bool CCMatchSurvivalGameLogInfoManager::PostInsertSurvivalGameLog()
 {
 	const int nElapsedPlayTime = (m_dwGameEndTime - m_dwGameStartTime) / 60000; // 분단위로 계산을 함.
 
-	MAsyncDBJob_InsertSurvivalModeGameLog* pAsyncDbJob_InsertGameLog = new MAsyncDBJob_InsertSurvivalModeGameLog;
+	CCAsyncDBJob_InsertSurvivalModeGameLog* pAsyncDbJob_InsertGameLog = new MAsyncDBJob_InsertSurvivalModeGameLog;
 	if( 0 == pAsyncDbJob_InsertGameLog )
 		return false;
 

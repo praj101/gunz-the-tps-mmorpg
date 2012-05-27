@@ -8,7 +8,7 @@
 
 class ZListItemScore;
 
-class ZScoreListBox : public MListBox
+class ZScoreListBox : public CCListBox
 {
 private:
 protected:
@@ -22,7 +22,7 @@ public:
 };
 
 
-class ZListItemScore : public MListItem
+class ZListItemScore : public CCListItem
 {
 protected:
 	char	m_szTeam[256];
@@ -81,7 +81,7 @@ public:
 	}
 };
 
-class ZScoreBoardFrame : public MFrame
+class ZScoreBoardFrame : public CCFrame
 {
 private:
 protected:
@@ -91,7 +91,7 @@ protected:
 	}
 public:
 	ZScoreBoardFrame(const char* szName, CCWidget* pParent=NULL, CCListener* pListener=NULL)
-		: MFrame(szName, pParent, pListener)
+		: CCFrame(szName, pParent, pListener)
 	{
 
 	}

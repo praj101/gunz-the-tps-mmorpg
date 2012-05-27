@@ -9,9 +9,9 @@ void CCAsyncDBJob_BuyQuestItem::Run( void* pContext )
 
 	if( !pDBMgr->UpdateCharBP(m_dwCID, -m_nPrice) )
 	{
-		SetResult( MASYNC_RESULT_FAILED );
+		SetResult( CCASYNC_RESULT_FAILED );
 		return;
 	}
 
-	SetResult( MASYNC_RESULT_SUCCEED );
+	SetResult( CCASYNC_RESULT_SUCCEED );
 }

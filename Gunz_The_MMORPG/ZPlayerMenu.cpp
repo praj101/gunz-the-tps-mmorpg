@@ -13,22 +13,22 @@ ZPlayerMenuListener listenerPlayerMenu;
 
 
 //// ZPlayerMenuItem ////
-ZPlayerMenuItem::ZPlayerMenuItem(ZCMD_PLAYERMENU nCmdID, const char* szName) : MMenuItem(szName)
+ZPlayerMenuItem::ZPlayerMenuItem(ZCMD_PLAYERMENU nCmdID, const char* szName) : CCMenuItem(szName)
 {
 	m_nCmdID = nCmdID;
 }
 
 
 //// ZPlayerMenu ////
-ZPlayerMenu::ZPlayerMenu(const char* szName, CCWidget* pParent, CCListener* pListener, MPopupMenuTypes t) 
-: MPopupMenu(szName, pParent, pListener, t)
+ZPlayerMenu::ZPlayerMenu(const char* szName, CCWidget* pParent, CCListener* pListener, CCPopupMenuTypes t) 
+: CCPopupMenu(szName, pParent, pListener, t)
 {
 	m_szPlayerName[0] = NULL;
 }
 
 void ZPlayerMenu::AddMenuItem(ZPlayerMenuItem* pMenuItem)
 {
-	MPopupMenu::AddMenuItem(pMenuItem);
+	CCPopupMenu::AddMenuItem(pMenuItem);
 	pMenuItem->SetListener(&listenerPlayerMenu);
 }
 
@@ -55,7 +55,7 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 
 		CCMatchClanGrade myGrade = ZGetMyInfo()->GetClanGrade();
 		if(myGrade == CCG_MASTER || myGrade == CCG_ADMIN) {	// 클랜 메뉴 추가
-			MPopupMenu::AddMenuItem("--------");
+			CCPopupMenu::AddMenuItem("--------");
 			AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_INVITE, ZMsg( MSG_MENUITEM_FRIENDCLANINVITE)));
 		}
 
@@ -83,7 +83,7 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 
 		CCMatchClanGrade myGrade = ZGetMyInfo()->GetClanGrade();
 		if(myGrade == CCG_MASTER || myGrade == CCG_ADMIN)
-			MPopupMenu::AddMenuItem("--------");
+			CCPopupMenu::AddMenuItem("--------");
 	
 		if(myGrade == CCG_MASTER) // 클랜 메뉴 추가
 		{
@@ -98,13 +98,13 @@ void ZPlayerMenu::SetupMenu(ZPLAYERMENU_SET nMenuSet)
 	} else if (nMenuSet == ZPLAYERMENU_SET_CLAN_ME) {
 		AddMenuItem(new ZPlayerMenuItem(ZCMD_PLAYERMENU_CLAN_LEAVE, ZMsg( MSG_MENUITEM_CLANLEAVE)));
 	} else {
-		((MPopupMenu*)this)->AddMenuItem(  ZMsg( MSG_MENUITEM_NONE));
+		((CCPopupMenu*)this)->AddMenuItem(  ZMsg( MSG_MENUITEM_NONE));
 	}
 }
 
 void ZPlayerMenu::Show(int x, int y, bool bVisible)
 {
-	MPopupMenu::Show(x, y, bVisible);
+	CCPopupMenu::Show(x, y, bVisible);
 }
 
 
@@ -115,7 +115,7 @@ bool ZPlayerMenuListener::OnCommand(CCWidget* pWidget, const char* szMessage)
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
 	ZPlayerMenu* pMenu = (ZPlayerMenu*)pWidget->GetParent();
-	((MPopupMenu*)pMenu)->Show(false);
+	((CCPopupMenu*)pMenu)->Show(false);
 	ZPlayerMenuItem* pItem = (ZPlayerMenuItem*)pWidget;
 
 	switch(pItem->GetCmdID()) {	// 명령을 String Command로 날리려니 상당히 안이쁜코드가;;

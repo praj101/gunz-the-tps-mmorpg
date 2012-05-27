@@ -1,5 +1,5 @@
-#ifndef _MMATCHRULE_DUEL_H
-#define _MMATCHRULE_DUEL_H
+#ifndef _CCMATCHRULE_DUEL_H
+#define _CCMATCHRULE_DUEL_H
 
 
 #include "CCMatchRule.h"

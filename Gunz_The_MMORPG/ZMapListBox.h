@@ -3,13 +3,13 @@
 
 #include "CCWidget.h"
 
-class MListBox;
+class CCListBox;
 class CCZFileSystem;
 class CCTextArea;
 
 class ZMapListBox : public CCWidget{
 protected:
-	MListBox*	m_pListBox;
+	CCListBox*	m_pListBox;
 	CCBitmap*	m_pThumbnail;
 
 protected:

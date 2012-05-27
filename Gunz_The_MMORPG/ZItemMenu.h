@@ -10,7 +10,7 @@ enum ZCMD_ITEMMENU {
 };
 
 
-class ZItemMenuItem : public MMenuItem {
+class ZItemMenuItem : public CCMenuItem {
 protected:
 	ZCMD_ITEMMENU		m_nCmdID;
 public:
@@ -19,13 +19,13 @@ public:
 };
 
 
-class ZItemMenu : public MPopupMenu {
+class ZItemMenu : public CCPopupMenu {
 protected:
 	char	m_szItemName[128];
 	CCUID	m_IteCCUID;
 
 public:
-	ZItemMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, MPopupMenuTypes t=MPMT_VERTICAL);
+	ZItemMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, CCPopupMenuTypes t=MPMT_VERTICAL);
 	void AddMenuItem(ZItemMenuItem* pMenuItem);
 
 	const char* GetTargetName()	{ return m_szItemName; }

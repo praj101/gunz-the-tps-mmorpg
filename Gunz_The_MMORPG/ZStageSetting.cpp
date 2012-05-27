@@ -160,7 +160,7 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 		pOutNode->nRelayMapRepeatCount = (RELAY_MAP_REPEAT_COUNT)pCB->GetSelIndex();
 
 	// 릴레이맵 리스트
-	MListBox* pRelayMapListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
+	CCListBox* pRelayMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 	if(pRelayMapListBox)
 	{
 		pOutNode->nRelayMapListCount = pRelayMapListBox->GetCount();

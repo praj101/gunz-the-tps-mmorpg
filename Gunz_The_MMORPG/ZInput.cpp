@@ -43,7 +43,7 @@ void ZInput::OnActionKey(int nActionID, bool bPressed)
 	if(m_pEventListener==NULL) return;
 	
 	CCEvent e;
-	e.nMessage = bPressed ? MWM_ACTIONKEYDOWN : MWM_ACTIONKEYUP;
+	e.iMessage = bPressed ? MWM_ACTIONKEYDOWN : MWM_ACTIONKEYUP;
 	e.nKey = nActionID;
 	m_pEventListener(&e);
 

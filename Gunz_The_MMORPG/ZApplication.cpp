@@ -214,8 +214,8 @@ bool ZApplication::ParseArguments(const char* pszArgs)
 	*/		
 
 	switch(ZGetLocale()->GetCountry()) {
-	case MC_JAPAN:
-	case MC_KOREA:
+	case CCC_JAPAN:
+	case CCC_KOREA:
 		{
 			// 인증 정보 세팅
 			if( !ZGetLocale()->ParseArguments(pszArgs) )
@@ -228,7 +228,7 @@ bool ZApplication::ParseArguments(const char* pszArgs)
 		}
 		break;
 
-	case MC_NHNUSA : 
+	case CCC_NHNUSA : 
 #ifdef LOCALE_NHNUSA
 		{
 			if( !ZGetLocale()->ParseArguments(pszArgs) )

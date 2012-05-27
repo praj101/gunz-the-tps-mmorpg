@@ -350,7 +350,7 @@ bool ZMeshView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	sRect r = GetInitialClientRect();
 
-	static sPoint st_LastPoint = pEvent->Pos;
+	static sPoint st_LastPoint = pEvent->sPos;
 
 	switch(pEvent->nMessage)
 	{
@@ -359,16 +359,16 @@ bool ZMeshView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 			if(m_bLButtonDown) 
 			{
 				// 좌우로 움직이면 좌우 회전
-				RotateLeft(1.5f * (st_LastPoint.x - pEvent->Pos.x));
+				RotateLeft(1.5f * (st_LastPoint.x - pEvent->sPos.x));
 
 				// 상하로 움직이면
-				RotateVertical( 1.0f * (st_LastPoint.y - pEvent->Pos.y));
+				RotateVertical( 1.0f * (st_LastPoint.y - pEvent->sPos.y));
 			}
 		}
 		break;
 	case MWM_MOUSEWHEEL:
 		{
-			if(r.InPoint(pEvent->Pos)==false) return false;
+			if(r.InPoint(pEvent->sPos)==false) return false;
 			float fDist = min(max(-pEvent->nDelta, -8), 8);
 			ZoomIn(fDist);
 		}
@@ -381,7 +381,7 @@ bool ZMeshView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		break;
 	}
 
-	st_LastPoint = pEvent->Pos;
+	st_LastPoint = pEvent->sPos;
 
 	return CCButton::OnEvent(pEvent, pListener);
 }

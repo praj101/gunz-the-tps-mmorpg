@@ -49,7 +49,7 @@ bool CCMatchEventFactory::InsertEventData( const EventData& EvnData )
 bool CCMatchEventFactory::GetEventList( const DWORD dwGameType, EventPtrVec& EvnPtrVec )
 {
 	if( (CCMatchEvent::GAME_TYPE_ALL != dwGameType) &&
-		((0 > dwGameType) && (MMATCH_GAMETYPE_MAX < dwGameType)) )
+		((0 > dwGameType) && (CCMATCH_GAMETYPE_MAX < dwGameType)) )
 		return false;
 
 	if( !m_vAllGameTypeEventData.empty() )
@@ -228,7 +228,7 @@ CCMatchEventFactoryManager::~CCMatchEventFactoryManager()
 }
 
 
-bool CCMatchEventFactoryManager::LoadEventListXML( MZFileSystem* pFileSystem, const string& strFileName )
+bool CCMatchEventFactoryManager::LoadEventListXML( CCZFileSystem* pFileSystem, const string& strFileName )
 {
 	CCXmlDocument	xmlIniData;
 	xmlIniData.Create();
@@ -331,7 +331,7 @@ bool CCMatchEventFactoryManager::LoadEventListXML( const string& strFileName )
 }
 
 
-void CCMatchEventFactoryManager::ParseLocale( CCXmlElement& chrElement )
+void CCMatchEventFactoryManager::ParseLocale( ::CCXmlElement& chrElement )
 {
 	EventData ed;
 	char szAttrName[ 128 ];
@@ -346,40 +346,40 @@ void CCMatchEventFactoryManager::ParseLocale( CCXmlElement& chrElement )
 			/*  // MBaseLocale.h // 
 			enum MCountry
 			{
-				MC_KOREA			= 82,		// 한국
+				CCC_KOREA			= 82,		// 한국
 				MC_US				= 1,		// 미국(인터네셔날)
-				MC_JAPAN			= 81,		// 일본
+				CCC_JAPAN			= 81,		// 일본
 			};
 			*/
 
 			string strCountry;
-			switch( MGetLocale()->GetCountry() )
+			switch( CCGetLocale()->GetCountry() )
 			{
-			case MC_KOREA :
+			case CCC_KOREA :
 				{
 					strCountry = "kor";
 				}
 				break;
 
-			case MC_US :
+			case CCC_US :
 				{
 					strCountry = "us";
 				}
 				break;
 
-			case MC_JAPAN :
+			case CCC_JAPAN :
 				{
 					strCountry = "jpn";
 				}
 				break;
 
-			case MC_BRAZIL :
+			case CCC_BRAZIL :
 				{
 					strCountry = "brz";
 				}
 				break;
 
-			case MC_INDIA :
+			case CCC_INDIA :
 				{
 					strCountry = "ind";
 				}
@@ -576,7 +576,7 @@ void CCMatchEventFactoryManager::ParseEvent( CCXmlElement& chrElement )
 	for( itSvrTyp = vServerType.begin(); itSvrTyp != endSvrTyp; ++itSvrTyp )
 	{
 		// 모든 서버에 적용.
-		if( MSM_ALL == itSvrTyp->ServerType )
+		if( CSM_ALL == itSvrTyp->ServerType )
 		{
 			bUseEvent = true;
 			continue;
@@ -673,7 +673,7 @@ void CCMatchEventFactoryManager::ParseGameType( CCXmlElement& chrElement, vector
 
 		if( 0 == stricmp(EL_TYPE, szAttrName) )
 		{
-			GameType.GameType = static_cast< MMATCH_GAMETYPE >( atoi(szAttrValue) );
+			GameType.GameType = static_cast< CCMATCH_GAMETYPE >( atoi(szAttrValue) );
 			continue;
 		}
 	}

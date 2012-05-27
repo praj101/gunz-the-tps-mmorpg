@@ -4,6 +4,7 @@
 
 class CCDrawContext;
 class ZActor;
+class ZCharacter;
 
 // 퀘스트나 서바이벌 모드 등 퀘스트 관련 모드에서 보여지는 화면
 class ZCombatQuestScreen

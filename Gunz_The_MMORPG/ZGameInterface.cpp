@@ -241,7 +241,7 @@ pNew->SetBounds(HotBarClientRect.x+HOTBAR_SPINBTN_WIDTH+1+i*(HOTBAR_BTN_WIDTH+1)
 }
 */
 
-void AddListItem(MListBox* pList, CCBitmap* pBitmap, const char* szString, const char* szItemString)
+void AddListItem(CCListBox* pList, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
 	class MDragableListItem : public MDefaultListItem{
 		char m_szDragItemString[256];
@@ -268,7 +268,7 @@ bool InitSkillList(CCWidget* pWidget)
 	if(pWidget==NULL) return false;
 
 	if(strcmp(pWidget->GetClassName(), CORE_LISTBOX)!=0) return false;
-	MListBox* pList = (MListBox*)pWidget;
+	CCListBox* pList = (CCListBox*)pWidget;
 
 	pList->SetItemHeight(32);
 	pList->SetVisibleHeader(false);
@@ -285,7 +285,7 @@ bool InitItemList(CCWidget* pWidget)
 	if(pWidget==NULL) return false;
 
 	if(strcmp(pWidget->GetClassName(), CORE_LISTBOX)!=0) return false;
-	MListBox* pList = (MListBox*)pWidget;
+	CCListBox* pList = (CCListBox*)pWidget;
 
 	//	pList->SetViewStyle(MVS_ICON);
 	pList->SetVisibleHeader(false);
@@ -584,8 +584,8 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	MBFrameLook* pFrameLook = (MBFrameLook*)m_IDLResource.FindFrameLook("DefaultFrameLook");
 	if (pFrameLook != NULL)
 	{
-		m_pMsgBox->ChangeCustomLook((MFrameLook*)pFrameLook);
-		m_pConfirmMsgBox->ChangeCustomLook((MFrameLook*)pFrameLook);
+		m_pMsgBox->ChangeCustomLook((CCFrameLook*)pFrameLook);
+		m_pConfirmMsgBox->ChangeCustomLook((CCFrameLook*)pFrameLook);
 	}
 	else
 	{
@@ -652,7 +652,7 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	_ASSERT(m_pPlayerMenu==NULL);
 	// Player Menu
 	m_pPlayerMenu = new ZPlayerMenu("PlayerMenu", this, this, MPMT_VERTICAL);
-	((MPopupMenu*)m_pPlayerMenu)->Show(false);
+	((CCPopupMenu*)m_pPlayerMenu)->Show(false);
 
 	return true;
 }
@@ -1275,8 +1275,8 @@ void ZGameInterface::OnGameDestroy()
 
 	CCWidget *pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "GameResult");
 	if ( pWidget) {
-		MFrame *pFrame = (CCFrame*)pWidget;
-		pFrame->MFrame::Show( false);
+		CCFrame *pFrame = (CCFrame*)pWidget;
+		pFrame->CCFrame::Show( false);
 	}
 
 	ZGetGameClient()->RequestOnGameDestroyed();
@@ -1994,7 +1994,7 @@ void ZGameInterface::OnStageCreate()
 		pObserverBtn->SetCheck( false);
 
 	/*
-	MListBox* pListBox  = (MListBox*)m_IDLResource.FindWidget("StageChattingOutput");
+	CCListBox* pListBox  = (CCListBox*)m_IDLResource.FindWidget("StageChattingOutput");
 	if (pListBox != NULL)
 	{
 		pListBox->RemoveAll();		
@@ -2257,7 +2257,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	}
 
 	// 리플레이 박스 초기화
-	MListBox* pReplayBox = (MListBox*)m_IDLResource.FindWidget( "Replay_FileList");
+	CCListBox* pReplayBox = (CCListBox*)m_IDLResource.FindWidget( "Replay_FileList");
 	if ( pReplayBox)
 	{
 		pReplayBox->m_FontAlign = CCAM_VCENTER;
@@ -2368,7 +2368,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 		}
 
 		// 맵 리스트 박스 초기화
-		MListBox* pMapListBox = (MListBox*)m_IDLResource.FindWidget( "Stage_MapListbox" );
+		CCListBox* pMapListBox = (CCListBox*)m_IDLResource.FindWidget( "Stage_MapListbox" );
 		if ( pMapListBox)
 		{
 			pMapListBox->m_FontAlign = CCD_LEFT;
@@ -2379,7 +2379,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 			pMapListBox->m_bNullFrame = true;
 		}
 		// 릴레이맵 리스트 박스 초기화
-		MListBox* pRelayMapListBox = (MListBox*)m_IDLResource.FindWidget( "Stage_RelayMapListbox" );
+		CCListBox* pRelayMapListBox = (CCListBox*)m_IDLResource.FindWidget( "Stage_RelayMapListbox" );
 		if ( pRelayMapListBox)
 		{
 			pRelayMapListBox->m_FontAlign = CCD_LEFT;
@@ -2392,7 +2392,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	}
 
 	// 희생 아이템 리스트 박스 초기화
-	MListBox* pListBox = (MListBox*)m_IDLResource.FindWidget( "Stage_SacrificeItemListbox");
+	CCListBox* pListBox = (CCListBox*)m_IDLResource.FindWidget( "Stage_SacrificeItemListbox");
 	if ( pListBox)
 	{
 		pListBox->m_FontAlign = CCAM_VCENTER;
@@ -2420,7 +2420,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	}
 
 	// 획득 아이템 리스트 박스 초기화
-	pListBox = (MListBox*)m_IDLResource.FindWidget( "QuestResult_ItemListbox");
+	pListBox = (CCListBox*)m_IDLResource.FindWidget( "QuestResult_ItemListbox");
 	if ( pListBox)
 	{
 		pListBox->m_FontAlign = CCAM_VCENTER;
@@ -3156,7 +3156,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(CCDrawContext* pDC)
 	{
 		// 플레이어 정보 표시
 		char buf[512];
-		MListBox* pListBox = (MListBox*)pRes->FindWidget( "StagePlayerList_");
+		CCListBox* pListBox = (CCListBox*)pRes->FindWidget( "StagePlayerList_");
 		bool bShowMe = true;
 		if ( pListBox)
 		{
@@ -3644,7 +3644,7 @@ bool ZGameInterface::OnGlobalEvent(CCEvent* pEvent)
 	switch(pEvent->nMessage){
 		case MWM_CHAR:
 		{
-			switch (pEvent->nKey) {
+			switch (pEvent->uKey) {
 			case '`' :
 				if (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_STANDALONE_DEVELOP)
 				{
@@ -3661,7 +3661,7 @@ bool ZGameInterface::OnGlobalEvent(CCEvent* pEvent)
 			{
 				// Ctrl+R UI 리소스 리로딩 - 문제가 많다. 근데 그냥 UI 디자인용 급조 기능이니까 그냥 씁시당..
 				// (800*600이외에서는 화면이 이상해짐, 종료시 메모리릭 엄청 남, 게임중엔 리로드 작동안됨)
-				if (pEvent->GetCtrlState() && pEvent->nKey == 'R') {
+				if (pEvent->GetCtrlState() && pEvent->uKey == 'R') {
 					GunzState state = ZGetGameInterface()->GetState();
 					m_sbRemainClientConnectionForResetApp = true;
 					ZLoadingProgress progress("");
@@ -3682,7 +3682,7 @@ bool ZGameInterface::OnDebugEvent(CCEvent* pEvent, CCListener* pListener)
 	switch(pEvent->nMessage){
 	case MWM_KEYDOWN:
 		{
-			switch (pEvent->nKey)
+			switch (pEvent->uKey)
 			{
 			case VK_F10:
 				m_pLogFrame->Show(!m_pLogFrame->IsVisible());
@@ -3728,7 +3728,7 @@ bool ZGameInterface::OnEvent(CCEvent* pEvent, CCListener* pListener)
 bool ZGameInterface::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	if (pWidget==m_pPlayerMenu) {
-		MMenuItem* pItem = (MMenuItem*)pWidget;
+		CCMenuItem* pItem = (CCMenuItem*)pWidget;
 
 
 		OutputDebugString("PLAYERMENU");
@@ -5799,7 +5799,7 @@ void ZGameInterface::InitChannelFrame(CCCHANNEL_TYPE nChannelType)
 	pWidget = m_IDLResource.FindWidget("MyClanChannel");
 	if(pWidget) pWidget->Show( nChannelType == CCCHANNEL_TYPE_CLAN );
 
-	MListBox* pListBox = (MListBox*)m_IDLResource.FindWidget("ChannelList");
+	CCListBox* pListBox = (CCListBox*)m_IDLResource.FindWidget("ChannelList");
 	if (pListBox) pListBox->RemoveAll();
 }
 
@@ -5939,7 +5939,7 @@ bool ZGameInterface::OpenMiniMap()
   arg  : true(=show) or false(=hide)
   ret  : none
 ************************************************************************/
-class ReplayListBoxItem : public MListItem
+class ReplayListBoxItem : public CCListItem
 {
 protected:
 	char		m_szName[ _MAX_PATH];
@@ -5988,7 +5988,7 @@ void ZGameInterface::ShowReplayDialog( bool bShow)
 
 
 		// 파일 리스트 초기화
-		MListBox* pListBox = (MListBox*)m_IDLResource.FindWidget( "Replay_FileList");
+		CCListBox* pListBox = (CCListBox*)m_IDLResource.FindWidget( "Replay_FileList");
 		if ( pListBox)
 		{
 			pListBox->RemoveAll();
@@ -6072,7 +6072,7 @@ void ZGameInterface::ViewReplay( void)
 
 
 	// 폴더 경로-화일명 구함
-	MListBox* pListBox = (MListBox*)m_IDLResource.FindWidget( "Replay_FileList");
+	CCListBox* pListBox = (CCListBox*)m_IDLResource.FindWidget( "Replay_FileList");
 	if ( !pListBox)
 		return ;
 
@@ -6567,7 +6567,7 @@ void ZGameInterface::OnRequestXTrapSeedKey(unsigned char *pComBuf)		// Update sg
 
 void ZGameInterface::OnDisconnectMsg( const DWORD dwMsgID )
 {
-	MListBox* pListBox = (MListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_ItemListbox");
+	CCListBox* pListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_ItemListbox");
 	if( 0 != pListBox )
 	{
 		// 해킹 관련 메시지일 경우엔 종료 예약을 한다.

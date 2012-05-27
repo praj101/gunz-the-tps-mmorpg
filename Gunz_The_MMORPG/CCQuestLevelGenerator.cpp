@@ -6,7 +6,7 @@
 //#include "MSacrificeQItemTable.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-CCQuestLevelGenerator::CCQuestLevelGenerator(MMATCH_GAMETYPE eGameType) : 
+CCQuestLevelGenerator::CCQuestLevelGenerator(CCMATCH_GAMETYPE eGameType) : 
 m_eGameType(eGameType),
 m_nPlayerQL(0), m_nMapsetID(-1), m_nScenarioID(-1)
 {

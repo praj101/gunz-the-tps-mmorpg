@@ -55,7 +55,7 @@ ZMapListBox::ZMapListBox(const char* szName, CCWidget* pParent, CCListener* pLis
 
 	sRect r = GetClientRect();
 
-	m_pListBox = new MListBox("MapList", this, this);
+	m_pListBox = new CCListBox("MapList", this, this);
 	m_pListBox->SetBounds(r.x, r.y, r.w-PREVIEW_W-10, r.h-r.y);
 	m_pListBox->m_Anchors.m_bLeft = true;
 	m_pListBox->m_Anchors.m_bTop = true;

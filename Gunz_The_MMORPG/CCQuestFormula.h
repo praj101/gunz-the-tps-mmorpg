@@ -1,5 +1,5 @@
-#ifndef _MQUEST_FORMULA_H
-#define _MQUEST_FORMULA_H
+#ifndef _CCQUEST_FORMULA_H
+#define _CCQUEST_FORMULA_H
 
 
 #include "winsock2.h"

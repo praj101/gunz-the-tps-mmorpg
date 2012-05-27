@@ -29,10 +29,10 @@ bool ZGameInput::OnDebugEvent(CCEvent* pEvent)
 
 	static bool bMusicMute = false;
 
-	switch(pEvent->nMessage){
-	case MWM_KEYDOWN:
+	switch(pEvent->iMessage){
+	case CCWM_KEYDOWN:
 		{
-			switch (pEvent->nKey)
+			switch (pEvent->uKey)
 			{
 			case VK_END:
 				{
