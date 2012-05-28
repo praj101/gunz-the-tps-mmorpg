@@ -10,13 +10,13 @@
 #include "ZStateMachine.h"
 #include "ZAI_Base.h"
 #include "CCBaseQuest.h"
-#include "ZBrain.h"
 #include "ZActorAnimation.h"
 #include "ZTask.h"
 #include "ZTaskManager.h"
 #include "ZModule_HPAP.h"
 #include "CCMatchTransDataType.h"
 #include "ZNPCInfoFromServer.h"
+#include "ZBrain.h"
 
 // Added
 //#include "ZGlobal.h"
@@ -28,6 +28,7 @@ using namespace std;
 
 _USING_NAMESPACE_REALSPACE2
 
+class ZBrain;
 
 enum ZACTOR_FLAG
 {
@@ -58,7 +59,7 @@ struct ZACTOR_BASICINFO {
 struct CCQuestNPCInfo;
 
 /// 플레이어가 아닌 오브젝트들의 부모 클래스
-class ZActor : public ZCharacterObject
+class ZActor : public ZCharacterObject// , public ZBrain
 {
 	MDeclareRTTI;
 

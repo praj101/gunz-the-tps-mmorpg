@@ -1,8 +1,10 @@
 #include "stdafx.h"
 
+#include "ZGlobal.h"
 #include "ZApplication.h"
 #include "ZButton.h"
 #include "ZSoundEngine.h"
+
 
 
 void ZButton::OnMouseIn()
@@ -64,7 +66,7 @@ void ZButton::OnDraw(CCDrawContext* pDC)
 
 	int targetillu=0;
 
-	if(GetType()==MBT_PUSH){
+	if(GetType()==CCBT_PUSH){
 		if(GetCheck())
 			targetillu=0;
 		else
@@ -91,7 +93,7 @@ void ZButton::OnDraw(CCDrawContext* pDC)
 
 	if(m_bClicked)
 	{
-		if(GetType()==MBT_NORMAL && m_dwCurrentTime-m_dwClickedTime<250.f)
+		if(GetType()==CCBT_NORMAL && m_dwCurrentTime-m_dwClickedTime<250.f)
 		{
 			//m_nIllumination=255*((int)((m_dwCurrentTime-m_dwClickedTime)/60)%2);
 			m_nIllumination = 255 * ((ElapsedTimeFromClicked / 60) % 2 );
@@ -106,11 +108,11 @@ void ZButton::OnDraw(CCDrawContext* pDC)
 	CCBitmapR2 *pBitmap=(CCBitmapR2*)CCBitmapManager::Get("button_glow.png");
 	if(pBitmap)
 	{
-		DWORD defaultcolor = GetType()==MBT_NORMAL ? 0x20ff20 : 0xc0c020;
+		DWORD defaultcolor = GetType()==CCBT_NORMAL ? 0x20ff20 : 0xc0c020;
 		DWORD opacity=(DWORD)pDC->GetOpacity()*(DWORD)m_nIllumination / 255 ;
 		sRect rt=GetRect();
-		MDrawEffect prevEffect = pDC->GetEffect();
-		pDC->SetEffect(MDE_ADD);
+		CCDrawEffect prevEffect = pDC->GetEffect();
+		pDC->SetEffect(CCDE_ADD);
 		sColor prevColor = pDC->GetBitmapColor();
 		pDC->SetBitmapColor(sColor(defaultcolor));
 		unsigned char prevOpacity = pDC->GetOpacity();
@@ -159,7 +161,7 @@ void ZButton::OnButtonUp()
 }
 
 ZButton::ZButton(const char* szName, CCWidget* pParent, CCListener* pListener)
-: MBCCButton(szName, pParent, pListener)
+: CCButton(szName, pParent, pListener)
 {
 	m_nIllumination=0;
 	m_bClicked=false;
@@ -189,7 +191,7 @@ void ZButton::OnHide()
 
 void ZButton::OnDraw(CCDrawContext* pDC)
 {
-  	MBCCButton::OnDraw(pDC);
+  	CCButton::OnDraw(pDC);
 
 	DWORD currenttime=timeGetTime();
 	DWORD elapsed=currenttime-m_dwLastTime;
@@ -199,7 +201,7 @@ void ZButton::OnDraw(CCDrawContext* pDC)
 	int targetillu=0;
 
 	/*
-	if(GetType()==MBT_PUSH){
+	if(GetType()==CCBT_PUSH){
 		if(GetCheck())
 			targetillu=255;
 		else
@@ -228,7 +230,7 @@ void ZButton::OnDraw(CCDrawContext* pDC)
   	m_nIllumination = max(min((int)m_nIllumination+d,255),0);
 	if(m_bClicked)
 	{
-		if(GetType()==MBT_NORMAL && m_dwCurrentTime-m_dwClickedTime<250.f)
+		if(GetType()==CCBT_NORMAL && m_dwCurrentTime-m_dwClickedTime<250.f)
 			//m_nIllumination=255*((int)((m_dwCurrentTime-m_dwClickedTime)/60)%2);
 			m_nIllumination = 255 * ((ElapsedTimeFromClicked / 60) % 2 );
 		else
@@ -241,11 +243,11 @@ void ZButton::OnDraw(CCDrawContext* pDC)
 	CCBitmapR2 *pBitmap=(CCBitmapR2*)CCBitmapManager::Get("button_glow.png");
 	if(pBitmap)
 	{
-		DWORD defaultcolor = GetType()==MBT_NORMAL ? 0x20ff20 : 0xc0c020;
+		DWORD defaultcolor = GetType()==CCBT_NORMAL ? 0x20ff20 : 0xc0c020;
 		DWORD opacity=(DWORD)pDC->GetOpacity()*(DWORD)m_nIllumination / 255 ;
 		sRect rt=GetRect();
-		MDrawEffect prevEffect = pDC->GetEffect();
-		pDC->SetEffect(MDE_ADD);
+		CCDrawEffect prevEffect = pDC->GetEffect();
+		pDC->SetEffect(CCDE_ADD);
 		sColor prevColor = pDC->GetBitmapColor();
 		pDC->SetBitmapColor(sColor(defaultcolor));
 		unsigned char prevOpacity = pDC->GetOpacity();
@@ -269,6 +271,6 @@ void ZButton::OnButtonClick()
 	m_dwClickedTime=m_dwCurrentTime;
 	m_bClicked=true;
 
-	MBCCButton::OnButtonClick();
+	CCButton::OnButtonClick();
 	ZGetSoundEngine()->PlaySound("if_click");
 }

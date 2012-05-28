@@ -12,7 +12,7 @@
 #define CCBTN_IN_MSG		"in"		//button, place the cursor over the eases
 #define CCBTN_OUT_MSG		"out"		//button, place your cursor over the flush eases
 
-#define CORE_CCBUTTON			"Button"
+#define CORE_CCBUTTON		"Button"
 
 
 class CCMsgBox;
@@ -59,7 +59,7 @@ protected:
 	bool				m_bShowText;
 	CCAlignmentMode		m_AlignmentMode;
 	CCButtonType		m_Type;
-	bool				m_bChecked;			//MBT_PUSH case of	
+	bool				m_bChecked;			//CCBT_PUSH case of	
 	bool				m_bComboDropped;
 	bool				m_bStretch;
 	

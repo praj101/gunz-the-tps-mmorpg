@@ -9,7 +9,7 @@
 #include "ZCharacterView.h"
 #include "ZPlayerMenu.h"
 #include "CCToolTip.h"
-#include "ZButton.h"
+//#include "ZButton.h"
 #include "ZMyInfo.h"
 
 

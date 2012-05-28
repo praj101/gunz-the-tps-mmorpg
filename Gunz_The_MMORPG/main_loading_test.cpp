@@ -29,7 +29,7 @@
 #include "Core.h"
 #include "ZGameInterface.h"
 #include "RFrameWork.h"
-#include "ZButton.h"
+//#include "ZButton.h"
 #include "ZDirectInput.h"
 #include "ZActionDef.h"
 #include "CCRegistry.h"

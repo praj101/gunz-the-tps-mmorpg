@@ -1015,7 +1015,7 @@ void CCMatchServer::OnStageFollow(const CCUID& uidPlayer, const char* pszTargetN
 	if (pStage == NULL) return;
 
 	// 클랜전게임은 따라갈 수 없음
-	if (pStage->GetStageType() != MST_NORMAL) return;
+	if (pStage->GetStageType() != CCST_NORMAL) return;
 
 	if (pStage->IsPrivate()==false) {
 		if ((pStage->GetStageSetting()->GetForcedEntry()==false) && pStage->GetState() != STAGE_STATE_STANDBY) {
