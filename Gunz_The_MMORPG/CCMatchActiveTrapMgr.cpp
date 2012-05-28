@@ -1,3 +1,4 @@
+#pragma warning (disable : 4018 )
 #include "stdafx.h"
 #include "CCMatchActiveTrapMgr.h"
 #include "CCBlobArray.h"

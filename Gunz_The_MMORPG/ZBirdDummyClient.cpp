@@ -20,7 +20,7 @@
 #include "CCCommandLogFrame.h"
 #include "CCListBox.h"
 extern CCCommandLogFrame* m_pLogFrame;
-
+#include "ZStringResManager.h"
 #include "ZLanguageConf.h"
 
 

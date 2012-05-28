@@ -1047,7 +1047,7 @@ void ZRuleDuelTournament::DrawHighlight(CCDrawContext* pDC, const sRect& rc)
 	if(pBitmap) {
 		DWORD defaultcolor = 0x3030F0;
 		DWORD opacity=(DWORD)pDC->GetOpacity();
-		MDrawEffect prevEffect = pDC->GetEffect();
+		CCDrawEffect prevEffect = pDC->GetEffect();
 		pDC->SetEffect(MDE_ADD);
 		sColor prevColor = pDC->GetBitmapColor();
 		pDC->SetBitmapColor(sColor(defaultcolor));

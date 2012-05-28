@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "ZBandiCapturer.h"
+#include "RealSpace2.h"
 #include "FileInfo.h"
+#include "ZGlobal.h"
 #include <sys/stat.h>
 
 ///////////////////////////////////////////////////////////////////////

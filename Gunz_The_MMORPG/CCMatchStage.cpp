@@ -23,7 +23,7 @@ CCMatchStage::CCMatchStage()
 {
 	m_pRule								= NULL;
 	m_nIndex							= 0;
-	m_nStageType						= MST_NORMAL;
+	m_nStageType						= CCST_NORMAL;
 	m_uidOwnerChannel					= CCUID(0,0);
 	m_TeamBonus.bApplyTeamBonus			= false;
 	m_nAdminObjectCount					= 0;
@@ -95,7 +95,7 @@ bool CCMatchStage::Create(const CCUID& uid, const char* pszName, bool bPrivate, 
 {
 	if ((strlen(pszName) >= STAGENAME_LENGTH) || (strlen(pszPassword) >= STAGENAME_LENGTH)) return false;
 
-	m_nStageType = MST_NORMAL;
+	m_nStageType = CCST_NORMAL;
 	m_uidStage = uid;
 	strcpy(m_szStageName, pszName);
 	strcpy(m_szStagePassword, pszPassword);
@@ -366,7 +366,7 @@ void CCMatchStage::LeaveBattle(CCMatchObject* pObj)
 
 bool CCMatchStage::CheckTick(unsigned long nClock)
 {
-	if (nClock - m_nLastTick < MTICK_STAGE) return false;
+	if (nClock - m_nLastTick < CCTICK_STAGE) return false;
 	return true;
 }
 
@@ -400,7 +400,7 @@ void CCMatchStage::Tick(unsigned long nClock)
 				{
 					OnFinishGame();
 
-					if (GetStageType() == MST_NORMAL && m_pRule->GetGameType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
+					if (GetStageType() == CCST_NORMAL && m_pRule->GetGameType() != CCMATCH_GAMETYPE_DUELTOURNAMENT)
 						ChangeState(STAGE_STATE_STANDBY);
 					else
 						ChangeState(STAGE_STATE_CLOSE);
@@ -780,12 +780,12 @@ void CCMatchStage::SetStageType(CCMatchStageType nStageType)
 
 	switch (nStageType)
 	{
-	case MST_NORMAL:
+	case CCST_NORMAL:
 		{
 			m_StageSetting.SetTeamWinThePoint(false);
 		}
 		break;
-	case MST_LADDER:
+	case CCST_LADDER:
 		{
 			// 래더게임이면 선승제로 세팅
 			m_StageSetting.SetTeamWinThePoint(true);
@@ -823,7 +823,7 @@ void CCMatchStage::OnStartGame()
 
 
 	// 게임 시작 메세지를 보낸다.
-	if (GetStageType() == MST_NORMAL) {
+	if (GetStageType() == CCST_NORMAL) {
 		if( IsRelayMap() && IsStartRelayMap() ) {
 			CCMatchServer::GetInstance()->StageRelayLaunch(GetUID());
 		} else {
@@ -845,7 +845,7 @@ void CCMatchStage::OnFinishGame()
 
 	if ((MGetServerConfig()->GetServerMode() == CSM_LADDER) || (MGetServerConfig()->GetServerMode() == CSM_CLAN))
 	{
-		if ((m_nStageType == MST_LADDER) && (GetStageSetting()->IsTeamPlay()))
+		if ((m_nStageType == CCST_LADDER) && (GetStageSetting()->IsTeamPlay()))
 		{
 			CCMatchTeam nWinnerTeam = CCMT_RED;
 			bool bIsDrawGame = false;
@@ -1262,7 +1262,7 @@ bool moreTeamMemberKills(CCMatchObject* pObject1, CCMatchObject* pObject2)
 void CCMatchStage::ShuffleTeamMembers()
 {
 	// 래더게임이나 팀게임이 아니면 하지 않는다.
-	if ((m_nStageType == MST_LADDER) || (m_StageSetting.IsTeamPlay() == false)) return;
+	if ((m_nStageType == CCST_LADDER) || (m_StageSetting.IsTeamPlay() == false)) return;
 	if (m_ObjUIDCaches.empty()) return;
 
 	int nTeamMemberCount[CCMT_END] = {0, };
@@ -1325,7 +1325,7 @@ void CCMatchStage::ShuffleTeamMembers()
 
 bool CCMatchStage::CheckAutoTeamBalancing()
 {
-	if ((m_nStageType == MST_LADDER) || (m_StageSetting.IsTeamPlay() == false)) return false;
+	if ((m_nStageType == CCST_LADDER) || (m_StageSetting.IsTeamPlay() == false)) return false;
 	if (m_StageSetting.GetAutoTeamBalancing() == false) return false;
 
 	int nMemberCount[CCMT_END] = {0, };

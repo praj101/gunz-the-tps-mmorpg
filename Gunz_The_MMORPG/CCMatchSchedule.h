@@ -1,5 +1,6 @@
 #pragma once
-
+#pragma warning (disable : 4402 )
+#pragma warning (disable : 4482 )
 #include <vector>
 #include <list>
 
