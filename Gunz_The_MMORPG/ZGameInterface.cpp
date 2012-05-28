@@ -3641,7 +3641,7 @@ bool ZGameInterface::OnGlobalEvent(CCEvent* pEvent)
 		return ZGameInput::OnEvent(pEvent);
 
 #ifndef _PUBLISH
-	switch(pEvent->nMessage){
+	switch(pEvent->iMessage){
 		case MWM_CHAR:
 		{
 			switch (pEvent->uKey) {
@@ -3679,7 +3679,7 @@ bool ZGameInterface::OnGlobalEvent(CCEvent* pEvent)
 
 bool ZGameInterface::OnDebugEvent(CCEvent* pEvent, CCListener* pListener)
 {
-	switch(pEvent->nMessage){
+	switch(pEvent->iMessage){
 	case MWM_KEYDOWN:
 		{
 			switch (pEvent->uKey)

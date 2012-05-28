@@ -78,12 +78,12 @@
 //{
 //	sRect rtClient = GetClientRect();
 //
-//	if(pEvent->nMessage==MWM_MOUSEMOVE)
+//	if(pEvent->iMessage==MWM_MOUSEMOVE)
 //	{
 //		SetupItemDescTooltip();
 //		//return true;			  // 메시지를 먹어버리면 툴팁이 안나온다
 //	}
-//	else if(pEvent->nMessage==MWM_RBUTTONDOWN) {
+//	else if(pEvent->iMessage==MWM_RBUTTONDOWN) {
 //		// 현재 사용되고 있지 않은 코드인것 같습니다. 주석처리함
 //		/*if(rtClient.InPoint(pEvent->sPos)==true) {
 //			int nSelItem = FindItem(pEvent->sPos);

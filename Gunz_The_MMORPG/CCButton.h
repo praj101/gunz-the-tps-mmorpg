@@ -1,36 +1,39 @@
 #pragma once
- 
+
 #include "CCWidget.h"
 #include "CCLookNFeel.h"
 
-#define CCBTN_CLK_MSG		"click"		//button is clicked, the message that occurs when a Listener to
-#define CCBTN_RCLK_MSG		"rclick"	//R button is clicked, the message that occurs when a Listener to
-#define CCBTN_DOWN			"down"		//button ?
-#define CCBTN_UP			"up"		//button eases no space
-#define CCBTN_RDN_MSG		"rdown"		//R button
-#define	CCBTN_RUP_MSG		"rup"		//R button eases no space
-#define CCBTN_IN_MSG		"in"		//button, place the cursor over the eases
-#define CCBTN_OUT_MSG		"out"		//button, place your cursor over the flush eases
-
-#define CORE_CCBUTTON		"Button"
-
-
 class CCMsgBox;
 class CCButtonGroup;
-class CCButton;
-//Button type
+
+#define CORE_CCBUTTON			"Button"
+
+#define CCBTN_CLK_MSG		"click"	///< 버튼이 클릭될때 Listener에게 발생되는 메세지
+#define CCBTN_RCLK_MSG		"rclick"///< R 버튼이 클릭될때 Listener에게 발생되는 메세지
+#define CCBTN_DN_MSG			"down"	///< 버튼이 눌릴때
+#define CCBTN_UP_MSG			"up"	///< 버튼이 띄어질때
+#define CCBTN_RDN_MSG		"rdown"	///< R버튼이 눌릴때
+#define CCBTN_RUP_MSG		"rup"	///< R버튼이 띄어질때
+#define CCBTN_IN_MSG			"in"	///< 버튼 위에 커서가 올려 질때
+#define CCBTN_OUT_MSG		"out"	///< 버튼 위에 커서가 빠질때 올려 질때
+
+
+/// 버튼 타입
 enum CCButtonType{
-	CCBT_NORMAL =0,
-	CCBT_PUSH,
-	CCBT_PUSH2
+	CCBT_NORMAL = 0,		///< 일반 버튼
+	CCBT_PUSH,			///< 푸쉬 버튼
+	CCBT_PUSH2,
 };
-//The default key properties
-enum CCButtouKeyAssigned{
-	CCBKA_NONE=0,
-	CCBKA_ENTER,
-	CCBKA_ESC
+
+/// 디폴트 키 등록
+enum CCButtonKeyAssigned{
+	CCBKA_NONE = 0,		///< 아무키도 등록되어 있지 않은 버튼
+	CCBKA_ENTER,			///< Enter 키 눌리면 실행되는 버튼
+	CCBKA_ESC,			///< ESC 키 눌리면 실행되는 버튼
 };
-//Button Draw code of the classes, by subclassing this class can have a custom look.
+
+class CCButton;
+/// Button의 Draw 코드가 있는 클래스, 이 클래스를 상속받아서 커스텀룩을 가질 수 있다.
 class CCButtonLook{
 protected:
 	bool	m_bWireLook;
@@ -49,71 +52,92 @@ public:
 public:
 	CCButtonLook():m_bWireLook(false){}
 };
-//Button class
+
+
+/// 버튼 클래스
 class CCButton : public CCWidget{
 protected:
-	bool				m_bMouseOver;
-	bool				m_bLButtonDown;
-	bool				m_bRButtonDown;
-	sColor				m_TextColor;
-	bool				m_bShowText;
-	CCAlignmentMode		m_AlignmentMode;
+	bool		m_bMouseOver;
+	bool		m_bLButtonDown;
+	bool		m_bRButtonDown;
+	sColor		m_TextColor;
+	bool		m_bShowText;
+	CCAlignmentMode	m_AlignmentMode;
 	CCButtonType		m_Type;
-	bool				m_bChecked;			//CCBT_PUSH case of	
-	bool				m_bComboDropped;
-	bool				m_bStretch;
+	bool		m_bChecked;				///< MBT_PUSH인 경우
+	bool		m_bComboDropped;
+	bool		m_bStretch;
 	
-	CCButtonGroup		*m_pButtonGroup;		//belonging to a group
-	int					m_iIndexInGroup;		//index within the same group
+	CCButtonGroup	*m_pButtonGroup;	///< 속해있는 그룹
+	int				m_nIndexInGroup;	///< 같은 그룹내에서의 index
 
 public:
-	bool				m_bEnableEnter;			//button, press the Enter key when focus is activated (Default: true)
-	bool				m_bHighlight;			//Highlight (&) support
-	CCBitmap*			m_pIcon;				//Icon	
-	CCButtouKeyAssigned	m_uKeyAssigned;			//Key Assigned	
-	CCMsgBox*			m_pMsgBox;				//the confirmation message with a message box
-	string				m_strIDLConfirmText;	//xml defined in the confirmation message
+	bool		m_bEnableEnter;			///< 포커스 있을때 Enter키로 버튼 누르기 활성화 ( Default : true )
+	bool		m_bHighlight;			///< Highlight(&) 지원
+	CCBitmap*	m_pIcon;				///< 아이콘
+	CCButtonKeyAssigned	m_uKeyAssigned;	///< Key Assigned
+	CCMsgBox*	m_pMsgBox;				///< 메세지 박스를 통한 확인 메세지
+	string		m_strIDLConfirmText;	///< xml에 정의된 확인 메시지
 
-	sPoint				m_ClickPos;
-	sPoint				m_LDragStartClickPos;
-	int					m_LDragVariationX;
-	int					m_LDragVariationY;
+	sPoint		m_ClickPos;
+	sPoint		m_LDragStartClickPos;
+	int			m_LDragVariationX;
+	int			m_LDragVariationY;
 
+private:
+	//void DrawButton(CCDrawContext* pDC);
 protected:
-	virtual void OnMouseIn();			//Mouse button event handler that occurs when you drove in
-	virtual void OnMouseOut();			//Mouse button event handler that occurs when exiting out of
-	virtual void OnButtonDown();		//Button event handler that occurs
-	virtual void OnButtonUp();			//Button event handler that occurs when a blank space eases
-	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);	
+	//virtual void OnDraw(CCDrawContext* pDC);
+	/// 마우스가 버튼 안에 들어올때 발생하는 이벤트 핸들러
+	virtual void OnMouseIn(void);
+	/// 마우스가 버튼 밖으로 빠져 나갈때 발생하는 이벤트 핸들러
+	virtual void OnMouseOut(void);
+	/// 버튼이 눌릴때 발생하는 이벤트 핸들러
+	virtual void OnButtonDown(void);
+	/// 버튼이 띄어질때 있을때 발생하는 이벤트 핸들러
+	virtual void OnButtonUp(void);
+	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
-	virtual void OnButtonClick();	//Is clicked
+	/// 클릭되어졌을때
+	virtual void OnButtonClick(void);	
 
-	virtual bool OnShow();
-	virtual void OnHide();
+	virtual bool OnShow(void);
+	virtual void OnHide(void);
 public:
 	CCButton(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
-	virtual ~CCButton();
-	void SetTextColor(sColor color);			//Buttons to specify the text color
-	sColor GetTextColor();						//Get the button text color
-	void ShowText(bool bShow=true);				//Button to show the text in
-	virtual bool DefaultCommand();
+	virtual ~CCButton(void);
+	/// 버튼 텍스트 컬러 지정
+	void SetTextColor(sColor color);
+	/// 버튼 텍스트 컬러 얻기
+	sColor GetTextColor(void);
+	/// 버튼에 텍스트 보여주기
+	void ShowText(bool bShow=true);
+	virtual bool DefaultCommand(void);
 
-	CCAlignmentMode GetAlignment();						//Get the text alignment
-	CCAlignmentMode SetAlignment(CCAlignmentMode am);	//Specify the text alignment
+	/// 버튼내 텍스트 정렬 얻기
+	CCAlignmentMode GetAlignment(void);
+	/// 버튼내 텍스트 정렬 지정
+	CCAlignmentMode SetAlignment(CCAlignmentMode am);
 
-	void SetType(CCButtonType t);			//Button to specify the type of
-	CCButtonType GetType();					//Get button type
+	/// 버튼 타입 지정
+	void SetType(CCButtonType t);
+	/// 버튼 타입 얻기
+	CCButtonType GetType(void);
 
-	void SetCheck(bool bCheck);			//Push buttons, check if
-	bool GetCheck();					//Push buttons, if you get
+	/// Push 버튼인 경우 체크
+	void SetCheck(bool bCheck);
+	/// Push 버튼인 경우 체크값 얻기
+	bool GetCheck(void);
 
-	bool IsButtonDown();	//Buttons are pressed?, Async Button Down?
-	bool IsMouseOver();		//Mice are raised on the button?
+	/// 버튼이 눌려져 있는가? ( 마우스로 누르는 상태를 얻어낼 수 있다. )
+	bool IsButtonDown(void);	// Async Button Down ?
+	/// 마우스가 버튼 위에 올려져 있는가?
+	bool IsMouseOver(void);
 
 	/// Confirm Message Box
-	void SetConfirmMessageBox(const char* szMessage);				//default confirmation message
-	void SetAlterableConfirmMessage(const char* szMessage);			//special case can be swapped while the confirmation message
-	void RestoreIDLConfirmMessage();								//Check to make the switch until the message is responsible side should try to restore ~
+	void SetConfirmMessageBox(const char* szMessage);			/// 디폴트 확인 메시지
+	void SetAlterableConfirmMessage(const char* szMessage);		/// 특수한 경우에 확인 메시지를 한동안 바꿔치기 할 수 있다
+	void RestoreIDLConfirmMessage();							/// 확인 메시지를 바꿔치기한 쪽에서 책임지고 복원해줘야 한다~
 
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage);
 
@@ -146,22 +170,24 @@ public:
 	void SetButtonGroup(CCButtonGroup *pGroup);
 
 	int GetIndexInGroup() { 
-		return m_iIndexInGroup; 
+		return m_nIndexInGroup; 
 	}
 
 	virtual void MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight);
 
-
-	virtual const char* GetClassName(){ return CORE_CCBUTTON; }
+	virtual const char* GetClassName(void){ return CORE_CCBUTTON; }
 };
 
-//Button group classes needed to implement
-class CCButtonGroup{
+
+
+// 버튼 그룹을 구현하는데 필요한 클래스
+class CCButtonGroup {
 	friend CCButton;
 public:
 	CCButtonGroup();
 	~CCButtonGroup();
+
 protected:
-	int			m_iCount;
-	CCButton*	m_pPrev;
+	int		m_nCount;
+	CCButton *m_pPrevious;
 };

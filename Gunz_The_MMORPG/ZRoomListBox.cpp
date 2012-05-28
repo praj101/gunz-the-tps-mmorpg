@@ -303,7 +303,7 @@ bool ZRoomListBox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 
 	sRect	rect;
 
-	switch(pEvent->nMessage)
+	switch(pEvent->iMessage)
 	{
 		if(r.InPoint(ClickPos)==true)
 		{

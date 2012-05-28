@@ -2,7 +2,7 @@
 
 #include "Core4R2.h"
 #include "RFrameWork.h"
-//#include "ZButton.h"
+#include "ZButton.h"
 #include "ZMsgBox.h"
 #include "ZActionKey.h"
 

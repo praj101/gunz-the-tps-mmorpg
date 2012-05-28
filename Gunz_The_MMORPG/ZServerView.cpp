@@ -236,7 +236,7 @@ bool ZServerView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 
 	// LButton down
-	if ( pEvent->nMessage == CCWM_LBUTTONDOWN)
+	if ( pEvent->iMessage == CCWM_LBUTTONDOWN)
 	{
 		sRect rect;
 		rect = GetClientRect();

@@ -352,7 +352,7 @@ bool ZMeshView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 	static sPoint st_LastPoint = pEvent->sPos;
 
-	switch(pEvent->nMessage)
+	switch(pEvent->iMessage)
 	{
 	case MWM_MOUSEMOVE:
 		{
