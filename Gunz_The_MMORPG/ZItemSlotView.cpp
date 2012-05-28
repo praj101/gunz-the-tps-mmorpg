@@ -297,7 +297,7 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		return bRet;
 
 
-	if ( pEvent->nMessage == CCWM_LBUTTONDOWN)
+	if ( pEvent->iMessage == CCWM_LBUTTONDOWN)
 	{
 		m_bSelectBox = true;
 
@@ -345,13 +345,13 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		}
 	}
 
-	else if ( pEvent->nMessage == MWM_LBUTTONUP)
+	else if ( pEvent->iMessage == MWM_LBUTTONUP)
 	{
 		ZGetGameInterface()->GetShopEquipInterface()->SetKindableItem( MMIST_NONE);
 	}
 	
 	// 더블클릭시 아이템 해제
-	else if ( pEvent->nMessage == MWM_LBUTTONDBLCLK)
+	else if ( pEvent->iMessage == MWM_LBUTTONDBLCLK)
 	{
 		unsigned long int nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(m_nParts);
 		CCMatchItemDesc* pItemDesc = NULL;

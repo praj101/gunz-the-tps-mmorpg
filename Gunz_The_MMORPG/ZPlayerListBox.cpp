@@ -1083,7 +1083,7 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	sRect rtClient = GetClientRect();
 
-	if(pEvent->nMessage==MWM_RBUTTONDOWN) {
+	if(pEvent->iMessage==MWM_RBUTTONDOWN) {
 		if(rtClient.InPoint(pEvent->sPos)==true) {
 			int nSelItem = FindItem(pEvent->sPos);
 			if (nSelItem != -1) {
@@ -1168,7 +1168,7 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 
 	// 플레이어 정보 출력
-	else if ( pEvent->nMessage == MWM_LBUTTONDBLCLK)
+	else if ( pEvent->iMessage == MWM_LBUTTONDBLCLK)
 	{
 		if ( rtClient.InPoint( pEvent->sPos) == true)
 		{
@@ -1421,9 +1421,9 @@ void ZStagePlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, 
 
 bool ZStagePlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
-	if(pEvent->nMessage==MWM_MOUSEMOVE)	{
+	if(pEvent->iMessage==MWM_MOUSEMOVE)	{
 	}
-	else if(pEvent->nMessage==MWM_CCButtonDOWN) {
+	else if(pEvent->iMessage==MWM_CCButtonDOWN) {
 		int k=0;
 	}
 

@@ -14,6 +14,8 @@
 #include "ZMyInfo.h"
 #include "ZGameConst.h"
 #include "ZInput.h"
+//added
+#include "ZGlobal.h"
 
 #define CAMERA_TRACKSPEED	.20f
 #define CAMERA_WALL_TRACKSPEED		0.7f

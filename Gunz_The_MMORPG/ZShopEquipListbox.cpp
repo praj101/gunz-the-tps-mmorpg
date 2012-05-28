@@ -168,7 +168,7 @@ bool ZShopEquipListbox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 {
 	sRect rtClient = GetClientRect();
 
-	if(pEvent->nMessage==MWM_MOUSEMOVE)
+	if(pEvent->iMessage==MWM_MOUSEMOVE)
 	{
 		SetupItemDescTooltip();
 		//return true;			  // 메시지를 먹어버리면 툴팁이 안나온다
