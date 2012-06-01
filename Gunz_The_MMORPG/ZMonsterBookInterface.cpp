@@ -17,6 +17,8 @@
 
 // Added R347a
 #include "ZStringResManager.h"
+// Added R349a
+#include "CCLabelh."
 
 
 /***********************************************************************

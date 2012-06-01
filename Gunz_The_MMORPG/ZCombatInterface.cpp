@@ -316,17 +316,17 @@ bool ZCombatInterface::OnCreate()
 					strstr(pChild->m_szIDLName, "CombatDT_PlayerInfo_"))
 				{
 					if (strstr(pChild->m_szIDLName, "Left"))
-						((CCLabel*)pChild)->SetAlignment(CCD_RIGHT | CCAM_VCENTER);
+						((CCLabel*)pChild)->SetAlignment(CCD_RIGHT | CCD_VCENTER);
 					else if (strstr(pChild->m_szIDLName, "Right"))
-						((CCLabel*)pChild)->SetAlignment(CCD_LEFT | CCAM_VCENTER);
+						((CCLabel*)pChild)->SetAlignment(CCD_LEFT | CCD_VCENTER);
 					else
-						((CCLabel*)pChild)->SetAlignment(CCD_HCENTER | CCAM_VCENTER);
+						((CCLabel*)pChild)->SetAlignment(CCD_HCENTER | CCD_VCENTER);
 				}
 			}
 		}
 		CCLabel* pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDT_MatchLevel");
         if (pLabel)
-			pLabel->SetAlignment(CCD_HCENTER | CCAM_VCENTER);
+			pLabel->SetAlignment(CCD_HCENTER | CCD_VCENTER);
 
 		GetWidgetCharViewLeft()->SetEnableRotateZoom(false, false);
 		GetWidgetCharViewRight()->SetEnableRotateZoom(false, false);

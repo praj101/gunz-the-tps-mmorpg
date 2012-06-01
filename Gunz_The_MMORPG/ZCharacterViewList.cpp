@@ -76,7 +76,7 @@ bool ZCharacterViewList::OnCommand(CCWidget* pWidget, const char* szMessage)
 
 			return true;
 		}
-		else if(strcmp(szMessage, MBTN_RCLK_MSG)==0) {
+		else if(strcmp(szMessage, CCBTN_RCLK_MSG)==0) {
 			// 차후 메뉴로 수정~
 			if((GetKeyState(VK_MENU)&0x8000)!=0) {
 

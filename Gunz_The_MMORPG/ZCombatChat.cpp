@@ -50,7 +50,7 @@ void ZTabPlayerList::OnHide()
 
 bool ZTabPlayerList::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
-	if(pEvent->iMessage==MWM_KEYDOWN){
+	if(pEvent->iMessage==CCWM_KEYDOWN){
 		if(pEvent->uKey==VK_ESCAPE) 
 		{
 			Show(false);

@@ -235,7 +235,7 @@ bool CCMatchEventFactoryManager::LoadEventListXML( CCZFileSystem* pFileSystem, c
 
 	//	<-----------------
 	char *buffer;
-	MZFile mzf;
+	CCZFile mzf;
 
 	if(pFileSystem) 
 	{

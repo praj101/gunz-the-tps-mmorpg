@@ -4,6 +4,8 @@
 // Added R347a
 #include "ZGlobal.h"
 
+// Added R349a
+#include "ZStringResManager.h"
 
 ZGameTypeConfig::ZGameTypeConfig( void)
 {
@@ -63,10 +65,10 @@ void ZGameTypeList::Clear( void)
 }
 
 
-bool ZGameTypeList::ParseGameTypeList( int nGameTypeNum, CCXmlElement& element)
+bool ZGameTypeList::ParseGameTypeList( int nGameTypeNum, ::CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
-	CCXmlElement chrElement;
+	::CCXmlElement chrElement;
 	char szTagName[256];
 
 	ZGameTypeConfig* pConfig = new ZGameTypeConfig;
@@ -113,7 +115,7 @@ bool ZGameTypeList::ParseGameTypeList( int nGameTypeNum, CCXmlElement& element)
 }
 
 
-bool ZGameTypeList::ParseRound( ZGameTypeConfig* pConfig, CCXmlElement& element)
+bool ZGameTypeList::ParseRound( ZGameTypeConfig* pConfig, ::CCXmlElement& element)
 {
 	int nValue;
 	char szStr[ 16];
@@ -131,7 +133,7 @@ bool ZGameTypeList::ParseRound( ZGameTypeConfig* pConfig, CCXmlElement& element)
 }
 
 
-bool ZGameTypeList::ParseLimitTime( ZGameTypeConfig* pConfig, CCXmlElement& element)
+bool ZGameTypeList::ParseLimitTime( ZGameTypeConfig* pConfig, ::CCXmlElement& element)
 {
 	int nValue;
 	char szStr[ 256];
@@ -150,7 +152,7 @@ bool ZGameTypeList::ParseLimitTime( ZGameTypeConfig* pConfig, CCXmlElement& elem
 }
 
 
-bool ZGameTypeList::ParseMaxPlayers( ZGameTypeConfig* pConfig, CCXmlElement& element)
+bool ZGameTypeList::ParseMaxPlayers( ZGameTypeConfig* pConfig, ::CCXmlElement& element)
 {
 	int nValue;
 	char szStr[ 16];

@@ -28,6 +28,9 @@
 // Added R347a
 #include "ZCombatInterface.h"
 #include "ZPost.h"
+// Added R349a
+#include "ZStringResManager.h"
+#include "ZMyInfo.h"
 
 ZSurvival::ZSurvival() : m_bLoaded(false), m_bCreatedOnce(false)
 {

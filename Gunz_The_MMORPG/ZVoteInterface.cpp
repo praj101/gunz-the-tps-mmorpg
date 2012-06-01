@@ -13,6 +13,8 @@
 
 // Added R347a
 #include "ZGameInterface.h"
+// Added R349a
+#include "ZStringResManager.h"
 
 bool ZVoteInterface::OnVoteRun(int nTargetIndex)
 {

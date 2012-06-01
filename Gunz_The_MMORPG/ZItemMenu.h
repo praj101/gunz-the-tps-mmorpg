@@ -25,7 +25,7 @@ protected:
 	CCUID	m_IteCCUID;
 
 public:
-	ZItemMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, CCPopupMenuTypes t=MPMT_VERTICAL);
+	ZItemMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, CCPopupMenuTypes t=CCPMT_VERTICAL);
 	void AddMenuItem(ZItemMenuItem* pMenuItem);
 
 	const char* GetTargetName()	{ return m_szItemName; }

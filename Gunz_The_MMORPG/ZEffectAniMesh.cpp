@@ -11,6 +11,7 @@
 
 // Added R347a
 #include "ZGameInterface.h"
+#include "ZCombatInterface.h"
 
 
 ZEffectAniMesh::ZEffectAniMesh(RMesh* pMesh, const rvector& Pos, rvector& dir)

@@ -5,7 +5,8 @@
 
 // Added R347a
 #include "ZGlobal.h"
-
+// Added R349a
+#include "ZGameInterface.h"
 
 // 파일 이름은 그냥 하드코딩..-_-;
 CCBitmap* GetItemIconBitmap(CCMatchItemDesc* pItemDesc)

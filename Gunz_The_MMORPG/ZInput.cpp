@@ -3,6 +3,9 @@
 #include "Core4Gunz.h"
 #include "ZConfiguration.h"
 
+// Added R349a
+#include "ZDirectInput.h"
+
 //////// ZInput 
 // ZDirectInput 으로부터 키보드/마우스/조이스틱의 입력을 받아서
 // 게임의 액션입력으로 변환하여주고 이벤트를 발생시키는 클래스입니다.
@@ -43,11 +46,11 @@ void ZInput::OnActionKey(int nActionID, bool bPressed)
 	if(m_pEventListener==NULL) return;
 	
 	CCEvent e;
-	e.iMessage = bPressed ? MWM_ACTIONKEYDOWN : MWM_ACTIONKEYUP;
-	e.nKey = nActionID;
+	e.iMessage = bPressed ? CCWM_ACTIONKEYDOWN : CCWM_ACTIONKEYUP;
+	e.uKey = nActionID;
 	m_pEventListener(&e);
 
-	e.nMessage = bPressed ? MWM_ACTIONPRESSED : MWM_ACTIONRELEASED;
+	e.iMessage = bPressed ? CCWM_ACTIONPRESSED : CCWM_ACTIONRELEASED;
 	m_pEventListener(&e);
 }
 
@@ -63,8 +66,8 @@ void ZInput::ExclusiveEvent(ZVIRTUALKEY key)
 	if(m_pExclusiveListener)
 	{
 		CCEvent e;
-		e.nMessage = Z_DIRECTINPUTKEY_MESSAGE;
-		e.nKey = key;
+		e.iMessage = Z_DIRECTINPUTKEY_MESSAGE;
+		e.uKey = key;
 		m_pExclusiveListener(&e);
 	}
 }

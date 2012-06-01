@@ -78,7 +78,7 @@
 //{
 //	sRect rtClient = GetClientRect();
 //
-//	if(pEvent->iMessage==MWM_MOUSEMOVE)
+//	if(pEvent->iMessage==CCWM_MOUSEMOVE)
 //	{
 //		SetupItemDescTooltip();
 //		//return true;			  // 메시지를 먹어버리면 툴팁이 안나온다
@@ -164,7 +164,7 @@
 //					if (posDesc.y < 0)											// 그렇다고 화면 위로 뚫고 가면 안된다
 //						posDesc.y = 0;
 //					pItemDescTextArea->SetPosition(posDesc);
-//					pItemDescTextArea->SetZOrder(MZ_TOP);
+//					pItemDescTextArea->SetZOrder(CC_TOP);
 //					ZGetGameInterface()->GetShopEquipInterface()->ShowItemDescription(true, pItemDescTextArea, this);
 //					return;
 //				}
@@ -528,23 +528,23 @@
 //
 //	// 아이템명, 가격
 //	pDC->TextMultiLine2(rc, GetString(), CONVERT600(2), true, CCD_LEFT | CCD_TOP);
-//	pDC->Text(rc, m_szPrice, CCD_RIGHT | CCAM_BOTTOM);
+//	pDC->Text(rc, m_szPrice, CCD_RIGHT | CCD_BOTTOM);
 //
 //	// 레벨 (레벨이 낮은 경우 붉은 표시)
 //	// 썸네일 아이콘 위에 찍기 때문에 그림자를 그려서 시안성을 높인다
 //
 //	pDC->SetColor(20, 20, 20);
-//	pDC->Text(sRect(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCAM_BOTTOM);	// 1픽셀씩 빗겨찍음
-//	pDC->Text(sRect(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCAM_BOTTOM);
-//	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, CCD_LEFT | CCAM_BOTTOM);
-//	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, CCD_LEFT | CCAM_BOTTOM);
+//	pDC->Text(sRect(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCD_BOTTOM);	// 1픽셀씩 빗겨찍음
+//	pDC->Text(sRect(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCD_BOTTOM);
+//	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, CCD_LEFT | CCD_BOTTOM);
+//	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, CCD_LEFT | CCD_BOTTOM);
 //
 //	if (m_bLevelResticted)
 //		pDC->SetColor(200, 10, 10);
 //	else
 //		pDC->SetColor(200, 200, 200);
 //
-//	pDC->Text(rcIcon, m_szLevel, CCD_LEFT | CCAM_BOTTOM);
+//	pDC->Text(rcIcon, m_szLevel, CCD_LEFT | CCD_BOTTOM);
 //}
 //
 //bool ZEquipmentListItem_OLD::IsPtInRectToShowToolTip(sRect& rcItem, sPoint& pt)

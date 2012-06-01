@@ -64,7 +64,7 @@ protected:
 	bool		m_bShowText;
 	CCAlignmentMode	m_AlignmentMode;
 	CCButtonType		m_Type;
-	bool		m_bChecked;				///< MBT_PUSH인 경우
+	bool		m_bChecked;				///< CCBT_PUSH인 경우
 	bool		m_bComboDropped;
 	bool		m_bStretch;
 	

@@ -27,7 +27,10 @@
 
 // Added R347a
 #include "ZGlobal.h"
-
+// Added R349a
+#include "ZGameClient.h"
+#include "CCBlobArray.h"
+#include "ZGameInterface.h"
 
 void ZGameClient::OnDuelTournamentPrepare(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, void* pBlobPlayerInfo)
 {
@@ -46,7 +49,7 @@ void ZGameClient::OnDuelTournamentPrepare(CCDUELTOURNAMENTTYPE nType, CCUID uidS
 		DTPlayerInfo playerInfo;
 		strcpy(playerInfo.m_szCharName, pPlayerInfo->m_szCharName);
 		playerInfo.uidPlayer = pPlayerInfo->uidPlayer;
-		playerInfo.m_nTP = pPlayerInfo->m_nTP;
+		playerInfo.m_iTP = pPlayerInfo->m_iTP;
 		vecDTPlayerInfo.push_back(playerInfo);
 
 		//////////////////////////////////////////////////// LOG ////////////////////////////////////////////////////
@@ -60,7 +63,7 @@ void ZGameClient::OnDuelTournamentPrepare(CCDUELTOURNAMENTTYPE nType, CCUID uidS
 		default:								sprintf(szbuf, "TYPE_FAIL"); break;
 		}
 		cclog("[MC_MATCH_DUELTOURNAMENT_PREPARE_MATCH] Type:%s, Count:%d, Player(%d:%d)%s, TP:%d \n", 
-			szbuf, i, pPlayerInfo->uidPlayer.High, pPlayerInfo->uidPlayer.Low, pPlayerInfo->m_szCharName, pPlayerInfo->m_nTP);
+			szbuf, i, pPlayerInfo->uidPlayer.High, pPlayerInfo->uidPlayer.Low, pPlayerInfo->m_szCharName, pPlayerInfo->m_iTP);
 #endif
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}

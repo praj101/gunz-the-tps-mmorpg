@@ -310,7 +310,7 @@ void CCMatchRuleDuel::LogInfo()
 void CCMatchRuleDuel::SendQueueInfo(bool isRoundEnd)
 {
 	if (m_pStage == NULL) return;
-	MTD_DuelQueueInfo QInfo;
+	CCTD_DuelQueueInfo QInfo;
 	QInfo.m_uidChampion = uidChampion;
 	QInfo.m_uidChallenger = uidChallenger;
 	QInfo.m_nQueueLength = static_cast<char>(WaitQueue.size());

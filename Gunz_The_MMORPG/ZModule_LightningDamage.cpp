@@ -4,6 +4,8 @@
 #include "ZApplication.h"
 #include "ZModule_HPAP.h"
 
+// Added R349a
+#include "ZGameInterface.h"
 
 #define DAMAGE_DELAY	1.f			// 데미지 주는 간격
 

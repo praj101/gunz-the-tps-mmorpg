@@ -15,7 +15,8 @@
 
 // Added R347a
 #include "ZActor.h"
-
+// Added 349a
+#include "ZCombatInterface.h"
 #define MAX_ENCHANT_DURATION	10.f
 
 bool ZGameAction::OnCommand(CCCommand* pCommand)

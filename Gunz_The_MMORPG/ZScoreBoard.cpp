@@ -16,7 +16,7 @@
 
 void _AddListItem(CCListBox* pList, const char* szString)
 {
-	MDefaultListItem* pNew = new MDefaultListItem(szString);
+	CCDefaultListItem* pNew = new MDefaultListItem(szString);
 	pList->Add(pNew);
 }
 
@@ -163,7 +163,7 @@ void ZScoreBoard::Refresh()
 			szRefName = pCharacter->GetProperty()->szName;
 		}
 
-		Add(szTeam, szRefName, szState, pCharacter->GetStatus()->nExp, 
+		Add(szTeam, szRefName, szState, pCharacter->GetStatus()->iExp, 
 			pCharacter->GetStatus()->nKills, pCharacter->GetStatus()->nDeaths, nPing);
 	}
 

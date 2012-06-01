@@ -347,7 +347,7 @@ ZShopEquipListbox* ZIDLResource::GetEquipmentListBox(CCXmlElement& element)
 
 	CCWidget* pParentWidget = GetParentWidget(element);
 	ZShopEquipListbox* pWidget = new ZShopEquipListbox("", pParentWidget, pParentWidget);
-	pWidget->m_FontAlign = CCAM_VCENTER;
+	pWidget->m_FontAlign = CCD_VCENTER;
 
 	InsertWidget(element, pWidget);
 

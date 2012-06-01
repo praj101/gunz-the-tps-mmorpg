@@ -7,6 +7,11 @@
 
 // Added R347a
 #include "ZGameInterface.h"
+// Added R349a
+#include "ZMyInfo.h"
+#include "ZGameClient.h"
+#include "CCComboBox.h"
+#include "CCPicture.h"
 
 static ZIDLResource* GetIDLResource() {
 	return ZGetGameInterface()->GetIDLResource();

@@ -39,7 +39,7 @@ void CCButton::OnButtonUp(void)
 
 void CCButton::OnButtonClick(void)
 {
-	if(GetListener()) GetListener()->OnCommand(this, MBTN_CLK_MSG);
+	if(GetListener()) GetListener()->OnCommand(this, CCBTN_CLK_MSG);
 }
 
 bool CCButton::OnEvent(CCEvent* pEvent, CCListener* pListener)
@@ -122,7 +122,7 @@ bool CCButton::OnEvent(CCEvent* pEvent, CCListener* pListener)
 			m_bRButtonDown = false;
 			ReleaseCapture();
 			if(r.InPoint(pEvent->sPos)==true && pListener!=NULL){
-				if(GetType()==MBT_PUSH && GetType() == CCBT_PUSH2 ) m_bChecked = !m_bChecked;
+				if(GetType()==CCBT_PUSH && GetType() == CCBT_PUSH2 ) m_bChecked = !m_bChecked;
 				pListener->OnCommand(this, CCBTN_RUP_MSG);
 				pListener->OnCommand(this, CCBTN_RCLK_MSG);
 			}
@@ -138,8 +138,8 @@ bool CCButton::OnEvent(CCEvent* pEvent, CCListener* pListener)
 			}
 
 			if(m_bLButtonDown) {//drag
-				m_LDragVariationX = m_LDragStartClickPos.x - pEvent->Pos.x;
-				m_LDragVariationY = m_LDragStartClickPos.y - pEvent->Pos.y;
+				m_LDragVariationX = m_LDragStartClickPos.x - pEvent->sPos.x;
+				m_LDragVariationY = m_LDragStartClickPos.y - pEvent->sPos.y;
 			}
 		}
 		else{
@@ -185,7 +185,7 @@ CCButton::CCButton(const char* szName, CCWidget* pParent, CCListener* pListener)
 	m_bShowText = true;
 
 	m_AlignmentMode = MBUTTON_DEFAULT_ALIGNMENT_MODE;
-	m_Type = MBT_NORMAL;
+	m_Type = CCBT_NORMAL;
 	m_bChecked = false;
 
 	m_bEnableEnter = true;
@@ -193,7 +193,7 @@ CCButton::CCButton(const char* szName, CCWidget* pParent, CCListener* pListener)
 
 	m_pIcon = NULL;
 
-	m_nKeyAssigned = MBKA_NONE;
+	m_uKeyAssigned = CCBKA_NONE;
 
 	SetFocusEnable(true);
 
@@ -307,7 +307,7 @@ void CCButton::SetConfirmMessageBox(const char* szMessage)
 	}
 
 	
-	//if(m_pMsgBox==NULL) m_pMsgBox = new CCMsgBox(szMessage, GetParent(), MT_OKCANCEL, this);
+	//if(m_pMsgBox==NULL) m_pMsgBox = new CCMsgBox(szMessage, GetParent(), CCT_OKCANCEL, this);
 	if(m_pMsgBox==NULL) {
 		m_pMsgBox = (CCMsgBox*)Core::GetInstance()->NewWidget(CORE_MSGBOX, "", Core::GetInstance()->GetMainFrame(), this );
 		m_pMsgBox->SetType(CCT_OKCANCEL);
@@ -334,7 +334,7 @@ bool CCButton::OnCommand(CCWidget* pWidget, const char* szMessage)
 	if(pWidget==m_pMsgBox){
 		m_pMsgBox->Show(false);
 		CCListener* pListener = GetListener();
-		if(strcmp(szMessage, MMSGBOX_OK)==0) if(pListener!=NULL) pListener->OnCommand(this, MBTN_CLK_MSG);
+		if(strcmp(szMessage, CCMSGBOX_OK)==0) if(pListener!=NULL) pListener->OnCommand(this, CCBTN_CLK_MSG);
 		return true;
 	}
 	return false;
@@ -390,7 +390,7 @@ void CCButtonLook::OnDownDraw(CCButton* pButton, CCDrawContext* pDC)
 void CCButtonLook::OnUpDraw(CCButton* pButton, CCDrawContext* pDC)
 {
 	sRect r = pButton->GetInitialClientRect();
-	pDC->SetColor(sColor(DEFCOLOR_MBUTTON_PLANE));
+	pDC->SetColor(sColor(DEFCOLOR_CCBUTTON_PLANE));
 	pDC->FillRectangle(r);
 
 	OnDrawText(pButton, pButton->GetClientRect(), pDC);
@@ -398,14 +398,14 @@ void CCButtonLook::OnUpDraw(CCButton* pButton, CCDrawContext* pDC)
 
 void CCButtonLook::OnOverDraw(CCButton* pButton, CCDrawContext* pDC)
 {
-	if(pButton->GetType()==MBT_PUSH){
+	if(pButton->GetType()==CCBT_PUSH){
 		//if(pButton->GetCheck()==true) OnDownDraw(pButton, pDC);
 		//else OnUpDraw(pButton, pDC);
 		OnCheckBoxDraw(pButton, pDC, pButton->GetCheck());
 	}
 	else{
 		sRect r = pButton->GetInitialClientRect();
-		pDC->SetColor(sColor(DEFCOLOR_MBUTTON_PLANE));
+		pDC->SetColor(sColor(DEFCOLOR_CCBUTTON_PLANE));
 		pDC->FillRectangle(r);
 
 		OnDrawText(pButton, pButton->GetClientRect(), pDC);
@@ -415,7 +415,7 @@ void CCButtonLook::OnOverDraw(CCButton* pButton, CCDrawContext* pDC)
 void CCButtonLook::OnDisableDraw(CCButton* pButton, CCDrawContext* pDC)
 {
 	sRect r = pButton->GetInitialClientRect();
-	pDC->SetColor(sColor(DEFCOLOR_MBUTTON_PLANE));
+	pDC->SetColor(sColor(DEFCOLOR_CCBUTTON_PLANE));
 	pDC->FillRectangle(r);
 
 	OnDrawText(pButton, pButton->GetClientRect(), pDC);
@@ -423,12 +423,12 @@ void CCButtonLook::OnDisableDraw(CCButton* pButton, CCDrawContext* pDC)
 
 void CCButtonLook::OnDraw(CCButton* pButton, CCDrawContext* pDC)
 {
- 	if(pButton->GetType()==MBT_PUSH) OnCheckBoxDraw(pButton, pDC, pButton->GetCheck());
+ 	if(pButton->GetType()==CCBT_PUSH) OnCheckBoxDraw(pButton, pDC, pButton->GetCheck());
 	else if(pButton->IsEnable()==false) OnDisableDraw(pButton, pDC);
 	else if(pButton->IsButtonDown()==true) OnDownDraw(pButton, pDC);
 	else if(pButton->IsMouseOver()==true) OnOverDraw(pButton, pDC);
 	else{
-		//if(pButton->GetType()==MBT_PUSH){
+		//if(pButton->GetType()==CCBT_PUSH){
 		//	//if(pButton->GetCheck()) OnDownDraw(pButton, pDC);
 		//	//else OnUpDraw(pButton, pDC);
 		//	OnCheckBoxDraw(pButton, pDC, pButton->GetCheck());

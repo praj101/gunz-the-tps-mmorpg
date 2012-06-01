@@ -7,6 +7,8 @@
 #include "ZIDLResource.h"
 #include "ZEquipmentListBox.h"
 
+// Added 349a
+#include "ZStringResManager.h"
 // 이 클래스 쓰는데가 없엉 제거할까
 
 ZItemMenuListener listenerItemMenu;

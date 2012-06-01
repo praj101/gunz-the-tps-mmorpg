@@ -6,6 +6,8 @@
 
 // Added R347a
 #include "ZGameInterface.h"
+// Added R349a
+#include "ZGameClient.h"
 
 ZShopEquipListItem::ZShopEquipListItem(ZShopEquipItem* pItemData)
 : m_pItemData(pItemData)
@@ -59,23 +61,23 @@ void ZShopEquipListItem::OnDraw( sRect& r, CCDrawContext* pDC, bool bSelected, b
 
 	// 아이템명, 가격
 	pDC->TextMultiLine2(rc, GetString(), CONVERT600(2), true, CCD_LEFT | CCD_TOP);
-	pDC->Text(rc, m_szPrice, CCD_RIGHT | CCAM_BOTTOM);
+	pDC->Text(rc, m_szPrice, CCD_RIGHT | CCD_BOTTOM);
 
 	// 레벨 (레벨이 낮은 경우 붉은 표시)
 	// 썸네일 아이콘 위에 찍기 때문에 그림자를 그려서 시안성을 높인다
 
 	pDC->SetColor(20, 20, 20);
-	pDC->Text(sRect(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCAM_BOTTOM);	// 1픽셀씩 빗겨찍음
-	pDC->Text(sRect(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCAM_BOTTOM);
-	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, CCD_LEFT | CCAM_BOTTOM);
-	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, CCD_LEFT | CCAM_BOTTOM);
+	pDC->Text(sRect(rcIcon.x+1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCD_BOTTOM);	// 1픽셀씩 빗겨찍음
+	pDC->Text(sRect(rcIcon.x-1, rcIcon.y, rcIcon.w, rcIcon.h), m_szLevel, CCD_LEFT | CCD_BOTTOM);
+	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h+1), m_szLevel, CCD_LEFT | CCD_BOTTOM);
+	pDC->Text(sRect(rcIcon.x, rcIcon.y, rcIcon.w, rcIcon.h-1), m_szLevel, CCD_LEFT | CCD_BOTTOM);
 
 	if (ZGetMyInfo()->GetLevel() < m_pItemData->GetLevelRes())
 		pDC->SetColor(200, 10, 10);
 	else
 		pDC->SetColor(200, 200, 200);
 
-	pDC->Text(rcIcon, m_szLevel, CCD_LEFT | CCAM_BOTTOM);
+	pDC->Text(rcIcon, m_szLevel, CCD_LEFT | CCD_BOTTOM);
 }
 
 bool ZShopEquipListItem::GetDragItem( CCBitmap** ppDragBitmap, char* szDragString, char* szDragItemString )
@@ -170,7 +172,7 @@ bool ZShopEquipListbox::OnEvent( CCEvent* pEvent, CCListener* pListener )
 {
 	sRect rtClient = GetClientRect();
 
-	if(pEvent->iMessage==MWM_MOUSEMOVE)
+	if(pEvent->iMessage==CCWM_MOUSEMOVE)
 	{
 		SetupItemDescTooltip();
 		//return true;			  // 메시지를 먹어버리면 툴팁이 안나온다
@@ -197,7 +199,7 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 	CCTextArea* pItemDescTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szTextAreaName);
 	if (pItemDescTextArea)
 	{
-		sPoint ptInList = MScreenToClient(this, CCEvent::LatestPos);
+		sPoint ptInList = CCScreenToClient(this, CCEvent::LatestPos);
 		int idxItem = FindItem(ptInList);
 		if (idxItem!=-1)
 		{
@@ -223,7 +225,7 @@ void ZShopEquipListbox::SetupItemDescTooltip()
 					if (posDesc.y < 0)											// 그렇다고 화면 위로 뚫고 가면 안된다
 						posDesc.y = 0;
 					pItemDescTextArea->SetPosition(posDesc);
-					pItemDescTextArea->SetZOrder(MZ_TOP);
+					pItemDescTextArea->SetZOrder(CC_TOP);
 					ZGetGameInterface()->GetShopEquipInterface()->ShowItemDescription(true, pItemDescTextArea, this);
 					return;
 				}
@@ -262,7 +264,7 @@ class ZShopPurchaseItemListBoxListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL) == true)
+		if(CCWidget::IsMsg(szMessage, CCLB_ITEM_SEL) == true)
 		{
 			ZShopEquipListbox* pEquipmentListBox = (ZShopEquipListbox*)pWidget;
 			ZShopEquipListItem* pListItem = (ZShopEquipListItem*)pEquipmentListBox->GetSelItem();
@@ -280,7 +282,7 @@ public:
 
 			return true;
 		}
-		else if(CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK) == true)
+		else if(CCWidget::IsMsg(szMessage, CCLB_ITEM_DBLCLK) == true)
 		{
 			ZGetGameInterface()->GetShopEquipInterface()->OnBuyButton();
 			return true;
@@ -300,7 +302,7 @@ class ZEquipMyItemListBoxListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if ( CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true) {
+		if ( CCWidget::IsMsg(szMessage, CCLB_ITEM_SEL)==true) {
 
 			ZShopEquipListbox* pEquipmentListBox = (ZShopEquipListbox*)pWidget;
 			ZShopEquipListItem* pListItem = (ZShopEquipListItem*)pEquipmentListBox->GetSelItem();
@@ -320,7 +322,7 @@ public:
 
 			return true;
 		}
-		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+		else if ( CCWidget::IsMsg(szMessage, CCLB_ITEM_DBLCLK)==true)
 		{
 			ZGetGameInterface()->GetShopEquipInterface()->Equip();		
 			return true;
@@ -341,7 +343,7 @@ class ZShopSellItemListBoxListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true)
+		if(CCWidget::IsMsg(szMessage, CCLB_ITEM_SEL)==true)
 		{
 			ZShopEquipListbox* pListbox = (ZShopEquipListbox*)pWidget;
 			ZShopEquipListItem* pListItem = (ZShopEquipListItem*)pListbox->GetSelItem();
@@ -354,7 +356,7 @@ public:
 			WidgetEnableShow("SellConfirmCaller", pListItem->GetItemData()->CanSell(), true);
 			return true;
 		}
-		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+		else if ( CCWidget::IsMsg(szMessage, CCLB_ITEM_DBLCLK)==true)
 		{
 			ZGetGameInterface()->GetShopEquipInterface()->OnSellButton();
 			return true;
@@ -375,7 +377,7 @@ class ZAccountItemListBoxListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if ( CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true) {
+		if ( CCWidget::IsMsg(szMessage, CCLB_ITEM_SEL)==true) {
 
 			ZShopEquipListbox* pListbox = (ZShopEquipListbox*)pWidget;
 			ZShopEquipListItem* pListItem = (ZShopEquipListItem*)pListbox->GetSelItem();
@@ -395,7 +397,7 @@ public:
 
 			return true;
 		}
-		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+		else if ( CCWidget::IsMsg(szMessage, CCLB_ITEM_DBLCLK)==true)
 		{
 			ZGetGameInterface()->GetShopEquipInterface()->OnBringAccountButton();
 			return true;
@@ -417,7 +419,7 @@ class ZShopListFilterListener : public CCListener {
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(CCWidget::IsMsg(szMessage, MCMBBOX_CHANGED)==true)
+		if(CCWidget::IsMsg(szMessage, CCCMBBOX_CHANGED)==true)
 		{
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
@@ -455,7 +457,7 @@ class MEquipListFilterListener : public CCListener {
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(CCWidget::IsMsg(szMessage, MCMBBOX_CHANGED)==true) {
+		if(CCWidget::IsMsg(szMessage, CCCMBBOX_CHANGED)==true) {
 
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 

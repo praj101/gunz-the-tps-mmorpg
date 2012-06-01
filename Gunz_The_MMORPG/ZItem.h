@@ -3,6 +3,8 @@
 
 #include "CCMatchItem.h"
 
+// Added 349a
+#include "RMeshUtil.h"
 
 
 // 이거 나중에 CCBaseItem을 부모로 하도록 바뀌어야 한다.

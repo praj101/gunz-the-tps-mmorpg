@@ -5,6 +5,8 @@
 
 // Added R347a
 #include "ZGlobal.h"
+// Added R349a
+#include "ZStringResManager.h"
 
 void ZImplodeChatCmdArgs(char* szOut, const int argc, char **const argv, int nFirstIndex)
 {
