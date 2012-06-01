@@ -89,7 +89,7 @@ void ChatCmd_AdminSwitchCreateLadderGame(const char* line, const int argc, char 
 void ChatCmd_AdminReloadClientHash(const char* line, const int argc, char **const argv);		// XTrap 클라이언트 Hash 리로드
 void ChatCmd_AdminResetAllHackingBlock( const char* line, const int argc, char **const argv );
 void ChatCmd_AdminReloadGambleitem( const char* line, const int argc, char **const argv );
-void ChatCmd_AdminDumpGambleitemLog( const char* line, const int argc, char **const argv );
+void ChatCmd_AdminDumpGambleitecclog( const char* line, const int argc, char **const argv );
 void ChatCmd_AdminAssasin( const char* line, const int argc, char **const argv );
 
 // event 진행운영자 명령
@@ -181,7 +181,7 @@ void ZChat::InitCmds()
 	_CC_AC("admin_switch_laddergame",		&ChatCmd_AdminSwitchCreateLadderGame,	CCF_ADMIN, ARGVNoMin, ARGVNoMax, true,"/admin_switch_laddergame 1", "");		
 	_CC_AC("admin_reset_all_hacking_block", &ChatCmd_AdminResetAllHackingBlock,		CCF_ADMIN, ARGVNoMin, ARGVNoMax, true, "/admin_reset_all_hacking_block", "");
 	_CC_AC("admin_reload_gambleitem",		&ChatCmd_AdminReloadGambleitem,			CCF_ADMIN, ARGVNoMin, ARGVNoMax, true, "/admin_reload_gambleitem", "");
-	_CC_AC("admin_dump_gambleitem_log",		&ChatCmd_AdminDumpGambleitemLog,		CCF_ADMIN, ARGVNoMin, ARGVNoMax, true, "/admin_dump_gambleitem_log", "");
+	_CC_AC("admin_dump_gambleitem_log",		&ChatCmd_AdminDumpGambleitecclog,		CCF_ADMIN, ARGVNoMin, ARGVNoMax, true, "/admin_dump_gambleitem_log", "");
 	_CC_AC("admin_commander",				&ChatCmd_AdminAssasin,					CCF_ADMIN|CCF_GAME, ARGVNoMin, ARGVNoMax, true, "/admin_commander", "");
 	
 	_CC_ALIAS("공지", "admin_wall");
@@ -1042,9 +1042,9 @@ void ChatCmd_AdminReloadGambleitem( const char* line, const int argc, char **con
 }
 
 
-void ChatCmd_AdminDumpGambleitemLog( const char* line, const int argc, char **const argv )
+void ChatCmd_AdminDumpGambleitecclog( const char* line, const int argc, char **const argv )
 {
-	ZPostAdminDumpGambleItemLog();
+	ZPostAdminDumpGambleItecclog();
 }
 
 void ChatCmd_AdminAssasin( const char* line, const int argc, char **const argv )

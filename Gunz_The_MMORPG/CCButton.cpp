@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CCButton.h"
-#include "MColorTable.h"
-#include "MTooltip.h"
+#include "CCColorTable.h"
+#include "CCTooltip.h"
 #include "CCMsgBox.h"
-#include "Mint.h"
+#include "Core.h"
 
 #define MBUTTON_DEFAULT_ALIGNMENT_MODE	(MAM_HCENTER|MAM_VCENTER)
 

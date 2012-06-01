@@ -9,7 +9,7 @@
 
 #include "stdafx.h"
 #include "CGLEncription.h"
-#include "MCrypt.h"
+#include "CCCrypt.h"
 #include <Mmsystem.h>
 #include <math.h>
 
@@ -157,13 +157,13 @@ int CGLEncription::Decription( void)
 	// Read from clipboard
 	if ( ! ::OpenClipboard( NULL))
 	{
-		mlog( "Serialkey error : 201\n");
+		cclog( "Serialkey error : 201\n");
 		return false;
 	}
 
 	if ( !IsClipboardFormatAvailable( CF_GUNZLAUNCHER))
 	{
-		mlog( "Serialkey error : 202\n");
+		cclog( "Serialkey error : 202\n");
 		return false;
 	}
 
@@ -198,7 +198,7 @@ int CGLEncription::Decription( void)
 	}
 	if ( !cSeed.InitKey( byKey, byIV))
 	{
-		mlog( "Serialkey error : 203\n");
+		cclog( "Serialkey error : 203\n");
 		return false;
 	}
 
@@ -206,7 +206,7 @@ int CGLEncription::Decription( void)
 	unsigned char szCryptSerialKey[ MAX_BUF];
 	if ( !cSeed.Decrypt( szSerialKey, szSerialKey[ MAX_BUF - 3], szCryptSerialKey, &dwLength))
 	{
-		mlog( "Serialkey error : 204\n");
+		cclog( "Serialkey error : 204\n");
 		return false;
 	}
 
@@ -221,7 +221,7 @@ int CGLEncription::Decription( void)
 
 	if ( byCRC != szSerialKey[ MAX_BUF - 2])
 	{
-		mlog( "Serialkey error : 205\n");
+		cclog( "Serialkey error : 205\n");
 		return false;
 	}
 
@@ -245,7 +245,7 @@ int CGLEncription::Decription( void)
 	DWORD dwCurrTime = timeGetTime();
 	if ( (DWORD)atodw( szTime) < timeGetTime())
 	{
-		mlog( "Serialkey error : 206\n");
+		cclog( "Serialkey error : 206\n");
 		return false;
 	}
 
@@ -267,7 +267,7 @@ int CGLEncription::Decription( void)
 
 	if ( (DWORD)atodw( szDiskSerial) != dwDiskSerial)
 	{
-		mlog( "Serialkey error : 207\n");
+		cclog( "Serialkey error : 207\n");
 		return false;
 	}
 
@@ -281,6 +281,6 @@ int CGLEncription::Decription( void)
 		return GLE_LAUNCH_TEST;
 
 
-	mlog( "Serialkey error : 208\n");
+	cclog( "Serialkey error : 208\n");
 	return false;
 }

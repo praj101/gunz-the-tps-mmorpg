@@ -200,10 +200,10 @@ void* MemPoolSm<T>::operator new( size_t size_ )
 	if( m_list != NULL ) {
 		instance = m_list;
 		m_list = m_list->m_next;
-//		mlog("메모리 재사용\n");
+//		cclog("메모리 재사용\n");
 	} else {
 		instance = (T*)::operator new(size_);
-//		mlog("메모리 할당\n");
+//		cclog("메모리 할당\n");
 	}
 
 #ifdef _DEBUG
@@ -219,7 +219,7 @@ void MemPoolSm<T>::operator delete( void* deadObject_, size_t size_ )
 {
 	((T*)deadObject_)->m_next = m_list;
 	m_list	= (T*)deadObject_;
-//	mlog("메모리 가상 삭제\n");
+//	cclog("메모리 가상 삭제\n");
 }
 
 
@@ -233,7 +233,7 @@ void MemPoolSm<T>::Release()
 		pInstace = m_list->m_next;
 		::operator delete( m_list );
 		m_list = pInstace;
-//		mlog("메모리 삭제\n");
+//		cclog("메모리 삭제\n");
 	}
 }
 

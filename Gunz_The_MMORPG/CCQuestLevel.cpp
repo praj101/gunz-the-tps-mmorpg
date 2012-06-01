@@ -386,7 +386,7 @@ void CCQuestLevel::InitCurrSector(CCMATCH_GAMETYPE eGameType)
 	else
 	{
 		_ASSERT( 0 && "NPC set의 크기에 문제가 있음. 리소스 검사가 필요함." );
-		mlog( "NPC set의 크기에 문제가 있음. 리소스 검사가 필요함.\n" );
+		cclog( "NPC set의 크기에 문제가 있음. 리소스 검사가 필요함.\n" );
 		return;
 	}
 

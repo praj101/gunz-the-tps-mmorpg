@@ -2,8 +2,8 @@
 #define _CCMATCH_QUESTGAMELOG_H
 
 
-typedef map< unsigned long int, int >	QItemLogMap;
-typedef QItemLogMap::iterator			QItemLogMapIter;
+typedef map< unsigned long int, int >	QItecclogMap;
+typedef QItecclogMap::iterator			QItecclogMapIter;
 
 typedef pair< int, unsigned long >		SacriItemOwnerPair;
 typedef vector< SacriItemOwnerPair >	SacriSlotLogVec;
@@ -30,14 +30,14 @@ public :
 		m_UniqueItemList.clear();
 	}
 
-	QItemLogMap&	GetUniqueItemList()	{ return m_UniqueItemList; }
+	QItecclogMap&	GetUniqueItemList()	{ return m_UniqueItemList; }
 	int				GetCID()			{ return m_nCID; }
 
 	void SetCID( const int nCID )		{ m_nCID = nCID; }
 
 private :
 	int			m_nCID;
-	QItemLogMap	m_UniqueItemList;
+	QItecclogMap	m_UniqueItemList;
 };
 
 

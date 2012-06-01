@@ -81,7 +81,7 @@ private :
 	bool MakeEventList( const EventDataVec& EvnDataVec, EventPtrVec& epc );
 	CCMatchEvent* CreateEvent( const DWORD dwEventID );
 
-	void CreateFailMLog( CCMatchEvent* pEvent, const DWORD dwEventID );
+	void CreateFailcclog( CCMatchEvent* pEvent, const DWORD dwEventID );
 
 private :
 	EventDataVec		m_vAllGameTypeEventData;
