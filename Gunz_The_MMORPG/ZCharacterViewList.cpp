@@ -9,6 +9,8 @@
 #include "ZGameClient.h"
 #include "zpost.h"
 
+#include "CCLabel.h"
+
 ZCharacterViewList* ZGetCharacterViewList(GunzState nState)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();

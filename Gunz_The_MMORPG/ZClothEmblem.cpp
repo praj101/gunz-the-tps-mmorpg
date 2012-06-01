@@ -363,7 +363,7 @@ void ZClothEmblem::satisfyConstraints()
 					continue;
 				}
 
-				for( j = 0 ; j < m_nCntP; ++j )
+				for( j = 0 ; j < m_iCntP; ++j )
 				{
  					rvector	pos		= pCharacter->GetPosition();
 					rvector myPos	= m_pX[j];
@@ -400,7 +400,7 @@ void ZClothEmblem::satisfyConstraints()
 		for( list<sRestriction*>::iterator itor = mRestrictionList.begin();
 			itor != mRestrictionList.end(); ++itor )
 		{
-			for( int j = 0 ; j < m_nCntP; ++j )
+			for( int j = 0 ; j < m_iCntP; ++j )
 			{
 				float* p		= (float*)&m_pX[j];
 				sRestriction* r = *itor;
@@ -427,7 +427,7 @@ void ZClothEmblem::satisfyConstraints()
 		
 
 		// Relaxation
-		for( j = 0 ; j < m_nCntC; ++j )
+		for( j = 0 ; j < m_iCntC; ++j )
 		{
 			c	= &m_pConst[j];
 
@@ -443,7 +443,7 @@ void ZClothEmblem::satisfyConstraints()
 		}
 	}
 
-	for( i = 0 ; i < m_nCntP; ++i )
+	for( i = 0 ; i < m_iCntP; ++i )
 	{
 		if( m_pHolds[i] & CLOTH_HOLD )
 		{
@@ -604,7 +604,7 @@ void ZClothEmblem::UpdateNormal()
 	rvector Point[3];
 
 	// ÃÊ±âÈ­
-	memset( m_pNormal, 0, sizeof(rvector)*m_nCntP );
+	memset( m_pNormal, 0, sizeof(rvector)*m_iCntP );
 	memset( indexTemp, 0, sizeof(int)*3 );
 
 	for( i = 0 ; i < mpMeshNode->m_face_num; ++i )
@@ -613,7 +613,7 @@ void ZClothEmblem::UpdateNormal()
 		{
 			index		= mpMeshNode->m_face_list[i].m_point_index[j];
 			//Debug
-			if( index < 0 || index >= m_nCntP )
+			if( index < 0 || index >= m_iCntP )
 			{
 				_ASSERT(FALSE);
 				cclog("Index of Particle is not profit to calculate...\n");
@@ -635,7 +635,7 @@ void ZClothEmblem::UpdateNormal()
 		}
 	}
 
-	for( i = 0 ; i < m_nCntP; ++i )
+	for( i = 0 ; i < m_iCntP; ++i )
 	{
 		D3DXVec3Normalize( &m_pNormal[i], &m_pNormal[i] );
 	}

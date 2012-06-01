@@ -3,6 +3,9 @@
 
 #include "ZInterface.h"
 
+// Added
+#include "CCEdit.h"
+
 //class CCListBox;
 class CCEdit;
 class CCTextArea;

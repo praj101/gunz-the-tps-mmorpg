@@ -10,6 +10,10 @@
 #include "RCharCloth.h"
 #include "ZObjectManager.h"
 
+// Added
+#include "ZGameInterface.h"
+
+
 extern bool Enable_Cloth;
 
 ZCharacterManager::ZCharacterManager()
@@ -84,11 +88,11 @@ ZCharacter* ZCharacterManager::Find(CCUID uid)
 	iterator itor = find(uid);
 	if (itor != end())
 	{
-		CHECK_RETURN_CALLSTACK(Find);
+		CHECK_RETURN_CALLSTACK(&Find);
 		return (*itor).second;
 	}
 	
-	CHECK_RETURN_CALLSTACK(Find);
+	CHECK_RETURN_CALLSTACK(&Find);
 	return NULL;
 }
 

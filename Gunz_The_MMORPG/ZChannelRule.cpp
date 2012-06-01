@@ -5,6 +5,8 @@
 #include "ZApplication.h"
 #include "ZGameClient.h"
 
+// Added
+#include "ZGameInterface.h"
 
 ZChannelRuleMgr::ZChannelRuleMgr() : CCChannelRuleMgr()
 {

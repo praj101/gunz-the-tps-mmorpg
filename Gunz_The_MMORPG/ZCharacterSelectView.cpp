@@ -21,6 +21,9 @@
 #include "CCPicture.h"
 #include "ZMyInfo.h"
 
+// Added
+#include "ZGameInterface.h"
+
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA_Report.h"
 #endif
@@ -156,7 +159,7 @@ void ZCharacterSelectView::DrawCharacterLight(rvector& vCharPos)
 		}
 	}
 
-	D3DLIGHT light;
+	D3DLIGHT9 light;
 
 	light.Type			= D3DLIGHT_POINT;
 	light.Ambient.r		= 0.1f;
@@ -180,9 +183,9 @@ void ZCharacterSelectView::DrawCharacterLight(rvector& vCharPos)
 	else
 	{
 		light.Range			= pLight->fAttnEnd; //- pLight->fAttnStart;
-		light.Position	.x	= pLight->Position.x;
-		light.Position	.y	= pLight->Position.y;
-		light.Position	.z	= pLight->Position.z;
+		light.Position.x	= pLight->sPosition.x;
+		light.Position.y	= pLight->sPosition.y;
+		light.Position.z	= pLight->sPosition.z;
 		light.Diffuse.r		= pLight->Color.x * pLight->fIntensity;
 		light.Diffuse.g		= pLight->Color.y * pLight->fIntensity;
 		light.Diffuse.b		= pLight->Color.z * pLight->fIntensity;
@@ -190,7 +193,7 @@ void ZCharacterSelectView::DrawCharacterLight(rvector& vCharPos)
 
 	m_pVisualMesh->SetLight(0,&light,false);
 
-	memset( &light, 0, sizeof(D3DLIGHT)	);
+	memset( &light, 0, sizeof(D3DLIGHT9)	);
 	light.Attenuation1 = 0.005f;
 
 	m_pVisualMesh->SetLight(1,&light,true);
