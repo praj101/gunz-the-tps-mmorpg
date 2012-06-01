@@ -8,6 +8,10 @@
 
 #include <crtdbg.h>
 
+// Added R347a
+#include "ZGameInterface.h"
+
+
 /*
 	TODO: 
 	

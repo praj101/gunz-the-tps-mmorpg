@@ -10,6 +10,9 @@
 #include "ZShopEquipListbox.h"
 #include "ZShopEquipInterface.h"
 
+// Added R347a
+#include "ZGlobal.h"
+
 #define DEFAULT_SLIDER_MAX			10000
 
 #define DEFAULT_GAMMA_SLIDER_MIN	50

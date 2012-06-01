@@ -5,6 +5,9 @@
 #include "ZShop.h"
 #include "ZItemSlotView.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 static ZIDLResource* GetIDLResource() {
 	return ZGetGameInterface()->GetIDLResource();
 }

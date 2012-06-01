@@ -6,6 +6,9 @@
 
 #include "ZGameClient.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 void ZGetCurrMapPath(char* outPath)
 {
 // 나중에 랜덤맵 구현할때까지 그냥 맵 하나만 사용

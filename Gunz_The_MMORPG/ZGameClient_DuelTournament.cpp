@@ -25,6 +25,10 @@
 #include "ZLanguageConf.h"
 */
 
+// Added R347a
+#include "ZGlobal.h"
+
+
 void ZGameClient::OnDuelTournamentPrepare(CCDUELTOURNAMENTTYPE nType, CCUID uidStage, void* pBlobPlayerInfo)
 {
 	m_uidStage = uidStage;

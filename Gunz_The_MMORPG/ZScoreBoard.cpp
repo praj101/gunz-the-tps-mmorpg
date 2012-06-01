@@ -10,6 +10,10 @@
 #include "CCMatchRule.h"
 #include "ZMatch.h"
 
+// Added R347a
+#include "ZGameClient.h"
+#include "ZGlobal.h"
+
 void _AddListItem(CCListBox* pList, const char* szString)
 {
 	MDefaultListItem* pNew = new MDefaultListItem(szString);

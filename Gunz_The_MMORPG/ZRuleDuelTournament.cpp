@@ -5,6 +5,10 @@
 #include "ZItemSlotView.h"
 #include "ZBmNumLabel.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+#include "ZGlobal.h"
+
 //# 룰 클래스에 UI관련 기능이 있는것이 이상합니다만, 적어도 ZCombatInterface가 계속 비대해지는 것보단 나을 것 같습니다.
 
 ZRuleDuelTournament::ZRuleDuelTournament(ZMatch* pMatch) : ZRule(pMatch)

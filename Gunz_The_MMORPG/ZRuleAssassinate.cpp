@@ -5,6 +5,10 @@
 #include "ZGlobal.h"
 #include "CCMatchTransDataType.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
+
 ZRuleAssassinate::ZRuleAssassinate(ZMatch* pMatch) : ZRuleTeamDeathMatch(pMatch)
 {
 

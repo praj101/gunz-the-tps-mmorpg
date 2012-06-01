@@ -1,6 +1,9 @@
 #include "StdAfx.h"
 #include ".\ZGameTypeList.h"
 
+// Added R347a
+#include "ZGlobal.h"
+
 
 ZGameTypeConfig::ZGameTypeConfig( void)
 {

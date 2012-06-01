@@ -12,6 +12,8 @@
 #include "ZShopEquipItem.h"
 #include "ZShopEquipListbox.h"
 
+// Added R347a
+#include "ZGameInterface.h"
 
 ZItemSlotView::ZItemSlotView(const char* szName, CCWidget* pParent, CCListener* pListener)
 : CCButton(szName, pParent, pListener)

@@ -9,6 +9,9 @@
 #include "ZConfiguration.h"
 #include "ZApplication.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 using namespace RealSpace2;
 
 ZEffectFlashBang ZEffectFlashBang::msInstance;

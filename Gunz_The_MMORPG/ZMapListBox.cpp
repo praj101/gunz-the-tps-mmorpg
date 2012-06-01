@@ -8,6 +8,9 @@
 #include "CCTextArea.h"
 #include "ZChannelRule.h"
 
+// Added R347a
+#include "ZGlobal.h"
+
 #define PREVIEW_W	200
 
 void ZMapListBox::OnDraw(CCDrawContext* pDC)

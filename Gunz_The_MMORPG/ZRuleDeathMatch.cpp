@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "ZRuleDeathMatch.h"
 
+// Added R347a
+#include "ZGlobal.h"
+
 ZRuleSoloDeathMatch::ZRuleSoloDeathMatch(ZMatch* pMatch) : ZRule(pMatch)
 {
 

@@ -9,6 +9,9 @@
 #include "ZEffectBillboard.h"
 #include "ZEffectSmoke.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 enum el_plane_type {
 	el_plane_yz,//x
 	el_plane_xz,//y

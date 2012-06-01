@@ -11,6 +11,9 @@
 #include "ZApplication.h"
 #include "ZPost.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 #define		ROOM_WIDTH					8
 #define		ROOM_HEIGHT					7
 const char* EMPTY_ROOM		=		"Empty";

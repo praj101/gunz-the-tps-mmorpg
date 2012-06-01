@@ -2,6 +2,10 @@
 #include "ZGlobal.h"
 #include "ZApplication.h"
 #include "ZQuest.h"
+
+// Added R347a
+#include "ZGameInterface.h"
+
 //#include "SVNRevision/SVNRevision.cpp"
 
 bool ZIsLaunchDevelop() { 

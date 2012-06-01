@@ -8,6 +8,9 @@
 #include "ZApplication.h"
 #include "ZLanguageConf.h"
 
+// Added R347a
+#include "ZStringResManager.h"
+
 inline const char* ZGetClanGradeStr(const CCMatchClanGrade nGrade)
 {
 	switch (nGrade)

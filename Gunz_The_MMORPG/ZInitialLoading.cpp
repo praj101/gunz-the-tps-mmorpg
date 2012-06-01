@@ -9,6 +9,9 @@
 #include "ZGlobal.h"
 #include "ZMyInfo.h"
 
+// Added R347a
+#include "ZStringResManager.h"
+
 using namespace RealSpace2;
 
 

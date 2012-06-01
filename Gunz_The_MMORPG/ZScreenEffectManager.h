@@ -4,6 +4,9 @@
 #include "ZEffectManager.h"
 #include "RMeshUtil.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 
 enum ZCOMBOLEVEL {
 	ZCL_NONE = 0,

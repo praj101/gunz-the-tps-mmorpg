@@ -14,6 +14,9 @@
 #include "ZGameTypeList.h"
 #include "ZMap.h"
 
+// Added R347a
+#include "ZStringResManager.h"
+
 // 최대인원
 #define STAGESETTING_MAXPLAYER_MAX		5
 #define STAGESETTING_MAXPLAYER_DEFAULT	1

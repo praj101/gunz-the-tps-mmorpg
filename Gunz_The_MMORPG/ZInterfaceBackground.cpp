@@ -7,6 +7,9 @@
 #include "CCDebug.h"
 #include "ZScreenEffectManager.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 #define DIR_LOGIN	"interface/login"
 
 

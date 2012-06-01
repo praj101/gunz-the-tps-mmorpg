@@ -25,6 +25,10 @@
 #include "RNavigationMesh.h"
 #include "RNavigationNode.h"
 
+// Added R347a
+#include "ZCombatInterface.h"
+#include "ZPost.h"
+
 ZSurvival::ZSurvival() : m_bLoaded(false), m_bCreatedOnce(false)
 {
 	memset(&m_Cheet, 0, sizeof(m_Cheet));

@@ -13,6 +13,8 @@
 #include "CCDataChecker.h"
 #include "CCUtil.h"
 
+// Added R347a
+#include "ZGameInterface.h"
 using namespace RealSpace2;
 
 #define BASE_EFFECT_MODEL "baseEffect"

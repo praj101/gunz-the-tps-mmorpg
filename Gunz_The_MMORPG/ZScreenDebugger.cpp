@@ -11,6 +11,12 @@
 #include "RBspObject.h"
 #include "ZModule_Skills.h"
 
+// Added R347a
+#include "ZActor.h"
+#include "ZGameClient.h"
+#include "ZGameInterface.h"
+#include "ZCombatInterface.h"
+
 int g_debug_tex_update_cnt;
 
 _NAMESPACE_REALSPACE2_BEGIN

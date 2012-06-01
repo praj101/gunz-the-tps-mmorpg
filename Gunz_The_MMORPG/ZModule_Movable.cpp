@@ -5,6 +5,9 @@
 #include "ZGame.h"
 #include "ZGameConst.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 // 나 이외의 캐릭터는 위치를 양자화해서 보내므로 오차가 있어서 m_fRadius 를 실제보다 2정도 줄였다
 
 ZModule_Movable::ZModule_Movable() 

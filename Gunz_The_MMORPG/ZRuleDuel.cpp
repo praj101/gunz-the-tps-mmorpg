@@ -2,6 +2,10 @@
 #include "ZRuleDuel.h"
 #include "ZScreenEffectManager.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
+
 ZRuleDuel::ZRuleDuel(ZMatch* pMatch) : ZRule(pMatch)
 {
 

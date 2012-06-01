@@ -3,6 +3,9 @@
 #include "ZApplication.h"
 #include "ZClanListBox.h"
 
+// Added R347a
+#include "ZGlobal.h"
+
 ZClanListBox::ZClanListBox(const char* szName, CCWidget* pParent, CCListener* pListener) 
 			: CCWidget(szName, pParent, pListener)
 {

@@ -3,6 +3,9 @@
 #include "CCDebug.h"
 #include "ZMyInfo.h"
 
+// Added R347a
+#include "ZGlobal.h"
+
 void ZImplodeChatCmdArgs(char* szOut, const int argc, char **const argv, int nFirstIndex)
 {
 	szOut[0] = 0;
