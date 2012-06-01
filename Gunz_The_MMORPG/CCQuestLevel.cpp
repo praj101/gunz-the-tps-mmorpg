@@ -31,7 +31,7 @@ void CCQuestNPCQueue::Make(int nQLD, CCQuestNPCSetInfo* pNPCSetInfo, CCQUEST_NPC
 	int cursor = 0;
 	for (int i = 0; i < nNPCSetCount; i++)
 	{
-		MNPCSetNPC npc = pNPCSetInfo->vecNPCs[i];
+		CCNPCSetNPC npc = pNPCSetInfo->vecNPCs[i];
 
 		//float fSpawnRate = (float)RandomNumber((int)(npc.fMinRate*100.0f), (int)(npc.fMaxRate*100.0f));
 		float fSpawnRate = (float)(RandomNumber(npc.nMinRate, npc.nMaxRate) / 100.0f);

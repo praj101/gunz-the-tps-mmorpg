@@ -4,6 +4,9 @@
 #include "ZApplication.h"
 #include "ZModule_HPAP.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 int GetEffectLevel();
 
 ZModule_HealOverTime::ZModule_HealOverTime()

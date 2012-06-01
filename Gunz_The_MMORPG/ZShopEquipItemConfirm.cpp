@@ -2,6 +2,9 @@
 #include "ZShopEquipItemConfirm.h"
 #include "ZShopEquipInterface.h"
 
+// Added R347a
+#include "ZGlobal.h"
+
 static ZIDLResource* GetIDLResource() {
 	return ZGetGameInterface()->GetIDLResource();
 }

@@ -11,6 +11,8 @@
 
 #include "ZApplication.h"
 
+// Added R347a
+#include "ZGameInterface.h"
 
 bool ZVoteInterface::OnVoteRun(int nTargetIndex)
 {

@@ -7,6 +7,9 @@
 #include "ZMap.h"
 #include "ZGameClient.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 #define ZMINIMAPTOK_PICTURE		"PICTURE"
 #define ZMINIMAPTOK_LEFTTOP		"LEFTTOP"
 #define ZMINIMAPTOK_RIGHTBOTTOM	"RIGHTBOTTOM"

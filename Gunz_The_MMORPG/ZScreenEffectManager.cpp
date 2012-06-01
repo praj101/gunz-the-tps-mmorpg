@@ -11,6 +11,10 @@
 #include "ZQuest.h"
 #include "ZRuleDuel.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+#include "ZActor.h"
+
 void DrawGauge(float x,float y,float fWidth,float fHeight,float fLeanDir,DWORD color);
 
 ZScreenEffect::ZScreenEffect(RMesh *pMesh,rvector offset)

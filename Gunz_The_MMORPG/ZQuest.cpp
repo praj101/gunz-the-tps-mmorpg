@@ -26,6 +26,11 @@
 #include "RNavigationNode.h"
 #include "ZItemIconBitmap.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+#include "ZPost.h"
+
+
 ZQuest::ZQuest() : m_bLoaded(false), m_bCreatedOnce(false)
 {
 	memset(&m_Cheet, 0, sizeof(m_Cheet));

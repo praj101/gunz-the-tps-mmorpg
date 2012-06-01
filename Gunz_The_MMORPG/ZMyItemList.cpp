@@ -11,6 +11,8 @@
 #include "ZCharacterView.h"
 #include "CCMatchItemFunction.h"
 
+// Added R347a
+#include "ZGameClient.h"
 
 
 // 어디다 넣어야??

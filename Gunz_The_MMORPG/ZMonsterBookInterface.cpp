@@ -15,6 +15,8 @@
 #include "ZItemIconBitmap.h"
 #include "ZModule_Skills.h"
 
+// Added R347a
+#include "ZStringResManager.h"
 
 
 /***********************************************************************

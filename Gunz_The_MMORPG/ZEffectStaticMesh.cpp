@@ -9,6 +9,9 @@
 #include "RMaterialList.h"
 #include "CCDebug.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 ZEffectMesh::ZEffectMesh(RMesh* pMesh, rvector& Pos, rvector& Velocity)
 {
 	m_VMesh.Create(pMesh);

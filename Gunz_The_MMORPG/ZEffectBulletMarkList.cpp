@@ -9,6 +9,9 @@
 
 #include <crtdbg.h>
 
+// Added R347a
+#include "ZGameInterface.h"
+
 //#define BULLETMARK_DISCARD_COUNT	1024
 #define BULLETMARK_FLUSH_COUNT		256
 

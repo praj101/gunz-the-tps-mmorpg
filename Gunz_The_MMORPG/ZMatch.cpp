@@ -20,6 +20,10 @@
 #include "ZRuleDuelTournament.h"
 #include "ZInput.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+#include "ZCombatInterface.h"
+
 #define READY_COUNT	5
 
 ZMatch::ZMatch() : m_pRule(NULL)

@@ -6,6 +6,9 @@
 
 #include "ZApplication.h"
 
+// Added R347a
+#include "ZStringResManager.h"
+
 
 const char* ZGetSexStr(CCMatchSex nSex, bool bShort)
 {

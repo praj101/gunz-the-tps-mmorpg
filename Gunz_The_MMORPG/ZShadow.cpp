@@ -5,6 +5,9 @@
 #include "RBspObject.h"
 #include "CCDebug.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 #define VALID_SHADOW_LENGTH 250
 #define VALID_SHADOW_BOUNDARY_SQUARE 62500
 

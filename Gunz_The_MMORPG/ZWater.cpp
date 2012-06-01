@@ -9,6 +9,9 @@
 #include "ZSoundEngine.h"
 #include "ZEffectManager.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 // struct
 typedef struct
 {

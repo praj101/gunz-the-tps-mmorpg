@@ -15,6 +15,10 @@
 #include "ZScreenEffectManager.h"
 #include "ZInput.h"
 
+// Added R347a
+#include "ZActor.h"
+#include "ZCombatInterface.h"
+
 extern bool g_debug_rot;
 extern int  g_debug_render_mode;
 extern bool g_bVertex_Soft; 

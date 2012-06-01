@@ -4,6 +4,9 @@
 #include "ZApplication.h"
 #include "CheckReturnCallStack.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 ZModule_HPAP::ZModule_HPAP() : m_LastAttacker(CCUID(0,0)), m_bRealDamage_DebugRegister(false), m_fAccumulationDamage(0.f), m_bAccumulationDamage(false)
 {
 	float f = float(rand() % 1000); 

@@ -6,6 +6,9 @@
 #include "ZApplication.h"
 #include "ZGame.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 #define ZTOK_SPAWN			"spawn"
 #define ZTOK_SPAWN_SOLO		"spawn_solo"
 #define ZTOK_SPAWN_TEAM		"spawn_team"

@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "ZRuleBerserker.h"
 
+// Added R347a
+#include "ZGlobal.h"
+
 
 #define BERSERKER_UPDATE_HEALTH_TIME		5.0f		// 버서커는 5초마다 피가 10씩 준다.
 #define BERSERKER_UPDATE_HEALTH				10

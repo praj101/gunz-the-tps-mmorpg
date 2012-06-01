@@ -7,6 +7,9 @@
 #include "ZStringResManager.h"
 #include "CCMatchItemFunction.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 string GetRestrictionString(int nResSex, int nResLevel, int nWeight)
 {
 	string str;

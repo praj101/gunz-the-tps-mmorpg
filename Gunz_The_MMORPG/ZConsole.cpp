@@ -7,6 +7,9 @@
 #include "ZApplication.h"
 #include "ZPost.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 static CCConsoleFrame* g_pConsole = NULL;
 CCConsoleFrame* ZGetConsole() { return g_pConsole; }
 

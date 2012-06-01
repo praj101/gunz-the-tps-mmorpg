@@ -23,6 +23,9 @@
 
 #include "ZLanguageConf.h"
 
+// Added R347a
+#include "ZStringResManager.h"
+
 #define PROPOSAL_AGREEMENT_TIMEOUT_SEC			(30)		// 30초 타임아웃
 
 void ShowProposalWaitFrame(bool bVisible, const char* szTitle=NULL, const char* szMessage=NULL);

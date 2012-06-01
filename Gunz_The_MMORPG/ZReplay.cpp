@@ -11,6 +11,9 @@
 #include "ZRuleDuel.h"
 #include "ZRuleDuelTournament.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 bool g_bTestFromReplay = false;
 
 bool CreateReplayGame(char *filename)

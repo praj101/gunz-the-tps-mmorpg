@@ -3,6 +3,9 @@
 #include "CCBitmap.h"
 #include "CCMatchItem.h"
 
+// Added R347a
+#include "ZGlobal.h"
+
 
 // 파일 이름은 그냥 하드코딩..-_-;
 CCBitmap* GetItemIconBitmap(CCMatchItemDesc* pItemDesc)

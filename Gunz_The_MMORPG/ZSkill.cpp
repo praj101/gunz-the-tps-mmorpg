@@ -6,6 +6,10 @@
 #include "ZModule_Resistance.h"
 #include "ZChat.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+#include "ZActor.h"
+
 ZSkillDesc::ZSkillDesc()
 {
 	szName[0]=0;

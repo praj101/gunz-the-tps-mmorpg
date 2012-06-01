@@ -13,6 +13,9 @@
 #include "ZModule_PoisonDamage.h"
 #include "ZGameInterface.h"
 
+// Added R347a
+#include "ZActor.h"
+
 #define MAX_ENCHANT_DURATION	10.f
 
 bool ZGameAction::OnCommand(CCCommand* pCommand)

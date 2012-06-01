@@ -7,6 +7,9 @@
 #include "RDynamicLight.h"
 #include "CCDebug.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 
 //////////////////////////////////////////////////////////////////////////
 //	Define
@@ -47,22 +50,22 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 
 	mpMeshNode	= pMeshNdoe_;
 
-	m_nCntP	= mpMeshNode->m_point_num;
-	m_nCntC	= mpMeshNode->m_face_num * 3 ;
+	m_iCntP	= mpMeshNode->m_point_num;
+	m_iCntC	= mpMeshNode->m_face_num * 3 ;
 
 	// Initialize
-	m_pX		= new rvector[m_nCntP];
-	m_pOldX		= new rvector[m_nCntP];
-	m_pForce	= new rvector[m_nCntP];
-	m_pHolds	= new int    [m_nCntP];
-	m_pWeights	= new float  [m_nCntP];
-	m_pNormal	= new rvector[m_nCntP];
+	m_pX		= new rvector[m_iCntP];
+	m_pOldX		= new rvector[m_iCntP];
+	m_pForce	= new rvector[m_iCntP];
+	m_pHolds	= new int    [m_iCntP];
+	m_pWeights	= new float  [m_iCntP];
+	m_pNormal	= new rvector[m_iCntP];
 
-	m_pConst	= new sConstraint[m_nCntC];
+	m_pConst	= new sConstraint[m_iCntC];
 
-	memset( m_pForce    , 0, sizeof(rvector)* m_nCntP );
-	memset( m_pHolds    , 0, sizeof(bool)   * m_nCntP );
-	memset( m_pWeights  , 0, sizeof(float)  * m_nCntP );
+	memset( m_pForce    , 0, sizeof(rvector)* m_iCntP );
+	memset( m_pHolds    , 0, sizeof(bool)   * m_iCntP );
+	memset( m_pWeights  , 0, sizeof(float)  * m_iCntP );
 
 	nIndices = pMeshNdoe_->m_face_num*3;
 
@@ -93,8 +96,8 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 	}
 
 	//	Copy Vertex
-	memcpy( m_pX, mpMeshNode->m_point_list, sizeof(rvector) * m_nCntP );
-	memcpy( m_pOldX, mpMeshNode->m_point_list, sizeof(rvector) * m_nCntP );
+	memcpy( m_pX, mpMeshNode->m_point_list, sizeof(rvector) * m_iCntP );
+	memcpy( m_pOldX, mpMeshNode->m_point_list, sizeof(rvector) * m_iCntP );
 
 	//	Build Constraints
 	for( i = 0 ; i < mpMeshNode->m_face_num; ++i )
@@ -180,8 +183,8 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 		}
 	}
 
-	mpLight	= new D3DLIGHT;
-	memset( mpLight, 0, sizeof(D3DLIGHT));
+	mpLight	= new D3DLIGHT9;
+	memset( mpLight, 0, sizeof(D3DLIGHT9));
 
 	mpLight->Ambient.r = 0.3;
 	mpLight->Ambient.g = 0.3;
@@ -195,7 +198,7 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 		mpLight->Diffuse.g	= pSelectedLight->Color.y * pSelectedLight->fIntensity;
 		mpLight->Diffuse.b	= pSelectedLight->Color.z * pSelectedLight->fIntensity;
 
-		mpLight->Position	= pSelectedLight->Position;
+		mpLight->Position	= pSelectedLight->sPosition;
 
 		mpLight->Range		= pSelectedLight->fAttnEnd;
 		mpLight->Attenuation1	= 0.0001f;

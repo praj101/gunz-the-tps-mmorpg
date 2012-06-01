@@ -4,6 +4,8 @@
 #include "ZItemSlotView.h"
 #include "ZShop.h"
 
+// Added R347a
+#include "ZGameInterface.h"
 
 ZShopEquipListItem::ZShopEquipListItem(ZShopEquipItem* pItemData)
 : m_pItemData(pItemData)

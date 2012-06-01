@@ -4,6 +4,9 @@
 #include "RealSpace2.h"
 #include "RMeshUtil.h"
 
+// Added R347a
+#include "ZGameInterface.h"
+
 #define CORRECTION		0.01
 #define SLSEGMENT		8
 #define MAXLSID			60000
