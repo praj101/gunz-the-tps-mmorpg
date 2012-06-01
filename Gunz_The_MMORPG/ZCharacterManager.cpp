@@ -12,7 +12,8 @@
 
 // Added
 #include "ZGameInterface.h"
-
+// Added R349a
+#include "CheckReturnCallStack.h"
 
 extern bool Enable_Cloth;
 
@@ -88,11 +89,11 @@ ZCharacter* ZCharacterManager::Find(CCUID uid)
 	iterator itor = find(uid);
 	if (itor != end())
 	{
-		CHECK_RETURN_CALLSTACK(&Find);
+		CHECK_RETURN_CALLSTACK(Find);
 		return (*itor).second;
 	}
 	
-	CHECK_RETURN_CALLSTACK(&Find);
+	CHECK_RETURN_CALLSTACK(Find);
 	return NULL;
 }
 

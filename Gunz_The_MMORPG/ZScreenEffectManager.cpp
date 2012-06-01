@@ -14,6 +14,9 @@
 // Added R347a
 #include "ZGameInterface.h"
 #include "ZActor.h"
+// Added R349a
+#include "ZCombatInferface.h"
+#include "ZGameClient.h"
 
 void DrawGauge(float x,float y,float fWidth,float fHeight,float fLeanDir,DWORD color);
 

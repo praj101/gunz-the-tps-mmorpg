@@ -2,6 +2,10 @@
 
 #include "ZShopEquipItemConfirm.h"
 
+// Added R349a
+#include "ZGlobal.h"
+#include "ZCharacterView.h"
+
 class MShopSetItem;
 class MShopPriceMap;
 

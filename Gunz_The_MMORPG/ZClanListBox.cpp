@@ -5,6 +5,8 @@
 
 // Added R347a
 #include "ZGlobal.h"
+// Added R349a
+#include "ZStringResManager.h"
 
 ZClanListBox::ZClanListBox(const char* szName, CCWidget* pParent, CCListener* pListener) 
 			: CCWidget(szName, pParent, pListener)

@@ -3,6 +3,9 @@
 
 #include "CCCommand.h"
 
+// Added R349a
+#include "ZObject.h"
+
 // 이 enum 은 게임 프로토콜과 관련이 있으므로 변경은 불가. 추가만 하자
 enum ZREACTIONID{	// 내 반응을 다른사람에게 알린다
 	ZR_CHARGING = 0,		// 기 모으기를 시작

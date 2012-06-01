@@ -537,7 +537,7 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 				CCXmlNode keyNode;
 				if (childElement.FindChildNode(szItemName, &keyNode))
 				{
-					CCXmlElement actionKeyElement = keyNode;
+					::CCXmlElement actionKeyElement = keyNode;
 
 					const int ID_UNDEFINED = -2;
 					int nKey;

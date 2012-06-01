@@ -10,6 +10,9 @@
 #include "ZGameInterface.h"
 #include "ZActor.h"
 
+// Added R349a
+#include "ZCombatInterface.h"
+
 ZSkillDesc::ZSkillDesc()
 {
 	szName[0]=0;

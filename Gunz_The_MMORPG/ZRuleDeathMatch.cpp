@@ -3,6 +3,9 @@
 
 // Added R347a
 #include "ZGlobal.h"
+// Added R349a
+#include "ZGameInterface.h"
+#include "ZMatch.h"
 
 ZRuleSoloDeathMatch::ZRuleSoloDeathMatch(ZMatch* pMatch) : ZRule(pMatch)
 {

@@ -8,6 +8,9 @@
 // Added R347a
 #include "ZGameInterface.h"
 
+// Added R349a
+#include "ZGameClient.h"
+
 ZWorld::ZWorld() : m_pBsp(NULL), m_pMapDesc(NULL), m_pSkyBox(NULL), m_nRefCount(1), m_bCreated(false)
 {
 	m_szName[0]=0;

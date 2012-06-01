@@ -6,6 +6,9 @@
 
 // Added R347a
 #include "ZGameInterface.h"
+// Added R349a
+#include "ZActor.h"
+#include "ZGameClient.h"
 
 ZModule_HPAP::ZModule_HPAP() : m_LastAttacker(CCUID(0,0)), m_bRealDamage_DebugRegister(false), m_fAccumulationDamage(0.f), m_bAccumulationDamage(false)
 {

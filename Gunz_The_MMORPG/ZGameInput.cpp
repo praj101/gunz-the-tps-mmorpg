@@ -132,7 +132,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 				return false;
 		}
 		return true;
-	case MWM_RBUTTONDOWN:
+	case CCWM_RBUTTONDOWN:
 		{
 			if (ZGetGameInterface()->GetCombatInterface()->IsChat())
 			{
@@ -146,13 +146,13 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			}
 		}
 		return true;
-	case MWM_CCButtonDOWN:
+	case CCWM_CCButtonDOWN:
 		if (ZGetGameInterface()->GetCombatInterface()->IsChat())
 		{
 			ZGetGameInterface()->GetCombatInterface()->EnableInputChat(false);
 		}
 		return true;
-	case MWM_ACTIONRELEASED:
+	case CCWM_ACTIONRELEASED:
 		{
 			switch(pEvent->uKey){
 			case ZACTION_FORWARD:
@@ -171,7 +171,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 				return true;
 			}
 		}break;
-	case MWM_ACTIONPRESSED:
+	case CCWM_ACTIONPRESSED:
 		if ( !ZGetGame()->IsReservedSuicide())		// 자살 예정인 경우 대쉬를 할수없게 막는다
 		{
 		switch(pEvent->uKey){
@@ -322,7 +322,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 		}
 		break;
 
-	case MWM_KEYDOWN:
+	case CCWM_KEYDOWN:
 		{
 			ZCombatInterface* pCombatInterface = ZGetGameInterface()->GetCombatInterface();
 
@@ -498,7 +498,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 		}
 		break;
 
-	case MWM_CHAR:
+	case CCWM_CHAR:
 		{
 			ZMatch* pMatch = ZGetGame()->GetMatch();
 			if (pMatch->IsTeamPlay()) {
@@ -520,7 +520,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 		}
 		break;
 
-	case MWM_SYSKEYDOWN:
+	case CCWM_SYSKEYDOWN:
 		{
 			// alt+a ~ z(65~90)
 			if(pEvent->uKey==90){	// Alt+'Z' // 모든 UI 감추기... by kammir 20081020
@@ -535,12 +535,12 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 		}
 		break;
 
-	case MWM_MOUSEWHEEL:
+	case CCWM_MOUSEWHEEL:
 		{
 			if ( ZGetGame()->IsReplay())
 				break;
 
-			int nDelta = pEvent->nDelta;
+			int nDelta = pEvent->iDelta;
 
 			if ( (ZGetMyInfo()->IsAdminGrade() && ZGetCombatInterface()->GetObserver()->IsVisible()) ||
 				(ZGetGameInterface()->GetScreenDebugger()->IsVisible()) || 
@@ -557,7 +557,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 //			else if (nDelta < 0) ZGetGameInterface()->ChangeWeapon(ZCWT_NEXT);
 		}break;
 
-	case MWM_MOUSEMOVE:
+	case CCWM_MOUSEMOVE:
 		{
 			if(ZGetGameInterface()->IsCursorEnable()==false)
 			{

@@ -202,7 +202,7 @@ void ZBmButton::OnDraw(CCDrawContext* pDC)
 	int targetillu=0;
 
 	/*
-	if(GetType()==MBT_PUSH){
+	if(GetType()==CCBT_PUSH){
 		if(GetCheck())
 			targetillu=255;
 		else
@@ -237,7 +237,7 @@ void ZBmButton::OnDraw(CCDrawContext* pDC)
 		else
 		{
 			m_bClicked=false;
-//			if(GetListener()) GetListener()->OnCommand(this, MBTN_CLK_MSG);
+//			if(GetListener()) GetListener()->OnCommand(this, CCBTN_CLK_MSG);
 		}
 	}
 

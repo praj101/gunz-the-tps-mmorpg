@@ -127,7 +127,7 @@ void ZToolTip::OnDraw(CCDrawContext* pDC)
 
 //	pDC->SetColor(sColor(DEFCOLOR_MTOOLTIP_TEXT));//임시
 	pDC->SetColor(sColor(0xff000000));//임시
-//	pDC->TextWithHighlight(text_r, szName, (CCD_HCENTER|CCAM_VCENTER));
+//	pDC->TextWithHighlight(text_r, szName, (CCD_HCENTER|CCD_VCENTER));
 	pDC->TextMultiLine(text_r, szName,ZTOOLTIP_LINE_GAP);	
 }
 

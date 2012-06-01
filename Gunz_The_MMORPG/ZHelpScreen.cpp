@@ -7,6 +7,9 @@
 #include "ZHelpScreen.h"
 #include "ZInput.h"
 
+// Added R349a
+#include "ZGlobal.h"
+
 _USING_NAMESPACE_REALSPACE2
 
 #pragma warning( disable : 4244 )

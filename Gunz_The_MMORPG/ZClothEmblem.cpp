@@ -139,7 +139,7 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 
 	_ASSERT( mpMeshNode->m_point_color_num );
 
-	for( i = 0 ; i < m_nCntP; ++i )
+	for( i = 0 ; i < m_iCntP; ++i )
 	{
 		m_pHolds[i]	= CLOTH_VALET_ONLY;
 		// 만약 붉은색 성분이 있으면 & Exclusive with other Attribute...
@@ -175,7 +175,7 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 	{
 		RLIGHT *pLight	=	*itor;
 
-		fTemp	= D3DXVec3Length( &(pLight->Position - m_pX[0]) );
+		fTemp	= D3DXVec3Length( &(pLight->sPosition - m_pX[0]) );
 		if( fTemp < minDistance )
 		{
 			minDistance		= fTemp;
@@ -227,7 +227,7 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 	mostBigX	= mostBigY		= mostBigZ		= -9999999;
 
 	rvector* pCurr;
-	for( i = 0 ; i < m_nCntP; ++i )
+	for( i = 0 ; i < m_iCntP; ++i )
 	{
 		pCurr	= &mpMeshNode->m_point_list[i];
 		
@@ -251,7 +251,7 @@ void	ZClothEmblem::CreateFromMeshNode( RMeshNode* pMeshNdoe_ , ZWorld* pWorld)
 //////////////////////////////////////////////////////////////////////////
 void ZClothEmblem::setOption( int nIter_, float power_, float inertia_ )
 {
-	m_nCntIter = nIter_;
+	m_iCntIter = nIter_;
 	m_fTimeStep = power_;
 	m_AccelationRatio = inertia_;
 }
@@ -275,7 +275,7 @@ void ZClothEmblem::update()
 
  	accumulateForces();
 	varlet();
-	memset( m_pForce, 0, sizeof(rvector)*m_nCntP );
+	memset( m_pForce, 0, sizeof(rvector)*m_iCntP );
 	//memset( mpWind, 0, sizeof(rvector) );
 	if(mpWind!=NULL) 
 	{
@@ -302,7 +302,7 @@ void ZClothEmblem::accumulateForces()
 //////////////////////////////////////////////////////////////////////////
 void ZClothEmblem::varlet()
 {
-	for( int i = 0 ; i < m_nCntP; ++i )
+	for( int i = 0 ; i < m_iCntP; ++i )
 	{
 		if( m_pHolds[i] & CLOTH_HOLD )
 		{
@@ -347,7 +347,7 @@ void ZClothEmblem::satisfyConstraints()
 
 //	if( mbIsInFrustrum )
 	{
-		for( i = 0 ; i < m_nCntIter; ++i )
+		for( i = 0 ; i < m_iCntIter; ++i )
 		{
 			// 캐릭터와 충돌 체크
 			for (ZCharacterManager::iterator itor = ZGetCharacterManager()->begin();
@@ -584,7 +584,7 @@ void ZClothEmblem::render()
 	
 	//{
 	//	static testv v[1000];
-	//	for( int i = 0; i < m_nCntP; ++i )
+	//	for( int i = 0; i < m_iCntP; ++i )
 	//	{
 	//		v[2*i].n = m_pX[i];
 	//		v[2*i].c	= 0xffffffff;
@@ -592,7 +592,7 @@ void ZClothEmblem::render()
 	//		v[2*i + 1].c	= 0xffffffff;
 	//	}
 	//	RGetDevice()->SetFVF( testvFVF );
-	//	RGetDevice()->DrawPrimitiveUP( D3DPT_LINELIST, m_nCntP, v, sizeof(testv) );
+	//	RGetDevice()->DrawPrimitiveUP( D3DPT_LINELIST, m_iCntP, v, sizeof(testv) );
 	//}
 }
 

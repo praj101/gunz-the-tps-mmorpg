@@ -1421,7 +1421,7 @@ void ZStagePlayerListBox::AddPlayer(CCUID& puid, CCMatchObjectStageState state, 
 
 bool ZStagePlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
-	if(pEvent->iMessage==MWM_MOUSEMOVE)	{
+	if(pEvent->iMessage==CCWM_MOUSEMOVE)	{
 	}
 	else if(pEvent->iMessage==MWM_CCButtonDOWN) {
 		int k=0;

@@ -8,6 +8,9 @@
 // Added R347a
 #include "ZGameInterface.h"
 #include "ZGlobal.h"
+// Added R349a
+#include "ZStringResManager.h"
+#include "ZGameClient.h"
 
 //# 룰 클래스에 UI관련 기능이 있는것이 이상합니다만, 적어도 ZCombatInterface가 계속 비대해지는 것보단 나을 것 같습니다.
 
@@ -183,7 +186,7 @@ void ZRuleDuelTournament::InitCharacterList()
 	{
 		strcpy(m_QuaterFinalPlayer[i].m_szCharName, (*it).m_szCharName);
 		m_QuaterFinalPlayer[i].uidPlayer = (*it).uidPlayer;
-		m_QuaterFinalPlayer[i].m_nTP = (*it).m_nTP;
+		m_QuaterFinalPlayer[i].m_iTP = (*it).m_iTP;
 		m_QuaterFinalPlayer[i].nNumber = i;
 
 		switch(eType)

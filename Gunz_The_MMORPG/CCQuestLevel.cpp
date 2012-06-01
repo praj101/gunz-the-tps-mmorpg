@@ -131,7 +131,7 @@ CCQuestLevel::~CCQuestLevel()
 
 }
 
-const bool CCQuestLevel::Make_MTDQuestGameInfo(MTD_QuestGameInfo* pout, CCMATCH_GAMETYPE eGameType)
+const bool CCQuestLevel::Make_MTDQuestGameInfo(CCTD_QuestGameInfo* pout, CCMATCH_GAMETYPE eGameType)
 {
 	if( MAX_QUEST_NPC_INFO_COUNT <= static_cast<int>(m_StaticInfo.NPCs.size()) )
 	{

@@ -7,6 +7,8 @@
 #include "ZSecurity.h"
 #include "ZPost.h"
 
+// Added R349a
+#include "ZStringResManager.h"
 
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA.h"
@@ -133,7 +135,7 @@ bool ZLocale::CreateAuthInfo()
 	if (m_pAuthInfo) delete m_pAuthInfo;
 	m_pAuthInfo = NULL;
 
-	switch (m_nCountry)
+	switch (m_iCountry)
 	{
 	case CCC_KOREA:
 		{

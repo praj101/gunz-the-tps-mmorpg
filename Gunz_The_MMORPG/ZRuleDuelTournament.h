@@ -3,6 +3,10 @@
 
 #include "ZRule.h"
 
+// Added R349a
+#include "ZCombatInterface.h"
+#include "ZGameInterface.h"
+
 class ZRuleDuelTournament : public ZRule
 {
 public:

@@ -2260,7 +2260,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	CCListBox* pReplayBox = (CCListBox*)m_IDLResource.FindWidget( "Replay_FileList");
 	if ( pReplayBox)
 	{
-		pReplayBox->m_FontAlign = CCAM_VCENTER;
+		pReplayBox->m_FontAlign = CCD_VCENTER;
 		pReplayBox->SetVisibleHeader( false);
 		pReplayBox->AddField( "NAME", 92);
 		pReplayBox->AddField( "VERSION", 8);
@@ -2395,7 +2395,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	CCListBox* pListBox = (CCListBox*)m_IDLResource.FindWidget( "Stage_SacrificeItemListbox");
 	if ( pListBox)
 	{
-		pListBox->m_FontAlign = CCAM_VCENTER;
+		pListBox->m_FontAlign = CCD_VCENTER;
 		pListBox->AddField( "ICON", 32);
 		pListBox->AddField( "NAME", 170);
 		pListBox->SetItemHeight( 32);
@@ -2423,7 +2423,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	pListBox = (CCListBox*)m_IDLResource.FindWidget( "QuestResult_ItemListbox");
 	if ( pListBox)
 	{
-		pListBox->m_FontAlign = CCAM_VCENTER;
+		pListBox->m_FontAlign = CCD_VCENTER;
 		pListBox->AddField( "ICON", 35);
 		pListBox->AddField( "NAME", 300);
 		pListBox->SetItemHeight( 32);
@@ -2928,7 +2928,7 @@ void ZGameInterface::OnDrawStateLogin(CCDrawContext* pDC)
 			strcat( szMsg, ">");
 
 		pConnectingLabel->SetText( szMsg);
-		pConnectingLabel->SetAlignment( CCD_HCENTER | CCAM_VCENTER);
+		pConnectingLabel->SetAlignment( CCD_HCENTER | CCD_VCENTER);
 	}
 
 
@@ -3649,7 +3649,7 @@ bool ZGameInterface::OnGlobalEvent(CCEvent* pEvent)
 				if (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_STANDALONE_DEVELOP)
 				{
 					ZGetConsole()->Show(!ZGetConsole()->IsVisible());
-					ZGetConsole()->SetZOrder(MZ_TOP);
+					ZGetConsole()->SetZOrder(CC_TOP);
 					return true;
 					//				m_pLogFrame->Show(ZGetConsole()->IsVisible());
 				}
@@ -3657,7 +3657,7 @@ bool ZGameInterface::OnGlobalEvent(CCEvent* pEvent)
 			}
 		}break;
 
-		case MWM_KEYDOWN:
+		case CCWM_KEYDOWN:
 			{
 				// Ctrl+R UI 리소스 리로딩 - 문제가 많다. 근데 그냥 UI 디자인용 급조 기능이니까 그냥 씁시당..
 				// (800*600이외에서는 화면이 이상해짐, 종료시 메모리릭 엄청 남, 게임중엔 리로드 작동안됨)
@@ -3680,7 +3680,7 @@ bool ZGameInterface::OnGlobalEvent(CCEvent* pEvent)
 bool ZGameInterface::OnDebugEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	switch(pEvent->iMessage){
-	case MWM_KEYDOWN:
+	case CCWM_KEYDOWN:
 		{
 			switch (pEvent->uKey)
 			{
@@ -6744,7 +6744,7 @@ void ZGameInterface::UpdateDuelTournamantMyCharInfoUI()
 		char szTooltip[256];
 		sprintf(sz, "%d", pCharInfo->lastWeekGrade);
 		ZTransMsg(szTooltip, MSG_LOBBY_DUELTOURNAMENT_RECORD_TOOPTIP_GRADE, 1, sz);
-		SetWidgetToolTipText("Lobby_DuelTournamentInfoEmblem", szTooltip, CCAM_VCENTER);
+		SetWidgetToolTipText("Lobby_DuelTournamentInfoEmblem", szTooltip, CCD_VCENTER);
 	}
 }
 

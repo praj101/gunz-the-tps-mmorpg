@@ -132,14 +132,14 @@ void ZItemSlotView::OnDraw(CCDrawContext* pDC)
 	}
 
 	// Draw Name
-	CCAlignmentMode am = CCAM_VCENTER;
+	CCAlignmentMode am = CCD_VCENTER;
 	r = GetClientRect();
 	int margin = int(10 * CCGetWorkspaceWidth() / 800.f);
 	r.x += w + margin;
 	r.w -= (w + margin);
 
 	if (m_bHorizonalInverse) {
-		am = CCAM_VCENTER | CCD_RIGHT;
+		am = CCD_VCENTER | CCD_RIGHT;
 		r.x = 0;
 	}
 
@@ -347,13 +347,13 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		}
 	}
 
-	else if ( pEvent->iMessage == MWM_LBUTTONUP)
+	else if ( pEvent->iMessage == CCWM_LBUTTONUP)
 	{
 		ZGetGameInterface()->GetShopEquipInterface()->SetKindableItem( MMIST_NONE);
 	}
 	
 	// 더블클릭시 아이템 해제
-	else if ( pEvent->iMessage == MWM_LBUTTONDBLCLK)
+	else if ( pEvent->iMessage == CCWM_LBUTTONDBLCLK)
 	{
 		unsigned long int nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(m_nParts);
 		CCMatchItemDesc* pItemDesc = NULL;
@@ -433,7 +433,7 @@ void ZItemSlotView::OnMouseIn( void )
 	if (posDesc.y+rcTextArea.h > CCGetWorkspaceHeight())			// 화면 하단에 짤리지 않게
 		posDesc.y = CCGetWorkspaceHeight() - rcTextArea.h;
 	pItemDescTextArea->SetPosition(posDesc);
-	pItemDescTextArea->SetZOrder(MZ_TOP);
+	pItemDescTextArea->SetZOrder(CC_TOP);
 	ZGetGameInterface()->GetShopEquipInterface()->ShowItemDescription(true, pItemDescTextArea, this);
 }
 

@@ -13,6 +13,9 @@
 #include "ZMiniMap.h"
 #include "ZVoteInterface.h"
 
+// Added R349a
+#include "ZBandiCapturer.h"
+
 _USING_NAMESPACE_REALSPACE2
 
 class ZCharacter;

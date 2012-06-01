@@ -23,6 +23,8 @@
 
 // Added
 #include "ZGameInterface.h"
+// Added R349a
+#include "ZStringResManager.h"
 
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA_Report.h"

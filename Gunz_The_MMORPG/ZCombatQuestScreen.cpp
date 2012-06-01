@@ -10,6 +10,9 @@
 
 // Added
 #include "ZGlobal.h"
+// Added R349a
+#include "ZMyInfo.h"
+#include "ZGameClient.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 ZCombatQuestScreen::ZCombatQuestScreen()

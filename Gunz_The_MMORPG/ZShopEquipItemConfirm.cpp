@@ -4,6 +4,11 @@
 
 // Added R347a
 #include "ZGlobal.h"
+// Added R349a
+#include "ZStringResManager.h"
+#include "ZMessages.h"
+#include "CCPicture.h"
+#include "CCEdit.h"
 
 static ZIDLResource* GetIDLResource() {
 	return ZGetGameInterface()->GetIDLResource();
@@ -159,7 +164,7 @@ void ZItemCountDlg::OnDlgDone()
 ZSimpleConfirmDlg::ZSimpleConfirmDlg()
 {
 	m_pMsgbox = (CCMsgBox*)Core::GetInstance()->NewWidget(CORE_MSGBOX, "", Core::GetInstance()->GetMainFrame(), this);
-	m_pMsgbox->SetType(MT_OKCANCEL);
+	m_pMsgbox->SetType(CCT_OKCANCEL);
 
 	m_pDoneHandler = NULL;
 }
@@ -173,13 +178,13 @@ bool ZSimpleConfirmDlg::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
 	if (pWidget == m_pMsgbox)
 	{
-		if (strcmp(szMessage, MMSGBOX_OK)==0)
+		if (strcmp(szMessage, CCMSGBOX_OK)==0)
 		{
 			m_pMsgbox->Show(false);
 			if (!m_pDoneHandler) { _ASSERT(0); return true; }
 			m_pDoneHandler->OnDone(true);
 		}
-		else if (strcmp(szMessage, MMSGBOX_CANCEL)==0)
+		else if (strcmp(szMessage, CCMSGBOX_CANCEL)==0)
 		{
 			m_pMsgbox->Show(false);
 			if (!m_pDoneHandler) { _ASSERT(0); return true; }

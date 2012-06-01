@@ -9,6 +9,8 @@
 
 // Added R347a
 #include "ZGameInterface.h"
+// Added R349a
+#include "CCPicture.h"
 
 #define DIR_LOGIN	"interface/login"
 

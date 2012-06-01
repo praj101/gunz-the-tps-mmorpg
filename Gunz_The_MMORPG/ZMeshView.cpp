@@ -354,7 +354,7 @@ bool ZMeshView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 	switch(pEvent->iMessage)
 	{
-	case MWM_MOUSEMOVE:
+	case CCWM_MOUSEMOVE:
 		{
 			if(m_bLButtonDown) 
 			{
@@ -366,15 +366,15 @@ bool ZMeshView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 			}
 		}
 		break;
-	case MWM_MOUSEWHEEL:
+	case CCWM_MOUSEWHEEL:
 		{
 			if(r.InPoint(pEvent->sPos)==false) return false;
-			float fDist = min(max(-pEvent->nDelta, -8), 8);
+			float fDist = min(max(-pEvent->iDelta, -8), 8);
 			ZoomIn(fDist);
 		}
 		break;
 
-	case MWM_LBUTTONDBLCLK:
+	case CCWM_LBUTTONDBLCLK:
 		{
 			m_bEnableRotate = (m_bEnableRotate == true) ? false : true;
 		}

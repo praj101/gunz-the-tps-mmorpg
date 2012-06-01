@@ -4,6 +4,9 @@
 #include "ZModule.h"
 #include "ZModuleID.h"
 
+// Added R349a
+#include "RTypes.h"
+
 class ZModule_Movable : public ZModule {
 private:
 	// 실린더의 반지름과 높이

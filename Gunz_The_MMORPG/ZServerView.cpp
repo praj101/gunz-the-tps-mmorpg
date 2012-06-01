@@ -108,7 +108,7 @@ void ZServerView::PingImageDraw(CCDrawContext* pDC, sRect rectBox, int nImageCou
 	{
 		sprintf(strPing, "%d", m_dAgentPing[nImageCount]);
 		rectBox.w = 210;
-		pDC->Text( rectBox, strPing, CCD_RIGHT | CCAM_VCENTER);
+		pDC->Text( rectBox, strPing, CCD_RIGHT | CCD_VCENTER);
 	}
 #endif
 }
@@ -192,7 +192,7 @@ void ZServerView::ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* 
 	pDC->SetColor( sColor(0xFF000000));
 	rectBox.x += 14;
 	rectBox.y += m_nTextOffset + 1;
-	pDC->Text( rectBox, szText, CCD_LEFT | CCAM_VCENTER);		// Shadow
+	pDC->Text( rectBox, szText, CCD_LEFT | CCD_VCENTER);		// Shadow
 
 	bool bFulled = false;
 	if ( (pServerInfo->nNumOfUser >= pServerInfo->nCapacity) || ( !pServerInfo->bIsLive))
@@ -221,7 +221,7 @@ void ZServerView::ServerListDraw(CCDrawContext* pDC, sRect rectBox, ServerInfo* 
 
 	rectBox.x--;
 	rectBox.y--;
-	pDC->Text( rectBox, szText, CCD_LEFT | CCAM_VCENTER);
+	pDC->Text( rectBox, szText, CCD_LEFT | CCD_VCENTER);
 }
 
 bool ZServerView::OnEvent(CCEvent* pEvent, CCListener* pListener)

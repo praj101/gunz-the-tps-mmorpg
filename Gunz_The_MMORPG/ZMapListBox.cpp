@@ -10,6 +10,8 @@
 
 // Added R347a
 #include "ZGlobal.h"
+// Added R349a
+#include "Core.h"
 
 #define PREVIEW_W	200
 
@@ -41,11 +43,11 @@ bool ZMapListBox::OnShow()
 
 bool ZMapListBox::OnCommand(CCWidget* pWidget, const char* szMessage)
 {
-	if(pWidget==m_pListBox && strcmp(szMessage, MLB_ITEM_SEL)==0){
+	if(pWidget==m_pListBox && strcmp(szMessage, CCLB_ITEM_SEL)==0){
 		SetSelIndex(-1);
 		return true;
 	}
-	else if(pWidget==m_pListBox && strcmp(szMessage, MLB_ITEM_DBLCLK)==0){
+	else if(pWidget==m_pListBox && strcmp(szMessage, CCLB_ITEM_DBLCLK)==0){
 		if(GetListener()!=NULL)return GetListener()->OnCommand(pWidget, szMessage);
 	}
 	return false;
@@ -93,7 +95,7 @@ void ZMapListBox::Refresh(CCZFileSystem* pFS)
 	int nExtLen = (int)strlen(EXT);
 	for(int i=0; i<pFS->GetFileCount(); i++){
 		const char* szFileName = pFS->GetFileName(i);
-		const MZFILEDESC* desc = pFS->GetFileDesc(i);
+		const CCZFILEDESC* desc = pFS->GetFileDesc(i);
 		int nLen = (int)strlen(szFileName);
 
 		if( strnicmp(desc->m_szFileName,MAPDIRECTORY,strlen(MAPDIRECTORY))==0 &&

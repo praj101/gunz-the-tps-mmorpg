@@ -3,7 +3,7 @@
 
 #include "CCScrollBar.h"
 
-class CCBArrowLook : public MArrowLook{
+class CCBArrowLook : public CCArrowLook{
 public:
 	CCBitmap*	m_pArrowBitmaps[8];
 protected:
@@ -14,17 +14,17 @@ protected:
 public:
 	CCBArrowLook(void);
 
-	virtual MSIZE GetDefaultSize(MArrow* pThumb);
+	virtual sSize GetDefaultSize(CCArrow* pThumb);
 };
 
-class CCBThumbLook : public MThumbLook{
+class CCBThumbLook : public CCThumbLook{
 public:
 	CCBitmap*	m_pHBitmaps[3];
 	CCBitmap*	m_pHPressedBitmaps[3];
 	CCBitmap*	m_pVBitmaps[3];
 	CCBitmap*	m_pVPressedBitmaps[3];
 public:
-	virtual void OnDraw(MThumb* pThumb, CCDrawContext* pDC);
+	virtual void OnDraw(CCThumb* pThumb, CCDrawContext* pDC);
 
 	CCBThumbLook(void);
 };
