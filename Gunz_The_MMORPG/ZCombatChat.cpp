@@ -12,6 +12,10 @@
 #include "CCTextArea.h"
 #include "ZConfiguration.h"
 
+// Added
+#include "ZCombatInterface.h"
+#include "CCLabel.h"
+
 #define MAX_CHAT_OUTPUT_LINE 7
 
 
@@ -74,7 +78,7 @@ void ZTabPlayerList::OnPickPlayer()
 class MCombatChatInputListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, CCEdit_ENTER_VALUE)==true)
+		if(CCWidget::IsMsg(szMessage, CCEDIT_ENTER_VALUE)==true)
 		{
 			if (strlen(pWidget->GetText()) >= 256) return false;
 
@@ -102,12 +106,12 @@ public:
 			}
 			return true;
 		}
-		else if(CCWidget::IsMsg(szMessage, CCEdit_ESC_VALUE)==true)
+		else if(CCWidget::IsMsg(szMessage, CCEDIT_ESC_VALUE)==true)
 		{
 			pWidget->SetText("");
 			ZGetCombatInterface()->EnableInputChat(false);
 		}
-		else if ((CCWidget::IsMsg(szMessage, CCEdit_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEdit_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, CCEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEDIT_KEYDOWN_MSG)==true))
 		{
 			ZApplication::GetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}

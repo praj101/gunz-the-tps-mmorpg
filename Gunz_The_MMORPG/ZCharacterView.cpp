@@ -7,6 +7,9 @@
 #include "ZMyInfo.h"
 #include "ZGameClient.h"
 
+// Added
+#include "ZGameInterface.h"
+
 extern bool Enable_Cloth;
 static rvector force = rvector( 15, 0, 0 );
 static float maxForce = 10;

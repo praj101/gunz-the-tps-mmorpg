@@ -2,6 +2,8 @@
 #define ZINTERFACEBACKGROUND_H
 
 #include "RBspObject.h"
+#include "ZMapDesc.h"
+
 using namespace RealSpace2;
 
 #define LOGIN_SCENE_FIXEDSKY	0			// 하늘에 카메라 고정

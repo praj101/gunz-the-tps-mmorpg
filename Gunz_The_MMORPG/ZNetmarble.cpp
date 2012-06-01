@@ -187,7 +187,7 @@ static BOOL AnalyzeArgument(char *key)
 
 	char szField[64] = "";
 	char szValue[64] = "";
-	MLex lex;
+	CCLex lex;
 	if(lex.SplitValue(pSpareParam, "=", szField, szValue)) {
 		if (stricmp("age", szField) == 0) {
 			int nAge = atoi(szValue);

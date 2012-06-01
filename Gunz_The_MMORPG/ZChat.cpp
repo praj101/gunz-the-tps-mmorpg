@@ -15,6 +15,9 @@
 
 #include "ZChat_CmdID.h"
 
+// Added
+#include "ZStringResManager.h"
+
 #define ZCHAT_CHAT_DELAY				1000		
 #define ZCHAT_CHAT_ABUSE_COOLTIME		(1000 * 60)		// 1분
 #define ZCHAT_CLEAR_DELAY				(1000 * 10)		// 반복 인식 제거 시간..10초

@@ -22,6 +22,10 @@
 #include "ZApplication.h"
 #include "ZChat_CmdID.h"
 
+// Added
+#include "ZStringResManager.h"
+#include "ZActor.h"
+
 void ChatCmd_Test(const char* line, const int argc, char **const argv);				// Testing
 
 void ChatCmd_Help(const char* line, const int argc, char **const argv);				// 도움말
@@ -362,7 +366,7 @@ void ChatCmd_Whisper(const char* line, const int argc, char **const argv)
 	char szName[512] = "";
 	char szRName[512] = "";
 
-	MLex lex;
+	CCLex lex;
 	char* pszMsg = lex.GetOneArg(argv[1], szName, szRName);
 
 	if ( (int)strlen( pszMsg) > 127)
@@ -595,7 +599,7 @@ void ChatCmd_Friend(const char* line, const int argc, char **const argv)
 	char szSubCmd[256] = "";
 	char szArg[256] = "";
 
-	MLex lex;
+	CCLex lex;
 	char* pszMsg = lex.GetOneArg(argv[1], szSubCmd);
 	
 	//// Sub Command Handler ////
@@ -696,7 +700,7 @@ void ChatCmd_Clan(const char* line, const int argc, char **const argv)
 	}
 	char szSubCmd[256] = "";
 
-	MLex lex;
+	CCLex lex;
 	char* pszMsg = lex.GetOneArg(argv[1], szSubCmd);
 	
 	//// Sub Command Handler ////
@@ -910,7 +914,7 @@ void ChatCmd_Clan(const char* line, const int argc, char **const argv)
 			}
 
 			// clan msg 하고싶은말
-			MLex lex;
+			CCLex lex;
 			
 			char szLine[512], szTemp1[256] = "", szTemp2[256] = "";
 			strcpy(szLine, line);

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "ZGlobal.h"
 #include "ZGame.h"
 #include "ZCamera.h"
 #include "RealSpace2.h"
@@ -15,11 +16,19 @@
 #include "ZGameConst.h"
 #include "ZInput.h"
 //added
-#include "ZGlobal.h"
+#include "ZGameInterface.h"
+#include "ZCombatInterface.h"
 
 #define CAMERA_TRACKSPEED	.20f
 #define CAMERA_WALL_TRACKSPEED		0.7f
 
+#define CAMERA_TRACK_OFFSET		rvector(0,0,160)		// 머리위치 하드코드..
+		// 카메라는 오른손쪽에 중심을 맞춘다.
+#define CAMERA_RIGHT_OFFSET		rvector(0,30.f,10.f)
+		// 카메라를 위에 있을때 앞으로 나가는 만큼
+#define CAMERA_UP_OFFSET	rvector(50.f,0.f,0.f)
+		// 카메라를 아래 있을때 앞으로 나가는 만큼
+#define CAMERA_DOWN_OFFSET	rvector(50.f,0,0.f)
 
 
 ZCamera::ZCamera() : m_fAngleX(CAMERA_DEFAULT_ANGLEX) , m_fCurrentAngleX(CAMERA_DEFAULT_ANGLEX) , 
@@ -87,17 +96,6 @@ void ZCamera::Update(float fElapsed)
 
 		// 캐릭터 중심의 좌표계.. x y z 축이 앞/오른쪽/위 로 대응
 
-	#define CAMERA_TRACK_OFFSET		rvector(0,0,160)		// 머리위치 하드코드..
-
-
-		// 카메라는 오른손쪽에 중심을 맞춘다.
-	#define CAMERA_RIGHT_OFFSET		rvector(0,30.f,10.f)
-
-		// 카메라를 위에 있을때 앞으로 나가는 만큼
-	#define CAMERA_UP_OFFSET	rvector(50.f,0.f,0.f)
-
-		// 카메라를 아래 있을때 앞으로 나가는 만큼
-	#define CAMERA_DOWN_OFFSET	rvector(50.f,0,0.f)
 
 
 		/*	TODO: 카메라가 발위치 + (0,0,160) (머리부근) 으로 고정했는데, 애니메이션에

@@ -8,6 +8,9 @@
 #include "ZModule_QuestStatus.h"
 #include "ZActor.h"
 
+// Added
+#include "ZGlobal.h"
+
 /////////////////////////////////////////////////////////////////////////////////
 ZCombatQuestScreen::ZCombatQuestScreen()
 {
