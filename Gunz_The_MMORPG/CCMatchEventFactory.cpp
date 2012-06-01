@@ -98,7 +98,7 @@ bool CCMatchEventFactory::MakeEventList( const EventDataVec& EvnDataVec, EventPt
 			}
 			else
 			{
-				mlog( "CCMatchEventFactory::MakeEventList - Init실패. ID:%u Name:%s.\n",
+				cclog( "CCMatchEventFactory::MakeEventList - Init실패. ID:%u Name:%s.\n",
 					pEvent->GetEventID(), pEvent->GetName().c_str() );
 				delete pEvent;
 				pEvent = 0;
@@ -126,7 +126,7 @@ CCMatchEvent* CCMatchEventFactory::CreateEvent( const DWORD dwEventID )
 					return pEvent;
 				else
 				{
-					CreateFailMLog( pEvent, dwEventID );
+					CreateFailcclog( pEvent, dwEventID );
 					delete pEvent;
 					pEvent = 0;
 					return 0;
@@ -146,7 +146,7 @@ CCMatchEvent* CCMatchEventFactory::CreateEvent( const DWORD dwEventID )
 					return pEvent;
 				else
 				{
-					CreateFailMLog( pEvent, dwEventID );
+					CreateFailcclog( pEvent, dwEventID );
 					delete pEvent;
 					pEvent = 0;
 					return 0;
@@ -166,7 +166,7 @@ CCMatchEvent* CCMatchEventFactory::CreateEvent( const DWORD dwEventID )
 					return pEvent;
 				else
 				{
-					CreateFailMLog( pEvent, dwEventID );
+					CreateFailcclog( pEvent, dwEventID );
 					delete pEvent;
 					pEvent = 0;
 					return 0;
@@ -186,7 +186,7 @@ CCMatchEvent* CCMatchEventFactory::CreateEvent( const DWORD dwEventID )
 					return pEvent;
 				else
 				{
-					CreateFailMLog( pEvent, dwEventID );
+					CreateFailcclog( pEvent, dwEventID );
 					delete pEvent;
 					pEvent = 0;
 					return 0;
@@ -208,9 +208,9 @@ CCMatchEvent* CCMatchEventFactory::CreateEvent( const DWORD dwEventID )
 }
 
 
-void CCMatchEventFactory::CreateFailMLog( CCMatchEvent* pEvent, const DWORD dwEventID )
+void CCMatchEventFactory::CreateFailcclog( CCMatchEvent* pEvent, const DWORD dwEventID )
 {
-	mlog( "Fail to create event : created event:%u, event:%u\n",
+	cclog( "Fail to create event : created event:%u, event:%u\n",
 		pEvent->GetEventID(), dwEventID );
 }
 
@@ -457,7 +457,7 @@ void CCMatchEventFactoryManager::ParseEvent( CCXmlElement& chrElement )
 			if( NULL == CCMatchEventDescManager::GetInstance().Find(dwEventID) )
 			{
 				ASSERT( 0 && "Event.xml에 없는 Event ID입니다." );
-				mlog( "CCMatchEventFactoryManager::ParseEvent - Event.xml에 없는 Event ID(%u)입니다.\n",
+				cclog( "CCMatchEventFactoryManager::ParseEvent - Event.xml에 없는 Event ID(%u)입니다.\n",
 					dwEventID );
 				return;
 			}
@@ -561,7 +561,7 @@ void CCMatchEventFactoryManager::ParseEvent( CCXmlElement& chrElement )
 	if( !CheckUsableEventTimeByEndTime(End) )
 	{
 #ifdef _DEBUG
-		mlog( "Time out Event(%u:%u.%u.%u.%u~%u.%u.%u.%u)\n", 
+		cclog( "Time out Event(%u:%u.%u.%u.%u~%u.%u.%u.%u)\n", 
 			dwEventID,
 			Start.wYear, Start.wMonth, Start.wDay, Start.wHour,
 			End.wYear, End.wMonth, End.wDay, End.wHour );

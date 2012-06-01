@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCMatchRuleDuel.h"
 #include "CCMatchTransDataType.h"
-#include "MBlobArray.h"
+#include "CCBlobArray.h"
 #include "CCMatchServer.h"
 
 #include <algorithm>
@@ -134,13 +134,13 @@ void CCMatchRuleDuel::OnGameKill(const CCUID& uidAttacker, const CCUID& uidVicti
 	/// 크래쉬로 인한 방어 코드 추가(출력에서 0x00000000 이값으로 에러가 났기때문에 의심가는 부분을 걸러준다.)
 	if( CCMatchServer::GetInstance()->GetChannelMap()->Find(m_pStage->GetOwnerChannel()) == NULL ) 
 	{
-		mlog( "error: can't find OwnerChannel [ CCMatchRuleDuel::OnGameKill() ]\n" );
+		cclog( "error: can't find OwnerChannel [ CCMatchRuleDuel::OnGameKill() ]\n" );
 		//LOG(LOG_FILE, "error: can't find OwnerChannel [ CCMatchRuleDuel::OnGameKill() ]\n" );
 		return;
 	}
 	if( m_pStage == NULL)
 	{
-		mlog( "error: can't find m_pStage [ CCMatchRuleDuel::OnGameKill() ]\n" );
+		cclog( "error: can't find m_pStage [ CCMatchRuleDuel::OnGameKill() ]\n" );
 		//LOG(LOG_FILE, "error: can't find m_pStage [ CCMatchRuleDuel::OnGameKill() ]\n" );
 		return;
 	}
@@ -327,7 +327,7 @@ void CCMatchRuleDuel::SendQueueInfo(bool isRoundEnd)
 		}
 		else
 		{
-			mlog( "duel queue info index error. size : %u\n", WaitQueue.size() );
+			cclog( "duel queue info index error. size : %u\n", WaitQueue.size() );
 			break;
 		}
 	}

@@ -1012,7 +1012,7 @@ inline void ZPostAdminReloadGambleItem()
 	ZPOSTCMD0(MC_ADMIN_RELOAD_GAMBLEITEM);
 }
 
-inline void ZPostAdminDumpGambleItemLog()
+inline void ZPostAdminDumpGambleItecclog()
 {
 	ZPOSTCMD0(MC_ADMIN_DUMP_GAMBLEITEM_LOG);
 }
