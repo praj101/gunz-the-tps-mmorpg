@@ -13,6 +13,8 @@
 // Added R349a
 #include "ZMyInfo.h"
 #include "ZGameClient.h"
+// Added R350a
+#include "ZStringResManager.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 ZCombatQuestScreen::ZCombatQuestScreen()

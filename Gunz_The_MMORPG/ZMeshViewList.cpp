@@ -112,8 +112,8 @@ ZMeshViewList::ZMeshViewList(const char* szName, CCWidget* pParent, CCListener* 
 
 	//m_pLeft = new CCButton("<", this, this);
 	//m_pRight = new CCButton(">", this, this);
-	m_pBmLeft	= new MBCCButton("", this, this);
-	m_pBmRight	= new MBCCButton("", this, this);
+	m_pBmLeft	= new CCBmButton("", this, this);
+	m_pBmRight	= new CCBmButton("", this, this);
 	m_pBmLeft->SetDownBitmap(CCBitmapManager::Get("button_circle_left.tga"));
 	m_pBmLeft->SetOverBitmap(CCBitmapManager::Get("button_circle_left.tga"));
 	m_pBmLeft->SetDisableBitmap(CCBitmapManager::Get("button_circle_left.tga"));

@@ -3,6 +3,8 @@
 
 #include "mmsystem.h"
 
+// Added R350a
+#include "DirectX/D3D9.h"
 ZProfiler::ZProfiler() : m_nRingHead(0)
 {
 	m_dwLastTime = timeGetTime();

@@ -1,6 +1,10 @@
 #include "StdAfx.h"
 #include "ZModule_Resistance.h"
 
+// Added R350a
+#include "ZObject.h"
+#include "ZCharacterItem.h"
+
 ZModule_Resistance::ZModule_Resistance()
 {
 }

@@ -13,6 +13,8 @@
 
 // Added R347a
 #include "ZGameInterface.h"
+// Added R350a
+#include "CCEdit.h"
 
 #define		ROOM_WIDTH					8
 #define		ROOM_HEIGHT					7

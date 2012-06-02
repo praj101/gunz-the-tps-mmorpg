@@ -14,6 +14,9 @@
 #include "ZRuleDuel.h"
 #include "ZRuleDuelTournament.h"
 
+// Added R350a
+#include "ZStringResManager.h"
+
 //#define FREE_OBSERVER_ENABLE
 
 

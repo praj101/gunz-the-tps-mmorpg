@@ -5,6 +5,9 @@
 #include "ZMsgBox.h"
 #include "Core.h"
 
+// Added R350a
+#include "ZStringResManager.h"
+
 // ZMsgBox Listener
 class ZMsgBoxListener : public CCListener{
 public:

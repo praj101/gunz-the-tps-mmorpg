@@ -3,6 +3,9 @@
 
 #include "ZModule.h"
 
+// Added R350a
+#include "ZModuleID.h"
+
 class ZModule_Resistance : public ZModule
 {
 	int	m_nFR;	// 불 저항치

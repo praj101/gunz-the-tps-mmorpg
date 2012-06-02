@@ -3,6 +3,9 @@
 #include "RTypes.h"
 #include "ZInterfaceListener.h"
 
+// Added R350a
+#include "ZActionKey.h"
+
 class ZOptionInterface
 {
 

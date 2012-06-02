@@ -4,6 +4,9 @@
 #include "ZModule.h"
 #include "ZModuleID.h"
 
+// Added R350a
+#include "ZObject.h"
+
 class ZModule_PoisonDamage : public ZModule {
 	float	m_fBeginTime;	// 데미지 시작한 시간
 	float	m_fNextDamageTime;	// 다음번 데미지를 받을 시간

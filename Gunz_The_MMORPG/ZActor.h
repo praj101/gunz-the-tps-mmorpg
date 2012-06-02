@@ -29,6 +29,7 @@ using namespace std;
 _USING_NAMESPACE_REALSPACE2
 
 class ZBrain;
+class ZTaskManager;
 
 enum ZACTOR_FLAG
 {

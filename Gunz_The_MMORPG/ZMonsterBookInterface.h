@@ -14,6 +14,8 @@
 #include <map>
 using namespace std;
 
+// Added R350a
+#include "Core4R2.h"
 
 // 드롭 아이템 정보
 struct ZDropItemInfo

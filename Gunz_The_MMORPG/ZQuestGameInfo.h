@@ -4,6 +4,10 @@
 #include "CCBaseQuest.h"
 #include "CCQuestLevel.h"
 #include <vector>
+
+// Added R350a
+#include "RTypes.h"
+
 using namespace std;
 
 // 퀘스트의 게임 정보
