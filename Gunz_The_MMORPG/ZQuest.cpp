@@ -29,6 +29,9 @@
 // Added R347a
 #include "ZGameInterface.h"
 #include "ZPost.h"
+// Added R350a
+#include "ZMyInfo.h"
+#include "ZCombatInterface.h"
 
 
 ZQuest::ZQuest() : m_bLoaded(false), m_bCreatedOnce(false)

@@ -5,7 +5,7 @@
 #include "RMesh.h"
 
 //class CCButton;
-class MBCCButton;
+class CCBmButton;
 class ZMeshView;
 
 // 프레임을 그리기 위해 CCGroup을 상속받는다.
@@ -15,8 +15,8 @@ protected:
 	int	m_nItemWidth;		// 아이템 가로 크기
 	//CCButton*	m_pLeft;	// 왼쪽 이동
 	//CCButton*	m_pRight;	// 오른쪽 이동
-	MBCCButton* m_pBmLeft;
-	MBCCButton* m_pBmRight;
+	CCBmButton* m_pBmLeft;
+	CCBmButton* m_pBmRight;
 	//list<ZMeshView*>	m_Items;
 	float m_ScrollButtonWidth;
 

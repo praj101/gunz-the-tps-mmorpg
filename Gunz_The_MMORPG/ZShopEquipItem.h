@@ -5,6 +5,9 @@
 // Added R349a
 #include "ZGlobal.h"
 #include "ZCharacterView.h"
+// Added R350a
+#include "ZGambleItemDefine.h"
+#include "ZMyItem.h"
 
 class MShopSetItem;
 class MShopPriceMap;

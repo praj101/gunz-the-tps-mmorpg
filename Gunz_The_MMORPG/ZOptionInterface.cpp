@@ -12,6 +12,11 @@
 
 // Added R347a
 #include "ZGlobal.h"
+// Added R350a
+#include "ZIDLResource.h"
+#include "CCComboBox.h"
+#include "CCSlider.h"
+#include "ZGameInterface.h"
 
 #define DEFAULT_SLIDER_MAX			10000
 

@@ -143,7 +143,7 @@ void ZInput::Update()
 	static ZDIBUFFER keyBuffer[256];
 	int nCount = m_pDirectInput->GetKeyboardBufferedData(keyBuffer,sizeof(keyBuffer)/sizeof(keyBuffer[0]));
 	for(int i=0; i<nCount; i++){
-		int nScanCode = keyBuffer[i].nKey;
+		int nScanCode = keyBuffer[i].uKey;
 		bool bPressed = keyBuffer[i].bPressed;
 		if(bPressed)
 			ExclusiveEvent(nScanCode);
@@ -158,7 +158,7 @@ void ZInput::Update()
 	int iDeltaX, iDeltaY;
 	nCount = m_pDirectInput->GetMouseBufferedData(&iDeltaX,&iDeltaY,mouseBuffer,256);
 	for(int i=0; i<nCount; i++){
-		int nKey = mouseBuffer[i].nKey + MOUSE_BASE;
+		int nKey = mouseBuffer[i].uKey + MOUSE_BASE;
 		bool bPressed = mouseBuffer[i].bPressed;
 		if(bPressed)
 			ExclusiveEvent(nKey);

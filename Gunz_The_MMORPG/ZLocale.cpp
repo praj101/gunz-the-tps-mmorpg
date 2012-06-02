@@ -200,7 +200,7 @@ void ZLocale::PostLoginViaHomepage(CCUID* pAllocUID)
 	unsigned long nChecksum = ZGetApplication()->GetFileListCRC();
 	nChecksum = nChecksum ^ (*pAllocUID).High ^ (*pAllocUID).Low;
 
-	switch (m_nCountry)
+	switch (m_iCountry)
 	{
 #ifdef LOCALE_KOREA
 	case CCC_KOREA:

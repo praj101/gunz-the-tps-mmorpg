@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "ZDuelTournamentRankingListBox.h"
 
+// Added R350a
+#include "RealSpace2.h"
+
 ZDuelTournamentRankingListBox::ZDuelTournamentRankingListBox(const char* szName, CCWidget* pParent, CCListener* pListener) 
 : CCWidget(szName, pParent, pListener)
 {
