@@ -1,7 +1,7 @@
 #ifndef MBMULTICOLLISTBOXLOOK_H
 #define MBMULTICOLLISTBOXLOOK_H
 
-#include "MMultiColListBox.h"
+#include "CCMultiColListBox.h"
 
 class MBMultiColListBoxLook : public MMultiColListBoxLook{
 public:
