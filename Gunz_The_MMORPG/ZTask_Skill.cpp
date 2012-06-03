@@ -3,6 +3,8 @@
 #include "ZModule_Skills.h"
 #include "ZGame.h"
 
+#include "ZPost.h"
+
 ZTask_Skill::ZTask_Skill(ZActor* pParent,int nSkill,CCUID& uidTarget,rvector& targetPosition) : ZTaskBase_Attack(pParent),
 					m_nSkill(nSkill), m_uidTarget(uidTarget), m_TargetPosition(targetPosition), m_pSkillDesc(NULL)
 {

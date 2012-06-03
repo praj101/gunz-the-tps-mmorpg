@@ -24,6 +24,12 @@
 #include "CCPicture.h"
 #include "CCComboBox.h"
 
+#include "ZStringResManager.h"
+#include "CCAnimation.h"
+#include "ZPost.h"
+#include "ZMyInfo.h"
+
+
 /* 해야할 것들...
 
  1. ZStageSetting 관련 루틴을 여기로 옮겨와야 하는디...  -_-;
@@ -2076,10 +2082,10 @@ bool ZStageInterface::ReadSenarioNameXML( void)
 	int nStdScenarioCount = 1000;
 
 	// 데이터를 읽어온다
-	CCXmlElement rootElement = xmlQuestItemDesc.GetDocumentElement();
+	::CCXmlElement rootElement = xmlQuestItemDesc.GetDocumentElement();
 	for ( int i = 0;  i < rootElement.GetChildNodeCount();  i++)
 	{
-		CCXmlElement chrElement = rootElement.GetChildNode( i);
+		::CCXmlElement chrElement = rootElement.GetChildNode( i);
 
 		char szTagName[ 256];
 		chrElement.GetTagName( szTagName);
@@ -2091,7 +2097,7 @@ bool ZStageInterface::ReadSenarioNameXML( void)
 		char szAttrName[64];
 		char szAttrValue[256];
 		int nItemID = 0;
-		MSenarioList SenarioMapList;
+		CCSenarioList SenarioMapList;
 
 		bool bFind = false;
 

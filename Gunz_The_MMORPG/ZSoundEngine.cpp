@@ -15,6 +15,9 @@
 #include "CCMath.h"
 #include "ZInitialLoading.h"
 
+#include "ZCombatInterface.h"
+
+
 _USING_NAMESPACE_REALSPACE2
 
 extern ZGame* m_gGame;
@@ -1232,7 +1235,7 @@ bool ZSoundEngine::LoadResource( char* pFileName_ ,ZLoadingProgress *pLoading )
 	mzf.Close();
 
 
-	CCXmlElement root, chr, attr;
+	::CCXmlElement root, chr, attr;
 
 	float fTemp;
 	char szSoundName[256];

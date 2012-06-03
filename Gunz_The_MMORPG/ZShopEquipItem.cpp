@@ -11,6 +11,8 @@
 #include "ZGameInterface.h"
 // Added R351a
 #include "ZMyInfo.h"
+#include "ZPost.h"
+#include "ZGameClient.h"
 
 string GetRestrictionString(int nResSex, int nResLevel, int nWeight)
 {

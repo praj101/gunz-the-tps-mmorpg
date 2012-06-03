@@ -3,7 +3,7 @@
 #include "ZLocale.h"
 #include "ZConfiguration.h"
 #include "ZLocatorList.h"
-
+#include "RealSpace2.h"
 #define VERSION_CONFIG_FILENAME		"./version.ini"
 
 
@@ -118,7 +118,7 @@ LRESULT ZGameOnJPAuthInfo::SendMsgToLauncher(LPCSTR lpMsg)
 		stData.cbData= (DWORD)strlen(lpMsg) + 1;
 		stData.lpData= (PVOID)lpMsg;
 
-		return ::SendMessage( m_hLauncher, WM_COPYDATA, (WPARAM)g_hWnd, (LPARAM)(&stData));	
+		return ::SendMessage( m_hLauncher, WM_COPYDATA, (WPARAM)RealSpace2::g_hWnd, (LPARAM)(&stData));	
 	}
 
 	return FALSE;

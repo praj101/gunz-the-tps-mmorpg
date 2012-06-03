@@ -222,7 +222,7 @@ public:
 
 	virtual bool OnEvent(CCEvent* pEvent, CCListener* pListener);
 
-	static sFont *GetGameFont();
+	static CCFont *GetGameFont();
 	sPoint GetCrosshairPoint() { return sPoint(CCGetWorkspaceWidth()/2,CCGetWorkspaceHeight()/2); }
 	
 	ZBandiCapturer*	GetBandiCapturer()			{ return m_Capture; }					///< µ¿¿µ»ó Ä¸ÃÄ...by kammir 2008.10.02
