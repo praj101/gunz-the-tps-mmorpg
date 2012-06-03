@@ -1301,6 +1301,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCBitmapDrawer.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCBListBoxLook.h"
 			>
 		</File>
@@ -2494,6 +2498,10 @@
 		</File>
 		<File
 			RelativePath=".\FMod.h"
+			>
+		</File>
+		<File
+			RelativePath=".\fmod_errors.h"
 			>
 		</File>
 		<File
