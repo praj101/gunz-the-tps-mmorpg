@@ -16,5 +16,3 @@ public:
 	virtual sRect GetClientRect(CCListBox* pListBox, sRect& r);
 	virtual void OnDraw(CCListBox* pListBox, CCDrawContext* pDC);
 };
-
-#endif
