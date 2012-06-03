@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "ZNHN_USA_Poll.h"
-#include ".\\nhn\\HanPollForClient.h"
+#include "HanPollForClient.h"
 #include "CCDebug.h"
 
 
 #ifndef _DEBUG
-#pragma comment( lib, ".\\nhn\\HanPollForClient.lib")
+#pragma comment( lib, "HanPollForClient.lib")
 #else
-#pragma comment( lib, ".\\nhn\\HanPollForClientD.lib")
+#pragma comment( lib, "HanPollForClientD.lib")
 #endif
 
 

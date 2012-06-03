@@ -1297,6 +1297,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCBListBoxLook.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCBlobArray.cpp"
 			>
 		</File>
@@ -2165,6 +2169,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMD5.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCNJ_DBAgentClient.h"
 			>
 		</File>
@@ -2470,6 +2478,18 @@
 		</File>
 		<File
 			RelativePath=".\cxr_inc.h"
+			>
+		</File>
+		<File
+			RelativePath=".\dsound.h"
+			>
+		</File>
+		<File
+			RelativePath=".\FMod.h"
+			>
+		</File>
+		<File
+			RelativePath=".\HanPollForClient.h"
 			>
 		</File>
 		<File
@@ -3090,6 +3110,10 @@
 		</File>
 		<File
 			RelativePath=".\ZCombatChat.h"
+			>
+		</File>
+		<File
+			RelativePath=".\ZCombatInferface.h"
 			>
 		</File>
 		<File
