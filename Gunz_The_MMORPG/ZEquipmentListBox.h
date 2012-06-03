@@ -8,7 +8,7 @@
 //
 //
 //
-//class ZEquipmentListItem_OLD : public MMultiColListItem{
+//class ZEquipmentListItem_OLD : public CCMultiColListItem{
 //protected:
 //	CCBitmap*			m_pBitmap;
 //

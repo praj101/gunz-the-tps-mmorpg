@@ -128,7 +128,7 @@ bool RMaterialList::Open(const char *szFileName)
 }
 */
 
-bool RMaterialList::Open(CCXmlElement *pElement)
+bool RMaterialList::Open(::CCXmlElement *pElement)
 {
 	CCXmlElement	aMaterialNode,aChild;
 	int nCount = pElement->GetChildNodeCount();
@@ -170,7 +170,7 @@ bool RMaterialList::Open(CCXmlElement *pElement)
 	return true;
 }
 
-bool RMaterialList::Save(CCXmlElement *pElement)
+bool RMaterialList::Save(::CCXmlElement *pElement)
 {
 	CCXmlElement	aMaterialListElement = pElement->CreateChildElement(RTOK_MATERIALLIST);
 

@@ -7,6 +7,8 @@
 #include "ZGameInterface.h"
 #include "ZCharacter.h"
 #include "ZEffectManager.h"
+#include "ZGameClient.h"
+#include "CheckReturnCallStack.h"
 
 #define BERSERKER_UPDATE_HEALTH_TIME		5.0f		// 버서커는 5초마다 피가 10씩 준다.
 #define BERSERKER_UPDATE_HEALTH				10

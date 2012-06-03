@@ -19,7 +19,8 @@
 #include "ZStringResManager.h"
 // Added R349a
 #include "CCLabel.h"
-
+#include "CCPicture.h"
+#include "ZMyInfo.h"
 
 /***********************************************************************
   ZMonsterBookInterface : public

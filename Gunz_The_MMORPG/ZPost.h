@@ -8,6 +8,8 @@
 #include "CCMath.h"
 #include "CheckReturnCallStack.h"
 
+#include "ZMyInfo.h"
+
 #pragma pack(1)
 
 inline bool IsNaN(float x)  { return x!=x; }
@@ -924,7 +926,7 @@ inline void ZPostLadderCancel()
 
 
 // Duel Tournament ///////////////////////////////////////////////////////////////////////////////////
-#ifdef _DUELTOURNAMENT
+//#ifdef _DUELTOURNAMENT
 inline void ZPostDuelTournamentRequestJoinGame(const CCUID& uidChar, CCDUELTOURNAMENTTYPE nType)
 {
 	ZPOSTCMD2( MC_MATCH_DUELTOURNAMENT_REQUEST_JOINGAME, CCCmdParaCCUID(uidChar), CCCmdParamInt((int)nType));
@@ -955,7 +957,7 @@ inline void ZPostDuelTournamentGamePlayerStatus(const CCUID& uidChar, float fAcc
 {
 	ZPOSTCMD4( MC_MATCH_DUELTOURNAMENT_GAME_PLAYER_STATUS, CCCmdParaCCUID(uidChar), CCCmdParamFloat(fAccumulationDamage), CCCmdParamFloat(fHP), CCCmdParamFloat(fAP));
 }
-#endif //_DUELTOURNAMENT
+//#endif //_DUELTOURNAMENT
 
 
 // Admin /////////////////////////////////////////////////////////////////////////////////////////////

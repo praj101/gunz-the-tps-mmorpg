@@ -13,7 +13,8 @@
 
 // Added R347a
 #include "ZGameClient.h"
-
+#include "ZMyInfo.h"
+#include "ZPost.h"
 
 // 어디다 넣어야??
 enum {

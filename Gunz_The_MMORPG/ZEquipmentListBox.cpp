@@ -83,7 +83,7 @@
 //		SetupItemDescTooltip();
 //		//return true;			  // 메시지를 먹어버리면 툴팁이 안나온다
 //	}
-//	else if(pEvent->iMessage==MWM_RBUTTONDOWN) {
+//	else if(pEvent->iMessage==CCWM_RBUTTONDOWN) {
 //		// 현재 사용되고 있지 않은 코드인것 같습니다. 주석처리함
 //		/*if(rtClient.InPoint(pEvent->sPos)==true) {
 //			int nSelItem = FindItem(pEvent->sPos);
@@ -223,7 +223,7 @@
 ////		CCButton* pButton2 = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuySpendableItemConfirmCaller");
 ////		CCButton* pButton3 = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "BuyCashConfirmCaller");
 ////
-////		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL) == true) {
+////		if(CCWidget::IsMsg(szMessage, CCLB_ITEM_SEL) == true) {
 ////
 ////			ZEquipmentListBox_OLD* pEquipmentListBox = (ZEquipmentListBox_OLD*)pWidget;
 ////			ZEquipmentListItem_OLD* pListItem = (ZEquipmentListItem_OLD*)pEquipmentListBox->GetSelItem();
@@ -341,7 +341,7 @@
 ////				return true;
 ////			}
 ////		}
-////		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+////		else if ( CCWidget::IsMsg(szMessage, CCLB_ITEM_DBLCLK)==true)
 ////		{
 ////			CCWidget* pWidget = (CCWidget*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Shop_BuyConfirm");
 ////			//			if ( pWidget)
@@ -367,7 +367,7 @@
 ////public:
 ////	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 ////	{
-////		if ( CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true) {
+////		if ( CCWidget::IsMsg(szMessage, CCLB_ITEM_SEL)==true) {
 ////			unsigned long int nItemID = 0;
 ////
 ////			ZEquipmentListBox_OLD* pEquipmentListBox = (ZEquipmentListBox_OLD*)pWidget;
@@ -464,7 +464,7 @@
 ////
 ////			return true;
 ////		}
-////		else if ( CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+////		else if ( CCWidget::IsMsg(szMessage, CCLB_ITEM_DBLCLK)==true)
 ////		{
 ////			ZGetGameInterface()->GetShopEquipInterface()->Equip();		
 ////			return true;

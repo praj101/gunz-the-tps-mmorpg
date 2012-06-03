@@ -109,15 +109,15 @@ private:
 	// 함수
 	void Clear();
 	void Insert(CCQuestScenarioInfo* pScenarioInfo);
-	void ParseSpecialScenario(CCXmlElement& element);
-	void ParseStandardScenario(CCXmlElement& element);
-	void ParseNPCSetArray(CCXmlElement& element, vector<int>& vec);
-	void ParseKeyNPCArray(CCXmlElement& element, vector<int>& vec);
-	void ParseSectorXpBpArray(CCXmlElement& element, vector<int>& vec);
-	void ParseJaco(CCXmlElement& element, CCQuestScenarioInfoMaps* pMap);
-	void ParseRewardItem(CCXmlElement& element, CCQuestScenarioInfo* pScenarioInfo);
-	void ParseSacriItem(CCXmlElement& element, CCQuestScenarioInfo* pScenarioInfo);
-	void ParseMap(CCXmlElement& element, CCQuestScenarioInfo* pScenarioInfo);
+	void ParseSpecialScenario(::CCXmlElement& element);
+	void ParseStandardScenario(::CCXmlElement& element);
+	void ParseNPCSetArray(::CCXmlElement& element, vector<int>& vec);
+	void ParseKeyNPCArray(::CCXmlElement& element, vector<int>& vec);
+	void ParseSectorXpBpArray(::CCXmlElement& element, vector<int>& vec);
+	void ParseJaco(::CCXmlElement& element, CCQuestScenarioInfoMaps* pMap);
+	void ParseRewardItem(::CCXmlElement& element, CCQuestScenarioInfo* pScenarioInfo);
+	void ParseSacriItem(::CCXmlElement& element, CCQuestScenarioInfo* pScenarioInfo);
+	void ParseMap(::CCXmlElement& element, CCQuestScenarioInfo* pScenarioInfo);
 	int CalcStandardScenarioID(int nMapsetID, int nQL);
 public:
 	CCQuestScenarioCatalogue();											///< 생성자

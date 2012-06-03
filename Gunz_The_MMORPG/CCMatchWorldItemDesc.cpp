@@ -155,7 +155,7 @@ CCMatchWorldItemDescMgr* CCMatchWorldItemDescMgr::GetInstance()
 }
 
 
-void CCMatchWorldItemDescMgr::ParseWorldItem(CCXmlElement& element)
+void CCMatchWorldItemDescMgr::ParseWorldItem(::CCXmlElement& element)
 {
 	CCMatchWorldItemDesc* pNewWorldItemDesc = new CCMatchWorldItemDesc;
 	memset(pNewWorldItemDesc, 0, sizeof(CCMatchWorldItemDesc));
@@ -279,7 +279,7 @@ CCMatchMapsWorldItemSpawnInfo* CCMatchMapsWorldItemSpawnInfo::GetInstance()
 	return &m_stMapsWISP;
 }
 
-void CCMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(CCXmlElement& element, int nMapID)
+void CCMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(::CCXmlElement& element, int nMapID)
 {
 	if ((nMapID < 0) || (nMapID >= CCMATCH_MAP_COUNT)) return;
 

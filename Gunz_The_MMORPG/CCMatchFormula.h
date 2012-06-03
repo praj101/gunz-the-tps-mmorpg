@@ -25,9 +25,9 @@ private:
 	static unsigned long int	m_nGettingBounty[MAX_LEVEL+1];
 
 	static bool ReadXml(const char* szXmlFileName);
-	static void ParseNeedExpLM(CCXmlElement& element);
-	static void ParseGettingExpLM(CCXmlElement& element);
-	static void ParseGettingBountyLM(CCXmlElement& element);
+	static void ParseNeedExpLM(::CCXmlElement& element);
+	static void ParseGettingExpLM(::CCXmlElement& element);
+	static void ParseGettingBountyLM(::CCXmlElement& element);
 
 	static void PreCalcGettingBounty();
 	static void PreCalcNeedExp();

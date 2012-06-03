@@ -651,7 +651,7 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 
 	_ASSERT(m_pPlayerMenu==NULL);
 	// Player Menu
-	m_pPlayerMenu = new ZPlayerMenu("PlayerMenu", this, this, MPMT_VERTICAL);
+	m_pPlayerMenu = new ZPlayerMenu("PlayerMenu", this, this, CCPMT_VERTICAL);
 	((CCPopupMenu*)m_pPlayerMenu)->Show(false);
 
 	return true;
@@ -964,7 +964,7 @@ bool ZGameInterface::InitInterfaceListener()
 	// 선택된 캐릭터 카메라로 돌리며 보기
 
 	// 리스너 업데이트된 탭콘트롤 갱신해주기.
-	MTabCtrl *pTab = (MTabCtrl*)m_IDLResource.FindWidget("PlayerListControl");
+	CCTabCtrl *pTab = (CCTabCtrl*)m_IDLResource.FindWidget("PlayerListControl");
 	if( pTab ) pTab->UpdateListeners();
 
 	return true;
@@ -2252,7 +2252,7 @@ bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 	if ( pItemListBox)
 	{
 		//아이템 우클릭 메뉴 지금은 안쓰니까 주석
-		//pItemListBox->AttachMenu(new ZItemMenu("ItemMenu", pItemListBox, pItemListBox, MPMT_VERTICAL));	
+		//pItemListBox->AttachMenu(new ZItemMenu("ItemMenu", pItemListBox, pItemListBox, CCPMT_VERTICAL));	
 		pItemListBox->EnableDragAndDrop( true);
 	}
 
@@ -5332,7 +5332,7 @@ void ZGameInterface::EnableStageInterface(bool bEnable)
 void ZGameInterface::SetRoomNoLight( int d )
 {
 	/*
-	MTabCtrl *pTab = (MTabCtrl*)m_IDLResource.FindWidget("Lobby_RoomNoControl");
+	CCTabCtrl *pTab = (CCTabCtrl*)m_IDLResource.FindWidget("Lobby_RoomNoControl");
 	if( pTab ) 
 		pTab->SetSelIndex(d-1);
 	*/

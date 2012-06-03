@@ -150,6 +150,6 @@ public:
 	CCChannelRule* GetRule(CCCHANNEL_RULE nChannelRule);
 
 protected:
-	void ParseRule(CCXmlElement* element);
+	void ParseRule(::CCXmlElement* element);
 	virtual void ParseRoot(const char* szTagName, CCXmlElement* pElement);
 };

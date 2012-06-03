@@ -116,7 +116,7 @@ void CCChannelRuleMgr::ParseRoot(const char* szTagName, CCXmlElement* pElement)
 }
 
 
-void CCChannelRuleMgr::ParseRule(CCXmlElement* pElement)
+void CCChannelRuleMgr::ParseRule(::CCXmlElement* pElement)
 {
 	// Get Rule Node
 	int nID = 0;

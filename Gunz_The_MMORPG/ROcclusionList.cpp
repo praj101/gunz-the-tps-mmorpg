@@ -25,7 +25,7 @@ ROcclusionList::~ROcclusionList()
 		delete *i;
 }
 
-bool ROcclusionList::Open(CCXmlElement *pElement)
+bool ROcclusionList::Open(::CCXmlElement *pElement)
 {
 	CCXmlElement	aOcclusionNode,aChild;
 	int nCount = pElement->GetChildNodeCount();
@@ -75,7 +75,7 @@ bool ROcclusionList::Open(CCXmlElement *pElement)
 	return true;
 }
 
-bool ROcclusionList::Save(CCXmlElement *pElement)
+bool ROcclusionList::Save(::CCXmlElement *pElement)
 {
 	CCXmlElement	aOcclusionListElement=pElement->CreateChildElement(RTOK_OCCLUSIONLIST);
 

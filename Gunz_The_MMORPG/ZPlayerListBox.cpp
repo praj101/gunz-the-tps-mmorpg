@@ -12,6 +12,9 @@
 //#include "ZButton.h"
 #include "ZMyInfo.h"
 
+#include "ZGameInterface.h"
+#include "ZButton.h"
+#include "ZStringResManager.h"
 
 #define PLAYER_SLOT_GAP 1
 
@@ -276,14 +279,14 @@ ZPlayerListBox::ZPlayerListBox(const char* szName, CCWidget* pParent, CCListener
 	m_pScrollBar->SetVisible(false);
 	m_pScrollBar->Enable(false);
 
-	m_pScrollBar->m_nDebugType = 3;
-	m_nDebugType = 2;
+	m_pScrollBar->m_iDebugType = 3;
+	m_iDebugType = 2;
 
 	m_nOldW = RGetScreenWidth();
 
 	SetListener(this);
 
-	m_pButton = new ZButton(NULL,this,this);
+	m_pButton = new ZBmButton(NULL,this,this);
 	m_pButton->SetStretch(true);
 
 	m_nMode = PLAYERLISTMODE_CHANNEL;
@@ -430,7 +433,7 @@ void ZPlayerListBox::OnSize(int w,int h)
 	int newW = RGetScreenWidth();
 	float fA = GetF(newW);
 
-	m_nItemHeight = PLAYERLIST_ITEM_HEIGHT * fA;
+	m_iItemHeight = PLAYERLIST_ITEM_HEIGHT * fA;
 
 //	m_pButton->SetBounds(1,1,m_Rect.w*.8f,m_nItemHeight+1);
 	m_pButton->SetBounds(0, 0, m_Rect.w, (int)(28.0/*이미지 높이가 28이라서...*/*fA));		// 다시 그림(동환)
@@ -1048,8 +1051,8 @@ bool ZPlayerListBox::OnCommand(CCWidget* pWidget, const char* szMessage)
 	}else
 	if( strcmp(szMessage, "selected")==0 ) {
 
-		if(m_nSelItem != -1) {
-			ZStagePlayerListItem* pItem = (ZStagePlayerListItem*)Get(m_nSelItem);
+		if(m_iSelItem != -1) {
+			ZStagePlayerListItem* pItem = (ZStagePlayerListItem*)Get(m_iSelItem);
 			if(pItem) {
 				CCUID uid = pItem->m_PlayerUID;
 
@@ -1066,8 +1069,8 @@ bool ZPlayerListBox::OnCommand(CCWidget* pWidget, const char* szMessage)
 		// 차후 메뉴로 수정~
 		if((GetKeyState(VK_MENU)&0x8000)!=0) {
 //			ZStagePlayerListItem* pItem = (ZStagePlayerListItem*) pWidget;
-			if(m_nSelItem != -1) {
-				ZStagePlayerListItem* pItem = (ZStagePlayerListItem*)Get(m_nSelItem);
+			if(m_iSelItem != -1) {
+				ZStagePlayerListItem* pItem = (ZStagePlayerListItem*)Get(m_iSelItem);
 				if(pItem) {
 					char temp[1024];
 					sprintf(temp,"/kick %s", pItem->m_szName);
@@ -1083,7 +1086,7 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	sRect rtClient = GetClientRect();
 
-	if(pEvent->iMessage==MWM_RBUTTONDOWN) {
+	if(pEvent->iMessage==CCWM_RBUTTONDOWN) {
 		if(rtClient.InPoint(pEvent->sPos)==true) {
 			int nSelItem = FindItem(pEvent->sPos);
 			if (nSelItem != -1) {
@@ -1168,7 +1171,7 @@ bool ZPlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 
 	// 플레이어 정보 출력
-	else if ( pEvent->iMessage == MWM_LBUTTONDBLCLK)
+	else if ( pEvent->iMessage == CCWM_LBUTTONDBLCLK)
 	{
 		if ( rtClient.InPoint( pEvent->sPos) == true)
 		{

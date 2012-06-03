@@ -167,7 +167,7 @@ public:
 	/// @param sTagName			[in] 태그 이름
 	/// @param sTagText			[in] 태그 Contents
 	bool AppendChild(const char* sTagName, const char* sTagText = NULL);
-	bool AppendChild(CCXmlElement aChildElement);
+	bool AppendChild(::CCXmlElement aChildElement);
 
 	/// 자식 Element를 추가한다.
 	/// @param sTagName			[in] 태그 이름
@@ -176,7 +176,7 @@ public:
 	/// 텍스트를 추가한다.
 	bool AppendText(const char* sText);
 
-	CCXmlElement& operator= (CCXmlElement aElement) { m_pDomNode = aElement.GetXmlDomNodePtr(); return *this; }
+	CCXmlElement& operator= (::CCXmlElement aElement) { m_pDomNode = aElement.GetXmlDomNodePtr(); return *this; }
 	CCXmlElement& operator= (CCXmlNode aNode) { m_pDomNode = aNode.GetXmlDomNodePtr(); return *this; }
 };
 

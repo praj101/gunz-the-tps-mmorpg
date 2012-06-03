@@ -1,4 +1,9 @@
+<<<<<<< .mine
+#ifndef CCBListBoxLook_H
+#define CCBListBoxLook_H
+=======
 #pragma once
+>>>>>>> .r362
 
 #include "CCListBox.h"
 

@@ -11,7 +11,7 @@ RLightList::~RLightList()
 		delete *i;
 }
 
-bool RLightList::Open(CCXmlElement *pElement)
+bool RLightList::Open(::CCXmlElement *pElement)
 {
 	CCXmlElement	aLightNode,aChild;
 	int nCount = pElement->GetChildNodeCount();
@@ -52,7 +52,7 @@ bool RLightList::Open(CCXmlElement *pElement)
 	return true;
 }
 
-bool RLightList::Save(CCXmlElement *pElement)
+bool RLightList::Save(::CCXmlElement *pElement)
 {
 	CCXmlElement	aLightListElement=pElement->CreateChildElement(RTOK_LIGHTLIST);
 

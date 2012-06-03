@@ -6,6 +6,8 @@
 #include "ZGameInterface.h"
 // Added R349a
 #include "ZCombatInterface.h"
+#include "ZGameClient.h"
+#include "ZPost.h"
 
 ZRuleDuel::ZRuleDuel(ZMatch* pMatch) : ZRule(pMatch)
 {

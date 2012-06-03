@@ -88,7 +88,7 @@ bool CCMatchFormula::ReadXml(const char* szXmlFileName)
 	return true;
 }
 
-void CCMatchFormula::ParseNeedExpLM(CCXmlElement& element)
+void CCMatchFormula::ParseNeedExpLM(::CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
 	CCXmlElement childElement;
@@ -118,7 +118,7 @@ void CCMatchFormula::ParseNeedExpLM(CCXmlElement& element)
 	}
 }
 
-void CCMatchFormula::ParseGettingExpLM(CCXmlElement& element)
+void CCMatchFormula::ParseGettingExpLM(::CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
 	CCXmlElement childElement;
@@ -148,7 +148,7 @@ void CCMatchFormula::ParseGettingExpLM(CCXmlElement& element)
 	}
 }
 
-void CCMatchFormula::ParseGettingBountyLM(CCXmlElement& element)
+void CCMatchFormula::ParseGettingBountyLM(::CCXmlElement& element)
 {
 	int iCount = element.GetChildNodeCount();
 	CCXmlElement childElement;

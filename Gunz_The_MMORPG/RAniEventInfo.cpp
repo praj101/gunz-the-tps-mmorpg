@@ -97,7 +97,7 @@ bool RAniEventMgr::ReadXml(CCZFileSystem* pFileSystem, const char* szFileName)
 	return true;
 }
 
-void RAniEventMgr::ParseAniEvent(CCXmlElement* PNode, RAniIDEventSet* pAnimIdEventSet)
+void RAniEventMgr::ParseAniEvent(::CCXmlElement* PNode, RAniIDEventSet* pAnimIdEventSet)
 {
 	char NodeName[256];
 	char cAnimationName[256];

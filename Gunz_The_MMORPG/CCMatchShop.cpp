@@ -61,7 +61,7 @@ bool CCMatchShop::ReadXml(const char* szFileName)
 	return true;
 }
 
-void CCMatchShop::ParseSellItem(CCXmlElement& element)
+void CCMatchShop::ParseSellItem(::CCXmlElement& element)
 {
 	ShopItemNode *pNewItemNode = new ShopItemNode;
 

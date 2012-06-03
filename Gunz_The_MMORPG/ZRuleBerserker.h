@@ -2,7 +2,7 @@
 #define _ZRULE_BERSERKER_H
 
 #include "ZRule.h"
-
+#include "ZCharacter.h"
 
 
 class ZRuleBerserker : public ZRule

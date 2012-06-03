@@ -27,8 +27,8 @@ public:
 class ROcclusionList : public list<ROcclusion*> {
 public:
 	virtual ~ROcclusionList();
-	bool Open(CCXmlElement *pElement);
-	bool Save(CCXmlElement *pElement);
+	bool Open(::CCXmlElement *pElement);
+	bool Save(::CCXmlElement *pElement);
 
 	void UpdateCamera(rmatrix &matWorld,rvector &cameraPos);
 	bool IsVisible(rboundingbox &bb);

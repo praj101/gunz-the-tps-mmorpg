@@ -489,6 +489,10 @@
 						RelativePath=".\CCButton.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\UPnP.cpp"
+						>
+					</File>
 					<Filter
 						Name="Widgets"
 						>
@@ -2786,6 +2790,10 @@
 		</File>
 		<File
 			RelativePath=".\TestCRC32XORCache.h"
+			>
+		</File>
+		<File
+			RelativePath=".\UPnP.h"
 			>
 		</File>
 		<File

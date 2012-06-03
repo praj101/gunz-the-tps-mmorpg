@@ -11,7 +11,7 @@
 // Added R349a
 #include "ZStringResManager.h"
 #include "ZGameClient.h"
-
+#include "ZPost.h"
 //# 룰 클래스에 UI관련 기능이 있는것이 이상합니다만, 적어도 ZCombatInterface가 계속 비대해지는 것보단 나을 것 같습니다.
 
 ZRuleDuelTournament::ZRuleDuelTournament(ZMatch* pMatch) : ZRule(pMatch)
@@ -186,7 +186,7 @@ void ZRuleDuelTournament::InitCharacterList()
 	{
 		strcpy(m_QuaterFinalPlayer[i].m_szCharName, (*it).m_szCharName);
 		m_QuaterFinalPlayer[i].uidPlayer = (*it).uidPlayer;
-		m_QuaterFinalPlayer[i].m_iTP = (*it).m_iTP;
+		m_QuaterFinalPlayer[i].m_nTP = (*it).m_iTP;
 		m_QuaterFinalPlayer[i].nNumber = i;
 
 		switch(eType)
@@ -866,13 +866,13 @@ void ZRuleDuelTournament::ShowMatchOrder(CCDrawContext* pDC, bool isResult, floa
 		{
 			if (ZGetMyUID() == m_QuaterFinalPlayer[i].uidPlayer)
 			{
-				int w = MMGetWidth(pFont, m_QuaterFinalPlayer[i].m_szCharName, (int)strlen(m_QuaterFinalPlayer[i].m_szCharName));
+				int w = CCGetWidth(pFont, m_QuaterFinalPlayer[i].m_szCharName, (int)strlen(m_QuaterFinalPlayer[i].m_szCharName));
 				sRect rc(xLeft, y, w, pFont->GetHeight());
 				DrawHighlight(pDC, rc);
 			}
 			else if (ZGetMyUID() == m_QuaterFinalPlayer[i+4].uidPlayer)
 			{
-				int w = MMGetWidth(pFont, m_QuaterFinalPlayer[i+4].m_szCharName, (int)strlen(m_QuaterFinalPlayer[i+4].m_szCharName));
+				int w = CCGetWidth(pFont, m_QuaterFinalPlayer[i+4].m_szCharName, (int)strlen(m_QuaterFinalPlayer[i+4].m_szCharName));
 				sRect rc(xRight, y, w, pFont->GetHeight());
 				DrawHighlight(pDC, rc);
 			}
@@ -1055,7 +1055,7 @@ void ZRuleDuelTournament::DrawHighlight(CCDrawContext* pDC, const sRect& rc)
 		DWORD defaultcolor = 0x3030F0;
 		DWORD opacity=(DWORD)pDC->GetOpacity();
 		CCDrawEffect prevEffect = pDC->GetEffect();
-		pDC->SetEffect(MDE_ADD);
+		pDC->SetEffect(CCDE_ADD);
 		sColor prevColor = pDC->GetBitmapColor();
 		pDC->SetBitmapColor(sColor(defaultcolor));
 		unsigned char prevOpacity = pDC->GetOpacity();

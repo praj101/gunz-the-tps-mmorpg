@@ -74,9 +74,9 @@ private:
 	// 함수
 	void InsertMapset(CCQuestMapsetInfo* pMapset);
 	void InsertSector(CCQuestMapSectorInfo* pSector);
-	void ParseMapset(CCXmlElement& element);
-	void ParseMapsetSector1Pass(CCXmlElement& elementMapset, CCQuestMapsetInfo* pMapset);
-	void ParseSector(CCXmlElement& element, CCQuestMapSectorInfo* pSector);
+	void ParseMapset(::CCXmlElement& element);
+	void ParseMapsetSector1Pass(::CCXmlElement& elementMapset, CCQuestMapsetInfo* pMapset);
+	void ParseSector(::CCXmlElement& element, CCQuestMapSectorInfo* pSector);
 	void InitBackLinks();
 public:
 	CCQuestMapCatalogue();													///< 생성자

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ZRangeWeaponHitDice.h"
 #include "CCMath.h"
+#include "RTypes.h"
 
 ZRangeWeaponHitDice::ZRangeWeaponHitDice() :m_fHitProbability(0.0f), 
 											m_fGlobalFactor(1.0f), 

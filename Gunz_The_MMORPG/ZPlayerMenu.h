@@ -52,7 +52,7 @@ protected:
 	CCUID	m_PlayerUID;
 
 public:
-	ZPlayerMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, CCPopupMenuTypes t=MPMT_VERTICAL);
+	ZPlayerMenu(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL, CCPopupMenuTypes t=CCPMT_VERTICAL);
 	void AddMenuItem(ZPlayerMenuItem* pMenuItem);
 
 	const char* GetTargetName()	{ return m_szPlayerName; }

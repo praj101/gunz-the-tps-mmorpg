@@ -7,6 +7,9 @@
 #include "ZEmblemInterface.h"
 #include "ZApplication.h"
 
+#include "ZGlobal.h"
+#include "CCBmButton.h"
+
 using namespace std;
 
 class CCBitmap;

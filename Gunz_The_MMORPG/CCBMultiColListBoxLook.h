@@ -3,19 +3,19 @@
 
 #include "CCMultiColListBox.h"
 
-class MBMultiColListBoxLook : public MMultiColListBoxLook{
+class CCBMultiColListBoxLook : public CCMultiColListBoxLook{
 public:
-	MBitmap*	m_pFrameBitmaps[9];
-	MFont*		m_pFont;
+	CCBitmap*	m_pFrameBitmaps[9];
+	CCFont*		m_pFont;
 
 protected:
-	virtual void OnFrameDraw(MMultiColListBox* pListBox, MDrawContext* pDC);
+	virtual void OnFrameDraw(CCMultiColListBox* pListBox, CCDrawContext* pDC);
 
 public:
-	MBMultiColListBoxLook(void);
+	CCBMultiColListBoxLook(void);
 
-	virtual MRECT GetClientRect(MMultiColListBox* pListBox, MRECT& r);
-	virtual void OnDraw(MMultiColListBox* pListBox, MDrawContext* pDC);
+	virtual sRect GetClientRect(CCMultiColListBox* pListBox, sRect& r);
+	virtual void OnDraw(CCMultiColListBox* pListBox, CCDrawContext* pDC);
 };
 
 #endif
