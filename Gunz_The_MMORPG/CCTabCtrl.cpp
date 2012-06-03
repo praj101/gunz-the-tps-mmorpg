@@ -3,7 +3,7 @@
 #include "CCColorTable.h"
 #include "CCButton.h"
 
-IMPLEMENT_LOOK(CCTabCtrl, CCTabCtrlLook)//MTabCtrlLook
+IMPLEMENT_LOOK(CCTabCtrl, CCTabCtrlLook)//CCTabCtrlLook
 void CCTabCtrlLook::OnDraw(CCTabCtrl* pTabCtrl, CCDrawContext* pDC){
 	sRect r = pTabCtrl->GetInitialClientRect();
 	const int nButtonHeight = 24;

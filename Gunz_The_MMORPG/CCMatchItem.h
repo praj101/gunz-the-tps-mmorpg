@@ -432,7 +432,7 @@ bool IsEnchantItem(CCMatchItemDesc* pItemDesc);
 class CCMatchItemEffectDescMgr : public map<int, CCMatchItemEffectDesc*>
 {
 protected:
-	void ParseEffect(CCXmlElement& element);
+	void ParseEffect(::CCXmlElement& element);
 public:
 	CCMatchItemEffectDescMgr();
 	virtual ~CCMatchItemEffectDescMgr();
@@ -453,7 +453,7 @@ class CCMatchItemDescMgr : public map<int, CCMatchItemDesc*>
 	int m_nextItemIdToMemoryShift;
 	
 protected:
-	bool ParseItem(CCXmlElement& element);
+	bool ParseItem(::CCXmlElement& element);
 public:
 	CCMatchItemDescMgr();
 	virtual ~CCMatchItemDescMgr();

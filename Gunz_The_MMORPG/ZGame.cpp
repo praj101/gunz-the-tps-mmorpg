@@ -79,6 +79,8 @@
 
 #include "ZModule_HealOverTime.h"
 
+#include "ZStringResManager.h"
+#include "ZActor.h"
 
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA_Report.h"

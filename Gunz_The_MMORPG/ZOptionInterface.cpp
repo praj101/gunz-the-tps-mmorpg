@@ -1643,7 +1643,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetCancelOptionButtonListener, CCBTN_CLK_MSG)
 	// TODO: 이게 필요한가 ? 테스트 요망
 	if( pWidget->m_bEventAcceleratorCall ) {
 
-		MTabCtrl* pTab = (MTabCtrl*)pResource->FindWidget("OptionTabControl");
+		CCTabCtrl* pTab = (CCTabCtrl*)pResource->FindWidget("OptionTabControl");
 
 		if(pTab) {//키보드 옵션은 키입력을 막아준다.
 			if(pTab->GetSelIndex()==3)//이름을 찾아 조사

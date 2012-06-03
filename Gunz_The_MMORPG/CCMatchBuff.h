@@ -90,7 +90,7 @@ protected:
 	CCMatchBuffDescMgr();
 	virtual ~CCMatchBuffDescMgr();
 
-	bool ParseItem(CCXmlElement& element);
+	bool ParseItem(::CCXmlElement& element);
 
 public:
 	bool ReadXml(const char* szFileName);

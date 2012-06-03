@@ -72,7 +72,7 @@ bool ZTips::Initialize(CCZFileSystem* pfs, const CCLanguage LangID )
 	return true;
 }
 
-void ZTips::ParseTips(CCXmlElement* pElement)
+void ZTips::ParseTips(::CCXmlElement* pElement)
 {
 	int nCategory=0;
 	pElement->GetAttribute(&nCategory, ZTOK_TIPS_ATTR_CATEGORY, 0);	// default´Â 0

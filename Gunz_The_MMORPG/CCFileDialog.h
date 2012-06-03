@@ -2,7 +2,7 @@
 #define _MFILEDIALOG_H
 
 #include "CCWidget.h"
-#include "CCButon.h"
+#include "CCButton.h"
 #include "CCFileBox.h"
 #include "CCEdit.h"
 #include "CCFrame.h"

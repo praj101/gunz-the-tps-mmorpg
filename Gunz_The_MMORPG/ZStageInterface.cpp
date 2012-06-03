@@ -20,6 +20,9 @@
 #include "ZMessages.h"
 #include "ZLanguageConf.h"
 
+#include "ZGameClient.h"
+#include "CCPicture.h"
+#include "CCComboBox.h"
 
 /* 해야할 것들...
 
@@ -1236,7 +1239,7 @@ public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
 		// On select
-		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
+		if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_SEL) == true)
 		{
 			CCListBox* pListBox = (CCListBox*)pWidget;
 
@@ -1258,7 +1261,7 @@ public:
 
 
 		// On double click
-		else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+		else if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_DBLCLK) == true)
 		{
 			// Put item
 			if ( !ZApplication::GetStageInterface()->m_SacrificeItem[ 0].IsExist())
@@ -1526,7 +1529,7 @@ public:
 		if(!ZGetGameClient()->AmIStageMaster())
 			return false;
 		// On select
-		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
+		if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_SEL) == true)
 		{
 			// 맵리스트에서 선택된 맵정보를 릴레이맵 리스트에 추가한다.
 			CCListBox* pMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_MapListbox");
@@ -1555,7 +1558,7 @@ public:
 		}
 
 		// On double click
-		else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+		else if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_DBLCLK) == true)
 		{
 			return true;
 		}
@@ -1583,7 +1586,7 @@ public:
 		if(!ZGetGameClient()->AmIStageMaster())
 			return false;
 		// On select
-		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
+		if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_SEL) == true)
 		{
 			CCListBox* pRelayMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 			if(pRelayMapListBox == NULL) return false;
@@ -1611,7 +1614,7 @@ public:
 		}
 
 		// On double click
-		else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+		else if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_DBLCLK) == true)
 		{
 			return true;
 		}

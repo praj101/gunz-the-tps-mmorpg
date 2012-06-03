@@ -16,7 +16,7 @@
 
 void _AddListItem(CCListBox* pList, const char* szString)
 {
-	CCDefaultListItem* pNew = new MDefaultListItem(szString);
+	CCDefaultListItem* pNew = new CCDefaultListItem(szString);
 	pList->Add(pNew);
 }
 

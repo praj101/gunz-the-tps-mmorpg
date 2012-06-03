@@ -39,7 +39,7 @@ void ZProfiler::Render()
 	for(int i=0;i<FRAME_RING_BUFFER_SIZE;i++)
 	{
 		v[i].x = i;
-		v[i].y = RGetScreenHeight()-m_dwRingBuffer[nRingIndex].dwElapsed;
+		v[i].y = RealSpace2::RGetScreenHeight()-m_dwRingBuffer[nRingIndex].dwElapsed;
 		v[i].z = 0;
 		v[i].w = 1;
 		nRingIndex = (nRingIndex +1) % FRAME_RING_BUFFER_SIZE;

@@ -259,9 +259,9 @@ private:
 	CCQuestNPCGlobalAIValue			m_GlobalAIValue;
 
 	// 함수
-	void ParseNPC(CCXmlElement& element);
+	void ParseNPC(::CCXmlElement& element);
 	void Insert(CCQuestNPCInfo* pNPCInfo);
-	void ParseGlobalAIValue(CCXmlElement& element);
+	void ParseGlobalAIValue(::CCXmlElement& element);
 
 	// 몬스터 도감.
 	map< int, CCQUEST_NPC > m_MonsterBibleCatalogue;
@@ -319,7 +319,7 @@ private:
 	map<string, CCQuestNPCSetInfo*>		m_NameMap;
 	// 함수
 	void Clear();
-	void ParseNPCSet(CCXmlElement& element);
+	void ParseNPCSet(::CCXmlElement& element);
 	void Insert(CCQuestNPCSetInfo* pNPCSetInfo);
 public:
 	CCQuestNPCSetCatalogue();											///< 생성자

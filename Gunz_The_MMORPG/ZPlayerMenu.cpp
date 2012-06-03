@@ -9,6 +9,8 @@
 #include "ZMyInfo.h"
 #include "ZChat_CmdID.h"
 
+#include "ZStringResManager.h"
+
 ZPlayerMenuListener listenerPlayerMenu;
 
 

@@ -75,7 +75,7 @@ public:
 class CCQuestDropTable : public map<int, CCQuestDropSet*>
 {
 private:
-	void ParseDropSet(CCXmlElement& element);
+	void ParseDropSet(::CCXmlElement& element);
 	void ParseDropItemID(CCQuestDropItem* pItem, const char* szAttrValue);
 public:
 	CCQuestDropTable();													///< »ý¼ºÀÚ

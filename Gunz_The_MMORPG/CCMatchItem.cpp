@@ -351,7 +351,7 @@ CCMatchItemEffectDescMgr::~CCMatchItemEffectDescMgr()
 {
 	Clear();
 }
-void CCMatchItemEffectDescMgr::ParseEffect(CCXmlElement& element)
+void CCMatchItemEffectDescMgr::ParseEffect(::CCXmlElement& element)
 {
 	CCMatchItemEffectDesc* pNewEffectDesc = new CCMatchItemEffectDesc;
 	memset(pNewEffectDesc, 0, sizeof(CCMatchItemEffectDesc));
@@ -707,7 +707,7 @@ CCMatchItemDesc* CCMatchItemDescMgr::GetItemDesc(unsigned long int nID)
 
 
 
-bool CCMatchItemDescMgr::ParseItem(CCXmlElement& element)
+bool CCMatchItemDescMgr::ParseItem(::CCXmlElement& element)
 {
 	CCMatchItemDesc* pNewDesc = new CCMatchItemDesc;
 

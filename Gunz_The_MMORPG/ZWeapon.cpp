@@ -26,7 +26,7 @@
 #include "ZModule_LightningDamage.h"
 #include "ZModule_PoisonDamage.h"
 
-
+#include "ZGameInterface.h"
 
 #define BOUND_EPSILON	5
 #define LANDING_VELOCITY	20

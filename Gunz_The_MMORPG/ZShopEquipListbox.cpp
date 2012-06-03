@@ -494,7 +494,7 @@ CCListener* ZGetEquipListFilterListener()
 //public:
 //	virtual bool OnCommand( CCWidget* pWidget, const char* szMessage)
 //	{
-//		if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL)==true)
+//		if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_SEL)==true)
 //		{
 //			unsigned long int nItemID = 0;
 //
@@ -529,7 +529,7 @@ CCListener* ZGetEquipListFilterListener()
 //			}
 //		}
 //
-//		else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+//		else if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_DBLCLK) == true)
 //		{
 //			return true;
 //		}

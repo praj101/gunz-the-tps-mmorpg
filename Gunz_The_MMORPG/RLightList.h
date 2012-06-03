@@ -22,8 +22,8 @@ struct RLIGHT
 class RLightList : public list<RLIGHT*> {
 public:
 	virtual ~RLightList();
-	bool Open(CCXmlElement *pElement);
-	bool Save(CCXmlElement *pElement);
+	bool Open(::CCXmlElement *pElement);
+	bool Save(::CCXmlElement *pElement);
 };
 
 _NAMESPACE_REALSPACE2_END

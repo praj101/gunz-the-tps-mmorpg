@@ -187,7 +187,7 @@ CCMatchBuffDesc* CCMatchBuffDescMgr::GetBuffDesc(unsigned long int nBuffID)
 	return NULL;
 }
 
-bool CCMatchBuffDescMgr::ParseItem(CCXmlElement& element)
+bool CCMatchBuffDescMgr::ParseItem(::CCXmlElement& element)
 {
 	CCMatchBuffDesc* pNewDesc = new CCMatchBuffDesc;
 

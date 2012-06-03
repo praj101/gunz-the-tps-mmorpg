@@ -22,7 +22,7 @@ public:
 
 	int		Add(char* name,char* modelname=NULL,bool namesort=false);
 	int		AddXml(char* name,char* modelname=NULL,bool autoload=true,bool namesort=false);
-	int     AddXml(CCXmlElement* pNode,char* Path,char* modelname=NULL,bool namesort=false);
+	int     AddXml(::CCXmlElement* pNode,char* Path,char* modelname=NULL,bool namesort=false);
 
 	int		LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback=NULL, void *CallbackParam=NULL);
 

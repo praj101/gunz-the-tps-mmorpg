@@ -234,7 +234,7 @@ bool CCXmlElement::AppendText(const char* sText)
 	return true;
 }
 
-bool CCXmlElement::AppendChild(CCXmlElement aChildElement)
+bool CCXmlElement::AppendChild(::CCXmlElement aChildElement)
 {
 	CCXmlDomElementPtr	pElement;
 

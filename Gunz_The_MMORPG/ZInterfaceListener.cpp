@@ -41,6 +41,8 @@
 #include "ZShopEquipListbox.h"
 
 #include "ZStringResManager.h"
+#include "CCBmButton.h"
+#include "ZPost.h"
 
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA_Report.h"
@@ -386,7 +388,7 @@ class MSelectCharacterComboBoxListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
-		if(CCWidget::IsMsg(szMessage, MCMBBOX_CHANGED)==true)
+		if(CCWidget::IsMsg(szMessage, CCCMBBOX_CHANGED)==true)
 		{
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 
@@ -465,7 +467,7 @@ CCListener* ZGetSelectCharacterComboBoxListener()
 }
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGetMapListListener, MLB_ITEM_DBLCLK)
+BEGIN_IMPLEMENT_LISTENER(ZGetMapListListener, CCLB_ITEM_DBLCLK)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	ZMapListBox* pMapList = (ZMapListBox*)pResource->FindWidget("MapList");
 	const char* pszSelItemString = pMapList->GetSelItemString();
@@ -599,7 +601,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetChannelListCloseButtonListener, CCBTN_CLK_MSG)
 	ZGetGameClient()->StopChannelList();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetChannelListListener, MLB_ITEM_DBLCLK)
+BEGIN_IMPLEMENT_LISTENER(ZGetChannelListListener, CCLB_ITEM_DBLCLK)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	CCListBox* pChannelList = (CCListBox*)pResource->FindWidget("ChannelList");
 	ZChannelListItem* pItem = (ZChannelListItem*)pChannelList->GetSelItem();
@@ -631,7 +633,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingCallerListener, CCBTN_CLK_MSG)
 		pWidget->Show(true, true);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingStageTypeListener, MCMBBOX_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingStageTypeListener, CCCMBBOX_CHANGED)
 	{
 //		ZStageSetting::AdjustLimitTimeStageSettingDialog();
 		ZStageSetting::InitStageSettingGameFromGameType();
@@ -701,7 +703,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageObserverBtnListener, CCBTN_CLK_MSG)
 END_IMPLEMENT_LISTENER()
 
 // 스태이지 변경시
-BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingChangedComboboxListener, MCMBBOX_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZGetStageSettingChangedComboboxListener, CCCMBBOX_CHANGED)
 	ZStageSetting::PostDataToServer();
 END_IMPLEMENT_LISTENER()
 
@@ -838,7 +840,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountDnButtonListener, CCBTN_C
 	ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg()->AddCount(-1);
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountChangeListener, CCEdit_TEXT_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZGetCountableItemTradeDlgCountChangeListener, CCEDIT_TEXT_CHANGED)
 	ZGetGameInterface()->GetShopEquipInterface()->GetItemCountDlg()->OnEditBoxChanged();
 END_IMPLEMENT_LISTENER()
 
@@ -919,7 +921,7 @@ void PostMapname()
 	}
 }
 
-BEGIN_IMPLEMENT_LISTENER(ZGetMapComboListener, MCMBBOX_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZGetMapComboListener, CCCMBBOX_CHANGED)
 	PostMapname();
 END_IMPLEMENT_LISTENER()
 
@@ -1209,7 +1211,7 @@ END_IMPLEMENT_LISTENER()
 
 
 
-BEGIN_IMPLEMENT_LISTENER(ZChangeCreateCharInfoListener, MCMBBOX_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZChangeCreateCharInfoListener, CCCMBBOX_CHANGED)
 	if (ZGetGameInterface()->GetCharacterSelectView() != NULL)
 	{
 		ZGetGameInterface()->GetCharacterSelectView()->OnChangedCharCostume();
@@ -1283,7 +1285,7 @@ END_IMPLEMENT_LISTENER()
 class ZLevelConfirmListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
+		if(CCWidget::IsMsg(szMessage, CCMSGBOX_YES)==true){
 			//int nCount = ZGetGameInterface()->m_nBringSpendableItemCount;
 			//ZGetGameInterface()->GetShopEquipInterface()->BringAccountItem(nCount);
 		} 
@@ -1441,7 +1443,7 @@ END_IMPLEMENT_LISTENER()
 
 ////////////////////////////////////////////////////////////////////////////
 
-BEGIN_IMPLEMENT_LISTENER(ZGetRoomListListener, MLIST_VALUE_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZGetRoomListListener, CCLIST_VALUE_CHANGED)
 	ZRoomListBox* pWidget = (ZRoomListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Lobby_StageList");
 	pWidget->SetPage();
 END_IMPLEMENT_LISTENER()
@@ -1509,7 +1511,7 @@ class ZMapListListener : public CCListener{
 	public:																	
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{	
-		if(CCWidget::IsMsg(szMessage, MLB_ITEM_SEL)==true)
+		if(CCWidget::IsMsg(szMessage, CCLB_ITEM_SEL)==true)
 		{
 			CCListBox* pList = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 			if(pList != NULL)
@@ -1525,7 +1527,7 @@ class ZMapListListener : public CCListener{
 
 			return true;
 		}
-		if(CCWidget::IsMsg(szMessage, MLB_ITEM_DBLCLK)==true)
+		if(CCWidget::IsMsg(szMessage, CCLB_ITEM_DBLCLK)==true)
 		{
 			CCListBox* pList = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("MapList");
 			if(pList != NULL)
@@ -1803,7 +1805,7 @@ class ZLanguageChangeConfirmListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
 		pWidget->Show(false);
-		if(CCWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
+		if(CCWidget::IsMsg(szMessage, CCMSGBOX_YES)==true){
 			ZGetGameInterface()->ReserveResetApp(true);
 		}
 		return false;
@@ -1819,7 +1821,7 @@ CCListener* ZGetLanguageChangeConfirmListenter()
 class ZClanCloseConfirmListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
+		if(CCWidget::IsMsg(szMessage, CCMSGBOX_YES)==true){
 
 			char szClanName[256];
 			strcpy(szClanName, ZGetMyInfo()->GetClanName());
@@ -1841,7 +1843,7 @@ CCListener* ZGetClanCloseConfirmListenter()
 class ZClanLeaveConfirmListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, MMSGBOX_YES)==true){
+		if(CCWidget::IsMsg(szMessage, CCMSGBOX_YES)==true){
 			// 서버에 탈퇴 요청
 			ZPostRequestLeaveClan(ZGetMyUID());
 		} else {
@@ -2195,7 +2197,7 @@ CCListener* ZGetReplayFileListBoxListener( void)
 		virtual bool OnCommand( CCWidget* pWidget, const char* szMessage)
 		{
 			// Item select
-			if ( CCWidget::IsMsg( szMessage, MLB_ITEM_SEL) == true)
+			if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_SEL) == true)
 			{
 				CCWidget* pFindWidget = ZGetGameInterface()->GetIDLResource()->FindWidget( "Replay_View");
 				if ( pFindWidget != NULL)
@@ -2204,7 +2206,7 @@ CCListener* ZGetReplayFileListBoxListener( void)
                 return true;
 			}
 			// Item double click
-			else if ( CCWidget::IsMsg( szMessage, MLB_ITEM_DBLCLK) == true)
+			else if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_DBLCLK) == true)
 			{
 				ZGetGameInterface()->ViewReplay();
 
@@ -2303,11 +2305,11 @@ END_IMPLEMENT_LISTENER();
 
 
 // 릴레이맵
-BEGIN_IMPLEMENT_LISTENER(ZGetRelayMapTypeListener, MCMBBOX_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZGetRelayMapTypeListener, CCCMBBOX_CHANGED)
 	ZApplication::GetStageInterface()->PostRelayMapElementUpdate();
 END_IMPLEMENT_LISTENER()
 
-BEGIN_IMPLEMENT_LISTENER(ZGetRelayMapTurnCountListener, MCMBBOX_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZGetRelayMapTurnCountListener, CCCMBBOX_CHANGED)
 	ZApplication::GetStageInterface()->PostRelayMapElementUpdate();
 END_IMPLEMENT_LISTENER()
 

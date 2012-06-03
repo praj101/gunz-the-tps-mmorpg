@@ -340,7 +340,7 @@ public:
 	bool ReadXml(char* fname);
 	bool SaveXml(char* fname);
 
-	bool ReadXmlElement(CCXmlElement* pNode,char* Path);
+	bool ReadXmlElement(::CCXmlElement* pNode,char* Path);
 
 	bool ReadElu(char* fname);
 	bool SaveElu(char* fname);
