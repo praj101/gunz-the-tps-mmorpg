@@ -1221,6 +1221,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAsyncDBJob_UpdateAccountLastLoginTime.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncDBJob_UpdateCharBRInfo.cpp"
 			>
 		</File>

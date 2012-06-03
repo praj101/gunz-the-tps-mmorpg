@@ -1105,7 +1105,7 @@ void CCMatchServer::OnStageLeaveBattle(const CCUID& uidPlayer, bool bGameFinishL
 }
 
 
-#include "CCLexicalAnalyzer.h"
+#include "CMLexicalAnalyzer.h"
 // 강퇴 임시코드
 bool StageKick(CCMatchServer* pServer, const CCUID& uidPlayer, const CCUID& uidStage, char* pszChat)
 {
