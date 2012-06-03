@@ -494,6 +494,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCComboBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCListBox.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCMatchQuest.cpp"
 						>
 					</File>
