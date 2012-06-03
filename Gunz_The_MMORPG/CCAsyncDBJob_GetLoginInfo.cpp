@@ -26,7 +26,7 @@ void CCAsyncDBJob_GetLoginInfo::Run(void* pContext)
 	}
 
 	// 계정 정보를 읽는다.
-	if (!pDBMgr->GetAccountInfo(m_nAID, m_pAccountInfo, MGetServerConfig()->GetServerID()))
+	if (!pDBMgr->GetAccountInfo(m_nAID, m_pAccountInfo, CCGetServerConfig()->GetServerID()))
 	{
 		SetResult(CCASYNC_RESULT_FAILED);
 		return;

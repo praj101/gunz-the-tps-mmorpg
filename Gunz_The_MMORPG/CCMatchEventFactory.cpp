@@ -466,7 +466,7 @@ void CCMatchEventFactoryManager::ParseEvent( CCXmlElement& chrElement )
 
 		if( 0 == stricmp(EL_NAME, szAttrName) )
 		{
-			strEventName = MGetStringResManager()->GetString( string(szAttrValue) );
+			strEventName = CCGetStringResManager()->GetString( string(szAttrValue) );
 			continue;
 		}
 
@@ -496,7 +496,7 @@ void CCMatchEventFactoryManager::ParseEvent( CCXmlElement& chrElement )
 
 		if( 0 == stricmp(EL_ANNOUNCE, szAttrName) )
 		{
-			strAnnounce = MGetStringResManager()->GetString( string(szAttrValue) );
+			strAnnounce = CCGetStringResManager()->GetString( string(szAttrValue) );
 			continue;
 		}
 
@@ -583,7 +583,7 @@ void CCMatchEventFactoryManager::ParseEvent( CCXmlElement& chrElement )
 		}
 
 		// 현제 서버 타입에만 적용.
-		if( MGetServerConfig()->GetServerMode() == itSvrTyp->ServerType )
+		if( CCGetServerConfig()->GetServerMode() == itSvrTyp->ServerType )
 		{
 			bUseEvent = true;
 			continue;
@@ -607,7 +607,7 @@ void CCMatchEventFactoryManager::ParseEvent( CCXmlElement& chrElement )
 			ed.dwEventID		= dwEventID;
 			ed.EventType		= EventType;
 			ed.dwGameType			= itGmTyp->GameType;
-			ed.ServerType		= MGetServerConfig()->GetServerMode();
+			ed.ServerType		= CCGetServerConfig()->GetServerMode();
 			ed.dwElapsedTime	= dwElapsedTime;
 			ed.dwPercent		= dwPercent;
 			ed.dwRate			= dwRate;

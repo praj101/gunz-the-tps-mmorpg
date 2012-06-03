@@ -265,7 +265,7 @@ void CCQuestItemDescManager::ParseQuestItem( CCXmlElement& element )
 		}
 		else if( 0 == strcmp(MQICTOK_NAME, szAttrName) )
 		{
-			strcpy( pNewQuestItemDesc->m_szQuestItemName, MGetStringResManager()->GetStringFromXml(szAttrValue) );
+			strcpy( pNewQuestItemDesc->m_szQuestItemName, CCGetStringResManager()->GetStringFromXml(szAttrValue) );
 		}
 		else if( 0 == strcmp(MQICTOK_TYPE, szAttrName) )
 		{
@@ -282,7 +282,7 @@ void CCQuestItemDescManager::ParseQuestItem( CCXmlElement& element )
 		}
 		else if( 0 == strcmp(MQICTOK_DESC, szAttrName) )
 		{
-			strcpy( pNewQuestItemDesc->m_szDesc, MGetStringResManager()->GetStringFromXml(szAttrValue) );
+			strcpy( pNewQuestItemDesc->m_szDesc, CCGetStringResManager()->GetStringFromXml(szAttrValue) );
 		}
 		else if( 0 == strcmp(MQICTOK_UNIQUE, szAttrName) )
 		{
@@ -475,7 +475,7 @@ void DBQuestCachingData::Reset()
 bool DBQuestCachingData::DoUpdateDBCharQuestItemInfo()
 {
 	// 퀘스트 서버인지 먼저 검사.
-	if( CSM_TEST != MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST != CCGetServerConfig()->GetServerMode() ) 
 		return false;
 
 	// 정상적인 Object인지 검사.

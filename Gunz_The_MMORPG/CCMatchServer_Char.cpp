@@ -53,10 +53,10 @@ void CCMatchServer::OnRequestSelectChar(const CCUID& uidPlayer, const int nCharI
 
 	// 해커이면 접속을 끊는다.
 #if defined(_XTRAP) || defined(_HSHIELD)
-	if( (MGetServerConfig()->IsUseXTrap() || MGetServerConfig()->IsUseHShield()) && pObj->IsHacker() )
+	if( (CCGetServerConfig()->IsUseXTrap() || CCGetServerConfig()->IsUseHShield()) && pObj->IsHacker() )
 	{
 #ifdef _XTRAP
-		if( MGetServerConfig()->IsUseXTrap() )
+		if( CCGetServerConfig()->IsUseXTrap() )
 		{
 //			pObj->SetXTrapHackerDisconnectWaitInfo();
 			pObj->DisconnectHacker( CCMHT_XTRAP_HACKER );
@@ -65,7 +65,7 @@ void CCMatchServer::OnRequestSelectChar(const CCUID& uidPlayer, const int nCharI
 #endif
 
 #ifdef _HSHIELD
-		if( MGetServerConfig()->IsUseHShield() )
+		if( CCGetServerConfig()->IsUseHShield() )
 		{
 //			pObj->SetHShieldHackerDisconnectWaitInfo();
 			pObj->DisconnectHacker( CCMHT_HSHIELD_HACKER );
@@ -230,7 +230,7 @@ bool CCMatchServer::CharInitialize(const CCUID& uidPlayer)
             LOG(LOG_FILE, "[CharInitialize()] %s's ClanID:%d.", pObj->GetAccountName(), pObj->GetCharInfo()->m_ClanInfo.GetClanID());
 
 		// 만약 클랜전 서버일 경우 클랜전 정보도 받아온다. - 엠블렘때문에 그냥 서버도 클랜정보 읽어옴
-//		if (MGetServerConfig()->GetServerMode() == CSM_CLAN)
+//		if (CCGetServerConfig()->GetServerMode() == CSM_CLAN)
 		{
 			CCMatchClan* pClan = m_ClanMap.GetClan(pCharInfo->m_ClanInfo.m_nClanID);
 			if (pClan)
@@ -344,7 +344,7 @@ bool CCMatchServer::CharFinalize(const CCUID& uidPlayer)
 	CCMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
 
-	if (MGetServerConfig()->GetServerMode() == CSM_EVENT) 
+	if (CCGetServerConfig()->GetServerMode() == CSM_EVENT) 
 	{	///< EVENT때 레벨제한 없이 장착한 아이템을 벗긴다
 		CorrectEquipmentByLevel(pObj, MMCIP_MELEE);
 		CorrectEquipmentByLevel(pObj, MMCIP_PRIMARY);

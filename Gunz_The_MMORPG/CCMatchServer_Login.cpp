@@ -36,7 +36,7 @@ bool CCMatchServer::CheckOnLoginPre(const CCUID& ComCCUID, int nCmdVersion, bool
 
 	// free login ip를 검사하기전에 debug서버와 debug ip를 검사한다.
 	// 서버가 debug타입인지 검사.
-	if( MGetServerConfig()->IsDebugServer() && MGetServerConfig()->IsDebugLoginIPList(pCommObj->GetIPString()) )
+	if( CCGetServerConfig()->IsDebugServer() && CCGetServerConfig()->IsDebugLoginIPList(pCommObj->GetIPString()) )
 	{
 		outbFreeIP = true;
 		return true;
@@ -44,14 +44,14 @@ bool CCMatchServer::CheckOnLoginPre(const CCUID& ComCCUID, int nCmdVersion, bool
 
 	// 최대인원 체크
 	bool bFreeLoginIP = false;
-	if (MGetServerConfig()->CheckFreeLoginIPList(pCommObj->GetIPString()) == true) {
+	if (CCGetServerConfig()->CheckFreeLoginIPList(pCommObj->GetIPString()) == true) {
 		bFreeLoginIP = true;
 		outbFreeIP = true;
 		return true;
 	} else {
 		outbFreeIP = false;
 
-		if ((int)m_Objects.size() >= MGetServerConfig()->GetMaxUser())
+		if ((int)m_Objects.size() >= CCGetServerConfig()->GetMaxUser())
 		{
 			CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_FULL_PLAYERS);
 			Post(pCmd);	
@@ -60,7 +60,7 @@ bool CCMatchServer::CheckOnLoginPre(const CCUID& ComCCUID, int nCmdVersion, bool
 	}
 
 	// 접속을 막아놓은 지역의 IP인가
-	if( CheckIsValidIP(ComCCUID, pCommObj->GetIPString(), strCountryCode3, MGetServerConfig()->IsUseFilter()) )
+	if( CheckIsValidIP(ComCCUID, pCommObj->GetIPString(), strCountryCode3, CCGetServerConfig()->IsUseFilter()) )
 		IncreaseNonBlockCount();
 	else
 	{
@@ -131,7 +131,7 @@ void CCMatchServer::OnMatchLogin(CCUID ComCCUID, const char* szUserID, const cha
 	}
 
 	CCMatchAccountInfo accountInfo;
-	if (!m_MatchDBMgr.GetAccountInfo(nAID, &accountInfo, MGetServerConfig()->GetServerID()))
+	if (!m_MatchDBMgr.GetAccountInfo(nAID, &accountInfo, CCGetServerConfig()->GetServerID()))
 	{
 		// Notify Message 필요 -> 로그인 관련 - 해결(Login Fail 메세지 이용)
 		// Disconnect(ComCCUID);
@@ -170,7 +170,7 @@ void CCMatchServer::OnMatchLogin(CCUID ComCCUID, const char* szUserID, const cha
 #ifndef _DEBUG // debug에선 상관없다. 테스트가 필요하면 따로 설정을 해야 함. - by SungE 2007-05-03
 	// gunz.exe 실행파일의 무결성을 확인한다. (암호화 되어 있다)
 	// server.ini 파일에서 설정된 값에 따라 사용하지 않으면 검사하지 않는다.
-	if (MGetServerConfig()->IsUseMD5())				
+	if (CCGetServerConfig()->IsUseMD5())				
 	{
 		unsigned char szMD5Value[ MAX_MD5LENGH ] = {0, };
 		pCommObj->GetCrypter()->Decrypt(szEncryptMd5Value, MAX_MD5LENGH, (CCPacketCrypterKey*)pCommObj->GetCrypter()->GetKey());
@@ -214,7 +214,7 @@ void CCMatchServer::OnMatchLogin(CCUID ComCCUID, const char* szUserID, const cha
 
 
 	// 프리미엄 IP를 체크한다.
-	if (MGetServerConfig()->CheckPremiumIP())
+	if (CCGetServerConfig()->CheckPremiumIP())
 	{
 		if (pCommObj)
 		{
@@ -301,7 +301,7 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& ComCCUID, const char*
 	const char* pName = pAuthInfo->GetName();
 	int nAge = pAuthInfo->GetAge();
 	int nSex = pAuthInfo->GetSex();
-	bool bCheckPremiumIP = MGetServerConfig()->CheckPremiumIP();
+	bool bCheckPremiumIP = CCGetServerConfig()->CheckPremiumIP();
 	const char* szIP = pCommObj->GetIPString();
 	DWORD dwIP = pCommObj->GetIP();
 
@@ -362,7 +362,7 @@ void CCMatchServer::OnMatchLoginFromDBAgent(const CCUID& ComCCUID, const char* s
 	const char* pName = szName;
 	int nAge = 20;
 
-	bool bCheckPremiumIP = MGetServerConfig()->CheckPremiumIP();
+	bool bCheckPremiumIP = CCGetServerConfig()->CheckPremiumIP();
 	const char* szIP = pCommObj->GetIPString();
 	DWORD dwIP = pCommObj->GetIP();
 
@@ -405,14 +405,14 @@ CCCommand* CCMatchServer::CreateCmdMatchResponseLoginOK(const CCUID& uidComm,
 {
 	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_LOGIN, uidComm);
 	pCmd->AddParameter(new CCCommandParameterInt(MOK));
-	pCmd->AddParameter(new CCCommandParameterString(MGetServerConfig()->GetServerName()));
-	pCmd->AddParameter(new CCCommandParameterChar((char)MGetServerConfig()->GetServerMode()));
+	pCmd->AddParameter(new CCCommandParameterString(CCGetServerConfig()->GetServerName()));
+	pCmd->AddParameter(new CCCommandParameterChar((char)CCGetServerConfig()->GetServerMode()));
 	pCmd->AddParameter(new CCCommandParameterString(szUserID));
 	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)nUGradeID));
 	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)nPGradeID));
 	pCmd->AddParameter(new CCCommandParameterUID(uidPlayer));
-	pCmd->AddParameter(new CCCommandParameterBool((bool)MGetServerConfig()->IsEnabledSurvivalMode()));
-	pCmd->AddParameter(new CCCommandParameterBool((bool)MGetServerConfig()->IsEnabledDuelTournament()));
+	pCmd->AddParameter(new CCCommandParameterBool((bool)CCGetServerConfig()->IsEnabledSurvivalMode()));
+	pCmd->AddParameter(new CCCommandParameterBool((bool)CCGetServerConfig()->IsEnabledDuelTournament()));
 //	pCmd->AddParameter(new CCCommandParameterString(szRandomValue));
 
 //	void* pBlob1 = CCMakeBlobArray(sizeof(unsigned char), 64);
@@ -436,14 +436,14 @@ CCCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const CCUID& uidComm
 {
 	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_LOGIN, uidComm);
 	pCmd->AddParameter(new CCCommandParameterInt(nResult));
-	pCmd->AddParameter(new CCCommandParameterString(MGetServerConfig()->GetServerName()));
-	pCmd->AddParameter(new CCCommandParameterChar((char)MGetServerConfig()->GetServerMode()));
+	pCmd->AddParameter(new CCCommandParameterString(CCGetServerConfig()->GetServerName()));
+	pCmd->AddParameter(new CCCommandParameterChar((char)CCGetServerConfig()->GetServerMode()));
 	pCmd->AddParameter(new CCCommandParameterString("Ana"));
 	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)CCMUGFREE));
 	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)MMPG_FREE));
 	pCmd->AddParameter(new CCCommandParameterUID(CCUID(0,0)));
-	pCmd->AddParameter(new CCCommandParameterBool((bool)MGetServerConfig()->IsEnabledSurvivalMode()));
-	pCmd->AddParameter(new CCCommandParameterBool((bool)MGetServerConfig()->IsEnabledDuelTournament()));
+	pCmd->AddParameter(new CCCommandParameterBool((bool)CCGetServerConfig()->IsEnabledSurvivalMode()));
+	pCmd->AddParameter(new CCCommandParameterBool((bool)CCGetServerConfig()->IsEnabledDuelTournament()));
 //	pCmd->AddParameter(new CCCommandParameterString("A"));
 	
 //	unsigned char tmp1 = 'A';
@@ -507,7 +507,7 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 	SetClientClockSynchronize(uidComm);
 
 	// 프리미엄 IP를 체크한다.
-	if (MGetServerConfig()->CheckPremiumIP())
+	if (CCGetServerConfig()->CheckPremiumIP())
 	{
 		if (pCommObj)
 		{
@@ -563,8 +563,8 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 	// Client DataFile Checksum을 검사한다.
 	// 2006.2.20 dubble. filelist checksum으로 변경
 	unsigned long nChecksum = nChecksumPack ^ uidComm.High ^ uidComm.Low;
-	if( MGetServerConfig()->IsUseFileCrc() && !CCMatchAntiHack::CheckClientFileListCRC(nChecksum, pObj->GetUID()) && 
-		!MGetServerConfig()->IsDebugLoginIPList(pObj->GetIPString()) )
+	if( CCGetServerConfig()->IsUseFileCrc() && !CCMatchAntiHack::CheckClientFileListCRC(nChecksum, pObj->GetUID()) && 
+		!CCGetServerConfig()->IsDebugLoginIPList(pObj->GetIPString()) )
 	{
 		LOG(LOG_PROG, "Invalid filelist crc (%u) , UserID(%s)\n ", nChecksum, pObj->GetAccountInfo()->m_szUserID);
 //		pObj->SetBadFileCRCDisconnectWaitInfo();

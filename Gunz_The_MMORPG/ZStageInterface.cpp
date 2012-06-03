@@ -2183,7 +2183,7 @@ void ZStageInterface::OnStartFail( const int nType, const CCUID& uidParam )
 		//{
 			char szMsg[ 128 ];
 
-			sprintf( szMsg, MGetStringResManager()->GetErrorStr(MERR_CANNOT_START_NEED_TICKET), ZGetGameClient()->GetObjName(uidParam).c_str() );
+			sprintf( szMsg, CCGetStringResManager()->GetErrorStr(MERR_CANNOT_START_NEED_TICKET), ZGetGameClient()->GetObjName(uidParam).c_str() );
 
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 			ZChatOutput(szMsg, ZChat::CMT_BROADCAST);
@@ -2195,7 +2195,7 @@ void ZStageInterface::OnStartFail( const int nType, const CCUID& uidParam )
 		//{
 		//	char szMsg[ 128 ];
 
-		//	sprintf( szMsg, MGetStringResManager()->GetErrorStr(MERR_CANNOT_START_NEED_TICKET), pPeer->CharInfo.szName );
+		//	sprintf( szMsg, CCGetStringResManager()->GetErrorStr(MERR_CANNOT_START_NEED_TICKET), pPeer->CharInfo.szName );
 
 		//	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 		//	ZChatOutput(szMsg, ZChat::CMT_BROADCAST);
@@ -2206,7 +2206,7 @@ void ZStageInterface::OnStartFail( const int nType, const CCUID& uidParam )
 		char szMsg[ 128 ];
 
 			sprintf( szMsg, "INVALID MAP!" );
-				//MGetStringResManager()->GetErrorStr(MERR_CANNOT_START_NEED_TICKET), 
+				//CCGetStringResManager()->GetErrorStr(MERR_CANNOT_START_NEED_TICKET), 
 				//ZApplication::GetInstance()->GetGameClient()->GetObjName(uidParam).c_str() );
 
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();

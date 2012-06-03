@@ -6597,7 +6597,7 @@ void ZGameInterface::OnAnnounceDeleteClan( const string& strAnnounce )
 {
 	char szMsg[ 128 ];
 	
-	sprintf( szMsg, MGetStringResManager()->GetErrorStr(MERR_CLAN_ANNOUNCE_DELETE), strAnnounce.c_str() );
+	sprintf( szMsg, CCGetStringResManager()->GetErrorStr(MERR_CLAN_ANNOUNCE_DELETE), strAnnounce.c_str() );
 	ShowMessage( szMsg );
 }
 

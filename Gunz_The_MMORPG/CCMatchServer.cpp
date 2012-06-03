@@ -359,7 +359,7 @@ CCMatchServer::CCMatchServer() : m_pScheduler( 0 ), m_pDTMgr(new CCMatchDuelTour
 	m_checkMemory19 = m_checkMemory20 = m_checkMemory21 = CHECKMEMORYNUMBER;
 
 #ifdef _HSHIELD
-	if( MGetServerConfig()->IsUseHShield() )
+	if( CCGetServerConfig()->IsUseHShield() )
 		m_HSCheckCounter = 0L;
 #endif
 
@@ -416,7 +416,7 @@ CCMatchServer::~CCMatchServer()
 
 bool CCMatchServer::LoadInitFile()
 {
-	if (!MGetServerConfig()->Create())
+	if (!CCGetServerConfig()->Create())
 	{
 		LOG(LOG_PROG, "Load Config File Failed\n");
 		return false;
@@ -429,13 +429,13 @@ bool CCMatchServer::LoadInitFile()
 
 
 	// 제한맵서버일 경우 플레이가능한 맵 화면에 출력
-	if (MGetServerConfig()->IsResMap())
+	if (CCGetServerConfig()->IsResMap())
 	{
 		char szText[512];
 		sprintf(szText, "Enable Maps: ");
 		for (int i = 0; i < CCMATCH_MAP_MAX; i++)
 		{
-			if (MGetServerConfig()->IsEnableMap(CCMATCH_MAP(i)))
+			if (CCGetServerConfig()->IsEnableMap(CCMATCH_MAP(i)))
 			{
 				strcat(szText, MGetMapDescMgr()->GetMapName(i)); 
 				strcat(szText, ", ");
@@ -486,7 +486,7 @@ bool CCMatchServer::LoadInitFile()
 	}
 #endif
 	// 클랜전 서버일 경우만 실행하는 초기화
-	if (MGetServerConfig()->GetServerMode() == CSM_CLAN)
+	if (CCGetServerConfig()->GetServerMode() == CSM_CLAN)
 	{
 		GetLadderMgr()->Init();
 
@@ -670,14 +670,14 @@ bool CCMatchServer::LoadChannelPreset()
 				nChannelType = CCCHANNEL_TYPE_DUELTOURNAMENT;
 
 			CCUID uidChannel;
-			ChannelAdd(MGetStringResManager()->GetStringFromXml(szBuf), 
+			ChannelAdd(CCGetStringResManager()->GetStringFromXml(szBuf), 
 				szRuleName, &uidChannel, nChannelType, nMaxPlayers, nLevelMin, nLevelMax,
 				bIsTicketChannel, static_cast<DWORD>(nTicketItemID), bIsTicketChannel, szBuf);
 		} 
 		else if (!strcmp(szTagName, MTOK_DEFAULTCHANNELNAME)) 
 		{
 			childElement.GetAttribute(szBuf, "name");
-			SetDefaultChannelName(MGetStringResManager()->GetStringFromXml(szBuf));
+			SetDefaultChannelName(CCGetStringResManager()->GetStringFromXml(szBuf));
 		} 
 		else if (!strcmp(szTagName, MTOK_DEFAULTRULENAME)) 
 		{
@@ -703,9 +703,9 @@ bool CCMatchServer::LoadChannelPreset()
 
 bool CCMatchServer::InitDB()
 {
-	CString str = m_MatchDBMgr.BuildDSNString(MGetServerConfig()->GetDB_DNS(), 
-		                                      MGetServerConfig()->GetDB_UserName(), 
-											  MGetServerConfig()->GetDB_Password());
+	CString str = m_MatchDBMgr.BuildDSNString(CCGetServerConfig()->GetDB_DNS(), 
+		                                      CCGetServerConfig()->GetDB_UserName(), 
+											  CCGetServerConfig()->GetDB_Password());
 
 	if (m_MatchDBMgr.Connect())
 	{
@@ -717,7 +717,7 @@ bool CCMatchServer::InitDB()
 		return false;
 	}
 
-	if( MGetServerConfig()->IsUseFilter() )
+	if( CCGetServerConfig()->IsUseFilter() )
 	{
 		if( InitCountryFilterDB() )
 			LOG(LOG_PROG, "InitCountryFilterDB.\n");
@@ -782,7 +782,7 @@ bool CCMatchServer::Create(int nPort)
 	if (!LoadInitFile())	return false;
 	if (!InitDB())			return false;
 
-	if( MGetServerConfig()->IsItemConsistency() == true ) {
+	if( CCGetServerConfig()->IsItemConsistency() == true ) {
 		if( CheckItemXMLFromDatabase() == false ) {
 			_ASSERT(0);
 			return false;
@@ -793,12 +793,12 @@ bool CCMatchServer::Create(int nPort)
 	m_Admin.Create(this);
 
 	// 디비에 최대 접속인원 업데이트
-	m_MatchDBMgr.UpdateServerInfo(MGetServerConfig()->GetServerID()
-								, MGetServerConfig()->GetMaxUser()
-								, MGetServerConfig()->GetServerName());
+	m_MatchDBMgr.UpdateServerInfo(CCGetServerConfig()->GetServerID()
+								, CCGetServerConfig()->GetMaxUser()
+								, CCGetServerConfig()->GetServerName());
 
-	if( nPort != MGetServerConfig()->GetServerPort() )
-		nPort = MGetServerConfig()->GetServerPort();
+	if( nPort != CCGetServerConfig()->GetServerPort() )
+		nPort = CCGetServerConfig()->GetServerPort();
 	if(MServer::Create(nPort)==false) {
 		return false;
 	}
@@ -836,8 +836,8 @@ bool CCMatchServer::Create(int nPort)
 
 
 	int nUDPPort = MATCHSERVER_DEFAULT_UDP_PORT;
-	if( nUDPPort != MGetServerConfig()->GetServerUDPPort() )
-		nUDPPort = MGetServerConfig()->GetServerUDPPort();
+	if( nUDPPort != CCGetServerConfig()->GetServerUDPPort() )
+		nUDPPort = CCGetServerConfig()->GetServerUDPPort();
 	if (m_SafeUDP.Create(true, nUDPPort)==false) {
 		LOG(LOG_PROG, "Match Server SafeUDP Create FAILED (Port:%d)\n", MATCHSERVER_DEFAULT_UDP_PORT);
 		return false;
@@ -918,7 +918,7 @@ void CCMatchServer::Shutdown()
 
 bool CCMatchServer::OnCreate()
 {
-	if( MGetServerConfig()->IsEnabledDuelTournament() ) {		
+	if( CCGetServerConfig()->IsEnabledDuelTournament() ) {		
 		GetDTMgr()->Init();
 		//OnAsyncRequestDuelTournamentGroupRankingInfo();
 		//GetDTMgr()->InsertTestCase();
@@ -934,7 +934,7 @@ void CCMatchServer::OnDestroy()
 		m_pScheduler = 0;
 	}
 
-	if( MGetServerConfig()->IsEnabledDuelTournament() ) {
+	if( CCGetServerConfig()->IsEnabledDuelTournament() ) {
 		GetDTMgr()->Destory();
 	}
 }
@@ -1110,13 +1110,13 @@ void CCMatchServer::OnRun()
 	MGetCheckLoopTimeInstance()->SetLadderTick();
 
 	// Update Ladders - 클랜전서버일 경우에만 실행한다.
-	if (MGetServerConfig()->GetServerMode() == CSM_CLAN)
+	if (CCGetServerConfig()->GetServerMode() == CSM_CLAN)
 	{
 		GetLadderMgr()->Tick(nGlobalClock);
 	}
 
 	// Duel Tournament가 활성화 되었을 경우에만 실행한다.
-	if( MGetServerConfig()->IsEnabledDuelTournament() == true ) {
+	if( CCGetServerConfig()->IsEnabledDuelTournament() == true ) {
 		GetDTMgr()->Tick(nGlobalClock);
 	}
 	//////////////////////////////////////////////////////////////////////
@@ -1213,7 +1213,7 @@ void CCMatchServer::OnRun()
 //	CheckMemoryCorruption();
 
 	// TimeStamp가 바뀌었을 때.. 모든 케릭터 정보를 Refresh한다.
-	if( GetDTMgr()->GetTimeStampChanged() && MGetServerConfig()->IsEnabledDuelTournament() ) {
+	if( GetDTMgr()->GetTimeStampChanged() && CCGetServerConfig()->IsEnabledDuelTournament() ) {
 		static DWORD dwLastRequestGetDTCharacterInfo = nGlobalClock;
 
 		// 모든 케릭터 정보를 요청하다보면 부하가 걸릴 수 있으므로, 1.5초당 50개씩 요청!
@@ -1252,7 +1252,7 @@ void CCMatchServer::OnRun()
 		}		
 	}
 
-	if( nGlobalClock - GetBattleTimeRewardMachine().GetLastUpdateTime() > MGetServerConfig()->GetBRDescriptionRefreshInterval() )
+	if( nGlobalClock - GetBattleTimeRewardMachine().GetLastUpdateTime() > CCGetServerConfig()->GetBRDescriptionRefreshInterval() )
 	{
 		GetBattleTimeRewardMachine().SetLastUpdateTime(nGlobalClock);
 
@@ -1278,7 +1278,7 @@ void CCMatchServer::UpdateServerLog()
 		st_nElapsedTime = 0;
 
 		// 여기서 디비 업데이트
-		m_MatchDBMgr.InsertServerLog(MGetServerConfig()->GetServerID(), 
+		m_MatchDBMgr.InsertServerLog(CCGetServerConfig()->GetServerID(), 
 									 (int)m_Objects.size(), (int)m_StageMap.size(), 
 									 GetBlockCount(), GetNonBlockCount() );
 		ResetBlockCount();
@@ -1305,8 +1305,8 @@ void CCMatchServer::UpdateServerStatusDB()
 		st_nElapsedTime = 0;
 
 		int nCurPlayer = (int)m_Objects.size();
-		if (nCurPlayer > MGetServerConfig()->GetMaxUser()) 
-			nCurPlayer = MGetServerConfig()->GetMaxUser();
+		if (nCurPlayer > CCGetServerConfig()->GetMaxUser()) 
+			nCurPlayer = CCGetServerConfig()->GetMaxUser();
 	
 		bool bResult = false;
 		static int st_ErrCounter = 0;
@@ -1321,9 +1321,9 @@ void CCMatchServer::UpdateServerStatusDB()
 			if( pObj->GetAccountInfo()->m_nCCode == 30 ) { nNatePlayer++; }
 		}
 
-		bResult = m_MatchDBMgr.UpdateServerStatus_Netmarble(MGetServerConfig()->GetServerID(), nCurPlayer, nNatePlayer);
+		bResult = m_MatchDBMgr.UpdateServerStatus_Netmarble(CCGetServerConfig()->GetServerID(), nCurPlayer, nNatePlayer);
 #else
-		bResult = m_MatchDBMgr.UpdateServerStatus(MGetServerConfig()->GetServerID(), nCurPlayer);
+		bResult = m_MatchDBMgr.UpdateServerStatus(CCGetServerConfig()->GetServerID(), nCurPlayer);
 #endif
 
 		if (bResult == false) 
@@ -1719,7 +1719,7 @@ int CCMatchServer::ObjectRemove(const CCUID& uid, CCMatchObjectList::iterator* p
 			, pObj->GetDisconnStatusInfo().GetComment()
 			, pObj->GetIPString()
 			, pObj->GetDisconnStatusInfo().GetEndDate()
-			, MGetServerConfig()->GetServerID()
+			, CCGetServerConfig()->GetServerID()
 			, strChannelName );
 
 		// PostAsyncJob( pJob );
@@ -1964,7 +1964,7 @@ void CCMatchServer::SendCommandByUDP(CCCommand* pCommand, char* szIP, int nPort)
 
 bool CCMatchServer::UDPSocketRecvEvent(DWORD dwIP, WORD wRawPort, char* pPacket, DWORD dwSize)
 {
-	static DWORD dwMonitorUDPIP = MGetServerConfig()->GetMonitorUDPIP();
+	static DWORD dwMonitorUDPIP = CCGetServerConfig()->GetMonitorUDPIP();
 
 	if( dwMonitorUDPIP == dwIP )
 	{
@@ -2140,7 +2140,7 @@ void CCMatchServer::OnUserWhisper(const CCUID& uidComm, char* pszSenderName, cha
 		NotifyMessage(pObj->GetUID(), MATCHNOTIFY_GENERAL_USER_NOTFOUND);
 		return;
 	}
-	if (pTargetObj->CheckUserOption(MBITFLAG_USEROPTION_REJECT_WHISPER) == true) {
+	if (pTargetObj->CheckUserOption(CCBITFLAG_USEROPTION_REJECT_WHISPER) == true) {
 		NotifyMessage(pObj->GetUID(), MATCHNOTIFY_USER_WHISPER_REJECTED);
 //		NotifyMessage(pTargetObj->GetUID(), MATCHNOTIFY_USER_WHISPER_IGNORED);
 		return;
@@ -2341,7 +2341,7 @@ void CCMatchServer::OnChatRoomInvite(const CCUID& uidComm, const char* pszTarget
 		return;
 	}
 
-	if (pTargetObj->CheckUserOption(MBITFLAG_USEROPTION_REJECT_INVITE) == true) {
+	if (pTargetObj->CheckUserOption(CCBITFLAG_USEROPTION_REJECT_INVITE) == true) {
 		NotifyMessage(pPlayer->GetUID(), MATCHNOTIFY_USER_INVITE_REJECTED);
 		NotifyMessage(pTargetObj->GetUID(), MATCHNOTIFY_USER_INVITE_IGNORED);
 		return;
@@ -2357,7 +2357,7 @@ void CCMatchServer::OnChatRoomInvite(const CCUID& uidComm, const char* pszTarget
 
 // RAONHAJE 임시코드
 #ifdef _DEBUG
-	#include "CCLexicalAnalyzer.h"
+	#include "CMLexicalAnalyzer.h"
 	bool StageFinish(CCMatchServer* pServer, const CCUID& uidPlayer, char* pszChat)
 	{
 		CCMatchObject* pChar = pServer->GetObject(uidPlayer);
@@ -2526,7 +2526,7 @@ int CCMatchServer::ValidateChannelJoin(const CCUID& uidPlayer, const CCUID& uidC
 		const DWORD dwTicketItemID = pChannel->GetTicketItemID();
 
 		// 입장권을 사용하는 채널이면 입장권소유를 검사해 줘야 한다.
-		if( MGetServerConfig()->IsUseTicket() && pChannel->IsUseTicket() && pChannel->IsTicketChannel() )
+		if( CCGetServerConfig()->IsUseTicket() && pChannel->IsUseTicket() && pChannel->IsTicketChannel() )
 		{
 			// 입장권 소유 검사만 함. 기간은 게임 로긴시 한번으로 정함.
 			if( !pObj->GetCharInfo()->m_ItemList.IsHave(dwTicketItemID) )
@@ -3017,14 +3017,14 @@ bool CCMatchServer::CheckItemXML()
 		string name = (*itor).second.c_str() + pos + 1;
 
 
-		if( 0 == stricmp("nomsg", MGetStringResManager()->GetString(name)) )
+		if( 0 == stricmp("nomsg", CCGetStringResManager()->GetString(name)) )
 		{
 			++dwNomsgItemCount;
 			// cclog( "nomsg Item : %s\n", name.c_str() );
 		}
 		
 		sprintf(szTemp2, "INSERT INTO Item (ItemID, Name) Values (%u, '%s')\n", // id, name.c_str() );
-			id, MGetStringResManager()->GetString(name) );
+			id, CCGetStringResManager()->GetString(name) );
 
 		fputs(szTemp2, fp);
 	}
@@ -3382,10 +3382,10 @@ bool CCMatchServer::InitScheduler()
 
 bool CCMatchServer::InitLocale()
 {
-	if( MGetServerConfig()->IsComplete() )
+	if( CCGetServerConfig()->IsComplete() )
 	{
 		
-		MGetLocale()->Init( GetCountryID(MGetServerConfig()->GetLanguage().c_str()) );
+		CCGetLocale()->Init( GetCountryID(CCGetServerConfig()->GetLanguage().c_str()) );
 	}
 	else
 	{
@@ -3393,7 +3393,7 @@ bool CCMatchServer::InitLocale()
 		return false;
 	}
 
-	MGetStringResManager()->Init( "", MGetLocale()->GetCountry() );	// 실행파일과 같은 폴더에 xml파일이 있다.
+	CCGetStringResManager()->Init( "", CCGetLocale()->GetCountry() );	// 실행파일과 같은 폴더에 xml파일이 있다.
 
 	return true;
 }
@@ -3501,7 +3501,7 @@ bool CCMatchServer::CheckIsValidIP( const CCUID& ComCCUID, const string& strIP, 
 
 			case CCS_INVALID :
 				{
-					return MGetServerConfig()->IsAcceptInvalidIP();
+					return CCGetServerConfig()->IsAcceptInvalidIP();
 				}
 				break;
 
@@ -3641,7 +3641,7 @@ bool CCMatchServer::InitEvent()
 		return false;
 	}
 
-	CCMatchEventFactoryManager::GetInstance().SetUsableState( MGetServerConfig()->IsUseEvent() );
+	CCMatchEventFactoryManager::GetInstance().SetUsableState( CCGetServerConfig()->IsUseEvent() );
 
 	EventPtrVec EvnPtrVec;
 	if( !CCMatchEventFactoryManager::GetInstance().GetEventList(CCMatchEvent::GAME_TYPE_ALL, ET_CUSTOM_EVENT, EvnPtrVec) )

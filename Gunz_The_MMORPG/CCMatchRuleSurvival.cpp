@@ -817,7 +817,7 @@ void CCMatchRuleSurvival::SendGameResult()
 	CCMatchObject* pPlayer;
 
 	// 현재 서버가 퀘스트 서버일 경우에만 가능하게 함.
-	if( CSM_TEST != MGetServerConfig()->GetServerMode() )  return;
+	if( CSM_TEST != CCGetServerConfig()->GetServerMode() )  return;
 
 	for (CCQuestPlayerManager::iterator itor = m_PlayerManager.begin(); itor != m_PlayerManager.end(); ++itor)
 	{
@@ -1177,7 +1177,7 @@ void CCMatchRuleSurvival::OnObtainWorldItem(CCMatchObject* pObj, int nItemID, in
 
 void CCMatchRuleSurvival::OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		OnResponseDropSacrificeItemOnSlot( uidSender, nSlotIndex, nItemID );
 	}
@@ -1281,7 +1281,7 @@ void CCMatchRuleSurvival::OnResponseDropSacrificeItemOnSlot( const CCUID& uidSen
 
 void CCMatchRuleSurvival::OnRequestCallbackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		OnResponseCallBackSacrificeItem( uidSender, nSlotIndex, nItemID );
 	}
@@ -1356,7 +1356,7 @@ void CCMatchRuleSurvival::PreProcessLeaveStage( const CCUID& uidLeaverUID )
 	if( !IsEnabledObject(pPlayer) )
 		return;
 
-	/*if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	/*if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		// 스테이지를 나가려는 유저가 이전에 흐생 아이템을 스롯에 올려 놓았는지 검사를 함.
 		// 만약 올려놓은 아이템이 있다면 자동으로 회수를 함. - 대기상태일때만 적용
@@ -1434,7 +1434,7 @@ void CCMatchRuleSurvival::DestroyAllSlot()
 
 void CCMatchRuleSurvival::OnRequestQL( const CCUID& uidSender )
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject( uidSender );
 		if( 0 == pPlayer )
@@ -1474,7 +1474,7 @@ void CCMatchRuleSurvival::OnResponseQL_ToStage( const CCUID& uidStage )
 ///
 void CCMatchRuleSurvival::OnRequestSacrificeSlotInfo( const CCUID& uidSender )
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject( uidSender );
 		if( 0 == pPlayer )
@@ -1547,7 +1547,7 @@ void CCMatchRuleSurvival::OnResponseSacrificeSlotInfoToStage( const CCUID& uidSt
 
 void CCMatchRuleSurvival::PostInsertQuestGameLogAsyncJob()
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		CollectEndQuestGameLogInfo();
 		m_SurvivalGameLogInfoMgr.PostInsertSurvivalGameLog();
@@ -1652,7 +1652,7 @@ const bool CCMatchRuleSurvival::PostNPCInfo()
 bool CCMatchRuleSurvival::PostRankingList()
 {
 	// 현재 서버가 퀘스트 서버일 경우에만 가능하게 함.
-	if( CSM_TEST != MGetServerConfig()->GetServerMode() )  return false;
+	if( CSM_TEST != CCGetServerConfig()->GetServerMode() )  return false;
 
 	void* pBlobRanking = CCMakeBlobArray(sizeof(CCTD_SurvivalRanking), MAX_SURVIVAL_RANKING_LIST );
 	if( NULL == pBlobRanking )
@@ -1706,7 +1706,7 @@ bool CCMatchRuleSurvival::PostRankingList()
 ///
 bool CCMatchRuleSurvival::PrepareStart()
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() && true == MGetServerConfig()->IsEnabledSurvivalMode()) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() && true == CCGetServerConfig()->IsEnabledSurvivalMode()) 
 	{
 		MakeStageGameInfo();
 
@@ -1726,7 +1726,7 @@ bool CCMatchRuleSurvival::PrepareStart()
 
 void CCMatchRuleSurvival::MakeStageGameInfo()
 {	
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		if( (GetStage()->GetState() != STAGE_STATE_STANDBY) && (STAGE_STATE_COUNTDOWN != GetStage()->GetState()) )
 		{

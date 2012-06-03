@@ -90,7 +90,7 @@ bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const CCCHANNEL_TYPE nCh
 		//bool bbadf = GetChannelMap()->GetClanChannelTicketInfo().m_bIsTicketChannel; //debug
 /*
 		// 입장권을 사용하고, 클랜채널을 만들때는 유저가 입장권이 있는지 검사를 해줘야 한다.
-		if( MGetServerConfig()->IsUseTicket() && 
+		if( CCGetServerConfig()->IsUseTicket() && 
 			CCCHANNEL_TYPE_CLAN == nChannelType && 
 			GetChannelMap()->GetClanChannelTicketInfo().m_bIsTicketChannel )
 		{
@@ -147,19 +147,19 @@ bool CCMatchServer::ChannelJoin(const CCUID& uidPlayer, const CCUID& uidChannel)
 	if (pChannel == NULL) return false;
 
 	// 입장권이 필요한 채널에서는 유저가 입장권이 있는지 검사를 해줘야 한다.
-	if ( MGetServerConfig()->IsUseTicket())
+	if ( CCGetServerConfig()->IsUseTicket())
 	{
 		bool bCheckTicket = false;
 
 		CCMatchObject* pObj = GetObject(uidPlayer);
 		if ( !pObj)	return false;
 
-		if ( MGetServerConfig()->GetServerMode() == CSM_NORMAL)	{ // 일반 서버일때
+		if ( CCGetServerConfig()->GetServerMode() == CSM_NORMAL)	{ // 일반 서버일때
 			// 자유/사설/클랜 채널이면 로비 인터페이스를 disable 시킨다.
 			// 그 외에는 티켓 채널이면 티켓 검사만 해준다.
 			if ( stricmp( pChannel->GetRuleName() , CCCHANNEL_RULE_NOVICE_STR) == 0) bEnableInterface = false;			
 			else if ( pChannel->IsTicketChannel())									bCheckTicket = true;
-		} else if ( (MGetServerConfig()->GetServerMode() == CSM_CLAN) || (MGetServerConfig()->GetServerMode() == CSM_TEST)) { // 클랜 서버일때
+		} else if ( (CCGetServerConfig()->GetServerMode() == CSM_CLAN) || (CCGetServerConfig()->GetServerMode() == CSM_TEST)) { // 클랜 서버일때
 			// 클랜/사설 채널이면 티켓 검사한다.
 			// 자유 채널이면 로비 인터페이스를 disable 시킨다.
 			// 그 외에는 티켓 채널이면 티켓 검사만 해준다.
@@ -691,8 +691,8 @@ const CCUID CCMatchServer::FindFreeChannel(  const CCUID& uidPlayer  )
 	CCUID uidChannel = CCUID(0,0);
 
 	if (uidChannel == CCUID(0,0) &&
-		MGetServerConfig()->IsEnabledDuelTournament() && 
-		MGetServerConfig()->IsSendLoginUserToDuelTournamentChannel())
+		CCGetServerConfig()->IsEnabledDuelTournament() && 
+		CCGetServerConfig()->IsSendLoginUserToDuelTournamentChannel())
 	{
 		for(map<CCUID, CCMatchChannel*>::iterator itor=m_ChannelMap.GetTypesChannelMapBegin(CCCHANNEL_TYPE_DUELTOURNAMENT); 
 			itor!=m_ChannelMap.GetTypesChannelMapEnd(CCCHANNEL_TYPE_DUELTOURNAMENT); itor++) {

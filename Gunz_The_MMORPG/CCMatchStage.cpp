@@ -56,7 +56,7 @@ const bool CCMatchStage::SetChannelRuleForCreateStage(bool bIsAllowNullChannel)
 	if( NULL == pChannel )
 	{
 		// 클랜전은 채널이 없다...
-		if( CSM_CLAN != MGetServerConfig()->GetServerMode() 
+		if( CSM_CLAN != CCGetServerConfig()->GetServerMode() 
 			&& bIsAllowNullChannel == false ) {
 			return false;
 		}		
@@ -843,7 +843,7 @@ void CCMatchStage::OnFinishGame()
 	}
 	CCMatchServer::GetInstance()->StageFinishGame(GetUID());
 
-	if ((MGetServerConfig()->GetServerMode() == CSM_LADDER) || (MGetServerConfig()->GetServerMode() == CSM_CLAN))
+	if ((CCGetServerConfig()->GetServerMode() == CSM_LADDER) || (CCGetServerConfig()->GetServerMode() == CSM_CLAN))
 	{
 		if ((m_nStageType == CCST_LADDER) && (GetStageSetting()->IsTeamPlay()))
 		{
@@ -894,7 +894,7 @@ void CCMatchStage::OnFinishGame()
 				bIsDrawGame = true;
 			}
 
-			CCBaseTeamGameStrategy* pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+			CCBaseTeamGameStrategy* pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(CCGetServerConfig()->GetServerMode());
 			if (pTeamGameStrategy)
 			{
 				pTeamGameStrategy->SavePointOnFinishGame(this, nWinnerTeam, bIsDrawGame, &m_Teams[CCMT_RED].LadderInfo,
@@ -1399,7 +1399,7 @@ bool CCMatchStage::CheckDuelMap()
 
 	// 클랜전은 pChannel이 NULL이 되므로 추가적인 처리가 필요하다. - by SungE 2007-03-21.
 	// 클랜전은 서버에서 맵을 선택해 주기때문에 처리할 필요가 없다. - by SungE 2007-04-12
-	if( MGetServerConfig()->IsClanServer() )
+	if( CCGetServerConfig()->IsClanServer() )
 		return true;
 	
 	CCChannelRule* pRule = GetStageChannelRule();
@@ -1449,7 +1449,7 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 	// - by SungE 2007-03-15
 
 	//// 일반 서버일때... 자유/사설/클랜 채널이면 안된다.
-	//if ( MGetServerConfig()->GetServerMode() == CSM_NORMAL)
+	//if ( CCGetServerConfig()->GetServerMode() == CSM_NORMAL)
 	//{
 	//	if ( stricmp( pChannel->GetRuleName() , CCCHANNEL_RULE_NOVICE_STR) == 0)
 	//		bInvalid = true;
@@ -1581,7 +1581,7 @@ bool CCMatchStage::IsValidMap( const char* pMapName )
 
 	// 클랜전은 pChannel이 NULL이 되므로 추가적인 처리가 필요하다. - by SungE 2007-03-21.
 	// 클랜전은 서버에서 맵을 선택해 주기때문에 처리할 필요가 없다. - by SungE 2007-04-12
-	if( MGetServerConfig()->IsClanServer() )
+	if( CCGetServerConfig()->IsClanServer() )
 		return true;
 
 	// 퀘스트는 제외한다.

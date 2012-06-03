@@ -31,7 +31,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 int CCMatchServer::ValidateChallengeLadderGame(CCMatchObject** ppMemberObject, int nMemberCount)
 {
-	CCBaseTeamGameStrategy* pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+	CCBaseTeamGameStrategy* pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(CCGetServerConfig()->GetServerMode());
 	if (pTeamGameStrategy)
 	{
 		int nRet = pTeamGameStrategy->ValidateChallenge(ppMemberObject, nMemberCount);
@@ -75,8 +75,8 @@ bool CCMatchServer::LadderJoin(const CCUID& uidPlayer, const CCUID& uidStage, CC
 
 void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB)
 {
-	if ((MGetServerConfig()->GetServerMode() != CSM_LADDER) && 
-		(MGetServerConfig()->GetServerMode() != CSM_CLAN)) return;
+	if ((CCGetServerConfig()->GetServerMode() != CSM_LADDER) && 
+		(CCGetServerConfig()->GetServerMode() != CSM_CLAN)) return;
 
 	CCUID uidStage = CCUID(0,0);
 	if (StageAdd(NULL, "LADDER_GAME", true, "", &uidStage) == false) {
@@ -112,7 +112,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	//////////////////////////////////////////////////////////////////////////////
 	int nRandomMap = 0;
 	// 클랜전은 Stage의 팀정보에 CLID까지 설정해야한다.
-	CCBaseTeamGameStrategy* pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+	CCBaseTeamGameStrategy* pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(CCGetServerConfig()->GetServerMode());
 	if (pTeamGameStrategy)
 	{
 		nRandomMap = pTeamGameStrategy->GetRandomMap((int)pGroupA->GetPlayerCount());
@@ -151,7 +151,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 	// test 맵등은 로그 남기지 않는다.
 	if ( (MGetMapDescMgr()->MIsCorrectMap(nRandomMap)) && (MGetGameTypeMgr()->IsCorrectGameType(nGameType)) )
 	{
-		if (pStage->StartGame(MGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {		// 게임시작
+		if (pStage->StartGame(CCGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {		// 게임시작
 			// Send Launch Command
 			ReserveAgent(pStage);
 
@@ -214,13 +214,13 @@ bool CCMatchServer::IsLadderRequestUserInRequestClanMember( const CCUID& uidRequ
 
 void CCMatchServer::OnLadderRequestChallenge(const CCUID& uidRequestMember, void* pMemberNamesBlob, unsigned long int nOptions)
 {
-	if ((MGetServerConfig()->GetServerMode() != CSM_LADDER) && 
-		(MGetServerConfig()->GetServerMode() != CSM_CLAN)) return;
+	if ((CCGetServerConfig()->GetServerMode() != CSM_LADDER) && 
+		(CCGetServerConfig()->GetServerMode() != CSM_CLAN)) return;
 
 	CCMatchObject* pLeaderObject = GetPlayerByComCCUID(uidRequestMember);
 	if (! IsEnabledObject(pLeaderObject)) return;
 
-	if (!MGetServerConfig()->IsEnabledCreateLadderGame())
+	if (!CCGetServerConfig()->IsEnabledCreateLadderGame())
 	{
 		RouteResponseToListener(pLeaderObject, MC_MATCH_LADDER_RESPONSE_CHALLENGE, MERR_LADDER_NOT_SERVICE_TIME);
 		return;
@@ -264,7 +264,7 @@ void CCMatchServer::OnLadderRequestChallenge(const CCUID& uidRequestMember, void
 
 	CCBaseTeamGameStrategy* pTeamGameStrategy = NULL;
 
-	pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+	pTeamGameStrategy = CCBaseTeamGameStrategy::GetInstance(CCGetServerConfig()->GetServerMode());
 	if (pTeamGameStrategy)
 	{
         nTeamID = pTeamGameStrategy->GetNewGroupID(pLeaderObject, pMemberObjects, nMemberCount);
@@ -321,7 +321,7 @@ void CCMatchServer::OnRequestProposal(const CCUID& uidProposer, const int nPropo
 	}
 
 
-	if (!MGetServerConfig()->IsEnabledCreateLadderGame())
+	if (!CCGetServerConfig()->IsEnabledCreateLadderGame())
 	{
 		// 메세지 보내주고 끝.
 		CCCommand* pNewCmd = CreateCommand(MC_MATCH_RESPONSE_PROPOSAL, CCUID(0,0));

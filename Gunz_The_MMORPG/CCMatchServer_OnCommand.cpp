@@ -30,7 +30,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 		m_objectCommandHistory.PushCommand( pCommand->GetSenderUID(), pCommand->GetID(), GetGlobalClockCount(), &bFloodingSuspect);
 		if(bFloodingSuspect)
 		{
-			if (MGetServerConfig()->IsUseBlockFlooding())
+			if (CCGetServerConfig()->IsUseBlockFlooding())
 			{
 				CCMatchObject* pObj = GetObject( pCommand->GetSenderUID() );
 				if( pObj && pObj->GetDisconnStatusInfo().GetStatus() == CCMDS_CONNECTED)
@@ -56,7 +56,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 		return true;
 
 #ifdef _GAMEGUARD
-	if( MGetServerConfig()->IsUseGamegaurd() )
+	if( CCGetServerConfig()->IsUseGamegaurd() )
 	{
 		// 최고 인증후 커맨드 요청 허용 방법은 클라이언트의
 		//  - by SungE 2007-09-19
@@ -1671,7 +1671,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 				CCUID uidPlayer;
 				
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
-				if (MGetServerConfig()->IsUseBlockFlooding())
+				if (CCGetServerConfig()->IsUseBlockFlooding())
 				{
 					CCMatchObject* pObj = GetObject( uidPlayer );
 					if( pObj && pObj->GetDisconnStatusInfo().GetStatus() == CCMDS_CONNECTED)
@@ -1703,7 +1703,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				pCommand->GetParameter(&nType, 1, MPT_INT);
 
-				if( MGetServerConfig()->IsEnabledDuelTournament() )	{
+				if( CCGetServerConfig()->IsEnabledDuelTournament() )	{
                     ResponseDuelTournamentJoinChallenge(uidPlayer, nType);
 				}
 
@@ -1718,7 +1718,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 				pCommand->GetParameter(&nType, 1, MPT_INT);
 
-				if( MGetServerConfig()->IsEnabledDuelTournament() )	{
+				if( CCGetServerConfig()->IsEnabledDuelTournament() )	{
 					ResponseDuelTournamentCancelChallenge(uidPlayer, nType);
 				}
 			}
@@ -1730,7 +1730,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 
-				if( MGetServerConfig()->IsEnabledDuelTournament() ){
+				if( CCGetServerConfig()->IsEnabledDuelTournament() ){
 					ResponseDuelTournamentCharSideRanking(uidPlayer);
 				}
 			}
@@ -1741,7 +1741,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 				CCUID uidPlayer;
 				pCommand->GetParameter(&uidPlayer, 0, MPT_UID);
 
-				if( MGetServerConfig()->IsEnabledDuelTournament() ){
+				if( CCGetServerConfig()->IsEnabledDuelTournament() ){
 					ResponseDuelTournamentCharStatusInfo(uidPlayer, pCommand);
 				}
 			}
