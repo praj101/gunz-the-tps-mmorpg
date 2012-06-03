@@ -1089,7 +1089,7 @@ void ZGameClient::OnResponseFriendList(void* pBlob, int nCount)
 
 	char szBuf[128];
 	for(int i=0; i<nCount; i++){
-		MFRIENDLISTNODE* pNode = (MFRIENDLISTNODE*)CCGetBlobArrayElement(pBlob, i);
+		CCFRIENDLISTNODE* pNode = (CCFRIENDLISTNODE*)CCGetBlobArrayElement(pBlob, i);
 
 		ePlayerState state;
 		switch (pNode->nState)

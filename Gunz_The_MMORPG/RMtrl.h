@@ -134,7 +134,7 @@ public:
 	void	Del(RMtrl* tex);
 	int		GetNum();
 
-	vector<RMtrl*>	m_iode_table;
+	vector<RMtrl*>	m_node_table;
 
 	bool	m_bObjectMtrl;// effect ,interface , object 를 구분해준다~
 	int		m_id_last;

@@ -31,6 +31,10 @@
 #include "ZModule_HealOverTime.h"
 #include "ZGameConst.h"
 
+#include "ZObserver.h"
+#include "ZCombatInterface.h"
+#include "ZMyInfo.h"
+#include "ZStringResManager.h"
 
 #define ANGLE_TOLER			.1f
 #define ANGLE_SPEED			12.f
@@ -3195,15 +3199,15 @@ void ZCharacter::OutputDebugString_CharacterState()
 
 	str.AddLine(1);
 
-		 if(m_nMoveMode.Ref()==MCMM_WALK)	{ AddTextEnum(m_nMoveMode.Ref(),MCMM_WALK); }
-	else if(m_nMoveMode.Ref()==MCMM_RUN)	{ AddTextEnum(m_nMoveMode.Ref(),MCMM_RUN);  }
+		 if(m_nMoveMode.Ref()==CCCMM_WALK)	{ AddTextEnum(m_nMoveMode.Ref(),CCCMM_WALK); }
+	else if(m_nMoveMode.Ref()==CCCMM_RUN)	{ AddTextEnum(m_nMoveMode.Ref(),CCCMM_RUN);  }
 
-		 if(m_nMode.Ref()==MCM_PEACE)		{ AddTextEnum(m_nMode.Ref(),MCM_PEACE);	  }
-	else if(m_nMode.Ref()==MCM_OFFENSIVE)	{ AddTextEnum(m_nMode.Ref(),MCM_OFFENSIVE); }
+		 if(m_nMode.Ref()==CCCM_PEACE)		{ AddTextEnum(m_nMode.Ref(),CCCM_PEACE);	  }
+	else if(m_nMode.Ref()==CCCM_OFFENSIVE)	{ AddTextEnum(m_nMode.Ref(),CCCM_OFFENSIVE); }
 
-		 if(m_nState.Ref()==MCS_STAND)		{ AddTextEnum(m_nState.Ref(),MCS_STAND);	}
-	else if(m_nState.Ref()==MCS_SIT)		{ AddTextEnum(m_nState.Ref(),MCS_SIT);	}
-	else if(m_nState.Ref()==MCS_DEAD)		{ AddTextEnum(m_nState.Ref(),MCS_DEAD);	}
+		 if(m_nState.Ref()==CCCS_STAND)		{ AddTextEnum(m_nState.Ref(),CCCS_STAND);	}
+	else if(m_nState.Ref()==CCCS_SIT)		{ AddTextEnum(m_nState.Ref(),CCCS_SIT);	}
+	else if(m_nState.Ref()==CCCS_DEAD)		{ AddTextEnum(m_nState.Ref(),CCCS_DEAD);	}
 
 	str.AddLine(1);
 

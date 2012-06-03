@@ -35,6 +35,9 @@
 #include "ZRuleDuelTournament.h"
 #include "ZInput.h"
 
+#include "ZActor.h"
+#include "ZStringResManager.h"
+
 #include "ZNHN_USA_Report.h"
 
 
@@ -179,7 +182,7 @@ bool ZCombatInterface::OnCreate()
 					  ZApplication::GetGameInterface()->GetIDLResource());
 
 
-	m_pTargetLabel = new MLabel("", this, this);
+	m_pTargetLabel = new CCLabel("", this, this);
 	m_pTargetLabel->SetTextColor(0xffff0000);
 	m_pTargetLabel->SetSize(100, 30);
 
@@ -230,7 +233,7 @@ bool ZCombatInterface::OnCreate()
 		{
 			int nMargin[ BMNUM_NUMOFCHARSET] = { 13,9,13,13,13,13,13,13,13,13,8,10,8 };
 
-			ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Blue");
+			ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Blue");
 			if ( pBmNumLabel)
 			{
 				pBmNumLabel->SetAlignmentMode( CCD_HCENTER);
@@ -238,7 +241,7 @@ bool ZCombatInterface::OnCreate()
 				pBmNumLabel->SetNumber( 0);
 			}
 
-			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Red");
+			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Red");
 			if ( pBmNumLabel)
 			{
 				pBmNumLabel->SetAlignmentMode( CCD_HCENTER);
@@ -247,7 +250,7 @@ bool ZCombatInterface::OnCreate()
 				pBmNumLabel->SetNumber( 0);
 			}
 
-			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Max");
+			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Max");
 			if ( pBmNumLabel)
 			{
 				pBmNumLabel->SetAlignmentMode( CCD_HCENTER);
@@ -287,7 +290,7 @@ bool ZCombatInterface::OnCreate()
 		if ( pPicture)
 			pPicture->Show( true);
 
-		ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DT_RemainTime");
+		ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DT_RemainTime");
 
 		if(pBmNumLabel)
 		{
@@ -312,7 +315,7 @@ bool ZCombatInterface::OnCreate()
 			{
 				pChild = pFrame->GetChild(i);
 				if (pChild &&
-					strcmp(pChild->GetClassName(), CORE_LABEL) == 0 &&
+					strcmp(pChild->GetClassName(), CORE_CCLABEL) == 0 &&
 					strstr(pChild->m_szIDLName, "CombatDT_PlayerInfo_"))
 				{
 					if (strstr(pChild->m_szIDLName, "Left"))
@@ -611,15 +614,15 @@ void ZCombatInterface::DrawTDMScore(CCDrawContext* pDC)
 	int nTargetKills = ZGetGameClient()->GetMatchStageSetting()->GetRoundMax();
 
 
-	ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Blue");
+	ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Blue");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetNumber( nBlueKills);
 
-	pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Red");
+	pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Red");
 	if ( pBmNumLabel)
 		pBmNumLabel->SetNumber( nRedKills);
 
-	pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Max");
+	pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "TDM_Score_Max");
 		pBmNumLabel->SetNumber( nTargetKills);
 
 
@@ -1204,7 +1207,7 @@ void ZCombatInterface::OnDrawCustom(CCDrawContext* pDC)
 		if ( ZGetGameTypeManager()->IsQuestOnly( ZGetGame()->GetMatch()->GetMatchType()))
 		{
 			int nNumCount = ( timeGetTime() - (m_nReservedOutTime - 15000)) * 3.6418424f;		// 3.6418424f는 gain 값이다.
-			ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetPlusXP");
+			ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetPlusXP");
 			if ( pBmNumLabel)
 			{
 				if ( nNumCount < ZGetQuest()->GetRewardXP())
@@ -1212,10 +1215,10 @@ void ZCombatInterface::OnDrawCustom(CCDrawContext* pDC)
 				else
 					pBmNumLabel->SetNumber( ZGetQuest()->GetRewardXP(), false);
 			}
-			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetMinusXP");
+			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetMinusXP");
 			if ( pBmNumLabel)
 				pBmNumLabel->SetNumber( 0, false);
-			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetTotalXP");
+			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetTotalXP");
 			if ( pBmNumLabel)
 			{
 				if ( nNumCount < ZGetQuest()->GetRewardXP())
@@ -1223,7 +1226,7 @@ void ZCombatInterface::OnDrawCustom(CCDrawContext* pDC)
 				else
 					pBmNumLabel->SetNumber( ZGetQuest()->GetRewardXP(), false);
 			}
-			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetBounty");
+			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetBounty");
 			if ( pBmNumLabel)
 			{
 				if ( nNumCount < ZGetQuest()->GetRewardBP())
@@ -1236,11 +1239,11 @@ void ZCombatInterface::OnDrawCustom(CCDrawContext* pDC)
 		{
 			int nNumCount = ( timeGetTime() - (m_nReservedOutTime - 15000)) * 3.6418424f;		// 3.6418424f는 gain 값이다.
 
-			ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetReachedRound");
+			ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetReachedRound");
 			if ( pBmNumLabel)
 				pBmNumLabel->SetNumber( static_cast< ZSurvival* >(ZGetQuest())->GetReachedRound(), false);
 			
-			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetPoint");
+			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetPoint");
 			if ( pBmNumLabel)
 			{
 				if ( nNumCount < ZGetQuest()->GetRewardXP())
@@ -1249,7 +1252,7 @@ void ZCombatInterface::OnDrawCustom(CCDrawContext* pDC)
 					pBmNumLabel->SetNumber( static_cast< ZSurvival* >(ZGetQuest())->GetPoint(), false);
 			}
 			
-			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetXP");
+			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetXP");
 			if ( pBmNumLabel)
 			{
 				if ( nNumCount < ZGetQuest()->GetRewardXP())
@@ -1258,7 +1261,7 @@ void ZCombatInterface::OnDrawCustom(CCDrawContext* pDC)
 					pBmNumLabel->SetNumber( ZGetQuest()->GetRewardXP(), false);
 			}
 
-			pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetBounty");
+			pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetBounty");
 			if ( pBmNumLabel)
 			{
 				if ( nNumCount < ZGetQuest()->GetRewardBP())
@@ -2923,16 +2926,16 @@ void ZCombatInterface::GetResultInfo( void)
 			pWidget->Show( true);
 
 		//  경험치 및 바운티 초기화
-		ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetPlusXP");
+		ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetPlusXP");
 		if ( pBmNumLabel)
 			pBmNumLabel->SetNumber( 0, false);
-		pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetMinusXP");
+		pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetMinusXP");
 		if ( pBmNumLabel)
 			pBmNumLabel->SetNumber( 0, false);
-		pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetTotalXP");
+		pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetTotalXP");
 		if ( pBmNumLabel)
 			pBmNumLabel->SetNumber( 0, false);
-		pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetBounty");
+		pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "QuestResult_GetBounty");
 		if ( pBmNumLabel)
 			pBmNumLabel->SetNumber( 0, false);
 	}
@@ -2946,16 +2949,16 @@ void ZCombatInterface::GetResultInfo( void)
 			pWidget->Show( true);
 
 		//  경험치 및 바운티 초기화
-		ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetReachedRound");
+		ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetReachedRound");
 		if ( pBmNumLabel)
 			pBmNumLabel->SetNumber( 0, false);
-		pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetPoint");
+		pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetPoint");
 		if ( pBmNumLabel)
 			pBmNumLabel->SetNumber( 0, false);
-		pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetXP");
+		pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetXP");
 		if ( pBmNumLabel)
 			pBmNumLabel->SetNumber( 0, false);
-		pBmNumLabel = (ZBmNuCCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetBounty");
+		pBmNumLabel = (ZBmNumLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "SurvivalResult_GetBounty");
 		if ( pBmNumLabel)
 			pBmNumLabel->SetNumber( 0, false);
 	}
@@ -3091,7 +3094,7 @@ void ZCombatInterface::GetResultInfo( void)
 	else
 	{
 		// 초기 UI 설정
-		if ( (ZGetLocale()->GetCountry() == MC_US) || (ZGetLocale()->GetCountry() == MC_BRAZIL) || (ZGetLocale()->GetCountry() == MC_INDIA))
+		if ( (ZGetLocale()->GetCountry() == CCC_US) || (ZGetLocale()->GetCountry() == CCC_BRAZIL) || (ZGetLocale()->GetCountry() == CCC_INDIA))
 		{
 			// 인터내셔널 및 브라질 버젼 한정 옵션
 			if ( (rand() % 2))

@@ -40,6 +40,8 @@
 #include "ZShopEquipInterface.h"
 #include "ZShopEquipListbox.h"
 
+#include "ZStringResManager.h"
+
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA_Report.h"
 #endif
@@ -49,7 +51,7 @@
 class MChatInputListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, CCEdit_ENTER_VALUE)==true){
+		if(CCWidget::IsMsg(szMessage, CCEDIT_ENTER_VALUE)==true){
 			const char* szCommand = pWidget->GetText();
 			ZChatOutput(szCommand);
 
@@ -62,7 +64,7 @@ public:
 			pWidget->SetText("");
 			return true;
 		}
-		else if ((CCWidget::IsMsg(szMessage, CCEdit_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEdit_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, CCEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEDIT_KEYDOWN_MSG)==true))
 		{
 			ZGetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -215,7 +217,7 @@ MExitListener	g_ExitListener;
 class CCChannelChatInputListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, CCEdit_ENTER_VALUE)==true){
+		if(CCWidget::IsMsg(szMessage, CCEDIT_ENTER_VALUE)==true){
 			char szChat[512];
 			if (strlen(pWidget->GetText()) < 255)
 			{
@@ -227,7 +229,7 @@ public:
 			}
 			return true;
 		}
-		else if ((CCWidget::IsMsg(szMessage, CCEdit_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEdit_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, CCEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEDIT_KEYDOWN_MSG)==true))
 		{
 			ZGetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -239,7 +241,7 @@ CCChannelChatInputListener	g_ChannelChatInputListener;
 class MStageChatInputListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
-		if(CCWidget::IsMsg(szMessage, CCEdit_ENTER_VALUE)==true){
+		if(CCWidget::IsMsg(szMessage, CCEDIT_ENTER_VALUE)==true){
 			char szChat[512];
 			if (strlen(pWidget->GetText()) < 255)
 			{
@@ -251,7 +253,7 @@ public:
 			}
 			return true;
 		}
-		else if ((CCWidget::IsMsg(szMessage, CCEdit_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEdit_KEYDOWN_MSG)==true))
+		else if ((CCWidget::IsMsg(szMessage, CCEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEDIT_KEYDOWN_MSG)==true))
 		{
 			ZGetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
@@ -1611,7 +1613,7 @@ void ZReport112FromListener()
 }
 
 
-BEGIN_IMPLEMENT_LISTENER(ZGet112ConfirCCEditListener, CCEdit_ENTER_VALUE)
+BEGIN_IMPLEMENT_LISTENER(ZGet112ConfirCCEditListener, CCEDIT_ENTER_VALUE)
 	ZReport112FromListener();
 END_IMPLEMENT_LISTENER();
 

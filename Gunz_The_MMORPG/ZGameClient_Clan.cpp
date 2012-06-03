@@ -39,6 +39,10 @@
 
 #include "ZLanguageConf.h"
 
+#include "ZStringResManager.h"
+#include "CCPicture.h"
+#include "CCLabel.h"
+
 #define CLAN_CREATING_AGREEMENT_TIMEOUT			(1000 * 30)		// 30초 타임아웃
 #define CLAN_JOINING_AGREEMENT_TIMEOUT			(1000 * 30)
 
@@ -632,21 +636,21 @@ void ZGameClient::OnClanResponseClanInfo(void* pBlob)
 
 
 	sprintf(szOutput,"%d/%d",ZGetNetRepository()->GetClanInfo()->nWins,ZGetNetRepository()->GetClanInfo()->nLosses);
-	ZBmNumLabel *pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_ClanInfoWinLose");
+	ZBmNumLabel *pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_ClanInfoWinLose");
 	pNumLabel->SetText(szOutput);
 
 	sprintf(szOutput,"%d", ZGetNetRepository()->GetClanInfo()->nPoint);
-	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_ClanInfoPoints");
+	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_ClanInfoPoints");
 	pNumLabel->SetText(szOutput);
 
-	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_ClanInfoTotalPoints");
+	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_ClanInfoTotalPoints");
 	//		sprintf(szOutput,"%d",ZGetNetRepository()->GetClanInfo()->nWins,ZGetNetRepository()->GetClanInfo()->nXP);
 	//		pNumLabel->SetText(szOutput);
 	pNumLabel->SetNumber(ZGetNetRepository()->GetClanInfo()->nTotalPoint,true);
 
 	int nRanking = pClanInfo->nRanking;
 
-	pNumLabel = (ZBmNuCCLabel*)pRes->FindWidget("Lobby_ClanInfoRanking");
+	pNumLabel = (ZBmNumLabel*)pRes->FindWidget("Lobby_ClanInfoRanking");
 	pNumLabel->SetIndexOffset(16);	// 아래쪽 색다른 글씨로 찍는다
 	CCWidget *pUnranked = pRes->FindWidget("Lobby_ClanInfoUnranked");
 	if(nRanking == 0) {

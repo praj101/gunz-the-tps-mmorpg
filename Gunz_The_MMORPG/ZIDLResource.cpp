@@ -684,14 +684,14 @@ ZPlayerSelectListBox* ZIDLResource::GetPlayerSelectListBox(CCXmlElement& element
 	return pWidget;
 }
 
-ZBmNuCCLabel* ZIDLResource::GetBmNumLabel(CCXmlElement& element)
+ZBmNumLabel* ZIDLResource::GetBmNumLabel(CCXmlElement& element)
 {
 	CCXmlElement childElement;
 	char szBuf[1024];
 	CCWidget* pParentWidget;	CCListener* pListener;
 
 	pListener = pParentWidget = GetParentWidget(element);
-	ZBmNuCCLabel* pBmLabel = new ZBmNumLabel(CORE_ZBMNUMLABEL, pParentWidget, pListener);
+	ZBmNumLabel* pBmLabel = new ZBmNumLabel(CORE_ZBMNUMLABEL, pParentWidget, pListener);
 	InsertWidget(element, pBmLabel);
 
 	int iCount = element.GetChildNodeCount();

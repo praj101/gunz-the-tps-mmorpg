@@ -378,7 +378,7 @@ void ZRuleDuelTournament::OnDraw(CCDrawContext* pDC)
 {
 	// 남은 시간표시
 	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "CombatDTInfo");
-	ZBmNuCCLabel* pBmNumLabel = (ZBmNuCCLabel*) ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DT_RemainTime");
+	ZBmNumLabel* pBmNumLabel = (ZBmNumLabel*) ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DT_RemainTime");
 	CCWidget *pPicture = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "DM_Infinity_Time");
 	if (pWidget && pBmNumLabel && pPicture)
 	{

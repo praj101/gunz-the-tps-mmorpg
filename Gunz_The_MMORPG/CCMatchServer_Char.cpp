@@ -598,11 +598,11 @@ void CCMatchServer::FriendList(const CCUID& uidPlayer)
 
 	CCMatchFriendList* pList = &pObj->GetFriendInfo()->m_FriendList;
 
-	void* pListArray = CCMakeBlobArray(sizeof(MFRIENDLISTNODE), (int)pList->size());
+	void* pListArray = CCMakeBlobArray(sizeof(CCFRIENDLISTNODE), (int)pList->size());
 	int nIndex=0;
 	for (CCMatchFriendList::iterator i=pList->begin(); i!=pList->end(); i++) {
 		CCMatchFriendNode* pNode = (*i);
-		MFRIENDLISTNODE* pListNode = (MFRIENDLISTNODE*)CCGetBlobArrayElement(pListArray, nIndex++);
+		CCFRIENDLISTNODE* pListNode = (CCFRIENDLISTNODE*)CCGetBlobArrayElement(pListArray, nIndex++);
 		pListNode->nState = pNode->nState;
 		strcpy(pListNode->szName, pNode->szName);
 		strcpy(pListNode->szDescription, pNode->szDescription);

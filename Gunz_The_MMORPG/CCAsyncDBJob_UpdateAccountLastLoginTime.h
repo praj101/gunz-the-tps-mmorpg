@@ -2,14 +2,14 @@
 
 #include "CCAsyncDBJob.h"
 
-class MAsyncDBJob_UpdateAccountLastLoginTime : public MAsyncJob
+class CCAsyncDBJob_UpdateAccountLastLoginTime : public CCAsyncJob
 {
 public :
-	MAsyncDBJob_UpdateAccountLastLoginTime(const MUID& uidOwner) : MAsyncJob( MASYNCJOB_UPDATEACCOUNTLASTLOGINTIME, uidOwner )
+	CCAsyncDBJob_UpdateAccountLastLoginTime(const CCUID& uidOwner) : CCAsyncJob( CCASYNCJOB_UPDATEACCOUNTLASTLOGINTIME, uidOwner )
 	{
 	}
 
-	~MAsyncDBJob_UpdateAccountLastLoginTime()
+	~CCAsyncDBJob_UpdateAccountLastLoginTime()
 	{
 	}
 
@@ -20,7 +20,7 @@ public :
 
 	void Run( void* pContext )
 	{
-		MMatchDBMgr* pDBMgr = (MMatchDBMgr*)pContext;
+		CCMatchDBMgr* pDBMgr = (CCMatchDBMgr*)pContext;
 
 		pDBMgr->UpdateAccountLastLoginTime( m_dwAID );
 	}
