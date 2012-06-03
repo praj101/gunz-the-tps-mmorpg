@@ -353,11 +353,11 @@ bool ExceptionTraceStageEnterBattle( CCMatchObject* pObj, CCMatchStage* pStage )
 		return false;
 	}
 
-	__try
+//	__try
 	{
 		pStage->EnterBattle(pObj);
 	}
-	__except( StageEnterBattleExceptionHandler(GetExceptionInformation()) )
+/*	__except( StageEnterBattleExceptionHandler(GetExceptionInformation()) )
 	{
 		cclog( "\nexception : stage enter battle =====================\n" );
 
@@ -423,7 +423,7 @@ bool ExceptionTraceStageEnterBattle( CCMatchObject* pObj, CCMatchStage* pStage )
 
 		return false;
 	}
-
+*/
 	return true;
 }
 
