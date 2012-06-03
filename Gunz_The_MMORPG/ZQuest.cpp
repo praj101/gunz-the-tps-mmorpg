@@ -32,6 +32,7 @@
 // Added R350a
 #include "ZMyInfo.h"
 #include "ZCombatInterface.h"
+#include "ZStringResManager.h"
 
 
 ZQuest::ZQuest() : m_bLoaded(false), m_bCreatedOnce(false)

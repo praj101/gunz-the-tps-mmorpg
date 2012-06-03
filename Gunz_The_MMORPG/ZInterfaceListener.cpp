@@ -2148,7 +2148,7 @@ BEGIN_IMPLEMENT_LISTENER(ZEquipmetRotateBtn, CCBTN_CLK_MSG)
 	{
 		pCharView->EnableAutoRotate( !pCharView->IsAutoRotate());
 		
-		MBCCButton* pButton = (MBCCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Equipment_CharacterRotate");
+		CCBmButton* pButton = (CCBmButton*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Equipment_CharacterRotate");
 		if ( pButton)
 		{
 			if ( pCharView->IsAutoRotate())

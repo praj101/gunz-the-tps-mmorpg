@@ -12,6 +12,10 @@
 #include "ZGameClient.h"
 #include "CCComboBox.h"
 #include "CCPicture.h"
+#include "ZStringResManager.h"
+#include "ZPost.h"
+#include "ZGameClient.h"
+
 
 static ZIDLResource* GetIDLResource() {
 	return ZGetGameInterface()->GetIDLResource();
@@ -809,19 +813,19 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 	}
 
 	// 상점과 장비창의 탭 버튼 눌림 상태를 동기화해주자 -_-;
-	MBCCButton* pTabBtn;
+	CCBmButton* pTabBtn;
 	if (GetArmorWeaponTabIndex() == 0)
 	{
-		pTabBtn = (MBCCButton*)pResource->FindWidget("Shop_ArmorEquipmentTab");
+		pTabBtn = (CCBmButton*)pResource->FindWidget("Shop_ArmorEquipmentTab");
 		if (pTabBtn) pTabBtn->SetCheck(true);
-		pTabBtn = (MBCCButton*)pResource->FindWidget("Equip_ArmorEquipmentTab");
+		pTabBtn = (CCBmButton*)pResource->FindWidget("Equip_ArmorEquipmentTab");
 		if (pTabBtn) pTabBtn->SetCheck(true);
 	}
 	else if (GetArmorWeaponTabIndex() == 1)
 	{
-		pTabBtn = (MBCCButton*)pResource->FindWidget("Shop_WeaponEquipmentTab");
+		pTabBtn = (CCBmButton*)pResource->FindWidget("Shop_WeaponEquipmentTab");
 		if (pTabBtn) pTabBtn->SetCheck(true);
-		pTabBtn = (MBCCButton*)pResource->FindWidget("Equip_WeaponEquipmentTab");
+		pTabBtn = (CCBmButton*)pResource->FindWidget("Equip_WeaponEquipmentTab");
 		if (pTabBtn) pTabBtn->SetCheck(true);
 	}
 }

@@ -338,7 +338,7 @@ void CCMatchServer::OnMatchLoginFromNetmarbleJP(const CCUID& ComCCUID, const cha
 	if (!CheckOnLoginPre(ComCCUID, nCmdVersion, bFreeLoginIP, strCountryCode3)) return;
 
 	// DBAgent에 먼저 보내고 응답을 받으면 로그인 프로세스를 진행한다.
-	if (!MGetLocale()->PostLoginInfoToDBAgent(ComCCUID, szLoginID, szLoginPW, bFreeLoginIP, nChecksumPack, GetClientCount()))
+	if (!CCGetLocale()->PostLoginInfoToDBAgent(ComCCUID, szLoginID, szLoginPW, bFreeLoginIP, nChecksumPack, GetClientCount()))
 	{
 		cclog( "Server user full(DB agent error).\n" );
 		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_FULL_PLAYERS);
@@ -489,7 +489,7 @@ bool CCMatchServer::AddObjectOnMatchLogin(const CCUID& uidComm,
 	}
 
 	pObj->AddCommListener(uidComm);
-	pObj->SetObjectType(MOT_PC);
+	pObj->SetObjectType(CCOT_PC);
 
 	memcpy(pObj->GetAccountInfo(), pSrcAccountInfo, sizeof(CCMatchAccountInfo));
 	memcpy(pObj->GetAccountPenaltyInfo(), pSrcAccountPenaltyInfo, sizeof(CCMatchAccountPenaltyInfo));

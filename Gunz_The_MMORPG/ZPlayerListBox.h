@@ -393,7 +393,7 @@ private:
 //	CCBitmap*					m_pBitmap;
 //	CCBitmap*					m_pBitmapIn;
 
-	MBCCButton*					m_pButton;
+	CCBmButton*					m_pButton;
 
 //	map< CCUID, sPlayerInfo*>	mPlayers;
 	vector<CCUID>				mPlayerOrder;

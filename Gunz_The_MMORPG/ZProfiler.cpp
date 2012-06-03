@@ -5,6 +5,7 @@
 
 // Added R350a
 #include "DirectX/D3D9.h"
+#include "RealSpace2.h"
 ZProfiler::ZProfiler() : m_nRingHead(0)
 {
 	m_dwLastTime = timeGetTime();
@@ -44,15 +45,15 @@ void ZProfiler::Render()
 		nRingIndex = (nRingIndex +1) % FRAME_RING_BUFFER_SIZE;
 	}
 
-	RGetDevice()->SetFVF( D3DFVF_XYZRHW );
-	RGetDevice()->SetRenderState(D3DRS_ZENABLE, FALSE );
-	RGetDevice()->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TFACTOR);
-	RGetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP,   D3DTOP_SELECTARG1 );
-	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAARG1, D3DTA_TFACTOR);
-	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP,   D3DTOP_SELECTARG1 );
-	RGetDevice()->SetTextureStageState( 1, D3DTSS_COLOROP,   D3DTOP_DISABLE );
-	RGetDevice()->SetTextureStageState( 1, D3DTSS_ALPHAOP,   D3DTOP_DISABLE );
-	RGetDevice()->SetRenderState(D3DRS_TEXTUREFACTOR ,   0xff00ffff);
-	RGetDevice()->DrawPrimitiveUP(D3DPT_LINESTRIP,FRAME_RING_BUFFER_SIZE-1,&v,sizeof(D3DXVECTOR4));
+	RealSpace2::RGetDevice()->SetFVF( D3DFVF_XYZRHW );
+	RealSpace2::RGetDevice()->SetRenderState(D3DRS_ZENABLE, FALSE );
+	RealSpace2::RGetDevice()->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	RealSpace2::RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TFACTOR);
+	RealSpace2::RGetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP,   D3DTOP_SELECTARG1 );
+	RealSpace2::RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAARG1, D3DTA_TFACTOR);
+	RealSpace2::RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP,   D3DTOP_SELECTARG1 );
+	RealSpace2::RGetDevice()->SetTextureStageState( 1, D3DTSS_COLOROP,   D3DTOP_DISABLE );
+	RealSpace2::RGetDevice()->SetTextureStageState( 1, D3DTSS_ALPHAOP,   D3DTOP_DISABLE );
+	RealSpace2::RGetDevice()->SetRenderState(D3DRS_TEXTUREFACTOR ,   0xff00ffff);
+	RealSpace2::RGetDevice()->DrawPrimitiveUP(D3DPT_LINESTRIP,FRAME_RING_BUFFER_SIZE-1,&v,sizeof(D3DXVECTOR4));
 }

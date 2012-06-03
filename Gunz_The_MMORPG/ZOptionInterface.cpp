@@ -17,6 +17,13 @@
 #include "CCComboBox.h"
 #include "CCSlider.h"
 #include "ZGameInterface.h"
+// Added R353a
+#include "ZGameClient.h"
+#include "ZCombatInterface.h"
+#include "ZCrossHair.h"
+#include "ZStringResManager.h"
+#include "ZPost.h"
+#include "CCTabCtrl.h"
 
 #define DEFAULT_SLIDER_MAX			10000
 
@@ -1576,7 +1583,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetSaveOptionButtonListener, CCBTN_CLK_MSG)
 
 	if( pWidget->m_bEventAcceleratorCall ) {
 
-		MTabCtrl* pTab = (MTabCtrl*)pResource->FindWidget("OptionTabControl");
+		CCTabCtrl* pTab = (CCTabCtrl*)pResource->FindWidget("OptionTabControl");
 
 		if(pTab) {//키보드 옵션은 키입력을 막아준다.
 			if(pTab->GetSelIndex()==3)//이름을 찾아 조사
@@ -1689,7 +1696,7 @@ END_IMPLEMENT_LISTENER()
 //////////////////////////////////////////////////
 /// video
 
-BEGIN_IMPLEMENT_LISTENER(ZGetOptionGammaSliderChangeListener, MLIST_VALUE_CHANGED)
+BEGIN_IMPLEMENT_LISTENER(ZGetOptionGammaSliderChangeListener, CCLIST_VALUE_CHANGED)
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	CCSlider* pSlider = (CCSlider*)pResource->FindWidget("VideoGamma");
 	if (pSlider != NULL) 
@@ -1805,7 +1812,7 @@ static void SetMouseSensitivityEdit(int i)
 }
 
 
-BEGIN_IMPLEMENT_LISTENER( ZGetMouseSensitivitySliderListener, MLIST_VALUE_CHANGED)
+BEGIN_IMPLEMENT_LISTENER( ZGetMouseSensitivitySliderListener, CCLIST_VALUE_CHANGED)
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	CCSlider* pSlider = (CCSlider*)pResource->FindWidget("MouseSensitivitySlider");
 	if (pSlider != NULL) 
@@ -1827,12 +1834,12 @@ CCListener* ZGetMouseSensitivityEditListener(){
 				int i = atoi( pEdit->GetText());
 				int v = ZGetConfiguration()->ValidateMouseSensitivityInInt(i);
 
-				if(CCWidget::IsMsg(szMessage, CCEdit_CHAR_MSG)==true)
+				if(CCWidget::IsMsg(szMessage, CCEDIT_CHAR_MSG)==true)
 				{
 					SetMouseSensitivitySlider(v);
 					return true;
 				}
-				else if(CCWidget::IsMsg(szMessage, CCEdit_KILL_FOCUS)==true)
+				else if(CCWidget::IsMsg(szMessage, CCEDIT_KILL_FOCUS)==true)
 				{
 					SetMouseSensitivitySlider(v);
 					SetMouseSensitivityEdit(v);
