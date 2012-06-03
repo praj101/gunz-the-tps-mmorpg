@@ -11,6 +11,7 @@
 // Added R351a
 #include "CCComboBox.h"
 #include "ZMyInfo.h"
+#include "ZPost.h"
 
 ZShopEquipListItem::ZShopEquipListItem(ZShopEquipItem* pItemData)
 : m_pItemData(pItemData)
