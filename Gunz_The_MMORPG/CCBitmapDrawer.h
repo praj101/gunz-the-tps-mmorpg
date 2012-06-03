@@ -1,6 +1,8 @@
-#pragma once
+#ifndef CCBitmapDrawer_H
+#define CCBitmapDrawer_H
 
 #include "CCTypes.h"
+
 
 #define FRAME_OUTLINE_WIDTH	1
 #define FRAME_WIDTH		5
@@ -25,3 +27,6 @@ bool IsNull(CCBitmap** ps, int nCount);
 // Safety Call
 #define GETWIDTH(_Image)	((_Image==NULL)?0:_Image->GetWidth())
 #define GETHEIGHT(_Image)	((_Image==NULL)?0:_Image->GetHeight())
+
+
+#endif

@@ -85,7 +85,7 @@ ZApplication	g_App;
 CCDrawContextR2* g_pDC = NULL;
 CCFontR2*		g_pDefFont = NULL;
 ZDirectInput	g_DInput;
-ZInput*			g_pInput = NULL;
+extern ZInput*			g_pInput;
 Core4Gunz		g_Core;
 
 HRESULT GetDirectXVersionViaDxDiag( DWORD* pdwDirectXVersionMajor, DWORD* pdwDirectXVersionMinor, TCHAR* pcDirectXVersionLetter );

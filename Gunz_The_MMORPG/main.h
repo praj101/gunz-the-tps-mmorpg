@@ -5,12 +5,12 @@
 
 #pragma warning(disable:4099)
 #ifdef _DEBUG
-#pragma comment(lib,"cmld.lib")
-#pragma comment(lib,"core2d.lib")
-#pragma comment(lib,"RealSoundd.lib")
-#pragma comment(lib,"RealSpace2d.lib")
-#pragma comment(lib,"CSCommonDE.lib")
-#pragma comment(lib,"SafeUDPd.lib")
+//#pragma comment(lib,"cmld.lib")
+//#pragma comment(lib,"core2d.lib")
+//#pragma comment(lib,"RealSound.lib")
+//#pragma comment(lib,"RealSpace2d.lib")
+//#pragma comment(lib,"CSCommonDE.lib")
+//#pragma comment(lib,"SafeUDP.lib")
 #pragma comment(lib,"dxerr9.lib")
 
 #else
