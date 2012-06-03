@@ -44,7 +44,7 @@ _USING_NAMESPACE_REALSPACE2
 
 #define __BP(i,n) CCBeginProfile(i,n);
 #define __EP(i) CCEndProfile(i);
-#define __SAVEPROFILE(i) MSaveProfile(i);
+#define __SAVEPROFILE(i) CCSaveProfile(i);
 
 #else
 	#define _DO_NOT_USE_PROFILER

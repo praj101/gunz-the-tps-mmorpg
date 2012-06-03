@@ -2,7 +2,7 @@
 
 #include "CCAsyncDBJob.h"
 
-class MAsyncDBJob_InsertGamePlayerLog : public MAsyncJob 
+class CCAsyncDBJob_InsertGamePlayerLog : public CCAsyncJob 
 {
 protected: // Input Argument
 	int m_nGameLogID;
@@ -16,8 +16,8 @@ protected: // Input Argument
 protected:	// Output Result
 
 public:
-	MAsyncDBJob_InsertGamePlayerLog() : MAsyncJob(MASYNCJOB_INSERTGAMEPLAYERLOG, MUID(0, 0)) {}
-	virtual ~MAsyncDBJob_InsertGamePlayerLog() {}
+	CCAsyncDBJob_InsertGamePlayerLog() : CCAsyncJob(CCASYNCJOB_INSERTGAMEPLAYERLOG, CCUID(0, 0)) {}
+	virtual ~CCAsyncDBJob_InsertGamePlayerLog() {}
 
 	bool Input(int nGameLogID, int nCID, int nPlayTime, int nKills, int nDeaths, int nXP, int nBP);
 
