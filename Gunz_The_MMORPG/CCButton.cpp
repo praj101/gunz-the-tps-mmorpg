@@ -309,7 +309,7 @@ void CCButton::SetConfirmMessageBox(const char* szMessage)
 	
 	//if(m_pMsgBox==NULL) m_pMsgBox = new CCMsgBox(szMessage, GetParent(), CCT_OKCANCEL, this);
 	if(m_pMsgBox==NULL) {
-		m_pMsgBox = (CCMsgBox*)Core::GetInstance()->NewWidget(CCMSGBOX, "", Core::GetInstance()->GetMainFrame(), this );
+		m_pMsgBox = (CCMsgBox*)Core::GetInstance()->NewWidget(CORE_CCMSGBOX, "", Core::GetInstance()->GetMainFrame(), this );
 		m_pMsgBox->SetType(CCT_OKCANCEL);
 //		m_pMsgBox->SetTitle(szMessage);		// title 은 look의 default title로 대체
 	}

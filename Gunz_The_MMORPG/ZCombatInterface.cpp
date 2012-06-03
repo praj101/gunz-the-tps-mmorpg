@@ -17,7 +17,7 @@
 #include "ZConfiguration.h"
 #include "ZPost.h"
 #include "ZWeaponScreenEffect.h"
-#include "CCemPool.h"
+#include "MemPool.h"
 #include "ZMyInfo.h"
 #include "ZCharacterView.h"
 #include "ZItemSlotView.h"
