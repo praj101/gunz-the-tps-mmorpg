@@ -1,21 +1,20 @@
-#ifndef MBListBoxLook_H
-#define MBListBoxLook_H
+#pragma once
 
-#include "MListBox.h"
+#include "CCListBox.h"
 
-class MBListBoxLook : public MListBoxLook{
+class CCBListBoxLook : public CCListBoxLook{
 public:
-	MBitmap*	m_pFrameBitmaps[9];
-	MFont*		m_pFont;
+	CCBitmap*	m_pFrameBitmaps[9];
+	CCFont*		m_pFont;
 
 protected:
-	virtual void OnFrameDraw(MListBox* pListBox, MDrawContext* pDC);
+	virtual void OnFrameDraw(CCListBox* pListBox, CCDrawContext* pDC);
 
 public:
-	MBListBoxLook(void);
+	CCBListBoxLook(void);
 
-	virtual MRECT GetClientRect(MListBox* pListBox, MRECT& r);
-	virtual void OnDraw(MListBox* pListBox, MDrawContext* pDC);
+	virtual sRect GetClientRect(CCListBox* pListBox, sRect& r);
+	virtual void OnDraw(CCListBox* pListBox, CCDrawContext* pDC);
 };
 
 #endif
