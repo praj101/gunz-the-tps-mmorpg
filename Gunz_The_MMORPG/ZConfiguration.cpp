@@ -3,10 +3,12 @@
 #include "ZConfiguration.h"
 #include "Core.h"
 #include "ZInterface.h"
-//#include "ZGameInterface.h"
+#include "ZGameInterface.h"
 #include "ZLocatorList.h"
 #include "ZGameTypeList.h"
 #include "ZLocale.h"
+
+#include "ZStringResManager.h"
 
 ZConfiguration	g_Configuration;
 ZConfiguration* ZGetConfiguration()		{ return &g_Configuration; }

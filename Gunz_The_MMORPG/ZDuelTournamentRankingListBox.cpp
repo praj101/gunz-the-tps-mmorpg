@@ -1,8 +1,11 @@
+#pragma warning(disable : 4244)
+
 #include "stdafx.h"
 #include "ZDuelTournamentRankingListBox.h"
 
 // Added R350a
 #include "RealSpace2.h"
+#include "ZGameInterface.h"
 
 ZDuelTournamentRankingListBox::ZDuelTournamentRankingListBox(const char* szName, CCWidget* pParent, CCListener* pListener) 
 : CCWidget(szName, pParent, pListener)
@@ -32,19 +35,19 @@ void ZDuelTournamentRankingListBox::LoadInterfaceImgs()
 {
 	if (m_pBmpRankingItemBg == NULL) {
 		m_pBmpRankingItemBg = new CCBitmapR2;
-		((CCBitmapR2*)m_pBmpRankingItemBg)->Create( "DuelTournamentRankingItemBg.png", RGetDevice(), "Interface/loadable/DuelTournamentRankingItemBg.png");
+		((CCBitmapR2*)m_pBmpRankingItemBg)->Create( "DuelTournamentRankingItemBg.png", RealSpace2::RGetDevice(), "Interface/loadable/DuelTournamentRankingItemBg.png");
 	}
 	if (m_pBmpArrowUp == NULL) {
 		m_pBmpArrowUp = new CCBitmapR2;
-		((CCBitmapR2*)m_pBmpArrowUp)->Create( "arrow_up.tga", RGetDevice(), "Interface/loadable/arrow_up.tga");
+		((CCBitmapR2*)m_pBmpArrowUp)->Create( "arrow_up.tga", RealSpace2::RGetDevice(), "Interface/loadable/arrow_up.tga");
 	}
 	if (m_pBmpArrowDown == NULL) {
 		m_pBmpArrowDown = new CCBitmapR2;
-		((CCBitmapR2*)m_pBmpArrowDown)->Create( "arrow_down.tga", RGetDevice(), "Interface/loadable/arrow_down.tga");
+		((CCBitmapR2*)m_pBmpArrowDown)->Create( "arrow_down.tga", RealSpace2::RGetDevice(), "Interface/loadable/arrow_down.tga");
 	}
 	if (m_pBmpArrowBar == NULL) {
 		m_pBmpArrowBar = new CCBitmapR2;
-		((CCBitmapR2*)m_pBmpArrowBar)->Create( "arrow_bar.tga", RGetDevice(), "Interface/loadable/arrow_bar.tga");
+		((CCBitmapR2*)m_pBmpArrowBar)->Create( "arrow_bar.tga", RealSpace2::RGetDevice(), "Interface/loadable/arrow_bar.tga");
 	}
 }
 
