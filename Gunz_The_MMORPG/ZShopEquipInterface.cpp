@@ -15,7 +15,7 @@
 #include "ZStringResManager.h"
 #include "ZPost.h"
 #include "ZGameClient.h"
-
+#include "CCBmButton.h"
 
 static ZIDLResource* GetIDLResource() {
 	return ZGetGameInterface()->GetIDLResource();

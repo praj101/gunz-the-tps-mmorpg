@@ -125,7 +125,7 @@ void ZScoreBoard::Refresh()
 	char szTeam[128];
 	szTeam[0] = NULL;
 
-	char* szRefName = NULL;
+	const char* szRefName = NULL;
 
 	sColor _color;
 	char sp_name[256];
@@ -141,17 +141,17 @@ void ZScoreBoard::Refresh()
 		if (pCharacter->IsDie()) strcpy(szState, "Dead");
 		else strcpy(szState, "Alive");
 
-		ZMatch *pMatch=ZApplication::GetGame()->GetMatch();
+		ZMatch *pMatch=ZGetGame()->GetMatch();
 		if (pMatch && pMatch->IsTeamPlay())
 		{
-			strcpy(szTeam, ZApplication::GetGame()->GetMatch()->GetTeamName(pCharacter->GetTeamID()));
+			strcpy(szTeam, ZGetGame()->GetMatch()->GetTeamName(pCharacter->GetTeamID()));
 		}
 
 		int nPing = (pCharacter->m_UID == ZGetGameClient()->GetPlayerUID() ? 0 : 999);
 		CCMatchPeerInfo* pPeer = ZGetGameClient()->FindPeer(pCharacter->m_UID);
 		if (pPeer) {
 			//nPing = int(pCharacter->m_fAveragePingTime*1000.f)
-			nPing = pPeer->GetPing(ZApplication::GetGame()->GetTickTime());
+			nPing = pPeer->GetPing(ZGetGame()->GetTickTime());
 		}
 
 		szRefName = NULL;
@@ -160,31 +160,31 @@ void ZScoreBoard::Refresh()
 			szRefName = sp_name;
 		}
 		else{
-			szRefName = pCharacter->GetProperty()->szName;
+			szRefName = pCharacter->GetProperty()->GetName();
 		}
 
-		Add(szTeam, szRefName, szState, pCharacter->GetStatus()->iExp, 
-			pCharacter->GetStatus()->nKills, pCharacter->GetStatus()->nDeaths, nPing);
+//		Add(szTeam, szRefName, szState, pCharacter->GetStatus()->iExp, 
+//			pCharacter->GetStatus()->nKills, pCharacter->GetStatus()->nDeaths, nPing);
 	}
 
 	CCWidget* pWidget = m_pIDLResource->FindWidget("CombatScoreGameType");
 	if (pWidget != NULL) 
 	{
-		pWidget->SetText(GetGameTypeStr(g_pGame->GetMatch()->GetMatchType()));
+//		pWidget->SetText(GetGameTypeStr(g_pGame->GetMatch()->GetMatchType()));
 	}
 
 	pWidget = m_pIDLResource->FindWidget("CombatScoreRound");
 	if (pWidget != NULL) 
 	{
 		char szTemp[128];
-		sprintf(szTemp, "Round %2d / %2d", g_pGame->GetMatch()->GetCurrRound() + 1,
-			g_pGame->GetMatch()->GetRoundCount());
+	//	sprintf(szTemp, "Round %2d / %2d", g_pGame->GetMatch()->GetCurrRound() + 1,
+	//		g_pGame->GetMatch()->GetRoundCount());
 
-		if (ZApplication::GetGame()->GetMatch()->IsTeamPlay())
+		if (ZGetGame()->GetMatch()->IsTeamPlay())
 		{
 			char szTemp2[128];
-			sprintf(szTemp2, "     Score %2d(Red) : %2d(Blue)", g_pGame->GetMatch()->GetTeamScore(CCMT_RED), 
-				g_pGame->GetMatch()->GetTeamScore(CCMT_BLUE));
+//			sprintf(szTemp2, "     Score %2d(Red) : %2d(Blue)", g_pGame->GetMatch()->GetTeamScore(CCMT_RED), 
+//				g_pGame->GetMatch()->GetTeamScore(CCMT_BLUE));
 			strcpy(szTemp, szTemp2);
 		}
 		pWidget->SetText(szTemp);
