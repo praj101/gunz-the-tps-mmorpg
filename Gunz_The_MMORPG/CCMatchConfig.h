@@ -228,9 +228,9 @@ public:
 	bool IsSendLoginUserToDuelTournamentChannel() const  { return m_bSendLoginUserToDuelTournamentChannel; }
 };
 
-inline CCMatchConfig* MGetServerConfig() { return CCMatchConfig::GetInstance(); }
+inline CCMatchConfig* CCGetServerConfig() { return CCMatchConfig::GetInstance(); }
 
-inline bool QuestTestServer() { return (MGetServerConfig()->GetServerMode() == CSM_TEST); }
+inline bool QuestTestServer() { return (CCGetServerConfig()->GetServerMode() == CSM_TEST); }
 
 
 #define SERVER_CONFIG_FILENAME			"./server.ini"

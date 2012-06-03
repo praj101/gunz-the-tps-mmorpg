@@ -56,7 +56,7 @@ bool CCMatchShutdown::LoadXML_ShutdownNotify(const char* pszFileName)
 			int nDelay = atoi(szBuf);
 			childElement.GetContents(szBuf);
 
-			//m_ShutdownNotifyArray.push_back(new MShutdownNotify(nDelay, MGetStringResManager()->GetStringFromXml(szBuf)));
+			//m_ShutdownNotifyArray.push_back(new MShutdownNotify(nDelay, CCGetStringResManager()->GetStringFromXml(szBuf)));
 			m_ShutdownNotifyArray.push_back(new MShutdownNotify(nDelay, szBuf));	// 그냥 문자열리소스ID를 저장하게 함, 클라에서 ID를 현재 언어로 변환하도록.
 		}
 	}

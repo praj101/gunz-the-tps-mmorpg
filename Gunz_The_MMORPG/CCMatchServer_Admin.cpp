@@ -175,7 +175,7 @@ void CCMatchServer::OnAdminRequestSwitchLadderGame(const CCUID& uidAdmin, const 
 	}
 
 	
-	MGetServerConfig()->SetEnabledCreateLadderGame(bEnabled);
+	CCGetServerConfig()->SetEnabledCreateLadderGame(bEnabled);
 
 
 	char szMsg[256] = "설정되었습니다.";

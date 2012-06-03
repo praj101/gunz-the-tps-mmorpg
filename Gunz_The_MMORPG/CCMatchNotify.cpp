@@ -55,7 +55,7 @@ bool InitializeNotify(CCZFileSystem *pfs)
 				char szContents[256];
 				aChild.GetContents(szContents);
 
-				g_NotifyMap.insert(MNotifyMap::value_type(nID,string(MGetStringResManager()->GetStringFromXml(szContents))));
+				g_NotifyMap.insert(MNotifyMap::value_type(nID,string(CCGetStringResManager()->GetStringFromXml(szContents))));
 			}
 		}
 	}

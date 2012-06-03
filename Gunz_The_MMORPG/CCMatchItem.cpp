@@ -736,7 +736,7 @@ bool CCMatchItemDescMgr::ParseItem(CCXmlElement& element)
 		}
 		else if (!stricmp(szAttrName, MICTOK_NAME))
 		{
-			strcpy(pNewDesc->m_pMItemName->Ref().m_szItemName, MGetStringResManager()->GetStringFromXml(szAttrValue));
+			strcpy(pNewDesc->m_pMItemName->Ref().m_szItemName, CCGetStringResManager()->GetStringFromXml(szAttrValue));
 			pNewDesc->m_pMItemName->MakeCrc();
 		}
 		else if (!stricmp(szAttrName, MICTOK_TYPE))
@@ -1006,7 +1006,7 @@ bool CCMatchItemDescMgr::ParseItem(CCXmlElement& element)
 		}
 		else if (!stricmp(szAttrName, MICTOK_DESC))
 		{
-			strcpy(pNewDesc->m_szDesc, MGetStringResManager()->GetStringFromXml(szAttrValue));
+			strcpy(pNewDesc->m_szDesc, CCGetStringResManager()->GetStringFromXml(szAttrValue));
 		}
 		else if (!stricmp(szAttrName, MICTOK_MESH_NAME))
 		{
@@ -1094,31 +1094,31 @@ bool CCMatchItemDescMgr::ParseItem(CCXmlElement& element)
 		else if (!stricmp(szAttrName, MICTOK_AVATAR_HEAD))
 		{
 			strcpy(pNewDesc->m_pAvatarMeshName->Ref().m_szHeadMeshName
-				, MGetStringResManager()->GetStringFromXml(szAttrValue));
+				, CCGetStringResManager()->GetStringFromXml(szAttrValue));
 			pNewDesc->m_pAvatarMeshName->MakeCrc();
 		}
 		else if (!stricmp(szAttrName, MICTOK_AVATAR_CHEST))
 		{
 			strcpy(pNewDesc->m_pAvatarMeshName->Ref().m_szChestMeshName
-				, MGetStringResManager()->GetStringFromXml(szAttrValue));
+				, CCGetStringResManager()->GetStringFromXml(szAttrValue));
 			pNewDesc->m_pAvatarMeshName->MakeCrc();
 		}
 		else if (!stricmp(szAttrName, MICTOK_AVATAR_HAND))
 		{
 			strcpy(pNewDesc->m_pAvatarMeshName->Ref().m_szHandMeshName
-				, MGetStringResManager()->GetStringFromXml(szAttrValue));
+				, CCGetStringResManager()->GetStringFromXml(szAttrValue));
 			pNewDesc->m_pAvatarMeshName->MakeCrc();			
 		}
 		else if (!stricmp(szAttrName, MICTOK_AVATAR_LEGS))
 		{
 			strcpy(pNewDesc->m_pAvatarMeshName->Ref().m_szLegsMeshName
-				, MGetStringResManager()->GetStringFromXml(szAttrValue));
+				, CCGetStringResManager()->GetStringFromXml(szAttrValue));
 			pNewDesc->m_pAvatarMeshName->MakeCrc();
 		}
 		else if (!stricmp(szAttrName, MICTOK_AVATAR_FEET))
 		{
 			strcpy(pNewDesc->m_pAvatarMeshName->Ref().m_szFeetMeshName
-				, MGetStringResManager()->GetStringFromXml(szAttrValue));
+				, CCGetStringResManager()->GetStringFromXml(szAttrValue));
 			pNewDesc->m_pAvatarMeshName->MakeCrc();			
 		}
 	}

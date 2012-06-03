@@ -22,8 +22,8 @@ void CCMatchDuelTournamentMgr::Init()
 {
 	ClearGroupRanking();
 
-	const DWORD DT_MATCH_WAIT_TIME_LIMIT = MGetServerConfig()->GetDuelTournamentMatchMakingWaitLimit();
-	const DWORD DT_MATCH_ACCEPTABLE_TP_GAP = MGetServerConfig()->GetDuelTournamentMatchMakingAcceptableTpGap();
+	const DWORD DT_MATCH_WAIT_TIME_LIMIT = CCGetServerConfig()->GetDuelTournamentMatchMakingWaitLimit();
+	const DWORD DT_MATCH_ACCEPTABLE_TP_GAP = CCGetServerConfig()->GetDuelTournamentMatchMakingAcceptableTpGap();
 
 	m_pDTMatchLauncher->SetLimitUserWaitTime(DT_MATCH_WAIT_TIME_LIMIT);
 	m_pDTMatchLauncher->SetAcceptableTpGap(DT_MATCH_ACCEPTABLE_TP_GAP);
@@ -73,7 +73,7 @@ bool CCMatchDuelTournamentMgr::RemovePlayer(CCDUELTOURNAMENTTYPE nType, CCUID &u
 
 void CCMatchDuelTournamentMgr::Tick(unsigned long nCurTick)
 {
-	const DWORD DT_MATCH_TICK_INTERVAL = MGetServerConfig()->GetDuelTournamentMatchMakingInterval();
+	const DWORD DT_MATCH_TICK_INTERVAL = CCGetServerConfig()->GetDuelTournamentMatchMakingInterval();
 
 	if (nCurTick - m_lastMatchedTick > DT_MATCH_TICK_INTERVAL)
 	{
@@ -81,8 +81,8 @@ void CCMatchDuelTournamentMgr::Tick(unsigned long nCurTick)
 
 		SYSTEMTIME stCurTime;
 		GetLocalTime( &stCurTime );
-		int nStartTime = MGetServerConfig()->GetDuelTournamentServiceStartTime();
-		int nEndTime = MGetServerConfig()->GetDuelTournamentServiceEndTime();
+		int nStartTime = CCGetServerConfig()->GetDuelTournamentServiceStartTime();
+		int nEndTime = CCGetServerConfig()->GetDuelTournamentServiceEndTime();
 
 		bool bServiceTime = false;
 		if (nStartTime > nEndTime)	// 끝 시각이 자정을 넘어가는 경우

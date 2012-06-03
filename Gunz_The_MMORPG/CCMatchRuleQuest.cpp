@@ -744,7 +744,7 @@ void CCMatchRuleQuest::DistributeReward()
 	if (!m_pQuestLevel) return;
 
 	// 현재 서버가 퀘스트 서버일 경우에만 가능하게 함.
-	if( CSM_TEST != MGetServerConfig()->GetServerMode() )  return;
+	if( CSM_TEST != CCGetServerConfig()->GetServerMode() )  return;
 
 	CCQuestScenarioInfo* pScenario = m_pQuestLevel->GetStaticInfo()->pScenario;
 	if (!pScenario) return;
@@ -1125,7 +1125,7 @@ void CCMatchRuleQuest::OnObtainWorldItem(CCMatchObject* pObj, int nItemID, int* 
 
 void CCMatchRuleQuest::OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		OnResponseDropSacrificeItemOnSlot( uidSender, nSlotIndex, nItemID );
 	}
@@ -1229,7 +1229,7 @@ void CCMatchRuleQuest::OnResponseDropSacrificeItemOnSlot( const CCUID& uidSender
 
 void CCMatchRuleQuest::OnRequestCallbackSacrificeItem( const CCUID& uidSender, const int nSlotIndex, const unsigned long int nItemID )
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		OnResponseCallBackSacrificeItem( uidSender, nSlotIndex, nItemID );
 	}
@@ -1304,7 +1304,7 @@ void CCMatchRuleQuest::PreProcessLeaveStage( const CCUID& uidLeaverUID )
 	if( !IsEnabledObject(pPlayer) )
 		return;
 	
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		// 스테이지를 나가려는 유저가 이전에 흐생 아이템을 스롯에 올려 놓았는지 검사를 함.
 		// 만약 올려놓은 아이템이 있다면 자동으로 회수를 함. - 대기상태일때만 적용
@@ -1382,7 +1382,7 @@ void CCMatchRuleQuest::DestroyAllSlot()
 
 void CCMatchRuleQuest::OnRequestQL( const CCUID& uidSender )
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject( uidSender );
 		if( 0 == pPlayer )
@@ -1422,7 +1422,7 @@ void CCMatchRuleQuest::OnResponseQL_ToStage( const CCUID& uidStage )
 ///
 void CCMatchRuleQuest::OnRequestSacrificeSlotInfo( const CCUID& uidSender )
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		CCMatchObject* pPlayer = CCMatchServer::GetInstance()->GetObject( uidSender );
 		if( 0 == pPlayer )
@@ -1495,7 +1495,7 @@ void CCMatchRuleQuest::OnResponseSacrificeSlotInfoToStage( const CCUID& uidStage
 
 void CCMatchRuleQuest::PostInsertQuestGameLogAsyncJob()
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		CollectEndQuestGameLogInfo();
 		m_QuestGameLogInfoMgr.PostInsertQuestGameLog();
@@ -1601,7 +1601,7 @@ const bool CCMatchRuleQuest::PostNPCInfo()
 ///
 bool CCMatchRuleQuest::PrepareStart()
 {
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		MakeStageGameInfo();
 
@@ -1635,7 +1635,7 @@ bool CCMatchRuleQuest::PrepareStart()
 
 void CCMatchRuleQuest::MakeStageGameInfo()
 {	
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		if( (GetStage()->GetState() != STAGE_STATE_STANDBY) && (STAGE_STATE_COUNTDOWN != GetStage()->GetState()) )
 		{

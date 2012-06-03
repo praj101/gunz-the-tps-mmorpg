@@ -1181,6 +1181,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAsyncDBJob_GetBRDescription.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncDBJob_GetLoginInfo.cpp"
 			>
 		</File>
@@ -1190,6 +1194,10 @@
 		</File>
 		<File
 			RelativePath=".\CCAsyncDBJob_InsertCharBRInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_InsertConnLog.h"
 			>
 		</File>
 		<File
@@ -1206,6 +1214,14 @@
 		</File>
 		<File
 			RelativePath=".\CCAsyncDBJob_UpdateCharBRInfo.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_UpdateCharInfoData.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_UpdateCharItemInfoData.h"
 			>
 		</File>
 		<File

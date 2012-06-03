@@ -31,7 +31,7 @@ public:
 };
 
 
-inline CCBaseStringResManager* MGetStringResManager()
+inline CCBaseStringResManager* CCGetStringResManager()
 {
 	return CCBaseStringResManager::GetInstance();
 }

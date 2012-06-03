@@ -195,7 +195,7 @@ void CCMatchObject::Tick(unsigned long int nTime)
 	if (CheckStageListTransfer() == true) {
 		// 로비에서 클랜채널에 있으면 클랜전 대기 클랜 리스트 업데이트해준다.
 		CCMatchChannel* pChannel = pServer->FindChannel(GetChannelUID());
-		if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel) && (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN))
+		if ((CCGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel) && (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN))
 		{
 			if ((unsigned int)(nTime - m_nTimeLastStageListTrans) > CYCLE_MATCH_STANDBY_CLANLIST_UPDATE) {
 				unsigned long int nCurrStageListChecksum = pServer->GetLadderMgr()->GetChecksum(m_nStageCursor, 
@@ -570,7 +570,7 @@ bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, CCMatchSex nPl
 		if (pItemDesc->m_nResSex.Ref() != int(nPlayerSex)) return false;
 	}
 
-	if (MGetServerConfig()->GetServerMode() != CSM_EVENT) {	// EVENT때 레벨제한 없이 장착한다
+	if (CCGetServerConfig()->GetServerMode() != CSM_EVENT) {	// EVENT때 레벨제한 없이 장착한다
 		// 레벨 제한 조건
 		if (pItemDesc->m_nResLevel.Ref() > nPlayerLevel) return false;
 	}
@@ -591,7 +591,7 @@ void CCMatchObject::SetCharInfo(CCMatchCharInfo* pCharInfo)
 { 
 	m_pCharInfo = pCharInfo; 
 #ifdef _QUEST_ITEM
-	if( CSM_TEST == MGetServerConfig()->GetServerMode() ) 
+	if( CSM_TEST == CCGetServerConfig()->GetServerMode() ) 
 	{
 		m_pCharInfo->m_DBQuestCachingData.SetCharObject( this );
 	}

@@ -940,7 +940,7 @@ inline void CCMatchServer::SetTickTime(unsigned long int nTickTime)
 
 inline const char* MErrStr(const int nID)
 {
-	return MGetStringResManager()->GetErrorStr(nID);
+	return CCGetStringResManager()->GetErrorStr(nID);
 }
 
 inline void CCMatchServer::LogObjectCommandHistory(CCUID uid)

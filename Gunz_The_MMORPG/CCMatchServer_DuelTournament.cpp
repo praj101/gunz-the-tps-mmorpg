@@ -153,7 +153,7 @@ bool CCMatchServer::DuelTournamentJoin(const CCUID& uidPlayer, const CCUID& uidS
 
 void CCMatchServer::SendDuelTournamentServiceTimeClose(const CCUID& uidPlayer)
 {
-	if ( MGetServerConfig()->IsEnabledDuelTournament() == false ) return;
+	if ( CCGetServerConfig()->IsEnabledDuelTournament() == false ) return;
 
 	// 듀얼토너먼트 참가신청 취소
 	CCMatchObject *pDTObj = GetPlayerByComCCUID(uidPlayer);
@@ -161,14 +161,14 @@ void CCMatchServer::SendDuelTournamentServiceTimeClose(const CCUID& uidPlayer)
 	pDTObj->SetChallengeDuelTournament(false);
  
 	CCCommand *pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_NOT_SERVICE_TIME, uidPlayer);
-	pCmd->AddParameter(new CCCommandParameterInt(MGetServerConfig()->GetDuelTournamentServiceStartTime()));
-	pCmd->AddParameter(new CCCommandParameterInt(MGetServerConfig()->GetDuelTournamentServiceEndTime()));
+	pCmd->AddParameter(new CCCommandParameterInt(CCGetServerConfig()->GetDuelTournamentServiceStartTime()));
+	pCmd->AddParameter(new CCCommandParameterInt(CCGetServerConfig()->GetDuelTournamentServiceEndTime()));
 	Post(pCmd);
 }
 
 void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuelTournamentPickedGroup* pPickedGroup, CCDUELTOURNAMENTMATCHMAKINGFACTOR matchFactor)
 {
-	if ( MGetServerConfig()->IsEnabledDuelTournament() == false ) return;
+	if ( CCGetServerConfig()->IsEnabledDuelTournament() == false ) return;
 
 	// 선수들이 뛸 Stage 생성!
 	CCUID uidStage = CCUID(0,0);
@@ -229,7 +229,7 @@ void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuel
 		RouteCmdDuelTournamentPrepareMatch(nType, uidStage, pPickedGroup);
 		RouteCmdDuelTournamentStageSetting(uidStage);
 
-		if (pStage->StartGame(MGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {		// 게임시작
+		if (pStage->StartGame(CCGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {		// 게임시작
 			ReserveAgent(pStage);
 
 			CCMatchObjectCacheBuilder CacheBuilder;

@@ -62,7 +62,7 @@ bool CCMatchServer::StageAdd(CCMatchChannel* pChannel, const char* pszStageName,
 	bool bIsCheckTicket = false;
 	DWORD dwTicketID = 0;
 
-	if ( (NULL != pChannel) && MGetServerConfig()->IsUseTicket()) {
+	if ( (NULL != pChannel) && CCGetServerConfig()->IsUseTicket()) {
 		bIsCheckTicket = (pChannel != 0) && pChannel->IsUseTicket() && pChannel->IsTicketChannel();
 		dwTicketID = pChannel->GetTicketItemID();
 
@@ -190,7 +190,7 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 
 
 #ifdef _QUEST_ITEM
-	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
+	if (CCGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 == pNode )
@@ -249,7 +249,7 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 	if (uidPlayer == pStage->GetMasterUID()) bLeaverMaster = true;
 
 #ifdef _QUEST_ITEM
-	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
+	if (CCGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 != pNode )
@@ -289,7 +289,7 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 
 #ifdef _QUEST_ITEM
 	// 유저가 스테이지에서 나간후에 QL을 다시 계산해 줘야 함.
-	if (MGetServerConfig()->GetServerMode() == CSM_TEST)
+	if (CCGetServerConfig()->GetServerMode() == CSM_TEST)
 	{
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 == pNode )
@@ -878,7 +878,7 @@ void CCMatchServer::OnStageCreate(const CCUID& uidChar, char* pszStageName, bool
 	CCMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
 	if (pChannel == NULL) return;
 
-	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN)
+	if ((CCGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN)
 		&& (pChannel->GetChannelType() == CCCHANNEL_TYPE_DUELTOURNAMENT)) {
 		return;
 	}
@@ -1195,7 +1195,7 @@ void CCMatchServer::OnStageStart(const CCUID& uidPlayer, const CCUID& uidStage, 
 	if (pStage == NULL) return;
 	if (pStage->GetMasterUID() != uidPlayer) return;
 
-	if (pStage->StartGame(MGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {
+	if (pStage->StartGame(CCGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {
 		StageRelayMapBattleStart(uidPlayer, uidStage);
 
 		CCCommand* pNew = new CCCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_START), CCUID(0,0), m_This);
@@ -1214,7 +1214,7 @@ void CCMatchServer::OnStageRelayStart(const CCUID& uidStage)
 	CCMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return;
 	
-	if (pStage->StartRelayGame(MGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {
+	if (pStage->StartRelayGame(CCGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {
 		// 디비에 로그를 남긴다.
 		SaveGameLog(uidStage);
 	}
@@ -1465,7 +1465,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	}
 
 	// 서바이벌이 비활성 세팅인데 서바이벌 요청시
-	if( MGetServerConfig()->IsEnabledSurvivalMode()==false && pNode->nGameType==CCMATCH_GAMETYPE_SURVIVAL) {
+	if( CCGetServerConfig()->IsEnabledSurvivalMode()==false && pNode->nGameType==CCMATCH_GAMETYPE_SURVIVAL) {
 		cclog(" stage setting game mode hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 		LogObjectCommandHistory( uidPlayer );
 		pObj->DisconnectHacker( CCMHT_INVALIDSTAGESETTING );
@@ -1984,7 +1984,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 
 
 	// 클랜전일 경우는 획득 경험치가 1.5배, 손실경험치 없음
-	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pStage->GetStageType() == MST_LADDER))
+	if ((CCGetServerConfig()->GetServerMode() == CSM_CLAN) && (pStage->GetStageType() == MST_LADDER))
 	{
 		nAttackerExp = (int)((float)nAttackerExp * 1.5f);
 		nVictimExp = 0;
@@ -2402,7 +2402,7 @@ void CCMatchServer::StageList(const CCUID& uidPlayer, int nStageStartIndex, bool
 	if (pChannel == NULL) return;
 
 	// 클랜서버인데 클랜채널일 경우에는 방 리스트대신 대기중 클랜 리스트를 보낸다.
-	if ((MGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN))
+	if ((CCGetServerConfig()->GetServerMode() == CSM_CLAN) && (pChannel->GetChannelType() == CCCHANNEL_TYPE_CLAN))
 	{
 		StandbyClanList(uidPlayer, nStageStartIndex, bCacheUpdate);
 		return;
