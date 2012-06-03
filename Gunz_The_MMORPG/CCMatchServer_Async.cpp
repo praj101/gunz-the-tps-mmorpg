@@ -272,7 +272,7 @@ void CCMatchServer::OnAsyncGetLoginInfo(CCAsyncJob* pJobInput)
 	{		
 		// Notify Message 필요 -> 로그인 관련 - 해결(Login Fail 메세지 이용)
 		// Disconnect(pJob->GetComCCUID());
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetComCCUID(), MERR_FAILED_GETACCOUNTINFO);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetCommUID(), MERR_FAILED_GETACCOUNTINFO);
 		Post(pCmd);
 
 		pJob->DeleteMemory();
@@ -301,14 +301,14 @@ void CCMatchServer::OnAsyncGetLoginInfo(CCAsyncJob* pJobInput)
 	// 사용정지 계정인지 확인한다.
 	if ((pAccountInfo->m_nUGrade == CCMUGBLOCKED) || (pAccountInfo->m_nUGrade == CCMUGPENALTY))
 	{
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetComCCUID(), MERR_CLIENT_CCMUGBLOCKED);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetCommUID(), MERR_CLIENT_CCMUGBLOCKED);
 		Post(pCmd);
 
 		pJob->DeleteMemory();
 		return;
 	}
 
-	AddObjectOnMatchLogin(pJob->GetComCCUID(), pJob->GetAccountInfo(), pJob->GetAccountPenaltyInfo(), 
+	AddObjectOnMatchLogin(pJob->GetCommUID(), pJob->GetAccountInfo(), pJob->GetAccountPenaltyInfo(), 
 		pJob->IsFreeLoginIP(), pJob->GetCountryCode3(), pJob->GetChecksumPack());
 
 /*

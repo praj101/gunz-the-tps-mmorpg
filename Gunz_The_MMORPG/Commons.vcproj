@@ -2545,6 +2545,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RealSoundDef.h"
+			>
+		</File>
+		<File
 			RelativePath=".\RealSoundEffect.h"
 			>
 		</File>

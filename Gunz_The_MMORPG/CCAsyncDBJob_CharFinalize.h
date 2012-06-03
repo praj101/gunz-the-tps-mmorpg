@@ -4,7 +4,7 @@
 
 #include "CCQuestItem.h"
 
-class MAsyncDBJob_CharFinalize : public MAsyncJob {
+class CCAsyncDBJob_CharFinalize : public CCAsyncJob {
 protected:	// Input Argument
 	DWORD				m_nAID;
 	int					m_nCID;
@@ -13,19 +13,19 @@ protected:	// Input Argument
 	int					m_nConnDeathCount;
 	int					m_nConnXP;
 	int					m_nXP;
-	MQuestItemMap		m_QuestItemMap;
-	MQuestMonsterBible	m_QuestMonster;
+	CCQuestItemMap		m_QuestItemMap;
+	CCQuestMonsterBible	m_QuestMonster;
 	bool				m_bIsRequestQItemUpdate;
 	
 protected:	// Output Result
 
 public:
-	MAsyncDBJob_CharFinalize(const MUID& uidOwner)
-		: MAsyncJob(MASYNCJOB_CHARFINALIZE, uidOwner), m_bIsRequestQItemUpdate( false )
+	CCAsyncDBJob_CharFinalize(const CCUID& uidOwner)
+		: CCAsyncJob(CCASYNCJOB_CHARFINALIZE, uidOwner), m_bIsRequestQItemUpdate( false )
 	{
 		m_nAID = 0;
 	}
-	virtual ~MAsyncDBJob_CharFinalize()
+	virtual ~CCAsyncDBJob_CharFinalize()
 	{
 		m_QuestItemMap.Clear();
 	}
@@ -37,8 +37,8 @@ public:
 				int nConnDeathCount, 
 				int nConnXP, 
 				int nXP,
-				MQuestItemMap& rfQuestItemMap,
-				MQuestMonsterBible& rfQuestMonster,
+				CCQuestItemMap& rfQuestItemMap,
+				CCQuestMonsterBible& rfQuestMonster,
 				const bool bIsRequestQItemUpdate );
 
 
