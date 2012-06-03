@@ -12,7 +12,7 @@ protected:
 	virtual void OnDraw(CCDrawContext* pDC);
 
 public:
-	ZMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener=NULL, CCMsgBoxType nType=MT_NOTDECIDED );
+	ZMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener=NULL, CCMsgBoxType nType=CCT_NOTDECIDED );
 	virtual ~ZMsgBox();
 
 	void SetCustomListener(CCListener* pListener) { m_pCustomListener = pListener; }

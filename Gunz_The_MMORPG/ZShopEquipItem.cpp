@@ -9,6 +9,7 @@
 
 // Added R347a
 #include "ZGameInterface.h"
+// Added R351a
 
 string GetRestrictionString(int nResSex, int nResLevel, int nWeight)
 {

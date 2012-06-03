@@ -8,6 +8,9 @@
 #include "ZGameInterface.h"
 // Added R349a
 #include "ZGameClient.h"
+// Added R351a
+#include "CCComboBox.h"
+#include "ZMyInfo.h"
 
 ZShopEquipListItem::ZShopEquipListItem(ZShopEquipItem* pItemData)
 : m_pItemData(pItemData)
