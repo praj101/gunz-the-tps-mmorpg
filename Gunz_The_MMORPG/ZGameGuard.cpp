@@ -19,7 +19,7 @@
 #ifdef LOCALE_JAPAN
 #pragma comment( lib, ".\\GameGuard\\JPN\\NPGameLib.lib" )
 #else
-#pragma comment( lib, ".\\GameGuard\\NPGameLib.Lib" )
+//#pragma comment( lib, ".\\GameGuard\\NPGameLib.Lib" )
 #endif
 
 
