@@ -1,6 +1,4 @@
-#ifndef _MFILEDIALOG_H
-#define _MFILEDIALOG_H
-
+#pragma once
 #include "CCWidget.h"
 #include "CCButton.h"
 #include "CCFileBox.h"
@@ -20,8 +18,8 @@ enum CCFileDialogType{
 
 //File dialog box
 class CCFileDialog : public CCFrame{
-	CCButon*		m_pOK;
-	CCButon*		m_pCancel;
+	CCButton*		m_pOK;
+	CCButton*		m_pCancel;
 	CCFileBox*		m_pFileBox;
 	CCEdit*			m_pFileName;
 	CCFileDialogType	m_iType;

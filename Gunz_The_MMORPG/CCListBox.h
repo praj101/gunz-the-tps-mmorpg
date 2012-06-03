@@ -6,7 +6,7 @@
 #include "CCScrollBar.h"
 #include "CCColorTable.h"
 
-#define CCLISTBOX			"ListBox"
+#define CORE_CCLISTBOX		"ListBox"
 #define CCLB_ITEM_SEL		"selected"
 #define CCLB_ITEM_SEL2		"selected2"
 #define CCLB_ITEM_DBLCLK	"dclk"
@@ -308,6 +308,6 @@ public:
 	DECLARE_LOOK_CLIENT()
 
 
-	virtual const char* GetClassName(){ return CCLISTBOX; }
+	virtual const char* GetClassName(){ return CORE_CCLISTBOX; }
 };
 
