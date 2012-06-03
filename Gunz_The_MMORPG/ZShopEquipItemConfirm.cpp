@@ -10,7 +10,7 @@
 #include "CCPicture.h"
 #include "CCEdit.h"
 #include "ZIDLResource.h"
-#include <sstream.h>
+#include <sstream>
 
 static ZIDLResource* GetIDLResource() {
 	return ZGetGameInterface()->GetIDLResource();
