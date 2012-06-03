@@ -2,12 +2,13 @@
 #define _ZTASKMANAGER_H
 
 #include "RTypes.h"
+#include "ZTaskID.h"
 
 class ZTask;
-
+class ZActor;
 // Added
 //#include "ZTask.h"
-#include "ZActor.h"
+//#include "ZActor.h"
 
 typedef void (*ZTM_ONFINISHED)(ZActor* pActor, ZTASK_ID nLastID);
 

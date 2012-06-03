@@ -26,7 +26,7 @@
 #include <string>
 using namespace std;
 
-_USING_NAMESPACE_REALSPACE2
+//_USING_NAMESPACE_REALSPACE2
 
 class ZBrain;
 class ZTaskManager;
