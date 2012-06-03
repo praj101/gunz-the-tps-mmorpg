@@ -31,6 +31,7 @@
 #include "ZModule_HealOverTime.h"
 #include "ZGameConst.h"
 
+
 #define ANGLE_TOLER			.1f
 #define ANGLE_SPEED			12.f
 
@@ -374,9 +375,9 @@ ZCharacter::ZCharacter() : ZCharacterObject(), m_DirectionLower(1,0,0),m_Directi
 
 	m_Status.MakeCrc();
 
-	m_nMoveMode.Set_MakeCrc(MCMM_RUN);
-	m_nMode.Set_MakeCrc(MCM_OFFENSIVE);
-	m_nState.Set_MakeCrc(MCS_STAND);
+	m_nMoveMode.Set_MakeCrc(CCCMM_RUN);
+	m_nMode.Set_MakeCrc(CCCM_OFFENSIVE);
+	m_nState.Set_MakeCrc(CCCS_STAND);
 
 	m_nVMID.Set_MakeCrc(-1);
 //	m_fLastUpdateTime = 0.f;

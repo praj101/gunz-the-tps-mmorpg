@@ -994,7 +994,7 @@ void CCMatchServer::OnStageFollow(const CCUID& uidPlayer, const char* pszTargetN
 	if (pPlayerObj->GetUID() == pTargetObj->GetUID()) return;
 
 	// 스테이트가 잘못되어 있는지 검사.
-	if (!pPlayerObj->CheckEnableAction(CCMatchObject::MMOA_STAGE_FOLLOW)) return;
+	if (!pPlayerObj->CheckEnableAction(CCMatchObject::CCMOA_STAGE_FOLLOW)) return;
 
 
 	// 서로 다른 채널인지 검사.

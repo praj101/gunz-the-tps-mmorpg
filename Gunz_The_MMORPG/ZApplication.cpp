@@ -263,9 +263,9 @@ bool ZApplication::ParseArguments(const char* pszArgs)
 #endif
 		break;
 
-	case MC_US:
-	case MC_BRAZIL:
-	case MC_INDIA:
+	case CCC_US:
+	case CCC_BRAZIL:
+	case CCC_INDIA:
 		{
 			// 암호 코드 구하기
 			CGLEncription cEncription;
@@ -297,7 +297,7 @@ bool ZApplication::ParseArguments(const char* pszArgs)
 			}
 		}
 		break;
-	case MC_INVALID:
+	case CCC_INVALID:
 	default:
 		{
 			cclog("Invalid Locale \n");
@@ -387,7 +387,7 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 	strFileNameAbuse += ".mef";
 #endif
 
-	MInitProfile();
+	CCInitProfile();
 
 	// 멀티미디어 타이머 초기화
 	TIMECAPS tc;
@@ -810,7 +810,7 @@ bool ZApplication::OnDraw()
 		ENABLEONELOOPPROFILE(true);
 		*/
 		currentprofile=true;
-        MInitProfile();
+        CCInitProfile();
 	}
 
 	if(!g_bProfile && currentprofile)
@@ -820,7 +820,7 @@ bool ZApplication::OnDraw()
 		FINALANALYSIS(PROFILE_FILENAME);
 		*/
 		currentprofile=false;
-		MSaveProfile(PROFILE_FILENAME);
+		CCSaveProfile(PROFILE_FILENAME);
 	}
 
 
