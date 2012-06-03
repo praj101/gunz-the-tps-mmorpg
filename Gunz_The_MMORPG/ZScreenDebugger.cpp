@@ -134,7 +134,7 @@ void ZScreenDebugger::DrawDebugInfo(CCDrawContext *pDC)
 		NEXTLINE();
 
 #ifndef _PUBLISH
-		sprintf(buffer, "Sound Channels: %d", FSOUND_GetChannelsPlaying());
+	//	sprintf(buffer, "Sound Channels: %d", FSOUND_GetChannelsPlaying());
 		OUTTEXT();
 		NEXTLINE();
 #endif

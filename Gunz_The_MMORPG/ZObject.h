@@ -110,7 +110,6 @@ private:
 	float					m_fSpawnTime;		///< 태어난 시간
 	float					m_fDeadTime;		///< 죽은시간
 protected:
-	CCUID					m_UID;				///< 서버에서 부여한 유니크 ID(중요)
 	bool					m_bIsNPC;			///< NPC인지 여부
 	bool					m_bInitialized;		///< 초기화되었는지 여부
 	bool					m_bInitialized_DebugRegister;	//jintriple3 디버그 레지스터 땜에..ㅠ
@@ -122,6 +121,8 @@ protected:
 	virtual void OnDie() {} // 죽을때
 
 public:
+	CCUID					m_UID;				///< 서버에서 부여한 유니크 ID(중요)
+
 	ZObject();
 	virtual ~ZObject();
 

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ZServerView.h"
 #include "ZApplication.h"
-
+#include "Core.h"
 
 
 ZServerView::ZServerView(const char* szName, CCWidget* pParent, CCListener* pListener)

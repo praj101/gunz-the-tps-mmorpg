@@ -1,2 +1,5 @@
 - ZGameInterfece
 	- Main hub to use before networking out to trace GUI tail.
+	
+- ZScoreBoard.h and ZScoreBoard.cpp
+	- Both files are annomalies. Comment out error sections and continue for now.
