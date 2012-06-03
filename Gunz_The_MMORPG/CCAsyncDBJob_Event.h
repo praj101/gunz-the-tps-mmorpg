@@ -13,7 +13,7 @@ using std::string;
 
 struct AsyncEventObj
 {
-	MUID  uidUser;
+	CCUID  uidUser;
 	DWORD dwAID;
 	DWORD dwCID;
 };
@@ -21,13 +21,13 @@ struct AsyncEventObj
 typedef vector< AsyncEventObj > AsyncEventObjVec;
 
 
-class MAsyncDBJob_EventLog : public MAsyncJob
+class CCAsyncDBJob_EventLog : public CCAsyncJob
 {
 public :
-	MAsyncDBJob_EventLog() : 
-	   MAsyncJob( MASYNCJOB_PROBABILITYEVENTPERTIME, MUID(0, 0) ) {}
+	CCAsyncDBJob_EventLog() : 
+	   CCAsyncJob( CCASYNCJOB_PROBABILITYEVENTPERTIME, CCUID(0, 0) ) {}
 
-	~MAsyncDBJob_EventLog() {}
+	~CCAsyncDBJob_EventLog() {}
    
 	const AsyncEventObjVec& GetEventObjList()	{ return m_vEventObj; }
 	const string& GetEventName()				{ return m_strEventName; }
