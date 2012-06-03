@@ -1165,7 +1165,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCAsyncDBJob_CharFinalize.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCAsyncDBJob_DuelTournament.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_Event.h"
 			>
 		</File>
 		<File
@@ -1198,6 +1206,10 @@
 		</File>
 		<File
 			RelativePath=".\CCAsyncDBJob_InsertConnLog.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCAsyncDBJob_InsertGamePlayerLog.h"
 			>
 		</File>
 		<File
@@ -1286,6 +1298,10 @@
 		</File>
 		<File
 			RelativePath=".\CCBlobArray.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBMultiColListBoxLook.h"
 			>
 		</File>
 		<File
@@ -2477,6 +2493,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\NPGameLib.h"
+			>
+		</File>
+		<File
 			RelativePath=".\ODBCRecordset.h"
 			>
 		</File>
@@ -2485,11 +2505,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\PrivateKey.h"
+			>
+		</File>
+		<File
 			RelativePath=".\RBaseTexture.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\RBaseTexture.h"
+			>
+		</File>
+		<File
+			RelativePath=".\RCollisionDetection.h"
 			>
 		</File>
 		<File
@@ -2510,6 +2538,10 @@
 		</File>
 		<File
 			RelativePath=".\RealCPNet.h"
+			>
+		</File>
+		<File
+			RelativePath=".\RealSoundEffect.h"
 			>
 		</File>
 		<File

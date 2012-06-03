@@ -2,7 +2,7 @@
 
 #include "CCAsyncDBJob.h"
 
-class MAsyncDBJob_InsertConnLog : public MAsyncJob {
+class CCAsyncDBJob_InsertConnLog : public CCAsyncJob {
 protected:
 	
 protected:	// Input Argument
@@ -12,12 +12,12 @@ protected:	// Input Argument
 protected:	// Output Result
 
 public:
-	MAsyncDBJob_InsertConnLog(const MUID& uidOwner)
-		: MAsyncJob(MASYNCJOB_INSERTCONNLOG, uidOwner)
+	CCAsyncDBJob_InsertConnLog(const CCUID& uidOwner)
+		: CCAsyncJob(CCASYNCJOB_INSERTCONNLOG, uidOwner)
 	{
 
 	}
-	virtual ~MAsyncDBJob_InsertConnLog()	{}
+	virtual ~CCAsyncDBJob_InsertConnLog()	{}
 
 	bool Input(unsigned long int nAID, char* szIP, const string& strCountryCode3 );
 	virtual void Run(void* pContext);

@@ -24,7 +24,7 @@
 #include <crtdbg.h>
 #include "CCDebug.h"
 
-#include <dxerr9.h>
+#include "dxerr9.h"
 
 
 #ifndef _PUBLISH
