@@ -1,3 +1,6 @@
+// FIX THIS
+#pragma warning (disable : 4509)
+
 #include "stdafx.h"
 #include "CCMatrix.h"
 #include "CCMatchServer.h"
@@ -1984,7 +1987,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 
 
 	// 클랜전일 경우는 획득 경험치가 1.5배, 손실경험치 없음
-	if ((CCGetServerConfig()->GetServerMode() == CSM_CLAN) && (pStage->GetStageType() == MST_LADDER))
+	if ((CCGetServerConfig()->GetServerMode() == CSM_CLAN) && (pStage->GetStageType() == CCST_LADDER))
 	{
 		nAttackerExp = (int)((float)nAttackerExp * 1.5f);
 		nVictimExp = 0;
@@ -2726,7 +2729,7 @@ void CCMatchServer::OnVoteCallVote(const CCUID& uidPlayer, const char* pszDiscus
 	// 투표를 했다는걸 표시해놓음.
 	pObj->SetVoteState( true );
 
-	if (pStage->GetStageType() == MST_LADDER)
+	if (pStage->GetStageType() == CCST_LADDER)
 	{
 		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_CANNOT_VOTE_LADERGAME);
 		Announce(uidPlayer, szMsg);
@@ -3004,7 +3007,7 @@ void CCMatchServer::SaveGameLog(const CCUID& uidStage)
 	// test 맵등은 로그 남기지 않는다.
 	if ( (MGetMapDescMgr()->MIsCorrectMap(nMapID)) && (MGetGameTypeMgr()->IsCorrectGameType(nGameType)) )
 	{
-		if (pStage->GetStageType() != MST_LADDER)
+		if (pStage->GetStageType() != CCST_LADDER)
 		{
 			CCMatchObject* pMaster = GetObject(pStage->GetMasterUID());
 

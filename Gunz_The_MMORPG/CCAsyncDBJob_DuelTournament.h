@@ -2,8 +2,8 @@
 // Added By Hong KiJu
 #pragma once
 
-#ifndef _MASYNCDBJOB_DUELTOURNAMENT
-#define _MASYNCDBJOB_DUELTOURNAMENT
+#ifndef _CCASYNCDBJOB_DUELTOURNAMENT
+#define _CCASYNCDBJOB_DUELTOURNAMENT
 
 #include "CCAsyncDBJob.h"
 

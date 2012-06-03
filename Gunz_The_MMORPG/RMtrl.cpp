@@ -253,10 +253,10 @@ RMtrlMgr::RMtrlMgr()
 {
 	m_id_last = 0;
 
-	m_iode_table.reserve(MAX_MTRL_NODE);//기본
+	m_node_table.reserve(MAX_MTRL_NODE);//기본
 
 	for(int i=0;i<MAX_MTRL_NODE;i++)
-		m_iode_table[i] = NULL;
+		m_node_table[i] = NULL;
 
 	m_bObjectMtrl = false;
 }
@@ -281,7 +281,7 @@ int RMtrlMgr::Add(char* name,int u_id)
 
 	sprintf(node->m_mtrl_name,"%s%d",name,m_id_last);
 
-	m_iode_table.push_back(node);
+	m_node_table.push_back(node);
 //	m_data[m_id_last] = node;
 
 	push_back(node);
@@ -296,8 +296,8 @@ int RMtrlMgr::Add(RMtrl* tex)
 
 	sprintf(tex->m_mtrl_name,"%s%d",tex->m_iame,tex->m_id);
 
-	m_iode_table.push_back(tex);
-//	m_iode_table[m_id_last] = tex;
+	m_node_table.push_back(tex);
+//	m_node_table[m_id_last] = tex;
 
 	push_back(tex);
 	m_id_last++;
@@ -392,7 +392,7 @@ void RMtrlMgr::DelAll()
 		node = erase(node);// ++node
 	}
 
-	m_iode_table.clear();//버퍼는 남아 있다..
+	m_node_table.clear();//버퍼는 남아 있다..
 
 	m_id_last = 0;
 }

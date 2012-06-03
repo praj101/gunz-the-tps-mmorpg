@@ -4,7 +4,7 @@
 #include "CCDrawContext.h"
 #include "CCLookNFeel.h"
 
-#define CCLABEL	"Label"
+#define CORE_CCLABEL	"Label"
 
 class CCLabel;
 
@@ -31,5 +31,5 @@ public:
 	CCAlignmentMode	GetAlignment();
 	CCAlignmentMode	SetAlignment(CCAlignmentMode am);
 
-	virtual const char* GetClassName() { return CCLABEL; };
+	virtual const char* GetClassName() { return CORE_CCLABEL; };
 };

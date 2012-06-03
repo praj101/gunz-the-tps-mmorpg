@@ -26,6 +26,10 @@
 
 #include "dxerr9.h"
 
+#include "ZGameInterface.h"
+#include "ZActor.h"
+#include "ZMyInfo.h"
+#include "ZGameClient.h"
 
 #ifndef _PUBLISH
 class ZEffectValidator : public set<ZEffect*> 

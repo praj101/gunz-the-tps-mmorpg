@@ -1,5 +1,5 @@
-#ifndef _MASYNCHTTP_H
-#define _MASYNCHTTP_H
+#ifndef _CCASYNCHTTP_H
+#define _CCASYNCHTTP_H
 
 #include<windows.h>
 #include<wininet.h>
