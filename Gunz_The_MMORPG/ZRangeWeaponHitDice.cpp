@@ -3,6 +3,8 @@
 #include "CCMath.h"
 #include "RTypes.h"
 
+using namespace RealSpace2;
+
 ZRangeWeaponHitDice::ZRangeWeaponHitDice() :m_fHitProbability(0.0f), 
 											m_fGlobalFactor(1.0f), 
 											m_fTargetHeight(180.0f),

@@ -3300,7 +3300,7 @@ ZDummyCharacter::ZDummyCharacter() : ZMyCharacter()
 	unsigned long int nFeetPreset[_DUMMY_CHARACTER_PRESET] = {24001, 24002, 24003, 24004, 24005};
 
 
-	static m_stIndex = 0; m_stIndex++;
+	static int m_stIndex = 0; m_stIndex++;
 
 	CCTD_CharInfo info;
 	char szTempName[128]; sprintf(szTempName, "noname%d", m_stIndex); strcpy(info.szName, szTempName);
