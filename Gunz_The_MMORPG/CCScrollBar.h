@@ -10,7 +10,7 @@
 #define CCSCROLLBAR_BUTTON_HEIGHT	22
 #define CCSCROLLBAR_THUMB_WIDTH		22
 #define CCSCROLLBAR_THUMB_HEIGHT	22
-#define CCSCROLLBAR					"ScrollBar"
+#define CORE_CCSCROLLBAR				"ScrollBar"
 #define CCLIST_VALUE_CHANGED		"value changed"
 
 enum CCScrollBarTypes{
@@ -126,6 +126,6 @@ public:
 
 	int GetDefaultBreadth();
 
-	virtual const char* GetClassName(){ return CCSCROLLBAR; }
+	virtual const char* GetClassName(){ return CORE_CCSCROLLBAR; }
 };
 

@@ -7,8 +7,8 @@
 class CCPopupMenu;
 class CCMenuItem;
 
-#define CCPOPUPMENU	"PopupMenu"
-#define CCMENUITEM	"MenuItem"
+#define CORE_CCPOPUPMENU	"PopupMenu"
+#define CORE_CCMENUITEM	"MenuItem"
 
 class CCPopupMenuLook {
 public: 
@@ -45,7 +45,7 @@ public:
 	CCPopupMenu* GetSubMenu();
 	void	Select(bool bSelect);
 
-	virtual const char* GetClassName(){ return CCMENUITEM; }
+	virtual const char* GetClassName(){ return CORE_CCMENUITEM; }
 };
 
 enum CCPopupMenuTypes{
@@ -82,7 +82,7 @@ public:
 	void	Select(int idx);
 	void	Select(CCMenuItem* pMenuItem);
 
-	virtual const char* GetClassName(){ return CCPOPUPMENU; }
+	virtual const char* GetClassName(){ return CORE_CCPOPUPMENU; }
 
 	DECLARE_LOOK(CCPopupMenuLook)
 	DECLARE_LOOK_CLIENT()

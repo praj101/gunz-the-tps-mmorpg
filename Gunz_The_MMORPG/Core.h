@@ -54,7 +54,8 @@ protected:
 
 	void*		m_pCandidateList;
 	int			m_iCandidateListSize;
-	sPoint		m_CondidateListPos;
+	sPoint		m_CandidateListPos;
+	bool		m_bEnableIME;
 
 public:
 	DWORD		m_iCompositionAttributeSize;
@@ -111,6 +112,8 @@ public:
 
 	void SetGlobalEvent(MGLOBALEVENTCALLBACK pGlobalEventCallback);
 	
+	const char* GetDefaultFontName() const;
+
 	int GetPrimaryLanguageIdentifier() const;
 	int GetSubLanguageIdentifier() const;
 	const char* GetLanguageIndicatorString() const;

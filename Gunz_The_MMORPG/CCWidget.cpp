@@ -408,7 +408,7 @@ bool CCWidget::EventAccelerator(CCEvent* pEvent){
 
 	if(pEvent->iMessage==CCWM_KEYDOWN)
 		if(CCWidget::m_pFocusedWidget!=NULL)
-			if(strcmp(CCWidget::m_pFocusedWidget->GetClassName(), CCEDIT)==0) return false;
+			if(strcmp(CCWidget::m_pFocusedWidget->GetClassName(), CORE_CCEDIT)==0) return false;
 
 	if(GetLatestExclusive()!=NULL){
 		if(GetLatestExclusive()->EventAccelerator(pEvent)==true) return true;

@@ -4,7 +4,7 @@
 #include "CCDrawContext.h"
 #include "CCLookNFeel.h"
 
-#define CCBMLABEL	"BmLabel"
+#define CORE_CCBMLABEL	"BmLabel"
 
 class CCBmLabel : public CCWidget{
 protected:
@@ -19,5 +19,5 @@ public:
 	void SetLabelBitmap(CCBitmap* pLabelBitmap);
 	void SetCharSize(sSize& size);
 
-	virtual const char* GetClassName(){ return CCBMLABEL; } ;
+	virtual const char* GetClassName(){ return CORE_CCBMLABEL; } ;
 };

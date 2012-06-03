@@ -1,3 +1,5 @@
+#pragma warning (disable : 4244)
+
 #include "StdAfx.h"
 #include "ZInput.h"
 #include "Core4Gunz.h"

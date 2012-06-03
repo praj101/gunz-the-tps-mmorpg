@@ -2,7 +2,7 @@
 
 #include "CCWidget.h"
 
-#define CCANIMATION "Animation"
+#define CORE_CCANIMATION "Animation"
 
 enum CCPlayMode{
 	CCPM_FORWARDONCE,
@@ -29,7 +29,7 @@ public:
 	void InitStartTime();
 	CCBitmap* GetBitmap();
 
-	virtual const char* GetClassName() { return CCANIMATION; };
+	virtual const char* GetClassName() { return CORE_CCANIMATION; };
 
 protected:
 	int				m_iCurrentFrame;

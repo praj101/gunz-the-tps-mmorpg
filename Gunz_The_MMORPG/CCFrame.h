@@ -4,7 +4,7 @@
 #include "CCLookNFeel.h"
 #include "CCButton.h"
 
-#define CCFRAME					"Frame"
+#define CORE_CCFRAME					"Frame"
 #define CCFRAME_CLOSE_MSG		"close"
 #define CCFRAME_MINIMIZE_MSG	"minimize"
 
@@ -80,5 +80,5 @@ public:
 
 
 
-	virtual const char* GetClassName(){ return CCFRAME; }
+	virtual const char* GetClassName(){ return CORE_CCFRAME; }
 };

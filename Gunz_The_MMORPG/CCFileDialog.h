@@ -6,7 +6,7 @@
 #include "CCFrame.h"
 #include "CCMsgBox.h"
 
-#define CCFILEDIALOG		"FileDialog"
+#define CORE_CCFILEDIALOG		"FileDialog"
 #define CCFILEDIALOG_OK		"OK"
 #define CCFILEDIALOG_CANCEL	"Cancel"
 
@@ -41,5 +41,5 @@ public:
 	const char* GetBaseDir();
 
 	void SetType(CCFileDialogType fdt);
-	virtual const char* GetClassName(){ return CCFILEDIALOG; }
+	virtual const char* GetClassName(){ return CORE_CCFILEDIALOG; }
 };

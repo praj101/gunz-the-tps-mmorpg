@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#define CCEDIT				"Edit"
+#define CORE_CCEDIT				"Edit"
 #define CCEDIT_KEYDOWN_MSG	"keydown"
 #define CCEDIT_CHAR_MSG		"char"
 #define CCEDIT_ENTER_VALUE	"entered"
@@ -122,5 +122,5 @@ public:
 	CCWidget* GetTabHandler()	{ return m_pTabHandler; };
 	void SetTabHandler(CCWidget* pWidget) { m_pTabHandler = pWidget; };
 
-	virtual const char* GetClassName() { return CCEDIT; };
+	virtual const char* GetClassName() { return CORE_CCEDIT; };
 };

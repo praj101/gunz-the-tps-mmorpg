@@ -494,6 +494,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCMatchQuest.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Core.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\UPnP.cpp"
 						>
 					</File>

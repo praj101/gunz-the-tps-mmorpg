@@ -11,7 +11,7 @@
 
 
 #define CCWIDGET_NAME_LENGTH	256
-#define CCWIDGET_NAME			"Widget"
+#define CORE_CCWIDGET			"Widget"
 
 class CCWidget;
 class CCToolTip;
@@ -257,7 +257,7 @@ public:
 
 
 
-	virtual const char* GetClassName(){ return CCWIDGET_NAME; }		//Get the class name
+	virtual const char* GetClassName(){ return CORE_CCWIDGET; }		//Get the class name
 };
 
 

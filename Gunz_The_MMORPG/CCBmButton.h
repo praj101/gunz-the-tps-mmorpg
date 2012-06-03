@@ -3,6 +3,8 @@
 #include "CCButton.h"
 #include "CCEdit.h"
 
+#define CORE_CCBMBUTTON	"BmButton"
+
 class CCBmButton : public CCButton{
 protected:
 	CCBitmap*	m_pUpBitmap;
@@ -28,8 +30,7 @@ public:
 	void SetDownBitmap(CCBitmap* pBitmap);
 	void SetDisableBitmap(CCBitmap* pBitmap);
 	void SetOverBitmap(CCBitmap* pBitmap);
-#define MINT_BMBUTTON	"BmButton"
-	virtual const char* GetClassName(void){ return MINT_BMBUTTON; }
+	virtual const char* GetClassName(void){ return CORE_CCBMBUTTON; }
 
 	void SetStretch( bool b ){		m_bStretch = b;	}
 

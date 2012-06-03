@@ -10,7 +10,7 @@ class CCTabCtrl;
 class CCDrawContext;
 class CCButton;
 
-#define CCTABCTRL	"TabCtrl"
+#define CORE_CCTABCTRL	"TabCtrl"
 
 class CCTabCtrlLook{
 public:
@@ -54,6 +54,6 @@ public:
 	DECLARE_LOOK(CCTabCtrlLook)
 	DECLARE_LOOK_CLIENT()
 
-	virtual const char* GetClassName(){ return CCTABCTRL; }
+	virtual const char* GetClassName(){ return CORE_CCTABCTRL; }
 
 };

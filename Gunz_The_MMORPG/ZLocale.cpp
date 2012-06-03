@@ -1,3 +1,5 @@
+#pragma warning( disable : 4065)
+
 #include "stdafx.h"
 #include "ZLocale.h"
 #include "ZConfiguration.h"

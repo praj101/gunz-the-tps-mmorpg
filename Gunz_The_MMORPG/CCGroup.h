@@ -3,7 +3,7 @@
 #include "CCWidget.h"
 #include "CCLookNFeel.h"
 
-#define CCGROUP	"Group"
+#define CORE_CCGROUP	"Group"
 
 class CCGroup;
 
@@ -21,5 +21,5 @@ public:
 	CCGroup(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~CCGroup();
 
-	virtual const char* GetClassName(){ return CCGROUP; }
+	virtual const char* GetClassName(){ return CORE_CCGROUP; }
 };

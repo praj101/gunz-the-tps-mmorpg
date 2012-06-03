@@ -3,7 +3,7 @@
 #include "CCDrawContext.h"
 #include "CCLookNFeel.h"
 
-#define CCPANEL	"Panel"
+#define CORE_CCPANEL	"Panel"
 
 class CCPanel;
 
@@ -41,5 +41,5 @@ public:
 	sColor	GetBorderColor();
 	void	SetBorderStyle(CCBorderStyle style);
 	CCBorderStyle GetBorderStyle();
-	virtual const char* GetClassName(){ return CCPANEL; }
+	virtual const char* GetClassName(){ return CORE_CCPANEL; }
 };
