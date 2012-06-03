@@ -2337,6 +2337,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCStringTable.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCSurvivalRankInfo.cpp"
 			>
 		</File>
