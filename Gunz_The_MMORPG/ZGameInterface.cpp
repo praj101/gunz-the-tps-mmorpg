@@ -80,6 +80,9 @@
 #include "ZShop.h"
 #include "ZGambleItemDefine.h"
 
+#include "ZStringResManager.h"
+#include "ZCombatInterface.h"
+
 #ifdef _XTRAP
 #include "./XTrap/Xtrap_C_Interface.h"				// Update sgk 0702
 #endif
@@ -130,7 +133,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 	// 개수를 세기위한 copy
 	for(int i=0; i<pfs->GetFileCount(); i++){
 		const char* szFileName = pfs->GetFileName(i);
-		const MZFILEDESC* desc = pfs->GetFileDesc(i);
+		const CCZFILEDESC* desc = pfs->GetFileDesc(i);
 		int nLen = (int)strlen(szFileName);
 
 		for(int j=0;j<sizeof(loadExts)/sizeof(loadExts[0]);j++) {
@@ -153,8 +156,8 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 	for(int i=0; i<pfs->GetFileCount(); i++){
 
 		const char* szFileName = pfs->GetFileName(i);
-		const MZFILEDESC* desc = pfs->GetFileDesc(i);
-		const MZFILEDESC* subDesc = NULL;
+		const CCZFILEDESC* desc = pfs->GetFileDesc(i);
+		const CCZFILEDESC* subDesc = NULL;
 		int nLen = (int)strlen(szFileName);
 		const char* szTargetFile = NULL;
 
@@ -243,11 +246,11 @@ pNew->SetBounds(HotBarClientRect.x+HOTBAR_SPINBTN_WIDTH+1+i*(HOTBAR_BTN_WIDTH+1)
 
 void AddListItem(CCListBox* pList, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
-	class MDragableListItem : public MDefaultListItem{
+	class CCDragableListItem : public CCDefaultListItem{
 		char m_szDragItemString[256];
 	public:
-		MDragableListItem(CCBitmap* pBitmap, const char* szText, const char* szItemString)
-			: MDefaultListItem(pBitmap, szText){
+		CCDragableListItem(CCBitmap* pBitmap, const char* szText, const char* szItemString)
+			: CCDefaultListItem(pBitmap, szText){
 				if(szItemString!=NULL) strcpy(m_szDragItemString, szItemString);
 				else m_szDragItemString[0] = 0;
 			}
@@ -259,7 +262,7 @@ void AddListItem(CCListBox* pList, CCBitmap* pBitmap, const char* szString, cons
 				return true;
 			};
 	};
-	MDefaultListItem* pNew = new MDragableListItem(pBitmap, szString, szItemString);
+	CCDefaultListItem* pNew = new CCDragableListItem(pBitmap, szString, szItemString);
 	pList->Add(pNew);
 }
 
@@ -267,7 +270,7 @@ bool InitSkillList(CCWidget* pWidget)
 {
 	if(pWidget==NULL) return false;
 
-	if(strcmp(pWidget->GetClassName(), CORE_LISTBOX)!=0) return false;
+	if(strcmp(pWidget->GetClassName(), CORE_CCLISTBOX)!=0) return false;
 	CCListBox* pList = (CCListBox*)pWidget;
 
 	pList->SetItemHeight(32);
@@ -284,7 +287,7 @@ bool InitItemList(CCWidget* pWidget)
 {
 	if(pWidget==NULL) return false;
 
-	if(strcmp(pWidget->GetClassName(), CORE_LISTBOX)!=0) return false;
+	if(strcmp(pWidget->GetClassName(), CORE_CCLISTBOX)!=0) return false;
 	CCListBox* pList = (CCListBox*)pWidget;
 
 	//	pList->SetViewStyle(MVS_ICON);
@@ -351,8 +354,8 @@ ZGameInterface::ZGameInterface(const char* szName, CCWidget* pParent, CCListener
 	m_pDuelTournamentInfoBg = NULL;
 	m_pDuelTournamentRankingLabel = NULL;
 
-	m_pMsgBox = new ZMsgBox("", Core::GetInstance()->GetMainFrame(), this, MT_OK);
-	m_pConfirmMsgBox = new ZMsgBox("", Core::GetInstance()->GetMainFrame(), this, MT_YESNO);
+	m_pMsgBox = new ZMsgBox("", Core::GetInstance()->GetMainFrame(), this, CCT_OK);
+	m_pConfirmMsgBox = new ZMsgBox("", Core::GetInstance()->GetMainFrame(), this, CCT_YESNO);
 
 	m_pMonsterBookInterface = new ZMonsterBookInterface();
 
@@ -580,8 +583,8 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	END_("IDL resources");
 
 // 다이알로그 look 세팅
-//	MBFrameLook* pFrameLook = (MBFrameLook*)m_IDLResource.FindFrameLook("Custom1FrameLook");
-	MBFrameLook* pFrameLook = (MBFrameLook*)m_IDLResource.FindFrameLook("DefaultFrameLook");
+//	CCBFrameLook* pFrameLook = (CCBFrameLook*)m_IDLResource.FindFrameLook("Custom1FrameLook");
+	CCBFrameLook* pFrameLook = (CCBFrameLook*)m_IDLResource.FindFrameLook("DefaultFrameLook");
 	if (pFrameLook != NULL)
 	{
 		m_pMsgBox->ChangeCustomLook((CCFrameLook*)pFrameLook);
@@ -3642,7 +3645,7 @@ bool ZGameInterface::OnGlobalEvent(CCEvent* pEvent)
 
 #ifndef _PUBLISH
 	switch(pEvent->iMessage){
-		case MWM_CHAR:
+		case CCWM_CHAR:
 		{
 			switch (pEvent->uKey) {
 			case '`' :
