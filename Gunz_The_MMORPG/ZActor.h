@@ -12,7 +12,6 @@
 #include "CCBaseQuest.h"
 #include "ZActorAnimation.h"
 #include "ZTask.h"
-#include "ZTaskManager.h"
 #include "ZModule_HPAP.h"
 #include "CCMatchTransDataType.h"
 #include "ZNPCInfoFromServer.h"
@@ -21,6 +20,7 @@
 // Added
 //#include "ZGlobal.h"
 #include "ZGameInterface.h"
+#include "ZTaskManager.h"
 
 #include <list>
 #include <string>

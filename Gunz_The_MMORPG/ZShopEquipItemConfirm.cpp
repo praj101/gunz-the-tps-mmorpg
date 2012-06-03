@@ -9,6 +9,8 @@
 #include "ZMessages.h"
 #include "CCPicture.h"
 #include "CCEdit.h"
+#include "ZIDLResource.h"
+#include <sstream.h>
 
 static ZIDLResource* GetIDLResource() {
 	return ZGetGameInterface()->GetIDLResource();
@@ -163,7 +165,7 @@ void ZItemCountDlg::OnDlgDone()
 
 ZSimpleConfirmDlg::ZSimpleConfirmDlg()
 {
-	m_pMsgbox = (CCMsgBox*)Core::GetInstance()->NewWidget(CORE_MSGBOX, "", Core::GetInstance()->GetMainFrame(), this);
+	m_pMsgbox = (CCMsgBox*)Core::GetInstance()->NewWidget(CORE_CCMSGBOX, "", COre::GetInstance()->GetMainFrame(), this);
 	m_pMsgbox->SetType(CCT_OKCANCEL);
 
 	m_pDoneHandler = NULL;

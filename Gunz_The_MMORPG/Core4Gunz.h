@@ -37,7 +37,7 @@ public:
 	virtual CCWidget* NewWidget(const char* szClass, const char* szName, CCWidget* pParent, CCListener* pListener){
 		if(strcmp(szClass, CORE_CCBUTTON)==0) return new ZButton(szName, pParent, pListener);
 		else if( strcmp(szClass, CORE_CCBUTTON)==0) return new ZButton(szName, pParent, pListener);
-		else if( strcmp(szClass, CCMSGBOX)==0) return new ZMsgBox(szName, pParent, pListener);
+		else if( strcmp(szClass, CORE_CCMSGBOX)==0) return new ZMsgBox(szName, pParent, pListener);
 		else if( strcmp(szClass, CORE_ACTIONKEY)==0) return new ZActionKey(szName, pParent, pListener);
 		return Core::NewWidget(szClass, szName, pParent, pListener);
 	}

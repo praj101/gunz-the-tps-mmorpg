@@ -5,7 +5,7 @@
 #include "CCMsgBox.h"
 #include "Core.h"
 
-#define MBUTTON_DEFAULT_ALIGNMENT_MODE	(MAM_HCENTER|MAM_VCENTER)
+#define MBUTTON_DEFAULT_ALIGNMENT_MODE	(CCD_HCENTER|CCD_VCENTER)
 
 /*
 CCButtonLook CCButton::m_DefaultLook;
@@ -84,7 +84,7 @@ bool CCButton::OnEvent(CCEvent* pEvent, CCListener* pListener)
 
 				if(m_pMsgBox!=NULL) m_pMsgBox->Show(true, true);
 				else if(pListener!=NULL) {
-					pListener->OnCommand(this, MBTN_UP_MSG);
+					pListener->OnCommand(this, CCBTN_UP_MSG);
 					OnButtonClick();
 				}
 				return true;
@@ -309,7 +309,7 @@ void CCButton::SetConfirmMessageBox(const char* szMessage)
 	
 	//if(m_pMsgBox==NULL) m_pMsgBox = new CCMsgBox(szMessage, GetParent(), CCT_OKCANCEL, this);
 	if(m_pMsgBox==NULL) {
-		m_pMsgBox = (CCMsgBox*)Core::GetInstance()->NewWidget(CORE_MSGBOX, "", Core::GetInstance()->GetMainFrame(), this );
+		m_pMsgBox = (CCMsgBox*)Core::GetInstance()->NewWidget(CORE_CCMSGBOX, "", Core::GetInstance()->GetMainFrame(), this );
 		m_pMsgBox->SetType(CCT_OKCANCEL);
 //		m_pMsgBox->SetTitle(szMessage);		// title 은 look의 default title로 대체
 	}
@@ -367,7 +367,7 @@ void CCButtonLook::OnDrawText(CCButton* pButton, sRect& r, CCDrawContext* pDC)
 		r.w-=pButton->m_pIcon->GetWidth();
 	}
 
-	pDC->SetColor(sColor(DEFCOLOR_MBUTTON_TEXT));
+	pDC->SetColor(sColor(DEFCOLOR_CCBUTTON_TEXT));
 	if(pButton->m_bHighlight==true){
 		sColor PrevHCol = pDC->SetHighlightColor(sColor(DEFCOLOR_PEN_HIGHLIGHT));
 		pDC->TextWithHighlight(r, pButton->m_szName, pButton->GetAlignment());
@@ -381,7 +381,7 @@ void CCButtonLook::OnDrawText(CCButton* pButton, sRect& r, CCDrawContext* pDC)
 void CCButtonLook::OnDownDraw(CCButton* pButton, CCDrawContext* pDC)
 {
 	sRect r = pButton->GetInitialClientRect();
-	pDC->SetColor(sColor(DEFCOLOR_MBUTTON_DARKPLANE));
+	pDC->SetColor(sColor(DEFCOLOR_CCBUTTON_DARKPLANE));
 	pDC->FillRectangle(r);
 
 	OnDrawText(pButton, pButton->GetClientRect(), pDC);

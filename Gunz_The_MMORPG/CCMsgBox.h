@@ -5,7 +5,7 @@
 #include "CCLabel.h"
 #include "CCTextArea.h"
 
-#define CCMSGBOX		"MsgBox"
+#define CORE_CCMSGBOX	"MsgBox"
 #define CCMSGBOX_OK		"OK"
 #define CCMSGBOX_CANCEL	"Cancel"
 #define CCMSGBOX_YES	"Yes"
@@ -15,9 +15,9 @@ enum CCMsgBoxType{
 	CCT_OK,
 	CCT_CANCEL,
 	CCT_OKCANCEL,
-	MT_YESNO,
+	CCT_YESNO,
 
-	MT_NOTDECIDED
+	CCT_NOTDECIDED
 };
 
 class CCMsgBox : public CCFrame{
@@ -34,7 +34,7 @@ protected:
 	virtual bool OnCommand(CCWidget* pWindow, const char* szMessage);
 
 public:
-	CCMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener=NULL, CCMsgBoxType nType=MT_NOTDECIDED );
+	CCMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener=NULL, CCMsgBoxType nType=CCT_NOTDECIDED );
 	virtual ~CCMsgBox();
 
 	void SetType(CCMsgBoxType nType);
@@ -48,5 +48,5 @@ public:
 	virtual void MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight);
 	void AdjustSize();
 
-	virtual const char* GetClassName(){ return CCMSGBOX; }
+	virtual const char* GetClassName(){ return CORE_CCMSGBOX; }
 };
