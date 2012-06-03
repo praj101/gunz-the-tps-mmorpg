@@ -6,7 +6,7 @@
 class CCSliderThumb;
 class CCBSliderThumbLook;
 
-#define CCSLIDER	"Slider"
+#define CORE_CCSLIDER	"Slider"
 
 class CCSliderThumbLook{
 protected:
@@ -37,5 +37,5 @@ public:
 	CCSlider(CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~CCSlider();
 
-	virtual const char* GetClassName(){ return CCSLIDER; }
+	virtual const char* GetClassName(){ return CORE_CCSLIDER; }
 };

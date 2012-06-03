@@ -3,7 +3,7 @@
 
 #include "CCListBox.h"
 
-#define CCFILEBOX	"FileBox"
+#define CORE_CCFILEBOX	"FileBox"
 
 //File list box.
 class CCFileBox : public CCListBox{
@@ -19,5 +19,5 @@ public:
 	void Refresh(const char* szFilter=NULL);
 	const char* GetBaseDir();
 
-	virtual const char* GetClassName(){ return CCFILEBOX; }
+	virtual const char* GetClassName(){ return CORE_CCFILEBOX; }
 };

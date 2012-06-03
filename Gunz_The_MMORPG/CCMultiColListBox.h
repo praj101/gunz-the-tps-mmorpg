@@ -7,7 +7,7 @@
 
 class CCMultiColListBox;
 
-#define CCMULTICOLLISTBOX	"MultiColListBox"
+#define CORE_CCMULTICOLLISTBOX	"MultiColListBox"
 
 
 
@@ -144,5 +144,5 @@ public:
 	DECLARE_LOOK(CCMultiColListBoxLook)
 	DECLARE_LOOK_CLIENT()
 
-	virtual const char* GetClassName(){ return CCMULTICOLLISTBOX; }
+	virtual const char* GetClassName(){ return CORE_CCMULTICOLLISTBOX; }
 };

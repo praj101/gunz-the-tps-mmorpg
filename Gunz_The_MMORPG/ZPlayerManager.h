@@ -1,5 +1,5 @@
 #pragma once
-
+#pragma warning (disable : 4244)
 #include <map>
 #include <string>
 #include "CCUID.h"

@@ -2,7 +2,7 @@
 
 #include "CCEdit.h"
 
-#define CCHOTKEY	"HotKey"
+#define CORE_CCHOTKEY	"HotKey"
 
 /// HotKey
 class CCHotKey : public CCEdit{
@@ -23,7 +23,7 @@ protected:
 public:
 	CCHotKey(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 
-	virtual const char* GetClassName(){ return CCHOTKEY; }
+	virtual const char* GetClassName(){ return CORE_CCHOTKEY; }
 
 	void GetHotKeyName(char* szHotKeyName);
 	void GetHotKey(unsigned int* pKey, bool* pCtrl, bool* pAlt, bool* pShift);

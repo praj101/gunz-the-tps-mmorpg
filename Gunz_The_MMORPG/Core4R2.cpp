@@ -1,3 +1,5 @@
+#pragma warning(disable : 4244)
+
 #include "stdafx.h"
 
 #include "Core4R2.h"

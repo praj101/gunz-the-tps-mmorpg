@@ -2,7 +2,7 @@
 
 #include "CCWidget.h"
 
-#define CCTOOLTIP	"ToolTip"
+#define CORE_CCTOOLTIP	"ToolTip"
 
 class CCToolTip : public CCWidget{
 protected:
@@ -19,5 +19,5 @@ public:
 
 	virtual void OnDraw(CCDrawContext* pDC);
 
-	virtual const char* GetClassName(){ return CCTOOLTIP; };
+	virtual const char* GetClassName(){ return CORE_CCTOOLTIP; };
 };

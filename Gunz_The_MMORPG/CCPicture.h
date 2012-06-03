@@ -1,7 +1,7 @@
 #pragma once
 #include "CCWidget.h"
 
-#define CCPICTURE	"Picture"
+#define CORE_CCPICTURE	"Picture"
 
 /// Picture
 class CCPicture : public CCWidget{
@@ -50,5 +50,5 @@ public:
 	}
 
 	bool IsAnim() const { return m_bAnim;}
-	virtual const char* GetClassName(){ return CCPICTURE; }
+	virtual const char* GetClassName(){ return CORE_CCPICTURE; }
 };

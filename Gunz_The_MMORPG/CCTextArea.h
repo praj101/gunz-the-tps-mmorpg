@@ -12,7 +12,7 @@ using namespace std;
 class CCTextArea;
 class CCScrollBar;
 
-#define CCTEXTAREA						"TextArea"
+#define CORE_CCTEXTAREA						"TextArea"
 #define CCTEXTAREA_ESC_VALUE			"esc"
 #define CCTEXTAREA_ENTER_VALUE			"entered"
 #define CCTEXTAREA_DEFAULT_TEXT_COLOR	sColor(224,224,224)
@@ -120,7 +120,7 @@ public:
 	CCTextArea(int nMaxLen = 120, const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	virtual ~CCTextArea();
 
-	virtual const char* GetClassName(){ return CCTEXTAREA; }
+	virtual const char* GetClassName(){ return CORE_CCTEXTAREA; }
 
 	sPoint	GetCaretPos() { return m_CaretPos; }
 	int		GetStartLine() { return m_iStartLine; }

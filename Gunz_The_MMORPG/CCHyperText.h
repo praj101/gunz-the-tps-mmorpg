@@ -1,3 +1,4 @@
+#pragma once
 /*
 	CCHyperText.h
 	Programming by Joongpil Cho
@@ -35,20 +36,6 @@ typedef enum {
 	CCHTA_YMARGIN,		//Y-axis of the figure an extra
 }CCHT_ARGUMENT;
 
-typedef class CCHTA_IntegerArg<CCHTA_SIZE>		CCHTA_Size;
-typedef class CCHTA_IntegerArg<CCHTA_ALIGN>		CCHTA_Align;
-typedef class CCHTA_IntegerArg<CCHTA_TYPE>		CCHTA_Type;
-typedef class CCHTA_IntegerArg<CCHTA_BOLD>		CCHTA_Bold;
-typedef class CCHTA_IntegerArg<CCHTA_XMARGIN>	CCHTA_XMargin;
-typedef class CCHTA_IntegerArg<CCHTA_YMARGIN>	CCHTA_YMargin;
-
-typedef class CCHTA_ColorArg<CCHTA_COLOR>		CCHTA_Color;
-typedef class CCHTA_ColorArg<CCHTA_HIGHLIGHT>	CCHTA_Highlight;
-
-typedef class CCHTA_StringArg<CCHTA_TEXT>		CCHTA_Text;
-typedef class CCHTA_StringArg<CCHTA_SRC>		CCHTA_Src;
-typedef class CCHTA_StringArg<CCHTA_HREF>		CCHTA_HRef;
-
 //Text Element for each value of the secondary figures
 class CCHyperTextArg {
 public:
@@ -85,29 +72,29 @@ public:
 template<CCHT_ARGUMENT Arg>
 class CCHTA_ColorArg : public CCHyperTextArg {
 public:
-	sColor				sColor;
+	sColor				m_sColor;
 
 	CCHTA_ColorArg(sColor color) : CCHyperTextArg(Arg){
-		sColor = color;
+		m_sColor = color;
 	}
 };
 
 class CCHTA_Background : public CCHyperTextArg {
 	CCHTA_Background() : CCHyperTextArg(CCHTA_BACKGROUND){
-		sColor = sColor(0,0,0);
+		m_sColor = sColor(0,0,0);
 		szPath = NULL;
 	}
 public:
 	char*				szPath;		//Image path
-	sColor				sColor;
+	sColor				m_sColor;
 
 	CCHTA_Background(sColor color) : CCHyperTextArg(CCHTA_BACKGROUND){
 		szPath = NULL;
-		sColor = color;
+		m_sColor = color;
 	}
 
 	CCHTA_Background(char *path) : CCHyperTextArg(CCHTA_BACKGROUND){
-		sColor = sColor(0,0,0);
+		m_sColor = sColor(0,0,0);
 		szPath = strdup(path);
 	}
 
@@ -116,6 +103,19 @@ public:
 	}
 };
 
+typedef class CCHTA_IntegerArg<CCHTA_SIZE>		CCHTA_Size;
+typedef class CCHTA_IntegerArg<CCHTA_ALIGN>		CCHTA_Align;
+typedef class CCHTA_IntegerArg<CCHTA_TYPE>		CCHTA_Type;
+typedef class CCHTA_IntegerArg<CCHTA_BOLD>		CCHTA_Bold;
+typedef class CCHTA_IntegerArg<CCHTA_XMARGIN>	CCHTA_XMargin;
+typedef class CCHTA_IntegerArg<CCHTA_YMARGIN>	CCHTA_YMargin;
+
+typedef class CCHTA_ColorArg<CCHTA_COLOR>		CCHTA_Color;
+typedef class CCHTA_ColorArg<CCHTA_HIGHLIGHT>	CCHTA_Highlight;
+
+typedef class CCHTA_StringArg<CCHTA_TEXT>		CCHTA_Text;
+typedef class CCHTA_StringArg<CCHTA_SRC>		CCHTA_Src;
+typedef class CCHTA_StringArg<CCHTA_HREF>		CCHTA_HRef;
 
 
 
