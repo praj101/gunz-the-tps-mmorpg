@@ -486,6 +486,10 @@
 					UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 					>
 					<File
+						RelativePath=".\CCBaseQuest.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCBitmapDrawer.cpp"
 						>
 					</File>
@@ -519,6 +523,10 @@
 					</File>
 					<File
 						RelativePath=".\CCMatchQuest.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCQuestDropTable.cpp"
 						>
 					</File>
 					<File

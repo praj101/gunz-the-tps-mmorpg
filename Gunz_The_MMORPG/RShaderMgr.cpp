@@ -1,3 +1,4 @@
+#pragma warning ( disable : 4010 )
 #include "stdafx.h"
 //#include "ZConfiguration.h"
 #include "DirectX/D3D9.h"

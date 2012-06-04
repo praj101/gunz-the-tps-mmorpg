@@ -335,6 +335,9 @@ CCDrawContext* Core::GetDrawContext(void)
 	return m_pDC;
 }
 
+void Core::Update(){
+}
+
 #ifdef WIN32
 HWND m_hWnd = NULL;
 void Core::SetHWND(HWND hWnd)
