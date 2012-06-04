@@ -660,7 +660,7 @@ void HandleExceptionLog()
 {
 	#define ERROR_REPORT_FOLDER	"ReportError"
 
-	extern char* logfilename;	// Instance on MDebug.cpp
+	extern char* logfilename;	// Instance on CCDebug.cpp
 
 	// ERROR_REPORT_FOLDER 존재하는지 검사하고, 없으면 생성
 	WIN32_FIND_DATA FindFileData;

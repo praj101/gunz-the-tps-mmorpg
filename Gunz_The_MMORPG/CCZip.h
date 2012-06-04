@@ -91,7 +91,7 @@ public:
 
 	int	 m_size;
 	int	 m_offset;
-	char m_iame[256];
+	char m_name[256];
 };
 
 class FFileList :public list<FNode*>

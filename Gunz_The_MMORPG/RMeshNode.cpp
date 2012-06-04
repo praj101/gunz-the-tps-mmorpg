@@ -266,12 +266,12 @@ bool RMeshNode::SetBVertData(RBlendVertex* pBVert,int i,int j,int pv_index,int* 
 		return false;
 	}
 
-	if( pPhysique->m_ium > 3 || pPhysique->m_ium <= 0 ) {
+	if( pPhysique->m_num > 3 || pPhysique->m_num <= 0 ) {
 		cclog("%s mesh %s node %d face %d point -> physique 3 개 이상\n",m_pParentMesh->GetFileName() ,m_Name.c_str(),i,j);
 		return false;
 	}
 
-	if( 1 == pPhysique->m_ium ) {
+	if( 1 == pPhysique->m_num ) {
 		w1 = 1;
 		w2 = 0;
 	}
@@ -289,7 +289,7 @@ bool RMeshNode::SetBVertData(RBlendVertex* pBVert,int i,int j,int pv_index,int* 
 
 	int index;
 
-	for( int k = 0 ; k < pPhysique->m_ium; ++k )
+	for( int k = 0 ; k < pPhysique->m_num; ++k )
 	{
 		index = pPhysique->m_parent_id[k]; // 현재 참조하고 있는 bone의 index
 
@@ -664,9 +664,9 @@ void RMeshNode::MakeNodeBuffer(DWORD flag)
 		} 
 		else if(!RMesh::m_bVertexNormalOnOff) {
 
-			SetVertex((pV+w  ),pP[p0],pFNL->m_iormal,pFace->m_point_tex[0]);
-			SetVertex((pV+w+1),pP[p1],pFNL->m_iormal,pFace->m_point_tex[1]);
-			SetVertex((pV+w+2),pP[p2],pFNL->m_iormal,pFace->m_point_tex[2]);
+			SetVertex((pV+w  ),pP[p0],pFNL->m_normal,pFace->m_point_tex[0]);
+			SetVertex((pV+w+1),pP[p1],pFNL->m_normal,pFace->m_point_tex[1]);
+			SetVertex((pV+w+2),pP[p2],pFNL->m_normal,pFace->m_point_tex[2]);
 
 		} else {
 
@@ -1451,7 +1451,7 @@ void RMeshNode::CalcVertexBuffer_Physique(D3DXMATRIX* world_mat,int frame)
 
 		_vec_all = rvector(0,0,0);
 
-		p_num = m_physique[i].m_ium;
+		p_num = m_physique[i].m_num;
 
 		if(p_num > MAX_PHYSIQUE_KEY) p_num = MAX_PHYSIQUE_KEY;
 

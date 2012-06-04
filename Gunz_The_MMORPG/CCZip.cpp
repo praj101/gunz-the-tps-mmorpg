@@ -851,7 +851,7 @@ bool CCZip::RecoveryZip(char* zip_name)
 
 FNode::FNode()
 {
-	memset(m_iame,0,256);
+	memset(m_name,0,256);
 	m_size	 = 0;
 	m_offset = 0;
 }
@@ -859,7 +859,7 @@ FNode::FNode()
 void FNode::SetName(char* str)	
 {
 	if(strlen(str) > 255) return;
-	strcpy(m_iame,str);
+	strcpy(m_name,str);
 	str[255] = 0;
 }
 
@@ -903,8 +903,8 @@ void FFileList::UpgradeMrs()
 	{
 		pNode = (*node);
 
-		if(CCZip::UpgradeMrs( pNode->m_iame ))
-			cclog(" Upgrade mrs : %s\n",pNode->m_iame);
+		if(CCZip::UpgradeMrs( pNode->m_name ))
+			cclog(" Upgrade mrs : %s\n",pNode->m_name);
 	}
 }
 
@@ -916,8 +916,8 @@ void FFileList::ConvertZip()
 	for(node = begin(); node != end(); ++node) {
 		pNode = (*node);
 
-		if(CCZip::ConvertZip( pNode->m_iame ))
-			cclog("convert zip : %s\n",pNode->m_iame);
+		if(CCZip::ConvertZip( pNode->m_name ))
+			cclog("convert zip : %s\n",pNode->m_name);
 	}
 }
 
@@ -929,7 +929,7 @@ void FFileList::RecoveryZip()
 	for(node = begin(); node != end(); ++node) {
 		pNode = (*node);
 
-		CCZip::RecoveryZip( pNode->m_iame );
+		CCZip::RecoveryZip( pNode->m_name );
 	}
 }
 
@@ -946,15 +946,15 @@ void FFileList::ConvertVtf()
 		pNode = (*node);
 
 //		ShellExecute()
-		strcpy(temp,pNode->m_iame);
+		strcpy(temp,pNode->m_name);
 		len = strlen(temp);
 		temp[len-3] = 0;
 		strcat(temp,"tga");
 
-		sprintf(temp_arg,"%s %s",pNode->m_iame,temp);
+		sprintf(temp_arg,"%s %s",pNode->m_name,temp);
 		HINSTANCE hr = ShellExecute(NULL, _T("open"), _T("vtf2tga.exe"),_T(temp_arg), NULL, SW_HIDE);
 //		ShellExecute()
-//		_execl("vtf2tga.exe","%s %s",pNode->m_iame,temp);
+//		_execl("vtf2tga.exe","%s %s",pNode->m_name,temp);
 	}
 }
 
@@ -969,15 +969,15 @@ void FFileList::ConvertNameMRes2Zip()
 	for(node = begin(); node != end(); ++node) {
 		pNode = (*node);
 
-		strcpy(_buf_rename,pNode->m_iame);
-		len = (int)strlen(pNode->m_iame);
+		strcpy(_buf_rename,pNode->m_name);
+		len = (int)strlen(pNode->m_name);
 
 		_buf_rename[len-3] = NULL;
 		strcat(_buf_rename,"zip");
 
-		rename( pNode->m_iame, _buf_rename);
+		rename( pNode->m_name, _buf_rename);
 
-		cclog("rename : %s -> %s \n",_buf_rename,pNode->m_iame);
+		cclog("rename : %s -> %s \n",_buf_rename,pNode->m_name);
 	}
 }
 
@@ -992,15 +992,15 @@ void FFileList::ConvertNameZip2MRes()
 	for(node = begin(); node != end(); ++node) {
 		pNode = (*node);
 
-		strcpy(_buf_rename,pNode->m_iame);
-		len = (int)strlen(pNode->m_iame);
+		strcpy(_buf_rename,pNode->m_name);
+		len = (int)strlen(pNode->m_name);
 
 		_buf_rename[len-3] = NULL;
 		strcat(_buf_rename,"mrs");
 
-		rename( pNode->m_iame, _buf_rename);
+		rename( pNode->m_name, _buf_rename);
 
-		cclog("rename : %s -> %s \n",pNode->m_iame,_buf_rename);
+		cclog("rename : %s -> %s \n",pNode->m_name,_buf_rename);
 	}
 }
 

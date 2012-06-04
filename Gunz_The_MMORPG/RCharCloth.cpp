@@ -438,10 +438,10 @@ void RCharCloth::updatePosition( rmatrix* pWorldMat_ )
 		if( CLOTH_HOLD & m_pHolds[i] || mInitParticle )
 		{
 			rVec = rvector( 0,0,0 );
-			nRefBone = mpMeshNode->m_physique[i].m_ium;
-			//todok RPhysiqueInfo::m_ium 으로 루프를 돌면 안전장치가 전혀 없다
-			// 실제로 로딩한 후 ConnectMatrix()나 ConnectPhysique()를 돌릴때는 m_ium > MAX_PHYSIQUE_KEY 이면
-			// MAX_PHYSIQUE_KEY 까지만 돌고 있다. 여기서는 그냥 m_ium으로 도니까 메모리 침범이 일어난다. 
+			nRefBone = mpMeshNode->m_physique[i].m_num;
+			//todok RPhysiqueInfo::m_num 으로 루프를 돌면 안전장치가 전혀 없다
+			// 실제로 로딩한 후 ConnectMatrix()나 ConnectPhysique()를 돌릴때는 m_num > MAX_PHYSIQUE_KEY 이면
+			// MAX_PHYSIQUE_KEY 까지만 돌고 있다. 여기서는 그냥 m_num으로 도니까 메모리 침범이 일어난다. 
 			// 익스포트할때 경고메시지를 보여주도록 수정해야 할 것이다
 			for( int j = 0 ; j < nRefBone; ++j )
 			{

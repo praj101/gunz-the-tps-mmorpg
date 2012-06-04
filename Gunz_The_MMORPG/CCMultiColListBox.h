@@ -45,7 +45,7 @@ class CCMultiColListBox : public CCWidget
 {
 	ListMultiColListItem m_items;
 
-	int				m_iumColumn;		//number of columns
+	int				m_numColumn;		//number of columns
 	int				m_desiredNumRow;	//number of rows you want to show at a time
 	int				m_itemHeight;
 
@@ -76,10 +76,10 @@ public:
 	void	CalcItemHeight();
 
 	int		GetItemHeight() { return m_itemHeight; }
-	int		GetItemWidth() { return GetClientRect().w / m_iumColumn; }
+	int		GetItemWidth() { return GetClientRect().w / m_numColumn; }
 
 	void	SetNumColumn(int n);
-	int		GetNumColumn() { return m_iumColumn; }
+	int		GetNumColumn() { return m_numColumn; }
 
 	int		GetNumItem() { return (int)m_items.size(); }
 
@@ -93,10 +93,10 @@ public:
 		return GetRowFirstVisible() + GetMaxRowCanShow() - 1;
 	}
 	int GetItemFirstVisible() {
-		return GetRowFirstVisible() * m_iumColumn;
+		return GetRowFirstVisible() * m_numColumn;
 	}
 	int GetItemLastVisible() {
-		int idxItemLastShow = GetItemFirstVisible() + (GetMaxRowCanShow() * m_iumColumn) - 1;
+		int idxItemLastShow = GetItemFirstVisible() + (GetMaxRowCanShow() * m_numColumn) - 1;
 		return min(idxItemLastShow, GetNumItem()-1);
 	}
 
