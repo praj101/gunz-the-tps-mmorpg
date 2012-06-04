@@ -9,7 +9,7 @@
 #define MSID_MESSAGE	5
 #define MSID_OVERWRITE	6
 
-const char* MGetString(int nID);
-void MSetString(int nID, const char* szString);
+const char* CCGetString(int nID);
+void CCSetString(int nID, const char* szString);
 
 #endif
