@@ -385,7 +385,7 @@ void CCMatchItemEffectDescMgr::ParseEffect(::CCXmlElement& element)
 
 	insert(value_type(pNewEffectDesc->m_nID, pNewEffectDesc));
 
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pNewEffectDesc->m_nID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(pNewEffectDesc->m_nID);
 	if (pItemDesc)
 		pItemDesc->m_pEffect = pNewEffectDesc;
 }
@@ -1307,7 +1307,7 @@ bool CCMatchItemMap::CreateItem( const CCUID& uid
 							   , int nCount)
 {
 	CCMatchItemDesc* pDesc = NULL;
-	pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
+	pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
 	
 	if (pDesc == NULL) {
 		_ASSERT(0);

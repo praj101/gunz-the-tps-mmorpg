@@ -202,7 +202,7 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 			return false;
 		}
 
-		if (MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
+		if (CCGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
 		{
 			CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 			if( 0 == pRuleQuest )
@@ -257,7 +257,7 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 		const MSTAGE_SETTING_NODE* pNode = pStage->GetStageSetting()->GetStageSetting();
 		if( 0 != pNode )
 		{
-			if (MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
+			if (CCGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
 			{
 				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if(pRuleQuest)
@@ -301,7 +301,7 @@ bool CCMatchServer::StageLeave(const CCUID& uidPlayer)//, const CCUID& uidStage)
 			return false;
 		}
 
-		if (MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
+		if (CCGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
 		{
 			CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 			if( 0 == pRuleQuest )
@@ -362,7 +362,7 @@ bool ExceptionTraceStageEnterBattle( CCMatchObject* pObj, CCMatchStage* pStage )
 		cclog( "\nexception : stage enter battle =====================\n" );
 
 
-		CCMatchObject* pMaster = MGetMatchServer()->GetObject( pStage->GetMasterUID() );
+		CCMatchObject* pMaster = CCGetMatchServer()->GetObject( pStage->GetMasterUID() );
 		if( NULL != pMaster )  
 		{
 			if( NULL != pMaster->GetCharInfo() )
@@ -409,7 +409,7 @@ bool ExceptionTraceStageEnterBattle( CCMatchObject* pObj, CCMatchStage* pStage )
 		CCMatchObject* pObj = NULL;
 		for( ; endStage != itStage; ++itStage )
 		{
-			pObj = MGetMatchServer()->GetObject( itStage->first );
+			pObj = CCGetMatchServer()->GetObject( itStage->first );
 			if( NULL == pObj )
 			{
 				cclog( "!!!!stage can't find player!!!!\n" );
@@ -800,7 +800,7 @@ void CCMatchServer::StageFinishGame(const CCUID& uidStage)
 					return;
 				}
 
-				char* szMapName = (char*)MGetMapDescMgr()->GetMapName(pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
+				char* szMapName = (char*)CCGetMapDescMgr()->GetMapName(pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
 				if (!szMapName)
 				{
 					cclog("RelayMapBattleStart Fail MapID[%d] \n", (int)pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
@@ -1270,7 +1270,7 @@ void CCMatchServer::OnStageMap(const CCUID& uidStage, char* pszMapName)
 	pNew->AddParameter(new CCCommandParameterUID(uidStage));
 	pNew->AddParameter(new CCCommandParameterString(pStage->GetMapName()));
 
-	if ( MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType()))
+	if ( CCGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType()))
 	{
 		CCMatchRuleBaseQuest* pQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 		pQuest->RefreshStageGameInfo();
@@ -1317,7 +1317,7 @@ void CCMatchServer::StageRelayMapBattleStart(const CCUID& uidPlayer, const CCUID
 		return;
 	}
 
-	char* szMapName = (char*)MGetMapDescMgr()->GetMapName(pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
+	char* szMapName = (char*)CCGetMapDescMgr()->GetMapName(pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
 	if (!szMapName)
 	{
 		cclog("RelayMapBattleStart Fail MapID[%d] \n", (int)pStage->m_vecRelayMapsRemained[nRelayMapIndex].nMapID);
@@ -1362,7 +1362,7 @@ void CCMatchServer::OnStageRelayMapListUpdate(const CCUID& uidStage, int nRelayM
 	for (int i = 0; i < nRelayMapListCount; i++)
 	{
 		CCTD_RelayMap* pRelayMap = (CCTD_RelayMap*)CCGetBlobArrayElement(pRelayMapListBlob, i);
-		if(!MGetMapDescMgr()->MIsCorrectMap(pRelayMap->nMapID))
+		if(!CCGetMapDescMgr()->MIsCorrectMap(pRelayMap->nMapID))
 		{
 			cclog("OnStageRelayMapListUpdate Fail MIsCorrectMap ID[%d] \n", (int)pRelayMap->nMapID);
 			break;
@@ -1491,7 +1491,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 
 	if (QuestTestServer())
 	{
-		if (MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
+		if (CCGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
 		{
 			bCheckChannelRule = false;
 		}
@@ -1500,7 +1500,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	if ((pChannel) && (bCheckChannelRule))
 	{
 		// 세팅할 수 있는 맵, 게임타입인지 체크
-		CCChannelRule* pRule = MGetChannelRuleMgr()->GetRule(pChannel->GetRuleType());
+		CCChannelRule* pRule = CCGetChannelRuleMgr()->GetRule(pChannel->GetRuleType());
 		if (pRule)
 		{
 			if (!pRule->CheckGameType(pNode->nGameType))
@@ -1514,7 +1514,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 
 			if (!pRule->CheckMap(pNode->nMapIndex, bDuelMode))
 			{
-				strcpy(pNode->szMapName, MGetMapDescMgr()->GetMapName(CCMATCH_MAP_MANSION));
+				strcpy(pNode->szMapName, CCGetMapDescMgr()->GetMapName(CCMATCH_MAP_MANSION));
 				pNode->nMapIndex = 0;
 			}
 			else
@@ -1528,7 +1528,7 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	CCMATCH_GAMETYPE nLastGameType = pSetting->GetGameType();
 
 	// 퀘스트 모드이면 무조건 난입불가, 최대인원 4명으로 세팅한다.
-	if (MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
+	if (CCGetGameTypeMgr()->IsQuestDerived(pNode->nGameType))
 	{
 		if (pNode->bForcedEntryEnabled == true) pNode->bForcedEntryEnabled = false;
 		pNode->nMaxPlayers = STAGE_QUEST_MAX_PLAYER;
@@ -1543,11 +1543,11 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	}
 
 	// 퀘스트 모드였다가 다른 모드가 되면 '난입불가'를 허용으로 변경
-	if (MGetGameTypeMgr()->IsQuestDerived( nLastGameType ) == true &&
-		MGetGameTypeMgr()->IsQuestDerived( pNode->nGameType ) == false)
+	if (CCGetGameTypeMgr()->IsQuestDerived( nLastGameType ) == true &&
+		CCGetGameTypeMgr()->IsQuestDerived( pNode->nGameType ) == false)
 		pNode->bForcedEntryEnabled = true;
 
-	if (!MGetGameTypeMgr()->IsTeamGame(pNode->nGameType))
+	if (!CCGetGameTypeMgr()->IsTeamGame(pNode->nGameType))
 	{
 		pNode->bAutoTeamBalancing = true;
 	}
@@ -1581,8 +1581,8 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 	{
 		char szNewMap[ MAPNAME_LENGTH ] = {0};
 
-		if (MGetGameTypeMgr()->IsQuestDerived( nLastGameType ) == false &&
-			MGetGameTypeMgr()->IsQuestDerived( pSetting->GetGameType() ) == true)
+		if (CCGetGameTypeMgr()->IsQuestDerived( nLastGameType ) == false &&
+			CCGetGameTypeMgr()->IsQuestDerived( pSetting->GetGameType() ) == true)
 		{
 //			OnStageMap(uidStage, GetQuest()->GetSurvivalMapInfo(MSURVIVAL_MAP(0))->szName);
 //			OnStageMap(uidStage, pSetting->GetMapName());
@@ -1593,13 +1593,13 @@ void CCMatchServer::OnStageSetting(const CCUID& uidPlayer, const CCUID& uidStage
 		}
 		else if ( (nLastGameType != CCMATCH_GAMETYPE_DUEL) && ( pSetting->GetGameType() == CCMATCH_GAMETYPE_DUEL))
 		{
-			strcpy( szNewMap, MGetMapDescMgr()->GetMapName( CCMATCH_MAP_HALL));
+			strcpy( szNewMap, CCGetMapDescMgr()->GetMapName( CCMATCH_MAP_HALL));
 			OnStageMap(uidStage, szNewMap);
 		}
 		else if ( ((nLastGameType == CCMATCH_GAMETYPE_QUEST) || (nLastGameType == CCMATCH_GAMETYPE_SURVIVAL) || (nLastGameType == CCMATCH_GAMETYPE_DUEL)) &&
 			      ((pSetting->GetGameType() != CCMATCH_GAMETYPE_QUEST) && (pSetting->GetGameType() != CCMATCH_GAMETYPE_SURVIVAL) && ( pSetting->GetGameType() != CCMATCH_GAMETYPE_DUEL)))
 		{
-			strcpy( szNewMap, MGetMapDescMgr()->GetMapName( CCMATCH_MAP_MANSION));
+			strcpy( szNewMap, CCGetMapDescMgr()->GetMapName( CCMATCH_MAP_MANSION));
 			OnStageMap(uidStage, szNewMap);
 		}
 	}
@@ -1843,7 +1843,7 @@ void CCMatchServer::OnRequestSuicide(const CCUID& uidPlayer)
 	CCMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
 
-	pStage->ReserveSuicide( uidPlayer, MGetMatchServer()->GetGlobalClockCount() );
+	pStage->ReserveSuicide( uidPlayer, CCGetMatchServer()->GetGlobalClockCount() );
 
 	// OnGameKill(uidPlayer, uidPlayer);
 
@@ -1924,7 +1924,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	if (pAttacker == pVictim) bSuicide = true;		
 
 	CCMATCH_GAMETYPE nGameType = pStage->GetStageSetting()->GetGameType();
-	float fGameExpRatio = MGetGameTypeMgr()->GetInfo(nGameType)->fGameExpRatio;
+	float fGameExpRatio = CCGetGameTypeMgr()->GetInfo(nGameType)->fGameExpRatio;
 
 	// 게임타입이 Training이면 바로 0리턴
 	if (nGameType == CCMATCH_GAMETYPE_TRAINING)
@@ -1974,7 +1974,7 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	int nMapIndex = pStage->GetStageSetting()->GetMapIndex();
 	if ((nMapIndex >=0) && (nMapIndex < CCMATCH_MAP_COUNT))
 	{
-		float fMapExpRatio = MGetMapDescMgr()->GetExpRatio(nMapIndex);
+		float fMapExpRatio = CCGetMapDescMgr()->GetExpRatio(nMapIndex);
 		fGameExpRatio = fGameExpRatio * fMapExpRatio;
 	}
 
@@ -3005,7 +3005,7 @@ void CCMatchServer::SaveGameLog(const CCUID& uidStage)
 	
 
 	// test 맵등은 로그 남기지 않는다.
-	if ( (MGetMapDescMgr()->MIsCorrectMap(nMapID)) && (MGetGameTypeMgr()->IsCorrectGameType(nGameType)) )
+	if ( (CCGetMapDescMgr()->MIsCorrectMap(nMapID)) && (CCGetGameTypeMgr()->IsCorrectGameType(nGameType)) )
 	{
 		if (pStage->GetStageType() != CCST_LADDER)
 		{
@@ -3013,8 +3013,8 @@ void CCMatchServer::SaveGameLog(const CCUID& uidStage)
 
 			CCAsyncDBJob_InsertGameLog* pJob = new CCAsyncDBJob_InsertGameLog(uidStage);
 			pJob->Input(pMaster == NULL ? 0 : pMaster->GetCharInfo()->m_nCID,
-				MGetMapDescMgr()->GetMapName(nMapID), 
-				MGetGameTypeMgr()->GetInfo(CCMATCH_GAMETYPE(nGameType))->szGameTypeStr);
+				CCGetMapDescMgr()->GetMapName(nMapID), 
+				CCGetGameTypeMgr()->GetInfo(CCMATCH_GAMETYPE(nGameType))->szGameTypeStr);
 			PostAsyncJob(pJob);
 		}
 	}

@@ -13,7 +13,7 @@ public:
 };
 
 
-inline CCMatchGameTypeMgr* MGetGameTypeMgr() 
+inline CCMatchGameTypeMgr* CCGetGameTypeMgr() 
 {
 	return CCMatchGameTypeMgr::GetInstance();
 }

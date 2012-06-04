@@ -503,7 +503,7 @@ CCListener* ZGetEquipListFilterListener()
 //			ZEquipmentListItem_OLD* pListItem = ( ZEquipmentListItem_OLD*)pEquipmentListBox->GetSelItem();
 //			if ( pListItem)
 //			{
-//				CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pListItem->GetItemID());
+//				CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc( pListItem->GetItemID());
 //				ZCharacterView* pCharacterView = (ZCharacterView*)ZGetGameInterface()->GetIDLResource()->FindWidget( "EquipmentInformationShop");
 //				if ( pItemDesc && pCharacterView)
 //				{

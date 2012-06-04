@@ -20,7 +20,7 @@ enum CCDateType
 };
 
 const string MakeTimeString( const CCDateType DateType, SYSTEMTIME st );
-const string MGetStrLocalTime( const CCDateType = CCDT_YMDHM );
-const string MGetStrLocalTime( const unsigned short wDay, const unsigned short wHour, const unsigned short wMin, const CCDateType = CCDT_YMDHM );
+const string CCGetStrLocalTime( const CCDateType = CCDT_YMDHM );
+const string CCGetStrLocalTime( const unsigned short wDay, const unsigned short wHour, const unsigned short wMin, const CCDateType = CCDT_YMDHM );
 
 bool SplitStrIP( const string& strIP, vector<BYTE>& vIP );

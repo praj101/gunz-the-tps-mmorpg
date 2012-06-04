@@ -112,7 +112,7 @@ public:
 	bool SetBuffName(CCMatchItemDescMgr* pItemDescMgr);
 };
 
-inline CCMatchBuffDescMgr* MGetMatchBuffDescMgr() { return CCMatchBuffDescMgr::GetInstance(); }
+inline CCMatchBuffDescMgr* CCGetMatchBuffDescMgr() { return CCMatchBuffDescMgr::GetInstance(); }
 
 #include "cxr_CCMatchBuff.h"
 

@@ -226,7 +226,7 @@ void ChangeEquipAvatarParts(RVisualMesh* pVMesh, const unsigned long int* pItemI
 	pVMesh->ClearParts();
 
 	char* szMeshName;
-	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(pItemID[MMCIP_AVATAR]);
+	CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(pItemID[MMCIP_AVATAR]);
 	if( pDesc != NULL ) {
 		szMeshName = pDesc->m_pAvatarMeshName->Ref().m_szHeadMeshName;
 		if( strlen(szMeshName) > 0 )	pVMesh->SetParts(eq_parts_head, szMeshName);
@@ -273,7 +273,7 @@ void ChangeEquipParts(RVisualMesh* pVMesh, const unsigned long int* pItemID)
 
 	for (int i = 0; i < 5; i++) {
 		if (pItemID[PartsPair[i].itemparts] != 0) {
-			CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(pItemID[PartsPair[i].itemparts]);
+			CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(pItemID[PartsPair[i].itemparts]);
 			if (pDesc != NULL) {
 				pVMesh->SetParts(PartsPair[i].meshparts, pDesc->m_pMItemName->Ref().m_szMeshName);
 			}
@@ -347,7 +347,7 @@ void ZChangeCharWeaponMesh(RVisualMesh* pVMesh, unsigned long int nWeaponID)
 
 
 		RWeaponMotionType type = eq_weapon_etc;
-		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nWeaponID);
+		CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nWeaponID);
 		
 		if (pDesc == NULL)
 		{

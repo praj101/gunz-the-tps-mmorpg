@@ -250,7 +250,7 @@ void Core::Draw(void)
 
 	// Drag & Drop
 	/*
-	CCDragObject* pDragObject = MGetDragObject();
+	CCDragObject* pDragObject = CCGetDragObject();
 	if(pDragObject!=NULL){
 		pDC->SetBitmap(pDragObject->GetBitmap());
 		sPoint p = CCEvent::GetMousePos();
@@ -296,8 +296,8 @@ bool Core::EventActionKey(unsigned long int nKey, bool bPressed)
 {
 	CCEvent e;
 
-	if(bPressed==true) e.nMessage = CCWM_ACTIONKEYDOWN;
-	else e.nMessage = CCWM_ACTIONKEYUP;
+	if(bPressed==true) e.iMessage = CCWM_ACTIONKEYDOWN;
+	else e.iMessage = CCWM_ACTIONKEYUP;
 	e.nKey = nKey;
 
 	if (m_pMainFrame == NULL)
@@ -310,11 +310,11 @@ bool Core::EventActionKey(unsigned long int nKey, bool bPressed)
 	int nActionID = -1;
 	if(i!=m_ActionKeyMap.end()) nActionID = (*i).second;
 	if(bPressed==true){
-		e.nMessage = CCWM_ACTIONPRESSED;
+		e.iMessage = CCWM_ACTIONPRESSED;
 		if(nActionID>=0 && nActionID<ACTIONKEYMAP_IDCOUNT) m_ActionKeyPressedTable[nActionID] = true;
 	}
 	else{
-		e.nMessage = CCWM_ACTIONRELEASED;
+		e.iMessage = CCWM_ACTIONRELEASED;
 		if(nActionID>=0 && nActionID<ACTIONKEYMAP_IDCOUNT) m_ActionKeyPressedTable[nActionID] = false;
 	}
 	e.nKey = nActionID;
@@ -511,7 +511,7 @@ CCDragObject* MSetDragObject(CCDragObject* pDragObject)
 	m_pDragObject = pDragObject;
 	return pPrevDragObject;
 }
-CCDragObject* MGetDragObject(void)
+CCDragObject* CCGetDragObject(void)
 {
 	return m_pDragObject;
 }
@@ -1074,7 +1074,7 @@ void MCreateSample(void)
 		}
 		virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
 			/*
-			if(pWidget->GetID()==MGetResourceID("ID_OK") && IsMsg(szMessage, MBTN_CLK_MSG)==true){
+			if(pWidget->GetID()==CCGetResourceID("ID_OK") && IsMsg(szMessage, CCBTN_CLK_MSG)==true){
 				Hide();
 			}
 			*/

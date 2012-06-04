@@ -438,7 +438,7 @@ void ZCharacterSelectView::SelectChar(int nSelectIndex)
 					m_CharInfo[nSelectIndex].m_CharInfo.nEquipedItemDesc[MMCIP_CUSTOM1],
 					m_CharInfo[nSelectIndex].m_CharInfo.nEquipedItemDesc[MMCIP_CUSTOM2]);
 
-				CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
+				CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
 				RMesh* pMesh = NULL;
 
 				if (pDesc) {
@@ -512,35 +512,35 @@ void ZCharacterSelectView::OnChangedCharInfo(int sex,int index)
 
 	pLabel = (CCLabel*)pResource->FindWidget("CC_MeleeLabel");
 	if (pLabel != NULL)	{
-		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_MELEE]);
+		CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_MELEE]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
 	pLabel = (CCLabel*)pResource->FindWidget("CC_PrimaryLabel");
 	if (pLabel != NULL)	{
-		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_PRIMARY]);
+		CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_PRIMARY]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
 	pLabel = (CCLabel*)pResource->FindWidget("CC_SecondaryLabel");
 	if (pLabel != NULL)	{
-		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_SECONDARY]);
+		CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_SECONDARY]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
 	pLabel = (CCLabel*)pResource->FindWidget("CC_Item1Label");
 	if (pLabel != NULL)	{
-		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM1]);
+		CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM1]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
 
 	pLabel = (CCLabel*)pResource->FindWidget("CC_Item2Label");
 	if (pLabel != NULL)	{
-		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM2]);
+		CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID[MMCIP_CUSTOM2]);
 		if (pDesc != NULL)	pLabel->SetText(pDesc->m_pMItemName->Ref().m_szItemName);
 		else				pLabel->SetText(" ");
 	}
@@ -750,7 +750,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 			// 아이템 속성값 적용
 			for (int k = 0; k < MMCIP_END; k++)
 			{
-				CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZCharacterSelectView::m_CharInfo[nIndex].m_CharInfo.nEquipedItemDesc[k]);
+				CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(ZCharacterSelectView::m_CharInfo[nIndex].m_CharInfo.nEquipedItemDesc[k]);
 				if (pItemDesc)
 				{
 					// 지금은 HP와 AP만 적용중

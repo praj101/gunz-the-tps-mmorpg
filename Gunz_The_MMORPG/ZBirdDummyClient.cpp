@@ -307,7 +307,7 @@ bool ZBirdDummyClient::OnCommand(CCCommand* pCommand)
 			if(nReturn!=MOK)
 			{
 				OutputMessage("Can't connect to communicator", CCZMOM_ERROR);
-//				OutputMessage(MGetErrorString(nReturn), CCZMOM_ERROR);
+//				OutputMessage(CCGetErrorString(nReturn), CCZMOM_ERROR);
 				OutputMessage(
 					ZErrStr(nReturn), 
 					CCZMOM_ERROR );

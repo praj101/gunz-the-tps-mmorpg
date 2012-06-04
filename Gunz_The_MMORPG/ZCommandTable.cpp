@@ -46,7 +46,7 @@ void ZAddCommandTable(CCCommandManager* pCommandManager)
 		P(MPT_STR, "SkinName");
 	C(ZC_REPORT_119, "Report119", "Report 119", MCDT_LOCAL);
 	C(ZC_MESSAGE, "Message", "Message", MCDT_LOCAL);
-		P(MPT_INT, "nMessageID")
+		P(MPT_INT, "iMessageID")
 	C(ZC_EVENT_OPTAIN_SPECIAL_WORLDITEM, "Local.Event.Optain.Special.WorldItem", "Event Optain Special WorldItem", MCDT_LOCAL);
 		P(MPT_INT, "WorldItemID")
 

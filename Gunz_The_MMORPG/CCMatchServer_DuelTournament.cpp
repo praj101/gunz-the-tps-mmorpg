@@ -207,11 +207,11 @@ void CCMatchServer::LaunchDuelTournamentMatch(CCDUELTOURNAMENTTYPE nType, CCDuel
 
 #ifdef _DUELTOURNAMENT_LOG_ENABLE_	
 	LOG(LOG_PROG, "CCMatchServer::LaunchDuelTournamentMatch - MapName=%s(id=%d), MaxRound=%d"
-		, MGetMapDescMgr()->GetMapName(nRandomMapIndex), nRandomMapIndex, nMaxRound);
+		, CCGetMapDescMgr()->GetMapName(nRandomMapIndex), nRandomMapIndex, nMaxRound);
 #endif
 
 	// 디비에 로그를 남긴다.
-	if ( (MGetMapDescMgr()->MIsCorrectMap(nRandomMapIndex)) && (MGetGameTypeMgr()->IsCorrectGameType(CCMATCH_GAMETYPE_DUELTOURNAMENT)) ) {
+	if ( (CCGetMapDescMgr()->MIsCorrectMap(nRandomMapIndex)) && (CCGetGameTypeMgr()->IsCorrectGameType(CCMATCH_GAMETYPE_DUELTOURNAMENT)) ) {
 
 		// 선수들 입장!
 		for (CCDuelTournamentPickedGroup::iterator i=pPickedGroup->begin(); i!= pPickedGroup->end(); i++)

@@ -114,7 +114,7 @@ bool ZCharacterItem::EquipItem(CCMatchCharItemParts parts, int nItemDescID, int 
 		return true;
 	}
 
-	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
+	CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemDescID);
 
 	if (pDesc == NULL) { _ASSERT(0); return false; }
 	if (!Confirm(parts, pDesc)) {

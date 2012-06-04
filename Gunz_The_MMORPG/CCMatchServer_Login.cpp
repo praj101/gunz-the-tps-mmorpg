@@ -286,7 +286,7 @@ void CCMatchServer::OnMatchLoginFromNetmarble(const CCUID& ComCCUID, const char*
 	CCMatchAuthInfo* pAuthInfo = NULL;
 	if (pAuthBuilder->ParseAuthInfo(szCPCookie, &pAuthInfo) == false) 
 	{
-		MGetServerStatusSingleton()->SetRunStatus(5);
+		CCGetServerStatusSingleton()->SetRunStatus(5);
 
 		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_WRONG_PASSWORD);
 		Post(pCmd);	

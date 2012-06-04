@@ -74,7 +74,7 @@ void ZRoomListBox::OnDraw( CCDrawContext* pDC )
 		if( m_Selection == i )			pressed_reposition = 1; 
 		else							pressed_reposition = 0;
 
-		const char*	mapName = MGetMapDescMgr()->GetBannerName( m_pMapInfo[i].map_name);
+		const char*	mapName = CCGetMapDescMgr()->GetBannerName( m_pMapInfo[i].map_name);
 		if( m_pMapInfo[i].IsEmpty )
 		{
 			continue;

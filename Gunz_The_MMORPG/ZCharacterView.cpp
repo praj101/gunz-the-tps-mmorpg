@@ -344,7 +344,7 @@ void ZCharacterView::InitCharParts(CCMatchSex nSex, unsigned int nHair, unsigned
 
 void ZCharacterView::SetParts(CCMatchCharItemParts nParts, unsigned int nItemID)
 {
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc == NULL) return;
 	if (IsSuitableItemSlot(pItemDesc->m_nSlot, nParts) == false) return;
 

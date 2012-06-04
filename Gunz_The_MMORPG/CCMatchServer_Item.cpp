@@ -30,7 +30,7 @@ bool CCMatchServer::DistributeZItem(const CCUID& uidPlayer, const unsigned long 
 	CCMatchObject* pObject = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObject)) return false;
 
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if ( pItemDesc == NULL ) return false;
 
 	if ( !pItemDesc->IsSpendableItem() ) 
@@ -396,7 +396,7 @@ void CCMatchServer::OnRequestUseSpendableBuffItem(const CCUID& uidPlayer, const 
 		return; 
 	} 
 
-	CCMatchBuffDesc* pBuffDesc = MGetMatchBuffDescMgr()->GetBuffDesc(pItem->GetDesc()->m_nID);
+	CCMatchBuffDesc* pBuffDesc = CCGetMatchBuffDescMgr()->GetBuffDesc(pItem->GetDesc()->m_nID);
 	if( pBuffDesc == NULL ) {
 		_ASSERT(0);
 		return;

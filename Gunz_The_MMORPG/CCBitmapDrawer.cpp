@@ -83,7 +83,7 @@ void DrawBitmapFrame2(CCDrawContext* pDC, sRect& r, sRect& cr, CCBitmap* Bms[9])
 
 		pDC->SetColor(sColor(255,255,255,255));
 //		pDC->SetOpacity(255);
-//		pDC->SetClipRect(0,0,MGetWorkspaceWidth(),MGetWorkspaceHeight());
+//		pDC->SetClipRect(0,0,CCGetWorkspaceWidth(),CCGetWorkspaceHeight());
 		pDC->SetClipRect( cr.x, cr.y, cr.w, cr.h );
 //		pDC->SetBitmapColor(color);
 

@@ -65,7 +65,7 @@ void CCMatchWorldItemManager::SpawnInfoInit()
 		// 글래디에어터 모드는 Bullet를 스폰안시킨다
 		if (IsGameRuleGladiator(m_pMatchStage->GetStageSetting()->GetGameType()))
 		{
-			CCMatchWorldItemDesc* wi = MGetMatchWorldItemDescMgr()->GetItemDesc(m_SpawnInfos[i].nItemID);
+			CCMatchWorldItemDesc* wi = CCGetMatchWorldItemDescMgr()->GetItemDesc(m_SpawnInfos[i].nItemID);
 			if ((wi) && (wi->m_nItemType == WIT_BULLET))
 			{
 				m_SpawnInfos[i].bUsed = false;
@@ -275,13 +275,13 @@ void CCMatchWorldItemManager::OnStageBegin(CCMatchStageSetting* pStageSetting)
 	m_SpawnInfos.clear();
 
 	if ((nMapID < 0) || (nMapID >= CCMATCH_MAP_COUNT)) return;
-	if (MGetGameTypeMgr()->IsWorldItemSpawnEnable(pStageSetting->GetGameType()))
+	if (CCGetGameTypeMgr()->IsWorldItemSpawnEnable(pStageSetting->GetGameType()))
 	{
-		CCMatchMapsWorldItemSpawnInfoSet* pSpawnInfoSet = &MGetMapsWorldItemSpawnInfo()->m_MapsSpawnInfo[nMapID];
+		CCMatchMapsWorldItemSpawnInfoSet* pSpawnInfoSet = &CCGetMapsWorldItemSpawnInfo()->m_MapsSpawnInfo[nMapID];
 
 		if (bIsTeamPlay)
 		{
-			int nSpawnCount = MGetMapsWorldItemSpawnInfo()->m_MapsSpawnInfo[nMapID].m_nTeamSpawnCount;
+			int nSpawnCount = CCGetMapsWorldItemSpawnInfo()->m_MapsSpawnInfo[nMapID].m_nTeamSpawnCount;
 			if (nSpawnCount > 0)
 			{
 				m_SpawnInfos.reserve(nSpawnCount);
@@ -299,7 +299,7 @@ void CCMatchWorldItemManager::OnStageBegin(CCMatchStageSetting* pStageSetting)
 		}
 		else
 		{
-			int nSpawnCount = MGetMapsWorldItemSpawnInfo()->m_MapsSpawnInfo[nMapID].m_nSoloSpawnCount;
+			int nSpawnCount = CCGetMapsWorldItemSpawnInfo()->m_MapsSpawnInfo[nMapID].m_nSoloSpawnCount;
 
 			if (nSpawnCount > 0)
 			{

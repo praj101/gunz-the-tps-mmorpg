@@ -19,7 +19,7 @@
 #include "CCMatchConfig.h"
 
 #define _STATUS_CMD_START	unsigned long int nStatusStartTime = timeGetTime();
-#define _STATUS_CMD_END		MGetServerStatusSingleton()->AddCmd(pCommand->GetID(), pCommand->GetSenderUID(), 0, timeGetTime()-nStatusStartTime);
+#define _STATUS_CMD_END		CCGetServerStatusSingleton()->AddCmd(pCommand->GetID(), pCommand->GetSenderUID(), 0, timeGetTime()-nStatusStartTime);
 
 bool CCMatchServer::OnCommand(CCCommand* pCommand)
 {
@@ -50,7 +50,7 @@ bool CCMatchServer::OnCommand(CCCommand* pCommand)
 		}
 	}
 
-	MGetServerStatusSingleton()->AddCmd(pCommand->GetID(), pCommand->GetSenderUID());
+	CCGetServerStatusSingleton()->AddCmd(pCommand->GetID(), pCommand->GetSenderUID());
 
 	if (MServer::OnCommand(pCommand) == true)
 		return true;

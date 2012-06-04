@@ -149,7 +149,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 
 	// 디비에 로그를 남긴다.
 	// test 맵등은 로그 남기지 않는다.
-	if ( (MGetMapDescMgr()->MIsCorrectMap(nRandomMap)) && (MGetGameTypeMgr()->IsCorrectGameType(nGameType)) )
+	if ( (CCGetMapDescMgr()->MIsCorrectMap(nRandomMap)) && (CCGetGameTypeMgr()->IsCorrectGameType(nGameType)) )
 	{
 		if (pStage->StartGame(CCGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {		// 게임시작
 			// Send Launch Command

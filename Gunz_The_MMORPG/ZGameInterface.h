@@ -367,9 +367,9 @@ public:
 
 	void SaveScreenShot();
 
-	void ShowMessage(const char* szText, CCListener* pCustomListenter=NULL, int nMessageID=0);
+	void ShowMessage(const char* szText, CCListener* pCustomListenter=NULL, int iMessageID=0);
 	void ShowConfirmMessage(const char* szText, CCListener* pCustomListenter=NULL);
-	void ShowMessage(int nMessageID);
+	void ShowMessage(int iMessageID);
 	void ShowErrorMessage(int nErrorID);
 	void ShowErrorMessage(const char* szErrorMsg, int nErrorID);
 	

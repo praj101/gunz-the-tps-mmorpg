@@ -176,11 +176,11 @@ void CCQuestLevel::Init(int nScenarioID, int nDice, CCMATCH_GAMETYPE eGameType)
 	CCQuestScenarioInfo* pScenario = NULL;
 	CCMatchQuest* pQuest = CCMatchServer::GetInstance()->GetQuest();
 
-	if (MGetGameTypeMgr()->IsQuestOnly(eGameType))
+	if (CCGetGameTypeMgr()->IsQuestOnly(eGameType))
 	{
 		pScenario = CCMatchServer::GetInstance()->GetQuest()->GetScenarioInfo(nScenarioID);
 	}
-	else if (MGetGameTypeMgr()->IsSurvivalOnly(eGameType))
+	else if (CCGetGameTypeMgr()->IsSurvivalOnly(eGameType))
 	{
 		pScenario = CCMatchServer::GetInstance()->GetQuest()->GetSurvivalScenarioInfo(nScenarioID);
 	}
@@ -237,9 +237,9 @@ bool CCQuestLevel::InitSectors(CCMATCH_GAMETYPE eGameType)
 	{
 		CCQuestMapSectorInfo* pSector = NULL;
 
-		if (MGetGameTypeMgr()->IsQuestOnly(eGameType))
+		if (CCGetGameTypeMgr()->IsQuestOnly(eGameType))
 			pSector = pQuest->GetSectorInfo(nSectorID);
-		else if (MGetGameTypeMgr()->IsSurvivalOnly(eGameType))
+		else if (CCGetGameTypeMgr()->IsSurvivalOnly(eGameType))
 			pSector = pQuest->GetSurvivalSectorInfo(nSectorID);
 		else
 			ASSERT(0);
@@ -344,7 +344,7 @@ int CCQuestLevel::GetMapSectorCount()
 
 bool CCQuestLevel::MoveToNextSector(CCMATCH_GAMETYPE eGameType)
 {
-	if (MGetGameTypeMgr()->IsQuestOnly(eGameType))
+	if (CCGetGameTypeMgr()->IsQuestOnly(eGameType))
 	{
 		if ((m_DynamicInfo.nCurrSectorIndex+1) >= GetMapSectorCount()) return false;
 	
@@ -352,7 +352,7 @@ bool CCQuestLevel::MoveToNextSector(CCMATCH_GAMETYPE eGameType)
 
 		m_DynamicInfo.nCurrSectorIndex++;
 	}
-	else if (MGetGameTypeMgr()->IsSurvivalOnly(eGameType))
+	else if (CCGetGameTypeMgr()->IsSurvivalOnly(eGameType))
 	{
 		m_DynamicInfo.nCurrSectorIndex++;
 
@@ -396,7 +396,7 @@ void CCQuestLevel::InitCurrSector(CCMATCH_GAMETYPE eGameType)
 
 	m_DynamicInfo.bCurrBossSector = false;
 
-	if (MGetGameTypeMgr()->IsQuestOnly(eGameType))
+	if (CCGetGameTypeMgr()->IsQuestOnly(eGameType))
 	{
 		// 만약 키 NPC가 있고, 마지막 섹터이면 키 NPC 세팅
 		if ((m_StaticInfo.pScenario->Maps[m_StaticInfo.nDice].nKeyNPCID != 0) &&
@@ -413,7 +413,7 @@ void CCQuestLevel::InitCurrSector(CCMATCH_GAMETYPE eGameType)
 			m_NPCQueue.Make(m_StaticInfo.nQLD, pNPCSetInfo);
 		}
 	}
-	else if (MGetGameTypeMgr()->IsSurvivalOnly(eGameType))
+	else if (CCGetGameTypeMgr()->IsSurvivalOnly(eGameType))
 	{
 		const int nCurrSector = m_DynamicInfo.nCurrSectorIndex;
 		const std::vector<int>& vecKeyNpc = m_StaticInfo.pScenario->Maps[m_StaticInfo.nDice].vecKeyNPCArray;
@@ -443,9 +443,9 @@ void CCQuestLevel::InitCurrSector(CCMATCH_GAMETYPE eGameType)
 
 	int nSectorID = m_StaticInfo.SectorList[m_DynamicInfo.nCurrSectorIndex].nSectorID;
 
-	if (MGetGameTypeMgr()->IsQuestOnly(eGameType))
+	if (CCGetGameTypeMgr()->IsQuestOnly(eGameType))
 		m_DynamicInfo.pCurrSector = pQuest->GetSectorInfo(nSectorID);
-	else if (MGetGameTypeMgr()->IsSurvivalOnly(eGameType))
+	else if (CCGetGameTypeMgr()->IsSurvivalOnly(eGameType))
 		m_DynamicInfo.pCurrSector = pQuest->GetSurvivalSectorInfo(nSectorID);
 	else
 		ASSERT(0);
@@ -457,12 +457,12 @@ void CCQuestLevel::InitStaticInfo(CCMATCH_GAMETYPE eGameType)
 	{
 		m_StaticInfo.nQL = m_StaticInfo.pScenario->nQL;
 
-		if (MGetGameTypeMgr()->IsQuestOnly(eGameType))
+		if (CCGetGameTypeMgr()->IsQuestOnly(eGameType))
 		{
 			m_StaticInfo.nQLD = (int)(CCQuestFormula::CalcQLD(m_StaticInfo.nQL) * m_StaticInfo.pScenario->fDC);
 			m_StaticInfo.nLMT = (int)(CCQuestFormula::CalcLMT(m_StaticInfo.nQL) * m_StaticInfo.pScenario->fDC);
 		}
-		else if (MGetGameTypeMgr()->IsSurvivalOnly(eGameType))
+		else if (CCGetGameTypeMgr()->IsSurvivalOnly(eGameType))
 		{
 			// 서바이벌 모드의 경우 xml에 정의된 값을 사용
 			m_StaticInfo.nQLD = m_StaticInfo.pScenario->nMaxSpawn;				// 최대 스폰 수

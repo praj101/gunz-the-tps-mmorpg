@@ -521,7 +521,7 @@ void CCMatchRuleQuest::OnSectorCompleted()
 				nAddedSectorBP += (int)(nAddedSectorBP * fBPBonusRatio);
 
 				// 실제 적용
-				MGetMatchServer()->ProcessPlayerXPBP(m_pStage, pPlayer, nAddedSectorXP, nAddedSectorBP);
+				CCGetMatchServer()->ProcessPlayerXPBP(m_pStage, pPlayer, nAddedSectorXP, nAddedSectorBP);
 
 				// 라우팅
 				int nExpPercent = CCMatchFormula::GetLevelPercent(pPlayer->GetCharInfo()->m_nXP, 
@@ -785,7 +785,7 @@ void CCMatchRuleQuest::DistributeReward()
 
 		CCEraseBlobArray( pSimpleQuestItemBlob );
 
-		MGetMatchServer()->ResponseCharacterItemList( pPlayer->GetUID() );
+		CCGetMatchServer()->ResponseCharacterItemList( pPlayer->GetUID() );
 	}
 
 }
@@ -1019,7 +1019,7 @@ bool CCMatchRuleQuest::DistributeZItem( CCQuestPlayerInfo* pPlayerInfo, void** p
 	if (!IsEnabledObject(pPlayer)) return false;
 
 	// 아이템 갯수가 MAX_QUEST_REWARD_ITEM_COUNT(500개)보다 많으면 일반아이템은 추가해주지 않는다.
-	if(!MGetMatchServer()->CheckUserCanDistributeRewardItem(pPlayer))
+	if(!CCGetMatchServer()->CheckUserCanDistributeRewardItem(pPlayer))
 	{
 		*ppoutQuestRewardZItemBlob = CCMakeBlobArray( sizeof(CCTD_QuestZItemNode), 0 );
 		return true;	// 단, 다른것들(XP, BP, 퀘스트희생 아이템 등)은 업데이트 해준다.
@@ -1045,7 +1045,7 @@ bool CCMatchRuleQuest::DistributeZItem( CCQuestPlayerInfo* pPlayerInfo, void** p
 	for(CCQuestRewardZItemList::iterator itor = pObtainZItemList->begin(); itor != pObtainZItemList->end(); ++itor )
 	{
 		RewardZItemInfo iteminfo = (*itor);
-		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(iteminfo.nItemID);
+		CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(iteminfo.nItemID);
 
 		if (pItemDesc == NULL) continue;
 		if (!IsEquipableItem(iteminfo.nItemID, MAX_LEVEL, pPlayer->GetCharInfo()->m_nSex)) 	continue;
@@ -1574,7 +1574,7 @@ const bool CCMatchRuleQuest::PostNPCInfo()
 		CopyCCTD_NPCINFO( pCCTD_QuestNPCInfo, pQuestNPCInfo );
 	}
 
-	CCCommand* pCmdNPCList = MGetMatchServer()->CreateCommand( MC_QUEST_NPCLIST, CCUID(0, 0) );
+	CCCommand* pCmdNPCList = CCGetMatchServer()->CreateCommand( MC_QUEST_NPCLIST, CCUID(0, 0) );
 	if( NULL == pCmdNPCList )
 	{
 		CCEraseBlobArray( pBlobNPC );
@@ -1584,7 +1584,7 @@ const bool CCMatchRuleQuest::PostNPCInfo()
 	pCmdNPCList->AddParameter( new CCCommandParameterBlob(pBlobNPC, CCGetBlobArraySize(pBlobNPC)) );
 	pCmdNPCList->AddParameter( new CCCommandParameterInt(GetGameType()) );
 	
-	MGetMatchServer()->RouteToStage( m_pStage->GetUID(), pCmdNPCList );
+	CCGetMatchServer()->RouteToStage( m_pStage->GetUID(), pCmdNPCList );
 
 	CCEraseBlobArray( pBlobNPC );
 
@@ -1624,10 +1624,10 @@ bool CCMatchRuleQuest::PrepareStart()
 
 	if( NULL != CCMatchServer::GetInstance()->GetObject(m_pStage->GetMasterUID()) )
 	{
-		CCCommand* pCmdNotReady = MGetMatchServer()->CreateCommand( MC_GAME_START_FAIL, m_pStage->GetMasterUID() );
+		CCCommand* pCmdNotReady = CCGetMatchServer()->CreateCommand( MC_GAME_START_FAIL, m_pStage->GetMasterUID() );
 		pCmdNotReady->AddParameter( new CCCmdParamInt(QUEST_START_FAILED_BY_SACRIFICE_SLOT) );
 		pCmdNotReady->AddParameter( new CCCmdParaCCUID(CCUID(0, 0)) );
-		MGetMatchServer()->Post( pCmdNotReady );
+		CCGetMatchServer()->Post( pCmdNotReady );
 	}
 
 	return false;

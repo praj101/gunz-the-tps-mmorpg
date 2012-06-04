@@ -93,7 +93,7 @@ void ZWeaponScreenEffect::Create()
 	unsigned long int nItemID;
 	nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(MMCIP_PRIMARY);
 	CCMatchItemDesc* pItemDesc = NULL;
-	pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc)
 	{
 		nPrimaryWeaponType = pItemDesc->m_nWeaponType.Ref();
@@ -101,14 +101,14 @@ void ZWeaponScreenEffect::Create()
 
 	nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(MMCIP_SECONDARY);
 	
-	pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc)
 	{
 		nSecondaryWeaponType = pItemDesc->m_nWeaponType.Ref();
 	}
 	nItemID = ZGetMyInfo()->GetItemList()->GetEquipedItemID(MMCIP_MELEE);
 	
-	pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc)
 	{
 		nMeleeWeaponType = pItemDesc->m_nWeaponType.Ref();

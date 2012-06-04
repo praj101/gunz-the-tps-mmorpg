@@ -143,10 +143,10 @@ CCCommand* CCCommandCommunicator::GetCommandSafe()
 
 void CCCommandCommunicator::Run()
 {
-	MGetCheckLoopTimeInstance()->SetPrepareRunTick();
+	CCGetCheckLoopTimeInstance()->SetPrepareRunTick();
 	OnPrepareRun();
 
-	MGetCheckLoopTimeInstance()->SetCommandTick();
+	CCGetCheckLoopTimeInstance()->SetCommandTick();
 	int nVecIndex;
 	while(1)
 	{
@@ -156,7 +156,7 @@ void CCCommandCommunicator::Run()
 		
 		unsigned int CommandID = pCommand->GetID(); // 덤프시확인위해
 
-		nVecIndex = MGetCheckLoopTimeInstance()->AddCommandTimeGap(pCommand->GetID());
+		nVecIndex = CCGetCheckLoopTimeInstance()->AddCommandTimeGap(pCommand->GetID());
 		OnPrepareCommand(pCommand);
 
 		if ((pCommand->m_pCommandDesc->IsFlag(MCDT_PEER2PEER)==true))
@@ -219,7 +219,7 @@ void CCCommandCommunicator::Run()
 
 		delete pCommand;
 		pCommand = NULL;
-		MGetCheckLoopTimeInstance()->SetCommandEndTick(nVecIndex);
+		CCGetCheckLoopTimeInstance()->SetCommandEndTick(nVecIndex);
 	}
 
 	OnRun();

@@ -405,7 +405,7 @@ bool ZChat::CheckChatFilter(const char* szMsg)
 		}
 	}
 
-	if ( !MGetChattingFilter()->IsValidStr( szMsg, 1))
+	if ( !CCGetChattingFilter()->IsValidStr( szMsg, 1))
 	{
 #ifndef _DEBUG
 		m_nAbuseCounter++;
@@ -415,7 +415,7 @@ bool ZChat::CheckChatFilter(const char* szMsg)
 #endif
 
 		char szOutput[512];
-		sprintf( szOutput, "%s (%s)", ZErrStr( MERR_CANNOT_ABUSE), MGetChattingFilter()->GetLastFilteredStr());
+		sprintf( szOutput, "%s (%s)", ZErrStr( MERR_CANNOT_ABUSE), CCGetChattingFilter()->GetLastFilteredStr());
 		Output( szOutput, CMT_SYSTEM);
 
 		return false;

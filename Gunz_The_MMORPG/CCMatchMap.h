@@ -83,7 +83,7 @@ public:
 };
 
 
-inline MMapDesc* MGetMapDescMgr() 
+inline MMapDesc* CCGetMapDescMgr() 
 { 
 	return MMapDesc::GetInstance();
 }

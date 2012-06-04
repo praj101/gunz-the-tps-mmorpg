@@ -10,7 +10,7 @@
 
 #include "stdafx.h"							// Include stdafx.h
 #include "ZEmblemInterface.h"				// Include ZEmblemInterface.h
-#include "CCResourceManager.h"				// Include MResourceManager.h
+#include "CCResourceManager.h"				// Include CCResourceManager.h
 #include "FileInfo.h"
 #include "ZGameClient.h"
 #include "ZGameInterface.h"

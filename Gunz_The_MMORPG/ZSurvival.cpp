@@ -470,7 +470,7 @@ bool ZSurvival::OnQuestGroupLoad(CCCommand* pCommand)
 
 	pCommand->GetParameter(&nGroupID, 0, MPT_INT);
 
-	MNPCGroup* pGroup = MGetNPCGroupMgr()->GetGroup( nGroupID );
+	MNPCGroup* pGroup = CCGetNPCGroupMgr()->GetGroup( nGroupID );
 
 	ZGetNpcMeshMgr()->CheckUnUsed();// 모두 사용안하는걸로 체크하고
 
@@ -1060,7 +1060,7 @@ bool ZSurvival::OnObtainZItem(CCCommand* pCommand)
 	m_GameInfo.IncreaseObtainQuestItem();
 
 #ifdef _QUEST_ITEM
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc)
 	{
 		char szMsg[ 128];
@@ -1388,7 +1388,7 @@ void ZSurvival::GetMyObtainQuestItemList( int nRewardXP, int nRewardBP, void* pM
 		// 리스트 박스 업데이트
 		if ( pListBox )
 		{
-			CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pZItemNode->m_nItemID);
+			CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(pZItemNode->m_nItemID);
 
 			char szMsg[ 128];
 			ZTransMsg( szMsg, MSG_GAME_GET_QUEST_ITEM2, 2, pItemDesc->m_pMItemName->GetData().m_szItemName, "1");

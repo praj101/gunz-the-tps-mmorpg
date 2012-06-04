@@ -7,7 +7,8 @@
 #ifdef _DEBUG
 //#pragma comment(lib,"cmld.lib")
 //#pragma comment(lib,"core2d.lib")
-//#pragma comment(lib,"RealSound.lib")
+#pragma comment(lib,"RealSound.lib")
+#pragma comment(lib,"fmodvc.lib")
 //#pragma comment(lib,"RealSpace2d.lib")
 //#pragma comment(lib,"CSCommonDE.lib")
 //#pragma comment(lib,"SafeUDP.lib")

@@ -1426,7 +1426,7 @@ bool ZStagePlayerListBox::OnEvent(CCEvent* pEvent, CCListener* pListener)
 {
 	if(pEvent->iMessage==CCWM_MOUSEMOVE)	{
 	}
-	else if(pEvent->iMessage==MWM_CCButtonDOWN) {
+	else if(pEvent->iMessage==CCWM_CCButtonDOWN) {
 		int k=0;
 	}
 

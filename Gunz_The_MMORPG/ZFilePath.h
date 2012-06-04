@@ -20,7 +20,7 @@
 #define FILENAME_ABUSE					"system/abuse.txt"
 
 #define MPATH_EMBLEMFOLDER				"/Emblem"
-#define MPATH_EMBLEMFILE				"/emblem.xml"
+#define MPATH_EMBLECCFILE				"/emblem.xml"
 
 // path는 마지막에 '/' 를 꼭 붙여줘야 한다.
 

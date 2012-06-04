@@ -425,10 +425,10 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 	{
 		if( 0 == strcmp(CCMATCH_MAPNAME_RELAYMAP, ZGetGameClient()->GetMatchStageSetting()->GetMapName()))
 		{
-			sprintf( szMapName, "interface/loadable/%s", MGetMapDescMgr()->GetMapImageName( CCMATCH_DEFAULT_STAGESETTING_MAPNAME));
+			sprintf( szMapName, "interface/loadable/%s", CCGetMapDescMgr()->GetMapImageName( CCMATCH_DEFAULT_STAGESETTING_MAPNAME));
 		}
 		else
-			sprintf( szMapName, "interface/loadable/%s", MGetMapDescMgr()->GetMapImageName( ZGetGameClient()->GetMatchStageSetting()->GetMapName()));
+			sprintf( szMapName, "interface/loadable/%s", CCGetMapDescMgr()->GetMapImageName( ZGetGameClient()->GetMatchStageSetting()->GetMapName()));
 
 		if ( m_pTopBgImg != NULL)
 		{
@@ -541,7 +541,7 @@ void ZStageInterface::SetStageRelayMapImage()
 	if(pRelayMapListBox == NULL) return;
 	if( 0 < pRelayMapListBox->GetCount())
 	{
-		sprintf( szMapName, "interface/loadable/%s", MGetMapDescMgr()->GetMapImageName( pRelayMapListBox->GetString(pRelayMapListBox->GetStartItem())));
+		sprintf( szMapName, "interface/loadable/%s", CCGetMapDescMgr()->GetMapImageName( pRelayMapListBox->GetString(pRelayMapListBox->GetStartItem())));
 		if ( m_pTopBgImg != NULL)
 		{
 			delete m_pTopBgImg;
@@ -1460,7 +1460,7 @@ void ZStageInterface::PostRelayMapInfoUpdate( void)
 		CCTD_RelayMap* pRelayMapNode = (CCTD_RelayMap*)CCGetBlobArrayElement(pMapArray, nMakeBlobCnt);
 		for (int j = 0; j < CCMATCH_MAP_COUNT; j++)
 		{
-			if(0 == strcmp(pRelayMapListBox->GetString(i), (char*)MGetMapDescMgr()->GetMapName(j)))
+			if(0 == strcmp(pRelayMapListBox->GetString(i), (char*)CCGetMapDescMgr()->GetMapName(j)))
 			{
 				pRelayMapNode->nMapID = j;
 				break;
@@ -1516,7 +1516,7 @@ void ZStageInterface::RelayMapCreateMapList()
 	for( int i = 0 ; i < ZGetGameClient()->GetMatchStageSetting()->GetRelayMapListCount(); ++i )
 	{// 릴레이맵 리스트에 데이터를 추가해준다.
 		int nMapID = arrayRelayMapList[i].nMapID;
-		RelayMapList* pRelayMapList = new RelayMapList( MGetMapDescMgr()->GetMapName(MGetMapDescMgr()->GetMapID(nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
+		RelayMapList* pRelayMapList = new RelayMapList( CCGetMapDescMgr()->GetMapName(CCGetMapDescMgr()->GetMapID(nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
 		pRelaMapListBox->Add( pRelayMapList);
 	}
 }

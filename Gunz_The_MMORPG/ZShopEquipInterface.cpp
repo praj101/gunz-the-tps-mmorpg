@@ -253,7 +253,7 @@ bool ZShopEquipInterface::Equip()
 	if (!pWrappedZItem->GetHandleSell()) { _ASSERT(0); return false; }
 
 	CCUID uidItem = pWrappedZItem->GetHandleSell()->GetIteCCUID();
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
 	if (!pItemDesc) return false;
 
 	if (pItemDesc->m_nSlot == MMIST_NONE)
@@ -368,7 +368,7 @@ int ZShopEquipInterface::_CheckRestrictBringAccountItem()
 		if (!pMyItemNode) return 0;
 
 		unsigned long nItemID = pMyItemNode->GetItemID();
-		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+		CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 		if (!pItemDesc)
 		{
 			if( ZGetGambleItemDefineMgr().GetGambleItemDefine(nItemID) ) {

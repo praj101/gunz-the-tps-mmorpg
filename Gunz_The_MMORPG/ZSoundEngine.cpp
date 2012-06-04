@@ -1167,7 +1167,7 @@ void ZSoundEngine::Run()
 }
 
 
-const char* ZSoundEngine::GetBGMFileName(int nBgmIndex)
+const char* ZSoundEngine::GetBGCCFileName(int nBgmIndex)
 {
 	static char m_stSndFileName[MAX_BGM][64] = {"Intro Retake2(D-R).ogg", 
 												"Theme Rock(D).ogg", 
@@ -1202,7 +1202,7 @@ bool ZSoundEngine::OpenMusic(int nBgmIndex, CCZFileSystem* pfs)
 	else m_bBattleMusic = false;
 
 	char szFileName[256];
-	strcpy(szFileName, GetBGMFileName(nBgmIndex));
+	strcpy(szFileName, GetBGCCFileName(nBgmIndex));
 
 	return OpenMusic(szFileName, pfs);
 }

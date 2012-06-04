@@ -10,7 +10,7 @@ void MConvertCompactIP(char* szOut, const char* szInputDottedIP);
 
 void GetLocalIP( char* szOutIP, int nSize );
 
-const bool MGetIPbyHostName( const string& strName, string& outIP );
+const bool CCGetIPbyHostName( const string& strName, string& outIP );
 
 
 #endif

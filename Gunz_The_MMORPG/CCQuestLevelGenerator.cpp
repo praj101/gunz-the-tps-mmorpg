@@ -12,7 +12,7 @@ m_nPlayerQL(0), m_nMapsetID(-1), m_nScenarioID(-1)
 {
 	memset(m_nSacriQItemID, 0, sizeof(unsigned int) * MAX_SCENARIO_SACRI_ITEM);
 	
-	ASSERT(MGetGameTypeMgr()->IsQuestDerived(m_eGameType));
+	ASSERT(CCGetGameTypeMgr()->IsQuestDerived(m_eGameType));
 }
 
 CCQuestLevelGenerator::~CCQuestLevelGenerator()
@@ -61,11 +61,11 @@ CCQuestLevel* CCQuestLevelGenerator::MakeLevel()
 int CCQuestLevelGenerator::MakeScenarioID()
 {
 	CCQuestScenarioCatalogue* pScenarioCatalog = NULL;
-	if (MGetGameTypeMgr()->IsQuestOnly(m_eGameType))
+	if (CCGetGameTypeMgr()->IsQuestOnly(m_eGameType))
 	{
 		pScenarioCatalog = CCMatchServer::GetInstance()->GetQuest()->GetScenarioCatalogue();
 	}
-	else if (MGetGameTypeMgr()->IsSurvivalOnly(m_eGameType))
+	else if (CCGetGameTypeMgr()->IsSurvivalOnly(m_eGameType))
 	{
 		pScenarioCatalog = CCMatchServer::GetInstance()->GetQuest()->GetSurvivalScenarioCatalogue();
 	}

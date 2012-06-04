@@ -562,42 +562,42 @@ BirdGo:
 	m_pGameInterface->Show(true);
 
 
-	if (!MGetMatchItemDescMgr()->ReadCache())
+	if (!CCGetMatchItemDescMgr()->ReadCache())
 	{
-		if (!MGetMatchItemDescMgr()->ReadXml(GetFileSystem(), strFileNameZItem.c_str()))
+		if (!CCGetMatchItemDescMgr()->ReadXml(GetFileSystem(), strFileNameZItem.c_str()))
 		{
 			CCLog("Error while Read Item Descriptor %s\n", strFileNameZItem.c_str());
 		}
-		if (!MGetMatchItemDescMgr()->ReadXml(GetFileSystem(), strFileNameZItemLocale.c_str()))
+		if (!CCGetMatchItemDescMgr()->ReadXml(GetFileSystem(), strFileNameZItemLocale.c_str()))
 		{
 			CCLog("Error while Read Item Descriptor %s\n", strFileNameZItemLocale.c_str());
 		}
 
-		MGetMatchItemDescMgr()->WriteCache();
+		CCGetMatchItemDescMgr()->WriteCache();
 	}
 	cclog("Load zitem info success.\n");
 
-	if( !MGetMatchBuffDescMgr()->ReadXml(GetFileSystem(), strFileNameZBuff.c_str()) )
+	if( !CCGetMatchBuffDescMgr()->ReadXml(GetFileSystem(), strFileNameZBuff.c_str()) )
 	{
 		CCLog("Error while Read Buff Descriptor %s\n", strFileNameZBuff.c_str());
 	}
 	cclog("Load zBuff info success.\n");
 
 
-//	if (!MGetMatchItemEffectDescMgr()->ReadXml(GetFileSystem(), FILENAME_ZITEMEFFECT_DESC))
+//	if (!CCGetMatchItemEffectDescMgr()->ReadXml(GetFileSystem(), FILENAME_ZITEMEFFECT_DESC))
 //	{
 //		CCLog("Error while Read Item Descriptor %s\n", FILENAME_ZITEMEFFECT_DESC);
 //	}
 //	cclog("Init effect manager success.\n");
 
-	if (!MGetMatchWorldItemDescMgr()->ReadXml(GetFileSystem(), strFileNameWorlditem.c_str() ))
+	if (!CCGetMatchWorldItemDescMgr()->ReadXml(GetFileSystem(), strFileNameWorlditem.c_str() ))
 	{
 		CCLog("Error while Read Item Descriptor %s\n", strFileNameWorlditem.c_str());
 	}
 	cclog("Init world item manager success.\n");
 
 	
-	if (!MGetMapDescMgr()->Initialize(GetFileSystem(), "system/map.xml"))
+	if (!CCGetMapDescMgr()->Initialize(GetFileSystem(), "system/map.xml"))
 	{
 		CCLog("Error while Read map Descriptor %s\n", "system/map.xml");
 	}
@@ -614,15 +614,15 @@ BirdGo:
 	}
 	cclog("Init channel rule manager success.\n");
 /*
-	if (!MGetNPCGroupMgr()->ReadXml(GetFileSystem(), "system/monstergroup.xml"))
+	if (!CCGetNPCGroupMgr()->ReadXml(GetFileSystem(), "system/monstergroup.xml"))
 	{
 		CCLog("Error while Read Item Descriptor %s", "system/monstergroup.xml");
 	}
 	cclog("ZApplication::OnCreate : ZGetNPCGroupMgr()->ReadXml \n");
 */
-	// if (!MGetChattingFilter()->Create(GetFileSystem(), "system/abuse.xml"))
-	bool bSucceedLoadAbuse = MGetChattingFilter()->LoadFromFile(GetFileSystem(), strFileNameAbuse.c_str());
-	if (!bSucceedLoadAbuse || MGetChattingFilter()->GetNumAbuseWords() == 0)
+	// if (!CCGetChattingFilter()->Create(GetFileSystem(), "system/abuse.xml"))
+	bool bSucceedLoadAbuse = CCGetChattingFilter()->LoadFromFile(GetFileSystem(), strFileNameAbuse.c_str());
+	if (!bSucceedLoadAbuse || CCGetChattingFilter()->GetNumAbuseWords() == 0)
 	{
 		// 해킹으로 abuse-list 파일자체를 없애거나 내용을 비웠을 경우 실행을 멈추게 하자
 		CCLog("Error while Read Abuse Filter %s\n", strFileNameAbuse.c_str());
@@ -689,7 +689,7 @@ void ZApplication::OnDestroy()
 	m_WorldManager.Destroy();
 	ZGetEmblemInterface()->Destroy();
 
-	MGetMatchWorldItemDescMgr()->Clear();
+	CCGetMatchWorldItemDescMgr()->Clear();
 
 	m_SoundEngine.Destroy();
 	DestroyConsole();
@@ -717,10 +717,10 @@ void ZApplication::OnDestroy()
 	cclog( "Clear QuestItemDescMgr.\n" );
 #endif
 
-	MGetMatchItemDescMgr()->Clear();
+	CCGetMatchItemDescMgr()->Clear();
 	cclog("Clear MatchItemDescMgr.\n");
 
-	MGetChattingFilter()->Clear();
+	CCGetChattingFilter()->Clear();
 	cclog("Clear ChattingFilter.\n");
 
 	ZGetChannelRuleMgr()->Clear();
@@ -791,7 +791,7 @@ void ZApplication::OnUpdate()
 //	}
 
 	// 실행중 메모리 조작으로 item 속성값을 변경하는 해킹대응
-	MGetMatchItemDescMgr()->ShiftMemoryGradually();
+	CCGetMatchItemDescMgr()->ShiftMemoryGradually();
 
 
 	__EP(0);

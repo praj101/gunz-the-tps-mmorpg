@@ -1385,7 +1385,7 @@ void ZGame::ParseReservedWord(char* pszDest, const char* pszSrc)
 
 	char* pszNext = szSrc;
 	while( *pszNext != NULL ) {
-		pszNext = MStringCutter::GetOneArg(pszNext, szWord);
+		pszNext = CCStringCutter::GetOneArg(pszNext, szWord);
 
 		if ( (*szWord == '$') && (stricmp(szWord, "$player")==0) ) {
 			sprintf(szWord, "%d %d", m_pMyCharacter->GetUID().High, m_pMyCharacter->GetUID().Low);
@@ -1596,7 +1596,7 @@ void ZGame::OnObserverRun()
 		{
 			if(m_Replay_UseItem[i].Item[j].Itemid == 0)
 				break;
-			CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_Replay_UseItem[i].Item[j].Itemid);
+			CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(m_Replay_UseItem[i].Item[j].Itemid);
 
 			cclog("[ uid:%d Item:%s(%d) UseCount:%d ]\n", m_Replay_UseItem[i].uid.Low, pItemDesc->m_pMItemName->Ref().m_szItemName, pItemDesc->m_nID, m_Replay_UseItem[i].Item[j].ItemUseCount);
 		}
@@ -7487,7 +7487,7 @@ void ZGame::MakeResourceCRC32( const DWORD dwKey, DWORD& out_crc32, DWORD& out_x
 
 		for( int i = 0; i < MMCIP_END; ++i )
 		{
-			pitemDesc = MGetMatchItemDescMgr()->GetItemDesc( pObjCache->GetCostume()->nEquipedItemID[i] );
+			pitemDesc = CCGetMatchItemDescMgr()->GetItemDesc( pObjCache->GetCostume()->nEquipedItemID[i] );
 			if( NULL == pitemDesc )
 			{
 				continue;
@@ -7544,7 +7544,7 @@ void ZGame::OnGetSpendableBuffItemStatus(CCUID& uidChar, CCTD_CharBuffInfo* pCha
 
 void ZGame::ApplyPotion(int nItemID, ZCharacter* pCharObj, float fRemainedTime)
 {
-	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if( pDesc == NULL ) { _ASSERT(0);  return; }
 
 	CCMatchDamageType nDamageType = pDesc->m_nDamageType.Ref();
@@ -7613,7 +7613,7 @@ void ZGame::ApplyPotion(int nItemID, ZCharacter* pCharObj, float fRemainedTime)
 
 void ZGame::OnUseTrap(int nItemID, ZCharacter* pCharObj, rvector& pos)
 {
-	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if( pDesc == NULL ) { _ASSERT(0); return; }
 
 	rvector velocity;
@@ -7624,7 +7624,7 @@ void ZGame::OnUseTrap(int nItemID, ZCharacter* pCharObj, rvector& pos)
 
 void ZGame::OnUseDynamite(int nItemID, ZCharacter* pCharObj, rvector& pos)
 {
-	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if( pDesc == NULL ) { _ASSERT(0); return; }
 
 	rvector velocity;

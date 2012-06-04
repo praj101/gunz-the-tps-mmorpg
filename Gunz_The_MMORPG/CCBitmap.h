@@ -15,7 +15,7 @@
 class CCBitmap{
 public:
 #ifdef _DEBUG
-	int		m_nTypeID;	// 같은 레벨의 클래스(sFont, MDrawContex)를 사용하기 위한 ID
+	int		m_nTypeID;	// 같은 레벨의 클래스(sFont, CCDrawContex)를 사용하기 위한 ID
 #endif
 
 public:
@@ -60,7 +60,7 @@ class CCAniBitmap{
 protected:
 #ifdef _DEBUG
 	friend class CCDrawContext;
-	int		m_nTypeID;		// 같은 레벨의 클래스(sFont, MDrawContex)를 사용하기 위한 ID
+	int		m_nTypeID;		// 같은 레벨의 클래스(sFont, CCDrawContex)를 사용하기 위한 ID
 #endif
 public:
 	char	m_szName[MBITMAP_NAME_LENGTH];

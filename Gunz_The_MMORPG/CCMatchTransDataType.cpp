@@ -50,7 +50,7 @@ void Make_MTDActivatedTrap(CCTD_ActivatedTrap *pOut, CCMatchActiveTrap* pTrapIte
 {
 	pOut->uidOwner = pTrapItem->m_uidOwner;
 	pOut->nItemID = pTrapItem->m_nTrapItemId;
-	pOut->nTimeElapsed = MGetMatchServer()->GetGlobalClockCount() - pTrapItem->m_nTimeActivated;
+	pOut->nTimeElapsed = CCGetMatchServer()->GetGlobalClockCount() - pTrapItem->m_nTimeActivated;
 	
 	pOut->x = (short)Roundf(pTrapItem->m_vPosActivated.x);
 	pOut->y = (short)Roundf(pTrapItem->m_vPosActivated.y);

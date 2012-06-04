@@ -299,7 +299,7 @@ void ZMatch::InitCharactersPosition()
 				nIndex = 1;
 
 			// 듀얼 전용 맵이면 맨 처음과 두번째 위치
-			if ( MGetMapDescMgr()->IsMapOnlyDuel( ZGetGameClient()->GetMatchStageSetting()->GetMapIndex()))
+			if ( CCGetMapDescMgr()->IsMapOnlyDuel( ZGetGameClient()->GetMatchStageSetting()->GetMapIndex()))
 			{
 				ZMapSpawnData* pSpawnData = ZGetGame()->GetMapDesc()->GetSpawnManager()->GetData( nIndex);
 				if ( pSpawnData != NULL)
@@ -334,7 +334,7 @@ void ZMatch::InitCharactersPosition()
 			else if (pDTRule->m_DTGameInfo.uidPlayer2 == ZGetMyUID())			nIndex = 1;
 
 			// 듀얼 전용 맵이면 맨 처음과 두번째 위치
-			if ( MGetMapDescMgr()->IsMapOnlyDuel( ZGetGameClient()->GetMatchStageSetting()->GetMapIndex()))
+			if ( CCGetMapDescMgr()->IsMapOnlyDuel( ZGetGameClient()->GetMatchStageSetting()->GetMapIndex()))
 			{
 				ZMapSpawnData* pSpawnData = ZGetGame()->GetMapDesc()->GetSpawnManager()->GetData(nIndex);
 				if (pSpawnData != NULL)

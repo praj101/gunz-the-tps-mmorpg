@@ -399,7 +399,7 @@ float CCMatchFormula::CalcXPBonusRatio(CCMatchObject* pCharObj, CCMatchItemBonus
 		break;
 	}
 
-	MGetMatchServer()->CustomCheckEventObj( 2, pCharObj, (void*)(&fBonusRatio) );
+	CCGetMatchServer()->CustomCheckEventObj( 2, pCharObj, (void*)(&fBonusRatio) );
 	if (fBonusRatio > MAX_XP_BONUS_RATIO) fBonusRatio = MAX_XP_BONUS_RATIO;
 
 	return fBonusRatio;
@@ -469,7 +469,7 @@ float CCMatchFormula::CalcBPBounsRatio(CCMatchObject* pCharObj, CCMatchItemBonus
 		break;
 	}
 
-	MGetMatchServer()->CustomCheckEventObj( 3, pCharObj, (void*)(&fBonusRatio) );
+	CCGetMatchServer()->CustomCheckEventObj( 3, pCharObj, (void*)(&fBonusRatio) );
 	if (fBonusRatio > MAX_BP_BONUS_RATIO) fBonusRatio = MAX_BP_BONUS_RATIO;
 
 	return fBonusRatio;

@@ -14,14 +14,14 @@
 void MStrNCpy(char* szDest, int nDestLen, const char* szSource);
 
 /// 스트링에서 단어단위로 읽어온다
-class MStringCutter {
+class CCStringCutter {
 protected:
 	static void SkipSpaces(char **szString) {
 		for (; **szString && isspace(**szString); (*szString)++);
 	}
 
 public:
-	static char* MStringCutter::GetOneArg(char *pszArg, char *pszOutArg) {
+	static char* CCStringCutter::GetOneArg(char *pszArg, char *pszOutArg) {
 		SkipSpaces(&pszArg);
 		while(*pszArg && !isspace(*pszArg)) {
 			*(pszOutArg++) = *pszArg;
@@ -31,7 +31,7 @@ public:
 		return pszArg;
 	}
 
-	static char* MStringCutter::GetTwoArgs(char* pszArg, char* pszOutArg1, char* pszOutArg2) {
+	static char* CCStringCutter::GetTwoArgs(char* pszArg, char* pszOutArg1, char* pszOutArg2) {
 		return GetOneArg(GetOneArg(pszArg, pszOutArg1), pszOutArg2);
 	}
 };

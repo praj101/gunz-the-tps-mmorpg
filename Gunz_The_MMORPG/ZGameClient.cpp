@@ -998,9 +998,9 @@ void ZGameClient::OnStageList(int nPrevStageCount, int nNextStageCount, void* pB
 			char szMapName[256] = "";
 			for (int tt = 0; tt < CCMATCH_MAP_COUNT; tt++)
 			{
-				if (MGetMapDescMgr()->GetMapID(tt) == pNode->nMapIndex)
+				if (CCGetMapDescMgr()->GetMapID(tt) == pNode->nMapIndex)
 				{
-					strcpy(szMapName, MGetMapDescMgr()->GetMapName(tt) );
+					strcpy(szMapName, CCGetMapDescMgr()->GetMapName(tt) );
 					break;
 				}
 			}
@@ -1261,9 +1261,9 @@ void ZGameClient::OnStageRelayMapListUpdate(int nRelayMapType, int nRelayMapRepe
 	for( int i = 0 ; i < nRelayMapListCount; ++i )
 	{// 릴레이맵 리스트에 데이터를 추가해준다.
 		CCTD_RelayMap* pNode = (CCTD_RelayMap*)CCGetBlobArrayElement(pStageRelayMapListBlob, i);
-		RelayMapList* pRelayMapList = new RelayMapList( MGetMapDescMgr()->GetMapName(MGetMapDescMgr()->GetMapID(pNode->nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
+		RelayMapList* pRelayMapList = new RelayMapList( CCGetMapDescMgr()->GetMapName(CCGetMapDescMgr()->GetMapID(pNode->nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
 		pRelaMapListBox->Add( pRelayMapList);
-		relayMapList[i].nMapID = MGetMapDescMgr()->GetMapID(pNode->nMapID);
+		relayMapList[i].nMapID = CCGetMapDescMgr()->GetMapID(pNode->nMapID);
 	}
 
 	ZGetGameClient()->GetMatchStageSetting()->SetRelayMapListCount(nRelayMapListCount);
@@ -1387,7 +1387,7 @@ int ZGameClient::OnConnected(SOCKET sock, CCUID* pTargetUID, CCUID* pAllocUID, u
 			#endif
 
 //			unsigned long nChecksum = ZGetCCZFileChecksum(FILENAME_ZITEM_DESC);
-//			unsigned long nChecksum = MGetMatchItemDescMgr()->GetChecksum();
+//			unsigned long nChecksum = CCGetMatchItemDescMgr()->GetChecksum();
 			unsigned long nChecksum = ZGetApplication()->GetFileListCRC();
 			nChecksum = nChecksum ^ (*pAllocUID).High ^ (*pAllocUID).Low;
 
@@ -1481,9 +1481,9 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 	if (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_NETMARBLE) {	
 		// 넷마블에서 로그인
 		ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-		CCLabel* pLabel = (CCLabel*)pResource->FindWidget("NetmarbleLoginMessage");
+		CCLabel* pLabel = (CCLabel*)pResource->FindWidget("NetmarbleLogiiMessage");
 		if (pLabel) {
-//			pLabel->SetText(MGetErrorString(MERR_CLIENT_CONNECT_FAILED));
+//			pLabel->SetText(CCGetErrorString(MERR_CLIENT_CONNECT_FAILED));
 			pLabel->SetText(
 				ZErrStr(MERR_CLIENT_CONNECT_FAILED) );
 			pLabel->Show();
@@ -1499,7 +1499,7 @@ void ZGameClient::OnSockError(SOCKET sock, SOCKET_ERROR_EVENT ErrorEvent, int &E
 
 		CCLabel* pLabel = (CCLabel*)pResource->FindWidget("LoginError");
 		if (pLabel) {
-//			pLabel->SetText(MGetErrorString(MERR_CLIENT_CONNECT_FAILED));
+//			pLabel->SetText(CCGetErrorString(MERR_CLIENT_CONNECT_FAILED));
 			pLabel->SetText( ZErrStr(MERR_CLIENT_CONNECT_FAILED) );
 
 		}
@@ -2102,7 +2102,7 @@ int ZGameClient::ValidateRequestDeleteChar()
 	// 캐쉬아이템이 있으면 삭제할 수 없다
 	for (int i = 0; i < MMCIP_END; i++)
 	{
-		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pCharInfo->nEquipedItemDesc[i]);
+		CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(pCharInfo->nEquipedItemDesc[i]);
 		if (pItemDesc)
 		{
 			if (pItemDesc->IsCashItem()) return MSG_CANNOT_DELETE_CHAR_FOR_CASHITEM;
@@ -2369,7 +2369,7 @@ void ZGameClient::OnExpiredRentItem(void* pBlob)
 
 		char szItemText[256];
 
-		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(*pExpiredItemID);
+		CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(*pExpiredItemID);
 		if (pItemDesc)
 		{
 			sprintf(szItemText, "[%d] %s\n", i+1, pItemDesc->m_pMItemName->Ref().m_szItemName);
@@ -2489,7 +2489,7 @@ void ZGameClient::OnRecieveGambleItem( unsigned int nRecvItem, unsigned int nCnt
 	char szText[ 256];
 	char szName[ 256];
 	
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc( nRecvItem);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc( nRecvItem);
 	if ( pItemDesc)
 	{
 		sprintf(szName, "%s (x%d)", pItemDesc->m_pMItemName->Ref().m_szItemName, nCnt);

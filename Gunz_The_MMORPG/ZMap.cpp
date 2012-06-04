@@ -84,12 +84,12 @@ bool InitMaps(CCWidget *pWidget)
 	}
 
 	bool bRelayMapInsert = false;
-	int nMapCount = MGetMapDescMgr()->GetMapCount();
+	int nMapCount = CCGetMapDescMgr()->GetMapCount();
 	for( int i=0 ; i< nMapCount ; i++)
 	{
 
 //#ifdef _DEBUG	// 디버그시 모든맵 보여줌
-//		pCombo->Add(MGetMapDescMgr()->GetMapName(i));
+//		pCombo->Add(CCGetMapDescMgr()->GetMapName(i));
 //		continue;
 //#endif
 
@@ -100,11 +100,11 @@ bool InitMaps(CCWidget *pWidget)
 		// 릴레이맵을 젤위에 넣어준다.
 		if(!bRelayMapInsert)
 		{
-			for(int j=0 ; j< MGetMapDescMgr()->GetMapCount() ; j++)
+			for(int j=0 ; j< CCGetMapDescMgr()->GetMapCount() ; j++)
 			{
-				if(strcmp(CCMATCH_MAPNAME_RELAYMAP, MGetMapDescMgr()->GetMapName(j)) == 0)
+				if(strcmp(CCMATCH_MAPNAME_RELAYMAP, CCGetMapDescMgr()->GetMapName(j)) == 0)
 				{
-					pCombo->Add(MGetMapDescMgr()->GetMapName(j));
+					pCombo->Add(CCGetMapDescMgr()->GetMapName(j));
 					bRelayMapInsert = true;
 					//--nMapCount;	// 릴레이맵을 추가했으면 MapCount를 줄여준다.
 					continue;
@@ -112,9 +112,9 @@ bool InitMaps(CCWidget *pWidget)
 			}
 		}
 
-		if ( pRule->CheckMap( MGetMapDescMgr()->GetMapName(i), bDuelMode))
-			if(strcmp(CCMATCH_MAPNAME_RELAYMAP, MGetMapDescMgr()->GetMapName(i)) != 0)
-				pCombo->Add(MGetMapDescMgr()->GetMapName(i));
+		if ( pRule->CheckMap( CCGetMapDescMgr()->GetMapName(i), bDuelMode))
+			if(strcmp(CCMATCH_MAPNAME_RELAYMAP, CCGetMapDescMgr()->GetMapName(i)) != 0)
+				pCombo->Add(CCGetMapDescMgr()->GetMapName(i));
 	}
 
 	return true;

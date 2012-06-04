@@ -243,7 +243,7 @@ void CCMatchGambleMachine::WriteGambleItemInfoToLog() const
 {
 	vector< CCMatchGambleItem* >::const_iterator end			= m_GambleItemVec.end();
 	vector< CCMatchGambleItem* >::const_iterator	it			= m_GambleItemVec.begin();
-	const DWORD									dwCurTime	= MGetMatchServer()->GetGlobalClockCount();
+	const DWORD									dwCurTime	= CCGetMatchServer()->GetGlobalClockCount();
 
 	cclog( "\n=== Dump GambleItem Info. ===\n" );
 	cclog( "Gamble item list.\n" );

@@ -1704,7 +1704,7 @@ bool ZWeaponTrap::Init(RMesh* pMesh, rvector& pos, rvector& velocity, int nItemI
 {
 	ZMovingWeapon::Create(pMesh);
 
-	CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
+	CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemId);
 	if (!pDesc) return false;
 
 	m_fDamage=pDesc->m_nDamage.Ref();
@@ -1929,7 +1929,7 @@ void ZWeaponTrap::Activate()
 void ZWeaponTrap::AddEffectActivating(int nElapsedIfActivated, bool bFriendly)
 {
 	// 발동이 지속될 동안 보여질 이펙트 세팅
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nItemId);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(m_nItemId);
 	if (!pItemDesc) return;
 	int nLifeTime = pItemDesc->m_nLifeTime.Ref();
 
@@ -1940,7 +1940,7 @@ bool ZWeaponTrap::UpdateOnActivated( float fElapsedTime )
 {
 	if (m_bActivated)
 	{
-		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nItemId);
+		CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(m_nItemId);
 		if (!pItemDesc) return false;
 
 		float fCurrTime = ZGetGame()->GetTime();

@@ -72,7 +72,7 @@ public:
 	inline void Dump();
 };
 
-inline CCMatchStatus* MGetServerStatusSingleton() 
+inline CCMatchStatus* CCGetServerStatusSingleton() 
 {
 	return CCMatchStatus::GetInstance();
 }

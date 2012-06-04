@@ -105,7 +105,7 @@ private:
 	int						m_nListCount;		// 레코드의 개수
 	int						m_nCurrentPosition;	// 현재 위치
 
-	//MString					m_lpszErrorString;	// 에러 스트링
+	//CCString					m_lpszErrorString;	// 에러 스트링
 public:
 	// 변수 초기화
 	CCPtrList();
@@ -113,7 +113,7 @@ public:
 	virtual ~CCPtrList();
 
 	// 에러 메세지 얻기
-	//MString GetErrorMessage(){return m_lpszErrorString;}
+	//CCString GetErrorMessage(){return m_lpszErrorString;}
 
 	// 현재 위치 이전에 레코드 삽입(new로 생성된 객체가 그대로 박힌다.)
 	bool InsertBefore(_T *lpRecord);

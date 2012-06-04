@@ -78,7 +78,7 @@ void ZItemSlotView::OnDraw(CCDrawContext* pDC)
 
 	CCMatchItemDesc* pItemDesc = NULL;
 	if (nItemID != 0) 
-		pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+		pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 	sRect r;
 
@@ -221,7 +221,7 @@ bool ZItemSlotView::IsDropable(CCWidget* pSender)
 
 bool ZItemSlotView::IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, CCMatchSex nPlayerSex)
 {
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc == NULL) return false;
 
 	// 성별 제한 조건
@@ -270,7 +270,7 @@ bool ZItemSlotView::OnDrop(CCWidget* pSender, CCBitmap* pBitmap, const char* szS
 	else if (strcmp(pSender->GetClassName(), CORE_ITEMSLOTVIEW)==0) {	// Equip 슬롯에서 Equip 슬롯으로
 		ZItemSlotView* pWidget = (ZItemSlotView*)pSender;
 		CCUID uidItem = ZGetMyInfo()->GetItemList()->GetEquipedIteCCUID(pWidget->GetParts());
-		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
+		CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(ZGetMyInfo()->GetItemList()->GetItemID(uidItem));
 		if (pItemDesc == NULL) return false;
 		if (!IsSuitableItemSlot(pItemDesc->m_nSlot, m_nParts)) return false;
 		if (!IsEquipableItem(pItemDesc->m_nID, 99, ZGetMyInfo()->GetSex())) return false;
@@ -308,7 +308,7 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		CCMatchItemDesc* pItemDesc = NULL;
 		if (nItemID != 0)
 		{
-			pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+			pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 			// 아이템 설명 업데이트
 			ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem( m_nParts);
@@ -359,7 +359,7 @@ bool ZItemSlotView::OnEvent(CCEvent* pEvent, CCListener* pListener)
 		CCMatchItemDesc* pItemDesc = NULL;
 		if (nItemID != 0)
 		{
-			pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+			pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 			if (pItemDesc && m_bDragAndDrop)
 			{
@@ -417,7 +417,7 @@ void ZItemSlotView::OnMouseIn( void )
 	CCTextArea* pItemDescTextArea = (CCTextArea*)ZGetGameInterface()->GetIDLResource()->FindWidget(szItemDescription);
 	if (!pItemDescTextArea) return;
 
-	pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 	// 아이템 설명 업데이트
 	ZMyItemNode* pItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem( m_nParts);

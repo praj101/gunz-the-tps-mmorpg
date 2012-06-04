@@ -219,7 +219,7 @@ bool CCMatchMapsWorldItemSpawnInfo::Read()
 	char szFileName[256];
 	for (int i = 0; i < CCMATCH_MAP_COUNT; i++)
 	{
-		sprintf(szFileName, "Maps/%s/%s", MGetMapDescMgr()->GetMapName(i), FILENAME_WORLDITEM_SPAWN);
+		sprintf(szFileName, "Maps/%s/%s", CCGetMapDescMgr()->GetMapName(i), FILENAME_WORLDITEM_SPAWN);
 
 		if (IsExist(szFileName))
 		{
@@ -302,8 +302,8 @@ void CCMatchMapsWorldItemSpawnInfo::ParseSpawnInfo(::CCXmlElement& element, int 
 
 		char szItemName[256] = "";
 		spawnElement.GetAttribute(szItemName, MMSITOK_ITEM);
-		for (CCMatchWorldItemDescMgr::iterator itor = MGetMatchWorldItemDescMgr()->begin();
-			itor != MGetMatchWorldItemDescMgr()->end(); ++itor)
+		for (CCMatchWorldItemDescMgr::iterator itor = CCGetMatchWorldItemDescMgr()->begin();
+			itor != CCGetMatchWorldItemDescMgr()->end(); ++itor)
 		{
 			CCMatchWorldItemDesc* pDesc = (*itor).second;
 			if (!stricmp(pDesc->m_szDescName, szItemName))
