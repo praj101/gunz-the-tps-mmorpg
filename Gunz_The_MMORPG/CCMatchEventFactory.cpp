@@ -343,7 +343,7 @@ void CCMatchEventFactoryManager::ParseLocale( ::CCXmlElement& chrElement )
 		
 		if( 0 == stricmp(EL_COUNTRY, szAttrName) )
 		{
-			/*  // MBaseLocale.h // 
+			/*  // CCBaseLocale.h // 
 			enum MCountry
 			{
 				CCC_KOREA			= 82,		// ÇÑ±¹

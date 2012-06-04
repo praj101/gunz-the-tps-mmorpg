@@ -41,6 +41,7 @@
 
 #include "CCFeatureDefine.h"
 
+#define _QUEST
 #define _QUEST_ITEM		// 퀘스트 아이템 개발용. by 추교성.
 #define _MONSTER_BIBLE	// 몬스터 도관 개발요. by 추교성. 릴리즈때문에 잠시 보류.
 #define _BLOCK_HACKER	// 해킹관련 정보를 DB에 남기는 작업.

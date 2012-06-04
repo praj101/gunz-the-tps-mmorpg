@@ -266,7 +266,7 @@ char	GetAndChar(const char* szText);			//And the character gets stuck behind.
 
 int		RemoveAnd(char* szText);											//& Characters removed
 int		RemoveAnd(char* szRemovedText, const char* szText);					//Param szRemovedText [out] string is removed, Param szText [in] the source string
-int		RemoveAnd(char* szRemovedFrontText, char* cUnderlineChar, char szRemovedBackText, const char* szText);		//Param szRemovedFrontText [out] & front string, Param cUnderLineChar [out] & stick the string due to the underlined, Param szRemovedBackText [out] & the back of the string, Param szText [in] the source string
+int		RemoveAnd(char* szRemovedFrontText, char* cUnderlineChar, char* szRemovedBackText, const char* szText);		//Param szRemovedFrontText [out] & front string, Param cUnderLineChar [out] & stick the string due to the underlined, Param szRemovedBackText [out] & the back of the string, Param szText [in] the source string
 
 sPoint	CCClientToScreen(CCWidget* pWidget, sPoint &p);		//Convert to a local location to location throughout the
 sPoint	CCScreenToClient(CCWidget* pWidget, sPoint &p);		//Convert a global location where the local

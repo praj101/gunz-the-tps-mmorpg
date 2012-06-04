@@ -218,12 +218,12 @@ void CCDrawContextR2::Draw(CCBitmap *pBitmap, int x, int y, int w, int h, int sx
 
 	if(x+m_Origin.x>m_Clip.x+m_Clip.w || y+m_Origin.y>m_Clip.y+m_Clip.h || x+w+m_Origin.x<m_Clip.x || y+h+m_Origin.y<m_Clip.y) return;
 
-	//sColor color(0xFF, 0xFF, 0xFF, m_nOpacity);
+	//sColor color(0xFF, 0xFF, 0xFF, m_iOpacity);
 
 	//pBitmap->Draw((float)x+m_Origin.x, (float)y+m_Origin.y, (float)w, (float)h, (float)sx, (float)sy, (float)sw, (float)sh, color.GetARGB(), m_Effect);
 	
 	sColor color(m_BitmapColor.r,m_BitmapColor.g,m_BitmapColor.b,m_iOpacity);
-//	sColor color(255,255,255,m_nOpacity);
+//	sColor color(255,255,255,m_iOpacity);
 	((CCBitmapR2*)pBitmap)->Draw((float)x+m_Origin.x, (float)y+m_Origin.y, (float)w, (float)h, (float)sx, (float)sy, (float)sw, (float)sh, color.GetARGB(), m_Effect, bMirrorX, bMirrorY);
 }
 
