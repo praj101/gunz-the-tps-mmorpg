@@ -526,6 +526,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCMsgBox.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCQuestDropTable.cpp"
 						>
 					</File>
@@ -551,6 +555,10 @@
 					</File>
 					<File
 						RelativePath=".\Core.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\RCamera.cpp"
 						>
 					</File>
 					<File
