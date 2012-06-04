@@ -562,6 +562,18 @@
 						>
 					</File>
 					<File
+						RelativePath=".\RMesh.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\RMesh_Load.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\RMeshMgr.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\UPnP.cpp"
 						>
 					</File>

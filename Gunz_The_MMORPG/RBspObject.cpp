@@ -1142,7 +1142,7 @@ void RBspObject::DrawObjects()
 
 		if(!pInfo->pVisualMesh->m_bIsRender) m_DebugInfo.nMapObjectFrustumCulled++;
 
-//		cclog("%s,%s \n",pInfo->pVisualMesh->m_pMesh->m_iame,pInfo->pLight->Name.c_str());
+//		cclog("%s,%s \n",pInfo->pVisualMesh->m_pMesh->m_name,pInfo->pLight->Name.c_str());
 	}
 //	cclog("end \n");
 }

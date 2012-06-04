@@ -11,7 +11,7 @@ _USING_NAMESPACE_REALSPACE2
 
 RMtrl::RMtrl()	
 {
-	m_iame[0]	= 0;
+	m_name[0]	= 0;
 	m_opa_name[0] = 0;
 
 	m_id		= -1;
@@ -51,8 +51,8 @@ RMtrl::RMtrl()
 	m_iAniTexGap = 0;
 	m_backup_time = 0;
 
-	m_iame_ani_tex[0] = 0;
-	m_iame_ani_tex_ext[0] = 0;
+	m_name_ani_tex[0] = 0;
+	m_name_ani_tex_ext[0] = 0;
 	m_bObjectMtrl = false;
 
 	m_dwTFactorColor = D3DCOLOR_COLORVALUE(0.0f,1.0f,0.0f,0.0f);	//	알파도 없는 완전 녹색..색이 없다는걸 의미
@@ -117,10 +117,10 @@ DWORD RMtrl::GetTColor()
 
 void RMtrl::CheckAniTexture()
 {
-	if(m_iame[0]) {
+	if(m_name[0]) {
 
 		char drive[_MAX_DRIVE],dir[_MAX_DIR],fname[_MAX_FNAME],ext[_MAX_EXT];
-		_splitpath(m_iame,drive,dir,fname,ext);
+		_splitpath(m_name,drive,dir,fname,ext);
 
 		if( strnicmp( fname,"txa",3)==0) {
 
@@ -143,17 +143,17 @@ void RMtrl::CheckAniTexture()
 			int n = (int) strlen(texname);
 			
 			if(dir[0]) {
-				strcpy(m_iame_ani_tex,dir);
-				strncat(m_iame_ani_tex,texname,n-2);
+				strcpy(m_name_ani_tex,dir);
+				strncat(m_name_ani_tex,texname,n-2);
 				int pos = strlen(dir) + n - 2;
-				m_iame_ani_tex[ pos ] = NULL;
+				m_name_ani_tex[ pos ] = NULL;
 			}
 			else {
-				strncpy(m_iame_ani_tex,texname,n-2);//숫자제거
-				m_iame_ani_tex[n-2] = NULL;
+				strncpy(m_name_ani_tex,texname,n-2);//숫자제거
+				m_name_ani_tex[n-2] = NULL;
 			}
 
-			strcpy(m_iame_ani_tex_ext,ext);// ext
+			strcpy(m_name_ani_tex_ext,ext);// ext
 
 			m_iAniTexSpeed = ispeed;
 			m_iAniTexCnt =  imax;
@@ -166,7 +166,7 @@ void RMtrl::CheckAniTexture()
 
 void RMtrl::Restore(LPDIRECT3DDEVICE9 dev,char* path)
 {
-	if(m_iame[0] == 0) return;
+	if(m_name[0] == 0) return;
 
 	static char name[256];
 	static char name2[256];
@@ -182,7 +182,7 @@ void RMtrl::Restore(LPDIRECT3DDEVICE9 dev,char* path)
 	bool map_path = false;
 
 	char drive[_MAX_DRIVE],dir[_MAX_DIR],fname[_MAX_FNAME],ext[_MAX_EXT];
-	_splitpath(m_iame,drive,dir,fname,ext);
+	_splitpath(m_name,drive,dir,fname,ext);
 
 	if( dir[0] )
 		map_path = true;
@@ -193,25 +193,25 @@ void RMtrl::Restore(LPDIRECT3DDEVICE9 dev,char* path)
 
 			// 1번..
 			strcpy(name,path);
-			strcat(name,m_iame);
+			strcat(name,m_name);
 
 			m_pAniTexture[0] = RCreateBaseTextureMg(name,level);
 
 			if(m_pAniTexture[0]==NULL) {
-				m_pAniTexture[0] = RCreateBaseTextureMg(m_iame,level);
+				m_pAniTexture[0] = RCreateBaseTextureMg(m_name,level);
 			}
 
 			// 2번째부터..
 
 			strcpy(name2,path);
-			strcat(name2,m_iame_ani_tex);//보관..
+			strcat(name2,m_name_ani_tex);//보관..
 
 			for(int i=1;i<m_iAniTexCnt;i++) {
-				sprintf(name,"%s%02d%s",name2,i,m_iame_ani_tex_ext);
+				sprintf(name,"%s%02d%s",name2,i,m_name_ani_tex_ext);
 				m_pAniTexture[i] = RCreateBaseTextureMg(name,level);
 
 				if(m_pAniTexture[i]==NULL) {// 경로에 없을 경우 현 폴더에서 찾아보기
-					sprintf(name,"%s%2d.%s",m_iame_ani_tex,i,m_iame_ani_tex_ext);
+					sprintf(name,"%s%2d.%s",m_name_ani_tex,i,m_name_ani_tex_ext);
 					m_pAniTexture[i] = RCreateBaseTextureMg(name,level);
 					if(m_pAniTexture[i]==NULL)
 						int a= 0;
@@ -221,30 +221,30 @@ void RMtrl::Restore(LPDIRECT3DDEVICE9 dev,char* path)
 		else {
 
 			strcpy(name,path);
-			strcat(name,m_iame);
+			strcat(name,m_name);
 
 			m_pTexture = NULL;
 			m_pTexture = RCreateBaseTextureMg(name,level);
 
 			if(!m_pTexture)		// 경로에 없을 경우 현 폴더에서 찾아보기
-				m_pTexture = RCreateBaseTextureMg(m_iame,level);
+				m_pTexture = RCreateBaseTextureMg(m_name,level);
 		}
 	} 
 	else {
 
 		if(m_bAniTex) {
 
-			m_pAniTexture[0] = RCreateBaseTextureMg(m_iame,level);
+			m_pAniTexture[0] = RCreateBaseTextureMg(m_name,level);
 
 			for(int i=1;i<m_iAniTexCnt;i++) {
-				sprintf(name,"%s%02d%s",m_iame_ani_tex,i,m_iame_ani_tex_ext);
+				sprintf(name,"%s%02d%s",m_name_ani_tex,i,m_name_ani_tex_ext);
 				m_pAniTexture[i] = RCreateBaseTextureMg(name,level);
 			}
 
 		}
 		else {
 
-			m_pTexture=RCreateBaseTextureMg(m_iame,level);
+			m_pTexture=RCreateBaseTextureMg(m_name,level);
 		}
 	}
 }
@@ -275,7 +275,7 @@ int RMtrlMgr::Add(char* name,int u_id)
 	node->m_u_id = u_id;
 	node->m_bObjectMtrl = m_bObjectMtrl;
 
-	strcpy(node->m_iame,name);
+	strcpy(node->m_name,name);
 
 	// tool 구분용..
 
@@ -294,7 +294,7 @@ int RMtrlMgr::Add(RMtrl* tex)
 	tex->m_id = m_id_last;
 	tex->m_bObjectMtrl = m_bObjectMtrl;
 
-	sprintf(tex->m_mtrl_name,"%s%d",tex->m_iame,tex->m_id);
+	sprintf(tex->m_mtrl_name,"%s%d",tex->m_name,tex->m_id);
 
 	m_node_table.push_back(tex);
 //	m_node_table[m_id_last] = tex;
@@ -543,7 +543,7 @@ LPDIRECT3DTEXTURE9 RMtrlMgr::Get(char* name)
 	iterator node;
 
 	for(node = begin(); node != end(); ++node) {
-		if(!strcmp((*node)->m_iame,name)) {
+		if(!strcmp((*node)->m_name,name)) {
 			return (*node)->GetTexture();
 		}
 	}
@@ -555,7 +555,7 @@ RMtrl* RMtrlMgr::GetMtrl(char* name)
 	iterator node;
 
 	for(node = begin(); node != end(); ++node) {
-		if(!strcmp((*node)->m_iame,name)) {
+		if(!strcmp((*node)->m_name,name)) {
 			return (*node);
 		}
 	}

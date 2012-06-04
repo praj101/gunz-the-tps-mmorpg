@@ -367,7 +367,7 @@ struct RFaceInfo {
 };
 
 struct RFaceNormalInfo {
-	D3DXVECTOR3 m_iormal;
+	D3DXVECTOR3 m_normal;
 	D3DXVECTOR3 m_pointnormal[3];
 };
 
@@ -378,13 +378,13 @@ struct RPhysiqueInfo {
 		for(int i=0;i<MAX_PHYSIQUE_KEY;i++)
 			m_parent_name[i][0] = 0;
 
-		m_ium = 0;
+		m_num = 0;
 	};
 
 	char	m_parent_name[MAX_PHYSIQUE_KEY][MAX_NAME_LEN];
 	float	m_weight[MAX_PHYSIQUE_KEY];
 	int		m_parent_id[MAX_PHYSIQUE_KEY];
-	int		m_ium;
+	int		m_num;
 
 	D3DXVECTOR3 m_offset[MAX_PHYSIQUE_KEY];
 };

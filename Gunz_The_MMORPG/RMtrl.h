@@ -52,11 +52,11 @@ public:
 
 	char	m_mtrl_name[255];//지금은 tool 에서 구분하기 위해서 만들어서 사용..
 
-	char	m_iame[255];
+	char	m_name[255];
 	char	m_opa_name[255];
 
-	char	m_iame_ani_tex[255];
-	char	m_iame_ani_tex_ext[20];
+	char	m_name_ani_tex[255];
+	char	m_name_ani_tex_ext[20];
 
 	int		m_id;
 	int		m_u_id;			//유저가 지정해준 ID

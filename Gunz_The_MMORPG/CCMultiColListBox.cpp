@@ -9,7 +9,7 @@ IMPLEMENT_LOOK(CCMultiColListBox, CCMultiColListBoxLook)
 
 CCMultiColListBox::CCMultiColListBox(const char* szName, CCWidget* pParent, CCListener* pListener)
 : CCWidget(szName, pParent, pListener)
-, m_iumColumn(1)
+, m_numColumn(1)
 , m_desiredNumRow(4)
 , m_itemHeight(16)
 , m_maxRowCanShow(0)
@@ -42,11 +42,11 @@ void CCMultiColListBox::CalcItemHeight(){
 }
 
 void CCMultiColListBox::SetNumColumn(int n){
-	m_iumColumn = n;
-	if (m_iumColumn < 1)
+	m_numColumn = n;
+	if (m_numColumn < 1)
 	{
 		_ASSERT(0);
-		m_iumColumn = 1;
+		m_numColumn = 1;
 	}
 
 	UpdateScrollBar();
@@ -118,8 +118,8 @@ void CCMultiColListBox::UpdateScrollBar(){
 
 	m_maxRowCanShow = r.h / m_itemHeight;
 	
-	int numRow = ((int)m_items.size() / m_iumColumn);
-	if (((int)m_items.size() % m_iumColumn) > 0)
+	int numRow = ((int)m_items.size() / m_numColumn);
+	if (((int)m_items.size() % m_numColumn) > 0)
 		numRow += 1;
 	
 	int scrollmax = numRow - m_maxRowCanShow;
@@ -212,11 +212,11 @@ bool CCMultiColListBox::CalcItemRect(int idx, sRect& out){
 	if (idx < idxItemFirstShow || idxItemLastShow < idx) return false;
 
 	sRect r = GetClientRect();
-	int widthItem = r.w / m_iumColumn;
+	int widthItem = r.w / m_numColumn;
 	int heightItem = GetItemHeight();
 
-	int col = idx % m_iumColumn;
-	int row = idx / m_iumColumn;
+	int col = idx % m_numColumn;
+	int row = idx / m_numColumn;
 
 	int xposItem = r.x + (widthItem * col);
 	int yposItem = r.y + (heightItem * (row-GetRowFirstVisible()) );
@@ -228,9 +228,9 @@ bool CCMultiColListBox::CalcItemRect(int idx, sRect& out){
 }
 
 bool CCMultiColListBox::GetItemRowCol(int idx, int& out_row, int& out_col){
-	if (m_iumColumn == 0) return false;
-	out_col = (idx % m_iumColumn);
-	out_row = (idx / m_iumColumn);
+	if (m_numColumn == 0) return false;
+	out_col = (idx % m_numColumn);
+	out_row = (idx / m_numColumn);
 	return true;
 }
 
