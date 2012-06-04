@@ -171,7 +171,7 @@ protected:
 
 	CCZFileSystem*	m_pfs;
 	bool			m_bBattleMusic;
-	const char*		GetBGMFileName(int nBgmIndex);
+	const char*		GetBGCCFileName(int nBgmIndex);
 	bool OpenMusic(const char* szFileName, CCZFileSystem* pfs);
 	bool CheckCulling(char* szName, SoundSource* pSS, const rvector& vSoundPos, bool bHero, int* pnoutPriority=NULL);
 	static void MusicEndCallback(void* pCallbackContext);

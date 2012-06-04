@@ -50,7 +50,7 @@ public:
 	static CCMatchWorldItemDescMgr* GetInstance();
 };
 
-inline CCMatchWorldItemDescMgr* MGetMatchWorldItemDescMgr() 
+inline CCMatchWorldItemDescMgr* CCGetMatchWorldItemDescMgr() 
 { 
 	return CCMatchWorldItemDescMgr::GetInstance();
 }
@@ -96,7 +96,7 @@ public:
 
 
 
-inline CCMatchMapsWorldItemSpawnInfo* MGetMapsWorldItemSpawnInfo() 
+inline CCMatchMapsWorldItemSpawnInfo* CCGetMapsWorldItemSpawnInfo() 
 { 
 	return CCMatchMapsWorldItemSpawnInfo::GetInstance();
 }

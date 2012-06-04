@@ -14,8 +14,8 @@ protected:
 	static CCBaseStringResManager*	m_pInstance;
 	string							m_strPath;
 	CCZFileSystem*					m_pFS;
-	MStringRes<int>					m_ErrorTable;
-	MStringRes<string>				m_StringTable;
+	CCStringRes<int>					m_ErrorTable;
+	CCStringRes<string>				m_StringTable;
 
 	virtual bool OnInit() { return true; }
 public:

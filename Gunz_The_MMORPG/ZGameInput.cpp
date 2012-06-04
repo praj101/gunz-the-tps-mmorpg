@@ -146,7 +146,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			}
 		}
 		return true;
-	case CCWM_CCButtonDOWN:
+	case CCWM_CCBUTTONDOWN:
 		if (ZGetGameInterface()->GetCombatInterface()->IsChat())
 		{
 			ZGetGameInterface()->GetCombatInterface()->EnableInputChat(false);

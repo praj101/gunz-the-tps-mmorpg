@@ -15,7 +15,7 @@ void CCShutdownTraceMemory()	{ }
 using namespace std;
 
 const int NMAXCALLSTACK = 100;
-#define MTMFILENAME	"memory.mtm"
+#define MTCCFILENAME	"memory.mtm"
 
 static FILE *file;
 static DWORD callStack[NMAXCALLSTACK];
@@ -148,7 +148,7 @@ void CCInitTraceMemory()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	file = fopen(MTMFILENAME,"wb+");
+	file = fopen(MTCCFILENAME,"wb+");
 //	InitializeCriticalSection(&csNewMemoryDumpLock);
 
    _CrtSetAllocHook( MyAllocHook );
@@ -170,7 +170,7 @@ void CCShutdownTraceMemory()
 	memories = new vector<MCallStackInfo*>;
 
 	char szFileName[_MAX_PATH];
-	sprintf(szFileName,"%s/%s",szCurrentDir,MTMFILENAME);
+	sprintf(szFileName,"%s/%s",szCurrentDir,MTCCFILENAME);
 	FILE *file = fopen(szFileName,"rb");
 
 	int nCount = 0;

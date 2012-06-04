@@ -248,7 +248,7 @@ void ZMyItemList::SerializeZItemList()
 			pItemNode	= (*itor).second;
 			uidItem		= (*itor).first;
 
-			pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(pItemNode->GetItemID());
+			pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(pItemNode->GetItemID());
 			if (!pItemDesc) { _ASSERT(0); continue; }
 
 			// 장비 목록 창
@@ -400,7 +400,7 @@ void ZMyItemList::SerializeAccountItem()
 		ZShopEquipItem* pWrappedItem = NULL;
 
 		unsigned long int nItemID = pMyItemNode->GetItemID();
-		if (CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID))
+		if (CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID))
 		{
 			ZShopEquipItem_Match* pMItem = new ZShopEquipItem_Match(pItemDesc);
 			ZShopEquipItemHandle_BringAccountMatch* pHandle = new ZShopEquipItemHandle_BringAccountMatch(pMItem);
@@ -536,7 +536,7 @@ int ZMyItemList::GetEquipedTotalWeight()
 	{
 		if (m_nEquipItemID[i] != 0)
 		{
-			pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nEquipItemID[i]);
+			pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(m_nEquipItemID[i]);
 			if (pItemDesc)
 			{
 				nTotalWeight += pItemDesc->m_nWeight.Ref();
@@ -555,7 +555,7 @@ int ZMyItemList::GetEquipedHPModifier()
 	{
 		if (m_nEquipItemID[i] != 0)
 		{
-			pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nEquipItemID[i]);
+			pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(m_nEquipItemID[i]);
 			if (pItemDesc)
 			{
 
@@ -575,7 +575,7 @@ int ZMyItemList::GetEquipedAPModifier()
 	{
 		if (m_nEquipItemID[i] != 0)
 		{
-			pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nEquipItemID[i]);
+			pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(m_nEquipItemID[i]);
 			if (pItemDesc)
 			{
 				nTotalAPModifier += pItemDesc->m_nAP.Ref();
@@ -595,7 +595,7 @@ int ZMyItemList::GetMaxWeight()
 	{
 		if (m_nEquipItemID[i] != 0)
 		{
-			pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_nEquipItemID[i]);
+			pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(m_nEquipItemID[i]);
 			if (pItemDesc)
 			{
 				nMaxWT += pItemDesc->m_nMaxWT.Ref();

@@ -881,9 +881,9 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 			break;
 		case ZC_MESSAGE:
 			{
-				int nMessageID;
-				pCommand->GetParameter(&nMessageID, 0, MPT_INT);
-				ZGetGameInterface()->ShowMessage(nMessageID);
+				int iMessageID;
+				pCommand->GetParameter(&iMessageID, 0, MPT_INT);
+				ZGetGameInterface()->ShowMessage(iMessageID);
 			}break;
 		case MC_TEST_PEERTEST_PING:
 			{
@@ -1348,7 +1348,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 						szCharName = pChar->GetUserName();
 				}
 
-				CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
+				CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemId);
 				if (pItemDesc)
 					szItemName = pItemDesc->m_pMItemName->Ref().m_szItemName;
 				else

@@ -425,7 +425,7 @@ const bool CCMatchConfig::LoadMonitorIPnPort()
 
 	if( isalpha(szMonitorIP[0]) )
 	{
-		if( !MGetIPbyHostName(szMonitorIP, strRealIP) )
+		if( !CCGetIPbyHostName(szMonitorIP, strRealIP) )
 		{
 			return false;
 		}
@@ -459,7 +459,7 @@ const bool CCMatchConfig::LoadKeeperIP()
 
 	if( isalpha(szKeeperIP[0]) )
 	{
-		if( !MGetIPbyHostName(szKeeperIP, strRealIP) )
+		if( !CCGetIPbyHostName(szKeeperIP, strRealIP) )
 		{
 			return false;
 		}
@@ -481,7 +481,7 @@ void CCMatchConfig::InitLoopLogConfig()
 	if (stricmp("1", szUseLoopLog) == 0)
 	{
 		m_bUseLoopLog = true;
-		MGetCheckLoopTimeInstance()->SetLoopCheckRun();
+		CCGetCheckLoopTimeInstance()->SetLoopCheckRun();
 	}
 	else
 	{
@@ -556,7 +556,7 @@ void CCMatchConfig::ReadEnableMaps()
 		int nMapIndex = -1;
 		for (int i = 0; i < CCMATCH_MAP_MAX; i++)
 		{
-			if (!stricmp(szInputMapName, MGetMapDescMgr()->GetMapName(i)))
+			if (!stricmp(szInputMapName, CCGetMapDescMgr()->GetMapName(i)))
 			{
 				nMapIndex = i;
 				break;

@@ -86,7 +86,7 @@ bool CCMatchQuestGameLogInfoManager::AddRewardZItemInfo( const CCUID& uidPlayer,
 	for(CCQuestRewardZItemList::iterator itor = pObtainZItemList->begin(); itor != pObtainZItemList->end(); ++itor )
 	{
 		RewardZItemInfo iteminfo = (*itor);
-		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(iteminfo.nItemID);
+		CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(iteminfo.nItemID);
 		if (pItemDesc == NULL) continue;
 
 		// 유니크 로그 생성

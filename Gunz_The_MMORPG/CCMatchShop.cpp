@@ -81,7 +81,7 @@ void CCMatchShop::ParseSellItem(::CCXmlElement& element)
 	pNewItemNode->bIsRentItem = (pNewItemNode->nRentPeriodHour > 0);	
 	
 
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nDescID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nDescID);
 	if (pItemDesc != NULL) {
 		
 		// 이제 캐쉬 아이템도 판다
@@ -188,7 +188,7 @@ void CCMatchShop::MakeShopXML()
 		CCMatchItemDesc* pDesc;
 		const CCMatchGambleItem* pGamble;
 		CCQuestItemDesc* pQuest;
-		if( (pDesc = MGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
+		if( (pDesc = CCGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
 		{
 			int nSex;
 			switch(pDesc->m_nResSex.Ref()) {
@@ -206,7 +206,7 @@ void CCMatchShop::MakeShopXML()
 				szTemp, 10000 + (++nCount), pDesc->m_pMItemName->Ref().m_szItemName, pDesc->m_szDesc, nSex, pDesc->m_nResLevel.Ref(), pNode->nItemID);
 			fputs(szTemp, fp);
 		} 
-		else if( (pGamble = MGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(pNode->nItemID)) != NULL ) 
+		else if( (pGamble = CCGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(pNode->nItemID)) != NULL ) 
 		{
 			if( pGamble->IsCash() ) continue;
 			/*
@@ -246,13 +246,13 @@ void CCMatchShop::MakeShopXML()
 		CCMatchItemDesc* pDesc;
 		const CCMatchGambleItem* pGamble;
 		CCQuestItemDesc* pQuest;
-		if( (pDesc = MGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
+		if( (pDesc = CCGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
 		{			
 			sprintf(szTemp, "INSERT ShopProductCategory(Category_Code, PID, FromDate, EndDate, RegDate, IsOpen) VALUES");
 			sprintf(szTemp, "%s (%d, %d, '2010-10-01', '9999-12-31', GETDATE(), 1)\n", szTemp, pDesc->m_nSlot, 10000 + (++nCount));
 			fputs(szTemp, fp);
 		} 
-		else if( (pGamble = MGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(pNode->nItemID)) != NULL ) 
+		else if( (pGamble = CCGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(pNode->nItemID)) != NULL ) 
 		{
 			if( pGamble->IsCash() ) continue;
 
@@ -283,13 +283,13 @@ void CCMatchShop::MakeShopXML()
 		CCMatchItemDesc* pDesc;
 		const CCMatchGambleItem* pGamble;
 		CCQuestItemDesc* pQuest;
-		if( (pDesc = MGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
+		if( (pDesc = CCGetMatchItemDescMgr()->GetItemDesc(pNode->nItemID)) != NULL ) 
 		{			
 			sprintf(szTemp, "INSERT ShopProductPrice(PID, Sell_Code, Price_Code, DefaultPriceFlag, FromDate, EndDate, Price) VALUES");
 			sprintf(szTemp, "%s (%d, 1, 2, 1, '2010-10-01', '9999-12-31', %d)\n", szTemp, 10000 + (++nCount), pDesc->m_nBountyPrice.Ref());
 			fputs(szTemp, fp);
 		} 
-		else if( (pGamble = MGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(pNode->nItemID)) != NULL ) 
+		else if( (pGamble = CCGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(pNode->nItemID)) != NULL ) 
 		{
 			if( pGamble->IsCash() ) continue;
 

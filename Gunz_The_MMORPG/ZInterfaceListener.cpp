@@ -78,7 +78,7 @@ MChatInputListener	g_ChatInputListener;
 
 
 
-class MHotBarButton : public CCButton{
+class CCHotBarButton : public CCButton{
 protected:
 	char	m_szCommandString[256];
 protected:
@@ -91,7 +91,7 @@ protected:
 	}
 
 public:
-	MHotBarButton(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL)
+	CCHotBarButton(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL)
 	: CCButton(szName, pParent, pListener){
 		strcpy(m_szCommandString, "Command is not assigned");
 	}
@@ -104,11 +104,11 @@ public:
 };
 
 
-class MHotBarButtonListener : public CCListener{
+class CCHotBarButtonListener : public CCListener{
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage){
 		if(CCWidget::IsMsg(szMessage, CCBTN_CLK_MSG)==true){
-			MHotBarButton* pButton = (MHotBarButton*)pWidget;
+			CCHotBarButton* pButton = (CCHotBarButton*)pWidget;
 			const char* szCommandString = pButton->GetCommandString();
 
 			char szParse[256];
@@ -125,7 +125,7 @@ public:
 		return false;
 	}
 };
-MHotBarButtonListener	g_HotBarButtonListener;
+CCHotBarButtonListener	g_HotBarButtonListener;
 
 class CCLoginListener : public CCListener{
 public:
@@ -533,15 +533,15 @@ BEGIN_IMPLEMENT_LISTENER(ZGetStageCreateBtnListener, CCBTN_CLK_MSG)
 
 	ZApplication::GetStageInterface()->ChangeStageGameSetting( &setting);
 
-	if ( !MGetChattingFilter()->IsValidStr( szStageName, 1))
+	if ( !CCGetChattingFilter()->IsValidStr( szStageName, 1))
 	{
 		char szMsg[ 256 ];
-		ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, MGetChattingFilter()->GetLastFilteredStr());
+		ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, CCGetChattingFilter()->GetLastFilteredStr());
 		ZGetGameInterface()->ShowMessage( szMsg );
 	}
 	else
 	{
-		// string strStageName = MGetChattingFilter()->AbuseWordPasser( szStageName );
+		// string strStageName = CCGetChattingFilter()->AbuseWordPasser( szStageName );
 		// memset( szStageName, 0, 128 );
 		// strncpy( szStageName, &strStageName[0], strStageName.size() );
 		ZGetGameInterface()->EnableLobbyInterface(false);
@@ -913,7 +913,7 @@ void PostMapname()
 			// 릴레이맵을 고르면 처음에 맨션맵 하나를 강제로 넣어준다
 			void* pRelayMapListBlob = CCMakeBlobArray(sizeof(CCTD_RelayMap), 1);	// 블럭 만들기, 맵리스트 세팅
 			CCTD_RelayMap* pRelayMapList = (CCTD_RelayMap*)CCGetBlobArrayElement(pRelayMapListBlob, 0);
-			pRelayMapList->nMapID = MGetMapDescMgr()->GetMapID(CCMATCH_MAP_MANSION);
+			pRelayMapList->nMapID = CCGetMapDescMgr()->GetMapID(CCMATCH_MAP_MANSION);
 
 			ZPostStageRelayMapInfoUpdate(ZGetGameClient()->GetStageUID(), RELAY_MAP_TURN, RELAY_MAP_3REPEAT, pRelayMapListBlob);
 			CCEraseBlobArray(pRelayMapListBlob);
@@ -1161,14 +1161,14 @@ BEGIN_IMPLEMENT_LISTENER(ZGetCreateCharacterButtonListener, CCBTN_CLK_MSG)
 
 
 		// 유효한 이름인지 검사함.
-		bool bIsAbuse = MGetChattingFilter()->IsValidStr( pEdit->GetText(), 2, true);
+		bool bIsAbuse = CCGetChattingFilter()->IsValidStr( pEdit->GetText(), 2, true);
 
 		// 유효하지 않다면...
 		if ( !bIsAbuse)
 		{
 			// 메시지를 출력하고 끝.
 			char szMsg[ 256];
-			ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, MGetChattingFilter()->GetLastFilteredStr());
+			ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, CCGetChattingFilter()->GetLastFilteredStr());
 			ZGetGameInterface()->ShowMessage( szMsg, NULL, MSG_WRONG_WORD_NAME);
 
 			return true;
@@ -1764,10 +1764,10 @@ BEGIN_IMPLEMENT_LISTENER(ZGetClanCreateDialogOk, CCBTN_CLK_MSG)
 
 
 				// 유효한지 검사한다.
-				if( !MGetChattingFilter()->IsValidStr( pEditClanName->GetText(), 2, true) )
+				if( !CCGetChattingFilter()->IsValidStr( pEditClanName->GetText(), 2, true) )
 				{
 					char szMsg[ 256 ];
-					ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, MGetChattingFilter()->GetLastFilteredStr());
+					ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, CCGetChattingFilter()->GetLastFilteredStr());
 					ZGetGameInterface()->ShowMessage( szMsg, NULL, MSG_WRONG_WORD_NAME );
 				}
 				else if(pEditClanName)
@@ -1917,7 +1917,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, CCBTN_CLK_MSG)
 					ZGetGameClient()->RequestProposal(MPROPOSAL_LADDER_INVITE, ppNames, nCount);
 				}else
 				{
-//					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), MGetErrorString(MSG_LADDER_INVALID_COUNT));
+//					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), CCGetErrorString(MSG_LADDER_INVALID_COUNT));
 					ZChatOutput(sColor(ZCOLOR_CHAT_SYSTEM), 
 						ZErrStr(MSG_LADDER_INVALID_COUNT) );
 				}
@@ -2052,10 +2052,10 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPrivateChannelEnterListener, CCBTN_CLK_MSG)
 		}
 
 
-		if( !MGetChattingFilter()->IsValidStr( pEdit->GetText(), 1))
+		if( !CCGetChattingFilter()->IsValidStr( pEdit->GetText(), 1))
 		{
 			char szMsg[ 256 ];
-			ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, MGetChattingFilter()->GetLastFilteredStr());
+			ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, CCGetChattingFilter()->GetLastFilteredStr());
 			ZGetGameInterface()->ShowMessage( szMsg, NULL, MSG_WRONG_WORD_NAME );
 		}
 		else

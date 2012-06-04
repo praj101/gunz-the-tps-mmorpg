@@ -63,9 +63,9 @@ void CCMatchStageSetting::SetMapName(char* pszName)
 		m_StageSetting.Ref().nMapIndex = 0;
 		for (int i = 0; i < CCMATCH_MAP_MAX; i++)
 		{
-			if (!stricmp( MGetMapDescMgr()->GetMapName(i), pszName))
+			if (!stricmp( CCGetMapDescMgr()->GetMapName(i), pszName))
 			{
-				m_StageSetting.Ref().nMapIndex = MGetMapDescMgr()->GetMapID(i);
+				m_StageSetting.Ref().nMapIndex = CCGetMapDescMgr()->GetMapID(i);
 				break;
 			}
 		}
@@ -79,9 +79,9 @@ void CCMatchStageSetting::SetMapIndex(int nMapIndex)
 	m_StageSetting.Ref().nMapIndex = nMapIndex; 
 
 	// MapName까지 함께 세팅해준다.
-	if ( MGetMapDescMgr()->MIsCorrectMap(nMapIndex))
+	if ( CCGetMapDescMgr()->MIsCorrectMap(nMapIndex))
 	{
-		strcpy(m_StageSetting.Ref().szMapName, MGetMapDescMgr()->GetMapName(nMapIndex)); 
+		strcpy(m_StageSetting.Ref().szMapName, CCGetMapDescMgr()->GetMapName(nMapIndex)); 
 	}
 	m_StageSetting.MakeCrc();
 }
@@ -106,17 +106,17 @@ MSTAGE_CHAR_SETTING_NODE* CCMatchStageSetting::FindCharSetting(const CCUID& uid)
 
 bool CCMatchStageSetting::IsTeamPlay()
 {
-	return MGetGameTypeMgr()->IsTeamGame(m_StageSetting.Ref().nGameType);
+	return CCGetGameTypeMgr()->IsTeamGame(m_StageSetting.Ref().nGameType);
 }
 
 bool CCMatchStageSetting::IsWaitforRoundEnd()
 {
-	return MGetGameTypeMgr()->IsWaitForRoundEnd(m_StageSetting.Ref().nGameType);
+	return CCGetGameTypeMgr()->IsWaitForRoundEnd(m_StageSetting.Ref().nGameType);
 }
 
 bool CCMatchStageSetting::IsQuestDrived()
 {
-	return MGetGameTypeMgr()->IsQuestDerived(m_StageSetting.Ref().nGameType);
+	return CCGetGameTypeMgr()->IsQuestDerived(m_StageSetting.Ref().nGameType);
 }
 
 void CCMatchStageSetting::UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting)
@@ -124,7 +124,7 @@ void CCMatchStageSetting::UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting)
 	// move to CCMatchServer::OnStageSetting(...) - by SungE 2007-05-14
 	//if( STAGE_BASIC_MAX_PLAYERCOUNT < pSetting->nMaxPlayers )
 	//{
-	//	if( QuestTestServer() && MGetGameTypeMgr()->IsQuestDerived(pSetting->nGameType) )
+	//	if( QuestTestServer() && CCGetGameTypeMgr()->IsQuestDerived(pSetting->nGameType) )
 	//	{
 	//		pSetting->nMaxPlayers = STAGE_QUEST_MAX_PLAYER;
 	//	}
@@ -160,7 +160,7 @@ void CCMatchStageSetting::UpdateCharSetting(const CCUID& uid, unsigned int nTeam
 
 const CCMatchGameTypeInfo* CCMatchStageSetting::GetCurrGameTypeInfo()
 { 
-	return MGetGameTypeMgr()->GetInfo(m_StageSetting.Ref().nGameType); 
+	return CCGetGameTypeMgr()->GetInfo(m_StageSetting.Ref().nGameType); 
 }
 
 void CCMatchStageSetting::SetRelayMapList(RelayMap* pValue)

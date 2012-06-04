@@ -18,7 +18,7 @@ void CCMatchBuffSummary::Clear()
 
 void CCMatchBuffSummary::AddBuff(int nBuffID)
 {
-	CCMatchBuffDesc* pDesc = MGetMatchBuffDescMgr()->GetBuffDesc(nBuffID);
+	CCMatchBuffDesc* pDesc = CCGetMatchBuffDescMgr()->GetBuffDesc(nBuffID);
 	if( pDesc == NULL ) {
 		_ASSERT(0);
 		return;

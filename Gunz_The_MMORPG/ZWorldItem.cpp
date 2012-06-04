@@ -220,8 +220,8 @@ ZWorldItem *ZWorldItemManager::AddWorldItem( int nID, short nItemID,CCTD_WorldIt
 	WIL_Iterator iterItem = mItemList.find( nID );
 	if( iterItem == mItemList.end() )
 	{
-		map<short, CCMatchWorldItemDesc*>::iterator iter = MGetMatchWorldItemDescMgr()->find( nItemID );
-		if( iter == MGetMatchWorldItemDescMgr()->end() ) 
+		map<short, CCMatchWorldItemDesc*>::iterator iter = CCGetMatchWorldItemDescMgr()->find( nItemID );
+		if( iter == CCGetMatchWorldItemDescMgr()->end() ) 
 		{
 			// cclog("추가하려는 월드아이템이 정의 되지 않은 이름입니다\n" );
 			return NULL;
@@ -583,8 +583,8 @@ ZWorldItemManager* ZGetWorldItemManager()
 
 int ZWorldItemManager::GetLinkedWorldItemID(CCMatchItemDesc* pItemDesc)
 {
-	for (map<short, CCMatchWorldItemDesc*>::iterator itor = MGetMatchWorldItemDescMgr()->begin();
-		itor != MGetMatchWorldItemDescMgr()->end(); ++itor)
+	for (map<short, CCMatchWorldItemDesc*>::iterator itor = CCGetMatchWorldItemDescMgr()->begin();
+		itor != CCGetMatchWorldItemDescMgr()->end(); ++itor)
 	{
 		CCMatchWorldItemDesc* pWorldItemDesc = itor->second;
 

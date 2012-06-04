@@ -918,7 +918,7 @@ void CopyCharInfoDetailForTrans(CCTD_CharInfo_Detail* pDest, CCMatchCharInfo* pS
 
 
 // line functions ///////////////////////////////////////////////////////////////////
-inline CCMatchServer* MGetMatchServer()
+inline CCMatchServer* CCGetMatchServer()
 {
 	return CCMatchServer::GetInstance();
 }

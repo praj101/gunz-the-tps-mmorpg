@@ -498,11 +498,47 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCEvent.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCFileBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCFileDialog.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCHotKey.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCListBox.cpp"
 						>
 					</File>
 					<File
 						RelativePath=".\CCMatchQuest.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCQuestMap.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCQuestNPC.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCQuestScenario.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCResourceManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCStringTable.cpp"
 						>
 					</File>
 					<File

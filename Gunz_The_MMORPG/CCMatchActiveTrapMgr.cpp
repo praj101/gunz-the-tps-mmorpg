@@ -62,12 +62,12 @@ void CCMatchActiveTrapMgr::AddThrowedTrap( const CCUID& uidOwner, int nItemId )
 	if (!m_pStage) return;
 	if (!m_pStage->GetObj(uidOwner)) return;
 
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemId);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemId);
 	if (!pItemDesc) return;
 
 	CCMatchActiveTrap* pTrap = new CCMatchActiveTrap;
 	
-	pTrap->m_nTimeThrowed = MGetMatchServer()->GetGlobalClockCount();
+	pTrap->m_nTimeThrowed = CCGetMatchServer()->GetGlobalClockCount();
 	pTrap->m_uidOwner = uidOwner;
 	pTrap->m_nTrapItemId = nItemId;
 
@@ -90,7 +90,7 @@ void CCMatchActiveTrapMgr::OnActivated( const CCUID& uidOwner, int nItemId, cons
 			pTrap->m_nTrapItemId == nItemId &&
 			!pTrap->IsActivated())
 		{
-			pTrap->m_nTimeActivated = MGetMatchServer()->GetGlobalClockCount();
+			pTrap->m_nTimeActivated = CCGetMatchServer()->GetGlobalClockCount();
 			pTrap->m_vPosActivated = vPos;
 
 			OutputDebugStr("OnActivated trap\n");

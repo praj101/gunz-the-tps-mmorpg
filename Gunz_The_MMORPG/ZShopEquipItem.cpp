@@ -532,7 +532,7 @@ void ZShopEquipItem_Match::UpdateCharInfoText()
 	CCMatchCharItemParts parts = ZGetGameInterface()->GetShopEquipInterface()->RecommendEquipParts( m_pItemDesc->m_nSlot);
 	ZMyItemNode* pMyItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem( parts);
 	if ( pMyItemNode)
-		pEquipedItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pMyItemNode->GetItemID());
+		pEquipedItemDesc = CCGetMatchItemDescMgr()->GetItemDesc( pMyItemNode->GetItemID());
 
 	ZGetGameInterface()->GetShopEquipInterface()->DrawCharInfoText(NULL, 
 		m_pItemDesc->m_nResLevel.Ref(),
@@ -643,7 +643,7 @@ ZShopEquipItem_Set::ZShopEquipItem_Set(MShopSetItem* pSetItem)
 	CCMatchItemDesc* pDesc;
 	for (int i=0; i<MAX_SET_ITEM_COUNT; ++i)
 	{
-		pDesc = MGetMatchItemDescMgr()->GetItemDesc( pSetItem->GetItemID(i));
+		pDesc = CCGetMatchItemDescMgr()->GetItemDesc( pSetItem->GetItemID(i));
 		if (!pDesc) continue;
 
 		if (nHighestLevelRestrict < pDesc->m_nResLevel.Ref())
@@ -714,7 +714,7 @@ void ZShopEquipItem_Set::UpdateCharacterView( ZCharacterView* pCharacterView )
 		int partsItemId = m_pShopSetItem->GetItemID(i);
 		if (partsItemId != 0)
 		{
-			pDesc = MGetMatchItemDescMgr()->GetItemDesc(partsItemId);
+			pDesc = CCGetMatchItemDescMgr()->GetItemDesc(partsItemId);
 			if (!pDesc) { _ASSERT(0); continue; }
 
 			CCMatchCharItemParts nCharItemParts = GetSuitableItemParts(pDesc->m_nSlot);
@@ -739,13 +739,13 @@ void ZShopEquipItem_Set::UpdateCharInfoText()
 
 	for (int i=0; i<MAX_SET_ITEM_COUNT; ++i)
 	{
-		pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(m_pShopSetItem->GetItemID(i));
+		pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(m_pShopSetItem->GetItemID(i));
 		if (!pItemDesc) continue;
 
 		pEquipedItemDesc = &nullItem;
 		pMyItemNode = ZGetMyInfo()->GetItemList()->GetEquipedItem( GetSuitableItemParts( pItemDesc->m_nSlot));
 		if (pMyItemNode)
-			pEquipedItemDesc = MGetMatchItemDescMgr()->GetItemDesc( pMyItemNode->GetItemID());
+			pEquipedItemDesc = CCGetMatchItemDescMgr()->GetItemDesc( pMyItemNode->GetItemID());
 		
 		nNewWT		+= - pEquipedItemDesc->m_nWeight.Ref() + pItemDesc->m_nWeight.Ref();
 		nNewMaxWT	+= - pEquipedItemDesc->m_nMaxWT.Ref() + pItemDesc->m_nMaxWT.Ref();

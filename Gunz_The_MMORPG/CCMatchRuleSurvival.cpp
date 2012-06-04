@@ -540,7 +540,7 @@ void CCMatchRuleSurvival::RewardSectorXpBp()
 					nAddedSectorBP += (int)(nAddedSectorBP * fBPBonusRatio);
 
 					// 실제 적용
-					MGetMatchServer()->ProcessPlayerXPBP(m_pStage, pPlayer, nAddedSectorXP, nAddedSectorBP);
+					CCGetMatchServer()->ProcessPlayerXPBP(m_pStage, pPlayer, nAddedSectorXP, nAddedSectorBP);
 
 					// 라우팅
 					int nExpPercent = CCMatchFormula::GetLevelPercent(pPlayer->GetCharInfo()->m_nXP, 
@@ -832,7 +832,7 @@ void CCMatchRuleSurvival::SendGameResult()
 		// 커맨드 전송
 		RouteResultCommandToStage( pPlayer, nReachedRound, GetRankInfo(pPlayerInfo->nKilledNpcHpApAccum, pPlayerInfo->nDeathCount));
 
-		MGetMatchServer()->ResponseCharacterItemList( pPlayer->GetUID() );
+		CCGetMatchServer()->ResponseCharacterItemList( pPlayer->GetUID() );
 	}
 }
 
@@ -1082,7 +1082,7 @@ bool CCMatchRuleSurvival::DistributeQItem( CCQuestPlayerInfo* pPlayerInfo, void*
 	for(CCQuestRewardZItemList::iterator itor = pObtainZItemList->begin(); itor != pObtainZItemList->end(); ++itor )
 	{
 		RewardZItemInfo iteminfo = (*itor);
-		CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(iteminfo.nItemID);
+		CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(iteminfo.nItemID);
 		if (pItemDesc == NULL) continue;
 
 		if (!IsEquipableItem(iteminfo.nItemID, MAX_LEVEL, pPlayer->GetCharInfo()->m_nSex)) 
@@ -1632,7 +1632,7 @@ const bool CCMatchRuleSurvival::PostNPCInfo()
 		}
 	}
 
-	CCCommand* pCmdNPCList = MGetMatchServer()->CreateCommand( MC_QUEST_NPCLIST, CCUID(0, 0) );
+	CCCommand* pCmdNPCList = CCGetMatchServer()->CreateCommand( MC_QUEST_NPCLIST, CCUID(0, 0) );
 	if( NULL == pCmdNPCList )
 	{
 		CCEraseBlobArray( pBlobNPC );
@@ -1642,7 +1642,7 @@ const bool CCMatchRuleSurvival::PostNPCInfo()
 	pCmdNPCList->AddParameter( new CCCommandParameterBlob(pBlobNPC, CCGetBlobArraySize(pBlobNPC)) );
 	pCmdNPCList->AddParameter( new CCCommandParameterInt(GetGameType()) );
 
-	MGetMatchServer()->RouteToStage( m_pStage->GetUID(), pCmdNPCList );
+	CCGetMatchServer()->RouteToStage( m_pStage->GetUID(), pCmdNPCList );
 
 	CCEraseBlobArray( pBlobNPC );
 
@@ -1685,7 +1685,7 @@ bool CCMatchRuleSurvival::PostRankingList()
 		}
 	}
 
-	CCCommand* pCmdRankingList = MGetMatchServer()->CreateCommand( MC_SURVIVAL_RANKINGLIST, CCUID(0, 0) );
+	CCCommand* pCmdRankingList = CCGetMatchServer()->CreateCommand( MC_SURVIVAL_RANKINGLIST, CCUID(0, 0) );
 	if( NULL == pCmdRankingList )
 	{
 		CCEraseBlobArray( pBlobRanking );
@@ -1694,7 +1694,7 @@ bool CCMatchRuleSurvival::PostRankingList()
 
 	pCmdRankingList->AddParameter( new CCCommandParameterBlob(pBlobRanking, CCGetBlobArraySize(pBlobRanking)) );
 
-	MGetMatchServer()->RouteToStage( m_pStage->GetUID(), pCmdRankingList );
+	CCGetMatchServer()->RouteToStage( m_pStage->GetUID(), pCmdRankingList );
 
 	CCEraseBlobArray( pBlobRanking );
 

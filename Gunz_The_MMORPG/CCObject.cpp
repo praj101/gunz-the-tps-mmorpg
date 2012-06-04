@@ -194,7 +194,7 @@ bool CCObject::IsCommListener(CCUID ListenerUID)
 #define ANGLE_SPEED			12.0f
 #define MOVE_SPEED			400.0f
 
-unsigned long int MGetTimeToWalk(rvector& Distance)
+unsigned long int CCGetTimeToWalk(rvector& Distance)
 {
 	float fTime = D3DXVec3Length(&Distance) / MOVE_SPEED;
 	unsigned long int nTime = (unsigned long int)(fTime*1000);
@@ -202,7 +202,7 @@ unsigned long int MGetTimeToWalk(rvector& Distance)
 	return nTime;
 }
 
-unsigned long int MGetTimeToTurn(rvector& Dir1, rvector& Dir2)
+unsigned long int CCGetTimeToTurn(rvector& Dir1, rvector& Dir2)
 {
 	float fDot = max(min(D3DXVec3Dot(&Dir1, &Dir2), 1.f), -1.f);
 	float fAngle = (float)acos(fDot);

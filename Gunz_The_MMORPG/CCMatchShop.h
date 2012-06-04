@@ -59,7 +59,7 @@ public:
 #endif
 };
 
-inline CCMatchShop* MGetMatchShop() { return CCMatchShop::GetInstance(); }
+inline CCMatchShop* CCGetMatchShop() { return CCMatchShop::GetInstance(); }
 
 #define MTOK_SELL					"SELL"
 #define MTOK_SELL_ITEMID			"itemid"

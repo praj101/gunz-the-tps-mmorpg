@@ -11,9 +11,9 @@ inline void ZPostLocalReport119()
 	ZPOSTCMD0(ZC_REPORT_119);
 }
 
-inline void ZPostLocalMessage(int nMessageID)
+inline void ZPostLocalMessage(int iMessageID)
 {
-	ZPOSTCMD1(ZC_MESSAGE,CCCommandParameterInt(nMessageID));
+	ZPOSTCMD1(ZC_MESSAGE,CCCommandParameterInt(iMessageID));
 }
 
 inline void ZPostLocalEventOptainSpecialWorldItem(const int nWorldItemID)

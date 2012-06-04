@@ -23,7 +23,7 @@ public:
 			const char* pText = pWidget->GetText();
 
 			// 인원이 꽉차 종료
-//			if(!stricmp(pText, MGetErrorString(MERR_CLIENT_FULL_PLAYERS)))
+//			if(!stricmp(pText, CCGetErrorString(MERR_CLIENT_FULL_PLAYERS)))
 			if(!stricmp(pText, ZErrStr(MERR_CLIENT_FULL_PLAYERS)))
 			{
 				if (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_NETMARBLE)

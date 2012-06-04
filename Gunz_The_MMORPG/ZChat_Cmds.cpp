@@ -418,9 +418,9 @@ void ChatCmd_CreateChatRoom(const char* line, const int argc, char **const argv)
 
 	char* pszCharName = argv[1];
 
-	if( !MGetChattingFilter()->IsValidStr( pszCharName, 1) ){
+	if( !CCGetChattingFilter()->IsValidStr( pszCharName, 1) ){
 		char szMsg[ 256 ];
-		ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, MGetChattingFilter()->GetLastFilteredStr());
+		ZTransMsg( szMsg, MSG_WRONG_WORD_NAME, 1, CCGetChattingFilter()->GetLastFilteredStr());
 		ZApplication::GetGameInterface()->ShowMessage( szMsg, NULL, MSG_WRONG_WORD_NAME );
 	}
 	else

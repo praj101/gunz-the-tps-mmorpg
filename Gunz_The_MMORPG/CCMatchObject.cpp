@@ -561,7 +561,7 @@ void CCMatchCharInfo::GetTotalWeight(int* poutWeight, int* poutMaxWeight)
 
 bool IsEquipableItem(unsigned long int nItemID, int nPlayerLevel, CCMatchSex nPlayerSex)
 {
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if (pItemDesc == NULL) return false;
 
 	// 성별 제한 조건
@@ -657,7 +657,7 @@ void CCMatchObject::DisconnectHacker( CCMatchHackingType eType )
 	GetDisconnStatusInfo().SetMsgID( punish.dwMessageID ); 
 	GetDisconnStatusInfo().SetHackingType( eType ); 
 	GetDisconnStatusInfo().SetComment( punish.szComment );
-	GetDisconnStatusInfo().SetEndDate( MGetStrLocalTime(punish.nDay, punish.nHour, punish.nMin) ); 
+	GetDisconnStatusInfo().SetEndDate( CCGetStrLocalTime(punish.nDay, punish.nHour, punish.nMin) ); 
 	GetDisconnStatusInfo().SetBlockLevel( punish.eLevel );
 
 	if( NULL != GetAccountInfo() ) {
@@ -673,7 +673,7 @@ void CCMatchObject::SetBadUserDisconnectWaitInfo( const CCMatchDisconnectStatus 
 	GetDisconnStatusInfo().SetMsgID( 130001 ); 
 	GetDisconnStatusInfo().SetHackingType( CCMHT_BADUSER ); // 이 기능은 X-Trap에서 사용함.
 	GetDisconnStatusInfo().SetComment( "irregularity player" );
-	GetDisconnStatusInfo().SetEndDate( MGetStrLocalTime(0, 0, 0, 0, 10) ); // 10분후 접속 가능.
+	GetDisconnStatusInfo().SetEndDate( CCGetStrLocalTime(0, 0, 0, 0, 10) ); // 10분후 접속 가능.
 	GetDisconnStatusInfo().SetBlockLevel( MMBL_LOGONLY );
 
 	if( NULL != GetAccountInfo() )
@@ -688,7 +688,7 @@ void CCMatchObject::SetXTrapHackerDisconnectWaitInfo( const CCMatchDisconnectSta
 	GetDisconnStatusInfo().SetMsgID( 130001 ); 
 	GetDisconnStatusInfo().SetHackingType( CCMHT_XTRAP_HACKER ); // 이 기능은 X-Trap에서 사용함.
 	GetDisconnStatusInfo().SetComment( "x-trap hacking detected." );
-	GetDisconnStatusInfo().SetEndDate( MGetStrLocalTime(0, 0, 0, 1, 0) ); // 1시간 후에 접속 가능.
+	GetDisconnStatusInfo().SetEndDate( CCGetStrLocalTime(0, 0, 0, 1, 0) ); // 1시간 후에 접속 가능.
 	GetDisconnStatusInfo().SetBlockLevel( MMBL_LOGONLY );
 
 	if( NULL != GetAccountInfo() )
@@ -703,7 +703,7 @@ void CCMatchObject::SetHShieldHackerDisconnectWaitInfo( const CCMatchDisconnectS
 	GetDisconnStatusInfo().SetMsgID( 130001 ); 
 	GetDisconnStatusInfo().SetHackingType( CCMHT_HSHIELD_HACKER ); // 이 기능은 HShield에서 사용.
 	GetDisconnStatusInfo().SetComment( "hackshield hacking detected." );
-	GetDisconnStatusInfo().SetEndDate( MGetStrLocalTime(0, 0, 0, 1, 0) ); // 1시간 후에 접속 가능.
+	GetDisconnStatusInfo().SetEndDate( CCGetStrLocalTime(0, 0, 0, 1, 0) ); // 1시간 후에 접속 가능.
 	GetDisconnStatusInfo().SetBlockLevel( MMBL_LOGONLY );
 
 	if( NULL != GetAccountInfo() )
@@ -718,7 +718,7 @@ void CCMatchObject::SetBadFileCRCDisconnectWaitInfo( const CCMatchDisconnectStat
 	GetDisconnStatusInfo().SetMsgID( 130004 ); 
 	GetDisconnStatusInfo().SetHackingType( CCMHT_BADFILECRC ); // 이 기능은 X-Trap에서 사용함.
 	GetDisconnStatusInfo().SetComment( "bad filecrc." );
-	GetDisconnStatusInfo().SetEndDate( MGetStrLocalTime(0, 0, 0, 0, 0) ); // 1시간 후에 접속 가능.
+	GetDisconnStatusInfo().SetEndDate( CCGetStrLocalTime(0, 0, 0, 0, 0) ); // 1시간 후에 접속 가능.
 	GetDisconnStatusInfo().SetBlockLevel( MMBL_LOGONLY );
 
 	if( NULL != GetAccountInfo() )
@@ -733,7 +733,7 @@ void CCMatchObject::SetGameguardHackerDisconnectWaitInfo( const CCMatchDisconnec
 	GetDisconnStatusInfo().SetMsgID( 130001 ); 
 	GetDisconnStatusInfo().SetHackingType( CCMHT_GAMEGUARD_HACKER ); 
 	GetDisconnStatusInfo().SetComment( "gameguard hacker" );
-	GetDisconnStatusInfo().SetEndDate( MGetStrLocalTime(0, 0, 0, 0, 0) ); 
+	GetDisconnStatusInfo().SetEndDate( CCGetStrLocalTime(0, 0, 0, 0, 0) ); 
 	GetDisconnStatusInfo().SetBlockLevel( MMBL_LOGONLY );
 
 	if( NULL != GetAccountInfo() )
@@ -748,7 +748,7 @@ void CCMatchObject::SetDllInjectionDisconnectWaitInfo( const CCMatchDisconnectSt
 	GetDisconnStatusInfo().SetMsgID( 130001 ); 
 	GetDisconnStatusInfo().SetHackingType( CCMHT_GIVE_ONESELF_UP_DLLINJECTION ); 
 	GetDisconnStatusInfo().SetComment( "dll injectoin" );
-	GetDisconnStatusInfo().SetEndDate( MGetStrLocalTime(0, 0, 0, 0, 0) ); 
+	GetDisconnStatusInfo().SetEndDate( CCGetStrLocalTime(0, 0, 0, 0, 0) ); 
 	GetDisconnStatusInfo().SetBlockLevel( MMBL_LOGONLY );
 
 	if( NULL != GetAccountInfo() )
@@ -765,7 +765,7 @@ void CCMatchObject::SetInvalidStageSettingDisconnectWaitInfo( const CCMatchDisco
 	GetDisconnStatusInfo().SetMsgID( 130001 ); 
 	GetDisconnStatusInfo().SetHackingType( CCMHT_INVALIDSTAGESETTING ); 
 	GetDisconnStatusInfo().SetComment( "invalid stage setting." );
-	GetDisconnStatusInfo().SetEndDate( MGetStrLocalTime(0, 0, 0, 0, 0) ); 
+	GetDisconnStatusInfo().SetEndDate( CCGetStrLocalTime(0, 0, 0, 0, 0) ); 
 	GetDisconnStatusInfo().SetBlockLevel( MMBL_LOGONLY );
 
 	if( NULL != GetAccountInfo() )

@@ -28,7 +28,7 @@ private:
 	CCConsoleFrame*		m_pConsoleFrame;
 protected:
 	virtual bool InputFilterKey(int uKey);	// CCWM_KEYDOWN
-	virtual bool InputFilterChar(int uKey);	// MWM_CHAR
+	virtual bool InputFilterChar(int uKey);	// CCWM_CHAR
 	virtual bool OnTab(bool bForward=true);
 
 	CCCONSOLE_KEYDOWN_CALLBACK*		m_pfuKeyDown;

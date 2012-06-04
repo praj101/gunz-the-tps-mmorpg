@@ -270,7 +270,7 @@ bool CCMatchBuffDescMgr::SetBuffName(CCMatchItemDescMgr* pItemDescMgr)
 
 		if( pItemDesc->m_nSpendType.Ref() == MMCT_LONGBUFF || pItemDesc->m_nSpendType.Ref() == MMCT_SHORTBUFF ) 
 		{
-			CCMatchBuffDesc* pBuffDesc = MGetMatchBuffDescMgr()->GetBuffDesc(pItemDesc->m_nID);
+			CCMatchBuffDesc* pBuffDesc = CCGetMatchBuffDescMgr()->GetBuffDesc(pItemDesc->m_nID);
 			if( pBuffDesc == NULL) {
 				_ASSERT(0);
 				return false;
@@ -309,7 +309,7 @@ void CCMatchBuff::Reset()
 
 bool CCMatchBuff::Set(CCUID& uidBuff, int nBuffID, int nRegTime, int nBuffPeriodRemainder)
 {
-	m_pBuffDesc = MGetMatchBuffDescMgr()->GetBuffDesc(nBuffID);
+	m_pBuffDesc = CCGetMatchBuffDescMgr()->GetBuffDesc(nBuffID);
 	if( m_pBuffDesc == NULL ) return false;
 
 	m_uidBuff				= uidBuff;

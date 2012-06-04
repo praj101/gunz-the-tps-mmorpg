@@ -891,7 +891,7 @@ void CCMatchServer::OnAsyncGetAccountItemList( CCAsyncJob* pJobResult )
 			if( accountItems[i].nItemID == 0 ) continue;
 			CCTD_AccountItemNode* pItemNode = (CCTD_AccountItemNode*)CCGetBlobArrayElement(pItemArray, nIndex);			
 
-			_ASSERTE( ((NULL != MGetMatchItemDescMgr()->GetItemDesc(accountItems[i].nItemID)) 
+			_ASSERTE( ((NULL != CCGetMatchItemDescMgr()->GetItemDesc(accountItems[i].nItemID)) 
 				|| (NULL != m_GambleMachine.GetGambleItemByGambleItemID(accountItems[i].nItemID)))
 				&& "zitem.xml or GambleItem에 기술되어 있지 않는 아이템입니다." );
 
@@ -1049,7 +1049,7 @@ void CCMatchServer::OnAsyncSurvivalModePrivateRanking(CCAsyncJob* pJobResult)
 	if (pRankingInfo)
 	{
 		// 플레이어에게 랭킹 정보를 보낸다		
-		CCCommand* pCmdPrivateRanking = MGetMatchServer()->CreateCommand( MC_SURVIVAL_PRIVATERANKING, CCUID(0, 0) );
+		CCCommand* pCmdPrivateRanking = CCGetMatchServer()->CreateCommand( MC_SURVIVAL_PRIVATERANKING, CCUID(0, 0) );
 		if( NULL == pCmdPrivateRanking )
 			return;
 

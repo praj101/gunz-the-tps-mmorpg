@@ -113,7 +113,7 @@ public:
 
 
 /// 인스턴스를 구함
-inline MChattingFilter* MGetChattingFilter()
+inline MChattingFilter* CCGetChattingFilter()
 {
 	return MChattingFilter::GetInstance();
 }

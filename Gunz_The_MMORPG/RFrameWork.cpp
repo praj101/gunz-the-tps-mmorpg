@@ -186,10 +186,10 @@ void RFrame_Render()
 
 
 /*
-	for(int i=0;i<MGetLogHistoryCount();i++)
+	for(int i=0;i<CCGetLogHistoryCount();i++)
 	{
 		drawRect.top=(i+1)*20;
-		g_lpFont->DrawText(MGetLogHistory(i), -1, &drawRect, DT_LEFT | DT_TOP, D3DCOLOR_RGBA(255, 255, 255, 255));
+		g_lpFont->DrawText(CCGetLogHistory(i), -1, &drawRect, DT_LEFT | DT_TOP, D3DCOLOR_RGBA(255, 255, 255, 255));
 	}
 
 */

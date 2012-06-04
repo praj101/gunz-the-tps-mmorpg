@@ -23,11 +23,11 @@ void CCMatchServer::OnRequestNPCDead(const CCUID& uidSender, const CCUID& uidKil
 		pInfo->AddKillCount(1);	///< NPC Kill은 1 Kill로 계산!
 	}
 
-	if (MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
+	if (CCGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
 	{
 		CCMatchRule* pRule = pStage->GetRule();
 		if( NULL == pRule ) return;
-		if (false == MGetGameTypeMgr()->IsQuestDerived( pRule->GetGameType() )) return;
+		if (false == CCGetGameTypeMgr()->IsQuestDerived( pRule->GetGameType() )) return;
 
 		CCMatchRuleBaseQuest* pQuestRule  = reinterpret_cast< CCMatchRuleBaseQuest* >( pRule );
 
@@ -48,7 +48,7 @@ void CCMatchServer::OnQuestRequestDead(const CCUID& uidVictim)
 	CCMatchStage* pStage = FindStage(pVictim->GetStageUID());
 	if (pStage == NULL) return;
 
-	if ( !MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType())) return;
+	if ( !CCGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType())) return;
 
 	CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 	pQuestRule->OnRequestPlayerDead((CCUID&)uidVictim);
@@ -88,7 +88,7 @@ void CCMatchServer::OnQuestTestRequestNPCSpawn(const CCUID& uidPlayer, int nNPCT
 	if (!IsAdminGrade(pPlayer)) return;
 #endif
 
-	if (MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
+	if (CCGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
 	{
 		CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 		pQuestRule->OnRequestTestNPCSpawn(nNPCType, nNPCCount);
@@ -113,7 +113,7 @@ void CCMatchServer::OnQuestTestRequestClearNPC(const CCUID& uidPlayer)
 	if (!IsAdminGrade(pPlayer)) return;
 #endif
 
-	if (MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
+	if (CCGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
 	{
 		CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 		pQuestRule->OnRequestTestClearNPC();
@@ -139,7 +139,7 @@ void CCMatchServer::OnQuestTestRequestSectorClear(const CCUID& uidPlayer)
 	if (!IsAdminGrade(pPlayer)) return;
 #endif
 
-	if (MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() ))
+	if (CCGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() ))
 	{
 		CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 		pQuestRule->OnRequestTestSectorClear();
@@ -164,7 +164,7 @@ void CCMatchServer::OnQuestTestRequestQuestFinish(const CCUID& uidPlayer)
 	if (!IsAdminGrade(pPlayer)) return;
 #endif
 
-	if (MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() ))
+	if (CCGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() ))
 	{
 		CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 		pQuestRule->OnRequestTestFinish();
@@ -181,7 +181,7 @@ void CCMatchServer::OnQuestRequestMovetoPortal(const CCUID& uidPlayer)
 	CCMatchStage* pStage = FindStage(pPlayer->GetStageUID());
 	if (pStage == NULL) return;
 
-	if (false == MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() )) return;
+	if (false == CCGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() )) return;
 
 	CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 	pQuestRule->OnRequestMovetoPortal(uidPlayer);
@@ -194,7 +194,7 @@ void CCMatchServer::OnQuestReadyToNewSector(const CCUID& uidPlayer)
 	CCMatchStage* pStage = FindStage(pPlayer->GetStageUID());
 	if (pStage == NULL) return;
 
-	if (false == MGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() )) return;
+	if (false == CCGetGameTypeMgr()->IsQuestDerived( pStage->GetStageSetting()->GetGameType() )) return;
 
 	CCMatchRuleBaseQuest* pQuestRule = (CCMatchRuleBaseQuest*)pStage->GetRule();
 	pQuestRule->OnReadyToNewSector(uidPlayer);
@@ -276,7 +276,7 @@ void CCMatchServer::OnResponseBuyQuestItem( const CCUID& uidSender, const unsign
 	}
 
 	// 상점에서 판매되고 있는 아이템인지 검사.
-	if( !MGetMatchShop()->IsSellItem(pQuestItemDesc->m_nItemID) ) {
+	if( !CCGetMatchShop()->IsSellItem(pQuestItemDesc->m_nItemID) ) {
 		cclog( "CCMatchServer::OnRequestBuyQuestItem - %d는 상점에서 판매되고 있는 아이템이 아님.\n", pQuestItemDesc->m_nItemID );
 		return;
 	}
@@ -440,7 +440,7 @@ void CCMatchServer::OnRequestDropSacrificeItemOnSlot( const CCUID& uidSender, co
 				return;
 			}
 
-			if( MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
+			if( CCGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
 			{
 				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if( 0 == pRuleQuest )
@@ -476,7 +476,7 @@ void CCMatchServer::OnRequestCallbackSacrificeItem( const CCUID& uidSender, cons
 				return;
 			}
 
-			if( MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
+			if( CCGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
 			{
 				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if( 0 == pRuleQuest )
@@ -511,7 +511,7 @@ void CCMatchServer::OnRequestQL( const CCUID& uidSender )
 				return;
 			}
 
-			if( MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
+			if( CCGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
 			{
 				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if( 0 == pRuleQuest )
@@ -547,7 +547,7 @@ void CCMatchServer::OnRequestSacrificeSlotInfo( const CCUID& uidSender )
 				return;
 			}
 
-			if( MGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
+			if( CCGetGameTypeMgr()->IsQuestDerived(pNode->nGameType) )
 			{
 				CCMatchRuleBaseQuest* pRuleQuest = reinterpret_cast< CCMatchRuleBaseQuest* >( pStage->GetRule() );
 				if( 0 == pRuleQuest )

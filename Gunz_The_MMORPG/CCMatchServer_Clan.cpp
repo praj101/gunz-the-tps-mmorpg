@@ -409,7 +409,7 @@ void CCMatchServer::ResponseCloseClan(const CCUID& uidClanMaster, const char* sz
 	if (!m_MatchDBMgr.ReserveCloseClan(pMasterObject->GetCharInfo()->m_ClanInfo.m_nClanID,
 										pMasterObject->GetCharInfo()->m_ClanInfo.m_szClanName,
 										pMasterObject->GetCharInfo()->m_nCID,
-										MGetStrLocalTime(DAY_OF_DELETE_CLAN, 0, 0, CCDT_YMD)))
+										CCGetStrLocalTime(DAY_OF_DELETE_CLAN, 0, 0, CCDT_YMD)))
 	{
 		RouteResponseToListener(pMasterObject, MC_MATCH_CLAN_RESPONSE_CLOSE_CLAN, MERR_CLAN_CANNOT_CLOSE);
 		return;

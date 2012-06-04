@@ -26,7 +26,7 @@ void CCMatchObjectCharBuff::FreeCharBuffInfo()
 ////////////////////////////////////////////////////////////////////////////////////////////
 bool CCMatchObjectCharBuff::ApplyShortBuffInfo(int nBuffID, int nBuffSecondPeriod)
 {
-	if( MGetMatchBuffDescMgr()->GetBuffDesc(nBuffID) == NULL ) {
+	if( CCGetMatchBuffDescMgr()->GetBuffDesc(nBuffID) == NULL ) {
 		_ASSERT(0);
 		return false;
 	}

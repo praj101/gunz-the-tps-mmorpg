@@ -145,11 +145,11 @@ bool CCPopupMenu::OnEvent(CCEvent* pEvent, CCListener* pListener){//CCPopupMenu
 	case CCWM_LBUTTONUP:
 	case CCWM_LBUTTONDBLCLK:
 	case CCWM_RBUTTONDOWN:
-	//case MWM_RBUTTONUP:
+	//case CCWM_RBUTTONUP:
 	case CCWM_RBUTTONDBLCLK:
-	case CCWM_CCButtonDOWN:
-	case CCWM_CCButtonUP:
-	case CCWM_CCButtonDBLCLK:
+	case CCWM_CCBUTTONDOWN:
+	case CCWM_CCBUTTONUP:
+	case CCWM_CCBUTTONDBLCLK:
 		if(r.InPoint(pEvent->sPos)==false){
 			if(m_iPopupMenuType==CCPMT_VERTICAL) Show(false);
 			else Select((CCMenuItem *)NULL);

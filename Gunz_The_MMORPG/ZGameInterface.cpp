@@ -238,7 +238,7 @@ pNew = new CCButton(">", pHotBar, pHotBar);
 pNew->SetBounds(HotBarClientRect.x, HotBarClientRect.y+HOTBAR_SPINBTN_WIDTH, HOTBAR_SPINBTN_WIDTH, HOTBAR_SPINBTN_WIDTH);
 
 for(int i=0; i<HOTBAR_BTN_COUNT; i++){
-CCButton* pNew = new MHotBarButton(NULL, pHotBar, &g_HotBarButtonListener);
+CCButton* pNew = new CCHotBarButton(NULL, pHotBar, &g_HotBarButtonListener);
 pNew->SetBounds(HotBarClientRect.x+HOTBAR_SPINBTN_WIDTH+1+i*(HOTBAR_BTN_WIDTH+1), HotBarClientRect.y, HOTBAR_BTN_WIDTH, HOTBAR_BTN_WIDTH);
 }
 }
@@ -313,11 +313,11 @@ bool InitItemList(CCWidget* pWidget)
 
 ZGameInterface::ZGameInterface(const char* szName, CCWidget* pParent, CCListener* pListener) : ZInterface(szName,pParent,pListener)
 {
-	MSetString( 1, ZMsg(MSG_MENUITEM_OK));
-	MSetString( 2, ZMsg(MSG_MENUITEM_CANCEL));
-	MSetString( 3, ZMsg(MSG_MENUITEM_YES));
-	MSetString( 4, ZMsg(MSG_MENUITEM_NO));
-	MSetString( 5, ZMsg(MSG_MENUITEM_MESSAGE));
+	CCSetString( 1, ZMsg(MSG_MENUITEM_OK));
+	CCSetString( 2, ZMsg(MSG_MENUITEM_CANCEL));
+	CCSetString( 3, ZMsg(MSG_MENUITEM_YES));
+	CCSetString( 4, ZMsg(MSG_MENUITEM_NO));
+	CCSetString( 5, ZMsg(MSG_MENUITEM_MESSAGE));
 
 	m_pShopEquipInterface = new ZShopEquipInterface;
 
@@ -2680,8 +2680,8 @@ void ZGameInterface::OnShutdownState()
 	cclog("ZGameInterface::OnShutdown() : begin \n");
 	
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-			CCLabel* pLabel = (CCLabel*)pResource->FindWidget("NetmarbleLoginMessage");
-//			pLabel->SetText(MGetErrorString(MERR_CLIENT_DISCONNECTED));
+			CCLabel* pLabel = (CCLabel*)pResource->FindWidget("NetmarbleLogiiMessage");
+//			pLabel->SetText(CCGetErrorString(MERR_CLIENT_DISCONNECTED));
 			pLabel->SetText( ZErrStr(MERR_CLIENT_DISCONNECTED) );
 			ZApplication::GetGameInterface()->ShowWidget("NetmarbleLogin", true);
 
@@ -4334,17 +4334,17 @@ SCREENSHOTERROR:
 	return;
 }
 
-void ZGameInterface::ShowMessage(const char* szText, CCListener* pCustomListenter, int nMessageID)
+void ZGameInterface::ShowMessage(const char* szText, CCListener* pCustomListenter, int iMessageID)
 {
 	if (pCustomListenter)
 		m_pMsgBox->SetCustomListener(pCustomListenter);
 
 	char text[1024] ="";
 
-	// nMessageID가 0이 아니면 메세지 뒤에 메세지 번호도 함께 출력해준다.(다른 나라 말일때 확인하기 위함)
-	if (nMessageID != 0)
+	// iMessageID가 0이 아니면 메세지 뒤에 메세지 번호도 함께 출력해준다.(다른 나라 말일때 확인하기 위함)
+	if (iMessageID != 0)
 	{
-		sprintf(text, "%s (M%d)", szText, nMessageID);
+		sprintf(text, "%s (M%d)", szText, iMessageID);
 	}
 	else
 	{
@@ -4364,13 +4364,13 @@ void ZGameInterface::ShowConfirmMessage(const char* szText, CCListener* pCustomL
 	m_pConfirmMsgBox->Show(true, true);
 }
 
-void ZGameInterface::ShowMessage(int nMessageID)
+void ZGameInterface::ShowMessage(int iMessageID)
 {
-	const char *str = ZMsg( nMessageID );
+	const char *str = ZMsg( iMessageID );
 	if(str)
 	{
 		char text[1024];
-		sprintf(text, "%s (M%d)", str, nMessageID);
+		sprintf(text, "%s (M%d)", str, iMessageID);
 		ShowMessage(text);
 	}
 }
@@ -4886,7 +4886,7 @@ bool SetWidgetToolTipText(char* szWidget,const char* szToolTipText, CCAlignmentM
 
 bool GetItemDescName(string& str,DWORD nItemID)
 {
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 	if ( pItemDesc == NULL)
 	{
@@ -4902,7 +4902,7 @@ bool GetItemDescStr(string& str,DWORD nItemID) {
 
 	static char temp[1024];
 
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 	if(pItemDesc==NULL) {
 		str.clear();

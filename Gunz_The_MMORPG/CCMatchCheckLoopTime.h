@@ -121,7 +121,7 @@ public:
 	void SetEndLoop()				{ m_dwEndKillTracker = GetTickCount(); m_dwEndLoop = m_dwEndKillTracker; }
 };
 
-inline CCMatchCheckLoopTime* MGetCheckLoopTimeInstance()
+inline CCMatchCheckLoopTime* CCGetCheckLoopTimeInstance()
 {
 	return CCMatchCheckLoopTime::GetInstance();
 }

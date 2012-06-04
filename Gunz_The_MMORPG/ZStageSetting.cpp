@@ -170,7 +170,7 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 		memset(pOutNode->MapList, -1, sizeof(RelayMap)*MAX_RELAYMAP_LIST_COUNT );
 		for (int i = 0; i < pRelayMapListBox->GetCount(); i++)
 			for (int j = 0; j < CCMATCH_MAP_COUNT; j++)
-				if(0 == strcmp(pRelayMapListBox->GetString(i), (char*)MGetMapDescMgr()->GetMapName(j)))
+				if(0 == strcmp(pRelayMapListBox->GetString(i), (char*)CCGetMapDescMgr()->GetMapName(j)))
 				{
 					RelayMap relayMap;
 					relayMap.nMapID = j;
@@ -322,7 +322,7 @@ void ZStageSetting::ShowStageSettingDialog( const MSTAGE_SETTING_NODE* pStageSet
 	if ( pGameTypeCfg)
 	{
 		// 최대 인원
-		SHOWSTAGESETTING_LISTITEM( "StageMaxPlayer", pStageSetting->nMaxPlayers, pGameTypeCfg->m_MaxPlayers, MGetMapDescMgr()->GetMaxPlayers(pStageSetting->nMapIndex) );
+		SHOWSTAGESETTING_LISTITEM( "StageMaxPlayer", pStageSetting->nMaxPlayers, pGameTypeCfg->m_MaxPlayers, CCGetMapDescMgr()->GetMaxPlayers(pStageSetting->nMapIndex) );
 
 		// 라운드
 		SHOWSTAGESETTING_LISTITEM( "StageRoundCount", pStageSetting->nRoundMax, pGameTypeCfg->m_Round, 99999);

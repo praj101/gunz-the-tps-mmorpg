@@ -267,7 +267,7 @@ int CCZFileSystem::GetUpdatePackageNumber(const char *szPackageFileName)
 	return -1;		//a file within a common package
 }
 
-unsigned MGetCRC32(const char *data, int nLength)
+unsigned CCGetCRC32(const char *data, int nLength)
 {
 	uLong crc = crc32(0L, Z_NULL, 0);
 	crc = crc32(crc, (byte*)data, nLength);
@@ -294,7 +294,7 @@ unsigned int CCZFileSystem::GetCRC32(const char* szFileName)
 	mzf.Read(buffer,nFileLength);
 	mzf.Close();
 
-	unsigned int crc = MGetCRC32(buffer,nFileLength);
+	unsigned int crc = CCGetCRC32(buffer,nFileLength);
 	delete buffer;
 
 	return crc;
@@ -920,7 +920,7 @@ bool CCZFileCheckList::Open(const char *szFileName, CCZFileSystem *pfs)
 		return false;
 	}
 
-	m_crc32 = MGetCRC32(buffer,mzf.GetLength());
+	m_crc32 = CCGetCRC32(buffer,mzf.GetLength());
 	delete buffer;
 
 	int iCount, i;

@@ -437,7 +437,7 @@ bool CCMatchServer::LoadInitFile()
 		{
 			if (CCGetServerConfig()->IsEnableMap(CCMATCH_MAP(i)))
 			{
-				strcat(szText, MGetMapDescMgr()->GetMapName(i)); 
+				strcat(szText, CCGetMapDescMgr()->GetMapName(i)); 
 				strcat(szText, ", ");
 			}
 		}
@@ -455,19 +455,19 @@ bool CCMatchServer::LoadInitFile()
 		return false;
 	}
 
-	if (!MGetMatchWorldItemDescMgr()->ReadXml(FILENAME_WORLDITEM_DESC))
+	if (!CCGetMatchWorldItemDescMgr()->ReadXml(FILENAME_WORLDITEM_DESC))
 	{
 		Log(LOG_PROG, "Read World Item Desc Failed\n");
 		return false;
 	}
 
-	if (!MGetMapDescMgr()->Initialize("map.xml"))
+	if (!CCGetMapDescMgr()->Initialize("map.xml"))
 	{
 		Log(LOG_PROG, "Read Map.xml Failed\n");
 		return false;
 	}
 /*
-	if (!MGetNPCGroupMgr()->ReadXml(FILENAME_MONSTERGROUP_DESC))
+	if (!CCGetNPCGroupMgr()->ReadXml(FILENAME_MONSTERGROUP_DESC))
 	{
 		Log(LOG_PROG, "Read Monster Group Desc Failed");
 		return false;
@@ -495,18 +495,18 @@ bool CCMatchServer::LoadInitFile()
 #endif
 	}
 
-	if (!MGetMapsWorldItemSpawnInfo()->Read())
+	if (!CCGetMapsWorldItemSpawnInfo()->Read())
 	{
 		Log(LOG_PROG, "Read World Item Spawn Failed\n");
 		return false;
 	}
 
-	if (!MGetMatchItemDescMgr()->ReadXml(FILENAME_ITEM_DESC))
+	if (!CCGetMatchItemDescMgr()->ReadXml(FILENAME_ITEM_DESC))
 	{
 		Log(LOG_PROG, "Read Item Descriptor Failed\n");
 		return false;
 	}
-	if (!MGetMatchItemDescMgr()->ReadXml(FILENAME_ITEM_DESC_LOCALE))
+	if (!CCGetMatchItemDescMgr()->ReadXml(FILENAME_ITEM_DESC_LOCALE))
 	{
 		Log(LOG_PROG, "Read Item Descriptor Locale Failed\n");
 		return false;
@@ -515,7 +515,7 @@ bool CCMatchServer::LoadInitFile()
 	InitItemCRC32Cache();
 
 	//kimyhwan todok 일단 제거하였습니다
-	//if( !MGetMatchBuffDescMgr()->ReadXml(FILENAME_BUFF_DESC) )
+	//if( !CCGetMatchBuffDescMgr()->ReadXml(FILENAME_BUFF_DESC) )
 	//{
 	//	Log(LOG_PROG, "Read Buff Descriptor Failed\n");
 	//	return false;
@@ -525,7 +525,7 @@ bool CCMatchServer::LoadInitFile()
 	//	InitBuffCRC32Cache();
 	//}
 	//
-	//if( !MGetMatchBuffDescMgr()->SetBuffName(MGetMatchItemDescMgr()) )
+	//if( !CCGetMatchBuffDescMgr()->SetBuffName(CCGetMatchItemDescMgr()) )
 	//{
 	//	Log(LOG_PROG, "Set Buff Name Failed In Buff Descriptor\n");
 	//	return false;
@@ -540,7 +540,7 @@ bool CCMatchServer::LoadInitFile()
 		return false;
 	}
 
-	if (!MGetMatchShop()->Create(FILENAME_SHOP))
+	if (!CCGetMatchShop()->Create(FILENAME_SHOP))
 	{
 		Log(LOG_PROG, "Read Shop Item Failed\n");
 		return false;
@@ -555,7 +555,7 @@ bool CCMatchServer::LoadInitFile()
 		Log(LOG_PROG, "Load Shutdown Notify Failed\n");
 		return false;
 	}
-	if (!MGetChannelRuleMgr()->ReadXml(FILENAME_CHANNELRULE))
+	if (!CCGetChannelRuleMgr()->ReadXml(FILENAME_CHANNELRULE))
 	{
 		Log(LOG_PROG, "Load ChannelRule.xml Failed\n");
 		return false;
@@ -583,8 +583,8 @@ bool CCMatchServer::LoadInitFile()
 void CCMatchServer::InitItemCRC32Cache()
 {
 // 전혀 사용하지 않는거라 주석처리
-/*	CCMatchItemDescMgr::iterator it = MGetMatchItemDescMgr()->begin();
-	CCMatchItemDescMgr::const_iterator end = MGetMatchItemDescMgr()->end();
+/*	CCMatchItemDescMgr::iterator it = CCGetMatchItemDescMgr()->begin();
+	CCMatchItemDescMgr::const_iterator end = CCGetMatchItemDescMgr()->end();
 	CCMatchItemDesc* pItemDesc = NULL;
 	CCMatchCRC32XORCache CRC32Cache;
 
@@ -804,7 +804,7 @@ bool CCMatchServer::Create(int nPort)
 	}
 
 	
-	MGetServerStatusSingleton()->Create(this);			///< 서버 상태 보여주는 클래스 초기화
+	CCGetServerStatusSingleton()->Create(this);			///< 서버 상태 보여주는 클래스 초기화
 
 	// 스케쥴러 초기화.
 	if( !InitScheduler() ){
@@ -899,7 +899,7 @@ void CCMatchServer::Destroy()
 
 	m_Admin.Destroy();
 	m_AsyncProxy.Destroy();
-	MGetMatchShop()->Destroy();
+	CCGetMatchShop()->Destroy();
 	m_MatchDBMgr.Disconnect();
 
 	AgentClear();
@@ -951,7 +951,7 @@ void CCMatchServer::OnRegisterCommand(CCCommandManager* pCommandManager)
 void CCMatchServer::OnPrepareRun()
 {	
 	MServer::OnPrepareRun();
-	MGetServerStatusSingleton()->AddCmdCount(m_CommandManager.GetCommandQueueCount());
+	CCGetServerStatusSingleton()->AddCmdCount(m_CommandManager.GetCommandQueueCount());
 }
 
 int CCMatchServer::Connect(CCCommObject* pCommObj)
@@ -996,27 +996,27 @@ void CCMatchServer::OnRun()
 // 	}
 
 
-//	MGetLocale()->PostLoginInfoToDBAgent(CCUID(1,1), "JM0000726991", "skarlfyd", 1);
+//	CCGetLocale()->PostLoginInfoToDBAgent(CCUID(1,1), "JM0000726991", "skarlfyd", 1);
 
 #ifdef _DEBUG
 //	Sleep(2000);
 #endif
-	MGetServerStatusSingleton()->SetRunStatus(100);
+	CCGetServerStatusSingleton()->SetRunStatus(100);
 	// tick count
 	SetTickTime(timeGetTime());
 
-	MGetCheckLoopTimeInstance()->SetSchedulerTick();
+	CCGetCheckLoopTimeInstance()->SetSchedulerTick();
 	// 스케쥴러 목록 업데이트.
 	if (m_pScheduler)
 		m_pScheduler->Update();
 
 	// PC방 IP캐쉬 업데이트
-	MGetCheckLoopTimeInstance()->SetPremiumIPCacheTick();
+	CCGetCheckLoopTimeInstance()->SetPremiumIPCacheTick();
 	MPremiumIPCache()->Update();
 
-	MGetServerStatusSingleton()->SetRunStatus(101);
+	CCGetServerStatusSingleton()->SetRunStatus(101);
 
-	MGetCheckLoopTimeInstance()->SetObjectTick();
+	CCGetCheckLoopTimeInstance()->SetObjectTick();
 
 
 	// Update Objects
@@ -1077,9 +1077,9 @@ void CCMatchServer::OnRun()
 		++i;
 	}
 
-	MGetServerStatusSingleton()->SetRunStatus(102);
+	CCGetServerStatusSingleton()->SetRunStatus(102);
 
-	MGetCheckLoopTimeInstance()->SetStageTick();
+	CCGetCheckLoopTimeInstance()->SetStageTick();
 	// Update Stages
 	for(CCMatchStageMap::iterator iStage=m_StageMap.begin(); iStage!=m_StageMap.end();)
 	{
@@ -1093,21 +1093,21 @@ void CCMatchServer::OnRun()
 		++iStage;
 	}
 
-	MGetServerStatusSingleton()->SetRunStatus(103);
+	CCGetServerStatusSingleton()->SetRunStatus(103);
 
-	MGetCheckLoopTimeInstance()->SetChannelTick();
+	CCGetCheckLoopTimeInstance()->SetChannelTick();
 	// Update Channels
 	m_ChannelMap.Update(nGlobalClock);
 
-	MGetServerStatusSingleton()->SetRunStatus(104);
+	CCGetServerStatusSingleton()->SetRunStatus(104);
 
-	MGetCheckLoopTimeInstance()->SetClanTick();
+	CCGetCheckLoopTimeInstance()->SetClanTick();
 	// Update Clans
 	m_ClanMap.Tick(nGlobalClock);
 	
-	MGetServerStatusSingleton()->SetRunStatus(105);
+	CCGetServerStatusSingleton()->SetRunStatus(105);
 
-	MGetCheckLoopTimeInstance()->SetLadderTick();
+	CCGetCheckLoopTimeInstance()->SetLadderTick();
 
 	// Update Ladders - 클랜전서버일 경우에만 실행한다.
 	if (CCGetServerConfig()->GetServerMode() == CSM_CLAN)
@@ -1121,10 +1121,10 @@ void CCMatchServer::OnRun()
 	}
 	//////////////////////////////////////////////////////////////////////
 
-	MGetServerStatusSingleton()->SetRunStatus(106);
+	CCGetServerStatusSingleton()->SetRunStatus(106);
 
 	// Garbage Session Cleaning
-	MGetCheckLoopTimeInstance()->SetPingTick();
+	CCGetCheckLoopTimeInstance()->SetPingTick();
 
 #define COREERVAL_GARBAGE_SESSION_PING	(3 * 60 * 1000)	// 3 min
 	static unsigned long tmLastGarbageSessionCleaning = nGlobalClock;
@@ -1144,9 +1144,9 @@ void CCMatchServer::OnRun()
 
 //	CheckMemoryCorruption();
 
-	MGetServerStatusSingleton()->SetRunStatus(107);
+	CCGetServerStatusSingleton()->SetRunStatus(107);
 
-	MGetCheckLoopTimeInstance()->SetSessionCleanTick();
+	CCGetCheckLoopTimeInstance()->SetSessionCleanTick();
 	
 	
 	// Garbage MatchObject Cleaning
@@ -1168,23 +1168,23 @@ void CCMatchServer::OnRun()
 		}
 	}
 
-	MGetServerStatusSingleton()->SetRunStatus(108);
+	CCGetServerStatusSingleton()->SetRunStatus(108);
 
-	MGetCheckLoopTimeInstance()->SetAsyncJopTick();
+	CCGetCheckLoopTimeInstance()->SetAsyncJopTick();
 	ProcessAsyncJob();
 
-	MGetServerStatusSingleton()->SetRunStatus(109);
+	CCGetServerStatusSingleton()->SetRunStatus(109);
 
 	// Update Logs
-	MGetCheckLoopTimeInstance()->SetServerLogTick();
+	CCGetCheckLoopTimeInstance()->SetServerLogTick();
 	UpdateServerLog();
 
-	MGetCheckLoopTimeInstance()->SetServerDBLogTick();
+	CCGetCheckLoopTimeInstance()->SetServerDBLogTick();
 	UpdateServerStatusDB();
 	
-	MGetServerStatusSingleton()->SetRunStatus(110);
+	CCGetServerStatusSingleton()->SetRunStatus(110);
 
-	MGetCheckLoopTimeInstance()->SetCustomIPListTick();
+	CCGetCheckLoopTimeInstance()->SetCustomIPListTick();
 	// update custom ip list.
 	if( 3600000 < (nGlobalClock - m_CountryFilter.GetLastUpdatedTime()) )
 	{
@@ -1192,13 +1192,13 @@ void CCMatchServer::OnRun()
 		m_CountryFilter.SetLastUpdatedTime( nGlobalClock );
 	}
 	
-	MGetServerStatusSingleton()->SetRunStatus(111);
+	CCGetServerStatusSingleton()->SetRunStatus(111);
 
-	MGetCheckLoopTimeInstance()->SetShutdownTick();
+	CCGetCheckLoopTimeInstance()->SetShutdownTick();
 	// Shutdown...
 	m_MatchShutdown.OnRun(nGlobalClock);
 		
-	MGetServerStatusSingleton()->SetRunStatus(112);
+	CCGetServerStatusSingleton()->SetRunStatus(112);
 
 	// 초당 1번 정도 objectCommandHistory 와 connectionHistory 업데이트
 	static DWORD dwLastCommandHistoryUpdate = nGlobalClock;
@@ -1969,7 +1969,7 @@ bool CCMatchServer::UDPSocketRecvEvent(DWORD dwIP, WORD wRawPort, char* pPacket,
 	if( dwMonitorUDPIP == dwIP )
 	{
 		_ASSERT( 0 );
-//		MGetMatchServer()->SafePushMonitorUDP( dwIP, wRawPort, pPacket, dwSize );
+//		CCGetMatchServer()->SafePushMonitorUDP( dwIP, wRawPort, pPacket, dwSize );
 		return true;
 	}
 
@@ -2782,8 +2782,8 @@ bool CCMatchServer::CheckItemXMLFromDatabase()
 
 	cclog("== 1. Check Difference List From XML To DB\n");
 
-	for(CCMatchItemDescMgr::iterator itBegin = MGetMatchItemDescMgr()->begin();
-		itBegin != MGetMatchItemDescMgr()->end(); itBegin++)
+	for(CCMatchItemDescMgr::iterator itBegin = CCGetMatchItemDescMgr()->begin();
+		itBegin != CCGetMatchItemDescMgr()->end(); itBegin++)
 	{
 		CCMatchItemDesc *pItem = itBegin->second;
 		if( ItemMapFromDatabase.find(pItem->m_nID) == ItemMapFromDatabase.end() )
@@ -2802,7 +2802,7 @@ bool CCMatchServer::CheckItemXMLFromDatabase()
 		itBegin != ItemMapFromDatabase.end(); itBegin++)
 	{
 		CCMatchItemDescForDatabase* pItem = itBegin->second;
-		if( MGetMatchItemDescMgr()->GetItemDesc(pItem->m_nID) == NULL ) 
+		if( CCGetMatchItemDescMgr()->GetItemDesc(pItem->m_nID) == NULL ) 
 		{
 			cclog("     ItemID(%d) does not exist in XML\n", pItem->m_nID);
 
@@ -2820,7 +2820,7 @@ bool CCMatchServer::CheckItemXMLFromDatabase()
 		itBegin != ItemMapFromDatabase.end(); itBegin++)
 	{
 		CCMatchItemDescForDatabase* pItem1 = itBegin->second;
-		CCMatchItemDesc* pItem2 = MGetMatchItemDescMgr()->GetItemDesc(pItem1->m_nID);
+		CCMatchItemDesc* pItem2 = CCGetMatchItemDescMgr()->GetItemDesc(pItem1->m_nID);
 
 		if( pItem2 != NULL ) 
 		{
@@ -3033,8 +3033,8 @@ bool CCMatchServer::CheckItemXML()
 
 	fputs("\n\n--------------------------------------\n\n", fp);
 
-	for (CCMatchItemDescMgr::iterator itor = MGetMatchItemDescMgr()->begin(); 
-		itor != MGetMatchItemDescMgr()->end(); ++itor)
+	for (CCMatchItemDescMgr::iterator itor = CCGetMatchItemDescMgr()->begin(); 
+		itor != CCGetMatchItemDescMgr()->end(); ++itor)
 	{
 		CCMatchItemDesc* pItemDesc = (*itor).second;
 
@@ -3123,7 +3123,7 @@ bool CCMatchServer::CheckItemXML()
 		fprintf(fp, "<XML id=\"shop\">\n");
 
 		int id;
-		for (CCMatchItemDescMgr::iterator itor = MGetMatchItemDescMgr()->begin(); itor != MGetMatchItemDescMgr()->end(); ++itor)
+		for (CCMatchItemDescMgr::iterator itor = CCGetMatchItemDescMgr()->begin(); itor != CCGetMatchItemDescMgr()->end(); ++itor)
 		{
 			id = itor->first;
 
@@ -3698,7 +3698,7 @@ void CCMatchServer::SendHShieldReqMsg()
 			break;
 		}
 
-		DWORD dwRet = MGetMatchServer()->HShield_MakeReqMsg(pObj->GetHShieldInfo()->m_pCRCInfo, pbyReqMsg, pbyReqInfo, HSOption);
+		DWORD dwRet = CCGetMatchServer()->HShield_MakeReqMsg(pObj->GetHShieldInfo()->m_pCRCInfo, pbyReqMsg, pbyReqInfo, HSOption);
 
 		if(dwRet != ERROR_SUCCESS)
 			LOG(LOG_FILE, "@MakeReqMsg - %s Making Req Msg Failed. (Error code = 0x%x, CrcInfo Address = 0x%x)", pObj->GetAccountName(), dwRet, pObj->GetHShieldInfo()->m_pCRCInfo);
@@ -3956,9 +3956,9 @@ void CCMatchServer::OnAsyncResponse_RewardCharBR(CCAsyncJob *pJobResult)
 		wRentMinPeriod = (pJob->GetRentHourPeriod() * 60) - 1;
 	}
 
-	if( NULL != MGetMatchItemDescMgr()->GetItemDesc(nItemID) )	//< Normal Item
+	if( NULL != CCGetMatchItemDescMgr()->GetItemDesc(nItemID) )	//< Normal Item
 	{
-		CCMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+		CCMatchItemDesc* pDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 
 		CCMatchItem* pItem = pObj->GetCharInfo()->m_ItemList.GetItemByCIID(dwCIID);
 		if( pItem == NULL ) 
@@ -3985,7 +3985,7 @@ void CCMatchServer::OnAsyncResponse_RewardCharBR(CCAsyncJob *pJobResult)
 			}
 		}	
 	} 
-	else if( NULL != MGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(pJob->GetItemID()) )	//< Gamble Item
+	else if( NULL != CCGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(pJob->GetItemID()) )	//< Gamble Item
 	{	
 		const CCMatchCharGambleItem *pGItem = pObj->GetCharInfo()->m_GambleItemManager.GetGambleItemByCIID(pJob->GetCIID());
 		if( pGItem == NULL )	pObj->GetCharInfo()->m_GambleItemManager.AddGambleItem( CCMatchItemMap::UseUID(), dwCIID, nItemID, nItemCount );
@@ -4042,7 +4042,7 @@ void CCMatchServer::OnAsyncRequest_RewardCharBP(const CCUID& uidPlayer, int nBRI
 
 	bool bIsSpendable = false;
 
-	CCMatchItemDesc* pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemID);
+	CCMatchItemDesc* pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemID);
 	if( pItemDesc != NULL ) 
 	{
 		bIsSpendable = pItemDesc->IsSpendableItem();

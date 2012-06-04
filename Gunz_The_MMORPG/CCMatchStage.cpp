@@ -52,7 +52,7 @@ CCMatchStage::~CCMatchStage()
 
 const bool CCMatchStage::SetChannelRuleForCreateStage(bool bIsAllowNullChannel)
 {
-	CCMatchChannel* pChannel = MGetMatchServer()->GetChannelMap()->Find( m_uidOwnerChannel );
+	CCMatchChannel* pChannel = CCGetMatchServer()->GetChannelMap()->Find( m_uidOwnerChannel );
 	if( NULL == pChannel )
 	{
 		// 클랜전은 채널이 없다...
@@ -65,7 +65,7 @@ const bool CCMatchStage::SetChannelRuleForCreateStage(bool bIsAllowNullChannel)
 		return true;
 	}
 
-	CCChannelRule* pChannelRule = MGetChannelRuleMgr()->GetRule( pChannel->GetRuleType() );
+	CCChannelRule* pChannelRule = CCGetChannelRuleMgr()->GetRule( pChannel->GetRuleType() );
 	if( NULL == pChannelRule )
 	{
 		return false;
@@ -1413,7 +1413,7 @@ bool CCMatchStage::CheckDuelMap()
 	// 여기까지 오면은 반드시 듀얼 모드여야 한다. - by SungE 2007-03-20
 	if( !pChannelRuleMapList->Exist(GetMapName(), true)	) 
 	{
-		CCMatchServer* pServer = MGetMatchServer();
+		CCMatchServer* pServer = CCGetMatchServer();
 
 		CCMatchObject* pMaster = pServer->GetObject( GetMasterUID() );
 		if( NULL == pMaster )
@@ -1469,11 +1469,11 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 	//static int n = 0;
 	//while( nMax > n++ )
 	//{
-	//	CCMatchChannel* pCh = MGetMatchServer()->FindChannel( GetOwnerChannel() );
+	//	CCMatchChannel* pCh = CCGetMatchServer()->FindChannel( GetOwnerChannel() );
 
-	//	MGetMatchServer()->LOG( CCMatchServer::LOG_PROG, "stage use ticket : %d\n", m_StageSetting.IsCheckTicket() );
-	//	MGetMatchServer()->LOG( CCMatchServer::LOG_PROG, "ticket channel : %d\n", pCh->IsTicketChannel() );
-	//	MGetMatchServer()->LOG( CCMatchServer::LOG_PROG, "channel use ticket : %d\n", pCh->IsUseTicket() );
+	//	CCGetMatchServer()->LOG( CCMatchServer::LOG_PROG, "stage use ticket : %d\n", m_StageSetting.IsCheckTicket() );
+	//	CCGetMatchServer()->LOG( CCMatchServer::LOG_PROG, "ticket channel : %d\n", pCh->IsTicketChannel() );
+	//	CCGetMatchServer()->LOG( CCMatchServer::LOG_PROG, "channel use ticket : %d\n", pCh->IsUseTicket() );
 	//}
 
 	// 입장권을 가지고 있는지 검사한다.
@@ -1481,13 +1481,13 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 		pObj->GetCharInfo()->m_ItemList.IsHave(m_StageSetting.GetTicketItemID()) )
 		return true;
 
-	CCCommand* pCmd = MGetMatchServer()->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
+	CCCommand* pCmd = CCGetMatchServer()->CreateCommand( MC_GAME_START_FAIL, CCUID(0, 0) );
 	if( 0 != pCmd )
 	{
 		pCmd->AddParameter( new CCCmdParamInt(INVALID_TACKET_USER) );
 		pCmd->AddParameter( new CCCmdParaCCUID(pObj->GetUID()) );
 
-		MGetMatchServer()->RouteToStage( GetUID(), pCmd );
+		CCGetMatchServer()->RouteToStage( GetUID(), pCmd );
 	}
 
 	return false;
@@ -1497,7 +1497,7 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 bool CCMatchStage::CheckQuestGame()
 {
 	// 퀘스트 서버가 아닌데 퀘스트 모드이면 시작이 안된다.
-	if( MGetGameTypeMgr()->IsQuestDerived(GetStageSetting()->GetGameType()) ) 
+	if( CCGetGameTypeMgr()->IsQuestDerived(GetStageSetting()->GetGameType()) ) 
 	{
 		if( !QuestTestServer() )
 			return false;
@@ -1562,13 +1562,13 @@ bool CCMatchStage::SetMapName( char* pszMapName )
 
 CCChannelRule* CCMatchStage::GetStageChannelRule()
 {
-	CCMatchServer* pServer = MGetMatchServer();
+	CCMatchServer* pServer = CCGetMatchServer();
 
 	CCMatchChannel* pChannel = pServer->FindChannel( GetOwnerChannel() );
 	if( NULL == pChannel )
 		return NULL;
 
-	return MGetChannelRuleMgr()->GetRule( pChannel->GetRuleType() );
+	return CCGetChannelRuleMgr()->GetRule( pChannel->GetRuleType() );
 }
 
 
@@ -1585,7 +1585,7 @@ bool CCMatchStage::IsValidMap( const char* pMapName )
 		return true;
 
 	// 퀘스트는 제외한다.
-	if( MGetGameTypeMgr()->IsQuestDerived(GetStageSetting()->GetGameType()) ) 
+	if( CCGetGameTypeMgr()->IsQuestDerived(GetStageSetting()->GetGameType()) ) 
 		return true;
 
 	CCChannelRule* pRule = GetStageChannelRule();
@@ -1597,7 +1597,7 @@ bool CCMatchStage::IsValidMap( const char* pMapName )
 		IsDule = true;
 
 	// 퀘스트 모드에선 사용하지 않기로 함...
-	//if( MGetGameTypeMgr()->IsQuestDerived(GetStageSetting()->GetGameType()) ) 
+	//if( CCGetGameTypeMgr()->IsQuestDerived(GetStageSetting()->GetGameType()) ) 
 	//{
 	//	// 퀘스트 모드에선 다음 맵만 허용... 하드 코딩... 아놔... 좀 만들지... =_=
 	//	if ( stricmp( GetStageSetting()->GetMapName(), "mansion") == 0)			return true;
@@ -1632,11 +1632,11 @@ void CCMatchStage::ReserveSuicide( const CCUID& uidUser, const DWORD dwExpireTim
 
 	m_SuicideList.push_back( SuicideUser );
 
-	CCCommand* pNew = MGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE_RESERVE, uidUser );
+	CCCommand* pNew = CCGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE_RESERVE, uidUser );
 	if( NULL == pNew )
 		return;
 
-	MGetMatchServer()->PostSafeQueue( pNew );
+	CCGetMatchServer()->PostSafeQueue( pNew );
 }
 
 
@@ -1656,7 +1656,7 @@ void CCMatchStage::CheckSuicideReserve( const DWORD dwCurTime )
 				break;
 			}
 				
-			// MGetMatchServer()->OnGameKill( it->m_uidUser, it->m_uidUser );
+			// CCGetMatchServer()->OnGameKill( it->m_uidUser, it->m_uidUser );
 			/////////////////////
 			//			_ASSERT( 0 );
 			CCMatchStage* pStage = CCMatchServer::GetInstance()->FindStage(pObj->GetStageUID());
@@ -1669,21 +1669,21 @@ void CCMatchStage::CheckSuicideReserve( const DWORD dwCurTime )
 
 			/////////////////////////////////////
 
-			CCCommand* pNew = MGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE, CCUID(0, 0) );
+			CCCommand* pNew = CCGetMatchServer()->CreateCommand( MC_MATCH_RESPONSE_SUICIDE, CCUID(0, 0) );
 			pNew->AddParameter( new CCCommandParameterInt(MOK) );
 			pNew->AddParameter( new CCCommandParameterUID(it->m_uidUser) );
-			MGetMatchServer()->RouteToBattle( GetUID(), pNew );
+			CCGetMatchServer()->RouteToBattle( GetUID(), pNew );
 
 			// 한번 자살을 요청하면 3분 동안은 자살을 요청 할 수 없다.
 			it->m_dwExpireTime	= dwCurTime + MIN_REQUEST_SUICIDE_TIME;
 			it->m_bIsChecked	= true;
 
-			if ( MGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
+			if ( CCGetGameTypeMgr()->IsQuestDerived(pStage->GetStageSetting()->GetGameType()))
 			{ // 퀘스트 및 서바이버에서 자살할때 자살 본인외에는 죽는 처리가 안돼있어서 추가함
 				// 죽었다는 메세지 보냄
-				CCCommand* pCmd = MGetMatchServer()->CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, CCUID(0,0));
+				CCCommand* pCmd = CCGetMatchServer()->CreateCommand(MC_MATCH_QUEST_PLAYER_DEAD, CCUID(0,0));
 				pCmd->AddParameter(new CCCommandParameterUID(it->m_uidUser));
-				MGetMatchServer()->RouteToBattle(pStage->GetUID(), pCmd);	
+				CCGetMatchServer()->RouteToBattle(pStage->GetUID(), pCmd);	
 			}
 			
 			break;
@@ -1750,7 +1750,7 @@ void CCMatchStage::SetResourceCRC32Cache( const CCUID& uidPlayer, const DWORD dw
 
 		CRC32CacheInfo.dwResourceCRC32Cache	= dwCRC32Cache;
 		CRC32CacheInfo.dwResourceXORCache	= dwXORCache;
-		CRC32CacheInfo.dwLastRequestTime	= MGetMatchServer()->GetGlobalClockCount();
+		CRC32CacheInfo.dwLastRequestTime	= CCGetMatchServer()->GetGlobalClockCount();
 		CRC32CacheInfo.bIsEnterBattle		= true;
 		CRC32CacheInfo.bIsChecked			= false;
 
@@ -1760,7 +1760,7 @@ void CCMatchStage::SetResourceCRC32Cache( const CCUID& uidPlayer, const DWORD dw
 	{
 		itFind->second.dwResourceCRC32Cache	= dwCRC32Cache;
 		itFind->second.dwResourceXORCache	= dwXORCache;
-		itFind->second.dwLastRequestTime	= MGetMatchServer()->GetGlobalClockCount();
+		itFind->second.dwLastRequestTime	= CCGetMatchServer()->GetGlobalClockCount();
 		itFind->second.bIsEnterBattle		= true;
 		itFind->second.bIsChecked			= false;
 	}	
@@ -1774,7 +1774,7 @@ void CCMatchStage::RequestResourceCRC32Cache( const CCUID& uidPlayer )
 		return;
 	}
 
-	CCMatchObject* pObj = MGetMatchServer()->GetObject( uidPlayer );
+	CCMatchObject* pObj = CCGetMatchServer()->GetObject( uidPlayer );
 	if( NULL == pObj )
 	{
 		return;
@@ -1787,10 +1787,10 @@ void CCMatchStage::RequestResourceCRC32Cache( const CCUID& uidPlayer )
 
 	SetResourceCRC32Cache( uidPlayer, dwCRC32Cache, dwXORCache );
 
-	CCCommand* pCmd = MGetMatchServer()->CreateCommand( MC_REQUEST_RESOURCE_CRC32, uidPlayer );
+	CCCommand* pCmd = CCGetMatchServer()->CreateCommand( MC_REQUEST_RESOURCE_CRC32, uidPlayer );
 	pCmd->AddParameter( new CCCmdParamUInt(dwKey) );
 
-	MGetMatchServer()->Post( pCmd );
+	CCGetMatchServer()->Post( pCmd );
 }
 
 
@@ -1871,13 +1871,13 @@ void CCMatchStage::CheckResourceCRC32Cache( const DWORD dwClock )
 		{
 			// 허용 시간안에 응답을 안한 유저는 해킹 유저나 비정상 유저로 판단한다.
 			// 한번에 하나씩 처리한다.
-            MGetMatchServer()->StageLeaveBattle(it->first, true, true);
-			MGetMatchServer()->StageLeave(it->first);//, GetUID() );
+            CCGetMatchServer()->StageLeaveBattle(it->first, true, true);
+			CCGetMatchServer()->StageLeave(it->first);//, GetUID() );
 			
-			CCMatchObject* pObj = MGetMatchServer()->GetObject( it->first );
+			CCMatchObject* pObj = CCGetMatchServer()->GetObject( it->first );
 			if( (NULL != pObj) && (NULL != pObj->GetCharInfo()) )
 			{
-				MGetMatchServer()->LOG(CCMatchServer::LOG_PROG, "dynamic resource crc32 check : hackuser(%s).\n"
+				CCGetMatchServer()->LOG(CCMatchServer::LOG_PROG, "dynamic resource crc32 check : hackuser(%s).\n"
 					, pObj->GetCharInfo()->m_szName );
 			}
 			return;
@@ -1926,7 +1926,7 @@ void CCMatchStage::MakeItemResourceCRC32Cache( CCMatchCRC32XORCache& CRC32Cache 
 	CCUIDRefCache::iterator			it			= m_ObjUIDCaches.begin();
 	CCMatchItem*						pItem		= NULL;
 
-	CCMatchServer* pServer = MGetMatchServer();
+	CCMatchServer* pServer = CCGetMatchServer();
 	
 #ifdef _DEBUG
 	static DWORD dwOutputCount = 0;
@@ -1972,10 +1972,10 @@ void CCMatchStage::ClearGabageObject()
 		//CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 
 		CCUID uidObj = (CCUID)(*i).first;
-		CCMatchObject* pObj = MGetMatchServer()->GetObject(uidObj);
+		CCMatchObject* pObj = CCGetMatchServer()->GetObject(uidObj);
 		if (!pObj) 
 		{
-			MGetMatchServer()->LogObjectCommandHistory(uidObj);
+			CCGetMatchServer()->LogObjectCommandHistory(uidObj);
 			cclog( "WARNING(RouteToBattle) : stage Not Existing Obj(%u:%u)\n", uidObj.High, uidObj.Low);
 			i=RemoveObject(uidObj);	// RAONHAJE : 방에 쓰레기UID 남는것 발견시 로그&청소			
 		}
@@ -1984,7 +1984,7 @@ void CCMatchStage::ClearGabageObject()
 
 int	CCMatchStage::GetDuelTournamentRandomMapIndex()
 {
-	CCChannelRule *pChannelRule = MGetChannelRuleMgr()->GetRule(CCCHANNEL_RULE_DUELTOURNAMENT);
+	CCChannelRule *pChannelRule = CCGetChannelRuleMgr()->GetRule(CCCHANNEL_RULE_DUELTOURNAMENT);
 	if( pChannelRule == NULL ) return -1;
 
 	CCChannelRuleMapList* pMapList = pChannelRule->GetMapList();
@@ -2056,7 +2056,7 @@ void CCMatchStage::SetDuelTournamentMatchList(CCDUELTOURNAMENTTYPE nType, CCDuel
 	{
 		CCMatchDuelTournamentMatch* pMatch = iter->second;
 
-		MGetMatchServer()->LOG(CCMatchServer::LOG_PROG, "RoundState=%d, Order=%d, NextOrder=%d, P1=(%d%d), P2=(%d%d)",
+		CCGetMatchServer()->LOG(CCMatchServer::LOG_PROG, "RoundState=%d, Order=%d, NextOrder=%d, P1=(%d%d), P2=(%d%d)",
 			pMatch->nRoundState, pMatch->nMatchNumber, pMatch->nNextMatchNumber, pMatch->uidPlayer1.High, pMatch->uidPlayer1.Low
 			, pMatch->uidPlayer2.High, pMatch->uidPlayer2.Low);
 	}
@@ -2162,7 +2162,7 @@ void CCMatchStage::SetRelayMapList(RelayMap* pRelayMapList)
 	int count = 0;
 	for (int i=0; i<MAX_RELAYMAP_LIST_COUNT; ++i)
 	{
-		if (!MGetMapDescMgr()->MIsCorrectMap(pRelayMapList[i].nMapID))
+		if (!CCGetMapDescMgr()->MIsCorrectMap(pRelayMapList[i].nMapID))
 			break;
 		++count;
 	}

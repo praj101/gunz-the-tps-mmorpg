@@ -10,7 +10,7 @@ public:
 };
 
 
-inline CCMatchChannelRuleMgr* MGetChannelRuleMgr() 
+inline CCMatchChannelRuleMgr* CCGetChannelRuleMgr() 
 {
 	return CCMatchChannelRuleMgr::GetInstance();
 }

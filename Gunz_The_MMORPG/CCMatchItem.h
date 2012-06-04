@@ -443,7 +443,7 @@ public:
 	static CCMatchItemEffectDescMgr* GetInstance();
 };
 
-inline CCMatchItemEffectDescMgr* MGetMatchItemEffectDescMgr() { return CCMatchItemEffectDescMgr::GetInstance(); }
+inline CCMatchItemEffectDescMgr* CCGetMatchItemEffectDescMgr() { return CCMatchItemEffectDescMgr::GetInstance(); }
 */
 
 class CCMatchItemDescMgr : public map<int, CCMatchItemDesc*>
@@ -473,7 +473,7 @@ public:
 	bool ReadCache();
 	void WriteCache();
 };
-inline CCMatchItemDescMgr* MGetMatchItemDescMgr() { return CCMatchItemDescMgr::GetInstance(); }
+inline CCMatchItemDescMgr* CCGetMatchItemDescMgr() { return CCMatchItemDescMgr::GetInstance(); }
 
 
 

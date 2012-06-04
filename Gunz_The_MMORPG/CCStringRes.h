@@ -11,20 +11,20 @@ class CCZFileSystem;
 
 
 template<class _T>
-class MStringRes
+class CCStringRes
 {
 private:
 	map<_T, string>		m_StringMap;
 	string				m_strTOK_TAG;
 	string				m_strTOK_ATTR;
 public:
-	MStringRes( const char* pszTOK_TAG = "STR", const char* pszTOK_ATTR = "id" )
+	CCStringRes( const char* pszTOK_TAG = "STR", const char* pszTOK_ATTR = "id" )
 		: m_strTOK_TAG( pszTOK_TAG ), m_strTOK_ATTR( pszTOK_ATTR )
 	{
 
 	}
 
-	virtual ~MStringRes()
+	virtual ~CCStringRes()
 	{
 
 	}

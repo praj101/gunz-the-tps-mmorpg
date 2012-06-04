@@ -9,7 +9,7 @@ void CCChannelRuleMapList::Add(string strMapName)
 {
 	for (int i = 0; i < CCMATCH_MAP_MAX; i++)
 	{
-		if (!stricmp(strMapName.c_str(), MGetMapDescMgr()->GetMapName(i)))
+		if (!stricmp(strMapName.c_str(), CCGetMapDescMgr()->GetMapName(i)))
 		{
 			Add(i);
 			return;
@@ -25,7 +25,7 @@ bool CCChannelRuleMapList::Exist(int nMapID, bool bOnlyDuel)
 	{
 		int id = (*itor);
 
-		if ( !bOnlyDuel && MGetMapDescMgr()->IsMapOnlyDuel(id))
+		if ( !bOnlyDuel && CCGetMapDescMgr()->IsMapOnlyDuel(id))
 			return false;
 
 		return true;
@@ -43,9 +43,9 @@ bool CCChannelRuleMapList::Exist(const char* pszMapName, bool bOnlyDuel)
 
 		if ((id >= 0) && (id < CCMATCH_MAP_MAX))
 		{
-			if ( !stricmp(pszMapName, MGetMapDescMgr()->GetMapName(id)) )
+			if ( !stricmp(pszMapName, CCGetMapDescMgr()->GetMapName(id)) )
 			{
-				if ( !bOnlyDuel && MGetMapDescMgr()->IsMapOnlyDuel(id))
+				if ( !bOnlyDuel && CCGetMapDescMgr()->IsMapOnlyDuel(id))
 					return false;
 
 				return true;

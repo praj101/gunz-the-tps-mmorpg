@@ -7,7 +7,7 @@
 class ZStringResManager : public CCBaseStringResManager
 {
 protected:
-	MStringRes<int>			m_Messages;
+	CCStringRes<int>			m_Messages;
 	virtual bool OnInit();
 public:
 	ZStringResManager();
@@ -16,7 +16,7 @@ public:
 	static void ResetInstance();
 
 	const char* GetMessageStr(int nID);
-	MStringRes<int>*	GetMessages()	{ return &m_Messages; }
+	CCStringRes<int>*	GetMessages()	{ return &m_Messages; }
 
 };
 
