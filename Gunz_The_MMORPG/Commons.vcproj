@@ -490,7 +490,51 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCBButtonLook.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBEditLook.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBFrameLook.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBGroupLook.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCBitmapDrawer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBLabelLook.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBListBoxLook.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBMultiColListBoxLook.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBScrollBarLook.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBSliderLook.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBTabCtrlLook.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCBTextAreaLook.cpp"
 						>
 					</File>
 					<File
@@ -515,6 +559,10 @@
 					</File>
 					<File
 						RelativePath=".\CCHotKey.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCIDLResource.cpp"
 						>
 					</File>
 					<File
@@ -1385,7 +1433,27 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCBButtonLook.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBEditLook.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBFrameLook.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBGroupLook.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CCBitmapDrawer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBLabelLook.h"
 			>
 		</File>
 		<File
@@ -1406,6 +1474,18 @@
 		</File>
 		<File
 			RelativePath=".\CCBScrollBarLook.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBSliderLook.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBTabCtrlLook.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCBTextAreaLook.h"
 			>
 		</File>
 		<File
@@ -2382,6 +2462,10 @@
 		</File>
 		<File
 			RelativePath=".\CCSafeUDP.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCScalableLook.h"
 			>
 		</File>
 		<File
