@@ -345,7 +345,7 @@ bool CCMatchServer::ChannelChat(const CCUID& uidPlayer, const CCUID& uidChannel,
 	if (pChannel == NULL) return false;
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) return false;
-	if (pObj->GetAccountInfo()->m_nUGrade == CCMUGCHAT_LIMITED) return false;
+	if (pObj->GetAccountInfo()->m_nUGrade == CCMUG_CHAT_LIMITED) return false;
 
 	int nGrade = (int) pObj->GetAccountInfo()->m_nUGrade;
 

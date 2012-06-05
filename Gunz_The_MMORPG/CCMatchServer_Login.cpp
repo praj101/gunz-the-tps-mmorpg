@@ -160,9 +160,9 @@ void CCMatchServer::OnMatchLogin(CCUID ComCCUID, const char* szUserID, const cha
 #endif
 
 	// 사용정지 계정인지 확인한다.
-	if ((accountInfo.m_nUGrade == CCMUGBLOCKED) || (accountInfo.m_nUGrade == CCMUGPENALTY))
+	if ((accountInfo.m_nUGrade == CCMUG_BLOCKED) || (accountInfo.m_nUGrade == CCMUG_PENALTY))
 	{
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_CCMUGBLOCKED);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(ComCCUID, MERR_CLIENT_CCMUG_BLOCKED);
 		Post(pCmd);	
 		return;
 	}
@@ -439,7 +439,7 @@ CCCommand* CCMatchServer::CreateCmdMatchResponseLoginFailed(const CCUID& uidComm
 	pCmd->AddParameter(new CCCommandParameterString(CCGetServerConfig()->GetServerName()));
 	pCmd->AddParameter(new CCCommandParameterChar((char)CCGetServerConfig()->GetServerMode()));
 	pCmd->AddParameter(new CCCommandParameterString("Ana"));
-	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)CCMUGFREE));
+	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)CCMUG_FREE));
 	pCmd->AddParameter(new CCCommandParameterUChar((unsigned char)MMPG_FREE));
 	pCmd->AddParameter(new CCCommandParameterUID(CCUID(0,0)));
 	pCmd->AddParameter(new CCCommandParameterBool((bool)CCGetServerConfig()->IsEnabledSurvivalMode()));

@@ -62,7 +62,7 @@ const CCUID CCMatchRuleAssassinate::ChooseCommander(int nTeam)
 			if (pObj->GetEnterBattle() == false) 
 				continue;	// 배틀참가하고 있는 플레이어만 체크
 			
-			if (pObj->GetTeam() == nTeam && pObj->GetAccountInfo()->m_nUGrade == CCMUGADMIN) 
+			if (pObj->GetTeam() == nTeam && pObj->GetAccountInfo()->m_nUGrade == CCMUG_ADMIN) 
 			{
 				return pObj->GetUID();
 			}

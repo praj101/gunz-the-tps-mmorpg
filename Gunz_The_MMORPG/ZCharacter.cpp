@@ -3336,8 +3336,8 @@ void ZCharacter::ChangeLowPolyModel()
 
 bool ZCharacter::IsAdminName()
 {
-	if(m_MInitialInfo.Ref().nUGradeID == CCMUGDEVELOPER ||
-		m_MInitialInfo.Ref().nUGradeID == CCMUGADMIN)
+	if(m_MInitialInfo.Ref().nUGradeID == CCMUG_DEVELOPER ||
+		m_MInitialInfo.Ref().nUGradeID == CCMUG_ADMIN)
 		return true;
 	return false;
 }
@@ -3378,13 +3378,13 @@ void ZCharacter::InitProperties()
 	m_fPreMaxHP = pCharInfo->nHP + fAddedHP;
 	m_fPreMaxAP = pCharInfo->nAP + fAddedAP;
 
-	if(GetUserGrade() == CCMUGDEVELOPER) {
+	if(GetUserGrade() == CCMUG_DEVELOPER) {
 		m_pMUserAndClanName->CheckCrc();
 		strcpy(m_pMUserAndClanName->Ref().m_szUserName, ZMsg(MSG_WORD_DEVELOPER));
 		strcpy(m_pMUserAndClanName->Ref().m_szUserAndClanName, ZMsg(MSG_WORD_DEVELOPER));
 		m_pMUserAndClanName->MakeCrc();
 	}
-	else if(GetUserGrade() == CCMUGADMIN) {
+	else if(GetUserGrade() == CCMUG_ADMIN) {
 		m_pMUserAndClanName->CheckCrc();
 		strcpy(m_pMUserAndClanName->Ref().m_szUserName,ZMsg(MSG_WORD_ADMIN));
 		strcpy(m_pMUserAndClanName->Ref().m_szUserAndClanName,ZMsg(MSG_WORD_ADMIN));
@@ -4213,7 +4213,7 @@ bool ZCharacter::IsGuard()
 void ZCharacter::InitRound()
 {
 	// 온게임넷의 요청으로 짱 아이콘을 달아준다. initround시에, 난입할때 달아준다
-	if(GetUserGrade()==CCMUGSTAR) {
+	if(GetUserGrade()==CCMUG_STAR) {
 		ZGetEffectManager()->AddStarEffect(this);        
 	}
 }

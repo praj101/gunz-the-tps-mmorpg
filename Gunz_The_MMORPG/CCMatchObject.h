@@ -27,21 +27,21 @@ using namespace std;
 // 등급 - 이것은 디비의 UserGrade테이블과 싱크가 맞아야 한다.
 enum CCMatchUserGradeID
 {
-	CCMUGFREE			= 0,	// 무료 계정
-	CCMUGREGULAR		= 1,	// 정액 유저
-	CCMUGSTAR			= 2,	// 스타유저(게임짱)
+	CCMUG_FREE			= 0,	// 무료 계정
+	CCMUG_REGULAR		= 1,	// 정액 유저
+	CCMUG_STAR			= 2,	// 스타유저(게임짱)
 
-	CCMUGCRIMINAL		= 100,	// 전과자
-	CCMUGWARNING_1		= 101,	// 1차 경고
-	CCMUGWARNING_2		= 102,	// 2차 경고
-	CCMUGWARNING_3		= 103,	// 3차 경고
-	CCMUGCHAT_LIMITED	= 104,  // 채팅 금지
-	CCMUGPENALTY		= 105,	// 기간 정지
+	CCMUG_CRIMINAL		= 100,	// 전과자
+	CCMUG_WARNING_1		= 101,	// 1차 경고
+	CCMUG_WARNING_2		= 102,	// 2차 경고
+	CCMUG_WARNING_3		= 103,	// 3차 경고
+	CCMUG_CHAT_LIMITED	= 104,  // 채팅 금지
+	CCMUG_PENALTY		= 105,	// 기간 정지
 
-	CCMUGEVENTMASTER	= 252,	// 이벤트 진행자
-	CCMUGBLOCKED		= 253,	// 사용 정지
-	CCMUGDEVELOPER		= 254,	// 개발자
-	CCMUGADMIN			= 255	// 관리자
+	CCMUG_EVENTMASTER	= 252,	// 이벤트 진행자
+	CCMUG_BLOCKED		= 253,	// 사용 정지
+	CCMUG_DEVELOPER		= 254,	// 개발자
+	CCMUG_ADMIN			= 255	// 관리자
 };
 
 
@@ -89,7 +89,7 @@ struct CCMatchAccountInfo
 
 	int						m_nCCode;
 
-	CCMatchAccountInfo() : m_nAID(-1), m_nUGrade(CCMUGFREE), m_nPGrade(MMPG_FREE), m_nCCode(0)
+	CCMatchAccountInfo() : m_nAID(-1), m_nUGrade(CCMUG_FREE), m_nPGrade(MMPG_FREE), m_nCCode(0)
 	{
 		m_HackingType				= CCMHT_NO;
 		m_dwHackingBlockEndTimeMS	= 0;
@@ -1162,9 +1162,9 @@ inline bool IsEnabledObject(CCMatchObject* pObject)
 
 inline bool IsAdminGrade(CCMatchUserGradeID nGrade) 
 {
-	if ((nGrade == CCMUGEVENTMASTER) || 
-		(nGrade == CCMUGADMIN) || 
-		(nGrade == CCMUGDEVELOPER))
+	if ((nGrade == CCMUG_EVENTMASTER) || 
+		(nGrade == CCMUG_ADMIN) || 
+		(nGrade == CCMUG_DEVELOPER))
 		return true;
 
 	return false;

@@ -91,7 +91,7 @@ bool GetUserInfoUID(CCUID uid,sColor& _color,char* sp_name,CCMatchUserGradeID& g
 	if( ZGetGameClient() == NULL)
 		return false;
 
-//	CCMatchUserGradeID gid = CCMUGFREE;
+//	CCMatchUserGradeID gid = CCMUG_FREE;
 
 	CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(uid);
 
@@ -589,7 +589,7 @@ void ZGameClient::OnChannelChat(const CCUID& uidChannel, char* szName, char* szC
 	sColor _color = sColor(0,0,0);
 
 	CCMatchUserGradeID gid = (CCMatchUserGradeID) nGrade;
-//	gid = CCMUGDEVELOPER;
+//	gid = CCMUG_DEVELOPER;
 
 	char sp_name[256];
 
@@ -752,7 +752,7 @@ void ZGameClient::OnStageJoin(const CCUID& uidChar, const CCUID& uidStage, unsig
 	{
 		char sp_name[256];
 		sColor _color;
-		CCMatchUserGradeID gid = CCMUGFREE;
+		CCMatchUserGradeID gid = CCMUG_FREE;
 
 		char name[ 32];
 		char kill[ 32];
@@ -936,7 +936,7 @@ void ZGameClient::OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char*
 
 	sColor _color = sColor(0,0,0);
 
-	CCMatchUserGradeID gid = CCMUGFREE;
+	CCMatchUserGradeID gid = CCMUG_FREE;
 
 	CCMatchObjCache* pObjCache = FindObjCache(uidChar);
 
@@ -944,7 +944,7 @@ void ZGameClient::OnStageChat(const CCUID& uidChar, const CCUID& uidStage, char*
 		gid = pObjCache->GetUGrade();
 	}
 
-//	gid = CCMUGDEVELOPER;
+//	gid = CCMUG_DEVELOPER;
 
 	char sp_name[256];
 

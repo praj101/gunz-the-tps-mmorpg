@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ZMyInfo.h"
 
-ZMyInfo::ZMyInfo() : m_bNewbie(false), m_nPGradeID(MMPG_FREE), m_nUGradeID(CCMUGFREE)
+ZMyInfo::ZMyInfo() : m_bNewbie(false), m_nPGradeID(MMPG_FREE), m_nUGradeID(CCMUG_FREE)
 {
 	Clear();
 	m_bCreated = false;

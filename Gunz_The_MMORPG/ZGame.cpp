@@ -1659,17 +1659,17 @@ bool ZGame::OnCommand(CCCommand* pCommand)
 
 bool GetUserGradeIDColor(CCMatchUserGradeID gid,sColor& UserNameColor,char* sp_name)
 {
-//		 if(gid == CCMUGFREE)			{ UserNameColor = sColor(200,200,200); return true; }// 무료유저
+//		 if(gid == CCMUG_FREE)			{ UserNameColor = sColor(200,200,200); return true; }// 무료유저
 //	else if(gid == CCMUGREGULAR)		{ UserNameColor = sColor(200,200,200); return true; }// 정액유저
 //	else if(gid == CCMUGCRIMINAL)		{ UserNameColor = sColor(200,200,200); return true; }// 전과자
 //	else if(gid == CCMUGWARNING_1)		{ UserNameColor = sColor(200,200,200); return true; }// 1차경고
 //	else if(gid == CCMUGWARNING_2)		{ UserNameColor = sColor(200,200,200); return true; }// 2차경고
 //	else if(gid == CCMUGWARNING_3)		{ UserNameColor = sColor(200,200,200); return true; }// 3차경고
-//	else if(gid == CCMUGCHAT_LIMITED)	{ UserNameColor = sColor(200,200,200); return true; }// 채팅 금지
-//	else if(gid == CCMUGPENALTY)		{ UserNameColor = sColor(200,200,200); return true; }// 기간 정지
-//	else if(gid == CCMUGBLOCKED)		{ UserNameColor = sColor(200,200,200); return true; }// 사용정지
+//	else if(gid == CCMUG_CHAT_LIMITED)	{ UserNameColor = sColor(200,200,200); return true; }// 채팅 금지
+//	else if(gid == CCMUG_PENALTY)		{ UserNameColor = sColor(200,200,200); return true; }// 기간 정지
+//	else if(gid == CCMUG_BLOCKED)		{ UserNameColor = sColor(200,200,200); return true; }// 사용정지
 
-	if(gid == CCMUGDEVELOPER) 
+	if(gid == CCMUG_DEVELOPER) 
 	{ 
 		UserNameColor = sColor(255,128, 64); 
 		if(sp_name) { 
@@ -1677,7 +1677,7 @@ bool GetUserGradeIDColor(CCMatchUserGradeID gid,sColor& UserNameColor,char* sp_n
 		}
 		return true; 
 	}
-	else if(gid == CCMUGADMIN) {
+	else if(gid == CCMUG_ADMIN) {
 		UserNameColor = sColor(255,128, 64); 
 		if(sp_name) { 
 			strcpy(sp_name,ZMsg(MSG_WORD_ADMIN));
@@ -1690,13 +1690,13 @@ bool GetUserGradeIDColor(CCMatchUserGradeID gid,sColor& UserNameColor,char* sp_n
 
 bool ZGame::GetUserNameColor(CCUID uid,sColor& UserNameColor,char* sp_name)
 {
-	CCMatchUserGradeID gid = CCMUGFREE;
+	CCMatchUserGradeID gid = CCMUG_FREE;
 
 	if(m_pMyCharacter->GetUID()==uid) 
 	{
 		if(ZGetMyInfo()) {
 			gid = ZGetMyInfo()->GetUGradeID();
-//			gid = CCMUGDEVELOPER;//test
+//			gid = CCMUG_DEVELOPER;//test
 
 		} 
 		else {
@@ -5800,9 +5800,9 @@ void ZGame::AutoAiming()
 
 	//	개발자나 관리자라면..
 
-	//	CCMatchUserGradeID gid = CCMUGFREE;
+	//	CCMatchUserGradeID gid = CCMUG_FREE;
 	//	gid = ZGetMyInfo()->GetUGradeID();
-	//	if((gid == CCMUGDEVELOPER)||(gid==CCMUGADMIN))
+	//	if((gid == CCMUG_DEVELOPER)||(gid==CCMUG_ADMIN))
 
 	//	우선 테스트 모드에서 알지5만..
 
