@@ -570,6 +570,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCMatchDBMgr.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCMatchQuest.cpp"
 						>
 					</File>

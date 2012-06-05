@@ -299,9 +299,9 @@ void CCMatchServer::OnAsyncGetLoginInfo(CCAsyncJob* pJobInput)
 #endif
 
 	// 사용정지 계정인지 확인한다.
-	if ((pAccountInfo->m_nUGrade == CCMUGBLOCKED) || (pAccountInfo->m_nUGrade == CCMUGPENALTY))
+	if ((pAccountInfo->m_nUGrade == CCMUG_BLOCKED) || (pAccountInfo->m_nUGrade == CCMUG_PENALTY))
 	{
-		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetCommUID(), MERR_CLIENT_CCMUGBLOCKED);
+		CCCommand* pCmd = CreateCmdMatchResponseLoginFailed(pJob->GetCommUID(), MERR_CLIENT_CCMUG_BLOCKED);
 		Post(pCmd);
 
 		pJob->DeleteMemory();

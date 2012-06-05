@@ -2868,7 +2868,7 @@ public:
 		virtual bool Draw(unsigned long int nTime)
 		{
 			CCMatchObjCache* pCache = ZGetGameClient()->FindObjCache(m_uid);
-			if (pCache && pCache->GetUGrade() != CCMUGSTAR)
+			if (pCache && pCache->GetUGrade() != CCMUG_STAR)
 				return false;
 
 			return ZEffectIconLoop::Draw(nTime);

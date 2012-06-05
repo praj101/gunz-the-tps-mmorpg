@@ -159,7 +159,7 @@ void CCMatchServer::AdminTerminalOutput(const CCUID& uidAdmin, const char* szTex
 	if (pObj == NULL) return;
 
 	// 관리자 권한을 가진 사람이 아니면 연결을 끊는다.
-	if (pObj->GetAccountInfo()->m_nUGrade != CCMUGADMIN)
+	if (pObj->GetAccountInfo()->m_nUGrade != CCMUG_ADMIN)
 	{
 //		DisconnectObject(uidAdmin);		
 		return;

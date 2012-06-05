@@ -102,7 +102,7 @@ void CCMatchServer::OnAdminServerHalt(const CCUID& uidAdmin)
 	CCMatchUserGradeID nGrade = pObj->GetAccountInfo()->m_nUGrade;
 
 	// 관리자 권한을 가진 사람이 아니면 무시.
-	if ((nGrade != CCMUGADMIN) && (nGrade != CCMUGDEVELOPER)) return;
+	if ((nGrade != CCMUG_ADMIN) && (nGrade != CCMUG_DEVELOPER)) return;
 
 	// Shutdown 시작	
 	m_MatchShutdown.Start(GetGlobalClockCount());	

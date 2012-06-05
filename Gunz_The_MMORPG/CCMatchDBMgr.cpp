@@ -9,13 +9,13 @@
 #include "CCDebug.h"
 #include "CCMatchFriendInfo.h"
 #include "CCMatchClan.h"
-#include "mmsystem.h"
+#include <mmsystem.h>
 #include "CCInetUtil.h"
-#include "mcrc32.h"
+#include "CCcrc32.h"
 #include "CCQuestConst.h"
 #include "CCQuestItem.h"
 #include "CCUtil.h"
-// #include "MMatchGambleMachine.h"
+// #include "CCMatchGambleMachine.h"
 #include "CCMatchDBGambleItem.h"
 #include "CCMatchAccountPenaltyInfo.h"
 // SQL ////////////////////////////////////////////////////////////////////////
@@ -494,34 +494,34 @@ TCHAR g_szDB_GET_REWARD_CHAR_BR[] = _T("{CALL spRewardCharBattleTimeReward (%d, 
 //			@IsSpendable		INT
 
 
-MMatchDBMgr::MMatchDBMgr()
+CCMatchDBMgr::CCMatchDBMgr()
 {
 	m_nExceptionCnt = 0;
 	m_strDSNConnect = "";
 	m_DB.SetLogCallback( LogCallback );
 }
 
-MMatchDBMgr::~MMatchDBMgr()
+CCMatchDBMgr::~CCMatchDBMgr()
 {
 }
 
-bool MMatchDBMgr::CheckOpen()
+bool CCMatchDBMgr::CheckOpen()
 {
 	return m_DB.CheckOpen();
 }
 
-CString MMatchDBMgr::BuildDSNString(const CString strDSN, const CString strUserName, const CString strPassword)
+CString CCMatchDBMgr::BuildDSNString(const CString strDSN, const CString strUserName, const CString strPassword)
 {
 	m_strDSNConnect = m_DB.BuildDSNString( strDSN, strUserName, strPassword );
 	return m_strDSNConnect;
 }
 
-bool MMatchDBMgr::Connect()
+bool CCMatchDBMgr::Connect()
 {
 	return Connect(m_strDSNConnect);
 }
 
-bool MMatchDBMgr::Connect(CString strDSNConnect)
+bool CCMatchDBMgr::Connect(CString strDSNConnect)
 {
 	if( m_DB.Connect(strDSNConnect) )
 	{
@@ -532,13 +532,13 @@ bool MMatchDBMgr::Connect(CString strDSNConnect)
 	return false;
 }
 
-void MMatchDBMgr::Disconnect()
+void CCMatchDBMgr::Disconnect()
 {
 	m_DB.Disconnect();
 }
 
 
-void MMatchDBMgr::Log(const char *pFormat,...)
+void CCMatchDBMgr::Log(const char *pFormat,...)
 {
 	va_list args;
 	char msg[1024];
@@ -546,17 +546,17 @@ void MMatchDBMgr::Log(const char *pFormat,...)
 	va_start(args, pFormat);
 	vsprintf(msg, pFormat, args);
 
-	mlog(msg);
+	cclog(msg);
 
 	va_end(args);
 }
 
-void MMatchDBMgr::ExceptionHandler(CString strSQL, CDBException* e)
+void CCMatchDBMgr::ExceptionHandler(CString strSQL, CDBException* e)
 {
 	CTime theTime = CTime::GetCurrentTime();
 	CString szTime = theTime.Format( "[%c] " );
 
-	Log("\n%s MMatchDBMgr::ExceptionHandler\n", szTime.GetBuffer());
+	Log("\n%s CCMatchDBMgr::ExceptionHandler\n", szTime.GetBuffer());
 	Log("ErrSQL( %s ), ErrCode( %d )\n", strSQL.GetBuffer(), e->m_nRetCode);
 	Log("ErrMsg - %s", e->m_strError);
 	Log("%s\n", e->m_strStateNativeOrigin);
@@ -564,23 +564,23 @@ void MMatchDBMgr::ExceptionHandler(CString strSQL, CDBException* e)
 	m_nExceptionCnt++;
 	if( m_nExceptionCnt > 5 )
 	{		
-		Log("%s MMatchDBMgr::ExceptionHandler - Disconnect\n", szTime.GetBuffer());
+		Log("%s CCMatchDBMgr::ExceptionHandler - Disconnect\n", szTime.GetBuffer());
 		Disconnect();
 
-		Log("%s MMatchDBMgr::ExceptionHandler - Reconnect\n", szTime.GetBuffer());
-		Log("%s MMatchDBMgr::ExceptionHandler - This(%d)\n", szTime.GetBuffer(), this);
+		Log("%s CCMatchDBMgr::ExceptionHandler - Reconnect\n", szTime.GetBuffer());
+		Log("%s CCMatchDBMgr::ExceptionHandler - This(%d)\n", szTime.GetBuffer(), this);
 		Connect();
 
 		m_nExceptionCnt = 0;
 	}
 }
 
-void MMatchDBMgr::LogCallback( const string& strLog )
+void CCMatchDBMgr::LogCallback( const string& strLog )
 {
-	mlog( strLog.c_str() );
+	cclog( strLog.c_str() );
 }
 
-bool MMatchDBMgr::GetLoginInfo(const TCHAR* szUserID, unsigned int* poutnAID, TCHAR* poutPassword)
+bool CCMatchDBMgr::GetLoginInfo(const TCHAR* szUserID, unsigned int* poutnAID, TCHAR* poutPassword)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -611,7 +611,7 @@ bool MMatchDBMgr::GetLoginInfo(const TCHAR* szUserID, unsigned int* poutnAID, TC
 	return true;
 }
 
-bool MMatchDBMgr::GetLoginInfo_Netmarble(const TCHAR* szUserID, unsigned int* poutnAID, unsigned int* poutCCode, TCHAR* poutPassword)
+bool CCMatchDBMgr::GetLoginInfo_Netmarble(const TCHAR* szUserID, unsigned int* poutnAID, unsigned int* poutCCode, TCHAR* poutPassword)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -644,7 +644,7 @@ bool MMatchDBMgr::GetLoginInfo_Netmarble(const TCHAR* szUserID, unsigned int* po
 	return true;
 }
 
-bool MMatchDBMgr::CreateAccount(const TCHAR* szUserID, 
+bool CCMatchDBMgr::CreateAccount(const TCHAR* szUserID, 
 								const TCHAR* szPassword, 
 								const int nCert,
 								const TCHAR* szName,
@@ -671,7 +671,7 @@ bool MMatchDBMgr::CreateAccount(const TCHAR* szUserID,
 	return true;
 }
 
-bool MMatchDBMgr::CreateAccount_Netmarble(const TCHAR* szUserID, 
+bool CCMatchDBMgr::CreateAccount_Netmarble(const TCHAR* szUserID, 
 										  const TCHAR* szPassword,
 										  const int nAge, 
 										  const int nSex,
@@ -704,7 +704,7 @@ bool MMatchDBMgr::CreateAccount_Netmarble(const TCHAR* szUserID,
 	return true;
 }
 
-bool MMatchDBMgr::CheckDuplicateCharactername(int* pnOutResult, const TCHAR* szNewName)
+bool CCMatchDBMgr::CheckDuplicateCharactername(int* pnOutResult, const TCHAR* szNewName)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -740,7 +740,7 @@ bool MMatchDBMgr::CheckDuplicateCharactername(int* pnOutResult, const TCHAR* szN
 	return true;
 }
 
-bool MMatchDBMgr::CreateCharacter(int* pnOutResult,
+bool CCMatchDBMgr::CreateCharacter(int* pnOutResult,
 								  const int nAID, const TCHAR* szNewName, const int nCharIndex, const int nSex,
 								  const int nHair, const int nFace, const int nCostume)
 {
@@ -762,8 +762,8 @@ bool MMatchDBMgr::CreateCharacter(int* pnOutResult,
 
 	int nRet = rs.Field("Ret").AsInt();
 	if( nRet < 0 ) {
-		Log("MMatchDBMgr::CreateCharacter - FAILED(%d)\n", nRet);
-		Log("MMatchDBMgr::CreateCharacter - %s\n", strSQL.GetBuffer());
+		Log("CCMatchDBMgr::CreateCharacter - FAILED(%d)\n", nRet);
+		Log("CCMatchDBMgr::CreateCharacter - %s\n", strSQL.GetBuffer());
 		*pnOutResult = MERR_UNKNOWN;
 		return false;
 	}
@@ -774,7 +774,7 @@ bool MMatchDBMgr::CreateCharacter(int* pnOutResult,
 	return true;
 }
 
-bool MMatchDBMgr::GetAccountCharList(const int nAID, MTD_AccountCharInfo* poutCharList, int* noutCharCount)
+bool CCMatchDBMgr::GetAccountCharList(const int nAID, CCTD_AccountCharInfo* poutCharList, int* noutCharCount)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -806,7 +806,7 @@ bool MMatchDBMgr::GetAccountCharList(const int nAID, MTD_AccountCharInfo* poutCh
 	{
 		if (t >= 4) break;
 
-		memset(&poutCharList[t], 0, sizeof(MTD_AccountCharInfo));
+		memset(&poutCharList[t], 0, sizeof(CCTD_AccountCharInfo));
 
 		strcpy(poutCharList[t].szName, (LPCTSTR)rs.Field("Name").AsString());
 		//strcpy(poutCharList[t].szClanName, (LPCTSTR)rs.Field("ClanName").AsString());
@@ -823,7 +823,7 @@ bool MMatchDBMgr::GetAccountCharList(const int nAID, MTD_AccountCharInfo* poutCh
 	return true;
 }
 
-bool MMatchDBMgr::GetAccountCharInfo(const int nAID, const int nCharIndex, MTD_CharInfo* poutCharInfo)
+bool CCMatchDBMgr::GetAccountCharInfo(const int nAID, const int nCharIndex, CCTD_CharInfo* poutCharInfo)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -845,7 +845,7 @@ bool MMatchDBMgr::GetAccountCharInfo(const int nAID, const int nCharIndex, MTD_C
 
 	int t = 0;
 
-	memset(poutCharInfo, 0, sizeof(MTD_CharInfo));
+	memset(poutCharInfo, 0, sizeof(CCTD_CharInfo));
 
 	strcpy(poutCharInfo->szName, (LPCTSTR)rs.Field("Name").AsString());
 	strcpy(poutCharInfo->szClanName, (LPCTSTR)rs.Field("ClanName").AsString());
@@ -864,7 +864,7 @@ bool MMatchDBMgr::GetAccountCharInfo(const int nAID, const int nCharIndex, MTD_C
 	return true;
 }
 
-bool MMatchDBMgr::GetCharInfoByAID( const int nAID, const int nCharIndex, MMatchCharInfo* poutCharInfo )
+bool CCMatchDBMgr::GetCharInfoByAID( const int nAID, const int nCharIndex, CCMatchCharInfo* poutCharInfo )
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;	
@@ -891,7 +891,7 @@ bool MMatchDBMgr::GetCharInfoByAID( const int nAID, const int nCharIndex, MMatch
 
 	poutCharInfo->m_nCID	= (unsigned long)rs.Field("CID").AsLong();	
 	poutCharInfo->m_nLevel	= (int)rs.Field("Level").AsInt();
-	poutCharInfo->m_nSex	= (MMatchSex)rs.Field("Sex").AsInt();
+	poutCharInfo->m_nSex	= (CCMatchSex)rs.Field("Sex").AsInt();
 	poutCharInfo->m_nHair	= rs.Field("Hair").AsInt();
 	poutCharInfo->m_nFace	= rs.Field("Face").AsInt();
 
@@ -916,25 +916,25 @@ bool MMatchDBMgr::GetCharInfoByAID( const int nAID, const int nCharIndex, MMatch
 
 	if( -1 != rs.GetFieldID("rank") ) {
 #ifdef _DEBUG
-		mlog( "rank : %d\n", poutCharInfo->m_nRank );
+		cclog( "rank : %d\n", poutCharInfo->m_nRank );
 #endif
 		poutCharInfo->m_nRank = (unsigned int)rs.Field("rank").AsInt();
 	} else {
 #ifdef _DEBUG
-		mlog( "can't find rank column\n" );
+		cclog( "can't find rank column\n" );
 #endif
 		poutCharInfo->m_nRank = 0;
 	}
 
-	poutCharInfo->m_ClanInfo.m_nGrade = (MMatchClanGrade)rs.Field("ClanGrade").AsInt();
-	poutCharInfo->m_ClanInfo.m_nContPoint = (MMatchClanGrade)rs.Field("ClanContPoint").AsInt();
+	poutCharInfo->m_ClanInfo.m_nGrade = (CCMatchClanGrade)rs.Field("ClanGrade").AsInt();
+	poutCharInfo->m_ClanInfo.m_nContPoint = (CCMatchClanGrade)rs.Field("ClanContPoint").AsInt();
 
 	_STATUS_DB_END(4);
 
 	return true;
 }
 
-bool MMatchDBMgr::GetCharEquipmentInfoByAID(const int nAID, const int nCharIndex, unsigned int nEquipedItemID[MMCIP_END], unsigned int nEquipedItemCIID[MMCIP_END])
+bool CCMatchDBMgr::GetCharEquipmentInfoByAID(const int nAID, const int nCharIndex, unsigned int nEquipedItemID[MMCIP_END], unsigned int nEquipedItemCIID[MMCIP_END])
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -958,9 +958,9 @@ bool MMatchDBMgr::GetCharEquipmentInfoByAID(const int nAID, const int nCharIndex
 	memset(nEquipedItemCIID, 0, sizeof(unsigned int) * MMCIP_END);
 	memset(nEquipedItemID, 0, sizeof(unsigned int) * MMCIP_END);
 
-	MMatchCharItemParts nParts;	
+	CCMatchCharItemParts nParts;	
 	for( ; ! rs.IsEOF(); rs.MoveNext() ) {
-		nParts = MMatchCharItemParts(rs.Field("SlotID").AsInt());
+		nParts = CCMatchCharItemParts(rs.Field("SlotID").AsInt());
 		if( nParts < MMCIP_HEAD || nParts >= MMCIP_END ) {
 			_ASSERT(0);
 			continue;
@@ -974,7 +974,7 @@ bool MMatchDBMgr::GetCharEquipmentInfoByAID(const int nAID, const int nCharIndex
 	return true;
 }
 
-bool MMatchDBMgr::GetAccountInfo( const unsigned long int nAID, MMatchAccountInfo* poutAccountInfo, const int nServerID )
+bool CCMatchDBMgr::GetAccountInfo( const unsigned long int nAID, CCMatchAccountInfo* poutAccountInfo, const int nServerID )
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1004,7 +1004,7 @@ bool MMatchDBMgr::GetAccountInfo( const unsigned long int nAID, MMatchAccountInf
 	}
 
 	poutAccountInfo->m_nAID			= (unsigned long)rs.Field("AID").AsLong();
-	poutAccountInfo->m_nUGrade		= (MMatchUserGradeID)rs.Field("UGradeID").AsInt();
+	poutAccountInfo->m_nUGrade		= (CCMatchUserGradeID)rs.Field("UGradeID").AsInt();
 	poutAccountInfo->m_nPGrade		= MMPG_FREE;
 	strcpy(poutAccountInfo->m_szUserID, (LPCTSTR)rs.Field("UserID").AsString());
 
@@ -1021,11 +1021,11 @@ bool MMatchDBMgr::GetAccountInfo( const unsigned long int nAID, MMatchAccountInf
 
 #ifdef _BLOCK_HACKER
 	if( rs.Field("HackingType").IsNull() )
-		poutAccountInfo->m_HackingType = MMHT_NO;
+		poutAccountInfo->m_HackingType = CCMHT_NO;
 	else 
 	{
-		poutAccountInfo->m_HackingType = static_cast< MMatchHackingType >( rs.Field("HackingType").AsInt() );
-		if( MMHT_NO != poutAccountInfo->m_HackingType || MMHT_SLEEP_ACCOUNT != poutAccountInfo->m_HackingType )
+		poutAccountInfo->m_HackingType = static_cast< CCMatchHackingType >( rs.Field("HackingType").AsInt() );
+		if( CCMHT_NO != poutAccountInfo->m_HackingType || CCMHT_SLEEP_ACCOUNT != poutAccountInfo->m_HackingType )
 		{
 			poutAccountInfo->m_EndBlockDate.wYear	= static_cast<WORD>(rs.Field("HackBlockYear").AsShort());
 			poutAccountInfo->m_EndBlockDate.wMonth	= static_cast<WORD>(rs.Field("HackBlockMonth").AsShort());
@@ -1044,7 +1044,7 @@ bool MMatchDBMgr::GetAccountInfo( const unsigned long int nAID, MMatchAccountInf
 	return true;
 }
 
-bool MMatchDBMgr::DeleteCharacter(const int nAID, const int nCharIndex, const TCHAR* szCharName)
+bool CCMatchDBMgr::DeleteCharacter(const int nAID, const int nCharIndex, const TCHAR* szCharName)
 {
 	_STATUS_DB_START;
 
@@ -1081,7 +1081,7 @@ bool MMatchDBMgr::DeleteCharacter(const int nAID, const int nCharIndex, const TC
 }
 
 
-bool MMatchDBMgr::SimpleUpdateCharInfo(MMatchCharInfo* pCharInfo)
+bool CCMatchDBMgr::SimpleUpdateCharInfo(CCMatchCharInfo* pCharInfo)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1105,7 +1105,7 @@ bool MMatchDBMgr::SimpleUpdateCharInfo(MMatchCharInfo* pCharInfo)
 
 }
 
-bool MMatchDBMgr::BuyBountyItem(const unsigned int nCID, int nItemID, int nItemCount, int nPrice, const DWORD dwRentHourPeriod, const bool bIsSpendableItem, unsigned long int* poutCIID)
+bool CCMatchDBMgr::BuyBountyItem(const unsigned int nCID, int nItemID, int nItemCount, int nPrice, const DWORD dwRentHourPeriod, const bool bIsSpendableItem, unsigned long int* poutCIID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1131,8 +1131,8 @@ bool MMatchDBMgr::BuyBountyItem(const unsigned int nCID, int nItemID, int nItemC
 
 	int nRet = rs.Field("Ret").AsInt();
 	if( nRet < 0 ) {
-		Log("MMatchDBMgr::BuyBountyItem - FAILED(%d)\n", nRet);
-		Log("MMatchDBMgr::BuyBountyItem - %s\n", strSQL.GetBuffer());
+		Log("CCMatchDBMgr::BuyBountyItem - FAILED(%d)\n", nRet);
+		Log("CCMatchDBMgr::BuyBountyItem - %s\n", strSQL.GetBuffer());
 		*poutCIID = 0;
 		return false;
 	}
@@ -1141,7 +1141,7 @@ bool MMatchDBMgr::BuyBountyItem(const unsigned int nCID, int nItemID, int nItemC
 	return true;
 }
 
-bool MMatchDBMgr::GetCharItemInfo(MMatchCharInfo* pCharInfo)
+bool CCMatchDBMgr::GetCharItemInfo(CCMatchCharInfo* pCharInfo)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1206,11 +1206,11 @@ bool MMatchDBMgr::GetCharItemInfo(MMatchCharInfo* pCharInfo)
 			}
 		}
 
-		MMatchItemDesc *pItemDesc;
-		if( (pItemDesc = MGetMatchItemDescMgr()->GetItemDesc(nItemDescID)) != NULL )	//< Normal Item
+		CCMatchItemDesc *pItemDesc;
+		if( (pItemDesc = CCGetMatchItemDescMgr()->GetItemDesc(nItemDescID)) != NULL )	//< Normal Item
 		{							
 			if( bIsRentItem && pItemDesc->IsSpendableItem() ) {
-				mlog( "Renewal - MMatchDBMgr::GetCharItemInfo - CID(%u), CIID(%u), ItemID(%u), ItemCount(%d), RentHourPeriod(%d)\n"
+				cclog( "Renewal - CCMatchDBMgr::GetCharItemInfo - CID(%u), CIID(%u), ItemID(%u), ItemCount(%d), RentHourPeriod(%d)\n"
 					, pCharInfo->m_nCID, dwCIID, nItemDescID, nCnt, nRentMinutePeriodRemainder );
 				ASSERT( 0 );
 
@@ -1220,19 +1220,19 @@ bool MMatchDBMgr::GetCharItemInfo(MMatchCharInfo* pCharInfo)
 			}
 
 			if( dwCIID <= 0 ) {
-				mlog( "Renewal - MMatchDBMgr::GetCharItemInfo - Invalid CIID(%d) - CID(%u), ItemID(%u), ItemCount(%d), RentHourPeriod(%d)\n"
+				cclog( "Renewal - CCMatchDBMgr::GetCharItemInfo - Invalid CIID(%d) - CID(%u), ItemID(%u), ItemCount(%d), RentHourPeriod(%d)\n"
 					, dwCIID, pCharInfo->m_nCID, nItemDescID, nCnt, nRentMinutePeriodRemainder );
 				ASSERT( 0 );
 				continue;
 			}
 
-			pCharInfo->m_ItemList.CreateItem(MMatchItemMap::UseUID(), dwCIID, nItemDescID, bIsRentItem, nRentMinutePeriodRemainder, wMaxUsableHour, nCnt);
+			pCharInfo->m_ItemList.CreateItem(CCMatchItemMap::UseUID(), dwCIID, nItemDescID, bIsRentItem, nRentMinutePeriodRemainder, wMaxUsableHour, nCnt);
 
 		} 
-		else if( NULL != MGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(nItemDescID) )	//< Gamble Item
+		else if( NULL != CCGetMatchServer()->GetGambleMachine().GetGambleItemByGambleItemID(nItemDescID) )	//< Gamble Item
 		{	
-			if( !pCharInfo->m_GambleItemManager.AddGambleItem(MMatchItemMap::UseUID(), dwCIID, nItemDescID, nCnt) ) {
-				mlog( "invalid gamble item. CID(%u), CIID(%u), ItemID(%u), ItemCount(%d)\n", pCharInfo->m_nCID, dwCIID, nItemDescID, nCnt );
+			if( !pCharInfo->m_GambleItemManager.AddGambleItem(CCMatchItemMap::UseUID(), dwCIID, nItemDescID, nCnt) ) {
+				cclog( "invalid gamble item. CID(%u), CIID(%u), ItemID(%u), ItemCount(%d)\n", pCharInfo->m_nCID, dwCIID, nItemDescID, nCnt );
 				ASSERT( 0 );
 				return false;
 			}			
@@ -1245,7 +1245,7 @@ bool MMatchDBMgr::GetCharItemInfo(MMatchCharInfo* pCharInfo)
 	return true;
 }
 
-bool MMatchDBMgr::InsertConnLog(const int nAID, const char* szIP, const string& strCountryCode3)
+bool CCMatchDBMgr::InsertConnLog(const int nAID, const char* szIP, const string& strCountryCode3)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1257,7 +1257,7 @@ bool MMatchDBMgr::InsertConnLog(const int nAID, const char* szIP, const string& 
 	vector< BYTE > vIP;
 	if( !SplitStrIP(szIP, vIP) || (4 != vIP.size()) ) 
 	{
-		mlog( "MMatchDBMgr::InsertConnLog - 문자열 IP(%s)분해 실패. AID(%u)\n", 
+		cclog( "CCMatchDBMgr::InsertConnLog - 문자열 IP(%s)분해 실패. AID(%u)\n", 
 			nAID, szIP );
 		return false;
 	}
@@ -1278,7 +1278,7 @@ bool MMatchDBMgr::InsertConnLog(const int nAID, const char* szIP, const string& 
 	return true;
 }
 
-bool MMatchDBMgr::InsertGameLog(const unsigned int nMasterCID, const char* szMap, const char* szGameType, unsigned int* poutID)
+bool CCMatchDBMgr::InsertGameLog(const unsigned int nMasterCID, const char* szMap, const char* szGameType, unsigned int* poutID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1303,7 +1303,7 @@ bool MMatchDBMgr::InsertGameLog(const unsigned int nMasterCID, const char* szMap
 	return true;
 }
 
-bool MMatchDBMgr::InsertGamePlayerLog(int nGameLogID, int nCID, int nPlayTime, int nKills, int nDeaths, int nXP, int nBP)
+bool CCMatchDBMgr::InsertGamePlayerLog(int nGameLogID, int nCID, int nPlayTime, int nKills, int nDeaths, int nXP, int nBP)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1324,7 +1324,7 @@ bool MMatchDBMgr::InsertGamePlayerLog(int nGameLogID, int nCID, int nPlayTime, i
 }
 
 /*
-bool MMatchDBMgr::InsertGameLog(const char* szGameName, const char* szMap, const char* szGameType,
+bool CCMatchDBMgr::InsertGameLog(const char* szGameName, const char* szMap, const char* szGameType,
 								const int nRound, const unsigned int nMasterCID, 
 								const int nPlayerCount, const char* szPlayers)
 {
@@ -1347,7 +1347,7 @@ bool MMatchDBMgr::InsertGameLog(const char* szGameName, const char* szMap, const
 	return true;
 }
 */
-bool MMatchDBMgr::InsertKillLog(const unsigned int nAttackerCID, const unsigned int nVictimCID)
+bool CCMatchDBMgr::InsertKillLog(const unsigned int nAttackerCID, const unsigned int nVictimCID)
 {
 	if (!CheckOpen()) return false;
 
@@ -1366,7 +1366,7 @@ bool MMatchDBMgr::InsertKillLog(const unsigned int nAttackerCID, const unsigned 
 	return true;
 }
 
-bool MMatchDBMgr::InsertChatLog(const unsigned long int nCID, const char* szMsg, unsigned long int nTime)
+bool CCMatchDBMgr::InsertChatLog(const unsigned long int nCID, const char* szMsg, unsigned long int nTime)
 {
 	return true;
 
@@ -1389,7 +1389,7 @@ bool MMatchDBMgr::InsertChatLog(const unsigned long int nCID, const char* szMsg,
 
 
 // 캐릭터 레벨 업데이트
-bool MMatchDBMgr::UpdateCharLevel(const int nCID, const int nLevel)
+bool CCMatchDBMgr::UpdateCharLevel(const int nCID, const int nLevel)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1411,14 +1411,14 @@ bool MMatchDBMgr::UpdateCharLevel(const int nCID, const int nLevel)
 }
 
 // bp 업데이트
-bool MMatchDBMgr::UpdateCharBP(const int nCID, const int nBPInc)
+bool CCMatchDBMgr::UpdateCharBP(const int nCID, const int nBPInc)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
 
 
 #ifdef _DEBUG
-	mlog( "MMatchDBMgr::UpdateCharBP - Added bounty price:%d\n", nBPInc );
+	cclog( "CCMatchDBMgr::UpdateCharBP - Added bounty price:%d\n", nBPInc );
 #endif
 
 	CString strSQL;
@@ -1437,7 +1437,7 @@ bool MMatchDBMgr::UpdateCharBP(const int nCID, const int nBPInc)
 	return true;
 }
 
-bool MMatchDBMgr::InsertItemPurchaseLogByBounty(const unsigned long int nItemID, const unsigned long int nCID,
+bool CCMatchDBMgr::InsertItemPurchaseLogByBounty(const unsigned long int nItemID, const unsigned long int nCID,
 												const int nBounty, const int nCharBP, const _ITEMPURCHASE_TYPE nType)
 {
 	_STATUS_DB_START;
@@ -1470,7 +1470,7 @@ bool MMatchDBMgr::InsertItemPurchaseLogByBounty(const unsigned long int nItemID,
 
 }
 
-bool MMatchDBMgr::InsertCharMakingLog(const unsigned int nAID, const char* szCharName,
+bool CCMatchDBMgr::InsertCharMakingLog(const unsigned int nAID, const char* szCharName,
 									  const _CHARMAKING_TYPE nType)
 {
 	_STATUS_DB_START;
@@ -1504,7 +1504,7 @@ bool MMatchDBMgr::InsertCharMakingLog(const unsigned int nAID, const char* szCha
 }
 
 
-bool MMatchDBMgr::InsertServerLog(const int nServerID, const int nPlayerCount, const int nGameCount, const DWORD dwBlockCount, const DWORD dwNonBlockCount)
+bool CCMatchDBMgr::InsertServerLog(const int nServerID, const int nPlayerCount, const int nGameCount, const DWORD dwBlockCount, const DWORD dwNonBlockCount)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1525,7 +1525,7 @@ bool MMatchDBMgr::InsertServerLog(const int nServerID, const int nPlayerCount, c
 	return true;
 }
 
-bool MMatchDBMgr::UpdateServerStatus(const int nServerID, const int nCurrPlayer)
+bool CCMatchDBMgr::UpdateServerStatus(const int nServerID, const int nCurrPlayer)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1546,7 +1546,7 @@ bool MMatchDBMgr::UpdateServerStatus(const int nServerID, const int nCurrPlayer)
 	return true;
 }
 
-bool MMatchDBMgr::UpdateServerStatus_Netmarble(const int nServerID, const int nCurrPlayer, const int nNatePlayer)
+bool CCMatchDBMgr::UpdateServerStatus_Netmarble(const int nServerID, const int nCurrPlayer, const int nNatePlayer)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1567,7 +1567,7 @@ bool MMatchDBMgr::UpdateServerStatus_Netmarble(const int nServerID, const int nC
 	return true;
 }
 
-bool MMatchDBMgr::UpdateServerInfo(const int nServerID, const int nMaxPlayer, const char* szServerName)
+bool CCMatchDBMgr::UpdateServerInfo(const int nServerID, const int nMaxPlayer, const char* szServerName)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1588,7 +1588,7 @@ bool MMatchDBMgr::UpdateServerInfo(const int nServerID, const int nMaxPlayer, co
 	return true;
 }
 
-bool MMatchDBMgr::InsertPlayerLog(const unsigned long int nCID,
+bool CCMatchDBMgr::InsertPlayerLog(const unsigned long int nCID,
 								  const int nPlayTime, const int nKillCount, const int nDeathCount, const int nXP, const int nTotalXP)
 {
 	_STATUS_DB_START;
@@ -1610,7 +1610,7 @@ bool MMatchDBMgr::InsertPlayerLog(const unsigned long int nCID,
 	return true;
 }
 
-bool MMatchDBMgr::InsertNetmarbleTPLog(const unsigned long int nCID, const int nPlayTime)
+bool CCMatchDBMgr::InsertNetmarbleTPLog(const unsigned long int nCID, const int nPlayTime)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1631,7 +1631,7 @@ bool MMatchDBMgr::InsertNetmarbleTPLog(const unsigned long int nCID, const int n
 	return true;
 }
 
-bool MMatchDBMgr::InsertLevelUpLog(const int nCID, const int nLevel, const int nBP, 
+bool CCMatchDBMgr::InsertLevelUpLog(const int nCID, const int nLevel, const int nBP, 
 								   const int nKillCount, const int nDeathCount, const int nPlayTime)
 {
 	_STATUS_DB_START;
@@ -1654,7 +1654,7 @@ bool MMatchDBMgr::InsertLevelUpLog(const int nCID, const int nLevel, const int n
 
 }
 
-bool MMatchDBMgr::UpdateCharPlayTime(const unsigned long int nCID, const unsigned long int nPlayTime)
+bool CCMatchDBMgr::UpdateCharPlayTime(const unsigned long int nCID, const unsigned long int nPlayTime)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1675,7 +1675,7 @@ bool MMatchDBMgr::UpdateCharPlayTime(const unsigned long int nCID, const unsigne
 	return true;
 }
 
-bool MMatchDBMgr::UpdateCharInfoData(const int nCID, const int nAddedXP, const int nAddedBP, 
+bool CCMatchDBMgr::UpdateCharInfoData(const int nCID, const int nAddedXP, const int nAddedBP, 
 									 const int nAddedKillCount, const int nAddedDeathCount, const int nAddedPlayTime)
 {
 	_STATUS_DB_START;
@@ -1698,7 +1698,7 @@ bool MMatchDBMgr::UpdateCharInfoData(const int nCID, const int nAddedXP, const i
 	return true;
 }
 
-bool MMatchDBMgr::UpdateLastConnDate(const TCHAR* szUserID, const TCHAR* szIP)
+bool CCMatchDBMgr::UpdateLastConnDate(const TCHAR* szUserID, const TCHAR* szIP)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1719,7 +1719,7 @@ bool MMatchDBMgr::UpdateLastConnDate(const TCHAR* szUserID, const TCHAR* szIP)
 	return true;
 }
 
-bool MMatchDBMgr::ClearAllEquipedItem(const unsigned long nCID)
+bool CCMatchDBMgr::ClearAllEquipedItem(const unsigned long nCID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1742,7 +1742,7 @@ bool MMatchDBMgr::ClearAllEquipedItem(const unsigned long nCID)
 
 }
 
-bool MMatchDBMgr::GetCharCID(const TCHAR* pszName, int* poutCID)
+bool CCMatchDBMgr::GetCharCID(const TCHAR* pszName, int* poutCID)
 {
 	_STATUS_DB_START;
 
@@ -1773,7 +1773,7 @@ bool MMatchDBMgr::GetCharCID(const TCHAR* pszName, int* poutCID)
 }
 
 //// Friends ////
-bool MMatchDBMgr::FriendAdd(const int nCID, const int nFriendCID, const int nFavorite)
+bool CCMatchDBMgr::FriendAdd(const int nCID, const int nFriendCID, const int nFavorite)
 {
 	_STATUS_DB_START;
 
@@ -1801,7 +1801,7 @@ bool MMatchDBMgr::FriendAdd(const int nCID, const int nFriendCID, const int nFav
 	return true;
 }
 
-bool MMatchDBMgr::FriendRemove(const int nCID, const int nFriendCID)
+bool CCMatchDBMgr::FriendRemove(const int nCID, const int nFriendCID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1822,7 +1822,7 @@ bool MMatchDBMgr::FriendRemove(const int nCID, const int nFriendCID)
 	return true;
 }
 
-bool MMatchDBMgr::FriendGetList(const int nCID, MMatchFriendInfo* pFriendInfo)
+bool CCMatchDBMgr::FriendGetList(const int nCID, CCMatchFriendInfo* pFriendInfo)
 {
 #define MAX_FRIEND_LISTCOUNT 30
 
@@ -1868,7 +1868,7 @@ bool MMatchDBMgr::FriendGetList(const int nCID, MMatchFriendInfo* pFriendInfo)
 }
 
 
-bool MMatchDBMgr::GetCharClan(const int nCID, int* poutClanID, TCHAR* poutClanName)
+bool CCMatchDBMgr::GetCharClan(const int nCID, int* poutClanID, TCHAR* poutClanName)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1904,7 +1904,7 @@ bool MMatchDBMgr::GetCharClan(const int nCID, int* poutClanID, TCHAR* poutClanNa
 	return true;
 }
 
-bool MMatchDBMgr::GetClanIDFromName(const TCHAR* szClanName, int* poutCLID)
+bool CCMatchDBMgr::GetClanIDFromName(const TCHAR* szClanName, int* poutCLID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -1942,7 +1942,7 @@ bool MMatchDBMgr::GetClanIDFromName(const TCHAR* szClanName, int* poutCLID)
 	return true;
 }
 
-bool MMatchDBMgr::CreateClan(const TCHAR* szClanName, const int nMasterCID, const int nMember1CID, const int nMember2CID,
+bool CCMatchDBMgr::CreateClan(const TCHAR* szClanName, const int nMasterCID, const int nMember1CID, const int nMember2CID,
 							 const int nMember3CID, const int nMember4CID, bool* boutRet, int* noutNewCLID)
 {
 	_STATUS_DB_START;
@@ -1987,7 +1987,7 @@ bool MMatchDBMgr::CreateClan(const TCHAR* szClanName, const int nMasterCID, cons
 
 }
 
-bool MMatchDBMgr::ReserveCloseClan(const int nCLID, const TCHAR* szClanName, const int nMasterCID, const string& strDeleteDate )
+bool CCMatchDBMgr::ReserveCloseClan(const int nCLID, const TCHAR* szClanName, const int nMasterCID, const string& strDeleteDate )
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -2008,7 +2008,7 @@ bool MMatchDBMgr::ReserveCloseClan(const int nCLID, const TCHAR* szClanName, con
 	return true;
 }
 
-bool MMatchDBMgr::AddClanMember(const int nCLID, const int nJoinerCID, const int nClanGrade, bool* boutRet)
+bool CCMatchDBMgr::AddClanMember(const int nCLID, const int nJoinerCID, const int nClanGrade, bool* boutRet)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -2044,7 +2044,7 @@ bool MMatchDBMgr::AddClanMember(const int nCLID, const int nJoinerCID, const int
 
 }
 
-bool MMatchDBMgr::RemoveClanMember(const int nCLID, const int nLeaverCID)
+bool CCMatchDBMgr::RemoveClanMember(const int nCLID, const int nLeaverCID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -2068,7 +2068,7 @@ bool MMatchDBMgr::RemoveClanMember(const int nCLID, const int nLeaverCID)
 }
 
 
-bool MMatchDBMgr::UpdateClanGrade(const int nCLID, const int nMemberCID, const int nClanGrade)
+bool CCMatchDBMgr::UpdateClanGrade(const int nCLID, const int nMemberCID, const int nClanGrade)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -2090,7 +2090,7 @@ bool MMatchDBMgr::UpdateClanGrade(const int nCLID, const int nMemberCID, const i
 
 }
 
-bool MMatchDBMgr::ExpelClanMember(const int nCLID, const int nAdminGrade, TCHAR* szMember, int* noutRet)
+bool CCMatchDBMgr::ExpelClanMember(const int nCLID, const int nAdminGrade, TCHAR* szMember, int* noutRet)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -2133,7 +2133,7 @@ bool MMatchDBMgr::ExpelClanMember(const int nCLID, const int nAdminGrade, TCHAR*
 
 
 
-bool MMatchDBMgr::GetLadderTeamID(const int nTeamTableIndex, const int* pnMemberCIDArray, const int nMemberCount, int* pnoutTID)
+bool CCMatchDBMgr::GetLadderTeamID(const int nTeamTableIndex, const int* pnMemberCIDArray, const int nMemberCount, int* pnoutTID)
 {
 	_STATUS_DB_START;
 
@@ -2204,7 +2204,7 @@ bool MMatchDBMgr::GetLadderTeamID(const int nTeamTableIndex, const int* pnMember
 }
 
 
-bool MMatchDBMgr::LadderTeamWinTheGame(const int nTeamTableIndex, const int nWinnerTID, const int nLoserTID, const bool bIsDrawGame,
+bool CCMatchDBMgr::LadderTeamWinTheGame(const int nTeamTableIndex, const int nWinnerTID, const int nLoserTID, const bool bIsDrawGame,
 									   const int nWinnerPoint, const int nLoserPoint, const int nDrawPoint)
 {
 	_STATUS_DB_START;
@@ -2229,7 +2229,7 @@ bool MMatchDBMgr::LadderTeamWinTheGame(const int nTeamTableIndex, const int nWin
 	return true;
 }
 
-bool MMatchDBMgr::GetLadderTeamMemberByCID(const int nCID, int* poutTeamID, char** ppoutCharArray, int nCount)
+bool CCMatchDBMgr::GetLadderTeamMemberByCID(const int nCID, int* poutTeamID, char** ppoutCharArray, int nCount)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -2276,7 +2276,7 @@ bool MMatchDBMgr::GetLadderTeamMemberByCID(const int nCID, int* poutTeamID, char
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-bool MMatchDBMgr::UpdateCharLevel(const int nCID, const int nNewLevel, const int nBP, const int nKillCount, 
+bool CCMatchDBMgr::UpdateCharLevel(const int nCID, const int nNewLevel, const int nBP, const int nKillCount, 
 								  const int nDeathCount, const int nPlayTime, bool bIsLevelUp)
 {
 	bool ret = UpdateCharLevel(nCID, nNewLevel);
@@ -2290,7 +2290,7 @@ bool MMatchDBMgr::UpdateCharLevel(const int nCID, const int nNewLevel, const int
 	return ret;
 }
 
-bool MMatchDBMgr::UpdateCharPlayInfo(const int nAID, const int nCID, const int nXP, const int nLevel, const int nPlayingTimeSec, const int nTotalPlayTimeSec, 
+bool CCMatchDBMgr::UpdateCharPlayInfo(const int nAID, const int nCID, const int nXP, const int nLevel, const int nPlayingTimeSec, const int nTotalPlayTimeSec, 
 									 const int nTotalKillCount, const int nTotalDeathCount, const int nBP, bool bIsLevelUp)
 {
 	if (!CheckOpen()) return false;
@@ -2310,7 +2310,7 @@ bool MMatchDBMgr::UpdateCharPlayInfo(const int nAID, const int nCID, const int n
 	return true;
 }
 
-bool MMatchDBMgr::GetClanInfo(const int nCLID, MDB_ClanInfo* poutClanInfo)
+bool CCMatchDBMgr::GetClanInfo(const int nCLID, CCDB_ClanInfo* poutClanInfo)
 {
 	_STATUS_DB_START;
 
@@ -2353,7 +2353,7 @@ bool MMatchDBMgr::GetClanInfo(const int nCLID, MDB_ClanInfo* poutClanInfo)
 
 }
 
-bool MMatchDBMgr::WinTheClanGame(const int nWinnerCLID, const int nLoserCLID, const bool bIsDrawGame,
+bool CCMatchDBMgr::WinTheClanGame(const int nWinnerCLID, const int nLoserCLID, const bool bIsDrawGame,
 								 const int nWinnerPoint, const int nLoserPoint, const char* szWinnerClanName,
 								 const char* szLoserClanName, const int nRoundWins, const int nRoundLosses,
 								 const int nMapID, const int nGameType,
@@ -2384,7 +2384,7 @@ bool MMatchDBMgr::WinTheClanGame(const int nWinnerCLID, const int nLoserCLID, co
 	return true;
 }
 
-bool MMatchDBMgr::UpdateCharClanContPoint(const int nCID, const int nCLID, const int nAddedContPoint)
+bool CCMatchDBMgr::UpdateCharClanContPoint(const int nCID, const int nCLID, const int nAddedContPoint)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -2405,7 +2405,7 @@ bool MMatchDBMgr::UpdateCharClanContPoint(const int nCID, const int nCLID, const
 	return true;
 }
 
-bool MMatchDBMgr::EventJjangUpdate(const int nAID, bool bJjang)
+bool CCMatchDBMgr::EventJjangUpdate(const int nAID, bool bJjang)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -2413,7 +2413,7 @@ bool MMatchDBMgr::EventJjangUpdate(const int nAID, bool bJjang)
 	CString strSQL;
 
 	try {
-		MMatchUserGradeID nGrade = bJjang ? MMUG_STAR : MMUG_FREE;
+		CCMatchUserGradeID nGrade = bJjang ? CCMUG_STAR : CCMUG_FREE;
 		strSQL.Format(g_szDB_EVENT_JJANG_UPDATE, nGrade, nAID);
 		m_DB.ExecuteSQL( strSQL );
 	} 
@@ -2432,7 +2432,7 @@ bool MMatchDBMgr::EventJjangUpdate(const int nAID, bool bJjang)
 #define SIZE_OF_SIMPLE_QUEST_ITEM	sizeof(SimpleQuestItem)
 
 
-bool MMatchDBMgr::UpdateQuestItem( int nCID, MQuestItemMap& rfQuestIteMap, MQuestMonsterBible& rfQuestMonster )
+bool CCMatchDBMgr::UpdateQuestItem( int nCID, CCQuestItemMap& rfQuestIteMap, CCQuestMonsterBible& rfQuestMonster )
 {
 	_STATUS_DB_START;
 
@@ -2441,18 +2441,18 @@ bool MMatchDBMgr::UpdateQuestItem( int nCID, MQuestItemMap& rfQuestIteMap, MQues
 	try
 	{
 		// 7000byte가 넘는지 검사함.
-		if( QUEST_DATA < MCRC32::SIZE + MAX_DB_QUEST_ITEM_SIZE + MAX_DB_MONSTERBIBLE_SIZE )
+		if( QUEST_DATA < CCCRC32::SIZE + MAX_DB_QUEST_ITEM_SIZE + MAX_DB_MONSTERBIBLE_SIZE )
 		{
 			ASSERT( 0 );
-			Log( "MMatchDBMgr::UpdateQuestItem - 아이템의 크기가 %d보다 큼.", QUEST_DATA );
+			Log( "CCMatchDBMgr::UpdateQuestItem - 아이템의 크기가 %d보다 큼.", QUEST_DATA );
 			return false;
 		}
 
 		unsigned char			szData[ QUEST_DATA ];
 		unsigned char			szMonData[ MAX_DB_MONSTERBIBLE_SIZE ];
-		MCRC32::crc_t			Crc32;
+		CCCRC32::crc_t			Crc32;
 		int						i;
-		MQuestItemMap::iterator	it, end;
+		CCQuestItemMap::iterator	it, end;
 
 		memset( szData, 0, QUEST_DATA );
 		memset( szMonData, 0, MAX_DB_MONSTERBIBLE_SIZE );
@@ -2461,13 +2461,13 @@ bool MMatchDBMgr::UpdateQuestItem( int nCID, MQuestItemMap& rfQuestIteMap, MQues
 		end = rfQuestIteMap.end();
 		for( i = 0, it = rfQuestIteMap.begin(); it != end; ++it )
 		{
-			MQuestItem* pQuestItem = it->second;
+			CCQuestItem* pQuestItem = it->second;
 
 			// DB에 저장이 되는 QuestItem타입인지 검사. 몬스터 도감관련 아이템은 저장될수 없음.
 			if( GetQuestItemDescMgr().IsQItemID(it->first) )
 			{
 				// 배열은 인덱스가 0부터 시작을 하고, 퀘스트 아이템의 ItemID는 1부터 시작한다.
-				int nIndex = MCRC32::SIZE + pQuestItem->GetItemID() - MIN_QUEST_ITEM_ID;
+				int nIndex = CCCRC32::SIZE + pQuestItem->GetItemID() - MIN_QUEST_ITEM_ID;
 				unsigned char nValue = 0;
 				if (pQuestItem->GetCount() > 0) 
 				{
@@ -2485,25 +2485,25 @@ bool MMatchDBMgr::UpdateQuestItem( int nCID, MQuestItemMap& rfQuestIteMap, MQues
 		}
 
 		// 몬스터 정보 저장.
-		memcpy( szData + MCRC32::SIZE + MAX_DB_QUEST_ITEM_SIZE, &rfQuestMonster, MAX_DB_MONSTERBIBLE_SIZE );
+		memcpy( szData + CCCRC32::SIZE + MAX_DB_QUEST_ITEM_SIZE, &rfQuestMonster, MAX_DB_MONSTERBIBLE_SIZE );
 
 		// make crc checksum.
-		Crc32 = MCRC32::BuildCRC32( reinterpret_cast<BYTE*>(szData + MCRC32::SIZE), MAX_DB_QUEST_ITEM_SIZE + MAX_DB_MONSTERBIBLE_SIZE );
+		Crc32 = CCCRC32::BuildCRC32( reinterpret_cast<BYTE*>(szData + CCCRC32::SIZE), MAX_DB_QUEST_ITEM_SIZE + MAX_DB_MONSTERBIBLE_SIZE );
 		if( 0 == Crc32 )
 		{
-			mlog( "MMatchDBMgr::UpdateQuestItem - CRC32 is 0 CID:%d\n", nCID );
+			cclog( "CCMatchDBMgr::UpdateQuestItem - CRC32 is 0 CID:%d\n", nCID );
 			// 만약 여기서 문제가 방생한 것이라면, 이부분에 왔을경우는 모든 데이터를 검사해 줘야함. 
 		}
 
 		// copy crc checksum.
-		memcpy( szData, &Crc32, MCRC32::CRC::SIZE );
+		memcpy( szData, &Crc32, CCCRC32::CRC::SIZE );
 
 		strSQL.Format( "UPDATE Character SET QuestItemInfo = (?) WHERE CID = %d", nCID );
 
 		CODBCRecordset rs( &m_DB );
-		if( !rs.InsertBinary(strSQL, szData, MCRC32::CRC::SIZE + MAX_DB_QUEST_ITEM_SIZE + MAX_DB_MONSTERBIBLE_SIZE) )
+		if( !rs.InsertBinary(strSQL, szData, CCCRC32::CRC::SIZE + MAX_DB_QUEST_ITEM_SIZE + MAX_DB_MONSTERBIBLE_SIZE) )
 		{
-			Log( "MMatchDBMgr::UpdateQuestItem - Querry fail." );
+			Log( "CCMatchDBMgr::UpdateQuestItem - Querry fail." );
 			return false;
 		}
 	}
@@ -2519,7 +2519,7 @@ bool MMatchDBMgr::UpdateQuestItem( int nCID, MQuestItemMap& rfQuestIteMap, MQues
 	return true;
 }
 
-bool MMatchDBMgr::GetCharQuestItemInfo( MMatchCharInfo* pCharInfo )
+bool CCMatchDBMgr::GetCharQuestItemInfo( CCMatchCharInfo* pCharInfo )
 {
 	_STATUS_DB_START;
 
@@ -2539,42 +2539,42 @@ bool MMatchDBMgr::GetCharQuestItemInfo( MMatchCharInfo* pCharInfo )
 		// 쿼리가 실패하면 Index를 -1로 설정해서 반환해줌.
 		if( -1 == bn.GetCurIndex() )
 		{
-			mlog( "MMatchDBMgr::GetCharQuestItemInfo - 퀘스트 아이템 SELECT쿼리 실패. UserName:%s CID:%d\n", 
+			cclog( "CCMatchDBMgr::GetCharQuestItemInfo - 퀘스트 아이템 SELECT쿼리 실패. UserName:%s CID:%d\n", 
 				pCharInfo->m_szName, 
 				pCharInfo->m_nCID );
 			return false;
 		}
 
 		unsigned char	szData[ QUEST_DATA ];
-		MCRC32::crc_t	Crc32;
+		CCCRC32::crc_t	Crc32;
 
 		// 반드시 Begin()을 호출해야 함.
 		bn.Begin();
 		int nDataSize = bn.GetNextData(szData, QUEST_DATA);
 		if( -1 == nDataSize )
 		{
-			Log( "MMatchDMBgr::GetQuestItem - 데이터를 복사하는데 오류." );
+			Log( "CCMatchDMBgr::GetQuestItem - 데이터를 복사하는데 오류." );
 			return false;
 		}
 
 		// copy crc check sum.
-		memcpy( &Crc32, szData, MCRC32::CRC::SIZE );
+		memcpy( &Crc32, szData, CCCRC32::CRC::SIZE );
 
 		// 케릭터를 처음 만들면 퀘스트 아이템 필드와 몬스터 도감 필드가 모두 0이기에 CRC32검사를 할수가 없음.
 		//  그러므로 처음 4Byte가 모두 0이면 필드에 데이터가 없는것으로 판단함.
 		if( 0 == nDataSize )
 		{
 			pCharInfo->m_QuestItemList.Clear();
-			memset( &pCharInfo->m_QMonsterBible, 0, sizeof(MQuestMonsterBible) );
+			memset( &pCharInfo->m_QMonsterBible, 0, sizeof(CCQuestMonsterBible) );
 			pCharInfo->m_QuestItemList.SetDBAccess( true );
 
 			_STATUS_DB_END(52);
 			return true;
 		}
 
-		if( Crc32 != MCRC32::BuildCRC32(reinterpret_cast<BYTE*>(szData + MCRC32::CRC::SIZE), nDataSize - MCRC32::CRC::SIZE) )
+		if( Crc32 != CCCRC32::BuildCRC32(reinterpret_cast<BYTE*>(szData + CCCRC32::CRC::SIZE), nDataSize - CCCRC32::CRC::SIZE) )
 		{
-			Log( "MMatchDBMgr::GetQuestItem - crc check error." );
+			Log( "CCMatchDBMgr::GetQuestItem - crc check error." );
 			return false;
 		}
 
@@ -2585,12 +2585,12 @@ bool MMatchDBMgr::GetCharQuestItemInfo( MMatchCharInfo* pCharInfo )
 		// 퀘스트아이템 로드.
 		for( int i = 0; i < MAX_DB_QUEST_ITEM_SIZE; ++i )
 		{
-			if( MIN_QUEST_DB_ITEM_COUNT > static_cast<int>(szData[MCRC32::CRC::SIZE + i]) )
+			if( MIN_QUEST_DB_ITEM_COUNT > static_cast<int>(szData[CCCRC32::CRC::SIZE + i]) )
 				continue; // 한번도 획득한 적이 없는 아이템.
 
 			// 한번이라도 획든한적이 있던 아이템. 수량은 상관 없음. 
 			unsigned long int nItemID = i + MIN_QUEST_ITEM_ID;
-			int nQuestItemCount = static_cast<int>(szData[MCRC32::CRC::SIZE + i]);
+			int nQuestItemCount = static_cast<int>(szData[CCCRC32::CRC::SIZE + i]);
 			bool bKnownItem;
 
 			if (nQuestItemCount > 0)
@@ -2604,31 +2604,31 @@ bool MMatchDBMgr::GetCharQuestItemInfo( MMatchCharInfo* pCharInfo )
 			}
 
 			if( !pCharInfo->m_QuestItemList.CreateQuestItem(nItemID, nQuestItemCount, bKnownItem) )
-				mlog( "MMatchDBMgr::GetCharQuestItemInfo - 새로운 퀘스트 아이템 생성 실패.\n" ); // error...
+				cclog( "CCMatchDBMgr::GetCharQuestItemInfo - 새로운 퀘스트 아이템 생성 실패.\n" ); // error...
 		}
 
 		// 몬스터 정보 저장.
-		memcpy( &pCharInfo->m_QMonsterBible, szData + MCRC32::SIZE + MAX_DB_QUEST_ITEM_SIZE, MAX_DB_MONSTERBIBLE_SIZE );
+		memcpy( &pCharInfo->m_QMonsterBible, szData + CCCRC32::SIZE + MAX_DB_QUEST_ITEM_SIZE, MAX_DB_MONSTERBIBLE_SIZE );
 #ifdef _DEBUG
 		{
-			mlog( "\nStart %s's debug MonsterBible info.\n", pCharInfo->m_szName );
+			cclog( "\nStart %s's debug MonsterBible info.\n", pCharInfo->m_szName );
 			for( int i = 0; i < (220000 - 210001); ++i )
 			{
 				if( pCharInfo->m_QMonsterBible.IsKnownMonster(i) )
 				{
-					MQuestItemDesc* pMonDesc = GetQuestItemDescMgr().FindMonserBibleDesc( i );
+					CCQuestItemDesc* pMonDesc = GetQuestItemDescMgr().FindMonserBibleDesc( i );
 					if( 0 == pMonDesc )
 					{
-						mlog( "MMatchDBMgr::GetCharQuestItemInfo - %d Fail to find monster bible description.\n", i );
+						cclog( "CCMatchDBMgr::GetCharQuestItemInfo - %d Fail to find monster bible description.\n", i );
 						continue;
 					}
 					else
 					{
-						mlog( "Get DB MonBibleID:%d MonName:%s\n", i, pMonDesc->m_szQuestItemName );
+						cclog( "Get DB MonBibleID:%d MonName:%s\n", i, pMonDesc->m_szQuestItemName );
 					}
 				}
 			}
-			mlog( "End %s's debug MonsterBible info.\n\n", pCharInfo->m_szName );
+			cclog( "End %s's debug MonsterBible info.\n\n", pCharInfo->m_szName );
 		}
 #endif
 
@@ -2647,7 +2647,7 @@ bool MMatchDBMgr::GetCharQuestItemInfo( MMatchCharInfo* pCharInfo )
 }
 
 
-bool MMatchDBMgr::InsertQuestGameLog( const char* pszStageName, 
+bool CCMatchDBMgr::InsertQuestGameLog( const char* pszStageName, 
 									 const int nScenarioID,
 									 const int nMasterCID, const int nPlayer1, const int nPlayer2, const int nPlayer3,
 									 const int nTotalRewardQItemCount,
@@ -2688,7 +2688,7 @@ bool MMatchDBMgr::InsertQuestGameLog( const char* pszStageName,
 }
 
 
-bool MMatchDBMgr::InsertQUniqueGameLog( const int nQGLID, const int nCID, const int nQIID )
+bool CCMatchDBMgr::InsertQUniqueGameLog( const int nQGLID, const int nCID, const int nQIID )
 {
 	_STATUS_DB_START;
 	if( !CheckOpen() )
@@ -2715,7 +2715,7 @@ bool MMatchDBMgr::InsertQUniqueGameLog( const int nQGLID, const int nCID, const 
 
 // 최고 54
 
-bool MMatchDBMgr::GetCID( const char* pszCharName, int& outCID )
+bool CCMatchDBMgr::GetCID( const char* pszCharName, int& outCID )
 {
 	if( 0 == pszCharName ) 
 		return false;
@@ -2741,7 +2741,7 @@ bool MMatchDBMgr::GetCID( const char* pszCharName, int& outCID )
 }
 
 
-bool MMatchDBMgr::GetCharName( const int nCID, string& outCharName )
+bool CCMatchDBMgr::GetCharName( const int nCID, string& outCharName )
 {
 	if( !CheckOpen() )
 		return false;
@@ -2766,7 +2766,7 @@ bool MMatchDBMgr::GetCharName( const int nCID, string& outCharName )
 	return true;
 }
 
-bool MMatchDBMgr::CheckPremiumIP(const char* szIP, bool& outbResult)
+bool CCMatchDBMgr::CheckPremiumIP(const char* szIP, bool& outbResult)
 {
 	_STATUS_DB_START;
 	if( !CheckOpen() )
@@ -2824,7 +2824,7 @@ bool MMatchDBMgr::CheckPremiumIP(const char* szIP, bool& outbResult)
 	return true;
 }
 
-bool MMatchDBMgr::GetIPContryCode( const string& strIP, 
+bool CCMatchDBMgr::GetIPContryCode( const string& strIP, 
 								  DWORD& dwOutIPFrom, 
 								  DWORD& dwOutIPTo, 
 								  string& strOutCountryCode )
@@ -2836,7 +2836,7 @@ bool MMatchDBMgr::GetIPContryCode( const string& strIP,
 	}
 	catch( CDBException* e )
 	{
-		Log( "MMatchDBMgr::GetIPContryCode - %s\n", e->m_strError );
+		Log( "CCMatchDBMgr::GetIPContryCode - %s\n", e->m_strError );
 		return false;
 	}
 	_STATUS_DB_END(58);
@@ -2844,7 +2844,7 @@ bool MMatchDBMgr::GetIPContryCode( const string& strIP,
 }
 
 
-bool MMatchDBMgr::GetBlockCountryCodeList( BlockCountryCodeList& rfBlockCountryCodeList )
+bool CCMatchDBMgr::GetBlockCountryCodeList( BlockCountryCodeList& rfBlockCountryCodeList )
 {
 	_STATUS_DB_START;
 	try
@@ -2853,7 +2853,7 @@ bool MMatchDBMgr::GetBlockCountryCodeList( BlockCountryCodeList& rfBlockCountryC
 	}
 	catch( CDBException* e )
 	{
-		Log( "MMatchDBMgr::GetBlockCountryCodeList - %s\n", e->m_strError );
+		Log( "CCMatchDBMgr::GetBlockCountryCodeList - %s\n", e->m_strError );
 		return false;
 	}
 	_STATUS_DB_END(60);
@@ -2861,7 +2861,7 @@ bool MMatchDBMgr::GetBlockCountryCodeList( BlockCountryCodeList& rfBlockCountryC
 }
 
 
-bool MMatchDBMgr::GetCustomIP( const string& strIP, DWORD& dwIPFrom, DWORD& dwIPTo, bool& bIsBlock, string& strCountryCode3, string& strComment )
+bool CCMatchDBMgr::GetCustomIP( const string& strIP, DWORD& dwIPFrom, DWORD& dwIPTo, bool& bIsBlock, string& strCountryCode3, string& strComment )
 {
 	_STATUS_DB_START;
 	try
@@ -2870,7 +2870,7 @@ bool MMatchDBMgr::GetCustomIP( const string& strIP, DWORD& dwIPFrom, DWORD& dwIP
 	}
 	catch( CDBException* e )
 	{
-		Log( "MMatchDBMgr::GetCustomIP - %s\n", e->m_strError );
+		Log( "CCMatchDBMgr::GetCustomIP - %s\n", e->m_strError );
 		return false;
 	}
 	_STATUS_DB_END(59);
@@ -2879,7 +2879,7 @@ bool MMatchDBMgr::GetCustomIP( const string& strIP, DWORD& dwIPFrom, DWORD& dwIP
 }
 
 
-bool MMatchDBMgr::GetIPtoCountryList( IPtoCountryList& rfIPtoCountryList )
+bool CCMatchDBMgr::GetIPtoCountryList( IPtoCountryList& rfIPtoCountryList )
 {
 	_STATUS_DB_START;
 	try
@@ -2888,7 +2888,7 @@ bool MMatchDBMgr::GetIPtoCountryList( IPtoCountryList& rfIPtoCountryList )
 	}
 	catch( CDBException* e )
 	{
-		Log( "MMatchDBMgr::GetIPtoCountryList - %s\n", e->m_strError );
+		Log( "CCMatchDBMgr::GetIPtoCountryList - %s\n", e->m_strError );
 		return false;
 	}
 	_STATUS_DB_END(61);
@@ -2896,7 +2896,7 @@ bool MMatchDBMgr::GetIPtoCountryList( IPtoCountryList& rfIPtoCountryList )
 }
 
 
-bool MMatchDBMgr::GetCustomIPList( CustomIPList& rfCustomIPList )
+bool CCMatchDBMgr::GetCustomIPList( CustomIPList& rfCustomIPList )
 {
 	_STATUS_DB_START;
 	try
@@ -2905,14 +2905,14 @@ bool MMatchDBMgr::GetCustomIPList( CustomIPList& rfCustomIPList )
 	}
 	catch( CDBException* e )
 	{
-		Log( "MMatchDBMgr::GetCustomIPList - %s\n", e->m_strError );
+		Log( "CCMatchDBMgr::GetCustomIPList - %s\n", e->m_strError );
 		return false;
 	}
 	_STATUS_DB_END(62);
 	return true;
 }
 
-bool MMatchDBMgr::InsertEvent( const DWORD dwAID,  const DWORD dwCID, const string& strEventName )
+bool CCMatchDBMgr::InsertEvent( const DWORD dwAID,  const DWORD dwCID, const string& strEventName )
 {
 	_STATUS_DB_START;
 	if( !CheckOpen() )
@@ -2936,7 +2936,7 @@ bool MMatchDBMgr::InsertEvent( const DWORD dwAID,  const DWORD dwCID, const stri
 }
 
 
-bool MMatchDBMgr::SetBlockHacking( const DWORD dwAID
+bool CCMatchDBMgr::SetBlockHacking( const DWORD dwAID
 								  , const DWORD dwCID
 								  , const BYTE btBlockType
 								  , const string& strIP
@@ -2955,8 +2955,8 @@ bool MMatchDBMgr::SetBlockHacking( const DWORD dwAID
 	vIP.reserve( 4 );
 	if( !SplitStrIP(strIP, vIP) || (4 != vIP.size()) )
 	{
-		mlog( "MMatchDBMgr::SetBlockHacking - Invalid IP(AID:%u, IP:%s, Date:%s).\n"
-			,dwAID, strIP.c_str(), MGetStrLocalTime().c_str() );
+		cclog( "CCMatchDBMgr::SetBlockHacking - Invalid IP(AID:%u, IP:%s, Date:%s).\n"
+			,dwAID, strIP.c_str(), CCGetStrLocalTime().c_str() );
 
 		// IP가 비정상이어도 로그는 남겨야 하기에 0으로 체워줌. - by SungE 2007-05-04
 		vIP.clear();
@@ -2994,7 +2994,7 @@ bool MMatchDBMgr::SetBlockHacking( const DWORD dwAID
 }
 
 
-bool MMatchDBMgr::ResetAccountHackingBlock( const DWORD dwAID, const BYTE btBlockType )
+bool CCMatchDBMgr::ResetAccountHackingBlock( const DWORD dwAID, const BYTE btBlockType )
 {
 #ifdef _DEBUG
 	// 이 쿼리가 사내서버에서만 정상작동하지 않아서 서버 메모리릭을 일으킴
@@ -3026,7 +3026,7 @@ bool MMatchDBMgr::ResetAccountHackingBlock( const DWORD dwAID, const BYTE btBloc
 
 
 
-//bool MMatchDBMgr::InsertBlockLog( const DWORD dwAID, const DWORD dwCID, const BYTE btBlockType, const string& strComment,
+//bool CCMatchDBMgr::InsertBlockLog( const DWORD dwAID, const DWORD dwCID, const BYTE btBlockType, const string& strComment,
 // 								  const string& strIP )
 //{
 //#ifdef _BLOCK_HACKER
@@ -3042,7 +3042,7 @@ bool MMatchDBMgr::ResetAccountHackingBlock( const DWORD dwAID, const BYTE btBloc
 //	}
 //	catch( CDBException* e )
 //	{
-//		Log( "MMatchDBMgr::InsertBlockLog - %s.\n", e->m_strError );
+//		Log( "CCMatchDBMgr::InsertBlockLog - %s.\n", e->m_strError );
 //		return false;
 //	}
 //_STATUS_DB_END(66);
@@ -3051,7 +3051,7 @@ bool MMatchDBMgr::ResetAccountHackingBlock( const DWORD dwAID, const BYTE btBloc
 //}
 
 
-bool MMatchDBMgr::DeleteExpiredClan( const DWORD dwCID, const DWORD dwCLID, const string& strDeleteName, const DWORD dwWaitHour )
+bool CCMatchDBMgr::DeleteExpiredClan( const DWORD dwCID, const DWORD dwCLID, const string& strDeleteName, const DWORD dwWaitHour )
 {
 #ifdef _DELETE_CLAN
 	_STATUS_DB_START;
@@ -3076,7 +3076,7 @@ bool MMatchDBMgr::DeleteExpiredClan( const DWORD dwCID, const DWORD dwCLID, cons
 }
 
 
-bool MMatchDBMgr::SetDeleteTime( const DWORD dwMasterCID, const DWORD dwCLID, const string& strDeleteDate )
+bool CCMatchDBMgr::SetDeleteTime( const DWORD dwMasterCID, const DWORD dwCLID, const string& strDeleteDate )
 {
 #ifdef _DELETE_CLAN
 	_STATUS_DB_START;
@@ -3105,7 +3105,7 @@ bool MMatchDBMgr::SetDeleteTime( const DWORD dwMasterCID, const DWORD dwCLID, co
 }
 
 
-bool MMatchDBMgr::AdminResetAllHackingBlock()
+bool CCMatchDBMgr::AdminResetAllHackingBlock()
 {
 	_STATUS_DB_START;
 	if( !CheckOpen() )
@@ -3130,7 +3130,7 @@ bool MMatchDBMgr::AdminResetAllHackingBlock()
 	return true;
 }
 
-bool MMatchDBMgr::UpdateAccountLastLoginTime( const DWORD dwAID )
+bool CCMatchDBMgr::UpdateAccountLastLoginTime( const DWORD dwAID )
 {
 	_STATUS_DB_START;
 	if( !CheckOpen() )
@@ -3154,7 +3154,7 @@ bool MMatchDBMgr::UpdateAccountLastLoginTime( const DWORD dwAID )
 	return true;
 }
 
-bool MMatchDBMgr::GetDBConnection()	
+bool CCMatchDBMgr::GetDBConnection()	
 {
 	_STATUS_DB_START;
 	if (!CheckOpen())
@@ -3189,7 +3189,7 @@ bool MMatchDBMgr::GetDBConnection()
 }
 
 
-bool MMatchDBMgr::GetGambleItemList( vector<MMatchGambleItem*>& vGambleItemList )
+bool CCMatchDBMgr::GetGambleItemList( vector<CCMatchGambleItem*>& vGambleItemList )
 {
 	_STATUS_DB_START;
 	CString strSQL;
@@ -3221,7 +3221,7 @@ bool MMatchDBMgr::GetGambleItemList( vector<MMatchGambleItem*>& vGambleItemList 
 	bool	bIsOpened		= false;
 	bool	bIsCash			= false;
 
-	const int dwCurTimeMin = (MGetMatchServer()->GetGlobalClockCount()) / 60000;
+	const int dwCurTimeMin = (CCGetMatchServer()->GetGlobalClockCount()) / 60000;
 
 	for( ;! rs.IsEOF(); rs.MoveNext() )
 	{
@@ -3234,7 +3234,7 @@ bool MMatchDBMgr::GetGambleItemList( vector<MMatchGambleItem*>& vGambleItemList 
 		bIsOpened		= (1 == (DWORD)rs.Field( "Opened" ).AsInt());
 		bIsCash			= (1 == rs.Field("IsCash").AsInt());
 
-		MMatchGambleItem* pGItem = new MMatchGambleItem( dwGIID
+		CCMatchGambleItem* pGItem = new CCMatchGambleItem( dwGIID
 			, strName
 			, strDesc
 			, nStartTimeMin
@@ -3253,7 +3253,7 @@ bool MMatchDBMgr::GetGambleItemList( vector<MMatchGambleItem*>& vGambleItemList 
 }
 
 
-bool MMatchDBMgr::GetGambleRewardItemList( vector<MMatchGambleRewardItem*>& vGambleRewardItemList )
+bool CCMatchDBMgr::GetGambleRewardItemList( vector<CCMatchGambleRewardItem*>& vGambleRewardItemList )
 {
 	_STATUS_DB_START;
 	CString strSQL;
@@ -3294,7 +3294,7 @@ bool MMatchDBMgr::GetGambleRewardItemList( vector<MMatchGambleRewardItem*>& vGam
 		wRentHourPeriod		= (WORD)rs.Field( "RentHourPeriod" ).AsInt();
 		wRatePerThousand	= (WORD)rs.Field( "RatePerThousand" ).AsInt();
 
-		MMatchGambleRewardItem* pGRItem = new MMatchGambleRewardItem( dwGRIID, dwGIID
+		CCMatchGambleRewardItem* pGRItem = new CCMatchGambleRewardItem( dwGRIID, dwGIID
 			, dwItemIDMale, dwItemIDFemale, dwItemCnt, wRentHourPeriod, wRatePerThousand );
 
 		if( NULL == pGRItem ) return false;
@@ -3306,7 +3306,7 @@ bool MMatchDBMgr::GetGambleRewardItemList( vector<MMatchGambleRewardItem*>& vGam
 	return true;
 }
 
-bool MMatchDBMgr::ChangeGambleItemToRewardNormalItem( const DWORD dwCID, const DWORD dwCIID, const DWORD dwGIID, const DWORD dwGRIID, 
+bool CCMatchDBMgr::ChangeGambleItemToRewardNormalItem( const DWORD dwCID, const DWORD dwCIID, const DWORD dwGIID, const DWORD dwGRIID, 
 													 const DWORD dwItemID, const DWORD dwRentHourPeriod, int &pOutCIID )
 {
 	CString strSQL;	
@@ -3328,7 +3328,7 @@ bool MMatchDBMgr::ChangeGambleItemToRewardNormalItem( const DWORD dwCID, const D
 	return true;
 }
 
-bool MMatchDBMgr::ChangeGambleItemToRewardSpendableItem( const DWORD dwCID, const DWORD dwCIID, const DWORD dwGIID, const DWORD dwGRIID, 
+bool CCMatchDBMgr::ChangeGambleItemToRewardSpendableItem( const DWORD dwCID, const DWORD dwCIID, const DWORD dwGIID, const DWORD dwGRIID, 
 														const DWORD dwItemID, const DWORD dwItemCnt, int &pOutCIID )
 {
 	CString strSQL;	
@@ -3351,7 +3351,7 @@ bool MMatchDBMgr::ChangeGambleItemToRewardSpendableItem( const DWORD dwCID, cons
 	return true;
 }
 
-bool MMatchDBMgr::UpdateAccountPowerLevelingInfo( const DWORD dwAID, const DWORD IsHacker )
+bool CCMatchDBMgr::UpdateAccountPowerLevelingInfo( const DWORD dwAID, const DWORD IsHacker )
 {
 	if( !CheckOpen() )
 		return false;
@@ -3379,7 +3379,7 @@ bool MMatchDBMgr::UpdateAccountPowerLevelingInfo( const DWORD dwAID, const DWORD
 //////////////////////////////////////////////////////////////////////////////////////////////
 // 2009. 6. 3 - Added By Hong KiJu
 //TCHAR g_spAddSurvivalModeGameLog[] = _T( "{CALL spSurvivalModeGameLogAdd('%s', %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u)}" );
-bool MMatchDBMgr::InsertSurvivalModeGameLog(char *szGameName, DWORD dwScenarioID, DWORD dwTotalRound, 
+bool CCMatchDBMgr::InsertSurvivalModeGameLog(char *szGameName, DWORD dwScenarioID, DWORD dwTotalRound, 
 											DWORD dwMasterPlayerCID, DWORD dwMasterPlayerRankPoint,
 											DWORD dw2PCID, DWORD dw2PRankPoint, 
 											DWORD dw3PCID, DWORD dw3PRankPoint, 
@@ -3419,7 +3419,7 @@ bool MMatchDBMgr::InsertSurvivalModeGameLog(char *szGameName, DWORD dwScenarioID
 
 
 
-bool MMatchDBMgr::GetSurvivalModeGroupRanking(vector<RANKINGINFO*> pRankingVec[])
+bool CCMatchDBMgr::GetSurvivalModeGroupRanking(vector<RANKINGINFO*> pRankingVec[])
 {
 	_STATUS_DB_START;
 
@@ -3452,7 +3452,7 @@ bool MMatchDBMgr::GetSurvivalModeGroupRanking(vector<RANKINGINFO*> pRankingVec[]
 		dwScenarioID	= (DWORD)rs.Field( "SID" ).AsInt();
 		dwRanking		= (DWORD)rs.Field( "Ranking" ).AsInt();
 
-		//mlog("SID=%d Rank=%d User Name = %s\n", dwScenarioID, dwRanking, rs.Field("Name").AsString());
+		//cclog("SID=%d Rank=%d User Name = %s\n", dwScenarioID, dwRanking, rs.Field("Name").AsString());
 
 		// Notice By Hong KiJu - 홍기주에게 문의하세용
 		// 참 맘에 안 들어요... 이런 식으로 코딩해놓은거..-_ㅠ
@@ -3469,7 +3469,7 @@ bool MMatchDBMgr::GetSurvivalModeGroupRanking(vector<RANKINGINFO*> pRankingVec[]
 		}
 		else
 		{
-			mlog("MMatchDBMgr::GetSurvivalModeGroupRanking - ScenarioID Error(%d)\n", dwScenarioID);
+			cclog("CCMatchDBMgr::GetSurvivalModeGroupRanking - ScenarioID Error(%d)\n", dwScenarioID);
 		}
 
 	}
@@ -3479,7 +3479,7 @@ bool MMatchDBMgr::GetSurvivalModeGroupRanking(vector<RANKINGINFO*> pRankingVec[]
 	return true;
 }
 
-bool MMatchDBMgr::GetSurvivalModePrivateRanking(DWORD dwCID, RANKINGINFO pRankingInfo[])
+bool CCMatchDBMgr::GetSurvivalModePrivateRanking(DWORD dwCID, RANKINGINFO pRankingInfo[])
 {
 	_STATUS_DB_START;
 
@@ -3519,7 +3519,7 @@ bool MMatchDBMgr::GetSurvivalModePrivateRanking(DWORD dwCID, RANKINGINFO pRankin
 		}
 		else
 		{
-			mlog("MMatchDBMgr::GetSurvivalModeGroupRanking - ScenarioID Error(%d)\n", dwScenarioID);
+			cclog("CCMatchDBMgr::GetSurvivalModeGroupRanking - ScenarioID Error(%d)\n", dwScenarioID);
 		}
 	}
 
@@ -3533,7 +3533,7 @@ bool MMatchDBMgr::GetSurvivalModePrivateRanking(DWORD dwCID, RANKINGINFO pRankin
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Added By Hong KiJu(2009-09-25)
-bool MMatchDBMgr::GetDuelTournamentTimeStamp(char *szTimeStamp)
+bool CCMatchDBMgr::GetDuelTournamentTimeStamp(char *szTimeStamp)
 {
 	_STATUS_DB_START;
 	CString strSQL;
@@ -3556,7 +3556,7 @@ bool MMatchDBMgr::GetDuelTournamentTimeStamp(char *szTimeStamp)
 	return true;
 }
 
-bool MMatchDBMgr::GetDuelTournamentSideRankingInfo(DWORD dwCID, list<DTRankingInfo*> *pRankingList)
+bool CCMatchDBMgr::GetDuelTournamentSideRankingInfo(DWORD dwCID, list<DTRankingInfo*> *pRankingList)
 {
 	_STATUS_DB_START;
 
@@ -3583,13 +3583,13 @@ bool MMatchDBMgr::GetDuelTournamentSideRankingInfo(DWORD dwCID, list<DTRankingIn
 
 		strcpy(pInfo->m_szCharName, rs.Field("Name").AsString());
 
-		pInfo->m_nTP = rs.Field("TP").AsInt();	
-		pInfo->m_nWins = rs.Field("Wins").AsInt();
-		pInfo->m_nLoses = rs.Field("Loses").AsInt();
-		pInfo->m_nRanking = rs.Field("Rank").AsInt();	
-		pInfo->m_nRankingIncrease = rs.Field("RankingIncrease").AsInt();	
-		pInfo->m_nFinalWins = rs.Field("FinalWins").AsInt();
-		pInfo->m_nGrade = rs.Field("PreGrade").AsInt();
+		pInfo->m_iTP = rs.Field("TP").AsInt();	
+		pInfo->m_iWins = rs.Field("Wins").AsInt();
+		pInfo->m_iLoses = rs.Field("Loses").AsInt();
+		pInfo->m_iRanking = rs.Field("Rank").AsInt();	
+		pInfo->m_iRankingIncrease = rs.Field("RankingIncrease").AsInt();	
+		pInfo->m_iFinalWins = rs.Field("FinalWins").AsInt();
+		pInfo->m_iGrade = rs.Field("PreGrade").AsInt();
 
 		pRankingList->push_back(pInfo);
 	}
@@ -3598,7 +3598,7 @@ bool MMatchDBMgr::GetDuelTournamentSideRankingInfo(DWORD dwCID, list<DTRankingIn
 	return true;
 }
 
-bool MMatchDBMgr::GetDuelTournamentGroupRankingInfo(list<DTRankingInfo*> *pRankingList)
+bool CCMatchDBMgr::GetDuelTournamentGroupRankingInfo(list<DTRankingInfo*> *pRankingList)
 {
 	_STATUS_DB_START;
 
@@ -3625,13 +3625,13 @@ bool MMatchDBMgr::GetDuelTournamentGroupRankingInfo(list<DTRankingInfo*> *pRanki
 
 		strcpy(pInfo->m_szCharName, rs.Field("Name").AsString());
 
-		pInfo->m_nTP = rs.Field("TP").AsInt();	
-		pInfo->m_nWins = rs.Field("Wins").AsInt();
-		pInfo->m_nLoses = rs.Field("Loses").AsInt();
-		pInfo->m_nRanking = rs.Field("Rank").AsInt();	
-		pInfo->m_nRankingIncrease = rs.Field("RankingIncrease").AsInt();	
-		pInfo->m_nFinalWins = rs.Field("FinalWins").AsInt();
-		pInfo->m_nGrade = pInfo->m_nGrade = rs.Field("PreGrade").AsInt();
+		pInfo->m_iTP = rs.Field("TP").AsInt();	
+		pInfo->m_iWins = rs.Field("Wins").AsInt();
+		pInfo->m_iLoses = rs.Field("Loses").AsInt();
+		pInfo->m_iRanking = rs.Field("Rank").AsInt();	
+		pInfo->m_iRankingIncrease = rs.Field("RankingIncrease").AsInt();	
+		pInfo->m_iFinalWins = rs.Field("FinalWins").AsInt();
+		pInfo->m_iGrade = pInfo->m_iGrade = rs.Field("PreGrade").AsInt();
 
 		pRankingList->push_back(pInfo);
 	}
@@ -3640,7 +3640,7 @@ bool MMatchDBMgr::GetDuelTournamentGroupRankingInfo(list<DTRankingInfo*> *pRanki
 }
 
 
-bool MMatchDBMgr::InsertDuelTournamentCharInfo(DWORD dwCID)
+bool CCMatchDBMgr::InsertDuelTournamentCharInfo(DWORD dwCID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -3661,7 +3661,7 @@ bool MMatchDBMgr::InsertDuelTournamentCharInfo(DWORD dwCID)
 	return true;
 }
 
-bool MMatchDBMgr::GetDuelTournamentCharInfo(DWORD dwCID, MMatchObjectDuelTournamentCharInfo *pDTCharInfo)
+bool CCMatchDBMgr::GetDuelTournamentCharInfo(DWORD dwCID, CCMatchObjectDuelTournamentCharInfo *pDTCharInfo)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -3708,7 +3708,7 @@ bool MMatchDBMgr::GetDuelTournamentCharInfo(DWORD dwCID, MMatchObjectDuelTournam
 	return true;
 }
 
-bool MMatchDBMgr::UpdateDuelTournamentCharacterInfo(DWORD dwCID, char *szTimeStamp, MMatchObjectDuelTournamentCharInfo *pDTCharInfo)
+bool CCMatchDBMgr::UpdateDuelTournamentCharacterInfo(DWORD dwCID, char *szTimeStamp, CCMatchObjectDuelTournamentCharInfo *pDTCharInfo)
 {
 	if(pDTCharInfo == NULL) return false;
 
@@ -3734,7 +3734,7 @@ bool MMatchDBMgr::UpdateDuelTournamentCharacterInfo(DWORD dwCID, char *szTimeSta
 	try {
 		m_DB.ExecuteSQL(strSQL);
 		if( pDTCharInfo->GetTP() < 0 ) {
-			Log("MMatchDBMgr::UpdateDuelTournamentCharacterInfo - Wrong Values\n");
+			Log("CCMatchDBMgr::UpdateDuelTournamentCharacterInfo - Wrong Values\n");
 		}
 	}
 	catch(CDBException* e) {
@@ -3748,7 +3748,7 @@ bool MMatchDBMgr::UpdateDuelTournamentCharacterInfo(DWORD dwCID, char *szTimeSta
 	return true;
 }
 
-bool MMatchDBMgr::GetDuelTournamentPreviousCharacterInfo(DWORD dwCID, int *nPrevTP, int *nPrevWins, int *nPrevLoses, int *nPrevRanking, int *nPrevFinalWin)
+bool CCMatchDBMgr::GetDuelTournamentPreviousCharacterInfo(DWORD dwCID, int *nPrevTP, int *nPrevWins, int *nPrevLoses, int *nPrevRanking, int *nPrevFinalWin)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -3781,7 +3781,7 @@ bool MMatchDBMgr::GetDuelTournamentPreviousCharacterInfo(DWORD dwCID, int *nPrev
 	return true;
 }
 
-bool MMatchDBMgr::InsertDuelTournamentGameLog(MDUELTOURNAMENTTYPE nDTType, int nMatchFactor, int nPlayer1CID, int nPlayer2CID, int nPlayer3CID, int nPlayer4CID, 
+bool CCMatchDBMgr::InsertDuelTournamentGameLog(CCDUELTOURNAMENTTYPE nDTType, int nMatchFactor, int nPlayer1CID, int nPlayer2CID, int nPlayer3CID, int nPlayer4CID, 
 											  int nPlayer5CID, int nPlayer6CID, int nPlayer7CID, int nPlayer8CID, int *nOutNumber, char *szOutTimeStamp)
 {
 	_STATUS_DB_START;
@@ -3810,7 +3810,7 @@ bool MMatchDBMgr::InsertDuelTournamentGameLog(MDUELTOURNAMENTTYPE nDTType, int n
 	return true;
 }
 
-bool MMatchDBMgr::UpdateDuelTournamentGameLog(char* szTimeStamp, int nLogID, int nChampCID)
+bool CCMatchDBMgr::UpdateDuelTournamentGameLog(char* szTimeStamp, int nLogID, int nChampCID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -3832,7 +3832,7 @@ bool MMatchDBMgr::UpdateDuelTournamentGameLog(char* szTimeStamp, int nLogID, int
 	return true;
 }
 
-bool MMatchDBMgr::InsertDuelTournamentGameLogDetail(int nLogID, char* szTimeStamp, int nMatchType, int nPlayTime
+bool CCMatchDBMgr::InsertDuelTournamentGameLogDetail(int nLogID, char* szTimeStamp, int nMatchType, int nPlayTime
 													, int nWinnerCID, int nGainTP, int nLoserCID, int nLoseTP)
 {
 	_STATUS_DB_START;
@@ -3857,7 +3857,7 @@ bool MMatchDBMgr::InsertDuelTournamentGameLogDetail(int nLogID, char* szTimeStam
 	return true;
 }
 
-bool MMatchDBMgr::GetAccountPenaltyInfo( const unsigned long int nAID, MMatchAccountPenaltyInfo* poutAccountPenaltyInfo)
+bool CCMatchDBMgr::GetAccountPenaltyInfo( const unsigned long int nAID, CCMatchAccountPenaltyInfo* poutAccountPenaltyInfo)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -3886,13 +3886,13 @@ bool MMatchDBMgr::GetAccountPenaltyInfo( const unsigned long int nAID, MMatchAcc
 		int nPCode = rs.Field("PCode").AsInt();		
 		rs.Field("PEndDate").AsDate().GetAsSystemTime(sysTime);
 
-		poutAccountPenaltyInfo->SetPenaltyInfo((MPenaltyCode)nPCode, sysTime);
+		poutAccountPenaltyInfo->SetPenaltyInfo((CCPenaltyCode)nPCode, sysTime);
 	}
 	_STATUS_DB_END(5);
 	return true;
 }
 
-bool MMatchDBMgr::InsertAccountPenaltyInfo( int nAID, int nPCode, int nPenaltyHour, char* szGMID )
+bool CCMatchDBMgr::InsertAccountPenaltyInfo( int nAID, int nPCode, int nPenaltyHour, char* szGMID )
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -3913,7 +3913,7 @@ bool MMatchDBMgr::InsertAccountPenaltyInfo( int nAID, int nPCode, int nPenaltyHo
 	return true;
 }
 
-bool MMatchDBMgr::InsertDistributeItem(const unsigned int nCID, 
+bool CCMatchDBMgr::InsertDistributeItem(const unsigned int nCID, 
 									   int nItemDescID, 
 									   bool bRentItem, 
 									   int nRentPeriodHour,
@@ -3948,8 +3948,8 @@ bool MMatchDBMgr::InsertDistributeItem(const unsigned int nCID,
 
 	int nRet = rs.Field("Ret").AsInt();
 	if( nRet < 0 ) {
-		Log("MMatchDBMgr::InsertDistributeItem - FAILED(%d)\n", nRet);
-		Log("MMatchDBMgr::InsertDistributeItem - %s\n", strSQL.GetBuffer() );
+		Log("CCMatchDBMgr::InsertDistributeItem - FAILED(%d)\n", nRet);
+		Log("CCMatchDBMgr::InsertDistributeItem - %s\n", strSQL.GetBuffer() );
 		*poutCIID = 0;
 		return false;
 	}
@@ -3958,7 +3958,7 @@ bool MMatchDBMgr::InsertDistributeItem(const unsigned int nCID,
 	return true;
 }
 
-bool MMatchDBMgr::GetItemTable(map<int, MMatchItemDescForDatabase*>& ItemMapFromDatabase)
+bool CCMatchDBMgr::GetItemTable(map<int, CCMatchItemDescForDatabase*>& ItemMapFromDatabase)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;	
@@ -3983,14 +3983,14 @@ bool MMatchDBMgr::GetItemTable(map<int, MMatchItemDescForDatabase*>& ItemMapFrom
 
 	for( ; ! rs.IsEOF(); rs.MoveNext() ) 
 	{
-		MMatchItemDescForDatabase *pItemDesc = new MMatchItemDescForDatabase;
+		CCMatchItemDescForDatabase *pItemDesc = new CCMatchItemDescForDatabase;
 
 		pItemDesc->m_nID = rs.Field("ItemID").AsInt();
 
 		pItemDesc->m_nResSex   = rs.Field("ResSex").AsInt();
 		pItemDesc->m_nResLevel = rs.Field("ResLevel").AsInt();
 
-		pItemDesc->m_nSlot   = (MMatchItemSlotType)rs.Field("Slot").AsInt();
+		pItemDesc->m_nSlot   = (CCMatchItemSlotType)rs.Field("Slot").AsInt();
 		pItemDesc->m_nWeight = rs.Field("Weight").AsInt();
 		pItemDesc->m_nDamage = rs.Field("Damage").AsInt();
 		pItemDesc->m_nDelay  = rs.Field("Delay").AsInt();
@@ -4009,7 +4009,7 @@ bool MMatchDBMgr::GetItemTable(map<int, MMatchItemDescForDatabase*>& ItemMapFrom
 		if( rs.Field("IsSpendableItem").AsInt() == 0 )		pItemDesc->m_bIsSpendableItem = false;
 		else if( rs.Field("IsSpendableItem").AsInt() == 1 )	pItemDesc->m_bIsSpendableItem = true;
 
-		ItemMapFromDatabase.insert(pair<int, MMatchItemDescForDatabase*>(pItemDesc->m_nID, pItemDesc));
+		ItemMapFromDatabase.insert(pair<int, CCMatchItemDescForDatabase*>(pItemDesc->m_nID, pItemDesc));
 	}
 
 
@@ -4017,7 +4017,7 @@ bool MMatchDBMgr::GetItemTable(map<int, MMatchItemDescForDatabase*>& ItemMapFrom
 	return true;
 }
 
-bool MMatchDBMgr::DeleteExpiredCharItem(const unsigned int nCID, unsigned int nCIID)
+bool CCMatchDBMgr::DeleteExpiredCharItem(const unsigned int nCID, unsigned int nCIID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4039,15 +4039,15 @@ bool MMatchDBMgr::DeleteExpiredCharItem(const unsigned int nCID, unsigned int nC
 
 	int nRet  = rs.Field("Ret").AsInt();
 	if (nRet < 0) {
-		Log("MMatchDBMgr::DeleteExpiredCharItem - FAILED(%d)\n", nRet);
-		Log("MMatchDBMgr::DeleteExpiredCharItem - %s\n", strSQL.GetBuffer());
+		Log("CCMatchDBMgr::DeleteExpiredCharItem - FAILED(%d)\n", nRet);
+		Log("CCMatchDBMgr::DeleteExpiredCharItem - %s\n", strSQL.GetBuffer());
 		return false;
 	}
 
 	return true;
 }
 
-bool MMatchDBMgr::UpdateCharGambleItemCount(unsigned int nCIID, unsigned int nGIID, unsigned int nGambleItemCount)
+bool CCMatchDBMgr::UpdateCharGambleItemCount(unsigned int nCIID, unsigned int nGIID, unsigned int nGambleItemCount)
 {
 	_STATUS_DB_START;
 	if( !CheckOpen() )	return false;
@@ -4072,15 +4072,15 @@ bool MMatchDBMgr::UpdateCharGambleItemCount(unsigned int nCIID, unsigned int nGI
 
 	int nRet  = rs.Field("Ret").AsInt();
 	if (nRet < 0) {
-		Log("MMatchDBMgr::UpdateCharGambleItemCount - FAILED(%d)\n", nRet);
-		Log("MMatchDBMgr::UpdateCharGambleItemCount - %s\n", strSQL.GetBuffer());
+		Log("CCMatchDBMgr::UpdateCharGambleItemCount - FAILED(%d)\n", nRet);
+		Log("CCMatchDBMgr::UpdateCharGambleItemCount - %s\n", strSQL.GetBuffer());
 		return false;
 	}
 
 	return true;
 }
 
-bool MMatchDBMgr::UpdateCharSpendItemCount(unsigned int nCIID, unsigned int nSpendCount)
+bool CCMatchDBMgr::UpdateCharSpendItemCount(unsigned int nCIID, unsigned int nSpendCount)
 {
 	_STATUS_DB_START;
 	if( !CheckOpen() )	return false;	
@@ -4104,15 +4104,15 @@ bool MMatchDBMgr::UpdateCharSpendItemCount(unsigned int nCIID, unsigned int nSpe
 
 	int nRet  = rs.Field("Ret").AsInt();
 	if (nRet < 0) {
-		Log("MMatchDBMgr::UpdateCharSpendItemCounts - FAILED(%d)\n", nRet);
-		Log("MMatchDBMgr::UpdateCharSpendItemCounts - %s\n", strSQL.GetBuffer());
+		Log("CCMatchDBMgr::UpdateCharSpendItemCounts - FAILED(%d)\n", nRet);
+		Log("CCMatchDBMgr::UpdateCharSpendItemCounts - %s\n", strSQL.GetBuffer());
 		return false;
 	}
 
 	return true;
 }
 
-bool MMatchDBMgr::SellingItemToBounty(int nCID, int nCIID, int nSellItemID, int nSellPrice, int nCharBP)
+bool CCMatchDBMgr::SellingItemToBounty(int nCID, int nCIID, int nSellItemID, int nSellPrice, int nCharBP)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4135,15 +4135,15 @@ bool MMatchDBMgr::SellingItemToBounty(int nCID, int nCIID, int nSellItemID, int 
 
 	int nRet  = rs.Field("Ret").AsInt();
 	if (nRet < 0) {
-		Log("MMatchDBMgr::SellingItemToBounty - FAILED(%d)\n", nRet);
-		Log("MMatchDBMgr::SellingItemToBounty - %s\n", strSQL.GetBuffer());
+		Log("CCMatchDBMgr::SellingItemToBounty - FAILED(%d)\n", nRet);
+		Log("CCMatchDBMgr::SellingItemToBounty - %s\n", strSQL.GetBuffer());
 		return false;
 	}
 
 	return true;	
 }
 
-bool MMatchDBMgr::SellingSpendableItemToBounty(int nCID, int nCIID, int nSellItemID, int nSellItemCnt, int nSellPrice, int nCharBP)
+bool CCMatchDBMgr::SellingSpendableItemToBounty(int nCID, int nCIID, int nSellItemID, int nSellItemCnt, int nSellPrice, int nCharBP)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4166,15 +4166,15 @@ bool MMatchDBMgr::SellingSpendableItemToBounty(int nCID, int nCIID, int nSellIte
 
 	int nRet  = rs.Field("Ret").AsInt();
 	if (nRet < 0) {
-		Log("MMatchDBMgr::SellingSpendableItemToBounty - FAILED(%d)\n", nRet);
-		Log("MMatchDBMgr::SellingSpendableItemToBounty - %s\n", strSQL.GetBuffer());
+		Log("CCMatchDBMgr::SellingSpendableItemToBounty - FAILED(%d)\n", nRet);
+		Log("CCMatchDBMgr::SellingSpendableItemToBounty - %s\n", strSQL.GetBuffer());
 		return false;
 	}
 
 	return true;	
 }
 
-bool MMatchDBMgr::UpdateEquipedItem(const unsigned long nCID, MMatchCharItemParts parts, 
+bool CCMatchDBMgr::UpdateEquipedItem(const unsigned long nCID, CCMatchCharItemParts parts, 
 									unsigned long int nCIID, const unsigned long int nItemID)
 {
 	_STATUS_DB_START;
@@ -4198,8 +4198,8 @@ bool MMatchDBMgr::UpdateEquipedItem(const unsigned long nCID, MMatchCharItemPart
 
 	int nRet  = rs.Field("Ret").AsInt();
 	if (nRet < 0) {
-		Log("MMatchDBMgr::UpdateEquipedItem - FAILED(%d)\n", nRet);
-		Log("MMatchDBMgr::UpdateEquipedItem - %s\n", strSQL.GetBuffer());
+		Log("CCMatchDBMgr::UpdateEquipedItem - FAILED(%d)\n", nRet);
+		Log("CCMatchDBMgr::UpdateEquipedItem - %s\n", strSQL.GetBuffer());
 		return false;
 	}
 
@@ -4210,7 +4210,7 @@ bool MMatchDBMgr::UpdateEquipedItem(const unsigned long nCID, MMatchCharItemPart
 // Created By 홍기주(2011-04-19)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool MMatchDBMgr::GetBattletimeRewardList(vector<MMatchBRDescription*>& vBattletimeRewardDescription)
+bool CCMatchDBMgr::GetBattletimeRewardList(vector<CCMatchBRDescription*>& vBattletimeRewardDescription)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4240,8 +4240,8 @@ bool MMatchDBMgr::GetBattletimeRewardList(vector<MMatchBRDescription*>& vBattlet
 		string strName = rs.Field("Name").AsString();
 		string strResetDesc = rs.Field("ResetDesc").AsString();
 
-		MMatchBRDescription* pDesc = 
-			new MMatchBRDescription(nBRID, strName, strResetDesc, nBRTID, nRewardMinutePeriod, nRewardCount, nRewardKillCount);
+		CCMatchBRDescription* pDesc = 
+			new CCMatchBRDescription(nBRID, strName, strResetDesc, nBRTID, nRewardMinutePeriod, nRewardCount, nRewardKillCount);
 
 		vBattletimeRewardDescription.push_back( pDesc );
 	}
@@ -4250,7 +4250,7 @@ bool MMatchDBMgr::GetBattletimeRewardList(vector<MMatchBRDescription*>& vBattlet
 	return true;
 }
 
-bool MMatchDBMgr::GetBattletimeRewardItemList(vector<MMatchBRItem*>& vBattletimeRewardItem)
+bool CCMatchDBMgr::GetBattletimeRewardItemList(vector<CCMatchBRItem*>& vBattletimeRewardItem)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4279,8 +4279,8 @@ bool MMatchDBMgr::GetBattletimeRewardItemList(vector<MMatchBRItem*>& vBattletime
 		int nRentHourPeriod = rs.Field("RentHourPeriod").AsInt();
 		int nRatePerThousand = rs.Field("RatePerThousand").AsInt();
 
-		MMatchBRItem* pRewardItem = 
-			new MMatchBRItem(nBRID, nBRIID, nItemIDMale, nItemIDFemale, nItemCnt, nRentHourPeriod, nRatePerThousand);
+		CCMatchBRItem* pRewardItem = 
+			new CCMatchBRItem(nBRID, nBRIID, nItemIDMale, nItemIDFemale, nItemCnt, nRentHourPeriod, nRatePerThousand);
 
 		vBattletimeRewardItem.push_back( pRewardItem );
 	}
@@ -4290,7 +4290,7 @@ bool MMatchDBMgr::GetBattletimeRewardItemList(vector<MMatchBRItem*>& vBattletime
 	return true;
 }
 
-bool MMatchDBMgr::GetCharBRInfoAll(int nCID, MMatchCharBattleTimeRewardInfoMap& BRInfoMap)
+bool CCMatchDBMgr::GetCharBRInfoAll(int nCID, CCMatchCharBattleTimeRewardInfoMap& BRInfoMap)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4317,7 +4317,7 @@ bool MMatchDBMgr::GetCharBRInfoAll(int nCID, MMatchCharBattleTimeRewardInfoMap& 
 		int nRewardCount	= rs.Field("RewardCount").AsInt();
 		int nKillCount		= rs.Field("KillCount").AsInt();
 
-		MMatchCharBRInfo* pInfo = new MMatchCharBRInfo(nBRID, nBRTID, nBattleTime, nRewardCount, nKillCount);
+		CCMatchCharBRInfo* pInfo = new CCMatchCharBRInfo(nBRID, nBRTID, nBattleTime, nRewardCount, nKillCount);
 		pInfo->SetCheckSkip(false);
 
 		BRInfoMap.Insert(pInfo->GetBRID(), pInfo);
@@ -4328,7 +4328,7 @@ bool MMatchDBMgr::GetCharBRInfoAll(int nCID, MMatchCharBattleTimeRewardInfoMap& 
 	return true;
 }
 
-bool MMatchDBMgr::GetCharBRInfo(int nCID, int nBRID, MMatchCharBRInfo* poutInfo)
+bool CCMatchDBMgr::GetCharBRInfo(int nCID, int nBRID, CCMatchCharBRInfo* poutInfo)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4363,7 +4363,7 @@ bool MMatchDBMgr::GetCharBRInfo(int nCID, int nBRID, MMatchCharBRInfo* poutInfo)
 	return true;
 }
 
-bool MMatchDBMgr::InsertCharBRInfo(int nCID, int nBRID, int nBRTID)
+bool CCMatchDBMgr::InsertCharBRInfo(int nCID, int nBRID, int nBRTID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4384,7 +4384,7 @@ bool MMatchDBMgr::InsertCharBRInfo(int nCID, int nBRID, int nBRTID)
 	return true;
 }
 
-bool MMatchDBMgr::UpdateCharBRInfo(int nCID, int nBRID, int nBRTID, int nRewardCount, int nBattleTime, int nKillCount)
+bool CCMatchDBMgr::UpdateCharBRInfo(int nCID, int nBRID, int nBRTID, int nRewardCount, int nBattleTime, int nKillCount)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4405,7 +4405,7 @@ bool MMatchDBMgr::UpdateCharBRInfo(int nCID, int nBRID, int nBRTID, int nRewardC
 	return true;
 }
 
-bool MMatchDBMgr::RewardCharBattleTimeReward(int nCID, int nBRID, int nBRTID, int nBattleTime, int nKillCount, int nItemID, int nItemCnt, int nRentHourPeriod, bool bIsSpendable, int* noutCIID)
+bool CCMatchDBMgr::RewardCharBattleTimeReward(int nCID, int nBRID, int nBRTID, int nBattleTime, int nKillCount, int nItemID, int nItemCnt, int nRentHourPeriod, bool bIsSpendable, int* noutCIID)
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;
@@ -4426,8 +4426,8 @@ bool MMatchDBMgr::RewardCharBattleTimeReward(int nCID, int nBRID, int nBRTID, in
 
 	*noutCIID  = rs.Field("Ret").AsInt();
 	if (*noutCIID < 0) {
-		Log("MMatchDBMgr::RewardCharBR - FAILED(%d)\n", *noutCIID);
-		Log("MMatchDBMgr::RewardCharBR - %s\n", strSQL.GetBuffer());
+		Log("CCMatchDBMgr::RewardCharBR - FAILED(%d)\n", *noutCIID);
+		Log("CCMatchDBMgr::RewardCharBR - %s\n", strSQL.GetBuffer());
 		return false;
 	}
 
@@ -4439,7 +4439,7 @@ bool MMatchDBMgr::RewardCharBattleTimeReward(int nCID, int nBRID, int nBRTID, in
 #ifdef _DEBUG
 TCHAR sp_q_test[] = _T("{CALL spqtest}");
 
-bool MMatchDBMgr::test()
+bool CCMatchDBMgr::test()
 {
 	_STATUS_DB_START;
 	if (!CheckOpen()) return false;

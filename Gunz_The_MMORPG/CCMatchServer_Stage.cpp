@@ -229,7 +229,7 @@ bool CCMatchServer::StageJoin(const CCUID& uidPlayer, const CCUID& uidStage)
 
 
 	// 방송 관계자면 방장권한을 자동으로 빼앗는다. - 온게임넷 비비빅 요청
-	if (CCMUGEVENTMASTER == pObj->GetAccountInfo()->m_nUGrade) {
+	if (CCMUG_EVENTMASTER == pObj->GetAccountInfo()->m_nUGrade) {
 		OnEventChangeMaster(pObj->GetUID());
 	}
 
@@ -640,7 +640,7 @@ bool CCMatchServer::StageChat(const CCUID& uidPlayer, const CCUID& uidStage, cha
 	CCMatchObject* pObj = (CCMatchObject*)GetObject(uidPlayer);
 	if ((pObj == NULL) || (pObj->GetCharInfo() == NULL)) return false;
 
-	if (pObj->GetAccountInfo()->m_nUGrade == CCMUGCHAT_LIMITED) return false;
+	if (pObj->GetAccountInfo()->m_nUGrade == CCMUG_CHAT_LIMITED) return false;
 
 //	InsertChatDBLog(uidPlayer, pszChat);
 
@@ -965,7 +965,7 @@ void CCMatchServer::OnPrivateStageJoin(const CCUID& uidPlayer, const CCUID& uidS
 
 	CCMatchUserGradeID ugid = pObj->GetAccountInfo()->m_nUGrade;
 
-	if (ugid == CCMUGDEVELOPER || ugid == CCMUGADMIN) 
+	if (ugid == CCMUG_DEVELOPER || ugid == CCMUG_ADMIN) 
 		bSkipPassword = true;
 
 	// 비밀방이 아니거나 패스워드가 틀리면 패스워드가 틀렸다고 응답한다.
@@ -1618,7 +1618,7 @@ void CCMatchServer::OnRequestStageSetting(const CCUID& uidComm, const CCUID& uid
 	OnStageRelayMapListInfo(uidStage, uidComm);
 
 	CCMatchObject* pChar = GetObject(uidComm);
-	if (pChar && (CCMUGEVENTMASTER == pChar->GetAccountInfo()->m_nUGrade)) 	{
+	if (pChar && (CCMUG_EVENTMASTER == pChar->GetAccountInfo()->m_nUGrade)) 	{
 		// 이벤트 마스터에게 처음 방만들었던 사람을 알려준다
 		StageShowInfo(this, uidComm, uidStage, "/showinfo");
 	}
@@ -2006,15 +2006,15 @@ void CCMatchServer::CalcExpOnGameKill(CCMatchStage* pStage, CCMatchObject* pAtta
 	}
 
 	// 죽은사람이 운영자, 개발자일 경우 경험치 두배
-	if ((pVictim->GetAccountInfo()->m_nUGrade == CCMUGADMIN) || 
-		(pVictim->GetAccountInfo()->m_nUGrade == CCMUGDEVELOPER))
+	if ((pVictim->GetAccountInfo()->m_nUGrade == CCMUG_ADMIN) || 
+		(pVictim->GetAccountInfo()->m_nUGrade == CCMUG_DEVELOPER))
 	{
 		nAttackerExp = nAttackerExp * 2;
 	}
 	// 죽인사람이 운영자, 개발자일 경우 경치다운 없음
 	if ((!bSuicide) &&
-		((pAttacker->GetAccountInfo()->m_nUGrade == CCMUGADMIN) || 
-		(pAttacker->GetAccountInfo()->m_nUGrade == CCMUGDEVELOPER)))
+		((pAttacker->GetAccountInfo()->m_nUGrade == CCMUG_ADMIN) || 
+		(pAttacker->GetAccountInfo()->m_nUGrade == CCMUG_DEVELOPER)))
 	{
 		nVictimExp = 0;
 	}
@@ -2905,9 +2905,9 @@ void CCMatchServer::OnEventRequestJjang(const CCUID& uidAdmin, const char* pszTa
 	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 	if (pTargetObj == NULL) return;
 	if (IsAdminGrade(pTargetObj)) return;		// 어드민 대상으로 짱불가
-	if (CCMUGSTAR == pTargetObj->GetAccountInfo()->m_nUGrade) return;	// 이미 짱
+	if (CCMUG_STAR == pTargetObj->GetAccountInfo()->m_nUGrade) return;	// 이미 짱
 
-	pTargetObj->GetAccountInfo()->m_nUGrade = CCMUGSTAR;
+	pTargetObj->GetAccountInfo()->m_nUGrade = CCMUG_STAR;
 
 	if (m_MatchDBMgr.EventJjangUpdate(pTargetObj->GetAccountInfo()->m_nAID, true)) {
 		CCMatchObjectCacheBuilder CacheBuilder;
@@ -2942,7 +2942,7 @@ void CCMatchServer::OnEventRemoveJjang(const CCUID& uidAdmin, const char* pszTar
 	CCMatchObject* pTargetObj = GetPlayerByName(pszTargetName);
 	if (pTargetObj == NULL) return;			// 어드민 대상으로 짱불가
 
-	pTargetObj->GetAccountInfo()->m_nUGrade = CCMUGFREE;
+	pTargetObj->GetAccountInfo()->m_nUGrade = CCMUG_FREE;
 
 	if (m_MatchDBMgr.EventJjangUpdate(pTargetObj->GetAccountInfo()->m_nAID, false)) {
 		CCMatchObjectCacheBuilder CacheBuilder;

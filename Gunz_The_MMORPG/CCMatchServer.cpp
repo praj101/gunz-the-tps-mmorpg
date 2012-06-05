@@ -200,7 +200,7 @@ void CopyCharInfoForTrans(CCTD_CharInfo* pDest, CCMatchCharInfo* pSrcCharInfo, C
 	if (pSrcObject) {
 		pDest->nUGradeID = pSrcObject->GetAccountInfo()->m_nUGrade;
 	} else {
-		pDest->nUGradeID = CCMUGFREE;
+		pDest->nUGradeID = CCMUG_FREE;
 	}
 
 	pDest->nClanCLID = pSrcCharInfo->m_ClanInfo.m_nClanID;
@@ -260,7 +260,7 @@ void CopyCharInfoDetailForTrans(CCTD_CharInfo_Detail* pDest, CCMatchCharInfo* pS
 	if (pSrcObject) {
 		pDest->nUGradeID = pSrcObject->GetAccountInfo()->m_nUGrade;
 	} else {
-		pDest->nUGradeID = CCMUGFREE;
+		pDest->nUGradeID = CCMUG_FREE;
 	}
 
 	pDest->nClanCLID = pSrcCharInfo->m_ClanInfo.m_nClanID;

@@ -591,14 +591,14 @@ void CCMatchStage::PlayerState(const CCUID& uidPlayer, CCMatchObjectStageState n
 
 bool _GetUserGradeIDName(CCMatchUserGradeID gid,char* sp_name)
 {
-	if(gid == CCMUGDEVELOPER) 
+	if(gid == CCMUG_DEVELOPER) 
 	{ 
 		if(sp_name) {
 			strcpy(sp_name,"개발자");
 		}
 		return true; 
 	}
-	else if(gid == CCMUGADMIN) {
+	else if(gid == CCMUG_ADMIN) {
 		
 		if(sp_name) { 
 			strcpy(sp_name,"운영자");

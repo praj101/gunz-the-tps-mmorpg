@@ -37,7 +37,7 @@ class ZPlayerListItem : public CCListItem {
 public:
 	ZPlayerListItem() {
 		m_PlayerUID = CCUID(0,0);
-		m_Grade = CCMUGFREE;
+		m_Grade = CCMUG_FREE;
 		m_Color = sColor(0xFFCDCDCD);
 	}
 
@@ -107,7 +107,7 @@ public:
 		m_szLevel[0] = 0;
 		m_szName[0] = 0;
 		m_szClanName[0] = 0;
-		m_Grade = CCMUGFREE;
+		m_Grade = CCMUG_FREE;
 	}
 
 	virtual const char* GetString()
@@ -182,7 +182,7 @@ public:
 		m_szLevel[0] = NULL;
 		m_szLocation[0] = NULL;
 
-		m_Grade = CCMUGFREE;
+		m_Grade = CCMUG_FREE;
 	}
 
 	virtual const char* GetString()
@@ -243,7 +243,7 @@ public:
 		m_szName[0] = PS_END;
 		m_szClanName[0] = PS_END;
 		m_szLevel[0] = 0;
-		m_Grade = CCMUGFREE;
+		m_Grade = CCMUG_FREE;
 		m_ClanGrade = CCG_NONE;
 		m_Color = sColor(0xFFCDCDCD);
 	}
@@ -332,7 +332,7 @@ public:
 		m_PlayerUID = CCUID(0,0);
 		m_szName[0] = 0;
 		m_szLevel[0] = 0;
-		m_Grade = CCMUGFREE;
+		m_Grade = CCMUG_FREE;
 	}
 
 	virtual const char* GetString()
