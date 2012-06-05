@@ -583,7 +583,7 @@ CCWidget* Core::NewWidget(const char* szClass, const char* szName, CCWidget* pPa
 	else if(strcmp(szClass, CORE_CCEDIT)==0) return new CCEdit(szName, pParent, pListener);
 	else if(strcmp(szClass, CORE_CCLISTBOX)==0) return new CCListBox(szName, pParent, pListener);
 	else if(strcmp(szClass, CORE_CCMULTICOLLISTBOX)==0) return new CCMultiColListBox(szName, pParent, pListener);
-	else if(strcmp(szClass, CORE_CCCOMBOBOX)==0) return new CCComboBox(szName, pParent, pListener);
+	else if(strcmp(szClass, CORE_CCCMBBOX)==0) return new CCComboBox(szName, pParent, pListener);
 	else if(strcmp(szClass, CORE_CCFILEBOX)==0) return new CCFileBox(szName, pParent, pListener);
 	else if(strcmp(szClass, CORE_CCFRAME)==0) return new CCFrame(szName, pParent, pListener);
 	else if(strcmp(szClass, CORE_CCGROUP)==0) return new CCGroup(szName, pParent, pListener);

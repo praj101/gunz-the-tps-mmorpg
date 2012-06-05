@@ -3,8 +3,8 @@
 #include "CCButton.h"
 #include "CCListBox.h"
 
-#define CORE_CCCOMBOBOX				"ComboBox"
-#define CORE_CCCOMBOLISTBOX			"ComboListBox"
+#define CORE_CCCMBBOX				"ComboBox"
+#define CORE_CCCMBLISTBOX			"ComboListBox"
 #define CCCMBBOX_CHANGED		"changed"
 
 class CCIDLResource;
@@ -21,7 +21,7 @@ public:
 	DECLARE_LOOK_CLIENT()
 
 
-	virtual const char* GetClassName(){ return CORE_CCCOMBOLISTBOX; }
+	virtual const char* GetClassName(){ return CORE_CCCMBLISTBOX; }
 };
 
 class CCComboBox : public CCButton{
@@ -94,7 +94,7 @@ public:
 	void SetListboxAlignment( CCAlignmentMode am)		{ m_pListBox->m_FontAlign = am; }
 
 
-	virtual const char* GetClassName(){ return CORE_CCCOMBOBOX; }
+	virtual const char* GetClassName(){ return CORE_CCCMBBOX; }
 
 	virtual void OnReleaseFocus();
 

@@ -13,17 +13,17 @@ int charinstr(char* sz, char c)
 }
 
 /*
-void CCMsgBox::OnDrawText(MDrawContext* pDC)
+void CCMsgBox::OnDrawText(CCDrawContext* pDC)
 {
 	//CCFrameDrawer* pFD = GetFrameDrawer();
 
-	pDC->SetColor(MCOLOR(255, 255, 255));
+	pDC->SetColor(sColor(255, 255, 255));
 
 	char* pStr = m_szMessage;
 	int nLen = charinstr(pStr, '\n');
 	int nY = m_Rect.y+10;
 	if(nLen<0){
-		//pFD->Text(pDC, MPOINT(m_Rect.x+10, m_Rect.y+10), pStr, MFDTS_NORMAL, false, &m_Rect);
+		//pFD->Text(pDC, sPoint(m_Rect.x+10, m_Rect.y+10), pStr, MFDTS_NORMAL, false, &m_Rect);
 		pDC->Text(m_Rect.x+10, m_Rect.y+10, pStr);
 	}
 	else{
@@ -31,7 +31,7 @@ void CCMsgBox::OnDrawText(MDrawContext* pDC)
 			char temp[MWIDGET_NAME_LENGTH];
 			memcpy(temp, pStr, nLen);
 			temp[nLen] = 0;
-			//pFD->Text(pDC, MPOINT(m_Rect.x+10, nY), temp, MFDTS_NORMAL, false, &m_Rect);
+			//pFD->Text(pDC, sPoint(m_Rect.x+10, nY), temp, MFDTS_NORMAL, false, &m_Rect);
 			pDC->Text(m_Rect.x+10, nY, temp);
 			pStr += (nLen+1);
 			nLen = charinstr(pStr, '\n');
@@ -40,7 +40,7 @@ void CCMsgBox::OnDrawText(MDrawContext* pDC)
 	}
 }
 
-void CCMsgBox::OnDraw(MDrawContext* pDC)
+void CCMsgBox::OnDraw(CCDrawContext* pDC)
 {
 	OnDrawText(pDC);
 }
@@ -131,7 +131,7 @@ void CCMsgBox::MultiplySize( float byIDLWidth, float byIDLHeight, float byCurrWi
 CCMsgBox::CCMsgBox(const char* szMessage, CCWidget* pParent, CCListener* pListener, CCMsgBoxType nType)
 : CCFrame(CCGetString(MSID_MESSAGE), pParent, (pListener==NULL)?pParent:pListener)
 {
-//	m_pMessage = new MLabel(szMessage, this, this);
+//	m_pMessage = new CCLabel(szMessage, this, this);
 	m_pMessage = new CCTextArea(255, szMessage, this, this);
 	m_pMessage->SetEditable(false);
 

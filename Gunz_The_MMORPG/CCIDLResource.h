@@ -26,7 +26,7 @@ class CCToolTip;
 class CCPopupMenu;
 class CCAniBitmap;
 class CCAnimation;
-class CCBCCButton;
+class CCBmButton;
 class CCMenuItem;
 class CCBmLabel;
 class CCTextArea;
@@ -123,28 +123,28 @@ protected:
 
 	// Widget
 	CCWidget*		GetParentWidget(::CCXmlElement& element);
-	CCFrame*			GetFrame(::CCXmlElement& element);
-	CCLabel*			GetLabel(::CCXmlElement& element);
+	CCFrame*		GetFrame(::CCXmlElement& element);
+	CCLabel*		GetLabel(::CCXmlElement& element);
 	CCButton*		GetButton(::CCXmlElement& element);
-	CCBCCButton*		GetBCCButton(::CCXmlElement& element);
+	CCBmButton*		GetBmButton(::CCXmlElement& element);
 	CCEdit*			GetEdit(::CCXmlElement& element);
 	CCListBox*		GetListBox(::CCXmlElement& element);
 	CCPicture*		GetPicture(::CCXmlElement& element);
-	CCScrollBar*		GetScrollBar(::CCXmlElement& element);
+	CCScrollBar*	GetScrollBar(::CCXmlElement& element);
 	CCSlider*		GetSlider(::CCXmlElement& element);
-	CCGroup*			GetGroup(::CCXmlElement& element);
+	CCGroup*		GetGroup(::CCXmlElement& element);
 	CCComboBox*		GetComboBox(::CCXmlElement& element);
-	CCPopupMenu*		GetPopupMenu(::CCXmlElement& element);
-	CCAniBitmap*		GetAniBitmap(::CCXmlElement& element);
-	CCAnimation*		GetAnimation(::CCXmlElement& element);
+	CCPopupMenu*	GetPopupMenu(::CCXmlElement& element);
+	CCAniBitmap*	GetAniBitmap(::CCXmlElement& element);
+	CCAnimation*	GetAnimation(::CCXmlElement& element);
 	CCCursor*		GetCursor(::CCXmlElement& element);
-	CCLabel*		GetBmLabel(::CCXmlElement& element);
+	CCBmLabel*		GetBmLabel(::CCXmlElement& element);
 	CCFont*			GetFont(::CCXmlElement& element);
 	CCHotKey*		GetHotKey(::CCXmlElement& element);
 //	MActionKey*		GetActionKey(::CCXmlElement& element);
 	CCTextArea*		GetTextArea(::CCXmlElement& element);
 	CCTabCtrl*		GetTabCtrl(::CCXmlElement& element);
-	CCPanel*			GetPanel(::CCXmlElement& element);
+	CCPanel*		GetPanel(::CCXmlElement& element);
 
 	// Look&Feel
 	CCBLabelLook*	GetLabelLook(::CCXmlElement& element);
@@ -167,7 +167,7 @@ protected:
 	void GetRebounds(::CCXmlElement& element);
 
 	void GetFrameBtn(CCFrameBtn* pFrameBtn, CCBFrameLook* pFrameLook, ::CCXmlElement& element);
-	void GetBCCButtonBitmaps(CCBitmap** ppBitmaps, ::CCXmlElement& element);
+	void GetBmButtonBitmaps(CCBitmap** ppBitmaps, ::CCXmlElement& element);
 	void GetBitmaps(CCBitmap** ppBitmaps, ::CCXmlElement& element, const int nBitmapCount);
 	void InsertWidget(::CCXmlElement& element, CCWidget* pWidget);
 	void InsertWidget( const char* pItemName, CCWidget* pWidget );

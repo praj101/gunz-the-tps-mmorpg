@@ -986,8 +986,8 @@ bool CheckFont()
 
 			int hr = IDOK;
 
-			//hr = ::MessageBox(NULL,"귀하의 컴퓨터에는 건즈가 사용하는 (굴림,돋움) 폰트가 없는 것 같습니다.\n 다른 폰트를 선택 하시겠습니까?","알림",MB_OKCANCEL);
-			//hr = ::MessageBox(NULL,"귀하의 컴퓨터에는 건즈가 사용하는 (굴림,돋움) 폰트가 없는 것 같습니다.\n 계속 진행 하시겠습니까?","알림",MB_OKCANCEL);
+			//hr = ::MessageBox(NULL,"귀하의 컴퓨터에는 건즈가 사용하는 (굴림,돋움) 폰트가 없는 것 같습니다.\n 다른 폰트를 선택 하시겠습니까?","알림",CCB_OKCANCEL);
+			//hr = ::MessageBox(NULL,"귀하의 컴퓨터에는 건즈가 사용하는 (굴림,돋움) 폰트가 없는 것 같습니다.\n 계속 진행 하시겠습니까?","알림",CCB_OKCANCEL);
 
 			if(hr==IDOK) {
 				/*			
@@ -996,7 +996,7 @@ bool CheckFont()
 				CString facename = dlg.GetFaceName();
 				lstrcpy((LPSTR)g_UserDefineFont,(LPSTR)facename.operator const char*());
 
-				hr = ::MessageBox(NULL,"선택하신 폰트를 저장 하시겠습니까?","알림",MB_OKCANCEL);
+				hr = ::MessageBox(NULL,"선택하신 폰트를 저장 하시겠습니까?","알림",CCB_OKCANCEL);
 
 				if(hr==IDOK)
 				_SetFileFontName(g_UserDefineFont);
@@ -1301,31 +1301,31 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 		{
 		case HS_ERR_ANOTHER_SERVICE_RUNNING:
 			{
-//				MessageBox(NULL, _T("다른 게임이 실행중입니다.\n프로그램을 종료합니다."), szTitle, MB_OK);
+//				MessageBox(NULL, _T("다른 게임이 실행중입니다.\n프로그램을 종료합니다."), szTitle, CCB_OK);
 				cclog( "다른 게임이 실행중입니다. 프로그램을 종료합니다.\n");
 				break;
 			}
 		case HS_ERR_INVALID_FILES:
 			{
-//				MessageBox(NULL, _T("잘못된 파일 설치되었습니다.\n프로그램을 재설치하시기 바랍니다."), szTitle, MB_OK);
+//				MessageBox(NULL, _T("잘못된 파일 설치되었습니다.\n프로그램을 재설치하시기 바랍니다."), szTitle, CCB_OK);
 				cclog( "잘못된 파일 설치되었습니다. 프로그램을 재설치하시기 바랍니다.\n");
 				break;
 			}
 		case HS_ERR_DEBUGGER_DETECT:
 			{
-//				MessageBox(NULL, _T("컴퓨터에서 디버거 실행이 감지되었습니다.\n디버거의 실행을 중지시킨 뒤에 다시 실행시켜주시기바랍니다."), szTitle, MB_OK);
+//				MessageBox(NULL, _T("컴퓨터에서 디버거 실행이 감지되었습니다.\n디버거의 실행을 중지시킨 뒤에 다시 실행시켜주시기바랍니다."), szTitle, CCB_OK);
 				cclog( "컴퓨터에서 디버거 실행이 감지되었습니다. 디버거의 실행을 중지시킨 뒤에 다시 실행시켜주시기바랍니다.\n");
 				break;
 			}
 		case HS_ERR_NEED_ADMIN_RIGHTS:
 			{
-//				MessageBox(NULL, _T("Admin 권한으로 실행되어야 합니다.\n프로그램을 종료합니다."), szTitle, MB_OK);
+//				MessageBox(NULL, _T("Admin 권한으로 실행되어야 합니다.\n프로그램을 종료합니다."), szTitle, CCB_OK);
 				cclog( "Admin 권한으로 실행되어야 합니다. 프로그램을 종료합니다.\n");
 				break;
 			}
 		case HS_ERR_COMPATIBILITY_MODE_RUNNING:
 			{
-//				MessageBox(NULL, _T("호환성 모드로 프로그램이 실행중입니다.\n프로그램을 종료합니다."), szTitle, MB_OK);
+//				MessageBox(NULL, _T("호환성 모드로 프로그램이 실행중입니다.\n프로그램을 종료합니다."), szTitle, CCB_OK);
 				cclog( "호환성 모드로 프로그램이 실행중입니다. 프로그램을 종료합니다.\n");
 				break;				
 			}
@@ -1333,7 +1333,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 			{
 				TCHAR szMsg[255];
 				wsprintf(szMsg, _T("해킹방지 기능에 문제가 발생하였습니다.(Error Code = %x)\n프로그램을 종료합니다."), nRet);
-//				MessageBox(NULL, szMsg, szTitle, MB_OK);
+//				MessageBox(NULL, szMsg, szTitle, CCB_OK);
 				cclog( szMsg);
 				break;
 			}
@@ -1352,7 +1352,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	{
 //		TCHAR szMsg[255];
 		cclog(_T("해킹방지 기능에 문제가 발생하였습니다.(Error Code = %x)\n프로그램을 종료합니다."), nRet);
-//		MessageBox(NULL, szMsg, szTitle, MB_OK);
+//		MessageBox(NULL, szMsg, szTitle, CCB_OK);
 
 		return FALSE;
 	}
@@ -1497,7 +1497,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	} // 성공 못한 경우 알수없으므로 실패~
 
 	if(DXCheck==false) {
-		::MessageBox(NULL,"DirectX 8.0 이상을 설치하고 다시 실행해 주시기 바랍니다.","알림",MB_OK);
+		::MessageBox(NULL,"DirectX 8.0 이상을 설치하고 다시 실행해 주시기 바랍니다.","알림",CCB_OK);
 	}
 */
 
@@ -1520,7 +1520,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 			char szMsgCertFail[128]="";
 			ZTransMsg(szMsgWarning,MSG_WARNING);
 			ZTransMsg(szMsgCertFail,MSG_REROUTE_TO_WEBSITE);
-//			MessageBox(g_hWnd, szMsgCertFail, szMsgWarning, MB_OK);
+//			MessageBox(g_hWnd, szMsgCertFail, szMsgWarning, CCB_OK);
 
 			cclog(szMsgWarning);
 			cclog(" : ");
@@ -1537,7 +1537,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 //#ifdef _PUBLISH
 	// if(!CheckFileList()) {
 		// 종료하는것은 일단 보류
-		// int ret=MessageBox(NULL, "파일이 손상되었습니다.", "중요!", MB_OK);
+		// int ret=MessageBox(NULL, "파일이 손상되었습니다.", "중요!", CCB_OK);
 		// return 0;
 	//}
 //#endif
@@ -1551,7 +1551,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	   !CheckDll("hanpollforclient.dll", SHA_hanpollforclient) ||
 	   !CheckDll("hanreportforclient.dll", SHA_HanReportForClient) )
 	{
-		MessageBox(g_hWnd,"Dll Hacking detected",  NULL, MB_OK);
+		MessageBox(g_hWnd,"Dll Hacking detected",  NULL, CCB_OK);
 		return false;
 	}
 
@@ -1571,7 +1571,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	if(!CheckDll("fmod.dll", SHA_fmod) ||
 		!CheckDll("dbghelp.dll", SHA_dbghelp) )
 	{
-		MessageBox(g_hWnd,"Dll Hacking detected",  NULL, MB_OK);
+		MessageBox(g_hWnd,"Dll Hacking detected",  NULL, CCB_OK);
 		return false;
 	}
 
@@ -1582,7 +1582,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	if (ZCheckHackProcess() == true)
 	{
 //		MessageBox(NULL,
-//			ZMsg(MSG_HACKING_DETECTED), ZMsg( MSG_WARNING), MB_OK);
+//			ZMsg(MSG_HACKING_DETECTED), ZMsg( MSG_WARNING), CCB_OK);
 		cclog(ZMsg(MSG_HACKING_DETECTED));
 		cclog("\n");
 		cclog("I'm hacker.\n" );
@@ -1759,7 +1759,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 #endif
 
 		HandleExceptionLog();
-//		MessageBox(g_hWnd, "예상치 못한 오류가 발생했습니다.", APPLICATION_NAME , MB_ICONERROR|MB_OK);
+//		MessageBox(g_hWnd, "예상치 못한 오류가 발생했습니다.", APPLICATION_NAME , CCB_ICONERROR|CCB_OK);
 	}
 #endif
 
@@ -1784,7 +1784,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParasSize, void* pParam)
 		{
 			TCHAR szMsg[255];
 			wsprintf(szMsg, _T("다음 위치에서 해킹툴이 발견되어 프로그램을 종료시켰습니다.\n%s"), (char*)pParam);
-//			MessageBox(NULL, szMsg, szTitle, MB_OK);
+//			MessageBox(NULL, szMsg, szTitle, CCB_OK);
 			cclog(szMsg);
 			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
 			break;
@@ -1807,7 +1807,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParasSize, void* pParam)
 	case AHNHS_ACTAPC_DETECT_SPEEDHACK:
 	case AHNHS_ACTAPC_DETECT_SPEEDHACK_APP:
 		{
-//			MessageBox(NULL, _T("현재 이 PC에서 SpeedHack으로 의심되는 동작이 감지되었습니다."), szTitle, MB_OK);
+//			MessageBox(NULL, _T("현재 이 PC에서 SpeedHack으로 의심되는 동작이 감지되었습니다."), szTitle, CCB_OK);
 			cclog("현재 이 PC에서 SpeedHack으로 의심되는 동작이 감지되었습니다.");
 			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
 			break;
@@ -1819,7 +1819,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParasSize, void* pParam)
 		{
 			TCHAR szMsg[255];
 			wsprintf(szMsg, _T("프로그램에 대하여 디버깅 시도가 발생하였습니다. (Code = %x)\n프로그램을 종료합니다."), lCode);
-//			MessageBox(NULL, szMsg, szTitle, MB_OK);
+//			MessageBox(NULL, szMsg, szTitle, CCB_OK);
 			cclog(szMsg);
 			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
 			break;
@@ -1834,7 +1834,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParasSize, void* pParam)
 		{
 			TCHAR szMsg[255];
 			wsprintf(szMsg, _T("해킹 방어 기능에 이상이 발생하였습니다. (Code = %x)\n프로그램을 종료합니다."), lCode);
-//			MessageBox(NULL, szMsg, szTitle, MB_OK);
+//			MessageBox(NULL, szMsg, szTitle, CCB_OK);
 			cclog(szMsg);
 			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
 			break;
