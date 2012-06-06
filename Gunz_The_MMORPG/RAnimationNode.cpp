@@ -11,7 +11,7 @@ _NAMESPACE_REALSPACE2_BEGIN
 
 RAnimationNode::RAnimationNode() 
 {
-	m_iode_id = -1;
+	m_node_id = -1;
 
 	m_pos_cnt = 0;
 	m_rot_cnt = 0;

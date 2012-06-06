@@ -518,6 +518,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCBmButton.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCBMultiColListBoxLook.cpp"
 						>
 					</File>
@@ -555,6 +559,10 @@
 					</File>
 					<File
 						RelativePath=".\CCFileDialog.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCFrame.cpp"
 						>
 					</File>
 					<File
@@ -606,7 +614,15 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCUtil.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\Core.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\ODBCRecordset.cpp"
 						>
 					</File>
 					<File
