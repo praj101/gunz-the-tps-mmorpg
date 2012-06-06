@@ -23,7 +23,7 @@
 #endif
 
 
-
+/*
 BOOL CALLBACK NPGameMonCallback( DWORD dwMsg, DWORD dwArg )
 {
 	LPCTSTR lpszMsg = NULL;
@@ -214,7 +214,7 @@ bool ZGameguard::CheckD3dDllHooking(DWORD dwGlobalTime)
 	const int D3DDLLHOOK_CHECK_TERM = 1000 * 60;
 	if (D3DDLLHOOK_CHECK_TERM < (dwGlobalTime - m_dwLastHookCheckTime))
 	{
-		if (/*m_pNPGameLib->*/CheckD3DDevice((LPVOID)RGetDevice(), "d3d9.dll"))
+		if (/*m_pNPGameLib->*//*CheckD3DDevice((LPVOID)RGetDevice(), "d3d9.dll"))
 		{
 			// d3d9 º¯Á¶µÊ!
 			cclog( "ERROR : GameGuard dll check.\n");
@@ -344,3 +344,4 @@ void ZGameguard::SendToCallback( const DWORD dwIndex, const DWORD dwValue1, cons
 //---------------------------------------------------------------------------------------------------
 
 
+*/

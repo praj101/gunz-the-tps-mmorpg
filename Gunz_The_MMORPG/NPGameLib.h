@@ -4,7 +4,7 @@
 //  Author : Kim Chan Ho (chkim@inca.co.kr)
 //    Date : 2003/07/01 - 03
 //=============================================================================
-
+/*
 #ifndef __NPGAMELIB_H__
 #define __NPGAMELIB_H__
 
@@ -84,7 +84,7 @@
 
 #define NPGAMEMON_SUCCESS              0x755       // GameMon Initialize Success
 
-
+/*
 // USER_POLYBUFFER (NPGE L5 only)
 #define USER_POLYBUFFER \
 	__asm _emit 0xEB \
@@ -126,8 +126,8 @@ NPGAMEDLL_API BOOL  __cdecl NPGuardData(LPVOID lpData, DWORD dwSize);
 NPGAMEDLL_API BOOL  __cdecl NPReleaseData(LPVOID lpData, DWORD dwSize);
 NPGAMEDLL_API LPCSTR __cdecl GetInfoFromGameMon();
 NPGAMEDLL_API LPBYTE __cdecl GetHackInfoFromGameMon(DWORD* dwSize);
-NPGAMEDLL_API BOOL  __cdecl ResourceAuthA(LPCSTR lpszFilename, bool bCheckFilename /* = true */ );
-NPGAMEDLL_API BOOL  __cdecl ResourceAuthW(LPCWSTR lpszFilename, bool bCheckFilename /* = true */ );
+NPGAMEDLL_API BOOL  __cdecl ResourceAuthA(LPCSTR lpszFilename, bool bCheckFilename /* = true *//* );
+NPGAMEDLL_API BOOL  __cdecl ResourceAuthW(LPCWSTR lpszFilename, bool bCheckFilename /* = true *//* );
 NPGAMEDLL_API BOOL  __cdecl CheckD3DDevice(LPVOID lpD3DDevice, LPSTR lpszDll);
 NPGAMEDLL_API DWORD __cdecl GGGetLastError();		// 2009.07.27
 NPGAMEDLL_API BOOL __cdecl SetRunGGerror();		// 2009.10.12
@@ -295,7 +295,7 @@ public:
    DWORD m_dwSize;
 };
 */
-
+/*
 extern BOOL  __cdecl RegisterToMgr(LPVOID);
 extern void  __cdecl RemoveFromMgr(LPVOID);
 extern DWORD __cdecl GetDataFromMgr(LPVOID);
@@ -353,3 +353,4 @@ NPGAMEDLL_API BOOL  __cdecl EndGameGuard();
 #endif // defined(_LIB) || !defined(__LITE_VERSION)
 
 #endif // __NPGAMELIB_H__
+*/
