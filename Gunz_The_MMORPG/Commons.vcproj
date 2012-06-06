@@ -626,6 +626,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCTypes.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCUtil.cpp"
 						>
 					</File>
@@ -651,6 +655,10 @@
 					</File>
 					<File
 						RelativePath=".\RMesh_Load.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\RMesh_Mtrl.cpp"
 						>
 					</File>
 					<File
