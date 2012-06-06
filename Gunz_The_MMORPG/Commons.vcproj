@@ -486,6 +486,10 @@
 					UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 					>
 					<File
+						RelativePath=".\CCBaseLocale.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCBaseQuest.cpp"
 						>
 					</File>
@@ -643,6 +647,10 @@
 					</File>
 					<File
 						RelativePath=".\RCamera.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\RFont.cpp"
 						>
 					</File>
 					<File
