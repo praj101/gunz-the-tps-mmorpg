@@ -550,6 +550,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCCursor.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCEvent.cpp"
 						>
 					</File>
@@ -563,6 +567,14 @@
 					</File>
 					<File
 						RelativePath=".\CCFrame.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCGroup.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCGroupLook.cpp"
 						>
 					</File>
 					<File
@@ -634,7 +646,15 @@
 						>
 					</File>
 					<File
+						RelativePath=".\RMesh_Frame.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\RMesh_Load.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\RMesh_Render.cpp"
 						>
 					</File>
 					<File
