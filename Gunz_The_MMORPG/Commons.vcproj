@@ -622,6 +622,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCRegistry.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCResourceManager.cpp"
 						>
 					</File>
@@ -650,6 +654,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\RError.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\RFont.cpp"
 						>
 					</File>
@@ -675,6 +683,10 @@
 					</File>
 					<File
 						RelativePath=".\RMeshMgr.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\SHA1.cpp"
 						>
 					</File>
 					<File
