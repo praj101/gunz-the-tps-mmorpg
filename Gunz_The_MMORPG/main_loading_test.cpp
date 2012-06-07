@@ -1431,7 +1431,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	UpgradeMrsFile();// mrs1 이라면 mrs2로 업그래이드 한다..
 #endif
 
-	MSysInfoLog();
+	CCSysInfoLog();
 
 //	if (CheckVideoAdapterSupported() == false)
 //		return 0;

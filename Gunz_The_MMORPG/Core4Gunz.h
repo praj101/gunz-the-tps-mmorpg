@@ -10,7 +10,7 @@ _USING_NAMESPACE_REALSPACE2
 
 class Core4Gunz : public Core{
 public:
-	virtual void Update(){
+	virtual void Update(void){
 		RealSpace2::RFrame_Render();
 		//RenderScene(NULL);
 	}
@@ -36,7 +36,7 @@ public:
 	}
 	virtual CCWidget* NewWidget(const char* szClass, const char* szName, CCWidget* pParent, CCListener* pListener){
 		if(strcmp(szClass, CORE_CCBUTTON)==0) return new ZButton(szName, pParent, pListener);
-		else if( strcmp(szClass, CORE_CCBUTTON)==0) return new ZButton(szName, pParent, pListener);
+		else if( strcmp(szClass, CORE_CCBMBUTTON)==0) return new ZBmButton(szName, pParent, pListener);
 		else if( strcmp(szClass, CORE_CCMSGBOX)==0) return new ZMsgBox(szName, pParent, pListener);
 		else if( strcmp(szClass, CORE_ACTIONKEY)==0) return new ZActionKey(szName, pParent, pListener);
 		return Core::NewWidget(szClass, szName, pParent, pListener);
@@ -44,13 +44,13 @@ public:
 
 	virtual const char* GetActionKeyName(unsigned long int nKey);
 
-	virtual void Draw(){
+	virtual void Draw(void){
 		Core::Draw();
 
 		if (m_pDC && m_pMainFrame)
 			m_pMainFrame->DrawAfterWidgets(m_pDC);
 		
-		//		sPoint p = CCEvent::GetMousePos();
+		//		MPOINT p = MEvent::GetMousePos();
 		sPoint p = CCEvent::LatestPos;
 
 		CCCursorSystem::Draw(GetDrawContext(), p.x, p.y);	// RAONHAJE Mouse Cursor SoftwareDraw
