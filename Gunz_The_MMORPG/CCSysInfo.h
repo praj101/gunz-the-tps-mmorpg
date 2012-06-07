@@ -1,3 +1,3 @@
 #pragma once
 
-void MSysInfoLog();
+void CCSysInfoLog();

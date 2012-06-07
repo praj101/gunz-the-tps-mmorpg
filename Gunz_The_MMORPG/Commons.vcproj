@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;$(DXSDK_DIR)\Include"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="0"
@@ -634,6 +634,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCSysInfo.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCTypes.cpp"
 						>
 					</File>
@@ -643,6 +647,14 @@
 					</File>
 					<File
 						RelativePath=".\Core.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Core4Gunz.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\FileInfo.cpp"
 						>
 					</File>
 					<File
@@ -683,6 +695,10 @@
 					</File>
 					<File
 						RelativePath=".\RMeshMgr.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\RTypes.cpp"
 						>
 					</File>
 					<File
