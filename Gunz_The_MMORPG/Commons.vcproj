@@ -486,6 +486,10 @@
 					UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 					>
 					<File
+						RelativePath=".\CCAsyncDBJob.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCBaseLocale.cpp"
 						>
 					</File>
@@ -551,6 +555,10 @@
 					</File>
 					<File
 						RelativePath=".\CCComboBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCConsoleFrame.cpp"
 						>
 					</File>
 					<File
