@@ -1,7 +1,7 @@
 #pragma once
 
 #pragma warning(disable:4996)
-
+#pragma warning(disable:4244)
 #pragma warning(disable:4800)
 
 #define WINVER 0x0601
