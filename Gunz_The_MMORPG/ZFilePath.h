@@ -19,8 +19,8 @@
 #define FILENAME_FILELIST				"system/filelist.xml"
 #define FILENAME_ABUSE					"system/abuse.txt"
 
-#define MPATH_EMBLEMFOLDER				"/Emblem"
-#define MPATH_EMBLECCFILE				"/emblem.xml"
+#define CCPATH_EMBLEMFOLDER				"/Emblem"
+#define CCPATH_EMBLEMFILE				"/emblem.xml"
 
 // path는 마지막에 '/' 를 꼭 붙여줘야 한다.
 

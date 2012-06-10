@@ -162,7 +162,7 @@ void CCConsoleFrame::OnDraw(CCDrawContext* pDC)
 	CCFrame::OnDraw(pDC);
 
 /*
-	MRECT r = GetClientRect();
+	sRect r = GetClientRect();
 	static int nRaw = 0;
 	pDC->SetColor(MCOLOR(128,128,255));
 

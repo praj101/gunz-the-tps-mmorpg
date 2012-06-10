@@ -9,7 +9,7 @@
 void CCAsyncDBJob_Test::Run(void* pContext)
 {
 	char szLog[128];
-	sprintf(szLog, "Thread=%d , MAsyncDBJob_Test BEGIN \n", GetCurrentThreadId());
+	sprintf(szLog, "Thread=%d , CCAsyncDBJob_Test BEGIN \n", GetCurrentThreadId());
 	cclog(szLog);
 
 	CCMatchDBMgr* pDBMgr = (CCMatchDBMgr*)pContext;
@@ -50,7 +50,7 @@ void CCAsyncDBJob_Test::Run(void* pContext)
 
 	int nCount = rs.GetRecordCount();
 
-	sprintf(szLog, "Thread=%d , MAsyncDBJob_Test END RecordCount=%d \n", 
+	sprintf(szLog, "Thread=%d , CCAsyncDBJob_Test END RecordCount=%d \n", 
 			GetCurrentThreadId(), nCount);
 	cclog(szLog);
 }
@@ -258,7 +258,7 @@ void CCAsyncDBJob_InsertGameLog::Run(void* pContext)
 }
 
 /*
-bool MAsyncDBJob_InsertGameLog::Input(const char* szGameName, const char* szMap, const char* szGameType,const int nRound, 
+bool CCAsyncDBJob_InsertGameLog::Input(const char* szGameName, const char* szMap, const char* szGameType,const int nRound, 
 										const unsigned int nMasterCID, const int nPlayerCount, const char* szPlayers)
 {
 	strcpy(m_szGameName, szGameName);
@@ -476,7 +476,7 @@ void CCAsyncDBJob_InsertQuestGameLog::Run( void* pContext )
 				{
 					if( !pDBMgr->InsertQUniqueGameLog(nQGLID, nCID, nQIID) )
 					{
-						cclog( "MAsyncDBJob_InsertQuestGameLog::Run - 유니크 아이템 로그 저장 실패. CID:%d QIID:%d\n", 
+						cclog( "CCAsyncDBJob_InsertQuestGameLog::Run - 유니크 아이템 로그 저장 실패. CID:%d QIID:%d\n", 
 							nCID, nQIID );
 
 						SetResult(CCASYNC_RESULT_FAILED);
