@@ -27,27 +27,27 @@
 class CCAsyncHttp;
 class CCAsyncHttpContext {
 public:
-	enum MAHC_TYPE {
-		MAHC_TYPE_UNKNOWN,
-		MAHC_TYPE_CONNECT,
-		MAHC_TYPE_REQUEST
+	enum CCAHC_TYPE {
+		CCAHC_TYPE_UNKNOWN,
+		CCAHC_TYPE_CONNECT,
+		CCAHC_TYPE_REQUEST
 	};
 
 protected:
-	MAHC_TYPE		m_ContextType;
+	CCAHC_TYPE		m_ContextType;
 	CCAsyncHttp*		m_pAsyncHttp;
 public:
 	CCAsyncHttpContext()
 	{
-		m_ContextType = MAHC_TYPE_UNKNOWN;
+		m_ContextType = CCAHC_TYPE_UNKNOWN;
 		m_pAsyncHttp = NULL;
 	}
-	CCAsyncHttpContext(MAHC_TYPE nType, CCAsyncHttp* pAsyncHttp)
+	CCAsyncHttpContext(CCAHC_TYPE nType, CCAsyncHttp* pAsyncHttp)
 	{
 		m_ContextType = nType;
 		m_pAsyncHttp = pAsyncHttp;
 	}
-	MAHC_TYPE GetContextType()	{ return m_ContextType; }
+	CCAHC_TYPE GetContextType()	{ return m_ContextType; }
 	CCAsyncHttp* GetAsyncHttp()	{ return m_pAsyncHttp; }
 };
 

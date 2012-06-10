@@ -8,7 +8,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <tchar.h>
-#include <dxdiag.h>
+#include "DirectX/dxdiag.h"
 
 _NAMESPACE_REALSPACE2_BEGIN
 

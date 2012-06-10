@@ -490,6 +490,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCAsyncHttp.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCBaseLocale.cpp"
 						>
 					</File>
@@ -558,11 +562,19 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCCommandLogFrame.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCConsoleFrame.cpp"
 						>
 					</File>
 					<File
 						RelativePath=".\CCCursor.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCEmblemMgr.cpp"
 						>
 					</File>
 					<File
@@ -594,6 +606,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCHttpSpooler.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCIDLResource.cpp"
 						>
 					</File>
@@ -607,6 +623,10 @@
 					</File>
 					<File
 						RelativePath=".\CCMatchQuest.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCMD5.cpp"
 						>
 					</File>
 					<File
@@ -674,6 +694,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\RDynamicLight.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\RError.cpp"
 						>
 					</File>
@@ -707,6 +731,10 @@
 					</File>
 					<File
 						RelativePath=".\RTypes.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\RVisualMeshMgr.cpp"
 						>
 					</File>
 					<File

@@ -1426,7 +1426,7 @@ void ZGameClient::GetEncryptMD5HashValue(char* szEncryptMD5Value)							// updat
 	GetModuleFileName(NULL, filePath, MAX_PATH);
 
 	unsigned char szMD5Value[ MAX_MD5LENGH ] = {0, };
-	MMD5 *pMD5 = new MMD5;
+	CCMD5 *pMD5 = new CCMD5;
 	if (pMD5->md5_file(filePath, szMD5Value) != 0)
 	{
 		return;

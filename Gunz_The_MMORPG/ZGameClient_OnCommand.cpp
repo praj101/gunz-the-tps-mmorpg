@@ -218,7 +218,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 			break;
 		case MC_HSHIELD_PING:
 			{
-				unsigned int nTimeStamp;
+			/*	unsigned int nTimeStamp;
 
 				if(pCommand->GetParameter(&nTimeStamp, 0, MPT_UINT) == false) break;
 				
@@ -244,7 +244,7 @@ bool ZGameClient::OnCommand(CCCommand* pCommand)
 //				CCEraseBlobArray(pBlob);
 				CCEraseBlobArray(pBlob2);
 				Post(pNew);
-				
+			*/
 				return true;
 			}
 			break;

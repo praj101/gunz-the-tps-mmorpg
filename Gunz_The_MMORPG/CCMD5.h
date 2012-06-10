@@ -1,6 +1,6 @@
-// MMD5.h
-#ifndef _MMD5_H_
-#define _MMD5_H_
+// CCMD5.h
+#ifndef _CCMD5_H_
+#define _CCMD5_H_
 
 typedef struct md5
 {
@@ -9,11 +9,11 @@ typedef struct md5
 	unsigned char buffer[64];   /*!< data block being processed */
 } md5_context;
 
-class MMD5
+class CCMD5
 {
 public:
-	MMD5();
-	virtual ~MMD5();
+	CCMD5();
+	virtual ~CCMD5();
 	void md5_string(unsigned char *input, int ilen, unsigned char output[16]);
 	int md5_file(char *filePath, unsigned char output[16]);
 
