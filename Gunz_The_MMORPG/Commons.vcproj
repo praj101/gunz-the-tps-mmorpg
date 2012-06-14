@@ -558,6 +558,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCChattingFilter.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCComboBox.cpp"
 						>
 					</File>
@@ -590,6 +594,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCFont.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCFrame.cpp"
 						>
 					</File>
@@ -611,6 +619,10 @@
 					</File>
 					<File
 						RelativePath=".\CCIDLResource.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCLex.cpp"
 						>
 					</File>
 					<File
@@ -687,6 +699,10 @@
 					</File>
 					<File
 						RelativePath=".\ODBCRecordset.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Physics.cpp"
 						>
 					</File>
 					<File
