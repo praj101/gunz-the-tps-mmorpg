@@ -13,7 +13,7 @@
 #include "zlib.h"
 #include "CCDebug.h"
 
-#pragma comment(lib, "
+//#pragma comment(lib, "
 
 
 unsigned char* g_pPrivateKey = NULL;

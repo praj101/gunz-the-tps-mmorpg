@@ -1,5 +1,5 @@
 /************************************************************************
-  MChattingFilter
+  CCChattingFilter
 
   desc : 입력한 스트링의 유효 여부를 판단하는 클래스
   date : 2008-02-14
@@ -56,8 +56,8 @@ public:
 
 
 
-/// (class) MChattingFilter
-class MChattingFilter
+/// (class) CCChattingFilter
+class CCChattingFilter
 {
 /// 멤버 변수 선언
 private :
@@ -72,10 +72,10 @@ private :
 /// 멤버 함수 선언
 public:
 	/// 표준 생성자
-	MChattingFilter();
+	CCChattingFilter();
 
 	/// 표준 소멸자
-	~MChattingFilter();
+	~CCChattingFilter();
 
 
 	/// 외부 파일로부터 금칙단어 리스트를 읽어들인다
@@ -104,7 +104,7 @@ public:
 
 
 	/// 인스턴스를 구한다
-	static MChattingFilter* GetInstance();
+	static CCChattingFilter* GetInstance();
 	
 	///
 	void Clear();
@@ -113,9 +113,9 @@ public:
 
 
 /// 인스턴스를 구함
-inline MChattingFilter* CCGetChattingFilter()
+inline CCChattingFilter* CCGetChattingFilter()
 {
-	return MChattingFilter::GetInstance();
+	return CCChattingFilter::GetInstance();
 }
 
 
