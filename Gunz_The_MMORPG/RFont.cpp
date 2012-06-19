@@ -194,7 +194,7 @@ bool RFontTexture::UploadTexture(RCHARINFO *pCharInfo,DWORD* pBitmapBits,int w,i
 
 	//static int nErrorLogCount = 0;
 	//if(nErrorLogCount<100) {
-	//	mlog("upload font texture error : %s",DXGetErrorString9(hr));
+	//	cclog("upload font texture error : %s",DXGetErrorString9(hr));
 	//}
 
 	return false;

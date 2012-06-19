@@ -375,7 +375,7 @@ void CALLBACK CCAsyncHttp::StatusCallback(HINTERNET hInternet,
 		} // case 2
 		break;
 	default:
-		_ASSERT("Unknown MASYNCHTTP_CONTEXT_TYPE");
+		_ASSERT("Unknown CCASYNCHTTP_CONTEXT_TYPE");
 		break;
 	}; // switch(dwContext)
 }

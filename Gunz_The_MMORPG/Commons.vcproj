@@ -490,6 +490,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCAsyncDBJob_DuelTornament.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCAsyncDBJob_SurvivalMode.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCAsyncHttp.cpp"
 						>
 					</File>
@@ -638,6 +646,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCMatchRule.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCMD5.cpp"
 						>
 					</File>
@@ -647,6 +659,10 @@
 					</File>
 					<File
 						RelativePath=".\CCQuestDropTable.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCQuestFormula.cpp"
 						>
 					</File>
 					<File
@@ -707,6 +723,10 @@
 					</File>
 					<File
 						RelativePath=".\RCamera.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\RCollisionDetection.cpp"
 						>
 					</File>
 					<File

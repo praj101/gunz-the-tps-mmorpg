@@ -6,7 +6,8 @@
 #include "RVersions.h"
 #include "RTypes.h"
 #include "ZInput.h"
-float Magnitude(const rvector &x);
+
+using namespace RealSpace2;
 extern ZInput*			g_pInput;
 RNavigationMesh::RNavigationMesh()
 {
