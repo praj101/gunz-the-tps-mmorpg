@@ -591,7 +591,7 @@ void CCAsyncDBJob_SetBlockHacking::Run( void* pContext )
 	//{
 	//	if( !pDBMgr->SetBlockAccount( m_dwAID, m_dwCID, m_btBlockType, m_strComment, m_strIP, m_strEndDate) )
 	//	{
-	//		SetResult( MASYNC_RESULT_FAILED );
+	//		SetResult( CCASYNC_RESULT_FAILED );
 	//		return;
 	//	}
 	//}
@@ -599,7 +599,7 @@ void CCAsyncDBJob_SetBlockHacking::Run( void* pContext )
 	//{
 	//	if( pDBMgr->InsertBlockLog(m_dwAID, m_dwCID, m_btBlockType, m_strComment, m_strIP) )
 	//	{
-	//		SetResult( MASYNC_RESULT_FAILED );
+	//		SetResult( CCASYNC_RESULT_FAILED );
 	//		return;
 	//	}
 	//}

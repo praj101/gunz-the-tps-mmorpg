@@ -149,7 +149,7 @@ void CCSysInfoLog_Display()
 
 //BOOL CALLBACK MSysInfoLog_Audio_EnumProc(LPGUID lpGUID, LPCTSTR lpszDesc, LPCTSTR lpszDrvName, LPVOID lpContext)
 //{
-//	mlog("Audio : %s %s \n",lpszDesc,lpszDrvName);
+//	cclog("Audio : %s %s \n",lpszDesc,lpszDrvName);
 //    return TRUE;
 //}
 //
@@ -159,7 +159,7 @@ void CCSysInfoLog_Display()
 //	hDSoundLibrary = LoadLibrary( "dsound.dll" );
 //	if (!hDSoundLibrary)
 //	{
-//		mlog("Error, could not load dsound.dll");
+//		cclog("Error, could not load dsound.dll");
 //		return;
 //	}
 //
@@ -168,7 +168,7 @@ void CCSysInfoLog_Display()
 //
 //	if (!pDirectSoundEnumerate)
 //	{
-//		mlog("Error, could not get proc adress of Direct3DCreate9.");
+//		cclog("Error, could not get proc adress of Direct3DCreate9.");
 //		FreeLibrary(hDSoundLibrary);
 //		return;
 //	}
