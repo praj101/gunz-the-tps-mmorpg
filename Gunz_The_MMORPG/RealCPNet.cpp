@@ -977,7 +977,7 @@ __try{
 #ifndef _PUBLISH
 	char szFileName[_MAX_DIR];
 	GetModuleFileName(NULL, szFileName, _MAX_DIR);
-	HANDLE hProcess = MProcessController::OpenProcessHandleByFilePath(szFileName);
+	HANDLE hProcess = CCProcessController::OpenProcessHandleByFilePath(szFileName);
 	TerminateProcess(hProcess, 0);
 #endif
 }

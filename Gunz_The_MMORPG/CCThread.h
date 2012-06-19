@@ -24,7 +24,7 @@ public:
 	virtual void Run()			{}
 };
 
-class MTime {
+class CCTime {
 	DWORD	m;
 	DWORD	q;
 	DWORD	a;
@@ -32,7 +32,7 @@ class MTime {
 	DWORD	seed;
 
 public:
-	MTime() {
+	CCTime() {
 		m=2147483647; q=127773; a=16807; r=2836;
 		seed = timeGetTime();
 	}

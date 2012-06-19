@@ -494,6 +494,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCAsyncDBJob_Event.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCAsyncDBJob_SurvivalMode.cpp"
 						>
 					</File>
@@ -642,6 +646,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCMatchEvent.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCMatchEventManager.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCMatchQuest.cpp"
 						>
 					</File>
@@ -683,6 +695,10 @@
 					</File>
 					<File
 						RelativePath=".\CCResourceManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCSafeUDP.cpp"
 						>
 					</File>
 					<File

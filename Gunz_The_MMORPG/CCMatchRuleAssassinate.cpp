@@ -70,7 +70,7 @@ const CCUID CCMatchRuleAssassinate::ChooseCommander(int nTeam)
 	}
 
 
-	MTime time;
+	CCTime time;
 	int nChoose = time.MakeNumber(1, nChooseTeamCount);
 
 	int nCount = 0;

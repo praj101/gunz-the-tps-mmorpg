@@ -211,7 +211,7 @@ int MLadderGameStrategy::GetRandomMap(int nTeamMember)
 				mapList.push_back(i);
 		}
 	}
-	MTime time;
+	CCTime time;
 	int nRandomMapIndex = time.MakeNumber(0, (int)mapList.size()-1);
 	int nRandomMap=0;
 

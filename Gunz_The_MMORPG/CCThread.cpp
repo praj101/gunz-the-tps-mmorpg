@@ -44,8 +44,8 @@ DWORD WINAPI CCThread::ThreadProc(LPVOID pParam)
 	return (0);
 }
 
-// MTime class ///////////////////////////////////////////////////////////////////////
-DWORD MTime::Random()
+// CCTime class ///////////////////////////////////////////////////////////////////////
+DWORD CCTime::Random()
 {
    register int lo, hi, test;
 
@@ -62,7 +62,7 @@ DWORD MTime::Random()
     return seed;
 }
 
-int MTime::MakeNumber(int nFrom, int nTo)
+int CCTime::MakeNumber(int nFrom, int nTo)
 {
 	if (nFrom > nTo) {
 		int tmp = nFrom;
@@ -72,7 +72,7 @@ int MTime::MakeNumber(int nFrom, int nTo)
 	return ((Random() % (nTo - nFrom + 1)) + nFrom);
 }
 
-void MTime::GetTime(struct timeval *t)
+void CCTime::GetTime(struct timeval *t)
 {
   DWORD millisec = GetTickCount();
 
@@ -80,7 +80,7 @@ void MTime::GetTime(struct timeval *t)
   t->tv_usec = millisec % 1000;
 }
 
-struct timeval MTime::TimeSub(struct timeval Src1, struct timeval Src2)
+struct timeval CCTime::TimeSub(struct timeval Src1, struct timeval Src2)
 {
 	struct timeval null_time = {0, 0};
 	struct timeval Result;
@@ -106,7 +106,7 @@ struct timeval MTime::TimeSub(struct timeval Src1, struct timeval Src2)
 	}
 }
 
-struct timeval MTime::TimeAdd(struct timeval Src1, struct timeval Src2)
+struct timeval CCTime::TimeAdd(struct timeval Src1, struct timeval Src2)
 {
 	struct timeval Result;
 
