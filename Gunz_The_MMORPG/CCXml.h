@@ -29,7 +29,7 @@ using namespace std;
 	typedef MSXML::IXMLDOMNodePtr					CCXmlDomNodePtr;
 	typedef MSXML::IXMLDOMNodeListPtr				CCXmlDomNodeListPtr;
 	typedef MSXML::IXMLDOMElementPtr				CCXmlDomElementPtr;
-	typedef MSXML::IXMLDOMProcessingInstructionPtr	CCXmlDomPIPtr;
+	typedef MSXML::IXMLDOCCProcessingInstructionPtr	CCXmlDomPIPtr;
 	typedef MSXML::IXMLDOMNamedNodeMapPtr			CCXmlDomNamedNodeMapPtr;
 	typedef MSXML::IXMLDOCCTextPtr					CCXmlDomTextPtr;
 	typedef MSXML::IXMLDOMParseErrorPtr				CCXmlDomParseErrorPtr;

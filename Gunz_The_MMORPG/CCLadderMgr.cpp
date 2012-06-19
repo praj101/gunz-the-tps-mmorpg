@@ -141,7 +141,7 @@ int MLadderMgr::MakeMatch(CCLADDERTYPE nLadderType)
 	MLadderGroupMap* pWaitGroupMap = GetWaitGroupContainer(nLadderType);
 	if (pWaitGroupMap == NULL) return 0;
 
-	MTime time;
+	CCTime time;
 	MLadderPicker	ladderPicker;
 
 	for (MLadderGroupMap::iterator i=pWaitGroupMap->begin();
