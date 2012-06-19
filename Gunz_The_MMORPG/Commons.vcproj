@@ -490,11 +490,23 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCAsyncDBJob_CharFinalize.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCAsyncDBJob_DuelTornament.cpp"
 						>
 					</File>
 					<File
 						RelativePath=".\CCAsyncDBJob_Event.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCAsyncDBJob_InsertConnLog.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCAsyncDBJob_InsertGamePlayerLog.cpp"
 						>
 					</File>
 					<File
@@ -654,6 +666,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCMatchLocale.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCMatchQuest.cpp"
 						>
 					</File>
@@ -715,6 +731,10 @@
 					</File>
 					<File
 						RelativePath=".\CCUtil.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CMLexicalAnalyzer.cpp"
 						>
 					</File>
 					<File
