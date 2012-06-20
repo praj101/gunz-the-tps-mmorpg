@@ -13,6 +13,7 @@
 //#pragma comment(lib,"CSCommonDE.lib")
 //#pragma comment(lib,"SafeUDP.lib")
 #pragma comment(lib,"dxerr9.lib")
+#pragma comment(lib,"zlib.lib")
 
 #else
 #pragma comment(lib,"cml.lib")
