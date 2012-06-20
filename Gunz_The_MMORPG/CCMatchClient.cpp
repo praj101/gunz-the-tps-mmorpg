@@ -486,7 +486,7 @@ void CCMatchClient::OnAgentConnected(const CCUID& uidAgentServer, const CCUID& u
 	m_AgentPacketCrypter.InitKey(&key);
 
 //	CCCommand* pCmd = CreateCommand(MC_AGENT_PEER_BIND, GetAgentServerUID());
-//	pCmd->AddParameter(new CCCmdParaCCUID(GetPlayerUID()));
+//	pCmd->AddParameter(new CCCmdParamCCUID(GetPlayerUID()));
 //	Post(pCmd);
 }
 
@@ -597,8 +597,8 @@ void CCMatchClient::UpdateUDPTestProcess()
 				pPeer->StopUDPTest();
 
 				CCCommand* pCmd = CreateCommand(MC_MATCH_REQUEST_PEER_RELAY, GetServerUID());
-				pCmd->AddParameter(new CCCmdParaCCUID(GetPlayerUID()));
-				pCmd->AddParameter(new CCCmdParaCCUID(pPeer->uidChar));
+				pCmd->AddParameter(new CCCmdParamCCUID(GetPlayerUID()));
+				pCmd->AddParameter(new CCCmdParamCCUID(pPeer->uidChar));
 				Post(pCmd);
 			} else {
 				nProcessCount++;
@@ -612,7 +612,7 @@ void CCMatchClient::UpdateUDPTestProcess()
 void CCMatchClient::OnResponseAgentLogin()
 {
 	CCCommand* pCmd = CreateCommand(MC_AGENT_PEER_BINDTCP, GetAgentServerUID());
-	pCmd->AddParameter(new CCCmdParaCCUID(GetPlayerUID()));
+	pCmd->AddParameter(new CCCmdParamCCUID(GetPlayerUID()));
 	Post(pCmd);	
 
 	cclog("Logged in Agent, Bind TCP \n");
@@ -867,8 +867,8 @@ void CCMatchClient::SendCommandByTunneling(CCCommand* pCommand)
 	} else {
 		if (GetBridgePeerFlag() == false) {
 			CCCommand* pCmd = CreateCommand(MC_AGENT_TUNNELING_TCP, GetAgentServerUID());
-				pCmd->AddParameter(new CCCmdParaCCUID(GetPlayerUID()));
-				pCmd->AddParameter(new CCCmdParaCCUID(pCommand->GetReceiverUID()));
+				pCmd->AddParameter(new CCCmdParamCCUID(GetPlayerUID()));
+				pCmd->AddParameter(new CCCmdParamCCUID(pCommand->GetReceiverUID()));
 				
 				// Create Param : Command Blob ////
 				if (!MakeTunnelingCommandBlob(pCmd, pCommand))
@@ -880,8 +880,8 @@ void CCMatchClient::SendCommandByTunneling(CCCommand* pCommand)
 			delete pCmd;	// PACKETQUEUE 만들때까지 delete 임시로 사용
 		} else {
 			CCCommand* pCmd = CreateCommand(MC_AGENT_TUNNELING_UDP, GetAgentServerUID());
-				pCmd->AddParameter(new CCCmdParaCCUID(GetPlayerUID()));
-				pCmd->AddParameter(new CCCmdParaCCUID(pCommand->GetReceiverUID()));
+				pCmd->AddParameter(new CCCmdParamCCUID(GetPlayerUID()));
+				pCmd->AddParameter(new CCCmdParamCCUID(pCommand->GetReceiverUID()));
 				// Create Param : Command Blob ////
 				if (!MakeTunnelingCommandBlob(pCmd, pCommand))
 				{

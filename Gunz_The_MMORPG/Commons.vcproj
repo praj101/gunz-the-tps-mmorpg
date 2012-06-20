@@ -514,6 +514,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCAsyncDBJob_UpdateCharInfoData.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCAsyncDBJob_UpdateCharItemInfoData.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCAsyncHttp.cpp"
 						>
 					</File>
@@ -667,6 +675,10 @@
 					</File>
 					<File
 						RelativePath=".\CCMatchLocale.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCMatchNPCObject.cpp"
 						>
 					</File>
 					<File

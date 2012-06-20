@@ -628,7 +628,7 @@ void CCMatchServer::OnResponseMonsterBibleInfo( const CCUID& uidSender )
 		return;
 	}
 
-	pCmd->AddParameter( new CCCmdParaCCUID(uidSender) );
+	pCmd->AddParameter( new CCCmdParamCCUID(uidSender) );
 	pCmd->AddParameter( new CCCommandParameterBlob(pMonBibleInfoBlob, CCGetBlobArraySize(pMonBibleInfoBlob)) );
 
 	RouteToListener( pObj, pCmd );

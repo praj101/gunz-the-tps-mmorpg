@@ -572,7 +572,7 @@ bool ZReplayLoader::ParseVersion2Command(char* pStream, CCCommand* pCmd)
 			TempParams[1]->GetValue(&pos);
 			TempParams[2]->GetValue(&dir);
 
-			pCmd->AddParameter(new CCCmdParaCCUID(uidChar));
+			pCmd->AddParameter(new CCCmdParamCCUID(uidChar));
 			pCmd->AddParameter(new CCCmdParamShortVector(pos.x, pos.y, pos.z));
 			pCmd->AddParameter(new CCCmdParamShortVector(DirElementToShort(dir.x), DirElementToShort(dir.y), DirElementToShort(dir.z)));
 		}

@@ -30,8 +30,8 @@ void CCMatchRuleAssassinate::ChooseAdminAsCommander()
 
 	// Let players know the commander...
 	CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParaCCUID(m_uidRedCommander));
-	pCmd->AddParameter(new CCCmdParaCCUID(m_uidBlueCommander));
+	pCmd->AddParameter(new CCCmdParamCCUID(m_uidRedCommander));
+	pCmd->AddParameter(new CCCmdParamCCUID(m_uidBlueCommander));
 	pServer->RouteToStage(pStage->GetUID(), pCmd);
 }
 
@@ -103,8 +103,8 @@ void CCMatchRuleAssassinate::OnRoundBegin()
 
 	// Let players know the commander...
 	CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_ASSIGN_COMMANDER, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParaCCUID(m_uidRedCommander));
-	pCmd->AddParameter(new CCCmdParaCCUID(m_uidBlueCommander));
+	pCmd->AddParameter(new CCCmdParamCCUID(m_uidRedCommander));
+	pCmd->AddParameter(new CCCmdParamCCUID(m_uidBlueCommander));
 	pServer->RouteToStage(pStage->GetUID(), pCmd);
 
 //	OutputDebugString("Assassinate::OnRoundBegin() \n");

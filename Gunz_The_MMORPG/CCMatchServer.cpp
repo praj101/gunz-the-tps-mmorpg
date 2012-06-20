@@ -2067,7 +2067,7 @@ void CCMatchServer::ResponseBridgePeer(const CCUID& uidChar, int nCode)
 	if (pObj == NULL) return;
 
 	CCCommand* pNew = CreateCommand(MC_MATCH_BRIDGEPEER_ACK, CCUID(0,0));
-	pNew->AddParameter(new CCCmdParaCCUID(uidChar));
+	pNew->AddParameter(new CCCmdParamCCUID(uidChar));
 	pNew->AddParameter(new CCCmdParamInt(nCode));
 	RouteToListener(pObj, pNew);
 }
@@ -2750,7 +2750,7 @@ void CCMatchServer::UpdateCharItemDBCachingData(CCMatchObject* pObject)
 				if( FindStage(pObject->GetStageUID())  )
 				{
 					CCCommand* pCmd = CreateCommand( MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK, CCUID(0, 0) );
-					pCmd->AddParameter(new CCCmdParaCCUID(pObject->GetUID()));
+					pCmd->AddParameter(new CCCmdParamCCUID(pObject->GetUID()));
 					pCmd->AddParameter(new CCCmdParamInt(nCheckParts));
 					pCmd->AddParameter(new CCCmdParamInt(0));
 					RouteToStage(pObject->GetStageUID(), pCmd);
@@ -4023,7 +4023,7 @@ void CCMatchServer::RouteCmdBattleTimeReward(const CCUID& uidPlayer, CCUID& uidS
 {
 	CCCommand* pNew = CreateCommand( MC_MATCH_REWARD_BATTLE_TIME, CCUID(0, 0) );
 
-	pNew->AddParameter( new CCCmdParaCCUID(uidPlayer) );
+	pNew->AddParameter( new CCCmdParamCCUID(uidPlayer) );
 	pNew->AddParameter( new CCCmdParamStr(pszName) );
 	pNew->AddParameter( new CCCmdParamStr(pszResetDesc) );
 	pNew->AddParameter( new CCCmdParamUInt(nItemID) );

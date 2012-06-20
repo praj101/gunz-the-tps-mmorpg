@@ -116,10 +116,10 @@ inline void ZPostAttack(int type, rvector& vPos)
 
 inline void ZPostDamage(CCUID ChrUID,int damage)
 {
-	ZPOSTCMD2(MC_PEER_DAMAGE, CCCmdParaCCUID(ChrUID),CCCmdParamInt(damage));
+	ZPOSTCMD2(MC_PEER_DAMAGE, CCCmdParamCCUID(ChrUID),CCCmdParamInt(damage));
 }
 
-#define ZPostDie(/*CCUID*/ uidAttacker) { ZPOSTCMD1(CLOAK_CMD_ID(MC_PEER_DIE, 3421), CCCmdParaCCUID(uidAttacker)); }
+#define ZPostDie(/*CCUID*/ uidAttacker) { ZPOSTCMD1(CLOAK_CMD_ID(MC_PEER_DIE, 3421), CCCmdParamCCUID(uidAttacker)); }
 
 #ifdef _DEBUG
 inline void ZPostSpawn(rvector& vPos, rvector& vDir)	// For Local Test Only
@@ -132,7 +132,7 @@ inline void ZPostSpawn(rvector& vPos, rvector& vDir)	// For Local Test Only
 // C/S Sync Spawn
 #define ZPostRequestSpawn(/*CCUID*/ uidChar, /*rvector&*/ vPos, /*rvector&*/ vDir) { \
 	ZPOSTCMD3(CLOAK_CMD_ID(MC_MATCH_GAME_REQUEST_SPAWN, 8876), \
-		CCCmdParaCCUID(uidChar), CCCmdParamPos(vPos.x, vPos.y, vPos.z), \
+		CCCmdParamCCUID(uidChar), CCCmdParamPos(vPos.x, vPos.y, vPos.z), \
 		CCCmdParamDir(vDir.x, vDir.y, vDir.z)); \
 }
 
@@ -182,7 +182,7 @@ inline void ZPostReload()
 
 inline void ZPostPeerEnchantDamage(CCUID ownerUID, CCUID targetUID)
 {
-	ZPOSTCMD2(MC_PEER_ENCHANT_DAMAGE, CCCmdParaCCUID(ownerUID), CCCmdParaCCUID(targetUID));
+	ZPOSTCMD2(MC_PEER_ENCHANT_DAMAGE, CCCmdParamCCUID(ownerUID), CCCmdParamCCUID(targetUID));
 }
 
 inline void ZPostConnect(const char* szAddr, unsigned int nPort)
@@ -249,7 +249,7 @@ inline void ZPostChannelRequestJoin(const CCUID& uidChar, const CCUID& uidChanne
 inline void ZPostChannelRequestJoinFromChannelName(const CCUID& uidChar, int nChannelType, const char* szChannelName)
 {
 	if (strlen(szChannelName) >= CHANNELNAME_LEN) return;
-	ZPOSTCMD3(MC_MATCH_CHANNEL_REQUEST_JOIN_FROM_NAME, CCCmdParaCCUID(uidChar), CCCmdParamInt(nChannelType), CCCmdParamStr(szChannelName));
+	ZPOSTCMD3(MC_MATCH_CHANNEL_REQUEST_JOIN_FROM_NAME, CCCmdParamCCUID(uidChar), CCCmdParamInt(nChannelType), CCCmdParamStr(szChannelName));
 }
 
 //강제 인라이닝
@@ -720,7 +720,7 @@ void ZPostUserOption();
 
 inline void ZPostChatRoomCreate(const CCUID& uidPlayer, char* pszChatRoomName)
 {
-	ZPOSTCMD2(MC_MATCH_CHATROOM_CREATE, CCCmdParaCCUID(uidPlayer),
+	ZPOSTCMD2(MC_MATCH_CHATROOM_CREATE, CCCmdParamCCUID(uidPlayer),
 			CCCmdParamStr(pszChatRoomName));
 }
 
@@ -754,14 +754,14 @@ inline void ZPostChatRoomChat(char* pszChat)
 
 inline void ZPostRequestMySimpleCharInfo(const CCUID& uidChar)
 {
-	ZPOSTCMD1( MC_MATCH_REQUEST_MY_SIMPLE_CHARINFO, CCCmdParaCCUID(uidChar) );
+	ZPOSTCMD1( MC_MATCH_REQUEST_MY_SIMPLE_CHARINFO, CCCmdParamCCUID(uidChar) );
 }
 
 
 inline void ZPostRequestCopyToTestServer(const CCUID& uidChar)
 {
 	return;	// 사용하지 않음
-	ZPOSTCMD1(MC_MATCH_REQUEST_COPY_TO_TESTSERVER, CCCmdParaCCUID(uidChar) );
+	ZPOSTCMD1(MC_MATCH_REQUEST_COPY_TO_TESTSERVER, CCCmdParamCCUID(uidChar) );
 
 }
 
@@ -783,7 +783,7 @@ inline void ZPostRequestCreateClan(const CCUID& uidChar, const int nRequestID, c
 								   char** ppMemberCharNames, int nMemberCharNamesCount)
 {
 	if (nMemberCharNamesCount != CLAN_SPONSORS_COUNT) return;
-	ZPOSTCMD7(MC_MATCH_CLAN_REQUEST_CREATE_CLAN, CCCmdParaCCUID(uidChar), CCCmdParamInt(nRequestID), CCCmdParamStr(szClanName), 
+	ZPOSTCMD7(MC_MATCH_CLAN_REQUEST_CREATE_CLAN, CCCmdParamCCUID(uidChar), CCCmdParamInt(nRequestID), CCCmdParamStr(szClanName), 
 				CCCmdParamStr(ppMemberCharNames[0]), CCCmdParamStr(ppMemberCharNames[1]),
 				CCCmdParamStr(ppMemberCharNames[2]), CCCmdParamStr(ppMemberCharNames[3]));
 
@@ -791,14 +791,14 @@ inline void ZPostRequestCreateClan(const CCUID& uidChar, const int nRequestID, c
 
 inline void ZPostAnswerSponsorAgreement(const int nRequestID, const CCUID& uidClanMaster, char* szSponsorCharName, const bool bAnswer)
 {
-	ZPOSTCMD4(MC_MATCH_CLAN_ANSWER_SPONSOR_AGREEMENT, CCCmdParamInt(nRequestID), CCCmdParaCCUID(uidClanMaster), 
+	ZPOSTCMD4(MC_MATCH_CLAN_ANSWER_SPONSOR_AGREEMENT, CCCmdParamInt(nRequestID), CCCmdParamCCUID(uidClanMaster), 
 		CCCmdParamStr(szSponsorCharName), CCCmdParamBool(bAnswer));
 }
 
 inline void ZPostRequestAgreedCreateClan(const CCUID& uidChar, char* szClanName, char** ppMemberCharNames, int nMemberCharNamesCount)
 {
 	if (nMemberCharNamesCount != CLAN_SPONSORS_COUNT) return;
-	ZPOSTCMD6(MC_MATCH_CLAN_REQUEST_AGREED_CREATE_CLAN, CCCmdParaCCUID(uidChar), CCCmdParamStr(szClanName), 
+	ZPOSTCMD6(MC_MATCH_CLAN_REQUEST_AGREED_CREATE_CLAN, CCCmdParamCCUID(uidChar), CCCmdParamStr(szClanName), 
 				CCCmdParamStr(ppMemberCharNames[0]), CCCmdParamStr(ppMemberCharNames[1]),
 				CCCmdParamStr(ppMemberCharNames[2]), CCCmdParamStr(ppMemberCharNames[3]));
 }
@@ -806,44 +806,44 @@ inline void ZPostRequestAgreedCreateClan(const CCUID& uidChar, char* szClanName,
 // 클랜 폐쇄 요청
 inline void ZPostRequestCloseClan(const CCUID& uidChar, char* szClanName)
 {
-	ZPOSTCMD2(MC_MATCH_CLAN_REQUEST_CLOSE_CLAN, CCCmdParaCCUID(uidChar), CCCmdParamStr(szClanName));
+	ZPOSTCMD2(MC_MATCH_CLAN_REQUEST_CLOSE_CLAN, CCCmdParamCCUID(uidChar), CCCmdParamStr(szClanName));
 }
 
 // 클랜 가입 처리
 inline void ZPostRequestJoinClan(const CCUID& uidChar, const char* szClanName, const char* szJoiner)
 {
-	ZPOSTCMD3(MC_MATCH_CLAN_REQUEST_JOIN_CLAN, CCCmdParaCCUID(uidChar), CCCmdParamStr(szClanName), CCCmdParamStr(szJoiner));
+	ZPOSTCMD3(MC_MATCH_CLAN_REQUEST_JOIN_CLAN, CCCmdParamCCUID(uidChar), CCCmdParamStr(szClanName), CCCmdParamStr(szJoiner));
 }
 
 // 클랜 가입 동의 응답
 inline void ZPostAnswerJoinAgreement(const CCUID& uidClanAdmin, const char* szJoiner, const bool bAnswer)
 {
-	ZPOSTCMD3(MC_MATCH_CLAN_ANSWER_JOIN_AGREEMENT, CCCmdParaCCUID(uidClanAdmin), CCCmdParamStr(szJoiner), CCCmdParamBool(bAnswer));
+	ZPOSTCMD3(MC_MATCH_CLAN_ANSWER_JOIN_AGREEMENT, CCCmdParamCCUID(uidClanAdmin), CCCmdParamStr(szJoiner), CCCmdParamBool(bAnswer));
 }
 
 // 클랜 동의한 가입처리 요청
 inline void ZPostRequestAgreedJoinClan(const CCUID& uidClanAdmin, const char* szClanName, const char* szJoiner)
 {
-	ZPOSTCMD3(MC_MATCH_CLAN_REQUEST_AGREED_JOIN_CLAN, CCCmdParaCCUID(uidClanAdmin), CCCmdParamStr(szClanName), CCCmdParamStr(szJoiner));
+	ZPOSTCMD3(MC_MATCH_CLAN_REQUEST_AGREED_JOIN_CLAN, CCCmdParamCCUID(uidClanAdmin), CCCmdParamStr(szClanName), CCCmdParamStr(szJoiner));
 }
 
 // 클랜 탈퇴 요청
 inline void ZPostRequestLeaveClan(const CCUID& uidChar)
 {
-	ZPOSTCMD1(MC_MATCH_CLAN_REQUEST_LEAVE_CLAN, CCCmdParaCCUID(uidChar));
+	ZPOSTCMD1(MC_MATCH_CLAN_REQUEST_LEAVE_CLAN, CCCmdParamCCUID(uidChar));
 }
 
 // 클랜 멤버 권한 변경 요청
 inline void ZPostRequestChangeClanGrade(const CCUID& uidClanAdmin, const char* szMember, int nClanGrade)
 {
-	ZPOSTCMD3(MC_MATCH_CLAN_MASTER_REQUEST_CHANGE_GRADE, CCCmdParaCCUID(uidClanAdmin), CCCmdParamStr(szMember), CCCmdParamInt(nClanGrade));
+	ZPOSTCMD3(MC_MATCH_CLAN_MASTER_REQUEST_CHANGE_GRADE, CCCmdParamCCUID(uidClanAdmin), CCCmdParamStr(szMember), CCCmdParamInt(nClanGrade));
 
 }
 
 // 클랜 멤버 탈퇴 요청
 inline void ZPostRequestExpelClanMember(const CCUID& uidClanAdmin, const char* szMember)
 {
-	ZPOSTCMD2(MC_MATCH_CLAN_ADMIN_REQUEST_EXPEL_MEMBER, CCCmdParaCCUID(uidClanAdmin), CCCmdParamStr(szMember));
+	ZPOSTCMD2(MC_MATCH_CLAN_ADMIN_REQUEST_EXPEL_MEMBER, CCCmdParamCCUID(uidClanAdmin), CCCmdParamStr(szMember));
 }
 
 
@@ -858,18 +858,18 @@ inline void ZPostRequestChannelAllPlayerList(const CCUID& uidChar, const CCUID& 
 // 클랜 메세지
 inline void ZPostClanMsg(const CCUID& uidSender, const char* pszMsg)
 {
-	ZPOSTCMD2(MC_MATCH_CLAN_REQUEST_MSG, CCCmdParaCCUID(uidSender), CCCmdParamStr(const_cast<char*>(pszMsg)));
+	ZPOSTCMD2(MC_MATCH_CLAN_REQUEST_MSG, CCCmdParamCCUID(uidSender), CCCmdParamStr(const_cast<char*>(pszMsg)));
 }
 
 inline void ZPostRequestClanMemberList(const CCUID& uidChar)
 {
-	ZPOSTCMD1(MC_MATCH_CLAN_REQUEST_MEMBER_LIST, CCCmdParaCCUID(uidChar));
+	ZPOSTCMD1(MC_MATCH_CLAN_REQUEST_MEMBER_LIST, CCCmdParamCCUID(uidChar));
 }
 
 // 클랜 정보 요청 - 클랜전서버에서만 사용한다.
 inline void ZPostRequestClanInfo(const CCUID& uidChar, const char* szClanName)
 {
-	ZPOSTCMD2(MC_MATCH_CLAN_REQUEST_CLAN_INFO, CCCmdParaCCUID(uidChar), CCCmdParamStr(szClanName));
+	ZPOSTCMD2(MC_MATCH_CLAN_REQUEST_CLAN_INFO, CCCmdParamCCUID(uidChar), CCCmdParamStr(szClanName));
 }
 
 
@@ -884,7 +884,7 @@ inline void ZPostRequestProposal(const CCUID& uidChar, const int nProposalMode, 
 		strcpy(pReplierNode->szName, ppReplierCharNames[i]);
 	}
 
-	ZPOSTCMD5(MC_MATCH_REQUEST_PROPOSAL, CCCmdParaCCUID(uidChar), CCCmdParamInt(nProposalMode),
+	ZPOSTCMD5(MC_MATCH_REQUEST_PROPOSAL, CCCmdParamCCUID(uidChar), CCCmdParamInt(nProposalMode),
 		CCCmdParamInt(nRequestID), CCCmdParamInt(nReplierCount), 
 		CCCmdParamBlob(pBlobRepliersName, CCGetBlobArraySize(pBlobRepliersName)));
 
@@ -896,7 +896,7 @@ inline void ZPostRequestProposal(const CCUID& uidChar, const int nProposalMode, 
 inline void ZPostReplyAgreement(const CCUID& uidProposer, const CCUID& uidChar, char* szReplierName, int nProposalMode, 
 								int nRequestID, bool bAgreement)
 {
-	ZPOSTCMD6(MC_MATCH_REPLY_AGREEMENT, CCCmdParaCCUID(uidProposer), CCCmdParaCCUID(uidChar),
+	ZPOSTCMD6(MC_MATCH_REPLY_AGREEMENT, CCCmdParamCCUID(uidProposer), CCCmdParamCCUID(uidChar),
 		CCCmdParamStr(szReplierName), CCCmdParamInt(nProposalMode), CCCmdParamInt(nRequestID), CCCmdParamBool(bAgreement));
 }
 
@@ -929,12 +929,12 @@ inline void ZPostLadderCancel()
 //#ifdef _DUELTOURNAMENT
 inline void ZPostDuelTournamentRequestJoinGame(const CCUID& uidChar, CCDUELTOURNAMENTTYPE nType)
 {
-	ZPOSTCMD2( MC_MATCH_DUELTOURNAMENT_REQUEST_JOINGAME, CCCmdParaCCUID(uidChar), CCCmdParamInt((int)nType));
+	ZPOSTCMD2( MC_MATCH_DUELTOURNAMENT_REQUEST_JOINGAME, CCCmdParamCCUID(uidChar), CCCmdParamInt((int)nType));
 }
 
 inline void ZPostDuelTournamentRequestCancelGame(const CCUID& uidChar, CCDUELTOURNAMENTTYPE nType)
 {
-	ZPOSTCMD2( MC_MATCH_DUELTOURNAMENT_REQUEST_CANCELGAME, CCCmdParaCCUID(uidChar), CCCmdParamInt((int)nType));
+	ZPOSTCMD2( MC_MATCH_DUELTOURNAMENT_REQUEST_CANCELGAME, CCCmdParamCCUID(uidChar), CCCmdParamInt((int)nType));
 }
 
 inline void ZPostDuelTournamentRequestSideRankingInfo(const CCUID& uidChar)
@@ -949,13 +949,13 @@ inline void ZPostDuelTournamentRequestSideRankingInfo(const CCUID& uidChar)
 	{
 		timeLastReqeust = currTime;
 		strcpy(szCharName, ZGetMyInfo()->GetCharName());
-		ZPOSTCMD1( MC_MATCH_DUELTOURNAMENT_REQUEST_SIDERANKING_INFO, CCCmdParaCCUID(uidChar));
+		ZPOSTCMD1( MC_MATCH_DUELTOURNAMENT_REQUEST_SIDERANKING_INFO, CCCmdParamCCUID(uidChar));
 	}
 }
 
 inline void ZPostDuelTournamentGamePlayerStatus(const CCUID& uidChar, float fAccumulationDamage, float fHP, float fAP)
 {
-	ZPOSTCMD4( MC_MATCH_DUELTOURNAMENT_GAME_PLAYER_STATUS, CCCmdParaCCUID(uidChar), CCCmdParamFloat(fAccumulationDamage), CCCmdParamFloat(fHP), CCCmdParamFloat(fAP));
+	ZPOSTCMD4( MC_MATCH_DUELTOURNAMENT_GAME_PLAYER_STATUS, CCCmdParamCCUID(uidChar), CCCmdParamFloat(fAccumulationDamage), CCCmdParamFloat(fHP), CCCmdParamFloat(fAP));
 }
 //#endif //_DUELTOURNAMENT
 
@@ -984,7 +984,7 @@ inline void ZPostAdminRequestBlockPlayer(char* pszTargetPlayerName, int nPunishH
 
 inline void ZPostAdminRequestSwitchLadderGame(const CCUID& uidChar, bool bEnabled)
 {
-	ZPOSTCMD2(MC_ADMIN_REQUEST_SWITCH_LADDER_GAME, CCCmdParaCCUID(uidChar), CCCmdParamBool(bEnabled));
+	ZPOSTCMD2(MC_ADMIN_REQUEST_SWITCH_LADDER_GAME, CCCmdParamCCUID(uidChar), CCCmdParamBool(bEnabled));
 }
 
 
@@ -1066,12 +1066,12 @@ inline void ZPostClanEmblemReady(unsigned int nCLID, char* pszEmblemURL)
 // Quest /////////////////////////////////////////////////////////////////////////////////////////////
 // 강제인라이닝
 #define ZPostQuestRequestNPCDead(/*const CCUID&*/ uidKiller, /*const CCUID&*/ uidNPC, /*rvector&*/ vPos) {	\
-	ZPOSTCMD3(CLOAK_CMD_ID(MC_QUEST_REQUEST_NPC_DEAD, 24781), CCCmdParaCCUID(uidKiller), CCCmdParaCCUID(uidNPC), CCCmdParamShortVector(vPos.x, vPos.y, vPos.z));	\
+	ZPOSTCMD3(CLOAK_CMD_ID(MC_QUEST_REQUEST_NPC_DEAD, 24781), CCCmdParamCCUID(uidKiller), CCCmdParamCCUID(uidNPC), CCCmdParamShortVector(vPos.x, vPos.y, vPos.z));	\
 }
 
 inline void ZPostQuestPeerNPCDead(const CCUID& uidKiller, const CCUID& uidNPC)
 {
-	ZPOSTCMD2(MC_QUEST_PEER_NPC_DEAD, CCCmdParaCCUID(uidKiller), CCCmdParaCCUID(uidNPC));
+	ZPOSTCMD2(MC_QUEST_PEER_NPC_DEAD, CCCmdParamCCUID(uidKiller), CCCmdParamCCUID(uidNPC));
 }
 
 
@@ -1120,7 +1120,7 @@ inline void ZPostQuestRequestMovetoPortal(const char nCurrSectorIndex)
 
 inline void ZPostQuestReadyToNewSector(const CCUID& uidPlayer)
 {
-	ZPOSTCMD1(MC_QUEST_READYTO_NEWSECTOR, CCCmdParaCCUID(uidPlayer));
+	ZPOSTCMD1(MC_QUEST_READYTO_NEWSECTOR, CCCmdParamCCUID(uidPlayer));
 }
 
 inline void ZPostQuestPong(unsigned long int nTime)
@@ -1132,37 +1132,37 @@ inline void ZPostQuestPong(unsigned long int nTime)
 #ifdef _QUEST_ITEM
 inline void ZPostRequestGetCharQuestItemInfo( const CCUID& uid )
 {
-	ZPOSTCMD1( MC_MATCH_REQUEST_CHAR_QUEST_ITEM_LIST, CCCmdParaCCUID(uid) );
+	ZPOSTCMD1( MC_MATCH_REQUEST_CHAR_QUEST_ITEM_LIST, CCCmdParamCCUID(uid) );
 }
 
 inline void ZPostRequestBuyQuestItem( const CCUID& uid, const unsigned long int nItemID, const int nCount = 1 )
 {
-	ZPOSTCMD3( MC_MATCH_REQUEST_BUY_QUEST_ITEM, CCCmdParaCCUID(uid), CCCommandParameterInt(nItemID), CCCommandParameterInt(nCount) );
+	ZPOSTCMD3( MC_MATCH_REQUEST_BUY_QUEST_ITEM, CCCmdParamCCUID(uid), CCCommandParameterInt(nItemID), CCCommandParameterInt(nCount) );
 }
 
 inline void ZPostRequestSellQuestItem( const CCUID& uid, const unsigned long int nItemID, const int nCount = 1 )
 {
-	ZPOSTCMD3( MC_MATCH_REQUEST_SELL_QUEST_ITEM, CCCmdParaCCUID(uid), CCCommandParameterInt(nItemID), CCCommandParameterInt(nCount) );
+	ZPOSTCMD3( MC_MATCH_REQUEST_SELL_QUEST_ITEM, CCCmdParamCCUID(uid), CCCommandParameterInt(nItemID), CCCommandParameterInt(nCount) );
 }
 
 inline void ZPostRequestDropSacrificeItem( const CCUID& uid, const int nSlotIndex, const unsigned long int nItemID )
 {
-	ZPOSTCMD3( MC_MATCH_REQUEST_DROP_SACRIFICE_ITEM, CCCmdParaCCUID(uid), CCCommandParameterInt(nSlotIndex), CCCommandParameterInt(nItemID) );
+	ZPOSTCMD3( MC_MATCH_REQUEST_DROP_SACRIFICE_ITEM, CCCmdParamCCUID(uid), CCCommandParameterInt(nSlotIndex), CCCommandParameterInt(nItemID) );
 }
 
 inline void ZPostRequestCallbackSacrificeItem( const CCUID& uid, const int nSlotIndex, const unsigned long int nItemID )
 {
-	ZPOSTCMD3( MC_MATCH_REQUEST_CALLBACK_SACRIFICE_ITEM, CCCmdParaCCUID(uid), CCCommandParameterInt(nSlotIndex), CCCommandParameterInt(nItemID) );
+	ZPOSTCMD3( MC_MATCH_REQUEST_CALLBACK_SACRIFICE_ITEM, CCCmdParamCCUID(uid), CCCommandParameterInt(nSlotIndex), CCCommandParameterInt(nItemID) );
 }
 
 inline void ZPostRequestQL( const CCUID& uid )
 {
-	ZPOSTCMD1( MC_QUEST_REQUEST_QL, CCCmdParaCCUID(uid) );
+	ZPOSTCMD1( MC_QUEST_REQUEST_QL, CCCmdParamCCUID(uid) );
 }
 
 inline void ZPostRequestSacrificeSlotInfo( const CCUID& uid )
 {
-	ZPOSTCMD1( MC_MATCH_REQUEST_SLOT_INFO, CCCmdParaCCUID(uid) );
+	ZPOSTCMD1( MC_MATCH_REQUEST_SLOT_INFO, CCCmdParamCCUID(uid) );
 }
 
 inline void ZPostQuestStageMapset(const CCUID& uidStage, int nMapsetID)
@@ -1172,7 +1172,7 @@ inline void ZPostQuestStageMapset(const CCUID& uidStage, int nMapsetID)
 
 inline void ZPostRequestMonsterBibleInfo( const CCUID& uid )
 {
-	ZPOSTCMD1( MC_MATCH_REQUEST_MONSTER_BIBLE_INFO, CCCmdParaCCUID(uid) );
+	ZPOSTCMD1( MC_MATCH_REQUEST_MONSTER_BIBLE_INFO, CCCmdParamCCUID(uid) );
 }
 
 inline void ZPostResponseXTrapSeedKey(unsigned char *szComBuf)			// Update sgk 0706
@@ -1199,7 +1199,7 @@ inline void ZPostResponseFirstGameguardAuth( const DWORD dwIndex, const DWORD dw
 
 inline void ZPostRequestGamble( const CCUID& uid)
 {
-	ZPOSTCMD1( MC_MATCH_REQUEST_GAMBLE, CCCmdParaCCUID(uid) );
+	ZPOSTCMD1( MC_MATCH_REQUEST_GAMBLE, CCCmdParamCCUID(uid) );
 }
 
 inline void ZPostResponseResourceCRC32( DWORD dwCRC, DWORD dwXOR )
@@ -1215,12 +1215,12 @@ inline void ZPostResponseResourceCRC32( DWORD dwCRC, DWORD dwXOR )
 
 inline void ZPostRequestUseSpendableNormalItem( const CCUID& uid )
 {
-	ZPOSTCMD1( MC_MATCH_REQUEST_USE_SPENDABLE_NORMAL_ITEM, CCCmdParaCCUID(uid) );
+	ZPOSTCMD1( MC_MATCH_REQUEST_USE_SPENDABLE_NORMAL_ITEM, CCCmdParamCCUID(uid) );
 }
 
 inline void ZPostRequestUseSpendableBuffItem( const CCUID& uid )
 {
-	ZPOSTCMD1( MC_MATCH_REQUEST_USE_SPENDABLE_BUFF_ITEM, CCCmdParaCCUID(uid) );
+	ZPOSTCMD1( MC_MATCH_REQUEST_USE_SPENDABLE_BUFF_ITEM, CCCmdParamCCUID(uid) );
 }
 
 #endif

@@ -42,7 +42,7 @@ void CCMatchServer::OnAdminTerminal(const CCUID& uidAdmin, const char* szText)
 	if (m_Admin.Execute(uidAdmin, szText))
 	{
 		CCCommand* pNew = CreateCommand(MC_ADMIN_TERMINAL, CCUID(0,0));
-		pNew->AddParameter(new CCCmdParaCCUID(CCUID(0,0)));
+		pNew->AddParameter(new CCCmdParamCCUID(CCUID(0,0)));
 		pNew->AddParameter(new CCCmdParamStr(szOut));
 		RouteToListener(pObj, pNew);
 	}
@@ -63,7 +63,7 @@ void CCMatchServer::OnAdminAnnounce(const CCUID& uidAdmin, const char* szChat, u
 	char szMsg[256];
 	strcpy(szMsg, szChat);
 	CCCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParaCCUID(uidAdmin));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidAdmin));
 	pCmd->AddParameter(new CCCmdParamStr(szMsg));
 	pCmd->AddParameter(new CCCmdParamUInt(nType));
 

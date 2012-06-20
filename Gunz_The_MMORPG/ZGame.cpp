@@ -2443,7 +2443,7 @@ void ZGame::OnPeerBasicInfo(CCCommand *pCommand,bool bAddHistory,bool bUpdate)
 	if (pPeer) {
 		if (pPeer->IsOpened() == false) {
 			CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
-			pCmd->AddParameter(new CCCmdParaCCUID(pPeer->uidChar));
+			pCmd->AddParameter(new CCCmdParamCCUID(pPeer->uidChar));
 			ZGetGameClient()->Post(pCmd);
 
 			pPeer->SetOpened(true);
@@ -2648,7 +2648,7 @@ void ZGame::OnPeerPong(CCCommand *pCommand)
 /*
 	if (pPeer->IsOpened() == false) {
 		CCCommand* pCmd = ZGetGameClient()->CreateCommand(MC_PEER_OPENED, ZGetGameClient()->GetPlayerUID());
-		pCmd->AddParameter(new CCCmdParaCCUID(pPeer->uidChar));
+		pCmd->AddParameter(new CCCmdParamCCUID(pPeer->uidChar));
 		ZGetGameClient()->Post(pCmd);
 
 		pPeer->SetOpened(true);
