@@ -28,7 +28,7 @@ protected:
 	bool		m_bCustomLook;
 
 public:
-	CCEditLook();
+	CCEditLook(){};
 
 	virtual void OnFrameDraw(CCEdit* pEdit, CCDrawContext* pDC);
 	virtual void OnTextDraw(CCEdit* pEdit, CCDrawContext* pDC, bool bShowLanguageTab);
