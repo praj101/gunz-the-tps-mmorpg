@@ -746,7 +746,7 @@ void ZActor::PostBossHpAp()
 		{
 			m_nLastTime[ACTOR_LASTTIME_HPINFO] = nNowTime;
 			
-			ZPOSTCMD3(MC_QUEST_PEER_NPC_BOSS_HPAP, CCCmdParaCCUID(GetUID()), 
+			ZPOSTCMD3(MC_QUEST_PEER_NPC_BOSS_HPAP, CCCmdParamCCUID(GetUID()), 
 				CCCommandParameterFloat(m_pModule_HPAP->GetHP()), CCCommandParameterFloat(m_pModule_HPAP->GetAP()));
 		}
 	}

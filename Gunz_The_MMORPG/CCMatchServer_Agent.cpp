@@ -90,7 +90,7 @@ void CCMatchServer::ReserveAgent(CCMatchStage* pStage)
 	pStage->SetAgentUID(pFreeAgent->GetUID());
 
 	CCCommand* pCmd = CreateCommand(MC_AGENT_STAGE_RESERVE, pFreeAgent->GetCommListener());
-	pCmd->AddParameter(new CCCmdParaCCUID(pStage->GetUID()));
+	pCmd->AddParameter(new CCCmdParamCCUID(pStage->GetUID()));
 	Post(pCmd);
 }
 
@@ -117,7 +117,7 @@ void CCMatchServer::LocateAgentToClient(const CCUID& uidPlayer, const CCUID& uid
 	}
 
 	CCCommand* pCmd = CreateCommand(MC_AGENT_LOCATETO_CLIENT, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParaCCUID(uidAgent));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidAgent));
 	pCmd->AddParameter(new CCCmdParamStr(pAgent->GetIP()));
 	pCmd->AddParameter(new CCCmdParamInt(pAgent->GetTCPPort()));
 	pCmd->AddParameter(new CCCmdParamInt(pAgent->GetUDPPort()));
@@ -223,7 +223,7 @@ void CCMatchServer::OnPeerReady(const CCUID& uidChar, const CCUID& uidPeer)
 	LocateAgentToClient(uidChar, pStage->GetAgentUID());
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_RESPONSE_PEER_RELAY, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParaCCUID(uidPeer));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidPeer));
 	RouteToListener(pChar, pCmd);
 
 	static int nCount = 0;
@@ -272,15 +272,15 @@ void CCMatchServer::OnRequestRelayPeer(const CCUID& uidChar, const CCUID& uidPee
 
 	// Send Relay order to Agent
 	CCCommand* pCmd = CreateCommand(MC_AGENT_RELAY_PEER, pAgent->GetCommListener());
-	pCmd->AddParameter(new CCCmdParaCCUID(uidChar));
-	pCmd->AddParameter(new CCCmdParaCCUID(uidPeer));
-	pCmd->AddParameter(new CCCmdParaCCUID(pStage->GetUID()));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidChar));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidPeer));
+	pCmd->AddParameter(new CCCmdParamCCUID(pStage->GetUID()));
 	Post(pCmd);
 
 /*	CCCommand* pCmd2 = CreateCommand(MC_AGENT_RELAY_PEER, pAgent->GetCommListener());
-	pCmd2->AddParameter(new CCCmdParaCCUID(uidPeer));
-	pCmd2->AddParameter(new CCCmdParaCCUID(uidChar));
-	pCmd2->AddParameter(new CCCmdParaCCUID(pStage->GetUID()));
+	pCmd2->AddParameter(new CCCmdParamCCUID(uidPeer));
+	pCmd2->AddParameter(new CCCmdParamCCUID(uidChar));
+	pCmd2->AddParameter(new CCCmdParamCCUID(pStage->GetUID()));
 	Post(pCmd2);*/
 
 //	for (CCUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {

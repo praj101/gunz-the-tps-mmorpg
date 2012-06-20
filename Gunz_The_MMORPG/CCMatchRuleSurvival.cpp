@@ -151,7 +151,7 @@ void CCMatchRuleSurvival::RouteSectorBonus(const CCUID& uidPlayer, unsigned long
 	if (!IsEnabledObject(pPlayer)) return;
 
 	CCCommand* pNewCmd = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_SECTOR_BONUS, CCUID(0,0));
-	pNewCmd->AddParameter(new CCCmdParaCCUID(uidPlayer));
+	pNewCmd->AddParameter(new CCCmdParamCCUID(uidPlayer));
 	pNewCmd->AddParameter(new CCCmdParamUInt(nEXPValue));
 	pNewCmd->AddParameter(new CCCmdParamUInt(nBP));
 	CCMatchServer::GetInstance()->RouteToListener( pPlayer, pNewCmd );
@@ -1235,7 +1235,7 @@ void CCMatchRuleSurvival::OnResponseDropSacrificeItemOnSlot( const CCUID& uidSen
 					return;
 
 				pCmdMore->AddParameter( new CCCmdParamInt(NEED_MORE_QUEST_ITEM) );
-				pCmdMore->AddParameter( new CCCmdParaCCUID(uidSender) );
+				pCmdMore->AddParameter( new CCCmdParamCCUID(uidSender) );
 				pCmdMore->AddParameter( new CCCmdParamInt(nSlotIndex) );
 				pCmdMore->AddParameter( new CCCmdParamInt(nItemID) );
 
@@ -1250,7 +1250,7 @@ void CCMatchRuleSurvival::OnResponseDropSacrificeItemOnSlot( const CCUID& uidSen
 			}
 
 			pCmdOk->AddParameter( new CCCmdParamInt(MOK) );
-			pCmdOk->AddParameter( new CCCmdParaCCUID(uidSender) );
+			pCmdOk->AddParameter( new CCCmdParamCCUID(uidSender) );
 			pCmdOk->AddParameter( new CCCmdParamInt(nSlotIndex) );
 			pCmdOk->AddParameter( new CCCmdParamInt(nItemID) );
 
@@ -1319,7 +1319,7 @@ void CCMatchRuleSurvival::OnResponseCallBackSacrificeItem( const CCUID& uidSende
 	}
 
 	pCmdOk->AddParameter( new CCCmdParamInt(MOK) );
-	pCmdOk->AddParameter( new CCCmdParaCCUID(uidSender) );									// 아이템 회수를 요청한 아이디.
+	pCmdOk->AddParameter( new CCCmdParamCCUID(uidSender) );									// 아이템 회수를 요청한 아이디.
 	pCmdOk->AddParameter( new CCCmdParamInt(nSlotIndex) );
 	pCmdOk->AddParameter( new CCCmdParamInt(nItemID) );
 
@@ -1511,9 +1511,9 @@ void CCMatchRuleSurvival::OnResponseSacrificeSlotInfoToListener( const CCUID& ui
 	if( 0 == pCmd )
 		return;
 
-	pCmd->AddParameter( new CCCmdParaCCUID(m_SacrificeSlot[0].GetOwnerUID()) );
+	pCmd->AddParameter( new CCCmdParamCCUID(m_SacrificeSlot[0].GetOwnerUID()) );
 	pCmd->AddParameter( new CCCmdParamInt(m_SacrificeSlot[0].GetItemID()) );
-	pCmd->AddParameter( new CCCmdParaCCUID(m_SacrificeSlot[1].GetOwnerUID()) );
+	pCmd->AddParameter( new CCCmdParamCCUID(m_SacrificeSlot[1].GetOwnerUID()) );
 	pCmd->AddParameter( new CCCmdParamInt(m_SacrificeSlot[1].GetItemID()) );
 
 	CCMatchServer::GetInstance()->RouteToListener( pPlayer, pCmd );
@@ -1536,9 +1536,9 @@ void CCMatchRuleSurvival::OnResponseSacrificeSlotInfoToStage( const CCUID& uidSt
 	if( 0 == pCmd )
 		return;
 
-	pCmd->AddParameter( new CCCmdParaCCUID(m_SacrificeSlot[0].GetOwnerUID()) );
+	pCmd->AddParameter( new CCCmdParamCCUID(m_SacrificeSlot[0].GetOwnerUID()) );
 	pCmd->AddParameter( new CCCmdParamInt(m_SacrificeSlot[0].GetItemID()) );
-	pCmd->AddParameter( new CCCmdParaCCUID(m_SacrificeSlot[1].GetOwnerUID()) );
+	pCmd->AddParameter( new CCCmdParamCCUID(m_SacrificeSlot[1].GetOwnerUID()) );
 	pCmd->AddParameter( new CCCmdParamInt(m_SacrificeSlot[1].GetItemID()) );
 
 	CCMatchServer::GetInstance()->RouteToStage( uidStage, pCmd );

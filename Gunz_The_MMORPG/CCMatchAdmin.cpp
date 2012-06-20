@@ -138,7 +138,7 @@ bool CCMatchServer::OnAdminExecute(MAdminArgvInfo* pAI, char* szOut)
 
 
 		CCCommand* pCmd = CreateCommand(MC_ADMIN_ANNOUNCE, CCUID(0,0));
-		pCmd->AddParameter(new CCCmdParaCCUID(CCUID(0,0)));
+		pCmd->AddParameter(new CCCmdParamCCUID(CCUID(0,0)));
 		pCmd->AddParameter(new CCCmdParamStr(szMsg));
 		pCmd->AddParameter(new CCCmdParamUInt(nMsgType));
 
@@ -169,7 +169,7 @@ void CCMatchServer::AdminTerminalOutput(const CCUID& uidAdmin, const char* szTex
 	strcpy(szMsg, szText);
 
 	CCCommand* pCmd = CreateCommand(MC_ADMIN_TERMINAL, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParaCCUID(uidAdmin));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidAdmin));
 	pCmd->AddParameter(new CCCmdParamStr(szMsg));
 
 	RouteToListener(pObj, pCmd);

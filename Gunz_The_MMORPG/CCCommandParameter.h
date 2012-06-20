@@ -451,14 +451,14 @@ public:
 
 // Short Name
 typedef CCCommandParameterBlob			CCCmdParamBlob;
-typedef	CCCommandParameterUID			CCCmdParaCCUID;
+typedef	CCCommandParameterUID			CCCmdParamCCUID;
 typedef CCCommandParameter				CCCmdParam;
 typedef CCCommandParameterDesc			CCCmdParamDesc;
 typedef CCCommandParameterInt			CCCmdParamInt;
 typedef CCCommandParameterUInt			CCCmdParamUInt;
 typedef CCCommandParameterFloat			CCCmdParamFloat;
-typedef CCCommandParameterString			CCCmdParamStr;
-typedef CCCommandParameterVector			CCCmdParamVector;
+typedef CCCommandParameterString		CCCmdParamStr;
+typedef CCCommandParameterVector		CCCmdParamVector;
 typedef CCCommandParameterPos			CCCmdParamPos;
 typedef CCCommandParameterDir			CCCmdParamDir;
 typedef CCCommandParameterColor			CCCmdParamColor;

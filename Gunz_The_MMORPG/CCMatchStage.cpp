@@ -682,7 +682,7 @@ bool CCMatchStage::StartGame( const bool bIsUseResourceCRC32CacheCheck )
 		}
 
 		pCmdNotReady->AddParameter( new CCCmdParamInt(ALL_PLAYER_NOT_READY) );
-		pCmdNotReady->AddParameter( new CCCmdParaCCUID(CCUID(0, 0)) );
+		pCmdNotReady->AddParameter( new CCCmdParamCCUID(CCUID(0, 0)) );
 
 		CCMatchObject* pMaster = CCMatchServer::GetInstance()->GetObject( GetMasterUID() );
 		if( IsEnabledObject(pMaster) ) {
@@ -917,8 +917,8 @@ void CCMatchStage::OnFinishGame()
 		CCMatchObject* pObj = (CCMatchObject*)(*i).second;
 
 		CCCommand* pCmd = pServer->CreateCommand(MC_MATCH_STAGE_LEAVEBATTLE_TO_CLIENT, pServer->GetUID());
-		pCmd->AddParameter(new CCCmdParaCCUID(pObj->GetUID()));
-		pCmd->AddParameter(new CCCmdParaCCUID(GetUID()));
+		pCmd->AddParameter(new CCCmdParamCCUID(pObj->GetUID()));
+		pCmd->AddParameter(new CCCmdParamCCUID(GetUID()));
 		pServer->Post(pCmd);
 	}
 	*/
@@ -1424,7 +1424,7 @@ bool CCMatchStage::CheckDuelMap()
 			return false;
 
 		pCmd->AddParameter( new CCCmdParamInt(INVALID_MAP) );
-		pCmd->AddParameter( new CCCmdParaCCUID(CCUID(0, 0)) );
+		pCmd->AddParameter( new CCCmdParamCCUID(CCUID(0, 0)) );
 
 		pServer->RouteToListener( pMaster, pCmd );
 		
@@ -1485,7 +1485,7 @@ bool CCMatchStage::CheckTicket( CCMatchObject* pObj )
 	if( 0 != pCmd )
 	{
 		pCmd->AddParameter( new CCCmdParamInt(INVALID_TACKET_USER) );
-		pCmd->AddParameter( new CCCmdParaCCUID(pObj->GetUID()) );
+		pCmd->AddParameter( new CCCmdParamCCUID(pObj->GetUID()) );
 
 		CCGetMatchServer()->RouteToStage( GetUID(), pCmd );
 	}

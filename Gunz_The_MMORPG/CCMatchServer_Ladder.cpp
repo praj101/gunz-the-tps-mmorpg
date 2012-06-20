@@ -66,7 +66,7 @@ bool CCMatchServer::LadderJoin(const CCUID& uidPlayer, const CCUID& uidStage, CC
 	
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_LADDER_PREPARE, uidPlayer);
-	pCmd->AddParameter(new CCCmdParaCCUID(uidStage));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidStage));
 	pCmd->AddParameter(new CCCmdParamInt(nTeam));
 	Post(pCmd);
 
@@ -174,7 +174,7 @@ void CCMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroup
 			/////////////////////////////////////////////////////////////////////////////////////////////
 
 			CCCommand* pCmd = CreateCommand(MC_MATCH_LADDER_LAUNCH, CCUID(0,0));
-			pCmd->AddParameter(new CCCmdParaCCUID(uidStage));
+			pCmd->AddParameter(new CCCmdParamCCUID(uidStage));
 			pCmd->AddParameter(new CCCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
 			RouteToStage(uidStage, pCmd);
 

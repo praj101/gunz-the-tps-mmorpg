@@ -575,7 +575,7 @@ void CCMatchServer::RouteCmdDuelTournamentPrepareMatch(CCDUELTOURNAMENTTYPE nTyp
 		return;
 	}
 
-	pCmd->AddParameter(new CCCmdParaCCUID(uidStage));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidStage));
 	pCmd->AddParameter(new CCCmdParamInt(nType));
 	pCmd->AddParameter(new CCCommandParameterBlob(pBlobPlayerInfo, CCGetBlobArraySize(pBlobPlayerInfo)));
 	CCEraseBlobArray( pBlobPlayerInfo );
@@ -595,7 +595,7 @@ void CCMatchServer::RouteCmdDuelTournamentLaunchMatch(CCUID uidStage)
 	if (pStage == NULL) return;
 
 	CCCommand* pCmd = CreateCommand(MC_MATCH_DUELTOURNAMENT_LAUNCH_MATCH, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParaCCUID(uidStage));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidStage));
 	pCmd->AddParameter(new CCCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
 	RouteToStage(uidStage, pCmd);
 }

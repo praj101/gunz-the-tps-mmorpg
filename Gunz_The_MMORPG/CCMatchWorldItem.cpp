@@ -426,7 +426,7 @@ void CCMatchWorldItemManager::RouteObtainWorldItem(const CCUID& uidPlayer, int n
 {
 	// 먹었다고 라우팅
 	CCCommand* pCmd = CCMatchServer::GetInstance()->CreateCommand(MC_MATCH_OBTAIN_WORLDITEM, CCUID(0,0));
-	pCmd->AddParameter(new CCCmdParaCCUID(uidPlayer));
+	pCmd->AddParameter(new CCCmdParamCCUID(uidPlayer));
 	pCmd->AddParameter(new CCCmdParamInt(nWorldIteCCUID));
 	CCMatchServer::GetInstance()->RouteToBattle(m_pMatchStage->GetUID(), pCmd);
 }

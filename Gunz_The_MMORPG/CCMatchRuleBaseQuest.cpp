@@ -146,8 +146,8 @@ void CCMatchRuleBaseQuest::OnRequestNPCDead(CCUID& uidSender, CCUID& uidKiller, 
 		if (m_NPCManager.DestroyNPCObject(uidNPC, DropItem))
 		{
 			CCCommand* pNew = CCMatchServer::GetInstance()->CreateCommand(MC_QUEST_NPC_DEAD, uidSender);
-			pNew->AddParameter(new CCCmdParaCCUID(uidKiller));
-			pNew->AddParameter(new CCCmdParaCCUID(uidNPC));
+			pNew->AddParameter(new CCCmdParamCCUID(uidKiller));
+			pNew->AddParameter(new CCCmdParamCCUID(uidNPC));
 			CCMatchServer::GetInstance()->RouteToBattle(m_pStage->GetUID(), pNew);
 
 			CheckRewards(uidKiller, &DropItem, pos);
