@@ -479,7 +479,7 @@ bool CCMatchServer::LoadInitFile()
 		Log( LOG_PROG, "Load quest item xml file failed." );
 		return false;
 	}
-	if( !MSacrificeQItemTable::GetInst().ReadXML(SACRIFICE_TABLE_XML) )
+	if( !CCSacrificeQItemTable::GetInst().ReadXML(SACRIFICE_TABLE_XML) )
 	{
 		Log( LOG_PROG, "Load sacrifice quest item table failed." );
 		return false;

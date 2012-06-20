@@ -3,7 +3,7 @@
 #include "CCQuestLevel.h"
 #include "CCMath.h"
 #include "CCMatchServer.h"
-//#include "MSacrificeQItemTable.h"
+//#include "CCSacrificeQItemTable.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 CCQuestLevelGenerator::CCQuestLevelGenerator(CCMATCH_GAMETYPE eGameType) : 
