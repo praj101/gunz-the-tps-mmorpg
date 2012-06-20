@@ -19,21 +19,21 @@ class CCQuestSacrificeSlot;
 */
 
 
-#define MSQITC_ITEM		"ITEM"
-#define MSQITC_MAP		"map"
-#define MSQITC_QL		"ql"
-#define MSQITC_DIID		"default_item_id"
-#define MSQITC_SIID1	"special_item_id1"
-#define MSQITC_SIID2	"special_item_id2"
-#define MSQITC_SIGNPC	"significant_npc"
-#define MSQITC_SDC		"sdc"
-#define MSQITC_SID		"ScenarioID"
+#define CCSQITC_ITEM		"ITEM"
+#define CCSQITC_MAP		"map"
+#define CCSQITC_QL		"ql"
+#define CCSQITC_DIID		"default_item_id"
+#define CCSQITC_SIID1	"special_item_id1"
+#define CCSQITC_SIID2	"special_item_id2"
+#define CCSQITC_SIGNPC	"significant_npc"
+#define CCSQITC_SDC		"sdc"
+#define CCSQITC_SID		"ScenarioID"
 
 
 
-class MSacrificeQItemInfo
+class CCSacrificeQItemInfo
 {
-	friend class MSacrificeQItemTable;
+	friend class CCSacrificeQItemTable;
 
 public :
 	unsigned long	GetDefQItemID()		{ return m_nDefaultQItemID; }
@@ -46,8 +46,8 @@ public :
 	int				GetScenarioID()		{ return m_nScenarioID; }
 	
 private :
-	MSacrificeQItemInfo() : m_nDefaultQItemID( 0 ), m_nSpecialQItemID1( 0 ), m_nSpecialQItemID2( 0 ), m_nSignificantNPCID( 0 ), m_fSDC( 0.0f ) {}
-	MSacrificeQItemInfo( unsigned long nDfQItemID, unsigned long nSpecIID1, unsigned long nSpecIID2, const int nSigNPCID, const float fSdc ) :
+	CCSacrificeQItemInfo() : m_nDefaultQItemID( 0 ), m_nSpecialQItemID1( 0 ), m_nSpecialQItemID2( 0 ), m_nSignificantNPCID( 0 ), m_fSDC( 0.0f ) {}
+	CCSacrificeQItemInfo( unsigned long nDfQItemID, unsigned long nSpecIID1, unsigned long nSpecIID2, const int nSigNPCID, const float fSdc ) :
 		m_nDefaultQItemID( nDfQItemID ), m_nSpecialQItemID1( nSpecIID1 ), m_nSpecialQItemID2( nSpecIID2 ), 
 		m_nSignificantNPCID( nSigNPCID ), m_fSDC( fSdc ) {}
 
@@ -63,15 +63,15 @@ private :
 
 
 // 각레벨에 필요한 희생 아이템 테이블.
-class MSacrificeQItemTable : private multimap< int, MSacrificeQItemInfo >
+class CCSacrificeQItemTable : private multimap< int, CCSacrificeQItemInfo >
 {
 public :
-	MSacrificeQItemTable() {}
-	~MSacrificeQItemTable() {}
+	CCSacrificeQItemTable() {}
+	~CCSacrificeQItemTable() {}
 
-	static MSacrificeQItemTable& GetInst()
+	static CCSacrificeQItemTable& GetInst()
 	{
-		static MSacrificeQItemTable SacrificeQItemTable;
+		static CCSacrificeQItemTable SacrificeQItemTable;
 		return SacrificeQItemTable;
 	}
 
@@ -79,20 +79,20 @@ public :
 	bool ReadXML( const char* pszFileName );
 	bool ReadXml( CCZFileSystem* pFileSystem, const char* szFileName );
 
-	MSacrificeQItemInfo* GetResultTable() { return m_pResultTable; }
+	CCSacrificeQItemInfo* GetResultTable() { return m_pResultTable; }
 
 	bool TestInitTable();
 
 private :
 	void ParseTable( ::CCXmlElement& element );
 
-	MSacrificeQItemInfo* m_pResultTable;	// CheckInvalidSlot에의해 해당하는 테이블이 검색되면 여기에 셋팅됨.
+	CCSacrificeQItemInfo* m_pResultTable;	// CheckInvalidSlot에의해 해당하는 테이블이 검색되면 여기에 셋팅됨.
 };
 
 
-inline MSacrificeQItemTable* GetSacriQItemTable()
+inline CCSacrificeQItemTable* GetSacriQItemTable()
 {
-	return &(MSacrificeQItemTable::GetInst());
+	return &(CCSacrificeQItemTable::GetInst());
 }
 
 

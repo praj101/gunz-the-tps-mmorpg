@@ -1235,11 +1235,11 @@ void ZStageInterface::OnRemoveSacrificeItem( int nSlotNum)
 
 
 /***********************************************************************
-  MSacrificeItemListBoxListener
+  CCSacrificeItemListBoxListener
   
   desc : 희생 아이템 리스트 박스 리스너
 ************************************************************************/
-class MSacrificeItemListBoxListener : public CCListener
+class CCSacrificeItemListBoxListener : public CCListener
 {
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
@@ -1282,7 +1282,7 @@ public:
 	}
 };
 
-MSacrificeItemListBoxListener g_SacrificeItemListBoxListener;
+CCSacrificeItemListBoxListener g_SacrificeItemListBoxListener;
 
 CCListener* ZGetSacrificeItemListBoxListener( void)
 {

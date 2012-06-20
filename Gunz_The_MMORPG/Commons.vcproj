@@ -502,6 +502,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCAsyncDBJob_FriendList.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCAsyncDBJob_GetBattleTimeRewardDiscription.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCAsyncDBJob_InsertConnLog.cpp"
 						>
 					</File>
@@ -523,6 +531,10 @@
 					</File>
 					<File
 						RelativePath=".\CCAsyncHttp.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCAsyncProxy.cpp"
 						>
 					</File>
 					<File
@@ -714,6 +726,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCQuestPlayer.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCQuestScenario.cpp"
 						>
 					</File>
@@ -723,6 +739,10 @@
 					</File>
 					<File
 						RelativePath=".\CCResourceManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCSacrificeQItemTable.cpp"
 						>
 					</File>
 					<File
