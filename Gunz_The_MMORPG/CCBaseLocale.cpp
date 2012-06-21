@@ -44,6 +44,8 @@ void CCBaseLocale::InitLanguageFromCountry()
 
 const CCCountry GetCountryID( const char* pLanguage )
 {
+	return CCC_NHNUSA;
+
 	ASSERT( (0 != pLanguage) && (0 < strlen(pLanguage)) );
 
 	if( 0 == pLanguage )			return CCC_INVALID;

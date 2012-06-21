@@ -25,8 +25,8 @@ RMeshMgr::RMeshMgr()
 
 	m_node_table.reserve(MAX_NODE_TABLE);//±âº»
 
-	for(int i=0;i<MAX_NODE_TABLE;i++)
-		m_node_table[i] = NULL;
+//	for(int i=0;i<MAX_NODE_TABLE;i++)
+//		m_node_table[i] = NULL;
 
 }
 
