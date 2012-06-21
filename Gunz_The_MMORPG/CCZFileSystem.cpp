@@ -15,7 +15,6 @@
 
 //#pragma comment(lib, "
 
-
 unsigned char* g_pPrivateKey = NULL;
 size_t lenPrivateKey = 0;
 
