@@ -43,8 +43,8 @@ bool CCBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFile
 	strFileName = m_strPath + FILENAME_STRING_TABLE;
 	if (!m_StringTable.Initialize(strFileName.c_str(), nLangID, pfs))
 	{
-		_ASSERT(0);
 		cclog("Error!! - StringTable Initalize Failed\n");
+		_ASSERT(0);
 		return false;
 	}
 
@@ -52,8 +52,8 @@ bool CCBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFile
 	strFileName = m_strPath + FILENAME_ERROR_TABLE;
 	if (!m_ErrorTable.Initialize(strFileName.c_str(), nLangID, pfs))
 	{
-		_ASSERT(0);
 		cclog("Error!! - ErrorTable Initalize Failed\n");
+		_ASSERT(0);
 		return false;
 	}
 

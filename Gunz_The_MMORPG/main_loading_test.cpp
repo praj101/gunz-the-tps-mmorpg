@@ -1213,7 +1213,7 @@ bool CheckGameGuardHackToolUser()
 //------------------------------------------- nhn usa end----------------------------------------------------------
 
 // STEP1
-int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int cmdshow)
+int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int cmdshow)
 {
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 
