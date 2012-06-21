@@ -14,6 +14,8 @@
 #include "ZGameInterface.h"
 // Added R349a
 #include "CheckReturnCallStack.h"
+// Added R394
+#include "ZGameClient.h"
 
 extern bool Enable_Cloth;
 

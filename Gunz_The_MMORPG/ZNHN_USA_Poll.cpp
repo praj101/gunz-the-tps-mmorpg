@@ -5,7 +5,7 @@
 
 
 #ifndef _DEBUG
-#pragma comment( lib, "HanPollForClient.lib")
+//#pragma comment( lib, "HanPollForClient.lib")
 #else
 #pragma comment( lib, "HanPollForClientD.lib")
 #endif

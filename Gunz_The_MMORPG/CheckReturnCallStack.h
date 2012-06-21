@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ZGameClient.h"
 
 
 #ifndef _DEBUG

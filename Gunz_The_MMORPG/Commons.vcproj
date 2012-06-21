@@ -60,6 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="/NODEFAULTLIB:msvcrt.lib /NODEFAULTLIB:LIBCMT"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -92,7 +93,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			EnableManagedIncrementalBuild="1"
 			>
@@ -116,7 +117,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -133,7 +134,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="/NODEFAULTLIB:msvcrt.lib"
 				LinkIncremental="1"
+				IgnoreDefaultLibraryNames="MSVCR90.lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -510,6 +513,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCAsyncDBJob_InsertCharBRInfo.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCAsyncDBJob_InsertConnLog.cpp"
 						>
 					</File>
@@ -618,6 +625,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCCrashDump.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCCursor.cpp"
 						>
 					</File>
@@ -666,6 +677,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCInetUtil.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCLex.cpp"
 						>
 					</File>
@@ -674,7 +689,15 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CCLocale.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\CCMatchDBMgr.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCMatchDBMgr_AccountItem.cpp"
 						>
 					</File>
 					<File
@@ -707,6 +730,18 @@
 					</File>
 					<File
 						RelativePath=".\CCMsgBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCNJ_DBAgentClient.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCPdb.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCProcessController.cpp"
 						>
 					</File>
 					<File
@@ -747,6 +782,10 @@
 					</File>
 					<File
 						RelativePath=".\CCSafeUDP.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CCStrEx.cpp"
 						>
 					</File>
 					<File

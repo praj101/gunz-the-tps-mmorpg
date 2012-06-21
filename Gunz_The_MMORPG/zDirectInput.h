@@ -5,6 +5,10 @@
 #include "DirectX/dinput.h"
 #include <windows.h>
 
+#pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "winmm.lib")
+
 #define KEYNAMETABLE_COUNT	256
 #define ISKEYDOWN(_ScanCodeTable, _ScanCode)	\
 	((_ScanCodeTable[_ScanCode]&0x80)?true:false)

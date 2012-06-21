@@ -135,7 +135,7 @@ bool CCCommandManager::ParseMessage(CCCommand* pCmd, char* szErrMsg, int nErrMsg
 //#define USE_SLASH
 #ifdef USE_SLASH
 	if(!(szMsg[0]=='/' && szMsg[1]!=0)){
-		MStrNCpy(szErrMsg, nErrMsgMaxLength, "Use Slash('/') First");
+		CCStrNCpy(szErrMsg, nErrMsgMaxLength, "Use Slash('/') First");
 		return false;
 	}
 #endif
@@ -148,7 +148,7 @@ bool CCCommandManager::ParseMessage(CCCommand* pCmd, char* szErrMsg, int nErrMsg
 #endif
 	
 	if(la.GetCount()==0){
-		MStrNCpy(szErrMsg, nErrMsgMaxLength, "Syntax Error");
+		CCStrNCpy(szErrMsg, nErrMsgMaxLength, "Syntax Error");
 		return false;
 	}
 
@@ -279,7 +279,7 @@ bool CCCommandManager::ParseMessage(CCCommand* pCmd, char* szErrMsg, int nErrMsg
 					static char temp[512];
 					GetSyntax(szSyntax, pCmd->m_pCommandDesc);
 					sprintf(temp, "Sytax Error: [Syntax] %s", szSyntax);
-					MStrNCpy(szErrMsg, nErrMsgMaxLength, temp);
+					CCStrNCpy(szErrMsg, nErrMsgMaxLength, temp);
 					return false;
 				}
 
@@ -290,7 +290,7 @@ bool CCCommandManager::ParseMessage(CCCommand* pCmd, char* szErrMsg, int nErrMsg
 		}
 	}
 
-	MStrNCpy(szErrMsg, nErrMsgMaxLength, "Unknown Command");
+	CCStrNCpy(szErrMsg, nErrMsgMaxLength, "Unknown Command");
 
 	return false;
 }

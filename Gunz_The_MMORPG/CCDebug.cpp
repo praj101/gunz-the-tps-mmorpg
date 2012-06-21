@@ -148,7 +148,7 @@ void CCSEHTranslator(UINT nSeCode, _EXCEPTION_POINTERS* pExcPointers){
 
 void CCInstallSEH(){
 	#ifndef _DEBUG
-		_set_se_translator(MSEHTranslator);
+		_set_se_translator(CCSEHTranslator);
 	#endif
 }
 
