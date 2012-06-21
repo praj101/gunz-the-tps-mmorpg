@@ -11,7 +11,7 @@
 /// @param szDest	타겟 문자 버퍼
 /// @param nDestLen	타겟 문자 버퍼 크기
 /// @param szSource	소스 문자열
-void MStrNCpy(char* szDest, int nDestLen, const char* szSource);
+void CCStrNCpy(char* szDest, int nDestLen, const char* szSource);
 
 /// 스트링에서 단어단위로 읽어온다
 class CCStringCutter {

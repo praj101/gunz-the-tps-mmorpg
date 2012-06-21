@@ -1571,7 +1571,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	if(!CheckDll("fmod.dll", SHA_fmod) ||
 		!CheckDll("dbghelp.dll", SHA_dbghelp) )
 	{
-		MessageBox(g_hWnd,"Dll Hacking detected",  NULL, CCB_OK);
+		MessageBox(g_hWnd,"Dll Hacking detected",  NULL, MB_OK);
 		return false;
 	}
 

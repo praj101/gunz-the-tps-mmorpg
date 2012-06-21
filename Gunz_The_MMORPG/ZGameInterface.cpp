@@ -1368,9 +1368,9 @@ void ZGameInterface::OnLoginCreate()
 #ifdef _DEBUG
 	bRead = m_pLoginBG->Create( "loginbg.png", RGetDevice(), "wallpaper.jpg", false);
 #else
-	CCZFile::SetReadMode( MZIPREADFLAG_ZIP | MZIPREADFLAG_MRS | MZIPREADFLAG_MRS2 | MZIPREADFLAG_FILE );
+	CCZFile::SetReadMode( CCZIPREADFLAG_ZIP | CCZIPREADFLAG_MRS | CCZIPREADFLAG_MRS2 | CCZIPREADFLAG_FILE );
 	bRead = m_pLoginBG->Create( "loginbg.png", RGetDevice(), "wallpaper.jpg", false);
-	CCZFile::SetReadMode( MZIPREADFLAG_MRS2 );
+	CCZFile::SetReadMode( CCZIPREADFLAG_MRS2 );
 #endif
 
 	if ( bRead)
