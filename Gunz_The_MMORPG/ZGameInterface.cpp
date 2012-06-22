@@ -1,3 +1,5 @@
+#define _INDEPTH_DEBUG_
+
 #include "stdafx.h"
 
 #include "ZGameInterface.h"
@@ -119,7 +121,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 {
 	// szSubDir(대체경로)에서 먼저 파일을 찾고 없으면 szDir에서 로딩한다
 	// (대체경로에는 사용자가 옵션에서 선택한 언어용 비트맵을 넣어둔다)
-	cclog("start log bipmap\n");
+	cclog("ZGameInterface::LoadBitmaps()\n");
 
 	const char *loadExts[] = { ".png", ".bmp", ".tga" };
 
@@ -135,7 +137,6 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 		const char* szFileName = pfs->GetFileName(i);
 		const CCZFILEDESC* desc = pfs->GetFileDesc(i);
 		int nLen = (int)strlen(szFileName);
-
 		for(int j=0;j<sizeof(loadExts)/sizeof(loadExts[0]);j++) {
 			// 확장자가 맞으면..
 			if( nLen>EXT_LEN && stricmp(szFileName+nLen-EXT_LEN, loadExts[j])==0 )
@@ -160,7 +161,9 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 		const CCZFILEDESC* subDesc = NULL;
 		int nLen = (int)strlen(szFileName);
 		const char* szTargetFile = NULL;
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("Attempting to load file from pfs named [%s]\n", szFileName);
+#endif
 		for(int j=0;j<sizeof(loadExts)/sizeof(loadExts[0]);j++) {
 			// 확장자가 맞으면..
 			if( nLen>EXT_LEN && stricmp(szFileName+nLen-EXT_LEN, loadExts[j])==0 )
@@ -218,7 +221,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 		}
 	}
 
-	cclog("end of load bitmaps2\n");
+	cclog("EXIT ZGameInterface::LoadBitmaps()\n");
 	//ZLoadBitmap(PATH_CUSTOM_CROSSHAIR, ".png", true);
 
 }
@@ -505,6 +508,9 @@ ZGameInterface::~ZGameInterface()
 
 bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLoadingProgress)
 {
+#ifdef _INDEPTH_DEBUG_
+	cclog("ZGameInterface::InitInterface()\n");
+#endif
 	DWORD _begin_time,_end_time;
 #define BEGIN_ { _begin_time = timeGetTime(); }
 #define END_(x) { _end_time = timeGetTime(); float f_time = (_end_time - _begin_time) / 1000.f; cclog("%s : %f \n", x,f_time ); }
@@ -527,6 +533,9 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	ZGetInterfaceSkinPath(szPath, a_szSkinName);
 	ZGetInterfaceSkinPathSubLanguage(szSubPath, a_szSkinName);
 	sprintf(szFileName, "%s%s", szPath, FILENAME_INTERFACE_MAIN);
+#ifdef _INDEPTH_DEBUG_
+	cclog("Loading file %s\n", szFileName);
+#endif
 
 	/*
 	BEGIN_;
@@ -551,13 +560,16 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	//ZLoadBitmap(PATH_CUSTOM_CROSSHAIR, ".png", true);
 	LoadBitmaps(szPath, szSubPath, &pictureProgress);
 
-	END_("loading pictures");
+	END_("Loaded Bitmaps in ");
 
 	BEGIN_;
 	if (!m_IDLResource.LoadFromFile(szFileName, this, ZGetFileSystem()))
 	{
 		// 로드 실패하면 Default로 로드
 		strcpy(a_szSkinName, DEFAULT_INTERFACE_SKIN);
+#ifdef _INDEPTH_DEBUG_
+		cclog("m_IDLResource::LoadFromFile() Failed. Attempting to recover.\n\t->Loading file %s\n", a_szSkinName);
+#endif
 		ZGetInterfaceSkinPath(szPath, a_szSkinName);
 		sprintf(szFileName, "%s%s", szPath, FILENAME_INTERFACE_MAIN);
 		//ZLoadBitmap(szPath, ".png");
@@ -565,7 +577,9 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 		//ZLoadBitmap(szPath, ".tga");
 		//ZLoadBitmap(szPath, ".dds");
 		LoadBitmaps(szPath, szSubPath, &pictureProgress);
-
+#ifdef _INDEPTH_DEBUG_
+		cclog("Attempting to load file [%s]\n", szFileName);
+#endif
 		if (m_IDLResource.LoadFromFile(szFileName, this, ZGetFileSystem()))
 		{
 			cclog("IDLResource Loading Success!!\n");
@@ -2117,6 +2131,9 @@ char* GetItemSlotName( const char* szName, int nItem)
 
 bool ZGameInterface::OnCreate(ZLoadingProgress *pLoadingProgress)
 {
+#ifdef _INDEPTH_DEBUG_
+	cclog("ZGameInterface::OnCreate()\n");
+#endif
 	if (!m_sbRemainClientConnectionForResetApp)
 		m_spGameClient = new ZGameClient();
 
