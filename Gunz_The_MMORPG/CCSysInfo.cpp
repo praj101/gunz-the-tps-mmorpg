@@ -153,30 +153,31 @@ void CCSysInfoLog_Display()
 //    return TRUE;
 //}
 //
-//void MSysInfoLog_Audio()
-//{
-//	HMODULE					hDSoundLibrary=NULL;
-//	hDSoundLibrary = LoadLibrary( "dsound.dll" );
-//	if (!hDSoundLibrary)
-//	{
-//		cclog("Error, could not load dsound.dll");
-//		return;
-//	}
-//
-//	typedef HRESULT * (__stdcall *DIRECTSOUNDENUMERATETYPE)(LPDSENUMCALLBACK  lpDSEnumCallback,LPVOID  lpContext);
-//	DIRECTSOUNDENUMERATETYPE pDirectSoundEnumerate = (DIRECTSOUNDENUMERATETYPE) GetProcAddress(hDSoundLibrary, "DirectSoundEnumerate");
-//
-//	if (!pDirectSoundEnumerate)
-//	{
-//		cclog("Error, could not get proc adress of Direct3DCreate9.");
-//		FreeLibrary(hDSoundLibrary);
-//		return;
-//	}
-//
-//	*pDirectSoundEnumerate((LPDSENUMCALLBACK)MSysInfoLog_Audio_EnumProc, NULL);
-//
-//}
+/*
+void CCSysInfoLog_Audio()
+{
+	HMODULE					hDSoundLibrary=NULL;
+	hDSoundLibrary = LoadLibrary( "dsound.dll" );
+	if (!hDSoundLibrary)
+	{
+		cclog("Error, could not load dsound.dll");
+		return;
+	}
 
+	typedef HRESULT * (__stdcall *DIRECTSOUNDENUMERATETYPE)(LPDSENUMCALLBACK  lpDSEnumCallback,LPVOID  lpContext);
+	DIRECTSOUNDENUMERATETYPE pDirectSoundEnumerate = (DIRECTSOUNDENUMERATETYPE) GetProcAddress(hDSoundLibrary, "DirectSoundEnumerate");
+
+	if (!pDirectSoundEnumerate)
+	{
+		cclog("Error, could not get proc adress of Direct3DCreate9.");
+		FreeLibrary(hDSoundLibrary);
+		return;
+	}
+
+	*pDirectSoundEnumerate((LPDSENUMCALLBACK)MSysInfoLog_Audio_EnumProc, NULL);
+
+}
+*/
 void CCSysInfoLog_OS()
 {
 	OSVERSIONINFO os;
@@ -193,8 +194,14 @@ void CCSysInfoLog_OS()
 	sprintf(szDesc, "Windows = %d.%d Build %d , %s (%dKB) : ", os.dwMajorVersion, os.dwMinorVersion,
 		os.dwBuildNumber, os.szCSDVersion, (int)(dwPhysicalMemory/1024));
 	cclog(szDesc);
-
-	if(os.dwMajorVersion==5) {
+	
+	if(os.dwMajorVersion==6) {
+		if(os.dwMinorVersion==0)		sprintf(szDesc," Windows Vista..\n");
+		else if(os.dwMinorVersion==1)	sprintf(szDesc," Windows 7..\n");
+		else if(os.dwMinorVersion==2)	sprintf(szDesc," Windows 8..\n");
+		else							sprintf(szDesc," ..\n");
+	}
+	else if(os.dwMajorVersion==5) {
 		if(os.dwMinorVersion==0)		sprintf(szDesc," Windows 2000..\n");
 		else if(os.dwMinorVersion==1)	sprintf(szDesc," Windows xp..\n");
 		else if(os.dwMinorVersion==2)	sprintf(szDesc," Windows 2003..\n");
@@ -220,6 +227,6 @@ void CCSysInfoLog()
 {
 	CCSysInfoLog_CPU();
 	CCSysInfoLog_Display();
-//	MSysInfoLog_Audio();
+	//CCSysInfoLog_Audio();
 	CCSysInfoLog_OS();
 }
