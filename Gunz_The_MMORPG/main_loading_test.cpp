@@ -81,7 +81,7 @@ RMODEPARAMS	g_ModeParams={800,600,true,D3DFMT_R5G6B5};
 RRESULT RenderScene(void *pParam);
 
 #define RD_STRING_LENGTH 512
-char cstrReleaseDate[512];// = "ReleaseDate : 12/22/2003";
+char cstrReleaseDate[512] = "Alpha : 06/21/2012";
 
 ZApplication	g_App;
 CCDrawContextR2* g_pDC = NULL;
@@ -94,10 +94,6 @@ HRESULT GetDirectXVersionViaDxDiag( DWORD* pdwDirectXVersionMajor, DWORD* pdwDir
 
 void zexit(int returnCode)
 {
-	// 게임가드는 제대로 delete되어야 오류발생시 자체 로그를 올바르게 남길 수 있다.
-	// 그냥 exit()해도 ZGameGuard를 싱글턴으로 만들었기 때문에 소멸자에서 게임가드가 delete되지만 어째서인지 그때 크래시가 일어난다.
-	// exit()하기 전에 게임가드를 수동으로 해제하면 그런 문제가 일어나지 않는다.
-	// 해킹 검출 등의 이유로 클라이언트 종료시 exit하지말고 zexit를 쓰자.
 	exit(returnCode);
 }
 
