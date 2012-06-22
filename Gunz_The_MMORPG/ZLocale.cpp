@@ -136,7 +136,7 @@ bool ZLocale::CreateAuthInfo()
 {
 	if (m_pAuthInfo) delete m_pAuthInfo;
 	m_pAuthInfo = NULL;
-
+	cclog("ZLocale::CreateAuthInfo() returning NULL since authentication is not a issue.\n");
 	switch (m_iCountry)
 	{
 	case CCC_KOREA:

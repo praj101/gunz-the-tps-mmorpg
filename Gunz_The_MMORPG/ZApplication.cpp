@@ -984,7 +984,7 @@ void ZApplication::SetInitialState()
 bool ZApplication::InitLocale()
 {
 	ZGetLocale()->Init( GetCountryID(ZGetConfiguration()->GetLocale()->strCountry.c_str()));
-
+	cclog("ZApplication::InitLocale() Initialized ZGetLocale()->Init()\n");
 	char szPath[MAX_PATH] = "system/";
 
 	// 유저가 다른 언어를 선택했는지 확인
