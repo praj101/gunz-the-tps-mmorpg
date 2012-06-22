@@ -10,6 +10,8 @@
 
 #include "ZStringResManager.h"
 
+#define _INDEPTH_DEBUG_
+
 ZConfiguration	g_Configuration;
 ZConfiguration* ZGetConfiguration()		{ return &g_Configuration; }
 
@@ -163,6 +165,10 @@ bool ZConfiguration::Load()
 bool ZConfiguration::Load_StringResDependent()
 {
 	string strFileNameTCFG(FILENAME_GTCFG);
+#ifdef _INDEPTH_DEBUG_
+	cclog("ZConfiguration::Load_StringResDependent() located at %s\n", strFileNameTCFG.c_str());
+#endif
+
 #ifndef _DEBUG
 	strFileNameTCFG += ".mef";
 #endif	
@@ -171,6 +177,9 @@ bool ZConfiguration::Load_StringResDependent()
 		cclog( "Cannot open %s file.\n", strFileNameTCFG);
 		return false;
 	}
+#ifdef _INDEPTH_DEBUG_
+	cclog("EXIT ZConfiguration::Load_StringResDependent()\n");
+#endif
 	return true;
 }
 
@@ -317,7 +326,9 @@ bool ZConfiguration::LoadGameTypeCfg(const char* szFileName)
 		chrElement.GetTagName( szTagName);
 
 		if (szTagName[0] == '#') continue;
-
+#ifdef _INDEPTH_DEBUG_
+		cclog("\t-> Loaded tag [%s]\n", szTagName);
+#endif
 		if ( !stricmp( szTagName, ZTOK_GAME_TYPE)) 
 		{
 			int nID = 0;

@@ -3,6 +3,8 @@
 #include "ZConfiguration.h"
 #include "ZLocale.h"
 
+#define _INDEPTH_DEBUG_
+
 void ZStringResManager::MakeInstance()
 {
 	_ASSERT(m_pInstance == NULL);

@@ -2,7 +2,7 @@
 #include "CCBaseStringResManager.h"
 
 #define TOK_XML_STRING_HEADER		"STR:"
-
+#define _INDEPTH_DEBUG_
 
 CCBaseStringResManager* CCBaseStringResManager::m_pInstance = NULL;
 
@@ -38,7 +38,9 @@ bool CCBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFile
 	m_pFS = pfs;
 
 	string strFileName;
+#ifdef _INDEPTH_DEBUG_
 	cclog("! ! ! Loading String and Error table. Unable to trace files until completion. Hope for it to work! xD\n");
+#endif
 	// string table
 	strFileName = m_strPath + FILENAME_STRING_TABLE;
 	if (!m_StringTable.Initialize(strFileName.c_str(), nLangID, pfs))

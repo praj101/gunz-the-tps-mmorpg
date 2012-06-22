@@ -34,6 +34,7 @@
 #include "ZNHN_USA_Report.h"
 #include "PrivateKey.h"
 
+#define _INDEPTH_DEBUG_
 
 #ifdef _QEUST_ITEM_DEBUG
 #include "CCQuestItem.h"
@@ -132,6 +133,10 @@ bool GetNextName(char *szBuffer,int nBufferCount,char *szSource)
 
 bool ZApplication::ParseArguments(const char* pszArgs)
 {
+#ifdef _INDEPTH_DEBUG_
+	cclog("ZApplication::ParseArguments()\n");
+	cclog("Parsing arguments\n\t[%s]\n", pszArgs);
+#endif
 	strcpy(m_szCmdLine, pszArgs);
 
 	// 파라미터가 리플레이 파일명인지 확인한다
@@ -171,6 +176,9 @@ bool ZApplication::ParseArguments(const char* pszArgs)
 #ifndef _PUBLISH
 		if ( strstr( pszArgs, "launchdevelop") != NULL)
 		{
+#ifdef _INDEPTH_DEBUG_
+	cclog("! ! ! Application was launched in develop mode.\n");
+#endif
 			SetLaunchMode( ZLAUNCH_MODE_STANDALONE_DEVELOP);
 			m_bLaunchDevelop = true;
 			ZGetLocale()->SetTeenMode( false);
@@ -212,100 +220,6 @@ bool ZApplication::ParseArguments(const char* pszArgs)
 	return true;
 	//////////////////////////////////////
 	*/		
-
-	switch(ZGetLocale()->GetCountry()) {
-	case CCC_JAPAN:
-	case CCC_KOREA:
-		{
-			// 인증 정보 세팅
-			if( !ZGetLocale()->ParseArguments(pszArgs) )
-				return false;
-
-			// 서비스 종류를 설정(현재 테스트, 리얼 서비스 두종류)
-			if( ((ZNetmarbleAuthInfo*)(ZGetLocale()->GetAuthInfo()))->GetIsAlpha() )
-				m_bLaunchTest = true;
-			return true;
-		}
-		break;
-
-	case CCC_NHNUSA : 
-#ifdef LOCALE_NHNUSA
-		{
-			if( !ZGetLocale()->ParseArguments(pszArgs) )
-				return false;
-
-			if ( ((ZNHN_USAAuthInfo*)(ZGetLocale()->GetAuthInfo()))->IsAlpha())
-			{
-				SetLaunchMode( ZLAUNCH_MODE_STANDALONE_DEVELOP);
-				m_bLaunchDevelop = true;
-				ZGetLocale()->SetTeenMode(false);
-				m_bLaunchTest = true;
-			}
-			else if ( ((ZNHN_USAAuthInfo*)(ZGetLocale()->GetAuthInfo()))->IsReal())
-			{
-				SetLaunchMode( ZLAUNCH_MODE_STANDALONE);
-				ZGetLocale()->SetTeenMode(false);
-			}
-			else
-			{
-#ifdef _DEBUG
-				SetLaunchMode( ZLAUNCH_MODE_STANDALONE_DEVELOP);
-				m_bLaunchDevelop = true;
-				ZGetLocale()->SetTeenMode(false);
-				m_bLaunchTest = true;
-#endif
-				cclog( "Cannot find server version.\n");
-				ASSERT( 0);
-			}
-
-			return true;
-		}
-#endif
-		break;
-
-	case CCC_US:
-	case CCC_BRAZIL:
-	case CCC_INDIA:
-		{
-			// 암호 코드 구하기
-			CGLEncription cEncription;
-			int nMode = cEncription.Decription();
-
-			// launch 모드
-			if ( nMode == GLE_LAUNCH_INTERNATIONAL)
-			{
-				SetLaunchMode( ZLAUNCH_MODE_STANDALONE);
-				ZGetLocale()->SetTeenMode(false);
-				return true;
-			}
-			// launchdevelop 모드
-			else if ( nMode == GLE_LAUNCH_DEVELOP)
-			{
-				SetLaunchMode( ZLAUNCH_MODE_STANDALONE_DEVELOP);
-				m_bLaunchDevelop = true;
-				ZGetLocale()->SetTeenMode(false);
-				return true;
-			}
-			// Test 모드
-			else if ( nMode == GLE_LAUNCH_TEST)
-			{
-				SetLaunchMode( ZLAUNCH_MODE_STANDALONE_DEVELOP);
-				m_bLaunchDevelop = true;
-				ZGetLocale()->SetTeenMode(false);
-				m_bLaunchTest = true;
-				return true;
-			}
-		}
-		break;
-	case CCC_INVALID:
-	default:
-		{
-			cclog("Invalid Locale \n");
-			return false;
-		}
-		break;
-	};
-
 	return false;
 }
 
@@ -984,7 +898,9 @@ void ZApplication::SetInitialState()
 bool ZApplication::InitLocale()
 {
 	ZGetLocale()->Init( GetCountryID(ZGetConfiguration()->GetLocale()->strCountry.c_str()));
+#ifdef _INDEPTH_DEBUG_
 	cclog("ZApplication::InitLocale() Initialized ZGetLocale()->Init()\n");
+#endif
 	char szPath[MAX_PATH] = "system/";
 
 	// 유저가 다른 언어를 선택했는지 확인
@@ -1001,7 +917,9 @@ bool ZApplication::InitLocale()
 	}
 
 	ZGetStringResManager()->Init(szPath, ZGetLocale()->GetLanguage(), GetFileSystem());
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("EXIT ZApplication::InitLocale() Initialized ZGetLocale()->Init()\n");
+#endif
 	return true;
 }
 
