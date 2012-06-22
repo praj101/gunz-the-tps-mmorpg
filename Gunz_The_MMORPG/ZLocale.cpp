@@ -12,15 +12,12 @@
 // Added R349a
 #include "ZStringResManager.h"
 
+#define _INDEPTH_DEBUG_
+
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA.h"
 #include "ZNHN_USA_Report.h"
 #endif
-
-#ifdef _GAMEGUARD
-#include "ZGameGuard.h"
-#endif
-
 
 
 
@@ -136,7 +133,9 @@ bool ZLocale::CreateAuthInfo()
 {
 	if (m_pAuthInfo) delete m_pAuthInfo;
 	m_pAuthInfo = NULL;
+#ifdef _INDEPTH_DEBUG_
 	cclog("ZLocale::CreateAuthInfo() returning NULL since authentication is not a issue.\n");
+#endif
 	switch (m_iCountry)
 	{
 	case CCC_KOREA:

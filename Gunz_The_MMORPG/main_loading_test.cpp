@@ -1167,7 +1167,7 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 		CCLog("Locale Init error !!!\n");
 		return false;
 	}
-/*
+
 	ZGetConfiguration()->Load_StringResDependent();
 
 	// 여기서 메크로 컨버팅... 먼가 구리구리~~ -by SungE.
@@ -1225,7 +1225,7 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	}
 
 	// font 있는가 검사..
-
+/*
 	if(CheckFont()==false) {
 		CCLog("CheckFont() failed.\n");
 		return 0;

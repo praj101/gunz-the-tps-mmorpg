@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CCBaseLocale.h"
 
+#define _INDEPTH_DEBUG_
+
 CCBaseLocale::CCBaseLocale()
 {
 	m_bIsComplete = false;
@@ -13,7 +15,9 @@ CCBaseLocale::~CCBaseLocale()
 
 bool CCBaseLocale::Init(CCCountry nCountry)
 {
+#ifdef _INDEPTH_DEBUG_
 	cclog("CCBaseLocale::Init() Initializing languages.\n");
+#endif
 	m_iCountry = nCountry;
 	InitLanguageFromCountry();
 
