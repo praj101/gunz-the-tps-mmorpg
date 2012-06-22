@@ -81,8 +81,8 @@ bool RShaderMgr::Initialize()
 //		if( !RShaderMgr::getShaderMgr()->addVertexShaderFromFile( "shader/skin.vsh" ))
 		if( !RShaderMgr::getShaderMgr()->addVertexShaderFromResource( "shader/skin.vso" ))
 		{
-			_ASSERT(!"Shader Compile Error");			
 			cclog("Shader Compile Error");
+			_ASSERT(!"Shader Compile Error");			
 			mbUsingShader	= false;
 			return false;
 		}

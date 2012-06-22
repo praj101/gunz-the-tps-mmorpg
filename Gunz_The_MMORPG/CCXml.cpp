@@ -693,7 +693,7 @@ bool CCXmlDocument::LoadFromFile(const char* m_sFileName)
 		OutputDebugString(szBuf);
 #endif
 
-		_ASSERT(0);
+		_ASSERT(0); // errors here
 
 		return false;
 	}

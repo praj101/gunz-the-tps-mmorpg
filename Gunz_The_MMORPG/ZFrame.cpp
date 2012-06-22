@@ -2,16 +2,29 @@
 #include "stdafx.h"
 
 #include <MMSystem.h>
-
+#include <windows.h>
 #include "ZFrame.h"
 #include "Core.h"
 
 #define TRANSIENT_TIME	300
 
+// Breaks on 13=14 turn with timeGetTime
 void ZFrame::Show(bool bVisible, bool bModal)
 {
-	DWORD elapsed=(timeGetTime()-m_nShowTime);
+	/*
+	DWORD elapsed=1;
 
+	if(elapsed==NULL)
+		MessageBox(NULL, NULL, NULL, MB_OK);
+	if(timeGetTime()==NULL)
+		MessageBox(NULL, NULL, NULL, MB_OKCANCEL);
+	try{
+		elapsed =timeGetTime();
+	} catch(char * str) {
+		MessageBox(NULL, str, "Corrupted!", MB_OK);
+	}
+	elapsed-=m_nShowTime;
+/*
 	if(m_bNextVisible==m_bVisible && m_bVisible==bVisible && elapsed>TRANSIENT_TIME)
 		return;
 
@@ -26,11 +39,12 @@ void ZFrame::Show(bool bVisible, bool bModal)
 
 	CCFrame::Show(bVisible,bModal);
 	m_bVisible = true;
-	
+
  	Enable(bVisible);
 
 	if(bVisible)
 		m_bExclusive=bModal;
+*/
 }
 
 void ZFrame::OnDraw(CCDrawContext* pDC)

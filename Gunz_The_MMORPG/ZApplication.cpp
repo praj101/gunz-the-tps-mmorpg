@@ -750,6 +750,7 @@ void ZApplication::OnUpdate()
 
 	float fElapsed;
 
+	cclog("ZApplication::OnUpdate() Updating...\n");
 	fElapsed = ZApplication::m_Timer.UpdateFrame();
 
 	

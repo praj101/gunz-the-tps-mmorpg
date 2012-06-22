@@ -12,7 +12,7 @@
 
 #define cclog CCLog
 
-void InitLog(int logmethodflags=CCLOGSTYLE_DEBUGSTRING, const char* pszLogFileName="cclog.txt");
+void InitLog(int logmethodflags=CCLOGSTYLE_DEBUGSTRING, const char* pszLogFileName="system/cclog.txt");
 void __cdecl CCLog(const char *pFormat,...);
 const char* CCGetLogFileName();
 
