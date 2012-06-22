@@ -173,7 +173,6 @@ RRESULT OnCreate(void *pParam)
 	}
 	g_pDC = new CCDrawContextR2(RGetDevice());
 
-#ifndef _FASTDEBUG
 	if( ZGetInitialLoading()->IsUseEnable() )
 	{
 		if( ZGetLocale()->IsTeenMode() )
@@ -192,7 +191,6 @@ RRESULT OnCreate(void *pParam)
 		ZGetInitialLoading()->SetPercentage( 0.0f );
 		ZGetInitialLoading()->Draw( MODE_FADEIN, 0 , true );
 	}
-#endif
 
 
 	g_Core.Initialize(800, 600, g_pDC, g_pDefFont);
@@ -208,7 +206,7 @@ RRESULT OnCreate(void *pParam)
 		ZGetInitialLoading()->Release();
 		return R_ERROR_LOADING;
 	}
-
+/*
 //	ZGetInitialLoading()->SetPercentage( 50.0f );
 //	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0, true );
 	
@@ -251,7 +249,7 @@ RRESULT OnCreate(void *pParam)
 #endif
 		ZGetInitialLoading()->Release();
 	}
-
+(*/
 	cclog("main : OnCreate() done\n");
 
 	SetFocus(g_hWnd);
@@ -508,6 +506,9 @@ RRESULT OnError(void *pParam)
 
 void SetModeParams()
 {
+#ifdef _INDEPTH_DEBUG_
+	cclog("SetModeParams()\n");
+#endif
 #ifdef _PUBLISH
 	g_ModeParams.bFullScreen = true;
 #else
@@ -523,6 +524,9 @@ void SetModeParams()
 	ZGetConfiguration()->GetVideo()->nColorBits == 32 ? 
 		g_ModeParams.PixelFormat = D3DFMT_X8R8G8B8 : g_ModeParams.PixelFormat = D3DFMT_R5G6B5 ;
 
+#ifdef _INDEPTH_DEBUG_
+	cclog("EXIT SetModeParams()\n");
+#endif
 }
 
 void ResetAppResource()
@@ -971,11 +975,6 @@ bool CheckFont()
 	if (_access(FontNames,0) != -1)	{ g_base_font[RBASE_FONT_BATANG] = 1; }
 	else							{ g_base_font[RBASE_FONT_BATANG] = 0; }
 
-	//	strcpy(FontNames,FontPath);
-	//	strcat(FontNames, "\\Fonts\\System.ttc");
-	//	if (_access(FontNames,0) != -1)	{ g_font[RBASE_FONT_BATANG] = 1; }
-	//	else							{ g_font[RBASE_FONT_BATANG] = 0; }
-
 	if(g_base_font[RBASE_FONT_GULIM]==0 && g_base_font[RBASE_FONT_BATANG]==0) {//둘다없으면..
 
 		if( _access("_Font",0) != -1) { // 이미 기록되어 있다면..
@@ -984,23 +983,7 @@ bool CheckFont()
 		else {
 
 			int hr = IDOK;
-
-			//hr = ::MessageBox(NULL,"귀하의 컴퓨터에는 건즈가 사용하는 (굴림,돋움) 폰트가 없는 것 같습니다.\n 다른 폰트를 선택 하시겠습니까?","알림",CCB_OKCANCEL);
-			//hr = ::MessageBox(NULL,"귀하의 컴퓨터에는 건즈가 사용하는 (굴림,돋움) 폰트가 없는 것 같습니다.\n 계속 진행 하시겠습니까?","알림",CCB_OKCANCEL);
-
 			if(hr==IDOK) {
-				/*			
-				CFontDialog dlg;
-				if(dlg.DoModal()==IDOK) {
-				CString facename = dlg.GetFaceName();
-				lstrcpy((LPSTR)g_UserDefineFont,(LPSTR)facename.operator const char*());
-
-				hr = ::MessageBox(NULL,"선택하신 폰트를 저장 하시겠습니까?","알림",CCB_OKCANCEL);
-
-				if(hr==IDOK)
-				_SetFileFontName(g_UserDefineFont);
-				}
-				*/
 				return true;
 			}
 			else {
@@ -1225,7 +1208,7 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	}
 
 	// font 있는가 검사..
-/*
+
 	if(CheckFont()==false) {
 		CCLog("CheckFont() failed.\n");
 		return 0;
@@ -1259,7 +1242,7 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	cclog("Entering RRun()\n");
 	const int nRRunReturn = RRun();
 	ShowWindow(g_hWnd, SW_MINIMIZE);
-*/
+
 	cclog("========================== DONE ===============================\n");
 
 #ifdef _MTRACEMEMORY

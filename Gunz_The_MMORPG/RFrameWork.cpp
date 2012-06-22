@@ -7,7 +7,7 @@
 #include "RMeshUtil.h"
 
 #pragma comment(lib,"winmm.lib")
-
+#define _INDEPTH_DEBUG_
 #define RTOOLTIP_GAP 700
 static DWORD g_last_mouse_move_time = 0;
 static bool g_tool_tip = false;
@@ -296,7 +296,9 @@ long FAR PASCAL WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 int RMain(const char *AppName, HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int cmdshow, RMODEPARAMS *pModeParams, WNDPROC winproc, WORD nIconResID )
 {
 	g_WinProc=winproc ? winproc : DefWindowProc;
+#ifdef _INDEPTH_DEBUG_
 	cclog("Creating window.\n");
+#endif
 	// make a window
     WNDCLASS    wc;
     wc.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
@@ -320,6 +322,9 @@ int RMain(const char *AppName, HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR c
 	RAdjustWindow(pModeParams);
 
 	while(ShowCursor(false)>0);
+#ifdef _INDEPTH_DEBUG_
+	cclog("EXIT RMain()\n");
+#endif
 	return 0;
 }
 
@@ -378,7 +383,7 @@ int RRun()
         }
 		else
 		{
-			RFrame_UpdateRender();
+		/*	RFrame_UpdateRender();*/
 		}
 
 		if(!g_bActive)
