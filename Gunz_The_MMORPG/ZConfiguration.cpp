@@ -387,6 +387,12 @@ bool ZConfiguration::LoadSystem(const char* szFileName)
 				serverElement.GetChildContents( &nServerPort,	ZTOK_PORT);
 				serverElement.GetChildContents( &nServerType,	ZTOK_TYPE);
 				serverElement.GetChildContents( szName,			ZTOK_NAME);
+#ifdef _INDEPTH_DEBUG_
+				cclog("\t-> Loaded Server IP %s\n", szServerIP);
+				cclog("\t-> Loaded Server Port %d\n", nServerPort);
+				cclog("\t-> Loaded Server Type %d\n", nServerType);
+				cclog("\t-> Loaded Server Name %s\n", szName);
+#endif
 
                 ZSERVERNODE ServerNode;
 				strcpy( ServerNode.szAddress, szServerIP);
@@ -406,26 +412,42 @@ bool ZConfiguration::LoadSystem(const char* szFileName)
 		{
 			childElement.GetChildContents( m_szBAReportAddr, ZTOK_ADDR);
 			childElement.GetChildContents( m_szBAReportDir,  ZTOK_DIR);
+#ifdef _INDEPTH_DEBUG_
+				cclog("\t-> Loaded Bare Port Address %s\n", m_szBAReportAddr);
+				cclog("\t-> Loaded Bare Port Directory %s\n", m_szBAReportDir);
+#endif
 		}
 
 		if (parentElement.FindChildNode(ZTOK_LOCALE_XMLHEADER, &childElement))
 		{
 			childElement.GetContents(m_Locale.szXmlHeader);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded XML Header %s\n", m_Locale.szXmlHeader);
+#endif
 		}
 
 		if (parentElement.FindChildNode(ZTOK_SKIN, &childElement))
 		{
 			childElement.GetContents(m_szInterfaceSkinName);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded Interface Skin Name %s\n", m_szInterfaceSkinName);
+#endif
 		}
 
 		if (parentElement.FindChildNode(ZTOK_LOCALE_DEFFONT, &childElement))
 		{
 			childElement.GetContents(m_Locale.szDefaultFont);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded Default Font %s\n", m_Locale.szDefaultFont);
+#endif
 		}
 
 		if (parentElement.FindChildNode(ZTOK_LOCALE_IME, &childElement))
 		{
  			childElement.GetContents(&m_Locale.bIMESupport);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded IME Support %d\n", m_Locale.bIMESupport);
+#endif
 
 			CCEvent::SetIMESupport( m_Locale.bIMESupport);
 		}
@@ -433,26 +455,45 @@ bool ZConfiguration::LoadSystem(const char* szFileName)
 		{
 			childElement.GetChildContents( m_Locale.szHomepageUrl,		ZTOK_LOCALE_HOMEPAGE_URL);
 			childElement.GetChildContents( m_Locale.szHomepageTitle,	ZTOK_LOCALE_HOMEPAGE_TITLE);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded Homepage Title %s\n", m_Locale.szHomepageTitle);
+			cclog("\t-> Loaded Homepage Url %s\n", m_Locale.szHomepageUrl);
+#endif
 		}
 		if (parentElement.FindChildNode(ZTOK_LOCALE_EMBLEM_URL, &childElement))
 		{
 			childElement.GetContents( m_Locale.szEmblemURL);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded Emblem Url %s\n", m_Locale.szEmblemURL);
+#endif
 		}
 		if (parentElement.FindChildNode(ZTOK_LOCALE_TEMBLEM_URL, &childElement))
 		{
 			childElement.GetContents( m_Locale.szTEmblemURL);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded TEmblem Url %s\n", m_Locale.szTEmblemURL);
+#endif
 		}
 		if (parentElement.FindChildNode(ZTOK_LOCALE_CASHSHOP_URL, &childElement))
 		{
 			childElement.GetContents( m_Locale.szCashShopURL);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded Cashshop Url %s\n", m_Locale.szCashShopURL);
+#endif
 		}
 		if (parentElement.FindChildNode(ZTOK_LOCATOR_LIST, &childElement))
 		{
 			m_pLocatorList->ParseLocatorList(childElement);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded Locator List (UNABLE TO DISPLAY)\n");
+#endif
 		}
 		if (parentElement.FindChildNode(ZTOK_TLOCATOR_LIST, &childElement))
 		{
 			m_pTLocatorList->ParseLocatorList(childElement);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded TLocator List (UNABLE TO DISPLAY)\n");
+#endif
 		}
 	}
 	xmlConfig.Destroy();

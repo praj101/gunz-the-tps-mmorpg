@@ -13,6 +13,7 @@ CCBaseLocale::~CCBaseLocale()
 
 bool CCBaseLocale::Init(CCCountry nCountry)
 {
+	cclog("CCBaseLocale::Init() Initializing languages.\n");
 	m_iCountry = nCountry;
 	InitLanguageFromCountry();
 
@@ -39,11 +40,13 @@ void CCBaseLocale::InitLanguageFromCountry()
 			_ASSERT(0);
 		}
 	};
+	cclog("CCBaseLocale::InitLanguageFromCountry() assigned language %d\n", m_iLanguage);
 }
 
 
 const CCCountry GetCountryID( const char* pLanguage )
 {
+	cclog("GetCountryId() returning CCC_NHNUSA as language.\n");
 	return CCC_NHNUSA;
 
 	ASSERT( (0 != pLanguage) && (0 < strlen(pLanguage)) );

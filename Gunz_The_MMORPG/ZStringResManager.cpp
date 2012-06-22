@@ -7,6 +7,7 @@ void ZStringResManager::MakeInstance()
 {
 	_ASSERT(m_pInstance == NULL);
 	m_pInstance = new ZStringResManager();
+	cclog("ZStringResManager::MakeInstance()\n");
 }
 
 void ZStringResManager::ResetInstance()
@@ -43,7 +44,7 @@ bool ZStringResManager::OnInit()
 	else
 	{
 		ASSERT( 0 );
-		cclog( "'Configuration' or 'ZLocale' must be completed befor 'Message'.\n" );
+		cclog( "'Configuration' or 'ZLocale' must be completed before 'Message'.\n" );
 		return false;
 	}
 
