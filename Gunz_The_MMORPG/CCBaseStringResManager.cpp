@@ -38,7 +38,7 @@ bool CCBaseStringResManager::Init(const char* szPath, const int nLangID, CCZFile
 	m_pFS = pfs;
 
 	string strFileName;
-
+	cclog("! ! ! Loading String and Error table. Unable to trace files until completion. Hope for it to work! xD\n");
 	// string table
 	strFileName = m_strPath + FILENAME_STRING_TABLE;
 	if (!m_StringTable.Initialize(strFileName.c_str(), nLangID, pfs))
