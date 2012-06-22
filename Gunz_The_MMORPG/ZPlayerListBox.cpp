@@ -1,3 +1,4 @@
+#define _INDEPTH_DEBUG_
 #include "stdafx.h"
 
 #include "zapplication.h"
@@ -240,40 +241,19 @@ ZPlayerListBox::ZPlayerListBox(const char* szName, CCWidget* pParent, CCListener
 : CCListBox(szName, pParent, pListener)
 {
 	LOOK_IN_CONSTRUCTOR()
-/*
-	if(strcmp(szName,"StagePlayerList_")==0) {
-		m_nMode = PLAYERLISTMODE_STAGE;
-	}
-	else 
-		m_nMode = PLAYERLISTMODE_CHANNEL;
-*/
 	SetVisibleHeader(false);
-
 	m_bAbsoulteTabSpacing = true;
-
-//	m_MyUID = CCUID(0,0);
-//	m_uidChannel = CCUID(0,0);
 	m_nTotalPlayerCount = 0;
 	m_nPage = 0;
 
 	m_bVisible = true;
 	m_bVisibleHeader = true;
 
-//	AddField(" ", 23);//icon
-//	AddField(" ",130);//name
-//	AddField(" ", 23);//icon
-//	AddField(" ", 32);//level
-
 	SetItemHeight(PLAYERLIST_ITEM_HEIGHT);
 
-//	m_pBitmap = NULL;
-//	m_pBitmapIn = NULL;
-	
 	mSelectedPlayer = 0;
 	mStartToDisplay = 0;
-//	mPlayerOrder.reserve( sizeof(CCUID)*100 );
-//	m_pScrollBar = new CCScrollBar( this, this );
-//	ZApplication::GetGameInterface()->GetIDLResource()->InsertWidget("PlayerListScrollBar", m_pScrollBar );
+
 	m_bAlwaysVisibleScrollbar = false;
 	m_bHideScrollBar = true;
 	m_pScrollBar->SetVisible(false);
@@ -347,7 +327,19 @@ void ZPlayerListBox::InitUI(PLAYERLISTMODE nMode)
 	if( pFrame)
 	{
 		pFrame->Show(bShowClanCreateFrame);
+		if(pButtonUp==NULL){
+			#ifdef _INDEPTH_DEBUG_
+			cclog("pButtonUp in ZPlayerListBox::InitUI() is a NULL address\n");
+			#endif
+			ASSERT(pButtonUp!=NULL);
+		}
 		pButtonUp->Show(!bShowClanCreateFrame);
+		if(pButtonDn==NULL){
+			#ifdef _INDEPTH_DEBUG_
+			cclog("pButtonDn in ZPlayerListBox::InitUI() is a NULL address\n");
+			#endif
+			ASSERT(pButtonDn!=NULL);
+		}
 		pButtonDn->Show(!bShowClanCreateFrame);
 	}
 }

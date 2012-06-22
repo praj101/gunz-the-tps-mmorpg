@@ -1,3 +1,5 @@
+#define _INDEPTH_DEBUG_
+
 #include "stdafx.h"
 
 #include "ZIDLResource.h"
@@ -594,17 +596,32 @@ ZServerView* ZIDLResource::GetServerView(::CCXmlElement& element)
 
 ZPlayerListBox* ZIDLResource::GetPlayerListBox( ::CCXmlElement& element )
 {
+#ifdef _INDEPTH_DEBUG_
+		cclog("ZIDLResource::GetPlayerListBox()\n");
+#endif
 	::CCXmlElement childElement;
 	char szBuf[4096];
 	char szAttr[4096];
 
+#ifdef _INDEPTH_DEBUG_
+		cclog("Creating new Parent widget and new ZPlayerListBox\n");
+#endif
 	CCWidget* pParentWidget = GetParentWidget(element);
 	ZPlayerListBox* pWidget = new ZPlayerListBox("", pParentWidget, pParentWidget);
+
+#ifdef _INDEPTH_DEBUG_
+		cclog("Setting pWidget as pWidget's listener\n");
+#endif
 	pWidget->SetListener(pWidget);
 	InsertWidget(element, pWidget);
+#ifdef _INDEPTH_DEBUG_
+		cclog("Inserted pwidget into element\n");
+#endif
 
 	int iCount = element.GetChildNodeCount();
-
+#ifdef _INDEPTH_DEBUG_
+		cclog("Total count of %d child nodes in 'element'. Entering loop\n", iCount);
+#endif
 	bool bMode1 = false;
 
 	for (int i = 0; i < iCount; i++)
@@ -612,6 +629,9 @@ ZPlayerListBox* ZIDLResource::GetPlayerListBox( ::CCXmlElement& element )
 		memset(szBuf, 0, sizeof(szBuf));
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
+#ifdef _INDEPTH_DEBUG_
+		cclog("(%d) Processing Tag Name [%s]\n", i, szBuf);
+#endif
 
 		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
 		/*
@@ -645,7 +665,9 @@ ZPlayerListBox* ZIDLResource::GetPlayerListBox( ::CCXmlElement& element )
 			bMode1 = true;
 		}
 	}
-
+#ifdef _INDEPTH_DEBUG_
+		cclog("bModel set to %d\n", bMode1);
+#endif
 	if(bMode1==false)
 		pWidget->InitUI(ZPlayerListBox::PLAYERLISTMODE_CHANNEL);
 	else
@@ -818,6 +840,9 @@ void ZIDLResource::Parse(::CCXmlElement& element)
 	}
 	else if(!strcmp(szTagName,"PLAYERLISTBOX"))
 	{
+#ifdef _INDEPTH_DEBUG_
+		cclog("ZIDLResource::Parse() [%s]\n", szTagName);
+#endif
 		GetPlayerListBox(element);
 	}
 	else if(!strcmp(szTagName,"PLAYERSELECTLISTBOX"))
