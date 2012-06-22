@@ -296,7 +296,7 @@ long FAR PASCAL WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 int RMain(const char *AppName, HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int cmdshow, RMODEPARAMS *pModeParams, WNDPROC winproc, WORD nIconResID )
 {
 	g_WinProc=winproc ? winproc : DefWindowProc;
-
+	cclog("Creating window.\n");
 	// make a window
     WNDCLASS    wc;
     wc.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
@@ -319,26 +319,7 @@ int RMain(const char *AppName, HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR c
 
 	RAdjustWindow(pModeParams);
 
-	while(ShowCursor(FALSE)>0);
-//	ShowCursor(TRUE);	// RAONHAJE Mouse Cursor HardwareDraw
-
-//	RFrame_Create();
-//
-//	ShowWindow(g_hWnd,SW_SHOW);
-//	if(!RInitDisplay(g_hWnd,pModeParams))
-//	{
-//		cclog("can't init display\n");
-//		return -1;
-//	}
-//
-//	//RBeginScene();
-//	RGetDevice()->Clear(0 , NULL, D3DCLEAR_TARGET, 0x00000000, 1.0f, 0 );
-////	REndScene();
-//	RFlip();
-
-	
-//	RGetDevice()->ShowCursor( TRUE );	// RAONHAJE Mouse Cursor HardwareDraw
-
+	while(ShowCursor(false)>0);
 	return 0;
 }
 
@@ -366,7 +347,7 @@ int RRun()
 			return -1;
 		}
 	}
-
+	cclog("Init RFrame_Init().\n");
 	RFrame_Init();
 
 	// message loop

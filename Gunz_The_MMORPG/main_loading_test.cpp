@@ -116,7 +116,7 @@ void CrcFailExitApp() {
 void _ZChangeGameState(int nIndex)
 {
 	GunzState state = GunzState(nIndex);
-
+	cclog("Setting GunzState to %d\n", state);
 	if (ZApplication::GetGameInterface())
 	{
 		ZApplication::GetGameInterface()->SetState(state);
@@ -757,6 +757,7 @@ void HandleExceptionLog()
 
 long FAR PASCAL WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+
 	switch (message)
 	{
 		case WM_SYSCHAR:
@@ -1240,181 +1241,14 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	GetModuleFileName(NULL, szModuleFileName, _MAX_DIR);
 	PathRemoveFileSpec(szModuleFileName);
 	SetCurrentDirectory(szModuleFileName);
-
-#ifndef _GAMEGUARD
-	#ifdef _PUBLISH
-		// 중복 실행 금지
-		Mutex = CreateMutex(NULL, TRUE, "Gunz");
-		if (GetLastError() == ERROR_ALREADY_EXISTS)
-		{
-			zexit(-1);
-			return 0;
-		}
-	#endif
-#endif
-
-#ifdef _HSHIELD
-
-	TCHAR szFullFileName[_MAX_DIR];
-	GetCurrentDirectory( sizeof( szFullFileName), szFullFileName);
-	strcat( szFullFileName, "\\HShield\\EhSvc.dll");
-
-	int nRet = 0;
-
-#ifdef _DEBUG
-#define AHNHS_CHKOPT_GUNZ		AHNHS_CHKOPT_SPEEDHACK
-#else
-#define AHNHS_CHKOPT_GUNZ		AHNHS_CHKOPT_ALL
-#endif
-
-#ifdef  LOCALE_BRAZIL					/* Brazil */
-	nRet = _AhnHS_Initialize(szFullFileName, AhnHS_Callback, 4001, "DA0EF49C0F6D029F", AHNHS_CHKOPT_GUNZ
-		| AHNHS_ALLOW_SVCHOST_OPENPROCESS | AHNHS_ALLOW_LSASS_OPENPROCESS | AHNHS_ALLOW_CSRSS_OPENPROCESS | AHNHS_DONOT_TERMINATE_PROCESS
-		, AHNHS_SPEEDHACK_SENSING_RATIO_NORMAL);
-
-#elif  LOCALE_INDIA						/* India */
-	nRet = _AhnHS_Initialize(szFullFileName, AhnHS_Callback, 4003, "CC4686AE10F63E4A", AHNHS_CHKOPT_GUNZ
-		| AHNHS_ALLOW_SVCHOST_OPENPROCESS | AHNHS_ALLOW_LSASS_OPENPROCESS | AHNHS_ALLOW_CSRSS_OPENPROCESS | AHNHS_DONOT_TERMINATE_PROCESS
-		, AHNHS_SPEEDHACK_SENSING_RATIO_NORMAL);
-#endif
-
-#ifndef _DEBUG
-	// 아래 코드는 릴리즈시 _AhnHS_Initialize 옵션이 AHNHS_CHKOPT_ALL로 되어있지 않을 경우 
-	// 컴파일 타임에 에러를 일으켜서 알 수 있게 한다.
-	void* OptionCheckTool[(AHNHS_CHKOPT_GUNZ == AHNHS_CHKOPT_ALL)?1:0];
-#endif
-
-	
-
-	//아래 에러는 개발과정에서만 발생할 수 있으면 
-	//이후 결코 발생해서는 안되는 에러이므로 assert처리를 했습니다.
-	assert(nRet != HS_ERR_INVALID_PARAM);
-	assert(nRet != HS_ERR_INVALID_LICENSE);
-	assert(nRet != HS_ERR_ALREADY_INITIALIZED);
-
-	TCHAR szTitle[256] = "Hack Shield Error";
-
-	if (nRet != HS_ERR_OK) 
-	{
-		//Error 처리 
-		switch(nRet)
-		{
-		case HS_ERR_ANOTHER_SERVICE_RUNNING:
-			{
-//				MessageBox(NULL, _T("다른 게임이 실행중입니다.\n프로그램을 종료합니다."), szTitle, CCB_OK);
-				cclog( "다른 게임이 실행중입니다. 프로그램을 종료합니다.\n");
-				break;
-			}
-		case HS_ERR_INVALID_FILES:
-			{
-//				MessageBox(NULL, _T("잘못된 파일 설치되었습니다.\n프로그램을 재설치하시기 바랍니다."), szTitle, CCB_OK);
-				cclog( "잘못된 파일 설치되었습니다. 프로그램을 재설치하시기 바랍니다.\n");
-				break;
-			}
-		case HS_ERR_DEBUGGER_DETECT:
-			{
-//				MessageBox(NULL, _T("컴퓨터에서 디버거 실행이 감지되었습니다.\n디버거의 실행을 중지시킨 뒤에 다시 실행시켜주시기바랍니다."), szTitle, CCB_OK);
-				cclog( "컴퓨터에서 디버거 실행이 감지되었습니다. 디버거의 실행을 중지시킨 뒤에 다시 실행시켜주시기바랍니다.\n");
-				break;
-			}
-		case HS_ERR_NEED_ADMIN_RIGHTS:
-			{
-//				MessageBox(NULL, _T("Admin 권한으로 실행되어야 합니다.\n프로그램을 종료합니다."), szTitle, CCB_OK);
-				cclog( "Admin 권한으로 실행되어야 합니다. 프로그램을 종료합니다.\n");
-				break;
-			}
-		case HS_ERR_COMPATIBILITY_MODE_RUNNING:
-			{
-//				MessageBox(NULL, _T("호환성 모드로 프로그램이 실행중입니다.\n프로그램을 종료합니다."), szTitle, CCB_OK);
-				cclog( "호환성 모드로 프로그램이 실행중입니다. 프로그램을 종료합니다.\n");
-				break;				
-			}
-		default:
-			{
-				TCHAR szMsg[255];
-				wsprintf(szMsg, _T("해킹방지 기능에 문제가 발생하였습니다.(Error Code = %x)\n프로그램을 종료합니다."), nRet);
-//				MessageBox(NULL, szMsg, szTitle, CCB_OK);
-				cclog( szMsg);
-				break;
-			}
-		}
-
-		return FALSE;
-	}
-
-	//시작 함수 호출 
-	nRet = _AhnHS_StartService();
-
-	assert(nRet != HS_ERR_NOT_INITIALIZED);
-	assert(nRet != HS_ERR_ALREADY_SERVICE_RUNNING);
-
-	if (nRet != HS_ERR_OK)
-	{
-//		TCHAR szMsg[255];
-		cclog(_T("해킹방지 기능에 문제가 발생하였습니다.(Error Code = %x)\n프로그램을 종료합니다."), nRet);
-//		MessageBox(NULL, szMsg, szTitle, CCB_OK);
-
-		return FALSE;
-	}
-
-	nRet = _AhnHS_SaveFuncAddress(6, _AhnHS_Initialize, _AhnHS_StartService,			// 핵실드 함수
-										ZCheckHackProcess, ZGetCCZFileChecksum,				// 핵판별 자체함수
-										ZSetupDataChecker_Global, ZSetupDataChecker_Game);
-	if(nRet != ERROR_SUCCESS)
-	{
-//		AfxMessageBox(_T("_AhnHS_SaveFuncAddress Failed!"));
-		return FALSE;
-	}
-#endif // _HSHIELD
-
-
-#ifdef _XTRAP														// update sgk 0702 start
-	cclog("XTRAP Start\n");
-
-	char szTemp[256] = {0,};
-	bool bPatchSkip = false;
-
-	bool bIsXtrapTest = CheckXTrapIsGetTestCode();
-	if (bIsXtrapTest)
-	{
-		// XTRAP 테스트용 파일경로로 실행된다. //
-		OnGetXTrapTestCodeArgv(szTemp, &bPatchSkip);
-	}
-	else
-	{
-		// XTRAP 리얼 서버용 파일경로로 실행된다. //
-		OnGetXTrapRealCodeArgv(szTemp, &bPatchSkip);
-	}
-
-	if (!bPatchSkip)
-	{
-		XTrap_L_Patch(szTemp, szModuleFileName, 60);
-	}
-
-	XTrap_C_Start(szTemp, NULL);
-	XTrap_C_KeepAlive();
-
-	cclog("XTRAP End\n");
-#endif																// update sgk 0702 end
+	cclog("-------------------------------------------------------------\n");
+	cclog("Current working directory: %s\n", szModuleFileName);
+	cclog("-------------------------------------------------------------\n");
 
 	ClearTrashFiles();
 
 	srand( (unsigned)time( NULL ));
 
-#if defined(LOCALE_BRAZIL) || defined(LOCALE_INDIA) || defined(LOCALE_US) || defined(LOCALE_KOREA)
-	//#ifndef _DEBUG
-	#ifdef _PUBLISH
-		// GunzLock을 띄워놓고 Gunz.exe를 실행하면 종료직전 대기한다. (XProtector 프로세스이미지스캔 작업용)
-		HANDLE hMutexGunzLock = CreateMutex(NULL, TRUE, "GunzLock");
-		if (GetLastError() == ERROR_ALREADY_EXISTS)
-		{
-			WaitForSingleObject(hMutexGunzLock, INFINITE);
-			CloseHandle(hMutexGunzLock);
-		}
-	#endif
-#endif	// LOCALE_NHNUSA
-
-	// 로그 시작
 	cclog("GUNZ " STRFILEVER " launched. build ("__DATE__" "__TIME__") \n");
 	char szDateRun[128]="";
 	char szTimeRun[128]="";
@@ -1432,22 +1266,12 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 #endif
 
 	CCSysInfoLog();
-
-//	if (CheckVideoAdapterSupported() == false)
-//		return 0;
-
 	CheckFileAssociation();
-
 	// Initialize CCZFileSystem - MUpdate 
 	CCRegistry::szApplicationName=APPLICATION_NAME;
 
 	g_App.InitFileSystem();
 //	cclog("CheckSum: %u \n", ZApplication::GetFileSystem()->GetTotalCRC());
-
-	//if(!InitializeMessage(ZApplication::GetFileSystem())) {
-	//	CCLog("Check Messages.xml\n");
-	//	return 0;
-	//}
 
 //	넷마블 버전은 구분해야함... 넷마블 버전은 MZIPREADFLAG_MRS1 도 읽어야함...
 
@@ -1486,21 +1310,6 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	DWORD ver_minor = 0;
 	TCHAR ver_letter = ' ';
 
-	// 의미없음 ... 외부에서 dll 이 없다고 먼저뜸...
-
-/*_
-	bool DXCheck = false;
-
-	if( SUCCEEDED( GetDirectXVersionViaDxDiag( &ver_major, &ver_minor, &ver_letter ) ) ) {
-		if(ver_major >= 8)
-			DXCheck = true;
-	} // 성공 못한 경우 알수없으므로 실패~
-
-	if(DXCheck==false) {
-		::MessageBox(NULL,"DirectX 8.0 이상을 설치하고 다시 실행해 주시기 바랍니다.","알림",CCB_OK);
-	}
-*/
-
 #ifdef SUPPORT_EXCEPTIONHANDLING
 	char szDumpFileName[256];
 	sprintf(szDumpFileName, "Gunz.dmp");
@@ -1534,61 +1343,6 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 		}
 	}
 
-//#ifdef _PUBLISH
-	// if(!CheckFileList()) {
-		// 종료하는것은 일단 보류
-		// int ret=MessageBox(NULL, "파일이 손상되었습니다.", "중요!", CCB_OK);
-		// return 0;
-	//}
-//#endif
-
-
-#ifdef LOCALE_NHNUSA
-	BYTE SHA_HanAuthForClient[20] = {0x29,0xc0,0x7e,0x6b,0x8d,0x1d,0x30,0xd2,0xed,0xac,0xaf,0xea,0x78,0x16,0x51,0xf0,0x50,0x52,0x26,0x91};
-	BYTE SHA_hanpollforclient[20] = {0x09,0x04,0x51,0x9d,0x95,0xbb,0x66,0x2a,0xfb,0x93,0x87,0x2d,0x21,0xa2,0x93,0x1d,0x6a,0xcb,0xa5,0x4f};
-	BYTE SHA_HanReportForClient[20] = {0x4c,0x62,0xaf,0x4d,0x5b,0x54,0xb8,0x96,0x46,0x66,0x8f,0x1e,0x12,0xe7,0xf2,0xd7,0xe4,0x58,0x65,0xc9}; 
-	if(!CheckDll("hanauthforclient.dll", SHA_HanAuthForClient) || 
-	   !CheckDll("hanpollforclient.dll", SHA_hanpollforclient) ||
-	   !CheckDll("hanreportforclient.dll", SHA_HanReportForClient) )
-	{
-		MessageBox(g_hWnd,"Dll Hacking detected",  NULL, CCB_OK);
-		return false;
-	}
-
-	if( !InitReport() ) 
-		return 0;
-
-
-	if ( !InitPoll())
-		return 0;
-#endif
-
-
-
-#ifndef _DEBUG
-	BYTE SHA_fmod[20] = {0x88,0x8f,0x1f,0x7b,0x7e,0x3c,0x43,0x38,0x4f,0x4b,0x80,0xb5,0x77,0xfe,0x09,0x1a,0xc0,0x45,0x38,0x3c};
-	BYTE SHA_dbghelp[20] = {0x8d,0x12,0xc4,0x3a,0x84,0x12,0xc2,0x1,0x58,0xb4,0x46,0x70,0x9,0x5,0xcb,0xd4,0xfa,0xb1,0xe2,0x4b}; 
-	if(!CheckDll("fmod.dll", SHA_fmod) ||
-		!CheckDll("dbghelp.dll", SHA_dbghelp) )
-	{
-		MessageBox(g_hWnd,"Dll Hacking detected",  NULL, MB_OK);
-		return false;
-	}
-
-#endif
-
-
-#ifndef LOCALE_NHNUSA
-	if (ZCheckHackProcess() == true)
-	{
-//		MessageBox(NULL,
-//			ZMsg(MSG_HACKING_DETECTED), ZMsg( MSG_WARNING), CCB_OK);
-		cclog(ZMsg(MSG_HACKING_DETECTED));
-		cclog("\n");
-		cclog("I'm hacker.\n" );
-		return 0;
-	}
-#endif
 
 	if(!InitializeNotify(ZApplication::GetFileSystem())) {
 		CCLog("Check notify.xml\n");
@@ -1602,7 +1356,7 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	// font 있는가 검사..
 
 	if(CheckFont()==false) {
-		CCLog("폰트가 없는 유저가 폰트 선택을 취소\n");
+		CCLog("CheckFont() failed.\n");
 		return 0;
 	}
 
@@ -1618,97 +1372,12 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 	SetModeParams();
 
-//	while(ShowCursor(FALSE)>0);
 //	STEP2	
+	cclog("Entering RMain()\n");
 	const int nRMainReturn = RMain(APPLICATION_NAME,this_inst,prev_inst,cmdline,cmdshow,&g_ModeParams,WndProc,IDI_ICON1);
 	if( 0 != nRMainReturn )
 		return nRMainReturn;
 
-
-#ifdef _GAMEGUARD
-	cclog("start gameguard\n");
-
-	ZGMAEGUARD_MODE mode = ZGGM_END;
-	char szArg[ 64] = "";
-	ZBaseAuthInfo* pAuth = ZGetLocale()->GetAuthInfo();
-	
-
-#ifdef LOCALE_NHNUSA
-	if ( ((ZNHN_USAAuthInfo*)pAuth)->IsReal())
-	{
-		mode = ZGGM_REAL;
-		strcpy( szArg, "GunzUS");
-	}
-	else if ( ((ZNHN_USAAuthInfo*)pAuth)->IsAlpha())
-	{
-		mode = ZGGM_ALPHA;
-		strcpy( szArg, "GunzUSTest");
-	}
-	else
-	{
-		cclog( "error in gameguard mode...\n" );
-		zexit( -1);
-		return 0;
-	}
-
-#elif LOCALE_JAPAN
-	if ( ((ZGameOnJPAuthInfo*)pAuth)->IsReal())
-	{
-		mode = ZGGM_REAL;
-		strcpy( szArg, "GUNZWEI");
-	}
-	else if ( ((ZGameOnJPAuthInfo*)pAuth)->IsAlpha())
-	{
-		mode = ZGGM_ALPHA;
-		strcpy( szArg, "GUNZWEITest");
-	}
-	else
-	{
-		cclog( "error in gameguard mode...\n" );
-		zexit( -1);
-		return 0;
-	}
-
-	if( !((ZGameOnJPAuthInfo*)pAuth)->SendMsgToLauncher(GET_MSG_HWND_TERMINATE_PUBGAME) )
-	{
-		cclog("Can't find GameOn Agent");
-	}
-#endif	// LOCALE_JAPAN
-
-
-	if( !GetZGameguard().Init( mode, szArg) )
-	{
-		cclog( "error init gameguard...\n" );
-		zexit( -1 );
-		return 0;
-	}
-
-
-	GetZGameguard().SetMainWnd( g_hWnd );
-
-	if( !CheckGameGuardHackToolUser() )
-		return 0;
-
-#endif	// _GAMEGUARD
-
-
-#ifdef _GAMEGUARD
-	#ifdef _PUBLISH
-		// 중복 실행 금지
-		Mutex = CreateMutex(NULL, TRUE, "Gunz");
-		if (GetLastError() == ERROR_ALREADY_EXISTS)
-		{
-			zexit(-1);
-			return 0;
-		}
-	#endif
-#endif
-
-
-
-#ifdef LOCALE_NHNUSA
-	GetNHNUSAReport().ReportInitGameGuard();
-#endif
 
 	if( 0 != RInitD3D(&g_ModeParams) )
 	{
@@ -1716,131 +1385,15 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 		cclog( "error init RInitD3D\n" );
 		return 0;
 	}
-
+	cclog("Entering RRun()\n");
 	const int nRRunReturn = RRun();
-
-	//종료시 게임가드가 Xfire의 메모리쓰기 에러를 유발하는데 이때 오류창이 풀스크린 뒤에 뜨는 것 방지하기 위해
-	//종료전에 건즈를 최소화/비활성화 시켜놓는다. xfire의 즉각적인 문제 해결을 기대하기 어려우므로 이렇게 처리
 	ShowWindow(g_hWnd, SW_MINIMIZE);
 
-#ifdef _GAMEGUARD
-	GetZGameguard().Release();
-#endif
 
 #ifdef _MTRACEMEMORY
 	CCShutdownTraceMemory();
 #endif
 
-#ifdef _HSHIELD
-	_AhnHS_StopService();
-	_AhnHS_Uninitialize();		
-#endif
-
-
-#ifdef LOCALE_NHNUSA
-	cclog( "Poll Process\n" );
-	int nRetPoll = GetNHNUSAPoll().ZHanPollProcess( NULL);
-#endif
-
 	ZStringResManager::FreeInstance();
-
 	return nRRunReturn;
-
-//	ShowCursor(TRUE);
-
-#ifdef SUPPORT_EXCEPTIONHANDLING
-	}
-
-	//__except(MFilterException(GetExceptionInformation())){
-	__except(CrashExceptionDump(GetExceptionInformation(), szDumpFileName, true))
-	{
-#ifdef LOCALE_NHNUSA
-		GetNHNUSAReport().ReportCrashedGame();
-#endif
-
-		HandleExceptionLog();
-//		MessageBox(g_hWnd, "예상치 못한 오류가 발생했습니다.", APPLICATION_NAME , CCB_ICONERROR|CCB_OK);
-	}
-#endif
-
-#ifdef _PUBLISH
-	if (Mutex != 0) CloseHandle(Mutex);
-#endif
-
-//	CoUninitialize();
-
-	return 0;
 }
-
-#ifdef _HSHIELD
-int __stdcall AhnHS_Callback(long lCode, long lParasSize, void* pParam)
-{
-//	TCHAR szTitle[256];
-
-	switch(lCode)
-	{
-		//Engine Callback
-	case AHNHS_ENGINE_DETECT_GAME_HACK:
-		{
-			TCHAR szMsg[255];
-			wsprintf(szMsg, _T("다음 위치에서 해킹툴이 발견되어 프로그램을 종료시켰습니다.\n%s"), (char*)pParam);
-//			MessageBox(NULL, szMsg, szTitle, CCB_OK);
-			cclog(szMsg);
-			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
-			break;
-		}
-
-		//일부 API가 이미 후킹되어 있는 상태
-		//그러나 실제로는 이를 차단하고 있기 때문에 다른 후킹시도 프로그램은 동작하지 않습니다.
-		//이 Callback은 단지 경고 내지는 정보제공 차원에서 제공되므로 게임을 종료할 필요가 없습니다.
-	case AHNHS_ACTAPC_DETECT_ALREADYHOOKED:
-		{
-			PACTAPCPARAM_DETECT_HOOKFUNCTION pHookFunction = (PACTAPCPARAM_DETECT_HOOKFUNCTION)pParam;
-			TCHAR szMsg[255];
-			wsprintf(szMsg, _T("[HACKSHIELD] Already Hooked\n- szFunctionName : %s\n- szModuleName : %s\n"), 
-				pHookFunction->szFunctionName, pHookFunction->szModuleName);
-			OutputDebugString(szMsg);
-			break;
-		}
-
-		//Speed 관련
-	case AHNHS_ACTAPC_DETECT_SPEEDHACK:
-	case AHNHS_ACTAPC_DETECT_SPEEDHACK_APP:
-		{
-//			MessageBox(NULL, _T("현재 이 PC에서 SpeedHack으로 의심되는 동작이 감지되었습니다."), szTitle, CCB_OK);
-			cclog("현재 이 PC에서 SpeedHack으로 의심되는 동작이 감지되었습니다.");
-			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
-			break;
-		}
-
-		//디버깅 방지 
-	case AHNHS_ACTAPC_DETECT_KDTRACE:	
-	case AHNHS_ACTAPC_DETECT_KDTRACE_CHANGED:
-		{
-			TCHAR szMsg[255];
-			wsprintf(szMsg, _T("프로그램에 대하여 디버깅 시도가 발생하였습니다. (Code = %x)\n프로그램을 종료합니다."), lCode);
-//			MessageBox(NULL, szMsg, szTitle, CCB_OK);
-			cclog(szMsg);
-			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
-			break;
-		}
-
-		//그외 해킹 방지 기능 이상 
-	case AHNHS_ACTAPC_DETECT_AUTOMOUSE:
-	case AHNHS_ACTAPC_DETECT_DRIVERFAILED:
-	case AHNHS_ACTAPC_DETECT_HOOKFUNCTION:
-	case AHNHS_ACTAPC_DETECT_MESSAGEHOOK:
-	case AHNHS_ACTAPC_DETECT_MODULE_CHANGE:
-		{
-			TCHAR szMsg[255];
-			wsprintf(szMsg, _T("해킹 방어 기능에 이상이 발생하였습니다. (Code = %x)\n프로그램을 종료합니다."), lCode);
-//			MessageBox(NULL, szMsg, szTitle, CCB_OK);
-			cclog(szMsg);
-			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
-			break;
-		}
-	}
-
-	return 1;
-}
-#endif

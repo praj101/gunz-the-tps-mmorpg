@@ -584,7 +584,7 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 
 // 다이알로그 look 세팅
 //	CCBFrameLook* pFrameLook = (CCBFrameLook*)m_IDLResource.FindFrameLook("Custom1FrameLook");
-	CCBFrameLook* pFrameLook = (CCBFrameLook*)m_IDLResource.FindFrameLook("DefaultFrameLook");
+	CCBFrameLook* pFrameLook = (CCBFrameLook*)m_IDLResource.FindFrameLook("DefaultFrameLook"); 
 	if (pFrameLook != NULL)
 	{
 		m_pMsgBox->ChangeCustomLook((CCFrameLook*)pFrameLook);

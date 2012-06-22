@@ -644,8 +644,8 @@ void ZLoadingProgress::Draw()
 {
     float fTotalProgress = m_fTotalProgressStart + m_fThisAmount * m_fCurrentProgress;
 #ifdef _DEBUG // 혹시 되돌아가는경우인지 체크
-	_ASSERT(m_fLastProgress<=fTotalProgress);
 	m_fLastProgress=fTotalProgress;
+	_ASSERT(m_fLastProgress<=fTotalProgress);
 #endif
 
 	ZGetInitialLoading()->SetLoadingStr( m_szName );

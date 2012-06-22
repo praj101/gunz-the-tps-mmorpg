@@ -2847,7 +2847,7 @@ bool CCIDLResource::LoadFromFile(char* szFileName, CCWidget* pParent,CCZFileSyst
 
 	int iCount = rootElement.GetChildNodeCount();
 
-	for (int i = 0; i < iCount; i++)
+	for (int i = 0; i < iCount; i++)  // It loads multiple files with this single function. This could be a config file.. Hmm Clan.xml
 	{
 		memset(szBuf, 0, sizeof(szBuf));
 		childElement = rootElement.GetChildNode(i);
