@@ -1,5 +1,8 @@
 #pragma once
 
+#define _SECURE_SCL 1 
+#define _SECURE_SCL_THROWS 1 
+
 #pragma warning(disable:4996)
 #pragma warning(disable:4244)
 #pragma warning(disable:4800)
