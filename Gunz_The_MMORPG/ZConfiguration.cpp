@@ -1,5 +1,5 @@
 #include "stdafx.h"
-
+#define _INDEPTH_DEBUG_
 #include "ZConfiguration.h"
 #include "Core.h"
 #include "ZInterface.h"
@@ -223,6 +223,9 @@ bool ZConfiguration::LoadLocale(const char* szFileName)
 			childElement.GetChildContents( szCountry, ZTOK_LOCALE_COUNTRY );
 			childElement.GetChildContents( szLanguage, ZTOK_LOCALE_LANGUAGE );
 			childElement.GetChildContents( &nMaxPlayers, ZTOK_LOCALE_MAXPLAYERS);
+			cclog("\t-> Loaded node value %s\n",szCountry);
+			cclog("\t-> Loaded node value %s\n",szLanguage);
+			cclog("\t-> Loaded node value %d\n",nMaxPlayers);
 			if (childElement.FindChildNode(ZTOK_LOCALE_SELECTABLE_LANGUAGES, &selectableLangsElem))
 				ParseLocaleSelectableLanguages(selectableLangsElem);
 
@@ -484,6 +487,10 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 		{
 			serverElement.GetChildContents( m_szServerIP,	ZTOK_IP);
 			serverElement.GetChildContents( &m_nServerPort,	ZTOK_PORT);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded server IP %d\n", m_szServerIP);
+			cclog("\t-> Loaded server Port %d\n", m_nServerPort);
+#endif
 		}
 		if (parentElement.FindChildNode(ZTOK_VIDEO, &childElement))
 		{
@@ -503,6 +510,22 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 			childElement.GetChildContents(&m_Video.bTerrible, "NHARDWARETNL");
 			childElement.GetChildContents(&m_MovingPicture.iResolution, ZTOK_MOVINGPICTURE_RESOLUTION );
 			childElement.GetChildContents(&m_MovingPicture.iFileSize, ZTOK_MOVINGPICTURE_FILESIZE );
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded video width %d\n", m_Video.nWidth);
+			cclog("\t-> Loaded video height %d\n", m_Video.nHeight);
+			cclog("\t-> Loaded video color bits %d\n", m_Video.nColorBits);
+			cclog("\t-> Loaded video fullscreen %d\n", m_Video.bFullScreen);
+			cclog("\t-> Loaded video gamma %d\n", m_Video.nGamma);
+			cclog("\t-> Loaded video reflection %d\n", m_Video.bReflection);
+			cclog("\t-> Loaded video lightmap %d\n", m_Video.bLightMap);
+			cclog("\t-> Loaded video dynamic light %d\n", m_Video.bDynamicLight);
+			cclog("\t-> Loaded video shader %d\n", m_Video.bShader);
+			cclog("\t-> Loaded video Character texture level %d\n", m_Video.nCharTexLevel);
+			cclog("\t-> Loaded video Map texture level %d\n", m_Video.nMapTexLevel);
+			cclog("\t-> Loaded video effect level %d\n", m_Video.nEffectLevel);
+			cclog("\t-> Loaded video resolution %d\n", m_MovingPicture.iResolution);
+			cclog("\t-> Loaded video max file size %d\n", m_MovingPicture.iFileSize);
+#endif
 		}
 		if (parentElement.FindChildNode(ZTOK_AUDIO, &childElement))
 		{
@@ -516,6 +539,18 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 			childElement.GetChildContents(&m_Audio.bHWMixing, ZTOK_AUDIO_HWMIXING);
 			childElement.GetChildContents(&m_Audio.bHitSound, ZTOK_AUDIO_HITSOUND);
 			childElement.GetChildContents(&m_Audio.bNarrationSound, ZTOK_AUDIO_NARRATIONSOUND);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded audio BGM enabled %d\n", m_Audio.bBGMEnabled);
+			cclog("\t-> Loaded audio BGM volume %f\n", m_Audio.fBGMVolume);
+			cclog("\t-> Loaded audio Effect volume %f\n", m_Audio.fEffectVolume);
+			cclog("\t-> Loaded audio Mute BGM %d\n", m_Audio.bBGMMute);
+			cclog("\t-> Loaded audio Mute Effect %d\n", m_Audio.bEffectMute);
+			cclog("\t-> Loaded audio 8 bit sound %d\n", m_Audio.b8BitSound);
+			cclog("\t-> Loaded audio inverse %d\n", m_Audio.bInverse);
+			cclog("\t-> Loaded audio sound mixing %d\n", m_Audio.bHWMixing);
+			cclog("\t-> Loaded audio hit sound %d\n", m_Audio.bHitSound);
+			cclog("\t-> Loaded audio narraration %d\n", m_Audio.bNarrationSound);
+#endif
 			//childElement.GetChildContents(&m_Audio.b3DSound, ZTOK_AUDIO_3D_SOUND);
 			m_Audio.b3DSound = true;
 		}
@@ -523,11 +558,19 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 		{
 			childElement.GetChildContents(&m_Mouse.fSensitivity, ZTOK_MOUSE_SENSITIVITY);
 			childElement.GetChildContents(&m_Mouse.bInvert, ZTOK_MOUSE_INVERT);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded mouse Sensitivity %f\n", m_Mouse.fSensitivity);
+			cclog("\t-> Loaded mouse invert %d\n", m_Mouse.bInvert);
+#endif
 		}
 		if (parentElement.FindChildNode(ZTOK_JOYSTICK, &childElement))
 		{
 			childElement.GetChildContents(&m_Joystick.fSensitivity, ZTOK_JOYSTICK_SENSITIVITY);
 			childElement.GetChildContents(&m_Joystick.bInvert, ZTOK_JOYSTICK_INVERT);
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded joystick Sensitivity %f\n", m_Joystick.fSensitivity);
+			cclog("\t-> Loaded joystick invert %d\n", m_Joystick.bInvert);
+#endif
 		}
 		if (parentElement.FindChildNode(ZTOK_KEYBOARD, &childElement))
 		{
@@ -547,6 +590,9 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 					if(nKey!=ID_UNDEFINED) // "alt"에 값이 없다면 스킵
 						m_Keyboard.ActionKeys[i].nVirtualKeyAlt = nKey;
 					actionKeyElement.GetContents(&m_Keyboard.ActionKeys[i].nVirtualKey);
+#ifdef _INDEPTH_DEBUG_
+					cclog("\t-> Loaded keyboard key %d\n", m_Keyboard.ActionKeys[i].nVirtualKey);
+#endif
 				}
 			}
 		}
@@ -580,6 +626,10 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 			childElement.GetChildContents(m_Macro.szMacro[5], ZTOK_MACRO_F6, 255);
 			childElement.GetChildContents(m_Macro.szMacro[6], ZTOK_MACRO_F7, 255);
 			childElement.GetChildContents(m_Macro.szMacro[7], ZTOK_MACRO_F8, 255);
+#ifdef _INDEPTH_DEBUG_
+			for(int i=0; i<8; i++)
+				cclog("\t-> Loaded macro %s\n", m_Macro.szMacro[i]);
+#endif
 		}
 
 		if (parentElement.FindChildNode(ZTOK_ETC, &childElement))
@@ -594,7 +644,18 @@ bool ZConfiguration::LoadConfig(const char* szFileName)
 			childElement.GetChildContents(&m_Etc.bRejectInvite, ZTOK_ETC_REJECT_INVITE);
 			childElement.GetChildContents(&m_Etc.nCrossHair, ZTOK_ETC_CROSSHAIR);
 			childElement.GetChildContents(&m_Etc.nFrameLimit_perSecond, ZTOK_ETC_FRAMELIMIT_PERSECOND);
-
+#ifdef _INDEPTH_DEBUG_
+			cclog("\t-> Loaded Network port1 %d\n", m_Etc.nNetworkPort1);
+			cclog("\t-> Loaded Network port2 %d\n", m_Etc.nNetworkPort2);
+			cclog("\t-> Loaded Boost %d\n", m_Etc.bBoost);
+			cclog("\t-> Loaded Reject Normal Chat %d\n", m_Etc.bRejectNormalChat);
+			cclog("\t-> Loaded Reject Team Chat %d\n", m_Etc.bRejectTeamChat);
+			cclog("\t-> Loaded Reject Clan Chat %d\n", m_Etc.bRejectClanChat);
+			cclog("\t-> Loaded Reject Whistper %d\n", m_Etc.bRejectWhisper);
+			cclog("\t-> Loaded Reject Invite %d\n", m_Etc.bRejectInvite);
+			cclog("\t-> Loaded Crosshair %d\n", m_Etc.nCrossHair);
+			cclog("\t-> Loaded FPS Limit %d\n", m_Etc.nFrameLimit_perSecond);
+#endif
 			m_Etc.szLanguage[0] = 0;
 
 #ifdef _MULTILANGUAGE

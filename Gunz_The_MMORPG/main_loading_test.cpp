@@ -4,6 +4,8 @@
 #undef _XTRAP
 #undef _GAMEGUARD
 
+#define _INDEPTH_DEBUG_
+
 #include "ZPrerequisites.h"
 #include "ZConfiguration.h"
 #include "ZGameClient.h"
@@ -1289,7 +1291,7 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 	// config¿Í string ·Îµù
 	ZGetConfiguration()->Load();
-
+/*
 	ZStringResManager::MakeInstance();
 	if( !ZApplication::GetInstance()->InitLocale() )
 	{
@@ -1388,12 +1390,13 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	cclog("Entering RRun()\n");
 	const int nRRunReturn = RRun();
 	ShowWindow(g_hWnd, SW_MINIMIZE);
-
+*/
+	cclog("========================== DONE ===============================\n");
 
 #ifdef _MTRACEMEMORY
 	CCShutdownTraceMemory();
 #endif
 
 	ZStringResManager::FreeInstance();
-	return nRRunReturn;
+	return 0;//nRRunReturn;
 }
