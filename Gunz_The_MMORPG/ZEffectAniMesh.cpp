@@ -1,3 +1,4 @@
+#define _INDEPTH_DEBUG_
 #include "stdafx.h"
 
 #include "ZGame.h"
@@ -16,7 +17,10 @@
 
 ZEffectAniMesh::ZEffectAniMesh(RMesh* pMesh, const rvector& Pos, rvector& dir)
 {
-	_ASSERT(pMesh);
+#ifdef _INDEPTH_DEBUG_
+	cclog("Skipping ASSERT() call in ZEffectAniMesh::ZAfectAniMesh()\n");
+#endif
+	//_ASSERT(pMesh);
 	m_VMesh.Create(pMesh);
 	bool bRet=m_VMesh.SetAnimation("play");
 //	_ASSERT(bRet);
