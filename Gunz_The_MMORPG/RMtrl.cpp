@@ -1,3 +1,4 @@
+#define _INDEPTH_DEBUG_
 #include "stdafx.h"
 #include <string.h>
 #include <stdio.h>
@@ -254,7 +255,24 @@ RMtrlMgr::RMtrlMgr()
 	m_id_last = 0;
 
 	m_node_table.reserve(MAX_MTRL_NODE);//±âº»
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("Reserved 100 minimum places for m_node_table\n");
+#endif
+	if(m_node_table.size()==0)
+	{
+		#ifdef _INDEPTH_DEBUG_
+			cclog("Reservation failed, attempting to recover\n");
+		#endif
+		for(int i=0; i<MAX_MTRL_NODE; i++)
+			m_node_table.push_back(NULL);
+		if(m_node_table.size()==0)
+		{
+			#ifdef _INDEPTH_DEBUG_
+				cclog("Recovery failed. Aborting\n");
+			#endif
+			ASSERT(m_node_table.size()==0);
+		}
+	}
 	for(int i=0;i<MAX_MTRL_NODE;i++)
 		m_node_table[i] = NULL;
 

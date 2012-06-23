@@ -42,7 +42,7 @@ ZIDLResource::~ZIDLResource()
 
 }
 
-ZCanvas* ZIDLResource::GetCanvas(::CCXmlElement& element)
+ZCanvas*		ZIDLResource::GetCanvas(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -66,7 +66,7 @@ ZCanvas* ZIDLResource::GetCanvas(::CCXmlElement& element)
 	return pCanvas;
 }
 
-ZMapListBox* ZIDLResource::GetMapListBox(::CCXmlElement& element)
+ZMapListBox*	ZIDLResource::GetMapListBox(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -131,7 +131,7 @@ ZScoreBoardFrame* ZIDLResource::GetScoreBoardFrame(::CCXmlElement& element)
 }
 
 
-ZScoreListBox* ZIDLResource::GetScoreListBox(::CCXmlElement& element)
+ZScoreListBox*	ZIDLResource::GetScoreListBox(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -155,7 +155,7 @@ ZScoreListBox* ZIDLResource::GetScoreListBox(::CCXmlElement& element)
 	return pListBox;
 }
 
-ZItemSlotView* ZIDLResource::GetItemSlot(::CCXmlElement& element)
+ZItemSlotView*	ZIDLResource::GetItemSlot(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -217,7 +217,7 @@ ZItemSlotView* ZIDLResource::GetItemSlot(::CCXmlElement& element)
 	return pWidget;
 
 }
-ZMeshView* ZIDLResource::GetMeshView(::CCXmlElement& element)
+ZMeshView*		ZIDLResource::GetMeshView(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -254,7 +254,7 @@ ZMeshView* ZIDLResource::GetMeshView(::CCXmlElement& element)
 	return pWidget;
 }
 
-ZMeshViewList* ZIDLResource::GetMeshViewList(::CCXmlElement& element)
+ZMeshViewList*	ZIDLResource::GetMeshViewList(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -417,7 +417,7 @@ ZShopEquipListbox* ZIDLResource::GetEquipmentListBox(::CCXmlElement& element)
 	return pWidget;
 }
 
-ZStageInfoBox* ZIDLResource::GetStageInfoBox(::CCXmlElement& element)
+ZStageInfoBox*	ZIDLResource::GetStageInfoBox(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -455,7 +455,7 @@ ZStageInfoBox* ZIDLResource::GetStageInfoBox(::CCXmlElement& element)
 	return pWidget;
 }
 
-ZRoomListBox* ZIDLResource::GetRoomListBox(::CCXmlElement& element )
+ZRoomListBox*	ZIDLResource::GetRoomListBox(::CCXmlElement& element )
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -519,7 +519,7 @@ ZRoomListBox* ZIDLResource::GetRoomListBox(::CCXmlElement& element )
 	return pWidget;
 }
 
-ZClanListBox* ZIDLResource::GetClanListBox( ::CCXmlElement& element )
+ZClanListBox*	ZIDLResource::GetClanListBox( ::CCXmlElement& element )
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -565,7 +565,7 @@ ZDuelTournamentRankingListBox* ZIDLResource::GetDuelTournamentRankingListBox( ::
 	return pWidget;
 }
 
-ZServerView* ZIDLResource::GetServerView(::CCXmlElement& element)
+ZServerView*	ZIDLResource::GetServerView(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[ 4096];
@@ -706,7 +706,7 @@ ZPlayerSelectListBox* ZIDLResource::GetPlayerSelectListBox(::CCXmlElement& eleme
 	return pWidget;
 }
 
-ZBmNumLabel* ZIDLResource::GetBmNumLabel(::CCXmlElement& element)
+ZBmNumLabel*	ZIDLResource::GetBmNumLabel(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[1024];
@@ -742,7 +742,7 @@ ZBmNumLabel* ZIDLResource::GetBmNumLabel(::CCXmlElement& element)
 	return pBmLabel;
 }
 
-ZActionKey* ZIDLResource::GetActionKey(::CCXmlElement& element)
+ZActionKey*		ZIDLResource::GetActionKey(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
@@ -782,7 +782,7 @@ ZActionKey* ZIDLResource::GetActionKey(::CCXmlElement& element)
 	return pActionKey;
 }
 
-void ZIDLResource::Parse(::CCXmlElement& element)
+void			ZIDLResource::Parse(::CCXmlElement& element)
 {
 	CCIDLResource::Parse(element);
 
@@ -871,13 +871,13 @@ void ZIDLResource::Parse(::CCXmlElement& element)
 	}
 }
 
-CCFrame*	ZIDLResource::CreateFrame(const char* szName, CCWidget* pParent, CCListener* pListener)
+CCFrame*		ZIDLResource::CreateFrame(const char* szName, CCWidget* pParent, CCListener* pListener)
 {
 	CCFrame* pFrame = new ZFrame(szName, pParent, pListener);
 	return pFrame;
 }
 
-CCFont* ZIDLResource::CreateFont(char* szAliasName, char* szFontName, int nHeight, 
+CCFont*			ZIDLResource::CreateFont(char* szAliasName, char* szFontName, int nHeight, 
 								bool bBold, bool bItalic, int nOutlineStyle, bool bAntialiasing, DWORD nColorArg1, DWORD nColorArg2)
 {
 	CCFontR2* pNew = new CCFontR2;
@@ -885,7 +885,7 @@ CCFont* ZIDLResource::CreateFont(char* szAliasName, char* szFontName, int nHeigh
 	return pNew;
 }
 
-void ZIDLResource::TransText(char* szSrc, char* szOut)
+void			ZIDLResource::TransText(char* szSrc, char* szOut)
 {
 	strcpy(szOut, ZGetStringResManager()->GetStringFromXml(szSrc));
 

@@ -162,7 +162,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 		int nLen = (int)strlen(szFileName);
 		const char* szTargetFile = NULL;
 #ifdef _INDEPTH_DEBUG_
-	cclog("Attempting to load file from pfs named [%s]\n", szFileName);
+	cclog("LoadBitmaps(%s)\n", szFileName);
 #endif
 		for(int j=0;j<sizeof(loadExts)/sizeof(loadExts[0]);j++) {
 			// 확장자가 맞으면..
@@ -560,7 +560,7 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	//ZLoadBitmap(PATH_CUSTOM_CROSSHAIR, ".png", true);
 	LoadBitmaps(szPath, szSubPath, &pictureProgress);
 
-	END_("Loaded Bitmaps in ");
+	END_("\n------------------------------------> Loaded Bitmaps in ");
 
 	BEGIN_;
 	if (!m_IDLResource.LoadFromFile(szFileName, this, ZGetFileSystem()))
@@ -568,17 +568,18 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 		// 로드 실패하면 Default로 로드
 		strcpy(a_szSkinName, DEFAULT_INTERFACE_SKIN);
 #ifdef _INDEPTH_DEBUG_
-		cclog("m_IDLResource::LoadFromFile() Failed. Attempting to recover.\n\t->Loading file %s\n", a_szSkinName);
+		cclog("\nm_IDLResource::LoadFromFile() Failed. Attempting to recover.\n\t->Loading file %s\n", a_szSkinName);
 #endif
 		ZGetInterfaceSkinPath(szPath, a_szSkinName);
 		sprintf(szFileName, "%s%s", szPath, FILENAME_INTERFACE_MAIN);
-		//ZLoadBitmap(szPath, ".png");
-		//ZLoadBitmap(szPath, ".bmp");
-		//ZLoadBitmap(szPath, ".tga");
-		//ZLoadBitmap(szPath, ".dds");
+#ifdef _INDEPTH_DEBUG_
+		cclog("\t->Creating path name %s\n", a_szSkinName);
+		cclog("LoadBitmaps()\n");
+#endif
 		LoadBitmaps(szPath, szSubPath, &pictureProgress);
 #ifdef _INDEPTH_DEBUG_
-		cclog("Attempting to load file [%s]\n", szFileName);
+		cclog("EXIT LoadBitmaps()\n");
+		cclog("Attempting to load files [%s]\n", szFileName);
 #endif
 		if (m_IDLResource.LoadFromFile(szFileName, this, ZGetFileSystem()))
 		{
@@ -609,8 +610,14 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 		_ASSERT(0);
 	}
 
+#ifdef _INDEPTH_DEBUG_
+		cclog("InitStageSettingDialog()\n");
+#endif
 	ZStageSetting::InitStageSettingDialog();
 
+#ifdef _INDEPTH_DEBUG_
+		cclog("\nInitializing List boxes...\n");
+#endif
 // EquipmentListBox 이벤트 세팅
 	// 상점에있는것
 	ZShopEquipListbox* pShopEquipListBox = (ZShopEquipListbox*)m_IDLResource.FindWidget("AllEquipmentList");
@@ -637,7 +644,9 @@ bool ZGameInterface::InitInterface(const char* szSkinName, ZLoadingProgress *pLo
 	{
 //		pShopEquipListBox->SetOnDropCallback(CharacterEquipmentItemListBoxOnDrop);
 	}
-
+#ifdef _INDEPTH_DEBUG_
+		cclog("Finished Initializing List Boxes.\n\n");
+#endif
 	// 아이템 설명 textarea의 커스텀 룩을 지정
 	m_textAreaLookItemDesc.SetBgColor(sColor(10, 10, 10, 220));
 

@@ -1,3 +1,5 @@
+#define _INDEPTH_DEBUG_
+
 #include "stdafx.h"
 #include "CCIDLResource.h"
 #include "Core.h"
@@ -1195,6 +1197,9 @@ void CCIDLResource::InsertWidget(::CCXmlElement& element, CCWidget* pWidget)
 {
 	char szItem[256];
 	element.GetAttribute(szItem, "item", "unnamed widget");
+#ifdef _INDEPTH_DEBUG_
+	cclog("Inserting Widget %s into m_WidgetMap\n", szItem);
+#endif
 	strcpy(pWidget->m_szIDLName,szItem);
 	m_WidgetMap.insert(CCWidgetMMap::value_type(string(szItem), pWidget));
 }
@@ -3031,16 +3036,26 @@ void CCIDLResource::SetColor(::CCXmlElement& element, sColor* pColor, const char
 	childElement = colorElement.CreateChildElement("ALPHA");
 	childElement.SetContents(pColor->a);
 }
-
+// FML
+// Didn't find it last few times I tried.
 CCWidget* CCIDLResource::FindWidget(string szItem)
 {
 	CCWidgetMMap::iterator itor = m_WidgetMap.find(szItem);
+#ifdef _INDEPTH_DEBUG_
+		cclog("Attempting to find widget item %s... ", szItem.c_str());
+#endif
 	if (itor != m_WidgetMap.end())
 	{
+		#ifdef _INDEPTH_DEBUG_
+			cclog("Found item.\n");
+		#endif
 		return (CCWidget*)(*itor).second;
 	}
 	else
 	{
+		#ifdef _INDEPTH_DEBUG_
+			cclog("Unable to find item, returning null\n");
+		#endif
 		return NULL;
 	}
 }

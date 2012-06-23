@@ -1,3 +1,4 @@
+#define _INDEPTH_DEBUG_
 #include "stdafx.h"
 
 #include "ZGame.h"
@@ -459,7 +460,9 @@ void ZScreenEffectManager::Clear()
 
 bool ZScreenEffectManager::Create()
 {
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("ZScreenEffectManager::Create()\n");
+#endif
 	DWORD _begin_time,_end_time;
 #define BEGIN_ { _begin_time = timeGetTime(); }
 #define END_(x) { _end_time = timeGetTime(); float f_time = (_end_time - _begin_time) / 1000.f; cclog("%s : %f \n", x,f_time ); }
@@ -479,7 +482,9 @@ bool ZScreenEffectManager::Create()
 		SAFE_DELETE(m_pEffectMeshMgr);
 		return false;
 	}
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("Completed loading of effects xml sheets.\n");
+#endif
 	m_pHPPanel		= new ZScreenEffect(m_pEffectMeshMgr->Get("hppanel"));
 	m_pScorePanel	= new ZScreenEffect(m_pEffectMeshMgr->Get("ef_in_tab.elu"));
     m_pBuffPanel	= new ZScreenEffect(m_pEffectMeshMgr->Get("ef_in_tab.elu"));
@@ -594,6 +599,9 @@ bool ZScreenEffectManager::Create()
 
 
 	END_("Screen Effect Manager Create");
+#ifdef _INDEPTH_DEBUG_
+	cclog("EXIT ZScreenEffectManager::Create()\n");
+#endif
 	return true;
 }
 

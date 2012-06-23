@@ -1,3 +1,4 @@
+#define _INDEPTH_DEBUG_
 #include "stdafx.h"
 #include <stdio.h>
 #include <math.h>
@@ -96,7 +97,24 @@ void RMesh::Init()
 	// 보통의 경우 재할당이 안일어나는 최대값을 지정..
 
 	m_data.reserve(MAX_MESH_NODE_TABLE);//기본
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("Reserved 300 minimum places for m_data\n");
+#endif
+	if(m_data.size()==0)
+	{
+		#ifdef _INDEPTH_DEBUG_
+			cclog("Reservation failed, attempting to recover\n");
+		#endif
+		for(int i=0; i<MAX_MESH_NODE_TABLE; i++)
+			m_data.push_back(NULL);
+		if(m_data.size()==0)
+		{
+			#ifdef _INDEPTH_DEBUG_
+				cclog("Recovery failed. Aborting\n");
+			#endif
+			ASSERT(m_data.size()==0);
+		}
+	}
 	for(int i=0;i<MAX_MESH_NODE_TABLE;i++)
 		m_data[i] = NULL;
 

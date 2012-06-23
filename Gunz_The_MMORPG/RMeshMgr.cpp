@@ -1,3 +1,4 @@
+#define _INDEPTH_DEBUG_
 #include "stdafx.h"
 #include "CCXml.h"
 
@@ -100,6 +101,9 @@ int RMeshMgr::Add(char* name,char* modelname,bool namesort)
 
 int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, void *CallbackParam)
 {
+#ifdef _INDEPTH_DEBUG_
+	cclog("RMeshMgr::LoadXmlList(%s)\n", name);
+#endif
 	__BP(2007,"RMeshMgr::LoadXmlList");
 
 	CCXmlDocument	XmlDoc;
@@ -111,7 +115,9 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 //		return -1;
 
 //	<-----------------
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("\t-> Loading document from memory\n", name);
+#endif
 	char *buffer;
 	CCZFile mzf;
 
@@ -136,7 +142,9 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 	delete[] buffer;
 
 	mzf.Close();
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("\t-> Loaded doucment into buffer\n", name);
+#endif
 //	<------------------
 
 	char Path[256];
@@ -169,7 +177,9 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 
 		Node = PNode.GetChildNode(i);
 		Node.GetTagName(NodeName);
-
+#ifdef _INDEPTH_DEBUG_
+		cclog("\t->Current Node(%d/%d) Tag name [%s]\n", i, nCnt, NodeName);
+#endif
 		if (NodeName[0] == '#') continue;
 
 		if (strcmp(NodeName, "AddXml")==0) {
@@ -262,7 +272,9 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 //			Node.GetAttribute(FileName, "filename");
 			Node.GetAttribute(LitModel, "lit_model");
 			Node.GetAttribute(NameSort, "name_sort");
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("\t-> Adding Elu Effect %s for model %s with sort name %s\n", IDName, LitModel, NameSort);
+#endif
 			// alpha type 등을 지정할 수 있다..
 			int name_sort = 0;
 			int litmodel = 1;
@@ -270,7 +282,6 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 			if(NameSort[0]) {
 				name_sort = atoi(NameSort);
 			}
-
 			int id = AddXml(&Node,Path,IDName,name_sort ? true:false);
 
 			if(id==-1) {
@@ -304,6 +315,9 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 
 int RMeshMgr::AddXml(::CCXmlElement* pNode,char* Path,char* modelname,bool namesort)
 {
+#ifdef _INDEPTH_DEBUG_
+	cclog("RMeshMgr::AddXml()\n");
+#endif
 	RMesh* node;
 	node = new RMesh;
 

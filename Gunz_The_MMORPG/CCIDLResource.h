@@ -92,24 +92,24 @@ private:
 protected:
 	CCWidget*						m_pParent;		///< 추가될 최상위 위젯
 
-	map<string, CCBLabelLook*>		m_LabelLookMap;
-	map<string, CCBButtonLook*>		m_ButtonLookMap;
-	map<string, CCBGroupLook*>		m_GroupLookMap;
-	map<string, CCBFrameLook*>		m_FrameLookMap;
-	map<string, CCBEditLook*>		m_EditLookMap;
+	map<string, CCBLabelLook*>			m_LabelLookMap;
+	map<string, CCBButtonLook*>			m_ButtonLookMap;
+	map<string, CCBGroupLook*>			m_GroupLookMap;
+	map<string, CCBFrameLook*>			m_FrameLookMap;
+	map<string, CCBEditLook*>			m_EditLookMap;
 	map<string, CCBListBoxLook*>		m_ListBoxLookMap;
 	map<string, CCBMultiColListBoxLook*>	m_MultiColListBoxLookMap;
-	map<string, CCBScrollBarLook*>	m_ScrollBarLookMap;
-	map<string, CCBArrowLook*>		m_ArrowLookMap;
-	map<string, CCBThumbLook*>		m_ThumbLookMap;
-	map<string, CCBSliderLook*>		m_SliderLookMap;
-	map<string, CCAniBitmap*>		m_AniBitmapMap;
-	map<string, CCBTextAreaLook*>	m_TextAreaLookMap;
+	map<string, CCBScrollBarLook*>		m_ScrollBarLookMap;
+	map<string, CCBArrowLook*>			m_ArrowLookMap;
+	map<string, CCBThumbLook*>			m_ThumbLookMap;
+	map<string, CCBSliderLook*>			m_SliderLookMap;
+	map<string, CCAniBitmap*>			m_AniBitmapMap;
+	map<string, CCBTextAreaLook*>		m_TextAreaLookMap;
 	map<string, CCBTabCtrlLook*>		m_TabCtrlLookMap;
 
 	CCWidgetMMap						m_WidgetMap;
 
-	map<string, CCButtonGroup*>		m_ButtonGroupMap;
+	map<string, CCButtonGroup*>			m_ButtonGroupMap;
 
 	// 기본요소
 	sPoint			GetPoint(::CCXmlElement& element);
@@ -194,7 +194,7 @@ public:
 	bool SaveToFile(const char* szFileName);
 	virtual void Clear();
 	CCWidgetMMap* GetWidgetMap() { return &m_WidgetMap; }
-	CCWidget* FindWidget(string szItem);
+	CCWidget* FindWidget(string szItem); // Prototyping a function doesn't mean it exists. Lol I know. But.. wtf you got going on here.
 	void FindWidgets(CCWidgetList& widgetList, string szItem);
 
 	CCBFrameLook* FindFrameLook(string szItem);

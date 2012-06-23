@@ -322,7 +322,7 @@ void ZPlayerListBox::InitUI(PLAYERLISTMODE nMode)
 
 	// (Poor structure), if a clan is a clan not been joined to create a window appears
 	/*
-	CCWidget *pFrame = ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyPlayerListClanCreateFrame");
+/*	CCWidget *pFrame = ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyPlayerListClanCreateFrame");
 	CCButton* pButtonUp = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListPrev");
 	CCButton* pButtonDn = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListNext");
 	if( pFrame)
@@ -330,7 +330,7 @@ void ZPlayerListBox::InitUI(PLAYERLISTMODE nMode)
 		pFrame->Show(bShowClanCreateFrame);
 		if(pButtonUp==NULL){
 			#ifdef _INDEPTH_DEBUG_
-			cclog("pButtonUp in ZPlayerListBox::InitUI() is a NULL address\n");
+				cclog("pButtonUp in ZPlayerListBox::InitUI() is a NULL address\n");
 			#endif
 			ASSERT(pButtonUp!=NULL);
 		}
@@ -342,7 +342,7 @@ void ZPlayerListBox::InitUI(PLAYERLISTMODE nMode)
 			ASSERT(pButtonDn!=NULL);
 		}
 		pButtonDn->Show(!bShowClanCreateFrame);
-	}
+	}*/
 	*/
 }
 
