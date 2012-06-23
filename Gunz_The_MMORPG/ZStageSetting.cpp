@@ -457,7 +457,9 @@ void ZStageSetting::InitStageSettingDialog()
 	strcpy( StageSetting_Vote[1].szText, ZMsg(MSG_WORD_PROHIBIT));
 	INITSTAGESETTING_ITEM("StageVote", pStageSetting->bVoteEnabled,
 		STAGESETTING_VOTE_MAX, StageSetting_Vote, STAGESETTING_VOTE_DEFAULT);
-
+#ifdef _INDEPTH_DEBUG_
+		cclog("EXIT InitStageSettingDialog()\n");
+#endif
 }
 
 void ZStageSetting::ApplyStageSettingDialog()
