@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#define _INDEPTH_DEBUG_
+
 #include "ZInitialLoading.h"
 #include "Core4R2.h"
 #include "RealSpace2.h"
@@ -246,10 +248,14 @@ void	ZInitialLoading::Draw( LOADING_SCENE_MODE mode_ /* = MODE_DEFAULT */, int d
 		// 로딩 이름
 		if(m_pLoadingStr && mpDC ) {
 			char buffer[256];
-			sprintf(buffer,"Loading %s ...",m_pLoadingStr);
+			sprintf(buffer,"Loading %s ...",m_pLoadingStr); //Loading
+
+#ifdef _INDEPTH_DEBUG_
+	cclog(buffer); cclog("\n");
+#endif
 			int nWidth = mpDC->m_Font.GetTextWidth(buffer);
 			int x = (int)(RGetScreenWidth() * 0.5) - nWidth/2;
-			int y = (int)(RGetScreenHeight() * 0.9f);
+			int y = (int)(RGetScreenHeight() * 0.89f);
 			mpDC->m_Font.DrawText( x, y, buffer, 0xFFCCCCCC );
 		}
 
