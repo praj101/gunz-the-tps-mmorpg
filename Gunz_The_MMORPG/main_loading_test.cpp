@@ -138,7 +138,7 @@ RRESULT OnCreate(void *pParam)
 
 	RBspObject::CreateShadeMap("sfx/water_splash.bmp");
 
-	sprintf( cstrReleaseDate, "Version : %d", ZGetSVNRevision()); //Possibly
+	sprintf( cstrReleaseDate, "Version : %s", ZGetSVNRevision().c_str()); //Possibly
 	cclog(cstrReleaseDate); cclog("\n");
 	g_DInput.Create(g_hWnd, FALSE, FALSE);
 	g_pInput = new ZInput(&g_DInput);

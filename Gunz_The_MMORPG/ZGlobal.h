@@ -62,7 +62,7 @@ ZSoundEngine*			ZGetSoundEngine();
 ZEffectManager*			ZGetEffectManager();
 ZScreenEffectManager*	ZGetScreenEffectManager();
 
-int						ZGetSVNRevision();
+string						ZGetSVNRevision();
 
 
 // dll-injection으로 호출하는 핵 때문에 매크로 인라이닝
