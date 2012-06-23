@@ -47,6 +47,6 @@ ZScreenEffectManager* ZGetScreenEffectManager() {
 
 int ZGetSVNRevision()
 {
-	return 0;
+	return 1;
 	//return GlobalGetSVNRevision();
 }

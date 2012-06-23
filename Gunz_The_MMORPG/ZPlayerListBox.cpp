@@ -320,7 +320,8 @@ void ZPlayerListBox::InitUI(PLAYERLISTMODE nMode)
 		}break;
 	}
 
-	// (좋지않은 구조) 클랜인데 클랜에 가입이 안되어있으면 생성 창을 보인다
+	// (Poor structure), if a clan is a clan not been joined to create a window appears
+	/*
 	CCWidget *pFrame = ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyPlayerListClanCreateFrame");
 	CCButton* pButtonUp = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListPrev");
 	CCButton* pButtonDn = (CCButton*)ZGetGameInterface()->GetIDLResource()->FindWidget("LobbyChannelPlayerListNext");
@@ -342,6 +343,7 @@ void ZPlayerListBox::InitUI(PLAYERLISTMODE nMode)
 		}
 		pButtonDn->Show(!bShowClanCreateFrame);
 	}
+	*/
 }
 
 void ZPlayerListBox::RefreshUI()

@@ -138,7 +138,7 @@ RRESULT OnCreate(void *pParam)
 
 	RBspObject::CreateShadeMap("sfx/water_splash.bmp");
 
-	sprintf( cstrReleaseDate, "Version : %d", ZGetSVNRevision());
+	sprintf( cstrReleaseDate, "Version : %d", ZGetSVNRevision()); //Possibly
 	cclog(cstrReleaseDate); cclog("\n");
 	g_DInput.Create(g_hWnd, FALSE, FALSE);
 	g_pInput = new ZInput(&g_DInput);
@@ -184,7 +184,7 @@ RRESULT OnCreate(void *pParam)
 			ZGetInitialLoading()->AddBitmap( 0, "Interface/Default/LOADING/loading_adult.jpg" );
 		}
 		ZGetInitialLoading()->AddBitmapBar( "Interface/Default/LOADING/loading.bmp" );
-		ZGetInitialLoading()->SetText( g_pDefFont, 10, 30, cstrReleaseDate );
+		ZGetInitialLoading()->SetText( g_pDefFont, 5, 5, cstrReleaseDate );
 
 		ZGetInitialLoading()->AddBitmapGrade( "Interface/Default/LOADING/loading_grade_fifteen.jpg" );
 
