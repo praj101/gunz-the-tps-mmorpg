@@ -571,6 +571,7 @@ bool CCMatchItemDescMgr::ReadCache()
 {
 	// zitem.xml을 파싱하는데 몇십초 걸리므로, 이를 바이너리로 캐싱해 둔것을 찾아 읽는다. 개발빌드일때만 작동.
 	// 만약 zitem.xml을 변경했을 때에는 runtime/zitemxml.cache 파일을 삭제하면 된다.
+
 #ifdef _DEBUG
 	FILE* fp = fopen("zitemxml.cache", "rb");
 	if (fp)

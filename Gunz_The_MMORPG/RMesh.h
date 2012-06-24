@@ -546,7 +546,7 @@ public:
 
 	RMeshNodeHashList	m_list;
 
-//	RMeshNode*			m_data[MAX_MESH_NODE_TABLE];
+	//RMeshNode*			m_data[MAX_MESH_NODE_TABLE];
 	vector<RMeshNode*>	m_data;
 
 	RWeaponMotionType	m_MeshWeaponMotionType;
