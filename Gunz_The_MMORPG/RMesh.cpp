@@ -96,7 +96,7 @@ void RMesh::Init()
 
 	// 보통의 경우 재할당이 안일어나는 최대값을 지정..
 
-	m_data.reserve(MAX_MESH_NODE_TABLE);//기본
+	m_data.reserve(MAX_MESH_NODE_TABLE);//[MAX_MESH_NODE_TABLE]
 /*	m_data.resize(MAX_MESH_NODE_TABLE);
 #ifdef _INDEPTH_DEBUG_
 	cclog("Reserved 300 minimum places for m_data\n");
