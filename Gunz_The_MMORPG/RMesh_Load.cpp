@@ -747,10 +747,12 @@ bool RMesh::ReadElu(char* fname)
 #define MZF_READ(x,y) { if(!mzf.Read((x),(y))) return false; }
 
 	__BP(2009,"RMesh::ReadElu");
-#ifdef _INDEPTH_DEBUG_
+#ifdef _INDEPTH_DEBUG_ 	
 	cclog("Reading in Elu file (%s)\n", fname);
 #endif
 	if(strcmp("model/man/man-parts00.elu", fname)==0)
+//	if(strcmp("interface/default/combat/ef_duel_num_9.elu", fname)==0)
+//	if(m_data[0]==NULL)
 		cclog("hit\n");
 	char Path[256];
 	char Name[256];
@@ -834,16 +836,15 @@ bool RMesh::ReadElu(char* fname)
 		MZF_READ(&node->m_ambient ,sizeof(D3DXCOLOR) );
 		MZF_READ(&node->m_diffuse ,sizeof(D3DXCOLOR) );
 		MZF_READ(&node->m_specular,sizeof(D3DXCOLOR) );
-
 		MZF_READ(&node->m_power,4 );
-
+#ifdef _INDEPTH_DEBUG_ 	
+		cclog("Loaded m_ambient, m_diffuse, m_specular\n");
+#endif
 		node->m_power *= 100.f;
 
 		if(t_hd.ver <= EXPORTER_MESH_VER3)
 			if(node->m_power == 2000.f)
 				node->m_power = 0.f;
-
-//		node->m_power = 80.f;
 
 		MZF_READ(&node->m_sub_mtrl_num,4 );
 
@@ -855,7 +856,10 @@ bool RMesh::ReadElu(char* fname)
 			MZF_READ(&node->m_name    ,MAX_PATH_NAME_LEN );
 			MZF_READ(&node->m_opa_name,MAX_PATH_NAME_LEN );
 		}
-
+#ifdef _INDEPTH_DEBUG_ 	
+		cclog("node->m_name=%s\n", node->m_name);
+		cclog("node->m_opa_name=%s\n", node->m_opa_name);
+#endif
 		if(t_hd.ver > EXPORTER_MESH_VER2) {//ver3 บฮลอ
 			int twoside=0;
 			MZF_READ(&twoside,sizeof(int) );
@@ -901,8 +905,13 @@ bool RMesh::ReadElu(char* fname)
 		}
 
 		node->CheckAniTexture();
-
+#ifdef _INDEPTH_DEBUG_ 	
+		cclog("Adding material %s...", node->m_name);
+#endif
 		m_mtrl_list_ex.Add(node);
+#ifdef _INDEPTH_DEBUG_ 	
+		cclog("Success\n");
+#endif
 	}
 
 	bool bNeedScaleMat = false;
@@ -1123,7 +1132,9 @@ bool RMesh::ReadElu(char* fname)
 			pMeshNode->m_isClothMeshNode = true;
 
 		m_list.PushBack(pMeshNode);
-		
+#ifdef _INDEPTH_DEBUG_ 	
+	cclog("Adding pMeshNode to m_data (%s)\n", pMeshNode->GetName());
+#endif
 		m_data.push_back( pMeshNode );
 		m_data_num++;
 
