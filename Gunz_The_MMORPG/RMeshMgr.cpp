@@ -116,7 +116,7 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 
 //	<-----------------
 #ifdef _INDEPTH_DEBUG_
-	cclog("\t-> Loading document from memory\n", name);
+	cclog("\t-> Loading document from memory (%s)\n", name);
 #endif
 	char *buffer;
 	CCZFile mzf;
@@ -186,14 +186,17 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 			Node.GetAttribute(IDName, "name");
 			Node.GetAttribute(FileName, "filename");
 			Node.GetAttribute(AutoLoad, "autoload");
-
+#ifdef _INDEPTH_DEBUG_
+		cclog("\t->AddXml Name[%s] File[%s] AutoLoad?[%s]\n", IDName, FileName, AutoLoad);
+#endif
 			bool bAutoLoad = true;
 
 			if(AutoLoad[0])	{
 				if(strncmp(AutoLoad,"false",5)==0)
 					bAutoLoad = false;
 			}
-
+			if(strcmp("model/man/man-parts00.elu", FileName)==0)
+				cclog("hit\n");
 			if(AddXml(FileName,IDName,bAutoLoad)==-1) {
 				cclog("%s not found\n",IDName);
 				XmlDoc.Destroy();
