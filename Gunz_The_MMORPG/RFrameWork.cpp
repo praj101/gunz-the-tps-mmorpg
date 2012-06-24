@@ -383,7 +383,7 @@ int RRun()
         }
 		else
 		{
-		/*	RFrame_UpdateRender();*/
+			RFrame_UpdateRender();
 		}
 
 		if(!g_bActive)

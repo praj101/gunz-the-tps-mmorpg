@@ -533,7 +533,7 @@ BirdGo:
 		CCLog("Error while Read Item Descriptor %s", "system/monstergroup.xml");
 	}
 	cclog("ZApplication::OnCreate : ZGetNPCGroupMgr()->ReadXml \n");
-*/
+
 	// if (!CCGetChattingFilter()->Create(GetFileSystem(), "system/abuse.xml"))
 	bool bSucceedLoadAbuse = CCGetChattingFilter()->LoadFromFile(GetFileSystem(), strFileNameAbuse.c_str());
 	if (!bSucceedLoadAbuse || CCGetChattingFilter()->GetNumAbuseWords() == 0)
@@ -542,7 +542,7 @@ BirdGo:
 		CCLog("Error while Read Abuse Filter %s\n", strFileNameAbuse.c_str());
 		MessageBox(NULL, ZErrStr(MERR_FIND_INVALIDFILE), ZMsg( MSG_WARNING), MB_OK);	// TODO: 풀스크린에서 메시지 박스는 좀 곤란함;
 		return false;
-	}
+	}*/
 	cclog( "Init abuse manager success.\n" );
 
 	

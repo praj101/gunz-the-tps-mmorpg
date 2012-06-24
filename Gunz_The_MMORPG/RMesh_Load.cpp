@@ -1,3 +1,4 @@
+#define _INDEPTH_DEBUG_
 #include "stdafx.h"
 #include <stdio.h>
 #include <math.h>
@@ -746,7 +747,11 @@ bool RMesh::ReadElu(char* fname)
 #define MZF_READ(x,y) { if(!mzf.Read((x),(y))) return false; }
 
 	__BP(2009,"RMesh::ReadElu");
-
+#ifdef _INDEPTH_DEBUG_
+	cclog("Reading in Elu file (%s)\n", fname);
+#endif
+	if(strcmp("model/man/man-parts00.elu", fname)==0)
+		cclog("hit\n");
 	char Path[256];
 	char Name[256];
 

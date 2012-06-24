@@ -1165,8 +1165,10 @@ void CCMatchItemDescMgr::ShiftMemoryGradually()
 	// MemoryFugitive는 SetData할때만 위치가 바뀐다. 아이템 속성값은 최초에 한번만 SetData 하므로
 	// 결과적으로 위치가 바뀌지 않게 된다. 매프레임마다 아이템 속성치를 수동으로 메모리 위치 변경한다
 	// 성능 부하가 염려되어 여러프레임에 걸쳐 아이템 몇개씩 차례로 옮겨준다
-
+	//cclog("! ! ! Skipping CCMatchItemDescMgr::ShiftMemoryGradually()\n");
+	return;
 	iterator it = find(m_nextItemIdToMemoryShift);
+
 	if (it == end())
 		it = begin();
 

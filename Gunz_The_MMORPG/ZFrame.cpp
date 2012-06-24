@@ -11,7 +11,7 @@
 // Breaks on 13=14 turn with timeGetTime
 void ZFrame::Show(bool bVisible, bool bModal)
 {
-	/*
+	
 	DWORD elapsed=1;
 
 	if(elapsed==NULL)
@@ -24,7 +24,7 @@ void ZFrame::Show(bool bVisible, bool bModal)
 		MessageBox(NULL, str, "Corrupted!", MB_OK);
 	}
 	elapsed-=m_nShowTime;
-/*
+
 	if(m_bNextVisible==m_bVisible && m_bVisible==bVisible && elapsed>TRANSIENT_TIME)
 		return;
 
@@ -44,7 +44,7 @@ void ZFrame::Show(bool bVisible, bool bModal)
 
 	if(bVisible)
 		m_bExclusive=bModal;
-*/
+
 }
 
 void ZFrame::OnDraw(CCDrawContext* pDC)

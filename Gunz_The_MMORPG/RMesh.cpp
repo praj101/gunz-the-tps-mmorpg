@@ -98,7 +98,7 @@ void RMesh::Init()
 
 	m_data.reserve(MAX_MESH_NODE_TABLE);//±âº»
 #ifdef _INDEPTH_DEBUG_
-	cclog("Reserved 300 minimum places for m_data\n");
+	cclog("Reserved 25000 minimum places for m_data\n");
 #endif
 	if(m_data.size()==0)
 	{

@@ -206,7 +206,7 @@ RRESULT OnCreate(void *pParam)
 		ZGetInitialLoading()->Release();
 		return R_ERROR_LOADING;
 	}
-/*
+
 //	ZGetInitialLoading()->SetPercentage( 50.0f );
 //	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0, true );
 	
@@ -249,7 +249,7 @@ RRESULT OnCreate(void *pParam)
 #endif
 		ZGetInitialLoading()->Release();
 	}
-(*/
+
 	cclog("main : OnCreate() done\n");
 
 	SetFocus(g_hWnd);
