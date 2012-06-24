@@ -2,7 +2,7 @@
 #include "CCBaseStringResManager.h"
 
 #define TOK_XML_STRING_HEADER		"STR:"
-#define _INDEPTH_DEBUG_
+//#define _INDEPTH_DEBUG_
 
 CCBaseStringResManager* CCBaseStringResManager::m_pInstance = NULL;
 

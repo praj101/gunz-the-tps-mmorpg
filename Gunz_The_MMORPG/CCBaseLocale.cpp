@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCBaseLocale.h"
 
-#define _INDEPTH_DEBUG_
+//#define _INDEPTH_DEBUG_
 
 CCBaseLocale::CCBaseLocale()
 {

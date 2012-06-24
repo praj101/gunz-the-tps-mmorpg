@@ -12,7 +12,7 @@
 // Added R349a
 #include "ZStringResManager.h"
 
-#define _INDEPTH_DEBUG_
+//#define _INDEPTH_DEBUG_
 
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA.h"
