@@ -7,7 +7,7 @@
 #include "RMeshUtil.h"
 
 #pragma comment(lib,"winmm.lib")
-#define _INDEPTH_DEBUG_
+//#define _INDEPTH_DEBUG_
 #define RTOOLTIP_GAP 700
 static DWORD g_last_mouse_move_time = 0;
 static bool g_tool_tip = false;

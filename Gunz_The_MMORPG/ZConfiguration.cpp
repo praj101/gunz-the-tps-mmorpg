@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#define _INDEPTH_DEBUG_
+//#define _INDEPTH_DEBUG_
 #include "ZConfiguration.h"
 #include "Core.h"
 #include "ZInterface.h"
@@ -10,7 +10,7 @@
 
 #include "ZStringResManager.h"
 
-#define _INDEPTH_DEBUG_
+//#define _INDEPTH_DEBUG_
 
 ZConfiguration	g_Configuration;
 ZConfiguration* ZGetConfiguration()		{ return &g_Configuration; }

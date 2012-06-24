@@ -4,7 +4,7 @@
 #undef _XTRAP
 #undef _GAMEGUARD
 
-#define _INDEPTH_DEBUG_
+//#define _INDEPTH_DEBUG_
 
 #include "ZPrerequisites.h"
 #include "ZConfiguration.h"
@@ -1251,4 +1251,4 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 	ZStringResManager::FreeInstance();
 	return 0;//nRRunReturn;
-}
+	}

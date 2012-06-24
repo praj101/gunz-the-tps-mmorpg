@@ -34,7 +34,7 @@
 #include "ZNHN_USA_Report.h"
 #include "PrivateKey.h"
 
-#define _INDEPTH_DEBUG_
+//#define _INDEPTH_DEBUG_
 
 #ifdef _QEUST_ITEM_DEBUG
 #include "CCQuestItem.h"

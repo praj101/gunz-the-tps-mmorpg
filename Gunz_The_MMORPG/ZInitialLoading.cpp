@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#define _INDEPTH_DEBUG_
+//#define _INDEPTH_DEBUG_
 
 #include "ZInitialLoading.h"
 #include "Core4R2.h"
