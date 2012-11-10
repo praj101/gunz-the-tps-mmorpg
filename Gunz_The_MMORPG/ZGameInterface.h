@@ -4,31 +4,18 @@
 #include "ZPrerequisites.h"
 #include "ZInterface.h"
 #include "ZCamera.h"
-#include "ZChat.h"
-#include "ZQuest.h"
-#include "ZSurvival.h"
-#include "ZGameType.h"
-#include "ZTips.h"
-#include "ZScreenDebugger.h"
-#include "ZCombatMenu.h"
-#include "ZMyCharacter.h"
-#include "ZBandiCapturer.h" // 동영상 캡쳐
+#include "ZMsgBox.h"
+#include "ZLoading.h"
+#include "ZInterfaceBackground.h"
+//#include "ZChat.h"
+//#include "ZQuest.h"
+//#include "ZSurvival.h"
+//#include "ZGameType.h"
+//#include "ZTips.h"
+//#include "ZCombatMenu.h"
 #include "ZBitmapManager.h"
 #include "CCTextArea.h"
 #include "CCListBox.h"
-/*
-#include "ZGame.h"
-#include "ZCharacter.h"
-#include "ZCombatInterface.h"
-#include "ZObserver.h"
-#include "ZLoading.h"
-#include "ZGameInput.h"
-#include "ZMyItemList.h"
-#include "ZMonsterBookInterface.h"
-#include "ZInitialLoading.h"
-*/
-
-// 여기에 #include 를 달기전에 꼭 그래야만하는지 다시한번 생각해보세요 +_+  - dubble
 
 
 #define LOGINSTATE_FADEIN				0
@@ -38,26 +25,11 @@
 #define LOGINSTATE_FADEOUT				4
 
 #if defined(_DEBUG) || defined(_RELEASE)
-	#define _DUELTOURNAMENT_LOG_ENABLE_		// 듀얼토너먼트 로그(테스트 작업용)
-#endif
-
-#if defined(_DEBUG) || defined(_RELEASE)
-//#define _LOG_ENABLE_CLIENT_COMMAND_			// 클라이언트 커맨드 로그(테스트 작업용)
-//#define _LOG_ENABLE_OBSERVER_COMMAND_BUSH_		// 옵저버 커맨드 푸쉬 로그(테스트 작업용)
-//#define _LOG_ENABLE_RELAY_COMMAND_BUSH_			// 리플레이 커맨드 푸쉬 로그(테스트 작업용)
-//#define _LOG_ENABLE_OBSERVER_COMMAND_DELETE_	// 옵저버 실행된 로그(테스트 작업용)
-//#define _LOG_ENABLE_REPLAY_COMMAND_DELETE_		// 리플레이 실행된 로그(테스트 작업용)
-#define _LOG_ENABLE_ROUNDSTATE_					// 라운드 상태 로그(테스트 작업용)
-#endif
-
-#if defined(_DEBUG) || defined(_RELEASE)
 #define _CHATOUTPUT_ENABLE_CHAR_DAMAGE_INFO_				// 각 캐릭터 데미지 로그(테스트 작업용)
 #endif
 
 class ZLocatorList;
 class ZGameInput;
-class ZMonsterBookInterface;
-class ZShopEquipInterface;
 class ZInterface;
 
 enum ZChangeWeaponType;
@@ -88,37 +60,18 @@ public:
 	CCTextAreaLook		m_textAreaLookItemDesc;	// 상점에서 아이템 설명용 TextArea의 Look
 	
 protected:
-	ZScreenEffectManager *m_pScreenEffectManager;
 	ZEffectManager*		m_pEffectManager;
 
 	GunzState			m_nPreviousState;
 
 	ZCombatInterface*	m_pCombatInterface;
-	ZShopEquipInterface* m_pShopEquipInterface;
 	ZGameInput*			m_pGameInput;
 	ZLoading*			m_pLoadingInterface;
-	ZPlayerMenu*		m_pPlayerMenu;
 
 	static ZGameClient*	m_spGameClient;
 	ZGame*				m_pGame;
-	ZCamera				m_Camera;
-	ZChat				m_Chat;
-	ZQuest				m_Quest;					///< 퀘스트 관련들	(이건 로직 객체인데 왜 인터페이스에 들어있는건가..)
-	ZSurvival			m_Survival;					// 서바이벌
-	ZGameTypeManager	m_GameTypeManager;			///< 게임타입 관련들
-//	ZClan				m_Clan;
-	ZMiniMap			*m_pMiniMap;
-	ZTips				m_Tips;
-
-	ZBandiCapturer*		m_Capture;					
-	
-	ZScreenDebugger		m_ScreenDebugger;			///< 화면에 나오는 디버그 화면
-	ZCombatMenu			m_CombatMenu;				///< 게임중 메뉴
-
-	ZMyCharacter*		m_pMyCharacter;
-
-	ZMonsterBookInterface* m_pMonsterBookInterface;
-
+//	ZGameTypeManager	m_GameTypeManager;	
+//	ZCombatMenu			m_CombatMenu;
 
 	
 	bool				m_bShowInterface;
@@ -141,7 +94,6 @@ protected:
 	ZMsgBox*				m_pMsgBox;
 	ZMsgBox*				m_pConfirmMsgBox;
 	ZInterfaceBackground*	m_pBackground;
-	ZCharacterSelectView*	m_pCharacterSelectView;
 
 	bool				m_bOnEndOfReplay;		// 리플레이 보구나면 플레이어의 Level Percent가 바뀌기 때문에 리플레이 시작 전에
 	int					m_nLevelPercentCache;	// m_bOnEndOfReplay를 true로 셋한 다음 m_nLevelPercentCache에 현재 LevelPercent
@@ -150,24 +102,13 @@ protected:
 	unsigned long int	m_nDrawCount;
 
 	bool			m_bReservedWeapon;
-	ZChangeWeaponType m_ReservedWeapon;
-
-	bool			m_bLeaveBattleReserved;
-	bool			m_bLeaveStageReserved;
-	DWORD			m_dwLeaveBattleTime;
-
-
 	int				m_nLoginState;
 	DWORD			m_dwLoginTimer;
 	DWORD			m_dwRefreshTime;
 	int				m_nLocServ;
 
 	CCBitmapR2*		m_pRoomListFrame;							// 게임방 리스트 프레임 이미지
-	CCBitmapR2*		m_pDuelTournamentLobbyFrame;				// 듀얼토너먼트 채널일때의 프레임 이미지
 	CCBitmapR2*		m_pBottomFrame;								// 하단 정보창 프레임 이미지
-	CCBitmapR2*		m_pClanInfoBg;								// 클랜 정보 배경 이미지
-	CCBitmapR2*		m_pDuelTournamentInfoBg;					// 듀얼토너먼트 전적 정보 배경 이미지
-	CCBitmapR2*		m_pDuelTournamentRankingLabel;				// 듀얼토너먼트 랭킹 리스트 상단 레이블 이미지
 	CCBitmapR2*		m_pLoginBG;									// 로그인 배경 이미지
 	CCBitmapR2*		m_pLoginPanel;								// 로그인 패널 이미지
 
@@ -201,18 +142,18 @@ protected:
 
 	bool			m_bGameFinishLeaveBattle;		// 배틀에서 나갈때 스테이지 종료 여부
 
-	list<CCCommand*>	m_listDelayedGameCmd;
+//	list<CCCommand*>	m_listDelayedGameCmd;
 
 // _DUELTOURNAMENT
-	vector<DTPlayerInfo> m_vecDTPlayerInfo;
-	CCDUELTOURNAMENTTYPE m_eDuelTournamentType;
+//	vector<DTPlayerInfo> m_vecDTPlayerInfo;
+//	CCDUELTOURNAMENTTYPE m_eDuelTournamentType;
 
 protected:
 	static bool		OnGlobalEvent(CCEvent* pEvent);
 	virtual bool	OnEvent(CCEvent* pEvent, CCListener* pListener);
 	bool			OnDebugEvent(CCEvent* pEvent, CCListener* pListener);
 	virtual bool	OnCommand(CCWidget* pWidget, const char* szMessage);
-	static bool		OnCommand(CCCommand* pCommand);
+//	static bool		OnCommand(CCCommand* pCommand);
 
 	bool ResizeWidget(const char* szName, int w, int h);
 	bool ResizeWidgetRecursive( CCWidget* pWidget, int w, int h);
@@ -258,25 +199,16 @@ protected:
 	void OnCharCreationDestroy();
 
 	void OnShutdownState();
-
-#ifdef _BIRDTEST
-	void OnBirdTestCreate();
-	void OnBirdTestDestroy();
-	void OnBirdTestUpdate();
-	void OnBirdTestDraw();
-	void OnBirdTestCommand(CCCommand* pCmd);
-#endif
-
 	void OnUpdateGameMessage();
 
 	void HideAllWidgets();
 
-	void OnResponseShopItemList( const vector< CCTD_ShopItemInfo*> &vShopItemList  , const vector<CCTD_GambleItemNode*>& vGItemList );
-	void OnResponseCharacterItemList(CCUID* puidEquipItem
-		, CCTD_ItemNode* pItemNodes
-		, int nItemCount
-		, CCTD_GambleItemNode* pGItemNodes
-		, int nGItemCount );
+//	void OnResponseShopItemList( const vector< CCTD_ShopItemInfo*> &vShopItemList  , const vector<CCTD_GambleItemNode*>& vGItemList );
+//	void OnResponseCharacterItemList(CCUID* puidEquipItem
+//		, CCTD_ItemNode* pItemNodes
+//		, int nItemCount
+//		, CCTD_GambleItemNode* pGItemNodes
+//		, int nGItemCount );
 
 	void OnSendGambleItemList( void* pGItemArray, const DWORD dwCount );
 
@@ -285,32 +217,12 @@ protected:
 	void OnDrawStateLobbyNStage(CCDrawContext* pDC);
 	void OnDrawStateCharSelection(CCDrawContext* pDC);
 
-#ifdef _QUEST_ITEM
-	void OnResponseCharacterItemList_QuestItem( CCTD_QuestItemNode* pQuestItemNode, int nQuestItemCount );
-	void OnResponseBuyQuestItem( const int nResult, const int nBP );
-	void OnResponseSellQuestItem( const int nResult, const int nBP );
-#endif
-
 	void OnResponseServerStatusInfoList( const int nListCount, void* pBlob );
 	void OnResponseBlockCountryCodeIP( const char* pszBlockCountryCode, const char* pszRoutingURL );
 
 	// locator관련.
 	void RequestServerStatusListInfo();
 
-/*
-	GUNZ_NA = 0,
-	GUNZ_GAME = 1,
-	GUNZ_LOGIN = 2,
-	GUNZ_NETMARBLELOGIN = 3,
-	GUNZ_LOBBY = 4,
-	GUNZ_STAGE = 5,
-	GUNZ_GREETER = 6,
-	GUNZ_CHARSELECTION = 7,
-	GUNZ_CHARCREATION = 8,
-	GUNZ_PREVIOUS = 10,
-	GUNZ_SHUTDOWN = 11,
-	GUNZ_BIRDTEST
-*/
 public:
 	ZGameInterface(const char* szName=NULL, CCWidget* pParent=NULL, CCListener* pListener=NULL);
 	~ZGameInterface();
@@ -360,7 +272,6 @@ public:
 	void ReserveLeaveStage();	// 스테이지에서 나갈때 일정시간 흐른뒤 나간다
 	void ReserveLeaveBattle();	// 대기방으로 나갈떄 일정시간 흐른뒤 나간다
 	void FinishGame();
-	bool IsLeaveBattleReserved() { return m_bLeaveBattleReserved; }
 
 	void ReserveResetApp(bool b)	{ m_bReserveResetApp = b; }
 	bool IsReservedResetApp()		{ return m_bReserveResetApp; }
@@ -389,8 +300,6 @@ public:
 
 
 	// 로비 UI 설정
-//	void SetupPlayerListButton(int index=-1);
-//	void SetupPlayerListTab();
 	void OnArrangedTeamGameUI(bool bFinding);
 	void OnDuelTournamentGameUI(bool bWaiting);
 
@@ -399,7 +308,7 @@ public:
 	void InitLadderUI(bool bLadderEnable);
 	void InitClanLobbyUI(bool bClanBattleEnable);
 	void InitDuelTournamentLobbyUI(bool bEnableDuelTournamentUI);
-	void InitChannelFrame(CCCHANNEL_TYPE nChannelType);
+//	void InitChannelFrame(CCCHANNEL_TYPE nChannelType);
 
 //	bool InitLocatorList( CCZFileSystem* pFileSystem, const char* pszLocatorList );
 
@@ -479,65 +388,31 @@ public:
 	virtual void MultiplySize(float byIDLWidth, float byIDLHeight, float byCurrWidth, float byCurrHeight);
 
 // _DUELTOURNAMENT
-	void SetDuelTournamentCharacterList(CCDUELTOURNAMENTTYPE nType, const vector<DTPlayerInfo>& vecDTPlayerInfo);
-	const vector<DTPlayerInfo>& GetVectorDTPlayerInfo()	{ return m_vecDTPlayerInfo; }
-	void SetDuelTournamantType(CCDUELTOURNAMENTTYPE eType)		{ m_eDuelTournamentType = eType; }
-	CCDUELTOURNAMENTTYPE GetDuelTournamentType()		{ return m_eDuelTournamentType; }
+//	void SetDuelTournamentCharacterList(CCDUELTOURNAMENTTYPE nType, const vector<DTPlayerInfo>& vecDTPlayerInfo);
+//	const vector<DTPlayerInfo>& GetVectorDTPlayerInfo()	{ return m_vecDTPlayerInfo; }
+//	void SetDuelTournamantType(CCDUELTOURNAMENTTYPE eType)		{ m_eDuelTournamentType = eType; }
+//	CCDUELTOURNAMENTTYPE GetDuelTournamentType()		{ return m_eDuelTournamentType; }
 
-	void UpdateDuelTournamantMyCharInfoUI();
-	void UpdateDuelTournamantMyCharInfoPreviousUI();
+//	void UpdateDuelTournamantMyCharInfoUI();
+//	void UpdateDuelTournamantMyCharInfoPreviousUI();
 
 // 릴레이맵
-	bool GetIsGameFinishLeaveBattle()			{ return m_bGameFinishLeaveBattle; }
+//	bool GetIsGameFinishLeaveBattle()			{ return m_bGameFinishLeaveBattle; }
 
 	// 바깥에서 얻을만한 인터페이스들 (__forceinline 는 dll-injection 핵 방해를 위한 것)
 	__forceinline ZGameClient* GetGameClient()			{ return m_spGameClient; }
 	__forceinline ZGame* GetGame()						{ return m_pGame; }
 	__forceinline ZCombatInterface* GetCombatInterface() { return m_pCombatInterface; }
-	__forceinline ZShopEquipInterface* GetShopEquipInterface() { return m_pShopEquipInterface; }
-	__forceinline ZCamera* GetCamera()						{ return &m_Camera; }
-	__forceinline ZCharacter*	GetMyCharacter()			{ return (ZCharacter*)m_pMyCharacter; }
-	__forceinline ZBaseQuest* GetQuest();					// 퀘스트/서바이벌 중 현재 모드에 맞는 걸 반환
-	__forceinline ZQuest* GetQuestExactly()					{ return &m_Quest; }		// 퀘스트 객체를 반환
-	__forceinline ZSurvival* GetSurvivalExactly()			{ return &m_Survival; }		// 서바이벌 객체를 반환
-	__forceinline ZChat* GetChat()							{ return &m_Chat; }
-	__forceinline ZGameTypeManager* GetGameTypeManager()		{ return &m_GameTypeManager; }
+//	__forceinline ZGameTypeManager* GetGameTypeManager()		{ return &m_GameTypeManager; }
 
-
-	ZScreenEffectManager* GetScreenEffectManager() { return m_pScreenEffectManager; }
 	ZEffectManager* GetEffectManager()			{ return m_pEffectManager; }
 	void SetGameClient(ZGameClient* pGameClient){ m_spGameClient = pGameClient; }
 	
-	ZCharacterSelectView* GetCharacterSelectView() { return m_pCharacterSelectView; }
 	ZIDLResource* GetIDLResource()			{ return &m_IDLResource; }
-	ZPlayerMenu* GetPlayerMenu()				{ return m_pPlayerMenu; }
-	ZMiniMap*	GetMiniMap()					{ return m_pMiniMap; }
-	
-	ZTips* GetTips()							{ return &m_Tips; }
-	ZBandiCapturer*	GetBandiCapturer()			{ return m_Capture; }					///< 동영상 캡쳐...by kammir 2008.10.02
-	ZScreenDebugger* GetScreenDebugger()		{ return &m_ScreenDebugger; }
-	ZCombatMenu*	 GetCombatMenu()			{ return &m_CombatMenu; }
-	ZMonsterBookInterface* GetMonsterBookInterface()	{ return m_pMonsterBookInterface; }
+//	ZCombatMenu*	 GetCombatMenu()			{ return &m_CombatMenu; }
 
 	ZBitmapManager<int>* GetItemThumbnailMgr()		{ return &m_ItemThumbnailMgr; }
 };
-
-__forceinline ZBaseQuest* ZGameInterface::GetQuest()
-{
-	if (m_pGame && m_pGame->GetMatch())
-	{
-		CCMATCH_GAMETYPE gameType = ZGetGame()->GetMatch()->GetMatchType();
-
-		if (m_GameTypeManager.IsQuestOnly( gameType ))
-			return static_cast<ZBaseQuest*>(&m_Quest);
-		else if (m_GameTypeManager.IsSurvivalOnly( gameType ))
-			return static_cast<ZBaseQuest*>(&m_Survival);
-	}
-	
-	//ASSERT(0);
-	return static_cast<ZBaseQuest*>(&m_Quest);
-}
-
 
 #define BEGIN_WIDGETLIST(_ITEM, _IDLRESPTR, _CLASS, _INSTANCE)								\
 {																							\
@@ -558,8 +433,6 @@ __forceinline ZBaseQuest* ZGameInterface::GetQuest()
 #define WM_CHANGE_GAMESTATE		(WM_USER + 25)
 void ZChangeGameState(GunzState state);		/// 쓰레드에 안전하기 위해서는 만듦
 
-
-//void ZLoadBitmap(const char* szDir, const char* szFilter, bool bAddDirToAliasName = false);
 
 inline void GetDuelTournamentGradeIconFileName(char* out_sz, int grade)
 {

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Core4Gunz.h"
-#include "ZGame.h"
+#include "ZDirectInput.h"
+//#include "ZGame.h"
 
 extern ZDirectInput	g_DInput;
 

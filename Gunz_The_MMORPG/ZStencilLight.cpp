@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "ZGame.h"
+//include "ZGame.h"
 #include "ZStencilLight.h"
 #include "RealSpace2.h"
 #include "RMeshUtil.h"
@@ -329,7 +329,7 @@ void ZStencilLight::Render()
 		light.Diffuse.g		= .5*fPower;
 		light.Diffuse.b		= .25*fPower;
 
-		ZGetGame()->GetWorld()->GetBsp()->DrawLight(&light);
+//	ZGetGame()->GetWorld()->GetBsp()->DrawLight(&light);
 	}
 	
 	PostRender();

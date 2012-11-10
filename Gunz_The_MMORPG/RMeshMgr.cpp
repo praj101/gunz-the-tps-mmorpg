@@ -195,8 +195,8 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 				if(strncmp(AutoLoad,"false",5)==0)
 					bAutoLoad = false;
 			}
-			if(strcmp("model/man/man-parts00.elu", FileName)==0)
-				cclog("hit\n");
+	//		if(strcmp("model/man/man-parts00.elu", FileName)==0)
+	//			cclog("hit\n");
 			if(AddXml(FileName,IDName,bAutoLoad)==-1) {
 				cclog("%s not found\n",IDName);
 				XmlDoc.Destroy();

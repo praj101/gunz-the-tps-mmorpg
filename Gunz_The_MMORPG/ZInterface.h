@@ -4,7 +4,7 @@
 #include "ZIDLResource.h"
 #include <windows.h>
 #include <io.h>
-#include "ZGame.h"
+//#include "ZGame.h"
 #include "RealSpace2.h"
 #include "RBaseTexture.h"
 #include "Core.h"

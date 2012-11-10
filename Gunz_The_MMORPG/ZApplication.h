@@ -1,25 +1,22 @@
 #pragma once
 
 #include "CCZFileSystem.h"
-//#include "ZGameInterface.h"
 #include "ZSoundEngine.h"
 #include "ZDirectInput.h"
 #include "CCDataChecker.h"
 #include "ZLanguageConf.h"
 #include "ZTimer.h"
-#include "ZEmblemInterface.h"
+//include "ZEmblemInterface.h"
 #include "ZStageInterface.h"
-#include "ZSkill.h"
-#include "ZWorldManager.h"
+//#include "ZSkill.h"
+//#include "ZWorldManager.h"
 
 #include "RAniEventInfo.h"
 
 //class MMessenger;
 class ZGame;
-class ZGameClient;
 class ZGameInterface;
 class ZLoadingProgress;
-class ZProfiler;
 class ZOptionInterface;
 
 enum GunzState{
@@ -72,17 +69,17 @@ protected:
 	static ZApplication*	m_pInstance;	///< Singleton Instance
 	static CCZFileSystem		m_FileSystem;
 	static ZSoundEngine		m_SoundEngine;
-	static RMeshMgr			m_NPCMeshMgr;
-	static RMeshMgr			m_MeshMgr;
-	static RMeshMgr			m_WeaponMeshMgr;
+//	static RMeshMgr			m_NPCMeshMgr;
+//	static RMeshMgr			m_MeshMgr;
+//	static RMeshMgr			m_WeaponMeshMgr;
 	static ZTimer			m_Timer;
-	static ZEmblemInterface	m_EmblemInterface;
-	static ZSkillManager	m_SkillManager;				///< 스킬 매니저
+//	static ZEmblemInterface	m_EmblemInterface;
+//	static ZSkillManager	m_SkillManager;				///< 스킬 매니저
 
 	//애니메이션 이벤트 메니저...
-	static RAniEventMgr		m_AniEventMgr;
+//	static RAniEventMgr		m_AniEventMgr;
 
-	ZWorldManager			m_WorldManager;
+//	ZWorldManager			m_WorldManager;
 	CCZFileCheckList			m_fileCheckList;
 #ifdef _ZPROFILER
 	ZProfiler				*m_pProfiler;
@@ -123,16 +120,16 @@ public:
 	/// Singleton ZGameClient
 	__forceinline static ZTimer*			GetTimer();
 	static ZSoundEngine*		GetSoundEngine();
-	static RMeshMgr*			GetNpcMeshMgr()			{ return &m_NPCMeshMgr;}
-	static RMeshMgr*			GetMeshMgr()			{ return &m_MeshMgr; }
-	static RMeshMgr*			GetWeaponMeshMgr()		{ return &m_WeaponMeshMgr; }
-	static ZEmblemInterface*	GetEmblemInterface()	{ return &m_EmblemInterface; }
-	static ZSkillManager*		GetSkillManager()		{ return &m_SkillManager; }
+//	static RMeshMgr*			GetNpcMeshMgr()			{ return &m_NPCMeshMgr;}
+//	static RMeshMgr*			GetMeshMgr()			{ return &m_MeshMgr; }
+//	static RMeshMgr*			GetWeaponMeshMgr()		{ return &m_WeaponMeshMgr; }
+//	static ZEmblemInterface*	GetEmblemInterface()	{ return &m_EmblemInterface; }
+//	static ZSkillManager*		GetSkillManager()		{ return &m_SkillManager; }
 
 	//애니메이션 이벤트 메니저 얻어오는 부분
-	static RAniEventMgr*		GetAniEventMgr()		{ return &m_AniEventMgr;}
+//	static RAniEventMgr*		GetAniEventMgr()		{ return &m_AniEventMgr;}
 
-	__forceinline ZWorldManager* GetWorldManager()		{ return &m_WorldManager; }
+//	__forceinline ZWorldManager* GetWorldManager()		{ return &m_WorldManager; }
 
 	__forceinline ZLAUNCH_MODE GetLaunchMode()			{ return m_nLaunchMode; }
 	__forceinline void SetLaunchMode(ZLAUNCH_MODE nMode)	{ m_nLaunchMode = nMode; }

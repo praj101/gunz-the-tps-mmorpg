@@ -2,22 +2,22 @@
 #include "ZGameInput.h"
 #include "ZGameInterface.h"
 #include "ZApplication.h"
-#include "ZPost.h"
-#include "ZPostLocal.h"
-#include "ZModule_FireDamage.h"
-#include "ZModule_ColdDamage.h"
-#include "ZModule_LightningDamage.h"
-#include "ZModule_PoisonDamage.h"
-#include "ZModule_Skills.h"
-#include "ZWorldItem.h"
-#include "ZMapDesc.h"
+//#include "ZPost.h"
+//#include "ZPostLocal.h"
+//#include "ZModule_FireDamage.h"
+//#include "ZModule_ColdDamage.h"
+//#include "ZModule_LightningDamage.h"
+//#include "ZModule_PoisonDamage.h"
+//#include "ZModule_Skills.h"
+//#include "ZWorldItem.h"
+//#include "ZMapDesc.h"
 #include "ZGlobal.h"
-#include "ZScreenEffectManager.h"
+//#include "ZScreenEffectManager.h"
 #include "ZInput.h"
 
 // Added R347a
-#include "ZActor.h"
-#include "ZCombatInterface.h"
+//#include "ZActor.h"
+//#include "ZCombatInterface.h"
 
 extern bool g_debug_rot;
 extern int  g_debug_render_mode;
@@ -25,7 +25,7 @@ extern bool g_bVertex_Soft;
 
 
 bool ZGameInput::OnDebugEvent(CCEvent* pEvent)
-{
+{/*
 #ifdef _PUBLISH
 
 	return false;
@@ -312,7 +312,7 @@ bool ZGameInput::OnDebugEvent(CCEvent* pEvent)
 					
 
 					ZGetEffectManager()->AddShotgunEffect(rvector(0,0,100),rvector(0,0,100),rvector(0,1,0),g_pGame->m_pMyCharacter);
-					*/
+					*
 				}break;
 
 			case 'K':
@@ -411,8 +411,8 @@ bool ZGameInput::OnDebugEvent(CCEvent* pEvent)
 						ft->Start(20,300);
 					}
 				}
-				return true;
-*/
+			return true;
+*
 			// 앞으로는 NUMPAD는 매크로로 사용될 것이다. 하하!
 			// 그러므로, NUMPAD1~NUMPAD9는 Return false로 수정!
 			case VK_NUMPAD0: ZGetGameInterface()->TestToggleCharacter();return true;
@@ -435,7 +435,7 @@ bool ZGameInput::OnDebugEvent(CCEvent* pEvent)
 						!ZGetGameInterface()->IsCursorEnable());
 				}
 				return true;
-			*/
+			*
 
 #ifdef USING_VERTEX_SHADER
 			case 'V':
@@ -452,7 +452,7 @@ bool ZGameInput::OnDebugEvent(CCEvent* pEvent)
 		break;
 
 	} // switch
-
+*/
 	return false;
 }
 

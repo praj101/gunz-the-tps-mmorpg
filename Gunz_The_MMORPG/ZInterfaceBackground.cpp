@@ -3,9 +3,9 @@
 #include "ZApplication.h"
 #include "ZInterfaceBackground.h"
 #include "RealSpace2.h"
-#include "ZMapDesc.h"
+//#include "ZMapDesc.h"
 #include "CCDebug.h"
-#include "ZScreenEffectManager.h"
+//#include "ZScreenEffectManager.h"
 
 // Added R347a
 #include "ZGameInterface.h"
@@ -20,7 +20,7 @@ ZInterfaceBackground::ZInterfaceBackground( void)
 	RealSpace2::RSetFileSystem( ZApplication::GetFileSystem());
 
 	m_pLogin = NULL;
-	m_pMapDesc = NULL;
+//	m_pMapDesc = NULL;
 //	m_bShowMaietLogo = false;
 }
 
@@ -31,9 +31,9 @@ ZInterfaceBackground::~ZInterfaceBackground( void)
 		delete m_pLogin;
 	m_pLogin = NULL;
 
-	if ( m_pMapDesc != NULL)
-		delete m_pMapDesc;
-	m_pMapDesc = NULL;
+//	if ( m_pMapDesc != NULL)
+//		delete m_pMapDesc;
+//	m_pMapDesc = NULL;
 }
 
 void ZInterfaceBackground::LoadMesh( void)
@@ -91,14 +91,14 @@ void ZInterfaceBackground::LoadMesh( void)
 			if(pInfo) {// 필요하면 xml 로 빼기..
 				string str = "login_obj_ef_sky02.elu";
 				if( pInfo->name == str ) {
-					pInfo->pVisualMesh->SetUVAnimation(-0.055f,0.f);
+//					pInfo->pVisualMesh->SetUVAnimation(-0.055f,0.f);
 				}
 			}
 		}
 			
 
 		// Map description
-		if ( m_pMapDesc == NULL)
+/*		if ( m_pMapDesc == NULL)
 		{
 			m_pMapDesc = new ZMapDesc();
 			m_pMapDesc->Open( m_pLogin);
@@ -112,7 +112,7 @@ void ZInterfaceBackground::LoadMesh( void)
 			}
 
 		}
-
+*/
 		m_pLogin->SetMapObjectOcclusion( true );
 	}
 }
@@ -123,15 +123,15 @@ void ZInterfaceBackground::Free( void)
 		delete m_pLogin;
 	m_pLogin = NULL;
 
-	if ( m_pMapDesc != NULL)
-		delete m_pMapDesc;
-	m_pMapDesc = NULL;
+//	if ( m_pMapDesc != NULL)
+//		delete m_pMapDesc;
+//	m_pMapDesc = NULL;
 }
 
 void ZInterfaceBackground::OnUpdate(float fElapsed)
 {
-	ZGetEffectManager()->Update( fElapsed);
-	ZGetScreenEffectManager()->UpdateEffects();
+//	ZGetEffectManager()->Update( fElapsed);
+//	ZGetScreenEffectManager()->UpdateEffects();
 }
 
 void ZInterfaceBackground::Draw()
@@ -223,7 +223,7 @@ void ZInterfaceBackground::Draw()
 			//if (m_bShowMaietLogo)
 			//{
 			//	ZGetScreenEffectManager()->UpdateEffects();
-				ZGetScreenEffectManager()->DrawEffects();
+//				ZGetScreenEffectManager()->DrawEffects();
 			//}
 
 			break;
@@ -301,8 +301,8 @@ void ZInterfaceBackground::Draw()
 		m_pLogin->DrawObjects();
 	}
 
-	if ( m_pMapDesc)
-		m_pMapDesc->DrawMapDesc();
+//	if ( m_pMapDesc)
+//		m_pMapDesc->DrawMapDesc();
 
 	// Draw effects(smoke, cloud)
 //	ZGetEffectManager()->Draw( timeGetTime());
@@ -343,8 +343,8 @@ void ZInterfaceBackground::SetScene( int nSceneNumber)
 		m_dwClock = timeGetTime();
 
 	// 로고를 뿌려준다
-	if( nSceneNumber == LOGIN_SCENE_FALLDOWN)
-		ZGetScreenEffectManager()->AddScreenEffect( "maiet_logo");
+//	if( nSceneNumber == LOGIN_SCENE_FALLDOWN)
+//		ZGetScreenEffectManager()->AddScreenEffect( "maiet_logo");
 
 	if ( nSceneNumber == LOGIN_SCENE_SELECTCHAR)
 	{

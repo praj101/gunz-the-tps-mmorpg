@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Game Base"
+	Name="GUI Base"
 	ProjectGUID="{CFE9D88D-3496-47B9-A0A4-2A9849AC44C4}"
 	RootNamespace="Gunz_GUI"
 	Keyword="Win32Proj"
@@ -453,14 +453,6 @@
 					<Filter
 						Name="Match Global"
 						>
-						<File
-							RelativePath=".\CCMatchGlobal.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\CCMatchGlobal.h"
-							>
-						</File>
 					</Filter>
 				</Filter>
 				<Filter
@@ -488,406 +480,6 @@
 					Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 					UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 					>
-					<File
-						RelativePath=".\CCAsyncDBJob.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_CharFinalize.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_DuelTornament.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_Event.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_FriendList.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_GetBattleTimeRewardDiscription.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_InsertCharBRInfo.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_InsertConnLog.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_InsertGamePlayerLog.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_SurvivalMode.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_UpdateCharInfoData.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncDBJob_UpdateCharItemInfoData.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncHttp.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCAsyncProxy.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBaseLocale.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBaseQuest.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBButtonLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBEditLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBFrameLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBGroupLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBitmapDrawer.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBLabelLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBListBoxLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBmButton.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBMultiColListBoxLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBScrollBarLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBSliderLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBTabCtrlLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCBTextAreaLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCButton.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCChattingFilter.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCComboBox.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCCommandLogFrame.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCConsoleFrame.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCCrashDump.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCCursor.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCEmblemMgr.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCEvent.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCFileBox.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCFileDialog.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCFont.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCFrame.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCGroup.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCGroupLook.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCHotKey.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCHttpSpooler.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCIDLResource.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCInetUtil.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCLex.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCListBox.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCLocale.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchDBMgr.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchDBMgr_AccountItem.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchEvent.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchEventManager.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchLocale.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchNPCObject.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchQuest.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchRule.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMD5.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMsgBox.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCNJ_DBAgentClient.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCPdb.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCProcessController.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCQuestDropTable.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCQuestFormula.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCQuestMap.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCQuestNPC.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCQuestPlayer.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCQuestScenario.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCRegistry.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCResourceManager.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCSacrificeQItemTable.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCSafeUDP.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCStrEx.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCStringTable.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCSysInfo.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCTypes.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCUtil.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CMLexicalAnalyzer.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Core.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Core4Gunz.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\FileInfo.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\ODBCRecordset.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Physics.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RCamera.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RCollisionDetection.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RDynamicLight.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RError.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RFont.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RMesh.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RMesh_Frame.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RMesh_Load.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RMesh_Mtrl.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RMesh_Render.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RMeshMgr.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RTypes.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\RVisualMeshMgr.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\SHA1.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\UPnP.cpp"
-						>
-					</File>
 					<Filter
 						Name="Widgets"
 						>
@@ -910,6 +502,18 @@
 								RelativePath=".\CCMultiColListBox.h"
 								>
 							</File>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBMultiColListBoxLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBMultiColListBoxLook.h"
+									>
+								</File>
+							</Filter>
 						</Filter>
 						<Filter
 							Name="Combo Box"
@@ -954,6 +558,18 @@
 								RelativePath=".\CCEdit.h"
 								>
 							</File>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBEditLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBEditLook.h"
+									>
+								</File>
+							</Filter>
 						</Filter>
 						<Filter
 							Name="File Box"
@@ -978,6 +594,18 @@
 								RelativePath=".\CCFrame.h"
 								>
 							</File>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBFrameLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBFrameLook.h"
+									>
+								</File>
+							</Filter>
 						</Filter>
 						<Filter
 							Name="Frame Drawer"
@@ -991,9 +619,29 @@
 							Name="Group"
 							>
 							<File
+								RelativePath=".\CCGroup.cpp"
+								>
+							</File>
+							<File
 								RelativePath=".\CCGroup.h"
 								>
 							</File>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBGroupLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBGroupLook.h"
+									>
+								</File>
+								<File
+									RelativePath=".\CCGroupLook.cpp"
+									>
+								</File>
+							</Filter>
 						</Filter>
 						<Filter
 							Name="Hotkey"
@@ -1034,6 +682,18 @@
 									>
 								</File>
 							</Filter>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBLabelLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBLabelLook.h"
+									>
+								</File>
+							</Filter>
 						</Filter>
 						<Filter
 							Name="Layout Manager"
@@ -1050,6 +710,18 @@
 								RelativePath=".\CCListBox.h"
 								>
 							</File>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBListBoxLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBListBoxLook.h"
+									>
+								</File>
+							</Filter>
 						</Filter>
 						<Filter
 							Name="Message Box"
@@ -1079,6 +751,18 @@
 								</File>
 								<File
 									RelativePath=".\cButton.h"
+									>
+								</File>
+							</Filter>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBButtonLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBButtonLook.h"
 									>
 								</File>
 							</Filter>
@@ -1154,6 +838,18 @@
 								RelativePath=".\CCTextArea.h"
 								>
 							</File>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBTextAreaLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBTextAreaLook.h"
+									>
+								</File>
+							</Filter>
 						</Filter>
 						<Filter
 							Name="Tab Control"
@@ -1166,9 +862,21 @@
 								RelativePath=".\CCTabCtrl.h"
 								>
 							</File>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBTabCtrlLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBTabCtrlLook.h"
+									>
+								</File>
+							</Filter>
 						</Filter>
 						<Filter
-							Name="ScrollBar"
+							Name="Slider"
 							>
 							<File
 								RelativePath=".\CCSlider.cpp"
@@ -1179,14 +887,14 @@
 								>
 							</File>
 							<Filter
-								Name="ScrollBar"
+								Name="Look"
 								>
 								<File
-									RelativePath=".\CCScrollBar.cpp"
+									RelativePath=".\CCBSliderLook.cpp"
 									>
 								</File>
 								<File
-									RelativePath=".\CCScrollBar.h"
+									RelativePath=".\CCBSliderLook.h"
 									>
 								</File>
 							</Filter>
@@ -1202,6 +910,30 @@
 								RelativePath=".\CCPopupMenu.h"
 								>
 							</File>
+						</Filter>
+						<Filter
+							Name="ScrollBar"
+							>
+							<File
+								RelativePath=".\CCScrollBar.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\CCScrollBar.h"
+								>
+							</File>
+							<Filter
+								Name="Look"
+								>
+								<File
+									RelativePath=".\CCBScrollBarLook.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\CCBScrollBarLook.h"
+									>
+								</File>
+							</Filter>
 						</Filter>
 					</Filter>
 					<Filter
@@ -1283,106 +1015,6 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Completed"
-				>
-				<Filter
-					Name="Match Channel"
-					>
-					<File
-						RelativePath=".\CCMatchChannel.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchChannel.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Match Clan"
-					>
-					<File
-						RelativePath=".\CCMatchClan.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchClan.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Match Friend Info"
-					>
-					<File
-						RelativePath=".\CCMatchFriendInfo.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchFriendInfo.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Mem Pool"
-					>
-					<File
-						RelativePath=".\MemPool.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\MemPool.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Match Item"
-					>
-					<File
-						RelativePath=".\CCMatchItem.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchItem.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Grid Map"
-					>
-					<File
-						RelativePath=".\CCGridMap.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCGridMap.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Object"
-					>
-					<File
-						RelativePath=".\CCObject.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCObject.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Match Object"
-					>
-					<File
-						RelativePath=".\CCMatchObject.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CCMatchObject.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
 				Name="DirectX Specific"
 				>
 				<Filter
@@ -1434,10 +1066,6 @@
 						<Filter
 							Name="Actor"
 							>
-							<File
-								RelativePath=".\ZActorSound.h"
-								>
-							</File>
 						</Filter>
 					</Filter>
 				</Filter>
@@ -1464,14 +1092,6 @@
 				<Filter
 					Name="Emblem Interface"
 					>
-					<File
-						RelativePath=".\ZEmblemInterface.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\ZEmblemInterface.h"
-						>
-					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -1552,139 +1172,15 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCAsyncDBJob.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_BuyQuestItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_BuyQuestItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_CharFinalize.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_DuelTournament.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_Event.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_FriendList.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_GetAccountItemList.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_GetAccountItemList.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_GetBRDescription.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_GetLoginInfo.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_GetLoginInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_InsertCharBRInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_InsertConnLog.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_InsertGamePlayerLog.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_RewardCharBR.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_SurvivalMode.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_UpdateAccountLastLoginTime.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_UpdateCharBRInfo.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_UpdateCharBRInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_UpdateCharInfoData.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_UpdateCharItemInfoData.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_WinTheClanGame.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJob_WinTheClanGame.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncDBJobRewardCharBR.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncHttp.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCAsyncProxy.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBaseChannelRule.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBaseChannelRule.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBaseGameType.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBaseGameType.h"
-			>
-		</File>
-		<File
 			RelativePath=".\CCBaseItem.h"
 			>
 		</File>
 		<File
-			RelativePath=".\CCBasePacket.h"
+			RelativePath=".\CCBaseLocale.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\CCBaseQuest.h"
+			RelativePath=".\CCBasePacket.h"
 			>
 		</File>
 		<File
@@ -1696,31 +1192,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCBButtonLook.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBEditLook.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBFrameLook.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBGroupLook.h"
+			RelativePath=".\CCBitmapDrawer.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\CCBitmapDrawer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBLabelLook.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBListBoxLook.h"
 			>
 		</File>
 		<File
@@ -1732,23 +1208,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCBMultiColListBoxLook.h"
+			RelativePath=".\CCBmButton.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\CCBScrollBarLook.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBSliderLook.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBTabCtrlLook.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCBTextAreaLook.h"
+			RelativePath=".\CCButton.cpp"
 			>
 		</File>
 		<File
@@ -1756,67 +1220,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCChattingFilter.h"
+			RelativePath=".\CCComboBox.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\CCClient.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCClient.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommand.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommand.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommandBuilder.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommandBuilder.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommandCommunicator.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommandCommunicator.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommandLogFrame.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommandManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommandManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommandParameter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCommandParameter.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCConnectHistory.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCConnectHistory.h"
+			RelativePath=".\CCConsoleFrame.cpp"
 			>
 		</File>
 		<File
@@ -1836,6 +1244,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCCrashDump.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCCrashDump.h"
 			>
 		</File>
@@ -1848,11 +1260,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCCustomClient.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCCustomClient.h"
+			RelativePath=".\CCCursor.cpp"
 			>
 		</File>
 		<File
@@ -1864,51 +1272,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCDuelTournamentFormula.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCDuelTournamentFormula.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCDuelTournamentGroup.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCDuelTournamentMatchMaker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCDuelTournamentMatchMaker.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCDuelTournamentTicket.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCDuelTournamentTicketPicker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCDuelTournamentTicketPicker.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCDuelTournamentTimeChecker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCDuelTournamentTimeChecker.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCEmblemMgr.h"
-			>
-		</File>
-		<File
 			RelativePath=".\CCErrorTable.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCEvent.cpp"
 			>
 		</File>
 		<File
@@ -1916,7 +1284,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCFileBox.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCFileDialog.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CCFont.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCFormulaTable.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCFrame.cpp"
 			>
 		</File>
 		<File
@@ -1924,19 +1308,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCHackingChatList.h"
+			RelativePath=".\CCHotKey.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\CCHackingTypes.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCHackingTypes.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCHttpSpooler.h"
+			RelativePath=".\CCIDLResource.cpp"
 			>
 		</File>
 		<File
@@ -1944,35 +1320,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCInetUtil.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCInetUtil.h"
 			>
 		</File>
 		<File
-			RelativePath=".\CCLadderGroup.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCLadderMgr.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCLadderMgr.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCLadderPicker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCLadderPicker.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCLadderStatistics.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCLadderStatistics.h"
+			RelativePath=".\CCLex.cpp"
 			>
 		</File>
 		<File
@@ -1980,619 +1336,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCMap.h"
+			RelativePath=".\CCListBox.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\CCMatchAccountPenaltyInfo.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchAccountPenaltyInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchActiveTrapMgr.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchActiveTrapMgr.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchAdmin.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchAdmin.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchAntiHack.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchAntiHack.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchAuth.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchBaseGambleItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchBRMachine.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchBRMachine.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchBuff.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchBuff.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchBuffSummary.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchBuffSummary.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchChannelRule.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchChannelRule.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchCharBRInfo.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchCharBRInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchChatRoom.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchChatRoom.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchChatRoom.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchCheckLookTime.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchCheckLookTime.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchCheckLookTime.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchCheckLoopTime.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchClient.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchClient.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchConfig.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchConfig.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchCRC32XORCache.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDBBaseGambleItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDBBaseGambleItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDBFilter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDBFilter.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDBGambleItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDBGambleItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDBMgr.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDebug.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDebug.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDuelTournamentMgr.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchDuelTournamentMgr.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchEvent.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchEventFactory.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchEventFactory.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchEventManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchFormula.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchFormula.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchGambleItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchGambleItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchGambleMachine.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchGambleMachine.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchGameType.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchGameType.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchHShield.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchHShield.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchItemFunction.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchItemFunction.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchKillTrackerConfig.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchLocale.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchMap.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchMap.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchNotify.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchNotify.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchNotify.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchNPCObject.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchObjCache.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchObjCache.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchObjectCharBuffInfo.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchObjectCharBuffInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchObjectCommandHistory.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchObjectCommandHistory.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchPowerLevelingConfig.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchPremiumIPCache.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchPremiumIPCache.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchPremiumIPCache.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchQuest.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchQuestGameLog.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchQuestGameLog.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchQuestMonsterGroup.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchQuestRound.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRule.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleAssassinate.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleAssassinate.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleBasedQuest.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleBaseQuest.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleBaseQuest.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleBerserker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleBerserker.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleDeathMatch.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleDeathMatch.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleDuel.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleDuel.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleDuelTournament.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleDuelTournament.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleGladiator.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleGladiator.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleQuest.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleQuest.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleSurvival.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleSurvival.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleSurvvial.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleTraining.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchRuleTraining.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchSchedule.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchSchedule.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchSchedule.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Admin.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Agent.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_AntiHack.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Async.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Channel.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Char.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Clan.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_DuelTournament.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Item.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Ladder.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Login.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_OnCommand.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Quest.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Stage.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchServer_Survival.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchShop.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchShop.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchShop.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchShutdown.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchShutdown.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchShutdown.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchStage.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchStage.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchStageSetting.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchStageSetting.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchStatus.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchStatus.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchStatus.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchStringResManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchStringResManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchSurvivalGameLog.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchSurvivalGameLog.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchTransDataType.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchTransDataType.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchTransDataType.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchTypes.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchUtil.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchUtil.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchUtil.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchWorldItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchWorldItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchWorldItemDesc.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCMatchWorldItemDesc.h"
+			RelativePath=".\CCLocale.cpp"
 			>
 		</File>
 		<File
@@ -2604,39 +1352,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCMD5.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCMD5.h"
 			>
 		</File>
 		<File
-			RelativePath=".\CCNJ_DBAgentClient.h"
+			RelativePath=".\CCMsgBox.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\CCObjectTypes.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCPacket.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCPacket.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCPacketCrypter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCPacketCrypter.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCPacketHShieldCrypter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCPacketHShieldCrypter.h"
 			>
 		</File>
 		<File
@@ -2652,7 +1380,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCPdb.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCPolygonMapModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\CCProcessController.cpp"
 			>
 		</File>
 		<File
@@ -2660,55 +1396,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCQuestDropTable.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestFormula.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestLevel.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestLevel.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestLevelGenerator.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestLevelGenerator.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestMap.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestNPCSpawnTrigger.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestNPCSpawnTrigger.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestPlayer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCQuestScenario.h"
+			RelativePath=".\CCRegistry.cpp"
 			>
 		</File>
 		<File
@@ -2716,11 +1404,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCResourceManager.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCRTTI.h"
 			>
 		</File>
 		<File
-			RelativePath=".\CCSacrificeQItemTable.h"
+			RelativePath=".\CCSafeUDP.cpp"
 			>
 		</File>
 		<File
@@ -2732,39 +1424,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCServer.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCServer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCSharedCommandTable.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCSharedCommandTable.h"
-			>
-		</File>
-		<File
 			RelativePath=".\CCSingleton.h"
 			>
 		</File>
 		<File
-			RelativePath=".\CCSmartRefresh.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCSmartRefresh.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCSmartRefreshImpl.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCSmartRefreshImpl.h"
+			RelativePath=".\CCStrEx.cpp"
 			>
 		</File>
 		<File
@@ -2776,11 +1440,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCSurvivalRankInfo.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCSurvivalRankInfo.h"
+			RelativePath=".\CCStringTable.cpp"
 			>
 		</File>
 		<File
@@ -2792,23 +1452,11 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCSysInfo.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCSysInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCTCPSocket.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCTCPSocket.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCTeamGameStrategy.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCTeamGameStrategy.h"
 			>
 		</File>
 		<File
@@ -2832,6 +1480,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CCTypes.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CCUID.cpp"
 			>
 		</File>
@@ -2840,27 +1492,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\CCVoteDiscussImpl.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCVoteDiscussImpl.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCVoteDiscussImpl.h"
-			>
-		</File>
-		<File
-			RelativePath=".\CCVoteMgr.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCVoteMgr.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\CCVoteMgr.h"
+			RelativePath=".\CCUtil.cpp"
 			>
 		</File>
 		<File
@@ -2888,11 +1520,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CMLexicalAnalyzer.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\CMLexicalAnalyzer.h"
 			>
 		</File>
 		<File
 			RelativePath=".\Config.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Core.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Core4Gunz.cpp"
 			>
 		</File>
 		<File
@@ -2921,6 +1565,10 @@
 		</File>
 		<File
 			RelativePath=".\dsound.h"
+			>
+		</File>
+		<File
+			RelativePath=".\FileInfo.cpp"
 			>
 		</File>
 		<File
@@ -2964,7 +1612,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\ODBCRecordset.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\ODBCRecordset.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Physics.cpp"
 			>
 		</File>
 		<File
@@ -2984,6 +1640,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RCamera.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\RCollisionDetection.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\RCollisionDetection.h"
 			>
 		</File>
@@ -2996,15 +1660,11 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RDynamicLight.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\RDynamicLight.h"
-			>
-		</File>
-		<File
-			RelativePath=".\RealCPNet.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\RealCPNet.h"
 			>
 		</File>
 		<File
@@ -3024,11 +1684,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RError.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\RError.h"
 			>
 		</File>
 		<File
 			RelativePath=".\resource.h"
+			>
+		</File>
+		<File
+			RelativePath=".\RFont.cpp"
 			>
 		</File>
 		<File
@@ -3076,7 +1744,31 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RMesh.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\RMesh.h"
+			>
+		</File>
+		<File
+			RelativePath=".\RMesh_Frame.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\RMesh_Load.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\RMesh_Mtrl.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\RMesh_Render.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\RMeshMgr.cpp"
 			>
 		</File>
 		<File
@@ -3168,6 +1860,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RTypes.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\RVersions.cpp"
 			>
 		</File>
@@ -3184,6 +1880,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RVisualMeshMgr.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\RVisualMeshMgr.h"
 			>
 		</File>
@@ -3196,14 +1896,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\SecurityTest.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\SecurityTest.h"
-			>
-		</File>
-		<File
 			RelativePath=".\seed.cpp"
 			>
 		</File>
@@ -3212,7 +1904,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\SHA1.h"
+			RelativePath=".\SHA1.cpp"
 			>
 		</File>
 		<File
@@ -3220,11 +1912,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\TestCRC32XORCache.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\TestCRC32XORCache.h"
+			RelativePath=".\UPnP.cpp"
 			>
 		</File>
 		<File
@@ -3248,127 +1936,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZActorAnimation.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZActorAnimation.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZActorController.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZActorController.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZActorSound.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZAI_Base.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZAniEventHandler.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZAniEventHandler.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZApplication.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\ZApplication.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBandiCapturer.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBandiCapturer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBaseAuthInfo.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBaseAuthInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBaseQuest.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior_Attack.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior_Attack.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior_Idle.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior_Idle.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior_Patrol.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior_Patrol.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior_Script.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBehavior_Script.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBirdDummyAI.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBirdDummyAI.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBirdDummyClient.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBirdDummyClient.h"
 			>
 		</File>
 		<File
@@ -3392,23 +1964,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZBrain.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZBrain.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZButton.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\ZButton.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCamera.cpp"
 			>
 		</File>
 		<File
@@ -3424,130 +1984,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZChannelListItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZChannelRule.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZChannelRule.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacter.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterBuff.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterBuff.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterObject.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterObject.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterSelectView.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterSelectView.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterView.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterView.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterViewList.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCharacterViewList.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZChat.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZChat.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZChat_CmdID.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZChat_Cmds.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZChatCmd.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZChatCmd.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZClan.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZClan.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZClanListBox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZClanListBox.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZClothEmblem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZClothEmblem.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZColorTable.h"
 			>
 		</File>
@@ -3560,50 +1996,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZCombatInferface.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCombatInterface.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCombatInterface.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCombatMenu.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCombatMenu.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCombatQuestScreen.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCombatQuestScreen.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCommandTable.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCommandTable.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCommandUDPHackShield.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZCommandUDPHackShield.h"
-			>
-		</File>
-		<File
 			RelativePath=".\zconf.h"
 			>
 		</File>
@@ -3613,14 +2005,6 @@
 		</File>
 		<File
 			RelativePath=".\ZConfiguration.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZConsole.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZConsole.h"
 			>
 		</File>
 		<File
@@ -3637,158 +2021,6 @@
 		</File>
 		<File
 			RelativePath=".\ZCrossHair.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZDuelTournamentRankingListBox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZDuelTournamentRankingListBox.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectAniMesh.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectAniMesh.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBase.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBase.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBillboard.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBillboard.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBillboardList.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBillboardList.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBulletMark.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBulletMark.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBulletMarkList.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectBulletMarkList.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectFlashBang.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectFlashBang.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectGunFire.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectGunFire.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectLightFragment.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectLightFragment.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectLightFragmentList.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectLightFragmentList.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectLightTracer.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectLightTracer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectMesh.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectMesh.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectSmoke.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectSmoke.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectStaticMesh.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEffectStaticMesh.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEnemy.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEnemy.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEnvObject.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEnvObject.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEquipmentListBox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZEquipmentListBox.h"
 			>
 		</File>
 		<File
@@ -3812,63 +2044,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZGambleItemDefine.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGame.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGame.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameAction.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameAction.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameClient.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameClient.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameClient_Clan.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameClient_DuelTournament.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameClient_HShield.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameClient_Ladder.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameClient_OnCommand.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\ZGameConst.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameGuard.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameGuard.h"
 			>
 		</File>
 		<File
@@ -3892,35 +2068,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZGameInterface_OnCommand.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameOnJPAuth.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameOnJPAuth.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZGameTimer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameType.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameType.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameTypeList.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZGameTypeList.h"
 			>
 		</File>
 		<File
@@ -3929,14 +2077,6 @@
 		</File>
 		<File
 			RelativePath=".\ZGlobal.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZHelpScreen.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZHelpScreen.h"
 			>
 		</File>
 		<File
@@ -3992,46 +2132,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZItemDesc.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZItemDesc.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZItemIconBitmap.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZItemIconBitmap.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZItemMenu.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZItemMenu.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZItemSlotView.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZItemSlotView.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZLanguageConf.cpp"
 			>
 		</File>
@@ -4056,54 +2156,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZMap.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMap.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMapDesc.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMapDesc.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMapListBox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMapListBox.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMatch.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMatch.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMeshView.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMeshView.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMeshViewList.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMeshViewList.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZMessageManager.cpp"
 			>
 		</File>
@@ -4120,114 +2172,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZMiniMap.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMiniMap.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_ColdDamage.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_ColdDamage.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_FireDamage.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_FireDamage.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_HealOverTime.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_HealOverTime.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_HPAP.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_HPAP.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_LightningDamage.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_LightningDamage.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_Movable.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_Movable.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_PoisonDamage.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_PoisonDamage.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_QuestStatus.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_QuestStatus.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_Resistance.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_Resistance.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_Skills.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModule_Skills.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZModuleID.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMonsterBookInterface.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMonsterBookInterface.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZMsgBox.cpp"
 			>
 		</File>
@@ -4236,227 +2180,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZMyBuff.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyBuff.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyBuffMgr.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyBuffMgr.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyCharacter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyCharacter.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyGambleItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyGambleItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyInfo.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyItemList.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyItemList.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyQuestItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZMyQuestItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetAgreementBuilder.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetAgreementBuilder.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetCharacter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetCharacter.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetmarble.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetmarble.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetmarbleJP.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetmarbleJP.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetRepository.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNetRepository.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNHN_USA.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNHN_USA.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNHN_USA_Poll.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNHN_USA_Poll.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNHN_USA_Report.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNHN_USA_Report.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNPCInfoFromserver.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZNPCInfoFromServer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZObject.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZObject.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZObjectManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZObjectManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZObserver.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZObserver.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZOptionInterface.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\ZOptionInterface.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerList.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerList.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerListBox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerListBox.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerMenu.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerMenu.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerSelectListBox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPlayerSelectListBox.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPost.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPost.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPostLocal.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZPostLocal.h"
 			>
 		</File>
 		<File
@@ -4469,270 +2197,6 @@
 		</File>
 		<File
 			RelativePath=".\ZProfiler.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZQuest.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZQuest.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZQuestGameInfo.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZQuestGameInfo.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZQuestMap.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZQuestMap.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRadar.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRadar.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRangeWeaponHitDice.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRangeWeaponHitDice.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZReplay.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZReplay.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZReportAbuse.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZReportAbuse.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRoomListBox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRoomListBox.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRule.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRule.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleAssassinate.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleAssassinate.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleBaseQuest.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleBaseQuest.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleBerserker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleBerserker.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleDeathMatch.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleDeathMatch.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleDuel.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleDuel.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleDuelTournament.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleDuelTournament.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleGladiator.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleGladiator.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleQuest.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleQuest.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleSurvival.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleSurvival.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleTraining.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZRuleTraining.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZScoreBoard.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZScoreBoard.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZScoreListBox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZScoreListBox.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZScreenDebugger.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZScreenDebugger.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZScreenEffectManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZScreenEffectManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZSecurity.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZSecurity.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZServerView.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZServerView.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShadow.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShadow.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShop.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShop.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShopEquipInterface.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShopEquipInterface.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShopEquipItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShopEquipItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShopEquipItemConfirm.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShopEquipItemConfirm.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShopEquipListbox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZShopEquipListbox.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZSkill.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZSkill.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZSkyBox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZSkyBox.h"
 			>
 		</File>
 		<File
@@ -4764,14 +2228,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZStageSetting.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZStageSetting.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZStateMachine.cpp"
 			>
 		</File>
@@ -4796,102 +2252,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ZSurvival.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZSurvival.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_AttackMelee.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_AttackMelee.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_AttackRange.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_AttackRange.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_Delay.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_Delay.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_MoveToPos.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_MoveToPos.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_RotateToDir.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_RotateToDir.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_Skill.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTask_Skill.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTaskBase_Attack.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTaskID.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTaskManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTaskManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTestGame.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTestGame.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTips.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZTips.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ZToolTip.cpp"
 			>
 		</File>
@@ -4905,70 +2265,6 @@
 		</File>
 		<File
 			RelativePath=".\ZUtil.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZVoteInterface.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZVoteInterface.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWater.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWater.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWeapon.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWeapon.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWeaponMgr.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWeaponMgr.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWeaponScreenEffect.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWeaponScreenEffect.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWorld.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWorld.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWorldItem.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWorldItem.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWorldManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ZWorldManager.h"
 			>
 		</File>
 	</Files>

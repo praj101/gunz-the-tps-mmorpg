@@ -3,22 +3,22 @@
 #include "ZGameInput.h"
 #include "ZApplication.h"
 #include "ZGameInterface.h"
-#include "ZGame.h"
+//#include "ZGame.h"
 #include "ZConfiguration.h"
 #include "ZActionDef.h"
 #include "Core.h"
 #include "CCEvent.h"
 #include "CCWidget.h"
-#include "ZGameClient.h"
-#include "ZCombatInterface.h"
-#include "ZConsole.h"
+//#include "ZGameClient.h"
+//#include "ZCombatInterface.h"
+//#include "ZConsole.h"
 //#include "MActionKey.h"
-#include "ZPost.h"
-#include "ZScreenEffectManager.h"
-#include "ZMyInfo.h"
-#include "ZMinimap.h"
+//#include "ZPost.h"
+//#include "ZScreenEffectManager.h"
+//#include "ZMyInfo.h"//
+//#include "ZMinimap.h"
 #include "ZInput.h"
-#include "ZBandiCapturer.h" // 동영상 캡쳐
+//#include "ZBandiCapturer.h" // 동영상 캡쳐
 
 #undef _DONOTUSE_DINPUT_MOUSE
 
@@ -50,7 +50,7 @@ ZGameInput::~ZGameInput()
 }
 
 bool ZGameInput::OnEvent(CCEvent* pEvent)
-{
+{/*
 	int sel = 0;
 
 	if ((ZGetGameInterface()->GetState() != GUNZ_GAME)) return false;
@@ -71,7 +71,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 #endif
 
 	ZMyCharacter* pMyCharacter = ZGetGameInterface()->GetGame()->m_pMyCharacter;
-	if ((!pMyCharacter) || (!pMyCharacter->GetInitialized())) return false;
+//	if ((!pMyCharacter) || (!pMyCharacter->GetInitialized())) return false;
 
 
 	////////////////////////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			
 			char buffer[256];
 			strcpy(buffer,hk->command.c_str());
-			ZApplication::GetGameInterface()->GetChat()->Input(buffer);
+//			ZApplication::GetGameInterface()->GetChat()->Input(buffer);
 
 //			ConsoleInputEvent(hk->command.c_str());
 		}break;
@@ -93,18 +93,18 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 		{
 			ZCombatInterface* pCombatInterface = ZGetGameInterface()->GetCombatInterface();
 
-			if ( ZGetCombatInterface()->IsShowResult())
-			{
-				if ( ((ZGetCombatInterface()->m_nReservedOutTime - timeGetTime()) / 1000) < 13)
-				{
-					if(ZGetGameClient()->IsLadderGame() || ZGetGameClient()->IsDuelTournamentGame())
-						ZChangeGameState(GUNZ_LOBBY);
-					else
-						ZChangeGameState(GUNZ_STAGE);
-
-					return true;
-				}
-			}
+//			if ( ZGetCombatInterface()->IsShowResult())
+//			{
+//				if ( ((ZGetCombatInterface()->m_nReservedOutTime - timeGetTime()) / 1000) < 13)
+//				{
+//					if(ZGetGameClient()->IsLadderGame() || ZGetGameClient()->IsDuelTournamentGame())
+//						ZChangeGameState(GUNZ_LOBBY);
+//					else
+//						ZChangeGameState(GUNZ_STAGE);
+//
+//					return true;
+//				}
+//			}
 
 			if (pCombatInterface->IsChat())
 			{
@@ -127,7 +127,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 					return true;
 #endif
 				}
-			}*/
+			}*
 			if (ZGetGameInterface()->IsCursorEnable())
 				return false;
 		}
@@ -165,8 +165,8 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 
 			case ZACTION_DEFENCE:
 				{
-					if(ZGetGame()->m_pMyCharacter)
-						ZGetGame()->m_pMyCharacter->m_statusFlags.Ref().m_bGuardKey = false;
+//					if(ZGetGame()->m_pMyCharacter)
+//						ZGetGame()->m_pMyCharacter->m_statusFlags.Ref().m_bGuardKey = false;
 				}
 				return true;
 			}
@@ -185,55 +185,55 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 				return true;
 			case ZACTION_MELEE_WEAPON:
 				{
-					if ( !ZGetGame()->IsReplay())
-						ZGetGameInterface()->ChangeWeapon(ZCWT_MELEE);
+//					if ( !ZGetGame()->IsReplay())
+//						ZGetGameInterface()->ChangeWeapon(ZCWT_MELEE);
 				}
 				return true;
 			case ZACTION_PRIMARY_WEAPON:
 				{
-					if ( !ZGetGame()->IsReplay())
-						ZGetGameInterface()->ChangeWeapon(ZCWT_PRIMARY);
+//					if ( !ZGetGame()->IsReplay())
+//						ZGetGameInterface()->ChangeWeapon(ZCWT_PRIMARY);
 				}
 				return true;
 			case ZACTION_SECONDARY_WEAPON:
 				{
-					if ( !ZGetGame()->IsReplay())
-						ZGetGameInterface()->ChangeWeapon(ZCWT_SECONDARY);
+//					if ( !ZGetGame()->IsReplay())
+//						ZGetGameInterface()->ChangeWeapon(ZCWT_SECONDARY);
 				}
 				return true;
 			case ZACTION_ITEM1:
 			case ZACTION_ITEM2:
 				{
-					int nIndex = pEvent->uKey - ZACTION_ITEM1 + ZCWT_CUSTOM1;
-					if ( !ZGetGame()->IsReplay()) {
-						ZGetGameInterface()->ChangeWeapon(ZChangeWeaponType(nIndex));
-					}
+//					int nIndex = pEvent->uKey - ZACTION_ITEM1 + ZCWT_CUSTOM1;
+//					if ( !ZGetGame()->IsReplay()) {
+//						ZGetGameInterface()->ChangeWeapon(ZChangeWeaponType(nIndex));
+//					}
 				}
 				return true;
 			case ZACTION_COMMUNITYITEM1:	cclog("Community Item1 Selected!\n"); return true;
 			case ZACTION_COMMUNITYITEM2:	cclog("Community Item2 Selected!\n"); return true;
 			case ZACTION_PREV_WEAPON:
 				{
-					if ( !ZGetGame()->IsReplay())
-						ZGetGameInterface()->ChangeWeapon(ZCWT_PREV);
+//					if ( !ZGetGame()->IsReplay())
+//						ZGetGameInterface()->ChangeWeapon(ZCWT_PREV);
 				}
 				return true;
 			case ZACTION_NEXT_WEAPON:
 				{
-					if ( !ZGetGame()->IsReplay())
-						ZGetGameInterface()->ChangeWeapon(ZCWT_NEXT);
+//					if ( !ZGetGame()->IsReplay())
+//						ZGetGameInterface()->ChangeWeapon(ZCWT_NEXT);
 				}
 				return true;
 			case ZACTION_RELOAD:
 				{
-					if ( !ZGetGame()->IsReplay())
-						ZGetGameInterface()->Reload();
+//					if ( !ZGetGame()->IsReplay())
+//						ZGetGameInterface()->Reload();
 				}
 				return true;
 			case ZACTION_DEFENCE:
 				{
-					if ( ZGetGame()->m_pMyCharacter && !ZGetGame()->IsReplay())
-						ZGetGame()->m_pMyCharacter->m_statusFlags.Ref().m_bGuardKey = true;
+//					if ( ZGetGame()->m_pMyCharacter && !ZGetGame()->IsReplay())
+//						ZGetGame()->m_pMyCharacter->m_statusFlags.Ref().m_bGuardKey = true;
 				}
 				return true;
 
@@ -244,40 +244,40 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			case ZACTION_CRY:
 			case ZACTION_DANCE:
 				{
-					if ( ZGetGame()->IsReplay())
-						break;
+//					if ( ZGetGame()->IsReplay())
+//						break;
 					if ( CCEvent::GetShiftState())
 						break;
 					if(ZGetGameInterface()->GetCombatInterface()->GetObserverMode())
 						break;
 
-					ZC_SPMOTION_TYPE mtype;
+//					ZC_SPMOTION_TYPE mtype;
 
-						 if(pEvent->uKey == ZACTION_TAUNT) mtype = ZC_SPMOTION_TAUNT;
-					else if(pEvent->uKey == ZACTION_BOW  ) mtype = ZC_SPMOTION_BOW;
-					else if(pEvent->uKey == ZACTION_WAVE ) mtype = ZC_SPMOTION_WAVE;
-					else if(pEvent->uKey == ZACTION_LAUGH) mtype = ZC_SPMOTION_LAUGH;
-					else if(pEvent->uKey == ZACTION_CRY  ) mtype = ZC_SPMOTION_CRY;
-					else if(pEvent->uKey == ZACTION_DANCE) mtype = ZC_SPMOTION_DANCE;
-					else 
+//						 if(pEvent->uKey == ZACTION_TAUNT) mtype = ZC_SPMOTION_TAUNT;
+//					else if(pEvent->uKey == ZACTION_BOW  ) mtype = ZC_SPMOTION_BOW;
+//					else if(pEvent->uKey == ZACTION_WAVE ) mtype = ZC_SPMOTION_WAVE;
+//					else if(pEvent->uKey == ZACTION_LAUGH) mtype = ZC_SPMOTION_LAUGH;
+//					else if(pEvent->uKey == ZACTION_CRY  ) mtype = ZC_SPMOTION_CRY;
+//					else if(pEvent->uKey == ZACTION_DANCE) mtype = ZC_SPMOTION_DANCE;
+//					else 
 						return true;
 
-					if(ZGetGame())
-						ZGetGame()->PostSpMotion( mtype );	// ZPostSpMotion(mtype);
+			//		if(ZGetGame())
+			//			ZGetGame()->PostSpMotion( mtype );	// ZPostSpMotion(mtype);
 					
 				}
 				return true;
 
 			case ZACTION_RECORD:
 				{
-					if ( ZGetGame() && !ZGetGame()->IsReplay())
-						ZGetGame()->ToggleRecording();
+//					if ( ZGetGame() && !ZGetGame()->IsReplay())
+//						ZGetGame()->ToggleRecording();
 				}
 				return true;
 			case ZACTION_MOVING_PICTURE:
 				{	// 동영상 캡쳐...2008.10.02
-					if (ZGetGameInterface()->GetBandiCapturer() != NULL)
-						ZGetGameInterface()->GetBandiCapturer()->ToggleStart();
+//					if (ZGetGameInterface()->GetBandiCapturer() != NULL)
+//						ZGetGameInterface()->GetBandiCapturer()->ToggleStart();
 				}
 				return true;
 			case ZACTION_TOGGLE_CHAT:
@@ -315,7 +315,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 					int nNew = ZGetConfiguration()->GetMouseSensitivityInInt();
 					
 					ZGetConfiguration()->ReserveSave();
-					ZChatOutputMouseSensitivityChanged(nPrev, nNew);
+//					ZChatOutputMouseSensitivityChanged(nPrev, nNew);
 					return true;
 				}
 			} // switch
@@ -352,9 +352,9 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 					char* str = ZGetConfiguration()->GetMacro()->GetString( sel );
 
 					if(str) {
-						if(ZApplication::GetGameInterface())
-							if(ZApplication::GetGameInterface()->GetChat())
-								ZApplication::GetGameInterface()->GetChat()->Input(str);
+//						if(ZApplication::GetGameInterface())
+//							if(ZApplication::GetGameInterface()->GetChat())
+//								ZApplication::GetGameInterface()->GetChat()->Input(str);
 					}
 				}
 				return true;
@@ -362,7 +362,7 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			case VK_F9:
 				if (ZIsLaunchDevelop())
 				{
-					ZApplication::GetGameInterface()->GetScreenDebugger()->SwitchDebugInfo();
+//					ZApplication::GetGameInterface()->GetScreenDebugger()->SwitchDebugInfo();
 				}
 				else
 				{
@@ -402,47 +402,47 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 				if (pCombatInterface->GetObserver()->IsVisible())
 					pCombatInterface->GetObserver()->OnKeyEvent(pEvent->bCtrl, pEvent->uKey);
 
-				if (ZGetGameClient()->CanVote() ||
-					ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->GetShowTargetList() ) 
+//				if (ZGetGameClient()->CanVote() ||
+//					ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->GetShowTargetList() ) 
 				{
-					ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->VoteInput(pEvent->uKey);
+//					ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->VoteInput(pEvent->uKey);
 				}
 				break;
 			case VK_ESCAPE:		// 메뉴를 부르거나 kick player를 취소한다
-				if (ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->GetShowTargetList()) {
-					ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->CancelVote();
-				} else {
-					ZGetGameInterface()->ShowMenu(!ZGetGameInterface()->IsMenuVisible());
-					ZGetGameInterface()->Show112Dialog(false);
-				}
+//				if (ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->GetShowTargetList()) {
+//					ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->CancelVote();
+//				} else {
+//					ZGetGameInterface()->ShowMenu(!ZGetGameInterface()->IsMenuVisible());
+//					ZGetGameInterface()->Show112Dialog(false);
+//				}
 
 				return true;
 			case 'M' : 
-				if ( ZGetGame()->IsReplay() && pCombatInterface->GetObserver()->IsVisible())
-				{
-					if(ZGetGameInterface()->GetCamera()->GetLookMode()==ZCAMERA_FREELOOK)
-						ZGetGameInterface()->GetCamera()->SetLookMode(ZCAMERA_MINIMAP);
-					else
-						ZGetGameInterface()->GetCamera()->SetLookMode(ZCAMERA_FREELOOK);
-				}
+//				if ( ZGetGame()->IsReplay() && pCombatInterface->GetObserver()->IsVisible())
+//				{
+//					if(ZGetGameInterface()->GetCamera()->GetLookMode()==ZCAMERA_FREELOOK)
+//						ZGetGameInterface()->GetCamera()->SetLookMode(ZCAMERA_MINIMAP);
+//					else
+//						ZGetGameInterface()->GetCamera()->SetLookMode(ZCAMERA_FREELOOK);
+//				}
 				break;
 			case 'T' :
-				if(ZGetGame()->m_pMyCharacter->GetTeamID()==CCMT_SPECTATOR &&
-					ZGetGame()->GetMatch()->IsTeamPlay() && 
-					pCombatInterface->GetObserver()->IsVisible()) {
-						ZObserver *pObserver = pCombatInterface->GetObserver();
-						pObserver->SetType(pObserver->GetType()==ZOM_BLUE ? ZOM_RED : ZOM_BLUE);
-						pObserver->ChangeToNextTarget();
-
-				}
+//				if(ZGetGame()->m_pMyCharacter->GetTeamID()==CCMT_SPECTATOR &&
+//					ZGetGame()->GetMatch()->IsTeamPlay() && 
+//					pCombatInterface->GetObserver()->IsVisible()) {
+//						ZObserver *pObserver = pCombatInterface->GetObserver();
+//						pObserver->SetType(pObserver->GetType()==ZOM_BLUE ? ZOM_RED : ZOM_BLUE);
+//						pObserver->ChangeToNextTarget();
+//
+//				}
 			case 'H':
-				if ( ZGetGame()->IsReplay() && pCombatInterface->GetObserver()->IsVisible())
-				{
-					if ( ZGetGame()->IsShowReplayInfo())
-						ZGetGame()->ShowReplayInfo( false);
-					else
-						ZGetGame()->ShowReplayInfo( true);
-				}
+//				if ( ZGetGame()->IsReplay() && pCombatInterface->GetObserver()->IsVisible())
+//				{
+//					if ( ZGetGame()->IsShowReplayInfo())
+//						ZGetGame()->ShowReplayInfo( false);
+//					else
+//						ZGetGame()->ShowReplayInfo( true);
+//				}
 				break;
 			case 'J':
 				{
@@ -459,16 +459,16 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 #ifdef _DEBUG
 			case 'K':
 				{
-					rvector pos = ZGetGame()->m_pMyCharacter->GetPosition();
-					pos.x+=1;
-					ZGetGame()->m_pMyCharacter->SetPosition(pos);
+//					rvector pos = ZGetGame()->m_pMyCharacter->GetPosition();
+//					pos.x+=1;
+//					ZGetGame()->m_pMyCharacter->SetPosition(pos);
 				}
 				break;
 			case 'L':
 				{
-					rvector pos = ZGetGame()->m_pMyCharacter->GetPosition();
-					pos.x-=1;
-					ZGetGame()->m_pMyCharacter->SetPosition(pos);
+//					rvector pos = ZGetGame()->m_pMyCharacter->GetPosition();
+//					pos.x-=1;
+//					ZGetGame()->m_pMyCharacter->SetPosition(pos);
 				}
 				break;
 			//case 'J':
@@ -483,11 +483,11 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 			//	break;
 			case 'U':
 				{
-					rvector pos = ZGetGame()->m_pMyCharacter->GetPosition();
-					pos.x = -3809;
-					pos.y = -1330;
-					pos.z = 100;
-					ZGetGame()->m_pMyCharacter->SetPosition(pos);
+//					rvector pos = ZGetGame()->m_pMyCharacter->GetPosition();
+//					pos.x = -3809;
+//					pos.y = -1330;
+//					pos.z = 100;
+//					ZGetGame()->m_pMyCharacter->SetPosition(pos);
 					//ZGetGame()->m_pMyCharacter->GetPosition().x = -3809;
 					//ZGetGame()->m_pMyCharacter->GetPosition().y = -1337.5;
 					//ZGetGame()->m_pMyCharacter->GetPosition().z = 461;
@@ -500,23 +500,23 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 
 	case CCWM_CHAR:
 		{
-			ZMatch* pMatch = ZGetGame()->GetMatch();
-			if (pMatch->IsTeamPlay()) {
-				switch(pEvent->uKey) {
-				case '\'':
-				case '\"':
-					{
-						ZCombatInterface* pCombatInterface = ZGetGameInterface()->GetCombatInterface();
-						pCombatInterface->EnableInputChat(true, true);
-					}
-					return true;
-				};
-			}
+//			ZMatch* pMatch = ZGetGame()->GetMatch();
+//			if (pMatch->IsTeamPlay()) {
+//				switch(pEvent->uKey) {
+//				case '\'':
+//				case '\"':
+//					{
+//						ZCombatInterface* pCombatInterface = ZGetGameInterface()->GetCombatInterface();
+//						pCombatInterface->EnableInputChat(true, true);
+//					}
+//					return true;
+//				};
+//			}
 
 			// for deutsch, spanish keyboard
-			if (pEvent->uKey == '/') {
-				if (!ShowCombatInputChat()) return false;
-			}
+//			if (pEvent->uKey == '/') {
+//				if (!ShowCombatInputChat()) return false;
+//			}
 		}
 		break;
 
@@ -537,20 +537,20 @@ bool ZGameInput::OnEvent(CCEvent* pEvent)
 
 	case CCWM_MOUSEWHEEL:
 		{
-			if ( ZGetGame()->IsReplay())
-				break;
+//			if ( ZGetGame()->IsReplay())
+//				break;
 
 			int nDelta = pEvent->iDelta;
 
-			if ( (ZGetMyInfo()->IsAdminGrade() && ZGetCombatInterface()->GetObserver()->IsVisible()) ||
-				(ZGetGameInterface()->GetScreenDebugger()->IsVisible()) || 
-				(!ZGetGameInterface()->m_bViewUI))
+//			if ( (ZGetMyInfo()->IsAdminGrade() && ZGetCombatInterface()->GetObserver()->IsVisible()) ||
+//				(ZGetGameInterface()->GetScreenDebugger()->IsVisible()) || 
+//				(!ZGetGameInterface()->m_bViewUI))
 			{
-				ZCamera* pCamera = ZGetGameInterface()->GetCamera();
-				pCamera->m_fDist+=-(float)nDelta;
-				pCamera->m_fDist=max(CAMERA_DIST_MIN,pCamera->m_fDist);
-				pCamera->m_fDist=min(CAMERA_DIST_MAX,pCamera->m_fDist);
-				break;
+//				ZCamera* pCamera = ZGetGameInterface()->GetCamera();
+//				pCamera->m_fDist+=-(float)nDelta;
+//				pCamera->m_fDist=max(CAMERA_DIST_MIN,pCamera->m_fDist);
+//				pCamera->m_fDist=min(CAMERA_DIST_MAX,pCamera->m_fDist);
+//				break;
 			}
 
 //			if (nDelta > 0)	ZGetGameInterface()->ChangeWeapon(ZCWT_PREV);
@@ -576,13 +576,13 @@ bool ZGameInput::ShowCombatInputChat()
 	if( ZGetCombatInterface()->IsShowUI() && !ZGetCombatInterface()->IsShowResult() )
 	{ // UI토글이 켜져 있을때만 채팅토글을 처리해준다.
 		ZCombatInterface* pCombatInterface = ZGetGameInterface()->GetCombatInterface();
-		if ((pCombatInterface) && (!pCombatInterface->IsChat()) && !ZGetGame()->IsReplay())
-		{
-			CCWidget* pWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("112Confirm");
-			if (pWidget && pWidget->IsVisible()) return false;
-			pCombatInterface->EnableInputChat(true);
-		}
-	}
+//		if ((pCombatInterface) && (!pCombatInterface->IsChat()) && !ZGetGame()->IsReplay())
+//		{
+//			CCWidget* pWidget = ZGetGameInterface()->GetIDLResource()->FindWidget("112Confirm");
+//			if (pWidget && pWidget->IsVisible()) return false;
+//			pCombatInterface->EnableInputChat(true);
+//		}
+	}*/
 	return true;
 }
 
@@ -628,7 +628,7 @@ void ZGameInput::Update(float fElapsed)
 				}
 			}
 		}
-	}//*/
+	}//*
 
 //	if(RIsActive() && !g_pGame->IsReplay())
 
@@ -742,20 +742,21 @@ void ZGameInput::Update(float fElapsed)
 						rvector targetPos = pCamera->GetPosition()+cameraMove;
 
 						// 프리룩은 충돌체크를 한다
-						if(pCamera->GetLookMode()==ZCAMERA_FREELOOK)
-							ZGetGame()->GetWorld()->GetBsp()->CheckWall(pCamera->GetPosition(),targetPos,ZFREEOBSERVER_RADIUS,0.f,RCW_SPHERE);
+						if(pCamera->GetLookMode()==ZCAMERA_FREELOOK){
+//							ZGetGame()->GetWorld()->GetBsp()->CheckWall(pCamera->GetPosition(),targetPos,ZFREEOBSERVER_RADIUS,0.f,RCW_SPHERE);
+						}
 						else
 						// 미니맵은 범위내에 있는지 체크한다
 						{
-							rboundingbox *pbb = &ZGetGame()->GetWorld()->GetBsp()->GetRootNode()->bbTree;
-							targetPos.x = max(min(targetPos.x,pbb->maxx),pbb->minx);
-							targetPos.y = max(min(targetPos.y,pbb->maxy),pbb->miny);
-
-							ZMiniMap *pMinimap = ZGetGameInterface()->GetMiniMap();
-							if(pMinimap)
-								targetPos.z = max(min(targetPos.z,pMinimap->GetHeightMax()),pMinimap->GetHeightMin());
-							else
-								targetPos.z = max(min(targetPos.z,7000),2000);
+//							rboundingbox *pbb = &ZGetGame()->GetWorld()->GetBsp()->GetRootNode()->bbTree;
+//							targetPos.x = max(min(targetPos.x,pbb->maxx),pbb->minx);
+//							targetPos.y = max(min(targetPos.y,pbb->maxy),pbb->miny);
+//
+//							ZMiniMap *pMinimap = ZGetGameInterface()->GetMiniMap();
+//							if(pMinimap)
+//								targetPos.z = max(min(targetPos.z,pMinimap->GetHeightMax()),pMinimap->GetHeightMin());
+//							else
+//								targetPos.z = max(min(targetPos.z,7000),2000);
 
 							
 						}
@@ -763,10 +764,10 @@ void ZGameInput::Update(float fElapsed)
 						pCamera->SetPosition(targetPos);
 
 					}
-					else if ( !ZGetGame()->IsReplay())
-					{
-						pMyCharacter->ProcessInput( fElapsed);
-					}
+//					else if ( !ZGetGame()->IsReplay())
+//					{
+//						pMyCharacter->ProcessInput( fElapsed);
+//					}
 				}
 			}
 			POINT pt={RGetScreenWidth()/2,RGetScreenHeight()/2};
@@ -778,7 +779,7 @@ void ZGameInput::Update(float fElapsed)
 
 		}else
 			pMyCharacter->ReleaseButtonState();	// 메뉴가 나왔을때는 버튼이 눌리지 않은상태로 돌려놓는다
-	}
+	}*/
 }
 
 
@@ -787,9 +788,9 @@ void ZGameInput::Update(float fElapsed)
 void ZGameInput::GameCheckSequenceKeyCommand()
 {
 	// 철지난 키 입력은 일단 제거한다.
-	while(m_ActionKeyHistory.size()>0 && (ZGetGame()->GetTime()-(*m_ActionKeyHistory.begin()).fTime>MAX_KEY_SEQUENCE_TIME))
+//	while(m_ActionKeyHistory.size()>0 && (ZGetGame()->GetTime()-(*m_ActionKeyHistory.begin()).fTime>MAX_KEY_SEQUENCE_TIME))
 	{
-		m_ActionKeyHistory.erase(m_ActionKeyHistory.begin());
+//		m_ActionKeyHistory.erase(m_ActionKeyHistory.begin());
 	}
 
 	if(m_ActionKeyHistory.size())
@@ -806,10 +807,10 @@ void ZGameInput::GameCheckSequenceKeyCommand()
 				ZACTIONKEYITEM itm=*itr;
 				if(i==0)
 				{
-					if(ZGetGame()->GetTime()-itm.fTime>action.fTotalTime)
+///					if(ZGetGame()->GetTime()-itm.fTime>action.fTotalTime)
 					{
-						bAction=false;
-						break;
+//						bAction=false;
+//						break;
 					}
 				}
 				if(itm.nActionKey!=action.pKeys[i].nActionKey || itm.bPressed!=action.pKeys[i].bPressed)
@@ -832,8 +833,8 @@ void ZGameInput::GameCheckSequenceKeyCommand()
 					m_ActionKeyHistory.erase(m_ActionKeyHistory.begin());
 				}
 
-				if(ai>=0 && ai<=3)		// 덤블링
-					ZGetGame()->m_pMyCharacter->OnTumble(ai);
+//				if(ai>=0 && ai<=3)		// 덤블링
+//					ZGetGame()->m_pMyCharacter->OnTumble(ai);
 			}
 		}
 	}

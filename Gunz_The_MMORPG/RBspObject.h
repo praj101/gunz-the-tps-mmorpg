@@ -332,7 +332,7 @@ public:
 	float GetUnusedLightmapSize(int index) { return m_LightmapList[index]->m_fUnused; }
 
 	// origin 에서 targetpos 로 이동하는데 미끄러짐을 감안해서 targetpos 를 조절해서 리턴해준다.
-	bool CheckWall(rvector &origin,rvector &targetpos,float fRadius,float fHeight=0.f,RCOLLISIONMETHOD method=RCW_CYLINDER,int nDepth=0,rplane *pimpactplane=NULL);
+//	bool CheckWall(rvector &origin,rvector &targetpos,float fRadius,float fHeight=0.f,RCOLLISIONMETHOD method=RCW_CYLINDER,int nDepth=0,rplane *pimpactplane=NULL);
 //	bool CheckWall2(RImpactPlanes &impactPlanes,rvector &origin,rvector &targetpos,float fRadius,float fHeight=0.f,RCOLLISIONMETHOD method=RCW_CYLINDER);
 
 	// center를 밑면의 중심 pole을 꼭지점, radius를 밑면의 반지름으로 하는 콘에 들어오는 가장 가까운 점을 리턴. (카메라에 사용)

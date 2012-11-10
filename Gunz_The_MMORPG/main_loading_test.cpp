@@ -8,7 +8,7 @@
 
 #include "ZPrerequisites.h"
 #include "ZConfiguration.h"
-#include "ZGameClient.h"
+//#include "ZGameClient.h"
 #include <windows.h>
 #include <wingdi.h>
 #include <mmsystem.h>
@@ -20,75 +20,43 @@
 #include "main.h"
 #include "resource.h"
 #include "VersionNo.h"
-#include "ZPost.h"
+//#include "ZPost.h"
 
 #include "Core4R2.h"
 #include "ZApplication.h"
-#include "CCDebug.h"
-#include "ZMessages.h"
-#include "CCMatchNotify.h"
 #include "RealSpace2.h"
 #include "Core.h"
 #include "ZGameInterface.h"
 #include "RFrameWork.h"
-//#include "ZButton.h"
 #include "ZDirectInput.h"
 #include "ZActionDef.h"
-#include "CCRegistry.h"
 #include "ZInitialLoading.h"
-#include "CCDebug.h"
-#include "CCCrashDump.h"
-#include "ZEffectFlashBang.h"
 #include "ZMsgBox.h"
-#include "ZSecurity.h"
-#include "ZStencilLight.h"
-#include "ZReplay.h"
 #include "ZUtil.h"
 #include "ZOptionInterface.h"
-#include "HMAC_SHA1.h"
 #include "ZStringResManager.h"
-#ifdef USING_VERTEX_SHADER
 #include "RShaderMgr.h"
-#endif
-
-//#include "mempool.h"
 #include "RLenzFlare.h"
 #include "ZLocale.h"
-#include "CCSysInfo.h"
-
-#include "CCTraceMemory.h"
+#include "CCSysInfo.h"	// Gets system details ad prints to log (Windows version, cpu, etc...)
 #include "ZInput.h"
 #include "Core4Gunz.h"
-#include "SecurityTest.h"
-#include "CheckReturnCallStack.h"
 
 
-#ifdef _DEBUG
 RMODEPARAMS	g_ModeParams={640,480,false,D3DFMT_R5G6B5};
-//RMODEPARAMS	g_ModeParams={1024,768,false,RPIXELFORMAT_565};
-#else
-RMODEPARAMS	g_ModeParams={800,600,true,D3DFMT_R5G6B5};
-#endif
-#ifndef _DEBUG
-#define SUPPORT_EXCEPTIONHANDLING
-#endif
-#ifdef LOCALE_NHNUSA
-#include "ZNHN_USA.h"
-#include "ZNHN_USA_Report.h"
-#include "ZNHN_USA_Poll.h"
-#endif
+//#endif
 
 RRESULT RenderScene(void *pParam);
 
 #define RD_STRING_LENGTH 512
 char cstrReleaseDate[512] = "Alpha : 06/21/2012";
 
-ZApplication	g_App;
-CCDrawContextR2* g_pDC = NULL;
-CCFontR2*		g_pDefFont = NULL;
-ZDirectInput	g_DInput;
-extern ZInput*			g_pInput;
-Core4Gunz		g_Core;
+ZApplication		g_App;
+CCDrawContextR2*	g_pDC = NULL;
+CCFontR2*			g_pDefFont = NULL;
+ZDirectInput		g_DInput;
+extern ZInput*		g_pInput;
+Core4Gunz			g_Core;
 
 HRESULT GetDirectXVersionViaDxDiag( DWORD* pdwDirectXVersionMajor, DWORD* pdwDirectXVersionMinor, TCHAR* pcDirectXVersionLetter );
 
@@ -97,20 +65,6 @@ void zexit(int returnCode)
 	exit(returnCode);
 }
 
-void CrcFailExitApp() { 
-#ifdef _PUBLISH
-	PostMessage(g_hWnd, WM_CLOSE, 0, 0); 
-#else
-	int* crash = NULL;
-	*crash = 0;
-#endif
-}
-
-
-/*
-	_ZChangeGameState(int)
-		- Used ZApplication::GetGameInterface()->SetState(int)
-*/
 void _ZChangeGameState(int nIndex)
 {
 	GunzState state = GunzState(nIndex);
@@ -121,25 +75,16 @@ void _ZChangeGameState(int nIndex)
 	}
 }
 
-//list<HANDLE>	g_FontMemHandles;
-
 RRESULT OnCreate(void *pParam)
 {
+	/*
+	//	Walk through in debug to trace all routes
+	*/
 	g_App.PreCheckArguments();
-
-	string strFileLenzFlare("System/LenzFlare.xml");
-#ifndef _DEBUG
-	strFileLenzFlare += ".mef";
-#endif
-	RCreateLenzFlare(strFileLenzFlare.c_str());
-	RGetLenzFlare()->Initialize();
-
-	cclog("main : RGetLenzFlare()->Initialize() \n");
-
-	RBspObject::CreateShadeMap("sfx/water_splash.bmp");
 
 	sprintf( cstrReleaseDate, "Version : %s", ZGetSVNRevision().c_str()); //Possibly
 	cclog(cstrReleaseDate); cclog("\n");
+
 	g_DInput.Create(g_hWnd, FALSE, FALSE);
 	g_pInput = new ZInput(&g_DInput);
 	RSetGammaRamp(Z_VIDEO_GAMMA_VALUE);
@@ -152,8 +97,8 @@ RRESULT OnCreate(void *pParam)
 	struct _finddata_t c_file;
 	intptr_t hFile;
 	char szFileName[256];
-#define FONT_DIR	"Font/"
-#define FONT_EXT	"ttf"
+	#define FONT_DIR	"Font/"
+	#define FONT_EXT	"ttf"
 	if( (hFile = _findfirst(FONT_DIR"*."FONT_EXT, &c_file )) != -1L ){
 		do{
 			strcpy(szFileName, FONT_DIR);
@@ -166,7 +111,7 @@ RRESULT OnCreate(void *pParam)
 	g_pDefFont = new CCFontR2;
 
 	if( !g_pDefFont->Create("Default", Z_LOCALE_DEFAULT_FONT, DEFAULT_FONT_HEIGHT, 1.0f) )	{
-		cclog("Fail to Create defualt font : CCFontR2 / main.cpp.. onCreate\n" );
+		cclog("Fail to Create default font : CCFontR2 / main.cpp.. onCreate\n" );
 		g_pDefFont->Destroy();
 		SAFE_DELETE( g_pDefFont );
 		g_pDefFont	= NULL;
@@ -175,19 +120,10 @@ RRESULT OnCreate(void *pParam)
 
 	if( ZGetInitialLoading()->IsUseEnable() )
 	{
-		if( ZGetLocale()->IsTeenMode() )
-		{
-			ZGetInitialLoading()->AddBitmap( 0, "Interface/Default/LOADING/loading_teen.jpg" );
-		}
-		else
-		{
-			ZGetInitialLoading()->AddBitmap( 0, "Interface/Default/LOADING/loading_adult.jpg" );
-		}
+		ZGetInitialLoading()->AddBitmap( 0, "Interface/Default/LOADING/loading_adult.jpg" );
 		ZGetInitialLoading()->AddBitmapBar( "Interface/Default/LOADING/loading.bmp" );
 		ZGetInitialLoading()->SetText( g_pDefFont, 5, 5, cstrReleaseDate );
-
 		ZGetInitialLoading()->AddBitmapGrade( "Interface/Default/LOADING/loading_grade_fifteen.jpg" );
-
 		ZGetInitialLoading()->SetPercentage( 0.0f );
 		ZGetInitialLoading()->Draw( MODE_FADEIN, 0 , true );
 	}
@@ -198,19 +134,12 @@ RRESULT OnCreate(void *pParam)
 
 	cclog("interface Initialize success\n");
 
-//	ZGetConfiguration()->LoadHotKey(FILENAME_CONFIG);
-
 	ZLoadingProgress appLoading("application");
 	if(!g_App.OnCreate(&appLoading))
 	{
 		ZGetInitialLoading()->Release();
 		return R_ERROR_LOADING;
 	}
-
-//	ZGetInitialLoading()->SetPercentage( 50.0f );
-//	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0, true );
-	
-	// cclog("main : g_App.OnCreate() \n");
 
 	ZGetSoundEngine()->SetEffectVolume(Z_AUDIO_EFFECT_VOLUME);
 	ZGetSoundEngine()->SetMusicVolume(Z_AUDIO_BGM_VOLUME);
@@ -221,12 +150,8 @@ RRESULT OnCreate(void *pParam)
 	g_Core.GetMainFrame()->SetSize(g_ModeParams.nWidth, g_ModeParams.nHeight);
 	ZGetOptionInterface()->Resize(g_ModeParams.nWidth, g_ModeParams.nHeight);
 
-//	ZGetInitialLoading()->SetPercentage( 80.f );
-//	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0, true );
-    
 	// Default Key
 	for(int i=0; i<ZACTION_COUNT; i++){
-//		g_Core.RegisterActionKey(i, ZGetConfiguration()->GetKeyboard()->ActionKeys[i].nScanCode);
 		ZACTIONKEYDESCRIPTION& keyDesc = ZGetConfiguration()->GetKeyboard()->ActionKeys[i];
 		g_pInput->RegisterActionKey(i, keyDesc.nVirtualKey);
 		if(keyDesc.nVirtualKeyAlt!=-1)
@@ -237,7 +162,7 @@ RRESULT OnCreate(void *pParam)
 
 //	ParseParameter(g_szCmdLine);
 
-	ZGetFlashBangEffect()->SetDrawCopyScreen(true);
+//	ZGetFlashBangEffect()->SetDrawCopyScreen(true);
 
 	static const char *szDone = "Done.";
 	ZGetInitialLoading()->SetLoadingStr(szDone);
@@ -258,25 +183,6 @@ RRESULT OnCreate(void *pParam)
 }
 
 
-bool CheckDll(char* fileName, BYTE* SHA1_Value)
-{
-	BYTE digest[20];
-	BYTE Key[GUNZ_HMAC_KEY_LENGTH];
-
-	memset(Key, 0, 20);
-	memcpy(Key, GUNZ_HMAC_KEY, strlen(GUNZ_HMAC_KEY));
-
-	CHMAC_SHA1 HMAC_SHA1 ;
-	HMAC_SHA1.HMAC_SHA1_file(fileName, Key, GUNZ_HMAC_KEY_LENGTH, digest) ;
-
-	if(memcmp(digest, SHA1_Value, 20) ==0)
-	{
-		return true;
-	}
-
-	return false;
-}
-
 
 
 RRESULT OnDestroy(void *pParam)
@@ -285,7 +191,7 @@ RRESULT OnDestroy(void *pParam)
 
 	g_App.OnDestroy();
 
-	SAFE_DELETE(g_pDefFont);
+	SAFE_DELETE(g_pDefFont); 
 
 	g_Core.Finalize();
 
@@ -296,11 +202,7 @@ RRESULT OnDestroy(void *pParam)
 
 	cclog("game input destroy.\n");
 
-	RGetShaderMgr()->Release();
-
-//	g_App.OnDestroy();
-
-	// cclog("main : g_App.OnDestroy()\n");
+//	RGetShaderMgr()->Release();
 
 	ZGetConfiguration()->Destroy();
 
@@ -328,38 +230,14 @@ RRESULT OnDestroy(void *pParam)
 
 	cclog("Bitmap manager destroy Animation bitmap.\n");
 
-	/*
-	for(list<HANDLE>::iterator i=g_FontMemHandles.begin(); i!=g_FontMemHandles.end(); i++){
-		RemoveFontMemResourceEx(*i);
-	}
-	*/
 
-	//ReleaseMemPool(RealSoundEffectPlay);
-	//UninitMemPool(RealSoundEffectPlay);
-
-	//ReleaseMemPool(RealSoundEffect);
-	//UninitMemPool(RealSoundEffect);
-
-	//ReleaseMemPool(RealSoundEffectFx);
-	//UninitMemPool(RealSoundEffectFx);
-
-	//cclog("main : UninitMemPool(RealSoundEffectFx)\n");
-
-	// 메모리풀 헤제
-	ZBasicInfoItem::Release(); // 할당되어 있는 메모리 해제
-//	ZHPInfoItem::Release();
-
-	ZGetStencilLight()->Destroy();
-	LightSource::Release();
-
-//	ZStencilLight::GetInstance()->Destroy();
-
+//	ZBasicInfoItem::Release(); 
+//	ZGetStencilLight()->Destroy();
+//	LightSource::Release();
 	RBspObject::DestroyShadeMap();
 	RDestroyLenzFlare();
 	RAnimationFileMgr::GetInstance()->Destroy();
-	
 	ZStringResManager::ResetInstance();
-
 	cclog("destroy gunz finish.\n");
 
 	return R_OK;
@@ -367,34 +245,16 @@ RRESULT OnDestroy(void *pParam)
 
 RRESULT OnUpdate(void* pParam)
 {
-	//_ASSERTE( _CrtCheckMemory( ) );
-
 	__BP(100, "main::OnUpdate");
 
 	g_pInput->Update();
-
 	g_App.OnUpdate();
 
 	const DWORD dwCurrUpdateTime = timeGetTime();
-
-#ifndef _DEBUG
-
-#ifdef _GAMEGUARD
-	if( !GetZGameguard().CheckGameGuardRunning(dwCurrUpdateTime) ||
-		!GetZGameguard().CheckD3dDllHooking(dwCurrUpdateTime) )
-	{
-		if( 0 != ZGetGameClient() ) 
-			ZGetGameClient()->Disconnect();
-
-		PostQuitMessage(0);
-	}
-#endif
-
-#endif
 	__EP(100);
 
 	return R_OK;
-}
+} 
 
 RRESULT OnRender(void *pParam)
 {
@@ -420,8 +280,8 @@ RRESULT OnRender(void *pParam)
 		float fMs = 1000.f/g_fFPS;
 		float fScore = 100-(fMs-(1000.f/60.f))*2;
 
-		sprintf(__buffer, "FPS : %3.3f %.3f점 (%.3f ms)",g_fFPS,fScore,fMs);
-		g_pDefFont->m_Font.DrawText( CCGetWorkspaceWidth()-200,0,__buffer );
+		sprintf(__buffer, "GAME_STATE: %d  FPS : %3.3f %.3f점 (%.3f ms)", ZGetGameInterface()->GetState(),g_fFPS,fScore,fMs);
+		g_pDefFont->m_Font.DrawText( CCGetWorkspaceWidth()-400,0,__buffer );
 //		OutputDebugString(__buffer);
 	}
 
@@ -435,9 +295,7 @@ RRESULT OnRender(void *pParam)
 RRESULT OnInvalidate(void *pParam)
 {
 	CCBitmapR2::m_dwStateBlock=NULL;
-
 	g_App.OnInvalidate();
-	
 	return R_OK;
 }
 
@@ -456,14 +314,16 @@ RRESULT OnRestore(void *pParam)
 RRESULT OnActivate(void *pParam)
 {
 	if (ZGetGameInterface() && ZGetGameClient() && Z_ETC_BOOST)
-		ZGetGameClient()->PriorityBoost(true);
+		return R_OK;
+//		ZGetGameClient()->PriorityBoost(true);
 	return R_OK;
 }
 
 RRESULT OnDeActivate(void *pParam)
 {
 	if (ZGetGameInterface() && ZGetGameClient())
-		ZGetGameClient()->PriorityBoost(false);
+		return R_OK;
+//		ZGetGameClient()->PriorityBoost(false);
 	return R_OK;
 }
 
@@ -506,45 +366,20 @@ RRESULT OnError(void *pParam)
 
 void SetModeParams()
 {
-#ifdef _INDEPTH_DEBUG_
-	cclog("SetModeParams()\n");
-#endif
-#ifdef _PUBLISH
-	g_ModeParams.bFullScreen = true;
-#else
 	#ifdef _DEBUG
 		g_ModeParams.bFullScreen = false;
 	#else
 		g_ModeParams.bFullScreen = ZGetConfiguration()->GetVideo()->bFullScreen;
 	#endif
-#endif
 
 	g_ModeParams.nWidth = ZGetConfiguration()->GetVideo()->nWidth;
 	g_ModeParams.nHeight = ZGetConfiguration()->GetVideo()->nHeight;
 	ZGetConfiguration()->GetVideo()->nColorBits == 32 ? 
-		g_ModeParams.PixelFormat = D3DFMT_X8R8G8B8 : g_ModeParams.PixelFormat = D3DFMT_R5G6B5 ;
-
-#ifdef _INDEPTH_DEBUG_
-	cclog("EXIT SetModeParams()\n");
-#endif
+	g_ModeParams.PixelFormat = D3DFMT_X8R8G8B8 : g_ModeParams.PixelFormat = D3DFMT_R5G6B5 ;
 }
 
 void ResetAppResource()
 {
-	// (거의)모든 리소스를 제거하고 다시 로딩한다
-	_ASSERTE( _CrtCheckMemory( ) );
-
-	// save user id
-#ifdef LOCALE_NHNUSA
-	ZNHN_USAAuthInfo* pUSAAuthInfo = (ZNHN_USAAuthInfo*)ZGetLocale()->GetAuthInfo();
-	string strUserID = pUSAAuthInfo->GetUserID();
-#endif
-
-	// Reset GameInterface except its gameclient object. the account connection must be alive.
-	ZGetGameInterface()->m_sbRemainClientConnectionForResetApp = true;	// let GameInterface don't clear its gameclient object. (why this interface object has network object???)
-	ZGetGameInterface()->GetGameClient()->Destroy();	// but must clear queued messages
-
-	// whole client resource reload
 	OnDestroy(0);
 
 	ZGetConfiguration()->Destroy();
@@ -557,23 +392,8 @@ void ResetAppResource()
 
 	ZGetConfiguration()->Load_StringResDependent();
 	OnCreate(0);
-	RParticleSystem::Restore();
 	OnRestore(0);
-	ZGetGameInterface()->m_sbRemainClientConnectionForResetApp = false;
-
-	ZPostRequestCharacterItemListForce(ZGetGameClient()->GetPlayerUID());
-
-	ZGetGameInterface()->UpdateDuelTournamantMyCharInfoUI();
-	ZGetGameInterface()->UpdateDuelTournamantMyCharInfoPreviousUI();
-
-	// restore user id
-#ifdef LOCALE_NHNUSA
-	pUSAAuthInfo = (ZNHN_USAAuthInfo*)ZGetLocale()->GetAuthInfo();
-	pUSAAuthInfo->SetUserID(strUserID);
-#endif
 }
-
-// 느려도 관계없다~~ -.-
 
 int FindStringPos(char* str,char* word)
 {
@@ -677,84 +497,6 @@ void HandleExceptionLog()
 	} else 	{
 		FindClose(hFind);
 	}
-
-
-/* 2007년 2월 13일 BAReport 더이상 사용 못하게 막음
-
-
-	// cclog.txt 를 ERROR_REPORT_FOLDER 로 복사
-
-	//acesaga_0928_911_moanus_rslog.txt
-	//USAGE_EX) BAReport app=acesaga;addr=moon.maiet.net;port=21;id=ftp;passwd=ftp@;gid=10;user=moanus;localfile=rslog.txt;remotefile=remote_rslog.txt;
-
-//	if(ZGetCharacterManager()) {
-//		ZGetCharacterManager()->OutputDebugString_CharacterState();
-//	}
-
-
-	ZGameClient* pClient = (ZGameClient*)ZGameClient::GetInstance();
-
-	char* pszCharName = NULL;
-	CCUID uidChar;
-	CCMatchObjCache* pObj;
-	char szPlayer[128];
-
-	if( pClient ) {
-
-		uidChar = pClient->GetPlayerUID();
-		pObj = pClient->FindObjCache(uidChar);
-		if (pObj)
-			pszCharName = pObj->GetName();
-
-		wsprintf(szPlayer, "%s(%d%d)", pszCharName?pszCharName:"Unknown", uidChar.High, uidChar.Low);
-	}
-	else { 
-		wsprintf(szPlayer, "Unknown(-1.-1)");
-	}
-
-
-//	if (pClient) {
-
-		time_t currtime;
-		time(&currtime);
-		struct tm* pTM = localtime(&currtime);
-
-		char cFuncName[1024];
-
-		if(FindCrashFunc(cFuncName)==false) {
-			strcpy(cFuncName,"Unknown Error");
-		}
-
-		char szFileName[_MAX_DIR], szDumpFileName[_MAX_DIR];
-		wsprintf(szFileName, "%s_%s_%.2d%.2d_%.2d%.2d_%s_%s", cFuncName,
-				APPLICATION_NAME, pTM->tm_mon+1, pTM->tm_mday, pTM->tm_hour, pTM->tm_min, szPlayer, "cclog.txt");
-		wsprintf(szDumpFileName, "%s.dmp", szFileName);
-
-		char szFullFileName[_MAX_DIR], szDumpFullFileName[_MAX_DIR];
-		wsprintf(szFullFileName, "%s/%s", ERROR_REPORT_FOLDER, szFileName);
-		wsprintf(szDumpFullFileName, "%s/%s", ERROR_REPORT_FOLDER, szDumpFileName);
-
-		if (CopyFile("cclog.txt", szFullFileName, TRUE))
-		{
-			CopyFile("Gunz.dmp", szDumpFullFileName, TRUE);
-
-			// BAReport 실행
-			char szCmd[4048];
-			char szRemoteFileName[_MAX_DIR], szRemoteDumpFileName[_MAX_DIR];
-			wsprintf(szRemoteFileName, "%s/%s/%s", ZGetConfiguration()->GetBAReportDir(), "gunzlog", szFileName);
-			wsprintf(szRemoteDumpFileName, "%s/%s/%s", ZGetConfiguration()->GetBAReportDir(), "gunzlog", szDumpFileName);
-
-			wsprintf(szCmd, "BAReport app=%s;addr=%s;port=21;id=ftp;passwd=ftp@;user=%s;localfile=%s,%s;remotefile=%s,%s", 
-				APPLICATION_NAME, ZGetConfiguration()->GetBAReportAddr(), szPlayer, szFullFileName, szDumpFullFileName, szRemoteFileName, szRemoteDumpFileName);
-
-			WinExec(szCmd, SW_SHOW);
-
-			FILE *file = fopen("bareportpara.txt","w+");
-			fprintf(file,szCmd);
-			fclose(file);
-		}
-//	}
-*/
 }
 
 long FAR PASCAL WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -775,13 +517,13 @@ long FAR PASCAL WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE:
 			if (strlen(Z_LOCALE_HOMEPAGE_TITLE) > 0)
 			{
-				ShowIExplorer(false, Z_LOCALE_HOMEPAGE_TITLE);
+		//		ShowIExplorer(false, Z_LOCALE_HOMEPAGE_TITLE);
 			}
 			break;
 		case WM_DESTROY:
 			if (strlen(Z_LOCALE_HOMEPAGE_TITLE) > 0)
 			{
-				ShowIExplorer(true, Z_LOCALE_HOMEPAGE_TITLE);
+		//		ShowIExplorer(true, Z_LOCALE_HOMEPAGE_TITLE);
 			}
 			break;
 		case WM_SETCURSOR:
@@ -831,39 +573,6 @@ long FAR PASCAL WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
-/*
-class mtrl {
-public:
-
-};
-
-class node {
-public:
-	int		m_nIndex[5];
-};
-
-
-class _map{
-public:
-	mtrl* GetMtrl(node* node,int index) { return GetMtrl(node->m_nIndex[index]); }
-	mtrl* GetMtrl(int id) { return m_pIndex[id]; }
-
-	mtrl*	m_pIndex[5];
-};
-
-class game {
-public:
-	_map m_map;	
-};
-
-game _game;
-game* g_game;
-*/
-
-
-void ClearTrashFiles()
-{
-}
 
 bool CheckFileList()
 {
@@ -871,9 +580,6 @@ bool CheckFileList()
 	CCZFile mzf;
 
 	string strFileNameFillist(FILENAME_FILELIST);
-#ifndef _DEBUG
-	strFileNameFillist += ".mef";
-#endif
 
 	if(!mzf.Open(strFileNameFillist.c_str() ,pfs))
 		return false;
@@ -914,16 +620,6 @@ bool CheckFileList()
 				unsigned int crc32_list = pfs->GetCRC32(szContents);
 				unsigned int crc32_current;
 				sscanf(szCrc32,"%x",&crc32_current);
-
-#ifndef _DEBUG
-				if(crc32_current!=crc32_list)
-				{
-					// cclog("crc error , file %s ( current = %x, original = %x ).\n",szContents,crc32_current,crc32_list);
-
-					// 모든 파일을 검사는 한다
-					return false; 
-				}
-#endif
 			}
 		}
 	}
@@ -994,29 +690,6 @@ bool CheckFont()
 	return true;
 }
 
-#include "shlobj.h"
-
-void CheckFileAssociation()
-{
-#define GUNZ_REPLAY_CLASS_NAME	"GunzReplay"
-
-	// 체크해봐서 등록이 안되어있으면 등록한다. 사용자에게 물어볼수도 있겠다.
-	char szValue[256];
-	if(!CCRegistry::Read(HKEY_CLASSES_ROOT,"."GUNZ_REC_FILE_EXT,NULL,szValue))
-	{
-		CCRegistry::Write(HKEY_CLASSES_ROOT,"."GUNZ_REC_FILE_EXT,NULL,GUNZ_REPLAY_CLASS_NAME);
-
-		char szModuleFileName[_MAX_PATH] = {0,};
-		GetModuleFileName(NULL, szModuleFileName, _MAX_DIR);
-
-		char szCommand[_MAX_PATH];
-		sprintf(szCommand,"\"%s\" \"%%1\"",szModuleFileName);
-
-		CCRegistry::Write(HKEY_CLASSES_ROOT,GUNZ_REPLAY_CLASS_NAME"\\shell\\open\\command",NULL,szCommand);
-
-		SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_FLUSH, NULL, NULL);
-	}
-}
 
 // 해당 텍스트 파일에 해당 글귀가 있으면 XTRAP 테스트 코드가 수행된다. (뒷구멍) //
 void UpgradeMrsFile()
@@ -1033,65 +706,14 @@ HANDLE Mutex = 0;
 DWORD g_dwMainThreadID;
 
 
-//------------------------------------------- nhn usa -------------------------------------------------------------
-bool InitReport()
-{
-#ifdef LOCALE_NHNUSA
-	cclog( "Init report start\n" );
-	if( !GetNHNUSAReport().InitReport(((ZNHN_USAAuthInfo*)(ZGetLocale()->GetAuthInfo()))->GetUserID().c_str(),
-		((ZNHN_USAAuthInfo*)(ZGetLocale()->GetAuthInfo()))->GetGameStr()) )
-	{
-		cclog( "Init nhn report fail.\n" );
-		return false;
-	}
-	GetNHNUSAReport().ReportStartGame();
-	cclog( "Init report success.\n" );
-#endif
-
-	return true;
-}
-
-bool InitPoll()
-{
-#ifdef LOCALE_NHNUSA
-	cclog( "Init poll start\n" );
-
-	((ZNHN_USAAuthInfo*)(ZGetLocale()->GetAuthInfo()))->ZUpdateGameString();
-
-	if( !GetNHNUSAPoll().ZHanPollInitGameString( ((ZNHN_USAAuthInfo*)(ZGetLocale()->GetAuthInfo()))->GetGameStr()) )
-		return false;
-#endif
-
-	return true;
-}
-
-
-//------------------------------------------- nhn usa end----------------------------------------------------------
-
 // STEP1
 int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int cmdshow)
 {
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-
-	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_CHECK_CRT_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_DELAY_FREE_MEM_DF);
-
 	InitLog(CCLOGSTYLE_DEBUGSTRING|CCLOGSTYLE_FILE);
-
-	g_fpOnCrcFail = CrcFailExitApp;
-
-#ifdef LOCALE_JAPAN
-	ZGameOnJPAuthInfo::m_hLauncher = ::FindWindow( NULL, TITLE_PUBLAGENT );
-#endif
-
-	g_dwMainThreadID = GetCurrentThreadId();
+	g_dwMainThreadID= GetCurrentThreadId();
 	
-#ifdef _MTRACEMEMORY
-	CCInitTraceMemory();
-#endif
 
-	//_CrtSetBreakAlloc(994464);
-
-	// Current Directory를 맞춘다.
 	char szModuleFileName[_MAX_DIR] = {0,};
 	GetModuleFileName(NULL, szModuleFileName, _MAX_DIR);
 	PathRemoveFileSpec(szModuleFileName);
@@ -1099,49 +721,16 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	cclog("-------------------------------------------------------------\n");
 	cclog("Current working directory: %s\n", szModuleFileName);
 	cclog("-------------------------------------------------------------\n");
-
-	ClearTrashFiles();
-
 	srand( (unsigned)time( NULL ));
-
 	cclog("GUNZ " STRFILEVER " launched. build ("__DATE__" "__TIME__") \n");
 	char szDateRun[128]="";
 	char szTimeRun[128]="";
 	_strdate( szDateRun );
 	_strtime( szTimeRun );
 	cclog("Log time (%s %s)\n", szDateRun, szTimeRun);
-
-#ifndef _PUBLISH
-	cclog("cmdline = %s\n",cmdline);
-
-#endif
-
-#ifndef _LAUNCHER
-	UpgradeMrsFile();// mrs1 이라면 mrs2로 업그래이드 한다..
-#endif
-
 	CCSysInfoLog();
-	CheckFileAssociation();
-	// Initialize CCZFileSystem - MUpdate 
-	CCRegistry::szApplicationName=APPLICATION_NAME;
 
-	g_App.InitFileSystem(); // Clear
-
-
-
-#ifdef _PUBLISH
-//	#ifndef NETMARBLE_VERSION
-		CCZFile::SetReadMode( MZIPREADFLAG_MRS2 );
-//	#endif
-#endif
-
-
-#ifdef LOCALE_NHNUSA
-	// NHNUSA는 커맨드라인으로 언어선택을 알려준다, 다른 지역빌드라도 디파인 필요없음
-	ZGetLanguageSetting_forNHNUSA()->SetLanguageIndexFromCmdLineStr(cmdline);
-#endif
-
-	// config와 string 로딩
+	g_App.InitFileSystem();
 	ZGetConfiguration()->Load();
 
 	ZStringResManager::MakeInstance();
@@ -1151,63 +740,11 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 		return false;
 	}
 
-	ZGetConfiguration()->Load_StringResDependent();
-
-	// 여기서 메크로 컨버팅... 먼가 구리구리~~ -by SungE.
-	if( !ZGetConfiguration()->LateStringConvert() )
-	{
-		CCLog( "main.cpp - Late string convert fale.\n" );
-		return false;
-	}
-
 	DWORD ver_major = 0;
 	DWORD ver_minor = 0;
 	TCHAR ver_letter = ' ';
 
-#ifdef SUPPORT_EXCEPTIONHANDLING
-	char szDumpFileName[256];
-	sprintf(szDumpFileName, "Gunz.dmp");
-	__try{
-#endif
 
-	if (ZApplication::GetInstance()->ParseArguments(cmdline) == false)
-	{
-		// Korean or Japan Version
-		if ((ZGetLocale()->GetCountry() == CCC_KOREA) || (ZGetLocale()->GetCountry() == CCC_JAPAN))
-		{
-			cclog("Routed to Website \n");
-
-			ShellExecute(NULL, "open", ZGetConfiguration()->GetLocale()->szHomepageUrl, NULL, NULL, SW_SHOWNORMAL);
-
-			char szMsgWarning[128]="";
-			char szMsgCertFail[128]="";
-			ZTransMsg(szMsgWarning,MSG_WARNING);
-			ZTransMsg(szMsgCertFail,MSG_REROUTE_TO_WEBSITE);
-//			MessageBox(g_hWnd, szMsgCertFail, szMsgWarning, CCB_OK);
-
-			cclog(szMsgWarning);
-			cclog(" : ");
-			cclog(szMsgCertFail);
-
-			return 0;
-		}
-		else
-		{
-			return 0;
-		}
-	}
-
-
-	if(!InitializeNotify(ZApplication::GetFileSystem())) {
-		CCLog("Check notify.xml\n");
-		return 0;
-	}
-	else 
-	{
-		cclog( "InitializeNotify ok.\n" );
-	}
-
-	// font 있는가 검사..
 
 	if(CheckFont()==false) {
 		CCLog("CheckFont() failed.\n");
@@ -1244,10 +781,6 @@ int WINAPI WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	ShowWindow(g_hWnd, SW_MINIMIZE);
 
 	cclog("========================== DONE ===============================\n");
-
-#ifdef _MTRACEMEMORY
-	CCShutdownTraceMemory();
-#endif
 
 	ZStringResManager::FreeInstance();
 	return 0;//nRRunReturn;

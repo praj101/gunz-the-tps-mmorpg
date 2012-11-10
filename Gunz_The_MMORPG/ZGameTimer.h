@@ -1,8 +1,7 @@
 #ifndef _ZGAMETIMER_H
 #define _ZGAMETIMER_H
-
-//#pragma once
-
+#pragma once
+#include <MMSystem.h>
 
 // GT = LT+Offset (-> Offset = GT-LT)
 

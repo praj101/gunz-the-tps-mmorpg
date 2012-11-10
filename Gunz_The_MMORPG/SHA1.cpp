@@ -29,7 +29,7 @@
 		34AA973C D4C4DAA4 F61EEB2B DBAD2731 6534016F
 */
 #include "stdafx.h"
-#include "SHA1.h"
+//#include "SHA1.h"
 
 #ifdef SHA1_UTILITY_FUNCTIONS
 #define SHA1_MAX_FILE_BUFFER 8000
@@ -60,7 +60,7 @@
 #define _R2(v,w,x,y,z,i) { z+=(w^x^y)+SHABLK(i)+0x6ED9EBA1+ROL32(v,5); w=ROL32(w,30); }
 #define _R3(v,w,x,y,z,i) { z+=(((w|x)&y)|(w&x))+SHABLK(i)+0x8F1BBCDC+ROL32(v,5); w=ROL32(w,30); }
 #define _R4(v,w,x,y,z,i) { z+=(w^x^y)+SHABLK(i)+0xCA62C1D6+ROL32(v,5); w=ROL32(w,30); }
-
+/*
 CSHA1::CSHA1()
 {
 	m_block = (SHA1_WORKSPACE_BLOCK *)m_workspace;
@@ -272,3 +272,4 @@ void CSHA1::GetHash(UINT_8 *puDest)
 {
 	memcpy(puDest, m_digest, 20);
 }
+*/

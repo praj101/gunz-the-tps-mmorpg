@@ -3,7 +3,7 @@
 	May need to include "RTypes.h" in the future
 */
 #include "CCZFileSystem.h"
-#include "ZActorSound.h"
+//#include "ZActorSound.h"
 #include "CCQuestNPC.h"
 #include "RTypes.h"
 #include "RBspObject.h"
@@ -135,7 +135,7 @@ class ZSoundEngine
 {
 private:
 	char					m_SoundFileName[256];	// for Reload
-	ZActorSoundManager		m_ASManager;			// NPC용 사운드 관리 클래스
+//	ZActorSoundManager		m_ASManager;			// NPC용 사운드 관리 클래스
 protected:
 	char*			m_pMusicBuffer;
 	char			m_szOpenedMusicName[256];

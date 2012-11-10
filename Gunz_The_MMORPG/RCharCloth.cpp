@@ -390,6 +390,7 @@ void RCharCloth::satisfyConstraints()
 //////////////////////////////////////////////////////////////////////////
 void RCharCloth::update( bool bGame,rmatrix* pWorldMat_, float fDist_ )
 {
+	
 	updateCO();
 	updatePosition( pWorldMat_ );
 

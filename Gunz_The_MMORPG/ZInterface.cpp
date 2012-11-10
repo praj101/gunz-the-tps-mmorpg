@@ -4,7 +4,7 @@
 #include "CCListBox.h"
 #include "CCFormulaTable.h"
 #include "CCEdit.h"
-#include "ZPost.h"
+//#include "ZPost.h"
 
 ZInterface::ZInterface(const char* szName, CCWidget* pParent, CCListener* pListener)
 : CCWidget(szName,pParent,pListener)

@@ -7,13 +7,13 @@
 #include "ZInterfaceListener.h"
 //#include "CCListBox.h"
 #include "ZIDLResource.h"
-#include "ZPost.h"
-#include "CCChattingFilter.h"
+//#include "ZPost.h"
+//#include "CCChattingFilter.h"
 #include "CCTextArea.h"
 #include "ZConfiguration.h"
 
 // Added
-#include "ZCombatInterface.h"
+//#include "ZCombatInterface.h"
 #include "CCLabel.h"
 
 #define MAX_CHAT_OUTPUT_LINE 7
@@ -32,11 +32,11 @@ bool ZTabPlayerList::OnShow()
 	RemoveAll();
 
 	// Push Target List
-	for(ZCharacterManager::iterator i=ZGetCharacterManager()->begin(); i!=ZGetCharacterManager()->end();i++)
+//for(ZCharacterManager::iterator i=ZGetCharacterManager()->begin(); i!=ZGetCharacterManager()->end();i++)
 	{
-		ZCharacter *pChar = i->second;
-		if(pChar->IsAdminHide()) continue;
-		Add(pChar->GetProperty()->GetName());
+//		ZCharacter *pChar = i->second;
+//		if(pChar->IsAdminHide()) continue;
+//		Add(pChar->GetProperty()->GetName());
 	}
 
 	return true;
@@ -93,27 +93,27 @@ public:
 				{
 					if (ZGetCombatInterface())
 					{
-						ZGetCombatInterface()->ShowChatOutput(true);
+//					ZGetCombatInterface()->ShowChatOutput(true);
 					}
 				}
-				ZApplication::GetGameInterface()->GetChat()->Input(szMsg);
+//			ZApplication::GetGameInterface()->GetChat()->Input(szMsg);
 			}
 
 			pWidget->SetText("");
 			if (ZGetCombatInterface())
 			{
-				ZGetCombatInterface()->EnableInputChat(false);
+//			ZGetCombatInterface()->EnableInputChat(false);
 			}
 			return true;
 		}
 		else if(CCWidget::IsMsg(szMessage, CCEDIT_ESC_VALUE)==true)
 		{
 			pWidget->SetText("");
-			ZGetCombatInterface()->EnableInputChat(false);
+//		ZGetCombatInterface()->EnableInputChat(false);
 		}
 		else if ((CCWidget::IsMsg(szMessage, CCEDIT_CHAR_MSG)==true) || (CCWidget::IsMsg(szMessage, CCEDIT_KEYDOWN_MSG)==true))
 		{
-			ZApplication::GetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
+//		ZApplication::GetGameInterface()->GetChat()->FilterWhisperKey(pWidget);
 		}
 
 
@@ -179,7 +179,7 @@ bool ZCombatChat::Create( const char* szOutputTxtarea,bool bUsePlayerList)
 		{
 			// TabPlayerList
 			CCWidget* pPivot = m_pInputEdit->GetParent();
-			m_pTabPlayerList = new ZTabPlayerList("TabPlayerList", pPivot, ZGetCombatInterface());
+//		m_pTabPlayerList = new ZTabPlayerList("TabPlayerList", pPivot, ZGetCombatInterface());
 			m_pTabPlayerList->Show(false);
 			m_pTabPlayerList->SetBounds(m_pInputEdit->GetPosition().x, m_pInputEdit->GetPosition().y-120-5, 150, 120);
 			m_pTabPlayerList->SetChatControl(m_pInputEdit);
@@ -277,14 +277,14 @@ void ZCombatChat::EnableInput(bool bEnable, bool bToTeam)
 
 	m_bChatInputVisible = bEnable;
 
-	if (ZGetGame()->m_pMyCharacter == NULL) return;
+//	if (ZGetGame()->m_pMyCharacter == NULL) return;
 
 	if(bEnable)
 	{
-		ZPostPeerChatIcon(true);
+//	ZPostPeerChatIcon(true);
 	}else
 	{
-		ZPostPeerChatIcon(false);
+//	ZPostPeerChatIcon(false);
 	}
 }
 

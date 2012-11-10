@@ -10,24 +10,24 @@
 
 #include "stdafx.h"							// Include stdafx.h
 #include "ZStageInterface.h"				// Include ZStageInterface.h
-#include "ZStageSetting.h"					// Include ZStageSetting.h
+//#include "ZStageSetting.h"					// Include ZStageSetting.h
 #include "ZGameInterface.h"
-#include "ZPlayerListBox.h"
-#include "ZCombatMenu.h"
-#include "ZShopEquipListbox.h"
-#include "ZMyItemList.h"
-#include "ZItemSlotView.h"
+//#include "ZPlayerListBox.h"
+//#include "ZCombatMenu.h"
+//#include "ZShopEquipListbox.h"
+//#include "ZMyItemList.h"
+//#include "ZItemSlotView.h"
 #include "ZMessages.h"
 #include "ZLanguageConf.h"
 
-#include "ZGameClient.h"
+//#include "ZGameClient.h"
 #include "CCPicture.h"
 #include "CCComboBox.h"
 
 #include "ZStringResManager.h"
 #include "CCAnimation.h"
-#include "ZPost.h"
-#include "ZMyInfo.h"
+//#include "ZPost.h"
+//#include "ZMyInfo.h"
 
 
 /* 해야할 것들...
@@ -92,7 +92,7 @@ void ZStageInterface::OnCreate( void)
 	m_bPrevQuest = false;
 	m_bDrawStartMovieOfQuest = false;
 	m_nStateSacrificeItemBox = 0;		// Hide
-	m_nGameType = CCMATCH_GAMETYPE_DEATHMATCH_SOLO;
+//	m_nGameType = CCMATCH_GAMETYPE_DEATHMATCH_SOLO;
 	m_SacrificeItem[ SACRIFICEITEM_SLOT0].RemoveItem();
 	m_SacrificeItem[ SACRIFICEITEM_SLOT1].RemoveItem();
 
@@ -279,22 +279,21 @@ void ZStageInterface::OnStageCharListSettup()
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	for ( MStageCharSettingList::iterator itor = ZGetGameClient()->GetMatchStageSetting()->m_CharSettingList.begin();
-		itor != ZGetGameClient()->GetMatchStageSetting()->m_CharSettingList.end();  ++itor) 
-	{
-		MSTAGE_CHAR_SETTING_NODE* pCharNode = (*itor);
+//	for ( MStageCharSettingList::iterator itor = ZGetGameClient()->GetMatchStageSetting()->m_CharSettingList.begin();
+//		itor != ZGetGameClient()->GetMatchStageSetting()->m_CharSettingList.end();  ++itor) 
+//	{
+//		MSTAGE_CHAR_SETTING_NODE* pCharNode = (*itor);
 
-		ZPlayerListBox* pItem = (ZPlayerListBox*)pResource->FindWidget( "StagePlayerList_");
-		if ( pItem)
-		{
-			bool bMaster = false;
+//		ZPlayerListBox* pItem = (ZPlayerListBox*)pResource->FindWidget( "StagePlayerList_");
+//		if ( pItem)
+//		{
+//			bool bMaster = false;
+//
+///			if ( ZGetGameClient()->GetMatchStageSetting()->GetMasterUID() == pCharNode->uidChar)
+//				bMaster = true;
 
-			if ( ZGetGameClient()->GetMatchStageSetting()->GetMasterUID() == pCharNode->uidChar)
-				bMaster = true;
-
-			pItem->UpdatePlayer( pCharNode->uidChar,(CCMatchObjectStageState)pCharNode->nState,bMaster,CCMatchTeam(pCharNode->nTeam));
-		}
-	}
+//			pItem->UpdatePlayer( pCharNode->uidChar,(CCMatchObjectStageState)pCharNode->nState,bMaster,CCMatchTeam(pCharNode->nTeam));
+//	}
 }
 
 
@@ -309,7 +308,7 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	ZStageSetting::InitStageSettingGameType();
+//	ZStageSetting::InitStageSettingGameType();
 /*
 	// 맵 종류를 설정한다.
 	CCComboBox* pCB = (CCComboBox*)pResource->FindWidget( "MapSelection");
@@ -327,7 +326,7 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 */
 
 	// CharListView의 Add, Remove, Update는 ZGameClient::OnObjectCache 에서 관리한다.
-	MSTAGE_CHAR_SETTING_NODE* pMyCharNode = NULL;
+/*	MSTAGE_CHAR_SETTING_NODE* pMyCharNode = NULL;
 	bool bMyReady = false;		// Ready 상태인지 아닌지...
 	for ( MStageCharSettingList::iterator itor = ZGetGameClient()->GetMatchStageSetting()->m_CharSettingList.begin();
 		itor != ZGetGameClient()->GetMatchStageSetting()->m_CharSettingList.end();  ++itor) 
@@ -344,31 +343,31 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 				bMyReady = false;
 		}
 
-		ZPlayerListBox* pItem = (ZPlayerListBox*)pResource->FindWidget( "StagePlayerList_");
-		if ( pItem)
-		{
-			bool bMaster = false;
-
-			if ( ZGetGameClient()->GetMatchStageSetting()->GetMasterUID() == pCharNode->uidChar)
-				bMaster = true;
-			
-			pItem->UpdatePlayer( pCharNode->uidChar,(CCMatchObjectStageState)pCharNode->nState,bMaster,CCMatchTeam(pCharNode->nTeam));
-		}
+//		ZPlayerListBox* pItem = (ZPlayerListBox*)pResource->FindWidget( "StagePlayerList_");
+//		if ( pItem)
+//		{
+//			bool bMaster = false;
+//
+//			if ( ZGetGameClient()->GetMatchStageSetting()->GetMasterUID() == pCharNode->uidChar)
+//				bMaster = true;
+//			
+//			pItem->UpdatePlayer( pCharNode->uidChar,(CCMatchObjectStageState)pCharNode->nState,bMaster,CCMatchTeam(pCharNode->nTeam));
+//		}
 	}
-
+*/
 	// 스테이지의 버튼 상태(게임시작, 난입, 준비완료)를 설정한다.
-	ChangeStageButtons( ZGetGameClient()->IsForcedEntry(), ZGetGameClient()->AmIStageMaster(), bMyReady);
+//	ChangeStageButtons( ZGetGameClient()->IsForcedEntry(), ZGetGameClient()->AmIStageMaster(), bMyReady);
 
 	// 스테이지의...
-	ChangeStageGameSetting( ZGetGameClient()->GetMatchStageSetting()->GetStageSetting());
+//	ChangeStageGameSetting( ZGetGameClient()->GetMatchStageSetting()->GetStageSetting());
 	
 	// 난입 멤버일 경우에...
-	if ( !ZGetGameClient()->AmIStageMaster() && ( ZGetGameClient()->IsForcedEntry()))
+//	if ( !ZGetGameClient()->AmIStageMaster() && ( ZGetGameClient()->IsForcedEntry()))
 	{
-		if ( pMyCharNode != NULL)
-			ChangeStageEnableReady( bMyReady);
+//		if ( pMyCharNode != NULL)
+//			ChangeStageEnableReady( bMyReady);
 	}
-
+/*
 	// 만약 난입으로 들어왔는데 다른 사람 다 나가서 내가 방장이 되었다면 난입모드 해제
 	if ( (ZGetGameClient()->AmIStageMaster() == true) && ( ZGetGameClient()->IsForcedEntry()))
 	{
@@ -528,20 +527,21 @@ void ZStageInterface::OnStageInterfaceSettup( void)
 		if(!(pPicture->GetBitmapColor().GetARGB() == pPicture->GetReservedBitmapColor().GetARGB()))
 			pPicture->SetAnimation( 3, 700.0f);		
 	}
+	*/
 }
 
 void ZStageInterface::SetStageRelayMapImage()
 {
 	CCPicture* pPicture = 0;
 	CCBitmap* pBitmap = 0;
-	char szMapName[256];
+//	char szMapName[256];
 	pPicture = (CCPicture*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_MainBGTop");
 	if(!pPicture) return;
 	CCListBox* pRelayMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 	if(pRelayMapListBox == NULL) return;
 	if( 0 < pRelayMapListBox->GetCount())
 	{
-		sprintf( szMapName, "interface/loadable/%s", CCGetMapDescMgr()->GetMapImageName( pRelayMapListBox->GetString(pRelayMapListBox->GetStartItem())));
+/*		sprintf( szMapName, "interface/loadable/%s", CCGetMapDescMgr()->GetMapImageName( pRelayMapListBox->GetString(pRelayMapListBox->GetStartItem())));
 		if ( m_pTopBgImg != NULL)
 		{
 			delete m_pTopBgImg;
@@ -553,201 +553,20 @@ void ZStageInterface::SetStageRelayMapImage()
 
 		if ( m_pTopBgImg != NULL)
 			pPicture->SetBitmap( m_pTopBgImg->GetSourceBitmap());
+*/
 	}
 }
 
 void ZStageInterface::SetEnableWidgetByRelayMap(bool b)
 {
-	if(!ZGetGameClient()->GetMatchStageSetting()->GetStageSetting()->bIsRelayMap)
+//	if(!ZGetGameClient()->GetMatchStageSetting()->GetStageSetting()->bIsRelayMap)
 	{	// 릴레이맵이 아니면 릴레이맵용 위젯 비활성화 처리를 할 필요 없다.
-		m_bEnableWidgetByRelayMap = true;
-		return;
+//		m_bEnableWidgetByRelayMap = true;
+//		return;
 	}
 
 	m_bEnableWidgetByRelayMap = b;
 }
-
-/***********************************************************************
-  ChangeStageGameSetting : public
-  
-  desc : 이것도 게임 관련 인터페이스를 수정하는거 같은데... 왜이렇게 많이 나눠놓은거지? -_-;
-         주로 화면의 전체적인 UI를 설정한다.
-  arg  : pSetting = 스테이지 설정 정보
-  ret  : none
-************************************************************************/
-void ZStageInterface::ChangeStageGameSetting( const MSTAGE_SETTING_NODE* pSetting)
-{
-	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-
-	m_nGameType = pSetting->nGameType;
-
-	// Set map name
-	SetMapName( pSetting->szMapName);
-
-	// Is team game?
-	ZApplication::GetGameInterface()->m_bTeamPlay = ZGetGameTypeManager()->IsTeamGame( pSetting->nGameType);
-
-
-	// 관전 허용 여부 확인
-	CCComboBox* pCombo = (CCComboBox*)pResource->FindWidget( "StageObserver");
-	CCButton* pObserverBtn = (CCButton*)pResource->FindWidget( "StageObserverBtn");
-	CCLabel* pObserverLabel = (CCLabel*)pResource->FindWidget( "StageObserverLabel");
-	if ( pCombo && pObserverBtn && pObserverLabel)
-	{
-		if ( pCombo->GetSelIndex() == 1)
-		{
-			pObserverBtn->SetCheck( false);
-			pObserverBtn->Enable( false);
-			pObserverLabel->Enable( false);
-		}
-		else
-		{
-			pObserverBtn->Enable( true);
-			pObserverLabel->Enable( true);
-		}
-	}
-
-	// 청팀, 홍팀 상태 설정
-	ZApplication::GetGameInterface()->UpdateBlueRedTeam();
-
-	// 게임 방식에 따라서 UI를 변경한다
-	CCAnimation* pAniMapImg = (CCAnimation*)pResource->FindWidget( "Stage_MapNameBG");
-	bool bQuestUI = false;
-	if ( (pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_SOLO) ||			// 데쓰매치 개인전이거나...
-		 (pSetting->nGameType == CCMATCH_GAMETYPE_GLADIATOR_SOLO) ||				// 칼전 개인전이거나...
-		 (pSetting->nGameType == CCMATCH_GAMETYPE_BERSERKER) ||					// 버서커모드이거나...
-		 (pSetting->nGameType == CCMATCH_GAMETYPE_TRAINING) ||					// 트레이닝이거나...
-		 (pSetting->nGameType == CCMATCH_GAMETYPE_DUEL))							// 듀얼모드 이면...
-	{
-		// 맵 이름 배경 이미지 변환
-		if ( pAniMapImg)
-			pAniMapImg->SetCurrentFrame( 0);
-
-		// 퀘스트 UI 감춤
-		bQuestUI = false;
-	}
-	else if ( (pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_TEAM) ||		// 데쓰매치 팀전이거나...
-		(pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2) ||			// 무한데스매치 팀전이거나...
-		 (pSetting->nGameType == CCMATCH_GAMETYPE_GLADIATOR_TEAM) ||				// 칼전 팀전이거나...
-		 (pSetting->nGameType == CCMATCH_GAMETYPE_ASSASSINATE))					// 암살전 이면...
-	{
-		// 맵 이름 배경 이미지 변환
-		if ( pAniMapImg)
-			pAniMapImg->SetCurrentFrame( 1);
-
-		// 퀘스트 UI 감춤
-		bQuestUI = false;
-	}
-	else if ( pSetting->nGameType == CCMATCH_GAMETYPE_SURVIVAL)					// 서바이벌 모드이면...
-	{
-		// 맵 이름 배경 이미지 변환
-		if ( pAniMapImg)
-			pAniMapImg->SetCurrentFrame( 0);
-
-		// 퀘스트 UI 감춤
-		bQuestUI = false;
-	}
-	else if ( pSetting->nGameType == CCMATCH_GAMETYPE_QUEST)						// 퀘스트 모드이면...
-	{
-		// 맵 이름 배경 이미지 변환
-		if ( pAniMapImg)
-			pAniMapImg->SetCurrentFrame( 2);
-
-		// 퀘스트 UI 보임
-		bQuestUI = true;
-	}
-
-	// 맵선택시 릴레이맵이면 릴레이맵 리스트 박스를 열어준다.
-	 if(pSetting->bIsRelayMap)
-		OpenRelayMapBox();
-	else
-		HideRelayMapBox();
-
-	// 퀘스트 UI 설정
-	ZApplication::GetGameInterface()->ShowWidget( "Stage_SacrificeItemImage0", bQuestUI);
-	ZApplication::GetGameInterface()->ShowWidget( "Stage_SacrificeItemImage1", bQuestUI);
-	ZApplication::GetGameInterface()->ShowWidget( "Stage_QuestLevel", bQuestUI);
-	ZApplication::GetGameInterface()->ShowWidget( "Stage_QuestLevelBG", bQuestUI);
-	ZApplication::GetGameInterface()->ShowWidget( "Stage_SacrificeIteCCButton0", bQuestUI);
-	ZApplication::GetGameInterface()->ShowWidget( "Stage_SacrificeIteCCButton1", bQuestUI);
-
-	if ( m_bPrevQuest != bQuestUI)
-	{
-		ZApplication::GetGameInterface()->ShowWidget( "Stage_Lights0", bQuestUI);
-		ZApplication::GetGameInterface()->ShowWidget( "Stage_Lights1", bQuestUI);
-
-		m_SacrificeItem[ SACRIFICEITEM_SLOT0].RemoveItem();
-		m_SacrificeItem[ SACRIFICEITEM_SLOT1].RemoveItem();
-
-		UpdateSacrificeItem();
-
-		if ( bQuestUI)
-		{
-//			ZApplication::GetGameInterface()->EnableWidget( "StageMaxPlayer", false);
-			ZPostRequestSacrificeSlotInfo( ZGetGameClient()->GetPlayerUID());
-			ZPostRequestQL( ZGetGameClient()->GetPlayerUID());
-			OpenSacrificeItemBox();
-		}
-		else
-		{
-			CCLabel* pLabel = (CCLabel*)pResource->FindWidget( "Stage_SenarioName");
-			if ( pLabel)
-				pLabel->SetText( "");
-			ZApplication::GetGameInterface()->ShowWidget( "Stage_SenarioNameImg", false);
-//			if (ZGetGameClient()->AmIStageMaster())
-//				ZApplication::GetGameInterface()->EnableWidget( "StageMaxPlayer", true);
-
-			HideSacrificeItemBox();
-		}
-
-		m_bPrevQuest = !m_bPrevQuest;
-	}
-
-	if ( (pSetting->nGameType == CCMATCH_GAMETYPE_SURVIVAL) || (pSetting->nGameType == CCMATCH_GAMETYPE_QUEST))
-		ZApplication::GetGameInterface()->EnableWidget( "StageSettingCaller", false);
-
-
-	// 라운드 선택 콤보박스 보이기
-//	bool bShowRound = true;
-//	if ( ( pSetting->nGameType == CCMATCH_GAMETYPE_SURVIVAL) || ( pSetting->nGameType == CCMATCH_GAMETYPE_QUEST))
-//		bShowRound = false;
-	
-//	ZApplication::GetGameInterface()->ShowWidget( "StageRoundCountLabelBG", bShowRound);
-//	ZApplication::GetGameInterface()->ShowWidget( "StageRoundCountLabel", bShowRound);
-//	ZApplication::GetGameInterface()->ShowWidget( "StageRoundCount", bShowRound);
-
-
-	// 라운드 or Kill
-	CCWidget* pWidget = ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageRoundCountLabel");
-	if ( pWidget)
-	{
-		if ((pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_SOLO) ||
-			(pSetting->nGameType == CCMATCH_GAMETYPE_DEATHMATCH_TEAM2) ||		// 팀데스매치 익스트림일 때에도 Kill로 표시.... by kammir 20081117
-			(pSetting->nGameType == CCMATCH_GAMETYPE_GLADIATOR_SOLO) ||
-			(pSetting->nGameType == CCMATCH_GAMETYPE_TRAINING) ||
-			(pSetting->nGameType == CCMATCH_GAMETYPE_BERSERKER) ||
-			(pSetting->nGameType == CCMATCH_GAMETYPE_DUEL))
-			pWidget->SetText( ZMsg(MSG_WORD_KILL));
-
-		else
-			pWidget->SetText( ZMsg(MSG_WORD_ROUND));
-	}
-
-
-	// 콤포넌트 업데이트
-	ZStageSetting::ShowStageSettingDialog( pSetting, false);
-
-
-	// 게임중 메뉴 수정 - 머하는 부분인지 알수 없음...
-	// 게임중 메뉴에서 퀘스트및 서바이벌일때 대기방으로 나가기 버튼 비활성화 시킴
-#ifdef _QUEST
-	if ( ZGetGameTypeManager()->IsQuestDerived( pSetting->nGameType) || ZGetGameClient()->IsLadderGame())
-		ZApplication::GetGameInterface()->GetCombatMenu()->EnableItem( ZCombatMenu::ZCMI_BATTLE_EXIT, false);
-	else
-		ZApplication::GetGameInterface()->GetCombatMenu()->EnableItem( ZCombatMenu::ZCMI_BATTLE_EXIT, true);
-#endif
-}
-
 
 /***********************************************************************
   ChangeStageButtons : public
@@ -811,7 +630,7 @@ void ZStageInterface::ChangeStageButtons( bool bForcedEntry, bool bMaster, bool 
 ************************************************************************/
 void ZStageInterface::ChangeStageEnableReady( bool bReady)
 {
-	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
+/*	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
 	ZApplication::GetGameInterface()->EnableWidget( "GameStart", !bReady);
 
@@ -870,6 +689,7 @@ void ZStageInterface::ChangeStageEnableReady( bool bReady)
 	END_WIDGETLIST();
 
 	ZApplication::GetGameInterface()->EnableWidget( "StagePlayerList_", !bReady);
+*/
 }
 
 
@@ -1073,11 +893,11 @@ void ZStageInterface::UpdateSacrificeItem( void)
 			{
 				pPicture->SetBitmap( m_SacrificeItem[ i].GetIconBitmap());
 				char szMsg[ 128];
-				CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache( m_SacrificeItem[ i].GetUID());
-				if ( pObjCache)
-					sprintf( szMsg, "%s (%s)", m_SacrificeItem[ i].GetName(), pObjCache->GetName());
-				else
-					strcpy( szMsg, m_SacrificeItem[ i].GetName());
+//				CCMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache( m_SacrificeItem[ i].GetUID());
+//				if ( pObjCache)
+//					sprintf( szMsg, "%s (%s)", m_SacrificeItem[ i].GetName(), pObjCache->GetName());
+//				else
+//					strcpy( szMsg, m_SacrificeItem[ i].GetName());
 				pPicture->AttachToolTip( szMsg);
 			}
 			else
@@ -1110,7 +930,7 @@ void ZStageInterface::SerializeSacrificeItemListBox( void)
 	pListBox->RemoveAll();
 
 	// 리스트에 추가
-	for ( CCQUESTITEMNODEMAP::iterator questitem_itor = ZGetMyInfo()->GetItemList()->GetQuestItemMap().begin();
+/*	for ( CCQUESTITEMNODEMAP::iterator questitem_itor = ZGetMyInfo()->GetItemList()->GetQuestItemMap().begin();
 		  questitem_itor != ZGetMyInfo()->GetItemList()->GetQuestItemMap().end();
 		  questitem_itor++)
 	{
@@ -1138,7 +958,7 @@ void ZStageInterface::SerializeSacrificeItemListBox( void)
 			}
 		}
 	}
-
+*/
 	CCWidget* pWidget = pResource->FindWidget( "Stage_NoItemLabel");
 	if ( pWidget)
 	{
@@ -1184,7 +1004,7 @@ void ZStageInterface::OnDropSacrificeItem( int nSlotNum)
 		// 슬롯이 비어있으면 무조건 올림
 		if ( ! m_SacrificeItem[ nSlotNum].IsExist())
 		{
-			ZPostRequestDropSacrificeItem( ZGetGameClient()->GetPlayerUID(), nSlotNum, pItemDesc->GetItemID());
+//			ZPostRequestDropSacrificeItem( ZGetGameClient()->GetPlayerUID(), nSlotNum, pItemDesc->GetItemID());
 			char szText[256];
 			sprintf(szText, ZMsg( MSG_QUESTITEM_USE_DESCRIPTION ));
 			pDesc->SetText(szText);
@@ -1195,13 +1015,13 @@ void ZStageInterface::OnDropSacrificeItem( int nSlotNum)
 		// 슬롯이 비어있지 않으면...
 		else
 		{
-			if ( (m_SacrificeItem[ nSlotNum].GetUID()    != ZGetGameClient()->GetPlayerUID()) ||
-				 (m_SacrificeItem[ nSlotNum].GetItemID() != pItemDesc->GetItemID()))
-				ZPostRequestDropSacrificeItem( ZGetGameClient()->GetPlayerUID(), nSlotNum, pItemDesc->GetItemID());
+//			if ( (m_SacrificeItem[ nSlotNum].GetUID()    != ZGetGameClient()->GetPlayerUID()) ||
+//				 (m_SacrificeItem[ nSlotNum].GetItemID() != pItemDesc->GetItemID()))
+//				ZPostRequestDropSacrificeItem( ZGetGameClient()->GetPlayerUID(), nSlotNum, pItemDesc->GetItemID());
 
-			char szText[256];
-			sprintf(szText, ZMsg( MSG_QUESTITEM_USE_DESCRIPTION ));
-			pDesc->SetText(szText);
+//			char szText[256];
+//			sprintf(szText, ZMsg( MSG_QUESTITEM_USE_DESCRIPTION ));
+//			pDesc->SetText(szText);
 			//if ( pDesc)
 			//	pDesc->Clear();
 		}
@@ -1221,9 +1041,9 @@ void ZStageInterface::OnRemoveSacrificeItem( int nSlotNum)
 	if ( !m_SacrificeItem[ nSlotNum].IsExist())
 		return;
 
-	ZPostRequestCallbackSacrificeItem( ZGetGameClient()->GetPlayerUID(),
-									   nSlotNum,
-									   m_SacrificeItem[ nSlotNum].GetItemID());
+//	ZPostRequestCallbackSacrificeItem( ZGetGameClient()->GetPlayerUID(),
+//									   nSlotNum,
+//									   m_SacrificeItem[ nSlotNum].GetItemID());
 
 	CCTextArea* pDesc = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
 	char szText[256];
@@ -1297,11 +1117,11 @@ CCListener* ZGetSacrificeItemListBoxListener( void)
 ************************************************************************/
 void OnDropCallbackRemoveSacrificeItem( void* pSelf, CCWidget* pSender, CCBitmap* pBitmap, const char* szString, const char* szItemString)
 {
-	if ( (pSender == NULL) || (strcmp(pSender->GetClassName(), CORE_ITEMSLOTVIEW)))
-		return;
+//	if ( (pSender == NULL) || (strcmp(pSender->GetClassName(), CORE_ITEMSLOTVIEW)))
+//		return;
 
-	ZItemSlotView* pItemSlotView = (ZItemSlotView*)pSender;
-	ZApplication::GetStageInterface()->OnRemoveSacrificeItem( (strcmp( pItemSlotView->m_szItemSlotPlace, "SACRIFICE0") == 0) ? 0 : 1);
+//	ZItemSlotView* pItemSlotView = (ZItemSlotView*)pSender;
+//	ZApplication::GetStageInterface()->OnRemoveSacrificeItem( (strcmp( pItemSlotView->m_szItemSlotPlace, "SACRIFICE0") == 0) ? 0 : 1);
 }
 
 
@@ -1426,7 +1246,7 @@ void ZStageInterface::PostRelayMapElementUpdate( void)
 	if ( !pCBRelayMapType) return;
 	CCComboBox* pCBRelayMapTurnCount = (CCComboBox*)ZGetGameInterface()->GetIDLResource()->FindWidget( "Stage_RelayMapRepeatCount" );
 	if ( !pCBRelayMapTurnCount) return;
-	ZPostStageRelayMapElementUpdate(ZGetGameClient()->GetStageUID(), pCBRelayMapType->GetSelIndex(), pCBRelayMapTurnCount->GetSelIndex());
+//	ZPostStageRelayMapElementUpdate(ZGetGameClient()->GetStageUID(), pCBRelayMapType->GetSelIndex(), pCBRelayMapTurnCount->GetSelIndex());
 }
 
 /***********************************************************************
@@ -1453,7 +1273,7 @@ void ZStageInterface::PostRelayMapInfoUpdate( void)
 	}
 	
 	//릴레이맵 리스트 전송
-	void* pMapArray = CCMakeBlobArray(sizeof(CCTD_RelayMap), pRelayMapListBox->GetCount());
+/*	void* pMapArray = CCMakeBlobArray(sizeof(CCTD_RelayMap), pRelayMapListBox->GetCount());
 	int nMakeBlobCnt = 0;
 	for(int i=0; i<pRelayMapListBox->GetCount(); i++)
 	{
@@ -1468,9 +1288,9 @@ void ZStageInterface::PostRelayMapInfoUpdate( void)
 		}
 		++nMakeBlobCnt;
 	}
-
-	ZPostStageRelayMapInfoUpdate(ZGetGameClient()->GetStageUID(), pCBRelayMapType->GetSelIndex(), pCBRelayMapRepeatCount->GetSelIndex(), pMapArray);
-	CCEraseBlobArray(pMapArray);
+*/
+//	ZPostStageRelayMapInfoUpdate(ZGetGameClient()->GetStageUID(), pCBRelayMapType->GetSelIndex(), pCBRelayMapRepeatCount->GetSelIndex(), pMapArray);
+//	CCEraseBlobArray(pMapArray);
 
 	ZApplication::GetStageInterface()->SetIsRelayMapRegisterComplete(true);
 	ZApplication::GetGameInterface()->EnableWidget( "Stage_RelayMap_OK_Button", false);
@@ -1495,10 +1315,10 @@ void ZStageInterface::RelayMapCreateMapList()
 	pMapListBox->RemoveAll();	// 기존 릴레이맵 리스트를 모두 지워준다.
 	for( int i = 0 ; i < pCombo->GetCount(); ++i )
 	{
-		if(strcmp(CCMATCH_MAPNAME_RELAYMAP, pCombo->GetString(i)) == 0)
-			continue;
-		RelayMapList* pRelayMapList = new RelayMapList( pCombo->GetString(i), CCBitmapManager::Get( "Mark_Arrow.bmp"));
-		pMapListBox->Add( pRelayMapList);
+//		if(strcmp(CCMATCH_MAPNAME_RELAYMAP, pCombo->GetString(i)) == 0)
+//			continue;
+//		RelayMapList* pRelayMapList = new RelayMapList( pCombo->GetString(i), CCBitmapManager::Get( "Mark_Arrow.bmp"));
+//		pMapListBox->Add( pRelayMapList);
 	}
 
 
@@ -1509,16 +1329,16 @@ void ZStageInterface::RelayMapCreateMapList()
 	// 릴레이맵 리스트 만들어 주기
 	CCListBox* pRelaMapListBox = (CCListBox*)ZGetGameInterface()->GetIDLResource()->FindWidget("Stage_RelayMapListbox");
 	if(pRelaMapListBox == NULL) return;
-	RelayMap arrayRelayMapList[MAX_RELAYMAP_LIST_COUNT];
-	memcpy(arrayRelayMapList, ZGetGameClient()->GetMatchStageSetting()->GetRelayMapList(), sizeof(RelayMap)*MAX_RELAYMAP_LIST_COUNT);
+//	RelayMap arrayRelayMapList[MAX_RELAYMAP_LIST_COUNT];
+//	memcpy(arrayRelayMapList, ZGetGameClient()->GetMatchStageSetting()->GetRelayMapList(), sizeof(RelayMap)*MAX_RELAYMAP_LIST_COUNT);
 	
 	pRelaMapListBox->RemoveAll();	// 기존 릴레이맵 리스트를 모두 지워준다.
-	for( int i = 0 ; i < ZGetGameClient()->GetMatchStageSetting()->GetRelayMapListCount(); ++i )
-	{// 릴레이맵 리스트에 데이터를 추가해준다.
-		int nMapID = arrayRelayMapList[i].nMapID;
-		RelayMapList* pRelayMapList = new RelayMapList( CCGetMapDescMgr()->GetMapName(CCGetMapDescMgr()->GetMapID(nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
-		pRelaMapListBox->Add( pRelayMapList);
-	}
+//	for( int i = 0 ; i < ZGetGameClient()->GetMatchStageSetting()->GetRelayMapListCount(); ++i )
+//	{// 릴레이맵 리스트에 데이터를 추가해준다.
+//		int nMapID = arrayRelayMapList[i].nMapID;
+//		RelayMapList* pRelayMapList = new RelayMapList( CCGetMapDescMgr()->GetMapName(CCGetMapDescMgr()->GetMapID(nMapID)), CCBitmapManager::Get( "Mark_X.bmp"));
+//		pRelaMapListBox->Add( pRelayMapList);
+//	}
 }
 
 /***********************************************************************
@@ -1532,7 +1352,7 @@ public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
 		// 스테이지 마스터가 아니면 맵 리스트를 컨트롤 할수없다.
-		if(!ZGetGameClient()->AmIStageMaster())
+/*		if(!ZGetGameClient()->AmIStageMaster())
 			return false;
 		// On select
 		if ( CCWidget::IsMsg( szMessage, CCLB_ITEM_SEL) == true)
@@ -1568,7 +1388,7 @@ public:
 		{
 			return true;
 		}
-
+*/
 		return false;
 	}
 };
@@ -1584,7 +1404,7 @@ MRelayMapListBoxListener
 desc : 릴레이맵 리스트 박스 리스너
 ************************************************************************/
 class MRelayMapListBoxListener : public CCListener
-{
+{/*
 public:
 	virtual bool OnCommand(CCWidget* pWidget, const char* szMessage)
 	{
@@ -1625,13 +1445,13 @@ public:
 			return true;
 		}
 		return false;
-	}
+	}*/
 };
-MRelayMapListBoxListener g_RelayMapListBoxListener;
-CCListener* ZGetRelayMapListBoxListener( void)
-{
-	return &g_RelayMapListBoxListener;
-}
+//MRelayMapListBoxListener g_RelayMapListBoxListener;
+//CCListener* ZGetRelayMapListBoxListener( void)
+//{
+//	return &g_RelayMapListBoxListener;
+//}
 
 /***********************************************************************
   StartMovieOfQuest : public
@@ -1701,7 +1521,7 @@ void ZStageInterface::OnDrawStartMovieOfQuest( void)
 	{
 		m_bDrawStartMovieOfQuest = false;
 
-		ZMyQuestItemMap::iterator itMyQItem;
+//		ZMyQuestItemMap::iterator itMyQItem;
 
 		// 버그해결... 퀘스트 게임시작을 누르는 순간 해당 퀘스트 아이템이 감소된 상태(옮바른)의 갯수를 
 		// DB에서 받아오기때문에 카운트 감소를 하면 잘못된값이 된다....20090318 by kammir
@@ -1736,11 +1556,11 @@ bool ZStageInterface::IsShowStartMovieOfQuest( void)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
-	if ( m_nGameType == CCMATCH_GAMETYPE_QUEST)
-	{
-		if ( m_SacrificeItem[ SACRIFICEITEM_SLOT0].IsExist() || m_SacrificeItem[ SACRIFICEITEM_SLOT1].IsExist())
-			return true;
-	}
+//	if ( m_nGameType == CCMATCH_GAMETYPE_QUEST)
+//	{
+//		if ( m_SacrificeItem[ SACRIFICEITEM_SLOT0].IsExist() || m_SacrificeItem[ SACRIFICEITEM_SLOT1].IsExist())
+//			return true;
+//	}
 
 	return false;
 }
@@ -1754,7 +1574,7 @@ bool ZStageInterface::IsShowStartMovieOfQuest( void)
   ret  : none
 ************************************************************************/
 bool ZStageInterface::OnResponseDropSacrificeItemOnSlot( const int nResult, const CCUID& uidRequester, const int nSlotIndex, const int nItemID )
-{
+{/*
 #ifdef _QUEST_ITEM
 	if( MOK == nResult)
 	{
@@ -1787,7 +1607,7 @@ bool ZStageInterface::OnResponseDropSacrificeItemOnSlot( const int nResult, cons
 	}
 
 #endif
-
+*/
 	return true;
 }
 
@@ -1835,7 +1655,7 @@ bool ZStageInterface::OnResponseCallbackSacrificeItem( const int nResult, const 
 ///
 bool ZStageInterface::OnResponseQL( const int nQL )
 {
-	ZGetQuest()->GetGameInfo()->SetQuestLevel( nQL);
+//	ZGetQuest()->GetGameInfo()->SetQuestLevel( nQL);
 
 	// 스테이지 영역에 있는 퀘스트 레벨 표시 수정
 	CCLabel* pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_QuestLevel");
@@ -1853,16 +1673,16 @@ bool ZStageInterface::OnStageGameInfo( const int nQL, const int nMapsetID, const
 {
 	if (nScenarioID != 0)
 	{
-		ZGetQuest()->GetGameInfo()->SetQuestLevel( nQL );
+//		ZGetQuest()->GetGameInfo()->SetQuestLevel( nQL );
 	}
 	else
 	{
 		// 시나리오가 없으면 그냥 0으로 보이게 한다.
-		ZGetQuest()->GetGameInfo()->SetQuestLevel( 0 );
+//		ZGetQuest()->GetGameInfo()->SetQuestLevel( 0 );
 	}
 
-	ZGetQuest()->GetGameInfo()->SetMapsetID( nMapsetID );
-	ZGetQuest()->GetGameInfo()->SetSenarioID( nScenarioID );
+//	ZGetQuest()->GetGameInfo()->SetMapsetID( nMapsetID );
+//	ZGetQuest()->GetGameInfo()->SetSenarioID( nScenarioID );
 
 	UpdateStageGameInfo(nQL, nMapsetID, nScenarioID);
 
@@ -1871,7 +1691,7 @@ bool ZStageInterface::OnStageGameInfo( const int nQL, const int nMapsetID, const
 
 bool ZStageInterface::OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const unsigned long int nItemID1, 
 												   const CCUID& uidOwner2, const unsigned long int nItemID2 )
-{
+{/*
 	if ( (uidOwner1 != CCUID(0,0)) && nItemID1)
 	{
 		CCQuestItemDesc* pItemDesc = GetQuestItemDescMgr().FindQItemDesc( nItemID1);
@@ -1895,13 +1715,13 @@ bool ZStageInterface::OnResponseSacrificeSlotInfo( const CCUID& uidOwner1, const
 	CCTextArea* pDesc = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_ItemDesc");
 	//if ( pDesc)
 	//	pDesc->Clear();
-
+*/
 	return true;
 }
 
 
 bool ZStageInterface::OnQuestStartFailed( const int nState )
-{
+{/*
 	CCTextArea* pTextArea = (CCTextArea*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "StageChattingOutput");
 	if ( pTextArea)
 	{
@@ -1909,7 +1729,7 @@ bool ZStageInterface::OnQuestStartFailed( const int nState )
 		sprintf(text, "^1%s", ZMsg(MSG_GANE_NO_QUEST_SCENARIO));
 		pTextArea->AddText( text);
 	}
-
+*/
 /*
 	if( MSQITRES_INV == nState )
 	{
@@ -1938,7 +1758,7 @@ bool ZStageInterface::OnNotAllReady()
 
 void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, const int nScenarioID)
 {
-	if (!ZGetGameTypeManager()->IsQuestOnly(ZGetGameClient()->GetMatchStageSetting()->GetGameType())) return;
+/*	if (!ZGetGameTypeManager()->IsQuestOnly(ZGetGameClient()->GetMatchStageSetting()->GetGameType())) return;
 
 	// 스테이지 영역에 있는 퀘스트 레벨 표시 수정
 	CCLabel* pLabel = (CCLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( "Stage_QuestLevel");
@@ -2014,7 +1834,7 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
 
 			}
 		}
-	}
+	}*/
 }
 
 /***********************************************************************
@@ -2160,21 +1980,21 @@ bool ZStageInterface::ReadSenarioNameXML( void)
 
 bool ZStageInterface::OnStopVote()
 {
-	ZGetGameClient()->SetVoteInProgress( false );
-	ZGetGameClient()->SetCanVote( false );
+//	ZGetGameClient()->SetVoteInProgress( false );
+//	ZGetGameClient()->SetCanVote( false );
 
 #ifdef _DEBUG
 	string str = ZMsg(MSG_VOTE_VOTE_STOP);
 #endif
 
-	ZChatOutput(ZMsg(MSG_VOTE_VOTE_STOP), ZChat::CMT_SYSTEM, ZChat::CL_CURRENT);
+//	ZChatOutput(ZMsg(MSG_VOTE_VOTE_STOP), ZChat::CMT_SYSTEM, ZChat::CL_CURRENT);
 	return true;
 }
 
 
 void ZStageInterface::OnStartFail( const int nType, const CCUID& uidParam )
 {
-	if( ALL_PLAYER_NOT_READY == nType )
+/*	if( ALL_PLAYER_NOT_READY == nType )
 	{
 		// 모든 유저가 레디를 하지 않았음.
 		ZGetGameInterface()->PlayVoiceSound( VOICE_PLAYER_NOT_READY, 1500);
@@ -2195,7 +2015,7 @@ void ZStageInterface::OnStartFail( const int nType, const CCUID& uidParam )
 			sprintf( szMsg, CCGetStringResManager()->GetErrorStr(MERR_CANNOT_START_NEED_TICKET), ZGetGameClient()->GetObjName(uidParam).c_str() );
 
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-			ZChatOutput(szMsg, ZChat::CMT_BROADCAST);
+//			ZChatOutput(szMsg, ZChat::CMT_BROADCAST);
 		//}
 
 		// 입장권 누가 없는거야? -_-+ - by SungE
@@ -2219,9 +2039,9 @@ void ZStageInterface::OnStartFail( const int nType, const CCUID& uidParam )
 				//ZApplication::GetInstance()->GetGameClient()->GetObjName(uidParam).c_str() );
 
 			ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-			ZChatOutput(szMsg, ZChat::CMT_BROADCAST);
+//			ZChatOutput(szMsg, ZChat::CMT_BROADCAST);
 	}
 
 	// Stage UI Enable
-	ChangeStageEnableReady( false);
+	ChangeStageEnableReady( false);*/
 }

@@ -5,7 +5,7 @@
 #include "ZInterface.h"
 #include "ZGameInterface.h"
 #include "ZLocatorList.h"
-#include "ZGameTypeList.h"
+//include "ZGameTypeList.h"
 #include "ZLocale.h"
 
 #include "ZStringResManager.h"
@@ -68,7 +68,7 @@ ZConfiguration::ZConfiguration()
 	m_pLocatorList = new ZLocatorList;
 	m_pTLocatorList = new ZLocatorList;
 
-	m_pGameTypeList = new ZGameTypeList;
+//	m_pGameTypeList = new ZGameTypeList;
 
 	m_bIsComplete = false;
 	m_bReservedSave = false;
@@ -82,7 +82,7 @@ ZConfiguration::~ZConfiguration()
 	Destroy();
 	SAFE_DELETE(m_pLocatorList);
 	SAFE_DELETE(m_pTLocatorList);
-	SAFE_DELETE(m_pGameTypeList);
+//	SAFE_DELETE(m_pGameTypeList);
 }
 
 void ZConfiguration::Destroy()
@@ -91,7 +91,7 @@ void ZConfiguration::Destroy()
 
 	m_pLocatorList->Clear();
 	m_pTLocatorList->Clear();
-	m_pGameTypeList->Clear();
+//m_pGameTypeList->Clear();
 
 	while(m_HotKeys.size())
 	{
@@ -125,61 +125,30 @@ char *GetKeyName(unsigned long int nVirtKey,char *out)
 
 bool ZConfiguration::Load()
 {
-	bool retValue;
-
-	// Config 는 외부 파일도 읽을수 있도록....외부파일들은 개별 지정해야 함..
-
-#ifdef _PUBLISH
-   		CCZFile::SetReadMode( MZIPREADFLAG_ZIP | MZIPREADFLAG_MRS | MZIPREADFLAG_MRS2 | MZIPREADFLAG_FILE );
-#endif
-
-	//ZGetLocale()->Init(DEFAULT_COUNTRY);
+	bool retValue= true;
 	if ( !LoadLocale(FILENAME_LOCALE) )
 	{
 		cclog( "Cannot open %s file.\n", FILENAME_LOCALE);
 		return false;
 	}
-
 	retValue = LoadConfig(FILENAME_CONFIG);
-
-	//	넷마블 버전은 구분해야함... 넷마블 버전은 MZIPREADFLAG_MRS1 도 읽어야함...
-
-#ifdef _PUBLISH
-		CCZFile::SetReadMode( MZIPREADFLAG_MRS2 );
-#endif
-
 	if ( !LoadSystem(FILENAME_SYSTEM))
 	{
 		cclog( "Cannot open %s file.\n", FILENAME_SYSTEM);
 		return false;
 	}
-
 	if ( !retValue)
 		return false;
-
-
 	return retValue;
 }
-
-// strings.xml이 먼저 로딩되어야 하는 것들은 여기서
 bool ZConfiguration::Load_StringResDependent()
 {
-	string strFileNameTCFG(FILENAME_GTCFG);
-#ifdef _INDEPTH_DEBUG_
-	cclog("ZConfiguration::Load_StringResDependent() located at %s\n", strFileNameTCFG.c_str());
-#endif
-
-#ifndef _DEBUG
-	strFileNameTCFG += ".mef";
-#endif	
-	if ( !LoadGameTypeCfg(strFileNameTCFG.c_str()) )
-	{
-		cclog( "Cannot open %s file.\n", strFileNameTCFG);
-		return false;
-	}
-#ifdef _INDEPTH_DEBUG_
-	cclog("EXIT ZConfiguration::Load_StringResDependent()\n");
-#endif
+//	string strFileNameTCFG(FILENAME_GTCFG);
+//	if ( !LoadGameTypeCfg(strFileNameTCFG.c_str()) )
+//	{
+//		cclog( "Cannot open %s file.\n", strFileNameTCFG);
+//		return false;
+//	}
 	return true;
 }
 
@@ -334,7 +303,7 @@ bool ZConfiguration::LoadGameTypeCfg(const char* szFileName)
 			int nID = 0;
 			chrElement.GetAttribute( &nID, "id");
 
-			m_pGameTypeList->ParseGameTypeList( nID, chrElement);
+//			m_pGameTypeList->ParseGameTypeList( nID, chrElement);
 		}
 	}
 

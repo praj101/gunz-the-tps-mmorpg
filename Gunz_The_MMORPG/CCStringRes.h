@@ -1,11 +1,10 @@
 #pragma once
 #include <map>
 #include <string>
+#include "CCZFileSystem.h"
 using std::map;
 using std::string;
 using std::pair;
-
-class CCZFileSystem;
 
 #define CHAR_MSG_VALUE			'$'
 

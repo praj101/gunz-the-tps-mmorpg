@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
 #include "ZCrossHair.h"
-#include "ZGame.h"
-#include "ZMyCharacter.h"
+//#include "ZGame.h"
+//#include "ZMyCharacter.h"
 #include "ZIDLResource.h"
 #include "ZApplication.h"
 #include "ZGameInterface.h"
@@ -170,13 +170,13 @@ void ZCrossHair::DrawCrossHair(CCDrawContext* pDC, CCBitmap** ppBitmaps, sPoint&
 void ZCrossHair::Draw(CCDrawContext* pDC)
 {
 	if(!m_bVisible) return;
-	if (ZGetGame()->m_pMyCharacter == NULL) return;
+//	if (ZGetGame()->m_pMyCharacter == NULL) return;
 
 	const float sizefactor = (float)CCGetWorkspaceWidth() / (float)800  * 1.f;
 
 	sPoint center(CCGetWorkspaceWidth()/2,CCGetWorkspaceHeight()/2);
 
-	float fFactor = ZGetGame()->m_pMyCharacter->GetCAFactor();
+	float fFactor = 0;//ZGetGame()->m_pMyCharacter->GetCAFactor();
 	fFactor = fFactor +0.2f;
 
 	switch(m_nStatus)
