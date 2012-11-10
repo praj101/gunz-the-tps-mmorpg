@@ -3793,10 +3793,10 @@ void RBspObject::DrawSolidNode()
 #endif
 }
 
-bool RBspObject::CheckWall(rvector &origin,rvector &targetpos,float fRadius,float fHeight,RCOLLISIONMETHOD method,int nDepth,rplane *pimpactplane)
-{
-	return RSolidBspNode::CheckWall(m_pColRoot,origin,targetpos,fRadius,fHeight,method,nDepth,pimpactplane);
-}
+//bool RBspObject::CheckWall(rvector &origin,rvector &targetpos,float fRadius,float fHeight,RCOLLISIONMETHOD method,int nDepth,rplane *pimpactplane)
+//{
+//	return RSolidBspNode::CheckWall(m_pColRoot,origin,targetpos,fRadius,fHeight,method,nDepth,pimpactplane);
+//}
 
 bool RBspObject::CheckSolid(rvector &pos,float fRadius,float fHeight,RCOLLISIONMETHOD method)
 {

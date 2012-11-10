@@ -2,7 +2,7 @@
 #define ZINTERFACEBACKGROUND_H
 
 #include "RBspObject.h"
-#include "ZMapDesc.h"
+//#include "ZMapDesc.h"
 
 using namespace RealSpace2;
 
@@ -14,7 +14,7 @@ using namespace RealSpace2;
 class ZInterfaceBackground{
 private:
 	RBspObject*	m_pLogin;					// ¹è°æ
-	ZMapDesc* m_pMapDesc;
+//	ZMapDesc* m_pMapDesc;
 
 	rmatrix		m_matWorld;					// ¿ùµå ¸Ê
 

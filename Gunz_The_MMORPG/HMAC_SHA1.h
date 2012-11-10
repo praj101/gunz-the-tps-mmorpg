@@ -3,9 +3,9 @@
 	by Chien-Chung, Chung (Jim Chung) <jimchung1221@gmail.com>
 */
 
-
+/*
 #pragma once
-#include "SHA1.h"
+//#include "SHA1.h"
 
 #define GUNZ_HMAC_KEY "gunzkingJJang"
 #define GUNZ_HMAC_KEY_LENGTH 20
@@ -51,3 +51,4 @@ class CHMAC_SHA1 : public CSHA1
         void HMAC_SHA1_messege(BYTE *text, int text_len, BYTE *key, int key_len, BYTE *digest);
 		void HMAC_SHA1_file(char* fileName, BYTE *key, int key_len, BYTE *digest);
 };
+*/

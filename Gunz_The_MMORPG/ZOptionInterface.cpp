@@ -6,9 +6,9 @@
 #include "FileInfo.h"
 #include "ZCanvas.h"
 #include "ZInput.h"
-#include "ZRoomListBox.h"
-#include "ZShopEquipListbox.h"
-#include "ZShopEquipInterface.h"
+//#include "ZRoomListBox.h"
+//#include "ZShopEquipListbox.h"
+//#include "ZShopEquipInterface.h"
 
 // Added R347a
 #include "ZGlobal.h"
@@ -18,11 +18,11 @@
 #include "CCSlider.h"
 #include "ZGameInterface.h"
 // Added R353a
-#include "ZGameClient.h"
-#include "ZCombatInterface.h"
+//#include "ZGameClient.h"
+//#include "ZCombatInterface.h"
 #include "ZCrossHair.h"
 #include "ZStringResManager.h"
-#include "ZPost.h"
+//#include "ZPost.h"
 #include "CCTabCtrl.h"
 
 #define DEFAULT_SLIDER_MAX			10000
@@ -275,7 +275,7 @@ void ZOptionInterface::InitInterfaceOption()
 				pWidget->SetCheck(ZGetConfiguration()->GetVideo()->bLightMap);
 
 				if(ZGetGame()) {
-					ZGetGame()->GetWorld()->GetBsp()->LightMapOnOff(ZGetConfiguration()->GetVideo()->bLightMap);
+//					ZGetGame()->GetWorld()->GetBsp()->LightMapOnOff(ZGetConfiguration()->GetVideo()->bLightMap);
 				}
 				else {
 					RBspObject::SetDrawLightMap(ZGetConfiguration()->GetVideo()->bLightMap);
@@ -639,7 +639,7 @@ bool ZOptionInterface::SaveInterfaceOption()
 
 			if( ZGetConfiguration()->GetVideo()->nEffectLevel != EffectLevel ) {
 				ZGetConfiguration()->GetVideo()->nEffectLevel = EffectLevel;
-				SetEffectLevel(EffectLevel);
+//				SetEffectLevel(EffectLevel);
 				//				flag |= RTextureType_Map;
 			}
 		}
@@ -667,14 +667,14 @@ bool ZOptionInterface::SaveInterfaceOption()
 		if(pWidget)	{
 			iResolution = pWidget->GetSelIndex();
 			ZGetConfiguration()->GetMovingPicture()->iResolution = iResolution;	// configuration에 세팅한다.
-			SetBandiCaptureConfig(iResolution);									// 반디캡처 동영상 해상도에 적용한다
+//			SetBandiCaptureConfig(iResolution);									// 반디캡처 동영상 해상도에 적용한다
 		}
 		pWidget = (CCComboBox*)pResource->FindWidget("MovingPictureFileSize");
 		int iFileSize = 0;
 		if(pWidget)	{
 			iFileSize = pWidget->GetSelIndex();
 			ZGetConfiguration()->GetMovingPicture()->iFileSize = iFileSize;	// configuration에 세팅한다.
-			SetBandiCaptureFileSize(iFileSize);								// 반디캡처 동영상 파일크기 세팅에 적용한다
+//			SetBandiCaptureFileSize(iFileSize);								// 반디캡처 동영상 파일크기 세팅에 적용한다
 		}
 	}
 	{	// 언어선택
@@ -698,7 +698,7 @@ bool ZOptionInterface::SaveInterfaceOption()
 			Z_VIDEO_LIGHTMAP = pWidget->GetCheck();
 
 			if(ZGetGame()) {
-				ZGetGame()->GetWorld()->GetBsp()->LightMapOnOff(Z_VIDEO_LIGHTMAP);
+//				ZGetGame()->GetWorld()->GetBsp()->LightMapOnOff(Z_VIDEO_LIGHTMAP);
 			}
 			else {
 				RBspObject::SetDrawLightMap(Z_VIDEO_LIGHTMAP);
@@ -818,22 +818,23 @@ bool ZOptionInterface::SaveInterfaceOption()
 		{
 			if (Z_ETC_BOOST != pBoost->GetCheck()) {
 				Z_ETC_BOOST = pBoost->GetCheck();
-				if (Z_ETC_BOOST)
-					ZGetGameClient()->PriorityBoost(true);
-				else
-					ZGetGameClient()->PriorityBoost(false);
+//				if (Z_ETC_BOOST)
+//					ZGetGameClient()->PriorityBoost(true);
+//				else
+//					ZGetGameClient()->PriorityBoost(false);
 			}
 		}
-
+	}
+/*
 		CCButton* pNormalChat = (CCButton*)pResource->FindWidget("NormalChatOption");
 		if(pNormalChat)
 		{
 			if (Z_ETC_REJECT_NORMALCHAT != pNormalChat->GetCheck()) {
 				Z_ETC_REJECT_NORMALCHAT = pNormalChat->GetCheck();
-				if (Z_ETC_REJECT_NORMALCHAT)
-					ZGetGameClient()->SetRejectNormalChat(true);
-				else
-					ZGetGameClient()->SetRejectNormalChat(false);
+//				if (Z_ETC_REJECT_NORMALCHAT)
+//					ZGetGameClient()->SetRejectNormalChat(true);
+//				else
+//					ZGetGameClient()->SetRejectNormalChat(false);
 			}
 		}
 
@@ -842,10 +843,10 @@ bool ZOptionInterface::SaveInterfaceOption()
 		{
 			if (Z_ETC_REJECT_TEAMCHAT != pTeamChat->GetCheck()) {
 				Z_ETC_REJECT_TEAMCHAT = pTeamChat->GetCheck();
-				if (Z_ETC_REJECT_TEAMCHAT)
-					ZGetGameClient()->SetRejectTeamChat(true);
-				else
-					ZGetGameClient()->SetRejectTeamChat(false);
+//				if (Z_ETC_REJECT_TEAMCHAT)
+//					ZGetGameClient()->SetRejectTeamChat(true);
+//				else
+//					ZGetGameClient()->SetRejectTeamChat(false);
 			}
 		}
 
@@ -854,10 +855,10 @@ bool ZOptionInterface::SaveInterfaceOption()
 		{
 			if (Z_ETC_REJECT_CLANCHAT != pClanChat->GetCheck()) {
 				Z_ETC_REJECT_CLANCHAT = pClanChat->GetCheck();
-				if (Z_ETC_REJECT_CLANCHAT)
-					ZGetGameClient()->SetRejectClanChat(true);
-				else
-					ZGetGameClient()->SetRejectClanChat(false);
+//				if (Z_ETC_REJECT_CLANCHAT)
+//					ZGetGameClient()->SetRejectClanChat(true);
+//				else
+//					ZGetGameClient()->SetRejectClanChat(false);
 			}
 		}
 
@@ -870,7 +871,7 @@ bool ZOptionInterface::SaveInterfaceOption()
 					ZGetGameClient()->SetRejectWhisper(true);
 				else
 					ZGetGameClient()->SetRejectWhisper(false);
-				ZPostUserOption();
+//				ZPostUserOption();
 			}
 		}
 
@@ -883,7 +884,7 @@ bool ZOptionInterface::SaveInterfaceOption()
 					ZGetGameClient()->SetRejectInvite(true);
 				else
 					ZGetGameClient()->SetRejectInvite(false);
-				ZPostUserOption();
+//				ZPostUserOption();
 			}
 		}
 
@@ -900,8 +901,7 @@ bool ZOptionInterface::SaveInterfaceOption()
 			RSetFrameLimitPerSeceond(Z_ETC_FRAMELIMIT_PERSECOND);
 		}
 	}
-
-	{
+*/
 		// Macro
 
 		static char stemp_str[ZCONFIG_MACRO_MAX][80] = {
@@ -931,9 +931,6 @@ bool ZOptionInterface::SaveInterfaceOption()
 				}
 			}
 		}
-
-	}
-
 	// 감마값 저장
 	CCSlider* pSlider = (CCSlider*)pResource->FindWidget("VideoGamma");
 	if (pSlider != NULL) 
@@ -1014,7 +1011,7 @@ void ZOptionInterface::ShowNetworkPortConfirmDialog()
 
 bool ZOptionInterface::IsDiffNetworkPort()
 {
-	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
+/*	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 	int nCurrPort = ntohs( ZGetGameClient()->GetSafeUDP()->GetLocalPort() );
 
 	int nNewPort1, nNewPort2;
@@ -1047,7 +1044,7 @@ bool ZOptionInterface::IsDiffNetworkPort()
 
 	if ( ( nNewPort1 != Z_ETC_NETWORKPORT1) || ( nNewPort2 != Z_ETC_NETWORKPORT2))
 		return true;
-
+*/
 	return false;
 }
 
@@ -1278,7 +1275,7 @@ void ZOptionInterface::AdjustMultipliedWidgetsManually()
 
 		ZGetGameInterface()->GetShopEquipInterface()->SelectEquipmentFrameList( "Equip", true);
 	}*/
-	ZGetGameInterface()->GetShopEquipInterface()->SelectEquipmentFrameList( NULL, true);
+//	ZGetGameInterface()->GetShopEquipInterface()->SelectEquipmentFrameList( NULL, true);
 
 /*
 	pWidget = pResource->FindWidget("Replay_FileList");
@@ -1301,14 +1298,14 @@ void ZOptionInterface::AdjustMultipliedWidgetsManually()
 
 	pWidget = pResource->FindWidget("Lobby");
 	if (pWidget) {
-		ZRoomListBox* pRoomList;
+//		ZRoomListBox* pRoomList;
 
-		pRoomList = (ZRoomListBox*)pResource->FindWidget( "Lobby_StageList" );
-		if( pRoomList != 0 )
+//		pRoomList = (ZRoomListBox*)pResource->FindWidget( "Lobby_StageList" );
+//		if( pRoomList != 0 )
 		{
-			const float tempWidth = ((float)RGetScreenWidth()) / mOldScreenWidth;
-			const float tempHeight = ((float)RGetScreenHeight()) / mOldScreenHeight;
-			pRoomList->Resize( tempWidth, tempHeight );
+//			const float tempWidth = ((float)RGetScreenWidth()) / mOldScreenWidth;
+//			const float tempHeight = ((float)RGetScreenHeight()) / mOldScreenHeight;
+//			pRoomList->Resize( tempWidth, tempHeight );
 		}
 	}
 
@@ -1377,7 +1374,7 @@ void ZOptionInterface::Resize(int w, int h)
 
 	ZGetGameInterface()->SetSize(w, h);
 
-	if (ZGetCombatInterface()) ZGetCombatInterface()->Resize(w, h);
+//	if (ZGetCombatInterface()) ZGetCombatInterface()->Resize(w, h);
 
 
 /*	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
@@ -1621,16 +1618,16 @@ BEGIN_IMPLEMENT_LISTENER(ZGetSaveOptionButtonListener, CCBTN_CLK_MSG)
 
 		if(bLanguageChanged)	// 재시작 확인 메세지 박스
 		{
-			ZApplication::GetGameInterface()->ShowConfirmMessage(
-				ZMsg(MSG_CONFIRM_RESTART_CHANGE_LANGUAGE), ZGetLanguageChangeConfirmListenter());
+		//	ZApplication::GetGameInterface()->ShowConfirmMessage(
+		//		ZMsg(MSG_CONFIRM_RESTART_CHANGE_LANGUAGE), ZGetLanguageChangeConfirmListenter());
 		}
 	}
 
 	if (ZApplication::GetGameInterface()->GetState() == GUNZ_GAME)
 	{
-		if (ZGetCombatInterface())
+//		if (ZGetCombatInterface())
 		{
-			ZGetCombatInterface()->GetCrossHair()->ChangeFromOption();
+//			ZGetCombatInterface()->GetCrossHair()->ChangeFromOption();
 		}
 	}
 

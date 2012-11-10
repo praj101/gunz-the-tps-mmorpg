@@ -6,16 +6,16 @@
 #include "Core4R2.h"
 #include "RealSpace2.h"
 #include "CCDebug.h"
-#include "ZTips.h"
+//#include "ZTips.h"
 #include "ZGameInterface.h"
 #include "ZGlobal.h"
-#include "ZMyInfo.h"
+//#include "ZMyInfo.h"
 
 // Added R347a
 #include "ZStringResManager.h"
 
 // Added R349a
-#include "ZGameClient.h"
+//#include "ZGameClient.h"
 
 using namespace RealSpace2;
 
@@ -250,9 +250,6 @@ void	ZInitialLoading::Draw( LOADING_SCENE_MODE mode_ /* = MODE_DEFAULT */, int d
 			char buffer[256];
 			sprintf(buffer,"Loading %s ...",m_pLoadingStr); //Loading
 
-#ifdef _INDEPTH_DEBUG_
-	cclog(buffer); cclog("\n");
-#endif
 			int nWidth = mpDC->m_Font.GetTextWidth(buffer);
 			int x = (int)(RGetScreenWidth() * 0.5) - nWidth/2;
 			int y = (int)(RGetScreenHeight() * 0.89f);
@@ -592,32 +589,32 @@ void	ZInitialLoading::DrawTips()
 
 void	ZInitialLoading::SetRandomTipsText()
 {
-	const char* szTips;
-	if (ZGetMyInfo()->IsNewbie())
+//	const char* szTips;
+//	if (ZGetMyInfo()->IsNewbie())
 	{
-		if (!ZGetGameInterface()->GetTips()->IsShowedNewbieTips())
+//		if (!ZGetGameInterface()->GetTips()->IsShowedNewbieTips())
 		{
-			szTips = ZGetGameInterface()->GetTips()->GetTips(ZTIPS_CATEGORY_NEWBIE, ZTIPMSG_ID_NEWBIE_SHOW_HELP);
-			ZGetGameInterface()->GetTips()->SetShowedNewbieTips(true);
+//			szTips = ZGetGameInterface()->GetTips()->GetTips(ZTIPS_CATEGORY_NEWBIE, ZTIPMSG_ID_NEWBIE_SHOW_HELP);
+//			ZGetGameInterface()->GetTips()->SetShowedNewbieTips(true);
 		}
-		else
+//		else
 		{
-			szTips = ZGetGameInterface()->GetTips()->GetRandomTips();
+//			szTips = ZGetGameInterface()->GetTips()->GetRandomTips();
 		}
 	}
-	else if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
+//	else if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == CCMATCH_GAMETYPE_DUELTOURNAMENT)
 	{
-		szTips = ZGetGameInterface()->GetTips()->GetTips(ZTIPS_CATEGORY_DUELTOURNAMENT, ZTIPMSG_ID_NEWBIE_SHOW_HELP);
+//		szTips = ZGetGameInterface()->GetTips()->GetTips(ZTIPS_CATEGORY_DUELTOURNAMENT, ZTIPMSG_ID_NEWBIE_SHOW_HELP);
 	}
-	else
+//	else
 	{
-		szTips = ZGetGameInterface()->GetTips()->GetRandomTips();
+	//	szTips = ZGetGameInterface()->GetTips()->GetRandomTips();
 	}
 	
-	if (strlen(szTips) < 255)
-	{
-		strcpy(m_szTips, szTips);
-	}
+//	if (strlen(szTips) < 255)
+//	{
+//		strcpy(m_szTips, szTips);
+//	}
 }
 
 #ifdef _DEBUG

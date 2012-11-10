@@ -3,11 +3,11 @@
 #include "stdafx.h"
 #include "ZLocale.h"
 #include "ZConfiguration.h"
-#include "ZNetmarble.h"			// test
+//#include "ZNetmarble.h"			// test
 #include "ZApplication.h"
 #include "ZGlobal.h"
-#include "ZSecurity.h"
-#include "ZPost.h"
+//#include "ZSecurity.h"
+//#include "ZPost.h"
 
 // Added R349a
 #include "ZStringResManager.h"
@@ -23,18 +23,19 @@
 
 ZLocale* ZLocale::GetInstance()
 {
-	static ZLocale m_stLocale;
-	return &m_stLocale;
+//	static ZLocale m_stLocale;
+//	return &m_stLocale;
+	return NULL;
 }
 
-ZLocale::ZLocale() : CCBaseLocale(), m_bTeenMode(false), m_pAuthInfo(NULL)
-{
+//ZLocale::ZLocale() : CCBaseLocale(), m_bTeenMode(false), m_pAuthInfo(NULL)
+//{
 
-}
+//}
 
 ZLocale::~ZLocale()
 {
-	if(m_pAuthInfo) delete m_pAuthInfo;
+//	if(m_pAuthInfo) delete m_pAuthInfo;
 }
 
 bool ZLocale::IsTeenMode()
@@ -44,15 +45,15 @@ bool ZLocale::IsTeenMode()
 //#endif
 
 
-	if (m_pAuthInfo) return m_pAuthInfo->GetTeenMode();
+//	if (m_pAuthInfo) return m_pAuthInfo->GetTeenMode();
 
 	return false;
 }
 
 void ZLocale::SetTeenMode(bool bTeenMode)
 {
-	if (m_pAuthInfo) m_pAuthInfo->SetTeenMode(bTeenMode);
-	else _ASSERT(0);
+//	if (m_pAuthInfo) m_pAuthInfo->SetTeenMode(bTeenMode);
+//	else _ASSERT(0);
 }
 
 bool ZLocale::OnInit()
@@ -63,7 +64,7 @@ bool ZLocale::OnInit()
 }
 
 bool ZLocale::ParseArguments(const char* pszArgs)
-{
+{/*
 	switch (m_iCountry)
 	{
 	case CCC_KOREA:
@@ -125,18 +126,18 @@ bool ZLocale::ParseArguments(const char* pszArgs)
 			cclog("LOCALE:UNKNOWN \n");
 		}
 	};
-
+*/
 	return true;
 }
 
 bool ZLocale::CreateAuthInfo()
 {
-	if (m_pAuthInfo) delete m_pAuthInfo;
-	m_pAuthInfo = NULL;
+//	if (m_pAuthInfo) delete m_pAuthInfo;
+//	m_pAuthInfo = NULL;
 #ifdef _INDEPTH_DEBUG_
 	cclog("ZLocale::CreateAuthInfo() returning NULL since authentication is not a issue.\n");
 #endif
-	switch (m_iCountry)
+/*	switch (m_iCountry)
 	{
 	case CCC_KOREA:
 		{
@@ -174,7 +175,7 @@ bool ZLocale::CreateAuthInfo()
 
 		}
 	};
-
+*/
 	return true;
 }
 
@@ -186,8 +187,8 @@ void ZLocale::RouteToWebsite()
 
 		char szMsgWarning[128]="";
 		char szMsgCertFail[128]="";
-		ZTransMsg(szMsgWarning,MSG_WARNING);
-		ZTransMsg(szMsgCertFail,MSG_REROUTE_TO_WEBSITE);
+//		ZTransMsg(szMsgWarning,MSG_WARNING);
+//		ZTransMsg(szMsgCertFail,MSG_REROUTE_TO_WEBSITE);
 		MessageBox(g_hWnd, szMsgCertFail, szMsgWarning, MB_OK);
 	}
 }
@@ -201,7 +202,7 @@ void ZLocale::PostLoginViaHomepage(CCUID* pAllocUID)
 	unsigned long nChecksum = ZGetApplication()->GetFileListCRC();
 	nChecksum = nChecksum ^ (*pAllocUID).High ^ (*pAllocUID).Low;
 
-	switch (m_iCountry)
+/*	switch (m_iCountry)
 	{
 #ifdef LOCALE_KOREA
 	case CCC_KOREA:
@@ -257,7 +258,7 @@ void ZLocale::PostLoginViaHomepage(CCUID* pAllocUID)
 	default:
 		cclog("LoginViaHomepage - Unknown Locale \n");
 		break;
-	};
+	};*/
 }
 
 

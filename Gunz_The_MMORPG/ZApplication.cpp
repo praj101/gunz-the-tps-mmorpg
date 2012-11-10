@@ -2,28 +2,14 @@
 
 #include "ZApplication.h"
 #include "ZGameInterface.h"
-#include "CCCommandLogFrame.h"
-#include "ZConsole.h"
 #include "ZInterface.h"
 #include "Config.h"
-#include "CCDebug.h"
-#include "RMeshMgr.h"
 #include "RShadermgr.h"
 #include "ZConfiguration.h"
-#include "CCProfiler.h"
-#include "CCChattingFilter.h"
-#include "ZNetmarble.h"
 #include "ZInitialLoading.h"
-#include "ZWorldItem.h"
-#include "CCMatchWorlditemdesc.h"
-#include "CCMatchQuestMonsterGroup.h"
-#include "ZSecurity.h"
-//#include "MActionKey.h"
-#include "ZReplay.h"
-#include "ZTestGame.h"
-#include "ZGameClient.h"
+//#include "CCMatchQuestMonsterGroup.h"
+//#include "ZGameClient.h"
 #include "CCRegistry.h"
-#include "CGLEncription.h"
 #include "ZLocale.h"
 #include "ZUtil.h"
 #include "ZStringResManager.h"
@@ -31,37 +17,11 @@
 #include "ZActionKey.h"
 #include "ZInput.h"
 #include "ZOptionInterface.h"
-#include "ZNHN_USA_Report.h"
-#include "PrivateKey.h"
-
-//#define _INDEPTH_DEBUG_
-
-#ifdef _QEUST_ITEM_DEBUG
-#include "CCQuestItem.h"
-#endif
-
-#ifdef _ZPROFILER
-#include "ZProfiler.h"
-#endif
-
-#ifdef LOCALE_NHNUSA
-#include "ZNHN_USA.h"
-#endif
-
 
 ZApplication*	ZApplication::m_pInstance = NULL;
 CCZFileSystem	ZApplication::m_FileSystem;    
 ZSoundEngine	ZApplication::m_SoundEngine;
-RMeshMgr		ZApplication::m_NPCMeshMgr;
-RMeshMgr		ZApplication::m_MeshMgr;
-RMeshMgr		ZApplication::m_WeaponMeshMgr;
-RAniEventMgr    ZApplication::m_AniEventMgr;
 ZTimer			ZApplication::m_Timer;
-ZEmblemInterface	ZApplication::m_EmblemInterface;
-ZSkillManager	ZApplication::m_SkillManager;				///< 스킬 매니저
-
-CCCommandLogFrame* m_pLogFrame = NULL;
-
 
 ZApplication::ZApplication()
 {
@@ -80,6 +40,7 @@ ZApplication::ZApplication()
 	m_bLaunchTest = false;
 
 	SetLaunchMode(ZLAUNCH_MODE_DEBUG);
+//	SetLaunchMode(ZLAUNCH_MODE_STANDALONE_AI);
 
 #ifdef _ZPROFILER
 	m_pProfiler = new ZProfiler;
@@ -133,13 +94,7 @@ bool GetNextName(char *szBuffer,int nBufferCount,char *szSource)
 
 bool ZApplication::ParseArguments(const char* pszArgs)
 {
-#ifdef _INDEPTH_DEBUG_
-	cclog("ZApplication::ParseArguments()\n");
-	cclog("Parsing arguments\n\t[%s]\n", pszArgs);
-#endif
 	strcpy(m_szCmdLine, pszArgs);
-
-	// 파라미터가 리플레이 파일명인지 확인한다
 	{
 		size_t nLength;
 
@@ -160,120 +115,30 @@ bool ZApplication::ParseArguments(const char* pszArgs)
 			strcpy(m_szFileName,pszArgs);
 			nLength = strlen(m_szFileName);
 		}
-
-		if(stricmp(m_szFileName+nLength-strlen(GUNZ_REC_FILE_EXT),GUNZ_REC_FILE_EXT)==0){
-			SetLaunchMode(ZLAUNCH_MODE_STANDALONE_REPLAY);
-			m_nInitialState = GUNZ_GAME;
-			ZGetLocale()->SetTeenMode(false);
-			return true;
-		}
 	}
-
-
-	// '/launchdevelop' 모드
 	if ( pszArgs[0] == '/')
 	{
-#ifndef _PUBLISH
-		if ( strstr( pszArgs, "launchdevelop") != NULL)
-		{
-#ifdef _INDEPTH_DEBUG_
-	cclog("! ! ! Application was launched in develop mode.\n");
-#endif
-			SetLaunchMode( ZLAUNCH_MODE_STANDALONE_DEVELOP);
-			m_bLaunchDevelop = true;
-			ZGetLocale()->SetTeenMode( false);
-
-			return true;
-		} 
-		// '/launch' 모드
-		else if ( strstr( pszArgs, "launch") != NULL)
-		{
-			SetLaunchMode(ZLAUNCH_MODE_STANDALONE);
-			return true;
-		}
-#endif
 	}
-
-	// TODO: 일본넷마블 테스트하느라 주석처리 - bird
-	// 디버그버전은 파라메타가 없어도 launch로 실행하도록 변경
-#ifndef _PUBLISH
-	{
-		SetLaunchMode(ZLAUNCH_MODE_STANDALONE_DEVELOP);
-		m_bLaunchDevelop=true;
-#ifndef LOCALE_NHNUSA
-		return true;
-#endif
-	}
-#endif
-
-
-/*	// RAON DEBUG ////////////////////////
-	ZNetmarbleAuthInfo* pMNInfo = ZNetmarbleAuthInfo::GetInstance();
-	pMNInfo->SetServerIP("192.168.0.30");
-	pMNInfo->SetServerPort(6000);
-	pMNInfo->SetAuthCookie("");
-	pMNInfo->SetDataCookie("");
-	pMNInfo->SetCpCookie("Certificate=4f3d7e1cf8d27bd0&Sex=f1553a2f8bd18a59&Name=018a1751ea0eaf54&UniID=25c1272f61aaa6ec8d769f14137cf298&Age=1489fa5ce12aeab7&UserID=e23616614f162e03");
-	pMNInfo->SetSpareParam("Age=15");
-
-	SetLaunchMode(ZLAUNCH_MODE_NETMARBLE);
-	return true;
-	//////////////////////////////////////
-	*/		
 	return false;
 }
 
 void ZApplication::CheckSound()
 {
-#ifdef _BIRDSOUND
-
-#else
 	// 파일이 없더라도 맵 mtrl 사운드와 연결될수도 있으므로 무조건 지울 수 없다..
 
-	int size = m_MeshMgr.m_id_last;
+	int size = 0;//m_MeshMgr.m_id_last;
 	int ani_size = 0;
 
-	RMesh* pMesh = NULL;
 	RAnimationMgr* pAniMgr = NULL;
 	RAnimation* pAni = NULL;
 
 	for(int i=0;i<size;i++) {
-		pMesh = m_MeshMgr.GetFast(i);
-		if(pMesh) {
-			pAniMgr = &pMesh->m_ani_mgr;
-			if(pAniMgr){
-				ani_size = pAniMgr->m_id_last;
-				for(int j=0;j<ani_size;j++) {
-					pAni = pAniMgr->m_node_table[j];
-					if(pAni) {
-
-						if(m_SoundEngine.isPlayAbleMtrl(pAni->m_sound_name)==false) {
-							pAni->ClearSoundFile();
-						}
-						else {
-							int ok = 0;
-						}
-					}
-				}
-			}
-		}
 	}
-#endif
 }
+
 
 void RegisterForbidKey()
 {
-	/*
-	ZActionKey::RegisterForbidKey(0x3b);// f1
-	ZActionKey::RegisterForbidKey(0x3c);
-	ZActionKey::RegisterForbidKey(0x3d);
-	ZActionKey::RegisterForbidKey(0x3e);
-	ZActionKey::RegisterForbidKey(0x3f);
-	ZActionKey::RegisterForbidKey(0x40);
-	ZActionKey::RegisterForbidKey(0x41);
-	ZActionKey::RegisterForbidKey(0x42);// f8
-	*/
-
 	ZActionKey::RegisterForbidKey(0x35);// /
 	ZActionKey::RegisterForbidKey(0x1c);// enter
 	ZActionKey::RegisterForbidKey(0x01);// esc
@@ -287,34 +152,11 @@ void ZProgressCallBack(void *pUserParam,float fProgress)
 
 bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 {	
-	string strFileNameZItem(FILENAME_ZITEM_DESC);
-	string strFileNameZItemLocale(FILENAME_ZITEM_DESC_LOCALE);
-	string strFileNameZBuff(FILENAME_BUFF_DESC);
-	string strFileNameWorlditem(FILENAME_WORLDITEM);
-	string strFileNameAbuse(FILENAME_ABUSE);
-
-#ifndef _DEBUG
-	strFileNameZItem += ".mef";
-	strFileNameZItemLocale += ".mef";
-	strFileNameZBuff += ".mef";
-	strFileNameWorlditem += ".mef";
-	strFileNameAbuse += ".mef";
-#endif
-
 	CCInitProfile();
 
-	// 멀티미디어 타이머 초기화
 	TIMECAPS tc;
 
 	cclog("ZApplication::OnCreate : begin\n");
-
-	//ZGetSoundEngine()->Enumerate();
-	//for( int i = 0 ; i < ZGetSoundEngine()->GetEnumDeviceCount() ; ++i)
-	//{
-	//	sprintf(szDesc, "Sound Device %d = %s\n", i, ZGetSoundEngine()->GetDeviceDescription( i ) );
-	//	cclog(szDesc);
-	//}
-
 	__BP(2000,"ZApplication::OnCreate");
 
 #define MMTIMER_RESOLUTION	1
@@ -324,13 +166,6 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 		timeBeginPeriod(m_nTimerRes);
 	}
 
-	// 한국도 서버리스트 선택 과정이 추가된다.
-	// IP가 없으면 로그인화면으로 이동, IP가 있으면 바로 캐릭터 선택창으로 이동
-	if (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_NETMARBLE)
-		m_nInitialState = GUNZ_DIRECTLOGIN;
-
-	if (ZGameInterface::m_sbRemainClientConnectionForResetApp == true)
-		m_nInitialState = GUNZ_LOBBY;	// if during reload client for changing language, pass login step.
 
 	DWORD _begin_time,_end_time;
 #define BEGIN_ { _begin_time = timeGetTime(); }
@@ -340,23 +175,14 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	ZLoadingProgress soundLoading("Sound",pLoadingProgress,.12f);
 	BEGIN_;
-#ifdef _BIRDSOUND
-	m_SoundEngine.Create(RealSpace2::g_hWnd, 44100, Z_AUDIO_HWMIXING, GetFileSystem());
-#else
 	m_SoundEngine.Create(RealSpace2::g_hWnd, Z_AUDIO_HWMIXING, &soundLoading );
-#endif
+
 	END_("Sound Engine Create");
 	soundLoading.UpdateAndDraw(1.f);
 
 	__EP(2001);
 
-	// cclog("ZApplication::OnCreate : m_SoundEngine.Create\n");
 	cclog( "sound engine create.\n" );
-
-//	ZGetInitialLoading()->SetPercentage( 15.0f );
-//	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0 , true );
-
-//	loadingProgress.UpdateAndDraw(.3f);
 
 	RegisterForbidKey();
 
@@ -373,9 +199,6 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 		SAFE_DELETE(m_pGameInterface);
 		return false;
 	}
-
-	// cclog("Bird : 5\n");
-
 	m_pGameInterface->SetBounds(0,0,CCGetWorkspaceWidth(),CCGetWorkspaceHeight());
 	END_("GameInterface Create");
 
@@ -385,195 +208,24 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 	m_pOptionInterface = new ZOptionInterface;
 
 	__EP(2002);
-
-#ifdef _BIRDTEST
-	goto BirdGo;
-#endif
-
-//	ZGetInitialLoading()->SetPercentage( 30.0f );
-//	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0 , true );
-//	loadingProgress.UpdateAndDraw(.7f);
-
 	__BP(2003,"Character Loading");
 
 	ZLoadingProgress meshLoading("Mesh",pLoadingProgress,.41f);
-	BEGIN_;
-	// zip filesystem 을 사용하기 때문에 꼭 ZGameInterface 다음에 사용한다...
-//	if(m_MeshMgr.LoadXmlList("model/character_lobby.xml")==-1) return false;
-	if(m_MeshMgr.LoadXmlList("model/character.xml",ZProgressCallBack,&meshLoading)==-1)	
-		return false;
-
-	cclog( "Load character.xml success,\n" );
-
-	END_("Character Loading");
 	meshLoading.UpdateAndDraw(1.f);
 
-//	ZLoadingProgress npcLoading("NPC",pLoadingProgress,.1f);
-#ifdef _QUEST
-	//if(m_NPCMeshMgr.LoadXmlList("model/npc.xml",ZProgressCallBack,&npcLoading) == -1)
-	if(m_NPCMeshMgr.LoadXmlList("model/npc.xml") == -1)
-		return false;
-#endif
-
 	__EP(2003);
-
-	// 모션에 연결된 사운드 파일중 없는것을 제거한다.. 
-	// 엔진에서는 사운드에 접근할수없어서.. 
-	// 파일체크는 부담이크고~
-
 	CheckSound();
-
-//	npcLoading.UpdateAndDraw(1.f);
-	__BP(2004,"WeaponMesh Loading");
-
+	
 	BEGIN_;
-
-	string strFileNameWeapon("model/weapon.xml");
-#ifndef _DEBUG
-	strFileNameWeapon += ".mef";
-#endif
-	if(m_WeaponMeshMgr.LoadXmlList((char*)strFileNameWeapon.c_str())==-1) 
-		return false;
-
-	END_("WeaponMesh Loading");
-
-	__EP(2004);
-
-	__BP(2005,"Worlditem Loading");
-
-	ZLoadingProgress etcLoading("etc",pLoadingProgress,.02f);
-	BEGIN_;
-
-#ifdef	_WORLD_ITEM_
-	m_MeshMgr.LoadXmlList((char*)strFileNameWorlditem.c_str());
-#endif
-
-	cclog("Load weapon.xml success. \n");
-
-//*/
-	END_("Worlditem Loading");
 	__EP(2005);
-
-
-#ifdef _BIRDTEST
-BirdGo:
-#endif
-
 	__BP(2006,"ETC .. XML");
-
-	BEGIN_;
-	CreateConsole(ZGetGameClient()->GetCommandManager());
-
-	// cclog("ZApplication::OnCreate : CreateConsole \n");
-
-	m_pLogFrame = new CCCommandLogFrame("Command Log", Core::GetInstance()->GetMainFrame(), Core::GetInstance()->GetMainFrame());
-	int nHeight = CCGetWorkspaceHeight()/3;
-	m_pLogFrame->SetBounds(0, CCGetWorkspaceHeight()-nHeight-1, CCGetWorkspaceWidth()-1, nHeight);
-	m_pLogFrame->Show(false);
 
 	m_pGameInterface->SetFocusEnable(true);
 	m_pGameInterface->SetFocus();
 	m_pGameInterface->Show(true);
 
 
-	if (!CCGetMatchItemDescMgr()->ReadCache())
-	{
-		if (!CCGetMatchItemDescMgr()->ReadXml(GetFileSystem(), strFileNameZItem.c_str()))
-		{
-			CCLog("Error while Read Item Descriptor %s\n", strFileNameZItem.c_str());
-		}
-		if (!CCGetMatchItemDescMgr()->ReadXml(GetFileSystem(), strFileNameZItemLocale.c_str()))
-		{
-			CCLog("Error while Read Item Descriptor %s\n", strFileNameZItemLocale.c_str());
-		}
-
-		CCGetMatchItemDescMgr()->WriteCache();
-	}
-	cclog("Load zitem info success.\n");
-
-	if( !CCGetMatchBuffDescMgr()->ReadXml(GetFileSystem(), strFileNameZBuff.c_str()) )
-	{
-		CCLog("Error while Read Buff Descriptor %s\n", strFileNameZBuff.c_str());
-	}
-	cclog("Load zBuff info success.\n");
-
-
-//	if (!CCGetMatchItemEffectDescMgr()->ReadXml(GetFileSystem(), FILENAME_ZITEMEFFECT_DESC))
-//	{
-//		CCLog("Error while Read Item Descriptor %s\n", FILENAME_ZITEMEFFECT_DESC);
-//	}
-//	cclog("Init effect manager success.\n");
-
-	if (!CCGetMatchWorldItemDescMgr()->ReadXml(GetFileSystem(), strFileNameWorlditem.c_str() ))
-	{
-		CCLog("Error while Read Item Descriptor %s\n", strFileNameWorlditem.c_str());
-	}
-	cclog("Init world item manager success.\n");
-
-	
-	if (!CCGetMapDescMgr()->Initialize(GetFileSystem(), "system/map.xml"))
-	{
-		CCLog("Error while Read map Descriptor %s\n", "system/map.xml");
-	}
-	cclog("Init map Descriptor success.\n");
-
-
-	string strFileChannelRule("system/channelrule.xml");
-#ifndef _DEBUG
-	strFileChannelRule += ".mef";
-#endif
-	if (!ZGetChannelRuleMgr()->ReadXml(GetFileSystem(), strFileChannelRule.c_str()))
-	{
-		CCLog("Error while Read Item Descriptor %s\n", strFileChannelRule.c_str());
-	}
-	cclog("Init channel rule manager success.\n");
-/*
-	if (!CCGetNPCGroupMgr()->ReadXml(GetFileSystem(), "system/monstergroup.xml"))
-	{
-		CCLog("Error while Read Item Descriptor %s", "system/monstergroup.xml");
-	}
-	cclog("ZApplication::OnCreate : ZGetNPCGroupMgr()->ReadXml \n");
-
-	// if (!CCGetChattingFilter()->Create(GetFileSystem(), "system/abuse.xml"))
-	bool bSucceedLoadAbuse = CCGetChattingFilter()->LoadFromFile(GetFileSystem(), strFileNameAbuse.c_str());
-	if (!bSucceedLoadAbuse || CCGetChattingFilter()->GetNumAbuseWords() == 0)
-	{
-		// 해킹으로 abuse-list 파일자체를 없애거나 내용을 비웠을 경우 실행을 멈추게 하자
-		CCLog("Error while Read Abuse Filter %s\n", strFileNameAbuse.c_str());
-		MessageBox(NULL, ZErrStr(MERR_FIND_INVALIDFILE), ZMsg( MSG_WARNING), MB_OK);	// TODO: 풀스크린에서 메시지 박스는 좀 곤란함;
-		return false;
-	}*/
-	cclog( "Init abuse manager success.\n" );
-
-	
-
-
-#ifdef _QUEST_ITEM
-	if( !GetQuestItemDescMgr().ReadXml(GetFileSystem(), FILENAME_QUESTITEM_DESC) )
-	{
-		CCLog( "Error while read quest tiem descrition xml file.\n" );
-	}
-#endif
-
-	cclog("Init chatting filter. success\n");
-
-	if(!m_SkillManager.Create()) {
-		CCLog("Error while create skill manager\n");
-	}
-
 	END_("ETC ..");
-
-#ifndef _BIRDTEST
-	etcLoading.UpdateAndDraw(1.f);
-#endif
-
-	//CoInitialize(NULL);
-
-//	ZGetInitialLoading()->SetPercentage( 40.0f );
-//	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0 , true );
-//	loadingProgress.UpdateAndDraw(1.f);
-
-	ZGetEmblemInterface()->Create();
 
 	__EP(2006);
 
@@ -581,64 +233,17 @@ BirdGo:
 
 	__SAVEPROFILE("profile_loading.txt");
 
-	if (ZCheckFileHack() == true)
-	{
-		CCLog("File Check Failed\n");
-		return false;
-	}
-
-	ZSetupDataChecker_Global(&m_GlobalDataChecker);
-
-
-#ifdef LOCALE_NHNUSA
-	GetNHNUSAReport().ReportInitComplete();
-#endif
-
-
 	return true;
 }
 
 void ZApplication::OnDestroy()
 {
-	m_WorldManager.Destroy();
-	ZGetEmblemInterface()->Destroy();
-
-	CCGetMatchWorldItemDescMgr()->Clear();
-
 	m_SoundEngine.Destroy();
-	DestroyConsole();
-
 	cclog("Destroy console.\n");
-
-	SAFE_DELETE(m_pLogFrame);
+;
 	SAFE_DELETE(m_pGameInterface);
 	SAFE_DELETE(m_pStageInterface);
 	SAFE_DELETE(m_pOptionInterface);
-
-	m_NPCMeshMgr.DelAll();
-
-	m_MeshMgr.DelAll();
-	cclog("Destroy mesh manager.\n");
-
-	m_WeaponMeshMgr.DelAll();
-	cclog("Destroy weapon mesh manager.\n");
-
-	m_SkillManager.Destroy();
-	cclog("Clear SkillManager.\n");
-
-#ifdef _QUEST_ITEM
-	GetQuestItemDescMgr().Clear();
-	cclog( "Clear QuestItemDescMgr.\n" );
-#endif
-
-	CCGetMatchItemDescMgr()->Clear();
-	cclog("Clear MatchItemDescMgr.\n");
-
-	CCGetChattingFilter()->Clear();
-	cclog("Clear ChattingFilter.\n");
-
-	ZGetChannelRuleMgr()->Clear();
-	cclog("Clear ChannelRuleMgr.\n");
 
 	if (m_nTimerRes != 0)
 	{
@@ -664,17 +269,10 @@ void ZApplication::OnUpdate()
 
 	float fElapsed;
 
-	cclog("ZApplication::OnUpdate() Updating...\n");
 	fElapsed = ZApplication::m_Timer.UpdateFrame();
-
-	
-
 	__BP(1,"ZApplication::OnUpdate::m_pInterface->Update");
 	if (m_pGameInterface) m_pGameInterface->Update(fElapsed);
 	__EP(1);
-
-//	RGetParticleSystem()->Update(fElapsed);
-
 	__BP(2,"ZApplication::OnUpdate::SoundEngineRun");
 
 #ifdef _BIRDSOUND
@@ -706,7 +304,7 @@ void ZApplication::OnUpdate()
 //	}
 
 	// 실행중 메모리 조작으로 item 속성값을 변경하는 해킹대응
-	CCGetMatchItemDescMgr()->ShiftMemoryGradually();
+//	CCGetMatchItemDescMgr()->ShiftMemoryGradually();
 
 
 	__EP(0);
@@ -742,7 +340,7 @@ bool ZApplication::OnDraw()
 	__BP(3,"ZApplication::Draw");
 
 		__BP(4,"ZApplication::Draw::Core::Run");
-			if(ZGetGameInterface()->GetState()!=GUNZ_GAME)	// 게임안에서는 막는다
+			if(ZGetGameInterface()->GetState()!= GUNZ_GAME)	// 게임안에서는 막는다
 			{
 				Core::GetInstance()->Run();
 			}
@@ -803,13 +401,6 @@ void ZApplication::Exit()
 #define ZTOKEN_QUEST			"quest"
 #define ZTOKEN_FAST_LOADING		"fast"
 
-// 맵 테스트 : /launchdevelop game 맵이름
-// 더미테스트: /launchdevelop dummy 맵이름 더미숫자 이팩트출력여부
-// (ex: /launchdevelop test_a 16 1) or (ex: /launchdevelop manstion 8 0)
-// ai 테스트 : /launchdevelop 맵이름 AI숫자
-
-// 리소스 로딩전에 실행된다..
-
 void ZApplication::PreCheckArguments()
 {
 	char *str;
@@ -834,7 +425,6 @@ void ZApplication::ParseStandAloneArguments(char* pszArgs)
 		if(GetNextName(buffer,sizeof(buffer),str+strlen(ZTOKEN_GAME)))
 		{
 			strcpy(m_szFileName,buffer);
-			CreateTestGame(buffer);
 			SetLaunchMode(ZLAUNCH_MODE_STANDALONE_GAME);
 			return;
 		}
@@ -851,7 +441,6 @@ void ZApplication::ParseStandAloneArguments(char* pszArgs)
 		if (nShotEnable != 0) bShotEnable = true;
 
 		SetLaunchMode(ZLAUNCH_MODE_STANDALONE_GAME);
-		CreateTestGame(szMap, nDummyCount, bShotEnable);
 		return;
 	}
 
@@ -871,9 +460,8 @@ void ZApplication::ParseStandAloneArguments(char* pszArgs)
 			char szTemp[256], szMap[256];
 			sscanf(str, "%s %s", szTemp, szMap);
 
-			ZGetGameClient()->GetMatchStageSetting()->SetGameType(CCMATCH_GAMETYPE_QUEST);
+//			ZGetGameClient()->GetMatchStageSetting()->SetGameType(CCMATCH_GAMETYPE_QUEST);
 			
-			CreateTestGame(szMap, 0, false, true, 0);
 			return;
 		}
 	#endif
@@ -883,11 +471,6 @@ void ZApplication::ParseStandAloneArguments(char* pszArgs)
 
 void ZApplication::SetInitialState()
 {
-	if(GetLaunchMode()==ZLAUNCH_MODE_STANDALONE_REPLAY) {
-		g_bTestFromReplay = true;
-		CreateReplayGame(m_szFileName);
-		return;
-	}
 
 	ParseStandAloneArguments(m_szCmdLine);
 
@@ -897,7 +480,7 @@ void ZApplication::SetInitialState()
 
 bool ZApplication::InitLocale()
 {
-	ZGetLocale()->Init( GetCountryID(ZGetConfiguration()->GetLocale()->strCountry.c_str()));
+//	ZGetLocale()->Init( GetCountryID(ZGetConfiguration()->GetLocale()->strCountry.c_str()));
 #ifdef _INDEPTH_DEBUG_
 	cclog("ZApplication::InitLocale() Initialized ZGetLocale()->Init()\n");
 #endif
@@ -909,14 +492,14 @@ bool ZApplication::InitLocale()
 		const char* szSelectedLanguage = ZGetConfiguration()->GetSelectedLanguage();
 
 		// 디폴트 언어가 아니라면 언어를 새로 설정한다
-		ZGetLocale()->SetLanguage( GetLanguageID(szSelectedLanguage) );
+//		ZGetLocale()->SetLanguage( GetLanguageID(szSelectedLanguage) );
 
 		// 스트링을 로딩할 경로를 선택된 언어에 맞추어 수정
 		strcat(szPath, szSelectedLanguage);
 		strcat(szPath, "/");
 	}
 
-	ZGetStringResManager()->Init(szPath, ZGetLocale()->GetLanguage(), GetFileSystem());
+//	ZGetStringResManager()->Init(szPath, ZGetLocale()->GetLanguage(), GetFileSystem());
 #ifdef _INDEPTH_DEBUG_
 	cclog("EXIT ZApplication::InitLocale() Initialized ZGetLocale()->Init()\n");
 #endif
@@ -938,7 +521,7 @@ void ZApplication::SetSystemValue(const char* szField, const char* szData)
 void ZApplication::InitFileSystem()
 {
 	m_FileSystem.Create("./","update");
-	m_FileSystem.SetPrivateKey( szPrivateKey, sizeof( szPrivateKey));
+//	m_FileSystem.SetPrivateKey( szPrivateKey, sizeof( szPrivateKey));
 
 	string strFileNameFillist(FILENAME_FILELIST);
 #ifndef _DEBUG

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ZGlobal.h"
 #include "ZApplication.h"
-#include "ZQuest.h"
+//#include "ZQuest.h"
 
 // Added R347a
 #include "ZGameInterface.h"
@@ -14,7 +14,7 @@ bool ZIsLaunchDevelop() {
 bool ZIsLaunchTest() { 
 	return ZApplication::GetInstance()->IsLaunchTest(); 
 }
-
+/*
 RMeshMgr* ZGetNpcMeshMgr() { 
 	return ZApplication::GetNpcMeshMgr(); 
 }
@@ -30,7 +30,7 @@ RMeshMgr* ZGetWeaponMeshMgr() {
 RAniEventMgr* ZGetAniEventMgr()
 {
 	return ZApplication::GetAniEventMgr();
-}
+}*/
 
 ZSoundEngine* ZGetSoundEngine() { 
 	return ZApplication::GetSoundEngine(); 
@@ -41,9 +41,10 @@ ZEffectManager*	ZGetEffectManager() {
 	return ZGetGameInterface()->GetEffectManager(); 
 }
 
-ZScreenEffectManager* ZGetScreenEffectManager() { 
-	return ZGetGameInterface()->GetScreenEffectManager(); 
-}
+//ZScreenEffectManager* ZGetScreenEffectManager() { 
+//	return ZGetGameInterface()->GetScreenEffectManager(); 
+//	return NULL;
+//}
 
 string ZGetSVNRevision()
 {

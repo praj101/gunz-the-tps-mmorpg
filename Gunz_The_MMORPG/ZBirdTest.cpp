@@ -2,20 +2,20 @@
 
 #include "ZGameInterface.h"
 #include "ZApplication.h"
-#include "ZPost.h"
-#include "ZConsole.h"
-#include "CCCommandLogFrame.h"
+//#include "ZPost.h"
+//#include "ZConsole.h"
+//#include "CCCommandLogFrame.h"
 #include "ZConfiguration.h"
 #include "FileInfo.h"
 #include "ZInterfaceItem.h"
 #include "ZInterfaceListener.h"
 #include "CCDebug.h"
-#include "CCMatchTransDataType.h"
+//#include "CCMatchTransDataType.h"
 #include "CCBlobArray.h"
-#include "CCTCPSocket.h"
-#include "ZGameClient.h"
+//#include "CCTCPSocket.h"
+//#include "ZGameClient.h"
 #include "time.h"
-#include "ZSecurity.h"
+//#include "ZSecurity.h"
 
 // 여기서부터 테스트를 위한 코드 - Bird ////////////////////////////////////////////////
 #ifdef _BIRDTEST

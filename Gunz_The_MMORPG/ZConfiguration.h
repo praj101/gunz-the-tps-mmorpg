@@ -4,6 +4,7 @@
 #include "CCXml.h"
 #include <string>
 #include <map>
+#include <vector>
 #include "ZActionDef.h"
 
 using namespace std;
@@ -12,6 +13,14 @@ using namespace std;
 #define FILENAME_CONFIG		"config.xml"
 #define FILENAME_SYSTEM		"system/system.xml"
 #define FILENAME_GTCFG		"system/gametypecfg.xml"
+
+#define DEFAULT_FOV		1.22173048f		// (70.0f / 180.0f * pi)
+#define DEFAULT_NEAR_Z	5.0f
+#define DEFAULT_FAR_Z	30000.0f		
+
+#define DEFAULT_FONT_HEIGHT	9
+#define FONT_MINIMUM_HEIGHT 8	// 해상도 변경시 폰트를 이 이하로 줄이지 않는다 (지나치게 뭉개짐 방지)
+
 
 struct ZHOTKEY {
 	unsigned long int nVirtKey;
@@ -153,7 +162,7 @@ struct ZCONFIG_LOCALE {
 };
 
 class ZLocatorList;
-class ZGameTypeList;
+//class ZGameTypeList;
 class ZLocale;
 
 class ZConfiguration {
@@ -181,7 +190,7 @@ private:
 	ZLocatorList*		m_pLocatorList;
 	ZLocatorList*		m_pTLocatorList;
 
-	ZGameTypeList*		m_pGameTypeList;
+//	ZGameTypeList*		m_pGameTypeList;
 
 	bool				m_bIsComplete;
 	bool				m_bReservedSave;		// 단축키로 실시간 변경한 값을 파일로 아직 저장안한 경우
@@ -210,7 +219,7 @@ public:
 	ZLocatorList* GetLocatorList()	{ return m_pLocatorList; }
 	ZLocatorList* GetTLocatorList()	{ return m_pTLocatorList; }
 
-	ZGameTypeList* GetGameTypeList()	{ return m_pGameTypeList; }
+//	ZGameTypeList* GetGameTypeList()	{ return m_pGameTypeList; }
 
 	char*	GetBAReportAddr()		{ return m_szBAReportAddr; }
 	char*	GetBAReportDir()		{ return m_szBAReportDir; }

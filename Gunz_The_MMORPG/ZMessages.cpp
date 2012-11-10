@@ -10,34 +10,6 @@
 #include "ZStringResManager.h"
 
 
-const char* ZGetSexStr(CCMatchSex nSex, bool bShort)
-{
-	if (bShort)
-	{
-		switch (nSex)
-		{
-		case MMS_MALE:		
-			return ZMsg(MSG_WORD_MALE);
-
-		case MMS_FEMALE:	
-			return ZMsg(MSG_WORD_FEMALE);
-		}
-	}
-	else
-	{
-		switch (nSex)
-		{
-		case MMS_MALE:		
-			return ZMsg(MSG_WORD_MALE_SHORT);
-
-		case MMS_FEMALE:	
-			return ZMsg(MSG_WORD_FEMALE_SHORT);
-		}
-	}
-
-	_ASSERT(0);
-	return "";
-}
 
 void ZGetTimeStrFromSec(char* poutStr, unsigned long int nSec)
 {

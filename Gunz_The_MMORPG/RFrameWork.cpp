@@ -1,13 +1,8 @@
 #include "stdafx.h"
 #include <windows.h>
-#include "CCDebug.h"
 #include "RealSpace2.h"
-#include "RParticleSystem.h"
 #include "RFont.h"
-#include "RMeshUtil.h"
-
 #pragma comment(lib,"winmm.lib")
-//#define _INDEPTH_DEBUG_
 #define RTOOLTIP_GAP 700
 static DWORD g_last_mouse_move_time = 0;
 static bool g_tool_tip = false;
@@ -28,8 +23,6 @@ WNDPROC	g_WinProc=NULL;
 RFFUNCTION g_pFunctions[RF_ENDOFRFUNCTIONTYPE] = {NULL, };
 //LPD3DXFONT g_lpFont=NULL;
 
-//extern LPDIRECT3DTEXTURE9 g_lpTexture ;
-//extern LPDIRECT3DSURFACE9 g_lpSurface ;
 
 extern int gNumTrisRendered;
 
@@ -60,54 +53,18 @@ void RFrame_Create()
 	GetWindowRect(g_hWnd,&g_rcWindowBounds);
 }
 
-/*
-void RFrame_InitFont()
-{
-	LOGFONT lFont;
-	
-	ZeroMemory(&lFont, sizeof(LOGFONT));
-	lFont.lfHeight = 16;
-	lFont.lfWidth = 0;
-	lFont.lfWeight = FW_BOLD; 
-	lFont.lfCharSet = SHIFTJIS_CHARSET;
-	lFont.lfOutPrecision = OUT_DEFAULT_PRECIS;
-	lFont.lfClipPrecision = CLIP_DEFAULT_PRECIS;
-	lFont.lfQuality = PROOF_QUALITY;
-	lFont.lfPitchAndFamily = FIXED_PITCH | FF_MODERN;
-	strcpy(lFont.lfFaceName, "FONTa9");
-	
-	SAFE_RELEASE(g_lpFont);
-	HRESULT hr=D3DXCreateFontIndirect(RGetDevice(), &lFont, &g_lpFont);
-	_ASSERT(hr==D3D_OK);
-	cclog("font restored.\n");
-}
-*/
-
 void RFrame_Init()
 {
-//	RFrame_InitFont();
 }
 
 void RFrame_Restore()
 {
-	//if( IsFixedResolution() )
-	//	FixedResolutionRenderStart();
-
-//	RFrame_InitFont();
-	RParticleSystem::Restore();
 	if(g_pFunctions[RF_RESTORE])
 		g_pFunctions[RF_RESTORE](NULL);
 }
 
 void RFrame_Destroy()
 {
-	//if( IsFixedResolution() )
-	//{
-	//	FixedResolutionRenderEnd();
-	//	FixedResolutionRenderInvalidate();
-	//}
-
-//	SAFE_RELEASE(g_lpFont);
 	if(g_pFunctions[RF_DESTROY])
 		g_pFunctions[RF_DESTROY](NULL);
 
@@ -121,15 +78,6 @@ void RFrame_Destroy()
 
 void RFrame_Invalidate()
 {
-	//if( IsFixedResolution() )
-	//{
-	//	FixedResolutionRenderEnd();
-	//	FixedResolutionRenderInvalidate();
-	//}
-//	SAFE_RELEASE(g_lpFont);
-
-//	RFontTexture::m_dwStateBlock=NULL;
-	RParticleSystem::Invalidate();
 	if(g_pFunctions[RF_INVALIDATE])
 		g_pFunctions[RF_INVALIDATE](NULL);
 }

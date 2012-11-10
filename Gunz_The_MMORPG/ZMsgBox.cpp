@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "ZGameClient.h"
+//include "ZGameClient.h"
 #include "ZApplication.h"
 #include "ZMsgBox.h"
 #include "Core.h"

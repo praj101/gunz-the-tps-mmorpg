@@ -2,7 +2,7 @@
 #define _ZCOMBATCHAT_H
 
 #include "ZInterface.h"
-
+#include "CCListBox.h"
 // Added
 #include "CCEdit.h"
 

@@ -4,7 +4,7 @@
 
 #include "ZIDLResource.h"
 #include "winsock2.h"
-#include "ZGame.h"
+//#include "ZGame.h"
 #include "Core4R2.h"
 #include "RealSpace2.h"
 #include "Core.h"
@@ -12,23 +12,23 @@
 #include "CCBMultiColListBoxLook.h"
 
 #include "ZFrame.h"
-#include "ZMapListBox.h"
-#include "ZScoreListBox.h"
-#include "ZMeshView.h"
-#include "ZMeshViewList.h"
-#include "ZCharacterView.h"
-#include "ZCharacterViewList.h"
-#include "ZShopEquipListbox.h"
+//#include "ZMapListBox.h"
+//#include "ZScoreListBox.h"
+//#include "ZMeshView.h"
+//#include "ZMeshViewList.h"
+//#include "ZCharacterView.h"
+//#include "ZCharacterViewList.h"
+//#include "ZShopEquipListbox.h"
 #include "ZStageInfoBox.h"
-#include "ZItemSlotView.h"
-#include "ZRoomListBox.h"
-#include "ZPlayerListBox.h"
+//#include "ZItemSlotView.h"
+//#include "ZRoomListBox.h"
+//#include "ZPlayerListBox.h"
 #include "ZCanvas.h"
-#include "ZPlayerSelectListBox.h"
+//#include "ZPlayerSelectListBox.h"
 #include "ZBmNumLabel.h"
-#include "ZClanListBox.h"
-#include "ZDuelTournamentRankingListBox.h"
-#include "ZServerView.h"
+//#include "ZClanListBox.h"
+//#include "ZDuelTournamentRankingListBox.h"
+//#include "ZServerView.h"
 #include "ZStringResManager.h"
 #include "ZActionKey.h"
 #include "ZConfiguration.h"
@@ -73,8 +73,8 @@ ZMapListBox*	ZIDLResource::GetMapListBox(::CCXmlElement& element)
 	CCWidget* pParentWidget;	CCListener* pListener;
 
 	pListener = pParentWidget = GetParentWidget(element);
-	ZMapListBox* pListBox = new ZMapListBox("", pParentWidget, pListener);
-	InsertWidget(element, pListBox);
+//	ZMapListBox* pListBox = new ZMapListBox("", pParentWidget, pListener);
+//	InsertWidget(element, pListBox);
 
 	int iCount = element.GetChildNodeCount();
 
@@ -84,10 +84,10 @@ ZMapListBox*	ZIDLResource::GetMapListBox(::CCXmlElement& element)
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
 
-		GetCommonWidgetProperty(pListBox, childElement, szBuf);
+//		GetCommonWidgetProperty(pListBox, childElement, szBuf);
 	}
 
-	return pListBox;
+	return NULL;
 }
 
 ZScoreBoardFrame* ZIDLResource::GetScoreBoardFrame(::CCXmlElement& element)
@@ -98,8 +98,8 @@ ZScoreBoardFrame* ZIDLResource::GetScoreBoardFrame(::CCXmlElement& element)
 	CCBFrameLook* pFrameLook = NULL;
 
 	pListener = pParentWidget = GetParentWidget(element);
-	ZScoreBoardFrame* pFrame = new ZScoreBoardFrame("", pParentWidget, pListener);
-	InsertWidget(element, pFrame);
+//	ZScoreBoardFrame* pFrame = new ZScoreBoardFrame("", pParentWidget, pListener);
+//	InsertWidget(element, pFrame);
 
 	int iCount = element.GetChildNodeCount();
 
@@ -109,7 +109,7 @@ ZScoreBoardFrame* ZIDLResource::GetScoreBoardFrame(::CCXmlElement& element)
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
 
-		if (GetCommonWidgetProperty(pFrame, childElement, szBuf)) continue;
+//		if (GetCommonWidgetProperty(pFrame, childElement, szBuf)) continue;
 
 		if (!strcmp(szBuf, "FRAMELOOK"))
 		{
@@ -121,13 +121,14 @@ ZScoreBoardFrame* ZIDLResource::GetScoreBoardFrame(::CCXmlElement& element)
 			if (itor != m_FrameLookMap.end())
 			{
 				pFrameLook = (CCBFrameLook*)(*itor).second;
-				pFrame->ChangeCustomLook((CCFrameLook*)pFrameLook);
+//				pFrame->ChangeCustomLook((CCFrameLook*)pFrameLook);
 			}
 		}
 	}
 
 
-	return pFrame;
+//	return pFrame;
+	return NULL;
 }
 
 
@@ -138,8 +139,8 @@ ZScoreListBox*	ZIDLResource::GetScoreListBox(::CCXmlElement& element)
 	CCWidget* pParentWidget;	CCListener* pListener;
 
 	pListener = pParentWidget = GetParentWidget(element);
-	ZScoreListBox* pListBox = new ZScoreListBox("", pParentWidget, pListener);
-	InsertWidget(element, pListBox);
+//	ZScoreListBox* pListBox = new ZScoreListBox("", pParentWidget, pListener);
+//	InsertWidget(element, pListBox);
 
 	int iCount = element.GetChildNodeCount();
 
@@ -149,82 +150,21 @@ ZScoreListBox*	ZIDLResource::GetScoreListBox(::CCXmlElement& element)
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
 
-		GetCommonWidgetProperty(pListBox, childElement, szBuf);
+//		GetCommonWidgetProperty(pListBox, childElement, szBuf);
 	}
-
-	return pListBox;
+//	return pListBox;
+	return NULL;
 }
 
-ZItemSlotView*	ZIDLResource::GetItemSlot(::CCXmlElement& element)
-{
-	::CCXmlElement childElement;
-	char szBuf[4096];
 
-	CCWidget* pParentWidget = GetParentWidget(element);
-	ZItemSlotView* pWidget = new ZItemSlotView("", pParentWidget, pParentWidget);
-	InsertWidget(element, pWidget);
-
-	pWidget->SetParts(MMCIP_END);
-	char szParts[64];
-	element.GetAttribute(szParts, "parts", "");
-
-	if (!stricmp(szParts, "head"))				pWidget->SetParts(MMCIP_HEAD);
-	else if (!stricmp(szParts, "chest"))		pWidget->SetParts(MMCIP_CHEST);
-	else if (!stricmp(szParts, "hands"))		pWidget->SetParts(MMCIP_HANDS);
-	else if (!stricmp(szParts, "legs"))			pWidget->SetParts(MMCIP_LEGS);
-	else if (!stricmp(szParts, "feet"))			pWidget->SetParts(MMCIP_FEET);
-	else if (!stricmp(szParts, "fingerl"))		pWidget->SetParts(MMCIP_FINGERL);
-	else if (!stricmp(szParts, "fingerr"))		pWidget->SetParts(MMCIP_FINGERR);
-	else if (!stricmp(szParts, "avatar"))		pWidget->SetParts(MMCIP_AVATAR);
-	else if (!stricmp(szParts, "melee"))		pWidget->SetParts(MMCIP_MELEE);
-	else if (!stricmp(szParts, "primary"))		pWidget->SetParts(MMCIP_PRIMARY);
-	else if (!stricmp(szParts, "secondary"))	pWidget->SetParts(MMCIP_SECONDARY);
-	else if (!stricmp(szParts, "custom1"))		pWidget->SetParts(MMCIP_CUSTOM1);
-	else if (!stricmp(szParts, "custom2"))		pWidget->SetParts(MMCIP_CUSTOM2);
-	else if (!stricmp(szParts, "community1"))	pWidget->SetParts(MMCIP_COMMUNITY1);
-	else if (!stricmp(szParts, "community2"))	pWidget->SetParts(MMCIP_COMMUNITY2);
-	else if (!stricmp(szParts, "longbuff1"))	pWidget->SetParts(MMCIP_LONGBUFF1);
-	else if (!stricmp(szParts, "longbuff2"))	pWidget->SetParts(MMCIP_LONGBUFF2);
-
-	int iCount = element.GetChildNodeCount();
-
-	for (int i = 0; i < iCount; i++)
-	{
-		memset(szBuf, 0, sizeof(szBuf));
-		childElement = element.GetChildNode(i);
-		childElement.GetTagName(szBuf);
-
-		GetCommonWidgetProperty(pWidget, childElement, szBuf);
-
-		if (!strcmp(szBuf, "BITMAP"))
-		{
-			CCBitmap* pBitmap = GetBitmap(childElement);
-			if (pBitmap != NULL)
-			{
-				pWidget->SetBackBitmap(pBitmap);
-			}
-		}
-		if( !strcmp(szBuf, "STRETCH") )
-		{
-			pWidget->SetStretch( true );
-		}
-		if( !strcmp(szBuf, "HORIZONTALINVERSE"))
-		{
-			pWidget->SetHorizontalInverse( true );
-		}
-	}
-
-	return pWidget;
-
-}
 ZMeshView*		ZIDLResource::GetMeshView(::CCXmlElement& element)
 {
 	::CCXmlElement childElement;
 	char szBuf[4096];
 
 	CCWidget* pParentWidget = GetParentWidget(element);
-	ZMeshView* pWidget = new ZMeshView("", pParentWidget, pParentWidget);
-	InsertWidget(element, pWidget);
+//	ZMeshView* pWidget = new ZMeshView("", pParentWidget, pParentWidget);
+//	InsertWidget(element, pWidget);
 
 	int iCount = element.GetChildNodeCount();
 
@@ -234,7 +174,7 @@ ZMeshView*		ZIDLResource::GetMeshView(::CCXmlElement& element)
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
 
-		GetCommonWidgetProperty(pWidget, childElement, szBuf);
+//		GetCommonWidgetProperty(pWidget, childElement, szBuf);
 
 		if (!strcmp(szBuf, "BUTTONLOOK"))
 		{
@@ -245,13 +185,14 @@ ZMeshView*		ZIDLResource::GetMeshView(::CCXmlElement& element)
 			map<string, CCBButtonLook*>::iterator itor = m_ButtonLookMap.find(szItem);
 			if (itor != m_ButtonLookMap.end())
 			{
-				pWidget->ChangeCustomLook((CCButtonLook*)(*itor).second);
+//				pWidget->ChangeCustomLook((CCButtonLook*)(*itor).second);
 			}
-			pWidget->SetLook(true);
+//			pWidget->SetLook(true);
 		}
 	}
 
-	return pWidget;
+//	return pWidget;
+	return NULL;
 }
 
 ZMeshViewList*	ZIDLResource::GetMeshViewList(::CCXmlElement& element)
@@ -260,8 +201,8 @@ ZMeshViewList*	ZIDLResource::GetMeshViewList(::CCXmlElement& element)
 	char szBuf[4096];
 
 	CCWidget* pParentWidget = GetParentWidget(element);
-	ZMeshViewList* pWidget = new ZMeshViewList("", pParentWidget, pParentWidget);
-	InsertWidget(element, pWidget);
+//	ZMeshViewList* pWidget = new ZMeshViewList("", pParentWidget, pParentWidget);
+//	InsertWidget(element, pWidget);
 
 	int iCount = element.GetChildNodeCount();
 
@@ -271,17 +212,18 @@ ZMeshViewList*	ZIDLResource::GetMeshViewList(::CCXmlElement& element)
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
 
-		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
+//		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
 
 		if(!strcmp(szBuf, "ITEMWIDTH")){
 			int nWidth = 80;
 			childElement.GetContents(&nWidth);
-			pWidget->SetItemWidth(nWidth);
+//			pWidget->SetItemWidth(nWidth);
 		}
 
 	}
 
-	return pWidget;
+//	return pWidget;
+	return NULL;
 }
 
 ZCharacterView* ZIDLResource::GetCharacterView(::CCXmlElement& element)
@@ -290,8 +232,8 @@ ZCharacterView* ZIDLResource::GetCharacterView(::CCXmlElement& element)
 	char szBuf[4096];
 
 	CCWidget* pParentWidget = GetParentWidget(element);
-	ZCharacterView* pWidget = new ZCharacterView("", pParentWidget, pParentWidget);
-	InsertWidget(element, pWidget);
+//	ZCharacterView* pWidget = new ZCharacterView("", pParentWidget, pParentWidget);
+//	InsertWidget(element, pWidget);
 
 	int iCount = element.GetChildNodeCount();
 
@@ -301,16 +243,17 @@ ZCharacterView* ZIDLResource::GetCharacterView(::CCXmlElement& element)
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
 
-		GetCommonWidgetProperty(pWidget, childElement, szBuf);
+//		GetCommonWidgetProperty(pWidget, childElement, szBuf);
 
 		if(!strcmp(szBuf, "VISIBLEEQUIPMENT")){
 			bool bVisibleEquipment = false;
 			childElement.GetContents(&bVisibleEquipment);
-			pWidget->SetVisibleEquipment(bVisibleEquipment);
+//			pWidget->SetVisibleEquipment(bVisibleEquipment);
 		}
 	}
 
-	return pWidget;
+//	return pWidget;
+	return NULL;
 }
 
 ZCharacterViewList* ZIDLResource::GetCharacterViewList(::CCXmlElement& element)
@@ -319,8 +262,8 @@ ZCharacterViewList* ZIDLResource::GetCharacterViewList(::CCXmlElement& element)
 	char szBuf[4096];
 
 	CCWidget* pParentWidget = GetParentWidget(element);
-	ZCharacterViewList* pWidget = new ZCharacterViewList("", pParentWidget, pParentWidget);
-	InsertWidget(element, pWidget);
+//	ZCharacterViewList* pWidget = new ZCharacterViewList("", pParentWidget, pParentWidget);
+//	InsertWidget(element, pWidget);
 
 	int iCount = element.GetChildNodeCount();
 
@@ -330,91 +273,17 @@ ZCharacterViewList* ZIDLResource::GetCharacterViewList(::CCXmlElement& element)
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
 
-		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
+//		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
 
 		if(!strcmp(szBuf, "ITEMWIDTH")){
 			int nWidth = 80;
 			childElement.GetContents(&nWidth);
-			pWidget->SetItemWidth(nWidth);
+//			pWidget->SetItemWidth(nWidth);
 		}
 	}
 
-	return pWidget;
-}
-
-ZShopEquipListbox* ZIDLResource::GetEquipmentListBox(::CCXmlElement& element)
-{
-	::CCXmlElement childElement;
-	char szBuf[4096];
-
-	CCWidget* pParentWidget = GetParentWidget(element);
-	ZShopEquipListbox* pWidget = new ZShopEquipListbox("", pParentWidget, pParentWidget);
-	pWidget->m_FontAlign = CCD_VCENTER;
-
-	InsertWidget(element, pWidget);
-
-	int iCount = element.GetChildNodeCount();
-
-	for (int i = 0; i < iCount; i++)
-	{
-		memset(szBuf, 0, sizeof(szBuf));
-		childElement = element.GetChildNode(i);
-		childElement.GetTagName(szBuf);
-
-		if (GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
-		else if (!strcmp(szBuf, "LISTBOXLOOK"))
-		{
-			char szItem[256];
-			memset(szItem, 0, sizeof(szItem));
-			childElement.GetContents(szItem);
-
-			map<string, CCBMultiColListBoxLook*>::iterator itor = m_MultiColListBoxLookMap.find(szItem);
-			if (itor != m_MultiColListBoxLookMap.end())
-			{
-				CCBMultiColListBoxLook* pListBoxLook = NULL;
-				pListBoxLook = (*itor).second;
-				pWidget->ChangeCustomLook(pListBoxLook);
-			}
-		}else if (!strcmp(szBuf, "SCROLLBARLOOK"))
-		{
-			char szItem[256];
-			memset(szItem, 0, sizeof(szItem));
-			childElement.GetContents(szItem);
-
-			map<string, CCBScrollBarLook*>::iterator itor = m_ScrollBarLookMap.find(szItem);
-			if (itor != m_ScrollBarLookMap.end())
-				pWidget->GetScrollBar()->ChangeCustomLook((*itor).second);
-		}else if (!strcmp(szBuf, "ARROWLOOK"))
-		{
-			char szItem[256];
-			memset(szItem, 0, sizeof(szItem));
-			childElement.GetContents(szItem);
-
-			map<string, CCBArrowLook*>::iterator itor = m_ArrowLookMap.find(szItem);
-			if (itor != m_ArrowLookMap.end())
-				pWidget->GetScrollBar()->ChangeCustomArrowLook((*itor).second);
-		}else if (!strcmp(szBuf, "THUMBLOOK"))
-		{
-			char szItem[256];
-			memset(szItem, 0, sizeof(szItem));
-			childElement.GetContents(szItem);
-
-			map<string, CCBThumbLook*>::iterator itor = m_ThumbLookMap.find(szItem);
-			if (itor != m_ThumbLookMap.end())
-				pWidget->GetScrollBar()->ChangeCustomThumbLook((*itor).second);
-		}else if (!strcmp(szBuf, "NUMCOLUMN"))
-		{
-			char szItem[256];
-			memset(szItem, 0, sizeof(szItem));
-			childElement.GetContents(szItem);
-
-			int numColumn = atoi(szItem);
-			if (numColumn > 0)
-				pWidget->SetNumColumn(numColumn);
-		}
-	}
-
-	return pWidget;
+//	return pWidget;
+	return NULL;
 }
 
 ZStageInfoBox*	ZIDLResource::GetStageInfoBox(::CCXmlElement& element)
@@ -455,70 +324,6 @@ ZStageInfoBox*	ZIDLResource::GetStageInfoBox(::CCXmlElement& element)
 	return pWidget;
 }
 
-ZRoomListBox*	ZIDLResource::GetRoomListBox(::CCXmlElement& element )
-{
-	::CCXmlElement childElement;
-	char szBuf[4096];
-	char szAttr[4096];
-	
-	CCWidget* pParentWidget = GetParentWidget(element);
-	ZRoomListBox* pWidget = new ZRoomListBox("", pParentWidget, pParentWidget);
-	InsertWidget(element, pWidget);
-
-	int iCount = element.GetChildNodeCount();
-
-	for (int i = 0; i < iCount; i++)
-	{
-		memset(szBuf, 0, sizeof(szBuf));
-		childElement = element.GetChildNode(i);
-		childElement.GetTagName(szBuf);
-
-		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
-		else	if( strcmp(szBuf, "BITMAP") == 0)
-		{
-			childElement.GetAttribute(szAttr, "type" );
-			if( strcmp(szAttr,"frame") == 0)
-			{
-				pWidget->SetFrameImage( GetBitmap(childElement));				
-			}
-			else if( strcmp(szAttr, "back") == 0 )
-			{
-				childElement.GetContents(szAttr);
-
-				CCBitmap* pBitmap =GetBitmap(childElement);
-				if( pBitmap != 0 )
-					pWidget->SetBannerImage( szAttr, pBitmap);
-			}
- 			else if( stricmp( szAttr,"icon" )==0 )
-			{
-				int mode;
-				childElement.GetAttribute(&mode, "mode");
-				childElement.GetContents(szAttr);
-				CCBitmap* pBitmap = GetBitmap(childElement);
-				if( pBitmap != 0 )
-					pWidget->SetIconImage( (CCMATCH_GAMETYPE)mode, pBitmap );
-			}
-		}
-		else if ( strcmp(szBuf, "SIZE") == 0 )
-		{
-			childElement.GetAttribute(szAttr, "type" );
-			if( strcmp(szAttr,"width") == 0)
-			{
-				float w;
-				childElement.GetContents( &w );
-				pWidget->SetWidth( w );
-			}
-			if( strcmp(szAttr,"height") == 0)
-			{
-				float h;
-				childElement.GetContents( &h );
-				pWidget->SetHeight( h );
-			}
-		}
-	}
-	return pWidget;
-}
-
 ZClanListBox*	ZIDLResource::GetClanListBox( ::CCXmlElement& element )
 {
 	::CCXmlElement childElement;
@@ -526,8 +331,8 @@ ZClanListBox*	ZIDLResource::GetClanListBox( ::CCXmlElement& element )
 //	char szAttr[4096];
 
 	CCWidget* pParentWidget = GetParentWidget(element);
-	ZClanListBox* pWidget = new ZClanListBox("", pParentWidget, pParentWidget);
-	InsertWidget(element, pWidget);
+//	ZClanListBox* pWidget = new ZClanListBox("", pParentWidget, pParentWidget);
+//	InsertWidget(element, pWidget);
 
 	int iCount = element.GetChildNodeCount();
 
@@ -537,9 +342,10 @@ ZClanListBox*	ZIDLResource::GetClanListBox( ::CCXmlElement& element )
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
 
-		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
+//		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
 	}
-	return pWidget;
+//	return pWidget;
+	return NULL;
 }
 
 ZDuelTournamentRankingListBox* ZIDLResource::GetDuelTournamentRankingListBox( ::CCXmlElement& element )
@@ -549,8 +355,8 @@ ZDuelTournamentRankingListBox* ZIDLResource::GetDuelTournamentRankingListBox( ::
 	//	char szAttr[4096];
 
 	CCWidget* pParentWidget = GetParentWidget(element);
-	ZDuelTournamentRankingListBox* pWidget = new ZDuelTournamentRankingListBox("", pParentWidget, pParentWidget);
-	InsertWidget(element, pWidget);
+//	ZDuelTournamentRankingListBox* pWidget = new ZDuelTournamentRankingListBox("", pParentWidget, pParentWidget);
+//	InsertWidget(element, pWidget);
 
 	int iCount = element.GetChildNodeCount();
 
@@ -560,9 +366,10 @@ ZDuelTournamentRankingListBox* ZIDLResource::GetDuelTournamentRankingListBox( ::
 		childElement = element.GetChildNode(i);
 		childElement.GetTagName(szBuf);
 
-		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
+//		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
 	}
-	return pWidget;
+//	return pWidget;
+	return NULL;
 }
 
 ZServerView*	ZIDLResource::GetServerView(::CCXmlElement& element)
@@ -571,8 +378,8 @@ ZServerView*	ZIDLResource::GetServerView(::CCXmlElement& element)
 	char szBuf[ 4096];
 
 	CCWidget* pParentWidget = GetParentWidget( element);
-	ZServerView* pWidget = new ZServerView( "", pParentWidget, pParentWidget);
-	InsertWidget( element, pWidget);
+//	ZServerView* pWidget = new ZServerView( "", pParentWidget, pParentWidget);
+//	InsertWidget( element, pWidget);
 
 	int iCount = element.GetChildNodeCount();
 	for (int i = 0;  i < iCount;  i++)
@@ -581,7 +388,7 @@ ZServerView*	ZIDLResource::GetServerView(::CCXmlElement& element)
 		childElement = element.GetChildNode( i);
 		childElement.GetTagName( szBuf);
 
-		GetCommonWidgetProperty( pWidget, childElement, szBuf);
+//		GetCommonWidgetProperty( pWidget, childElement, szBuf);
 
 //		if ( !strcmp( szBuf, "NAME"))
 //		{
@@ -591,94 +398,13 @@ ZServerView*	ZIDLResource::GetServerView(::CCXmlElement& element)
 //		}
 	}
 
-	return pWidget;
-}
-
-ZPlayerListBox* ZIDLResource::GetPlayerListBox( ::CCXmlElement& element )
-{
-#ifdef _INDEPTH_DEBUG_
-		cclog("ZIDLResource::GetPlayerListBox()\n");
-#endif
-	::CCXmlElement childElement;
-	char szBuf[4096];
-	char szAttr[4096];
-
-#ifdef _INDEPTH_DEBUG_
-		cclog("Creating new Parent widget and new ZPlayerListBox\n");
-#endif
-	CCWidget* pParentWidget = GetParentWidget(element);
-	ZPlayerListBox* pWidget = new ZPlayerListBox("", pParentWidget, pParentWidget);
-
-#ifdef _INDEPTH_DEBUG_
-		cclog("Setting pWidget as pWidget's listener\n");
-#endif
-	pWidget->SetListener(pWidget);
-	InsertWidget(element, pWidget);
-#ifdef _INDEPTH_DEBUG_
-		cclog("Inserted pwidget into element\n");
-#endif
-
-	int iCount = element.GetChildNodeCount();
-#ifdef _INDEPTH_DEBUG_
-		cclog("Total count of %d child nodes in 'element'. Entering loop\n", iCount);
-#endif
-	bool bMode1 = false;
-
-	for (int i = 0; i < iCount; i++)
-	{
-		memset(szBuf, 0, sizeof(szBuf));
-		childElement = element.GetChildNode(i);
-		childElement.GetTagName(szBuf);
-#ifdef _INDEPTH_DEBUG_
-		cclog("(%d) Processing Tag Name [%s]\n", i, szBuf);
-#endif
-
-		if(GetCommonWidgetProperty(pWidget, childElement, szBuf)) continue;
-		/*
-		else	if( strcmp(szBuf, "BITMAP") == 0)
-		{
-			childElement.GetAttribute(szAttr, "type" );
-			if( strcmp(szAttr,"slot") == 0)
-			{
-				childElement.GetContents(szAttr);
-				CCBitmap* pBitmap =GetBitmap(childElement);
-				pWidget->SetBitmap(pBitmap);
-			}
-		}*/
-		else if( strcmp(szBuf, "SIZE" ) == 0 )
-		{
-			childElement.GetAttribute(szAttr, "type");
-			if( strcmp(szAttr,"width") == 0 )
-			{
-				float temp;
-				childElement.GetContents(&temp);
-				pWidget->SetWidth( temp );
-			}
-			else if( strcmp(szAttr,"height") == 0 )
-			{
-				float temp;
-				childElement.GetContents(&temp);
-				pWidget->SetHeight( temp );
-			}
-		}
-		else if(strcmp(szBuf, "MODE1" ) == 0 ) {
-			bMode1 = true;
-		}
-	}
-#ifdef _INDEPTH_DEBUG_
-		cclog("bModel set to %d\n", bMode1);
-#endif
-	if(bMode1==false)
-		pWidget->InitUI(ZPlayerListBox::PLAYERLISTMODE_CHANNEL);
-	else
-		pWidget->InitUI(ZPlayerListBox::PLAYERLISTMODE_STAGE);
-
-	return pWidget;
+//	return pWidget;
+	return NULL;
 }
 
 ZPlayerSelectListBox* ZIDLResource::GetPlayerSelectListBox(::CCXmlElement& element)
 {
-	::CCXmlElement childElement;
+/*	::CCXmlElement childElement;
 	char szBuf[4096];
 //	char szAttr[4096];
 
@@ -702,8 +428,9 @@ ZPlayerSelectListBox* ZIDLResource::GetPlayerSelectListBox(::CCXmlElement& eleme
 		{
 			pWidget->m_bMultiSelect = true;
 		}
-	}
-	return pWidget;
+	}*/
+	return NULL;
+//	return pWidget;
 }
 
 ZBmNumLabel*	ZIDLResource::GetBmNumLabel(::CCXmlElement& element)
@@ -824,7 +551,7 @@ void			ZIDLResource::Parse(::CCXmlElement& element)
 	}
 	else if (!strcmp(szTagName, "EQUIPMENTLISTBOX"))	// 상점 리뉴얼하기 전에 사용하던 리스트위젯
 	{
-		GetEquipmentListBox(element);
+//		GetEquipmentListBox(element);
 	}
 	else if(!strcmp(szTagName, "STAGEINFOBOX"))
 	{
@@ -832,18 +559,18 @@ void			ZIDLResource::Parse(::CCXmlElement& element)
 	}
 	else if (!strcmp(szTagName, "ITEMSLOT"))
 	{
-		GetItemSlot(element);
+//		GetItemSlot(element);
 	}
 	else if (!strcmp(szTagName, "ROOMLIST"))
 	{
-		GetRoomListBox(element);
+//		GetRoomListBox(element);
 	}
 	else if(!strcmp(szTagName,"PLAYERLISTBOX"))
 	{
 #ifdef _INDEPTH_DEBUG_
 		cclog("ZIDLResource::Parse() [%s]\n", szTagName);
 #endif
-		GetPlayerListBox(element);
+//		GetPlayerListBox(element);
 	}
 	else if(!strcmp(szTagName,"PLAYERSELECTLISTBOX"))
 	{

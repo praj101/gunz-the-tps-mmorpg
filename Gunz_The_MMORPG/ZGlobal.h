@@ -33,7 +33,7 @@ class ZGameClient;
 class ZSoundEngine;
 class ZGameInterface;
 class ZEffectManager;
-class ZScreenEffectManager;
+//class ZScreenEffectManager;
 class ZDirectInput;
 class ZCombatInterface;
 class ZCamera;
@@ -52,15 +52,15 @@ extern ZInput* g_pInput;
 
 //
 
-RMeshMgr*				ZGetNpcMeshMgr();
-RMeshMgr*				ZGetMeshMgr();
-RMeshMgr*				ZGetWeaponMeshMgr();
-RAniEventMgr*			ZGetAniEventMgr();
+//RMeshMgr*				ZGetNpcMeshMgr();
+//RMeshMgr*				ZGetMeshMgr();
+//RMeshMgr*				ZGetWeaponMeshMgr();
+//RAniEventMgr*			ZGetAniEventMgr();
 
 ZSoundEngine*			ZGetSoundEngine();
 
 ZEffectManager*			ZGetEffectManager();
-ZScreenEffectManager*	ZGetScreenEffectManager();
+//ZScreenEffectManager*	ZGetScreenEffectManager();
 
 string						ZGetSVNRevision();
 
@@ -88,7 +88,7 @@ string						ZGetSVNRevision();
 #define ZGetWorldManager()		ZApplication::GetInstance()->GetWorldManager()
 #define ZGetWorld()				(ZGetWorldManager()->GetCurrent())
 
-inline ZEmblemInterface*	ZGetEmblemInterface() { return ZApplication::GetInstance()->GetEmblemInterface(); }
+//inline ZEmblemInterface*	ZGetEmblemInterface() { return ZApplication::GetInstance()->GetEmblemInterface(); }
 inline ZOptionInterface*	ZGetOptionInterface() { return ZApplication::GetInstance()->GetOptionInterface(); }
 
 
